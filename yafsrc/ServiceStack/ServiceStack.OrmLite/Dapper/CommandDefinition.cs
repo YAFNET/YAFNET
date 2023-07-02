@@ -114,7 +114,7 @@ public struct CommandDefinition
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CommandDefinition"/> struct.
+    /// Initializes a new instance of the <see cref="CommandDefinition" /> struct.
     /// </summary>
     /// <param name="parameters">The parameters.</param>
     private CommandDefinition(object parameters) : this()

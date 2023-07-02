@@ -54,7 +54,7 @@ public class DirectStreamWriter : TextWriter
     public override Encoding Encoding { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DirectStreamWriter"/> class.
+    /// Initializes a new instance of the <see cref="DirectStreamWriter" /> class.
     /// </summary>
     /// <param name="stream">The stream.</param>
     /// <param name="encoding">The encoding.</param>

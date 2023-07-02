@@ -25,7 +25,7 @@ public class MemoryVirtualFiles
     : AbstractVirtualPathProviderBase, IVirtualFiles
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MemoryVirtualFiles"/> class.
+    /// Initializes a new instance of the <see cref="MemoryVirtualFiles" /> class.
     /// </summary>
     public MemoryVirtualFiles()
     {
@@ -399,7 +399,7 @@ public class InMemoryVirtualDirectory : AbstractVirtualDirectoryBase
     private readonly MemoryVirtualFiles pathProvider;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="InMemoryVirtualDirectory"/> class.
+    /// Initializes a new instance of the <see cref="InMemoryVirtualDirectory" /> class.
     /// </summary>
     /// <param name="pathProvider">The path provider.</param>
     /// <param name="dirPath">The dir path.</param>
@@ -590,7 +590,7 @@ public class InMemoryVirtualFile : AbstractVirtualFileBase
 {
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="InMemoryVirtualFile"/> class.
+    /// Initializes a new instance of the <see cref="InMemoryVirtualFile" /> class.
     /// </summary>
     /// <param name="owningProvider">The owning provider.</param>
     /// <param name="directory">The directory.</param>

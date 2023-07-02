@@ -19,7 +19,7 @@ using System.Threading;
 public class FieldAccessor
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="FieldAccessor"/> class.
+    /// Initializes a new instance of the <see cref="FieldAccessor" /> class.
     /// </summary>
     /// <param name="fieldInfo">The field information.</param>
     /// <param name="publicGetter">The public getter.</param>
@@ -76,7 +76,7 @@ public class TypeFields<T> : TypeFields
     public static readonly TypeFields<T> Instance = new();
 
     /// <summary>
-    /// Initializes static members of the <see cref="TypeFields{T}"/> class.
+    /// Initializes static members of the <see cref="TypeFields{T}" /> class.
     /// </summary>
     static TypeFields()
     {

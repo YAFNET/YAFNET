@@ -51,7 +51,7 @@ public class FileSystemMapping : AbstractVirtualPathProviderBase
     public override string RealPathSeparator => Convert.ToString(Path.DirectorySeparatorChar);
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FileSystemMapping"/> class.
+    /// Initializes a new instance of the <see cref="FileSystemMapping" /> class.
     /// </summary>
     /// <param name="alias">The alias.</param>
     /// <param name="rootDirectoryPath">The root directory path.</param>
@@ -60,7 +60,7 @@ public class FileSystemMapping : AbstractVirtualPathProviderBase
     { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FileSystemMapping"/> class.
+    /// Initializes a new instance of the <see cref="FileSystemMapping" /> class.
     /// </summary>
     /// <param name="alias">The alias.</param>
     /// <param name="rootDirInfo">The root dir information.</param>
@@ -83,6 +83,7 @@ public class FileSystemMapping : AbstractVirtualPathProviderBase
     /// <summary>
     /// Initializes this instance.
     /// </summary>
+    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">RootDir '{RootDirInfo.FullName}' for virtual path does not exist</exception>
     /// <exception cref="System.Exception">RootDir '{RootDirInfo.FullName}' for virtual path does not exist</exception>
     protected sealed override void Initialize()
     {

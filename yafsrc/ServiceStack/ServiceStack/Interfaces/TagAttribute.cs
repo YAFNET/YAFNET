@@ -29,16 +29,16 @@ public class TagAttribute : AttributeBase
     public ApplyTo ApplyTo { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="TagAttribute"/> class.
+    /// Initializes a new instance of the <see cref="TagAttribute" /> class.
     /// </summary>
     public TagAttribute() : this(null) { }
     /// <summary>
-    /// Initializes a new instance of the <see cref="TagAttribute"/> class.
+    /// Initializes a new instance of the <see cref="TagAttribute" /> class.
     /// </summary>
     /// <param name="name">The name.</param>
     public TagAttribute(string name) : this(name, ApplyTo.All) { }
     /// <summary>
-    /// Initializes a new instance of the <see cref="TagAttribute"/> class.
+    /// Initializes a new instance of the <see cref="TagAttribute" /> class.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <param name="applyTo">The apply to.</param>

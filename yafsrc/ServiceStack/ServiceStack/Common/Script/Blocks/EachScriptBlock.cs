@@ -154,7 +154,6 @@ public class EachScriptBlock : ScriptBlock
     /// <returns>EachArg.</returns>
     /// <exception cref="System.NotSupportedException">'each' block requires the collection to iterate</exception>
     /// <exception cref="System.NotSupportedException">'each' block expected identifier but was {token.DebugToken()}</exception>
-    /// <exception cref="System.NotSupportedException">'each' block requires the collection to iterate</exception>
     EachArg ParseArgument(ScriptScopeContext scope, PageBlockFragment fragment)
     {
         var literal = fragment.Argument.Span.ParseJsExpression(out var token);
@@ -263,7 +262,7 @@ public class EachScriptBlock : ScriptBlock
         public readonly JsToken Take;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EachArg"/> class.
+        /// Initializes a new instance of the <see cref="EachArg" /> class.
         /// </summary>
         /// <param name="binding">The binding.</param>
         /// <param name="hasExplicitBinding">if set to <c>true</c> [has explicit binding].</param>

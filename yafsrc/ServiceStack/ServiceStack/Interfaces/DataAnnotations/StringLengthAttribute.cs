@@ -31,7 +31,7 @@ public class StringLengthAttribute : AttributeBase
     public int MaximumLength { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="StringLengthAttribute"/> class.
+    /// Initializes a new instance of the <see cref="StringLengthAttribute" /> class.
     /// </summary>
     /// <param name="maximumLength">The maximum length.</param>
     public StringLengthAttribute(int maximumLength)
@@ -40,7 +40,7 @@ public class StringLengthAttribute : AttributeBase
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="StringLengthAttribute"/> class.
+    /// Initializes a new instance of the <see cref="StringLengthAttribute" /> class.
     /// </summary>
     /// <param name="minimumLength">The minimum length.</param>
     /// <param name="maximumLength">The maximum length.</param>

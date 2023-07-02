@@ -51,7 +51,7 @@ public class UrnId
     const int HasIdFieldName = 4;
 
     /// <summary>
-    /// Prevents a default instance of the <see cref="UrnId"/> class from being created.
+    /// Prevents a default instance of the <see cref="UrnId" /> class from being created.
     /// </summary>
     private UrnId() { }
 

@@ -104,7 +104,7 @@ public abstract partial class SqlExpression<T> : ISqlExpression
         AddReferenceTableIfNotExists<Target>();
         return CustomJoin(joinString);
     }
-        
+
     /// <summary>
     /// Determines whether [is joined table] [the specified type].
     /// </summary>
@@ -196,6 +196,14 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     public SqlExpression<T> Join(Type sourceType, Type targetType, Expression joinExpr = null) =>
         InternalJoin("INNER JOIN", joinExpr, sourceType.GetModelDefinition(), targetType.GetModelDefinition());
 
+    /// <summary>
+    /// Joins the specified source type.
+    /// </summary>
+    /// <param name="sourceType">Type of the source.</param>
+    /// <param name="targetType">Type of the target.</param>
+    /// <param name="joinExpr">The join expr.</param>
+    /// <param name="options">The options.</param>
+    /// <returns>SqlExpression&lt;T&gt;.</returns>
     public SqlExpression<T> Join(Type sourceType, Type targetType, Expression joinExpr, TableOptions options) =>
         InternalJoin("INNER JOIN", joinExpr, sourceType.GetModelDefinition(), targetType.GetModelDefinition(), options);
 
@@ -258,12 +266,33 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <returns>SqlExpression&lt;T&gt;.</returns>
     public SqlExpression<T> LeftJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, TableOptions options) => this.InternalJoin("LEFT JOIN", joinExpr, options);
 
+    /// <summary>
+    /// Lefts the join.
+    /// </summary>
+    /// <param name="sourceType">Type of the source.</param>
+    /// <param name="targetType">Type of the target.</param>
+    /// <param name="joinExpr">The join expr.</param>
+    /// <returns>SqlExpression&lt;T&gt;.</returns>
     public SqlExpression<T> LeftJoin(Type sourceType, Type targetType, Expression joinExpr = null) =>
         InternalJoin("LEFT JOIN", joinExpr, sourceType.GetModelDefinition(), targetType.GetModelDefinition());
 
+    /// <summary>
+    /// Lefts the join.
+    /// </summary>
+    /// <param name="sourceType">Type of the source.</param>
+    /// <param name="targetType">Type of the target.</param>
+    /// <param name="joinExpr">The join expr.</param>
+    /// <param name="options">The options.</param>
+    /// <returns>SqlExpression&lt;T&gt;.</returns>
     public SqlExpression<T> LeftJoin(Type sourceType, Type targetType, Expression joinExpr, TableOptions options) =>
         InternalJoin("LEFT JOIN", joinExpr, sourceType.GetModelDefinition(), targetType.GetModelDefinition(), options);
 
+    /// <summary>
+    /// Rights the join.
+    /// </summary>
+    /// <typeparam name="Target">The type of the target.</typeparam>
+    /// <param name="joinExpr">The join expr.</param>
+    /// <returns>SqlExpression&lt;T&gt;.</returns>
     public SqlExpression<T> RightJoin<Target>(Expression<Func<T, Target, bool>> joinExpr = null) =>
         InternalJoin("RIGHT JOIN", joinExpr);
 
@@ -317,21 +346,62 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <returns>SqlExpression&lt;T&gt;.</returns>
     public SqlExpression<T> RightJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, TableOptions options) => this.InternalJoin("RIGHT JOIN", joinExpr, options);
 
+    /// <summary>
+    /// Rights the join.
+    /// </summary>
+    /// <param name="sourceType">Type of the source.</param>
+    /// <param name="targetType">Type of the target.</param>
+    /// <param name="joinExpr">The join expr.</param>
+    /// <returns>SqlExpression&lt;T&gt;.</returns>
     public SqlExpression<T> RightJoin(Type sourceType, Type targetType, Expression joinExpr = null) =>
         InternalJoin("RIGHT JOIN", joinExpr, sourceType.GetModelDefinition(), targetType.GetModelDefinition());
 
+    /// <summary>
+    /// Rights the join.
+    /// </summary>
+    /// <param name="sourceType">Type of the source.</param>
+    /// <param name="targetType">Type of the target.</param>
+    /// <param name="joinExpr">The join expr.</param>
+    /// <param name="options">The options.</param>
+    /// <returns>SqlExpression&lt;T&gt;.</returns>
     public SqlExpression<T> RightJoin(Type sourceType, Type targetType, Expression joinExpr, TableOptions options) =>
         InternalJoin("RIGHT JOIN", joinExpr, sourceType.GetModelDefinition(), targetType.GetModelDefinition(), options);
 
+    /// <summary>
+    /// Fulls the join.
+    /// </summary>
+    /// <typeparam name="Target">The type of the target.</typeparam>
+    /// <param name="joinExpr">The join expr.</param>
+    /// <returns>SqlExpression&lt;T&gt;.</returns>
     public SqlExpression<T> FullJoin<Target>(Expression<Func<T, Target, bool>> joinExpr = null) =>
         InternalJoin("FULL JOIN", joinExpr);
 
+    /// <summary>
+    /// Fulls the join.
+    /// </summary>
+    /// <typeparam name="Source">The type of the source.</typeparam>
+    /// <typeparam name="Target">The type of the target.</typeparam>
+    /// <param name="joinExpr">The join expr.</param>
+    /// <returns>SqlExpression&lt;T&gt;.</returns>
     public SqlExpression<T> FullJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr = null) =>
         InternalJoin("FULL JOIN", joinExpr);
 
+    /// <summary>
+    /// Crosses the join.
+    /// </summary>
+    /// <typeparam name="Target">The type of the target.</typeparam>
+    /// <param name="joinExpr">The join expr.</param>
+    /// <returns>SqlExpression&lt;T&gt;.</returns>
     public SqlExpression<T> CrossJoin<Target>(Expression<Func<T, Target, bool>> joinExpr = null) =>
         InternalJoin("CROSS JOIN", joinExpr);
 
+    /// <summary>
+    /// Crosses the join.
+    /// </summary>
+    /// <typeparam name="Source">The type of the source.</typeparam>
+    /// <typeparam name="Target">The type of the target.</typeparam>
+    /// <param name="joinExpr">The join expr.</param>
+    /// <returns>SqlExpression&lt;T&gt;.</returns>
     public SqlExpression<T> CrossJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr = null) =>
         InternalJoin("CROSS JOIN", joinExpr);
 
@@ -518,12 +588,12 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     }
 
     /// <summary>
-    /// Hold the <see cref="TableOptions"/> for each Join and clear them at the end of the Join
+    /// Hold the <see cref="TableOptions" /> for each Join and clear them at the end of the Join
     /// </summary>
     private TableOptions joinAlias;
 
     /// <summary>
-    /// If <see cref="UseJoinTypeAsAliases"/> is enabled, record the <see cref="TableOptions"/> set for different types each time Join
+    /// If <see cref="UseJoinTypeAsAliases" /> is enabled, record the <see cref="TableOptions" /> set for different types each time Join
     /// </summary>
     private Dictionary<ModelDefinition, TableOptions> joinAliases;
 

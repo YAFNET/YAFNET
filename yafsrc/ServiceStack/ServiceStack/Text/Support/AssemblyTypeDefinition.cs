@@ -28,7 +28,7 @@ internal class AssemblyTypeDefinition
     private const int AssemblyNameIndex = 1;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AssemblyTypeDefinition"/> class.
+    /// Initializes a new instance of the <see cref="AssemblyTypeDefinition" /> class.
     /// </summary>
     /// <param name="typeDefinition">The type definition.</param>
     /// <exception cref="System.ArgumentNullException"></exception>

@@ -18,19 +18,30 @@ public class ReferenceFieldAttribute : AttributeBase
     /// <summary>
     /// Foreign Key Table name
     /// </summary>
+    /// <value>The model.</value>
     public Type Model { get; set; }
 
     /// <summary>
-    /// The Field name on current Model to use for the Foreign Key Table Lookup 
+    /// The Field name on current Model to use for the Foreign Key Table Lookup
     /// </summary>
+    /// <value>The identifier.</value>
     public string Id { get; set; }
 
     /// <summary>
     /// Specify Field to reference (if different from property name)
     /// </summary>
+    /// <value>The field.</value>
     public string Field { get; set; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ReferenceFieldAttribute"/> class.
+    /// </summary>
     public ReferenceFieldAttribute() { }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="ReferenceFieldAttribute"/> class.
+    /// </summary>
+    /// <param name="model">The model.</param>
+    /// <param name="id">The identifier.</param>
     public ReferenceFieldAttribute(Type model, string id)
     {
         Model = model;

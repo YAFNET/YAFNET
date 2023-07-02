@@ -19,7 +19,7 @@ using System.Threading;
 public class PropertyAccessor
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PropertyAccessor"/> class.
+    /// Initializes a new instance of the <see cref="PropertyAccessor" /> class.
     /// </summary>
     /// <param name="propertyInfo">The property information.</param>
     /// <param name="publicGetter">The public getter.</param>
@@ -67,7 +67,7 @@ public class TypeProperties<T> : TypeProperties
     public static readonly TypeProperties<T> Instance = new();
 
     /// <summary>
-    /// Initializes static members of the <see cref="TypeProperties{T}"/> class.
+    /// Initializes static members of the <see cref="TypeProperties{T}" /> class.
     /// </summary>
     static TypeProperties()
     {

@@ -24,7 +24,7 @@ public class ReferencesAttribute : AttributeBase
     public Type Type { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ReferencesAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ReferencesAttribute" /> class.
     /// </summary>
     /// <param name="type">The type.</param>
     public ReferencesAttribute(Type type)

@@ -22,7 +22,7 @@ public class DescriptionAttribute : AttributeBase
     public string Description { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DescriptionAttribute"/> class.
+    /// Initializes a new instance of the <see cref="DescriptionAttribute" /> class.
     /// </summary>
     /// <param name="description">The description.</param>
     public DescriptionAttribute(string description)

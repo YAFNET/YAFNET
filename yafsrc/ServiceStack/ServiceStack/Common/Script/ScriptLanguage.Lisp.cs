@@ -56,7 +56,7 @@ namespace ServiceStack.Script;
 public sealed class ScriptLisp : ScriptLanguage, IConfigureScriptContext
 {
     /// <summary>
-    /// Prevents a default instance of the <see cref="ScriptLisp"/> class from being created.
+    /// Prevents a default instance of the <see cref="ScriptLisp" /> class from being created.
     /// </summary>
     private ScriptLisp() { } // force usage of singleton
 
@@ -95,6 +95,7 @@ public sealed class ScriptLisp : ScriptLanguage, IConfigureScriptContext
     /// <param name="body">The body.</param>
     /// <param name="modifiers">The modifiers.</param>
     /// <returns>List&lt;PageFragment&gt;.</returns>
+    /// <exception cref="NotSupportedException">$"Unknown modifier '{modifiers}', expected 'code|q', 'code|quiet' or 'code|mute'</exception>
     /// <exception cref="System.NotSupportedException">Unknown modifier '{modifiers.ToString()}', expected 'code|q', 'code|quiet' or 'code|mute'</exception>
     public override List<PageFragment> Parse(ScriptContext context, ReadOnlyMemory<char> body, ReadOnlyMemory<char> modifiers)
     {
@@ -194,7 +195,7 @@ public class LispStatements : JsStatement
     /// <value>The s expressions.</value>
     public object[] SExpressions { get; }
     /// <summary>
-    /// Initializes a new instance of the <see cref="LispStatements"/> class.
+    /// Initializes a new instance of the <see cref="LispStatements" /> class.
     /// </summary>
     /// <param name="sExpressions">The s expressions.</param>
     public LispStatements(object[] sExpressions)
@@ -241,13 +242,13 @@ public class PageLispStatementFragment : PageFragment
     public LispStatements LispStatements { get; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="PageLispStatementFragment"/> is quiet.
+    /// Gets or sets a value indicating whether this <see cref="PageLispStatementFragment" /> is quiet.
     /// </summary>
     /// <value><c>true</c> if quiet; otherwise, <c>false</c>.</value>
     public bool Quiet { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageLispStatementFragment"/> class.
+    /// Initializes a new instance of the <see cref="PageLispStatementFragment" /> class.
     /// </summary>
     /// <param name="statements">The statements.</param>
     public PageLispStatementFragment(LispStatements statements)
@@ -432,6 +433,7 @@ public static class ScriptLispUtils
     /// Asserts the lisp.
     /// </summary>
     /// <param name="context">The context.</param>
+    /// <exception cref="NotSupportedException">$"ScriptLisp.Language is not registered in {context.GetType().Name}.{nameof(context.ScriptLanguages)}</exception>
     /// <exception cref="System.NotSupportedException">ScriptLisp.Language is not registered in {context.GetType().Name}.{nameof(context.ScriptLanguages)}</exception>
     private static void AssertLisp(this ScriptContext context)
     {
@@ -446,6 +448,7 @@ public static class ScriptLispUtils
     /// <param name="lisp">The lisp.</param>
     /// <param name="args">The arguments.</param>
     /// <returns>PageResult.</returns>
+    /// <exception cref="PageResult">context.EmptyPage</exception>
     /// <exception cref="ServiceStack.Script.PageResult"></exception>
     private static PageResult GetLispPageResult(ScriptContext context, string lisp, Dictionary<string, object> args)
     {
@@ -531,6 +534,7 @@ public static class ScriptLispUtils
     /// <param name="lisp">The lisp.</param>
     /// <param name="args">The arguments.</param>
     /// <returns>System.Object.</returns>
+    /// <exception cref="NotSupportedException">ScriptContextUtils.ErrorNoReturn</exception>
     /// <exception cref="System.NotSupportedException"></exception>
     public static object EvaluateLisp(this ScriptContext context, string lisp, Dictionary<string, object> args = null)
     {
@@ -560,6 +564,7 @@ public static class ScriptLispUtils
     /// <param name="lisp">The lisp.</param>
     /// <param name="args">The arguments.</param>
     /// <returns>A Task&lt;System.Object&gt; representing the asynchronous operation.</returns>
+    /// <exception cref="NotSupportedException">ScriptContextUtils.ErrorNoReturn</exception>
     /// <exception cref="System.NotSupportedException"></exception>
     public static async Task<object> EvaluateLispAsync(this ScriptContext context, string lisp, Dictionary<string, object> args = null)
     {
@@ -620,6 +625,7 @@ internal static class Utils
     /// </summary>
     /// <param name="a">a.</param>
     /// <returns>IEnumerable.</returns>
+    /// <exception cref="LispEvalException">not IEnumerable, a</exception>
     /// <exception cref="ServiceStack.Script.LispEvalException">not IEnumerable</exception>
     internal static IEnumerable assertEnumerable(this object a)
     {
@@ -706,7 +712,7 @@ public static class Lisp
     private static Interpreter GlobalInterpreter;
 
     /// <summary>
-    /// Initializes static members of the <see cref="Lisp"/> class.
+    /// Initializes static members of the <see cref="Lisp" /> class.
     /// </summary>
     static Lisp()
     {
@@ -1146,6 +1152,7 @@ public static class Lisp
     /// </summary>
     /// <param name="x">The x.</param>
     /// <returns>Cell.</returns>
+    /// <exception cref="LispEvalException">proper list expected, x</exception>
     /// <exception cref="ServiceStack.Script.LispEvalException">proper list expected</exception>
     private static Cell CdrCell(Cell x)
     {
@@ -1209,6 +1216,7 @@ public static class Lisp
         /// </summary>
         /// <param name="arg">The argument.</param>
         /// <returns>System.Object[].</returns>
+        /// <exception cref="LispEvalException">arity not matched, this</exception>
         /// <exception cref="ServiceStack.Script.LispEvalException">arity not matched</exception>
         public object[] MakeFrame(Cell arg)
         {
@@ -1278,7 +1286,7 @@ public static class Lisp
         public readonly Cell Body;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DefinedFunc"/> class.
+        /// Initializes a new instance of the <see cref="DefinedFunc" /> class.
         /// </summary>
         /// <param name="carity">The carity.</param>
         /// <param name="body">The body.</param>
@@ -1309,7 +1317,7 @@ public static class Lisp
     private sealed class Macro : DefinedFunc
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Macro"/> class.
+        /// Initializes a new instance of the <see cref="Macro" /> class.
         /// </summary>
         /// <param name="carity">The carity.</param>
         /// <param name="body">The body.</param>
@@ -1361,7 +1369,7 @@ public static class Lisp
     private sealed class Lambda : DefinedFunc
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="Lambda"/> class.
+        /// Initializes a new instance of the <see cref="Lambda" /> class.
         /// </summary>
         /// <param name="carity">The carity.</param>
         /// <param name="body">The body.</param>
@@ -1402,7 +1410,7 @@ public static class Lisp
         private readonly Cell Env;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Closure"/> class.
+        /// Initializes a new instance of the <see cref="Closure" /> class.
         /// </summary>
         /// <param name="carity">The carity.</param>
         /// <param name="body">The body.</param>
@@ -1413,7 +1421,7 @@ public static class Lisp
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Closure"/> class.
+        /// Initializes a new instance of the <see cref="Closure" /> class.
         /// </summary>
         /// <param name="x">The x.</param>
         /// <param name="env">The env.</param>
@@ -1504,6 +1512,7 @@ public static class Lisp
         /// <param name="arg">The argument.</param>
         /// <param name="interpEnv">The interp env.</param>
         /// <returns>System.Object.</returns>
+        /// <exception cref="LispEvalException">$"{ex} -- {Name}, frame</exception>
         /// <exception cref="ServiceStack.Script.LispEvalException"></exception>
         public object EvalWith(Interpreter interp, Cell arg, Cell interpEnv)
         {
@@ -1545,7 +1554,7 @@ public static class Lisp
         public readonly Sym Symbol;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Arg"/> class.
+        /// Initializes a new instance of the <see cref="Arg" /> class.
         /// </summary>
         /// <param name="level">The level.</param>
         /// <param name="offset">The offset.</param>
@@ -1583,6 +1592,7 @@ public static class Lisp
         /// </summary>
         /// <param name="env">The env.</param>
         /// <returns>System.Object.</returns>
+        /// <exception cref="IndexOutOfRangeException"></exception>
         /// <exception cref="System.IndexOutOfRangeException"></exception>
         public object GetValue(Cell env)
         {
@@ -1605,7 +1615,7 @@ public static class Lisp
     private sealed class NotVariableException : LispEvalException
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="NotVariableException"/> class.
+        /// Initializes a new instance of the <see cref="NotVariableException" /> class.
         /// </summary>
         /// <param name="x">The x.</param>
         public NotVariableException(object x) : base("variable expected", x) { }
@@ -1695,7 +1705,7 @@ public static class Lisp
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Interpreter"/> class.
+        /// Initializes a new instance of the <see cref="Interpreter" /> class.
         /// </summary>
         /// <param name="globalInterp">The global interp.</param>
         public Interpreter(Interpreter globalInterp)
@@ -1751,6 +1761,7 @@ public static class Lisp
         /// <param name="f">The f.</param>
         /// <param name="interp">The interp.</param>
         /// <returns>Func&lt;System.Object, System.Object&gt;.</returns>
+        /// <exception cref="LispEvalException">not applicable, f</exception>
         /// <exception cref="ServiceStack.Script.LispEvalException">not applicable</exception>
         private Func<object, object> resolve1ArgFn(object f, Interpreter interp)
         {
@@ -1775,6 +1786,7 @@ public static class Lisp
         /// <param name="f">The f.</param>
         /// <param name="interp">The interp.</param>
         /// <returns>Func&lt;System.Object, System.Object, System.Object&gt;.</returns>
+        /// <exception cref="LispEvalException">not applicable, f</exception>
         /// <exception cref="ServiceStack.Script.LispEvalException">not applicable</exception>
         private Func<object, object, object> resolve2ArgFn(object f, Interpreter interp)
         {
@@ -1874,7 +1886,7 @@ public static class Lisp
             /// </summary>
             private readonly IComparer comparer;
             /// <summary>
-            /// Initializes a new instance of the <see cref="ObjectComparer"/> class.
+            /// Initializes a new instance of the <see cref="ObjectComparer" /> class.
             /// </summary>
             /// <param name="comparer">The comparer.</param>
             public ObjectComparer(IComparer comparer)
@@ -1904,6 +1916,7 @@ public static class Lisp
             /// <param name="x">The x.</param>
             /// <param name="I">The i.</param>
             /// <returns>IComparer&lt;System.Object&gt;.</returns>
+            /// <exception cref="LispEvalException">Not a IComparer, x</exception>
             /// <exception cref="ServiceStack.Script.LispEvalException">Not a IComparer</exception>
             public static IComparer<object> GetComparer(object x, Interpreter I)
             {
@@ -1977,7 +1990,7 @@ public static class Lisp
             private readonly Func<object, object, bool> fnCompareEquals;
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="FnComparer"/> class.
+            /// Initializes a new instance of the <see cref="FnComparer" /> class.
             /// </summary>
             /// <param name="i">The i.</param>
             public FnComparer(Interpreter i)
@@ -1986,7 +1999,7 @@ public static class Lisp
             }
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="FnComparer"/> class.
+            /// Initializes a new instance of the <see cref="FnComparer" /> class.
             /// </summary>
             /// <param name="I">The i.</param>
             /// <param name="fnclosure">The fnclosure.</param>
@@ -1996,7 +2009,7 @@ public static class Lisp
             }
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="FnComparer"/> class.
+            /// Initializes a new instance of the <see cref="FnComparer" /> class.
             /// </summary>
             /// <param name="I">The i.</param>
             /// <param name="fnmacro">The fnmacro.</param>
@@ -2006,7 +2019,7 @@ public static class Lisp
             }
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="FnComparer"/> class.
+            /// Initializes a new instance of the <see cref="FnComparer" /> class.
             /// </summary>
             /// <param name="fn">The function.</param>
             public FnComparer(Func<object, object, int> fn)
@@ -2015,7 +2028,7 @@ public static class Lisp
             }
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="FnComparer"/> class.
+            /// Initializes a new instance of the <see cref="FnComparer" /> class.
             /// </summary>
             /// <param name="fnCompareEquals">The function compare equals.</param>
             public FnComparer(Func<object, object, bool> fnCompareEquals)
@@ -2024,7 +2037,7 @@ public static class Lisp
             }
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="FnComparer"/> class.
+            /// Initializes a new instance of the <see cref="FnComparer" /> class.
             /// </summary>
             /// <param name="fndel">The fndel.</param>
             public FnComparer(Delegate fndel)
@@ -2140,6 +2153,9 @@ public static class Lisp
         /// <param name="scope">The scope.</param>
         /// <param name="path">The path.</param>
         /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
+        /// <exception cref="NotSupportedException">Lisp.AllowLoadingRemoteScripts has been disabled</exception>
+        /// <exception cref="NotSupportedException">https:// is required for loading remote scripts</exception>
+        /// <exception cref="NotSupportedException">$"File does not exist '{path}'</exception>
         /// <exception cref="System.NotSupportedException">Lisp.AllowLoadingRemoteScripts has been disabled</exception>
         /// <exception cref="System.NotSupportedException">https:// is required for loading remote scripts</exception>
         /// <exception cref="System.NotSupportedException">File '{specificFile}' does not exist in gist '{gistId}'</exception>
@@ -2183,6 +2199,17 @@ public static class Lisp
         /// <summary>
         /// Initializes the globals.
         /// </summary>
+        /// <exception cref="LispEvalException">F requires a string Function Reference, args[0]</exception>
+        /// <exception cref="LispEvalException">C requires a string Constructor Reference, args[0]</exception>
+        /// <exception cref="LispEvalException">new requires Type Name or Type, a[0]</exception>
+        /// <exception cref="LispEvalException">not applicable, f</exception>
+        /// <exception cref="LispEvalException">not integer, a[1]</exception>
+        /// <exception cref="LispEvalException">not IEnumerator, a[0]</exception>
+        /// <exception cref="LispEvalException">not IComparable, varArgs[1]</exception>
+        /// <exception cref="LispEvalException">syntax: (group-by keyFn list) (group-by keyFn { :map mapFn :comparer comparer } list), varArgs.Last()</exception>
+        /// <exception cref="LispEvalException">not IEnumerable, a[1]</exception>
+        /// <exception cref="LispEvalException">syntax: (glob <search> <list>), a[0]</exception>
+        /// <exception cref="Exception">not an IEnumerable</exception>
         public void InitGlobals()
         {
             Globals[TRUE] = Globals[BOOL_TRUE] = TRUE;
@@ -2932,6 +2959,7 @@ public static class Lisp
         /// Asserts the scope.
         /// </summary>
         /// <returns>ScriptScopeContext.</returns>
+        /// <exception cref="NotSupportedException">Lisp Interpreter not configured with Required ScriptScopeContext</exception>
         /// <exception cref="System.NotSupportedException">Lisp Interpreter not configured with Required ScriptScopeContext</exception>
         public ScriptScopeContext AssertScope()
         {
@@ -2954,6 +2982,17 @@ public static class Lisp
         /// <param name="x">The x.</param>
         /// <param name="env">The env.</param>
         /// <returns>System.Object.</returns>
+        /// <exception cref="NotSupportedException">ProtectedScripts.TypeNotFoundErrorMessage(typeName)</exception>
+        /// <exception cref="NotSupportedException">$"Could not resolve #Script method '{fnName.Substring(1)}'</exception>
+        /// <exception cref="NotSupportedException">.memberAccess requires an instance target</exception>
+        /// <exception cref="LispEvalException">void variable, x</exception>
+        /// <exception cref="LispEvalException">bad quote, x</exception>
+        /// <exception cref="LispEvalException">nested macro, x</exception>
+        /// <exception cref="LispEvalException">bad quasiquote, x</exception>
+        /// <exception cref="LispEvalException">bad keyword, fn</exception>
+        /// <exception cref="LispEvalException">not Sym, name</exception>
+        /// <exception cref="LispEvalException">undefined, fnsym</exception>
+        /// <exception cref="LispEvalException">not applicable, fn</exception>
         /// <exception cref="System.NotSupportedException"></exception>
         /// <exception cref="System.NotSupportedException">Could not resolve #Script method '{fnName.Substring(1)}'</exception>
         /// <exception cref="System.NotSupportedException">:index access requires 1 instance target or a string key</exception>
@@ -3287,6 +3326,8 @@ public static class Lisp
         /// <param name="interp">The interp.</param>
         /// <param name="env">The env.</param>
         /// <returns>Dictionary&lt;System.String, System.Object&gt;.</returns>
+        /// <exception cref="LispEvalException">Expected Cell Key/Value Pair, frame[i]</exception>
+        /// <exception cref="LispEvalException">Expected Cell Value, c.Cdr</exception>
         /// <exception cref="ServiceStack.Script.LispEvalException">Expected Cell Key/Value Pair</exception>
         /// <exception cref="ServiceStack.Script.LispEvalException">Map Key</exception>
         /// <exception cref="ServiceStack.Script.LispEvalException">Expected Cell Value</exception>
@@ -3354,6 +3395,7 @@ public static class Lisp
         /// <param name="j">The j.</param>
         /// <param name="env">The env.</param>
         /// <returns>System.Object.</returns>
+        /// <exception cref="LispEvalException">cond test expected, clause</exception>
         /// <exception cref="ServiceStack.Script.LispEvalException">cond test expected</exception>
         private object EvalCond(Cell j, Cell env)
         {
@@ -3387,6 +3429,9 @@ public static class Lisp
         /// <param name="j">The j.</param>
         /// <param name="env">The env.</param>
         /// <returns>System.Object.</returns>
+        /// <exception cref="LispEvalException">not assignable, lval</exception>
+        /// <exception cref="LispEvalException">right value expected, lval</exception>
+        /// <exception cref="NotVariableException">lval</exception>
         /// <exception cref="ServiceStack.Script.LispEvalException">not assignable</exception>
         /// <exception cref="ServiceStack.Script.LispEvalException">right value expected</exception>
         /// <exception cref="ServiceStack.Script.Lisp.NotVariableException"></exception>
@@ -3425,6 +3470,10 @@ public static class Lisp
         /// <param name="env">The env.</param>
         /// <param name="scope">The scope.</param>
         /// <returns>System.Object.</returns>
+        /// <exception cref="NotSupportedException">scope is undefined</exception>
+        /// <exception cref="LispEvalException">not assignable, lval</exception>
+        /// <exception cref="LispEvalException">right value expected, lval</exception>
+        /// <exception cref="NotVariableException">lval</exception>
         /// <exception cref="System.NotSupportedException">scope is undefined</exception>
         /// <exception cref="ServiceStack.Script.LispEvalException">not assignable</exception>
         /// <exception cref="ServiceStack.Script.LispEvalException">right value expected</exception>
@@ -3464,6 +3513,9 @@ public static class Lisp
         /// <param name="j">The j.</param>
         /// <param name="env">The env.</param>
         /// <returns>System.Object.</returns>
+        /// <exception cref="LispEvalException">not assignable, lval</exception>
+        /// <exception cref="LispEvalException">right value expected, lval</exception>
+        /// <exception cref="NotVariableException">lval</exception>
         /// <exception cref="ServiceStack.Script.LispEvalException">not assignable</exception>
         /// <exception cref="ServiceStack.Script.LispEvalException">right value expected</exception>
         /// <exception cref="ServiceStack.Script.Lisp.NotVariableException"></exception>
@@ -3501,6 +3553,7 @@ public static class Lisp
         /// <param name="env">The env.</param>
         /// <param name="make">The make.</param>
         /// <returns>DefinedFunc.</returns>
+        /// <exception cref="LispEvalException">arglist and body expected, arg</exception>
         /// <exception cref="ServiceStack.Script.LispEvalException">arglist and body expected</exception>
         private DefinedFunc Compile(Cell arg, Cell env, FuncFactory make)
         {
@@ -3524,6 +3577,7 @@ public static class Lisp
         /// <param name="count">The count.</param>
         /// <param name="env">The env.</param>
         /// <returns>System.Object.</returns>
+        /// <exception cref="LispEvalException">bad quasiquote, cell</exception>
         /// <exception cref="ServiceStack.Script.LispEvalException">bad quasiquote</exception>
         private object ExpandMacros(object j, int count, Cell env)
         {
@@ -3572,6 +3626,7 @@ public static class Lisp
         /// </summary>
         /// <param name="j">The j.</param>
         /// <returns>System.Object.</returns>
+        /// <exception cref="LispEvalException">nested macro, cell</exception>
         /// <exception cref="ServiceStack.Script.LispEvalException">nested macro</exception>
         private object CompileInners(object j)
         {
@@ -3612,6 +3667,12 @@ public static class Lisp
     /// <param name="arg">The argument.</param>
     /// <param name="table">The table.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+    /// <exception cref="LispEvalException">2nd rest, j</exception>
+    /// <exception cref="LispEvalException">not assignable, sym</exception>
+    /// <exception cref="LispEvalException">duplicated argument name, sym</exception>
+    /// <exception cref="LispEvalException">arglist expected, arg</exception>
+    /// <exception cref="NotVariableException">argcell</exception>
+    /// <exception cref="NotVariableException">j</exception>
     /// <exception cref="ServiceStack.Script.LispEvalException">2nd rest</exception>
     /// <exception cref="ServiceStack.Script.LispEvalException">not assignable</exception>
     /// <exception cref="ServiceStack.Script.LispEvalException">duplicated argument name</exception>
@@ -3974,7 +4035,7 @@ public static class Lisp
         /// </summary>
         private readonly ReadOnlyMemory<char> source = default;
         /// <summary>
-        /// Initializes a new instance of the <see cref="Reader"/> class.
+        /// Initializes a new instance of the <see cref="Reader" /> class.
         /// </summary>
         /// <param name="source">The source.</param>
         public Reader(ReadOnlyMemory<char> source)
@@ -3986,6 +4047,7 @@ public static class Lisp
         /// Read a Lisp expression and return it.
         /// </summary>
         /// <returns>System.Object.</returns>
+        /// <exception cref="LispEvalException">syntax error, $"{ex.Message} -- {LineNo}: {Line}, false</exception>
         /// <exception cref="ServiceStack.Script.LispEvalException">syntax error - false</exception>
         /// <remarks>Return EOF if the input runs out.</remarks>
         public object Read()
@@ -4007,6 +4069,9 @@ public static class Lisp
         /// Parses the expression.
         /// </summary>
         /// <returns>System.Object.</returns>
+        /// <exception cref="FormatException">Not a numeric placeholder: " + l</exception>
+        /// <exception cref="FormatException">Not a numeric placeholder: " + r</exception>
+        /// <exception cref="FormatException">$"unexpected {Token}</exception>
         /// <exception cref="System.FormatException">unexpected {Token}</exception>
         private object ParseExpression()
         {
@@ -4127,6 +4192,7 @@ public static class Lisp
         /// Parses the map body.
         /// </summary>
         /// <returns>Cell.</returns>
+        /// <exception cref="FormatException">unexpected EOF</exception>
         /// <exception cref="System.FormatException">unexpected EOF</exception>
         /// <exception cref="ServiceStack.Script.LispEvalException">Expected Key Symbol with ':' prefix</exception>
         /// <exception cref="ServiceStack.Script.LispEvalException">Expected Key Symbol or String</exception>
@@ -4169,6 +4235,8 @@ public static class Lisp
         /// Parses the data list body.
         /// </summary>
         /// <returns>Cell.</returns>
+        /// <exception cref="FormatException">unexpected EOF</exception>
+        /// <exception cref="FormatException">$"\")\" expected: {Token}</exception>
         /// <exception cref="System.FormatException">unexpected EOF</exception>
         /// <exception cref="System.FormatException">\")\" expected: {Token}</exception>
         private Cell ParseDataListBody()
@@ -4212,6 +4280,8 @@ public static class Lisp
         /// Parses the list body.
         /// </summary>
         /// <returns>Cell.</returns>
+        /// <exception cref="FormatException">unexpected EOF</exception>
+        /// <exception cref="FormatException">$"\")\" expected: {Token}</exception>
         /// <exception cref="System.FormatException">unexpected EOF</exception>
         /// <exception cref="System.FormatException">\")\" expected: {Token}</exception>
         private Cell ParseListBody()
@@ -4289,6 +4359,7 @@ public static class Lisp
         /// <summary>
         /// Reads the token.
         /// </summary>
+        /// <exception cref="FormatException">$"unterminated string: {literal.DebugLiteral()}</exception>
         /// <exception cref="System.FormatException">unterminated string: {literal.DebugLiteral()}</exception>
         private void ReadToken()
         {

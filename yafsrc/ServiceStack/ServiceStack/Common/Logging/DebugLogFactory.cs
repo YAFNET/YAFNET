@@ -21,7 +21,7 @@ public class DebugLogFactory : ILogFactory
     private readonly bool debugEnabled;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DebugLogFactory"/> class.
+    /// Initializes a new instance of the <see cref="DebugLogFactory" /> class.
     /// </summary>
     /// <param name="debugEnabled">if set to <c>true</c> [debug enabled].</param>
     public DebugLogFactory(bool debugEnabled = true)

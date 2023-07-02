@@ -23,7 +23,7 @@ namespace ServiceStack.Data
         private readonly Func<IDbConnection> connectionFactoryFn;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DbConnectionFactory"/> class.
+        /// Initializes a new instance of the <see cref="DbConnectionFactory" /> class.
         /// </summary>
         /// <param name="connectionFactoryFn">The connection factory function.</param>
         public DbConnectionFactory(Func<IDbConnection> connectionFactoryFn)

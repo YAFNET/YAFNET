@@ -47,7 +47,7 @@ public class DefaultAttribute : AttributeBase
     public bool OnUpdate { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DefaultAttribute"/> class.
+    /// Initializes a new instance of the <see cref="DefaultAttribute" /> class.
     /// </summary>
     /// <param name="intValue">The int value.</param>
     public DefaultAttribute(int intValue)
@@ -58,7 +58,7 @@ public class DefaultAttribute : AttributeBase
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DefaultAttribute"/> class.
+    /// Initializes a new instance of the <see cref="DefaultAttribute" /> class.
     /// </summary>
     /// <param name="doubleValue">The double value.</param>
     public DefaultAttribute(double doubleValue)
@@ -69,7 +69,7 @@ public class DefaultAttribute : AttributeBase
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DefaultAttribute"/> class.
+    /// Initializes a new instance of the <see cref="DefaultAttribute" /> class.
     /// </summary>
     /// <param name="defaultValue">The default value.</param>
     public DefaultAttribute(string defaultValue)
@@ -79,7 +79,7 @@ public class DefaultAttribute : AttributeBase
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DefaultAttribute"/> class.
+    /// Initializes a new instance of the <see cref="DefaultAttribute" /> class.
     /// </summary>
     /// <param name="defaultType">The default type.</param>
     /// <param name="defaultValue">The default value.</param>

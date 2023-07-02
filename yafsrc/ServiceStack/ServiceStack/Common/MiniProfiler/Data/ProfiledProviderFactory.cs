@@ -20,7 +20,7 @@ public class ProfiledProviderFactory : DbProviderFactory
     public static ProfiledProviderFactory Instance = new();
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ProfiledProviderFactory"/> class.
+    /// Initializes a new instance of the <see cref="ProfiledProviderFactory" /> class.
     /// </summary>
     protected ProfiledProviderFactory() { }
 

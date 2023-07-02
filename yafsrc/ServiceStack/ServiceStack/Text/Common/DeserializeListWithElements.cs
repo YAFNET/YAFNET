@@ -350,6 +350,7 @@ public static class DeserializeList<T, TSerializer>
     /// Gets the parse string span function.
     /// </summary>
     /// <returns>ParseStringSpanDelegate.</returns>
+    /// <exception cref="System.ArgumentException">Type {typeof(T).FullName} is not of type IList<></exception>
     public static ParseStringSpanDelegate GetParseStringSpanFn()
     {
         var listInterface = typeof(T).GetTypeWithGenericInterfaceOf(typeof(IList<>));
@@ -417,6 +418,7 @@ internal static class DeserializeEnumerable<T, TSerializer>
     /// Gets the parse string span function.
     /// </summary>
     /// <returns>ParseStringSpanDelegate.</returns>
+    /// <exception cref="System.ArgumentException">Type {typeof(T).FullName} is not of type IEnumerable<></exception>
     public static ParseStringSpanDelegate GetParseStringSpanFn()
     {
         var enumerableInterface = typeof(T).GetTypeWithGenericInterfaceOf(typeof(IEnumerable<>));

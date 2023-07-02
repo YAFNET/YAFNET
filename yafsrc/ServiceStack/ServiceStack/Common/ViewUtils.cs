@@ -1412,6 +1412,8 @@ public static class ViewUtils
     /// <param name="tagName">Name of the tag.</param>
     /// <param name="inputOptions">The input options.</param>
     /// <returns>System.String.</returns>
+    /// <exception cref="System.NotSupportedException">input type=radio requires 'values' inputOption containing a collection of Key/Value Pairs</exception>
+    /// <exception cref="System.NotSupportedException"><select> requires either 'values' inputOption containing a collection of Key/Value Pairs or 'html' argument containing innerHTML <option>'s</exception>
     public static string FormControl(IRequest req, Dictionary<string, object> args, string tagName, InputOptions inputOptions)
     {
         tagName ??= "input";
@@ -1659,7 +1661,6 @@ public static class ViewUtils
     /// <param name="toDisk">if set to <c>true</c> [to disk].</param>
     /// <param name="useOutFile">The use out file.</param>
     /// <returns>IVirtualFiles.</returns>
-    /// <exception cref="System.NotSupportedException"></exception>
     /// <exception cref="System.NotSupportedException"></exception>
     private static IVirtualFiles ResolveWriteVfs(string filterName, IVirtualPathProvider webVfs, IVirtualPathProvider contentVfs, string outFile, bool toDisk, out string useOutFile)
     {

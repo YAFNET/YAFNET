@@ -67,13 +67,13 @@ public class EmitCodeAttribute : AttributeBase
     /// <value>The statements.</value>
     public string[] Statements { get; set; }
     /// <summary>
-    /// Initializes a new instance of the <see cref="EmitCodeAttribute"/> class.
+    /// Initializes a new instance of the <see cref="EmitCodeAttribute" /> class.
     /// </summary>
     /// <param name="lang">The language.</param>
     /// <param name="statement">The statement.</param>
     public EmitCodeAttribute(Lang lang, string statement) : this(lang, new[] { statement }) { }
     /// <summary>
-    /// Initializes a new instance of the <see cref="EmitCodeAttribute"/> class.
+    /// Initializes a new instance of the <see cref="EmitCodeAttribute" /> class.
     /// </summary>
     /// <param name="lang">The language.</param>
     /// <param name="statements">The statements.</param>
@@ -94,7 +94,7 @@ public class EmitCodeAttribute : AttributeBase
 public class EmitCSharp : EmitCodeAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="EmitCSharp"/> class.
+    /// Initializes a new instance of the <see cref="EmitCSharp" /> class.
     /// </summary>
     /// <param name="statements">The statements.</param>
     public EmitCSharp(params string[] statements) : base(Lang.CSharp, statements) { }
@@ -108,7 +108,7 @@ public class EmitCSharp : EmitCodeAttribute
 public class EmitFSharp : EmitCodeAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="EmitFSharp"/> class.
+    /// Initializes a new instance of the <see cref="EmitFSharp" /> class.
     /// </summary>
     /// <param name="statements">The statements.</param>
     public EmitFSharp(params string[] statements) : base(Lang.FSharp, statements) { }
@@ -122,7 +122,7 @@ public class EmitFSharp : EmitCodeAttribute
 public class EmitVb : EmitCodeAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="EmitVb"/> class.
+    /// Initializes a new instance of the <see cref="EmitVb" /> class.
     /// </summary>
     /// <param name="statements">The statements.</param>
     public EmitVb(params string[] statements) : base(Lang.Vb, statements) { }
@@ -136,7 +136,7 @@ public class EmitVb : EmitCodeAttribute
 public class EmitTypeScript : EmitCodeAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="EmitTypeScript"/> class.
+    /// Initializes a new instance of the <see cref="EmitTypeScript" /> class.
     /// </summary>
     /// <param name="statements">The statements.</param>
     public EmitTypeScript(params string[] statements) : base(Lang.TypeScript, statements) { }
@@ -150,7 +150,7 @@ public class EmitTypeScript : EmitCodeAttribute
 public class EmitDart : EmitCodeAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="EmitDart"/> class.
+    /// Initializes a new instance of the <see cref="EmitDart" /> class.
     /// </summary>
     /// <param name="statements">The statements.</param>
     public EmitDart(params string[] statements) : base(Lang.Dart, statements) { }
@@ -164,7 +164,7 @@ public class EmitDart : EmitCodeAttribute
 public class EmitSwift : EmitCodeAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="EmitSwift"/> class.
+    /// Initializes a new instance of the <see cref="EmitSwift" /> class.
     /// </summary>
     /// <param name="statements">The statements.</param>
     public EmitSwift(params string[] statements) : base(Lang.Swift, statements) { }
@@ -178,7 +178,7 @@ public class EmitSwift : EmitCodeAttribute
 public class EmitJava : EmitCodeAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="EmitJava"/> class.
+    /// Initializes a new instance of the <see cref="EmitJava" /> class.
     /// </summary>
     /// <param name="statements">The statements.</param>
     public EmitJava(params string[] statements) : base(Lang.Java, statements) { }
@@ -192,7 +192,7 @@ public class EmitJava : EmitCodeAttribute
 public class EmitKotlin : EmitCodeAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="EmitKotlin"/> class.
+    /// Initializes a new instance of the <see cref="EmitKotlin" /> class.
     /// </summary>
     /// <param name="statements">The statements.</param>
     public EmitKotlin(params string[] statements) : base(Lang.Kotlin, statements) { }

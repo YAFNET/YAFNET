@@ -64,7 +64,7 @@ public class SqlBuilder
         private class Property
         {
             /// <summary>
-            /// Initializes a new instance of the <see cref="Property"/> class.
+            /// Initializes a new instance of the <see cref="Property" /> class.
             /// </summary>
             /// <param name="name">The name.</param>
             /// <param name="type">The type.</param>
@@ -96,7 +96,7 @@ public class SqlBuilder
         private readonly List<Property> properties = new();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DynamicParameters"/> class.
+        /// Initializes a new instance of the <see cref="DynamicParameters" /> class.
         /// </summary>
         /// <param name="initParams">The initialize parameters.</param>
         public DynamicParameters(object initParams)
@@ -244,7 +244,7 @@ public class SqlBuilder
         private readonly string postfix;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Clauses"/> class.
+        /// Initializes a new instance of the <see cref="Clauses" /> class.
         /// </summary>
         /// <param name="joiner">The joiner.</param>
         /// <param name="prefix">The prefix.</param>
@@ -296,7 +296,7 @@ public class SqlBuilder
         private int dataSeq = -1; // Unresolved
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Template"/> class.
+        /// Initializes a new instance of the <see cref="Template" /> class.
         /// </summary>
         /// <param name="builder">The builder.</param>
         /// <param name="sql">The SQL.</param>

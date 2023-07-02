@@ -23,7 +23,7 @@ public class PostDropTableAttribute : AttributeBase
     public string Sql { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PostDropTableAttribute"/> class.
+    /// Initializes a new instance of the <see cref="PostDropTableAttribute" /> class.
     /// </summary>
     /// <param name="sql">The SQL.</param>
     public PostDropTableAttribute(string sql)

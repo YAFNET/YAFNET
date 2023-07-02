@@ -32,7 +32,7 @@ public static class DeserializeDynamic<TSerializer>
     /// </summary>
     private static readonly ParseStringSpanDelegate CachedParseFn;
     /// <summary>
-    /// Initializes static members of the <see cref="DeserializeDynamic{TSerializer}"/> class.
+    /// Initializes static members of the <see cref="DeserializeDynamic{TSerializer}" /> class.
     /// </summary>
     static DeserializeDynamic()
     {
@@ -156,7 +156,7 @@ public class DynamicJson : DynamicObject
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DynamicJson"/> class.
+    /// Initializes a new instance of the <see cref="DynamicJson" /> class.
     /// </summary>
     /// <param name="hash">The hash.</param>
     public DynamicJson(IEnumerable<KeyValuePair<string, object>> hash)

@@ -60,14 +60,14 @@ public class ResourceVirtualFiles
     public DateTime LastModified { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ResourceVirtualFiles"/> class.
+    /// Initializes a new instance of the <see cref="ResourceVirtualFiles" /> class.
     /// </summary>
     /// <param name="baseTypeInAssembly">The base type in assembly.</param>
     public ResourceVirtualFiles(Type baseTypeInAssembly)
         : this(baseTypeInAssembly.Assembly, GetNamespace(baseTypeInAssembly)) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ResourceVirtualFiles"/> class.
+    /// Initializes a new instance of the <see cref="ResourceVirtualFiles" /> class.
     /// </summary>
     /// <param name="backingAssembly">The backing assembly.</param>
     /// <param name="rootNamespace">The root namespace.</param>

@@ -21,7 +21,7 @@ using System.Linq.Expressions;
 public class SqlServer2016Expression<T> : SqlServerExpression<T>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="SqlServer2016Expression{T}"/> class.
+    /// Initializes a new instance of the <see cref="SqlServer2016Expression{T}" /> class.
     /// </summary>
     /// <param name="dialectProvider">The dialect provider.</param>
     public SqlServer2016Expression(IOrmLiteDialectProvider dialectProvider)

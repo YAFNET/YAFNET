@@ -100,6 +100,12 @@ public class UntypedApi<T> : IUntypedApi
         return DbCmd != null ? filter(DbCmd) : Db.Exec(filter);
     }
 
+    /// <summary>
+    /// Executes the specified filter.
+    /// </summary>
+    /// <typeparam name="TReturn">The type of the t return.</typeparam>
+    /// <param name="filter">The filter.</param>
+    /// <returns>Task&lt;TReturn&gt;.</returns>
     public Task<TReturn> Exec<TReturn>(Func<IDbCommand, Task<TReturn>> filter)
     {
         return DbCmd != null ? filter(DbCmd) : Db.Exec(filter);
@@ -244,6 +250,12 @@ public class UntypedApi<T> : IUntypedApi
         return Exec(dbCmd => dbCmd.Update((T)obj));
     }
 
+    /// <summary>
+    /// Updates the asynchronous.
+    /// </summary>
+    /// <param name="obj">The object.</param>
+    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <returns>Task&lt;System.Int32&gt;.</returns>
     public Task<int> UpdateAsync(object obj, CancellationToken token)
     {
         return Exec(dbCmd => dbCmd.UpdateAsync((T)obj, token));

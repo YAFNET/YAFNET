@@ -24,7 +24,7 @@ public class SequenceAttribute : AttributeBase
     public string Name { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SequenceAttribute"/> class.
+    /// Initializes a new instance of the <see cref="SequenceAttribute" /> class.
     /// </summary>
     /// <param name="name">The name.</param>
     public SequenceAttribute(string name)

@@ -57,25 +57,25 @@ public class ApiAttribute : AttributeBase
     public bool IsRequired { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ApiAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ApiAttribute" /> class.
     /// </summary>
     public ApiAttribute() { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ApiAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ApiAttribute" /> class.
     /// </summary>
     /// <param name="description">The description.</param>
     public ApiAttribute(string description) : this(description, GenerateBodyParameter.IfNotDisabled) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ApiAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ApiAttribute" /> class.
     /// </summary>
     /// <param name="description">The description.</param>
     /// <param name="generateBodyParameter">The generate body parameter.</param>
     public ApiAttribute(string description, int generateBodyParameter) : this(description, generateBodyParameter, false) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ApiAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ApiAttribute" /> class.
     /// </summary>
     /// <param name="description">The description.</param>
     /// <param name="generateBodyParameter">The generate body parameter.</param>

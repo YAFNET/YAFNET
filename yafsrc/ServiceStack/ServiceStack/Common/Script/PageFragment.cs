@@ -75,7 +75,7 @@ public class PageVariableFragment : PageFragment
     internal string LastFilterName { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageVariableFragment"/> class.
+    /// Initializes a new instance of the <see cref="PageVariableFragment" /> class.
     /// </summary>
     /// <param name="originalText">The original text.</param>
     /// <param name="expr">The expr.</param>
@@ -197,12 +197,12 @@ public class PageStringFragment : PageFragment
     public ReadOnlyMemory<byte> ValueUtf8 => valueUtf8.IsEmpty ? valueUtf8 = Value.ToUtf8() : valueUtf8;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageStringFragment"/> class.
+    /// Initializes a new instance of the <see cref="PageStringFragment" /> class.
     /// </summary>
     /// <param name="value">The value.</param>
     public PageStringFragment(string value) : this(value.AsMemory()) { }
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageStringFragment"/> class.
+    /// Initializes a new instance of the <see cref="PageStringFragment" /> class.
     /// </summary>
     /// <param name="value">The value.</param>
     public PageStringFragment(ReadOnlyMemory<char> value)
@@ -288,7 +288,7 @@ public class PageBlockFragment : PageFragment
     public PageElseBlock[] ElseBlocks { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageBlockFragment"/> class.
+    /// Initializes a new instance of the <see cref="PageBlockFragment" /> class.
     /// </summary>
     /// <param name="originalText">The original text.</param>
     /// <param name="name">The name.</param>
@@ -299,7 +299,7 @@ public class PageBlockFragment : PageFragment
                              JsStatement body, IEnumerable<PageElseBlock> elseStatements = null)
         : this(originalText.AsMemory(), name, argument.AsMemory(), new PageFragment[] { new PageJsBlockStatementFragment(new JsBlockStatement(body)) }, elseStatements) { }
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageBlockFragment"/> class.
+    /// Initializes a new instance of the <see cref="PageBlockFragment" /> class.
     /// </summary>
     /// <param name="originalText">The original text.</param>
     /// <param name="name">The name.</param>
@@ -311,7 +311,7 @@ public class PageBlockFragment : PageFragment
         : this(originalText.AsMemory(), name, argument.AsMemory(), new PageFragment[] { new PageJsBlockStatementFragment(body) }, elseStatements) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageBlockFragment"/> class.
+    /// Initializes a new instance of the <see cref="PageBlockFragment" /> class.
     /// </summary>
     /// <param name="originalText">The original text.</param>
     /// <param name="name">The name.</param>
@@ -322,7 +322,7 @@ public class PageBlockFragment : PageFragment
                              List<PageFragment> body, List<PageElseBlock> elseStatements = null)
         : this(originalText.AsMemory(), name, argument.AsMemory(), body, elseStatements) { }
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageBlockFragment"/> class.
+    /// Initializes a new instance of the <see cref="PageBlockFragment" /> class.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <param name="argument">The argument.</param>
@@ -333,7 +333,7 @@ public class PageBlockFragment : PageFragment
         : this(default, name, argument, body, elseStatements) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageBlockFragment"/> class.
+    /// Initializes a new instance of the <see cref="PageBlockFragment" /> class.
     /// </summary>
     /// <param name="originalText">The original text.</param>
     /// <param name="name">The name.</param>
@@ -412,33 +412,33 @@ public class PageElseBlock : PageFragment
     public PageFragment[] Body { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageElseBlock"/> class.
+    /// Initializes a new instance of the <see cref="PageElseBlock" /> class.
     /// </summary>
     /// <param name="argument">The argument.</param>
     /// <param name="body">The body.</param>
     public PageElseBlock(string argument, List<PageFragment> body) : this(argument.AsMemory(), body) { }
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageElseBlock"/> class.
+    /// Initializes a new instance of the <see cref="PageElseBlock" /> class.
     /// </summary>
     /// <param name="argument">The argument.</param>
     /// <param name="statement">The statement.</param>
     public PageElseBlock(string argument, JsStatement statement)
         : this(argument, new JsBlockStatement(statement)) { }
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageElseBlock"/> class.
+    /// Initializes a new instance of the <see cref="PageElseBlock" /> class.
     /// </summary>
     /// <param name="argument">The argument.</param>
     /// <param name="block">The block.</param>
     public PageElseBlock(string argument, JsBlockStatement block)
         : this(argument.AsMemory(), new PageFragment[] { new PageJsBlockStatementFragment(block) }) { }
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageElseBlock"/> class.
+    /// Initializes a new instance of the <see cref="PageElseBlock" /> class.
     /// </summary>
     /// <param name="argument">The argument.</param>
     /// <param name="body">The body.</param>
     public PageElseBlock(ReadOnlyMemory<char> argument, IEnumerable<PageFragment> body) : this(argument, body.ToArray()) { }
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageElseBlock"/> class.
+    /// Initializes a new instance of the <see cref="PageElseBlock" /> class.
     /// </summary>
     /// <param name="argument">The argument.</param>
     /// <param name="body">The body.</param>
@@ -501,13 +501,13 @@ public class PageJsBlockStatementFragment : PageFragment
     public JsBlockStatement Block { get; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="PageJsBlockStatementFragment"/> is quiet.
+    /// Gets or sets a value indicating whether this <see cref="PageJsBlockStatementFragment" /> is quiet.
     /// </summary>
     /// <value><c>true</c> if quiet; otherwise, <c>false</c>.</value>
     public bool Quiet { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageJsBlockStatementFragment"/> class.
+    /// Initializes a new instance of the <see cref="PageJsBlockStatementFragment" /> class.
     /// </summary>
     /// <param name="statement">The statement.</param>
     public PageJsBlockStatementFragment(JsBlockStatement statement)

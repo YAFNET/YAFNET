@@ -37,7 +37,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     private const string TextColumnDefinition = "TEXT";
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MySqlDialectProviderBase{TDialect}"/> class.
+    /// Initializes a new instance of the <see cref="MySqlDialectProviderBase{TDialect}" /> class.
     /// </summary>
     public MySqlDialectProviderBase()
     {
@@ -73,6 +73,10 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
                              };
     }
 
+    /// <summary>
+    /// Gets a value indicating whether [supports schema].
+    /// </summary>
+    /// <value><c>true</c> if [supports schema]; otherwise, <c>false</c>.</value>
     public override bool SupportsSchema => false;
 
     /// <summary>
@@ -694,12 +698,22 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         return sql;
     }
 
+    /// <summary>
+    /// Gets the schemas.
+    /// </summary>
+    /// <param name="dbCmd">The database command.</param>
+    /// <returns>List&lt;System.String&gt;.</returns>
     public override List<string> GetSchemas(IDbCommand dbCmd)
     {
         var sql = "SELECT DISTINCT TABLE_SCHEMA FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA NOT IN ('information_schema', 'performance_schema', 'sys', 'mysql')";
         return dbCmd.SqlColumn<string>(sql);
     }
 
+    /// <summary>
+    /// Gets the schema tables.
+    /// </summary>
+    /// <param name="dbCmd">The database command.</param>
+    /// <returns>Dictionary&lt;System.String, List&lt;System.String&gt;&gt;.</returns>
     public override Dictionary<string, List<string>> GetSchemaTables(IDbCommand dbCmd)
     {
         var sql = "SELECT TABLE_SCHEMA, TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA NOT IN ('information_schema', 'performance_schema', 'sys', 'mysql')";
@@ -1058,6 +1072,14 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         return StringBuilderCache.ReturnAndFree(sb);
     }
 
+    /// <summary>
+    /// Gets the add composite primary key sql command.
+    /// </summary>
+    /// <param name="database">The database name.</param>
+    /// <param name="modelDef">The model definition.</param>
+    /// <param name="fieldNameA">The field name a.</param>
+    /// <param name="fieldNameB">The field name b.</param>
+    /// <returns>Returns the SQL Command</returns>
     public override string GetAddCompositePrimaryKey(string database, ModelDefinition modelDef, string fieldNameA, string fieldNameB)
     {
         var sb = StringBuilderCache.Allocate();
@@ -1074,7 +1096,9 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         return StringBuilderCache.ReturnAndFree(sb);
     }
 
-    /// <summary>Gets the name of the primary key.</summary>
+    /// <summary>
+    /// Gets the name of the primary key.
+    /// </summary>
     /// <param name="modelDef">The model definition.</param>
     /// <returns>Returns the Primary Key Name</returns>
     public override string GetPrimaryKeyName(ModelDefinition modelDef)
@@ -1101,7 +1125,9 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         return StringBuilderCache.ReturnAndFree(sb);
     }
 
-    /// <summary>Gets the drop primary key constraint.</summary>
+    /// <summary>
+    /// Gets the drop primary key constraint.
+    /// </summary>
     /// <param name="database">The database.</param>
     /// <param name="modelDef">The model definition.</param>
     /// <param name="name">The name.</param>

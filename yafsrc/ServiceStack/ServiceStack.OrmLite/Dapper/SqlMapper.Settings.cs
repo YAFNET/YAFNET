@@ -82,7 +82,7 @@ public static partial class SqlMapper
         }
 
         /// <summary>
-        /// Initializes static members of the <see cref="Settings"/> class.
+        /// Initializes static members of the <see cref="Settings" /> class.
         /// </summary>
         static Settings()
         {

@@ -17,12 +17,12 @@ using System;
 public class DataException : Exception
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="DataException"/> class.
+    /// Initializes a new instance of the <see cref="DataException" /> class.
     /// </summary>
     public DataException() { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DataException"/> class.
+    /// Initializes a new instance of the <see cref="DataException" /> class.
     /// </summary>
     /// <param name="message">The message that describes the error.</param>
     public DataException(string message) : base(message) { }

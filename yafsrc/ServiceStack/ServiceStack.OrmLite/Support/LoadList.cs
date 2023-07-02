@@ -71,7 +71,7 @@ internal abstract class LoadList<Into, From>
     public List<Into> ParentResults => parentResults;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="LoadList{Into, From}"/> class.
+    /// Initializes a new instance of the <see cref="LoadList{Into, From}" /> class.
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
     /// <param name="q">The q.</param>
@@ -151,12 +151,31 @@ internal abstract class LoadList<Into, From>
         }
     }
 
+    /// <summary>
+    /// Gets the reference self SQL.
+    /// </summary>
+    /// <param name="modelDef">The model definition.</param>
+    /// <param name="refSelf">The reference self.</param>
+    /// <param name="refModelDef">The reference model definition.</param>
+    /// <returns>System.String.</returns>
     protected string GetRefSelfSql(ModelDefinition modelDef, FieldDefinition refSelf, ModelDefinition refModelDef) =>
         dialectProvider.GetRefSelfSql(q.Clone(), modelDef, refSelf, refModelDef);
 
+    /// <summary>
+    /// Gets the reference field SQL.
+    /// </summary>
+    /// <param name="refModelDef">The reference model definition.</param>
+    /// <param name="refField">The reference field.</param>
+    /// <returns>System.String.</returns>
     protected string GetRefFieldSql(ModelDefinition refModelDef, FieldDefinition refField) =>
         dialectProvider.GetRefFieldSql(subSql, refModelDef, refField);
 
+    /// <summary>
+    /// Gets the field reference SQL.
+    /// </summary>
+    /// <param name="fieldDef">The field definition.</param>
+    /// <param name="fieldRef">The field reference.</param>
+    /// <returns>System.String.</returns>
     protected string GetFieldReferenceSql(FieldDefinition fieldDef, FieldReference fieldRef) =>
         dialectProvider.GetFieldReferenceSql(subSql, fieldDef, fieldRef);
 
@@ -269,6 +288,12 @@ internal abstract class LoadList<Into, From>
         }
     }
 
+    /// <summary>
+    /// Sets the field reference child results.
+    /// </summary>
+    /// <param name="fieldDef">The field definition.</param>
+    /// <param name="fieldRef">The field reference.</param>
+    /// <param name="childResults">The child results.</param>
     protected void SetFieldReferenceChildResults(FieldDefinition fieldDef, FieldReference fieldRef, IList childResults)
     {
         var map = CreateRefMap();
@@ -302,7 +327,7 @@ internal abstract class LoadList<Into, From>
 internal class LoadListSync<Into, From> : LoadList<Into, From>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="LoadListSync{Into, From}"/> class.
+    /// Initializes a new instance of the <see cref="LoadListSync{Into, From}" /> class.
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
     /// <param name="q">The q.</param>
@@ -353,6 +378,11 @@ internal class LoadListSync<Into, From> : LoadList<Into, From>
         }
     }
 
+    /// <summary>
+    /// Sets the field reference.
+    /// </summary>
+    /// <param name="fieldDef">The field definition.</param>
+    /// <param name="fieldRef">The field reference.</param>
     public void SetFieldReference(FieldDefinition fieldDef, FieldReference fieldRef)
     {
         var sqlRef = GetFieldReferenceSql(fieldDef, fieldRef);
@@ -372,7 +402,7 @@ internal class LoadListSync<Into, From> : LoadList<Into, From>
 internal class LoadListAsync<Into, From> : LoadList<Into, From>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="LoadListAsync{Into, From}"/> class.
+    /// Initializes a new instance of the <see cref="LoadListAsync{Into, From}" /> class.
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
     /// <param name="expr">The expr.</param>
@@ -427,6 +457,13 @@ internal class LoadListAsync<Into, From> : LoadList<Into, From>
         }
     }
 
+    /// <summary>
+    /// Set field reference as an asynchronous operation.
+    /// </summary>
+    /// <param name="fieldDef">The field definition.</param>
+    /// <param name="fieldRef">The field reference.</param>
+    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <returns>A Task representing the asynchronous operation.</returns>
     public async Task SetFieldReferenceAsync(FieldDefinition fieldDef, FieldReference fieldRef, CancellationToken token)
     {
         var sqlRef = GetFieldReferenceSql(fieldDef, fieldRef);

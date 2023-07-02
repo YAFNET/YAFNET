@@ -17,7 +17,7 @@ namespace ServiceStack.DataAnnotations;
 public class ForeignKeyAttribute : ReferencesAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ForeignKeyAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ForeignKeyAttribute" /> class.
     /// </summary>
     /// <param name="type">The type.</param>
     public ForeignKeyAttribute(Type type)

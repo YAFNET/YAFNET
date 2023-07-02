@@ -66,7 +66,7 @@ public class PageFormat
     public Func<PageResult, IRequest, Exception, Task> OnViewException { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageFormat"/> class.
+    /// Initializes a new instance of the <see cref="PageFormat" /> class.
     /// </summary>
     public PageFormat()
     {
@@ -165,7 +165,7 @@ public class PageFormat
 public class HtmlPageFormat : PageFormat
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="HtmlPageFormat"/> class.
+    /// Initializes a new instance of the <see cref="HtmlPageFormat" /> class.
     /// </summary>
     public HtmlPageFormat()
     {

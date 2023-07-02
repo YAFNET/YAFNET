@@ -572,7 +572,7 @@ public static class CsvSerializer<T>
 
 
     /// <summary>
-    /// Initializes static members of the <see cref="CsvSerializer{T}"/> class.
+    /// Initializes static members of the <see cref="CsvSerializer{T}" /> class.
     /// </summary>
     static CsvSerializer()
     {

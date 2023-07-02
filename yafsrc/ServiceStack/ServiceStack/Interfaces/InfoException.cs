@@ -15,7 +15,15 @@ namespace ServiceStack;
 /// </summary>
 public class InfoException : Exception
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="InfoException"/> class.
+    /// </summary>
+    /// <param name="message">The message that describes the error.</param>
     public InfoException([CanBeNull] string message) : base(message) { }
 
+    /// <summary>
+    /// Returns a <see cref="System.String" /> that represents this instance.
+    /// </summary>
+    /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
     public override string ToString() => Message;
 }

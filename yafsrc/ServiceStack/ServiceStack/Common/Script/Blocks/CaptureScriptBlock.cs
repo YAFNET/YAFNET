@@ -50,7 +50,7 @@ public class CaptureScriptBlock : ScriptBlock
         /// </summary>
         internal bool appendTo;
         /// <summary>
-        /// Initializes a new instance of the <see cref="Tuple"/> struct.
+        /// Initializes a new instance of the <see cref="Tuple" /> struct.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="scopeArgs">The scope arguments.</param>
@@ -100,7 +100,6 @@ public class CaptureScriptBlock : ScriptBlock
     /// <param name="scope">The scope.</param>
     /// <param name="block">The block.</param>
     /// <returns>Tuple.</returns>
-    /// <exception cref="System.NotSupportedException">'capture' block is missing name of variable to assign captured output to</exception>
     /// <exception cref="System.NotSupportedException">'capture' block is missing name of variable to assign captured output to</exception>
     /// <exception cref="System.NotSupportedException">Any 'capture' argument must be an Object Dictionary</exception>
     private Tuple Parse(ScriptScopeContext scope, PageBlockFragment block)

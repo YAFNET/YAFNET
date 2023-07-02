@@ -35,7 +35,7 @@ public class JsConditionalExpression : JsExpression
     public JsToken Alternate { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsConditionalExpression"/> class.
+    /// Initializes a new instance of the <see cref="JsConditionalExpression" /> class.
     /// </summary>
     /// <param name="test">The test.</param>
     /// <param name="consequent">The consequent.</param>

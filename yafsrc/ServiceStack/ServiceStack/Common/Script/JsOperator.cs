@@ -99,7 +99,7 @@ public class JsGreaterThan : JsLogicOperator
     /// </summary>
     public static JsGreaterThan Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsGreaterThan"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsGreaterThan" /> class from being created.
     /// </summary>
     private JsGreaterThan() { }
     /// <summary>
@@ -128,7 +128,7 @@ public class JsGreaterThanEqual : JsLogicOperator
     /// </summary>
     public static JsGreaterThanEqual Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsGreaterThanEqual"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsGreaterThanEqual" /> class from being created.
     /// </summary>
     private JsGreaterThanEqual() { }
     /// <summary>
@@ -157,7 +157,7 @@ public class JsLessThanEqual : JsLogicOperator
     /// </summary>
     public static JsLessThanEqual Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsLessThanEqual"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsLessThanEqual" /> class from being created.
     /// </summary>
     private JsLessThanEqual() { }
     /// <summary>
@@ -186,7 +186,7 @@ public class JsLessThan : JsLogicOperator
     /// </summary>
     public static JsLessThan Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsLessThan"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsLessThan" /> class from being created.
     /// </summary>
     private JsLessThan() { }
     /// <summary>
@@ -215,7 +215,7 @@ public class JsEquals : JsLogicOperator
     /// </summary>
     public static JsEquals Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsEquals"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsEquals" /> class from being created.
     /// </summary>
     private JsEquals() { }
     /// <summary>
@@ -244,7 +244,7 @@ public class JsNotEquals : JsLogicOperator
     /// </summary>
     public static JsNotEquals Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsNotEquals"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsNotEquals" /> class from being created.
     /// </summary>
     private JsNotEquals() { }
     /// <summary>
@@ -273,7 +273,7 @@ public class JsStrictEquals : JsLogicOperator
     /// </summary>
     public static JsStrictEquals Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsStrictEquals"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsStrictEquals" /> class from being created.
     /// </summary>
     private JsStrictEquals() { }
     /// <summary>
@@ -302,7 +302,7 @@ public class JsStrictNotEquals : JsLogicOperator
     /// </summary>
     public static JsStrictNotEquals Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsStrictNotEquals"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsStrictNotEquals" /> class from being created.
     /// </summary>
     private JsStrictNotEquals() { }
     /// <summary>
@@ -331,7 +331,7 @@ public class JsCoalescing : JsBinaryOperator
     /// </summary>
     public static JsCoalescing Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsCoalescing"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsCoalescing" /> class from being created.
     /// </summary>
     private JsCoalescing() { }
 
@@ -363,7 +363,7 @@ public class JsOr : JsLogicOperator
     /// </summary>
     public static JsOr Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsOr"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsOr" /> class from being created.
     /// </summary>
     private JsOr() { }
 
@@ -395,7 +395,7 @@ public class JsAnd : JsLogicOperator
     /// </summary>
     public static JsAnd Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsAnd"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsAnd" /> class from being created.
     /// </summary>
     private JsAnd() { }
 
@@ -427,7 +427,7 @@ public class JsNot : JsUnaryOperator
     /// </summary>
     public static JsNot Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsNot"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsNot" /> class from being created.
     /// </summary>
     private JsNot() { }
     /// <summary>
@@ -455,7 +455,7 @@ public class JsBitwiseAnd : JsBinaryOperator
     /// </summary>
     public static JsBitwiseAnd Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsBitwiseAnd"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsBitwiseAnd" /> class from being created.
     /// </summary>
     private JsBitwiseAnd() { }
     /// <summary>
@@ -486,7 +486,7 @@ public class JsBitwiseOr : JsBinaryOperator
     /// </summary>
     public static JsBitwiseOr Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsBitwiseOr"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsBitwiseOr" /> class from being created.
     /// </summary>
     private JsBitwiseOr() { }
     /// <summary>
@@ -517,7 +517,7 @@ public class JsBitwiseXOr : JsBinaryOperator
     /// </summary>
     public static JsBitwiseXOr Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsBitwiseXOr"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsBitwiseXOr" /> class from being created.
     /// </summary>
     private JsBitwiseXOr() { }
     /// <summary>
@@ -548,7 +548,7 @@ public class JsBitwiseNot : JsUnaryOperator
     /// </summary>
     public static JsBitwiseNot Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsBitwiseNot"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsBitwiseNot" /> class from being created.
     /// </summary>
     private JsBitwiseNot() { }
     /// <summary>
@@ -576,7 +576,7 @@ public class JsBitwiseLeftShift : JsBinaryOperator
     /// </summary>
     public static JsBitwiseLeftShift Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsBitwiseLeftShift"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsBitwiseLeftShift" /> class from being created.
     /// </summary>
     private JsBitwiseLeftShift() { }
     /// <summary>
@@ -607,7 +607,7 @@ public class JsBitwiseRightShift : JsBinaryOperator
     /// </summary>
     public static JsBitwiseRightShift Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsBitwiseRightShift"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsBitwiseRightShift" /> class from being created.
     /// </summary>
     private JsBitwiseRightShift() { }
     /// <summary>
@@ -638,7 +638,7 @@ public class JsAddition : JsBinaryOperator
     /// </summary>
     public static JsAddition Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsAddition"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsAddition" /> class from being created.
     /// </summary>
     private JsAddition() { }
     /// <summary>
@@ -678,7 +678,7 @@ public class JsSubtraction : JsBinaryOperator
     /// </summary>
     public static JsSubtraction Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsSubtraction"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsSubtraction" /> class from being created.
     /// </summary>
     private JsSubtraction() { }
     /// <summary>
@@ -709,7 +709,7 @@ public class JsMultiplication : JsBinaryOperator
     /// </summary>
     public static JsMultiplication Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsMultiplication"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsMultiplication" /> class from being created.
     /// </summary>
     private JsMultiplication() { }
     /// <summary>
@@ -740,7 +740,7 @@ public class JsDivision : JsBinaryOperator
     /// </summary>
     public static JsDivision Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsDivision"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsDivision" /> class from being created.
     /// </summary>
     private JsDivision() { }
     /// <summary>
@@ -771,7 +771,7 @@ public class JsMod : JsBinaryOperator
     /// </summary>
     public static JsMod Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsMod"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsMod" /> class from being created.
     /// </summary>
     private JsMod() { }
     /// <summary>
@@ -802,7 +802,7 @@ public class JsAssignment : JsBinaryOperator
     /// </summary>
     public static JsAssignment Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsAssignment"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsAssignment" /> class from being created.
     /// </summary>
     private JsAssignment() { }
     /// <summary>
@@ -836,7 +836,7 @@ public class JsMinus : JsUnaryOperator
     /// </summary>
     public static JsMinus Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsMinus"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsMinus" /> class from being created.
     /// </summary>
     private JsMinus() { }
     /// <summary>
@@ -867,7 +867,7 @@ public class JsPlus : JsUnaryOperator
     /// </summary>
     public static JsPlus Operator = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="JsPlus"/> class from being created.
+    /// Prevents a default instance of the <see cref="JsPlus" /> class from being created.
     /// </summary>
     private JsPlus() { }
     /// <summary>

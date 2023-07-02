@@ -46,6 +46,7 @@ public static class DeserializeDictionary<TSerializer>
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>ParseStringSpanDelegate.</returns>
+    /// <exception cref="ArgumentException">$"Type {type.FullName} is not of type IDictionary<,></exception>
     public static ParseStringSpanDelegate GetParseStringSpanMethod(Type type)
     {
         var mapInterface = type.GetTypeWithGenericInterfaceOf(typeof(IDictionary<,>));

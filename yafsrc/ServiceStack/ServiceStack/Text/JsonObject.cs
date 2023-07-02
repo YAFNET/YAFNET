@@ -140,6 +140,10 @@ public class JsonObject : Dictionary<string, string>, IEnumerable<KeyValuePair<s
         set => base[key] = value;
     }
 
+    /// <summary>
+    /// Gets the enumerator.
+    /// </summary>
+    /// <returns>A <see cref="T:System.Collections.Generic.Dictionary`2.Enumerator" /> structure for the <see cref="T:System.Collections.Generic.Dictionary`2" />.</returns>
     public new Enumerator GetEnumerator()
     {
         var to = new Dictionary<string, string>();
@@ -150,9 +154,17 @@ public class JsonObject : Dictionary<string, string>, IEnumerable<KeyValuePair<s
         return to.GetEnumerator();
     }
 
+    /// <summary>
+    /// Returns an enumerator that iterates through the collection.
+    /// </summary>
+    /// <returns>An enumerator that can be used to iterate through the collection.</returns>
     IEnumerator<KeyValuePair<string, string>> IEnumerable<KeyValuePair<string, string>>.GetEnumerator()
         => GetEnumerator();
 
+    /// <summary>
+    /// Converts to unescapeddictionary.
+    /// </summary>
+    /// <returns>Dictionary&lt;System.String, System.String&gt;.</returns>
     public Dictionary<string, string> ToUnescapedDictionary()
     {
         var to = new Dictionary<string, string>();
@@ -345,7 +357,7 @@ public struct JsonValue : IValueWriter
     private readonly string json;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsonValue"/> struct.
+    /// Initializes a new instance of the <see cref="JsonValue" /> struct.
     /// </summary>
     /// <param name="json">The json.</param>
     public JsonValue(string json)

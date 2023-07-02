@@ -40,12 +40,12 @@ public class Property
 public class Properties : List<Property>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="Properties"/> class.
+    /// Initializes a new instance of the <see cref="Properties" /> class.
     /// </summary>
     public Properties() { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Properties"/> class.
+    /// Initializes a new instance of the <see cref="Properties" /> class.
     /// </summary>
     /// <param name="collection">The collection.</param>
     public Properties(IEnumerable<Property> collection)

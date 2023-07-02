@@ -30,7 +30,7 @@ using ServiceStack.Text.Extensions;
 public sealed class SharpScript : ScriptLanguage
 {
     /// <summary>
-    /// Prevents a default instance of the <see cref="SharpScript"/> class from being created.
+    /// Prevents a default instance of the <see cref="SharpScript" /> class from being created.
     /// </summary>
     private SharpScript() { } // force usage of singleton
 
@@ -64,7 +64,7 @@ public sealed class SharpScript : ScriptLanguage
 public sealed class ScriptTemplate : ScriptLanguage
 {
     /// <summary>
-    /// Prevents a default instance of the <see cref="ScriptTemplate"/> class from being created.
+    /// Prevents a default instance of the <see cref="ScriptTemplate" /> class from being created.
     /// </summary>
     private ScriptTemplate() { } // force usage of singleton
 
@@ -284,6 +284,7 @@ public static class ScriptTemplateUtils
     /// <param name="script">The script.</param>
     /// <param name="args">The arguments.</param>
     /// <returns>object.</returns>
+    /// <exception cref="NotSupportedException">ScriptContextUtils.ErrorNoReturn</exception>
     /// <exception cref="PageResult">context.SharpScriptPage(script)</exception>
     public static object Evaluate(this ScriptContext context, string script, Dictionary<string, object> args = null)
     {
@@ -314,6 +315,7 @@ public static class ScriptTemplateUtils
     /// <param name="script">The script.</param>
     /// <param name="args">The arguments.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
+    /// <exception cref="NotSupportedException">ScriptContextUtils.ErrorNoReturn</exception>
     /// <exception cref="PageResult">context.SharpScriptPage(script)</exception>
     public static async Task<object> EvaluateAsync(this ScriptContext context, string script, Dictionary<string, object> args = null)
     {
@@ -416,8 +418,8 @@ public static class ScriptTemplateUtils
     /// <param name="elseArgument">The else argument.</param>
     /// <param name="elseBody">The else body.</param>
     /// <returns>System.ReadOnlyMemory&lt;char&gt;.</returns>
-    /// <exception cref="SyntaxErrorException">$"End block for 'else' not found.</exception>
-    /// <exception cref="SyntaxErrorException">$"End block for 'else' not found.</exception>
+    /// <exception cref="SyntaxErrorException">End block for 'else' not found.</exception>
+    /// <exception cref="SyntaxErrorException">End expression for 'else' not found.</exception>
     public static ReadOnlyMemory<char> ParseTemplateElseBlock(this ReadOnlyMemory<char> literal, string blockName,
                                                               out ReadOnlyMemory<char> elseArgument, out ReadOnlyMemory<char> elseBody)
     {
@@ -567,6 +569,11 @@ public static class ScriptTemplateUtils
     /// <param name="context">The context.</param>
     /// <param name="text">The text.</param>
     /// <returns>System.Collections.Generic.List&lt;ServiceStack.Script.PageFragment&gt;.</returns>
+    /// <exception cref="SyntaxErrorException">$"Unterminated '{{{{' expression, near '{text.Slice(lastPos).DebugLiteral()}'</exception>
+    /// <exception cref="SyntaxErrorException">$"Unterminated '|}}' expression, near '{text.Slice(varStartPos).DebugLiteral()}'</exception>
+    /// <exception cref="SyntaxErrorException">Unterminated filter expression</exception>
+    /// <exception cref="SyntaxErrorException">$"Expected pipeline operator '|>' but was {literal.DebugFirstChar()}</exception>
+    /// <exception cref="SyntaxErrorException">$"Unexpected syntax '{literal.ToString()}', Expected pipeline operator '|>'</exception>
     public static List<PageFragment> ParseTemplate(this ScriptContext context, ReadOnlyMemory<char> text)
     {
         var to = new List<PageFragment>();
@@ -745,7 +752,7 @@ public static class ScriptTemplateUtils
     /// <param name="blockFragment">The block fragment.</param>
     /// <returns>System.ReadOnlyMemory&lt;char&gt;.</returns>
     /// <exception cref="SyntaxErrorException">$"Unterminated '{blockName}' block expression, near '{literal.DebugLiteral()}'</exception>
-    /// <exception cref="SyntaxErrorException">$"Unterminated '{blockName}' block expression, near '{literal.DebugLiteral()}'</exception>
+    /// <exception cref="SyntaxErrorException">$"Unterminated end block '{endBlock}'</exception>
     public static ReadOnlyMemory<char> ParseTemplateScriptBlock(this ReadOnlyMemory<char> literal, ScriptContext context, out PageBlockFragment blockFragment)
     {
         literal = literal.ParseVarName(out var blockNameSpan);
@@ -821,7 +828,7 @@ public static class ScriptTemplateUtils
     /// <param name="expression">The expression.</param>
     /// <returns>System.Func&lt;ServiceStack.Script.ScriptScopeContext, object, object&gt;.</returns>
     /// <exception cref="ArgumentNullException">nameof(targetType)</exception>
-    /// <exception cref="ArgumentNullException">nameof(targetType)</exception>
+    /// <exception cref="ArgumentNullException">nameof(expression)</exception>
     public static Func<ScriptScopeContext, object, object> GetMemberExpression(Type targetType, ReadOnlyMemory<char> expression)
     {
         if (targetType == null)
@@ -864,9 +871,8 @@ public static class ScriptTemplateUtils
     /// <param name="instance">The instance.</param>
     /// <returns>System.Linq.Expressions.Expression.</returns>
     /// <exception cref="BindingExpressionException">$"Calling methods in '{expr}' is not allowed in binding expressions, use a filter instead., member.ToString(), expr.ToString()</exception>
-    /// <exception cref="BindingExpressionException">$"Calling methods in '{expr}' is not allowed in binding expressions, use a filter instead., member.ToString(), expr.ToString()</exception>
-    /// <exception cref="BindingExpressionException">$"Calling methods in '{expr}' is not allowed in binding expressions, use a filter instead., member.ToString(), expr.ToString()</exception>
-    /// <exception cref="BindingExpressionException">$"Calling methods in '{expr}' is not allowed in binding expressions, use a filter instead., member.ToString(), expr.ToString()</exception>
+    /// <exception cref="BindingExpressionException">$"Only constant binding expressions are supported: '{expr}', member.ToString(), expr.ToString()</exception>
+    /// <exception cref="BindingExpressionException">$"Could not compile '{member}' from expression '{expr}', member.ToString(), expr.ToString(), e</exception>
     private static Expression CreateBindingExpression(Type type, ReadOnlyMemory<char> expr, ParameterExpression scope, ParameterExpression instance)
     {
         Expression body = Expression.Convert(instance, type);

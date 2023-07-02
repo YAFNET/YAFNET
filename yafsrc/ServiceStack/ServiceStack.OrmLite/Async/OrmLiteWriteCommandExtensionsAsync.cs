@@ -919,6 +919,13 @@ namespace ServiceStack.OrmLite
         internal static async Task SaveAllReferencesAsync<T>(this IDbCommand dbCmd, T instance, CancellationToken token) =>
             await SaveAllReferences(dbCmd, ModelDefinition<T>.Definition, instance, token).ConfigAwait();
 
+        /// <summary>
+        /// Saves all references.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="modelDef">The model definition.</param>
+        /// <param name="instance">The instance.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         internal static async Task SaveAllReferences(IDbCommand dbCmd, ModelDefinition modelDef, object instance, CancellationToken token)
         {
             var pkValue = modelDef.PrimaryKey.GetValue(instance);

@@ -76,7 +76,7 @@ public class ScriptMethodInfo
     public string[] ParamTypes => @params.Select(x => x.ParameterType.Name.ToString()).ToArray();
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ScriptMethodInfo"/> class.
+    /// Initializes a new instance of the <see cref="ScriptMethodInfo" /> class.
     /// </summary>
     /// <param name="methodInfo">The method information.</param>
     /// <param name="params">The parameters.</param>

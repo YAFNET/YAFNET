@@ -33,7 +33,7 @@ public class JsCallExpression : JsExpression
     public JsToken[] Arguments { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsCallExpression"/> class.
+    /// Initializes a new instance of the <see cref="JsCallExpression" /> class.
     /// </summary>
     /// <param name="callee">The callee.</param>
     /// <param name="arguments">The arguments.</param>

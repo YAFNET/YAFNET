@@ -19,10 +19,13 @@ using ServiceStack.Text.Jsv;
 namespace ServiceStack.Text;
 
 /// <summary>
-/// 
+/// Class JsConfig.
 /// </summary>
 public static class JsConfig
 {
+    /// <summary>
+    /// Initializes static members of the <see cref="JsConfig"/> class.
+    /// </summary>
     static JsConfig()
     {
         Reset();
@@ -41,29 +44,30 @@ public static class JsConfig
     /// <summary>
     /// Initialize global config and assert that it's no longer mutated
     /// </summary>
-    /// <param name="config"></param>
+    /// <param name="config">The configuration.</param>
     public static void Init(Config config) => Config.Init(config);
 
     /// <summary>
-    /// 
+    /// Gets a value indicating whether this instance has initialize.
     /// </summary>
+    /// <value><c>true</c> if this instance has initialize; otherwise, <c>false</c>.</value>
     public static bool HasInit => Config.HasInit;
 
     /// <summary>
-    /// 
+    /// Begins the scope.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>JsConfigScope.</returns>
     public static JsConfigScope BeginScope()
     {
         return new JsConfigScope(); // Populated with Config.Instance
     }
 
     /// <summary>
-    /// 
+    /// Creates the scope.
     /// </summary>
-    /// <param name="config"></param>
-    /// <param name="scope"></param>
-    /// <returns></returns>
+    /// <param name="config">The configuration.</param>
+    /// <param name="scope">The scope.</param>
+    /// <returns>JsConfigScope.</returns>
     public static JsConfigScope CreateScope(string config, JsConfigScope scope = null)
     {
         if (string.IsNullOrEmpty(config))
@@ -257,20 +261,22 @@ public static class JsConfig
     }
 
     /// <summary>
-    /// 
+    /// Gets or sets the ut f8 encoding.
     /// </summary>
+    /// <value>The ut f8 encoding.</value>
     public static UTF8Encoding UTF8Encoding { get; set; } = new(false);
 
     /// <summary>
-    /// 
+    /// Withes the specified configuration.
     /// </summary>
-    /// <param name="config"></param>
-    /// <returns></returns>
+    /// <param name="config">The configuration.</param>
+    /// <returns>JsConfigScope.</returns>
     public static JsConfigScope With(Config config) => (JsConfigScope)new JsConfigScope().Populate(config);
 
     /// <summary>
-    /// 
+    /// Gets or sets a value indicating whether [try to parse primitive type values].
     /// </summary>
+    /// <value><c>true</c> if [try to parse primitive type values]; otherwise, <c>false</c>.</value>
     public static bool TryToParsePrimitiveTypeValues
     {
         get => JsConfigScope.Current != null ? JsConfigScope.Current.TryToParsePrimitiveTypeValues : Config.Instance.TryToParsePrimitiveTypeValues;
@@ -278,8 +284,9 @@ public static class JsConfig
     }
 
     /// <summary>
-    /// 
+    /// Gets or sets a value indicating whether [try parse into best fit].
     /// </summary>
+    /// <value><c>true</c> if [try parse into best fit]; otherwise, <c>false</c>.</value>
     public static bool TryParseIntoBestFit
     {
         get => JsConfigScope.Current != null ? JsConfigScope.Current.TryParseIntoBestFit : Config.Instance.TryParseIntoBestFit;
@@ -287,8 +294,9 @@ public static class JsConfig
     }
 
     /// <summary>
-    /// 
+    /// Gets or sets a value indicating whether [exclude default values].
     /// </summary>
+    /// <value><c>true</c> if [exclude default values]; otherwise, <c>false</c>.</value>
     public static bool ExcludeDefaultValues
     {
         get => JsConfigScope.Current != null ? JsConfigScope.Current.ExcludeDefaultValues : Config.Instance.ExcludeDefaultValues;
@@ -296,8 +304,9 @@ public static class JsConfig
     }
 
     /// <summary>
-    /// 
+    /// Gets or sets a value indicating whether [include null values].
     /// </summary>
+    /// <value><c>true</c> if [include null values]; otherwise, <c>false</c>.</value>
     public static bool IncludeNullValues
     {
         get => JsConfigScope.Current != null ? JsConfigScope.Current.IncludeNullValues : Config.Instance.IncludeNullValues;
@@ -305,8 +314,9 @@ public static class JsConfig
     }
 
     /// <summary>
-    /// 
+    /// Gets or sets a value indicating whether [include null values in dictionaries].
     /// </summary>
+    /// <value><c>true</c> if [include null values in dictionaries]; otherwise, <c>false</c>.</value>
     public static bool IncludeNullValuesInDictionaries
     {
         get => JsConfigScope.Current != null ? JsConfigScope.Current.IncludeNullValuesInDictionaries : Config.Instance.IncludeNullValuesInDictionaries;
@@ -314,8 +324,9 @@ public static class JsConfig
     }
 
     /// <summary>
-    /// 
+    /// Gets or sets a value indicating whether [treat enum as integer].
     /// </summary>
+    /// <value><c>true</c> if [treat enum as integer]; otherwise, <c>false</c>.</value>
     public static bool TreatEnumAsInteger
     {
         get => JsConfigScope.Current != null ? JsConfigScope.Current.TreatEnumAsInteger : Config.Instance.TreatEnumAsInteger;
@@ -323,8 +334,9 @@ public static class JsConfig
     }
 
     /// <summary>
-    /// 
+    /// Gets or sets a value indicating whether [exclude type information].
     /// </summary>
+    /// <value><c>true</c> if [exclude type information]; otherwise, <c>false</c>.</value>
     public static bool ExcludeTypeInfo
     {
         get => JsConfigScope.Current != null ? JsConfigScope.Current.ExcludeTypeInfo : Config.Instance.ExcludeTypeInfo;
@@ -332,14 +344,19 @@ public static class JsConfig
     }
 
     /// <summary>
-    /// 
+    /// Gets or sets a value indicating whether [include type information].
     /// </summary>
+    /// <value><c>true</c> if [include type information]; otherwise, <c>false</c>.</value>
     public static bool IncludeTypeInfo
     {
         get => JsConfigScope.Current != null ? JsConfigScope.Current.IncludeTypeInfo : Config.Instance.IncludeTypeInfo;
         set => Config.AssertNotInit().IncludeTypeInfo = value;
     }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether this <see cref="JsConfig"/> is indent.
+    /// </summary>
+    /// <value><c>true</c> if indent; otherwise, <c>false</c>.</value>
     public static bool Indent
     {
         get => JsConfigScope.Current != null ? JsConfigScope.Current.Indent : Config.Instance.Indent;
@@ -347,8 +364,9 @@ public static class JsConfig
     }
 
     /// <summary>
-    /// 
+    /// Gets or sets the type attribute.
     /// </summary>
+    /// <value>The type attribute.</value>
     public static string TypeAttr
     {
         get => JsConfigScope.Current != null ? JsConfigScope.Current.TypeAttr : Config.Instance.TypeAttr;
@@ -359,13 +377,22 @@ public static class JsConfig
         }
     }
 
+    /// <summary>
+    /// Gets the json type attribute in object.
+    /// </summary>
+    /// <value>The json type attribute in object.</value>
     internal static string JsonTypeAttrInObject => JsConfigScope.Current != null ? JsConfigScope.Current.JsonTypeAttrInObject : Config.Instance.JsonTypeAttrInObject;
 
+    /// <summary>
+    /// Gets the JSV type attribute in object.
+    /// </summary>
+    /// <value>The JSV type attribute in object.</value>
     internal static string JsvTypeAttrInObject => JsConfigScope.Current != null ? JsConfigScope.Current.JsvTypeAttrInObject : Config.Instance.JsvTypeAttrInObject;
 
     /// <summary>
-    /// 
+    /// Gets or sets the type writer.
     /// </summary>
+    /// <value>The type writer.</value>
     public static Func<Type, string> TypeWriter
     {
         get => JsConfigScope.Current != null ? JsConfigScope.Current.TypeWriter : Config.Instance.TypeWriter;
@@ -373,8 +400,9 @@ public static class JsConfig
     }
 
     /// <summary>
-    /// 
+    /// Gets or sets the type finder.
     /// </summary>
+    /// <value>The type finder.</value>
     public static Func<string, Type> TypeFinder
     {
         get => JsConfigScope.Current != null ? JsConfigScope.Current.TypeFinder : Config.Instance.TypeFinder;
@@ -382,8 +410,9 @@ public static class JsConfig
     }
 
     /// <summary>
-    /// 
+    /// Gets or sets the parse primitive function.
     /// </summary>
+    /// <value>The parse primitive function.</value>
     public static Func<string, object> ParsePrimitiveFn
     {
         get => JsConfigScope.Current != null ? JsConfigScope.Current.ParsePrimitiveFn : Config.Instance.ParsePrimitiveFn;
@@ -391,8 +420,9 @@ public static class JsConfig
     }
 
     /// <summary>
-    /// 
+    /// Gets or sets the date handler.
     /// </summary>
+    /// <value>The date handler.</value>
     public static DateHandler DateHandler
     {
         get => JsConfigScope.Current != null ? JsConfigScope.Current.DateHandler : Config.Instance.DateHandler;
@@ -402,6 +432,7 @@ public static class JsConfig
     /// <summary>
     /// Sets which format to use when serializing TimeSpans
     /// </summary>
+    /// <value>The time span handler.</value>
     public static TimeSpanHandler TimeSpanHandler
     {
         get => JsConfigScope.Current != null ? JsConfigScope.Current.TimeSpanHandler : Config.Instance.TimeSpanHandler;
@@ -411,6 +442,7 @@ public static class JsConfig
     /// <summary>
     /// Text case to use for property names (Default = PascalCase)
     /// </summary>
+    /// <value>The text case.</value>
     public static TextCase TextCase
     {
         get => JsConfigScope.Current != null ? JsConfigScope.Current.TextCase : Config.Instance.TextCase;
@@ -420,14 +452,15 @@ public static class JsConfig
     /// <summary>
     /// Avoid multiple static property checks by getting snapshot of active config
     /// </summary>
-    /// <returns></returns>
+    /// <returns>Config.</returns>
     public static Config GetConfig() => JsConfigScope.Current ?? Config.Instance;
 
     /// <summary>
     /// Gets or sets a value indicating if the framework should throw serialization exceptions
-    /// or continue regardless of serialization errors. If <see langword="true"/>  the framework
-    /// will throw; otherwise, it will parse as many fields as possible. The default is <see langword="false"/>.
+    /// or continue regardless of serialization errors. If <see langword="true" />  the framework
+    /// will throw; otherwise, it will parse as many fields as possible. The default is <see langword="false" />.
     /// </summary>
+    /// <value><c>true</c> if [throw on error]; otherwise, <c>false</c>.</value>
     public static bool ThrowOnError
     {
         // obeying the use of ThreadStatic, but allowing for setting JsConfig once as is the normal case
@@ -436,12 +469,13 @@ public static class JsConfig
     }
 
     /// <summary>
-    /// Gets or sets a value indicating if the framework should skip automatic <see cref="DateTime"/> conversions.
+    /// Gets or sets a value indicating if the framework should skip automatic <see cref="DateTime" /> conversions.
     /// Dates will be handled literally, any included timezone encoding will be lost and the date will be treaded as DateTimeKind.Local
     /// Utc formatted input will result in DateTimeKind.Utc output. Any input without TZ data will be set DateTimeKind.Unspecified
     /// This will take precedence over other flags like AlwaysUseUtc
     /// JsConfig.DateHandler = DateHandler.ISO8601 should be used when set true for consistent de/serialization.
     /// </summary>
+    /// <value><c>true</c> if [skip date time conversion]; otherwise, <c>false</c>.</value>
     public static bool SkipDateTimeConversion
     {
         // obeying the use of ThreadStatic, but allowing for setting JsConfig once as is the normal case
@@ -450,8 +484,9 @@ public static class JsConfig
     }
 
     /// <summary>
-    /// Gets or sets a value indicating if the framework should always assume <see cref="DateTime"/> is in UTC format if Kind is Unspecified.
+    /// Gets or sets a value indicating if the framework should always assume <see cref="DateTime" /> is in UTC format if Kind is Unspecified.
     /// </summary>
+    /// <value><c>true</c> if [assume UTC]; otherwise, <c>false</c>.</value>
     public static bool AssumeUtc
     {
         // obeying the use of ThreadStatic, but allowing for setting JsConfig once as is the normal case
@@ -459,24 +494,36 @@ public static class JsConfig
         set => Config.AssertNotInit().AssumeUtc = value;
     }
 
+    /// <summary>
+    /// The has serialize function
+    /// </summary>
     internal static HashSet<Type> HasSerializeFn = new();
 
+    /// <summary>
+    /// The has include default value
+    /// </summary>
     internal static HashSet<Type> HasIncludeDefaultValue = new();
 
     /// <summary>
-    /// 
+    /// The treat value as reference types
     /// </summary>
     public static HashSet<Type> TreatValueAsRefTypes = new();
 
     /// <summary>
     /// If set to true, Interface types will be preferred over concrete types when serializing.
     /// </summary>
+    /// <value><c>true</c> if [prefer interfaces]; otherwise, <c>false</c>.</value>
     public static bool PreferInterfaces
     {
         get => JsConfigScope.Current != null ? JsConfigScope.Current.PreferInterfaces : Config.Instance.PreferInterfaces;
         set => Config.AssertNotInit().PreferInterfaces = value;
     }
 
+    /// <summary>
+    /// Treats the type of as reference.
+    /// </summary>
+    /// <param name="valueType">Type of the value.</param>
+    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     internal static bool TreatAsRefType(Type valueType)
     {
         return TreatValueAsRefTypes.Contains(valueType.IsGenericType ? valueType.GetGenericTypeDefinition() : valueType);
@@ -485,6 +532,7 @@ public static class JsConfig
     /// <summary>
     /// If set to true, Interface types will be preferred over concrete types when serializing.
     /// </summary>
+    /// <value><c>true</c> if [include public fields]; otherwise, <c>false</c>.</value>
     public static bool IncludePublicFields
     {
         get => JsConfigScope.Current != null ? JsConfigScope.Current.IncludePublicFields : Config.Instance.IncludePublicFields;
@@ -494,6 +542,7 @@ public static class JsConfig
     /// <summary>
     /// Sets the maximum depth to avoid circular dependencies
     /// </summary>
+    /// <value>The maximum depth.</value>
     public static int MaxDepth
     {
         get => JsConfigScope.Current != null ? JsConfigScope.Current.MaxDepth : Config.Instance.MaxDepth;
@@ -505,6 +554,7 @@ public static class JsConfig
     /// This is helpful for integration with IoC containers where you need to call the container constructor.
     /// Return null if you don't know how to construct the type and the parameterless constructor will be used.
     /// </summary>
+    /// <value>The model factory.</value>
     public static EmptyCtorFactoryDelegate ModelFactory
     {
         get => JsConfigScope.Current != null ? JsConfigScope.Current.ModelFactory : Config.Instance.ModelFactory;
@@ -512,8 +562,9 @@ public static class JsConfig
     }
 
     /// <summary>
-    /// 
+    /// Gets or sets the exclude types.
     /// </summary>
+    /// <value>The exclude types.</value>
     public static HashSet<Type> ExcludeTypes
     {
         get => JsConfigScope.Current != null ? JsConfigScope.Current.ExcludeTypes : Config.Instance.ExcludeTypes;
@@ -521,8 +572,9 @@ public static class JsConfig
     }
 
     /// <summary>
-    /// 
+    /// Gets or sets the exclude type names.
     /// </summary>
+    /// <value>The exclude type names.</value>
     public static HashSet<string> ExcludeTypeNames
     {
         get => JsConfigScope.Current != null ? JsConfigScope.Current.ExcludeTypeNames : Config.Instance.ExcludeTypeNames;
@@ -530,28 +582,33 @@ public static class JsConfig
     }
 
     /// <summary>
-    /// 
+    /// Gets or sets the allow runtime type with attributes named.
     /// </summary>
+    /// <value>The allow runtime type with attributes named.</value>
     public static HashSet<string> AllowRuntimeTypeWithAttributesNamed { get; set; } = new();
 
     /// <summary>
-    /// 
+    /// Gets or sets the allow runtime type with interfaces named.
     /// </summary>
+    /// <value>The allow runtime type with interfaces named.</value>
     public static HashSet<string> AllowRuntimeTypeWithInterfacesNamed { get; set; } = new();
 
     /// <summary>
-    /// 
+    /// Gets or sets the allow runtime type in types.
     /// </summary>
+    /// <value>The allow runtime type in types.</value>
     public static HashSet<string> AllowRuntimeTypeInTypes { get; set; } = new();
 
     /// <summary>
-    /// 
+    /// Gets or sets the allow runtime type in types with namespaces.
     /// </summary>
+    /// <value>The allow runtime type in types with namespaces.</value>
     public static HashSet<string> AllowRuntimeTypeInTypesWithNamespaces { get; set; } = new();
 
     /// <summary>
-    /// 
+    /// Gets or sets the type of the allow runtime.
     /// </summary>
+    /// <value>The type of the allow runtime.</value>
     public static Func<Type, bool> AllowRuntimeType { get; set; }
 
     /// <summary>
@@ -561,7 +618,7 @@ public static class JsConfig
     public static bool AllowRuntimeInterfaces { get; set; }
 
     /// <summary>
-    /// 
+    /// Resets this instance.
     /// </summary>
     public static void Reset()
     {
@@ -623,21 +680,39 @@ public static class JsConfig
         JsState.Reset();
     }
 
+    /// <summary>
+    /// Resets the specified caches for type.
+    /// </summary>
+    /// <param name="cachesForType">Type of the caches for.</param>
     private static void Reset(Type cachesForType)
     {
         typeof(JsConfig<>).MakeGenericType(cachesForType).InvokeReset();
         typeof(TypeConfig<>).MakeGenericType(cachesForType).InvokeReset();
     }
 
+    /// <summary>
+    /// Invokes the reset.
+    /// </summary>
+    /// <param name="genericType">Type of the generic.</param>
     internal static void InvokeReset(this Type genericType)
     {
         var methodInfo = genericType.GetStaticMethod("Reset");
         methodInfo.Invoke(null, null);
     }
 
+    /// <summary>
+    /// The unique types
+    /// </summary>
     internal static HashSet<Type> __uniqueTypes = new();
+    /// <summary>
+    /// The unique types count
+    /// </summary>
     internal static int __uniqueTypesCount;
 
+    /// <summary>
+    /// Adds the type of the unique.
+    /// </summary>
+    /// <param name="type">The type.</param>
     internal static void AddUniqueType(Type type)
     {
         if (__uniqueTypes.Contains(type))
@@ -658,17 +733,24 @@ public static class JsConfig
 }
 
 /// <summary>
-/// 
+/// Class JsConfig.
 /// </summary>
 /// <typeparam name="T"></typeparam>
 public class JsConfig<T>
 {
+    /// <summary>
+    /// Initializes static members of the <see cref="JsConfig{T}"/> class.
+    /// </summary>
     static JsConfig()
     {
         // Run the type's static constructor (which may set OnDeserialized, etc.) before we cache any information about it
         RuntimeHelpers.RunClassConstructor(typeof(T).TypeHandle);
     }
 
+    /// <summary>
+    /// Gets the configuration.
+    /// </summary>
+    /// <returns>Config.</returns>
     internal static Config GetConfig()
     {
         var config = new Config().Populate(JsConfig.GetConfig());
@@ -690,6 +772,7 @@ public class JsConfig<T>
     /// <summary>
     /// Text case to use for property names (Default = PascalCase)
     /// </summary>
+    /// <value>The text case.</value>
     public static TextCase TextCase { get; set; }
 
     /// <summary>
@@ -698,8 +781,9 @@ public class JsConfig<T>
     private static Func<T, string> serializeFn;
 
     /// <summary>
-    /// 
+    /// Gets or sets the serialize function.
     /// </summary>
+    /// <value>The serialize function.</value>
     public static Func<T, string> SerializeFn
     {
         get => serializeFn;
@@ -718,6 +802,7 @@ public class JsConfig<T>
     /// <summary>
     /// Whether there is a fn (raw or otherwise)
     /// </summary>
+    /// <value><c>true</c> if this instance has serialize function; otherwise, <c>false</c>.</value>
     public static bool HasSerializeFn => !JsState.InSerializer<T>() && (serializeFn != null || rawSerializeFn != null);
 
     /// <summary>
@@ -726,8 +811,9 @@ public class JsConfig<T>
     private static Func<T, string> rawSerializeFn;
 
     /// <summary>
-    /// 
+    /// Gets or sets the raw serialize function.
     /// </summary>
+    /// <value>The raw serialize function.</value>
     public static Func<T, string> RawSerializeFn
     {
         get => rawSerializeFn;
@@ -748,8 +834,9 @@ public class JsConfig<T>
     /// </summary>
     private static Func<T, T> onSerializingFn;
     /// <summary>
-    /// 
+    /// Gets or sets the on serializing function.
     /// </summary>
+    /// <value>The on serializing function.</value>
     public static Func<T, T> OnSerializingFn
     {
         get => onSerializingFn;
@@ -762,8 +849,9 @@ public class JsConfig<T>
     private static Action<T> onSerializedFn;
 
     /// <summary>
-    /// 
+    /// Gets or sets the on serialized function.
     /// </summary>
+    /// <value>The on serialized function.</value>
     public static Action<T> OnSerializedFn
     {
         get => onSerializedFn;
@@ -776,8 +864,9 @@ public class JsConfig<T>
     private static Func<string, T> deSerializeFn;
 
     /// <summary>
-    /// 
+    /// Gets or sets the de serialize function.
     /// </summary>
+    /// <value>The de serialize function.</value>
     public static Func<string, T> DeSerializeFn
     {
         get => deSerializeFn;
@@ -790,8 +879,9 @@ public class JsConfig<T>
     private static Func<string, T> rawDeserializeFn;
 
     /// <summary>
-    /// 
+    /// Gets or sets the raw deserialize function.
     /// </summary>
+    /// <value>The raw deserialize function.</value>
     public static Func<string, T> RawDeserializeFn
     {
         get => rawDeserializeFn;
@@ -799,15 +889,20 @@ public class JsConfig<T>
     }
 
     /// <summary>
-    /// 
+    /// Gets a value indicating whether this instance has deserialize function.
     /// </summary>
+    /// <value><c>true</c> if this instance has deserialize function; otherwise, <c>false</c>.</value>
     public static bool HasDeserializeFn => !JsState.InDeserializer<T>() && (DeSerializeFn != null || RawDeserializeFn != null);
 
+    /// <summary>
+    /// The on deserialized function
+    /// </summary>
     private static Func<T, T> onDeserializedFn;
 
     /// <summary>
-    /// 
+    /// Gets or sets the on deserialized function.
     /// </summary>
+    /// <value>The on deserialized function.</value>
     public static Func<T, T> OnDeserializedFn
     {
         get => onDeserializedFn;
@@ -815,15 +910,20 @@ public class JsConfig<T>
     }
 
     /// <summary>
-    /// 
+    /// Gets a value indicating whether this instance has deserializing function.
     /// </summary>
+    /// <value><c>true</c> if this instance has deserializing function; otherwise, <c>false</c>.</value>
     public static bool HasDeserializingFn => OnDeserializingFn != null;
 
+    /// <summary>
+    /// The on deserializing function
+    /// </summary>
     private static Func<T, string, object, object> onDeserializingFn;
 
     /// <summary>
-    /// 
+    /// Gets or sets the on deserializing function.
     /// </summary>
+    /// <value>The on deserializing function.</value>
     public static Func<T, string, object, object> OnDeserializingFn
     {
         get => onDeserializingFn;
@@ -836,11 +936,11 @@ public class JsConfig<T>
     public static string[] ExcludePropertyNames;
 
     /// <summary>
-    /// 
+    /// Writes the function.
     /// </summary>
-    /// <param name="writer"></param>
-    /// <param name="obj"></param>
-    /// <typeparam name="TSerializer"></typeparam>
+    /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
+    /// <param name="writer">The writer.</param>
+    /// <param name="obj">The object.</param>
     public static void WriteFn<TSerializer>(TextWriter writer, object obj)
     {
         if (RawSerializeFn != null && !JsState.InSerializer<T>())
@@ -876,15 +976,21 @@ public class JsConfig<T>
     }
 
     /// <summary>
-    /// 
+    /// Parses the function.
     /// </summary>
-    /// <param name="str"></param>
-    /// <returns></returns>
+    /// <param name="str">The string.</param>
+    /// <returns>System.Object.</returns>
     public static object ParseFn(string str)
     {
         return DeSerializeFn(str);
     }
 
+    /// <summary>
+    /// Parses the function.
+    /// </summary>
+    /// <param name="serializer">The serializer.</param>
+    /// <param name="str">The string.</param>
+    /// <returns>System.Object.</returns>
     internal static object ParseFn(ITypeSerializer serializer, string str)
     {
         if (RawDeserializeFn != null && !JsState.InDeserializer<T>())
@@ -917,6 +1023,9 @@ public class JsConfig<T>
         return parseFn(str);
     }
 
+    /// <summary>
+    /// Clears the function caches.
+    /// </summary>
     internal static void ClearFnCaches()
     {
         JsonWriter<T>.Reset();
@@ -924,7 +1033,7 @@ public class JsConfig<T>
     }
 
     /// <summary>
-    /// 
+    /// Resets this instance.
     /// </summary>
     public static void Reset()
     {
@@ -936,7 +1045,7 @@ public class JsConfig<T>
     }
 
     /// <summary>
-    /// 
+    /// Refreshes the read.
     /// </summary>
     public static void RefreshRead()
     {
@@ -945,7 +1054,7 @@ public class JsConfig<T>
     }
 
     /// <summary>
-    /// 
+    /// Refreshes the write.
     /// </summary>
     public static void RefreshWrite()
     {
@@ -955,7 +1064,7 @@ public class JsConfig<T>
 }
 
 /// <summary>
-/// 
+/// Enum PropertyConvention
 /// </summary>
 public enum PropertyConvention
 {
@@ -971,46 +1080,46 @@ public enum PropertyConvention
 }
 
 /// <summary>
-/// 
+/// Enum DateHandler
 /// </summary>
 public enum DateHandler
 {
     /// <summary>
-    /// 
+    /// The timestamp offset
     /// </summary>
     TimestampOffset,
     /// <summary>
-    /// 
+    /// The DCJS compatible
     /// </summary>
     DCJSCompatible,
     /// <summary>
-    /// 
+    /// The is o8601
     /// </summary>
     ISO8601,
     /// <summary>
-    /// 
+    /// The is o8601 date only
     /// </summary>
     ISO8601DateOnly,
     /// <summary>
-    /// 
+    /// The is o8601 date time
     /// </summary>
     ISO8601DateTime,
     /// <summary>
-    /// 
+    /// The rf C1123
     /// </summary>
     RFC1123,
     /// <summary>
-    /// 
+    /// The unix time
     /// </summary>
     UnixTime,
     /// <summary>
-    /// 
+    /// The unix time ms
     /// </summary>
     UnixTimeMs,
 }
 
 /// <summary>
-/// 
+/// Enum TimeSpanHandler
 /// </summary>
 public enum TimeSpanHandler
 {
@@ -1026,7 +1135,7 @@ public enum TimeSpanHandler
 }
 
 /// <summary>
-/// 
+/// Enum TextCase
 /// </summary>
 public enum TextCase
 {

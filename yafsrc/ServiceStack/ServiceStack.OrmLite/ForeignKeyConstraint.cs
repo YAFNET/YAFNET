@@ -17,7 +17,7 @@ using ServiceStack.Text;
 public class ForeignKeyConstraint
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ForeignKeyConstraint"/> class.
+    /// Initializes a new instance of the <see cref="ForeignKeyConstraint" /> class.
     /// </summary>
     /// <param name="type">The type.</param>
     /// <param name="onDelete">The on delete.</param>

@@ -1522,6 +1522,12 @@ public static class OrmLiteWriteCommandExtensions
     internal static void SaveAllReferences<T>(this IDbCommand dbCmd, T instance) =>
         SaveAllReferences(dbCmd, ModelDefinition<T>.Definition, instance);
 
+    /// <summary>
+    /// Saves all references.
+    /// </summary>
+    /// <param name="dbCmd">The database command.</param>
+    /// <param name="modelDef">The model definition.</param>
+    /// <param name="instance">The instance.</param>
     internal static void SaveAllReferences(IDbCommand dbCmd, ModelDefinition modelDef, object instance)
     {
         var pkValue = modelDef.PrimaryKey.GetValue(instance);

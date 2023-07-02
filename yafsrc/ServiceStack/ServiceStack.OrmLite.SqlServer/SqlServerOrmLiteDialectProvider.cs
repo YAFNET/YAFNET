@@ -41,7 +41,7 @@ namespace ServiceStack.OrmLite.SqlServer
         public static SqlServerOrmLiteDialectProvider Instance = new();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SqlServerOrmLiteDialectProvider"/> class.
+        /// Initializes a new instance of the <see cref="SqlServerOrmLiteDialectProvider" /> class.
         /// </summary>
         public SqlServerOrmLiteDialectProvider()
         {
@@ -183,12 +183,22 @@ namespace ServiceStack.OrmLite.SqlServer
             return sql;
         }
 
+        /// <summary>
+        /// Gets the schemas.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <returns>List&lt;System.String&gt;.</returns>
         public override List<string> GetSchemas(IDbCommand dbCmd)
         {
             var sql = "SELECT DISTINCT TABLE_SCHEMA FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE'";
             return dbCmd.SqlColumn<string>(sql);
         }
 
+        /// <summary>
+        /// Gets the schema tables.
+        /// </summary>
+        /// <param name="dbCmd">The database command.</param>
+        /// <returns>Dictionary&lt;System.String, List&lt;System.String&gt;&gt;.</returns>
         public override Dictionary<string, List<string>> GetSchemaTables(IDbCommand dbCmd)
         {
             var sql = "SELECT TABLE_SCHEMA, TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE='BASE TABLE'";
@@ -607,7 +617,9 @@ namespace ServiceStack.OrmLite.SqlServer
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
-        /// <summary>Gets the add composite primary key sql command.</summary>
+        /// <summary>
+        /// Gets the add composite primary key sql command.
+        /// </summary>
         /// <param name="database">The database.</param>
         /// <param name="modelDef">The model definition.</param>
         /// <param name="fieldNameA">The field name a.</param>
@@ -627,7 +639,9 @@ namespace ServiceStack.OrmLite.SqlServer
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
-        /// <summary>Gets the name of the primary key.</summary>
+        /// <summary>
+        /// Gets the name of the primary key.
+        /// </summary>
         /// <param name="modelDef">The model definition.</param>
         /// <returns>Returns the Primary Key Name</returns>
         public override string GetPrimaryKeyName(ModelDefinition modelDef)
@@ -650,10 +664,6 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="database">the database name</param>
         /// <param name="modelDef">The model definition.</param>
         /// <param name="name">The name.</param>
-        /// <returns>System.String.</returns>
-        /// <summary>
-        /// Gets the drop primary key constraint.
-        /// </summary>
         /// <returns>System.String.</returns>
         public override string GetDropPrimaryKeyConstraint(string database, ModelDefinition modelDef, string name)
         {
@@ -680,7 +690,9 @@ namespace ServiceStack.OrmLite.SqlServer
         }
 
 
-        /// <summary>Gets the drop primary key constraint.</summary>
+        /// <summary>
+        /// Gets the drop primary key constraint.
+        /// </summary>
         /// <param name="database">The database.</param>
         /// <param name="modelDef">The model definition.</param>
         /// <param name="name">The name.</param>
@@ -791,9 +803,23 @@ namespace ServiceStack.OrmLite.SqlServer
             return StringBuilderCache.ReturnAndFree(sb);
         }
 
+        /// <summary>
+        /// Converts to alter column statement.
+        /// </summary>
+        /// <param name="schema">The schema.</param>
+        /// <param name="table">The table.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>System.String.</returns>
         public override string ToAddColumnStatement(string schema, string table, FieldDefinition fieldDef) =>
             $"ALTER TABLE {this.GetQuotedTableName(table, schema)} ADD {GetColumnDefinition(fieldDef)};";
 
+        /// <summary>
+        /// Converts to altercolumnstatement.
+        /// </summary>
+        /// <param name="schema">The schema.</param>
+        /// <param name="table">The table.</param>
+        /// <param name="fieldDef">The field definition.</param>
+        /// <returns>System.String.</returns>
         public override string ToAlterColumnStatement(string schema, string table, FieldDefinition fieldDef) =>
             $"ALTER TABLE {this.GetQuotedTableName(table, schema)} ALTER COLUMN {GetColumnDefinition(fieldDef)};";
 
@@ -814,6 +840,14 @@ namespace ServiceStack.OrmLite.SqlServer
                 $"EXEC sp_rename {this.GetQuotedValue(objectName)}, {this.GetQuotedValue(fieldDef.FieldName)}, {this.GetQuotedValue("COLUMN")};";
         }
 
+        /// <summary>
+        /// Converts to renamecolumnstatement.
+        /// </summary>
+        /// <param name="schema">The schema.</param>
+        /// <param name="table">The table.</param>
+        /// <param name="oldColumn">The old column.</param>
+        /// <param name="newColumn">The new column.</param>
+        /// <returns>System.String.</returns>
         public override string ToRenameColumnStatement(string schema, string table, string oldColumn, string newColumn)
         {
             var modelName = NamingStrategy.GetTableName(table);
@@ -1655,6 +1689,10 @@ namespace ServiceStack.OrmLite.SqlServer
 
 #endif
 
+        /// <summary>
+        /// Initializes the connection.
+        /// </summary>
+        /// <param name="dbConn">The database connection.</param>
         public override void InitConnection(IDbConnection dbConn)
         {
             if (dbConn is OrmLiteConnection ormLiteConn && dbConn.ToDbConnection() is SqlConnection sqlConn)

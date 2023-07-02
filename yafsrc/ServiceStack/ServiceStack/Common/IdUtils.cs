@@ -24,7 +24,7 @@ public static class IdUtils<T>
     internal static GetMemberDelegate<T> CanGetId;
 
     /// <summary>
-    /// Initializes static members of the <see cref="IdUtils{T}"/> class.
+    /// Initializes static members of the <see cref="IdUtils{T}" /> class.
     /// </summary>
     static IdUtils()
     {
@@ -101,7 +101,7 @@ internal static class HasPropertyId<TEntity>
     private static readonly GetMemberDelegate<TEntity> GetIdFn;
 
     /// <summary>
-    /// Initializes static members of the <see cref="HasPropertyId{TEntity}"/> class.
+    /// Initializes static members of the <see cref="HasPropertyId{TEntity}" /> class.
     /// </summary>
     static HasPropertyId()
     {
@@ -132,7 +132,7 @@ internal static class HasId<TEntity>
     private static readonly Func<TEntity, object> GetIdFn;
 
     /// <summary>
-    /// Initializes static members of the <see cref="HasId{TEntity}"/> class.
+    /// Initializes static members of the <see cref="HasId{TEntity}" /> class.
     /// </summary>
     static HasId()
     {

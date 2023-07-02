@@ -18,7 +18,7 @@ using System.Collections.Generic;
 public class CompositePrimaryKeyAttribute : AttributeBase
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="CompositePrimaryKeyAttribute"/> class.
+    /// Initializes a new instance of the <see cref="CompositePrimaryKeyAttribute" /> class.
     /// </summary>
     /// <param name="fieldNames">The field names.</param>
     public CompositePrimaryKeyAttribute(params string[] fieldNames)

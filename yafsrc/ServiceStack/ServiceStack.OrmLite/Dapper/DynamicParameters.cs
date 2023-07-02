@@ -37,7 +37,7 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
     private List<object> templates;
 
     /// <summary>
-    /// Gets the <see cref="System.Object"/> with the specified name.
+    /// Gets the <see cref="System.Object" /> with the specified name.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns>System.Object.</returns>

@@ -23,7 +23,7 @@ public class PreCreateTableAttribute : AttributeBase
     public string Sql { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PreCreateTableAttribute"/> class.
+    /// Initializes a new instance of the <see cref="PreCreateTableAttribute" /> class.
     /// </summary>
     /// <param name="sql">The SQL.</param>
     public PreCreateTableAttribute(string sql)

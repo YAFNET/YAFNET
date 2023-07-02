@@ -20,7 +20,7 @@ namespace ServiceStack.Text;
 public static class JsonSerializer
 {
     /// <summary>
-    /// Initializes static members of the <see cref="JsonSerializer"/> class.
+    /// Initializes static members of the <see cref="JsonSerializer" /> class.
     /// </summary>
     static JsonSerializer()
     {
@@ -226,6 +226,12 @@ public static class JsonSerializer
         writer.Flush();
     }
 
+    /// <summary>
+    /// Writes the object to writer.
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <param name="serializeFn">The serialize function.</param>
+    /// <param name="writer">The writer.</param>
     private static void WriteObjectToWriter(object value, WriteObjectDelegate serializeFn, TextWriter writer)
     {
         if (!JsConfig.Indent)

@@ -108,7 +108,7 @@ public abstract class ScriptLanguage
 public sealed class ScriptVerbatim : ScriptLanguage
 {
     /// <summary>
-    /// Prevents a default instance of the <see cref="ScriptVerbatim"/> class from being created.
+    /// Prevents a default instance of the <see cref="ScriptVerbatim" /> class from being created.
     /// </summary>
     private ScriptVerbatim() { } // force usage of singleton
 

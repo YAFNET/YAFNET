@@ -26,7 +26,7 @@ using System.Threading;
 public static class QueryStringSerializer
 {
     /// <summary>
-    /// Initializes static members of the <see cref="QueryStringSerializer"/> class.
+    /// Initializes static members of the <see cref="QueryStringSerializer" /> class.
     /// </summary>
     static QueryStringSerializer()
     {
@@ -144,7 +144,7 @@ public static class QueryStringWriter<T>
     }
 
     /// <summary>
-    /// Initializes static members of the <see cref="QueryStringWriter{T}"/> class.
+    /// Initializes static members of the <see cref="QueryStringWriter{T}" /> class.
     /// </summary>
     static QueryStringWriter()
     {
@@ -301,7 +301,7 @@ internal class PropertyTypeConfig<T>
     public static PropertyTypeConfig Config;
 
     /// <summary>
-    /// Initializes static members of the <see cref="PropertyTypeConfig{T}"/> class.
+    /// Initializes static members of the <see cref="PropertyTypeConfig{T}" /> class.
     /// </summary>
     static PropertyTypeConfig()
     {

@@ -459,7 +459,12 @@ public struct JsvTypeSerializer
     }
 
 #if NET7_0
-        public void WriteDateOnly(TextWriter writer, object oDateOnly)
+    /// <summary>
+    /// Writes the date only.
+    /// </summary>
+    /// <param name="writer">The writer.</param>
+    /// <param name="oDateOnly">The o date only.</param>
+    public void WriteDateOnly(TextWriter writer, object oDateOnly)
         {
             var dateOnly = (DateOnly)oDateOnly;
             switch (JsConfig.DateHandler)
@@ -476,13 +481,23 @@ public struct JsvTypeSerializer
             }
         }
 
-        public void WriteNullableDateOnly(TextWriter writer, object oDateOnly)
+    /// <summary>
+    /// Writes the nullable date only.
+    /// </summary>
+    /// <param name="writer">The writer.</param>
+    /// <param name="oDateOnly">The o date only.</param>
+    public void WriteNullableDateOnly(TextWriter writer, object oDateOnly)
         {
             if (oDateOnly == null) return;
             WriteDateOnly(writer, oDateOnly);
         }
 
-        public void WriteTimeOnly(TextWriter writer, object oTimeOnly)
+    /// <summary>
+    /// Writes the time only.
+    /// </summary>
+    /// <param name="writer">The writer.</param>
+    /// <param name="oTimeOnly">The o time only.</param>
+    public void WriteTimeOnly(TextWriter writer, object oTimeOnly)
         {
             var stringValue = JsConfig.TimeSpanHandler == TimeSpanHandler.StandardFormat
                 ? oTimeOnly.ToString()
@@ -490,7 +505,12 @@ public struct JsvTypeSerializer
             WriteRawString(writer, stringValue);
         }
 
-        public void WriteNullableTimeOnly(TextWriter writer, object oTimeOnly)
+    /// <summary>
+    /// Writes the nullable time only.
+    /// </summary>
+    /// <param name="writer">The writer.</param>
+    /// <param name="oTimeOnly">The o time only.</param>
+    public void WriteNullableTimeOnly(TextWriter writer, object oTimeOnly)
         {
             if (oTimeOnly == null) return;
             WriteTimeSpan(writer, ((TimeOnly?)oTimeOnly).Value.ToTimeSpan());
@@ -724,6 +744,7 @@ public struct JsvTypeSerializer
     /// <param name="value">The value.</param>
     /// <param name="i">The i.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Expected '{JsWriter.ItemSeperator}' or '{JsWriter.MapEndChar}'</exception>
     /// <exception cref="System.Exception">Expected '{JsWriter.ItemSeperator}' or '{JsWriter.MapEndChar}'</exception>
     public bool EatItemSeperatorOrMapEndChar(string value, ref int i)
     {
@@ -746,6 +767,7 @@ public struct JsvTypeSerializer
     /// <param name="value">The value.</param>
     /// <param name="i">The i.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Expected '{JsWriter.ItemSeperator}' or '{JsWriter.MapEndChar}'</exception>
     /// <exception cref="System.Exception">Expected '{JsWriter.ItemSeperator}' or '{JsWriter.MapEndChar}'</exception>
     public bool EatItemSeperatorOrMapEndChar(ReadOnlySpan<char> value, ref int i)
     {

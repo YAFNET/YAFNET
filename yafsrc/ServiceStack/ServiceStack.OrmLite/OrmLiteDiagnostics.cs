@@ -12,8 +12,18 @@ using System.Data;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
+/// <summary>
+/// Class OrmLiteDiagnostics.
+/// </summary>
 internal static class OrmLiteDiagnostics
 {
+    /// <summary>
+    /// Writes the command before.
+    /// </summary>
+    /// <param name="listener">The listener.</param>
+    /// <param name="dbCmd">The database command.</param>
+    /// <param name="operation">The operation.</param>
+    /// <returns>Guid.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Guid WriteCommandBefore(this DiagnosticListener listener, IDbCommand dbCmd, [CallerMemberName] string operation = "")
     {
@@ -33,6 +43,13 @@ internal static class OrmLiteDiagnostics
         }
         return Guid.Empty;
     }
+    /// <summary>
+    /// Writes the command after.
+    /// </summary>
+    /// <param name="listener">The listener.</param>
+    /// <param name="operationId">The operation identifier.</param>
+    /// <param name="dbCmd">The database command.</param>
+    /// <param name="operation">The operation.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void WriteCommandAfter(this DiagnosticListener listener, Guid operationId, IDbCommand dbCmd, [CallerMemberName] string operation = "")
     {
@@ -48,6 +65,14 @@ internal static class OrmLiteDiagnostics
             }.Init(Activity.Current));
         }
     }
+    /// <summary>
+    /// Writes the command error.
+    /// </summary>
+    /// <param name="listener">The listener.</param>
+    /// <param name="operationId">The operation identifier.</param>
+    /// <param name="dbCmd">The database command.</param>
+    /// <param name="ex">The ex.</param>
+    /// <param name="operation">The operation.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void WriteCommandError(this DiagnosticListener listener, Guid operationId, IDbCommand dbCmd,
         Exception ex, [CallerMemberName] string operation = "")
@@ -66,6 +91,13 @@ internal static class OrmLiteDiagnostics
         }
     }
 
+    /// <summary>
+    /// Writes the connection open before.
+    /// </summary>
+    /// <param name="listener">The listener.</param>
+    /// <param name="dbConn">The database connection.</param>
+    /// <param name="operation">The operation.</param>
+    /// <returns>Guid.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Guid WriteConnectionOpenBefore(this DiagnosticListener listener, IDbConnection dbConn, [CallerMemberName] string operation = "")
     {
@@ -88,6 +120,14 @@ internal static class OrmLiteDiagnostics
         return operationId;
     }
 
+    /// <summary>
+    /// Writes the transaction open.
+    /// </summary>
+    /// <param name="listener">The listener.</param>
+    /// <param name="isolationLevel">The isolation level.</param>
+    /// <param name="dbConn">The database connection.</param>
+    /// <param name="operation">The operation.</param>
+    /// <returns>Guid.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Guid WriteTransactionOpen(this DiagnosticListener listener, IsolationLevel isolationLevel,
                                             IDbConnection dbConn, [CallerMemberName] string operation = "")
@@ -110,6 +150,13 @@ internal static class OrmLiteDiagnostics
         return operationId;
     }
 
+    /// <summary>
+    /// Writes the connection open after.
+    /// </summary>
+    /// <param name="listener">The listener.</param>
+    /// <param name="operationId">The operation identifier.</param>
+    /// <param name="dbConn">The database connection.</param>
+    /// <param name="operation">The operation.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void WriteConnectionOpenAfter(this DiagnosticListener listener, Guid operationId, IDbConnection dbConn, [CallerMemberName] string operation = "")
     {
@@ -125,6 +172,14 @@ internal static class OrmLiteDiagnostics
             }.Init(Activity.Current));
         }
     }
+    /// <summary>
+    /// Writes the connection open error.
+    /// </summary>
+    /// <param name="listener">The listener.</param>
+    /// <param name="operationId">The operation identifier.</param>
+    /// <param name="dbConn">The database connection.</param>
+    /// <param name="ex">The ex.</param>
+    /// <param name="operation">The operation.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void WriteConnectionOpenError(this DiagnosticListener listener, Guid operationId, IDbConnection dbConn,
         Exception ex, [CallerMemberName] string operation = "")
@@ -143,6 +198,13 @@ internal static class OrmLiteDiagnostics
         }
     }
 
+    /// <summary>
+    /// Writes the connection close before.
+    /// </summary>
+    /// <param name="listener">The listener.</param>
+    /// <param name="dbConn">The database connection.</param>
+    /// <param name="operation">The operation.</param>
+    /// <returns>Guid.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Guid WriteConnectionCloseBefore(this DiagnosticListener listener, IDbConnection dbConn, [CallerMemberName] string operation = "")
     {
@@ -164,6 +226,14 @@ internal static class OrmLiteDiagnostics
         return Guid.Empty;
     }
 
+    /// <summary>
+    /// Writes the connection close after.
+    /// </summary>
+    /// <param name="listener">The listener.</param>
+    /// <param name="operationId">The operation identifier.</param>
+    /// <param name="clientConnectionId">The client connection identifier.</param>
+    /// <param name="dbConn">The database connection.</param>
+    /// <param name="operation">The operation.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void WriteConnectionCloseAfter(this DiagnosticListener listener, Guid operationId,
         Guid clientConnectionId, IDbConnection dbConn, [CallerMemberName] string operation = "")
@@ -181,6 +251,15 @@ internal static class OrmLiteDiagnostics
         }
     }
 
+    /// <summary>
+    /// Writes the connection close error.
+    /// </summary>
+    /// <param name="listener">The listener.</param>
+    /// <param name="operationId">The operation identifier.</param>
+    /// <param name="clientConnectionId">The client connection identifier.</param>
+    /// <param name="dbConn">The database connection.</param>
+    /// <param name="ex">The ex.</param>
+    /// <param name="operation">The operation.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void WriteConnectionCloseError(this DiagnosticListener listener, Guid operationId,
         Guid clientConnectionId, IDbConnection dbConn, Exception ex, [CallerMemberName] string operation = "")
@@ -198,6 +277,14 @@ internal static class OrmLiteDiagnostics
         }
     }
 
+    /// <summary>
+    /// Writes the transaction commit before.
+    /// </summary>
+    /// <param name="listener">The listener.</param>
+    /// <param name="isolationLevel">The isolation level.</param>
+    /// <param name="dbConn">The database connection.</param>
+    /// <param name="operation">The operation.</param>
+    /// <returns>Guid.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Guid WriteTransactionCommitBefore(this DiagnosticListener listener, IsolationLevel isolationLevel,
         IDbConnection dbConn, [CallerMemberName] string operation = "")
@@ -218,6 +305,14 @@ internal static class OrmLiteDiagnostics
         }
         return Guid.Empty;
     }
+    /// <summary>
+    /// Writes the transaction commit after.
+    /// </summary>
+    /// <param name="listener">The listener.</param>
+    /// <param name="operationId">The operation identifier.</param>
+    /// <param name="isolationLevel">The isolation level.</param>
+    /// <param name="dbConn">The database connection.</param>
+    /// <param name="operation">The operation.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void WriteTransactionCommitAfter(this DiagnosticListener listener, Guid operationId,
         IsolationLevel isolationLevel, IDbConnection dbConn, [CallerMemberName] string operation = "")
@@ -234,6 +329,15 @@ internal static class OrmLiteDiagnostics
             }.Init(Activity.Current));
         }
     }
+    /// <summary>
+    /// Writes the transaction commit error.
+    /// </summary>
+    /// <param name="listener">The listener.</param>
+    /// <param name="operationId">The operation identifier.</param>
+    /// <param name="isolationLevel">The isolation level.</param>
+    /// <param name="dbConn">The database connection.</param>
+    /// <param name="ex">The ex.</param>
+    /// <param name="operation">The operation.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void WriteTransactionCommitError(this DiagnosticListener listener, Guid operationId,
         IsolationLevel isolationLevel, IDbConnection dbConn, Exception ex, [CallerMemberName] string operation = "")
@@ -252,6 +356,15 @@ internal static class OrmLiteDiagnostics
         }
     }
 
+    /// <summary>
+    /// Writes the transaction rollback before.
+    /// </summary>
+    /// <param name="listener">The listener.</param>
+    /// <param name="isolationLevel">The isolation level.</param>
+    /// <param name="dbConn">The database connection.</param>
+    /// <param name="transactionName">Name of the transaction.</param>
+    /// <param name="operation">The operation.</param>
+    /// <returns>Guid.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Guid WriteTransactionRollbackBefore(this DiagnosticListener listener, IsolationLevel isolationLevel,
         IDbConnection dbConn, string transactionName, [CallerMemberName] string operation = "")
@@ -274,6 +387,15 @@ internal static class OrmLiteDiagnostics
         return Guid.Empty;
     }
 
+    /// <summary>
+    /// Writes the transaction rollback after.
+    /// </summary>
+    /// <param name="listener">The listener.</param>
+    /// <param name="operationId">The operation identifier.</param>
+    /// <param name="isolationLevel">The isolation level.</param>
+    /// <param name="dbConn">The database connection.</param>
+    /// <param name="transactionName">Name of the transaction.</param>
+    /// <param name="operation">The operation.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void WriteTransactionRollbackAfter(this DiagnosticListener listener, Guid operationId,
         IsolationLevel isolationLevel, IDbConnection dbConn, string transactionName,
@@ -293,6 +415,16 @@ internal static class OrmLiteDiagnostics
         }
     }
 
+    /// <summary>
+    /// Writes the transaction rollback error.
+    /// </summary>
+    /// <param name="listener">The listener.</param>
+    /// <param name="operationId">The operation identifier.</param>
+    /// <param name="isolationLevel">The isolation level.</param>
+    /// <param name="dbConn">The database connection.</param>
+    /// <param name="transactionName">Name of the transaction.</param>
+    /// <param name="ex">The ex.</param>
+    /// <param name="operation">The operation.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void WriteTransactionRollbackError(this DiagnosticListener listener, Guid operationId,
         IsolationLevel isolationLevel, IDbConnection dbConn, string transactionName, Exception ex,

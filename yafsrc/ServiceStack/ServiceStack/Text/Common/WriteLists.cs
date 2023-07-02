@@ -663,7 +663,7 @@ internal static class WriteLists<T, TSerializer>
     /// Gets the write function.
     /// </summary>
     /// <returns>WriteObjectDelegate.</returns>
-    /// <exception cref="System.ArgumentException"></exception>
+    /// <exception cref="System.ArgumentException">Type {type.FullName} is not of type IList<></exception>
     public static WriteObjectDelegate GetWriteFn()
     {
         var type = typeof(T);

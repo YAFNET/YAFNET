@@ -17,12 +17,12 @@ namespace ServiceStack.DataAnnotations;
 public class IndexAttribute : AttributeBase
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="IndexAttribute"/> class.
+    /// Initializes a new instance of the <see cref="IndexAttribute" /> class.
     /// </summary>
     public IndexAttribute() { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="IndexAttribute"/> class.
+    /// Initializes a new instance of the <see cref="IndexAttribute" /> class.
     /// </summary>
     /// <param name="unique">if set to <c>true</c> [unique].</param>
     public IndexAttribute(bool unique)
@@ -37,13 +37,13 @@ public class IndexAttribute : AttributeBase
     public string Name { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="IndexAttribute"/> is unique.
+    /// Gets or sets a value indicating whether this <see cref="IndexAttribute" /> is unique.
     /// </summary>
     /// <value><c>true</c> if unique; otherwise, <c>false</c>.</value>
     public bool Unique { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="IndexAttribute"/> is clustered.
+    /// Gets or sets a value indicating whether this <see cref="IndexAttribute" /> is clustered.
     /// </summary>
     /// <value><c>true</c> if clustered; otherwise, <c>false</c>.</value>
     public bool Clustered { get; set; }

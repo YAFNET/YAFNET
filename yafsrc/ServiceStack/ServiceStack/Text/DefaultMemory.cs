@@ -35,7 +35,7 @@ public sealed class DefaultMemory : MemoryProvider
     /// <value>The provider.</value>
     public static DefaultMemory Provider => provider ??= new DefaultMemory();
     /// <summary>
-    /// Prevents a default instance of the <see cref="DefaultMemory"/> class from being created.
+    /// Prevents a default instance of the <see cref="DefaultMemory" /> class from being created.
     /// </summary>
     private DefaultMemory() { }
 
@@ -570,8 +570,6 @@ public sealed class DefaultMemory : MemoryProvider
     /// <param name="value">The value.</param>
     /// <returns>Guid.</returns>
     /// <exception cref="System.FormatException"></exception>
-    /// <exception cref="System.FormatException"></exception>
-    /// <exception cref="System.FormatException"></exception>
     public override Guid ParseGuid(ReadOnlySpan<char> value)
     {
         if (value.IsEmpty)
@@ -934,10 +932,6 @@ public sealed class DefaultMemory : MemoryProvider
     /// <param name="len">The length.</param>
     /// <returns>Guid.</returns>
     /// <exception cref="System.FormatException"></exception>
-    /// <exception cref="System.FormatException"></exception>
-    /// <exception cref="System.FormatException"></exception>
-    /// <exception cref="System.FormatException"></exception>
-    /// <exception cref="System.FormatException"></exception>
     private static Guid ParseGeneralStyleGuid(ReadOnlySpan<char> value, out int len)
     {
         var buf = value;
@@ -1032,7 +1026,6 @@ public sealed class DefaultMemory : MemoryProvider
     /// <param name="c2">The c2.</param>
     /// <returns>System.Byte.</returns>
     /// <exception cref="System.FormatException"></exception>
-    /// <exception cref="System.FormatException"></exception>
     private static byte ParseHexByte(char c1, char c2)
     {
         try
@@ -1115,7 +1108,7 @@ internal static class SignedInteger<T> where T : struct, IComparable<T>, IEquata
     private static readonly long maxValue;
 
     /// <summary>
-    /// Initializes static members of the <see cref="SignedInteger{T}"/> class.
+    /// Initializes static members of the <see cref="SignedInteger{T}" /> class.
     /// </summary>
     /// <exception cref="System.NotSupportedException"></exception>
     static SignedInteger()
@@ -1198,12 +1191,6 @@ internal static class SignedInteger<T> where T : struct, IComparable<T>, IEquata
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Int64.</returns>
-    /// <exception cref="System.FormatException"></exception>
-    /// <exception cref="System.FormatException"></exception>
-    /// <exception cref="System.FormatException"></exception>
-    /// <exception cref="System.FormatException"></exception>
-    /// <exception cref="System.FormatException"></exception>
-    /// <exception cref="System.FormatException"></exception>
     /// <exception cref="System.FormatException"></exception>
     public static long ParseInt64(ReadOnlySpan<char> value)
     {
@@ -1336,7 +1323,7 @@ internal static class UnsignedInteger<T> where T : struct, IComparable<T>, IEqua
     private static readonly ulong maxValue;
 
     /// <summary>
-    /// Initializes static members of the <see cref="UnsignedInteger{T}"/> class.
+    /// Initializes static members of the <see cref="UnsignedInteger{T}" /> class.
     /// </summary>
     /// <exception cref="System.NotSupportedException"></exception>
     static UnsignedInteger()
@@ -1405,11 +1392,6 @@ internal static class UnsignedInteger<T> where T : struct, IComparable<T>, IEqua
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.UInt64.</returns>
-    /// <exception cref="System.FormatException"></exception>
-    /// <exception cref="System.FormatException"></exception>
-    /// <exception cref="System.FormatException"></exception>
-    /// <exception cref="System.FormatException"></exception>
-    /// <exception cref="System.FormatException"></exception>
     /// <exception cref="System.FormatException"></exception>
     internal static ulong ParseUInt64(ReadOnlySpan<char> value)
     {

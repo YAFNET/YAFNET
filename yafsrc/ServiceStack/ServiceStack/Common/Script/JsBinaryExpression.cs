@@ -16,7 +16,7 @@ namespace ServiceStack.Script;
 public class JsBinaryExpression : JsExpression
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsBinaryExpression"/> class.
+    /// Initializes a new instance of the <see cref="JsBinaryExpression" /> class.
     /// </summary>
     /// <param name="left">The left.</param>
     /// <param name="operator">The operator.</param>

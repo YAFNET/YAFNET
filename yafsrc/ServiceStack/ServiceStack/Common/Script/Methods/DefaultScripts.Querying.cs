@@ -78,7 +78,7 @@ public partial class DefaultScripts
     /// <param name="target">The target.</param>
     /// <param name="needle">The needle.</param>
     /// <returns><c>true</c> if [contains] [the specified target]; otherwise, <c>false</c>.</returns>
-    /// <exception cref="System.NotSupportedException">'{nameof(contains)}' requires a string or IEnumerable but received a '{target.GetType()?.Name}' instead</exception>
+    /// <exception cref="System.NotSupportedException">'{nameof(contains)}' requires a string or IEnumerable but received a '{target.GetType().Name}' instead</exception>
     public bool contains(object target, object needle)
     {
         if (isNull(needle))
@@ -370,7 +370,6 @@ public partial class DefaultScripts
     /// <param name="scopeOptions">The scope options.</param>
     /// <returns>System.Object.</returns>
     /// <exception cref="System.NotSupportedException"></exception>
-    /// <exception cref="System.NotSupportedException"></exception>
     public object reduce(ScriptScopeContext scope, object target, object expression, object scopeOptions)
     {
         var items = target.AssertEnumerable(nameof(reduce));
@@ -524,7 +523,7 @@ public partial class DefaultScripts
     /// <param name="scopeBindings">The scope bindings.</param>
     /// <returns>System.Object.</returns>
     /// <exception cref="System.NotSupportedException">'{nameof(let)}' in '{scope.Page.VirtualPath}' expects a string Expression for its value but received '{entry.Value}' instead</exception>
-    /// <exception cref="System.NotSupportedException">'{nameof(let)}' in '{scope.Page.VirtualPath}' requires an IEnumerable but received a '{target.GetType()?.Name}' instead</exception>
+    /// <exception cref="System.NotSupportedException">'{nameof(let)}' in '{scope.Page.VirtualPath}' requires an IEnumerable but received a '{target.GetType().Name}' instead</exception>
     public object let(ScriptScopeContext scope, object target, object scopeBindings) //from filter
     {
         if (target is IEnumerable objs)
@@ -946,7 +945,7 @@ public partial class DefaultScripts
         /// </summary>
         private readonly IComparer comparer;
         /// <summary>
-        /// Initializes a new instance of the <see cref="ComparerWrapper"/> class.
+        /// Initializes a new instance of the <see cref="ComparerWrapper" /> class.
         /// </summary>
         /// <param name="comparer">The comparer.</param>
         public ComparerWrapper(IComparer comparer)
@@ -982,7 +981,7 @@ public partial class DefaultScripts
         /// </summary>
         private readonly IEqualityComparer comparer;
         /// <summary>
-        /// Initializes a new instance of the <see cref="EqualityComparerWrapper"/> class.
+        /// Initializes a new instance of the <see cref="EqualityComparerWrapper" /> class.
         /// </summary>
         /// <param name="comparer">The comparer.</param>
         public EqualityComparerWrapper(IEqualityComparer comparer)
@@ -1017,7 +1016,7 @@ public partial class DefaultScripts
         /// </summary>
         private readonly IEqualityComparer<T> comparer;
         /// <summary>
-        /// Initializes a new instance of the <see cref="EqualityComparerWrapper{T}"/> class.
+        /// Initializes a new instance of the <see cref="EqualityComparerWrapper{T}" /> class.
         /// </summary>
         /// <param name="comparer">The comparer.</param>
         public EqualityComparerWrapper(IEqualityComparer<T> comparer)
@@ -1047,7 +1046,7 @@ public partial class DefaultScripts
     /// <param name="scope">The scope.</param>
     /// <param name="scopedParams">The scoped parameters.</param>
     /// <returns>IComparer&lt;System.Object&gt;.</returns>
-    /// <exception cref="System.NotSupportedException">'{filterName}' in '{scope.Page.VirtualPath}' expects a IComparer but received a '{oComparer.GetType()?.Name}' instead</exception>
+    /// <exception cref="System.NotSupportedException">'{filterName}' in '{scope.Page.VirtualPath}' expects a IComparer but received a '{oComparer.GetType().Name}' instead</exception>
     private static IComparer<object> GetComparer(string filterName, ScriptScopeContext scope, IReadOnlyDictionary<string, object> scopedParams)
     {
         var comparer = (IComparer<object>)Comparer<object>.Default;
@@ -1092,7 +1091,7 @@ public partial class DefaultScripts
     /// <param name="expression">The expression.</param>
     /// <param name="scopeOptions">The scope options.</param>
     /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
-    /// <exception cref="System.NotSupportedException">'{filterName}' in '{scope.Page.VirtualPath}' requires an IOrderedEnumerable but received a '{target?.GetType()?.Name}' instead</exception>
+    /// <exception cref="System.NotSupportedException">'{filterName}' in '{scope.Page.VirtualPath}' requires an IOrderedEnumerable but received a '{target?.GetType().Name}' instead</exception>
     public static IEnumerable<object> thenByInternal(string filterName, ScriptScopeContext scope, object target, object expression, object scopeOptions)
     {
         if (target is not IOrderedEnumerable<object> items)
@@ -1126,7 +1125,7 @@ public partial class DefaultScripts
     /// <param name="expression">The expression.</param>
     /// <param name="scopeOptions">The scope options.</param>
     /// <returns>IEnumerable&lt;IGrouping&lt;System.Object, System.Object&gt;&gt;.</returns>
-    /// <exception cref="System.NotSupportedException">'{nameof(groupBy)}' in '{scope.Page.VirtualPath}' expects a IEqualityComparer but received a '{oComparer.GetType()?.Name}' instead</exception>
+    /// <exception cref="System.NotSupportedException">'{nameof(groupBy)}' in '{scope.Page.VirtualPath}' expects a IEqualityComparer but received a '{oComparer.GetType().Name}' instead</exception>
     /// <exception cref="System.NotSupportedException">map expression in '{nameof(groupBy)}' must be a string or arrow expression</exception>
     public IEnumerable<IGrouping<object, object>> groupBy(ScriptScopeContext scope, IEnumerable<object> items, object expression, object scopeOptions)
     {

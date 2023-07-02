@@ -84,7 +84,6 @@ public partial class DefaultScripts
     /// <param name="item">The item.</param>
     /// <returns>System.Int32.</returns>
     /// <exception cref="System.NotSupportedException"></exception>
-    /// <exception cref="System.NotSupportedException"></exception>
     public int indexOf(object target, object item)
     {
         if (target is string s)
@@ -107,7 +106,6 @@ public partial class DefaultScripts
     /// <param name="startIndex">The start index.</param>
     /// <returns>System.Int32.</returns>
     /// <exception cref="System.NotSupportedException"></exception>
-    /// <exception cref="System.NotSupportedException"></exception>
     public int indexOf(object target, object item, int startIndex)
     {
         if (target is string s)
@@ -128,7 +126,6 @@ public partial class DefaultScripts
     /// <param name="target">The target.</param>
     /// <param name="item">The item.</param>
     /// <returns>System.Int32.</returns>
-    /// <exception cref="System.NotSupportedException"></exception>
     /// <exception cref="System.NotSupportedException"></exception>
     public int lastIndexOf(object target, object item)
     {
@@ -153,7 +150,6 @@ public partial class DefaultScripts
     /// <param name="item">The item.</param>
     /// <param name="startIndex">The start index.</param>
     /// <returns>System.Int32.</returns>
-    /// <exception cref="System.NotSupportedException"></exception>
     /// <exception cref="System.NotSupportedException"></exception>
     public int lastIndexOf(object target, object item, int startIndex)
     {

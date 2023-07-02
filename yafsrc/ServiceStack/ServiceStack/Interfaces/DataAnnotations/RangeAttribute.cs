@@ -35,7 +35,7 @@ public class RangeAttribute : AttributeBase
     public Type OperandType { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RangeAttribute"/> class.
+    /// Initializes a new instance of the <see cref="RangeAttribute" /> class.
     /// </summary>
     /// <param name="minimum">The minimum.</param>
     /// <param name="maximum">The maximum.</param>
@@ -47,7 +47,7 @@ public class RangeAttribute : AttributeBase
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RangeAttribute"/> class.
+    /// Initializes a new instance of the <see cref="RangeAttribute" /> class.
     /// </summary>
     /// <param name="minimum">The minimum.</param>
     /// <param name="maximum">The maximum.</param>
@@ -59,7 +59,7 @@ public class RangeAttribute : AttributeBase
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RangeAttribute"/> class.
+    /// Initializes a new instance of the <see cref="RangeAttribute" /> class.
     /// </summary>
     /// <param name="type">The type.</param>
     /// <param name="minimum">The minimum.</param>

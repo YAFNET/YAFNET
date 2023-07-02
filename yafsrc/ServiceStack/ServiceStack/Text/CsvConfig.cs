@@ -16,7 +16,7 @@ namespace ServiceStack.Text;
 public static class CsvConfig
 {
     /// <summary>
-    /// Initializes static members of the <see cref="CsvConfig"/> class.
+    /// Initializes static members of the <see cref="CsvConfig" /> class.
     /// </summary>
     static CsvConfig()
     {

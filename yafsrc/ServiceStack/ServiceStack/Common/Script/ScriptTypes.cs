@@ -23,7 +23,7 @@ public class RawString : IRawString
     /// </summary>
     private readonly string value;
     /// <summary>
-    /// Initializes a new instance of the <see cref="RawString"/> class.
+    /// Initializes a new instance of the <see cref="RawString" /> class.
     /// </summary>
     /// <param name="value">The value.</param>
     public RawString(string value)

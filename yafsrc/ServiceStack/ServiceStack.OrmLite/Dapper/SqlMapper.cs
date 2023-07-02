@@ -428,6 +428,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="demand">Whether to demand a value (throw if missing).</param>
         /// <param name="handler">The handler for <paramref name="type" />.</param>
         /// <returns>System.Data.DbType.</returns>
+        /// <exception cref="NotSupportedException">$"The member {name} of type {type.FullName} cannot be used as a parameter value</exception>
         /// <exception cref="UdtTypeHandler">geography</exception>
         [Obsolete(ObsoleteInternalUsageOnly, false)]
         [Browsable(false)]
@@ -1974,6 +1975,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// Passes the by position.
         /// </summary>
         /// <param name="cmd">The command.</param>
+        /// <exception cref="InvalidOperationException">When passing parameters by position, each parameter can only be referenced once</exception>
         private static void PassByPosition(IDbCommand cmd)
         {
             if (cmd.Parameters.Count == 0) return;
@@ -3523,6 +3525,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="startBound">The start bound.</param>
         /// <param name="length">The length.</param>
         /// <param name="il">The il.</param>
+        /// <exception cref="InvalidOperationException">The Rest field of a ValueTuple must contain a nested ValueTuple of arity 1 or greater.</exception>
         private static void GenerateValueTupleDeserializer(Type valueTupleType, IDataReader reader, int startBound, int length, ILGenerator il)
         {
             var currentValueTupleType = valueTupleType;

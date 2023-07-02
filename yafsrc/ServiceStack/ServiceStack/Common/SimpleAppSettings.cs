@@ -26,7 +26,7 @@ public class SimpleAppSettings : IAppSettings
     private readonly Dictionary<string, string> settings;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SimpleAppSettings"/> class.
+    /// Initializes a new instance of the <see cref="SimpleAppSettings" /> class.
     /// </summary>
     /// <param name="settings">The settings.</param>
     public SimpleAppSettings(Dictionary<string, string> settings = null)

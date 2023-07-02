@@ -112,6 +112,12 @@ public interface IUntypedApi
     /// <returns>System.Int32.</returns>
     int Update(object obj);
 
+    /// <summary>
+    /// Updates the asynchronous.
+    /// </summary>
+    /// <param name="obj">The object.</param>
+    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <returns>Task&lt;System.Int32&gt;.</returns>
     Task<int> UpdateAsync(object obj, CancellationToken token);
 
     /// <summary>

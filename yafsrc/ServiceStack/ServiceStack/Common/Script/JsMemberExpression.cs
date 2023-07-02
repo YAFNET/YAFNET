@@ -30,20 +30,20 @@ public class JsMemberExpression : JsExpression
     /// <value>The property.</value>
     public JsToken Property { get; }
     /// <summary>
-    /// Gets a value indicating whether this <see cref="JsMemberExpression"/> is computed.
+    /// Gets a value indicating whether this <see cref="JsMemberExpression" /> is computed.
     /// </summary>
     /// <value><c>true</c> if computed; otherwise, <c>false</c>.</value>
     public bool Computed { get; } //indexer
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsMemberExpression"/> class.
+    /// Initializes a new instance of the <see cref="JsMemberExpression" /> class.
     /// </summary>
     /// <param name="object">The object.</param>
     /// <param name="property">The property.</param>
     public JsMemberExpression(JsToken @object, JsToken property) : this(@object, property, false) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsMemberExpression"/> class.
+    /// Initializes a new instance of the <see cref="JsMemberExpression" /> class.
     /// </summary>
     /// <param name="object">The object.</param>
     /// <param name="property">The property.</param>

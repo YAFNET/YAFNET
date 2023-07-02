@@ -90,7 +90,7 @@ namespace ServiceStack.ExpressionUtil
     internal sealed class BinaryExpressionFingerprint : ExpressionFingerprint
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BinaryExpressionFingerprint"/> class.
+        /// Initializes a new instance of the <see cref="BinaryExpressionFingerprint" /> class.
         /// </summary>
         /// <param name="nodeType">Type of the node.</param>
         /// <param name="type">The type.</param>
@@ -334,7 +334,7 @@ namespace ServiceStack.ExpressionUtil
     internal sealed class ConditionalExpressionFingerprint : ExpressionFingerprint
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConditionalExpressionFingerprint"/> class.
+        /// Initializes a new instance of the <see cref="ConditionalExpressionFingerprint" /> class.
         /// </summary>
         /// <param name="nodeType">Type of the node.</param>
         /// <param name="type">The type.</param>
@@ -374,7 +374,7 @@ namespace ServiceStack.ExpressionUtil
     internal sealed class ConstantExpressionFingerprint : ExpressionFingerprint
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConstantExpressionFingerprint"/> class.
+        /// Initializes a new instance of the <see cref="ConstantExpressionFingerprint" /> class.
         /// </summary>
         /// <param name="nodeType">Type of the node.</param>
         /// <param name="type">The type.</param>
@@ -414,7 +414,7 @@ namespace ServiceStack.ExpressionUtil
     internal sealed class DefaultExpressionFingerprint : ExpressionFingerprint
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="DefaultExpressionFingerprint"/> class.
+        /// Initializes a new instance of the <see cref="DefaultExpressionFingerprint" /> class.
         /// </summary>
         /// <param name="nodeType">Type of the node.</param>
         /// <param name="type">The type.</param>
@@ -452,7 +452,7 @@ namespace ServiceStack.ExpressionUtil
     internal abstract class ExpressionFingerprint
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ExpressionFingerprint"/> class.
+        /// Initializes a new instance of the <see cref="ExpressionFingerprint" /> class.
         /// </summary>
         /// <param name="nodeType">Type of the node.</param>
         /// <param name="type">The type.</param>
@@ -611,7 +611,7 @@ namespace ServiceStack.ExpressionUtil
         private bool _gaveUp;
 
         /// <summary>
-        /// Prevents a default instance of the <see cref="FingerprintingExpressionVisitor"/> class from being created.
+        /// Prevents a default instance of the <see cref="FingerprintingExpressionVisitor" /> class from being created.
         /// </summary>
         private FingerprintingExpressionVisitor()
         {
@@ -1186,7 +1186,7 @@ namespace ServiceStack.ExpressionUtil
 
         // factory will create instance
         /// <summary>
-        /// Prevents a default instance of the <see cref="HoistingExpressionVisitor{TIn, TOut}"/> class from being created.
+        /// Prevents a default instance of the <see cref="HoistingExpressionVisitor{TIn, TOut}" /> class from being created.
         /// </summary>
         private HoistingExpressionVisitor()
         {
@@ -1227,7 +1227,7 @@ namespace ServiceStack.ExpressionUtil
     internal sealed class IndexExpressionFingerprint : ExpressionFingerprint
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="IndexExpressionFingerprint"/> class.
+        /// Initializes a new instance of the <see cref="IndexExpressionFingerprint" /> class.
         /// </summary>
         /// <param name="nodeType">Type of the node.</param>
         /// <param name="type">The type.</param>
@@ -1288,7 +1288,7 @@ namespace ServiceStack.ExpressionUtil
     internal sealed class LambdaExpressionFingerprint : ExpressionFingerprint
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="LambdaExpressionFingerprint"/> class.
+        /// Initializes a new instance of the <see cref="LambdaExpressionFingerprint" /> class.
         /// </summary>
         /// <param name="nodeType">Type of the node.</param>
         /// <param name="type">The type.</param>
@@ -1328,7 +1328,7 @@ namespace ServiceStack.ExpressionUtil
     internal sealed class MemberExpressionFingerprint : ExpressionFingerprint
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MemberExpressionFingerprint"/> class.
+        /// Initializes a new instance of the <see cref="MemberExpressionFingerprint" /> class.
         /// </summary>
         /// <param name="nodeType">Type of the node.</param>
         /// <param name="type">The type.</param>
@@ -1386,7 +1386,7 @@ namespace ServiceStack.ExpressionUtil
     internal sealed class MethodCallExpressionFingerprint : ExpressionFingerprint
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="MethodCallExpressionFingerprint"/> class.
+        /// Initializes a new instance of the <see cref="MethodCallExpressionFingerprint" /> class.
         /// </summary>
         /// <param name="nodeType">Type of the node.</param>
         /// <param name="type">The type.</param>
@@ -1447,7 +1447,7 @@ namespace ServiceStack.ExpressionUtil
     internal sealed class ParameterExpressionFingerprint : ExpressionFingerprint
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ParameterExpressionFingerprint"/> class.
+        /// Initializes a new instance of the <see cref="ParameterExpressionFingerprint" /> class.
         /// </summary>
         /// <param name="nodeType">Type of the node.</param>
         /// <param name="type">The type.</param>
@@ -1505,7 +1505,7 @@ namespace ServiceStack.ExpressionUtil
     internal sealed class TypeBinaryExpressionFingerprint : ExpressionFingerprint
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="TypeBinaryExpressionFingerprint"/> class.
+        /// Initializes a new instance of the <see cref="TypeBinaryExpressionFingerprint" /> class.
         /// </summary>
         /// <param name="nodeType">Type of the node.</param>
         /// <param name="type">The type.</param>
@@ -1563,7 +1563,7 @@ namespace ServiceStack.ExpressionUtil
     internal sealed class UnaryExpressionFingerprint : ExpressionFingerprint
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="UnaryExpressionFingerprint"/> class.
+        /// Initializes a new instance of the <see cref="UnaryExpressionFingerprint" /> class.
         /// </summary>
         /// <param name="nodeType">Type of the node.</param>
         /// <param name="type">The type.</param>

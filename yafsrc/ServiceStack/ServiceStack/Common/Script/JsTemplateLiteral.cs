@@ -28,14 +28,14 @@ public class JsTemplateLiteral : JsExpression
     public JsToken[] Expressions { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsTemplateLiteral"/> class.
+    /// Initializes a new instance of the <see cref="JsTemplateLiteral" /> class.
     /// </summary>
     /// <param name="cooked">The cooked.</param>
     public JsTemplateLiteral(string cooked)
         : this(new[] { new JsTemplateElement(cooked, cooked, tail: true) }) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsTemplateLiteral"/> class.
+    /// Initializes a new instance of the <see cref="JsTemplateLiteral" /> class.
     /// </summary>
     /// <param name="quasis">The quasis.</param>
     /// <param name="expressions">The expressions.</param>
@@ -194,13 +194,13 @@ public class JsTemplateElement
     /// <value>The value.</value>
     public JsTemplateElementValue Value { get; }
     /// <summary>
-    /// Gets a value indicating whether this <see cref="JsTemplateElement"/> is tail.
+    /// Gets a value indicating whether this <see cref="JsTemplateElement" /> is tail.
     /// </summary>
     /// <value><c>true</c> if tail; otherwise, <c>false</c>.</value>
     public bool Tail { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsTemplateElement"/> class.
+    /// Initializes a new instance of the <see cref="JsTemplateElement" /> class.
     /// </summary>
     /// <param name="raw">The raw.</param>
     /// <param name="cooked">The cooked.</param>
@@ -210,7 +210,7 @@ public class JsTemplateElement
     { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsTemplateElement"/> class.
+    /// Initializes a new instance of the <see cref="JsTemplateElement" /> class.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <param name="tail">if set to <c>true</c> [tail].</param>
@@ -273,7 +273,7 @@ public class JsTemplateElementValue
     public string Cooked { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsTemplateElementValue"/> class.
+    /// Initializes a new instance of the <see cref="JsTemplateElementValue" /> class.
     /// </summary>
     /// <param name="raw">The raw.</param>
     /// <param name="cooked">The cooked.</param>

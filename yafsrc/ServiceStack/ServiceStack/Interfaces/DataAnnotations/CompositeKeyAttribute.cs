@@ -18,7 +18,7 @@ namespace ServiceStack.DataAnnotations;
 public class CompositeKeyAttribute : AttributeBase
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="CompositeKeyAttribute"/> class.
+    /// Initializes a new instance of the <see cref="CompositeKeyAttribute" /> class.
     /// </summary>
     public CompositeKeyAttribute()
     {
@@ -26,7 +26,7 @@ public class CompositeKeyAttribute : AttributeBase
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CompositeKeyAttribute"/> class.
+    /// Initializes a new instance of the <see cref="CompositeKeyAttribute" /> class.
     /// </summary>
     /// <param name="fieldNames">The field names.</param>
     public CompositeKeyAttribute(params string[] fieldNames)

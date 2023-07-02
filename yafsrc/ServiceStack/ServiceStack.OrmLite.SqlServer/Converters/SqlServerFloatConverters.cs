@@ -45,7 +45,7 @@ public class SqlServerDoubleConverter : DoubleConverter
 public class SqlServerDecimalConverter : DecimalConverter
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="SqlServerDecimalConverter"/> class.
+    /// Initializes a new instance of the <see cref="SqlServerDecimalConverter" /> class.
     /// </summary>
     public SqlServerDecimalConverter() : base(38, 6) { }
 }

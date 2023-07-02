@@ -73,7 +73,7 @@ public class ResourceVirtualFile : AbstractVirtualFileBase
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ResourceVirtualFile"/> class.
+    /// Initializes a new instance of the <see cref="ResourceVirtualFile" /> class.
     /// </summary>
     /// <param name="owningProvider">The owning provider.</param>
     /// <param name="directory">The directory.</param>

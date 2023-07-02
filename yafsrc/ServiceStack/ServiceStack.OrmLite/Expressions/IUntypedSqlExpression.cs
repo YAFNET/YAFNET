@@ -605,7 +605,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     private SqlExpression<T> q;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="UntypedSqlExpressionProxy{T}"/> class.
+    /// Initializes a new instance of the <see cref="UntypedSqlExpressionProxy{T}" /> class.
     /// </summary>
     /// <param name="q">The q.</param>
     public UntypedSqlExpressionProxy(SqlExpression<T> q)

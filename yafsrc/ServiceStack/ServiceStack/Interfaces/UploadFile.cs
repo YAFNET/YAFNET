@@ -35,14 +35,14 @@ public class UploadFile
     public string ContentType { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="UploadFile"/> class.
+    /// Initializes a new instance of the <see cref="UploadFile" /> class.
     /// </summary>
     /// <param name="stream">The stream.</param>
     public UploadFile(Stream stream)
         : this(null, stream, null, null) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="UploadFile"/> class.
+    /// Initializes a new instance of the <see cref="UploadFile" /> class.
     /// </summary>
     /// <param name="fileName">Name of the file.</param>
     /// <param name="stream">The stream.</param>
@@ -50,7 +50,7 @@ public class UploadFile
         : this(fileName, stream, null, null) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="UploadFile"/> class.
+    /// Initializes a new instance of the <see cref="UploadFile" /> class.
     /// </summary>
     /// <param name="fileName">Name of the file.</param>
     /// <param name="stream">The stream.</param>
@@ -59,7 +59,7 @@ public class UploadFile
         : this(fileName, stream, fieldName, null) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="UploadFile"/> class.
+    /// Initializes a new instance of the <see cref="UploadFile" /> class.
     /// </summary>
     /// <param name="fileName">Name of the file.</param>
     /// <param name="stream">The stream.</param>

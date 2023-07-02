@@ -26,7 +26,7 @@ public class DecimalLengthAttribute : AttributeBase
     public int Scale { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DecimalLengthAttribute"/> class.
+    /// Initializes a new instance of the <see cref="DecimalLengthAttribute" /> class.
     /// </summary>
     /// <param name="precision">The precision.</param>
     /// <param name="scale">The scale.</param>
@@ -37,7 +37,7 @@ public class DecimalLengthAttribute : AttributeBase
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DecimalLengthAttribute"/> class.
+    /// Initializes a new instance of the <see cref="DecimalLengthAttribute" /> class.
     /// </summary>
     /// <param name="precision">The precision.</param>
     public DecimalLengthAttribute(int precision)
@@ -46,7 +46,7 @@ public class DecimalLengthAttribute : AttributeBase
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DecimalLengthAttribute"/> class.
+    /// Initializes a new instance of the <see cref="DecimalLengthAttribute" /> class.
     /// </summary>
     public DecimalLengthAttribute()
         : this(18, 0)

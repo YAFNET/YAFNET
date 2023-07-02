@@ -65,7 +65,7 @@ public abstract class PclExport
     public static ReflectionOptimizer Reflection => ReflectionOptimizer.Instance;
 
     /// <summary>
-    /// Initializes static members of the <see cref="PclExport"/> class.
+    /// Initializes static members of the <see cref="PclExport" /> class.
     /// </summary>
     static PclExport() { }
 
@@ -481,7 +481,7 @@ public abstract class PclExport
     {
         return new UTF8Encoding(emitBom);
     }
-        
+
     /// <summary>
     /// Ins the same assembly.
     /// </summary>

@@ -502,7 +502,7 @@ public static class ReflectionExtensions
         /// </summary>
         public static readonly EmptyCtorDelegate EmptyCtorFn;
         /// <summary>
-        /// Initializes static members of the <see cref="TypeMeta{T}"/> class.
+        /// Initializes static members of the <see cref="TypeMeta{T}" /> class.
         /// </summary>
         static TypeMeta()
         {

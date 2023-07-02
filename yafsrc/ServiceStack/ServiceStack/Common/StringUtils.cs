@@ -28,7 +28,7 @@ using ServiceStack.Text.Extensions;
 public class TextNode
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="TextNode"/> class.
+    /// Initializes a new instance of the <see cref="TextNode" /> class.
     /// </summary>
     public TextNode()
     {
@@ -69,6 +69,7 @@ public static class StringUtils
     /// <param name="commandsString">The commands string.</param>
     /// <param name="separator">The separator.</param>
     /// <returns>List&lt;Command&gt;.</returns>
+    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Illegal syntax near '{commandsString.SafeSlice(pos - 10, 50)}...'</exception>
     /// <exception cref="System.Exception">Illegal syntax near '{commandsString.SafeSlice(pos - 10, 50)}...'</exception>
     public static List<Command> ParseCommands(this ReadOnlyMemory<char> commandsString,
                                               char separator = ',')
@@ -794,8 +795,16 @@ public static class StringUtils
         return node;
     }
 
+    /// <summary>
+    /// Creates new linememory.
+    /// </summary>
     public static ReadOnlyMemory<char> NewLineMemory = Environment.NewLine.AsMemory();
 
+    /// <summary>
+    /// Appends the line.
+    /// </summary>
+    /// <param name="sb">The sb.</param>
+    /// <param name="line">The line.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void AppendLine(this StringBuilder sb, ReadOnlyMemory<char> line)
     {

@@ -2262,8 +2262,8 @@ public static class DynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>IDynamicNumber.</returns>
     /// <exception cref="System.ArgumentException">Invalid numbers passed to {name}: " +
-    ///                                             $"({lhs?.GetType().Name ?? "null"} '{lhs?.ToString().SubstringWithEllipsis(0, 100)}', " +
-    ///                                             $"{rhs?.GetType().Name ?? "null"} '{rhs?.ToString().SubstringWithEllipsis(0, 100)}')</exception>
+    ///                                         $"({lhs?.GetType().Name ?? "null"} '{lhs?.ToString().SubstringWithEllipsis(0, 100)}', " +
+    ///                                         $"{rhs?.GetType().Name ?? "null"} '{rhs?.ToString().SubstringWithEllipsis(0, 100)}')</exception>
     public static IDynamicNumber AssertNumbers(string name, object lhs, object rhs)
     {
         var number = GetNumber(lhs, rhs);

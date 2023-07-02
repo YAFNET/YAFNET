@@ -23,7 +23,7 @@ public class BelongToAttribute : AttributeBase
     public Type BelongToTableType { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="BelongToAttribute"/> class.
+    /// Initializes a new instance of the <see cref="BelongToAttribute" /> class.
     /// </summary>
     /// <param name="belongToTableType">Type of the belong to table.</param>
     public BelongToAttribute(Type belongToTableType)

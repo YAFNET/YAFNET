@@ -26,7 +26,7 @@ using ServiceStack.Text.Extensions;
 public sealed class ScriptCode : ScriptLanguage
 {
     /// <summary>
-    /// Prevents a default instance of the <see cref="ScriptCode"/> class from being created.
+    /// Prevents a default instance of the <see cref="ScriptCode" /> class from being created.
     /// </summary>
     private ScriptCode() { } // force usage of singleton
 

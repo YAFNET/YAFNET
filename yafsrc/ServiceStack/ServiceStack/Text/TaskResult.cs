@@ -40,7 +40,7 @@ public static class TaskResult
     public static readonly Task Canceled;
 
     /// <summary>
-    /// Initializes static members of the <see cref="TaskResult"/> class.
+    /// Initializes static members of the <see cref="TaskResult" /> class.
     /// </summary>
     static TaskResult()
     {
@@ -72,7 +72,7 @@ internal class TaskResult<T>
     public static readonly Task<T> Default;
 
     /// <summary>
-    /// Initializes static members of the <see cref="TaskResult{T}"/> class.
+    /// Initializes static members of the <see cref="TaskResult{T}" /> class.
     /// </summary>
     static TaskResult()
     {

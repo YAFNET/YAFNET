@@ -29,9 +29,7 @@ public static class StringExtensions
     /// <param name="from">From.</param>
     /// <param name="to">To.</param>
     /// <returns>string.</returns>
-    /// <exception cref="Exception">$"Parameter: '{source}' is not valid integer (in base {@from}).</exception>
-    /// <exception cref="Exception">$"Parameter: '{source}' is not valid integer (in base {@from}).</exception>
-    /// <exception cref="Exception">$"Parameter: '{source}' is not valid integer (in base {@from}).</exception>
+    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Parameter: '{source}' is not valid integer (in base {from}).</exception>
     public static string BaseConvert(this string source, int from, int to)
     {
         var chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -224,7 +222,7 @@ public static class StringExtensions
     /// </summary>
     /// <param name="path">The path.</param>
     /// <returns>string.</returns>
-    /// <exception cref="ArgumentNullException">nameof(path)</exception>
+    /// <exception cref="System.ArgumentNullException">path</exception>
     public static string WithTrailingSlash(this string path)
     {
         return path switch
@@ -496,6 +494,13 @@ public static class StringExtensions
         return TypeSerializer.SerializeToString(obj);
     }
 
+    /// <summary>
+    /// Converts to jsv.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="obj">The object.</param>
+    /// <param name="configure">The configure.</param>
+    /// <returns>System.String.</returns>
     public static string ToJsv<T>(this T obj, Action<Config> configure)
     {
         var config = new Config();
@@ -589,6 +594,13 @@ public static class StringExtensions
         return CsvSerializer.SerializeToString(obj);
     }
 
+    /// <summary>
+    /// Converts to csv.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="obj">The object.</param>
+    /// <param name="configure">The configure.</param>
+    /// <returns>System.String.</returns>
     public static string ToCsv<T>(this T obj, Action<Config> configure)
     {
         var config = new Config();
@@ -758,9 +770,9 @@ public static class StringExtensions
     /// <param name="startAfter">The start after.</param>
     /// <param name="endAt">The end at.</param>
     /// <returns>string.</returns>
-    /// <exception cref="ArgumentNullException">nameof(uniqueMarker)</exception>
-    /// <exception cref="ArgumentNullException">nameof(uniqueMarker)</exception>
-    /// <exception cref="ArgumentNullException">nameof(uniqueMarker)</exception>
+    /// <exception cref="System.ArgumentNullException">uniqueMarker</exception>
+    /// <exception cref="System.ArgumentNullException">startAfter</exception>
+    /// <exception cref="System.ArgumentNullException">endAt</exception>
     public static string ExtractContents(this string fromText, string uniqueMarker, string startAfter, string endAt)
     {
         if (string.IsNullOrEmpty(uniqueMarker))
@@ -969,7 +981,7 @@ public static class StringExtensions
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>bool.</returns>
-    /// <exception cref="ArgumentNullException">nameof(type)</exception>
+    /// <exception cref="System.ArgumentNullException">type</exception>
     public static bool IsAnonymousType(this Type type)
     {
         if (type == null)
@@ -1653,7 +1665,7 @@ public static class StringExtensions
     /// <param name="i">The i.</param>
     /// <param name="upper">The upper.</param>
     /// <returns>char.</returns>
-    /// <exception cref="ArgumentOutOfRangeException">nameof(i), must be between 0 and 15</exception>
+    /// <exception cref="System.ArgumentOutOfRangeException">i - must be between 0 and 15</exception>
     private static char GetHexValue(int i, bool upper)
     {
         if (i < 0 || i > 15)

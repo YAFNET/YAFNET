@@ -63,12 +63,12 @@ public class ApiResponseAttribute : AttributeBase, IApiResponseDescription
     public Type ResponseType { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ApiResponseAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ApiResponseAttribute" /> class.
     /// </summary>
     public ApiResponseAttribute() { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ApiResponseAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ApiResponseAttribute" /> class.
     /// </summary>
     /// <param name="statusCode">The status code.</param>
     /// <param name="description">The description.</param>
@@ -79,7 +79,7 @@ public class ApiResponseAttribute : AttributeBase, IApiResponseDescription
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ApiResponseAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ApiResponseAttribute" /> class.
     /// </summary>
     /// <param name="statusCode">The status code.</param>
     /// <param name="description">The description.</param>

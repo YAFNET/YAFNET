@@ -39,7 +39,7 @@ public static partial class SqlMapper
         private object[] values;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DapperRow"/> class.
+        /// Initializes a new instance of the <see cref="DapperRow" /> class.
         /// </summary>
         /// <param name="table">The table.</param>
         /// <param name="values">The values.</param>
@@ -61,7 +61,7 @@ public static partial class SqlMapper
             /// </summary>
             public static readonly DeadValue Default = new DeadValue();
             /// <summary>
-            /// Prevents a default instance of the <see cref="DeadValue"/> class from being created.
+            /// Prevents a default instance of the <see cref="DeadValue" /> class from being created.
             /// </summary>
             private DeadValue() { /* hiding constructor */ }
         }
@@ -267,7 +267,7 @@ public static partial class SqlMapper
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="System.Object"/> with the specified key.
+        /// Gets or sets the <see cref="System.Object" /> with the specified key.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>System.Object.</returns>
@@ -376,7 +376,7 @@ public static partial class SqlMapper
         }
 
         /// <summary>
-        /// Gets the <see cref="System.Object"/> with the specified key.
+        /// Gets the <see cref="System.Object" /> with the specified key.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>System.Object.</returns>

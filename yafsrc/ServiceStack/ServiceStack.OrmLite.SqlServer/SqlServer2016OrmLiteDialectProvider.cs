@@ -18,7 +18,7 @@ using ServiceStack.OrmLite.SqlServer.Converters;
 public class SqlServer2016OrmLiteDialectProvider : SqlServer2014OrmLiteDialectProvider
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="SqlServer2016OrmLiteDialectProvider"/> class.
+    /// Initializes a new instance of the <see cref="SqlServer2016OrmLiteDialectProvider" /> class.
     /// </summary>
     public SqlServer2016OrmLiteDialectProvider()
     {

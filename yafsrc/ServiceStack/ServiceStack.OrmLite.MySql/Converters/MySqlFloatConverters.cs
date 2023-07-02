@@ -16,7 +16,7 @@ namespace ServiceStack.OrmLite.MySql.Converters;
 public class MySqlDecimalConverter : DecimalConverter
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MySqlDecimalConverter"/> class.
+    /// Initializes a new instance of the <see cref="MySqlDecimalConverter" /> class.
     /// </summary>
     public MySqlDecimalConverter() : base(38,6) { }
 }

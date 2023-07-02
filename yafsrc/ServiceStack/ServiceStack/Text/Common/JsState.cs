@@ -58,6 +58,9 @@ internal static class JsState
     [ThreadStatic]
     internal static bool IsCsv = false;
 
+    /// <summary>
+    /// The declaring type
+    /// </summary>
     [ThreadStatic]
     internal static Type DeclaringType;
 

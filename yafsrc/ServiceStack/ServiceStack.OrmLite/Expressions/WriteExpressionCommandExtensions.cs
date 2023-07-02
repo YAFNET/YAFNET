@@ -147,6 +147,15 @@ internal static class WriteExpressionCommandExtensions
         return cmd.ExecNonQuery();
     }
 
+    /// <summary>
+    /// Updates the only.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="dbCmd">The database command.</param>
+    /// <param name="updateFields">The update fields.</param>
+    /// <param name="q">The q.</param>
+    /// <param name="commandFilter">The command filter.</param>
+    /// <returns>System.Int32.</returns>
     internal static int UpdateOnly<T>(this IDbCommand dbCmd,
                                       Expression<Func<T>> updateFields,
                                       SqlExpression<T> q,
@@ -401,23 +410,13 @@ internal static class WriteExpressionCommandExtensions
     /// <summary>
     /// The update only references.
     /// </summary>
-    /// <param name="dbCmd">
-    /// The db cmd.
-    /// </param>
-    /// <param name="updateFields">
-    /// The update fields.
-    /// </param>
-    /// <param name="fn">
-    /// The fn.
-    /// </param>
     /// <typeparam name="T">#
-    /// The Model
-    /// </typeparam>
-    /// <returns>
-    /// The <see cref="int"/>.
-    /// </returns>
-    /// <exception cref="ArgumentNullException">
-    /// </exception>
+    /// The Model</typeparam>
+    /// <param name="dbCmd">The db cmd.</param>
+    /// <param name="updateFields">The update fields.</param>
+    /// <param name="fn">The fn.</param>
+    /// <returns>The <see cref="int" />.</returns>
+    /// <exception cref="System.ArgumentNullException">updateFields</exception>
     public static int UpdateOnlyReferences<T>(this IDbCommand dbCmd,
                                               Dictionary<string, object> updateFields, Func<Dictionary<string, object>, int> fn)
     {

@@ -37,7 +37,7 @@ public class JsLogicalExpression : JsExpression
     public override string ToRawString() => "(" + JsonValue(Left) + Operator.Token + JsonValue(Right) + ")";
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsLogicalExpression"/> class.
+    /// Initializes a new instance of the <see cref="JsLogicalExpression" /> class.
     /// </summary>
     /// <param name="left">The left.</param>
     /// <param name="operator">The operator.</param>

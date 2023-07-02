@@ -146,6 +146,20 @@ internal static class ReadExpressionCommandExtensions
         return dbCmd.ExprConvertToList<Tuple<T, T2, T3, T4, T5, T6, T7>>(q.ToSelectStatement(QueryType.Select), q.Params, onlyFields: q.OnlyFields);
     }
 
+    /// <summary>
+    /// Selects the multi.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T2">The type of the t2.</typeparam>
+    /// <typeparam name="T3">The type of the t3.</typeparam>
+    /// <typeparam name="T4">The type of the t4.</typeparam>
+    /// <typeparam name="T5">The type of the t5.</typeparam>
+    /// <typeparam name="T6">The type of the t6.</typeparam>
+    /// <typeparam name="T7">The type of the t7.</typeparam>
+    /// <typeparam name="T8">The type of the t8.</typeparam>
+    /// <param name="dbCmd">The database command.</param>
+    /// <param name="q">The q.</param>
+    /// <returns>List&lt;Tuple&lt;T, T2, T3, T4, T5, T6, T7, T8&gt;&gt;.</returns>
     internal static List<Tuple<T, T2, T3, T4, T5, T6, T7, T8>> SelectMulti<T, T2, T3, T4, T5, T6, T7, T8>(this IDbCommand dbCmd, SqlExpression<T> q)
     {
         q.SelectIfDistinct(q.CreateMultiSelect<T, T2, T3, T4, T5, T6, T7, T8>(dbCmd.GetDialectProvider()));
@@ -309,6 +323,21 @@ internal static class ReadExpressionCommandExtensions
         return dbCmd.ExprConvertToList<Tuple<T, T2, T3, T4, T5, T6, T7>>(q.Select(q.CreateMultiSelect(tableSelects)).ToSelectStatement(), q.Params, onlyFields: q.OnlyFields);
     }
 
+    /// <summary>
+    /// Selects the multi.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T2">The type of the t2.</typeparam>
+    /// <typeparam name="T3">The type of the t3.</typeparam>
+    /// <typeparam name="T4">The type of the t4.</typeparam>
+    /// <typeparam name="T5">The type of the t5.</typeparam>
+    /// <typeparam name="T6">The type of the t6.</typeparam>
+    /// <typeparam name="T7">The type of the t7.</typeparam>
+    /// <typeparam name="T8">The type of the t8.</typeparam>
+    /// <param name="dbCmd">The database command.</param>
+    /// <param name="q">The q.</param>
+    /// <param name="tableSelects">The table selects.</param>
+    /// <returns>List&lt;Tuple&lt;T, T2, T3, T4, T5, T6, T7, T8&gt;&gt;.</returns>
     internal static List<Tuple<T, T2, T3, T4, T5, T6, T7, T8>> SelectMulti<T, T2, T3, T4, T5, T6, T7, T8>(this IDbCommand dbCmd, SqlExpression<T> q, string[] tableSelects)
     {
         return dbCmd.ExprConvertToList<Tuple<T, T2, T3, T4, T5, T6, T7, T8>>(q.Select(q.CreateMultiSelect(tableSelects)).ToSelectStatement(QueryType.Select), q.Params, onlyFields: q.OnlyFields);

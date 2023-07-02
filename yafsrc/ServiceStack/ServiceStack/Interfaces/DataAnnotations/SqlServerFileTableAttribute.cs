@@ -17,12 +17,12 @@ namespace ServiceStack.DataAnnotations;
 public class SqlServerFileTableAttribute : AttributeBase
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="SqlServerFileTableAttribute"/> class.
+    /// Initializes a new instance of the <see cref="SqlServerFileTableAttribute" /> class.
     /// </summary>
     public SqlServerFileTableAttribute() { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SqlServerFileTableAttribute"/> class.
+    /// Initializes a new instance of the <see cref="SqlServerFileTableAttribute" /> class.
     /// </summary>
     /// <param name="directory">The directory.</param>
     /// <param name="collateFileName">Name of the collate file.</param>

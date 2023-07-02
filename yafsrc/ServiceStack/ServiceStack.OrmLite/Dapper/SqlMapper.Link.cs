@@ -70,7 +70,7 @@ public static partial class SqlMapper
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Link{TKey, TValue}"/> class.
+        /// Initializes a new instance of the <see cref="Link{TKey, TValue}" /> class.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="value">The value.</param>

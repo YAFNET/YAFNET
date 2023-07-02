@@ -20,7 +20,7 @@ using ServiceStack.OrmLite.Converters;
 public class PostgreSqlDecimalConverter : DecimalConverter
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PostgreSqlDecimalConverter"/> class.
+    /// Initializes a new instance of the <see cref="PostgreSqlDecimalConverter" /> class.
     /// </summary>
     public PostgreSqlDecimalConverter() : base(38, 6) { }
 

@@ -18,7 +18,7 @@ namespace ServiceStack.DataAnnotations;
 public class UniqueConstraintAttribute : AttributeBase
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="UniqueConstraintAttribute"/> class.
+    /// Initializes a new instance of the <see cref="UniqueConstraintAttribute" /> class.
     /// </summary>
     public UniqueConstraintAttribute()
     {
@@ -26,7 +26,7 @@ public class UniqueConstraintAttribute : AttributeBase
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="UniqueConstraintAttribute"/> class.
+    /// Initializes a new instance of the <see cref="UniqueConstraintAttribute" /> class.
     /// </summary>
     /// <param name="fieldNames">The field names.</param>
     public UniqueConstraintAttribute(params string[] fieldNames)

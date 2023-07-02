@@ -65,6 +65,7 @@ public class Tracer
         /// Writes the error.
         /// </summary>
         /// <param name="error">The error.</param>
+        /// <exception cref="ServiceStack.DiagnosticEvent.Exception"></exception>
         /// <exception cref="System.Exception"></exception>
         public void WriteError(string error)
         {
@@ -77,6 +78,7 @@ public class Tracer
         /// </summary>
         /// <param name="format">The format.</param>
         /// <param name="args">The arguments.</param>
+        /// <exception cref="ServiceStack.DiagnosticEvent.Exception"></exception>
         /// <exception cref="System.Exception"></exception>
         public void WriteError(string format, params object[] args)
         {

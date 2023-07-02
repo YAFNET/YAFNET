@@ -77,7 +77,7 @@ public static partial class SqlMapper
             /// </summary>
             private readonly DapperRow _row;
             /// <summary>
-            /// Initializes a new instance of the <see cref="DapperRowTypeDescriptor"/> class.
+            /// Initializes a new instance of the <see cref="DapperRowTypeDescriptor" /> class.
             /// </summary>
             /// <param name="instance">The instance.</param>
             public DapperRowTypeDescriptor(object instance)
@@ -208,7 +208,7 @@ public static partial class SqlMapper
             /// </summary>
             private readonly int _index;
             /// <summary>
-            /// Initializes a new instance of the <see cref="RowBoundPropertyDescriptor"/> class.
+            /// Initializes a new instance of the <see cref="RowBoundPropertyDescriptor" /> class.
             /// </summary>
             /// <param name="type">The type.</param>
             /// <param name="name">The name.</param>

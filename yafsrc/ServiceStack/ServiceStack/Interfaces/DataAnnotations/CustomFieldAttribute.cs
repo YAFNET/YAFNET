@@ -21,12 +21,19 @@ public class CustomFieldAttribute : AttributeBase
     /// </summary>
     /// <value>The SQL.</value>
     public string Sql { get; set; }
+    /// <summary>
+    /// Gets or sets the order.
+    /// </summary>
+    /// <value>The order.</value>
     public int Order { get; set; }
-
-    public CustomFieldAttribute() { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="CustomFieldAttribute"/> class.
+    /// </summary>
+    public CustomFieldAttribute() { }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CustomFieldAttribute" /> class.
     /// </summary>
     /// <param name="sql">The SQL.</param>
     public CustomFieldAttribute(string sql)
@@ -43,7 +50,7 @@ public class CustomFieldAttribute : AttributeBase
 public class PgSqlJsonAttribute : CustomFieldAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PgSqlJsonAttribute"/> class.
+    /// Initializes a new instance of the <see cref="PgSqlJsonAttribute" /> class.
     /// </summary>
     public PgSqlJsonAttribute() : base("json") { }
 }
@@ -56,7 +63,7 @@ public class PgSqlJsonAttribute : CustomFieldAttribute
 public class PgSqlJsonBAttribute : CustomFieldAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PgSqlJsonBAttribute"/> class.
+    /// Initializes a new instance of the <see cref="PgSqlJsonBAttribute" /> class.
     /// </summary>
     public PgSqlJsonBAttribute() : base("jsonb") { }
 }
@@ -69,7 +76,7 @@ public class PgSqlJsonBAttribute : CustomFieldAttribute
 public class PgSqlHStoreAttribute : CustomFieldAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PgSqlHStoreAttribute"/> class.
+    /// Initializes a new instance of the <see cref="PgSqlHStoreAttribute" /> class.
     /// </summary>
     public PgSqlHStoreAttribute() : base("hstore") { }
 }
@@ -82,7 +89,7 @@ public class PgSqlHStoreAttribute : CustomFieldAttribute
 public class PgSqlTextArrayAttribute : CustomFieldAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PgSqlTextArrayAttribute"/> class.
+    /// Initializes a new instance of the <see cref="PgSqlTextArrayAttribute" /> class.
     /// </summary>
     public PgSqlTextArrayAttribute() : base("text[]") { }
 }
@@ -95,7 +102,7 @@ public class PgSqlTextArrayAttribute : CustomFieldAttribute
 public class PgSqlShortArrayAttribute : CustomFieldAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PgSqlShortArrayAttribute"/> class.
+    /// Initializes a new instance of the <see cref="PgSqlShortArrayAttribute" /> class.
     /// </summary>
     public PgSqlShortArrayAttribute() : base("short[]") { }
 }
@@ -108,7 +115,7 @@ public class PgSqlShortArrayAttribute : CustomFieldAttribute
 public class PgSqlIntArrayAttribute : CustomFieldAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PgSqlIntArrayAttribute"/> class.
+    /// Initializes a new instance of the <see cref="PgSqlIntArrayAttribute" /> class.
     /// </summary>
     public PgSqlIntArrayAttribute() : base("integer[]") { }
 }
@@ -121,7 +128,7 @@ public class PgSqlIntArrayAttribute : CustomFieldAttribute
 public class PgSqlLongArrayAttribute : CustomFieldAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PgSqlLongArrayAttribute"/> class.
+    /// Initializes a new instance of the <see cref="PgSqlLongArrayAttribute" /> class.
     /// </summary>
     public PgSqlLongArrayAttribute() : base("bigint[]") { }
 }
@@ -134,7 +141,7 @@ public class PgSqlLongArrayAttribute : CustomFieldAttribute
 public class PgSqlFloatArrayAttribute : CustomFieldAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PgSqlFloatArrayAttribute"/> class.
+    /// Initializes a new instance of the <see cref="PgSqlFloatArrayAttribute" /> class.
     /// </summary>
     public PgSqlFloatArrayAttribute() : base("real[]") { }
 }
@@ -147,7 +154,7 @@ public class PgSqlFloatArrayAttribute : CustomFieldAttribute
 public class PgSqlDoubleArrayAttribute : CustomFieldAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PgSqlDoubleArrayAttribute"/> class.
+    /// Initializes a new instance of the <see cref="PgSqlDoubleArrayAttribute" /> class.
     /// </summary>
     public PgSqlDoubleArrayAttribute() : base("double precision[]") { }
 }
@@ -160,7 +167,7 @@ public class PgSqlDoubleArrayAttribute : CustomFieldAttribute
 public class PgSqlDecimalArrayAttribute : CustomFieldAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PgSqlDecimalArrayAttribute"/> class.
+    /// Initializes a new instance of the <see cref="PgSqlDecimalArrayAttribute" /> class.
     /// </summary>
     public PgSqlDecimalArrayAttribute() : base("numeric[]") { }
 }
@@ -173,7 +180,7 @@ public class PgSqlDecimalArrayAttribute : CustomFieldAttribute
 public class PgSqlTimestampArrayAttribute : CustomFieldAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PgSqlTimestampArrayAttribute"/> class.
+    /// Initializes a new instance of the <see cref="PgSqlTimestampArrayAttribute" /> class.
     /// </summary>
     public PgSqlTimestampArrayAttribute() : base("timestamp[]") { }
 }
@@ -186,7 +193,7 @@ public class PgSqlTimestampArrayAttribute : CustomFieldAttribute
 public class PgSqlTimestampTzArrayAttribute : CustomFieldAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PgSqlTimestampTzArrayAttribute"/> class.
+    /// Initializes a new instance of the <see cref="PgSqlTimestampTzArrayAttribute" /> class.
     /// </summary>
     public PgSqlTimestampTzArrayAttribute() : base("timestamp with time zone[]") { }
 }

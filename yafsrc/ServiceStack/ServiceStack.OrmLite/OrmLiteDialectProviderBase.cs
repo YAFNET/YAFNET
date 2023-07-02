@@ -39,7 +39,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     protected static readonly ILog Log = LogManager.GetLogger(typeof(IOrmLiteDialectProvider));
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="OrmLiteDialectProviderBase{TDialect}"/> class.
+    /// Initializes a new instance of the <see cref="OrmLiteDialectProviderBase{TDialect}" /> class.
     /// </summary>
     protected OrmLiteDialectProviderBase()
     {
@@ -144,6 +144,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="fieldLength">Length of the field.</param>
     /// <param name="scale">The scale.</param>
     /// <returns>System.String.</returns>
+    /// <exception cref="ArgumentException">$"{converter.GetType().Name} requires a ColumnDefinition</exception>
     /// <exception cref="System.ArgumentException"></exception>
     public string GetColumnTypeDefinition(Type columnType, int? fieldLength, int? scale)
     {
@@ -225,6 +226,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <value>The on open connection.</value>
     public Action<IDbConnection> OnOpenConnection { get; set; }
 
+    /// <summary>
+    /// Gets the connection commands.
+    /// </summary>
+    /// <value>The connection commands.</value>
     public List<string> ConnectionCommands { get; } = new();
 
     /// <summary>
@@ -260,6 +265,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         set => this.paramNameFilter = value;
     }
 
+    /// <summary>
+    /// Gets a value indicating whether [supports schema].
+    /// </summary>
+    /// <value><c>true</c> if [supports schema]; otherwise, <c>false</c>.</value>
     public virtual bool SupportsSchema => true;
 
     /// <summary>
@@ -358,6 +367,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="converter">The converter.</param>
+    /// <exception cref="ArgumentNullException">nameof(converter)</exception>
     /// <exception cref="System.ArgumentNullException">converter</exception>
     public void RegisterConverter<T>(IOrmLiteConverter converter)
     {
@@ -839,6 +849,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
     /// <returns>System.Int64.</returns>
+    /// <exception cref="NotImplementedException">Returning last inserted identity is not implemented on this DB Provider.</exception>
     /// <exception cref="System.NotImplementedException">Returning last inserted identity is not implemented on this DB Provider.</exception>
     public virtual long GetLastInsertId(IDbCommand dbCmd)
     {
@@ -855,6 +866,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns>System.String.</returns>
+    /// <exception cref="NotImplementedException">Returning last inserted identity is not implemented on this DB Provider.</exception>
     /// <exception cref="System.NotImplementedException">Returning last inserted identity is not implemented on this DB Provider.</exception>
     public virtual string GetLastInsertIdSqlSuffix<T>()
     {
@@ -905,6 +917,11 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         return StringBuilderCache.ReturnAndFree(sql);
     }
 
+    /// <summary>
+    /// Applies the tags.
+    /// </summary>
+    /// <param name="sqlBuilder">The SQL builder.</param>
+    /// <param name="tags">The tags.</param>
     protected virtual void ApplyTags(StringBuilder sqlBuilder, ISet<string> tags)
     {
         if (tags is {Count: > 0})
@@ -960,11 +977,20 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         return StringBuilderCache.ReturnAndFree(sb);
     }
 
+    /// <summary>
+    /// Generates a SQL comment.
+    /// </summary>
+    /// <param name="text">The comment text.</param>
+    /// <returns>The generated SQL.</returns>
     public virtual string GenerateComment(in string text)
     {
         return $"-- {text}";
     }
 
+    /// <summary>
+    /// Initializes the connection.
+    /// </summary>
+    /// <param name="dbConn">The database connection.</param>
     public virtual void InitConnection(IDbConnection dbConn)
     {
         if (dbConn is OrmLiteConnection ormLiteConn)
@@ -1267,6 +1293,11 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             $"VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
     }
 
+    /// <summary>
+    /// Gets the insert columns statement.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns>System.String.</returns>
     public virtual string GetInsertColumnsStatement<T>()
     {
         var sbColumnNames = StringBuilderCache.Allocate();
@@ -1357,6 +1388,15 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     }
 
     //Load Self Table.RefTableId PK
+    /// <summary>
+    /// Gets the reference self SQL.
+    /// </summary>
+    /// <typeparam name="From">The type of from.</typeparam>
+    /// <param name="refQ">The reference q.</param>
+    /// <param name="modelDef">The model definition.</param>
+    /// <param name="refSelf">The reference self.</param>
+    /// <param name="refModelDef">The reference model definition.</param>
+    /// <returns>System.String.</returns>
     public virtual string GetRefSelfSql<From>(SqlExpression<From> refQ, ModelDefinition modelDef, FieldDefinition refSelf, ModelDefinition refModelDef)
     {
         refQ.Select(this.GetQuotedColumnName(modelDef, refSelf));
@@ -1375,6 +1415,13 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         return sqlRef;
     }
 
+    /// <summary>
+    /// Gets the reference field SQL.
+    /// </summary>
+    /// <param name="subSql">The sub SQL.</param>
+    /// <param name="refModelDef">The reference model definition.</param>
+    /// <param name="refField">The reference field.</param>
+    /// <returns>System.String.</returns>
     public virtual string GetRefFieldSql(string subSql, ModelDefinition refModelDef, FieldDefinition refField)
     {
         var sqlRef = $"SELECT {GetColumnNames(refModelDef)} " +
@@ -1388,6 +1435,13 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         return sqlRef;
     }
 
+    /// <summary>
+    /// Gets the field reference SQL.
+    /// </summary>
+    /// <param name="subSql">The sub SQL.</param>
+    /// <param name="fieldDef">The field definition.</param>
+    /// <param name="fieldRef">The field reference.</param>
+    /// <returns>System.String.</returns>
     public virtual string GetFieldReferenceSql(string subSql, FieldDefinition fieldDef, FieldReference fieldRef)
     {
         var refModelDef = fieldRef.RefModelDef;
@@ -1508,6 +1562,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="cmd">The command.</param>
     /// <param name="deleteFieldValues">The delete field values.</param>
     /// <returns>If had RowVersion</returns>
+    /// <exception cref="ArgumentException">DELETE's must have at least 1 criteria</exception>
     /// <exception cref="System.ArgumentException">DELETE's must have at least 1 criteria</exception>
     public virtual bool PrepareParameterizedDeleteStatement<T>(
         IDbCommand cmd,
@@ -1675,6 +1730,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <typeparam name="T"></typeparam>
     /// <param name="dbCmd">The database command.</param>
     /// <param name="obj">The object.</param>
+    /// <exception cref="ArgumentException">$"Field Definition '{fieldName}' was not found</exception>
     /// <exception cref="System.ArgumentException">Field Definition '{fieldName}' was not found</exception>
     public virtual void SetParameterValues<T>(IDbCommand dbCmd, object obj)
     {
@@ -1859,7 +1915,8 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="dbCmd">The database command.</param>
     /// <param name="objWithProperties">The object with properties.</param>
     /// <param name="updateFields">The update fields.</param>
-    /// <exception cref="System.Exception">No valid update properties provided (e.g. p => p.FirstName): " + dbCmd.CommandText</exception>
+    /// <exception cref="Exception">No valid update properties provided (e.g. p => p.FirstName): " + dbCmd.CommandText</exception>
+    /// <exception cref="System.Exception">No valid update properties provided (e.g. p =&gt; p.FirstName): " + dbCmd.CommandText</exception>
     public virtual void PrepareUpdateRowStatement(
         IDbCommand dbCmd,
         object objWithProperties,
@@ -1920,7 +1977,8 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="dbCmd">The database command.</param>
     /// <param name="args">The arguments.</param>
     /// <param name="sqlFilter">The SQL filter.</param>
-    /// <exception cref="System.Exception">No valid update properties provided (e.g. () => new Person { Age = 27 }): " + dbCmd.CommandText</exception>
+    /// <exception cref="Exception">No valid update properties provided (e.g. () => new Person { Age = 27 }): " + dbCmd.CommandText</exception>
+    /// <exception cref="System.Exception">No valid update properties provided (e.g. () =&gt; new Person { Age = 27 }): " + dbCmd.CommandText</exception>
     public virtual void PrepareUpdateRowStatement<T>(
         IDbCommand dbCmd,
         Dictionary<string, object> args,
@@ -1971,7 +2029,8 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="dbCmd">The database command.</param>
     /// <param name="args">The arguments.</param>
     /// <param name="sqlFilter">The SQL filter.</param>
-    /// <exception cref="System.Exception">No valid update properties provided (e.g. () => new Person { Age = 27 }): " + dbCmd.CommandText</exception>
+    /// <exception cref="Exception">No valid update properties provided (e.g. () => new Person { Age = 27 }): " + dbCmd.CommandText</exception>
+    /// <exception cref="System.Exception">No valid update properties provided (e.g. () =&gt; new Person { Age = 27 }): " + dbCmd.CommandText</exception>
     public virtual void PrepareUpdateRowAddStatement<T>(
         IDbCommand dbCmd,
         Dictionary<string, object> args,
@@ -2134,8 +2193,18 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <returns>System.String.</returns>
     public abstract string ToCreateSchemaStatement(string schemaName);
 
+    /// <summary>
+    /// Gets the schemas.
+    /// </summary>
+    /// <param name="dbCmd">The database command.</param>
+    /// <returns>System.Collections.Generic.List&lt;string&gt;.</returns>
     public virtual List<string> GetSchemas(IDbCommand dbCmd) => new() { "default" };
 
+    /// <summary>
+    /// Gets the schema tables.
+    /// </summary>
+    /// <param name="dbCmd">The database command.</param>
+    /// <returns>System.Collections.Generic.Dictionary&lt;string, System.Collections.Generic.List&lt;string&gt;&gt;.</returns>
     public virtual Dictionary<string, List<string>> GetSchemaTables(IDbCommand dbCmd) => new();
 
     /// <summary>
@@ -2408,6 +2477,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="tableName">Name of the table.</param>
     /// <param name="schema">The schema.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+    /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="System.NotImplementedException"></exception>
     public virtual bool DoesTableExist(IDbCommand dbCmd, string tableName, string schema = null)
     {
@@ -2439,6 +2509,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="tableName">Name of the table.</param>
     /// <param name="schema">The schema.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+    /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="System.NotImplementedException"></exception>
     public virtual bool DoesColumnExist(IDbConnection db, string columnName, string tableName, string schema = null)
     {
@@ -2472,6 +2543,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="tableName">Name of the table.</param>
     /// <param name="schema">The schema.</param>
     /// <returns>System.String.</returns>
+    /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="System.NotImplementedException"></exception>
     public virtual string GetColumnDataType(
         IDbConnection db,
@@ -2490,6 +2562,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="tableName">Name of the table.</param>
     /// <param name="schema">The schema.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+    /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="System.NotImplementedException"></exception>
     public virtual bool ColumnIsNullable(
         IDbConnection db,
@@ -2508,6 +2581,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="tableName">Name of the table.</param>
     /// <param name="schema">The schema.</param>
     /// <returns>System.Int64.</returns>
+    /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="System.NotImplementedException"></exception>
     public virtual long GetColumnMaxLength(
         IDbConnection db,
@@ -2524,6 +2598,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="dbCmd">The database command.</param>
     /// <param name="sequence">Name of the sequence.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+    /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="System.NotImplementedException"></exception>
     public virtual bool DoesSequenceExist(IDbCommand dbCmd, string sequence)
     {
@@ -2660,6 +2735,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="sqlFilter">The SQL filter.</param>
     /// <param name="filterParams">The filter parameters.</param>
     /// <returns>System.String.</returns>
+    /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="System.NotImplementedException"></exception>
     public virtual string ToExistStatement(
         Type fromTableType,
@@ -2679,6 +2755,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="sqlFilter">The SQL filter.</param>
     /// <param name="filterParams">The filter parameters.</param>
     /// <returns>System.String.</returns>
+    /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="System.NotImplementedException"></exception>
     public virtual string ToSelectFromProcedureStatement(
         object fromObjWithProperties,
@@ -2709,6 +2786,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
+    /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="System.NotImplementedException"></exception>
     public virtual SqlExpression<T> SqlExpression<T>()
     {
@@ -2721,6 +2799,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="connection">The connection.</param>
     /// <param name="objWithProperties">The object with properties.</param>
     /// <returns>IDbCommand.</returns>
+    /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="System.NotImplementedException"></exception>
     public IDbCommand CreateParameterizedDeleteStatement(IDbConnection connection, object objWithProperties)
     {
@@ -2795,7 +2874,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         return null;
     }
 
-    /// <summary>Gets the add composite primary key sql command.</summary>
+    /// <summary>
+    /// Gets the add composite primary key sql command.
+    /// </summary>
     /// <param name="database">The database name.</param>
     /// <param name="modelDef">The model definition.</param>
     /// <param name="fieldNameA">The field name a.</param>
@@ -2806,7 +2887,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         return null;
     }
 
-    /// <summary>Gets the name of the primary key.</summary>
+    /// <summary>
+    /// Gets the name of the primary key.
+    /// </summary>
     /// <param name="modelDef">The model definition.</param>
     /// <returns>Returns the Primary Key Name</returns>
     public virtual string GetPrimaryKeyName(ModelDefinition modelDef)
@@ -2826,7 +2909,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         return null;
     }
 
-    /// <summary>Gets the drop primary key constraint.</summary>
+    /// <summary>
+    /// Gets the drop primary key constraint.
+    /// </summary>
     /// <param name="database">The database.</param>
     /// <param name="modelDef">The model definition.</param>
     /// <param name="name">The name.</param>
@@ -2860,21 +2945,52 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         return null;
     }
 
+    /// <summary>
+    /// Gets the drop foreign key constraints.
+    /// </summary>
+    /// <param name="modelDef">The model definition.</param>
+    /// <returns>System.String.</returns>
     public virtual string GetDropForeignKeyConstraints(ModelDefinition modelDef) => null;
 
     /// <summary>
     /// Converts to alter column statement.
     /// </summary>
+    /// <param name="schema">The schema.</param>
+    /// <param name="table">The table.</param>
+    /// <param name="fieldDef">The field definition.</param>
     /// <returns>System.String.</returns>
     public virtual string ToAddColumnStatement(string schema, string table, FieldDefinition fieldDef) =>
         $"ALTER TABLE {GetQuotedTableName(table, schema)} ADD COLUMN {GetColumnDefinition(fieldDef)};";
 
+    /// <summary>
+    /// Converts to altercolumnstatement.
+    /// </summary>
+    /// <param name="schema">The schema.</param>
+    /// <param name="table">The table.</param>
+    /// <param name="fieldDef">The field definition.</param>
+    /// <returns>System.String.</returns>
     public virtual string ToAlterColumnStatement(string schema, string table, FieldDefinition fieldDef) =>
         $"ALTER TABLE {GetQuotedTableName(table, schema)} MODIFY COLUMN {GetColumnDefinition(fieldDef)};";
 
+    /// <summary>
+    /// Converts to changecolumnnamestatement.
+    /// </summary>
+    /// <param name="schema">The schema.</param>
+    /// <param name="table">The table.</param>
+    /// <param name="fieldDef">The field definition.</param>
+    /// <param name="oldColumn">The old column.</param>
+    /// <returns>System.String.</returns>
     public virtual string ToChangeColumnNameStatement(string schema, string table, FieldDefinition fieldDef, string oldColumn) =>
         $"ALTER TABLE {GetQuotedTableName(table, schema)} CHANGE COLUMN {GetQuotedColumnName(oldColumn)} {GetColumnDefinition(fieldDef)};";
 
+    /// <summary>
+    /// Converts to renamecolumnstatement.
+    /// </summary>
+    /// <param name="schema">The schema.</param>
+    /// <param name="table">The table.</param>
+    /// <param name="oldColumn">The old column.</param>
+    /// <param name="newColumn">The new column.</param>
+    /// <returns>System.String.</returns>
     public virtual string ToRenameColumnStatement(string schema, string table, string oldColumn, string newColumn) =>
         $"ALTER TABLE {GetQuotedTableName(table, schema)} RENAME COLUMN {GetQuotedColumnName(oldColumn)} TO {GetQuotedColumnName(newColumn)};";
 
@@ -3049,6 +3165,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <summary>
     /// Drops the column.
     /// </summary>
+    /// <param name="schema">The schema.</param>
+    /// <param name="table">The table.</param>
+    /// <param name="column">The column.</param>
+    /// <returns>System.String.</returns>
     public virtual string ToDropColumnStatement(string schema, string table, string column) =>
         $"ALTER TABLE {GetQuotedTableName(table, schema)} DROP COLUMN {GetQuotedColumnName(column)};";
 
@@ -3319,6 +3439,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// Gets the UTC date function.
     /// </summary>
     /// <returns>System.String.</returns>
+    /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="System.NotImplementedException"></exception>
     public virtual string GetUtcDateFunction()
     {
@@ -3332,6 +3453,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="date1">The date1.</param>
     /// <param name="date2">The date2.</param>
     /// <returns>System.String.</returns>
+    /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="System.NotImplementedException"></exception>
     public virtual string DateDiffFunction(string interval, string date1, string date2)
     {
@@ -3344,6 +3466,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="expression">The expression.</param>
     /// <param name="alternateValue">The alternate value.</param>
     /// <returns>System.String.</returns>
+    /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="System.NotImplementedException"></exception>
     public virtual string IsNullFunction(string expression, object alternateValue)
     {
@@ -3355,6 +3478,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="expression">The expression.</param>
     /// <returns>System.String.</returns>
+    /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="System.NotImplementedException"></exception>
     public virtual string ConvertFlag(string expression)
     {
@@ -3366,6 +3490,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="database">The database.</param>
     /// <returns>System.String.</returns>
+    /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="System.NotImplementedException"></exception>
     public virtual string DatabaseFragmentationInfo(string database)
     {
@@ -3377,6 +3502,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="database">The database.</param>
     /// <returns>System.String.</returns>
+    /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="System.NotImplementedException"></exception>
     public virtual string DatabaseSize(string database)
     {
@@ -3387,6 +3513,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// SQLs the version.
     /// </summary>
     /// <returns>System.String.</returns>
+    /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="System.NotImplementedException"></exception>
     public virtual string SQLVersion()
     {
@@ -3397,6 +3524,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// SQLs the name of the server.
     /// </summary>
     /// <returns>System.String.</returns>
+    /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="System.NotImplementedException"></exception>
     public virtual string SQLServerName()
     {
@@ -3408,6 +3536,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="database">The database.</param>
     /// <returns>System.String.</returns>
+    /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="System.NotImplementedException"></exception>
     public virtual string ShrinkDatabase(string database)
     {
@@ -3420,6 +3549,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="database">The database.</param>
     /// <param name="objectQualifier">The object qualifier.</param>
     /// <returns>System.String.</returns>
+    /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="System.NotImplementedException"></exception>
     public virtual string ReIndexDatabase(string database, string objectQualifier)
     {
@@ -3432,6 +3562,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="database">The database.</param>
     /// <param name="mode">The mode.</param>
     /// <returns>System.String.</returns>
+    /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="System.NotImplementedException"></exception>
     public virtual string ChangeRecoveryMode(string database, string mode)
     {
@@ -3443,6 +3574,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="command">The command.</param>
     /// <returns>Returns the Results</returns>
+    /// <exception cref="NotImplementedException"></exception>
     /// <exception cref="System.NotImplementedException"></exception>
     public virtual string InnerRunSqlExecuteReader(IDbCommand command)
     {

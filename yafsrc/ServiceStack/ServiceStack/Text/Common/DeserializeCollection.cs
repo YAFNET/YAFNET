@@ -35,7 +35,7 @@ internal static class DeserializeCollection<TSerializer>
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>ParseStringSpanDelegate.</returns>
-    /// <exception cref="System.ArgumentException"></exception>
+    /// <exception cref="System.ArgumentException">Type {type.FullName} is not of type ICollection<></exception>
     public static ParseStringSpanDelegate GetParseStringSpanMethod(Type type)
     {
         var collectionInterface = type.GetTypeWithGenericInterfaceOf(typeof(ICollection<>));

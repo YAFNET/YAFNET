@@ -36,7 +36,7 @@ public class SqlServerJsonStringConverter : SqlServerStringConverter
     }
 
     /// <summary>
-    ///  object to json string
+    /// object to json string
     /// Parameterized value in parameterized queries
     /// </summary>
     /// <param name="fieldType">Type of the field.</param>

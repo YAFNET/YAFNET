@@ -646,7 +646,7 @@ public partial class ScriptContext : IDisposable
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ScriptContext"/> class.
+    /// Initializes a new instance of the <see cref="ScriptContext" /> class.
     /// </summary>
     public ScriptContext()
     {
@@ -956,7 +956,7 @@ public class ReturnValue
     public Dictionary<string, object> Args { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ReturnValue"/> class.
+    /// Initializes a new instance of the <see cref="ReturnValue" /> class.
     /// </summary>
     /// <param name="result">The result.</param>
     /// <param name="args">The arguments.</param>
@@ -1096,7 +1096,6 @@ public static class ScriptContextUtils
     /// <param name="pageResult">The page result.</param>
     /// <param name="stream">The stream.</param>
     /// <exception cref="ServiceStack.Script.ScriptException"></exception>
-    /// <exception cref="ServiceStack.Script.ScriptException"></exception>
     public static void RenderToStream(this PageResult pageResult, Stream stream)
     {
         try
@@ -1141,7 +1140,6 @@ public static class ScriptContextUtils
     /// <param name="pageResult">The page result.</param>
     /// <param name="stream">The stream.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    /// <exception cref="ServiceStack.Script.ScriptException"></exception>
     /// <exception cref="ServiceStack.Script.ScriptException"></exception>
     public static async Task RenderToStreamAsync(this PageResult pageResult, Stream stream)
     {

@@ -1449,6 +1449,9 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="other">The other.</param>
     /// <param name="fn">The function.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+    /// <exception cref="ArgumentNullException">nameof(target)</exception>
+    /// <exception cref="ArgumentNullException">nameof(other)</exception>
+    /// <exception cref="NotSupportedException">$"{target} is not IComparable</exception>
     /// <exception cref="System.ArgumentNullException">target</exception>
     /// <exception cref="System.ArgumentNullException">other</exception>
     /// <exception cref="System.NotSupportedException"></exception>
@@ -1649,6 +1652,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="argExpr">The argument expr.</param>
     /// <param name="args">The arguments.</param>
     /// <returns>IgnoreResult.</returns>
+    /// <exception cref="NotSupportedException">nameof(addToStart) + " can only add to an IEnumerable not a " + collection.GetType().Name</exception>
     /// <exception cref="System.NotSupportedException">addToStart</exception>
     private IgnoreResult addToStartArgs(ScriptScopeContext scope, string filterName, object value, object argExpr, Dictionary<string, object> args)
     {
@@ -1717,6 +1721,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="argExprOrCollection">The argument expr or collection.</param>
     /// <param name="args">The arguments.</param>
     /// <returns>IgnoreResult.</returns>
+    /// <exception cref="NotSupportedException">filterName + " can only add to an IEnumerable not a " + collection.GetType().Name</exception>
     /// <exception cref="System.NotSupportedException"></exception>
     private IgnoreResult addToArgs(ScriptScopeContext scope, string filterName, object value, object argExprOrCollection, Dictionary<string, object> args)
     {
@@ -1769,6 +1774,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="collection">The collection.</param>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
+    /// <exception cref="NotSupportedException">$"{nameof(addItem)} can only add to an ICollection not a '{collection.GetType().Name}'</exception>
     /// <exception cref="System.NotSupportedException"></exception>
     public object addItem(object collection, object value)
     {
@@ -1931,6 +1937,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="value">The value.</param>
     /// <param name="args">The arguments.</param>
     /// <returns>System.Object.</returns>
+    /// <exception cref="NotSupportedException">$"Cannot assign to non-existing '{targetName}' in {argExpr}</exception>
     /// <exception cref="System.NotSupportedException">Cannot assign to non-existing '{targetName}' in {argExpr}</exception>
     private object assignArgs(ScriptScopeContext scope, string argExpr, object value, Dictionary<string, object> args) //from filter
     {
@@ -2076,6 +2083,9 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="filterName">Name of the filter.</param>
     /// <param name="argExpr">The argument expr.</param>
     /// <returns>System.String.</returns>
+    /// <exception cref="ArgumentNullException">filterName</exception>
+    /// <exception cref="NotSupportedException">$"{filterName} expression must return an identifer</exception>
+    /// <exception cref="NotSupportedException">$"{filterName} requires a string or expression identifier but was instead '{argExpr.GetType().Name}'</exception>
     /// <exception cref="System.ArgumentNullException"></exception>
     /// <exception cref="System.NotSupportedException"></exception>
     /// <exception cref="System.NotSupportedException"></exception>
@@ -2123,6 +2133,8 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="scope">The scope.</param>
     /// <param name="target">The target.</param>
     /// <param name="scopedParams">The scoped parameters.</param>
+    /// <returns>System.Threading.Tasks.Task.</returns>
+    /// <exception cref="FileNotFoundException">$"Partial was not found: '{pageName}'</exception>
     /// <exception cref="System.IO.FileNotFoundException">Partial was not found: '{pageName}'</exception>
     public async Task partial(ScriptScopeContext scope, object target, object scopedParams)
     {
@@ -2171,6 +2183,8 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="target">The target.</param>
     /// <param name="items">The items.</param>
     /// <param name="scopeOptions">The scope options.</param>
+    /// <returns>System.Threading.Tasks.Task.</returns>
+    /// <exception cref="ArgumentException">$"{nameof(selectEach)} in '{scope.Page.VirtualPath}' requires an IEnumerable, but received a '{items.GetType().Name}' instead</exception>
     /// <exception cref="System.ArgumentException"></exception>
     public async Task selectEach(ScriptScopeContext scope, object target, object items, object scopeOptions)
     {
@@ -2370,6 +2384,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// </summary>
     /// <param name="target">The target.</param>
     /// <returns>List&lt;System.String&gt;.</returns>
+    /// <exception cref="NotSupportedException">nameof(toKeys) + " expects an IDictionary or List of KeyValuePairs but received: " + target.GetType().Name</exception>
     /// <exception cref="System.NotSupportedException">toKeys</exception>
     public List<string> toKeys(object target)
     {
@@ -2407,6 +2422,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// </summary>
     /// <param name="target">The target.</param>
     /// <returns>List&lt;System.Object&gt;.</returns>
+    /// <exception cref="NotSupportedException">nameof(toValues) + " expects an IDictionary or List of KeyValuePairs but received: " + target.GetType().Name</exception>
     /// <exception cref="System.NotSupportedException">toValues</exception>
     public List<object> toValues(object target)
     {
@@ -2483,6 +2499,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Int32.</returns>
+    /// <exception cref="NotSupportedException">$"{value} exceeds Max Quota of {maxQuota}. \nMaxQuota can be changed in `ScriptContext.MaxQuota`.</exception>
     /// <exception cref="System.NotSupportedException"></exception>
     public int AssertWithinMaxQuota(int value)
     {
@@ -2735,6 +2752,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="target">The target.</param>
     /// <param name="propertyName">Name of the property.</param>
     /// <returns>System.Object.</returns>
+    /// <exception cref="NotSupportedException">$"There is no public Property '{propertyName}' on Type '{target.GetType().Name}'</exception>
     /// <exception cref="System.NotSupportedException">There is no public Property '{propertyName}' on Type '{target.GetType().Name}'</exception>
     public object property(object target, string propertyName)
     {
@@ -2756,6 +2774,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="target">The target.</param>
     /// <param name="fieldName">Name of the field.</param>
     /// <returns>System.Object.</returns>
+    /// <exception cref="NotSupportedException">$"There is no public Field '{fieldName}' on Type '{target.GetType().Name}'</exception>
     /// <exception cref="System.NotSupportedException">There is no public Field '{fieldName}' on Type '{target.GetType().Name}'</exception>
     public object field(object target, string fieldName)
     {
@@ -2807,6 +2826,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// </summary>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
+    /// <exception cref="NotSupportedException">$"'{nameof(scopeVars)}' expects a Dictionary but received a '{target.GetType().Name}'</exception>
     /// <exception cref="System.NotSupportedException">'{nameof(scopeVars)}' expects a Dictionary but received a '{target.GetType().Name}'</exception>
     public object scopeVars(object target)
     {
@@ -2861,6 +2881,8 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="target">The target.</param>
     /// <param name="names">The names.</param>
     /// <returns>System.Object.</returns>
+    /// <exception cref="NotSupportedException">nameof(selectFields) + " requires an IEnumerable, IDictionary or POCO Target, received instead: " + target.GetType().Name</exception>
+    /// <exception cref="NotSupportedException">nameof(selectFields) + " requires a string or [string] or property names, received instead: " + names.GetType().Name</exception>
     /// <exception cref="System.NotSupportedException">selectFields</exception>
     /// <exception cref="System.NotSupportedException">selectFields</exception>
     public object selectFields(object target, object names)
@@ -2942,6 +2964,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="target">The target.</param>
     /// <param name="selectTemplate">The select template.</param>
     /// <param name="scopeOptions">The scope options.</param>
+    /// <returns>System.Threading.Tasks.Task.</returns>
     public async Task select(ScriptScopeContext scope, object target, object selectTemplate, object scopeOptions)
     {
         if (isNull(target))
@@ -2982,6 +3005,8 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="target">The target.</param>
     /// <param name="pageName">Name of the page.</param>
     /// <param name="scopedParams">The scoped parameters.</param>
+    /// <returns>System.Threading.Tasks.Task.</returns>
+    /// <exception cref="FileNotFoundException">$"Partial was not found: '{pageName}'</exception>
     /// <exception cref="System.IO.FileNotFoundException">Partial was not found: '{pageName}'</exception>
     public async Task selectPartial(ScriptScopeContext scope, object target, string pageName, object scopedParams)
     {
@@ -3066,6 +3091,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="target">The target.</param>
     /// <param name="keysToRemove">The keys to remove.</param>
     /// <returns>System.Object.</returns>
+    /// <exception cref="NotSupportedException">nameof(remove) + " removes keys from a IDictionary or [IDictionary]</exception>
     /// <exception cref="System.NotSupportedException">remove</exception>
     /// <exception cref="System.NotSupportedException">remove</exception>
     public object remove(object target, object keysToRemove)
@@ -3419,6 +3445,13 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     public object sync(object value) => unwrap(value);
 }
 
+/// <summary>
+/// Class DefaultScripts.
+/// Implements the <see cref="ServiceStack.Script.ScriptMethods" />
+/// Implements the <see cref="ServiceStack.Script.IConfigureScriptContext" />
+/// </summary>
+/// <seealso cref="ServiceStack.Script.ScriptMethods" />
+/// <seealso cref="ServiceStack.Script.IConfigureScriptContext" />
 public partial class DefaultScripts //Methods named after common keywords breaks intelli-sense when trying to use them
 {
     /// <summary>

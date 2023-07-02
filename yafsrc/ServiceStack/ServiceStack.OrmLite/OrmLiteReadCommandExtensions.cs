@@ -615,6 +615,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="value">The value.</param>
     /// <returns>T.</returns>
+    /// <exception cref="System.ArgumentNullException">value</exception>
     internal static T SingleById<T>(this IDbCommand dbCmd, object value)
     {
         if (value == null)

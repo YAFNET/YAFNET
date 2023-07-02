@@ -22,12 +22,12 @@ using ServiceStack.Text;
 public class StringConverter : OrmLiteConverter, IHasColumnDefinitionLength
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="StringConverter"/> class.
+    /// Initializes a new instance of the <see cref="StringConverter" /> class.
     /// </summary>
     public StringConverter() : this(8000) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="StringConverter"/> class.
+    /// Initializes a new instance of the <see cref="StringConverter" /> class.
     /// </summary>
     /// <param name="stringLength">Length of the string.</param>
     public StringConverter(int stringLength)
@@ -197,11 +197,11 @@ public class CharConverter : StringConverter
 public class CharArrayConverter : StringConverter
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="CharArrayConverter"/> class.
+    /// Initializes a new instance of the <see cref="CharArrayConverter" /> class.
     /// </summary>
     public CharArrayConverter() { }
     /// <summary>
-    /// Initializes a new instance of the <see cref="CharArrayConverter"/> class.
+    /// Initializes a new instance of the <see cref="CharArrayConverter" /> class.
     /// </summary>
     /// <param name="stringLength">Length of the string.</param>
     public CharArrayConverter(int stringLength) : base(stringLength) { }

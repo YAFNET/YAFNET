@@ -40,7 +40,7 @@ public class IndexFieldsCacheKey
     public List<string> Fields { get; private set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="IndexFieldsCacheKey"/> class.
+    /// Initializes a new instance of the <see cref="IndexFieldsCacheKey" /> class.
     /// </summary>
     /// <param name="reader">The reader.</param>
     /// <param name="modelDefinition">The model definition.</param>

@@ -51,7 +51,7 @@ internal abstract class LoadReferences<T>
     protected IOrmLiteDialectProvider dialectProvider;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="LoadReferences{T}"/> class.
+    /// Initializes a new instance of the <see cref="LoadReferences{T}" /> class.
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
     /// <param name="instance">The instance.</param>
@@ -131,6 +131,12 @@ internal abstract class LoadReferences<T>
 
         return sql;
     }
+    /// <summary>
+    /// Gets the field reference SQL.
+    /// </summary>
+    /// <param name="fieldDef">The field definition.</param>
+    /// <param name="fieldRef">The field reference.</param>
+    /// <returns>System.String.</returns>
     protected string GetFieldReferenceSql(FieldDefinition fieldDef, FieldReference fieldRef)
     {
         var refPkValue = fieldRef.RefIdFieldDef.GetValue(instance);
@@ -163,7 +169,7 @@ internal abstract class LoadReferences<T>
 internal class LoadReferencesSync<T> : LoadReferences<T>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="LoadReferencesSync{T}"/> class.
+    /// Initializes a new instance of the <see cref="LoadReferencesSync{T}" /> class.
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
     /// <param name="instance">The instance.</param>
@@ -214,6 +220,11 @@ internal class LoadReferencesSync<T> : LoadReferences<T>
         }
     }
 
+    /// <summary>
+    /// Sets the field reference.
+    /// </summary>
+    /// <param name="fieldDef">The field definition.</param>
+    /// <param name="fieldRef">The field reference.</param>
     public void SetFieldReference(FieldDefinition fieldDef, FieldReference fieldRef)
     {
         var sqlRef = GetFieldReferenceSql(fieldDef, fieldRef);
@@ -233,7 +244,7 @@ internal class LoadReferencesSync<T> : LoadReferences<T>
 internal class LoadReferencesAsync<T> : LoadReferences<T>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="LoadReferencesAsync{T}"/> class.
+    /// Initializes a new instance of the <see cref="LoadReferencesAsync{T}" /> class.
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
     /// <param name="instance">The instance.</param>
@@ -286,6 +297,12 @@ internal class LoadReferencesAsync<T> : LoadReferences<T>
         }
     }
 
+    /// <summary>
+    /// Sets the field reference.
+    /// </summary>
+    /// <param name="fieldDef">The field definition.</param>
+    /// <param name="fieldRef">The field reference.</param>
+    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     public async Task SetFieldReference(FieldDefinition fieldDef, FieldReference fieldRef, CancellationToken token)
     {
         var sqlRef = GetFieldReferenceSql(fieldDef, fieldRef);

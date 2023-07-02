@@ -29,7 +29,7 @@ public class JsFilterExpressionStatement : JsStatement
     /// <value>The filter expression.</value>
     public PageVariableFragment FilterExpression { get; }
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsFilterExpressionStatement"/> class.
+    /// Initializes a new instance of the <see cref="JsFilterExpressionStatement" /> class.
     /// </summary>
     /// <param name="originalText">The original text.</param>
     /// <param name="expr">The expr.</param>
@@ -39,7 +39,7 @@ public class JsFilterExpressionStatement : JsStatement
         FilterExpression = new PageVariableFragment(originalText, expr, filters);
     }
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsFilterExpressionStatement"/> class.
+    /// Initializes a new instance of the <see cref="JsFilterExpressionStatement" /> class.
     /// </summary>
     /// <param name="originalText">The original text.</param>
     /// <param name="expr">The expr.</param>
@@ -89,7 +89,7 @@ public class JsBlockStatement : JsStatement
     /// <value>The statements.</value>
     public JsStatement[] Statements { get; }
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsBlockStatement"/> class.
+    /// Initializes a new instance of the <see cref="JsBlockStatement" /> class.
     /// </summary>
     /// <param name="statements">The statements.</param>
     public JsBlockStatement(JsStatement[] statements)
@@ -98,7 +98,7 @@ public class JsBlockStatement : JsStatement
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsBlockStatement"/> class.
+    /// Initializes a new instance of the <see cref="JsBlockStatement" /> class.
     /// </summary>
     /// <param name="statement">The statement.</param>
     public JsBlockStatement(JsStatement statement)
@@ -146,7 +146,7 @@ public class JsExpressionStatement : JsStatement
     /// <value>The expression.</value>
     public JsToken Expression { get; }
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsExpressionStatement"/> class.
+    /// Initializes a new instance of the <see cref="JsExpressionStatement" /> class.
     /// </summary>
     /// <param name="expression">The expression.</param>
     public JsExpressionStatement(JsToken expression)
@@ -194,7 +194,7 @@ public class JsPageBlockFragmentStatement : JsStatement
     /// <value>The block.</value>
     public PageBlockFragment Block { get; }
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsPageBlockFragmentStatement"/> class.
+    /// Initializes a new instance of the <see cref="JsPageBlockFragmentStatement" /> class.
     /// </summary>
     /// <param name="block">The block.</param>
     public JsPageBlockFragmentStatement(PageBlockFragment block)

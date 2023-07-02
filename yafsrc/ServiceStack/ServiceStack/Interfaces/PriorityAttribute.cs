@@ -22,7 +22,7 @@ public class PriorityAttribute : AttributeBase
     /// <value>The value.</value>
     public int Value { get; set; }
     /// <summary>
-    /// Initializes a new instance of the <see cref="PriorityAttribute"/> class.
+    /// Initializes a new instance of the <see cref="PriorityAttribute" /> class.
     /// </summary>
     /// <param name="value">The value.</param>
     public PriorityAttribute(int value)

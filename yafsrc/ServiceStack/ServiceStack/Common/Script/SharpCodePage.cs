@@ -72,7 +72,7 @@ public abstract class SharpCodePage : IDisposable
     private MethodInvoker renderInvoker;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SharpCodePage"/> class.
+    /// Initializes a new instance of the <see cref="SharpCodePage" /> class.
     /// </summary>
     /// <param name="layout">The layout.</param>
     protected SharpCodePage(string layout = null)

@@ -18,15 +18,27 @@ using System.Collections;
 using System.Text.RegularExpressions;
 
 /// <summary>
-/// The Words class transforms words from one 
+/// The Words class transforms words from one
 /// form to another. For example, from singular to plural.
 /// </summary>
 public static class Words
 {
+    /// <summary>
+    /// The plurals
+    /// </summary>
     private static readonly ArrayList plurals = new();
+    /// <summary>
+    /// The singulars
+    /// </summary>
     private static readonly ArrayList singulars = new();
+    /// <summary>
+    /// The uncountables
+    /// </summary>
     private static readonly ArrayList uncountables = new();
 
+    /// <summary>
+    /// Initializes static members of the <see cref="Words"/> class.
+    /// </summary>
     static Words()
     {
         AddPlural("$", "s");
@@ -88,17 +100,36 @@ public static class Words
         AddUncountable("sheep");
     }
 
+    /// <summary>
+    /// Class Rule.
+    /// </summary>
     private class Rule
     {
+        /// <summary>
+        /// The regex
+        /// </summary>
         private readonly Regex regex;
+        /// <summary>
+        /// The replacement
+        /// </summary>
         private readonly string replacement;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Rule"/> class.
+        /// </summary>
+        /// <param name="pattern">The pattern.</param>
+        /// <param name="replacement">The replacement.</param>
         public Rule(string pattern, string replacement)
         {
             regex = new Regex(pattern, RegexOptions.IgnoreCase);
             this.replacement = replacement;
         }
 
+        /// <summary>
+        /// Applies the specified word.
+        /// </summary>
+        /// <param name="word">The word.</param>
+        /// <returns>System.String.</returns>
         public string Apply(string word)
         {
             if (!regex.IsMatch(word))
@@ -114,7 +145,7 @@ public static class Words
     /// Return the plural of a word.
     /// </summary>
     /// <param name="word">The singular form</param>
-    /// <returns>The plural form of <paramref name="word"/></returns>
+    /// <returns>The plural form of <paramref name="word" /></returns>
     public static string Pluralize(string word)
     {
         return ApplyRules(plurals, word);
@@ -124,7 +155,7 @@ public static class Words
     /// Return the singular of a word.
     /// </summary>
     /// <param name="word">The plural form</param>
-    /// <returns>The singular form of <paramref name="word"/></returns>
+    /// <returns>The singular form of <paramref name="word" /></returns>
     public static string Singularize(string word)
     {
         return ApplyRules(singulars, word);
@@ -134,33 +165,58 @@ public static class Words
     /// Capitalizes a word.
     /// </summary>
     /// <param name="word">The word to be capitalized.</param>
-    /// <returns><paramref name="word"/> capitalized.</returns>
+    /// <returns><paramref name="word" /> capitalized.</returns>
     public static string Capitalize(string word)
     {
         return word.Substring(0, 1).ToUpper() + word.Substring(1).ToLower();
     }
 
+    /// <summary>
+    /// Adds the irregular.
+    /// </summary>
+    /// <param name="singular">The singular.</param>
+    /// <param name="plural">The plural.</param>
     private static void AddIrregular(string singular, string plural)
     {
         AddPlural("(" + singular[0] + ")" + singular.Substring(1) + "$", "$1" + plural.Substring(1));
         AddSingular("(" + plural[0] + ")" + plural.Substring(1) + "$", "$1" + singular.Substring(1));
     }
 
+    /// <summary>
+    /// Adds the uncountable.
+    /// </summary>
+    /// <param name="word">The word.</param>
     private static void AddUncountable(string word)
     {
         uncountables.Add(word.ToLower());
     }
 
+    /// <summary>
+    /// Adds the plural.
+    /// </summary>
+    /// <param name="rule">The rule.</param>
+    /// <param name="replacement">The replacement.</param>
     private static void AddPlural(string rule, string replacement)
     {
         plurals.Add(new Rule(rule, replacement));
     }
 
+    /// <summary>
+    /// Adds the singular.
+    /// </summary>
+    /// <param name="rule">The rule.</param>
+    /// <param name="replacement">The replacement.</param>
     private static void AddSingular(string rule, string replacement)
     {
         singulars.Add(new Rule(rule, replacement));
     }
 
+    /// <summary>
+    /// Applies the rules.
+    /// </summary>
+    /// <param name="rules">The rules.</param>
+    /// <param name="word">The word.</param>
+    /// <returns>System.String.</returns>
     private static string ApplyRules(IList rules, string word)
     {
         string result = word;

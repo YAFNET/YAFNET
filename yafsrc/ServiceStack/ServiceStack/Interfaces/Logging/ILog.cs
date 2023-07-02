@@ -155,13 +155,25 @@ public interface ILogTrace
     void TraceFormat(string format, params object[] args);
 }
 
-
+/// <summary>
+/// Class LogUtils.
+/// </summary>
 public static class LogUtils
 {
+    /// <summary>
+    /// Determines whether [is trace enabled] [the specified log].
+    /// </summary>
+    /// <param name="log">The log.</param>
+    /// <returns><c>true</c> if [is trace enabled] [the specified log]; otherwise, <c>false</c>.</returns>
     public static bool IsTraceEnabled(this ILog log) => log is ILogTrace traceLog
                                                             ? traceLog.IsTraceEnabled
                                                             : log.IsDebugEnabled;
 
+    /// <summary>
+    /// Traces the specified message.
+    /// </summary>
+    /// <param name="log">The log.</param>
+    /// <param name="message">The message.</param>
     public static void Trace(this ILog log, object message)
     {
         if (log is ILogTrace traceLog)
@@ -170,6 +182,12 @@ public static class LogUtils
             log.Debug(message);
     }
 
+    /// <summary>
+    /// Traces the specified message.
+    /// </summary>
+    /// <param name="log">The log.</param>
+    /// <param name="message">The message.</param>
+    /// <param name="exception">The exception.</param>
     public static void Trace(this ILog log, object message, Exception exception)
     {
         if (log is ILogTrace traceLog)
@@ -178,6 +196,12 @@ public static class LogUtils
             log.Debug(message, exception);
     }
 
+    /// <summary>
+    /// Traces the format.
+    /// </summary>
+    /// <param name="log">The log.</param>
+    /// <param name="format">The format.</param>
+    /// <param name="args">The arguments.</param>
     public static void TraceFormat(this ILog log, string format, params object[] args)
     {
         if (log is ILogTrace traceLog)

@@ -2,6 +2,11 @@
 
 using System;
 
+/// <summary>
+/// Interface ILogWithException
+/// Implements the <see cref="ServiceStack.Logging.ILog" />
+/// </summary>
+/// <seealso cref="ServiceStack.Logging.ILog" />
 public interface ILogWithException : ILog
 {
     /// <summary>
@@ -45,6 +50,9 @@ public interface ILogWithException : ILog
     void Fatal(Exception exception, string format, params object[] args);
 }
 
+/// <summary>
+/// Class ILogWithExceptionExtensions.
+/// </summary>
 public static class ILogWithExceptionExtensions
 {
     /// <summary>

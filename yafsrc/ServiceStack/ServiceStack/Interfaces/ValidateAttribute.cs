@@ -22,12 +22,12 @@ using ServiceStack.DataAnnotations;
 public class ValidateRequestAttribute : AttributeBase, IValidateRule, IReflectAttributeConverter
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ValidateRequestAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ValidateRequestAttribute" /> class.
     /// </summary>
     public ValidateRequestAttribute() { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ValidateRequestAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ValidateRequestAttribute" /> class.
     /// </summary>
     /// <param name="validator">The validator.</param>
     public ValidateRequestAttribute(string validator)
@@ -139,7 +139,7 @@ public class ValidateRequestAttribute : AttributeBase, IValidateRule, IReflectAt
 public class ValidateIsAuthenticatedAttribute : ValidateRequestAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ValidateIsAuthenticatedAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ValidateIsAuthenticatedAttribute" /> class.
     /// </summary>
     public ValidateIsAuthenticatedAttribute() : base("IsAuthenticated") { }
 }
@@ -151,7 +151,7 @@ public class ValidateIsAuthenticatedAttribute : ValidateRequestAttribute
 public class ValidateIsAdminAttribute : ValidateRequestAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ValidateIsAdminAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ValidateIsAdminAttribute" /> class.
     /// </summary>
     public ValidateIsAdminAttribute() : base("IsAdmin") { }
 }
@@ -163,7 +163,7 @@ public class ValidateIsAdminAttribute : ValidateRequestAttribute
 public class ValidateHasRoleAttribute : ValidateRequestAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ValidateHasRoleAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ValidateHasRoleAttribute" /> class.
     /// </summary>
     /// <param name="role">The role.</param>
     public ValidateHasRoleAttribute(string role) : base("HasRole(`" + role + "`)") { }
@@ -176,7 +176,7 @@ public class ValidateHasRoleAttribute : ValidateRequestAttribute
 public class ValidateHasPermissionAttribute : ValidateRequestAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ValidateHasPermissionAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ValidateHasPermissionAttribute" /> class.
     /// </summary>
     /// <param name="permission">The permission.</param>
     public ValidateHasPermissionAttribute(string permission) : base("HasPermission(`" + permission + "`)") { }
@@ -195,11 +195,11 @@ public class ValidateHasPermissionAttribute : ValidateRequestAttribute
 public class ValidateAttribute : AttributeBase, IValidateRule, IReflectAttributeConverter
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ValidateAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ValidateAttribute" /> class.
     /// </summary>
     public ValidateAttribute() { }
     /// <summary>
-    /// Initializes a new instance of the <see cref="ValidateAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ValidateAttribute" /> class.
     /// </summary>
     /// <param name="validator">The validator.</param>
     public ValidateAttribute(string validator)

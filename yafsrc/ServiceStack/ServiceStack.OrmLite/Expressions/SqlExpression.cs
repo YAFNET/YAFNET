@@ -24,6 +24,7 @@ using ServiceStack.Text;
 /// Implements the <see cref="ServiceStack.OrmLite.IHasUntypedSqlExpression" />
 /// Implements the <see cref="ServiceStack.OrmLite.IHasDialectProvider" />
 /// </summary>
+/// <typeparam name="T"></typeparam>
 /// <seealso cref="ServiceStack.OrmLite.ISqlExpression" />
 /// <seealso cref="ServiceStack.OrmLite.IHasUntypedSqlExpression" />
 /// <seealso cref="ServiceStack.OrmLite.IHasDialectProvider" />
@@ -126,6 +127,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <value>The use select properties as aliases.</value>
     public bool UseSelectPropertiesAsAliases { get; set; }
 
+    /// <summary>
+    /// Gets or sets the use join type as aliases.
+    /// </summary>
+    /// <value>The use join type as aliases.</value>
     public bool UseJoinTypeAsAliases { get; set; }
 
     /// <summary>
@@ -134,7 +139,15 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <value>The where statement without where string.</value>
     public bool WhereStatementWithoutWhereString { get; set; }
 
+    /// <summary>
+    /// Gets the tags.
+    /// </summary>
+    /// <value>The tags.</value>
     public ISet<string> Tags { get; } = new HashSet<string>();
+    /// <summary>
+    /// Gets or sets the allow escape wildcards.
+    /// </summary>
+    /// <value>The allow escape wildcards.</value>
     public bool AllowEscapeWildcards { get; set; } = true;
 
     /// <summary>
@@ -174,7 +187,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     protected string Sep { get; private set; } = string.Empty;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SqlExpression{T}"/> class.
+    /// Initializes a new instance of the <see cref="SqlExpression{T}" /> class.
     /// </summary>
     /// <param name="dialectProvider">The dialect provider.</param>
     protected SqlExpression(IOrmLiteDialectProvider dialectProvider)
@@ -204,6 +217,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         return this.CopyTo(this.DialectProvider.SqlExpression<T>());
     }
 
+    /// <summary>
+    /// Adds the tag.
+    /// </summary>
+    /// <param name="tag">The tag.</param>
     public virtual void AddTag(string tag)
     {
         //Debug.Assert(!string.IsNullOrEmpty(tag));
@@ -1197,11 +1214,21 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
     public virtual SqlExpression<T> Or(Expression<Func<T, bool>> predicate, params object[] filterParams) => this.AppendToWhere("OR", predicate, filterParams);
 
+    /// <summary>
+    /// Wheres the exists.
+    /// </summary>
+    /// <param name="subSelect">The sub select.</param>
+    /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
     public virtual SqlExpression<T> WhereExists(ISqlExpression subSelect)
     {
         return AppendToWhere("AND", FormatFilter($"EXISTS ({subSelect.ToSelectStatement()})"));
     }
 
+    /// <summary>
+    /// Wheres the not exists.
+    /// </summary>
+    /// <param name="subSelect">The sub select.</param>
+    /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
     public virtual SqlExpression<T> WhereNotExists(ISqlExpression subSelect)
     {
         return AppendToWhere("AND", FormatFilter($"NOT EXISTS ({subSelect.ToSelectStatement()})"));
@@ -3208,6 +3235,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// </summary>
     /// <param name="m">The m.</param>
     /// <returns>object.</returns>
+    /// <exception cref="ArgumentException">$"Expression '{m}' accesses unsupported property '{m.Member}' of Nullable<T></exception>
     protected virtual object VisitMemberAccess(MemberExpression m)
     {
         if (m.Expression != null)
@@ -3522,7 +3550,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         public readonly IEnumerable<object> Items;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SqlExpression{T}.SelectList"/> class.
+        /// Initializes a new instance of the <see cref="SqlExpression{T}.SelectList" /> class.
         /// </summary>
         /// <param name="items">The items.</param>
         public SelectList(IEnumerable<object> items)
@@ -4326,6 +4354,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// </summary>
     /// <param name="m">The m.</param>
     /// <returns>object.</returns>
+    /// <exception cref="NotSupportedException"></exception>
     /// <exception cref="SelectList">this.DialectProvider.GetColumnNames(paramModelDef, alias)</exception>
     protected virtual object VisitSqlMethodCall(MethodCallExpression m)
     {
@@ -4397,6 +4426,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <param name="m">The m.</param>
     /// <param name="quotedColName">Name of the quoted col.</param>
     /// <returns>string.</returns>
+    /// <exception cref="NotSupportedException">$"In({argValue.GetType()})</exception>
     protected string ConvertInExpressionToSql(MethodCallExpression m, object quotedColName)
     {
         var argValue = this.EvaluateExpression(m.Arguments[1]);
@@ -4697,7 +4727,7 @@ public class PartialSqlString
     public static PartialSqlString Null = new("null");
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PartialSqlString"/> class.
+    /// Initializes a new instance of the <see cref="PartialSqlString" /> class.
     /// </summary>
     /// <param name="text">The text.</param>
     public PartialSqlString(string text) : this(text, null)
@@ -4705,10 +4735,10 @@ public class PartialSqlString
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PartialSqlString"/> class.
+    /// Initializes a new instance of the <see cref="PartialSqlString" /> class.
     /// </summary>
     /// <param name="text">The text.</param>
-    /// <param name="enumMember"></param>
+    /// <param name="enumMember">The enum member.</param>
     public PartialSqlString(string text, EnumMemberAccess enumMember)
     {
         this.Text = text;
@@ -4721,6 +4751,9 @@ public class PartialSqlString
     /// <value>The text.</value>
     public string Text { get; internal set; }
 
+    /// <summary>
+    /// The enum member
+    /// </summary>
     public readonly EnumMemberAccess EnumMember;
 
     /// <summary>
@@ -4763,7 +4796,7 @@ public class PartialSqlString
 public class EnumMemberAccess : PartialSqlString
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="EnumMemberAccess"/> class.
+    /// Initializes a new instance of the <see cref="EnumMemberAccess" /> class.
     /// </summary>
     /// <param name="text">The text.</param>
     /// <param name="enumType">Type of the enum.</param>
@@ -4789,7 +4822,7 @@ public class EnumMemberAccess : PartialSqlString
 public abstract class SelectItem
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="SelectItem"/> class.
+    /// Initializes a new instance of the <see cref="SelectItem" /> class.
     /// </summary>
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <param name="alias">The alias.</param>
@@ -4827,13 +4860,13 @@ public abstract class SelectItem
 public class SelectItemExpression : SelectItem
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="SelectItemExpression"/> class.
+    /// Initializes a new instance of the <see cref="SelectItemExpression" /> class.
     /// </summary>
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <param name="selectExpression">The select expression.</param>
     /// <param name="alias">The alias.</param>
     /// <exception cref="ArgumentNullException">nameof(selectExpression)</exception>
-    /// <exception cref="ArgumentNullException">nameof(selectExpression)</exception>
+    /// <exception cref="ArgumentNullException">nameof(alias)</exception>
     public SelectItemExpression(IOrmLiteDialectProvider dialectProvider, string selectExpression, string alias)
         : base(dialectProvider, alias)
     {
@@ -4874,7 +4907,7 @@ public class SelectItemExpression : SelectItem
 public class SelectItemColumn : SelectItem
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="SelectItemColumn"/> class.
+    /// Initializes a new instance of the <see cref="SelectItemColumn" /> class.
     /// </summary>
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <param name="columnName">Name of the column.</param>

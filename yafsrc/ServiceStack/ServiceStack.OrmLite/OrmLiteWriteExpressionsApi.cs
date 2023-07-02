@@ -145,13 +145,17 @@ public static class OrmLiteWriteExpressionsApi
 
     /// <summary>
     /// Update only fields in the specified expression that matches the where condition (if any), E.g:
-    /// 
-    ///   db.UpdateOnly(() => new Person { FirstName = "JJ" }, where: p => p.LastName == "Hendrix");
-    ///   UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
-    ///
-    ///   db.UpdateOnly(() => new Person { FirstName = "JJ" });
-    ///   UPDATE "Person" SET "FirstName" = 'JJ'
+    /// db.UpdateOnly(() =&gt; new Person { FirstName = "JJ" }, where: p =&gt; p.LastName == "Hendrix");
+    /// UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
+    /// db.UpdateOnly(() =&gt; new Person { FirstName = "JJ" });
+    /// UPDATE "Person" SET "FirstName" = 'JJ'
     /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="dbConn">The database connection.</param>
+    /// <param name="updateFields">The update fields.</param>
+    /// <param name="where">The where.</param>
+    /// <param name="commandFilter">The command filter.</param>
+    /// <returns>System.Int32.</returns>
     public static int UpdateOnly<T>(this IDbConnection dbConn,
                                     Expression<Func<T>> updateFields,
                                     Expression<Func<T, bool>> where = null,

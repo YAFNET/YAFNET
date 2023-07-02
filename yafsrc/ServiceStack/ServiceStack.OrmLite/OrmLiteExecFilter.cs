@@ -300,6 +300,7 @@ public class OrmLiteExecFilter : IOrmLiteExecFilter
     /// </summary>
     /// <param name="dbConn">The database connection.</param>
     /// <param name="filter">The filter.</param>
+    /// <returns>Task.</returns>
     public virtual async Task Exec(IDbConnection dbConn, Func<IDbCommand, Task> filter)
     {
         var dbCmd = this.CreateCommand(dbConn);

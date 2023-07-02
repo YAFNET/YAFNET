@@ -50,7 +50,7 @@ public struct ScriptScopeContext
     public Stream OutputStream { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ScriptScopeContext"/> struct.
+    /// Initializes a new instance of the <see cref="ScriptScopeContext" /> struct.
     /// </summary>
     /// <param name="pageResult">The page result.</param>
     /// <param name="outputStream">The output stream.</param>
@@ -63,7 +63,7 @@ public struct ScriptScopeContext
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ScriptScopeContext"/> struct.
+    /// Initializes a new instance of the <see cref="ScriptScopeContext" /> struct.
     /// </summary>
     /// <param name="context">The context.</param>
     /// <param name="scopedParams">The scoped parameters.</param>
@@ -92,32 +92,32 @@ public struct ScriptScopeContext
 public class ScopeVars : Dictionary<string, object>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ScopeVars"/> class.
+    /// Initializes a new instance of the <see cref="ScopeVars" /> class.
     /// </summary>
     public ScopeVars() { }
     /// <summary>
-    /// Initializes a new instance of the <see cref="ScopeVars"/> class.
+    /// Initializes a new instance of the <see cref="ScopeVars" /> class.
     /// </summary>
     /// <param name="dictionary">The <see cref="T:System.Collections.Generic.IDictionary`2" /> whose elements are copied to the new <see cref="T:System.Collections.Generic.Dictionary`2" />.</param>
     public ScopeVars(IDictionary<string, object> dictionary) : base(dictionary) { }
     /// <summary>
-    /// Initializes a new instance of the <see cref="ScopeVars"/> class.
+    /// Initializes a new instance of the <see cref="ScopeVars" /> class.
     /// </summary>
     /// <param name="dictionary">The <see cref="T:System.Collections.Generic.IDictionary`2" /> whose elements are copied to the new <see cref="T:System.Collections.Generic.Dictionary`2" />.</param>
     /// <param name="comparer">The <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> implementation to use when comparing keys, or <see langword="null" /> to use the default <see cref="T:System.Collections.Generic.EqualityComparer`1" /> for the type of the key.</param>
     public ScopeVars(IDictionary<string, object> dictionary, IEqualityComparer<string> comparer) : base(dictionary, comparer) { }
     /// <summary>
-    /// Initializes a new instance of the <see cref="ScopeVars"/> class.
+    /// Initializes a new instance of the <see cref="ScopeVars" /> class.
     /// </summary>
     /// <param name="comparer">The <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> implementation to use when comparing keys, or <see langword="null" /> to use the default <see cref="T:System.Collections.Generic.EqualityComparer`1" /> for the type of the key.</param>
     public ScopeVars(IEqualityComparer<string> comparer) : base(comparer) { }
     /// <summary>
-    /// Initializes a new instance of the <see cref="ScopeVars"/> class.
+    /// Initializes a new instance of the <see cref="ScopeVars" /> class.
     /// </summary>
     /// <param name="capacity">The initial number of elements that the <see cref="T:System.Collections.Generic.Dictionary`2" /> can contain.</param>
     public ScopeVars(int capacity) : base(capacity) { }
     /// <summary>
-    /// Initializes a new instance of the <see cref="ScopeVars"/> class.
+    /// Initializes a new instance of the <see cref="ScopeVars" /> class.
     /// </summary>
     /// <param name="capacity">The initial number of elements that the <see cref="T:System.Collections.Generic.Dictionary`2" /> can contain.</param>
     /// <param name="comparer">The <see cref="T:System.Collections.Generic.IEqualityComparer`1" /> implementation to use when comparing keys, or <see langword="null" /> to use the default <see cref="T:System.Collections.Generic.EqualityComparer`1" /> for the type of the key.</param>

@@ -568,6 +568,7 @@ public class HtmlScripts : ScriptMethods, IConfigureScriptContext
     /// </summary>
     /// <param name="target">The target.</param>
     /// <returns>System.String.</returns>
+    /// <exception cref="NotSupportedException">$"{nameof(htmlClass)} expects a Dictionary, List or String argument but was '{target.GetType().Name}'</exception>
     /// <exception cref="System.NotSupportedException"></exception>
     public string htmlClassList(object target)
     {
@@ -738,7 +739,7 @@ public class HtmlScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="values">The values.</param>
     /// <param name="options">The options.</param>
     /// <returns>IRawString.</returns>
-    /// <exception cref="NotSupportedException">Could not convert '{values.GetType().Name}' values into List string</exception>
+    /// <exception cref="NotSupportedException">$"Could not convert '{values.GetType().Name}' values into List<string></exception>
     public IRawString htmlOptions(object values, object options)
     {
         if (values == null)

@@ -35,7 +35,7 @@ public static partial class SqlMapper
         internal string[] FieldNames => fieldNames;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DapperTable"/> class.
+        /// Initializes a new instance of the <see cref="DapperTable" /> class.
         /// </summary>
         /// <param name="fieldNames">The field names.</param>
         /// <exception cref="System.ArgumentNullException">fieldNames</exception>

@@ -113,6 +113,7 @@ public static class ProcessUtils
     /// <param name="arguments">The arguments.</param>
     /// <param name="workingDir">The working dir.</param>
     /// <returns>System.String.</returns>
+    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">`{fileName} {process.StartInfo.Arguments}` command failed, stderr: " + error + ", stdout:" + output</exception>
     /// <exception cref="System.Exception">`{fileName} {process.StartInfo.Arguments}` command failed, stderr: " + error + ", stdout:" + output</exception>
     public static string Run(string fileName, string arguments = null, string workingDir = null)
     {
@@ -135,6 +136,13 @@ public static class ProcessUtils
             return output;
         }
     }
+    /// <summary>
+    /// Creates the process.
+    /// </summary>
+    /// <param name="fileName">Name of the file.</param>
+    /// <param name="arguments">The arguments.</param>
+    /// <param name="workingDir">The working dir.</param>
+    /// <returns>Process.</returns>
     public static Process CreateProcess(string fileName, string arguments, string workingDir)
     {
         var process = new Process
@@ -156,8 +164,15 @@ public static class ProcessUtils
     }
 
     /// <summary>
-    /// Run the command with the OS's command runner 
+    /// Run the command with the OS's command runner
     /// </summary>
+    /// <param name="arguments">The arguments.</param>
+    /// <param name="workingDir">The working dir.</param>
+    /// <param name="timeoutMs">The timeout ms.</param>
+    /// <param name="onOut">The on out.</param>
+    /// <param name="onError">The on error.</param>
+    /// <returns>A Task representing the asynchronous operation.</returns>
+    /// <exception cref="System.ArgumentNullException">arguments</exception>
     public static async Task RunShellAsync(string arguments, string workingDir = null, int? timeoutMs = null,
                                            Action<string> onOut = null, Action<string> onError = null)
     {

@@ -8,6 +8,11 @@ using System;
 
 namespace ServiceStack.DataAnnotations;
 
+/// <summary>
+/// Class AlterColumnAttribute.
+/// Implements the <see cref="ServiceStack.AttributeBase" />
+/// </summary>
+/// <seealso cref="ServiceStack.AttributeBase" />
 public abstract class AlterColumnAttribute : AttributeBase { }
 
 /// <summary>
@@ -32,7 +37,15 @@ public class RemoveColumnAttribute : AlterColumnAttribute
 [AttributeUsage(AttributeTargets.Property)]
 public class RenameColumnAttribute : AlterColumnAttribute
 {
+    /// <summary>
+    /// Gets from.
+    /// </summary>
+    /// <value>From.</value>
     public string From { get; }
+    /// <summary>
+    /// Initializes a new instance of the <see cref="RenameColumnAttribute"/> class.
+    /// </summary>
+    /// <param name="from">From.</param>
     public RenameColumnAttribute(string from)
     {
         From = from;

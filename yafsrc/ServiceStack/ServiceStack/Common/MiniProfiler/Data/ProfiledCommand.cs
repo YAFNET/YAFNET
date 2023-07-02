@@ -36,7 +36,7 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     private DbTransaction tran;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ProfiledCommand"/> class.
+    /// Initializes a new instance of the <see cref="ProfiledCommand" /> class.
     /// </summary>
     /// <param name="cmd">The command.</param>
     /// <param name="conn">The connection.</param>

@@ -52,7 +52,7 @@ public class IgnoreResult : IResultInstruction
     /// </summary>
     public static readonly IgnoreResult Value = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="IgnoreResult"/> class from being created.
+    /// Prevents a default instance of the <see cref="IgnoreResult" /> class from being created.
     /// </summary>
     private IgnoreResult() { }
 }
@@ -69,7 +69,7 @@ public class StopExecution : IResultInstruction
     /// </summary>
     public static StopExecution Value = new();
     /// <summary>
-    /// Prevents a default instance of the <see cref="StopExecution"/> class from being created.
+    /// Prevents a default instance of the <see cref="StopExecution" /> class from being created.
     /// </summary>
     private StopExecution() { }
 }
@@ -95,7 +95,7 @@ public class StopFilterExecutionException : StopExecutionException, IResponseSta
     public object Options { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="StopFilterExecutionException"/> class.
+    /// Initializes a new instance of the <see cref="StopFilterExecutionException" /> class.
     /// </summary>
     /// <param name="scope">The scope.</param>
     /// <param name="options">The options.</param>
@@ -146,7 +146,7 @@ public class ScriptException : Exception
     public string PageStackTrace => PageResult.LastFilterStackTrace.Map(x => "   at " + x).Join(Environment.NewLine);
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ScriptException"/> class.
+    /// Initializes a new instance of the <see cref="ScriptException" /> class.
     /// </summary>
     /// <param name="pageResult">The page result.</param>
     public ScriptException(PageResult pageResult) : base(
@@ -179,7 +179,7 @@ public class ScriptMethods
     private readonly Dictionary<string, MethodInfo> lookupIndex = new();
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ScriptMethods"/> class.
+    /// Initializes a new instance of the <see cref="ScriptMethods" /> class.
     /// </summary>
     public ScriptMethods()
     {
@@ -356,7 +356,7 @@ public static class TemplateFilterUtils
     /// <param name="filterName">Name of the filter.</param>
     /// <param name="expression">The expression.</param>
     /// <returns>System.String.</returns>
-    /// <exception cref="System.NotSupportedException">'{filterName}' in '{scope.PageResult.VirtualPath}' requires a string Expression but received a '{expression?.GetType()?.Name}' instead</exception>
+    /// <exception cref="System.NotSupportedException">'{filterName}' in '{scope.PageResult.VirtualPath}' requires a string Expression but received a '{expression?.GetType().Name}' instead</exception>
     public static string AssertExpression(this ScriptScopeContext scope, string filterName, object expression)
     {
         if (expression is not string literal)

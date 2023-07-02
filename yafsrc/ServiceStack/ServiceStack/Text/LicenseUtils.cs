@@ -48,9 +48,13 @@ public enum LicenseType
     /// The free
     /// </summary>
     Free,
-    /// <summary>The free individual</summary>
+    /// <summary>
+    /// The free individual
+    /// </summary>
     FreeIndividual,
-    /// <summary>The free open source</summary>
+    /// <summary>
+    /// The free open source
+    /// </summary>
     FreeOpenSource,
     /// <summary>
     /// The indie
@@ -317,7 +321,7 @@ public static class LicenseUtils
     private const string ContactDetails = " Please see servicestack.net or contact team@servicestack.net for more details.";
 
     /// <summary>
-    /// Initializes static members of the <see cref="LicenseUtils"/> class.
+    /// Initializes static members of the <see cref="LicenseUtils" /> class.
     /// </summary>
     static LicenseUtils()
     {
@@ -420,8 +424,10 @@ public static class LicenseUtils
     /// <summary>
     /// Asserts the evaluation license.
     /// </summary>
+    /// <exception cref="LicenseException">The evaluation license for this software has expired. " +
+    ///                                        "See https://servicestack.net to upgrade to a valid license.</exception>
     /// <exception cref="ServiceStack.LicenseException">The evaluation license for this software has expired. " +
-    ///                     "See https://servicestack.net to upgrade to a valid license.</exception>
+    /// "See https://servicestack.net to upgrade to a valid license.</exception>
     public static void AssertEvaluationLicense()
     {
         if (DateTime.UtcNow > new DateTime(2013, 12, 31))
@@ -444,7 +450,7 @@ public static class LicenseUtils
         /// </summary>
         internal readonly LicenseKey LicenseKey;
         /// <summary>
-        /// Initializes a new instance of the <see cref="__ActivatedLicense"/> class.
+        /// Initializes a new instance of the <see cref="__ActivatedLicense" /> class.
         /// </summary>
         /// <param name="licenseKey">The license key.</param>
         internal __ActivatedLicense(LicenseKey licenseKey)
@@ -493,6 +499,9 @@ public static class LicenseUtils
     /// Registers the license.
     /// </summary>
     /// <param name="licenseKeyText">The license key text.</param>
+    /// <exception cref="LicenseException">This subscription has been revoked. " + ContactDetails</exception>
+    /// <exception cref="LicenseException">msg, exFallback</exception>
+    /// <exception cref="LicenseException">msg, ex</exception>
     public static void RegisterLicense(string licenseKeyText)
     {
         JsConfig.InitStatics();
@@ -568,8 +577,11 @@ public static class LicenseUtils
     /// Validates the license key.
     /// </summary>
     /// <param name="key">The key.</param>
+    /// <exception cref="LicenseException">$"This license has expired on {key.Expiry:d} and is not valid for use with this release."
+    ///                                        + ContactDetails</exception>
+    /// <exception cref="LicenseException">$"This trial license has expired on {key.Expiry:d}." + ContactDetails</exception>
     /// <exception cref="ServiceStack.LicenseException">This license has expired on {key.Expiry:d} and is not valid for use with this release."
-    ///                                            + ContactDetails</exception>
+    /// + ContactDetails</exception>
     /// <exception cref="ServiceStack.LicenseException">This trial license has expired on {key.Expiry:d}." + ContactDetails</exception>
     private static void ValidateLicenseKey(LicenseKey key)
     {
@@ -588,12 +600,34 @@ public static class LicenseUtils
             Console.WriteLine(LicenseWarningMessage);
     }
 
+    /// <summary>
+    /// The individual prefix
+    /// </summary>
     private const string IndividualPrefix = "Individual (c) ";
+    /// <summary>
+    /// The open source prefix
+    /// </summary>
     private const string OpenSourcePrefix = "OSS ";
 
+    /// <summary>
+    /// Determines whether [is free license key] [the specified license text].
+    /// </summary>
+    /// <param name="licenseText">The license text.</param>
+    /// <returns>bool.</returns>
     private static bool IsFreeLicenseKey(string licenseText) =>
         licenseText.StartsWith(IndividualPrefix) || licenseText.StartsWith(OpenSourcePrefix);
 
+    /// <summary>
+    /// Validates the free license key.
+    /// </summary>
+    /// <param name="licenseText">The license text.</param>
+    /// <exception cref="NotSupportedException">Not a free License Key</exception>
+    /// <exception cref="LicenseException">Cannot use SERVICESTACK_LICENSE Environment variable with free License Keys, " +
+    ///                                        "please use Licensing.RegisterLicense() in source code.</exception>
+    /// <exception cref="LicenseException">Individual License Key is invalid.</exception>
+    /// <exception cref="LicenseException">Open Source License Key is invalid.</exception>
+    /// <exception cref="LicenseException">$"This license has expired on {key.Expiry:d} and is not valid for use with this release.\n"
+    ///                                        + "Check https://servicestack.net/free for eligible renewals.</exception>
     private static void ValidateFreeLicenseKey(string licenseText)
     {
         if (!IsFreeLicenseKey(licenseText))
@@ -630,6 +664,10 @@ public static class LicenseUtils
         __activatedLicense = new __ActivatedLicense(key);
     }
 
+    /// <summary>
+    /// Sets the information.
+    /// </summary>
+    /// <value>The information.</value>
     internal static string Info => __activatedLicense?.LicenseKey == null
                                        ? "NO"
                                        : __activatedLicense.LicenseKey.Type switch
@@ -656,6 +694,11 @@ public static class LicenseUtils
                                                _ => "UN",
                                            };
 
+    /// <summary>
+    /// Verifies the individual license.
+    /// </summary>
+    /// <param name="licenseKey">The license key.</param>
+    /// <returns>ServiceStack.LicenseKey.</returns>
     private static LicenseKey VerifyIndividualLicense(string licenseKey)
     {
         if (licenseKey == null)
@@ -703,6 +746,11 @@ public static class LicenseUtils
         return null;
     }
 
+    /// <summary>
+    /// Verifies the open source license.
+    /// </summary>
+    /// <param name="licenseKey">The license key.</param>
+    /// <returns>ServiceStack.LicenseKey.</returns>
     private static LicenseKey VerifyOpenSourceLicense(string licenseKey)
     {
         if (licenseKey == null)
@@ -775,6 +823,7 @@ public static class LicenseUtils
     /// <param name="allowedUsage">The allowed usage.</param>
     /// <param name="actualUsage">The actual usage.</param>
     /// <param name="message">The message.</param>
+    /// <exception cref="LicenseException">message.Fmt(allowedUsage)</exception>
     /// <exception cref="ServiceStack.LicenseException"></exception>
     public static void ApprovedUsage(LicenseFeature licenseFeature, LicenseFeature requestedFeature,
                                      int allowedUsage, int actualUsage, string message)
@@ -804,6 +853,7 @@ public static class LicenseUtils
     /// <param name="feature">The feature.</param>
     /// <param name="quotaType">Type of the quota.</param>
     /// <param name="count">The count.</param>
+    /// <exception cref="LicenseException">Unknown Quota Usage: {0}, {1}".Fmt(feature, quotaType)</exception>
     /// <exception cref="ServiceStack.LicenseException">Unknown Quota Usage: {0}, {1}".Fmt(feature, quotaType)</exception>
     public static void AssertValidUsage(LicenseFeature feature, QuotaType quotaType, int count)
     {
@@ -880,6 +930,7 @@ public static class LicenseUtils
     /// </summary>
     /// <param name="key">The key.</param>
     /// <returns>LicenseFeature.</returns>
+    /// <exception cref="ArgumentException">Unknown License Type: " + key.Type</exception>
     /// <exception cref="System.ArgumentException">Unknown License Type: " + key.Type</exception>
     public static LicenseFeature GetLicensedFeatures(this LicenseKey key)
     {
@@ -922,6 +973,7 @@ public static class LicenseUtils
     /// </summary>
     /// <param name="licenseKeyText">The license key text.</param>
     /// <returns>LicenseKey.</returns>
+    /// <exception cref="LicenseException">The license '{0}' is not assigned to CustomerId '{1}'.".Fmt(base64, refId)</exception>
     /// <exception cref="ServiceStack.LicenseException">The license '{0}' is not assigned to CustomerId '{1}'.".Fmt(base64, refId)</exception>
     public static LicenseKey ToLicenseKey(this string licenseKeyText)
     {
@@ -958,6 +1010,7 @@ public static class LicenseUtils
     /// </summary>
     /// <param name="licenseKeyText">The license key text.</param>
     /// <returns>LicenseKey.</returns>
+    /// <exception cref="LicenseException">$"The license '{base64}' is not assigned to CustomerId '{refId}'.</exception>
     /// <exception cref="ServiceStack.LicenseException">The license '{base64}' is not assigned to CustomerId '{refId}'.</exception>
     public static LicenseKey ToLicenseKeyFallback(this string licenseKeyText)
     {
@@ -1037,6 +1090,7 @@ public static class LicenseUtils
     /// </summary>
     /// <param name="licenseKeyText">The license key text.</param>
     /// <returns>LicenseKey.</returns>
+    /// <exception cref="ArgumentException">licenseKeyText</exception>
     /// <exception cref="System.ArgumentException">licenseKeyText</exception>
     public static LicenseKey VerifyLicenseKeyText(string licenseKeyText)
     {
@@ -1075,7 +1129,12 @@ public static class LicenseUtils
     }
 
 #if !NET48
-        private static System.Security.Cryptography.RSAParameters ExtractFromXml(string xml)
+    /// <summary>
+    /// Extracts from XML.
+    /// </summary>
+    /// <param name="xml">The XML.</param>
+    /// <returns>System.Security.Cryptography.RSAParameters.</returns>
+    private static System.Security.Cryptography.RSAParameters ExtractFromXml(string xml)
         {
             var csp = new System.Security.Cryptography.RSAParameters();
             using (var reader = System.Xml.XmlReader.Create(new StringReader(xml)))
@@ -1157,6 +1216,11 @@ public static class LicenseUtils
     /// <param name="licenseKeyText">The license key text.</param>
     /// <param name="key">The key.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+    /// <exception cref="Exception">Could not import LicensePublicKey, ex</exception>
+    /// <exception cref="Exception">Could not deserialize LicenseKeyText Manually, ex</exception>
+    /// <exception cref="Exception">Could not convert HashKey to UTF-8, ex</exception>
+    /// <exception cref="Exception">Could not convert key.Hash from Base64, ex</exception>
+    /// <exception cref="Exception">$"Could not Verify License Key ({originalData.Length}, {signedData.Length}), ex</exception>
     /// <exception cref="System.Exception">Could not import LicensePublicKey</exception>
     /// <exception cref="System.Exception">Could not deserialize LicenseKeyText Manually</exception>
     /// <exception cref="System.Exception">Could not convert HashKey to UTF-8</exception>

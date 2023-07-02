@@ -52,7 +52,7 @@ public static partial class SqlMapper
         private static readonly MethodInfo setValueMethod = typeof(DapperRow).GetMethod("SetValue", new Type[] { typeof(string), typeof(object) });
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DapperRowMetaObject"/> class.
+        /// Initializes a new instance of the <see cref="DapperRowMetaObject" /> class.
         /// </summary>
         /// <param name="expression">The expression representing this <see cref="T:System.Dynamic.DynamicMetaObject" /> during the dynamic binding process.</param>
         /// <param name="restrictions">The set of binding restrictions under which the binding is valid.</param>
@@ -65,7 +65,7 @@ public static partial class SqlMapper
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DapperRowMetaObject"/> class.
+        /// Initializes a new instance of the <see cref="DapperRowMetaObject" /> class.
         /// </summary>
         /// <param name="expression">The expression representing this <see cref="T:System.Dynamic.DynamicMetaObject" /> during the dynamic binding process.</param>
         /// <param name="restrictions">The set of binding restrictions under which the binding is valid.</param>

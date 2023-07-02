@@ -94,6 +94,11 @@ public static class OrmLiteConfig
             ? hasDialectProvider.DialectProvider
             : DialectProvider;
 
+    /// <summary>
+    /// Gets the naming strategy.
+    /// </summary>
+    /// <param name="db">The database.</param>
+    /// <returns>INamingStrategy.</returns>
     public static INamingStrategy GetNamingStrategy(this IDbConnection db) =>
         db.GetDialectProvider().NamingStrategy;
 

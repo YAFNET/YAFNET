@@ -28,7 +28,7 @@ using ServiceStack.Text;
 public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderBase<SqliteOrmLiteDialectProviderBase>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="SqliteOrmLiteDialectProviderBase"/> class.
+    /// Initializes a new instance of the <see cref="SqliteOrmLiteDialectProviderBase" /> class.
     /// </summary>
     protected SqliteOrmLiteDialectProviderBase()
     {
@@ -77,6 +77,10 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <value><c>true</c> if [parse via framework]; otherwise, <c>false</c>.</value>
     public static bool ParseViaFramework { get; set; }
 
+    /// <summary>
+    /// Gets a value indicating whether [supports schema].
+    /// </summary>
+    /// <value><c>true</c> if [supports schema]; otherwise, <c>false</c>.</value>
     public override bool SupportsSchema => false;
 
     /// <summary>
@@ -84,6 +88,10 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// </summary>
     public static string RowVersionTriggerFormat = "{0}RowVersionUpdateTrigger";
 
+    /// <summary>
+    /// Gets or sets a value indicating whether [enable foreign keys].
+    /// </summary>
+    /// <value><c>true</c> if [enable foreign keys]; otherwise, <c>false</c>.</value>
     public bool EnableForeignKeys
     {
         get => ConnectionCommands.Contains(SqlitePragmas.EnableForeignKeys);
@@ -337,6 +345,11 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <returns>SqlExpression&lt;T&gt;.</returns>
     public override SqlExpression<T> SqlExpression<T>() => new SqliteExpression<T>(this);
 
+    /// <summary>
+    /// Gets the schema tables.
+    /// </summary>
+    /// <param name="dbCmd">The database command.</param>
+    /// <returns>Dictionary&lt;System.String, List&lt;System.String&gt;&gt;.</returns>
     public override Dictionary<string, List<string>> GetSchemaTables(IDbCommand dbCmd)
     {
         return new Dictionary<string, List<string>>
@@ -474,7 +487,9 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
         return string.Empty; // Not Supported in Sqlite
     }
 
-    /// <summary>Gets the name of the primary key.</summary>
+    /// <summary>
+    /// Gets the name of the primary key.
+    /// </summary>
     /// <param name="modelDef">The model definition.</param>
     /// <returns>Returns the Primary Key Name</returns>
     public override string GetPrimaryKeyName(ModelDefinition modelDef)
@@ -482,7 +497,9 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
         return $"{this.NamingStrategy.GetTableName(modelDef).ToUpper()}_PK";
     }
 
-    /// <summary>Gets the drop primary key constraint.</summary>
+    /// <summary>
+    /// Gets the drop primary key constraint.
+    /// </summary>
     /// <param name="database">The database.</param>
     /// <param name="modelDef">The model definition.</param>
     /// <param name="name">The name.</param>
@@ -730,18 +747,47 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
         return results.ToString();
     }
 
+    /// <summary>
+    /// Enables the foreign keys check.
+    /// </summary>
+    /// <param name="cmd">The command.</param>
     public override void EnableForeignKeysCheck(IDbCommand cmd) => cmd.ExecNonQuery(SqlitePragmas.EnableForeignKeys);
+    /// <summary>
+    /// Enables the foreign keys check asynchronous.
+    /// </summary>
+    /// <param name="cmd">The command.</param>
+    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <returns>Task.</returns>
     public override Task EnableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default) =>
         cmd.ExecNonQueryAsync(SqlitePragmas.EnableForeignKeys, null, token);
 
+    /// <summary>
+    /// Disables the foreign keys check.
+    /// </summary>
+    /// <param name="cmd">The command.</param>
     public override void DisableForeignKeysCheck(IDbCommand cmd) => cmd.ExecNonQuery(SqlitePragmas.DisableForeignKeys);
+    /// <summary>
+    /// Disables the foreign keys check asynchronous.
+    /// </summary>
+    /// <param name="cmd">The command.</param>
+    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <returns>Task.</returns>
     public override Task DisableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default) =>
         cmd.ExecNonQueryAsync(SqlitePragmas.DisableForeignKeys, null, token);
 }
 
+/// <summary>
+/// Class SqlitePragmas.
+/// </summary>
 public static class SqlitePragmas
 {
+    /// <summary>
+    /// The enable foreign keys
+    /// </summary>
     public const string EnableForeignKeys = "PRAGMA foreign_keys=ON;";
+    /// <summary>
+    /// The disable foreign keys
+    /// </summary>
     public const string DisableForeignKeys = "PRAGMA foreign_keys=OFF;";
 }
 

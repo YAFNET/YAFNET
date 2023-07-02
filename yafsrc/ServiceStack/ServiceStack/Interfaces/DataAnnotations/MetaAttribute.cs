@@ -24,7 +24,7 @@ public class MetaAttribute : AttributeBase
     public string Value { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MetaAttribute"/> class.
+    /// Initializes a new instance of the <see cref="MetaAttribute" /> class.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <param name="value">The value.</param>

@@ -21,7 +21,7 @@ public class ExcludeAttribute : AttributeBase
     public Feature Feature { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ExcludeAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ExcludeAttribute" /> class.
     /// </summary>
     /// <param name="feature">The feature.</param>
     public ExcludeAttribute(Feature feature)
@@ -39,7 +39,7 @@ public class ExcludeAttribute : AttributeBase
 public class ExcludeMetadataAttribute : ExcludeAttribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ExcludeMetadataAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ExcludeMetadataAttribute" /> class.
     /// </summary>
     public ExcludeMetadataAttribute() : base(Feature.Metadata | Feature.Soap) { }
 }

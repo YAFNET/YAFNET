@@ -60,6 +60,7 @@ public sealed class DbString : SqlMapper.ICustomQueryParameter
     /// </summary>
     /// <param name="command">The command.</param>
     /// <param name="name">The name.</param>
+    /// <exception cref="InvalidOperationException">If specifying IsFixedLength,  a Length must also be specified</exception>
     /// <exception cref="System.InvalidOperationException">If specifying IsFixedLength,  a Length must also be specified</exception>
     public void AddParameter(IDbCommand command, string name)
     {

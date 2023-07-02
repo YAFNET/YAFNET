@@ -18,7 +18,7 @@ using System.Linq.Expressions;
 public class MySqlExpression<T> : SqlExpression<T>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MySqlExpression{T}"/> class.
+    /// Initializes a new instance of the <see cref="MySqlExpression{T}" /> class.
     /// </summary>
     /// <param name="dialectProvider">The dialect provider.</param>
     public MySqlExpression(IOrmLiteDialectProvider dialectProvider)

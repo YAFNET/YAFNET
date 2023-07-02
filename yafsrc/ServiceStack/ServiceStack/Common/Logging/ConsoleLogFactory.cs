@@ -25,7 +25,7 @@ namespace ServiceStack.Logging
         private readonly bool debugEnabled;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ConsoleLogFactory"/> class.
+        /// Initializes a new instance of the <see cref="ConsoleLogFactory" /> class.
         /// </summary>
         /// <param name="debugEnabled">if set to <c>true</c> [debug enabled].</param>
         public ConsoleLogFactory(bool debugEnabled = true)

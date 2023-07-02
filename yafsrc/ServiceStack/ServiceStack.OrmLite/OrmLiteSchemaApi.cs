@@ -401,16 +401,20 @@ public static class OrmLiteSchemaApi
     }
 
     /// <summary>
-    /// Get a list of available user schemas for this connection 
+    /// Get a list of available user schemas for this connection
     /// </summary>
+    /// <param name="dbConn">The database connection.</param>
+    /// <returns>List&lt;System.String&gt;.</returns>
     public static List<string> GetSchemas(this IDbConnection dbConn)
     {
         return dbConn.Exec(dbCmd => dbConn.GetDialectProvider().GetSchemas(dbCmd));
     }
 
     /// <summary>
-    /// Get available user Schemas and their tables for this connection 
+    /// Get available user Schemas and their tables for this connection
     /// </summary>
+    /// <param name="dbConn">The database connection.</param>
+    /// <returns>Dictionary&lt;System.String, List&lt;System.String&gt;&gt;.</returns>
     public static Dictionary<string, List<string>> GetSchemaTables(this IDbConnection dbConn)
     {
         return dbConn.Exec(dbCmd => dbConn.GetDialectProvider().GetSchemaTables(dbCmd));
@@ -419,10 +423,14 @@ public static class OrmLiteSchemaApi
     /// <summary>
     /// Alter tables by adding properties for missing columns and removing properties annotated with [RemoveColumn]
     /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="dbConn">The database connection.</param>
     public static void Migrate<T>(this IDbConnection dbConn) => dbConn.Migrate(typeof(T));
 
     /// <summary>
     /// Apply schema changes by Migrate in reverse to revert changes
     /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="dbConn">The database connection.</param>
     public static void Revert<T>(this IDbConnection dbConn) => dbConn.Revert(typeof(T));
 }

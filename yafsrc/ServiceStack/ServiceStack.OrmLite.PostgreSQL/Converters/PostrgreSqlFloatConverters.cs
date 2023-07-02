@@ -48,7 +48,7 @@ public class PostrgreSqlDoubleConverter : DoubleConverter
 public class PostrgreSqlDecimalConverter : DecimalConverter
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PostrgreSqlDecimalConverter"/> class.
+    /// Initializes a new instance of the <see cref="PostrgreSqlDecimalConverter" /> class.
     /// </summary>
     public PostrgreSqlDecimalConverter() 
         : base(38, 6) {}

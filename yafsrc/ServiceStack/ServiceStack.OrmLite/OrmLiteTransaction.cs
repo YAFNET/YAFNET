@@ -35,6 +35,12 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
     /// </summary>
     private readonly IDbConnection db;
 
+    /// <summary>
+    /// Creates the specified database.
+    /// </summary>
+    /// <param name="db">The database.</param>
+    /// <param name="isolationLevel">The isolation level.</param>
+    /// <returns>OrmLiteTransaction.</returns>
     public static OrmLiteTransaction Create(IDbConnection db, IsolationLevel? isolationLevel = null)
     {
         var dbTrans = isolationLevel != null
@@ -48,7 +54,7 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="OrmLiteTransaction"/> class.
+    /// Initializes a new instance of the <see cref="OrmLiteTransaction" /> class.
     /// </summary>
     /// <param name="db">The database.</param>
     /// <param name="transaction">The transaction.</param>

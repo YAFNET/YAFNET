@@ -15,7 +15,7 @@ namespace ServiceStack.DataAnnotations;
 public class SchemaAttribute : AttributeBase
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="SchemaAttribute"/> class.
+    /// Initializes a new instance of the <see cref="SchemaAttribute" /> class.
     /// </summary>
     /// <param name="name">The name.</param>
     public SchemaAttribute(string name)

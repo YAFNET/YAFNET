@@ -27,7 +27,7 @@ internal sealed class DisposedReader : DbDataReader
     /// </summary>
     internal static readonly DisposedReader Instance = new DisposedReader();
     /// <summary>
-    /// Prevents a default instance of the <see cref="DisposedReader"/> class from being created.
+    /// Prevents a default instance of the <see cref="DisposedReader" /> class from being created.
     /// </summary>
     private DisposedReader() { }
     /// <summary>
@@ -324,13 +324,13 @@ internal sealed class DisposedReader : DbDataReader
     /// <returns>A task representing the asynchronous operation.</returns>
     public override Task<bool> ReadAsync(CancellationToken cancellationToken) => ThrowDisposedAsync<bool>();
     /// <summary>
-    /// Gets the <see cref="System.Object"/> with the specified ordinal.
+    /// Gets the <see cref="System.Object" /> with the specified ordinal.
     /// </summary>
     /// <param name="ordinal">The ordinal.</param>
     /// <returns>System.Object.</returns>
     public override object this[int ordinal] => ThrowDisposed<object>();
     /// <summary>
-    /// Gets the <see cref="System.Object"/> with the specified name.
+    /// Gets the <see cref="System.Object" /> with the specified name.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns>System.Object.</returns>
@@ -408,7 +408,7 @@ internal sealed class DbWrappedReader : DbDataReader, IWrappedDataReader
     IDbCommand IWrappedDataReader.Command => _cmd;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DbWrappedReader"/> class.
+    /// Initializes a new instance of the <see cref="DbWrappedReader" /> class.
     /// </summary>
     /// <param name="cmd">The command.</param>
     /// <param name="reader">The reader.</param>
@@ -649,14 +649,14 @@ internal sealed class DbWrappedReader : DbDataReader, IWrappedDataReader
     public override bool IsDBNull(int i) => _reader.IsDBNull(i);
 
     /// <summary>
-    /// Gets the <see cref="System.Object"/> with the specified name.
+    /// Gets the <see cref="System.Object" /> with the specified name.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns>System.Object.</returns>
     public override object this[string name] => _reader[name];
 
     /// <summary>
-    /// Gets the <see cref="System.Object"/> with the specified i.
+    /// Gets the <see cref="System.Object" /> with the specified i.
     /// </summary>
     /// <param name="i">The i.</param>
     /// <returns>System.Object.</returns>
@@ -778,7 +778,7 @@ internal class BasicWrappedReader : IWrappedDataReader
     IDbCommand IWrappedDataReader.Command => _cmd;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="BasicWrappedReader"/> class.
+    /// Initializes a new instance of the <see cref="BasicWrappedReader" /> class.
     /// </summary>
     /// <param name="cmd">The command.</param>
     /// <param name="reader">The reader.</param>
@@ -1012,14 +1012,14 @@ internal class BasicWrappedReader : IWrappedDataReader
     bool IDataRecord.IsDBNull(int i) => _reader.IsDBNull(i);
 
     /// <summary>
-    /// Gets the <see cref="System.Object"/> with the specified name.
+    /// Gets the <see cref="System.Object" /> with the specified name.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns>System.Object.</returns>
     object IDataRecord.this[string name] => _reader[name];
 
     /// <summary>
-    /// Gets the <see cref="System.Object"/> with the specified i.
+    /// Gets the <see cref="System.Object" /> with the specified i.
     /// </summary>
     /// <param name="i">The i.</param>
     /// <returns>System.Object.</returns>

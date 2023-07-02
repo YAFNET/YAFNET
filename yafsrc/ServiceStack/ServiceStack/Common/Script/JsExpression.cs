@@ -46,7 +46,7 @@ public class JsIdentifier : JsExpression
     public string Name { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsIdentifier"/> class.
+    /// Initializes a new instance of the <see cref="JsIdentifier" /> class.
     /// </summary>
     /// <param name="name">The name.</param>
     public JsIdentifier(string name)
@@ -55,7 +55,7 @@ public class JsIdentifier : JsExpression
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsIdentifier"/> class.
+    /// Initializes a new instance of the <see cref="JsIdentifier" /> class.
     /// </summary>
     /// <param name="name">The name.</param>
     public JsIdentifier(ReadOnlySpan<char> name)
@@ -145,7 +145,7 @@ public class JsLiteral : JsExpression
     /// <value>The value.</value>
     public object Value { get; }
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsLiteral"/> class.
+    /// Initializes a new instance of the <see cref="JsLiteral" /> class.
     /// </summary>
     /// <param name="value">The value.</param>
     public JsLiteral(object value)
@@ -221,7 +221,7 @@ public class JsArrayExpression : JsExpression
     public JsToken[] Elements { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsArrayExpression"/> class.
+    /// Initializes a new instance of the <see cref="JsArrayExpression" /> class.
     /// </summary>
     /// <param name="elements">The elements.</param>
     public JsArrayExpression(params JsToken[] elements)
@@ -230,7 +230,7 @@ public class JsArrayExpression : JsExpression
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsArrayExpression"/> class.
+    /// Initializes a new instance of the <see cref="JsArrayExpression" /> class.
     /// </summary>
     /// <param name="elements">The elements.</param>
     public JsArrayExpression(IEnumerable<JsToken> elements) : this(elements.ToArray()) { }
@@ -352,7 +352,7 @@ public class JsObjectExpression : JsExpression
     public JsProperty[] Properties { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsObjectExpression"/> class.
+    /// Initializes a new instance of the <see cref="JsObjectExpression" /> class.
     /// </summary>
     /// <param name="properties">The properties.</param>
     public JsObjectExpression(params JsProperty[] properties)
@@ -361,7 +361,7 @@ public class JsObjectExpression : JsExpression
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsObjectExpression"/> class.
+    /// Initializes a new instance of the <see cref="JsObjectExpression" /> class.
     /// </summary>
     /// <param name="properties">The properties.</param>
     public JsObjectExpression(IEnumerable<JsProperty> properties) : this(properties.ToArray()) { }
@@ -388,6 +388,7 @@ public class JsObjectExpression : JsExpression
     /// </summary>
     /// <param name="scope">The scope.</param>
     /// <returns>System.Object.</returns>
+    /// <exception cref="NotSupportedException">Object Expressions does not have a key</exception>
     /// <exception cref="System.NotSupportedException">Object Expressions does not have a key</exception>
     public override object Evaluate(ScriptScopeContext scope)
     {
@@ -535,19 +536,19 @@ public class JsProperty
     /// <value>The value.</value>
     public JsToken Value { get; }
     /// <summary>
-    /// Gets a value indicating whether this <see cref="JsProperty"/> is shorthand.
+    /// Gets a value indicating whether this <see cref="JsProperty" /> is shorthand.
     /// </summary>
     /// <value><c>true</c> if shorthand; otherwise, <c>false</c>.</value>
     public bool Shorthand { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsProperty"/> class.
+    /// Initializes a new instance of the <see cref="JsProperty" /> class.
     /// </summary>
     /// <param name="key">The key.</param>
     /// <param name="value">The value.</param>
     public JsProperty(JsToken key, JsToken value) : this(key, value, shorthand: false) { }
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsProperty"/> class.
+    /// Initializes a new instance of the <see cref="JsProperty" /> class.
     /// </summary>
     /// <param name="key">The key.</param>
     /// <param name="value">The value.</param>
@@ -613,7 +614,7 @@ public class JsSpreadElement : JsExpression
     /// <value>The argument.</value>
     public JsToken Argument { get; }
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsSpreadElement"/> class.
+    /// Initializes a new instance of the <see cref="JsSpreadElement" /> class.
     /// </summary>
     /// <param name="argument">The argument.</param>
     public JsSpreadElement(JsToken argument)
@@ -702,13 +703,13 @@ public class JsArrowFunctionExpression : JsExpression
     public JsToken Body { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsArrowFunctionExpression"/> class.
+    /// Initializes a new instance of the <see cref="JsArrowFunctionExpression" /> class.
     /// </summary>
     /// <param name="param">The parameter.</param>
     /// <param name="body">The body.</param>
     public JsArrowFunctionExpression(JsIdentifier param, JsToken body) : this(new[] { param }, body) { }
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsArrowFunctionExpression"/> class.
+    /// Initializes a new instance of the <see cref="JsArrowFunctionExpression" /> class.
     /// </summary>
     /// <param name="params">The parameters.</param>
     /// <param name="body">The body.</param>

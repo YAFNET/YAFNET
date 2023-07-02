@@ -17,7 +17,7 @@ namespace ServiceStack.Script;
 public class JsAssignmentExpression : JsExpression
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsAssignmentExpression"/> class.
+    /// Initializes a new instance of the <see cref="JsAssignmentExpression" /> class.
     /// </summary>
     /// <param name="left">The left.</param>
     /// <param name="operator">The operator.</param>

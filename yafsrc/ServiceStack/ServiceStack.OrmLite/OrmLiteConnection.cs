@@ -55,10 +55,14 @@ public class OrmLiteConnection
     /// </summary>
     /// <value>The command timeout.</value>
     public int? CommandTimeout { get; set; }
+    /// <summary>
+    /// Gets or sets the connection identifier.
+    /// </summary>
+    /// <value>The connection identifier.</value>
     public Guid ConnectionId { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="OrmLiteConnection"/> class.
+    /// Initializes a new instance of the <see cref="OrmLiteConnection" /> class.
     /// </summary>
     /// <param name="factory">The factory.</param>
     public OrmLiteConnection(OrmLiteConnectionFactory factory)
@@ -282,7 +286,7 @@ public class OrmLiteConnection
     public bool AutoDisposeConnection { get; set; }
 
     /// <summary>
-    /// Performs an explicit conversion from <see cref="OrmLiteConnection"/> to <see cref="DbConnection"/>.
+    /// Performs an explicit conversion from <see cref="OrmLiteConnection" /> to <see cref="DbConnection" />.
     /// </summary>
     /// <param name="dbConn">The database connection.</param>
     /// <returns>The result of the conversion.</returns>

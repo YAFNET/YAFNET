@@ -52,7 +52,7 @@ public class FileSystemVirtualFiles
     public override string RealPathSeparator => Convert.ToString(Path.DirectorySeparatorChar);
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FileSystemVirtualFiles"/> class.
+    /// Initializes a new instance of the <see cref="FileSystemVirtualFiles" /> class.
     /// </summary>
     /// <param name="rootDirectoryPath">The root directory path.</param>
     public FileSystemVirtualFiles(string rootDirectoryPath)
@@ -61,7 +61,7 @@ public class FileSystemVirtualFiles
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FileSystemVirtualFiles"/> class.
+    /// Initializes a new instance of the <see cref="FileSystemVirtualFiles" /> class.
     /// </summary>
     /// <param name="rootDirInfo">The root dir information.</param>
     /// <exception cref="System.ArgumentNullException">rootDirInfo</exception>
@@ -74,6 +74,7 @@ public class FileSystemVirtualFiles
     /// <summary>
     /// Initializes this instance.
     /// </summary>
+    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">RootDir '{RootDirInfo.FullName}' for virtual path does not exist</exception>
     /// <exception cref="System.Exception">RootDir '{RootDirInfo.FullName}' for virtual path does not exist</exception>
     protected sealed override void Initialize()
     {
@@ -143,6 +144,13 @@ public class FileSystemVirtualFiles
         stream.WriteTo(fs);
     }
 
+    /// <summary>
+    /// Write file as an asynchronous operation.
+    /// </summary>
+    /// <param name="filePath">The file path.</param>
+    /// <param name="contents">The contents.</param>
+    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <returns>A Task representing the asynchronous operation.</returns>
     public override async Task WriteFileAsync(string filePath, object contents, CancellationToken token = default)
     {
         if (contents == null)

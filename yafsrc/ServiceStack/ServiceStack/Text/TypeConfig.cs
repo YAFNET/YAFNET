@@ -46,7 +46,14 @@ internal class TypeConfig
     /// <value><c>true</c> if this instance is user type; otherwise, <c>false</c>.</value>
     internal bool IsUserType { get; set; }
 
+    /// <summary>
+    /// The text case resolver
+    /// </summary>
     internal Func<TextCase> TextCaseResolver;
+    /// <summary>
+    /// Gets the text case.
+    /// </summary>
+    /// <value>The text case.</value>
     internal TextCase? TextCase
     {
         get
@@ -57,7 +64,7 @@ internal class TypeConfig
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="TypeConfig"/> class.
+    /// Initializes a new instance of the <see cref="TypeConfig" /> class.
     /// </summary>
     /// <param name="type">The type.</param>
     internal TypeConfig(Type type)
@@ -119,7 +126,7 @@ public static class TypeConfig<T>
     }
 
     /// <summary>
-    /// Initializes static members of the <see cref="TypeConfig{T}"/> class.
+    /// Initializes static members of the <see cref="TypeConfig{T}" /> class.
     /// </summary>
     static TypeConfig()
     {

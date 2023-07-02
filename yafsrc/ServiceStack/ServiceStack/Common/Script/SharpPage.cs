@@ -113,11 +113,12 @@ public class SharpPage
     public string VirtualPath => IsTempFile ? "{temp file}" : File.VirtualPath;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SharpPage"/> class.
+    /// Initializes a new instance of the <see cref="SharpPage" /> class.
     /// </summary>
     /// <param name="context">The context.</param>
     /// <param name="file">The file.</param>
     /// <param name="format">The format.</param>
+    /// <exception cref="ArgumentException">$"File with extension '{File.Extension}' is not a registered PageFormat in Context.PageFormats, nameof(file)</exception>
     /// <exception cref="System.ArgumentNullException">context</exception>
     /// <exception cref="System.ArgumentNullException">file</exception>
     /// <exception cref="System.ArgumentException">File with extension '{File.Extension}' is not a registered PageFormat in Context.PageFormats - file</exception>
@@ -133,7 +134,7 @@ public class SharpPage
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SharpPage"/> class.
+    /// Initializes a new instance of the <see cref="SharpPage" /> class.
     /// </summary>
     /// <param name="context">The context.</param>
     /// <param name="body">The body.</param>
@@ -326,7 +327,7 @@ public class SharpPartialPage : SharpPage
             };
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SharpPartialPage"/> class.
+    /// Initializes a new instance of the <see cref="SharpPartialPage" /> class.
     /// </summary>
     /// <param name="context">The context.</param>
     /// <param name="name">The name.</param>

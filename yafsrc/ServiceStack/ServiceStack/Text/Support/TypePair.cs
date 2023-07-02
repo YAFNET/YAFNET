@@ -26,7 +26,7 @@ public class TypePair
     public Type[] Arg2 { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="TypePair"/> class.
+    /// Initializes a new instance of the <see cref="TypePair" /> class.
     /// </summary>
     /// <param name="arg1">The arg1.</param>
     /// <param name="arg2">The arg2.</param>

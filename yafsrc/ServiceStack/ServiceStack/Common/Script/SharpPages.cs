@@ -97,7 +97,7 @@ public partial class SharpPages : ISharpPages
     public ScriptContext Context { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SharpPages"/> class.
+    /// Initializes a new instance of the <see cref="SharpPages" /> class.
     /// </summary>
     /// <param name="context">The context.</param>
     public SharpPages(ScriptContext context)
@@ -121,6 +121,8 @@ public partial class SharpPages : ISharpPages
     /// <param name="page">The page.</param>
     /// <param name="layout">The layout.</param>
     /// <returns>SharpPage.</returns>
+    /// <exception cref="ArgumentNullException">nameof(page)</exception>
+    /// <exception cref="ArgumentException">$"Page {page.File.VirtualPath} has not been initialized</exception>
     /// <exception cref="System.ArgumentNullException">page</exception>
     /// <exception cref="System.ArgumentException">Page {page.File.VirtualPath} has not been initialized</exception>
     public virtual SharpPage ResolveLayoutPage(SharpPage page, string layout)
@@ -167,6 +169,8 @@ public partial class SharpPages : ISharpPages
     /// <param name="page">The page.</param>
     /// <param name="layout">The layout.</param>
     /// <returns>SharpPage.</returns>
+    /// <exception cref="ArgumentNullException">nameof(page)</exception>
+    /// <exception cref="ArgumentException">$"Page {page.VirtualPath} has not been initialized</exception>
     /// <exception cref="System.ArgumentNullException">page</exception>
     /// <exception cref="System.ArgumentException">Page {page.VirtualPath} has not been initialized</exception>
     public virtual SharpPage ResolveLayoutPage(SharpCodePage page, string layout)
@@ -378,6 +382,7 @@ public partial class SharpPages : ISharpPages
     /// </summary>
     /// <param name="page">The page.</param>
     /// <returns>DateTime.</returns>
+    /// <exception cref="ArgumentNullException">nameof(page)</exception>
     /// <exception cref="System.ArgumentNullException">page</exception>
     public DateTime GetLastModified(SharpPage page)
     {
@@ -407,6 +412,7 @@ public partial class SharpPages : ISharpPages
     /// </summary>
     /// <param name="page">The page.</param>
     /// <returns>DateTime.</returns>
+    /// <exception cref="ArgumentNullException">nameof(page)</exception>
     /// <exception cref="System.ArgumentNullException">page</exception>
     public DateTime GetLastModifiedPage(SharpPage page)
     {

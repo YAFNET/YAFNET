@@ -17,7 +17,7 @@ using ServiceStack.OrmLite.Converters;
 public class MySqlStringConverter : StringConverter
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MySqlStringConverter"/> class.
+    /// Initializes a new instance of the <see cref="MySqlStringConverter" /> class.
     /// </summary>
     public MySqlStringConverter() : base(255) {}
 
@@ -43,7 +43,7 @@ public class MySqlStringConverter : StringConverter
 public class MySqlCharArrayConverter : CharArrayConverter
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MySqlCharArrayConverter"/> class.
+    /// Initializes a new instance of the <see cref="MySqlCharArrayConverter" /> class.
     /// </summary>
     public MySqlCharArrayConverter() : base(255) { }
 
@@ -62,7 +62,7 @@ public class MySqlCharArrayConverter : CharArrayConverter
 public class MySql55StringConverter : StringConverter
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MySql55StringConverter"/> class.
+    /// Initializes a new instance of the <see cref="MySql55StringConverter" /> class.
     /// </summary>
     public MySql55StringConverter() : base(255) {}
 
@@ -88,7 +88,7 @@ public class MySql55StringConverter : StringConverter
 public class MySql55CharArrayConverter : CharArrayConverter
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MySql55CharArrayConverter"/> class.
+    /// Initializes a new instance of the <see cref="MySql55CharArrayConverter" /> class.
     /// </summary>
     public MySql55CharArrayConverter() : base(255) { }
 

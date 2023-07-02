@@ -148,7 +148,7 @@ internal static class JsvReader<T>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
     /// <exception cref="System.NotSupportedException">Can not deserialize interface type: "
-    ///                         + typeof(T).Name</exception>
+    ///                                                 + typeof(T).Name</exception>
     public static object Parse(ReadOnlySpan<char> value)
     {
         TypeConfig<T>.Init();

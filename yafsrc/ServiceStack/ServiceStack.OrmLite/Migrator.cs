@@ -20,68 +20,212 @@ using ServiceStack.Text;
 
 namespace ServiceStack.OrmLite;
 
+/// <summary>
+/// Class Migration.
+/// Implements the <see cref="ServiceStack.IMeta" />
+/// </summary>
+/// <seealso cref="ServiceStack.IMeta" />
 public class Migration : IMeta
 {
+    /// <summary>
+    /// Gets or sets the identifier.
+    /// </summary>
+    /// <value>The identifier.</value>
     [AutoIncrement]
     public long Id { get; set; }
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    /// <value>The name.</value>
     public string Name { get; set; }
+    /// <summary>
+    /// Gets or sets the description.
+    /// </summary>
+    /// <value>The description.</value>
     public string? Description { get; set; }
+    /// <summary>
+    /// Gets or sets the created date.
+    /// </summary>
+    /// <value>The created date.</value>
     public DateTime CreatedDate { get; set; }
+    /// <summary>
+    /// Gets or sets the completed date.
+    /// </summary>
+    /// <value>The completed date.</value>
     public DateTime? CompletedDate { get; set; }
+    /// <summary>
+    /// Gets or sets the connection string.
+    /// </summary>
+    /// <value>The connection string.</value>
     public string ConnectionString { get; set; }
+    /// <summary>
+    /// Gets or sets the named connection.
+    /// </summary>
+    /// <value>The named connection.</value>
     public string? NamedConnection { get; set; }
 
     //[StringLength(StringLengthAttribute.MaxText)] // https://stackoverflow.com/a/2864109/85785[StringLength(StringLengthAttribute.MaxText)]
+    /// <summary>
+    /// Gets or sets the log.
+    /// </summary>
+    /// <value>The log.</value>
     public string? Log { get; set; }
+    /// <summary>
+    /// Gets or sets the error code.
+    /// </summary>
+    /// <value>The error code.</value>
     public string? ErrorCode { get; set; }
+    /// <summary>
+    /// Gets or sets the error message.
+    /// </summary>
+    /// <value>The error message.</value>
     public string? ErrorMessage { get; set; }
+    /// <summary>
+    /// Gets or sets the error stack trace.
+    /// </summary>
+    /// <value>The error stack trace.</value>
     public string? ErrorStackTrace { get; set; }
+    /// <summary>
+    /// Gets or sets the meta.
+    /// </summary>
+    /// <value>The meta.</value>
     public Dictionary<string, string> Meta { get; set; }
 }
 
+/// <summary>
+/// Class MigrationBase.
+/// Implements the <see cref="ServiceStack.IAppTask" />
+/// </summary>
+/// <seealso cref="ServiceStack.IAppTask" />
 public abstract class MigrationBase : IAppTask
 {
+    /// <summary>
+    /// Gets or sets the database factory.
+    /// </summary>
+    /// <value>The database factory.</value>
     public IDbConnectionFactory? DbFactory { get; set; }
+    /// <summary>
+    /// Gets or sets the database.
+    /// </summary>
+    /// <value>The database.</value>
     public IDbConnection? Db { get; set; }
+    /// <summary>
+    /// Gets or sets the transaction.
+    /// </summary>
+    /// <value>The transaction.</value>
     public IDbTransaction? Transaction { get; set; }
+    /// <summary>
+    /// Gets or sets the log.
+    /// </summary>
+    /// <value>The log.</value>
     public string? Log { get; set; }
 
+    /// <summary>
+    /// Gets or sets the started at.
+    /// </summary>
+    /// <value>The started at.</value>
     public DateTime? StartedAt { get; set; }
+    /// <summary>
+    /// Gets or sets the completed date.
+    /// </summary>
+    /// <value>The completed date.</value>
     public DateTime? CompletedDate { get; set; }
+    /// <summary>
+    /// Gets or sets the error.
+    /// </summary>
+    /// <value>The error.</value>
     public Exception? Error { get; set; }
 
     /// <summary>
     /// Add additional logs to capture in Migration table
     /// </summary>
+    /// <value>The migration log.</value>
     public StringBuilder MigrationLog { get; set; } = new();
 
+    /// <summary>
+    /// Afters the open.
+    /// </summary>
     public virtual void AfterOpen() { }
+    /// <summary>
+    /// Befores the commit.
+    /// </summary>
     public virtual void BeforeCommit() { }
+    /// <summary>
+    /// Befores the rollback.
+    /// </summary>
     public virtual void BeforeRollback() { }
+    /// <summary>
+    /// Ups this instance.
+    /// </summary>
     public virtual void Up() { }
+    /// <summary>
+    /// Downs this instance.
+    /// </summary>
     public virtual void Down() { }
 }
 
+/// <summary>
+/// Class Migrator.
+/// </summary>
 public class Migrator
 {
+    /// <summary>
+    /// All
+    /// </summary>
     public const string All = "all";
+    /// <summary>
+    /// The last
+    /// </summary>
     public const string Last = "last";
+    /// <summary>
+    /// Gets the database factory.
+    /// </summary>
+    /// <value>The database factory.</value>
     public IDbConnectionFactory DbFactory { get; }
+    /// <summary>
+    /// Gets the migration types.
+    /// </summary>
+    /// <value>The migration types.</value>
     public Type[] MigrationTypes { get; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Migrator"/> class.
+    /// </summary>
+    /// <param name="dbFactory">The database factory.</param>
+    /// <param name="migrationAssemblies">The migration assemblies.</param>
     public Migrator(IDbConnectionFactory dbFactory, params Assembly[] migrationAssemblies)
         : this(dbFactory, GetAllMigrationTypes(migrationAssemblies).ToArray()) { }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Migrator"/> class.
+    /// </summary>
+    /// <param name="dbFactory">The database factory.</param>
+    /// <param name="migrationTypes">The migration types.</param>
     public Migrator(IDbConnectionFactory dbFactory, params Type[] migrationTypes)
     {
         DbFactory = dbFactory;
         MigrationTypes = migrationTypes;
     }
 
+    /// <summary>
+    /// Gets or sets the timeout.
+    /// </summary>
+    /// <value>The timeout.</value>
     public TimeSpan Timeout { get; set; } = TimeSpan.FromMinutes(10);
 
+    /// <summary>
+    /// Gets or sets the log.
+    /// </summary>
+    /// <value>The log.</value>
     public ILog Log { get; set; } = new ConsoleLogger(typeof(Migrator));
 
+    /// <summary>
+    /// Gets the next migration to run.
+    /// </summary>
+    /// <param name="db">The database.</param>
+    /// <param name="migrationTypes">The migration types.</param>
+    /// <returns>System.Type?.</returns>
+    /// <exception cref="InfoException">$"Migration '{lastRun.Name}' is still in progress, timeout in {(Timeout - elapsedTime).TotalSeconds:N3}s.</exception>
     Type? GetNextMigrationToRun(IDbConnection db, List<Type> migrationTypes)
     {
         var completedMigrations = new List<Type>();
@@ -139,7 +283,16 @@ public class Migrator
         return migrationTypes.FirstOrDefault();
     }
 
+    /// <summary>
+    /// Runs this instance.
+    /// </summary>
+    /// <returns>ServiceStack.AppTaskResult.</returns>
     public AppTaskResult Run() => Run(throwIfError: true);
+    /// <summary>
+    /// Runs the specified throw if error.
+    /// </summary>
+    /// <param name="throwIfError">The throw if error.</param>
+    /// <returns>ServiceStack.AppTaskResult.</returns>
     public AppTaskResult Run(bool throwIfError)
     {
         using var db = DbFactory.Open();
@@ -235,6 +388,10 @@ public class Migrator
         return new AppTaskResult(migrationsRun);
     }
 
+    /// <summary>
+    /// Logs the migrations found.
+    /// </summary>
+    /// <param name="remainingMigrations">The remaining migrations.</param>
     private void LogMigrationsFound(List<Type> remainingMigrations)
     {
         var sb = StringBuilderCache.Allocate()
@@ -243,6 +400,11 @@ public class Migrator
         Log.Info(StringBuilderCache.ReturnAndFree(sb));
     }
 
+    /// <summary>
+    /// Gets all migration types.
+    /// </summary>
+    /// <param name="migrationAssemblies">The migration assemblies.</param>
+    /// <returns>System.Collections.Generic.List&lt;System.Type&gt;.</returns>
     public static List<Type> GetAllMigrationTypes(params Assembly[] migrationAssemblies)
     {
         var remainingMigrations = migrationAssemblies
@@ -252,16 +414,28 @@ public class Migrator
         return remainingMigrations;
     }
 
+    /// <summary>
+    /// Initializes the specified database.
+    /// </summary>
+    /// <param name="db">The database.</param>
     public static void Init(IDbConnection db)
     {
         db.CreateTableIfNotExists<Migration>();
     }
 
+    /// <summary>
+    /// Recreates the specified database.
+    /// </summary>
+    /// <param name="db">The database.</param>
     public static void Recreate(IDbConnection db)
     {
         db.DropAndCreateTable<Migration>();
     }
 
+    /// <summary>
+    /// Clears the specified database.
+    /// </summary>
+    /// <param name="db">The database.</param>
     public static void Clear(IDbConnection db)
     {
         if (db.TableExists<Migration>())
@@ -270,6 +444,14 @@ public class Migrator
             Init(db);
     }
 
+    /// <summary>
+    /// Gets the next migration revert to run.
+    /// </summary>
+    /// <param name="db">The database.</param>
+    /// <param name="migrationTypes">The migration types.</param>
+    /// <returns>System.Type?.</returns>
+    /// <exception cref="InfoException">$"Migration '{lastRun.Name}' is still in progress, timeout in {(Timeout - elapsedTime).TotalSeconds:N3}s.</exception>
+    /// <exception cref="InfoException">$"Could not find Migration '{lastRun.Name}' to revert, aborting.</exception>
     Type? GetNextMigrationRevertToRun(IDbConnection db, List<Type> migrationTypes)
     {
         var q = db.From<Migration>()
@@ -301,7 +483,18 @@ public class Migrator
         }
     }
 
+    /// <summary>
+    /// Reverts the specified migration name.
+    /// </summary>
+    /// <param name="migrationName">Name of the migration.</param>
+    /// <returns>ServiceStack.AppTaskResult.</returns>
     public AppTaskResult Revert(string? migrationName) => Revert(migrationName, throwIfError: true);
+    /// <summary>
+    /// Reverts the specified migration name.
+    /// </summary>
+    /// <param name="migrationName">Name of the migration.</param>
+    /// <param name="throwIfError">The throw if error.</param>
+    /// <returns>ServiceStack.AppTaskResult.</returns>
     public AppTaskResult Revert(string? migrationName, bool throwIfError)
     {
         using var db = DbFactory.Open();
@@ -387,13 +580,44 @@ public class Migrator
         return new AppTaskResult(migrationsRun);
     }
 
+    /// <summary>
+    /// Downs the specified database factory.
+    /// </summary>
+    /// <param name="dbFactory">The database factory.</param>
+    /// <param name="migrationType">Type of the migration.</param>
+    /// <returns>ServiceStack.AppTaskResult.</returns>
     public static AppTaskResult Down(IDbConnectionFactory dbFactory, Type migrationType) => Down(dbFactory, new[] { migrationType });
+    /// <summary>
+    /// Downs the specified database factory.
+    /// </summary>
+    /// <param name="dbFactory">The database factory.</param>
+    /// <param name="migrationTypes">The migration types.</param>
+    /// <returns>ServiceStack.AppTaskResult.</returns>
     public static AppTaskResult Down(IDbConnectionFactory dbFactory, Type[] migrationTypes) =>
         RunAll(dbFactory, migrationTypes, x => x.Down());
+    /// <summary>
+    /// Ups the specified database factory.
+    /// </summary>
+    /// <param name="dbFactory">The database factory.</param>
+    /// <param name="migrationType">Type of the migration.</param>
+    /// <returns>ServiceStack.AppTaskResult.</returns>
     public static AppTaskResult Up(IDbConnectionFactory dbFactory, Type migrationType) => Up(dbFactory, new[] { migrationType });
+    /// <summary>
+    /// Ups the specified database factory.
+    /// </summary>
+    /// <param name="dbFactory">The database factory.</param>
+    /// <param name="migrationTypes">The migration types.</param>
+    /// <returns>ServiceStack.AppTaskResult.</returns>
     public static AppTaskResult Up(IDbConnectionFactory dbFactory, Type[] migrationTypes) =>
         RunAll(dbFactory, migrationTypes, x => x.Up());
 
+    /// <summary>
+    /// Runs the specified database factory.
+    /// </summary>
+    /// <param name="dbFactory">The database factory.</param>
+    /// <param name="nextRun">The next run.</param>
+    /// <param name="migrateAction">The migrate action.</param>
+    /// <returns>ServiceStack.OrmLite.MigrationBase.</returns>
     public static MigrationBase Run(IDbConnectionFactory dbFactory, Type nextRun, Action<MigrationBase> migrateAction)
     {
         var holdFilter = OrmLiteConfig.BeforeExecFilter;
@@ -464,6 +688,13 @@ public class Migrator
         return instance;
     }
 
+    /// <summary>
+    /// Runs all.
+    /// </summary>
+    /// <param name="dbFactory">The database factory.</param>
+    /// <param name="migrationTypes">The migration types.</param>
+    /// <param name="migrateAction">The migrate action.</param>
+    /// <returns>ServiceStack.AppTaskResult.</returns>
     public static AppTaskResult RunAll(IDbConnectionFactory dbFactory, IEnumerable<Type> migrationTypes, Action<MigrationBase> migrateAction)
     {
         var migrationsRun = new List<IAppTask>();

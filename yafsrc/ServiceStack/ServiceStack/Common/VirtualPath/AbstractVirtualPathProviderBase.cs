@@ -224,6 +224,11 @@ public abstract class AbstractVirtualPathProviderBase : IVirtualPathProvider
     protected NotSupportedException CreateContentNotSupportedException(object value) =>
         new($"Could not write '{value?.GetType().Name ?? "null"}' value. Only string, byte[], Stream or IVirtualFile content is supported.");
 
+    /// <summary>
+    /// Asserts the virtual files.
+    /// </summary>
+    /// <returns>IVirtualFiles.</returns>
+    /// <exception cref="System.NotSupportedException"></exception>
     protected IVirtualFiles AssertVirtualFiles()
     {
         if (this is not IVirtualFiles vfs)
@@ -231,8 +236,18 @@ public abstract class AbstractVirtualPathProviderBase : IVirtualPathProvider
 
         return vfs;
     }
+    /// <summary>
+    /// Writes the file.
+    /// </summary>
+    /// <param name="path">The path.</param>
+    /// <param name="text">The text.</param>
     public virtual void WriteFile(string path, ReadOnlyMemory<char> text) => AssertVirtualFiles().WriteFile(path, text.ToString());
 
+    /// <summary>
+    /// Writes the file.
+    /// </summary>
+    /// <param name="path">The path.</param>
+    /// <param name="bytes">The bytes.</param>
     public virtual void WriteFile(string path, ReadOnlyMemory<byte> bytes) => AssertVirtualFiles().WriteFile(path, ToMemoryStream(bytes));
 
     /// <summary>

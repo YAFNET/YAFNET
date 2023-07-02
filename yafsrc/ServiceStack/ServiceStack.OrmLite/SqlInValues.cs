@@ -35,7 +35,7 @@ public class SqlInValues
     public int Count { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SqlInValues"/> class.
+    /// Initializes a new instance of the <see cref="SqlInValues" /> class.
     /// </summary>
     /// <param name="values">The values.</param>
     /// <param name="dialectProvider">The dialect provider.</param>

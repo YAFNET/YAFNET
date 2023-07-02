@@ -49,7 +49,7 @@ public class MultiVirtualFiles
     public override string RealPathSeparator => Convert.ToString(Path.DirectorySeparatorChar);
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MultiVirtualFiles"/> class.
+    /// Initializes a new instance of the <see cref="MultiVirtualFiles" /> class.
     /// </summary>
     /// <param name="childProviders">The child providers.</param>
     /// <exception cref="System.ArgumentNullException">childProviders</exception>
@@ -302,7 +302,7 @@ public class MultiVirtualDirectory : IVirtualDirectory
     private readonly IVirtualDirectory[] dirs;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MultiVirtualDirectory"/> class.
+    /// Initializes a new instance of the <see cref="MultiVirtualDirectory" /> class.
     /// </summary>
     /// <param name="dirs">The dirs.</param>
     /// <exception cref="System.ArgumentNullException">dirs</exception>

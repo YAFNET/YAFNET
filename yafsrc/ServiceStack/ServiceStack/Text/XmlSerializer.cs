@@ -32,7 +32,7 @@ namespace ServiceStack.Text
         public static XmlSerializer Instance = new();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="XmlSerializer"/> class.
+        /// Initializes a new instance of the <see cref="XmlSerializer" /> class.
         /// </summary>
         /// <param name="omitXmlDeclaration">if set to <c>true</c> [omit XML declaration].</param>
         /// <param name="maxCharsInDocument">The maximum chars in document.</param>
@@ -133,7 +133,7 @@ namespace ServiceStack.Text
         /// <typeparam name="T"></typeparam>
         /// <param name="from">From.</param>
         /// <returns>System.String.</returns>
-        /// <exception cref="System.Runtime.Serialization.SerializationException">Error serializing object of type {@from.GetType().FullName}</exception>
+        /// <exception cref="System.Runtime.Serialization.SerializationException">Error serializing object of type {from.GetType().FullName}</exception>
         public static string SerializeToString<T>(T from)
         {
             try

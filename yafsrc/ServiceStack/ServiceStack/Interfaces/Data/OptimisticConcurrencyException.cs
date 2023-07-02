@@ -15,12 +15,12 @@ namespace ServiceStack.Data;
 public class OptimisticConcurrencyException : DataException
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="OptimisticConcurrencyException"/> class.
+    /// Initializes a new instance of the <see cref="OptimisticConcurrencyException" /> class.
     /// </summary>
     public OptimisticConcurrencyException() { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="OptimisticConcurrencyException"/> class.
+    /// Initializes a new instance of the <see cref="OptimisticConcurrencyException" /> class.
     /// </summary>
     /// <param name="message">The message that describes the error.</param>
     public OptimisticConcurrencyException(string message) : base(message) { }

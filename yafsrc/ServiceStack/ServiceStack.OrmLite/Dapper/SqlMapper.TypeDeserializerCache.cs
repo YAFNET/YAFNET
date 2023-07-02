@@ -23,7 +23,7 @@ public static partial class SqlMapper
     private class TypeDeserializerCache
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="TypeDeserializerCache"/> class.
+        /// Initializes a new instance of the <see cref="TypeDeserializerCache" /> class.
         /// </summary>
         /// <param name="type">The type.</param>
         private TypeDeserializerCache(Type type)
@@ -126,7 +126,7 @@ public static partial class SqlMapper
             private readonly int hashCode;
 
             /// <summary>
-            /// Initializes a new instance of the <see cref="DeserializerKey"/> struct.
+            /// Initializes a new instance of the <see cref="DeserializerKey" /> struct.
             /// </summary>
             /// <param name="hashCode">The hash code.</param>
             /// <param name="startBound">The start bound.</param>

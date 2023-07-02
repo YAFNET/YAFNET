@@ -22,7 +22,7 @@ using ServiceStack.Text;
 public class ModelDefinition
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ModelDefinition"/> class.
+    /// Initializes a new instance of the <see cref="ModelDefinition" /> class.
     /// </summary>
     public ModelDefinition()
     {
@@ -173,7 +173,15 @@ public class ModelDefinition
     /// </summary>
     /// <value>All field definitions array.</value>
     public FieldDefinition[] AllFieldDefinitionsArray { get; private set; }
+    /// <summary>
+    /// Gets the reference field definitions array.
+    /// </summary>
+    /// <value>The reference field definitions array.</value>
     public FieldDefinition[] ReferenceFieldDefinitionsArray { get; private set; }
+    /// <summary>
+    /// Gets the reference field names.
+    /// </summary>
+    /// <value>The reference field names.</value>
     public HashSet<string> ReferenceFieldNames { get; private set; }
 
     /// <summary>
@@ -475,8 +483,18 @@ public class ModelDefinition
     /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
     public override string ToString() => Name;
 
+    /// <summary>
+    /// Determines whether the specified field name is reference.
+    /// </summary>
+    /// <param name="fieldName">Name of the field.</param>
+    /// <returns><c>true</c> if the specified field name is reference; otherwise, <c>false</c>.</returns>
     public bool IsReference(string fieldName) => ReferenceFieldNames.Contains(fieldName);
 
+    /// <summary>
+    /// Determines whether [has any references] [the specified field names].
+    /// </summary>
+    /// <param name="fieldNames">The field names.</param>
+    /// <returns><c>true</c> if [has any references] [the specified field names]; otherwise, <c>false</c>.</returns>
     public bool HasAnyReferences(IEnumerable<string> fieldNames)
     {
         foreach (var fieldName in fieldNames)
@@ -487,6 +505,11 @@ public class ModelDefinition
         return false;
     }
 
+    /// <summary>
+    /// Fors the specified model type.
+    /// </summary>
+    /// <param name="modelType">Type of the model.</param>
+    /// <returns>ModelDefinition.</returns>
     public static ModelDefinition For(Type modelType) => modelType.GetModelDefinition();
 }
 

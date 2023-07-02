@@ -220,7 +220,6 @@ public static partial class SqlMapper
     /// <param name="commandType">The type of command to execute.</param>
     /// <returns>Task&lt;IEnumerable&lt;System.Object&gt;&gt;.</returns>
     /// <exception cref="System.ArgumentNullException">type</exception>
-    /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
     public static Task<IEnumerable<object>> QueryAsync(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
     {
         if (type == null) throw new ArgumentNullException(nameof(type));
@@ -239,7 +238,6 @@ public static partial class SqlMapper
     /// <param name="commandType">The type of command to execute.</param>
     /// <returns>Task&lt;System.Object&gt;.</returns>
     /// <exception cref="System.ArgumentNullException">type</exception>
-    /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
     public static Task<object> QueryFirstAsync(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
     {
         if (type == null) throw new ArgumentNullException(nameof(type));
@@ -257,7 +255,6 @@ public static partial class SqlMapper
     /// <param name="commandType">The type of command to execute.</param>
     /// <returns>Task&lt;System.Object&gt;.</returns>
     /// <exception cref="System.ArgumentNullException">type</exception>
-    /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
     public static Task<object> QueryFirstOrDefaultAsync(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
     {
         if (type == null) throw new ArgumentNullException(nameof(type));
@@ -275,7 +272,6 @@ public static partial class SqlMapper
     /// <param name="commandType">The type of command to execute.</param>
     /// <returns>Task&lt;System.Object&gt;.</returns>
     /// <exception cref="System.ArgumentNullException">type</exception>
-    /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
     public static Task<object> QuerySingleAsync(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
     {
         if (type == null) throw new ArgumentNullException(nameof(type));
@@ -293,7 +289,6 @@ public static partial class SqlMapper
     /// <param name="commandType">The type of command to execute.</param>
     /// <returns>Task&lt;System.Object&gt;.</returns>
     /// <exception cref="System.ArgumentNullException">type</exception>
-    /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
     public static Task<object> QuerySingleOrDefaultAsync(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
     {
         if (type == null) throw new ArgumentNullException(nameof(type));
@@ -640,7 +635,7 @@ public static partial class SqlMapper
         /// </summary>
         public readonly Task<int> Task;
         /// <summary>
-        /// Initializes a new instance of the <see cref="AsyncExecState"/> struct.
+        /// Initializes a new instance of the <see cref="AsyncExecState" /> struct.
         /// </summary>
         /// <param name="command">The command.</param>
         /// <param name="task">The task.</param>

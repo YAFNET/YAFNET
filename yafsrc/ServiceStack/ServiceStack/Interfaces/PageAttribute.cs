@@ -26,7 +26,7 @@ public class PageAttribute : AttributeBase
     public string Layout { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageAttribute"/> class.
+    /// Initializes a new instance of the <see cref="PageAttribute" /> class.
     /// </summary>
     /// <param name="virtualPath">The virtual path.</param>
     /// <param name="layout">The layout.</param>
@@ -54,7 +54,7 @@ public class PageArgAttribute : AttributeBase
     public string Value { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageArgAttribute"/> class.
+    /// Initializes a new instance of the <see cref="PageArgAttribute" /> class.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <param name="value">The value.</param>

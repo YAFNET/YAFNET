@@ -85,7 +85,7 @@ public class ResourceVirtualDirectory : AbstractVirtualDirectoryBase
     internal Assembly BackingAssembly => backingAssembly;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ResourceVirtualDirectory"/> class.
+    /// Initializes a new instance of the <see cref="ResourceVirtualDirectory" /> class.
     /// </summary>
     /// <param name="owningProvider">The owning provider.</param>
     /// <param name="parentDir">The parent dir.</param>
@@ -107,7 +107,7 @@ public class ResourceVirtualDirectory : AbstractVirtualDirectoryBase
     { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ResourceVirtualDirectory"/> class.
+    /// Initializes a new instance of the <see cref="ResourceVirtualDirectory" /> class.
     /// </summary>
     /// <param name="owningProvider">The owning provider.</param>
     /// <param name="parentDir">The parent dir.</param>
@@ -268,12 +268,8 @@ public class ResourceVirtualDirectory : AbstractVirtualDirectoryBase
     /// <summary>
     /// The translate path.
     /// </summary>
-    /// <param name="path">
-    /// The path.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
+    /// <param name="path">The path.</param>
+    /// <returns>The <see cref="string" />.</returns>
     public string TranslatePath(string path) => path.Replace('-', '_');
 
     /// <summary>

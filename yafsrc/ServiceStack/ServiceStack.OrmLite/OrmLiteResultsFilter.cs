@@ -287,7 +287,7 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     private readonly IOrmLiteResultsFilter previousFilter;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="OrmLiteResultsFilter"/> class.
+    /// Initializes a new instance of the <see cref="OrmLiteResultsFilter" /> class.
     /// </summary>
     /// <param name="results">The results.</param>
     public OrmLiteResultsFilter(IEnumerable results = null)
@@ -691,7 +691,7 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
 public class CaptureSqlFilter : OrmLiteResultsFilter
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="CaptureSqlFilter"/> class.
+    /// Initializes a new instance of the <see cref="CaptureSqlFilter" /> class.
     /// </summary>
     public CaptureSqlFilter()
     {
@@ -730,7 +730,7 @@ public class CaptureSqlFilter : OrmLiteResultsFilter
 public class SqlCommandDetails
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="SqlCommandDetails"/> class.
+    /// Initializes a new instance of the <see cref="SqlCommandDetails" /> class.
     /// </summary>
     /// <param name="command">The command.</param>
     public SqlCommandDetails(IDbCommand command)

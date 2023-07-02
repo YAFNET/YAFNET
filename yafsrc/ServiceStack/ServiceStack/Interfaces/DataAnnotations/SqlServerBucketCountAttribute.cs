@@ -18,7 +18,7 @@ namespace ServiceStack.DataAnnotations;
 public class SqlServerBucketCountAttribute : AttributeBase
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="SqlServerBucketCountAttribute"/> class.
+    /// Initializes a new instance of the <see cref="SqlServerBucketCountAttribute" /> class.
     /// </summary>
     /// <param name="count">The count.</param>
     public SqlServerBucketCountAttribute(int count) { Count = count; }

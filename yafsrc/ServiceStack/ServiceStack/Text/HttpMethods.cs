@@ -9,8 +9,14 @@ namespace ServiceStack;
 
 using System.Collections.Generic;
 
+/// <summary>
+/// Class HttpMethods.
+/// </summary>
 public static class HttpMethods
 {
+    /// <summary>
+    /// All verbs
+    /// </summary>
     static readonly string[] allVerbs =
         {
             "OPTIONS", "GET", "HEAD", "POST", "PUT", "DELETE", "TRACE", "CONNECT", // RFC 2616
@@ -25,23 +31,57 @@ public static class HttpMethods
             "UNSUBSCRIBE" //MS Exchange WebDav: http://msdn.microsoft.com/en-us/library/aa142917.aspx
         };
 
+    /// <summary>
+    /// All verbs
+    /// </summary>
     public static HashSet<string> AllVerbs = new(allVerbs);
 
+    /// <summary>
+    /// Existses the specified HTTP method.
+    /// </summary>
+    /// <param name="httpMethod">The HTTP method.</param>
+    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public static bool Exists(string httpMethod) => AllVerbs.Contains(httpMethod.ToUpper());
 
+    /// <summary>
+    /// Determines whether the specified HTTP verb has verb.
+    /// </summary>
+    /// <param name="httpVerb">The HTTP verb.</param>
+    /// <returns><c>true</c> if the specified HTTP verb has verb; otherwise, <c>false</c>.</returns>
     public static bool HasVerb(string httpVerb) => Exists(httpVerb);
 
+    /// <summary>
+    /// The get
+    /// </summary>
     public const string Get = "GET";
 
+    /// <summary>
+    /// The put
+    /// </summary>
     public const string Put = "PUT";
 
+    /// <summary>
+    /// The post
+    /// </summary>
     public const string Post = "POST";
 
+    /// <summary>
+    /// The delete
+    /// </summary>
     public const string Delete = "DELETE";
 
+    /// <summary>
+    /// The options
+    /// </summary>
     public const string Options = "OPTIONS";
 
+    /// <summary>
+    /// The head
+    /// </summary>
     public const string Head = "HEAD";
 
+    /// <summary>
+    /// The patch
+    /// </summary>
     public const string Patch = "PATCH";
 }

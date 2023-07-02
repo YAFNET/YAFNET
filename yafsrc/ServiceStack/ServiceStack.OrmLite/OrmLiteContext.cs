@@ -242,7 +242,7 @@ public class OrmLiteState
     public long Id;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="OrmLiteState"/> class.
+    /// Initializes a new instance of the <see cref="OrmLiteState" /> class.
     /// </summary>
     public OrmLiteState()
     {

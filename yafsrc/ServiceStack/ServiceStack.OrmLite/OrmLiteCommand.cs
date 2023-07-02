@@ -43,7 +43,7 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     public bool IsDisposed { get; private set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="OrmLiteCommand"/> class.
+    /// Initializes a new instance of the <see cref="OrmLiteCommand" /> class.
     /// </summary>
     /// <param name="dbConn">The database connection.</param>
     /// <param name="dbCmd">The database command.</param>
@@ -54,6 +54,10 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
         this.DialectProvider = dbConn.GetDialectProvider();
     }
 
+    /// <summary>
+    /// Gets the connection identifier.
+    /// </summary>
+    /// <value>The connection identifier.</value>
     public Guid ConnectionId => dbConn.ConnectionId;
 
     /// <summary>

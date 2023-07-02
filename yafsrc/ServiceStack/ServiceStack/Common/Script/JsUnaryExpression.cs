@@ -32,7 +32,7 @@ public class JsUnaryExpression : JsExpression
     public override string ToRawString() => Operator.Token + JsonValue(Argument);
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsUnaryExpression"/> class.
+    /// Initializes a new instance of the <see cref="JsUnaryExpression" /> class.
     /// </summary>
     /// <param name="operator">The operator.</param>
     /// <param name="argument">The argument.</param>

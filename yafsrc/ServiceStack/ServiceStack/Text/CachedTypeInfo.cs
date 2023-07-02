@@ -49,7 +49,7 @@ public class CachedTypeInfo
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CachedTypeInfo"/> class.
+    /// Initializes a new instance of the <see cref="CachedTypeInfo" /> class.
     /// </summary>
     /// <param name="type">The type.</param>
     public CachedTypeInfo(Type type)
@@ -91,7 +91,7 @@ public class EnumInfo
     private readonly Type enumType;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="EnumInfo"/> class.
+    /// Initializes a new instance of the <see cref="EnumInfo" /> class.
     /// </summary>
     /// <param name="enumType">Type of the enum.</param>
     private EnumInfo(Type enumType)

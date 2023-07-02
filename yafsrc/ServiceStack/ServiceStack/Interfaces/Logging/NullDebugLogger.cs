@@ -16,11 +16,9 @@ using System;
 public class NullDebugLogger : ILog
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="NullDebugLogger"/> class.
+    /// Initializes a new instance of the <see cref="NullDebugLogger" /> class.
     /// </summary>
-    /// <param name="type">
-    /// The type.
-    /// </param>
+    /// <param name="type">The type.</param>
     public NullDebugLogger(string type)
     {
     }

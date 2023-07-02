@@ -754,6 +754,8 @@ public class ProtectedScripts : ScriptMethods
     /// </summary>
     /// <param name="qualifiedConstructorName">Name of the qualified constructor.</param>
     /// <returns>ObjectActivator.</returns>
+    /// <exception cref="System.NotSupportedException">Invalid Constructor Name '{qualifiedConstructorName}', " +
+    ///                                             "format: <type>(<arg-types>), e.g. Uri(String), see: https://sharpscript.net/docs/script-net</exception>
     public ObjectActivator Constructor(string qualifiedConstructorName)
     {
         if (qualifiedConstructorName.IndexOf('(') == -1)
@@ -813,6 +815,8 @@ public class ProtectedScripts : ScriptMethods
     /// </summary>
     /// <param name="qualifiedMethodName">Name of the qualified method.</param>
     /// <returns>Delegate.</returns>
+    /// <exception cref="System.NotSupportedException">Invalid Function Name '{qualifiedMethodName}', " +
+    ///                                             "format: <type>.<method>(<arg-types>), e.g. Console.WriteLine(string), see: https://sharpscript.net/docs/script-net</exception>
     public Delegate Function(string qualifiedMethodName)
     {
         if (qualifiedMethodName.IndexOf('.') == -1)
@@ -838,6 +842,8 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="qualifiedMethodName">Name of the qualified method.</param>
     /// <param name="args">The arguments.</param>
     /// <returns>Delegate.</returns>
+    /// <exception cref="System.NotSupportedException">Invalid Function Name '{qualifiedMethodName}', " +
+    ///                                             "format: <type>.<method>(<arg-types>), e.g. Console.WriteLine(string), see: https://sharpscript.net/docs/script-net</exception>
     public Delegate Function(string qualifiedMethodName, List<object> args)
     {
         if (qualifiedMethodName.IndexOf('.') == -1)
@@ -857,6 +863,9 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="name">The name.</param>
     /// <param name="argTypes">The argument types.</param>
     /// <returns>Delegate.</returns>
+    /// <exception cref="System.NotSupportedException">Could not parse Function Name '{name}', " +
+    ///                                             "format: <type>.<method>(<arg-types>), e.g. Console.WriteLine(string)</exception>
+    /// <exception cref="System.NotSupportedException">Could not resolve Argument Type '{splitArgs[i]}' for '{name}'</exception>
     private Delegate ResolveFunction(string name, Type[] argTypes = null)
     {
         var hasArgsList = name.IndexOf('(') >= 0;
@@ -2093,7 +2102,6 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="cacheNames">The cache names.</param>
     /// <returns>System.Object.</returns>
     /// <exception cref="System.NotSupportedException">cacheClear</exception>
-    /// <exception cref="System.NotSupportedException">cacheClear</exception>
     public object cacheClear(ScriptScopeContext scope, object cacheNames)
     {
         IEnumerable<string> caches = cacheNames switch {
@@ -2176,8 +2184,9 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="fileName">Name of the file.</param>
     /// <param name="options">The options.</param>
     /// <returns>System.String.</returns>
-    /// <exception cref="System.Exception">`{fileName} {process.StartInfo.Arguments}` command failed: " + error</exception>
+    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">`{fileName} {process.StartInfo.Arguments}` command failed: " + error</exception>
     /// <exception cref="ServiceStack.Script.StopFilterExecutionException"></exception>
+    /// <exception cref="System.Exception">`{fileName} {process.StartInfo.Arguments}` command failed: " + error</exception>
     public string proc(ScriptScopeContext scope, string fileName, Dictionary<string, object> options)
     {
         var process = new Process

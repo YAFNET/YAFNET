@@ -23,12 +23,12 @@ public class ComputeAttribute : AttributeBase
     public string Expression { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ComputeAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ComputeAttribute" /> class.
     /// </summary>
     public ComputeAttribute() : this(string.Empty) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ComputeAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ComputeAttribute" /> class.
     /// </summary>
     /// <param name="expression">The expression.</param>
     public ComputeAttribute(string expression)

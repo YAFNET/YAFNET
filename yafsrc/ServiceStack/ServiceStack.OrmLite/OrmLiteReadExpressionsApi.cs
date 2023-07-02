@@ -192,12 +192,27 @@ public static class OrmLiteReadExpressionsApi
         return q;
     }
 
+    /// <summary>
+    /// Tags the with.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="expression">The expression.</param>
+    /// <param name="tag">The tag.</param>
+    /// <returns>SqlExpression&lt;T&gt;.</returns>
     public static SqlExpression<T> TagWith<T>(this SqlExpression<T> expression, string tag)
     {
         expression.AddTag(tag);
         return expression;
     }
 
+    /// <summary>
+    /// Tags the with call site.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="expression">The expression.</param>
+    /// <param name="filePath">The file path.</param>
+    /// <param name="lineNumber">The line number.</param>
+    /// <returns>SqlExpression&lt;T&gt;.</returns>
     public static SqlExpression<T> TagWithCallSite<T>(this SqlExpression<T> expression,
                                                       [CallerFilePath] string filePath = null,
                                                       [CallerLineNumber] int lineNumber = 0)
@@ -546,6 +561,20 @@ public static class OrmLiteReadExpressionsApi
         SqlExpression<T> expression) =>
         dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6, T7>(expression));
 
+    /// <summary>
+    /// Selects the multi.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T2">The type of the t2.</typeparam>
+    /// <typeparam name="T3">The type of the t3.</typeparam>
+    /// <typeparam name="T4">The type of the t4.</typeparam>
+    /// <typeparam name="T5">The type of the t5.</typeparam>
+    /// <typeparam name="T6">The type of the t6.</typeparam>
+    /// <typeparam name="T7">The type of the t7.</typeparam>
+    /// <typeparam name="T8">The type of the t8.</typeparam>
+    /// <param name="dbConn">The database connection.</param>
+    /// <param name="expression">The expression.</param>
+    /// <returns>List&lt;Tuple&lt;T, T2, T3, T4, T5, T6, T7, T8&gt;&gt;.</returns>
     public static List<Tuple<T, T2, T3, T4, T5, T6, T7, T8>> SelectMulti<T, T2, T3, T4, T5, T6, T7, T8>(
         this IDbConnection dbConn,
         SqlExpression<T> expression) =>
@@ -657,6 +686,21 @@ public static class OrmLiteReadExpressionsApi
         dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6, T7>(expression, tableSelects));
 
 
+    /// <summary>
+    /// Selects the multi.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T2">The type of the t2.</typeparam>
+    /// <typeparam name="T3">The type of the t3.</typeparam>
+    /// <typeparam name="T4">The type of the t4.</typeparam>
+    /// <typeparam name="T5">The type of the t5.</typeparam>
+    /// <typeparam name="T6">The type of the t6.</typeparam>
+    /// <typeparam name="T7">The type of the t7.</typeparam>
+    /// <typeparam name="T8">The type of the t8.</typeparam>
+    /// <param name="dbConn">The database connection.</param>
+    /// <param name="expression">The expression.</param>
+    /// <param name="tableSelects">The table selects.</param>
+    /// <returns>List&lt;Tuple&lt;T, T2, T3, T4, T5, T6, T7, T8&gt;&gt;.</returns>
     public static List<Tuple<T, T2, T3, T4, T5, T6, T7, T8>> SelectMulti<T, T2, T3, T4, T5, T6, T7, T8>(
         this IDbConnection dbConn,
         SqlExpression<T> expression,

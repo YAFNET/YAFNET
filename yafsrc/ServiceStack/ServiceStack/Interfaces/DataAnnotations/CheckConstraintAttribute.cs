@@ -23,7 +23,7 @@ public class CheckConstraintAttribute : AttributeBase
     public string Constraint { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CheckConstraintAttribute"/> class.
+    /// Initializes a new instance of the <see cref="CheckConstraintAttribute" /> class.
     /// </summary>
     /// <param name="constraint">The constraint.</param>
     public CheckConstraintAttribute(string constraint)

@@ -66,14 +66,14 @@ public class OrmLiteSPStatement : IDisposable
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="OrmLiteSPStatement"/> class.
+    /// Initializes a new instance of the <see cref="OrmLiteSPStatement" /> class.
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
     public OrmLiteSPStatement(IDbCommand dbCmd)
         : this(null, dbCmd) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="OrmLiteSPStatement"/> class.
+    /// Initializes a new instance of the <see cref="OrmLiteSPStatement" /> class.
     /// </summary>
     /// <param name="db">The database.</param>
     /// <param name="dbCmd">The database command.</param>
@@ -89,6 +89,7 @@ public class OrmLiteSPStatement : IDisposable
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns>List&lt;T&gt;.</returns>
+    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Type " + typeof(T).Name + " is a primitive type. Use ConvertScalarToList function.</exception>
     /// <exception cref="System.Exception">Type " + typeof(T).Name + " is a primitive type. Use ConvertScalarToList function.</exception>
     public List<T> ConvertToList<T>()
     {
@@ -112,6 +113,7 @@ public class OrmLiteSPStatement : IDisposable
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns>List&lt;T&gt;.</returns>
+    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Type " + typeof(T).Name + " is a non primitive type. Use ConvertToList function.</exception>
     /// <exception cref="System.Exception">Type " + typeof(T).Name + " is a non primitive type. Use ConvertToList function.</exception>
     public List<T> ConvertToScalarList<T>()
     {
@@ -135,6 +137,7 @@ public class OrmLiteSPStatement : IDisposable
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns>T.</returns>
+    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Type " + typeof(T).Name + " is a primitive type. Use ConvertScalarTo function.</exception>
     /// <exception cref="System.Exception">Type " + typeof(T).Name + " is a primitive type. Use ConvertScalarTo function.</exception>
     public T ConvertTo<T>()
     {
@@ -158,6 +161,7 @@ public class OrmLiteSPStatement : IDisposable
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns>T.</returns>
+    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Type " + typeof(T).Name + " is a non primitive type. Use ConvertTo function.</exception>
     /// <exception cref="System.Exception">Type " + typeof(T).Name + " is a non primitive type. Use ConvertTo function.</exception>
     public T ConvertToScalar<T>()
     {
@@ -181,6 +185,7 @@ public class OrmLiteSPStatement : IDisposable
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns>List&lt;T&gt;.</returns>
+    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Type " + typeof(T).Name + " is a non primitive type. Only primitive type can be used.</exception>
     /// <exception cref="System.Exception">Type " + typeof(T).Name + " is a non primitive type. Only primitive type can be used.</exception>
     public List<T> ConvertFirstColumnToList<T>()
     {
@@ -204,6 +209,7 @@ public class OrmLiteSPStatement : IDisposable
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns>HashSet&lt;T&gt;.</returns>
+    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Type " + typeof(T).Name + " is a non primitive type. Only primitive type can be used.</exception>
     /// <exception cref="System.Exception">Type " + typeof(T).Name + " is a non primitive type. Only primitive type can be used.</exception>
     public HashSet<T> ConvertFirstColumnToListDistinct<T>()
     {

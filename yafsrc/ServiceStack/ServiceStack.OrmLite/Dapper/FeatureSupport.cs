@@ -20,6 +20,9 @@ internal class FeatureSupport
     private static readonly FeatureSupport
         Default = new(false),
 
+        /// <summary>
+        /// The postgres
+        /// </summary>
         Postgres = new(true);
 
     /// <summary>
@@ -35,7 +38,7 @@ internal class FeatureSupport
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FeatureSupport"/> class.
+    /// Initializes a new instance of the <see cref="FeatureSupport" /> class.
     /// </summary>
     /// <param name="arrays">if set to <c>true</c> [arrays].</param>
     private FeatureSupport(bool arrays)

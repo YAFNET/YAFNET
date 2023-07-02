@@ -52,7 +52,7 @@ namespace ServiceStack.OrmLite.Converters
     public class EnumConverter : StringConverter
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EnumConverter"/> class.
+        /// Initializes a new instance of the <see cref="EnumConverter" /> class.
         /// </summary>
         public EnumConverter() : base(255) { }
 
@@ -284,6 +284,7 @@ namespace ServiceStack.OrmLite.Converters
         /// <param name="fieldType">Type of the field.</param>
         /// <param name="value">The value.</param>
         /// <returns>System.Object.</returns>
+        /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Rowversion property must be declared as either byte[] or ulong</exception>
         /// <exception cref="System.Exception">Rowversion property must be declared as either byte[] or ulong</exception>
         public override object FromDbValue(Type fieldType, object value)
         {

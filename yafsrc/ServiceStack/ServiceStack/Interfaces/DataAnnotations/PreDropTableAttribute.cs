@@ -23,7 +23,7 @@ public class PreDropTableAttribute : AttributeBase
     public string Sql { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PreDropTableAttribute"/> class.
+    /// Initializes a new instance of the <see cref="PreDropTableAttribute" /> class.
     /// </summary>
     /// <param name="sql">The SQL.</param>
     public PreDropTableAttribute(string sql)

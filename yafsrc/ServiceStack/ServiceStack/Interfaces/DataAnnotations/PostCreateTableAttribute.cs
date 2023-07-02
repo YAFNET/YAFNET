@@ -23,7 +23,7 @@ public class PostCreateTableAttribute : AttributeBase
     public string Sql { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PostCreateTableAttribute"/> class.
+    /// Initializes a new instance of the <see cref="PostCreateTableAttribute" /> class.
     /// </summary>
     /// <param name="sql">The SQL.</param>
     public PostCreateTableAttribute(string sql)

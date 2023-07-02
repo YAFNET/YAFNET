@@ -35,7 +35,7 @@ public static partial class SqlMapper
         private readonly bool addToCache;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GridReader"/> class.
+        /// Initializes a new instance of the <see cref="GridReader" /> class.
         /// </summary>
         /// <param name="command">The command.</param>
         /// <param name="reader">The reader.</param>
@@ -130,7 +130,6 @@ public static partial class SqlMapper
         /// <param name="buffered">Whether to buffer the results.</param>
         /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
         /// <exception cref="System.ArgumentNullException">type</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
         public IEnumerable<object> Read(Type type, bool buffered = true)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
@@ -143,7 +142,6 @@ public static partial class SqlMapper
         /// <param name="type">The type to read.</param>
         /// <returns>System.Object.</returns>
         /// <exception cref="System.ArgumentNullException">type</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
         public object ReadFirst(Type type)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
@@ -156,7 +154,6 @@ public static partial class SqlMapper
         /// <param name="type">The type to read.</param>
         /// <returns>System.Object.</returns>
         /// <exception cref="System.ArgumentNullException">type</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
         public object ReadFirstOrDefault(Type type)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
@@ -169,7 +166,6 @@ public static partial class SqlMapper
         /// <param name="type">The type to read.</param>
         /// <returns>System.Object.</returns>
         /// <exception cref="System.ArgumentNullException">type</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
         public object ReadSingle(Type type)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
@@ -182,7 +178,6 @@ public static partial class SqlMapper
         /// <param name="type">The type to read.</param>
         /// <returns>System.Object.</returns>
         /// <exception cref="System.ArgumentNullException">type</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
         public object ReadSingleOrDefault(Type type)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));

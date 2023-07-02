@@ -47,7 +47,7 @@ public class FileSystemVirtualFile : AbstractVirtualFileBase
     public override long Length => BackingFile.Length;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FileSystemVirtualFile"/> class.
+    /// Initializes a new instance of the <see cref="FileSystemVirtualFile" /> class.
     /// </summary>
     /// <param name="owningProvider">The owning provider.</param>
     /// <param name="directory">The directory.</param>

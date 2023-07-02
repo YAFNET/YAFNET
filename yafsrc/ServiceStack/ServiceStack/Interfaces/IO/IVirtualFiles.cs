@@ -20,6 +20,13 @@ using System.Threading.Tasks;
 /// <seealso cref="ServiceStack.IO.IVirtualPathProvider" />
 public interface IVirtualFiles : IVirtualPathProvider
 {
+    /// <summary>
+    /// Writes the file asynchronous.
+    /// </summary>
+    /// <param name="filePath">The file path.</param>
+    /// <param name="contents">The contents.</param>
+    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <returns>Task.</returns>
     Task WriteFileAsync(string filePath, object contents, CancellationToken token = default);
 
     /// <summary>

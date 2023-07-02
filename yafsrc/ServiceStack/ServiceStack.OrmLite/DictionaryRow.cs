@@ -53,7 +53,7 @@ public struct DictionaryRow : IDynamicRow<Dictionary<string, object>>
     public Dictionary<string, object> Fields { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DictionaryRow"/> struct.
+    /// Initializes a new instance of the <see cref="DictionaryRow" /> struct.
     /// </summary>
     /// <param name="type">The type.</param>
     /// <param name="fields">The fields.</param>
@@ -83,7 +83,7 @@ public struct ObjectRow : IDynamicRow<object>
     public object Fields { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ObjectRow"/> struct.
+    /// Initializes a new instance of the <see cref="ObjectRow" /> struct.
     /// </summary>
     /// <param name="type">The type.</param>
     /// <param name="fields">The fields.</param>

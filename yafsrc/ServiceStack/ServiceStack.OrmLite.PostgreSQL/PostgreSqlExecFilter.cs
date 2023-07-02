@@ -11,10 +11,24 @@ using Npgsql;
 
 namespace ServiceStack.OrmLite.PostgreSQL;
 
+/// <summary>
+/// Class PostgreSqlExecFilter.
+/// Implements the <see cref="ServiceStack.OrmLite.OrmLiteExecFilter" />
+/// </summary>
+/// <seealso cref="ServiceStack.OrmLite.OrmLiteExecFilter" />
 public class PostgreSqlExecFilter : OrmLiteExecFilter 
 {
+    /// <summary>
+    /// Gets or sets the on command.
+    /// </summary>
+    /// <value>The on command.</value>
     public Action<NpgsqlCommand> OnCommand { get; set; }
 
+    /// <summary>
+    /// Creates the command.
+    /// </summary>
+    /// <param name="dbConn">The database connection.</param>
+    /// <returns>IDbCommand.</returns>
     public override IDbCommand CreateCommand(IDbConnection dbConn)
     {
         var cmd = base.CreateCommand(dbConn);

@@ -29,6 +29,10 @@ public interface IOrmLiteDialectProvider
     /// <param name="converter">The converter.</param>
     void RegisterConverter<T>(IOrmLiteConverter converter);
 
+    /// <summary>
+    /// Initializes the connection.
+    /// </summary>
+    /// <param name="dbConn">The database connection.</param>
     void InitConnection(IDbConnection dbConn);
 
     /// <summary>
@@ -101,6 +105,10 @@ public interface IOrmLiteDialectProvider
     /// <value>The variables.</value>
     Dictionary<string, string> Variables { get; }
 
+    /// <summary>
+    /// Gets a value indicating whether [supports schema].
+    /// </summary>
+    /// <value><c>true</c> if [supports schema]; otherwise, <c>false</c>.</value>
     bool SupportsSchema { get; }
 
     /// <summary>
@@ -545,6 +553,11 @@ public interface IOrmLiteDialectProvider
     /// <param name="args">The arguments.</param>
     void PrepareInsertRowStatement<T>(IDbCommand dbCmd, Dictionary<string, object> args);
 
+    /// <summary>
+    /// Gets the insert columns statement.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns>System.String.</returns>
     string GetInsertColumnsStatement<T>();
 
     /// <summary>
@@ -656,7 +669,17 @@ public interface IOrmLiteDialectProvider
     /// <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns>
     Task<List<string>> SequenceListAsync(Type tableType, CancellationToken token = default);
 
+    /// <summary>
+    /// Gets the schemas.
+    /// </summary>
+    /// <param name="dbCmd">The database command.</param>
+    /// <returns>List&lt;System.String&gt;.</returns>
     List<string> GetSchemas(IDbCommand dbCmd);
+    /// <summary>
+    /// Gets the schema tables.
+    /// </summary>
+    /// <param name="dbCmd">The database command.</param>
+    /// <returns>Dictionary&lt;System.String, List&lt;System.String&gt;&gt;.</returns>
     Dictionary<string, List<string>> GetSchemaTables(IDbCommand dbCmd);
 
     /// <summary>
@@ -870,7 +893,9 @@ public interface IOrmLiteDialectProvider
     /// <returns>System.String.</returns>
     string GetDropIndexConstraint(ModelDefinition modelDef, string name = null);
 
-    /// <summary>Gets the add composite primary key sql command.</summary>
+    /// <summary>
+    /// Gets the add composite primary key sql command.
+    /// </summary>
     /// <param name="database">The database.</param>
     /// <param name="modelDef">The model definition.</param>
     /// <param name="fieldNameA">The field name a.</param>
@@ -878,7 +903,9 @@ public interface IOrmLiteDialectProvider
     /// <returns>Returns the SQL Command</returns>
     string GetAddCompositePrimaryKey(string database, ModelDefinition modelDef, string fieldNameA, string fieldNameB);
 
-    /// <summary>Gets the name of the primary key.</summary>
+    /// <summary>
+    /// Gets the name of the primary key.
+    /// </summary>
     /// <param name="modelDef">The model definition.</param>
     /// <returns>Returns the Primary Key Name</returns>
     string GetPrimaryKeyName(ModelDefinition modelDef);
@@ -886,12 +913,21 @@ public interface IOrmLiteDialectProvider
     /// <summary>
     /// Gets the drop primary key constraint.
     /// </summary>
-    /// <param name="database"></param>
+    /// <param name="database">The database.</param>
     /// <param name="modelDef">The model definition.</param>
     /// <param name="name">The name.</param>
     /// <returns>System.String.</returns>
     string GetDropPrimaryKeyConstraint(string database, ModelDefinition modelDef, string name);
 
+    /// <summary>
+    /// Gets the drop primary key constraint.
+    /// </summary>
+    /// <param name="database">The database.</param>
+    /// <param name="modelDef">The model definition.</param>
+    /// <param name="name">The name.</param>
+    /// <param name="fieldNameA">The field name a.</param>
+    /// <param name="fieldNameB">The field name b.</param>
+    /// <returns>System.String.</returns>
     string GetDropPrimaryKeyConstraint(string database, ModelDefinition modelDef, string name, string fieldNameA, string fieldNameB);
 
     /// <summary>
@@ -918,10 +954,47 @@ public interface IOrmLiteDialectProvider
     /// <returns>System.String.</returns>
     string GetDropForeignKeyConstraints(ModelDefinition modelDef);
 
+    /// <summary>
+    /// Converts to addcolumnstatement.
+    /// </summary>
+    /// <param name="schema">The schema.</param>
+    /// <param name="table">The table.</param>
+    /// <param name="fieldDef">The field definition.</param>
+    /// <returns>System.String.</returns>
     string ToAddColumnStatement(string schema, string table, FieldDefinition fieldDef);
+    /// <summary>
+    /// Converts to altercolumnstatement.
+    /// </summary>
+    /// <param name="schema">The schema.</param>
+    /// <param name="table">The table.</param>
+    /// <param name="fieldDef">The field definition.</param>
+    /// <returns>System.String.</returns>
     string ToAlterColumnStatement(string schema, string table, FieldDefinition fieldDef);
+    /// <summary>
+    /// Converts to changecolumnnamestatement.
+    /// </summary>
+    /// <param name="schema">The schema.</param>
+    /// <param name="table">The table.</param>
+    /// <param name="fieldDef">The field definition.</param>
+    /// <param name="oldColumn">The old column.</param>
+    /// <returns>System.String.</returns>
     string ToChangeColumnNameStatement(string schema, string table, FieldDefinition fieldDef, string oldColumn);
+    /// <summary>
+    /// Converts to renamecolumnstatement.
+    /// </summary>
+    /// <param name="schema">The schema.</param>
+    /// <param name="table">The table.</param>
+    /// <param name="oldColumn">The old column.</param>
+    /// <param name="newColumn">The new column.</param>
+    /// <returns>System.String.</returns>
     string ToRenameColumnStatement(string schema, string table, string oldColumn, string newColumn);
+    /// <summary>
+    /// Converts to dropcolumnstatement.
+    /// </summary>
+    /// <param name="schema">The schema.</param>
+    /// <param name="table">The table.</param>
+    /// <param name="column">The column.</param>
+    /// <returns>System.String.</returns>
     string ToDropColumnStatement(string schema, string table, string column);
 
     /// <summary>
@@ -1064,8 +1137,31 @@ public interface IOrmLiteDialectProvider
     /// <returns>System.String.</returns>
     string MergeParamsIntoSql(string sql, IEnumerable<IDbDataParameter> dbParams);
 
+    /// <summary>
+    /// Gets the reference self SQL.
+    /// </summary>
+    /// <typeparam name="From">The type of from.</typeparam>
+    /// <param name="refQ">The reference q.</param>
+    /// <param name="modelDef">The model definition.</param>
+    /// <param name="refSelf">The reference self.</param>
+    /// <param name="refModelDef">The reference model definition.</param>
+    /// <returns>System.String.</returns>
     string GetRefSelfSql<From>(SqlExpression<From> refQ, ModelDefinition modelDef, FieldDefinition refSelf, ModelDefinition refModelDef);
+    /// <summary>
+    /// Gets the reference field SQL.
+    /// </summary>
+    /// <param name="subSql">The sub SQL.</param>
+    /// <param name="refModelDef">The reference model definition.</param>
+    /// <param name="refField">The reference field.</param>
+    /// <returns>System.String.</returns>
     string GetRefFieldSql(string subSql, ModelDefinition refModelDef, FieldDefinition refField);
+    /// <summary>
+    /// Gets the field reference SQL.
+    /// </summary>
+    /// <param name="subSql">The sub SQL.</param>
+    /// <param name="fieldDef">The field definition.</param>
+    /// <param name="fieldRef">The field reference.</param>
+    /// <returns>System.String.</returns>
     string GetFieldReferenceSql(string subSql, FieldDefinition fieldDef, FieldReference fieldRef);
 
     /// <summary>
@@ -1137,7 +1233,7 @@ public interface IOrmLiteDialectProvider
     string SqlRandom { get; }
 
     /// <summary>
-    ///  Generates a SQL comment.
+    /// Generates a SQL comment.
     /// </summary>
     /// <param name="text">The comment text.</param>
     /// <returns>The generated SQL.</returns>

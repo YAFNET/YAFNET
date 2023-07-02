@@ -14,12 +14,28 @@ using ServiceStack.Text.Common;
 
 namespace ServiceStack.Text.Json;
 
+/// <summary>
+/// Struct SpanIndex
+/// </summary>
 public ref struct SpanIndex
 {
+    /// <summary>
+    /// Gets the span.
+    /// </summary>
+    /// <value>The span.</value>
     public ReadOnlySpan<char> Span { get; }
 
+    /// <summary>
+    /// Gets the index.
+    /// </summary>
+    /// <value>The index.</value>
     public int Index { get; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SpanIndex"/> struct.
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <param name="index">The index.</param>
     public SpanIndex(ReadOnlySpan<char> value, int index)
     {
         Span = value;
@@ -265,7 +281,12 @@ public struct JsonTypeSerializer
     }
 
 #if NET7_0
-        public void WriteDateOnly(TextWriter writer, object oDateOnly)
+    /// <summary>
+    /// Writes the date only.
+    /// </summary>
+    /// <param name="writer">The writer.</param>
+    /// <param name="oDateOnly">The o date only.</param>
+    public void WriteDateOnly(TextWriter writer, object oDateOnly)
         {
             var dateOnly = (DateOnly)oDateOnly;
             switch (JsConfig.DateHandler)
@@ -284,7 +305,12 @@ public struct JsonTypeSerializer
             }
         }
 
-        public void WriteNullableDateOnly(TextWriter writer, object oDateOnly)
+    /// <summary>
+    /// Writes the nullable date only.
+    /// </summary>
+    /// <param name="writer">The writer.</param>
+    /// <param name="oDateOnly">The o date only.</param>
+    public void WriteNullableDateOnly(TextWriter writer, object oDateOnly)
         {
             if (oDateOnly == null)
                 writer.Write(JsonUtils.Null);
@@ -292,7 +318,12 @@ public struct JsonTypeSerializer
                 WriteDateOnly(writer, oDateOnly);
         }
 
-        public void WriteTimeOnly(TextWriter writer, object oTimeOnly)
+    /// <summary>
+    /// Writes the time only.
+    /// </summary>
+    /// <param name="writer">The writer.</param>
+    /// <param name="oTimeOnly">The o time only.</param>
+    public void WriteTimeOnly(TextWriter writer, object oTimeOnly)
         {
             var stringValue = JsConfig.TimeSpanHandler == TimeSpanHandler.StandardFormat
                 ? oTimeOnly.ToString()
@@ -300,7 +331,12 @@ public struct JsonTypeSerializer
             WriteRawString(writer, stringValue);
         }
 
-        public void WriteNullableTimeOnly(TextWriter writer, object oTimeOnly)
+    /// <summary>
+    /// Writes the nullable time only.
+    /// </summary>
+    /// <param name="writer">The writer.</param>
+    /// <param name="oTimeOnly">The o time only.</param>
+    public void WriteNullableTimeOnly(TextWriter writer, object oTimeOnly)
         {
             if (oTimeOnly == null) return;
             WriteTimeSpan(writer, ((TimeOnly?)oTimeOnly).Value.ToTimeSpan());
@@ -637,6 +673,8 @@ public struct JsonTypeSerializer
     /// <param name="json">The json.</param>
     /// <param name="index">The index.</param>
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
+    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Invalid unquoted string starting with: " + json.SafeSubstring(50).ToString()</exception>
+    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Invalid unquoted string ending with: " + json.SafeSubstring(json.Length - 50, 50).ToString()</exception>
     /// <exception cref="System.Exception">Invalid unquoted string starting with: " + json.SafeSubstring(50).ToString()</exception>
     /// <exception cref="System.Exception">Invalid unquoted string ending with: " + json.SafeSubstring(json.Length - 50, 50).ToString()</exception>
     internal static ReadOnlySpan<char> ParseString(ReadOnlySpan<char> json, ref int index)
@@ -1128,6 +1166,7 @@ public struct JsonTypeSerializer
     /// <param name="value">The value.</param>
     /// <param name="i">The i.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Expected '{JsWriter.ItemSeperator}' or '{JsWriter.MapEndChar}'</exception>
     /// <exception cref="System.Exception">Expected '{JsWriter.ItemSeperator}' or '{JsWriter.MapEndChar}'</exception>
     public bool EatItemSeperatorOrMapEndChar(ReadOnlySpan<char> value, ref int i)
     {

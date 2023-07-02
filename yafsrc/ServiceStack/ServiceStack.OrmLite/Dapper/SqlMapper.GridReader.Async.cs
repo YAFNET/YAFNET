@@ -31,7 +31,7 @@ public static partial class SqlMapper
         /// </summary>
         private readonly CancellationToken cancel;
         /// <summary>
-        /// Initializes a new instance of the <see cref="GridReader"/> class.
+        /// Initializes a new instance of the <see cref="GridReader" /> class.
         /// </summary>
         /// <param name="command">The command.</param>
         /// <param name="reader">The reader.</param>
@@ -88,7 +88,6 @@ public static partial class SqlMapper
         /// <param name="buffered">Whether to buffer the results.</param>
         /// <returns>Task&lt;IEnumerable&lt;System.Object&gt;&gt;.</returns>
         /// <exception cref="System.ArgumentNullException">type</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
         public Task<IEnumerable<object>> ReadAsync(Type type, bool buffered = true)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
@@ -101,7 +100,6 @@ public static partial class SqlMapper
         /// <param name="type">The type to read.</param>
         /// <returns>Task&lt;System.Object&gt;.</returns>
         /// <exception cref="System.ArgumentNullException">type</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
         public Task<object> ReadFirstAsync(Type type)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
@@ -114,7 +112,6 @@ public static partial class SqlMapper
         /// <param name="type">The type to read.</param>
         /// <returns>Task&lt;System.Object&gt;.</returns>
         /// <exception cref="System.ArgumentNullException">type</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
         public Task<object> ReadFirstOrDefaultAsync(Type type)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
@@ -127,7 +124,6 @@ public static partial class SqlMapper
         /// <param name="type">The type to read.</param>
         /// <returns>Task&lt;System.Object&gt;.</returns>
         /// <exception cref="System.ArgumentNullException">type</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
         public Task<object> ReadSingleAsync(Type type)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
@@ -140,7 +136,6 @@ public static partial class SqlMapper
         /// <param name="type">The type to read.</param>
         /// <returns>Task&lt;System.Object&gt;.</returns>
         /// <exception cref="System.ArgumentNullException">type</exception>
-        /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
         public Task<object> ReadSingleOrDefaultAsync(Type type)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));

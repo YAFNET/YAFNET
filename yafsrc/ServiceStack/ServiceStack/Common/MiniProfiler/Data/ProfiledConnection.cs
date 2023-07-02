@@ -57,7 +57,7 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ProfiledConnection"/> class.
+    /// Initializes a new instance of the <see cref="ProfiledConnection" /> class.
     /// </summary>
     /// <param name="connection">The connection.</param>
     /// <param name="profiler">The profiler.</param>
@@ -263,7 +263,7 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// States the change handler.
     /// </summary>
     /// <param name="sender">The sender.</param>
-    /// <param name="e">The <see cref="StateChangeEventArgs"/> instance containing the event data.</param>
+    /// <param name="e">The <see cref="StateChangeEventArgs" /> instance containing the event data.</param>
     void StateChangeHandler(object sender, StateChangeEventArgs e)
     {
         OnStateChange(e);

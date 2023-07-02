@@ -34,9 +34,12 @@ public static partial class Sql
 
         foreach (var item in list)
         {
-            if (item == null) continue;
+            if (item == null)
+            {
+                continue;
+            }
 
-            if (item is IEnumerable arr && item is not string)
+            if (item is IEnumerable arr and not string)
             {
                 ret.AddRange(arr.Cast<object>());
             }
@@ -45,6 +48,7 @@ public static partial class Sql
                 ret.Add(item);
             }
         }
+
         return ret;
     }
 

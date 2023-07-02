@@ -29,7 +29,7 @@ public static partial class SqlMapper
         public readonly Func<IDataReader, object> Func;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="DeserializerState"/> struct.
+        /// Initializes a new instance of the <see cref="DeserializerState" /> struct.
         /// </summary>
         /// <param name="hash">The hash.</param>
         /// <param name="func">The function.</param>

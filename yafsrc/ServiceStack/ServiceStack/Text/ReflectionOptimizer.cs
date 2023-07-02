@@ -127,7 +127,7 @@ public sealed class RuntimeReflectionOptimizer : ReflectionOptimizer
     /// <value>The provider.</value>
     public static RuntimeReflectionOptimizer Provider => provider ??= new RuntimeReflectionOptimizer();
     /// <summary>
-    /// Prevents a default instance of the <see cref="RuntimeReflectionOptimizer"/> class from being created.
+    /// Prevents a default instance of the <see cref="RuntimeReflectionOptimizer" /> class from being created.
     /// </summary>
     private RuntimeReflectionOptimizer() { }
 
@@ -283,7 +283,7 @@ public sealed class ExpressionReflectionOptimizer : ReflectionOptimizer
     /// <value>The provider.</value>
     public static ExpressionReflectionOptimizer Provider => provider ??= new ExpressionReflectionOptimizer();
     /// <summary>
-    /// Prevents a default instance of the <see cref="ExpressionReflectionOptimizer"/> class from being created.
+    /// Prevents a default instance of the <see cref="ExpressionReflectionOptimizer" /> class from being created.
     /// </summary>
     private ExpressionReflectionOptimizer() { }
 

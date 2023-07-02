@@ -32,7 +32,7 @@ public class ProfiledDbTransaction : DbTransaction, IHasDbTransaction
     private DbTransaction trans;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ProfiledDbTransaction"/> class.
+    /// Initializes a new instance of the <see cref="ProfiledDbTransaction" /> class.
     /// </summary>
     /// <param name="transaction">The transaction.</param>
     /// <param name="connection">The connection.</param>

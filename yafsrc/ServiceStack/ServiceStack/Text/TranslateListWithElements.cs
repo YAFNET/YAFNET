@@ -149,7 +149,7 @@ public class ConvertibleTypeKey
     public Type FromElementType { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ConvertibleTypeKey"/> class.
+    /// Initializes a new instance of the <see cref="ConvertibleTypeKey" /> class.
     /// </summary>
     /// <param name="toInstanceType">Type of to instance.</param>
     /// <param name="fromElementType">Type of from element.</param>
@@ -299,7 +299,7 @@ public class TranslateListWithConvertibleElements<TFrom, TTo>
     private static readonly Func<TFrom, TTo> ConvertFn;
 
     /// <summary>
-    /// Initializes static members of the <see cref="TranslateListWithConvertibleElements{TFrom, TTo}"/> class.
+    /// Initializes static members of the <see cref="TranslateListWithConvertibleElements{TFrom, TTo}" /> class.
     /// </summary>
     static TranslateListWithConvertibleElements()
     {

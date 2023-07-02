@@ -18,7 +18,7 @@ namespace ServiceStack.DataAnnotations;
 public class CompositeIndexAttribute : AttributeBase
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="CompositeIndexAttribute"/> class.
+    /// Initializes a new instance of the <see cref="CompositeIndexAttribute" /> class.
     /// </summary>
     public CompositeIndexAttribute()
     {
@@ -26,7 +26,7 @@ public class CompositeIndexAttribute : AttributeBase
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CompositeIndexAttribute"/> class.
+    /// Initializes a new instance of the <see cref="CompositeIndexAttribute" /> class.
     /// </summary>
     /// <param name="fieldNames">The field names.</param>
     public CompositeIndexAttribute(params string[] fieldNames)
@@ -35,7 +35,7 @@ public class CompositeIndexAttribute : AttributeBase
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="CompositeIndexAttribute"/> class.
+    /// Initializes a new instance of the <see cref="CompositeIndexAttribute" /> class.
     /// </summary>
     /// <param name="unique">if set to <c>true</c> [unique].</param>
     /// <param name="fieldNames">The field names.</param>
@@ -52,7 +52,7 @@ public class CompositeIndexAttribute : AttributeBase
     public List<string> FieldNames { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether this <see cref="CompositeIndexAttribute"/> is unique.
+    /// Gets or sets a value indicating whether this <see cref="CompositeIndexAttribute" /> is unique.
     /// </summary>
     /// <value><c>true</c> if unique; otherwise, <c>false</c>.</value>
     public bool Unique { get; set; }

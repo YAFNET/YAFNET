@@ -78,14 +78,14 @@ public abstract class AbstractVirtualDirectoryBase : IVirtualDirectory
     public abstract string Name { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AbstractVirtualDirectoryBase"/> class.
+    /// Initializes a new instance of the <see cref="AbstractVirtualDirectoryBase" /> class.
     /// </summary>
     /// <param name="owningProvider">The owning provider.</param>
     protected AbstractVirtualDirectoryBase(IVirtualPathProvider owningProvider)
         : this(owningProvider, null) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AbstractVirtualDirectoryBase"/> class.
+    /// Initializes a new instance of the <see cref="AbstractVirtualDirectoryBase" /> class.
     /// </summary>
     /// <param name="owningProvider">The owning provider.</param>
     /// <param name="parentDirectory">The parent directory.</param>

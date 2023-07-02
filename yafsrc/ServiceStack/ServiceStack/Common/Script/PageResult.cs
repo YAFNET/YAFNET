@@ -251,7 +251,7 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
     private readonly Stack<string> stackTrace = new();
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageResult"/> class.
+    /// Initializes a new instance of the <see cref="PageResult" /> class.
     /// </summary>
     /// <param name="format">The format.</param>
     private PageResult(PageFormat format)
@@ -270,7 +270,7 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageResult"/> class.
+    /// Initializes a new instance of the <see cref="PageResult" /> class.
     /// </summary>
     /// <param name="page">The page.</param>
     /// <exception cref="System.ArgumentNullException">page</exception>
@@ -280,7 +280,7 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageResult"/> class.
+    /// Initializes a new instance of the <see cref="PageResult" /> class.
     /// </summary>
     /// <param name="page">The page.</param>
     /// <exception cref="System.ArgumentNullException">page</exception>
@@ -1330,6 +1330,7 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
     /// <param name="literal">The literal.</param>
     /// <param name="token">The token.</param>
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
+    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Invalid literal: {literal.ToString()} in '{var.OriginalText}'</exception>
     /// <exception cref="System.Exception">Invalid literal: {literal.ToString()} in '{var.OriginalText}'</exception>
     public ReadOnlySpan<char> ParseJsExpression(ScriptScopeContext scope, ReadOnlySpan<char> literal, out JsToken token)
     {
@@ -1613,7 +1614,7 @@ public class BindingExpressionException : Exception
     public string Member { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="BindingExpressionException"/> class.
+    /// Initializes a new instance of the <see cref="BindingExpressionException" /> class.
     /// </summary>
     /// <param name="message">The message.</param>
     /// <param name="member">The member.</param>
@@ -1635,16 +1636,16 @@ public class BindingExpressionException : Exception
 public class SyntaxErrorException : ArgumentException
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="SyntaxErrorException"/> class.
+    /// Initializes a new instance of the <see cref="SyntaxErrorException" /> class.
     /// </summary>
     public SyntaxErrorException() { }
     /// <summary>
-    /// Initializes a new instance of the <see cref="SyntaxErrorException"/> class.
+    /// Initializes a new instance of the <see cref="SyntaxErrorException" /> class.
     /// </summary>
     /// <param name="message">The error message that explains the reason for the exception.</param>
     public SyntaxErrorException(string message) : base(message) { }
     /// <summary>
-    /// Initializes a new instance of the <see cref="SyntaxErrorException"/> class.
+    /// Initializes a new instance of the <see cref="SyntaxErrorException" /> class.
     /// </summary>
     /// <param name="message">The error message that explains the reason for the exception.</param>
     /// <param name="innerException">The exception that is the cause of the current exception. If the <paramref name="innerException" /> parameter is not a null reference, the current exception is raised in a <see langword="catch" /> block that handles the inner exception.</param>

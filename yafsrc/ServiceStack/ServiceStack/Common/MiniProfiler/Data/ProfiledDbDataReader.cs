@@ -33,7 +33,7 @@ public class ProfiledDbDataReader : DbDataReader
     private readonly IDbProfiler profiler;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ProfiledDbDataReader"/> class.
+    /// Initializes a new instance of the <see cref="ProfiledDbDataReader" /> class.
     /// </summary>
     /// <param name="reader">The reader.</param>
     /// <param name="connection">The connection.</param>
@@ -81,14 +81,14 @@ public class ProfiledDbDataReader : DbDataReader
     public override int RecordsAffected => reader.RecordsAffected;
 
     /// <summary>
-    /// Gets the <see cref="System.Object"/> with the specified name.
+    /// Gets the <see cref="System.Object" /> with the specified name.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns>System.Object.</returns>
     public override object this[string name] => reader[name];
 
     /// <summary>
-    /// Gets the <see cref="System.Object"/> with the specified ordinal.
+    /// Gets the <see cref="System.Object" /> with the specified ordinal.
     /// </summary>
     /// <param name="ordinal">The ordinal.</param>
     /// <returns>System.Object.</returns>

@@ -39,7 +39,7 @@ public static partial class SqlMapper
         private static readonly int s_typeCount = CountNonTrivial(out s_typeHash);
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Identity{TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh}"/> class.
+        /// Initializes a new instance of the <see cref="Identity{TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh}" /> class.
         /// </summary>
         /// <param name="sql">The SQL.</param>
         /// <param name="commandType">Type of the command.</param>
@@ -51,7 +51,7 @@ public static partial class SqlMapper
             : base(sql, commandType, connectionString, type, parametersType, s_typeHash, gridIndex)
         { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="Identity{TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh}"/> class.
+        /// Initializes a new instance of the <see cref="Identity{TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh}" /> class.
         /// </summary>
         /// <param name="sql">The SQL.</param>
         /// <param name="commandType">Type of the command.</param>
@@ -126,7 +126,7 @@ public static partial class SqlMapper
         private readonly Type[] _types;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="IdentityWithTypes"/> class.
+        /// Initializes a new instance of the <see cref="IdentityWithTypes" /> class.
         /// </summary>
         /// <param name="sql">The SQL.</param>
         /// <param name="commandType">Type of the command.</param>
@@ -141,7 +141,7 @@ public static partial class SqlMapper
             _types = otherTypes ?? Type.EmptyTypes;
         }
         /// <summary>
-        /// Initializes a new instance of the <see cref="IdentityWithTypes"/> class.
+        /// Initializes a new instance of the <see cref="IdentityWithTypes" /> class.
         /// </summary>
         /// <param name="sql">The SQL.</param>
         /// <param name="commandType">Type of the command.</param>
@@ -253,7 +253,7 @@ public static partial class SqlMapper
             new Identity(sql, commandType, connectionString, this.type, type, 0, -1);
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Identity"/> class.
+        /// Initializes a new instance of the <see cref="Identity" /> class.
         /// </summary>
         /// <param name="sql">The SQL.</param>
         /// <param name="commandType">Type of the command.</param>
@@ -264,7 +264,7 @@ public static partial class SqlMapper
             : this(sql, commandType, connection.ConnectionString, type, parametersType, 0, 0) { /* base call */ }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Identity"/> class.
+        /// Initializes a new instance of the <see cref="Identity" /> class.
         /// </summary>
         /// <param name="sql">The SQL.</param>
         /// <param name="commandType">Type of the command.</param>

@@ -43,7 +43,7 @@ public class MySqlDialectProvider : MySqlDialectProviderBase<MySqlDialectProvide
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MySqlDialectProvider"/> class.
+    /// Initializes a new instance of the <see cref="MySqlDialectProvider" /> class.
     /// </summary>
     public MySqlDialectProvider()
     {
@@ -89,7 +89,7 @@ public class MySql55DialectProvider : MySqlDialectProviderBase<MySqlDialectProvi
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MySql55DialectProvider"/> class.
+    /// Initializes a new instance of the <see cref="MySql55DialectProvider" /> class.
     /// </summary>
     public MySql55DialectProvider()
     {

@@ -30,7 +30,7 @@ public class JsVariableDeclaration : JsExpression
     public JsDeclaration[] Declarations { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsVariableDeclaration"/> class.
+    /// Initializes a new instance of the <see cref="JsVariableDeclaration" /> class.
     /// </summary>
     /// <param name="kind">The kind.</param>
     /// <param name="declarations">The declarations.</param>
@@ -162,7 +162,7 @@ public class JsDeclaration : JsExpression
     public JsToken Init { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="JsDeclaration"/> class.
+    /// Initializes a new instance of the <see cref="JsDeclaration" /> class.
     /// </summary>
     /// <param name="id">The identifier.</param>
     /// <param name="init">The initialize.</param>

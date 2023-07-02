@@ -249,6 +249,16 @@ namespace ServiceStack.OrmLite
                 }, token);
         }
 
+        /// <summary>
+        /// Update only references as an asynchronous operation.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dbCmd">The database command.</param>
+        /// <param name="updateFields">The update fields.</param>
+        /// <param name="fn">The function.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Int32&gt; representing the asynchronous operation.</returns>
+        /// <exception cref="System.ArgumentNullException">updateFields</exception>
         public static async Task<int> UpdateOnlyReferencesAsync<T>(this IDbCommand dbCmd,
                                                                    Dictionary<string, object> updateFields, Func<Dictionary<string, object>, Task<int>> fn, CancellationToken token = default)
         {

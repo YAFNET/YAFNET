@@ -783,12 +783,22 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         return sql;
     }
 
+    /// <summary>
+    /// Gets the schemas.
+    /// </summary>
+    /// <param name="dbCmd">The database command.</param>
+    /// <returns>List&lt;System.String&gt;.</returns>
     public override List<string> GetSchemas(IDbCommand dbCmd)
     {
         var sql = "SELECT DISTINCT TABLE_SCHEMA FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA NOT IN ('information_schema', 'pg_catalog')";
         return dbCmd.SqlColumn<string>(sql);
     }
 
+    /// <summary>
+    /// Gets the schema tables.
+    /// </summary>
+    /// <param name="dbCmd">The database command.</param>
+    /// <returns>Dictionary&lt;System.String, List&lt;System.String&gt;&gt;.</returns>
     public override Dictionary<string, List<string>> GetSchemaTables(IDbCommand dbCmd)
     {
         var sql = "SELECT TABLE_SCHEMA, TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA NOT IN ('information_schema', 'pg_catalog')";
@@ -950,7 +960,8 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <summary>
     /// Converts to altercolumnstatement.
     /// </summary>
-    /// <param name="modelType">Type of the model.</param>
+    /// <param name="schema">The schema.</param>
+    /// <param name="table">The table.</param>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns>System.String.</returns>
     public override string ToAlterColumnStatement(string schema, string table, FieldDefinition fieldDef)
@@ -1215,6 +1226,14 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
 
         SetParameterValues<T>(cmd, obj);
     }
+    /// <summary>
+    /// Converts to changecolumnnamestatement.
+    /// </summary>
+    /// <param name="schema">The schema.</param>
+    /// <param name="table">The table.</param>
+    /// <param name="fieldDef">The field definition.</param>
+    /// <param name="oldColumn">The old column.</param>
+    /// <returns>System.String.</returns>
     public override string ToChangeColumnNameStatement(string schema, string table, FieldDefinition fieldDef, string oldColumn)
     {
         //var column = GetColumnDefinition(fieldDef);
@@ -1489,6 +1508,14 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         return StringBuilderCache.ReturnAndFree(sb);
     }
 
+    /// <summary>
+    /// Gets the add composite primary key sql command.
+    /// </summary>
+    /// <param name="database">The database name.</param>
+    /// <param name="modelDef">The model definition.</param>
+    /// <param name="fieldNameA">The field name a.</param>
+    /// <param name="fieldNameB">The field name b.</param>
+    /// <returns>Returns the SQL Command</returns>
     public override string GetAddCompositePrimaryKey(string database, ModelDefinition modelDef, string fieldNameA, string fieldNameB)
     {
         var sb = StringBuilderCache.Allocate();
@@ -1504,6 +1531,11 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         return StringBuilderCache.ReturnAndFree(sb);
     }
 
+    /// <summary>
+    /// Gets the name of the primary key.
+    /// </summary>
+    /// <param name="modelDef">The model definition.</param>
+    /// <returns>Returns the Primary Key Name</returns>
     public override string GetPrimaryKeyName(ModelDefinition modelDef)
     {
         return $"{this.NamingStrategy.GetTableName(modelDef)}_pkey";
@@ -1512,6 +1544,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <summary>
     /// Gets the drop primary key constraint.
     /// </summary>
+    /// <param name="database">The database name.</param>
     /// <param name="modelDef">The model definition.</param>
     /// <param name="name">The name.</param>
     /// <returns>System.String.</returns>
@@ -1526,6 +1559,15 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         return StringBuilderCache.ReturnAndFree(sb);
     }
 
+    /// <summary>
+    /// Gets the drop primary key constraint.
+    /// </summary>
+    /// <param name="database">The database.</param>
+    /// <param name="modelDef">The model definition.</param>
+    /// <param name="name">The name.</param>
+    /// <param name="fieldNameA">The field name a.</param>
+    /// <param name="fieldNameB">The field name b.</param>
+    /// <returns>System.String.</returns>
     public override string GetDropPrimaryKeyConstraint(string database, ModelDefinition modelDef, string name, string fieldNameA, string fieldNameB)
     {
         var sb = StringBuilderCache.Allocate();

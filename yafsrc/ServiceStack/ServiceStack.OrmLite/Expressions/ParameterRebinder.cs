@@ -23,7 +23,7 @@ public class ParameterRebinder : SqlExpressionVisitor
     private readonly Dictionary<ParameterExpression, ParameterExpression> map;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ParameterRebinder"/> class.
+    /// Initializes a new instance of the <see cref="ParameterRebinder" /> class.
     /// </summary>
     /// <param name="map">The map.</param>
     public ParameterRebinder(Dictionary<ParameterExpression, ParameterExpression> map)

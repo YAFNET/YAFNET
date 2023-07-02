@@ -262,7 +262,7 @@ public class CsvReader<T>
     internal static Dictionary<string, ParseStringDelegate> PropertyConvertersMap;
 
     /// <summary>
-    /// Initializes static members of the <see cref="CsvReader{T}"/> class.
+    /// Initializes static members of the <see cref="CsvReader{T}" /> class.
     /// </summary>
     static CsvReader()
     {

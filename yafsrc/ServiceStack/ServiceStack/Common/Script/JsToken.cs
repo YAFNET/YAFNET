@@ -20,12 +20,28 @@ using ServiceStack.Text.Json;
 using ServiceStack.Text.Extensions;
 #endif
 
+/// <summary>
+/// Struct SpanJsToken
+/// </summary>
 public ref struct SpanJsToken
 {
+    /// <summary>
+    /// Gets the span.
+    /// </summary>
+    /// <value>The span.</value>
     public ReadOnlySpan<char> Span { get; }
 
+    /// <summary>
+    /// Gets the node.
+    /// </summary>
+    /// <value>The node.</value>
     public JsToken Node { get; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SpanJsToken"/> struct.
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <param name="node">The node.</param>
     public SpanJsToken(ReadOnlySpan<char> value, JsToken node)
     {
         Span = value;
@@ -135,7 +151,7 @@ public static class JsTokenUtils
     private const byte True = 1;
 
     /// <summary>
-    /// Initializes static members of the <see cref="JsTokenUtils"/> class.
+    /// Initializes static members of the <see cref="JsTokenUtils" /> class.
     /// </summary>
     static JsTokenUtils()
     {

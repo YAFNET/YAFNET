@@ -94,6 +94,7 @@ public class SqliteNativeDateTimeConverter : DateTimeConverter
     /// <param name="columnIndex">Index of the column.</param>
     /// <param name="values">The values.</param>
     /// <returns>System.Object.</returns>
+    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Converting from {value.GetType().Name} to DateTime is not supported</exception>
     /// <exception cref="System.Exception">Converting from {value.GetType().Name} to DateTime is not supported</exception>
     public override object GetValue(IDataReader reader, int columnIndex, object[] values)
     {

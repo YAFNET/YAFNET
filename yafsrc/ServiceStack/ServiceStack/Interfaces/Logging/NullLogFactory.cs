@@ -20,7 +20,7 @@ public class NullLogFactory : ILogFactory
     private readonly bool debugEnabled;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="NullLogFactory"/> class.
+    /// Initializes a new instance of the <see cref="NullLogFactory" /> class.
     /// </summary>
     /// <param name="debugEnabled">if set to <c>true</c> [debug enabled].</param>
     public NullLogFactory(bool debugEnabled = false)

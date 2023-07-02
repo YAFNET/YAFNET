@@ -17,7 +17,7 @@ public struct XmlValue
     /// <value>The XML.</value>
     public string Xml { get; }
     /// <summary>
-    /// Initializes a new instance of the <see cref="XmlValue"/> struct.
+    /// Initializes a new instance of the <see cref="XmlValue" /> struct.
     /// </summary>
     /// <param name="xml">The XML.</param>
     public XmlValue(string xml) => Xml = xml;
@@ -48,7 +48,7 @@ public struct XmlValue
     public override int GetHashCode() => Xml != null ? Xml.GetHashCode() : 0;
 
     /// <summary>
-    /// Performs an implicit conversion from <see cref="System.String"/> to <see cref="XmlValue"/>.
+    /// Performs an implicit conversion from <see cref="System.String" /> to <see cref="XmlValue" />.
     /// </summary>
     /// <param name="expandedName">Name of the expanded.</param>
     /// <returns>The result of the conversion.</returns>

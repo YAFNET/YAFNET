@@ -32,7 +32,7 @@ public static partial class SqlMapper
         public string Member { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="LiteralToken"/> struct.
+        /// Initializes a new instance of the <see cref="LiteralToken" /> struct.
         /// </summary>
         /// <param name="token">The token.</param>
         /// <param name="member">The member.</param>

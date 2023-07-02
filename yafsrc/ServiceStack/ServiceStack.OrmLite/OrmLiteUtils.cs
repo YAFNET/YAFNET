@@ -393,6 +393,7 @@ public static class OrmLiteUtils
     /// <param name="onlyFields">The only fields.</param>
     /// <param name="genericArgs">The generic arguments.</param>
     /// <returns>System.Collections.Generic.List&lt;System.Tuple&lt;ServiceStack.OrmLite.FieldDefinition, int, ServiceStack.OrmLite.IOrmLiteConverter&gt;[]&gt;.</returns>
+    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">'{modelType.Name}' is not a table type</exception>
     internal static List<Tuple<FieldDefinition, int, IOrmLiteConverter>[]> GetMultiIndexCaches(
         this IDataReader reader,
         IOrmLiteDialectProvider dialectProvider,
@@ -699,7 +700,7 @@ public static class OrmLiteUtils
     /// </summary>
     /// <param name="sqlFragment">The SQL fragment.</param>
     /// <returns>string.</returns>
-    /// <exception cref="ArgumentException">Potential illegal fragment detected: " + sqlFragment</exception>
+    /// <exception cref="System.ArgumentException">Potential illegal fragment detected: " + sqlFragment</exception>
     public static string SqlVerifyFragment(this string sqlFragment)
     {
         if (isUnsafeSql(sqlFragment, VerifyFragmentRegEx))
@@ -724,7 +725,7 @@ public static class OrmLiteUtils
     /// <param name="sqlFragment">The SQL fragment.</param>
     /// <param name="illegalFragments">The illegal fragments.</param>
     /// <returns>string.</returns>
-    /// <exception cref="ArgumentException">Potential illegal fragment detected: " + sqlFragment</exception>
+    /// <exception cref="System.ArgumentException">Potential illegal fragment detected: " + sqlFragment</exception>
     public static string SqlVerifyFragment(this string sqlFragment, IEnumerable<string> illegalFragments)
     {
         if (sqlFragment == null)
@@ -1230,7 +1231,7 @@ public static class OrmLiteUtils
     /// <param name="parents">The parents.</param>
     /// <param name="children">The children.</param>
     /// <returns>System.Collections.Generic.List&lt;Parent&gt;.</returns>
-    /// <exception cref="Exception">$"Could not find Child Reference for '{typeof(Child).Name}' on Parent '{typeof(Parent).Name}'</exception>
+    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Could not find Child Reference for '{typeof(Child).Name}' on Parent '{typeof(Parent).Name}'</exception>
     public static List<Parent> Merge<Parent, Child>(this List<Parent> parents, List<Child> children)
     {
         var modelDef = ModelDefinition<Parent>.Definition;
@@ -1381,9 +1382,9 @@ public static class OrmLiteUtils
     /// Asserts the type of the not anon.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    /// <exception cref="ArgumentException">T generic argument should be a Table but was typeof(object)</exception>
-    /// <exception cref="ArgumentException">T generic argument should be a Table but was typeof(object)</exception>
-    /// <exception cref="ArgumentException">T generic argument should be a Table but was typeof(object)</exception>
+    /// <exception cref="System.ArgumentException">T generic argument should be a Table but was typeof(object)</exception>
+    /// <exception cref="System.ArgumentException">T generic argument should be a Table but was typeof(Dictionary<string,object>)</exception>
+    /// <exception cref="System.ArgumentException">T generic argument should be a Table but was an ISqlExpression</exception>
     public static void AssertNotAnonType<T>()
     {
         if (typeof(T) == typeof(object))
@@ -1598,7 +1599,15 @@ public static class OrmLiteUtils
         return StringBuilderCache.ReturnAndFree(sb);
     }
 
+    /// <summary>
+    /// The regex password
+    /// </summary>
     public static Regex RegexPassword = new("(Password|Pwd)=([^;,]+(,\\d+)?)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    /// <summary>
+    /// Masks the password.
+    /// </summary>
+    /// <param name="connectionString">The connection string.</param>
+    /// <returns>System.String.</returns>
     public static string MaskPassword(string connectionString) => connectionString != null
                                                                       ? RegexPassword.Replace(connectionString, "$1=***")
                                                                       : null;

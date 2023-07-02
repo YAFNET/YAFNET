@@ -21,20 +21,20 @@ namespace ServiceStack.OrmLite;
 public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="OrmLiteConnectionFactory"/> class.
+    /// Initializes a new instance of the <see cref="OrmLiteConnectionFactory" /> class.
     /// </summary>
     public OrmLiteConnectionFactory()
         : this(null, null, true) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="OrmLiteConnectionFactory"/> class.
+    /// Initializes a new instance of the <see cref="OrmLiteConnectionFactory" /> class.
     /// </summary>
     /// <param name="connectionString">The connection string.</param>
     public OrmLiteConnectionFactory(string connectionString)
         : this(connectionString, null, true) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="OrmLiteConnectionFactory"/> class.
+    /// Initializes a new instance of the <see cref="OrmLiteConnectionFactory" /> class.
     /// </summary>
     /// <param name="connectionString">The connection string.</param>
     /// <param name="dialectProvider">The dialect provider.</param>
@@ -42,7 +42,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
         : this(connectionString, dialectProvider, true) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="OrmLiteConnectionFactory"/> class.
+    /// Initializes a new instance of the <see cref="OrmLiteConnectionFactory" /> class.
     /// </summary>
     /// <param name="connectionString">The connection string.</param>
     /// <param name="dialectProvider">The dialect provider.</param>
@@ -578,9 +578,19 @@ public static class OrmLiteConnectionFactoryExtensions
                    : dbTrans;
     }
 
+    /// <summary>
+    /// Gets the connection identifier.
+    /// </summary>
+    /// <param name="db">The database.</param>
+    /// <returns>Guid.</returns>
     public static Guid GetConnectionId(this IDbConnection db) =>
         db is OrmLiteConnection conn ? conn.ConnectionId : Guid.Empty;
 
+    /// <summary>
+    /// Gets the connection identifier.
+    /// </summary>
+    /// <param name="dbCmd">The database command.</param>
+    /// <returns>Guid.</returns>
     public static Guid GetConnectionId(this IDbCommand dbCmd) =>
         dbCmd is OrmLiteCommand cmd ? cmd.ConnectionId : Guid.Empty;
 

@@ -7,8 +7,16 @@
 
 namespace ServiceStack.Text;
 
+/// <summary>
+/// Class HttpStatus.
+/// </summary>
 public static class HttpStatus
 {
+    /// <summary>
+    /// Gets the status description.
+    /// </summary>
+    /// <param name="statusCode">The status code.</param>
+    /// <returns>System.String.</returns>
     public static string GetStatusDescription(int statusCode)
     {
         if (statusCode is >= 100 and < 600)
@@ -23,6 +31,9 @@ public static class HttpStatus
         return string.Empty;
     }
 
+    /// <summary>
+    /// The descriptions
+    /// </summary>
     private static readonly string[][] Descriptions =
         {
             null, new[]

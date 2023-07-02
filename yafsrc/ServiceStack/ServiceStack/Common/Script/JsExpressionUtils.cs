@@ -319,7 +319,6 @@ public static class JsExpressionUtils
     /// <exception cref="ServiceStack.Script.SyntaxErrorException">Expected Expression but was {lhs.DebugToken()}</exception>
     /// <exception cref="ServiceStack.Script.SyntaxErrorException">Expected binary operator near: {literal.DebugLiteral()}</exception>
     /// <exception cref="ServiceStack.Script.SyntaxErrorException">Expected expression near: '{literal.DebugLiteral()}'</exception>
-    /// <exception cref="ServiceStack.Script.SyntaxErrorException">Expected Expression but was {lhs.DebugToken()}</exception>
     public static ReadOnlySpan<char> ParseBinaryExpression(this ReadOnlySpan<char> literal, out JsExpression expr, bool filterExpression)
     {
         literal = literal.AdvancePastWhitespace();

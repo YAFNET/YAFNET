@@ -62,7 +62,7 @@ public class FileSystemVirtualDirectory : AbstractVirtualDirectoryBase
     public override string RealPath => BackingDirInfo.FullName;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="FileSystemVirtualDirectory"/> class.
+    /// Initializes a new instance of the <see cref="FileSystemVirtualDirectory" /> class.
     /// </summary>
     /// <param name="owningProvider">The owning provider.</param>
     /// <param name="parentDirectory">The parent directory.</param>

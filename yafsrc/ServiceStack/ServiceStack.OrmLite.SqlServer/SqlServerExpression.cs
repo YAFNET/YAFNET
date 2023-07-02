@@ -20,7 +20,7 @@ namespace ServiceStack.OrmLite.SqlServer;
 public class SqlServerExpression<T> : SqlExpression<T>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="SqlServerExpression{T}"/> class.
+    /// Initializes a new instance of the <see cref="SqlServerExpression{T}" /> class.
     /// </summary>
     /// <param name="dialectProvider">The dialect provider.</param>
     public SqlServerExpression(IOrmLiteDialectProvider dialectProvider)

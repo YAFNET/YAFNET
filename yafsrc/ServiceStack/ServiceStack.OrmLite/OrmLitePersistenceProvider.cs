@@ -50,7 +50,7 @@ public class OrmLitePersistenceProvider
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="OrmLitePersistenceProvider"/> class.
+    /// Initializes a new instance of the <see cref="OrmLitePersistenceProvider" /> class.
     /// </summary>
     /// <param name="connectionString">The connection string.</param>
     public OrmLitePersistenceProvider(string connectionString)
@@ -59,7 +59,7 @@ public class OrmLitePersistenceProvider
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="OrmLitePersistenceProvider"/> class.
+    /// Initializes a new instance of the <see cref="OrmLitePersistenceProvider" /> class.
     /// </summary>
     /// <param name="connection">The connection.</param>
     public OrmLitePersistenceProvider(IDbConnection connection)

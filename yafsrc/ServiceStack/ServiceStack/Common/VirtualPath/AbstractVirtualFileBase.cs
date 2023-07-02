@@ -79,7 +79,7 @@ namespace ServiceStack.VirtualPath
         public abstract long Length { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="AbstractVirtualFileBase"/> class.
+        /// Initializes a new instance of the <see cref="AbstractVirtualFileBase" /> class.
         /// </summary>
         /// <param name="owningProvider">The owning provider.</param>
         /// <param name="directory">The directory.</param>

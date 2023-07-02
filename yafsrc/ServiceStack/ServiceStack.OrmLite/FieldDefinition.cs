@@ -21,6 +21,7 @@ public class FieldDefinition
     /// <summary>
     /// Gets or sets the model def.
     /// </summary>
+    /// <value>The model definition.</value>
     public ModelDefinition ModelDef { get; set; }
 
     /// <summary>
@@ -302,6 +303,10 @@ public class FieldDefinition
     /// <value><c>true</c> if this instance is reference; otherwise, <c>false</c>.</value>
     public bool IsReference { get; set; }
 
+    /// <summary>
+    /// Gets or sets the field reference.
+    /// </summary>
+    /// <value>The field reference.</value>
     public FieldReference FieldReference { get; set; }
 
     /// <summary>

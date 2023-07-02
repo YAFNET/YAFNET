@@ -17,8 +17,14 @@ using ServiceStack.Text;
 
 namespace ServiceStack;
 
+/// <summary>
+/// Class HttpUtils.
+/// </summary>
 public static partial class HttpUtils
 {
+    /// <summary>
+    /// The user agent
+    /// </summary>
     public static string UserAgent = "ServiceStack.Text" +
 #if NET7_0_OR_GREATER
         "/net6"
@@ -31,8 +37,18 @@ public static partial class HttpUtils
 #endif
         ;
 
+    /// <summary>
+    /// Gets or sets the use encoding.
+    /// </summary>
+    /// <value>The use encoding.</value>
     public static Encoding UseEncoding { get; set; } = new UTF8Encoding(false);
 
+    /// <summary>
+    /// Adds the query parameters.
+    /// </summary>
+    /// <param name="url">The URL.</param>
+    /// <param name="args">The arguments.</param>
+    /// <returns>System.String.</returns>
     public static string AddQueryParams(this string url, Dictionary<string, string> args)
     {
         var sb = StringBuilderCache.Allocate()
@@ -52,6 +68,12 @@ public static partial class HttpUtils
         return StringBuilderCache.ReturnAndFree(sb);
     }
 
+    /// <summary>
+    /// Adds the query parameters.
+    /// </summary>
+    /// <param name="url">The URL.</param>
+    /// <param name="queryParams">The query parameters.</param>
+    /// <returns>System.String.</returns>
     public static string AddQueryParams(this string url, NameValueCollection queryParams)
     {
         var sb = StringBuilderCache.Allocate()
@@ -74,16 +96,40 @@ public static partial class HttpUtils
         return StringBuilderCache.ReturnAndFree(sb);
     }
 
+    /// <summary>
+    /// Adds the query parameter.
+    /// </summary>
+    /// <param name="url">The URL.</param>
+    /// <param name="key">The key.</param>
+    /// <param name="val">The value.</param>
+    /// <param name="encode">if set to <c>true</c> [encode].</param>
+    /// <returns>System.String.</returns>
     public static string AddQueryParam(this string url, string key, object val, bool encode = true)
     {
         return url.AddQueryParam(key, val?.ToString(), encode);
     }
 
+    /// <summary>
+    /// Adds the query parameter.
+    /// </summary>
+    /// <param name="url">The URL.</param>
+    /// <param name="key">The key.</param>
+    /// <param name="val">The value.</param>
+    /// <param name="encode">if set to <c>true</c> [encode].</param>
+    /// <returns>System.String.</returns>
     public static string AddQueryParam(this string url, object key, string val, bool encode = true)
     {
         return AddQueryParam(url, key?.ToString(), val, encode);
     }
 
+    /// <summary>
+    /// Adds the query parameter.
+    /// </summary>
+    /// <param name="url">The URL.</param>
+    /// <param name="key">The key.</param>
+    /// <param name="val">The value.</param>
+    /// <param name="encode">if set to <c>true</c> [encode].</param>
+    /// <returns>System.String.</returns>
     public static string AddQueryParam(this string url, string key, string val, bool encode = true)
     {
         url ??= "";
@@ -100,6 +146,13 @@ public static partial class HttpUtils
         return url + prefix + key + "=" + (encode ? val.UrlEncode() : val);
     }
 
+    /// <summary>
+    /// Sets the query parameter.
+    /// </summary>
+    /// <param name="url">The URL.</param>
+    /// <param name="key">The key.</param>
+    /// <param name="val">The value.</param>
+    /// <returns>System.String.</returns>
     public static string SetQueryParam(this string url, string key, string val)
     {
         url ??= "";
@@ -130,11 +183,25 @@ public static partial class HttpUtils
         return url + prefix + key + "=" + val.UrlEncode();
     }
 
+    /// <summary>
+    /// Adds the hash parameter.
+    /// </summary>
+    /// <param name="url">The URL.</param>
+    /// <param name="key">The key.</param>
+    /// <param name="val">The value.</param>
+    /// <returns>System.String.</returns>
     public static string AddHashParam(this string url, string key, object val)
     {
         return url.AddHashParam(key, val?.ToString());
     }
 
+    /// <summary>
+    /// Adds the hash parameter.
+    /// </summary>
+    /// <param name="url">The URL.</param>
+    /// <param name="key">The key.</param>
+    /// <param name="val">The value.</param>
+    /// <returns>System.String.</returns>
     public static string AddHashParam(this string url, string key, string val)
     {
         url ??= "";
@@ -146,6 +213,13 @@ public static partial class HttpUtils
         return url + prefix + key + "=" + val.UrlEncode();
     }
 
+    /// <summary>
+    /// Sets the hash parameter.
+    /// </summary>
+    /// <param name="url">The URL.</param>
+    /// <param name="key">The key.</param>
+    /// <param name="val">The value.</param>
+    /// <returns>System.String.</returns>
     public static string SetHashParam(this string url, string key, string val)
     {
         url ??= "";
@@ -176,6 +250,11 @@ public static partial class HttpUtils
         return url + prefix + key + "=" + val.UrlEncode();
     }
 
+    /// <summary>
+    /// Determines whether [has request body] [the specified HTTP method].
+    /// </summary>
+    /// <param name="httpMethod">The HTTP method.</param>
+    /// <returns><c>true</c> if [has request body] [the specified HTTP method]; otherwise, <c>false</c>.</returns>
     public static bool HasRequestBody(string httpMethod)
     {
         switch (httpMethod)
@@ -190,11 +269,21 @@ public static partial class HttpUtils
         return true;
     }
 
+    /// <summary>
+    /// Gets the request stream asynchronous.
+    /// </summary>
+    /// <param name="request">The request.</param>
+    /// <returns>Task&lt;Stream&gt;.</returns>
     public static Task<Stream> GetRequestStreamAsync(this WebRequest request)
     {
         return GetRequestStreamAsync((HttpWebRequest) request);
     }
 
+    /// <summary>
+    /// Gets the request stream asynchronous.
+    /// </summary>
+    /// <param name="request">The request.</param>
+    /// <returns>Task&lt;Stream&gt;.</returns>
     public static Task<Stream> GetRequestStreamAsync(this HttpWebRequest request)
     {
         var tcs = new TaskCompletionSource<Stream>();
@@ -224,6 +313,13 @@ public static partial class HttpUtils
         return tcs.Task;
     }
 
+    /// <summary>
+    /// Converts to.
+    /// </summary>
+    /// <typeparam name="TDerived">The type of the t derived.</typeparam>
+    /// <typeparam name="TBase">The type of the t base.</typeparam>
+    /// <param name="task">The task.</param>
+    /// <returns>Task&lt;TBase&gt;.</returns>
     public static Task<TBase> ConvertTo<TDerived, TBase>(this Task<TDerived> task)
         where TDerived : TBase
     {
@@ -236,11 +332,21 @@ public static partial class HttpUtils
         return tcs.Task;
     }
 
+    /// <summary>
+    /// Gets the response asynchronous.
+    /// </summary>
+    /// <param name="request">The request.</param>
+    /// <returns>Task&lt;WebResponse&gt;.</returns>
     public static Task<WebResponse> GetResponseAsync(this WebRequest request)
     {
         return GetResponseAsync((HttpWebRequest) request).ConvertTo<HttpWebResponse, WebResponse>();
     }
 
+    /// <summary>
+    /// Gets the response asynchronous.
+    /// </summary>
+    /// <param name="request">The request.</param>
+    /// <returns>Task&lt;HttpWebResponse&gt;.</returns>
     public static Task<HttpWebResponse> GetResponseAsync(this HttpWebRequest request)
     {
         var tcs = new TaskCompletionSource<HttpWebResponse>();
@@ -270,54 +376,104 @@ public static partial class HttpUtils
         return tcs.Task;
     }
 
+    /// <summary>
+    /// Determines whether the specified ex is any300.
+    /// </summary>
+    /// <param name="ex">The ex.</param>
+    /// <returns><c>true</c> if the specified ex is any300; otherwise, <c>false</c>.</returns>
     public static bool IsAny300(this Exception ex)
     {
         var status = ex.GetStatus();
         return status is >= HttpStatusCode.MultipleChoices and < HttpStatusCode.BadRequest;
     }
 
+    /// <summary>
+    /// Determines whether the specified ex is any400.
+    /// </summary>
+    /// <param name="ex">The ex.</param>
+    /// <returns><c>true</c> if the specified ex is any400; otherwise, <c>false</c>.</returns>
     public static bool IsAny400(this Exception ex)
     {
         var status = ex.GetStatus();
         return status is >= HttpStatusCode.BadRequest and < HttpStatusCode.InternalServerError;
     }
 
+    /// <summary>
+    /// Determines whether the specified ex is any500.
+    /// </summary>
+    /// <param name="ex">The ex.</param>
+    /// <returns><c>true</c> if the specified ex is any500; otherwise, <c>false</c>.</returns>
     public static bool IsAny500(this Exception ex)
     {
         var status = ex.GetStatus();
         return status >= HttpStatusCode.InternalServerError && (int) status < 600;
     }
 
+    /// <summary>
+    /// Determines whether [is not modified] [the specified ex].
+    /// </summary>
+    /// <param name="ex">The ex.</param>
+    /// <returns><c>true</c> if [is not modified] [the specified ex]; otherwise, <c>false</c>.</returns>
     public static bool IsNotModified(this Exception ex)
     {
         return GetStatus(ex) == HttpStatusCode.NotModified;
     }
 
+    /// <summary>
+    /// Determines whether [is bad request] [the specified ex].
+    /// </summary>
+    /// <param name="ex">The ex.</param>
+    /// <returns><c>true</c> if [is bad request] [the specified ex]; otherwise, <c>false</c>.</returns>
     public static bool IsBadRequest(this Exception ex)
     {
         return GetStatus(ex) == HttpStatusCode.BadRequest;
     }
 
+    /// <summary>
+    /// Determines whether [is not found] [the specified ex].
+    /// </summary>
+    /// <param name="ex">The ex.</param>
+    /// <returns><c>true</c> if [is not found] [the specified ex]; otherwise, <c>false</c>.</returns>
     public static bool IsNotFound(this Exception ex)
     {
         return GetStatus(ex) == HttpStatusCode.NotFound;
     }
 
+    /// <summary>
+    /// Determines whether the specified ex is unauthorized.
+    /// </summary>
+    /// <param name="ex">The ex.</param>
+    /// <returns><c>true</c> if the specified ex is unauthorized; otherwise, <c>false</c>.</returns>
     public static bool IsUnauthorized(this Exception ex)
     {
         return GetStatus(ex) == HttpStatusCode.Unauthorized;
     }
 
+    /// <summary>
+    /// Determines whether the specified ex is forbidden.
+    /// </summary>
+    /// <param name="ex">The ex.</param>
+    /// <returns><c>true</c> if the specified ex is forbidden; otherwise, <c>false</c>.</returns>
     public static bool IsForbidden(this Exception ex)
     {
         return GetStatus(ex) == HttpStatusCode.Forbidden;
     }
 
+    /// <summary>
+    /// Determines whether [is internal server error] [the specified ex].
+    /// </summary>
+    /// <param name="ex">The ex.</param>
+    /// <returns><c>true</c> if [is internal server error] [the specified ex]; otherwise, <c>false</c>.</returns>
     public static bool IsInternalServerError(this Exception ex)
     {
         return GetStatus(ex) == HttpStatusCode.InternalServerError;
     }
 
+    /// <summary>
+    /// Gets the status.
+    /// </summary>
+    /// <param name="ex">The ex.</param>
+    /// <returns>System.Nullable&lt;HttpStatusCode&gt;.</returns>
     public static HttpStatusCode? GetStatus(this Exception ex)
     {
 #if NET7_0_OR_GREATER
@@ -338,17 +494,33 @@ public static partial class HttpUtils
     public static HttpStatusCode? GetStatus(this System.Net.Http.HttpRequestException ex) => ex.StatusCode;
 #endif
 
+    /// <summary>
+    /// Gets the status.
+    /// </summary>
+    /// <param name="webEx">The web ex.</param>
+    /// <returns>System.Nullable&lt;HttpStatusCode&gt;.</returns>
     public static HttpStatusCode? GetStatus(this WebException webEx)
     {
         var httpRes = webEx?.Response as HttpWebResponse;
         return httpRes?.StatusCode;
     }
 
+    /// <summary>
+    /// Determines whether the specified status code has status.
+    /// </summary>
+    /// <param name="ex">The ex.</param>
+    /// <param name="statusCode">The status code.</param>
+    /// <returns><c>true</c> if the specified status code has status; otherwise, <c>false</c>.</returns>
     public static bool HasStatus(this Exception ex, HttpStatusCode statusCode)
     {
         return GetStatus(ex) == statusCode;
     }
 
+    /// <summary>
+    /// Gets the response body.
+    /// </summary>
+    /// <param name="ex">The ex.</param>
+    /// <returns>System.String.</returns>
     public static string GetResponseBody(this Exception ex)
     {
         if (ex is not WebException webEx || webEx.Response == null
@@ -360,6 +532,12 @@ public static partial class HttpUtils
         return responseStream.ReadToEnd(UseEncoding);
     }
 
+    /// <summary>
+    /// Get response body as an asynchronous operation.
+    /// </summary>
+    /// <param name="ex">The ex.</param>
+    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+    /// <returns>A Task&lt;System.String&gt; representing the asynchronous operation.</returns>
     public static async Task<string> GetResponseBodyAsync(this Exception ex, CancellationToken token = default)
     {
         if (ex is not WebException webEx || webEx.Response == null
@@ -371,18 +549,33 @@ public static partial class HttpUtils
         return await responseStream.ReadToEndAsync(UseEncoding).ConfigAwait();
     }
 
+    /// <summary>
+    /// Reads to end.
+    /// </summary>
+    /// <param name="webRes">The web resource.</param>
+    /// <returns>System.String.</returns>
     public static string ReadToEnd(this WebResponse webRes)
     {
         using var stream = webRes.GetResponseStream();
         return stream.ReadToEnd(UseEncoding);
     }
 
+    /// <summary>
+    /// Reads to end asynchronous.
+    /// </summary>
+    /// <param name="webRes">The web resource.</param>
+    /// <returns>Task&lt;System.String&gt;.</returns>
     public static Task<string> ReadToEndAsync(this WebResponse webRes)
     {
         using var stream = webRes.GetResponseStream();
         return stream.ReadToEndAsync(UseEncoding);
     }
 
+    /// <summary>
+    /// Reads the lines.
+    /// </summary>
+    /// <param name="webRes">The web resource.</param>
+    /// <returns>IEnumerable&lt;System.String&gt;.</returns>
     public static IEnumerable<string> ReadLines(this WebResponse webRes)
     {
         using var stream = webRes.GetResponseStream();
@@ -395,12 +588,26 @@ public static partial class HttpUtils
 }
 
 //Allow Exceptions to Customize HTTP StatusCode and StatusDescription returned
+/// <summary>
+/// Interface IHasStatusCode
+/// </summary>
 public interface IHasStatusCode
 {
+    /// <summary>
+    /// Gets the status code.
+    /// </summary>
+    /// <value>The status code.</value>
     int StatusCode { get; }
 }
 
+/// <summary>
+/// Interface IHasStatusDescription
+/// </summary>
 public interface IHasStatusDescription
 {
+    /// <summary>
+    /// Gets the status description.
+    /// </summary>
+    /// <value>The status description.</value>
     string StatusDescription { get; }
 }

@@ -1138,7 +1138,7 @@ public class AssignmentEntry
     public GetMemberDelegate ConvertValueFn;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AssignmentEntry"/> class.
+    /// Initializes a new instance of the <see cref="AssignmentEntry" /> class.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <param name="from">From.</param>
@@ -1161,7 +1161,7 @@ public class AssignmentEntry
 public class AssignmentMember
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AssignmentMember"/> class.
+    /// Initializes a new instance of the <see cref="AssignmentMember" /> class.
     /// </summary>
     /// <param name="type">The type.</param>
     /// <param name="propertyInfo">The property information.</param>
@@ -1172,7 +1172,7 @@ public class AssignmentMember
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AssignmentMember"/> class.
+    /// Initializes a new instance of the <see cref="AssignmentMember" /> class.
     /// </summary>
     /// <param name="type">The type.</param>
     /// <param name="fieldInfo">The field information.</param>
@@ -1232,7 +1232,7 @@ public class AssignmentMember
 internal class AssignmentDefinition
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AssignmentDefinition"/> class.
+    /// Initializes a new instance of the <see cref="AssignmentDefinition" /> class.
     /// </summary>
     public AssignmentDefinition()
     {

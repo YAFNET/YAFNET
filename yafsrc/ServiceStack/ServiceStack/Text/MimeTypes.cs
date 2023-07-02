@@ -12,92 +12,227 @@ using System.Collections.Generic;
 
 using ServiceStack.Text;
 
+/// <summary>
+/// Class MimeTypes.
+/// </summary>
 public static class MimeTypes
 {
+    /// <summary>
+    /// The extension MIME types
+    /// </summary>
     public static Dictionary<string, string> ExtensionMimeTypes = new();
 
+    /// <summary>
+    /// The UTF8 suffix
+    /// </summary>
     public const string Utf8Suffix = "; charset=utf-8";
 
+    /// <summary>
+    /// The HTML
+    /// </summary>
     public const string Html = "text/html";
 
+    /// <summary>
+    /// The HTML UTF8
+    /// </summary>
     public const string HtmlUtf8 = Html + Utf8Suffix;
 
+    /// <summary>
+    /// The CSS
+    /// </summary>
     public const string Css = "text/css";
 
+    /// <summary>
+    /// The XML
+    /// </summary>
     public const string Xml = "application/xml";
 
+    /// <summary>
+    /// The XML text
+    /// </summary>
     public const string XmlText = "text/xml";
 
+    /// <summary>
+    /// The json
+    /// </summary>
     public const string Json = "application/json";
 
+    /// <summary>
+    /// The problem json
+    /// </summary>
     public const string ProblemJson = "application/problem+json";
 
+    /// <summary>
+    /// The json text
+    /// </summary>
     public const string JsonText = "text/json";
 
+    /// <summary>
+    /// The JSV
+    /// </summary>
     public const string Jsv = "application/jsv";
 
+    /// <summary>
+    /// The JSV text
+    /// </summary>
     public const string JsvText = "text/jsv";
 
+    /// <summary>
+    /// The CSV
+    /// </summary>
     public const string Csv = "text/csv";
 
+    /// <summary>
+    /// The proto buf
+    /// </summary>
     public const string ProtoBuf = "application/x-protobuf";
 
+    /// <summary>
+    /// The java script
+    /// </summary>
     public const string JavaScript = "text/javascript";
 
+    /// <summary>
+    /// The web assembly
+    /// </summary>
     public const string WebAssembly = "application/wasm";
 
+    /// <summary>
+    /// The jar
+    /// </summary>
     public const string Jar = "application/java-archive";
 
+    /// <summary>
+    /// The DMG
+    /// </summary>
     public const string Dmg = "application/x-apple-diskimage";
 
+    /// <summary>
+    /// The PKG
+    /// </summary>
     public const string Pkg = "application/x-newton-compatible-pkg";
 
+    /// <summary>
+    /// The form URL encoded
+    /// </summary>
     public const string FormUrlEncoded = "application/x-www-form-urlencoded";
 
+    /// <summary>
+    /// The multi part form data
+    /// </summary>
     public const string MultiPartFormData = "multipart/form-data";
 
+    /// <summary>
+    /// The json report
+    /// </summary>
     public const string JsonReport = "text/jsonreport";
 
+    /// <summary>
+    /// The soap11
+    /// </summary>
     public const string Soap11 = "text/xml; charset=utf-8";
 
+    /// <summary>
+    /// The soap12
+    /// </summary>
     public const string Soap12 = "application/soap+xml";
 
+    /// <summary>
+    /// The yaml
+    /// </summary>
     public const string Yaml = "application/yaml";
 
+    /// <summary>
+    /// The yaml text
+    /// </summary>
     public const string YamlText = "text/yaml";
 
+    /// <summary>
+    /// The plain text
+    /// </summary>
     public const string PlainText = "text/plain";
 
+    /// <summary>
+    /// The markdown text
+    /// </summary>
     public const string MarkdownText = "text/markdown";
 
+    /// <summary>
+    /// The MSG pack
+    /// </summary>
     public const string MsgPack = "application/x-msgpack";
 
+    /// <summary>
+    /// The wire
+    /// </summary>
     public const string Wire = "application/x-wire";
 
+    /// <summary>
+    /// The compressed
+    /// </summary>
     public const string Compressed = "application/x-compressed";
 
+    /// <summary>
+    /// The net serializer
+    /// </summary>
     public const string NetSerializer = "application/x-netserializer";
 
+    /// <summary>
+    /// The excel
+    /// </summary>
     public const string Excel = "application/excel";
 
+    /// <summary>
+    /// The ms word
+    /// </summary>
     public const string MsWord = "application/msword";
 
+    /// <summary>
+    /// The cert
+    /// </summary>
     public const string Cert = "application/x-x509-ca-cert";
 
+    /// <summary>
+    /// The image PNG
+    /// </summary>
     public const string ImagePng = "image/png";
 
+    /// <summary>
+    /// The image GIF
+    /// </summary>
     public const string ImageGif = "image/gif";
 
+    /// <summary>
+    /// The image JPG
+    /// </summary>
     public const string ImageJpg = "image/jpeg";
 
+    /// <summary>
+    /// The image SVG
+    /// </summary>
     public const string ImageSvg = "image/svg+xml";
 
+    /// <summary>
+    /// The bson
+    /// </summary>
     public const string Bson = "application/bson";
 
+    /// <summary>
+    /// The binary
+    /// </summary>
     public const string Binary = "application/octet-stream";
 
+    /// <summary>
+    /// The server sent events
+    /// </summary>
     public const string ServerSentEvents = "text/event-stream";
 
+    /// <summary>
+    /// Gets the extension.
+    /// </summary>
+    /// <param name="mimeType">Type of the MIME.</param>
+    /// <returns>System.String.</returns>
+    /// <exception cref="System.NotSupportedException">Unknown mimeType: " + mimeType</exception>
     public static string GetExtension(string mimeType)
     {
         switch (mimeType)
@@ -114,6 +249,11 @@ public static class MimeTypes
     }
 
     //Lower cases and trims left part of content-type prior ';'
+    /// <summary>
+    /// Gets the type of the real content.
+    /// </summary>
+    /// <param name="contentType">Type of the content.</param>
+    /// <returns>System.String.</returns>
     public static string GetRealContentType(string contentType)
     {
         if (contentType == null)
@@ -140,8 +280,11 @@ public static class MimeTypes
     }
 
     /// <summary>
-    /// Case-insensitive, trimmed compare of two content types from start to ';', i.e. without charset suffix 
+    /// Case-insensitive, trimmed compare of two content types from start to ';', i.e. without charset suffix
     /// </summary>
+    /// <param name="contentType">Type of the content.</param>
+    /// <param name="matchesContentType">Type of the matches content.</param>
+    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public static bool MatchesContentType(string contentType, string matchesContentType)
     {
         if (contentType == null || matchesContentType == null)
@@ -177,8 +320,17 @@ public static class MimeTypes
                    StringComparison.OrdinalIgnoreCase) == 0;
     }
 
+    /// <summary>
+    /// Gets or sets the is binary filter.
+    /// </summary>
+    /// <value>The is binary filter.</value>
     public static Func<string, bool?> IsBinaryFilter { get; set; }
 
+    /// <summary>
+    /// Determines whether the specified content type is binary.
+    /// </summary>
+    /// <param name="contentType">Type of the content.</param>
+    /// <returns><c>true</c> if the specified content type is binary; otherwise, <c>false</c>.</returns>
     public static bool IsBinary(string contentType)
     {
         var userFilter = IsBinaryFilter?.Invoke(contentType);
@@ -228,6 +380,12 @@ public static class MimeTypes
         return false;
     }
 
+    /// <summary>
+    /// Gets the type of the MIME.
+    /// </summary>
+    /// <param name="fileNameOrExt">The file name or ext.</param>
+    /// <returns>System.String.</returns>
+    /// <exception cref="System.ArgumentNullException">fileNameOrExt</exception>
     public static string GetMimeType(string fileNameOrExt)
     {
         if (string.IsNullOrEmpty(fileNameOrExt))

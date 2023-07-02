@@ -18,11 +18,24 @@ namespace ServiceStack
 
     using ServiceStack.Text;
 
+/// <summary>
+/// Class HttpUtils.
+/// </summary>
     public static partial class HttpUtils
     {
+        /// <summary>
+        /// The results filter
+        /// </summary>
         [ThreadStatic]
         public static IHttpResultsFilter ResultsFilter;
 
+        /// <summary>
+        /// Gets the json from URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string GetJsonFromUrl(
             this string url,
             Action<HttpWebRequest> requestFilter = null,
@@ -31,6 +44,14 @@ namespace ServiceStack
             return url.GetStringFromUrl(MimeTypes.Json, requestFilter, responseFilter);
         }
 
+        /// <summary>
+        /// Gets the json from URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> GetJsonFromUrlAsync(
             this string url,
             Action<HttpWebRequest> requestFilter = null,
@@ -40,6 +61,13 @@ namespace ServiceStack
             return url.GetStringFromUrlAsync(MimeTypes.Json, requestFilter, responseFilter, token: token);
         }
 
+        /// <summary>
+        /// Gets the XML from URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string GetXmlFromUrl(
             this string url,
             Action<HttpWebRequest> requestFilter = null,
@@ -48,6 +76,14 @@ namespace ServiceStack
             return url.GetStringFromUrl(MimeTypes.Xml, requestFilter, responseFilter);
         }
 
+        /// <summary>
+        /// Gets the XML from URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> GetXmlFromUrlAsync(
             this string url,
             Action<HttpWebRequest> requestFilter = null,
@@ -57,6 +93,13 @@ namespace ServiceStack
             return url.GetStringFromUrlAsync(MimeTypes.Xml, requestFilter, responseFilter, token: token);
         }
 
+        /// <summary>
+        /// Gets the CSV from URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string GetCsvFromUrl(
             this string url,
             Action<HttpWebRequest> requestFilter = null,
@@ -65,6 +108,14 @@ namespace ServiceStack
             return url.GetStringFromUrl(MimeTypes.Csv, requestFilter, responseFilter);
         }
 
+        /// <summary>
+        /// Gets the CSV from URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> GetCsvFromUrlAsync(
             this string url,
             Action<HttpWebRequest> requestFilter = null,
@@ -74,6 +125,14 @@ namespace ServiceStack
             return url.GetStringFromUrlAsync(MimeTypes.Csv, requestFilter, responseFilter, token: token);
         }
 
+        /// <summary>
+        /// Gets the string from URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string GetStringFromUrl(
             this string url,
             string accept = "*/*",
@@ -83,6 +142,15 @@ namespace ServiceStack
             return SendStringToUrl(url, accept: accept, requestFilter: requestFilter, responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Gets the string from URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> GetStringFromUrlAsync(
             this string url,
             string accept = "*/*",
@@ -98,6 +166,16 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Posts the string to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="requestBody">The request body.</param>
+        /// <param name="contentType">Type of the content.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string PostStringToUrl(
             this string url,
             string requestBody = null,
@@ -116,6 +194,17 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Posts the string to URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="requestBody">The request body.</param>
+        /// <param name="contentType">Type of the content.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> PostStringToUrlAsync(
             this string url,
             string requestBody = null,
@@ -136,6 +225,15 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Posts to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="formData">The form data.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string PostToUrl(
             this string url,
             string formData = null,
@@ -153,6 +251,16 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Posts to URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="formData">The form data.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> PostToUrlAsync(
             this string url,
             string formData = null,
@@ -172,6 +280,15 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Posts to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="formData">The form data.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string PostToUrl(
             this string url,
             object formData = null,
@@ -191,6 +308,16 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Posts to URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="formData">The form data.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> PostToUrlAsync(
             this string url,
             object formData = null,
@@ -212,6 +339,14 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Posts the json to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="json">The json.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string PostJsonToUrl(
             this string url,
             string json,
@@ -228,6 +363,15 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Posts the json to URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="json">The json.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> PostJsonToUrlAsync(
             this string url,
             string json,
@@ -246,6 +390,14 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Posts the json to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="data">The data.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string PostJsonToUrl(
             this string url,
             object data,
@@ -262,6 +414,15 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Posts the json to URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="data">The data.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> PostJsonToUrlAsync(
             this string url,
             object data,
@@ -280,6 +441,14 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Posts the XML to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="xml">The XML.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string PostXmlToUrl(
             this string url,
             string xml,
@@ -296,6 +465,15 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Posts the XML to URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="xml">The XML.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> PostXmlToUrlAsync(
             this string url,
             string xml,
@@ -314,6 +492,14 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Posts the CSV to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="csv">The CSV.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string PostCsvToUrl(
             this string url,
             string csv,
@@ -330,6 +516,15 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Posts the CSV to URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="csv">The CSV.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> PostCsvToUrlAsync(
             this string url,
             string csv,
@@ -348,6 +543,16 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Puts the string to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="requestBody">The request body.</param>
+        /// <param name="contentType">Type of the content.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string PutStringToUrl(
             this string url,
             string requestBody = null,
@@ -366,6 +571,17 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Puts the string to URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="requestBody">The request body.</param>
+        /// <param name="contentType">Type of the content.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> PutStringToUrlAsync(
             this string url,
             string requestBody = null,
@@ -386,6 +602,15 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Puts to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="formData">The form data.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string PutToUrl(
             this string url,
             string formData = null,
@@ -403,6 +628,16 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Puts to URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="formData">The form data.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> PutToUrlAsync(
             this string url,
             string formData = null,
@@ -422,6 +657,15 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Puts to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="formData">The form data.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string PutToUrl(
             this string url,
             object formData = null,
@@ -441,6 +685,16 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Puts to URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="formData">The form data.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> PutToUrlAsync(
             this string url,
             object formData = null,
@@ -462,6 +716,14 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Puts the json to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="json">The json.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string PutJsonToUrl(
             this string url,
             string json,
@@ -478,6 +740,15 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Puts the json to URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="json">The json.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> PutJsonToUrlAsync(
             this string url,
             string json,
@@ -496,6 +767,14 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Puts the json to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="data">The data.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string PutJsonToUrl(
             this string url,
             object data,
@@ -512,6 +791,15 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Puts the json to URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="data">The data.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> PutJsonToUrlAsync(
             this string url,
             object data,
@@ -530,6 +818,14 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Puts the XML to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="xml">The XML.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string PutXmlToUrl(
             this string url,
             string xml,
@@ -546,6 +842,15 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Puts the XML to URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="xml">The XML.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> PutXmlToUrlAsync(
             this string url,
             string xml,
@@ -564,6 +869,14 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Puts the CSV to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="csv">The CSV.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string PutCsvToUrl(
             this string url,
             string csv,
@@ -580,6 +893,15 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Puts the CSV to URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="csv">The CSV.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> PutCsvToUrlAsync(
             this string url,
             string csv,
@@ -598,6 +920,16 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Patches the string to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="requestBody">The request body.</param>
+        /// <param name="contentType">Type of the content.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string PatchStringToUrl(
             this string url,
             string requestBody = null,
@@ -616,6 +948,17 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Patches the string to URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="requestBody">The request body.</param>
+        /// <param name="contentType">Type of the content.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> PatchStringToUrlAsync(
             this string url,
             string requestBody = null,
@@ -636,6 +979,15 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Patches to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="formData">The form data.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string PatchToUrl(
             this string url,
             string formData = null,
@@ -653,6 +1005,16 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Patches to URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="formData">The form data.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> PatchToUrlAsync(
             this string url,
             string formData = null,
@@ -672,6 +1034,15 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Patches to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="formData">The form data.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string PatchToUrl(
             this string url,
             object formData = null,
@@ -691,6 +1062,16 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Patches to URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="formData">The form data.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> PatchToUrlAsync(
             this string url,
             object formData = null,
@@ -712,6 +1093,14 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Patches the json to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="json">The json.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string PatchJsonToUrl(
             this string url,
             string json,
@@ -728,6 +1117,15 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Patches the json to URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="json">The json.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> PatchJsonToUrlAsync(
             this string url,
             string json,
@@ -746,6 +1144,14 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Patches the json to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="data">The data.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string PatchJsonToUrl(
             this string url,
             object data,
@@ -762,6 +1168,15 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Patches the json to URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="data">The data.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> PatchJsonToUrlAsync(
             this string url,
             object data,
@@ -780,6 +1195,14 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Deletes from URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string DeleteFromUrl(
             this string url,
             string accept = "*/*",
@@ -794,6 +1217,15 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Deletes from URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> DeleteFromUrlAsync(
             this string url,
             string accept = "*/*",
@@ -810,6 +1242,14 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Optionses from URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string OptionsFromUrl(
             this string url,
             string accept = "*/*",
@@ -824,6 +1264,15 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Optionses from URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> OptionsFromUrlAsync(
             this string url,
             string accept = "*/*",
@@ -840,6 +1289,14 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Heads from URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string HeadFromUrl(
             this string url,
             string accept = "*/*",
@@ -854,6 +1311,15 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Heads from URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.String&gt;.</returns>
         public static Task<string> HeadFromUrlAsync(
             this string url,
             string accept = "*/*",
@@ -870,6 +1336,17 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Sends the string to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="method">The method.</param>
+        /// <param name="requestBody">The request body.</param>
+        /// <param name="contentType">Type of the content.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string SendStringToUrl(
             this string url,
             string method = null,
@@ -912,6 +1389,18 @@ namespace ServiceStack
             return stream.ReadToEnd(UseEncoding);
         }
 
+        /// <summary>
+        /// Send string to URL as an asynchronous operation.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="method">The method.</param>
+        /// <param name="requestBody">The request body.</param>
+        /// <param name="contentType">Type of the content.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.String&gt; representing the asynchronous operation.</returns>
         public static async Task<string> SendStringToUrlAsync(
             this string url,
             string method = null,
@@ -956,6 +1445,14 @@ namespace ServiceStack
             return await stream.ReadToEndAsync().ConfigAwait();
         }
 
+        /// <summary>
+        /// Gets the bytes from URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.Byte[].</returns>
         public static byte[] GetBytesFromUrl(
             this string url,
             string accept = "*/*",
@@ -965,6 +1462,15 @@ namespace ServiceStack
             return url.SendBytesToUrl(accept: accept, requestFilter: requestFilter, responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Gets the bytes from URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Byte[]&gt;.</returns>
         public static Task<byte[]> GetBytesFromUrlAsync(
             this string url,
             string accept = "*/*",
@@ -979,6 +1485,16 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Posts the bytes to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="requestBody">The request body.</param>
+        /// <param name="contentType">Type of the content.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.Byte[].</returns>
         public static byte[] PostBytesToUrl(
             this string url,
             byte[] requestBody = null,
@@ -997,6 +1513,17 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Posts the bytes to URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="requestBody">The request body.</param>
+        /// <param name="contentType">Type of the content.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Byte[]&gt;.</returns>
         public static Task<byte[]> PostBytesToUrlAsync(
             this string url,
             byte[] requestBody = null,
@@ -1017,6 +1544,16 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Puts the bytes to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="requestBody">The request body.</param>
+        /// <param name="contentType">Type of the content.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.Byte[].</returns>
         public static byte[] PutBytesToUrl(
             this string url,
             byte[] requestBody = null,
@@ -1035,6 +1572,17 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Puts the bytes to URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="requestBody">The request body.</param>
+        /// <param name="contentType">Type of the content.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;System.Byte[]&gt;.</returns>
         public static Task<byte[]> PutBytesToUrlAsync(
             this string url,
             byte[] requestBody = null,
@@ -1055,6 +1603,17 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Sends the bytes to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="method">The method.</param>
+        /// <param name="requestBody">The request body.</param>
+        /// <param name="contentType">Type of the content.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.Byte[].</returns>
         public static byte[] SendBytesToUrl(
             this string url,
             string method = null,
@@ -1094,6 +1653,18 @@ namespace ServiceStack
             return stream.ReadFully();
         }
 
+        /// <summary>
+        /// Send bytes to URL as an asynchronous operation.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="method">The method.</param>
+        /// <param name="requestBody">The request body.</param>
+        /// <param name="contentType">Type of the content.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;System.Byte[]&gt; representing the asynchronous operation.</returns>
         public static async Task<byte[]> SendBytesToUrlAsync(
             this string url,
             string method = null,
@@ -1134,6 +1705,14 @@ namespace ServiceStack
             return await stream.ReadFullyAsync(token).ConfigAwait();
         }
 
+        /// <summary>
+        /// Gets the stream from URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>Stream.</returns>
         public static Stream GetStreamFromUrl(
             this string url,
             string accept = "*/*",
@@ -1143,6 +1722,15 @@ namespace ServiceStack
             return url.SendStreamToUrl(accept: accept, requestFilter: requestFilter, responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Gets the stream from URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;Stream&gt;.</returns>
         public static Task<Stream> GetStreamFromUrlAsync(
             this string url,
             string accept = "*/*",
@@ -1157,6 +1745,16 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Posts the stream to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="requestBody">The request body.</param>
+        /// <param name="contentType">Type of the content.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>Stream.</returns>
         public static Stream PostStreamToUrl(
             this string url,
             Stream requestBody = null,
@@ -1175,6 +1773,17 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Posts the stream to URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="requestBody">The request body.</param>
+        /// <param name="contentType">Type of the content.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;Stream&gt;.</returns>
         public static Task<Stream> PostStreamToUrlAsync(
             this string url,
             Stream requestBody = null,
@@ -1195,6 +1804,16 @@ namespace ServiceStack
                 token: token);
         }
 
+        /// <summary>
+        /// Puts the stream to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="requestBody">The request body.</param>
+        /// <param name="contentType">Type of the content.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>Stream.</returns>
         public static Stream PutStreamToUrl(
             this string url,
             Stream requestBody = null,
@@ -1213,6 +1832,17 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Puts the stream to URL asynchronous.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="requestBody">The request body.</param>
+        /// <param name="contentType">Type of the content.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Task&lt;Stream&gt;.</returns>
         public static Task<Stream> PutStreamToUrlAsync(
             this string url,
             Stream requestBody = null,
@@ -1236,6 +1866,14 @@ namespace ServiceStack
         /// <summary>
         /// Returns HttpWebResponse Stream which must be disposed
         /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="method">The method.</param>
+        /// <param name="requestBody">The request body.</param>
+        /// <param name="contentType">Type of the content.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>Stream.</returns>
         public static Stream SendStreamToUrl(
             this string url,
             string method = null,
@@ -1278,6 +1916,15 @@ namespace ServiceStack
         /// <summary>
         /// Returns HttpWebResponse Stream which must be disposed
         /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="method">The method.</param>
+        /// <param name="requestBody">The request body.</param>
+        /// <param name="contentType">Type of the content.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;Stream&gt; representing the asynchronous operation.</returns>
         public static async Task<Stream> SendStreamToUrlAsync(
             this string url,
             string method = null,
@@ -1318,6 +1965,11 @@ namespace ServiceStack
             return stream;
         }
 
+        /// <summary>
+        /// Gets the response status.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <returns>System.Nullable&lt;HttpStatusCode&gt;.</returns>
         public static HttpStatusCode? GetResponseStatus(this string url)
         {
             try
@@ -1333,6 +1985,11 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Gets the error response.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <returns>HttpWebResponse.</returns>
         public static HttpWebResponse GetErrorResponse(this string url)
         {
             try
@@ -1348,6 +2005,11 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Get error response as an asynchronous operation.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <returns>A Task&lt;HttpWebResponse&gt; representing the asynchronous operation.</returns>
         public static async Task<HttpWebResponse> GetErrorResponseAsync(this string url)
         {
             try
@@ -1363,6 +2025,17 @@ namespace ServiceStack
             }
         }
 
+        /// <summary>
+        /// Uploads the file.
+        /// </summary>
+        /// <param name="webRequest">The web request.</param>
+        /// <param name="fileStream">The file stream.</param>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="mimeType">Type of the MIME.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="method">The method.</param>
+        /// <param name="field">The field.</param>
         public static void UploadFile(
             this WebRequest webRequest,
             Stream fileStream,
@@ -1409,6 +2082,19 @@ namespace ServiceStack
             PclExport.Instance.CloseStream(outputStream);
         }
 
+        /// <summary>
+        /// Upload file as an asynchronous operation.
+        /// </summary>
+        /// <param name="webRequest">The web request.</param>
+        /// <param name="fileStream">The file stream.</param>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="mimeType">Type of the MIME.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="method">The method.</param>
+        /// <param name="field">The field.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
         public static async Task UploadFileAsync(
             this WebRequest webRequest,
             Stream fileStream,
@@ -1456,6 +2142,14 @@ namespace ServiceStack
             PclExport.Instance.CloseStream(outputStream);
         }
 
+        /// <summary>
+        /// Uploads the file.
+        /// </summary>
+        /// <param name="webRequest">The web request.</param>
+        /// <param name="fileStream">The file stream.</param>
+        /// <param name="fileName">Name of the file.</param>
+        /// <exception cref="System.ArgumentNullException">fileName</exception>
+        /// <exception cref="System.ArgumentException">Mime-type not found for file: " + fileName</exception>
         public static void UploadFile(this WebRequest webRequest, Stream fileStream, string fileName)
         {
             if (fileName == null)
@@ -1467,6 +2161,16 @@ namespace ServiceStack
             UploadFile(webRequest, fileStream, fileName, mimeType);
         }
 
+        /// <summary>
+        /// Upload file as an asynchronous operation.
+        /// </summary>
+        /// <param name="webRequest">The web request.</param>
+        /// <param name="fileStream">The file stream.</param>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task representing the asynchronous operation.</returns>
+        /// <exception cref="System.ArgumentNullException">fileName</exception>
+        /// <exception cref="System.ArgumentException">Mime-type not found for file: " + fileName</exception>
         public static async Task UploadFileAsync(
             this WebRequest webRequest,
             Stream fileStream,
@@ -1482,6 +2186,14 @@ namespace ServiceStack
             await UploadFileAsync(webRequest, fileStream, fileName, mimeType, token: token).ConfigAwait();
         }
 
+        /// <summary>
+        /// Posts the XML to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="data">The data.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string PostXmlToUrl(
             this string url,
             object data,
@@ -1498,6 +2210,14 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Posts the CSV to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="data">The data.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string PostCsvToUrl(
             this string url,
             object data,
@@ -1514,6 +2234,14 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Puts the XML to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="data">The data.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string PutXmlToUrl(
             this string url,
             object data,
@@ -1530,6 +2258,14 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Puts the CSV to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="data">The data.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="responseFilter">The response filter.</param>
+        /// <returns>System.String.</returns>
         public static string PutCsvToUrl(
             this string url,
             object data,
@@ -1546,6 +2282,15 @@ namespace ServiceStack
                 responseFilter: responseFilter);
         }
 
+        /// <summary>
+        /// Posts the file to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="uploadFileInfo">The upload file information.</param>
+        /// <param name="uploadFileMimeType">Type of the upload file MIME.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <returns>WebResponse.</returns>
         public static WebResponse PostFileToUrl(
             this string url,
             FileInfo uploadFileInfo,
@@ -1573,6 +2318,16 @@ namespace ServiceStack
             return webReq.GetResponse();
         }
 
+        /// <summary>
+        /// Post file to URL as an asynchronous operation.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="uploadFileInfo">The upload file information.</param>
+        /// <param name="uploadFileMimeType">Type of the upload file MIME.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;WebResponse&gt; representing the asynchronous operation.</returns>
         public static async Task<WebResponse> PostFileToUrlAsync(
             this string url,
             FileInfo uploadFileInfo,
@@ -1602,6 +2357,15 @@ namespace ServiceStack
             return await webReq.GetResponseAsync().ConfigAwait();
         }
 
+        /// <summary>
+        /// Puts the file to URL.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="uploadFileInfo">The upload file information.</param>
+        /// <param name="uploadFileMimeType">Type of the upload file MIME.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <returns>WebResponse.</returns>
         public static WebResponse PutFileToUrl(
             this string url,
             FileInfo uploadFileInfo,
@@ -1629,6 +2393,16 @@ namespace ServiceStack
             return webReq.GetResponse();
         }
 
+        /// <summary>
+        /// Put file to URL as an asynchronous operation.
+        /// </summary>
+        /// <param name="url">The URL.</param>
+        /// <param name="uploadFileInfo">The upload file information.</param>
+        /// <param name="uploadFileMimeType">Type of the upload file MIME.</param>
+        /// <param name="accept">The accept.</param>
+        /// <param name="requestFilter">The request filter.</param>
+        /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>A Task&lt;WebResponse&gt; representing the asynchronous operation.</returns>
         public static async Task<WebResponse> PutFileToUrlAsync(
             this string url,
             FileInfo uploadFileInfo,
@@ -1658,6 +2432,13 @@ namespace ServiceStack
             return await webReq.GetResponseAsync().ConfigAwait();
         }
 
+        /// <summary>
+        /// Uploads the file.
+        /// </summary>
+        /// <param name="webRequest">The web request.</param>
+        /// <param name="uploadFileInfo">The upload file information.</param>
+        /// <param name="uploadFileMimeType">Type of the upload file MIME.</param>
+        /// <returns>WebResponse.</returns>
         public static WebResponse UploadFile(
             this WebRequest webRequest,
             FileInfo uploadFileInfo,
@@ -1676,6 +2457,13 @@ namespace ServiceStack
             return webRequest.GetResponse();
         }
 
+        /// <summary>
+        /// Upload file as an asynchronous operation.
+        /// </summary>
+        /// <param name="webRequest">The web request.</param>
+        /// <param name="uploadFileInfo">The upload file information.</param>
+        /// <param name="uploadFileMimeType">Type of the upload file MIME.</param>
+        /// <returns>A Task&lt;WebResponse&gt; representing the asynchronous operation.</returns>
         public static async Task<WebResponse> UploadFileAsync(
             this WebRequest webRequest,
             FileInfo uploadFileInfo,
@@ -1694,6 +2482,14 @@ namespace ServiceStack
             return await webRequest.GetResponseAsync().ConfigAwait();
         }
 
+        /// <summary>
+        /// Gets the header bytes.
+        /// </summary>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="mimeType">Type of the MIME.</param>
+        /// <param name="field">The field.</param>
+        /// <param name="boundary">The boundary.</param>
+        /// <returns>System.Byte[].</returns>
         private static byte[] GetHeaderBytes(string fileName, string mimeType, string field, string boundary)
         {
             var header = "\r\n--" + boundary
@@ -1703,6 +2499,12 @@ namespace ServiceStack
             return headerBytes;
         }
 
+        /// <summary>
+        /// Downloads the file to.
+        /// </summary>
+        /// <param name="downloadUrl">The download URL.</param>
+        /// <param name="fileName">Name of the file.</param>
+        /// <param name="headers">The headers.</param>
         public static void DownloadFileTo(
             this string downloadUrl,
             string fileName,
@@ -1720,6 +2522,12 @@ namespace ServiceStack
             webClient.DownloadFile(downloadUrl, fileName);
         }
 
+        /// <summary>
+        /// Sets the range.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="from">From.</param>
+        /// <param name="to">To.</param>
         public static void SetRange(this HttpWebRequest request, long from, long? to)
         {
             if (to != null)
@@ -1728,12 +2536,37 @@ namespace ServiceStack
                 request.AddRange(from);
         }
 
+        /// <summary>
+        /// Adds the header.
+        /// </summary>
+        /// <param name="res">The resource.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="value">The value.</param>
         public static void AddHeader(this HttpWebRequest res, string name, string value) => res.Headers[name] = value;
 
+        /// <summary>
+        /// Gets the header.
+        /// </summary>
+        /// <param name="res">The resource.</param>
+        /// <param name="name">The name.</param>
+        /// <returns>System.String.</returns>
         public static string GetHeader(this HttpWebRequest res, string name) => res.Headers.Get(name);
 
+        /// <summary>
+        /// Gets the header.
+        /// </summary>
+        /// <param name="res">The resource.</param>
+        /// <param name="name">The name.</param>
+        /// <returns>System.String.</returns>
         public static string GetHeader(this HttpWebResponse res, string name) => res.Headers.Get(name);
 
+        /// <summary>
+        /// Withes the header.
+        /// </summary>
+        /// <param name="httpReq">The HTTP req.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>HttpWebRequest.</returns>
         public static HttpWebRequest WithHeader(this HttpWebRequest httpReq, string name, string value)
         {
             httpReq.Headers[name] = value;
@@ -1744,6 +2577,9 @@ namespace ServiceStack
         /// Populate HttpRequestMessage with a simpler, untyped API
         /// Syntax compatible with HttpClient's HttpRequestMessage
         /// </summary>
+        /// <param name="httpReq">The HTTP req.</param>
+        /// <param name="configure">The configure.</param>
+        /// <returns>HttpWebRequest.</returns>
         public static HttpWebRequest With(this HttpWebRequest httpReq, Action<HttpRequestConfig> configure)
         {
             var config = new HttpRequestConfig();
@@ -1780,29 +2616,81 @@ namespace ServiceStack
         }
     }
 
+/// <summary>
+/// Interface IHttpResultsFilter
+/// </summary>
     public interface IHttpResultsFilter : IDisposable
     {
+        /// <summary>
+        /// Gets the string.
+        /// </summary>
+        /// <param name="webReq">The web req.</param>
+        /// <param name="reqBody">The req body.</param>
+        /// <returns>System.String.</returns>
         string GetString(HttpWebRequest webReq, string reqBody);
 
+        /// <summary>
+        /// Gets the bytes.
+        /// </summary>
+        /// <param name="webReq">The web req.</param>
+        /// <param name="reqBody">The req body.</param>
+        /// <returns>System.Byte[].</returns>
         byte[] GetBytes(HttpWebRequest webReq, byte[] reqBody);
 
+        /// <summary>
+        /// Uploads the stream.
+        /// </summary>
+        /// <param name="webRequest">The web request.</param>
+        /// <param name="fileStream">The file stream.</param>
+        /// <param name="fileName">Name of the file.</param>
         void UploadStream(HttpWebRequest webRequest, Stream fileStream, string fileName);
     }
 
+/// <summary>
+/// Class HttpResultsFilter.
+/// </summary>
     public class HttpResultsFilter : IHttpResultsFilter
     {
+        /// <summary>
+        /// The previous filter
+        /// </summary>
         private readonly IHttpResultsFilter previousFilter;
 
+        /// <summary>
+        /// Gets or sets the string result.
+        /// </summary>
+        /// <value>The string result.</value>
         public string StringResult { get; set; }
 
+        /// <summary>
+        /// Gets or sets the bytes result.
+        /// </summary>
+        /// <value>The bytes result.</value>
         public byte[] BytesResult { get; set; }
 
+        /// <summary>
+        /// Gets or sets the string result function.
+        /// </summary>
+        /// <value>The string result function.</value>
         public Func<HttpWebRequest, string, string> StringResultFn { get; set; }
 
+        /// <summary>
+        /// Gets or sets the bytes result function.
+        /// </summary>
+        /// <value>The bytes result function.</value>
         public Func<HttpWebRequest, byte[], byte[]> BytesResultFn { get; set; }
 
+        /// <summary>
+        /// Gets or sets the upload file function.
+        /// </summary>
+        /// <value>The upload file function.</value>
         public Action<HttpWebRequest, Stream, string> UploadFileFn { get; set; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HttpResultsFilter"/> class.
+        /// </summary>
+        /// <param name="stringResult">The string result.</param>
+        /// <param name="bytesResult">The bytes result.</param>
         public HttpResultsFilter(string stringResult = null, byte[] bytesResult = null)
         {
             StringResult = stringResult;
@@ -1812,39 +2700,68 @@ namespace ServiceStack
             HttpUtils.ResultsFilter = this;
         }
 
+        /// <summary>
+        /// Disposes this instance.
+        /// </summary>
         public void Dispose()
         {
             HttpUtils.ResultsFilter = previousFilter;
         }
 
+        /// <summary>
+        /// Gets the string.
+        /// </summary>
+        /// <param name="webReq">The web req.</param>
+        /// <param name="reqBody">The req body.</param>
+        /// <returns>System.String.</returns>
         public string GetString(HttpWebRequest webReq, string reqBody)
         {
             return StringResultFn != null ? StringResultFn(webReq, reqBody) : StringResult;
         }
 
+        /// <summary>
+        /// Gets the bytes.
+        /// </summary>
+        /// <param name="webReq">The web req.</param>
+        /// <param name="reqBody">The req body.</param>
+        /// <returns>System.Byte[].</returns>
         public byte[] GetBytes(HttpWebRequest webReq, byte[] reqBody)
         {
             return BytesResultFn != null ? BytesResultFn(webReq, reqBody) : BytesResult;
         }
 
+        /// <summary>
+        /// Uploads the stream.
+        /// </summary>
+        /// <param name="webRequest">The web request.</param>
+        /// <param name="fileStream">The file stream.</param>
+        /// <param name="fileName">Name of the file.</param>
         public void UploadStream(HttpWebRequest webRequest, Stream fileStream, string fileName)
         {
             UploadFileFn?.Invoke(webRequest, fileStream, fileName);
         }
     }
 
+/// <summary>
+/// Class HttpClientExt.
+/// </summary>
     public static class HttpClientExt
     {
         /// <summary>
-        /// Case-insensitive, trimmed compare of two content types from start to ';', i.e. without charset suffix 
+        /// Case-insensitive, trimmed compare of two content types from start to ';', i.e. without charset suffix
         /// </summary>
+        /// <param name="res">The resource.</param>
+        /// <param name="matchesContentType">Type of the matches content.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public static bool MatchesContentType(this HttpWebResponse res, string matchesContentType) =>
             MimeTypes.MatchesContentType(res.Headers[HttpHeaders.ContentType], matchesContentType);
 
         /// <summary>
         /// Returns null for unknown Content-length
-        /// Syntax + Behavior compatible with HttpClient HttpResponseMessage 
+        /// Syntax + Behavior compatible with HttpClient HttpResponseMessage
         /// </summary>
+        /// <param name="res">The resource.</param>
+        /// <returns>System.Nullable&lt;System.Int64&gt;.</returns>
         public static long? GetContentLength(this HttpWebResponse res) =>
             res.ContentLength == -1 ? null : res.ContentLength;
     }

@@ -18,7 +18,7 @@ namespace ServiceStack;
 public class AttributeBase : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AttributeBase"/> class.
+    /// Initializes a new instance of the <see cref="AttributeBase" /> class.
     /// </summary>
     public AttributeBase()
     {

@@ -18,7 +18,7 @@ namespace ServiceStack.DataAnnotations;
 public class SqlServerCollateAttribute : AttributeBase
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="SqlServerCollateAttribute"/> class.
+    /// Initializes a new instance of the <see cref="SqlServerCollateAttribute" /> class.
     /// </summary>
     /// <param name="collation">The collation.</param>
     public SqlServerCollateAttribute(string collation) { Collation = collation; }

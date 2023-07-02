@@ -112,7 +112,7 @@ internal sealed class ItemCanBeNullAttribute : Attribute { }
 internal sealed class StringFormatMethodAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="StringFormatMethodAttribute"/> class.
+    /// Initializes a new instance of the <see cref="StringFormatMethodAttribute" /> class.
     /// </summary>
     /// <param name="formatParameterName">Specifies which parameter of an annotated method should be treated as format-string</param>
     public StringFormatMethodAttribute([NotNull] string formatParameterName)
@@ -137,7 +137,7 @@ internal sealed class StringFormatMethodAttribute : Attribute
 internal sealed class ValueProviderAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ValueProviderAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ValueProviderAttribute" /> class.
     /// </summary>
     /// <param name="name">The name.</param>
     public ValueProviderAttribute([NotNull] string name)
@@ -194,12 +194,12 @@ internal sealed class InvokerParameterNameAttribute : Attribute { }
 internal sealed class NotifyPropertyChangedInvocatorAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="NotifyPropertyChangedInvocatorAttribute"/> class.
+    /// Initializes a new instance of the <see cref="NotifyPropertyChangedInvocatorAttribute" /> class.
     /// </summary>
     public NotifyPropertyChangedInvocatorAttribute() { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="NotifyPropertyChangedInvocatorAttribute"/> class.
+    /// Initializes a new instance of the <see cref="NotifyPropertyChangedInvocatorAttribute" /> class.
     /// </summary>
     /// <param name="parameterName">Name of the parameter.</param>
     public NotifyPropertyChangedInvocatorAttribute([NotNull] string parameterName)
@@ -273,14 +273,14 @@ internal sealed class NotifyPropertyChangedInvocatorAttribute : Attribute
 internal sealed class ContractAnnotationAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ContractAnnotationAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ContractAnnotationAttribute" /> class.
     /// </summary>
     /// <param name="contract">The contract.</param>
     public ContractAnnotationAttribute([NotNull] string contract)
         : this(contract, false) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ContractAnnotationAttribute"/> class.
+    /// Initializes a new instance of the <see cref="ContractAnnotationAttribute" /> class.
     /// </summary>
     /// <param name="contract">The contract.</param>
     /// <param name="forceFullStates">if set to <c>true</c> [force full states].</param>
@@ -318,12 +318,12 @@ internal sealed class ContractAnnotationAttribute : Attribute
 internal sealed class LocalizationRequiredAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="LocalizationRequiredAttribute"/> class.
+    /// Initializes a new instance of the <see cref="LocalizationRequiredAttribute" /> class.
     /// </summary>
     public LocalizationRequiredAttribute() : this(true) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="LocalizationRequiredAttribute"/> class.
+    /// Initializes a new instance of the <see cref="LocalizationRequiredAttribute" /> class.
     /// </summary>
     /// <param name="required">if set to <c>true</c> [required].</param>
     public LocalizationRequiredAttribute(bool required)
@@ -332,7 +332,7 @@ internal sealed class LocalizationRequiredAttribute : Attribute
     }
 
     /// <summary>
-    /// Gets a value indicating whether this <see cref="LocalizationRequiredAttribute"/> is required.
+    /// Gets a value indicating whether this <see cref="LocalizationRequiredAttribute" /> is required.
     /// </summary>
     /// <value><c>true</c> if required; otherwise, <c>false</c>.</value>
     public bool Required { get; }
@@ -379,7 +379,7 @@ internal sealed class CannotApplyEqualityOperatorAttribute : Attribute { }
 internal sealed class BaseTypeRequiredAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="BaseTypeRequiredAttribute"/> class.
+    /// Initializes a new instance of the <see cref="BaseTypeRequiredAttribute" /> class.
     /// </summary>
     /// <param name="baseType">Type of the base.</param>
     public BaseTypeRequiredAttribute([NotNull] Type baseType)
@@ -402,27 +402,27 @@ internal sealed class BaseTypeRequiredAttribute : Attribute
 internal sealed class UsedImplicitlyAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="UsedImplicitlyAttribute"/> class.
+    /// Initializes a new instance of the <see cref="UsedImplicitlyAttribute" /> class.
     /// </summary>
     public UsedImplicitlyAttribute()
         : this(ImplicitUseKindFlags.Default, ImplicitUseTargetFlags.Default) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="UsedImplicitlyAttribute"/> class.
+    /// Initializes a new instance of the <see cref="UsedImplicitlyAttribute" /> class.
     /// </summary>
     /// <param name="useKindFlags">The use kind flags.</param>
     public UsedImplicitlyAttribute(ImplicitUseKindFlags useKindFlags)
         : this(useKindFlags, ImplicitUseTargetFlags.Default) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="UsedImplicitlyAttribute"/> class.
+    /// Initializes a new instance of the <see cref="UsedImplicitlyAttribute" /> class.
     /// </summary>
     /// <param name="targetFlags">The target flags.</param>
     public UsedImplicitlyAttribute(ImplicitUseTargetFlags targetFlags)
         : this(ImplicitUseKindFlags.Default, targetFlags) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="UsedImplicitlyAttribute"/> class.
+    /// Initializes a new instance of the <see cref="UsedImplicitlyAttribute" /> class.
     /// </summary>
     /// <param name="useKindFlags">The use kind flags.</param>
     /// <param name="targetFlags">The target flags.</param>
@@ -453,27 +453,27 @@ internal sealed class UsedImplicitlyAttribute : Attribute
 internal sealed class MeansImplicitUseAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MeansImplicitUseAttribute"/> class.
+    /// Initializes a new instance of the <see cref="MeansImplicitUseAttribute" /> class.
     /// </summary>
     public MeansImplicitUseAttribute()
         : this(ImplicitUseKindFlags.Default, ImplicitUseTargetFlags.Default) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MeansImplicitUseAttribute"/> class.
+    /// Initializes a new instance of the <see cref="MeansImplicitUseAttribute" /> class.
     /// </summary>
     /// <param name="useKindFlags">The use kind flags.</param>
     public MeansImplicitUseAttribute(ImplicitUseKindFlags useKindFlags)
         : this(useKindFlags, ImplicitUseTargetFlags.Default) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MeansImplicitUseAttribute"/> class.
+    /// Initializes a new instance of the <see cref="MeansImplicitUseAttribute" /> class.
     /// </summary>
     /// <param name="targetFlags">The target flags.</param>
     public MeansImplicitUseAttribute(ImplicitUseTargetFlags targetFlags)
         : this(ImplicitUseKindFlags.Default, targetFlags) { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MeansImplicitUseAttribute"/> class.
+    /// Initializes a new instance of the <see cref="MeansImplicitUseAttribute" /> class.
     /// </summary>
     /// <param name="useKindFlags">The use kind flags.</param>
     /// <param name="targetFlags">The target flags.</param>
@@ -565,12 +565,12 @@ internal enum ImplicitUseTargetFlags
 internal sealed class PublicAPIAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PublicAPIAttribute"/> class.
+    /// Initializes a new instance of the <see cref="PublicAPIAttribute" /> class.
     /// </summary>
     public PublicAPIAttribute() { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PublicAPIAttribute"/> class.
+    /// Initializes a new instance of the <see cref="PublicAPIAttribute" /> class.
     /// </summary>
     /// <param name="comment">The comment.</param>
     public PublicAPIAttribute([NotNull] string comment)
@@ -615,12 +615,12 @@ internal sealed class PureAttribute : Attribute { }
 internal sealed class MustUseReturnValueAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="MustUseReturnValueAttribute"/> class.
+    /// Initializes a new instance of the <see cref="MustUseReturnValueAttribute" /> class.
     /// </summary>
     public MustUseReturnValueAttribute() { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MustUseReturnValueAttribute"/> class.
+    /// Initializes a new instance of the <see cref="MustUseReturnValueAttribute" /> class.
     /// </summary>
     /// <param name="justification">The justification.</param>
     public MustUseReturnValueAttribute([NotNull] string justification)
@@ -664,12 +664,12 @@ internal sealed class ProvidesContextAttribute : Attribute { }
 internal sealed class PathReferenceAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="PathReferenceAttribute"/> class.
+    /// Initializes a new instance of the <see cref="PathReferenceAttribute" /> class.
     /// </summary>
     public PathReferenceAttribute() { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PathReferenceAttribute"/> class.
+    /// Initializes a new instance of the <see cref="PathReferenceAttribute" /> class.
     /// </summary>
     /// <param name="basePath">The base path.</param>
     public PathReferenceAttribute([NotNull, PathReference] string basePath)
@@ -769,7 +769,7 @@ internal sealed class MacroAttribute : Attribute
 internal sealed class AspMvcAreaMasterLocationFormatAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AspMvcAreaMasterLocationFormatAttribute"/> class.
+    /// Initializes a new instance of the <see cref="AspMvcAreaMasterLocationFormatAttribute" /> class.
     /// </summary>
     /// <param name="format">The format.</param>
     public AspMvcAreaMasterLocationFormatAttribute([NotNull] string format)
@@ -793,7 +793,7 @@ internal sealed class AspMvcAreaMasterLocationFormatAttribute : Attribute
 internal sealed class AspMvcAreaPartialViewLocationFormatAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AspMvcAreaPartialViewLocationFormatAttribute"/> class.
+    /// Initializes a new instance of the <see cref="AspMvcAreaPartialViewLocationFormatAttribute" /> class.
     /// </summary>
     /// <param name="format">The format.</param>
     public AspMvcAreaPartialViewLocationFormatAttribute([NotNull] string format)
@@ -817,7 +817,7 @@ internal sealed class AspMvcAreaPartialViewLocationFormatAttribute : Attribute
 internal sealed class AspMvcAreaViewLocationFormatAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AspMvcAreaViewLocationFormatAttribute"/> class.
+    /// Initializes a new instance of the <see cref="AspMvcAreaViewLocationFormatAttribute" /> class.
     /// </summary>
     /// <param name="format">The format.</param>
     public AspMvcAreaViewLocationFormatAttribute([NotNull] string format)
@@ -841,7 +841,7 @@ internal sealed class AspMvcAreaViewLocationFormatAttribute : Attribute
 internal sealed class AspMvcMasterLocationFormatAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AspMvcMasterLocationFormatAttribute"/> class.
+    /// Initializes a new instance of the <see cref="AspMvcMasterLocationFormatAttribute" /> class.
     /// </summary>
     /// <param name="format">The format.</param>
     public AspMvcMasterLocationFormatAttribute([NotNull] string format)
@@ -865,7 +865,7 @@ internal sealed class AspMvcMasterLocationFormatAttribute : Attribute
 internal sealed class AspMvcPartialViewLocationFormatAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AspMvcPartialViewLocationFormatAttribute"/> class.
+    /// Initializes a new instance of the <see cref="AspMvcPartialViewLocationFormatAttribute" /> class.
     /// </summary>
     /// <param name="format">The format.</param>
     public AspMvcPartialViewLocationFormatAttribute([NotNull] string format)
@@ -889,7 +889,7 @@ internal sealed class AspMvcPartialViewLocationFormatAttribute : Attribute
 internal sealed class AspMvcViewLocationFormatAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AspMvcViewLocationFormatAttribute"/> class.
+    /// Initializes a new instance of the <see cref="AspMvcViewLocationFormatAttribute" /> class.
     /// </summary>
     /// <param name="format">The format.</param>
     public AspMvcViewLocationFormatAttribute([NotNull] string format)
@@ -914,12 +914,12 @@ internal sealed class AspMvcViewLocationFormatAttribute : Attribute
 internal sealed class AspMvcActionAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AspMvcActionAttribute"/> class.
+    /// Initializes a new instance of the <see cref="AspMvcActionAttribute" /> class.
     /// </summary>
     public AspMvcActionAttribute() { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AspMvcActionAttribute"/> class.
+    /// Initializes a new instance of the <see cref="AspMvcActionAttribute" /> class.
     /// </summary>
     /// <param name="anonymousProperty">The anonymous property.</param>
     public AspMvcActionAttribute([NotNull] string anonymousProperty)
@@ -943,12 +943,12 @@ internal sealed class AspMvcActionAttribute : Attribute
 internal sealed class AspMvcAreaAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AspMvcAreaAttribute"/> class.
+    /// Initializes a new instance of the <see cref="AspMvcAreaAttribute" /> class.
     /// </summary>
     public AspMvcAreaAttribute() { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AspMvcAreaAttribute"/> class.
+    /// Initializes a new instance of the <see cref="AspMvcAreaAttribute" /> class.
     /// </summary>
     /// <param name="anonymousProperty">The anonymous property.</param>
     public AspMvcAreaAttribute([NotNull] string anonymousProperty)
@@ -973,12 +973,12 @@ internal sealed class AspMvcAreaAttribute : Attribute
 internal sealed class AspMvcControllerAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AspMvcControllerAttribute"/> class.
+    /// Initializes a new instance of the <see cref="AspMvcControllerAttribute" /> class.
     /// </summary>
     public AspMvcControllerAttribute() { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AspMvcControllerAttribute"/> class.
+    /// Initializes a new instance of the <see cref="AspMvcControllerAttribute" /> class.
     /// </summary>
     /// <param name="anonymousProperty">The anonymous property.</param>
     public AspMvcControllerAttribute([NotNull] string anonymousProperty)
@@ -1094,12 +1094,12 @@ internal sealed class AspMvcActionSelectorAttribute : Attribute { }
 internal sealed class HtmlElementAttributesAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="HtmlElementAttributesAttribute"/> class.
+    /// Initializes a new instance of the <see cref="HtmlElementAttributesAttribute" /> class.
     /// </summary>
     public HtmlElementAttributesAttribute() { }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="HtmlElementAttributesAttribute"/> class.
+    /// Initializes a new instance of the <see cref="HtmlElementAttributesAttribute" /> class.
     /// </summary>
     /// <param name="name">The name.</param>
     public HtmlElementAttributesAttribute([NotNull] string name)
@@ -1123,7 +1123,7 @@ internal sealed class HtmlElementAttributesAttribute : Attribute
 internal sealed class HtmlAttributeValueAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="HtmlAttributeValueAttribute"/> class.
+    /// Initializes a new instance of the <see cref="HtmlAttributeValueAttribute" /> class.
     /// </summary>
     /// <param name="name">The name.</param>
     public HtmlAttributeValueAttribute([NotNull] string name)
@@ -1154,7 +1154,7 @@ internal sealed class RazorSectionAttribute : Attribute { }
 internal sealed class CollectionAccessAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="CollectionAccessAttribute"/> class.
+    /// Initializes a new instance of the <see cref="CollectionAccessAttribute" /> class.
     /// </summary>
     /// <param name="collectionAccessType">Type of the collection access.</param>
     public CollectionAccessAttribute(CollectionAccessType collectionAccessType)
@@ -1213,7 +1213,7 @@ internal sealed class AssertionMethodAttribute : Attribute { }
 internal sealed class AssertionConditionAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AssertionConditionAttribute"/> class.
+    /// Initializes a new instance of the <see cref="AssertionConditionAttribute" /> class.
     /// </summary>
     /// <param name="conditionType">Type of the condition.</param>
     public AssertionConditionAttribute(AssertionConditionType conditionType)
@@ -1309,7 +1309,7 @@ internal sealed class XamlItemBindingOfItemsControlAttribute : Attribute { }
 internal sealed class AspChildControlTypeAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AspChildControlTypeAttribute"/> class.
+    /// Initializes a new instance of the <see cref="AspChildControlTypeAttribute" /> class.
     /// </summary>
     /// <param name="tagName">Name of the tag.</param>
     /// <param name="controlType">Type of the control.</param>
@@ -1365,7 +1365,7 @@ internal sealed class AspMethodPropertyAttribute : Attribute { }
 internal sealed class AspRequiredAttributeAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AspRequiredAttributeAttribute"/> class.
+    /// Initializes a new instance of the <see cref="AspRequiredAttributeAttribute" /> class.
     /// </summary>
     /// <param name="attribute">The attribute.</param>
     public AspRequiredAttributeAttribute([NotNull] string attribute)
@@ -1395,7 +1395,7 @@ internal sealed class AspTypePropertyAttribute : Attribute
     public bool CreateConstructorReferences { get; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AspTypePropertyAttribute"/> class.
+    /// Initializes a new instance of the <see cref="AspTypePropertyAttribute" /> class.
     /// </summary>
     /// <param name="createConstructorReferences">if set to <c>true</c> [create constructor references].</param>
     public AspTypePropertyAttribute(bool createConstructorReferences)
@@ -1413,7 +1413,7 @@ internal sealed class AspTypePropertyAttribute : Attribute
 internal sealed class RazorImportNamespaceAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="RazorImportNamespaceAttribute"/> class.
+    /// Initializes a new instance of the <see cref="RazorImportNamespaceAttribute" /> class.
     /// </summary>
     /// <param name="name">The name.</param>
     public RazorImportNamespaceAttribute([NotNull] string name)
@@ -1437,7 +1437,7 @@ internal sealed class RazorImportNamespaceAttribute : Attribute
 internal sealed class RazorInjectionAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="RazorInjectionAttribute"/> class.
+    /// Initializes a new instance of the <see cref="RazorInjectionAttribute" /> class.
     /// </summary>
     /// <param name="type">The type.</param>
     /// <param name="fieldName">Name of the field.</param>
@@ -1469,7 +1469,7 @@ internal sealed class RazorInjectionAttribute : Attribute
 internal sealed class RazorDirectiveAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="RazorDirectiveAttribute"/> class.
+    /// Initializes a new instance of the <see cref="RazorDirectiveAttribute" /> class.
     /// </summary>
     /// <param name="directive">The directive.</param>
     public RazorDirectiveAttribute([NotNull] string directive)
@@ -1493,7 +1493,7 @@ internal sealed class RazorDirectiveAttribute : Attribute
 internal sealed class RazorPageBaseTypeAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="RazorPageBaseTypeAttribute"/> class.
+    /// Initializes a new instance of the <see cref="RazorPageBaseTypeAttribute" /> class.
     /// </summary>
     /// <param name="baseType">Type of the base.</param>
     public RazorPageBaseTypeAttribute([NotNull] string baseType)
@@ -1502,7 +1502,7 @@ internal sealed class RazorPageBaseTypeAttribute : Attribute
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RazorPageBaseTypeAttribute"/> class.
+    /// Initializes a new instance of the <see cref="RazorPageBaseTypeAttribute" /> class.
     /// </summary>
     /// <param name="baseType">Type of the base.</param>
     /// <param name="pageName">Name of the page.</param>

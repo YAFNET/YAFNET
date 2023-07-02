@@ -33,7 +33,7 @@ public class CsvAttribute : Attribute
     /// <value>The CSV behavior.</value>
     public CsvBehavior CsvBehavior { get; set; }
     /// <summary>
-    /// Initializes a new instance of the <see cref="CsvAttribute"/> class.
+    /// Initializes a new instance of the <see cref="CsvAttribute" /> class.
     /// </summary>
     /// <param name="csvBehavior">The CSV behavior.</param>
     public CsvAttribute(CsvBehavior csvBehavior)

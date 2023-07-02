@@ -292,6 +292,11 @@ public static class JsonWriter<T>
         GetRootObjectWriteFn(value)(writer, value);
     }
 
+    /// <summary>
+    /// Gets the root object write function.
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <returns>WriteObjectDelegate.</returns>
     public static WriteObjectDelegate GetRootObjectWriteFn(object value)
     {
         TypeConfig<T>.Init();

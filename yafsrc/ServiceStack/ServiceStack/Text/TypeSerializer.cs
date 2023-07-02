@@ -23,7 +23,7 @@ using ServiceStack.Text.Jsv;
 public static class TypeSerializer
 {
     /// <summary>
-    /// Initializes static members of the <see cref="TypeSerializer"/> class.
+    /// Initializes static members of the <see cref="TypeSerializer" /> class.
     /// </summary>
     static TypeSerializer()
     {

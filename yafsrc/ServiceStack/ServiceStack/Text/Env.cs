@@ -119,6 +119,9 @@ public static class Env
         UpdateServerUserAgent();
     }
 
+    /// <summary>
+    /// Updates the server user agent.
+    /// </summary>
     internal static void UpdateServerUserAgent()
     {
         ServerUserAgent =
@@ -208,6 +211,10 @@ public static class Env
     /// <value><c>true</c> if this instance is net core; otherwise, <c>false</c>.</value>
     public static bool IsNetCore { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether this instance is net7.
+    /// </summary>
+    /// <value><c>true</c> if this instance is net7; otherwise, <c>false</c>.</value>
     public static bool IsNet7 { get; set; }
 
     /// <summary>
@@ -258,9 +265,7 @@ public static class Env
     /// <summary>
     /// The get release date.
     /// </summary>
-    /// <returns>
-    /// The <see cref="DateTime"/>.
-    /// </returns>
+    /// <returns>The <see cref="DateTime" />.</returns>
     public static DateTime GetReleaseDate() => new(2001, 01, 01);
 
 #if NET7_0_OR_GREATER
@@ -377,6 +382,8 @@ public static class Env
     /// <summary>
     /// Only .ConfigAwait(false) in .NET Core as loses HttpContext.Current in NETFX/ASP.NET
     /// </summary>
+    /// <param name="task">The task.</param>
+    /// <returns>Task.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #if NET7_0_OR_GREATER
     public static ConfiguredTaskAwaitable ConfigAwaitNetCore(this Task task) => task.ConfigureAwait(false);
@@ -387,6 +394,9 @@ public static class Env
     /// <summary>
     /// Only .ConfigAwait(false) in .NET Core as loses HttpContext.Current in NETFX/ASP.NET
     /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="task">The task.</param>
+    /// <returns>Task&lt;T&gt;.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
 #if NET7_0_OR_GREATER
     public static ConfiguredTaskAwaitable<T> ConfigAwaitNetCore<T>(this Task<T> task) => task.ConfigureAwait(false);
