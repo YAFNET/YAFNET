@@ -416,6 +416,18 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <summary>
     /// Method returns MembershipUser
     /// </summary>
+    /// <param name="providerKey">The provider key.</param>
+    /// <returns>
+    /// Returns MembershipUser
+    /// </returns>
+    public Task<AspNetUsers> GetUserAsync(object providerKey)
+    {
+        return this.Get<AspNetUsersManager>().FindUserByIdAsync(providerKey.ToString());
+    }
+
+    /// <summary>
+    /// Method returns MembershipUser
+    /// </summary>
     /// <returns>
     /// Returns MembershipUser
     /// </returns>
@@ -457,18 +469,6 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     public Task<AspNetUsers> GetUserByEmailAsync(string email)
     {
         return this.Get<AspNetUsersManager>().FindUserByEmailAsync(email);
-    }
-
-    /// <summary>
-    /// Method returns MembershipUser
-    /// </summary>
-    /// <param name="providerKey">The provider key.</param>
-    /// <returns>
-    /// Returns MembershipUser
-    /// </returns>
-    public Task<AspNetUsers> GetUserAsync(object providerKey)
-    {
-        return this.Get<AspNetUsersManager>().FindUserByIdAsync(providerKey.ToString());
     }
 
     /// <summary>

@@ -109,12 +109,12 @@ namespace YAF.Core.Services.Migrations
 
             var boards = this.GetRepository<Board>().GetAll();
 
-            foreach (var board in boards)
+            foreach (var boardId in boards.Select(board => board.ID))
             {
                 // Sync Roles
-                await this.Get<IAspNetRolesHelper>().SyncRolesAsync(board.ID);
+                await this.Get<IAspNetRolesHelper>().SyncRolesAsync(boardId);
 
-                var users = this.GetRepository<User>().GetByBoardId(board.ID);
+                var users = this.GetRepository<User>().GetByBoardId(boardId);
 
                 // sync users...
                 await MigrateUsersFromTableAsync(users);

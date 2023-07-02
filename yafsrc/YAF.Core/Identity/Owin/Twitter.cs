@@ -193,10 +193,6 @@ public class Twitter : IAuthBase, IHaveServiceLocator
         [NotNull] string pass,
         [NotNull] int userId)
     {
-        var subject = string.Format(
-            BoardContext.Current.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT"),
-            BoardContext.Current.BoardSettings.Name);
-
         var notifyUser = new TemplateEmail("NOTIFICATION_ON_TWITTER_REGISTER")
                              {
                                  TemplateParams =
@@ -214,15 +210,18 @@ public class Twitter : IAuthBase, IHaveServiceLocator
             .Get(u => u.BoardID == BoardContext.Current.PageBoardID && (u.Flags & 1) == 1)
             .FirstOrDefault();
 
-        // Send Message also as DM to Twitter.
-        this.GetRepository<PrivateMessage>().Insert(
-            new PrivateMessage
-                {
-                    Created = DateTime.UtcNow,
-                    Flags = 0,
-                    FromUserId = hostUser.ID,
-                    ToUserId = userId,
-                    Body = emailBody
-                });
+        if (hostUser is not null)
+        {
+            // Send Message also as DM to Twitter.
+            this.GetRepository<PrivateMessage>().Insert(
+                new PrivateMessage
+                    {
+                        Created = DateTime.UtcNow,
+                        Flags = 0,
+                        FromUserId = hostUser.ID,
+                        ToUserId = userId,
+                        Body = emailBody
+                    });
+        }
     }
 }

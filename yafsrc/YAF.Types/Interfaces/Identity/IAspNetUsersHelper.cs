@@ -167,6 +167,15 @@ public interface IAspNetUsersHelper
     /// <summary>
     /// Method returns MembershipUser
     /// </summary>
+    /// <param name="providerKey">The provider key.</param>
+    /// <returns>
+    /// Returns MembershipUser
+    /// </returns>
+    Task<AspNetUsers> GetUserAsync(object providerKey);
+
+    /// <summary>
+    /// Method returns MembershipUser
+    /// </summary>
     /// <param name="username">The username.</param>
     /// <returns>
     /// Returns MembershipUser
@@ -183,15 +192,6 @@ public interface IAspNetUsersHelper
     /// The <see cref="AspNetUsers"/>.
     /// </returns>
     Task<AspNetUsers> GetUserByEmailAsync(string email);
-
-    /// <summary>
-    /// Method returns MembershipUser
-    /// </summary>
-    /// <param name="providerKey">The provider key.</param>
-    /// <returns>
-    /// Returns MembershipUser
-    /// </returns>
-    Task<AspNetUsers> GetUserAsync(object providerKey);
 
     /// <summary>
     /// Get the UserID from the ProviderUserKey

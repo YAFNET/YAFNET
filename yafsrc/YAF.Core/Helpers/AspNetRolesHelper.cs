@@ -282,11 +282,11 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
         var groups = await this.GetRepository<Group>()
             .GetAsync(g => g.BoardID == pageBoardId && (g.Flags & 2) != 2 && (g.Flags & 4) == 4);
 
-        foreach (var group in groups)
+        foreach (var name in groups.Select(group => group.Name))
         {
-            if (group.Name.IsSet() && !await this.Get<IAspNetUsersHelper>().IsUserInRoleAsync(user, group.Name))
+            if (name.IsSet() && !await this.Get<IAspNetUsersHelper>().IsUserInRoleAsync(user, name))
             {
-                this.Get<IAspNetRolesHelper>().AddUserToRole(user, group.Name);
+                this.Get<IAspNetRolesHelper>().AddUserToRole(user, name);
             }
         }
     }

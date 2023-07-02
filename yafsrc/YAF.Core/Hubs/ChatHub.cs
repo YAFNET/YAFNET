@@ -75,7 +75,7 @@ public class ChatHub : Hub, IHaveServiceLocator
         var user = BoardContext.Current.PageUser;
         var userId = BoardContext.Current.PageUserID;
 
-        if (ConnectedUsers.All(x => x.ConnectionId != id))
+        if (ConnectedUsers.TrueForAll(x => x.ConnectionId != id))
         {
             ConnectedUsers.Add(
                 new ChatUser
@@ -110,7 +110,7 @@ public class ChatHub : Hub, IHaveServiceLocator
     /// </returns>
     public override Task OnDisconnectedAsync(Exception exception)
     {
-        var item = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == this.Context.ConnectionId);
+        var item = ConnectedUsers.Find(x => x.ConnectionId == this.Context.ConnectionId);
 
         if (item == null)
         {
@@ -135,9 +135,9 @@ public class ChatHub : Hub, IHaveServiceLocator
     {
         var fromUserId = this.Context.ConnectionId;
 
-        var toConnectUser = ConnectedUsers.FirstOrDefault(x => x.UserId == toUserId);
+        var toConnectUser = ConnectedUsers.Find(x => x.UserId == toUserId);
 
-        var fromConnectUser = ConnectedUsers.FirstOrDefault(x => x.ConnectionId == fromUserId);
+        var fromConnectUser = ConnectedUsers.Find(x => x.ConnectionId == fromUserId);
         var currentDateTime = DateTime.UtcNow;
 
         var dateTimeFormatted = this.Get<BoardSettings>().ShowRelativeTime
@@ -150,7 +150,6 @@ public class ChatHub : Hub, IHaveServiceLocator
         }
 
         // Save message in db
-        // TODO : Encode Message
         var body = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(message));
 
         var flags = new PrivateMessageFlags();

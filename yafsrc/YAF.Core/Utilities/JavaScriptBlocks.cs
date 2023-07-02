@@ -2064,8 +2064,5 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// </summary>
     /// <returns>System.String.</returns>
     [NotNull]
-    public static string StartChatJs()
-    {
-        return "startChat();";
-    }
+    public const string StartChatJs = "startChat();";
 }

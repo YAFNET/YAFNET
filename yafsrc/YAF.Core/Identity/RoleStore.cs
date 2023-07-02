@@ -137,18 +137,18 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles>,
     /// <summary>
     /// The find by name async.
     /// </summary>
-    /// <param name="roleName">
+    /// <param name="normalizedRoleName">
     /// The role name.
     /// </param>
     /// <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken" /> used to propagate notifications that the operation should be canceled.</param>
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public Task<AspNetRoles> FindByNameAsync([NotNull]string roleName, CancellationToken cancellationToken)
+    public Task<AspNetRoles> FindByNameAsync([NotNull]string normalizedRoleName, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        return this.GetRepository<AspNetRoles>().GetSingleAsync(r => r.Name == roleName, cancellationToken);
+        return this.GetRepository<AspNetRoles>().GetSingleAsync(r => r.Name == normalizedRoleName, cancellationToken);
     }
 
     public Task<string> GetRoleIdAsync(AspNetRoles role, CancellationToken cancellationToken)
