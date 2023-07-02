@@ -28,6 +28,10 @@ public class SafeReadWriteProvider<T> : IReadWriteProvider<T>
         this._create = create;
     }
 
+    /// <summary>
+    /// Gets or sets the Instance.
+    /// </summary>
+    /// <value>The instance.</value>
     public T Instance
     {
         get

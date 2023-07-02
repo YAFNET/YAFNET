@@ -32,18 +32,34 @@ using ServiceStack.DataAnnotations;
 [Serializable]
 public partial class PollGroupCluster : IEntity, IHaveID
 {
+    /// <summary>
+    /// Gets or sets the id.
+    /// </summary>
+    /// <value>The identifier.</value>
     [Alias("PollGroupID")]
     [AutoIncrement]
 
     public int ID { get; set; }
 
+    /// <summary>
+    /// Gets or sets the user identifier.
+    /// </summary>
+    /// <value>The user identifier.</value>
     [Required]
     public int UserID { get; set; }
 
+    /// <summary>
+    /// Gets or sets the flags.
+    /// </summary>
+    /// <value>The flags.</value>
     [Required]
     [Default(0)]
     public int Flags { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether this instance is bound.
+    /// </summary>
+    /// <value><c>null</c> if [is bound] contains no value, <c>true</c> if [is bound]; otherwise, <c>false</c>.</value>
     [Compute]
     public bool? IsBound { get; set; }
 }

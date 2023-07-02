@@ -55,11 +55,10 @@ public class AntiXssMiddleware
     private ErrorResponse error;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AntiXssMiddleware"/> class.
+    /// Initializes a new instance of the <see cref="AntiXssMiddleware" /> class.
     /// </summary>
-    /// <param name="requestDelegate">
-    /// The request delegate.
-    /// </param>
+    /// <param name="requestDelegate">The request delegate.</param>
+    /// <exception cref="System.ArgumentNullException">requestDelegate</exception>
     public AntiXssMiddleware(RequestDelegate requestDelegate)
     {
         this.next = requestDelegate ?? throw new ArgumentNullException(nameof(requestDelegate));
@@ -68,12 +67,8 @@ public class AntiXssMiddleware
     /// <summary>
     /// The invoke.
     /// </summary>
-    /// <param name="context">
-    /// The context.
-    /// </param>
-    /// <returns>
-    /// The <see cref="Task"/>.
-    /// </returns>
+    /// <param name="context">The context.</param>
+    /// <returns>The <see cref="Task" />.</returns>
     public async Task InvokeAsync(HttpContext context)
     {
         // Check XSS in URL
@@ -123,12 +118,8 @@ public class AntiXssMiddleware
     /// <summary>
     /// The read request body.
     /// </summary>
-    /// <param name="context">
-    /// The context.
-    /// </param>
-    /// <returns>
-    /// The <see cref="Task"/>.
-    /// </returns>
+    /// <param name="context">The context.</param>
+    /// <returns>The <see cref="Task" />.</returns>
     private static async Task<string> ReadRequestBodyAsync(HttpContext context)
     {
         var buffer = new MemoryStream();
@@ -147,12 +138,8 @@ public class AntiXssMiddleware
     /// <summary>
     /// The respond with an error.
     /// </summary>
-    /// <param name="context">
-    /// The context.
-    /// </param>
-    /// <returns>
-    /// The <see cref="Task"/>.
-    /// </returns>
+    /// <param name="context">The context.</param>
+    /// <returns>The <see cref="Task" />.</returns>
     private Task RespondWithAnErrorAsync(HttpContext context)
     {
         context.Response.Clear();
@@ -166,8 +153,16 @@ public class AntiXssMiddleware
     }
 }
 
+/// <summary>
+/// Class AntiXssMiddlewareExtension.
+/// </summary>
 public static class AntiXssMiddlewareExtension
 {
+    /// <summary>
+    /// Uses the anti XSS middleware.
+    /// </summary>
+    /// <param name="builder">The builder.</param>
+    /// <returns>IApplicationBuilder.</returns>
     public static IApplicationBuilder UseAntiXssMiddleware(this IApplicationBuilder builder)
     {
         return builder.UseMiddleware<AntiXssMiddleware>();
@@ -179,8 +174,17 @@ public static class AntiXssMiddlewareExtension
 /// </summary>
 public static class CrossSiteScriptingValidation
 {
+    /// <summary>
+    /// The starting chars
+    /// </summary>
     private static readonly char[] StartingChars = { '<', '&' };
 
+    /// <summary>
+    /// Determines whether [is dangerous string] [the specified s].
+    /// </summary>
+    /// <param name="s">The s.</param>
+    /// <param name="matchIndex">Index of the match.</param>
+    /// <returns><c>true</c> if [is dangerous string] [the specified s]; otherwise, <c>false</c>.</returns>
     public static bool IsDangerousString(string s, out int matchIndex)
     {
         // bool inComment = false;
@@ -216,11 +220,20 @@ public static class CrossSiteScriptingValidation
         }
     }
 
+    /// <summary>
+    /// Determines whether [is ato z] [the specified c].
+    /// </summary>
+    /// <param name="c">The c.</param>
+    /// <returns><c>true</c> if [is ato z] [the specified c]; otherwise, <c>false</c>.</returns>
     private static bool IsAtoZ(char c)
     {
         return c is >= 'a' and <= 'z' or >= 'A' and <= 'Z';
     }
 
+    /// <summary>
+    /// Adds the headers.
+    /// </summary>
+    /// <param name="headers">The headers.</param>
     public static void AddHeaders(this IHeaderDictionary headers)
     {
         if (headers["P3P"].NullOrEmpty())
@@ -229,15 +242,31 @@ public static class CrossSiteScriptingValidation
         }
     }
 
+    /// <summary>
+    /// Converts to json.
+    /// </summary>
+    /// <param name="value">The value.</param>
+    /// <returns>System.String.</returns>
     public static string ToJson(this object value)
     {
         return JsonConvert.SerializeObject(value);
     }
 }
 
+/// <summary>
+/// Class ErrorResponse.
+/// </summary>
 public class ErrorResponse
 {
+    /// <summary>
+    /// Gets or sets the error code.
+    /// </summary>
+    /// <value>The error code.</value>
     public int ErrorCode { get; set; }
 
+    /// <summary>
+    /// Gets or sets the description.
+    /// </summary>
+    /// <value>The description.</value>
     public string Description { get; set; }
 }

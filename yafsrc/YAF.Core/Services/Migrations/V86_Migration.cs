@@ -270,6 +270,10 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
+        /// <summary>
+        /// Gets the ServiceLocator.
+        /// </summary>
+        /// <value>The service locator.</value>
         public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
     }
 }

@@ -273,6 +273,11 @@ public class LinkBuilder : IHaveServiceLocator
             new {info = infoMessage.ToType<int>()});
     }
 
+    /// <summary>
+    /// Gets all route data.
+    /// </summary>
+    /// <param name="values">The values.</param>
+    /// <returns>IDictionary&lt;System.String, System.String&gt;.</returns>
     public IDictionary<string, string> GetAllRouteData(object values)
     {
         const BindingFlags BindingFlags = BindingFlags.DeclaredOnly | BindingFlags.Public | BindingFlags.Instance;

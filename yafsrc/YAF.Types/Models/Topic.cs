@@ -37,6 +37,10 @@ public class Topic : IEntity, IHaveID
     [Alias("TopicID")]
     public int ID { get; set; }
 
+    /// <summary>
+    /// Gets or sets the forum.
+    /// </summary>
+    /// <value>The forum.</value>
     [Reference]
     public Forum Forum { get; set; }
 

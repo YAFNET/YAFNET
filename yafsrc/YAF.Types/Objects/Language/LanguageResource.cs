@@ -26,8 +26,15 @@ namespace YAF.Types.Objects.Language;
 
 using Newtonsoft.Json;
 
+/// <summary>
+/// Class LanguageResource.
+/// </summary>
 [JsonObject]
 public class LanguageResource
 {
+    /// <summary>
+    /// Gets or sets the resources.
+    /// </summary>
+    /// <value>The resources.</value>
     public Resources Resources { get; set; }
 }

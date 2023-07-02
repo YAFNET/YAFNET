@@ -28,14 +28,29 @@ using Newtonsoft.Json;
 
 using System.Collections.Generic;
 
+/// <summary>
+/// Class Resources.
+/// </summary>
 public class Resources
 {
+    /// <summary>
+    /// Gets or sets the language.
+    /// </summary>
+    /// <value>The language.</value>
     [JsonProperty("@language")]
     public string Language { get; set; }
 
+    /// <summary>
+    /// Gets or sets the code.
+    /// </summary>
+    /// <value>The code.</value>
     [JsonProperty("@code")]
     public string Code { get; set; }
 
+    /// <summary>
+    /// Gets or sets the page.
+    /// </summary>
+    /// <value>The page.</value>
     [JsonProperty("page")]
     public List<Page> Page { get; set; }
 }

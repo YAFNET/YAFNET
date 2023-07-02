@@ -31,16 +31,27 @@ namespace YAF.Types.Models;
 [Alias("Extension")]
 public class FileExtension : IEntity, IHaveID
 {
+    /// <summary>
+    /// Gets or sets the id.
+    /// </summary>
+    /// <value>The identifier.</value>
     [AutoIncrement]
     [Alias("ExtensionID")]
     public int ID { get; set; }
 
+    /// <summary>
+    /// Gets or sets the board identifier.
+    /// </summary>
+    /// <value>The board identifier.</value>
     [References(typeof(Board))]
     [Required]
-
     [Default(1)]
     public int BoardId { get; set; }
 
+    /// <summary>
+    /// Gets or sets the extension.
+    /// </summary>
+    /// <value>The extension.</value>
     [Required]
     [StringLength(10)]
     public string Extension { get; set; }

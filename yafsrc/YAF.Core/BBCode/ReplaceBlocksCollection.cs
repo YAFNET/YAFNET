@@ -25,6 +25,7 @@
 namespace YAF.Core.BBCode;
 
 using System.Collections.Generic;
+using System.Security.Cryptography;
 
 /// <summary>
 /// Handles the collection of replacement tags and can also pull the HTML out of the text making a new replacement tag
@@ -95,9 +96,7 @@ public class ReplaceBlocksCollection : IReplaceBlocks
     /// </summary>
     public void RandomizeInstance()
     {
-        var rand = new RandomGenerator();
-
-        this.randomInstance = rand.Next(1, 1000000000);
+        this.randomInstance = RandomNumberGenerator.GetInt32(1, 1000000000);
     }
 
     /// <summary>

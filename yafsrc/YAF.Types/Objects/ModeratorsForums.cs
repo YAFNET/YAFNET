@@ -35,6 +35,10 @@ public class ModeratorsForums
     /// </summary>
     public int ForumID { get; set; }
 
+    /// <summary>
+    /// Gets or sets the parent identifier.
+    /// </summary>
+    /// <value>The parent identifier.</value>
     public int? ParentID { get; set; }
 
     /// <summary>
@@ -45,7 +49,15 @@ public class ModeratorsForums
     /// </value>
     public string ForumName { get; set; }
 
+    /// <summary>
+    /// Gets or sets the category identifier.
+    /// </summary>
+    /// <value>The category identifier.</value>
     public int CategoryID { get; set; }
 
+    /// <summary>
+    /// Gets or sets the name of the category.
+    /// </summary>
+    /// <value>The name of the category.</value>
     public string CategoryName { get; set; }
 }

@@ -24,41 +24,116 @@
 
 namespace YAF.Types.Objects.Model;
 
+/// <summary>
+/// Class MessageHistoryTopic.
+/// </summary>
 public class MessageHistoryTopic
 {
+    /// <summary>
+    /// Gets or sets the edit reason.
+    /// </summary>
+    /// <value>The edit reason.</value>
     public string EditReason { get; set; }
 
+    /// <summary>
+    /// Gets or sets the edited.
+    /// </summary>
+    /// <value>The edited.</value>
     public DateTime Edited { get; set; }
 
+    /// <summary>
+    /// Gets or sets the edited by.
+    /// </summary>
+    /// <value>The edited by.</value>
     public int EditedBy { get; set; }
 
+    /// <summary>
+    /// Gets or sets the flags.
+    /// </summary>
+    /// <value>The flags.</value>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// Gets or sets the ip.
+    /// </summary>
+    /// <value>The ip.</value>
     public string IP { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether this instance is moderator changed.
+    /// </summary>
+    /// <value><c>null</c> if [is moderator changed] contains no value, <c>true</c> if [is moderator changed]; otherwise, <c>false</c>.</value>
     public bool? IsModeratorChanged { get; set; }
 
+    /// <summary>
+    /// Gets or sets the message identifier.
+    /// </summary>
+    /// <value>The message identifier.</value>
     public int MessageID { get; set; }
 
+    /// <summary>
+    /// Gets or sets the message.
+    /// </summary>
+    /// <value>The message.</value>
     public string Message { get; set; }
 
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    /// <value>The name.</value>
     public string Name { get; set; }
 
+    /// <summary>
+    /// Gets or sets the display name.
+    /// </summary>
+    /// <value>The display name.</value>
     public string DisplayName { get; set; }
 
+    /// <summary>
+    /// Gets or sets the user style.
+    /// </summary>
+    /// <value>The user style.</value>
     public string UserStyle { get; set; }
 
+    /// <summary>
+    /// Gets or sets the suspended.
+    /// </summary>
+    /// <value>The suspended.</value>
     public DateTime? Suspended { get; set; }
 
+    /// <summary>
+    /// Gets or sets the forum identifier.
+    /// </summary>
+    /// <value>The forum identifier.</value>
     public int ForumID { get; set; }
 
+    /// <summary>
+    /// Gets or sets the topic identifier.
+    /// </summary>
+    /// <value>The topic identifier.</value>
     public int TopicID { get; set; }
 
+    /// <summary>
+    /// Gets or sets the topic.
+    /// </summary>
+    /// <value>The topic.</value>
     public string Topic { get; set; }
 
+    /// <summary>
+    /// Gets or sets the posted.
+    /// </summary>
+    /// <value>The posted.</value>
     public DateTime Posted { get; set; }
 
+    /// <summary>
+    /// Gets or sets the message ip.
+    /// </summary>
+    /// <value>The message ip.</value>
     public string MessageIP { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether this <see cref="MessageHistoryTopic"/> is selected.
+    /// </summary>
+    /// <value><c>true</c> if selected; otherwise, <c>false</c>.</value>
     public bool Selected { get; set; }
 }

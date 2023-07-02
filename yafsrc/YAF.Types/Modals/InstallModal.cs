@@ -24,15 +24,38 @@
 
 namespace YAF.Types.Modals;
 
+/// <summary>
+/// Class InstallModal.
+/// </summary>
 public class InstallModal
 {
+    /// <summary>
+    /// Gets or sets the message.
+    /// </summary>
+    /// <value>The message.</value>
     public string Message { get; set; }
 
+    /// <summary>
+    /// Gets or sets the connection information.
+    /// </summary>
+    /// <value>The connection information.</value>
     public string ConnectionInfo { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether [connection success].
+    /// </summary>
+    /// <value><c>true</c> if [connection success]; otherwise, <c>false</c>.</value>
     public bool ConnectionSuccess { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether [test email success].
+    /// </summary>
+    /// <value><c>true</c> if [test email success]; otherwise, <c>false</c>.</value>
     public bool TestEmailSuccess { get; set; }
 
+    /// <summary>
+    /// Gets or sets the test email information.
+    /// </summary>
+    /// <value>The test email information.</value>
     public string TestEmailInfo { get; set; }
 }

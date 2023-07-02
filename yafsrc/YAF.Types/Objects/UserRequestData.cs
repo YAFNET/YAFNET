@@ -24,15 +24,38 @@
 
 namespace YAF.Types.Objects;
 
+/// <summary>
+/// Class UserRequestData.
+/// </summary>
 public class UserRequestData
 {
+    /// <summary>
+    /// Gets or sets a value indicating whether [dont track].
+    /// </summary>
+    /// <value><c>true</c> if [dont track]; otherwise, <c>false</c>.</value>
     public bool DontTrack { get; set; }
 
+    /// <summary>
+    /// Gets or sets the user agent.
+    /// </summary>
+    /// <value>The user agent.</value>
     public string UserAgent { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether this instance is search engine.
+    /// </summary>
+    /// <value><c>true</c> if this instance is search engine; otherwise, <c>false</c>.</value>
     public bool IsSearchEngine { get; set; }
 
+    /// <summary>
+    /// Gets or sets the browser.
+    /// </summary>
+    /// <value>The browser.</value>
     public string Browser { get; set; }
 
+    /// <summary>
+    /// Gets or sets the platform.
+    /// </summary>
+    /// <value>The platform.</value>
     public string Platform { get; set; }
 }

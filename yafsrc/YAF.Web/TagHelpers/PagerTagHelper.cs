@@ -29,6 +29,17 @@ using Microsoft.AspNetCore.Routing;
 
 using RouteData = Microsoft.AspNetCore.Routing.RouteData;
 
+/// <summary>
+/// Class PagerTagHelper.
+/// Implements the <see cref="Microsoft.AspNetCore.Razor.TagHelpers.TagHelper" />
+/// Implements the <see cref="YAF.Types.Interfaces.IPager" />
+/// Implements the <see cref="YAF.Types.Interfaces.IHaveServiceLocator" />
+/// Implements the <see cref="YAF.Types.Interfaces.IHaveLocalization" />
+/// </summary>
+/// <seealso cref="Microsoft.AspNetCore.Razor.TagHelpers.TagHelper" />
+/// <seealso cref="YAF.Types.Interfaces.IPager" />
+/// <seealso cref="YAF.Types.Interfaces.IHaveServiceLocator" />
+/// <seealso cref="YAF.Types.Interfaces.IHaveLocalization" />
 [HtmlTargetElement("pager", TagStructure = TagStructure.NormalOrSelfClosing)]
 public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocalization
 {
@@ -47,8 +58,16 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
     /// </summary>
     public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
+    /// <summary>
+    /// Gets the page context.
+    /// </summary>
+    /// <value>The page context.</value>
     public BoardContext PageContext => BoardContext.Current;
 
+    /// <summary>
+    /// Gets or sets the name of the query.
+    /// </summary>
+    /// <value>The name of the query.</value>
     [HtmlAttributeName("query-name")]
     public string QueryName { get; set; } 
 
@@ -70,6 +89,12 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
     [HtmlAttributeName("page-size")]
     public int PageSize { get; set; }
 
+    /// <summary>
+    /// Synchronously executes the <see cref="T:Microsoft.AspNetCore.Razor.TagHelpers.TagHelper" /> with the given <paramref name="context" /> and
+    /// <paramref name="output" />.
+    /// </summary>
+    /// <param name="context">Contains information associated with the current HTML tag.</param>
+    /// <param name="output">A stateful HTML element used to generate an HTML tag.</param>
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {
         if (this.QueryName.IsNotSet())

@@ -205,6 +205,10 @@ public class PagedTopic
     /// </summary>
     public string FirstMessage { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether this <see cref="PagedTopic"/> is selected.
+    /// </summary>
+    /// <value><c>true</c> if selected; otherwise, <c>false</c>.</value>
     [Ignore]
     public bool Selected { get; set; }
 }

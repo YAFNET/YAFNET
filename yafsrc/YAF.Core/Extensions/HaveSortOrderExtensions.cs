@@ -31,6 +31,13 @@ using System.Collections.Generic;
 /// </summary>
 public static class HaveSortOrderExtensions
 {
+    /// <summary>
+    /// By the optional sort order.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="sortEnumerable">The sort enumerable.</param>
+    /// <param name="defaultSortOrder">The default sort order.</param>
+    /// <returns>IEnumerable&lt;T&gt;.</returns>
     public static IEnumerable<T> ByOptionalSortOrder<T>(
         this IEnumerable<T> sortEnumerable,
         int defaultSortOrder = 1000)

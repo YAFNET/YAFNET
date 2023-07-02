@@ -50,6 +50,10 @@ public class SelectOptions
     [DataMember]
     public string text { get; set; }
 
+    /// <summary>
+    /// Gets or sets the URL.
+    /// </summary>
+    /// <value>The URL.</value>
     [DataMember]
     public string url { get; set; }
 }

@@ -26,12 +26,27 @@ namespace YAF.Types.Modals;
 
 using System.ComponentModel.DataAnnotations;
 
+/// <summary>
+/// Class MoveTopicModal.
+/// </summary>
 public class MoveTopicModal
 {
+    /// <summary>
+    /// Gets or sets the forum list selected.
+    /// </summary>
+    /// <value>The forum list selected.</value>
     [Required]
     public int ForumListSelected { get; set; }
 
+    /// <summary>
+    /// Gets or sets the link days.
+    /// </summary>
+    /// <value>The link days.</value>
     public int LinkDays { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether [leave pointer].
+    /// </summary>
+    /// <value><c>true</c> if [leave pointer]; otherwise, <c>false</c>.</value>
     public bool LeavePointer { get; set; }
 }

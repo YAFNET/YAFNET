@@ -31,28 +31,76 @@ namespace YAF.Types.Models;
 [Alias("vaccessfull")]
 public class VAccessFull : IEntity
 {
+    /// <summary>
+    /// Gets or sets the user identifier.
+    /// </summary>
+    /// <value>The user identifier.</value>
     [Required]
     public int UserID { get; set; }
 
+    /// <summary>
+    /// Gets or sets the forum identifier.
+    /// </summary>
+    /// <value>The forum identifier.</value>
     public int? ForumID { get; set; }
 
+    /// <summary>
+    /// Gets or sets the read access.
+    /// </summary>
+    /// <value>The read access.</value>
     public int? ReadAccess { get; set; }
 
+    /// <summary>
+    /// Gets or sets the post access.
+    /// </summary>
+    /// <value>The post access.</value>
     public int? PostAccess { get; set; }
 
+    /// <summary>
+    /// Gets or sets the reply access.
+    /// </summary>
+    /// <value>The reply access.</value>
     public int? ReplyAccess { get; set; }
 
+    /// <summary>
+    /// Gets or sets the priority access.
+    /// </summary>
+    /// <value>The priority access.</value>
     public int? PriorityAccess { get; set; }
 
+    /// <summary>
+    /// Gets or sets the poll access.
+    /// </summary>
+    /// <value>The poll access.</value>
     public int? PollAccess { get; set; }
 
+    /// <summary>
+    /// Gets or sets the vote access.
+    /// </summary>
+    /// <value>The vote access.</value>
     public int? VoteAccess { get; set; }
 
+    /// <summary>
+    /// Gets or sets the moderator access.
+    /// </summary>
+    /// <value>The moderator access.</value>
     public int? ModeratorAccess { get; set; }
 
+    /// <summary>
+    /// Gets or sets the edit access.
+    /// </summary>
+    /// <value>The edit access.</value>
     public int? EditAccess { get; set; }
 
+    /// <summary>
+    /// Gets or sets the delete access.
+    /// </summary>
+    /// <value>The delete access.</value>
     public int? DeleteAccess { get; set; }
 
+    /// <summary>
+    /// Gets or sets the admin group.
+    /// </summary>
+    /// <value>The admin group.</value>
     public int? AdminGroup { get; set; }
 }

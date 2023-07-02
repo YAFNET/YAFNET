@@ -26,15 +26,46 @@ namespace YAF.Types.Modals;
 
 using System.ComponentModel.DataAnnotations;
 
+/// <summary>
+/// Class NntpServerEditModal.
+/// </summary>
 public class NntpServerEditModal
 {
+    /// <summary>
+    /// Gets or sets the identifier.
+    /// </summary>
+    /// <value>The identifier.</value>
     public int? Id { get; set; }
 
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    /// <value>The name.</value>
     [Required]
     public string Name { get; set; }
+
+    /// <summary>
+    /// Gets or sets the address.
+    /// </summary>
+    /// <value>The address.</value>
     [Required]
     public string Address { get; set; }
+
+    /// <summary>
+    /// Gets or sets the port.
+    /// </summary>
+    /// <value>The port.</value>
     public int? Port { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name of the user.
+    /// </summary>
+    /// <value>The name of the user.</value>
     public string UserName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user pass.
+    /// </summary>
+    /// <value>The user pass.</value>
     public string UserPass { get; set; }
 }

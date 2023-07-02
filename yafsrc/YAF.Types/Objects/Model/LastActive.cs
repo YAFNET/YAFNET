@@ -24,12 +24,44 @@
 
 namespace YAF.Types.Objects.Model;
 
+/// <summary>
+/// Class LastActive.
+/// </summary>
 public class LastActive
 {
+    /// <summary>
+    /// Gets or sets the identifier.
+    /// </summary>
+    /// <value>The identifier.</value>
     public int ID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    /// <value>The name.</value>
     public string Name { get; set; }
+
+    /// <summary>
+    /// Gets or sets the display name.
+    /// </summary>
+    /// <value>The display name.</value>
     public string DisplayName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the suspended.
+    /// </summary>
+    /// <value>The suspended.</value>
     public DateTime? Suspended { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user style.
+    /// </summary>
+    /// <value>The user style.</value>
     public string UserStyle { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of posts.
+    /// </summary>
+    /// <value>The number of posts.</value>
     public int NumOfPosts { get; set; }
 }

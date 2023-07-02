@@ -28,6 +28,7 @@ using Microsoft.AspNetCore.Hosting;
 
 using System;
 using System.IO;
+using System.Security.Cryptography;
 
 using Microsoft.Extensions.Logging;
 
@@ -159,13 +160,11 @@ public class Albums : ForumBaseController
             {
                 var album = this.GetRepository<UserAlbumImage>().List(albumId);
 
-                var random = new RandomGenerator();
-
                 if (!album.NullOrEmpty())
                 {
                     var image = album.Count > 1
                                     ? this.GetRepository<UserAlbumImage>()
-                                        .GetImage(album[random.Next(1, album.Count)].ID)
+                                        .GetImage(album[RandomNumberGenerator.GetInt32(1, album.Count)].ID)
                                     : this.GetRepository<UserAlbumImage>()
                                         .GetImage(album.First().ID);
 

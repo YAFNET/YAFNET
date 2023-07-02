@@ -24,14 +24,33 @@
 
 namespace YAF.Types.Modals;
 
+/// <summary>
+/// Class ModForumUserModal.
+/// </summary>
 public class ModForumUserModal
 {
+    /// <summary>
+    /// Gets or sets the forum identifier.
+    /// </summary>
+    /// <value>The forum identifier.</value>
     public int ForumId { get; set; }
 
+    /// <summary>
+    /// Gets or sets the user identifier.
+    /// </summary>
+    /// <value>The user identifier.</value>
     public int UserID { get; set; }
 
     //[Required]
+    /// <summary>
+    /// Gets or sets the name of the user.
+    /// </summary>
+    /// <value>The name of the user.</value>
     public string UserName { get; set; }
 
+    /// <summary>
+    /// Gets or sets the access mask identifier.
+    /// </summary>
+    /// <value>The access mask identifier.</value>
     public int AccessMaskID { get; set; }
 }

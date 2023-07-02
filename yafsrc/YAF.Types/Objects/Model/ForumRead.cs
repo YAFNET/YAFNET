@@ -196,7 +196,15 @@ public class ForumRead
     /// </summary>
     public string FirstMessage { get; set; }
 
+    /// <summary>
+    /// Gets or sets the sub forums.
+    /// </summary>
+    /// <value>The sub forums.</value>
     public int SubForums { get; set; }
 
+    /// <summary>
+    /// Gets or sets the total.
+    /// </summary>
+    /// <value>The total.</value>
     public int Total { get; set; }
 }

@@ -920,6 +920,12 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
         return this.UpdateUserAsync(user);
     }
 
+    /// <summary>
+    /// Gets the user identifier for the specified <paramref name="user" />.
+    /// </summary>
+    /// <param name="user">The user whose identifier should be retrieved.</param>
+    /// <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken" /> used to propagate notifications that the operation should be canceled.</param>
+    /// <returns>The <see cref="T:System.Threading.Tasks.Task" /> that represents the asynchronous operation, containing the identifier for the specified <paramref name="user" />.</returns>
     public Task<string> GetUserIdAsync([NotNull] AspNetUsers user, CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(user);
@@ -927,6 +933,12 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
         return Task.FromResult(user.Id);
     }
 
+    /// <summary>
+    /// Gets the user name for the specified <paramref name="user" />.
+    /// </summary>
+    /// <param name="user">The user whose name should be retrieved.</param>
+    /// <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken" /> used to propagate notifications that the operation should be canceled.</param>
+    /// <returns>The <see cref="T:System.Threading.Tasks.Task" /> that represents the asynchronous operation, containing the name for the specified <paramref name="user" />.</returns>
     public Task<string> GetUserNameAsync([NotNull] AspNetUsers user, CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(user);
@@ -934,6 +946,12 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
         return Task.FromResult(user.UserName);
     }
 
+    /// <summary>
+    /// Gets the normalized user name for the specified <paramref name="user" />.
+    /// </summary>
+    /// <param name="user">The user whose normalized name should be retrieved.</param>
+    /// <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken" /> used to propagate notifications that the operation should be canceled.</param>
+    /// <returns>The <see cref="T:System.Threading.Tasks.Task" /> that represents the asynchronous operation, containing the normalized user name for the specified <paramref name="user" />.</returns>
     public Task<string> GetNormalizedUserNameAsync([NotNull] AspNetUsers user, CancellationToken cancellationToken)
     {
         CodeContracts.VerifyNotNull(user);

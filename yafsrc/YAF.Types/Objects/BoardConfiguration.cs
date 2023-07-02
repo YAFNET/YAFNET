@@ -46,6 +46,10 @@ public class BoardConfiguration
     /// </summary>
     public int CategoryID { get; set; }
 
+    /// <summary>
+    /// Gets or sets the URL rewriting mode.
+    /// </summary>
+    /// <value>The URL rewriting mode.</value>
     public string UrlRewritingMode { get; set; }
 
     /// <summary>
@@ -147,5 +151,9 @@ public class BoardConfiguration
     /// </summary>
     public bool LegacyMembershipHashHex { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether [use HTTPS redirection].
+    /// </summary>
+    /// <value><c>true</c> if [use HTTPS redirection]; otherwise, <c>false</c>.</value>
     public bool UseHttpsRedirection { get; set; } = true;
 }

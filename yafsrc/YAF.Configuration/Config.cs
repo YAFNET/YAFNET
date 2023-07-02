@@ -72,6 +72,10 @@ public static class Config
     /// </summary>
     public static int CategoryID { get; set; }
 
+    /// <summary>
+    /// Gets or sets the URL rewriting mode.
+    /// </summary>
+    /// <value>The URL rewriting mode.</value>
     public static string UrlRewritingMode { get; set; }
 
     /// <summary>

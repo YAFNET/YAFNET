@@ -25,6 +25,9 @@ namespace YAF.Types.Interfaces;
 
 using YAF.Types.Constants;
 
+/// <summary>
+/// Interface IPanelSessionState
+/// </summary>
 public interface IPanelSessionState
 {
     /// <summary>

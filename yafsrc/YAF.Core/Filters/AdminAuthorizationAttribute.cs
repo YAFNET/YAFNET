@@ -28,6 +28,15 @@ using Microsoft.AspNetCore.Authorization;
 
 using System;
 
+/// <summary>
+/// Class AdminAuthorizationAttribute.
+/// Implements the <see cref="AuthorizeAttribute" />
+/// Implements the <see cref="Microsoft.AspNetCore.Mvc.Filters.IAuthorizationFilter" />
+/// Implements the <see cref="YAF.Types.Interfaces.IHaveServiceLocator" />
+/// </summary>
+/// <seealso cref="AuthorizeAttribute" />
+/// <seealso cref="Microsoft.AspNetCore.Mvc.Filters.IAuthorizationFilter" />
+/// <seealso cref="YAF.Types.Interfaces.IHaveServiceLocator" />
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
 public class AdminAuthorizationAttribute : AuthorizeAttribute, IAuthorizationFilter, IHaveServiceLocator
 {

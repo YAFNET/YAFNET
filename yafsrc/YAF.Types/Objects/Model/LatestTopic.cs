@@ -39,8 +39,16 @@ public class LatestTopic
     /// </summary>
     public int ForumID { get; set; }
 
+    /// <summary>
+    /// Gets or sets the forum.
+    /// </summary>
+    /// <value>The forum.</value>
     public string Forum { get; set; }
 
+    /// <summary>
+    /// Gets or sets the topic.
+    /// </summary>
+    /// <value>The topic.</value>
     public string Topic { get; set; }
 
     /// <summary>
@@ -108,6 +116,10 @@ public class LatestTopic
     /// </summary>
     public DateTime Posted { get; set; }
 
+    /// <summary>
+    /// Gets or sets the last message.
+    /// </summary>
+    /// <value>The last message.</value>
     public string LastMessage { get; set; }
 
     /// <summary>
@@ -125,6 +137,10 @@ public class LatestTopic
     /// </summary>
     public DateTime? LastUserSuspended { get; set; }
 
+    /// <summary>
+    /// Gets or sets the last user style.
+    /// </summary>
+    /// <value>The last user style.</value>
     public string LastUserStyle { get; set; }
 
     /// <summary>

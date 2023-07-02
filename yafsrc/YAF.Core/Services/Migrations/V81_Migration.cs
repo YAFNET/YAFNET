@@ -62,6 +62,12 @@ namespace YAF.Core.Services.Migrations
             return Task.CompletedTask;
         }
 
+        /// <summary>
+        /// Upgrades the table.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="dbAccess">The database access.</param>
+        /// <param name="dbCommand">The database command.</param>
         private void UpgradeTable(IRepository<User> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (dbCommand.Connection.ColumnExists<User>("Password"))
@@ -70,6 +76,12 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
+        /// <summary>
+        /// Upgrades the table.
+        /// </summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="dbAccess">The database access.</param>
+        /// <param name="dbCommand">The database command.</param>
         private void UpgradeTable(IRepository<ProfileDefinition> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
             if (!dbCommand.Connection.ColumnExists<ProfileDefinition>(x => x.ShowOnRegisterPage))
@@ -78,6 +90,10 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
+        /// <summary>
+        /// Gets ServiceLocator.
+        /// </summary>
+        /// <value>The service locator.</value>
         public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
     }
 }

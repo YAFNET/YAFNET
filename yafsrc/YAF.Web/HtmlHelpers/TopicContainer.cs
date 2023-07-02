@@ -26,6 +26,9 @@ namespace YAF.Web.HtmlHelpers;
 
 using YAF.Types.Attributes;
 
+/// <summary>
+/// Class TopicContainerHtmlHelper.
+/// </summary>
 public static class TopicContainerHtmlHelper
 {
     /// <summary>

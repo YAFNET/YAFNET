@@ -24,8 +24,14 @@
 
 namespace YAF.Types.Constants;
 
+/// <summary>
+/// Enum EditorMode
+/// </summary>
 public enum EditorMode
 {
+    /// <summary>
+    /// The basic
+    /// </summary>
     Basic,
 
     /// <summary>
@@ -33,5 +39,8 @@ public enum EditorMode
     /// </summary>
     Standard,
 
+    /// <summary>
+    /// The SQL
+    /// </summary>
     Sql
 }

@@ -28,6 +28,13 @@ using System.ComponentModel;
 
 using YAF.Types.Attributes;
 
+/// <summary>
+/// Class ButtonHelper.
+/// Implements the <see cref="Microsoft.AspNetCore.Razor.TagHelpers.TagHelper" />
+/// Implements the <see cref="YAF.Types.Interfaces.IHaveServiceLocator" />
+/// </summary>
+/// <seealso cref="Microsoft.AspNetCore.Razor.TagHelpers.TagHelper" />
+/// <seealso cref="YAF.Types.Interfaces.IHaveServiceLocator" />
 [HtmlTargetElement("button")]
 [HtmlTargetElement("a")]
 public class ButtonHelper : TagHelper, IHaveServiceLocator
@@ -43,9 +50,17 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
         this.ServiceLocator = serviceLocator;
     }
 
+    /// <summary>
+    /// Gets or sets the button style.
+    /// </summary>
+    /// <value>The button style.</value>
     [DefaultValue(ButtonStyle.None)]
     public ButtonStyle ButtonStyle { get; set; }
 
+    /// <summary>
+    /// Gets or sets the size of the button.
+    /// </summary>
+    /// <value>The size of the button.</value>
     [DefaultValue(ButtonSize.Normal)]
     public ButtonSize ButtonSize { get; set; }
 
@@ -91,6 +106,10 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
     [CanBeNull]
     public string ReturnConfirmTag { get; set; }
 
+    /// <summary>
+    /// Gets or sets the text.
+    /// </summary>
+    /// <value>The text.</value>
     public string Text { get; set; }
 
     /// <summary>
@@ -102,6 +121,10 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
     [CanBeNull]
     public string BsTargetUrl { get; set; }
 
+    /// <summary>
+    /// Gets or sets the bs target.
+    /// </summary>
+    /// <value>The bs target.</value>
     [CanBeNull]
     public string BsTarget { get; set; }
 
@@ -120,9 +143,17 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
     [CanBeNull]
     public string BsDismiss { get; set; }
 
+    /// <summary>
+    /// Gets or sets the content of the bs.
+    /// </summary>
+    /// <value>The content of the bs.</value>
     [CanBeNull]
     public string BsContent { get; set; }
 
+    /// <summary>
+    /// Gets or sets the title non localized.
+    /// </summary>
+    /// <value>The title non localized.</value>
     public string TitleNonLocalized { get; set; }
 
     /// <summary>

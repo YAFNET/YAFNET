@@ -35,10 +35,22 @@ using Objects.Model;
 /// </summary>
 public interface ISessionService
 {
+    /// <summary>
+    /// Gets or sets the index of the board forums.
+    /// </summary>
+    /// <value>The index of the board forums.</value>
     public int BoardForumsIndex { get; set; }
 
+    /// <summary>
+    /// Gets or sets the mods.
+    /// </summary>
+    /// <value>The mods.</value>
     public List<SimpleModerator> Mods { get; set; }
 
+    /// <summary>
+    /// Gets or sets the forums.
+    /// </summary>
+    /// <value>The forums.</value>
     public List<ForumRead> Forums { get; set; }
 
     /// <summary>

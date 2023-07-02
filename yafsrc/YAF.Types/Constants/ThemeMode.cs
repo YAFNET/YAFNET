@@ -23,6 +23,9 @@
  */
 namespace YAF.Types.Constants;
 
+/// <summary>
+/// Enum ThemeMode
+/// </summary>
 public enum ThemeMode   
 {
     /// <summary>

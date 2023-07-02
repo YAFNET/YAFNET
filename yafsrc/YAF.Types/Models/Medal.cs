@@ -30,36 +30,72 @@ namespace YAF.Types.Models;
 [Serializable]
 public class Medal : IEntity, IHaveBoardID, IHaveID
 {
+    /// <summary>
+    /// Gets BoardId.
+    /// </summary>
+    /// <value>The board identifier.</value>
     [Required]
     public int BoardID { get; set; }
 
+    /// <summary>
+    /// Gets or sets the id.
+    /// </summary>
+    /// <value>The identifier.</value>
     [Alias("MedalID")]
     [AutoIncrement]
     [PrimaryKey]
     public int ID { get; set; }
 
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    /// <value>The name.</value>
     [Required]
     [StringLength(100)]
     public string Name { get; set; }
 
+    /// <summary>
+    /// Gets or sets the description.
+    /// </summary>
+    /// <value>The description.</value>
     [CustomField(OrmLiteVariables.MaxTextUnicode)]
     public string Description { get; set; }
 
+    /// <summary>
+    /// Gets or sets the message.
+    /// </summary>
+    /// <value>The message.</value>
     [Required]
     [StringLength(100)]
     public string Message { get; set; }
 
+    /// <summary>
+    /// Gets or sets the category.
+    /// </summary>
+    /// <value>The category.</value>
     [StringLength(50)]
     public string Category { get; set; }
 
+    /// <summary>
+    /// Gets or sets the medal URL.
+    /// </summary>
+    /// <value>The medal URL.</value>
     [Required]
     [StringLength(250)]
     public string MedalURL { get; set; }
 
+    /// <summary>
+    /// Gets or sets the flags.
+    /// </summary>
+    /// <value>The flags.</value>
     [Required]
     [Default(0)]
     public int Flags { get; set; }
 
+    /// <summary>
+    /// Gets or sets the medal flags.
+    /// </summary>
+    /// <value>The medal flags.</value>
     [Ignore]
     public MedalFlags MedalFlags
     {

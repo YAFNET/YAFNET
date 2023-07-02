@@ -23,7 +23,14 @@
  */
 namespace YAF.Types.Interfaces;
 
+/// <summary>
+/// Interface IHaveSortOrder
+/// </summary>
 public interface IHaveSortOrder
 {
+    /// <summary>
+    /// Gets the sort order.
+    /// </summary>
+    /// <value>The sort order.</value>
     int SortOrder { get; }
 }

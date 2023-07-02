@@ -26,10 +26,21 @@ namespace YAF.Types.Modals;
 
 using System.ComponentModel.DataAnnotations;
 
+/// <summary>
+/// Class SpamWordsEditModal.
+/// </summary>
 public class SpamWordsEditModal
 {
+    /// <summary>
+    /// Gets or sets the identifier.
+    /// </summary>
+    /// <value>The identifier.</value>
     public int? Id { get; set; }
 
+    /// <summary>
+    /// Gets or sets the spam word.
+    /// </summary>
+    /// <value>The spam word.</value>
     [Required]
     public string SpamWord { get; set; }
 }

@@ -27,6 +27,9 @@ using System.Collections.Generic;
 
 using YAF.Types.Objects;
 
+/// <summary>
+/// Interface IBadWordReplace
+/// </summary>
 public interface IBadWordReplace
 {
     /// <summary>

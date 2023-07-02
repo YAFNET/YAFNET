@@ -82,6 +82,10 @@ public class EventLog : IEntity, IHaveID
         set => this.Type = value.ToInt();
     }
 
+    /// <summary>
+    /// Gets or sets the exception.
+    /// </summary>
+    /// <value>The exception.</value>
     [Ignore]
     public Exception Exception { get; set; }
 }

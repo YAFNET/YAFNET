@@ -29,11 +29,22 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using YAF.Types.Extensions;
 
+/// <summary>
+/// Class Page.
+/// </summary>
 public class Page
 {
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    /// <value>The name.</value>
     [JsonProperty("@name")]
     public string Name { get; set; }
 
+    /// <summary>
+    /// Gets or sets the resource.
+    /// </summary>
+    /// <value>The resource.</value>
     [JsonConverter(typeof(ResourceListConverter))]
     public List<Resource> Resource { get; set; }
 }

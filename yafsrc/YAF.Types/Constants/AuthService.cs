@@ -29,6 +29,9 @@ namespace YAF.Types.Constants;
 /// </summary>
 public enum AuthService
 {
+    /// <summary>
+    /// The microsoftaccount
+    /// </summary>
     microsoftaccount,
 
     /// <summary>

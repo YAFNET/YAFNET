@@ -90,6 +90,10 @@ public class LabelHelper : TagHelper, IHaveServiceLocator, ILocalizationSupport
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
 
+    /// <summary>
+    /// Gets or sets the view context.
+    /// </summary>
+    /// <value>The view context.</value>
     [HtmlAttributeNotBound]
     [ViewContext]
     public ViewContext ViewContext { get; set; }

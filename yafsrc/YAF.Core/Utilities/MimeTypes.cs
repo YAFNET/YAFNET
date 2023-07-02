@@ -44,7 +44,6 @@ public static class MimeTypes
     /// </summary>
     private static List<MimeType> mimeTypes;
 
-
     /// <summary>
     /// Check if File Content Type is correct
     /// </summary>

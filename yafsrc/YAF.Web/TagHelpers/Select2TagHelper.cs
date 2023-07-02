@@ -75,6 +75,10 @@ public class Select2TagHelper : TagHelper
     [HtmlAttributeName(ItemsAttributeName)]
     public IEnumerable<SelectListItem> Items { get; set; }
 
+    /// <summary>
+    /// Gets or sets the icon item.
+    /// </summary>
+    /// <value>The icon item.</value>
     [HtmlAttributeName(IconItemAttributeName)]
     public string IconItem { get; set; }
 
@@ -179,6 +183,18 @@ public class Select2TagHelper : TagHelper
         }
     }
 
+    /// <summary>
+    /// Generates the select.
+    /// </summary>
+    /// <param name="viewContext">The view context.</param>
+    /// <param name="modelExplorer">The model explorer.</param>
+    /// <param name="optionLabel">The option label.</param>
+    /// <param name="expression">The expression.</param>
+    /// <param name="selectList">The select list.</param>
+    /// <param name="allowMultiple">if set to <c>true</c> [allow multiple].</param>
+    /// <param name="htmlAttributes">The HTML attributes.</param>
+    /// <returns>TagBuilder.</returns>
+    /// <exception cref="System.ArgumentNullException">viewContext</exception>
     public TagBuilder GenerateSelect(
         ViewContext viewContext,
         ModelExplorer modelExplorer,
@@ -205,6 +221,20 @@ public class Select2TagHelper : TagHelper
             htmlAttributes);
     }
 
+    /// <summary>
+    /// Generates the select.
+    /// </summary>
+    /// <param name="viewContext">The view context.</param>
+    /// <param name="modelExplorer">The model explorer.</param>
+    /// <param name="optionLabel">The option label.</param>
+    /// <param name="expression">The expression.</param>
+    /// <param name="selectList">The select list.</param>
+    /// <param name="currentValues">The current values.</param>
+    /// <param name="allowMultiple">if set to <c>true</c> [allow multiple].</param>
+    /// <param name="htmlAttributes">The HTML attributes.</param>
+    /// <returns>TagBuilder.</returns>
+    /// <exception cref="System.ArgumentNullException">viewContext</exception>
+    /// <exception cref="System.ArgumentNullException">FormatHtmlGenerator_FieldNameCannotBeNullOrEmpty - expression</exception>
     public virtual TagBuilder GenerateSelect(
         ViewContext viewContext,
         ModelExplorer modelExplorer,
@@ -268,6 +298,12 @@ public class Select2TagHelper : TagHelper
         return tagBuilder;
     }
 
+    /// <summary>
+    /// Generates the groups and options.
+    /// </summary>
+    /// <param name="optionLabel">The option label.</param>
+    /// <param name="selectList">The select list.</param>
+    /// <returns>IHtmlContent.</returns>
     public IHtmlContent GenerateGroupsAndOptions(string optionLabel, IEnumerable<SelectListItem> selectList)
     {
         return this.GenerateGroupsAndOptions(optionLabel, selectList, currentValues: null);
@@ -483,13 +519,25 @@ public class Select2TagHelper : TagHelper
 
 internal class CurrentValues
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CurrentValues"/> class.
+    /// </summary>
+    /// <param name="values">The values.</param>
     public CurrentValues(ICollection<string> values)
     {
         Debug.Assert(values != null);
         this.Values = values;
     }
 
+    /// <summary>
+    /// Gets the values.
+    /// </summary>
+    /// <value>The values.</value>
     public ICollection<string> Values { get; }
 
+    /// <summary>
+    /// Gets or sets the values and encoded values.
+    /// </summary>
+    /// <value>The values and encoded values.</value>
     public ICollection<string> ValuesAndEncodedValues { get; set; }
 }

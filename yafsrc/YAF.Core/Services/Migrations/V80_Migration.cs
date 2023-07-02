@@ -45,6 +45,10 @@ namespace YAF.Core.Services.Migrations
     /// </summary>
     public class V80_Migration : IRepositoryMigration, IHaveServiceLocator
     {
+        /// <summary>
+        /// Gets ServiceLocator.
+        /// </summary>
+        /// <value>The service locator.</value>
         public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
         /// <summary>
@@ -739,6 +743,11 @@ namespace YAF.Core.Services.Migrations
             }
         }
 
+        /// <summary>
+        /// Upgrades the tables polls.
+        /// </summary>
+        /// <param name="dbAccess">The database access.</param>
+        /// <param name="dbCommand">The database command.</param>
         public void UpgradeTablesPolls(IDbAccess dbAccess, IDbCommand dbCommand)
         {
             // should drop it else error

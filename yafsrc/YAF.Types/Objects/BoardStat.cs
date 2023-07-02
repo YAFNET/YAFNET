@@ -24,18 +24,80 @@
 
 namespace YAF.Types.Objects;
 
+/// <summary>
+/// Class BoardStat.
+/// </summary>
 public class BoardStat
 {
-    public int Categories { get;set; }
+    /// <summary>
+    /// Gets or sets the categories.
+    /// </summary>
+    /// <value>The categories.</value>
+    public int Categories { get; set; }
+
+    /// <summary>
+    /// Gets or sets the posts.
+    /// </summary>
+    /// <value>The posts.</value>
     public int Posts { get; set; }
+
+    /// <summary>
+    /// Gets or sets the topics.
+    /// </summary>
+    /// <value>The topics.</value>
     public int Topics { get; set; }
+
+    /// <summary>
+    /// Gets or sets the forums.
+    /// </summary>
+    /// <value>The forums.</value>
     public int Forums { get; set; }
+
+    /// <summary>
+    /// Gets or sets the last user style.
+    /// </summary>
+    /// <value>The last user style.</value>
     public DateTime? LastPost { get; set; }
+
+    /// <summary>
+    /// Gets or sets the last user identifier.
+    /// </summary>
+    /// <value>The last user identifier.</value>
     public int? LastUserID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the last user.
+    /// </summary>
+    /// <value>The last user.</value>
     public string LastUser { get; set; }
+
+    /// <summary>
+    /// Gets or sets the last name of the user display.
+    /// </summary>
+    /// <value>The last name of the user display.</value>
     public string LastUserDisplayName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the last user style.
+    /// </summary>
+    /// <value>The last user style.</value>
     public string LastUserStyle { get; set; }
+
+    /// <summary>
+    /// Gets or sets the last user suspended.
+    /// </summary>
+    /// <value>The last user suspended.</value>
     public DateTime? LastUserSuspended { get; set; }
+
+    /// <summary>
+    /// Gets or sets the users.
+    /// </summary>
+    /// <value>The users.</value>
     public int Users { get; set; }
+
+    /// <summary>
+    /// Gets or sets the board start.
+    /// </summary>
+    /// <value>The board start.</value>
     public DateTime BoardStart { get; set; }
 }

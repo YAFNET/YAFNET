@@ -35,6 +35,10 @@ using YAF.Types.Objects;
 /// </summary>
 public class BoardInfo : IHaveServiceLocator
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BoardInfo"/> class.
+    /// </summary>
+    /// <param name="serviceLocator">The service locator.</param>
     public BoardInfo(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
@@ -123,6 +127,11 @@ public class BoardInfo : IHaveServiceLocator
         return this.Get<IUrlHelper>().Content($"~/js/{resourceName}");
     }
 
+    /// <summary>
+    /// Helper function that creates the URL to the css folder.
+    /// </summary>
+    /// <param name="resourceName">Name of the resource.</param>
+    /// <returns>System.String.</returns>
     public string GetUrlToCss([NotNull] string resourceName)
     {
         CodeContracts.VerifyNotNull(resourceName);

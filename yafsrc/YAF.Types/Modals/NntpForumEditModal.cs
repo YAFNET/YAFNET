@@ -27,17 +27,45 @@ namespace YAF.Types.Modals;
 using System;
 using System.ComponentModel.DataAnnotations;
 
+/// <summary>
+/// Class NntpForumEditModal.
+/// </summary>
 public class NntpForumEditModal
 {
+    /// <summary>
+    /// Gets or sets the identifier.
+    /// </summary>
+    /// <value>The identifier.</value>
     public int? Id { get; set; }
 
+    /// <summary>
+    /// Gets or sets the NNTP server identifier.
+    /// </summary>
+    /// <value>The NNTP server identifier.</value>
     public int NntpServerID { get; set; }
 
+    /// <summary>
+    /// Gets or sets the forum identifier.
+    /// </summary>
+    /// <value>The forum identifier.</value>
     public int ForumID { get; set; }
 
+    /// <summary>
+    /// Gets or sets the name of the group.
+    /// </summary>
+    /// <value>The name of the group.</value>
     [Required]
     public string GroupName { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether this <see cref="NntpForumEditModal"/> is active.
+    /// </summary>
+    /// <value><c>true</c> if active; otherwise, <c>false</c>.</value>
     public bool Active { get; set; } = true;
+
+    /// <summary>
+    /// Gets or sets the date cut off.
+    /// </summary>
+    /// <value>The date cut off.</value>
     public DateTime DateCutOff { get; set; }
 }

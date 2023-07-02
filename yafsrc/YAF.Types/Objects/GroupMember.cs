@@ -24,17 +24,40 @@
 
 namespace YAF.Types.Objects;
 
+/// <summary>
+/// Class GroupMember.
+/// </summary>
 public class GroupMember
 {
+    /// <summary>
+    /// Gets or sets the group identifier.
+    /// </summary>
+    /// <value>The group identifier.</value>
     public int GroupID { get; set; }
 
+    /// <summary>
+    /// Gets or sets the name.
+    /// </summary>
+    /// <value>The name.</value>
     public string Name { get; set; }
 
+    /// <summary>
+    /// Gets or sets the user identifier.
+    /// </summary>
+    /// <value>The user identifier.</value>
     public int? UserID { get; set; }
 
+    /// <summary>
+    /// Gets a value indicating whether this instance is member.
+    /// </summary>
+    /// <value><c>true</c> if this instance is member; otherwise, <c>false</c>.</value>
     [Ignore]
     public bool IsMember => this.UserID.HasValue;
 
+    /// <summary>
+    /// Gets or sets a value indicating whether this <see cref="GroupMember"/> is selected.
+    /// </summary>
+    /// <value><c>true</c> if selected; otherwise, <c>false</c>.</value>
     [Ignore]
     public bool Selected { get; set; }
 }

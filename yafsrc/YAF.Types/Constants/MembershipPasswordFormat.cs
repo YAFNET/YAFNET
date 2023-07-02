@@ -24,6 +24,9 @@
 
 namespace YAF.Types.Constants;
 
+/// <summary>
+/// Enum MembershipPasswordFormat
+/// </summary>
 public enum MembershipPasswordFormat
 {
     /// <summary>

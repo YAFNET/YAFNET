@@ -632,6 +632,10 @@ public static class StaticDataHelper
         return list;
     }
 
+    /// <summary>
+    /// Gets the topic priorities.
+    /// </summary>
+    /// <returns>IReadOnlyCollection&lt;SelectListItem&gt;.</returns>
     public static IReadOnlyCollection<SelectListItem> TopicPriorities()
     {
         var list = new List<SelectListItem>();

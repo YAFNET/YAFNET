@@ -29,8 +29,16 @@ using Microsoft.Extensions.Logging;
 
 using YAF.Core.Logger;
 
+/// <summary>
+/// Class DbLoggerExtensions.
+/// </summary>
 public static class DbLoggerExtensions
 {
+    /// <summary>
+    /// Adds the database logger.
+    /// </summary>
+    /// <param name="builder">The builder.</param>
+    /// <returns>ILoggingBuilder.</returns>
     public static ILoggingBuilder AddDbLogger(this ILoggingBuilder builder)
     {
         builder.Services.AddSingleton<ILoggerProvider, DbLoggerProvider>();

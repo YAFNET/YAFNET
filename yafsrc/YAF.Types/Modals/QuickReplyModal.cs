@@ -26,10 +26,21 @@ namespace YAF.Types.Modals;
 
 using System.ComponentModel.DataAnnotations;
 
+/// <summary>
+/// Class QuickReplyModal.
+/// </summary>
 public class QuickReplyModal
 {
+    /// <summary>
+    /// Gets or sets the quick reply editor.
+    /// </summary>
+    /// <value>The quick reply editor.</value>
     [Required]
     public string QuickReplyEditor { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether [topic watch].
+    /// </summary>
+    /// <value><c>true</c> if [topic watch]; otherwise, <c>false</c>.</value>
     public bool TopicWatch { get; set; }
 }

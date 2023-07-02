@@ -25,11 +25,22 @@
 namespace YAF.Types.Objects.Model; 
 
 using System.Globalization;
-
 using System.Collections.Generic;
 
+/// <summary>
+/// Class CultureSwitcherModel.
+/// </summary>
 public class CultureSwitcherModel
 {
+    /// <summary>
+    /// Gets or sets the current UI culture.
+    /// </summary>
+    /// <value>The current UI culture.</value>
     public CultureInfo CurrentUICulture { get; set; }
+
+    /// <summary>
+    /// Gets or sets the supported cultures.
+    /// </summary>
+    /// <value>The supported cultures.</value>
     public List<CultureInfo> SupportedCultures { get; set; }
 }

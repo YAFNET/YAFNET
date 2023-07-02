@@ -26,6 +26,9 @@ namespace YAF.Web.Extensions;
 
 using YAF.Core.BasePages;
 
+/// <summary>
+/// Class ForumPageExtensions.
+/// </summary>
 public static class ForumPageExtensions
 {
     public static string GeneratePageTitle(this ForumPage page)

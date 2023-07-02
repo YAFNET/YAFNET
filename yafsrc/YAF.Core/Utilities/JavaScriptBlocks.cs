@@ -1354,6 +1354,10 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             ";
     }
 
+    /// <summary>
+    /// Select2 load js.
+    /// </summary>
+    /// <returns>System.String.</returns>
     [NotNull]
     public static string Select2LoadJs()
     {
@@ -1623,6 +1627,10 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
             });";
     }
 
+    /// <summary>
+    /// ToolTip js.
+    /// </summary>
+    /// <returns>System.String.</returns>
     [NotNull]
     public static string ToolTipJs()
     {

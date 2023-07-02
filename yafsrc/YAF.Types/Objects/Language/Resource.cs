@@ -26,12 +26,23 @@ namespace YAF.Types.Objects.Language;
 
 using Newtonsoft.Json;
 
+/// <summary>
+/// Class Resource.
+/// </summary>
 [JsonObject]
 public class Resource
 {
+    /// <summary>
+    /// Gets or sets the tag.
+    /// </summary>
+    /// <value>The tag.</value>
     [JsonProperty("@tag")]
     public string Tag { get; set; }
 
+    /// <summary>
+    /// Gets or sets the text.
+    /// </summary>
+    /// <value>The text.</value>
     [JsonProperty("#text")]
     public string Text { get; set; }
 }

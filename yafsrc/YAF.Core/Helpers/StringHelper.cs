@@ -26,8 +26,16 @@ namespace YAF.Core.Helpers;
 
 using System.Web;
 
+/// <summary>
+/// Class StringHelper.
+/// </summary>
 public static class StringHelper
 {
+    /// <summary>
+    /// Gets the abbreviation.
+    /// </summary>
+    /// <param name="data">The data.</param>
+    /// <returns>System.String.</returns>
     public static string GetAbbreviation(this string data)
     {
         var trimmedData = data.Unidecode().Trim();

@@ -151,27 +151,59 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles>,
         return this.GetRepository<AspNetRoles>().GetSingleAsync(r => r.Name == normalizedRoleName, cancellationToken);
     }
 
+    /// <summary>
+    /// Gets the ID for a role from the store as an asynchronous operation.
+    /// </summary>
+    /// <param name="role">The role whose ID should be returned.</param>
+    /// <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken" /> used to propagate notifications that the operation should be canceled.</param>
+    /// <returns>A <see cref="T:System.Threading.Tasks.Task`1" /> that contains the ID of the role.</returns>
     public Task<string> GetRoleIdAsync(AspNetRoles role, CancellationToken cancellationToken)
     {
         return Task.FromResult(role.Id);
     }
 
+    /// <summary>
+    /// Gets the name of a role from the store as an asynchronous operation.
+    /// </summary>
+    /// <param name="role">The role whose name should be returned.</param>
+    /// <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken" /> used to propagate notifications that the operation should be canceled.</param>
+    /// <returns>A <see cref="T:System.Threading.Tasks.Task`1" /> that contains the name of the role.</returns>
     public Task<string> GetRoleNameAsync(AspNetRoles role, CancellationToken cancellationToken)
     {
         return Task.FromResult(role.Name);
     }
 
+    /// <summary>
+    /// Sets the name of a role in the store as an asynchronous operation.
+    /// </summary>
+    /// <param name="role">The role whose name should be set.</param>
+    /// <param name="roleName">The name of the role.</param>
+    /// <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken" /> used to propagate notifications that the operation should be canceled.</param>
+    /// <returns>The <see cref="T:System.Threading.Tasks.Task" /> that represents the asynchronous operation.</returns>
     public Task SetRoleNameAsync(AspNetRoles role, string roleName, CancellationToken cancellationToken)
     {
         role.Name = roleName;
         return Task.FromResult(0);
     }
 
+    /// <summary>
+    /// Get a role's normalized name as an asynchronous operation.
+    /// </summary>
+    /// <param name="role">The role whose normalized name should be retrieved.</param>
+    /// <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken" /> used to propagate notifications that the operation should be canceled.</param>
+    /// <returns>A <see cref="T:System.Threading.Tasks.Task`1" /> that contains the name of the role.</returns>
     public Task<string> GetNormalizedRoleNameAsync(AspNetRoles role, CancellationToken cancellationToken)
     {
         return Task.FromResult(role.Name);
     }
 
+    /// <summary>
+    /// Set a role's normalized name as an asynchronous operation.
+    /// </summary>
+    /// <param name="role">The role whose normalized name should be set.</param>
+    /// <param name="normalizedName">The normalized name to set</param>
+    /// <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken" /> used to propagate notifications that the operation should be canceled.</param>
+    /// <returns>The <see cref="T:System.Threading.Tasks.Task" /> that represents the asynchronous operation.</returns>
     public Task SetNormalizedRoleNameAsync(AspNetRoles role, string normalizedName, CancellationToken cancellationToken)
     {
         role.Name = normalizedName;

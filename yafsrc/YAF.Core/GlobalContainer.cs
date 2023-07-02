@@ -29,5 +29,9 @@ namespace YAF.Core;
 /// </summary>
 public static class GlobalContainer
 {
+    /// <summary>
+    /// Gets or sets the automatic fac container.
+    /// </summary>
+    /// <value>The automatic fac container.</value>
     public static ILifetimeScope AutoFacContainer { get; set; }
 }

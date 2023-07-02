@@ -27,10 +27,16 @@ namespace YAF.Core.Utilities.StringUtils;
 using System;
 using System.Collections.Concurrent;
 
+/// <summary>
+/// Class Unidecoder.
+/// </summary>
 public static partial class Unidecoder
 {
     static ConcurrentDictionary<int, string[]> characters = new(3, 256);
 
+    /// <summary>
+    /// Initializes static members of the <see cref="Unidecoder"/> class.
+    /// </summary>
     static Unidecoder()
     {
         characters.TryAdd(0 /*0 00*/, new[] {

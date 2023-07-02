@@ -26,6 +26,9 @@ namespace YAF.Web.HtmlHelpers;
 
 using YAF.Types.Attributes;
 
+/// <summary>
+/// Class IconHtmlHelper.
+/// </summary>
 public static class IconHtmlHelper
 {
     /// <summary>

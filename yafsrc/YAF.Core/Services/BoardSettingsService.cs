@@ -31,6 +31,11 @@ using YAF.Types.Attributes;
 using YAF.Types.Exceptions;
 using YAF.Types.Models;
 
+/// <summary>
+/// Class BoardSettingsService.
+/// Implements the <see cref="YAF.Types.Interfaces.IHaveServiceLocator" />
+/// </summary>
+/// <seealso cref="YAF.Types.Interfaces.IHaveServiceLocator" />
 public class BoardSettingsService : IHaveServiceLocator
 {
     /// <summary>Initializes a new instance of the <see cref="T:YAF.Core.Services.BoardSettingsService" /> class.</summary>

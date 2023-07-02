@@ -56,6 +56,10 @@ public class InitPageLoadEvent : IAmEvent
     /// <value>The page load data.</value>
     public Tuple<PageLoad, User, Category, Forum, Topic, Message> PageLoadData { get; set; }
 
+    /// <summary>
+    /// Gets or sets the page query data.
+    /// </summary>
+    /// <value>The page query data.</value>
     public PageQueryData PageQueryData { get; set; }
 
     /// <summary>

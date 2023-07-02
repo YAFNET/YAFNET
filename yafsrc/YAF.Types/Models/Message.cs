@@ -139,6 +139,10 @@ public class Message : IEntity, IHaveID
     [Ignore]
     public string TopicName { get; set; }
 
+    /// <summary>
+    /// Gets or sets the topic.
+    /// </summary>
+    /// <value>The topic.</value>
     [Reference]
     public Topic Topic { get; set; }
 
@@ -168,6 +172,10 @@ public class Message : IEntity, IHaveID
     [Required]
     public int Indent { get; set; }
 
+    /// <summary>
+    /// Gets or sets the user.
+    /// </summary>
+    /// <value>The user.</value>
     [Reference]
     public User User { get; set; }
 

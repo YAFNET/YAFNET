@@ -29,8 +29,17 @@ using System.Collections.Generic;
 
 using YAF.Types.Models;
 
+/// <summary>
+/// Class PollService.
+/// Implements the <see cref="YAF.Types.Interfaces.IHaveServiceLocator" />
+/// </summary>
+/// <seealso cref="YAF.Types.Interfaces.IHaveServiceLocator" />
 public class PollService : IHaveServiceLocator
 {
+    /// <summary>
+    /// Initializes a new instance of the <see cref="PollService"/> class.
+    /// </summary>
+    /// <param name="serviceLocator">The service locator.</param>
     public PollService(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;

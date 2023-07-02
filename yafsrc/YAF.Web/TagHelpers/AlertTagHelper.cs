@@ -93,6 +93,10 @@ public class AlertTagHelper : TagHelper, IHaveServiceLocator, IHaveLocalization
     /// </summary>
     public string LocalizedTag { get; set; }
 
+    /// <summary>
+    /// Gets or sets the localized param0.
+    /// </summary>
+    /// <value>The localized param0.</value>
     public string LocalizedParam0 { get; set; }
 
     /// <summary>

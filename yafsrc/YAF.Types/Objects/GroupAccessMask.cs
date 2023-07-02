@@ -24,11 +24,26 @@
 
 namespace YAF.Types.Objects;
 
+/// <summary>
+/// Class GroupAccessMask.
+/// </summary>
 public class GroupAccessMask
 {
+    /// <summary>
+    /// Gets or sets the group identifier.
+    /// </summary>
+    /// <value>The group identifier.</value>
     public int GroupID { get; set; }
 
+    /// <summary>
+    /// Gets or sets the name of the group.
+    /// </summary>
+    /// <value>The name of the group.</value>
     public string GroupName { get; set; }
 
+    /// <summary>
+    /// Gets or sets the access mask identifier.
+    /// </summary>
+    /// <value>The access mask identifier.</value>
     public int AccessMaskID { get; set; }
 }

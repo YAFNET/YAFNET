@@ -198,40 +198,112 @@ public class AspNetUsers<TKey> : IEntity, IHasId<TKey>
     /// </summary>
     public virtual int AccessFailedCount { get; set; }
 
+    /// <summary>
+    /// Gets or sets the application identifier.
+    /// </summary>
+    /// <value>The application identifier.</value>
     public Guid ApplicationId { get; set; }
 
+    /// <summary>
+    /// Gets or sets the mobile alias.
+    /// </summary>
+    /// <value>The mobile alias.</value>
     public string MobileAlias { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether this instance is anonymous.
+    /// </summary>
+    /// <value><c>true</c> if this instance is anonymous; otherwise, <c>false</c>.</value>
     public bool IsAnonymous { get; set; }
 
+    /// <summary>
+    /// Gets or sets the last activity date.
+    /// </summary>
+    /// <value>The last activity date.</value>
     public DateTime? LastActivityDate { get; set; }
 
+    /// <summary>
+    /// Gets or sets the mobile pin.
+    /// </summary>
+    /// <value>The mobile pin.</value>
     public string MobilePIN { get; set; }
 
+    /// <summary>
+    /// Gets or sets the lowered email.
+    /// </summary>
+    /// <value>The lowered email.</value>
     public string LoweredEmail { get; set; }
 
+    /// <summary>
+    /// Gets or sets the name of the lowered user.
+    /// </summary>
+    /// <value>The name of the lowered user.</value>
     public string LoweredUserName { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether this instance is approved.
+    /// </summary>
+    /// <value><c>true</c> if this instance is approved; otherwise, <c>false</c>.</value>
     public bool IsApproved { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether this instance is locked out.
+    /// </summary>
+    /// <value><c>true</c> if this instance is locked out; otherwise, <c>false</c>.</value>
     public bool IsLockedOut { get; set; }
 
+    /// <summary>
+    /// Gets or sets the create date.
+    /// </summary>
+    /// <value>The create date.</value>
     public DateTime? CreateDate { get; set; }
 
+    /// <summary>
+    /// Gets or sets the last login date.
+    /// </summary>
+    /// <value>The last login date.</value>
     public DateTime? LastLoginDate { get; set; }
 
+    /// <summary>
+    /// Gets or sets the last password changed date.
+    /// </summary>
+    /// <value>The last password changed date.</value>
     public DateTime? LastPasswordChangedDate { get; set; }
 
+    /// <summary>
+    /// Gets or sets the last lockout date.
+    /// </summary>
+    /// <value>The last lockout date.</value>
     public DateTime? LastLockoutDate { get; set; }
 
+    /// <summary>
+    /// Gets or sets the failed password attempt count.
+    /// </summary>
+    /// <value>The failed password attempt count.</value>
     public int FailedPasswordAttemptCount { get; set; }
 
+    /// <summary>
+    /// Gets or sets the failed password attempt window start.
+    /// </summary>
+    /// <value>The failed password attempt window start.</value>
     public DateTime? FailedPasswordAttemptWindowStart { get; set; }
 
+    /// <summary>
+    /// Gets or sets the failed password answer attempt count.
+    /// </summary>
+    /// <value>The failed password answer attempt count.</value>
     public int FailedPasswordAnswerAttemptCount { get; set; }
 
+    /// <summary>
+    /// Gets or sets the failed password answer attempt window start.
+    /// </summary>
+    /// <value>The failed password answer attempt window start.</value>
     public DateTime? FailedPasswordAnswerAttemptWindowStart { get; set; }
 
+    /// <summary>
+    /// Gets or sets the comment.
+    /// </summary>
+    /// <value>The comment.</value>
     public string Comment { get; set; }
 
     //        [Ignore]

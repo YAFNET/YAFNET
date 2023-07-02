@@ -28,6 +28,15 @@ using Microsoft.AspNetCore.Authorization;
 
 using System;
 
+/// <summary>
+/// Class AuthorizationAttribute.
+/// Implements the <see cref="AuthorizeAttribute" />
+/// Implements the <see cref="Microsoft.AspNetCore.Mvc.Filters.IAuthorizationFilter" />
+/// Implements the <see cref="YAF.Types.Interfaces.IHaveServiceLocator" />
+/// </summary>
+/// <seealso cref="AuthorizeAttribute" />
+/// <seealso cref="Microsoft.AspNetCore.Mvc.Filters.IAuthorizationFilter" />
+/// <seealso cref="YAF.Types.Interfaces.IHaveServiceLocator" />
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
 public class AuthorizationAttribute : AuthorizeAttribute, IAuthorizationFilter, IHaveServiceLocator
 {
@@ -38,11 +47,19 @@ public class AuthorizationAttribute : AuthorizeAttribute, IAuthorizationFilter, 
 
     private readonly AuthorizationAccess authorizationAccess;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AuthorizationAttribute"/> class.
+    /// </summary>
+    /// <param name="access">The access.</param>
     public AuthorizationAttribute(AuthorizationAccess access)
     {
         this.authorizationAccess = access;
     }
 
+    /// <summary>
+    /// Called early in the filter pipeline to confirm request is authorized.
+    /// </summary>
+    /// <param name="context">The <see cref="T:Microsoft.AspNetCore.Mvc.Filters.AuthorizationFilterContext" />.</param>
     public void OnAuthorization(AuthorizationFilterContext context)
     {
         var user = context.HttpContext.User;

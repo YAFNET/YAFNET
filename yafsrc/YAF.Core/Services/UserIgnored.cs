@@ -35,10 +35,15 @@ using YAF.Types.Models;
 public class UserIgnored : IUserIgnored, IHaveServiceLocator
 {
     /// <summary>
-    ///   The _user ignore list.
+    ///   The user ignore list.
     /// </summary>
     private List<int> _userIgnoreList;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UserIgnored"/> class.
+    /// </summary>
+    /// <param name="contextAccessor">The context accessor.</param>
+    /// <param name="serviceLocator">The service locator.</param>
     public UserIgnored([NotNull] IHttpContextAccessor contextAccessor, IServiceLocator serviceLocator)
     {
         CodeContracts.VerifyNotNull(contextAccessor);

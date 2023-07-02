@@ -120,6 +120,10 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// </summary>
     public SessionMessageService SessionMessageService => this.loadMessage ??= new SessionMessageService();
 
+    /// <summary>
+    /// Gets the inline elements.
+    /// </summary>
+    /// <value>The inline elements.</value>
     public InlineElements InlineElements => this.inlineElements ??= new InlineElements();
 
     /// <summary>

@@ -90,6 +90,10 @@ public class ProfileDefinition : IEntity, IHaveID, IHaveBoardID
     [Default(0)]
     public bool ShowOnRegisterPage { get; set; }
 
+    /// <summary>
+    /// Gets or sets the value.
+    /// </summary>
+    /// <value>The value.</value>
     [Ignore]
     public string Value { get; set; }
 }

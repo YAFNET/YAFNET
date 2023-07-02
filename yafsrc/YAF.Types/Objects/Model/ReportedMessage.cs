@@ -29,8 +29,16 @@ namespace YAF.Types.Objects.Model;
 /// </summary>
 public class ReportedMessage
 {
+    /// <summary>
+    /// Gets or sets the message identifier.
+    /// </summary>
+    /// <value>The message identifier.</value>
     public int MessageID { get; set; }
 
+    /// <summary>
+    /// Gets or sets the message.
+    /// </summary>
+    /// <value>The message.</value>
     public string Message { get; set; }
 
     /// <summary>
@@ -47,16 +55,76 @@ public class ReportedMessage
     /// Gets or sets the resolved.
     /// </summary>
     public bool? Resolved { get; set; }
+
+    /// <summary>
+    /// Gets or sets the original message.
+    /// </summary>
+    /// <value>The original message.</value>
     public string OriginalMessage { get; set; }
+
+    /// <summary>
+    /// Gets or sets the flags.
+    /// </summary>
+    /// <value>The flags.</value>
     public int Flags { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether this instance is moderator changed.
+    /// </summary>
+    /// <value><c>null</c> if [is moderator changed] contains no value, <c>true</c> if [is moderator changed]; otherwise, <c>false</c>.</value>
     public bool? IsModeratorChanged { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name of the user.
+    /// </summary>
+    /// <value>The name of the user.</value>
     public string UserName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the display name of the user.
+    /// </summary>
+    /// <value>The display name of the user.</value>
     public string UserDisplayName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of reports.
+    /// </summary>
+    /// <value>The number of reports.</value>
     public int UserID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the suspended.
+    /// </summary>
+    /// <value>The suspended.</value>
     public DateTime? Suspended { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user style.
+    /// </summary>
+    /// <value>The user style.</value>
     public string UserStyle { get; set; }
+
+    /// <summary>
+    /// Gets or sets the posted.
+    /// </summary>
+    /// <value>The posted.</value>
     public DateTime Posted { get; set; }
+
+    /// <summary>
+    /// Gets or sets the topic identifier.
+    /// </summary>
+    /// <value>The topic identifier.</value>
     public int TopicID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name of the topic.
+    /// </summary>
+    /// <value>The name of the topic.</value>
     public string TopicName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of reports.
+    /// </summary>
+    /// <value>The number of reports.</value>
     public int NumberOfReports { get; set; }
 }

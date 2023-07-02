@@ -26,12 +26,27 @@ namespace YAF.Types.Modals;
 
 using System.ComponentModel.DataAnnotations;
 
+/// <summary>
+/// Class ReplaceWordsEditModal.
+/// </summary>
 public class ReplaceWordsEditModal
 {
+    /// <summary>
+    /// Gets or sets the identifier.
+    /// </summary>
+    /// <value>The identifier.</value>
     public int? Id { get; set; }
 
+    /// <summary>
+    /// Gets or sets the bad word.
+    /// </summary>
+    /// <value>The bad word.</value>
     [Required]
     public string BadWord { get; set; }
 
+    /// <summary>
+    /// Gets or sets the good word.
+    /// </summary>
+    /// <value>The good word.</value>
     public string GoodWord { get; set; }
 }

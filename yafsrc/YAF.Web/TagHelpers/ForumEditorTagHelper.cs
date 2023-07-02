@@ -47,13 +47,29 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// </summary>
     public ILocalization Localization => this.localization ??= this.Get<ILocalization>();
 
+    /// <summary>
+    /// Gets or sets the editor mode.
+    /// </summary>
+    /// <value>The editor mode.</value>
     [HtmlAttributeName("editor-mode")]
     public EditorMode EditorMode { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether [users can upload].
+    /// </summary>
+    /// <value><c>true</c> if [users can upload]; otherwise, <c>false</c>.</value>
     public bool UsersCanUpload { get; set; }
 
+    /// <summary>
+    /// Gets or sets the maximum characters.
+    /// </summary>
+    /// <value>The maximum characters.</value>
     public int MaxCharacters { get; set; }
 
+    /// <summary>
+    /// Gets or sets the ASP for.
+    /// </summary>
+    /// <value>The ASP for.</value>
     public ModelExpression AspFor { get; set; }
 
     /// <summary>

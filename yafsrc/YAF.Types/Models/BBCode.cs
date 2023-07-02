@@ -121,6 +121,10 @@ public class BBCode : IEntity, IHaveBoardID, IHaveID
     [Required]
     public int ExecOrder { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether this <see cref="BBCode"/> is selected.
+    /// </summary>
+    /// <value><c>true</c> if selected; otherwise, <c>false</c>.</value>
     [Ignore]
     public bool Selected { get; set; }
 }

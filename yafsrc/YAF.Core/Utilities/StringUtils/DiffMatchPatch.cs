@@ -84,30 +84,47 @@ internal static class CompatibilityExtensions
      *  Diff(Operation.EQUAL, " world.")}
      * which means: delete "Hello", add "Goodbye" and keep " world."
      */
+/// <summary>
+/// Enum Operation
+/// </summary>
 public enum Operation
 {
+    /// <summary>
+    /// The delete
+    /// </summary>
     Delete,
 
+    /// <summary>
+    /// The insert
+    /// </summary>
     Insert,
 
+    /// <summary>
+    /// The equal
+    /// </summary>
     Equal
 }
 
-/**
-     * Class representing one diff operation.
-     */
+/// <summary>
+/// Class representing one diff operation.
+/// </summary>
 public class Diff
 {
+    /// <summary>
+    /// The operation
+    /// </summary>
     public Operation Operation;
 
-    // The text associated with this diff operation.
+    /// <summary>
+    /// The text associated with this diff operation.
+    /// </summary>
     public string Text;
 
-    /**
-         * Constructor.  Initializes the diff with the provided values.
-         * @param operation One of INSERT, DELETE or EQUAL.
-         * @param text The text being applied.
-         */
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Diff"/> class.
+    /// </summary>
+    /// <param name="operation">The operation.</param>
+    /// <param name="text">The text.</param>
     public Diff(Operation operation, string text)
     {
         // Construct a diff with the specified operation and text.
@@ -116,35 +133,38 @@ public class Diff
     }
 }
 
-/**
-     * Class containing the diff, match and patch methods.
-     * Also Contains the behaviour settings.
-     */
+/// <summary>
+/// Class containing the diff, match and patch methods.
+/// Also Contains the behaviour settings.
+/// </summary>
 public class DiffMatchPatch
 {
-    // Defaults.
-    // Set these on your diff_match_patch instance to override the defaults.
-
-    // Number of seconds to map a diff before giving up (0 for infinity).
+    /// <summary>
+    /// Number of seconds to map a diff before giving up (0 for infinity).
+    /// </summary>
     public float DiffTimeout = 1.0f;
 
-    // How far to search for a match (0 = exact location, 1000+ = broad match).
-    // A match this many characters away from the expected location will add
-    // 1.0 to the score (0.0 is a perfect match).
+    /// <summary>
+    /// How far to search for a match (0 = exact location, 1000+ = broad match).
+    /// A match this many characters away from the expected location will add
+    /// 1.0 to the score (0.0 is a perfect match).
+    /// </summary>
     public int MatchDistance = 1000;
 
-    // Chunk size for context length.
+    /// <summary>
+    /// Chunk size for context length.
+    /// </summary>
     public short PatchMargin = 4;
 
-    /**
-         * Find the differences between two texts.
-         * @param text1 Old string to be diffed.
-         * @param text2 New string to be diffed.
-         * @param Check lines Speedup flag.  If false, then don't run a
-         *     line-level diff first to identify the changed areas.
-         *     If true, then run a faster slightly less optimal diff.
-         * @return List of Diff objects.
-         */
+    /// <summary>
+    /// Find the differences between two texts.
+    /// </summary>
+    /// <param name="text1">Old string to be diffed.</param>
+    /// <param name="text2">New string to be diffed.</param>
+    /// <param name="checkLines">Check lines Speedup flag.  If false, then don't run a
+    /// line-level diff first to identify the changed areas.
+    /// If true, then run a faster slightly less optimal diff.</param>
+    /// <returns>List of Diff objects.</returns>
     public List<Diff> DiffMain(string text1, string text2, bool checkLines)
     {
         // Set a deadline by which time the diff must be complete.
@@ -161,19 +181,19 @@ public class DiffMatchPatch
         return this.DiffMain(text1, text2, checkLines, deadline);
     }
 
-    /**
-         * Find the differences between two texts.  Simplifies the problem by
-         * stripping any common prefix or suffix off the texts before diffing.
-         * @param text1 Old string to be diffed.
-         * @param text2 New string to be diffed.
-         * @param checkLines Speedup flag.  If false, then don't run a
-         *     line-level diff first to identify the changed areas.
-         *     If true, then run a faster slightly less optimal diff.
-         * @param deadline Time when the diff should be complete by.  Used
-         *     internally for recursive calls.  Users should set DiffTimeout
-         *     instead.
-         * @return List of Diff objects.
-         */
+    /// <summary>
+    /// Find the differences between two texts.  Simplifies the problem by
+    /// stripping any common prefix or suffix off the texts before diffing.
+    /// </summary>
+    /// <param name="text1">Old string to be diffed.</param>
+    /// <param name="text2">New string to be diffed.</param>
+    /// <param name="checkLines">Time when the diff should be complete by.
+    /// Used internally for recursive calls.Users should set DiffTimeout instead.</param>
+    /// <param name="deadline">Time when the diff should be complete by.
+    /// Used internally for recursive calls.Users should set DiffTimeout
+    /// instead.
+    /// </param>
+    /// <returns>List of Diff objects.</returns>
     private List<Diff> DiffMain(string text1, string text2, bool checkLines, DateTime deadline)
     {
         // Check for null inputs not needed since null can't be passed in C#.
@@ -222,16 +242,26 @@ public class DiffMatchPatch
     }
 
     /**
-         * Find the differences between two texts.  Assumes that the texts do not
-         * have any common prefix or suffix.
-         * @param text1 Old string to be diffed.
-         * @param text2 New string to be diffed.
-         * @param checkLines Speedup flag.  If false, then don't run a
-         *     line-level diff first to identify the changed areas.
-         *     If true, then run a faster slightly less optimal diff.
-         * @param deadline Time when the diff should be complete by.
-         * @return List of Diff objects.
+         * 
+         * @param text1 
+         * @param text2 
+         * @param checkLines 
+         * @param deadline 
+         * @return 
          */
+
+
+    /// <summary>
+    /// Find the differences between two texts.  Assumes that the texts do not
+    /// have any common prefix or suffix.
+    /// </summary>
+    /// <param name="text1">Old string to be diffed.</param>
+    /// <param name="text2">New string to be diffed.</param>
+    /// <param name="checkLines">Speedup flag.  If false, then don't run a
+    /// line-level diff first to identify the changed areas.
+    /// If true then run a faster slightly less optimal diff.</param>
+    /// <param name="deadline">Time when the diff should be complete by.</param>
+    /// <returns>List of Diff objects.</returns>
     private List<Diff> Compute(string text1, string text2, bool checkLines, DateTime deadline)
     {
         var diffs = new List<Diff>();
@@ -309,6 +339,14 @@ public class DiffMatchPatch
          * @param deadline Time when the diff should be complete by.
          * @return List of Diff objects.
          */
+
+    /// <summary>
+    /// Lines the mode.
+    /// </summary>
+    /// <param name="text1">The text1.</param>
+    /// <param name="text2">The text2.</param>
+    /// <param name="deadline">The deadline.</param>
+    /// <returns>List&lt;Diff&gt;.</returns>
     private List<Diff> LineMode(string text1, string text2, DateTime deadline)
     {
         // Scan the text on a line-by-line basis first.
@@ -380,6 +418,14 @@ public class DiffMatchPatch
          * @param deadline Time at which to bail if not yet complete.
          * @return List of Diff objects.
          */
+
+    /// <summary>
+    /// Bisects the specified text1.
+    /// </summary>
+    /// <param name="text1">The text1.</param>
+    /// <param name="text2">The text2.</param>
+    /// <param name="deadline">The deadline.</param>
+    /// <returns>List&lt;Diff&gt;.</returns>
     protected List<Diff> Bisect(string text1, string text2, DateTime deadline)
     {
         // Cache the text lengths to prevent multiple calls.
@@ -535,6 +581,16 @@ public class DiffMatchPatch
          * @param deadline Time at which to bail if not yet complete.
          * @return LinkedList of Diff objects.
          */
+
+    /// <summary>
+    /// Bisects the split.
+    /// </summary>
+    /// <param name="text1">The text1.</param>
+    /// <param name="text2">The text2.</param>
+    /// <param name="x">The x.</param>
+    /// <param name="y">The y.</param>
+    /// <param name="deadline">The deadline.</param>
+    /// <returns>List&lt;Diff&gt;.</returns>
     private List<Diff> BisectSplit(string text1, string text2, int x, int y, DateTime deadline)
     {
         var text1A = text1[..x];
@@ -559,6 +615,13 @@ public class DiffMatchPatch
          *     encoded text2 and the List of unique strings.  The zeroth element
          *     of the List of unique strings is intentionally blank.
          */
+
+    /// <summary>
+    /// Lineses to chars.
+    /// </summary>
+    /// <param name="text1">The text1.</param>
+    /// <param name="text2">The text2.</param>
+    /// <returns>System.Object[].</returns>
     protected object[] LinesToChars(string text1, string text2)
     {
         var lineArray = new List<string>();
@@ -574,15 +637,15 @@ public class DiffMatchPatch
         return new object[] {chars1, chars2, lineArray};
     }
 
-    /**
-         * Split a text into a list of strings.  Reduce the texts to a string of
-         * hashes where each Unicode character represents one line.
-         * @param text String to encode.
-         * @param lineArray List of unique strings.
-         * @param lineHash Map of strings to indices.
-         * @param maxLines Maximum length of lineArray.
-         * @return Encoded string.
-         */
+    /// <summary>
+    /// Split a text into a list of strings.  Reduce the texts to a string of
+    /// hashes where each Unicode character represents one line.
+    /// </summary>
+    /// <param name="text">String to encode.</param>
+    /// <param name="lineArray">Array List of unique strings.</param>
+    /// <param name="lineHash">Hash Map of strings to indices.</param>
+    /// <param name="maxLines">Maximum length of lineArray.</param>
+    /// <returns>Encoded string.</returns>
     private static string LinesToCharsMunge(
         string text,
         ICollection<string> lineArray,
@@ -629,12 +692,12 @@ public class DiffMatchPatch
         return chars.ToString();
     }
 
-    /**
-         * Rehydrate the text in a diff from a string of line hashes to real lines
-         * of text.
-         * @param diffs List of Diff objects.
-         * @param lineArray List of unique strings.
-         */
+    /// <summary>
+    /// Rehydrate the text in a diff from a string of line hashes to real lines
+    /// of text.
+    /// </summary>
+    /// <param name="diffs">diffs List of Diff objects.</param>
+    /// <param name="lineArray">Array List of unique strings.</param>
     protected void CharsToLines(ICollection<Diff> diffs, IList<string> lineArray)
     {
         foreach (var diff in diffs)
@@ -649,12 +712,12 @@ public class DiffMatchPatch
         }
     }
 
-    /**
-         * Determine the common prefix of two strings.
-         * @param text1 First string.
-         * @param text2 Second string.
-         * @return The number of characters common to the start of each string.
-         */
+    /// <summary>
+    /// Determine the common prefix of two strings.
+    /// </summary>
+    /// <param name="text1">First string.</param>
+    /// <param name="text2">Second string.</param>
+    /// <returns>The number of characters common to the start of each string.</returns>
     public int CommonPrefix(string text1, string text2)
     {
         // Performance analysis: https://neil.fraser.name/news/2007/10/09/
@@ -670,12 +733,12 @@ public class DiffMatchPatch
         return n;
     }
 
-    /**
-         * Determine the common suffix of two strings.
-         * @param text1 First string.
-         * @param text2 Second string.
-         * @return The number of characters common to the end of each string.
-         */
+    /// <summary>
+    /// Determine the common suffix of two strings.
+    /// </summary>
+    /// <param name="text1">First string.</param>
+    /// <param name="text2">Second string.</param>
+    /// <returns>The number of characters common to the end of each string.</returns>
     public int CommonSuffix(string text1, string text2)
     {
         // Performance analysis: https://neil.fraser.name/news/2007/10/09/
@@ -693,13 +756,14 @@ public class DiffMatchPatch
         return n;
     }
 
-    /**
-         * Determine if the suffix of one string is the prefix of another.
-         * @param text1 First string.
-         * @param text2 Second string.
-         * @return The number of characters common to the end of the first
-         *     string and the start of the second string.
-         */
+    /// <summary>
+    /// Determine if the suffix of one string is the prefix of another.
+    /// </summary>
+    /// <param name="text1">First string.</param>
+    /// <param name="text2">Second string.</param>
+    /// <returns>The number of characters common to the end of the first
+    /// string and the start of the second string.
+    /// </returns>
     protected int CommonOverlap(string text1, string text2)
     {
         // Cache the text lengths to prevent multiple calls.
@@ -753,16 +817,17 @@ public class DiffMatchPatch
         }
     }
 
-    /**
-         * Do the two texts share a Substring which is at least half the length of
-         * the longer text?
-         * This speedup can produce non-minimal diffs.
-         * @param text1 First string.
-         * @param text2 Second string.
-         * @return Five element String array, containing the prefix of text1, the
-         *     suffix of text1, the prefix of text2, the suffix of text2 and the
-         *     common middle.  Or null if there was no match.
-         */
+    /// <summary>
+    ///  Do the two texts share a Substring which is at least half the length of
+    ///  the longer text?
+    ///  This speedup can produce non-minimal diffs.
+    /// </summary>
+    /// <param name="text1">First string.</param>
+    /// <param name="text2">Second string.</param>
+    /// <returns>Five element String array, containing the prefix of text1, the
+    /// suffix of text1, the prefix of text2, the suffix of text2 and the
+    /// common middle.  Or null if there was no match.
+    /// </returns>
     protected string[] HalfMatch(string text1, string text2)
     {
         if (this.DiffTimeout <= 0)
@@ -806,16 +871,16 @@ public class DiffMatchPatch
         return text1.Length > text2.Length ? hm : new[] {hm[2], hm[3], hm[0], hm[1], hm[4]};
     }
 
-    /**
-         * Does a Substring of shortText exist within longtext such that the
-         * Substring is at least half the length of longtext?
-         * @param longtext Longer string.
-         * @param shortText Shorter string.
-         * @param i Start index of quarter length Substring within longtext.
-         * @return Five element string array, containing the prefix of longtext, the
-         *     suffix of longtext, the prefix of shortText, the suffix of shortText
-         *     and the common middle.  Or null if there was no match.
-         */
+    /// <summary>
+    /// Does a Substring of shortText exist within longtext such that the
+    /// Substring is at least half the length of longtext?
+    /// </summary>
+    /// <param name="longtext">Longer string.</param>
+    /// <param name="shortText">Shorter string.</param>
+    /// <param name="i">Start index of quarter length Substring within longtext.</param>
+    /// <returns>Five element string array, containing the prefix of longtext, the
+    /// suffix of longtext, the prefix of shortText, the suffix of shortText
+    /// and the common middle.Or null if there was no match.</returns>
     private string[] HalfMatchI(string longtext, string shortText, int i)
     {
         // Start with a 1/4 length Substring at position i as a seed.
@@ -844,11 +909,11 @@ public class DiffMatchPatch
         return bestCommon.Length * 2 >= longtext.Length ? new[] {bestLongtextA, bestLongtextB, bestShortTextA, bestShortTextB, bestCommon} : null;
     }
 
-    /**
-         * Reduce the number of edits by eliminating semantically trivial
-         * equalities.
-         * @param diffs List of Diff objects.
-         */
+    /// <summary>
+    /// Reduce the number of edits by eliminating semantically trivial
+    /// equalities.
+    /// </summary>
+    /// <param name="diffs">List of Diff objects.</param>
     public void CleanupSemantic(List<Diff> diffs)
     {
         var changes = false;
@@ -975,12 +1040,12 @@ public class DiffMatchPatch
         }
     }
 
-    /**
-         * Look for single edits surrounded on both sides by equalities
-         * which can be shifted sideways to align the edit to a word boundary.
-         * e.g: The c<ins>at c</ins>ame. -> The <ins>cat </ins>came.
-         * @param diffs List of Diff objects.
-         */
+    /// <summary>
+    /// Look for single edits surrounded on both sides by equalities
+    /// which can be shifted sideways to align the edit to a word boundary.
+    /// e.g: The c<ins>at c</ins>ame. -> The <ins>cat </ins>came.
+    /// </summary>
+    /// <param name="diffs">List of Diff objects.</param>
     public void CleanupSemanticLossless(List<Diff> diffs)
     {
         var pointer = 1;
@@ -1061,14 +1126,14 @@ public class DiffMatchPatch
         }
     }
 
-    /**
-         * Given two strings, compute a score representing whether the internal
-         * boundary falls on logical boundaries.
-         * Scores range from 6 (best) to 0 (worst).
-         * @param one First string.
-         * @param two Second string.
-         * @return The score.
-         */
+    /// <summary>
+    /// Given two strings, compute a score representing whether the internal
+    /// boundary falls on logical boundaries.
+    /// Scores range from 6 (best) to 0 (worst).
+    /// </summary>
+    /// <param name="one">First string.</param>
+    /// <param name="two">Second string.</param>
+    /// <returns>The score.</returns>
     private int CleanupSemanticScore(string one, string two)
     {
         if (one.Length == 0 || two.Length == 0)
@@ -1131,11 +1196,11 @@ public class DiffMatchPatch
 
     private readonly Regex blankLineStart = new("\\A\\r?\\n\\r?\\n");
 
-    /**
-         * Reorder and merge like edit sections.  Merge equalities.
-         * Any edit section can move as long as it doesn't cross an equality.
-         * @param diffs List of Diff objects.
-         */
+    /// <summary>
+    /// Reorder and merge like edit sections.  Merge equalities.
+    /// Any edit section can move as long as it doesn't cross an equality.
+    /// </summary>
+    /// <param name="diffs">List of Diff objects.</param>
     public void CleanupMerge(List<Diff> diffs)
     {
         while (true)
@@ -1278,11 +1343,11 @@ public class DiffMatchPatch
         }
     }
 
-    /**
-         * Convert a Diff list into a pretty HTML report.
-         * @param diffs List of Diff objects.
-         * @return HTML representation.
-         */
+    /// <summary>
+    /// Convert a Diff list into a pretty HTML report.
+    /// </summary>
+    /// <param name="diffs">List of Diff objects.</param>
+    /// <returns>HTML representation.</returns>
     public string PrettyHtml(List<Diff> diffs)
     {
         var html = new StringBuilder();

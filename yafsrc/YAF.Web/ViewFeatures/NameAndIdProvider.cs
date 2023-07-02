@@ -210,20 +210,40 @@ internal static class NameAndIdProvider
     {
         // Cached ambient input for NameAndIdProvider.GetFullHtmlFieldName(). TemplateInfo.HtmlFieldPrefix may
         // change during the lifetime of a ViewContext.
+        /// <summary>
+        /// Gets or sets the HTML field prefix.
+        /// </summary>
+        /// <value>The HTML field prefix.</value>
         public string HtmlFieldPrefix { get; set; }
 
         // Cached input for NameAndIdProvider.GetFullHtmlFieldName().
+        /// <summary>
+        /// Gets or sets the expression.
+        /// </summary>
+        /// <value>The expression.</value>
         public string Expression { get; set; }
 
         // Cached return value for NameAndIdProvider.GetFullHtmlFieldName().
+        /// <summary>
+        /// Gets or sets the full name of the output.
+        /// </summary>
+        /// <value>The full name of the output.</value>
         public string OutputFullName { get; set; }
 
         // Cached input for NameAndIdProvider.CreateSanitizedId(). Since IHtmlHelper.GenerateIdFromName() is
         // available to all, there is no guarantee this is equal to OutputFullName when CreateSanitizedId() is
         // called.
+        /// <summary>
+        /// Gets or sets the full name.
+        /// </summary>
+        /// <value>The full name.</value>
         public string FullName { get; set; }
 
         // Cached return value for NameAndIdProvider.CreateSanitizedId().
+        /// <summary>
+        /// Gets or sets the sanitized identifier.
+        /// </summary>
+        /// <value>The sanitized identifier.</value>
         public string SanitizedId { get; set; }
     }
 }

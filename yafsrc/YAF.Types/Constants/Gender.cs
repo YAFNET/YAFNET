@@ -30,51 +30,123 @@ namespace YAF.Types.Constants;
 /// </summary>
 public enum Gender
 {
+    /// <summary>
+    /// The other
+    /// </summary>
     Other,
 
+    /// <summary>
+    /// The man
+    /// </summary>
     Man,
 
+    /// <summary>
+    /// The woman
+    /// </summary>
     Woman,
 
+    /// <summary>
+    /// The agender
+    /// </summary>
     Agender,
 
+    /// <summary>
+    /// The androgyne
+    /// </summary>
     Androgyne,
 
+    /// <summary>
+    /// The bigender
+    /// </summary>
     Bigender,
 
+    /// <summary>
+    /// The cisgender
+    /// </summary>
     Cisgender,
 
+    /// <summary>
+    /// The female to male
+    /// </summary>
     FemaleToMale,
 
+    /// <summary>
+    /// The gender fluid
+    /// </summary>
     GenderFluid,
 
+    /// <summary>
+    /// The gender nonconforming
+    /// </summary>
     GenderNonconforming,
 
+    /// <summary>
+    /// The gender questioning
+    /// </summary>
     GenderQuestioning,
 
+    /// <summary>
+    /// The genderqueer
+    /// </summary>
     Genderqueer,
 
+    /// <summary>
+    /// The intersex
+    /// </summary>
     Intersex,
 
+    /// <summary>
+    /// The male to female
+    /// </summary>
     MaleToFemale,
 
+    /// <summary>
+    /// The non binary
+    /// </summary>
     NonBinary,
 
+    /// <summary>
+    /// The pangender
+    /// </summary>
     Pangender,
 
+    /// <summary>
+    /// The trans
+    /// </summary>
     Trans,
 
+    /// <summary>
+    /// The transgender
+    /// </summary>
     Transgender,
 
+    /// <summary>
+    /// The trans man
+    /// </summary>
     TransMan,
 
+    /// <summary>
+    /// The trans woman
+    /// </summary>
     TransWoman,
 
+    /// <summary>
+    /// The transfeminine
+    /// </summary>
     Transfeminine,
 
+    /// <summary>
+    /// The transmasculine
+    /// </summary>
     Transmasculine,
 
+    /// <summary>
+    /// The transsexual
+    /// </summary>
     Transsexual,
 
+    /// <summary>
+    /// The two spirit
+    /// </summary>
     TwoSpirit
 }

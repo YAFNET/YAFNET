@@ -76,6 +76,10 @@ public class PrivateMessage : IEntity, IHaveID
     [Ignore]
     public PrivateMessageFlags PrivateMessageFlags => new(this.Flags);
 
+    /// <summary>
+    /// Gets or sets the date time.
+    /// </summary>
+    /// <value>The date time.</value>
     [Ignore]
     public string DateTime { get; set; }
 }

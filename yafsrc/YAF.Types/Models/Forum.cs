@@ -38,6 +38,10 @@ public class Forum : IEntity, IHaveID
     [Alias("ForumID")]
     public int ID { get; set; }
 
+    /// <summary>
+    /// Gets or sets the category.
+    /// </summary>
+    /// <value>The category.</value>
     [Reference]
     public Category Category { get; set; }
 

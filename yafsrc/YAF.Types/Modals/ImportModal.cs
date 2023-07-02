@@ -25,10 +25,18 @@
 namespace YAF.Types.Modals;
 
 using Microsoft.AspNetCore.Http;
+
 using System.ComponentModel.DataAnnotations;
 
+/// <summary>
+/// Class ImportModal.
+/// </summary>
 public class ImportModal
 {
+    /// <summary>
+    /// Gets or sets the import.
+    /// </summary>
+    /// <value>The import.</value>
     [Required]
     public IFormFile Import { get; set; }
 }

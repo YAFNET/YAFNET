@@ -44,6 +44,10 @@ using YAF.Core.BasePages;
 [Route("api/[controller]")]
 public class LoginBox : ForumBaseController
 {
+    /// <summary>
+    /// Shows the modal.
+    /// </summary>
+    /// <returns>IActionResult.</returns>
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PartialViewResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("ShowModal")]
@@ -56,6 +60,11 @@ public class LoginBox : ForumBaseController
                    };
     }
 
+    /// <summary>
+    /// Sign in as an asynchronous operation.
+    /// </summary>
+    /// <param name="model">The model.</param>
+    /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PartialViewResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpPost("SignIn")]
@@ -132,6 +141,11 @@ public class LoginBox : ForumBaseController
         }
     }
 
+    /// <summary>
+    /// Authentications the asynchronous.
+    /// </summary>
+    /// <param name="auth">The authentication.</param>
+    /// <returns>Task&lt;IActionResult&gt;.</returns>
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PartialViewResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpPost("Auth")]

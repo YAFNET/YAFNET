@@ -47,6 +47,10 @@ public class OptionTagHelper : TagHelper, IHaveServiceLocator
     [HtmlAttributeName("item")]
     public SelectListItem Item { get; set; }
 
+    /// <summary>
+    /// Gets or sets the name of the icon.
+    /// </summary>
+    /// <value>The name of the icon.</value>
     public string IconName { get; set; }
 
     /// <summary>

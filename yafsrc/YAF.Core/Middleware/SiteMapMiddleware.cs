@@ -33,6 +33,11 @@ using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
+/// <summary>
+/// Class SiteMapMiddleware.
+/// Implements the <see cref="YAF.Types.Interfaces.IHaveServiceLocator" />
+/// </summary>
+/// <seealso cref="YAF.Types.Interfaces.IHaveServiceLocator" />
 public class SiteMapMiddleware : IHaveServiceLocator
 {
     /// <summary>
@@ -40,6 +45,11 @@ public class SiteMapMiddleware : IHaveServiceLocator
     /// </summary>
     private readonly RequestDelegate requestDelegate;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SiteMapMiddleware"/> class.
+    /// </summary>
+    /// <param name="next">The next.</param>
+    /// <param name="serviceLocator">The service locator.</param>
     public SiteMapMiddleware([NotNull] RequestDelegate next, [NotNull] IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;

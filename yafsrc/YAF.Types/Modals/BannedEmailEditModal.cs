@@ -26,12 +26,27 @@ namespace YAF.Types.Modals;
 
 using System.ComponentModel.DataAnnotations;
 
+/// <summary>
+/// Class BannedEmailEditModal.
+/// </summary>
 public class BannedEmailEditModal
 {
+    /// <summary>
+    /// Gets or sets the identifier.
+    /// </summary>
+    /// <value>The identifier.</value>
     public int? Id { get; set; }
 
+    /// <summary>
+    /// Gets or sets the mask.
+    /// </summary>
+    /// <value>The mask.</value>
     [Required]
     public string Mask { get; set; }
 
+    /// <summary>
+    /// Gets or sets the ban reason.
+    /// </summary>
+    /// <value>The ban reason.</value>
     public string BanReason { get; set; }
 }

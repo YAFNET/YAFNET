@@ -26,6 +26,9 @@ namespace YAF.Web.HtmlHelpers;
 
 using YAF.Types.Attributes;
 
+/// <summary>
+/// Class AlphaSortHtmlHelper.
+/// </summary>
 public static class AlphaSortHtmlHelper
 {
     /// <summary>
