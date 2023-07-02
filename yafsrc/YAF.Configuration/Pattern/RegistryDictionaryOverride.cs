@@ -57,9 +57,9 @@ public class RegistryDictionaryOverride : RegistryDictionary
     public virtual T GetValue<T>(string name, T defaultValue, bool allowOverride)
     {
         if (allowOverride
-            && this.OverrideDictionary != null
+            && this.OverrideDictionary is not null
             && this.OverrideDictionary.ContainsKey(name)
-            && this.OverrideDictionary[name] != null)
+            && this.OverrideDictionary[name] is not null)
         {
             return this.OverrideDictionary.GetValue(name, defaultValue);
         }
@@ -100,7 +100,7 @@ public class RegistryDictionaryOverride : RegistryDictionary
     /// </typeparam>
     public virtual void SetValue<T>(string name, T value, bool setOverrideOnly)
     {
-        if (this.OverrideDictionary != null)
+        if (this.OverrideDictionary is not null)
         {
             if (setOverrideOnly)
             {
@@ -109,7 +109,7 @@ public class RegistryDictionaryOverride : RegistryDictionary
                 return;
             }
 
-            if (this.OverrideDictionary.ContainsKey(name) && this.OverrideDictionary[name] != null)
+            if (this.OverrideDictionary.ContainsKey(name) && this.OverrideDictionary[name] is not null)
             {
                 // set the overriden value to null/erase it...
                 this.OverrideDictionary.SetValue(name, (T)Convert.ChangeType(null, typeof(T)));

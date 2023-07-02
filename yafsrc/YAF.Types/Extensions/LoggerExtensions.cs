@@ -243,7 +243,7 @@ public static class LoggerExtensions
         {
             sourceDescription = source.GetType().FullName;
         }
-        else if (source != null)
+        else if (source is not null)
         {
             sourceDescription = source.ToString();
         }

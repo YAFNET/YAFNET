@@ -48,7 +48,7 @@ public class Attach : BBCodeControl
 
         var attachment = this.GetRepository<Attachment>().GetById(attachId.ToType<int>());
 
-        if (attachment == null)
+        if (attachment is null)
         {
             return;
         }

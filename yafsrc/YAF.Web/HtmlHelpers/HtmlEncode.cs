@@ -45,12 +45,12 @@ public static class HtmlEncodeHtmlHelper
         this IHtmlHelper htmlHelper,
         object input)
     {
-        if (input == null)
+        if (input is null)
         {
             return string.Empty;
         }
 
-        return BoardContext.Current == null
+        return BoardContext.Current is null
                    ? new UnicodeEncoder().XSSEncode(input.ToString())
                    : BoardContext.Current.CurrentForumPage.HtmlEncode(input.ToString());
     }

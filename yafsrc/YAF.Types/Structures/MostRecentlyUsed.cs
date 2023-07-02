@@ -113,7 +113,7 @@ public class MostRecentlyUsed : DictionaryBase
 
             var item = (DoubleLinkedList.LinkItem)this.Dictionary[key];
 
-            if (item == null)
+            if (item is null)
             {
                 return null;
             }
@@ -207,7 +207,7 @@ public class MostRecentlyUsed : DictionaryBase
 
         this.Dictionary.Remove(key);
 
-        if (link == null)
+        if (link is null)
         {
             return;
         }
@@ -267,20 +267,20 @@ public class MostRecentlyUsed : DictionaryBase
         // Purge an item from the cache
         var tail = this.list.TailLink;
 
-        if (tail == null)
+        if (tail is null)
         {
             return;
         }
 
         var purgeKey = this.linkToKey[tail];
 
-        if (purgeKey == null)
+        if (purgeKey is null)
         {
             return;
         }
 
         // Fire the event
-        if (this.OnPurgedFromCache != null && this.OnPurgedFromCache.GetInvocationList().Length > 0)
+        if (this.OnPurgedFromCache is not null && this.OnPurgedFromCache.GetInvocationList().Length > 0)
         {
             this.OnPurgedFromCache(purgeKey, tail.Item);
         }

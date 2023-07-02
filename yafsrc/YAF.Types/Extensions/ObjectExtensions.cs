@@ -43,7 +43,7 @@ public static class ObjectExtensions
     /// </returns>
     public static bool IsNullOrEmptyField([NotNull] this object value)
     {
-        return value == null || value == DBNull.Value || value.ToString().IsNotSet();
+        return value is null || value == DBNull.Value || value.ToString().IsNotSet();
     }
 
     /// <summary>
@@ -113,7 +113,7 @@ public static class ObjectExtensions
     /// </returns>
     public static T ToType<T>([CanBeNull] this object instance)
     {
-        if (instance == null)
+        if (instance is null)
         {
             return default;
         }

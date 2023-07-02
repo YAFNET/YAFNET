@@ -63,7 +63,7 @@ public static class ForumPageExtensions
 
                     break;
                 case ForumPages.Topics:
-                    if (BoardContext.Current.PageForum != null && BoardContext.Current.PageForum.Name.IsSet())
+                    if (BoardContext.Current.PageForum is not null && BoardContext.Current.PageForum.Name.IsSet())
                     {
                         // Tack on the forum we're viewing
                         title.Append(page.HtmlEncode(BoardContext.Current.PageForum.Name.Truncate(80)));
@@ -74,7 +74,7 @@ public static class ForumPageExtensions
 
                     break;
                 case ForumPages.Index:
-                    if (BoardContext.Current.PageCategory != null && BoardContext.Current.PageCategory.Name.IsSet())
+                    if (BoardContext.Current.PageCategory is not null && BoardContext.Current.PageCategory.Name.IsSet())
                     {
                         // Tack on the forum we're viewing
                         title.Append(page.HtmlEncode(BoardContext.Current.PageCategory.Name.Truncate(80)));

@@ -272,7 +272,7 @@ public static class IDbAccessExtensions
                 db => db.Connection.SqlList<dynamic>(
                     OrmLiteConfig.DialectProvider.DatabaseFragmentationInfo(db.Connection.Database)));
 
-            if (infos == null)
+            if (infos is null)
             {
                 return null;
             }

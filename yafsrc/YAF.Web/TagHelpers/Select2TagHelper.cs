@@ -89,12 +89,12 @@ public class Select2TagHelper : TagHelper
     /// <inheritdoc />
     public override void Init(TagHelperContext context)
     {
-        if (context == null)
+        if (context is null)
         {
             throw new ArgumentNullException(nameof(context));
         }
 
-        if (this.For == null)
+        if (this.For is null)
         {
             // Informs contained elements that they're running within a targeted <select/> element.
             context.Items[typeof(Select2TagHelper)] = null;
@@ -111,7 +111,7 @@ public class Select2TagHelper : TagHelper
 
         // Whether or not (not being highly unlikely) we generate anything, could update contained <option/>
         // elements. Provide selected values for <option/> tag helpers.
-        var currentValues = this._currentValues == null ? null : new CurrentValues(this._currentValues);
+        var currentValues = this._currentValues is null ? null : new CurrentValues(this._currentValues);
         context.Items[typeof(Select2TagHelper)] = currentValues;
     }
 
@@ -119,12 +119,12 @@ public class Select2TagHelper : TagHelper
     /// <remarks>Does nothing if <see cref="For"/> is <c>null</c>.</remarks>
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {
-        if (context == null)
+        if (context is null)
         {
             throw new ArgumentNullException(nameof(context));
         }
 
-        if (output == null)
+        if (output is null)
         {
             throw new ArgumentNullException(nameof(output));
         }
@@ -139,7 +139,7 @@ public class Select2TagHelper : TagHelper
         // Ensure GenerateSelect() _never_ looks anything up in ViewData.
         var items = this.Items ?? Enumerable.Empty<SelectListItem>();
 
-        if (this.For == null)
+        if (this.For is null)
         {
             var options = this.GenerateGroupsAndOptions(optionLabel: null, selectList: items);
             output.PostContent.AppendHtml(options);
@@ -187,7 +187,7 @@ public class Select2TagHelper : TagHelper
         bool allowMultiple,
         object htmlAttributes)
     {
-        if (viewContext == null)
+        if (viewContext is null)
         {
             throw new ArgumentNullException(nameof(viewContext));
         }
@@ -214,7 +214,7 @@ public class Select2TagHelper : TagHelper
         bool allowMultiple,
         object htmlAttributes)
     {
-        if (viewContext == null)
+        if (viewContext is null)
         {
             throw new ArgumentNullException(nameof(viewContext));
         }
@@ -411,7 +411,7 @@ public class Select2TagHelper : TagHelper
         if (string.IsNullOrEmpty(fullName))
         {
             // fullName==null is normally an error because name="" is not valid in HTML 5.
-            if (htmlAttributeDictionary == null)
+            if (htmlAttributeDictionary is null)
             {
                 return false;
             }
@@ -445,7 +445,7 @@ public class Select2TagHelper : TagHelper
         ViewContext viewContext,
         string expression)
     {
-        if (viewContext == null)
+        if (viewContext is null)
         {
             throw new ArgumentNullException(nameof(viewContext));
         }
@@ -456,7 +456,7 @@ public class Select2TagHelper : TagHelper
         var value = viewContext.ViewData.Eval(expression);
 
         // First check whether above evaluation was successful and did not match ViewData.Model.
-        if (value == null || value == viewContext.ViewData.Model)
+        if (value is null || value == viewContext.ViewData.Model)
         {
             throw new InvalidOperationException("FormatHtmlHelper_MissingSelectData");
 

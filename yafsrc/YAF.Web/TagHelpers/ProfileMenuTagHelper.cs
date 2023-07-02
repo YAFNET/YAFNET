@@ -315,7 +315,7 @@ public class ProfileMenuTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         link.MergeAttribute(
             "href",
-            parameter != null
+            parameter is not null
                 ? this.Get<LinkBuilder>().GetLink(page, parameter)
                 : this.Get<LinkBuilder>().GetLink(page));
 

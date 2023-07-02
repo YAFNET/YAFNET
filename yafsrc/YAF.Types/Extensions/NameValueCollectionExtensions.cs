@@ -100,7 +100,7 @@ public static class NameValueCollectionExtensions
         CodeContracts.VerifyNotNull(collection);
         CodeContracts.VerifyNotNull(paramName);
 
-        if (collection.GetFirstOrDefault(paramName) != null && int.TryParse(
+        if (collection.GetFirstOrDefault(paramName) is not null && int.TryParse(
                 collection.GetFirstOrDefault(paramName),
                 out var value))
         {
@@ -129,7 +129,7 @@ public static class NameValueCollectionExtensions
         CodeContracts.VerifyNotNull(collection);
         CodeContracts.VerifyNotNull(paramName);
 
-        return collection[paramName] == null
+        return collection[paramName] is null
                    ? Enumerable.Empty<string>()
                    : collection[paramName].Split(',').AsEnumerable();
     }
@@ -151,6 +151,6 @@ public static class NameValueCollectionExtensions
         CodeContracts.VerifyNotNull(collection);
         CodeContracts.VerifyNotNull(paramName);
 
-        return collection[paramName] != null;
+        return collection[paramName] is not null;
     }
 }

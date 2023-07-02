@@ -64,7 +64,7 @@ public class SiteMap
 
         set
         {
-            if (value == null)
+            if (value is null)
             {
                 return;
             }

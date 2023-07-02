@@ -197,7 +197,7 @@ public static class StringExtensions
     /// </returns>
     public static string ToDelimitedString<T>(this IEnumerable<T> objList, string delimiter) where T : IConvertible
     {
-        if (objList == null)
+        if (objList is null)
         {
             throw new ArgumentNullException(nameof(objList), "objList is null.");
         }

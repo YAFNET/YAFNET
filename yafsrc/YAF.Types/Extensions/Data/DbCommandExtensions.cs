@@ -74,7 +74,7 @@ public static class DbCommandExtensions
 
         p.ParameterName = $"{(param.Key.IsSet() ? param.Key : cmd.Parameters.Count.ToString())}";
 
-        if (item == null)
+        if (item is null)
         {
             p.Value = DBNull.Value;
         }

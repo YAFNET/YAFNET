@@ -82,7 +82,7 @@ public static class DisplayDateTimeHtmlHelper
     /// </returns>
     private static DateTime AsDateTime(object dateTime)
     {
-        if (dateTime == null)
+        if (dateTime is null)
         {
             return DateTimeHelper.SqlDbMinTime();
         }

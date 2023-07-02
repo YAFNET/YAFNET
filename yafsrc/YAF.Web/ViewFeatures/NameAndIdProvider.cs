@@ -50,12 +50,12 @@ internal static class NameAndIdProvider
     /// </remarks>
     public static string CreateSanitizedId(ViewContext viewContext, string fullName, string invalidCharReplacement)
     {
-        if (viewContext == null)
+        if (viewContext is null)
         {
             throw new ArgumentNullException(nameof(viewContext));
         }
 
-        if (invalidCharReplacement == null)
+        if (invalidCharReplacement is null)
         {
             throw new ArgumentNullException(nameof(invalidCharReplacement));
         }
@@ -77,7 +77,7 @@ internal static class NameAndIdProvider
 
         var sanitizedId = TagBuilder.CreateSanitizedId(fullName, invalidCharReplacement);
 
-        if (previousNameAndId == null)
+        if (previousNameAndId is null)
         {
             // Do not create a PreviousNameAndId when TagBuilder.CreateSanitizedId() only examined fullName.
             if (string.Equals(fullName, sanitizedId, StringComparison.Ordinal))
@@ -119,17 +119,17 @@ internal static class NameAndIdProvider
         string fullName,
         string invalidCharReplacement)
     {
-        if (viewContext == null)
+        if (viewContext is null)
         {
             throw new ArgumentNullException(nameof(viewContext));
         }
 
-        if (tagBuilder == null)
+        if (tagBuilder is null)
         {
             throw new ArgumentNullException(nameof(tagBuilder));
         }
 
-        if (invalidCharReplacement == null)
+        if (invalidCharReplacement is null)
         {
             throw new ArgumentNullException(nameof(invalidCharReplacement));
         }
@@ -185,7 +185,7 @@ internal static class NameAndIdProvider
             return previousNameAndId.OutputFullName;
         }
 
-        if (previousNameAndId == null)
+        if (previousNameAndId is null)
         {
             previousNameAndId = new PreviousNameAndId();
             items[PreviousNameAndIdKey] = previousNameAndId;

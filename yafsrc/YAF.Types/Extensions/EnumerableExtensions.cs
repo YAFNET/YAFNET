@@ -130,7 +130,7 @@ public static class EnumerableExtensions
     /// <returns><c>true</c> if Null Or Empty, <c>false</c> otherwise.</returns>
     public static bool NullOrEmpty<T>(this IEnumerable<T> source)
     {
-        if (source == null)
+        if (source is null)
         {
             return true;
         }

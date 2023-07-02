@@ -45,13 +45,13 @@ internal static class CultureSwitcherViewComponent
         ViewDataDictionary viewData,
         IModelMetadataProvider metadataProvider)
     {
-        if (viewData == null)
+        if (viewData is null)
         {
             throw new ArgumentNullException(nameof(viewData));
         }
 
         var viewDataInfo = ViewDataEvaluator.Eval(viewData, expression);
-        if (viewDataInfo == null)
+        if (viewDataInfo is null)
         {
             // Try getting a property from ModelMetadata if we couldn't find an answer in ViewData
             var propertyExplorer = viewData.ModelExplorer.GetExplorerForProperty(expression);
@@ -107,7 +107,7 @@ internal static class CultureSwitcherViewComponent
         ViewDataDictionary viewData,
         IModelMetadataProvider metadataProvider)
     {
-        if (viewData == null)
+        if (viewData is null)
         {
             throw new ArgumentNullException(nameof(viewData));
         }
@@ -118,7 +118,7 @@ internal static class CultureSwitcherViewComponent
         }
 
         // Use common simple type rather than object so e.g. Editor() at least generates a TextBox.
-        var model = viewData.Model == null ? null : Convert.ToString(viewData.Model, CultureInfo.CurrentCulture);
+        var model = viewData.Model is null ? null : Convert.ToString(viewData.Model, CultureInfo.CurrentCulture);
         return metadataProvider.GetModelExplorerForType(typeof(string), model);
     }
 }

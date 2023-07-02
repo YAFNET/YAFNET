@@ -98,7 +98,7 @@ public class MessagePostDataTagHelper : MessagePostTagHelper
     /// </returns>
     public override Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
     {
-        if (this.PagedMessage != null)
+        if (this.PagedMessage is not null)
         {
             this.CurrentMessage = new Message(this.PagedMessage);
             this.MessageFlags = this.CurrentMessage.MessageFlags;

@@ -130,7 +130,7 @@ public static class ActiveUsersHtmlHelper
 
                     listItem.InnerHtml.AppendHtml(userLink);
 
-                    if (postFixContent != null)
+                    if (postFixContent is not null)
                     {
                         listItem.InnerHtml.AppendHtml(postFixContent);
                     }

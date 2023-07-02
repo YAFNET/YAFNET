@@ -51,7 +51,7 @@ public static class SessionExtensions
     {
         var value = session.GetString(key);
 
-        return value == null ? default :
+        return value is null ? default :
                    JsonConvert.DeserializeObject<T>(value);
     }
 

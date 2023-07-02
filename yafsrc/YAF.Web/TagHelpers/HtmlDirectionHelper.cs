@@ -57,7 +57,7 @@ public class HtmlDirectionHelper : TagHelper, IHaveServiceLocator
     /// </param>
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {
-        if (BoardContext.Current.CurrentForumPage == null)
+        if (BoardContext.Current.CurrentForumPage is null)
         {
             return;
         }

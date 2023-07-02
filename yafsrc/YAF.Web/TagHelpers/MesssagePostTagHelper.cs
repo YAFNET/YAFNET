@@ -205,7 +205,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         }
         else
         {
-            if (this.CurrentMessage != null)
+            if (this.CurrentMessage is not null)
             {
                 if (!this.MessageFlags.IsDeleted && !this.Get<IAspNetUsersHelper>().IsGuestUser(this.CurrentMessage.UserID))
                 {
@@ -653,7 +653,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                         {
                             var vars = codeRow.Variables.Split(';');
 
-                            vars.Where(v => match.Groups[v] != null).ForEach(
+                            vars.Where(v => match.Groups[v] is not null).ForEach(
                                 v => paramDic.Add(v, match.Groups[v].Value));
                         }
 

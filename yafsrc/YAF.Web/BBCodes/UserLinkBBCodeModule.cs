@@ -51,11 +51,11 @@ public class UserLinkBBCodeModule : BBCodeControl
 
         var user = this.Get<IAspNetUsersHelper>().GetUserByNameAsync(userName.Trim()).Result;
 
-        if (user != null)
+        if (user is not null)
         {
             var boardUser = this.GetRepository<User>().GetSingle(u => u.ProviderUserKey == user.Id);
 
-            if (boardUser == null)
+            if (boardUser is null)
             {
                 stringBuilder.Append(this.HtmlEncode(userName));
                 return;

@@ -45,7 +45,7 @@ public static class CodeContracts
     public static void VerifyNotNull<T>([CanBeNull] T obj) where T : class
     {
         var argumentName = nameof(obj);
-        if (obj == null)
+        if (obj is null)
         {
             throw new ArgumentNullException(argumentName, $"{argumentName} cannot be null");
         }

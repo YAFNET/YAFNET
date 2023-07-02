@@ -153,7 +153,7 @@ public class DoubleLinkedList : IList
     /// </param>
     public void MoveToHead(LinkItem item)
     {
-        if (item == null)
+        if (item is null)
         {
             return;
         }
@@ -228,7 +228,7 @@ public class DoubleLinkedList : IList
     public void RemoveLink(LinkItem item)
     {
         // Check the arguments
-        if (item == null)
+        if (item is null)
         {
             return;
         }
@@ -417,7 +417,7 @@ public class DoubleLinkedList : IList
             // Adjust the count
             Interlocked.Increment(ref this.m_count);
         }
-        else if (current == null)
+        else if (current is null)
         {
             this.Add(value);
         }
@@ -438,7 +438,7 @@ public class DoubleLinkedList : IList
         {
         }
 
-        if (current == null)
+        if (current is null)
         {
             return;
         }
@@ -484,7 +484,7 @@ public class DoubleLinkedList : IList
         {
         }
 
-        if (i != index || current == null)
+        if (i != index || current is null)
         {
             return;
         }
@@ -556,10 +556,10 @@ public class DoubleLinkedList : IList
         {
             bool result;
 
-            if (this.m_current == null)
+            if (this.m_current is null)
             {
                 // There are no items in the list
-                if (this.m_list.HeadLink == null)
+                if (this.m_list.HeadLink is null)
                 {
                     return false;
                 }
@@ -567,7 +567,7 @@ public class DoubleLinkedList : IList
                 this.m_current = this.m_list.HeadLink;
                 result = true;
             }
-            else if (this.m_current.Next == null)
+            else if (this.m_current.Next is null)
             {
                 this.m_current = null;
                 result = false;

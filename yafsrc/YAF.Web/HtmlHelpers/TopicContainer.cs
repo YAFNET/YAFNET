@@ -84,7 +84,7 @@ public static class TopicContainerHtmlHelper
 
         var priorityMessage = RenderPriorityMessage(topic, htmlHelper);
 
-        if (priorityMessage != null)
+        if (priorityMessage is not null)
         {
             header.InnerHtml.AppendHtml(priorityMessage);
         }
