@@ -144,7 +144,7 @@ public class UsersInfoModel : AdminPage
             this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
                 Tuple<User, AspNetUsers, Rank, VAccess>;
 
-        if (this.EditUser == null)
+        if (this.EditUser is null)
         {
             this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
             return;

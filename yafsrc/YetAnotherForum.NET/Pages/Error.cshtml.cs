@@ -61,7 +61,7 @@ public class ErrorModel : ForumPage
         var exceptionHandlerPathFeature =
             this.HttpContext.Features.Get<IExceptionHandlerPathFeature>();
 
-        if (exceptionHandlerPathFeature == null)
+        if (exceptionHandlerPathFeature is null)
         {
             return this.Page();
         }

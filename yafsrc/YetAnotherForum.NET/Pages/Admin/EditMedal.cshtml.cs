@@ -298,7 +298,7 @@ public class EditMedalModel : AdminPage
 
         var medal = this.GetRepository<Medal>().GetSingle(m => m.ID == medalId.Value);
 
-        if (medal == null)
+        if (medal is null)
         {
             return;
         }

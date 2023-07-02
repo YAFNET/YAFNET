@@ -95,7 +95,7 @@ public class ForgotPasswordModel : AccountPage
                        ? await this.Get<IAspNetUsersHelper>().GetUserByEmailAsync(this.Input.UserName)
                        : await this.Get<IAspNetUsersHelper>().GetUserByNameAsync(this.Input.UserName);
 
-        if (user == null)
+        if (user is null)
         {
             return this.PageBoardContext.Notify(this.GetText("USERNAME_FAILURE"), MessageTypes.danger);
         }

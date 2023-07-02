@@ -121,7 +121,7 @@ public class EditBBCodeModel : AdminPage
     {
         this.Input = new InputModel();
 
-        var strAddEdit = b == null ? this.GetText("COMMON", "ADD") : this.GetText("COMMON", "EDIT");
+        var strAddEdit = b is null ? this.GetText("COMMON", "ADD") : this.GetText("COMMON", "EDIT");
 
         this.PageBoardContext.PageLinks.AddLink(string.Format(this.GetText("ADMIN_BBCODE_EDIT", "TITLE"), strAddEdit), string.Empty);
 

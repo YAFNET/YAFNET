@@ -77,7 +77,7 @@ public class EditRankModel : AdminPage
         var rankId = r.Value;
         var rank = this.GetRepository<Rank>().GetById(rankId);
 
-        if (rank == null)
+        if (rank is null)
         {
             this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
             return;

@@ -193,7 +193,7 @@ public class EditForumModel : AdminPage
 
         var forum = this.GetRepository<Forum>().GetById(forumId.Value);
 
-        if (forum == null)
+        if (forum is null)
         {
             return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }

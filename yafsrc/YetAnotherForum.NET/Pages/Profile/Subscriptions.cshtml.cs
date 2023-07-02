@@ -280,7 +280,7 @@ public class SubscriptionsModel : ProfilePage
             pageIndex,
             this.SizeForums);
 
-        if (list == null)
+        if (list is null)
         {
             return;
         }
@@ -306,7 +306,7 @@ public class SubscriptionsModel : ProfilePage
             pageIndex,
             this.SizeTopics);
 
-        if (list == null)
+        if (list is null)
         {
             return;
         }

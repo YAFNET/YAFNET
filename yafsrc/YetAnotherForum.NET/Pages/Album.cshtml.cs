@@ -126,7 +126,7 @@ public class AlbumModel : ForumPage
     {
         this.AlbumUser = this.GetRepository<User>().GetById(userId);
 
-        if (this.AlbumUser == null)
+        if (this.AlbumUser is null)
         {
             // No such user exists
             return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);

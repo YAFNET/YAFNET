@@ -122,7 +122,7 @@ public class ApproveModel : AccountPage
     {
         var userEmail = this.GetRepository<CheckEmail>().Update(this.Input.Key);
 
-        if (userEmail == null)
+        if (userEmail is null)
         {
             this.ErrorMessage = this.GetText("email_verify_failed");
 

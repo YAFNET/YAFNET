@@ -75,7 +75,7 @@ public class DeleteForumModel : AdminPage
     {
         this.Forum = this.GetRepository<Forum>().GetById(fa);
 
-        if (this.Forum == null)
+        if (this.Forum is null)
         {
             return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
         }

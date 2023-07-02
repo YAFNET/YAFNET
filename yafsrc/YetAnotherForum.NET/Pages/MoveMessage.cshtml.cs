@@ -122,7 +122,7 @@ public class MoveMessageModel : ForumPageRegistered
                                         ForumListSelected = this.PageBoardContext.PageForumID
                                     };
 
-        if (this.PageBoardContext.PageMessage == null || !this.PageBoardContext.ForumModeratorAccess)
+        if (this.PageBoardContext.PageMessage is null || !this.PageBoardContext.ForumModeratorAccess)
         {
             this.Get<LinkBuilder>().AccessDenied();
         }

@@ -63,7 +63,7 @@ public class InstallModel : InstallPage
 
         var cachePage = this.Get<IDataCache>().Get("Install");
 
-        if (this.IsForumInstalled && cachePage == null)
+        if (this.IsForumInstalled && cachePage is null)
         {
             return this.RedirectToPage(ForumPages.Index.GetPageName());
         }

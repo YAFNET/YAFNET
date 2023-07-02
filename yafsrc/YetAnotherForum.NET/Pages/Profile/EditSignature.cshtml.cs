@@ -189,7 +189,7 @@ public class EditSignatureModel : ProfilePage
             this.PageBoardContext.PageUserID,
             this.PageBoardContext.PageBoardID);
 
-        if (data == null)
+        if (data is null)
         {
             return;
         }

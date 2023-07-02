@@ -155,7 +155,7 @@ public class RegisterModel : AccountPage
         // create the user in the YAF DB as well as sync roles...
         var userId = await this.Get<IAspNetRolesHelper>().CreateForumUserAsync(user, displayName, this.PageBoardContext.PageBoardID);
 
-        if (userId == null)
+        if (userId is null)
         {
             // something is seriously wrong here -- redirect to failure...
             return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Failure);
@@ -342,7 +342,7 @@ public class RegisterModel : AccountPage
     {
         this.Input.CustomProfile = this.GetRepository<ProfileDefinition>().GetByBoardId().ToList();
 
-        if (this.Input.CustomProfile == null || !this.Input.CustomProfile.Any())
+        if (this.Input.CustomProfile is null || !this.Input.CustomProfile.Any())
         {
             return;
         }

@@ -264,7 +264,7 @@ public class UserProfileModel : ForumPage
     {
         this.CombinedUser = this.Get<IAspNetUsersHelper>().GetBoardUser(userId);
 
-        if (this.CombinedUser == null || this.CombinedUser.Item1.ID == 0)
+        if (this.CombinedUser is null || this.CombinedUser.Item1.ID == 0)
         {
             // No such user exists or this is an nntp user ("0")
             return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);

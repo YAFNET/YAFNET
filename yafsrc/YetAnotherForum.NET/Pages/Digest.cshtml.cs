@@ -135,12 +135,12 @@ public class DigestModel : ForumPage
     /// </returns>
     public string GetText([NotNull] string tag)
     {
-        if (this.LanguageFile.IsSet() && this.localization == null)
+        if (this.LanguageFile.IsSet() && this.localization is null)
         {
             this.localization = new Localization();
             this.localization.LoadTranslation(this.LanguageFile);
         }
-        else if (this.localization == null)
+        else if (this.localization is null)
         {
             this.localization = this.Get<ILocalization>();
         }

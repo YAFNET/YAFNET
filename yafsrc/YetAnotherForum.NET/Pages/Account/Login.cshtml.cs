@@ -146,7 +146,7 @@ public class LoginModel : AccountPage
 
         var user = await this.Get<IAspNetUsersHelper>().ValidateUserAsync(this.Input.UserName.Trim());
 
-        if (user == null)
+        if (user is null)
         {
             return this.PageBoardContext.Notify(this.GetText("PASSWORD_ERROR"), MessageTypes.danger);
         }
@@ -253,7 +253,7 @@ public class LoginModel : AccountPage
     /// </summary>
     async protected Task<ActionResult> OnPostResendConfirmAsync()
     {
-        if (this.Email == null)
+        if (this.Email is null)
         {
             this.ShowNotApproved = false;
             this.Email = null;
@@ -263,7 +263,7 @@ public class LoginModel : AccountPage
 
         var checkMail = this.GetRepository<CheckEmail>().ListTyped(this.Email).FirstOrDefault();
 
-        if (checkMail == null)
+        if (checkMail is null)
         {
             this.ShowNotApproved = false;
             this.Email = null;

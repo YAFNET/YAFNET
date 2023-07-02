@@ -27,7 +27,7 @@
         activeTopics = Current.Get<IDataCache>()[CacheKey] as List<LatestTopic>;
     }
 
-    if (activeTopics == null)
+    if (activeTopics is null)
     {
         Current.Get<ISessionService>().UnreadTopics = 0;
 

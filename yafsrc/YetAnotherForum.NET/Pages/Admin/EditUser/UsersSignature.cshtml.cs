@@ -187,7 +187,7 @@ public class UsersSignatureModel : AdminPage
             userId,
             this.PageBoardContext.PageBoardID);
 
-        if (data == null)
+        if (data is null)
         {
             return;
         }

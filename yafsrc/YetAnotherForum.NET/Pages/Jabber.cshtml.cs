@@ -75,7 +75,7 @@ public class JabberModel : ForumPage
             return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
-        if (this.AspNetUser == null || !this.PageBoardContext.BoardSettings.AllowEmailSending)
+        if (this.AspNetUser is null || !this.PageBoardContext.BoardSettings.AllowEmailSending)
         {
             return this.Get<LinkBuilder>().AccessDenied();
         }
@@ -83,7 +83,7 @@ public class JabberModel : ForumPage
         // get user data...
         this.CurrentUser = this.GetRepository<User>().GetById(u.Value);
 
-        if (this.CurrentUser == null)
+        if (this.CurrentUser is null)
         {
             // No such user exists
             return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);

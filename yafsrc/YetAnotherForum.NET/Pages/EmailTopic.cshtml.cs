@@ -75,7 +75,7 @@ public class EmailTopicModel : ForumPage
             return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
-        if (this.PageBoardContext.PageTopic == null)
+        if (this.PageBoardContext.PageTopic is null)
         {
             return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }

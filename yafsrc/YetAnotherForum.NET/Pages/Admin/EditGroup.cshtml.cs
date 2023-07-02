@@ -104,7 +104,7 @@ public class EditGroupModel : AdminPage
         // get data about edited role
         this.Group = this.GetRepository<Group>().GetById(i.Value);
 
-        if (this.Group == null)
+        if (this.Group is null)
         {
             this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
             return;

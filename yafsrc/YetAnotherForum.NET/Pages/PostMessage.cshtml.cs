@@ -492,7 +492,7 @@ public class PostMessageModel : ForumPage
         // get topic and forum information
         var forumInfo = this.PageBoardContext.PageForum;
 
-        if (topicInfo == null || forumInfo == null)
+        if (topicInfo is null || forumInfo is null)
         {
             return false;
         }

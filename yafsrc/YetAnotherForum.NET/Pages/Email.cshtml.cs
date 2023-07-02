@@ -74,7 +74,7 @@ public class EmailModel : ForumPage
             return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
-        if (this.AspNetUser == null || !this.PageBoardContext.BoardSettings.AllowEmailSending)
+        if (this.AspNetUser is null || !this.PageBoardContext.BoardSettings.AllowEmailSending)
         {
             return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
@@ -82,7 +82,7 @@ public class EmailModel : ForumPage
         // get user data...
         this.EmailUser = this.GetRepository<User>().GetById(u.Value);
 
-        if (this.EmailUser == null)
+        if (this.EmailUser is null)
         {
             // No such user exists
             return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);

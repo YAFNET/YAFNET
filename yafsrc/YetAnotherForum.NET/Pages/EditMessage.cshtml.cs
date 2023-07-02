@@ -121,7 +121,7 @@ public class EditMessageModel : ForumPage
 
         if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.AllowCreateTopicsSameName)
             && this.GetRepository<Topic>().CheckForDuplicate(this.Input.TopicSubject.Trim())
-            && this.PageBoardContext.PageMessage == null)
+            && this.PageBoardContext.PageMessage is null)
         {
             this.PageBoardContext.Notify(this.GetText("SUBJECT_DUPLICATE"), MessageTypes.warning);
             return false;
@@ -137,7 +137,7 @@ public class EditMessageModel : ForumPage
     {
         this.Input = new InputModel();
 
-        if (this.PageBoardContext.PageMessage == null)
+        if (this.PageBoardContext.PageMessage is null)
         {
             return this.Get<LinkBuilder>().AccessDenied();
         }

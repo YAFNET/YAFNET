@@ -92,7 +92,7 @@ public class EditUserModel : AdminPage
 
         this.Get<IDataCache>().Set(string.Format(Constants.Cache.EditUser, currentUserId), editUser);
 
-        if (editUser == null)
+        if (editUser is null)
         {
             return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }

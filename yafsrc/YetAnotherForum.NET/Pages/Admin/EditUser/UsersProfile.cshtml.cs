@@ -335,7 +335,7 @@ public class UsersProfileModel : AdminPage
     {
         this.Input.CustomProfile = this.GetRepository<ProfileDefinition>().GetByBoardId().ToList();
 
-        if (this.Input.CustomProfile == null || !this.Input.CustomProfile.Any())
+        if (this.Input.CustomProfile is null || !this.Input.CustomProfile.Any())
         {
             return;
         }

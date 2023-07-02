@@ -185,7 +185,7 @@ public class UsersAvatarModel : AdminPage
             // clear the cache for this user...
             this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.Input.UserId));
 
-            if (avatarSize > 0 && this.Upload.Length >= avatarSize && resizedImage == null)
+            if (avatarSize > 0 && this.Upload.Length >= avatarSize && resizedImage is null)
             {
                 this.PageBoardContext.SessionNotify(
                     $"{this.GetTextFormatted("WARN_BIGFILE", avatarSize)} {this.GetTextFormatted("WARN_FILESIZE", this.Upload.Length)}",
@@ -299,7 +299,7 @@ public class UsersAvatarModel : AdminPage
     /// <param name="resized">The resized.</param>
     private void SaveAvatarToTable(Stream resized)
     {
-        if (resized == null)
+        if (resized is null)
         {
             using var image = Image.Load(this.Upload.OpenReadStream());
 
@@ -356,7 +356,7 @@ public class UsersAvatarModel : AdminPage
             System.IO.File.Delete(filePath);
         }
 
-        if (resized == null)
+        if (resized is null)
         {
             using var avatarImage = Image.Load(this.Upload.OpenReadStream());
 

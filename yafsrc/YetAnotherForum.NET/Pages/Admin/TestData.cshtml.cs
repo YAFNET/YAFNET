@@ -523,13 +523,13 @@ public class TestDataModel : AdminPage
 
         var toUser = this.GetRepository<User>().GetSingle(u => u.Name == this.Input.To);
 
-        if (fromUser == null)
+        if (fromUser is null)
         {
             this.PageBoardContext.Notify("You should enter valid 'from' user name.", MessageTypes.warning);
             return 0;
         }
 
-        if (toUser == null)
+        if (toUser is null)
         {
             this.PageBoardContext.Notify("You should enter valid 'to' user name.", MessageTypes.warning);
 

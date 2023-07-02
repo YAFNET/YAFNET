@@ -182,7 +182,7 @@ public class EditCategoryModel : AdminPage
     {
         var category = this.PageBoardContext.PageCategory;
 
-        if (category == null)
+        if (category is null)
         {
             this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
             return;

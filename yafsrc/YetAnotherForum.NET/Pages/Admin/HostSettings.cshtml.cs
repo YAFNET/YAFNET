@@ -227,7 +227,7 @@ public class HostSettingsModel : AdminPage
             {
                 var propertyInfo = this.Input.GetType().GetProperty(name);
 
-                if (propertyInfo == null || propertyInfo.PropertyType.Name != "Boolean"
+                if (propertyInfo is null || propertyInfo.PropertyType.Name != "Boolean"
                                          || !settingCollection.SettingsBool[name].CanWrite)
                 {
                     return;
@@ -244,7 +244,7 @@ public class HostSettingsModel : AdminPage
             {
                 var propertyInfo = this.Input.GetType().GetProperty(name);
 
-                if (propertyInfo == null || propertyInfo.PropertyType.Name != "String"
+                if (propertyInfo is null || propertyInfo.PropertyType.Name != "String"
                                          || !settingCollection.SettingsString[name].CanWrite)
                 {
                     return;
@@ -261,7 +261,7 @@ public class HostSettingsModel : AdminPage
             {
                 var propertyInfo = this.Input.GetType().GetProperty(name);
 
-                if (propertyInfo == null || !settingCollection.SettingsInt[name].CanWrite)
+                if (propertyInfo is null || !settingCollection.SettingsInt[name].CanWrite)
                 {
                     return;
                 }
@@ -419,7 +419,7 @@ public class HostSettingsModel : AdminPage
             {
                 var propertyInfo = this.Input.GetType().GetProperty(name);
 
-                if (propertyInfo == null || propertyInfo.PropertyType.Name != "Boolean"
+                if (propertyInfo is null || propertyInfo.PropertyType.Name != "Boolean"
                                          || !settingCollection.SettingsBool[name].CanRead)
                 {
                     return;
@@ -439,7 +439,7 @@ public class HostSettingsModel : AdminPage
             {
                 var propertyInfo = this.Input.GetType().GetProperty(name);
 
-                if (propertyInfo == null || propertyInfo.PropertyType.Name != "String"
+                if (propertyInfo is null || propertyInfo.PropertyType.Name != "String"
                                          || !settingCollection.SettingsString[name].CanRead)
                 {
                     return;
@@ -459,7 +459,7 @@ public class HostSettingsModel : AdminPage
             {
                 var propertyInfo = this.Input.GetType().GetProperty(name);
 
-                if (propertyInfo == null || !settingCollection.SettingsInt[name].CanRead)
+                if (propertyInfo is null || !settingCollection.SettingsInt[name].CanRead)
                 {
                     return;
                 }

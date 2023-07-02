@@ -175,7 +175,7 @@ public class DeleteMessageModel : ForumPage
         var topic = this.GetRepository<Topic>().GetById(this.PageBoardContext.PageMessage.TopicID);
 
         // If topic has been deleted, redirect to topic list for active forum, else show remaining posts for topic
-        if (topic == null)
+        if (topic is null)
         {
             return this.Get<LinkBuilder>().Redirect(
                 ForumPages.Topics,

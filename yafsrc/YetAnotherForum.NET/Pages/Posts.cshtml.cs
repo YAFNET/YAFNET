@@ -90,7 +90,7 @@ public class PostsModel : ForumPage
     public override void CreatePageLinks()
     {
         // in case topic is deleted or not existent
-        if (this.PageBoardContext.PageTopic == null)
+        if (this.PageBoardContext.PageTopic is null)
         {
            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
 
@@ -187,7 +187,7 @@ public class PostsModel : ForumPage
     {
         var previousTopic = this.GetRepository<Topic>().FindPrevious(this.PageBoardContext.PageTopic);
 
-        if (previousTopic == null)
+        if (previousTopic is null)
         {
             return this.PageBoardContext.Notify(this.GetText("INFO_NOMORETOPICS"), MessageTypes.info);
         }
@@ -418,7 +418,7 @@ public class PostsModel : ForumPage
     {
         var nextTopic = this.GetRepository<Topic>().FindNext(this.PageBoardContext.PageTopic);
 
-        if (nextTopic == null)
+        if (nextTopic is null)
         {
             return this.PageBoardContext.Notify(this.GetText("INFO_NOMORETOPICS"), MessageTypes.info);
         }

@@ -114,7 +114,7 @@ public class ResetPasswordModel : AccountPage
 
         var user = await this.Get<IAspNetUsersHelper>().GetUserByEmailAsync(this.Input.Email);
 
-        if (user == null)
+        if (user is null)
         {
             return this.PageBoardContext.Notify(this.GetText("USERNAME_FAILURE"), MessageTypes.danger);
         }

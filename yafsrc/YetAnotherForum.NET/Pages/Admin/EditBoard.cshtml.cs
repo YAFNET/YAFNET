@@ -187,7 +187,7 @@ public class EditBoardModel : AdminPage
         {
             var board = this.GetRepository<Board>().GetById(b.Value);
 
-            if (board == null)
+            if (board is null)
             {
                 return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
             }

@@ -75,7 +75,7 @@ public class MessageHistoryModel : ForumPageRegistered
             return this.Get<LinkBuilder>().AccessDenied();
         }
 
-        if (this.PageBoardContext.PageMessage == null)
+        if (this.PageBoardContext.PageMessage is null)
         {
             return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
@@ -232,7 +232,7 @@ public class MessageHistoryModel : ForumPageRegistered
             this.PageBoardContext.PageMessage.ID,
             this.PageBoardContext.PageUserID);
 
-        if (originalMessage == null)
+        if (originalMessage is null)
         {
             this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
