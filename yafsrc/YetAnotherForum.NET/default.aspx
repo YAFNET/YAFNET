@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" Async="true" AutoEventWireup="true" ValidateRequest="false" Inherits="YAF.Core.BasePages.ForumPageBase" MaintainScrollPositionOnPostback="true" %>
 
 <!doctype html>
-<html <%= this.GetLanguageTags() %>>
+<html <%= this.GetLanguageTags() %> <%= this.GetThemeMode() %>>
 <head id="YafHead" runat="server">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
