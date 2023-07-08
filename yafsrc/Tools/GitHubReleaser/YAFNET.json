@@ -6,5 +6,6 @@
   "IsChangelogFileCreationEnabled": false,
   "FileForVersion": "..\\..\\YetAnotherForum.NET\\Bin\\YAF.dll",
   "ChangeLogFile": "..\\..\\..\\CHANGES.md",
-  "ReleaseAttachmentFolder": "..\\..\\deploy\\"
+  "ReleaseAttachmentFolder": "..\\..\\deploy\\",
+  "Branch": "netfx"  
 }
