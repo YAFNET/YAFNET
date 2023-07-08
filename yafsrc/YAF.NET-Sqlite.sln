@@ -36,6 +36,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B5E5392A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YAF.Tests.CoreTests", "Tests\YAF.Tests.CoreTests\YAF.Tests.CoreTests.csproj", "{694C612D-DDF0-4BE4-A0B4-443FE68482A3}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YAF.Tests.Utils", "Tests\YAF.Tests.Utils\YAF.Tests.Utils.csproj", "{0C0FEAA1-F801-40CB-9102-5147F8D52A9C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YAF.Tests.UserTests", "Tests\YAF.Tests.UserTests\YAF.Tests.UserTests.csproj", "{8C3E0D91-729D-40B4-826F-E61F158217CA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YAF.Tests.AdminTests", "Tests\YAF.Tests.AdminTests\YAF.Tests.AdminTests.csproj", "{FCFA90C5-B35E-4FDA-B7F5-B8019C201E34}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
