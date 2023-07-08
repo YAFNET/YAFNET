@@ -40,6 +40,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+
 using ServiceStack.IO;
 using ServiceStack.Text;
 using ServiceStack.Text.Json;
@@ -129,7 +130,7 @@ public sealed class ScriptLisp : ScriptLanguage, IConfigureScriptContext
             if (blockFragment.Quiet && scope.OutputStream != Stream.Null)
                 scope = scope.ScopeWithStream(Stream.Null);
 
-            await WriteStatementAsync(scope, blockFragment.LispStatements, token);
+            await this.WriteStatementAsync(scope, blockFragment.LispStatements, token);
 
             return true;
         }
@@ -200,7 +201,7 @@ public class LispStatements : JsStatement
     /// <param name="sExpressions">The s expressions.</param>
     public LispStatements(object[] sExpressions)
     {
-        SExpressions = sExpressions;
+        this.SExpressions = sExpressions;
     }
 
     /// <summary>
@@ -208,7 +209,7 @@ public class LispStatements : JsStatement
     /// </summary>
     /// <param name="other">The other.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    protected bool Equals(LispStatements other) => Equals(SExpressions, other.SExpressions);
+    protected bool Equals(LispStatements other) => Equals(this.SExpressions, other.SExpressions);
     /// <summary>
     /// Determines whether the specified <see cref="object" /> is equal to this instance.
     /// </summary>
@@ -219,13 +220,13 @@ public class LispStatements : JsStatement
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
         if (obj.GetType() != this.GetType()) return false;
-        return Equals((LispStatements)obj);
+        return this.Equals((LispStatements)obj);
     }
     /// <summary>
     /// Returns a hash code for this instance.
     /// </summary>
     /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
-    public override int GetHashCode() => SExpressions != null ? SExpressions.GetHashCode() : 0;
+    public override int GetHashCode() => this.SExpressions != null ? this.SExpressions.GetHashCode() : 0;
 }
 
 /// <summary>
@@ -253,7 +254,7 @@ public class PageLispStatementFragment : PageFragment
     /// <param name="statements">The statements.</param>
     public PageLispStatementFragment(LispStatements statements)
     {
-        LispStatements = statements;
+        this.LispStatements = statements;
     }
 
     /// <summary>
@@ -261,7 +262,7 @@ public class PageLispStatementFragment : PageFragment
     /// </summary>
     /// <param name="other">The other.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    protected bool Equals(PageLispStatementFragment other) => Equals(LispStatements, other.LispStatements);
+    protected bool Equals(PageLispStatementFragment other) => Equals(this.LispStatements, other.LispStatements);
     /// <summary>
     /// Determines whether the specified <see cref="object" /> is equal to this instance.
     /// </summary>
@@ -271,13 +272,13 @@ public class PageLispStatementFragment : PageFragment
     {
         if (obj is null) return false;
         if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == this.GetType() && Equals((PageJsBlockStatementFragment)obj);
+        return obj.GetType() == this.GetType() && this.Equals((PageJsBlockStatementFragment)obj);
     }
     /// <summary>
     /// Returns a hash code for this instance.
     /// </summary>
     /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
-    public override int GetHashCode() => LispStatements != null ? LispStatements.GetHashCode() : 0;
+    public override int GetHashCode() => this.LispStatements != null ? this.LispStatements.GetHashCode() : 0;
 }
 
 /// <summary>
@@ -378,8 +379,8 @@ public class LispEvalException : Exception
     /// <returns>A <see cref="string" /> that represents this instance.</returns>
     public override string ToString()
     {
-        var sb = StringBuilderCache.Allocate().Append($"EvalException: {Message}");
-        foreach (var line in Trace)
+        var sb = StringBuilderCache.Allocate().Append($"EvalException: {this.Message}");
+        foreach (var line in this.Trace)
             sb.Append($"\n\t{line}");
         return StringBuilderCache.ReturnAndFree(sb);
     }
@@ -791,8 +792,8 @@ public static class Lisp
         /// <param name="cdr">The CDR.</param>
         public Cell(object car, object cdr)
         {
-            Car = car;
-            Cdr = cdr;
+            this.Car = car;
+            this.Cdr = cdr;
         }
 
         /// <summary>
@@ -801,7 +802,7 @@ public static class Lisp
         /// <returns>A <see cref="string" /> that represents this instance.</returns>
         /// <remarks>Do not invoke this for any circular list.</remarks>
         public override string ToString() =>
-            $"({Car ?? "null"} . {Cdr ?? "null"})";
+            $"({this.Car ?? "null"} . {this.Cdr ?? "null"})";
 
         /// <summary>
         /// Length as a list
@@ -829,9 +830,9 @@ public static class Lisp
         public void Walk(Action<Cell> fn)
         {
             fn(this);
-            if (Car is Cell l)
+            if (this.Car is Cell l)
                 l.Walk(fn);
-            if (Cdr is Cell r)
+            if (this.Cdr is Cell r)
                 r.Walk(fn);
         }
     }
@@ -909,19 +910,19 @@ public static class Lisp
         /// <param name="name">The name.</param>
         public Sym(string name)
         {
-            Name = name;
+            this.Name = name;
         }
 
         /// <summary>
         /// Return the symbol's name
         /// </summary>
         /// <returns>A <see cref="string" /> that represents this instance.</returns>
-        public override string ToString() => Name;
+        public override string ToString() => this.Name;
         /// <summary>
         /// Return the hashcode of the symbol's name
         /// </summary>
         /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
-        public override int GetHashCode() => Name.GetHashCode();
+        public override int GetHashCode() => this.Name.GetHashCode();
 
         /// <summary>
         /// Table of interned symbols
@@ -967,8 +968,8 @@ public static class Lisp
             {
                 lock (Table)
                 {
-                    return Table.TryGetValue(Name, out Sym s) &&
-                           Object.ReferenceEquals(this, s);
+                    return Table.TryGetValue(this.Name, out Sym s) &&
+                           ReferenceEquals(this, s);
                 }
             }
         }
@@ -1187,19 +1188,19 @@ public static class Lisp
         /// Gets the arity.
         /// </summary>
         /// <value>The arity.</value>
-        private int Arity => Carity < 0 ? -Carity : Carity;
+        private int Arity => this.Carity < 0 ? -this.Carity : this.Carity;
         /// <summary>
         /// Gets a value indicating whether this instance has rest.
         /// </summary>
         /// <value><c>true</c> if this instance has rest; otherwise, <c>false</c>.</value>
-        private bool HasRest => Carity < 0;
+        private bool HasRest => this.Carity < 0;
 
         // Number of fixed arguments
         /// <summary>
         /// Gets the fixed arguments.
         /// </summary>
         /// <value>The fixed arguments.</value>
-        private int FixedArgs => Carity < 0 ? -Carity - 1 : Carity;
+        private int FixedArgs => this.Carity < 0 ? -this.Carity - 1 : this.Carity;
 
         /// <summary>
         /// Construct with Carity.
@@ -1207,7 +1208,7 @@ public static class Lisp
         /// <param name="carity">The carity.</param>
         protected LispFunc(int carity)
         {
-            Carity = carity;
+            this.Carity = carity;
         }
 
         /// <summary>
@@ -1220,8 +1221,8 @@ public static class Lisp
         /// <exception cref="ServiceStack.Script.LispEvalException">arity not matched</exception>
         public object[] MakeFrame(Cell arg)
         {
-            var frame = new object[Arity];
-            int n = FixedArgs;
+            var frame = new object[this.Arity];
+            int n = this.FixedArgs;
             int i;
             for (i = 0; i < n && arg != null; i++)
             {
@@ -1229,9 +1230,9 @@ public static class Lisp
                 frame[i] = arg.Car;
                 arg = CdrCell(arg);
             }
-            if (i != n || arg != null && !HasRest)
+            if (i != n || arg != null && !this.HasRest)
                 throw new LispEvalException("arity not matched", this);
-            if (HasRest)
+            if (this.HasRest)
                 frame[n] = arg;
             return frame;
         }
@@ -1244,10 +1245,10 @@ public static class Lisp
         /// <param name="env">The env.</param>
         public void EvalFrame(object[] frame, Interpreter interp, Cell env)
         {
-            int n = FixedArgs;
+            int n = this.FixedArgs;
             for (int i = 0; i < n; i++)
                 frame[i] = interp.Eval(frame[i], env);
-            if (HasRest)
+            if (this.HasRest)
             {
                 if (frame[n] is Cell j)
                 {
@@ -1292,7 +1293,7 @@ public static class Lisp
         /// <param name="body">The body.</param>
         protected DefinedFunc(int carity, Cell body) : base(carity)
         {
-            Body = body;
+            this.Body = body;
         }
     }
 
@@ -1326,7 +1327,7 @@ public static class Lisp
         /// Returns a <see cref="string" /> that represents this instance.
         /// </summary>
         /// <returns>A <see cref="string" /> that represents this instance.</returns>
-        public override string ToString() => $"#<macro:{Carity}:{Str(Body)}>";
+        public override string ToString() => $"#<macro:{this.Carity}:{Str(this.Body)}>";
 
         // Expand the macro with a list of actual arguments.
         /// <summary>
@@ -1337,10 +1338,10 @@ public static class Lisp
         /// <returns>System.Object.</returns>
         public object ExpandWith(Interpreter interp, Cell arg)
         {
-            object[] frame = MakeFrame(arg);
+            object[] frame = this.MakeFrame(arg);
             Cell env = new(frame, null);
             object x = null;
-            for (Cell j = Body; j != null; j = CdrCell(j))
+            for (Cell j = this.Body; j != null; j = CdrCell(j))
                 x = interp.Eval(j.Car, env);
             return x;
         }
@@ -1378,7 +1379,7 @@ public static class Lisp
         /// Returns a <see cref="string" /> that represents this instance.
         /// </summary>
         /// <returns>A <see cref="string" /> that represents this instance.</returns>
-        public override string ToString() => $"#<lambda:{Carity}:{Str(Body)}>";
+        public override string ToString() => $"#<lambda:{this.Carity}:{Str(this.Body)}>";
 
         /// <summary>
         /// Makes the specified carity.
@@ -1417,7 +1418,7 @@ public static class Lisp
         /// <param name="env">The env.</param>
         private Closure(int carity, Cell body, Cell env) : base(carity, body)
         {
-            Env = env;
+            this.Env = env;
         }
 
         /// <summary>
@@ -1432,7 +1433,7 @@ public static class Lisp
         /// </summary>
         /// <returns>A <see cref="string" /> that represents this instance.</returns>
         public override string ToString() =>
-            $"#<closure:{Carity}:{Str(Env)}:{Str(Body)}>";
+            $"#<closure:{this.Carity}:{Str(this.Env)}:{Str(this.Body)}>";
 
         // Make an environment to evaluate the body from a list of actual args.
         /// <summary>
@@ -1444,9 +1445,9 @@ public static class Lisp
         /// <returns>Cell.</returns>
         public Cell MakeEnv(Interpreter interp, Cell arg, Cell interpEnv)
         {
-            object[] frame = MakeFrame(arg);
-            EvalFrame(frame, interp, interpEnv);
-            return new Cell(frame, Env); // Prepend the frame to this Env.
+            object[] frame = this.MakeFrame(arg);
+            this.EvalFrame(frame, interp, interpEnv);
+            return new Cell(frame, this.Env); // Prepend the frame to this Env.
         }
 
         /// <summary>
@@ -1494,15 +1495,15 @@ public static class Lisp
         public BuiltInFunc(string name, int carity, BuiltInFuncBody body)
             : base(carity)
         {
-            Name = name;
-            Body = body;
+            this.Name = name;
+            this.Body = body;
         }
 
         /// <summary>
         /// Return a string representation in Lisp.
         /// </summary>
         /// <returns>A <see cref="string" /> that represents this instance.</returns>
-        public override string ToString() => $"#<{Name}:{Carity}>";
+        public override string ToString() => $"#<{this.Name}:{this.Carity}>";
 
         /// <summary>
         /// Invoke the built-in function with a list of
@@ -1516,11 +1517,11 @@ public static class Lisp
         /// <exception cref="ServiceStack.Script.LispEvalException"></exception>
         public object EvalWith(Interpreter interp, Cell arg, Cell interpEnv)
         {
-            object[] frame = MakeFrame(arg);
-            EvalFrame(frame, interp, interpEnv);
+            object[] frame = this.MakeFrame(arg);
+            this.EvalFrame(frame, interp, interpEnv);
             try
             {
-                return Body(interp, frame);
+                return this.Body(interp, frame);
             }
             catch (LispEvalException)
             {
@@ -1528,7 +1529,7 @@ public static class Lisp
             }
             catch (Exception ex)
             {
-                throw new LispEvalException($"{ex} -- {Name}", frame);
+                throw new LispEvalException($"{ex} -- {this.Name}", frame);
             }
         }
     }
@@ -1561,16 +1562,16 @@ public static class Lisp
         /// <param name="symbol">The symbol.</param>
         public Arg(int level, int offset, Sym symbol)
         {
-            Level = level;
-            Offset = offset;
-            Symbol = symbol;
+            this.Level = level;
+            this.Offset = offset;
+            this.Symbol = symbol;
         }
 
         /// <summary>
         /// Returns a <see cref="string" /> that represents this instance.
         /// </summary>
         /// <returns>A <see cref="string" /> that represents this instance.</returns>
-        public override string ToString() => $"#{Level}:{Offset}:{Symbol}";
+        public override string ToString() => $"#{this.Level}:{this.Offset}:{this.Symbol}";
 
         // Set a value x to the location corresponding to the variable in env.
         /// <summary>
@@ -1580,10 +1581,10 @@ public static class Lisp
         /// <param name="env">The env.</param>
         public void SetValue(object x, Cell env)
         {
-            for (int i = 0; i < Level; i++)
+            for (int i = 0; i < this.Level; i++)
                 env = (Cell)env.Cdr;
             object[] frame = (object[])env.Car;
-            frame[Offset] = x;
+            frame[this.Offset] = x;
         }
 
         // Get a value from the location corresponding to the variable in env.
@@ -1596,12 +1597,12 @@ public static class Lisp
         /// <exception cref="System.IndexOutOfRangeException"></exception>
         public object GetValue(Cell env)
         {
-            for (int i = 0; i < Level; i++)
+            for (int i = 0; i < this.Level; i++)
                 env = (Cell)env.Cdr;
             object[] frame = (object[])env.Car;
-            if (frame == null || Offset >= frame.Length)
+            if (frame == null || this.Offset >= frame.Length)
                 throw new IndexOutOfRangeException();
-            return frame[Offset];
+            return frame[this.Offset];
         }
     }
 
@@ -1678,7 +1679,8 @@ public static class Lisp
         /// </summary>
         /// <param name="name">The name.</param>
         /// <returns>System.Object.</returns>
-        public object GetSymbolValue(string name) => Globals.TryGetValue(Sym.New(name), out var value)
+        public object GetSymbolValue(string name) =>
+            this.Globals.TryGetValue(Sym.New(name), out var value)
                                                          ? value.fromLisp()
                                                          : null;
 
@@ -1687,7 +1689,7 @@ public static class Lisp
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="value">The value.</param>
-        public void SetSymbolValue(string name, object value) => Globals[Sym.New(name)] = value.unwrapScriptValue();
+        public void SetSymbolValue(string name, object value) => this.Globals[Sym.New(name)] = value.unwrapScriptValue();
 
         /// <summary>
         /// Standard out
@@ -1701,7 +1703,7 @@ public static class Lisp
         /// </summary>
         public Interpreter()
         {
-            InitGlobals();
+            this.InitGlobals();
         }
 
         /// <summary>
@@ -1710,7 +1712,7 @@ public static class Lisp
         /// <param name="globalInterp">The global interp.</param>
         public Interpreter(Interpreter globalInterp)
         {
-            Globals = new Dictionary<Sym, object>(globalInterp.Globals); // copy existing globals
+            this.Globals = new Dictionary<Sym, object>(globalInterp.Globals); // copy existing globals
         }
 
         /// <summary>
@@ -1747,7 +1749,7 @@ public static class Lisp
                 if (ret is string s)
                     return s;
 
-                if (Globals.TryGetValue(VERBOSE, out var verbose) && isTrue(verbose))
+                if (this.Globals.TryGetValue(VERBOSE, out var verbose) && isTrue(verbose))
                     return ret.Dump();
 
                 return ret.ToSafeJsv();
@@ -1813,7 +1815,7 @@ public static class Lisp
         /// <returns>Func&lt;System.Object, System.Boolean&gt;.</returns>
         private Func<object, bool> resolvePredicate(object f, Interpreter interp)
         {
-            var fn = resolve1ArgFn(f, interp);
+            var fn = this.resolve1ArgFn(f, interp);
             return x => isTrue(fn(x));
         }
 
@@ -1826,8 +1828,8 @@ public static class Lisp
         private object invoke(Closure fnclosure, params object[] args)
         {
             var env = fnclosure.MakeEnv(this, ToCons(args), null);
-            var ret = EvalProgN(fnclosure.Body, env);
-            ret = Eval(ret, env);
+            var ret = this.EvalProgN(fnclosure.Body, env);
+            ret = this.Eval(ret, env);
             return ret;
         }
 
@@ -1840,7 +1842,7 @@ public static class Lisp
         private object invoke(Macro fnmacro, params object[] args)
         {
             var ret = fnmacro.ExpandWith(this, ToCons(args));
-            ret = Eval(ret, null);
+            ret = this.Eval(ret, null);
             return ret;
         }
 
@@ -1908,7 +1910,7 @@ public static class Lisp
             /// <paramref name="x" /> equals <paramref name="y" />.
             /// Greater than zero
             /// <paramref name="x" /> is greater than <paramref name="y" />.</returns>
-            public int Compare(object x, object y) => comparer.Compare(x, y);
+            public int Compare(object x, object y) => this.comparer.Compare(x, y);
 
             /// <summary>
             /// Gets the comparer.
@@ -1995,7 +1997,7 @@ public static class Lisp
             /// <param name="i">The i.</param>
             public FnComparer(Interpreter i)
             {
-                I = i;
+                this.I = i;
             }
 
             /// <summary>
@@ -2052,24 +2054,16 @@ public static class Lisp
             /// <param name="y">The second object to compare.</param>
             /// <returns>A signed integer that indicates the relative values of <paramref name="x" /> and <paramref name="y" />:   - If less than 0, <paramref name="x" /> is less than <paramref name="y" />.   - If 0, <paramref name="x" /> equals <paramref name="y" />.   - If greater than 0, <paramref name="x" /> is greater than <paramref name="y" />.</returns>
             public int Compare(object x, object y) =>
-                fnclosure != null
-                    ? DynamicInt.Instance.Convert(I.invoke(fnclosure, x, y))
-                    : fnmacro != null
-                        ? DynamicInt.Instance.Convert(I.invoke(fnclosure, x, y))
-                        : fnCompareTo?.Invoke(x, y) ?? DynamicInt.Instance.Convert(I.invoke(fndel, x, y));
+                this.fnclosure != null
+                    ? DynamicInt.Instance.Convert(this.I.invoke(this.fnclosure, x, y))
+                    : this.fnmacro != null
+                        ? DynamicInt.Instance.Convert(this.I.invoke(this.fnclosure, x, y))
+                        : this.fnCompareTo?.Invoke(x, y) ?? DynamicInt.Instance.Convert(this.I.invoke(this.fndel, x, y));
 
-            /// <summary>
-            /// Determines whether the specified objects are equal.
-            /// </summary>
-            /// <param name="x">The first object of type T to compare.</param>
-            /// <param name="y">The second object of type T to compare.</param>
-            /// <returns><see langword="true" /> if the specified objects are equal; otherwise, <see langword="false" />.</returns>
-            public bool Equals(object x, object y) =>
-                fnclosure != null
-                    ? I.invoke(fnclosure, x, y).ConvertTo<bool>()
-                    : fnmacro != null
-                        ? I.invoke(fnclosure, x, y).ConvertTo<bool>()
-                        : fnCompareEquals?.Invoke(x, y) ?? this.I.invoke(this.fndel, x, y).ConvertTo<bool>();
+            public new bool Equals(object x, object y)
+            {
+                throw new NotImplementedException();
+            }
 
             /// <summary>
             /// Returns a hash code for this instance.
@@ -2201,10 +2195,10 @@ public static class Lisp
         /// </summary>
         public void InitGlobals()
         {
-            Globals[TRUE] = Globals[BOOL_TRUE] = TRUE;
-            Globals[BOOL_FALSE] = null;
+            this.Globals[TRUE] = this.Globals[BOOL_TRUE] = TRUE;
+            this.Globals[BOOL_FALSE] = null;
 
-            Def("load", 1, (I, a) =>
+            this.Def("load", 1, (I, a) =>
                 {
                     var scope = I.AssertScope();
 
@@ -2237,7 +2231,7 @@ public static class Lisp
                     return null;
                 });
 
-            Def("load-src", 1, (I, a) =>
+            this.Def("load-src", 1, (I, a) =>
                 {
                     var scope = I.AssertScope();
 
@@ -2249,11 +2243,11 @@ public static class Lisp
                     return span.ToString();
                 });
 
-            Def("error", 1, a => throw new Exception((string)a[0]));
+            this.Def("error", 1, a => throw new Exception((string)a[0]));
 
-            Def("not", 1, a => a[0] == null || a[0] is false);
+            this.Def("not", 1, a => a[0] == null || a[0] is false);
 
-            Def("return", 1, (I, a) =>
+            this.Def("return", 1, (I, a) =>
                 {
                     var scope = I.AssertScope();
                     var ret = a == null
@@ -2265,7 +2259,7 @@ public static class Lisp
                     return null;
                 });
 
-            Def("F", -1, (I, a) =>
+            this.Def("F", -1, (I, a) =>
                 {
                     var scope = I.AssertScope();
                     var args = EvalArgs(a[0] as Cell, I);
@@ -2280,7 +2274,7 @@ public static class Lisp
                     return ret.unwrapScriptValue();
                 });
 
-            Def("C", -1, (I, a) =>
+            this.Def("C", -1, (I, a) =>
                 {
                     var scope = I.AssertScope();
                     var args = EvalArgs(a[0] as Cell, I);
@@ -2295,7 +2289,7 @@ public static class Lisp
                     return ret;
                 });
 
-            Def("new", -1, (I, a) =>
+            this.Def("new", -1, (I, a) =>
                 {
                     var scope = I.AssertScope();
                     var args = EvalArgs(a[0] as Cell, I);
@@ -2316,7 +2310,7 @@ public static class Lisp
                     throw new LispEvalException("new requires Type Name or Type", a[0]);
                 });
 
-            Def("to-delegate", 1, (I, a) =>
+            this.Def("to-delegate", 1, (I, a) =>
                 {
                     var f = a[0];
                     switch (f)
@@ -2334,16 +2328,16 @@ public static class Lisp
                     }
                 });
 
-            Def("to-cons", 1, a => a[0] == null ? null : a[0] is IEnumerable e ? ToCons(e)
-                                   : throw new LispEvalException("not IEnumerable", a[0]));
-            Def("to-array", 1, a => toList(a[0] as IEnumerable).ToArray());
-            Def("to-list", 1, a => toList(a[0] as IEnumerable));
-            Def("to-dictionary", 2, (I, a) => EnumerableUtils.ToList(a[1].assertEnumerable()).ToDictionary(resolve1ArgFn(a[0], I)));
+            this.Def("to-cons", 1, a => a[0] == null ? null : a[0] is IEnumerable e ? ToCons(e)
+                                        : throw new LispEvalException("not IEnumerable", a[0]));
+            this.Def("to-array", 1, a => this.toList(a[0] as IEnumerable).ToArray());
+            this.Def("to-list", 1, a => this.toList(a[0] as IEnumerable));
+            this.Def("to-dictionary", 2, (I, a) => EnumerableUtils.ToList(a[1].assertEnumerable()).ToDictionary(this.resolve1ArgFn(a[0], I)));
 
-            Def("new-map", -1, (I, a) => EvalMapArgs(a[0] as Cell, I));
+            this.Def("new-map", -1, (I, a) => EvalMapArgs(a[0] as Cell, I));
 
             // can use (:key x) as indexer instead, e.g. (:i array) (:"key" map) (:Prop obj) or (.Prop obj)
-            Def("nth", 2, a =>
+            this.Def("nth", 2, a =>
                 {
                     if (a[0] == null)
                         return null;
@@ -2354,38 +2348,38 @@ public static class Lisp
                     return a[0].assertEnumerable().Cast<object>().ElementAt(i);
                 });
 
-            Def("first", 1, a => EnumerableUtils.FirstOrDefault(a[0].assertEnumerable()));
-            Def("second", 1, a => EnumerableUtils.ElementAt(a[0].assertEnumerable(), 1));
-            Def("third", 1, a => EnumerableUtils.ElementAt(a[0].assertEnumerable(), 2));
-            Def("rest", 1, body: a => a[0] is Cell c ? c.Cdr : EnumerableUtils.NullIfEmpty(EnumerableUtils.Skip(a[0].assertEnumerable(), 1)));
-            Def("skip", 2, a => EnumerableUtils.Skip(a[1].assertEnumerable(), DynamicInt.Instance.Convert(a[0])));
-            Def("take", 2, a => EnumerableUtils.Take(a[1].assertEnumerable(), DynamicInt.Instance.Convert(a[0])));
-            Def("enumerator", 1, a => a[0] == null ? TypeConstants.EmptyObjectArray.GetEnumerator() : a[0].assertEnumerable().GetEnumerator());
-            Def("enumeratorNext", 1, a =>
+            this.Def("first", 1, a => EnumerableUtils.FirstOrDefault(a[0].assertEnumerable()));
+            this.Def("second", 1, a => EnumerableUtils.ElementAt(a[0].assertEnumerable(), 1));
+            this.Def("third", 1, a => EnumerableUtils.ElementAt(a[0].assertEnumerable(), 2));
+            this.Def("rest", 1, body: a => a[0] is Cell c ? c.Cdr : EnumerableUtils.NullIfEmpty(EnumerableUtils.Skip(a[0].assertEnumerable(), 1)));
+            this.Def("skip", 2, a => EnumerableUtils.Skip(a[1].assertEnumerable(), DynamicInt.Instance.Convert(a[0])));
+            this.Def("take", 2, a => EnumerableUtils.Take(a[1].assertEnumerable(), DynamicInt.Instance.Convert(a[0])));
+            this.Def("enumerator", 1, a => a[0] == null ? TypeConstants.EmptyObjectArray.GetEnumerator() : a[0].assertEnumerable().GetEnumerator());
+            this.Def("enumeratorNext", 1, a =>
                 {
                     if (a[0] is not IEnumerator e)
                         throw new LispEvalException("not IEnumerator", a[0]);
                     return e.MoveNext().lispBool();
                 });
-            Def("enumeratorCurrent", 1, a =>
+            this.Def("enumeratorCurrent", 1, a =>
                 {
                     if (a[0] is not IEnumerator e)
                         throw new LispEvalException("not IEnumerator", a[0]);
                     return e.Current;
                 });
-            Def("dispose", 1, a =>
+            this.Def("dispose", 1, a =>
                 {
                     using (a[0] as IDisposable) { }
                     return null;
                 });
 
-            Def("map", 2, (I, a) => a[1]?.assertEnumerable().Map(resolve1ArgFn(a[0], I)));
-            Def("map-where", 3, (I, a) => EnumerableUtils.ToList(a[2]?.assertEnumerable()).Where(resolvePredicate(a[0], I)).Map(resolve1ArgFn(a[1], I)));
-            Def("where", 2, (I, a) => EnumerableUtils.ToList(a[1]?.assertEnumerable()).Where(resolvePredicate(a[0], I)).ToList());
+            this.Def("map", 2, (I, a) => a[1]?.assertEnumerable().Map(this.resolve1ArgFn(a[0], I)));
+            this.Def("map-where", 3, (I, a) => EnumerableUtils.ToList(a[2]?.assertEnumerable()).Where(this.resolvePredicate(a[0], I)).Map(this.resolve1ArgFn(a[1], I)));
+            this.Def("where", 2, (I, a) => EnumerableUtils.ToList(a[1]?.assertEnumerable()).Where(this.resolvePredicate(a[0], I)).ToList());
 
-            Def("dorun", 2, (I, a) =>
+            this.Def("dorun", 2, (I, a) =>
                 {
-                    var converter = resolve1ArgFn(a[0], I);
+                    var converter = this.resolve1ArgFn(a[0], I);
                     foreach (var x in a[1]?.assertEnumerable())
                     {
                         converter(x);
@@ -2393,11 +2387,11 @@ public static class Lisp
                     return null;
                 });
 
-            Def("do", -1, (I, a) => enumerableArg(a).Cast<object>().Last());
+            this.Def("do", -1, (I, a) => enumerableArg(a).Cast<object>().Last());
 
-            Def("reduce", -2, (I, a) =>
+            this.Def("reduce", -2, (I, a) =>
                 {
-                    var fn = resolve2ArgFn(a[0], I);
+                    var fn = this.resolve2ArgFn(a[0], I);
                     var varArgs = EnumerableUtils.ToList(a[1].assertEnumerable());
                     if (varArgs.Count == 1) // (reduce fn L)
                     {
@@ -2412,18 +2406,18 @@ public static class Lisp
                     }
                 });
 
-            Def("flatten", -1, (I, a) => I.AssertScope().Context.DefaultMethods.flatten(a[0] as IEnumerable ?? a));
+            this.Def("flatten", -1, (I, a) => I.AssertScope().Context.DefaultMethods.flatten(a[0] as IEnumerable ?? a));
 
-            Def("sort", 1, (I, a) =>
+            this.Def("sort", 1, (I, a) =>
                 {
                     var arr = a[0].assertEnumerable().Cast<object>().ToArray();
                     Array.Sort(arr, (x, y) => x.compareTo(y));
                     return arr;
                 });
 
-            Def("sort-by", -2, (I, a) =>
+            this.Def("sort-by", -2, (I, a) =>
                 {
-                    var keyFn = resolve1ArgFn(a[0], I);
+                    var keyFn = this.resolve1ArgFn(a[0], I);
                     var varArgs = EnumerableUtils.ToList(a[1].assertEnumerable());
                     if (varArgs.Count == 1) // (sort-by keyfn list)
                     {
@@ -2441,7 +2435,7 @@ public static class Lisp
                     }
                 });
 
-            Def("order-by", 2, (I, a) =>
+            this.Def("order-by", 2, (I, a) =>
                 {
                     var keyFns = EnumerableUtils.ToList(a[0].assertEnumerable());
 
@@ -2457,7 +2451,7 @@ public static class Lisp
                         if (keyFn is Dictionary<string, object> obj)
                         {
                             var fn = obj.TryGetValue("key", out var oKey)
-                                         ? resolve1ArgFn(oKey, I)
+                                         ? this.resolve1ArgFn(oKey, I)
                                          : x => x;
                             var comparer = obj.TryGetValue("comparer", out var oComparer)
                                                ? ObjectComparer.GetComparer(oComparer, I)
@@ -2476,7 +2470,7 @@ public static class Lisp
                         }
                         else
                         {
-                            var fn = resolve1ArgFn(keyFn, I);
+                            var fn = this.resolve1ArgFn(keyFn, I);
                             seq = seq == null ? list.OrderBy(fn) : seq.ThenBy(fn);
                         }
                     }
@@ -2484,10 +2478,10 @@ public static class Lisp
                     return EnumerableUtils.ToList(seq);
                 });
 
-            Def("group-by", -2, (I, a) =>
+            this.Def("group-by", -2, (I, a) =>
                 {
 
-                    var keyFn = resolve1ArgFn(a[0], I);
+                    var keyFn = this.resolve1ArgFn(a[0], I);
                     var varArgs = EnumerableUtils.ToList(a[1].assertEnumerable());
 
                     if (varArgs.Count == 1) // (group-by #(mod % 5) numbers)
@@ -2499,7 +2493,7 @@ public static class Lisp
                     if (varArgs.Count == 2 && varArgs[0] is Dictionary<string, object> obj)
                     {
                         var mapFn = obj.TryGetValue("map", out var oKey)
-                                        ? resolve1ArgFn(oKey, I)
+                                        ? this.resolve1ArgFn(oKey, I)
                                         : x => x;
                         var comparer = obj.TryGetValue("comparer", out var oComparer)
                                            ? ObjectComparer.GetEqualityComparer(oComparer, I)
@@ -2516,7 +2510,7 @@ public static class Lisp
                     throw new LispEvalException("syntax: (group-by keyFn list) (group-by keyFn { :map mapFn :comparer comparer } list)", varArgs.Last());
                 });
 
-            Def("sum", 1, a =>
+            this.Def("sum", 1, a =>
                 {
                     object acc = 0;
                     foreach (var num in a[0].assertEnumerable())
@@ -2524,7 +2518,7 @@ public static class Lisp
                     return acc;
                 });
 
-            Def("str", -1, a =>
+            this.Def("str", -1, a =>
                 {
                     var sb = StringBuilderCache.Allocate();
                     var c = (Cell)a[0];
@@ -2535,47 +2529,47 @@ public static class Lisp
                     return StringBuilderCache.ReturnAndFree(sb);
                 });
 
-            Def("car", 1, a => (a[0] as Cell)?.Car);
-            Def("cdr", 1, a => (a[0] as Cell)?.Cdr);
+            this.Def("car", 1, a => (a[0] as Cell)?.Car);
+            this.Def("cdr", 1, a => (a[0] as Cell)?.Cdr);
 
-            Def("cons", 2, a => new Cell(a[0], a[1]));
-            Def("atom", 1, a => a[0] is Cell ? null : TRUE);
-            Def("eq", 2, a => a[0] == a[1] ? TRUE : null);
+            this.Def("cons", 2, a => new Cell(a[0], a[1]));
+            this.Def("atom", 1, a => a[0] is Cell ? null : TRUE);
+            this.Def("eq", 2, a => a[0] == a[1] ? TRUE : null);
 
-            Def("seq?", 1, a => a[0] is IEnumerable e ? TRUE : null);
-            Def("consp", 1, a => a[0] is Cell c ? TRUE : null);
-            Def("endp", 1, a => a[0] is Cell c
-                                    ? c.Car == null ? TRUE : null
-                                    : a[0] == null
-                                        ? TRUE
-                                        : EnumerableUtils.FirstOrDefault(a[0].assertEnumerable()) == null ? TRUE : null);
+            this.Def("seq?", 1, a => a[0] is IEnumerable e ? TRUE : null);
+            this.Def("consp", 1, a => a[0] is Cell c ? TRUE : null);
+            this.Def("endp", 1, a => a[0] is Cell c
+                                         ? c.Car == null ? TRUE : null
+                                         : a[0] == null
+                                             ? TRUE
+                                             : EnumerableUtils.FirstOrDefault(a[0].assertEnumerable()) == null ? TRUE : null);
 
-            Def("list", -1, a => a[0]);
-            Def("rplaca", 2, a => { ((Cell)a[0]).Car = a[1]; return a[1]; });
-            Def("rplacd", 2, a => { ((Cell)a[0]).Cdr = a[1]; return a[1]; });
-            Def("length", 1, a =>
+            this.Def("list", -1, a => a[0]);
+            this.Def("rplaca", 2, a => { ((Cell)a[0]).Car = a[1]; return a[1]; });
+            this.Def("rplacd", 2, a => { ((Cell)a[0]).Cdr = a[1]; return a[1]; });
+            this.Def("length", 1, a =>
                 {
                     if (a[0] == null)
                         return 0;
                     return DefaultScripts.Instance.length(a[0]);
                 });
 
-            Def("string", 1, a => $"{a[0]}");
-            Def("string-downcase", 1, a =>
+            this.Def("string", 1, a => $"{a[0]}");
+            this.Def("string-downcase", 1, a =>
                 a[0] is string s ? s.ToLower() : a[0] != null ? throw new Exception("not a string") : "");
-            Def("string-upcase", 1, a => a[0] is string s ? s.ToUpper() : a[0] != null ? throw new LispEvalException("not a string", a[0]) : "");
-            Def("string?", 1, a => a[0] is string ? TRUE : null);
-            Def("number?", 1, a => DynamicNumber.IsNumber(a[0]?.GetType()) ? TRUE : null);
-            Def("instance?", 2, (I, a) => I.AssertScope().Context.DefaultMethods.instanceOf(a[1], a[0] is Sym s ? s.Name : a[0]) ? TRUE : null);
-            Def("eql", 2, a => a[0] == null
-                                   ? a[1] == null
-                                         ? TRUE : null
-                                   : a[0].Equals(a[1])
-                                       ? TRUE : null);
-            Def("<", 2, a => a[0].compareTo(a[1]) < 0 ? TRUE : null);
+            this.Def("string-upcase", 1, a => a[0] is string s ? s.ToUpper() : a[0] != null ? throw new LispEvalException("not a string", a[0]) : "");
+            this.Def("string?", 1, a => a[0] is string ? TRUE : null);
+            this.Def("number?", 1, a => DynamicNumber.IsNumber(a[0]?.GetType()) ? TRUE : null);
+            this.Def("instance?", 2, (I, a) => I.AssertScope().Context.DefaultMethods.instanceOf(a[1], a[0] is Sym s ? s.Name : a[0]) ? TRUE : null);
+            this.Def("eql", 2, a => a[0] == null
+                                        ? a[1] == null
+                                              ? TRUE : null
+                                        : a[0].Equals(a[1])
+                                            ? TRUE : null);
+            this.Def("<", 2, a => a[0].compareTo(a[1]) < 0 ? TRUE : null);
 
-            Def("%", 2, a => DynamicNumber.Mod(a[0], a[1]));
-            Def("mod", 2, a =>
+            this.Def("%", 2, a => DynamicNumber.Mod(a[0], a[1]));
+            this.Def("mod", 2, a =>
                 {
                     var x = a[0];
                     var y = a[1];
@@ -2585,9 +2579,9 @@ public static class Lisp
                     return DynamicNumber.Mod(x, y);
                 });
 
-            Def("+", -1, a => FoldL((object)0, a[0] as IEnumerable ?? a, DynamicNumber.Add));
-            Def("*", -1, a => FoldL((object)1, a[0] as IEnumerable ?? a, DynamicNumber.Mul));
-            Def("-", -1, a =>
+            this.Def("+", -1, a => FoldL((object)0, a[0] as IEnumerable ?? a, DynamicNumber.Add));
+            this.Def("*", -1, a => FoldL((object)1, a[0] as IEnumerable ?? a, DynamicNumber.Mul));
+            this.Def("-", -1, a =>
                 {
                     var e = a[0] as IEnumerable ?? a;
                     var rest = EnumerableUtils.SplitOnFirst(e, out var first);
@@ -2595,7 +2589,7 @@ public static class Lisp
                         return DynamicNumber.Mul(first, -1);
                     return FoldL(first, rest, DynamicNumber.Sub);
                 });
-            Def("/", -1, a =>
+            this.Def("/", -1, a =>
                 {
                     var e = a[0] as IEnumerable ?? a;
                     var rest = EnumerableUtils.SplitOnFirst(e, out var first);
@@ -2604,9 +2598,9 @@ public static class Lisp
                     return FoldL(first, rest, DynamicNumber.Div);
                 });
 
-            Def("count", 1, a => EnumerableUtils.Count(a[0].assertEnumerable()));
+            this.Def("count", 1, a => EnumerableUtils.Count(a[0].assertEnumerable()));
 
-            Def("remove", 2, a =>
+            this.Def("remove", 2, a =>
                 {
                     var oNeedle = a[0];
                     if (oNeedle is string needle)
@@ -2641,7 +2635,7 @@ public static class Lisp
                     throw new LispEvalException("not IEnumerable", a[1]);
                 });
 
-            Def("glob", 2, (I, a) =>
+            this.Def("glob", 2, (I, a) =>
                 {
                     var search = a[0];
                     if (search is not string pattern)
@@ -2655,7 +2649,7 @@ public static class Lisp
                     return to;
                 });
 
-            Def("subseq", -2, a =>
+            this.Def("subseq", -2, a =>
                 {
                     var c = (Cell)a[1];
                     var startPos = c.Car != null ? DynamicInt.Instance.Convert(c.Car) : 0;
@@ -2678,46 +2672,47 @@ public static class Lisp
                     return fn(x / DynamicDouble.Instance.Convert(y.Car));
                 throw new ArgumentException("one or two arguments expected");
             }
-            Def("truncate", -2, a => fnMathDivisor(a, x => Math.Truncate(DynamicDouble.Instance.Convert(x))));
-            Def("ceiling", -2, a => fnMathDivisor(a, x => Math.Ceiling(DynamicDouble.Instance.Convert(x))));
-            Def("floor", -2, a => fnMathDivisor(a, x => Math.Floor(DynamicDouble.Instance.Convert(x))));
-            Def("round", -2, a => fnMathDivisor(a, x => Math.Round(DynamicDouble.Instance.Convert(x))));
 
-            Def("abs", 1, a => Math.Abs(DynamicDouble.Instance.Convert(a[0])));
-            Def("sin", 1, a => Math.Sin(DynamicDouble.Instance.Convert(a[0])));
-            Def("cos", 1, a => Math.Cos(DynamicDouble.Instance.Convert(a[0])));
-            Def("tan", 1, a => Math.Tan(DynamicDouble.Instance.Convert(a[0])));
-            Def("exp", 1, a => Math.Exp(DynamicDouble.Instance.Convert(a[0])));
-            Def("expt", 2, a => Math.Pow(DynamicDouble.Instance.Convert(a[0]), DynamicDouble.Instance.Convert(a[1])));
-            Def("sqrt", 1, a => Math.Sqrt(DynamicDouble.Instance.Convert(a[0])));
-            Def("isqrt", 1, a => (int)Math.Sqrt(DynamicDouble.Instance.Convert(a[0])));
+            this.Def("truncate", -2, a => fnMathDivisor(a, x => Math.Truncate(DynamicDouble.Instance.Convert(x))));
+            this.Def("ceiling", -2, a => fnMathDivisor(a, x => Math.Ceiling(DynamicDouble.Instance.Convert(x))));
+            this.Def("floor", -2, a => fnMathDivisor(a, x => Math.Floor(DynamicDouble.Instance.Convert(x))));
+            this.Def("round", -2, a => fnMathDivisor(a, x => Math.Round(DynamicDouble.Instance.Convert(x))));
 
-            Def("logand", -1, a => a[0] is Cell c
-                                       ? FoldL(DynamicLong.Instance.Convert(c.Car), (Cell)a[0], (i, j) =>
-                                           DynamicLong.Instance.Convert(i) & DynamicLong.Instance.Convert(j))
-                                       : -1);
-            Def("logior", -1, a => a[0] is Cell c
-                                       ? FoldL(DynamicLong.Instance.Convert(c.Car), (Cell)a[0], (i, j) =>
-                                           DynamicLong.Instance.Convert(i) | DynamicLong.Instance.Convert(j))
-                                       : -1);
-            Def("logxor", -1, a => a[0] is Cell c
-                                       ? FoldL(DynamicLong.Instance.Convert(c.Car), (Cell)a[0], (i, j) =>
-                                           DynamicLong.Instance.Convert(i) ^ DynamicLong.Instance.Convert(j))
-                                       : -1);
+            this.Def("abs", 1, a => Math.Abs(DynamicDouble.Instance.Convert(a[0])));
+            this.Def("sin", 1, a => Math.Sin(DynamicDouble.Instance.Convert(a[0])));
+            this.Def("cos", 1, a => Math.Cos(DynamicDouble.Instance.Convert(a[0])));
+            this.Def("tan", 1, a => Math.Tan(DynamicDouble.Instance.Convert(a[0])));
+            this.Def("exp", 1, a => Math.Exp(DynamicDouble.Instance.Convert(a[0])));
+            this.Def("expt", 2, a => Math.Pow(DynamicDouble.Instance.Convert(a[0]), DynamicDouble.Instance.Convert(a[1])));
+            this.Def("sqrt", 1, a => Math.Sqrt(DynamicDouble.Instance.Convert(a[0])));
+            this.Def("isqrt", 1, a => (int)Math.Sqrt(DynamicDouble.Instance.Convert(a[0])));
 
-            Def("min", -1, a =>
+            this.Def("logand", -1, a => a[0] is Cell c
+                                            ? FoldL(DynamicLong.Instance.Convert(c.Car), (Cell)a[0], (i, j) =>
+                                                DynamicLong.Instance.Convert(i) & DynamicLong.Instance.Convert(j))
+                                            : -1);
+            this.Def("logior", -1, a => a[0] is Cell c
+                                            ? FoldL(DynamicLong.Instance.Convert(c.Car), (Cell)a[0], (i, j) =>
+                                                DynamicLong.Instance.Convert(i) | DynamicLong.Instance.Convert(j))
+                                            : -1);
+            this.Def("logxor", -1, a => a[0] is Cell c
+                                            ? FoldL(DynamicLong.Instance.Convert(c.Car), (Cell)a[0], (i, j) =>
+                                                DynamicLong.Instance.Convert(i) ^ DynamicLong.Instance.Convert(j))
+                                            : -1);
+
+            this.Def("min", -1, a =>
                 {
                     var e = a[0] as IEnumerable ?? a;
                     var rest = EnumerableUtils.SplitOnFirst(e, out var first);
                     return FoldL(first, rest, DynamicNumber.Min);
                 });
-            Def("max", -1, a =>
+            this.Def("max", -1, a =>
                 {
                     var e = a[0] as IEnumerable ?? a;
                     var rest = EnumerableUtils.SplitOnFirst(e, out var first);
                     return FoldL(first, rest, DynamicNumber.Max);
                 });
-            Def("average", -1, a =>
+            this.Def("average", -1, a =>
                 {
                     var e = a[0] is Cell c ? c.Car as Cell ?? c : a[0] as IEnumerable ?? a;
                     var rest = EnumerableUtils.SplitOnFirst(e, out var first);
@@ -2725,27 +2720,26 @@ public static class Lisp
                     return DynamicDouble.Instance.div(ret, rest.Count + 1);
                 });
 
-            Def("random", 1, a =>
+            this.Def("random", 1, a =>
                 {
                     var d = (double)a[0];
                     return d % 1 > 0
                                ? new Random().NextDouble() * d
                                : new Random().Next(0, (int)d);
                 });
-            Def("zerop", 1, a => DynamicDouble.Instance.Convert(a[0]) == 0d ? TRUE : null);
+            this.Def("zerop", 1, a => DynamicDouble.Instance.Convert(a[0]) == 0d ? TRUE : null);
 
             object print(Interpreter I, string s)
             {
                 if (I.Scope != null)
                     I.Scope.Value.Context.DefaultMethods.write(I.Scope.Value, s);
-                else
-                    COut.Write(s);
+                else this.COut.Write(s);
                 return null;
             }
 
             IEnumerable enumerableArg(object[] a) => a.Length > 0 && a[0] is Cell cell ? cell : a;
 
-            Def("print", -1, (I, a) =>
+            this.Def("print", -1, (I, a) =>
                 {
                     var c = enumerableArg(a);
                     foreach (var x in c)
@@ -2754,61 +2748,58 @@ public static class Lisp
                     }
                     return I.Scope != null ? null : a.lastArg();
                 });
-            Def("println", -1, (I, a) =>
+            this.Def("println", -1, (I, a) =>
                 {
                     var c = enumerableArg(a);
                     foreach (var x in c)
                     {
                         if (I.Scope != null)
                             I.Scope.Value.Context.DefaultMethods.write(I.Scope.Value, Str(x, false));
-                        else
-                            COut.WriteLine(Str(a[0], true));
+                        else this.COut.WriteLine(Str(a[0], true));
                     }
                     print(I, "\n");
                     return I.Scope != null ? null : a.lastArg();
                 });
 
             // println with spaces
-            Def("printlns", -1, (I, a) =>
+            this.Def("printlns", -1, (I, a) =>
                 {
                     var c = enumerableArg(a);
                     foreach (var x in c)
                     {
                         if (I.Scope != null)
                             I.Scope.Value.Context.DefaultMethods.write(I.Scope.Value, Str(x, false) + " ");
-                        else
-                            COut.WriteLine(Str(a[0] + " ", true));
+                        else this.COut.WriteLine(Str(a[0] + " ", true));
                     }
                     print(I, "\n");
                     return I.Scope != null ? null : a.lastArg();
                 });
 
-            Def("htmldump", 1, (I, a) => print(I, I.AssertScope().Context.HtmlMethods.htmlDump(a[0]).ToRawString()));
-            Def("textdump", 1, (I, a) => print(I, I.AssertScope().Context.DefaultMethods.textDump(a[0]).ToRawString()));
+            this.Def("htmldump", 1, (I, a) => print(I, I.AssertScope().Context.HtmlMethods.htmlDump(a[0]).ToRawString()));
+            this.Def("textdump", 1, (I, a) => print(I, I.AssertScope().Context.DefaultMethods.textDump(a[0]).ToRawString()));
 
             // html encodes
-            Def("pr", -1, (I, a) =>
+            this.Def("pr", -1, (I, a) =>
                 {
                     var c = enumerableArg(a);
                     foreach (var x in c)
                         print(I, I.Scope.Value.Context.DefaultMethods.htmlEncode(Str(x, false)));
                     return I.Scope != null ? null : a.lastArg();
                 });
-            Def("prn", -1, (I, a) =>
+            this.Def("prn", -1, (I, a) =>
                 {
                     var c = enumerableArg(a);
                     foreach (var x in c)
                     {
                         if (I.Scope != null)
                             I.Scope.Value.Context.DefaultMethods.write(I.Scope.Value, I.Scope.Value.Context.DefaultMethods.htmlEncode(Str(x, false)));
-                        else
-                            COut.WriteLine(Str(a[0], true));
+                        else this.COut.WriteLine(Str(a[0], true));
                     }
                     print(I, "\n");
                     return I.Scope != null ? null : a.lastArg();
                 });
 
-            Def("dump", -1, (I, a) =>
+            this.Def("dump", -1, (I, a) =>
                 {
                     var c = enumerableArg(a);
                     var defaultScripts = I.AssertScope().Context.DefaultMethods;
@@ -2819,7 +2810,7 @@ public static class Lisp
                     print(I, "\n");
                     return null;
                 });
-            Def("dump-inline", -1, (I, a) =>
+            this.Def("dump-inline", -1, (I, a) =>
                 {
                     var c = enumerableArg(a);
                     var defaultScripts = I.AssertScope().Context.DefaultMethods;
@@ -2831,8 +2822,7 @@ public static class Lisp
                     return null;
                 });
 
-            Def("debug", 0, a =>
-                Globals.Keys.Aggregate((Cell)null, (x, y) => new Cell(y, x)));
+            this.Def("debug", 0, a => this.Globals.Keys.Aggregate((Cell)null, (x, y) => new Cell(y, x)));
 
             //use symbols script method
             //Def("symbols", 0, a =>  Globals.Keys.Map(x => x.Name).OrderBy(x => x).ToArray());
@@ -2840,55 +2830,55 @@ public static class Lisp
             //Use gistindex script method
             //Def("gist-index", 0, (I, a) => GetGistIndexLinks(I.AssertScope()));
 
-            Def("prin1", 1, (I, a) =>
+            this.Def("prin1", 1, (I, a) =>
                 {
                     print(I, Str(a[0], true));
                     return a[0];
                 });
-            Def("princ", 1, (I, a) =>
+            this.Def("princ", 1, (I, a) =>
                 {
                     print(I, Str(a[0], false));
                     return a[0];
                 });
-            Def("terpri", 0, (I, a) =>
+            this.Def("terpri", 0, (I, a) =>
                 {
                     print(I, "\n");
                     return TRUE;
                 });
 
             var gensymCounterSym = Sym.New("*gensym-counter*");
-            Globals[gensymCounterSym] = 1.0;
-            Def("gensym", 0, a =>
+            this.Globals[gensymCounterSym] = 1.0;
+            this.Def("gensym", 0, a =>
                 {
                     var x = Interlocked.Increment(ref gensymCounter);
-                    Globals[gensymCounterSym] = x;
+                    this.Globals[gensymCounterSym] = x;
                     return new Sym($"G{(int)x}");
                 });
 
-            Def("make-symbol", 1, a => new Sym((string)a[0]));
-            Def("intern", 1, a => Sym.New((string)a[0]));
-            Def("symbol-name", 1, a => ((Sym)a[0]).Name);
-            Def("symbol-type", 1, a =>
+            this.Def("make-symbol", 1, a => new Sym((string)a[0]));
+            this.Def("intern", 1, a => Sym.New((string)a[0]));
+            this.Def("symbol-name", 1, a => ((Sym)a[0]).Name);
+            this.Def("symbol-type", 1, a =>
                 {
                     var sym = a[0] as Sym ?? (a[0] is string s
                                                   ? Sym.New(s)
                                                   : throw new LispEvalException("Expected Symbol or Symbol Name", a[0]));
-                    if (Globals.TryGetValue(sym, out var value) && value != null)
+                    if (this.Globals.TryGetValue(sym, out var value) && value != null)
                         return value.GetType().Name;
                     return "nil";
                 });
 
-            Def("apply", 2, a => a[1] is Cell c
-                                     ? Eval(new Cell(a[0], MapCar(c, QqQuote)), null)
-                                     : Eval(new Cell(a[0], MapCar(ToCons(a[1].assertEnumerable()), QqQuote)), null));
+            this.Def("apply", 2, a => a[1] is Cell c
+                                          ? this.Eval(new Cell(a[0], MapCar(c, QqQuote)), null)
+                                          : this.Eval(new Cell(a[0], MapCar(ToCons(a[1].assertEnumerable()), QqQuote)), null));
 
-            Def("exit", 1, a =>
+            this.Def("exit", 1, a =>
                 {
                     Environment.Exit(DynamicInt.Instance.Convert(a[0]));
                     return null;
                 });
 
-            Globals[Sym.New("*version*")] =
+            this.Globals[Sym.New("*version*")] =
                 new Cell(Env.VersionString,
                     new Cell("#Script Lisp", new Cell("based on Nukata Lisp Light v1.2", null)));
         }
@@ -2902,7 +2892,7 @@ public static class Lisp
         /// <param name="body">The body.</param>
         public void Def(string name, int carity, BuiltInFuncBody body)
         {
-            Globals[Sym.New(name)] = new BuiltInFunc(name, carity, body);
+            this.Globals[Sym.New(name)] = new BuiltInFunc(name, carity, body);
         }
         /// <summary>
         /// Definitions the specified name.
@@ -2912,7 +2902,7 @@ public static class Lisp
         /// <param name="body">The body.</param>
         public void Def(string name, int carity, Func<object[], object> body)
         {
-            Globals[Sym.New(name)] = new BuiltInFunc(name, carity, (I, a) => body(a));
+            this.Globals[Sym.New(name)] = new BuiltInFunc(name, carity, (I, a) => body(a));
         }
 
         /// <summary>
@@ -2920,7 +2910,7 @@ public static class Lisp
         /// </summary>
         /// <param name="sExpressions">The s expressions.</param>
         /// <returns>System.Object.</returns>
-        public object Eval(IEnumerable<object> sExpressions) => Eval(sExpressions, null);
+        public object Eval(IEnumerable<object> sExpressions) => this.Eval(sExpressions, null);
 
         /// <summary>
         /// Evals the specified s expressions.
@@ -2933,7 +2923,7 @@ public static class Lisp
             object lastResult = null;
             foreach (var sExpression in sExpressions)
             {
-                lastResult = Eval(sExpression, env);
+                lastResult = this.Eval(sExpression, env);
             }
             return lastResult;
         }
@@ -2952,8 +2942,8 @@ public static class Lisp
         /// <exception cref="System.NotSupportedException">Lisp Interpreter not configured with Required ScriptScopeContext</exception>
         public ScriptScopeContext AssertScope()
         {
-            if (Scope != null)
-                return Scope.Value;
+            if (this.Scope != null)
+                return this.Scope.Value;
 
             throw new NotSupportedException("Lisp Interpreter not configured with Required ScriptScopeContext");
         }
@@ -2963,7 +2953,7 @@ public static class Lisp
         /// </summary>
         /// <param name="x">The x.</param>
         /// <returns>System.Object.</returns>
-        public object Eval(object x) => Eval(x, null);
+        public object Eval(object x) => this.Eval(x, null);
 
         /// <summary>
         /// Evaluate a Lisp expression in an environment.
@@ -3001,16 +2991,16 @@ public static class Lisp
             {
                 ScriptScopeContext scope = default;
                 var hasScope = false;
-                if (Scope != null)
+                if (this.Scope != null)
                 {
                     hasScope = true;
-                    scope = Scope.Value;
+                    scope = this.Scope.Value;
                     if (scope.PageResult.HaltExecution)
                         return null;
                     scope.PageResult.AssertNextEvaluation();
                 }
 
-                Evaluations++;
+                this.Evaluations++;
                 Interlocked.Increment(ref totalEvaluations);
 
                 for (; ; )
@@ -3021,7 +3011,7 @@ public static class Lisp
                         case Arg xarg:
                             return xarg.GetValue(env);
                         case Sym xsym:
-                            if (Globals.TryGetValue(xsym, out value))
+                            if (this.Globals.TryGetValue(xsym, out value))
                                 return value;
                             if (hasScope)
                             {
@@ -3101,29 +3091,29 @@ public static class Lisp
                                 }
                                 else if (fn == PROGN)
                                 {
-                                    x = EvalProgN(arg, env);
+                                    x = this.EvalProgN(arg, env);
                                 }
                                 else if (fn == COND)
                                 {
-                                    x = EvalCond(arg, env);
+                                    x = this.EvalCond(arg, env);
                                 }
                                 else if (fn == SETQ)
                                 {
-                                    return EvalSetQ(arg, env);
+                                    return this.EvalSetQ(arg, env);
                                 }
                                 else if (fn == EXPORT)
                                 {
-                                    return EvalExport(arg, env, scope);
+                                    return this.EvalExport(arg, env, scope);
                                 }
                                 else if (fn == LAMBDA || fn == FN)
                                 {
-                                    return Compile(arg.unwrapDataListArgs(), env, Closure.Make);
+                                    return this.Compile(arg.unwrapDataListArgs(), env, Closure.Make);
                                 }
                                 else if (fn == MACRO)
                                 {
                                     if (env != null)
                                         throw new LispEvalException("nested macro", x);
-                                    return Compile(arg, null, Macro.Make);
+                                    return this.Compile(arg, null, Macro.Make);
                                 }
                                 else if (fn == QUASIQUOTE)
                                 {
@@ -3149,7 +3139,7 @@ public static class Lisp
                                             if (name is not Sym checksym)
                                                 throw new LispEvalException("not Sym", name);
 
-                                            var ret = Globals.ContainsKey(checksym) || hasScope && scope.TryGetValue(checksym.Name, out _);
+                                            var ret = this.Globals.ContainsKey(checksym) || hasScope && scope.TryGetValue(checksym.Name, out _);
                                             if (!ret)
                                                 return null;
                                         }
@@ -3157,7 +3147,7 @@ public static class Lisp
                                     }
 
                                     // Expand fn = Eval(fn, env) here for speed.
-                                    if (Globals.TryGetValue(fnsym, out value))
+                                    if (this.Globals.TryGetValue(fnsym, out value))
                                     {
                                         fn = value;
                                     }
@@ -3242,13 +3232,13 @@ public static class Lisp
                                 }
                                 else
                                 {
-                                    fn = Eval(fn, env);
+                                    fn = this.Eval(fn, env);
                                 }
                                 switch (fn)
                                 {
                                     case Closure fnclosure:
                                         env = fnclosure.MakeEnv(this, arg, env);
-                                        x = EvalProgN(fnclosure.Body, env);
+                                        x = this.EvalProgN(fnclosure.Body, env);
                                         break;
                                     case Macro fnmacro:
                                         x = fnmacro.ExpandWith(this, arg);
@@ -3373,7 +3363,7 @@ public static class Lisp
                 j = CdrCell(j);
                 if (j == null)
                     return x; // The tail expression to be evaluated later
-                Eval(x, env);
+                this.Eval(x, env);
             }
         }
 
@@ -3397,12 +3387,12 @@ public static class Lisp
                         continue;
                     case Cell k:
                         {
-                            var result = Eval(k.Car, env);
+                            var result = this.Eval(k.Car, env);
                             var f = result is false;
                             if (result == null || f) continue;
                             // If the condition holds //DB: added false check
                             Cell body = CdrCell(k);
-                            return body == null ? QqQuote(result) : EvalProgN(body, env);
+                            return body == null ? QqQuote(result) : this.EvalProgN(body, env);
                         }
                     default:
                         throw new LispEvalException("cond test expected", clause);
@@ -3435,14 +3425,14 @@ public static class Lisp
                 j = CdrCell(j);
                 if (j == null)
                     throw new LispEvalException("right value expected", lval);
-                result = Eval(j.Car, env);
+                result = this.Eval(j.Car, env);
                 switch (lval)
                 {
                     case Arg arg:
                         arg.SetValue(result, env);
                         break;
                     case Sym sym when sym is not Keyword:
-                        Globals[sym] = result;
+                        this.Globals[sym] = result;
                         break;
                     default:
                         throw new NotVariableException(lval);
@@ -3479,7 +3469,7 @@ public static class Lisp
                 j = CdrCell(j);
                 if (j == null)
                     throw new LispEvalException("right value expected", lval);
-                object result = Eval(j.Car, env);
+                object result = this.Eval(j.Car, env);
                 switch (lval)
                 {
                     case Arg arg:
@@ -3518,14 +3508,14 @@ public static class Lisp
                 j = CdrCell(j);
                 if (j == null)
                     throw new LispEvalException("right value expected", lval);
-                object result = Eval(j.Car, env);
+                object result = this.Eval(j.Car, env);
                 switch (lval)
                 {
                     case Arg arg:
                         arg.SetValue(result, env);
                         break;
                     case Sym sym when sym is not Keyword:
-                        Scope.Value.PageResult.Args[sym.Name] = result;
+                        this.Scope.Value.PageResult.Args[sym.Name] = result;
                         break;
                     default:
                         throw new NotVariableException(lval);
@@ -3553,8 +3543,8 @@ public static class Lisp
             int arity = table.Count;
             Cell body = CdrCell(arg);
             body = ScanForArgs(body, table) as Cell;
-            body = ExpandMacros(body, 20, env) as Cell; // Expand up to 20 nestings.
-            body = CompileInners(body) as Cell;
+            body = this.ExpandMacros(body, 20, env) as Cell; // Expand up to 20 nestings.
+            body = this.CompileInners(body) as Cell;
             return make(hasRest ? -arity : arity, body, env);
         }
 
@@ -3583,23 +3573,23 @@ public static class Lisp
                     if (d is {Cdr: null})
                     {
                         var z = QqExpand(d.Car);
-                        return ExpandMacros(z, count, env);
+                        return this.ExpandMacros(z, count, env);
                     }
                     throw new LispEvalException("bad quasiquote", cell);
                 }
                 else
                 {
                     if (k is Sym sym)
-                        k = Globals.ContainsKey(sym) ? Globals[sym] : null;
+                        k = this.Globals.ContainsKey(sym) ? this.Globals[sym] : null;
                     if (k is Macro macro)
                     {
                         Cell d = CdrCell(cell);
                         var z = macro.ExpandWith(this, d);
-                        return ExpandMacros(z, count - 1, env);
+                        return this.ExpandMacros(z, count - 1, env);
                     }
                     else
                     {
-                        return MapCar(cell, x => ExpandMacros(x, count, env));
+                        return MapCar(cell, x => this.ExpandMacros(x, count, env));
                     }
                 }
             }
@@ -3629,7 +3619,7 @@ public static class Lisp
                 else if (k == LAMBDA || k == FN)
                 {
                     Cell d = CdrCell(cell).unwrapDataListArgs();
-                    return Compile(d, null, Lambda.Make);
+                    return this.Compile(d, null, Lambda.Make);
                 }
                 else if (k == MACRO)
                 {
@@ -3637,7 +3627,7 @@ public static class Lisp
                 }
                 else
                 {
-                    return MapCar(cell, CompileInners);
+                    return MapCar(cell, this.CompileInners);
                 }
             }
             else
@@ -4043,13 +4033,13 @@ public static class Lisp
         {
             try
             {
-                ReadToken();
-                return ParseExpression();
+                this.ReadToken();
+                return this.ParseExpression();
             }
             catch (FormatException ex)
             {
                 throw new LispEvalException("syntax error",
-                    $"{ex.Message} -- {LineNo}: {Line}",
+                    $"{ex.Message} -- {this.LineNo}: {this.Line}",
                     false);
             }
         }
@@ -4064,62 +4054,62 @@ public static class Lisp
         /// <exception cref="System.FormatException">unexpected {Token}</exception>
         private object ParseExpression()
         {
-            if (Token == LEFT_PAREN)
+            if (this.Token == LEFT_PAREN)
             {
                 // (a b c)
-                ReadToken();
-                return ParseListBody();
+                this.ReadToken();
+                return this.ParseListBody();
             }
-            if (Token == LEFT_BRACKET)
+            if (this.Token == LEFT_BRACKET)
             {
                 // [a b c] => (list a b c)
-                ReadToken();
-                var sExpr = ParseDataListBody();
+                this.ReadToken();
+                var sExpr = this.ParseDataListBody();
                 return new Cell(LIST, sExpr);
             }
-            else if (Token == SINGLE_QUOTE)
+            else if (this.Token == SINGLE_QUOTE)
             {
                 // 'a => (quote a)
-                ReadToken();
+                this.ReadToken();
                 return new Cell(QUOTE,
-                    new Cell(ParseExpression(), null));
+                    new Cell(this.ParseExpression(), null));
             }
-            else if (Token == BACK_QUOTE)
+            else if (this.Token == BACK_QUOTE)
             {
                 // `a => (quasiquote a)
-                ReadToken();
+                this.ReadToken();
                 return new Cell(QUASIQUOTE,
-                    new Cell(ParseExpression(), null));
+                    new Cell(this.ParseExpression(), null));
             }
-            else if (Token == COMMA)
+            else if (this.Token == COMMA)
             {
                 // ,a => (unquote a)
-                ReadToken();
+                this.ReadToken();
                 return new Cell(UNQUOTE,
-                    new Cell(ParseExpression(), null));
+                    new Cell(this.ParseExpression(), null));
             }
-            else if (Token == COMMAND_AT)
+            else if (this.Token == COMMAND_AT)
             {
                 // ,@a => (unquote-splicing a)
-                ReadToken();
+                this.ReadToken();
                 return new Cell(UNQUOTE_SPLICING,
-                    new Cell(ParseExpression(), null));
+                    new Cell(this.ParseExpression(), null));
             }
-            else if (Token == LEFT_BRACE)
+            else if (this.Token == LEFT_BRACE)
             {
                 // { :a 1 :b 2 :c 3 }    => (new-map '("a" 1) '("b" 2) '("c" 3) )
                 // { "a" 1 "b" 2 "c" 3 } => (new-map '("a" 1) '("b" 2) '("c" 3) )
-                ReadToken();
+                this.ReadToken();
 
-                var sExpr = ParseMapBody();
+                var sExpr = this.ParseMapBody();
                 return new Cell(NEWMAP, sExpr);
             }
-            else if (Token == HASH) // #(+ 1 %) Clojure's anonymous function syntax https://clojure.org/guides/weird_characters#_anonymous_function
+            else if (this.Token == HASH) // #(+ 1 %) Clojure's anonymous function syntax https://clojure.org/guides/weird_characters#_anonymous_function
             {
-                ReadToken(); // #
+                this.ReadToken(); // #
                 // (a b c)
-                ReadToken(); // (
-                var body = ParseListBody();
+                this.ReadToken(); // (
+                var body = this.ParseListBody();
 
                 var maxArg = 0;
                 body.Walk(c =>
@@ -4167,13 +4157,13 @@ public static class Lisp
                 }
                 return new Cell(FN, new Cell(args, new Cell(body, null)));
             }
-            else if (Token == DOT || Token == RIGHT_PAREN)
+            else if (this.Token == DOT || this.Token == RIGHT_PAREN)
             {
-                throw new FormatException($"unexpected {Token}");
+                throw new FormatException($"unexpected {this.Token}");
             }
             else
             {
-                return Token;
+                return this.Token;
             }
         }
 
@@ -4187,32 +4177,31 @@ public static class Lisp
         /// <exception cref="ServiceStack.Script.LispEvalException">Expected Key Symbol or String</exception>
         private Cell ParseMapBody()
         {
-            if (Token == EOF)
+            if (this.Token == EOF)
             {
                 throw new FormatException("unexpected EOF");
             }
-            else if (Token == RIGHT_BRACE)
+            else if (this.Token == RIGHT_BRACE)
             {
                 return null;
             }
             else
             {
-                var symKey = ParseExpression();
+                var symKey = this.ParseExpression();
 
                 var keyString = symKey is Sym sym
                                     ? sym.Name[0] == ':' ? sym.Name.Substring(1) : throw new LispEvalException("Expected Key Symbol with ':' prefix", symKey)
                                     : symKey as string ?? throw new LispEvalException("Expected Key Symbol or String", symKey);
 
-                ReadToken();
+                this.ReadToken();
 
-                var e2 = ParseExpression();
+                var e2 = this.ParseExpression();
 
-                ReadToken();
+                this.ReadToken();
 
-                if (Token == COMMA)
-                    ReadToken();
+                if (this.Token == COMMA) this.ReadToken();
 
-                var e3 = ParseMapBody();
+                var e3 = this.ParseMapBody();
 
                 return new Cell(
                     new Cell(LIST, new Cell(keyString, new Cell(e2, null))),
@@ -4230,35 +4219,34 @@ public static class Lisp
         /// <exception cref="System.FormatException">\")\" expected: {Token}</exception>
         private Cell ParseDataListBody()
         {
-            if (Token == EOF)
+            if (this.Token == EOF)
             {
                 throw new FormatException("unexpected EOF");
             }
-            else if (Token == RIGHT_BRACKET)
+            else if (this.Token == RIGHT_BRACKET)
             {
                 return null;
             }
             else
             {
-                var e1 = ParseExpression();
-                ReadToken();
+                var e1 = this.ParseExpression();
+                this.ReadToken();
 
-                if (Token == COMMA)
-                    ReadToken();
+                if (this.Token == COMMA) this.ReadToken();
 
                 object e2;
-                if (Token == DOT)
+                if (this.Token == DOT)
                 {
                     // (a . b)
-                    ReadToken();
-                    e2 = ParseExpression();
-                    ReadToken();
-                    if (Token != RIGHT_BRACKET)
-                        throw new FormatException($"\")\" expected: {Token}");
+                    this.ReadToken();
+                    e2 = this.ParseExpression();
+                    this.ReadToken();
+                    if (this.Token != RIGHT_BRACKET)
+                        throw new FormatException($"\")\" expected: {this.Token}");
                 }
                 else
                 {
-                    e2 = ParseDataListBody();
+                    e2 = this.ParseDataListBody();
                 }
 
                 return new Cell(e1, e2);
@@ -4275,31 +4263,31 @@ public static class Lisp
         /// <exception cref="System.FormatException">\")\" expected: {Token}</exception>
         private Cell ParseListBody()
         {
-            if (Token == EOF)
+            if (this.Token == EOF)
             {
                 throw new FormatException("unexpected EOF");
             }
-            else if (Token == RIGHT_PAREN)
+            else if (this.Token == RIGHT_PAREN)
             {
                 return null;
             }
             else
             {
-                var e1 = ParseExpression();
-                ReadToken();
+                var e1 = this.ParseExpression();
+                this.ReadToken();
                 object e2;
-                if (Token == DOT)
+                if (this.Token == DOT)
                 {
                     // (a . b)
-                    ReadToken();
-                    e2 = ParseExpression();
-                    ReadToken();
-                    if (Token != RIGHT_PAREN)
-                        throw new FormatException($"\")\" expected: {Token}");
+                    this.ReadToken();
+                    e2 = this.ParseExpression();
+                    this.ReadToken();
+                    if (this.Token != RIGHT_PAREN)
+                        throw new FormatException($"\")\" expected: {this.Token}");
                 }
                 else
                 {
-                    e2 = ParseListBody();
+                    e2 = this.ParseListBody();
                 }
 
                 return new Cell(e1, e2);
@@ -4352,19 +4340,19 @@ public static class Lisp
         /// <exception cref="System.FormatException">unterminated string: {literal.DebugLiteral()}</exception>
         private void ReadToken()
         {
-            while (TokenObjects == null || !TokenObjects.MoveNext())
+            while (this.TokenObjects == null || !this.TokenObjects.MoveNext())
             {
-                LineNo++;
+                this.LineNo++;
 
-                if (!source.TryReadLine(out Line, ref cursorPos))
+                if (!this.source.TryReadLine(out this.Line, ref this.cursorPos))
                 {
-                    Token = EOF;
+                    this.Token = EOF;
                     return;
                 }
 
                 var tokens = new List<object>();
 
-                var literal = Line;
+                var literal = this.Line;
                 while (!literal.IsEmpty)
                 {
                     literal = literal.AdvancePastWhitespace();
@@ -4412,10 +4400,10 @@ public static class Lisp
                     }
                 }
 
-                TokenObjects = tokens.GetEnumerator();
+                this.TokenObjects = tokens.GetEnumerator();
             }
 
-            Token = TokenObjects.Current;
+            this.Token = this.TokenObjects.Current;
         }
     }
 

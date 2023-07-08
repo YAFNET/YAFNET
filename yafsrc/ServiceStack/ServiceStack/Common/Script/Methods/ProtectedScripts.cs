@@ -481,15 +481,6 @@ public class ProtectedScripts : ScriptMethods
     }
 
     /// <summary>
-    /// Typeofs the prog identifier.
-    /// </summary>
-    /// <param name="name">The name.</param>
-    /// <returns>Type.</returns>
-    public Type typeofProgId(string name) => Env.IsWindows
-                                                 ? Type.GetTypeFromProgID(name) // .NET Core throws TargetInvocationException CoreCLR_REMOVED -- Unmanaged activation removed
-                                                 : null;
-
-    /// <summary>
     /// Calls the specified instance.
     /// </summary>
     /// <param name="instance">The instance.</param>
@@ -2255,33 +2246,6 @@ public class ProtectedScripts : ScriptMethods
     public IgnoreResult Create(FileScripts fs, string from, string to) => fs.Copy(from, to);
 
     /// <summary>
-    /// Decrypts the specified path.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult Decrypt(string path) => File().Decrypt(path);
-    /// <summary>
-    /// Decrypts the specified fs.
-    /// </summary>
-    /// <param name="fs">The fs.</param>
-    /// <param name="path">The path.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult Decrypt(FileScripts fs, string path) => fs.Decrypt(path);
-    /// <summary>
-    /// Encrypts the specified path.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult Encrypt(string path) => File().Encrypt(path);
-    /// <summary>
-    /// Encrypts the specified fs.
-    /// </summary>
-    /// <param name="fs">The fs.</param>
-    /// <param name="path">The path.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult Encrypt(FileScripts fs, string path) => fs.Encrypt(path);
-
-    /// <summary>
     /// Replaces the specified from.
     /// </summary>
     /// <param name="from">From.</param>
@@ -2554,16 +2518,6 @@ public class FileScripts : IOScript
         return IgnoreResult.Value;
     }
     /// <summary>
-    /// Decrypts the specified path.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult Decrypt(string path)
-    {
-        File.Decrypt(path);
-        return IgnoreResult.Value;
-    }
-    /// <summary>
     /// Deletes the specified path.
     /// </summary>
     /// <param name="path">The path.</param>
@@ -2573,16 +2527,7 @@ public class FileScripts : IOScript
         File.Delete(path);
         return IgnoreResult.Value;
     }
-    /// <summary>
-    /// Encrypts the specified path.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult Encrypt(string path)
-    {
-        File.Encrypt(path);
-        return IgnoreResult.Value;
-    }
+
     /// <summary>
     /// Existses the specified path.
     /// </summary>
