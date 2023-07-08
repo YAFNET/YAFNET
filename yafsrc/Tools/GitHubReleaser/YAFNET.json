@@ -1,0 +1,10 @@
+{
+  "GitHubToken": "${{ secrets.GITHUB_TOKEN }}",
+  "GitHubRepo": "YAFNET/YAFNET",
+  "IsDraft": true,
+  "IsPreRelease": false,
+  "IsChangelogFileCreationEnabled": false,
+  "FileForVersion": "..\\..\\YetAnotherForum.NET\\Bin\\YAF.dll",
+  "ChangeLogFile": "..\\..\\..\\CHANGES.md",
+  "ReleaseAttachmentFolder": "..\\..\\deploy\\"
+}
