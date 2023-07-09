@@ -69,8 +69,10 @@ module.exports = function(grunt) {
                     usePrefix: false,
                     patterns: [
                         {
-                            match: "box-shadow: 0 0 2px rgba($color, .9), 0 0 4px rgba($color, .4), 0 0 1rem rgba($color, .3), 0 0 4rem rgba($color, .1);",
-                            replacement: "box-shadow: 0 0 2px RGBA($color, .9), 0 0 4px RGBA($color, .4), 0 0 1rem RGBA($color, .3), 0 0 4rem RGBA($color, .1);"
+                            match:
+                                "box-shadow: 0 0 2px rgba($color, .9), 0 0 4px rgba($color, .4), 0 0 1rem rgba($color, .3), 0 0 4rem rgba($color, .1);",
+                            replacement:
+                                "box-shadow: 0 0 2px RGBA($color, .9), 0 0 4px RGBA($color, .4), 0 0 1rem RGBA($color, .3), 0 0 4rem RGBA($color, .1);"
                         }
                     ]
                 },
@@ -467,7 +469,8 @@ module.exports = function(grunt) {
             bootstrap: {
                 files: [
                     {
-                        append: "\n\n.form-check-custom input {\n    @extend .form-check-input;\n}\n\n.form-check-custom label {\n    @extend .form-check-label\n}\n\n.aspNetDisabled input {\n    @extend .form-check-input;\n}\n\n.aspNetDisabled label {\n    @extend .form-check-label\n}\n\n.form-check-inline li {\n    @extend .form-check-inline;\n    margin-right: 2rem;\n}",
+                        append:
+                            "\n\n.form-check-custom input {\n    @extend .form-check-input;\n}\n\n.form-check-custom label {\n    @extend .form-check-label\n}\n\n.aspNetDisabled input {\n    @extend .form-check-input;\n}\n\n.aspNetDisabled label {\n    @extend .form-check-label\n}\n\n.form-check-inline li {\n    @extend .form-check-inline;\n    margin-right: 2rem;\n}",
                         input: "Content/bootstrap/bootstrap.scss",
                         output: "Content/bootstrap/bootstrap.scss"
                     }

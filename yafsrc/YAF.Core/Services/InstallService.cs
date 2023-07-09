@@ -304,6 +304,7 @@ public class InstallService : IHaveServiceLocator
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<TopicTag>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ProfileDefinition>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ProfileCustom>());
+        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PrivateMessage>());
     }
 
     /// <summary>

@@ -47,6 +47,7 @@ namespace YAF.Core.Services.Migrations
                 dbCommand =>
                 {
                     this.UpgradeTable(dbCommand);
+                    UpgradeTable(this.GetRepository<PrivateMessage>(), dbAccess, dbCommand);
 
                     ///////////////////////////////////////////////////////////
 
@@ -62,6 +63,20 @@ namespace YAF.Core.Services.Migrations
             {
                 dbCommand.Connection.AddColumn<User>(x => x.DarkMode);
             }
+        }
+
+        /// <summary>Upgrades the PrivateMessage table.</summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="dbAccess">
+        /// The Database access.
+        /// </param>
+        /// <param name="dbCommand">The db command.</param>
+        private static void UpgradeTable(
+            IRepository<PrivateMessage> repository,
+            IDbAccess dbAccess,
+            IDbCommand dbCommand)
+        {
+            dbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PrivateMessage>());
         }
 
         /// <summary>

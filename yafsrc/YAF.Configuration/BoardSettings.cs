@@ -1791,16 +1791,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether to AddDynamicPageMetaTags.
-    /// </summary>
-    public bool AddDynamicPageMetaTags
-    {
-        get => this.Registry.GetValue("AddDynamicPageMetaTags", true);
-
-        set => this.Registry.SetValue("AddDynamicPageMetaTags", value);
-    }
-
-    /// <summary>
     /// Gets or sets a value indicating whether [allow display name modification].
     /// </summary>
     public bool AllowDisplayNameModification
