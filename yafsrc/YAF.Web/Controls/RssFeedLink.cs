@@ -48,29 +48,34 @@ public class RssFeedLink : BaseControl
 
         string url;
 
-        if (this.PageBoardContext.CurrentForumPage.PageType is ForumPages.Topics or ForumPages.Posts)
+        if (this.PageBoardContext.CurrentForumPage is null)
         {
-            url = this.PageBoardContext.CurrentForumPage.PageType is ForumPages.Topics
-                      ? this.Get<LinkBuilder>().GetLink(
-                          ForumPages.Feed,
-                          new
-                              {
-                                  feed = RssFeeds.Topics.ToInt(),
-                                  f = this.PageBoardContext.PageForumID,
-                                  name = UrlRewriteHelper.CleanStringForURL(this.PageBoardContext.PageForum.Name)
-                              })
-                      : this.Get<LinkBuilder>().GetLink(
-                          ForumPages.Feed,
-                          new
-                              {
-                                  feed = RssFeeds.Posts.ToInt(),
-                                  t = this.PageBoardContext.PageTopicID,
-                                  name = UrlRewriteHelper.CleanStringForURL(this.PageBoardContext.PageTopic.TopicName)
-                              });
+            url = this.Get<LinkBuilder>().GetLink(ForumPages.Feed, new { feed = RssFeeds.LatestPosts.ToInt() });
         }
         else
         {
-            url = this.Get<LinkBuilder>().GetLink(ForumPages.Feed, new {feed = RssFeeds.LatestPosts.ToInt()});
+            if (this.PageBoardContext.CurrentForumPage.PageType is ForumPages.Topics or ForumPages.Posts)
+            {
+                url = this.PageBoardContext.CurrentForumPage.PageType is ForumPages.Topics
+                          ? this.Get<LinkBuilder>().GetLink(
+                              ForumPages.Feed,
+                              new {
+                                      feed = RssFeeds.Topics.ToInt(),
+                                      f = this.PageBoardContext.PageForumID,
+                                      name = UrlRewriteHelper.CleanStringForURL(this.PageBoardContext.PageForum.Name)
+                                  })
+                          : this.Get<LinkBuilder>().GetLink(
+                              ForumPages.Feed,
+                              new {
+                                      feed = RssFeeds.Posts.ToInt(),
+                                      t = this.PageBoardContext.PageTopicID,
+                                      name = UrlRewriteHelper.CleanStringForURL(this.PageBoardContext.PageTopic.TopicName)
+                                  });
+            }
+            else
+            {
+                url = this.Get<LinkBuilder>().GetLink(ForumPages.Feed, new { feed = RssFeeds.LatestPosts.ToInt() });
+            }
         }
 
         new ThemeButton
