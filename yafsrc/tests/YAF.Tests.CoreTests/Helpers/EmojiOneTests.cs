@@ -29,13 +29,12 @@ using YAF.Core.Utilities.StringUtils;
 /// <summary>
 /// YAF.Utils.Helpers EmojiOne Tests
 /// </summary>
-[TestFixture]
 public class EmojiOneTests
 {
     /// <summary>
     /// The ASCII to Unicode test.
     /// </summary>
-    [Test]
+    [Fact]
     [Description("Ascii To Unicode Test")]
     public void AsciiToUnicode_Test()
     {
@@ -44,6 +43,6 @@ public class EmojiOneTests
         var expected = "😃";
         var actual = EmojiOne.AsciiToUnicode(EmojiOne.ShortNameToUnicode(text));
 
-        Assert.AreEqual(expected, actual);
+        Assert.Equal(expected, actual);
     }
 }

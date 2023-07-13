@@ -27,18 +27,17 @@ namespace YAF.Tests.CoreTests.Helpers;
 /// <summary>
 /// YAF.Utils.Helpers ValidationHelper Tests
 /// </summary>
-[TestFixture]
 public class ValidationHelperTests
 {
     /// <summary>
     /// Determines whether [is valid email test].
     /// </summary>
-    [Test]
+    [Fact]
     [Description("Determines whether [is valid email test]")]
     public void IsValidEmail_Test()
     {
         const string TestEmail = "yaf@co.geauga.oh.us";
 
-        Assert.IsTrue(ValidationHelper.IsValidEmail(TestEmail), "Email address is not valid");
+        Assert.True(ValidationHelper.IsValidEmail(TestEmail), "Email address is not valid");
     }
 }
