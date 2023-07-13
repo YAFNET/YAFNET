@@ -21,9 +21,24 @@ public class GuidConverter : OrmLiteConverter
     /// </summary>
     /// <value>The column definition.</value>
     public override string ColumnDefinition => "GUID";
+
     /// <summary>
     /// Gets the type of the database.
     /// </summary>
     /// <value>The type of the database.</value>
     public override DbType DbType => DbType.Guid;
+
+    /// <summary>
+    /// Value from DB to Populate on POCO Data Model with
+    /// </summary>
+    /// <param name="fieldType">Type of the field.</param>
+    /// <param name="value">The value.</param>
+    /// <returns>System.Object.</returns>
+    public override object FromDbValue(Type fieldType, object value)
+    {
+        if (value is string s)
+            return Guid.Parse(s);
+
+        return base.FromDbValue(fieldType, value);
+    }
 }

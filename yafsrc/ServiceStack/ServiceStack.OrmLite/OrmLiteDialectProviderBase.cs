@@ -225,6 +225,25 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <value>The on open connection.</value>
     public Action<IDbConnection> OnOpenConnection { get; set; }
 
+    /// <summary>
+    /// The one time connection commands run
+    /// </summary>
+    internal int OneTimeConnectionCommandsRun;
+
+    /// <summary>
+    /// Enable Bulk Inserts from CSV files
+    /// </summary>
+    public bool AllowLoadLocalInfile
+    {
+        set => OneTimeConnectionCommands.Add($"SET GLOBAL LOCAL_INFILE={value.ToString().ToUpper()};");
+    }
+
+    /// <summary>
+    /// Gets the one time connection commands.
+    /// </summary>
+    /// <value>The one time connection commands.</value>
+    public List<string> OneTimeConnectionCommands { get; } = new();
+
     public List<string> ConnectionCommands { get; } = new();
 
     /// <summary>
@@ -352,6 +371,12 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         if (this.Converters.TryRemove(typeof(T), out var converter))
             converter.DialectProvider = null;
     }
+
+    /// <summary>
+    /// Initializes the specified connection string.
+    /// </summary>
+    /// <param name="connectionString">The connection string.</param>
+    public virtual void Init(string connectionString) { }
 
     /// <summary>
     /// Registers the converter.
@@ -969,6 +994,15 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         if (dbConn is OrmLiteConnection ormLiteConn)
             ormLiteConn.ConnectionId = Guid.NewGuid();
 
+        if (Interlocked.CompareExchange(ref OneTimeConnectionCommandsRun, 1, 0) == 0)
+        {
+            foreach (var command in OneTimeConnectionCommands)
+            {
+                using var cmd = dbConn.CreateCommand();
+                cmd.ExecNonQuery(command);
+            }
+        }
+
         foreach (var command in ConnectionCommands)
         {
             using var cmd = dbConn.CreateCommand();
@@ -1071,7 +1105,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <returns>FieldDefinition[].</returns>
     public virtual FieldDefinition[] GetInsertFieldDefinitions(
         ModelDefinition modelDef,
-        ICollection<string> insertFields)
+        ICollection<string> insertFields = null)
     {
         var insertColumns = insertFields?.Map(this.ColumnNameOnly);
         return insertColumns != null
@@ -1082,6 +1116,133 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                              insertColumns,
                              name => this.NamingStrategy.GetColumnName(name))
                    : modelDef.FieldDefinitionsArray;
+    }
+
+    public virtual void AppendInsertRowValueSql(StringBuilder sbColumnValues, FieldDefinition fieldDef, object obj)
+    {
+        if (ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+            return;
+
+        try
+        {
+            if (fieldDef.AutoId)
+            {
+                var dbValue = GetInsertDefaultValue(fieldDef);
+                sbColumnValues.Append(dbValue != null ? GetQuotedValue(dbValue.ToString()) : "NULL");
+            }
+            else
+            {
+                sbColumnValues.Append(GetQuotedValue(fieldDef.GetValue(obj), fieldDef.FieldType));
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error("ERROR in ToInsertRowStatement(): " + ex.Message, ex);
+            throw;
+        }
+    }
+
+    public virtual string ToInsertRowSql<T>(T obj, ICollection<string> insertFields = null)
+    {
+        var sbColumnNames = StringBuilderCache.Allocate();
+        var sbColumnValues = StringBuilderCacheAlt.Allocate();
+        var modelDef = obj.GetType().GetModelDefinition();
+
+        var fieldDefs = GetInsertFieldDefinitions(modelDef, insertFields);
+        foreach (var fieldDef in fieldDefs)
+        {
+            if (ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                continue;
+
+            if (sbColumnNames.Length > 0)
+                sbColumnNames.Append(",");
+
+            sbColumnNames.Append(GetQuotedColumnName(fieldDef.FieldName));
+
+            if (sbColumnValues.Length > 0)
+                sbColumnValues.Append(",");
+
+            AppendInsertRowValueSql(sbColumnValues, fieldDef, obj);
+        }
+
+        var sql = $"INSERT INTO {GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) " +
+                  $"VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
+
+        return sql;
+    }
+
+    /// <summary>
+    /// Converts to insertrowssql.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="objs">The objs.</param>
+    /// <param name="insertFields">The insert fields.</param>
+    /// <returns>System.String.</returns>
+    public virtual string ToInsertRowsSql<T>(IEnumerable<T> objs, ICollection<string> insertFields = null)
+    {
+        var modelDef = ModelDefinition<T>.Definition;
+        var sb = StringBuilderCache.Allocate()
+            .Append($"INSERT INTO {GetQuotedTableName(modelDef)} (");
+
+        var fieldDefs = GetInsertFieldDefinitions(modelDef, insertFields: insertFields);
+        var i = 0;
+        foreach (var fieldDef in fieldDefs)
+        {
+            if (ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                continue;
+
+            if (i++ > 0)
+                sb.Append(",");
+
+            sb.Append(GetQuotedColumnName(fieldDef.FieldName));
+        }
+
+        sb.Append(") VALUES");
+
+        var count = 0;
+        foreach (var obj in objs)
+        {
+            count++;
+            sb.AppendLine();
+            sb.Append('(');
+            i = 0;
+            foreach (var fieldDef in fieldDefs)
+            {
+                if (i++ > 0)
+                    sb.Append(',');
+
+                AppendInsertRowValueSql(sb, fieldDef, obj);
+            }
+
+            sb.Append("),");
+        }
+
+        if (count == 0)
+        {
+            return "";
+        }
+
+        sb.Length--;
+        sb.AppendLine(";");
+        var sql = StringBuilderCache.ReturnAndFree(sb);
+        return sql;
+    }
+
+    /// <summary>
+    /// Bulks the insert.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="db">The database.</param>
+    /// <param name="objs">The objs.</param>
+    /// <param name="config">The configuration.</param>
+    public virtual void BulkInsert<T>(IDbConnection db, IEnumerable<T> objs, BulkInsertConfig config = null)
+    {
+        config ??= new();
+        foreach (var batch in objs.BatchesOf(config.BatchSize))
+        {
+            var sql = ToInsertRowsSql(batch, insertFields: config.InsertFields);
+            db.ExecuteSql(sql);
+        }
     }
 
     /// <summary>

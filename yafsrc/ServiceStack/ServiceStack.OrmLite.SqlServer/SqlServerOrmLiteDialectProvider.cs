@@ -961,6 +961,76 @@ namespace ServiceStack.OrmLite.SqlServer
         }
 
         /// <summary>
+        /// Bulks the insert.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="db">The database.</param>
+        /// <param name="objs">The objs.</param>
+        /// <param name="config">The configuration.</param>
+        public override void BulkInsert<T>(IDbConnection db, IEnumerable<T> objs, BulkInsertConfig config = null)
+        {
+            config ??= new();
+            if (config.Mode == BulkInsertMode.Sql)
+            {
+                base.BulkInsert(db, objs, config);
+                return;
+            }
+
+            var sqlConn = (SqlConnection)db.ToDbConnection();
+            using var bulkCopy = new SqlBulkCopy(sqlConn);
+            var modelDef = ModelDefinition<T>.Definition;
+
+            bulkCopy.BatchSize = config.BatchSize;
+            bulkCopy.DestinationTableName = modelDef.ModelName;
+
+            var table = new DataTable();
+            var fieldDefs = GetInsertFieldDefinitions(modelDef, insertFields: config.InsertFields);
+            foreach (var fieldDef in fieldDefs)
+            {
+                if (ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                    continue;
+
+                var columnName = NamingStrategy.GetColumnName(fieldDef.FieldName);
+                bulkCopy.ColumnMappings.Add(columnName, columnName);
+
+                var converter = GetConverterBestMatch(fieldDef);
+                var colType = converter.DbType switch
+                {
+                    DbType.String => typeof(string),
+                    DbType.Int32 => typeof(int),
+                    DbType.Int64 => typeof(long),
+                    _ => Nullable.GetUnderlyingType(fieldDef.FieldType) ?? fieldDef.FieldType
+                };
+
+                table.Columns.Add(columnName, colType);
+            }
+
+            foreach (var obj in objs)
+            {
+                var row = table.NewRow();
+                foreach (var fieldDef in fieldDefs)
+                {
+                    if (ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                        continue;
+
+                    var value = fieldDef.AutoId
+                        ? GetInsertDefaultValue(fieldDef)
+                        : fieldDef.GetValue(obj);
+
+                    var converter = GetConverterBestMatch(fieldDef);
+                    var dbValue = converter.ToDbValue(fieldDef.FieldType, value);
+                    var columnName = NamingStrategy.GetColumnName(fieldDef.FieldName);
+                    dbValue ??= DBNull.Value;
+                    row[columnName] = dbValue;
+                }
+
+                table.Rows.Add(row);
+            }
+
+            bulkCopy.WriteToServer(table);
+        }
+
+        /// <summary>
         /// Converts to insertrowstatement.
         /// </summary>
         /// <param name="cmd">The command.</param>

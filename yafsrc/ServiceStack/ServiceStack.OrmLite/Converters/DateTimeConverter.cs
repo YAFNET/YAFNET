@@ -74,6 +74,11 @@ public class DateTimeConverter : OrmLiteConverter
     /// <returns>System.Object.</returns>
     public override object ToDbValue(Type fieldType, object value)
     {
+        if (value == null)
+        {
+            return null;
+        }
+
         var dateTime = (DateTime)value;
         if (DateStyle == DateTimeKind.Utc && dateTime.Kind == DateTimeKind.Local)
         {

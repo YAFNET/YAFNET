@@ -350,11 +350,21 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
                                                           }, StringComparer.OrdinalIgnoreCase);
 
     /// <summary>
-    /// Gets the load children sub select.
+    /// Initializes the specified connection string.
     /// </summary>
-    /// <typeparam name="From">The type of from.</typeparam>
-    /// <param name="expr">The expr.</param>
-    /// <returns>System.String.</returns>
+    /// <param name="connectionString">The connection string.</param>
+    public override void Init(string connectionString)
+    {
+        if (connectionString.ToLower().Contains("allowloadlocalinfile=true"))
+        {
+            AllowLoadLocalInfile = true;
+        }
+    }/// <summary>
+     /// Gets the load children sub select.
+     /// </summary>
+     /// <typeparam name="From">The type of from.</typeparam>
+     /// <param name="expr">The expr.</param>
+     /// <returns>System.String.</returns>
     public override string GetLoadChildrenSubSelect<From>(SqlExpression<From> expr)
     {
         // Workaround for: MySQL - This version of MySQL doesn't yet support 'LIMIT & IN/ALL/ANY/SOME subquery

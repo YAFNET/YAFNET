@@ -13,6 +13,10 @@ using System.Data;
 using global::MySql.Data.MySqlClient;
 
 using ServiceStack.OrmLite.MySql.Converters;
+using ServiceStack.Text;
+
+using System.IO;
+using System.Linq;
 
 /// <summary>
 /// Class MySqlDialectProvider.
@@ -57,6 +61,56 @@ public class MySqlDialectProvider : MySqlDialectProviderBase<MySqlDialectProvide
     public override IDbDataParameter CreateParam()
     {
         return new MySqlParameter();
+    }
+
+    /// <summary>
+    /// Bulks the insert.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="db">The database.</param>
+    /// <param name="objs">The objs.</param>
+    /// <param name="config">The configuration.</param>
+    public override void BulkInsert<T>(IDbConnection db, IEnumerable<T> objs, BulkInsertConfig config = null)
+    {
+        config ??= new();
+        if (config.Mode == BulkInsertMode.Sql)
+        {
+            base.BulkInsert(db, objs, config);
+            return;
+        }
+
+        var mysqlConn = (MySqlConnection)db.ToDbConnection();
+
+        var tmpPath = Path.GetTempFileName();
+        using (var fs = File.OpenWrite(tmpPath))
+        {
+            CsvSerializer.SerializeToStream(objs, fs);
+            fs.Close();
+        }
+
+        var dialect = db.Dialect();
+        var modelDef = ModelDefinition<T>.Definition;
+
+        var bulkLoader = new MySqlBulkLoader(mysqlConn)
+                         {
+                             FileName = tmpPath,
+                             Local = true,
+                             TableName = dialect.GetQuotedTableName(modelDef),
+                             CharacterSet = "UTF8",
+                             NumberOfLinesToSkip = 1,
+                             FieldTerminator = ",",
+                             FieldQuotationCharacter = '"',
+                             FieldQuotationOptional = true,
+                             EscapeCharacter = '\\',
+                             LineTerminator = Environment.NewLine,
+                         };
+
+        var columns = CsvSerializer.PropertiesFor<T>()
+            .Select(x => dialect.GetQuotedColumnName(modelDef.GetFieldDefinition(x.PropertyName)));
+        bulkLoader.Columns.AddRange(columns);
+
+        bulkLoader.Load();
+        File.Delete(tmpPath);
     }
 }
 
