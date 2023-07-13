@@ -10,12 +10,12 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="7.0.9" />
     <PackageReference Include="Microsoft.Playwright.NUnit" Version="1.35.0" />
     <PackageReference Include="netDumbster" Version="3.0.1" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\YAF.Types\YAF.Types.csproj" />
-    <ProjectReference Include="..\..\YetAnotherForum.NET\YetAnotherForum.NET.csproj" />
+    <ProjectReference Include="..\..\YetAnotherForum.NET\YAF-SqlServer.csproj" />
   </ItemGroup>
 </Project>
