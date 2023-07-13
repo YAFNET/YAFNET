@@ -1162,13 +1162,10 @@ public static class Lisp
         {
             return null;
         }
-        else
-        {
-            if (k is Cell c)
-                return c;
-            else
-                throw new LispEvalException("proper list expected", x);
-        }
+
+        if (k is Cell c)
+            return c;
+        throw new LispEvalException("proper list expected", x);
     }
 
 
@@ -2060,10 +2057,12 @@ public static class Lisp
                         ? DynamicInt.Instance.Convert(this.I.invoke(this.fnclosure, x, y))
                         : this.fnCompareTo?.Invoke(x, y) ?? DynamicInt.Instance.Convert(this.I.invoke(this.fndel, x, y));
 
-            public new bool Equals(object x, object y)
-            {
-                throw new NotImplementedException();
-            }
+            public new bool Equals(object x, object y) =>
+                fnclosure != null
+                    ? I.invoke(fnclosure, x, y).ConvertTo<bool>()
+                    : fnmacro != null
+                        ? I.invoke(fnclosure, x, y).ConvertTo<bool>()
+                        : fnCompareEquals?.Invoke(x, y) ?? this.I.invoke(this.fndel, x, y).ConvertTo<bool>();
 
             /// <summary>
             /// Returns a hash code for this instance.
@@ -2425,14 +2424,13 @@ public static class Lisp
                         Array.Sort(list, (x, y) => keyFn(x).compareTo(keyFn(y)));
                         return list;
                     }
-                    else // (sort-by keyfn comparer list)
-                    {
-                        if (varArgs[0] is not IComparer comparer)
-                            throw new LispEvalException("not IComparable", varArgs[1]);
 
-                        var results = EnumerableUtils.ToList(varArgs[1].assertEnumerable()).OrderBy(keyFn, new ObjectComparer(comparer));
-                        return results;
-                    }
+                    // (sort-by keyfn comparer list)
+                    if (varArgs[0] is not IComparer comparer)
+                        throw new LispEvalException("not IComparable", varArgs[1]);
+
+                    var results = EnumerableUtils.ToList(varArgs[1].assertEnumerable()).OrderBy(keyFn, new ObjectComparer(comparer));
+                    return results;
                 });
 
             this.Def("order-by", 2, (I, a) =>
@@ -2607,7 +2605,8 @@ public static class Lisp
                     {
                         return a[1].ToString().Replace(needle, "");
                     }
-                    else if (a[1] is Cell c)
+
+                    if (a[1] is Cell c)
                     {
                         var j = c;
                         while (j != null)
@@ -3089,7 +3088,8 @@ public static class Lisp
                                         return arg.Car;
                                     throw new LispEvalException("bad quote", x);
                                 }
-                                else if (fn == PROGN)
+
+                                if (fn == PROGN)
                                 {
                                     x = this.EvalProgN(arg, env);
                                 }
@@ -3567,7 +3567,8 @@ public static class Lisp
                 {
                     return cell;
                 }
-                else if (k == QUASIQUOTE)
+
+                if (k == QUASIQUOTE)
                 {
                     Cell d = CdrCell(cell);
                     if (d is {Cdr: null})
@@ -3577,26 +3578,19 @@ public static class Lisp
                     }
                     throw new LispEvalException("bad quasiquote", cell);
                 }
-                else
+                if (k is Sym sym)
+                    k = this.Globals.ContainsKey(sym) ? this.Globals[sym] : null;
+                if (k is Macro macro)
                 {
-                    if (k is Sym sym)
-                        k = this.Globals.ContainsKey(sym) ? this.Globals[sym] : null;
-                    if (k is Macro macro)
-                    {
-                        Cell d = CdrCell(cell);
-                        var z = macro.ExpandWith(this, d);
-                        return this.ExpandMacros(z, count - 1, env);
-                    }
-                    else
-                    {
-                        return MapCar(cell, x => this.ExpandMacros(x, count, env));
-                    }
+                    Cell d = CdrCell(cell);
+                    var z = macro.ExpandWith(this, d);
+                    return this.ExpandMacros(z, count - 1, env);
                 }
+
+                return MapCar(cell, x => this.ExpandMacros(x, count, env));
             }
-            else
-            {
-                return j;
-            }
+
+            return j;
         }
 
         // Replace inner lambda-expressions with Lambda instances.
@@ -3616,24 +3610,20 @@ public static class Lisp
                 {
                     return cell;
                 }
-                else if (k == LAMBDA || k == FN)
+
+                if (k == LAMBDA || k == FN)
                 {
                     Cell d = CdrCell(cell).unwrapDataListArgs();
                     return this.Compile(d, null, Lambda.Make);
                 }
-                else if (k == MACRO)
+                if (k == MACRO)
                 {
                     throw new LispEvalException("nested macro", cell);
                 }
-                else
-                {
-                    return MapCar(cell, this.CompileInners);
-                }
+                return MapCar(cell, this.CompileInners);
             }
-            else
-            {
-                return j;
-            }
+
+            return j;
         }
     }
 
@@ -3665,7 +3655,8 @@ public static class Lisp
         {
             return false;
         }
-        else if (arg is Cell argcell)
+
+        if (arg is Cell argcell)
         {
             int offset = 0;     // offset value within the call-frame
             bool hasRest = false;
@@ -3700,10 +3691,7 @@ public static class Lisp
             }
             return hasRest;
         }
-        else
-        {
-            throw new LispEvalException("arglist expected", arg);
-        }
+        throw new LispEvalException("arglist expected", arg);
     }
 
     // Scan 'j' for formal arguments in 'table' and replace them with Args.
@@ -3727,11 +3715,10 @@ public static class Lisp
             case Cell cell:
                 if (cell.Car == QUOTE)
                     return j;
-                else if (cell.Car == QUASIQUOTE)
+                if (cell.Car == QUASIQUOTE)
                     return new Cell(QUASIQUOTE,
                         ScanForQQ(cell.Cdr, table, 0));
-                else
-                    return MapCar(cell, x => ScanForArgs(x, table));
+                return MapCar(cell, x => ScanForArgs(x, table));
             default:
                 return j;
         }
@@ -3756,23 +3743,18 @@ public static class Lisp
             {
                 return new Cell(car, ScanForQQ(cdr, table, level + 1));
             }
-            else if (car == UNQUOTE || car == UNQUOTE_SPLICING)
+
+            if (car == UNQUOTE || car == UNQUOTE_SPLICING)
             {
                 var d = level == 0 ? ScanForArgs(cdr, table) :
                             ScanForQQ(cdr, table, level - 1);
-                if (d == cdr)
-                    return j;
-                return new Cell(car, d);
+                return d == cdr ? j : new Cell(car, d);
             }
-            else
-            {
-                return MapCar(cell, x => ScanForQQ(x, table, level));
-            }
+
+            return MapCar(cell, x => ScanForQQ(x, table, level));
         }
-        else
-        {
-            return j;
-        }
+
+        return j;
     }
 
     //------------------------------------------------------------------
@@ -3818,10 +3800,8 @@ public static class Lisp
             }
             return new Cell(APPEND, t);
         }
-        else
-        {
-            return QqQuote(x);
-        }
+
+        return QqQuote(x);
     }
 
     // Expand x of `x so that the result can be used as an argument of append.
@@ -3854,7 +3834,8 @@ public static class Lisp
             {
                 return new Cell(h, null);
             }
-            else if (h is Cell hcell)
+
+            if (h is Cell hcell)
             {
                 if (hcell.Car == LIST)
                 {
@@ -3875,10 +3856,8 @@ public static class Lisp
             }
             return new Cell(h, t);
         }
-        else
-        {
-            return new Cell(QqQuote(x), null);
-        }
+
+        return new Cell(QqQuote(x), null);
     }
 
     // (1 2), (3 4) => (1 2 3 4)
@@ -4067,35 +4046,36 @@ public static class Lisp
                 var sExpr = this.ParseDataListBody();
                 return new Cell(LIST, sExpr);
             }
-            else if (this.Token == SINGLE_QUOTE)
+
+            if (this.Token == SINGLE_QUOTE)
             {
                 // 'a => (quote a)
                 this.ReadToken();
                 return new Cell(QUOTE,
                     new Cell(this.ParseExpression(), null));
             }
-            else if (this.Token == BACK_QUOTE)
+            if (this.Token == BACK_QUOTE)
             {
                 // `a => (quasiquote a)
                 this.ReadToken();
                 return new Cell(QUASIQUOTE,
                     new Cell(this.ParseExpression(), null));
             }
-            else if (this.Token == COMMA)
+            if (this.Token == COMMA)
             {
                 // ,a => (unquote a)
                 this.ReadToken();
                 return new Cell(UNQUOTE,
                     new Cell(this.ParseExpression(), null));
             }
-            else if (this.Token == COMMAND_AT)
+            if (this.Token == COMMAND_AT)
             {
                 // ,@a => (unquote-splicing a)
                 this.ReadToken();
                 return new Cell(UNQUOTE_SPLICING,
                     new Cell(this.ParseExpression(), null));
             }
-            else if (this.Token == LEFT_BRACE)
+            if (this.Token == LEFT_BRACE)
             {
                 // { :a 1 :b 2 :c 3 }    => (new-map '("a" 1) '("b" 2) '("c" 3) )
                 // { "a" 1 "b" 2 "c" 3 } => (new-map '("a" 1) '("b" 2) '("c" 3) )
@@ -4104,7 +4084,7 @@ public static class Lisp
                 var sExpr = this.ParseMapBody();
                 return new Cell(NEWMAP, sExpr);
             }
-            else if (this.Token == HASH) // #(+ 1 %) Clojure's anonymous function syntax https://clojure.org/guides/weird_characters#_anonymous_function
+            if (this.Token == HASH) // #(+ 1 %) Clojure's anonymous function syntax https://clojure.org/guides/weird_characters#_anonymous_function
             {
                 this.ReadToken(); // #
                 // (a b c)
@@ -4157,14 +4137,11 @@ public static class Lisp
                 }
                 return new Cell(FN, new Cell(args, new Cell(body, null)));
             }
-            else if (this.Token == DOT || this.Token == RIGHT_PAREN)
+            if (this.Token == DOT || this.Token == RIGHT_PAREN)
             {
                 throw new FormatException($"unexpected {this.Token}");
             }
-            else
-            {
-                return this.Token;
-            }
+            return this.Token;
         }
 
         /// <summary>
@@ -4181,32 +4158,30 @@ public static class Lisp
             {
                 throw new FormatException("unexpected EOF");
             }
-            else if (this.Token == RIGHT_BRACE)
+
+            if (this.Token == RIGHT_BRACE)
             {
                 return null;
             }
-            else
-            {
-                var symKey = this.ParseExpression();
+            var symKey = this.ParseExpression();
 
-                var keyString = symKey is Sym sym
-                                    ? sym.Name[0] == ':' ? sym.Name.Substring(1) : throw new LispEvalException("Expected Key Symbol with ':' prefix", symKey)
-                                    : symKey as string ?? throw new LispEvalException("Expected Key Symbol or String", symKey);
+            var keyString = symKey is Sym sym
+                                ? sym.Name[0] == ':' ? sym.Name.Substring(1) : throw new LispEvalException("Expected Key Symbol with ':' prefix", symKey)
+                                : symKey as string ?? throw new LispEvalException("Expected Key Symbol or String", symKey);
 
-                this.ReadToken();
+            this.ReadToken();
 
-                var e2 = this.ParseExpression();
+            var e2 = this.ParseExpression();
 
-                this.ReadToken();
+            this.ReadToken();
 
-                if (this.Token == COMMA) this.ReadToken();
+            if (this.Token == COMMA) this.ReadToken();
 
-                var e3 = this.ParseMapBody();
+            var e3 = this.ParseMapBody();
 
-                return new Cell(
-                    new Cell(LIST, new Cell(keyString, new Cell(e2, null))),
-                    e3);
-            }
+            return new Cell(
+                new Cell(LIST, new Cell(keyString, new Cell(e2, null))),
+                e3);
         }
 
         /// <summary>
@@ -4223,34 +4198,32 @@ public static class Lisp
             {
                 throw new FormatException("unexpected EOF");
             }
-            else if (this.Token == RIGHT_BRACKET)
+
+            if (this.Token == RIGHT_BRACKET)
             {
                 return null;
             }
+            var e1 = this.ParseExpression();
+            this.ReadToken();
+
+            if (this.Token == COMMA) this.ReadToken();
+
+            object e2;
+            if (this.Token == DOT)
+            {
+                // (a . b)
+                this.ReadToken();
+                e2 = this.ParseExpression();
+                this.ReadToken();
+                if (this.Token != RIGHT_BRACKET)
+                    throw new FormatException($"\")\" expected: {this.Token}");
+            }
             else
             {
-                var e1 = this.ParseExpression();
-                this.ReadToken();
-
-                if (this.Token == COMMA) this.ReadToken();
-
-                object e2;
-                if (this.Token == DOT)
-                {
-                    // (a . b)
-                    this.ReadToken();
-                    e2 = this.ParseExpression();
-                    this.ReadToken();
-                    if (this.Token != RIGHT_BRACKET)
-                        throw new FormatException($"\")\" expected: {this.Token}");
-                }
-                else
-                {
-                    e2 = this.ParseDataListBody();
-                }
-
-                return new Cell(e1, e2);
+                e2 = this.ParseDataListBody();
             }
+
+            return new Cell(e1, e2);
         }
 
         /// <summary>
@@ -4267,31 +4240,29 @@ public static class Lisp
             {
                 throw new FormatException("unexpected EOF");
             }
-            else if (this.Token == RIGHT_PAREN)
+
+            if (this.Token == RIGHT_PAREN)
             {
                 return null;
             }
+            var e1 = this.ParseExpression();
+            this.ReadToken();
+            object e2;
+            if (this.Token == DOT)
+            {
+                // (a . b)
+                this.ReadToken();
+                e2 = this.ParseExpression();
+                this.ReadToken();
+                if (this.Token != RIGHT_PAREN)
+                    throw new FormatException($"\")\" expected: {this.Token}");
+            }
             else
             {
-                var e1 = this.ParseExpression();
-                this.ReadToken();
-                object e2;
-                if (this.Token == DOT)
-                {
-                    // (a . b)
-                    this.ReadToken();
-                    e2 = this.ParseExpression();
-                    this.ReadToken();
-                    if (this.Token != RIGHT_PAREN)
-                        throw new FormatException($"\")\" expected: {this.Token}");
-                }
-                else
-                {
-                    e2 = this.ParseListBody();
-                }
-
-                return new Cell(e1, e2);
+                e2 = this.ParseListBody();
             }
+
+            return new Cell(e1, e2);
         }
 
         /// <summary>

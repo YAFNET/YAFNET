@@ -23,10 +23,13 @@ using ServiceStack.Text;
 public interface IOrmLiteDialectProvider
 {
     /// <summary>
-    /// Registers the converter.
+    /// Configure Provider with connection string options 
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="converter">The converter.</param>
+    void Init(string connectionString);
+
+    /// <summary>
+    /// Register custom value type converter  
+    /// </summary>
     void RegisterConverter<T>(IOrmLiteConverter converter);
 
     /// <summary>
@@ -383,6 +386,33 @@ public interface IOrmLiteDialectProvider
         int? offset = null,
         int? rows = null,
         ISet<string> tags = null);
+
+    /// <summary>
+    /// Converts to insertrowsql.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="obj">The object.</param>
+    /// <param name="insertFields">The insert fields.</param>
+    /// <returns>System.String.</returns>
+    string ToInsertRowSql<T>(T obj, ICollection<string> insertFields = null);
+
+    /// <summary>
+    /// Converts to insertrowssql.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="objs">The objs.</param>
+    /// <param name="insertFields">The insert fields.</param>
+    /// <returns>System.String.</returns>
+    string ToInsertRowsSql<T>(IEnumerable<T> objs, ICollection<string> insertFields = null);
+
+    /// <summary>
+    /// Bulks the insert.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="db">The database.</param>
+    /// <param name="objs">The objs.</param>
+    /// <param name="config">The configuration.</param>
+    void BulkInsert<T>(IDbConnection db, IEnumerable<T> objs, BulkInsertConfig config = null);
 
     /// <summary>
     /// Converts to insertrowstatement.

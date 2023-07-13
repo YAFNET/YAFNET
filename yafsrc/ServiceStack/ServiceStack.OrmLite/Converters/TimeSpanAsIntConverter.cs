@@ -47,8 +47,8 @@ public class TimeSpanAsIntConverter : OrmLiteConverter
     /// <returns>System.Object.</returns>
     public override object ToDbValue(Type fieldType, object value)
     {
-        var timespan = (TimeSpan)value;
-        return timespan.Ticks;
+        var timespan = (TimeSpan?)value;
+        return timespan?.Ticks;
     }
 
     /// <summary>

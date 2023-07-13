@@ -99,7 +99,7 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <returns>IDbConnection.</returns>
         public override IDbConnection CreateConnection(string connectionString, Dictionary<string, string> options)
         {
-            var isFullConnectionString = connectionString.Contains(";");
+            var isFullConnectionString = connectionString.Contains(';');
 
             if (!isFullConnectionString)
             {
@@ -108,7 +108,7 @@ namespace ServiceStack.OrmLite.SqlServer
                 var filePathWithExt = filePath.EndsWithIgnoreCase(".mdf") ? filePath : filePath + ".mdf";
 
                 var fileName = Path.GetFileName(filePathWithExt);
-                var dbName = fileName.Substring(0, fileName.Length - ".mdf".Length);
+                var dbName = fileName[..^".mdf".Length];
 
                 connectionString =
                     $@"Data Source=.\SQLEXPRESS;AttachDbFilename={filePathWithExt};Initial Catalog={dbName};Integrated Security=True;User Instance=True;";
@@ -495,7 +495,7 @@ namespace ServiceStack.OrmLite.SqlServer
 
             sb.Append(selectSql);
 
-            sb.Append("'");
+            sb.Append('\'');
 
             sb.Append(" end");
 
@@ -913,7 +913,7 @@ namespace ServiceStack.OrmLite.SqlServer
 
                 if (fieldDef.AutoIncrement)
                 {
-                    sql.Append(" ").Append(this.GetAutoIncrementDefinition(fieldDef));
+                    sql.Append(' ').Append(this.GetAutoIncrementDefinition(fieldDef));
                 }
             }
             else
@@ -974,7 +974,7 @@ namespace ServiceStack.OrmLite.SqlServer
 
                 if (fieldDef.AutoIncrement)
                 {
-                    sql.Append(" ").Append(this.GetAutoIncrementDefinition(fieldDef));
+                    sql.Append(' ').Append(this.GetAutoIncrementDefinition(fieldDef));
                 }
             }
             else
@@ -994,6 +994,76 @@ namespace ServiceStack.OrmLite.SqlServer
             }
 
             return StringBuilderCache.ReturnAndFree(sql);
+        }
+
+        /// <summary>
+        /// Bulks the insert.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="db">The database.</param>
+        /// <param name="objs">The objs.</param>
+        /// <param name="config">The configuration.</param>
+        public override void BulkInsert<T>(IDbConnection db, IEnumerable<T> objs, BulkInsertConfig config = null)
+        {
+            config ??= new();
+            if (config.Mode == BulkInsertMode.Sql)
+            {
+                base.BulkInsert(db, objs, config);
+                return;
+            }
+
+            var sqlConn = (SqlConnection)db.ToDbConnection();
+            using var bulkCopy = new SqlBulkCopy(sqlConn);
+            var modelDef = ModelDefinition<T>.Definition;
+
+            bulkCopy.BatchSize = config.BatchSize;
+            bulkCopy.DestinationTableName = modelDef.ModelName;
+
+            var table = new DataTable();
+            var fieldDefs = GetInsertFieldDefinitions(modelDef, insertFields: config.InsertFields);
+            foreach (var fieldDef in fieldDefs)
+            {
+                if (ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                    continue;
+
+                var columnName = NamingStrategy.GetColumnName(fieldDef.FieldName);
+                bulkCopy.ColumnMappings.Add(columnName, columnName);
+
+                var converter = GetConverterBestMatch(fieldDef);
+                var colType = converter.DbType switch
+                {
+                    DbType.String => typeof(string),
+                    DbType.Int32 => typeof(int),
+                    DbType.Int64 => typeof(long),
+                    _ => Nullable.GetUnderlyingType(fieldDef.FieldType) ?? fieldDef.FieldType
+                };
+
+                table.Columns.Add(columnName, colType);
+            }
+
+            foreach (var obj in objs)
+            {
+                var row = table.NewRow();
+                foreach (var fieldDef in fieldDefs)
+                {
+                    if (ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                        continue;
+
+                    var value = fieldDef.AutoId
+                        ? GetInsertDefaultValue(fieldDef)
+                        : fieldDef.GetValue(obj);
+
+                    var converter = GetConverterBestMatch(fieldDef);
+                    var dbValue = converter.ToDbValue(fieldDef.FieldType, value);
+                    var columnName = NamingStrategy.GetColumnName(fieldDef.FieldName);
+                    dbValue ??= DBNull.Value;
+                    row[columnName] = dbValue;
+                }
+
+                table.Rows.Add(row);
+            }
+
+            bulkCopy.WriteToServer(table);
         }
 
         /// <summary>
@@ -1020,7 +1090,7 @@ namespace ServiceStack.OrmLite.SqlServer
                 if (this.ShouldReturnOnInsert(modelDef, fieldDef))
                 {
                     if (sbReturningColumns.Length > 0)
-                        sbReturningColumns.Append(",");
+                        sbReturningColumns.Append(',');
                     sbReturningColumns.Append("INSERTED." + this.GetQuotedColumnName(fieldDef.FieldName));
                 }
 
@@ -1028,9 +1098,9 @@ namespace ServiceStack.OrmLite.SqlServer
                     continue;
 
                 if (sbColumnNames.Length > 0)
-                    sbColumnNames.Append(",");
+                    sbColumnNames.Append(',');
                 if (sbColumnValues.Length > 0)
-                    sbColumnValues.Append(",");
+                    sbColumnValues.Append(',');
 
                 try
                 {
@@ -1053,7 +1123,7 @@ namespace ServiceStack.OrmLite.SqlServer
                     continue;
 
                 if (sbReturningColumns.Length > 0)
-                    sbReturningColumns.Append(",");
+                    sbReturningColumns.Append(',');
                 sbReturningColumns.Append("INSERTED." + this.GetQuotedColumnName(fieldDef.FieldName));
             }
 
@@ -1189,7 +1259,7 @@ namespace ServiceStack.OrmLite.SqlServer
                 if (this.ShouldReturnOnInsert(modelDef, fieldDef))
                 {
                     if (sbReturningColumns.Length > 0)
-                        sbReturningColumns.Append(",");
+                        sbReturningColumns.Append(',');
                     sbReturningColumns.Append("INSERTED." + this.GetQuotedColumnName(fieldDef.FieldName));
                 }
 
@@ -1197,9 +1267,9 @@ namespace ServiceStack.OrmLite.SqlServer
                     continue;
 
                 if (sbColumnNames.Length > 0)
-                    sbColumnNames.Append(",");
+                    sbColumnNames.Append(',');
                 if (sbColumnValues.Length > 0)
-                    sbColumnValues.Append(",");
+                    sbColumnValues.Append(',');
 
                 try
                 {
@@ -1235,7 +1305,7 @@ namespace ServiceStack.OrmLite.SqlServer
                     continue;
 
                 if (sbReturningColumns.Length > 0)
-                    sbReturningColumns.Append(",");
+                    sbReturningColumns.Append(',');
                 sbReturningColumns.Append("INSERTED." + this.GetQuotedColumnName(fieldDef.FieldName));
             }
 
@@ -1269,8 +1339,8 @@ namespace ServiceStack.OrmLite.SqlServer
                 if (this.ShouldReturnOnInsert(modelDef, fieldDef))
                 {
                     if (sbReturningColumns.Length > 0)
-                        sbReturningColumns.Append(",");
-                    sbReturningColumns.Append("INSERTED." + this.GetQuotedColumnName(fieldDef.FieldName));
+                        sbReturningColumns.Append(',');
+                    sbReturningColumns.Append("INSERTED." + this.GetQuotedColumnName(fieldDef.FieldName));  
                 }
 
                 if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
@@ -1279,9 +1349,9 @@ namespace ServiceStack.OrmLite.SqlServer
                 var value = entry.Value;
 
                 if (sbColumnNames.Length > 0)
-                    sbColumnNames.Append(",");
+                    sbColumnNames.Append(',');
                 if (sbColumnValues.Length > 0)
-                    sbColumnValues.Append(",");
+                    sbColumnValues.Append(',');
 
                 try
                 {
@@ -1368,7 +1438,7 @@ namespace ServiceStack.OrmLite.SqlServer
             var row = take == int.MaxValue ? take : skip + take;
 
             var ret =
-                $"SELECT * FROM (SELECT {selectExpression.Substring(selectType.Length)}, ROW_NUMBER() OVER ({orderByExpression}) As RowNum {bodyExpression}) AS RowConstrainedResult WHERE RowNum > {skip} AND RowNum <= {row}";
+                $"SELECT * FROM (SELECT {selectExpression[selectType.Length..]}, ROW_NUMBER() OVER ({orderByExpression}) As RowNum {bodyExpression}) AS RowConstrainedResult WHERE RowNum > {skip} AND RowNum <= {row}";
 
             return ret;
         }
@@ -1390,7 +1460,7 @@ namespace ServiceStack.OrmLite.SqlServer
             if (sql.Length < "SELECT".Length)
                 return sql;
 
-            return selectType + " TOP " + take + sql.Substring(selectType.Length);
+            return selectType + " TOP " + take + sql[selectType.Length..];
         }
 
         // SELECT without RowNum and prefer aliases to be able to use in SELECT IN () Reference Queries
@@ -1417,14 +1487,14 @@ namespace ServiceStack.OrmLite.SqlServer
                 var aliasParts = field.SplitOnLast(' ');
                 if (aliasParts.Length > 1)
                 {
-                    sb.Append(" " + aliasParts[aliasParts.Length - 1]);
+                    sb.Append(" " + aliasParts[^1]);
                     continue;
                 }
 
                 var parts = field.SplitOnLast('.');
                 if (parts.Length > 1)
                 {
-                    sb.Append(" " + parts[parts.Length - 1]);
+                    sb.Append(" " + parts[^1]);
                 }
                 else
                 {
@@ -1679,7 +1749,7 @@ namespace ServiceStack.OrmLite.SqlServer
                 if (await this.ReadAsync(reader, token).ConfigureAwait(false))
                     return fn();
 
-                return default(T);
+                return default;
             }
             finally
             {
@@ -1885,7 +1955,7 @@ namespace ServiceStack.OrmLite.SqlServer
                         columnNames.ForEach(
                             n =>
                             {
-                                results.Append(",");
+                                results.Append(',');
                                 results.Append(n);
                             });
 

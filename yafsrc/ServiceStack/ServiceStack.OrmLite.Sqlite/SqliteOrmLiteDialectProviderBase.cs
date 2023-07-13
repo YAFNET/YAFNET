@@ -83,6 +83,60 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <value><c>true</c> if [supports schema]; otherwise, <c>false</c>.</value>
     public override bool SupportsSchema => false;
 
+
+
+    /// <summary>
+    /// Converts to insertrowssql.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="objs">The objs.</param>
+    /// <param name="insertFields">The insert fields.</param>
+    /// <returns>System.String.</returns>
+    public override string ToInsertRowsSql<T>(IEnumerable<T> objs, ICollection<string> insertFields = null)
+    {
+        var modelDef = ModelDefinition<T>.Definition;
+        var sb = StringBuilderCache.Allocate()
+            .Append($"INSERT INTO {GetQuotedTableName(modelDef)} (");
+
+        var fieldDefs = GetInsertFieldDefinitions(modelDef);
+        var i = 0;
+        foreach (var fieldDef in fieldDefs)
+        {
+            if (ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                continue;
+
+            if (i++ > 0)
+                sb.Append(",");
+
+            sb.Append(GetQuotedColumnName(fieldDef.FieldName));
+        }
+        sb.Append(") VALUES");
+
+        var count = 0;
+        foreach (var obj in objs)
+        {
+            count++;
+            sb.AppendLine();
+            sb.Append('(');
+            i = 0;
+            foreach (var fieldDef in fieldDefs)
+            {
+                if (i++ > 0)
+                    sb.Append(',');
+
+                AppendInsertRowValueSql(sb, fieldDef, obj);
+            }
+            sb.Append("),");
+        }
+        if (count == 0)
+            return "";
+
+        sb.Length--;
+        sb.AppendLine(";");
+        var sql = StringBuilderCache.ReturnAndFree(sb);
+        return sql;
+    }
+
     /// <summary>
     /// The row version trigger format
     /// </summary>

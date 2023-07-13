@@ -236,6 +236,11 @@ public static class OrmLiteConverterExtensions
     /// <returns>System.Object.</returns>
     public static object ConvertNumber(this IOrmLiteDialectProvider dialectProvider, Type toIntegerType, object value)
     {
+        if (value == null)
+        {
+            return null;
+        }
+
         if (value.GetType() == toIntegerType)
         {
             return value;

@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,6 +13,7 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
+
 using ServiceStack.Text.Common;
 using ServiceStack.Text.Jsv;
 
@@ -39,6 +41,7 @@ public class CsvSerializer
     /// The write function cache
     /// </summary>
     private static Dictionary<Type, WriteObjectDelegate> WriteFnCache = new();
+
     /// <summary>
     /// Gets the write function.
     /// </summary>
@@ -62,7 +65,6 @@ public class CsvSerializer
             {
                 snapshot = WriteFnCache;
                 newCache = new Dictionary<Type, WriteObjectDelegate>(WriteFnCache) { [type] = writeFn };
-
             } while (!ReferenceEquals(
                          Interlocked.CompareExchange(ref WriteFnCache, newCache, snapshot), snapshot));
 
@@ -79,6 +81,7 @@ public class CsvSerializer
     /// The read function cache
     /// </summary>
     private static Dictionary<Type, ParseStringDelegate> ReadFnCache = new();
+
     /// <summary>
     /// Gets the read function.
     /// </summary>
@@ -102,7 +105,6 @@ public class CsvSerializer
             {
                 snapshot = ReadFnCache;
                 newCache = new Dictionary<Type, ParseStringDelegate>(ReadFnCache) { [type] = writeFn };
-
             } while (!ReferenceEquals(
                          Interlocked.CompareExchange(ref ReadFnCache, newCache, snapshot), snapshot));
 
@@ -346,6 +348,26 @@ public class CsvSerializer
         CsvReader<T>.ReadObjectRow(null);
         CsvReader<T>.ReadStringDictionary(null);
     }
+
+    /// <summary>
+    /// Properties For Type
+    /// </summary>
+    /// <typeparam name="T">the type</typeparam>
+    /// <returns>System.ValueTuple&lt;System.String, Type&gt;[].</returns>
+    public static (string PropertyName, Type PropertyType)[] PropertiesFor<T>() => CsvSerializer<T>.Properties;
+
+    /// <summary>
+    /// Properties For Type
+    /// </summary>
+    /// <param name="type">The type.</param>
+    /// <returns>System.ValueTuple&lt;System.String, Type&gt;[].</returns>
+    public static (string PropertyName, Type PropertyType)[] PropertiesFor(Type type)
+    {
+        var genericType = typeof(CsvSerializer<>).MakeGenericType(type);
+        var pi = genericType.GetProperty("Properties", BindingFlags.Public | BindingFlags.Static);
+        var ret = ((string PropertyName, Type PropertyType)[])pi!.GetValue(null, null);
+        return ret;
+    }
 }
 
 /// <summary>
@@ -358,10 +380,17 @@ public static class CsvSerializer<T>
     /// The write cache function
     /// </summary>
     private static readonly WriteObjectDelegate WriteCacheFn;
+
     /// <summary>
     /// The read cache function
     /// </summary>
     private static readonly ParseStringDelegate ReadCacheFn;
+
+    /// <summary>
+    /// Gets the properties.
+    /// </summary>
+    /// <value>The properties.</value>
+    public static (string PropertyName, Type PropertyType)[] Properties { get; } = Array.Empty<(string PropertyName, Type PropertyType)>();
 
     /// <summary>
     /// Writes the function.
@@ -380,11 +409,12 @@ public static class CsvSerializer<T>
     /// <summary>
     /// The value getter
     /// </summary>
-    private static GetMemberDelegate valueGetter = null;
+    private static GetMemberDelegate valueGetter;
+
     /// <summary>
     /// The write element function
     /// </summary>
-    private static WriteObjectDelegate writeElementFn = null;
+    private static WriteObjectDelegate writeElementFn;
 
     /// <summary>
     /// Gets the write function.
@@ -393,7 +423,7 @@ public static class CsvSerializer<T>
     private static WriteObjectDelegate GetWriteFn()
     {
         PropertyInfo firstCandidate = null;
-        Type bestCandidateEnumerableType = null;
+        Type bestCandidateEnumerableType;
         PropertyInfo bestCandidate = null;
 
         if (typeof(T).IsValueType)
@@ -570,7 +600,6 @@ public static class CsvSerializer<T>
         }
     }
 
-
     /// <summary>
     /// Initializes static members of the <see cref="CsvSerializer{T}" /> class.
     /// </summary>
@@ -585,9 +614,11 @@ public static class CsvSerializer<T>
         {
             WriteCacheFn = GetWriteFn();
             ReadCacheFn = GetReadFn();
+            var writers = WriteType<T, JsvTypeSerializer>.PropertyWriters;
+            if (writers != null)
+                Properties = writers.Select(x => (x.propertyName, x.PropertyType)).ToArray();
         }
     }
-
 
     /// <summary>
     /// Reads the function.
@@ -602,6 +633,7 @@ public static class CsvSerializer<T>
     /// The value setter
     /// </summary>
     private static SetMemberDelegate valueSetter = null;
+
     /// <summary>
     /// The read element function
     /// </summary>

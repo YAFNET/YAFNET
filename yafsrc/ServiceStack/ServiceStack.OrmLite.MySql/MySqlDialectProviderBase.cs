@@ -354,6 +354,18 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
                                                           }, StringComparer.OrdinalIgnoreCase);
 
     /// <summary>
+    /// Initializes the specified connection string.
+    /// </summary>
+    /// <param name="connectionString">The connection string.</param>
+    public override void Init(string connectionString)
+    {
+        if (connectionString.ToLower().Contains("allowloadlocalinfile=true"))
+        {
+            AllowLoadLocalInfile = true;
+        }
+    }
+
+    /// <summary>
     /// Gets the load children sub select.
     /// </summary>
     /// <typeparam name="From">The type of from.</typeparam>
@@ -470,7 +482,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="name">The name.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public override bool ShouldQuote(string name) => name != null &&
-                                                     (ReservedWords.Contains(name) || name.IndexOf(' ') >= 0 || name.IndexOf('.') >= 0);
+                                                     (ReservedWords.Contains(name) || name.Contains(' ') || name.Contains('.'));
 
     /// <summary>
     /// Gets the name of the quoted.
@@ -998,10 +1010,10 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     {
         try
         {
-            if (await ReadAsync(reader, token).ConfigureAwait(false))
+            if (await this.ReadAsync(reader, token).ConfigureAwait(false))
                 return fn();
 
-            return default(T);
+            return default;
         }
         finally
         {
@@ -1025,7 +1037,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         sb.Append("DROP FUNCTION IF EXISTS ");
         sb.AppendFormat("{0}", tableName);
 
-        sb.Append(";");
+        sb.Append(';');
 
         return StringBuilderCache.ReturnAndFree(sb);
     }
@@ -1047,7 +1059,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
 
         sb.Append(selectSql);
 
-        sb.Append(";");
+        sb.Append(';');
 
         return StringBuilderCache.ReturnAndFree(sb);
     }
@@ -1067,7 +1079,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         sb.Append("DROP VIEW IF EXISTS ");
         sb.AppendFormat("{0}", tableName);
 
-        sb.Append(";");
+        sb.Append(';');
 
         return StringBuilderCache.ReturnAndFree(sb);
     }

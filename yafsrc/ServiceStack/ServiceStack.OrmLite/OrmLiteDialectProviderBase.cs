@@ -132,8 +132,8 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         this.RegisterConverter<DateTimeOffset>(new DateTimeOffsetConverter());
 
 #if NET7_0
-            RegisterConverter<DateOnly>(new DateOnlyConverter());
-            RegisterConverter<TimeOnly>(new TimeOnlyConverter());
+        this.RegisterConverter<DateOnly>(new DateOnlyConverter());
+        this.RegisterConverter<TimeOnly>(new TimeOnlyConverter());
 #endif
     }
 
@@ -225,6 +225,25 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <value>The on open connection.</value>
     public Action<IDbConnection> OnOpenConnection { get; set; }
+
+    /// <summary>
+    /// The one time connection commands run
+    /// </summary>
+    internal int OneTimeConnectionCommandsRun;
+
+    /// <summary>
+    /// Enable Bulk Inserts from CSV files
+    /// </summary>
+    public bool AllowLoadLocalInfile
+    {
+        set => this.OneTimeConnectionCommands.Add($"SET GLOBAL LOCAL_INFILE={value.ToString().ToUpper()};");
+    }
+
+    /// <summary>
+    /// Gets the one time connection commands.
+    /// </summary>
+    /// <value>The one time connection commands.</value>
+    public List<string> OneTimeConnectionCommands { get; } = new();
 
     /// <summary>
     /// Gets the connection commands.
@@ -361,6 +380,12 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         if (this.Converters.TryRemove(typeof(T), out var converter))
             converter.DialectProvider = null;
     }
+
+    /// <summary>
+    /// Initializes the specified connection string.
+    /// </summary>
+    /// <param name="connectionString">The connection string.</param>
+    public virtual void Init(string connectionString) { }
 
     /// <summary>
     /// Registers the converter.
@@ -672,7 +697,6 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         {
             return this.GetQuotedName(this.NamingStrategy.GetTableName(tableName));
         }*/
-
         var escapedSchema = this.NamingStrategy.GetSchemaName(schema).Replace(".", "\".\"");
 
         return
@@ -705,7 +729,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="name">The name.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public virtual bool ShouldQuote(string name) =>
-        !string.IsNullOrEmpty(name) && (name.IndexOf(' ') >= 0 || name.IndexOf('.') >= 0);
+        !string.IsNullOrEmpty(name) && (name.Contains(' ') || name.Contains('.'));
 
     /// <summary>
     /// Quotes if required.
@@ -755,18 +779,17 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <returns>System.String.</returns>
     public virtual string GetColumnDefinition(FieldDefinition fieldDef)
     {
-        var fieldDefinition = ResolveFragment(fieldDef.CustomFieldDefinition) ??
-                              GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
+        var fieldDefinition = this.ResolveFragment(fieldDef.CustomFieldDefinition) ?? this.GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
 
         var sql = StringBuilderCache.Allocate();
-        sql.Append($"{GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
+        sql.Append($"{this.GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
 
         if (fieldDef.IsPrimaryKey)
         {
             sql.Append(" PRIMARY KEY");
             if (fieldDef.AutoIncrement)
             {
-                sql.Append(" ").Append(AutoIncrementDefinition);
+                sql.Append(' ').Append(this.AutoIncrementDefinition);
             }
         }
         else
@@ -797,11 +820,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <returns>System.String.</returns>
     public virtual string GetColumnDefinition(FieldDefinition fieldDef, ModelDefinition modelDef)
     {
-        var fieldDefinition = ResolveFragment(fieldDef.CustomFieldDefinition) ??
-                              GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
+        var fieldDefinition = this.ResolveFragment(fieldDef.CustomFieldDefinition) ?? this.GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
 
         var sql = StringBuilderCache.Allocate();
-        sql.Append($"{GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
+        sql.Append($"{this.GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
 
         // Check for Composite PrimaryKey First
         if (modelDef.CompositePrimaryKeys.Any())
@@ -815,7 +837,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                 sql.Append(" PRIMARY KEY");
                 if (fieldDef.AutoIncrement)
                 {
-                    sql.Append(" ").Append(AutoIncrementDefinition);
+                    sql.Append(' ').Append(this.AutoIncrementDefinition);
                 }
             }
             else
@@ -928,9 +950,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         {
             foreach (var tag in tags)
             {
-                sqlBuilder.AppendLine(GenerateComment(tag));
+                sqlBuilder.AppendLine(this.GenerateComment(tag));
             }
-            sqlBuilder.Append("\n");
+
+            sqlBuilder.Append('\n');
         }
     }
 
@@ -958,7 +981,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     {
         var sb = StringBuilderCache.Allocate();
 
-        ApplyTags(sb, tags);
+        this.ApplyTags(sb, tags);
 
         sb.Append(selectExpression);
         sb.Append(bodyExpression);
@@ -970,7 +993,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
 
         if ((queryType == QueryType.Select || (rows == 1 && offset is null or 0)) && (offset != null || rows != null))
         {
-            sb.Append("\n");
+            sb.Append('\n');
             sb.Append(this.SqlLimit(offset, rows));
         }
 
@@ -996,13 +1019,22 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         if (dbConn is OrmLiteConnection ormLiteConn)
             ormLiteConn.ConnectionId = Guid.NewGuid();
 
-        foreach (var command in ConnectionCommands)
+        if (Interlocked.CompareExchange(ref this.OneTimeConnectionCommandsRun, 1, 0) == 0)
+        {
+            foreach (var command in this.OneTimeConnectionCommands)
+            {
+                using var cmd = dbConn.CreateCommand();
+                cmd.ExecNonQuery(command);
+            }
+        }
+
+        foreach (var command in this.ConnectionCommands)
         {
             using var cmd = dbConn.CreateCommand();
             cmd.ExecNonQuery(command);
         }
 
-        OnOpenConnection?.Invoke(dbConn);
+        this.OnOpenConnection?.Invoke(dbConn);
     }
 
     /// <summary>
@@ -1098,7 +1130,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <returns>FieldDefinition[].</returns>
     public virtual FieldDefinition[] GetInsertFieldDefinitions(
         ModelDefinition modelDef,
-        ICollection<string> insertFields)
+        ICollection<string> insertFields = null)
     {
         var insertColumns = insertFields?.Map(this.ColumnNameOnly);
         return insertColumns != null
@@ -1109,6 +1141,146 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                              insertColumns,
                              name => this.NamingStrategy.GetColumnName(name))
                    : modelDef.FieldDefinitionsArray;
+    }
+
+    /// <summary>
+    /// Appends the insert row value SQL.
+    /// </summary>
+    /// <param name="sbColumnValues">The sb column values.</param>
+    /// <param name="fieldDef">The field definition.</param>
+    /// <param name="obj">The object.</param>
+    public virtual void AppendInsertRowValueSql(StringBuilder sbColumnValues, FieldDefinition fieldDef, object obj)
+    {
+        if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+            return;
+
+        try
+        {
+            if (fieldDef.AutoId)
+            {
+                var dbValue = this.GetInsertDefaultValue(fieldDef);
+                sbColumnValues.Append(dbValue != null ? this.GetQuotedValue(dbValue.ToString()) : "NULL");
+            }
+            else
+            {
+                sbColumnValues.Append(this.GetQuotedValue(fieldDef.GetValue(obj), fieldDef.FieldType));
+            }
+        }
+        catch (Exception ex)
+        {
+            Log.Error("ERROR in ToInsertRowStatement(): " + ex.Message, ex);
+            throw;
+        }
+    }
+
+    /// <summary>
+    /// Converts to insertrowsql.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="obj">The object.</param>
+    /// <param name="insertFields">The insert fields.</param>
+    /// <returns>System.String.</returns>
+    public virtual string ToInsertRowSql<T>(T obj, ICollection<string> insertFields = null)
+    {
+        var sbColumnNames = StringBuilderCache.Allocate();
+        var sbColumnValues = StringBuilderCacheAlt.Allocate();
+        var modelDef = obj.GetType().GetModelDefinition();
+
+        var fieldDefs = this.GetInsertFieldDefinitions(modelDef, insertFields);
+        foreach (var fieldDef in fieldDefs)
+        {
+            if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                continue;
+
+            if (sbColumnNames.Length > 0)
+                sbColumnNames.Append(',');
+
+            sbColumnNames.Append(this.GetQuotedColumnName(fieldDef.FieldName));
+
+            if (sbColumnValues.Length > 0)
+                sbColumnValues.Append(',');
+
+            this.AppendInsertRowValueSql(sbColumnValues, fieldDef, obj);
+        }
+
+        var sql = $"INSERT INTO {this.GetQuotedTableName(modelDef)} ({StringBuilderCache.ReturnAndFree(sbColumnNames)}) " +
+                  $"VALUES ({StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)})";
+
+        return sql;
+    }
+
+    /// <summary>
+    /// Converts to insertrowssql.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="objs">The objs.</param>
+    /// <param name="insertFields">The insert fields.</param>
+    /// <returns>System.String.</returns>
+    public virtual string ToInsertRowsSql<T>(IEnumerable<T> objs, ICollection<string> insertFields = null)
+    {
+        var modelDef = ModelDefinition<T>.Definition;
+        var sb = StringBuilderCache.Allocate()
+            .Append($"INSERT INTO {this.GetQuotedTableName(modelDef)} (");
+
+        var fieldDefs = this.GetInsertFieldDefinitions(modelDef, insertFields: insertFields);
+        var i = 0;
+        foreach (var fieldDef in fieldDefs)
+        {
+            if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                continue;
+
+            if (i++ > 0)
+                sb.Append(',');
+
+            sb.Append(this.GetQuotedColumnName(fieldDef.FieldName));
+        }
+
+        sb.Append(") VALUES");
+
+        var count = 0;
+        foreach (var obj in objs)
+        {
+            count++;
+            sb.AppendLine();
+            sb.Append('(');
+            i = 0;
+            foreach (var fieldDef in fieldDefs)
+            {
+                if (i++ > 0)
+                    sb.Append(',');
+
+                this.AppendInsertRowValueSql(sb, fieldDef, obj);
+            }
+
+            sb.Append("),");
+        }
+
+        if (count == 0)
+        {
+            return string.Empty;
+        }
+
+        sb.Length--;
+        sb.AppendLine(";");
+        var sql = StringBuilderCache.ReturnAndFree(sb);
+        return sql;
+    }
+
+    /// <summary>
+    /// Bulks the insert.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="db">The database.</param>
+    /// <param name="objs">The objs.</param>
+    /// <param name="config">The configuration.</param>
+    public virtual void BulkInsert<T>(IDbConnection db, IEnumerable<T> objs, BulkInsertConfig config = null)
+    {
+        config ??= new();
+        foreach (var batch in objs.BatchesOf(config.BatchSize))
+        {
+            var sql = this.ToInsertRowsSql(batch, insertFields: config.InsertFields);
+            db.ExecuteSql(sql);
+        }
     }
 
     /// <summary>
@@ -1134,16 +1306,16 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                 continue;
 
             if (sbColumnNames.Length > 0)
-                sbColumnNames.Append(",");
+                sbColumnNames.Append(',');
             if (sbColumnValues.Length > 0)
-                sbColumnValues.Append(",");
+                sbColumnValues.Append(',');
 
             try
             {
                 sbColumnNames.Append(this.GetQuotedColumnName(fieldDef.FieldName));
                 sbColumnValues.Append(this.GetParam(this.SanitizeFieldNameForParamName(fieldDef.FieldName)));
 
-                AddParameter(cmd, fieldDef);
+                this.AddParameter(cmd, fieldDef);
             }
             catch (Exception ex)
             {
@@ -1220,9 +1392,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                 continue;
 
             if (sbColumnNames.Length > 0)
-                sbColumnNames.Append(",");
+                sbColumnNames.Append(',');
             if (sbColumnValues.Length > 0)
-                sbColumnValues.Append(",");
+                sbColumnValues.Append(',');
 
             try
             {
@@ -1272,9 +1444,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             var value = entry.Value;
 
             if (sbColumnNames.Length > 0)
-                sbColumnNames.Append(",");
+                sbColumnNames.Append(',');
             if (sbColumnValues.Length > 0)
-                sbColumnValues.Append(",");
+                sbColumnValues.Append(',');
 
             try
             {
@@ -1311,7 +1483,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                 continue;
 
             if (sbColumnNames.Length > 0)
-                sbColumnNames.Append(",");
+                sbColumnNames.Append(',');
 
             try
             {
@@ -1357,7 +1529,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     IDbDataParameter[] ToArray(IDataParameterCollection dbParams)
     {
         var to = new IDbDataParameter[dbParams.Count];
-        for (int i = 0; i < dbParams.Count; i++)
+        for (var i = 0; i < dbParams.Count; i++)
         {
             to[i] = (IDbDataParameter)dbParams[i];
         }
@@ -1387,7 +1559,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         return sql;
     }
 
-    //Load Self Table.RefTableId PK
+    // Load Self Table.RefTableId PK
     /// <summary>
     /// Gets the reference self SQL.
     /// </summary>
@@ -1400,12 +1572,12 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public virtual string GetRefSelfSql<From>(SqlExpression<From> refQ, ModelDefinition modelDef, FieldDefinition refSelf, ModelDefinition refModelDef)
     {
         refQ.Select(this.GetQuotedColumnName(modelDef, refSelf));
-        refQ.OrderBy().ClearLimits(); //clear any ORDER BY or LIMIT's in Sub Select's
+        refQ.OrderBy().ClearLimits(); // clear any ORDER BY or LIMIT's in Sub Select's
 
         var subSqlRef = refQ.ToMergedParamsSelectStatement();
 
-        var sqlRef = $"SELECT {GetColumnNames(refModelDef)} " +
-                     $"FROM {GetQuotedTableName(refModelDef)} " +
+        var sqlRef = $"SELECT {this.GetColumnNames(refModelDef)} " +
+                     $"FROM {this.GetQuotedTableName(refModelDef)} " +
                      $"WHERE {this.GetQuotedColumnName(refModelDef.PrimaryKey)} " +
                      $"IN ({subSqlRef})";
 
@@ -1424,8 +1596,8 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <returns>System.String.</returns>
     public virtual string GetRefFieldSql(string subSql, ModelDefinition refModelDef, FieldDefinition refField)
     {
-        var sqlRef = $"SELECT {GetColumnNames(refModelDef)} " +
-                     $"FROM {GetQuotedTableName(refModelDef)} " +
+        var sqlRef = $"SELECT {this.GetColumnNames(refModelDef)} " +
+                     $"FROM {this.GetQuotedTableName(refModelDef)} " +
                      $"WHERE {this.GetQuotedColumnName(refField)} " +
                      $"IN ({subSql})";
 
@@ -1451,7 +1623,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
 
         var pk = this.GetQuotedColumnName(refModelDef.PrimaryKey);
         var sqlRef = $"SELECT {pk}, {this.GetQuotedColumnName(fieldRef.RefFieldDef)} " +
-                     $"FROM {GetQuotedTableName(refModelDef)} " +
+                     $"FROM {this.GetQuotedTableName(refModelDef)} " +
                      $"WHERE {pk} " +
                      $"IN ({useSubSql})";
 
@@ -1506,7 +1678,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                 if (sql.Length > 0)
                     sql.Append(", ");
 
-                sql.Append(this.GetQuotedColumnName(fieldDef.FieldName)).Append("=").Append(
+                sql.Append(this.GetQuotedColumnName(fieldDef.FieldName)).Append('=').Append(
                     this.GetParam(this.SanitizeFieldNameForParamName(fieldDef.FieldName), fieldDef.CustomUpdate));
 
                 this.AddParameter(cmd, fieldDef);
@@ -1549,7 +1721,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="cmd">The command.</param>
     public virtual void AppendFieldCondition(StringBuilder sqlFilter, FieldDefinition fieldDef, IDbCommand cmd)
     {
-        sqlFilter.Append(this.GetQuotedColumnName(fieldDef.FieldName)).Append("=").Append(
+        sqlFilter.Append(this.GetQuotedColumnName(fieldDef.FieldName)).Append('=').Append(
             this.GetParam(this.SanitizeFieldNameForParamName(fieldDef.FieldName)));
 
         this.AddParameter(cmd, fieldDef);
@@ -1791,10 +1963,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="obj">The object.</param>
     public virtual void SetParameterValue(FieldDefinition fieldDef, IDataParameter p, object obj)
     {
-        var value = GetValueOrDbNull(fieldDef, obj);
+        var value = this.GetValueOrDbNull(fieldDef, obj);
         p.Value = value;
 
-        SetParameterSize(fieldDef, p);
+        this.SetParameterSize(fieldDef, p);
     }
 
     /// <summary>
@@ -1939,7 +2111,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                     if (sqlFilter.Length > 0)
                         sqlFilter.Append(" AND ");
 
-                    sqlFilter.Append(this.GetQuotedColumnName(fieldDef.FieldName)).Append("=").Append(
+                    sqlFilter.Append(this.GetQuotedColumnName(fieldDef.FieldName)).Append('=').Append(
                         this.AddQueryParam(dbCmd, fieldDef.GetValue(objWithProperties), fieldDef).ParameterName);
 
                     continue;
@@ -1952,7 +2124,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                 if (sql.Length > 0)
                     sql.Append(", ");
 
-                sql.Append(this.GetQuotedColumnName(fieldDef.FieldName)).Append("=").Append(
+                sql.Append(this.GetQuotedColumnName(fieldDef.FieldName)).Append('=').Append(
                     this.GetUpdateParam(dbCmd, fieldDef.GetValue(objWithProperties), fieldDef));
             }
             catch (Exception ex)
@@ -2004,7 +2176,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
 
                 sql.Append(this.GetQuotedColumnName(fieldDef.FieldName));
 
-                sql.Append("=");
+                sql.Append('=');
 
                 sql.Append(this.GetUpdateParam(dbCmd, value, fieldDef));
             }
@@ -2057,12 +2229,12 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
 
                 if (fieldDef.FieldType.IsNumericType())
                 {
-                    sql.Append(quotedFieldName).Append("=").Append(quotedFieldName).Append("+")
+                    sql.Append(quotedFieldName).Append('=').Append(quotedFieldName).Append('+')
                         .Append(this.GetUpdateParam(dbCmd, value, fieldDef));
                 }
                 else
                 {
-                    sql.Append(quotedFieldName).Append("=").Append(this.GetUpdateParam(dbCmd, value, fieldDef));
+                    sql.Append(quotedFieldName).Append('=').Append(this.GetUpdateParam(dbCmd, value, fieldDef));
                 }
             }
             catch (Exception ex)
@@ -2092,7 +2264,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         const string deleteStatement = "DELETE ";
 
         var isFullDeleteStatement = !string.IsNullOrEmpty(sqlFilter) && sqlFilter.Length > deleteStatement.Length &&
-                                    sqlFilter.Substring(0, deleteStatement.Length).ToUpper()
+                                    sqlFilter[..deleteStatement.Length].ToUpper()
                                         .Equals(deleteStatement);
 
         if (isFullDeleteStatement)
@@ -2960,7 +3132,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns>System.String.</returns>
     public virtual string ToAddColumnStatement(string schema, string table, FieldDefinition fieldDef) =>
-        $"ALTER TABLE {GetQuotedTableName(table, schema)} ADD COLUMN {GetColumnDefinition(fieldDef)};";
+        $"ALTER TABLE {this.GetQuotedTableName(table, schema)} ADD COLUMN {this.GetColumnDefinition(fieldDef)};";
 
     /// <summary>
     /// Converts to altercolumnstatement.
@@ -2970,7 +3142,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns>System.String.</returns>
     public virtual string ToAlterColumnStatement(string schema, string table, FieldDefinition fieldDef) =>
-        $"ALTER TABLE {GetQuotedTableName(table, schema)} MODIFY COLUMN {GetColumnDefinition(fieldDef)};";
+        $"ALTER TABLE {this.GetQuotedTableName(table, schema)} MODIFY COLUMN {this.GetColumnDefinition(fieldDef)};";
 
     /// <summary>
     /// Converts to changecolumnnamestatement.
@@ -2981,7 +3153,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="oldColumn">The old column.</param>
     /// <returns>System.String.</returns>
     public virtual string ToChangeColumnNameStatement(string schema, string table, FieldDefinition fieldDef, string oldColumn) =>
-        $"ALTER TABLE {GetQuotedTableName(table, schema)} CHANGE COLUMN {GetQuotedColumnName(oldColumn)} {GetColumnDefinition(fieldDef)};";
+        $"ALTER TABLE {this.GetQuotedTableName(table, schema)} CHANGE COLUMN {this.GetQuotedColumnName(oldColumn)} {this.GetColumnDefinition(fieldDef)};";
 
     /// <summary>
     /// Converts to renamecolumnstatement.
@@ -2992,7 +3164,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="newColumn">The new column.</param>
     /// <returns>System.String.</returns>
     public virtual string ToRenameColumnStatement(string schema, string table, string oldColumn, string newColumn) =>
-        $"ALTER TABLE {GetQuotedTableName(table, schema)} RENAME COLUMN {GetQuotedColumnName(oldColumn)} TO {GetQuotedColumnName(newColumn)};";
+        $"ALTER TABLE {this.GetQuotedTableName(table, schema)} RENAME COLUMN {this.GetQuotedColumnName(oldColumn)} TO {this.GetQuotedColumnName(newColumn)};";
 
     /// <summary>
     /// Converts to add foreign key statement.
@@ -3170,7 +3342,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="column">The column.</param>
     /// <returns>System.String.</returns>
     public virtual string ToDropColumnStatement(string schema, string table, string column) =>
-        $"ALTER TABLE {GetQuotedTableName(table, schema)} DROP COLUMN {GetQuotedColumnName(column)};";
+        $"ALTER TABLE {this.GetQuotedTableName(table, schema)} DROP COLUMN {this.GetQuotedColumnName(column)};";
 
     /// <summary>
     /// Converts to tablenamesstatement.
@@ -3310,6 +3482,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     }
 
 #if ASYNC
+
     /// <summary>
     /// Readers the each.
     /// </summary>
