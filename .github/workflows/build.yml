@@ -19,7 +19,7 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore .\yafsrc\YAF.NET-SqlServer.sln
       - name: Build
         run: dotnet build .\yafsrc\YAF.NET-SqlServer.sln
       - name: Test
