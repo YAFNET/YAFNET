@@ -13,6 +13,8 @@ jobs:
     
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1.1
+      with:
+        vs-version: '17'
 
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.0.5
