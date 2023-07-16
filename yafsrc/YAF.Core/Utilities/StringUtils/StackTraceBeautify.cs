@@ -22,57 +22,57 @@ using System.Text.RegularExpressions;
 /// <summary>
 /// The stack trace beautify.
 /// </summary>
-public class StackTraceBeautify
+public partial class StackTraceBeautify
 {
     /// <summary>
     /// The pretty print.
     /// </summary>
-    private bool prettyPrint;
+    private readonly bool prettyPrint;
 
     /// <summary>
     /// The frame CSS class.
     /// </summary>
-    private string frameCssClass;
+    private readonly string frameCssClass;
 
     /// <summary>
     /// The type CSS class.
     /// </summary>
-    private string typeCssClass;
+    private readonly string typeCssClass;
 
     /// <summary>
     /// The method CSS class.
     /// </summary>
-    private string methodCssClass;
+    private readonly string methodCssClass;
 
     /// <summary>
     /// The params list CSS class.
     /// </summary>
-    private string paramsListCssClass;
+    private readonly string paramsListCssClass;
 
     /// <summary>
     /// The param type CSS class.
     /// </summary>
-    private string paramTypeCssClass;
+    private readonly string paramTypeCssClass;
 
     /// <summary>
     /// The param name CSS class.
     /// </summary>
-    private string paramNameCssClass;
+    private readonly string paramNameCssClass;
 
     /// <summary>
     /// The file CSS class.
     /// </summary>
-    private string fileCssClass;
+    private readonly string fileCssClass;
 
     /// <summary>
     /// The line CSS class.
     /// </summary>
-    private string lineCssClass;
+    private readonly string lineCssClass;
 
     /// <summary>
     /// The languages.
     /// </summary>
-    private List<Language> languages;
+    private readonly List<Language> languages;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StackTraceBeautify"/> class.
@@ -123,19 +123,19 @@ public class StackTraceBeautify
                 continue;
             }
 
-            if (Regex.IsMatch(line, @"(\s*)at .*\)")) 
+            if (EnglishRegex().IsMatch(line)) 
             {
                 lang = "english";
             }
-            else if (Regex.IsMatch(line, @"(\s*)ved .*\)"))
+            else if (DanishRegex().IsMatch(line))
             {
                 lang = "danish";
             }
-            else if (Regex.IsMatch(line, @"(\s*)bei .*\)"))
+            else if (GermanRegex().IsMatch(line))
             {
                 lang = "german";
             }
-            else if (Regex.IsMatch(line, @"(\s*)в .*\)"))
+            else if (RussianRegex().IsMatch(line))
             {
                 lang = "russian";
             }
@@ -313,6 +313,18 @@ public class StackTraceBeautify
 
         return result;
     }
+
+    [GeneratedRegex("(\\s*)at .*\\)")]
+    private static partial Regex EnglishRegex();
+
+    [GeneratedRegex("(\\s*)ved .*\\)")]
+    private static partial Regex DanishRegex();
+
+    [GeneratedRegex("(\\s*)bei .*\\)")]
+    private static partial Regex GermanRegex();
+
+    [GeneratedRegex("(\\s*)в .*\\)")]
+    private static partial Regex RussianRegex();
 }
 
 /// <summary>

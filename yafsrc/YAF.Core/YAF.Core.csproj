@@ -9,6 +9,7 @@
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="FarsiLibrary.Core" Version="2.8.0" />
     <PackageReference Include="Lucene.Net" Version="4.8.0-beta00016" />
     <PackageReference Include="Lucene.Net.Analysis.Common" Version="4.8.0-beta00016" />
     <PackageReference Include="Lucene.Net.Highlighter" Version="4.8.0-beta00016" />
@@ -42,7 +43,6 @@
     <Compile Update="BasePages\ForumPageRegistered.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FarsiLibrary\FarsiLibrary.csproj" />
     <ProjectReference Include="..\ServiceStack\ServiceStack.OrmLite\ServiceStack.OrmLite.Core.csproj" />
     <ProjectReference Include="..\YAF.Configuration\YAF.Configuration.csproj" />
     <ProjectReference Include="..\YAF.Types\YAF.Types.csproj" />
