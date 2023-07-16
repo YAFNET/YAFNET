@@ -1,4 +1,4 @@
-name: netfx build
+name: YAF.NET 3.1.x build
 
 on:
   push:
@@ -15,10 +15,10 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
 
     - name: Setup NuGet
-      uses: NuGet/setup-nuget@v1.0.2
+      uses: NuGet/setup-nuget@v1.0.5
       
     - name: Restore Packages
       run: nuget restore ./yafsrc/YAF.NET-SqlServer.sln
-      
-      - name: Build solution
+
+    - name: Build Solution
       run: msbuild ./yafsrc/YAF.NET-SqlServer.sln -t:rebuild -property:Configuration=Release
