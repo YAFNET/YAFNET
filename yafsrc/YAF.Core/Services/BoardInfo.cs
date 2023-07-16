@@ -62,7 +62,7 @@ public class BoardInfo : IHaveServiceLocator
     /// <summary>
     /// Gets the Current YAF Build Date
     /// </summary>
-    public DateTime AppVersionDate { get; set; } = new (2023, 07, 01, 12, 28, 00);
+    public DateTime AppVersionDate { get; set; } = new (2023, 07, 09, 11, 57, 00);
 
     /// <summary>
     /// Creates a string that is the YAF Application Version from a long value
@@ -150,7 +150,10 @@ public class BoardInfo : IHaveServiceLocator
 
             try
             {
-                var boardSettings = MemoryCache.Default["BoardSettings$1"] as BoardSettings;
+                if (MemoryCache.Default["BoardSettings$1"] is not BoardSettings boardSettings)
+                {
+                    return this.Get<BoardInfo>().GetBaseUrlFromVariables();
+                }
 
                 baseUrlMask = boardSettings.BaseUrlMask.IsSet()
                                   ? TreatBaseUrl(boardSettings.BaseUrlMask)

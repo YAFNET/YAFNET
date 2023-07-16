@@ -668,7 +668,8 @@ public static class UserRepositoryExtensions
         var user = repository.GetById(userId);
 
         // Delete File if Avatar was uploaded
-        if (user.Avatar.IsSet() && user.Avatar.StartsWith("/"))
+        if (user.Avatar.IsSet() && user.Avatar.StartsWith("/")
+                                && !user.Avatar.Contains(BoardContext.Current.Get<BoardFolders>().Avatars))
         {
             var filePath =
                 $"{BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath}{user.Avatar.Replace("/", "\\")}";
