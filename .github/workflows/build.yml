@@ -19,7 +19,7 @@ jobs:
       
     - name: setup-msbuild
       uses: microsoft/setup-msbuild@v1.1
-
+      
     - name: Restore Packages
       run: nuget restore ./yafsrc/YAF.NET-SqlServer.sln
       
