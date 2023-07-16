@@ -1,29 +1,26 @@
-name: build dotnet
+name: netfx build
+
 on:
   push:
-    branches:
-      - netfx
-      
+    branches: netfx
+
 jobs:
   build:
-
     runs-on: windows-2019
 
     steps:
-     - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-      
-      - name: Setup MSBuild
-      uses: microsoft/setup-msbuild@v1
-      
-      - name: Setup NuGet
+    - uses: actions/checkout@v2
+    
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.1
+
+    - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.0.5
       
-      - name: setup-msbuild
+    - name: setup-msbuild
       uses: microsoft/setup-msbuild@v1.1
-      
-      - name: Restore Packages
+
+    - name: Restore Packages
       run: nuget restore ./yafsrc/YAF.NET-SqlServer.sln
       
       - name: Build solution
