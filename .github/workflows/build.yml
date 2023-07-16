@@ -10,7 +10,9 @@ jobs:
     runs-on: windows-2019
 
     steps:
-      - uses: actions/checkout@v2
+     - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
       
       - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v1
