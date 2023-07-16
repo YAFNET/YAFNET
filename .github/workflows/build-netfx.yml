@@ -1,4 +1,4 @@
-name: YAF.NET 3.1.x build
+name: YAF.NET v3.1.x (.NET Framework v4.8)
 
 on:
   push:
