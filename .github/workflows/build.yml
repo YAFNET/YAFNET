@@ -15,7 +15,7 @@ jobs:
       uses: microsoft/setup-msbuild@v1.1
 
     - name: Setup NuGet
-      uses: NuGet/setup-nuget@v1.0.5
+      uses: NuGet/setup-nuget@v1.0.2
       
     - name: Restore Packages
       run: nuget restore ./yafsrc/YAF.NET-SqlServer.sln
