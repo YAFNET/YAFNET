@@ -7,10 +7,10 @@
 ![license](https://img.shields.io/github/license/yafnet/yafnet)
 
 Build Status YAF.NET v4.x (.NET v7)
-[![Build status](https://github.com/YAFNET/YAFNET/blob/master/.github/workflows/build.yml/badge.svg) 
+![build status](https://github.com/yafnet/yafnet/actions/workflows/build.yml/badge.svg)
 
 Build Status YAF.NET v3.1.x (.NET Framework v4.8)
-![build status](https://github.com/YAFNET/YAFNET/blob/netfx/.github/workflows/build.yml/badge.svg)
+![build status](https://github.com/yafnet/yafnet/actions/workflows/build-netfx.yml/badge.svg)
 
 If you have any questions or would like to get in touch with the project, please see the contact information at the bottom of this document.
 
