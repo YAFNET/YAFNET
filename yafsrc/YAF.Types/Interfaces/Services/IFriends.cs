@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -46,10 +46,7 @@ public interface IFriends
     /// <summary>
     /// Approves all buddy requests for the current user.
     /// </summary>
-    /// <param name="mutual">
-    /// The mutual.
-    /// </param>
-    void ApproveAllRequests(bool mutual);
+    void ApproveAllRequests();
 
     /// <summary>
     /// Approves a buddy request.
@@ -57,13 +54,10 @@ public interface IFriends
     /// <param name="toUserId">
     /// the to user id.
     /// </param>
-    /// <param name="mutual">
-    /// should the second user be added to current user's buddy list too?
-    /// </param>
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    bool ApproveRequest(int toUserId, bool mutual);
+    bool ApproveRequest(int toUserId);
 
     /// <summary>
     /// Gets all the buddies of the current user.

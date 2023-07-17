@@ -100,17 +100,13 @@ public static class BuddyRepositoryExtensions
     /// <param name="toUserId">
     /// The to User Id.
     /// </param>
-    /// <param name="mutual">
-    /// Should the requesting user (ToUserID) be added to FromUserID's buddy list too?
-    /// </param>
     /// <returns>
     /// the name of the second user.
     /// </returns>
     public static bool ApproveRequest(
         this IRepository<Buddy> repository,
         [NotNull] int fromUserId,
-        [NotNull] int toUserId,
-        [NotNull] bool mutual)
+        [NotNull] int toUserId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -122,11 +118,6 @@ public static class BuddyRepositoryExtensions
         repository.UpdateOnly(
             () => new Buddy { Approved = true },
             b => b.FromUserID == fromUserId && b.ToUserID == toUserId);
-
-        if (!mutual)
-        {
-            return true;
-        }
 
         if (!repository.Exists(x => x.FromUserID == toUserId && x.ToUserID == fromUserId))
         {

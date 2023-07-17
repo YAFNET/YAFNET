@@ -147,26 +147,23 @@ public partial class BuddyList : BaseUserControl
                     MessageTypes.success);
                 this.CurrentUserID = this.PageBoardContext.PageUserID;
                 break;
-            case "approve":
-                this.PageBoardContext.LoadMessage.AddSession(
-                    string.Format(
-                        this.GetText("NOTIFICATION_BUDDYAPPROVED"),
-                        this.Get<IFriends>().ApproveRequest(e.CommandArgument.ToType<int>(), false)),
-                    MessageTypes.success);
-                break;
             case "approveadd":
-                this.PageBoardContext.LoadMessage.AddSession(
-                    string.Format(
-                        this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"),
-                        this.Get<IFriends>().ApproveRequest(e.CommandArgument.ToType<int>(), true)),
-                    MessageTypes.success);
-                break;
-            case "approveall":
-                this.Get<IFriends>().ApproveAllRequests(false);
-                this.PageBoardContext.LoadMessage.AddSession(this.GetText("NOTIFICATION_ALL_APPROVED"), MessageTypes.success);
+            {
+                var user = this.GetRepository<User>().GetById(e.CommandArgument.ToType<int>());
+
+                if (user != null)
+                {
+                    this.Get<IFriends>().ApproveRequest(user.ID);
+
+                    this.PageBoardContext.LoadMessage.AddSession(
+                        string.Format(this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"), user.DisplayOrUserName()),
+                        MessageTypes.success);
+                }
+            }
+
                 break;
             case "approveaddall":
-                this.Get<IFriends>().ApproveAllRequests(true);
+                this.Get<IFriends>().ApproveAllRequests();
                 this.PageBoardContext.LoadMessage.AddSession(this.GetText("NOTIFICATION_ALL_APPROVED_ADDED"), MessageTypes.success);
                 break;
             case "deny":

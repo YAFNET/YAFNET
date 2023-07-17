@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Services;
 
 using System;
@@ -75,14 +76,11 @@ public class Friends : IFriends, IHaveServiceLocator
     /// <summary>
     /// Approves all buddy requests for the current user.
     /// </summary>
-    /// <param name="mutual">
-    /// should the users be added to current user's buddy list too?
-    /// </param>
-    public void ApproveAllRequests(bool mutual)
+    public void ApproveAllRequests()
     {
         var dt = this.ListAll().Where(x => x.Approved && x.UserID == BoardContext.Current.PageUserID);
 
-        dt.ForEach(drv => this.ApproveRequest(drv.FromUserID, mutual));
+        dt.ForEach(drv => this.ApproveRequest(drv.FromUserID));
     }
 
     /// <summary>
@@ -91,20 +89,16 @@ public class Friends : IFriends, IHaveServiceLocator
     /// <param name="toUserId">
     /// the to user id.
     /// </param>
-    /// <param name="mutual">
-    /// should the second user be added to current user's buddy list too?
-    /// </param>
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public bool ApproveRequest(int toUserId, bool mutual)
+    public bool ApproveRequest(int toUserId)
     {
         this.ClearCache(toUserId);
 
         return this.GetRepository<Buddy>().ApproveRequest(
             toUserId,
-            BoardContext.Current.PageUserID,
-            mutual);
+            BoardContext.Current.PageUserID);
     }
 
     /// <summary>
