@@ -23,6 +23,8 @@
  */
 namespace YAF.Types.Interfaces.Services;
 
+using YAF.Types.Objects.Model;
+
 /// <summary>
 /// The Friends interface.
 /// </summary>
@@ -44,24 +46,18 @@ public interface IFriends
     /// <summary>
     /// Approves all buddy requests for the current user.
     /// </summary>
-    /// <param name="mutual">
-    /// The mutual.
-    /// </param>
-    void ApproveAllRequests(bool mutual);
+    void ApproveAllRequests();
 
     /// <summary>
     /// Approves a buddy request.
     /// </summary>
-    /// <param name="toUserId">
-    /// the to user id.
-    /// </param>
-    /// <param name="mutual">
-    /// should the second user be added to current user's buddy list too?
+    /// <param name="toUser">
+    /// the to user.
     /// </param>
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    bool ApproveRequest(int toUserId, bool mutual);
+    bool ApproveRequest(BuddyUser toUser);
 
     /// <summary>
     /// Clears the buddies cache for the current user.

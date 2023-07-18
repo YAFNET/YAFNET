@@ -71,17 +71,6 @@ public class PMessage : IEntity, IHaveID
     public int Flags { get; set; }
 
     /// <summary>
-    /// Gets or sets the p message flags.
-    /// </summary>
-    [Ignore]
-    public PMessageFlags PMessageFlags
-    {
-        get => new(this.Flags);
-
-        set => this.Flags = value.BitValue;
-    }
-
-    /// <summary>
     /// Gets or sets the reply to.
     /// </summary>
     [Default(null)]

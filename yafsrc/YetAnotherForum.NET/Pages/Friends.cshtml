@@ -119,12 +119,6 @@
                                                             @if (mode == FriendMode.ReceivedRequests)
                                                             {
                                                                 <button button-size="Small"
-                                                                        asp-page-handler="Approve"
-                                                                        asp-route-userId="@(item.UserID)"
-                                                                        text-localized-tag="APPROVE"
-                                                                        button-style="Success"
-                                                                        Icon="check"></button>
-                                                                <button button-size="Small"
                                                                         asp-page-handler="ApproveAdd"
                                                                         asp-route-userId="@(item.UserID)"
                                                                         text-localized-tag="APPROVE_ADD"
@@ -156,11 +150,6 @@
                         @if (mode == FriendMode.ReceivedRequests)
                         {
                             <div class="card-footer">
-                                <button return-confirm-tag="NOTIFICATION_APPROVEALL"
-                                        asp-page-handler="ApproveAll"
-                                        text-localized-tag="APPROVE_ALL"
-                                        button-style="Secondary"
-                                        Icon="check-double"></button>
                                 <button return-confirm-tag="NOTIFICATION_APPROVEALLADD"
                                         asp-page-handler="ApproveAddAll"
                                         text-localized-tag="APPROVE_ADD_ALL"

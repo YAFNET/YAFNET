@@ -43,6 +43,9 @@ public class AccessMasksModel : AdminPage
     [BindProperty]
     public IList<AccessMask> List { get; set; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AccessMasksModel"/> class.
+    /// </summary>
     public AccessMasksModel()
         : base("ADMIN_ACCESSMASKS", ForumPages.Admin_AccessMasks)
     {
@@ -89,6 +92,11 @@ public class AccessMasksModel : AdminPage
         return enabled ? this.GetText("DEFAULT", "YES") : this.GetText("DEFAULT", "NO");
     }
 
+    /// <summary>
+    /// Called when [post edit].
+    /// </summary>
+    /// <param name="maskId">The mask identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostEdit(int maskId)
     {
         // redirect to editing page
@@ -99,6 +107,11 @@ public class AccessMasksModel : AdminPage
                 });
     }
 
+    /// <summary>
+    /// Called when [post delete].
+    /// </summary>
+    /// <param name="maskId">The mask identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostDelete(int maskId)
     {
         var isInUse = this.GetRepository<ForumAccess>().Exists(x => x.AccessMaskID == maskId)

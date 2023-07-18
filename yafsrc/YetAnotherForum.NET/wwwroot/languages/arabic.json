@@ -15,6 +15,10 @@
             "#text": "الأرشيف"
           },
           {
+            "@tag": "BECOME_FRIENDS",
+            "#text": "Become Friends"
+          },
+          {
             "@tag": "CHANGE_PASSWORD",
             "#text": "تغيير كلمة المرور"
           },
@@ -4860,14 +4864,6 @@
           {
             "@tag": "MAX_IMAGE_SIZE_HELP",
             "#text": "أقصى حجم للصورة بالبايت يمكن للمستخدم تحميله."
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS",
-            "#text": "ماكس لا. "
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS_HELP",
-            "#text": "الحد الأقصى المسموح به من المستلمين لكل يوم تم إرساله (0 = غير محدود)"
           },
           {
             "@tag": "MAX_POST_CHARS",
@@ -12351,6 +12347,15 @@
           {
             "@tag": "WATCHTOPICS",
             "#text": "مشاهدة المواضيع"
+          }
+        ]
+      },
+      {
+        "@name": "NOTIFICATION",
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Your activity notifications"
           }
         ]
       },

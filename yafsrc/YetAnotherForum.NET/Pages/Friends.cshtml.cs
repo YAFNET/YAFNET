@@ -86,11 +86,19 @@ public class FriendsModel : ForumPageRegistered
         this.BindData();
     }
 
+    /// <summary>
+    /// Called when [post].
+    /// </summary>
     public void OnPost()
     {
         this.BindData();
     }
 
+    /// <summary>
+    /// Remove friend
+    /// </summary>
+    /// <param name="userId">The user identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostRemove(int userId)
     {
         this.PageBoardContext.SessionNotify(
@@ -100,6 +108,11 @@ public class FriendsModel : ForumPageRegistered
         return this.Get<LinkBuilder>().Redirect(ForumPages.Friends);
     }
 
+    /// <summary>
+    /// Deny friend request
+    /// </summary>
+    /// <param name="userId">The user identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostRemoveRequest(int userId)
     {
         this.GetRepository<Buddy>().RemoveRequest(userId);
@@ -109,40 +122,36 @@ public class FriendsModel : ForumPageRegistered
         return this.Get<LinkBuilder>().Redirect(ForumPages.Friends);
     }
 
-    public IActionResult OnPostApprove(int userId)
-    {
-        this.PageBoardContext.SessionNotify(
-            string.Format(
-                this.GetText("NOTIFICATION_BUDDYAPPROVED"),
-                this.Get<IFriends>().ApproveRequest(userId, false)),
-            MessageTypes.success);
-
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Friends);
-    }
-
+    /// <summary>
+    /// Accept friend request
+    /// </summary>
+    /// <param name="userId">The user identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostApproveAdd(int userId)
     {
+        var user = this.GetRepository<User>().GetById(userId);
+
+        var buddyUser = new BuddyUser { UserID = user.ID, Activity = user.Activity };
+
+        this.Get<IFriends>().ApproveRequest(buddyUser);
+
         this.PageBoardContext.SessionNotify(
             string.Format(
                 this.GetText("NOTIFICATION_BUDDYAPPROVED_MUTUAL"),
-                this.Get<IFriends>().ApproveRequest(userId, true)),
+                user.DisplayOrUserName()),
             MessageTypes.success);
 
         return this.Get<LinkBuilder>().Redirect(ForumPages.Friends);
     }
 
-    public IActionResult OnPostApproveAll()
-    {
-        this.Get<IFriends>().ApproveAllRequests(false);
 
-        this.PageBoardContext.SessionNotify(this.GetText("NOTIFICATION_ALL_APPROVED"), MessageTypes.success);
-
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Friends);
-    }
-
+    /// <summary>
+    /// Accept all friend requests
+    /// </summary>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostApproveAddAll()
     {
-        this.Get<IFriends>().ApproveAllRequests(true);
+        this.Get<IFriends>().ApproveAllRequests();
 
         this.PageBoardContext.SessionNotify(this.GetText("NOTIFICATION_ALL_APPROVED_ADDED"), MessageTypes.success);
 

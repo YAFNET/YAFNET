@@ -92,6 +92,13 @@ public class NotificationModel : ForumPageRegistered
     public bool WatchTopicReply { get; set; } = true;
 
     /// <summary>
+    /// Gets or sets a value indicating whether [become friends].
+    /// </summary>
+    /// <value><c>true</c> if [become friends]; otherwise, <c>false</c>.</value>
+    [BindProperty]
+    public bool BecomeFriends { get; set; } = true;
+
+    /// <summary>
     /// Create the Page links.
     /// </summary>
     public override void CreatePageLinks()
@@ -111,7 +118,7 @@ public class NotificationModel : ForumPageRegistered
         return this.Page();
     }
 
-    public IActionResult OnPost()
+    public IActionResult OnPostUpdate()
     {
         this.BindData();
 
@@ -148,6 +155,7 @@ public class NotificationModel : ForumPageRegistered
         this.WasQuoted = true;
         this.WatchForumReply = true;
         this.WatchTopicReply = true;
+        this.BecomeFriends = true;
 
         this.BindData();
     }
@@ -194,6 +202,11 @@ public class NotificationModel : ForumPageRegistered
         if (!this.WatchTopicReply)
         {
             stream.RemoveAll(a => a.Item1.ActivityFlags.WatchTopicReply);
+        }
+
+        if (!this.BecomeFriends)
+        {
+            stream.RemoveAll(a => a.Item1.ActivityFlags.BecomeFriends);
         }
 
         stream.RemoveAll(a => a.Item1.ActivityFlags.GivenThanks);

@@ -100,4 +100,10 @@ public class BuddyUser
     /// </summary>
     /// <value>The avatar image.</value>
     public byte[] AvatarImage { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether this <see cref="BuddyUser"/> is activity.
+    /// </summary>
+    /// <value><c>true</c> if activity; otherwise, <c>false</c>.</value>
+    public bool Activity { get; set; }
 }

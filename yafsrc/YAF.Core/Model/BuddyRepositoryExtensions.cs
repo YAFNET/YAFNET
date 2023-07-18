@@ -21,9 +21,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Model;
 
 using ServiceStack.OrmLite;
+
 using System;
 using System.Collections.Generic;
 
@@ -96,47 +98,50 @@ public static class BuddyRepositoryExtensions
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="fromUserId">
-    /// The from User Id.
+    /// <param name="fromUser">
+    /// The from User.
     /// </param>
-    /// <param name="toUserId">
-    /// The to User Id.
-    /// </param>
-    /// <param name="mutual">
-    /// Should the requesting user (ToUserID) be added to FromUserID's buddy list too?
+    /// <param name="toUser">
+    /// The to User.
     /// </param>
     /// <returns>
     /// the name of the second user.
     /// </returns>
     public static bool ApproveRequest(
         this IRepository<Buddy> repository,
-        [NotNull] int fromUserId,
-        [NotNull] int toUserId,
-        [NotNull] bool mutual)
+        [NotNull] BuddyUser fromUser,
+        [NotNull] User toUser)
     {
         CodeContracts.VerifyNotNull(repository);
 
-        if (!repository.Exists(x => x.FromUserID == fromUserId && x.ToUserID == toUserId))
+        if (!repository.Exists(x => x.FromUserID == fromUser.UserID && x.ToUserID == toUser.ID))
         {
             return false;
         }
 
         repository.UpdateOnly(
             () => new Buddy { Approved = true },
-            b => b.FromUserID == fromUserId && b.ToUserID == toUserId);
+            b => b.FromUserID == fromUser.UserID && b.ToUserID == toUser.ID);
 
-        if (!mutual)
+        if (toUser.Activity)
+        {
+            BoardContext.Current.Get<IActivityStream>().AddBecomeFriendsToStream(toUser.ID, fromUser.UserID);
+        }
+
+        if (repository.Exists(x => x.FromUserID == toUser.ID && x.ToUserID == fromUser.UserID))
         {
             return true;
         }
 
-        if (!repository.Exists(x => x.FromUserID == toUserId && x.ToUserID == fromUserId))
+        repository.Insert(
+            new Buddy
+                {
+                    FromUserID = toUser.ID, ToUserID = fromUser.UserID, Approved = true, Requested = DateTime.UtcNow
+                });
+
+        if (fromUser.Activity)
         {
-            repository.Insert(
-                new Buddy
-                    {
-                        FromUserID = toUserId, ToUserID = fromUserId, Approved = true, Requested = DateTime.UtcNow
-                    });
+            BoardContext.Current.Get<IActivityStream>().AddBecomeFriendsToStream(fromUser.UserID, toUser.ID);
         }
 
         return true;
@@ -292,7 +297,8 @@ public static class BuddyRepositoryExtensions
                 u.UserStyle,
                 u.Suspended,
                 u.Avatar,
-                u.AvatarImage
+                u.AvatarImage,
+                u.Activity
             });
 
         return repository.DbAccess.Execute(db => db.Connection.Select<BuddyUser>(expression)).DistinctBy(x => x.UserID)

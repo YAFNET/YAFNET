@@ -15,6 +15,10 @@
             "#text": "Arhivare"
           },
           {
+            "@tag": "BECOME_FRIENDS",
+            "#text": "Become Friends"
+          },
+          {
             "@tag": "CHANGE_PASSWORD",
             "#text": "Resetare parola"
           },
@@ -4868,14 +4872,6 @@
           {
             "@tag": "MAX_IMAGE_SIZE_HELP",
             "#text": "Dimensiunea maximă a imaginii în bytes pe care o poate încărca un utilizator."
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS",
-            "#text": "Numărul maxim de destinatari PM:"
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS_HELP",
-            "#text": "Numărul maxim de destinatari permis pentru fiecare PM trimis (0 = nelimitat)"
           },
           {
             "@tag": "MAX_POST_CHARS",
@@ -12371,6 +12367,15 @@
           {
             "@tag": "WATCHTOPICS",
             "#text": "Teme de ceas"
+          }
+        ]
+      },
+      {
+        "@name": "NOTIFICATION",
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Your activity notifications"
           }
         ]
       },

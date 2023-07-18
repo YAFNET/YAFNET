@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Flags;
 
 /// <summary>
@@ -130,7 +131,16 @@ public class ActivityFlags : FlagsBase
         /// <summary>
         /// The watch topic reply.
         /// </summary>
-        WatchTopicReply = 16384
+        WatchTopicReply = 16384,
+
+        /// <summary>
+        /// The friends activity
+        /// </summary>
+        BecomeFriends = 32768
+
+        /* for future use
+          xxxxxxxx = 65536
+               */
     }
 
     /// <summary>
@@ -219,5 +229,17 @@ public class ActivityFlags : FlagsBase
         get => this[14];
 
         set => this[14] = value;
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether [become friends].
+    /// </summary>
+    /// <value><c>true</c> if [become friends]; otherwise, <c>false</c>.</value>
+    public virtual bool BecomeFriends
+    {
+        // int value 32768
+        get => this[15];
+
+        set => this[15] = value;
     }
 }

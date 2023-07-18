@@ -160,6 +160,15 @@
                                                             </label>
                                                         </div>
                                                     </div>
+                                                    <div class="mb-3">
+                                                            <div class="form-check form-switch">
+                                                                <input asp-for="BecomeFriends" class="form-check-input" role="switch" />
+                                                                <label asp-for="BecomeFriends" class="form-check-label"
+                                                                       localized-page="ACCOUNT"
+                                                                       localized-tag="BECOME_FRIENDS">
+                                                                </label>
+                                                            </div>
+                                                    </div>
                                                     <hr/>
                                                     <button type="submit"
                                                             button-style="Primary"
@@ -192,7 +201,10 @@
                                 var message = string.Empty;
                                 var icon = string.Empty;
                                 var title = string.Empty;
-                                var url = Model.Get<LinkBuilder>().GetTopicLink(activity.Item2.ID, activity.Item2.TopicName);
+
+                                var url = activity.Item2.ID is not 0 ? 
+                                              Model.Get<LinkBuilder>().GetTopicLink(activity.Item2.ID, activity.Item2.TopicName) : 
+                                              "";
 
                                 if (activity.Item1.ActivityFlags.CreatedTopic)
                                 {
@@ -222,6 +234,17 @@
                                         "");
                                 }
 
+                                if (activity.Item1.ActivityFlags.BecomeFriends)
+                                {
+                                    var user = Model.GetRepository<User>().GetById(activity.Item1.FromUserID.Value);
+
+                                    var userLink = Model.Get<IHtmlHelper>().UserLink(user);
+
+                                    title = Model.Get<ILocalization>().GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", user.DisplayOrUserName());
+                                    icon = "user-group";
+                                    message = Model.Get<ILocalization>().GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", userLink.RenderToString());
+                                }
+
                                 var notify = activity.Item1.Notification ? "text-success" : "text-secondary";
 
                                 <div class="row">
@@ -246,11 +269,16 @@
                                                         @Html.DisplayDateTime(DateTimeFormat.Both, activity.Item1.Created)
                                                     </small>
                                                 </div>
-                                                @Html.Raw(message) <a button-style="None"
-                                                            icon="comment"
-                                                            icon-css-class="far"
-                                                            text="@activity.Item2.TopicName"
-                                                            href="@url"></a>
+                                                @Html.Raw(message) 
+                                                
+                                                @if (url.IsSet())
+                                                {
+                                                    <a button-style="None"
+                                                       icon="comment"
+                                                       icon-css-class="far"
+                                                       text="@activity.Item2.TopicName"
+                                                       href="@url"></a>
+                                                }
                                             </div>
                                         </div>
                                     </div>

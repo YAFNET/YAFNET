@@ -15,6 +15,10 @@
             "#text": "Arkiv"
           },
           {
+            "@tag": "BECOME_FRIENDS",
+            "#text": "Become Friends"
+          },
+          {
             "@tag": "CHANGE_PASSWORD",
             "#text": "Ændre adgangskode"
           },
@@ -4868,14 +4872,6 @@
           {
             "@tag": "MAX_IMAGE_SIZE_HELP",
             "#text": "Maksimal størrelse på billedet i bytes en bruger kan uploade."
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS",
-            "#text": "Max nr. "
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS_HELP",
-            "#text": "Maksimalt tilladte modtagere pr. PM sendt (0 = ubegrænset)"
           },
           {
             "@tag": "MAX_POST_CHARS",
@@ -12371,6 +12367,15 @@
           {
             "@tag": "WATCHTOPICS",
             "#text": "Se emner"
+          }
+        ]
+      },
+      {
+        "@name": "NOTIFICATION",
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Your activity notifications"
           }
         ]
       },

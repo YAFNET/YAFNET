@@ -55,7 +55,7 @@ public static class ActivityRepositoryExtensions
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
-        expression.Join<User>((a, u) => u.ID == a.FromUserID).Join<Topic>((a, t) => t.ID == a.TopicID.Value)
+        expression.Join<User>((a, u) => u.ID == a.FromUserID).LeftJoin<Topic>((a, t) => t.ID == a.TopicID.Value)
             .Where<Activity>(a => a.UserID == userId && a.FromUserID.HasValue).OrderByDescending(a => a.Created);
 
         return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Activity, User, Topic>(expression));
@@ -79,7 +79,7 @@ public static class ActivityRepositoryExtensions
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
-        expression.Join<Topic>((a, t) => t.ID == a.TopicID).Where<Activity>(
+        expression.LeftJoin<Topic>((a, t) => t.ID == a.TopicID).Where<Activity>(
             a => a.UserID == userId && (a.Flags & 1024) != 1024 && (a.Flags & 4096) != 4096
                  && (a.Flags & 8192) != 8192 && (a.Flags & 16384) != 16384).OrderByDescending(a => a.Created);
 

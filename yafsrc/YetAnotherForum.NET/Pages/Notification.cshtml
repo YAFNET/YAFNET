@@ -97,14 +97,25 @@
                                                             </label>
                                                         </div>
                                                     </div>
-                                                    <button OnClick="UpdateFilterClick"
+                                                    <div class="mb-3">
+                                                        <div class="form-check form-switch">
+                                                            <input asp-for="BecomeFriends" class="form-check-input" role="switch" />
+                                                            <label asp-for="BecomeFriends" class="form-check-label"
+                                                                   localized-page="ACCOUNT"
+                                                                   localized-tag="BECOME_FRIENDS">
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <button type="submit"
+                                                            asp-page-handler="Update"
                                                             text-localized-tag="UPDATE"
                                                             class="me-2"
                                                             button-style="Primary"
                                                             button-size="Small"
                                                             Icon="sync">
                                                     </button>
-                                                    <button OnClick="ResetClick"
+                                                    <button type="submit" 
+                                                            asp-page-handler="Reset"
                                                             text-localized-tag="CLEAR"
                                                             button-style="Secondary"
                                                             button-size="Small"
@@ -123,49 +134,58 @@
 
                                 @foreach (var activity in Model.Notifications)
                                 {
-                                    if (!activity.Item1.MessageID.HasValue)
-                                    {
-                                        return;
-                                    }
-
                                     var message = string.Empty;
                                     var icon = string.Empty;
                                     var notify = activity.Item1.Notification ? "text-success" : "text-secondary";
 
-                                    var link = BoardContext.Current.Get<LinkBuilder>().GetLink(ForumPages.Posts, new {m = activity.Item1.MessageID.Value, name = activity.Item3.TopicName});
+                                    if (!activity.Item1.FromUserID.HasValue)
+                                    {
+                                        return;
+                                    }
 
                                     var userLink = Html.UserLink(activity.Item1.FromUserID.Value, activity.Item2.DisplayOrUserName(), activity.Item2.Suspended, activity.Item2.UserStyle);
 
-                                    var topicLink = $@"<a href=""{link}"" role=""button""><i class=""far fa-comment fa-fw  me-1""></i><span class=""ms-1"">{activity.Item3.TopicName}</span></a>";
-
-                                    if (activity.Item1.ActivityFlags.ReceivedThanks && activity.Item1.FromUserID.HasValue)
+                                    if (activity.Item3.ID is 0 && activity.Item1.ActivityFlags.BecomeFriends)
                                     {
-                                        icon = "heart";
-                                        message = Model.GetTextFormatted("RECEIVED_THANKS_MSG", userLink.RenderToString(), topicLink);
+                                        icon = "user-group";
+                                        message = Model.Get<ILocalization>().GetTextFormatted("NOTIFICATION_BUDDYAPPROVED_MUTUAL", userLink.RenderToString());
                                     }
-
-                                    if (activity.Item1.ActivityFlags.WasMentioned && activity.Item1.FromUserID.HasValue)
+                                    else
                                     {
-                                        icon = "at";
-                                        message = Model.GetTextFormatted("WAS_MENTIONED_MSG", userLink.RenderToString(), topicLink);
-                                    }
+                                        if (!activity.Item1.MessageID.HasValue)
+                                        {
+                                            return;
+                                        }
 
-                                    if (activity.Item1.ActivityFlags.WasQuoted && activity.Item1.FromUserID.HasValue)
-                                    {
-                                        icon = "quote-left";
-                                        message = Model.GetTextFormatted("WAS_QUOTED_MSG", userLink.RenderToString(), topicLink);
-                                    }
+                                        var link = BoardContext.Current.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { m = activity.Item1.MessageID.Value, name = activity.Item3.TopicName });
 
-                                    if (activity.Item1.ActivityFlags.WatchForumReply && activity.Item1.FromUserID.HasValue)
-                                    {
-                                        icon = "comments";
-                                        message = Model.GetTextFormatted("WATCH_FORUM_MSG", userLink.RenderToString(), topicLink);
-                                    }
+                                        var topicLink = $@"<a href=""{link}"" role=""button""><i class=""far fa-comment fa-fw  me-1""></i><span class=""ms-1"">{activity.Item3.TopicName}</span></a>";
 
-                                    if (activity.Item1.ActivityFlags.WatchTopicReply && activity.Item1.FromUserID.HasValue)
-                                    {
-                                        icon = "comment";
-                                        message = Model.GetTextFormatted("WATCH_TOPIC_MSG", userLink.RenderToString(), topicLink);
+                                        if (activity.Item1.ActivityFlags.ReceivedThanks)
+                                        {
+                                            icon = "heart";
+                                            message = Model.GetTextFormatted("RECEIVED_THANKS_MSG", userLink.RenderToString(), topicLink);
+                                        }
+                                        else if (activity.Item1.ActivityFlags.WasMentioned)
+                                        {
+                                            icon = "at";
+                                            message = Model.GetTextFormatted("WAS_MENTIONED_MSG", userLink.RenderToString(), topicLink);
+                                        }
+                                        else if (activity.Item1.ActivityFlags.WasQuoted)
+                                        {
+                                            icon = "quote-left";
+                                            message = Model.GetTextFormatted("WAS_QUOTED_MSG", userLink.RenderToString(), topicLink);
+                                        }
+                                        else if (activity.Item1.ActivityFlags.WatchForumReply)
+                                        {
+                                            icon = "comments";
+                                            message = Model.GetTextFormatted("WATCH_FORUM_MSG", userLink.RenderToString(), topicLink);
+                                        }
+                                        else if (activity.Item1.ActivityFlags.WatchTopicReply)
+                                        {
+                                            icon = "comment";
+                                            message = Model.GetTextFormatted("WATCH_TOPIC_MSG", userLink.RenderToString(), topicLink);
+                                        }
                                     }
 
                                     <li class="list-group-item list-group-item-action">
@@ -175,9 +195,9 @@
                                         </span>
 
                                         @Html.Raw(message)
-                                        
+
                                         @Html.IconBadge("calendar-day", "clock", "text-secondary")
-                                        
+
                                         @Html.DisplayDateTime(DateTimeFormat.Both, activity.Item1.Created)
 
                                         @if (activity.Item1.Notification)
@@ -191,7 +211,7 @@
                                                     Icon="glasses">
                                             </button>
                                         }
-                                        
+
                                     </li>
                                 }
 

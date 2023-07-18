@@ -15,6 +15,10 @@
             "#text": "ארכיון"
           },
           {
+            "@tag": "BECOME_FRIENDS",
+            "#text": "Become Friends"
+          },
+          {
             "@tag": "CHANGE_PASSWORD",
             "#text": "החלף/י סיסמא"
           },
@@ -4868,14 +4872,6 @@
           {
             "@tag": "MAX_IMAGE_SIZE_HELP",
             "#text": "גודל מקסימלי של תמונה בבתים שמשתמש יכול להעלות."
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS",
-            "#text": "מקסימום לא. של נמעני ראש הממשלה:"
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS_HELP",
-            "#text": "מקסימום נמענים מותרים לכל PM שנשלחו (0 = ללא הגבלה)"
           },
           {
             "@tag": "MAX_POST_CHARS",
@@ -12375,6 +12371,15 @@
           {
             "@tag": "WATCHTOPICS",
             "#text": "צפו בנושאים"
+          }
+        ]
+      },
+      {
+        "@name": "NOTIFICATION",
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Your activity notifications"
           }
         ]
       },

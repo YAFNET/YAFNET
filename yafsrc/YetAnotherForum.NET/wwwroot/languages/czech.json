@@ -15,6 +15,10 @@
             "#text": "Archiv"
           },
           {
+            "@tag": "BECOME_FRIENDS",
+            "#text": "Become Friends"
+          },
+          {
             "@tag": "CHANGE_PASSWORD",
             "#text": "Změnit heslo"
           },
@@ -4868,14 +4872,6 @@
           {
             "@tag": "MAX_IMAGE_SIZE_HELP",
             "#text": "Maximální velikost obrázku v bajtech, kterou může uživatel nahrát."
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS",
-            "#text": "Max ne "
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS_HELP",
-            "#text": "Maximální povolený počet příjemců na odeslanou PM (0 = neomezeně)"
           },
           {
             "@tag": "MAX_POST_CHARS",
@@ -12375,6 +12371,15 @@
           {
             "@tag": "WATCHTOPICS",
             "#text": "Sledujte témata"
+          }
+        ]
+      },
+      {
+        "@name": "NOTIFICATION",
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Your activity notifications"
           }
         ]
       },

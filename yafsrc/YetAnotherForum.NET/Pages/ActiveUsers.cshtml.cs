@@ -78,6 +78,11 @@ public class ActiveUsersModel : ForumPage
         return this.BindData(v);
     }
 
+    /// <summary>
+    /// Called when [post].
+    /// </summary>
+    /// <param name="v">The v.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPost([CanBeNull] int? v = null)
     {
         return !this.PageBoardContext.UploadAccess ? this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied) : this.BindData(v);

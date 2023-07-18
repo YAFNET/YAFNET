@@ -15,6 +15,10 @@
             "#text": "Архив"
           },
           {
+            "@tag": "BECOME_FRIENDS",
+            "#text": "Become Friends"
+          },
+          {
             "@tag": "CHANGE_PASSWORD",
             "#text": "Изменить пароль"
           },
@@ -4860,14 +4864,6 @@
           {
             "@tag": "MAX_IMAGE_SIZE_HELP",
             "#text": "Максимальный размер изображения, которое может загрузить пользователь, в байтах."
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS",
-            "#text": "Число получателей ЛС:"
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS_HELP",
-            "#text": "Максимальное число получателей ЛС на одно отправленное ЛС (0 = не ограничено)"
           },
           {
             "@tag": "MAX_POST_CHARS",
@@ -12355,6 +12351,15 @@
           {
             "@tag": "WATCHTOPICS",
             "#text": "Смотреть темы"
+          }
+        ]
+      },
+      {
+        "@name": "NOTIFICATION",
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Your activity notifications"
           }
         ]
       },

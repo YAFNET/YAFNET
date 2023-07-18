@@ -58,15 +58,31 @@ public class AdminModel : AdminPage
     [BindProperty]
     public InputModel Input { get; set; }
 
+    /// <summary>
+    /// Gets or sets the user list.
+    /// </summary>
+    /// <value>The user list.</value>
     [BindProperty]
     public IList<User> UserList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the active user list.
+    /// </summary>
+    /// <value>The active user list.</value>
     [BindProperty]
     public List<ActiveUser> ActiveUserList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the update highlight.
+    /// </summary>
+    /// <value>The update highlight.</value>
     [TempData]
     public string UpdateHighlight { get; set; }
 
+    /// <summary>
+    /// Gets or sets the boards.
+    /// </summary>
+    /// <value>The boards.</value>
     public SelectList Boards { get; set; }
 
     /// <summary>

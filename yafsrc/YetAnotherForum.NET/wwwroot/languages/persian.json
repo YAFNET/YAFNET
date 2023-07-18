@@ -15,6 +15,10 @@
             "#text": "آرشیو"
           },
           {
+            "@tag": "BECOME_FRIENDS",
+            "#text": "Become Friends"
+          },
+          {
             "@tag": "CHANGE_PASSWORD",
             "#text": "تغییر رمز عبور"
           },
@@ -4860,14 +4864,6 @@
           {
             "@tag": "MAX_IMAGE_SIZE_HELP",
             "#text": "حداکثر اندازه تصویر بر حسب بایت که کاربر می تواند آپلود کند."
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS",
-            "#text": "حداکثر تعداد افراد دریافت کننده پیام خصوصی:"
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS_HELP",
-            "#text": "حداکثر گیرندگان مجاز در هر PM ارسال شده (0 = نامحدود)"
           },
           {
             "@tag": "MAX_POST_CHARS",
@@ -12351,6 +12347,15 @@
           {
             "@tag": "WATCHTOPICS",
             "#text": "تماشای موضوعات"
+          }
+        ]
+      },
+      {
+        "@name": "NOTIFICATION",
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Your activity notifications"
           }
         ]
       },

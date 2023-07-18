@@ -15,6 +15,10 @@
             "#text": "Archyvas"
           },
           {
+            "@tag": "BECOME_FRIENDS",
+            "#text": "Become Friends"
+          },
+          {
             "@tag": "CHANGE_PASSWORD",
             "#text": "Keisti slaptažodį"
           },
@@ -4868,14 +4872,6 @@
           {
             "@tag": "MAX_IMAGE_SIZE_HELP",
             "#text": "Didžiausias naudotojo įkeliamo vaizdo dydis baitais."
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS",
-            "#text": "Maksimalus PM gavėjų skaičius:"
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS_HELP",
-            "#text": "Didžiausias leistinas gavėjų skaičius vienam išsiųstam PM (0 = neribotas)"
           },
           {
             "@tag": "MAX_POST_CHARS",
@@ -12371,6 +12367,15 @@
           {
             "@tag": "WATCHTOPICS",
             "#text": "Žiūrėti temas"
+          }
+        ]
+      },
+      {
+        "@name": "NOTIFICATION",
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Your activity notifications"
           }
         ]
       },

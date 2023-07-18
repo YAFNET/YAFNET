@@ -15,6 +15,10 @@
             "#text": "Archív"
           },
           {
+            "@tag": "BECOME_FRIENDS",
+            "#text": "Become Friends"
+          },
+          {
             "@tag": "CHANGE_PASSWORD",
             "#text": "Zmena hesla"
           },
@@ -4868,14 +4872,6 @@
           {
             "@tag": "MAX_IMAGE_SIZE_HELP",
             "#text": "Maximálna veľkosť obrázka v bajtoch, ktorú môže používateľ nahrať."
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS",
-            "#text": "Maximálny počet príjemcov PM:"
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS_HELP",
-            "#text": "Maximálny povolený počet príjemcov na odoslaný PM (0 = neobmedzené)"
           },
           {
             "@tag": "MAX_POST_CHARS",
@@ -12371,6 +12367,15 @@
           {
             "@tag": "WATCHTOPICS",
             "#text": "Témy hodiniek"
+          }
+        ]
+      },
+      {
+        "@name": "NOTIFICATION",
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Your activity notifications"
           }
         ]
       },

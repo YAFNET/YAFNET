@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Services;
 
 using System;
@@ -28,6 +29,7 @@ using System;
 using YAF.Core.Model;
 using YAF.Types.Attributes;
 using YAF.Types.Models;
+using YAF.Types.Objects.Model;
 
 /// <summary>
 /// YAF Friends service
@@ -73,36 +75,29 @@ public class Friends : IFriends, IHaveServiceLocator
     /// <summary>
     /// Approves all buddy requests for the current user.
     /// </summary>
-    /// <param name="mutual">
-    /// should the users be added to current user's buddy list too?
-    /// </param>
-    public void ApproveAllRequests(bool mutual)
+    public void ApproveAllRequests()
     {
         var users = this.GetRepository<Buddy>().GetReceivedRequests(BoardContext.Current.PageUserID);
 
-        users.ForEach(user => this.ApproveRequest(user.UserID, mutual));
+        users.ForEach(user => this.ApproveRequest(user));
     }
 
     /// <summary>
     /// Approves a buddy request.
     /// </summary>
-    /// <param name="toUserId">
-    /// the to user id.
-    /// </param>
-    /// <param name="mutual">
-    /// should the second user be added to current user's buddy list too?
+    /// <param name="toUser">
+    /// the to user.
     /// </param>
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public bool ApproveRequest(int toUserId, bool mutual)
+    public bool ApproveRequest(BuddyUser toUser)
     {
-        this.ClearCache(toUserId);
+        this.ClearCache(toUser.UserID);
 
         return this.GetRepository<Buddy>().ApproveRequest(
-            toUserId,
-            BoardContext.Current.PageUserID,
-            mutual);
+            toUser,
+            BoardContext.Current.PageUser);
     }
 
     /// <summary>

@@ -186,4 +186,11 @@ public interface IActivityStream
     /// The from user id.
     /// </param>
     void AddThanksGivenToStream(int userId, int topicId, int messageId, int fromUserId);
+
+    /// <summary>
+    /// Adds the become friends to stream.
+    /// </summary>
+    /// <param name="userId">The user identifier.</param>
+    /// <param name="fromUserId">From user identifier.</param>
+    void AddBecomeFriendsToStream(int userId, int fromUserId);
 }

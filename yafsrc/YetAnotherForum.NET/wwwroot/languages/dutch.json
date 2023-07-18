@@ -15,6 +15,10 @@
             "#text": "Archief"
           },
           {
+            "@tag": "BECOME_FRIENDS",
+            "#text": "Become Friends"
+          },
+          {
             "@tag": "CHANGE_PASSWORD",
             "#text": "Wijzig wachtwoord"
           },
@@ -4860,14 +4864,6 @@
           {
             "@tag": "MAX_IMAGE_SIZE_HELP",
             "#text": "Maximale grootte per plaatje wat gebruikers kunnen uploaden."
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS",
-            "#text": "Maximum aantal PB ontvangers:"
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS_HELP",
-            "#text": "Maximum aantal toegestane ontvangers per verstuurde PB (0 = ongelimiteerd)"
           },
           {
             "@tag": "MAX_POST_CHARS",
@@ -12355,6 +12351,15 @@
           {
             "@tag": "WATCHTOPICS",
             "#text": "Onderwerpen bekijken"
+          }
+        ]
+      },
+      {
+        "@name": "NOTIFICATION",
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Your activity notifications"
           }
         ]
       },

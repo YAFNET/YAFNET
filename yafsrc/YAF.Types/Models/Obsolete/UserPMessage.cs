@@ -60,17 +60,6 @@ public class UserPMessage : IEntity, IHaveID
     public int Flags { get; set; }
 
     /// <summary>
-    /// Gets or sets the user flags.
-    /// </summary>
-    [Ignore]
-    public PMessageFlags PMessageFlags
-    {
-        get => new(this.Flags);
-
-        set => this.Flags = value.BitValue;
-    }
-
-    /// <summary>
     /// Gets or sets a value indicating whether is reply.
     /// </summary>
     [Required]

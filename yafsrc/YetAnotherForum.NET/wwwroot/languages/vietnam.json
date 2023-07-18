@@ -15,6 +15,10 @@
             "#text": "Lưu trữ"
           },
           {
+            "@tag": "BECOME_FRIENDS",
+            "#text": "Become Friends"
+          },
+          {
             "@tag": "CHANGE_PASSWORD",
             "#text": "Đổi mật khẩu"
           },
@@ -4868,14 +4872,6 @@
           {
             "@tag": "MAX_IMAGE_SIZE_HELP",
             "#text": "Kích thước tối đa của hình ảnh tính bằng byte mà người dùng có thể tải lên."
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS",
-            "#text": "Tối đa không. của PM Người nhận:"
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS_HELP",
-            "#text": "Số người nhận tối đa được phép trên mỗi PM đã gửi (0 = không giới hạn)"
           },
           {
             "@tag": "MAX_POST_CHARS",
@@ -12371,6 +12367,15 @@
           {
             "@tag": "WATCHTOPICS",
             "#text": "Xem chủ đề"
+          }
+        ]
+      },
+      {
+        "@name": "NOTIFICATION",
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Your activity notifications"
           }
         ]
       },

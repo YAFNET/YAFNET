@@ -358,4 +358,25 @@ public class ActivityStream : IActivityStream, IHaveServiceLocator
 
         this.GetRepository<Activity>().Insert(activity);
     }
+
+    /// <summary>
+    /// Adds the become friends to stream.
+    /// </summary>
+    /// <param name="userId">The user identifier.</param>
+    /// <param name="fromUserId">From user identifier.</param>
+    public void AddBecomeFriendsToStream(int userId, int fromUserId)
+    {
+        var flags = new ActivityFlags { BecomeFriends = true };
+
+        var activity = new Activity
+                           {
+                               Flags = flags.BitValue,
+                               FromUserID = fromUserId,
+                               UserID = userId,
+                               Notification = false,
+                               Created = DateTime.UtcNow
+                           };
+
+        this.GetRepository<Activity>().Insert(activity);
+    }
 }

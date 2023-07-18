@@ -15,6 +15,10 @@
             "#text": "Archives"
           },
           {
+            "@tag": "BECOME_FRIENDS",
+            "#text": "Become Friends"
+          },
+          {
             "@tag": "CHANGE_PASSWORD",
             "#text": "Modification du mot de passe"
           },
@@ -4868,14 +4872,6 @@
           {
             "@tag": "MAX_IMAGE_SIZE_HELP",
             "#text": "Taille maximale de l'image en octets qu'un utilisateur peut télécharger."
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS",
-            "#text": "Nombre maximal de destinataires de MP :"
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS_HELP",
-            "#text": "Maximum de destinataires autorisés par MP envoyé (0 = illimité)"
           },
           {
             "@tag": "MAX_POST_CHARS",
@@ -12371,6 +12367,15 @@
           {
             "@tag": "WATCHTOPICS",
             "#text": "Sujets à surveiller"
+          }
+        ]
+      },
+      {
+        "@name": "NOTIFICATION",
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Your activity notifications"
           }
         ]
       },

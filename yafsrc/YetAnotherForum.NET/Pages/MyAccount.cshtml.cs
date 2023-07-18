@@ -87,11 +87,19 @@ public class MyAccountModel : ForumPageRegistered
     public bool GivenThanks { get; set; }
 
     /// <summary>
+    /// Gets or sets a value indicating whether are friends.
+    /// </summary>
+    [BindProperty]
+    public bool BecomeFriends { get; set; }
+
+    /// <summary>
     /// Create the Page links.
     /// </summary>
     public override void CreatePageLinks()
     {
-        this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+        this.PageBoardContext.PageLinks.AddLink(
+            this.PageBoardContext.PageUser.DisplayOrUserName(),
+            this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
     }
 
     /// <summary>
@@ -99,13 +107,9 @@ public class MyAccountModel : ForumPageRegistered
     /// </summary>
     public IActionResult OnGet()
     {
-        this.CreatedTopic = true;
-        this.CreatedReply = true;
-        this.GivenThanks = true;
+        this.Reset();
 
-       this.BindData();
-
-       return this.Page();
+        return this.Page();
     }
 
     /// <summary>
@@ -121,11 +125,7 @@ public class MyAccountModel : ForumPageRegistered
     /// </summary>
     public void OnPostReset()
     {
-        this.CreatedTopic = true;
-        this.CreatedReply = true;
-        this.GivenThanks = true;
-
-        this.BindData();
+        this.Reset();
     }
 
     /// <summary>
@@ -147,9 +147,15 @@ public class MyAccountModel : ForumPageRegistered
     /// </summary>
     private void BindData()
     {
-        this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
+        this.PageSizeList = new SelectList(
+            StaticDataHelper.PageEntries(),
+            nameof(SelectListItem.Value),
+            nameof(SelectListItem.Text));
 
-        this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
+        this.PageSizeList = new SelectList(
+            StaticDataHelper.PageEntries(),
+            nameof(SelectListItem.Value),
+            nameof(SelectListItem.Text));
 
         var stream = this.GetRepository<Activity>().Timeline(this.PageBoardContext.PageUserID);
 
@@ -168,11 +174,28 @@ public class MyAccountModel : ForumPageRegistered
             stream.RemoveAll(a => a.Item1.ActivityFlags.GivenThanks);
         }
 
+        if (!this.BecomeFriends)
+        {
+            stream.RemoveAll(a => a.Item1.ActivityFlags.BecomeFriends);
+        }
+
         this.TotalItems = stream.Count;
 
-        var paged = stream.Skip(this.PageBoardContext.PageIndex * this.Size)
-            .Take(this.Size).ToList();
+        var paged = stream.Skip(this.PageBoardContext.PageIndex * this.Size).Take(this.Size).ToList();
 
         this.Stream = paged;
+    }
+
+    /// <summary>
+    /// Resets Filter and Load Data
+    /// </summary>
+    private void Reset()
+    {
+        this.CreatedTopic = true;
+        this.CreatedReply = true;
+        this.GivenThanks = true;
+        this.BecomeFriends = true;
+
+        this.BindData();
     }
 }

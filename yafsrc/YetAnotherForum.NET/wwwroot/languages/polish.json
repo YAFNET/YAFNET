@@ -15,6 +15,10 @@
             "#text": "Archiwum"
           },
           {
+            "@tag": "BECOME_FRIENDS",
+            "#text": "Become Friends"
+          },
+          {
             "@tag": "CHANGE_PASSWORD",
             "#text": "Zmień hasło"
           },
@@ -4860,14 +4864,6 @@
           {
             "@tag": "MAX_IMAGE_SIZE_HELP",
             "#text": "Maksymalny rozmiar obrazu w bajtach, jaki może przesłać użytkownik."
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS",
-            "#text": "Maks. liczba odbiorców PM:"
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS_HELP",
-            "#text": "Maksymalna liczba odbiorców wysyłanych wiadomości PM (0 = nieograniczona)"
           },
           {
             "@tag": "MAX_POST_CHARS",
@@ -12359,6 +12355,15 @@
           {
             "@tag": "WATCHTOPICS",
             "#text": "Tematy do obejrzenia"
+          }
+        ]
+      },
+      {
+        "@name": "NOTIFICATION",
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Your activity notifications"
           }
         ]
       },

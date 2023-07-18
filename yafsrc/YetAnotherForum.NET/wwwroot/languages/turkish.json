@@ -15,6 +15,10 @@
             "#text": "Arşiv"
           },
           {
+            "@tag": "BECOME_FRIENDS",
+            "#text": "Become Friends"
+          },
+          {
             "@tag": "CHANGE_PASSWORD",
             "#text": "Şifreyi Değiştir"
           },
@@ -4868,14 +4872,6 @@
           {
             "@tag": "MAX_IMAGE_SIZE_HELP",
             "#text": "Bir kullanıcının yükleyebileceği bayt cinsinden maksimum görüntü boyutu."
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS",
-            "#text": "Maksimum PM Alıcı sayısı:"
-          },
-          {
-            "@tag": "MAX_PM_RECIPIENTS_HELP",
-            "#text": "Gönderilen PM başına izin verilen maksimum alıcı sayısı (0 = sınırsız)"
           },
           {
             "@tag": "MAX_POST_CHARS",
@@ -12371,6 +12367,15 @@
           {
             "@tag": "WATCHTOPICS",
             "#text": "İzleme Konuları"
+          }
+        ]
+      },
+      {
+        "@name": "NOTIFICATION",
+        "Resource": [
+          {
+            "@tag": "TITLE",
+            "#text": "Your activity notifications"
           }
         ]
       },

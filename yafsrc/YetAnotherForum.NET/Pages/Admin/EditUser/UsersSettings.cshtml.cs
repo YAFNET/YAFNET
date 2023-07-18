@@ -43,6 +43,11 @@ using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 
+/// <summary>
+/// Class UsersSettingsModel.
+/// Implements the <see cref="YAF.Core.BasePages.AdminPage" />
+/// </summary>
+/// <seealso cref="YAF.Core.BasePages.AdminPage" />
 public class UsersSettingsModel : AdminPage
 {
     /// <summary>
@@ -51,6 +56,9 @@ public class UsersSettingsModel : AdminPage
     [BindProperty]
     public InputModel Input { get; set; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UsersSettingsModel"/> class.
+    /// </summary>
     public UsersSettingsModel()
         : base("ADMIN_EDITUSER", ForumPages.Admin_EditUser)
     {
