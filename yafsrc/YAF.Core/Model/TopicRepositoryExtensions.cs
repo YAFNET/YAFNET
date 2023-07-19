@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Model;
 
 using System;
@@ -1104,6 +1105,8 @@ public static class TopicRepositoryExtensions
     {
         CodeContracts.VerifyNotNull(repository);
 
+        var topicFlags = new TopicFlags { IsPersistent = flags.IsPersistent };
+
         var topic = new Topic
                         {
                             ForumID = forum.ID,
@@ -1118,7 +1121,8 @@ public static class TopicRepositoryExtensions
                             Description = description,
                             Status = status,
                             Styles = styles,
-                        };
+                            Flags = topicFlags.BitValue
+        };
 
         topic.ID = repository.Insert(topic);
 

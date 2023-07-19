@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Model;
 
 using System;
@@ -285,7 +286,6 @@ public static class RegistryRepositoryExtensions
             // needs to be setup...
             return DbVersionType.NewInstall;
         }
-
 
         return DbVersionType.Current;
     }

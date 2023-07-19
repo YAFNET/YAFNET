@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Model;
 
 using System;
@@ -159,15 +160,11 @@ public static class ThanksRepositoryExtensions
     /// <param name="messageId">
     /// The message id.
     /// </param>
-    /// <param name="useDisplayName">
-    /// use the display name.
-    /// </param>
     [NotNull]
     public static void RemoveMessageThanks(
         this IRepository<Thanks> repository,
         [NotNull] int fromUserId,
-        [NotNull] int messageId,
-        [NotNull] bool useDisplayName)
+        [NotNull] int messageId)
     {
         CodeContracts.VerifyNotNull(repository);
 

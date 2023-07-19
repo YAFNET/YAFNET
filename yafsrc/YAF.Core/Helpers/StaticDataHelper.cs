@@ -580,7 +580,7 @@ public static class StaticDataHelper
     /// Gets the List with Page Entries to Show
     /// </summary>
     /// <returns>
-    /// The <see cref="List"/>.
+    /// Returns List with Page Entries
     /// </returns>
     public static List<SelectListItem> PageEntries()
     {
@@ -596,35 +596,6 @@ public static class StaticDataHelper
                                        Text = BoardContext.Current.Get<ILocalization>().GetText("COMMON", text),
                                        Value = text.Replace("ENTRIES_", string.Empty)
                                    };
-
-                    list.Add(item);
-                });
-
-        return list;
-    }
-
-    /// <summary>
-    /// Gets the Select List with PmViews
-    /// </summary>
-    /// <returns>SelectListItem List</returns>
-    public static List<SelectListItem> PmViews()
-    {
-        var list = new List<SelectListItem>();
-
-        string[] textArray = { "INBOX", "SENTITEMS" };
-
-        var index = 0;
-
-        textArray.ForEach(
-            text =>
-                {
-                    var item = new SelectListItem
-                                   {
-                                       Text = BoardContext.Current.Get<ILocalization>().GetText(text),
-                                       Value = index.ToString()
-                                   };
-
-                    index++;
 
                     list.Add(item);
                 });

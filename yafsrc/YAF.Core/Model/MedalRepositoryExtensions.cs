@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Model;
 
 using System;
@@ -119,7 +120,7 @@ public static class MedalRepositoryExtensions
     /// <param name="category">
     /// The category.
     /// </param>
-    /// <param name="medalURL">
+    /// <param name="medalUrl">
     /// The medal url.
     /// </param>
     /// <param name="flags">
@@ -135,7 +136,7 @@ public static class MedalRepositoryExtensions
         [CanBeNull] string description,
         [CanBeNull] string message,
         [CanBeNull] string category,
-        [CanBeNull] string medalURL,
+        [CanBeNull] string medalUrl,
         [NotNull] int flags,
         [CanBeNull] int? boardId = null)
     {
@@ -151,7 +152,7 @@ public static class MedalRepositoryExtensions
                               Description = description,
                               Message = message,
                               Category = category,
-                              MedalURL = medalURL,
+                              MedalURL = medalUrl,
                               Flags = flags
                           },
                 medal => medal.ID == medalId.Value);
@@ -168,7 +169,7 @@ public static class MedalRepositoryExtensions
                         Description = description,
                         Message = message,
                         Category = category,
-                        MedalURL = medalURL,
+                        MedalURL = medalUrl,
                         Flags = flags
                     });
 

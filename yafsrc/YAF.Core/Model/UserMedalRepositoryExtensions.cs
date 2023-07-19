@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Model;
 
 using System;
@@ -81,10 +82,10 @@ public static class UserMedalRepositoryExtensions
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="userID">
+    /// <param name="userId">
     /// ID of user.
     /// </param>
-    /// <param name="medalID">
+    /// <param name="medalId">
     /// ID of medal.
     /// </param>
     /// <param name="message">
@@ -98,8 +99,8 @@ public static class UserMedalRepositoryExtensions
     /// </param>
     public static void Save(
         this IRepository<UserMedal> repository,
-        [NotNull] int userID,
-        [NotNull] int medalID,
+        [NotNull] int userId,
+        [NotNull] int medalId,
         [NotNull] string message,
         [NotNull] bool hide,
         [NotNull] byte sortOrder)
@@ -108,9 +109,9 @@ public static class UserMedalRepositoryExtensions
 
         repository.UpdateOnly(
             () => new UserMedal { Message = message, Hide = hide, SortOrder = sortOrder },
-            m => m.UserID == userID && m.MedalID == medalID);
+            m => m.UserID == userId && m.MedalID == medalId);
 
-        repository.FireUpdated(medalID);
+        repository.FireUpdated(medalId);
     }
 
     /// <summary>
@@ -119,10 +120,10 @@ public static class UserMedalRepositoryExtensions
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <param name="userID">
+    /// <param name="userId">
     /// ID of user.
     /// </param>
-    /// <param name="medalID">
+    /// <param name="medalId">
     /// ID of medal.
     /// </param>
     /// <param name="message">
@@ -136,8 +137,8 @@ public static class UserMedalRepositoryExtensions
     /// </param>
     public static void SaveNew(
         this IRepository<UserMedal> repository,
-        [NotNull] int userID,
-        [NotNull] int medalID,
+        [NotNull] int userId,
+        [NotNull] int medalId,
         [NotNull] string message,
         [NotNull] bool hide,
         [NotNull] byte sortOrder)
@@ -147,8 +148,8 @@ public static class UserMedalRepositoryExtensions
         var newId = repository.Insert(
             new UserMedal
                 {
-                    UserID = userID,
-                    MedalID = medalID,
+                    UserID = userId,
+                    MedalID = medalId,
                     Message = message,
                     Hide = hide,
                     SortOrder = sortOrder,

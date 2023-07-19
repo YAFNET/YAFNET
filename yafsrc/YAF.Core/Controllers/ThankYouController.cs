@@ -160,8 +160,7 @@ public class ThankYouController : ForumBaseController
 
         this.GetRepository<Thanks>().RemoveMessageThanks(
             this.PageBoardContext.PageUserID,
-            messageId,
-            this.Get<BoardSettings>().EnableDisplayName);
+            messageId);
 
         this.GetRepository<Activity>()
             .Delete(a => a.MessageID == messageId && (a.Flags == 1024 || a.Flags == 2048));

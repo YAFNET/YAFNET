@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Model;
 
 using System;
@@ -29,7 +30,7 @@ using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
-///     The NntpTopic repository extensions.
+/// The NntpTopic repository extensions.
 /// </summary>
 public static class NntpTopicRepositoryExtensions
 {

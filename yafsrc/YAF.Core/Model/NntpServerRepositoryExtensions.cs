@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Model;
 
 using YAF.Types.Attributes;
@@ -38,7 +39,7 @@ public static class NntpServerRepositoryExtensions
     /// The repository.
     /// </param>
     /// <param name="nntpServerId">
-    /// The nntp server id.
+    /// The NNTP server id.
     /// </param>
     /// <param name="boardId">
     /// The board id.

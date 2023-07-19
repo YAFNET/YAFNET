@@ -106,14 +106,10 @@ public class TopicFlags : FlagsBase
         /// <summary>
         /// The is persistent.
         /// </summary>
-        IsPersistent = 512,
-
-        /// <summary>
-        /// The is question.
-        /// </summary>
-        IsQuestion = 1024
+        IsPersistent = 512
 
         /* for future use
+              xxxxxxxx = 1024,
               xxxxxxxx = 2048,
               xxxxxxxx = 4096,
               xxxxxxxx = 8192,
@@ -154,16 +150,5 @@ public class TopicFlags : FlagsBase
         get => this[9];
 
         set => this[9] = value;
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether topic is a question.
-    /// </summary>
-    public virtual bool IsQuestion
-    {
-        // int value 1024
-        get => this[this.EnumToIndex(Flags.IsQuestion)];
-
-        set => this[this.EnumToIndex(Flags.IsQuestion)] = value;
     }
 }
