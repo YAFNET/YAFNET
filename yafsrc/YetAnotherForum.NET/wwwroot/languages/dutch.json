@@ -111,10 +111,6 @@
             "#text": "Heeft een bedankje ontvangen van {0} in het onderwerp {1}"
           },
           {
-            "@tag": "SENTITEMS",
-            "#text": "Verzonden Items"
-          },
-          {
             "@tag": "SIGNATURE",
             "#text": "Handtekening"
           },
@@ -1767,14 +1763,6 @@
             "#text": "Theme om op dit board te gebruiken."
           },
           {
-            "@tag": "BOARD_THREADED",
-            "#text": "Sta flexibele weergave toe:"
-          },
-          {
-            "@tag": "BOARD_THREADED_HELP",
-            "#text": "Sta flexibele weergave (boomstructuur) toe."
-          },
-          {
             "@tag": "BOARD_TOPIC_DEFAULT",
             "#text": "Standaard Topic:"
           },
@@ -2327,14 +2315,6 @@
           {
             "@tag": "STATUS_USR_REJECTED",
             "#text": "Het aanmaken van de gebruiker is geannuleerd. Controleer je invoer en probeer het opnieuw. Als het probleem zich blijft voordoen, neem dan contact op met je systeembeheerder."
-          },
-          {
-            "@tag": "THREADED",
-            "#text": "Sta Boomweergave toe:"
-          },
-          {
-            "@tag": "THREADED_HELP",
-            "#text": "Laat de gebruikers kiezen tussen normale- en Boomweergave."
           },
           {
             "@tag": "TITLE",
@@ -7753,14 +7733,6 @@
             "#text": "Gebruik als voorblad"
           },
           {
-            "@tag": "BUTTON_TAGFAVORITE",
-            "#text": "Markeer als favoriet"
-          },
-          {
-            "@tag": "BUTTON_TAGFAVORITE_TT",
-            "#text": "Markeer dit topic als favoriet"
-          },
-          {
             "@tag": "BUTTON_THANKS",
             "#text": "Bedank"
           },
@@ -7791,14 +7763,6 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Ontgrendel dit topic"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE",
-            "#text": "Demarkeer als favoriet"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE_TT",
-            "#text": "Verwijder dit topic van je favorietenlijst."
           }
         ]
       },
@@ -9563,10 +9527,6 @@
             "#text": "Meld je aan via Atom voor de actieve berichten."
           },
           {
-            "@tag": "ATOMICONTOOLTIPFAVORITE",
-            "#text": "Meld je aan via Atom voor je favoriete topics."
-          },
-          {
             "@tag": "ATOMICONTOOLTIPFORUM",
             "#text": "Meld je aan bij de forum Atom feed."
           },
@@ -9681,18 +9641,6 @@
           {
             "@tag": "RECENT_USERS",
             "#text": "Recente Bezoekers"
-          },
-          {
-            "@tag": "RSSICONTOOLTIPACTIVE",
-            "#text": "Meld je aan bij de actieve topics via RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFAVORITE",
-            "#text": "Meld je via RSS aan bij je favoriete topics."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFORUM",
-            "#text": "Aanmelden bij RSS feed."
           },
           {
             "@tag": "SHOW_UNREAD_ONLY",
@@ -10239,10 +10187,6 @@
           {
             "@tag": "XMPP",
             "#text": "Je Jabber ID:"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Je Yahoo ID:"
           }
         ]
       },
@@ -10384,14 +10328,6 @@
           {
             "@tag": "APPROVE",
             "#text": "Keur goed"
-          },
-          {
-            "@tag": "APPROVE_ADD",
-            "#text": "Keur goed en voeg toe"
-          },
-          {
-            "@tag": "APPROVE_ADD_ALL",
-            "#text": "Alles goedkeuren en toevoegen"
           },
           {
             "@tag": "APPROVE_ALL",
@@ -10602,14 +10538,6 @@
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Vrienden"
-          },
-          {
-            "@tag": "DISPLAYCONTENT",
-            "#text": "<p>Je kunt kiezen hoe je topics wilt weergeven. Als je in een topic zit, is er bovenin een knop 'Weergave'. Als je hierop klikt, kun je een keuze maken tussen de volgende twee opties:</p>\r\n<ul>\r\n<li><strong>Normaal</strong>- Berichten worden chronologisch in een lijst weergegeven, met de oudste eerst. Zo kun je een hoop berichten tegelijkertijd zien.</li>\r\n<li><strong>Boomstructuur</strong>- Bij elk topic wordt een boomstructuur weergegeven. Zo kun je de relatie zien tussen de verschillende berichten. Er wordt maar &eacute;&eacute;n bericht tegelijk weergegeven. Als je in de boomstructuur op een Bericht klikt, wordt dat bericht weergegeven, met alle antwoorden daarop.</li>\r\n</ul>\r\n"
-          },
-          {
-            "@tag": "DISPLAYTITLE",
-            "#text": "Weergaveopties"
           },
           {
             "@tag": "EDITDELETECONTENT",
@@ -10957,24 +10885,6 @@
         ]
       },
       {
-        "@name": "IM_MSN",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Live Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_SKYPE",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Bellen met Skype(tm)"
-          }
-        ]
-      },
-      {
         "@name": "IM_XMPP",
         "Resource": [
           {
@@ -10992,15 +10902,6 @@
           {
             "@tag": "TITLE",
             "#text": "XMPP-messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_YIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Yahoo! "
           }
         ]
       },
@@ -11807,10 +11708,6 @@
           {
             "@tag": "POSTED",
             "#text": "Gepost:"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "Verzonden Items"
           }
         ]
       },
@@ -12247,10 +12144,6 @@
           {
             "@tag": "BY",
             "#text": "door {0}"
-          },
-          {
-            "@tag": "FAVORITETOPICS",
-            "#text": "Favoriete Topics"
           },
           {
             "@tag": "GUESTTITLE",
@@ -13207,10 +13100,6 @@
             "#text": "Is {0} keer bedankt in {1} post(s)"
           },
           {
-            "@tag": "THREADED",
-            "#text": "Hiërarchisch"
-          },
-          {
             "@tag": "TIP_DELETE_TOPIC",
             "#text": "Verwijder dit bericht"
           },
@@ -13361,14 +13250,6 @@
           {
             "@tag": "XMPP_TITLE",
             "#text": "Neem met {0} contact op via Jabber"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "YAHOO"
-          },
-          {
-            "@tag": "YIM_TITLE",
-            "#text": "Neem met {0} contact op via Yahoo Instant Messenger"
           }
         ]
       },
@@ -13652,10 +13533,6 @@
           {
             "@tag": "YEARS",
             "#text": "jaar (jaren)"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Yahoo Messenger:"
           }
         ]
       },
@@ -15119,10 +14996,6 @@
             "#text": "Gemaakt"
           },
           {
-            "@tag": "FAVORITE_COUNT_TT",
-            "#text": "Aantal keer aan favorieten toegevoegd"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Forum"
           },
@@ -15257,31 +15130,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Gisteren[/b] om {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "VIEWTHANKS",
-        "Resource": [
-          {
-            "@tag": "NO_THANKS",
-            "#text": "[b]Geen bedankjes gevonden.[/b]"
-          },
-          {
-            "@tag": "THANKSFROMUSER",
-            "#text": "{0} heeft bedankt"
-          },
-          {
-            "@tag": "THANKSNUMBER",
-            "#text": "Bedankjes: [b]{0}[/b] keer"
-          },
-          {
-            "@tag": "THANKSTOUSER",
-            "#text": "{0} was bedankt"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Bekijk bedankjes"
           }
         ]
       }

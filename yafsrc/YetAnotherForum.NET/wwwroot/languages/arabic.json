@@ -111,10 +111,6 @@
             "#text": "Has Received a Thanks from {0} in the Topic {1}"
           },
           {
-            "@tag": "SENTITEMS",
-            "#text": "العناصر المرسلة"
-          },
-          {
             "@tag": "SIGNATURE",
             "#text": "التوقيع"
           },
@@ -1767,14 +1763,6 @@
             "#text": "الموضوع المراد استخدامه في هذا المنتدى."
           },
           {
-            "@tag": "BOARD_THREADED",
-            "#text": "السماح مترابطة:"
-          },
-          {
-            "@tag": "BOARD_THREADED_HELP",
-            "#text": "السماح بعرض مترابط للمشاركات."
-          },
-          {
             "@tag": "BOARD_TOPIC_DEFAULT",
             "#text": "إظهار افتراضي الموضوع:"
           },
@@ -2327,14 +2315,6 @@
           {
             "@tag": "STATUS_USR_REJECTED",
             "#text": "تم إلغاء طلب إنشاء المستخدم. "
-          },
-          {
-            "@tag": "THREADED",
-            "#text": "السماح مترابطة:"
-          },
-          {
-            "@tag": "THREADED_HELP",
-            "#text": "السماح بعرض مترابط للمشاركات."
           },
           {
             "@tag": "TITLE",
@@ -7749,14 +7729,6 @@
             "#text": "اختياره كغطاء"
           },
           {
-            "@tag": "BUTTON_TAGFAVORITE",
-            "#text": "تعين كمفضل "
-          },
-          {
-            "@tag": "BUTTON_TAGFAVORITE_TT",
-            "#text": "تعين الموضع كمفضل "
-          },
-          {
             "@tag": "BUTTON_THANKS",
             "#text": "شكرا"
           },
@@ -7787,14 +7759,6 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "إلغاء القفل عن الموضوع"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE",
-            "#text": "أزلة التعين كمفضل"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE_TT",
-            "#text": "ازالة هذا الموضوع من قائمتك المفضلة"
           }
         ]
       },
@@ -9559,10 +9523,6 @@
             "#text": "اشترك في الموضوعات النشطة عبر Atom."
           },
           {
-            "@tag": "ATOMICONTOOLTIPFAVORITE",
-            "#text": "اشترك في مواضيعك المفضلة عبر Atom."
-          },
-          {
             "@tag": "ATOMICONTOOLTIPFORUM",
             "#text": "الاشتراك في منتدى Atom موجز."
           },
@@ -9677,18 +9637,6 @@
           {
             "@tag": "RECENT_USERS",
             "#text": "المستخدمون الأخيرون"
-          },
-          {
-            "@tag": "RSSICONTOOLTIPACTIVE",
-            "#text": "اشترك في مواضيع نشطة عبر RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFAVORITE",
-            "#text": "اشترك في مواضيعك المفضلة عبر RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFORUM",
-            "#text": "اشترك في المنتدى آر إس إس."
           },
           {
             "@tag": "SHOW_UNREAD_ONLY",
@@ -10235,10 +10183,6 @@
           {
             "@tag": "XMPP",
             "#text": "معرف Jabber الخاص بك:"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "معرف Yahoo الخاص بك:"
           }
         ]
       },
@@ -10380,14 +10324,6 @@
           {
             "@tag": "APPROVE",
             "#text": "موافقة "
-          },
-          {
-            "@tag": "APPROVE_ADD",
-            "#text": "الموافقة على إضافة"
-          },
-          {
-            "@tag": "APPROVE_ADD_ALL",
-            "#text": "الموافقة على الجميع "
           },
           {
             "@tag": "APPROVE_ALL",
@@ -10598,14 +10534,6 @@
           {
             "@tag": "BUDDIESTITLE",
             "#text": "أصدقاء"
-          },
-          {
-            "@tag": "DISPLAYCONTENT",
-            "#text": "<p> لديك خيار بشأن كيفية عرض الموضوعات. "
-          },
-          {
-            "@tag": "DISPLAYTITLE",
-            "#text": "خيارات عرض الموضوع"
           },
           {
             "@tag": "EDITDELETECONTENT",
@@ -10953,24 +10881,6 @@
         ]
       },
       {
-        "@name": "IM_MSN",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "(MSN) ماسنجر"
-          }
-        ]
-      },
-      {
-        "@name": "IM_SKYPE",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "(Skype) الاتصال بستخدام "
-          }
-        ]
-      },
-      {
         "@name": "IM_XMPP",
         "Resource": [
           {
@@ -10988,15 +10898,6 @@
           {
             "@tag": "TITLE",
             "#text": "(XMPP) ماسنجر"
-          }
-        ]
-      },
-      {
-        "@name": "IM_YIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "(Yahoo!) ماسنجر"
           }
         ]
       },
@@ -11803,10 +11704,6 @@
           {
             "@tag": "POSTED",
             "#text": ":تم المشاركة "
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "العناصر المرسلة"
           }
         ]
       },
@@ -12243,10 +12140,6 @@
           {
             "@tag": "BY",
             "#text": "{بواسطة {0"
-          },
-          {
-            "@tag": "FAVORITETOPICS",
-            "#text": "مواضيع مفضلة"
           },
           {
             "@tag": "GUESTTITLE",
@@ -13203,10 +13096,6 @@
             "#text": "تم الشكر {0} مرات في {1} المشاركات"
           },
           {
-            "@tag": "THREADED",
-            "#text": "مخاطر"
-          },
-          {
             "@tag": "TIP_DELETE_TOPIC",
             "#text": "حذف  هذا الموضوع "
           },
@@ -13357,14 +13246,6 @@
           {
             "@tag": "XMPP_TITLE",
             "#text": "اتصل بـ {0} عبر Jabber"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "(YAHOO)ياهو "
-          },
-          {
-            "@tag": "YIM_TITLE",
-            "#text": "اتصل بـ {0} عبر Yahoo Instant Messenger"
           }
         ]
       },
@@ -13648,10 +13529,6 @@
           {
             "@tag": "YEARS",
             "#text": "سنوات)"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Yahoo ماسنجر:"
           }
         ]
       },
@@ -15115,10 +14992,6 @@
             "#text": "إنشاء"
           },
           {
-            "@tag": "FAVORITE_COUNT_TT",
-            "#text": "كم مرة تمت إضافتها إلى المفضلة"
-          },
-          {
             "@tag": "FORUM",
             "#text": "منتدى "
           },
@@ -15253,31 +15126,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Yesterday[/b] at {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "VIEWTHANKS",
-        "Resource": [
-          {
-            "@tag": "NO_THANKS",
-            "#text": "[b]لا يوجد اي شكر.[/b]"
-          },
-          {
-            "@tag": "THANKSFROMUSER",
-            "#text": "{0} تم الشكر من قبل"
-          },
-          {
-            "@tag": "THANKSNUMBER",
-            "#text": "تم مرات الشكر: [b]{0}[/b] مرة (s)"
-          },
-          {
-            "@tag": "THANKSTOUSER",
-            "#text": "{0} was thanked"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "مشاهدة الشكر"
           }
         ]
       }

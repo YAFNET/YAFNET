@@ -111,10 +111,6 @@
             "#text": "Ha recibido un agradecimiento de {0} en el tema {1}"
           },
           {
-            "@tag": "SENTITEMS",
-            "#text": "Elementos enviados"
-          },
-          {
             "@tag": "SIGNATURE",
             "#text": "Firma"
           },
@@ -1767,14 +1763,6 @@
             "#text": "El tema a utilizar en este tablero."
           },
           {
-            "@tag": "BOARD_THREADED",
-            "#text": "Permitir visión por hilos:"
-          },
-          {
-            "@tag": "BOARD_THREADED_HELP",
-            "#text": "Permitir la visión por hilos de las publicaciones."
-          },
-          {
             "@tag": "BOARD_TOPIC_DEFAULT",
             "#text": "Mostrar tema por defecto:"
           },
@@ -2327,14 +2315,6 @@
           {
             "@tag": "STATUS_USR_REJECTED",
             "#text": "La petición de creación de usuario ha sido cancelada. Por favor, verifica los datos introducidos y prueba de nuevo. Si el problema persiste contacta con el administrador."
-          },
-          {
-            "@tag": "THREADED",
-            "#text": "Permitir hilos:"
-          },
-          {
-            "@tag": "THREADED_HELP",
-            "#text": "Permitir la vista por hilos en las publicaciones."
           },
           {
             "@tag": "TITLE",
@@ -7753,14 +7733,6 @@
             "#text": "Marcar como versión"
           },
           {
-            "@tag": "BUTTON_TAGFAVORITE",
-            "#text": "Etiquetar como favorito"
-          },
-          {
-            "@tag": "BUTTON_TAGFAVORITE_TT",
-            "#text": "Etiquetar este tema como favorito."
-          },
-          {
             "@tag": "BUTTON_THANKS",
             "#text": "Gracias"
           },
@@ -7791,14 +7763,6 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Desproteger este tema"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE",
-            "#text": "Desetiquetar como favorito"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE_TT",
-            "#text": "Eliminar este tema de la lista de favoritos."
           }
         ]
       },
@@ -9563,10 +9527,6 @@
             "#text": "Suscribir a los temas activos vía Atom."
           },
           {
-            "@tag": "ATOMICONTOOLTIPFAVORITE",
-            "#text": "Suscribir a tus temas favoritos vía Atom."
-          },
-          {
             "@tag": "ATOMICONTOOLTIPFORUM",
             "#text": "Suscribir al feed Atom del foro."
           },
@@ -9681,18 +9641,6 @@
           {
             "@tag": "RECENT_USERS",
             "#text": "Usuarios recientes"
-          },
-          {
-            "@tag": "RSSICONTOOLTIPACTIVE",
-            "#text": "Suscríbete a los temas activos vía RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFAVORITE",
-            "#text": "Suscríbete a tus temas favoritos vía RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFORUM",
-            "#text": "Suscribirse al feed RSS del foro."
           },
           {
             "@tag": "SHOW_UNREAD_ONLY",
@@ -10239,10 +10187,6 @@
           {
             "@tag": "XMPP",
             "#text": "Tu ID de Jabber:"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Tu ID de Yahoo:"
           }
         ]
       },
@@ -10384,14 +10328,6 @@
           {
             "@tag": "APPROVE",
             "#text": "Aprobar"
-          },
-          {
-            "@tag": "APPROVE_ADD",
-            "#text": "Aprobar y añadir"
-          },
-          {
-            "@tag": "APPROVE_ADD_ALL",
-            "#text": "Aprobar y añadir todo"
           },
           {
             "@tag": "APPROVE_ALL",
@@ -10602,14 +10538,6 @@
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Amigos"
-          },
-          {
-            "@tag": "DISPLAYCONTENT",
-            "#text": "<p>Tienes la posibilidad de elegir como quieres ver los temas. Cuando estás en un\r\n    hilo, mira la barra superior. En la derecha verás &quot;Ver&quot;. Haz click en esta\r\n    opción y podrás cambiar el orden de las publicaciones.</p>\r\n<p>Tienes dos opciones:</p>\r\n<ul>\r\n  <li><strong>Normal</strong> - Las publicaciones son mistradas cronológicamente,\r\n      normalmente de la más antigua a la más nueva. Las publicaciones son mostradas de\r\n      un modo plano de manera que puedes visualizar muchos mensajes simultáneamente.</li>\r\n  <li><strong>Por hilos</strong> - Un árbol es mostrado a lo largo de cada\r\n      publicación. Este te muestra la relación que cada publicación tiene con las\r\n      demás. A tree is shown along with every post. This shows you the relationship each post has to the others.\r\n      Es fácil ver quién respondió a quién. Solo una publicación es mostrada al mismo\r\n      tiempo. Haciendo click en una publicación en el árbol, la página mostrará la\r\n      publicación y todas las publicaciones hechas en respuesta a ella.</li>\r\n</ul>"
-          },
-          {
-            "@tag": "DISPLAYTITLE",
-            "#text": "Opciones para mostrar hilos"
           },
           {
             "@tag": "EDITDELETECONTENT",
@@ -10957,24 +10885,6 @@
         ]
       },
       {
-        "@name": "IM_MSN",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "MSN Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_SKYPE",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Skype(tm) Llamando"
-          }
-        ]
-      },
-      {
         "@name": "IM_XMPP",
         "Resource": [
           {
@@ -10992,15 +10902,6 @@
           {
             "@tag": "TITLE",
             "#text": "Mensajero XMPP"
-          }
-        ]
-      },
-      {
-        "@name": "IM_YIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "yahoo! Mensajero"
           }
         ]
       },
@@ -11807,10 +11708,6 @@
           {
             "@tag": "POSTED",
             "#text": "Publicado:"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "Elementos enviados"
           }
         ]
       },
@@ -12247,10 +12144,6 @@
           {
             "@tag": "BY",
             "#text": "por {0}"
-          },
-          {
-            "@tag": "FAVORITETOPICS",
-            "#text": "Temas favoritos"
           },
           {
             "@tag": "GUESTTITLE",
@@ -13207,10 +13100,6 @@
             "#text": "Fue agradecido: {0} vez/veces in {1} publicación(es)."
           },
           {
-            "@tag": "THREADED",
-            "#text": "Por hilos"
-          },
-          {
             "@tag": "TIP_DELETE_TOPIC",
             "#text": "Eliminar este tema"
           },
@@ -13361,14 +13250,6 @@
           {
             "@tag": "XMPP_TITLE",
             "#text": "Contacta con {0} a través de Jabber"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "YAHOO"
-          },
-          {
-            "@tag": "YIM_TITLE",
-            "#text": "Contacta con {0} a través de Yahoo Instant Messenger"
           }
         ]
       },
@@ -13652,10 +13533,6 @@
           {
             "@tag": "YEARS",
             "#text": "Año(s)"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Yahoo Messenger:"
           }
         ]
       },
@@ -15119,10 +14996,6 @@
             "#text": "Creado"
           },
           {
-            "@tag": "FAVORITE_COUNT_TT",
-            "#text": "Cuantas veces ha sido añadido a favoritos"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Foro"
           },
@@ -15257,31 +15130,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Ayer[/b] a las {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "VIEWTHANKS",
-        "Resource": [
-          {
-            "@tag": "NO_THANKS",
-            "#text": "[b]No hay agradecimientos.[/b]"
-          },
-          {
-            "@tag": "THANKSFROMUSER",
-            "#text": "{0} agradecido"
-          },
-          {
-            "@tag": "THANKSNUMBER",
-            "#text": "Fue agradecido: [b]{0}[/b] vez/veces."
-          },
-          {
-            "@tag": "THANKSTOUSER",
-            "#text": "{0} fue agradecido"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Ver agradecimientos"
           }
         ]
       }

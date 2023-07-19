@@ -111,10 +111,6 @@
             "#text": "A primit o mulțumire de la {0} în tema {1}"
           },
           {
-            "@tag": "SENTITEMS",
-            "#text": "Trimise"
-          },
-          {
             "@tag": "SIGNATURE",
             "#text": "Semnatura"
           },
@@ -1767,14 +1763,6 @@
             "#text": "Tema care trebuie folosită pe acest forum."
           },
           {
-            "@tag": "BOARD_THREADED",
-            "#text": "Permiteți filetat:"
-          },
-          {
-            "@tag": "BOARD_THREADED_HELP",
-            "#text": "Permiteți vizualizarea pe fir pentru mesaje."
-          },
-          {
             "@tag": "BOARD_TOPIC_DEFAULT",
             "#text": "Afișați subiectul prestabilit:"
           },
@@ -2327,14 +2315,6 @@
           {
             "@tag": "STATUS_USR_REJECTED",
             "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
-          },
-          {
-            "@tag": "THREADED",
-            "#text": "Permiteți filetat:"
-          },
-          {
-            "@tag": "THREADED_HELP",
-            "#text": "Permiteți vizualizarea pe fir pentru mesaje."
           },
           {
             "@tag": "TITLE",
@@ -7761,14 +7741,6 @@
             "#text": "Seteaza ca coperta"
           },
           {
-            "@tag": "BUTTON_TAGFAVORITE",
-            "#text": "Marcheaza ca favorit"
-          },
-          {
-            "@tag": "BUTTON_TAGFAVORITE_TT",
-            "#text": "Marcheaza acest topic ca favorit."
-          },
-          {
             "@tag": "BUTTON_THANKS",
             "#text": "Multumiri"
           },
@@ -7799,14 +7771,6 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Deblocheaza acest topic"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE",
-            "#text": "Sterge din favorite"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE_TT",
-            "#text": "Sterge acest topic din lista de favorite."
           }
         ]
       },
@@ -9571,10 +9535,6 @@
             "#text": "Abonați-vă la subiectele active prin Atom."
           },
           {
-            "@tag": "ATOMICONTOOLTIPFAVORITE",
-            "#text": "Abonează-te la subiectele tale preferate prin Atom."
-          },
-          {
             "@tag": "ATOMICONTOOLTIPFORUM",
             "#text": "Abonează-te la forumul Atom feed."
           },
@@ -9689,18 +9649,6 @@
           {
             "@tag": "RECENT_USERS",
             "#text": "Utilizatori recenți"
-          },
-          {
-            "@tag": "RSSICONTOOLTIPACTIVE",
-            "#text": "Abonați-vă la subiectele active prin RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFAVORITE",
-            "#text": "Abonează-te la subiectele tale preferate prin RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFORUM",
-            "#text": "Abonează-te la feed-ul RSS al forumului."
           },
           {
             "@tag": "SHOW_UNREAD_ONLY",
@@ -10247,10 +10195,6 @@
           {
             "@tag": "XMPP",
             "#text": "ID-ul tău Jabber:"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "ID-ul tău Yahoo:"
           }
         ]
       },
@@ -10392,14 +10336,6 @@
           {
             "@tag": "APPROVE",
             "#text": "Aprobarea"
-          },
-          {
-            "@tag": "APPROVE_ADD",
-            "#text": "Aprobă și adaugă"
-          },
-          {
-            "@tag": "APPROVE_ADD_ALL",
-            "#text": "Aprobați și adăugați toate"
           },
           {
             "@tag": "APPROVE_ALL",
@@ -10610,14 +10546,6 @@
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Prieteni"
-          },
-          {
-            "@tag": "DISPLAYCONTENT",
-            "#text": "<p>Aveți posibilitatea de a alege cum să vizualizați subiectele. Când vă aflați într-un subiect, uitați-vă la bara de sus. În partea dreaptă veți vedea \"Vizualizare\". Faceți clic pe aceasta și vă permite să schimbați modul în care sunt ordonate mesajele.</p> <p>.\r\n<p>Aveți două opțiuni:</p>\r\n<ul>\r\n  <li><strong>Normal</strong> - Posturile sunt afișate cronologic, de obicei de la cel mai vechi la cel mai nou. Posturile sunt afișate într-un mod plat, astfel încât mai multe posturi pot fi vizualizate simultan. </li>.\r\n  <li><strong>Threaded</strong> - Un arbore este afișat împreună cu fiecare post. Acesta vă arată relația pe care fiecare postare o are cu celelalte. Este ușor de văzut cine a răspuns cui. Este afișată doar o singură postare la un moment dat. Dând clic pe o singură postare din arborele de postări, pagina va afișa acea postare și toate postările făcute ca răspuns la aceasta.</li>.\r\n</ul>\r\n"
-          },
-          {
-            "@tag": "DISPLAYTITLE",
-            "#text": "Opțiuni de afișare a firului"
           },
           {
             "@tag": "EDITDELETECONTENT",
@@ -10973,24 +10901,6 @@
         ]
       },
       {
-        "@name": "IM_MSN",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "MSN Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_SKYPE",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Apeluri Skype(tm)"
-          }
-        ]
-      },
-      {
         "@name": "IM_XMPP",
         "Resource": [
           {
@@ -11008,15 +10918,6 @@
           {
             "@tag": "TITLE",
             "#text": "XMPP Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_YIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Yahoo! Mesager"
           }
         ]
       },
@@ -11823,10 +11724,6 @@
           {
             "@tag": "POSTED",
             "#text": "Postat:"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "Trimise"
           }
         ]
       },
@@ -12263,10 +12160,6 @@
           {
             "@tag": "BY",
             "#text": "de {0}"
-          },
-          {
-            "@tag": "FAVORITETOPICS",
-            "#text": "Subiecte preferate"
           },
           {
             "@tag": "GUESTTITLE",
@@ -13223,10 +13116,6 @@
             "#text": "A fost multumit de: {0} -ori in postarea {1} "
           },
           {
-            "@tag": "THREADED",
-            "#text": "Clasificat"
-          },
-          {
             "@tag": "TIP_DELETE_TOPIC",
             "#text": "Sterge acest topic"
           },
@@ -13381,14 +13270,6 @@
           {
             "@tag": "XMPP_TITLE",
             "#text": "Contactați {0} prin Jabber"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "YAHOO"
-          },
-          {
-            "@tag": "YIM_TITLE",
-            "#text": "Contactează {0} prin Yahoo Instant Messenger"
           }
         ]
       },
@@ -13672,10 +13553,6 @@
           {
             "@tag": "YEARS",
             "#text": "Anul (anii)"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Yahoo Messenger:"
           }
         ]
       },
@@ -15139,10 +15016,6 @@
             "#text": "Creat"
           },
           {
-            "@tag": "FAVORITE_COUNT_TT",
-            "#text": "De câte ori a fost adăugat la favorite"
-          },
-          {
             "@tag": "FORUM",
             "#text": "forum"
           },
@@ -15277,31 +15150,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Ieri[/b] at {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "VIEWTHANKS",
-        "Resource": [
-          {
-            "@tag": "NO_THANKS",
-            "#text": "[b]Nu sau gasit multumiri.[/b]"
-          },
-          {
-            "@tag": "THANKSFROMUSER",
-            "#text": "{0} multumiri"
-          },
-          {
-            "@tag": "THANKSNUMBER",
-            "#text": "A fost multumit de: [b]{0}[/b] ori"
-          },
-          {
-            "@tag": "THANKSTOUSER",
-            "#text": "{0} multumiri"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Vezi multumirile"
           }
         ]
       }

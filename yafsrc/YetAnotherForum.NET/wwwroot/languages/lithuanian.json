@@ -111,10 +111,6 @@
             "#text": "Gavo padėką iš {0} temoje {1}"
           },
           {
-            "@tag": "SENTITEMS",
-            "#text": "Siùstieji "
-          },
-          {
             "@tag": "SIGNATURE",
             "#text": "Parašas "
           },
@@ -1767,14 +1763,6 @@
             "#text": "Šios lentos tema."
           },
           {
-            "@tag": "BOARD_THREADED",
-            "#text": "Leidžiama naudoti srieginius:"
-          },
-          {
-            "@tag": "BOARD_THREADED_HELP",
-            "#text": "Leisti peržiūrėti pranešimus su gijomis."
-          },
-          {
             "@tag": "BOARD_TOPIC_DEFAULT",
             "#text": "Rodyti temą Numatytoji:"
           },
@@ -2327,14 +2315,6 @@
           {
             "@tag": "STATUS_USR_REJECTED",
             "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
-          },
-          {
-            "@tag": "THREADED",
-            "#text": "Leidžiama naudoti srieginius:"
-          },
-          {
-            "@tag": "THREADED_HELP",
-            "#text": "Leisti peržiūrėti pranešimus su gijomis."
           },
           {
             "@tag": "TITLE",
@@ -7761,14 +7741,6 @@
             "#text": "Nustatyti kaip dangtelį"
           },
           {
-            "@tag": "BUTTON_TAGFAVORITE",
-            "#text": "Žyma kaip mėgstamiausia"
-          },
-          {
-            "@tag": "BUTTON_TAGFAVORITE_TT",
-            "#text": "Pažymėkite šią temą kaip mėgstamiausią."
-          },
-          {
             "@tag": "BUTTON_THANKS",
             "#text": "Dėkojame"
           },
@@ -7799,14 +7771,6 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Atrakinti šią temą"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE",
-            "#text": "Panaikinti žymėjimą kaip mėgstamiausią"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE_TT",
-            "#text": "Pašalinkite šią temą iš mėgstamiausiųjų sąrašo."
           }
         ]
       },
@@ -9571,10 +9535,6 @@
             "#text": "Prenumeruokite aktyvias temas per \"Atom\"."
           },
           {
-            "@tag": "ATOMICONTOOLTIPFAVORITE",
-            "#text": "Prenumeruokite mėgstamas temas per \"Atom\"."
-          },
-          {
             "@tag": "ATOMICONTOOLTIPFORUM",
             "#text": "Prenumeruokite forumo \"Atom\" kanalą."
           },
@@ -9689,18 +9649,6 @@
           {
             "@tag": "RECENT_USERS",
             "#text": "Naujausi naudotojai"
-          },
-          {
-            "@tag": "RSSICONTOOLTIPACTIVE",
-            "#text": "Prenumeruokite aktyvias temas per RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFAVORITE",
-            "#text": "Prenumeruokite mėgstamas temas per RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFORUM",
-            "#text": "Prenumeruoti forumo RSS kanalą."
           },
           {
             "@tag": "SHOW_UNREAD_ONLY",
@@ -10247,10 +10195,6 @@
           {
             "@tag": "XMPP",
             "#text": "Jūsų \"Jabber\" ID:"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Jūsų \"Yahoo\" ID:"
           }
         ]
       },
@@ -10392,14 +10336,6 @@
           {
             "@tag": "APPROVE",
             "#text": "Patvirtinti"
-          },
-          {
-            "@tag": "APPROVE_ADD",
-            "#text": "Patvirtinti ir pridėti"
-          },
-          {
-            "@tag": "APPROVE_ADD_ALL",
-            "#text": "Patvirtinti ir pridėti visus"
           },
           {
             "@tag": "APPROVE_ALL",
@@ -10610,14 +10546,6 @@
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Draugai"
-          },
-          {
-            "@tag": "DISPLAYCONTENT",
-            "#text": "<p> Galite pasirinkti, kaip peržiūrėti temas. Kai esate temoje, pažvelkite į viršutinę juostą. Dešinėje pusėje matysite \"Peržiūrėti\". Spustelėkite ją ir galėsite pakeisti pranešimų eiliškumą.</p>\r\n<p>Turite du pasirinkimus:</p>\r\n<ul>\r\n  <li><strong>Normalus</strong> - Pranešimai rodomi chronologiškai, paprastai nuo seniausio iki naujausio. Įrašai rodomi plokščiuoju režimu, kad vienu metu būtų galima peržiūrėti daug įrašų. </li>\r\n  <li><strong>Trumpas</strong> - Kartu su kiekvienu pranešimu rodomas medis. Taip parodomas kiekvieno įrašo ryšys su kitais įrašais. Lengva matyti, kas į ką atsakė. Vienu metu rodomas tik vienas pranešimas. Spustelėjus ant vieno pranešimo medyje esančio pranešimo, puslapyje bus rodomas tas pranešimas ir visi pranešimai, į kuriuos buvo atsakyta.</li>\r\n</ul>\r\n"
-          },
-          {
-            "@tag": "DISPLAYTITLE",
-            "#text": "Siūlų rodymo parinktys"
           },
           {
             "@tag": "EDITDELETECONTENT",
@@ -10973,24 +10901,6 @@
         ]
       },
       {
-        "@name": "IM_MSN",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "MSN Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_SKYPE",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Skambinimas per \"Skype\"(tm)"
-          }
-        ]
-      },
-      {
         "@name": "IM_XMPP",
         "Resource": [
           {
@@ -11008,15 +10918,6 @@
           {
             "@tag": "TITLE",
             "#text": "\"XMPP Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_YIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Yahoo! Messenger "
           }
         ]
       },
@@ -11823,10 +11724,6 @@
           {
             "@tag": "POSTED",
             "#text": "Paskelbta: "
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "Siùstieji "
           }
         ]
       },
@@ -12263,10 +12160,6 @@
           {
             "@tag": "BY",
             "#text": "pagal {0}"
-          },
-          {
-            "@tag": "FAVORITETOPICS",
-            "#text": "Mėgstamiausios temos"
           },
           {
             "@tag": "GUESTTITLE",
@@ -13223,10 +13116,6 @@
             "#text": "Buvo padėkota: {0} kartą(-ų) {1} pranešime(-uose)"
           },
           {
-            "@tag": "THREADED",
-            "#text": "Threaded "
-          },
-          {
             "@tag": "TIP_DELETE_TOPIC",
             "#text": "Ištrinti šią temą "
           },
@@ -13381,14 +13270,6 @@
           {
             "@tag": "XMPP_TITLE",
             "#text": "Susisiekite su {0} per \"Jabber"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "YAHOO"
-          },
-          {
-            "@tag": "YIM_TITLE",
-            "#text": "Susisiekite su {0} per \"Yahoo Instant Messenger"
           }
         ]
       },
@@ -13672,10 +13553,6 @@
           {
             "@tag": "YEARS",
             "#text": "Metai"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Yahoo Messenger: "
           }
         ]
       },
@@ -15139,10 +15016,6 @@
             "#text": "Sukurta "
           },
           {
-            "@tag": "FAVORITE_COUNT_TT",
-            "#text": "Kiek kartų įtraukta į mėgstamiausius"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Forumas"
           },
@@ -15277,31 +15150,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b] Vakar [/b] į {0:T} "
-          }
-        ]
-      },
-      {
-        "@name": "VIEWTHANKS",
-        "Resource": [
-          {
-            "@tag": "NO_THANKS",
-            "#text": "[b]Padėkos nerasta.[/b]"
-          },
-          {
-            "@tag": "THANKSFROMUSER",
-            "#text": "{0} padėkojo"
-          },
-          {
-            "@tag": "THANKSNUMBER",
-            "#text": "Buvo padėkota: [b]{0}[/b] kartų"
-          },
-          {
-            "@tag": "THANKSTOUSER",
-            "#text": "{0} buvo padėkota"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Peržiūrėti Padėka"
           }
         ]
       }

@@ -111,10 +111,6 @@
             "#text": "On saanut Kiitos {0} aiheesta {1}"
           },
           {
-            "@tag": "SENTITEMS",
-            "#text": "Lähetetyt viestit"
-          },
-          {
             "@tag": "SIGNATURE",
             "#text": "Allekirjoitus"
           },
@@ -1767,14 +1763,6 @@
             "#text": "Tällä foorumilla käytettävä teema."
           },
           {
-            "@tag": "BOARD_THREADED",
-            "#text": "Salli kierteitetty:"
-          },
-          {
-            "@tag": "BOARD_THREADED_HELP",
-            "#text": "Salli viestien ketjutettu näkymä."
-          },
-          {
             "@tag": "BOARD_TOPIC_DEFAULT",
             "#text": "Näytä aiheen oletusarvo:"
           },
@@ -2327,14 +2315,6 @@
           {
             "@tag": "STATUS_USR_REJECTED",
             "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
-          },
-          {
-            "@tag": "THREADED",
-            "#text": "Salli kierteitetty:"
-          },
-          {
-            "@tag": "THREADED_HELP",
-            "#text": "Salli viestien ketjutettu näkymä."
           },
           {
             "@tag": "TITLE",
@@ -7761,14 +7741,6 @@
             "#text": "Aseta kansi"
           },
           {
-            "@tag": "BUTTON_TAGFAVORITE",
-            "#text": "Merkitse suosikiksi"
-          },
-          {
-            "@tag": "BUTTON_TAGFAVORITE_TT",
-            "#text": "Merkitse tämä aihe suosikiksi."
-          },
-          {
             "@tag": "BUTTON_THANKS",
             "#text": "Kiitos"
           },
@@ -7799,14 +7771,6 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Avaa tämän aiheen lukitus"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE",
-            "#text": "Poista merkintä suosikiksi"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE_TT",
-            "#text": "Poista tämä aihe suosikkilistaltasi."
           }
         ]
       },
@@ -9571,10 +9535,6 @@
             "#text": "Tilaa aktiivisia aiheita Atomin kautta."
           },
           {
-            "@tag": "ATOMICONTOOLTIPFAVORITE",
-            "#text": "Tilaa suosikkiaiheesi Atomin kautta."
-          },
-          {
             "@tag": "ATOMICONTOOLTIPFORUM",
             "#text": "Tilaa foorumin Atom-syöte."
           },
@@ -9689,18 +9649,6 @@
           {
             "@tag": "RECENT_USERS",
             "#text": "Viimeaikaiset käyttäjät"
-          },
-          {
-            "@tag": "RSSICONTOOLTIPACTIVE",
-            "#text": "Tilaa aktiiviset aiheet RSS:n kautta."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFAVORITE",
-            "#text": "Tilaa suosikkiaiheesi RSS:n kautta."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFORUM",
-            "#text": "Tilaa foorumin RSS-syöte."
           },
           {
             "@tag": "SHOW_UNREAD_ONLY",
@@ -10247,10 +10195,6 @@
           {
             "@tag": "XMPP",
             "#text": "Jabber-tunnuksesi:"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Yahoo-tunnuksesi:"
           }
         ]
       },
@@ -10392,14 +10336,6 @@
           {
             "@tag": "APPROVE",
             "#text": "Hyväksy"
-          },
-          {
-            "@tag": "APPROVE_ADD",
-            "#text": "Hyväksy ja lisää"
-          },
-          {
-            "@tag": "APPROVE_ADD_ALL",
-            "#text": "Hyväksy ja lisää kaikki"
           },
           {
             "@tag": "APPROVE_ALL",
@@ -10610,14 +10546,6 @@
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Ystävät"
-          },
-          {
-            "@tag": "DISPLAYCONTENT",
-            "#text": "<p>Sinulla on mahdollisuus valita, miten tarkastelet aiheita. Kun olet keskusteluketjussa, katso yläpalkkia. Oikealla puolella on 'Näytä'. Klikkaa tätä, niin voit muuttaa viestien järjestystä.</p>\r\n<p>Sinulla on kaksi vaihtoehtoa:</p>\r\n<ul>\r\n  <li><strong>Normaali</strong> - Viestit näytetään kronologisesti, yleensä vanhimmasta uusimpaan. Viestit näytetään tasaisessa tilassa, jotta monia viestejä voidaan tarkastella samanaikaisesti. </li>\r\n  <li><strong>Threaded</strong> - Puu näytetään jokaisen viestin yhteydessä. Tämä näyttää, millainen suhde kullakin viestillä on muihin viesteihin. On helppo nähdä, kuka vastasi kenellekin. Vain yksi viesti näytetään kerrallaan. Klikkaamalla yksittäistä viestiä viestipuussa sivu näyttää kyseisen viestin ja kaikki siihen vastatut viestit.</li>\r\n</ul>\r\n"
-          },
-          {
-            "@tag": "DISPLAYTITLE",
-            "#text": "Kierteen näyttövaihtoehdot"
           },
           {
             "@tag": "EDITDELETECONTENT",
@@ -10973,24 +10901,6 @@
         ]
       },
       {
-        "@name": "IM_MSN",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "MSN Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_SKYPE",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Skype(tm)-puhelut"
-          }
-        ]
-      },
-      {
         "@name": "IM_XMPP",
         "Resource": [
           {
@@ -11008,15 +10918,6 @@
           {
             "@tag": "TITLE",
             "#text": "XMPP Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_YIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Yahoo! "
           }
         ]
       },
@@ -11823,10 +11724,6 @@
           {
             "@tag": "POSTED",
             "#text": "Lähetetty:"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "Lähetetyt viestit"
           }
         ]
       },
@@ -12263,10 +12160,6 @@
           {
             "@tag": "BY",
             "#text": "{0}"
-          },
-          {
-            "@tag": "FAVORITETOPICS",
-            "#text": "Suosikki aiheet"
           },
           {
             "@tag": "GUESTTITLE",
@@ -13223,10 +13116,6 @@
             "#text": "Kiitettiin: {0} kertaa {1} viestissä {1} (s)"
           },
           {
-            "@tag": "THREADED",
-            "#text": "Ketjutettu"
-          },
-          {
             "@tag": "TIP_DELETE_TOPIC",
             "#text": "Poista tämä aihe"
           },
@@ -13381,14 +13270,6 @@
           {
             "@tag": "XMPP_TITLE",
             "#text": "Ota yhteyttä {0} Jabberin kautta"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "YAHOO"
-          },
-          {
-            "@tag": "YIM_TITLE",
-            "#text": "Ota yhteyttä {0} Yahoo Instant Messengerin kautta"
           }
         ]
       },
@@ -13672,10 +13553,6 @@
           {
             "@tag": "YEARS",
             "#text": "Vuosi(t)"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Yahoo Messenger:"
           }
         ]
       },
@@ -15139,10 +15016,6 @@
             "#text": "Luotu"
           },
           {
-            "@tag": "FAVORITE_COUNT_TT",
-            "#text": "Kuinka monta kertaa lisätty suosikkeihin"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Foorumi"
           },
@@ -15277,31 +15150,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Eilen[/b] kello {0:HH:mm:ss}"
-          }
-        ]
-      },
-      {
-        "@name": "VIEWTHANKS",
-        "Resource": [
-          {
-            "@tag": "NO_THANKS",
-            "#text": "[b]Kiitoksia ei löytynyt.[/b]"
-          },
-          {
-            "@tag": "THANKSFROMUSER",
-            "#text": "{0} kiitti"
-          },
-          {
-            "@tag": "THANKSNUMBER",
-            "#text": "Kiitettiin: [b]{0}[/b] time(s): [b]{0}[/b] time(s)"
-          },
-          {
-            "@tag": "THANKSTOUSER",
-            "#text": "{0} kiitettiin"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Näytä kiitos"
           }
         ]
       }

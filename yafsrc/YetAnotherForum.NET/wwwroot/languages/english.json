@@ -111,10 +111,6 @@
             "#text": "Has Received a Thanks from {0} in the Topic {1}"
           },
           {
-            "@tag": "SENTITEMS",
-            "#text": "Sent Items"
-          },
-          {
             "@tag": "SIGNATURE",
             "#text": "Signature"
           },
@@ -650,7 +646,7 @@
           },
           {
             "@tag": "MYTOPICS",
-            "#text": "Views his favorite and active topics"
+            "#text": "Views his active topics"
           },
           {
             "@tag": "NODATA",
@@ -1771,14 +1767,6 @@
             "#text": "The theme to use on this board."
           },
           {
-            "@tag": "BOARD_THREADED",
-            "#text": "Allow Threaded:"
-          },
-          {
-            "@tag": "BOARD_THREADED_HELP",
-            "#text": "Allow threaded view for posts."
-          },
-          {
             "@tag": "BOARD_TOPIC_DEFAULT",
             "#text": "Show Topic Default:"
           },
@@ -2331,14 +2319,6 @@
           {
             "@tag": "STATUS_USR_REJECTED",
             "#text": "The user creation request has been cancelled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
-          },
-          {
-            "@tag": "THREADED",
-            "#text": "Allow Threaded:"
-          },
-          {
-            "@tag": "THREADED_HELP",
-            "#text": "Allow threaded view for posts."
           },
           {
             "@tag": "TITLE",
@@ -7757,14 +7737,6 @@
             "#text": "Set as Cover"
           },
           {
-            "@tag": "BUTTON_TAGFAVORITE",
-            "#text": "Tag as favorite"
-          },
-          {
-            "@tag": "BUTTON_TAGFAVORITE_TT",
-            "#text": "Tag this topic as a favorite."
-          },
-          {
             "@tag": "BUTTON_THANKS",
             "#text": "Thank"
           },
@@ -7795,14 +7767,6 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Unlock this topic"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE",
-            "#text": "Untag as favorite"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE_TT",
-            "#text": "Remove this topic from your Favorites list."
           }
         ]
       },
@@ -9567,10 +9531,6 @@
             "#text": "Subscribe to active topics via Atom."
           },
           {
-            "@tag": "ATOMICONTOOLTIPFAVORITE",
-            "#text": "Subscribe to your favorite topics via Atom."
-          },
-          {
             "@tag": "ATOMICONTOOLTIPFORUM",
             "#text": "Subscribe to forum Atom feed."
           },
@@ -9685,18 +9645,6 @@
           {
             "@tag": "RECENT_USERS",
             "#text": "Recent Users"
-          },
-          {
-            "@tag": "RSSICONTOOLTIPACTIVE",
-            "#text": "Subscribe to active topics via RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFAVORITE",
-            "#text": "Subscribe to your favorite topics via RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFORUM",
-            "#text": "Subscribe to forum RSS feed."
           },
           {
             "@tag": "SHOW_UNREAD_ONLY",
@@ -10243,10 +10191,6 @@
           {
             "@tag": "XMPP",
             "#text": "Your Jabber ID:"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Your Yahoo ID:"
           }
         ]
       },
@@ -10388,14 +10332,6 @@
           {
             "@tag": "APPROVE",
             "#text": "Approve"
-          },
-          {
-            "@tag": "APPROVE_ADD",
-            "#text": "Approve and Add"
-          },
-          {
-            "@tag": "APPROVE_ADD_ALL",
-            "#text": "Approve and Add All"
           },
           {
             "@tag": "APPROVE_ALL",
@@ -10601,19 +10537,11 @@
           },
           {
             "@tag": "BUDDIESCONTENT",
-            "#text": "<p>Friends are a friendship function and are a two-way relationship between two users. It is initiated by one user and accepted by the other.\r\n</p>\r\n<p><strong>Where is list of Friends displayed?</strong></p>\r\n<p>Your Friends are displayed on the 'My Friends' you can access this page from the Header Link 'My Friends', or from the <strong>User Control Panel</strong> Link 'Edit Friends'. </p>\r\n<p><em>Note: If you don't See this Link you don't have any Friends, didn't send any Request or you didn't have any Pending Friend Requests.</em></p>\r\n<p>Your Friends are also displayed in your profile page.</p>\r\n<p><strong>How can I request a User as Friend or accept a Friend Request?</strong></p>\r\n<p>To request a user as Friend, view the profile page of the person you want to become friends with and click the 'Add as Friend' link.</p>\r\n<p>To accept a Friend request friend, go to your 'My Friends' page. On the Tab 'Pending Requests' you see The List of Users with pending requests. There you have three choices...</p>\r\n<ul>\r\n  <li><strong>Approve</strong> - You Become Friend of the User who requests it </li>\r\n  <li><strong>Deny</strong> - Reject the request</li>\r\n  <li><strong> Approve and Add - </strong>You become Friend of the User who requests it, and also the User becomes a Friend in your List.</li>\r\n</ul>\r\n<p><strong>Remove Friend</strong></p>\r\n<p>To remove a Friend from Your List go to your 'My Friends' page. On the Tab 'Friend List' Click on the Button 'Remove Friend' of the User you want to remove</p>\r\n<p><strong>Your Requests</strong></p>\r\n<p>The Third Tab of the 'My Friends' Page shows your the Pending Request you have made.</p>"
+            "#text": "<p>Friends are a friendship function and are a two-way relationship between two users. It is initiated by one user and accepted by the other.<p><strong>Where is list of Friends displayed?</strong><p>Your Friends are displayed on the 'My Friends' you can access this page from the Header Link 'My Friends', or from the <strong>User Control Panel</strong> Link 'Edit Friends'.<p><em>Note: If you don't See this Link you don't have any Friends, didn't send any Request or you didn't have any Pending Friend Requests.</em><p>Your Friends are also displayed in your profile page.<p><strong>How can I request a User as Friend or accept a Friend Request?</strong><p>To request a user as Friend, view the profile page of the person you want to become friends with and click the 'Add as Friend' link.<p>To accept a Friend request friend, go to your 'My Friends' page. On the Tab 'Pending Requests' you see The List of Users with pending requests. There you have three choices...<ul><li><strong>Deny</strong> - Reject the request<li><strong>Approve - </strong>You become Friend of the User who requests it, and also the User becomes a Friend in your List.</ul><p><strong>Remove Friend</strong><p>To remove a Friend from Your List go to your 'My Friends' page. On the Tab 'Friend List' Click on the Button 'Remove Friend' of the User you want to remove<p><strong>Your Requests</strong><p>The Third Tab of the 'My Friends' Page shows your the Pending Request you have made."
           },
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Friends"
-          },
-          {
-            "@tag": "DISPLAYCONTENT",
-            "#text": "<p>You have a choice over how you view topics. When you're in a thread, look at the top bar. On the right hand side you'll see 'View'. Click on this and it lets you change how posts are ordered.</p>\r\n<p>You have two choices:</p>\r\n<ul>\r\n  <li><strong>Normal</strong> - Posts are displayed chronologically, usually from oldest to newest. Posts are shown in a flat mode so that many posts can be viewed simultaneously. </li>\r\n  <li><strong>Threaded</strong> - A tree is shown along with every post. This shows you the relationship each post has to the others. It's easy to see who responded to whom. Only one post is shown at a time. By clicking on a single post in the post tree, the page will show that post and all posts made in response to it.</li>\r\n</ul>\r\n"
-          },
-          {
-            "@tag": "DISPLAYTITLE",
-            "#text": "Thread Display Options"
           },
           {
             "@tag": "EDITDELETECONTENT",
@@ -10625,7 +10553,7 @@
           },
           {
             "@tag": "EDITPROFILECONTENT",
-            "#text": "<p>You can change your account information using Personal Profile -&gt; 'Edit Profile' option from within the <strong>User Control Panel</strong>. If you want to change your Password there is an extra Page (Change Password) for that in the <strong>User Control Panel</strong>, where you can set a new Password.</p>\r\n<p><strong>Edit Profile Page</strong></p>\r\n<p>This page allows you to set a number of required and optional details, some of which will be displayed on your public profile. With the exception of your e-mail address, do not enter information that you do not wish to be publicly viewable.</p>\r\n<p><strong>About You</strong></p>\r\n<p>These are the Basic Information about you</p>\r\n<p><strong>Location</strong></p>\r\n<p>Here you can optionally enter the Place where you live</p>\r\n<p><strong>Home Page</strong></p>\r\n<p>Here you can optionally enter a Home page and/or a Blog.</p>\r\n<p><strong>Instant messaging services</strong></p>\r\n<p>Here you can optionally enter your messenger Ids of services such as MSN, XMPP, SKYPE, Facebook and Twitter.</p>\r\n<p><strong>Time Zone</strong></p>\r\n<p>Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.</p>\r\n<p><strong>Forum Settings</strong></p>\r\n<p>Here you change your Email Address.</p>\r\n<p>And if the Administrator has enabled it you can change the Forum <strong>Language</strong>, <strong>Theme</strong> of the Site and the <strong>Text Editor</strong> (That is used for posting messages).</p>\r\n<p>There is also a Setting &quot;Single Sign On&quot; (If it&rsquo;s activated). If you turn it on you can login thru Facebook, you also enter your Facebook ID above.</p>\r\n\r\n"
+            "#text": "<p>You can change your account information using Personal Profile -&gt; 'Edit Profile' option from within the <strong>User Control Panel</strong>. If you want to change your Password there is an extra Page (Change Password) for that in the <strong>User Control Panel</strong>, where you can set a new Password.</p>\r\n<p><strong>Edit Profile Page</strong></p>\r\n<p>This page allows you to set a number of required and optional details, some of which will be displayed on your public profile. With the exception of your e-mail address, do not enter information that you do not wish to be publicly viewable.</p>\r\n<p><strong>About You</strong></p>\r\n<p>These are the Basic Information about you</p>\r\n<p><strong>Location</strong></p>\r\n<p>Here you can optionally enter the Place where you live</p>\r\n<p><strong>Home Page</strong></p>\r\n<p>Here you can optionally enter a Home page and/or a Blog.</p>\r\n<p><strong>Instant messaging services</strong></p>\r\n<p>Here you can optionally enter your messenger Ids of services such as XMPP, SKYPE, Facebook and Twitter.</p>\r\n<p><strong>Time Zone</strong></p>\r\n<p>Here you can specify the Time Zone to adjust the board Time and Date to your local time. And set the Daylight Saving Time should it be automatically adjusted.</p>\r\n<p><strong>Forum Settings</strong></p>\r\n<p>Here you change your Email Address.</p>\r\n<p>And if the Administrator has enabled it you can change the Forum <strong>Language</strong> and the <strong>Theme</strong> of the Site.</p>"
           },
           {
             "@tag": "EDITPROFILETITLE",
@@ -10649,7 +10577,7 @@
           },
           {
             "@tag": "MAILSETTINGSCONTENT",
-            "#text": "<p>On the 'Email Notification Preferences' Page inside your User Control Panel you can set up, what type of Email Notifications you want to receive.</p>\r\n<p><strong>Turn off notifications - </strong>This Options turns off all Notifications and you won’t receive any emails.</p>\r\n<p> <strong>Notification for all posts on all topics</strong> - You will receive Instant Email Notifications when someone has posted a new Message.</p>\r\n<p><strong>Notification for topics you've posted to or watched</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or a forum.</p>\r\n<p><strong>Notification for topics or forums you've selectively watched (listed below)</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic or forum you have selected to watch (See List Below).</p>\r\n<p><strong>Receive once daily digest/summary of activity?</strong> - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail</p>\r\n<p><strong>Receive an email notification when you get a new private message? </strong> - You can also turn on/off Email Notifications when you receive a private message.</p>\r\n"
+            "#text": "<p>On the 'Email Notification Preferences' Page inside your User Control Panel you can set up, what type of Email Notifications you want to receive.</p>\r\n<p><strong>Turn off notifications - </strong>This Options turns off all Notifications and you won’t receive any emails.</p>\r\n<p> <strong>Notification for all posts on all topics</strong> - You will receive Instant Email Notifications when someone has posted a new Message.</p>\r\n<p><strong>Notification for topics you've posted to or watched</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic, you have posted before, a topic you watch, marked as favorite, or a forum.</p>\r\n<p><strong>Notification for topics or forums you've selectively watched (listed below)</strong> - You will receive Instant Email Notifications when someone has posted a new Message in a topic or forum you have selected to watch (See List Below).</p>\r\n<p><strong>Receive once daily digest/summary of activity?</strong> - If this Function is enabled you can turn this option on to get an Email with all new Activities about new topics and messages from current day as daily digest (summary) in one mail</p>"
           },
           {
             "@tag": "MAILSETTINGSTITLE",
@@ -10665,7 +10593,7 @@
           },
           {
             "@tag": "MESSENGERCONTENT",
-            "#text": "\r\n        <p>Registered members may be able to send messages to other members of this forum using the private messaging system (If enabled by the Administrator).\r\n        </p>\r\n        <p>When you  receive a Private Message you will be notified in the Forum Header, about how  many unread message you have, also a Notification will Pop Up. You can also  enable an E-Mail Notification</p>\r\n        <p><strong>How do I send Private Messages?</strong></p>\r\n        <p>Private  messages are similar to emails, but are limited to registered members of this  forum. You may be able to include BB code, smilies and images in private  messages that you send.<br />\r\n        You can  send a Private message to a user by clicking on the &ldquo;PM&rdquo; Button on the User  Profile of the user, or you click on the &ldquo;New Message&rdquo; Link in your User  Control Panel. The message you send will be stored in the &ldquo;Sent Items&rdquo; folder after  you send it.</p>\r\n        <p><strong>Private  Message Folders</strong></p>\r\n        <p>Just like  an Email Program you have 3 Folders the Inbox, the Sent Items and the Archive  Folder...</p>\r\n        <ul>\r\n        <li>The &ldquo;Inbox&rdquo;  Folder contains any new messages you receive. It allows you to view all the  messages you have received, along with the name of the person who sent it, the  subject of the message, and the date and time it was sent.</li>\r\n        <li>The &ldquo;Sent  Items&rdquo; copies of all the Private Messages you have sent.</li>\r\n        <li>The &ldquo;Archive&rdquo;  folder contains only messages you moved to that folder.</li>\r\n        </ul>\r\n        <p>From Each  folder you have Options what you want to do with the messages that are in the  folder you can simply mark a message and …<br />\r\n        </p>\r\n        <ul>\r\n        <li>Archive  Selected / Archive All – Move the Message(s) to the archive folder</li>\r\n        <li>Export  Selected / Export All – Export the Message(s) as file (You Can select the  export format bellow –XML-/CSV-/Text-File)</li>\r\n        <li>Delete  Selected / Delete All – Delete the Message(s)</li>\r\n        </ul>\r\n        <p>Depending  on how many Messages you are allowed to have you should delete some of them from  time (You can export them before you delete them to keep them on your local computer). Otherwise when your Mailbox is full you are not able to receive new  messages. On the Bottom you will be informed how many Messages you have and how  many you can Maximal have.</p>\r\n      "
+            "#text": "<p>Registered members may be able to send messages to other members of this forum using the private messaging system (If enabled by the Administrator).<p>When you receive a Private Message you will be notified in the Forum Header, about how many unread message you have, also a Notification will Pop Up. You can also enable an E-Mail Notification<p><strong>How do I send Private Messages?</strong><p>Private messages are a real time chat between two users, but are limited to registered members of this forum. You may be able to include BB code and images in private messages that you send.<br>You can send a Private message to a user by clicking on the “PM” Button on the User Profile of the user, or you click on the “New Message” Link in your User Control Panel."
           },
           {
             "@tag": "MESSENGERTITLE",
@@ -10697,7 +10625,7 @@
           },
           {
             "@tag": "MYSETTINGSCONTENT",
-            "#text": "<p>The <strong>User Control Panel</strong> is where you control your personal settings, options and preferences.</p>\r\n<p>The <strong>Control Panel</strong> main page will show your Account Summary including your User Name, Email Address, and Number of posts, Member of Groups you are in and since when you are member.</p>\r\n<p>On the Left Side you will find Links to all Sub Pages and Forms that allow you to control..</p>\r\n<p><strong>Messenger</strong></p>\r\n<ul>\r\n  <li>Inbox</li>\r\n  <li>Sent Items</li>\r\n  <li>Archive</li>\r\n  <li>New Message</li>\r\n</ul>\r\n<p><strong>Personal Profile</strong></p>\r\n<ul>\r\n  <li>View Profile</li>\r\n  <li>Edit Profile</li>\r\n  <li>View Thanks<br /></li>\r\n  <li>Edit Albums</li>\r\n  <li>Modify Avatar</li>\r\n  <li>Signature</li>\r\n  <li>Email Notification Preferences</li>\r\n  <li>Change Password</li>\r\n</ul>"
+            "#text": "<p>The <strong>User Control Panel</strong> is where you control your personal settings, options and preferences.</p><p>The <strong>Control Panel</strong> main page will show your Account Summary including your User Name, Email Address, and Number of posts, Member of Groups you are in and since when you are member.</p><p>On the Left Side you will find Links to all Sub Pages and Forms that allow you to control..</p><p><strong>Messenger</strong></p><ul>  <li>Inbox</li> </ul><p><strong>Personal Profile</strong></p><ul>  <li>View Profile</li>  <li>Edit Profile</li>  <li>Edit Settings<br /></li> <li>Edit Friends</li> <li>Edit Albums</li>  <li>Modify Avatar</li>  <li>Signature</li>  <li>Email Notification Preferences</li>  <li>Change Password</li></ul>"
           },
           {
             "@tag": "MYSETTINGSTITLE",
@@ -10709,7 +10637,7 @@
           },
           {
             "@tag": "NEWPOSTSCONTENT",
-            "#text": "\r\n        <p>If you are  not logged in, the 'Active Topics' link in the Header will show a list of all  topics that have been created or updated since your last visit, and on the  Second Tab there is a List with showing all Unanswered Topics.</p>\r\n        <p>If you are  logged in, the 'Active Topics' link will change to 'My Topics'. On the My  Topics Page there are 5 Tabs that shows the…</p>\r\n        <li><strong>Active Topics</strong> - Show a list of all  topics that have been created or updated since your last visit.</li>\r\n        <li><strong>Unanswered Topics</strong> - Shows all Topics which have no Replies.</li>\r\n        <li><strong>Unread Topics</strong> - Shows all Topics containing unread messages.</li>\r\n        <li><strong>Topics you've posted in</strong> - Shows all Topics you have created or posted in.</li>\r\n        <li><strong>Favorite Topics</strong> - Shows all Topics which you have  tagged as Favorite Topic.</li>\r\n      "
+            "#text": "<p>If you are logged in, the 'My Topics' page shows option to filter the forum for …<ul><li><strong>Active Topics</strong> - Show a list of all topics that have been created or updated since your last visit.<li><strong>Unanswered Topics</strong> - Shows all Topics which have no Replies.<li><strong>Watch Topics</strong> - Shows all Topics you have selected to watch</ul>"
           },
           {
             "@tag": "NEWPOSTSTITLE",
@@ -10729,7 +10657,7 @@
           },
           {
             "@tag": "POLLSCONTENT",
-            "#text": "<p><em>Polls are an Option to vote on an issue or a question.</em></p>\r\n<p><strong>Create a new poll?</strong></p>\r\n<p>When you post a new Topic, you have the option 'Add Poll?' to create a new poll. If you don't see that option you may not have access to that option.</p>\r\n<p>You can also add new Polls to existing ones. A Topic can have as many Polls you want.</p>\r\n<p>This allows you to ask a question and specify a number of possible responses (Max 10 or the Administrator has set up a higher number) - <em>An Administrator can attach Images (Remote Urls) as Responses</em>. Other members will then be able to vote for the response they wish, and the results of the voting will be displayed in the thread.</p>\r\n<p><em>An example poll might be:</em></p>\r\n<p><em>What is your favorite color?</em></p>\r\n<ul>\r\n  <li><em>Blue</em></li>\r\n  <li><em>Red</em></li>\r\n  <li><em>Yellow</em></li>\r\n  <li><em>Green</em></li>\r\n</ul>\r\n<p>You may also want to specify a time limit for the poll. For example: run the poll for 10 Days or you can also set it to never expire.</p>\r\n<p>You can also decide if the user should be able to see the results without making a vote or if you enable the Check box 'You should vote in all polls to see results.<em>'</em> you need to vote before seeing any results.</p>\r\n<p>'Bound voting' Option don't show results, if the poll didn't expire.</p>\r\n<p><strong>Grouping Polls</strong></p>\r\n<p>All Polls attached to a Topic are automatically combined as a Group. You can display this Group with Polls on any other Topic you want.</p>\r\n<p><strong>How to vote?</strong></p>\r\n<p>To vote in a poll, simply click on the option you want to vote for.</p>\r\n<p>Generally, once you have voted in a poll, you will not be able to change your vote later, so place your vote carefully!</p>"
+            "#text": "<p><em>Polls are an Option to vote on an issue or a question.</em></p>\r\n<p><strong>Create a new poll?</strong></p>\r\n<p>When you post a new Topic, you have the option 'Add Poll?' to create a new poll. If you don't see that option you may not have access to that option.</p>\r\n<p>You can also add new Polls to existing ones. A Topic can have as many Polls you want.</p>\r\n<p>This allows you to ask a question and specify a number of possible responses (Max 10 or the Administrator has set up a higher number) - <em>An Administrator can attach Images (Remote Urls) as Responses</em>. Other members will then be able to vote for the response they wish, and the results of the voting will be displayed in the thread.</p>\r\n<p><em>An example poll might be:</em></p>\r\n<p><em>What is your favorite color?</em></p>\r\n<ul>\r\n  <li><em>Blue</em></li>\r\n  <li><em>Red</em></li>\r\n  <li><em>Yellow</em></li>\r\n  <li><em>Green</em></li>\r\n</ul>\r\n<p>You may also want to specify a time limit for the poll. For example: run the poll for 10 Days or you can also set it to never expire.</p>\r\n<p>You can also decide if the user should be able to see the results without making a vote or if you enable the Check box 'You should vote in all polls to see results.<em>'</em> you need to vote before seeing any results.</p>\r\n<p>'Bound voting' Option don't show results, if the poll didn't expire.</p>\r\n<p><strong>How to vote?</strong></p>\r\n<p>To vote in a poll, simply click on the option you want to vote for.</p>\r\n<p>Generally, once you have voted in a poll, you will not be able to change your vote later, so place your vote carefully!</p>"
           },
           {
             "@tag": "POLLSTITLE",
@@ -10757,7 +10685,7 @@
           },
           {
             "@tag": "PUBLICPROFILECONTENT",
-            "#text": "<p>As member you have a publicly viewable profile page. This page includes information provided by the member, either during the registration process or later on via the User Control Panel.</p>\r\n<p><em>There are a multiple ways to view a members profile...</em></p>\r\n<ul>\r\n  <li>When you see an username click on the name and you will see a dropdown menu which contains an Link 'User Profile' to view the Profile..</li>\r\n  <li>The members list allows you to browse all registered members, and quickly click through to public profiles.</li>\r\n  <li>When logged in, you can also view your own public profile by logging into the forums and clicking on The 'My Profile' Link in the header at the top of the page, to open the User Control Panel.</li>\r\n</ul>\r\n<p><strong>Which Informations are shown on that Page?</strong></p>\r\n<p>The Public Profile Page is grouped into 5 Tabs.</p>\r\n<ul>\r\n  <li><strong>About</strong> - Shows all Informations the user has provided on his Profile Page such as Real name, gender, Status if User is Online/Offline, Forum Rank, and other.</li>\r\n  <li><strong>Statistics</strong> - Shows statistical information such as Joined date, Last Visit, Number of thanks, Number of times this user was thanked                          and Number of posts for which this user was thanked.</li>\r\n  <li><strong>Last 10 Post</strong> - Shows if available the Last 10 Messages the User has written</li>\r\n  <li><strong>Friends - </strong>Shows the Friends the User has in the Forum.</li>\r\n  <li><strong>Albums - </strong>Shows the Albums (if enabled) that the User has generated.</li>\r\n</ul>\r\n<p>Personal information such as E-Mail Address or Passwords are <strong>NOT</strong> shown.</p>"
+            "#text": "<p>As member you have a publicly viewable profile page. This page includes information provided by the member, either during the registration process or later on via the User Control Panel.</p>\r\n<p><em>There are a multiple ways to view a members profile...</em></p>\r\n<ul>\r\n  <li>When you see an username click on the name and you will see a dropdown menu which contains an Link 'User Profile' to view the Profile..</li>\r\n  <li>The members list allows you to browse all registered members, and quickly click through to public profiles.</li>\r\n  <li>When logged in, you can also view your own public profile by logging into the forums and clicking on The 'My Profile' Link in the header at the top of the page, to open the User Control Panel.</li>\r\n</ul>\r\n<p><strong>Which Informations are shown on that Page?</strong></p>\r\n<p>The Public Profile Page is grouped into 5 Tabs.</p>\r\n<ul>\r\n  <li><strong>About</strong> - Shows all Informations the user has provided on his Profile Page such as Real name, gender, Status if User is Online/Offline, Forum Rank, and other.</li>\r\n  <li><strong>Statistics</strong> - Shows statistical information such as Joined date, Last Visit, Number of thanks, Number of times this user was thanked                          and Number of posts for which this user was thanked.</li>\r\n  <li><strong>Last 10 Post</strong> - Shows if available the Last 10 Messages the User has written</li>\r\n  <li><strong>Friends - </strong>Shows the Friends the User has in the Forum.</li></ul><p>Personal information such as E-Mail Address or Passwords are <strong>NOT</strong> shown.</p>"
           },
           {
             "@tag": "PUBLICPROFILETITLE",
@@ -10793,11 +10721,11 @@
           },
           {
             "@tag": "RSSCONTENT",
-            "#text": "<p>The feeds are currently provided in two formats, RSS and Atom.</p>\r\n<p>If the administrator has enabled Feed syndication, you can get the Feeds for a forums, topics and active topics.</p>\r\n<p>Most modern browsers have facilities for reading RSS feeds and will automatically detect the availability of feeds on YAF forum pages.</p>"
+            "#text": "<p>The feeds are currently provided as Atom Feeed.</p>\r\n<p>If the administrator has enabled Feed syndication, you can get the Feeds for a forums, topics and active topics.</p>\r\n<p>Most modern browsers have facilities for reading RSS feeds and will automatically detect the availability of feeds on YAF forum pages.</p>"
           },
           {
             "@tag": "RSSTITLE",
-            "#text": "RSS & Atom Feeds"
+            "#text": "RSS Feeds"
           },
           {
             "@tag": "SEARCHFOR",
@@ -10837,7 +10765,7 @@
           },
           {
             "@tag": "THANKSCONTENT",
-            "#text": "<p>The 'Thanks' - System is a function that allows you to give back another user a positive feedback, for example he or she has posted a message you find useful or helps you to solve a problem.</p>\r\n<p><strong>How to give a User a Thanks?</strong></p>\r\n<p>If you want to give an User an 'Thank' press the 'Thank' Button inside the Post you want to add it, after that you find your Name in the List of User who gave a Thank at the end of the Message. You can also remove your Thank at any time.</p>\r\n<p><strong>View all Thanks</strong></p>\r\n<p>If you want to view all Posts you gave Thank, or show the list of posts you received thanks got to the page  Personal Profile -&gt; 'View Thanks' from within the User Control Panel. There you see Two Tabs...</p>\r\n<ul>\r\n  <li> <strong>thanked</strong> - Shows the List of Messages where you gave a thank.</li>\r\n  <li><strong>was thanked -</strong> Shows the List your Messages where you received thanks.</li>\r\n</ul>"
+            "#text": "<p>The 'Thanks' - System is a function that allows you to give back another user a positive feedback, for example he or she has posted a message you find useful or helps you to solve a problem.</p>\r\n<p><strong>How to give a User a Thanks?</strong></p>\r\n<p>If you want to give an User an 'Thank' press the 'Thank' Button inside the Post you want to add it, after that you find your Name in the List of User who gave a Thank at the end of the Message. You can also remove your Thank at any time.</p>"
           },
           {
             "@tag": "THANKSTITLE",
@@ -10845,7 +10773,7 @@
           },
           {
             "@tag": "THREADOPTCONTENT",
-            "#text": "<p>At the top of each Topic, there is a link  'Options'. By clicking on this link, a menu will appear with a number of options:</p>\r\n<ul>\r\n  <li><strong>Watch this topic</strong> - by subscribing to a thread, you will receive periodic email updates on recent activity within it.</li>\r\n  <li><strong>Print this topic</strong> - This will show you a page with the thread post content in a reduced graphics format that is more 'printer friendly'.</li>\r\n  <li><strong>Atom Feed</strong> - This will show the Feed of this Topic with all Post as Feed Items.</li>\r\n  <li><strong>Rss Feed</strong> - This will show the Feed of this Topic with all Post as Feed Items.</li>\r\n</ul>\r\n"
+            "#text": "<p>At the top of each Topic, there is a link  'Options'. By clicking on this link, a menu will appear with a number of options:</p>\r\n<ul>\r\n  <li><strong>Watch this topic</strong> - by subscribing to a thread, you will receive periodic email updates on recent activity within it.</li>\r\n  <li><strong>Print this topic</strong> - This will show you a page with the thread post content in a reduced graphics format that is more 'printer friendly'.</li>\r\n  <li><strong>Atom Feed</strong> - This will show the Feed of this Topic with all Post as Feed Items.</li>\r\n</ul>\r\n"
           },
           {
             "@tag": "THREADOPTTITLE",
@@ -10961,24 +10889,6 @@
         ]
       },
       {
-        "@name": "IM_MSN",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "MSN Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_SKYPE",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Skype(tm) Calling"
-          }
-        ]
-      },
-      {
         "@name": "IM_XMPP",
         "Resource": [
           {
@@ -10996,15 +10906,6 @@
           {
             "@tag": "TITLE",
             "#text": "XMPP Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_YIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Yahoo! Messenger"
           }
         ]
       },
@@ -11811,10 +11712,6 @@
           {
             "@tag": "POSTED",
             "#text": "Posted:"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "Sent Items"
           }
         ]
       },
@@ -12251,10 +12148,6 @@
           {
             "@tag": "BY",
             "#text": "by {0}"
-          },
-          {
-            "@tag": "FAVORITETOPICS",
-            "#text": "Favorite Topics"
           },
           {
             "@tag": "GUESTTITLE",
@@ -13215,10 +13108,6 @@
             "#text": "Was thanked: {0} time(s) in {1} post(s)"
           },
           {
-            "@tag": "THREADED",
-            "#text": "Threaded"
-          },
-          {
             "@tag": "TIP_DELETE_TOPIC",
             "#text": "Delete this topic"
           },
@@ -13369,14 +13258,6 @@
           {
             "@tag": "XMPP_TITLE",
             "#text": "Contact {0} via Jabber"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "YAHOO"
-          },
-          {
-            "@tag": "YIM_TITLE",
-            "#text": "Contact {0} via Yahoo Instant Messenger"
           }
         ]
       },
@@ -13660,10 +13541,6 @@
           {
             "@tag": "YEARS",
             "#text": "Year(s)"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Yahoo Messenger:"
           }
         ]
       },
@@ -15043,7 +14920,7 @@
           },
           {
             "@tag": "MYTOPICS_TITLE",
-            "#text": "Shows the Active and Favorite Topics."
+            "#text": "Shows the Active Topics."
           },
           {
             "@tag": "NEWPM",
@@ -15121,10 +14998,6 @@
           {
             "@tag": "CREATED",
             "#text": "Created"
-          },
-          {
-            "@tag": "FAVORITE_COUNT_TT",
-            "#text": "How many times added to favorites"
           },
           {
             "@tag": "FORUM",
@@ -15261,31 +15134,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Yesterday[/b] at {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "VIEWTHANKS",
-        "Resource": [
-          {
-            "@tag": "NO_THANKS",
-            "#text": "[b]No thanks found.[/b]"
-          },
-          {
-            "@tag": "THANKSFROMUSER",
-            "#text": "{0} thanked"
-          },
-          {
-            "@tag": "THANKSNUMBER",
-            "#text": "Was thanked: [b]{0}[/b] time(s)"
-          },
-          {
-            "@tag": "THANKSTOUSER",
-            "#text": "{0} was thanked"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "View Thanks"
           }
         ]
       }

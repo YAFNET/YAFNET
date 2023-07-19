@@ -111,10 +111,6 @@
             "#text": "1} Konusunda {0}'dan Bir Teşekkür Aldı"
           },
           {
-            "@tag": "SENTITEMS",
-            "#text": "Gönderilmiş Öğeler"
-          },
-          {
             "@tag": "SIGNATURE",
             "#text": "İmza"
           },
@@ -1767,14 +1763,6 @@
             "#text": "Bu panoda kullanılacak tema."
           },
           {
-            "@tag": "BOARD_THREADED",
-            "#text": "Dişliye İzin Ver:"
-          },
-          {
-            "@tag": "BOARD_THREADED_HELP",
-            "#text": "Gönderiler için iş parçacıklı görünüme izin ver."
-          },
-          {
             "@tag": "BOARD_TOPIC_DEFAULT",
             "#text": "Varsayılan Konuyu Göster:"
           },
@@ -2327,14 +2315,6 @@
           {
             "@tag": "STATUS_USR_REJECTED",
             "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
-          },
-          {
-            "@tag": "THREADED",
-            "#text": "Dişliye İzin Ver:"
-          },
-          {
-            "@tag": "THREADED_HELP",
-            "#text": "Gönderiler için iş parçacıklı görünüme izin ver."
           },
           {
             "@tag": "TITLE",
@@ -7761,14 +7741,6 @@
             "#text": "Kapak olarak ayarla"
           },
           {
-            "@tag": "BUTTON_TAGFAVORITE",
-            "#text": "Favorilerime Ekle"
-          },
-          {
-            "@tag": "BUTTON_TAGFAVORITE_TT",
-            "#text": "Favorilerime Ekle"
-          },
-          {
             "@tag": "BUTTON_THANKS",
             "#text": "Teşekkür Et"
           },
@@ -7799,14 +7771,6 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Bu Konudaki Kilidi Kaldır"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE",
-            "#text": "Favorilerimden Çıkar"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE_TT",
-            "#text": "Favorilerimden Çıkar"
           }
         ]
       },
@@ -9571,10 +9535,6 @@
             "#text": "Aktif konuları Atom ile takip edin."
           },
           {
-            "@tag": "ATOMICONTOOLTIPFAVORITE",
-            "#text": "Favori konularınızı Atom ile takip edin."
-          },
-          {
             "@tag": "ATOMICONTOOLTIPFORUM",
             "#text": "Atom akışına kayıt olun."
           },
@@ -9689,18 +9649,6 @@
           {
             "@tag": "RECENT_USERS",
             "#text": "Son Kullanıcılar"
-          },
-          {
-            "@tag": "RSSICONTOOLTIPACTIVE",
-            "#text": "Aktif konuları RSS ile takip edin."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFAVORITE",
-            "#text": "Favori konularınızı RSS ile takip edin."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFORUM",
-            "#text": "RSS yayınına kayıt olun."
           },
           {
             "@tag": "SHOW_UNREAD_ONLY",
@@ -10247,10 +10195,6 @@
           {
             "@tag": "XMPP",
             "#text": "Jabber kimliğiniz:"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Yahoo kimliğiniz:"
           }
         ]
       },
@@ -10392,14 +10336,6 @@
           {
             "@tag": "APPROVE",
             "#text": "Onayla"
-          },
-          {
-            "@tag": "APPROVE_ADD",
-            "#text": "Onayla ve Ekle"
-          },
-          {
-            "@tag": "APPROVE_ADD_ALL",
-            "#text": "Hepsini Onayla ve Ekle"
           },
           {
             "@tag": "APPROVE_ALL",
@@ -10610,14 +10546,6 @@
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Arkadaşlar"
-          },
-          {
-            "@tag": "DISPLAYCONTENT",
-            "#text": "<p>Konuları nasıl görüntüleyeceğiniz konusunda bir seçeneğiniz var. Bir konuya girdiğinizde, üst çubuğa bakın. Sağ tarafta 'Görünüm'ü göreceksiniz. Buna tıkladığınızda gönderilerin nasıl sıralandığını değiştirebilirsiniz.</p>\r\n<p>İki seçeneğiniz var:</p>\r\n<ul>\r\n  <li><strong>Normal</strong> - Gönderiler, genellikle en eskiden en yeniye doğru kronolojik olarak görüntülenir. Gönderiler düz modda gösterilir, böylece birçok gönderi aynı anda görüntülenebilir. </li>\r\n  <li><strong>İşlenmiş</strong> - Her gönderi ile birlikte bir ağaç gösterilir. Bu size her bir gönderinin diğerleriyle olan ilişkisini gösterir. Kimin kime yanıt verdiğini görmek kolaydır. Aynı anda yalnızca bir gönderi gösterilir. Gönderi ağacında tek bir gönderiye tıkladığınızda, sayfa o gönderiyi ve ona yanıt olarak yapılan tüm gönderileri gösterecektir.</li>\r\n</ul>\r\n"
-          },
-          {
-            "@tag": "DISPLAYTITLE",
-            "#text": "İplik Görüntüleme Seçenekleri"
           },
           {
             "@tag": "EDITDELETECONTENT",
@@ -10973,24 +10901,6 @@
         ]
       },
       {
-        "@name": "IM_MSN",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "MSN"
-          }
-        ]
-      },
-      {
-        "@name": "IM_SKYPE",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Skype(tm) Arama"
-          }
-        ]
-      },
-      {
         "@name": "IM_XMPP",
         "Resource": [
           {
@@ -11008,15 +10918,6 @@
           {
             "@tag": "TITLE",
             "#text": "XMPP Msn"
-          }
-        ]
-      },
-      {
-        "@name": "IM_YIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Yahoo! Haberci"
           }
         ]
       },
@@ -11823,10 +11724,6 @@
           {
             "@tag": "POSTED",
             "#text": "Gönderildi:"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "Gönderilen Öğeler"
           }
         ]
       },
@@ -12263,10 +12160,6 @@
           {
             "@tag": "BY",
             "#text": "{0} Tarafından "
-          },
-          {
-            "@tag": "FAVORITETOPICS",
-            "#text": "Favori Konular"
           },
           {
             "@tag": "GUESTTITLE",
@@ -13223,10 +13116,6 @@
             "#text": "{1} Mesajına Toplam {0} Kere Teşekkür Edildi."
           },
           {
-            "@tag": "THREADED",
-            "#text": "Kanallı"
-          },
-          {
             "@tag": "TIP_DELETE_TOPIC",
             "#text": "Bu Konuyu Sil"
           },
@@ -13381,14 +13270,6 @@
           {
             "@tag": "XMPP_TITLE",
             "#text": "Jabber üzerinden {0} ile iletişime geçin"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "YAHOO"
-          },
-          {
-            "@tag": "YIM_TITLE",
-            "#text": "Yahoo Instant Messenger üzerinden {0} ile iletişime geçin"
           }
         ]
       },
@@ -13672,10 +13553,6 @@
           {
             "@tag": "YEARS",
             "#text": "Yıl(lar)"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Yahoo Haberci:"
           }
         ]
       },
@@ -15139,10 +15016,6 @@
             "#text": "Yaratıldı"
           },
           {
-            "@tag": "FAVORITE_COUNT_TT",
-            "#text": "Sık kullanılanlara kaç kez eklendi"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Forum"
           },
@@ -15277,31 +15150,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Dün[/b] : {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "VIEWTHANKS",
-        "Resource": [
-          {
-            "@tag": "NO_THANKS",
-            "#text": "[b]Teşekkür Bulunamadı.[/b]"
-          },
-          {
-            "@tag": "THANKSFROMUSER",
-            "#text": "{0} kere teşekkür etmiş."
-          },
-          {
-            "@tag": "THANKSNUMBER",
-            "#text": "Teşekkür edildi: [b]{0}[/b] zaman(lar)"
-          },
-          {
-            "@tag": "THANKSTOUSER",
-            "#text": "{0} kere teşekkür edilmiş."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Teşekkür Detayları"
           }
         ]
       }

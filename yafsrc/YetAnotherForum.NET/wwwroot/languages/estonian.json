@@ -111,10 +111,6 @@
             "#text": "on saanud tänu kasutajalt {0} teemal {1}"
           },
           {
-            "@tag": "SENTITEMS",
-            "#text": "Saadetud"
-          },
-          {
             "@tag": "SIGNATURE",
             "#text": "Allkiri"
           },
@@ -1767,14 +1763,6 @@
             "#text": "Sellel tahvlil kasutatav teema."
           },
           {
-            "@tag": "BOARD_THREADED",
-            "#text": "Luba lõime:"
-          },
-          {
-            "@tag": "BOARD_THREADED_HELP",
-            "#text": "Luba postituste lõimevaade."
-          },
-          {
             "@tag": "BOARD_TOPIC_DEFAULT",
             "#text": "Näita teema vaikeseadet:"
           },
@@ -2327,14 +2315,6 @@
           {
             "@tag": "STATUS_USR_REJECTED",
             "#text": "Kasutaja loomise taotlus on tühistatud. "
-          },
-          {
-            "@tag": "THREADED",
-            "#text": "Luba lõime:"
-          },
-          {
-            "@tag": "THREADED_HELP",
-            "#text": "Luba postituste lõimevaade."
           },
           {
             "@tag": "TITLE",
@@ -7761,14 +7741,6 @@
             "#text": "Pane kaanepildiks"
           },
           {
-            "@tag": "BUTTON_TAGFAVORITE",
-            "#text": "Märgi lemmikuks"
-          },
-          {
-            "@tag": "BUTTON_TAGFAVORITE_TT",
-            "#text": "Märgi see teema lemmikuks"
-          },
-          {
             "@tag": "BUTTON_THANKS",
             "#text": "Tänu"
           },
@@ -7799,14 +7771,6 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Eemalda lukustus sellelt teemalt"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE",
-            "#text": "Eemalda märgistus"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE_TT",
-            "#text": "Eemalda see teema sinu lemmikute loetelust."
           }
         ]
       },
@@ -9571,10 +9535,6 @@
             "#text": "Liitu aktiivsete teemade Atom vooga."
           },
           {
-            "@tag": "ATOMICONTOOLTIPFAVORITE",
-            "#text": "Liitu lemmikteemade Atom vooga."
-          },
-          {
             "@tag": "ATOMICONTOOLTIPFORUM",
             "#text": "Liitu Atom vooga."
           },
@@ -9689,18 +9649,6 @@
           {
             "@tag": "RECENT_USERS",
             "#text": "Viimased kasutajad"
-          },
-          {
-            "@tag": "RSSICONTOOLTIPACTIVE",
-            "#text": "Liitu aktiivsete teemade RSS vooga."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFAVORITE",
-            "#text": "Liitu lemmikteemade RSS vooga."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFORUM",
-            "#text": "Liitu RSS vooga."
           },
           {
             "@tag": "SHOW_UNREAD_ONLY",
@@ -10247,10 +10195,6 @@
           {
             "@tag": "XMPP",
             "#text": "Teie Jabberi ID:"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Teie Yahoo ID:"
           }
         ]
       },
@@ -10392,14 +10336,6 @@
           {
             "@tag": "APPROVE",
             "#text": "Võta vastu"
-          },
-          {
-            "@tag": "APPROVE_ADD",
-            "#text": "Võta vastu ja lisa"
-          },
-          {
-            "@tag": "APPROVE_ADD_ALL",
-            "#text": "Võta vastu ja lisa kõik"
           },
           {
             "@tag": "APPROVE_ALL",
@@ -10610,14 +10546,6 @@
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Sõbrad"
-          },
-          {
-            "@tag": "DISPLAYCONTENT",
-            "#text": "<p>Teemade vaatamise viiside üle saate valida. "
-          },
-          {
-            "@tag": "DISPLAYTITLE",
-            "#text": "Lõime kuvavalikud"
           },
           {
             "@tag": "EDITDELETECONTENT",
@@ -10973,24 +10901,6 @@
         ]
       },
       {
-        "@name": "IM_MSN",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "MSN Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_SKYPE",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Skype(tm) kõned"
-          }
-        ]
-      },
-      {
         "@name": "IM_XMPP",
         "Resource": [
           {
@@ -11008,15 +10918,6 @@
           {
             "@tag": "TITLE",
             "#text": "XMPP Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_YIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Yahoo! "
           }
         ]
       },
@@ -11823,10 +11724,6 @@
           {
             "@tag": "POSTED",
             "#text": "Postitatud:"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "Saadetud"
           }
         ]
       },
@@ -12263,10 +12160,6 @@
           {
             "@tag": "BY",
             "#text": "{0}"
-          },
-          {
-            "@tag": "FAVORITETOPICS",
-            "#text": "Lemmikteemad"
           },
           {
             "@tag": "GUESTTITLE",
@@ -13223,10 +13116,6 @@
             "#text": "Avaldati tänu: {0} kord(a) {1} postituses"
           },
           {
-            "@tag": "THREADED",
-            "#text": "Keermestatud"
-          },
-          {
             "@tag": "TIP_DELETE_TOPIC",
             "#text": "Kustuta see teema"
           },
@@ -13381,14 +13270,6 @@
           {
             "@tag": "XMPP_TITLE",
             "#text": "Võtke ühendust ettevõttega {0} Jabberi kaudu"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "YAHOO"
-          },
-          {
-            "@tag": "YIM_TITLE",
-            "#text": "Võtke kasutajaga {0} ühendust Yahoo Instant Messengeri kaudu"
           }
         ]
       },
@@ -13672,10 +13553,6 @@
           {
             "@tag": "YEARS",
             "#text": "Aasta(d)"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Yahoo sõnumitooja:"
           }
         ]
       },
@@ -15151,10 +15028,6 @@
             "#text": "Loodud"
           },
           {
-            "@tag": "FAVORITE_COUNT_TT",
-            "#text": "Mitu korda lemmikutesse lisatud"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Foorum"
           },
@@ -15289,31 +15162,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Eile[/b] kell{0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "VIEWTHANKS",
-        "Resource": [
-          {
-            "@tag": "NO_THANKS",
-            "#text": "[b]Tänuavaldusi ei leitud.[/b]"
-          },
-          {
-            "@tag": "THANKSFROMUSER",
-            "#text": "{0} avaldas tänu"
-          },
-          {
-            "@tag": "THANKSNUMBER",
-            "#text": "Tänatud: [b]{0}[/b] korda"
-          },
-          {
-            "@tag": "THANKSTOUSER",
-            "#text": "{0}-le avaldati tänu"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Vaata tänuavaldusi"
           }
         ]
       }

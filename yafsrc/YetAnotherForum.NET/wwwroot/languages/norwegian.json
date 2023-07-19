@@ -111,10 +111,6 @@
             "#text": "Har mottatt en takk fra {0} i emnet {1}"
           },
           {
-            "@tag": "SENTITEMS",
-            "#text": "Sendte meldinger"
-          },
-          {
             "@tag": "SIGNATURE",
             "#text": "Signatur"
           },
@@ -1767,14 +1763,6 @@
             "#text": "Temaet som skal brukes på dette brettet."
           },
           {
-            "@tag": "BOARD_THREADED",
-            "#text": "Tillat tråder:"
-          },
-          {
-            "@tag": "BOARD_THREADED_HELP",
-            "#text": "Tillat trådvisning for innlegg."
-          },
-          {
             "@tag": "BOARD_TOPIC_DEFAULT",
             "#text": "Vis emnestandard:"
           },
@@ -2327,14 +2315,6 @@
           {
             "@tag": "STATUS_USR_REJECTED",
             "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
-          },
-          {
-            "@tag": "THREADED",
-            "#text": "Tillat trådet:"
-          },
-          {
-            "@tag": "THREADED_HELP",
-            "#text": "Tillat trådvisning for innlegg."
           },
           {
             "@tag": "TITLE",
@@ -7761,14 +7741,6 @@
             "#text": "Sett som omslag"
           },
           {
-            "@tag": "BUTTON_TAGFAVORITE",
-            "#text": "Tagg som favoritt"
-          },
-          {
-            "@tag": "BUTTON_TAGFAVORITE_TT",
-            "#text": "Merk dette emnet som en favoritt."
-          },
-          {
             "@tag": "BUTTON_THANKS",
             "#text": "Takke"
           },
@@ -7799,14 +7771,6 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Lås opp dette emnet"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE",
-            "#text": "Fjern taggen som favoritt"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE_TT",
-            "#text": "Fjern dette emnet fra favorittlisten."
           }
         ]
       },
@@ -9571,10 +9535,6 @@
             "#text": "Abonner på aktive emner via Atom."
           },
           {
-            "@tag": "ATOMICONTOOLTIPFAVORITE",
-            "#text": "Abonner på favorittemnene dine via Atom."
-          },
-          {
             "@tag": "ATOMICONTOOLTIPFORUM",
             "#text": "Abonner på forumet Atom-feed."
           },
@@ -9689,18 +9649,6 @@
           {
             "@tag": "RECENT_USERS",
             "#text": "Nylige brukere"
-          },
-          {
-            "@tag": "RSSICONTOOLTIPACTIVE",
-            "#text": "Abonner på aktive emner via RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFAVORITE",
-            "#text": "Abonner på favorittemnene dine via RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFORUM",
-            "#text": "Abonner på forumets RSS-feed."
           },
           {
             "@tag": "SHOW_UNREAD_ONLY",
@@ -10247,10 +10195,6 @@
           {
             "@tag": "XMPP",
             "#text": "Din Jabber-ID:"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Din Yahoo ID:"
           }
         ]
       },
@@ -10392,14 +10336,6 @@
           {
             "@tag": "APPROVE",
             "#text": "Vedta"
-          },
-          {
-            "@tag": "APPROVE_ADD",
-            "#text": "Godkjenn og legg til"
-          },
-          {
-            "@tag": "APPROVE_ADD_ALL",
-            "#text": "Godkjenn og legg til alle"
           },
           {
             "@tag": "APPROVE_ALL",
@@ -10610,14 +10546,6 @@
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Venner"
-          },
-          {
-            "@tag": "DISPLAYCONTENT",
-            "#text": "<p>Du har et valg over hvordan du ser på emner. Når du er i en tråd, se på den øverste linjen. På høyre side vil du se &quot;View&quot;. Klikk på denne, og den lar deg endre hvordan innleggene blir bestilt.</p><p> Du har to valg:</p><ul><li> <strong>Normal</strong> – Innlegg vises kronologisk, vanligvis fra eldste til nyeste. Innlegg vises i flat modus slik at mange innlegg kan vises samtidig.</li><li> <strong>Trådt</strong> - Et tre vises sammen med hvert innlegg. Dette viser deg forholdet hvert innlegg har til de andre. Det er lett å se hvem som har svart hvem. Kun ett innlegg vises om gangen. Ved å klikke på et enkelt innlegg i innleggstreet, vil siden vise det innlegget og alle innlegg som er gjort som svar på det.</li></ul>"
-          },
-          {
-            "@tag": "DISPLAYTITLE",
-            "#text": "Trådvisningsalternativer"
           },
           {
             "@tag": "EDITDELETECONTENT",
@@ -10973,24 +10901,6 @@
         ]
       },
       {
-        "@name": "IM_MSN",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "MSN Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_SKYPE",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Skype(tm) ringer"
-          }
-        ]
-      },
-      {
         "@name": "IM_XMPP",
         "Resource": [
           {
@@ -11008,15 +10918,6 @@
           {
             "@tag": "TITLE",
             "#text": "XMPP Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_YIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Yahoo! budbringer"
           }
         ]
       },
@@ -11823,10 +11724,6 @@
           {
             "@tag": "POSTED",
             "#text": "Postet:"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "Sendte meldinger"
           }
         ]
       },
@@ -12263,10 +12160,6 @@
           {
             "@tag": "BY",
             "#text": "av {0}"
-          },
-          {
-            "@tag": "FAVORITETOPICS",
-            "#text": "Favorittemner"
           },
           {
             "@tag": "GUESTTITLE",
@@ -13223,10 +13116,6 @@
             "#text": "Ble takket: {0} gang(er) i {1} innlegg(er)"
           },
           {
-            "@tag": "THREADED",
-            "#text": "Tråd (Sammenhengende)"
-          },
-          {
             "@tag": "TIP_DELETE_TOPIC",
             "#text": "Slett dette emnet"
           },
@@ -13381,14 +13270,6 @@
           {
             "@tag": "XMPP_TITLE",
             "#text": "Kontakt {0} via Jabber"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "YAHOO"
-          },
-          {
-            "@tag": "YIM_TITLE",
-            "#text": "Kontakt {0} via Yahoo Instant Messenger"
           }
         ]
       },
@@ -13672,10 +13553,6 @@
           {
             "@tag": "YEARS",
             "#text": "år(er)"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Yahoo Messenger:"
           }
         ]
       },
@@ -15139,10 +15016,6 @@
             "#text": "Opprettet"
           },
           {
-            "@tag": "FAVORITE_COUNT_TT",
-            "#text": "Hvor mange ganger lagt til favoritter"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Forum"
           },
@@ -15277,31 +15150,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Igår[/b] kl {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "VIEWTHANKS",
-        "Resource": [
-          {
-            "@tag": "NO_THANKS",
-            "#text": "[b]Nei takk funnet.[/b]"
-          },
-          {
-            "@tag": "THANKSFROMUSER",
-            "#text": "{0} takket"
-          },
-          {
-            "@tag": "THANKSNUMBER",
-            "#text": "Ble takket: [b]{0}[/b] gang(er)"
-          },
-          {
-            "@tag": "THANKSTOUSER",
-            "#text": "{0} ble takket"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Se Takk"
           }
         ]
       }

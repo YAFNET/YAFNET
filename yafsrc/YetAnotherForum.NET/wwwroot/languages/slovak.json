@@ -111,10 +111,6 @@
             "#text": "Dostal poďakovanie od {0} v téme {1}"
           },
           {
-            "@tag": "SENTITEMS",
-            "#text": "Odoslané"
-          },
-          {
             "@tag": "SIGNATURE",
             "#text": "Podpis"
           },
@@ -1767,14 +1763,6 @@
             "#text": "Téma, ktorú môžete použiť na tejto nástenke."
           },
           {
-            "@tag": "BOARD_THREADED",
-            "#text": "Povoľte závit:"
-          },
-          {
-            "@tag": "BOARD_THREADED_HELP",
-            "#text": "Povolenie zobrazenia príspevkov vo vlákne."
-          },
-          {
             "@tag": "BOARD_TOPIC_DEFAULT",
             "#text": "Zobraziť predvolenú tému:"
           },
@@ -2327,14 +2315,6 @@
           {
             "@tag": "STATUS_USR_REJECTED",
             "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
-          },
-          {
-            "@tag": "THREADED",
-            "#text": "Povolenie závitov:"
-          },
-          {
-            "@tag": "THREADED_HELP",
-            "#text": "Povolenie zobrazenia príspevkov vo vlákne."
           },
           {
             "@tag": "TITLE",
@@ -7761,14 +7741,6 @@
             "#text": "Nastaviť ako kryt"
           },
           {
-            "@tag": "BUTTON_TAGFAVORITE",
-            "#text": "Označiť ako obľúbené"
-          },
-          {
-            "@tag": "BUTTON_TAGFAVORITE_TT",
-            "#text": "Označte túto tému ako obľúbenú."
-          },
-          {
             "@tag": "BUTTON_THANKS",
             "#text": "Ďakujem"
           },
@@ -7799,14 +7771,6 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Odomknutie tejto témy"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE",
-            "#text": "Zrušiť označenie ako obľúbené"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE_TT",
-            "#text": "Odstráňte túto tému zo zoznamu obľúbených."
           }
         ]
       },
@@ -9571,10 +9535,6 @@
             "#text": "Prihlásiť sa k odberu aktívnych tém prostredníctvom služby Atom."
           },
           {
-            "@tag": "ATOMICONTOOLTIPFAVORITE",
-            "#text": "Prihláste sa na odber obľúbených tém prostredníctvom služby Atom."
-          },
-          {
             "@tag": "ATOMICONTOOLTIPFORUM",
             "#text": "Prihláste sa na fórum Atom feed."
           },
@@ -9689,18 +9649,6 @@
           {
             "@tag": "RECENT_USERS",
             "#text": "Nedávni používatelia"
-          },
-          {
-            "@tag": "RSSICONTOOLTIPACTIVE",
-            "#text": "Prihlásiť sa k odberu aktívnych tém prostredníctvom RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFAVORITE",
-            "#text": "Prihláste sa na odber obľúbených tém prostredníctvom RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFORUM",
-            "#text": "Prihlásiť sa k odberu RSS kanála fóra."
           },
           {
             "@tag": "SHOW_UNREAD_ONLY",
@@ -10247,10 +10195,6 @@
           {
             "@tag": "XMPP",
             "#text": "Vaše Jabber ID:"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Vaše ID Yahoo:"
           }
         ]
       },
@@ -10392,14 +10336,6 @@
           {
             "@tag": "APPROVE",
             "#text": "Schváliť"
-          },
-          {
-            "@tag": "APPROVE_ADD",
-            "#text": "Schváliť a pridať"
-          },
-          {
-            "@tag": "APPROVE_ADD_ALL",
-            "#text": "Schváliť a pridať všetky"
           },
           {
             "@tag": "APPROVE_ALL",
@@ -10610,14 +10546,6 @@
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Priatelia"
-          },
-          {
-            "@tag": "DISPLAYCONTENT",
-            "#text": "<p>Môžete si vybrať, ako budete témy zobrazovať. Keď ste vo vlákne, pozrite sa na hornú lištu. Na pravej strane uvidíte položku 'Zobraziť'. Kliknite naň a môžete zmeniť spôsob zoradenia príspevkov.</p>\r\n<p>Máte dve možnosti:</p>\r\n<ul>\r\n  <li><strong>Normálne</strong> - Príspevky sa zobrazujú chronologicky, zvyčajne od najstaršieho po najnovší. Príspevky sa zobrazujú v plochom režime, aby bolo možné zobraziť veľa príspevkov súčasne. </li>\r\n  <li><strong>Vláknové</strong> - Spolu s každým príspevkom sa zobrazuje strom. Zobrazuje sa tak vzťah, ktorý má každý príspevok k ostatným. Ľahko tak zistíte, kto na koho reagoval. V jednom okamihu sa zobrazuje len jeden príspevok. Kliknutím na jeden príspevok v strome príspevkov sa na stránke zobrazí tento príspevok a všetky príspevky, ktoré naň reagovali.</li>\r\n</ul>\r\n"
-          },
-          {
-            "@tag": "DISPLAYTITLE",
-            "#text": "Možnosti zobrazenia vlákna"
           },
           {
             "@tag": "EDITDELETECONTENT",
@@ -10973,24 +10901,6 @@
         ]
       },
       {
-        "@name": "IM_MSN",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "MSN Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_SKYPE",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Volanie cez Skype(tm)"
-          }
-        ]
-      },
-      {
         "@name": "IM_XMPP",
         "Resource": [
           {
@@ -11008,15 +10918,6 @@
           {
             "@tag": "TITLE",
             "#text": "Messenger XMPP"
-          }
-        ]
-      },
-      {
-        "@name": "IM_YIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Yahoo! Messenger"
           }
         ]
       },
@@ -11823,10 +11724,6 @@
           {
             "@tag": "POSTED",
             "#text": "Odoslané:"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "Odoslané"
           }
         ]
       },
@@ -12263,10 +12160,6 @@
           {
             "@tag": "BY",
             "#text": "podľa {0}"
-          },
-          {
-            "@tag": "FAVORITETOPICS",
-            "#text": "Obľúbené témy"
           },
           {
             "@tag": "GUESTTITLE",
@@ -13223,10 +13116,6 @@
             "#text": "Bolo poďakované: {0} krát(y) v {1} príspevku(och)"
           },
           {
-            "@tag": "THREADED",
-            "#text": "Vetvený"
-          },
-          {
             "@tag": "TIP_DELETE_TOPIC",
             "#text": "Zmaž túto tému"
           },
@@ -13381,14 +13270,6 @@
           {
             "@tag": "XMPP_TITLE",
             "#text": "Kontaktovať {0} cez Jabber"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "YAHOO"
-          },
-          {
-            "@tag": "YIM_TITLE",
-            "#text": "Kontaktovať {0} cez Yahoo Instant Messenger"
           }
         ]
       },
@@ -13672,10 +13553,6 @@
           {
             "@tag": "YEARS",
             "#text": "Rok(y)"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Yahoo Messenger:"
           }
         ]
       },
@@ -15139,10 +15016,6 @@
             "#text": "Vytvorené"
           },
           {
-            "@tag": "FAVORITE_COUNT_TT",
-            "#text": "Koľkokrát pridané do obľúbených"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Fórum"
           },
@@ -15277,31 +15150,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Včera[/b] o {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "VIEWTHANKS",
-        "Resource": [
-          {
-            "@tag": "NO_THANKS",
-            "#text": "[b]Nenašla sa žiadna vďaka.[/b]"
-          },
-          {
-            "@tag": "THANKSFROMUSER",
-            "#text": "{0} poďakoval"
-          },
-          {
-            "@tag": "THANKSNUMBER",
-            "#text": "Bolo poďakované: [b]{0}[/b] čas(y)"
-          },
-          {
-            "@tag": "THANKSTOUSER",
-            "#text": "{0} bolo poďakované"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Zobraziť poďakovanie"
           }
         ]
       }

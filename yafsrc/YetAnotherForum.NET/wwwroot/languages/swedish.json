@@ -111,10 +111,6 @@
             "#text": "Har fått ett tack från {0} i ämnet {1}"
           },
           {
-            "@tag": "SENTITEMS",
-            "#text": "Skickat"
-          },
-          {
             "@tag": "SIGNATURE",
             "#text": "Signatur"
           },
@@ -1767,14 +1763,6 @@
             "#text": "Det tema som ska användas på den här forumet."
           },
           {
-            "@tag": "BOARD_THREADED",
-            "#text": "Tillåt gängad:"
-          },
-          {
-            "@tag": "BOARD_THREADED_HELP",
-            "#text": "Tillåt trådad visning av inlägg."
-          },
-          {
             "@tag": "BOARD_TOPIC_DEFAULT",
             "#text": "Visa ämne Standard:"
           },
@@ -2327,14 +2315,6 @@
           {
             "@tag": "STATUS_USR_REJECTED",
             "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
-          },
-          {
-            "@tag": "THREADED",
-            "#text": "Tillåt gängad:"
-          },
-          {
-            "@tag": "THREADED_HELP",
-            "#text": "Tillåt trådad visning av inlägg."
           },
           {
             "@tag": "TITLE",
@@ -7761,14 +7741,6 @@
             "#text": "Ställ in som omslag"
           },
           {
-            "@tag": "BUTTON_TAGFAVORITE",
-            "#text": "Tagga som favorit"
-          },
-          {
-            "@tag": "BUTTON_TAGFAVORITE_TT",
-            "#text": "Märk det här ämnet som en favorit."
-          },
-          {
             "@tag": "BUTTON_THANKS",
             "#text": "Tack"
           },
@@ -7799,14 +7771,6 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Lås upp det här ämnet"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE",
-            "#text": "Ta bort märkningen som favorit"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE_TT",
-            "#text": "Ta bort det här ämnet från din favoritlista."
           }
         ]
       },
@@ -9571,10 +9535,6 @@
             "#text": "Prenumerera på aktiva ämnen via Atom."
           },
           {
-            "@tag": "ATOMICONTOOLTIPFAVORITE",
-            "#text": "Prenumerera på dina favoritämnen via Atom."
-          },
-          {
             "@tag": "ATOMICONTOOLTIPFORUM",
             "#text": "Prenumerera på forumets Atom-flöde."
           },
@@ -9689,18 +9649,6 @@
           {
             "@tag": "RECENT_USERS",
             "#text": "Senaste användarna"
-          },
-          {
-            "@tag": "RSSICONTOOLTIPACTIVE",
-            "#text": "Prenumerera på aktiva ämnen via RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFAVORITE",
-            "#text": "Prenumerera på dina favoritämnen via RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFORUM",
-            "#text": "Prenumerera på forumets RSS-flöde."
           },
           {
             "@tag": "SHOW_UNREAD_ONLY",
@@ -10247,10 +10195,6 @@
           {
             "@tag": "XMPP",
             "#text": "Ditt Jabber-ID:"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Ditt Yahoo-ID:"
           }
         ]
       },
@@ -10392,14 +10336,6 @@
           {
             "@tag": "APPROVE",
             "#text": "Godkänna"
-          },
-          {
-            "@tag": "APPROVE_ADD",
-            "#text": "Godkänna och lägga till"
-          },
-          {
-            "@tag": "APPROVE_ADD_ALL",
-            "#text": "Godkänna och lägga till alla"
           },
           {
             "@tag": "APPROVE_ALL",
@@ -10610,14 +10546,6 @@
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Vänner"
-          },
-          {
-            "@tag": "DISPLAYCONTENT",
-            "#text": "<p>Du kan välja hur du vill se på ämnen. När du är inne i en tråd kan du titta på den övre baren. Till höger ser du \"Visa\". Om du klickar på detta kan du ändra hur inläggen ordnas.</p>\r\n<p>Du har två valmöjligheter:</p>\r\n<ul>\r\n  <li><strong>Normal</strong> - Inläggen visas kronologiskt, vanligtvis från äldsta till nyaste. Inläggen visas i ett platt läge så att många inlägg kan visas samtidigt. </li>\r\n  <li><strong>Threaded</strong> - Ett träd visas tillsammans med varje inlägg. Detta visar vilket förhållande varje inlägg har till de andra. Det är lätt att se vem som svarat på vem. Endast ett inlägg visas åt gången. Genom att klicka på ett enskilt inlägg i inläggsträdet visas det inlägget och alla inlägg som gjorts som svar på det.</li>\r\n</ul>\r\n"
-          },
-          {
-            "@tag": "DISPLAYTITLE",
-            "#text": "Alternativ för visning av trådar"
           },
           {
             "@tag": "EDITDELETECONTENT",
@@ -10973,24 +10901,6 @@
         ]
       },
       {
-        "@name": "IM_MSN",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "MSN meddelande"
-          }
-        ]
-      },
-      {
-        "@name": "IM_SKYPE",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Skype(tm)-samtal"
-          }
-        ]
-      },
-      {
         "@name": "IM_XMPP",
         "Resource": [
           {
@@ -11008,15 +10918,6 @@
           {
             "@tag": "TITLE",
             "#text": "XMPP Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_YIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Yahoo! budbärare"
           }
         ]
       },
@@ -11823,10 +11724,6 @@
           {
             "@tag": "POSTED",
             "#text": "Skickades:"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "Skickat"
           }
         ]
       },
@@ -12263,10 +12160,6 @@
           {
             "@tag": "BY",
             "#text": "med {0}"
-          },
-          {
-            "@tag": "FAVORITETOPICS",
-            "#text": "Favoritämnen"
           },
           {
             "@tag": "GUESTTITLE",
@@ -13223,10 +13116,6 @@
             "#text": "Tackades: {0} gång(er) i {1} inlägg(er)"
           },
           {
-            "@tag": "THREADED",
-            "#text": "Trådad"
-          },
-          {
             "@tag": "TIP_DELETE_TOPIC",
             "#text": "Ta bort det här ämnet"
           },
@@ -13381,14 +13270,6 @@
           {
             "@tag": "XMPP_TITLE",
             "#text": "Kontakta {0} via Jabber"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "YAHOO"
-          },
-          {
-            "@tag": "YIM_TITLE",
-            "#text": "Kontakta {0} via Yahoo Instant Messenger"
           }
         ]
       },
@@ -13672,10 +13553,6 @@
           {
             "@tag": "YEARS",
             "#text": "År(n)"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Yahoo Messenger:"
           }
         ]
       },
@@ -15139,10 +15016,6 @@
             "#text": "Skapad"
           },
           {
-            "@tag": "FAVORITE_COUNT_TT",
-            "#text": "Hur många gånger läggs till i favoriterna"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Forum"
           },
@@ -15277,31 +15150,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]igår[/b] kl {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "VIEWTHANKS",
-        "Resource": [
-          {
-            "@tag": "NO_THANKS",
-            "#text": "[b]Inga tack hittades.[/b]"
-          },
-          {
-            "@tag": "THANKSFROMUSER",
-            "#text": "{0} tackade"
-          },
-          {
-            "@tag": "THANKSNUMBER",
-            "#text": "Tackades: [b]{0}[/b] gång(er)"
-          },
-          {
-            "@tag": "THANKSTOUSER",
-            "#text": "{0} tackades"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Visa tack"
           }
         ]
       }

@@ -111,10 +111,6 @@
             "#text": "Hat einen Dank von {0} im Thema {1} erhalten"
           },
           {
-            "@tag": "SENTITEMS",
-            "#text": "Postausgang"
-          },
-          {
             "@tag": "SIGNATURE",
             "#text": "Signatur"
           },
@@ -1767,14 +1763,6 @@
             "#text": "Das Skin das in diesem Board verwendet wird"
           },
           {
-            "@tag": "BOARD_THREADED",
-            "#text": "Threaded erlauben:"
-          },
-          {
-            "@tag": "BOARD_THREADED_HELP",
-            "#text": "Threaded Ansicht von Beiträgen erlauben."
-          },
-          {
             "@tag": "BOARD_TOPIC_DEFAULT",
             "#text": "Zeige Themen Standard:"
           },
@@ -2327,14 +2315,6 @@
           {
             "@tag": "STATUS_USR_REJECTED",
             "#text": "Die Benutzer Registrierung wurde abgebrochen. Bitte überprüfen Sie ihre Angaben und versuchen es erneut. Wenn das Problem weiterhin besteht, wenden Sie sich an den Sytemverwalter."
-          },
-          {
-            "@tag": "THREADED",
-            "#text": "Threaded Ansicht erlauben:"
-          },
-          {
-            "@tag": "THREADED_HELP",
-            "#text": "Erlaube die Threaded Ansicht für Beiträge"
           },
           {
             "@tag": "TITLE",
@@ -7753,14 +7733,6 @@
             "#text": "Als Cover auswählen"
           },
           {
-            "@tag": "BUTTON_TAGFAVORITE",
-            "#text": "Als Favorit markieren"
-          },
-          {
-            "@tag": "BUTTON_TAGFAVORITE_TT",
-            "#text": "Dieses Thema als Favorit taggen."
-          },
-          {
             "@tag": "BUTTON_THANKS",
             "#text": "Danke"
           },
@@ -7791,14 +7763,6 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Dieses Thema wieder entsperren"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE",
-            "#text": "Untag als Favorit"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE_TT",
-            "#text": "Entfernen Sie dies Thema von ihrer Favoritenliste."
           }
         ]
       },
@@ -9563,10 +9527,6 @@
             "#text": "Abonnieren Sie aktiv Themen über Atom."
           },
           {
-            "@tag": "ATOMICONTOOLTIPFAVORITE",
-            "#text": "Abonnieren Sie Ihre Lieblings-Themen über Atom."
-          },
-          {
             "@tag": "ATOMICONTOOLTIPFORUM",
             "#text": "Abonnieren Sie Forum Atom-Feed."
           },
@@ -9681,18 +9641,6 @@
           {
             "@tag": "RECENT_USERS",
             "#text": "Kürzlich Aktive Benutzer"
-          },
-          {
-            "@tag": "RSSICONTOOLTIPACTIVE",
-            "#text": "Abonnieren Sie ihre Aktiven Themen per RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFAVORITE",
-            "#text": "Abonnieren Sie ihre Favorisierten Themen per RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFORUM",
-            "#text": "Forum RSS Feed Abonnieren."
           },
           {
             "@tag": "SHOW_UNREAD_ONLY",
@@ -10239,10 +10187,6 @@
           {
             "@tag": "XMPP",
             "#text": "Jabber ID:"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Yahoo ID:"
           }
         ]
       },
@@ -10384,14 +10328,6 @@
           {
             "@tag": "APPROVE",
             "#text": "Genehmigen"
-          },
-          {
-            "@tag": "APPROVE_ADD",
-            "#text": "Genehmigen und Hinzufügen"
-          },
-          {
-            "@tag": "APPROVE_ADD_ALL",
-            "#text": "Genehmigen und alle Hinzufügen"
           },
           {
             "@tag": "APPROVE_ALL",
@@ -10602,14 +10538,6 @@
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Freunde"
-          },
-          {
-            "@tag": "DISPLAYCONTENT",
-            "#text": "<p>Sie haben zwei Möglichkeiten um Themen zu betrachten. Wenn Sie ein Thema Betrachten werfen Sie ein Blick auf die oberste Leiste, auf der rechten Seite Sehen Sie den Link &quot;Ansicht&quot; Wenn Sie darauf klicken Erscheint das Auswahl Menü wie das Thema angeordnet werden soll.</p>\r\n<p>Sie haben zwei Möglichkeiten:</p>\r\n<ul>\r\n  <li><strong>Normal</strong> - Beiträge werden chronologisch angeordnet, normalerweise der älteste zuerst und der neuste zuletzt, dabei können mehrere Beiträge gleichzeitig Gelesen werden. </li>\r\n  <li><strong>Threaded</strong> - Eine Navigationsliste wird für jeden Beitrag gezeigt. Es wird dabei nur ein Beitrag angezeigt. Wenn Sie auf einen Beitrag in der Navigationsliste klicken wird der jeweilige Beitrag angezeigt.</li>\r\n</ul>"
-          },
-          {
-            "@tag": "DISPLAYTITLE",
-            "#text": "Thema Anzeige-Optionen"
           },
           {
             "@tag": "EDITDELETECONTENT",
@@ -10957,24 +10885,6 @@
         ]
       },
       {
-        "@name": "IM_MSN",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Windows Live Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_SKYPE",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Skype(tm) Anruf"
-          }
-        ]
-      },
-      {
         "@name": "IM_XMPP",
         "Resource": [
           {
@@ -10992,15 +10902,6 @@
           {
             "@tag": "TITLE",
             "#text": "Jabber Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_YIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Yahoo!-Messenger"
           }
         ]
       },
@@ -11807,10 +11708,6 @@
           {
             "@tag": "POSTED",
             "#text": "Geschrieben:"
-          },
-          {
-            "@tag": "SENTITEMS",
-            "#text": "Postausgang"
           }
         ]
       },
@@ -12247,10 +12144,6 @@
           {
             "@tag": "BY",
             "#text": "von {0}"
-          },
-          {
-            "@tag": "FAVORITETOPICS",
-            "#text": "Favorisierte Themen"
           },
           {
             "@tag": "GUESTTITLE",
@@ -13207,10 +13100,6 @@
             "#text": "Es wurde: {0} mal in {1} Beiträgen gedankt"
           },
           {
-            "@tag": "THREADED",
-            "#text": "Mit Gewinde"
-          },
-          {
             "@tag": "TIP_DELETE_TOPIC",
             "#text": "Dieses Thema löschen"
           },
@@ -13361,14 +13250,6 @@
           {
             "@tag": "XMPP_TITLE",
             "#text": " {0} via Jabber kontaktieren"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "JAHOO"
-          },
-          {
-            "@tag": "YIM_TITLE",
-            "#text": "{0} via Yahoo Instant Messenger kontaktieren"
           }
         ]
       },
@@ -13652,10 +13533,6 @@
           {
             "@tag": "YEARS",
             "#text": "Jahr(e)"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Yahoo!-Messenger:"
           }
         ]
       },
@@ -15119,10 +14996,6 @@
             "#text": "erstellt"
           },
           {
-            "@tag": "FAVORITE_COUNT_TT",
-            "#text": "Wie viele Male zu den Favoriten hinzugefügt"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Forum"
           },
@@ -15257,31 +15130,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Gestern[/b], um {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "VIEWTHANKS",
-        "Resource": [
-          {
-            "@tag": "NO_THANKS",
-            "#text": "[b]Keine Danksagungen gefunden.[/b]"
-          },
-          {
-            "@tag": "THANKSFROMUSER",
-            "#text": "{0} dankte"
-          },
-          {
-            "@tag": "THANKSNUMBER",
-            "#text": "Danke erhalten: [b]{0}[/b] mal(e)"
-          },
-          {
-            "@tag": "THANKSTOUSER",
-            "#text": "{0} danke erhalten"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Danksagungen Ansehen"
           }
         ]
       }
