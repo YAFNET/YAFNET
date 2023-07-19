@@ -34,7 +34,7 @@ using YAF.Core.Context;
 /// <summary>
 /// DateTime Helper
 /// </summary>
-public static class DateTimeHelper
+public static partial class DateTimeHelper
 {
     /// <summary>
     /// The second.
@@ -79,7 +79,7 @@ public static class DateTimeHelper
     /// <returns>Returns the Time Zone Info</returns>
     public static TimeZoneInfo GetTimeZoneInfo(string input)
     {
-        if (Regex.IsMatch(input, @"^[\-?\+?\d]*$"))
+        if (LocalRegex().IsMatch(input))
         {
             return TimeZoneInfo.Local;
         }
@@ -242,4 +242,7 @@ public static class DateTimeHelper
                 }
         }
     }
+
+    [GeneratedRegex("^[\\-?\\+?\\d]*$")]
+    private static partial Regex LocalRegex();
 }

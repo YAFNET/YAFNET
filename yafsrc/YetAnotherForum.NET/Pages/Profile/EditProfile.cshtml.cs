@@ -91,6 +91,12 @@ public class EditProfileModel : ProfilePage
     public IEnumerable<ProfileCustom> UserProfileCustom { get; set; }
 
     /// <summary>
+    /// Gets a value indicating whether this instance is farsi culture.
+    /// </summary>
+    /// <value><c>true</c> if this instance is farsi culture; otherwise, <c>false</c>.</value>
+    public bool IsFarsiCulture => this.CurrentCultureInfo.IsFarsiCulture();
+
+    /// <summary>
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
@@ -110,7 +116,9 @@ public class EditProfileModel : ProfilePage
                 return this.currentCultureInfo;
             }
 
-            this.currentCultureInfo = CultureInfo.CreateSpecificCulture(this.GetCulture(true));
+            this.currentCultureInfo = CultureInfoHelper.GetCultureByUser(
+                this.PageBoardContext.BoardSettings,
+                this.PageBoardContext.PageUser);
 
             return this.currentCultureInfo;
         }
@@ -310,23 +318,11 @@ public class EditProfileModel : ProfilePage
     /// </summary>
     private void BindData()
     {
-        if (this.PageBoardContext.BoardSettings.UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
-        {
-            this.Input.Birthday =
-                this.CurrentUser.Item2.Profile_Birthday.HasValue && this.CurrentUser.Item2.Profile_Birthday.Value >
-                DateTimeHelper.SqlDbMinTime()
-                    ? PersianDateConverter.ToPersianDate(this.CurrentUser.Item2.Profile_Birthday.Value)
-                        .ToString("d")
-                    : PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
-        }
-        else
-        {
-            this.Input.Birthday =
-                this.CurrentUser.Item2.Profile_Birthday.HasValue && this.CurrentUser.Item2.Profile_Birthday.Value >
-                DateTimeHelper.SqlDbMinTime()
-                    ? this.CurrentUser.Item2.Profile_Birthday.Value.Date.ToString("yyyy-MM-dd")
-                    : DateTimeHelper.SqlDbMinTime().Date.ToString("yyyy-MM-dd");
-        }
+        this.Input.Birthday =
+            this.CurrentUser.Item2.Profile_Birthday.HasValue && this.CurrentUser.Item2.Profile_Birthday.Value >
+            DateTimeHelper.SqlDbMinTime()
+                ? this.CurrentUser.Item2.Profile_Birthday.Value.Date.ToString("yyyy-MM-dd")
+                : DateTimeHelper.SqlDbMinTime().Date.ToString("yyyy-MM-dd");
 
         this.Input.DisplayName = this.CurrentUser.Item1.DisplayName;
         this.Input.City = this.CurrentUser.Item2.Profile_City;
@@ -461,49 +457,6 @@ public class EditProfileModel : ProfilePage
     private static List<SelectListItem> LookForNewRegionsBind(string country)
     {
         return StaticDataHelper.Regions(country).ToList();
-    }
-
-    /// <summary>
-    /// Gets the culture.
-    /// </summary>
-    /// <param name="overrideByPageUserCulture">if set to <c>true</c> [override by page user culture].</param>
-    /// <returns>
-    /// The get culture.
-    /// </returns>
-    private string GetCulture(bool overrideByPageUserCulture)
-    {
-        // Language and culture
-        var languageFile = this.PageBoardContext.BoardSettings.Language;
-        var culture4Tag = this.PageBoardContext.BoardSettings.Culture;
-
-        if (overrideByPageUserCulture)
-        {
-            if (this.PageBoardContext.PageUser.LanguageFile.IsSet())
-            {
-                languageFile = this.PageBoardContext.PageUser.LanguageFile;
-            }
-
-            if (this.PageBoardContext.PageUser.Culture.IsSet())
-            {
-                culture4Tag = this.PageBoardContext.PageUser.Culture;
-            }
-        }
-        else
-        {
-            if (this.CurrentUser.Item1.LanguageFile.IsSet())
-            {
-                languageFile = this.CurrentUser.Item1.LanguageFile;
-            }
-
-            if (this.CurrentUser.Item1.Culture.IsSet())
-            {
-                culture4Tag = this.CurrentUser.Item1.Culture;
-            }
-        }
-
-        // Get first default full culture from a language file tag.
-        var langFileCulture = StaticDataHelper.CultureDefaultFromFile(languageFile);
-        return langFileCulture[..2] == culture4Tag[..2] ? culture4Tag : langFileCulture;
     }
 
     /// <summary>

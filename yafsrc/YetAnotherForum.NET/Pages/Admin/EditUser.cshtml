@@ -8,6 +8,13 @@
 @using YAF.Web.HtmlHelpers
 @using YAF.Web.TagHelpers
 
+@section StyleSheets {
+    @if (Model.PageBoardContext.BoardSettings.UseFarsiCalender && Model.CurrentCultureInfo.IsFarsiCulture())
+    {
+        @await Html.PartialAsync("_DateTimePickerStylesSheetsPartial")
+    }
+}
+
 @model EditUserModel
 
 @{
@@ -116,6 +123,11 @@
     <script>
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.BootstrapTabsLoadJs("EditUserTabs", "LastTab")));
         
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.EditUserTabsLoadJs(editUser.Item1.ID))) 
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.EditUserTabsLoadJs(editUser.Item1.ID)))
     </script>
+    
+    @if (Model.PageBoardContext.BoardSettings.UseFarsiCalender && Model.CurrentCultureInfo.IsFarsiCulture())
+    {
+        @await Html.PartialAsync("_DateTimePickerScriptsPartial")
+    }
 }

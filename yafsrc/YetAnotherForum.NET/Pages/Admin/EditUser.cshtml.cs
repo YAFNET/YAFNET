@@ -24,8 +24,11 @@
 
 namespace YAF.Pages.Admin;
 
+using System.Globalization;
 using YAF.Core.Extensions;
+using YAF.Core.Helpers;
 using YAF.Core.Services;
+using YAF.Types.Attributes;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
@@ -36,6 +39,11 @@ using YAF.Types.Models.Identity;
 /// </summary>
 public class EditUserModel : AdminPage
 {
+    /// <summary>
+    /// The current culture information
+    /// </summary>
+    private CultureInfo currentCultureInfo;
+
     /// <summary>
     /// Initializes a new instance of the <see cref="EditUserModel"/> class. 
     /// </summary>
@@ -58,6 +66,28 @@ public class EditUserModel : AdminPage
 
     [BindProperty]
     public VAccess EditUserVaccess { get; set; }
+
+    /// <summary>
+    /// Gets the current Culture information.
+    /// </summary>
+    /// <value>
+    /// The current Culture information.
+    /// </value>
+    [NotNull]
+    public CultureInfo CurrentCultureInfo {
+        get {
+            if (this.currentCultureInfo != null)
+            {
+                return this.currentCultureInfo;
+            }
+
+            this.currentCultureInfo = CultureInfoHelper.GetCultureByUser(
+                this.PageBoardContext.BoardSettings,
+                this.EditUser.Item1);
+
+            return this.currentCultureInfo;
+        }
+    }
 
     /// <summary>
     /// Creates page links for this page.

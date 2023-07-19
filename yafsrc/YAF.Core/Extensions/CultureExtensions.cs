@@ -28,8 +28,6 @@ using System;
 
 using FarsiLibrary.Utils;
 
-using PersianCalendar = System.Globalization.PersianCalendar;
-
 /// <summary>
 /// The culture extensions.
 /// </summary>
@@ -44,21 +42,6 @@ public static class CultureExtensions
     /// The internal Farsi culture
     /// </summary>
     private static CultureInfo internalFaCulture;
-
-    /// <summary>
-    /// The pc.
-    /// </summary>
-    private static readonly PersianCalendar pc = new();
-
-    /// <summary>
-    /// Gets the persian calendar.
-    /// </summary>
-    public static Calendar PersianCalendar => pc;
-
-    /// <summary>
-    /// Gets the Currently selected UICulture
-    /// </summary>
-    public static CultureInfo CurrentCulture => CultureInfo.CurrentUICulture;
 
     /// <summary>
     /// Instance of Farsi culture

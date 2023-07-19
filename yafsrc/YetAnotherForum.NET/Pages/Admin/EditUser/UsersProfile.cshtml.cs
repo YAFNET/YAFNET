@@ -100,7 +100,9 @@ public class UsersProfileModel : AdminPage
                 return this.currentCultureInfo;
             }
 
-            this.currentCultureInfo = CultureInfo.CreateSpecificCulture(this.GetCulture());
+            this.currentCultureInfo = CultureInfoHelper.GetCultureByUser(
+                this.PageBoardContext.BoardSettings,
+                this.EditUser.Item1);
 
             return this.currentCultureInfo;
         }
@@ -286,23 +288,11 @@ public class UsersProfileModel : AdminPage
             this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
                 Tuple<User, AspNetUsers, Rank, VAccess>;
 
-        if (this.PageBoardContext.BoardSettings.UseFarsiCalender && this.CurrentCultureInfo.IsFarsiCulture())
-        {
-            this.Input.Birthday =
-                this.EditUser.Item2.Profile_Birthday.HasValue && this.EditUser.Item2.Profile_Birthday.Value >
-                DateTimeHelper.SqlDbMinTime()
-                    ? PersianDateConverter.ToPersianDate(this.EditUser.Item2.Profile_Birthday.Value)
-                        .ToString("d")
-                    : PersianDateConverter.ToPersianDate(PersianDate.MinValue).ToString("d");
-        }
-        else
-        {
-            this.Input.Birthday =
-                this.EditUser.Item2.Profile_Birthday.HasValue && this.EditUser.Item2.Profile_Birthday.Value >
-                DateTimeHelper.SqlDbMinTime()
-                    ? this.EditUser.Item2.Profile_Birthday.Value.Date.ToString("yyyy-MM-dd")
-                    : DateTimeHelper.SqlDbMinTime().Date.ToString("yyyy-MM-dd");
-        }
+        this.Input.Birthday =
+            this.EditUser.Item2.Profile_Birthday.HasValue && this.EditUser.Item2.Profile_Birthday.Value >
+            DateTimeHelper.SqlDbMinTime()
+                ? this.EditUser.Item2.Profile_Birthday.Value.Date.ToString("yyyy-MM-dd")
+                : DateTimeHelper.SqlDbMinTime().Date.ToString("yyyy-MM-dd");
 
         this.Input.DisplayName = this.EditUser.Item1.DisplayName;
         this.Input.City = this.EditUser.Item2.Profile_City;
@@ -437,33 +427,6 @@ public class UsersProfileModel : AdminPage
     private static List<SelectListItem> LookForNewRegionsBind(string country)
     {
         return StaticDataHelper.Regions(country).ToList();
-    }
-
-    /// <summary>
-    /// Gets the culture.
-    /// </summary>
-    /// <returns>
-    /// The get culture.
-    /// </returns>
-    private string GetCulture()
-    {
-        // Language and culture
-        var languageFile = this.PageBoardContext.BoardSettings.Language;
-        var culture4Tag = this.PageBoardContext.BoardSettings.Culture;
-
-        if (this.EditUser.Item1.LanguageFile.IsSet())
-        {
-            languageFile = this.EditUser.Item1.LanguageFile;
-        }
-
-        if (this.EditUser.Item1.Culture.IsSet())
-        {
-            culture4Tag = this.EditUser.Item1.Culture;
-        }
-
-        // Get first default full culture from a language file tag.
-        var langFileCulture = StaticDataHelper.CultureDefaultFromFile(languageFile);
-        return langFileCulture[..2] == culture4Tag[..2] ? culture4Tag : langFileCulture;
     }
 
     /// <summary>

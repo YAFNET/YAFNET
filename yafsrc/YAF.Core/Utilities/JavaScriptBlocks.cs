@@ -2073,4 +2073,22 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// <returns>System.String.</returns>
     [NotNull]
     public const string StartChatJs = "startChat();";
+
+    [NotNull]
+    public static string PersianDateTimePickerJs([NotNull] string inputId)
+    {
+        return $@"var input = document.querySelector('#{inputId}');
+   
+   if (input !== null)
+   {{
+   input.setAttribute(""type"", ""text"");
+ 
+    new mds.MdsPersianDateTimePicker(input, {{
+       targetTextSelector: '#{inputId}',
+ 
+       selectedDate: new Date(input.value),
+       selectedDateToShow: new Date(input.value)
+     }});
+	 }}";
+    }
 }
