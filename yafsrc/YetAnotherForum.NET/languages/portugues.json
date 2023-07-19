@@ -1763,14 +1763,6 @@
             "#text": "O tema a utilizar neste quadro."
           },
           {
-            "@tag": "BOARD_THREADED",
-            "#text": "Permitir a roscagem:"
-          },
-          {
-            "@tag": "BOARD_THREADED_HELP",
-            "#text": "Permitir a visualização de postes com rosca."
-          },
-          {
             "@tag": "BOARD_TOPIC_DEFAULT",
             "#text": "Mostrar Tópico Default:"
           },
@@ -2323,14 +2315,6 @@
           {
             "@tag": "STATUS_USR_REJECTED",
             "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
-          },
-          {
-            "@tag": "THREADED",
-            "#text": "Permitir a roscagem:"
-          },
-          {
-            "@tag": "THREADED_HELP",
-            "#text": "Permitir a visualização de postes com rosca."
           },
           {
             "@tag": "TITLE",
@@ -7769,14 +7753,6 @@
             "#text": "Definir como Capa"
           },
           {
-            "@tag": "BUTTON_TAGFAVORITE",
-            "#text": "Tag como favorito"
-          },
-          {
-            "@tag": "BUTTON_TAGFAVORITE_TT",
-            "#text": "Marcar este tópico como um favorito."
-          },
-          {
             "@tag": "BUTTON_THANKS",
             "#text": "Obrigado"
           },
@@ -7807,14 +7783,6 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Desbloquear este tópico"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE",
-            "#text": "Desmarcar como favorito"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE_TT",
-            "#text": "Retire este tópico da sua lista de Favoritos."
           }
         ]
       },
@@ -9583,10 +9551,6 @@
             "#text": "Subscrever tópicos activos através do Atom."
           },
           {
-            "@tag": "ATOMICONTOOLTIPFAVORITE",
-            "#text": "Subscreva os seus tópicos favoritos através do Atom."
-          },
-          {
             "@tag": "ATOMICONTOOLTIPFORUM",
             "#text": "Inscrever-se no fórum Atom feed."
           },
@@ -9701,18 +9665,6 @@
           {
             "@tag": "RECENT_USERS",
             "#text": "Utilizadores recentes"
-          },
-          {
-            "@tag": "RSSICONTOOLTIPACTIVE",
-            "#text": "Inscrever-se em tópicos activos via RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFAVORITE",
-            "#text": "Subscreva os seus tópicos favoritos via RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFORUM",
-            "#text": "Subscrever o feed RSS do fórum."
           },
           {
             "@tag": "SHOW_UNREAD_ONLY",
@@ -10263,10 +10215,6 @@
           {
             "@tag": "XMPP",
             "#text": "A sua identificação Jabber:"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "A sua ID Yahoo:"
           }
         ]
       },
@@ -10618,14 +10566,6 @@
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Amigos"
-          },
-          {
-            "@tag": "DISPLAYCONTENT",
-            "#text": "<p>Você tem uma escolha sobre a forma como vê os tópicos. Quando estiver num fio, olhe para a barra superior. No lado direito, verá 'Ver'. Clique nisto e poderá alterar a forma como as mensagens são ordenadas.</p>\r\n<p>Você tem duas escolhas:</p>\r\n<ul>\r\n  <li>>forte>Normal</forte> - Os postes são exibidos cronologicamente, geralmente do mais antigo para o mais recente. Os postes são mostrados em modo plano, para que muitos postes possam ser vistos simultaneamente. </li>\r\n  <li>>forte>Torrada</strong> - Uma árvore é mostrada juntamente com cada poste. Isto mostra-lhe a relação que cada poste tem com os outros. É fácil de ver quem respondeu a quem. Apenas um post é mostrado de cada vez. Ao clicar num único post na árvore de posts, a página mostrará esse post e todos os posts feitos em resposta a ele.</li>\r\n</ul>\r\n"
-          },
-          {
-            "@tag": "DISPLAYTITLE",
-            "#text": "Opções de visualização da linha"
           },
           {
             "@tag": "EDITDELETECONTENT",
@@ -10981,24 +10921,6 @@
         ]
       },
       {
-        "@name": "IM_MSN",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "MSN Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_SKYPE",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Skype(tm) Chamada"
-          }
-        ]
-      },
-      {
         "@name": "IM_XMPP",
         "Resource": [
           {
@@ -11016,15 +10938,6 @@
           {
             "@tag": "TITLE",
             "#text": "Mensageiro XMPP"
-          }
-        ]
-      },
-      {
-        "@name": "IM_YIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Yahoo! Mensageiro"
           }
         ]
       },
@@ -12273,10 +12186,6 @@
             "#text": "por {0}"
           },
           {
-            "@tag": "FAVORITETOPICS",
-            "#text": "Tópicos favoritos"
-          },
-          {
             "@tag": "GUESTTITLE",
             "#text": "Tópicos Activos"
           },
@@ -13362,10 +13271,6 @@
             "#text": "Foi agradecido: {Tempo(s) em {1} postagem(ões)"
           },
           {
-            "@tag": "THREADED",
-            "#text": "Indentada"
-          },
-          {
             "@tag": "TIP_DELETE_TOPIC",
             "#text": "Excluir este Tópico"
           },
@@ -13520,14 +13425,6 @@
           {
             "@tag": "XMPP_TITLE",
             "#text": "Contacto {0} via Jabber"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "YAHOO"
-          },
-          {
-            "@tag": "YIM_TITLE",
-            "#text": "Contacto {0} via Yahoo Instant Messenger"
           }
         ]
       },
@@ -13811,10 +13708,6 @@
           {
             "@tag": "YEARS",
             "#text": "Ano(s)"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Yahoo Messenger:"
           }
         ]
       },
@@ -15282,10 +15175,6 @@
             "#text": "Criado"
           },
           {
-            "@tag": "FAVORITE_COUNT_TT",
-            "#text": "Quantas vezes adicionadas aos favoritos"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Fórum"
           },
@@ -15420,31 +15309,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Ontem[/b] às {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "VIEWTHANKS",
-        "Resource": [
-          {
-            "@tag": "NO_THANKS",
-            "#text": "[b]Não foram encontrados agradecimentos [/b]."
-          },
-          {
-            "@tag": "THANKSFROMUSER",
-            "#text": "{0} agradecido"
-          },
-          {
-            "@tag": "THANKSNUMBER",
-            "#text": "Foi agradecido: [b]{0}[/b] tempo(s)"
-          },
-          {
-            "@tag": "THANKSTOUSER",
-            "#text": "{0} foi agradecido"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Ver Obrigado"
           }
         ]
       }

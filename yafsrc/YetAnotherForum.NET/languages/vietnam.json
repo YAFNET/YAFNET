@@ -1763,14 +1763,6 @@
             "#text": "Chủ đề để sử dụng trên bảng này."
           },
           {
-            "@tag": "BOARD_THREADED",
-            "#text": "Cho phép phân luồng:"
-          },
-          {
-            "@tag": "BOARD_THREADED_HELP",
-            "#text": "Cho phép xem theo luồng cho các bài đăng."
-          },
-          {
             "@tag": "BOARD_TOPIC_DEFAULT",
             "#text": "Hiển thị Mặc định Chủ đề:"
           },
@@ -2323,14 +2315,6 @@
           {
             "@tag": "STATUS_USR_REJECTED",
             "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
-          },
-          {
-            "@tag": "THREADED",
-            "#text": "Cho phép phân luồng:"
-          },
-          {
-            "@tag": "THREADED_HELP",
-            "#text": "Cho phép xem theo luồng cho các bài đăng."
           },
           {
             "@tag": "TITLE",
@@ -7769,14 +7753,6 @@
             "#text": "Đặt làm bìa"
           },
           {
-            "@tag": "BUTTON_TAGFAVORITE",
-            "#text": "Tag ưa thích"
-          },
-          {
-            "@tag": "BUTTON_TAGFAVORITE_TT",
-            "#text": "Chủ đề có Tag ưa thích."
-          },
-          {
             "@tag": "BUTTON_THANKS",
             "#text": "Cảm ơn"
           },
@@ -7807,14 +7783,6 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Mở khoá chủ đề này"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE",
-            "#text": "Bỏ chọn Tag"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE_TT",
-            "#text": "Xóa chủ đề ra khỏi danh sách ưa thích."
           }
         ]
       },
@@ -9583,10 +9551,6 @@
             "#text": "Đăng ký các chủ đề đang hoạt động qua Atom."
           },
           {
-            "@tag": "ATOMICONTOOLTIPFAVORITE",
-            "#text": "Đăng ký các chủ đề yêu thích của bạn qua Atom."
-          },
-          {
             "@tag": "ATOMICONTOOLTIPFORUM",
             "#text": "Đăng ký nguồn cấp dữ liệu Atom của diễn đàn."
           },
@@ -9701,18 +9665,6 @@
           {
             "@tag": "RECENT_USERS",
             "#text": "Người dùng gần đây"
-          },
-          {
-            "@tag": "RSSICONTOOLTIPACTIVE",
-            "#text": "Đăng ký các chủ đề đang hoạt động qua RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFAVORITE",
-            "#text": "Đăng ký các chủ đề yêu thích của bạn qua RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFORUM",
-            "#text": "Đăng ký nguồn cấp dữ liệu RSS của diễn đàn."
           },
           {
             "@tag": "SHOW_UNREAD_ONLY",
@@ -10263,10 +10215,6 @@
           {
             "@tag": "XMPP",
             "#text": "ID Jabber của bạn:"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "ID Yahoo của bạn:"
           }
         ]
       },
@@ -10618,14 +10566,6 @@
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Bạn bè"
-          },
-          {
-            "@tag": "DISPLAYCONTENT",
-            "#text": "<p>Bạn có quyền lựa chọn về cách bạn xem các chủ đề. Khi bạn đang ở trong một chuỗi, hãy nhìn vào thanh trên cùng. Ở bên tay phải, bạn sẽ thấy &#39;Chế độ xem&#39;. Nhấp vào đây và nó cho phép bạn thay đổi cách sắp xếp các bài viết.</p><p> Bạn có hai lựa chọn:</p><ul><li> <strong>Bình thường</strong> - Các bài đăng được hiển thị theo thứ tự thời gian, thường là từ cũ nhất đến mới nhất. Bài viết được hiển thị ở chế độ phẳng để có thể xem đồng thời nhiều bài viết.</li><li> <strong>Threaded</strong> - Một cây được hiển thị cùng với mỗi bài đăng. Điều này cho bạn thấy mối quan hệ của mỗi bài đăng với những người khác. Thật dễ dàng để xem ai đã trả lời ai. Chỉ có một bài được hiển thị tại một thời điểm. Bằng cách nhấp vào một bài đăng trong cây bài đăng, trang sẽ hiển thị bài đăng đó và tất cả các bài đăng được thực hiện để phản hồi.</li></ul>"
-          },
-          {
-            "@tag": "DISPLAYTITLE",
-            "#text": "Tùy chọn hiển thị chuỗi"
           },
           {
             "@tag": "EDITDELETECONTENT",
@@ -10981,24 +10921,6 @@
         ]
       },
       {
-        "@name": "IM_MSN",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Ứng dụng tin nhắn Microsoft Network"
-          }
-        ]
-      },
-      {
-        "@name": "IM_SKYPE",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Gọi điện qua Skype (tm)"
-          }
-        ]
-      },
-      {
         "@name": "IM_XMPP",
         "Resource": [
           {
@@ -11016,15 +10938,6 @@
           {
             "@tag": "TITLE",
             "#text": "XMPP Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_YIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Yahoo! Tin nhắn"
           }
         ]
       },
@@ -12273,10 +12186,6 @@
             "#text": "bởi {0}"
           },
           {
-            "@tag": "FAVORITETOPICS",
-            "#text": "Chủ đề ưa thích"
-          },
-          {
             "@tag": "GUESTTITLE",
             "#text": "Chủ đề có bài mới"
           },
@@ -13362,10 +13271,6 @@
             "#text": "Được cảm ơn: {0} lần trong {1} bài viết"
           },
           {
-            "@tag": "THREADED",
-            "#text": "Phân luồng"
-          },
-          {
             "@tag": "TIP_DELETE_TOPIC",
             "#text": "Xóa chủ đề"
           },
@@ -13520,14 +13425,6 @@
           {
             "@tag": "XMPP_TITLE",
             "#text": "Liên hệ với {0} qua Jabber"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "YAHOO"
-          },
-          {
-            "@tag": "YIM_TITLE",
-            "#text": "Liên hệ với {0} qua Yahoo Instant Messenger"
           }
         ]
       },
@@ -13811,10 +13708,6 @@
           {
             "@tag": "YEARS",
             "#text": "Năm"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Yahoo Messenger:"
           }
         ]
       },
@@ -15282,10 +15175,6 @@
             "#text": "Tạo"
           },
           {
-            "@tag": "FAVORITE_COUNT_TT",
-            "#text": "Đã thêm bao nhiêu lần vào mục yêu thích"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Diễn đàn"
           },
@@ -15420,31 +15309,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Hôm qua[/b] vào lúc {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "VIEWTHANKS",
-        "Resource": [
-          {
-            "@tag": "NO_THANKS",
-            "#text": "[b] Không tìm thấy lời cảm ơn nào. [/ b]"
-          },
-          {
-            "@tag": "THANKSFROMUSER",
-            "#text": "{0} cảm ơn"
-          },
-          {
-            "@tag": "THANKSNUMBER",
-            "#text": "Đã được cảm ơn: [b] {0} [/ b] thời gian"
-          },
-          {
-            "@tag": "THANKSTOUSER",
-            "#text": "{0} đã được cảm ơn"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Xem Cảm ơn"
           }
         ]
       }

@@ -1763,14 +1763,6 @@
             "#text": "Il tema da utilizzare su questa scheda."
           },
           {
-            "@tag": "BOARD_THREADED",
-            "#text": "Consentire la filettatura:"
-          },
-          {
-            "@tag": "BOARD_THREADED_HELP",
-            "#text": "Consentire la visualizzazione in thread dei messaggi."
-          },
-          {
             "@tag": "BOARD_TOPIC_DEFAULT",
             "#text": "Mostra argomento predefinito:"
           },
@@ -2323,14 +2315,6 @@
           {
             "@tag": "STATUS_USR_REJECTED",
             "#text": "La richiesta di creazione di un utente è stata annullata. Verificare l'inserimento e riprovare. Se il problema persiste, contattare l'amministratore di sistema."
-          },
-          {
-            "@tag": "THREADED",
-            "#text": "Consentire la filettatura:"
-          },
-          {
-            "@tag": "THREADED_HELP",
-            "#text": "Consentire la visualizzazione in thread dei messaggi."
           },
           {
             "@tag": "TITLE",
@@ -7761,14 +7745,6 @@
             "#text": "Imposta come copertina"
           },
           {
-            "@tag": "BUTTON_TAGFAVORITE",
-            "#text": "Aggiungi a preferite"
-          },
-          {
-            "@tag": "BUTTON_TAGFAVORITE_TT",
-            "#text": "Aggiungi questa discussione fra quelle preferite"
-          },
-          {
             "@tag": "BUTTON_THANKS",
             "#text": "Grazie"
           },
@@ -7799,14 +7775,6 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Apri questa discussione"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE",
-            "#text": "Rimuovi da preferite"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE_TT",
-            "#text": "Elimina questa discussione dal tuo elenco di discussioni preferite."
           }
         ]
       },
@@ -9575,10 +9543,6 @@
             "#text": "Sottoscrivi le discussioni attive tramite feed Atom."
           },
           {
-            "@tag": "ATOMICONTOOLTIPFAVORITE",
-            "#text": "Sottoscrivi le tue discussioni preferite tramite feed Atom."
-          },
-          {
             "@tag": "ATOMICONTOOLTIPFORUM",
             "#text": "Sottoscrivi i feed Atom del forum."
           },
@@ -9693,18 +9657,6 @@
           {
             "@tag": "RECENT_USERS",
             "#text": "Di recente"
-          },
-          {
-            "@tag": "RSSICONTOOLTIPACTIVE",
-            "#text": "Sottoscrivi le discussioni attive tramite RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFAVORITE",
-            "#text": "Sottoscrivi le tue discussioni preferite tramite RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFORUM",
-            "#text": "Sottoscrivi i feed RSS del forum."
           },
           {
             "@tag": "SHOW_UNREAD_ONLY",
@@ -10255,10 +10207,6 @@
           {
             "@tag": "XMPP",
             "#text": "Il tuo ID Jabber:"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Il tuo ID Yahoo:"
           }
         ]
       },
@@ -10612,14 +10560,6 @@
             "#text": "Buddies"
           },
           {
-            "@tag": "DISPLAYCONTENT",
-            "#text": "<p> Si può scegliere come visualizzare gli argomenti. Quando sei in una discussione, guarda la barra superiore. Sul lato destro vedrai \"Visualizza\". Facendo clic su di essa è possibile modificare l'ordine dei messaggi.</p>\r\n<p>Ci sono due possibilità: </p>\r\n<ul>\r\n  <li><strong>Normale</strong> - I post sono visualizzati in ordine cronologico, di solito dal più vecchio al più recente. I post sono mostrati in modalità flat, in modo da poter visualizzare molti post contemporaneamente. </li>\r\n  <li><strong>Threaded</strong> - Un albero viene mostrato insieme a ogni post. Questo mostra la relazione tra ogni post e gli altri. È facile vedere chi ha risposto a chi. Viene mostrato solo un post alla volta. Facendo clic su un singolo post nell'albero dei post, la pagina mostrerà quel post e tutti i post fatti in risposta ad esso.</li>\r\n</ul>\r\n"
-          },
-          {
-            "@tag": "DISPLAYTITLE",
-            "#text": "Opzioni di visualizzazione delle discussioni"
-          },
-          {
             "@tag": "EDITDELETECONTENT",
             "#text": "<p>Se sei attualmente registrato e loggato, potresti essere in grado di modificare e cancellare i tuoi messaggi (se l'amministratore non ha disattivato questa opzione). </p>\r\n<p>Per modificare o cancellare i propri messaggi, fare clic sul pulsante \"Modifica\" accanto al messaggio in questione. Se il vostro messaggio è stato il primo della discussione, la sua cancellazione può rimuovere l'intera discussione.</p>\r\n<p>Una volta apportate le modifiche, una nota, in fondo al post, apparirà per informare gli altri utenti che avete modificato il vostro post.</p>\r\n<p>Si prega di inserire nel campo 'Motivo della modifica' anche il motivo per cui si è modificato il messaggio.</p>\r\n<p><strong>Gli altri possono modificare i miei messaggi? </strong></p>\r\n<p>Anche gli amministratori e i moderatori possono modificare i tuoi messaggi. Se lo fanno, appare una nota in fondo che informa gli altri utenti che il messaggio è stato modificato.</p>"
           },
@@ -10965,24 +10905,6 @@
         ]
       },
       {
-        "@name": "IM_MSN",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "MSN Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_SKYPE",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Chiamata Skype"
-          }
-        ]
-      },
-      {
         "@name": "IM_XMPP",
         "Resource": [
           {
@@ -11000,15 +10922,6 @@
           {
             "@tag": "TITLE",
             "#text": "Messaggero XMPP"
-          }
-        ]
-      },
-      {
-        "@name": "IM_YIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Yahoo! Messaggero"
           }
         ]
       },
@@ -12257,10 +12170,6 @@
             "#text": "Da {0}"
           },
           {
-            "@tag": "FAVORITETOPICS",
-            "#text": "Discussioni preferite"
-          },
-          {
             "@tag": "GUESTTITLE",
             "#text": "Discussioni attive"
           },
@@ -13346,10 +13255,6 @@
             "#text": "E' stato ringraziato: {0} volte in {1} messaggi"
           },
           {
-            "@tag": "THREADED",
-            "#text": "Visualizzazione gerarchica"
-          },
-          {
             "@tag": "TIP_DELETE_TOPIC",
             "#text": "Cancella questa discussione"
           },
@@ -13500,14 +13405,6 @@
           {
             "@tag": "XMPP_TITLE",
             "#text": "Contata {0} tramite Jabber"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Yahoo!"
-          },
-          {
-            "@tag": "YIM_TITLE",
-            "#text": "Contatta {0} tramite Yahoo Instant Messenger"
           }
         ]
       },
@@ -13791,10 +13688,6 @@
           {
             "@tag": "YEARS",
             "#text": "Anno/i"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Yahoo Messenger:"
           }
         ]
       },
@@ -15266,10 +15159,6 @@
             "#text": "Creato"
           },
           {
-            "@tag": "FAVORITE_COUNT_TT",
-            "#text": "Numero di volte in cui è stato aggiunto ai preferiti"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Forum"
           },
@@ -15404,31 +15293,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Ieri[/b] alle {0:t}"
-          }
-        ]
-      },
-      {
-        "@name": "VIEWTHANKS",
-        "Resource": [
-          {
-            "@tag": "NO_THANKS",
-            "#text": "[b]Nessun ringraziamento trovato.[/b]"
-          },
-          {
-            "@tag": "THANKSFROMUSER",
-            "#text": "{0} ha ringraziato"
-          },
-          {
-            "@tag": "THANKSNUMBER",
-            "#text": "E' stato ringraziato [b]{0}[/b] volte"
-          },
-          {
-            "@tag": "THANKSTOUSER",
-            "#text": "{0} è stato ringraziato"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Mostra ringraziamenti"
           }
         ]
       }

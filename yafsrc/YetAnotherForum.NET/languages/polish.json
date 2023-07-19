@@ -1763,14 +1763,6 @@
             "#text": "Styl używany na tym forum."
           },
           {
-            "@tag": "BOARD_THREADED",
-            "#text": "Widok drzewa:"
-          },
-          {
-            "@tag": "BOARD_THREADED_HELP",
-            "#text": "Pozwól na widok drzewa dla postów."
-          },
-          {
             "@tag": "BOARD_TOPIC_DEFAULT",
             "#text": "Domyślnie pokaż tematy:"
           },
@@ -2323,14 +2315,6 @@
           {
             "@tag": "STATUS_USR_REJECTED",
             "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
-          },
-          {
-            "@tag": "THREADED",
-            "#text": "Umożliwiają gwintowanie:"
-          },
-          {
-            "@tag": "THREADED_HELP",
-            "#text": "Umożliwienie wyświetlania postów w wątku."
           },
           {
             "@tag": "TITLE",
@@ -7761,14 +7745,6 @@
             "#text": "Ustaw jako okładkę"
           },
           {
-            "@tag": "BUTTON_TAGFAVORITE",
-            "#text": "Zaznacz jako ulubiony"
-          },
-          {
-            "@tag": "BUTTON_TAGFAVORITE_TT",
-            "#text": "Zaznacz ten temat jako ulubiony"
-          },
-          {
             "@tag": "BUTTON_THANKS",
             "#text": "Dziękuje"
           },
@@ -7799,14 +7775,6 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Otwórz ten temat"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE",
-            "#text": "Odznacz z ulubionych"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE_TT",
-            "#text": "Usuń ten temat z Twojej listy ulubionych."
           }
         ]
       },
@@ -9579,10 +9547,6 @@
             "#text": "Zapisz się do aktywnych tematów przez Atom."
           },
           {
-            "@tag": "ATOMICONTOOLTIPFAVORITE",
-            "#text": "Zapisz się do swoich ulubionych tematów przez Atom."
-          },
-          {
             "@tag": "ATOMICONTOOLTIPFORUM",
             "#text": "Zapisz się do kanału forum Atom."
           },
@@ -9697,18 +9661,6 @@
           {
             "@tag": "RECENT_USERS",
             "#text": "Ostatni Użytkownicy"
-          },
-          {
-            "@tag": "RSSICONTOOLTIPACTIVE",
-            "#text": "Subskrybyj aktywne tematy przez RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFAVORITE",
-            "#text": "Subsskrybuj ulubione tematy przez RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFORUM",
-            "#text": "Zapisz się do kanału RSS."
           },
           {
             "@tag": "SHOW_UNREAD_ONLY",
@@ -10259,10 +10211,6 @@
           {
             "@tag": "XMPP",
             "#text": "Twoja nazwa użytkownika Jabbera:"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Twój Yahoo ID:"
           }
         ]
       },
@@ -10616,14 +10564,6 @@
             "#text": "Przyjaciele"
           },
           {
-            "@tag": "DISPLAYCONTENT",
-            "#text": "<p>Masz możliwość wyboru sposobu wyświetlania tematów. Kiedy jesteś w danym wątku, spójrz na górny pasek. Po prawej stronie zobaczysz opcję \"Widok\". Kliknij na nią, aby zmienić sposób, w jaki posty są uporządkowane.</p> <p>Masz dwie możliwości\r\n<p>Masz do wyboru dwie opcje:</p> <p>\r\n<ul>\r\n  <li><strong>Normalny</strong> - Posty są wyświetlane chronologicznie, zwykle od najstarszego do najnowszego. Posty są wyświetlane w trybie płaskim, dzięki czemu można przeglądać wiele postów jednocześnie. </li>.\r\n  <li><strong>Threaded</strong> - Wraz z każdym postem wyświetlane jest drzewo. Pokazuje ono powiązania każdego postu z innymi. Łatwo jest sprawdzić, kto komu odpowiedział. W danym momencie wyświetlany jest tylko jeden post. Po kliknięciu na pojedynczy post w drzewie postów strona pokaże ten post i wszystkie posty, które zostały napisane w odpowiedzi na niego.</li>\r\n</ul>.\r\n"
-          },
-          {
-            "@tag": "DISPLAYTITLE",
-            "#text": "Opcje wyświetlania wątków"
-          },
-          {
             "@tag": "EDITDELETECONTENT",
             "#text": "<p>Jeśli jesteś obecnie zarejestrowany i zalogowany, możesz mieć możliwość edytowania i usuwania swoich wiadomości (jeśli administrator nie wyłączył tej opcji). </p>\r\n<p>Aby edytować lub usunąć swoje posty, kliknij przycisk 'Edytuj' przy danym poście. Jeśli Twój post był pierwszym w wątku, to usunięcie go może spowodować usunięcie całego wątku.</p> <p>\r\n<p>Po wprowadzeniu zmian, na dole postu pojawi się notatka informująca innych użytkowników, że edytowałeś swój post.</p> <p>\r\n<p>Proszę również wpisać w polu \"Powód edycji\" powód, dla którego edytowałeś tę wiadomość.</p> <p>\r\n<p><strong>Czy inni mogą edytować moje posty?\r\n<p>Administratorzy i moderatorzy mogą również edytować Twoje wiadomości. Jeśli to zrobią, na dole wiadomości pojawi się informacja dla innych użytkowników, że post został zmodyfikowany.</p> <p>"
           },
@@ -10969,24 +10909,6 @@
         ]
       },
       {
-        "@name": "IM_MSN",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Komunikator MSN"
-          }
-        ]
-      },
-      {
-        "@name": "IM_SKYPE",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Skype"
-          }
-        ]
-      },
-      {
         "@name": "IM_XMPP",
         "Resource": [
           {
@@ -11004,15 +10926,6 @@
           {
             "@tag": "TITLE",
             "#text": "Jabber"
-          }
-        ]
-      },
-      {
-        "@name": "IM_YIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Wieśniak! Posłaniec"
           }
         ]
       },
@@ -12261,10 +12174,6 @@
             "#text": "przez {0}"
           },
           {
-            "@tag": "FAVORITETOPICS",
-            "#text": "Ulubione tematy"
-          },
-          {
             "@tag": "GUESTTITLE",
             "#text": "Aktywne Tematy"
           },
@@ -13350,10 +13259,6 @@
             "#text": "Podziękował: {0} razy w {1} postach"
           },
           {
-            "@tag": "THREADED",
-            "#text": "Wątkowany"
-          },
-          {
             "@tag": "TIP_DELETE_TOPIC",
             "#text": "Usuń ten temat"
           },
@@ -13504,14 +13409,6 @@
           {
             "@tag": "XMPP_TITLE",
             "#text": "Skontaktuj się z {0} przez Jabbera"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "WIEŚNIAK"
-          },
-          {
-            "@tag": "YIM_TITLE",
-            "#text": "Skontaktuj się z {0} przez Yahoo IM"
           }
         ]
       },
@@ -13795,10 +13692,6 @@
           {
             "@tag": "YEARS",
             "#text": "Rok(y)"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Yahoo Messenger:"
           }
         ]
       },
@@ -15266,10 +15159,6 @@
             "#text": "Stworzony"
           },
           {
-            "@tag": "FAVORITE_COUNT_TT",
-            "#text": "Ile razy dodano do ulubionych"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Forum"
           },
@@ -15404,31 +15293,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Wczoraj[/b] o godzinie {0:T}."
-          }
-        ]
-      },
-      {
-        "@name": "VIEWTHANKS",
-        "Resource": [
-          {
-            "@tag": "NO_THANKS",
-            "#text": "[b]Nie znaleziono podziękowań.[/b]"
-          },
-          {
-            "@tag": "THANKSFROMUSER",
-            "#text": "{0} podziękował"
-          },
-          {
-            "@tag": "THANKSNUMBER",
-            "#text": "Podziękowano: [b]{0}[/b] razy"
-          },
-          {
-            "@tag": "THANKSTOUSER",
-            "#text": "{0} otrzymał podziękowania"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Pokaż podziękowania"
           }
         ]
       }

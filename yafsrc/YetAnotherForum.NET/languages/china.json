@@ -1763,14 +1763,6 @@
             "#text": "在此板上使用的主题。"
           },
           {
-            "@tag": "BOARD_THREADED",
-            "#text": "允许线程："
-          },
-          {
-            "@tag": "BOARD_THREADED_HELP",
-            "#text": "允许帖子的线程视图。"
-          },
-          {
             "@tag": "BOARD_TOPIC_DEFAULT",
             "#text": "显示主题默认值："
           },
@@ -2323,14 +2315,6 @@
           {
             "@tag": "STATUS_USR_REJECTED",
             "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
-          },
-          {
-            "@tag": "THREADED",
-            "#text": "允许线程："
-          },
-          {
-            "@tag": "THREADED_HELP",
-            "#text": "允许帖子的线程视图。"
           },
           {
             "@tag": "TITLE",
@@ -7769,14 +7753,6 @@
             "#text": "设为封面"
           },
           {
-            "@tag": "BUTTON_TAGFAVORITE",
-            "#text": "标记为收藏"
-          },
-          {
-            "@tag": "BUTTON_TAGFAVORITE_TT",
-            "#text": "将此主题标记为收藏。"
-          },
-          {
             "@tag": "BUTTON_THANKS",
             "#text": "感谢"
           },
@@ -7807,14 +7783,6 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "解锁主题"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE",
-            "#text": "取消标记为收藏"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE_TT",
-            "#text": "从您的收藏夹列表中删除该主题。"
           }
         ]
       },
@@ -9583,10 +9551,6 @@
             "#text": "通过 Atom 订阅活跃主题。"
           },
           {
-            "@tag": "ATOMICONTOOLTIPFAVORITE",
-            "#text": "通过 Atom 订阅您喜欢的主题。"
-          },
-          {
             "@tag": "ATOMICONTOOLTIPFORUM",
             "#text": "订阅论坛 Atom 提要。"
           },
@@ -9701,18 +9665,6 @@
           {
             "@tag": "RECENT_USERS",
             "#text": "最近的用户"
-          },
-          {
-            "@tag": "RSSICONTOOLTIPACTIVE",
-            "#text": "通过 RSS 订阅活跃主题。"
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFAVORITE",
-            "#text": "通过 RSS 订阅您喜欢的主题。"
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFORUM",
-            "#text": "订阅论坛 RSS 提要。"
           },
           {
             "@tag": "SHOW_UNREAD_ONLY",
@@ -10263,10 +10215,6 @@
           {
             "@tag": "XMPP",
             "#text": "您的 Jabber ID："
-          },
-          {
-            "@tag": "YIM",
-            "#text": "您的雅虎 ID："
           }
         ]
       },
@@ -10618,14 +10566,6 @@
           {
             "@tag": "BUDDIESTITLE",
             "#text": "朋友们"
-          },
-          {
-            "@tag": "DISPLAYCONTENT",
-            "#text": "<p>您可以选择查看主题的方式。"
-          },
-          {
-            "@tag": "DISPLAYTITLE",
-            "#text": "线程显示选项"
           },
           {
             "@tag": "EDITDELETECONTENT",
@@ -10981,24 +10921,6 @@
         ]
       },
       {
-        "@name": "IM_MSN",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "MSN 信使"
-          }
-        ]
-      },
-      {
-        "@name": "IM_SKYPE",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Skype(tm) 通话"
-          }
-        ]
-      },
-      {
         "@name": "IM_XMPP",
         "Resource": [
           {
@@ -11016,15 +10938,6 @@
           {
             "@tag": "TITLE",
             "#text": "XMPP 信使"
-          }
-        ]
-      },
-      {
-        "@name": "IM_YIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "雅虎！"
           }
         ]
       },
@@ -12273,10 +12186,6 @@
             "#text": "由 {0}"
           },
           {
-            "@tag": "FAVORITETOPICS",
-            "#text": "收藏主题"
-          },
-          {
             "@tag": "GUESTTITLE",
             "#text": "活动主题"
           },
@@ -13362,10 +13271,6 @@
             "#text": "被感谢：在 {1} 个帖子中 {0} 次"
           },
           {
-            "@tag": "THREADED",
-            "#text": "线索模式"
-          },
-          {
             "@tag": "TIP_DELETE_TOPIC",
             "#text": "删除此主题"
           },
@@ -13520,14 +13425,6 @@
           {
             "@tag": "XMPP_TITLE",
             "#text": "通过 Jabber 联系 {0}"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "雅虎"
-          },
-          {
-            "@tag": "YIM_TITLE",
-            "#text": "通过 Yahoo Instant Messenger 联系 {0}"
           }
         ]
       },
@@ -13811,10 +13708,6 @@
           {
             "@tag": "YEARS",
             "#text": "年）"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "雅虎通："
           }
         ]
       },
@@ -15282,10 +15175,6 @@
             "#text": "创建"
           },
           {
-            "@tag": "FAVORITE_COUNT_TT",
-            "#text": "收藏次数"
-          },
-          {
             "@tag": "FORUM",
             "#text": "论坛"
           },
@@ -15420,31 +15309,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]昨天[/b] 于 {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "VIEWTHANKS",
-        "Resource": [
-          {
-            "@tag": "NO_THANKS",
-            "#text": "[b]什么也没找到.[/b]"
-          },
-          {
-            "@tag": "THANKSFROMUSER",
-            "#text": "{0} 谢谢"
-          },
-          {
-            "@tag": "THANKSNUMBER",
-            "#text": "感谢：[b]{0}[/b] 次"
-          },
-          {
-            "@tag": "THANKSTOUSER",
-            "#text": "感谢{0}"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "查看感谢"
           }
         ]
       }

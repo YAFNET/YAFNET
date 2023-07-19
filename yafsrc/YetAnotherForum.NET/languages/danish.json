@@ -1763,14 +1763,6 @@
             "#text": "Temaet, der skal bruges på denne tavle."
           },
           {
-            "@tag": "BOARD_THREADED",
-            "#text": "Tillad trådet:"
-          },
-          {
-            "@tag": "BOARD_THREADED_HELP",
-            "#text": "Tillad trådvisning for indlæg."
-          },
-          {
             "@tag": "BOARD_TOPIC_DEFAULT",
             "#text": "Vis emnestandard:"
           },
@@ -2323,14 +2315,6 @@
           {
             "@tag": "STATUS_USR_REJECTED",
             "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
-          },
-          {
-            "@tag": "THREADED",
-            "#text": "Tillad trådet:"
-          },
-          {
-            "@tag": "THREADED_HELP",
-            "#text": "Tillad trådvisning for indlæg."
           },
           {
             "@tag": "TITLE",
@@ -7769,14 +7753,6 @@
             "#text": "Brug som forside"
           },
           {
-            "@tag": "BUTTON_TAGFAVORITE",
-            "#text": "Markér som favorit"
-          },
-          {
-            "@tag": "BUTTON_TAGFAVORITE_TT",
-            "#text": "Markér dette emne som en favorit."
-          },
-          {
             "@tag": "BUTTON_THANKS",
             "#text": "Tak"
           },
@@ -7807,14 +7783,6 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Lås dette emne op"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE",
-            "#text": "Fjern favorit markering"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE_TT",
-            "#text": "Fjern dette emne fra din favorit liste."
           }
         ]
       },
@@ -9583,10 +9551,6 @@
             "#text": "Abonner på aktive emner via Atom."
           },
           {
-            "@tag": "ATOMICONTOOLTIPFAVORITE",
-            "#text": "Abonner på dine yndlingsemner via Atom."
-          },
-          {
             "@tag": "ATOMICONTOOLTIPFORUM",
             "#text": "Abonner på forum Atom-feed."
           },
@@ -9701,18 +9665,6 @@
           {
             "@tag": "RECENT_USERS",
             "#text": "Seneste brugere"
-          },
-          {
-            "@tag": "RSSICONTOOLTIPACTIVE",
-            "#text": "Tilmeld dig aktive emner via RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFAVORITE",
-            "#text": "Tilmeld dine favorit emner via RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFORUM",
-            "#text": "Tilmeld til forum RSS feed."
           },
           {
             "@tag": "SHOW_UNREAD_ONLY",
@@ -10263,10 +10215,6 @@
           {
             "@tag": "XMPP",
             "#text": "Dit Jabber-id:"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Dit Yahoo ID:"
           }
         ]
       },
@@ -10618,14 +10566,6 @@
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Venner"
-          },
-          {
-            "@tag": "DISPLAYCONTENT",
-            "#text": "<p>Du kan vælge, hvordan du ser emner. "
-          },
-          {
-            "@tag": "DISPLAYTITLE",
-            "#text": "Indstillinger for trådvisning"
           },
           {
             "@tag": "EDITDELETECONTENT",
@@ -10981,24 +10921,6 @@
         ]
       },
       {
-        "@name": "IM_MSN",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "MSN Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_SKYPE",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Skype(tm) opkald"
-          }
-        ]
-      },
-      {
         "@name": "IM_XMPP",
         "Resource": [
           {
@@ -11016,15 +10938,6 @@
           {
             "@tag": "TITLE",
             "#text": "XMPP Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_YIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Yahoo! "
           }
         ]
       },
@@ -12273,10 +12186,6 @@
             "#text": "af {0}"
           },
           {
-            "@tag": "FAVORITETOPICS",
-            "#text": "Favorit emner"
-          },
-          {
             "@tag": "GUESTTITLE",
             "#text": "Aktive emner"
           },
@@ -13362,10 +13271,6 @@
             "#text": "Blev takket: {0} gang(e) i {1} indlæg"
           },
           {
-            "@tag": "THREADED",
-            "#text": "Trådet"
-          },
-          {
             "@tag": "TIP_DELETE_TOPIC",
             "#text": "Slet dette emne"
           },
@@ -13520,14 +13425,6 @@
           {
             "@tag": "XMPP_TITLE",
             "#text": "Kontakt {0} via Jabber"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "YAHOO"
-          },
-          {
-            "@tag": "YIM_TITLE",
-            "#text": "Kontakt {0} via Yahoo Instant Messenger"
           }
         ]
       },
@@ -13811,10 +13708,6 @@
           {
             "@tag": "YEARS",
             "#text": "Flere år)"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Yahoo Messenger:"
           }
         ]
       },
@@ -15282,10 +15175,6 @@
             "#text": "Lavet"
           },
           {
-            "@tag": "FAVORITE_COUNT_TT",
-            "#text": "Hvor mange gange føjet til favoritter"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Forum"
           },
@@ -15420,31 +15309,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Igår[/b] klokken {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "VIEWTHANKS",
-        "Resource": [
-          {
-            "@tag": "NO_THANKS",
-            "#text": "[b]Ingen tak.[/b]"
-          },
-          {
-            "@tag": "THANKSFROMUSER",
-            "#text": "{0} takket"
-          },
-          {
-            "@tag": "THANKSNUMBER",
-            "#text": "Blev takket: [b]{0}[/b] gang(e)"
-          },
-          {
-            "@tag": "THANKSTOUSER",
-            "#text": "{0} blev takket"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Vis takninger"
           }
         ]
       }

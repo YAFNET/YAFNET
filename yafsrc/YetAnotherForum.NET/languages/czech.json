@@ -1763,14 +1763,6 @@
             "#text": "Téma, které se má použít na této desce."
           },
           {
-            "@tag": "BOARD_THREADED",
-            "#text": "Povolit vláknový:"
-          },
-          {
-            "@tag": "BOARD_THREADED_HELP",
-            "#text": "Povolit u příspěvků zobrazení vláken."
-          },
-          {
             "@tag": "BOARD_TOPIC_DEFAULT",
             "#text": "Zobrazit výchozí téma:"
           },
@@ -2323,14 +2315,6 @@
           {
             "@tag": "STATUS_USR_REJECTED",
             "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
-          },
-          {
-            "@tag": "THREADED",
-            "#text": "Povolit vláknový:"
-          },
-          {
-            "@tag": "THREADED_HELP",
-            "#text": "Povolit u příspěvků zobrazení vláken."
           },
           {
             "@tag": "TITLE",
@@ -7769,14 +7753,6 @@
             "#text": "Nastavit jako kryt"
           },
           {
-            "@tag": "BUTTON_TAGFAVORITE",
-            "#text": "Označte jako oblíbené"
-          },
-          {
-            "@tag": "BUTTON_TAGFAVORITE_TT",
-            "#text": "Označte toto téma jako oblíbené."
-          },
-          {
             "@tag": "BUTTON_THANKS",
             "#text": "Poděkovat"
           },
@@ -7807,14 +7783,6 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "Odemkněte toto téma"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE",
-            "#text": "Zrušit označení jako oblíbené"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE_TT",
-            "#text": "Odeberte toto téma ze seznamu oblíbených."
           }
         ]
       },
@@ -9583,10 +9551,6 @@
             "#text": "Přihlaste se k odběru aktivních témat přes Atom."
           },
           {
-            "@tag": "ATOMICONTOOLTIPFAVORITE",
-            "#text": "Přihlaste se k odběru oblíbených témat přes Atom."
-          },
-          {
             "@tag": "ATOMICONTOOLTIPFORUM",
             "#text": "Přihlaste se k odběru zdroje Atom fóra."
           },
@@ -9705,18 +9669,6 @@
           {
             "@tag": "RECENT_USERS",
             "#text": "Nedávní uživatelé"
-          },
-          {
-            "@tag": "RSSICONTOOLTIPACTIVE",
-            "#text": "Přihlaste se k odběru aktivních témat prostřednictvím RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFAVORITE",
-            "#text": "Přihlaste se k odběru oblíbených témat prostřednictvím RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFORUM",
-            "#text": "Přihlaste se k odběru RSS kanálu fóra."
           },
           {
             "@tag": "SHOW_UNREAD_ONLY",
@@ -10267,10 +10219,6 @@
           {
             "@tag": "XMPP",
             "#text": "Vaše Jabber ID:"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Vaše Yahoo ID:"
           }
         ]
       },
@@ -10622,14 +10570,6 @@
           {
             "@tag": "BUDDIESTITLE",
             "#text": "Přátelé"
-          },
-          {
-            "@tag": "DISPLAYCONTENT",
-            "#text": "<p>Můžete si vybrat, jak budete témata zobrazovat. "
-          },
-          {
-            "@tag": "DISPLAYTITLE",
-            "#text": "Možnosti zobrazení vlákna"
           },
           {
             "@tag": "EDITDELETECONTENT",
@@ -10985,24 +10925,6 @@
         ]
       },
       {
-        "@name": "IM_MSN",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "MSN Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_SKYPE",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Skype(tm) volání"
-          }
-        ]
-      },
-      {
         "@name": "IM_XMPP",
         "Resource": [
           {
@@ -11020,15 +10942,6 @@
           {
             "@tag": "TITLE",
             "#text": "Messenger XMPP"
-          }
-        ]
-      },
-      {
-        "@name": "IM_YIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Yahoo! "
           }
         ]
       },
@@ -12277,10 +12190,6 @@
             "#text": "autor: {0}"
           },
           {
-            "@tag": "FAVORITETOPICS",
-            "#text": "Oblíbená témata"
-          },
-          {
             "@tag": "GUESTTITLE",
             "#text": "Aktivní témata"
           },
@@ -13366,10 +13275,6 @@
             "#text": "Bylo poděkováno: {0}krát v {1} příspěvcích"
           },
           {
-            "@tag": "THREADED",
-            "#text": "Propojený"
-          },
-          {
             "@tag": "TIP_DELETE_TOPIC",
             "#text": "Smaž toto téma"
           },
@@ -13524,14 +13429,6 @@
           {
             "@tag": "XMPP_TITLE",
             "#text": "Kontaktujte {0} přes Jabber"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "YAHOO"
-          },
-          {
-            "@tag": "YIM_TITLE",
-            "#text": "Kontaktujte {0} přes Yahoo Instant Messenger"
           }
         ]
       },
@@ -13815,10 +13712,6 @@
           {
             "@tag": "YEARS",
             "#text": "rok(y)"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "Yahoo Messenger:"
           }
         ]
       },
@@ -15286,10 +15179,6 @@
             "#text": "Vytvořeno"
           },
           {
-            "@tag": "FAVORITE_COUNT_TT",
-            "#text": "Kolikrát přidáno do oblíbených"
-          },
-          {
             "@tag": "FORUM",
             "#text": "Fórum"
           },
@@ -15424,31 +15313,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]Včera[/b] v {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "VIEWTHANKS",
-        "Resource": [
-          {
-            "@tag": "NO_THANKS",
-            "#text": "[b]Nenalezeno žádné díky.[/b]"
-          },
-          {
-            "@tag": "THANKSFROMUSER",
-            "#text": "{0} poděkoval"
-          },
-          {
-            "@tag": "THANKSNUMBER",
-            "#text": "Bylo poděkováno: [b]{0}[/b]krát"
-          },
-          {
-            "@tag": "THANKSTOUSER",
-            "#text": "{0} bylo poděkováno"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Zobrazit Díky"
           }
         ]
       }

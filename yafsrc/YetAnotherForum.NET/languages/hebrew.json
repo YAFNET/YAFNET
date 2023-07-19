@@ -1763,14 +1763,6 @@
             "#text": "הנושא לשימוש בלוח זה."
           },
           {
-            "@tag": "BOARD_THREADED",
-            "#text": "אפשר שרשור:"
-          },
-          {
-            "@tag": "BOARD_THREADED_HELP",
-            "#text": "אפשר תצוגת שרשור עבור פוסטים."
-          },
-          {
             "@tag": "BOARD_TOPIC_DEFAULT",
             "#text": "הצג נושא ברירת מחדל:"
           },
@@ -2323,14 +2315,6 @@
           {
             "@tag": "STATUS_USR_REJECTED",
             "#text": "The user creation request has been canceled. Please verify your entry and try again. If the problem persists, please contact your system administrator."
-          },
-          {
-            "@tag": "THREADED",
-            "#text": "אפשר שרשור:"
-          },
-          {
-            "@tag": "THREADED_HELP",
-            "#text": "אפשר תצוגת שרשור עבור פוסטים."
           },
           {
             "@tag": "TITLE",
@@ -7773,14 +7757,6 @@
             "#text": "הגדר ככריכה"
           },
           {
-            "@tag": "BUTTON_TAGFAVORITE",
-            "#text": "תייגו כמועדף"
-          },
-          {
-            "@tag": "BUTTON_TAGFAVORITE_TT",
-            "#text": "תייגו נושא זה כמועדף."
-          },
-          {
             "@tag": "BUTTON_THANKS",
             "#text": "להודות"
           },
@@ -7811,14 +7787,6 @@
           {
             "@tag": "BUTTON_UNLOCKTOPIC_TT",
             "#text": "בטל/י נעילה על דיון זה"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE",
-            "#text": "בטל את התיוג כמועדף"
-          },
-          {
-            "@tag": "BUTTON_UNTAGFAVORITE_TT",
-            "#text": "הסר נושא זה מרשימת המועדפים שלך."
           }
         ]
       },
@@ -9587,10 +9555,6 @@
             "#text": "הירשם לנושאים פעילים דרך Atom."
           },
           {
-            "@tag": "ATOMICONTOOLTIPFAVORITE",
-            "#text": "הירשם לנושאים המועדפים עליך דרך Atom."
-          },
-          {
             "@tag": "ATOMICONTOOLTIPFORUM",
             "#text": "הירשם לפורום Atom Feed."
           },
@@ -9705,18 +9669,6 @@
           {
             "@tag": "RECENT_USERS",
             "#text": "משתמשים אחרונים"
-          },
-          {
-            "@tag": "RSSICONTOOLTIPACTIVE",
-            "#text": "הירשם לנושאים פעילים באמצעות RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFAVORITE",
-            "#text": "הירשם לנושאים המועדפים עליך באמצעות RSS."
-          },
-          {
-            "@tag": "RSSICONTOOLTIPFORUM",
-            "#text": "הירשם להזנת RSS של הפורום."
           },
           {
             "@tag": "SHOW_UNREAD_ONLY",
@@ -10267,10 +10219,6 @@
           {
             "@tag": "XMPP",
             "#text": "מזהה Jabber שלך:"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "מזהה יאהו שלך:"
           }
         ]
       },
@@ -10622,14 +10570,6 @@
           {
             "@tag": "BUDDIESTITLE",
             "#text": "חברים"
-          },
-          {
-            "@tag": "DISPLAYCONTENT",
-            "#text": "<p style=\";text-align:right;direction:rtl\">יש לך בחירה כיצד תראה נושאים. כשאתה בשרשור, הסתכל בסרגל העליון. בצד ימין תראה &#39;תצוגה&#39;. לחץ על זה וזה מאפשר לך לשנות את אופן סדר הפוסטים.</p><p style=\";text-align:right;direction:rtl\"> יש לך שתי אפשרויות:</p><ul style=\";text-align:right;direction:rtl\"><li style=\";text-align:right;direction:rtl\"> <strong>רגיל</strong> - פוסטים מוצגים באופן כרונולוגי, בדרך כלל מהישן ביותר לחדש ביותר. פוסטים מוצגים במצב שטוח כך שניתן לצפות בפוסטים רבים בו-זמנית.</li><li style=\";text-align:right;direction:rtl\"> <strong>שרשור</strong> - עץ מוצג יחד עם כל פוסט. זה מראה לך את הקשר שיש לכל פוסט עם האחרים. קל לראות מי הגיב למי. רק פוסט אחד מוצג בכל פעם. בלחיצה על פוסט בודד בעץ הפוסטים, העמוד יציג את הפוסט הזה ואת כל הפוסטים שנעשו בתגובה לו.</li></ul>"
-          },
-          {
-            "@tag": "DISPLAYTITLE",
-            "#text": "אפשרויות תצוגת חוטים"
           },
           {
             "@tag": "EDITDELETECONTENT",
@@ -10985,24 +10925,6 @@
         ]
       },
       {
-        "@name": "IM_MSN",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "MSN Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_SKYPE",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "שיחת Skype(tm)"
-          }
-        ]
-      },
-      {
         "@name": "IM_XMPP",
         "Resource": [
           {
@@ -11020,15 +10942,6 @@
           {
             "@tag": "TITLE",
             "#text": "XMPP Messenger"
-          }
-        ]
-      },
-      {
-        "@name": "IM_YIM",
-        "Resource": [
-          {
-            "@tag": "TITLE",
-            "#text": "Yahoo! שָׁלִיחַ"
           }
         ]
       },
@@ -12277,10 +12190,6 @@
             "#text": "מאת {0}"
           },
           {
-            "@tag": "FAVORITETOPICS",
-            "#text": "נושאים אהובים"
-          },
-          {
             "@tag": "GUESTTITLE",
             "#text": "נושאים פעילים"
           },
@@ -13374,10 +13283,6 @@
             "#text": "קיבל תודה: {0} פעמים ב-{1} פוסטים"
           },
           {
-            "@tag": "THREADED",
-            "#text": "תצוגת עץ"
-          },
-          {
             "@tag": "TIP_DELETE_TOPIC",
             "#text": "מחק דיון זה"
           },
@@ -13532,14 +13437,6 @@
           {
             "@tag": "XMPP_TITLE",
             "#text": "צור קשר עם {0} באמצעות Jabber"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "YAHOO"
-          },
-          {
-            "@tag": "YIM_TITLE",
-            "#text": "צור קשר עם {0} באמצעות Yahoo Instant Messenger"
           }
         ]
       },
@@ -13823,10 +13720,6 @@
           {
             "@tag": "YEARS",
             "#text": "שנים"
-          },
-          {
-            "@tag": "YIM",
-            "#text": "יאהו מסנג&#39;ר:"
           }
         ]
       },
@@ -15294,10 +15187,6 @@
             "#text": "נוצר"
           },
           {
-            "@tag": "FAVORITE_COUNT_TT",
-            "#text": "כמה פעמים נוספו למועדפים"
-          },
-          {
             "@tag": "FORUM",
             "#text": "פוֹרוּם"
           },
@@ -15432,31 +15321,6 @@
           {
             "@tag": "YESTERDAYAT",
             "#text": "[b]אתמול[/b] ב- {0:T}"
-          }
-        ]
-      },
-      {
-        "@name": "VIEWTHANKS",
-        "Resource": [
-          {
-            "@tag": "NO_THANKS",
-            "#text": "[b]לא נמצא תודה.[/b]"
-          },
-          {
-            "@tag": "THANKSFROMUSER",
-            "#text": "{0} הודו"
-          },
-          {
-            "@tag": "THANKSNUMBER",
-            "#text": "הודו: [b]{0}[/b] פעמים"
-          },
-          {
-            "@tag": "THANKSTOUSER",
-            "#text": "{0} קיבל תודה"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "צפה תודה"
           }
         ]
       }
