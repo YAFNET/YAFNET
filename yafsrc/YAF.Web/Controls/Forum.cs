@@ -248,9 +248,9 @@ public class Forum : UserControl, IHaveServiceLocator
         // Add image gallery dialog
         this.Controls.Add(this.LoadControl($"{BoardInfo.ForumServerFileRoot}Dialogs/ImageGallery.ascx"));
 
-        var cookieName = "YAF-AcceptCookies";
+        const string CookieName = "YAF-AcceptCookies";
 
-        if (BoardContext.Current.Get<HttpRequestBase>().Cookies[cookieName] == null
+        if (BoardContext.Current.Get<HttpRequestBase>().Cookies[CookieName] == null
             && this.Get<BoardSettings>().ShowCookieConsent && !Config.IsAnyPortal)
         {
             // Add cookie consent

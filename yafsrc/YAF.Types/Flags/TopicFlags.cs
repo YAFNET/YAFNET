@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -110,7 +110,7 @@ public class TopicFlags : FlagsBase
         /// <summary>
         /// The is question.
         /// </summary>
-        IsQuestion = 1024
+        //IsQuestion = 1024
 
         /* for future use
               xxxxxxxx = 2048,
@@ -154,7 +154,7 @@ public class TopicFlags : FlagsBase
 
         set => this[9] = value;
     }
-
+    /*
     /// <summary>
     /// Gets or sets a value indicating whether topic is a question.
     /// </summary>
@@ -164,5 +164,5 @@ public class TopicFlags : FlagsBase
         get => this[this.EnumToIndex(Flags.IsQuestion)];
 
         set => this[this.EnumToIndex(Flags.IsQuestion)] = value;
-    }
+    }*/
 }

@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Events;
 
 using System;
@@ -104,14 +105,14 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplic
 
         taskManager.AddOrUpdate(
             instanceName,
-            s =>
+            _ =>
                 {
                     var task = start();
                     injectServices.Inject(task);
                     task.Run();
                     return task;
                 },
-            (s, task) =>
+            (_, task) =>
                 {
                     task?.Dispose();
 

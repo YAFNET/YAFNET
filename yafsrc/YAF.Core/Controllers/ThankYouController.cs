@@ -28,7 +28,6 @@ using System.Web.Http;
 
 using YAF.Core.Model;
 using YAF.Core.Utilities.StringUtils;
-using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 
 /// <summary>
@@ -143,8 +142,7 @@ public class ThankYouController : ApiController, IHaveServiceLocator
 
         this.GetRepository<Thanks>().RemoveMessageThanks(
             BoardContext.Current.PageUserID,
-            messageId,
-            this.Get<BoardSettings>().EnableDisplayName);
+            messageId);
 
         this.GetRepository<Activity>()
             .Delete(a => a.MessageID == messageId && (a.Flags == 1024 || a.Flags == 2048));

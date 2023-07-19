@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -140,8 +140,6 @@ public static class ThanksRepositoryExtensions
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Thanks>();
 
         expression.Join<User>((a, b) => a.ThanksFromUserID == b.ID).Where<Thanks>(b => b.MessageID == messageId);
-        /* .Select<Thanks, User>(
-             (a, b) => new { UserID = a.ThanksFromUserID, a.ThanksDate, b.Name, b.DisplayName });*/
 
         return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Thanks, User>(expression));
     }
@@ -158,15 +156,11 @@ public static class ThanksRepositoryExtensions
     /// <param name="messageId">
     /// The message id.
     /// </param>
-    /// <param name="useDisplayName">
-    /// use the display name.
-    /// </param>
     [NotNull]
     public static void RemoveMessageThanks(
         this IRepository<Thanks> repository,
         [NotNull] int fromUserId,
-        [NotNull] int messageId,
-        [NotNull] bool useDisplayName)
+        [NotNull] int messageId)
     {
         CodeContracts.VerifyNotNull(repository);
 
