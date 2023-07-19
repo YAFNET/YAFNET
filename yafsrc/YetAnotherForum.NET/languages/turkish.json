@@ -10410,14 +10410,6 @@
             "#text": "Onayla"
           },
           {
-            "@tag": "APPROVE_ADD",
-            "#text": "Onayla ve Ekle"
-          },
-          {
-            "@tag": "APPROVE_ADD_ALL",
-            "#text": "Hepsini Onayla ve Ekle"
-          },
-          {
             "@tag": "APPROVE_ALL",
             "#text": "Hepsini Onayla"
           },
@@ -12744,6 +12736,14 @@
             "#text": "Anket Ekle"
           },
           {
+            "@tag": "POLLGROUP_CLOSEDBOUND",
+            "#text": "Bound voting"
+          },
+          {
+            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
+            "#text": "Don't show results, if the poll didn't expire."
+          },
+          {
             "@tag": "POLLHEADER",
             "#text": "Anket Oluştur veya Güncelle"
           },
@@ -12782,14 +12782,6 @@
           {
             "@tag": "REMOVEPOLL_MSG",
             "#text": "Poll was removed!"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
           }
         ]
       },

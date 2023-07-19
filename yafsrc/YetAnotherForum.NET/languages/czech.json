@@ -10414,14 +10414,6 @@
             "#text": "Schválit"
           },
           {
-            "@tag": "APPROVE_ADD",
-            "#text": "Schválit a přidat"
-          },
-          {
-            "@tag": "APPROVE_ADD_ALL",
-            "#text": "Schválit a přidat vše"
-          },
-          {
             "@tag": "APPROVE_ALL",
             "#text": "Schválit vše"
           },
@@ -12748,6 +12740,14 @@
             "#text": "Přidat anketu"
           },
           {
+            "@tag": "POLLGROUP_CLOSEDBOUND",
+            "#text": "Bound voting"
+          },
+          {
+            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
+            "#text": "Don't show results, if the poll didn't expire."
+          },
+          {
             "@tag": "POLLHEADER",
             "#text": "Vytvořit nebo upravit anketu"
           },
@@ -12786,14 +12786,6 @@
           {
             "@tag": "REMOVEPOLL_MSG",
             "#text": "Poll was removed!"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
           }
         ]
       },

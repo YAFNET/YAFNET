@@ -10410,14 +10410,6 @@
             "#text": "Schváliť"
           },
           {
-            "@tag": "APPROVE_ADD",
-            "#text": "Schváliť a pridať"
-          },
-          {
-            "@tag": "APPROVE_ADD_ALL",
-            "#text": "Schváliť a pridať všetky"
-          },
-          {
             "@tag": "APPROVE_ALL",
             "#text": "Schváliť všetky"
           },
@@ -12744,6 +12736,14 @@
             "#text": "Pridať prieskum verejnej mienky"
           },
           {
+            "@tag": "POLLGROUP_CLOSEDBOUND",
+            "#text": "Bound voting"
+          },
+          {
+            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
+            "#text": "Don't show results, if the poll didn't expire."
+          },
+          {
             "@tag": "POLLHEADER",
             "#text": "Vytvorenie alebo úprava ankety"
           },
@@ -12782,14 +12782,6 @@
           {
             "@tag": "REMOVEPOLL_MSG",
             "#text": "Poll was removed!"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
           }
         ]
       },

@@ -77,7 +77,7 @@
                                     <YAF:ThemeButton runat="server"
                                                      Size="Small"
                                                      CommandName="approveadd" CommandArgument="<%# (Container.DataItem as BuddyUser).FromUserID %>"
-                                                     TextLocalizedTag="APPROVE_ADD"
+                                                     TextLocalizedTag="APPROVE"
                                                      Type="Success"
                                                      Icon="check"/>
                                     <YAF:ThemeButton runat="server"
@@ -103,7 +103,7 @@
             <YAF:ThemeButton ID="Button3" runat="server"
                              ReturnConfirmTag="NOTIFICATION_APPROVEALLADD"
                              CommandName="approveaddall"
-                             TextLocalizedTag="APPROVE_ADD_ALL"
+                             TextLocalizedTag="APPROVE_ALL"
                              Type="OutlineSecondary"
                              Icon="check-double"/>
             <YAF:ThemeButton ID="Button2" runat="server"

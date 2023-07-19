@@ -10410,14 +10410,6 @@
             "#text": "批准"
           },
           {
-            "@tag": "APPROVE_ADD",
-            "#text": "批准并添加"
-          },
-          {
-            "@tag": "APPROVE_ADD_ALL",
-            "#text": "批准并添加所有"
-          },
-          {
             "@tag": "APPROVE_ALL",
             "#text": "全部批准"
           },
@@ -12744,6 +12736,14 @@
             "#text": "添加投票"
           },
           {
+            "@tag": "POLLGROUP_CLOSEDBOUND",
+            "#text": "Bound voting"
+          },
+          {
+            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
+            "#text": "Don't show results, if the poll didn't expire."
+          },
+          {
             "@tag": "POLLHEADER",
             "#text": "创建或编辑投票"
           },
@@ -12782,14 +12782,6 @@
           {
             "@tag": "REMOVEPOLL_MSG",
             "#text": "Poll was removed!"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
           }
         ]
       },

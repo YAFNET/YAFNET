@@ -10410,14 +10410,6 @@
             "#text": "Approuver"
           },
           {
-            "@tag": "APPROVE_ADD",
-            "#text": "Approuver et ajouter"
-          },
-          {
-            "@tag": "APPROVE_ADD_ALL",
-            "#text": "Tout approuver et tout ajouter"
-          },
-          {
             "@tag": "APPROVE_ALL",
             "#text": "Tout approuver"
           },
@@ -12744,6 +12736,14 @@
             "#text": "Ajouter un sondage"
           },
           {
+            "@tag": "POLLGROUP_CLOSEDBOUND",
+            "#text": "Bound voting"
+          },
+          {
+            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
+            "#text": "Don't show results, if the poll didn't expire."
+          },
+          {
             "@tag": "POLLHEADER",
             "#text": "Créer ou modifier un sondage"
           },
@@ -12782,14 +12782,6 @@
           {
             "@tag": "REMOVEPOLL_MSG",
             "#text": "Poll was removed!"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
           }
         ]
       },

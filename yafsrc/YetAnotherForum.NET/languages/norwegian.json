@@ -10410,14 +10410,6 @@
             "#text": "Vedta"
           },
           {
-            "@tag": "APPROVE_ADD",
-            "#text": "Godkjenn og legg til"
-          },
-          {
-            "@tag": "APPROVE_ADD_ALL",
-            "#text": "Godkjenn og legg til alle"
-          },
-          {
             "@tag": "APPROVE_ALL",
             "#text": "Godkjenn alle"
           },
@@ -12744,6 +12736,14 @@
             "#text": "Legg til avstemning"
           },
           {
+            "@tag": "POLLGROUP_CLOSEDBOUND",
+            "#text": "Bound voting"
+          },
+          {
+            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
+            "#text": "Don't show results, if the poll didn't expire."
+          },
+          {
             "@tag": "POLLHEADER",
             "#text": "Opprett eller rediger avstemning"
           },
@@ -12782,14 +12782,6 @@
           {
             "@tag": "REMOVEPOLL_MSG",
             "#text": "Poll was removed!"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
           }
         ]
       },

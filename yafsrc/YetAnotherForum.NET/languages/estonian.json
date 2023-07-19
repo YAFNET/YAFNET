@@ -10410,14 +10410,6 @@
             "#text": "Võta vastu"
           },
           {
-            "@tag": "APPROVE_ADD",
-            "#text": "Võta vastu ja lisa"
-          },
-          {
-            "@tag": "APPROVE_ADD_ALL",
-            "#text": "Võta vastu ja lisa kõik"
-          },
-          {
             "@tag": "APPROVE_ALL",
             "#text": "Võta vastu kõik"
           },
@@ -12744,6 +12736,14 @@
             "#text": "Lisa küsitlus"
           },
           {
+            "@tag": "POLLGROUP_CLOSEDBOUND",
+            "#text": "Bound voting"
+          },
+          {
+            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
+            "#text": "Don't show results, if the poll didn't expire."
+          },
+          {
             "@tag": "POLLHEADER",
             "#text": "Lisa või muuda küsitlust"
           },
@@ -12782,14 +12782,6 @@
           {
             "@tag": "REMOVEPOLL_MSG",
             "#text": "Poll was removed!"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
           }
         ]
       },

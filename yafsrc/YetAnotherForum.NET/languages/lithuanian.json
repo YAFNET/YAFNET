@@ -10410,14 +10410,6 @@
             "#text": "Patvirtinti"
           },
           {
-            "@tag": "APPROVE_ADD",
-            "#text": "Patvirtinti ir pridėti"
-          },
-          {
-            "@tag": "APPROVE_ADD_ALL",
-            "#text": "Patvirtinti ir pridėti visus"
-          },
-          {
             "@tag": "APPROVE_ALL",
             "#text": "Patvirtinti visus"
           },
@@ -12744,6 +12736,14 @@
             "#text": "Pridėti apklausą"
           },
           {
+            "@tag": "POLLGROUP_CLOSEDBOUND",
+            "#text": "Bound voting"
+          },
+          {
+            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
+            "#text": "Don't show results, if the poll didn't expire."
+          },
+          {
             "@tag": "POLLHEADER",
             "#text": "Sukurti arba redaguoti apklausą"
           },
@@ -12782,14 +12782,6 @@
           {
             "@tag": "REMOVEPOLL_MSG",
             "#text": "Poll was removed!"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND",
-            "#text": "Bound voting"
-          },
-          {
-            "@tag": "POLLGROUP_CLOSEDBOUND_WARN",
-            "#text": "Don't show results, if the poll didn't expire."
           }
         ]
       },

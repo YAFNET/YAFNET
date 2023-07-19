@@ -10406,14 +10406,6 @@
                     "#text": "Approve"
                 },
                 {
-                    "@tag": "APPROVE_ADD",
-                    "#text": "Approve and Add"
-                },
-                {
-                    "@tag": "APPROVE_ADD_ALL",
-                    "#text": "Approve and Add All"
-                },
-                {
                     "@tag": "APPROVE_ALL",
                     "#text": "Approve All"
                 },
@@ -10617,7 +10609,7 @@
                 },
                 {
                     "@tag": "BUDDIESCONTENT",
-                    "#text": "<p>Friends are a friendship function and are a two-way relationship between two users. It is initiated by one user and accepted by the other.\r\n</p>\r\n<p><strong>Where is list of Friends displayed?</strong></p>\r\n<p>Your Friends are displayed on the 'My Friends' you can access this page from the Header Link 'My Friends', or from the <strong>User Control Panel</strong> Link 'Edit Friends'. </p>\r\n<p><em>Note: If you don't See this Link you don't have any Friends, didn't send any Request or you didn't have any Pending Friend Requests.</em></p>\r\n<p>Your Friends are also displayed in your profile page.</p>\r\n<p><strong>How can I request a User as Friend or accept a Friend Request?</strong></p>\r\n<p>To request a user as Friend, view the profile page of the person you want to become friends with and click the 'Add as Friend' link.</p>\r\n<p>To accept a Friend request friend, go to your 'My Friends' page. On the Tab 'Pending Requests' you see The List of Users with pending requests. There you have three choices...</p>\r\n<ul>\r\n  <li><strong>Approve</strong> - You Become Friend of the User who requests it </li>\r\n  <li><strong>Deny</strong> - Reject the request</li>\r\n  <li><strong> Approve and Add - </strong>You become Friend of the User who requests it, and also the User becomes a Friend in your List.</li>\r\n</ul>\r\n<p><strong>Remove Friend</strong></p>\r\n<p>To remove a Friend from Your List go to your 'My Friends' page. On the Tab 'Friend List' Click on the Button 'Remove Friend' of the User you want to remove</p>\r\n<p><strong>Your Requests</strong></p>\r\n<p>The Third Tab of the 'My Friends' Page shows your the Pending Request you have made.</p>"
+                    "#text": "<p>Friends are a friendship function and are a two-way relationship between two users. It is initiated by one user and accepted by the other.<p><strong>Where is list of Friends displayed?</strong><p>Your Friends are displayed on the 'My Friends' you can access this page from the Header Link 'My Friends', or from the <strong>User Control Panel</strong> Link 'Edit Friends'.<p><em>Note: If you don't See this Link you don't have any Friends, didn't send any Request or you didn't have any Pending Friend Requests.</em><p>Your Friends are also displayed in your profile page.<p><strong>How can I request a User as Friend or accept a Friend Request?</strong><p>To request a user as Friend, view the profile page of the person you want to become friends with and click the 'Add as Friend' link.<p>To accept a Friend request friend, go to your 'My Friends' page. On the Tab 'Pending Requests' you see The List of Users with pending requests. There you have three choices...<ul><li><strong>Deny</strong> - Reject the request<li><strong>Approve - </strong>You become Friend of the User who requests it, and also the User becomes a Friend in your List.</ul><p><strong>Remove Friend</strong><p>To remove a Friend from Your List go to your 'My Friends' page. On the Tab 'Friend List' Click on the Button 'Remove Friend' of the User you want to remove<p><strong>Your Requests</strong><p>The Third Tab of the 'My Friends' Page shows your the Pending Request you have made."
                 },
                 {
                     "@tag": "BUDDIESTITLE",
