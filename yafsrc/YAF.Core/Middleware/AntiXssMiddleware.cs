@@ -31,8 +31,6 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Builder;
 
-using Newtonsoft.Json;
-
 /// <summary>
 /// The anti XSS middleware.
 /// By https://www.loginradius.com/blog/async/anti-xss-middleware-asp-core/
@@ -42,7 +40,7 @@ public class AntiXssMiddleware
     /// <summary>
     /// The status code.
     /// </summary>
-    private readonly int statusCode = (int)HttpStatusCode.BadRequest;
+    private const int StatusCode = (int)HttpStatusCode.BadRequest;
 
     /// <summary>
     /// The next.
@@ -99,13 +97,20 @@ public class AntiXssMiddleware
         var originalBody = context.Request.Body;
         try
         {
-            /*var content = await ReadRequestBodyAsync(context);
+            var path = context.Request.Path.Value;
+            var content = await ReadRequestBodyAsync(context);
+
+            if (path != null && path.Contains("/api"))
+            {
+                await this.next(context).ConfigureAwait(false);
+                return;
+            }
 
             if (CrossSiteScriptingValidation.IsDangerousString(content, out _))
             {
                 await this.RespondWithAnErrorAsync(context).ConfigureAwait(false);
                 return;
-            }*/
+            }
 
             await this.next(context).ConfigureAwait(false);
         }
@@ -145,7 +150,7 @@ public class AntiXssMiddleware
         context.Response.Clear();
         context.Response.Headers.AddHeaders();
         context.Response.ContentType = "application/json; charset=utf-8";
-        context.Response.StatusCode = this.statusCode;
+        context.Response.StatusCode = StatusCode;
 
         this.error ??= new ErrorResponse { Description = "Error from AntiXssMiddleware", ErrorCode = 500 };
 
@@ -166,90 +171,6 @@ public static class AntiXssMiddlewareExtension
     public static IApplicationBuilder UseAntiXssMiddleware(this IApplicationBuilder builder)
     {
         return builder.UseMiddleware<AntiXssMiddleware>();
-    }
-}
-
-/// <summary>
-/// Imported from System.Web.CrossSiteScriptingValidation Class
-/// </summary>
-public static class CrossSiteScriptingValidation
-{
-    /// <summary>
-    /// The starting chars
-    /// </summary>
-    private static readonly char[] StartingChars = { '<', '&' };
-
-    /// <summary>
-    /// Determines whether [is dangerous string] [the specified s].
-    /// </summary>
-    /// <param name="s">The s.</param>
-    /// <param name="matchIndex">Index of the match.</param>
-    /// <returns><c>true</c> if [is dangerous string] [the specified s]; otherwise, <c>false</c>.</returns>
-    public static bool IsDangerousString(string s, out int matchIndex)
-    {
-        // bool inComment = false;
-        matchIndex = 0;
-
-        for (var i = 0; ;)
-        {
-            // Look for the start of one of our patterns
-            var n = s.IndexOfAny(StartingChars, i);
-
-            // If not found, the string is safe
-            if (n < 0) return false;
-
-            // If it's the last char, it's safe
-            if (n == s.Length - 1) return false;
-
-            matchIndex = n;
-
-            switch (s[n])
-            {
-                case '<':
-                    // If the < is followed by a letter or '!', it's unsafe (looks like a tag or HTML comment)
-                    if (IsAtoZ(s[n + 1]) || s[n + 1] == '!' || s[n + 1] == '/' || s[n + 1] == '?') return true;
-                    break;
-                case '&':
-                    // If the & is followed by a #, it's unsafe (e.g. S)
-                    if (s[n + 1] == '#') return true;
-                    break;
-            }
-
-            // Continue searching
-            i = n + 1;
-        }
-    }
-
-    /// <summary>
-    /// Determines whether [is ato z] [the specified c].
-    /// </summary>
-    /// <param name="c">The c.</param>
-    /// <returns><c>true</c> if [is ato z] [the specified c]; otherwise, <c>false</c>.</returns>
-    private static bool IsAtoZ(char c)
-    {
-        return c is >= 'a' and <= 'z' or >= 'A' and <= 'Z';
-    }
-
-    /// <summary>
-    /// Adds the headers.
-    /// </summary>
-    /// <param name="headers">The headers.</param>
-    public static void AddHeaders(this IHeaderDictionary headers)
-    {
-        if (headers["P3P"].NullOrEmpty())
-        {
-            headers.Add("P3P", "CP=\"IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT\"");
-        }
-    }
-
-    /// <summary>
-    /// Converts to json.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>System.String.</returns>
-    public static string ToJson(this object value)
-    {
-        return JsonConvert.SerializeObject(value);
     }
 }
 

@@ -91,10 +91,17 @@ public class CheckBannedIps : IHaveServiceLocator
             return;
         }
 
+        if (context.Connection.RemoteIpAddress is null)
+        {
+            await this.requestDelegate(context);
+
+            return;
+        }
+
         var ipToCheck = context.Connection.RemoteIpAddress.ToString();
 
         // check for this user in the list...
-        if (bannedIPs == null || !bannedIPs.Any(row => IPHelper.IsBanned(row, ipToCheck)))
+        if (bannedIPs is null || !bannedIPs.Any(row => IPHelper.IsBanned(row, ipToCheck)))
         {
             await this.requestDelegate(context);
 
