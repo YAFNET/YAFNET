@@ -56,6 +56,29 @@ module.exports = function(grunt) {
                     // includes files within path
                     { expand: true, src: "**/jquery.min.js", cwd: "node_modules/jquery/dist", dest: "wwwroot/js/" }
                 ]
+            },
+            mdsDateTimePicker: {
+                files: [
+                    // includes files within path
+                    {
+                        expand: true,
+                        src: "mds.bs.datetimepicker.style.css",
+                        cwd: "node_modules/md.bootstrappersiandatetimepicker/dist",
+                        dest: "wwwroot/css/",
+                        rename: function (path) {
+                            return path + "mds.datetimepicker.min.css";
+                        }
+                    },
+                    {
+                        expand: true,
+                        src: "mds.bs.datetimepicker.js",
+                        cwd: "node_modules/md.bootstrappersiandatetimepicker/dist",
+                        dest: "wwwroot/js/",
+                        rename: function (path) {
+                            return path + "mds.datetimepicker.min.js";
+                        }
+                    }
+                ]
             }
         },
 
@@ -442,18 +465,6 @@ module.exports = function(grunt) {
                 }
             }
         },
-        file_append: {
-            bootstrap: {
-                files: [
-                    {
-                        append:
-                            "\n\n.form-check-custom input {\n    @extend .form-check-input;\n}\n\n.form-check-custom label {\n    @extend .form-check-label\n}\n\n.aspNetDisabled input {\n    @extend .form-check-input;\n}\n\n.aspNetDisabled label {\n    @extend .form-check-label\n}\n\n.form-check-inline li {\n    @extend .form-check-inline;\n    margin-right: 2rem;\n}",
-                        input: "wwwroot/lib/bootstrap/bootstrap.scss",
-                        output: "wwwroot/lib/bootstrap/bootstrap.scss"
-                    }
-                ]
-            }
-        },
         zip: {
             "YAF-SqlServer-Deploy": {
                 cwd: "bin/Release/net7.0/publish/",
@@ -484,7 +495,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-contrib-cssmin");
-    grunt.loadNpmTasks("grunt-dev-update");
+    grunt.loadNpmTasks("@w8tcha/grunt-dev-update");
     grunt.loadNpmTasks("grunt-shell");
     grunt.loadNpmTasks("grunt-replace");
     grunt.loadNpmTasks("grunt-zip");
@@ -497,7 +508,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask("updateBootstrap",
         [
-            "copy:bootstrap", "file_append:bootstrap"
+            "copy:bootstrap"
         ]);
 
     grunt.registerTask("updateFontAwesome",
