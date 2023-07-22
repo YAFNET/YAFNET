@@ -45,6 +45,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
+using UAParser.Extensions;
+
 using YAF.Configuration;
 using YAF.Core;
 using YAF.Core.Context;
@@ -98,7 +100,7 @@ public class Startup : IHaveServiceLocator
 
         services.AddMemoryCache();
 
-        services.AddBrowserDetection();
+        services.AddUserAgentParser();
 
         services.Configure<IdentityOptions>(
             options =>

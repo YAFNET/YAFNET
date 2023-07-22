@@ -14,7 +14,7 @@ global using Microsoft.AspNetCore.Mvc.Filters;
 
 global using ServiceStack.OrmLite;
 
-global using Shyjus.BrowserDetection;
+global using UAParser.Interfaces;
 
 global using YAF.Configuration;
 global using YAF.Core.Context;

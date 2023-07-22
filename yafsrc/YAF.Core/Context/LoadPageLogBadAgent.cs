@@ -37,7 +37,7 @@ public class LoadPageLogBadAgent : IHandleEvent<InitPageLoadEvent>, IHaveService
     /// <summary>
     /// The browser detector.
     /// </summary>
-    private readonly IBrowserDetector browserDetector;
+    private readonly IUAParserOutput userAgentParser;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LoadPageLogBadAgent"/> class.
@@ -58,17 +58,17 @@ public class LoadPageLogBadAgent : IHandleEvent<InitPageLoadEvent>, IHaveService
         [NotNull] IServiceLocator serviceLocator,
         [NotNull] ILogger<LoadPageLogBadAgent> logger,
         [NotNull] IHttpContextAccessor accessor,
-        [NotNull] IBrowserDetector browserDetector)
+        [NotNull] IUserAgentParser parser)
     {
         CodeContracts.VerifyNotNull(serviceLocator);
         CodeContracts.VerifyNotNull(logger);
         CodeContracts.VerifyNotNull(accessor);
-        CodeContracts.VerifyNotNull(browserDetector);
+        CodeContracts.VerifyNotNull(parser);
 
         this.ServiceLocator = serviceLocator;
         this.Logger = logger;
         this.HttpRequestBase = accessor.HttpContext.Request;
-        this.browserDetector = browserDetector;
+        this.userAgentParser = parser.ClientInfo;
     }
 
     /// <summary>
@@ -119,8 +119,8 @@ public class LoadPageLogBadAgent : IHandleEvent<InitPageLoadEvent>, IHaveService
                 BoardContext.Current.PageUserID,
                 this,
                 $@"Unhandled UserAgent string:'{@event.UserRequestData.UserAgent}'<br />
-                                 Platform:'{this.browserDetector.Browser.OS}'<br />
-                                 Browser:'{this.browserDetector.Browser.Name}'");
+                                 Platform:'{this.userAgentParser.OS}'<br />
+                                 Browser:'{this.userAgentParser.Browser}'");
         }
     }
 }

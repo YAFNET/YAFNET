@@ -35,7 +35,7 @@ public class LoadPageRequestInformation : IHandleEvent<InitPageLoadEvent>, IHave
     /// <summary>
     /// The browser detector.
     /// </summary>
-    private readonly IBrowserDetector browserDetector;
+    private readonly IUAParserOutput userAgentParser;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LoadPageRequestInformation"/> class.
@@ -46,17 +46,17 @@ public class LoadPageRequestInformation : IHandleEvent<InitPageLoadEvent>, IHave
     /// <param name="accessor">
     /// The accessor.
     /// </param>
-    /// <param name="browserDetector">
+    /// <param name="parser">
     /// The browser Detector.
     /// </param>
     public LoadPageRequestInformation(
         [NotNull] IServiceLocator serviceLocator,
         [NotNull] IHttpContextAccessor accessor,
-        [NotNull] IBrowserDetector browserDetector)
+        [NotNull] IUserAgentParser parser)
     {
         this.ServiceLocator = serviceLocator;
         this.HttpRequestBase = accessor.HttpContext.Request;
-        this.browserDetector = browserDetector;
+        this.userAgentParser = parser.ClientInfo;
     }
 
     /// <summary>
@@ -80,13 +80,13 @@ public class LoadPageRequestInformation : IHandleEvent<InitPageLoadEvent>, IHave
     /// <param name="event">The @event.</param>
     public void Handle([NotNull] InitPageLoadEvent @event)
     {
-        if (this.browserDetector.Browser == null)
+        if (this.userAgentParser == null)
         {
             return;
         }
 
-        var browser = $"{this.browserDetector.Browser.Name} {this.browserDetector.Browser.Version}";
-        var platform = this.browserDetector.Browser.OS;
+        var browser = $"{this.userAgentParser.Browser.Family} {this.userAgentParser.Browser.Version}";
+        var platform = this.userAgentParser.OS.ToString();
 
         var userAgent = this.HttpRequestBase.Headers["User-Agent"].ToString();
 
