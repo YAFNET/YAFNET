@@ -41,19 +41,28 @@ public class AlbumImage : BBCodeControl
     /// </param>
     public override void Render([NotNull] StringBuilder stringBuilder)
     {
+        var imageId = HtmlTagHelper.StripHtml(this.Parameters["inner"]);
+
+        var albumImage = this.GetRepository<UserAlbumImage>().GetById(imageId.ToType<int>());
+
+        if (albumImage is null || !this.PageContext.BoardSettings.EnableAlbum)
+        {
+            return;
+        }
+
         stringBuilder.Append(
             $@"<div class=""card bg-dark text-white"" style=""max-width:{this.PageContext.BoardSettings.ImageThumbnailMaxWidth}px"">");
 
         stringBuilder.AppendFormat(
             @"<a href=""{0}"" data-gallery=""#blueimp-gallery-{2}"" title=""{1}"">",
-            this.Get<IUrlHelper>().Action("GetImage", "Albums", new { imageId = this.Parameters["inner"] }),
-            this.Parameters["inner"],
+            this.Get<IUrlHelper>().Action("GetImage", "Albums", new { imageId }),
+            imageId,
             this.MessageID.Value);
 
         stringBuilder.AppendFormat(
             @"<img src=""{0}"" class=""img-user-posted card-img-top;object-fit:contain"" style=""max-height:{2}px"" alt=""{1}"">",
-            this.Get<IUrlHelper>().Action("GetImagePreview", "Albums", new { imageId = this.Parameters["inner"] }),
-            this.Parameters["inner"],
+            this.Get<IUrlHelper>().Action("GetImagePreview", "Albums", new { imageId }),
+            imageId,
             this.PageContext.BoardSettings.ImageThumbnailMaxHeight);
 
         stringBuilder.Append("</a>");
