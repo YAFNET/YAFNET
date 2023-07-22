@@ -36,6 +36,15 @@ public class AlbumImage : BBCodeControl
     /// </param>
     protected override void Render([NotNull] HtmlTextWriter writer)
     {
+        var imageId = HtmlTagHelper.StripHtml(this.Parameters["inner"]);
+
+        var albumImage = this.GetRepository<UserAlbumImage>().GetById(imageId.ToType<int>());
+
+        if (albumImage is null || !this.PageBoardContext.BoardSettings.EnableAlbum)
+        {
+            return;
+        }
+
         writer.Write(
             @"<div class=""card bg-dark text-white"" style=""max-width:{0}px"">",
             this.PageBoardContext.BoardSettings.ImageThumbnailMaxWidth);
@@ -43,13 +52,13 @@ public class AlbumImage : BBCodeControl
         writer.Write(
             @"<a href=""{0}resource.ashx?image={1}"" data-gallery=""#blueimp-gallery-{2}"" title=""{1}"">",
             BoardInfo.ForumClientFileRoot,
-            this.Parameters["inner"],
+            imageId,
             this.MessageID.Value);
 
         writer.Write(
             @"<img src=""{0}resource.ashx?imgprv={1}"" class=""img-user-posted card-img-top"" style=""max-height:{2}px;object-fit:contain"" alt=""{1}"">",
             BoardInfo.ForumClientFileRoot,
-            this.Parameters["inner"],
+            imageId,
             this.PageBoardContext.BoardSettings.ImageThumbnailMaxHeight);
 
         writer.Write("</a>");
