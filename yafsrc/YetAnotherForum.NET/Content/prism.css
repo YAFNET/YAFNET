@@ -1,4 +1,4 @@
-/* PrismJS 1.29.0
+﻿/* PrismJS 1.29.0
 https://prismjs.com/download.html?#themes=prism-okaidia&languages=markup+css+clike+javascript+aspnet+bash+basic+c+csharp+cpp+css-extras+git+java+python+scss+sql+vbnet+visual-basic&plugins=line-highlight+line-numbers+autolinker+normalize-whitespace+toolbar+copy-to-clipboard */
 /**
  * okaidia theme for JavaScript, CSS and HTML
@@ -152,7 +152,7 @@ pre[data-line] {
 		 * It's necessary because the element is layered on top of the displayed code.
 		 */
 		-webkit-print-color-adjust: exact;
-		color-adjust: exact;
+		print-color-adjust: exact;
 	}
 }
 
