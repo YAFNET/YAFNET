@@ -60,6 +60,22 @@ module.exports = function(grunt) {
                         dest: "Content/webfonts/"
                     }
                 ]
+            },
+            flagIcons: {
+                files: [
+                    {
+                        expand: true,
+                        src: "**/*.scss",
+                        cwd: "node_modules/flag-icons/scss",
+                        dest: "Content/flag-icons/"
+                    },
+                    {
+                        expand: true,
+                        src: "**/*.svg",
+                        cwd: "node_modules/flag-icons/flags",
+                        dest: "Content/flags/"
+                    }
+                ]
             }
         },
 
