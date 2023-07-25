@@ -13,12 +13,11 @@ connection.on("newActivityAsync", (alerts) => {
 connection.start();
 
 document.addEventListener('DOMContentLoaded',
-    function() {
+    function () {
         var alert = document.getElementById("notificationAlert");
         var notifyLink = document.getElementById("notificationLink");
 
-
-        if (alert.dataset.alerts > 0) {
+        if (alert !== null && alert.dataset.alerts > 0) {
             notifyLink.classList.toggle('d-none');
             alert.classList.toggle('d-none');
         }

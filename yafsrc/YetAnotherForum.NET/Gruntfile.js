@@ -79,6 +79,22 @@ module.exports = function(grunt) {
                         }
                     }
                 ]
+            },
+            flagIcons: {
+                files: [
+                    {
+                        expand: true,
+                        src: "**/*.scss",
+                        cwd: "node_modules/flag-icons/scss",
+                        dest: "wwwroot/lib/flag-icons/"
+                    },
+                    {
+                        expand: true,
+                        src: "**/*.svg",
+                        cwd: "node_modules/flag-icons/flags",
+                        dest: "wwwroot/css/flags/"
+                    }
+                ]
             }
         },
 

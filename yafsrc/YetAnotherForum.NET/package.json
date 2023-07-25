@@ -15,8 +15,8 @@
     "grunt-replace": "^2.0.2",
     "grunt-shell": "^4.0.0",
     "grunt-zip": "^0.20.0",
-    "postcss": "^8.4.26",
-    "sass": "^1.64.0"
+    "postcss": "^8.4.27",
+    "sass": "^1.64.1"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.4.0",
@@ -26,7 +26,7 @@
     "bootstrap-touchspin": "^4.7.3",
     "bootswatch": "^5.3.0",
     "ckeditor4": "^4.22.1",
-    "flag-icons": "^6.7.0",
+    "flag-icons": "^6.8.0",
     "grunt-file-append": "^0.0.7",
     "jquery": "^3.7.0",
     "jquery-ajax-unobtrusive": "^3.2.6",
