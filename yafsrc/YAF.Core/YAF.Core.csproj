@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -52,6 +52,6 @@
     <PackageReference Include="System.Runtime.Caching" Version="7.0.0" />
     <PackageReference Include="System.ServiceModel.Syndication" Version="7.0.0" />
     <PackageReference Include="UAParser" Version="3.1.47" />
-    <PackageReference Include="UAParser.Core" Version="4.0.1" />
+    <PackageReference Include="UAParser.Core" Version="4.0.2" />
   </ItemGroup>
 </Project>
