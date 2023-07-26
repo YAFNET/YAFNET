@@ -26,7 +26,7 @@
     "bootstrap-touchspin": "^4.7.3",
     "bootswatch": "^5.3.0",
     "ckeditor4": "^4.22.1",
-    "flag-icons": "^6.8.0",
+    "flag-icons": "^6.9.1",
     "grunt-file-append": "^0.0.7",
     "jquery": "^3.7.0",
     "jquery-ajax-unobtrusive": "^3.2.6",
