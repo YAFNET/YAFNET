@@ -85,7 +85,7 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         src: "**/*.scss",
-                        cwd: "node_modules/flag-icons/scss",
+                        cwd: "node_modules/flag-icons/sass",
                         dest: "wwwroot/lib/flag-icons/"
                     },
                     {
@@ -115,6 +115,26 @@ module.exports = function(grunt) {
                         flatten: true,
                         src: ["wwwroot/lib/themes/vapor/_bootswatch.scss"],
                         dest: "wwwroot/lib/themes/vapor/"
+                    }
+                ]
+            },
+
+            flagIcons: {
+                options: {
+                    usePrefix: false,
+                    patterns: [
+                        {
+                            match: "../flags",
+                            replacement: "flags"
+                        }
+                    ]
+                },
+                files: [
+                    {
+                        expand: true,
+                        flatten: true,
+                        src: ["wwwroot/lib/flag-icons/_variables.scss"],
+                        dest: "wwwroot/lib/flag-icons/"
                     }
                 ]
             }
@@ -535,6 +555,11 @@ module.exports = function(grunt) {
     grunt.registerTask("updateBootswatchThemes",
         [
             "copy:bootswatchThemes", "replace:bootswatch"
+        ]);
+
+    grunt.registerTask("updateFlagIcons",
+        [
+            "copy:flagIcons", "replace:flagIcons"
         ]);
 
     grunt.registerTask("emailTemplates",
