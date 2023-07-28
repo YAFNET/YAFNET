@@ -72,24 +72,3 @@
     @extend .form-check-inline;
     margin-right: 2rem;
 }
-
-.form-check-custom input {
-    @extend .form-check-input;
-}
-
-.form-check-custom label {
-    @extend .form-check-label
-}
-
-.aspNetDisabled input {
-    @extend .form-check-input;
-}
-
-.aspNetDisabled label {
-    @extend .form-check-label
-}
-
-.form-check-inline li {
-    @extend .form-check-inline;
-    margin-right: 2rem;
-}
