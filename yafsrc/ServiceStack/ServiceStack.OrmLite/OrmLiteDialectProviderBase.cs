@@ -2796,6 +2796,27 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     }
 
     /// <summary>
+    /// Converts to createsavepoint.
+    /// </summary>
+    /// <param name="name">The name.</param>
+    /// <returns>System.String.</returns>
+    public virtual string ToCreateSavePoint(string name) => $"SAVEPOINT {name}";
+
+    /// <summary>
+    /// Converts to releasesavepoint.
+    /// </summary>
+    /// <param name="name">The name.</param>
+    /// <returns>System.String.</returns>
+    public virtual string ToReleaseSavePoint(string name) => $"RELEASE SAVEPOINT {name}";
+
+    /// <summary>
+    /// Converts to rollbacksavepoint.
+    /// </summary>
+    /// <param name="name">The name.</param>
+    /// <returns>System.String.</returns>
+    public virtual string ToRollbackSavePoint(string name) => $"ROLLBACK TO SAVEPOINT {name}";
+
+    /// <summary>
     /// Sequences the list.
     /// </summary>
     /// <param name="tableType">Type of the table.</param>

@@ -672,6 +672,27 @@ public interface IOrmLiteDialectProvider
     string ToCreateSequenceStatement(Type tableType, string sequenceName);
 
     /// <summary>
+    /// Converts to createsavepoint.
+    /// </summary>
+    /// <param name="name">The name.</param>
+    /// <returns>System.String.</returns>
+    string ToCreateSavePoint(string name);
+
+    /// <summary>
+    /// Converts to releasesavepoint.
+    /// </summary>
+    /// <param name="name">The name.</param>
+    /// <returns>System.String.</returns>
+    string ToReleaseSavePoint(string name);
+
+    /// <summary>
+    /// Converts to rollbacksavepoint.
+    /// </summary>
+    /// <param name="name">The name.</param>
+    /// <returns>System.String.</returns>
+    string ToRollbackSavePoint(string name);
+
+    /// <summary>
     /// Sequences the list.
     /// </summary>
     /// <param name="tableType">Type of the table.</param>

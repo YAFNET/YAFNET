@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 namespace ServiceStack.OrmLite;
 
 using System;
@@ -265,7 +266,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         var uniqueExpr = this.Dump(includeParams);
 
         // fastest up to 500 chars https://wintermute79.wordpress.com/2014/10/10/c-sha-1-benchmark/
-        using var sha1 = new System.Security.Cryptography.SHA1Managed();
+        using var sha1 = TextConfig.CreateSha();
         var hash = sha1.ComputeHash(Encoding.ASCII.GetBytes(uniqueExpr));
         var hexFormat = hash.ToHex();
 

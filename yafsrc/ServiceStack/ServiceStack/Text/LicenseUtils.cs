@@ -520,7 +520,7 @@ public static class LicenseUtils
             var key = VerifyLicenseKeyText(licenseKeyText);
             ValidateLicenseKey(key);
         }
-        catch (PlatformNotSupportedException)
+        catch (PlatformNotSupportedException pex)
         {
             // Allow usage in environments like dotnet script
             __activatedLicense = new __ActivatedLicense(new LicenseKey { Type = LicenseType.Indie });
@@ -549,7 +549,9 @@ public static class LicenseUtils
                 }
                 catch (Exception exFallback)
                 {
-                    if (exFallback is FileNotFoundException || exFallback is FileLoadException || exFallback is BadImageFormatException)
+                    Tracer.Instance.WriteWarning(ex.ToString());
+
+                    if (exFallback is FileNotFoundException or FileLoadException or BadImageFormatException)
                         throw;
 
                     throw new LicenseException(msg, exFallback).Trace();
@@ -1225,7 +1227,7 @@ public static class LicenseUtils
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public static bool VerifySha1Data(this System.Security.Cryptography.RSACryptoServiceProvider RSAalg, byte[] unsignedData, byte[] encryptedData)
     {
-        using var sha = new System.Security.Cryptography.SHA1CryptoServiceProvider();
+        using var sha = TextConfig.CreateSha();
         return RSAalg.VerifyData(unsignedData, sha, encryptedData);
     }
 }

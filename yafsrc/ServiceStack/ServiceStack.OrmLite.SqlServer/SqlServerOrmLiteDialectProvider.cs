@@ -237,6 +237,27 @@ namespace ServiceStack.OrmLite.SqlServer
         }
 
         /// <summary>
+        /// Converts to createsavepoint.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>System.String.</returns>
+        public override string ToCreateSavePoint(string name) => $"SAVE TRANSACTION {name}";
+
+        /// <summary>
+        /// Converts to releasesavepoint.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>System.String.</returns>
+        public override string ToReleaseSavePoint(string name) => null;
+
+        /// <summary>
+        /// Converts to rollbacksavepoint.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>System.String.</returns>
+        public override string ToRollbackSavePoint(string name) => $"ROLLBACK TRANSACTION {name}";
+
+        /// <summary>
         /// Doeses the table exist.
         /// </summary>
         /// <param name="dbCmd">The database command.</param>
