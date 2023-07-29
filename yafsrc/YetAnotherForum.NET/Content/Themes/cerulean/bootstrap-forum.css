@@ -13356,10 +13356,6 @@ textarea.form-control-lg {
   margin-right: 2rem;
 }
 
-:root {
-  color-scheme: light;
-}
-
 .navbar.bg-primary {
   background-image: -webkit-gradient(linear, left top, left bottom, from(#50b3eb), color-stop(60%, #2fa4e7), to(#2c9ad9));
   background-image: linear-gradient(#50b3eb, #2fa4e7 60%, #2c9ad9);

@@ -2447,7 +2447,7 @@ progress {
   -webkit-margin-end: 0.75rem;
           margin-inline-end: 0.75rem;
   color: #fff;
-  background-color: var(--bs-tertiary-bg);
+  background-color: #250d49;
   pointer-events: none;
   border-color: inherit;
   border-style: solid;
@@ -2465,7 +2465,7 @@ progress {
   -webkit-margin-end: 0.75rem;
           margin-inline-end: 0.75rem;
   color: #fff;
-  background-color: var(--bs-tertiary-bg);
+  background-color: #250d49;
   pointer-events: none;
   border-color: inherit;
   border-style: solid;
@@ -2488,10 +2488,10 @@ progress {
   }
 }
 .form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button {
-  background-color: var(--bs-secondary-bg);
+  background-color: #210b40;
 }
 .form-control:hover:not(:disabled):not([readonly])::file-selector-button {
-  background-color: var(--bs-secondary-bg);
+  background-color: #210b40;
 }
 
 .form-control-plaintext {
@@ -6401,7 +6401,7 @@ textarea.form-control-lg {
   --bs-tooltip-margin: ;
   --bs-tooltip-font-size: 0.875rem;
   --bs-tooltip-color: var(--bs-body-bg);
-  --bs-tooltip-bg: #170229;
+  --bs-tooltip-bg: var(--bs-emphasis-color);
   --bs-tooltip-border-radius: var(--bs-border-radius);
   --bs-tooltip-opacity: 1;
   --bs-tooltip-arrow-width: 0.8rem;
@@ -13359,11 +13359,8 @@ textarea.form-control-lg {
   margin-right: 2rem;
 }
 
-:root {
-  color-scheme: dark;
-}
-
 body {
+  min-height: 100vh;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#17082e), color-stop(7%, #1a0933), color-stop(80%, #1a0933), to(#0c1f4c));
   background-image: linear-gradient(#17082e 0%, #1a0933 7%, #1a0933 80%, #0c1f4c 100%);
   text-shadow: 0 0 1px rgba(50, 251, 226, 0.3), 0 0 2px rgba(50, 251, 226, 0.3), 0 0 5px rgba(50, 251, 226, 0.2);
@@ -13582,20 +13579,18 @@ table,
   -webkit-box-shadow: 0 0 2px RGBA(#170229, 0.9), 0 0 4px RGBA(#170229, 0.4), 0 0 1rem RGBA(#170229, 0.3), 0 0 4rem RGBA(#170229, 0.1);
           box-shadow: 0 0 2px RGBA(#170229, 0.9), 0 0 4px RGBA(#170229, 0.4), 0 0 1rem RGBA(#170229, 0.3), 0 0 4rem RGBA(#170229, 0.1);
 }
-
-.navbar-dark,
-.navbar-dark a {
+.navbar[data-bs-theme=dark],
+.navbar[data-bs-theme=dark] a {
   text-shadow: 0 0 1px rgba(255, 255, 255, 0.3), 0 0 2px rgba(255, 255, 255, 0.3), 0 0 5px rgba(255, 255, 255, 0.2);
 }
-.navbar-dark .navbar-brand {
+.navbar[data-bs-theme=dark] .navbar-brand {
   text-shadow: 0 0 1px rgba(255, 255, 255, 0.6), 0 0 3px rgba(255, 255, 255, 0.5), 0 0 0.5rem rgba(255, 255, 255, 0.3), 0 0 2rem rgba(255, 255, 255, 0.2);
 }
-
-.navbar-light,
-.navbar-light a {
+.navbar[data-bs-theme=light],
+.navbar[data-bs-theme=light] a {
   text-shadow: 0 0 1px rgba(0, 0, 0, 0.3), 0 0 2px rgba(0, 0, 0, 0.3), 0 0 5px rgba(0, 0, 0, 0.2);
 }
-.navbar-light .navbar-brand {
+.navbar[data-bs-theme=light] .navbar-brand {
   text-shadow: 0 0 1px rgba(0, 0, 0, 0.6), 0 0 3px rgba(0, 0, 0, 0.5), 0 0 0.5rem rgba(0, 0, 0, 0.3), 0 0 2rem rgba(0, 0, 0, 0.2);
 }
 
@@ -13757,6 +13752,10 @@ legend {
           box-shadow: 0 0 2px RGBA(#170229, 0.9), 0 0 4px RGBA(#170229, 0.4), 0 0 1rem RGBA(#170229, 0.3), 0 0 4rem RGBA(#170229, 0.1);
 }
 
+.tooltip {
+  --bs-tooltip-bg: var(--bs-body-bg);
+  --bs-tooltip-color: var(--bs-body-color);
+}
 .tooltip-inner,
 .tooltip .arrow {
   -webkit-box-shadow: 0 0 2rem rgba(125, 85, 199, 0.4), 0 0 8rem rgba(125, 85, 199, 0.3);

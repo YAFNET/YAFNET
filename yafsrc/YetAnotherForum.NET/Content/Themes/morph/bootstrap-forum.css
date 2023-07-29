@@ -13420,10 +13420,6 @@ textarea.form-control-lg {
   margin-right: 2rem;
 }
 
-:root {
-  color-scheme: light;
-}
-
 .btn {
   position: relative;
   color: #7b8ab8;
@@ -13945,14 +13941,22 @@ textarea.form-control-lg {
           box-shadow: inset 2px 2px 8px rgba(55, 94, 148, 0.3), inset -3px -2px 5px rgba(255, 255, 255, 0.8);
 }
 .input-group > .form-control {
-  padding-right: 0;
-  padding-left: 0;
   background: none;
   -webkit-box-shadow: none;
           box-shadow: none;
 }
 .input-group .input-group-text {
   background: none;
+}
+.input-group .btn {
+  border: none;
+  border-radius: 0;
+}
+.input-group .btn:first-child {
+  border-radius: 0.375rem 0 0 0.375rem;
+}
+.input-group .btn:last-child {
+  border-radius: 0 0.375rem 0.375rem 0;
 }
 
 .form-range::-webkit-slider-runnable-track {
@@ -14002,10 +14006,10 @@ textarea.form-control-lg {
 }
 
 .alert {
-  -webkit-box-shadow: 8px 8px 40px rgba(0, 0, 0, 0.15), inset 1px 1px 3px rgba(255, 255, 255, 0.5), inset -5px -5px 20px rgba(0, 0, 0, 0.05);
-          box-shadow: 8px 8px 40px rgba(0, 0, 0, 0.15), inset 1px 1px 3px rgba(255, 255, 255, 0.5), inset -5px -5px 20px rgba(0, 0, 0, 0.05);
   -webkit-backdrop-filter: blur(3px);
           backdrop-filter: blur(3px);
+  -webkit-box-shadow: 8px 8px 40px rgba(0, 0, 0, 0.15), inset 1px 1px 3px rgba(255, 255, 255, 0.5), inset -5px -5px 20px rgba(0, 0, 0, 0.05);
+          box-shadow: 8px 8px 40px rgba(0, 0, 0, 0.15), inset 1px 1px 3px rgba(255, 255, 255, 0.5), inset -5px -5px 20px rgba(0, 0, 0, 0.05);
 }
 .alert-primary {
   background-color: rgba(55, 141, 252, 0.75);
@@ -14057,19 +14061,19 @@ textarea.form-control-lg {
 }
 .tooltip-inner,
 .tooltip .arrow {
-  -webkit-box-shadow: 8px 8px 40px rgba(0, 0, 0, 0.15), inset 1px 1px 3px rgba(255, 255, 255, 0.5), inset -5px -5px 20px rgba(0, 0, 0, 0.05);
-          box-shadow: 8px 8px 40px rgba(0, 0, 0, 0.15), inset 1px 1px 3px rgba(255, 255, 255, 0.5), inset -5px -5px 20px rgba(0, 0, 0, 0.05);
   -webkit-backdrop-filter: blur(3px);
           backdrop-filter: blur(3px);
+  -webkit-box-shadow: 8px 8px 40px rgba(0, 0, 0, 0.15), inset 1px 1px 3px rgba(255, 255, 255, 0.5), inset -5px -5px 20px rgba(0, 0, 0, 0.05);
+          box-shadow: 8px 8px 40px rgba(0, 0, 0, 0.15), inset 1px 1px 3px rgba(255, 255, 255, 0.5), inset -5px -5px 20px rgba(0, 0, 0, 0.05);
 }
 
 .popover,
 .toast,
 .modal-content {
-  -webkit-box-shadow: 8px 8px 40px rgba(0, 0, 0, 0.15), inset 1px 1px 3px rgba(255, 255, 255, 0.5), inset -5px -5px 20px rgba(0, 0, 0, 0.05);
-          box-shadow: 8px 8px 40px rgba(0, 0, 0, 0.15), inset 1px 1px 3px rgba(255, 255, 255, 0.5), inset -5px -5px 20px rgba(0, 0, 0, 0.05);
   -webkit-backdrop-filter: blur(3px);
           backdrop-filter: blur(3px);
+  -webkit-box-shadow: 8px 8px 40px rgba(0, 0, 0, 0.15), inset 1px 1px 3px rgba(255, 255, 255, 0.5), inset -5px -5px 20px rgba(0, 0, 0, 0.05);
+          box-shadow: 8px 8px 40px rgba(0, 0, 0, 0.15), inset 1px 1px 3px rgba(255, 255, 255, 0.5), inset -5px -5px 20px rgba(0, 0, 0, 0.05);
 }
 
 .progress {
