@@ -49,74 +49,92 @@ public enum LicenseType
     /// The free
     /// </summary>
     Free,
+
     /// <summary>
     /// The free individual
     /// </summary>
     FreeIndividual,
+
     /// <summary>
     /// The free open source
     /// </summary>
     FreeOpenSource,
+
     /// <summary>
     /// The indie
     /// </summary>
     Indie,
+
     /// <summary>
     /// The business
     /// </summary>
     Business,
+
     /// <summary>
     /// The enterprise
     /// </summary>
     Enterprise,
+
     /// <summary>
     /// The text indie
     /// </summary>
     TextIndie,
+
     /// <summary>
     /// The text business
     /// </summary>
     TextBusiness,
+
     /// <summary>
     /// The orm lite indie
     /// </summary>
     OrmLiteIndie,
+
     /// <summary>
     /// The orm lite business
     /// </summary>
     OrmLiteBusiness,
+
     /// <summary>
     /// The redis indie
     /// </summary>
     RedisIndie,
+
     /// <summary>
     /// The redis business
     /// </summary>
     RedisBusiness,
+
     /// <summary>
     /// The aws indie
     /// </summary>
     AwsIndie,
+
     /// <summary>
     /// The aws business
     /// </summary>
     AwsBusiness,
+
     /// <summary>
     /// The trial
     /// </summary>
     Trial,
+
     /// <summary>
     /// The site
     /// </summary>
     Site,
+
     /// <summary>
     /// The text site
     /// </summary>
     TextSite,
+
     /// <summary>
     /// The redis site
     /// </summary>
     RedisSite,
+
     /// <summary>
     /// The orm lite site
     /// </summary>
@@ -133,66 +151,82 @@ public enum LicenseFeature : long
     /// The none
     /// </summary>
     None = 0,
+
     /// <summary>
     /// All
     /// </summary>
     All = Premium | Text | Client | Common | Redis | OrmLite | ServiceStack | Server | Razor | Admin | Aws,
+
     /// <summary>
     /// The redis sku
     /// </summary>
     RedisSku = Redis | Text,
+
     /// <summary>
     /// The orm lite sku
     /// </summary>
     OrmLiteSku = OrmLite | Text,
+
     /// <summary>
     /// The aws sku
     /// </summary>
     AwsSku = Aws | Text,
+
     /// <summary>
     /// The free
     /// </summary>
     Free = None,
+
     /// <summary>
     /// The premium
     /// </summary>
     Premium = 1 << 0,
+
     /// <summary>
     /// The text
     /// </summary>
     Text = 1 << 1,
+
     /// <summary>
     /// The client
     /// </summary>
     Client = 1 << 2,
+
     /// <summary>
     /// The common
     /// </summary>
     Common = 1 << 3,
+
     /// <summary>
     /// The redis
     /// </summary>
     Redis = 1 << 4,
+
     /// <summary>
     /// The orm lite
     /// </summary>
     OrmLite = 1 << 5,
+
     /// <summary>
     /// The service stack
     /// </summary>
     ServiceStack = 1 << 6,
+
     /// <summary>
     /// The server
     /// </summary>
     Server = 1 << 7,
+
     /// <summary>
     /// The razor
     /// </summary>
     Razor = 1 << 8,
+
     /// <summary>
     /// The admin
     /// </summary>
     Admin = 1 << 9,
+
     /// <summary>
     /// The aws
     /// </summary>
@@ -209,10 +243,12 @@ public enum LicenseMeta : long
     /// The none
     /// </summary>
     None = 0,
+
     /// <summary>
     /// The subscription
     /// </summary>
     Subscription = 1 << 0,
+
     /// <summary>
     /// The cores
     /// </summary>
@@ -227,27 +263,32 @@ public enum QuotaType
     /// <summary>
     /// The operations
     /// </summary>
-    Operations,      //ServiceStack
+    Operations, //ServiceStack
+
     /// <summary>
     /// The types
     /// </summary>
-    Types,           //Text, Redis
+    Types, //Text, Redis
+
     /// <summary>
     /// The fields
     /// </summary>
-    Fields,          //ServiceStack, Text, Redis, OrmLite
+    Fields, //ServiceStack, Text, Redis, OrmLite
+
     /// <summary>
     /// The requests per hour
     /// </summary>
     RequestsPerHour, //Redis
+
     /// <summary>
     /// The tables
     /// </summary>
-    Tables,          //OrmLite, Aws
+    Tables, //OrmLite, Aws
+
     /// <summary>
     /// The premium feature
     /// </summary>
-    PremiumFeature,  //AdminUI, Advanced Redis APIs, etc
+    PremiumFeature, //AdminUI, Advanced Redis APIs, etc
 }
 
 /// <summary>
@@ -310,23 +351,28 @@ public static class LicenseUtils
     /// <summary>
     /// The runtime public key
     /// </summary>
-    public const string RuntimePublicKey = "<RSAKeyValue><Modulus>nkqwkUAcuIlVzzOPENcQ+g5ALCe4LyzzWv59E4a7LuOM1Nb+hlNlnx2oBinIkvh09EyaxIX2PmaY0KtyDRIh+PoItkKeJe/TydIbK/bLa0+0Axuwa0MFShE6HdJo/dynpODm64+Sg1XfhICyfsBBSxuJMiVKjlMDIxu9kDg7vEs=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
+    public const string RuntimePublicKey =
+        "<RSAKeyValue><Modulus>nkqwkUAcuIlVzzOPENcQ+g5ALCe4LyzzWv59E4a7LuOM1Nb+hlNlnx2oBinIkvh09EyaxIX2PmaY0KtyDRIh+PoItkKeJe/TydIbK/bLa0+0Axuwa0MFShE6HdJo/dynpODm64+Sg1XfhICyfsBBSxuJMiVKjlMDIxu9kDg7vEs=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
+
     /// <summary>
     /// The license public key
     /// </summary>
-    public const string LicensePublicKey = "<RSAKeyValue><Modulus>w2fTTfr2SrGCclwLUkrbH0XsIUpZDJ1Kei2YUwYGmIn5AUyCPLTUv3obDBUBFJKLQ61Khs7dDkXlzuJr5tkGQ0zS0PYsmBPAtszuTum+FAYRH4Wdhmlfqu1Z03gkCIo1i11TmamN5432uswwFCVH60JU3CpaN97Ehru39LA1X9E=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
+    public const string LicensePublicKey =
+        "<RSAKeyValue><Modulus>w2fTTfr2SrGCclwLUkrbH0XsIUpZDJ1Kei2YUwYGmIn5AUyCPLTUv3obDBUBFJKLQ61Khs7dDkXlzuJr5tkGQ0zS0PYsmBPAtszuTum+FAYRH4Wdhmlfqu1Z03gkCIo1i11TmamN5432uswwFCVH60JU3CpaN97Ehru39LA1X9E=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
 
     /// <summary>
     /// The contact details
     /// </summary>
-    private const string ContactDetails = " Please see servicestack.net or contact team@servicestack.net for more details.";
+    private const string ContactDetails =
+        " Please see servicestack.net or contact team@servicestack.net for more details.";
 
     /// <summary>
     /// Initializes static members of the <see cref="LicenseUtils" /> class.
     /// </summary>
     static LicenseUtils()
     {
-        const string ossLicenseKey = "1001-e1JlZjoxMDAxLE5hbWU6VGVzdCBCdXNpbmVzcyxUeXBlOkJ1c2luZXNzLEhhc2g6UHVNTVRPclhvT2ZIbjQ5MG5LZE1mUTd5RUMzQnBucTFEbTE3TDczVEF4QUNMT1FhNXJMOWkzVjFGL2ZkVTE3Q2pDNENqTkQyUktRWmhvUVBhYTBiekJGUUZ3ZE5aZHFDYm9hL3lydGlwUHI5K1JsaTBYbzNsUC85cjVJNHE5QVhldDN6QkE4aTlvdldrdTgyTk1relY2eis2dFFqTThYN2lmc0JveHgycFdjPSxFeHBpcnk6MjAxMy0wMS0wMX0=";
+        const string ossLicenseKey =
+            "1001-e1JlZjoxMDAxLE5hbWU6VGVzdCBCdXNpbmVzcyxUeXBlOkJ1c2luZXNzLEhhc2g6UHVNTVRPclhvT2ZIbjQ5MG5LZE1mUTd5RUMzQnBucTFEbTE3TDczVEF4QUNMT1FhNXJMOWkzVjFGL2ZkVTE3Q2pDNENqTkQyUktRWmhvUVBhYTBiekJGUUZ3ZE5aZHFDYm9hL3lydGlwUHI5K1JsaTBYbzNsUC85cjVJNHE5QVhldDN6QkE4aTlvdldrdTgyTk1relY2eis2dFFqTThYN2lmc0JveHgycFdjPSxFeHBpcnk6MjAxMy0wMS0wMX0=";
 
         RegisterLicense(ossLicenseKey);
     }
@@ -336,6 +382,7 @@ public static class LicenseUtils
     /// </summary>
     /// <value><c>true</c> if this instance has initialize; otherwise, <c>false</c>.</value>
     public static bool HasInit { get; private set; }
+
     /// <summary>
     /// Initializes this instance.
     /// </summary>
@@ -352,35 +399,51 @@ public static class LicenseUtils
         /// <summary>
         /// The upgrade instructions
         /// </summary>
-        private const string UpgradeInstructions = " Please see https://servicestack.net to upgrade to a commercial license or visit https://github.com/ServiceStackV3/ServiceStackV3 to revert back to the free ServiceStack v3.";
+        private const string UpgradeInstructions =
+            " Please see https://servicestack.net to upgrade to a commercial license or visit https://github.com/ServiceStackV3/ServiceStackV3 to revert back to the free ServiceStack v3.";
+
         /// <summary>
         /// The exceeded redis types
         /// </summary>
-        internal const string ExceededRedisTypes = "The free-quota limit on '{0} Redis Types' has been reached." + UpgradeInstructions;
+        internal const string ExceededRedisTypes =
+            "The free-quota limit on '{0} Redis Types' has been reached." + UpgradeInstructions;
+
         /// <summary>
         /// The exceeded redis requests
         /// </summary>
-        internal const string ExceededRedisRequests = "The free-quota limit on '{0} Redis requests per hour' has been reached." + UpgradeInstructions;
+        internal const string ExceededRedisRequests =
+            "The free-quota limit on '{0} Redis requests per hour' has been reached." + UpgradeInstructions;
+
         /// <summary>
         /// The exceeded orm lite tables
         /// </summary>
-        internal const string ExceededOrmLiteTables = "The free-quota limit on '{0} OrmLite Tables' has been reached." + UpgradeInstructions;
+        internal const string ExceededOrmLiteTables =
+            "The free-quota limit on '{0} OrmLite Tables' has been reached." + UpgradeInstructions;
+
         /// <summary>
         /// The exceeded aws tables
         /// </summary>
-        internal const string ExceededAwsTables = "The free-quota limit on '{0} AWS Tables' has been reached." + UpgradeInstructions;
+        internal const string ExceededAwsTables =
+            "The free-quota limit on '{0} AWS Tables' has been reached." + UpgradeInstructions;
+
         /// <summary>
         /// The exceeded service stack operations
         /// </summary>
-        internal const string ExceededServiceStackOperations = "The free-quota limit on '{0} ServiceStack Operations' has been reached." + UpgradeInstructions;
+        internal const string ExceededServiceStackOperations =
+            "The free-quota limit on '{0} ServiceStack Operations' has been reached." + UpgradeInstructions;
+
         /// <summary>
         /// The exceeded admin UI
         /// </summary>
-        internal const string ExceededAdminUi = "The Admin UI is a commercial-only premium feature." + UpgradeInstructions;
+        internal const string ExceededAdminUi =
+            "The Admin UI is a commercial-only premium feature." + UpgradeInstructions;
+
         /// <summary>
         /// The exceeded premium feature
         /// </summary>
-        internal const string ExceededPremiumFeature = "Unauthorized use of a commercial-only premium feature." + UpgradeInstructions;
+        internal const string ExceededPremiumFeature =
+            "Unauthorized use of a commercial-only premium feature." + UpgradeInstructions;
+
         /// <summary>
         /// The unauthorized access request
         /// </summary>
@@ -396,26 +459,32 @@ public static class LicenseUtils
         /// The service stack operations
         /// </summary>
         public const int ServiceStackOperations = 10;
+
         /// <summary>
         /// The type fields
         /// </summary>
         public const int TypeFields = 20;
+
         /// <summary>
         /// The redis types
         /// </summary>
         public const int RedisTypes = 20;
+
         /// <summary>
         /// The redis request per hour
         /// </summary>
         public const int RedisRequestPerHour = 6000;
+
         /// <summary>
         /// The orm lite tables
         /// </summary>
         public const int OrmLiteTables = 10;
+
         /// <summary>
         /// The aws tables
         /// </summary>
         public const int AwsTables = 10;
+
         /// <summary>
         /// The premium feature
         /// </summary>
@@ -432,8 +501,9 @@ public static class LicenseUtils
     public static void AssertEvaluationLicense()
     {
         if (DateTime.UtcNow > new DateTime(2013, 12, 31))
-            throw new LicenseException("The evaluation license for this software has expired. " +
-                                       "See https://servicestack.net to upgrade to a valid license.").Trace();
+            throw new LicenseException(
+                "The evaluation license for this software has expired. "
+                + "See https://servicestack.net to upgrade to a valid license.").Trace();
     }
 
     /// <summary>
@@ -450,6 +520,7 @@ public static class LicenseUtils
         /// The license key
         /// </summary>
         internal readonly LicenseKey LicenseKey;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="__ActivatedLicense" /> class.
         /// </summary>
@@ -480,7 +551,8 @@ public static class LicenseUtils
         {
             var licenseMeta = key.Meta;
             if ((licenseMeta & (long)LicenseMeta.Subscription) != 0)
-                return $"This Annual Subscription expired on '{key.Expiry:d}', please update your License Key with this years subscription.";
+                return
+                    $"This Annual Subscription expired on '{key.Expiry:d}', please update your License Key with this years subscription.";
         }
 
         return null;
@@ -530,7 +602,7 @@ public static class LicenseUtils
             var key = VerifyLicenseKeyText(licenseKeyText);
             ValidateLicenseKey(key);
         }
-        catch (PlatformNotSupportedException)
+        catch (PlatformNotSupportedException pex)
         {
             // Allow usage in environments like dotnet script
             __activatedLicense = new __ActivatedLicense(new LicenseKey { Type = LicenseType.Indie });
@@ -559,7 +631,9 @@ public static class LicenseUtils
                 }
                 catch (Exception exFallback)
                 {
-                    if (exFallback is FileNotFoundException || exFallback is FileLoadException || exFallback is BadImageFormatException)
+                    Tracer.Instance.WriteWarning(ex.ToString());
+
+                    if (exFallback is FileNotFoundException or FileLoadException or BadImageFormatException)
                         throw;
 
                     throw new LicenseException(msg, exFallback).Trace();
@@ -588,8 +662,9 @@ public static class LicenseUtils
     {
         var releaseDate = Env.GetReleaseDate();
         if (releaseDate > key.Expiry)
-            throw new LicenseException($"This license has expired on {key.Expiry:d} and is not valid for use with this release."
-                                       + ContactDetails).Trace();
+            throw new LicenseException(
+                $"This license has expired on {key.Expiry:d} and is not valid for use with this release."
+                + ContactDetails).Trace();
 
         if (key.Type == LicenseType.Trial && DateTime.UtcNow > key.Expiry)
             throw new LicenseException($"This trial license has expired on {key.Expiry:d}." + ContactDetails).Trace();
@@ -605,6 +680,7 @@ public static class LicenseUtils
     /// The individual prefix
     /// </summary>
     private const string IndividualPrefix = "Individual (c) ";
+
     /// <summary>
     /// The open source prefix
     /// </summary>
@@ -636,8 +712,9 @@ public static class LicenseUtils
 
         var envKey = Environment.GetEnvironmentVariable("SERVICESTACK_LICENSE");
         if (envKey == licenseText)
-            throw new LicenseException("Cannot use SERVICESTACK_LICENSE Environment variable with free License Keys, " +
-                                       "please use Licensing.RegisterLicense() in source code.");
+            throw new LicenseException(
+                "Cannot use SERVICESTACK_LICENSE Environment variable with free License Keys, "
+                + "please use Licensing.RegisterLicense() in source code.");
 
         LicenseKey key = null;
         if (licenseText.StartsWith(IndividualPrefix))
@@ -659,8 +736,9 @@ public static class LicenseUtils
 
         var releaseDate = Env.GetReleaseDate();
         if (releaseDate > key.Expiry)
-            throw new LicenseException($"This license has expired on {key.Expiry:d} and is not valid for use with this release.\n"
-                                       + "Check https://servicestack.net/free for eligible renewals.").Trace();
+            throw new LicenseException(
+                $"This license has expired on {key.Expiry:d} and is not valid for use with this release.\n"
+                + "Check https://servicestack.net/free for eligible renewals.").Trace();
 
         __activatedLicense = new __ActivatedLicense(key);
     }
@@ -669,31 +747,32 @@ public static class LicenseUtils
     /// Sets the information.
     /// </summary>
     /// <value>The information.</value>
-    internal static string Info => __activatedLicense?.LicenseKey == null
-                                       ? "NO"
-                                       : __activatedLicense.LicenseKey.Type switch
-                                           {
-                                               LicenseType.Free => "FR",
-                                               LicenseType.FreeIndividual => "FI",
-                                               LicenseType.FreeOpenSource => "FO",
-                                               LicenseType.Indie => "IN",
-                                               LicenseType.Business => "BU",
-                                               LicenseType.Enterprise => "EN",
-                                               LicenseType.TextIndie => "TI",
-                                               LicenseType.TextBusiness => "TB",
-                                               LicenseType.OrmLiteIndie => "OI",
-                                               LicenseType.OrmLiteBusiness => "OB",
-                                               LicenseType.RedisIndie => "RI",
-                                               LicenseType.RedisBusiness => "RB",
-                                               LicenseType.AwsIndie => "AI",
-                                               LicenseType.AwsBusiness => "AB",
-                                               LicenseType.Trial => "TR",
-                                               LicenseType.Site => "SI",
-                                               LicenseType.TextSite => "TS",
-                                               LicenseType.RedisSite => "RS",
-                                               LicenseType.OrmLiteSite => "OS",
-                                               _ => "UN",
-                                           };
+    internal static string Info =>
+        __activatedLicense?.LicenseKey == null
+            ? "NO"
+            : __activatedLicense.LicenseKey.Type switch
+                {
+                    LicenseType.Free => "FR",
+                    LicenseType.FreeIndividual => "FI",
+                    LicenseType.FreeOpenSource => "FO",
+                    LicenseType.Indie => "IN",
+                    LicenseType.Business => "BU",
+                    LicenseType.Enterprise => "EN",
+                    LicenseType.TextIndie => "TI",
+                    LicenseType.TextBusiness => "TB",
+                    LicenseType.OrmLiteIndie => "OI",
+                    LicenseType.OrmLiteBusiness => "OB",
+                    LicenseType.RedisIndie => "RI",
+                    LicenseType.RedisBusiness => "RB",
+                    LicenseType.AwsIndie => "AI",
+                    LicenseType.AwsBusiness => "AB",
+                    LicenseType.Trial => "TR",
+                    LicenseType.Site => "SI",
+                    LicenseType.TextSite => "TS",
+                    LicenseType.RedisSite => "RS",
+                    LicenseType.OrmLiteSite => "OS",
+                    _ => "UN",
+                };
 
     /// <summary>
     /// Verifies the individual license.
@@ -722,10 +801,11 @@ public static class LicenseUtils
             var verified = ((System.Security.Cryptography.RSACryptoServiceProvider)rsa)
                 .VerifyData(keyText.ToUtf8Bytes(), "SHA256", Convert.FromBase64String(keySign));
 #else
-            var verified = rsa.VerifyData(keyText.ToUtf8Bytes(), 
-                    Convert.FromBase64String(keySign), 
-                    System.Security.Cryptography.HashAlgorithmName.SHA256, 
-                    System.Security.Cryptography.RSASignaturePadding.Pkcs1);
+            var verified = rsa.VerifyData(
+                keyText.ToUtf8Bytes(),
+                Convert.FromBase64String(keySign),
+                System.Security.Cryptography.HashAlgorithmName.SHA256,
+                System.Security.Cryptography.RSASignaturePadding.Pkcs1);
 #endif
             if (verified)
             {
@@ -742,7 +822,9 @@ public static class LicenseUtils
                 }
             }
         }
-        catch { }
+        catch
+        {
+        }
 
         return null;
     }
@@ -774,10 +856,11 @@ public static class LicenseUtils
             var verified = ((System.Security.Cryptography.RSACryptoServiceProvider)rsa)
                 .VerifyData(keyText.ToUtf8Bytes(), "SHA256", Convert.FromBase64String(keySign));
 #else
-            var verified = rsa.VerifyData(keyText.ToUtf8Bytes(), 
-                    Convert.FromBase64String(keySign), 
-                    System.Security.Cryptography.HashAlgorithmName.SHA256, 
-                    System.Security.Cryptography.RSASignaturePadding.Pkcs1);
+            var verified = rsa.VerifyData(
+                keyText.ToUtf8Bytes(),
+                Convert.FromBase64String(keySign),
+                System.Security.Cryptography.HashAlgorithmName.SHA256,
+                System.Security.Cryptography.RSASignaturePadding.Pkcs1);
 #endif
             if (verified)
             {
@@ -794,7 +877,9 @@ public static class LicenseUtils
                 }
             }
         }
-        catch { }
+        catch
+        {
+        }
 
         return null;
     }
@@ -826,8 +911,12 @@ public static class LicenseUtils
     /// <param name="message">The message.</param>
     /// <exception cref="LicenseException">message.Fmt(allowedUsage)</exception>
     /// <exception cref="ServiceStack.LicenseException"></exception>
-    public static void ApprovedUsage(LicenseFeature licenseFeature, LicenseFeature requestedFeature,
-                                     int allowedUsage, int actualUsage, string message)
+    public static void ApprovedUsage(
+        LicenseFeature licenseFeature,
+        LicenseFeature requestedFeature,
+        int allowedUsage,
+        int actualUsage,
+        string message)
     {
         var hasFeature = (requestedFeature & licenseFeature) == requestedFeature;
         if (hasFeature)
@@ -869,57 +958,98 @@ public static class LicenseUtils
                 switch (quotaType)
                 {
                     case QuotaType.Types:
-                        ApprovedUsage(licensedFeatures, feature, FreeQuotas.RedisTypes, count, ErrorMessages.ExceededRedisTypes);
+                        ApprovedUsage(
+                            licensedFeatures,
+                            feature,
+                            FreeQuotas.RedisTypes,
+                            count,
+                            ErrorMessages.ExceededRedisTypes);
                         return;
                     case QuotaType.RequestsPerHour:
-                        ApprovedUsage(licensedFeatures, feature, FreeQuotas.RedisRequestPerHour, count, ErrorMessages.ExceededRedisRequests);
+                        ApprovedUsage(
+                            licensedFeatures,
+                            feature,
+                            FreeQuotas.RedisRequestPerHour,
+                            count,
+                            ErrorMessages.ExceededRedisRequests);
                         return;
                 }
+
                 break;
 
             case LicenseFeature.OrmLite:
                 switch (quotaType)
                 {
                     case QuotaType.Tables:
-                        ApprovedUsage(licensedFeatures, feature, FreeQuotas.OrmLiteTables, count, ErrorMessages.ExceededOrmLiteTables);
+                        ApprovedUsage(
+                            licensedFeatures,
+                            feature,
+                            FreeQuotas.OrmLiteTables,
+                            count,
+                            ErrorMessages.ExceededOrmLiteTables);
                         return;
                 }
+
                 break;
 
             case LicenseFeature.Aws:
                 switch (quotaType)
                 {
                     case QuotaType.Tables:
-                        ApprovedUsage(licensedFeatures, feature, FreeQuotas.AwsTables, count, ErrorMessages.ExceededAwsTables);
+                        ApprovedUsage(
+                            licensedFeatures,
+                            feature,
+                            FreeQuotas.AwsTables,
+                            count,
+                            ErrorMessages.ExceededAwsTables);
                         return;
                 }
+
                 break;
 
             case LicenseFeature.ServiceStack:
                 switch (quotaType)
                 {
                     case QuotaType.Operations:
-                        ApprovedUsage(licensedFeatures, feature, FreeQuotas.ServiceStackOperations, count, ErrorMessages.ExceededServiceStackOperations);
+                        ApprovedUsage(
+                            licensedFeatures,
+                            feature,
+                            FreeQuotas.ServiceStackOperations,
+                            count,
+                            ErrorMessages.ExceededServiceStackOperations);
                         return;
                 }
+
                 break;
 
             case LicenseFeature.Admin:
                 switch (quotaType)
                 {
                     case QuotaType.PremiumFeature:
-                        ApprovedUsage(licensedFeatures, feature, FreeQuotas.PremiumFeature, count, ErrorMessages.ExceededAdminUi);
+                        ApprovedUsage(
+                            licensedFeatures,
+                            feature,
+                            FreeQuotas.PremiumFeature,
+                            count,
+                            ErrorMessages.ExceededAdminUi);
                         return;
                 }
+
                 break;
 
             case LicenseFeature.Premium:
                 switch (quotaType)
                 {
                     case QuotaType.PremiumFeature:
-                        ApprovedUsage(licensedFeatures, feature, FreeQuotas.PremiumFeature, count, ErrorMessages.ExceededPremiumFeature);
+                        ApprovedUsage(
+                            licensedFeatures,
+                            feature,
+                            FreeQuotas.PremiumFeature,
+                            count,
+                            ErrorMessages.ExceededPremiumFeature);
                         return;
                 }
+
                 break;
         }
 
@@ -966,6 +1096,7 @@ public static class LicenseUtils
             case LicenseType.RedisSite:
                 return LicenseFeature.RedisSku;
         }
+
         throw new ArgumentException("Unknown License Type: " + key.Type).Trace();
     }
 
@@ -995,7 +1126,8 @@ public static class LicenseUtils
             var key = jsv.FromJsv<LicenseKey>();
 
             if (key.Ref != refId)
-                throw new LicenseException("The license '{0}' is not assigned to CustomerId '{1}'.".Fmt(base64, refId)).Trace();
+                throw new LicenseException("The license '{0}' is not assigned to CustomerId '{1}'.".Fmt(base64, refId))
+                    .Trace();
 
             return key;
         }
@@ -1028,7 +1160,8 @@ public static class LicenseUtils
                           Name = map.Get("Name"),
                           Type = (LicenseType)Enum.Parse(typeof(LicenseType), map.Get("Type"), ignoreCase: true),
                           Hash = map.Get("Hash"),
-                          Expiry = DateTimeSerializer.ParseManual(map.Get("Expiry"), DateTimeKind.Utc).GetValueOrDefault(),
+                          Expiry = DateTimeSerializer.ParseManual(map.Get("Expiry"), DateTimeKind.Utc)
+                              .GetValueOrDefault(),
                       };
 
         if (key.Ref != refId)
@@ -1059,6 +1192,7 @@ public static class LicenseUtils
         {
             ex = ex.InnerException;
         }
+
         return ex;
     }
 
@@ -1107,6 +1241,7 @@ public static class LicenseUtils
             if (!VerifyLicenseKeyTextFallback(licenseKeyText, out key))
                 throw;
         }
+
         return key;
 #else
             return licenseKeyText.ToLicenseKey();
@@ -1123,9 +1258,9 @@ public static class LicenseUtils
 #if NETFX
         rsa.FromXmlString(xml);
 #else
-            //throws PlatformNotSupportedException
-            var csp = ExtractFromXml(xml);
-            rsa.ImportParameters(csp);
+        //throws PlatformNotSupportedException
+        var csp = ExtractFromXml(xml);
+        rsa.ImportParameters(csp);
 #endif
     }
 
@@ -1135,61 +1270,61 @@ public static class LicenseUtils
     /// </summary>
     /// <param name="xml">The XML.</param>
     /// <returns>System.Security.Cryptography.RSAParameters.</returns>
-    private static System.Security.Cryptography.RSAParameters ExtractFromXml(string xml)
+    private static RSAParameters ExtractFromXml(string xml)
+    {
+        var csp = new RSAParameters();
+        using var reader = System.Xml.XmlReader.Create(new StringReader(xml));
+        while (reader.Read())
         {
-            var csp = new System.Security.Cryptography.RSAParameters();
-            using (var reader = System.Xml.XmlReader.Create(new StringReader(xml)))
+            if (reader.NodeType != System.Xml.XmlNodeType.Element)
+                continue;
+
+            var elName = reader.Name;
+            if (elName == "RSAKeyValue")
+                continue;
+
+            do
             {
-                while (reader.Read())
-                {
-                    if (reader.NodeType != System.Xml.XmlNodeType.Element)
-                        continue;
+                reader.Read();
+            }
+            while (reader.NodeType != System.Xml.XmlNodeType.Text
+                   && reader.NodeType != System.Xml.XmlNodeType.EndElement);
 
-                    var elName = reader.Name;
-                    if (elName == "RSAKeyValue")
-                        continue;
+            if (reader.NodeType == System.Xml.XmlNodeType.EndElement)
+                continue;
 
-                    do
-                    {
-                        reader.Read();
-                    } while (reader.NodeType != System.Xml.XmlNodeType.Text && reader.NodeType != System.Xml.XmlNodeType.EndElement);
-
-                    if (reader.NodeType == System.Xml.XmlNodeType.EndElement)
-                        continue;
-
-                    var value = reader.Value;
-                    switch (elName)
-                    {
-                        case "Modulus":
-                            csp.Modulus = Convert.FromBase64String(value);
-                            break;
-                        case "Exponent":
-                            csp.Exponent = Convert.FromBase64String(value);
-                            break;
-                        case "P":
-                            csp.P = Convert.FromBase64String(value);
-                            break;
-                        case "Q":
-                            csp.Q = Convert.FromBase64String(value);
-                            break;
-                        case "DP":
-                            csp.DP = Convert.FromBase64String(value);
-                            break;
-                        case "DQ":
-                            csp.DQ = Convert.FromBase64String(value);
-                            break;
-                        case "InverseQ":
-                            csp.InverseQ = Convert.FromBase64String(value);
-                            break;
-                        case "D":
-                            csp.D = Convert.FromBase64String(value);
-                            break;
-                    }
-                }
-
-                return csp;
+            var value = reader.Value;
+            switch (elName)
+            {
+                case "Modulus":
+                    csp.Modulus = Convert.FromBase64String(value);
+                    break;
+                case "Exponent":
+                    csp.Exponent = Convert.FromBase64String(value);
+                    break;
+                case "P":
+                    csp.P = Convert.FromBase64String(value);
+                    break;
+                case "Q":
+                    csp.Q = Convert.FromBase64String(value);
+                    break;
+                case "DP":
+                    csp.DP = Convert.FromBase64String(value);
+                    break;
+                case "DQ":
+                    csp.DQ = Convert.FromBase64String(value);
+                    break;
+                case "InverseQ":
+                    csp.InverseQ = Convert.FromBase64String(value);
+                    break;
+                case "D":
+                    csp.D = Convert.FromBase64String(value);
+                    break;
             }
         }
+
+        return csp;
+    }
 #endif
 
     /// <summary>
@@ -1290,6 +1425,8 @@ public static class LicenseUtils
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public static bool VerifySha1Data(this RSACryptoServiceProvider rsAalg, byte[] unsignedData, byte[] encryptedData)
     {
-        return rsAalg.VerifyData(unsignedData, CryptoConfig.MapNameToOID("SHA1")!, encryptedData);
+        using var sha = TextConfig.CreateSha();
+
+        return rsAalg.VerifyData(unsignedData, sha, encryptedData);
     }
 }

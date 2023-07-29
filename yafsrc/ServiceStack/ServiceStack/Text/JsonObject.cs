@@ -4,10 +4,12 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+
 using ServiceStack.Text.Common;
 using ServiceStack.Text.Json;
 
@@ -19,12 +21,12 @@ namespace ServiceStack.Text;
 public static class JsonExtensions
 {
     /// <summary>
-    /// Jsons to.
+    /// JSON to Type
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="T">the type.</typeparam>
     /// <param name="map">The map.</param>
     /// <param name="key">The key.</param>
-    /// <returns>T.</returns>
+    /// <returns>the type</returns>
     public static T JsonTo<T>(this Dictionary<string, string> map, string key)
     {
         return Get<T>(map, key);
@@ -147,10 +149,11 @@ public class JsonObject : Dictionary<string, string>, IEnumerable<KeyValuePair<s
     public new Enumerator GetEnumerator()
     {
         var to = new Dictionary<string, string>();
-        foreach (var key in Keys)
+        foreach (var key in this.Keys)
         {
             to[key] = this[key];
         }
+
         return to.GetEnumerator();
     }
 
@@ -159,10 +162,11 @@ public class JsonObject : Dictionary<string, string>, IEnumerable<KeyValuePair<s
     /// </summary>
     /// <returns>An enumerator that can be used to iterate through the collection.</returns>
     IEnumerator<KeyValuePair<string, string>> IEnumerable<KeyValuePair<string, string>>.GetEnumerator()
-        => GetEnumerator();
+        =>
+            this.GetEnumerator();
 
     /// <summary>
-    /// Converts to unescapeddictionary.
+    /// Converts to an unescaped dictionary.
     /// </summary>
     /// <returns>Dictionary&lt;System.String, System.String&gt;.</returns>
     public Dictionary<string, string> ToUnescapedDictionary()
@@ -173,6 +177,7 @@ public class JsonObject : Dictionary<string, string>, IEnumerable<KeyValuePair<s
         {
             to[entry.Key] = entry.Value;
         }
+
         return to;
     }
 
@@ -215,7 +220,9 @@ public class JsonObject : Dictionary<string, string>, IEnumerable<KeyValuePair<s
     /// <returns>System.String.</returns>
     public string GetUnescaped(string key)
     {
-        return base[key];
+        return this.TryGetValue(key, out var value)
+                   ? value
+                   : null;
     }
 
     /// <summary>
@@ -225,7 +232,9 @@ public class JsonObject : Dictionary<string, string>, IEnumerable<KeyValuePair<s
     /// <returns>System.String.</returns>
     public string Child(string key)
     {
-        return base[key];
+        return this.TryGetValue(key, out var value)
+                   ? value
+                   : null;
     }
 
     /// <summary>
@@ -239,7 +248,7 @@ public class JsonObject : Dictionary<string, string>, IEnumerable<KeyValuePair<s
         if (!string.IsNullOrEmpty(strValue))
         {
             var firstChar = strValue[0];
-            var lastChar = strValue[strValue.Length - 1];
+            var lastChar = strValue[^1];
             if (firstChar == JsWriter.MapStartChar && lastChar == JsWriter.MapEndChar
                 || firstChar == JsWriter.ListStartChar && lastChar == JsWriter.ListEndChar
                 || JsonUtils.True == strValue
@@ -250,6 +259,7 @@ public class JsonObject : Dictionary<string, string>, IEnumerable<KeyValuePair<s
                 return;
             }
         }
+
         JsonUtils.WriteString(writer, strValue);
     }
 
@@ -275,6 +285,7 @@ public class JsonObject : Dictionary<string, string>, IEnumerable<KeyValuePair<s
             {
                 return longValue is < JsonUtils.MaxInteger and > JsonUtils.MinInteger;
             }
+
             return false;
         }
 
@@ -282,6 +293,7 @@ public class JsonObject : Dictionary<string, string>, IEnumerable<KeyValuePair<s
         {
             return doubleValue is < JsonUtils.MaxInteger and > JsonUtils.MinInteger;
         }
+
         return false;
     }
 
@@ -346,10 +358,10 @@ public interface IValueWriter
 
 /// <summary>
 /// Struct JsonValue
-/// Implements the <see cref="ServiceStack.Text.IValueWriter" />
+/// Implements the <see cref="IValueWriter" />
 /// </summary>
-/// <seealso cref="ServiceStack.Text.IValueWriter" />
-public struct JsonValue : IValueWriter
+/// <seealso cref="IValueWriter" />
+public readonly struct JsonValue : IValueWriter
 {
     /// <summary>
     /// The json
@@ -366,22 +378,22 @@ public struct JsonValue : IValueWriter
     }
 
     /// <summary>
-    /// Ases this instance.
+    /// As type
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns>T.</returns>
-    public T As<T>() => JsonSerializer.DeserializeFromString<T>(json);
+    public T As<T>() => JsonSerializer.DeserializeFromString<T>(this.json);
 
     /// <summary>
     /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>
     /// <returns>A <see cref="string" /> that represents this instance.</returns>
-    public override string ToString() => json;
+    public override string ToString() => this.json;
 
     /// <summary>
     /// Writes to.
     /// </summary>
     /// <param name="serializer">The serializer.</param>
     /// <param name="writer">The writer.</param>
-    public void WriteTo(ITypeSerializer serializer, TextWriter writer) => writer.Write(json ?? JsonUtils.Null);
+    public void WriteTo(ITypeSerializer serializer, TextWriter writer) => writer.Write(this.json ?? JsonUtils.Null);
 }

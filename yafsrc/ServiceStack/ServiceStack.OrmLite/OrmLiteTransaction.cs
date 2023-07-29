@@ -24,6 +24,7 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
     /// </summary>
     /// <value>The transaction.</value>
     public IDbTransaction Transaction { get; set; }
+
     /// <summary>
     /// Gets the database transaction.
     /// </summary>
@@ -31,9 +32,15 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
     public IDbTransaction DbTransaction => Transaction;
 
     /// <summary>
-    /// The database
+    /// The database connection
     /// </summary>
     private readonly IDbConnection db;
+
+    /// <summary>
+    /// Gets the database connection.
+    /// </summary>
+    /// <value>The database connection.</value>
+    public IDbConnection Db => db;
 
     /// <summary>
     /// Creates the specified database.

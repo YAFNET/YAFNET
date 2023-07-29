@@ -14,6 +14,7 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.Intrinsics.Arm;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -284,6 +285,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
         // fastest up to 500 chars https://wintermute79.wordpress.com/2014/10/10/c-sha-1-benchmark/
         var hash = SHA1.HashData(Encoding.ASCII.GetBytes(uniqueExpr));
+        //using var sha1 = TextConfig.CreateSha();
         //var hash = sha1.ComputeHash(Encoding.ASCII.GetBytes(uniqueExpr));
         var hexFormat = hash.ToHex();
 

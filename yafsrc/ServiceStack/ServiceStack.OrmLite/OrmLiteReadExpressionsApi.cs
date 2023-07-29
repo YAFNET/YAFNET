@@ -411,6 +411,38 @@ public static class OrmLiteReadExpressionsApi
     }
 
     /// <summary>
+    /// Create a SavePoint
+    /// </summary>
+    /// <param name="trans">The transaction.</param>
+    /// <param name="name">The name.</param>
+    /// <returns>SavePoint.</returns>
+    /// <exception cref="System.ArgumentException"></exception>
+    public static SavePoint SavePoint(this IDbTransaction trans, string name)
+    {
+        if (trans is not OrmLiteTransaction dbTrans)
+            throw new ArgumentException($"{trans.GetType().Name} is not an OrmLiteTransaction. Use db.OpenTransaction() to Create OrmLite Transactions");
+        var savePoint = new SavePoint(dbTrans, name);
+        savePoint.Save();
+        return savePoint;
+    }
+
+    /// <summary>
+    /// Create a SavePoint
+    /// </summary>
+    /// <param name="trans">The transaction.</param>
+    /// <param name="name">The name.</param>
+    /// <returns>SavePoint.</returns>
+    /// <exception cref="System.ArgumentException"></exception>
+    public static async Task<SavePoint> SavePointAsync(this IDbTransaction trans, string name)
+    {
+        if (trans is not OrmLiteTransaction dbTrans)
+            throw new ArgumentException($"{trans.GetType().Name} is not an OrmLiteTransaction. Use db.OpenTransaction() to Create OrmLite Transactions");
+        var savePoint = new SavePoint(dbTrans, name);
+        await savePoint.SaveAsync().ConfigAwait();
+        return savePoint;
+    }
+
+    /// <summary>
     /// Create a managed OrmLite IDbCommand
     /// </summary>
     /// <param name="dbConn">The database connection.</param>

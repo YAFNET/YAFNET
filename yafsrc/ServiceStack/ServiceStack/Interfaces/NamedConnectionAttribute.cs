@@ -7,7 +7,7 @@ namespace ServiceStack;
 /// Implements the <see cref="ServiceStack.AttributeBase" />
 /// </summary>
 /// <seealso cref="ServiceStack.AttributeBase" />
-[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = false)]
 public class NamedConnectionAttribute : AttributeBase
 {
     /// <summary>
