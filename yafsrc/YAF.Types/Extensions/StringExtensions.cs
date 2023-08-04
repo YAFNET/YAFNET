@@ -324,7 +324,8 @@ public static class StringExtensions
                || inputString.EndsWith("gif", StringComparison.InvariantCultureIgnoreCase)
                || inputString.EndsWith("jpeg", StringComparison.InvariantCultureIgnoreCase)
                || inputString.EndsWith("jpg", StringComparison.InvariantCultureIgnoreCase)
-               || inputString.EndsWith("bmp", StringComparison.InvariantCultureIgnoreCase);
+               || inputString.EndsWith("bmp", StringComparison.InvariantCultureIgnoreCase)
+               || inputString.EndsWith("webp", StringComparison.InvariantCultureIgnoreCase);
     }
 
     /// <summary>
