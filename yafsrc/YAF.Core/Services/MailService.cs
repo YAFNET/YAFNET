@@ -24,7 +24,6 @@
 
 namespace YAF.Core.Services;
 
-using System;
 using System.Collections.Generic;
 using System.Net.Mail;
 
@@ -67,7 +66,7 @@ public class MailService : IMailService, IHaveServiceLocator
                             smtpClient.Send(m);
                         }
                     }
-                    catch (Exception ex)
+                    catch (SmtpException ex)
                     {
                         this.Get<ILoggerService>().Log("Mail Error", EventLogTypes.Error, null, null, ex);
                     }
