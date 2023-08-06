@@ -207,7 +207,7 @@
                                         var ip = IPHelper.GetIpAddressAsString(postData.DataRow.IP);
 
                                         <li class="list-inline-item d-none d-md-inline-block">
-                                            <span class="badge bg-info">
+                                            <span class="badge text-bg-info">
                                                 @Html.LocalizedText("IP"):&nbsp;
                                                 <a href="@(string.Format(Current.BoardSettings.IPInfoPageURL, ip))" target="_blank" class="link-light"
                                                    title="@(Current.Get<ILocalization>().GetText("COMMON", "TT_IPDETAILS"))">
@@ -225,11 +225,11 @@
                                     }
 
                                     <li class="list-inline-item d-block">
-                                        <span class="badge bg-secondary">@Model.RankName</span>
+                                        <span class="badge text-bg-secondary">@Model.RankName</span>
 
                                         @if (Model.TopicOwnerID.Equals(postData.UserId))
                                         {
-                                            <span class="badge bg-dark mb-2"
+                                            <span class="badge text-bg-dark mb-2"
                                                   title="@(Current.Get<ILocalization>().GetText("POSTS", "TOPIC_STARTER_HELP"))">
                                                 @Html.LocalizedText("POSTS", "TOPIC_STARTER")
                                             </span>
@@ -237,7 +237,7 @@
 
                                         @if (postData.PostIsAnswer)
                                         {
-                                            <span class="badge bg-success"
+                                            <span class="badge text-bg-success"
                                                   title="@(Current.Get<ILocalization>().GetText("POSTS", "MESSAGE_ANSWER_HELP"))">
                                                 @Html.Icon("check")
                                                 @Html.LocalizedText("POSTS", "MESSAGE_ANSWER")
@@ -248,7 +248,7 @@
                                         {
                                             @foreach (var item in customProfile)
                                             {
-                                                <span class="badge bg-secondary">
+                                                <span class="badge text-bg-secondary">
                                                     @(item.Item2.Name):&nbsp;@(item.Item1.Value)
                                                 </span>
                                             }

@@ -64,35 +64,6 @@ public class AccessMasksModel : AdminPage
     }
 
     /// <summary>
-    /// Format access mask setting color formatting.
-    /// </summary>
-    /// <param name="enabled">
-    /// The enabled.
-    /// </param>
-    /// <returns>
-    /// Set access mask flags are rendered green if true, and if not red
-    /// </returns>
-    public string GetItemColor(bool enabled)
-    {
-        // show enabled flag red
-        return enabled ? "badge bg-success mb-2" : "badge bg-danger mb-2";
-    }
-
-    /// <summary>
-    /// Get a user friendly item name.
-    /// </summary>
-    /// <param name="enabled">
-    /// The enabled.
-    /// </param>
-    /// <returns>
-    /// Item Name.
-    /// </returns>
-    public string GetItemName(bool enabled)
-    {
-        return enabled ? this.GetText("DEFAULT", "YES") : this.GetText("DEFAULT", "NO");
-    }
-
-    /// <summary>
     /// Called when [post edit].
     /// </summary>
     /// <param name="maskId">The mask identifier.</param>

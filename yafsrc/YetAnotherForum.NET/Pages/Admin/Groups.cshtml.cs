@@ -85,37 +85,9 @@ public class GroupsModel : AdminPage
     public string GetItemColorString(string item)
     {
         // show enabled flag red
-        return item.IsSet() ? "badge bg-success" : "badge bg-danger";
+        return item.IsSet() ? "badge text-bg-success" : "badge text-bg-danger";
     }
 
-    /// <summary>
-    /// Format access mask setting color formatting.
-    /// </summary>
-    /// <param name="enabled">
-    /// The enabled.
-    /// </param>
-    /// <returns>
-    /// Set access mask flags  are rendered green if true, and if not red
-    /// </returns>
-    public string GetItemColor(bool enabled)
-    {
-        // show enabled flag red
-        return enabled ? "badge bg-success" : "badge bg-danger";
-    }
-
-    /// <summary>
-    /// Get a user friendly item name.
-    /// </summary>
-    /// <param name="enabled">
-    /// The enabled.
-    /// </param>
-    /// <returns>
-    /// Item Name.
-    /// </returns>
-    public string GetItemName(bool enabled)
-    {
-        return enabled ? this.GetText("DEFAULT", "YES") : this.GetText("DEFAULT", "NO");
-    }
 
     /// <summary>
     /// Get status of provider role VS YAF roles.

@@ -40,7 +40,7 @@
             </p>
         </div>
     </div>
-
+    
     @if (!Model.NewTopics.NullOrEmpty())
     {
         @foreach (var forum in Model.NewTopics)
@@ -58,7 +58,7 @@
                                target="_blank">
                                 <i class="fas fa-comment"></i> @topic.Subject
                             </a>
-                            <span class="badge bg-secondary">
+                            <span class="badge text-bg-secondary">
                                 @string.Format(Model.GetText("COMMENTS"), topic.Replies)
                             </span>
                         </h6>
@@ -97,7 +97,7 @@
                                target="_blank">
                                 <i class="fas fa-comment"></i> @topic.Subject
                             </a>
-                            <span class="badge bg-secondary">
+                            <span class="badge text-bg-secondary">
                                 @string.Format(Model.GetText("COMMENTS"), topic.Replies)
                             </span>
                         </h6>
@@ -123,8 +123,6 @@
     {
         @Model.ErrorMessage
     }
-
-   
 
     <div class="text-center text-body-secondary small">
         @Model.GetText("REMOVALTEXT")

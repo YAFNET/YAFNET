@@ -51,7 +51,7 @@ public class AlbumImage : BBCodeControl
         }
 
         stringBuilder.Append(
-            $@"<div class=""card bg-dark text-white"" style=""max-width:{this.PageContext.BoardSettings.ImageThumbnailMaxWidth}px"">");
+            $@"<div class=""card text-bg-dark"" style=""max-width:{this.PageContext.BoardSettings.ImageThumbnailMaxWidth}px"">");
 
         stringBuilder.AppendFormat(
             @"<a href=""{0}"" data-gallery=""#blueimp-gallery-{2}"" title=""{1}"">",

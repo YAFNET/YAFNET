@@ -186,10 +186,10 @@ public class UsersModel : AdminPage
 
         if (flag.IsApproved && flag.IsDeleted)
         {
-            return $@"<span class=""badge bg-warning text-dark"">{this.GetText("ADMIN_EDITUSER","DISABLED")}</span>";
+            return $@"<span class=""badge text-bg-warning"">{this.GetText("ADMIN_EDITUSER","DISABLED")}</span>";
         }
 
-        return $@"<span class=""badge bg-danger"">{this.GetText("NOT_APPROVED")}</span>";
+        return $@"<span class=""badge text-bg-danger"">{this.GetText("NOT_APPROVED")}</span>";
     }
 
     /// <summary>

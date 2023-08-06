@@ -129,7 +129,7 @@ public static class TopicContainerHtmlHelper
         {
             var success = new TagBuilder("span");
                 
-            success.AddCssClass("badge bg-success me-1");
+            success.AddCssClass("badge text-bg-success me-1");
 
             success.InnerHtml.Append(context.Get<ILocalization>().GetText("NEW_POSTS"));
 
@@ -143,7 +143,7 @@ public static class TopicContainerHtmlHelper
             // Render Replies & Views
             var repliesLabel = new TagBuilder("span");
 
-            repliesLabel.AddCssClass("badge bg-light text-dark ms-1 me-1");
+            repliesLabel.AddCssClass("badge text-bg-light ms-1 me-1");
 
             repliesLabel.MergeAttribute("title", context.Get<ILocalization>().GetText("MODERATE", "REPLIES"));
 
@@ -156,7 +156,7 @@ public static class TopicContainerHtmlHelper
 
             var viewsLabel = new TagBuilder("span");
 
-            viewsLabel.AddCssClass("badge bg-light text-dark");
+            viewsLabel.AddCssClass("badge text-bg-light");
 
             viewsLabel.MergeAttribute("title", context.Get<ILocalization>().GetText("MODERATE", "VIEWS"));
             viewsLabel.MergeAttribute("data-bs-toggle", "tooltip");
@@ -379,7 +379,7 @@ public static class TopicContainerHtmlHelper
         {
             priorityLabel.InnerHtml.AppendHtml(htmlHelper.IconHeader("arrows-alt", "ICONLEGEND", "MOVED", "", " "));
 
-            priorityLabel.AddCssClass("badge bg-secondary me-1");
+            priorityLabel.AddCssClass("badge text-bg-secondary me-1");
 
             return priorityLabel;
         }
@@ -388,7 +388,7 @@ public static class TopicContainerHtmlHelper
         {
             priorityLabel.InnerHtml.AppendHtml(htmlHelper.IconHeader("poll-h", "ICONLEGEND", "POLL", "", " "));
 
-            priorityLabel.AddCssClass("badge bg-secondary me-1");
+            priorityLabel.AddCssClass("badge text-bg-secondary me-1");
 
             return priorityLabel;
         }
@@ -399,14 +399,14 @@ public static class TopicContainerHtmlHelper
                 priorityLabel.InnerHtml.AppendHtml(
                     htmlHelper.IconHeader("thumbtack", "ICONLEGEND", "STICKY", "", " "));
 
-                priorityLabel.AddCssClass("badge bg-warning text-dark me-1");
+                priorityLabel.AddCssClass("badge text-bg-warning me-1");
 
                 return priorityLabel;
             case 2:
                 priorityLabel.InnerHtml.AppendHtml(
                     htmlHelper.IconHeader("bullhorn", "ICONLEGEND", "ANNOUNCEMENT", "", " "));
 
-                priorityLabel.AddCssClass("badge bg-primary me-1");
+                priorityLabel.AddCssClass("badge text-bg-primary me-1");
 
                 return priorityLabel;
         }

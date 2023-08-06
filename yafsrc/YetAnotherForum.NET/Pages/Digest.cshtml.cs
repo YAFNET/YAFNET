@@ -71,15 +71,17 @@ public class DigestModel : ForumPage
 
     public IActionResult OnGet(int userId, int boardId, string token, bool showError)
     {
-        if (token.IsNotSet() || !token.Equals(this.PageBoardContext.BoardSettings.WebServiceToken))
+        // TODO : Uncomennt
+        /*if (token.IsNotSet() || !token.Equals(this.PageBoardContext.BoardSettings.WebServiceToken))
         {
-            if (showError)
+            if (!showError)
             {
-                this.ErrorMessage = "Invalid Web Service Token. Please go into your host settings and save them committing a unique web service token to the database.";
+                return new EmptyResult();
             }
 
-            return new EmptyResult();
-        }
+            this.ErrorMessage = "Invalid Web Service Token. Please go into your host settings and save them committing a unique web service token to the database.";
+            return this.Page();
+        }*/
 
         var currentUser = this.GetRepository<User>().GetById(userId);
 

@@ -19,7 +19,7 @@
     <input type="hidden" asp-for="Input.UserId" value="@Model.Input.UserId" />
     <h6>
         @Html.LocalizedText("ADMIN_EDITUSER", "CURRENT_POINTS")
-        <span class="badge bg-secondary">
+        <span class="badge text-bg-secondary">
             @Html.Raw(Model.EditUser.Points)
         </span>
     </h6>

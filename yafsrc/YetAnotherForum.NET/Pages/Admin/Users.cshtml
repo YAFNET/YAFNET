@@ -168,7 +168,7 @@
                                 <small class="d-none d-md-block">
                                     <label class="form-label fw-bold" localized-tag="TITLE_SUSPENDED" localized-page="INFO">
                                     </label>
-                                    <span class="@Html.Raw(user.Suspended.HasValue ? "badge bg-danger" : "badge bg-success")">
+                                            <span class="@Html.Raw(user.Suspended.HasValue ? "badge text-bg-danger" : "badge text-bg-success")">
                                         @Html.Raw(Model.GetSuspendedString(user.Suspended.ToString()))
                                     </span>
                                 </small>

@@ -45,4 +45,32 @@ public class AdminPage : ForumPage
     {
         this.IsAdminPage = true;
     }
+
+    /// <summary>
+    /// Gets the item status color
+    /// </summary>
+    /// <param name="value">
+    /// The bool value to check
+    /// </param>
+    /// <returns>
+    /// Sets the css class for the badge.
+    /// </returns>
+    public static string GetItemColor(bool value)
+    {
+        return value ? "badge text-bg-success mb-2" : "badge text-bg-danger mb-2";
+    }
+
+    /// <summary>
+    /// Get a user friendly item name.
+    /// </summary>
+    /// <param name="value">
+    /// The bool value to check
+    /// </param>
+    /// <returns>
+    /// the Localized text.
+    /// </returns>
+    public string GetItemName(bool value)
+    {
+        return value ? this.GetText("DEFAULT", "YES") : this.GetText("DEFAULT", "NO");
+    }
 }

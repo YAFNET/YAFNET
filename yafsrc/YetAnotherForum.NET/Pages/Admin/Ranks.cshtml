@@ -30,7 +30,7 @@
                                         </h5>
                                         <small>
                                             @Html.LocalizedText("ADMIN_RANKS","IS_START")
-                                            <span class="@Html.Raw(Model.GetItemColor(rank.RankFlags.IsStart))">
+                                            <span class="@Html.Raw(AdminPage.GetItemColor(rank.RankFlags.IsStart))">
                                                 @Html.Raw(Model.GetItemName(rank.RankFlags.IsStart))
                                             </span>
                                         </small>
@@ -51,7 +51,7 @@
 
                                             <li class="list-inline-item">
                                                 @Html.LocalizedText("ADMIN_RANKS", "IS_LADDER")
-                                                <span class="@Html.Raw(Model.GetItemColor(rank.RankFlags.IsLadder))">
+                                                <span class="@Html.Raw(AdminPage.GetItemColor(rank.RankFlags.IsLadder))">
                                                     @Html.Raw(Model.LadderInfo(rank))
                                                 </span>
                                             </li>

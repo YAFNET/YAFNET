@@ -17,7 +17,7 @@
 {
     <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle nav-link-user-dropdown" role="button" href="#" data-bs-toggle="dropdown" aria-expanded="false">
-            <span class="badge bg-light text-dark p-0 border border-light me-1">
+            <span class="badge text-bg-light text-dark p-0 border border-light me-1">
                 <img class="img-navbar-avatar rounded"
                      alt="avatar"
                      src="@Html.Raw(Current.Get<IAvatars>().GetAvatarUrlForCurrentUser())">
@@ -26,7 +26,7 @@
 
             @if (unreadCount > 0)
             {
-                <span class="ms-1 badge bg-danger">
+                <span class="ms-1 badge text-bg-danger">
                     @unreadCount
                 </span>
             }
@@ -173,7 +173,7 @@
             @Html.Icon("inbox")@Html.LocalizedText("TOOLBAR", "INBOX")
             @if (Current.UnreadPrivate > 0)
             {
-                <span class="badge bg-danger" title="@Html.LocalizedTextFormatted("NEWPM", Current.UnreadPrivate.ToString())">
+                        <span class="badge text-bg-danger" title="@Html.LocalizedTextFormatted("NEWPM", Current.UnreadPrivate.ToString())">
                     @Current.UnreadPrivate
                     <span class="visually-hidden">
                         @Html.LocalizedTextFormatted("NEWPM", Current.UnreadPrivate.ToString())
@@ -194,7 +194,7 @@
             @Html.Icon("users")@Html.LocalizedText("TOOLBAR", "BUDDIES")
             @if (Current.PendingBuddies > 0)
             {
-                        <span class="badge bg-danger" title="@Html.LocalizedTextFormatted("BUDDYREQUEST", Current.PendingBuddies.ToString())">
+                        <span class="badge text-bg-danger" title="@Html.LocalizedTextFormatted("BUDDYREQUEST", Current.PendingBuddies.ToString())">
                     @Current.PendingBuddies
                     <span class="visually-hidden">
                                 @Html.LocalizedTextFormatted("BUDDYREQUEST", Current.PendingBuddies.ToString())

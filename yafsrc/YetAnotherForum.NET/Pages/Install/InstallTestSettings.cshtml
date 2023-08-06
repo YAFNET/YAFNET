@@ -42,13 +42,13 @@
         @if (Model.ConnectionSuccess)
         {
             <div class="alert alert-success">
-                <span class="badge bg-success me-2">@Localization.GetText("ConnectionDetails")</span> @Localization.GetText("ConnectionSuccess")
+                <span class="badge text-bg-success me-2">@Localization.GetText("ConnectionDetails")</span> @Localization.GetText("ConnectionSuccess")
             </div>
         }
         else
         {
             <div class="alert alert-danger">
-                <span class="badge bg-danger me-2">@Localization.GetText("ConnectionDetails")</span>@Localization.GetText("ConnectionFailed") @Model.ConnectionInfo
+                <span class="badge text-bg-danger me-2">@Localization.GetText("ConnectionDetails")</span>@Localization.GetText("ConnectionFailed") @Model.ConnectionInfo
             </div>
         }
         
@@ -85,13 +85,13 @@
             @if (Model.TestEmailSuccess)
             {
                 <div class="alert alert-success">
-                    <span class="badge bg-success me-2">@Localization.GetText("SmtpTestDetails")</span> @Localization.GetText("SmtpTestSuccess")
+                    <span class="badge text-bg-success me-2">@Localization.GetText("SmtpTestDetails")</span> @Localization.GetText("SmtpTestSuccess")
                 </div>
             }
             else
             {
                 <div class="alert alert-danger">
-                    <span class="badge bg-danger me-2">@Localization.GetText("SmtpTestDetails")</span>@Localization.GetText("ConnectionFailed") @Model.TestEmailInfo
+                    <span class="badge text-bg-danger me-2">@Localization.GetText("SmtpTestDetails")</span>@Localization.GetText("ConnectionFailed") @Model.TestEmailInfo
                 </div>
             }
         }

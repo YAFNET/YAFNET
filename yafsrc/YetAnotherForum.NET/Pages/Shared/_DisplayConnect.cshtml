@@ -13,6 +13,7 @@
             <button text-localized-tag="LOGIN_CONNECT" text-localized-page="TOOLBAR" text-param0="@(Current.BoardSettings.Name)"
                     title-localized-tag="LOGIN" title-localized-page="TOOLBAR"
                     button-style="Link" icon="sign-in-alt"
+                    class=" alert-link"
                     bs-toggle="ajax-modal"
                     bs-target-url="@Url.Action("ShowModal", "LoginBox", null)"></button>
 
@@ -21,6 +22,7 @@
                 <button text-localized-tag="REGISTER_CONNECT" text-localized-page="TOOLBAR"
                         title-localized-tag="REGISTER" title-localized-page="TOOLBAR"
                         button-style="Link" icon="user-plus"
+                        class=" alert-link"
                         href="@(Current.BoardSettings.ShowRulesForRegistration ? Current.Get<LinkBuilder>().GetLink(ForumPages.Privacy) : Current.Get<LinkBuilder>().GetLink(ForumPages.Account_Register))"></button>
             }
             else

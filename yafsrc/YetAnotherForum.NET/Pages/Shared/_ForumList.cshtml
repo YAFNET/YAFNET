@@ -138,7 +138,7 @@ forum.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
 
                 @if (forum.Viewing > 0)
                 {
-                    <span class="badge bg-light text-dark">
+                    <span class="badge text-bg-light">
                         <i class="far fa-eye" title="@Html.Raw(Current.Get<ILocalization>().GetTextFormatted("VIEWING", forum.Viewing))"></i>
                         @forum.Viewing
                     </span>
@@ -146,13 +146,13 @@ forum.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
 
                 @if (forum.RemoteURL.IsNotSet() && forum.ReadAccess)
                 {
-                    <span class="badge bg-light text-dark me-1"
+                    <span class="badge text-bg-light me-1"
                           title="@Html.LocalizedText("TOPICS")"
                           data-bs-toggle="tooltip">
                         @Html.Icon("comments", "", "far")
                         @Html.Raw($"{forum.Topics:N0}")
                     </span>
-                    <span class="badge bg-light text-dark"
+                    <span class="badge text-bg-light"
                           title="@Html.LocalizedText("POSTS")"
                           data-bs-toggle="tooltip">
                         @Html.Icon("comment", "", "far")
@@ -177,7 +177,7 @@ forum.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
         @if (forum.RemoteURL.IsNotSet())
         {
             <div class="col-md-4 text-secondary">
-                <div class="card bg-light text-dark card-post-last">
+                <div class="card text-bg-light text-dark card-post-last">
                     <div class="card-body py-1 ps-2">
                         @await Html.PartialAsync("_ForumLastPost", forum)
                     </div>
