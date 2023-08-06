@@ -62,7 +62,7 @@ public partial class BoardAnnouncement : BaseUserControl
             return;
         }
 
-        this.Badge.CssClass = $"badge bg-{this.PageBoardContext.BoardSettings.BoardAnnouncementType} me-1";
+        this.Badge.CssClass = $"badge text-bg-{this.PageBoardContext.BoardSettings.BoardAnnouncementType} me-1";
 
         this.Announcement.CssClass = $"alert alert-{this.PageBoardContext.BoardSettings.BoardAnnouncementType} alert-dismissible";
         this.Message.Text = this.PageBoardContext.BoardSettings.BoardAnnouncement;

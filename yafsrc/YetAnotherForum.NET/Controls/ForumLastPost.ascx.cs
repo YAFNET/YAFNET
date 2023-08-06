@@ -133,7 +133,7 @@ public partial class ForumLastPost : BaseUserControl
             if (this.DataSource.LastPosted.Value > lastRead)
             {
                 this.NewMessage.Visible = true;
-                this.NewMessage.Text = $" <span class=\"badge bg-success\">{this.GetText("NEW_POSTS")}</span>";
+                this.NewMessage.Text = $" <span class=\"badge text-bg-success\">{this.GetText("NEW_POSTS")}</span>";
             }
             else
             {

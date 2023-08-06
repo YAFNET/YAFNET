@@ -51,7 +51,7 @@ public partial class Ranks : AdminPage
     protected string GetItemColorString(string item)
     {
         // show enabled flag red
-        return item.IsSet() ? "badge bg-success" : "badge bg-danger";
+        return item.IsSet() ? "badge text-bg-success" : "badge text-bg-danger";
     }
 
     /// <summary>
@@ -66,7 +66,7 @@ public partial class Ranks : AdminPage
     protected string GetItemColor(bool enabled)
     {
         // show enabled flag red
-        return enabled ? "badge bg-success" : "badge bg-danger";
+        return enabled ? "badge text-bg-success" : "badge text-bg-danger";
     }
 
     /// <summary>

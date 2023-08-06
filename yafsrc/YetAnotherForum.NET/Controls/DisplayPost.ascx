@@ -56,7 +56,7 @@
                                     <li class="list-inline-item d-none d-md-inline-block">
                                         <asp:Label id="IPInfo" runat="server"
                                                    Visible="false"
-                                                   CssClass="badge bg-info">
+                                                   CssClass="badge text-bg-info">
                                             <%# this.GetText("IP") %>:&nbsp;
                                             <a id="IPLink1" href="#" target="_blank" runat="server" class="link-light"></a>
                                         </asp:Label>
@@ -69,16 +69,16 @@
                                     </li>
                                 </asp:PlaceHolder>
                                 <li class="list-inline-item d-block">
-                                    <span class="badge bg-secondary"><%# this.DataSource.RankName%></span>
+                                    <span class="badge text-bg-secondary"><%# this.DataSource.RankName%></span>
                                     <asp:Label ID="TopicStarterBadge" runat="server"
-                                           CssClass="badge bg-dark mb-2"
+                                           CssClass="badge text-bg-dark mb-2"
                                            Visible="<%# this.DataSource.TopicOwnerID.Equals(this.PostData.UserId) %>"
                                            ToolTip='<%# this.GetText("POSTS","TOPIC_STARTER_HELP") %>'>
                                     <YAF:LocalizedLabel ID="TopicStarterText" runat="server"
                                                         LocalizedTag="TOPIC_STARTER"
                                                         LocalizedPage="POSTS" />
                                     </asp:Label>
-                                    <asp:Label runat="server" CssClass="badge bg-success" ID="MessageIsAnswerBadge"
+                                    <asp:Label runat="server" CssClass="badge text-bg-success" ID="MessageIsAnswerBadge"
                                            Visible="<%# this.PostData.PostIsAnswer %>"
                                            ToolTip='<%# this.GetText("POSTS","MESSAGE_ANSWER_HELP") %>'>
                                         <YAF:Icon runat="server"
@@ -89,7 +89,7 @@
                                     </asp:Label>
                                     <asp:Repeater runat="server" ID="UserCustomProfile" Visible="False">
                                         <ItemTemplate>
-                                            <span class="badge bg-secondary">
+                                            <span class="badge text-bg-secondary">
                                                 <%# this.Eval("Item2.Name") %>:&nbsp;<%# this.Eval("Item1.Value") %>
                                             </span>
                                         </ItemTemplate>

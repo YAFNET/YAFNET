@@ -49,7 +49,7 @@
                         </h5>
                         <small class="d-none d-md-block">
                             <YAF:LocalizedLabel runat="server" LocalizedTag="USAGES"></YAF:LocalizedLabel>
-                            <span class="badge bg-secondary">
+                            <span class="badge text-bg-secondary">
                                 <%# this.Get<ISearch>().CountHits(string.Format("]{0}[", ((Tuple<User,Attachment>)Container.DataItem).Item2.ID))  %>
                             </span>
                         </small>

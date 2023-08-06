@@ -2,11 +2,11 @@
 
 <div class="row">
     <div class="col-xl-12">
-        <div class="card bg-light mb-3">
+        <div class="card text-bg-light mb-3">
             <div class="card-body">
                 <div class="row">
                     <div class="col">
-                        <span class="badge bg-warning text-dark">
+                        <span class="badge text-bg-warning">
                             <YAF:LocalizedLabel ID="SponserName" runat="server" 
                                                 LocalizedTag="AD_USERNAME" />
                         </span>

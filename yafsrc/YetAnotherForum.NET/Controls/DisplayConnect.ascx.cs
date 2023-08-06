@@ -65,7 +65,7 @@ public partial class DisplayConnect : BaseUserControl
                                     Type = ButtonStyle.Link,
                                     Icon = "sign-in-alt",
                                     NavigateUrl = "javascript:void(0);",
-                                    CssClass = "LoginLink"
+                                    CssClass = "LoginLink alert-link"
                                 };
 
             this.ConnectHolder.Controls.Add(loginLink);
@@ -87,8 +87,9 @@ public partial class DisplayConnect : BaseUserControl
                                        NavigateUrl = this.PageBoardContext.BoardSettings.ShowRulesForRegistration
                                                          ?
                                                          this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy)
-                                                         : this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register)
-                                   };
+                                                         : this.Get<LinkBuilder>().GetLink(ForumPages.Account_Register),
+                                       CssClass = "alert-link"
+            };
 
             this.ConnectHolder.Controls.Add(registerLink);
 

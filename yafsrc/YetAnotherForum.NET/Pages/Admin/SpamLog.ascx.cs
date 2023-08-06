@@ -232,15 +232,15 @@ public partial class SpamLog : AdminPage
                                            : "";
 
                 var url = ((string)json.Url).IsSet()
-                              ? @$"<span class=""badge bg-secondary m-1""><i class=""fa-solid fa-globe me-1""></i>{json.Url}</span>"
+                              ? @$"<span class=""badge text-bg-secondary m-1""><i class=""fa-solid fa-globe me-1""></i>{json.Url}</span>"
                               : "";
 
                 var userIp = ((string)json.UserIP).IsSet()
-                                  ? @$"<span class=""badge bg-info m-1""><i class=""fa-solid fa-desktop me-1""></i><a href=""{addressLink}"" target=""_blank"">{json.UserIP}</a></span>"
+                                  ? @$"<span class=""badge text-bg-info m-1""><i class=""fa-solid fa-desktop me-1""></i><a href=""{addressLink}"" target=""_blank"">{json.UserIP}</a></span>"
                                   : "";
 
                 var userAgent = ((string)json.Url).IsSet()
-                                     ? @$"<span class=""badge bg-secondary m-1""><i class=""fa-solid fa-computer me-1""></i>{json.UserAgent}</span>"
+                                     ? @$"<span class=""badge text-bg-secondary m-1""><i class=""fa-solid fa-computer me-1""></i>{json.UserAgent}</span>"
                                      : "";
 
                 return @$"<h6 class=""card-subtitle"">{json.Message}</h6><h5>{userIp}{url}{exceptionSource}{userAgent}</h5><div>{json.ExceptionMessage}</div>

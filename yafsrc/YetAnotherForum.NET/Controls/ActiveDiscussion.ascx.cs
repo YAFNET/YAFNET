@@ -107,7 +107,7 @@ public partial class ActiveDiscussion : BaseUserControl
         if ((DateTime)item.LastPosted > lastRead)
         {
             postIcon.Visible = true;
-            postIcon.CssClass = "badge bg-success";
+            postIcon.CssClass = "badge text-bg-success";
 
             postIcon.Text = this.GetText("NEW_MESSAGE");
         }

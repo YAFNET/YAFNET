@@ -174,7 +174,7 @@ public partial class UserMenu : BaseUserControl
                         ? $"<i class=\"fa fa-{icon} fa-fw\"></i>&nbsp;{linkText}&nbsp;"
                         : $"{linkText}&nbsp;"));
 
-            var unreadLabel = new Label { CssClass = "badge bg-danger", ToolTip = unreadText, Text = unread };
+            var unreadLabel = new Label { CssClass = "badge text-bg-danger", ToolTip = unreadText, Text = unread };
 
             unreadLabel.Attributes.Add("data-bs-toggle", "tooltip");
 

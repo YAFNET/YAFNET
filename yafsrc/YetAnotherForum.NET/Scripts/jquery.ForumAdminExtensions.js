@@ -7865,7 +7865,7 @@
                 return escapeMarkup(template(data, container));
             };
             MultipleSelection.prototype.selectionContainer = function() {
-                var $container = $('<li class="select2-selection__choice">' + '<span class="badge bg-primary">' + '<i class="fas fa-tag me-1"></i>' + '<span class="select2-selection__choice__display"></span>' + '<button type="button" class="btn-close btn-close-white btn-sm select2-selection__choice__remove" ' + 'tabindex="-1">' + "</button>" + "</span>" + "</li>");
+                var $container = $('<li class="select2-selection__choice">' + '<span class="badge text-bg-primary">' + '<i class="fas fa-tag me-1"></i>' + '<span class="select2-selection__choice__display"></span>' + '<button type="button" class="btn-close btn-close-white btn-sm select2-selection__choice__remove" ' + 'tabindex="-1">' + "</button>" + "</span>" + "</li>");
                 return $container;
             };
             MultipleSelection.prototype.update = function(data) {

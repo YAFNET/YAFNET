@@ -33,7 +33,7 @@
                             <span class="fw-bold">
                                 <YAF:LocalizedLabel ID="LocalizedLabel5" runat="server" LocalizedTag="Active" LocalizedPage="ADMIN_NNTPFORUMS" />
                             </span>
-                            <div class="badge bg-<%# this.Eval("Item1.Active").ToType<bool>() ? "success" : "secondary" %>">
+                            <div class="badge text-bg-<%# this.Eval("Item1.Active").ToType<bool>() ? "success" : "secondary" %>">
                                 <%# this.Eval("Item1.Active") %>
                             </div>
                         </small>

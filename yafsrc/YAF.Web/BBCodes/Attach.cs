@@ -64,7 +64,7 @@ public class Attach : BBCodeControl
         if (!this.PageBoardContext.DownloadAccess)
         {
             writer.Write(
-                @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge bg-warning text-dark"" role=""alert"">{1}</span>",
+                @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge text-bg-warning"" role=""alert"">{1}</span>",
                 attachment.FileName,
                 this.GetText("ATTACH_NO"));
 
@@ -77,7 +77,7 @@ public class Attach : BBCodeControl
             if (this.PageBoardContext.BoardSettings.EnableImageAttachmentResize)
             {
                 writer.Write(
-                    @"<div class=""card bg-dark text-white"" style=""max-width:{0}px;"">",
+                    @"<div class=""card text-bg-dark"" style=""max-width:{0}px;"">",
                     this.PageBoardContext.BoardSettings.ImageThumbnailMaxWidth);
 
                 writer.Write(

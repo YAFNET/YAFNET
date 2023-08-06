@@ -44,14 +44,14 @@
                     <ul class="standardList">
                         <li>
                             <asp:Label ID="lblPermissionApp" runat="server"
-                                       CssClass="badge bg-info float-end">
+                                       CssClass="badge text-bg-info float-end">
                                 <%# Localization.GetText("Unchecked") %>
                             </asp:Label>
                             <%# Localization.GetText("PermissionApp") %>
                         </li>
                         <li>
                             <asp:Label ID="lblPermissionUpload" runat="server"
-                                       CssClass="badge bg-info float-end">
+                                       CssClass="badge text-bg-info float-end">
                                 <%# Localization.GetText("Unchecked") %>
                             </asp:Label>
                             <%# Localization.GetText("PermissionUpload") %>
@@ -92,7 +92,7 @@
                             <%# Localization.GetText("NoWriteAppSettings") %>
                         </h4>
                         <div class="alert alert-danger">
-                            <span class="badge bg-danger">
+                            <span class="badge text-bg-danger">
                                 <%# Localization.GetText("Error") %>
                             </span>
                             <%# Localization.GetText("NoWriteAppSettingsNote") %>
@@ -109,7 +109,7 @@
                             <%# Localization.GetText("NoWriteConnSettings") %>
                         </h4>
                         <div class="alert alert-danger">
-                            <span class="badge bg-danger">
+                            <span class="badge text-bg-danger">
                                 <%# Localization.GetText("Error") %>
                             </span>
                             <%# Localization.GetText("NoWriteConnSettingsNote") %>

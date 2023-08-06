@@ -20,7 +20,7 @@
             <%#  this.GetForumLink((ForumRead)Container.DataItem) %>
             <asp:Label runat="server"
                        Visible="<%# ((ForumRead)Container.DataItem).ReadAccess  %>"
-                       CssClass="badge bg-light text-dark me-1"
+                       CssClass="badge text-bg-light me-1"
                        ToolTip='<%# this.GetText("TOPICS") %>'
                        data-bs-toggle="tooltip">
                 <YAF:Icon runat="server"
@@ -30,7 +30,7 @@
             </asp:Label>
             <asp:Label runat="server"
                        Visible="<%# ((ForumRead)Container.DataItem).ReadAccess  %>"
-                       CssClass="badge bg-light text-dark"
+                       CssClass="badge text-bg-light"
                        ToolTip='<%# this.GetText("Posts") %>'
                        data-bs-toggle="tooltip">
             <YAF:Icon runat="server"

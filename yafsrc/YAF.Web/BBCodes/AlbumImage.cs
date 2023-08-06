@@ -46,7 +46,7 @@ public class AlbumImage : BBCodeControl
         }
 
         writer.Write(
-            @"<div class=""card bg-dark text-white"" style=""max-width:{0}px"">",
+            @"<div class=""card text-bg-dark"" style=""max-width:{0}px"">",
             this.PageBoardContext.BoardSettings.ImageThumbnailMaxWidth);
 
         writer.Write(

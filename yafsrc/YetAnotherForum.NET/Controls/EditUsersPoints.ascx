@@ -9,7 +9,7 @@
     <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 
                         LocalizedTag="CURRENT_POINTS" 
                         LocalizedPage="ADMIN_EDITUSER" />
-    <span class="badge bg-secondary"><asp:Literal ID="ltrCurrentPoints" runat="server" /></span>
+    <span class="badge text-bg-secondary"><asp:Literal ID="ltrCurrentPoints" runat="server" /></span>
 </h6>
 
 <div class="row">

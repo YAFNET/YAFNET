@@ -23,13 +23,13 @@
 
                     <%# this.GetForumLink((ForumRead)Container.DataItem) %>
 
-                    <asp:Label CssClass="badge bg-light text-dark" runat="server"
+                    <asp:Label CssClass="badge text-bg-light" runat="server"
                                Visible="<%# ((ForumRead)Container.DataItem).Viewing > 0 %>">
                         <%# this.GetViewing((ForumRead)Container.DataItem) %>
                     </asp:Label>
                     <asp:PlaceHolder runat="server" Visible="<%# ((ForumRead)Container.DataItem).RemoteURL.IsNotSet() && ((ForumRead)Container.DataItem).ReadAccess  %>">
                         <asp:Label runat="server"
-                                   CssClass="badge bg-light text-dark me-1"
+                                   CssClass="badge text-bg-light me-1"
                                    ToolTip='<%# this.GetText("TOPICS") %>'
                                    data-bs-toggle="tooltip">
                             <YAF:Icon runat="server"
@@ -38,7 +38,7 @@
                             <%# this.Topics((ForumRead)Container.DataItem) %>
                         </asp:Label>
                         <asp:Label runat="server"
-                                   CssClass="badge bg-light text-dark"
+                                   CssClass="badge text-bg-light"
                                    ToolTip='<%# this.GetText("Posts") %>'
                                    data-bs-toggle="tooltip">
                             <YAF:Icon runat="server"
@@ -56,7 +56,7 @@
             </div>
             <asp:PlaceHolder runat="server" Visible="<%# ((ForumRead)Container.DataItem).RemoteURL.IsNotSet() %>">
                 <div class="col-md-4 text-secondary">
-                    <div class="card bg-light text-dark card-post-last">
+                    <div class="card text-bg-light card-post-last">
                         <div class="card-body py-1 ps-2">
                             <YAF:ForumLastPost ID="lastPost" runat="server"
                                                DataSource="<%# (ForumRead)Container.DataItem %>"/>

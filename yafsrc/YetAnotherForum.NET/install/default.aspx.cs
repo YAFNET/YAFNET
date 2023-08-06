@@ -438,7 +438,7 @@ public partial class _default : BasePage, IHaveServiceLocator
         infoHolder.Visible = true;
 
         detailsLiteral.Text =
-            $"<div class=\"alert alert-{cssClass}\"><span class=\"badge bg-{cssClass}\">{detailsTitle}</span> {info}</div>";
+            $"<div class=\"alert alert-{cssClass}\"><span class=\"badge text-bg-{cssClass}\">{detailsTitle}</span> {info}</div>";
     }
 
     /// <summary>
@@ -452,11 +452,11 @@ public partial class _default : BasePage, IHaveServiceLocator
         {
             case 0:
                 theLabel.Text = Localization.GetText("No");
-                theLabel.CssClass = "badge bg-danger float-end";
+                theLabel.CssClass = "badge text-bg-danger float-end";
                 break;
             case 2:
                 theLabel.Text = Localization.GetText("Yes");
-                theLabel.CssClass = "badge bg-success float-end";
+                theLabel.CssClass = "badge text-bg-success float-end";
                 break;
         }
     }

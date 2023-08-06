@@ -41,7 +41,7 @@
                         </h5>
                         <small class="d-none d-md-block">
                             <YAF:LocalizedLabel ID="LocalizedLabel3" runat="server" LocalizedTag="CULTURE_TAG" LocalizedPage="ADMIN_LANGUAGES" />:
-                            <span class="badge bg-secondary">
+                            <span class="badge text-bg-secondary">
                                 <%# this.Eval("CultureTag")%>
                             </span>
                         </small>

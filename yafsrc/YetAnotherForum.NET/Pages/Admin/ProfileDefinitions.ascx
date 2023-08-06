@@ -33,7 +33,7 @@
                                 <YAF:LocalizedLabel runat="server"
                                                     LocalizedTag="REQUIRED"></YAF:LocalizedLabel>
                             </span>
-                            <span class='badge bg-<%# this.Eval("Required").ToType<bool>() ? "danger" : "secondary" %>'>
+                            <span class='badge text-bg-<%# this.Eval("Required").ToType<bool>() ? "danger" : "secondary" %>'>
                                 <%# this.GetText(this.Eval("Required").ToType<bool>() ? "YES" : "NO") %>
                             </span>
                         </small>

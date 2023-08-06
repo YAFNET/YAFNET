@@ -42,7 +42,7 @@
                                 <a href="<%# this.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Posts, new { m = ((SimpleTopic)Container.DataItem).LastMessageID, name = ((SimpleTopic)Container.DataItem).Subject }) %>"
                                    target="_blank">
                                     <i class="fas fa-comment"></i> <%# ((SimpleTopic)Container.DataItem).Subject %></a>
-                                <span class="badge bg-secondary">
+                                <span class="badge text-bg-secondary">
                                     <%# string.Format(this.GetText("COMMENTS"), ((SimpleTopic)Container.DataItem).Replies) %>
                                 </span>
                             </h6>
@@ -76,7 +76,7 @@
                                 <a href="<%# this.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Posts, new { m = ((SimpleTopic)Container.DataItem).LastMessageID, name = ((SimpleTopic)Container.DataItem).Subject }) %>"
                                    target="_blank">
                                     <i class="fas fa-comment"></i> <%# ((SimpleTopic)Container.DataItem).Subject %></a>
-                                <span class="badge bg-secondary">
+                                <span class="badge text-bg-secondary">
                                     <%# string.Format(this.GetText("COMMENTS"), ((SimpleTopic)Container.DataItem).Replies) %>
                                 </span>
                             </h6>

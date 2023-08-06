@@ -49,7 +49,7 @@ public partial class TaskManager : AdminPage
     protected string GetItemColor(bool enabled)
     {
         // show enabled flag red
-        return enabled ? "badge bg-success" : "badge badge-default";
+        return enabled ? "badge text-bg-success" : "badge text-bg-danger";
     }
 
     /// <summary>

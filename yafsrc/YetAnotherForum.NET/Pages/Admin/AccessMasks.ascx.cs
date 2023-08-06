@@ -66,7 +66,7 @@ public partial class AccessMasks : AdminPage
     protected string GetItemColor(bool enabled)
     {
         // show enabled flag red
-        return enabled ? "badge bg-success mb-2" : "badge bg-danger mb-2";
+        return enabled ? "badge text-bg-success mb-2" : "badge text-bg-danger mb-2";
     }
 
     /// <summary>

@@ -14,7 +14,7 @@
                 </h5>
             </FooterTemplate>
             <ItemTemplate>
-                <span class="badge bg-primary">
+                <span class="badge text-bg-primary">
                     <YAF:Icon runat="server" IconName="tag"></YAF:Icon>
                     <a href="<%# this.Get<LinkBuilder>().GetLink(
                                      ForumPages.Search,

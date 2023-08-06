@@ -178,7 +178,7 @@ public class TopicContainer : BaseControl
 
         if (this.TopicItem.LastMessageID.HasValue && this.TopicItem.LastPosted > lastRead)
         {
-            var success = new Label { CssClass = "badge bg-success me-1", Text = this.GetText("NEW_POSTS") };
+            var success = new Label { CssClass = "badge text-bg-success me-1", Text = this.GetText("NEW_POSTS") };
 
             success.RenderControl(writer);
         }
@@ -190,7 +190,7 @@ public class TopicContainer : BaseControl
         {
             var repliesLabel = new Label
                                {
-                                   CssClass = "badge bg-light text-dark ms-1 me-1",
+                                   CssClass = "badge text-bg-light ms-1 me-1",
                                    Text = new IconHeader
                                           {
                                               IconName = "comment", IconType = " ", IconStyle = "far", Text = this.FormatReplies()
@@ -204,7 +204,7 @@ public class TopicContainer : BaseControl
 
             var viewsLabel = new Label
                              {
-                                 CssClass = "badge bg-light text-dark",
+                                 CssClass = "badge text-bg-light",
                                  Text = new IconHeader
                                         {
                                             IconName = "eye", IconType = " ", IconStyle = "far", Text = this.FormatViews()
@@ -469,7 +469,7 @@ public class TopicContainer : BaseControl
         {
             priorityLabel.Text = new IconHeader { LocalizedTag = "MOVED", IconName = "arrows-alt", IconType = " " }
                 .RenderToString();
-            priorityLabel.CssClass = "badge bg-secondary me-1";
+            priorityLabel.CssClass = "badge text-bg-secondary me-1";
 
             priorityLabel.RenderControl(writer);
         }
@@ -477,7 +477,7 @@ public class TopicContainer : BaseControl
         {
             priorityLabel.Text = new IconHeader { LocalizedTag = "POLL", IconName = "poll-h", IconType = " " }
                 .RenderToString();
-            priorityLabel.CssClass = "badge bg-secondary me-1";
+            priorityLabel.CssClass = "badge text-bg-secondary me-1";
 
             priorityLabel.RenderControl(writer);
         }
@@ -489,7 +489,7 @@ public class TopicContainer : BaseControl
                     priorityLabel.Text =
                         new IconHeader { LocalizedTag = "STICKY", IconName = "thumbtack", IconType = " " }
                             .RenderToString();
-                    priorityLabel.CssClass = "badge bg-warning text-dark me-1";
+                    priorityLabel.CssClass = "badge text-bg-warning me-1";
 
                     priorityLabel.RenderControl(writer);
                     break;
@@ -497,7 +497,7 @@ public class TopicContainer : BaseControl
                     priorityLabel.Text =
                         new IconHeader { LocalizedTag = "ANNOUNCEMENT", IconName = "bullhorn", IconType = " " }
                             .RenderToString();
-                    priorityLabel.CssClass = "badge bg-primary me-1";
+                    priorityLabel.CssClass = "badge text-bg-primary me-1";
 
                     priorityLabel.RenderControl(writer);
                     break;

@@ -7865,7 +7865,7 @@
                 return escapeMarkup(template(data, container));
             };
             MultipleSelection.prototype.selectionContainer = function() {
-                var $container = $('<li class="select2-selection__choice">' + '<span class="badge bg-primary">' + '<i class="fas fa-tag me-1"></i>' + '<span class="select2-selection__choice__display"></span>' + '<button type="button" class="btn-close btn-close-white btn-sm select2-selection__choice__remove" ' + 'tabindex="-1">' + "</button>" + "</span>" + "</li>");
+                var $container = $('<li class="select2-selection__choice">' + '<span class="badge text-bg-primary">' + '<i class="fas fa-tag me-1"></i>' + '<span class="select2-selection__choice__display"></span>' + '<button type="button" class="btn-close btn-close-white btn-sm select2-selection__choice__remove" ' + 'tabindex="-1">' + "</button>" + "</span>" + "</li>");
                 return $container;
             };
             MultipleSelection.prototype.update = function(data) {
@@ -15743,7 +15743,7 @@ function getSearchResultsData(pageNumber) {
                         if (data.TopicTags) {
                             var topicTags = data.TopicTags.split(",");
                             $(topicTags).each(function(index, d) {
-                                tags += "<span class='badge bg-secondary me-1'><i class='fas fa-tag me-1'></i>" + d + "</span>";
+                                tags += "<span class='badge text-bg-secondary me-1'><i class='fas fa-tag me-1'></i>" + d + "</span>";
                             });
                         }
                         groupHolder.append('<div class="row"><div class="col"><div class="card border-0 w-100 mb-3">' + '<div class="card-header bg-transparent border-top border-bottom-0 px-0 pb-0 pt-4 topicTitle"><h5> ' + '<a title="' + topic + '" href="' + data.TopicUrl + '">' + data.Topic + "</a>&nbsp;" + "<a " + 'title="' + lastpost + '" href="' + data.MessageUrl + '"><i class="fas fa-external-link-alt"></i></a>' + ' <small class="text-body-secondary">(<a href="' + data.ForumUrl + '">' + data.ForumName + "</a>)</small>" + "</h5></div>" + '<div class="card-body px-0">' + '<h6 class="card-subtitle mb-2 text-body-secondary">' + data.Description + "</h6>" + '<p class="card-text messageContent">' + data.Message + "</p>" + "</div>" + '<div class="card-footer bg-transparent border-top-0 px-0 py-2"> ' + '<small class="text-body-secondary">' + '<span class="fa-stack">' + '<i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>' + '<i class="fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse"></i> ' + '<i class="fa fa-clock fa-badge text-secondary"></i> ' + "</span>" + posted + " " + data.Posted + " " + '<i class="fa fa-user fa-fw text-secondary"></i>' + by + " " + (useDisplayName ? data.UserDisplayName : data.UserName) + tags + "</small> " + "</div>" + "</div></div></div>");
