@@ -280,6 +280,11 @@ public enum ForumPages
     Admin_BannedNames,
 
     /// <summary>
+    /// The Admin banned user agents page.
+    /// </summary>
+    Admin_BannedUserAgents,
+
+    /// <summary>
     /// The Admin access masks page.
     /// </summary>
     Admin_AccessMasks,

@@ -85,7 +85,7 @@ public static class AdminMenuHtmlHelper
 
         // Admin - Spam Protection Menu
         if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
-                x => x.PageName is "Admin_SpamLog" or "Admin_SpamWords" or "Admin_BannedEmails" or "Admin_BannedIps" or "Admin_BannedNames"))
+                x => x.PageName is "Admin_SpamLog" or "Admin_SpamWords" or "Admin_BannedEmails" or "Admin_BannedIps" or "Admin_BannedNames" or "Admin_BannedUserAgents"))
         {
             content.AppendHtml(RenderAdminSpamProtection(pagesAccess, context));
         }
@@ -348,7 +348,9 @@ public static class AdminMenuHtmlHelper
                 "dropdown-item dropdown-toggle subdropdown-toggle",
                 context.Get<ILocalization>().GetText("ADMINMENU", "Spam_Protection"),
                 "#",
-                context.CurrentForumPage.PageName is ForumPages.Admin_SpamLog or ForumPages.Admin_SpamWords or ForumPages.Admin_BannedEmails or ForumPages.Admin_BannedIps or ForumPages.Admin_BannedNames,
+                context.CurrentForumPage.PageName is ForumPages.Admin_SpamLog or ForumPages.Admin_SpamWords
+                    or ForumPages.Admin_BannedEmails or ForumPages.Admin_BannedIps or ForumPages.Admin_BannedNames
+                    or ForumPages.Admin_BannedUserAgents,
                 true,
                 "shield-alt"));
 
@@ -419,6 +421,19 @@ public static class AdminMenuHtmlHelper
                     context.CurrentForumPage.PageName == ForumPages.Admin_BannedNames,
                     false,
                     "hand-paper"));
+        }
+
+        // Admin BannedUserAgents
+        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_BannedUserAgents"))
+        {
+            list.InnerHtml.AppendHtml(
+                RenderMenuItem(
+                    "dropdown-item",
+                    context.Get<ILocalization>().GetText("ADMINMENU", "ADMIN_BANNED_USERAGENTS"),
+                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_BannedUserAgents),
+                    context.CurrentForumPage.PageName == ForumPages.Admin_BannedUserAgents,
+                    false,
+                    "user-secret"));
         }
 
         listItem.InnerHtml.AppendHtml(list);

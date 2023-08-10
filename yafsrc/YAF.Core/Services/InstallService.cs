@@ -278,6 +278,7 @@ public class InstallService : IHaveServiceLocator
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<BannedIP>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<BannedName>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<BannedEmail>());
+        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<BannedUserAgent>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<CheckEmail>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Poll>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Choice>());

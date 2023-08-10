@@ -1565,16 +1565,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether Log UserAgent strings unhandled by YAF.
-    /// </summary>
-    public bool UserAgentBadLog
-    {
-        get => this.Registry.GetValue("UserAgentBadLog", false);
-
-        set => this.Registry.SetValue("UserAgentBadLog", value);
-    }
-
-    /// <summary>
     /// Gets or sets a value indicating whether EnableAlbum.
     /// </summary>
     public bool EnableAlbum

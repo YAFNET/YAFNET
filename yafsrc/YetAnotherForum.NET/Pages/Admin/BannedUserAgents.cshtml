@@ -1,15 +1,11 @@
 @page "{p:int=1}/{handler?}"
 
-@model BannedNamesModel
-
-@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model BannedUserAgentsModel
 @using YAF.Core.Extensions
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
-@using YAF.Types.Interfaces.Services
 @using YAF.Types.Models
 @using YAF.Web.HtmlHelpers
-@using YAF.Web.TagHelpers
 
 <form method="post">
     <div class="row">
@@ -18,7 +14,7 @@
                 <div class="card-header">
                     <div class="row justify-content-between align-items-center">
                         <div class="col-auto">
-                            @Html.IconHeader("hand-paper","ADMIN_BANNEDNAME","TITLE")
+                            @Html.IconHeader("user-secret","ADMIN_BANNED_USERAGENTS","TITLE")
                         </div>
                         <div class="col-auto">
                             <div class="btn-toolbar" role="toolbar">
@@ -46,7 +42,7 @@
                                             <div class="mb-3">
                                                 <label class="form-label" info-button="true" 
                                                        asp-for="SearchInput"
-                                                       localized-tag="MASK" localized-page="ADMIN_BANNEDNAME"></label>
+                                                       localized-tag="MASK" localized-page="ADMIN_BANNED_USERAGENTS"></label>
                                                 <input type="text" asp-for="SearchInput" 
                                                        class="form-control"/>
                                             </div>
@@ -81,26 +77,14 @@
                                     <div class="d-flex w-100 justify-content-between">
                                         <input type="hidden" ID="fID" Value='@Html.Raw(item.ID)' />
                                         <h5 class="mb-1 text-break">
-                                            @Html.Raw(item.Mask)
+                                            @Html.Raw(item.UserAgent)
                                         </h5>
-                                        <small class="d-none d-md-block">
-                                            <span class="fw-bold">
-                                                @Html.LocalizedText("ADMIN_BANNEDNAME","SINCE")
-                                            </span>
-                                            @Html.Raw(Model.Get<IDateTimeService>().FormatDateTime(item.Since) )
-                                        </small>
                                     </div>
-                                    <p class="mb-1">
-                                        <span class="fw-bold">
-                                            @Html.LocalizedText("ADMIN_BANNEDNAME","REASON")
-                                        </span>
-                                        @Html.Raw(item.Reason)
-                                    </p>
                                     <small>
                                         <div class="btn-group btn-group-sm">
                                             <button button-style="Info" button-size="Small"
                                                     bs-toggle="ajax-modal"
-                                                    bs-target-url="@(Url.Page("BannedNames", "Edit", new {id = item.ID}))"
+                                                    bs-target-url="@(Url.Page("BannedUserAgents", "Edit", new {id = item.ID}))"
                                                     text-localized-tag="EDIT"
                                                     title-localized-tag="EDIT"
                                                     Icon="edit" ></button>
@@ -114,7 +98,7 @@
                                     <div class="dropdown-menu context-menu" aria-labelledby="context menu">
                                         <button button-style="None"
                                                 class="dropdown-item"
-                                                bs-target-url="@(Url.Page("BannedNames", "Edit", new {id = item.ID}))"
+                                                bs-target-url="@(Url.Page("BannedUserAgents", "Edit", new {id = item.ID}))"
                                                 text-localized-tag="EDIT"
                                                 title-localized-tag="EDIT"
                                                 Icon="edit" ></button>
@@ -128,16 +112,16 @@
                                         <button Icon="plus-square"
                                                 button-style="None"
                                                 class="dropdown-item"
-                                                text-localized-tag="ADD_IP" text-localized-page="ADMIN_BANNEDNAME"
+                                                text-localized-tag="ADD_UA" text-localized-page="ADMIN_BANNED_USERAGENTS"
                                                 bs-toggle="ajax-modal"
-                                                bs-target-url="@(Url.Page("BannedNames", "Add"))"></button>
+                                                bs-target-url="@(Url.Page("BannedUserAgents", "Add"))"></button>
                                         <div class="dropdown-divider"></div>
                                         <button Icon="upload"
                                                 bs-toggle="ajax-modal"
-                                                bs-target-url="@(Url.Page("BannedNames", "Import"))"
+                                                bs-target-url="@(Url.Page("BannedUserAgents", "Import"))"
                                                 button-style="None"
                                                 class="dropdown-item"
-                                                text-localized-tag="IMPORT_IPS" text-localized-page="ADMIN_BANNEDNAME"></button>
+                                                text-localized-tag="IMPORT_UA" text-localized-page="ADMIN_BANNED_USERAGENTS"></button>
                                         <button asp-page-handler="Export"
                                                 button-style="None"
                                                 class="dropdown-item"
@@ -153,9 +137,9 @@
                 else
                 {
                     <div class="card-body">
-                        <empty icon="hand-paper"
-                               header-text-page="ADMIN_BANNEDNAME" header-text-tag="EMPTY_HEADER"
-                               message-text-page="ADMIN_BANNEDNAME" message-text-tag="EMPTY_MESSAGE">
+                        <empty icon="user-secret"
+                               header-text-page="ADMIN_BANNED_USERAGENTS" header-text-tag="EMPTY_HEADER"
+                               message-text-page="ADMIN_BANNED_USERAGENTS" message-text-tag="EMPTY_MESSAGE">
                         </empty>
                     </div>
                 }
@@ -164,16 +148,15 @@
                     <button class="mb-1"
                             Icon="plus-square"
                             button-style="Primary"
-                            text-localized-tag="ADD_IP" text-localized-page="ADMIN_BANNEDNAME"
+                            text-localized-tag="ADD_UA" text-localized-page="ADMIN_BANNED_USERAGENTS"
                             bs-toggle="ajax-modal"
-                            bs-target-url="@Url.Page("BannedNames", "Add")"></button>
+                            bs-target-url="@Url.Page("BannedUserAgents", "Add")"></button>
                     <button class="mb-1"
                             Icon="upload"
-                            bs-toggle="modal"
                             bs-toggle="ajax-modal"
-                            bs-target-url="@(Url.Page("BannedNames", "Import"))"
+                            bs-target-url="@(Url.Page("BannedUserAgents", "Import"))"
                             button-style="Info"
-                            text-localized-tag="IMPORT_IPS" text-localized-page="ADMIN_BANNEDNAME"></button>
+                            text-localized-tag="IMPORT_UA" text-localized-page="ADMIN_BANNED_USERAGENTS"></button>
                     <button class="mb-1"
                             asp-page-handler="Export"
                             button-style="Warning"
@@ -187,7 +170,7 @@
         <div class="col-auto">
             <pager page-size="@Model.Size"
                    count="!Model.List.NullOrEmpty()
-             ? Model.GetRepository<BannedName>()
+             ? Model.GetRepository<BannedUserAgent>()
                    .Count(x => x.BoardID == Model.PageBoardContext.PageBoardID).ToType<int>()
              : 0">
             </pager>

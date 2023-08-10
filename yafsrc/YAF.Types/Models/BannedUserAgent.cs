@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -22,32 +22,33 @@
  * under the License.
  */
 
-namespace YAF.Core.Helpers;
-
-using System.Text.RegularExpressions;
-using YAF.Types.Attributes;
+namespace YAF.Types.Models;
 
 /// <summary>
-/// Helper for Figuring out the PageUser Agent.
+/// The banned user agent table.
 /// </summary>
-public static partial class UserAgentHelper
+[Serializable]
+[UniqueConstraint(nameof(BoardID), nameof(UserAgent))]
+public class BannedUserAgent : IEntity, IHaveID, IHaveBoardID
 {
     /// <summary>
-    /// Spider Detection Regex
+    /// Gets or sets the id.
     /// </summary>
-    /// <returns>Regex.</returns>
-    [GeneratedRegex("bot|spider|yandex|crawler|appie|robot|atomz")]
-    private static partial Regex Spiders();
+    [AutoIncrement]
+    [Alias("ID")]
+    public int ID { get; set; }
 
     /// <summary>
-    /// Validates if the user agent is a search engine spider
+    /// Gets or sets the board id.
     /// </summary>
-    /// <param name="userAgent">The user agent.</param>
-    /// <returns>
-    /// The is search engine spider.
-    /// </returns>
-    public static bool SearchEngineSpiderName([CanBeNull] string userAgent)
-    {
-        return userAgent.IsSet() && Spiders().Match(userAgent.ToLowerInvariant()).Success;
-    }
+    [References(typeof(Board))]
+    [Required]
+    public int BoardID { get; set; }
+
+    /// <summary>
+    /// Gets or sets the user agent.
+    /// </summary>
+    [Required]
+    [CustomField(OrmLiteVariables.MaxTextUnicode)]
+    public string UserAgent { get; set; }
 }

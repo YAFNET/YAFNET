@@ -341,6 +341,7 @@ public class Startup : IHaveServiceLocator
             });
 
         app.UseMiddleware<CheckBannedIps>();
+        app.UseMiddleware<CheckBannedUserAgents>();
 
         app.UseRouting();
 

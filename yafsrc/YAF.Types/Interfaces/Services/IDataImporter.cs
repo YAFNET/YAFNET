@@ -60,7 +60,7 @@ public interface IDataImporter
     int BannedIpAddressesImport(int boardId, int userId, Stream inputStream);
 
     /// <summary>
-    /// Import List of Banned PageUser Names
+    /// Import List of Banned User Names
     /// </summary>
     /// <param name="boardId">The board id.</param>
     /// <param name="inputStream">The input stream.</param>
@@ -71,6 +71,19 @@ public interface IDataImporter
     /// Import stream is not expected format.
     /// </exception>
     int BannedNamesImport(int boardId, Stream inputStream);
+
+    /// <summary>
+    /// Import List of Banned UserAgents
+    /// </summary>
+    /// <param name="boardId">The board id.</param>
+    /// <param name="inputStream">The input stream.</param>
+    /// <returns>
+    /// Returns the Number of Imported Items.
+    /// </returns>
+    /// <exception cref="Exception">
+    /// Import stream is not expected format.
+    /// </exception>
+    int BannedUserAgentsImport(int boardId, Stream inputStream);
 
     /// <summary>
     /// The bb code extension import.

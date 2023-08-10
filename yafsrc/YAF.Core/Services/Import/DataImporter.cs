@@ -229,7 +229,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
     }
 
     /// <summary>
-    /// Import List of Banned PageUser Names
+    /// Import List of Banned User Names
     /// </summary>
     /// <param name="boardId">The board id.</param>
     /// <param name="inputStream">The input stream.</param>
@@ -262,6 +262,48 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             }
 
             if (repository.Save(null, line, "Imported PageUser Name", boardId))
+            {
+                importedCount++;
+            }
+        }
+
+        return importedCount;
+    }
+
+    /// <summary>
+    /// Import List of Banned UserAgents
+    /// </summary>
+    /// <param name="boardId">The board id.</param>
+    /// <param name="inputStream">The input stream.</param>
+    /// <returns>
+    /// Returns the Number of Imported Items.
+    /// </returns>
+    /// <exception cref="Exception">
+    /// Import stream is not expected format.
+    /// </exception>
+    public int BannedUserAgentsImport(int boardId, Stream inputStream)
+    {
+        var importedCount = 0;
+
+        var repository = this.GetRepository<BannedUserAgent>();
+        var existingBannedNameList = repository.Get(x => x.BoardID == boardId);
+
+        using var streamReader = new StreamReader(inputStream);
+        while (!streamReader.EndOfStream)
+        {
+            var line = streamReader.ReadLine();
+
+            if (line.IsNotSet())
+            {
+                continue;
+            }
+
+            if (existingBannedNameList.Any(b => b.UserAgent == line))
+            {
+                continue;
+            }
+
+            if (repository.Save(null, line, boardId))
             {
                 importedCount++;
             }
