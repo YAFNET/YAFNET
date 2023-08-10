@@ -216,7 +216,6 @@ public static class DataImport
     /// Import List of Banned User Names
     /// </summary>
     /// <param name="boardId">The board id.</param>
-    /// <param name="userId">The user id.</param>
     /// <param name="inputStream">The input stream.</param>
     /// <returns>
     /// Returns the Number of Imported Items.
@@ -224,7 +223,7 @@ public static class DataImport
     /// <exception cref="Exception">
     /// Import stream is not expected format.
     /// </exception>
-    public static int BannedNamesImport(int boardId, int userId, Stream inputStream)
+    public static int BannedNamesImport(int boardId, Stream inputStream)
     {
         var importedCount = 0;
 
@@ -248,6 +247,49 @@ public static class DataImport
             }
 
             if (repository.Save(null, line, "Imported User Name", boardId))
+            {
+                importedCount++;
+            }
+        }
+
+        return importedCount;
+    }
+
+    /// <summary>
+    /// Import List of Banned UserAgent
+    /// </summary>
+    /// <param name="boardId">The board id.</param>
+    /// <param name="inputStream">The input stream.</param>
+    /// <returns>
+    /// Returns the Number of Imported Items.
+    /// </returns>
+    /// <exception cref="Exception">
+    /// Import stream is not expected format.
+    /// </exception>
+    public static int BannedUserAgentsImport(int boardId, Stream inputStream)
+    {
+        var importedCount = 0;
+
+        var repository = BoardContext.Current.GetRepository<BannedUserAgent>();
+        var existingBannedNameList = repository.Get(x => x.BoardID == boardId);
+
+        using var streamReader = new StreamReader(inputStream);
+
+        while (!streamReader.EndOfStream)
+        {
+            var line = streamReader.ReadLine();
+
+            if (line.IsNotSet())
+            {
+                continue;
+            }
+
+            if (existingBannedNameList.Any(b => b.UserAgent == line))
+            {
+                continue;
+            }
+
+            if (repository.Save(null, line, boardId))
             {
                 importedCount++;
             }

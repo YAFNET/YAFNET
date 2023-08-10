@@ -221,6 +221,18 @@
             "#text": "Vezi index admin"
           },
           {
+            "@tag": "ADMIN_BANNED_USERAGENTS",
+            "#text": "Views banned user agents list"
+          },
+          {
+            "@tag": "ADMIN_BANNED_USERAGENTS_EDIT",
+            "#text": "Edits banned user agents"
+          },
+          {
+            "@tag": "ADMIN_BANNED_USERAGENTS_IMPORT",
+            "#text": "Imports banned user agents"
+          },
+          {
             "@tag": "ADMIN_BANNEDEMAIL",
             "#text": "Vizualizări interzise Lista de e-mailuri"
           },
@@ -1007,6 +1019,105 @@
         ]
       },
       {
+        "@name": "ADMIN_BANNED_USERAGENTS",
+        "Resource": [
+          {
+            "@tag": "ADD_UA",
+            "#text": "Add New UserAgent"
+          },
+          {
+            "@tag": "EMPTY_HEADER",
+            "#text": "No UserAgents"
+          },
+          {
+            "@tag": "EMPTY_MESSAGE",
+            "#text": "Currently the there are no banned UserAgent. Add a new banned UserAgent by clicking the [b]Add New UserAgent[/b] Button Bellow."
+          },
+          {
+            "@tag": "IMPORT_UA",
+            "#text": "Import UserAgent(s)"
+          },
+          {
+            "@tag": "MASK",
+            "#text": "Mask"
+          },
+          {
+            "@tag": "MSG_EXIST",
+            "#text": "The Banned UserAgent Already exists!"
+          },
+          {
+            "@tag": "MSG_REMOVEBAN_NAME",
+            "#text": "The UserAgent was successfully deleted"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Banned UserAgent"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_USERAGENTS_EDIT",
+        "Resource": [
+          {
+            "@tag": "MASK",
+            "#text": "UserAgent:"
+          },
+          {
+            "@tag": "MASK_HELP",
+            "#text": "The User Agent to ban. You can use Regular Expressions."
+          },
+          {
+            "@tag": "NEED_MASK",
+            "#text": "You must define a User Agent."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Add Banned UserAgent"
+          },
+          {
+            "@tag": "TITLE_EDIT",
+            "#text": "Edit Banned UserAgent"
+          }
+        ]
+      },
+      {
+        "@name": "ADMIN_BANNED_USERAGENTS_IMPORT",
+        "Resource": [
+          {
+            "@tag": "HEADER",
+            "#text": "Import UserAgent List"
+          },
+          {
+            "@tag": "IMPORT",
+            "#text": "Import List"
+          },
+          {
+            "@tag": "IMPORT_FAILED",
+            "#text": "Failed to import! Invalid upload format specified: {0} "
+          },
+          {
+            "@tag": "IMPORT_FILE",
+            "#text": "Select Import File:"
+          },
+          {
+            "@tag": "IMPORT_FILE_HELP",
+            "#text": "Must be *.txt file containing one useragent on each line"
+          },
+          {
+            "@tag": "IMPORT_NOTHING",
+            "#text": "Nothing imported: no new useragent was found in the upload."
+          },
+          {
+            "@tag": "IMPORT_SUCESS",
+            "#text": "{0} new useragent(s) imported successfully."
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Import UserAgent(s)"
+          }
+        ]
+      },
+      {
         "@name": "ADMIN_BANNEDEMAIL",
         "Resource": [
           {
@@ -1142,7 +1253,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned ip addresses. Add a new baned ip address by clicking the [b]Add New Address[/b] Button Bellow."
+            "#text": "Currently the there are no banned ip addresses. Add a new banned ip address by clicking the [b]Add New Address[/b] Button Bellow."
           },
           {
             "@tag": "EXPORT",
@@ -1285,7 +1396,7 @@
           },
           {
             "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no banned user names. Add a new baned name by clicking the [b]Add New User Name[/b] Button Bellow."
+            "#text": "Currently the there are no banned user names. Add a new banned name by clicking the [b]Add New User Name[/b] Button Bellow."
           },
           {
             "@tag": "IMPORT_IPS",
@@ -5650,14 +5761,6 @@
             "#text": "Dacă este activat, afișați forumurile în coloana din stânga și discuțiile de pe forum și statisticile în coloana din dreapta"
           },
           {
-            "@tag": "UNHANDLED_USERAGENT_LOG",
-            "#text": "Activați jurnalul Unhandled UserAgent Log:"
-          },
-          {
-            "@tag": "UNHANDLED_USERAGENT_LOG_HELP",
-            "#text": "Dacă se bifează, toate șirurile UserAgent negestionate sunt înregistrate."
-          },
-          {
             "@tag": "USE_CUSTOM_CONTEXTMENU",
             "#text": "Utilizați meniuri contextuale personalizate în postări:"
           },
@@ -6991,6 +7094,10 @@
           {
             "@tag": "ADMIN_ATTACHMENTS",
             "#text": "Atașamente"
+          },
+          {
+            "@tag": "ADMIN_BANNED_USERAGENTS",
+            "#text": "Banned UserAgents"
           },
           {
             "@tag": "ADMIN_BANNEDEMAIL",

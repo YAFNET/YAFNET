@@ -3687,24 +3687,6 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel27;
 
         /// <summary>
-        /// HelpLabel151-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel151;
-
-        /// <summary>
-        /// UserAgentBadLog-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox UserAgentBadLog;
-
-        /// <summary>
         /// LogErrorLabel-Steuerelement.
         /// </summary>
         /// <remarks>

@@ -21,6 +21,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
+using System.Text.RegularExpressions;
+
 namespace YAF.Core.Helpers;
 
 /// <summary>
@@ -29,41 +32,9 @@ namespace YAF.Core.Helpers;
 public static class UserAgentHelper
 {
     /// <summary>
-    /// The spider contains.
+    /// The spiders detection regex
     /// </summary>
-    private static readonly string[] SpiderContains =
-        {
-            "abachoBOT", "abcdatos_botlink", "ah-ha.com crawler", "antibot", "appie", "AltaVista-Intranet",
-            "Acoon Robot", "Atomz", "Arachnoidea", "AESOP_com_SpiderMan", "AxmoRobot", "ArchitextSpider",
-            "AlkalineBOT", "Aranha", "asterias", "Baidu", "Bingbot", "Buscaplus Robi", "CanSeek", "ChristCRAWLER",
-            "Clushbot", "Crawler", "CrawlerBoy", "DeepIndex", "DefaultCrawler", "DittoSpyder", "DIIbot", "EZResult",
-            "EARTHCOM.info", "EuripBot", "ESISmartSpider", "FAST-WebCrawler", "FyberSearch", "Findexa Crawler",
-            "Fluffy", "Googlebot", "geckobot", "GenCrawler", "GeonaBot", "getRAX", "Gulliver", "Hubater",
-            "ia_archiver", "Slurp", "Scooter", "Mercator", "RaBot", "Jack", "Speedy Spider", "moget", "Toutatis",
-            "IlTrovatore-Setaccio", "IncyWincy", "UltraSeek", "InfoSeek Sidewinder", "Mole2", "MP3Bot",
-            "Knowledge.com", "kuloko-bot", "LNSpiderguy", "Linknzbot", "lookbot", "MantraAgent",
-            "NetResearchServer", "Lycos", "JoocerBot", "HenryTheMiragoRobot", "MojeekBot", "mozDex", "MSNBOT",
-            "Navadoo Crawler", "ObjectsSearch", "OnetSzukaj", "PicoSearch", "PJspider", "nttdirectory_robot",
-            "maxbot.com", "Openfind", "psbot", "QweeryBot", "StackRambler", "SeznamBot", "Search-10", "Scrubby",
-            "speedfind ramBot xtreme", "Kototoi", "SearchByUsa", "Searchspider", "SightQuestBot", "Spider_Monkey",
-            "Surfnomore", "teoma", "UK Searcher Spider", "Nazilla", "MuscatFerret", "ZyBorg", "WIRE WebRefiner",
-            "WSCbot", "Yandex", "Yellopet-Spider", "YBSbot", "OceanSpiders", "MozSpider"
-        };
-
-    /// <summary>
-    /// Validates if the user agent owner is a feed reader
-    /// </summary>
-    /// <param name="userAgent">The user agent.</param>
-    /// <returns>
-    /// The is feed reader.
-    /// </returns>
-    public static bool IsFeedReader([CanBeNull] string userAgent)
-    {
-        string[] agentContains = { "Windows-RSS-Platform", "FeedDemon", "Feedreader", "Apple-PubSub" };
-
-        return userAgent.IsSet() && agentContains.Any(
-                   agentContain => userAgent.ToLowerInvariant().Contains(agentContain.ToLowerInvariant()));
-    }
+    private static readonly Regex spiders = new("bot|spider|yandex|crawler|appie|robot|atomz");
 
     /// <summary>
     /// Validates if the user agent is a search engine spider
@@ -74,8 +45,7 @@ public static class UserAgentHelper
     /// </returns>
     public static bool IsSearchEngineSpider([CanBeNull] string userAgent)
     {
-        return userAgent.IsSet()
-               && SpiderContains.Any(x => userAgent.ToLowerInvariant().Contains(x.ToLowerInvariant()));
+        return userAgent.IsSet() && spiders.Match(userAgent.ToLowerInvariant()).Success;
     }
 
     /// <summary>
@@ -84,13 +54,11 @@ public static class UserAgentHelper
     /// <param name="userAgent">The user agent.</param>
     /// <param name="isCrawler">if set to <c>true</c> [is crawler].</param>
     /// <param name="platform">The platform.</param>
-    /// <param name="browser">The browser.</param>
     /// <param name="isSearchEngine">if set to <c>true</c> [is search engine].</param>
     public static void Platform(
         [CanBeNull] string userAgent,
         bool isCrawler,
         [NotNull] ref string platform,
-        [NotNull] ref string browser,
         out bool isSearchEngine)
     {
         CodeContracts.VerifyNotNull(platform);
@@ -177,28 +145,7 @@ public static class UserAgentHelper
         }
         else
         {
-            // check if it's a search engine spider or an ignored UI string...
-            var san = SearchEngineSpiderName(userAgent);
-            if (san.IsSet())
-            {
-                browser = san;
-            }
-
-            isSearchEngine = isCrawler || san.IsSet();
+            isSearchEngine = isCrawler || IsSearchEngineSpider(userAgent);
         }
-    }
-
-    /// <summary>
-    /// Validates if the user agent is a search engine spider
-    /// </summary>
-    /// <param name="userAgent">The user agent.</param>
-    /// <returns>
-    /// The is search engine spider.
-    /// </returns>
-    public static string SearchEngineSpiderName([CanBeNull] string userAgent)
-    {
-        return userAgent.IsSet()
-                   ? SpiderContains.FirstOrDefault(x => userAgent.ToLowerInvariant().Contains(x.ToLowerInvariant()))
-                   : null;
     }
 }

@@ -50,6 +50,11 @@ public static class Constants
         public const string BannedIP = "BannedIP";
 
         /// <summary>
+        ///   The banned IP.
+        /// </summary>
+        public const string BannedUserAgent = "BannedUserAgent";
+
+        /// <summary>
         ///  The board moderators cache.
         /// </summary>
         public const string BoardModerators = "BoardModerators";

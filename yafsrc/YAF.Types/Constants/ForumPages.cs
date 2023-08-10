@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -297,6 +297,11 @@ public enum ForumPages
     /// The Admin banned name page.
     /// </summary>
     Admin_BannedNames,
+
+    /// <summary>
+    /// The Admin banned user agents page.
+    /// </summary>
+    Admin_BannedUserAgents,
 
     /// <summary>
     /// The Admin access masks page.

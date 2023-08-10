@@ -54,12 +54,12 @@ public static class BoardInfo
     /// <summary>
     /// Gets the Current YAF Database Version
     /// </summary>
-    public static int AppVersion => 89;
+    public static int AppVersion => 90;
 
     /// <summary>
     /// Gets the Current YAF Build Date
     /// </summary>
-    public static DateTime AppVersionDate => new(2023, 07, 17, 07, 22, 00, DateTimeKind.Utc);
+    public static DateTime AppVersionDate => new(2023, 08, 10, 07, 22, 00, DateTimeKind.Utc);
 
     /// <summary>
     /// Creates a string that is the YAF Application Version from a long value

@@ -27,9 +27,9 @@ namespace YAF.Dialogs;
 using YAF.Core.Services.Import;
 
 /// <summary>
-/// The Banned Name Import Dialog.
+/// The Banned UserAgent Import Dialog.
 /// </summary>
-public partial class BannedNameImport : BaseUserControl
+public partial class BannedUserAgentImport : BaseUserControl
 {
     /// <summary>
     /// Try to Import from selected File
@@ -54,20 +54,20 @@ public partial class BannedNameImport : BaseUserControl
 
         try
         {
-            var importedCount = DataImport.BannedNamesImport(
+            var importedCount = DataImport.BannedUserAgentsImport(
                 this.PageBoardContext.PageBoardID,
                 this.importFile.PostedFile.InputStream);
 
             this.PageBoardContext.Notify(
                 importedCount > 0
                     ? this.GetTextFormatted("IMPORT_SUCESS", importedCount)
-                    : this.GetText("ADMIN_BANNEDNAME_IMPORT", "IMPORT_NOTHING"),
+                    : this.GetText("ADMIN_BANNED_USERAGENTS_IMPORT", "IMPORT_NOTHING"),
                 MessageTypes.success);
         }
         catch (Exception x)
         {
             this.PageBoardContext.Notify(
-                string.Format(this.GetText("ADMIN_BANNEDNAME_IMPORT", "IMPORT_FAILED"), x.Message), MessageTypes.danger);
+                string.Format(this.GetText("ADMIN_BANNED_USERAGENTS_IMPORT", "IMPORT_FAILED"), x.Message), MessageTypes.danger);
 
             this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                 "openModalJs",

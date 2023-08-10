@@ -78,17 +78,9 @@ public class LoadPageRequestInformation : IHandleEvent<InitPageLoadEvent>, IHave
             userAgent,
             this.HttpRequestBase.Browser.Crawler,
             ref platform,
-            ref browser,
             out var isSearchEngine);
 
         var doNotTrack = !this.Get<BoardSettings>().ShowCrawlersInActiveList && isSearchEngine;
-
-        // don't track if this is a feed reader. May be to make it switchable in host settings.
-        // we don't have page 'g' token for the feed page.
-        if (browser.Contains("Unknown") && !doNotTrack)
-        {
-            doNotTrack = UserAgentHelper.IsFeedReader(userAgent);
-        }
 
         @event.UserRequestData.DontTrack = doNotTrack;
         @event.UserRequestData.UserAgent = userAgent;

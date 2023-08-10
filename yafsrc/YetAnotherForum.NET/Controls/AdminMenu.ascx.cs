@@ -139,7 +139,7 @@ public partial class AdminMenu : BaseUserControl
         // Admin - Spam Protection Menu
         if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
                 x => x.PageName is "Admin_SpamLog" or "Admin_SpamWords" or "Admin_BannedEmails" or "Admin_BannedIps" or
-                         "Admin_BannedNames"))
+                         "Admin_BannedNames" or "Admin_BannedUserAgents"))
         {
             this.RenderAdminSpamProtection(pagesAccess);
         }
@@ -324,7 +324,7 @@ public partial class AdminMenu : BaseUserControl
             this.GetText("ADMINMENU", "Spam_Protection"),
             "#",
             this.PageBoardContext.CurrentForumPage.PageType is ForumPages.Admin_SpamLog or ForumPages.Admin_SpamWords or
-                ForumPages.Admin_BannedEmails or ForumPages.Admin_BannedIps or ForumPages.Admin_BannedNames,
+                ForumPages.Admin_BannedEmails or ForumPages.Admin_BannedIps or ForumPages.Admin_BannedNames or ForumPages.Admin_BannedUserAgents,
             true,
             "shield-alt");
 
@@ -395,6 +395,19 @@ public partial class AdminMenu : BaseUserControl
                 this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Admin_BannedNames,
                 false,
                 "hand-paper");
+        }
+
+        // Admin BannedUserAgents
+        if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_BannedUserAgents"))
+        {
+            RenderMenuItem(
+                list,
+                "dropdown-item",
+                this.GetText("ADMINMENU", "ADMIN_BANNED_USERAGENTS"),
+                this.Get<LinkBuilder>().GetLink(ForumPages.Admin_BannedUserAgents),
+                this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Admin_BannedUserAgents,
+                false,
+                "user-secret");
         }
 
         listItem.Controls.Add(list);
