@@ -43,6 +43,11 @@ public class AlbumImage : BBCodeControl
     {
         var imageId = HtmlTagHelper.StripHtml(this.Parameters["inner"]);
 
+        if (!ValidationHelper.IsNumeric(imageId))
+        {
+            return;
+        }
+
         var albumImage = this.GetRepository<UserAlbumImage>().GetById(imageId.ToType<int>());
 
         if (albumImage is null || !this.PageContext.BoardSettings.EnableAlbum)
