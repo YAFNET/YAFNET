@@ -291,6 +291,18 @@
     <Compile Include="Controls\ProfileTimeline.ascx.designer.cs">
       <DependentUpon>ProfileTimeline.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\BannedUserAgentEdit.ascx.cs">
+      <DependentUpon>BannedUserAgentEdit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\BannedUserAgentEdit.ascx.designer.cs">
+      <DependentUpon>BannedUserAgentEdit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\BannedUserAgentImport.ascx.cs">
+      <DependentUpon>BannedUserAgentImport.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\BannedUserAgentImport.ascx.designer.cs">
+      <DependentUpon>BannedUserAgentImport.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\EditProfileDefinition.ascx.cs">
       <DependentUpon>EditProfileDefinition.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -570,6 +582,12 @@
     </Compile>
     <Compile Include="Pages\Admin\Attachments.ascx.designer.cs">
       <DependentUpon>Attachments.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Admin\BannedUserAgents.ascx.cs">
+      <DependentUpon>BannedUserAgents.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\Admin\BannedUserAgents.ascx.designer.cs">
+      <DependentUpon>BannedUserAgents.ascx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Admin\Tags.ascx.cs">
       <DependentUpon>Tags.ascx</DependentUpon>
@@ -1896,6 +1914,8 @@
     <Content Include="Controls\CookieConsent.ascx" />
     <Content Include="Controls\EditUsersSettings.ascx" />
     <Content Include="Controls\ProfileTimeline.ascx" />
+    <Content Include="Dialogs\BannedUserAgentEdit.ascx" />
+    <Content Include="Dialogs\BannedUserAgentImport.ascx" />
     <Content Include="Dialogs\EditProfileDefinition.ascx" />
     <Content Include="Dialogs\ModForumUser.ascx" />
     <Content Include="Dialogs\MoveTopic.ascx" />
@@ -1988,6 +2008,7 @@
     <Content Include="languages\estonian.json" />
     <Content Include="Pages\Account\ResetPassword.ascx" />
     <Content Include="Pages\Admin\Attachments.ascx" />
+    <Content Include="Pages\Admin\BannedUserAgents.ascx" />
     <Content Include="Pages\Admin\Tags.ascx" />
     <Content Include="Pages\Admin\ProfileDefinitions.ascx" />
     <Content Include="Pages\Admin\BannedEmails.ascx" />
@@ -2575,6 +2596,51 @@
     <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_h6.png" />
     <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_p.png" />
     <Content Include="Scripts\ckeditor\plugins\showblocks\images\block_pre.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\dialogs\smiley.js" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\angel_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\angel_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\angry_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\angry_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\broken_heart.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\broken_heart.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\confused_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\confused_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\cry_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\cry_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\devil_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\devil_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\embaressed_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\embarrassed_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\embarrassed_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\envelope.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\envelope.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\heart.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\heart.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\kiss.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\kiss.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\lightbulb.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\lightbulb.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\omg_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\omg_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\regular_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\regular_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\sad_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\sad_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\shades_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\shades_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\teeth_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\teeth_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\thumbs_down.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\thumbs_down.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\thumbs_up.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\thumbs_up.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\tongue_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\tongue_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\tounge_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\whatchutalkingabout_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\whatchutalkingabout_smile.png" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\wink_smile.gif" />
+    <Content Include="Scripts\ckeditor\plugins\smiley\images\wink_smile.png" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\af.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\ar.js" />
     <Content Include="Scripts\ckeditor\plugins\specialchar\dialogs\lang\az.js" />
@@ -2644,6 +2710,7 @@
     <Content Include="Scripts\ckeditor\plugins\syntaxhighlight\lang\fr.js" />
     <Content Include="Scripts\ckeditor\plugins\syntaxhighlight\lang\zh-cn.js" />
     <Content Include="Scripts\ckeditor\plugins\syntaxhighlight\plugin.js" />
+    <Content Include="Scripts\ckeditor\plugins\textselection\plugin.js" />
     <Content Include="Scripts\ckeditor\plugins\widget\images\handle.png" />
     <Content Include="Scripts\ckeditor\plugins\wordcount\css\wordcount.css" />
     <Content Include="Scripts\ckeditor\plugins\wsc\dialogs\ciframe.html" />
@@ -3373,7 +3440,7 @@ del *.xml</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

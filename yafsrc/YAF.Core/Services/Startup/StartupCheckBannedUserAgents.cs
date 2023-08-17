@@ -125,15 +125,6 @@ public class StartupCheckBannedUserAgents : BaseStartupService
                 return true;
             }
 
-            if (BoardContext.Current.BoardSettings.LogBannedIP)
-            {
-                this.Logger.Log(
-                    null,
-                    "Banned IP Blocked",
-                    $@"Ending Response for Banned User at IP ""{userAgent}""",
-                    EventLogTypes.IpBanDetected);
-            }
-
             this.HttpResponseBase.Clear();
 
             this.HttpResponseBase.StatusCode = 500;
