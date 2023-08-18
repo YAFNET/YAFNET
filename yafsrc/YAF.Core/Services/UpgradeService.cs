@@ -207,14 +207,15 @@ public class UpgradeService : IHaveServiceLocator
             this.Get<V86_Migration>().MigrateDatabase(this.DbAccess);
         }
 
+        if (prevVersion < 89)
+        {
+            // Execute before 87
+            this.Get<V89_Migration>().MigrateDatabase(this.DbAccess);
+        }
+
         if (prevVersion < 87)
         {
             this.Get<V87_Migration>().MigrateDatabase(this.DbAccess);
-        }
-
-        if (prevVersion < 89)
-        {
-            this.Get<V89_Migration>().MigrateDatabase(this.DbAccess);
         }
 
         this.AddOrUpdateExtensions();
