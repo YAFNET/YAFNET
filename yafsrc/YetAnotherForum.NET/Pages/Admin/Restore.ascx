@@ -182,8 +182,7 @@
                                     <%# this.Eval("Item2.TopicName") %>
                                     <YAF:ThemeButton runat="server" ID="ThemeButton1"
                                                      Type="Link"
-                                                     Icon="external-link-alt"
-                                                     Visible='<%# this.Eval("Item2.NumPosts").ToType<int>() > 0 %>'
+                                                     Icon="external-link-alt">
                                                      NavigateUrl='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { m = this.Eval("Item3.ID"), name = this.Eval("Item2.TopicName") }) %>'>
                                 </YAF:ThemeButton>
                                 </h5>
@@ -198,7 +197,6 @@
                                                      Icon="trash-restore"
                                                      Type="Success"
                                                      CommandName="restore"
-                                                     Visible='<%# this.Eval("Item2.NumPosts").ToType<int>() > 0 %>'
                                                      CommandArgument='<%# this.Eval("Item3.ID") + ";" + this.Eval("Item1.ID") + ";" + this.Eval("Item2.ID") %>'></YAF:ThemeButton>
                                     <YAF:ThemeButton runat="server" ID="Delete"
                                                      TextLocalizedTag="DELETE"
