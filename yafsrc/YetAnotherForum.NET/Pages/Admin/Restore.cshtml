@@ -1,12 +1,9 @@
 @page "{p:int=1}/{p2:int=1}/{handler?}"
 @model RestoreModel
-
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using YAF.Types.Constants
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
 @using YAF.Web.HtmlHelpers
-@using YAF.Web.TagHelpers
 
 <form method="post">
     <div class="row">
@@ -196,37 +193,30 @@
                                 <li class="list-group-item list-group-item-action">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-1">
-                                            Html.Raw( this.Eval("Item2.TopicName") )
+                                            @Html.Raw(message.Item2.TopicName)
 
-                                            @if (message.Item2.NumPosts > 0)
-                                            {
-                                                <a button-style="Link"
-                                                   Icon="external-link-alt"
-                                                   asp-page="@ForumPages.Posts.GetPageName()"
-                                                   asp-route-m="@message.Item3.ID"
-                                                   asp-route-name="@Html.HtmlEncode(message.Item2.TopicName)">
-                                                </a>
-                                            }
+                                            <a button-style="Link"
+                                               Icon="external-link-alt"
+                                               asp-page="@ForumPages.Posts.GetPageName()"
+                                               asp-route-m="@message.Item3.ID"
+                                               asp-route-name="@Html.HtmlEncode(message.Item2.TopicName)">
+                                            </a>
 
                                         </h5>
                                     </div>
                                     <p class="mb-1">
-                                        Html.Raw( this.Eval("Item3.MessageText") )
+                                        @Html.Raw(message.Item3.MessageText)
                                     </p>
                                     <small>
                                         <div class="btn-group">
-                                            @if (message.Item2.NumPosts > 0)
-                                            {
-                                                <button text-localized-tag="RESTORE_MESSAGE"
-                                                        Icon="trash-restore"
-                                                        button-style="Success"
-                                                        asp-page-handler="RestorePost"
-                                                        asp-route-p="@Model.Request.RouteValues["p"]"
-                                                        asp-route-topicId="@message.Item2.ID"
-                                                        asp-route-forumId="@message.Item1.ID"
-                                                        asp-route-messageId="@message.Item3.ID"></button>
-                                            }
-
+                                            <button text-localized-tag="RESTORE_MESSAGE"
+                                                    Icon="trash-restore"
+                                                    button-style="Success"
+                                                    asp-page-handler="RestorePost"
+                                                    asp-route-p="@Model.Request.RouteValues["p"]"
+                                                    asp-route-topicId="@message.Item2.ID"
+                                                    asp-route-forumId="@message.Item1.ID"
+                                                    asp-route-messageId="@message.Item3.ID"></button>
                                             <button asp-page-handler="DeletePost"
                                                     text-localized-tag="DELETE"
                                                     button-style="Danger"
