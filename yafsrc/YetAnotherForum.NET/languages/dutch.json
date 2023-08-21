@@ -5737,14 +5737,6 @@
             "#text": "Het maximale aantal onderwerpen dat op de Atom/Rss-feed kan worden weergegeven."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "Twitter Gebruikersnaam voor Retweets:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "De Twitter Gebruikersnaam die wordt gebruikt als een topic of een bericht wordt geretweet."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "Gebruik de indeling van een bord met 2 kolommen"
           },
@@ -13062,16 +13054,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Deel op Facebook"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "Boek {0} op Facebook"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Like dit Topic op Facebook"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13274,10 +13258,6 @@
             "#text": "Rang"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reddit ditTopic"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "Je hebt {0} een -1 gegeven."
           },
@@ -13304,10 +13284,6 @@
           {
             "@tag": "REPUTATION",
             "#text": "Reputatie"
-          },
-          {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "Retweet dit topic"
           },
           {
             "@tag": "RSSTOPIC",

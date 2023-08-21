@@ -888,12 +888,6 @@
                             <asp:DropDownList CssClass="form-select" ID="ShowShareTopicTo" runat="server" DataValueField="Value" DataTextField="Name">
                             </asp:DropDownList>
                         </div>
-                            <div class="mb-3">
-                                <YAF:HelpLabel ID="HelpLabel173" runat="server"
-                                               AssociatedControlID="TwitterUserName"
-                                               LocalizedTag="TWITTER_USERNAME" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <asp:TextBox CssClass="form-control" ID="TwitterUserName" runat="server"></asp:TextBox>
-                            </div>
                         </div>
                         <div class="tab-pane fade" id="hover" role="tabpanel" aria-labelledby="hover-tab">
                             <div class="row">

@@ -5737,14 +5737,6 @@
             "#text": "Максимальное количество тем, которые будут показаны в Atom/Rss-ленте."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "Имя пользователя твитера для ретвитов:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "Упомянутое имя пользователя при ретвите темы или сообщения."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "Используйте 2-х колоночный макет доски"
           },
@@ -13062,16 +13054,8 @@
             "#text": "Фейсбук"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Расшарить в Facebook"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "Посетите профиль пользователя {0} в Facebook"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Смотреть в этой теме"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13274,10 +13258,6 @@
             "#text": "Статус"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Поделиться в Reddit"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "Вы успешно понизили на -1 репутацию {0}."
           },
@@ -13304,10 +13284,6 @@
           {
             "@tag": "REPUTATION",
             "#text": "Репутация"
-          },
-          {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "Ретвит темы"
           },
           {
             "@tag": "RSSTOPIC",

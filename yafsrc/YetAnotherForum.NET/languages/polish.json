@@ -5737,14 +5737,6 @@
             "#text": "Maksymalna liczba tematów wyświetlanych w kanale Atom/Rss."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "Nazwa użytkownika Twittera dla retweetów:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "Nazwa użytkownika na Twitterze, która jest podawana podczas retweetowania tematu lub wiadomości."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "Użyj dwukolumnowego układu tablicy"
           },
@@ -13066,16 +13058,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Podziel się na Facebooku"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "Odwiedź użytkownika {0} na Facebooku"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Polub ten Temat"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13278,10 +13262,6 @@
             "#text": "Ranga"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reddit"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "Zabrałeś -1 pkt reputacji użytkownikowi {0}."
           },
@@ -13308,10 +13288,6 @@
           {
             "@tag": "REPUTATION",
             "#text": "Reputacja"
-          },
-          {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "Zatweetuj ten temat"
           },
           {
             "@tag": "RSSTOPIC",

@@ -5745,14 +5745,6 @@
             "#text": "Atom/Rss-syötteessä näytettävien aiheiden enimmäismäärä."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "Twitter-käyttäjätunnus uudelleentwiittauksia varten:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "Twitter-käyttäjätunnus, joka mainitaan aiheen tai viestin uudelleentwiittauksen yhteydessä."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "Käytä 2 sarakkeen hallituksen asettelua"
           },
@@ -13078,16 +13070,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Jaa Facebookissa"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "Vieraile {0}:n Facebook-profiilissa"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Kuten tämä aihe"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13290,10 +13274,6 @@
             "#text": "Taso"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reddit tämä aihe"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "Olet onnistuneesti poistanut -1 maineen {0}."
           },
@@ -13320,10 +13300,6 @@
           {
             "@tag": "REPUTATION",
             "#text": "Maine"
-          },
-          {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "Retweettaa tämä aihe"
           },
           {
             "@tag": "RSSTOPIC",

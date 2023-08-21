@@ -5745,14 +5745,6 @@
             "#text": "Atom/Rss Beslemesinde gösterilecek maksimum Konu Miktarı."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "Retweetler için Twitter Kullanıcı Adı:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "Bir Konu veya Mesaj Retweetlenirken belirtilen Twitter Kullanıcı Adı."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "2 Sütunlu Pano düzenini kullanın"
           },
@@ -13078,16 +13070,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Facebook'ta Paylaş"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "{0} adlı kullanıcının Facebook profilini ziyaret edin"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Bu konu gibi"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13290,10 +13274,6 @@
             "#text": "Sıralama"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reddit Bu Konu"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "-1 İtibarı {0}'a başarıyla kaldırdınız."
           },
@@ -13320,10 +13300,6 @@
           {
             "@tag": "REPUTATION",
             "#text": "İtibar"
-          },
-          {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "Bu Konuyu Retweetleyin"
           },
           {
             "@tag": "RSSTOPIC",

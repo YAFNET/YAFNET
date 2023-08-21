@@ -5745,14 +5745,6 @@
             "#text": "Atom/Rss Feed 上显示的最大主题数量。"
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "转推的 Twitter 用户名："
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "转发主题或消息时提到的 Twitter 用户名。"
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "使用 2 列板布局"
           },
@@ -13078,16 +13070,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "在脸书上分享"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "访问 {0} 的 Facebook 个人资料"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "喜欢这个话题"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13290,10 +13274,6 @@
             "#text": "等级"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reddit 这个话题"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "您已成功将 -1 Reputation 移除到 {0}。"
           },
@@ -13320,10 +13300,6 @@
           {
             "@tag": "REPUTATION",
             "#text": "名声"
-          },
-          {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "转发此话题"
           },
           {
             "@tag": "RSSTOPIC",

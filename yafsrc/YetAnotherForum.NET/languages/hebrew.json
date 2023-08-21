@@ -5745,14 +5745,6 @@
             "#text": "הכמות המקסימלית של נושאים להצגה ב-Atom/Rss Feed."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "שם משתמש בטוויטר לציוצים מחדש:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "שם משתמש בטוויטר שמוזכר בעת ציוץ מחדש של נושא או הודעה."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "השתמש בפריסת לוח 2 עמודות"
           },
@@ -13090,16 +13082,8 @@
             "#text": "פייסבוק"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "שתף בפייסבוק"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "בקר בפרופיל הפייסבוק של {0}"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "כמו הנושא הזה"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13302,10 +13286,6 @@
             "#text": "דירוג"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "ערכו מחדש את הנושא הזה"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "הסרת בהצלחה את -1 מוניטין ל-{0}."
           },
@@ -13332,10 +13312,6 @@
           {
             "@tag": "REPUTATION",
             "#text": "תדמית"
-          },
-          {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "צייץ מחדש לנושא זה"
           },
           {
             "@tag": "RSSTOPIC",

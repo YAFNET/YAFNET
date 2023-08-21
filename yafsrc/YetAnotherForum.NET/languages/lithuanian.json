@@ -5745,14 +5745,6 @@
             "#text": "Didžiausias temų, kurios bus rodomos \"Atom/Rss\" kanale, kiekis."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "\"Twitter\" vartotojo vardas, skirtas \"Retweets\":"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "\"Twitter\" vartotojo vardas, kuris minimas, kai \"Retweet\" siunčiama tema arba žinutė."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "Naudokite 2 stulpelių lentos išdėstymą"
           },
@@ -13078,16 +13070,8 @@
             "#text": "\"Facebook\""
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Dalytis \"Facebook"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "Apsilankykite {0}\"Facebook\" profilyje"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Kaip ir ši tema"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13290,10 +13274,6 @@
             "#text": "Rangas "
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reddit ši tema"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "Sėkmingai pašalinote -1 reputaciją į {0}."
           },
@@ -13320,10 +13300,6 @@
           {
             "@tag": "REPUTATION",
             "#text": "Reputacija"
-          },
-          {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "Retweetinkite šią temą"
           },
           {
             "@tag": "RSSTOPIC",

@@ -5745,14 +5745,6 @@
             "#text": "Số lượng chủ đề tối đa để hiển thị trên Nguồn cấp dữ liệu Atom / Rss."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "Tên người dùng Twitter để đăng lại:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "Tên người dùng Twitter được đề cập khi đăng lại một chủ đề hoặc tin nhắn."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "Sử dụng bố cục Bảng 2 Cột"
           },
@@ -13078,16 +13070,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Chia sẻ trên facebook"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "Ghé thăm Hồ sơ trên Facebook của {0}"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Thích chủ đề này"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13290,10 +13274,6 @@
             "#text": "Danh hiệu"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Chỉnh sửa lại chủ đề này"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "Bạn đã xóa thành công -1 Danh tiếng cho {0}."
           },
@@ -13320,10 +13300,6 @@
           {
             "@tag": "REPUTATION",
             "#text": "Danh tiếng"
-          },
-          {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "Tweet lại chủ đề này"
           },
           {
             "@tag": "RSSTOPIC",

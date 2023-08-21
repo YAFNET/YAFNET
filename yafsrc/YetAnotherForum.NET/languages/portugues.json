@@ -5745,14 +5745,6 @@
             "#text": "A quantidade máxima de tópicos a mostrar na alimentação Atom/Rss."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "Nome de utilizador Twitter para Retweets:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "Nome de utilizador do Twitter que é mencionado quando se retweeting um tópico ou mensagem."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "Utilizar 2 Column Board layout"
           },
@@ -13078,16 +13070,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Partilhar no Facebook"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "Visite {0}'s Perfil do Facebook"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Como este Tópico"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13290,10 +13274,6 @@
             "#text": "Classificação"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Redditar este tópico"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "Retiraram com sucesso -1 Reputação para {0}."
           },
@@ -13320,10 +13300,6 @@
           {
             "@tag": "REPUTATION",
             "#text": "Reputação"
-          },
-          {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "Retweet este Tópico"
           },
           {
             "@tag": "RSSTOPIC",

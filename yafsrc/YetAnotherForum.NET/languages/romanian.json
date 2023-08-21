@@ -5745,14 +5745,6 @@
             "#text": "Numărul maxim de subiecte care trebuie afișate în fluxul Atom/Rss."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "Nume de utilizator Twitter pentru Retweets:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "Numele de utilizator Twitter care este menționat atunci când se retuitează un subiect sau un mesaj."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "Utilizați 2 coloană de dispunere a plăcii de bord"
           },
@@ -13078,16 +13070,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Distribuie pe Facebook"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "Vizitează profilul de Facebook al lui {0}"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Cum ar fi acest subiect"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13290,10 +13274,6 @@
             "#text": "Nivel"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reddit acest subiect"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "Ai reușit să elimini cu succes -1 Reputație la {0}."
           },
@@ -13320,10 +13300,6 @@
           {
             "@tag": "REPUTATION",
             "#text": "Reputație"
-          },
-          {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "Retweet acest subiect"
           },
           {
             "@tag": "RSSTOPIC",

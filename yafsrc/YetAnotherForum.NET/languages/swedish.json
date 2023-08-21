@@ -5745,14 +5745,6 @@
             "#text": "Det maximala antalet ämnen som ska visas i Atom/Rss-flödet."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "Twitter-användarnamn för retweets:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "Twitter-användarnamn som nämns när du retweetar ett ämne eller meddelande."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "Använd 2-kolonns layout för styrelser"
           },
@@ -13078,16 +13070,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Dela på Facebook"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "Besök {0}s Facebook-profil"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Som detta ämne"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13290,10 +13274,6 @@
             "#text": "Rang"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reddit detta ämne"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "Du har lyckats ta bort -1 rykte från {0}."
           },
@@ -13320,10 +13300,6 @@
           {
             "@tag": "REPUTATION",
             "#text": "Rykte"
-          },
-          {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "Retweeta det här ämnet"
           },
           {
             "@tag": "RSSTOPIC",

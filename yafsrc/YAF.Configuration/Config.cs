@@ -296,16 +296,6 @@ public static class Config
     public static int SqlCommandTimeout => GetConfigValueAsInt("YAF.SqlCommandTimeout", 99999);
 
     /// <summary>
-    ///     Gets TwitterConsumerKey
-    /// </summary>
-    public static string TwitterConsumerKey => GetConfigValueAsString("YAF.TwitterConsumerKey");
-
-    /// <summary>
-    ///     Gets TwitterConsumerSecret
-    /// </summary>
-    public static string TwitterConsumerSecret => GetConfigValueAsString("YAF.TwitterConsumerSecret");
-
-    /// <summary>
     ///     Gets the Url Rewriting URLRewritingMode? -- default is Unicode.
     /// </summary>
     [NotNull]

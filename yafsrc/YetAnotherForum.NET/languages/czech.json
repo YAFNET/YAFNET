@@ -5745,14 +5745,6 @@
             "#text": "Maximální počet témat k zobrazení ve zdroji Atom/Rss."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "Uživatelské jméno Twitteru pro retweety:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "Uživatelské jméno na Twitteru, které je uvedeno při opětovném tweetování tématu nebo zprávy."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "Použijte rozložení desky se 2 sloupci"
           },
@@ -13082,16 +13074,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Sdílet na Facebooku"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "Navštivte facebookový profil uživatele {0}"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Jako toto téma"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13294,10 +13278,6 @@
             "#text": "Kategorie"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reddit toto téma"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "Úspěšně jste odebrali -1 reputaci uživateli {0}."
           },
@@ -13324,10 +13304,6 @@
           {
             "@tag": "REPUTATION",
             "#text": "Pověst"
-          },
-          {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "Retweetujte toto téma"
           },
           {
             "@tag": "RSSTOPIC",

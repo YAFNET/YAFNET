@@ -5745,14 +5745,6 @@
             "#text": "Maximálne množstvo tém, ktoré sa majú zobraziť v kanáli Atom/Rss."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "Používateľské meno Twitteru pre Retweety:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "Používateľské meno Twitteru, ktoré sa uvádza pri Retweetovaní témy alebo správy."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "Použitie rozloženia 2 stĺpcov"
           },
@@ -13078,16 +13070,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Zdieľať na Facebooku"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "Navštívte profil {0} na Facebooku"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Ako táto téma"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13290,10 +13274,6 @@
             "#text": "Hodnosť"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reddit táto téma"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "Úspešne ste odstránili -1 reputáciu na {0}."
           },
@@ -13320,10 +13300,6 @@
           {
             "@tag": "REPUTATION",
             "#text": "Reputácia"
-          },
-          {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "Retweetnite túto tému"
           },
           {
             "@tag": "RSSTOPIC",

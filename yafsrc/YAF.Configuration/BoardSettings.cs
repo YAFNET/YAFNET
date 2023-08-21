@@ -2138,16 +2138,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets TwitterUserName.
-    /// </summary>
-    public string TwitterUserName
-    {
-        get => this.RegistryBoard.GetValue<string>("TwitterUserName", null);
-
-        set => this.RegistryBoard.SetValue("TwitterUserName", value);
-    }
-
-    /// <summary>
     /// Gets or sets a value indicating whether ForceDigestSend.
     /// </summary>
     public bool ForceDigestSend

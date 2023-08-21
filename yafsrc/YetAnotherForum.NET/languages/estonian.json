@@ -5745,14 +5745,6 @@
             "#text": "Atom/RSs-i voos kuvatavate teemade maksimaalne arv."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "Twitteri kasutajanimi retweetide jaoks:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "Twitteri kasutajanimi, mida mainitakse teema või sõnumi uuesti säutsumisel."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "Kasutage 2 veeru tahvli paigutust"
           },
@@ -13078,16 +13070,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Jaga Facebookis"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "Külastage kasutaja {0} Facebooki profiili"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Nagu see teema"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13290,10 +13274,6 @@
             "#text": "Tase"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reditige seda teemat"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "Olete edukalt eemaldanud -1 maine domeenilt {0}."
           },
@@ -13320,10 +13300,6 @@
           {
             "@tag": "REPUTATION",
             "#text": "Maine"
-          },
-          {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "Retweet seda teemat"
           },
           {
             "@tag": "RSSTOPIC",

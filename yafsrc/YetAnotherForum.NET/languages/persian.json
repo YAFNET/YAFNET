@@ -5737,14 +5737,6 @@
             "#text": "حداکثر تعداد موضوعات برای نمایش در فید Atom/Rss."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "نام کاربری توییتر برای ریتوییت ها:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "نام کاربری توییتر که هنگام بازتوییت یک موضوع یا پیام ذکر می شود."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "از طرح 2 ستونی برای انجمن استفاده کنید"
           },
@@ -13058,16 +13050,8 @@
             "#text": "فیسبوک"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "اشتراک در فیسبوک"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "نمایش نمایه فیسبوک {0}"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "پسندیدن این موضوع"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13270,10 +13254,6 @@
             "#text": "رتبه"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reddit این موضوع"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "شما با موفقیت 1 امتیاز از {0} کم کردید."
           },
@@ -13300,10 +13280,6 @@
           {
             "@tag": "REPUTATION",
             "#text": "اعتبار"
-          },
-          {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "توئیت مجدد موضوع"
           },
           {
             "@tag": "RSSTOPIC",

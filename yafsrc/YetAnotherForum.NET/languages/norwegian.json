@@ -5745,14 +5745,6 @@
             "#text": "Maksimalt antall emner som skal vises på Atom/Rss-feeden."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "Twitter-brukernavn for retweets:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "Twitter-brukernavn som nevnes når du retweeter et emne eller en melding."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "Bruk 2-kolonne bordoppsett"
           },
@@ -13078,16 +13070,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Del på Facebook"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "Besøk {0}s Facebook-profil"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Lik dette emnet"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13290,10 +13274,6 @@
             "#text": "Grad"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reddit dette emnet"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "Du har fjernet -1 omdømme til {0}."
           },
@@ -13320,10 +13300,6 @@
           {
             "@tag": "REPUTATION",
             "#text": "Rykte"
-          },
-          {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "Retweet dette emnet"
           },
           {
             "@tag": "RSSTOPIC",

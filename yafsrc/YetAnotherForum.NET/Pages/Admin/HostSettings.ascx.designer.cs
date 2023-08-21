@@ -1752,24 +1752,6 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.DropDownList ShowShareTopicTo;
 
         /// <summary>
-        /// HelpLabel173-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Web.Controls.HelpLabel HelpLabel173;
-
-        /// <summary>
-        /// TwitterUserName-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TwitterUserName;
-
-        /// <summary>
         /// HelpLabel218-Steuerelement.
         /// </summary>
         /// <remarks>

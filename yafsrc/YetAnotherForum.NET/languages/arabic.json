@@ -5737,14 +5737,6 @@
             "#text": "الحد الأقصى لمقدار الموضوعات المراد إظهاره في موجز Atom / Rss."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "اسم مستخدم Twitter لإعادة التغريد:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "اسم مستخدم Twitter الذي يتم ذكره عند إعادة تغريد موضوع أو رسالة."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "استخدم تخطيط لوحة العمود 2"
           },
@@ -13058,16 +13050,8 @@
             "#text": "فيسبوك"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "أنشرها على الفيسبوك"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "قم بزيارة ملف {0} الشخصي على Facebook"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "مثل هذا الموضوع"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13270,10 +13254,6 @@
             "#text": "الرتبة "
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "رديت هذا الموضوع"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "لقد نجحت في إزالة -1 سمعة إلى {0}."
           },
@@ -13300,10 +13280,6 @@
           {
             "@tag": "REPUTATION",
             "#text": "سمعة"
-          },
-          {
-            "@tag": "RETWEET_TOPIC",
-            "#text": "أعد تغريد هذا الموضوع"
           },
           {
             "@tag": "RSSTOPIC",

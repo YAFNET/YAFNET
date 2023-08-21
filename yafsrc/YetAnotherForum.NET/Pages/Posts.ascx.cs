@@ -217,23 +217,6 @@ public partial class Posts : ForumPage
                     this.GetText("OK"),
                     topicUrl),
                 "fa fa-link");
-            this.ShareMenu.AddPostBackItem("retweet", this.GetText("RETWEET_TOPIC"), "fab fa-twitter");
-
-            var facebookUrl = $"https://www.facebook.com/plugins/like.php?href={this.Server.UrlEncode(topicUrl)}";
-
-            this.ShareMenu.AddClientScriptItem(
-                this.GetText("FACEBOOK_TOPIC"),
-                $@"window.open('{facebookUrl}','{this.GetText("FACEBOOK_TOPIC")}','width=300,height=200,resizable=yes');",
-                "fab fa-facebook");
-
-            var facebookShareUrl =
-                $"https://www.facebook.com/sharer/sharer.php?u={this.Server.UrlEncode(topicUrl)}";
-
-            this.ShareMenu.AddClientScriptItem(
-                this.GetText("FACEBOOK_SHARE_TOPIC"),
-                $@"window.open('{facebookShareUrl}','{this.GetText("FACEBOOK_SHARE_TOPIC")}','width=550,height=690,resizable=yes');",
-                "fab fa-facebook");
-            this.ShareMenu.AddPostBackItem("reddit", this.GetText("REDDIT_TOPIC"), "fab fa-reddit");
         }
 
         if (!this.PageBoardContext.IsGuest)
@@ -717,68 +700,10 @@ public partial class Posts : ForumPage
     /// <param name="e">The Pop Event Arguments.</param>
     private void ShareMenuItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
     {
-        var topicUrl = this.Get<LinkBuilder>().GetAbsoluteLink(
-            ForumPages.Posts,
-            new { t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName });
-
         switch (e.Item.ToLower())
         {
             case "email":
                 this.EmailTopic_Click(sender, e);
-                break;
-            case "tumblr":
-                {
-                    // process message... clean html, strip html, remove BBCode, etc...
-                    var tumblrTopicName = BBCodeHelper
-                        .StripBBCode(HtmlTagHelper.StripHtml(HtmlTagHelper.CleanHtmlString(this.topic.TopicName)))
-                        .RemoveMultipleWhitespace();
-
-                    var meta = this.Page.Header.FindControlType<HtmlMeta>().ToList();
-
-                    var description = string.Empty;
-
-                    if (meta.Any(x => x.Name.Equals("description")))
-                    {
-                        var descriptionMeta = meta.FirstOrDefault(x => x.Name.Equals("description"));
-                        if (descriptionMeta != null)
-                        {
-                            description = $"&description={descriptionMeta.Content}";
-                        }
-                    }
-
-                    var tumblrUrl =
-                        $"http://www.tumblr.com/share/link?url={this.Server.UrlEncode(topicUrl)}&name={tumblrTopicName}{description}";
-
-                    this.Get<HttpResponseBase>().Redirect(tumblrUrl);
-                }
-
-                break;
-            case "retweet":
-                {
-                    var twitterName = this.PageBoardContext.BoardSettings.TwitterUserName.IsSet()
-                                          ? $"@{this.PageBoardContext.BoardSettings.TwitterUserName} "
-                                          : string.Empty;
-
-                    // process message... clean html, strip html, remove bbcode, etc...
-                    var twitterMsg = BBCodeHelper
-                        .StripBBCode(HtmlTagHelper.StripHtml(HtmlTagHelper.CleanHtmlString(this.topic.TopicName)))
-                        .RemoveMultipleWhitespace();
-
-                    var tweetUrl =
-                        $"https://twitter.com/share?url={this.Server.UrlEncode(topicUrl)}&text={this.Server.UrlEncode(string.Format("RT {1}Thread: {0}", twitterMsg.Truncate(100), twitterName))}";
-
-                    this.Get<HttpResponseBase>().Redirect(tweetUrl);
-                }
-
-                break;
-            case "reddit":
-                {
-                    var redditUrl =
-                        $"https://www.reddit.com/submit?url={this.Server.UrlEncode(topicUrl)}&title={this.Server.UrlEncode(this.topic.TopicName)}";
-
-                    this.Get<HttpResponseBase>().Redirect(redditUrl);
-                }
-
                 break;
             default:
                 throw new ApplicationException(e.Item);
