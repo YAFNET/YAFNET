@@ -78,6 +78,8 @@ public partial class LoginBox : BaseUserControl
             this.RegisterLink.Visible = true;
         }
 
+        this.OpenAuthProvidersHolder.Visible = this.PageBoardContext.BoardSettings.AllowSingleSignOn;
+
         this.DataBind();
     }
 

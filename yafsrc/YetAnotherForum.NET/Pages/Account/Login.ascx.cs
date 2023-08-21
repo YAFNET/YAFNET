@@ -90,6 +90,8 @@ public partial class Login : AccountPage
             this.RegisterLink.Visible = true;
         }
 
+        this.OpenAuthProvidersHolder.Visible = this.PageBoardContext.BoardSettings.AllowSingleSignOn;
+
         this.DataBind();
     }
 
@@ -279,13 +281,6 @@ public partial class Login : AccountPage
 
         switch (loginAuth)
         {
-            case AuthService.twitter:
-                {
-                    var twitterAuth = new Twitter();
-                    twitterAuth.LoginOrCreateUser(out message);
-                }
-
-                break;
             case AuthService.facebook:
                 {
                     var facebookAuth = new Facebook();

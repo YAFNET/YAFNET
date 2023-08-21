@@ -97,9 +97,11 @@
                                          CssClass="btn-login"
                                          OnClick="SignIn"/>
                     </div>
+                <asp:PlaceHolder runat="server" ID="OpenAuthProvidersHolder" Visible="False">
                     <section>
                         <YAF:OpenAuthProviders runat="server" ID="OpenAuthLogin" />
                     </section>
+                </asp:PlaceHolder>
                 </div>
             <div class="card-footer text-center">
                 <YAF:ThemeButton ID="RegisterLink" runat="server"
