@@ -808,8 +808,6 @@ public class HostSettingsModel : AdminPage
 
         public int HoverCardOpenDelay { get; set; }
 
-        public string TwitterUserName { get; set; }
-
         public int PollImageMaxFileSize { get; set; }
 
         public int PopularTopicViews { get; set; }

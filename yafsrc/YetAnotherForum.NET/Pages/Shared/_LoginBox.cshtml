@@ -66,21 +66,22 @@
                             </div>
                             <div class="mb-3 col-md-6 text-end">
                                 <a button-style="Secondary"
-                                        button-size="Small"
-                                        Icon="key"
-                                        href="@Html.Raw(Current.Get<LinkBuilder>().GetLink(ForumPages.Account_ForgotPassword))"
-                                        text-localized-tag="LOSTPASSWORD"></a>
+                                   button-size="Small"
+                                   Icon="key"
+                                   href="@Html.Raw(Current.Get<LinkBuilder>().GetLink(ForumPages.Account_ForgotPassword))"
+                                   text-localized-tag="LOSTPASSWORD"></a>
                             </div>
                         </div>
-                    <div class="mb-3 d-grid gap-2">
-                        <button id="LoginButton" Icon="sign-in-alt"
-                                type="submit"
-                                button-style="Primary"
-                                class="btn-loading"
-                                text-localized-tag="FORUM_LOGIN"></button>
-                    </div>
+                        <div class="mb-3 d-grid gap-2">
+                            <button id="LoginButton" Icon="sign-in-alt"
+                                    type="submit"
+                                    button-style="Primary"
+                                    class="btn-loading"
+                                    text-localized-tag="FORUM_LOGIN"></button>
+                        </div>
                     </form>
-              
+                    @if (Current.BoardSettings.AllowSingleSignOn)
+                    {
                         <section>
                             <form asp-controller="LoginBox" asp-action="Auth">
                                 <div class="d-grid gap-2">
@@ -108,6 +109,7 @@
                                 </div>
                             </form>
                         </section>
+                    }
                     </div>
             </div>
 

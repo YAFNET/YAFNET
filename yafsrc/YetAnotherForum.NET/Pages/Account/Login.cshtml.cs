@@ -307,13 +307,6 @@ public class LoginModel : AccountPage
 
         switch (loginAuth)
         {
-            case AuthService.twitter:
-            {
-                var twitterAuth = new Twitter();
-                user = await twitterAuth.LoginOrCreateUserAsync();
-            }
-
-                break;
             case AuthService.facebook:
             {
                 var facebookAuth = new Facebook();

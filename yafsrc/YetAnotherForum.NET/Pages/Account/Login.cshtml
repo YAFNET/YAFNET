@@ -87,34 +87,37 @@
                         </div>
                     </form>
                 </section>
-                <section>
-                    <form method="post">
-                        <div class="d-grid gap-2">
-                            @{
-                                var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-                                if (loginProviders.Any())
-                                {
-                                    @foreach (var provider in loginProviders)
+                @if (Model.PageBoardContext.BoardSettings.AllowSingleSignOn)
+                {
+                    <section>
+                        <form method="post">
+                            <div class="d-grid gap-2">
+                                @{
+                                    var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+                                    if (loginProviders.Any())
                                     {
-                                        <button type="submit"
-                                                asp-page-handler="Auth"
-                                                asp-route-auth="@provider.Name"
-                                                button-style="None"
-                                                button-size="Small"
-                                                class="@Html.Raw($"btn btn-social btn-{provider.Name} me-1 mb-1")"
-                                                icon="@provider.Name"
-                                                icon-css-class="fab"
-                                                text-localized-tag="AUTH_CONNECT"
-                                                title-localized-tag="AUTH_CONNECT"
-                                                text-param0="@provider.DisplayName"
-                                                title-param0="@provider.DisplayName">
-                                        </button>
+                                        @foreach (var provider in loginProviders)
+                                        {
+                                            <button type="submit"
+                                                    asp-page-handler="Auth"
+                                                    asp-route-auth="@provider.Name"
+                                                    button-style="None"
+                                                    button-size="Small"
+                                                    class="@Html.Raw($"btn btn-social btn-{provider.Name} me-1 mb-1")"
+                                                    icon="@provider.Name"
+                                                    icon-css-class="fab"
+                                                    text-localized-tag="AUTH_CONNECT"
+                                                    title-localized-tag="AUTH_CONNECT"
+                                                    text-param0="@provider.DisplayName"
+                                                    title-param0="@provider.DisplayName">
+                                            </button>
+                                        }
                                     }
                                 }
-                            }
-                        </div>
-                    </form>
-                </section>
+                            </div>
+                        </form>
+                    </section>
+                }
             </div>
             <div class="card-footer text-center">
                 <form method="post">

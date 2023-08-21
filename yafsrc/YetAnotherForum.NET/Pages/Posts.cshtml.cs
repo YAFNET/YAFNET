@@ -355,27 +355,6 @@ public class PostsModel : ForumPage
                       new {t = this.PageBoardContext.PageTopicID});
     }
 
-    public IActionResult OnPostReTweet()
-    {
-        var twitterName = this.PageBoardContext.BoardSettings.TwitterUserName.IsSet()
-                              ? $"@{this.PageBoardContext.BoardSettings.TwitterUserName} "
-                              : string.Empty;
-
-        // process message... clean html, strip html, remove bbcode, etc...
-        var twitterMsg = BBCodeHelper
-            .StripBBCode(HtmlTagHelper.StripHtml(HtmlTagHelper.CleanHtmlString(this.PageBoardContext.PageTopic.TopicName)))
-            .RemoveMultipleWhitespace();
-
-        var topicUrl = this.Get<LinkBuilder>().GetLink(
-            ForumPages.Posts,
-            new { t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName });
-
-        var tweetUrl =
-            $"https://twitter.com/share?url={HttpUtility.UrlEncode(topicUrl)}&text={HttpUtility.UrlEncode(string.Format("RT {1}Thread: {0}", twitterMsg.Truncate(100), twitterName))}";
-
-        return this.Redirect(tweetUrl);
-    }
-
     public IActionResult OnPostReddit()
     {
         var topicUrl = this.Get<LinkBuilder>().GetLink(

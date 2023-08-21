@@ -187,41 +187,6 @@
                                                     Model.GetText("CANCEL"),
                                                     Model.GetText("OK"),
                                                     topicUrl))"></a>
-                                        
-                                    <button text-localized-tag="RETWEET_TOPIC"
-                                            icon="twitter"
-                                            icon-css-class="fab"
-                                            button-style="None"
-                                            class="dropdown-item"
-                                            asp-page-handler="ReTweet"
-                                            asp-route-t="@Request.Query["t"]"
-                                            asp-route-p="@Request.Query["p"]"
-                                            asp-route-m="@Request.Query["m"]"></button>
-                                        
-                                    <a text-localized-tag="FACEBOOK_TOPIC"
-                                       icon="facebook"
-                                       icon-css-class="fab"
-                                       button-style="None"
-                                       class="dropdown-item"
-                                       onclick="@($@"window.open('{facebookUrl}','{Model.GetText("FACEBOOK_TOPIC")}','width=300,height=200,resizable=yes');")"></a>
-                                        
-                                    <a text-localized-tag="FACEBOOK_SHARE_TOPIC"
-                                       icon="facebook"
-                                       icon-css-class="fab"
-                                       button-style="None"
-                                       class="dropdown-item"
-                                       onclick="@( $@"window.open('{facebookShareUrl}','{Model.GetText("FACEBOOK_SHARE_TOPIC")}','width=550,height=690,resizable=yes');")"></a>
-                                        
-                                    <button text-localized-tag="REDDIT_TOPIC"
-                                            icon="reddit"
-                                            icon-css-class="fab"
-                                            button-style="None"
-                                            class="dropdown-item"
-                                            asp-page-handler="Reddit"
-                                            asp-route-t="@Request.Query["t"]"
-                                            asp-route-p="@Request.Query["p"]"
-                                            asp-route-m="@Request.Query["m"]"></button>
-
                                 </div>
                             }
                                
