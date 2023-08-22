@@ -7,7 +7,7 @@
 using System;
 using System.Data;
 using System.Globalization;
-using ServiceStack.Logging;
+
 using ServiceStack.Text.Common;
 
 namespace ServiceStack.OrmLite.Converters;

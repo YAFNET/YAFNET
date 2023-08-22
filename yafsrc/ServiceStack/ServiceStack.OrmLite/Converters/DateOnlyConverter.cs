@@ -1,4 +1,4 @@
-// ***********************************************************************
+﻿// ***********************************************************************
 // <copyright file="DateTimeConverter.cs" company="ServiceStack, Inc.">
 //     Copyright (c) ServiceStack, Inc. All Rights Reserved.
 // </copyright>

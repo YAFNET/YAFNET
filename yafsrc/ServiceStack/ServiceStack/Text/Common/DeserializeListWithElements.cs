@@ -87,11 +87,16 @@ public static class DeserializeListWithElements<TSerializer>
 
         const int startQuotePos = 1;
         const int endQuotePos = 2;
-        var ret = value[0] == JsWriter.ListStartChar
+        var val = value[0] == JsWriter.ListStartChar
                       ? value.Slice(startQuotePos, value.Length - endQuotePos)
                       : value;
-        var val = ret.AdvancePastWhitespace();
-        return val.Length == 0 ? TypeConstants.EmptyStringSpan : val;
+
+        if (val.Length == 0 || val.AdvancePastWhitespace().Length == 0)
+        {
+            return TypeConstants.EmptyStringSpan;
+        }
+
+        return val;
     }
 
     /// <summary>

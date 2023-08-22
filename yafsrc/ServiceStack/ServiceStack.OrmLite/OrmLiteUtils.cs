@@ -37,12 +37,11 @@ public static class OrmLiteUtils
     /// <summary>
     /// The maximum cached index fields
     /// </summary>
-    private const int maxCachedIndexFields = 10000;
+    public static int MaxCachedIndexFields { get; set; } = 100;
     /// <summary>
     /// The index fields cache
     /// </summary>
-    private static readonly Dictionary<IndexFieldsCacheKey, Tuple<FieldDefinition, int, IOrmLiteConverter>[]> indexFieldsCache
-        = new(maxCachedIndexFields);
+    private static readonly Dictionary<IndexFieldsCacheKey, Tuple<FieldDefinition, int, IOrmLiteConverter>[]> indexFieldsCache = new();
 
     /// <summary>
     /// The log
@@ -871,6 +870,22 @@ public static class OrmLiteUtils
     }
 
     /// <summary>
+    /// Gets the field names.
+    /// </summary>
+    /// <param name="reader">The reader.</param>
+    /// <returns>System.String[].</returns>
+    public static string[] GetFieldNames(this IDataReader reader)
+    {
+        var fields = new string[reader.FieldCount];
+        int count = reader.FieldCount;
+        for (int i = 0; i < count; i++)
+        {
+            fields[i] = reader.GetName(i);
+        }
+        return fields;
+    }
+
+    /// <summary>
     /// Gets the index fields cache.
     /// </summary>
     /// <param name="reader">The reader.</param>
@@ -888,8 +903,8 @@ public static class OrmLiteUtils
         int? endPos = null)
     {
         var end = endPos.GetValueOrDefault(reader.FieldCount);
-        var cacheKey = startPos == 0 && end == reader.FieldCount && onlyFields == null
-                           ? new IndexFieldsCacheKey(reader, modelDefinition, dialect)
+        var cacheKey = (startPos == 0 && end == reader.FieldCount && onlyFields == null)
+                           ? new IndexFieldsCacheKey(reader.GetFieldNames(), modelDefinition, dialect)
                            : null;
 
         Tuple<FieldDefinition, int, IOrmLiteConverter>[] value;
@@ -967,8 +982,9 @@ public static class OrmLiteUtils
             {
                 if (indexFieldsCache.TryGetValue(cacheKey, out value))
                     return value;
-                if (indexFieldsCache.Count < maxCachedIndexFields)
-                    indexFieldsCache.Add(cacheKey, result);
+                if (indexFieldsCache.Count >= MaxCachedIndexFields)
+                    indexFieldsCache.Clear();
+                indexFieldsCache.Add(cacheKey, result);
             }
         }
 
