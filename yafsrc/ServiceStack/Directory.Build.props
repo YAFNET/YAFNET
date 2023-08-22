@@ -1,7 +1,7 @@
 ﻿<Project>
 
   <PropertyGroup>
-    <Version>6.9.1</Version>
+    <Version>6.10.1</Version>
     <AssemblyVersion>6.0.0.0</AssemblyVersion>
     <Authors>ServiceStack</Authors>
     <Company>ServiceStack, Inc.</Company>
@@ -23,13 +23,6 @@
   <PropertyGroup Condition=" '$(Configuration)' != 'Debug' ">
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Optimize>true</Optimize>
-  </PropertyGroup>
-
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net48' ">
-    <DefineConstants>$(DefineConstants);NETFX;NET48</DefineConstants>
-    <SignAssembly>True</SignAssembly>
-    <DelaySign>False</DelaySign>
-    <AssemblyOriginatorKeyFile>../servicestack.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 	
 	<PropertyGroup Condition=" '$(TargetFramework)' == 'net7.0' ">

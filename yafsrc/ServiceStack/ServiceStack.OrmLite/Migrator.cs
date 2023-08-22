@@ -234,8 +234,10 @@ public class Migrator
 
         Type? nextRun = null;
         var q = db.From<Migration>()
-            .OrderByDescending(x => x.Name).Limit(1);
-        var lastRun = db.Single(q);
+            .OrderByDescending(x => x.Name);
+        // Select all previously run migrations and find the last completed migration
+        var runMigrations = db.Select(q);
+        var lastRun = runMigrations.FirstOrDefault();
         if (lastRun != null)
         {
             var elapsedTime = DateTime.UtcNow - lastRun.CreatedDate;
@@ -263,6 +265,7 @@ public class Migrator
                         return migrationType;
                     }
                 }
+
                 return null;
             }
 
@@ -270,6 +273,16 @@ public class Migrator
             completedMigrations = migrationTypes.Any(x => x.Name == lastRun.Name) 
                 ? migrationTypes.TakeWhile(x => x.Name != lastRun.Name).ToList()
                 : new List<Type>();
+
+            // Make sure we don't rerun any migrations that have already been run
+            foreach (var migrationType in migrationTypes)
+            {
+                if (runMigrations.Any(x => x.Name == migrationType.Name && x.CompletedDate != null))
+                {
+                    completedMigrations.Add(migrationType);
+                }
+            }
+
             if (completedMigrations.Count > 0)
                 migrationTypes.RemoveAll(x => completedMigrations.Contains(x));
 
