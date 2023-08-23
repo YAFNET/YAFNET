@@ -144,7 +144,7 @@ public partial class ForumList : BaseUserControl
                 {
                     icon.Text =
                         $@"<a tabindex=""0"" class=""btn btn-link m-0 p-0 forum-icon-legend-popvover"" role=""button"" data-bs-toggle=""popover"" href=""#"" aria-label=""icon-legend"">
-                                   {forumIconLocked}
+                                   {forumIconLocked.RenderToString()}
                                </a>";
                 }
                 else if (lastPosted > lastRead && item.ReadAccess)
