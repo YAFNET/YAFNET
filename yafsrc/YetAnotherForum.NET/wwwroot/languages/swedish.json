@@ -3617,14 +3617,6 @@
             "#text": "Redigera användare \"{0}\""
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitteranvändare:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Anger om användaren är inloggad via Twitter."
-          },
-          {
             "@tag": "USER_AVATAR",
             "#text": "Användarens avatar"
           },
@@ -5737,14 +5729,6 @@
             "#text": "Det maximala antalet ämnen som ska visas i Atom/Rss-flödet."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "Twitter-användarnamn för retweets:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "Twitter-användarnamn som nämns när du retweetar ett ämne eller meddelande."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "Använd 2-kolonns layout för styrelser"
           },
@@ -7001,10 +6985,6 @@
             "#text": "Användare"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitter-användare"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Användarnamn"
           }
@@ -8107,6 +8087,10 @@
             "#text": "Ändrad e-postadress"
           },
           {
+            "@tag": "CHARACTERS_LEFT",
+            "#text": "Characters remaining:"
+          },
+          {
             "@tag": "COMMON_WORDS",
             "#text": "out,please,a,able,about,across,after,all,almost,also,am,among,an,and,any,are,as,at,be,because,been,but,by,can,cannot,could,dear,did,do,does,either,else,ever,every,for,from,get,got,had,have,have,he,her,her,hers,him,his,how,however,i,if,in,into,is,it,its,just,least,let,like,likely,may,me,kanske,mest,måste,min,varken,nej,eller,inte,av,av,ofta,på,endast,eller,annan,vår,egen,snarare,sade,säger,säger,hon,borde,sedan,så,några,än,att,det,deras,dem,då,där,dessa,de,detta,tis,till,också,var,oss,vill,var,vi,var,vad,när,var,vilken,medan,vem,vem,varför,kommer,med,skulle,ändå,du,din"
           },
@@ -8491,6 +8475,10 @@
             "#text": "Välj språk för syntaxmarkering"
           },
           {
+            "@tag": "TT_COPY",
+            "#text": "Copy the selected text (Ctrl+C)"
+          },
+          {
             "@tag": "TT_CREATELINK",
             "#text": "Skapa en länk"
           },
@@ -8499,12 +8487,28 @@
             "#text": "Fler BBCode Taggar"
           },
           {
+            "@tag": "TT_CUT",
+            "#text": "Cut the selected text (Ctrl+X)"
+          },
+          {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "Markera"
           },
           {
             "@tag": "TT_IMAGE",
             "#text": "Infoga en bild"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8523,16 +8527,40 @@
             "#text": "Oordnad lista"
           },
           {
+            "@tag": "TT_PASTE",
+            "#text": "Paste (Ctrl+V)"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "Citat"
           },
           {
-            "@tag": "TT_SAVE",
-            "#text": "Spara utkast till meddelande"
+            "@tag": "TT_REDO",
+            "#text": "Redo (Ctrl+Y)"
+          },
+          {
+            "@tag": "TT_REMOVE",
+            "#text": "Remove Format"
+          },
+          {
+            "@tag": "TT_SELECT_ALL",
+            "#text": "Select all"
           },
           {
             "@tag": "TT_UNDERLINE",
             "#text": "Understrykning"
+          },
+          {
+            "@tag": "TT_UNDO",
+            "#text": "Undo (Ctrl+Z)"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -9654,16 +9682,8 @@
             "#text": "Aktuell tid: {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "Den begärda användaren kunde inte hittas."
-          },
-          {
             "@tag": "ERROR_HOVERCARD",
             "#text": "Tyvärr hittades inga data eller så gick något fel."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "Felaktigt användarnamn eller så har du överskridit gränsen för Twitter-förfrågningar.<br/><small>Vänligen observera att Twitter endast tillåter 150 förfrågningar per timme.</small>."
           },
           {
             "@tag": "FORUM",
@@ -9704,10 +9724,6 @@
           {
             "@tag": "LOADING_HOVERCARD",
             "#text": "Laddar användarinformation ..."
-          },
-          {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Laddar Twitter Info ..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",
@@ -10286,10 +10302,6 @@
           {
             "@tag": "TITLE",
             "#text": "Ändra profil"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Ditt Twitter-namn:"
           },
           {
             "@tag": "WEBLOG2",
@@ -11563,10 +11575,6 @@
             "#text": "Logga in eller registrera dig med {0} eller anslut ett befintligt användarkonto med {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>Twitter-användarnamnet måste matcha forumets användarnamn för att ansluta användaren.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "Logga in med ett användarkonto som är anslutet till {0}. Om inget konto hittas skapas automatiskt ett nytt konto i forumet."
           },
@@ -11683,28 +11691,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "The Twitter Login failed, User does not exists."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "Twitter-inloggningen misslyckades, ett användarkonto med samma användarnamn som Twitter-kontot finns redan, försök att ansluta ditt forumkonto istället."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "Twitter-användarnamnet måste matcha forumets användarnamn!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Logga in"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Du har fått ytterligare information om ditt nya konto i ett privat meddelande på forumet."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "Information om ditt {0} Forumkonto: Användarnamn \"{1}\" Lösenord \"{2}\""
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12923,16 +12911,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Dela på Facebook"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "Besök {0}s Facebook-profil"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Som detta ämne"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13135,10 +13115,6 @@
             "#text": "Rang"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reddit detta ämne"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "Du har lyckats ta bort -1 rykte från {0}."
           },
@@ -13285,18 +13261,6 @@
           {
             "@tag": "TUMBLR_TOPIC",
             "#text": "Dela på Tumblr"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "Besök {0}s Twitterprofil"
           },
           {
             "@tag": "UNWATCHTOPIC",
@@ -13636,10 +13600,6 @@
           {
             "@tag": "TOPIC",
             "#text": "Konversation:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter-namn:"
           },
           {
             "@tag": "USERNAME",
@@ -14838,10 +14798,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

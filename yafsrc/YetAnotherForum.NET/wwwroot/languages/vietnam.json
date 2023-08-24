@@ -3617,14 +3617,6 @@
             "#text": "Chỉnh sửa Người dùng &quot;{0}&quot;"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Người dùng Twitter:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Cho biết người dùng có đăng nhập qua Twitter hay không."
-          },
-          {
             "@tag": "USER_AVATAR",
             "#text": "Hình đại diện người dùng"
           },
@@ -5737,14 +5729,6 @@
             "#text": "Số lượng chủ đề tối đa để hiển thị trên Nguồn cấp dữ liệu Atom / Rss."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "Tên người dùng Twitter để đăng lại:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "Tên người dùng Twitter được đề cập khi đăng lại một chủ đề hoặc tin nhắn."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "Sử dụng bố cục Bảng 2 Cột"
           },
@@ -7001,10 +6985,6 @@
             "#text": "Người dùng"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Người dùng Twitter"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Tên tài khoản"
           }
@@ -8107,6 +8087,10 @@
             "#text": "Đổi Email"
           },
           {
+            "@tag": "CHARACTERS_LEFT",
+            "#text": "Characters remaining:"
+          },
+          {
             "@tag": "COMMON_WORDS",
             "#text": "ra, làm ơn, a, có thể, về, qua, sau, gần như, cũng, sáng, trong số, an, và, bất kỳ, đang, như, tại, được, bởi vì, đã, nhưng, bởi, có thể, không thể, có thể, thân mến, đã, làm, không, hoặc, khác, từng, từng, cho, từ, nhận, đã, đã, có, có, anh ấy, cô ấy, cô ấy, anh ấy, của anh ấy, làm thế nào, tuy nhiên, tôi, nếu, vào, vào, là, nó, nó, chỉ, ít nhất, để, như, có thể, có thể, tôi, có thể, hầu hết, phải, của tôi, không, không, cũng không phải, của, tắt, thường xuyên, trên, chỉ, hoặc, khác, của chúng tôi, của riêng, đúng hơn, đã nói, nói, nói, cô ấy, nên, vì, vì vậy, một số, hơn, điều đó, của, của họ, sau đó, ở đó, những điều này, họ, điều này, tis, đến, quá, hai người, chúng tôi, muốn, đã, chúng tôi, đã, cái gì, khi nào, ở đâu, cái nào, trong khi, ai, ai, tại sao, sẽ, với, sẽ, nhưng, bạn, của bạn"
           },
@@ -8491,6 +8475,10 @@
             "#text": "Chọn ngôn ngữ để đánh dấu cú pháp"
           },
           {
+            "@tag": "TT_COPY",
+            "#text": "Copy the selected text (Ctrl+C)"
+          },
+          {
             "@tag": "TT_CREATELINK",
             "#text": "Tạo liên kết"
           },
@@ -8499,12 +8487,28 @@
             "#text": "Thêm BBCode Tags"
           },
           {
+            "@tag": "TT_CUT",
+            "#text": "Cut the selected text (Ctrl+X)"
+          },
+          {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "Điểm nổi bật"
           },
           {
             "@tag": "TT_IMAGE",
             "#text": "Chèn ảnh"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8523,16 +8527,40 @@
             "#text": "Danh sách không theo thứ tự"
           },
           {
+            "@tag": "TT_PASTE",
+            "#text": "Paste (Ctrl+V)"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "Trích dẫn"
           },
           {
-            "@tag": "TT_SAVE",
-            "#text": "Lưu bản nháp tin nhắn"
+            "@tag": "TT_REDO",
+            "#text": "Redo (Ctrl+Y)"
+          },
+          {
+            "@tag": "TT_REMOVE",
+            "#text": "Remove Format"
+          },
+          {
+            "@tag": "TT_SELECT_ALL",
+            "#text": "Select all"
           },
           {
             "@tag": "TT_UNDERLINE",
             "#text": "Gạch chân"
+          },
+          {
+            "@tag": "TT_UNDO",
+            "#text": "Undo (Ctrl+Z)"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -9654,16 +9682,8 @@
             "#text": "Giờ hiện tại: {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "Người dùng được yêu cầu không thể được tìm thấy."
-          },
-          {
             "@tag": "ERROR_HOVERCARD",
             "#text": "Xin lỗi, không có dữ liệu nào được tìm thấy hoặc đã xảy ra sự cố."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "Tên người dùng không hợp lệ hoặc bạn đã vượt quá giới hạn yêu cầu của Twitter.<br/> <small>Xin lưu ý, Twitter chỉ cho phép 150 yêu cầu mỗi giờ.</small> ."
           },
           {
             "@tag": "FORUM",
@@ -9704,10 +9724,6 @@
           {
             "@tag": "LOADING_HOVERCARD",
             "#text": "Đang tải thông tin người dùng ..."
-          },
-          {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Đang tải thông tin Twitter ..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",
@@ -10286,10 +10302,6 @@
           {
             "@tag": "TITLE",
             "#text": "Sửa lý lịch"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Tên Twitter của bạn:"
           },
           {
             "@tag": "WEBLOG2",
@@ -11563,10 +11575,6 @@
             "#text": "Đăng nhập hoặc Đăng ký với {0} hoặc kết nối Tài khoản Người dùng hiện có với {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>Tên người dùng Twitter phải khớp với tên người dùng diễn đàn để kết nối người dùng.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "Đăng nhập bằng Tài khoản người dùng được kết nối với {0}. Hoặc nếu không có tài khoản nào được tìm thấy, một tài khoản mới sẽ được tự động tạo trong diễn đàn."
           },
@@ -11683,28 +11691,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "The Twitter Login failed, User does not exists."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "Đăng nhập Twitter không thành công, một tài khoản người dùng có cùng tên người dùng với tài khoản Twitter đã tồn tại, hãy thử kết nối bạn với tài khoản diễn đàn của bạn."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "Tên người dùng Twitter phải khớp với tên người dùng của Diễn đàn!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Đăng nhập"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Bạn đã nhận được thêm Thông tin về Tài khoản mới của mình dưới dạng Tin nhắn riêng trên Diễn đàn."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "{0} Thông tin tài khoản diễn đàn của bạn: Tên người dùng &quot;{1}&quot; Mật khẩu &quot;{2}&quot;"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12923,16 +12911,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Chia sẻ trên facebook"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "Ghé thăm Hồ sơ trên Facebook của {0}"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Thích chủ đề này"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13135,10 +13115,6 @@
             "#text": "Danh hiệu"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Chỉnh sửa lại chủ đề này"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "Bạn đã xóa thành công -1 Danh tiếng cho {0}."
           },
@@ -13285,18 +13261,6 @@
           {
             "@tag": "TUMBLR_TOPIC",
             "#text": "Chia sẻ trên Tumblr"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "Ghé thăm Tiểu sử trên Twitter của {0}"
           },
           {
             "@tag": "UNWATCHTOPIC",
@@ -13636,10 +13600,6 @@
           {
             "@tag": "TOPIC",
             "#text": "Chủ đề:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Tên Twitter:"
           },
           {
             "@tag": "USERNAME",
@@ -14838,10 +14798,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

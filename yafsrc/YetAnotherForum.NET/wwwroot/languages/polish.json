@@ -3609,14 +3609,6 @@
             "#text": "Edytuj użytkownika \"{0}\""
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Użytkownik Twittera:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Wskazuje, czy użytkownik jest zalogowany przez Twittera."
-          },
-          {
             "@tag": "USER_AVATAR",
             "#text": "Awatar użytkownika"
           },
@@ -5729,14 +5721,6 @@
             "#text": "Maksymalna liczba tematów wyświetlanych w kanale Atom/Rss."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "Nazwa użytkownika Twittera dla retweetów:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "Nazwa użytkownika na Twitterze, która jest podawana podczas retweetowania tematu lub wiadomości."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "Użyj dwukolumnowego układu tablicy"
           },
@@ -6993,10 +6977,6 @@
             "#text": "Użytkownicy"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Użytkownik Twittera"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Nazwa użytkownika"
           }
@@ -8099,6 +8079,10 @@
             "#text": "Zmieniono e-mail"
           },
           {
+            "@tag": "CHARACTERS_LEFT",
+            "#text": "Characters remaining:"
+          },
+          {
             "@tag": "COMMON_WORDS",
             "#text": "się,proszę,w stanie,o,w poprzek,po wszystko,prawie,także jestem,wśród,,i,w ogóle,to,jak,co,się,bo było,ale przez,może,nie może,mógł,kochanie,nie,nie,nie,albo,w przeciwnym razie,nigdy,każdy,do,z,dostać,ale miał,ma,nie,on,ona,jej,jego,jego,jak,jednak,i,jeżeli,w,w,to,to,jego,tylko,najmniej,niech,jak,może,może,ja,może,najbardziej,należy,moim,nie,nie,nie,nie,o,u,często,na,tylko,lub inne,nasz,własny,raczej powiedział,powiedzmy,mówi ona,powinna,ponieważ,tak,niektórzy,niż,że,,ich,je,a następnie,nie,to,to,to,TIS,aby,też twas,nam,chce,,my,były,co,kiedy,gdzie,co,podczas gdy,kto,komu,dlaczego,będzie,z,by,mimo to,ty,twój"
           },
@@ -8483,6 +8467,10 @@
             "#text": "Wybierz język do kolorowania składni"
           },
           {
+            "@tag": "TT_COPY",
+            "#text": "Copy the selected text (Ctrl+C)"
+          },
+          {
             "@tag": "TT_CREATELINK",
             "#text": "Stwórz link"
           },
@@ -8491,12 +8479,28 @@
             "#text": "Więcej BBCode"
           },
           {
+            "@tag": "TT_CUT",
+            "#text": "Cut the selected text (Ctrl+X)"
+          },
+          {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "Kolorowanie składni"
           },
           {
             "@tag": "TT_IMAGE",
             "#text": "Dodaj obraz"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8515,16 +8519,40 @@
             "#text": "Lista punktowa"
           },
           {
+            "@tag": "TT_PASTE",
+            "#text": "Paste (Ctrl+V)"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "Cytat"
           },
           {
-            "@tag": "TT_SAVE",
-            "#text": "Zapisz wersję roboczą wiadomości"
+            "@tag": "TT_REDO",
+            "#text": "Redo (Ctrl+Y)"
+          },
+          {
+            "@tag": "TT_REMOVE",
+            "#text": "Remove Format"
+          },
+          {
+            "@tag": "TT_SELECT_ALL",
+            "#text": "Select all"
           },
           {
             "@tag": "TT_UNDERLINE",
             "#text": "Podkreślenie"
+          },
+          {
+            "@tag": "TT_UNDO",
+            "#text": "Undo (Ctrl+Z)"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -9650,16 +9678,8 @@
             "#text": "Aktualny czas: {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "Nie znaleziono żądanego użytkownika"
-          },
-          {
             "@tag": "ERROR_HOVERCARD",
             "#text": "Sorki, nie znaleziono danych albo coś poszło nie tak."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "Błędna nazwa użytkownika lub przekroczono zapytania do Twitter'a.<br/><small>Proszę zwrócić uwagę, że Twitter zezwala tylko na 150 zapytań na godzinę.</small>."
           },
           {
             "@tag": "FORUM",
@@ -9700,10 +9720,6 @@
           {
             "@tag": "LOADING_HOVERCARD",
             "#text": "Wczytywanie informacji o użytkowniku ..."
-          },
-          {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Wczytywanie informacji z Twitter'a..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",
@@ -10282,10 +10298,6 @@
           {
             "@tag": "TITLE",
             "#text": "Edytuj Profil"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twoja nazwa na Twitterze:"
           },
           {
             "@tag": "WEBLOG2",
@@ -11551,10 +11563,6 @@
             "#text": "Zaloguj się lub zarejestruj przez {0} lub połącz istniejące konto z {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>Nazwa użytkownika Twitter musi być taka sama jak nazwa użytkownika na forum, aby połączyć.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "Zaloguj się z konta użytkownika, który jest połączony z {0}. Lub jeśli nie można znaleźć nowe konto zostanie automatycznie utworzone na forum."
           },
@@ -11671,28 +11679,8 @@
             "#text": "Konto użytkownika jest niepołączone, lub nie istnieje."
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "Logowanie przez Twittera nie powiodło się. Użytkownik nie istnieje, albo nie jest połączony."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "Logowanie na Twitterze nie powiodło się, konto użytkownika o takiej samej nazwie jak konto na Twitterze już istnieje, spróbuj zamiast tego połączyć się z kontem na forum."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "Nazwa użytkownika na Twitterze musi być taka sama, jak nazwa użytkownika na forum!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Zaloguj"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Otrzymałeś dalsze informacje w prywatnej wiadomości na forum."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "Twoje dane na forum {0} to: Nazwa użytkownika \"{1}\" Hasło\"{2}\""
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12911,16 +12899,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Podziel się na Facebooku"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "Odwiedź użytkownika {0} na Facebooku"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Polub ten Temat"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13123,10 +13103,6 @@
             "#text": "Ranga"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reddit"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "Zabrałeś -1 pkt reputacji użytkownikowi {0}."
           },
@@ -13273,14 +13249,6 @@
           {
             "@tag": "TUMBLR_TOPIC",
             "#text": "Podziel się na Tumblr"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Świergot"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "Odwiedź użytkownika {0} na Twitterze"
           },
           {
             "@tag": "UNWATCHTOPIC",
@@ -13620,10 +13588,6 @@
           {
             "@tag": "TOPIC",
             "#text": "Temat:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Konto na Twitterze:"
           },
           {
             "@tag": "USERNAME",
@@ -14822,10 +14786,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n          Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

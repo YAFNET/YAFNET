@@ -3617,14 +3617,6 @@
             "#text": "编辑用户“{0}”"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "推特用户："
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "指示用户是否通过 Twitter 登录。"
-          },
-          {
             "@tag": "USER_AVATAR",
             "#text": "用户头像"
           },
@@ -5737,14 +5729,6 @@
             "#text": "Atom/Rss Feed 上显示的最大主题数量。"
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "转推的 Twitter 用户名："
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "转发主题或消息时提到的 Twitter 用户名。"
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "使用 2 列板布局"
           },
@@ -7001,10 +6985,6 @@
             "#text": "用户"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "推特用户"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "用户名"
           }
@@ -8107,6 +8087,10 @@
             "#text": "更改的电子邮件"
           },
           {
+            "@tag": "CHARACTERS_LEFT",
+            "#text": "Characters remaining:"
+          },
+          {
             "@tag": "COMMON_WORDS",
             "#text": "出，请，一个，能够，关于，跨越，之后，所有，几乎，也，是，在，一个，和，任何，是，作为，在，是，因为，但是，通过，可以，不能，"
           },
@@ -8491,6 +8475,10 @@
             "#text": "选择高亮语言"
           },
           {
+            "@tag": "TT_COPY",
+            "#text": "Copy the selected text (Ctrl+C)"
+          },
+          {
             "@tag": "TT_CREATELINK",
             "#text": "创建链接"
           },
@@ -8499,12 +8487,28 @@
             "#text": "更多 BBCode 标签"
           },
           {
+            "@tag": "TT_CUT",
+            "#text": "Cut the selected text (Ctrl+X)"
+          },
+          {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "高亮"
           },
           {
             "@tag": "TT_IMAGE",
             "#text": "插入图片"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8523,16 +8527,40 @@
             "#text": "无序列表"
           },
           {
+            "@tag": "TT_PASTE",
+            "#text": "Paste (Ctrl+V)"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "引用"
           },
           {
-            "@tag": "TT_SAVE",
-            "#text": "保存邮件草稿"
+            "@tag": "TT_REDO",
+            "#text": "Redo (Ctrl+Y)"
+          },
+          {
+            "@tag": "TT_REMOVE",
+            "#text": "Remove Format"
+          },
+          {
+            "@tag": "TT_SELECT_ALL",
+            "#text": "Select all"
           },
           {
             "@tag": "TT_UNDERLINE",
             "#text": "下划线"
+          },
+          {
+            "@tag": "TT_UNDO",
+            "#text": "Undo (Ctrl+Z)"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -9654,16 +9682,8 @@
             "#text": "当前时间: {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "找不到请求的用户。"
-          },
-          {
             "@tag": "ERROR_HOVERCARD",
             "#text": "抱歉，未找到数据或出现问题。"
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "用户名无效或您已超出 Twitter 请求限制。<br/><small>请注意，Twitter 每小时仅允许 150 个请求。</small>。"
           },
           {
             "@tag": "FORUM",
@@ -9704,10 +9724,6 @@
           {
             "@tag": "LOADING_HOVERCARD",
             "#text": "加载用户信息 ..."
-          },
-          {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "加载 Twitter 信息 ..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",
@@ -10286,10 +10302,6 @@
           {
             "@tag": "TITLE",
             "#text": "个人配置"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "你的推特名称："
           },
           {
             "@tag": "WEBLOG2",
@@ -11563,10 +11575,6 @@
             "#text": "使用 {0} 登录或注册，或将现有用户帐户连接到 {0}。"
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>Twitter 用户名必须与论坛用户名匹配才能连接用户。</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "使用与 {0} 连接的用户帐户登录。"
           },
@@ -11683,28 +11691,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "Twitter 登录失败，用户不存在."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "Twitter 登录失败，与 Twitter 帐户同名的用户帐户已经存在，请尝试连接您的论坛帐户。"
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "Twitter 用户名必须与论坛用户名匹配！"
-          },
-          {
             "@tag": "TITLE",
             "#text": "登录"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "您已在论坛上以私人消息的形式收到有关您的新帐户的更多信息。"
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "您的 {0} 论坛帐户信息：用户名“{1}”密码“{2}”"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12923,16 +12911,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "在脸书上分享"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "访问 {0} 的 Facebook 个人资料"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "喜欢这个话题"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13135,10 +13115,6 @@
             "#text": "等级"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reddit 这个话题"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "您已成功将 -1 Reputation 移除到 {0}。"
           },
@@ -13285,18 +13261,6 @@
           {
             "@tag": "TUMBLR_TOPIC",
             "#text": "在 Tumblr 上分享"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "推特"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "访问 {0} 的 Twitter 个人资料"
           },
           {
             "@tag": "UNWATCHTOPIC",
@@ -13636,10 +13600,6 @@
           {
             "@tag": "TOPIC",
             "#text": "话题:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "推特名称："
           },
           {
             "@tag": "USERNAME",
@@ -14838,10 +14798,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n      Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email address to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

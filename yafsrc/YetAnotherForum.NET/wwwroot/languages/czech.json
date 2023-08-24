@@ -3617,14 +3617,6 @@
             "#text": "Upravit uživatele „{0}“"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Uživatel Twitteru:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Označuje, zda je uživatel přihlášen přes Twitter."
-          },
-          {
             "@tag": "USER_AVATAR",
             "#text": "Uživatelský avatar"
           },
@@ -5737,14 +5729,6 @@
             "#text": "Maximální počet témat k zobrazení ve zdroji Atom/Rss."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "Uživatelské jméno Twitteru pro retweety:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "Uživatelské jméno na Twitteru, které je uvedeno při opětovném tweetování tématu nebo zprávy."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "Použijte rozložení desky se 2 sloupci"
           },
@@ -7001,10 +6985,6 @@
             "#text": "Uživatelé"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Uživatel Twitteru"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Uživatelské jméno"
           }
@@ -8107,6 +8087,10 @@
             "#text": "Změněn email"
           },
           {
+            "@tag": "CHARACTERS_LEFT",
+            "#text": "Characters remaining:"
+          },
+          {
             "@tag": "COMMON_WORDS",
             "#text": "ven,prosím,schopný,o,přes,po všem,téměř,také,jsem,mezi,a,jakýmkoli,jsem,jako,být,protože byl,ale,by,může,nemůže, "
           },
@@ -8491,6 +8475,10 @@
             "#text": "Vyberte Jazyk pro zvýraznění syntaxe"
           },
           {
+            "@tag": "TT_COPY",
+            "#text": "Copy the selected text (Ctrl+C)"
+          },
+          {
             "@tag": "TT_CREATELINK",
             "#text": "Vytvořit odkaz"
           },
@@ -8499,12 +8487,28 @@
             "#text": "Další značky BBCode"
           },
           {
+            "@tag": "TT_CUT",
+            "#text": "Cut the selected text (Ctrl+X)"
+          },
+          {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "Zvýraznit"
           },
           {
             "@tag": "TT_IMAGE",
             "#text": "Vložit obrázek"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8523,16 +8527,40 @@
             "#text": "Neuspořádaný seznam"
           },
           {
+            "@tag": "TT_PASTE",
+            "#text": "Paste (Ctrl+V)"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "Citát"
           },
           {
-            "@tag": "TT_SAVE",
-            "#text": "Uložit koncept zprávy"
+            "@tag": "TT_REDO",
+            "#text": "Redo (Ctrl+Y)"
+          },
+          {
+            "@tag": "TT_REMOVE",
+            "#text": "Remove Format"
+          },
+          {
+            "@tag": "TT_SELECT_ALL",
+            "#text": "Select all"
           },
           {
             "@tag": "TT_UNDERLINE",
             "#text": "Zdůraznit"
+          },
+          {
+            "@tag": "TT_UNDO",
+            "#text": "Undo (Ctrl+Z)"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -9654,16 +9682,8 @@
             "#text": "Teď máme přesně {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "Požadovaný uživatel nebyl nalezen."
-          },
-          {
             "@tag": "ERROR_HOVERCARD",
             "#text": "Litujeme, nebyla nalezena žádná data nebo se něco pokazilo."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "Neplatné uživatelské jméno nebo jste překročili limit požadavků na Twitteru.<br/><small>Upozorňujeme, že Twitter povoluje pouze 150 požadavků za hodinu.</small>."
           },
           {
             "@tag": "FORUM",
@@ -9704,10 +9724,6 @@
           {
             "@tag": "LOADING_HOVERCARD",
             "#text": "Načítání informací o uživateli..."
-          },
-          {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Načítání informací o Twitteru..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",
@@ -10290,10 +10306,6 @@
           {
             "@tag": "TITLE",
             "#text": "Úprava profilu"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Vaše jméno na Twitteru:"
           },
           {
             "@tag": "WEBLOG2",
@@ -11567,10 +11579,6 @@
             "#text": "Přihlaste se nebo se zaregistrujte u {0} nebo propojte stávající uživatelský účet s {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>Uživatelské jméno na Twitteru se musí shodovat s uživatelským jménem fóra, aby bylo možné uživatele připojit.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "Přihlaste se pomocí uživatelského účtu, který je propojen s {0}. "
           },
@@ -11687,28 +11695,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "The Twitter Login failed, User does not exists."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "Přihlášení na Twitter se nezdařilo, uživatelský účet se stejným uživatelským jménem jako účet Twitter již existuje, zkuste prosím připojit svůj účet na fóru."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "Uživatelské jméno na Twitteru se musí shodovat s uživatelským jménem na fóru!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Přihlásit"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Obdrželi jste další informace na svůj nový účet jako soukromou zprávu na fóru."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "Informace o vašem účtu ve fóru {0}: Uživatelské jméno \"{1}\" Heslo \"{2}\""
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12927,16 +12915,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Sdílet na Facebooku"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "Navštivte facebookový profil uživatele {0}"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Jako toto téma"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13139,10 +13119,6 @@
             "#text": "Kategorie"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reddit toto téma"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "Úspěšně jste odebrali -1 reputaci uživateli {0}."
           },
@@ -13289,18 +13265,6 @@
           {
             "@tag": "TUMBLR_TOPIC",
             "#text": "Sdílet na Tumblr"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Cvrlikání"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "Navštivte profil na Twitteru uživatele {0}"
           },
           {
             "@tag": "UNWATCHTOPIC",
@@ -13640,10 +13604,6 @@
           {
             "@tag": "TOPIC",
             "#text": "Téma:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Jméno na Twitteru:"
           },
           {
             "@tag": "USERNAME",
@@ -14842,10 +14802,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n      Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email address to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

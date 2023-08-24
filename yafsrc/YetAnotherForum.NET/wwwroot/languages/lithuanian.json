@@ -3617,14 +3617,6 @@
             "#text": "Redaguoti naudotoją \"{0}\""
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "\"Twitter\" vartotojas:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Nurodo, ar Naudotojas yra prisijungęs per \"Twitter\"."
-          },
-          {
             "@tag": "USER_AVATAR",
             "#text": "Vartotojo avataras"
           },
@@ -5737,14 +5729,6 @@
             "#text": "Didžiausias temų, kurios bus rodomos \"Atom/Rss\" kanale, kiekis."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "\"Twitter\" vartotojo vardas, skirtas \"Retweets\":"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "\"Twitter\" vartotojo vardas, kuris minimas, kai \"Retweet\" siunčiama tema arba žinutė."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "Naudokite 2 stulpelių lentos išdėstymą"
           },
@@ -7001,10 +6985,6 @@
             "#text": "Vartotojai"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "\"Twitter\" vartotojas"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Vartotojo vardas"
           }
@@ -8107,6 +8087,10 @@
             "#text": "Pakeistas el. paštas"
           },
           {
+            "@tag": "CHARACTERS_LEFT",
+            "#text": "Characters remaining:"
+          },
+          {
             "@tag": "COMMON_WORDS",
             "#text": "out, please, a, able, about, across, after, all, almost, also, am, among, an, and, any, are, as, at, be, because, been, but, by, can, cannot, could, dear, did, do, does, either, else, ever, every, for, from, get, got, had, has, have, he, her, hers, him, his, his, how, however, i, if, in, into, is, it, its, just, least, let, like, likely, may, me,gal, dauguma, turiu, mano, nei, ne, nei, ne, iš, išjungti, dažnai, ant, tik, arba, kita, mūsų, savo, greičiau, sakė, sako, sako, ji, turėtų, nes, taip, kai, nei, kad, jų, jiems, tada, ten, šitie, jie, tai, tai, taip pat, buvo, mes, buvome, kas, kada, kur, kuris, o, o, kas, kam, kodėl, bus, su, būtų, dar, tu, tavo"
           },
@@ -8491,6 +8475,10 @@
             "#text": "Pasirinkite sintaksės paryškinimo kalbą"
           },
           {
+            "@tag": "TT_COPY",
+            "#text": "Copy the selected text (Ctrl+C)"
+          },
+          {
             "@tag": "TT_CREATELINK",
             "#text": "Sukurti nuorodą"
           },
@@ -8499,12 +8487,28 @@
             "#text": "Daugiau BBCode Žymos"
           },
           {
+            "@tag": "TT_CUT",
+            "#text": "Cut the selected text (Ctrl+X)"
+          },
+          {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "Paryškinti"
           },
           {
             "@tag": "TT_IMAGE",
             "#text": "Įterpti paveikslėlį"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8523,16 +8527,40 @@
             "#text": "Nerūšiuotas sąrašas"
           },
           {
+            "@tag": "TT_PASTE",
+            "#text": "Paste (Ctrl+V)"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "Citata"
           },
           {
-            "@tag": "TT_SAVE",
-            "#text": "Išsaugoti pranešimo juodraštį"
+            "@tag": "TT_REDO",
+            "#text": "Redo (Ctrl+Y)"
+          },
+          {
+            "@tag": "TT_REMOVE",
+            "#text": "Remove Format"
+          },
+          {
+            "@tag": "TT_SELECT_ALL",
+            "#text": "Select all"
           },
           {
             "@tag": "TT_UNDERLINE",
             "#text": "Pabraukti"
+          },
+          {
+            "@tag": "TT_UNDO",
+            "#text": "Undo (Ctrl+Z)"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -9654,16 +9682,8 @@
             "#text": "Dabartinis laikas: {0}. "
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "Prašomo naudotojo nepavyko rasti."
-          },
-          {
             "@tag": "ERROR_HOVERCARD",
             "#text": "Atsiprašome, duomenų nerasta arba kažkas įvyko ne taip."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "Neteisingas vartotojo vardas arba viršijote \"Twitter\" užklausų limitą.<br/><small>Atkreipkite dėmesį, kad \"Twitter\" leidžia tik 150 užklausų per valandą.</small>."
           },
           {
             "@tag": "FORUM",
@@ -9704,10 +9724,6 @@
           {
             "@tag": "LOADING_HOVERCARD",
             "#text": "Naudotojo informacijos įkėlimas ..."
-          },
-          {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Įkeliama Twitter informacija..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",
@@ -10286,10 +10302,6 @@
           {
             "@tag": "TITLE",
             "#text": "Redaguoti profilį "
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Jūsų \"Twitter\" vardas:"
           },
           {
             "@tag": "WEBLOG2",
@@ -11563,10 +11575,6 @@
             "#text": "Prisijunkite arba užsiregistruokite naudodami {0} arba prijunkite esamą naudotojo paskyrą naudodami {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>\"Twitter\" vartotojo vardas turi sutapti su forumo vartotojo vardu, kad vartotojas būtų prijungtas.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "Prisijunkite naudodami naudotojo paskyrą, kuri yra prijungta prie {0}. Arba, jei paskyra nerandama, nauja paskyra forume bus sukurta automatiškai."
           },
@@ -11683,28 +11691,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "The Twitter Login failed, User does not exists."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "Prisijungti prie \"Twitter\" nepavyko, vartotojo paskyra su tuo pačiu vartotojo vardu, kaip ir \"Twitter\" paskyra, jau egzistuoja, vietoj jos bandykite prisijungti prie savo forumo paskyros."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "\"Twitter\" vartotojo vardas turi sutapti su forumo vartotojo vardu!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Prisijungimas "
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Jūs gavote daugiau informacijos apie savo naująją paskyrą kaip privačią žinutę forume."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "Jūsų {0} forumo paskyros informacija: Vartotojo vardas \"{1}\" Slaptažodis \"{2}\""
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12923,16 +12911,8 @@
             "#text": "\"Facebook\""
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Dalytis \"Facebook"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "Apsilankykite {0}\"Facebook\" profilyje"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Kaip ir ši tema"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13135,10 +13115,6 @@
             "#text": "Rangas "
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reddit ši tema"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "Sėkmingai pašalinote -1 reputaciją į {0}."
           },
@@ -13285,18 +13261,6 @@
           {
             "@tag": "TUMBLR_TOPIC",
             "#text": "Dalytis Tumblr"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "\"Twitter\""
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "Aplankykite {0}'s Twitter profilį"
           },
           {
             "@tag": "UNWATCHTOPIC",
@@ -13636,10 +13600,6 @@
           {
             "@tag": "TOPIC",
             "#text": "Tema: "
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "\"Twitter\" vardas:"
           },
           {
             "@tag": "USERNAME",
@@ -14838,10 +14798,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

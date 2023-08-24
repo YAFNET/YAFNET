@@ -3617,14 +3617,6 @@
             "#text": "Upraviť používateľa \"{0}\""
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Používateľ Twitteru:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Označuje, či je používateľ prihlásený cez Twitter."
-          },
-          {
             "@tag": "USER_AVATAR",
             "#text": "Avatar používateľa"
           },
@@ -5737,14 +5729,6 @@
             "#text": "Maximálne množstvo tém, ktoré sa majú zobraziť v kanáli Atom/Rss."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "Používateľské meno Twitteru pre Retweety:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "Používateľské meno Twitteru, ktoré sa uvádza pri Retweetovaní témy alebo správy."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "Použitie rozloženia 2 stĺpcov"
           },
@@ -7001,10 +6985,6 @@
             "#text": "Používatelia"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Používateľ Twitteru"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Meno používateľa"
           }
@@ -8107,6 +8087,10 @@
             "#text": "Zmenený e-mail"
           },
           {
+            "@tag": "CHARACTERS_LEFT",
+            "#text": "Characters remaining:"
+          },
+          {
             "@tag": "COMMON_WORDS",
             "#text": "von, prosím, a, schopný, o, cez, po, všetko, takmer, tiež, som, medzi, an, a, akýkoľvek, sú, ako, na, byť, pretože, bol, ale, by, môže, nemôže, mohol, drahý, robil, robí, buď, alebo, inak, niekedy, každý, pre, od, dostať, dostal, mal, má, má, on, jej, jej, jeho, jeho, ako, však, i, ak, v, do, je, to, jeho, len, najmenej, nech, ako, pravdepodobne, môže, mňa,mohol,najviac,musel,môj,ani,nie,ani,nie,z,preč,často,na,len,alebo,iný,náš,vlastný,skôr,povedal,povedal,hovorí,ona,mala,keďže,tak,niektorý,než,že,ten,ich,im,potom,tam,tí,oni,toto,to,tiež,bol,my,chce,bol,my,boli,čo,kedy,kde,ktorý,zatiaľ,kto,kto,prečo,bude,s,by,ešte,ty,tvoj"
           },
@@ -8491,6 +8475,10 @@
             "#text": "Výber jazyka pre zvýraznenie syntaxe"
           },
           {
+            "@tag": "TT_COPY",
+            "#text": "Copy the selected text (Ctrl+C)"
+          },
+          {
             "@tag": "TT_CREATELINK",
             "#text": "Vytvoriť prepojenie"
           },
@@ -8499,12 +8487,28 @@
             "#text": "Ďalšie značky kódu BBCode"
           },
           {
+            "@tag": "TT_CUT",
+            "#text": "Cut the selected text (Ctrl+X)"
+          },
+          {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "Zvýraznenie"
           },
           {
             "@tag": "TT_IMAGE",
             "#text": "Vložiť obrázok"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8523,16 +8527,40 @@
             "#text": "Neusporiadaný zoznam"
           },
           {
+            "@tag": "TT_PASTE",
+            "#text": "Paste (Ctrl+V)"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "Citujem"
           },
           {
-            "@tag": "TT_SAVE",
-            "#text": "Uloženie návrhu správy"
+            "@tag": "TT_REDO",
+            "#text": "Redo (Ctrl+Y)"
+          },
+          {
+            "@tag": "TT_REMOVE",
+            "#text": "Remove Format"
+          },
+          {
+            "@tag": "TT_SELECT_ALL",
+            "#text": "Select all"
           },
           {
             "@tag": "TT_UNDERLINE",
             "#text": "Podčiarknite"
+          },
+          {
+            "@tag": "TT_UNDO",
+            "#text": "Undo (Ctrl+Z)"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -9654,16 +9682,8 @@
             "#text": "Je presne {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "Požadovaného používateľa sa nepodarilo nájsť."
-          },
-          {
             "@tag": "ERROR_HOVERCARD",
             "#text": "Je nám ľúto, nenašli sa žiadne údaje alebo sa niečo pokazilo."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "Neplatné používateľské meno alebo ste prekročili limit požiadaviek na Twitter.<br/><small>Prosím, berte na vedomie, že Twitter povoľuje len 150 požiadaviek za hodinu.</small>."
           },
           {
             "@tag": "FORUM",
@@ -9704,10 +9724,6 @@
           {
             "@tag": "LOADING_HOVERCARD",
             "#text": "Načítanie informácií o používateľovi ..."
-          },
-          {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Načítanie informácií o Twitteri ..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",
@@ -10286,10 +10302,6 @@
           {
             "@tag": "TITLE",
             "#text": "Úprava profilu"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Vaše meno na Twitteri:"
           },
           {
             "@tag": "WEBLOG2",
@@ -11563,10 +11575,6 @@
             "#text": "Prihláste sa alebo sa zaregistrujte pomocou {0} alebo pripojte existujúce používateľské konto pomocou {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>Meno používateľa Twitteru sa musí zhodovať s menom používateľa fóra, aby bolo možné používateľa pripojiť.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "Prihláste sa pomocou používateľského konta, ktoré je pripojené k {0}. Alebo ak sa nenájde žiadne konto, automaticky sa vytvorí nové konto na fóre."
           },
@@ -11683,28 +11691,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "The Twitter Login failed, User does not exists."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "Prihlásenie na Twitter zlyhalo, používateľské konto s rovnakým používateľským menom ako konto na Twitteri už existuje, skúste sa namiesto toho pripojiť k svojmu kontu na fóre."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "Meno používateľa Twitteru sa musí zhodovať s používateľským menom fóra!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Prihlásiť"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Ďalšie informácie k vášmu novému účtu ste dostali ako súkromnú správu na fóre."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "Informácie o vašom {0} fórovom účte: Používateľské meno \"{1}\" Heslo \"{2}\""
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12923,16 +12911,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Zdieľať na Facebooku"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "Navštívte profil {0} na Facebooku"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Ako táto téma"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13135,10 +13115,6 @@
             "#text": "Hodnosť"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reddit táto téma"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "Úspešne ste odstránili -1 reputáciu na {0}."
           },
@@ -13285,18 +13261,6 @@
           {
             "@tag": "TUMBLR_TOPIC",
             "#text": "Zdieľať na Tumblr"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "Navštívte profil {0} na Twitteri"
           },
           {
             "@tag": "UNWATCHTOPIC",
@@ -13636,10 +13600,6 @@
           {
             "@tag": "TOPIC",
             "#text": "Téma:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Názov Twitter:"
           },
           {
             "@tag": "USERNAME",
@@ -14838,10 +14798,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

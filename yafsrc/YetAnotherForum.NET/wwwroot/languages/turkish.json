@@ -3617,14 +3617,6 @@
             "#text": "Kullanıcı \"{0}\" Düzenle"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitter Kullanıcısı:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Kullanıcının Twitter üzerinden giriş yapıp yapmadığını gösterir."
-          },
-          {
             "@tag": "USER_AVATAR",
             "#text": "Kullanıcı Avatarı"
           },
@@ -5737,14 +5729,6 @@
             "#text": "Atom/Rss Beslemesinde gösterilecek maksimum Konu Miktarı."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "Retweetler için Twitter Kullanıcı Adı:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "Bir Konu veya Mesaj Retweetlenirken belirtilen Twitter Kullanıcı Adı."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "2 Sütunlu Pano düzenini kullanın"
           },
@@ -7001,10 +6985,6 @@
             "#text": "Kullanıcılar"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitter Kullanıcısı"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Kullanıcı Adı"
           }
@@ -8107,6 +8087,10 @@
             "#text": "E-Posta adresi değişimi"
           },
           {
+            "@tag": "CHARACTERS_LEFT",
+            "#text": "Characters remaining:"
+          },
+          {
             "@tag": "COMMON_WORDS",
             "#text": "out,please,a,able,about,across,after,all,almost,also,am,among,an,and,any,are,as,at,be,because,been,but,by,can,cannot,could,dear,did,do,does,either,else,ever,every,for,from,get,got,had,has,have,have,he,her,hers,him,his,how,however,i,if,in,into,is,it,its,just,least,let,like,likely,may,me,might,most,must,my,neither,no,nor,not,of,off,often,on,only,or,other,our,own,rather,said,say,says,she,should,since,so,some,than,that,the,their,them,then,there,these,they,this,tis,to,too,twas,us,wants,was,we,were,what,when,where,which,while,who,whom,why,will,with,would,yet,you,your"
           },
@@ -8491,6 +8475,10 @@
             "#text": "Sözdizimi Vurgulama için Dil Seçme"
           },
           {
+            "@tag": "TT_COPY",
+            "#text": "Copy the selected text (Ctrl+C)"
+          },
+          {
             "@tag": "TT_CREATELINK",
             "#text": "Link Oluştur"
           },
@@ -8499,12 +8487,28 @@
             "#text": "Daha fazla BBCode Tagı"
           },
           {
+            "@tag": "TT_CUT",
+            "#text": "Cut the selected text (Ctrl+X)"
+          },
+          {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "Altı Çizili"
           },
           {
             "@tag": "TT_IMAGE",
             "#text": "Resim Ekle"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8523,16 +8527,40 @@
             "#text": "Sıralanmamış Liste"
           },
           {
+            "@tag": "TT_PASTE",
+            "#text": "Paste (Ctrl+V)"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "Alıntı"
           },
           {
-            "@tag": "TT_SAVE",
-            "#text": "Mesaj Taslağını Kaydet"
+            "@tag": "TT_REDO",
+            "#text": "Redo (Ctrl+Y)"
+          },
+          {
+            "@tag": "TT_REMOVE",
+            "#text": "Remove Format"
+          },
+          {
+            "@tag": "TT_SELECT_ALL",
+            "#text": "Select all"
           },
           {
             "@tag": "TT_UNDERLINE",
             "#text": "Altçizgi"
+          },
+          {
+            "@tag": "TT_UNDO",
+            "#text": "Undo (Ctrl+Z)"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -9654,16 +9682,8 @@
             "#text": "Güncel Saat: {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "İstenen kullanıcı bulunamadı."
-          },
-          {
             "@tag": "ERROR_HOVERCARD",
             "#text": "Üzgünüz, veri bulunamadı veya bir şeyler ters gitti."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "Geçersiz kullanıcı adı veya Twitter istek sınırını aştınız.<br/><small>Lütfen Twitter'ın saatte yalnızca 150 isteğe izin verdiğini unutmayın.</small>."
           },
           {
             "@tag": "FORUM",
@@ -9704,10 +9724,6 @@
           {
             "@tag": "LOADING_HOVERCARD",
             "#text": "Kullanıcı Bilgileri Yükleniyor ..."
-          },
-          {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Twitter Bilgisi Yükleniyor ..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",
@@ -10286,10 +10302,6 @@
           {
             "@tag": "TITLE",
             "#text": "Profili Düzenle"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter Adınız:"
           },
           {
             "@tag": "WEBLOG2",
@@ -11563,10 +11575,6 @@
             "#text": "Giriş yapın veya {0} ile Kaydolun veya {0} ile mevcut bir Kullanıcı Hesabına bağlanın."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>Kullanıcıyı bağlamak için Twitter kullanıcı adı forum kullanıcı adıyla eşleşmelidir</strong>."
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "{0} ile bağlı bir kullanıcı Hesabı ile giriş yapın. Veya hiçbir hesap bulunamazsa, forumlarda otomatik olarak yeni bir hesap oluşturulacaktır."
           },
@@ -11683,28 +11691,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "The Twitter Login failed, User does not exists."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "Twitter Girişi başarısız oldu, Twitter hesabıyla aynı kullanıcı adına sahip bir kullanıcı hesabı zaten mevcut, lütfen bunun yerine forum hesabınıza bağlanmayı deneyin."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "Twitter Kullanıcı Adı, Forum Kullanıcı Adı ile eşleşmelidir!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Giriş"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Yeni Hesabınızla ilgili daha fazla bilgiyi Forumda Özel Mesaj olarak aldınız."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "{0} Forum Hesap Bilgileriniz: Kullanıcı Adı \"{1}\" Şifre \"{2}\""
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12923,16 +12911,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Facebook'ta Paylaş"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "{0} adlı kullanıcının Facebook profilini ziyaret edin"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Bu konu gibi"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13135,10 +13115,6 @@
             "#text": "Sıralama"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reddit Bu Konu"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "-1 İtibarı {0}'a başarıyla kaldırdınız."
           },
@@ -13285,18 +13261,6 @@
           {
             "@tag": "TUMBLR_TOPIC",
             "#text": "Tumblr'da Paylaş"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "heyecan"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "{0} adlı kullanıcının Twitter profilini ziyaret edin"
           },
           {
             "@tag": "UNWATCHTOPIC",
@@ -13636,10 +13600,6 @@
           {
             "@tag": "TOPIC",
             "#text": "Konu:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter Adı:"
           },
           {
             "@tag": "USERNAME",
@@ -14838,10 +14798,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

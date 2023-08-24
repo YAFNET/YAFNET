@@ -3617,14 +3617,6 @@
             "#text": "Rediger bruger \"{0}\""
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitter-bruger:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Angiver om brugeren er logget ind via Twitter."
-          },
-          {
             "@tag": "USER_AVATAR",
             "#text": "Bruger avatar"
           },
@@ -5737,14 +5729,6 @@
             "#text": "Det maksimale antal emner, der skal vises på Atom/Rss-feedet."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "Twitter-brugernavn til retweets:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "Twitter-brugernavn, der nævnes, når du retweeter et emne eller en besked."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "Brug bordlayout med 2 kolonner"
           },
@@ -7001,10 +6985,6 @@
             "#text": "Brugere"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitter-bruger"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Brugernavn"
           }
@@ -8107,6 +8087,10 @@
             "#text": "Skiftet email"
           },
           {
+            "@tag": "CHARACTERS_LEFT",
+            "#text": "Characters remaining:"
+          },
+          {
             "@tag": "COMMON_WORDS",
             "#text": "ud,venligst,en,stand,om,på tværs,trods alt,næsten,også,erblandt,en,og,enhver,er,som,være,fordi,været,men,ved,kan,ikke, "
           },
@@ -8491,6 +8475,10 @@
             "#text": "Vælg sprog til syntaksfremhævning"
           },
           {
+            "@tag": "TT_COPY",
+            "#text": "Copy the selected text (Ctrl+C)"
+          },
+          {
             "@tag": "TT_CREATELINK",
             "#text": "Lav link"
           },
@@ -8499,12 +8487,28 @@
             "#text": "Flere BBKode tags"
           },
           {
+            "@tag": "TT_CUT",
+            "#text": "Cut the selected text (Ctrl+X)"
+          },
+          {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "Markér"
           },
           {
             "@tag": "TT_IMAGE",
             "#text": "Indsæt billede"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8523,16 +8527,40 @@
             "#text": "Uordnet liste"
           },
           {
+            "@tag": "TT_PASTE",
+            "#text": "Paste (Ctrl+V)"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "Citer"
           },
           {
-            "@tag": "TT_SAVE",
-            "#text": "Gem meddelelsesudkast"
+            "@tag": "TT_REDO",
+            "#text": "Redo (Ctrl+Y)"
+          },
+          {
+            "@tag": "TT_REMOVE",
+            "#text": "Remove Format"
+          },
+          {
+            "@tag": "TT_SELECT_ALL",
+            "#text": "Select all"
           },
           {
             "@tag": "TT_UNDERLINE",
             "#text": "Understreg"
+          },
+          {
+            "@tag": "TT_UNDO",
+            "#text": "Undo (Ctrl+Z)"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -9654,16 +9682,8 @@
             "#text": "Klokken er nu: {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "Den anmodede bruger kunne ikke findes."
-          },
-          {
             "@tag": "ERROR_HOVERCARD",
             "#text": "Beklager, ingen data fundet, eller noget gik galt."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "Ugyldigt brugernavn, eller du har overskredet Twitter-anmodningsgrænsen.<br/><small>Bemærk venligst, Twitter tillader kun 150 anmodninger i timen.</small>."
           },
           {
             "@tag": "FORUM",
@@ -9704,10 +9724,6 @@
           {
             "@tag": "LOADING_HOVERCARD",
             "#text": "Indlæser brugeroplysninger..."
-          },
-          {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Indlæser Twitter-oplysninger..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",
@@ -10286,10 +10302,6 @@
           {
             "@tag": "TITLE",
             "#text": "Ændre profil"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Dit Twitter-navn:"
           },
           {
             "@tag": "WEBLOG2",
@@ -11563,10 +11575,6 @@
             "#text": "Log på eller tilmeld dig med {0}, eller tilslut en eksisterende brugerkonto med {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>Twitter-brugernavnet skal matche forumbrugernavnet for at forbinde brugeren.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "Log på med en brugerkonto, der er forbundet med {0}. "
           },
@@ -11683,28 +11691,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "The Twitter Login failed, User does not exists."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "Twitter-login mislykkedes, en brugerkonto med samme brugernavn som Twitter-kontoen eksisterer allerede, prøv venligst at oprette forbindelse til din forumkonto i stedet."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "Twitter-brugernavnet skal matche forumbrugernavnet!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Log ind"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Du har modtaget yderligere information til din nye konto som privat besked på forummet."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "Dine {0} Forumkontooplysninger: Brugernavn \"{1}\" Adgangskode \"{2}\""
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12923,16 +12911,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Del på facebook"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "Besøg {0}s Facebook-profil"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Synes godt om dette emne"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13135,10 +13115,6 @@
             "#text": "Rang"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reddit dette emne"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "Du har fjernet -1 omdømme til {0}."
           },
@@ -13285,18 +13261,6 @@
           {
             "@tag": "TUMBLR_TOPIC",
             "#text": "Del på Tumblr"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "Besøg {0}s Twitter-profil"
           },
           {
             "@tag": "UNWATCHTOPIC",
@@ -13636,10 +13600,6 @@
           {
             "@tag": "TOPIC",
             "#text": "Emne:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter navn:"
           },
           {
             "@tag": "USERNAME",
@@ -14838,10 +14798,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n      Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email address to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

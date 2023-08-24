@@ -3609,14 +3609,6 @@
             "#text": "Bewerk Gebruiker \"{0}\""
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitter Gebruiker:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Geeft aan of de Gebruiker is ingelogd via Twitter."
-          },
-          {
             "@tag": "USER_AVATAR",
             "#text": "Avatar"
           },
@@ -5729,14 +5721,6 @@
             "#text": "Het maximale aantal onderwerpen dat op de Atom/Rss-feed kan worden weergegeven."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "Twitter Gebruikersnaam voor Retweets:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "De Twitter Gebruikersnaam die wordt gebruikt als een topic of een bericht wordt geretweet."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "Gebruik de indeling van een bord met 2 kolommen"
           },
@@ -6993,10 +6977,6 @@
             "#text": "Gebruikers"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitter Gebruiker"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Gebruikersnaam"
           }
@@ -8099,6 +8079,10 @@
             "#text": "Veranderde Email"
           },
           {
+            "@tag": "CHARACTERS_LEFT",
+            "#text": "Characters remaining:"
+          },
+          {
             "@tag": "COMMON_WORDS",
             "#text": "uit,alsjeblieft,een,in staat,over,over,na,alle,bijna,ook,ik,onder,een,en,eventuele,worden,zoals,op,zijn,want,geweest,maar door,kan,kan niet,kon,lieve,ik,doe,doet,ofwel,anders,ooit,elke,voor,van,krijgen,kreeg,had,heeft,hebben,hij,haar,haar,hem,zijn,hoe echter,i,indien,in,naar,is het,haar,maar,althans,laten,waarschijnlijk zoals,,kan ik,misschien,de meeste,moet,mijn,noch,en ook niet,niet,van,uit,vaak op,alleen,of,andere,onze,eigen,nogal,zei,laten we zeggen,zegt ze,zou moeten,omdat,ja,sommigen dan,dat,de,hun,hen dan,daar,deze,zij,deze,tis,om,ook het was,ons,wil,was,we waren,wat,wanneer,waar,welke,terwijl die,wie,waarom,wil,met,zou,maar toch,u,uw"
           },
@@ -8483,6 +8467,10 @@
             "#text": "Kies taal voor tekstmarkering"
           },
           {
+            "@tag": "TT_COPY",
+            "#text": "Copy the selected text (Ctrl+C)"
+          },
+          {
             "@tag": "TT_CREATELINK",
             "#text": "Maak link"
           },
@@ -8491,12 +8479,28 @@
             "#text": "Meer BBCode Tags"
           },
           {
+            "@tag": "TT_CUT",
+            "#text": "Cut the selected text (Ctrl+X)"
+          },
+          {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "Markeer"
           },
           {
             "@tag": "TT_IMAGE",
             "#text": "Plaatje invoegen"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8515,16 +8519,40 @@
             "#text": "Ongesorteerde lijst"
           },
           {
+            "@tag": "TT_PASTE",
+            "#text": "Paste (Ctrl+V)"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "Citeer"
           },
           {
-            "@tag": "TT_SAVE",
-            "#text": "Berichtconcept opslaan"
+            "@tag": "TT_REDO",
+            "#text": "Redo (Ctrl+Y)"
+          },
+          {
+            "@tag": "TT_REMOVE",
+            "#text": "Remove Format"
+          },
+          {
+            "@tag": "TT_SELECT_ALL",
+            "#text": "Select all"
           },
           {
             "@tag": "TT_UNDERLINE",
             "#text": "Onderstreep"
+          },
+          {
+            "@tag": "TT_UNDO",
+            "#text": "Undo (Ctrl+Z)"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -9646,16 +9674,8 @@
             "#text": "Huidige tijd: {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "De gevraagde gebruiker kon niet worden gevonden."
-          },
-          {
             "@tag": "ERROR_HOVERCARD",
             "#text": "Sorry, geen gegevens gevonden of er is iets misgegaan."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "Ongeldige gebruikersnaam of je hebt de Twitter-verzoeklimiet overschreden.<br/><small>Let op, Twitter staat slechts 150 verzoeken per uur toe.</small>."
           },
           {
             "@tag": "FORUM",
@@ -9696,10 +9716,6 @@
           {
             "@tag": "LOADING_HOVERCARD",
             "#text": "Gebruikersinfo laden..."
-          },
-          {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Twitter-info wordt geladen..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",
@@ -10278,10 +10294,6 @@
           {
             "@tag": "TITLE",
             "#text": "Profiel bewerken"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Je Twitter Naam:"
           },
           {
             "@tag": "WEBLOG2",
@@ -11547,10 +11559,6 @@
             "#text": "Log in of registreer met {0} of verbind een bestaand gebruikersaccount met {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>De Twitter-gebruikersnaam moet overeenkomen met de forumgebruikersnaam om de gebruiker te verbinden.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "Log in met een gebruikersaccount dat is verbonden met {0}. "
           },
@@ -11667,28 +11675,8 @@
             "#text": "Het Facebook ID komt niet overeen!"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "Twitter Login is niet gelukt, de gebruiker bestaat niet."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "De Twitter-login is mislukt, er bestaat al een gebruikersaccount met dezelfde gebruikersnaam als het Twitter-account. Probeer in plaats daarvan uw forumaccount te koppelen."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "De Twitter-gebruikersnaam moet overeenkomen met de forumgebruikersnaam!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Inloggen"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Je hebt nieuwe informatie over je account gekregen per PM."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "je {0} Forum Account Informatie: Gebruikersnaam \"{1}\" Wachtwoord \"{2}\""
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12907,16 +12895,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Deel op Facebook"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "Boek {0} op Facebook"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Like dit Topic op Facebook"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13119,10 +13099,6 @@
             "#text": "Rang"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reddit ditTopic"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "Je hebt {0} een -1 gegeven."
           },
@@ -13269,14 +13245,6 @@
           {
             "@tag": "TUMBLR_TOPIC",
             "#text": "Deel op Tumblr"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "Bezoek het Twitter profiel van {0}"
           },
           {
             "@tag": "UNWATCHTOPIC",
@@ -13616,10 +13584,6 @@
           {
             "@tag": "TOPIC",
             "#text": "Onderwerp:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter Naam:"
           },
           {
             "@tag": "USERNAME",
@@ -14818,10 +14782,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n      Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email address to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

@@ -3617,14 +3617,6 @@
             "#text": "ערוך משתמש &quot;{0}&quot;"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "משתמש בטוויטר:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "מציין אם המשתמש מחובר דרך Twitter."
-          },
-          {
             "@tag": "USER_AVATAR",
             "#text": "אוואטר משתמש"
           },
@@ -5737,14 +5729,6 @@
             "#text": "הכמות המקסימלית של נושאים להצגה ב-Atom/Rss Feed."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "שם משתמש בטוויטר לציוצים מחדש:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "שם משתמש בטוויטר שמוזכר בעת ציוץ מחדש של נושא או הודעה."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "השתמש בפריסת לוח 2 עמודות"
           },
@@ -7001,10 +6985,6 @@
             "#text": "משתמשים"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "משתמש בטוויטר"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "שם משתמש"
           }
@@ -8111,6 +8091,10 @@
             "#text": "כתובת הדוא\"ל שונתה"
           },
           {
+            "@tag": "CHARACTERS_LEFT",
+            "#text": "Characters remaining:"
+          },
+          {
             "@tag": "COMMON_WORDS",
             "#text": "החוצה, בבקשה, מסוגל, בערך, מעבר, אחרי הכל, כמעט, גם, בין, וכל אחד, נמצא, כפי, נמצא, כי, היה, אבל, על ידי, יכול, לא יכול, יכול, יקירי, עשה, עושה, או, אחר, אי פעם, כל, עבור, מ, לקבל, קיבל, היה, יש, יש לו, הוא, שלה, שלה, שלו, שלו, איך, עם זאת, אני, אם, ב-into, האם, זה, רק, לפחות, תן, אוהב, סביר, עשוי, אני, עשוי, רוב, חייב, שלי, לא, לא, ולא, לא, של, כבוי, לעתים קרובות, מופעל, רק, או,אחר,שלנו,ליתר דיוק,אמר,אומר,אומרת,היא,צריכה,מאחר,ככה,כמה,מזה,שלהם,הם,אז,שם,אלה,הם,זה,זה,אל, גם אנחנו, רוצים, היינו, היינו, מה, מתי, איפה, איזה, בזמן, מי, מי, למה, יהיה, עם, עדיין, אתה, שלך"
           },
@@ -8495,6 +8479,10 @@
             "#text": "בחר שפה להדגשת תחביר"
           },
           {
+            "@tag": "TT_COPY",
+            "#text": "Copy the selected text (Ctrl+C)"
+          },
+          {
             "@tag": "TT_CREATELINK",
             "#text": "יצירת קישור"
           },
@@ -8503,12 +8491,28 @@
             "#text": "עוד תוויות BBCode"
           },
           {
+            "@tag": "TT_CUT",
+            "#text": "Cut the selected text (Ctrl+X)"
+          },
+          {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "שִׂיא"
           },
           {
             "@tag": "TT_IMAGE",
             "#text": "הוספת תמונה"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8527,16 +8531,40 @@
             "#text": "רשימה לא מסודרת"
           },
           {
+            "@tag": "TT_PASTE",
+            "#text": "Paste (Ctrl+V)"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "ציטוט"
           },
           {
-            "@tag": "TT_SAVE",
-            "#text": "שמור טיוטת הודעה"
+            "@tag": "TT_REDO",
+            "#text": "Redo (Ctrl+Y)"
+          },
+          {
+            "@tag": "TT_REMOVE",
+            "#text": "Remove Format"
+          },
+          {
+            "@tag": "TT_SELECT_ALL",
+            "#text": "Select all"
           },
           {
             "@tag": "TT_UNDERLINE",
             "#text": "קו תחתון"
+          },
+          {
+            "@tag": "TT_UNDO",
+            "#text": "Undo (Ctrl+Z)"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -9658,16 +9686,8 @@
             "#text": "שעה נוכחית: {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "המשתמש המבוקש לא נמצא."
-          },
-          {
             "@tag": "ERROR_HOVERCARD",
             "#text": "מצטערים, לא נמצאו נתונים או שמשהו השתבש."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "שם משתמש לא חוקי או שחרגת ממגבלת הבקשות בטוויטר.<br/> <small>שימו לב, טוויטר מאפשר רק 150 בקשות לשעה.</small> ."
           },
           {
             "@tag": "FORUM",
@@ -9708,10 +9728,6 @@
           {
             "@tag": "LOADING_HOVERCARD",
             "#text": "טוען מידע משתמש..."
-          },
-          {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "טוען מידע טוויטר..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",
@@ -10290,10 +10306,6 @@
           {
             "@tag": "TITLE",
             "#text": "עריכת פרופיל"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "השם שלך בטוויטר:"
           },
           {
             "@tag": "WEBLOG2",
@@ -11567,10 +11579,6 @@
             "#text": "התחבר או הירשם עם {0} או חבר חשבון משתמש קיים עם {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>שם המשתמש בטוויטר חייב להתאים לשם המשתמש בפורום כדי לחבר את המשתמש.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "התחבר עם חשבון משתמש שמחובר ל-{0}. או אם לא נמצא חשבון, חשבון חדש ייווצר אוטומטית בפורומים."
           },
@@ -11687,28 +11695,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "The Twitter Login failed, User does not exists."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "הכניסה לטוויטר נכשלה, חשבון משתמש עם אותו שם משתמש כמו חשבון הטוויטר כבר קיים, אנא נסה לחבר לך את חשבון הפורום שלך במקום זאת."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "שם המשתמש בטוויטר חייב להתאים לשם המשתמש בפורום!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "התחבר"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "קיבלת מידע נוסף לחשבון החדש שלך כהודעה פרטית בפורום."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "פרטי חשבון הפורום שלך ב-{0}: שם משתמש &quot;{1}&quot; סיסמה &quot;{2}&quot;"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12935,16 +12923,8 @@
             "#text": "פייסבוק"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "שתף בפייסבוק"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "בקר בפרופיל הפייסבוק של {0}"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "כמו הנושא הזה"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13147,10 +13127,6 @@
             "#text": "דירוג"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "ערכו מחדש את הנושא הזה"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "הסרת בהצלחה את -1 מוניטין ל-{0}."
           },
@@ -13297,18 +13273,6 @@
           {
             "@tag": "TUMBLR_TOPIC",
             "#text": "שתפו ב-Tumblr"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "טוויטר"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "בקר בפרופיל הטוויטר של {0}"
           },
           {
             "@tag": "UNWATCHTOPIC",
@@ -13648,10 +13612,6 @@
           {
             "@tag": "TOPIC",
             "#text": "דיון:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "שם טוויטר:"
           },
           {
             "@tag": "USERNAME",
@@ -14850,10 +14810,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

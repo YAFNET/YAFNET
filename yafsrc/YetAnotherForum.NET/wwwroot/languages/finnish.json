@@ -3617,14 +3617,6 @@
             "#text": "Muokkaa käyttäjää \"{0}\""
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitter-käyttäjä:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Ilmaisee, onko käyttäjä kirjautunut sisään Twitterin kautta."
-          },
-          {
             "@tag": "USER_AVATAR",
             "#text": "Käyttäjän avatar"
           },
@@ -5737,14 +5729,6 @@
             "#text": "Atom/Rss-syötteessä näytettävien aiheiden enimmäismäärä."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "Twitter-käyttäjätunnus uudelleentwiittauksia varten:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "Twitter-käyttäjätunnus, joka mainitaan aiheen tai viestin uudelleentwiittauksen yhteydessä."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "Käytä 2 sarakkeen hallituksen asettelua"
           },
@@ -7001,10 +6985,6 @@
             "#text": "Käyttäjät"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitter-käyttäjä"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Käyttäjän nimi"
           }
@@ -8107,6 +8087,10 @@
             "#text": "Muutettu sähköpostiosoite"
           },
           {
+            "@tag": "CHARACTERS_LEFT",
+            "#text": "Characters remaining:"
+          },
+          {
             "@tag": "COMMON_WORDS",
             "#text": "out,please,a,able,about,across,after,all,almost,also,am,among,an,and,any,are,as,at,be,because,been,but,by,can,cannot,could,dear,did,do,does,either,else,ever,every,every,for,from,get,got,had,has,have,he,her,hers,him,his,his,how,however,i,if,in,into,is,it,it,it,its,just,least,let,like,likely,may,me,ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei, ei."
           },
@@ -8491,6 +8475,10 @@
             "#text": "Valitse kieli syntaksin korostusta varten"
           },
           {
+            "@tag": "TT_COPY",
+            "#text": "Copy the selected text (Ctrl+C)"
+          },
+          {
             "@tag": "TT_CREATELINK",
             "#text": "Luo linkki"
           },
@@ -8499,12 +8487,28 @@
             "#text": "Lisää BBCode-tunnisteita"
           },
           {
+            "@tag": "TT_CUT",
+            "#text": "Cut the selected text (Ctrl+X)"
+          },
+          {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "Korosta"
           },
           {
             "@tag": "TT_IMAGE",
             "#text": "Lisää kuva"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8523,16 +8527,40 @@
             "#text": "Järjestämätön luettelo"
           },
           {
+            "@tag": "TT_PASTE",
+            "#text": "Paste (Ctrl+V)"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "Lainaus"
           },
           {
-            "@tag": "TT_SAVE",
-            "#text": "Tallenna viestiluonnos"
+            "@tag": "TT_REDO",
+            "#text": "Redo (Ctrl+Y)"
+          },
+          {
+            "@tag": "TT_REMOVE",
+            "#text": "Remove Format"
+          },
+          {
+            "@tag": "TT_SELECT_ALL",
+            "#text": "Select all"
           },
           {
             "@tag": "TT_UNDERLINE",
             "#text": "Alleviivaa"
+          },
+          {
+            "@tag": "TT_UNDO",
+            "#text": "Undo (Ctrl+Z)"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -9654,16 +9682,8 @@
             "#text": "Aika nyt: {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "Pyydettyä käyttäjää ei löytynyt."
-          },
-          {
             "@tag": "ERROR_HOVERCARD",
             "#text": "Valitettavasti tietoja ei löytynyt tai jokin meni pieleen."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "Virheellinen käyttäjänimi tai olet ylittänyt Twitter-pyyntörajan.<br/><small>Huomaa, että Twitter sallii vain 150 pyyntöä tunnissa.</small>."
           },
           {
             "@tag": "FORUM",
@@ -9704,10 +9724,6 @@
           {
             "@tag": "LOADING_HOVERCARD",
             "#text": "Käyttäjätietojen lataaminen ..."
-          },
-          {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Twitter-infon lataaminen ..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",
@@ -10286,10 +10302,6 @@
           {
             "@tag": "TITLE",
             "#text": "Muokkaa profiilia"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter-nimesi:"
           },
           {
             "@tag": "WEBLOG2",
@@ -11563,10 +11575,6 @@
             "#text": "Kirjaudu sisään tai rekisteröidy {0} tai yhdistä olemassa oleva käyttäjätili {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>Twitter-käyttäjänimen on vastattava foorumin käyttäjänimeä, jotta käyttäjä voidaan yhdistää.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "Kirjaudu sisään käyttäjätilillä, joka on yhdistetty {0}. Tai jos tiliä ei löydy, uusi tili luodaan automaattisesti foorumeille."
           },
@@ -11683,28 +11691,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "The Twitter Login failed, User does not exists."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "Twitter-sisäänkirjautuminen epäonnistui, käyttäjätili, jolla on sama käyttäjänimi kuin Twitter-tilillä, on jo olemassa, yritä yhdistää sinut foorumitilillesi sen sijaan."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "Twitter-käyttäjänimen on vastattava foorumin käyttäjänimeä!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Kirjaudu"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Olet saanut lisätietoa uudesta tilistäsi yksityisviestinä foorumilla."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "Sinun {0} foorumitilisi tiedot: Käyttäjätunnus \"{1}\" Salasana \"{2}\""
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12923,16 +12911,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Jaa Facebookissa"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "Vieraile {0}:n Facebook-profiilissa"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Kuten tämä aihe"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13135,10 +13115,6 @@
             "#text": "Taso"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reddit tämä aihe"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "Olet onnistuneesti poistanut -1 maineen {0}."
           },
@@ -13285,18 +13261,6 @@
           {
             "@tag": "TUMBLR_TOPIC",
             "#text": "Jaa Tumblrissa"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Viserrys"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "Vieraile {0}:n Twitter-profiilissa"
           },
           {
             "@tag": "UNWATCHTOPIC",
@@ -13636,10 +13600,6 @@
           {
             "@tag": "TOPIC",
             "#text": "Aihe:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter-nimi:"
           },
           {
             "@tag": "USERNAME",
@@ -14838,10 +14798,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

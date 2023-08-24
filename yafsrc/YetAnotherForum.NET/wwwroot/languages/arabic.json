@@ -3609,14 +3609,6 @@
             "#text": "تحرير المستخدم \"{0}\""
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "مستخدم تويتر:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "يشير إلى ما إذا كان المستخدم قد قام بتسجيل الدخول عبر Twitter."
-          },
-          {
             "@tag": "USER_AVATAR",
             "#text": "الصورة الرمزية للمستخدم"
           },
@@ -5729,14 +5721,6 @@
             "#text": "الحد الأقصى لمقدار الموضوعات المراد إظهاره في موجز Atom / Rss."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "اسم مستخدم Twitter لإعادة التغريد:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "اسم مستخدم Twitter الذي يتم ذكره عند إعادة تغريد موضوع أو رسالة."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "استخدم تخطيط لوحة العمود 2"
           },
@@ -6993,10 +6977,6 @@
             "#text": "المستخدمون"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "مستخدم تويتر"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "اسم االمستخدم"
           }
@@ -8095,6 +8075,10 @@
             "#text": "تغيير البريد الاكتروني"
           },
           {
+            "@tag": "CHARACTERS_LEFT",
+            "#text": "Characters remaining:"
+          },
+          {
             "@tag": "COMMON_WORDS",
             "#text": "خارج ، من فضلك ، قادر ، حول ، عبر ، بعد ، كل ، تقريبًا ، أيضًا ، بين ، و ، و ، أي ، كما ، في ، يكون ، لأنه ، كان ، ولكن ، من خلال ، يمكن ، "
           },
@@ -8479,6 +8463,10 @@
             "#text": "اختر لغة لإبراز بناء الجملة"
           },
           {
+            "@tag": "TT_COPY",
+            "#text": "Copy the selected text (Ctrl+C)"
+          },
+          {
             "@tag": "TT_CREATELINK",
             "#text": "انشاء رابط"
           },
@@ -8487,12 +8475,28 @@
             "#text": "المزيد من  كود (Tags)"
           },
           {
+            "@tag": "TT_CUT",
+            "#text": "Cut the selected text (Ctrl+X)"
+          },
+          {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "تسليط الضوء"
           },
           {
             "@tag": "TT_IMAGE",
             "#text": "اضافة صورة"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8511,16 +8515,40 @@
             "#text": "قائمة غير مرتبة"
           },
           {
+            "@tag": "TT_PASTE",
+            "#text": "Paste (Ctrl+V)"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "إقتباس"
           },
           {
-            "@tag": "TT_SAVE",
-            "#text": "حفظ مسودة الرسالة"
+            "@tag": "TT_REDO",
+            "#text": "Redo (Ctrl+Y)"
+          },
+          {
+            "@tag": "TT_REMOVE",
+            "#text": "Remove Format"
+          },
+          {
+            "@tag": "TT_SELECT_ALL",
+            "#text": "Select all"
           },
           {
             "@tag": "TT_UNDERLINE",
             "#text": "أسفله خط"
+          },
+          {
+            "@tag": "TT_UNDO",
+            "#text": "Undo (Ctrl+Z)"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -9642,16 +9670,8 @@
             "#text": "الوقت الحالي: {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "لا يمكن العثور على المستخدم المطلوب."
-          },
-          {
             "@tag": "ERROR_HOVERCARD",
             "#text": "عذرا ، لم يتم العثور على بيانات أو حدث خطأ ما."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "اسم مستخدم غير صالح أو أنك تجاوزت حد طلبات Twitter. <br/> <small> الرجاء ملاحظة أن Twitter يسمح فقط بـ 150 طلبًا في الساعة. </ small>."
           },
           {
             "@tag": "FORUM",
@@ -9692,10 +9712,6 @@
           {
             "@tag": "LOADING_HOVERCARD",
             "#text": "تحميل معلومات المستخدم ..."
-          },
-          {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "جارٍ تحميل معلومات Twitter ..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",
@@ -10274,10 +10290,6 @@
           {
             "@tag": "TITLE",
             "#text": "تعديل الملف الشخصي"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "اسم تويتر الخاص بك:"
           },
           {
             "@tag": "WEBLOG2",
@@ -11543,10 +11555,6 @@
             "#text": "تسجيل الدخول أو التسجيل باستخدام {0} أو ربط حساب مستخدم موجود بـ {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong> يجب أن يتطابق اسم مستخدم Twitter مع اسم مستخدم المنتدى لتوصيل المستخدم. </ strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "تسجيل الدخول بحساب مستخدم متصل بـ {0}. "
           },
@@ -11663,28 +11671,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "The Twitter Login failed, User does not exists."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "فشل تسجيل الدخول إلى Twitter ، حساب مستخدم بنفس اسم المستخدم مثل حساب Twitter موجود بالفعل ، يرجى محاولة توصيل حساب المنتدى الخاص بك بدلاً من ذلك."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "يجب أن يتطابق اسم مستخدم Twitter مع اسم مستخدم المنتدى!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "تسجيل الدخول"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "لقد تلقيت مزيدًا من المعلومات إلى حسابك الجديد كرسالة خاصة في المنتدى."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "معلومات حساب المنتدى {0}: اسم المستخدم \"{1}\" كلمة المرور \"{2}"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12903,16 +12891,8 @@
             "#text": "فيسبوك"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "أنشرها على الفيسبوك"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "قم بزيارة ملف {0} الشخصي على Facebook"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "مثل هذا الموضوع"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13115,10 +13095,6 @@
             "#text": "الرتبة "
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "رديت هذا الموضوع"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "لقد نجحت في إزالة -1 سمعة إلى {0}."
           },
@@ -13265,14 +13241,6 @@
           {
             "@tag": "TUMBLR_TOPIC",
             "#text": "انشر على Tumblr"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "تويتر"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "قم بزيارة الملف الشخصي لـ {0} على Twitter"
           },
           {
             "@tag": "UNWATCHTOPIC",
@@ -13612,10 +13580,6 @@
           {
             "@tag": "TOPIC",
             "#text": "الموضوع:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "اسم تويتر:"
           },
           {
             "@tag": "USERNAME",
@@ -14814,10 +14778,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n      Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email address to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

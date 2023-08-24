@@ -3609,14 +3609,6 @@
             "#text": "ویرایش کاربر \"{0}\""
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "کاربر توئیتر"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "نشان می دهد که این کاربر از طریق توئیتر وارد شده است."
-          },
-          {
             "@tag": "USER_AVATAR",
             "#text": "تصویر نمایه کاربر"
           },
@@ -5729,14 +5721,6 @@
             "#text": "حداکثر تعداد موضوعات برای نمایش در فید Atom/Rss."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "نام کاربری توییتر برای ریتوییت ها:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "نام کاربری توییتر که هنگام بازتوییت یک موضوع یا پیام ذکر می شود."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "از طرح 2 ستونی برای انجمن استفاده کنید"
           },
@@ -6993,10 +6977,6 @@
             "#text": "کاربران"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "کاربر توئیتر"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "نام کاربری"
           }
@@ -8095,6 +8075,10 @@
             "#text": "ایمیل تغییر کرد"
           },
           {
+            "@tag": "CHARACTERS_LEFT",
+            "#text": "Characters remaining:"
+          },
+          {
             "@tag": "COMMON_WORDS",
             "#text": "خارج، لطفاً، یک، قادر، در مورد، در سراسر، بعد از، تقریباً، همچنین، من، در میان، یک، و، هر یک، همانطور که، در، باشد، زیرا، بوده است، اما، توسط، نمی تواند، می‌توانست، عزیزم، انجام می‌دهد، انجام می‌دهد، یا می‌توانست، انجام دهد، یا انجام می‌دهد. در، در، این است، آن، فقط، حداقل، اجازه دهید، به احتمال زیاد، ممکن است، من، ممکن است، بیشتر، باید، من، نه، نه، نه، نه، خاموش، اغلب، فقط روشن، یا، دیگری، خود ما، نه، گفت، می گوید، می گوید، او باید، از آنجایی که، برخی، از آن، آنها، آنها، سپس، آنجا، اینها، آنها، این، به، همینطور، ما، میخواهیم، بودیم، ما، چه بودیم، کی، کجا، که، در حالی که، چه کسی، چه کسی، چرا، با، با این حال، شما، خودتان"
           },
@@ -8479,6 +8463,10 @@
             "#text": "انتخاب زبان برای Syntax Highlighting"
           },
           {
+            "@tag": "TT_COPY",
+            "#text": "Copy the selected text (Ctrl+C)"
+          },
+          {
             "@tag": "TT_CREATELINK",
             "#text": "ایجاد لینک"
           },
@@ -8487,12 +8475,28 @@
             "#text": "BBCode های بیشتر"
           },
           {
+            "@tag": "TT_CUT",
+            "#text": "Cut the selected text (Ctrl+X)"
+          },
+          {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "برجسته"
           },
           {
             "@tag": "TT_IMAGE",
             "#text": "وارد کردن عکس"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8511,16 +8515,40 @@
             "#text": "فهرست نامرتب"
           },
           {
+            "@tag": "TT_PASTE",
+            "#text": "Paste (Ctrl+V)"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "نقل قول"
           },
           {
-            "@tag": "TT_SAVE",
-            "#text": "ذخیره پیش نویس پیام"
+            "@tag": "TT_REDO",
+            "#text": "Redo (Ctrl+Y)"
+          },
+          {
+            "@tag": "TT_REMOVE",
+            "#text": "Remove Format"
+          },
+          {
+            "@tag": "TT_SELECT_ALL",
+            "#text": "Select all"
           },
           {
             "@tag": "TT_UNDERLINE",
             "#text": "زیرخط دار"
+          },
+          {
+            "@tag": "TT_UNDO",
+            "#text": "Undo (Ctrl+Z)"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -9642,16 +9670,8 @@
             "#text": "زمان فعلی: {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "کاربر مورد نظر پیدا نشد."
-          },
-          {
             "@tag": "ERROR_HOVERCARD",
             "#text": "متاسفانه هیچ اطلاعاتی یافت نشد و یا خطایی رخ داده است."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "نام کاربری اشتباه است و یا درخواست های توئیتر از حد مجاز گذشته است.<br/><small>توجه داشته باشید که در هر ساعت می توانید 150 توئیت ارسال کنید.</small>."
           },
           {
             "@tag": "FORUM",
@@ -9692,10 +9712,6 @@
           {
             "@tag": "LOADING_HOVERCARD",
             "#text": "بارگذاری اطلاعات کاربر..."
-          },
-          {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "بارگذاری اطلاعات توئیتر..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",
@@ -10274,10 +10290,6 @@
           {
             "@tag": "TITLE",
             "#text": "ویرایش نمایه"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "نام توئیتر شما:"
           },
           {
             "@tag": "WEBLOG2",
@@ -11543,10 +11555,6 @@
             "#text": "با {0} وارد یا ثبت نام کنید یا یک حساب کاربری موجود را با {0} متصل کنید."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>برای اتصال کاربر، نام کاربری توییتر باید با نام کاربری انجمن مطابقت داشته باشد.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "با یک حساب کاربری که با {0} مرتبط است وارد شوید. یا اگر حسابی پیدا نشد یک حساب کاربری جدید به طور خودکار در انجمن ها ایجاد می شود."
           },
@@ -11663,28 +11671,8 @@
             "#text": "حساب کاربری متصل نیست یا پیدا نمی شود."
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "ورود توییتر انجام نشد، کاربر وجود ندارد."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "ورود توییتر انجام نشد، یک حساب کاربری با نام کاربری مشابه حساب توییتر از قبل وجود دارد، لطفاً سعی کنید به جای آن حساب انجمن خود را به شما متصل کنید."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "نام کاربری توییتر باید با نام کاربری انجمن مطابقت داشته باشد!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "ورود"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "شما اطلاعات بیشتری را برای حساب جدید خود به عنوان پیام خصوصی در انجمن دریافت کرده اید."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "اطلاعات حساب انجمن {0} شما: نام کاربری &quot;{1}&quot; رمز عبور &quot;{2}&quot;"
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12903,16 +12891,8 @@
             "#text": "فیسبوک"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "اشتراک در فیسبوک"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "نمایش نمایه فیسبوک {0}"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "پسندیدن این موضوع"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13115,10 +13095,6 @@
             "#text": "رتبه"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reddit این موضوع"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "شما با موفقیت 1 امتیاز از {0} کم کردید."
           },
@@ -13265,14 +13241,6 @@
           {
             "@tag": "TUMBLR_TOPIC",
             "#text": "اشتراک در Tumblr "
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "توئیتر"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "مشاهده نمایه {0} در توئیتر"
           },
           {
             "@tag": "UNWATCHTOPIC",
@@ -13612,10 +13580,6 @@
           {
             "@tag": "TOPIC",
             "#text": "موضوع:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "نام توئیتر:"
           },
           {
             "@tag": "USERNAME",
@@ -14814,10 +14778,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "سلام {user}،\r\n\r\nحساب انجمن شما در انجمن {forumname} به طور موقت به حالت تعلیق درآمده است.\r\n\r\nاین تعلیق قرار است در {suspendedUntil} به پایان برسد.\r\n\r\nبه دلیل زیر: \"{suspendReason}\"\r\n\r\nبا تشکر!\r\nتیم {forumname}\r\n{forumlink}"
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "سلام {user}.\r\n\r\nشما با استفاده از توییتر با موفقیت در انجمن {forumname} ثبت نام کردید:\r\n\r\nنام کاربری: {user}\r\nرمز عبور خودکار: {pass}\r\n\r\nایمیل کاربر: {email} (لطفا برای دریافت ایمیل، آدرس ایمیل خود را به آدرس واقعی خود تغییر دهید)"
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",

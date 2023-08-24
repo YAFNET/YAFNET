@@ -3617,14 +3617,6 @@
             "#text": "Muuda kasutajat \"{0}\""
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitteri kasutaja:"
-          },
-          {
-            "@tag": "TWITTER_USER_HELP",
-            "#text": "Näitab, kas kasutaja on Twitteri kaudu sisse logitud."
-          },
-          {
             "@tag": "USER_AVATAR",
             "#text": "Kasutaja Avatar"
           },
@@ -5737,14 +5729,6 @@
             "#text": "Atom/RSs-i voos kuvatavate teemade maksimaalne arv."
           },
           {
-            "@tag": "TWITTER_USERNAME",
-            "#text": "Twitteri kasutajanimi retweetide jaoks:"
-          },
-          {
-            "@tag": "TWITTER_USERNAME_HELP",
-            "#text": "Twitteri kasutajanimi, mida mainitakse teema või sõnumi uuesti säutsumisel."
-          },
-          {
             "@tag": "TWOCOLUMN_BOARD",
             "#text": "Kasutage 2 veeru tahvli paigutust"
           },
@@ -7001,10 +6985,6 @@
             "#text": "Kasutajad"
           },
           {
-            "@tag": "TWITTER_USER",
-            "#text": "Twitteri kasutaja"
-          },
-          {
             "@tag": "USER_NAME",
             "#text": "Kasutajanimi"
           }
@@ -8107,6 +8087,10 @@
             "#text": "E-kirja aadressi muutmine"
           },
           {
+            "@tag": "CHARACTERS_LEFT",
+            "#text": "Characters remaining:"
+          },
+          {
             "@tag": "COMMON_WORDS",
             "#text": "välja,palun,võimalik,umbes,üle "
           },
@@ -8491,6 +8475,10 @@
             "#text": "Valige süntaksi esiletõstmise keel"
           },
           {
+            "@tag": "TT_COPY",
+            "#text": "Copy the selected text (Ctrl+C)"
+          },
+          {
             "@tag": "TT_CREATELINK",
             "#text": "Loo link"
           },
@@ -8499,12 +8487,28 @@
             "#text": "Rohkem BBCode tähiseid"
           },
           {
+            "@tag": "TT_CUT",
+            "#text": "Cut the selected text (Ctrl+X)"
+          },
+          {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "Esile toodud"
           },
           {
             "@tag": "TT_IMAGE",
             "#text": "Lisa pilt"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8523,16 +8527,40 @@
             "#text": "Järjestamata loend"
           },
           {
+            "@tag": "TT_PASTE",
+            "#text": "Paste (Ctrl+V)"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "Tsitaat"
           },
           {
-            "@tag": "TT_SAVE",
-            "#text": "Salvesta sõnumi mustand"
+            "@tag": "TT_REDO",
+            "#text": "Redo (Ctrl+Y)"
+          },
+          {
+            "@tag": "TT_REMOVE",
+            "#text": "Remove Format"
+          },
+          {
+            "@tag": "TT_SELECT_ALL",
+            "#text": "Select all"
           },
           {
             "@tag": "TT_UNDERLINE",
             "#text": "Allajoonitud"
+          },
+          {
+            "@tag": "TT_UNDO",
+            "#text": "Undo (Ctrl+Z)"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -9654,16 +9682,8 @@
             "#text": "Kellaaeg: {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "Taotletud kasutajat ei leitud."
-          },
-          {
             "@tag": "ERROR_HOVERCARD",
             "#text": "Kahjuks andmeid ei leitud või midagi läks valesti."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "Kehtetu kasutajanimi või olete ületanud Twitteri taotluste piirangu.<br/><small>Pange tähele, Twitter lubab ainult 150 päringut tunnis.</small>."
           },
           {
             "@tag": "FORUM",
@@ -9704,10 +9724,6 @@
           {
             "@tag": "LOADING_HOVERCARD",
             "#text": "Kasutajateabe laadimine ..."
-          },
-          {
-            "@tag": "LOADING_TWIT_HOVERCARD",
-            "#text": "Twitteri teabe laadimine ..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",
@@ -10286,10 +10302,6 @@
           {
             "@tag": "TITLE",
             "#text": "Profiili muutmine"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Teie Twitteri nimi:"
           },
           {
             "@tag": "WEBLOG2",
@@ -11563,10 +11575,6 @@
             "#text": "Logige sisse või registreeruge kontoga {0} või ühendage olemasolev kasutajakonto teenusega {0}."
           },
           {
-            "@tag": "AUTH_CONNECT_TWITTER",
-            "#text": "<strong>Kasutaja ühendamiseks peab Twitteri kasutajanimi ühtima foorumi kasutajanimega.</strong>"
-          },
-          {
             "@tag": "AUTH_LOGIN_EXISTING",
             "#text": "Logige sisse kasutajakontoga, mis on ühendatud teenusega {0}. "
           },
@@ -11683,28 +11691,8 @@
             "#text": "The User Account is not connected or not found"
           },
           {
-            "@tag": "SSO_TWITTER_FAILED",
-            "#text": "The Twitter Login failed, User does not exists."
-          },
-          {
-            "@tag": "SSO_TWITTER_FAILED2",
-            "#text": "Twitterisse sisselogimine ebaõnnestus, Twitteri kontoga sama kasutajanimega kasutajakonto on juba olemas. Proovige selle asemel ühendada oma foorumi konto."
-          },
-          {
-            "@tag": "SSO_TWITTERNAME_NOTMATCH",
-            "#text": "Twitteri kasutajanimi peab ühtima foorumi kasutajanimega!"
-          },
-          {
             "@tag": "TITLE",
             "#text": "Sisselogimine"
-          },
-          {
-            "@tag": "TWITTER_DM",
-            "#text": "Olete saanud oma uuele kontole lisateavet foorumi privaatsõnumina."
-          },
-          {
-            "@tag": "TWITTER_DM_ACCOUNT",
-            "#text": "Teie {0} foorumi konto teave: kasutajanimi \"{1}\" parool \"{2}\""
           },
           {
             "@tag": "UPDATE_EMAIL",
@@ -12923,16 +12911,8 @@
             "#text": "Facebook"
           },
           {
-            "@tag": "FACEBOOK_SHARE_TOPIC",
-            "#text": "Jaga Facebookis"
-          },
-          {
             "@tag": "FACEBOOK_TITLE",
             "#text": "Külastage kasutaja {0} Facebooki profiili"
-          },
-          {
-            "@tag": "FACEBOOK_TOPIC",
-            "#text": "Nagu see teema"
           },
           {
             "@tag": "FORUM_JUMP",
@@ -13135,10 +13115,6 @@
             "#text": "Tase"
           },
           {
-            "@tag": "REDDIT_TOPIC",
-            "#text": "Reditige seda teemat"
-          },
-          {
             "@tag": "REP_VOTE_DOWN_MSG",
             "#text": "Olete edukalt eemaldanud -1 maine domeenilt {0}."
           },
@@ -13285,18 +13261,6 @@
           {
             "@tag": "TUMBLR_TOPIC",
             "#text": "Jaga Tumblris"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitter"
-          },
-          {
-            "@tag": "TWITTER_TITLE",
-            "#text": "Külastage kasutaja {0} Twitteri profiili"
           },
           {
             "@tag": "UNWATCHTOPIC",
@@ -13636,10 +13600,6 @@
           {
             "@tag": "TOPIC",
             "#text": "Teema:"
-          },
-          {
-            "@tag": "TWITTER",
-            "#text": "Twitteri nimi:"
           },
           {
             "@tag": "USERNAME",
@@ -14850,10 +14810,6 @@
           {
             "@tag": "NOTIFICATION_ON_SUSPENDING_USER_TEXT",
             "#text": "\r\n    Hello {user},\r\n\r\n    Your forum account on the {forumname} forum has been temporarily suspended.\r\n\r\n    This suspension is due to end on {suspendedUntil}.\r\n\r\n    For the following Reason: '{suspendReason}'\r\n\r\n    Thanks!\r\n    The {forumname} Team\r\n    {forumlink}\r\n\r\n  "
-          },
-          {
-            "@tag": "NOTIFICATION_ON_TWITTER_REGISTER",
-            "#text": "\r\n      Hello {user}.\r\n\r\n      You have been successfully registered on the {forumname} forum using Twitter Login:\r\n\r\n      User Name: {user}\r\n    Auto Generated Password: {pass}\r\n\r\n      User Email: {email} (Please change your Email adress to your real one in order to Receive E-Mails)\r\n\r\n    "
           },
           {
             "@tag": "NOTIFICATION_ON_USER_REGISTER_TEXT",
