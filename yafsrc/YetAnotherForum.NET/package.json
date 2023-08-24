@@ -26,7 +26,7 @@
     "bootstrap": "^5.3.1",
     "bootstrap-touchspin": "^4.7.3",
     "bootswatch": "^5.3.1",
-    "codemirror": "^5.65.14",
+    "codemirror": "^6.0.1",
     "flag-icons": "^6.11.0",
     "grunt-file-append": "^0.0.7",
     "jquery": "^3.7.0",
