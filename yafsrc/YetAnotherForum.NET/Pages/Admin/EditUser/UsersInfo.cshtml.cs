@@ -162,7 +162,6 @@ public class UsersInfoModel : AdminPage
         this.Input.Moderated = this.EditUser.Item1.UserFlags.Moderated;
         this.Input.Joined = this.EditUser.Item1.Joined.ToString(CultureInfo.InvariantCulture);
         this.Input.IsFacebookUser = this.EditUser.Item2.Profile_FacebookId.IsSet();
-        this.Input.IsTwitterUser = this.EditUser.Item2.Profile_TwitterId.IsSet();
         this.Input.IsGoogleUser = this.EditUser.Item2.Profile_GoogleId.IsSet();
         this.Input.LastVisit = this.EditUser.Item1.LastVisit.ToString(CultureInfo.InvariantCulture);
         this.Input.RankID = this.EditUser.Item1.RankID;
@@ -194,8 +193,6 @@ public class UsersInfoModel : AdminPage
         public string Joined { get; set; }
 
         public bool IsFacebookUser { get; set; }
-
-        public bool IsTwitterUser { get; set; }
 
         public bool IsGoogleUser { get; set; }
 

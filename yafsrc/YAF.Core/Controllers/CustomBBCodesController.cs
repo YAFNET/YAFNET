@@ -28,6 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.Extensions.Logging;
 
 using Types.Models;
@@ -50,6 +51,7 @@ public class CustomBBCodes : ForumBaseController
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<string>))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetList")]
+    [OutputCache]
     public Task<ActionResult<List<string>>> GetList()
     {
         try

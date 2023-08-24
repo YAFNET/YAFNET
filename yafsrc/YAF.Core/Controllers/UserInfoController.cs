@@ -28,6 +28,7 @@ using System;
 using System.Threading.Tasks;
 using System.Web;
 
+using Microsoft.AspNetCore.OutputCaching;
 using Microsoft.Extensions.Logging;
 
 using Model;
@@ -57,6 +58,7 @@ public class UserInfo : ForumBaseController
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ForumUserInfo))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetUserInfo")]
+    [OutputCache]
     public Task<ActionResult<ForumUserInfo>> GetUserInfo(int userId)
     {
         try

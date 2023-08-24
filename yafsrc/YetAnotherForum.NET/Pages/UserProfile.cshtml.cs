@@ -87,9 +87,6 @@ public class UserProfileModel : ForumPage
     public string FacebookUrl { get; set; }
 
     [BindProperty]
-    public string TwitterUrl { get; set; }
-
-    [BindProperty]
     public string SkypeUrl { get; set; }
 
     [BindProperty]
@@ -409,11 +406,6 @@ public class UserProfileModel : ForumPage
                                    : this.CombinedUser.Item2.Profile_Facebook;
         }
 
-        if (this.CombinedUser.Item2.Profile_Twitter.IsSet())
-        {
-            this.TwitterUrl = $"https://twitter.com/{this.HtmlEncode(this.CombinedUser.Item2.Profile_Twitter)}";
-        }
-
         if (this.CombinedUser.Item2.Profile_XMPP.IsSet())
         {
             this.XmppUrl = this.Get<LinkBuilder>().GetLink(
@@ -426,8 +418,7 @@ public class UserProfileModel : ForumPage
             this.SkypeUrl = $"skype:{this.CombinedUser.Item2.Profile_Skype}?call";
         }
 
-        if (!this.SkypeUrl.IsSet() && !this.BlogUrl.IsSet() && !this.XmppUrl.IsSet() && !this.FacebookUrl.IsSet() &&
-            !this.TwitterUrl.IsSet())
+        if (!this.SkypeUrl.IsSet() && !this.BlogUrl.IsSet() && !this.XmppUrl.IsSet() && !this.FacebookUrl.IsSet())
         {
             this.ShowSocialMediaCard = false;
         }

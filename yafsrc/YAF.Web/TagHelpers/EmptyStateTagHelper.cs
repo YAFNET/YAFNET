@@ -24,8 +24,6 @@
 
 namespace YAF.Web.TagHelpers;
 
-using ServiceStack.Text;
-
 /// <summary>
 /// The Empty State tag helper.
 /// </summary>

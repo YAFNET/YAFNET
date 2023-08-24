@@ -347,11 +347,13 @@ public class AspNetUsers<TKey> : IEntity, IHasId<TKey>
     /// <summary>
     /// Gets or sets Twitter.
     /// </summary>
+    [Obsolete]
     public string Profile_Twitter { get; set; }
 
     /// <summary>
     /// Gets or sets Twitter.
     /// </summary>
+    [Obsolete]
     public string Profile_TwitterId { get; set; }
 
     /// <summary>

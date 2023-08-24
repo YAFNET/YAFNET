@@ -43,8 +43,6 @@ using YAF.Types.Models;
 using YAF.Types.Objects;
 using YAF.Types.Objects.Model;
 
-using HtmlTagHelper = YAF.Core.Helpers.HtmlTagHelper;
-
 /// <summary>
 /// The Posts list page
 /// </summary>

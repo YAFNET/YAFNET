@@ -29,11 +29,8 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-using Microsoft.Extensions.Logging;
-
 using YAF.Types.Attributes;
 using YAF.Types.Models;
-using YAF.Types.Objects;
 
 /// <summary>
 /// Middleware to Check For Banned User Agents

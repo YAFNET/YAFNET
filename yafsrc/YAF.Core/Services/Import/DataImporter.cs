@@ -523,16 +523,6 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             userProfile.Occupation = (string)row["Occupation"];
         }
 
-        if (row.Table.Columns.Contains("Twitter") && ((string)row["Twitter"]).IsSet())
-        {
-            userProfile.Twitter = (string)row["Twitter"];
-        }
-
-        if (row.Table.Columns.Contains("TwitterId") && ((string)row["TwitterId"]).IsSet())
-        {
-            userProfile.TwitterId = (string)row["TwitterId"];
-        }
-
         if (row.Table.Columns.Contains("Facebook") && ((string)row["Facebook"]).IsSet())
         {
             userProfile.Facebook = (string)row["Facebook"];
@@ -559,8 +549,6 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             Profile_Homepage = userProfile.Homepage,
             Profile_Facebook = userProfile.Facebook,
             Profile_FacebookId = userProfile.FacebookId,
-            Profile_Twitter = userProfile.Twitter,
-            Profile_TwitterId = userProfile.TwitterId,
             Profile_Interests = userProfile.Interests,
             Profile_Location = userProfile.Location,
             Profile_Country = userProfile.Country,

@@ -395,19 +395,6 @@
                        bs-toggle="tooltip"
                        href="@Model.FacebookUrl"></a>
                 }
-
-                @if (Model.TwitterUrl.IsSet())
-                {
-                    <a role="button"
-                       button-style="None"
-                       icon="twitter"
-                       icon-css-class="fab"
-                       title-localized-page="POSTS"
-                       title-localized-tag="TWITTER_TITLE"
-                       title-param0="@Html.Raw(Model.CombinedUser.Item1.DisplayOrUserName())"
-                       bs-toggle="tooltip"
-                       href="@Model.TwitterUrl"></a>
-                }
             </div>
         </div>
     }

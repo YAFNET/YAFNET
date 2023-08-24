@@ -646,320 +646,57 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     }
 
     /// <summary>
-    /// The CKEditor Load JS.
+    /// Creates the yaf editor js.
     /// </summary>
-    /// <param name="editorId">
-    /// The editor Id.
-    /// </param>
-    /// <param name="editorLanguage">
-    /// The editor language.
-    /// </param>
-    /// <param name="maxCharacters">
-    /// The max characters.
-    /// </param>
-    /// <param name="themeCssUrl">
-    /// The theme CSS url.
-    /// </param>
-    /// <param name="forumCssUrl">
-    /// The forum CSS url.
-    /// </param>
-    /// <param name="toolbar">
-    /// The toolbar.
-    /// </param>
-    /// <param name="uploadAllowed">
-    /// Check if uploads are allowed
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
+    /// <param name="editorId">The editor identifier.</param>
+    /// <param name="urlTitle">The URL title.</param>
+    /// <param name="urlDescription">The URL description.</param>
+    /// <param name="urlImageTitle">The URL image title.</param>
+    /// <param name="urlImageDescription">The URL image description.</param>
+    /// <param name="description">The description.</param>
+    /// <returns>System.String.</returns>
     [NotNull]
-    public static string CKEditorLoadJs(
+    public static string CreateYafEditorJs(
         [NotNull] string editorId,
-        [NotNull] string editorLanguage,
-        [NotNull] int maxCharacters,
-        [NotNull] string themeCssUrl,
-        [NotNull] string forumCssUrl,
-        [NotNull] string toolbar,
-        bool uploadAllowed)
+        [NotNull] string urlTitle,
+        [NotNull] string urlDescription,
+        [NotNull] string urlImageTitle,
+        [NotNull] string urlImageDescription,
+        [NotNull] string description)
     {
-        var autoUploadJs = @" CKEDITOR.on('instanceReady', function (ev) {
-                     ev.editor.document.on('drop', function (event) {
-                       $('.EditorDiv').yafFileUpload(""send"", {files: event.data.$.dataTransfer.files});
-                     });
-                     ev.editor.on('paste', function (event) {
-                       $('.EditorDiv').yafFileUpload(""send"", {files: event.data.dataTransfer._.files});
-                     });
-                  });";
+        return
+            $@"var {editorId}=new yafEditor('{editorId}', '{urlTitle}', '{urlDescription}', '{urlImageTitle}', '{urlImageDescription}', '{description}');
+                  function setStyle(style,option) {{
+                           {editorId}.FormatText(style,option);
+                  }}
 
-        var contextMenuRemove = BoardContext.Current.Get<BoardSettings>().UseCustomContextMenu
-                                    ? string.Empty
-                                    : ",contextmenu";
-
-        return $@"$(document).ready(function() {{
-                      var yafCKEditor = $(""#{editorId}"").ckeditor({{
-                          extraPlugins: ""bbcode,mentions,highlight,bbcodeselector,bbcodeextensions,syntaxhighlight,emoji,wordcount,autolink,albumsbrowser,{(uploadAllowed ? "attachments," : "")}quote,codemirror"",
-                          removePlugins: 'bidi,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,templates{contextMenuRemove}',
-                          toolbar: [{toolbar}],
-		                  entities_greek: false,
-                          entities_latin: false,
-                          language: '{editorLanguage}',
-                          disableNativeSpellChecker:false,
-                          disableObjectResizing: true,
-		                  fontSize_sizes: ""30/30%;50/50%;100/100%;120/120%;150/150%;200/200%;300/300%"",
-		                  forcePasteAsPlainText: true,
-		                  contentsCss: [""{themeCssUrl}"", ""{forumCssUrl}""],
-                          autosave:
+                  function insertAttachment(id,url) {{
+                           {editorId}.FormatText('attach', id);
+                  }}
+                  
+                  $("".BBCodeEditor"").suggest(""@"",
                           {{
-                               messageType: ""statusbar"",
-                               saveDetectionSelectors: ""a[id*='_PostReply'],a[id*='Cancel'],a[id*='_Preview']""
+            data: function(q) {{
+                if (q && q.length > 3) {{
+                    return $.getJSON(""api/User/GetMentionUsers?users="" + q);
+                           }}
                           }},
-                          codemirror: {{mode: ""bbcode"",  
-                                        theme: ""monokai"",
-                                        extraKeys: {{
-                                               ""Ctrl-B"" : function (codeMirror_Editor) {{
-                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[b]"", ""[/b]"");
-                                                            }},
-                                               ""Ctrl-I"" : function (codeMirror_Editor) {{
-                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[i]"", ""[/i]"");
-                                                            }},
-                                               ""Shift-Ctrl-Q"" : function (codeMirror_Editor) {{
-                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[quote]"", ""[/quote]"");
-                                                            }},
-                                               ""Ctrl-U"" : function (codeMirror_Editor) {{
-                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[u]"", ""[/u]"");
-                                                            }}
-                                         }}
-                          }},
-                          wordcount:
-                          {{
-                              maxCharCount: {maxCharacters},showParagraphs: false,showWordCount: false,showCharCount: true,countHTML: true
-                          }},
-		                  keystrokes: [[CKEDITOR.ALT + 83, 'source' ],[ CKEDITOR.CTRL + 13 , 'postMessage']],
-                          mentions: [ {{ feed:  CKEDITOR.basePath.replace('js/ckeditor/', '') + 'api/User/GetMentionUsers?users={{encodedQuery}}',
-                                         itemTemplate: '<li data-id=""{{id}}""><i class=""fas fa-user pe-1""></i><strong class=""username"">{{name}}</strong></li>',
-		                                 outputTemplate: '@[userlink]{{name}}[/userlink]'
-          		                      }} ]
-                          }});
-
-                      $(""a[id*='_PostReply'],a[id*='_Save'],a[id*='_Preview']"").click(function () {{
-                          yafCKEditor.editor.updateElement();
-                      }});
-                 
-
-                      yafCKEditor.editor.addCommand( 'postMessage', {{
-                              modes: {{ wysiwyg: 1, source: 1 }},
-                              exec: function( editor ) {{
-                                    editor.updateElement();
-                                    if ($('[id*=""PostReply""]').length) {{
-                                        window.location.href = $('[id *= ""PostReply""]').attr(""href"");
-                                    }} else if ($('[id*=""_Save""]').length) {{
-                                        window.location.href = $('[id *= ""Save""]').attr(""href"");
-                                    }}
-                              }}
-                      }});
-
-                  }});
-
-                  {(uploadAllowed ? autoUploadJs : string.Empty)}";
+                          map: function(user)
+                         {{
+    return {{
+        value: ""[userlink]"" + user.name + ""[/userlink]"",
+        text: ""<i class='fas fa-user me-2'></i><strong>"" + user.name + ""</strong>""
+    }};
+}}
+}});
+";
     }
 
     /// <summary>
-    /// The CKEditor Load JS.
+    /// The CodeMirror SQL Load JS.
     /// </summary>
     /// <param name="editorId">
     /// The editor Id.
-    /// </param>
-    /// <param name="editorLanguage">
-    /// The editor language.
-    /// </param>
-    /// <param name="maxCharacters">
-    /// The max characters.
-    /// </param>
-    /// <param name="themeCssUrl">
-    /// The theme CSS url.
-    /// </param>
-    /// <param name="forumCssUrl">
-    /// The forum CSS url.
-    /// </param>
-    /// <param name="toolbar">
-    /// The toolbar.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    [NotNull]
-    public static string CKEditorBasicLoadJs(
-        [NotNull] string editorId,
-        [NotNull] string editorLanguage,
-        [NotNull] int maxCharacters,
-        [NotNull] string themeCssUrl,
-        [NotNull] string forumCssUrl,
-        [NotNull] string toolbar)
-    {
-        var contextMenuRemove = BoardContext.Current.Get<BoardSettings>().UseCustomContextMenu
-                                    ? string.Empty
-                                    : ",contextmenu";
-
-        return $@"$(document).ready(function() {{
-                      var yafCKEditor = $(""#{editorId}"").ckeditor({{
-                          extraPlugins: ""bbcode,mentions,wordcount,autolink,quote,codemirror"",
-                          removePlugins: 'autosave,bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates{contextMenuRemove}',
-		                  toolbar: [{toolbar}],
-		                  entities_greek: false,
-                          entities_latin: false,
-                          language: '{editorLanguage}',
-                          disableNativeSpellChecker:false,
-                          disableObjectResizing: true,
-		                  forcePasteAsPlainText: true,
-		                  contentsCss: [""{themeCssUrl}"", ""{forumCssUrl}""],
-                          wordcount:
-                          {{
-                              maxCharCount: {maxCharacters},showParagraphs: false,showWordCount: false,showCharCount: true,countHTML: true
-                          }},
-                          codemirror: {{
-                                        mode: ""bbcode"",  
-                                        theme: ""monokai"",
-                                        extraKeys: {{
-                                               ""Ctrl-B"" : function (codeMirror_Editor) {{
-                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[b]"", ""[/b]"");
-                                                            }},
-                                               ""Ctrl-I"" : function (codeMirror_Editor) {{
-                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[i]"", ""[/i]"");
-                                                            }},
-                                               ""Shift-Ctrl-Q"" : function (codeMirror_Editor) {{
-                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[quote]"", ""[/quote]"");
-                                                            }},
-                                               ""Ctrl-U"" : function (codeMirror_Editor) {{
-                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[u]"", ""[/u]"");
-                                                            }}
-                                         }}
-                          }},
-		                  keystrokes: [[CKEDITOR.ALT + 83, 'source' ],[ CKEDITOR.CTRL + 13 , 'postMessage']],
-                          mentions: [ {{ feed:  CKEDITOR.basePath.replace('js/ckeditor/', '') + 'api/User/GetMentionUsers?users={{encodedQuery}}',
-                                         itemTemplate: '<li data-id=""{{id}}""><i class=""fas fa-user pe-1""></i><strong class=""username"">{{name}}</strong></li>',
-		                                 outputTemplate: '@[userlink]{{name}}[/userlink]'
-          		                      }} ]
-                          }});
-
-                          $(""a[id*='_QuickReplyDialog'],a[id*='_SignatureEdit']"").click(function () {{
-                              yafCKEditor.editor.updateElement();
-                          }});
-
-                          yafCKEditor.editor.addCommand( 'postMessage', {{
-                              modes: {{ wysiwyg: 1, source: 1 }},
-                              exec: function( editor ) {{
-                                    editor.updateElement();
-                                    if ($('[id*=""QuickReply""]').length) {{
-                                        $('[id*=""QuickReply""]').click();
-                                    }} else if ($('[id*=""_SignatureEdit""]').length) {{
-                                        $('[id*=""_SignatureEdit""]').click();
-                                    }}
-                              }}
-                      }});
-                  }});";
-    }
-
-    /// <summary>
-    /// The CKEditor Load JS.
-    /// </summary>
-    /// <param name="editorId">
-    /// The editor Id.
-    /// </param>
-    /// <param name="editorLanguage">
-    /// The editor language.
-    /// </param>
-    /// <param name="maxCharacters">
-    /// The max characters.
-    /// </param>
-    /// <param name="themeCssUrl">
-    /// The theme CSS url.
-    /// </param>
-    /// <param name="forumCssUrl">
-    /// The forum CSS url.
-    /// </param>
-    /// <param name="toolbar">
-    /// The toolbar.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    [NotNull]
-    public static string CKEditorQuickReplyLoadJs(
-        [NotNull] string editorId,
-        [NotNull] string editorLanguage,
-        [NotNull] int maxCharacters,
-        [NotNull] string themeCssUrl,
-        [NotNull] string forumCssUrl,
-        [NotNull] string toolbar)
-    {
-        var contextMenuRemove = BoardContext.Current.Get<BoardSettings>().UseCustomContextMenu
-                                    ? string.Empty
-                                    : ",contextmenu";
-
-        return $@"$(document).ready(function() {{
-                      var yafCKEditor = $(""#{editorId}"").ckeditor({{
-                          extraPlugins: ""bbcode,mentions,wordcount,autolink,quote,codemirror"",
-                          removePlugins: 'autosave,bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates{contextMenuRemove}',
-		                  toolbar: [{toolbar}],
-		                  entities_greek: false,
-                          entities_latin: false,
-                          language: '{editorLanguage}',
-                          disableNativeSpellChecker:false,
-                          disableObjectResizing: true,
-		                  forcePasteAsPlainText: true,
-		                  contentsCss: [""{themeCssUrl}"", ""{forumCssUrl}""],
-                          wordcount:
-                          {{
-                              maxCharCount: {maxCharacters},showParagraphs: false,showWordCount: false,showCharCount: true,countHTML: true
-                          }},
-                          codemirror: {{
-                                        mode: ""bbcode"",  
-                                        theme: ""monokai"",
-                                        extraKeys: {{
-                                               ""Ctrl-B"" : function (codeMirror_Editor) {{
-                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[b]"", ""[/b]"");
-                                                            }},
-                                               ""Ctrl-I"" : function (codeMirror_Editor) {{
-                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[i]"", ""[/i]"");
-                                                            }},
-                                               ""Shift-Ctrl-Q"" : function (codeMirror_Editor) {{
-                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[quote]"", ""[/quote]"");
-                                                            }},
-                                               ""Ctrl-U"" : function (codeMirror_Editor) {{
-                                                                codeMirror_Editor.wrapSelection(codeMirror_Editor, ""[u]"", ""[/u]"");
-                                                            }}
-                                         }}
-                          }},
-		                  keystrokes: [[CKEDITOR.ALT + 83, 'source' ]],
-                          mentions: [ {{ feed:  CKEDITOR.basePath.replace('js/ckeditor/', '') + 'api/User/GetMentionUsers?users={{encodedQuery}}',
-                                         itemTemplate: '<li data-id=""{{id}}""><i class=""fas fa-user pe-1""></i><strong class=""username"">{{name}}</strong></li>',
-		                                 outputTemplate: '@@[userlink]{{name}}[/userlink]'
-          		                      }} ]
-                          }});
-
-                          $(""a[id*='QuickReplyDialog'],a[id*='SignatureEdit']"").click(function () {{
-                              yafCKEditor.editor.updateElement();
-                          }});
-                  }});";
-    }
-
-    /// <summary>
-    /// The CKEditor Load JS.
-    /// </summary>
-    /// <param name="editorId">
-    /// The editor Id.
-    /// </param>
-    /// <param name="editorLanguage">
-    /// The editor language.
-    /// </param>
-    /// <param name="maxCharacters">
-    /// The max characters.
-    /// </param>
-    /// <param name="themeCssUrl">
-    /// The theme CSS url.
-    /// </param>
-    /// <param name="forumCssUrl">
-    /// The forum CSS url.
     /// </param>
     /// <param name="mime">
     /// The mime.
@@ -968,42 +705,28 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// The <see cref="string"/>.
     /// </returns>
     [NotNull]
-    public static string CKEditorSqlLoadJs(
+    public static string CodeMirrorSqlLoadJs(
         [NotNull] string editorId,
-        [NotNull] string editorLanguage,
-        int maxCharacters,
-        [NotNull] string themeCssUrl,
-        [NotNull] string forumCssUrl,
         [NotNull] string mime)
     {
-        var contextMenuRemove = BoardContext.Current.Get<BoardSettings>().UseCustomContextMenu
-                                    ? string.Empty
-                                    : ",contextmenu";
-
-        return $@"$(document).ready(function() {{
-                      var yafCKEditor = $(""#{editorId}"").ckeditor({{
-                          extraPlugins: ""wordcount,codemirror"",
-                          removePlugins: 'autosave,bidi,dialogadvtab,div,filebrowser,flash,format,forms,horizontalrule,iframe,liststyle,pagebreak,showborders,stylescombo,table,tabletools,templates{contextMenuRemove}',
-                          toolbar: [],
-                          startupMode: 'source',
-                          entities_greek: false,
-                          entities_latin: false,
-                          language: '{editorLanguage}',
-                          disableNativeSpellChecker:false,
-                          disableObjectResizing: true,
-                          forcePasteAsPlainText: true,
-                          contentsCss: [""{themeCssUrl}"", ""{forumCssUrl}""],
-                          wordcount:
-                          {{
-                              maxCharCount: {maxCharacters},showParagraphs: false,showWordCount: false,showCharCount: true,countHTML: true
-                          }},
-                          codemirror: {{mode: ""{mime}"",  theme: ""monokai""}}
-                          }});
-
-                         $(""button[id*='RunQuery']"").click(function () {{
-                              yafCKEditor.editor.updateElement();
-                          }});
-                  }});";
+        return $$$"""
+                  window.onload = function() {
+                    window.editor = CodeMirror.fromTextArea(document.getElementById('{{{editorId}}}'), {
+                      mode: "{{{mime}}}",
+                      indentWithTabs: true,
+                      smartIndent: true,
+                      lineNumbers: true,
+                      matchBrackets : true,
+                      theme: "monokai",
+                      autofocus: true,
+                      extraKeys: {"Ctrl-Space": "autocomplete"},
+                      hintOptions: {tables: {
+                        users: ["name", "score", "birthDate"],
+                        countries: ["name", "population", "size"]
+                      }}
+                    });
+                  };
+                  """;
     }
 
     /// <summary>
@@ -1024,9 +747,6 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// <param name="imageMaxHeight">
     /// The image Max Height.
     /// </param>
-    /// <param name="editorId">
-    /// The editor Id.
-    /// </param>
     /// <returns>
     /// Returns the FileUpload Java Script.
     /// </returns>
@@ -1036,10 +756,9 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull] int maxFileSize,
         [NotNull] string fileUploaderUrl,
         [NotNull] int imageMaxWidth,
-        [NotNull] int imageMaxHeight,
-        [NotNull] string editorId)
+        [NotNull] int imageMaxHeight)
     {
-        return $@"$('.EditorDiv').yafFileUpload({{
+        return $@"$('.BBCodeEditor').yafFileUpload({{
                 url: '{fileUploaderUrl}',
                 acceptFileTypes: new RegExp('(\.|\/)(' + '{acceptedFileTypes}' + ')', 'i'),
                 imageMaxWidth: {imageMaxWidth},
@@ -1050,14 +769,13 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                 dataType: 'json',
                 {(maxFileSize > 0 ? $"maxFileSize: {maxFileSize}," : string.Empty)}
                 done: function (e, data) {{
-                    var ckEditor = CKEDITOR.instances.{editorId.Replace('.','_')}; 
-                    ckEditor.insertHtml( '[attach]' + data.result[0].fileID + '[/attach]' );
+                    insertAttachment( data.result[0].fileID, data.result[0].fileID );
                 }},
                 formData: {{
                     userID: '{BoardContext.Current.PageUserID}'
                 }},
-                dropZone: $('.EditorDiv'),
-                pasteZone: $('.EditorDiv')
+                dropZone: $('.BBCodeEditor'),
+                pasteZone: $('.BBCodeEditor')
             }});";
     }
 
@@ -1105,7 +823,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                     $('#fileupload .alert-danger').toggle();
                 }},
                 done: function (e, data) {{
-                    CKEDITOR.tools.insertAttachment(data.result[0].fileID);
+                    insertAttachment(data.result[0].fileID, data.result[0].fileID);
                     $('#fileupload').find('.files li:first').remove();
 
                     if ($('#fileupload').find('.files li').length == 0) {{

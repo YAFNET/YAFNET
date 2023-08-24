@@ -1,5 +1,4 @@
 @page
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using YAF.Core.Extensions
 @using YAF.Core.Model
 @using YAF.Types.Constants
@@ -8,7 +7,6 @@
 @using YAF.Types.Flags
 @using YAF.Types.Models
 @using YAF.Web.HtmlHelpers
-@using YAF.Web.TagHelpers
 @model PostMessageModel
 
 @section StyleSheets {
@@ -159,7 +157,7 @@
 }
 
 @section Scripts {
-    @await Html.PartialAsync("_CKEditorScriptsPartial")
+    @await Html.PartialAsync("_BBCodeEditorScriptsPartial")
 
     @if (Model.PageBoardContext.UploadAccess)
     {

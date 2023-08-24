@@ -13,7 +13,12 @@ module.exports = function(grunt) {
         copy: {
             bootstrap: {
                 files: [
-                    { expand: true, src: "**/*.scss", cwd: "node_modules/bootstrap/scss", dest: "wwwroot/lib/bootstrap/" },
+                    {
+                        expand: true,
+                        src: "**/*.scss",
+                        cwd: "node_modules/bootstrap/scss",
+                        dest: "wwwroot/lib/bootstrap/"
+                    },
                     {
                         expand: true,
                         src: "**/bootstrap.bundle.js",
@@ -65,7 +70,7 @@ module.exports = function(grunt) {
                         src: "mds.bs.datetimepicker.style.css",
                         cwd: "node_modules/md.bootstrappersiandatetimepicker/dist",
                         dest: "wwwroot/css/",
-                        rename: function (path) {
+                        rename: function(path) {
                             return path + "mds.datetimepicker.min.css";
                         }
                     },
@@ -74,7 +79,7 @@ module.exports = function(grunt) {
                         src: "mds.bs.datetimepicker.js",
                         cwd: "node_modules/md.bootstrappersiandatetimepicker/dist",
                         dest: "wwwroot/js/",
-                        rename: function (path) {
+                        rename: function(path) {
                             return path + "mds.datetimepicker.min.js";
                         }
                     }
@@ -104,8 +109,10 @@ module.exports = function(grunt) {
                     usePrefix: false,
                     patterns: [
                         {
-                            match: "box-shadow: 0 0 2px rgba($color, .9), 0 0 4px rgba($color, .4), 0 0 1rem rgba($color, .3), 0 0 4rem rgba($color, .1);",
-                            replacement: "box-shadow: 0 0 2px RGBA($color, .9), 0 0 4px RGBA($color, .4), 0 0 1rem RGBA($color, .3), 0 0 4rem RGBA($color, .1);"
+                            match:
+                                "box-shadow: 0 0 2px rgba($color, .9), 0 0 4px rgba($color, .4), 0 0 1rem rgba($color, .3), 0 0 4rem rgba($color, .1);",
+                            replacement:
+                                "box-shadow: 0 0 2px RGBA($color, .9), 0 0 4px RGBA($color, .4), 0 0 1rem RGBA($color, .3), 0 0 4rem RGBA($color, .1);"
                         }
                     ]
                 },
@@ -247,6 +254,23 @@ module.exports = function(grunt) {
                 dest: "wwwroot/js/InstallWizard.comb.js"
             },
 
+            codeMirror: {
+                options: {
+                    sourceMap: false,
+                    output: { beautify: true },
+                    mangle: false,
+                    compress: false
+                },
+                src: [
+                    "node_modules/codemirror/lib/codemirror.js",
+                    "node_modules/codemirror/mode/sql/sql.js",
+                    "node_modules/codemirror/addon/edit/matchbrackets.js",
+                    "node_modules/codemirror/addon/hint/show-hint.js",
+                    "node_modules/codemirror/addon/hint/sql-hint.js"
+                ],
+                dest: "wwwroot/js/codemirror.min.js"
+            },
+
             fileUpload: {
                 options: {
                     sourceMap: false,
@@ -267,6 +291,21 @@ module.exports = function(grunt) {
                     "wwwroot/lib/jquery.FileUpload/jquery.fileupload-ui.js"
                 ],
                 dest: "wwwroot/js/jquery.fileupload.comb.js"
+            },
+            yafEditor: {
+                options: {
+                    sourceMap: false,
+                    output: { beautify: true },
+                    mangle: false,
+                    compress: false
+                },
+                src: [
+                    "wwwroot/lib/yafeditor/yafeditor.js",
+                    "wwwroot/lib/yafeditor/undoManager.js",
+                    "wwwroot/lib/yafeditor/autoCloseTags.js",
+                    "node_modules/@w8tcha/bootstrap-suggest/src/bootstrap-suggest.js"
+                ],
+                dest: "wwwroot/js/yafeditor.comb.js"
             },
             forumExtensions: {
                 options: {
@@ -338,7 +377,9 @@ module.exports = function(grunt) {
             },
             minify: {
                 files: {
+                    "wwwroot/js/yafeditor.min.js": "wwwroot/js/yafeditor.comb.js",
                     "wwwroot/js/InstallWizard.comb.min.js": "wwwroot/js/InstallWizard.comb.js",
+                    "wwwroot/js/codemirror.min.js": "wwwroot/js/codemirror.min.js",
                     "wwwroot/js/jquery.fileupload.comb.min.js": "wwwroot/js/jquery.fileupload.comb.js",
                     "wwwroot/js/jquery.ForumExtensions.min.js": "wwwroot/js/jquery.ForumExtensions.js",
                     "wwwroot/js/jquery.ForumAdminExtensions.min.js": "wwwroot/js/jquery.ForumAdminExtensions.js"
@@ -427,6 +468,15 @@ module.exports = function(grunt) {
 
         // CSS Minify
         cssmin: {
+            codeMirror: {
+                files: {
+                    "wwwroot/css/codemirror.min.css": [
+                        "node_modules/codemirror/lib/codemirror.css",
+                        "node_modules/codemirror/theme/monokai.css",
+                        "node_modules/codemirror/addon/hint/show-hint.css"
+                    ]
+                }
+            },
             fileUpload: {
                 files: {
                     "wwwroot/css/jquery.fileupload.comb.min.css": [
@@ -493,7 +543,7 @@ module.exports = function(grunt) {
                 options: {
                     reportUpdated: true,
                     updateType: "force",
-                    semver: false,
+                    semver: true,
                     packages: {
                         devDependencies: true, //only check for devDependencies
                         dependencies: true

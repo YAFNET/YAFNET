@@ -37,7 +37,6 @@ using YAF.Core.Identity;
 using YAF.Core.Services;
 using YAF.Core.Services.Cache;
 using YAF.Core.Services.Import;
-using YAF.Core.Utilities;
 
 /// <summary>
 /// Registers all Service Modules

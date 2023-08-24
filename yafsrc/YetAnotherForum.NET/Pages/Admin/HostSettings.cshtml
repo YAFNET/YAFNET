@@ -1,11 +1,8 @@
 @page "{handler?}"
-
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using YAF.Core.Helpers
 @using YAF.Core.Utilities
 @using YAF.Types.Interfaces
 @using YAF.Web.HtmlHelpers
-@using YAF.Web.TagHelpers
 
 @model HostSettingsModel
 
@@ -1308,22 +1305,6 @@
             - @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_EDITORS")
         </div>
         <div class="card-body">
-            <div class="mb-3">
-                <label class="form-label" info-button="true"
-                       asp-for="Input.EditorToolbarBasic"
-                       localized-tag="EDITOR_BASIC"></label>
-                <textarea asp-for="Input.EditorToolbarBasic" 
-                                 class="form-control"
-                                 rows="5"></textarea>
-            </div>
-            <div class="mb-3">
-                <label class="form-label" info-button="true"
-                       asp-for="Input.EditorToolbarFull"
-                       localized-tag="EDITOR_FULL"></label>
-                <textarea asp-for="Input.EditorToolbarFull" 
-                                 class="form-control"
-                                 rows="5"></textarea>
-            </div>
         </div>
         <div class="card-footer text-lg-center">
             <button button-style="Primary" asp-page-handler="Save"

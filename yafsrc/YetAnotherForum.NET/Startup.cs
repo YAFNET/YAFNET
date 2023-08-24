@@ -138,6 +138,8 @@ public class Startup : IHaveServiceLocator
 
         services.AddHttpContextAccessor();
 
+        services.AddOutputCache();
+
         // Mail Configuration
         services.Configure<MailConfiguration>(this.Configuration.GetSection("MailConfiguration"));
 
@@ -192,21 +194,6 @@ public class Startup : IHaveServiceLocator
                     options.ClaimActions.MapJsonKey("urn:facebook:email", "email", "string");
                     options.ClaimActions.MapJsonKey("urn:facebook:id", "id", "string");
                     options.ClaimActions.MapJsonKey("urn:facebook:name", "name", "string");
-                });
-        }
-
-        if (boardConfig.TwitterConsumerSecret.IsSet() && boardConfig.TwitterConsumerKey.IsSet())
-        {
-            authenticationBuilder.AddTwitter(
-                AuthService.twitter.ToString(),
-                options =>
-                {
-                    options.ConsumerKey = boardConfig.TwitterConsumerKey;
-                    options.ConsumerSecret = boardConfig.TwitterConsumerSecret;
-                    options.SignInScheme = IdentityConstants.ExternalScheme;
-
-                    options.ClaimActions.MapJsonKey("urn:twitter:id", "id", "string");
-                    options.ClaimActions.MapJsonKey("urn:twitter:name", "name", "string");
                 });
         }
 
@@ -344,6 +331,8 @@ public class Startup : IHaveServiceLocator
         app.UseMiddleware<CheckBannedUserAgents>();
 
         app.UseRouting();
+
+        app.UseOutputCache();
 
         var localizationOptions = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>().Value;
         app.UseRequestLocalization(localizationOptions);

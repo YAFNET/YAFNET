@@ -34,6 +34,7 @@ using YAF.Types.Models;
 using YAF.Types.Objects;
 using YAF.Core.BasePages;
 using YAF.Types.Objects.Model;
+using Microsoft.AspNetCore.OutputCaching;
 
 /// <summary>
 /// The User controller.
@@ -54,6 +55,7 @@ public class UserController : ForumBaseController
     /// </returns>
     [ValidateAntiForgeryToken]
     [HttpPost("GetUsers")]
+    [OutputCache]
     public IActionResult GetUsers([FromBody] SearchTopic searchTopic)
     {
         if (!this.PageBoardContext.IsAdmin && !this.PageBoardContext.IsForumModerator)
@@ -97,11 +99,11 @@ public class UserController : ForumBaseController
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    [ValidateAntiForgeryToken]
     [Authorize]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetMentionUsers")]
+    [OutputCache]
     public Task<ActionResult> GetMentionUsers(string users)
     {
         try

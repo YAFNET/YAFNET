@@ -95,9 +95,9 @@ public class AlbumController : ForumBaseController
                     var attachment = new AttachmentItem
                                          {
                                              FileName = image.FileName,
-                                             OnClick = $"CKEDITOR.tools.insertAlbumImage('{image.ID}')",
+                                             OnClick = $"setStyle('AlbumImgId', '{image.ID}')",
                                              IconImage =
-                                                 $@"<img src=""{url}"" alt=""{(image.Caption.IsSet() ? image.Caption : image.FileName)}"" title=""{(image.Caption.IsSet() ? image.Caption : image.FileName)}"" class=""img-fluid img-thumbnail me-1"" />",
+                                                 $@"<img src=""{url}"" alt=""{(image.Caption.IsSet() ? image.Caption : image.FileName)}"" title=""{(image.Caption.IsSet() ? image.Caption : image.FileName)}"" class=""img-fluid img-thumbnail me-1 attachments-preview"" />",
                                              DataURL = url
                                          };
 

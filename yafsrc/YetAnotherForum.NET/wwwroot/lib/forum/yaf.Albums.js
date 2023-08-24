@@ -5,7 +5,7 @@
     pagedResults.PageSize = pageSize;
     pagedResults.PageNumber = pageNumber;
 
-    var ajaxURL = CKEDITOR.basePath.replace("js/ckeditor/", "") + "api/Album/GetAlbumImages";
+    var ajaxURL = "api/Album/GetAlbumImages";
 
 	$.ajax({
         url: ajaxURL,
@@ -34,6 +34,17 @@
                 listItem.append(data.iconImage);
 
                 list.append(listItem);
+            });
+
+            var attachmentsPreviewList = [].slice.call(document.querySelectorAll(".attachments-preview"));
+            attachmentsPreviewList.map(function (attachmentsPreviewTrigger) {
+                return new bootstrap.Popover(attachmentsPreviewTrigger,
+                    {
+                        html: true,
+                        trigger: "hover",
+                        placement: "bottom",
+                        content: function () { return `<img src="${attachmentsPreviewTrigger.src}" class="img-fluid" />`; }
+                    });
             });
 
             setPageNumberAlbums(pageSize, pageNumber, data.totalRecords);

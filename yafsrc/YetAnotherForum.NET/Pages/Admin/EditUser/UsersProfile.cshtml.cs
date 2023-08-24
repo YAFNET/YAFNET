@@ -307,7 +307,6 @@ public class UsersProfileModel : AdminPage
                                   ? $"https://www.facebook.com/profile.php?id={this.EditUser.Item2.Profile_Facebook}"
                                   : this.EditUser.Item2.Profile_Facebook;
 
-        this.Input.Twitter = this.EditUser.Item2.Profile_Twitter;
         this.Input.Xmpp = this.EditUser.Item2.Profile_XMPP;
         this.Input.Skype = this.EditUser.Item2.Profile_Skype;
 
@@ -445,7 +444,6 @@ public class UsersProfileModel : AdminPage
                                                   this.Input.HomePage.IsSet() ? this.Input.HomePage.Trim() : null,
                                               Facebook =
                                                   this.Input.Facebook.IsSet() ? this.Input.Facebook.Trim() : null,
-                                              Twitter = this.Input.Twitter.IsSet() ? this.Input.Twitter.Trim() : null,
                                               XMPP = this.Input.Xmpp.IsSet() ? this.Input.Xmpp.Trim() : null,
                                               Skype = this.Input.Skype.IsSet() ? this.Input.Skype.Trim() : null,
                                               RealName =
@@ -497,8 +495,6 @@ public class UsersProfileModel : AdminPage
         this.EditUser.Item2.Profile_Homepage = userProfile.Homepage;
         this.EditUser.Item2.Profile_Facebook = userProfile.Facebook;
         this.EditUser.Item2.Profile_FacebookId = userProfile.FacebookId;
-        this.EditUser.Item2.Profile_Twitter = userProfile.Twitter;
-        this.EditUser.Item2.Profile_TwitterId = userProfile.TwitterId;
         this.EditUser.Item2.Profile_Interests = userProfile.Interests;
         this.EditUser.Item2.Profile_Location = userProfile.Location;
         this.EditUser.Item2.Profile_Country = userProfile.Country;
@@ -614,8 +610,6 @@ public class UsersProfileModel : AdminPage
 
         [DataType(DataType.Url)]
         public string Blog { get; set; }
-
-        public string Twitter { get; set; }
 
         public string Xmpp { get; set; }
 

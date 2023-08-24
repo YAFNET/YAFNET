@@ -5,7 +5,6 @@ namespace YAF.Core.Helpers;
 
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
-using YAF.Core.Services;
 
 /// <summary>
 /// The password generator.

@@ -105,11 +105,6 @@ public class PagedUser
     public string Profile_FacebookId { get; set; }
 
     /// <summary>
-    /// Gets or sets Twitter.
-    /// </summary>
-    public string Profile_TwitterId { get; set; }
-
-    /// <summary>
     /// Gets or sets the rank name.
     /// </summary>
     public string RankName { get; set; }

@@ -337,7 +337,6 @@ public class EditProfileModel : ProfilePage
                                   ? $"https://www.facebook.com/profile.php?id={this.CurrentUser.Item2.Profile_Facebook}"
                                   : this.CurrentUser.Item2.Profile_Facebook;
 
-        this.Input.Twitter = this.CurrentUser.Item2.Profile_Twitter;
         this.Input.Xmpp = this.CurrentUser.Item2.Profile_XMPP;
         this.Input.Skype = this.CurrentUser.Item2.Profile_Skype;
 
@@ -476,7 +475,6 @@ public class EditProfileModel : ProfilePage
                                                   this.Input.HomePage.IsSet() ? this.Input.HomePage.Trim() : null,
                                               Facebook =
                                                   this.Input.Facebook.IsSet() ? this.Input.Facebook.Trim() : null,
-                                              Twitter = this.Input.Twitter.IsSet() ? this.Input.Twitter.Trim() : null,
                                               XMPP = this.Input.Xmpp.IsSet() ? this.Input.Xmpp.Trim() : null,
                                               Skype = this.Input.Skype.IsSet() ? this.Input.Skype.Trim() : null,
                                               RealName =
@@ -530,8 +528,6 @@ public class EditProfileModel : ProfilePage
         user.Profile_Homepage = userProfile.Homepage;
         user.Profile_Facebook = userProfile.Facebook;
         user.Profile_FacebookId = userProfile.FacebookId;
-        user.Profile_Twitter = userProfile.Twitter;
-        user.Profile_TwitterId = userProfile.TwitterId;
         user.Profile_Interests = userProfile.Interests;
         user.Profile_Location = userProfile.Location;
         user.Profile_Country = userProfile.Country;
@@ -645,8 +641,6 @@ public class EditProfileModel : ProfilePage
 
         [DataType(DataType.Url)]
         public string Blog { get; set; }
-
-        public string Twitter { get; set; }
 
         public string Xmpp { get; set; }
 

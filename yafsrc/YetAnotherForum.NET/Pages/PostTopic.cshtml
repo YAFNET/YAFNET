@@ -1,13 +1,10 @@
 @page "{f:int}/{handler?}"
-
-@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using YAF.Core.Extensions
 @using YAF.Core.Helpers
 @using YAF.Core.Utilities
 @using YAF.Types.Extensions
 @using YAF.Types.Flags
 @using YAF.Web.HtmlHelpers
-@using YAF.Web.TagHelpers
 @model PostTopicModel
 
 @section StyleSheets {
@@ -167,7 +164,7 @@
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.GetBoardTagsJs("Tags", "Input_TagsValue")))
     </script>
     
-    @await Html.PartialAsync("_CKEditorScriptsPartial")
+    @await Html.PartialAsync("_BBCodeEditorScriptsPartial")
 
     @if (Model.PageBoardContext.UploadAccess)
     {

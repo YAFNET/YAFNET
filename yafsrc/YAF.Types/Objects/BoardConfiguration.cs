@@ -117,16 +117,6 @@ public class BoardConfiguration
     public int SqlCommandTimeout { get; set; }
 
     /// <summary>
-    ///     Gets or sets the TwitterConsumerKey
-    /// </summary>
-    public string TwitterConsumerKey { get; set; }
-
-    /// <summary>
-    ///     Gets or sets the TwitterConsumerSecret
-    /// </summary>
-    public string TwitterConsumerSecret { get; set; }
-
-    /// <summary>
     /// Gets or sets the banned IP redirect URL.
     /// </summary>
     public string BannedIpRedirectUrl { get; set; }

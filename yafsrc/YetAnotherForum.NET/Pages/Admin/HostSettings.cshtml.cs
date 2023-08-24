@@ -848,10 +848,6 @@ public class HostSettingsModel : AdminPage
 
         public string AdPost { get; set; }
 
-        public string EditorToolbarBasic { get; set; }
-
-        public string EditorToolbarFull { get; set; }
-
         public int AllowCreateTopicsSameName { get; set; }
 
         public int ReportPostPermissions { get; set; }
