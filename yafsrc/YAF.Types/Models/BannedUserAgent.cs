@@ -28,7 +28,6 @@ namespace YAF.Types.Models;
 /// The banned user agent table.
 /// </summary>
 [Serializable]
-[UniqueConstraint(nameof(BoardID), nameof(UserAgent))]
 public class BannedUserAgent : IEntity, IHaveID, IHaveBoardID
 {
     /// <summary>
