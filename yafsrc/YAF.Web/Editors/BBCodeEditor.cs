@@ -184,13 +184,16 @@ public class BBCodeEditor : TextEditor
             "Indigo", "Violet", "White", "Black"
         };
 
-        // TODO: if color white set background
-
         colors.ForEach(
-            color => writer.WriteLine(
-                @"<a class=""dropdown-item"" href=""#"" onclick=""setStyle('color', '{0}');"" style=""color:{0}"">{1}</a>",
-                color.Replace(" ", string.Empty).ToLower(),
-                color));
+            color =>
+            {
+                writer.WriteLine(
+                    color == "White"
+                        ? @"<a class=""dropdown-item"" href=""#"" onclick=""setStyle('color', '{0}');"" style=""color:{0};background:grey"">{1}</a>"
+                        : @"<a class=""dropdown-item"" href=""#"" onclick=""setStyle('color', '{0}');"" style=""color:{0}"">{1}</a>",
+                    color.Replace(" ", string.Empty).ToLower(),
+                    color);
+            });
 
         writer.Write("</div>");
 
