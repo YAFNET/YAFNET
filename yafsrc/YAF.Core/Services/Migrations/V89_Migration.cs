@@ -73,6 +73,9 @@ namespace YAF.Core.Services.Migrations
 
             if (dbCommand.Connection.ColumnExists<User>("PMNotification"))
             {
+                dbCommand.Connection.DropConstraint<User>(
+                    $"DF_{Config.DatabaseObjectQualifier}{nameof(User)}_PMNotification");
+
                 dbCommand.Connection.DropColumn<User>("PMNotification");
             }
         }
@@ -84,6 +87,9 @@ namespace YAF.Core.Services.Migrations
         {
             if (dbCommand.Connection.ColumnExists<Rank>("PMLimit"))
             {
+                dbCommand.Connection.DropConstraint<Rank>(
+                    $"DF_{Config.DatabaseObjectQualifier}{nameof(Rank)}_PMLimit"); 
+                
                 dbCommand.Connection.DropColumn<Rank>("PMLimit");
             }
         }
@@ -95,6 +101,9 @@ namespace YAF.Core.Services.Migrations
         {
             if (dbCommand.Connection.ColumnExists<Group>("PMLimit"))
             {
+                dbCommand.Connection.DropConstraint<Group>(
+                    $"DF_{Config.DatabaseObjectQualifier}{nameof(Group)}_PMLimit"); 
+                
                 dbCommand.Connection.DropColumn<Group>("PMLimit");
             }
         }

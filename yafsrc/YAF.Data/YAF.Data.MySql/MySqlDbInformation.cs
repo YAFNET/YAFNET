@@ -33,7 +33,7 @@ public class MySqlDbInformation : IDbInformation
     /// The YAF Provider Upgrade script list
     /// </summary>
     private static readonly string[] IdentityUpgradeScriptList = {
-                                                                         "install/mssql/upgrade/identity/upgrade.sql"
+                                                                         "upgrade.sql"
                                                                      };
 
     /// <summary>

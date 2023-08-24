@@ -368,7 +368,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         content.AppendHtml(toggleButton5.RenderEndTag());
 
-        var dropDownMenu4 = new TagBuilder("div") { Attributes = { ["class"] = "dropdown-menu editorColorMenu" } };
+        var dropDownMenu4 = new TagBuilder("div") { Attributes = { ["class"] = "dropdown-menu" } };
         content.AppendHtml(dropDownMenu4.RenderStartTag());
 
         string[] colors =
@@ -376,8 +376,6 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                 "Dark Red", "Red", "Orange", "Brown", "Yellow", "Green", "Olive", "Cyan", "Blue", "Dark Blue", "Indigo",
                 "Violet", "White", "Black"
             };
-
-        // TODO: if color white set background
 
         foreach (var color in colors)
         {
@@ -389,7 +387,9 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                                        ["href"] = "#",
                                        ["onclick"] =
                                            $"setStyle('color', '{color.Replace(" ", string.Empty).ToLower()}');",
-                                       ["style"] = $"color:{color.Replace(" ", string.Empty).ToLower()}"
+                                       ["style"] = color == "White"
+                                                       ? $"color:{color.Replace(" ", string.Empty).ToLower()};background-color:grey"
+                                                       : $"color:{color.Replace(" ", string.Empty).ToLower()}"
                                    }
                            };
 

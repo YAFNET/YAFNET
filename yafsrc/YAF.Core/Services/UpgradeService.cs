@@ -103,13 +103,13 @@ public class UpgradeService : IHaveServiceLocator
         var prevVersion = this.GetRepository<Registry>().GetDbVersion();
 
         // initialize search index
-        if (this.GetRepository<Registry>().GetSingle(r => r.Name.ToLower() == "lastsearchindexupdated").Value.IsNotSet())
+        if (this.GetRepository<Registry>().GetSingle(r => r.Name.ToLower() == "lastsearchindexupdated") == null)
         {
             this.GetRepository<Registry>().Save("forceupdatesearchindex", "1");
         }
 
         // Check if BaseUrlMask is set and if not automatically write it
-        if (this.GetRepository<Registry>().GetSingle(r => r.Name.ToLower() == "BaseUrlMask").Value.IsNotSet())
+        if (this.GetRepository<Registry>().GetSingle(r => r.Name.ToLower() == "BaseUrlMask") == null)
         {
             this.GetRepository<Registry>().Save("baseurlmask", this.Get<BoardInfo>().GetBaseUrlFromVariables());
         }
@@ -206,9 +206,18 @@ public class UpgradeService : IHaveServiceLocator
 
         this.AddOrUpdateExtensions();
 
-        var cdvVersion = this.GetRepository<Registry>().GetSingle(r => r.Name.ToLower() == "cdvversion").Value.ToType<int>();
+        var versionValue = this.GetRepository<Registry>().GetSingle(r => r.Name.ToLower() == "cdvversion");
 
-        this.GetRepository<Registry>().Save("cdvversion", cdvVersion + 1);
+        if (versionValue != null)
+        {
+            var cdvVersion = this.GetRepository<Registry>().GetSingle(r => r.Name.ToLower() == "cdvversion").Value.ToType<int>();
+
+            this.GetRepository<Registry>().Save("cdvversion", cdvVersion + 1);
+        }
+        else
+        {
+            this.GetRepository<Registry>().Save("cdvversion", 1);
+        }
 
         this.Get<IDataCache>().Remove(Constants.Cache.Version);
 
