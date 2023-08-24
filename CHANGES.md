@@ -1,6 +1,11 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.1.15
+* [FIXED #941] Replacing the CKEditor with the (old) improved BBCode Editor
+* [NEW] UserAgents can be banned
+* bug fixes
+
 # YetAnotherForum.NET v3.1.14
 * [NEW] Added user setting for switching theme to light/dark mode
 * [FIXED] Wildcards in Banned IP
