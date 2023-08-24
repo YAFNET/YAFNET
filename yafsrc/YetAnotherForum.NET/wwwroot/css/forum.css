@@ -483,7 +483,7 @@ div.code-toolbar > .toolbar > .toolbar-item > span:focus {
  * Copyright 2022 Fonticons, Inc.
  */
 /*!
- * Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2023 Fonticons, Inc.
  */
@@ -8905,7 +8905,7 @@ readers do not read off random characters that represent icons */
 }
 
 /*!
- * Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2023 Fonticons, Inc.
  */
@@ -8927,7 +8927,7 @@ readers do not read off random characters that represent icons */
 }
 
 /*!
- * Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2023 Fonticons, Inc.
  */
@@ -9168,6 +9168,10 @@ readers do not read off random characters that represent icons */
   content: "\f282";
 }
 
+.fa-threads:before {
+  content: "\e618";
+}
+
 .fa-napster:before {
   content: "\f3d2";
 }
@@ -9390,6 +9394,10 @@ readers do not read off random characters that represent icons */
 
 .fa-scribd:before {
   content: "\f28a";
+}
+
+.fa-debian:before {
+  content: "\e60b";
 }
 
 .fa-openid:before {
@@ -9710,6 +9718,10 @@ readers do not read off random characters that represent icons */
 
 .fa-neos:before {
   content: "\f612";
+}
+
+.fa-square-threads:before {
+  content: "\e619";
 }
 
 .fa-hackerrank:before {
@@ -10166,6 +10178,10 @@ readers do not read off random characters that represent icons */
 
 .fa-erlang:before {
   content: "\f39d";
+}
+
+.fa-x-twitter:before {
+  content: "\e61b";
 }
 
 .fa-cotton-bureau:before {
@@ -10828,6 +10844,10 @@ readers do not read off random characters that represent icons */
   content: "\f2c4";
 }
 
+.fa-square-x-twitter:before {
+  content: "\e61a";
+}
+
 .fa-reacteurope:before {
   content: "\f75d";
 }
@@ -10953,7 +10973,7 @@ readers do not read off random characters that represent icons */
 }
 
 /*!
- * Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2023 Fonticons, Inc.
  */
@@ -11018,6 +11038,13 @@ readers do not read off random characters that represent icons */
 }
 .fi.fis {
   width: 1em;
+}
+
+.fi-xx {
+  background-image: url(flags/4x3/xx.svg);
+}
+.fi-xx.fis {
+  background-image: url(flags/1x1/xx.svg);
 }
 
 .fi-ad {
@@ -12728,13 +12755,6 @@ readers do not read off random characters that represent icons */
   background-image: url(flags/1x1/ws.svg);
 }
 
-.fi-xx {
-  background-image: url(flags/4x3/xx.svg);
-}
-.fi-xx.fis {
-  background-image: url(flags/1x1/xx.svg);
-}
-
 .fi-ye {
   background-image: url(flags/4x3/ye.svg);
 }
@@ -14123,50 +14143,6 @@ div#UploadDialog {
 
 .btn-google .badge {
   color: #dd4b39;
-  background-color: #fff;
-}
-
-.btn-twitter {
-  color: #fff;
-  background-color: #55acee;
-  border-color: rgba(0, 0, 0, 0.2);
-}
-
-.btn-twitter:focus, .btn-twitter.focus {
-  color: #fff;
-  background-color: #2795e9;
-  border-color: rgba(0, 0, 0, 0.2);
-}
-
-.btn-twitter:hover {
-  color: #fff;
-  background-color: #2795e9;
-  border-color: rgba(0, 0, 0, 0.2);
-}
-
-.btn-twitter:active, .btn-twitter.active, .open > .dropdown-toggle.btn-twitter {
-  color: #fff;
-  background-color: #2795e9;
-  border-color: rgba(0, 0, 0, 0.2);
-}
-
-.btn-twitter:active:hover, .btn-twitter.active:hover, .open > .dropdown-toggle.btn-twitter:hover, .btn-twitter:active:focus, .btn-twitter.active:focus, .open > .dropdown-toggle.btn-twitter:focus, .btn-twitter:active.focus, .btn-twitter.active.focus, .open > .dropdown-toggle.btn-twitter.focus {
-  color: #fff;
-  background-color: #1583d7;
-  border-color: rgba(0, 0, 0, 0.2);
-}
-
-.btn-twitter:active, .btn-twitter.active, .open > .dropdown-toggle.btn-twitter {
-  background-image: none;
-}
-
-.btn-twitter.disabled:hover, .btn-twitter[disabled]:hover, fieldset[disabled] .btn-twitter:hover, .btn-twitter.disabled:focus, .btn-twitter[disabled]:focus, fieldset[disabled] .btn-twitter:focus, .btn-twitter.disabled.focus, .btn-twitter[disabled].focus, fieldset[disabled] .btn-twitter.focus {
-  background-color: #55acee;
-  border-color: rgba(0, 0, 0, 0.2);
-}
-
-.btn-twitter .badge {
-  color: #55acee;
   background-color: #fff;
 }
 
