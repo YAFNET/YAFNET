@@ -7,7 +7,7 @@
     pagedResults.PageSize = pageSize;
     pagedResults.PageNumber = pageNumber;
 
-    var ajaxURL = "api/Attachment/GetAttachments";
+    var ajaxURL = "/api/Attachment/GetAttachments";
 
 	$.ajax({
 		type: "POST",

@@ -5,7 +5,7 @@
     pagedResults.PageSize = pageSize;
     pagedResults.PageNumber = pageNumber;
 
-    var ajaxURL = "api/Album/GetAlbumImages";
+    var ajaxURL = "/api/Album/GetAlbumImages";
 
 	$.ajax({
         url: ajaxURL,
