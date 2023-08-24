@@ -77,12 +77,11 @@ public class AttachmentController : ApiController, IHaveServiceLocator
                                         ? $@"<img src=""{url}"" alt=""{description}"" title=""{description}"" class=""img-fluid img-thumbnail me-1 attachments-preview"" />"
                                         : "<i class=\"far fa-file-alt attachment-icon\"></i>";
 
-                    var attachment = new AttachmentItem
-                                         {
-                                             FileName = attach.FileName,
-                                             OnClick = $"CKEDITOR.tools.insertAttachment('{attach.ID}')",
-                                             IconImage = $@"{iconImage}<span>{description}</span>"
-                                         };
+                    var attachment = new AttachmentItem {
+                                                            FileName = attach.FileName,
+                                                            OnClick = $"insertAttachment('{attach.ID}', '{url}')",
+                                                            IconImage = $@"{iconImage}<span>{description}</span>"
+                                                        };
 
                     if (attach.FileName.IsImageName())
                     {

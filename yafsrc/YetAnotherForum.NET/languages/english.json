@@ -8099,6 +8099,10 @@
                     "#text": "You [b]cannot[/b] vote in polls in this forum."
                 },
                 {
+                    "@tag": "CHARACTERS_LEFT",
+                    "#text": "Characters remaining:"
+                },
+                {
                     "@tag": "CHANGEEMAIL_SUBJECT",
                     "#text": "Changed Email"
                 },
@@ -8527,12 +8531,56 @@
                     "#text": "Quote"
                 },
                 {
-                    "@tag": "TT_SAVE",
-                    "#text": "Save Message Draft"
-                },
-                {
                     "@tag": "TT_UNDERLINE",
                     "#text": "Underline"
+                },
+                {
+                    "@tag": "TT_CUT",
+                    "#text": "Cut the selected text (Ctrl+X)"
+                },
+                {
+                    "@tag": "TT_COPY",
+                    "#text": "Copy the selected text (Ctrl+C)"
+                },
+                {
+                    "@tag": "TT_PASTE",
+                    "#text": "Paste (Ctrl+V)"
+                },
+                {
+                    "@tag": "TT_UNDO",
+                    "#text": "Undo (Ctrl+Z)"
+                },
+                {
+                    "@tag": "TT_REDO",
+                    "#text": "Redo (Ctrl+Y)"
+                },
+                {
+                    "@tag": "TT_SELECT_ALL",
+                    "#text": "Select all"
+                },
+                {
+                    "@tag": "TT_REMOVE",
+                    "#text": "Remove Format"
+                },
+                {
+                    "@tag": "TT_URL_TITLE",
+                    "#text": "Enter URL:"
+                },
+                {
+                    "@tag": "TT_URL_DESC",
+                    "#text": "Enter URL Description:"
+                },
+                {
+                    "@tag": "TT_IMAGE_TITLE",
+                    "#text": "Enter Image Url:"
+                },
+                {
+                    "@tag": "TT_IMAGE_DESC",
+                    "#text": "Enter Image Description:"
+                },
+                {
+                    "@tag": "TT_DESCRIPTION",
+                    "#text": "Description"
                 },
                 {
                     "@tag": "UNREAD_MENTION_MSG",

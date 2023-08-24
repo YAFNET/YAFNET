@@ -22,36 +22,15 @@
  * under the License.
  */
 
+using ServiceStack.OrmLite;
+
 namespace YAF.Web.Editors;
 
-using YAF.Core.BaseModules;
-
 /// <summary>
-/// The standard YAF text editor.
+/// The CodeMirror SQL Editor
 /// </summary>
-public class TextEditor : ForumEditor
+public class CodeMirrorSqlEditor : TextEditor
 {
-    /// <summary>
-    ///   Gets or sets the Html Text Area
-    /// </summary>
-    public HtmlTextArea TextAreaControl { get; set; }
-
-    /// <summary>
-    ///   Gets a value indicating whether Active.
-    /// </summary>
-    public override bool Active => true;
-
-    /// <summary>
-    ///   Gets the Editor Description.
-    /// </summary>
-    [NotNull]
-    public override string Description => "Plain Text Editor";
-
-    /// <summary>
-    ///   Gets the Module Id.
-    /// </summary>
-    public override string ModuleId => "0";
-
     /// <summary>
     ///   Gets or sets Text.
     /// </summary>
@@ -63,25 +42,31 @@ public class TextEditor : ForumEditor
     }
 
     /// <summary>
-    ///   Gets a value indicating whether UsesBBCode.
-    /// </summary>
-    public override bool UsesBBCode => false;
-
-    /// <summary>
-    /// Gets a value indicating whether [allows uploads].
-    /// </summary>
-    /// <value>
-    ///   <c>true</c> if [allows uploads]; otherwise, <c>false</c>.
-    /// </value>
-    public override bool AllowsUploads => false;
-
-    /// <summary>
     /// Handles the PreRender event of the Editor control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected virtual void Editor_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+    /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
+    protected override void Editor_PreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
+        this.PageBoardContext.PageElements.AddScriptReference("codemirror", "codemirror.min.js");
+
+        this.PageBoardContext.PageElements.RegisterCssIncludeContent("codemirror.min.css");
+
+        var serverName = OrmLiteConfig.DialectProvider.SQLServerName();
+
+        var mime = serverName switch
+        {
+            "Microsoft SQL Server" => "text/x-mssql",
+            "MySQL" => "text/x-mysql",
+            "PostgreSQL" => "text/x-pgsql",
+            _ => "text/x-sql"
+        };
+
+        this.PageBoardContext.PageElements.RegisterJsBlock(
+            nameof(JavaScriptBlocks.CodeMirrorSqlLoadJs),
+            JavaScriptBlocks.CodeMirrorSqlLoadJs(
+                this.TextAreaControl.ClientID,
+                mime));
     }
 
     /// <summary>
@@ -90,14 +75,6 @@ public class TextEditor : ForumEditor
     /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
     protected override void OnInit([NotNull] EventArgs e)
     {
-        this.PreRender += this.Editor_PreRender;
-
-        this.TextAreaControl = new HtmlTextArea { ID = "YafTextEditor", Rows = 15, Cols = 100 };
-        this.TextAreaControl.Attributes.Add("class", "form-control");
-        this.TextAreaControl.Attributes.Add("maxlength", this.MaxCharacters.ToString());
-
-        this.AddEditorControl(this.TextAreaControl);
-
         base.OnInit(e);
     }
 }

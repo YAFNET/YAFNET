@@ -91,6 +91,10 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\select2.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\fontawesome\**\*.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\forum\**\*.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\yafeditor\autoCloseTags.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\yafeditor\undoManager.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\yafeditor\yafeditor.comb.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\yafeditor\yafEditor.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap\**\*.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\css\**\*.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.FileUpload\**\*.css" />

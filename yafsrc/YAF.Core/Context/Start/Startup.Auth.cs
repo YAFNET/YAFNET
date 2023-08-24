@@ -35,7 +35,6 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.DataProtection;
 using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.Google;
-using Microsoft.Owin.Security.Twitter;
 
 using Owin;
 
@@ -89,11 +88,6 @@ public partial class Startup
             RegisterFacebookMiddleWare(app);
         }
 
-        if (Config.TwitterConsumerSecret.IsSet() && Config.TwitterConsumerKey.IsSet())
-        {
-            RegisterTwitterMiddleWare(app);
-        }
-
         if (Config.GoogleClientSecret.IsSet() && Config.GoogleClientID.IsSet())
         {
             RegisterGoogleMiddleWare(app);
@@ -139,35 +133,6 @@ public partial class Startup
                           };
 
         app.UseFacebookAuthentication(options);
-    }
-
-    /// <summary>
-    /// Register Twitter Authentication.
-    /// </summary>
-    /// <param name="app">
-    /// The app builder.
-    /// </param>
-    private static void RegisterTwitterMiddleWare(IAppBuilder app)
-    {
-        var options = new TwitterAuthenticationOptions
-                          {
-                              ConsumerKey = Config.TwitterConsumerKey,
-                              ConsumerSecret = Config.TwitterConsumerSecret,
-                              Provider = new TwitterAuthenticationProvider
-                                             {
-                                                 OnAuthenticated = context =>
-                                                     {
-                                                         context.Identity.AddClaim(
-                                                             new Claim("urn:twitter:id", context.UserId, "XmlSchemaString", "Twitter"));
-                                                         context.Identity.AddClaim(
-                                                             new Claim("urn:twitter:name", context.ScreenName, "XmlSchemaString", "Twitter"));
-
-                                                         return Task.FromResult(0);
-                                                     }
-                                             }
-                          };
-
-        app.UseTwitterAuthentication(options);
     }
 
     /// <summary>

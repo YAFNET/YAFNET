@@ -8111,6 +8111,10 @@
             "#text": "Endret e-post"
           },
           {
+            "@tag": "CHARACTERS_LEFT",
+            "#text": "Characters remaining:"
+          },
+          {
             "@tag": "COMMON_WORDS",
             "#text": "ut,vær så snill,en,stand,om,påtvers,tross alt,nesten,også,erblant,en,og,enhver,er,som,være,fordi,vært,men,ved,kan,ikke, kunne, kjære, gjorde, gjør, gjør, enten, annet, noen gang, hver, for, fra, får, fikk, hadde, har, har, han, henne, hennes, ham, hans, hvordan, men jeg, hvis, i,inn i,er,det,det,bare,minst,la,liker,sannsynlig,kan,meg,kanskje,mest,må,min,verken,nei,eller,ikke,av,av,ofte,på,bare, eller,andre,vår,egne,rettere sagt,si,sier,hun,bør,siden,så,noen,enn,at,deres,dem,da,der,disse,de,dette,is,til, også,twas,oss,ønsker,var,vi,var,hva,når,hvor,hvilken,mens,hvem,hvem,hvorfor,vil,med,ville,ennå,du,din"
           },
@@ -8499,12 +8503,20 @@
             "#text": "Velg Språk for syntaksutheving"
           },
           {
+            "@tag": "TT_COPY",
+            "#text": "Copy the selected text (Ctrl+C)"
+          },
+          {
             "@tag": "TT_CREATELINK",
             "#text": "Opprett lenke"
           },
           {
             "@tag": "TT_CUSTOMBBCODE",
             "#text": "Flere BBCode-tagger"
+          },
+          {
+            "@tag": "TT_CUT",
+            "#text": "Cut the selected text (Ctrl+X)"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8531,16 +8543,32 @@
             "#text": "Uordnet liste"
           },
           {
+            "@tag": "TT_PASTE",
+            "#text": "Paste (Ctrl+V)"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "Sitat"
           },
           {
-            "@tag": "TT_SAVE",
-            "#text": "Lagre meldingsutkast"
+            "@tag": "TT_REDO",
+            "#text": "Redo (Ctrl+Y)"
+          },
+          {
+            "@tag": "TT_REMOVE",
+            "#text": "Remove Format"
+          },
+          {
+            "@tag": "TT_SELECT_ALL",
+            "#text": "Select all"
           },
           {
             "@tag": "TT_UNDERLINE",
             "#text": "Understrek"
+          },
+          {
+            "@tag": "TT_UNDO",
+            "#text": "Undo (Ctrl+Z)"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8621,6 +8649,26 @@
           {
             "@tag": "YES",
             "#text": "Ja"
+          },
+          {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           }
         ]
       },

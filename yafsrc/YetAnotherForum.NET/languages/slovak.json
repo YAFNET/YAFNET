@@ -8111,6 +8111,10 @@
             "#text": "Zmenený e-mail"
           },
           {
+            "@tag": "CHARACTERS_LEFT",
+            "#text": "Characters remaining:"
+          },
+          {
             "@tag": "COMMON_WORDS",
             "#text": "von, prosím, a, schopný, o, cez, po, všetko, takmer, tiež, som, medzi, an, a, akýkoľvek, sú, ako, na, byť, pretože, bol, ale, by, môže, nemôže, mohol, drahý, robil, robí, buď, alebo, inak, niekedy, každý, pre, od, dostať, dostal, mal, má, má, on, jej, jej, jeho, jeho, ako, však, i, ak, v, do, je, to, jeho, len, najmenej, nech, ako, pravdepodobne, môže, mňa,mohol,najviac,musel,môj,ani,nie,ani,nie,z,preč,často,na,len,alebo,iný,náš,vlastný,skôr,povedal,povedal,hovorí,ona,mala,keďže,tak,niektorý,než,že,ten,ich,im,potom,tam,tí,oni,toto,to,tiež,bol,my,chce,bol,my,boli,čo,kedy,kde,ktorý,zatiaľ,kto,kto,prečo,bude,s,by,ešte,ty,tvoj"
           },
@@ -8499,12 +8503,20 @@
             "#text": "Výber jazyka pre zvýraznenie syntaxe"
           },
           {
+            "@tag": "TT_COPY",
+            "#text": "Copy the selected text (Ctrl+C)"
+          },
+          {
             "@tag": "TT_CREATELINK",
             "#text": "Vytvoriť prepojenie"
           },
           {
             "@tag": "TT_CUSTOMBBCODE",
             "#text": "Ďalšie značky kódu BBCode"
+          },
+          {
+            "@tag": "TT_CUT",
+            "#text": "Cut the selected text (Ctrl+X)"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8531,16 +8543,32 @@
             "#text": "Neusporiadaný zoznam"
           },
           {
+            "@tag": "TT_PASTE",
+            "#text": "Paste (Ctrl+V)"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "Citujem"
           },
           {
-            "@tag": "TT_SAVE",
-            "#text": "Uloženie návrhu správy"
+            "@tag": "TT_REDO",
+            "#text": "Redo (Ctrl+Y)"
+          },
+          {
+            "@tag": "TT_REMOVE",
+            "#text": "Remove Format"
+          },
+          {
+            "@tag": "TT_SELECT_ALL",
+            "#text": "Select all"
           },
           {
             "@tag": "TT_UNDERLINE",
             "#text": "Podčiarknite"
+          },
+          {
+            "@tag": "TT_UNDO",
+            "#text": "Undo (Ctrl+Z)"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8621,6 +8649,26 @@
           {
             "@tag": "YES",
             "#text": "Áno"
+          },
+          {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           }
         ]
       },

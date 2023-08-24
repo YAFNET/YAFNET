@@ -8103,6 +8103,10 @@
             "#text": "Email cambiado"
           },
           {
+            "@tag": "CHARACTERS_LEFT",
+            "#text": "Characters remaining:"
+          },
+          {
             "@tag": "COMMON_WORDS",
             "#text": "fuera,por favor,un,posible,sobre,a través,después,todo,la mayoría,también,soy,sobre,un,y,cualquier,eres,como,a,ser,porque,sido,pero,por,puede,no puede,podría,querido,hizo,hace,hace,o bien,de lo contrario,nunca,todos,para,de,obtener,conseguido,tenía,tiene,haber,él,ella,el suyo,él,su,cómo,sin embargo,yo,si,en,en,es,es,es,justo,por lo menos,dejar que,al igual que,probablemente,puede,yo,podría,más,debe,a mi,ni,ni,ni,ni,de,fuera de,a menudo,en,solamente,o,otro,nuestro,poseer,más bien,dijo,por ejemplo,dice,ella,debería,ya que,así,algunos,que,que,el,su,ellos,entonces,allí,ellos,ellos,esto,tis,que,también,twas,nosotros,quiera,era,nos,eran,qué,cuándo,dónde,que,aunque,quién,quién,por qué,quiere,con,lo haría,sin embargo,usted,su"
           },
@@ -8491,12 +8495,20 @@
             "#text": "Elije el idioma para el resaltado de sintaxis."
           },
           {
+            "@tag": "TT_COPY",
+            "#text": "Copy the selected text (Ctrl+C)"
+          },
+          {
             "@tag": "TT_CREATELINK",
             "#text": "Crear enlace"
           },
           {
             "@tag": "TT_CUSTOMBBCODE",
             "#text": "Mas etiquetas BBCode"
+          },
+          {
+            "@tag": "TT_CUT",
+            "#text": "Cut the selected text (Ctrl+X)"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8523,16 +8535,32 @@
             "#text": "Lista desordenada"
           },
           {
+            "@tag": "TT_PASTE",
+            "#text": "Paste (Ctrl+V)"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "Citar"
           },
           {
-            "@tag": "TT_SAVE",
-            "#text": "Guardar el borrador del mensaje"
+            "@tag": "TT_REDO",
+            "#text": "Redo (Ctrl+Y)"
+          },
+          {
+            "@tag": "TT_REMOVE",
+            "#text": "Remove Format"
+          },
+          {
+            "@tag": "TT_SELECT_ALL",
+            "#text": "Select all"
           },
           {
             "@tag": "TT_UNDERLINE",
             "#text": "Subrayado"
+          },
+          {
+            "@tag": "TT_UNDO",
+            "#text": "Undo (Ctrl+Z)"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8613,6 +8641,26 @@
           {
             "@tag": "YES",
             "#text": "Si"
+          },
+          {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           }
         ]
       },

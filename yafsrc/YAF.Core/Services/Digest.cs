@@ -23,10 +23,8 @@
  */
 namespace YAF.Core.Services;
 
-using System;
 using System.Net;
 using System.Net.Mail;
-using System.Web.UI;
 
 using YAF.Types.Models;
 

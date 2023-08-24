@@ -139,19 +139,6 @@ public partial class EditUsersSignature : BaseUserControl
 
         this.signaturePreview.Signature = this.signatureEditor.Text;
         this.signaturePreview.DisplayUserID = this.CurrentUserID;
-
-        var data = this.GetRepository<User>().SignatureData(this.CurrentUserID, this.PageBoardContext.PageBoardID);
-
-        if (data == null)
-        {
-            return;
-        }
-
-        this.AllowedBBCodes = (string)data.UsrSigBBCodes.Trim().Trim(',').Trim();
-
-        this.AllowedNumberOfCharacters = (int)data.UsrSigChars;
-
-        this.signatureEditor.MaxCharacters = this.AllowedNumberOfCharacters;
     }
 
     /// <summary>
@@ -160,11 +147,19 @@ public partial class EditUsersSignature : BaseUserControl
     /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
     protected override void OnInit([NotNull] EventArgs e)
     {
-        this.signatureEditor = new CKEditorBBCodeEditorBasic
-                                   {
-                                       UserCanUpload = false,
-                                       MaxCharacters = this.AllowedNumberOfCharacters
-                                   };
+        var data = this.GetRepository<User>().SignatureData(this.CurrentUserID, this.PageBoardContext.PageBoardID);
+
+        if (data != null)
+        {
+            this.AllowedBBCodes = (string)data.UsrSigBBCodes.Trim().Trim(',').Trim();
+
+            this.AllowedNumberOfCharacters = (int)data.UsrSigChars;
+        }
+
+        this.signatureEditor = new BBCodeEditorBasic {
+                                                         UserCanUpload = false,
+                                                         MaxCharacters = this.AllowedNumberOfCharacters
+                                                     };
 
         this.EditorLine.Controls.Add(this.signatureEditor);
 

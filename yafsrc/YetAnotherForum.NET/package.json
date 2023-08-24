@@ -15,16 +15,17 @@
         "grunt-replace": "^2.0.2",
         "grunt-shell": "^4.0.0",
         "postcss": "^8.4.28",
-        "sass": "^1.66.0"
+        "sass": "^1.66.1"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^6.4.2",
+        "@w8tcha/bootstrap-suggest": "^2.1.1",
         "bootbox": "^6.0.0",
         "bootstrap": "^5.3.1",
         "bootstrap-touchspin": "^4.7.3",
         "bootswatch": "^5.3.1",
-        "ckeditor4": "^4.22.1",
-        "flag-icons": "^6.10.0",
+        "codemirror": "^5.65.14",
+        "flag-icons": "^6.11.0",
         "grunt-file-append": "^0.0.7",
         "jquery": "^3.7.0",
         "long-press-event": "^2.4.6",

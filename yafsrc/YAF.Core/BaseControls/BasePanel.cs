@@ -23,7 +23,6 @@
  */
 namespace YAF.Core.BaseControls;
 
-using System;
 using System.Web.UI.WebControls;
 
 /// <summary>

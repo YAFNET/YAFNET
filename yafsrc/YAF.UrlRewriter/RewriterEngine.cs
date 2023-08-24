@@ -16,10 +16,10 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
+
 using YAF.Types.Extensions;
 using YAF.UrlRewriter.Actions;
 using YAF.UrlRewriter.Conditions;

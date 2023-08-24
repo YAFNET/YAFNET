@@ -66,7 +66,7 @@ module.exports = function(grunt) {
                     {
                         expand: true,
                         src: "**/*.scss",
-                        cwd: "node_modules/flag-icons/scss",
+                        cwd: "node_modules/flag-icons/sass",
                         dest: "Content/flag-icons/"
                     },
                     {
@@ -117,6 +117,25 @@ module.exports = function(grunt) {
                         flatten: true,
                         src: ["Content/fontawesome/_variables.scss"],
                         dest: "Content/fontawesome/"
+                    }
+                ]
+            },
+            flagIcons: {
+                options: {
+                    usePrefix: false,
+                    patterns: [
+                        {
+                            match: "../flags",
+                            replacement: "flags"
+                        }
+                    ]
+                },
+                files: [
+                    {
+                        expand: true,
+                        flatten: true,
+                        src: ["Content/flag-icons/_variables.scss"],
+                        dest: "Content/flag-icons/"
                     }
                 ]
             }
@@ -202,6 +221,23 @@ module.exports = function(grunt) {
                 dest: "Scripts/InstallWizard.comb.js"
             },
 
+            codeMirror: {
+                options: {
+                    sourceMap: false,
+                    output: { beautify: true },
+                    mangle: false,
+                    compress: false
+                },
+                src: [
+                    "node_modules/codemirror/lib/codemirror.js",
+                    "node_modules/codemirror/mode/sql/sql.js",
+                    "node_modules/codemirror/addon/edit/matchbrackets.js",
+                    "node_modules/codemirror/addon/hint/show-hint.js",
+                    "node_modules/codemirror/addon/hint/sql-hint.js"
+                ],
+                dest: "Scripts/codemirror.min.js"
+            },
+
             fileUpload: {
                 options: {
                     sourceMap: false,
@@ -222,6 +258,22 @@ module.exports = function(grunt) {
                     "Scripts/jquery.FileUpload/jquery.fileupload-ui.js"
                 ],
                 dest: "Scripts/jquery.fileupload.comb.js"
+            },
+
+            yafEditor: {
+                options: {
+                    sourceMap: false,
+                    output: { beautify: true },
+                    mangle: false,
+                    compress: false
+                },
+                src: [
+                    "Scripts/yafeditor/yafeditor.js",
+                    "Scripts/yafeditor/undoManager.js",
+                    "Scripts/yafeditor/autoCloseTags.js",
+                    "node_modules/@w8tcha/bootstrap-suggest/src/bootstrap-suggest.js"
+                ],
+                dest: "Scripts/yafeditor/yafeditor.comb.js"
             },
             forumExtensions: {
                 options: {
@@ -335,7 +387,9 @@ module.exports = function(grunt) {
             },
             minify: {
                 files: {
+                    "Scripts/yafeditor/yafeditor.min.js": "Scripts/yafeditor/yafeditor.comb.js",
                     "Scripts/InstallWizard.comb.min.js": "Scripts/InstallWizard.comb.js",
+                    "Scripts/codemirror.min.js": "Scripts/codemirror.min.js",
                     "Scripts/jquery.fileupload.comb.min.js": "Scripts/jquery.fileupload.comb.js",
                     "Scripts/jquery.ForumExtensions.min.js": "Scripts/jquery.ForumExtensions.js",
                     "Scripts/jquery.ForumExtensionsDnn.min.js": "Scripts/jquery.ForumExtensionsDnn.js",
@@ -422,6 +476,15 @@ module.exports = function(grunt) {
 
         // CSS Minify
         cssmin: {
+            codeMirror: {
+                files: {
+                    "Content/codemirror.min.css": [
+                        "node_modules/codemirror/lib/codemirror.css",
+                        "node_modules/codemirror/theme/monokai.css",
+                        "node_modules/codemirror/addon/hint/show-hint.css"
+                    ]
+                }
+            },
             fileUpload: {
                 files: {
                     "Content/jquery.fileupload.comb.min.css": [
@@ -473,7 +536,7 @@ module.exports = function(grunt) {
                 options: {
                     reportUpdated: true,
                     updateType: "force",
-                    semver: false,
+                    semver: true,
                     packages: {
                         devDependencies: true, //only check for devDependencies
                         dependencies: true
@@ -524,6 +587,11 @@ module.exports = function(grunt) {
     grunt.registerTask("updateBootswatchThemes",
         [
             "copy:bootswatchThemes", "replace:bootswatch"
+        ]);
+
+    grunt.registerTask("updateFlagIcons",
+        [
+            "copy:flagIcons", "replace:flagIcons"
         ]);
 
     grunt.registerTask("emailTemplates",

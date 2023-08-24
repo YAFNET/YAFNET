@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -72,11 +72,7 @@ public partial class RunSql : AdminPage
     /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
     protected override void OnInit([NotNull] EventArgs e)
     {
-        this.editor = new CKEditorBBCodeEditorSql
-                          {
-                              UserCanUpload = false,
-                              MaxCharacters = int.MaxValue
-                          };
+        this.editor = new CodeMirrorSqlEditor();
 
         this.EditorLine.Controls.Add(this.editor);
 

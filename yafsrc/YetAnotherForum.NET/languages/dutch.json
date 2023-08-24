@@ -8103,6 +8103,10 @@
             "#text": "Veranderde Email"
           },
           {
+            "@tag": "CHARACTERS_LEFT",
+            "#text": "Characters remaining:"
+          },
+          {
             "@tag": "COMMON_WORDS",
             "#text": "uit,alsjeblieft,een,in staat,over,over,na,alle,bijna,ook,ik,onder,een,en,eventuele,worden,zoals,op,zijn,want,geweest,maar door,kan,kan niet,kon,lieve,ik,doe,doet,ofwel,anders,ooit,elke,voor,van,krijgen,kreeg,had,heeft,hebben,hij,haar,haar,hem,zijn,hoe echter,i,indien,in,naar,is het,haar,maar,althans,laten,waarschijnlijk zoals,,kan ik,misschien,de meeste,moet,mijn,noch,en ook niet,niet,van,uit,vaak op,alleen,of,andere,onze,eigen,nogal,zei,laten we zeggen,zegt ze,zou moeten,omdat,ja,sommigen dan,dat,de,hun,hen dan,daar,deze,zij,deze,tis,om,ook het was,ons,wil,was,we waren,wat,wanneer,waar,welke,terwijl die,wie,waarom,wil,met,zou,maar toch,u,uw"
           },
@@ -8491,12 +8495,20 @@
             "#text": "Kies taal voor tekstmarkering"
           },
           {
+            "@tag": "TT_COPY",
+            "#text": "Copy the selected text (Ctrl+C)"
+          },
+          {
             "@tag": "TT_CREATELINK",
             "#text": "Maak link"
           },
           {
             "@tag": "TT_CUSTOMBBCODE",
             "#text": "Meer BBCode Tags"
+          },
+          {
+            "@tag": "TT_CUT",
+            "#text": "Cut the selected text (Ctrl+X)"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8523,16 +8535,32 @@
             "#text": "Ongesorteerde lijst"
           },
           {
+            "@tag": "TT_PASTE",
+            "#text": "Paste (Ctrl+V)"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "Citeer"
           },
           {
-            "@tag": "TT_SAVE",
-            "#text": "Berichtconcept opslaan"
+            "@tag": "TT_REDO",
+            "#text": "Redo (Ctrl+Y)"
+          },
+          {
+            "@tag": "TT_REMOVE",
+            "#text": "Remove Format"
+          },
+          {
+            "@tag": "TT_SELECT_ALL",
+            "#text": "Select all"
           },
           {
             "@tag": "TT_UNDERLINE",
             "#text": "Onderstreep"
+          },
+          {
+            "@tag": "TT_UNDO",
+            "#text": "Undo (Ctrl+Z)"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8613,6 +8641,26 @@
           {
             "@tag": "YES",
             "#text": "Ja"
+          },
+          {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           }
         ]
       },

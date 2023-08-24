@@ -45,9 +45,8 @@ public partial class QuickReply : BaseUserControl
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
     protected override void OnInit([NotNull] EventArgs e)
     {
-        // Quick Reply Modification Begin
         this.quickReplyEditor =
-            new CKEditorBBCodeEditorBasic { MaxCharacters = this.PageBoardContext.BoardSettings.MaxPostSize };
+            new BBCodeEditorBasic { MaxCharacters = this.PageBoardContext.BoardSettings.MaxPostSize };
 
         base.OnInit(e);
     }

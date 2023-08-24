@@ -8115,6 +8115,10 @@
             "#text": "כתובת הדוא\"ל שונתה"
           },
           {
+            "@tag": "CHARACTERS_LEFT",
+            "#text": "Characters remaining:"
+          },
+          {
             "@tag": "COMMON_WORDS",
             "#text": "החוצה, בבקשה, מסוגל, בערך, מעבר, אחרי הכל, כמעט, גם, בין, וכל אחד, נמצא, כפי, נמצא, כי, היה, אבל, על ידי, יכול, לא יכול, יכול, יקירי, עשה, עושה, או, אחר, אי פעם, כל, עבור, מ, לקבל, קיבל, היה, יש, יש לו, הוא, שלה, שלה, שלו, שלו, איך, עם זאת, אני, אם, ב-into, האם, זה, רק, לפחות, תן, אוהב, סביר, עשוי, אני, עשוי, רוב, חייב, שלי, לא, לא, ולא, לא, של, כבוי, לעתים קרובות, מופעל, רק, או,אחר,שלנו,ליתר דיוק,אמר,אומר,אומרת,היא,צריכה,מאחר,ככה,כמה,מזה,שלהם,הם,אז,שם,אלה,הם,זה,זה,אל, גם אנחנו, רוצים, היינו, היינו, מה, מתי, איפה, איזה, בזמן, מי, מי, למה, יהיה, עם, עדיין, אתה, שלך"
           },
@@ -8503,12 +8507,20 @@
             "#text": "בחר שפה להדגשת תחביר"
           },
           {
+            "@tag": "TT_COPY",
+            "#text": "Copy the selected text (Ctrl+C)"
+          },
+          {
             "@tag": "TT_CREATELINK",
             "#text": "יצירת קישור"
           },
           {
             "@tag": "TT_CUSTOMBBCODE",
             "#text": "עוד תוויות BBCode"
+          },
+          {
+            "@tag": "TT_CUT",
+            "#text": "Cut the selected text (Ctrl+X)"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8535,16 +8547,32 @@
             "#text": "רשימה לא מסודרת"
           },
           {
+            "@tag": "TT_PASTE",
+            "#text": "Paste (Ctrl+V)"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "ציטוט"
           },
           {
-            "@tag": "TT_SAVE",
-            "#text": "שמור טיוטת הודעה"
+            "@tag": "TT_REDO",
+            "#text": "Redo (Ctrl+Y)"
+          },
+          {
+            "@tag": "TT_REMOVE",
+            "#text": "Remove Format"
+          },
+          {
+            "@tag": "TT_SELECT_ALL",
+            "#text": "Select all"
           },
           {
             "@tag": "TT_UNDERLINE",
             "#text": "קו תחתון"
+          },
+          {
+            "@tag": "TT_UNDO",
+            "#text": "Undo (Ctrl+Z)"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8625,6 +8653,26 @@
           {
             "@tag": "YES",
             "#text": "כן"
+          },
+          {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           }
         ]
       },

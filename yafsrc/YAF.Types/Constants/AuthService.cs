@@ -35,11 +35,6 @@ public enum AuthService
     facebook,
 
     /// <summary>
-    /// The twitter AUTH service
-    /// </summary>
-    twitter,
-
-    /// <summary>
     /// The google AUTH service
     /// </summary>
     google,

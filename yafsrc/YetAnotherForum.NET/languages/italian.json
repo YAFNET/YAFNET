@@ -8103,6 +8103,10 @@
             "#text": "Nuova email"
           },
           {
+            "@tag": "CHARACTERS_LEFT",
+            "#text": "Characters remaining:"
+          },
+          {
             "@tag": "COMMON_WORDS",
             "#text": "out,please,a,able,about,across,after,all,almost,also,am,among,an,and,any,are,as,at,be,because,been,but,by,can,cannot,could,dear,did,do,does,either,else,ever,every,for,from,get,got,had,have,he,her,hers,him,his,how,however,i,if,in,into,is,it,its,just,least,let,like,likely,may,me,potrebbe, più, deve, mio, né, no, né, non di, via, spesso, su, solo, o, altro, nostro, piuttosto, ha detto, dice, dice, dovrebbe, poiché, così, alcuni, che, il, loro, loro, allora, lì, questi, essi, questo, è, a, troppo, era, noi, vuole, era, eravamo, cosa, quando, dove, che, mentre, chi, chi, perché, volontà, con, sarebbe, ancora, voi, il vostro"
           },
@@ -8491,12 +8495,20 @@
             "#text": "Scegli una lingua per la correzione automatica"
           },
           {
+            "@tag": "TT_COPY",
+            "#text": "Copy the selected text (Ctrl+C)"
+          },
+          {
             "@tag": "TT_CREATELINK",
             "#text": "Crea il link"
           },
           {
             "@tag": "TT_CUSTOMBBCODE",
             "#text": "Altri tag BBCode"
+          },
+          {
+            "@tag": "TT_CUT",
+            "#text": "Cut the selected text (Ctrl+X)"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8523,16 +8535,32 @@
             "#text": "Elenco puntato"
           },
           {
+            "@tag": "TT_PASTE",
+            "#text": "Paste (Ctrl+V)"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "Citazione"
           },
           {
-            "@tag": "TT_SAVE",
-            "#text": "Salvare la bozza del messaggio"
+            "@tag": "TT_REDO",
+            "#text": "Redo (Ctrl+Y)"
+          },
+          {
+            "@tag": "TT_REMOVE",
+            "#text": "Remove Format"
+          },
+          {
+            "@tag": "TT_SELECT_ALL",
+            "#text": "Select all"
           },
           {
             "@tag": "TT_UNDERLINE",
             "#text": "Sottolineato"
+          },
+          {
+            "@tag": "TT_UNDO",
+            "#text": "Undo (Ctrl+Z)"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8613,6 +8641,26 @@
           {
             "@tag": "YES",
             "#text": "Sì"
+          },
+          {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           }
         ]
       },

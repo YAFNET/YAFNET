@@ -8099,6 +8099,10 @@
             "#text": "تغيير البريد الاكتروني"
           },
           {
+            "@tag": "CHARACTERS_LEFT",
+            "#text": "Characters remaining:"
+          },
+          {
             "@tag": "COMMON_WORDS",
             "#text": "خارج ، من فضلك ، قادر ، حول ، عبر ، بعد ، كل ، تقريبًا ، أيضًا ، بين ، و ، و ، أي ، كما ، في ، يكون ، لأنه ، كان ، ولكن ، من خلال ، يمكن ، "
           },
@@ -8487,12 +8491,20 @@
             "#text": "اختر لغة لإبراز بناء الجملة"
           },
           {
+            "@tag": "TT_COPY",
+            "#text": "Copy the selected text (Ctrl+C)"
+          },
+          {
             "@tag": "TT_CREATELINK",
             "#text": "انشاء رابط"
           },
           {
             "@tag": "TT_CUSTOMBBCODE",
             "#text": "المزيد من  كود (Tags)"
+          },
+          {
+            "@tag": "TT_CUT",
+            "#text": "Cut the selected text (Ctrl+X)"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8519,16 +8531,32 @@
             "#text": "قائمة غير مرتبة"
           },
           {
+            "@tag": "TT_PASTE",
+            "#text": "Paste (Ctrl+V)"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "إقتباس"
           },
           {
-            "@tag": "TT_SAVE",
-            "#text": "حفظ مسودة الرسالة"
+            "@tag": "TT_REDO",
+            "#text": "Redo (Ctrl+Y)"
+          },
+          {
+            "@tag": "TT_REMOVE",
+            "#text": "Remove Format"
+          },
+          {
+            "@tag": "TT_SELECT_ALL",
+            "#text": "Select all"
           },
           {
             "@tag": "TT_UNDERLINE",
             "#text": "أسفله خط"
+          },
+          {
+            "@tag": "TT_UNDO",
+            "#text": "Undo (Ctrl+Z)"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8609,6 +8637,26 @@
           {
             "@tag": "YES",
             "#text": "نعم"
+          },
+          {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           }
         ]
       },

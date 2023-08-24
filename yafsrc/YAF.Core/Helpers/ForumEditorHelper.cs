@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -38,6 +38,6 @@ public static class ForumEditorHelper
     /// </returns>
     public static ForumEditor GetCurrentForumEditor()
     {
-        return BoardContext.Current.Get<IModuleManager<ForumEditor>>().GetBy("4");
+        return BoardContext.Current.Get<IModuleManager<ForumEditor>>().GetBy("1");
     }
 }

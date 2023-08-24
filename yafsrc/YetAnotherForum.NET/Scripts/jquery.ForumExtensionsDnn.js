@@ -10488,6 +10488,17 @@ function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
                 listItem.append(data.IconImage);
                 list.append(listItem);
             });
+            var attachmentsPreviewList = [].slice.call(document.querySelectorAll(".attachments-preview"));
+            attachmentsPreviewList.map(function(attachmentsPreviewTrigger) {
+                return new bootstrap.Popover(attachmentsPreviewTrigger, {
+                    html: true,
+                    trigger: "hover",
+                    placement: "bottom",
+                    content: function() {
+                        return `<img src="${attachmentsPreviewTrigger.src}" class="img-fluid" />`;
+                    }
+                });
+            });
             setPageNumberAlbums(pageSize, pageNumber, data.TotalRecords);
             if (isPageChange) {
                 jQuery(".albums-toggle").dropdown("toggle");
@@ -10574,7 +10585,21 @@ function getPaginationData(pageSize, pageNumber, isPageChange) {
                 listItem.append(data.IconImage);
                 list.append(listItem);
             });
+            var attachmentsPreviewList = [].slice.call(document.querySelectorAll(".attachments-preview"));
+            attachmentsPreviewList.map(function(attachmentsPreviewTrigger) {
+                return new bootstrap.Popover(attachmentsPreviewTrigger, {
+                    html: true,
+                    trigger: "hover",
+                    placement: "bottom",
+                    content: function() {
+                        return `<img src="${attachmentsPreviewTrigger.src}" class="img-fluid" />`;
+                    }
+                });
+            });
             setPageNumberAttach(pageSize, pageNumber, data.TotalRecords);
+            if (isPageChange) {
+                jQuery(".attachments-toggle").dropdown("toggle");
+            }
         },
         error: function(request) {
             $("div#PostAttachmentLoader").hide();
@@ -10983,7 +11008,7 @@ document.addEventListener("DOMContentLoaded", function() {
             trigger: "hover",
             placement: "bottom",
             content: function() {
-                return '<img src="' + $(this).data("url") + '" class="img-fluid" />';
+                return `<img src="${attachmentsPreviewTrigger.dataset.url}" class="img-fluid" />`;
             }
         });
     });

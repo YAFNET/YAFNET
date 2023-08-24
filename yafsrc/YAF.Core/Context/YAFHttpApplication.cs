@@ -31,7 +31,6 @@ using System.Web.UI;
 using Autofac;
 
 using YAF.Core.Context.Start;
-using YAF.Types.Constants;
 
 /// <summary>
 /// The YAF HttpApplication.

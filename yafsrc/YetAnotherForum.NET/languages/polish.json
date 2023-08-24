@@ -8103,6 +8103,10 @@
             "#text": "Zmieniono e-mail"
           },
           {
+            "@tag": "CHARACTERS_LEFT",
+            "#text": "Characters remaining:"
+          },
+          {
             "@tag": "COMMON_WORDS",
             "#text": "się,proszę,w stanie,o,w poprzek,po wszystko,prawie,także jestem,wśród,,i,w ogóle,to,jak,co,się,bo było,ale przez,może,nie może,mógł,kochanie,nie,nie,nie,albo,w przeciwnym razie,nigdy,każdy,do,z,dostać,ale miał,ma,nie,on,ona,jej,jego,jego,jak,jednak,i,jeżeli,w,w,to,to,jego,tylko,najmniej,niech,jak,może,może,ja,może,najbardziej,należy,moim,nie,nie,nie,nie,o,u,często,na,tylko,lub inne,nasz,własny,raczej powiedział,powiedzmy,mówi ona,powinna,ponieważ,tak,niektórzy,niż,że,,ich,je,a następnie,nie,to,to,to,TIS,aby,też twas,nam,chce,,my,były,co,kiedy,gdzie,co,podczas gdy,kto,komu,dlaczego,będzie,z,by,mimo to,ty,twój"
           },
@@ -8491,12 +8495,20 @@
             "#text": "Wybierz język do kolorowania składni"
           },
           {
+            "@tag": "TT_COPY",
+            "#text": "Copy the selected text (Ctrl+C)"
+          },
+          {
             "@tag": "TT_CREATELINK",
             "#text": "Stwórz link"
           },
           {
             "@tag": "TT_CUSTOMBBCODE",
             "#text": "Więcej BBCode"
+          },
+          {
+            "@tag": "TT_CUT",
+            "#text": "Cut the selected text (Ctrl+X)"
           },
           {
             "@tag": "TT_HIGHLIGHT",
@@ -8523,16 +8535,32 @@
             "#text": "Lista punktowa"
           },
           {
+            "@tag": "TT_PASTE",
+            "#text": "Paste (Ctrl+V)"
+          },
+          {
             "@tag": "TT_QUOTE",
             "#text": "Cytat"
           },
           {
-            "@tag": "TT_SAVE",
-            "#text": "Zapisz wersję roboczą wiadomości"
+            "@tag": "TT_REDO",
+            "#text": "Redo (Ctrl+Y)"
+          },
+          {
+            "@tag": "TT_REMOVE",
+            "#text": "Remove Format"
+          },
+          {
+            "@tag": "TT_SELECT_ALL",
+            "#text": "Select all"
           },
           {
             "@tag": "TT_UNDERLINE",
             "#text": "Podkreślenie"
+          },
+          {
+            "@tag": "TT_UNDO",
+            "#text": "Undo (Ctrl+Z)"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8613,6 +8641,26 @@
           {
             "@tag": "YES",
             "#text": "Tak"
+          },
+          {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           }
         ]
       },

@@ -27,7 +27,6 @@ namespace YAF.Core.Services.CheckForSpam;
 using System;
 using System.IO;
 using System.Net;
-using System.Runtime.Serialization;
 
 using ServiceStack.Text;
 

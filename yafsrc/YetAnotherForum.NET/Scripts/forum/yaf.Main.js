@@ -134,9 +134,9 @@ document.addEventListener("DOMContentLoaded", function () {
         return new bootstrap.Popover(attachmentsPreviewTrigger,
             {
                 html: true,
-                trigger: 'hover',
-                placement: 'bottom',
-                content: function () { return '<img src="' + $(this).data('url') + '" class="img-fluid" />'; }
+                trigger: "hover",
+                placement: "bottom",
+                content: function () { return `<img src="${attachmentsPreviewTrigger.dataset.url}" class="img-fluid" />`; }
             });
     });
 

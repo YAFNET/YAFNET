@@ -25,8 +25,6 @@
 
 namespace YAF.Pages;
 
-using System.Web.UI.HtmlControls;
-
 using YAF.Controls;
 using YAF.Types.Exceptions;
 using YAF.Types.Models;
