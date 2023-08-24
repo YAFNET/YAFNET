@@ -1947,32 +1947,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets the editor toolbar full.
-    /// </summary>
-    public string EditorToolbarFull
-    {
-        get =>
-            this.Registry.GetValue(
-                "EditorToolbarFull",
-                "[\"Source\"],[\"Cut\", \"Copy\", \"Paste\"], [\"Undo\", \"Redo\", \"-\", \"Find\", \"Replace\", \"-\", \"SelectAll\", \"RemoveFormat\"],[\"About\"],\"/\",[\"Bold\", \"Italic\", \"Underline\", \"-\", \"TextColor\", \"FontSize\",\"highlight\"],[\"-\", \"JustifyLeft\", \"JustifyCenter\", \"JustifyRight\"],[\"-\", \"Outdent\", \"Indent\"],[\"EmojiPanel\"],[\"Table\"],[\"-\", \"Link\", \"Unlink\", \"-\", \"attachments\", \"-\", \"Image\", \"albumsbrowser\"], [\"-\", \"NumberedList\", \"BulletedList\"],[\"quote\", \"Syntaxhighlight\",\"bbcodeselector\"],[\"youtube\",\"vimeo\", \"instagram\", \"twitter\", \"facebook\"]");
-
-        set => this.Registry.SetValue("EditorToolbarFull", value);
-    }
-
-    /// <summary>
-    /// Gets or sets the editor toolbar basic.
-    /// </summary>
-    public string EditorToolbarBasic
-    {
-        get =>
-            this.Registry.GetValue(
-                "EditorToolbarBasic",
-                "[\"Source\"],[\"quote\"],[\"Bold\", \"Italic\", \"Underline\"],[\"Link\", \"Unlink\", \"Image\"]");
-
-        set => this.Registry.SetValue("EditorToolbarBasic", value);
-    }
-
-    /// <summary>
     /// Gets or sets the allowed file extensions.
     /// </summary>
     public string AllowedFileExtensions

@@ -1460,24 +1460,6 @@
                                       LocalizedPage="ADMIN_HOSTSETTINGS" />
             </div>
             <div class="card-body">
-                <div class="mb-3">
-                    <YAF:HelpLabel ID="HelpLabel87" runat="server"
-                                   AssociatedControlID="EditorToolbarBasic"
-                                   LocalizedTag="EDITOR_BASIC" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                    <asp:TextBox ID="EditorToolbarBasic" runat="server"
-                                 CssClass="form-control"
-                                 Height="150px"
-                                 TextMode="MultiLine"></asp:TextBox>
-                </div>
-                <div class="mb-3">
-                    <YAF:HelpLabel ID="HelpLabel37" runat="server"
-                                   AssociatedControlID="EditorToolbarFull"
-                                   LocalizedTag="EDITOR_FULL" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                    <asp:TextBox ID="EditorToolbarFull" runat="server"
-                                 CssClass="form-control"
-                                 Height="150px"
-                                 TextMode="MultiLine"></asp:TextBox>
-                </div>
             </div>
             <div class="card-footer text-lg-center">
                 <YAF:ThemeButton ID="ThemeButton6" runat="server"  Type="Primary" OnClick="SaveClick"
