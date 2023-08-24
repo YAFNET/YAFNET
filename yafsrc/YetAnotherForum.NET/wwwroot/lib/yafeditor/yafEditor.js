@@ -26,10 +26,10 @@
             } else if (e.which == 81) {
                 wrapSelection(this, "[quote]", "[/quote]");
             } else if (e.which == 13) {
-                if (document.querySelector('[id*="QuickReply"]') != null) {
-                    document.querySelector('[id*="QuickReply"]').click();
-                } else if (document.querySelector('[id*="PostReply"]') != null) {
-                    window.location.href = document.querySelector('[id*="PostReply"]').href;
+                if (document.getElementById("QuickReplyDialog") != null) {
+                    document.querySelector('[data-bs-save*="modal"]').click();
+                } else if (document.querySelector('[formaction*="PostReply"]') != null) {
+                    document.querySelector('[formaction*="PostReply"]').click();
                 }
             }
         }
