@@ -220,7 +220,14 @@ public class UpgradeService : IHaveServiceLocator
 
         this.AddOrUpdateExtensions();
 
-        this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);
+        try
+        {
+            this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);
+        }
+        catch (Exception)
+        {
+            this.GetRepository<Registry>().Save("cdvversion", 1);
+        }
 
         this.Get<IDataCache>().Remove(Constants.Cache.Version);
 
