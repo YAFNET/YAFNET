@@ -46,62 +46,12 @@ namespace YAF.Core.Services.Migrations
             dbAccess.Execute(
                 dbCommand =>
                 {
-                    UpgradeTable(this.GetRepository<User>(), dbCommand);
-                    UpgradeTable(this.GetRepository<Rank>(), dbCommand);
-                    UpgradeTable(this.GetRepository<Group>(), dbCommand);
                     UpgradeTable(this.GetRepository<PrivateMessage>(), dbAccess, dbCommand);
 
                     ///////////////////////////////////////////////////////////
 
                     return true;
                 });
-        }
-
-        /// <summary>Upgrades the User table.</summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="dbCommand">The db command.</param>
-        private static void UpgradeTable(IRepository<User> repository, IDbCommand dbCommand)
-        {
-            if (!dbCommand.Connection.ColumnExists<User>(x => x.DarkMode))
-            {
-                dbCommand.Connection.AddColumn<User>(x => x.DarkMode);
-            }
-
-            if (dbCommand.Connection.ColumnExists<User>("PMNotification"))
-            {
-                dbCommand.Connection.DropConstraint<User>(
-                    $"DF_{Config.DatabaseObjectQualifier}{nameof(User)}_PMNotification");
-
-                dbCommand.Connection.DropColumn<User>("PMNotification");
-            }
-        }
-
-        /// <summary>Upgrades the Rank table.</summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="dbCommand">The db command.</param>
-        private static void UpgradeTable(IRepository<Rank> repository, IDbCommand dbCommand)
-        {
-            if (dbCommand.Connection.ColumnExists<Rank>("PMLimit"))
-            {
-                dbCommand.Connection.DropConstraint<Rank>(
-                    $"DF_{Config.DatabaseObjectQualifier}{nameof(Rank)}_PMLimit");
-
-                dbCommand.Connection.DropColumn<Rank>("PMLimit");
-            }
-        }
-
-        /// <summary>Upgrades the Group table.</summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="dbCommand">The db command.</param>
-        private static void UpgradeTable(IRepository<Group> repository, IDbCommand dbCommand)
-        {
-            if (dbCommand.Connection.ColumnExists<Group>("PMLimit"))
-            {
-                dbCommand.Connection.DropConstraint<Group>(
-                    $"DF_{Config.DatabaseObjectQualifier}{nameof(Group)}_PMLimit");
-
-                dbCommand.Connection.DropColumn<Group>("PMLimit");
-            }
         }
 
         /// <summary>Upgrades the PrivateMessage table.</summary>
