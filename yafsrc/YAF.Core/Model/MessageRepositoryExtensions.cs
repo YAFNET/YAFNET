@@ -778,7 +778,7 @@ public static class MessageRepositoryExtensions
                                      (m.Flags & 8) != 8);
                         }
 
-                        expression.OrderByDescending(m => m.Posted);
+                        expression.OrderBy(m => m.Posted);
 
                         expression.Limit(1);
 
@@ -814,7 +814,7 @@ public static class MessageRepositoryExtensions
                                      m.Posted > lastRead);
                         }
 
-                        expression.OrderByDescending(m => m.Posted);
+                        expression.OrderBy(m => m.Posted);
 
                         expression.Limit(1);
 
@@ -845,7 +845,7 @@ public static class MessageRepositoryExtensions
                             m => m.TopicID == topicId && (m.Flags & 16) == 16 && (m.Flags & 8) != 8);
                     }
 
-                    expression.OrderByDescending(m => m.Posted);
+                    expression.OrderBy(m => m.Posted);
 
                     expression.Limit(1);
 
