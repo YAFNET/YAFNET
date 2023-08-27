@@ -181,7 +181,7 @@ public partial class EditMessage : ForumPage
 
             normal.Attributes.Add(
                 "data-content",
-                $"<span class='select2-image-select-icon'><i class='far fa-comment fa-fw text-secondary me-1'></i>{this.GetText("normal")}</span>");
+                $"<span class='select2-image-select-icon'><i class='far fa-comment fa-fw me-1'></i>{this.GetText("normal")}</span>");
 
             this.Priority.Items.Add(normal);
 
@@ -189,7 +189,7 @@ public partial class EditMessage : ForumPage
 
             sticky.Attributes.Add(
                 "data-content",
-                $"<span class='select2-image-select-icon'><i class='fas fa-thumbtack fa-fw text-secondary me-1'></i>{this.GetText("sticky")}</span>");
+                $"<span class='select2-image-select-icon'><i class='fas fa-thumbtack fa-fw me-1'></i>{this.GetText("sticky")}</span>");
 
             this.Priority.Items.Add(sticky);
 
@@ -197,7 +197,7 @@ public partial class EditMessage : ForumPage
 
             announcement.Attributes.Add(
                 "data-content",
-                $"<span class='select2-image-select-icon'><i class='fas fa-bullhorn fa-fw text-secondary me-1'></i>{this.GetText("announcement")}</span>");
+                $"<span class='select2-image-select-icon'><i class='fas fa-bullhorn fa-fw me-1'></i>{this.GetText("announcement")}</span>");
 
             this.Priority.Items.Add(announcement);
 

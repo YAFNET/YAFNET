@@ -97,7 +97,7 @@ public class IconHeader : BaseControl, ILocalizationSupport
 
         if (this.IconType.IsNotSet())
         {
-            this.IconType = "text-secondary";
+            //this.IconType = "text-secondary";
         }
 
         var icon = new Icon { IconName = this.IconName, IconType = this.IconType, IconSize = this.IconSize };

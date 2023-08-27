@@ -286,7 +286,6 @@ public static class RegistryRepositoryExtensions
             return DbVersionType.NewInstall;
         }
 
-
         return DbVersionType.Current;
     }
 

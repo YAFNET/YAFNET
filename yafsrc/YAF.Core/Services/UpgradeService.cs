@@ -474,7 +474,6 @@ public class UpgradeService : IHaveServiceLocator
                     this.GetRepository<Message>().UpdateOnly(
                         () => new Message { MessageText = updatedMessage.ToString() },
                         m => m.ID == message.ID);
-
                 });
     }
 }

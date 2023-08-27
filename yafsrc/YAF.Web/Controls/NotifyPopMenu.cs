@@ -50,7 +50,7 @@ public class NotifyPopMenu : BaseControl
 
         sb.Append("<div class=\"dropdown-item px-0\">");
 
-        sb.Append("<div id=\"AttachmentsListPager\"></div>");
+        sb.Append("<div id=\"NotifyListPager\" class=\"px-2 mx-2\"></div>");
         sb.Append("<div id=\"Loader\" class=\"px-2 mx-2\">");
         sb.AppendFormat(
             "<p class=\"text-center\"><span>{0}</span><br /><div class=\"fa-3x\"><i class=\"fas fa-spinner fa-pulse\"></i></div></p>",

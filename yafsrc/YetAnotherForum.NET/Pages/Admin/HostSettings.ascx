@@ -248,7 +248,9 @@
                                 <YAF:HelpLabel ID="HelpLabel2" runat="server"
                                                AssociatedControlID="ServerTimeCorrection"
                                                LocalizedTag="SERVERTIME_CORRECT" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <asp:TextBox CssClass="form-control serverTime-Input" ID="ServerTimeCorrection" runat="server"></asp:TextBox>
+                                <div class="input-group">
+                                    <asp:TextBox CssClass="form-control serverTime-Input" ID="ServerTimeCorrection" runat="server" TextMode="Number"></asp:TextBox>
+                                </div>
                                 <small class="form-text text-body-secondary"><%# DateTime.UtcNow %></small>
                             </div>
                             <asp:PlaceHolder runat="server" ID="SSLSettings">
