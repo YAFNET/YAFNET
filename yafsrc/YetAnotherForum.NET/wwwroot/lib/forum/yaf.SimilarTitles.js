@@ -1,59 +1,67 @@
-﻿// Generic Functions
-$(document).ready(function () {
-    if ($(".searchSimilarTopics").length) {
+﻿document.addEventListener("DOMContentLoaded", function () {
+    if (document.querySelector(".searchSimilarTopics") != null) {
 
-        $(".searchSimilarTopics").keyup(function () {
+        const input = document.querySelector(".searchSimilarTopics");
 
-            var input = $(".searchSimilarTopics"),
-                searchText = input.val(),
-                searchPlaceHolder = $("#SearchResultsPlaceholder");
+        input.addEventListener("keyup", () => {
+
+            const placeHolder = document.getElementById("SearchResultsPlaceholder"),
+                ajaxUrl = "/api/Search/GetSimilarTitles",
+                searchText = input.value;
 
             if (searchText.length && searchText.length >= 4) {
 
-                var searchTopic = {};
+                const searchTopic = {};
                 searchTopic.ForumId = 0;
                 searchTopic.PageSize = 0;
                 searchTopic.Page = 0;
                 searchTopic.SearchTerm = searchText;
 
-                var ajaxUrl = CKEDITOR.basePath.replace("js/ckeditor/", "") + "api/Search/GetSimilarTitles";
+                fetch(ajaxUrl,
+                    {
+                        method: "POST",
+                        body: JSON.stringify(searchTopic),
+                        headers: {
+                            Accept: "application/json",
+                            "Content-Type": "application/json;charset=utf-8",
+                            "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
+                        }
+                    }).then(res => res.json()).then(data => {
 
-                $.ajax({
-                    type: "POST",
-                    url: ajaxUrl,
-                    headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
-                    dataType: "json",
-                    data: JSON.stringify(searchTopic),
-                    contentType: "application/json; charset=utf-8",
-                    beforeSend: function() {
-                        searchPlaceHolder.empty();
-                        searchPlaceHolder.remove("list-group");
-                    },
-                    complete: function() {
-                    },
-                    success: function (data) {
-                        searchPlaceHolder.empty();
-                        searchPlaceHolder.remove("list-group");
+                        empty(placeHolder);
+
+                        placeHolder.classList.remove("list-group");
 
                         if (data.totalRecords > 0) {
-                            var list = $('<ul class="list-group list-similar" />');
-                            searchPlaceHolder.append(list);
+                            var list = document.createElement("ul");
 
-                            $.each(data.searchResults,
-                                function (id, data) {
-                                    list.append('<li class="list-group-item">' +
-                                        '<a href="' +
-                                        data.topicUrl +
-                                        '" target="_blank">' +
-                                        data.topic +
-                                        "</a></li>");
+                            list.classList.add("list-group");
+                            list.classList.add("list-similar");
+
+                            if (data.searchResults.length > 0) {
+                                const markRead = document.getElementById("MarkRead");
+
+                                markRead.classList.remove("d-none");
+                                markRead.classList.add("d-block");
+
+                                data.searchResults.forEach((dataItem) => {
+                                    var li = document.createElement("li");
+
+                                    li.classList.add("list-group-item");
+                                    li.classList.add("list-group-item-action");
+
+                                    li.innerHTML = `<a href="${dataItem.topicUrl}" target="_blank">${dataItem.topic}</a>`;
+
+                                    list.appendChild(li);
                                 });
+                            }
+
+                            placeHolder.appendChild(list);
                         }
-                    },
-                    error: function (request) {
-                        searchPlaceHolder.html(request.statusText).fadeIn(1000);
-                    }
-                });
+                    }).catch(function (error) {
+                        console.log(error);
+                        placeHolder.textContent = error;
+                    });
             }
 
         });

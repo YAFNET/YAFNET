@@ -26,6 +26,8 @@ namespace YAF.Core.Controllers;
 
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.OutputCaching;
+
 using YAF.Core.BasePages;
 using YAF.Types.Objects;
 
@@ -47,9 +49,10 @@ public class SearchController : ForumBaseController
     /// Returns the search Results.
     /// </returns>
     [ValidateAntiForgeryToken]
+    [OutputCache]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SearchGridDataSet))]
     [HttpPost("GetSimilarTitles")]
-    public Task<ActionResult<SearchGridDataSet>> GetSimilarTitles([FromRoute] SearchTopic searchTopic)
+    public Task<ActionResult<SearchGridDataSet>> GetSimilarTitles([FromBody] SearchTopic searchTopic)
     {
         var results = this.Get<ISearch>().SearchSimilar(
             string.Empty,

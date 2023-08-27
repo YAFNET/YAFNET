@@ -9844,6 +9844,14 @@
           {
             "@tag": "WATCHFORUM_ALL_HELP",
             "#text": "Xem tất cả các diễn đàn và nhận Thông báo qua email khi một Chủ đề mới được tạo"
+          },
+          {
+            "@tag": "MARK_ALL_ASREAD",
+            "#text": "Mark All As Read"
+          },
+          {
+            "@tag": "MARK_ASREAD",
+            "#text": "Mark As Read"
           }
         ]
       },

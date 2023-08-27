@@ -9836,6 +9836,14 @@
           {
             "@tag": "WATCHFORUM_ALL_HELP",
             "#text": "Bekijk alle forums en ontvang e-mailmeldingen wanneer een nieuw onderwerp wordt gemaakt"
+          },
+          {
+            "@tag": "MARK_ALL_ASREAD",
+            "#text": "Mark All As Read"
+          },
+          {
+            "@tag": "MARK_ASREAD",
+            "#text": "Mark As Read"
           }
         ]
       },

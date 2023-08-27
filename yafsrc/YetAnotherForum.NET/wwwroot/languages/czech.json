@@ -9848,6 +9848,14 @@
           {
             "@tag": "WATCHFORUM_ALL_HELP",
             "#text": "Sledujte všechna fóra a získejte e-mailová upozornění, když je vytvořeno nové téma"
+          },
+          {
+            "@tag": "MARK_ALL_ASREAD",
+            "#text": "Mark All As Read"
+          },
+          {
+            "@tag": "MARK_ASREAD",
+            "#text": "Mark As Read"
           }
         ]
       },

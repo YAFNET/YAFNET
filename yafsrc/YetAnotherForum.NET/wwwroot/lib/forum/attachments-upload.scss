@@ -1,9 +1,10 @@
 ﻿/* Attachments List Drop Down */
 
-
 #AttachmentsListPager {
     padding: 0 5px 0 5px;
 }
+
+.AlbumsList,
 .AttachmentList {
     list-style: none;
     padding: 0px 5px 4px 5px;
@@ -25,8 +26,8 @@
     }
 
     img {
-        width: 24px;
-        height: 24px;
+        width: 40px;
+        height: 40px;
         vertical-align: top;
         padding-right: 5px;
     }

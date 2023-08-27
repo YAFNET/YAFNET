@@ -9844,6 +9844,14 @@
           {
             "@tag": "WATCHFORUM_ALL_HELP",
             "#text": "Bevaka alla forum och få e-postmeddelanden när ett nytt ämne skapas"
+          },
+          {
+            "@tag": "MARK_ALL_ASREAD",
+            "#text": "Mark All As Read"
+          },
+          {
+            "@tag": "MARK_ASREAD",
+            "#text": "Mark As Read"
           }
         ]
       },

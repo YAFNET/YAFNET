@@ -1,15 +1,12 @@
-﻿.scroll-top {
-    display: none;
-    width: 100%;
-    margin: 0 auto;
-    position: fixed;
-    bottom: 20px;
-    right: 10px;
-}
-
-.btn-scroll {
+﻿.btn-scroll {
     position: fixed;
     right: 20px;
     bottom: 20px;
     z-index: 999;
+    opacity: 0;
+}
+
+.show-btn-scroll {
+    opacity: 1;
+    transform: translateY(0)
 }

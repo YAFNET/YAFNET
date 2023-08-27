@@ -13897,11 +13897,13 @@ body:last-child .blueimp-gallery-playing > .play-pause {
   padding: 0 5px 0 5px;
 }
 
+.AlbumsList,
 .AttachmentList {
   list-style: none;
   padding: 0px 5px 4px 5px;
   margin: -5px 0px 26px 0px;
 }
+.AlbumsList span,
 .AttachmentList span {
   width: 200px;
   display: inline-block;
@@ -13910,13 +13912,15 @@ body:last-child .blueimp-gallery-playing > .play-pause {
   -ms-text-overflow: ellipsis;
   text-overflow: ellipsis;
 }
+.AlbumsList .attachment-icon,
 .AttachmentList .attachment-icon {
   vertical-align: top;
   padding-right: 5px;
 }
+.AlbumsList img,
 .AttachmentList img {
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
   vertical-align: top;
   padding-right: 5px;
 }
@@ -14197,20 +14201,18 @@ div#UploadDialog {
   color: #ecf0f1;
 }
 
-.scroll-top {
-  display: none;
-  width: 100%;
-  margin: 0 auto;
-  position: fixed;
-  bottom: 20px;
-  right: 10px;
-}
-
 .btn-scroll {
   position: fixed;
   right: 20px;
   bottom: 20px;
   z-index: 999;
+  opacity: 0;
+}
+
+.show-btn-scroll {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+          transform: translateY(0);
 }
 
 .cke_button__attachments_icon,

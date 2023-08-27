@@ -9832,6 +9832,14 @@
           {
             "@tag": "WATCHFORUM_ALL_HELP",
             "#text": "شاهد جميع المنتديات واحصل على إشعارات بالبريد الإلكتروني عند إنشاء موضوع جديد"
+          },
+          {
+            "@tag": "MARK_ALL_ASREAD",
+            "#text": "Mark All As Read"
+          },
+          {
+            "@tag": "MARK_ASREAD",
+            "#text": "Mark As Read"
           }
         ]
       },

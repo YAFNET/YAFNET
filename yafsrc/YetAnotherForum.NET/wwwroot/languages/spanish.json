@@ -9836,6 +9836,14 @@
           {
             "@tag": "WATCHFORUM_ALL_HELP",
             "#text": "Vea todos los foros y reciba notificaciones por correo electrónico cuando se cree un nuevo tema"
+          },
+          {
+            "@tag": "MARK_ALL_ASREAD",
+            "#text": "Mark All As Read"
+          },
+          {
+            "@tag": "MARK_ASREAD",
+            "#text": "Mark As Read"
           }
         ]
       },

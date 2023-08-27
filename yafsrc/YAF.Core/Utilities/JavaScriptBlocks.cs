@@ -39,24 +39,28 @@ public static class JavaScriptBlocks
     /// <returns></returns>
     [NotNull]
     public static string ChangeImageCaptionJs =>
-        @"function changeImageCaption(imageID, txtTitleId){
-                        var newImgTitleTxt = $('#' + txtTitleId).val();
-              $.ajax({
-                    url: '/api/Album/ChangeImageCaption',
-                    headers: { ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() },
-                    type: 'POST',
-                    contentType: 'application/json;charset=utf-8',
-                    data: JSON.stringify({ ID: imageID, Caption: newImgTitleTxt  }),
-                    dataType: 'json',
-                    contentType: 'application/json',
-                    success: changeTitleSuccess,
-                    error: function(x, e)  {
-                             console.log('An Error has occurred!');
-                             console.log(x.responseText);
-                             console.log(x.status);
-                    }
-                 });
-               }";
+        """
+          function changeImageCaption(imageId, txtTitleId) {
+              const newImgTitleTxt = document.getElementById(txtTitleId).value;
+          
+              fetch("/api/Album/ChangeImageCaption",
+                      {
+                          method: "POST",
+                          body: JSON.stringify({ ImageId: imageId, NewCaption: newImgTitleTxt }),
+                          headers: {
+                              "Accept": "application/json",
+                              "Content-Type": "application/json;charset=utf-8",
+                              "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
+                          }
+                      }).then(res => res.json())
+                  .then(response => {
+                      changeTitleSuccess(response);
+                  }).catch(function(error) {
+                      errorLog(error);
+                  });
+          }
+      
+          """;
 
     /// <summary>
     ///   Gets the script for album/image title/image callback.
@@ -66,13 +70,16 @@ public static class JavaScriptBlocks
     /// </returns>
     [NotNull]
     public static string AlbumCallbackSuccessJs =>
-        @"function changeTitleSuccess(res){
-                  spnTitleVar = document.getElementById('spnTitle' + res.id);
-                  txtTitleVar =  document.getElementById('txtTitle' + res.id);
-                  spnTitleVar.firstChild.nodeValue = res.newTitle;
-                  txtTitleVar.disabled = false;
-                  spnTitleVar.style.display = 'inline';
-                  txtTitleVar.style.display='none';}";
+        """
+        function changeTitleSuccess(res){
+                          txtTitleVar =  document.getElementById("txtTitle" + res.Id);
+                          spnTitleVar = document.getElementById("spnTitle" + res.Id);
+                          txtTitleVar =  document.getElementById("txtTitle" + res.Id);
+                          spnTitleVar.firstChild.nodeValue = res.NewTitle;
+                          txtTitleVar.disabled = false;
+                          spnTitleVar.style.display = 'inline';
+                          txtTitleVar.style.display='none';}
+        """;
 
     /// <summary>
     /// Gets the multi quote callback success JS.
@@ -109,11 +116,7 @@ public static class JavaScriptBlocks
                             data: JSON.stringify(multiQuoteButton),
                             dataType: 'json',
                             success: multiQuoteSuccess,
-                            error: function(x, e)  {
-                                     console.log('An Error has occurred!');
-                                     console.log(x.responseText);
-                                     console.log(x.status);
-                            }
+                            error: errorLog
                          });
                 }";
 
@@ -159,11 +162,7 @@ public static class JavaScriptBlocks
                     }}
                     return JSON.stringify(query);
                 }},
-                error: function(x, e) {{
-                    console.log('An Error has occurred!');
-                    console.log(x.responseText);
-                    console.log(x.status);
-                }},
+                error: errorLog,
                 processResults: function(data, params) {{
                     params.page = params.page || 0;
 
@@ -618,11 +617,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                               $('.thanks-popover').popover({{
                                      template: '<div class=""popover"" role=""tooltip""><div class=""popover-arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body popover-body-scrollable""></div></div>'}});
                     }},
-                    error: function(x, e)  {{
-                             console.log('An Error has occurred!');
-                             console.log(x.responseText);
-                             console.log(x.status);
-                    }}
+                    error: errorLog
                  }});
                           
                  }}";
@@ -649,11 +644,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                               $('#dvThanksInfo' + response.messageID).html(response.thanksInfo);
                               $('#dvThankBox' + response.messageID).html({addThankBoxHtml});
                     }},
-                    error: function(x, e)  {{
-                             console.log('An Error has occurred!');
-                             console.log(x.responseText);
-                             console.log(x.status);
-                    }}
+                    error: errorLog
                  }});
                           
                  }}";
@@ -922,11 +913,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                       }}
                       return JSON.stringify(query);
                 }},
-                error: function(x, e)  {{
-                       console.log('An Error has occurred!');
-                       console.log(x.responseText);
-                       console.log(x.status);
-                }},
+                error: errorLog,
                 processResults: function(data, params) {{
                     params.page = params.page || 0;
 
@@ -1029,11 +1016,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                       }}
                       return query;
                 }},
-                error: function(x, e)  {{
-                       console.log('An Error has occurred!');
-                       console.log(x.responseText);
-                       console.log(x.status);
-                }},
+                error: errorLog,
                 processResults: function(data, params) {{
                     params.page = params.page || 0;
 
@@ -1601,11 +1584,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                       }}
                       return JSON.stringify(query);
                 }},
-                error: function(x, e)  {{
-                       console.log('An Error has occurred!');
-                       console.log(x.responseText);
-                       console.log(x.status);
-                }},
+                error: errorLog,
                 processResults: function(data, params) {{
                     params.page = params.page || 0;
 

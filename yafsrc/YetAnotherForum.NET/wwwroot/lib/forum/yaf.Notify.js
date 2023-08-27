@@ -1,49 +1,67 @@
 ﻿function getNotifyData(pageSize, pageNumber, isPageChange) {
-    var pagedResults = {};
+    const placeHolder = document.getElementById("NotifyListPlaceholder"),
+        list = placeHolder.querySelector("ul"),
+        yafUserId = placeHolder.dataset.userid,
+        pagedResults = {},
+        ajaxUrl = "/api/Notify/GetNotifications";
 
-    pagedResults.UserId = 0;
+    pagedResults.UserId = yafUserId;
     pagedResults.PageSize = pageSize;
     pagedResults.PageNumber = pageNumber;
 
-    var ajaxURL = "/api/Notify/GetNotifications";
+    fetch(ajaxUrl,
+        {
+            method: "POST",
+            body: JSON.stringify(pagedResults),
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json;charset=utf-8",
+                "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
+            }
+        }).then(res => res.json()).then(data => {
 
-    $.ajax({
-        type: "POST",
-        headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
-        url: ajaxURL,
-        data: JSON.stringify(pagedResults),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function(data) {
-            $("#NotifyListPlaceholder ul").empty();
+            empty(list);
 
-            $("#Loader").hide();
+            document.getElementById("Loader").style.display = "none";
 
             if (data.attachmentList.length > 0) {
-                $("#MarkRead").removeClass("d-none").addClass("d-block");
+                const markRead = document.getElementById("MarkRead");
 
-                $.each(data.attachmentList,
-                    function(id, data) {
-                        var list = $("#NotifyListPlaceholder ul"),
-                            listItem = $(
-                                '<li class="list-group-item list-group-item-action small text-wrap" style="width:15rem;" />');
+                markRead.classList.remove("d-none");
+                markRead.classList.add("d-block");
 
+                data.attachmentList.forEach((dataItem) => {
+                    var li = document.createElement("li");
 
-                        listItem.append(data.fileName);
+                    li.classList.add("list-group-item");
+                    li.classList.add("list-group-item-action");
+                    li.classList.add("small");
+                    li.classList.add("text-wrap");
 
-                        list.append(listItem);
-                    });
+                    li.style.width = "15rem";
+
+                    li.innerHTML = dataItem.fileName;
+
+                    list.appendChild(li);
+                });
+
+                setPageNumber(pageSize,
+                    pageNumber,
+                    data.totalRecords,
+                    document.getElementById("NotifyListPager"),
+                    "Notifications",
+                    "getNotifyData");
 
                 if (isPageChange) {
-                    $(".notify-toggle").dropdown("toggle");
+                    const toggleBtn = document.querySelector(".notify-toggle"),
+                        dropdownEl = new bootstrap.Dropdown(toggleBtn);
+
+                    dropdownEl.toggle();
                 }
             }
-        },
-        error: function (request) {
-            console.log(request);
-            $("#Loader").hide();
-
-            $("#NotifyListPlaceholder").html(request.statusText).fadeIn(1000);
-        }
-    });
+        }).catch(function (error) {
+            console.log(error);
+            document.getElementById("Loader").style.display = "none";
+            placeHolder.textContent = error;
+        });
 }

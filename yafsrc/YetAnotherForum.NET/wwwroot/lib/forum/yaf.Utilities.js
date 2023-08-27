@@ -4,65 +4,64 @@ function formatState(state) {
         return state.text;
     }
 
-    if ($($(state.element).data("content")).length === 0) {
+    if (state.element.dataset.content == null) {
         return state.text;
     }
 
-    var $state = $($(state.element).data("content"));
-    return $state;
+    const span = document.createElement("span");
+    span.innerHTML = state.element.dataset.content;
+
+    return span;
+}
+
+function errorLog(x) {
+    console.log("An Error has occurred!");
+    console.log(x.responseText);
+    console.log(x.status);
+}
+
+function wrap(el, wrapper) {
+    el.parentNode.insertBefore(wrapper, el);
+    wrapper.appendChild(el);
+}
+
+function empty(wrap) {
+    while (wrap.firstChild) wrap.removeChild(wrap.firstChild);
+}
+
+// Attachments/Albums Popover Preview
+function renderAttachPreview(previewClass) {
+    document.querySelectorAll(previewClass).forEach(attach => {
+        return new bootstrap.Popover(attach,
+            {
+                html: true,
+                trigger: "hover",
+                placement: "bottom",
+                content: function () { return `<img src="${attach.src}" class="img-fluid" />`; }
+            });
+    });
 }
 
 // Confirm Dialog
-$(document).on("click",
-    "[data-bs-toggle=\"confirm\"]",
-    function (e, confirmed) {
-        if (!confirmed) {
-            e.preventDefault();
-            var button = $(this);
+document.addEventListener("click", function (event) {
+    if (event.target.parentElement.matches('[data-bs-toggle="confirm"]')) {
+        event.preventDefault();
+        var button = event.target.parentElement;
 
-            var text = button.data("title");
-            var yes = button.data("yes");
-            var no = button.data("no");
+        const text = button.dataset.title,
+            yes = button.dataset.yes,
+            no = button.dataset.no,
+            title = button.innerHTML;
 
-            var title = button.html();
+        button.innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
 
-            // Add spinner
-            button.html(
-                "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading..."
-            );
-
-            bootboxConfirm(button, title, text,yes, no, function (r) {
-                if (r) {
-                    button.trigger('click', true);
-                }
-            });
-        }
+        bootboxConfirm(button, title, text, yes, no, function (r) {
+            if (r) {
+                button.click();
+            }
+        });
     }
-);
-
-$(".dropdown-menu button").on("click", function (e, confirmed) {
-    if (!confirmed) {
-
-        var button = $(e.currentTarget);
-        if (button.data("bs-toggle") !== undefined && button.data("bs-toggle") == "confirm") {
-
-
-            e.preventDefault();
-
-            var text = button.data("title");
-            var title = button.html();
-            var yes = button.data("yes");
-            var no = button.data("no");
-
-            bootboxConfirm(button, title, text, yes, no, function (r) {
-                if (r) {
-                    button.trigger("click", true);
-                }
-            });
-        }
-    }
-
-});
+}, false);
 
 var bootboxConfirm = function (button, title, message, yes, no, callback) {
     var options = {
@@ -72,15 +71,15 @@ var bootboxConfirm = function (button, title, message, yes, no, callback) {
     };
     options.buttons = {
         cancel: {
-            label: '<i class="fa fa-times"></i> ' + no,
+            label: `<i class="fa fa-times"></i> ${no}`,
             className: "btn-danger",
             callback: function (result) {
                 callback(false);
-                button.html(title);
+                button.innerHTML = title;
             }
         },
         main: {
-            label: '<i class="fa fa-check"></i> ' + yes,
+            label: `<i class="fa fa-check"></i> ${yes}`,
             className: "btn-success",
             callback: function (result) {
                 callback(true);
@@ -90,28 +89,39 @@ var bootboxConfirm = function (button, title, message, yes, no, callback) {
     bootbox.dialog(options);
 };
 
-
-$(window).scroll(function () {
-    if ($(this).scrollTop() > 50) {
-        $(".scroll-top:hidden").stop(true, true).fadeIn();
-    } else {
-        $(".scroll-top").stop(true, true).fadeOut();
-    }
-});
-$(function () {
-    $(".btn-scroll").click(function () {
-        $("html,body").animate({ scrollTop: $("header").offset().top }, "1000");
-        return false;
-    });
-});
-
-// Toggle password visibility
 document.addEventListener("DOMContentLoaded", function () {
+    // Scroll top button
+    var scrollToTopBtn = document.querySelector(".btn-scroll"), rootElement = document.documentElement;
 
+    function handleScroll() {
+        const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+        if ((rootElement.scrollTop / scrollTotal) > 0.15) {
+            // Show button
+            scrollToTopBtn.classList.add("show-btn-scroll");
+        } else {
+            // Hide button
+            scrollToTopBtn.classList.remove("show-btn-scroll");
+        }
+    }
+
+    function scrollToTop(e) {
+        e.preventDefault();
+
+        // Scroll to top logic
+        rootElement.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+
+    scrollToTopBtn.addEventListener("click", scrollToTop);
+    document.addEventListener("scroll", handleScroll);
+
+    // Toggle password visibility
     if (document.body.contains(document.getElementById("PasswordToggle"))) {
-        var passwordToggle = document.getElementById("PasswordToggle");
-        var icon = passwordToggle.querySelector("i");
-        var pass = document.querySelector("input[id*='Password']");
+        const passwordToggle = document.getElementById("PasswordToggle");
+        var icon = passwordToggle.querySelector("i"),
+        pass = document.querySelector("input[id*='Password']");
         passwordToggle.addEventListener("click", function (event) {
             event.preventDefault();
             if (pass.getAttribute("type") === "text") {

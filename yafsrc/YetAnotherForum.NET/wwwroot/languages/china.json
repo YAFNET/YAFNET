@@ -9844,6 +9844,14 @@
           {
             "@tag": "WATCHFORUM_ALL_HELP",
             "#text": "观看所有论坛并在创建新主题时收到电子邮件通知"
+          },
+          {
+            "@tag": "MARK_ALL_ASREAD",
+            "#text": "Mark All As Read"
+          },
+          {
+            "@tag": "MARK_ASREAD",
+            "#text": "Mark As Read"
           }
         ]
       },

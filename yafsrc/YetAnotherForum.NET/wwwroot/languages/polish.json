@@ -9840,6 +9840,14 @@
           {
             "@tag": "WATCHFORUM_ALL_HELP",
             "#text": "Obserwuj wszystkie fora i otrzymuj powiadomienia e-mail, gdy zostanie utworzony nowy wątek"
+          },
+          {
+            "@tag": "MARK_ALL_ASREAD",
+            "#text": "Mark All As Read"
+          },
+          {
+            "@tag": "MARK_ASREAD",
+            "#text": "Mark As Read"
           }
         ]
       },

@@ -9848,6 +9848,14 @@
           {
             "@tag": "WATCHFORUM_ALL_HELP",
             "#text": "צפה בכל הפורומים וקבל הודעות דוא&quot;ל כשנושא חדש נוצר"
+          },
+          {
+            "@tag": "MARK_ALL_ASREAD",
+            "#text": "Mark All As Read"
+          },
+          {
+            "@tag": "MARK_ASREAD",
+            "#text": "Mark As Read"
           }
         ]
       },
