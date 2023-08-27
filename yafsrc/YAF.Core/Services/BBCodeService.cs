@@ -795,15 +795,15 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
             if (messageId > 0)
             {
                 imageHtml =
-                    $"<a href=\"${{http}}${{inner}}\" data-gallery=\"#blueimp-gallery-{messageId}\"><img src=\"${{http}}${{inner}}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" style=\"max-height:${{height}}px;\"></a>";
+                    $"<a href=\"${{http}}${{inner}}\" data-gallery=\"#blueimp-gallery-{messageId}\"><img src=\"${{http}}${{inner}}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" onerror=\"this.style.display='none'\" style=\"max-height:${{height}}px;\"></a>";
                 imageHtmlWithDesc =
-                    $"<a href=\"${{http}}${{inner}}\" alt=\"${{description}}\" title=\"${{description}}\" data-gallery=\"#blueimp-gallery-{messageId}\"><img src=\"${{http}}${{inner}}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" style=\"max-height:${{height}}px;\"></a>";
+                    $"<a href=\"${{http}}${{inner}}\" alt=\"${{description}}\" title=\"${{description}}\" data-gallery=\"#blueimp-gallery-{messageId}\"><img src=\"${{http}}${{inner}}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" onerror=\"this.style.display='none'\" style=\"max-height:${{height}}px;\"></a>";
             }
             else
             {
-                imageHtml = "<img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" style=\"max-height:${height}px;\">";
+                imageHtml = "<img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" onerror=\"this.style.display='none'\" style=\"max-height:${height}px;\">";
                 imageHtmlWithDesc =
-                    "<img src=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" class=\"img-user-posted img-thumbnail\" style=\"max-height:${height}px;\">";
+                    "<img src=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" class=\"img-user-posted img-thumbnail\" onerror=\"this.style.display='none'\" style=\"max-height:${height}px;\">";
             }
 
             // image

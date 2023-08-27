@@ -65,6 +65,7 @@ public class EditMessageModel : ForumPage
     public EditMessageModel()
         : base("POSTMESSAGE", ForumPages.EditMessage)
     {
+        this.PageBoardContext.CurrentForumPage.PageTitle = this.GetText("EDIT");
     }
 
     /// <summary>

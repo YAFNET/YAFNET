@@ -1,0 +1,60 @@
+﻿@page
+@using YAF.Core.Context
+@using YAF.Types.Interfaces
+@using YAF.Web.HtmlHelpers
+
+@model YAF.Pages.Admin.EditUser.UsersChangePassModel
+
+@inject BoardContext Current
+
+@{
+    Layout = "_EditUserLayout";
+}
+
+<h2>
+    @Html.LocalizedText("ADMIN_EDITUSER", "HEAD_USER_CHANGEPASS")
+</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Input.UserId" value="@Model.Input.UserId" />
+    
+    <alert type="warning" icon="info-circle">
+        @Model.GetText("PASSWORD_REQUIREMENTS")
+        @Model.GetTextFormatted("PASS_REQUIREMENT",
+            Model.PageBoardContext.BoardSettings.MinRequiredPasswordLength,
+            1)
+    </alert>
+    
+    <hr />
+    <div class="row">
+        <div class="mb-3 col-md-4">
+            <label asp-for="Input.NewPassword" localized-page="ADMIN_EDITUSER" localized-tag="CHANGE_NEW_PASS" class="form-label">
+            </label>
+            <input asp-for="Input.NewPassword" class="form-control" />
+        </div>
+        <div class="mb-3 col-md-4">
+            <label asp-for="Input.NewPasswordConfirm" localized-page="ADMIN_EDITUSER" localized-tag="CHANGE_NEW_PASS" class="form-label">
+            </label>
+            <input asp-for="Input.NewPasswordConfirm" class="form-control" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <div class="form-check form-switch">
+            <input asp-for="Input.EmailNotify" class="form-check-input" role="switch"/>
+            <label asp-for="Input.EmailNotify" class="form-check-label"
+                   localized-page="ADMIN_EDITUSER"
+                   localized-tag="CHANGE_PASS_NOTIFICATION">
+            </label>
+        </div>
+    </div>
+    
+    <hr/>
+    <div class="text-lg-center">
+        <button asp-page-handler="ChangePassword"
+                button-style="Primary"
+                Icon="key"
+                text-localized-page="ADMIN_EDITUSER"
+                text-localized-tag="CHANGE_PASS"></button>
+    </div>
+</form>

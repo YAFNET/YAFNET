@@ -68,6 +68,7 @@ public class PostTopicModel : ForumPage
     public PostTopicModel()
         : base("POSTTOPIC", ForumPages.PostTopic)
     {
+        this.PageBoardContext.CurrentForumPage.PageTitle = this.GetText("NEWTOPIC");
     }
 
     /// <summary>

@@ -78,6 +78,10 @@
                         @if (!editUser.Item1.UserFlags.IsGuest)
                         {
                             <li class="nav-item">
+                                <button class="nav-link" data-bs-target="#View7" data-bs-toggle="tab" role="tab">
+                                    @Html.LocalizedText( "ADMIN_EDITUSER","USER_PASS")
+                                </button>
+                            </li><li class="nav-item">
                                 <button class="nav-link" data-bs-target="#View8" data-bs-toggle="tab" role="tab">
                                     @Html.LocalizedText( "ADMIN_EDITUSER","USER_SUSPEND")
                                 </button>
@@ -102,6 +106,7 @@
                             
                             @if (!editUser.Item1.UserFlags.IsGuest)
                             {
+                                <div class="tab-pane fade" id="View7" role="tabpanel"></div>
                                 <div class="tab-pane fade" id="View8" role="tabpanel"></div>
                                 <div class="tab-pane fade" id="View9" role="tabpanel"></div>
                             }

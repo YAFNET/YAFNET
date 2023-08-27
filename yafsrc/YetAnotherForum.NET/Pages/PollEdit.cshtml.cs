@@ -110,10 +110,14 @@ public class PollEditModel : ForumPage
             this.PollId = pollId.Value;
 
             this.PageBoardContext.PageLinks.AddLink(this.GetText("POLLEDIT", "EDITPOLL"), string.Empty);
+
+            this.PageBoardContext.CurrentForumPage.PageTitle = this.GetText("POLLEDIT", "EDITPOLL");
         }
         else
         {
             this.PageBoardContext.PageLinks.AddLink(this.GetText("POLLEDIT", "CREATEPOLL"), string.Empty);
+
+            this.PageBoardContext.CurrentForumPage.PageTitle = this.GetText("POLLEDIT", "CREATEPOLL");
         }
 
         List<Choice> choices;

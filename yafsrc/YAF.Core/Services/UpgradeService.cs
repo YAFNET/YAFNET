@@ -206,15 +206,11 @@ public class UpgradeService : IHaveServiceLocator
 
         this.AddOrUpdateExtensions();
 
-        var versionValue = this.GetRepository<Registry>().GetSingle(r => r.Name.ToLower() == "cdvversion");
-
-        if (versionValue != null)
+        try
         {
-            var cdvVersion = this.GetRepository<Registry>().GetSingle(r => r.Name.ToLower() == "cdvversion").Value.ToType<int>();
-
-            this.GetRepository<Registry>().Save("cdvversion", cdvVersion + 1);
+            this.GetRepository<Registry>().Save("cdvversion", this.Get<BoardSettings>().CdvVersion++);
         }
-        else
+        catch (Exception)
         {
             this.GetRepository<Registry>().Save("cdvversion", 1);
         }

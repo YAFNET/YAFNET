@@ -68,6 +68,7 @@ public class PostMessageModel : ForumPage
     public PostMessageModel()
         : base("POSTMESSAGE", ForumPages.PostMessage)
     {
+        this.PageBoardContext.CurrentForumPage.PageTitle = this.GetText("reply");
     }
 
     /// <summary>

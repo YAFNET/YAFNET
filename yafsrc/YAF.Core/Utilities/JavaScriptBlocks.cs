@@ -441,6 +441,20 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                             
                         }}
                         break;
+                    case ""#View7"":
+                        if ($('#View7').is(':empty')) {{
+                            $.ajax({{
+                                url: ""/Admin/EditUser/UsersChangePass"",
+                                type: ""GET"",
+                                data: {{ userId: {userId}}},
+                                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
+                                success: function (result) {{
+                                    $(""#View7"").html(result);
+                                }}
+                            }})
+                            
+                        }}
+                        break;
                     case ""#View8"":
                         if ($('#View8').is(':empty')) {{
                             $.ajax({{
