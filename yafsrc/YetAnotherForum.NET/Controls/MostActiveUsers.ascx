@@ -5,6 +5,7 @@
 <div class="card mb-3">
     <div class="card-header d-flex align-items-center">
         <YAF:IconHeader runat="server" ID="IconHeader"
+                        IconType="text-secondary"
                         IconName="chart-line"
                         IconSize="fa-2x"
                         LocalizedTag="MOST_ACTIVE"></YAF:IconHeader>

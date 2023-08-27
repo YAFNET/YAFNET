@@ -6,6 +6,7 @@
             <div class="card mb-3">
                         <div class="card-header d-flex align-items-center">
                             <YAF:IconHeader runat="server"
+                                            IconType="text-secondary"
                                             IconName="users"
                                             IconSize="fa-2x"
                                             LocalizedTag="ACTIVE_USERS" />
@@ -25,6 +26,7 @@
                 <div class="card mb-3">
                             <div class="card-header d-flex align-items-center">
                                 <YAF:IconHeader runat="server"
+                                                IconType="text-secondary"
                                                 IconName="users"
                                                 IconSize="fa-2x"
                                                 LocalizedTag="RECENT_USERS" />

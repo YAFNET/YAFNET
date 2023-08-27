@@ -8,6 +8,7 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <YAF:IconHeader runat="server" ID="IconHeader"
+                                    IconType="text-secondary"
                                     IconName="comments" LocalizedTag="TITLE" LocalizedPage="ADMIN_DELETEFORUM"></YAF:IconHeader>
                 </div>
                 <div class="card-body">

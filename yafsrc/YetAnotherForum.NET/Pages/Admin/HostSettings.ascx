@@ -116,6 +116,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         <YAF:IconHeader runat="server"
+                                        IconType="text-secondary"
                                         IconName="cog"
                                         LocalizedPage="ADMIN_HOSTSETTINGS"></YAF:IconHeader>
                         - <YAF:LocalizedLabel ID="LocalizedLabel56" runat="server" LocalizedTag="HEADER_SERVER_INFO" LocalizedPage="ADMIN_HOSTSETTINGS" />
@@ -170,6 +171,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         <YAF:IconHeader runat="server"
+                                        IconType="text-secondary"
                                         IconName="cog"
                                         LocalizedPage="ADMIN_HOSTSETTINGS"></YAF:IconHeader>
                         - <YAF:LocalizedLabel ID="LocalizedLabel58" runat="server"
@@ -661,6 +663,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         <YAF:IconHeader runat="server"
+                                        IconType="text-secondary"
                                         IconName="cog"
                                         LocalizedPage="ADMIN_HOSTSETTINGS"></YAF:IconHeader>
                         - <YAF:LocalizedLabel ID="LocalizedLabel60" runat="server"
@@ -1139,6 +1142,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         <YAF:IconHeader runat="server"
+                                        IconType="text-secondary"
                                         IconName="cog"
                                         LocalizedPage="ADMIN_HOSTSETTINGS"></YAF:IconHeader>
                         - <YAF:LocalizedLabel ID="LocalizedLabel62" runat="server"
@@ -1419,6 +1423,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         <YAF:IconHeader runat="server"
+                                        IconType="text-secondary"
                                         IconName="cog"
                                         LocalizedPage="ADMIN_HOSTSETTINGS"></YAF:IconHeader>
                         - <YAF:LocalizedLabel ID="LocalizedLabel64" runat="server"
@@ -1455,6 +1460,7 @@
         <div class="card mb-3">
             <div class="card-header">
                 <YAF:IconHeader runat="server"
+                                IconType="text-secondary"
                                 IconName="cog"
                                 LocalizedPage="ADMIN_HOSTSETTINGS"></YAF:IconHeader>
                 - <YAF:LocalizedLabel ID="LocalizedLabel66" runat="server"
@@ -1473,6 +1479,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         <YAF:IconHeader runat="server"
+                                        IconType="text-secondary"
                                         IconName="cog"
                                         LocalizedPage="ADMIN_HOSTSETTINGS"></YAF:IconHeader>
                         - <YAF:LocalizedLabel ID="LocalizedLabel68" runat="server"
@@ -1595,6 +1602,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         <YAF:IconHeader runat="server"
+                                        IconType="text-secondary"
                                         IconName="cog"
                                         LocalizedPage="ADMIN_HOSTSETTINGS"></YAF:IconHeader>
                         - <YAF:LocalizedLabel ID="LocalizedLabel72" runat="server"
@@ -1656,6 +1664,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         <YAF:IconHeader runat="server"
+                                        IconType="text-secondary"
                                         IconName="cog"
                                         LocalizedPage="ADMIN_HOSTSETTINGS"></YAF:IconHeader>
                         - <YAF:LocalizedLabel ID="LocalizedLabel74" runat="server"
@@ -1742,6 +1751,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         <YAF:IconHeader runat="server"
+                                        IconType="text-secondary"
                                         IconName="cog"
                                         LocalizedPage="ADMIN_HOSTSETTINGS"></YAF:IconHeader>
                         - <YAF:LocalizedLabel ID="LocalizedLabel76" runat="server"
@@ -1796,6 +1806,7 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <YAF:IconHeader runat="server"
+                                    IconType="text-secondary"
                                     IconName="cog"
                                     LocalizedPage="ADMIN_HOSTSETTINGS"></YAF:IconHeader>
                     - <YAF:LocalizedLabel ID="LocalizedLabel78" runat="server"

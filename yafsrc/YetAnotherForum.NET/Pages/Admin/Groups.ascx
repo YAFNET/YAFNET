@@ -9,6 +9,7 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <YAF:IconHeader runat="server"
+                                    IconType="text-secondary"
                                     IconName="users"
                                     LocalizedTag="PROVIDER_ROLES"
                                     LocalizedPage="ADMIN_GROUPS"></YAF:IconHeader>
@@ -74,6 +75,7 @@
         <div class="card mb-3">
                 <div class="card-header">
                     <YAF:IconHeader runat="server"
+                                    IconType="text-secondary"
                                     IconName="users"
                                     LocalizedTag="HEADER"
                                     LocalizedPage="ADMIN_GROUPS"></YAF:IconHeader>

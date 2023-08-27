@@ -90,6 +90,7 @@ public partial class EditUser : AdminPage
         this.GroupEditControl.User = this.EditBoardUser;
         this.UserPointsControl.User = this.EditBoardUser.Item1;
         this.KillEdit1.User = this.EditBoardUser;
+        this.ResestPassword.User = this.EditBoardUser;
 
         // do admin permission check...
         if (!this.PageBoardContext.PageUser.UserFlags.IsHostAdmin && this.EditBoardUser.Item1.UserFlags.IsHostAdmin)

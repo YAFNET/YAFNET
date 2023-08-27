@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.RulesAndPrivacy" Codebehind="RulesAndPrivacy.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.RulesAndPrivacy" Codebehind="RulesAndPrivacy.ascx.cs" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 <div class="row">
@@ -14,6 +14,7 @@
         <div class="card mb-3">
             <div class="card-header">
                 <YAF:IconHeader runat="server"
+                                IconType="text-secondary"
                                 IconName="user-secret"
                                 LocalizedTag="TITLE"
                                 LocalizedPage="RULES"/>

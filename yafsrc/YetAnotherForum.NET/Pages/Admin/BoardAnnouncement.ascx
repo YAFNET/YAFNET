@@ -7,6 +7,7 @@
         <div class="card">
             <div class="card-header">
                 <YAF:IconHeader runat="server" 
+                                IconType="text-secondary"
                                 IconName="bullhorn"
                                 LocalizedTag="ANNOUNCEMENT_TITLE" />
             </div>

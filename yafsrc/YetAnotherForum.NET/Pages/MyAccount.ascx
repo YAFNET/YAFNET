@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.MyAccount" Codebehind="MyAccount.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.MyAccount" Codebehind="MyAccount.ascx.cs" %>
 <%@ Register TagPrefix="YAF" TagName="ProfileYourAccount" Src="../controls/ProfileYourAccount.ascx" %>
 <%@ Register TagPrefix="YAF" TagName="ProfileTimeline" Src="../controls/ProfileTimeline.ascx" %>
 
@@ -14,6 +14,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         <YAF:IconHeader runat="server"
+                                        IconType="text-secondary"
                                         IconName="address-card"
                                         LocalizedTag="YOUR_ACCOUNT" />
                     </div>

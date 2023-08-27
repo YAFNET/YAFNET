@@ -8,6 +8,7 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <YAF:IconHeader runat="server"
+                                    IconType="text-secondary"
                                     IconName="envelope"
                                     LocalizedPage="ADMIN_DIGEST"></YAF:IconHeader>
                 </div>
@@ -39,6 +40,7 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <YAF:IconHeader runat="server"
+                                    IconType="text-secondary"
                                     IconName="envelope"
                                     LocalizedTag="HEADER2" 
                                     LocalizedPage="ADMIN_DIGEST"></YAF:IconHeader>
@@ -64,6 +66,7 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <YAF:IconHeader runat="server"
+                                    IconType="text-secondary"
                                     IconName="envelope"
                                     LocalizedTag="HEADER3" 
                                     LocalizedPage="ADMIN_DIGEST"></YAF:IconHeader>

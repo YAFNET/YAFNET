@@ -14,6 +14,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         <YAF:IconHeader runat="server"
+                                        IconType="text-secondary"
                                         IconName="user-lock"
                                         LocalizedTag="BLOCK_OPTIONS" />
                     </div>
@@ -56,6 +57,7 @@
         <div class="card mb-3">
             <div class="card-header">
                 <YAF:IconHeader runat="server"
+                                IconType="text-secondary"
                                 IconName="users"
                                 LocalizedTag="IGNORED_USERS" />
             </div>

@@ -7,6 +7,7 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <YAF:IconHeader runat="server"
+                                    IconType="text-secondary"
                                     IconName="plug"
                                     LocalizedTag="HEADER"
                                     LocalizedPage="ADMIN_BBCODE_EDIT"></YAF:IconHeader>

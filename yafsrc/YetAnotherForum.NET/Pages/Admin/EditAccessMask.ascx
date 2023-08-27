@@ -9,6 +9,7 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <YAF:IconHeader runat="server"
+                                    IconType="text-secondary"
                                     IconName="universal-access"
                                     LocalizedPage="ADMIN_EDITACCESSMASKS"></YAF:IconHeader>
                 </div>

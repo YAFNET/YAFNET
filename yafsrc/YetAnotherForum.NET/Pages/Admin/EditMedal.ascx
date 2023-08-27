@@ -15,6 +15,7 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <YAF:IconHeader runat="server"
+                                    IconType="text-secondary"
                                     IconName="medal"
                                     LocalizedPage="ADMIN_EDITMEDAL"></YAF:IconHeader>
                 </div>
@@ -110,6 +111,7 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <YAF:IconHeader runat="server"
+                                    IconType="text-secondary"
                                     IconName="medal"
                                     LocalizedTag="HEADER2"
                                     LocalizedPage="ADMIN_EDITMEDAL"></YAF:IconHeader>
@@ -212,6 +214,7 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <YAF:IconHeader runat="server"
+                                    IconType="text-secondary"
                                     IconName="medal"
                                     LocalizedTag="HEADER3"
                                     LocalizedPage="ADMIN_EDITMEDAL"></YAF:IconHeader>

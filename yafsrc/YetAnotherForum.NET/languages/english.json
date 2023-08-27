@@ -13863,6 +13863,10 @@
                     "#text": "Lost Password"
                 },
                 {
+                    "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+                    "#text": "Password Retrieval for {0} Forum"
+                },
+                {
                     "@tag": "USERNAME_FAILURE",
                     "#text": "Unable to locate the user name entered."
                 }

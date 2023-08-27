@@ -13,6 +13,7 @@
         <div class="card w-50 mx-auto">
             <div class="card-header">
                 <YAF:IconHeader runat="server"
+                                IconType="text-secondary"
                                 LocalizedTag="TITLE"
                                 LocalizedPage="ACCOUNT_RESEST_PASSWORD"
                                 IconName="key"/>

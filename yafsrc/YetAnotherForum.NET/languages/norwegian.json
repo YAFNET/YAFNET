@@ -8519,12 +8519,24 @@
             "#text": "Cut the selected text (Ctrl+X)"
           },
           {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "Fremheve"
           },
           {
             "@tag": "TT_IMAGE",
             "#text": "Sett inn bilde"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8569,6 +8581,14 @@
           {
             "@tag": "TT_UNDO",
             "#text": "Undo (Ctrl+Z)"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8649,26 +8669,6 @@
           {
             "@tag": "YES",
             "#text": "Ja"
-          },
-          {
-            "@tag": "TT_DESCRIPTION",
-            "#text": "Description"
-          },
-          {
-            "@tag": "TT_IMAGE_DESC",
-            "#text": "Enter Image Description:"
-          },
-          {
-            "@tag": "TT_IMAGE_TITLE",
-            "#text": "Enter Image Url:"
-          },
-          {
-            "@tag": "TT_URL_DESC",
-            "#text": "Enter URL Description:"
-          },
-          {
-            "@tag": "TT_URL_TITLE",
-            "#text": "Enter URL:"
           }
         ]
       },
@@ -13872,6 +13872,10 @@
           {
             "@tag": "USERNAME_FAILURE",
             "#text": "Kan ikke finne det oppgitte brukernavnet."
+          },
+          {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Password Retrieval for {0} Forum"
           }
         ]
       },

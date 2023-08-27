@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.RegisterUser" Codebehind="RegisterUser.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.RegisterUser" Codebehind="RegisterUser.ascx.cs" %>
 
 
 <YAF:PageLinks id="PageLinks" runat="server" />
@@ -8,6 +8,7 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <YAF:IconHeader runat="server"
+                                    IconType="text-secondary"
                                     IconName="user-plus"
                                     LocalizedTag="HEADER2" 
                                     LocalizedPage="ADMIN_REGUSER"></YAF:IconHeader>

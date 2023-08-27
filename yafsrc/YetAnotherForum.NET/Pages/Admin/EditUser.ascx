@@ -9,6 +9,7 @@
 <%@ Register TagPrefix="uc1" TagName="PointsEdit" Src="../../controls/EditUsersPoints.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="AvatarEdit" Src="../../controls/EditUsersAvatar.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="KillEdit" Src="../../controls/EditUsersKill.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="ResetPassword" Src="../../controls/EditUsersResetPass.ascx" %>
 
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
@@ -18,6 +19,7 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <YAF:IconHeader runat="server" ID="IconHeader"
+                                    IconType="text-secondary"
                                     IconName="user-edit"></YAF:IconHeader>
                 </div>
                 <div class="card-body">
@@ -74,6 +76,11 @@
                                     <YAF:LocalizedLabel ID="LocalizedLabel9" runat="server" LocalizedTag="USER_KILL" LocalizedPage="ADMIN_EDITUSER" />
                                 </a>
                             </li>
+                                <li class="nav-item" Visible="<%#!this.EditBoardUser.Item1.UserFlags.IsGuest%>">
+                                    <a class="nav-link" href="#View7" data-bs-toggle="tab" role="tab">
+                                        <YAF:LocalizedLabel ID="LocalizedLabel6" runat="server" LocalizedTag="USER_PASS" LocalizedPage="ADMIN_EDITUSER" />
+                                    </a>
+                                </li>
                             </asp:PlaceHolder>
                         </ul>
                         <div class="tab-content">
@@ -102,6 +109,9 @@
                                 <uc1:PointsEdit runat="server" ID="UserPointsControl" />
                             </div>
                             <asp:PlaceHolder runat="server" ID="FielsNoGuests" Visible="<%#!this.EditBoardUser.Item1.UserFlags.IsGuest%>">
+                                <div class="tab-pane fade" id="View7" role="tabpanel">
+                                    <uc1:ResetPassword ID="ResestPassword" runat="server" />
+                                </div>
                                 <div class="tab-pane fade" id="View8" role="tabpanel">
                                     <uc1:SuspendEdit runat="server" ID="SuspendUserControl" />
                                 </div>

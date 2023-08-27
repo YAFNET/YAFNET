@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.EmailTopic" Codebehind="EmailTopic.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.EmailTopic" Codebehind="EmailTopic.ascx.cs" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -15,6 +15,7 @@
         <div class="card mb-3">
             <div class="card-header">
                 <YAF:IconHeader runat="server"
+                                IconType="text-secondary"
                                 IconName="paper-plane" />
             </div>
             <div class="card-body">

@@ -16,6 +16,7 @@
         <div class="card mb-3">
             <div class="card-header">
                 <YAF:IconHeader runat="server"
+                                IconType="text-secondary"
                                 IconName="user-shield"
                                 LocalizedTag="Admins"
                                 LocalizedPage="TEAM"></YAF:IconHeader>
@@ -87,6 +88,7 @@
         <div class="card mb-3">
             <div class="card-header">
                 <YAF:IconHeader runat="server"
+                                IconType="text-secondary"
                                 IconName="user-secret"
                                 LocalizedTag="MODS"
                                 LocalizedPage="TEAM"></YAF:IconHeader>

@@ -11,6 +11,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         <YAF:IconHeader runat="server"
+                                        IconType="text-secondary"
                                         IconName="comment"
                                         LocalizedTag="LAST10" />
                     </div>

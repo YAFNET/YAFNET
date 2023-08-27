@@ -132,6 +132,15 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel9;
 
         /// <summary>
+        /// LocalizedLabel6-Steuerelement.
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld.
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
+
+        /// <summary>
         /// QuickEditControl-Steuerelement.
         /// </summary>
         /// <remarks>
@@ -211,6 +220,15 @@ namespace YAF.Pages.Admin
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder FielsNoGuests;
+
+        /// <summary>
+        /// ResestPassword-Steuerelement.
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld.
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Controls.EditUsersResetPass ResestPassword;
 
         /// <summary>
         /// SuspendUserControl-Steuerelement.

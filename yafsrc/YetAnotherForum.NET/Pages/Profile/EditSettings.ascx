@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Profile.EditSettings" Codebehind="EditSettings.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Profile.EditSettings" Codebehind="EditSettings.ascx.cs" %>
 <%@ Register TagPrefix="YAF" TagName="ProfileSettings" Src="../../controls/EditUsersSettings.ascx" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
@@ -11,6 +11,7 @@
         <div class="card">
             <div class="card-header">
                 <YAF:IconHeader runat="server"
+                                IconType="text-secondary"
                                 IconName="user-cog"
                                 LocalizedTag="EDIT_SETTINGS" />
             </div>

@@ -10,6 +10,7 @@
             <div class="card text-bg-light mb-3">
                 <div class="card-header">
                     <YAF:IconHeader runat="server"
+                                    IconType="text-secondary"
                                     IconName="question-circle"
                                     LocalizedTag="question" />:
                     <asp:Label ID="QuestionLabel" runat="server" />

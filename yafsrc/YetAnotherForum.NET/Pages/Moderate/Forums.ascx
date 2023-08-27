@@ -17,6 +17,7 @@
         <div class="card mb-3">
             <div class="card-header">
                 <YAF:IconHeader runat="server"
+                                IconType="text-secondary"
                                 IconName="user-secret"
                                 LocalizedTag="MEMBERS" 
                                 LocalizedPage="MODERATE"/>
@@ -78,6 +79,7 @@
                 <div class="row justify-content-between align-items-center">
                     <div class="col-auto">
                         <YAF:IconHeader runat="server"
+                                        IconType="text-secondary"
                                         IconName="tasks"
                                         LocalizedTag="title" 
                                         LocalizedPage="MODERATE"/>

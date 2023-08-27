@@ -9,6 +9,7 @@
             <div class="card mb-3">
                 <div class="card-header">
                     <YAF:IconHeader runat="server" ID="IconHeader"
+                                    IconType="text-secondary"
                                     IconName="comments"></YAF:IconHeader>
                 </div>
                 <asp:Panel CssClass="card-body" runat="server" ID="Body">

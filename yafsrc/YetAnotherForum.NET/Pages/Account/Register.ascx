@@ -8,6 +8,7 @@
         <div class="card">
             <div class="card-header">
                 <YAF:IconHeader runat="server"
+                                IconType="text-secondary"
                                 LocalizedTag="CREATE_USER"
                                 IconName="user-plus"/>
             </div>

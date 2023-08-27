@@ -8,6 +8,7 @@
         <div class="card mb-3">
             <div class="card-header">
                 <YAF:IconHeader runat="server" ID="IconHeader"
+                                IconType="text-secondary"
                                 IconName="language"
                                 LocalizedPage="ADMIN_VERSION"></YAF:IconHeader>
             </div>

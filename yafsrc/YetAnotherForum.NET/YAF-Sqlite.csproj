@@ -193,6 +193,12 @@
     <Compile Include="Controls\EditUsersAttachments.ascx.designer.cs">
       <DependentUpon>EditUsersAttachments.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Controls\EditUsersResetPass.ascx.cs">
+      <DependentUpon>EditUsersResetPass.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\EditUsersResetPass.ascx.designer.cs">
+      <DependentUpon>EditUsersResetPass.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Controls\OpenAuthProviders.ascx.cs">
       <DependentUpon>OpenAuthProviders.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1932,6 +1938,7 @@
       <DependentUpon>bootstrap-forum.css</DependentUpon>
     </Content>
     <Content Include="Controls\EditUsersAttachments.ascx" />
+    <Content Include="Controls\EditUsersResetPass.ascx" />
     <Content Include="Controls\OpenAuthProviders.ascx" />
     <Content Include="Controls\MostActiveUsers.ascx" />
     <Content Include="Controls\TopicTags.ascx" />
@@ -2898,7 +2905,7 @@ xcopy "$(SolutionDir)YAF.Data\YAF.Data.Sqlite\bin\Release\net48\x64\SQLite.Inter
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

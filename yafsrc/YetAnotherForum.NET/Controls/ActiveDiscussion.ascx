@@ -6,6 +6,7 @@
         <div class="card-header d-flex align-items-center">
             <YAF:IconHeader runat="server"
                             IconName="comments"
+                            IconType="text-secondary"
                             IconSize="fa-2x"
                             LocalizedTag="ACTIVE_DISCUSSIONS" />
             </div>

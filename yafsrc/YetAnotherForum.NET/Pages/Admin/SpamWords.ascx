@@ -13,6 +13,7 @@
                 <div class="row justify-content-between align-items-center">
                     <div class="col-auto">
                         <YAF:IconHeader runat="server"
+                                        IconType="text-secondary"
                                         IconName="shield-alt"
                                         LocalizedPage="ADMIN_SPAMWORDS"></YAF:IconHeader>
                     </div>

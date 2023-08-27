@@ -8523,12 +8523,24 @@
             "#text": "Cut the selected text (Ctrl+X)"
           },
           {
+            "@tag": "TT_DESCRIPTION",
+            "#text": "Description"
+          },
+          {
             "@tag": "TT_HIGHLIGHT",
             "#text": "שִׂיא"
           },
           {
             "@tag": "TT_IMAGE",
             "#text": "הוספת תמונה"
+          },
+          {
+            "@tag": "TT_IMAGE_DESC",
+            "#text": "Enter Image Description:"
+          },
+          {
+            "@tag": "TT_IMAGE_TITLE",
+            "#text": "Enter Image Url:"
           },
           {
             "@tag": "TT_IPDETAILS",
@@ -8573,6 +8585,14 @@
           {
             "@tag": "TT_UNDO",
             "#text": "Undo (Ctrl+Z)"
+          },
+          {
+            "@tag": "TT_URL_DESC",
+            "#text": "Enter URL Description:"
+          },
+          {
+            "@tag": "TT_URL_TITLE",
+            "#text": "Enter URL:"
           },
           {
             "@tag": "UNREAD_MENTION_MSG",
@@ -8653,26 +8673,6 @@
           {
             "@tag": "YES",
             "#text": "כן"
-          },
-          {
-            "@tag": "TT_DESCRIPTION",
-            "#text": "Description"
-          },
-          {
-            "@tag": "TT_IMAGE_DESC",
-            "#text": "Enter Image Description:"
-          },
-          {
-            "@tag": "TT_IMAGE_TITLE",
-            "#text": "Enter Image Url:"
-          },
-          {
-            "@tag": "TT_URL_DESC",
-            "#text": "Enter URL Description:"
-          },
-          {
-            "@tag": "TT_URL_TITLE",
-            "#text": "Enter URL:"
           }
         ]
       },
@@ -13884,6 +13884,10 @@
           {
             "@tag": "USERNAME_FAILURE",
             "#text": "שם המשתמש אינו קיים במערכת."
+          },
+          {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Password Retrieval for {0} Forum"
           }
         ]
       },

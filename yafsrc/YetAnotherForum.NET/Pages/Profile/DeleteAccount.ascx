@@ -12,6 +12,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         <YAF:IconHeader runat="server"
+                                        IconType="text-secondary"
                                         IconName="user-alt-slash"
                                         LocalizedPage="DELETE_ACCOUNT" />
                     </div>

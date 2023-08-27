@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Cookies" Codebehind="Cookies.ascx.cs" %>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Cookies" Codebehind="Cookies.ascx.cs" %>
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
 
@@ -14,6 +14,7 @@
         <div class="card mb-3">
             <div class="card-header">
                 <YAF:IconHeader runat="server"
+                                IconType="text-secondary"
                                 IconName="cookie"></YAF:IconHeader>
             </div>
             <div class="card-body">

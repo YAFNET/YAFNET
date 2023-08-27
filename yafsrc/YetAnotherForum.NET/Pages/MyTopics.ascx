@@ -8,6 +8,7 @@
                 <div class="row justify-content-between align-items-center">
                     <div class="col-auto">
                         <YAF:IconHeader runat="server" ID="IconHeader"
+                                        IconType="text-secondary"
                                         IconName="comments"
                                         LocalizedPage="MYTOPICS"
                                         LocalizedTag="MEMBERTITLE" />

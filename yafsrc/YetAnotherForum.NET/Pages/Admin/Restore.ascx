@@ -14,6 +14,7 @@
                 <div class="row justify-content-between align-items-center">
                     <div class="col-auto">
                         <YAF:IconHeader runat="server"
+                                        IconType="text-secondary"
                                         IconName="trash-restore"
                                         LocalizedPage="ADMIN_RESTORE"></YAF:IconHeader>
                     </div>
@@ -152,6 +153,7 @@
                 <div class="row justify-content-between align-items-center">
                     <div class="col-auto">
                         <YAF:IconHeader runat="server"
+                                        IconType="text-secondary"
                                         IconName="trash-restore"
                                         LocalizedTag="TITLE_MESSAGE"
                                         LocalizedPage="ADMIN_RESTORE"></YAF:IconHeader>

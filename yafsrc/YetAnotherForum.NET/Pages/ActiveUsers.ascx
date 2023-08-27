@@ -14,6 +14,7 @@
                 <div class="row justify-content-between align-items-center">
                     <div class="col-auto">
                         <YAF:IconHeader runat="server"
+                                        IconType="text-secondary"
                                         IconName="users" LocalizedTag="TITLE" LocalizedPage="ACTIVEUSERS"></YAF:IconHeader>
                     </div>
                     <div class="col-auto">

@@ -18,6 +18,7 @@
                 <div class="card mb-3">
                     <div class="card-header">
                         <YAF:IconHeader runat="server"
+                                        IconType="text-secondary"
                                         IconName="envelope"
                                         LocalizedPage="SUBSCRIPTIONS"/>
                     </div>
@@ -67,6 +68,7 @@
                             <div class="row justify-content-between align-items-center">
                                 <div class="col-auto">
                                     <YAF:IconHeader runat="server"
+                                                    IconType="text-secondary"
                                                     IconName="comments"
                                                     LocalizedTag="FORUMS"
                                                     LocalizedPage="SUBSCRIPTIONS"/>
@@ -136,6 +138,7 @@
                             <div class="row justify-content-between align-items-center">
                                 <div class="col-auto">
                                     <YAF:IconHeader runat="server"
+                                                    IconType="text-secondary"
                                                     IconName="comment"
                                                     LocalizedTAG="TOPICS"
                                                     LocalizedPage="SUBSCRIPTIONS" />

@@ -269,6 +269,7 @@
                             <div class="row justify-content-between align-items-center">
                                 <div class="col-auto">
                                     <YAF:IconHeader runat="server"
+                                                    IconType="text-secondary"
                                                     IconName="users"
                                                     LocalizedTag="HEADER1"
                                                     LocalizedPage="ADMIN_ADMIN"></YAF:IconHeader>
@@ -352,6 +353,7 @@
                             <div class="row justify-content-between align-items-center">
                                 <div class="col-auto">
                                     <YAF:IconHeader runat="server"
+                                                    IconType="text-secondary"
                                                     IconName="user-plus"
                                                     LocalizedTag="HEADER2"
                                                     LocalizedPage="ADMIN_ADMIN"></YAF:IconHeader>

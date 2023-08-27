@@ -7,6 +7,7 @@
          <div class="card mb-3">
              <div class="card-header">
                  <YAF:IconHeader runat="server"
+                                 IconType="text-secondary"
                                  IconName="cogs"
                                  LocalizedTag="BOARD_SETUP"
                                  LocalizedPage="ADMIN_BOARDSETTINGS"></YAF:IconHeader>

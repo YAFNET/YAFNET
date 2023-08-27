@@ -7,6 +7,7 @@
         <div class="card mb-3">
             <div class="card-header">
                 <YAF:IconHeader runat="server"
+                                IconType="text-secondary"
                                 IconName="database"
                                 LocalizedTag="admin_reindex"
                                 LocalizedPage="ADMINMENU"></YAF:IconHeader>

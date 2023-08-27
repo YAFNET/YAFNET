@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True"
+﻿<%@ Control Language="c#" AutoEventWireup="True"
     Inherits="YAF.Pages.Profile.EditProfile" Codebehind="EditProfile.ascx.cs" %>
 
 <%@ Register TagPrefix="YAF" TagName="ProfileEdit" Src="../../controls/EditUsersProfile.ascx" %>
@@ -13,6 +13,7 @@
         <div class="card">
             <div class="card-header">
                 <YAF:IconHeader runat="server"
+                                IconType="text-secondary"
                                 IconName="user-edit"
                                 LocalizedTag="EDIT_PROFILE" />
             </div>

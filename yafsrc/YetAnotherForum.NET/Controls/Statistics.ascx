@@ -3,6 +3,7 @@
 <div class="card mb-3">
             <div class="card-header d-flex align-items-center">
                 <YAF:IconHeader runat="server"
+                                IconType="text-secondary"
                                 IconName="chart-bar"
                                 IconSize="fa-2x"
                                 LocalizedTag="STATS" />

@@ -9,6 +9,7 @@
         <div class="card mx-auto" style="max-width:450px">
             <div class="card-header">
                 <YAF:IconHeader runat="server"
+                                IconType="text-secondary"
                                 LocalizedPage="LOGIN"
                                 LocalizedTag="TITLE"
                                 IconName="sign-in-alt"></YAF:IconHeader>
