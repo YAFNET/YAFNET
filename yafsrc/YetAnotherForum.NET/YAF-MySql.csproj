@@ -2176,9 +2176,11 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\codemirror.min.js" />
+    <Content Include="Scripts\forum\bootstrap-touchspin.js" />
     <Content Include="Scripts\forum\yaf.Albums.js" />
     <Content Include="Scripts\forum\yaf.Notify.js" />
     <Content Include="Scripts\forum\yaf.contextMenu.js" />
+    <Content Include="Scripts\forum\yaf.Paging.js" />
     <Content Include="Scripts\forum\yaf.SearchResults.js" />
     <Content Include="Scripts\forum\yaf.SimilarTitles.js" />
     <Content Include="Scripts\InstallWizard.comb.js" />
@@ -2192,7 +2194,6 @@
     <Content Include="Scripts\jquery.min.map">
       <DependentUpon>jquery.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery.bootstrap-touchspin.js" />
     <Content Include="Scripts\jquery.FileUpload\canvas-to-blob.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-audio.js" />
     <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-image.js" />

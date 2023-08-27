@@ -3,6 +3,8 @@ YetAnotherForum.NET Changelog
 
 # YetAnotherForum.NET v3.1.15
 * [FIXED #941] Replacing the CKEditor with the (old) improved BBCode Editor
+* [FIXED] Upgrade process
+* [FIXED #785] Admin can now change user passwords
 * [NEW] UserAgents can be banned
 * bug fixes
 

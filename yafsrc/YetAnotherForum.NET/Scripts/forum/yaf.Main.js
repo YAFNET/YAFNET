@@ -1,46 +1,27 @@
 ﻿// Generic Functions
-$(document).ready(function () {
-    $("a.btn-login,input.btn-login, .btn-spinner").click(function () {
-        // add spinner to button
-        $(this).html(
-            "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading..."
-        );
-    });
+document.addEventListener("DOMContentLoaded", function () {
+    if (document.querySelector("a.btn-login,input.btn-login, .btn-spinner") != null) {
+        document.querySelector("a.btn-login,input.btn-login, .btn-spinner").click(function () {
+            document.querySelector(this).innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
+        });
+    }
 
     // Main Menu
-    $(".dropdown-menu a.dropdown-toggle").on("click", function (e) {
-        var $el = $(this), $subMenu = $el.next();
+    document.querySelectorAll(".dropdown-menu a.dropdown-toggle").forEach(menu => {
+        menu.addEventListener("click", (event) => {
+            var $el = menu, $subMenu = $el.nextElementSibling;
 
-        $(".dropdown-menu").find(".show").removeClass("show");
-
-        $subMenu.addClass("show");
-
-        $subMenu.css({ "top": $el[0].offsetTop - 10, "left": $el.outerWidth() - 4 });
-
-        e.stopPropagation();
-    });
-
-
-    // Numeric Spinner Inputs
-    $("input[type='number']").each(function () {
-
-        if ($(this).hasClass("form-control-days")) {
-            var holder = $(this);
-
-            $(this).TouchSpin({
-                min: holder.data("min"),
-                max: 2147483647
+            document.querySelectorAll(".dropdown-menu .show").forEach(dropDownMenu => {
+                dropDownMenu.classList.remove("show");
             });
-        } else {
-            $(this).TouchSpin({
-                max: 2147483647
-            });
-        }
-    });
 
-    $(".serverTime-Input").TouchSpin({
-        min: -720,
-        max: 720
+            $subMenu.classList.add("show");
+
+            $subMenu.style.top = $el.offsetTop - 10;
+            $subMenu.style.left = $el.offsetWidth - 4;
+
+            event.stopPropagation();
+        });
     });
 
     $(".yafnet .select2-select").each(function () {
@@ -84,94 +65,68 @@ $(document).ready(function () {
         });
     });
 
-    if ($("#PostAttachmentListPlaceholder").length) {
-        var pageSize = 5;
-        var pageNumber = 0;
+    if (document.getElementById("PostAttachmentListPlaceholder") != null) {
+        const pageSize = 5;
+        const pageNumber = 0;
         getPaginationData(pageSize, pageNumber, false);
     }
 
-    if ($("#SearchResultsPlaceholder").length) {
-
-        $(".searchInput").keypress(function (e) {
-
+    if (document.getElementById("SearchResultsPlaceholder") != null && document.querySelector(".searchInput") != null) {
+        document.querySelector(".searchInput").addEventListener("keypress", (e) => {
             var code = e.which;
-
             if (code === 13) {
                 e.preventDefault();
-
-                var pageNumberSearch = 0;
+                const pageNumberSearch = 0;
                 getSearchResultsData(pageNumberSearch);
             }
-
-         });
+        });
     }
 
     // Notify dropdown
-    $(".dropdown-notify").on("show.bs.dropdown",
-        function() {
+    document.querySelector(".dropdown-notify").addEventListener("show.bs.dropdown",
+        () => {
             var pageSize = 5;
             var pageNumber = 0;
             getNotifyData(pageSize, pageNumber, false);
         });
 
-    $(".form-check > input").addClass("form-check-input");
-    $(".form-check li > input").addClass("form-check-input");
+    document.querySelectorAll(".form-check > input").forEach(input => { input.classList.add("form-check-input") });
+    document.querySelectorAll(".form-check li > input").forEach(input => { input.classList.add("form-check-input") });
+    document.querySelectorAll(".form-check > label").forEach(label => { label.classList.add("form-check-label") });
+    document.querySelectorAll(".form-check li > label").forEach(label => { label.classList.add("form-check-label") });
 
-    $(".form-check > label").addClass("form-check-label");
-    $(".form-check li > label").addClass("form-check-label");
-
-    $(".img-user-posted").on("error",
-        function() {
-            $(this).parent().parent().hide();
-        });
-});
-
-document.addEventListener("DOMContentLoaded", function () {
     Prism.highlightAll();
 
-    var attachmentsPreviewList = [].slice.call(document.querySelectorAll(".attachments-preview"));
-    attachmentsPreviewList.map(function (attachmentsPreviewTrigger) {
-        return new bootstrap.Popover(attachmentsPreviewTrigger,
-            {
-                html: true,
-                trigger: "hover",
-                placement: "bottom",
-                content: function () { return `<img src="${attachmentsPreviewTrigger.dataset.url}" class="img-fluid" />`; }
-            });
-    });
+    renderAttachPreview(".attachments-preview");
 
-    var popoverTriggerList = [].slice.call(document.querySelectorAll(".thanks-popover"));
-    popoverTriggerList.map(function (popoverTriggerEl) {
-        return new bootstrap.Popover(popoverTriggerEl,
-            {
-                template:
-                    '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body popover-body-scrollable"></div></div>'
-            });
-    });
+    document.querySelectorAll(".thanks-popover").forEach(thanks => {
+        const popover = new bootstrap.Popover(thanks, {
+            template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body popover-body-scrollable"></div></div>'
+        });
 
-    $(".thanks-popover").on("show.bs.popover", function () {
-        var messageId = $(this).data("messageid");
-        var url = $(this).data("url");
-        $.ajax({
-            url: url + "/ThankYou/GetThanks/" + messageId,
-            type: "POST",
-            contentType: "application/json;charset=utf-8",
-            cache: true,
-            success: function (response) {
-                $("#popover-list-" + messageId).html(response.ThanksInfo);
-            }
+        thanks.addEventListener('show.bs.popover', () => {
+            var messageId = thanks.dataset.messageid;
+            var url = thanks.dataset.url;
+
+            fetch(url + "/ThankYou/GetThanks/" + messageId, {
+                    method: "POST",
+                    headers: {
+                        'Accept': "application/json",
+                        'Content-Type': "application/json;charset=utf-8"
+                    }
+                }).then(res => res.json())
+                .then(response => document.getElementById(`popover-list-${messageId}`).innerHTML = response.ThanksInfo);
         });
     });
 
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
+    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(toolTip => {
+        return new bootstrap.Tooltip(toolTip);
     });
 
-    [].forEach.call(document.querySelectorAll(".attachedImage"),
-        function(imageLink) {
-            var messageId = imageLink.parentNode.id;
+    document.querySelectorAll(".attachedImage").forEach(imageLink => {
+        var messageId = imageLink.parentNode.id;
 
-            imageLink.setAttribute("data-gallery", "#blueimp-gallery-" + messageId);
-        });
+        imageLink.setAttribute("data-gallery", "#blueimp-gallery-" + messageId);
+    });
 });
+

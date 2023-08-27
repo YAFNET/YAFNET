@@ -6090,635 +6090,60 @@
     };
 });
 
-(function(factory) {
-    if (typeof define === "function" && define.amd) {
-        define([ "jquery" ], factory);
-    } else if (typeof module === "object" && module.exports) {
-        module.exports = function(root, jQuery) {
-            if (jQuery === undefined) {
-                if (typeof window !== "undefined") {
-                    jQuery = require("jquery");
-                } else {
-                    jQuery = require("jquery")(root);
-                }
-            }
-            factory(jQuery);
-            return jQuery;
-        };
-    } else {
-        factory(jQuery);
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll("input[type='number']").forEach(input => {
+        if (!input.parentNode.classList.contains("input-group")) {
+            const wrapDiv = document.createElement("div");
+            wrapDiv.classList.add("input-group");
+            wrap(input, wrapDiv);
+        }
+        const minusButton = document.createElement("button");
+        minusButton.classList.add("btn");
+        minusButton.classList.add("btn-secondary");
+        minusButton.classList.add("bootstrap-touchspin-down");
+        minusButton.type = "button";
+        minusButton.addEventListener("click", touchSpinDown);
+        minusButton.innerHTML = '<i class="fa-solid fa-minus"></i>';
+        input.parentNode.insertBefore(minusButton, input);
+        const plusButton = document.createElement("button");
+        plusButton.classList.add("btn");
+        plusButton.classList.add("btn-secondary");
+        plusButton.classList.add("bootstrap-touchspin-up");
+        plusButton.type = "button";
+        plusButton.addEventListener("click", touchSpinUp);
+        plusButton.innerHTML = '<i class="fa-solid fa-plus"></i>';
+        input.parentNode.insertBefore(plusButton, input.nextSibling);
+    });
+    function wrap(el, wrapper) {
+        el.parentNode.insertBefore(wrapper, el);
+        wrapper.appendChild(el);
     }
-})(function($) {
-    "use strict";
-    var _currentSpinnerId = 0;
-    $.fn.TouchSpin = function(options) {
-        var defaults = {
-            min: 0,
-            max: 100,
-            initval: "",
-            replacementval: "",
-            firstclickvalueifempty: null,
-            step: 1,
-            decimals: 0,
-            stepinterval: 100,
-            forcestepdivisibility: "round",
-            stepintervaldelay: 500,
-            verticalbuttons: false,
-            verticalup: "+",
-            verticaldown: "-",
-            verticalupclass: "",
-            verticaldownclass: "",
-            prefix: "",
-            postfix: "",
-            prefix_extraclass: "",
-            postfix_extraclass: "",
-            booster: true,
-            boostat: 10,
-            maxboostedstep: false,
-            mousewheel: true,
-            buttondown_class: "btn btn-secondary",
-            buttonup_class: "btn btn-secondary",
-            buttondown_txt: "&minus;",
-            buttonup_txt: "+",
-            callback_before_calculation: function(value) {
-                return value;
-            },
-            callback_after_calculation: function(value) {
-                return value;
-            }
-        };
-        var attributeMap = {
-            min: "min",
-            max: "max",
-            initval: "init-val",
-            replacementval: "replacement-val",
-            firstclickvalueifempty: "first-click-value-if-empty",
-            step: "step",
-            decimals: "decimals",
-            stepinterval: "step-interval",
-            verticalbuttons: "vertical-buttons",
-            verticalupclass: "vertical-up-class",
-            verticaldownclass: "vertical-down-class",
-            forcestepdivisibility: "force-step-divisibility",
-            stepintervaldelay: "step-interval-delay",
-            prefix: "prefix",
-            postfix: "postfix",
-            prefix_extraclass: "prefix-extra-class",
-            postfix_extraclass: "postfix-extra-class",
-            booster: "booster",
-            boostat: "boostat",
-            maxboostedstep: "max-boosted-step",
-            mousewheel: "mouse-wheel",
-            buttondown_class: "button-down-class",
-            buttonup_class: "button-up-class",
-            buttondown_txt: "button-down-txt",
-            buttonup_txt: "button-up-txt"
-        };
-        return this.each(function() {
-            var settings, originalinput = $(this), originalinput_data = originalinput.data(), _detached_prefix, _detached_postfix, container, elements, value, downSpinTimer, upSpinTimer, downDelayTimeout, upDelayTimeout, spincount = 0, spinning = false;
-            init();
-            function init() {
-                if (originalinput.data("alreadyinitialized")) {
-                    return;
-                }
-                originalinput.data("alreadyinitialized", true);
-                _currentSpinnerId += 1;
-                originalinput.data("spinnerid", _currentSpinnerId);
-                if (!originalinput.is("input")) {
-                    console.log("Must be an input.");
-                    return;
-                }
-                _initSettings();
-                _setInitval();
-                _checkValue();
-                _buildHtml();
-                _initElements();
-                _updateButtonDisabledState();
-                _hideEmptyPrefixPostfix();
-                _setupMutationObservers();
-                _bindEvents();
-                _bindEventsInterface();
-            }
-            function _setInitval() {
-                if (settings.initval !== "" && originalinput.val() === "") {
-                    originalinput.val(settings.initval);
-                }
-            }
-            function changeSettings(newsettings) {
-                _updateSettings(newsettings);
-                _checkValue();
-                var value = elements.input.val();
-                if (value !== "") {
-                    value = parseFloat(settings.callback_before_calculation(elements.input.val()));
-                    elements.input.val(settings.callback_after_calculation(parseFloat(value).toFixed(settings.decimals)));
-                }
-            }
-            function _initSettings() {
-                settings = $.extend({}, defaults, originalinput_data, _parseAttributes(), options);
-                if (parseFloat(settings.step) !== 1) {
-                    let remainder;
-                    remainder = settings.max % settings.step;
-                    if (remainder !== 0) {
-                        settings.max = parseFloat(settings.max) - remainder;
-                    }
-                    remainder = settings.min % settings.step;
-                    if (remainder !== 0) {
-                        settings.min = parseFloat(settings.min) + (parseFloat(settings.step) - remainder);
-                    }
-                }
-            }
-            function _parseAttributes() {
-                var data = {};
-                $.each(attributeMap, function(key, value) {
-                    var attrName = "bts-" + value + "";
-                    if (originalinput.is("[data-" + attrName + "]")) {
-                        data[key] = originalinput.data(attrName);
-                    }
-                });
-                $.each([ "min", "max", "step" ], function(i, key) {
-                    if (originalinput.is("[" + key + "]")) {
-                        if (data[key] !== undefined) {
-                            console.warn('Both the "data-bts-' + key + '" data attribute and the "' + key + '" individual attribute were specified, the individual attribute will take precedence on: ', originalinput);
-                        }
-                        data[key] = originalinput.attr(key);
-                    }
-                });
-                return data;
-            }
-            function _destroy() {
-                var $parent = originalinput.parent();
-                stopSpin();
-                originalinput.off(".touchspin");
-                if ($parent.hasClass("bootstrap-touchspin-injected")) {
-                    originalinput.siblings().remove();
-                    originalinput.unwrap();
-                } else {
-                    $(".bootstrap-touchspin-injected", $parent).remove();
-                    $parent.removeClass("bootstrap-touchspin");
-                }
-                originalinput.data("alreadyinitialized", false);
-            }
-            function _updateSettings(newsettings) {
-                settings = $.extend({}, settings, newsettings);
-                if (newsettings.postfix) {
-                    var $postfix = originalinput.parent().find(".bootstrap-touchspin-postfix");
-                    if ($postfix.length === 0) {
-                        _detached_postfix.insertAfter(originalinput);
-                    }
-                    originalinput.parent().find(".bootstrap-touchspin-postfix .input-group-text").text(newsettings.postfix);
-                }
-                if (newsettings.prefix) {
-                    var $prefix = originalinput.parent().find(".bootstrap-touchspin-prefix");
-                    if ($prefix.length === 0) {
-                        _detached_prefix.insertBefore(originalinput);
-                    }
-                    originalinput.parent().find(".bootstrap-touchspin-prefix .input-group-text").text(newsettings.prefix);
-                }
-                _hideEmptyPrefixPostfix();
-            }
-            function _buildHtml() {
-                var initval = originalinput.val(), parentelement = originalinput.parent();
-                if (initval !== "") {
-                    initval = settings.callback_before_calculation(initval);
-                    initval = settings.callback_after_calculation(parseFloat(initval).toFixed(settings.decimals));
-                }
-                originalinput.data("initvalue", initval).val(initval);
-                originalinput.addClass("form-control");
-                if (parentelement.hasClass("input-group")) {
-                    _advanceInputGroup(parentelement);
-                } else {
-                    _buildInputGroup();
-                }
-            }
-            function _advanceInputGroup(parentelement) {
-                parentelement.addClass("bootstrap-touchspin");
-                var prev = originalinput.prev(), next = originalinput.next();
-                var downhtml, uphtml, prefixhtml = '<span class="input-group-addon input-group-prepend bootstrap-touchspin-prefix input-group-prepend bootstrap-touchspin-injected"><span class="input-group-text">' + settings.prefix + "</span></span>", postfixhtml = '<span class="input-group-addon input-group-append bootstrap-touchspin-postfix input-group-append bootstrap-touchspin-injected"><span class="input-group-text">' + settings.postfix + "</span></span>";
-                if (prev.hasClass("input-group-btn") || prev.hasClass("input-group-prepend")) {
-                    downhtml = '<button class="' + settings.buttondown_class + ' bootstrap-touchspin-down bootstrap-touchspin-injected" type="button">' + settings.buttondown_txt + "</button>";
-                    prev.append(downhtml);
-                } else {
-                    downhtml = '<button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button">' + settings.buttondown_txt + "</button>";
-                    $(downhtml).insertBefore(originalinput);
-                }
-                if (next.hasClass("input-group-btn") || next.hasClass("input-group-append")) {
-                    uphtml = '<button class="' + settings.buttonup_class + ' bootstrap-touchspin-up bootstrap-touchspin-injected" type="button">' + settings.buttonup_txt + "</button>";
-                    next.prepend(uphtml);
-                } else {
-                    uphtml = '<button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button">' + settings.buttonup_txt + "</button>";
-                    $(uphtml).insertAfter(originalinput);
-                }
-                container = parentelement;
-            }
-            function _buildInputGroup() {
-                var html;
-                var inputGroupSize = "";
-                if (originalinput.hasClass("input-sm") || originalinput.hasClass("form-control-sm")) {
-                    inputGroupSize = "input-group-sm";
-                } else if (originalinput.hasClass("input-lg") || originalinput.hasClass("form-control-lg")) {
-                    inputGroupSize = "input-group-lg";
-                }
-                if (settings.verticalbuttons) {
-                    html = '<div class="input-group ' + inputGroupSize + ' bootstrap-touchspin bootstrap-touchspin-injected"><span class="input-group-text">' + settings.prefix + '</span><span class="input-group-text">' + settings.postfix + '</span><span class="input-group-btn-vertical"><button class="' + settings.buttondown_class + " bootstrap-touchspin-up " + settings.verticalupclass + '" type="button">' + settings.verticalup + '</button><button class="' + settings.buttonup_class + " bootstrap-touchspin-down " + settings.verticaldownclass + '" type="button">' + settings.verticaldown + "</button></span></div>";
-                } else {
-                    html = '<div class="input-group bootstrap-touchspin bootstrap-touchspin-injected"><button class="' + settings.buttondown_class + ' bootstrap-touchspin-down" type="button">' + settings.buttondown_txt + '</button><span class="input-group-addon bootstrap-touchspin-prefix input-group-prepend"><span class="input-group-text">' + settings.prefix + '</span></span><span class="input-group-addon bootstrap-touchspin-postfix input-group-append"><span class="input-group-text">' + settings.postfix + '</span></span><button class="' + settings.buttonup_class + ' bootstrap-touchspin-up" type="button">' + settings.buttonup_txt + "</button></div>";
-                }
-                container = $(html).insertBefore(originalinput);
-                $(".bootstrap-touchspin-prefix", container).after(originalinput);
-                if (originalinput.hasClass("input-sm") || originalinput.hasClass("form-control-sm")) {
-                    container.addClass("input-group-sm");
-                } else if (originalinput.hasClass("input-lg") || originalinput.hasClass("form-control-lg")) {
-                    container.addClass("input-group-lg");
-                }
-            }
-            function _initElements() {
-                elements = {
-                    down: $(".bootstrap-touchspin-down", container),
-                    up: $(".bootstrap-touchspin-up", container),
-                    input: $("input", container),
-                    prefix: $(".bootstrap-touchspin-prefix", container).addClass(settings.prefix_extraclass),
-                    postfix: $(".bootstrap-touchspin-postfix", container).addClass(settings.postfix_extraclass)
-                };
-            }
-            function _hideEmptyPrefixPostfix() {
-                if (settings.prefix === "") {
-                    _detached_prefix = elements.prefix.detach();
-                }
-                if (settings.postfix === "") {
-                    _detached_postfix = elements.postfix.detach();
-                }
-            }
-            function _bindEvents() {
-                originalinput.on("keydown.touchspin", function(ev) {
-                    var code = ev.keyCode || ev.which;
-                    if (code === 38) {
-                        if (spinning !== "up") {
-                            upOnce();
-                            startUpSpin();
-                        }
-                        ev.preventDefault();
-                    } else if (code === 40) {
-                        if (spinning !== "down") {
-                            downOnce();
-                            startDownSpin();
-                        }
-                        ev.preventDefault();
-                    } else if (code === 9 || code === 13) {
-                        _checkValue();
-                    }
-                });
-                originalinput.on("keyup.touchspin", function(ev) {
-                    var code = ev.keyCode || ev.which;
-                    if (code === 38) {
-                        stopSpin();
-                    } else if (code === 40) {
-                        stopSpin();
-                    }
-                });
-                $(document).on("mousedown touchstart", function(event) {
-                    if ($(event.target).is(originalinput)) {
-                        return;
-                    }
-                    _checkValue();
-                });
-                originalinput.on("blur.touchspin", function() {
-                    _checkValue();
-                });
-                elements.down.on("keydown", function(ev) {
-                    var code = ev.keyCode || ev.which;
-                    if (code === 32 || code === 13) {
-                        if (spinning !== "down") {
-                            downOnce();
-                            startDownSpin();
-                        }
-                        ev.preventDefault();
-                    }
-                });
-                elements.down.on("keyup.touchspin", function(ev) {
-                    var code = ev.keyCode || ev.which;
-                    if (code === 32 || code === 13) {
-                        stopSpin();
-                    }
-                });
-                elements.up.on("keydown.touchspin", function(ev) {
-                    var code = ev.keyCode || ev.which;
-                    if (code === 32 || code === 13) {
-                        if (spinning !== "up") {
-                            upOnce();
-                            startUpSpin();
-                        }
-                        ev.preventDefault();
-                    }
-                });
-                elements.up.on("keyup.touchspin", function(ev) {
-                    var code = ev.keyCode || ev.which;
-                    if (code === 32 || code === 13) {
-                        stopSpin();
-                    }
-                });
-                elements.down.on("mousedown.touchspin", function(ev) {
-                    elements.down.off("touchstart.touchspin");
-                    if (originalinput.is(":disabled,[readonly]")) {
-                        return;
-                    }
-                    downOnce();
-                    startDownSpin();
-                    ev.preventDefault();
-                    ev.stopPropagation();
-                });
-                elements.down.on("touchstart.touchspin", function(ev) {
-                    elements.down.off("mousedown.touchspin");
-                    if (originalinput.is(":disabled,[readonly]")) {
-                        return;
-                    }
-                    downOnce();
-                    startDownSpin();
-                    ev.preventDefault();
-                    ev.stopPropagation();
-                });
-                elements.up.on("mousedown.touchspin", function(ev) {
-                    elements.up.off("touchstart.touchspin");
-                    if (originalinput.is(":disabled,[readonly]")) {
-                        return;
-                    }
-                    upOnce();
-                    startUpSpin();
-                    ev.preventDefault();
-                    ev.stopPropagation();
-                });
-                elements.up.on("touchstart.touchspin", function(ev) {
-                    elements.up.off("mousedown.touchspin");
-                    if (originalinput.is(":disabled,[readonly]")) {
-                        return;
-                    }
-                    upOnce();
-                    startUpSpin();
-                    ev.preventDefault();
-                    ev.stopPropagation();
-                });
-                elements.up.on("mouseup.touchspin mouseout.touchspin touchleave.touchspin touchend.touchspin touchcancel.touchspin", function(ev) {
-                    if (!spinning) {
-                        return;
-                    }
-                    ev.stopPropagation();
-                    stopSpin();
-                });
-                elements.down.on("mouseup.touchspin mouseout.touchspin touchleave.touchspin touchend.touchspin touchcancel.touchspin", function(ev) {
-                    if (!spinning) {
-                        return;
-                    }
-                    ev.stopPropagation();
-                    stopSpin();
-                });
-                elements.down.on("mousemove.touchspin touchmove.touchspin", function(ev) {
-                    if (!spinning) {
-                        return;
-                    }
-                    ev.stopPropagation();
-                    ev.preventDefault();
-                });
-                elements.up.on("mousemove.touchspin touchmove.touchspin", function(ev) {
-                    if (!spinning) {
-                        return;
-                    }
-                    ev.stopPropagation();
-                    ev.preventDefault();
-                });
-                originalinput.on("mousewheel.touchspin DOMMouseScroll.touchspin", function(ev) {
-                    if (!settings.mousewheel || !originalinput.is(":focus")) {
-                        return;
-                    }
-                    var delta = ev.originalEvent.wheelDelta || -ev.originalEvent.deltaY || -ev.originalEvent.detail;
-                    ev.stopPropagation();
-                    ev.preventDefault();
-                    if (delta < 0) {
-                        downOnce();
-                    } else {
-                        upOnce();
-                    }
-                });
-            }
-            function _bindEventsInterface() {
-                originalinput.on("touchspin.destroy", function() {
-                    _destroy();
-                });
-                originalinput.on("touchspin.uponce", function() {
-                    stopSpin();
-                    upOnce();
-                });
-                originalinput.on("touchspin.downonce", function() {
-                    stopSpin();
-                    downOnce();
-                });
-                originalinput.on("touchspin.startupspin", function() {
-                    startUpSpin();
-                });
-                originalinput.on("touchspin.startdownspin", function() {
-                    startDownSpin();
-                });
-                originalinput.on("touchspin.stopspin", function() {
-                    stopSpin();
-                });
-                originalinput.on("touchspin.updatesettings", function(e, newsettings) {
-                    changeSettings(newsettings);
-                });
-            }
-            function _setupMutationObservers() {
-                if (typeof MutationObserver !== "undefined") {
-                    const observer = new MutationObserver(mutations => {
-                        mutations.forEach(mutation => {
-                            if (mutation.type === "attributes" && (mutation.attributeName === "disabled" || mutation.attributeName === "readonly")) {
-                                _updateButtonDisabledState();
-                            }
-                        });
-                    });
-                    observer.observe(originalinput[0], {
-                        attributes: true
-                    });
-                }
-            }
-            function _forcestepdivisibility(value) {
-                switch (settings.forcestepdivisibility) {
-                  case "round":
-                    return (Math.round(value / settings.step) * settings.step).toFixed(settings.decimals);
-
-                  case "floor":
-                    return (Math.floor(value / settings.step) * settings.step).toFixed(settings.decimals);
-
-                  case "ceil":
-                    return (Math.ceil(value / settings.step) * settings.step).toFixed(settings.decimals);
-
-                  default:
-                    return value.toFixed(settings.decimals);
-                }
-            }
-            function _checkValue() {
-                var val, parsedval, returnval;
-                val = settings.callback_before_calculation(originalinput.val());
-                if (val === "") {
-                    if (settings.replacementval !== "") {
-                        originalinput.val(settings.replacementval);
-                        originalinput.trigger("change");
-                    }
-                    return;
-                }
-                if (settings.decimals > 0 && val === ".") {
-                    return;
-                }
-                parsedval = parseFloat(val);
-                if (isNaN(parsedval)) {
-                    if (settings.replacementval !== "") {
-                        parsedval = settings.replacementval;
-                    } else {
-                        parsedval = 0;
-                    }
-                }
-                returnval = parsedval;
-                if (parsedval.toString() !== val) {
-                    returnval = parsedval;
-                }
-                returnval = _forcestepdivisibility(parsedval);
-                if (settings.min !== null && parsedval < settings.min) {
-                    returnval = settings.min;
-                }
-                if (settings.max !== null && parsedval > settings.max) {
-                    returnval = settings.max;
-                }
-                if (parseFloat(parsedval).toString() !== parseFloat(returnval).toString()) {
-                    originalinput.val(returnval);
-                }
-                originalinput.val(settings.callback_after_calculation(parseFloat(returnval).toFixed(settings.decimals)));
-            }
-            function _getBoostedStep() {
-                if (!settings.booster) {
-                    return settings.step;
-                } else {
-                    var boosted = Math.pow(2, Math.floor(spincount / settings.boostat)) * settings.step;
-                    if (settings.maxboostedstep) {
-                        if (boosted > settings.maxboostedstep) {
-                            boosted = settings.maxboostedstep;
-                            value = Math.round(value / boosted) * boosted;
-                        }
-                    }
-                    return Math.max(settings.step, boosted);
-                }
-            }
-            function valueIfIsNaN() {
-                if (typeof settings.firstclickvalueifempty === "number") {
-                    return settings.firstclickvalueifempty;
-                } else {
-                    return (settings.min + settings.max) / 2;
-                }
-            }
-            function _updateButtonDisabledState() {
-                const isDisabled = originalinput.is(":disabled,[readonly]");
-                elements.up.prop("disabled", isDisabled);
-                elements.down.prop("disabled", isDisabled);
-                if (isDisabled) {
-                    stopSpin();
-                }
-            }
-            function upOnce() {
-                if (originalinput.is(":disabled,[readonly]")) {
-                    return;
-                }
-                _checkValue();
-                value = parseFloat(settings.callback_before_calculation(elements.input.val()));
-                var initvalue = value;
-                var boostedstep;
-                if (isNaN(value)) {
-                    value = valueIfIsNaN();
-                } else {
-                    boostedstep = _getBoostedStep();
-                    value = value + boostedstep;
-                }
-                if (settings.max !== null && value > settings.max) {
-                    value = settings.max;
-                    originalinput.trigger("touchspin.on.max");
-                    stopSpin();
-                }
-                elements.input.val(settings.callback_after_calculation(parseFloat(value).toFixed(settings.decimals)));
-                if (initvalue !== value) {
-                    originalinput.trigger("change");
-                }
-            }
-            function downOnce() {
-                if (originalinput.is(":disabled,[readonly]")) {
-                    return;
-                }
-                _checkValue();
-                value = parseFloat(settings.callback_before_calculation(elements.input.val()));
-                var initvalue = value;
-                var boostedstep;
-                if (isNaN(value)) {
-                    value = valueIfIsNaN();
-                } else {
-                    boostedstep = _getBoostedStep();
-                    value = value - boostedstep;
-                }
-                if (settings.min !== null && value < settings.min) {
-                    value = settings.min;
-                    originalinput.trigger("touchspin.on.min");
-                    stopSpin();
-                }
-                elements.input.val(settings.callback_after_calculation(parseFloat(value).toFixed(settings.decimals)));
-                if (initvalue !== value) {
-                    originalinput.trigger("change");
-                }
-            }
-            function startDownSpin() {
-                if (originalinput.is(":disabled,[readonly]")) {
-                    return;
-                }
-                stopSpin();
-                spincount = 0;
-                spinning = "down";
-                originalinput.trigger("touchspin.on.startspin");
-                originalinput.trigger("touchspin.on.startdownspin");
-                downDelayTimeout = setTimeout(function() {
-                    downSpinTimer = setInterval(function() {
-                        spincount++;
-                        downOnce();
-                    }, settings.stepinterval);
-                }, settings.stepintervaldelay);
-            }
-            function startUpSpin() {
-                if (originalinput.is(":disabled,[readonly]")) {
-                    return;
-                }
-                stopSpin();
-                spincount = 0;
-                spinning = "up";
-                originalinput.trigger("touchspin.on.startspin");
-                originalinput.trigger("touchspin.on.startupspin");
-                upDelayTimeout = setTimeout(function() {
-                    upSpinTimer = setInterval(function() {
-                        spincount++;
-                        upOnce();
-                    }, settings.stepinterval);
-                }, settings.stepintervaldelay);
-            }
-            function stopSpin() {
-                clearTimeout(downDelayTimeout);
-                clearTimeout(upDelayTimeout);
-                clearInterval(downSpinTimer);
-                clearInterval(upSpinTimer);
-                switch (spinning) {
-                  case "up":
-                    originalinput.trigger("touchspin.on.stopupspin");
-                    originalinput.trigger("touchspin.on.stopspin");
-                    break;
-
-                  case "down":
-                    originalinput.trigger("touchspin.on.stopdownspin");
-                    originalinput.trigger("touchspin.on.stopspin");
-                    break;
-                }
-                spincount = 0;
-                spinning = false;
-            }
-        });
-    };
+    function touchSpinDown() {
+        const btn = this, input = btn.nextSibling, oldValue = input.value.trim();
+        let newVal, minValue = 1;
+        if (input.classList.contains("form-control-days")) {
+            minValue = input.dataset.min;
+        } else if (input.classList.contains("serverTime-Input")) {
+            minValue = -720;
+        }
+        if (oldValue > minValue) {
+            newVal = parseInt(oldValue) - 1;
+        } else {
+            newVal = minValue;
+        }
+        input.value = newVal;
+    }
+    function touchSpinUp() {
+        const btn = this, input = btn.previousSibling, oldValue = input.value.trim();
+        let maxValue = 2147483647;
+        if (input.classList.contains("serverTime-Input")) {
+            maxValue = -720;
+        }
+        if (oldValue <= maxValue) {
+            const newVal = parseInt(oldValue) + 1;
+            input.value = newVal;
+        }
+    }
 });
 
 (function(factory) {
@@ -15233,32 +14658,61 @@ function formatState(state) {
     if (!state.id) {
         return state.text;
     }
-    if ($($(state.element).data("content")).length === 0) {
+    if (state.element.dataset.content == null) {
         return state.text;
     }
-    var $state = $($(state.element).data("content"));
-    return $state;
+    const span = document.createElement("span");
+    span.innerHTML = state.element.dataset.content;
+    return span;
 }
 
-$(document).on("click", '[data-bs-toggle="confirm"]', function(e) {
-    if ($(this).prop("tagName").toLowerCase() === "a") {
-        e.preventDefault();
-        var button = $(this);
-        var link = button.attr("href");
-        var text = button.data("title");
-        var title = button.html();
-        $(this).html("<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...");
+function errorLog(x) {
+    console.log("An Error has occurred!");
+    console.log(x.responseText);
+    console.log(x.status);
+}
+
+function wrap(el, wrapper) {
+    el.parentNode.insertBefore(wrapper, el);
+    wrapper.appendChild(el);
+}
+
+function empty(wrap) {
+    while (wrap.firstChild) wrap.removeChild(wrap.firstChild);
+}
+
+function renderAttachPreview(previewClass) {
+    document.querySelectorAll(previewClass).forEach(attach => {
+        return new bootstrap.Popover(attach, {
+            html: true,
+            trigger: "hover",
+            placement: "bottom",
+            content: function() {
+                return `<img src="${attach.src}" class="img-fluid" />`;
+            }
+        });
+    });
+}
+
+document.addEventListener("click", function(event) {
+    if (event.target.parentElement.matches('a[data-bs-toggle="confirm"]')) {
+        event.preventDefault();
+        var button = event.target.parentElement;
+        var link = button.href;
+        const text = button.dataset.title;
+        var title = button.innerHTML;
+        button.innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
         bootbox.confirm({
             centerVertical: true,
             title: title,
             message: text,
             buttons: {
                 confirm: {
-                    label: '<i class="fa fa-check"></i> ' + $(this).data("yes"),
+                    label: '<i class="fa fa-check"></i> ' + button.dataset.yes,
                     className: "btn-success"
                 },
                 cancel: {
-                    label: '<i class="fa fa-times"></i> ' + $(this).data("no"),
+                    label: '<i class="fa fa-times"></i> ' + button.dataset.no,
                     className: "btn-danger"
                 }
             },
@@ -15266,35 +14720,35 @@ $(document).on("click", '[data-bs-toggle="confirm"]', function(e) {
                 if (confirmed) {
                     document.location.href = link;
                 } else {
-                    button.html(title);
+                    button.innerHTML = title;
                 }
             }
         });
     }
-});
-
-$(window).scroll(function() {
-    if ($(this).scrollTop() > 50) {
-        $(".scroll-top:hidden").stop(true, true).fadeIn();
-    } else {
-        $(".scroll-top").stop(true, true).fadeOut();
-    }
-});
-
-$(function() {
-    $(".btn-scroll").click(function() {
-        $("html,body").animate({
-            scrollTop: $("header").offset().top
-        }, "1000");
-        return false;
-    });
-});
+}, false);
 
 document.addEventListener("DOMContentLoaded", function() {
+    var scrollToTopBtn = document.querySelector(".btn-scroll"), rootElement = document.documentElement;
+    function handleScroll() {
+        const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+        if (rootElement.scrollTop / scrollTotal > .15) {
+            scrollToTopBtn.classList.add("show-btn-scroll");
+        } else {
+            scrollToTopBtn.classList.remove("show-btn-scroll");
+        }
+    }
+    function scrollToTop(e) {
+        e.preventDefault();
+        rootElement.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    }
+    scrollToTopBtn.addEventListener("click", scrollToTop);
+    document.addEventListener("scroll", handleScroll);
     if (document.body.contains(document.getElementById("PasswordToggle"))) {
-        var passwordToggle = document.getElementById("PasswordToggle");
-        var icon = passwordToggle.querySelector("i");
-        var pass = document.querySelector("input[id*='Password']");
+        const passwordToggle = document.getElementById("PasswordToggle");
+        var icon = passwordToggle.querySelector("i"), pass = document.querySelector("input[id*='Password']");
         passwordToggle.addEventListener("click", function(event) {
             event.preventDefault();
             if (pass.getAttribute("type") === "text") {
@@ -15311,144 +14765,102 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function getAlbumImagesData(pageSize, pageNumber, isPageChange) {
-    var yafUserID = $("#PostAlbumsListPlaceholder").data("userid");
-    var pagedResults = {};
-    pagedResults.UserId = yafUserID;
+    const placeHolder = document.getElementById("PostAlbumsListPlaceholder"), list = placeHolder.querySelector("ul"), yafUserId = placeHolder.dataset.userid, pagedResults = {}, ajaxUrl = placeHolder.dataset.url + "api/Album/GetAlbumImages";
+    pagedResults.UserId = yafUserId;
     pagedResults.PageSize = pageSize;
     pagedResults.PageNumber = pageNumber;
-    var ajaxURL = $("#PostAlbumsListPlaceholder").data("url") + "api/Album/GetAlbumImages";
-    $.ajax({
-        url: ajaxURL,
-        type: "POST",
-        data: JSON.stringify(pagedResults),
-        contentType: "application/json; charset=utf-8",
-        success: function(data) {
-            $("#PostAlbumsListPlaceholder ul").empty();
-            $("#PostAlbumsLoader").hide();
-            if (data.AttachmentList.length === 0) {
-                var list = $("#PostAlbumsListPlaceholder ul");
-                var notext = $("#PostAlbumsListPlaceholder").data("notext");
-                list.append('<li><div class="alert alert-info text-break" role="alert" style="white-space:normal">' + notext + "</div></li>");
-            }
-            $.each(data.AttachmentList, function(id, data) {
-                var list = $("#PostAlbumsListPlaceholder ul"), listItem = $('<li class="list-group-item list-group-item-action" style="white-space: nowrap; cursor: pointer;" />');
-                listItem.attr("onclick", data.OnClick);
-                listItem.append(data.IconImage);
-                list.append(listItem);
-            });
-            var attachmentsPreviewList = [].slice.call(document.querySelectorAll(".attachments-preview"));
-            attachmentsPreviewList.map(function(attachmentsPreviewTrigger) {
-                return new bootstrap.Popover(attachmentsPreviewTrigger, {
-                    html: true,
-                    trigger: "hover",
-                    placement: "bottom",
-                    content: function() {
-                        return `<img src="${attachmentsPreviewTrigger.src}" class="img-fluid" />`;
-                    }
-                });
-            });
-            setPageNumberAlbums(pageSize, pageNumber, data.TotalRecords);
-            if (isPageChange) {
-                jQuery(".albums-toggle").dropdown("toggle");
-            }
-            var tooltipAlbumsTriggerList = [].slice.call(document.querySelectorAll("#PostAlbumsListPlaceholder ul li"));
-            var tooltipAlbumsList = tooltipAlbumsTriggerList.map(function(tooltipTriggerEl) {
-                return new bootstrap.Tooltip(tooltipTriggerEl, {
-                    html: true,
-                    template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner" style="max-width:250px"></div></div>',
-                    placement: "top"
-                });
-            });
-        },
-        error: function(request, status, error) {
-            console.log(request);
-            console.log(error);
-            $("#PostAlbumsLoader").hide();
-            $("#PostAlbumsListPlaceholder").html(request.statusText).fadeIn(1e3);
+    fetch(ajaxUrl, {
+        method: "POST",
+        body: JSON.stringify(pagedResults),
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json;charset=utf-8"
         }
+    }).then(res => res.json()).then(data => {
+        empty(list);
+        document.getElementById("PostAlbumsLoader").style.display = "none";
+        if (data.AttachmentList.length === 0) {
+            const noText = placeHolder.dataset.notext;
+            const li = document.createElement("li");
+            li.innerHTML = `<li><div class="alert alert-info text-break" role="alert" style="white-space:normal">${noText}</div></li>`;
+            list.appendChild(li);
+        }
+        data.AttachmentList.forEach(dataItem => {
+            var li = document.createElement("li");
+            li.classList.add("list-group-item");
+            li.classList.add("list-group-item-action");
+            li.style.whiteSpace = "nowrap";
+            li.style.cursor = "pointer";
+            li.setAttribute("onclick", dataItem.OnClick);
+            li.innerHTML = dataItem.IconImage;
+            list.appendChild(li);
+        });
+        renderAttachPreview(".attachments-preview");
+        setPageNumber(pageSize, pageNumber, data.TotalRecords, document.getElementById("AlbumsListPager"), "Album Images", "getAlbumImagesData");
+        if (isPageChange) {
+            const toggleBtn = document.querySelector(".albums-toggle"), dropdownEl = new bootstrap.Dropdown(toggleBtn);
+            dropdownEl.toggle();
+        }
+    }).catch(function(error) {
+        console.log(error);
+        document.getElementById("PostAlbumsLoader").style.display = "none";
+        placeHolder.textContent = error;
     });
-}
-
-function setPageNumberAlbums(pageSize, pageNumber, total) {
-    var pages = Math.ceil(total / pageSize);
-    var pagerHolder = $("#AlbumsListPager"), pagination = $('<ul class="pagination pagination-sm" />');
-    pagerHolder.empty();
-    pagination.wrap('<nav aria-label="Albums Page Results" />');
-    if (pageNumber > 0) {
-        pagination.append('<li class="page-item"><a href="javascript:getAlbumImagesData(' + pageSize + "," + (pageNumber - 1) + "," + total + ',true)" class="page-link"><i class="fas fa-angle-left"></i></a></li>');
-    }
-    var start = pageNumber - 2;
-    var end = pageNumber + 3;
-    if (start < 0) {
-        start = 0;
-    }
-    if (end > pages) {
-        end = pages;
-    }
-    if (start > 0) {
-        pagination.append('<li class="page-item"><a href="javascript:getAlbumImagesData(' + pageSize + "," + 0 + "," + total + ', true);" class="page-link">1</a></li>');
-        pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
-    }
-    for (var i = start; i < end; i++) {
-        if (i === pageNumber) {
-            pagination.append('<li class="page-item active"><span class="page-link">' + (i + 1) + "</span>");
-        } else {
-            pagination.append('<li class="page-item"><a href="javascript:getAlbumImagesData(' + pageSize + "," + i + "," + total + ',true);" class="page-link">' + (i + 1) + "</a></li>");
-        }
-    }
-    if (end < pages) {
-        pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
-        pagination.append('<li class="page-item"><a href="javascript:getAlbumImagesData(' + pageSize + "," + (pages - 1) + "," + total + ',true)" class="page-link">' + pages + "</a></li>");
-    }
-    if (pageNumber < pages - 1) {
-        pagination.append('<li class="page-item"><a href="javascript:getAlbumImagesData(' + pageSize + "," + (pageNumber + 1) + "," + total + ',true)" class="page-link"><i class="fas fa-angle-right"></i></a></li>');
-    }
-    pagerHolder.append(pagination);
 }
 
 function getNotifyData(pageSize, pageNumber, isPageChange) {
-    var yafUserID = $("#NotifyListPlaceholder").data("userid");
-    var pagedResults = {};
-    pagedResults.UserId = yafUserID;
+    const placeHolder = document.getElementById("NotifyListPlaceholder"), list = placeHolder.querySelector("ul"), yafUserId = placeHolder.dataset.userid, pagedResults = {}, ajaxUrl = placeHolder.dataset.url + "api/Notify/GetNotifications";
+    pagedResults.UserId = yafUserId;
     pagedResults.PageSize = pageSize;
     pagedResults.PageNumber = pageNumber;
-    var ajaxURL = $("#NotifyListPlaceholder").data("url") + "api/Notify/GetNotifications";
-    $.ajax({
-        type: "POST",
-        url: ajaxURL,
-        data: JSON.stringify(pagedResults),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        success: function(data) {
-            $("#NotifyListPlaceholder ul").empty();
-            $("#Loader").hide();
-            if (data.AttachmentList.length > 0) {
-                $("#MarkRead").removeClass("d-none").addClass("d-block");
-                $.each(data.AttachmentList, function(id, data) {
-                    var list = $("#NotifyListPlaceholder ul"), listItem = $('<li class="list-group-item list-group-item-action small text-wrap" style="width:15rem;" />');
-                    listItem.append(data.FileName);
-                    list.append(listItem);
-                });
-                setPageNumberNotify(pageSize, pageNumber, data.TotalRecords);
-                if (isPageChange) {
-                    jQuery(".notify-toggle").dropdown("toggle");
-                }
-            }
-        },
-        error: function(request) {
-            $("#Loader").hide();
-            $("#NotifyListPlaceholder").html(request.statusText).fadeIn(1e3);
+    fetch(ajaxUrl, {
+        method: "POST",
+        body: JSON.stringify(pagedResults),
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json;charset=utf-8"
         }
+    }).then(res => res.json()).then(data => {
+        empty(list);
+        document.getElementById("Loader").style.display = "none";
+        if (data.AttachmentList.length > 0) {
+            const markRead = document.getElementById("MarkRead");
+            markRead.classList.remove("d-none");
+            markRead.classList.add("d-block");
+            data.AttachmentList.forEach(dataItem => {
+                var li = document.createElement("li");
+                li.classList.add("list-group-item");
+                li.classList.add("list-group-item-action");
+                li.classList.add("small");
+                li.classList.add("text-wrap");
+                li.style.width = "15rem";
+                li.innerHTML = dataItem.FileName;
+                list.appendChild(li);
+            });
+            setPageNumber(pageSize, pageNumber, data.TotalRecords, document.getElementById("NotifyListPager"), "Notifications", "getNotifyData");
+            if (isPageChange) {
+                const toggleBtn = document.querySelector(".notify-toggle"), dropdownEl = new bootstrap.Dropdown(toggleBtn);
+                dropdownEl.toggle();
+            }
+        }
+    }).catch(function(error) {
+        console.log(error);
+        document.getElementById("Loader").style.display = "none";
+        placeHolder.textContent = error;
     });
 }
 
-function setPageNumberNotify(pageSize, pageNumber, total) {
-    var pages = Math.ceil(total / pageSize);
-    var pagerHolder = $("#NotifyListPager"), pagination = $('<ul class="pagination pagination-sm" />');
-    pagerHolder.empty();
-    pagination.wrap('<nav aria-label="Attachments Page Results" />');
+function setPageNumber(pageSize, pageNumber, total, pagerHolder, label, javascriptFunction) {
+    const pages = Math.ceil(total / pageSize), pagination = document.createElement("ul"), paginationNav = document.createElement("nav");
+    paginationNav.setAttribute("aria-label", label + " Page Results");
+    pagination.classList.add("pagination");
+    pagination.classList.add("pagination-sm");
+    empty(pagerHolder);
     if (pageNumber > 0) {
-        pagination.append('<li class="page-item"><a href="javascript:getNotifyData(' + pageSize + "," + (pageNumber - 1) + "," + total + ',true)" class="page-link"><i class="fas fa-angle-left"></i></a></li>');
+        const page = document.createElement("li");
+        page.classList.add("page-item");
+        page.innerHTML = `<a href="javascript:${javascriptFunction}(${pageSize},${pageNumber - 1},${total},true)" class="page-link"><i class="fas fa-angle-left"></i></a>`;
+        pagination.appendChild(page);
     }
     var start = pageNumber - 2;
     var end = pageNumber + 3;
@@ -15459,56 +14871,68 @@ function setPageNumberNotify(pageSize, pageNumber, total) {
         end = pages;
     }
     if (start > 0) {
-        pagination.append('<li class="page-item"><a href="javascript:getNotifyData(' + pageSize + "," + 0 + "," + total + ', true);" class="page-link">1</a></li>');
-        pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
+        let page = document.createElement("li");
+        page.classList.add("page-item");
+        page.innerHTML = `<a href="javascript:${javascriptFunction}(${pageSize},${0},${total}, true);" class="page-link">1</a>`;
+        pagination.appendChild(page);
+        page = document.createElement("li");
+        page.classList.add("page-item");
+        page.classList.add("disabled");
+        page.innerHTML = '<a class="page-link" href="#" tabindex="-1">...</a>';
+        pagination.appendChild(page);
     }
     for (var i = start; i < end; i++) {
         if (i === pageNumber) {
-            pagination.append('<li class="page-item active"><span class="page-link">' + (i + 1) + "</span>");
+            const page = document.createElement("li");
+            page.classList.add("page-item");
+            page.classList.add("active");
+            page.innerHTML = `<span class="page-link">${i + 1}</span>`;
+            pagination.appendChild(page);
         } else {
-            pagination.append('<li class="page-item"><a href="javascript:getNotifyData(' + pageSize + "," + i + "," + total + ',true);" class="page-link">' + (i + 1) + "</a></li>");
+            const page = document.createElement("li");
+            page.classList.add("page-item");
+            page.innerHTML = `<a href="javascript:${javascriptFunction}(${pageSize},${i},${total},true);" class="page-link">${i + 1}</a>`;
+            pagination.appendChild(page);
         }
     }
     if (end < pages) {
-        pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
-        pagination.append('<li class="page-item"><a href="javascript:getNotifyData(' + pageSize + "," + (pages - 1) + "," + total + ',true)" class="page-link">' + pages + "</a></li>");
+        let page = document.createElement("li");
+        page.classList.add("page-item");
+        page.classList.add("disabled");
+        page.innerHTML = '<a class="page-link" href="#" tabindex="-1">...</a>';
+        pagination.appendChild(page);
+        page = document.createElement("li");
+        page.classList.add("page-item");
+        page.innerHTML = `<a href="javascript:${javascriptFunction}(${pageSize},${pages - 1},${total},true)" class="page-link">${pages}</a>`;
+        pagination.appendChild(page);
     }
     if (pageNumber < pages - 1) {
-        pagination.append('<li class="page-item"><a href="javascript:getNotifyData(' + pageSize + "," + (pageNumber + 1) + "," + total + ',true)" class="page-link"><i class="fas fa-angle-right"></i></a></li>');
+        const page = document.createElement("li");
+        page.classList.add("page-item");
+        page.innerHTML = `<a href="javascript:${javascriptFunction}(${pageSize},${pageNumber + 1},${total},true)" class="page-link"><i class="fas fa-angle-right"></i></a>`;
+        pagination.appendChild(page);
     }
-    pagerHolder.append(pagination);
+    paginationNav.appendChild(pagination);
+    pagerHolder.appendChild(paginationNav);
 }
 
-$(document).ready(function() {
-    $("a.btn-login,input.btn-login, .btn-spinner").click(function() {
-        $(this).html("<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...");
-    });
-    $(".dropdown-menu a.dropdown-toggle").on("click", function(e) {
-        var $el = $(this), $subMenu = $el.next();
-        $(".dropdown-menu").find(".show").removeClass("show");
-        $subMenu.addClass("show");
-        $subMenu.css({
-            top: $el[0].offsetTop - 10,
-            left: $el.outerWidth() - 4
+document.addEventListener("DOMContentLoaded", function() {
+    if (document.querySelector("a.btn-login,input.btn-login, .btn-spinner") != null) {
+        document.querySelector("a.btn-login,input.btn-login, .btn-spinner").click(function() {
+            document.querySelector(this).innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
         });
-        e.stopPropagation();
-    });
-    $("input[type='number']").each(function() {
-        if ($(this).hasClass("form-control-days")) {
-            var holder = $(this);
-            $(this).TouchSpin({
-                min: holder.data("min"),
-                max: 2147483647
+    }
+    document.querySelectorAll(".dropdown-menu a.dropdown-toggle").forEach(menu => {
+        menu.addEventListener("click", event => {
+            var $el = menu, $subMenu = $el.nextElementSibling;
+            document.querySelectorAll(".dropdown-menu .show").forEach(dropDownMenu => {
+                dropDownMenu.classList.remove("show");
             });
-        } else {
-            $(this).TouchSpin({
-                max: 2147483647
-            });
-        }
-    });
-    $(".serverTime-Input").TouchSpin({
-        min: -720,
-        max: 720
+            $subMenu.classList.add("show");
+            $subMenu.style.top = $el.offsetTop - 10;
+            $subMenu.style.left = $el.offsetWidth - 4;
+            event.stopPropagation();
+        });
     });
     $(".yafnet .select2-select").each(function() {
         $(this).select2({
@@ -15546,169 +14970,198 @@ $(document).ready(function() {
             }
         });
     });
-    if ($("#PostAttachmentListPlaceholder").length) {
-        var pageSize = 5;
-        var pageNumber = 0;
+    if (document.getElementById("PostAttachmentListPlaceholder") != null) {
+        const pageSize = 5;
+        const pageNumber = 0;
         getPaginationData(pageSize, pageNumber, false);
     }
-    if ($("#SearchResultsPlaceholder").length) {
-        $(".searchInput").keypress(function(e) {
+    if (document.getElementById("SearchResultsPlaceholder") != null && document.querySelector(".searchInput") != null) {
+        document.querySelector(".searchInput").addEventListener("keypress", e => {
             var code = e.which;
             if (code === 13) {
                 e.preventDefault();
-                var pageNumberSearch = 0;
+                const pageNumberSearch = 0;
                 getSearchResultsData(pageNumberSearch);
             }
         });
     }
-    $(".dropdown-notify").on("show.bs.dropdown", function() {
+    document.querySelector(".dropdown-notify").addEventListener("show.bs.dropdown", () => {
         var pageSize = 5;
         var pageNumber = 0;
         getNotifyData(pageSize, pageNumber, false);
     });
-    $(".form-check > input").addClass("form-check-input");
-    $(".form-check li > input").addClass("form-check-input");
-    $(".form-check > label").addClass("form-check-label");
-    $(".form-check li > label").addClass("form-check-label");
-    $(".img-user-posted").on("error", function() {
-        $(this).parent().parent().hide();
+    document.querySelectorAll(".form-check > input").forEach(input => {
+        input.classList.add("form-check-input");
     });
-});
-
-document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".form-check li > input").forEach(input => {
+        input.classList.add("form-check-input");
+    });
+    document.querySelectorAll(".form-check > label").forEach(label => {
+        label.classList.add("form-check-label");
+    });
+    document.querySelectorAll(".form-check li > label").forEach(label => {
+        label.classList.add("form-check-label");
+    });
     Prism.highlightAll();
-    var attachmentsPreviewList = [].slice.call(document.querySelectorAll(".attachments-preview"));
-    attachmentsPreviewList.map(function(attachmentsPreviewTrigger) {
-        return new bootstrap.Popover(attachmentsPreviewTrigger, {
-            html: true,
-            trigger: "hover",
-            placement: "bottom",
-            content: function() {
-                return `<img src="${attachmentsPreviewTrigger.dataset.url}" class="img-fluid" />`;
-            }
-        });
-    });
-    var popoverTriggerList = [].slice.call(document.querySelectorAll(".thanks-popover"));
-    popoverTriggerList.map(function(popoverTriggerEl) {
-        return new bootstrap.Popover(popoverTriggerEl, {
+    renderAttachPreview(".attachments-preview");
+    document.querySelectorAll(".thanks-popover").forEach(thanks => {
+        const popover = new bootstrap.Popover(thanks, {
             template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body popover-body-scrollable"></div></div>'
         });
-    });
-    $(".thanks-popover").on("show.bs.popover", function() {
-        var messageId = $(this).data("messageid");
-        var url = $(this).data("url");
-        $.ajax({
-            url: url + "/ThankYou/GetThanks/" + messageId,
-            type: "POST",
-            contentType: "application/json;charset=utf-8",
-            cache: true,
-            success: function(response) {
-                $("#popover-list-" + messageId).html(response.ThanksInfo);
-            }
+        thanks.addEventListener("show.bs.popover", () => {
+            var messageId = thanks.dataset.messageid;
+            var url = thanks.dataset.url;
+            fetch(url + "/ThankYou/GetThanks/" + messageId, {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json;charset=utf-8"
+                }
+            }).then(res => res.json()).then(response => document.getElementById(`popover-list-${messageId}`).innerHTML = response.ThanksInfo);
         });
     });
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-    tooltipTriggerList.map(function(tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
+    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(toolTip => {
+        return new bootstrap.Tooltip(toolTip);
     });
-    [].forEach.call(document.querySelectorAll(".attachedImage"), function(imageLink) {
+    document.querySelectorAll(".attachedImage").forEach(imageLink => {
         var messageId = imageLink.parentNode.id;
         imageLink.setAttribute("data-gallery", "#blueimp-gallery-" + messageId);
     });
 });
 
-jQuery(document).ready(function() {
-    $(".list-group-item-menu, .message").each(function() {
-        var isMessageContext = !!$(this).hasClass("message");
-        var contextMenu = $(this).find(".context-menu");
-        var messageID = $(this).find(".selectionQuoteable").attr("id");
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll(".list-group-item-menu, .message").forEach(element => {
+        var isMessageContext = !!element.classList.contains("message");
+        var contextMenu = element.querySelector(".context-menu");
+        var messageId = 0;
+        if (element.querySelector(".selectionQuoteable") != null) {
+            messageId = element.querySelector(".selectionQuoteable").id;
+        }
         if (window.matchMedia("only screen and (max-width: 760px)").matches) {
-            var el = $(this)[0];
+            const el = element;
             el.addEventListener("long-press", function(e) {
                 e.preventDefault();
                 if (isMessageContext) {
-                    var selectedText = getSelectedMessageText();
+                    const selectedText = getSelectedMessageText();
                     if (selectedText.length) {
-                        var searchItem = contextMenu.find(".item-search");
-                        if (searchItem.length) {
-                            searchItem.remove();
+                        const searchItem = contextMenu.querySelector(".item-search"), selectedItem = contextMenu.querySelector(".item-selected-quoting"), selectedDivider = contextMenu.querySelector(".selected-divider");
+                        if (searchItem != null) {
+                            document.querySelectorAll(".item-search").forEach(item => {
+                                item.remove();
+                            });
                         }
-                        var selectedItem = contextMenu.find(".item-selected-quoting");
-                        if (selectedItem.length) {
+                        if (selectedItem != null) {
                             selectedItem.remove();
                         }
-                        var selectedDivider = contextMenu.find(".selected-divider");
-                        if (selectedDivider.length) {
+                        if (selectedDivider != null) {
                             selectedDivider.remove();
                         }
-                        if (contextMenu.data("url")) {
-                            contextMenu.prepend("<a href=\"javascript:goToURL('" + messageID + "','" + selectedText + "','" + contextMenu.data("url") + '\')" class="dropdown-item item-selected-quoting"><i class="fas fa-quote-left fa-fw"></i>&nbsp;' + contextMenu.data("quote") + "</a>");
+                        if (contextMenu.dataset.url) {
+                            const link = document.createElement("a");
+                            link.classList.add("dropdown-item");
+                            link.classList.add("item-selected-quoting");
+                            link.href = `javascript:goToURL('${messageId}','${selectedText}','${contextMenu.dataset.url} ')`;
+                            link.innerHTML = `<i class="fas fa-quote-left fa-fw"></i>&nbsp;${contextMenu.dataset.quote}`;
+                            contextMenu.appendChild(link);
                         }
-                        contextMenu.prepend("<a href=\"javascript:copyToClipBoard('" + selectedText + '\')" class="dropdown-item item-search"><i class="fas fa-clipboard fa-fw"></i>&nbsp;' + contextMenu.data("copy") + "</a>");
-                        contextMenu.prepend('<div class="dropdown-divider selected-divider"></div>');
-                        contextMenu.prepend("<a href=\"javascript:searchText('" + selectedText + '\')" class="dropdown-item item-search"><i class="fas fa-search fa-fw"></i>&nbsp;' + contextMenu.data("search") + ' "' + selectedText + '"</a>');
+                        const linkSearch = document.createElement("a");
+                        linkSearch.classList.add("dropdown-item");
+                        linkSearch.classList.add("item-search");
+                        linkSearch.href = `javascript:copyToClipBoard('${selectedText}')`;
+                        linkSearch.innerHTML = `<i class="fas fa-clipboard fa-fw"></i>&nbsp;${contextMenu.dataset.copy}`;
+                        contextMenu.appendChild(linkSearch);
+                        const divider = document.createElement("div");
+                        divider.classList.add("dropdown-divider");
+                        divider.classList.add("selected-divider");
+                        contextMenu.appendChild(linkSearch);
+                        const linkSelected = document.createElement("a");
+                        linkSelected.classList.add("dropdown-item");
+                        linkSelected.classList.add("item-search");
+                        linkSelected.href = `javascript:searchText('${selectedText}')`;
+                        linkSelected.innerHTML = `<i class="fas fa-search fa-fw"></i>&nbsp;${contextMenu.dataset.search} "${selectedText}"`;
+                        contextMenu.appendChild(linkSelected);
                     }
                 }
-                contextMenu.css({
-                    display: "block"
-                }).addClass("show").offset({
-                    left: e.detail.pageX,
-                    top: e.detail.pageY
-                });
+                contextMenu.style.left = e.detail.pageX;
+                contextMenu.style.top = e.detail.pageY;
+                contextMenu.style.display = "block";
+                contextMenu.classList.add("show");
             });
         }
-        $(this).on("contextmenu", function(e) {
+        element.addEventListener("contextmenu", e => {
+            e.preventDefault();
+            document.querySelectorAll(".context-menu").forEach(menu => {
+                menu.style.display = "none";
+                menu.classList.remove("show");
+            });
             if (isMessageContext) {
-                var selectedText = getSelectedMessageText();
+                const selectedText = getSelectedMessageText();
                 if (selectedText.length) {
-                    var searchItem = contextMenu.find(".item-search");
-                    if (searchItem.length) {
-                        searchItem.remove();
+                    const searchItem = contextMenu.querySelector(".item-search"), selectedItem = contextMenu.querySelector(".item-selected-quoting"), selectedDivider = contextMenu.querySelector(".selected-divider");
+                    if (searchItem != null) {
+                        document.querySelectorAll(".item-search").forEach(item => {
+                            item.remove();
+                        });
                     }
-                    var selectedItem = contextMenu.find(".item-selected-quoting");
-                    if (selectedItem.length) {
+                    if (selectedItem != null) {
                         selectedItem.remove();
                     }
-                    var selectedDivider = contextMenu.find(".selected-divider");
-                    if (selectedDivider.length) {
+                    if (selectedDivider != null) {
                         selectedDivider.remove();
                     }
-                    if (contextMenu.data("url")) {
-                        contextMenu.prepend("<a href=\"javascript:goToURL('" + messageID + "','" + selectedText + "','" + contextMenu.data("url") + '\')" class="dropdown-item item-selected-quoting"><i class="fas fa-quote-left fa-fw"></i>&nbsp;' + contextMenu.data("quote") + "</a>");
+                    if (contextMenu.dataset.url) {
+                        const link = document.createElement("a");
+                        link.classList.add("dropdown-item");
+                        link.classList.add("item-selected-quoting");
+                        link.href = `javascript:goToURL('${messageId}','${selectedText}','${contextMenu.dataset.url} ')`;
+                        link.innerHTML = `<i class="fas fa-quote-left fa-fw"></i>&nbsp;${contextMenu.dataset.quote}`;
+                        contextMenu.appendChild(link);
                     }
-                    contextMenu.prepend("<a href=\"javascript:copyToClipBoard('" + selectedText + '\')" class="dropdown-item item-search"><i class="fas fa-clipboard fa-fw"></i>&nbsp;' + contextMenu.data("copy") + "</a>");
-                    contextMenu.prepend('<div class="dropdown-divider selected-divider"></div>');
-                    contextMenu.prepend("<a href=\"javascript:searchText('" + selectedText + '\')" class="dropdown-item item-search"><i class="fas fa-search fa-fw"></i>&nbsp;' + contextMenu.data("search") + ' "' + selectedText + '"</a>');
+                    const linkSearch = document.createElement("a");
+                    linkSearch.classList.add("dropdown-item");
+                    linkSearch.classList.add("item-search");
+                    linkSearch.href = `javascript:copyToClipBoard('${selectedText}')`;
+                    linkSearch.innerHTML = `<i class="fas fa-clipboard fa-fw"></i>&nbsp;${contextMenu.dataset.copy}`;
+                    contextMenu.appendChild(linkSearch);
+                    const divider = document.createElement("div");
+                    divider.classList.add("dropdown-divider");
+                    divider.classList.add("selected-divider");
+                    contextMenu.appendChild(linkSearch);
+                    const linkSelected = document.createElement("a");
+                    linkSelected.classList.add("dropdown-item");
+                    linkSelected.classList.add("item-search");
+                    linkSelected.href = `javascript:searchText('${selectedText}')`;
+                    linkSelected.innerHTML = `<i class="fas fa-search fa-fw"></i>&nbsp;${contextMenu.dataset.search} "${selectedText}"`;
+                    contextMenu.appendChild(linkSelected);
                 }
             }
-            contextMenu.removeClass("show").hide();
-            contextMenu.css({
-                display: "block"
-            }).addClass("show").offset({
-                left: e.pageX,
-                top: e.pageY
-            });
+            contextMenu.style.display = "block";
+            contextMenu.style.left = e.offsetX + "px";
+            contextMenu.style.top = e.offsetY + "px";
+            contextMenu.classList.add("show");
             return false;
-        }).on("click", function() {
-            contextMenu.removeClass("show").hide();
         });
-        $(this).find(".context-menu a").on("click", function(e) {
-            if ($(this).data("toggle") !== undefined && $(this).data("toggle") == "confirm") {
+        element.addEventListener("click", () => {
+            contextMenu.classList.remove("show");
+            contextMenu.style.display = "none";
+        });
+        element.querySelector(".context-menu a").addEventListener("click", e => {
+            var a = e.target;
+            if (a.dataset.toggle !== undefined && a.dataset.toggle === "confirm") {
                 e.preventDefault();
-                var link = $(this).attr("href");
-                var text = $(this).data("title");
-                var title = $(this).html();
+                var link = a.href;
+                const text = a.dataset.title, title = a.innerHTML;
                 bootbox.confirm({
                     centerVertical: true,
                     title: title,
                     message: text,
                     buttons: {
                         confirm: {
-                            label: '<i class="fa fa-check"></i> ' + $(this).data("yes"),
+                            label: `<i class="fa fa-check"></i> ${a.dataset.yes}`,
                             className: "btn-success"
                         },
                         cancel: {
-                            label: '<i class="fa fa-times"></i> ' + $(this).data("no"),
+                            label: `<i class="fa fa-times"></i> ${a.dataset.no}`,
                             className: "btn-danger"
                         }
                     },
@@ -15719,10 +15172,40 @@ jQuery(document).ready(function() {
                     }
                 });
             }
-            contextMenu.removeClass("show").hide();
+            contextMenu.classList.remove("show");
+            contextMenu.style.display = "none";
         });
-        $("body").click(function() {
-            contextMenu.removeClass("show").hide();
+        contextMenu.addEventListener("click", function(event) {
+            if (event.target.parentElement.matches('[data-bs-toggle="confirm"]')) {
+                event.preventDefault();
+                const button = event.target.parentElement, text = button.dataset.title, title = button.innerHTML;
+                bootbox.confirm({
+                    centerVertical: true,
+                    title: title,
+                    message: text,
+                    buttons: {
+                        confirm: {
+                            label: `<i class="fa fa-check"></i> ${button.dataset.yes}`,
+                            className: "btn-success"
+                        },
+                        cancel: {
+                            label: `<i class="fa fa-times"></i> ${button.dataset.no}`,
+                            className: "btn-danger"
+                        }
+                    },
+                    callback: function(confirmed) {
+                        if (confirmed) {
+                            button.click();
+                        }
+                    }
+                });
+            }
+            contextMenu.classList.remove("show");
+            contextMenu.style.display = "none";
+        }, false);
+        document.querySelector("body").addEventListener("click", () => {
+            contextMenu.classList.remove("show");
+            contextMenu.style.display = "none";
         });
     });
 });
@@ -15736,21 +15219,21 @@ function copyToClipBoard(input) {
 }
 
 function searchText(input) {
-    let a = document.createElement("a");
+    const a = document.createElement("a");
     a.target = "_blank";
-    a.href = "https://www.google.com/search?q=" + encodeURIComponent(input);
+    a.href = `https://www.google.com/search?q=${encodeURIComponent(input)}`;
     a.click();
 }
 
 function getSelectedMessageText() {
     var text = "";
-    var sel = window.getSelection();
+    const sel = window.getSelection();
     if (sel.rangeCount) {
-        var container = document.createElement("div");
+        const container = document.createElement("div");
         for (var i = 0, len = sel.rangeCount; i < len; ++i) {
             container.appendChild(sel.getRangeAt(i).cloneContents());
         }
         text = container.textContent || container.innerText;
     }
-    return text.replace(/<p[^>]*>/gi, "\n").replace(/<\/p>|  /gi, "").replace("(", "").replace(")", "").replace('"', "").replace("'", "").replace("'", "").replace(";", "").trim();
+    return text.replace(/<p[^>]*>/gi, "\n").replace(/<\/p>| {2}/gi, "").replace("(", "").replace(")", "").replace('"', "").replace("'", "").replace("'", "").replace(";", "").trim();
 }

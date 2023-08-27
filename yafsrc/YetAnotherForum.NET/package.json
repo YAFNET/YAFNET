@@ -1,4 +1,4 @@
-{
+﻿{
     "name": "yetanotherforum-net",
     "version": "3.1.14",
     "private": true,
@@ -22,7 +22,6 @@
         "@w8tcha/bootstrap-suggest": "^2.1.1",
         "bootbox": "^6.0.0",
         "bootstrap": "^5.3.1",
-        "bootstrap-touchspin": "^4.7.3",
         "bootswatch": "^5.3.1",
         "codemirror": "^5.65.14",
         "flag-icons": "^6.11.0",

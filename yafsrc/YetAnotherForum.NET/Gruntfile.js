@@ -286,7 +286,7 @@ module.exports = function(grunt) {
                     "Scripts/bootstrap.bundle.js",
                     "Scripts/bootbox.js",
                     "Scripts/bootstrap-notify.js",
-                    "Scripts/jquery.bootstrap-touchspin.js",
+                    "Scripts/forum/bootstrap-touchspin.js",
                     "Scripts/select2.js",
                     "Scripts/blueimp-gallery/blueimp-gallery.js",
                     "Scripts/blueimp-gallery/blueimp-gallery-indicator.js",
@@ -300,6 +300,7 @@ module.exports = function(grunt) {
                     "Scripts/forum/yaf.Notify.js",
                     "Scripts/forum/yaf.SearchResults.js",
                     "Scripts/forum/yaf.SimilarTitles.js",
+                    "Scripts/forum/yaf.Paging.js",
                     "Scripts/forum/yaf.Main.js",
                     "Scripts/forum/yaf.contextMenu.js"
                 ],
@@ -315,7 +316,7 @@ module.exports = function(grunt) {
                 src: [
                     "Scripts/bootbox.js",
                     "Scripts/bootstrap-notify.js",
-                    "Scripts/jquery.bootstrap-touchspin.js",
+                    "Scripts/forum/bootstrap-touchspin.js",
                     "Scripts/select2.js",
                     "Scripts/blueimp-gallery/blueimp-gallery.js",
                     "Scripts/blueimp-gallery/blueimp-gallery-indicator.js",
@@ -329,6 +330,7 @@ module.exports = function(grunt) {
                     "Scripts/forum/yaf.Notify.js",
                     "Scripts/forum/yaf.SearchResults.js",
                     "Scripts/forum/yaf.SimilarTitles.js",
+                    "Scripts/forum/yaf.Paging.js",
                     "Scripts/forum/yaf.Main.js",
                     "Scripts/forum/yaf.contextMenu.js"
                 ],
@@ -345,7 +347,7 @@ module.exports = function(grunt) {
                     "Scripts/bootstrap.bundle.js",
                     "Scripts/bootbox.js",
                     "Scripts/bootstrap-notify.js",
-                    "Scripts/jquery.bootstrap-touchspin.js",
+                    "Scripts/forum/bootstrap-touchspin.js",
                     "Scripts/select2.js",
                     "Scripts/blueimp-gallery/blueimp-gallery.js",
                     "Scripts/blueimp-gallery/jquery.blueimp-gallery.js",
@@ -355,6 +357,7 @@ module.exports = function(grunt) {
                     "Scripts/forum/yaf.Utilities.js",
                     "Scripts/forum/yaf.Albums.js",
                     "Scripts/forum/yaf.Notify.js",
+                    "Scripts/forum/yaf.Paging.js",
                     "Scripts/forum/yaf.Main.js",
                     "Scripts/forum/yaf.contextMenu.js"
                 ],
@@ -370,7 +373,7 @@ module.exports = function(grunt) {
                 src: [
                     "Scripts/bootbox.js",
                     "Scripts/bootstrap-notify.js",
-                    "Scripts/jquery.bootstrap-touchspin.js",
+                    "Scripts/forum/bootstrap-touchspin.js",
                     "Scripts/select2.js",
                     "Scripts/blueimp-gallery/blueimp-gallery.js",
                     "Scripts/blueimp-gallery/jquery.blueimp-gallery.js",
@@ -380,6 +383,7 @@ module.exports = function(grunt) {
                     "Scripts/forum/yaf.Utilities.js",
                     "Scripts/forum/yaf.Albums.js",
                     "Scripts/forum/yaf.Notify.js",
+                    "Scripts/forum/yaf.Paging.js",
                     "Scripts/forum/yaf.Main.js",
                     "Scripts/forum/yaf.contextMenu.js"
                 ],

@@ -1,147 +1,70 @@
 ﻿function getPaginationData(pageSize, pageNumber, isPageChange) {
-    var yafUserID = $("#PostAttachmentListPlaceholder").data("userid");
+    const placeHolder = document.getElementById("PostAttachmentListPlaceholder"),
+        list = placeHolder.querySelector("ul"),
+        yafUserId = placeHolder.dataset.userid,
+        pagedResults = {},
+        ajaxUrl = placeHolder.dataset.url + "api/Attachment/GetAttachments";
 
-    var pagedResults = {};
-
-    pagedResults.UserId = yafUserID;
+    pagedResults.UserId = yafUserId;
     pagedResults.PageSize = pageSize;
     pagedResults.PageNumber = pageNumber;
 
-    var ajaxURL = $("#PostAttachmentListPlaceholder").data("url") + "api/Attachment/GetAttachments";
-
-	$.ajax({
-		type: "POST",
-		url: ajaxURL,
-        data: JSON.stringify(pagedResults),
-		contentType: "application/json; charset=utf-8",
-		dataType: "json",
-        success: function (data) {
-            $("#PostAttachmentListPlaceholder ul").empty();
-
-            $("div#PostAttachmentLoader").hide();
-
-            if (data.AttachmentList.length === 0) {
-                var list = $("#PostAttachmentListPlaceholder ul");
-                var notext = $("#PostAttachmentListPlaceholder").data("notext");
-
-                list.append('<li><div class="alert alert-info text-break" role="alert" style="white-space:normal">' + notext + "</div></li>");
-            }
-
-            $.each(data.AttachmentList, function (id, data) {
-                var list = $("#PostAttachmentListPlaceholder ul"),
-                    listItem = $('<li class="list-group-item list-group-item-action" style="white-space: nowrap; cursor: pointer;" />');
-
-                listItem.attr("onclick", data.OnClick);
-
-                listItem.append(data.IconImage);
-
-                list.append(listItem);
-            });
-
-            var attachmentsPreviewList = [].slice.call(document.querySelectorAll(".attachments-preview"));
-            attachmentsPreviewList.map(function (attachmentsPreviewTrigger) {
-                return new bootstrap.Popover(attachmentsPreviewTrigger,
-                    {
-                        html: true,
-                        trigger: "hover",
-                        placement: "bottom",
-                        content: function () { return `<img src="${attachmentsPreviewTrigger.src}" class="img-fluid" />`; }
-                    });
-            });
-
-            setPageNumberAttach(pageSize, pageNumber, data.TotalRecords);
-
-            if (isPageChange) {
-                jQuery(".attachments-toggle").dropdown("toggle");
-            }
-        },
-		error: function(request) {
-            $("div#PostAttachmentLoader").hide();
-
-            $("#PostAttachmentListPlaceholder").html(request.statusText).fadeIn(1000);
+    fetch(ajaxUrl, {
+        method: "POST",
+        body: JSON.stringify(pagedResults),
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json;charset=utf-8"
         }
-	});
-}
+    }).then(res => res.json()).then(data => {
 
-function setPageNumberAttach(pageSize, pageNumber, total) {
-    var pages = Math.ceil(total / pageSize);
-    var pagerHolder = $("div#AttachmentsListPager"),
-        pagination = $('<ul class="pagination pagination-sm" />');
+        empty(list);
 
-    pagerHolder.empty();
+        document.getElementById("PostAttachmentLoader").style.display = "none";
 
-    pagination.wrap('<nav aria-label="Attachments Page Results" />');
+        if (data.AttachmentList.length === 0) {
+            const noText = placeHolder.dataset.notext;
 
-    if (pageNumber > 0) {
-        pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
-            pageSize +
-            "," +
-            (pageNumber - 1) +
-            "," +
-            total +
-            ',true)" class="page-link"><i class="fas fa-angle-left"></i></a></li>');
-    }
+            const li = document.createElement("li");
 
-    var start = pageNumber - 2;
-    var end = pageNumber + 3;
+            li.innerHTML = `<li><div class="alert alert-info text-break" role="alert" style="white-space:normal">${noText}</div></li>`;
 
-    if (start < 0) {
-        start = 0;
-    }
-
-    if (end > pages) {
-        end = pages;
-    }
-
-    if (start > 0) {
-        pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
-            pageSize +
-            "," +
-            0 +
-            "," +
-            total +
-            ', true);" class="page-link">1</a></li>');
-        pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
-    }
-
-    for (var i = start; i < end; i++) {
-        if (i === pageNumber) {
-            pagination.append('<li class="page-item active"><span class="page-link">' + (i + 1) + "</span>");
-        } else {
-            pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
-                pageSize +
-                "," +
-                i +
-                "," +
-                total +
-                ',true);" class="page-link">' +
-                (i + 1) +
-                "</a></li>");
+            list.appendChild(li);
         }
-    }
 
-    if (end < pages) {
-        pagination.append('<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1">...</a></li>');
-        pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
-            pageSize +
-            "," +
-            (pages - 1) +
-            "," +
-            total +
-            ',true)" class="page-link">' +
-            pages +
-            "</a></li>");
-    }
+        data.AttachmentList.forEach((dataItem) => {
+            var li = document.createElement("li");
 
-    if (pageNumber < pages - 1) {
-        pagination.append('<li class="page-item"><a href="javascript:getPaginationData(' +
-            pageSize +
-            "," +
-            (pageNumber + 1) +
-            "," +
-            total +
-            ',true)" class="page-link"><i class="fas fa-angle-right"></i></a></li>');
-    }
+            li.classList.add("list-group-item");
+            li.classList.add("list-group-item-action");
 
-    pagerHolder.append(pagination);
+            li.style.whiteSpace = "nowrap";
+            li.style.cursor = "pointer";
+            li.setAttribute("onclick", dataItem.OnClick);
+
+            li.innerHTML = dataItem.IconImage;
+
+            list.appendChild(li);
+        });
+
+        renderAttachPreview(".attachments-preview");
+
+        setPageNumber(pageSize,
+            pageNumber,
+            data.TotalRecords,
+            document.getElementById("AttachmentsListPager"),
+            "Attachments",
+            "getPaginationData");
+
+        if (isPageChange) {
+            const toggleBtn = document.querySelector(".attachments-toggle"),
+                dropdownEl = new bootstrap.Dropdown(toggleBtn);
+
+            dropdownEl.toggle();
+        }
+    }).catch(function (error) {
+        console.log(error);
+        document.getElementById("PostAttachmentLoader").style.display = "none";
+        placeHolder.textContent = error;
+    });
 }
