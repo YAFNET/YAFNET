@@ -370,28 +370,20 @@ public static class JavaScriptBlocks
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    ///  TODO
     public static string DropDownToggleJs()
     {
-        return $$"""
+        return """
                  document.querySelectorAll(".dropdown-menu").forEach(dropdown => {
                  
                      dropdown.addEventListener("click", (e) => {
                          if (e.target.type === "button") {
-                             new bootstrap.Dropdown(dropdown).show();
+                             new bootstrap.Dropdown(e.target).show();
                          }
                          else {
                              e.stopPropagation();
                          }
                      });
                  });
-                                 {{Config.JQueryAlias}}(window).on('click', function() {
-                                     if (!{{Config.JQueryAlias}}('.dropdown-menu').is(':hidden')) {
-                                         {{Config.JQueryAlias}}().dropdown('toggle')
-                                      }
-                                  });
-                                 
-                                 });
                  """;
     }
 
@@ -434,11 +426,16 @@ public static class JavaScriptBlocks
     public static string LoadGotoAnchor([NotNull] string anchor)
     {
         return $$"""
-                 Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadGotoAnchor);
-                             function loadGotoAnchor() {
-                                document.getElementById("{{anchor}}").scrollIntoView();
-                                   }
-                 """;
+                  Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadGotoAnchor);
+                  function loadGotoAnchor() {
+                      const htmlElement = document.querySelector("html");
+                      htmlElement.style.scrollBehavior = "auto";
+                  
+                      document.getElementById("{{anchor}}").scrollIntoView();
+                  
+                      htmlElement.style.scrollBehavior = "smooth";
+                  }
+                  """;
     }
 
     /// <summary>
