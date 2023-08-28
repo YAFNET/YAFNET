@@ -2769,13 +2769,13 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.HelpLabel HelpLabel37;
 
         /// <summary>
-        /// CheckBox1-Steuerelement.
+        /// ShowScrollBackToTopButton-Steuerelement.
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CheckBox1;
+        protected global::System.Web.UI.WebControls.CheckBox ShowScrollBackToTopButton;
 
         /// <summary>
         /// HelpLabel25-Steuerelement.
