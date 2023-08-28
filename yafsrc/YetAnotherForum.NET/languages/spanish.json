@@ -5843,6 +5843,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token usado para hacer llamadas a servicios web seguros. En cambio constante hasta que se guarda la configuración del servidor."
+          },
+          {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -13842,6 +13850,10 @@
             "#text": "Teclee el nombre de usuario para recuperar clave:"
           },
           {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Password Retrieval for {0} Forum"
+          },
+          {
             "@tag": "SUCCESS",
             "#text": "Se ha enviado un correo electrónico con el enlace de restablecimiento a su dirección de correo electrónico."
           },
@@ -13852,10 +13864,6 @@
           {
             "@tag": "USERNAME_FAILURE",
             "#text": "No se pudo encontrar el usuario tecleado."
-          },
-          {
-            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
-            "#text": "Password Retrieval for {0} Forum"
           }
         ]
       },

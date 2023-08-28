@@ -5843,6 +5843,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Токен для безопасного вызова веб-служб. Чтобы зафиксировать его вы должны сохранить настройки хоста хотя бы раз."
+          },
+          {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -13842,6 +13850,10 @@
             "#text": "Введите Ваше имя пользователя для восстановления пароля:"
           },
           {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Password Retrieval for {0} Forum"
+          },
+          {
             "@tag": "SUCCESS",
             "#text": "На ваш адрес электронной почты было отправлено письмо с ссылкой на сброс!"
           },
@@ -13852,10 +13864,6 @@
           {
             "@tag": "USERNAME_FAILURE",
             "#text": "Невозможно найти введённое имя пользователя."
-          },
-          {
-            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
-            "#text": "Password Retrieval for {0} Forum"
           }
         ]
       },

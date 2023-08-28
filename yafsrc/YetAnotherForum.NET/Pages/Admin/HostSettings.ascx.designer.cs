@@ -2760,6 +2760,24 @@ namespace YAF.Pages.Admin
         protected global::System.Web.UI.WebControls.TextBox SubForumsInForumList;
 
         /// <summary>
+        /// HelpLabel37-Steuerelement.
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld.
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Web.Controls.HelpLabel HelpLabel37;
+
+        /// <summary>
+        /// CheckBox1-Steuerelement.
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld.
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBox1;
+
+        /// <summary>
         /// HelpLabel25-Steuerelement.
         /// </summary>
         /// <remarks>
@@ -2769,13 +2787,13 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.HelpLabel HelpLabel25;
 
         /// <summary>
-        /// ShowScrollBackToTopButton-Steuerelement.
+        /// ScrollToPost-Steuerelement.
         /// </summary>
         /// <remarks>
         /// Automatisch generiertes Feld.
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox ShowScrollBackToTopButton;
+        protected global::System.Web.UI.WebControls.CheckBox ScrollToPost;
 
         /// <summary>
         /// HelpLabel38-Steuerelement.

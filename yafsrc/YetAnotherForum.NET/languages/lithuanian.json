@@ -5851,6 +5851,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Ženklas, naudojamas saugiems žiniatinklio paslaugos skambučiams atlikti. Nuolat keičiasi, kol išsaugote prieglobos nustatymus."
+          },
+          {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -13862,6 +13870,10 @@
             "#text": "Enter your User Name to retrieve your password:"
           },
           {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Password Retrieval for {0} Forum"
+          },
+          {
             "@tag": "SUCCESS",
             "#text": "Jūsų el. pašto adresu buvo išsiųstas el. laiškas su atstatymo nuoroda!"
           },
@@ -13872,10 +13884,6 @@
           {
             "@tag": "USERNAME_FAILURE",
             "#text": "Nepavyksta rasti įvesto naudotojo vardo."
-          },
-          {
-            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
-            "#text": "Password Retrieval for {0} Forum"
           }
         ]
       },

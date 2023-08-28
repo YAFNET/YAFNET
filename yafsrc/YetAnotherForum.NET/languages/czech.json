@@ -5851,6 +5851,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token používaný k volání zabezpečené webové služby. "
+          },
+          {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -13866,6 +13874,10 @@
             "#text": "Enter your User Name to retrieve your password:"
           },
           {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Password Retrieval for {0} Forum"
+          },
+          {
             "@tag": "SUCCESS",
             "#text": "Na vaši e-mailovou adresu byl odeslán e-mail s odkazem Resetovat!"
           },
@@ -13876,10 +13888,6 @@
           {
             "@tag": "USERNAME_FAILURE",
             "#text": "Nelze najít zadané uživatelské jméno."
-          },
-          {
-            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
-            "#text": "Password Retrieval for {0} Forum"
           }
         ]
       },

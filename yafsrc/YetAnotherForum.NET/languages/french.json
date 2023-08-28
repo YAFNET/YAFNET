@@ -5851,6 +5851,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token utilisé pour effectuer des appels de service web sécurisés. Il change constamment jusqu'à ce que vous sauvegardiez vos paramètres d'hôte."
+          },
+          {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -13862,6 +13870,10 @@
             "#text": "Entrez votre nom d'utilisateur pour retrouver votre mot de passe:"
           },
           {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Password Retrieval for {0} Forum"
+          },
+          {
             "@tag": "SUCCESS",
             "#text": "Un courriel contenant le lien de réinitialisation a été envoyé à votre adresse électronique !"
           },
@@ -13872,10 +13884,6 @@
           {
             "@tag": "USERNAME_FAILURE",
             "#text": "Impossible de trouver cette utilisateur."
-          },
-          {
-            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
-            "#text": "Password Retrieval for {0} Forum"
           }
         ]
       },

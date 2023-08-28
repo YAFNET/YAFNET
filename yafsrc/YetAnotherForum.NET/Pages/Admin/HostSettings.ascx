@@ -1374,11 +1374,19 @@
         </div>
     </div>
                     <div class="mb-3">
-                        <YAF:HelpLabel ID="HelpLabel25" runat="server"
+                        <YAF:HelpLabel ID="HelpLabel37" runat="server"
                                        AssociatedControlID="ShowScrollBackToTopButton"
                                        LocalizedTag="SHOW_SCROLL" LocalizedPage="ADMIN_HOSTSETTINGS" />
                         <div class="form-check form-switch">
-                            <asp:CheckBox Text="&nbsp;" ID="ShowScrollBackToTopButton" runat="server"></asp:CheckBox>
+                            <asp:CheckBox Text="&nbsp;" ID="CheckBox1" runat="server"></asp:CheckBox>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <YAF:HelpLabel ID="HelpLabel25" runat="server"
+                                       AssociatedControlID="ScrollToPost"
+                                       LocalizedTag="SCROLL_TO_POST" LocalizedPage="ADMIN_HOSTSETTINGS" />
+                        <div class="form-check form-switch">
+                            <asp:CheckBox Text="&nbsp;" ID="ScrollToPost" runat="server"></asp:CheckBox>
                         </div>
                     </div>
                     <div class="mb-3">

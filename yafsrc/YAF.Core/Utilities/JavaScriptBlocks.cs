@@ -39,22 +39,27 @@ public static class JavaScriptBlocks
     /// <returns></returns>
     [NotNull]
     public static string ChangeImageCaptionJs =>
-        $@"function changeImageCaption(imageID, txtTitleId){{
-                        var newImgTitleTxt = {Config.JQueryAlias}('#' + txtTitleId).val();
-              {Config.JQueryAlias}.ajax({{
-                    url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Album/ChangeImageCaption',
-                    type: 'POST',
-                    contentType: 'application/json;charset=utf-8',
-                    data: JSON.stringify({{ ImageId: imageID, NewCaption: newImgTitleTxt  }}),
-                    dataType: 'json',
-                    success: changeTitleSuccess,
-                    error: function(x, e)  {{
-                             console.log('An Error has occurred!');
-                             console.log(x.responseText);
-                             console.log(x.status);
-                    }}
-                 }});
-               }}";
+        $$"""
+          function changeImageCaption(imageId, txtTitleId) {
+              const newImgTitleTxt = document.getElementById(txtTitleId).value;
+
+              fetch("{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/Album/ChangeImageCaption",
+                      {
+                          method: "POST",
+                          body: JSON.stringify({ ImageId: imageId, NewCaption: newImgTitleTxt }),
+                          headers: {
+                              "Accept": "application/json",
+                              "Content-Type": "application/json;charset=utf-8"
+                          }
+                      }).then(res => res.json())
+                  .then(response => {
+                      changeTitleSuccess(response);
+                  }).catch(function(error) {
+                      errorLog(error);
+                  });
+          }
+          
+          """;
 
     /// <summary>
     ///   Gets the script for album/image title/image callback.
@@ -64,52 +69,59 @@ public static class JavaScriptBlocks
     /// </returns>
     [NotNull]
     public static string AlbumCallbackSuccessJs =>
-        @"function changeTitleSuccess(res){
-                  spnTitleVar = document.getElementById('spnTitle' + res.Id);
-                  txtTitleVar =  document.getElementById('txtTitle' + res.Id);
-                  spnTitleVar.firstChild.nodeValue = res.NewTitle;
-                  txtTitleVar.disabled = false;
-                  spnTitleVar.style.display = 'inline';
-                  txtTitleVar.style.display='none';}";
+        """
+        function changeTitleSuccess(res){
+                          txtTitleVar =  document.getElementById("txtTitle" + res.Id);
+                          spnTitleVar = document.getElementById("spnTitle" + res.Id);
+                          txtTitleVar =  document.getElementById("txtTitle" + res.Id);
+                          spnTitleVar.firstChild.nodeValue = res.NewTitle;
+                          txtTitleVar.disabled = false;
+                          spnTitleVar.style.display = 'inline';
+                          txtTitleVar.style.display='none';}
+        """;
 
     /// <summary>
     /// Gets the multi quote callback success JS.
     /// </summary>
     [NotNull]
     public static string MultiQuoteCallbackSuccessJs =>
-        $@"function multiQuoteSuccess(res){{
-                  var multiQuoteButton = {Config.JQueryAlias}('#' + res.Id).parent('span');
-                  multiQuoteButton.removeClass(multiQuoteButton.attr('class')).addClass(res.NewTitle);
-                  {Config.JQueryAlias}(document).scrollTop(multiQuoteButton.offset().top - 20);
-                      }}";
+        """
+          function multiQuoteSuccess(res) {
+              const multiQuoteButton = document.getElementById(res.Id).parentNode;
+              multiQuoteButton.setAttribute("class", res.NewTitle);
+          }
+          """;
 
     /// <summary>
     /// Gets the multi quote button JS.
     /// </summary>
     [NotNull]
     public static string MultiQuoteButtonJs =>
-        $@"function handleMultiQuoteButton(button, msgId, tpId){{
-                var multiQuoteButton = {{}};
-                    multiQuoteButton.ButtonId = button.id;
-                    multiQuoteButton.IsMultiQuoteButton = button.checked;
-                    multiQuoteButton.MessageId = msgId;
-                    multiQuoteButton.TopicId = tpId;
-                    multiQuoteButton.ButtonCssClass = {Config.JQueryAlias}('#' + button.id).parent('span').attr('class');
- 
-                {Config.JQueryAlias}.ajax({{
-                    url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/MultiQuote/HandleMultiQuote',
-                    type: 'POST',
-                    contentType: 'application/json;charset=utf-8',
-                    data: JSON.stringify(multiQuoteButton),
-                    dataType: 'json',
-                    success: multiQuoteSuccess,
-                    error: function(x, e)  {{
-                             console.log('An Error has occurred!');
-                             console.log(x.responseText);
-                             console.log(x.status);
-                    }}
-                 }});
-        }}";
+        $$"""
+           function handleMultiQuoteButton(button, msgId, tpId) {
+               const multiQuoteButton = {};
+               multiQuoteButton.ButtonId = button.id;
+               multiQuoteButton.IsMultiQuoteButton = button.checked;
+               multiQuoteButton.MessageId = msgId;
+               multiQuoteButton.TopicId = tpId;
+               multiQuoteButton.ButtonCssClass = document.getElementById(button.id).parentNode.className;
+           
+               fetch("{{{BoardInfo.ForumClientFileRoot}}}{{{WebApiConfig.UrlPrefix}}}/MultiQuote/HandleMultiQuote",
+                       {
+                           method: "POST",
+                           body: JSON.stringify(multiQuoteButton),
+                           headers: {
+                               "Accept": "application/json",
+                               "Content-Type": "application/json;charset=utf-8"
+                           }
+                       }).then(res => res.json())
+                   .then(response => {
+                       multiQuoteSuccess(response);
+                   }).catch(function(error) {
+                       errorLog(error);
+                   });
+           }
+           """;
 
     /// <summary>
     /// Gets Board Tags JavaScript
@@ -136,50 +148,48 @@ public static class JavaScriptBlocks
             existingTags.ForEach(tag => tags.Append($"{Config.JQueryAlias}('#{inputId}').append($('<option>', {{value:'{tag}', text:'{tag}', selected: true}}));"));
         }
         
-        return $@"{tags}{Config.JQueryAlias}(""#{inputId}"").select2({{
-            tags: true,
-            tokenSeparators: [',', ' '],
-            ajax: {{
-                url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Tags/GetBoardTags',
-                type: 'POST',
-                dataType: 'json',
-                data: function(params) {{
-                    var query = {{
-                        ForumId: 0,
-                        UserId: 0,
-                        PageSize: 15,
-                        Page: params.page || 0,
-                        SearchTerm: params.term || ''
-                    }}
-                    return query;
-                }},
-                error: function(x, e) {{
-                    console.log('An Error has occurred!');
-                    console.log(x.responseText);
-                    console.log(x.status);
-                }},
-                processResults: function(data, params) {{
-                    params.page = params.page || 0;
-
-                    var resultsPerPage = 15 * 2;
-
-                    var total = params.page == 0 ? data.Results.length : resultsPerPage;
-
-                    return {{
-                        results: data.Results,
-                        pagination: {{
-                            more: total < data.Total
-                        }}
-                    }}
-                }}
-            }},
-            allowClearing: false,
-            width: '100%',
-            theme: 'bootstrap-5',
-            {BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}
-        }}).on(""select2:select"", function (e) {{
-                  $(""#{hiddenId}"").val($(this).select2('data').map(x => x.text).join());
-        }});";
+        return $$"""
+                 {{tags}}{{Config.JQueryAlias}}("#{{inputId}}").select2({
+                             tags: true,
+                             tokenSeparators: [',', ' '],
+                             ajax: {
+                                 url: '{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/Tags/GetBoardTags',
+                                 type: 'POST',
+                                 dataType: 'json',
+                                 data: function(params) {
+                                     var query = {
+                                         ForumId: 0,
+                                         UserId: 0,
+                                         PageSize: 15,
+                                         Page: params.page || 0,
+                                         SearchTerm: params.term || ''
+                                     }
+                                     return query;
+                                 },
+                                 error: errorLog,
+                                 processResults: function(data, params) {
+                                     params.page = params.page || 0;
+                 
+                                     var resultsPerPage = 15 * 2;
+                 
+                                     var total = params.page == 0 ? data.Results.length : resultsPerPage;
+                 
+                                     return {
+                                         results: data.Results,
+                                         pagination: {
+                                             more: total < data.Total
+                                         }
+                                     }
+                                 }
+                             },
+                             allowClearing: false,
+                             width: '100%',
+                             theme: 'bootstrap-5',
+                             {{BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}}
+                         }).on("select2:select", function (e) {
+                                   $("#{{hiddenId}}").val($(this).select2('data').map(x => x.text).join());
+                         });
+                 """;
     }
 
     /// <summary>
@@ -191,18 +201,20 @@ public static class JavaScriptBlocks
     [NotNull]
     public static string CookieConsentJs()
     {
-        return @"function addConsentCookie(name, value, days) {
-        var expires;
-
-        if (days) {
-            var date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = ""; expires="" + date.toGMTString();
-        } else {
-            expires = """";
-        }
-        document.cookie = encodeURIComponent(name) + ""="" + encodeURIComponent(value) + expires + ""; path=/"";
-    }";
+        return """
+               function addConsentCookie(name, value, days) {
+                       var expires;
+               
+                       if (days) {
+                           var date = new Date();
+                           date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                           expires = "; expires=" + date.toGMTString();
+                       } else {
+                           expires = "";
+                       }
+                       document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value) + expires + "; path=/";
+                   }
+               """;
     }
 
     /// <summary>
@@ -219,77 +231,82 @@ public static class JavaScriptBlocks
     /// </returns>
     public static string AlbumEventsJs([NotNull] string albumEmptyTitle, [NotNull] string imageEmptyCaption)
     {
-        return $@"function showTexBox(spnTitleId) {{
-    {{
-        spnTitleVar = document.getElementById('spnTitle' + spnTitleId.substring(8));
-        txtTitleVar = document.getElementById('txtTitle' + spnTitleId.substring(8));
-        if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute('value', spnTitleVar.firstChild.nodeValue);
-        if (spnTitleVar.firstChild.nodeValue == '{albumEmptyTitle}' || spnTitleVar.firstChild.nodeValue == '{imageEmptyCaption}') {{
-            {{
-                txtTitleVar.value = '';
-                spnTitleVar.firstChild.nodeValue = '';
-            }}
-        }}
-        txtTitleVar.style.display = 'inline';
-        spnTitleVar.style.display = 'none';
-        txtTitleVar.focus();
-    }}
-}}
-
-function resetBox(txtTitleId, isAlbum) {{
-    {{
-        spnTitleVar = document.getElementById('spnTitle' + txtTitleId.substring(8));
-        txtTitleVar = document.getElementById(txtTitleId);
-        txtTitleVar.style.display = 'none';
-        txtTitleVar.disabled = false;
-        spnTitleVar.style.display = 'inline';
-        if (spnTitleVar.firstChild != null) txtTitleVar.value = spnTitleVar.firstChild.nodeValue;
-        if (spnTitleVar.firstChild.nodeValue == '') {{
-            {{
-                txtTitleVar.value = '';
-                if (isAlbum) spnTitleVar.firstChild.nodeValue = '{albumEmptyTitle}';
-                else spnTitleVar.firstChild.nodeValue = '{imageEmptyCaption}';
-            }}
-        }}
-    }}
-}}
-
-function checkKey(event, handler, id, isAlbum) {{
-    {{
-        if ((event.keyCode == 13) || (event.which == 13)) {{
-            {{
-                if (event.preventDefault) event.preventDefault();
-                event.cancel = true;
-                event.returnValue = false;
-                if (spnTitleVar.firstChild.nodeValue != txtTitleVar.value) {{
-                    {{
-                        handler.disabled = true;
-                        if (isAlbum == true) changeAlbumTitle(id, handler.id);
-                        else changeImageCaption(id, handler.id);
-                    }}
-                }} else resetBox(handler.id, isAlbum);
-            }}
-        }} else if ((event.keyCode == 27) || (event.which == 27)) resetBox(handler.id, isAlbum);
-    }}
-}}
-
-function blurTextBox(txtTitleId, id, isAlbum) {{
-    {{
-        spnTitleVar = document.getElementById('spnTitle' + txtTitleId.substring(8));
-        txtTitleVar = document.getElementById(txtTitleId);
-        if (spnTitleVar.firstChild != null) {{
-            {{
-                if (spnTitleVar.firstChild.nodeValue != txtTitleVar.value) {{
-                    {{
-                        txtTitleVar.disabled = true;
-                        if (isAlbum == true) changeAlbumTitle(id, txtTitleId);
-                        else changeImageCaption(id, txtTitleId);
-                    }}
-                }} else resetBox(txtTitleId, isAlbum);
-            }}
-        }} else resetBox(txtTitleId, isAlbum);
-    }}
-}}";
+        return $$"""
+                  function showTexBox(spnTitleId) {
+                      {
+                          const spnTitleVar = document.getElementById("spnTitle" + spnTitleId.substring(8)),
+                              txtTitleVar = document.getElementById("txtTitle" + spnTitleId.substring(8));
+                  
+                          if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute("value", spnTitleVar.firstChild.nodeValue);
+                          if (spnTitleVar.firstChild.nodeValue == "{{albumEmptyTitle}}" || spnTitleVar.firstChild.nodeValue == "{{imageEmptyCaption}}") {
+                              {
+                                  txtTitleVar.value = "";
+                                  spnTitleVar.firstChild.nodeValue = "";
+                              }
+                          }
+                          txtTitleVar.style.display = "inline";
+                          spnTitleVar.style.display = "none";
+                          txtTitleVar.focus();
+                      }
+                  }
+                  
+                  function resetBox(txtTitleId, isAlbum) {
+                      {
+                          const spnTitleVar = document.getElementById("spnTitle" + txtTitleId.substring(8)),
+                              txtTitleVar = document.getElementById(txtTitleId);
+                  
+                          txtTitleVar.style.display = "none";
+                          txtTitleVar.disabled = false;
+                          spnTitleVar.style.display = "inline";
+                          if (spnTitleVar.firstChild != null) txtTitleVar.value = spnTitleVar.firstChild.nodeValue;
+                          if (spnTitleVar.firstChild.nodeValue == "") {
+                              {
+                                  txtTitleVar.value = "";
+                                  if (isAlbum) spnTitleVar.firstChild.nodeValue = "{{albumEmptyTitle}}";
+                                  else spnTitleVar.firstChild.nodeValue = "{{imageEmptyCaption}}";
+                              }
+                          }
+                      }
+                  }
+                  
+                  function checkKey(event, handler, id, isAlbum) {
+                      {
+                          if ((event.keyCode == 13) || (event.which == 13)) {
+                              {
+                                  if (event.preventDefault) event.preventDefault();
+                                  event.cancel = true;
+                                  event.returnValue = false;
+                                  if (spnTitleVar.firstChild.nodeValue != txtTitleVar.value) {
+                                      {
+                                          handler.disabled = true;
+                                          if (isAlbum == true) changeAlbumTitle(id, handler.id);
+                                          else changeImageCaption(id, handler.id);
+                                      }
+                                  } else resetBox(handler.id, isAlbum);
+                              }
+                          } else if ((event.keyCode == 27) || (event.which == 27)) resetBox(handler.id, isAlbum);
+                      }
+                  }
+                  
+                  function blurTextBox(txtTitleId, id, isAlbum) {
+                      {
+                          const spnTitleVar = document.getElementById("spnTitle" + txtTitleId.substring(8)),
+                              txtTitleVar = document.getElementById(txtTitleId);
+                  
+                          if (spnTitleVar.firstChild != null) {
+                              {
+                                  if (spnTitleVar.firstChild.nodeValue != txtTitleVar.value) {
+                                      {
+                                          txtTitleVar.disabled = true;
+                                          if (isAlbum == true) changeAlbumTitle(id, txtTitleId);
+                                          else changeImageCaption(id, txtTitleId);
+                                      }
+                                  } else resetBox(txtTitleId, isAlbum);
+                              }
+                          } else resetBox(txtTitleId, isAlbum);
+                      }
+                  }
+                  """;
     }
 
     /// <summary>
@@ -303,12 +320,16 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// </returns>
     public static string BlockUiFunctionJs([NotNull] string messageId)
     {
-        return $@"var modal = new bootstrap.Modal(document.getElementById('{messageId}'), {{
-                                                 backdrop: 'static',
-                                                 keyboard: false
-                                              }});
-                                   modal.show();
-                       ";
+        return $$"""
+                  var modal = new bootstrap.Modal(document.getElementById("{{messageId}}"),
+                      {
+                          backdrop: "static",
+                          keyboard: false
+                      });
+                  
+                  modal.show();
+                                       
+                  """;
     }
 
     /// <summary>
@@ -321,61 +342,26 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// </returns>
     public static string BootstrapTabsLoadJs([NotNull] string tabId, string hiddenId)
     {
-        return BootstrapTabsLoadJs(tabId, hiddenId, string.Empty);
-    }
-
-    /// <summary>
-    /// Gets the Bootstrap Tab Load JS.
-    /// </summary>
-    /// <param name="tabId">The tab Id.</param>
-    /// <param name="hiddenId">The hidden field id.</param>
-    /// <param name="onClickEvent">The on click event.</param>
-    /// <returns>
-    /// Returns the the Bootstrap Tab Load JS string
-    /// </returns>
-    public static string BootstrapTabsLoadJs([NotNull] string tabId, string hiddenId, string onClickEvent)
-    {
-        return $@"{Config.JQueryAlias}(document).ready(function() {{
-            var selectedTab = {Config.JQueryAlias}(""#{hiddenId}"");
-            var tabId = selectedTab.val() != """" ? selectedTab.val() : ""View1"";
-            {Config.JQueryAlias}('#{tabId} a[href=""#' + tabId + '""]').tab('show');
-            {Config.JQueryAlias}(""#{tabId} a"").click(function() {{
-                var tab = {Config.JQueryAlias}(this).attr(""href"").substring(1);
-                if (!tab.startsWith(""avascript""))
-{{
-                selectedTab.val({Config.JQueryAlias}(this).attr(""href"").substring(1));
-}}
-                {onClickEvent}
-            }});
-                           }});";
-    }
-
-    /// <summary>
-    /// Gets the Bootstrap Tab Load JS.
-    /// </summary>
-    /// <param name="tabId">
-    /// The tab Id.
-    /// </param>
-    /// <param name="hiddenId">
-    /// The hidden field id.
-    /// </param>
-    /// <returns>
-    /// Returns the the Bootstrap Tab Load JS string
-    /// </returns>
-    public static string BootstrapTabLoadJs([NotNull] string tabId, [NotNull] string hiddenId)
-    {
-        return $@"{Config.JQueryAlias}(document).ready(function() {{
-            var selectedTab = {Config.JQueryAlias}(""#{hiddenId}"");
-            var tabId = selectedTab.val() != """" ? selectedTab.val() : ""View1"";
-            {Config.JQueryAlias}('#{tabId} a[href=""#' + tabId + '""]').tab('show');
-            {Config.JQueryAlias}(""#{tabId} a"").click(function() {{
-                var tab = {Config.JQueryAlias}(this).attr(""href"").substring(1);
-                if (!tab.startsWith(""avascript""))
-{{
-                selectedTab.val({Config.JQueryAlias}(this).attr(""href"").substring(1));
-}}
-            }});
-                           }});";
+        return $$"""
+                  document.addEventListener("DOMContentLoaded", function () {
+                      const selectedTab = document.getElementById("{{hiddenId}}"),
+                          tabId = selectedTab.value !== "" ? selectedTab.value : "View1",
+                          tab = new bootstrap.Tab('#{{tabId}} a[href="#' + tabId + '"]');
+                  
+                      tab.show();
+                  
+                      document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tabEl => {
+                          tabEl.addEventListener("click",
+                              (e) => {
+                                  var tabLink = e.target.href.split('#');
+                  
+                                  if (tabLink.length > 1) {
+                                      selectedTab.value = tabLink[1];
+                                  }
+                              });
+                      });
+                  });
+                  """;
     }
 
     /// <summary>
@@ -384,25 +370,29 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
+    ///  TODO
     public static string DropDownToggleJs()
     {
-        return $@"document.addEventListener('DOMContentLoaded', (event) => {{
-                {Config.JQueryAlias}(function() {{
-                {Config.JQueryAlias}('.dropdown-menu').on('click', function(e) {{
-                    if (e.target.type == 'button') {{
-                           {Config.JQueryAlias}().dropdown('toggle')
-                    }}
-                    else {{ 
-                         e.stopPropagation();
-                    }}
-                }});
-                {Config.JQueryAlias}(window).on('click', function() {{
-                    if (!{Config.JQueryAlias}('.dropdown-menu').is(':hidden')) {{
-                        {Config.JQueryAlias}().dropdown('toggle')
-                     }}
-                 }});
-                 }});
-                }});";
+        return $$"""
+                 document.querySelectorAll(".dropdown-menu").forEach(dropdown => {
+                 
+                     dropdown.addEventListener("click", (e) => {
+                         if (e.target.type === "button") {
+                             new bootstrap.Dropdown(dropdown).show();
+                         }
+                         else {
+                             e.stopPropagation();
+                         }
+                     });
+                 });
+                                 {{Config.JQueryAlias}}(window).on('click', function() {
+                                     if (!{{Config.JQueryAlias}}('.dropdown-menu').is(':hidden')) {
+                                         {{Config.JQueryAlias}}().dropdown('toggle')
+                                      }
+                                  });
+                                 
+                                 });
+                 """;
     }
 
     /// <summary>
@@ -417,6 +407,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
+    ///  TODO
     public static string CollapseToggleJs([NotNull] string hideText, [NotNull] string showText)
     {
         return $@"{Config.JQueryAlias}(document).ready(function() {{
@@ -442,10 +433,12 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// </returns>
     public static string LoadGotoAnchor([NotNull] string anchor)
     {
-        return $@"Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadGotoAnchor);
-            function loadGotoAnchor() {{
-               document.getElementById('{anchor}').scrollIntoView();
-                  }}";
+        return $$"""
+                 Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadGotoAnchor);
+                             function loadGotoAnchor() {
+                                document.getElementById("{{anchor}}").scrollIntoView();
+                                   }
+                 """;
     }
 
     /// <summary>
@@ -460,6 +453,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// <returns>
     /// The YAF modal dialog Load JS.
     /// </returns>
+    ///  TODO
     public static string LoginBoxLoadJs([NotNull] string openLink, [NotNull] string dialogId)
     {
         return $@"{Config.JQueryAlias}(document).ready(function() {{  
@@ -478,6 +472,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// <returns>
     /// The add thanks JS.
     /// </returns>
+    ///  TODO
     public static string AddThanksJs([NotNull] string removeThankBoxHtml)
     {
         return $@"function addThanks(messageID){{ 
@@ -492,11 +487,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                               {Config.JQueryAlias}('.thanks-popover').popover({{
                                      template: '<div class=""popover"" role=""tooltip""><div class=""popover-arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body popover-body-scrollable""></div></div>'}});
                     }},
-                    error: function(x, e)  {{
-                             console.log('An Error has occurred!');
-                             console.log(x.responseText);
-                             console.log(x.status);
-                    }}
+                    error: errorLog
                  }});
 
                  }}";
@@ -511,6 +502,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// <returns>
     /// The remove thanks JS.
     /// </returns>
+    ///  TODO
     public static string RemoveThanksJs([NotNull] string addThankBoxHtml)
     {
         return $@"function removeThanks(messageID){{ 
@@ -522,11 +514,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                               $('#dvThanksInfo' + response.MessageID).html(response.ThanksInfo);
                               $('#dvThankBox' + response.MessageID).html({addThankBoxHtml});
                     }},
-                    error: function(x, e)  {{
-                             console.log('An Error has occurred!');
-                             console.log(x.responseText);
-                             console.log(x.status);
-                    }}
+                    error: errorLog
                  }});
                           
                  }}";
@@ -789,11 +777,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                       }}
                       return query;
                 }},
-                error: function(x, e)  {{
-                       console.log('An Error has occurred!');
-                       console.log(x.responseText);
-                       console.log(x.status);
-                }},
+                error: errorLog,
                 processResults: function(data, params) {{
                     params.page = params.page || 0;
 
@@ -893,11 +877,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                       }}
                       return query;
                 }},
-                error: function(x, e)  {{
-                       console.log('An Error has occurred!');
-                       console.log(x.responseText);
-                       console.log(x.status);
-                }},
+                error: errorLog,
                 processResults: function(data, params) {{
                     params.page = params.page || 0;
 
@@ -962,6 +942,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// <param name="passwordStrongerText">The password stronger text.</param>
     /// <param name="passwordWeakText">The password weak text.</param>
     /// <returns>Returns the Passwords strength checker Java Script</returns>
+    ///  TODO
     [NotNull]
     public static string PasswordStrengthCheckerJs(
         [NotNull] string passwordClientId,
@@ -1054,6 +1035,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// <returns>
     /// Returns the do Search Java script String
     /// </returns>
+    ///  TODO
     [NotNull]
     public static string DoSearchJs()
     {
@@ -1075,14 +1057,16 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string ForumIconLegendPopoverJs([NotNull] string content, [NotNull] string cssClass)
     {
-        return $@"Sys.Application.add_load(function(){{var popoverTriggerIconList = [].slice.call(document.querySelectorAll('.{cssClass}'));
-                      var popoverIconList = popoverTriggerIconList.map(function(popoverTriggerEl) {{
-                           return new bootstrap.Popover(popoverTriggerEl,{{
-                           html: true,
-                           content: ""{content}"",
-                           trigger: ""focus""
-                           }});
-                    }});}});";
+        return $$"""
+                 Sys.Application.add_load(function(){var popoverTriggerIconList = [].slice.call(document.querySelectorAll(".{{cssClass}}"));
+                                       var popoverIconList = popoverTriggerIconList.map(function(popoverTriggerEl) {
+                                            return new bootstrap.Popover(popoverTriggerEl,{
+                                            html: true,
+                                            content: "{{content}}",
+                                            trigger: "focus"
+                                            });
+                                     });});
+                 """;
     }
 
     /// <summary>
@@ -1101,19 +1085,22 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// Returns the JS String
     /// </returns>
     [NotNull]
+    // TODO
     public static string TopicLinkPopoverJs([NotNull] string title, [NotNull] string cssClass, [NotNull] string trigger)
     {
-        return $@"Sys.Application.add_load(function(){{
-                      var popoverTriggerModsList = [].slice.call(document.querySelectorAll('{cssClass}'));
-                      var popoverModsList = popoverTriggerModsList.map(function(popoverTriggerEl) {{
-                           return new bootstrap.Popover(popoverTriggerEl,{{
-                           title: '{title}',
-                           html: true,
-                           trigger: '{trigger}',
-                           template: '<div class=""popover"" role=""tooltip""><div class=""popover-arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body""></div></div>'
-                           }});
-                }});
-                }});";
+        return $$"""
+                 Sys.Application.add_load(function(){
+                                       var popoverTriggerModsList = [].slice.call(document.querySelectorAll('{{cssClass}}'));
+                                       var popoverModsList = popoverTriggerModsList.map(function(popoverTriggerEl) {
+                                            return new bootstrap.Popover(popoverTriggerEl,{
+                                            title: "{{title}}",
+                                            html: true,
+                                            trigger: "{{trigger}}",
+                                            template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'
+                                            });
+                                 });
+                                 });
+                 """;
     }
 
     /// <summary>
@@ -1175,23 +1162,25 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string FormValidatorJs([NotNull] string buttonClientId)
     {
-        return $@"(function() {{
-                'use strict';
-                window.addEventListener('load', function() {{
-                    var form = document.forms[0];
-
-                    var test = document.getElementById('{buttonClientId}');
-                    test.addEventListener('click', function(event) {{
-                        if (form.checkValidity() === false)
-                        {{
-                            event.preventDefault();
-                            event.stopPropagation();
-                        }}
-                        form.classList.add('was-validated');
-                    }}, false);
-                   
-                }}, false);
-            }})();";
+        return $$"""
+                 (function() {
+                                 'use strict';
+                                 window.addEventListener('load', function() {
+                                     var form = document.forms[0];
+                 
+                                     var test = document.getElementById('{{buttonClientId}}');
+                                     test.addEventListener('click', function(event) {
+                                         if (form.checkValidity() === false)
+                                         {
+                                             event.preventDefault();
+                                             event.stopPropagation();
+                                         }
+                                         form.classList.add('was-validated');
+                                     }, false);
+                                    
+                                 }, false);
+                             })();
+                 """;
     }
 
     /// <summary>
@@ -1206,8 +1195,10 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string ClickOnEnterJs([NotNull] string buttonClientId)
     {
-        return $@"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{
-                              document.getElementById('{buttonClientId}').click();return false;}}}} else {{return true}}; ";
+        return $$$"""
+                  if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {
+                                                document.getElementById('{{{buttonClientId}}}').click();return false;}} else {return true}; 
+                  """;
     }
 
     /// <summary>
@@ -1239,28 +1230,30 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull] string no,
         [NotNull] string link)
     {
-        return $@"document.addEventListener('DOMContentLoaded', function() {{
-                        bootbox.confirm({{
-                centerVertical: true,
-                title: '{title}',
-                message: '{text}',
-                buttons: {{
-                    confirm: {{
-                        label: '<i class=""fa fa-check""></i> ' + '{yes}',
-                        className: ""btn-success""
-                    }},
-                    cancel: {{
-                        label: '<i class=""fa fa-times""></i> ' + '{no}',
-                        className: ""btn-danger""
-                    }}
-                }},
-                callback: function (confirmed) {{
-                    if (confirmed) {{
-                        document.location.href = '{link}';
-                    }}
-                }}
-            }}
-        );}})";
+        return $$"""
+                 document.addEventListener('DOMContentLoaded', function() {
+                                         bootbox.confirm({
+                                 centerVertical: true,
+                                 title: '{{title}}',
+                                 message: '{{text}}',
+                                 buttons: {
+                                     confirm: {
+                                         label: '<i class="fa fa-check"></i> ' + '{{yes}}',
+                                         className: "btn-success"
+                                     },
+                                     cancel: {
+                                         label: '<i class="fa fa-times"></i> ' + '{{no}}',
+                                         className: "btn-danger"
+                                     }
+                                 },
+                                 callback: function (confirmed) {
+                                     if (confirmed) {
+                                         document.location.href = '{{link}}';
+                                     }
+                                 }
+                             }
+                         );})
+                 """;
     }
 
     /// <summary>
@@ -1292,13 +1285,15 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull] string ok,
         [NotNull] string value)
     {
-        return $@"bootbox.prompt({{ 
-                                      title: '{title}',
-                                      message: '{message}',
-                                      value: '{value}',
-                                      buttons: {{cancel:{{label:'{cancel}'}}, confirm:{{label:'{ok}'}}}},
-                                      callback: function(){{}}
-                                  }});";
+        return $$$"""
+                  bootbox.prompt({
+                                                        title: '{{{title}}}',
+                                                        message: '{{{message}}}',
+                                                        value: '{{{value}}}',
+                                                        buttons: {cancel:{label:'{{{cancel}}}'}, confirm:{label:'{{{ok}}}'}},
+                                                        callback: function(){}
+                                                    });
+                  """;
     }
 
     /// <summary>
@@ -1339,11 +1334,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
                       }}
                       return JSON.stringify(query);
                 }},
-                error: function(x, e)  {{
-                       console.log('An Error has occurred!');
-                       console.log(x.responseText);
-                       console.log(x.status);
-                }},
+                error: errorLog,
                 processResults: function(data, params) {{
                     params.page = params.page || 0;
 
@@ -1406,28 +1397,30 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull] string no,
         [NotNull] string link)
     {
-        return $@"function LogOutClick() {{
-                bootbox.confirm({{
-                centerVertical: true,
-                title: '{title}',
-                message: '{text}',
-                buttons: {{
-                    confirm: {{
-                        label: '<i class=""fa fa-check""></i> ' + '{yes}',
-                        className: ""btn-success""
-                    }},
-                    cancel: {{
-                        label: '<i class=""fa fa-times""></i> ' + '{no}',
-                        className: ""btn-danger""
-                    }}
-                }},
-                callback: function (confirmed) {{
-                    if (confirmed) {{
-                        document.location.href = '{link}';
-                    }}
-                }}
-            }}
-        );}}";
+        return $$"""
+                 function LogOutClick() {
+                                 bootbox.confirm({
+                                 centerVertical: true,
+                                 title: '{{title}}',
+                                 message: '{{text}}',
+                                 buttons: {
+                                     confirm: {
+                                         label: '<i class="fa fa-check"></i> ' + '{{yes}}',
+                                         className: "btn-success"
+                                     },
+                                     cancel: {
+                                         label: '<i class="fa fa-times"></i> ' + '{{no}}',
+                                         className: "btn-danger"
+                                     }
+                                 },
+                                 callback: function (confirmed) {
+                                     if (confirmed) {
+                                         document.location.href = '{{link}}';
+                                     }
+                                 }
+                             }
+                         );}
+                 """;
     }
 
     /// <summary>
@@ -1442,17 +1435,20 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// <returns>
     /// Returns the JS String
     /// </returns>
+    ///  TODO
     [NotNull]
     public static string LoadMoreOnScrolling([NotNull] string buttonUniqueId, [NotNull] string buttonClientId)
     {
-        return $@"{Config.JQueryAlias}(window).scroll(function () {{
-                           if ({Config.JQueryAlias}(window).scrollTop() == $(document).height() - {Config.JQueryAlias}(window).height()) {{
-                                 var btn = document.getElementById(""{buttonClientId}"");
-                                 if (btn != null) {{
-                                     __doPostBack('{buttonUniqueId}', '');
-                                  }}
-                              }}
-                         }});";
+        return $$"""
+                 {{Config.JQueryAlias}}(window).scroll(function () {
+                                            if ({{Config.JQueryAlias}}(window).scrollTop() == $(document).height() - {{Config.JQueryAlias}}(window).height()) {
+                                                  var btn = document.getElementById("{{buttonClientId}}");
+                                                  if (btn != null) {
+                                                      __doPostBack('{{buttonUniqueId}}', '');
+                                                   }
+                                               }
+                                          });
+                 """;
     }
 
     /// <summary>
@@ -1464,6 +1460,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// <returns>
     /// Returns the JS String
     /// </returns>
+    ///  TODO
     [NotNull]
     public static string ToggleDiffSelectionJs([NotNull] string message)
     {

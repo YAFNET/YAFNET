@@ -5843,6 +5843,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Merkteken om beveiligde web service calls te maken. Wijzigt voortdurend totdat je de host settings hebt opgeslagen."
+          },
+          {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -13842,6 +13850,10 @@
             "#text": "Geef je gebruikersnaam op om je wachtwoord op te vragen:"
           },
           {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Password Retrieval for {0} Forum"
+          },
+          {
             "@tag": "SUCCESS",
             "#text": "Er is een e-mail met de Reset-link naar uw e-mailadres gestuurd!"
           },
@@ -13852,10 +13864,6 @@
           {
             "@tag": "USERNAME_FAILURE",
             "#text": "De opgegeven gebruikersnaam is onbekend."
-          },
-          {
-            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
-            "#text": "Password Retrieval for {0} Forum"
           }
         ]
       },

@@ -5843,6 +5843,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token die verwendet werden, um sichere Web-Service-Anrufe zu tätigen. Ständig wechselnde, bis Sie Ihren Host Einstellungen  speichern."
+          },
+          {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -13842,6 +13850,10 @@
             "#text": "Gib Deinen Benutzernamen ein, um Dein Passwort wiederherzustellen:"
           },
           {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Password Retrieval for {0} Forum"
+          },
+          {
             "@tag": "SUCCESS",
             "#text": "Eine E-Mail mit dem Reset-Link wurde an Ihre E-Mail-Adresse gesendet!"
           },
@@ -13852,10 +13864,6 @@
           {
             "@tag": "USERNAME_FAILURE",
             "#text": "Der eingegebene Benutzername ist unbekannt"
-          },
-          {
-            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
-            "#text": "Password Retrieval for {0} Forum"
           }
         ]
       },

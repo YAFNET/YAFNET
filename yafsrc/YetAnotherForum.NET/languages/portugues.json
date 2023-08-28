@@ -5851,6 +5851,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Ficha utilizada para fazer chamadas seguras de serviço web. Mudança constante até guardar as configurações do seu anfitrião."
+          },
+          {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -13862,6 +13870,10 @@
             "#text": "Enter your User Name to retrieve your password:"
           },
           {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Password Retrieval for {0} Forum"
+          },
+          {
             "@tag": "SUCCESS",
             "#text": "Um e-mail com o link de reinicialização foi enviado para o seu endereço de e-mail!"
           },
@@ -13872,10 +13884,6 @@
           {
             "@tag": "USERNAME_FAILURE",
             "#text": "Incapaz de localizar o nome de utilizador introduzido."
-          },
-          {
-            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
-            "#text": "Password Retrieval for {0} Forum"
           }
         ]
       },

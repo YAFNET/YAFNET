@@ -131,8 +131,8 @@ public partial class HostSettings : AdminPage
     {
         // setup jQuery and YAF JS...
         this.PageBoardContext.PageElements.RegisterJsBlock(
-            "yafTabsJs",
-            JavaScriptBlocks.BootstrapTabLoadJs("v-pills-tab", this.hidLastTab.ClientID));
+            nameof(JavaScriptBlocks.BootstrapTabsLoadJs),
+            JavaScriptBlocks.BootstrapTabsLoadJs("v-pills-tab", this.hidLastTab.ClientID));
 
         base.OnPreRender(e);
     }

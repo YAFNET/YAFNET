@@ -5851,6 +5851,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Mã thông báo được sử dụng để thực hiện các cuộc gọi dịch vụ web an toàn. Liên tục thay đổi cho đến khi bạn lưu cài đặt máy chủ của mình."
+          },
+          {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -13862,6 +13870,10 @@
             "#text": "Nhập tên người dùng lấy lại mật khẩu:"
           },
           {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Password Retrieval for {0} Forum"
+          },
+          {
             "@tag": "SUCCESS",
             "#text": "Một email với Liên kết Đặt lại đã được gửi đến địa chỉ email của bạn!"
           },
@@ -13872,10 +13884,6 @@
           {
             "@tag": "USERNAME_FAILURE",
             "#text": "Không xác minh được người dùng."
-          },
-          {
-            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
-            "#text": "Password Retrieval for {0} Forum"
           }
         ]
       },

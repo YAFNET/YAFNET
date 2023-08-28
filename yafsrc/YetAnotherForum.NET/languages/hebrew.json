@@ -5851,6 +5851,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "אסימון המשמש לביצוע שיחות שירות אינטרנט מאובטח. משתנה כל הזמן עד שתשמור את הגדרות המארח שלך."
+          },
+          {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -13874,6 +13882,10 @@
             "#text": "הזן את שם המשתמש שלך על מנת לשחזר את הסיסמא: "
           },
           {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Password Retrieval for {0} Forum"
+          },
+          {
             "@tag": "SUCCESS",
             "#text": "דוא&quot;ל עם קישור איפוס נשלח לכתובת הדוא&quot;ל שלך!"
           },
@@ -13884,10 +13896,6 @@
           {
             "@tag": "USERNAME_FAILURE",
             "#text": "שם המשתמש אינו קיים במערכת."
-          },
-          {
-            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
-            "#text": "Password Retrieval for {0} Forum"
           }
         ]
       },

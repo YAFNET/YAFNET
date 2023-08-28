@@ -558,7 +558,7 @@ public partial class Posts : ForumPage
             this.Pager.CurrentPageIndex = firstPost.PageIndex;
 
             // move to this message on load...
-            if (!this.PageBoardContext.IsCrawler)
+            if (!this.PageBoardContext.IsCrawler && this.PageBoardContext.BoardSettings.ScrollToPost)
             {
                 this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     this,
@@ -569,7 +569,7 @@ public partial class Posts : ForumPage
         else
         {
             // move to this message on load...
-            if (!this.PageBoardContext.IsCrawler)
+            if (!this.PageBoardContext.IsCrawler && this.PageBoardContext.BoardSettings.ScrollToPost)
             {
                 this.PageBoardContext.PageElements.RegisterJsBlockStartup(
                     this,

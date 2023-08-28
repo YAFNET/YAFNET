@@ -5843,6 +5843,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "رمز يستخدم لإجراء مكالمات خدمة ويب آمنة. "
+          },
+          {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -13838,6 +13846,10 @@
             "#text": "ادخل  اسم المستخدم لإسترجاع كلمة المرور:"
           },
           {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Password Retrieval for {0} Forum"
+          },
+          {
             "@tag": "SUCCESS",
             "#text": "تم إرسال بريد إلكتروني مع رابط إعادة التعيين إلى عنوان بريدك الإلكتروني!"
           },
@@ -13848,10 +13860,6 @@
           {
             "@tag": "USERNAME_FAILURE",
             "#text": "اسم المستخدم غير موجود "
-          },
-          {
-            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
-            "#text": "Password Retrieval for {0} Forum"
           }
         ]
       },

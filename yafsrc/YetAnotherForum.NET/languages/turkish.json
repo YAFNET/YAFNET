@@ -5851,6 +5851,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Güvenli web hizmeti çağrıları yapmak için kullanılan belirteç. Ana bilgisayar ayarlarınızı kaydedinceye kadar sürekli değişir."
+          },
+          {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -13862,6 +13870,10 @@
             "#text": "Şifrenizi geri alamk için kullanıcı adınızı girin:"
           },
           {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Password Retrieval for {0} Forum"
+          },
+          {
             "@tag": "SUCCESS",
             "#text": "E-posta adresinize Sıfırlama Bağlantısını içeren bir e-posta gönderildi!"
           },
@@ -13872,10 +13884,6 @@
           {
             "@tag": "USERNAME_FAILURE",
             "#text": "Girdiğiniz kullanıcı adı bulunamadı"
-          },
-          {
-            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
-            "#text": "Password Retrieval for {0} Forum"
           }
         ]
       },

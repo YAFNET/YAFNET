@@ -5843,6 +5843,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "توکن برای فراخوانی امن وب سرویس استفاده می شود. و مدام در حال تغییر است تا زمانی که شما تنظمیات میزبان را ذخیره کنید."
+          },
+          {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -13838,6 +13846,10 @@
             "#text": "نام کاربری خود را به منظور دریافت رمز عبور وارد کنید:"
           },
           {
+            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
+            "#text": "Password Retrieval for {0} Forum"
+          },
+          {
             "@tag": "SUCCESS",
             "#text": "یک ایمیل حاوی لینک بازیابی رمز عبور، به آدرس ایمیل شما ارسال شد!"
           },
@@ -13848,10 +13860,6 @@
           {
             "@tag": "USERNAME_FAILURE",
             "#text": "نام کاربری وارد شده یافت نگردید."
-          },
-          {
-            "@tag": "PASSWORDRETRIEVAL_EMAIL_SUBJECT",
-            "#text": "Password Retrieval for {0} Forum"
           }
         ]
       },

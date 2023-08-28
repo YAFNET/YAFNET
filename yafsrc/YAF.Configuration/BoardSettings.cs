@@ -462,6 +462,16 @@ public class BoardSettings
     }
 
     /// <summary>
+    /// Gets or sets a value indicating whether to go to post Anchor.
+    /// </summary>
+    public bool ScrollToPost
+    {
+        get => this.RegistryBoard.GetValue("ScrollToPost", true);
+
+        set => this.RegistryBoard.SetValue("ScrollToPost", value);
+    }
+
+    /// <summary>
     /// Gets or sets a value indicating whether show scroll back to top button.
     /// </summary>
     public bool ShowScrollBackToTopButton
