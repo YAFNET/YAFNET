@@ -106,7 +106,7 @@ public static class JavaScriptBlocks
                multiQuoteButton.TopicId = tpId;
                multiQuoteButton.ButtonCssClass = document.getElementById(button.id).parentNode.className;
            
-               fetch("{{{BoardInfo.ForumClientFileRoot}}}{{{WebApiConfig.UrlPrefix}}}/MultiQuote/HandleMultiQuote",
+               fetch("{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/MultiQuote/HandleMultiQuote",
                        {
                            method: "POST",
                            body: JSON.stringify(multiQuoteButton),
@@ -388,7 +388,7 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
-    /// The drop down toggle JS.
+    /// The collapse toggle JS.
     /// </summary>
     /// <param name="hideText">
     /// The hide Text.
@@ -399,19 +399,19 @@ public static class JavaScriptBlocks
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    ///  TODO
     public static string CollapseToggleJs([NotNull] string hideText, [NotNull] string showText)
     {
-        return $@"{Config.JQueryAlias}(document).ready(function() {{
-                          {Config.JQueryAlias}('a[data-bs-toggle=""collapse""]').click(function() {{
-                              var button = $(this);
-                              if (button.attr(""aria-expanded"") == ""false"") {{
-                                  button.html('<i class=""fa fa-caret-square-up fa-fw""></i>&nbsp;{hideText}');
-                              }} else {{
-                                  button.html('<i class=""fa fa-caret-square-down fa-fw""></i>&nbsp;{showText}');
-                              }}
-                          }});
-                      }});";
+        return $$"""
+                  document.addEventListener("DOMContentLoaded", function () {
+                      document.querySelectorAll('a[data-bs-toggle="collapse"]').forEach(button => {
+                          if (button.getAttribute("aria-expanded") === "false") {
+                              button.innerHTML = '<i class="fa fa-caret-square-up fa-fw"></i>&nbsp;{{hideText}}';
+                          } else {
+                              button.innerHTML = '<i class="fa fa-caret-square-down fa-fw"></i>&nbsp;{{showText}}';
+                          }
+                      });
+                  });
+                  """;
     }
 
     /// <summary>
@@ -450,14 +450,18 @@ public static class JavaScriptBlocks
     /// <returns>
     /// The YAF modal dialog Load JS.
     /// </returns>
-    ///  TODO
     public static string LoginBoxLoadJs([NotNull] string openLink, [NotNull] string dialogId)
     {
-        return $@"{Config.JQueryAlias}(document).ready(function() {{  
-                                {Config.JQueryAlias}('{openLink}').click(function () {{ 
-                                        {Config.JQueryAlias}('{dialogId}').modal('show');
-                                }}); 
-                   }});";
+        return $$"""
+                  document.addEventListener("DOMContentLoaded", function () {
+                      document.querySelectorAll("{{openLink}}").forEach(button => {
+                          button.addEventListener("click", () => {
+                              const loginModal = new bootstrap.Modal(document.getElementById("{{dialogId}}"));
+                              loginModal.show();
+                          });
+                      });
+                  });
+                  """;
     }
 
     /// <summary>
@@ -469,25 +473,35 @@ public static class JavaScriptBlocks
     /// <returns>
     /// The add thanks JS.
     /// </returns>
-    ///  TODO
     public static string AddThanksJs([NotNull] string removeThankBoxHtml)
     {
-        return $@"function addThanks(messageID){{ 
-            {Config.JQueryAlias}.ajax({{
-                    url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/ThankYou/AddThanks/' + messageID,
-                    type: 'POST',
-                    contentType: 'application/json;charset=utf-8',
-                    success: function(response) {{
-                              {Config.JQueryAlias}('#dvThanksInfo' + response.MessageID).html(response.ThanksInfo);
-                              {Config.JQueryAlias}('#dvThankBox' + response.MessageID).html({removeThankBoxHtml});
-
-                              {Config.JQueryAlias}('.thanks-popover').popover({{
-                                     template: '<div class=""popover"" role=""tooltip""><div class=""popover-arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body popover-body-scrollable""></div></div>'}});
-                    }},
-                    error: errorLog
-                 }});
-
-                 }}";
+        return $$"""
+                  function addThanks(messageId) {
+                      fetch("{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/ThankYou/AddThanks/" + messageId,
+                              {
+                                  method: "POST",
+                                  headers: {
+                                      "Accept": "application/json",
+                                      "Content-Type": "application/json;charset=utf-8"
+                                  }
+                              }).then(res => res.json())
+                          .then(response => {
+                  
+                              document.getElementById('dvThanksInfo' + response.MessageID).innerHTML = response.ThanksInfo;
+                              document.getElementById('dvThankBox' + response.MessageID).innerHTML = {{removeThankBoxHtml}};
+                  
+                              document.querySelectorAll(".thanks-popover").forEach(pop => {
+                                  const popover = new bootstrap.Popover(pop,
+                                      {
+                                          template:
+                                              '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body popover-body-scrollable"></div></div>'
+                                      });
+                              });
+                          }).catch(function (error) {
+                              errorLog(error);
+                          });
+                  }
+                  """;
     }
 
     /// <summary>
@@ -499,22 +513,27 @@ public static class JavaScriptBlocks
     /// <returns>
     /// The remove thanks JS.
     /// </returns>
-    ///  TODO
     public static string RemoveThanksJs([NotNull] string addThankBoxHtml)
     {
-        return $@"function removeThanks(messageID){{ 
-            $.ajax({{
-                    url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/ThankYou/RemoveThanks/' + messageID,
-                    type: 'POST',
-                    contentType: 'application/json;charset=utf-8',
-                    success: function(response) {{
-                              $('#dvThanksInfo' + response.MessageID).html(response.ThanksInfo);
-                              $('#dvThankBox' + response.MessageID).html({addThankBoxHtml});
-                    }},
-                    error: errorLog
-                 }});
-                          
-                 }}";
+        return $$"""
+                  function removeThanks(messageId) {
+                      fetch("{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/ThankYou/RemoveThanks/" + messageId,
+                              {
+                                  method: "POST",
+                                  headers: {
+                                      "Accept": "application/json",
+                                      "Content-Type": "application/json;charset=utf-8"
+                                  }
+                              }).then(res => res.json())
+                          .then(response => {
+                  
+                              document.getElementById("dvThanksInfo" + response.MessageID).innerHTML = response.ThanksInfo;
+                              document.getElementById("dvThankBox" + response.MessageID).innerHTML = {{addThankBoxHtml}};
+                          }).catch(function(error) {
+                              errorLog(error);
+                          });
+                  }
+                  """;
     }
 
     /// <summary>
@@ -536,30 +555,32 @@ public static class JavaScriptBlocks
         [NotNull] string urlImageDescription,
         [NotNull] string description)
     {
-        return $@"var {editorId}=new yafEditor('{editorId}', '{urlTitle}', '{urlDescription}', '{urlImageTitle}', '{urlImageDescription}', '{description}');
-                  function setStyle(style,option) {{
-                           {editorId}.FormatText(style,option);
-                  }}
-                  function insertAttachment(id,url) {{
-                           {editorId}.FormatText('attach', id);
-                  }}
-                  
-                  {Config.JQueryAlias}("".BBCodeEditor"").suggest(""@"",
-                          {{
-            data: function(q) {{
-                if (q && q.length > 3) {{
-                    return {Config.JQueryAlias}.getJSON(""{BoardInfo.ForumClientFileRoot}resource.ashx?users="" + q);
-                           }}
-                          }},
-                          map: function(user)
-                         {{
-    return {{
-        value: ""[userlink]"" + user.name + ""[/userlink]"",
-        text: ""<i class='fas fa-user me-2'></i><strong>"" + user.name + ""</strong>""
-    }};
-}}
-}});
-";
+        return $$"""
+                 var {{editorId}}=new yafEditor("{{editorId}}", "{{urlTitle}}", "{{urlDescription}}", "{{urlImageTitle}}", "{{urlImageDescription}}", "{{description}}");
+                                   function setStyle(style,option) {
+                                            {{editorId}}.FormatText(style,option);
+                                   }
+                                   function insertAttachment(id,url) {
+                                            {{editorId}}.FormatText("attach", id);
+                                   }
+                                   
+                                   {{Config.JQueryAlias}}(".BBCodeEditor").suggest("@",
+                                           {
+                             data: function(q) {
+                                 if (q && q.length > 3) {
+                                     return {{Config.JQueryAlias}}.getJSON("{{BoardInfo.ForumClientFileRoot}}resource.ashx?users=" + q);
+                                            }
+                                           },
+                                           map: function(user)
+                                          {
+                     return {
+                         value: "[userlink]" + user.name + "[/userlink]",
+                         text: "<i class='fas fa-user me-2'></i><strong>" + user.name + "</strong>"
+                     };
+                 }
+                 });
+
+                 """;
     }
 
     /// <summary>
@@ -758,50 +779,52 @@ public static class JavaScriptBlocks
     [NotNull]
     public static string SelectTopicsLoadJs([NotNull] string topicsId, [NotNull] string forumDropDownId, [NotNull] string selectedHiddenId)
     {
-        return $@"{Config.JQueryAlias}('#{topicsId}').select2({{
-            ajax: {{
-                url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Topic/GetTopics',
-                type: 'POST',
-                dataType: 'json',
-                minimumInputLength: 1,
-                data: function(params) {{
-                      var query = {{
-                          ForumId : {Config.JQueryAlias}('#{forumDropDownId}').val(),
-                          TopicId: {BoardContext.Current.PageTopicID},
-                          PageSize: 0,
-                          Page : params.page || 0,
-                          SearchTerm : params.term || ''
-                      }}
-                      return query;
-                }},
-                error: errorLog,
-                processResults: function(data, params) {{
-                    params.page = params.page || 0;
-
-                    var resultsPerPage = 15 * 2;
-
-                    var total = params.page == 0 ? data.Results.length : resultsPerPage;
-
-                    return {{
-                        results: data.Results,
-                        pagination: {{
-                            more: total < data.Total
-                        }}
-                    }}
-                }}
-            }},
-            allowClearing: false,
-            width: '100%',
-            theme: 'bootstrap-5',
-            cache: true,
-            {BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}
-        }}).on('select2:select', function(e){{
-                   if (e.params.data.Total) {{ 
-                                                 {Config.JQueryAlias}('#{selectedHiddenId}').val(e.params.data.Results[0].children[0].id);
-                                             }} else {{
-                                                 {Config.JQueryAlias}('#{selectedHiddenId}').val(e.params.data.id);
-                                             }}
-            }});";
+        return $$"""
+                 {{Config.JQueryAlias}}('#{{topicsId}}').select2({
+                             ajax: {
+                                 url: '{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/Topic/GetTopics',
+                                 type: 'POST',
+                                 dataType: 'json',
+                                 minimumInputLength: 1,
+                                 data: function(params) {
+                                       var query = {
+                                           ForumId : {{Config.JQueryAlias}}('#{{forumDropDownId}}').val(),
+                                           TopicId: {{BoardContext.Current.PageTopicID}},
+                                           PageSize: 0,
+                                           Page : params.page || 0,
+                                           SearchTerm : params.term || ''
+                                       }
+                                       return query;
+                                 },
+                                 error: errorLog,
+                                 processResults: function(data, params) {
+                                     params.page = params.page || 0;
+                 
+                                     var resultsPerPage = 15 * 2;
+                 
+                                     var total = params.page == 0 ? data.Results.length : resultsPerPage;
+                 
+                                     return {
+                                         results: data.Results,
+                                         pagination: {
+                                             more: total < data.Total
+                                         }
+                                     }
+                                 }
+                             },
+                             allowClearing: false,
+                             width: '100%',
+                             theme: 'bootstrap-5',
+                             cache: true,
+                             {{BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}}
+                         }).on('select2:select', function(e){
+                                    if (e.params.data.Total) {
+                                                                  {{Config.JQueryAlias}}('#{{selectedHiddenId}}').val(e.params.data.Results[0].children[0].id);
+                                                              } else {
+                                                                  {{Config.JQueryAlias}}('#{{selectedHiddenId}}').val(e.params.data.id);
+                                                              }
+                             });
+                 """;
     }
 
     /// <summary>
@@ -829,11 +852,13 @@ public static class JavaScriptBlocks
     public static string SelectForumsLoadJs([NotNull] string forumDropDownId, [NotNull] string placeHolder, bool forumLink, bool allForumsOption, [CanBeNull] string selectedHiddenId = null)
     {
         var selectHiddenValue = selectedHiddenId.IsSet()
-                                    ? $@"if (e.params.data.Total) {{ 
-                                                 {Config.JQueryAlias}('#{selectedHiddenId}').val(e.params.data.Results[0].children[0].id);
-                                             }} else {{
-                                                 {Config.JQueryAlias}('#{selectedHiddenId}').val(e.params.data.id);
-                                             }}"
+                                    ? $$"""
+                                        if (e.params.data.Total) {
+                                                                                         {{Config.JQueryAlias}}('#{{selectedHiddenId}}').val(e.params.data.Results[0].children[0].id);
+                                                                                     } else {
+                                                                                         {{Config.JQueryAlias}}('#{{selectedHiddenId}}').val(e.params.data.id);
+                                                                                     }
+                                        """
                                     : string.Empty;
 
         var forumSelect = selectedHiddenId.IsSet() ? $@"var forumsListSelect = {Config.JQueryAlias}('#{forumDropDownId}');
@@ -860,71 +885,73 @@ public static class JavaScriptBlocks
 
         var allForumsOptionJs = allForumsOption ? "AllForumsOption: true," : string.Empty;
 
-        return $@"{Config.JQueryAlias}('#{forumDropDownId}').select2({{
-            ajax: {{
-                url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Forum/GetForums',
-                type: 'POST',
-                dataType: 'json',
-                data: function(params) {{
-                      var query = {{
-                          PageSize: 0,
-                          {allForumsOptionJs}
-                          Page : params.page || 0,
-                          SearchTerm : params.term || ''
-                      }}
-                      return query;
-                }},
-                error: errorLog,
-                processResults: function(data, params) {{
-                    params.page = params.page || 0;
-
-                    var resultsPerPage = 15 * 2;
-
-                    var total = params.page == 0 ? data.Results.length : resultsPerPage;
-
-                        return {{
-                        results: data.Results,
-                        pagination: {{
-                            more: total < data.Total
-                        }}
-                    }}
-                }}
-            }},
-            placeholder: '{placeHolder}',
-            minimumInputLength: 0,
-            allowClearing: false,
-            dropdownAutoWidth: true,
-            templateResult: function (option) {{
-                                if (option.loading) {{
-                                    return option.text;
-                                }}
-	                            if (option.id) {{
-	                                var $container = {Config.JQueryAlias}(""<span class='select2-image-select-icon'><i class='fas fa-comments fa-fw text-secondary me-1'></i>"" + option.text + ""</span>"");
-                                    return $container;
-	                            }} else {{
-                                    var $container = {Config.JQueryAlias}(""<span class='select2-image-select-icon'><i class='fas fa-folder fa-fw text-warning me-1'></i>"" + option.text + ""</span>"");
-                                    return $container;
-	                            }}
-	        }},
-            templateSelection: function (option) {{
-	                               if (option.id) {{
-	                               var $container = {Config.JQueryAlias}(""<span class='select2-image-select-icon'><i class='fas fa-comments fa-fw text-secondary me-1'></i>"" + option.text + ""</span>"");
-                                       return $container;
-	                               }} else {{
-	                                   return option.text;
-	                               }}
-	        }},
-            width: '100%',
-            theme: 'bootstrap-5',
-            cache: true,
-            {BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}
-            }}).on('select2:select', function(e){{
-                   {(forumLink ? "window.location = e.params.data.url;" : "")} 
-                   {selectHiddenValue}
-            }});
-
-            {forumSelect}
-            ";
+        return $$"""
+                 {{Config.JQueryAlias}}('#{{forumDropDownId}}').select2({
+                             ajax: {
+                                 url: '{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/Forum/GetForums',
+                                 type: 'POST',
+                                 dataType: 'json',
+                                 data: function(params) {
+                                       var query = {
+                                           PageSize: 0,
+                                           {{allForumsOptionJs}}
+                                           Page : params.page || 0,
+                                           SearchTerm : params.term || ''
+                                       }
+                                       return query;
+                                 },
+                                 error: errorLog,
+                                 processResults: function(data, params) {
+                                     params.page = params.page || 0;
+                 
+                                     var resultsPerPage = 15 * 2;
+                 
+                                     var total = params.page == 0 ? data.Results.length : resultsPerPage;
+                 
+                                         return {
+                                         results: data.Results,
+                                         pagination: {
+                                             more: total < data.Total
+                                         }
+                                     }
+                                 }
+                             },
+                             placeholder: '{{placeHolder}}',
+                             minimumInputLength: 0,
+                             allowClearing: false,
+                             dropdownAutoWidth: true,
+                             templateResult: function (option) {
+                                                 if (option.loading) {
+                                                     return option.text;
+                                                 }
+                 	                            if (option.id) {
+                 	                                var $container = {{Config.JQueryAlias}}("<span class='select2-image-select-icon'><i class='fas fa-comments fa-fw text-secondary me-1'></i>" + option.text + "</span>");
+                                                     return $container;
+                 	                            } else {
+                                                     var $container = {{Config.JQueryAlias}}("<span class='select2-image-select-icon'><i class='fas fa-folder fa-fw text-warning me-1'></i>" + option.text + "</span>");
+                                                     return $container;
+                 	                            }
+                 	        },
+                             templateSelection: function (option) {
+                 	                               if (option.id) {
+                 	                               var $container = {{Config.JQueryAlias}}("<span class='select2-image-select-icon'><i class='fas fa-comments fa-fw text-secondary me-1'></i>" + option.text + "</span>");
+                                                        return $container;
+                 	                               } else {
+                 	                                   return option.text;
+                 	                               }
+                 	        },
+                             width: '100%',
+                             theme: 'bootstrap-5',
+                             cache: true,
+                             {{BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}}
+                             }).on('select2:select', function(e){
+                                    {{(forumLink ? "window.location = e.params.data.url;" : "")}}
+                                    {{selectHiddenValue}}
+                             });
+                 
+                             {{forumSelect}}
+                             
+                 """;
     }
 
     /// <summary>
@@ -951,66 +978,68 @@ public static class JavaScriptBlocks
         [NotNull] string passwordStrongerText,
         [NotNull] string passwordWeakText)
     {
-        return $@"{Config.JQueryAlias}(document).ready(function () {{
-        var password = {Config.JQueryAlias}('#{passwordClientId}');
-        var passwordConfirm = {Config.JQueryAlias}('#{confirmPasswordClientId}');
-        // Check if passwords match
-        {Config.JQueryAlias}('#{passwordClientId}, #{confirmPasswordClientId}').on('keyup', function () {{
-            if (password.val() !== '' && passwordConfirm.val() !== '' && password.val() === passwordConfirm.val()) {{
-                {Config.JQueryAlias}('#PasswordInvalid').hide();
-                password.removeClass('is-invalid');
-                passwordConfirm.removeClass('is-invalid');
-            }} else {{
-                {Config.JQueryAlias}('#PasswordInvalid').show();
-                {Config.JQueryAlias}('#PasswordInvalid').html('{notMatchText}');
-                password.addClass('is-invalid');
-                passwordConfirm.addClass('is-invalid');
-            }}
-
-            var strongRegex=new RegExp(""^(?=.{{8,}})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$"",""g"");
-            var mediumRegex=new RegExp(""^(?=.{{7,}})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$"",""g"");
-            var okRegex=new RegExp(""(?=.{{{minimumChars},}}).*"",""g"");
-
-            {Config.JQueryAlias}('#passwordStrength').removeClass(""d-none"");
-
-            if (okRegex.test(password.val()) === false) {{
-               {Config.JQueryAlias}('#passwordHelp').html('{passwordMinText}');
-               {Config.JQueryAlias}('#progress-password').removeClass().addClass('progress-bar bg-danger w-25');
-
-
-            }} else if (strongRegex.test(password.val())) {{
-                {Config.JQueryAlias}('#passwordHelp').html('{passwordGoodText}');
-                {Config.JQueryAlias}('#progress-password').removeClass().addClass('progress-bar bg-success w-100');
-            }} else if (mediumRegex.test(password.val())) {{
-                {Config.JQueryAlias}('#passwordHelp').html('{passwordStrongerText}');
-                {Config.JQueryAlias}('#progress-password').removeClass().addClass('progress-bar bg-warning w-75');
-            }} else {{
-                {Config.JQueryAlias}('#passwordHelp').html('{passwordWeakText}');
-                {Config.JQueryAlias}('#progress-password').removeClass().addClass('progress-bar bg-warning w-50');
-            }}
-        }});
-        let currForm1 = document.querySelector(""form"");
-        // Validate on submit:
-        currForm1.addEventListener('submit', function (event) {{
-            if (currForm1.checkValidity() === false) {{
-                event.preventDefault();
-                event.stopPropagation();
-            }}
-            currForm1.classList.add('was-validated');
-        }}, false);
-        // Validate on input:
-        currForm1.querySelectorAll('.form-control').forEach(input => {{
-            input.addEventListener(('input'), () => {{
-                if (input.checkValidity()) {{
-                    input.classList.remove('is-invalid');
-                    input.classList.add('is-valid');
-                }} else {{
-                    input.classList.remove('is-valid');
-                    input.classList.add('is-invalid');
-                }}
-            }});
-        }});
-    }});";
+        return $$"""
+                 {{Config.JQueryAlias}}(document).ready(function () {
+                         var password = {{Config.JQueryAlias}}('#{{passwordClientId}}');
+                         var passwordConfirm = {{Config.JQueryAlias}}('#{{confirmPasswordClientId}}');
+                         // Check if passwords match
+                         {{Config.JQueryAlias}}('#{{passwordClientId}}, #{{confirmPasswordClientId}}').on('keyup', function () {
+                             if (password.val() !== '' && passwordConfirm.val() !== '' && password.val() === passwordConfirm.val()) {
+                                 {{Config.JQueryAlias}}('#PasswordInvalid').hide();
+                                 password.removeClass('is-invalid');
+                                 passwordConfirm.removeClass('is-invalid');
+                             } else {
+                                 {{Config.JQueryAlias}}('#PasswordInvalid').show();
+                                 {{Config.JQueryAlias}}('#PasswordInvalid').html('{{notMatchText}}');
+                                 password.addClass('is-invalid');
+                                 passwordConfirm.addClass('is-invalid');
+                             }
+                 
+                             var strongRegex=new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$","g");
+                             var mediumRegex=new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$","g");
+                             var okRegex=new RegExp("(?=.{{{minimumChars}},}).*","g");
+                 
+                             {{Config.JQueryAlias}}('#passwordStrength').removeClass("d-none");
+                 
+                             if (okRegex.test(password.val()) === false) {
+                                {{Config.JQueryAlias}}('#passwordHelp').html('{{passwordMinText}}');
+                                {{Config.JQueryAlias}}('#progress-password').removeClass().addClass('progress-bar bg-danger w-25');
+                 
+                 
+                             } else if (strongRegex.test(password.val())) {
+                                 {{Config.JQueryAlias}}('#passwordHelp').html('{{passwordGoodText}}');
+                                 {{Config.JQueryAlias}}('#progress-password').removeClass().addClass('progress-bar bg-success w-100');
+                             } else if (mediumRegex.test(password.val())) {
+                                 {{Config.JQueryAlias}}('#passwordHelp').html('{{passwordStrongerText}}');
+                                 {{Config.JQueryAlias}}('#progress-password').removeClass().addClass('progress-bar bg-warning w-75');
+                             } else {
+                                 {{Config.JQueryAlias}}('#passwordHelp').html('{{passwordWeakText}}');
+                                 {{Config.JQueryAlias}}('#progress-password').removeClass().addClass('progress-bar bg-warning w-50');
+                             }
+                         });
+                         let currForm1 = document.querySelector("form");
+                         // Validate on submit:
+                         currForm1.addEventListener('submit', function (event) {
+                             if (currForm1.checkValidity() === false) {
+                                 event.preventDefault();
+                                 event.stopPropagation();
+                             }
+                             currForm1.classList.add('was-validated');
+                         }, false);
+                         // Validate on input:
+                         currForm1.querySelectorAll('.form-control').forEach(input => {
+                             input.addEventListener(('input'), () => {
+                                 if (input.checkValidity()) {
+                                     input.classList.remove('is-invalid');
+                                     input.classList.add('is-valid');
+                                 } else {
+                                     input.classList.remove('is-valid');
+                                     input.classList.add('is-invalid');
+                                 }
+                             });
+                         });
+                     });
+                 """;
     }
 
     /// <summary>

@@ -46,7 +46,7 @@ public partial class LoginBox : BaseUserControl
         // setup jQuery and YAF JS...
         this.PageBoardContext.PageElements.RegisterJsBlock(
             "yafmodaldialogJs",
-            JavaScriptBlocks.LoginBoxLoadJs(".LoginLink", "#LoginBox"));
+            JavaScriptBlocks.LoginBoxLoadJs(".LoginLink", "LoginBox"));
 
         base.OnPreRender(e);
     }

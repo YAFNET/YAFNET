@@ -115,7 +115,7 @@ public class EmptyState : BaseControl
 
         writer.WriteAttribute(
             HtmlTextWriterAttribute.Class.ToString(),
-            "col-lg-5 mx-auto");
+            "col-lg-12 mx-auto");
 
         writer.Write(HtmlTextWriter.TagRightChar);
 

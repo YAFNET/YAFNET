@@ -845,7 +845,14 @@ public static class MessageRepositoryExtensions
                             m => m.TopicID == topicId && (m.Flags & 16) == 16 && (m.Flags & 8) != 8);
                     }
 
-                    expression.OrderBy(m => m.Posted);
+                    if (lastRead > minDateTime)
+                    {
+                        expression.OrderByDescending(m => m.Posted);
+                    }
+                    else
+                    {
+                        expression.OrderBy(m => m.Posted);
+                    }
 
                     expression.Limit(1);
 
