@@ -14,7 +14,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="7.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Twitter" Version="7.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.10" />
-    <PackageReference Include="SixLabors.ImageSharp" Version="3.0.1" />
+    <PackageReference Include="SixLabors.ImageSharp" Version="3.0.2" />
     <PackageReference Include="UAParser.Core" Version="4.0.2" />
   </ItemGroup>
 
