@@ -698,6 +698,8 @@ public class HostSettingsModel : AdminPage
 
         public bool ShowModeratorList { get; set; }
 
+        public bool ScrollToPost { get; set; }
+
         public bool ShowScrollBackToTopButton { get; set; }
 
         public bool TwoColumnBoardLayout { get; set; }

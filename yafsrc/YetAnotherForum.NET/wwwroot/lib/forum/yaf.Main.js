@@ -83,12 +83,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Notify dropdown
-    document.querySelector(".dropdown-notify").addEventListener("show.bs.dropdown",
-        () => {
-            var pageSize = 5;
-            var pageNumber = 0;
-            getNotifyData(pageSize, pageNumber, false);
-        });
+    if (document.querySelector(".dropdown-notify") != null) {
+        document.querySelector(".dropdown-notify").addEventListener("show.bs.dropdown",
+            () => {
+                var pageSize = 5;
+                var pageNumber = 0;
+                getNotifyData(pageSize, pageNumber, false);
+            });
+    }
 
     Prism.highlightAll();
 
@@ -230,3 +232,4 @@ $(function () {
         });
     });
 });
+

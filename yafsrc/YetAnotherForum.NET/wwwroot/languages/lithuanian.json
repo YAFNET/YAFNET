@@ -5835,6 +5835,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Ženklas, naudojamas saugiems žiniatinklio paslaugos skambučiams atlikti. Nuolat keičiasi, kol išsaugote prieglobos nustatymus."
+          },
+          {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9734,6 +9742,14 @@
             "#text": "Main Forum RSS "
           },
           {
+            "@tag": "MARK_ALL_ASREAD",
+            "#text": "Mark All As Read"
+          },
+          {
+            "@tag": "MARK_ASREAD",
+            "#text": "Mark As Read"
+          },
+          {
             "@tag": "MARKALL",
             "#text": "Pažymėti visus forumus kaip skaitytus "
           },
@@ -9844,14 +9860,6 @@
           {
             "@tag": "WATCHFORUM_ALL_HELP",
             "#text": "Stebėkite visus forumus ir gaukite pranešimus el. paštu, kai sukuriama nauja tema"
-          },
-          {
-            "@tag": "MARK_ALL_ASREAD",
-            "#text": "Mark All As Read"
-          },
-          {
-            "@tag": "MARK_ASREAD",
-            "#text": "Mark As Read"
           }
         ]
       },

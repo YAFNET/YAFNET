@@ -5827,6 +5827,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Merkteken om beveiligde web service calls te maken. Wijzigt voortdurend totdat je de host settings hebt opgeslagen."
+          },
+          {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9726,6 +9734,14 @@
             "#text": "Hoofd RSS"
           },
           {
+            "@tag": "MARK_ALL_ASREAD",
+            "#text": "Mark All As Read"
+          },
+          {
+            "@tag": "MARK_ASREAD",
+            "#text": "Mark As Read"
+          },
+          {
             "@tag": "MARKALL",
             "#text": "Markeer alle fora als gelezen"
           },
@@ -9836,14 +9852,6 @@
           {
             "@tag": "WATCHFORUM_ALL_HELP",
             "#text": "Bekijk alle forums en ontvang e-mailmeldingen wanneer een nieuw onderwerp wordt gemaakt"
-          },
-          {
-            "@tag": "MARK_ALL_ASREAD",
-            "#text": "Mark All As Read"
-          },
-          {
-            "@tag": "MARK_ASREAD",
-            "#text": "Mark As Read"
           }
         ]
       },

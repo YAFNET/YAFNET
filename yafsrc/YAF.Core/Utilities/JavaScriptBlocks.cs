@@ -72,10 +72,10 @@ public static class JavaScriptBlocks
     public static string AlbumCallbackSuccessJs =>
         """
         function changeTitleSuccess(res){
-                          txtTitleVar =  document.getElementById("txtTitle" + res.Id);
-                          spnTitleVar = document.getElementById("spnTitle" + res.Id);
-                          txtTitleVar =  document.getElementById("txtTitle" + res.Id);
-                          spnTitleVar.firstChild.nodeValue = res.NewTitle;
+                          txtTitleVar =  document.getElementById("txtTitle" + res.id);
+                          spnTitleVar = document.getElementById("spnTitle" + res.id);
+                          txtTitleVar =  document.getElementById("txtTitle" + res.id);
+                          spnTitleVar.firstChild.nodeValue = res.newTitle;
                           txtTitleVar.disabled = false;
                           spnTitleVar.style.display = 'inline';
                           txtTitleVar.style.display='none';}
@@ -86,39 +86,44 @@ public static class JavaScriptBlocks
     /// </summary>
     [NotNull]
     public static string MultiQuoteCallbackSuccessJs =>
-        @"function multiQuoteSuccess(res){
-                  var multiQuoteButton = $('#' + res.id).parent('span');
-                  multiQuoteButton.removeClass(multiQuoteButton.attr('class')).addClass(res.newTitle);
-                  $(document).scrollTop(multiQuoteButton.offset().top - 20);
-                      }";
+        """
+        function multiQuoteSuccess(res) {
+            const multiQuoteButton = document.getElementById(res.id).parentNode;
+            multiQuoteButton.setAttribute("class", res.newTitle);
+        }
+        """;
 
     /// <summary>
     /// Gets the multi quote button JS.
     /// </summary>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
     [NotNull]
     public static string MultiQuoteButtonJs =>
-        @"function handleMultiQuoteButton(button, msgId, tpId){
-                        var multiQuoteButton = {};
-                            multiQuoteButton.ButtonId = button.id;
-                            multiQuoteButton.IsMultiQuoteButton = button.checked;
-                            multiQuoteButton.MessageId = msgId;
-                            multiQuoteButton.TopicId = tpId;
-                            multiQuoteButton.ButtonCssClass = $('#' + button.id).parent('span').attr('class');
-
-                        $.ajax({
-                            url: '/api/MultiQuote/HandleMultiQuote',
-                            headers: { ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() },
-                            type: 'POST',
-                            contentType: 'application/json;charset=utf-8',
-                            data: JSON.stringify(multiQuoteButton),
-                            dataType: 'json',
-                            success: multiQuoteSuccess,
-                            error: errorLog
-                         });
-                }";
+        """
+          function handleMultiQuoteButton(button, msgId, tpId) {
+              const multiQuoteButton = {};
+              multiQuoteButton.ButtonId = button.id;
+              multiQuoteButton.IsMultiQuoteButton = button.checked;
+              multiQuoteButton.MessageId = msgId;
+              multiQuoteButton.TopicId = tpId;
+              multiQuoteButton.ButtonCssClass = document.getElementById(button.id).parentNode.className;
+          
+              fetch("{/api/MultiQuote/HandleMultiQuote",
+                      {
+                          method: "POST",
+                          body: JSON.stringify(multiQuoteButton),
+                          headers: {
+                              "Accept": "application/json",
+                              "Content-Type": "application/json;charset=utf-8",
+                              "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
+                          }
+                      }).then(res => res.json())
+                  .then(response => {
+                      multiQuoteSuccess(response);
+                  }).catch(function(error) {
+                      errorLog(error);
+                  });
+          }
+          """;
 
     /// <summary>
     /// Gets Board Tags JavaScript
@@ -143,48 +148,55 @@ public static class JavaScriptBlocks
             existingTags.ForEach(tag => tags.Append($"$('#{inputId}').append($('<option>', {{value:'{tag}', text:'{tag}', selected: true}}));"));
         }
 
-        return $@"{tags}$(""#{inputId}"").select2({{
-            tags: true,
-            tokenSeparators: [',', ' '],
-            ajax: {{
-                url: '/api/Tags/GetBoardTags',
-                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
-                type: 'POST',
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                data: function(params) {{
-                    var query = {{
-                        ForumId: 0,
-                        UserId: 0,
-                        PageSize: 15,
-                        Page: params.page || 0,
-                        SearchTerm: params.term || ''
-                    }}
-                    return JSON.stringify(query);
-                }},
-                error: errorLog,
-                processResults: function(data, params) {{
-                    params.page = params.page || 0;
-
-                    var resultsPerPage = 15 * 2;
-
-                    var total = params.page == 0 ? data.results.length : resultsPerPage;
-
-                    return {{
-                        results: data.results,
-                        pagination: {{
-                            more: total < data.total
-                        }}
-                    }}
-                }}
-            }},
-            allowClearing: false,
-            width: '100%',
-            theme: 'bootstrap-5',
-            {BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}
-        }}).on(""select2:select"", function (e) {{
-                  $(""#{hiddenId}"").val($(this).select2('data').map(x => x.text).join());
-        }});";
+        return $$"""
+                 {{tags}}$("#{{inputId}}").select2({
+                             tags: true,
+                             tokenSeparators: [',', ' '],
+                             ajax: {
+                                 url: '/api/Tags/GetBoardTags',
+                                 headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+                                 type: 'POST',
+                                 dataType: 'json',
+                                 contentType: 'application/json; charset=utf-8',
+                                 data: function(params) {
+                                     var query = {
+                                         ForumId: 0,
+                                         UserId: 0,
+                                         PageSize: 15,
+                                         Page: params.page || 0,
+                                         SearchTerm: params.term || ''
+                                     }
+                                     return JSON.stringify(query);
+                                 },
+                                 
+                 error: function(x, e) {
+                     console.log('An Error has occurred!');
+                     console.log(x.responseText);
+                     console.log(x.status);
+                 },
+                                 processResults: function(data, params) {
+                                     params.page = params.page || 0;
+                 
+                                     var resultsPerPage = 15 * 2;
+                 
+                                     var total = params.page == 0 ? data.results.length : resultsPerPage;
+                 
+                                     return {
+                                         results: data.results,
+                                         pagination: {
+                                             more: total < data.total
+                                         }
+                                     }
+                                 }
+                             },
+                             allowClearing: false,
+                             width: '100%',
+                             theme: 'bootstrap-5',
+                             {{BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}}
+                         }).on("select2:select", function (e) {
+                                   $("#{{hiddenId}}").val($(this).select2('data').map(x => x.text).join());
+                         });
+                 """;
     }
 
     /// <summary>
@@ -196,18 +208,20 @@ public static class JavaScriptBlocks
     [NotNull]
     public static string CookieConsentJs()
     {
-        return @"function addConsentCookie(name, value, days) {
-        var expires;
-
-        if (days) {
-            var date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            expires = ""; expires="" + date.toGMTString();
-        } else {
-            expires = """";
-        }
-        document.cookie = encodeURIComponent(name) + ""="" + encodeURIComponent(value) + expires + ""; path=/"";
-    }";
+        return """
+               function addConsentCookie(name, value, days) {
+                       var expires;
+               
+                       if (days) {
+                           var date = new Date();
+                           date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                           expires = "; expires=" + date.toGMTString();
+                       } else {
+                           expires = "";
+                       }
+                       document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value) + expires + "; path=/";
+                   }
+               """;
     }
 
     /// <summary>
@@ -224,77 +238,82 @@ public static class JavaScriptBlocks
     /// </returns>
     public static string AlbumEventsJs([NotNull] string albumEmptyTitle, [NotNull] string imageEmptyCaption)
     {
-        return $@"function showTexBox(spnTitleId) {{
-    {{
-        spnTitleVar = document.getElementById('spnTitle' + spnTitleId.substring(8));
-        txtTitleVar = document.getElementById('txtTitle' + spnTitleId.substring(8));
-        if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute('value', spnTitleVar.firstChild.nodeValue);
-        if (spnTitleVar.firstChild.nodeValue == '{albumEmptyTitle}' || spnTitleVar.firstChild.nodeValue == '{imageEmptyCaption}') {{
-            {{
-                txtTitleVar.value = '';
-                spnTitleVar.firstChild.nodeValue = '';
-            }}
-        }}
-        txtTitleVar.style.display = 'inline';
-        spnTitleVar.style.display = 'none';
-        txtTitleVar.focus();
-    }}
-}}
-
-function resetBox(txtTitleId, isAlbum) {{
-    {{
-        spnTitleVar = document.getElementById('spnTitle' + txtTitleId.substring(8));
-        txtTitleVar = document.getElementById(txtTitleId);
-        txtTitleVar.style.display = 'none';
-        txtTitleVar.disabled = false;
-        spnTitleVar.style.display = 'inline';
-        if (spnTitleVar.firstChild != null) txtTitleVar.value = spnTitleVar.firstChild.nodeValue;
-        if (spnTitleVar.firstChild.nodeValue == '') {{
-            {{
-                txtTitleVar.value = '';
-                if (isAlbum) spnTitleVar.firstChild.nodeValue = '{albumEmptyTitle}';
-                else spnTitleVar.firstChild.nodeValue = '{imageEmptyCaption}';
-            }}
-        }}
-    }}
-}}
-
-function checkKey(event, handler, id, isAlbum) {{
-    {{
-        if ((event.keyCode == 13) || (event.which == 13)) {{
-            {{
-                if (event.preventDefault) event.preventDefault();
-                event.cancel = true;
-                event.returnValue = false;
-                if (spnTitleVar.firstChild.nodeValue != txtTitleVar.value) {{
-                    {{
-                        handler.disabled = true;
-                        if (isAlbum == true) changeAlbumTitle(id, handler.id);
-                        else changeImageCaption(id, handler.id);
-                    }}
-                }} else resetBox(handler.id, isAlbum);
-            }}
-        }} else if ((event.keyCode == 27) || (event.which == 27)) resetBox(handler.id, isAlbum);
-    }}
-}}
-
-function blurTextBox(txtTitleId, id, isAlbum) {{
-    {{
-        spnTitleVar = document.getElementById('spnTitle' + txtTitleId.substring(8));
-        txtTitleVar = document.getElementById(txtTitleId);
-        if (spnTitleVar.firstChild != null) {{
-            {{
-                if (spnTitleVar.firstChild.nodeValue != txtTitleVar.value) {{
-                    {{
-                        txtTitleVar.disabled = true;
-                        if (isAlbum == true) changeAlbumTitle(id, txtTitleId);
-                        else changeImageCaption(id, txtTitleId);
-                    }}
-                }} else resetBox(txtTitleId, isAlbum);
-            }}
-        }} else resetBox(txtTitleId, isAlbum);
-    }}
-}}";
+        return $$"""
+                  function showTexBox(spnTitleId) {
+                      {
+                          const spnTitleVar = document.getElementById("spnTitle" + spnTitleId.substring(8)),
+                              txtTitleVar = document.getElementById("txtTitle" + spnTitleId.substring(8));
+                  
+                          if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute("value", spnTitleVar.firstChild.nodeValue);
+                          if (spnTitleVar.firstChild.nodeValue == "{{albumEmptyTitle}}" || spnTitleVar.firstChild.nodeValue == "{{imageEmptyCaption}}") {
+                              {
+                                  txtTitleVar.value = "";
+                                  spnTitleVar.firstChild.nodeValue = "";
+                              }
+                          }
+                          txtTitleVar.style.display = "inline";
+                          spnTitleVar.style.display = "none";
+                          txtTitleVar.focus();
+                      }
+                  }
+                  
+                  function resetBox(txtTitleId, isAlbum) {
+                      {
+                          const spnTitleVar = document.getElementById("spnTitle" + txtTitleId.substring(8)),
+                              txtTitleVar = document.getElementById(txtTitleId);
+                  
+                          txtTitleVar.style.display = "none";
+                          txtTitleVar.disabled = false;
+                          spnTitleVar.style.display = "inline";
+                          if (spnTitleVar.firstChild != null) txtTitleVar.value = spnTitleVar.firstChild.nodeValue;
+                          if (spnTitleVar.firstChild.nodeValue == "") {
+                              {
+                                  txtTitleVar.value = "";
+                                  if (isAlbum) spnTitleVar.firstChild.nodeValue = "{{albumEmptyTitle}}";
+                                  else spnTitleVar.firstChild.nodeValue = "{{imageEmptyCaption}}";
+                              }
+                          }
+                      }
+                  }
+                  
+                  function checkKey(event, handler, id, isAlbum) {
+                      {
+                          if ((event.keyCode == 13) || (event.which == 13)) {
+                              {
+                                  if (event.preventDefault) event.preventDefault();
+                                  event.cancel = true;
+                                  event.returnValue = false;
+                                  if (spnTitleVar.firstChild.nodeValue != txtTitleVar.value) {
+                                      {
+                                          handler.disabled = true;
+                                          if (isAlbum == true) changeAlbumTitle(id, handler.id);
+                                          else changeImageCaption(id, handler.id);
+                                      }
+                                  } else resetBox(handler.id, isAlbum);
+                              }
+                          } else if ((event.keyCode == 27) || (event.which == 27)) resetBox(handler.id, isAlbum);
+                      }
+                  }
+                  
+                  function blurTextBox(txtTitleId, id, isAlbum) {
+                      {
+                          const spnTitleVar = document.getElementById("spnTitle" + txtTitleId.substring(8)),
+                              txtTitleVar = document.getElementById(txtTitleId);
+                  
+                          if (spnTitleVar.firstChild != null) {
+                              {
+                                  if (spnTitleVar.firstChild.nodeValue != txtTitleVar.value) {
+                                      {
+                                          txtTitleVar.disabled = true;
+                                          if (isAlbum == true) changeAlbumTitle(id, txtTitleId);
+                                          else changeImageCaption(id, txtTitleId);
+                                      }
+                                  } else resetBox(txtTitleId, isAlbum);
+                              }
+                          } else resetBox(txtTitleId, isAlbum);
+                      }
+                  }
+                  """;
     }
 
     /// <summary>
@@ -308,38 +327,46 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// </returns>
     public static string BlockUiFunctionJs([NotNull] string messageId)
     {
-        return $@"var modal = new bootstrap.Modal(document.getElementById('{messageId}'), {{
-                                                 backdrop: 'static',
-                                                 keyboard: false
-                                              }});
-                                   modal.show();";
+        return $$"""
+                 var modal = new bootstrap.Modal(document.getElementById("{{messageId}}"),
+                     {
+                         backdrop: "static",
+                         keyboard: false
+                     });
+
+                 modal.show();
+                                      
+                 """;
     }
 
     /// <summary>
     /// Gets the Bootstrap Tab Load JS.
     /// </summary>
-    /// <param name="tabId">
-    /// The tab Id.
-    /// </param>
-    /// <param name="hiddenId">
-    /// The hidden field id.
-    /// </param>
+    /// <param name="tabId">The tab Id.</param>
+    /// <param name="hiddenId">The hidden field id.</param>
     /// <returns>
-    /// Returns the Bootstrap Tab Load JS string
+    /// Returns the the Bootstrap Tab Load JS string
     /// </returns>
     public static string BootstrapTabsLoadJs([NotNull] string tabId, string hiddenId)
     {
-        return $@"$(document).ready(function() {{
-            var selectedTab = $(""#{hiddenId}"");
-            var tabId = selectedTab.val() != """" ? selectedTab.val() : ""View1"";
-            $('#{tabId} button[data-bs-target=""#' + tabId + '""]').tab('show');
-                  
-                 $(""#{tabId} button"").click(function(e) {{
-                   e.preventDefault();
-                var tab = $(this).data(""bs-target"");
-                selectedTab.val(tab);
-                }});
-            }});";
+        return $$"""
+                 document.addEventListener("DOMContentLoaded", function () {
+                     const selectedTab = document.getElementById("{{hiddenId}}"),
+                         tabId = selectedTab.value !== "" ? selectedTab.value : "View1",
+                         tab = new bootstrap.Tab('#{{tabId}} [data-bs-target="#' + tabId + '"]');
+                 
+                     tab.show();
+                 
+                     document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tabEl => {
+                         tabEl.addEventListener("click",
+                             (e) => {
+                                 var tabLink = e.target.dataset.bsTarget;
+                                 
+                                 selectedTab.value = tabLink.substring(1);
+                             });
+                     });
+                 });
+                 """;
     }
 
     /// <summary>
@@ -348,6 +375,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// <returns>
     /// Returns the Bootstrap Lazy Load Tab EditUser JS.
     /// </returns>
+    /// TODO
     [NotNull]
     public static string EditUserTabsLoadJs(int userId)
     {
@@ -532,23 +560,19 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// </returns>
     public static string DropDownToggleJs()
     {
-        return @"document.addEventListener('DOMContentLoaded', (event) => {{
-                $(function() {{
-                $('.dropdown-menu').on('click', function(e) {{
-                    if (e.target.type == 'button') {{
-                           $().dropdown('toggle')
-                    }}
-                    else {{ 
-                         e.stopPropagation();
-                    }}
-                }});
-                $(window).on('click', function() {{
-                    if (!$('.dropdown-menu').is(':hidden')) {{
-                        $().dropdown('toggle')
-                     }}
-                 }});
-                 }});
-                }});";
+        return """
+               document.querySelectorAll(".dropdown-menu").forEach(dropdown => {
+               
+                   dropdown.addEventListener("click", (e) => {
+                       if (e.target.type === "button") {
+                           new bootstrap.Dropdown(e.target).show();
+                       }
+                       else {
+                           e.stopPropagation();
+                       }
+                   });
+               });
+               """;
     }
 
     /// <summary>
@@ -563,18 +587,19 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public static string CollapseToggleJs(string hideText, string showText)
+    public static string CollapseToggleJs([NotNull] string hideText, [NotNull] string showText)
     {
-        return $@"$(document).ready(function() {{
-                          $('button[data-bs-toggle=""collapse""]').click(function(e) {{
-                              var button = $(this);
-                              if (button.attr(""aria-expanded"") == ""false"") {{
-                                  button.html('<i class=""fa fa-caret-square-up fa-fw me-1""></i>{hideText}');
-                              }} else {{
-                                  button.html('<i class=""fa fa-caret-square-down fa-fw me-1""></i>{showText}');
-                              }}
-                          }});
-                      }});";
+        return $$"""
+                 document.addEventListener("DOMContentLoaded", function () {
+                     document.querySelectorAll('button[data-bs-toggle="collapse"]').forEach(button => {
+                         if (button.getAttribute("aria-expanded") === "false") {
+                             button.innerHTML = '<i class="fa fa-caret-square-up fa-fw"></i>&nbsp;{{hideText}}';
+                         } else {
+                             button.innerHTML = '<i class="fa fa-caret-square-down fa-fw"></i>&nbsp;{{showText}}';
+                         }
+                     });
+                 });
+                 """;
     }
 
     /// <summary>
@@ -588,9 +613,16 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// </returns>
     public static string LoadGotoAnchor([NotNull] string anchor)
     {
-        return $@"document.addEventListener('DOMContentLoaded', function() {{
-               document.getElementById('{anchor}').scrollIntoView();
-			      }});";
+        return $$"""
+                  document.addEventListener('DOMContentLoaded', function () {
+                      let htmlElement = document.querySelector("html");
+                      htmlElement.style.scrollBehavior = "auto";
+                  
+                      document.getElementById('{{anchor}}').scrollIntoView();
+                  
+                      htmlElement.style.scrollBehavior = 'smooth';
+                  });
+                  """;
     }
 
     /// <summary>
@@ -604,23 +636,34 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// </returns>
     public static string AddThanksJs([NotNull] string removeThankBoxHtml)
     {
-        return $@"function addThanks(messageID){{ 
-            $.ajax({{
-                    url: '/api/ThankYou/AddThanks/' + messageID,
-                    headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
-                    type: 'POST',
-                    contentType: 'application/json;charset=utf-8',
-                    success: function(response) {{
-                              $('#dvThanksInfo' + response.messageID).html(response.thanksInfo);
-                              $('#dvThankBox' + response.messageID).html({removeThankBoxHtml});
-
-                              $('.thanks-popover').popover({{
-                                     template: '<div class=""popover"" role=""tooltip""><div class=""popover-arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body popover-body-scrollable""></div></div>'}});
-                    }},
-                    error: errorLog
-                 }});
-                          
-                 }}";
+        return $$"""
+                 function addThanks(messageId) {
+                     fetch("/api/ThankYou/AddThanks/" + messageId,
+                             {
+                                 method: "POST",
+                                 headers: {
+                                     "Accept": "application/json",
+                                     "Content-Type": "application/json;charset=utf-8",
+                                     "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
+                                 }
+                             }).then(res => res.json())
+                         .then(response => {
+                 
+                             document.getElementById('dvThanksInfo' + response.messageID).innerHTML = response.thanksInfo;
+                             document.getElementById('dvThankBox' + response.messageID).innerHTML = {{removeThankBoxHtml}};
+                 
+                             document.querySelectorAll(".thanks-popover").forEach(pop => {
+                                 const popover = new bootstrap.Popover(pop,
+                                     {
+                                         template:
+                                             '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body popover-body-scrollable"></div></div>'
+                                     });
+                             });
+                         }).catch(function (error) {
+                             errorLog(error);
+                         });
+                 }
+                 """;
     }
 
     /// <summary>
@@ -634,20 +677,26 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     /// </returns>
     public static string RemoveThanksJs([NotNull] string addThankBoxHtml)
     {
-        return $@"function removeThanks(messageID){{ 
-            $.ajax({{
-                    url: '/api/ThankYou/RemoveThanks/' + messageID,
-                    headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
-                    type: 'POST',
-                    contentType: 'application/json;charset=utf-8',
-                    success: function(response) {{
-                              $('#dvThanksInfo' + response.messageID).html(response.thanksInfo);
-                              $('#dvThankBox' + response.messageID).html({addThankBoxHtml});
-                    }},
-                    error: errorLog
-                 }});
-                          
-                 }}";
+        return $$"""
+                  function removeThanks(messageId) {
+                      fetch("/api/ThankYou/RemoveThanks/" + messageId,
+                              {
+                                  method: "POST",
+                                  headers: {
+                                      "Accept": "application/json",
+                                      "Content-Type": "application/json;charset=utf-8",
+                                      "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value
+                                  }
+                              }).then(res => res.json())
+                          .then(response => {
+                  
+                              document.getElementById("dvThanksInfo" + response.messageID).innerHTML = response.thanksInfo;
+                              document.getElementById("dvThankBox" + response.messageID).innerHTML = {{addThankBoxHtml}};
+                          }).catch(function(error) {
+                              errorLog(error);
+                          });
+                  }
+                  """;
     }
 
     /// <summary>
@@ -670,31 +719,33 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull] string description)
     {
         return
-            $@"var {editorId}=new yafEditor('{editorId}', '{urlTitle}', '{urlDescription}', '{urlImageTitle}', '{urlImageDescription}', '{description}');
-                  function setStyle(style,option) {{
-                           {editorId}.FormatText(style,option);
-                  }}
+            $$"""
+              var {{editorId}}=new yafEditor("{{editorId}}", "{{urlTitle}}", "{{urlDescription}}", "{{urlImageTitle}}", "{{urlImageDescription}}", "{{description}}");
+                                function setStyle(style,option) {
+                                         {{editorId}}.FormatText(style,option);
+                                }
+              
+                                function insertAttachment(id,url) {
+                                         {{editorId}}.FormatText("attach", id);
+                                }
+                                
+                                $(".BBCodeEditor").suggest("@",
+                                        {
+                          data: function(q) {
+                              if (q && q.length > 3) {
+                                  return $.getJSON("api/User/GetMentionUsers?users=" + q);
+                                         }
+                                        },
+                                        map: function(user)
+                                       {
+                  return {
+                      value: "[userlink]" + user.name + "[/userlink]",
+                      text: "<i class='fas fa-user me-2'></i><strong>" + user.name + "</strong>"
+                  };
+              }
+              });
 
-                  function insertAttachment(id,url) {{
-                           {editorId}.FormatText('attach', id);
-                  }}
-                  
-                  $("".BBCodeEditor"").suggest(""@"",
-                          {{
-            data: function(q) {{
-                if (q && q.length > 3) {{
-                    return $.getJSON(""api/User/GetMentionUsers?users="" + q);
-                           }}
-                          }},
-                          map: function(user)
-                         {{
-    return {{
-        value: ""[userlink]"" + user.name + ""[/userlink]"",
-        text: ""<i class='fas fa-user me-2'></i><strong>"" + user.name + ""</strong>""
-    }};
-}}
-}});
-";
+              """;
     }
 
     /// <summary>
@@ -763,25 +814,27 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull] int imageMaxWidth,
         [NotNull] int imageMaxHeight)
     {
-        return $@"$('.BBCodeEditor').yafFileUpload({{
-                url: '{fileUploaderUrl}',
-                acceptFileTypes: new RegExp('(\.|\/)(' + '{acceptedFileTypes}' + ')', 'i'),
-                imageMaxWidth: {imageMaxWidth},
-                imageMaxHeight: {imageMaxHeight},
-                autoUpload: true,
-                disableImageResize: /Android(?!.*Chrome)|Opera/
-                .test(window.navigator && navigator.userAgent),
-                dataType: 'json',
-                {(maxFileSize > 0 ? $"maxFileSize: {maxFileSize}," : string.Empty)}
-                done: function (e, data) {{
-                    insertAttachment( data.result[0].fileID, data.result[0].fileID );
-                }},
-                formData: {{
-                    userID: '{BoardContext.Current.PageUserID}'
-                }},
-                dropZone: $('.BBCodeEditor'),
-                pasteZone: $('.BBCodeEditor')
-            }});";
+        return $$"""
+                 $('.BBCodeEditor').yafFileUpload({
+                                 url: '{{fileUploaderUrl}}',
+                                 acceptFileTypes: new RegExp('(\.|\/)(' + '{{acceptedFileTypes}}' + ')', 'i'),
+                                 imageMaxWidth: {{imageMaxWidth}},
+                                 imageMaxHeight: {{imageMaxHeight}},
+                                 autoUpload: true,
+                                 disableImageResize: /Android(?!.*Chrome)|Opera/
+                                 .test(window.navigator && navigator.userAgent),
+                                 dataType: 'json',
+                                 {{(maxFileSize > 0 ? $"maxFileSize: {maxFileSize}," : string.Empty)}}
+                                 done: function (e, data) {
+                                     insertAttachment( data.result[0].fileID, data.result[0].fileID );
+                                 },
+                                 formData: {
+                                     userID: '{{BoardContext.Current.PageUserID}}'
+                                 },
+                                 dropZone: $('.BBCodeEditor'),
+                                 pasteZone: $('.BBCodeEditor')
+                             });
+                 """;
     }
 
     /// <summary>
@@ -894,54 +947,60 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string SelectTopicsLoadJs([NotNull] string topicsId, [NotNull] string forumDropDownId, [NotNull] string selectedHiddenId, [NotNull] string placeHolder)
     {
-        return $@"$('#{topicsId}').select2({{
-            ajax: {{
-                url: '/api/Topic/GetTopics',
-                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
-                type: 'POST',
-                dataType: 'json',
-                contentType: 'application/json',
-                minimumInputLength: 0,
-                allowClearing: false,
-                data: function(params) {{
-                      var query = {{
-                          ForumId : $('#{forumDropDownId}').val(),
-                          TopicId: {BoardContext.Current.PageTopicID},
-                          PageSize: 0,
-                          Page : params.page || 0,
-                          SearchTerm : params.term || ''
-                      }}
-                      return JSON.stringify(query);
-                }},
-                error: errorLog,
-                processResults: function(data, params) {{
-                    params.page = params.page || 0;
-
-                    var resultsPerPage = 15 * 2;
-
-                    var total = params.page == 0 ? data.results.length : resultsPerPage;
-
-                    return {{
-                        results: data.results,
-                        pagination: {{
-                            more: total < data.total
-                        }}
-                    }}
-                }}
-            }},
-
-            width: '100%',
-            theme: 'bootstrap-5',
-            cache: true,
-            placeholder: '{placeHolder}',
-            {BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}
-         }}).on('select2:select', function(e){{
-                   if (e.params.data.total) {{ 
-                                                 $('#{selectedHiddenId}').val(e.params.data.results[0].children[0].id);
-                                             }} else {{
-                                                 $('#{selectedHiddenId}').val(e.params.data.id);
-                                             }}
-            }});";
+        return $$"""
+                 $('#{{topicsId}}').select2({
+                             ajax: {
+                                 url: '/api/Topic/GetTopics',
+                                 headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+                                 type: 'POST',
+                                 dataType: 'json',
+                                 contentType: 'application/json',
+                                 minimumInputLength: 0,
+                                 allowClearing: false,
+                                 data: function(params) {
+                                       var query = {
+                                           ForumId : $('#{{forumDropDownId}}').val(),
+                                           TopicId: {{BoardContext.Current.PageTopicID}},
+                                           PageSize: 0,
+                                           Page : params.page || 0,
+                                           SearchTerm : params.term || ''
+                                       }
+                                       return JSON.stringify(query);
+                                 },
+                                 error: function(x, e) {
+                                     console.log('An Error has occurred!');
+                                     console.log(x.responseText);
+                                     console.log(x.status);
+                                 },
+                                 processResults: function(data, params) {
+                                     params.page = params.page || 0;
+                 
+                                     var resultsPerPage = 15 * 2;
+                 
+                                     var total = params.page == 0 ? data.results.length : resultsPerPage;
+                 
+                                     return {
+                                         results: data.results,
+                                         pagination: {
+                                             more: total < data.total
+                                         }
+                                     }
+                                 }
+                             },
+                 
+                             width: '100%',
+                             theme: 'bootstrap-5',
+                             cache: true,
+                             placeholder: '{{placeHolder}}',
+                             {{BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}}
+                          }).on('select2:select', function(e){
+                                    if (e.params.data.total) {
+                                                                  $('#{{selectedHiddenId}}').val(e.params.data.results[0].children[0].id);
+                                                              } else {
+                                                                  $('#{{selectedHiddenId}}').val(e.params.data.id);
+                                                              }
+                             });
+                 """;
     }
 
     /// <summary>
@@ -969,104 +1028,115 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     public static string SelectForumsLoadJs([NotNull] string forumDropDownId, [NotNull] string placeHolder, bool forumLink, bool allForumsOption, [CanBeNull] string selectedHiddenId = null)
     {
         var selectHiddenValue = selectedHiddenId.IsSet()
-                                    ? $@"if (e.params.data.total) {{ 
-                                                 $('#{selectedHiddenId}').val(e.params.data.results[0].children[0].id);
-                                             }} else {{
-                                                 $('#{selectedHiddenId}').val(e.params.data.id);
-                                             }}"
+                                    ? $$"""
+                                        if (e.params.data.total) {
+                                                                                         $('#{{selectedHiddenId}}').val(e.params.data.results[0].children[0].id);
+                                                                                     } else {
+                                                                                         $('#{{selectedHiddenId}}').val(e.params.data.id);
+                                                                                     }
+                                        """
                                     : string.Empty;
 
-        var forumSelect = selectedHiddenId.IsSet() ? $@"var forumsListSelect = $('#{forumDropDownId}');
-            var forumId = $('#{selectedHiddenId}').val();
-
-            $.ajax({{
-                url: '/api/Forum/GetForum/' + forumId,
-                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
-                type: 'POST',
-                dataType: 'json'
-            }}).then(function (data) {{
-                                if (data.total > 0) {{
-                                var result = data.results[0].children[0];
-                                       
-                                var option = new Option(result.text, result.id, true, true);
-                                forumsListSelect.append(option).trigger('change');
-
-                                forumsListSelect.trigger({{
-                                    type: 'select2:select',
-                                    params: {{
-                                        data: data
-                                    }}
-                                }});}}
-            }});" : string.Empty;
+        var forumSelect = selectedHiddenId.IsSet() ? $$"""
+                                                       var forumsListSelect = $('#{{forumDropDownId}}');
+                                                                   var forumId = $('#{{selectedHiddenId}}').val();
+                                                       
+                                                                   $.ajax({
+                                                                       url: '/api/Forum/GetForum/' + forumId,
+                                                                       headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+                                                                       type: 'POST',
+                                                                       dataType: 'json'
+                                                                   }).then(function (data) {
+                                                                                       if (data.total > 0) {
+                                                                                       var result = data.results[0].children[0];
+                                                                                              
+                                                                                       var option = new Option(result.text, result.id, true, true);
+                                                                                       forumsListSelect.append(option).trigger('change');
+                                                       
+                                                                                       forumsListSelect.trigger({
+                                                                                           type: 'select2:select',
+                                                                                           params: {
+                                                                                               data: data
+                                                                                           }
+                                                                                       });}
+                                                                   });
+                                                       """ : string.Empty;
 
         var allForumsOptionJs = allForumsOption ? "AllForumsOption: true," : string.Empty;
 
-        return $@"$('#{forumDropDownId}').select2({{
-            ajax: {{
-                url: '/api/Forum/GetForums',
-                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
-                type: 'POST',
-                dataType: 'json',
-                data: function(params) {{
-                      var query = {{
-                          PageSize: 0,
-                          {allForumsOptionJs}
-                          Page : params.page || 0,
-                          SearchTerm : params.term || ''
-                      }}
-                      return query;
-                }},
-                error: errorLog,
-                processResults: function(data, params) {{
-                    params.page = params.page || 0;
-
-                    var resultsPerPage = 15 * 2;
-
-                    var total = params.page == 0 ? data.results.length : resultsPerPage;
-
-                        return {{
-                        results: data.results,
-                        pagination: {{
-                            more: total < data.total
-                        }}
-                    }}
-                }}
-            }},
-            placeholder: '{placeHolder}',
-            minimumInputLength: 0,
-            allowClearing: false,
-            dropdownAutoWidth: true,
-            templateResult: function (option) {{
-                                if (option.loading) {{
-                                    return option.text;
-                                }}
-	                            if (option.id) {{
-	                                var $container = $(""<span class='select2-image-select-icon'><i class='fas fa-comments fa-fw text-secondary me-1'></i>"" + option.text + ""</span>"");
-                                    return $container;
-	                            }} else {{
-                                    var $container = $(""<span class='select2-image-select-icon'><i class='fas fa-folder fa-fw text-warning me-1'></i>"" + option.text + ""</span>"");
-                                    return $container;
-	                            }}
-	        }},
-            templateSelection: function (option) {{
-	                               if (option.id) {{
-	                               var $container = $(""<span class='select2-image-select-icon'><i class='fas fa-comments fa-fw text-secondary me-1'></i>"" + option.text + ""</span>"");
-                                       return $container;
-	                               }} else {{
-	                                   return option.text;
-	                               }}
-	        }},
-            width: '100%',
-            theme: 'bootstrap-5',
-            cache: true,
-            {BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}
-            }}).on('select2:select', function(e){{
-                   {(forumLink ? "window.location = e.params.data.url;" : "")} 
-                   {selectHiddenValue}
-            }});
-
-            {forumSelect}
-            ";
+        return $$"""
+                 $('#{{forumDropDownId}}').select2({
+                             ajax: {
+                                 url: '/api/Forum/GetForums',
+                                 headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+                                 type: 'POST',
+                                 dataType: 'json',
+                                 data: function(params) {
+                                       var query = {
+                                           PageSize: 0,
+                                           {{allForumsOptionJs}}
+                                           Page : params.page || 0,
+                                           SearchTerm : params.term || ''
+                                       }
+                                       return query;
+                                 },
+                               
+                                 error: function(x, e) {
+                                     console.log('An Error has occurred!');
+                                     console.log(x.responseText);
+                                     console.log(x.status);
+                                 },
+                                 processResults: function(data, params) {
+                                     params.page = params.page || 0;
+                 
+                                     var resultsPerPage = 15 * 2;
+                 
+                                     var total = params.page == 0 ? data.results.length : resultsPerPage;
+                 
+                                         return {
+                                         results: data.results,
+                                         pagination: {
+                                             more: total < data.total
+                                         }
+                                     }
+                                 }
+                             },
+                             placeholder: '{{placeHolder}}',
+                             minimumInputLength: 0,
+                             allowClearing: false,
+                             dropdownAutoWidth: true,
+                             templateResult: function (option) {
+                                                 if (option.loading) {
+                                                     return option.text;
+                                                 }
+                 	                            if (option.id) {
+                 	                                var $container = $("<span class='select2-image-select-icon'><i class='fas fa-comments fa-fw text-secondary me-1'></i>" + option.text + "</span>");
+                                                     return $container;
+                 	                            } else {
+                                                     var $container = $("<span class='select2-image-select-icon'><i class='fas fa-folder fa-fw text-warning me-1'></i>" + option.text + "</span>");
+                                                     return $container;
+                 	                            }
+                 	        },
+                             templateSelection: function (option) {
+                 	                               if (option.id) {
+                 	                               var $container = $("<span class='select2-image-select-icon'><i class='fas fa-comments fa-fw text-secondary me-1'></i>" + option.text + "</span>");
+                                                        return $container;
+                 	                               } else {
+                 	                                   return option.text;
+                 	                               }
+                 	        },
+                             width: '100%',
+                             theme: 'bootstrap-5',
+                             cache: true,
+                             {{BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}}
+                             }).on('select2:select', function(e){
+                                    {{(forumLink ? "window.location = e.params.data.url;" : "")}}
+                                    {{selectHiddenValue}}
+                             });
+                 
+                             {{forumSelect}}
+                             
+                 """;
     }
 
     /// <summary>
@@ -1076,11 +1146,13 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string Select2LoadJs()
     {
-         return @"$("".select2-select"").select2({
-                          width: '100%',
-                          theme: 'bootstrap-5',
-                          placeholder: $(this).attr('placeholder')
-                      });";
+         return """
+                $(".select2-select").select2({
+                                          width: '100%',
+                                          theme: 'bootstrap-5',
+                                          placeholder: $(this).attr('placeholder')
+                                      });
+                """;
     }
 
     /// <summary>
@@ -1106,66 +1178,68 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull] string passwordStrongerText,
         [NotNull] string passwordWeakText)
     {
-        return $@"$(document).ready(function () {{
-        var password = $('#{passwordClientId}');
-        var passwordConfirm = $('#{confirmPasswordClientId}');
-        // Check if passwords match
-        $('#{passwordClientId}, #{confirmPasswordClientId}').on('keyup', function () {{
-            if (password.val() !== '' && passwordConfirm.val() !== '' && password.val() === passwordConfirm.val()) {{
-                $('#PasswordInvalid').hide();
-				password.removeClass('is-invalid');
-                passwordConfirm.removeClass('is-invalid');
-            }} else {{
-                $('#PasswordInvalid').show();
-                $('#PasswordInvalid').html('{notMatchText}');
-                password.addClass('is-invalid');
-                passwordConfirm.addClass('is-invalid');
-            }}
-
-            var strongRegex=new RegExp(""^(?=.{{8,}})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$"",""g"");
-			var mediumRegex=new RegExp(""^(?=.{{7,}})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$"",""g"");
-			var okRegex=new RegExp(""(?=.{{{minimumChars},}}).*"",""g"");
-
-            $('#passwordStrength').removeClass(""d-none"");
-
-            if (okRegex.test(password.val()) === false) {{
-			   $('#passwordHelp').html('{passwordMinText}');
-               $('#progress-password').removeClass().addClass('progress-bar bg-danger w-25');
-               
-
-            }} else if (strongRegex.test(password.val())) {{
-                $('#passwordHelp').html('{passwordGoodText}');
-				$('#progress-password').removeClass().addClass('progress-bar bg-success w-100');
-            }} else if (mediumRegex.test(password.val())) {{
-                $('#passwordHelp').html('{passwordStrongerText}');
-				$('#progress-password').removeClass().addClass('progress-bar bg-warning w-75');
-            }} else {{
-			    $('#passwordHelp').html('{passwordWeakText}');
-                $('#progress-password').removeClass().addClass('progress-bar bg-warning w-50');
-            }}
-        }});
-        let currForm1 = document.querySelector(""form"");
-        // Validate on submit:
-        currForm1.addEventListener('submit', function (event) {{
-            if (currForm1.checkValidity() === false) {{
-                event.preventDefault();
-                event.stopPropagation();
-            }}
-            currForm1.classList.add('was-validated');
-        }}, false);
-        // Validate on input:
-        currForm1.querySelectorAll('.form-control').forEach(input => {{
-            input.addEventListener(('input'), () => {{
-                if (input.checkValidity()) {{
-                    input.classList.remove('is-invalid');
-                    input.classList.add('is-valid');
-                }} else {{
-                    input.classList.remove('is-valid');
-                    input.classList.add('is-invalid');
-                }}
-            }});
-        }});
-    }});";
+        return $$"""
+                 $(document).ready(function () {
+                         var password = $('#{{passwordClientId}}');
+                         var passwordConfirm = $('#{{confirmPasswordClientId}}');
+                         // Check if passwords match
+                         $('#{{passwordClientId}}, #{{confirmPasswordClientId}}').on('keyup', function () {
+                             if (password.val() !== '' && passwordConfirm.val() !== '' && password.val() === passwordConfirm.val()) {
+                                 $('#PasswordInvalid').hide();
+                 				password.removeClass('is-invalid');
+                                 passwordConfirm.removeClass('is-invalid');
+                             } else {
+                                 $('#PasswordInvalid').show();
+                                 $('#PasswordInvalid').html('{{notMatchText}}');
+                                 password.addClass('is-invalid');
+                                 passwordConfirm.addClass('is-invalid');
+                             }
+                 
+                             var strongRegex=new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$","g");
+                 			var mediumRegex=new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$","g");
+                 			var okRegex=new RegExp("(?=.{{{minimumChars}},}).*","g");
+                 
+                             $('#passwordStrength').removeClass("d-none");
+                 
+                             if (okRegex.test(password.val()) === false) {
+                 			   $('#passwordHelp').html('{{passwordMinText}}');
+                                $('#progress-password').removeClass().addClass('progress-bar bg-danger w-25');
+                                
+                 
+                             } else if (strongRegex.test(password.val())) {
+                                 $('#passwordHelp').html('{{passwordGoodText}}');
+                 				$('#progress-password').removeClass().addClass('progress-bar bg-success w-100');
+                             } else if (mediumRegex.test(password.val())) {
+                                 $('#passwordHelp').html('{{passwordStrongerText}}');
+                 				$('#progress-password').removeClass().addClass('progress-bar bg-warning w-75');
+                             } else {
+                 			    $('#passwordHelp').html('{{passwordWeakText}}');
+                                 $('#progress-password').removeClass().addClass('progress-bar bg-warning w-50');
+                             }
+                         });
+                         let currForm1 = document.querySelector("form");
+                         // Validate on submit:
+                         currForm1.addEventListener('submit', function (event) {
+                             if (currForm1.checkValidity() === false) {
+                                 event.preventDefault();
+                                 event.stopPropagation();
+                             }
+                             currForm1.classList.add('was-validated');
+                         }, false);
+                         // Validate on input:
+                         currForm1.querySelectorAll('.form-control').forEach(input => {
+                             input.addEventListener(('input'), () => {
+                                 if (input.checkValidity()) {
+                                     input.classList.remove('is-invalid');
+                                     input.classList.add('is-valid');
+                                 } else {
+                                     input.classList.remove('is-valid');
+                                     input.classList.add('is-invalid');
+                                 }
+                             });
+                         });
+                     });
+                 """;
     }
 
     /// <summary>
@@ -1180,15 +1254,17 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string DoQuickSearchJs(string url)
     {
-        return $@"function quickSearch() {{
-                        var searchInput = $(""#QuickSearch"").val();
-
-                        if (searchInput.length) {{
-                            var url = ""{url}"";
-                     
-                            window.location.replace(url + ""?search="" + searchInput);
-                        }}
-                      }}";
+        return $$"""
+                  function quickSearch() {
+                      var searchInput = document.getElementById("QuickSearch").value;
+                  
+                      if (searchInput.length) {
+                          var url = "{{url}}";
+                  
+                          window.location.replace(url + "?search=" + searchInput);
+                      }
+                  }
+                  """;
     }
 
     /// <summary>
@@ -1200,7 +1276,7 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string DoSearchJs()
     {
-        return "document.addEventListener('DOMContentLoaded', function() { getSearchResultsData(0); })";
+        return "document.addEventListener(\"DOMContentLoaded\", function() { getSearchResultsData(0);});";
     }
 
     /// <summary>
@@ -1248,15 +1324,20 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull] string title,
         [NotNull] string cssClass,
         [NotNull] string trigger)
-    {
-        return $@"$(document).ready(function() {{
-                     $('{cssClass}').popover({{
-                           title: '{title}',
-                           html: true,
-                           trigger: '{trigger}',
-                           template: '<div class=""popover"" role=""tooltip""><div class=""popover-arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body""></div></div>'
-                }});
-                }});";
+   {
+        return $$"""
+                 document.addEventListener("DOMContentLoaded", function() {
+                                       var popoverTriggerModsList = [].slice.call(document.querySelectorAll('{{cssClass}}'));
+                                       var popoverModsList = popoverTriggerModsList.map(function(popoverTriggerEl) {
+                                            return new bootstrap.Popover(popoverTriggerEl,{
+                                            title: "{{title}}",
+                                            html: true,
+                                            trigger: "{{trigger}}",
+                                            template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body"></div></div>'
+                                            });
+                                 });
+                                 });
+                 """;
     }
 
     /// <summary>
@@ -1291,16 +1372,18 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string HoverCardJs()
     {
-        return $@"if (typeof(jQuery.fn.hovercard) != 'undefined'){{ 
-                      $('.hc-user').hovercard({{
-                                      delay: {BoardContext.Current.BoardSettings.HoverCardOpenDelay}, 
-                                      width: 350,
-                                      loadingHTML: '{BoardContext.Current.Get<ILocalization>().GetText("DEFAULT", "LOADING_HOVERCARD").ToJsString()}',
-                                      errorHTML: '{BoardContext.Current.Get<ILocalization>().GetText("DEFAULT", "ERROR_HOVERCARD").ToJsString()}',
-                                      pointsText: '{BoardContext.Current.Get<ILocalization>().GetText("REPUTATION").ToJsString()}', 
-                                      postsText: '{BoardContext.Current.Get<ILocalization>().GetText("POSTS").ToJsString()}'
-                      }}); 
-                 }}";
+        return $$"""
+                 if (typeof(jQuery.fn.hovercard) != 'undefined'){
+                                       $('.hc-user').hovercard({
+                                                       delay: {{BoardContext.Current.BoardSettings.HoverCardOpenDelay}},
+                                                       width: 350,
+                                                       loadingHTML: '{{BoardContext.Current.Get<ILocalization>().GetText("DEFAULT", "LOADING_HOVERCARD").ToJsString()}}',
+                                                       errorHTML: '{{BoardContext.Current.Get<ILocalization>().GetText("DEFAULT", "ERROR_HOVERCARD").ToJsString()}}',
+                                                       pointsText: '{{BoardContext.Current.Get<ILocalization>().GetText("REPUTATION").ToJsString()}}',
+                                                       postsText: '{{BoardContext.Current.Get<ILocalization>().GetText("POSTS").ToJsString()}}'
+                                       });
+                                  }
+                 """;
     }
 
     /// <summary>
@@ -1312,16 +1395,19 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string FormValidatorJs()
     {
-        return @"$(document).ready( function () {
-               $("".needs-validation"").each(function() {
-                    $(this).validate({
-                errorElement: ""div"",
-                errorPlacement: function (error, element) {
-                    $(element).closest(""form"").addClass(""was-validated"");
-                    return true;
-                },
-            });});
-                  });";
+        return """
+               $(document).ready(function () {
+                   $(".needs-validation").each(function () {
+                       $(this).validate({
+                           errorElement: "div",
+                           errorPlacement: function (error, element) {
+                               $(element).closest("form").addClass("was-validated");
+                               return true;
+                           },
+                       });
+                   });
+               });
+               """;
     }
 
     /// <summary>
@@ -1333,13 +1419,15 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string FormValidatorJQueryJs()
     {
-        return @"var validator = $("".needs-validation"").validate({
-                errorElement: ""div"",
-                errorPlacement: function (error, element) {
-                    $(element).closest(""form"").addClass(""was-validated"");
-                    return true;
-                },
-            });";
+        return """
+               var validator = $(".needs-validation").validate({
+                               errorElement: "div",
+                               errorPlacement: function (error, element) {
+                                   $(element).closest("form").addClass("was-validated");
+                                   return true;
+                               },
+                           });
+               """;
     }
 
     /// <summary>
@@ -1349,8 +1437,10 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string ToolTipJs()
     {
-        return @"if (typeof tooltipTriggerList !== 'undefined') {const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle=""tooltip""]')
-                 const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))  }";
+        return """
+               if (typeof tooltipTriggerList !== 'undefined') {const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+                                const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))  }
+               """;
     }
 
     /// <summary>
@@ -1365,8 +1455,10 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string ClickOnEnterJs([NotNull] string buttonClientId)
     {
-        return $@"if(event.which || event.keyCode){{if ((event.which == 13) || (event.keyCode == 13)) {{
-                              document.getElementById('{buttonClientId}').click();return false;}}}} else {{return true}}; ";
+        return $$$"""
+                  if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {
+                                                document.getElementById('{{{buttonClientId}}}').click();return false;}} else {return true};
+                  """;
     }
 
     /// <summary>
@@ -1398,28 +1490,31 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull] string no,
         [NotNull] string link)
     {
-        return $@"document.addEventListener('DOMContentLoaded', function() {{
-                        bootbox.confirm({{
-                centerVertical: true,
-                title: '{title}',
-                message: '{text}',
-                buttons: {{
-                    confirm: {{
-                        label: '<i class=""fa fa-check""></i> ' + '{yes}',
-                        className: ""btn-success""
-                    }},
-                    cancel: {{
-                        label: '<i class=""fa fa-times""></i> ' + '{no}',
-                        className: ""btn-danger""
-                    }}
-                }},
-                callback: function (confirmed) {{
-                    if (confirmed) {{
-                        document.location.href = '{link}';
-                    }}
-                }}
-            }}
-        );}})";
+        return $$"""
+                  document.addEventListener('DOMContentLoaded', function () {
+                      bootbox.confirm({
+                          centerVertical: true,
+                          title: '{{title}}',
+                          message: '{{text}}',
+                          buttons: {
+                              confirm: {
+                                  label: '<i class="fa fa-check"></i> ' + '{{yes}}',
+                                  className: "btn-success"
+                              },
+                              cancel: {
+                                  label: '<i class="fa fa-times"></i> ' + '{{no}}',
+                                  className: "btn-danger"
+                              }
+                          },
+                          callback: function (confirmed) {
+                              if (confirmed) {
+                                  document.location.href = '{{link}}';
+                              }
+                          }
+                      }
+                      );
+                  });
+                  """;
     }
 
     /// <summary>
@@ -1437,34 +1532,36 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string NotifyJs([NotNull] string type, [NotNull] string body)
     {
-        return $@"var iconFA = """";
-        var type = ""{type}"";
-
-        if (type == ""warning"") {{
-            iconFA = ""fa fa-exclamation-triangle"";
-        }}
-        else if (type == ""danger"") {{
-            iconFA = ""fa fa-exclamation-triangle"";
-        }}
-        else if (type == ""info"") {{
-            iconFA = ""fa fa-info-circle"";
-        }}
-        else if (type == ""success"") {{
-            iconFA = ""fa fa-check"";
-        }}
-
-        $.notify({{
-                title: ""{BoardContext.Current.BoardSettings.Name}"",
-                message: ""{body}"",
-                icon: iconFA
-            }},
-            {{
-                type: ""{type}"",
-                element: ""body"",
-                position: null,
-                placement: {{ from: ""top"", align: ""center"" }},
-                delay: {BoardContext.Current.BoardSettings.MessageNotifcationDuration} * 1000
-            }});";
+        return $$"""
+                 var iconFA = "";
+                         var type = "{{type}}";
+                 
+                         if (type == "warning") {
+                             iconFA = "fa fa-exclamation-triangle";
+                         }
+                         else if (type == "danger") {
+                             iconFA = "fa fa-exclamation-triangle";
+                         }
+                         else if (type == "info") {
+                             iconFA = "fa fa-info-circle";
+                         }
+                         else if (type == "success") {
+                             iconFA = "fa fa-check";
+                         }
+                 
+                         $.notify({
+                                 title: "{{BoardContext.Current.BoardSettings.Name}}",
+                                 message: "{{body}}",
+                                 icon: iconFA
+                             },
+                             {
+                                 type: "{{type}}",
+                                 element: "body",
+                                 position: null,
+                                 placement: { from: "top", align: "center" },
+                                 delay: {{BoardContext.Current.BoardSettings.MessageNotifcationDuration}} * 1000
+                             });
+                 """;
     }
 
     /// <summary>
@@ -1476,35 +1573,37 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string ModalNotifyJs()
     {
-        return $@"function ShowModalNotify(type, body, formElement) {{var iconFA = """";
-        var type = type;
-
-        if (type == ""warning"") {{
-            iconFA = ""fa fa-exclamation-triangle"";
-        }}
-        else if (type == ""danger"") {{
-            iconFA = ""fa fa-exclamation-triangle"";
-        }}
-        else if (type == ""info"") {{
-            iconFA = ""fa fa-info-circle"";
-        }}
-        else if (type == ""success"") {{
-            iconFA = ""fa fa-check"";
-        }}
-
-        $.notify({{
-                title: ""{BoardContext.Current.BoardSettings.Name}"",
-                message: body,
-                icon: iconFA
-            }},
-            {{
-                type: type,
-                element: formElement,
-                position: null,
-                placement: {{ from: ""top"", align: ""center"" }},
-                delay: {BoardContext.Current.BoardSettings.MessageNotifcationDuration} * 1000
-            }});
-          }}";
+        return $$"""
+                 function ShowModalNotify(type, body, formElement) {var iconFA = "";
+                         var type = type;
+                 
+                         if (type == "warning") {
+                             iconFA = "fa fa-exclamation-triangle";
+                         }
+                         else if (type == "danger") {
+                             iconFA = "fa fa-exclamation-triangle";
+                         }
+                         else if (type == "info") {
+                             iconFA = "fa fa-info-circle";
+                         }
+                         else if (type == "success") {
+                             iconFA = "fa fa-check";
+                         }
+                 
+                         $.notify({
+                                 title: "{{BoardContext.Current.BoardSettings.Name}}",
+                                 message: body,
+                                 icon: iconFA
+                             },
+                             {
+                                 type: type,
+                                 element: formElement,
+                                 position: null,
+                                 placement: { from: "top", align: "center" },
+                                 delay: {{BoardContext.Current.BoardSettings.MessageNotifcationDuration}} * 1000
+                             });
+                           }
+                 """;
     }
 
     /// <summary>
@@ -1536,13 +1635,15 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull] string ok,
         [NotNull] string value)
     {
-        return $@"bootbox.prompt({{ 
-                                      title: '{title}',
-                                      message: '{message}',
-	                                  value: '{value}',
-                                      buttons: {{cancel:{{label:'{cancel}'}}, confirm:{{label:'{ok}'}}}},
-                                      callback: function(){{}}
-	                              }});";
+        return $$"""
+                   bootbox.prompt({
+                       title: '{{title}}',
+                       message: '{{message}}',
+                       value: '{{value}}',
+                       buttons: { cancel: { label: '{{cancel}}' }, confirm: { label: '{{ok}}' } },
+                       callback: function () { }
+                   });
+                   """;
     }
 
     /// <summary>
@@ -1566,56 +1667,63 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull] string selectClientId,
         [NotNull] string hiddenUserId)
     {
-        return $@"$('#{selectClientId}').select2({{
-            ajax: {{
-                url: '/api/User/GetUsers',
-                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
-                type: 'POST',
-                dataType: 'json',
-                contentType: 'application/json',
-                minimumInputLength: 0,
-                data: function(params) {{
-                      var query = {{
-                          ForumId : 0,
-                          UserId: 0,
-                          PageSize: 0,
-                          Page : params.page || 0,
-                          SearchTerm : params.term || ''
-                      }}
-                      return JSON.stringify(query);
-                }},
-                error: errorLog,
-                processResults: function(data, params) {{
-                    params.page = params.page || 0;
-
-                    var resultsPerPage = 15 * 2;
-
-                    var total = params.page == 0 ? data.results.length : resultsPerPage;
-
-                    return {{
-                        results: data.results,
-                        pagination: {{
-                            more: total < data.total
-                        }}
-                    }}
-                }}
-            }},
-            dropdownParent: $(""#{parentId}""),
-            theme: 'bootstrap-5',
-            allowClearing: false,
-            placeholder: '{BoardContext.Current.Get<ILocalization>().GetText("ADD_USER")}',
-            cache: true,
-            width: '100%',
-            {BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}
-        }});
-              
-             $('#{selectClientId}').on('select2:select', function (e) {{
-                if (e.params.data.total) {{ 
-                                                 $('#{hiddenUserId}').val(e.params.data.results[0].children[0].id);
-                                             }} else {{
-                                                 $('#{hiddenUserId}').val(e.params.data.id);
-                                             }}
-            }});";
+        return $$"""
+                 $('#{{selectClientId}}').select2({
+                             ajax: {
+                                 url: '/api/User/GetUsers',
+                                 headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
+                                 type: 'POST',
+                                 dataType: 'json',
+                                 contentType: 'application/json',
+                                 minimumInputLength: 0,
+                                 data: function(params) {
+                                       var query = {
+                                           ForumId : 0,
+                                           UserId: 0,
+                                           PageSize: 0,
+                                           Page : params.page || 0,
+                                           SearchTerm : params.term || ''
+                                       }
+                                       return JSON.stringify(query);
+                                 },
+                                 
+                                 error: function(x, e) {
+                                     console.log('An Error has occurred!');
+                                     console.log(x.responseText);
+                                     console.log(x.status);
+                                 },
+                                 processResults: function(data, params) {
+                                     params.page = params.page || 0;
+                 
+                                     var resultsPerPage = 15 * 2;
+                 
+                                     var total = params.page == 0 ? data.results.length : resultsPerPage;
+                 
+                                     return {
+                                         results: data.results,
+                                         pagination: {
+                                             more: total < data.total
+                                         }
+                                     }
+                                 }
+                             },
+                             dropdownParent: $("#{{parentId}}"),
+                             theme: 'bootstrap-5',
+                             allowClearing: false,
+                             placeholder: '{{BoardContext.Current.Get<ILocalization>().GetText("ADD_USER")}}',
+                             cache: true,
+                             width: '100%',
+                             {{BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}}
+                         });
+                               
+                              $('#{{selectClientId}}').on('select2:select', function (e) {
+                                 if (e.params.data.total) {
+                                                                  $('#{{hiddenUserId}}').val(e.params.data.results[0].children[0].id);
+                                                              } else {
+                                                                  $('#{{hiddenUserId}}').val(e.params.data.id);
+                                                              }
+                             });
+                 """;
     }
 
     /// <summary>
@@ -1647,28 +1755,30 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
         [NotNull] string no,
         [NotNull] string link)
     {
-        return $@"function LogOutClick() {{
-                bootbox.confirm({{
-                centerVertical: true,
-                title: '{title}',
-                message: '{text}',
-                buttons: {{
-                    confirm: {{
-                        label: '<i class=""fa fa-check""></i> ' + '{yes}',
-                        className: ""btn-success""
-                    }},
-                    cancel: {{
-                        label: '<i class=""fa fa-times""></i> ' + '{no}',
-                        className: ""btn-danger""
-                    }}
-                }},
-                callback: function (confirmed) {{
-                    if (confirmed) {{
-                        document.location.href = '{link}';
-                    }}
-                }}
-            }}
-        );}}";
+        return $$"""
+                 function LogOutClick() {
+                                 bootbox.confirm({
+                                 centerVertical: true,
+                                 title: '{{title}}',
+                                 message: '{{text}}',
+                                 buttons: {
+                                     confirm: {
+                                         label: '<i class="fa fa-check"></i> ' + '{{yes}}',
+                                         className: "btn-success"
+                                     },
+                                     cancel: {
+                                         label: '<i class="fa fa-times"></i> ' + '{{no}}',
+                                         className: "btn-danger"
+                                     }
+                                 },
+                                 callback: function (confirmed) {
+                                     if (confirmed) {
+                                         document.location.href = '{{link}}';
+                                     }
+                                 }
+                             }
+                         );}
+                 """;
     }
 
     /// <summary>
@@ -1681,41 +1791,43 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string LoadMoreOnScrolling(string url)
     {
-        return $@"function GetCategories() {{
-
-                var categoryIndex = $('#category-index').val();
-
-                categoryIndex++;
-
-                var url = '{url}' + ""?index="" + categoryIndex;
-
-                $.ajax({{
-                    type: 'GET',
-                    url: url,
-
-                    success: function (response) {{
-                        $('#category-list').html(response);
-                     
-                        $('#category-index').val(categoryIndex);
-                    
-                    }},
-                    error: function (xhr, textStatus, error) {{
-                        console.log(xhr.statusText);
-                        console.log(textStatus);
-                        console.log(error);
-                    }}
-                }});
-            }}
-
-         $(document).ready(function () {{
-             $(window).scroll(function () {{
-            if ($(window).scrollTop() + $(window).height() == $(document).height()) {{
-                if ($('#category-info-more').length) {{
-                    GetCategories();
-                }}
-            }}
-        }});
-    }});";
+        return $$"""
+                 function GetCategories() {
+                 
+                                 var categoryIndex = $('#category-index').val();
+                 
+                                 categoryIndex++;
+                 
+                                 var url = '{{url}}' + "?index=" + categoryIndex;
+                 
+                                 $.ajax({
+                                     type: 'GET',
+                                     url: url,
+                 
+                                     success: function (response) {
+                                         $('#category-list').html(response);
+                                      
+                                         $('#category-index').val(categoryIndex);
+                                     
+                                     },
+                                     error: function (xhr, textStatus, error) {
+                                         console.log(xhr.statusText);
+                                         console.log(textStatus);
+                                         console.log(error);
+                                     }
+                                 });
+                             }
+                 
+                          $(document).ready(function () {
+                              $(window).scroll(function () {
+                             if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+                                 if ($('#category-info-more').length) {
+                                     GetCategories();
+                                 }
+                             }
+                         });
+                     });
+                 """;
     }
 
     /// <summary>
@@ -1730,12 +1842,14 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string ToggleDiffSelectionJs([NotNull] string message)
     {
-        return $@"function toggleSelection(source) {{
-                                              if ($(""input[id*='Compare']:checked"").length > 2) {{
-                                                  source.checked = false;
-                                                  bootbox.alert({message});
-                                              }}
-                                          }}";
+        return $$"""
+                 function toggleSelection(source) {
+                     if (document.querySelector("input[id*='Compare']:checked").length > 2) {
+                     source.checked = false;
+                     bootbox.alert("{{message}}");
+                     }
+                 }
+                 """;
     }
 
     /// <summary>
@@ -1747,35 +1861,37 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string SetGroupMaskJs()
     {
-        return @"$(""#Save"").click(function(e) {
-            $("".accessMasks"").each(function () {
-                
-                var roleId = $(""#Input_Id"").val();
-
-                if (roleId)
-                {
-                    var forumId = $(this).find(""input[type='hidden']"").val();
-                    var accessMaskId =  $(this).find( ""select option:selected"").val(); 
-                    
-                    var data = {};
-
-                    data.UserId = forumId;
-                    data.PageSize = accessMaskId;
-                    data.PageNumber = roleId;
-                    
-                    var ajaxURL = ""/api/AccessMask/SetGroupMask"";
-                
-                $.ajax({
-                    url: ajaxURL,
-                    type: ""POST"",
-                    data: JSON.stringify(data),
-                    contentType: ""application/json; charset=utf-8"", 
-                    headers: { ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }
-                });
-            }
-        });
-
-        });";
+        return """
+               $("#Save").click(function(e) {
+                           $(".accessMasks").each(function () {
+                               
+                               var roleId = $("#Input_Id").val();
+               
+                               if (roleId)
+                               {
+                                   var forumId = $(this).find("input[type='hidden']").val();
+                                   var accessMaskId =  $(this).find( "select option:selected").val();
+                                   
+                                   var data = {};
+               
+                                   data.UserId = forumId;
+                                   data.PageSize = accessMaskId;
+                                   data.PageNumber = roleId;
+                                   
+                                   var ajaxURL = "/api/AccessMask/SetGroupMask";
+                               
+                               $.ajax({
+                                   url: ajaxURL,
+                                   type: "POST",
+                                   data: JSON.stringify(data),
+                                   contentType: "application/json; charset=utf-8",
+                                   headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() }
+                               });
+                           }
+                       });
+               
+                       });
+               """;
     }
 
     /// <summary>
@@ -1788,18 +1904,20 @@ function blurTextBox(txtTitleId, id, isAlbum) {{
     [NotNull]
     public static string PersianDateTimePickerJs([NotNull] string inputId)
     {
-        return $@"var input = document.querySelector('#{inputId}');
-   
-   if (input !== null)
-   {{
-   input.setAttribute(""type"", ""text"");
- 
-    new mds.MdsPersianDateTimePicker(input, {{
-       targetTextSelector: '#{inputId}',
- 
-       selectedDate: new Date(input.value),
-       selectedDateToShow: new Date(input.value)
-     }});
-	 }}";
+        return $$"""
+                 var input = document.querySelector('#{{inputId}}');
+                    
+                    if (input !== null)
+                    {
+                    input.setAttribute("type", "text");
+                  
+                     new mds.MdsPersianDateTimePicker(input, {
+                        targetTextSelector: '#{{inputId}}',
+                  
+                        selectedDate: new Date(input.value),
+                        selectedDateToShow: new Date(input.value)
+                      });
+                 	 }
+                 """;
     }
 }

@@ -5827,6 +5827,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "توکن برای فراخوانی امن وب سرویس استفاده می شود. و مدام در حال تغییر است تا زمانی که شما تنظمیات میزبان را ذخیره کنید."
+          },
+          {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9722,6 +9730,14 @@
             "#text": "Rss اصلی انجمن"
           },
           {
+            "@tag": "MARK_ALL_ASREAD",
+            "#text": "Mark All As Read"
+          },
+          {
+            "@tag": "MARK_ASREAD",
+            "#text": "Mark As Read"
+          },
+          {
             "@tag": "MARKALL",
             "#text": "تمام انجمن‌ها بصورت خوانده شده در آیند"
           },
@@ -9832,14 +9848,6 @@
           {
             "@tag": "WATCHFORUM_ALL_HELP",
             "#text": "همه انجمن ها را دنبال و هنگام ایجاد یک موضوع جدید، از طریق ایمیل با خبر شوید."
-          },
-          {
-            "@tag": "MARK_ALL_ASREAD",
-            "#text": "Mark All As Read"
-          },
-          {
-            "@tag": "MARK_ASREAD",
-            "#text": "Mark As Read"
           }
         ]
       },

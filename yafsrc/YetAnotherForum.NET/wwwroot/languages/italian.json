@@ -5827,6 +5827,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token utilizzato per effettuare chiamate sicure al servizio web. Cambia continuamente finché non si salvano le impostazioni dell'host."
+          },
+          {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9726,6 +9734,14 @@
             "#text": "Feed RSS forum principale"
           },
           {
+            "@tag": "MARK_ALL_ASREAD",
+            "#text": "Mark All As Read"
+          },
+          {
+            "@tag": "MARK_ASREAD",
+            "#text": "Mark As Read"
+          },
+          {
             "@tag": "MARKALL",
             "#text": "Contrassegna tutti i forum come letti"
           },
@@ -9836,14 +9852,6 @@
           {
             "@tag": "WATCHFORUM_ALL_HELP",
             "#text": "Segui tutti i forum e ottieni una mail di notifica quando viene aggiunta una nuova discussione"
-          },
-          {
-            "@tag": "MARK_ALL_ASREAD",
-            "#text": "Mark All As Read"
-          },
-          {
-            "@tag": "MARK_ASREAD",
-            "#text": "Mark As Read"
           }
         ]
       },

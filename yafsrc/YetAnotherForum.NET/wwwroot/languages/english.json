@@ -5517,6 +5517,14 @@
             "#text": "Enable or disable display of RSS links throughout the forum."
           },
           {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+          },
+          {
             "@tag": "SHOW_SCROLL",
             "#text": "Show Scroll Back to Top Button"
           },

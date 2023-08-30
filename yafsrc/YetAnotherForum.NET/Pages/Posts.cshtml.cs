@@ -302,7 +302,7 @@ public class PostsModel : ForumPage
             }
 
             // move to this message on load...
-            if (!this.PageBoardContext.IsCrawler)
+            if (!this.PageBoardContext.IsCrawler && this.PageBoardContext.BoardSettings.ScrollToPost)
             {
                 this.PageBoardContext.RegisterJsBlock(
                     JavaScriptBlocks.LoadGotoAnchor($"post{findMessageId}"));
@@ -311,7 +311,7 @@ public class PostsModel : ForumPage
         else
         {
             // move to this message on load...
-            if (!this.PageBoardContext.IsCrawler)
+            if (!this.PageBoardContext.IsCrawler && this.PageBoardContext.BoardSettings.ScrollToPost)
             {
                 this.PageBoardContext.RegisterJsBlock(JavaScriptBlocks.LoadGotoAnchor($"post{firstPost!.MessageID}"));
             }

@@ -5835,6 +5835,14 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token som brukes til å foreta sikre nettjenesteanrop. Endres hele tiden til du lagrer vertsinnstillingene."
+          },
+          {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9734,6 +9742,14 @@
             "#text": "Hovedforum RSS"
           },
           {
+            "@tag": "MARK_ALL_ASREAD",
+            "#text": "Mark All As Read"
+          },
+          {
+            "@tag": "MARK_ASREAD",
+            "#text": "Mark As Read"
+          },
+          {
             "@tag": "MARKALL",
             "#text": "Marker alle forum som lest"
           },
@@ -9844,14 +9860,6 @@
           {
             "@tag": "WATCHFORUM_ALL_HELP",
             "#text": "Se alle fora og få e-postvarsler når et nytt emne er opprettet"
-          },
-          {
-            "@tag": "MARK_ALL_ASREAD",
-            "#text": "Mark All As Read"
-          },
-          {
-            "@tag": "MARK_ASREAD",
-            "#text": "Mark As Read"
           }
         ]
       },

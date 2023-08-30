@@ -28,7 +28,7 @@
     "codemirror": "^5.65.14",
     "flag-icons": "^6.11.0",
     "grunt-file-append": "^0.0.7",
-    "jquery": "^3.7.0",
+    "jquery": "^3.7.1",
     "jquery-ajax-unobtrusive": "^3.2.6",
     "jquery-validation": "^1.19.5",
     "long-press-event": "^2.4.6",

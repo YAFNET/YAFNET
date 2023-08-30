@@ -1223,6 +1223,14 @@
 </div>
 <div class="mb-3">
     <label class="form-label" info-button="true"
+           asp-for="Input.ScrollToPost"
+           localized-tag="SCROLL_TO_POST"></label>
+    <div class="form-check form-switch">
+        <input type="checkbox" class="form-check-input" asp-for="Input.ScrollToPost" />
+    </div>
+</div>
+<div class="mb-3">
+    <label class="form-label" info-button="true"
            asp-for="Input.ShowScrollBackToTopButton"
            localized-tag="SHOW_SCROLL"></label>
     <div class="form-check form-switch">

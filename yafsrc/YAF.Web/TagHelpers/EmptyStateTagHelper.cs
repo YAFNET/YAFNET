@@ -116,7 +116,7 @@ public class EmptyTagHelper : TagHelper, IHaveServiceLocator, IHaveLocalization
         // Render Message
         var messageDivTag = new TagBuilder("div");
 
-        messageDivTag.AddCssClass("col-lg-5 mx-auto");
+        messageDivTag.AddCssClass("col-lg-12 mx-auto");
 
         var messageContentTag = new TagBuilder("p");
 
