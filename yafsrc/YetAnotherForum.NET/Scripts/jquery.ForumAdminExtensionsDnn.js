@@ -10025,11 +10025,13 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
-    document.querySelector(".dropdown-notify").addEventListener("show.bs.dropdown", () => {
-        var pageSize = 5;
-        var pageNumber = 0;
-        getNotifyData(pageSize, pageNumber, false);
-    });
+    if (document.querySelector(".dropdown-notify") != null) {
+        document.querySelector(".dropdown-notify").addEventListener("show.bs.dropdown", () => {
+            var pageSize = 5;
+            var pageNumber = 0;
+            getNotifyData(pageSize, pageNumber, false);
+        });
+    }
     document.querySelectorAll(".form-check > input").forEach(input => {
         input.classList.add("form-check-input");
     });

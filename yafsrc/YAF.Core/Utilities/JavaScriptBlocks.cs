@@ -1052,7 +1052,7 @@ public static class JavaScriptBlocks
     [NotNull]
     public static string OpenModalJs([NotNull] string clientId)
     {
-        return $"var myModal = new bootstrap.Modal(document.getElementById('{clientId}'), null);myModal.show();";
+        return $"var myModal = new bootstrap.Modal(document.getElementById(\"{clientId}\"), null);myModal.show();";
     }
 
     /// <summary>
@@ -1061,11 +1061,10 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the do Search Java script String
     /// </returns>
-    ///  TODO
     [NotNull]
     public static string DoSearchJs()
     {
-        return $"{Config.JQueryAlias}(document).ready(function() {{getSearchResultsData(0);}});";
+        return "document.addEventListener(\"DOMContentLoaded\", function() { getSearchResultsData(0);});";
     }
 
     /// <summary>
@@ -1111,7 +1110,6 @@ public static class JavaScriptBlocks
     /// Returns the JS String
     /// </returns>
     [NotNull]
-    // TODO
     public static string TopicLinkPopoverJs([NotNull] string title, [NotNull] string cssClass, [NotNull] string trigger)
     {
         return $$"""
@@ -1141,18 +1139,20 @@ public static class JavaScriptBlocks
     [NotNull]
     public static string ForumModsPopoverJs([NotNull] string title)
     {
-        return $@"Sys.Application.add_load(function(){{
-                      var popoverTriggerModsList = [].slice.call(document.querySelectorAll('.forum-mods-popover'));
-                      var popoverModsList = popoverTriggerModsList.map(function(popoverTriggerEl) {{
-                           return new bootstrap.Popover(popoverTriggerEl,{{
-                           title: '{title}',
-                           html: true,
-                           trigger: 'focus',
-                           template: '<div class=""popover"" role=""tooltip""><div class=""popover-arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body popover-body-scrollable""></div></div>'
-                           }});
-                }});
-
-       }});";
+        return $$"""
+                 Sys.Application.add_load(function(){
+                                       var popoverTriggerModsList = [].slice.call(document.querySelectorAll('.forum-mods-popover'));
+                                       var popoverModsList = popoverTriggerModsList.map(function(popoverTriggerEl) {
+                                            return new bootstrap.Popover(popoverTriggerEl,{
+                                            title: '{{title}}',
+                                            html: true,
+                                            trigger: 'focus',
+                                            template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body popover-body-scrollable"></div></div>'
+                                            });
+                                 });
+                 
+                        });
+                 """;
     }
 
     /// <summary>
@@ -1164,16 +1164,18 @@ public static class JavaScriptBlocks
     [NotNull]
     public static string HoverCardJs()
     {
-        return $@"if (typeof(jQuery.fn.hovercard) != 'undefined'){{ 
-                      {Config.JQueryAlias}('.hc-user').hovercard({{
-                                      delay: {BoardContext.Current.BoardSettings.HoverCardOpenDelay}, 
-                                      width: 350,
-                                      loadingHTML: '{BoardContext.Current.Get<ILocalization>().GetText("DEFAULT", "LOADING_HOVERCARD").ToJsString()}',
-                                      errorHTML: '{BoardContext.Current.Get<ILocalization>().GetText("DEFAULT", "ERROR_HOVERCARD").ToJsString()}',
-                                      pointsText: '{BoardContext.Current.Get<ILocalization>().GetText("REPUTATION").ToJsString()}',
-                                      postsText: '{BoardContext.Current.Get<ILocalization>().GetText("POSTS").ToJsString()}'
-                      }});
-                 }}";
+        return $$"""
+                 if (typeof(jQuery.fn.hovercard) != 'undefined'){
+                                       {{Config.JQueryAlias}}('.hc-user').hovercard({
+                                                       delay: {{BoardContext.Current.BoardSettings.HoverCardOpenDelay}},
+                                                       width: 350,
+                                                       loadingHTML: '{{BoardContext.Current.Get<ILocalization>().GetText("DEFAULT", "LOADING_HOVERCARD").ToJsString()}}',
+                                                       errorHTML: '{{BoardContext.Current.Get<ILocalization>().GetText("DEFAULT", "ERROR_HOVERCARD").ToJsString()}}',
+                                                       pointsText: '{{BoardContext.Current.Get<ILocalization>().GetText("REPUTATION").ToJsString()}}',
+                                                       postsText: '{{BoardContext.Current.Get<ILocalization>().GetText("POSTS").ToJsString()}}'
+                                       });
+                                  }
+                 """;
     }
 
     /// <summary>
@@ -1189,24 +1191,23 @@ public static class JavaScriptBlocks
     public static string FormValidatorJs([NotNull] string buttonClientId)
     {
         return $$"""
-                 (function() {
-                                 'use strict';
-                                 window.addEventListener('load', function() {
-                                     var form = document.forms[0];
-                 
-                                     var test = document.getElementById('{{buttonClientId}}');
-                                     test.addEventListener('click', function(event) {
-                                         if (form.checkValidity() === false)
-                                         {
-                                             event.preventDefault();
-                                             event.stopPropagation();
-                                         }
-                                         form.classList.add('was-validated');
-                                     }, false);
-                                    
-                                 }, false);
-                             })();
-                 """;
+                  (function () {
+                      "use strict";
+                      window.addEventListener("load", function () {
+                          var form = document.forms[0];
+                  
+                          const test = document.getElementById("{{buttonClientId}}");
+                          test.addEventListener("click", function (event) {
+                              if (form.checkValidity() === false) {
+                                  event.preventDefault();
+                                  event.stopPropagation();
+                              }
+                              form.classList.add("was-validated");
+                          }, false);
+                  
+                      }, false);
+                  })();
+                  """;
     }
 
     /// <summary>
@@ -1221,10 +1222,16 @@ public static class JavaScriptBlocks
     [NotNull]
     public static string ClickOnEnterJs([NotNull] string buttonClientId)
     {
-        return $$$"""
-                  if(event.which || event.keyCode){if ((event.which == 13) || (event.keyCode == 13)) {
-                                                document.getElementById('{{{buttonClientId}}}').click();return false;}} else {return true}; 
-                  """;
+        return $$"""
+                   if (event.which || event.keyCode) {
+                       if ((event.which == 13) || (event.keyCode == 13)) {
+                           document.getElementById("{{buttonClientId}}").click();
+                           return false;
+                       }
+                   } else {
+                       return true;
+                   };
+                   """;
     }
 
     /// <summary>
@@ -1257,29 +1264,30 @@ public static class JavaScriptBlocks
         [NotNull] string link)
     {
         return $$"""
-                 document.addEventListener('DOMContentLoaded', function() {
-                                         bootbox.confirm({
-                                 centerVertical: true,
-                                 title: '{{title}}',
-                                 message: '{{text}}',
-                                 buttons: {
-                                     confirm: {
-                                         label: '<i class="fa fa-check"></i> ' + '{{yes}}',
-                                         className: "btn-success"
-                                     },
-                                     cancel: {
-                                         label: '<i class="fa fa-times"></i> ' + '{{no}}',
-                                         className: "btn-danger"
-                                     }
-                                 },
-                                 callback: function (confirmed) {
-                                     if (confirmed) {
-                                         document.location.href = '{{link}}';
-                                     }
-                                 }
-                             }
-                         );})
-                 """;
+                  document.addEventListener("DOMContentLoaded", function () {
+                      bootbox.confirm({
+                              centerVertical: true,
+                              title: "{{title}}",
+                              message: "{{text}}",
+                              buttons: {
+                                  confirm: {
+                                      label: '<i class="fa fa-check"></i> ' + "{{yes}}",
+                                      className: "btn-success"
+                                  },
+                                  cancel: {
+                                      label: '<i class="fa fa-times"></i> ' + "{{no}}",
+                                      className: "btn-danger"
+                                  }
+                              },
+                              callback: function (confirmed) {
+                                  if (confirmed) {
+                                      document.location.href = "{{link}}";
+                                  }
+                              }
+                          }
+                      );
+                  });
+                  """;
     }
 
     /// <summary>
@@ -1311,15 +1319,15 @@ public static class JavaScriptBlocks
         [NotNull] string ok,
         [NotNull] string value)
     {
-        return $$$"""
-                  bootbox.prompt({
-                                                        title: '{{{title}}}',
-                                                        message: '{{{message}}}',
-                                                        value: '{{{value}}}',
-                                                        buttons: {cancel:{label:'{{{cancel}}}'}, confirm:{label:'{{{ok}}}'}},
-                                                        callback: function(){}
-                                                    });
-                  """;
+        return $$"""
+                   bootbox.prompt({
+                       title: "{{title}}",
+                       message: "{{message}}",
+                       value: "{{value}}",
+                       buttons: { cancel: { label: "{{cancel}}" }, confirm: { label: "{{ok}}" } },
+                       callback: function() {}
+                   });
+                   """;
     }
 
     /// <summary>
@@ -1343,55 +1351,57 @@ public static class JavaScriptBlocks
         [NotNull] string selectClientId,
         [NotNull] string hiddenUserId)
     {
-        return $@"{Config.JQueryAlias}('#{selectClientId}').select2({{
-            ajax: {{
-                url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/User/GetUsers',
-                type: 'POST',
-                dataType: 'json',
-                contentType: 'application/json',
-                minimumInputLength: 0,
-                data: function(params) {{
-                      var query = {{
-                          ForumId : 0,
-                          UserId: 0,
-                          PageSize: 0,
-                          Page : params.page || 0,
-                          SearchTerm : params.term || ''
-                      }}
-                      return JSON.stringify(query);
-                }},
-                error: errorLog,
-                processResults: function(data, params) {{
-                    params.page = params.page || 0;
-
-                    var resultsPerPage = 15 * 2;
-
-                    var total = params.page == 0 ? data.Results.length : resultsPerPage;
-
-                    return {{
-                        results: data.Results,
-                        pagination: {{
-                            more: total < data.Total
-                        }}
-                    }}
-                }}
-            }},
-            dropdownParent: {Config.JQueryAlias}(""#{parentId}""),
-            theme: 'bootstrap-5',
-            allowClearing: false,
-            placeholder: '{BoardContext.Current.Get<ILocalization>().GetText("ADD_USER")}',
-            cache: true,
-            width: '100%',
-            {BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}
-        }});
-              
-             {Config.JQueryAlias}('#{selectClientId}').on('select2:select', function (e) {{
-                if (e.params.data.Total) {{ 
-                                                 {Config.JQueryAlias}('#{hiddenUserId}').val(e.params.data.Results[0].children[0].id);
-                                             }} else {{
-                                                 {Config.JQueryAlias}('#{hiddenUserId}').val(e.params.data.id);
-                                             }}
-            }});";
+        return $$"""
+                 {{Config.JQueryAlias}}('#{{selectClientId}}').select2({
+                             ajax: {
+                                 url: '{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/User/GetUsers',
+                                 type: 'POST',
+                                 dataType: 'json',
+                                 contentType: 'application/json',
+                                 minimumInputLength: 0,
+                                 data: function(params) {
+                                       var query = {
+                                           ForumId : 0,
+                                           UserId: 0,
+                                           PageSize: 0,
+                                           Page : params.page || 0,
+                                           SearchTerm : params.term || ''
+                                       }
+                                       return JSON.stringify(query);
+                                 },
+                                 error: errorLog,
+                                 processResults: function(data, params) {
+                                     params.page = params.page || 0;
+                 
+                                     var resultsPerPage = 15 * 2;
+                 
+                                     var total = params.page == 0 ? data.Results.length : resultsPerPage;
+                 
+                                     return {
+                                         results: data.Results,
+                                         pagination: {
+                                             more: total < data.Total
+                                         }
+                                     }
+                                 }
+                             },
+                             dropdownParent: {{Config.JQueryAlias}}("#{{parentId}}"),
+                             theme: 'bootstrap-5',
+                             allowClearing: false,
+                             placeholder: '{{BoardContext.Current.Get<ILocalization>().GetText("ADD_USER")}}',
+                             cache: true,
+                             width: '100%',
+                             {{BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}}
+                         });
+                               
+                              {{Config.JQueryAlias}}('#{{selectClientId}}').on('select2:select', function (e) {
+                                 if (e.params.data.Total) {
+                                                                  {{Config.JQueryAlias}}('#{{hiddenUserId}}').val(e.params.data.Results[0].children[0].id);
+                                                              } else {
+                                                                  {{Config.JQueryAlias}}('#{{hiddenUserId}}').val(e.params.data.id);
+                                                              }
+                             });
+                 """;
     }
 
     /// <summary>
@@ -1424,29 +1434,30 @@ public static class JavaScriptBlocks
         [NotNull] string link)
     {
         return $$"""
-                 function LogOutClick() {
-                                 bootbox.confirm({
-                                 centerVertical: true,
-                                 title: '{{title}}',
-                                 message: '{{text}}',
-                                 buttons: {
-                                     confirm: {
-                                         label: '<i class="fa fa-check"></i> ' + '{{yes}}',
-                                         className: "btn-success"
-                                     },
-                                     cancel: {
-                                         label: '<i class="fa fa-times"></i> ' + '{{no}}',
-                                         className: "btn-danger"
-                                     }
-                                 },
-                                 callback: function (confirmed) {
-                                     if (confirmed) {
-                                         document.location.href = '{{link}}';
-                                     }
-                                 }
-                             }
-                         );}
-                 """;
+                  function LogOutClick() {
+                      bootbox.confirm({
+                              centerVertical: true,
+                              title: "{{title}}",
+                              message: "{{text}}",
+                              buttons: {
+                                  confirm: {
+                                      label: '<i class="fa fa-check"></i> ' + "{{yes}}",
+                                      className: "btn-success"
+                                  },
+                                  cancel: {
+                                      label: '<i class="fa fa-times"></i> ' + "{{no}}",
+                                      className: "btn-danger"
+                                  }
+                              },
+                              callback: function (confirmed) {
+                                  if (confirmed) {
+                                      document.location.href = "{{link}}";
+                                  }
+                              }
+                          }
+                      );
+                  }
+                  """;
     }
 
     /// <summary>
@@ -1486,15 +1497,16 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the JS String
     /// </returns>
-    ///  TODO
     [NotNull]
     public static string ToggleDiffSelectionJs([NotNull] string message)
     {
-        return $@"function toggleSelection(source) {{
-                                              if ({Config.JQueryAlias}(""input[id*='Compare']:checked"").length > 2) {{
-                                                  source.checked = false;
-                                                  bootbox.alert({message});
-                                              }}
-                                          }}";
+        return $$"""
+                 function toggleSelection(source) {
+                     if (document.querySelector("input[id*='Compare']:checked").length > 2) {
+                     source.checked = false;
+                     bootbox.alert("{{message}}");
+                     }
+                 }
+                 """;
     }
 }

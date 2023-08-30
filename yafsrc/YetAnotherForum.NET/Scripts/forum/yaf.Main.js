@@ -83,12 +83,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Notify dropdown
-    document.querySelector(".dropdown-notify").addEventListener("show.bs.dropdown",
-        () => {
-            var pageSize = 5;
-            var pageNumber = 0;
-            getNotifyData(pageSize, pageNumber, false);
-        });
+    if (document.querySelector(".dropdown-notify") != null) {
+        document.querySelector(".dropdown-notify").addEventListener("show.bs.dropdown",
+            () => {
+                var pageSize = 5;
+                var pageNumber = 0;
+                getNotifyData(pageSize, pageNumber, false);
+            });
+    }
 
     document.querySelectorAll(".form-check > input").forEach(input => { input.classList.add("form-check-input") });
     document.querySelectorAll(".form-check li > input").forEach(input => { input.classList.add("form-check-input") });
@@ -104,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
             template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body popover-body-scrollable"></div></div>'
         });
 
-        thanks.addEventListener('show.bs.popover', () => {
+        thanks.addEventListener("show.bs.popover", () => {
             var messageId = thanks.dataset.messageid;
             var url = thanks.dataset.url;
 
