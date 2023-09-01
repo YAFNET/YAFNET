@@ -59,7 +59,7 @@
                          TitleLocalizedPage="TOOLBAR">
             <YAF:Icon runat="server" ID="UnreadIcon"
                       IconName="dot-circle"
-                      IconType="fa-xs text-primary unread"></YAF:Icon>
+                      IconType="fa-xs text-danger unread"></YAF:Icon>
             <YAF:Icon runat="server" ID="NotifyIcon"
                       IconName="bell"></YAF:Icon>
 
