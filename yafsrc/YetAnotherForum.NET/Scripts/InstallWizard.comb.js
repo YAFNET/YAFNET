@@ -61,7 +61,7 @@
         }
         return typeof obj === "object" || typeof obj === "function" ? class2type[toString.call(obj)] || "object" : typeof obj;
     }
-    var version = "3.7.0", rhtmlSuffix = /HTML$/i, jQuery = function(selector, context) {
+    var version = "3.7.1", rhtmlSuffix = /HTML$/i, jQuery = function(selector, context) {
         return new jQuery.fn.init(selector, context);
     };
     jQuery.fn = jQuery.prototype = {
@@ -215,9 +215,14 @@
                 while (node = elem[i++]) {
                     ret += jQuery.text(node);
                 }
-            } else if (nodeType === 1 || nodeType === 9 || nodeType === 11) {
+            }
+            if (nodeType === 1 || nodeType === 11) {
                 return elem.textContent;
-            } else if (nodeType === 3 || nodeType === 4) {
+            }
+            if (nodeType === 9) {
+                return elem.documentElement.textContent;
+            }
+            if (nodeType === 3 || nodeType === 4) {
                 return elem.nodeValue;
             }
             return ret;
@@ -518,7 +523,7 @@
             documentElement = document.documentElement;
             documentIsHTML = !jQuery.isXMLDoc(document);
             matches = documentElement.matches || documentElement.webkitMatchesSelector || documentElement.msMatchesSelector;
-            if (preferredDoc != document && (subWindow = document.defaultView) && subWindow.top !== subWindow) {
+            if (documentElement.msMatchesSelector && preferredDoc != document && (subWindow = document.defaultView) && subWindow.top !== subWindow) {
                 subWindow.addEventListener("unload", unloadHandler);
             }
             support.getById = assert(function(el) {
@@ -1381,6 +1386,7 @@
         find.compile = compile;
         find.select = select;
         find.setDocument = setDocument;
+        find.tokenize = tokenize;
         find.escape = jQuery.escapeSelector;
         find.getText = jQuery.text;
         find.isXML = jQuery.isXMLDoc;
@@ -3403,7 +3409,7 @@
                     tr = document.createElement("tr");
                     trChild = document.createElement("div");
                     table.style.cssText = "position:absolute;left:-11111px;border-collapse:separate";
-                    tr.style.cssText = "border:1px solid";
+                    tr.style.cssText = "box-sizing:content-box;border:1px solid";
                     tr.style.height = "1px";
                     trChild.style.height = "9px";
                     trChild.style.display = "block";
@@ -5786,7 +5792,7 @@
             return arguments.length === 1 ? this.off(selector, "**") : this.off(types, selector || "**", fn);
         },
         hover: function(fnOver, fnOut) {
-            return this.mouseenter(fnOver).mouseleave(fnOut || fnOver);
+            return this.on("mouseenter", fnOver).on("mouseleave", fnOut || fnOver);
         }
     });
     jQuery.each(("blur focus focusin focusout resize scroll click dblclick " + "mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave " + "change select submit keydown keypress keyup contextmenu").split(" "), function(_i, name) {

@@ -15289,7 +15289,7 @@ function setPageNumber(pageSize, pageNumber, total, pagerHolder, label, javascri
 
 document.addEventListener("DOMContentLoaded", function() {
     if (document.querySelector("a.btn-login,input.btn-login, .btn-spinner") != null) {
-        document.querySelector("a.btn-login,input.btn-login, .btn-spinner").click(function() {
+        document.querySelector("a.btn-login,input.btn-login, .btn-spinner").addEventListener("click", () => {
             document.querySelector(this).innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
         });
     }
