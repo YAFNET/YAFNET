@@ -81,32 +81,34 @@ document.addEventListener("click", function (event) {
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    // Scroll top button
-    var scrollToTopBtn = document.querySelector(".btn-scroll"), rootElement = document.documentElement;
+    if (document.querySelector(".btn-scroll") != null) {
+        // Scroll top button
+        var scrollToTopBtn = document.querySelector(".btn-scroll"), rootElement = document.documentElement;
 
-    function handleScroll() {
-        const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
-        if ((rootElement.scrollTop / scrollTotal) > 0.15) {
-            // Show button
-            scrollToTopBtn.classList.add("show-btn-scroll");
-        } else {
-            // Hide button
-            scrollToTopBtn.classList.remove("show-btn-scroll");
+        function handleScroll() {
+            const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+            if ((rootElement.scrollTop / scrollTotal) > 0.15) {
+                // Show button
+                scrollToTopBtn.classList.add("show-btn-scroll");
+            } else {
+                // Hide button
+                scrollToTopBtn.classList.remove("show-btn-scroll");
+            }
         }
+
+        function scrollToTop(e) {
+            e.preventDefault();
+
+            // Scroll to top logic
+            rootElement.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+
+        scrollToTopBtn.addEventListener("click", scrollToTop);
+        document.addEventListener("scroll", handleScroll);
     }
-
-    function scrollToTop(e) {
-        e.preventDefault();
-
-        // Scroll to top logic
-        rootElement.scrollTo({
-            top: 0,
-            behavior: "smooth"
-        });
-    }
-
-    scrollToTopBtn.addEventListener("click", scrollToTop);
-    document.addEventListener("scroll", handleScroll);
 
     // Toggle password visibility
     if (document.body.contains(document.getElementById("PasswordToggle"))) {
