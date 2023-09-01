@@ -1,7 +1,7 @@
 ﻿// Generic Functions
 document.addEventListener("DOMContentLoaded", function () {
     if (document.querySelector("a.btn-login,input.btn-login, .btn-spinner") != null) {
-        document.querySelector("a.btn-login,input.btn-login, .btn-spinner").click(function () {
+        document.querySelector("a.btn-login,input.btn-login, .btn-spinner").addEventListener("click", () => {
             document.querySelector(this).innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
         });
     }
@@ -33,16 +33,16 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     if ($(".select2-image-select").length) {
-        var selected = $(".select2-image-select").val();
+        const selected = $(".select2-image-select").val();
 
         var groups = {};
         $(".yafnet .select2-image-select option[data-category]").each(function () {
-            var sGroup = $.trim($(this).attr("data-category"));
+            const sGroup = $.trim($(this).attr("data-category"));
             groups[sGroup] = true;
         });
         $.each(groups, function (c) {
             $(".yafnet .select2-image-select").each(function () {
-                $(this).find("option[data-category='" + c + "']").wrapAll('<optgroup label="' + c + '">');
+                $(this).find(`option[data-category='${c}']`).wrapAll(`<optgroup label="${c}">`);
             });
         });
 
@@ -101,10 +101,10 @@ document.addEventListener("DOMContentLoaded", function () {
             template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body popover-body-scrollable"></div></div>'
         });
 
-        thanks.addEventListener('show.bs.popover', () => {
+        thanks.addEventListener("show.bs.popover", () => {
             var messageId = thanks.dataset.messageid;
 
-            fetch("/api/ThankYou/GetThanks/" + messageId, {
+            fetch(`/api/ThankYou/GetThanks/${messageId}`, {
                     method: "POST",
                     headers: {
                         'Accept': "application/json",
@@ -123,27 +123,27 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".attachedImage").forEach(imageLink => {
         var messageId = imageLink.parentNode.id;
 
-        imageLink.setAttribute("data-gallery", "#blueimp-gallery-" + messageId);
+        imageLink.setAttribute("data-gallery", `#blueimp-gallery-${messageId}`);
     });
 });
 
 $(function () {
-    var placeholderElement = $('#modal-placeholder');
+    var placeholderElement = $("#modal-placeholder");
 
     $('button[data-bs-toggle="ajax-modal"],a[data-bs-toggle="ajax-modal"]').click(function (event) {
         event.preventDefault();
-        var url = $(this).data('bs-url');
+        const url = $(this).data("bs-url");
         $.get(url).done(function (data) {
             placeholderElement.html(data);
-            placeholderElement.find('.modal').modal('show');
+            placeholderElement.find(".modal").modal("show");
         });
     });
    
-    placeholderElement.on('click', '[data-bs-save="modal"]', function (event) {
+    placeholderElement.on("click", '[data-bs-save="modal"]', function (event) {
         event.preventDefault();
 
-        var form = $(this).parents('.modal').find('form');
-        var actionUrl = form.attr('action');
+        var form = $(this).parents(".modal").find("form");
+        const actionUrl = form.attr("action");
 
         $.ajax({
             url: actionUrl,
@@ -171,11 +171,11 @@ $(function () {
         });
     });
 
-    placeholderElement.on('click', '[data-bs-save="editModal"]', function (event) {
+    placeholderElement.on("click", '[data-bs-save="editModal"]', function (event) {
         event.preventDefault();
 
-        var form = $(this).parents('.modal').find('form');
-        var actionUrl = form.attr('action');
+        var form = $(this).parents(".modal").find("form");
+        const actionUrl = form.attr("action");
 
         if (validator.form()) {
             $.ajax({
@@ -202,8 +202,8 @@ $(function () {
     placeholderElement.on("click", '[data-bs-save="importModal"]', function (event) {
         event.preventDefault();
         var form = $(this).parents(".modal").find("form");
-        var actionUrl = form.attr("action");
-        var formData = new FormData(document.getElementById("formImport"));
+        const actionUrl = form.attr("action");
+        const formData = new FormData(document.getElementById("formImport"));
 
         $.ajax({
             url: actionUrl,
