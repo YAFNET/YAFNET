@@ -600,7 +600,8 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
             .CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
 
         this.Get<IAuthenticationManager>().SignIn(
-            new AuthenticationProperties { IsPersistent = isPersistent },
+            new AuthenticationProperties
+            { IsPersistent = isPersistent, ExpiresUtc = DateTimeOffset.UtcNow.AddDays(30) },
             userIdentity);
 
         user.AccessFailedCount = 0;
