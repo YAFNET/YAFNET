@@ -73,7 +73,7 @@ public partial class Login : AccountPage
             return;
         }
 
-        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
+       this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             "loadLoginValidatorFormJs",
             JavaScriptBlocks.FormValidatorJs(this.LoginButton.ClientID));
 
@@ -83,7 +83,7 @@ public partial class Login : AccountPage
 
         this.Password.Attributes.Add(
             "onkeydown",
-            JavaScriptBlocks.ClickOnEnterJs(this.LoginButton.ClientID));
+           JavaScriptBlocks.ClickOnEnterJs(this.LoginButton.ClientID));
 
         if (this.PageBoardContext.IsGuest && !this.PageBoardContext.BoardSettings.DisableRegistrations && !Config.IsAnyPortal)
         {

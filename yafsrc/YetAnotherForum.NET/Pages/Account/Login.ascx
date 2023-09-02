@@ -60,6 +60,7 @@
                                           IconType="text-secondary"/>
                             </span>
                             <asp:TextBox runat="server" ID="Password"
+                                         autocomplete="current-password"
                                          CssClass="form-control"
                                          TextMode="Password"
                                          required="required"/>
@@ -67,7 +68,7 @@
                                 <YAF:LocalizedLabel runat="server"
                                                     LocalizedTag="NEED_PASSWORD" />
                             </div>
-                            <span class="input-group-text" id="PasswordToggle">
+                            <span class="input-group-text link-offset-2 link-underline link-underline-opacity-0" id="PasswordToggle">
                                 <i class="fa fa-eye-slash" aria-hidden="true"></i>
                             </span>
                         </div>

@@ -1,6 +1,6 @@
-{
-    "name": "",
-    "short_name": "",
+﻿{
+    "name": "YetAnotherForum.NET",
+    "short_name": "YAF.NET",
     "icons": [
         {
             "src": "/Content/favicons/android-chrome-144x144.png",

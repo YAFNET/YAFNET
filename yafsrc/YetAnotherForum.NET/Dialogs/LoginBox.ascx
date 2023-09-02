@@ -43,6 +43,7 @@
                                           IconType="text-secondary"></YAF:Icon>
                             </span>
                             <asp:TextBox runat="server" ID="UserName"
+                                         autocomplete="username"
                                          CssClass="form-control"
                                          required="required" />
                             <div class="invalid-feedback">
@@ -64,9 +65,10 @@
                             </span>
                             <asp:TextBox runat="server" ID="Password" 
                                          CssClass="form-control"
+                                         autocomplete="current-password"
                                          TextMode="Password"
                                          required="required"/>
-                            <a class="input-group-text" id="PasswordToggle" href="#">
+                            <a class="input-group-text link-offset-2 link-underline link-underline-opacity-0" id="PasswordToggle" href="#">
                                     <i class="fa fa-eye-slash" aria-hidden="true"></i>
                                 </a>
                             <div class="invalid-feedback">

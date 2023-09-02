@@ -163,11 +163,12 @@ public partial class LoginBox : BaseUserControl
             case PasswordVerificationResult.Failed:
             default:
                 {
-                    // Lockout for 15 minutes if more than 10 failed attempts
+                    // Lockout for 60 minutes if more than 10 failed attempts
                     user.AccessFailedCount++;
+
                     if (user.AccessFailedCount >= 10)
                     {
-                        user.LockoutEndDateUtc = DateTime.UtcNow.AddMinutes(15);
+                        user.LockoutEndDateUtc = DateTime.UtcNow.AddMinutes(60);
 
                         this.Logger.Info(
                             $"User: {user.UserName} has reached the Limit of 10 failed login attempts and is locked out until {user.LockoutEndDateUtc}");
