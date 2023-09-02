@@ -48,7 +48,7 @@ public class AccessMaskController : ForumBaseController
     [HttpPost("SetGroupMask")]
     public IActionResult SetGroupMask([FromBody] PagedResults pagedResults)
     {
-        if (BoardContext.Current.IsAdmin)
+        if (!BoardContext.Current.IsAdmin)
         {
             return this.Ok();
         }

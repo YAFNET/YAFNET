@@ -64,7 +64,7 @@ document.addEventListener("click", function (event) {
 }, false);
 
 var bootboxConfirm = function (button, title, message, yes, no, callback) {
-    var options = {
+    const options = {
         message: message,
         centerVertical: true,
         title: title

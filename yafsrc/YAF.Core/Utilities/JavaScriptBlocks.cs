@@ -375,181 +375,197 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the Bootstrap Lazy Load Tab EditUser JS.
     /// </returns>
-    /// TODO
     [NotNull]
     public static string EditUserTabsLoadJs(int userId)
     {
-        return $@"var currentTab = ""#"" + $(""#LastTab"").val();
-            
-            function loadTab (tabName)
-            {{
-                switch (tabName) {{
-                    case ""#View1"":
-                        if ($('#View1').is(':empty')) {{
-                            $.ajax({{
-                                url: ""/Admin/EditUser/UsersInfo"",
-                                type: ""GET"",
-                                data: {{ userId: {userId}}},
-                                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
-                                success: function (result) {{
-                                    $(""#View1"").html(result);
-                                }}
-                            }})
-                            
-                        }}
-                        break;
-                    case ""#View2"":
-                        if ($('#View2').is(':empty')) {{
-                            $.ajax({{
-                                url: ""/Admin/EditUser/UsersGroups"",
-                                type: ""GET"",
-                                data: {{ userId: {userId}}},
-                                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
-                                success: function (result) {{
-                                    $(""#View2"").html(result);
-                                }}
-                            }})
-                            
-                        }}
-                        break;
-                    case ""#View3"":
-                        if ($('#View3').is(':empty')) {{
-                            $.ajax({{
-                                url: ""/Admin/EditUser/UsersProfile"",
-                                type: ""GET"",
-                                data: {{ userId: {userId}}},
-                                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
-                                success: function (result) {{
-                                    $(""#View3"").html(result);
-                                }}
-                            }})
-                            
-                        }}
-                        break;
-                    case ""#View4"":
-                        if ($('#View4').is(':empty')) {{
-                            $.ajax({{
-                                url: ""/Admin/EditUser/UsersAvatar"",
-                                type: ""GET"",
-                                data: {{ userId: {userId}}},
-                                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
-                                success: function (result) {{
-                                    $(""#View4"").html(result);
-                                }}
-                            }})
-                            
-                        }}
-                        break;
-                    case ""#View5"":
-                        if ($('#View5').is(':empty')) {{
-                            $.ajax({{
-                                url: ""/Admin/EditUser/UsersSignature"",
-                                type: ""GET"",
-                                data: {{ userId: {userId}}},
-                                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
-                                success: function (result) {{
-                                    $(""#View5"").html(result);
-                                }}
-                            }})
-                            
-                        }}
-                        break;
-                    case ""#View6"":
-                        if ($('#View6').is(':empty')) {{
-                            $.ajax({{
-                                url: ""/Admin/EditUser/UsersPoints"",
-                                type: ""GET"",
-                                data: {{ userId: {userId}}},
-                                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
-                                success: function (result) {{
-                                    $(""#View6"").html(result);
-                                }}
-                            }})
-                            
-                        }}
-                        break;
-                    case ""#View7"":
-                        if ($('#View7').is(':empty')) {{
-                            $.ajax({{
-                                url: ""/Admin/EditUser/UsersChangePass"",
-                                type: ""GET"",
-                                data: {{ userId: {userId}}},
-                                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
-                                success: function (result) {{
-                                    $(""#View7"").html(result);
-                                }}
-                            }})
-                            
-                        }}
-                        break;
-                    case ""#View8"":
-                        if ($('#View8').is(':empty')) {{
-                            $.ajax({{
-                                url: ""/Admin/EditUser/UsersSuspend"",
-                                type: ""GET"",
-                                data: {{ userId: {userId}}},
-                                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
-                                success: function (result) {{
-                                    $(""#View8"").html(result);
-                                }}
-                            }})
-                            
-                        }}
-                        break;
-                    case ""#View9"":
-                        if ($('#View9').is(':empty')) {{
-                            $.ajax({{
-                                url: ""/Admin/EditUser/UsersKill"",
-                                type: ""GET"",
-                                data: {{ userId: {userId}}},
-                                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
-                                success: function (result) {{
-                                    $(""#View9"").html(result);
-                                }}
-                            }})
-                            
-                        }}
-                        break;
-                    case ""#View10"":
-                        if ($('#View10').is(':empty')) {{
-                            $.ajax({{
-                                url: ""/Admin/EditUser/UsersSettings"",
-                                type: ""GET"",
-                                data: {{ userId: {userId}}},
-                                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
-                                success: function (result) {{
-                                    $(""#View10"").html(result);
-                                }}
-                            }})
-                            
-                        }}
-                        break;
-                    case ""#View11"":
-                        if ($('#View11').is(':empty')) {{
-                            $.ajax({{
-                                url: ""/Admin/EditUser/UsersAttachments"",
-                                type: ""GET"",
-                                data: {{ userId: {userId}}},
-                                headers: {{ ""RequestVerificationToken"": $('input[name=""__RequestVerificationToken""]').val() }},
-                                success: function (result) {{
-                                    $(""#View11"").html(result);
-                                }}
-                            }})
-                            
-                        }}
-                        break;
-                }}
-            }}
-
-        $(function () {{
-            loadTab(currentTab);
-
-            $('button[data-bs-toggle=""tab""]').on('shown.bs.tab', function (e) {{
-                var tab = $(e.target).data(""bs-target"");
-               
-                loadTab(tab)
-            }});
-        }});";
+        return $$"""
+                   const currentTab = "#" + document.getElementById("LastTab").value,
+                   editUserId = {{userId}};
+                               
+                   function loadTab(tabName) {
+                       var tab = document.getElementById(tabName.substring(1));
+                       switch (tabName) {
+                       case "#View1":
+                           if (tab.innerHTML.length === 0) {
+                            console.log(editUserId);
+                               fetch("/Admin/EditUser/UsersInfo?userId=" + editUserId,
+                                       {
+                                           method: "GET",
+                                           headers: {
+                                               'RequestVerificationToken': document
+                                                   .querySelector('input[name="__RequestVerificationToken"]').value
+                                           }
+                                       }).then(res => res.text())
+                                   .then(response => {
+                                       tab.innerHTML = response;
+                                   }).catch(function(error) {
+                       errorLog(error);
+                   });
+                           }
+                           break;
+                       case "#View2":
+                           if (tab.innerHTML.length === 0) {
+                               fetch("/Admin/EditUser/UsersGroups?userId=" + editUserId,
+                                       {
+                                           method: "GET",
+                                           headers: {
+                                               'RequestVerificationToken': document
+                                                   .querySelector('input[name="__RequestVerificationToken"]').value
+                                           }
+                                       }).then(res => res.text())
+                                   .then(response => {
+                                       tab.innerHTML = response;
+                                   });
+                           }
+                           break;
+                       case "#View3":
+                           if (tab.innerHTML.length === 0) {
+                               fetch("/Admin/EditUser/UsersProfile?userId=" + editUserId,
+                                       {
+                                           method: "GET",
+                                           headers: {
+                                               'RequestVerificationToken': document
+                                                   .querySelector('input[name="__RequestVerificationToken"]').value
+                                           }
+                                       }).then(res => res.text())
+                                   .then(response => {
+                                       tab.innerHTML = response;
+                                   });
+                           }
+                           break;
+                       case "#View4":
+                           if (tab.innerHTML.length === 0) {
+                               fetch("/Admin/EditUser/UsersAvatar?userId=" + editUserId,
+                                       {
+                                           method: "GET",
+                                           headers: {
+                                               'RequestVerificationToken': document
+                                                   .querySelector('input[name="__RequestVerificationToken"]').value
+                                           }
+                                       }).then(res => res.text())
+                                   .then(response => {
+                                       tab.innerHTML = response;
+                                   });
+                           }
+                           break;
+                       case "#View5":
+                           if (tab.innerHTML.length === 0) {
+                               fetch("/Admin/EditUser/UsersSignature?userId=" + editUserId,
+                                       {
+                                           method: "GET",
+                                           headers: {
+                                               'RequestVerificationToken': document
+                                                   .querySelector('input[name="__RequestVerificationToken"]').value
+                                           }
+                                       }).then(res => res.text())
+                                   .then(response => {
+                                       tab.innerHTML = response;
+                                   });
+                           }
+                           break;
+                       case "#View6":
+                           if (tab.innerHTML.length === 0) {
+                               fetch("/Admin/EditUser/UsersPoints?userId=" + editUserId,
+                                       {
+                                           method: "GET",
+                                           headers: {
+                                               'RequestVerificationToken': document
+                                                   .querySelector('input[name="__RequestVerificationToken"]').value
+                                           }
+                                       }).then(res => res.text())
+                                   .then(response => {
+                                       tab.innerHTML = response;
+                                   });
+                           }
+                           break;
+                       case "#View7":
+                           if (tab.innerHTML.length === 0) {
+                               fetch("/Admin/EditUser/UsersChangePass?userId=" + editUserId,
+                                       {
+                                           method: "GET",
+                                           headers: {
+                                               'RequestVerificationToken': document
+                                                   .querySelector('input[name="__RequestVerificationToken"]').value
+                                           }
+                                       }).then(res => res.text())
+                                   .then(response => {
+                                       tab.innerHTML = response;
+                                   });
+                           }
+                           break;
+                       case "#View8":
+                           if (tab.innerHTML.length === 0) {
+                               fetch("/Admin/EditUser/UsersSuspend?userId=" + editUserId,
+                                       {
+                                           method: "GET",
+                                           headers: {
+                                               'RequestVerificationToken': document
+                                                   .querySelector('input[name="__RequestVerificationToken"]').value
+                                           }
+                                       }).then(res => res.text())
+                                   .then(response => {
+                                       tab.innerHTML = response;
+                                   });
+                           }
+                           break;
+                       case "#View9":
+                           if (tab.innerHTML.length === 0) {
+                               fetch("/Admin/EditUser/UsersKill?userId=" + editUserId,
+                                       {
+                                           method: "GET",
+                                           headers: {
+                                               'RequestVerificationToken': document
+                                                   .querySelector('input[name="__RequestVerificationToken"]').value
+                                           }
+                                       }).then(res => res.text())
+                                   .then(response => {
+                                       tab.innerHTML = response;
+                                   });
+                           }
+                           break;
+                       case "#View10":
+                           if (tab.innerHTML.length === 0) {
+                               fetch("/Admin/EditUser/UsersSettings?userId=" + editUserId,
+                                       {
+                                           method: "GET",
+                                           headers: {
+                                               'RequestVerificationToken': document
+                                                   .querySelector('input[name="__RequestVerificationToken"]').value
+                                           }
+                                       }).then(res => res.text())
+                                   .then(response => {
+                                       tab.innerHTML = response;
+                                   });
+                           }
+                           break;
+                       case "#View11":
+                           if (tab.innerHTML.length === 0) {
+                               fetch("/Admin/EditUser/UsersAttachments?userId=" + editUserId,
+                                       {
+                                           method: "GET",
+                                           headers: {
+                                               'RequestVerificationToken': document
+                                                   .querySelector('input[name="__RequestVerificationToken"]').value
+                                           }
+                                       }).then(res => res.text())
+                                   .then(response => {
+                                       tab.innerHTML = response;
+                                   });
+                           }
+                           break;
+                       }
+                   }
+                   
+                   document.addEventListener("DOMContentLoaded", function () {
+                       loadTab(currentTab);
+                   
+                       document.querySelectorAll("button[data-bs-toggle=\"tab").forEach(button => {
+                           var tab = button.dataset.bsTarget;
+                   
+                           loadTab(tab);
+                       });
+                   });
+                   """;
     }
 
     /// <summary>
@@ -765,22 +781,24 @@ public static class JavaScriptBlocks
         [NotNull] string editorId,
         [NotNull] string mime)
     {
-        return $$$"""
-                  window.onload = function() {
-                    window.editor = CodeMirror.fromTextArea(document.getElementById('{{{editorId}}}'), {
-                      mode: "{{{mime}}}",
-                      indentWithTabs: true,
-                      smartIndent: true,
-                      lineNumbers: true,
-                      matchBrackets : true,
-                      theme: "monokai",
-                      autofocus: true,
-                      extraKeys: {"Ctrl-Space": "autocomplete"},
-                      hintOptions: {tables: {
-                        users: ["name", "score", "birthDate"],
-                        countries: ["name", "population", "size"]
-                      }}
-                    });
+        return $$"""
+                  window.onload = function () {
+                      window.editor = CodeMirror.fromTextArea(document.getElementById('{{editorId}}'), {
+                          mode: "{{mime}}",
+                          indentWithTabs: true,
+                          smartIndent: true,
+                          lineNumbers: true,
+                          matchBrackets: true,
+                          theme: "monokai",
+                          autofocus: true,
+                          extraKeys: { "Ctrl-Space": "autocomplete" },
+                          hintOptions: {
+                              tables: {
+                                  users: ["name", "score", "birthDate"],
+                                  countries: ["name", "population", "size"]
+                              }
+                          }
+                      });
                   };
                   """;
     }
@@ -1148,10 +1166,10 @@ public static class JavaScriptBlocks
     {
          return """
                 $(".select2-select").select2({
-                                          width: '100%',
-                                          theme: 'bootstrap-5',
-                                          placeholder: $(this).attr('placeholder')
-                                      });
+                    width: "100%",
+                    theme: "bootstrap-5",
+                    placeholder: $(this).attr('placeholder')
+                });
                 """;
     }
 
@@ -1179,67 +1197,92 @@ public static class JavaScriptBlocks
         [NotNull] string passwordWeakText)
     {
         return $$"""
-                 $(document).ready(function () {
-                         var password = $('#{{passwordClientId}}');
-                         var passwordConfirm = $('#{{confirmPasswordClientId}}');
-                         // Check if passwords match
-                         $('#{{passwordClientId}}, #{{confirmPasswordClientId}}').on('keyup', function () {
-                             if (password.val() !== '' && passwordConfirm.val() !== '' && password.val() === passwordConfirm.val()) {
-                                 $('#PasswordInvalid').hide();
-                 				password.removeClass('is-invalid');
-                                 passwordConfirm.removeClass('is-invalid');
-                             } else {
-                                 $('#PasswordInvalid').show();
-                                 $('#PasswordInvalid').html('{{notMatchText}}');
-                                 password.addClass('is-invalid');
-                                 passwordConfirm.addClass('is-invalid');
-                             }
-                 
-                             var strongRegex=new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$","g");
-                 			var mediumRegex=new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$","g");
-                 			var okRegex=new RegExp("(?=.{{{minimumChars}},}).*","g");
-                 
-                             $('#passwordStrength').removeClass("d-none");
-                 
-                             if (okRegex.test(password.val()) === false) {
-                 			   $('#passwordHelp').html('{{passwordMinText}}');
-                                $('#progress-password').removeClass().addClass('progress-bar bg-danger w-25');
-                                
-                 
-                             } else if (strongRegex.test(password.val())) {
-                                 $('#passwordHelp').html('{{passwordGoodText}}');
-                 				$('#progress-password').removeClass().addClass('progress-bar bg-success w-100');
-                             } else if (mediumRegex.test(password.val())) {
-                                 $('#passwordHelp').html('{{passwordStrongerText}}');
-                 				$('#progress-password').removeClass().addClass('progress-bar bg-warning w-75');
-                             } else {
-                 			    $('#passwordHelp').html('{{passwordWeakText}}');
-                                 $('#progress-password').removeClass().addClass('progress-bar bg-warning w-50');
-                             }
-                         });
-                         let currForm1 = document.querySelector("form");
-                         // Validate on submit:
-                         currForm1.addEventListener('submit', function (event) {
-                             if (currForm1.checkValidity() === false) {
-                                 event.preventDefault();
-                                 event.stopPropagation();
-                             }
-                             currForm1.classList.add('was-validated');
-                         }, false);
-                         // Validate on input:
-                         currForm1.querySelectorAll('.form-control').forEach(input => {
-                             input.addEventListener(('input'), () => {
-                                 if (input.checkValidity()) {
-                                     input.classList.remove('is-invalid');
-                                     input.classList.add('is-valid');
-                                 } else {
-                                     input.classList.remove('is-valid');
-                                     input.classList.add('is-invalid');
-                                 }
-                             });
-                         });
-                     });
-                 """;
+               document.addEventListener("DOMContentLoaded",
+               function() {
+                   var password = document.getElementById("{{passwordClientId}}"),
+                       passwordConfirm = document.getElementById("{{confirmPasswordClientId}}"),
+                       progressBar = document.getElementById("progress-password");
+               
+                   password.addEventListener("keyup",
+                       () => {
+                           checkPassword();
+                       });
+                   passwordConfirm.addEventListener("keyup",
+                       () => {
+                           checkPassword();
+                       });
+               
+                   function checkPassword() {
+                       const invalid = document.getElementById("PasswordInvalid");
+               
+                       if (password.value !== "" && passwordConfirm.value !== "" && password.value === passwordConfirm.value) {
+                           invalid.style.display = "none";
+               
+                           password.classList.remove("is-invalid");
+                           passwordConfirm.classList.remove("is-invalid");
+                       } else {
+                           invalid.style.display = "block";
+                           invalid.innerText = "{{notMatchText}}";
+               
+                           password.classList.add("is-invalid");
+                           passwordConfirm.classList.add("is-invalid");
+                       }
+               
+                       const strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g"),
+                           mediumRegex =
+                               new RegExp(
+                                   "^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$",
+                                   "g"),
+                           okRegex = new RegExp("(?=.{{{minimumChars}},}).*", "g");
+               
+                       document.getElementById("passwordStrength").classList.remove("d-none");
+               
+                       const passwordHelp = document.getElementById("passwordHelp");
+               
+                       if (okRegex.test(password.value) === false) {
+                           passwordHelp.innerText = "{{passwordMinText}}";
+                           progressBar.className = "progress-bar bg-danger w-25";
+                       } else if (strongRegex.test(password.value)) {
+                           passwordHelp.innerText = "{{passwordGoodText}}";
+               
+                           progressBar.className = "progress-bar bg-success w-100";
+                       } else if (mediumRegex.test(password.value)) {
+                           passwordHelp.innerText = "{{passwordStrongerText}}";
+                           progressBar.className = "progress-bar bg-warning w-75";
+                       } else {
+                           passwordHelp.innerText = "{{passwordWeakText}}";
+                           progressBar.classList.add("progress-bar bg-warning w-50");
+                       }
+                   }
+               
+                   const form1 = document.querySelector("form");
+               
+                   // Validate on submit
+                   form1.addEventListener("submit",
+                       function(event) {
+                           if (form1.checkValidity() === false) {
+                               event.preventDefault();
+                               event.stopPropagation();
+                           }
+                           form1.classList.add("was-validated");
+                       },
+                       false);
+               
+                   // Validate on input:
+                   form1.querySelectorAll(".form-control").forEach(input => {
+                       input.addEventListener(("input"),
+                           () => {
+                               if (input.checkValidity()) {
+                                   input.classList.remove("is-invalid");
+                                   input.classList.add("is-valid");
+                               } else {
+                                   input.classList.remove("is-valid");
+                                   input.classList.add("is-invalid");
+                               }
+                           });
+                   });
+               });
+               """;
     }
 
     /// <summary>
@@ -1294,14 +1337,16 @@ public static class JavaScriptBlocks
     [NotNull]
     public static string ForumIconLegendPopoverJs([NotNull] string content, [NotNull] string cssClass)
     {
-        return $@"var popoverTriggerIconList = [].slice.call(document.querySelectorAll('.{cssClass}'));
-                      var popoverIconList = popoverTriggerIconList.map(function(popoverTriggerEl) {{
-                           return new bootstrap.Popover(popoverTriggerEl,{{
-                           html: true,
-                           content: ""{content}"",
-                           trigger: ""focus""
-                           }});
-                    }});";
+        return $$"""
+                 var popoverTriggerIconList = [].slice.call(document.querySelectorAll('.{{cssClass}}'));
+                                       var popoverIconList = popoverTriggerIconList.map(function(popoverTriggerEl) {
+                                            return new bootstrap.Popover(popoverTriggerEl,{
+                                            html: true,
+                                            content: "{{content}}",
+                                            trigger: "focus"
+                                            });
+                                     });
+                 """;
     }
 
     /// <summary>
@@ -1352,15 +1397,17 @@ public static class JavaScriptBlocks
     [NotNull]
     public static string ForumModsPopoverJs([NotNull] string title)
     {
-        return $@"var popoverTriggerModsList = [].slice.call(document.querySelectorAll('.forum-mods-popover'));
-                      var popoverModsList = popoverTriggerModsList.map(function(popoverTriggerEl) {{
-                           return new bootstrap.Popover(popoverTriggerEl,{{
-                           title: '{title}',
-                           html: true,
-                           trigger: 'focus',
-                           template: '<div class=""popover"" role=""tooltip""><div class=""popover-arrow""></div><h3 class=""popover-header""></h3><div class=""popover-body popover-body-scrollable""></div></div>'
-                           }});
-                }});";
+        return $$"""
+                 var popoverTriggerModsList = [].slice.call(document.querySelectorAll('.forum-mods-popover'));
+                                       var popoverModsList = popoverTriggerModsList.map(function(popoverTriggerEl) {
+                                            return new bootstrap.Popover(popoverTriggerEl,{
+                                            title: '{{title}}',
+                                            html: true,
+                                            trigger: 'focus',
+                                            template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body popover-body-scrollable"></div></div>'
+                                            });
+                                 });
+                 """;
     }
 
     /// <summary>
@@ -1792,42 +1839,39 @@ public static class JavaScriptBlocks
     public static string LoadMoreOnScrolling(string url)
     {
         return $$"""
-                 function GetCategories() {
-                 
-                                 var categoryIndex = $('#category-index').val();
-                 
-                                 categoryIndex++;
-                 
-                                 var url = '{{url}}' + "?index=" + categoryIndex;
-                 
-                                 $.ajax({
-                                     type: 'GET',
-                                     url: url,
-                 
-                                     success: function (response) {
-                                         $('#category-list').html(response);
-                                      
-                                         $('#category-index').val(categoryIndex);
-                                     
-                                     },
-                                     error: function (xhr, textStatus, error) {
-                                         console.log(xhr.statusText);
-                                         console.log(textStatus);
-                                         console.log(error);
-                                     }
-                                 });
-                             }
-                 
-                          $(document).ready(function () {
-                              $(window).scroll(function () {
-                             if ($(window).scrollTop() + $(window).height() == $(document).height()) {
-                                 if ($('#category-info-more').length) {
-                                     GetCategories();
-                                 }
-                             }
-                         });
-                     });
-                 """;
+                   function GetCategories() {
+                       const categoryIndexInput = document.getElementById("category-index");
+                   
+                       var categoryIndex = categoryIndexInput.value;
+                   
+                       categoryIndex++;
+                   
+                       const url = "{{url}}" + "?index=" + categoryIndex;
+                   
+                       fetch(url, {
+                               method: "GET",
+                               headers: {
+                                   'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]').value
+                               }
+                           }).then(res => res.text())
+                           .then(response => {
+                               document.getElementById("category-list").innerHTML = response;
+                               categoryIndexInput.value = categoryIndex;
+                           });
+                   
+                   }
+                   
+                   window.addEventListener("scroll", () => {
+                       const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+                       if ((scrollTop + clientHeight) >= scrollHeight) {
+                           const btn = document.getElementById("category-info-more");
+                           if (btn != null) {
+                               GetCategories();
+                           }
+                       }
+                   });
+                   
+                   """;
     }
 
     /// <summary>
@@ -1862,35 +1906,36 @@ public static class JavaScriptBlocks
     public static string SetGroupMaskJs()
     {
         return """
-               $("#Save").click(function(e) {
-                           $(".accessMasks").each(function () {
-                               
-                               var roleId = $("#Input_Id").val();
+               document.getElementById("Save").addEventListener("click", (e) => {
+                 
+                   document.querySelectorAll(".accessMasks").forEach(mask => {
+                       var roleId = document.getElementById("Input_Id").value;
                
-                               if (roleId)
+                       if (roleId) {
+                           const forumId = mask.parentNode.querySelector("input[type='hidden']").value,
+                               accessMaskId = mask.parentNode.querySelector("select option:checked").value,
+                               data = {};
+               
+                           data.UserId = forumId;
+                           data.PageSize = accessMaskId;
+                           data.PageNumber = roleId;
+               
+                           const ajaxUrl = "/api/AccessMask/SetGroupMask";
+               
+                           fetch(ajaxUrl,
                                {
-                                   var forumId = $(this).find("input[type='hidden']").val();
-                                   var accessMaskId =  $(this).find( "select option:selected").val();
-                                   
-                                   var data = {};
-               
-                                   data.UserId = forumId;
-                                   data.PageSize = accessMaskId;
-                                   data.PageNumber = roleId;
-                                   
-                                   var ajaxURL = "/api/AccessMask/SetGroupMask";
-                               
-                               $.ajax({
-                                   url: ajaxURL,
-                                   type: "POST",
-                                   data: JSON.stringify(data),
-                                   contentType: "application/json; charset=utf-8",
-                                   headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() }
+                                   method: "POST",
+                                   body: JSON.stringify(data),
+                                   headers: {
+                                       'Accept': "application/json",
+                                       'Content-Type': "application/json;charset=utf-8",
+                                       'RequestVerificationToken': document
+                                           .querySelector('input[name="__RequestVerificationToken"]').value
+                                   }
                                });
-                           }
-                       });
-               
-                       });
+                       }
+                   });
+               });
                """;
     }
 

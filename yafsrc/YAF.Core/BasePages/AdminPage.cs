@@ -55,7 +55,7 @@ public class AdminPage : ForumPage
     /// <returns>
     /// Sets the css class for the badge.
     /// </returns>
-    public static string GetItemColor(bool value)
+    public string GetItemColor(bool value)
     {
         return value ? "badge text-bg-success mb-2" : "badge text-bg-danger mb-2";
     }
