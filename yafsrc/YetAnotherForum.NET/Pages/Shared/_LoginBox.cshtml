@@ -34,7 +34,7 @@
                                 <span class="input-group-text">
                                     @Html.Icon("user", "text-secondary")
                                 </span>
-                                <input asp-for="UserName" class="form-control" required />
+                                <input asp-for="UserName" class="form-control" autocomplete="username" required />
                                 <div class="invalid-feedback">
                                     @Html.LocalizedText("NEED_USERNAME")
                                 </div>
@@ -46,8 +46,9 @@
                                 <span class="input-group-text">
                                     @Html.Icon("key", "text-secondary")
                                 </span>
-                                <input asp-for="Password" class="form-control" type="password" required onkeydown="@Html.Raw(JavaScriptBlocks.ClickOnEnterJs("LoginButton"))" />
-                                <a class="input-group-text" id="PasswordToggle" href="#">
+                                <input asp-for="Password" class="form-control" type="password" 
+                                       autocomplete="current-password" required onkeydown="@Html.Raw(JavaScriptBlocks.ClickOnEnterJs("LoginButton"))" />
+                                <a class="input-group-text link-underline link-underline-opacity-0" id="PasswordToggle" href="#">
                                     <i class="fa fa-eye-slash" aria-hidden="true"></i>
                                 </a>
                                 <div class="invalid-feedback">

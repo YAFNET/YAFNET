@@ -28,7 +28,7 @@
                                 </div>
                                 <p class="mb-1">
                                     @Html.LocalizedText("ADMIN_TASKMANAGER","RUNNING"): 
-                                    <span class="@(AdminPage.GetItemColor(task.Value.IsRunning))">
+                                    <span class="@(Model.GetItemColor(task.Value.IsRunning))">
                                         @(Model.GetItemName(task.Value.IsRunning))
                                     </span>
                                 </p>

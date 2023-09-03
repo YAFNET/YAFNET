@@ -37,7 +37,7 @@
                                 <span class="input-group-text">
                                     @Html.Icon("user", "text-secondary")
                                 </span>
-                                <input asp-for="Input.UserName" class="form-control" required/>
+                                <input asp-for="Input.UserName" class="form-control" autocomplete="username" required />
                                 <div class="invalid-feedback">
                                     @Html.LocalizedText("LOGIN", "NEED_USERNAME")
                                 </div>
@@ -50,11 +50,11 @@
                                 <span class="input-group-text">
                                     @Html.Icon("key", "text-secondary")
                                 </span>
-                                <input asp-for="Input.Password" class="form-control" required/>
+                                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" required/>
                                 <div class="invalid-feedback">
                                     @Html.LocalizedText("PAGE", "NEED_PASSWORD")
                                 </div>
-                                <span class="input-group-text" id="PasswordToggle">
+                                <span class="input-group-text link-underline link-underline-opacity-0" id="PasswordToggle">
                                     <i class="fa fa-eye-slash" aria-hidden="true"></i>
                                 </span>
                             </div>
