@@ -236,6 +236,7 @@ public static class Config
     ///     Gets jQuery Alias
     /// </summary>
     [NotNull]
+    [Obsolete("Phasing out, will be removed in YAF 4.0")]
     public static string JQueryAlias
     {
         get

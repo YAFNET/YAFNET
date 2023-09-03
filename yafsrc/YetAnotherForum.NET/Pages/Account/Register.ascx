@@ -76,7 +76,7 @@
                                 <div class="d-none" id="passwordStrength">
                                     <small class="form-text text-body-secondary mb-2" id="passwordHelp"></small>
                                     <div class="progress">
-                                        <div id="progress-password" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+                                        <div id="progress-password" class="progress-bar" aria-label="password strength" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </div>
                             <YAF:LocalizedRequiredFieldValidator ID="PasswordRequired" runat="server"

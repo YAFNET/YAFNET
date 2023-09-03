@@ -966,7 +966,6 @@ public static class JavaScriptBlocks
     /// <param name="passwordStrongerText">The password stronger text.</param>
     /// <param name="passwordWeakText">The password weak text.</param>
     /// <returns>Returns the Passwords strength checker Java Script</returns>
-    ///  TODO
     [NotNull]
     public static string PasswordStrengthCheckerJs(
         [NotNull] string passwordClientId,
@@ -979,67 +978,92 @@ public static class JavaScriptBlocks
         [NotNull] string passwordWeakText)
     {
         return $$"""
-                 {{Config.JQueryAlias}}(document).ready(function () {
-                         var password = {{Config.JQueryAlias}}('#{{passwordClientId}}');
-                         var passwordConfirm = {{Config.JQueryAlias}}('#{{confirmPasswordClientId}}');
-                         // Check if passwords match
-                         {{Config.JQueryAlias}}('#{{passwordClientId}}, #{{confirmPasswordClientId}}').on('keyup', function () {
-                             if (password.val() !== '' && passwordConfirm.val() !== '' && password.val() === passwordConfirm.val()) {
-                                 {{Config.JQueryAlias}}('#PasswordInvalid').hide();
-                                 password.removeClass('is-invalid');
-                                 passwordConfirm.removeClass('is-invalid');
-                             } else {
-                                 {{Config.JQueryAlias}}('#PasswordInvalid').show();
-                                 {{Config.JQueryAlias}}('#PasswordInvalid').html('{{notMatchText}}');
-                                 password.addClass('is-invalid');
-                                 passwordConfirm.addClass('is-invalid');
-                             }
-                 
-                             var strongRegex=new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$","g");
-                             var mediumRegex=new RegExp("^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$","g");
-                             var okRegex=new RegExp("(?=.{{{minimumChars}},}).*","g");
-                 
-                             {{Config.JQueryAlias}}('#passwordStrength').removeClass("d-none");
-                 
-                             if (okRegex.test(password.val()) === false) {
-                                {{Config.JQueryAlias}}('#passwordHelp').html('{{passwordMinText}}');
-                                {{Config.JQueryAlias}}('#progress-password').removeClass().addClass('progress-bar bg-danger w-25');
-                 
-                 
-                             } else if (strongRegex.test(password.val())) {
-                                 {{Config.JQueryAlias}}('#passwordHelp').html('{{passwordGoodText}}');
-                                 {{Config.JQueryAlias}}('#progress-password').removeClass().addClass('progress-bar bg-success w-100');
-                             } else if (mediumRegex.test(password.val())) {
-                                 {{Config.JQueryAlias}}('#passwordHelp').html('{{passwordStrongerText}}');
-                                 {{Config.JQueryAlias}}('#progress-password').removeClass().addClass('progress-bar bg-warning w-75');
-                             } else {
-                                 {{Config.JQueryAlias}}('#passwordHelp').html('{{passwordWeakText}}');
-                                 {{Config.JQueryAlias}}('#progress-password').removeClass().addClass('progress-bar bg-warning w-50');
-                             }
-                         });
-                         let currForm1 = document.querySelector("form");
-                         // Validate on submit:
-                         currForm1.addEventListener('submit', function (event) {
-                             if (currForm1.checkValidity() === false) {
-                                 event.preventDefault();
-                                 event.stopPropagation();
-                             }
-                             currForm1.classList.add('was-validated');
-                         }, false);
-                         // Validate on input:
-                         currForm1.querySelectorAll('.form-control').forEach(input => {
-                             input.addEventListener(('input'), () => {
-                                 if (input.checkValidity()) {
-                                     input.classList.remove('is-invalid');
-                                     input.classList.add('is-valid');
-                                 } else {
-                                     input.classList.remove('is-valid');
-                                     input.classList.add('is-invalid');
-                                 }
-                             });
-                         });
-                     });
-                 """;
+                   document.addEventListener("DOMContentLoaded",
+                   function() {
+                       var password = document.getElementById("{{passwordClientId}}"),
+                           passwordConfirm = document.getElementById("{{confirmPasswordClientId}}"),
+                           progressBar = document.getElementById("progress-password");
+                   
+                       password.addEventListener("keyup",
+                           () => {
+                               checkPassword();
+                           });
+                       passwordConfirm.addEventListener("keyup",
+                           () => {
+                               checkPassword();
+                           });
+                   
+                       function checkPassword() {
+                           const invalid = document.getElementById("PasswordInvalid");
+                   
+                           if (password.value !== "" && passwordConfirm.value !== "" && password.value === passwordConfirm.value) {
+                               invalid.style.display = "none";
+                   
+                               password.classList.remove("is-invalid");
+                               passwordConfirm.classList.remove("is-invalid");
+                           } else {
+                               invalid.style.display = "block";
+                               invalid.innerText = "{{notMatchText}}";
+                   
+                               password.classList.add("is-invalid");
+                               passwordConfirm.classList.add("is-invalid");
+                           }
+                   
+                           const strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g"),
+                               mediumRegex =
+                                   new RegExp(
+                                       "^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$",
+                                       "g"),
+                               okRegex = new RegExp("(?=.{{{minimumChars}},}).*", "g");
+                   
+                           document.getElementById("passwordStrength").classList.remove("d-none");
+                   
+                           const passwordHelp = document.getElementById("passwordHelp");
+                   
+                           if (okRegex.test(password.value) === false) {
+                               passwordHelp.innerText = "{{passwordMinText}}";
+                               progressBar.className = "progress-bar bg-danger w-25";
+                           } else if (strongRegex.test(password.value)) {
+                               passwordHelp.innerText = "{{passwordGoodText}}";
+                   
+                               progressBar.className = "progress-bar bg-success w-100";
+                           } else if (mediumRegex.test(password.value)) {
+                               passwordHelp.innerText = "{{passwordStrongerText}}";
+                               progressBar.className = "progress-bar bg-warning w-75";
+                           } else {
+                               passwordHelp.innerText = "{{passwordWeakText}}";
+                               progressBar.classList.add("progress-bar bg-warning w-50");
+                           }
+                       }
+                   
+                       const form1 = document.querySelector("form");
+                   
+                       // Validate on submit
+                       form1.addEventListener("submit",
+                           function(event) {
+                               if (form1.checkValidity() === false) {
+                                   event.preventDefault();
+                                   event.stopPropagation();
+                               }
+                               form1.classList.add("was-validated");
+                           },
+                           false);
+                   
+                       // Validate on input:
+                       form1.querySelectorAll(".form-control").forEach(input => {
+                           input.addEventListener(("input"),
+                               () => {
+                                   if (input.checkValidity()) {
+                                       input.classList.remove("is-invalid");
+                                       input.classList.add("is-valid");
+                                   } else {
+                                       input.classList.remove("is-valid");
+                                       input.classList.add("is-invalid");
+                                   }
+                               });
+                       });
+                   });
+                   """;
     }
 
     /// <summary>
@@ -1463,29 +1487,26 @@ public static class JavaScriptBlocks
     /// <summary>
     /// Renders the Load More on Scrolling JS.
     /// </summary>
-    /// <param name="buttonUniqueId">
-    /// The button Unique Id.
-    /// </param>
     /// <param name="buttonClientId">
     /// The button Client Id.
     /// </param>
     /// <returns>
     /// Returns the JS String
     /// </returns>
-    ///  TODO
     [NotNull]
-    public static string LoadMoreOnScrolling([NotNull] string buttonUniqueId, [NotNull] string buttonClientId)
+    public static string LoadMoreOnScrolling([NotNull] string buttonClientId)
     {
         return $$"""
-                 {{Config.JQueryAlias}}(window).scroll(function () {
-                                            if ({{Config.JQueryAlias}}(window).scrollTop() == $(document).height() - {{Config.JQueryAlias}}(window).height()) {
-                                                  var btn = document.getElementById("{{buttonClientId}}");
-                                                  if (btn != null) {
-                                                      __doPostBack('{{buttonUniqueId}}', '');
-                                                   }
-                                               }
-                                          });
-                 """;
+                  window.addEventListener("scroll", () => {
+                      const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+                      if ((scrollTop + clientHeight) >= scrollHeight) {
+                          const btn = document.getElementById("{{buttonClientId}}");
+                          if (btn != null) {
+                              btn.click();
+                          }
+                      }
+                  });
+                  """;
     }
 
     /// <summary>

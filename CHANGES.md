@@ -6,6 +6,7 @@ YetAnotherForum.NET Changelog
 * [FIXED] Upgrade process
 * [FIXED #785] Admin can now change user passwords
 * [NEW] UserAgents can be banned
+* Upgraded to jQuery 3.7.1
 * bug fixes
 
 # YetAnotherForum.NET v3.1.14

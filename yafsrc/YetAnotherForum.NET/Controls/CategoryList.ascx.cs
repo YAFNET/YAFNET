@@ -160,7 +160,7 @@ public partial class CategoryList : BaseUserControl
     {
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.LoadMoreOnScrolling),
-            JavaScriptBlocks.LoadMoreOnScrolling(this.ShowMore.UniqueID, this.ShowMore.ClientID));
+            JavaScriptBlocks.LoadMoreOnScrolling(this.ShowMore.ClientID));
 
         base.OnPreRender(e);
     }
