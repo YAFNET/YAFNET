@@ -80,7 +80,7 @@
 </div>
 <div class="row mb-3">
     <div class="col">
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg bg-light" data-bs-theme="light">
             <div class="container-fluid">
                 <asp:HyperLink ID="TopicLink" runat="server"
                            CssClass="navbar-brand pt-0">
