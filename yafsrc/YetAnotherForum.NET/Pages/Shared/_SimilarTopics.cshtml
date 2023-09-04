@@ -28,7 +28,7 @@
                 {
                     <li class="list-group-item">
                         <a href="@(topic.TopicUrl)">
-                            <strong>@Html.HtmlEncode(Current.Get<IBadWordReplace>().Replace(topic.Topic)))</strong>
+                            <strong>@Html.HtmlEncode(Current.Get<IBadWordReplace>().Replace(topic.Topic))</strong>
                         </a> (<a href="@(topic.ForumUrl)">@(topic.ForumName)</a>)
                         @Html.LocalizedText("SEARCH", "BY")
                         @Html.UserLink(topic.UserId.Value, Current.BoardSettings.EnableDisplayName ? topic.UserDisplayName : topic.UserName, topic.Suspended, topic.UserStyle)

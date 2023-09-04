@@ -52,7 +52,7 @@
                     {
                         <h6 class="card-subtitle">
                             <a href="@Html.Raw(Model.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Posts, new {m = topic.LastMessageID, name = topic.Subject}))"
-                               target="_blank">
+                               target="_blank" rel="noopener">
                                 <i class="fas fa-comment"></i> @topic.Subject
                             </a>
                             <span class="badge text-bg-secondary">
@@ -68,7 +68,7 @@
 
                         <a class="btn btn-primary btn-sm mx-auto mt-2"
                            href="@Html.Raw(Model.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Posts, new {m = topic.LastMessageID, name = topic.Subject}))"
-                           target="_blank">
+                           target="_blank" rel="noopener">
                             @Model.GetText("LINK")
                         </a>
                     }
@@ -91,7 +91,7 @@
                     {
                         <h6 class="card-subtitle">
                             <a href="@Html.Raw(Model.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Posts, new {m = topic.LastMessageID, name = topic.Subject}))"
-                               target="_blank">
+                               target="_blank" rel="noopener">
                                 <i class="fas fa-comment"></i> @topic.Subject
                             </a>
                             <span class="badge text-bg-secondary">
@@ -107,7 +107,7 @@
 
                         <a class="btn btn-primary btn-sm mx-auto mt-2"
                            href="@Html.Raw(Model.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Posts, new {m = topic.LastMessageID, name = topic.Subject}))"
-                           target="_blank">
+                           target="_blank" rel="noopener">
                             @Model.GetText("LINK")
                         </a>
                     }

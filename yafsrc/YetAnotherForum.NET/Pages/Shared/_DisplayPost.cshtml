@@ -208,7 +208,7 @@
                                         <li class="list-inline-item d-none d-md-inline-block">
                                             <span class="badge text-bg-info">
                                                 @Html.LocalizedText("IP"):&nbsp;
-                                                <a href="@(string.Format(Current.BoardSettings.IPInfoPageURL, ip))" target="_blank" class="link-light"
+                                                <a href="@(string.Format(Current.BoardSettings.IPInfoPageURL, ip))" target="_blank" rel="noopener" class="link-light"
                                                    title="@(Current.Get<ILocalization>().GetText("COMMON", "TT_IPDETAILS"))">
                                                     @Html.HtmlEncode(ip)
                                                 </a>
