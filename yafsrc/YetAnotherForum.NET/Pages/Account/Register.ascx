@@ -72,6 +72,7 @@
                                 <asp:TextBox ID="Password" runat="server"
                                              TextMode="Password"
                                              CssClass="form-control"
+                                             autocomplete="new-password"
                                              required="required"></asp:TextBox>
                                 <div class="d-none" id="passwordStrength">
                                     <small class="form-text text-body-secondary mb-2" id="passwordHelp"></small>
@@ -93,6 +94,7 @@
                                 <asp:TextBox ID="ConfirmPassword" runat="server"
                                              TextMode="Password"
                                              CssClass="form-control"
+                                             autocomplete="new-password"
                                              required="required"></asp:TextBox>
                                 <YAF:LocalizedRequiredFieldValidator ID="ConfirmPasswordRequired" runat="server"
                                                                      ControlToValidate="ConfirmPassword"
