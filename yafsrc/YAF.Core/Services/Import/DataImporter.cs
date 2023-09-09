@@ -400,7 +400,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             while (streamReader.Peek() >= 0)
             {
                 var dr = usersTable.NewRow();
-                var regex = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))", RegexOptions.NonBacktracking);
+                var regex = new Regex(",(?=(?:[^\"]*\"[^\"]*\")*(?![^\"]*\"))");
                 dr.ItemArray = regex.Split(streamReader.ReadLine());
 
                 usersTable.Rows.Add(dr);

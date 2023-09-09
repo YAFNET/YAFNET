@@ -35,7 +35,8 @@ public class SignaturePreviewTagHelper : TagHelper, IHaveServiceLocator, IHaveLo
     /// <summary>
     ///   The options.
     /// </summary>
-    private const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled;
+    private const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.Compiled
+                                        ;
 
     /// <summary>
     ///   The localization.

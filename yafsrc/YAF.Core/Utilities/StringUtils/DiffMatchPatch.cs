@@ -1192,9 +1192,9 @@ public class DiffMatchPatch
     }
 
     // Define some regex patterns for matching boundaries.
-    private readonly Regex blankLineEnd = new("\\n\\r?\\n\\Z");
+    private readonly Regex blankLineEnd = new(@"\n\r?\n\Z");
 
-    private readonly Regex blankLineStart = new("\\A\\r?\\n\\r?\\n");
+    private readonly Regex blankLineStart = new(@"\A\r?\n\r?\n");
 
     /// <summary>
     /// Reorder and merge like edit sections.  Merge equalities.

@@ -446,7 +446,7 @@ public static class IDbAccessExtensions
     {
         CodeContracts.VerifyNotNull(dbAccess);
 
-        var statements = Regex.Split(script, "\\sGO\\s", RegexOptions.IgnoreCase).ToList();
+        var statements = Regex.Split(script, @"\sGO\s", RegexOptions.IgnoreCase).ToList();
 
         using var trans = dbAccess.CreateConnectionOpen().BeginTransaction();
 

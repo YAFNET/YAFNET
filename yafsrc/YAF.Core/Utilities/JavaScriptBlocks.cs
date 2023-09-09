@@ -1420,16 +1420,11 @@ public static class JavaScriptBlocks
     public static string HoverCardJs()
     {
         return $$"""
-                 if (typeof(jQuery.fn.hovercard) != 'undefined'){
-                                       $('.hc-user').hovercard({
-                                                       delay: {{BoardContext.Current.BoardSettings.HoverCardOpenDelay}},
-                                                       width: 350,
-                                                       loadingHTML: '{{BoardContext.Current.Get<ILocalization>().GetText("DEFAULT", "LOADING_HOVERCARD").ToJsString()}}',
-                                                       errorHTML: '{{BoardContext.Current.Get<ILocalization>().GetText("DEFAULT", "ERROR_HOVERCARD").ToJsString()}}',
-                                                       pointsText: '{{BoardContext.Current.Get<ILocalization>().GetText("REPUTATION").ToJsString()}}',
-                                                       postsText: '{{BoardContext.Current.Get<ILocalization>().GetText("POSTS").ToJsString()}}'
-                                       });
-                                  }
+                 document.addEventListener('DOMContentLoaded', function() {
+                     document.querySelectorAll(".hc-user").forEach(pop => {
+                 	    userCardContent(pop, {{BoardContext.Current.BoardSettings.HoverCardOpenDelay}});
+                 	});
+                 });
                  """;
     }
 

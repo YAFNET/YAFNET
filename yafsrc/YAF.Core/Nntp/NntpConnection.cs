@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Nntp;
 
 using System;
@@ -366,8 +367,11 @@ public class NntpConnection : IDisposable
                                          values[3].Substring(i + 1, values[3].Length - 7 - i),
                                          out var offTz),
                                      TimeZoneOffset = offTz,
-                                     ReferenceIds = values[5].Trim().Length == 0 ? Array.Empty<string>() : values[5].Split(' '),
-                                     LineCount = values.Length < 8 || values[7].Trim() == string.Empty ? 0 : int.Parse(values[7])
+                                     ReferenceIds =
+                                         values[5].Trim().Length == 0 ? Array.Empty<string>() : values[5].Split(' '),
+                                     LineCount = values.Length < 8 || values[7].Trim() == string.Empty
+                                                     ? 0
+                                                     : int.Parse(values[7])
                                  };
 
                 article = new Article
@@ -649,6 +653,7 @@ public class NntpConnection : IDisposable
         while (this.sr.ReadLine() is { } response && response != string.Empty)
         {
             var m = Regex.Match(response, @"^\s+(\S+)$");
+
             string value;
             if (m.Success)
             {
@@ -695,7 +700,9 @@ public class NntpConnection : IDisposable
                 case "MIME-VERSION":
                     part = new MIMEPart
                                {
-                                   ContentType = "TEXT/PLAIN", Charset = "US-ASCII", ContentTransferEncoding = "7BIT",
+                                   ContentType = "TEXT/PLAIN",
+                                   Charset = "US-ASCII",
+                                   ContentTransferEncoding = "7BIT",
                                    Filename = null,
                                    Boundary = null
                                };
@@ -703,26 +710,38 @@ public class NntpConnection : IDisposable
                 case "CONTENT-TYPE":
                     if (part != null)
                     {
-                        m = Regex.Match(response, @"CONTENT-TYPE: ""?([^""\s;]+)", RegexOptions.IgnoreCase);
+                        m = Regex.Match(
+                            response,
+                            @"CONTENT-TYPE: ""?([^""\s;]+)",
+                            RegexOptions.IgnoreCase);
                         if (m.Success)
                         {
                             part.ContentType = m.Groups[1].ToString();
                         }
 
-                        m = Regex.Match(response, @"BOUNDARY=""?([^""\s;]+)", RegexOptions.IgnoreCase);
+                        m = Regex.Match(
+                            response,
+                            @"BOUNDARY=""?([^""\s;]+)",
+                            RegexOptions.IgnoreCase);
                         if (m.Success)
                         {
                             part.Boundary = m.Groups[1].ToString();
                             part.EmbeddedPartList = new ArrayList();
                         }
 
-                        m = Regex.Match(response, @"CHARSET=""?([^""\s;]+)", RegexOptions.IgnoreCase);
+                        m = Regex.Match(
+                            response,
+                            @"CHARSET=""?([^""\s;]+)",
+                            RegexOptions.IgnoreCase);
                         if (m.Success)
                         {
                             part.Charset = m.Groups[1].ToString();
                         }
 
-                        m = Regex.Match(response, @"NAME=""?([^""\s;]+)", RegexOptions.IgnoreCase);
+                        m = Regex.Match(
+                            response,
+                            @"NAME=""?([^""\s;]+)",
+                            RegexOptions.IgnoreCase);
                         if (m.Success)
                         {
                             part.Filename = m.Groups[1].ToString();
@@ -737,6 +756,7 @@ public class NntpConnection : IDisposable
                             response,
                             @"CONTENT-TRANSFER-ENCODING: ""?([^""\s;]+)",
                             RegexOptions.IgnoreCase);
+
                         if (m.Success)
                         {
                             part.ContentTransferEncoding = m.Groups[1].ToString();
@@ -780,8 +800,11 @@ public class NntpConnection : IDisposable
             else
             {
                 Match m;
-                if ((buff[0] == 'B' || buff[0] == 'b')
-                    && (m = Regex.Match(response, @"^EGIN \d\d\d (.+)$", RegexOptions.IgnoreCase)).Success)
+                if ((buff[0] == 'B' || buff[0] == 'b') && (m = Regex.Match(
+                                                               response,
+                                                               @"^EGIN \d\d\d (.+)$",
+                                                               RegexOptions.IgnoreCase))
+                    .Success)
                 {
                     var ms = new MemoryStream();
                     while ((response = this.sr.ReadLine()) != null

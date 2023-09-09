@@ -944,14 +944,15 @@ public static class ForumRepositoryExtensions
     {
         CodeContracts.VerifyNotNull(repository);
 
-        var categories = listSource.Select(x => x.Item2).DistinctBy(x => x.ID);
+        var enumerable = listSource.ToList();
+        var categories = enumerable.Select(x => x.Item2).DistinctBy(x => x.ID);
 
         var listDestination = new List<SelectGroup>();
 
         categories.ForEach(
             category =>
                 {
-                    var forumsByCategory = listSource.Select(x => x.Item1).Where(x => x.CategoryID == category.ID);
+                    var forumsByCategory = enumerable.Select(x => x.Item1).Where(x => x.CategoryID == category.ID);
 
                     var selectGroup = new SelectGroup
                                           {

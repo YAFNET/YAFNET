@@ -44,7 +44,9 @@ public static class ValidationHelper
     public static bool IsValidEmail(string email)
     {
         return Regex.IsMatch(
-            email, @"^([0-9a-z]+[-._+&])*[0-9a-z]+@([-0-9a-z]+[.])+[a-z]{2,6}$", RegexOptions.IgnoreCase);
+            email,
+            @"^([0-9a-z]+[-._+&])*[0-9a-z]+@([-0-9a-z]+[.])+[a-z]{2,6}$",
+            RegexOptions.IgnoreCase);
     }
 
     /// <summary>

@@ -186,8 +186,10 @@ public class DigestSendTask : LongBackgroundTask
                     return;
                 }
 
-                var subject = Regex.Match(digestHtml, "<title>(.*?)</title>", RegexOptions.Singleline)
-                    .Groups[1].Value.Trim();
+                var subject = Regex.Match(
+                    digestHtml,
+                    "<title>(.*?)</title>",
+                    RegexOptions.Singleline).Groups[1].Value.Trim();
 
                 // send the digest...
                 mailMessages.Add(this.Get<IDigestService>().CreateDigestMessage(

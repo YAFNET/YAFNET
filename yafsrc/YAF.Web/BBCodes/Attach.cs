@@ -95,7 +95,7 @@ public class Attach : BBCodeControl
                     this.HtmlEncode(attachment.FileName),
                     this.PageContext.BoardSettings.ImageThumbnailMaxHeight);
 
-                stringBuilder.Append(@"</a>");
+                stringBuilder.Append("</a>");
 
                 stringBuilder.Append(
                     $@"<div class=""card-body py-1""><p class=""card-text small"">{this.GetText("IMAGE_RESIZE_ENLARGE")}");
@@ -103,7 +103,7 @@ public class Attach : BBCodeControl
                 stringBuilder.Append(
                     $@"<span class=""text-body-secondary float-end"">{this.GetTextFormatted("IMAGE_RESIZE_VIEWS", attachment.Downloads)}</span></p>");
 
-                stringBuilder.Append(@"</div></div>");
+                stringBuilder.Append("</div></div>");
             }
             else
             {

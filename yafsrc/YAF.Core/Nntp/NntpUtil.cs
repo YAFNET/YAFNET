@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Nntp;
 
 using System;
@@ -266,7 +267,11 @@ public static class NntpUtil
             case "MULTIPART":
                 while ((line = sr.ReadLine()) != null && line != separator && line != $"{separator}--")
                 {
-                    var m = Regex.Match(line, @"CONTENT-TYPE: ""?([^""\s;]+)", RegexOptions.IgnoreCase);
+                    var m = Regex.Match(
+                        line,
+                        @"CONTENT-TYPE: ""?([^""\s;]+)",
+                        RegexOptions.IgnoreCase);
+
                     if (!m.Success)
                     {
                         continue;
@@ -280,7 +285,11 @@ public static class NntpUtil
                                       };
                     while (line != string.Empty)
                     {
-                        m = Regex.Match(line, @"BOUNDARY=""?([^""\s;]+)", RegexOptions.IgnoreCase);
+                        m = Regex.Match(
+                            line,
+                            @"BOUNDARY=""?([^""\s;]+)",
+                            RegexOptions.IgnoreCase);
+
                         if (m.Success)
                         {
                             newPart.Boundary = m.Groups[1].ToString();
@@ -297,12 +306,17 @@ public static class NntpUtil
                             line,
                             @"CONTENT-TRANSFER-ENCODING: ""?([^""\s;]+)",
                             RegexOptions.IgnoreCase);
+
                         if (m.Success)
                         {
                             newPart.ContentTransferEncoding = m.Groups[1].ToString();
                         }
 
-                        m = Regex.Match(line, @"NAME=""?([^""\s;]+)", RegexOptions.IgnoreCase);
+                        m = Regex.Match(
+                            line,
+                            @"NAME=""?([^""\s;]+)",
+                            RegexOptions.IgnoreCase);
+
                         if (m.Success)
                         {
                             newPart.Filename = Base64HeaderDecode(m.Groups[1].ToString());

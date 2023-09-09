@@ -24,7 +24,7 @@ $s2bs5-bg-size:                  $form-select-bg-size !default;
 
 // Border & shadow
 $s2bs5-border-width:             $form-select-border-width !default;
-$s2bs5-border-color:             $form-select-border-color !default;
+$s2bs5-border-color:             $border-color !default;
 $s2bs5-border-radius:            $form-select-border-radius !default;
 $s2bs5-box-shadow:               $form-select-box-shadow !default;
 $s2bs5-transition:               $input-transition !default;
@@ -71,11 +71,11 @@ $s2bs5-multi-item-padding-x:     $badge-padding-x !default;
 $s2bs5-options-max-height:       15rem !default;
 
 // Clear/Remove
-$s2bs5-clear-width:              .6rem !default;
-$s2bs5-clear-height:             .6rem !default;
+$s2bs5-clear-width:              .75rem !default;
+$s2bs5-clear-height:             .75rem !default;
 $s2bs5-clear-padding-y:          $btn-close-padding-y !default;
 $s2bs5-clear-padding-x:          $btn-close-padding-x !default;
-$s2bs5-clear-icon:               str-replace($btn-close-bg, #{$btn-close-color}, #{shade-color(red, 50%)}) !default;
+$s2bs5-clear-icon:               str-replace($btn-close-bg, #{$btn-close-color}, #{shade-color($s2bs5-border-color, 50%)}) !default;
 $s2bs5-clear-bg:                 transparent escape-svg($s2bs5-clear-icon) center / $s2bs5-clear-height auto no-repeat !default;
 $s2bs5-clear-hover-bg:           transparent escape-svg($btn-close-bg) center / $s2bs5-clear-height auto no-repeat !default;
 

@@ -76,6 +76,6 @@ public class AlbumImage : BBCodeControl
 
         stringBuilder.Append($@"<p class=""card-text text-center small"">{this.GetText("IMAGE_RESIZE_ENLARGE")}</p>");
 
-        stringBuilder.Append(@"</div></div>");
+        stringBuilder.Append("</div></div>");
     }
 }

@@ -41,7 +41,8 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
     /// <summary>
     ///   The _options.
     /// </summary>
-    private const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Singleline;
+    private const RegexOptions Options =
+        RegexOptions.IgnoreCase | RegexOptions.Singleline;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="BBCode"/> class.

@@ -331,8 +331,9 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     [NotNull]
     public string RemoveNestedQuotes([NotNull] string body)
     {
-        const RegexOptions RegexOptions =
-            RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
+        const RegexOptions RegexOptions = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline
+                                         ;
+
         var quote = new Regex(@"\[quote(\=[^\]]*)?\](.*?)\[/quote\]", RegexOptions);
 
         // remove quotes from old messages

@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Extensions;
 
 using Microsoft.Extensions.Logging;
@@ -46,6 +47,8 @@ public static class LoggerExtensions
     {
         var logEntry = new EventLog { Type = EventLogTypes.Debug.ToInt() };
 
+        message = message.Replace('\n', '_').Replace('\r', '_');
+
         using (logger.BeginScope(logEntry))
         {
             logger.Log(LogLevel.Debug, message);
@@ -66,7 +69,9 @@ public static class LoggerExtensions
     /// </param>
     public static void Error(this ILogger logger, Exception ex, [NotNull] string message)
     {
-        var logEntry = new EventLog { Type = EventLogTypes.Error.ToInt(), Description = ex.ToString(), Exception = ex};
+        var logEntry = new EventLog { Type = EventLogTypes.Error.ToInt(), Description = ex.ToString(), Exception = ex };
+
+        message = message.Replace('\n', '_').Replace('\r', '_');
 
         using (logger.BeginScope(logEntry))
         {
@@ -85,7 +90,9 @@ public static class LoggerExtensions
     /// </param>
     public static void Info(this ILogger logger, [NotNull] string message)
     {
-        var logEntry = new EventLog {Type = EventLogTypes.Information.ToInt()};
+        var logEntry = new EventLog { Type = EventLogTypes.Information.ToInt() };
+
+        message = message.Replace('\n', '_').Replace('\r', '_');
 
         using (logger.BeginScope(logEntry))
         {
@@ -109,7 +116,12 @@ public static class LoggerExtensions
     {
         CodeContracts.VerifyNotNull(logger);
 
-        var logEntry = new EventLog { Type = EventLogTypes.UserDeleted.ToInt(), Source = "User Deleted", UserID = userId};
+        var logEntry = new EventLog
+                           {
+                               Type = EventLogTypes.UserDeleted.ToInt(), Source = "User Deleted", UserID = userId
+                           };
+
+        description = description.Replace('\n', '_').Replace('\r', '_');
 
         using (logger.BeginScope(logEntry))
         {
@@ -136,7 +148,14 @@ public static class LoggerExtensions
     {
         CodeContracts.VerifyNotNull(logger);
 
-        var logEntry = new EventLog { Type = EventLogTypes.SpamMessageDetected.ToInt(), Source = "Spam Message Detected", UserID = userId };
+        var logEntry = new EventLog
+                           {
+                               Type = EventLogTypes.SpamMessageDetected.ToInt(),
+                               Source = "Spam Message Detected",
+                               UserID = userId
+                           };
+
+        description = description.Replace('\n', '_').Replace('\r', '_');
 
         using (logger.BeginScope(logEntry))
         {
@@ -163,7 +182,12 @@ public static class LoggerExtensions
     {
         CodeContracts.VerifyNotNull(logger);
 
-        var logEntry = new EventLog { Type = EventLogTypes.SpamBotDetected.ToInt(), Source = "Bot Detected", UserID = userId };
+        var logEntry = new EventLog
+                           {
+                               Type = EventLogTypes.SpamBotDetected.ToInt(), Source = "Bot Detected", UserID = userId
+                           };
+
+        description = description.Replace('\n', '_').Replace('\r', '_');
 
         using (logger.BeginScope(logEntry))
         {
@@ -202,7 +226,12 @@ public static class LoggerExtensions
     {
         CodeContracts.VerifyNotNull(logger);
 
-        var logEntry = new EventLog { Type = eventType.ToInt(), Source = source, UserID = userId, Exception = exception};
+        var logEntry = new EventLog
+                           {
+                               Type = eventType.ToInt(), Source = source, UserID = userId, Exception = exception
+                           };
+
+        message = message.Replace('\n', '_').Replace('\r', '_');
 
         using (logger.BeginScope(logEntry))
         {
@@ -249,6 +278,8 @@ public static class LoggerExtensions
         }
 
         var logEntry = new EventLog { Type = eventType.ToInt(), Source = sourceDescription, UserID = userId };
+
+        description = description.Replace('\n', '_').Replace('\r', '_');
 
         using (logger.BeginScope(logEntry))
         {

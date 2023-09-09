@@ -55,12 +55,12 @@ public static class HelpMenuHtmlHelper
         var html = new StringBuilder();
         var htmlDropDown = new StringBuilder();
 
-        htmlDropDown.Append(@"<div class=""dropdown d-lg-none d-grid gap-2"">");
+        htmlDropDown.Append("""<div class="dropdown d-lg-none d-grid gap-2">""");
 
         htmlDropDown.Append(
             @"<button class=""btn btn-secondary dropdown-toggle"" type=""button"" id=""dropdownMenuButton"" data-bs-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
 
-        htmlDropDown.AppendFormat(@"{0}</button>", context.Get<ILocalization>().GetText("HELP_INDEX", "INDEX"));
+        htmlDropDown.AppendFormat("{0}</button>", context.Get<ILocalization>().GetText("HELP_INDEX", "INDEX"));
 
         htmlDropDown.Append(
             @"<div class=""dropdown-menu scrollable-dropdown"" aria-labelledby=""dropdownMenuButton"">");

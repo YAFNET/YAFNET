@@ -231,7 +231,10 @@ public partial class StackTraceBeautify
                 partsLine = partsLine.Replace(":", string.Empty).Replace("\r", string.Empty);
 
                 // File => (!) text requires multiline to exec regex, otherwise it will return null.
-                var regFile = new Regex($"({selectedLanguage.In}\\s.*)", RegexOptions.Multiline);
+                var regFile = new Regex(
+                    $"({selectedLanguage.In}\\s.*)",
+                    RegexOptions.Multiline);
+
                 var partsFile = regFile.Match(line).Value;
                 partsFile = partsFile.Replace($"{selectedLanguage.In} ", string.Empty)
                     .Replace($":{partsLine}", string.Empty);

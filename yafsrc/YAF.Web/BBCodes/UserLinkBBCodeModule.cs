@@ -70,7 +70,7 @@ public class UserLinkBBCodeModule : BBCodeControl
                 " btn btn-outline-primary");
 
             stringBuilder.Append("<!-- BEGIN user link -->");
-            stringBuilder.Append(@"<span>");
+            stringBuilder.Append("<span>");
                 
             stringBuilder.Append(userLink.RenderToString());
 

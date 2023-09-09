@@ -24,6 +24,8 @@
 
 namespace YAF.Types.Models;
 
+using System.Text.RegularExpressions;
+
 using YAF.Types.Constants;
 using YAF.Types.Extensions;
 
@@ -143,7 +145,7 @@ public class User : IEntity, IHaveBoardID, IHaveID
             {
                 var tz = this.TimeZone;
 
-                if (System.Text.RegularExpressions.Regex.IsMatch(tz, @"^[\-?\+?\d]*$"))
+                if (Regex.IsMatch(tz, @"^[\-?\+?\d]*$"))
                 {
                     return TimeZoneInfo.Local;
                 }

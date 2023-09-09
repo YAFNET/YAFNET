@@ -39,8 +39,9 @@ public static class IReplaceBlocksExtensions
     /// <summary>
     /// The _reg ex html.
     /// </summary>
-    private static readonly Regex _regExHtml =
-        new(@"</?\w+((\s+\w+(\s*=\s*(?:"".*?""|'.*?'|[^'"">\s]+))?)+\s*|\s*)/?>", _options | RegexOptions.Compiled);
+    private static readonly Regex _regExHtml = new(
+        @"</?\w+((\s+\w+(\s*=\s*(?:"".*?""|'.*?'|[^'"">\s]+))?)+\s*|\s*)/?>",
+        _options | RegexOptions.Compiled);
 
     /// <summary>
     /// Pull replacement blocks from the text

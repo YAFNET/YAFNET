@@ -129,14 +129,18 @@ public static class PasswordGenerator
         bool includeSpaces,
         string password)
     {
-        const string REGEX_LOWERCASE = @"[a-z]";
-        const string REGEX_UPPERCASE = @"[A-Z]";
+        const string REGEX_LOWERCASE = "[a-z]";
+        const string REGEX_UPPERCASE = "[A-Z]";
         const string REGEX_NUMERIC = @"[\d]";
         const string REGEX_SPECIAL = @"([!#$%&*@\\])+";
-        const string REGEX_SPACE = @"([ ])+";
+        const string REGEX_SPACE = "([ ])+";
 
-        var lowerCaseIsValid = !includeLowercase || Regex.IsMatch(password, REGEX_LOWERCASE);
-        var upperCaseIsValid = !includeUppercase || Regex.IsMatch(password, REGEX_UPPERCASE);
+        var lowerCaseIsValid = !includeLowercase || Regex.IsMatch(
+                                   password,
+                                   REGEX_LOWERCASE);
+        var upperCaseIsValid = !includeUppercase || Regex.IsMatch(
+                                   password,
+                                   REGEX_UPPERCASE);
         var numericIsValid = !includeNumeric || Regex.IsMatch(password, REGEX_NUMERIC);
         var symbolsAreValid = !includeSpecial || Regex.IsMatch(password, REGEX_SPECIAL);
         var spacesAreValid = !includeSpaces || Regex.IsMatch(password, REGEX_SPACE);

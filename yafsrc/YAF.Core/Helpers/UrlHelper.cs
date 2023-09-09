@@ -38,10 +38,8 @@ public static class UrlHelper
     /// <returns>Returns how many URLs the message contains</returns>
     public static int CountUrls(string message)
     {
-        return
-            Regex.Matches(
-                    message,
-                    @"((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)")
-                .Count;
+        return Regex.Matches(
+            message,
+            @"((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)").Count;
     }
 }
