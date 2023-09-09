@@ -1,4 +1,4 @@
-.animated {
+﻿.animated {
     -webkit-animation-duration: 1s;
     animation-duration: 1s;
     -webkit-animation-fill-mode: both;
@@ -14,11 +14,6 @@
         -webkit-animation-iteration-count: 1 !important;
         animation-iteration-count: 1 !important;
     }
-}
-
-.fadeIn {
-    -webkit-animation-name: fadeIn;
-    animation-name: fadeIn;
 }
 
 @-webkit-keyframes fadeInDown {
