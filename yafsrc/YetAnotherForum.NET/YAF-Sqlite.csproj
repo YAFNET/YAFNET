@@ -2209,6 +2209,7 @@
     <Content Include="Scripts\codemirror.min.js" />
     <Content Include="Scripts\forum\bootstrap-touchspin.js" />
     <Content Include="Scripts\forum\yaf.Albums.js" />
+    <Content Include="Scripts\forum\yaf.hoverCard.js" />
     <Content Include="Scripts\forum\yaf.Notify.js" />
     <Content Include="Scripts\forum\yaf.contextMenu.js" />
     <Content Include="Scripts\forum\yaf.Paging.js" />
@@ -2260,7 +2261,6 @@
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\forum\yaf.Utilities.js" />
     <Content Include="Scripts\forum\InstallWizard.js" />
-    <Content Include="Scripts\jquery.hovercard.js" />
     <Content Include="Scripts\jquery.ForumExtensions.js" />
     <Content Include="Scripts\forum\yaf.Main.js" />
     <Compile Include="Controls\BuddyList.ascx.cs">
@@ -2743,7 +2743,6 @@
     <Content Include="Content\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\Themes\yaf\_variables.scss" />
     <None Include="Content\forum.scss" />
-    <None Include="Content\jquery.hovercard.scss" />
     <Content Include="recommended.web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -2906,7 +2905,7 @@ xcopy "$(SolutionDir)YAF.Data\YAF.Data.Sqlite\bin\Release\net48\x64\SQLite.Inter
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

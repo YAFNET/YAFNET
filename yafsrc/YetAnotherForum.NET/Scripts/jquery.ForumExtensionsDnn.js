@@ -6603,221 +6603,29 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-(function($) {
-    $.fn.hovercard = function(options) {
-        var defaults = {
-            openOnLeft: false,
-            openOnTop: false,
-            cardImgSrc: "",
-            detailsHTML: "",
-            loadingHTML: "Loading...",
-            errorHTML: "Sorry, no data found.",
-            pointsText: "",
-            postsText: "",
-            background: "#ffffff",
-            delay: 0,
-            autoAdjust: true,
-            onHoverIn: function() {},
-            onHoverOut: function() {}
-        };
-        options = $.extend(defaults, options);
-        return this.each(function() {
-            var obj = $(this).eq(0);
-            obj.wrap('<div class="hc-preview" />');
-            obj.addClass("hc-name");
-            var hcImg = "";
-            if (options.cardImgSrc.length > 0) {
-                hcImg = '<img class="hc-pic" src="' + options.cardImgSrc + '" />';
-            }
-            var hcDetails = '<div class="hc-details" >' + hcImg + options.detailsHTML + "</div>";
-            obj.after(hcDetails);
-            obj.siblings(".hc-details").eq(0).css({
-                background: options.background
-            });
-            obj.closest(".hc-preview").hoverIntent(function() {
-                var $this = $(this);
-                adjustToViewPort($this);
-                obj.css("zIndex", "200");
-                var curHCDetails = $this.find(".hc-details").eq(0);
-                curHCDetails.stop(true, true).delay(options.delay).fadeIn();
-                if (typeof options.onHoverIn == "function") {
-                    var dataUrl;
-                    if (curHCDetails.find(".s-card").length <= 0) {
-                        dataUrl = options.customDataUrl;
-                        if (typeof obj.attr("data-hovercard") == "undefined") {} else if (obj.attr("data-hovercard").length > 0) {
-                            dataUrl = obj.attr("data-hovercard");
-                        }
-                        LoadSocialProfile("yaf", "", dataUrl, curHCDetails, options.customCardJSON);
-                    }
-                    $("body").on("keydown", function(event) {
-                        if (event.keyCode === 27) {
-                            closeHoverCard($this);
-                        }
-                    });
-                    var closeButton = curHCDetails.find(".s-close").eq(0);
-                    closeButton.click(function() {
-                        closeHoverCard($this);
-                    });
-                    options.onHoverIn.call(this);
-                }
-            }, function() {
-                closeHoverCard($(this));
-            });
-            function closeHoverCard(card) {
-                card.find(".hc-details").eq(0).stop(true, true).fadeOut(300, function() {
-                    obj.css("zIndex", "50");
-                    if (typeof options.onHoverOut == "function") {
-                        options.onHoverOut.call(this);
-                    }
-                });
-                $("body").off("keydown");
-            }
-            function adjustToViewPort(hcPreview) {
-                var hcDetails = hcPreview.find(".hc-details").eq(0);
-                var hcPreviewRect = hcPreview[0].getBoundingClientRect();
-                var hcdRight = hcPreviewRect.left + 35 + hcDetails.width();
-                var hcdBottom = hcPreviewRect.top + 35 + hcDetails.height();
-                if (options.openOnLeft || options.autoAdjust && hcdRight > window.innerWidth) {
-                    hcDetails.addClass("hc-details-open-left");
-                } else {
-                    hcDetails.removeClass("hc-details-open-left");
-                }
-                if (options.openOnTop || options.autoAdjust && hcdBottom > window.innerHeight) {
-                    hcDetails.addClass("hc-details-open-top");
-                } else {
-                    hcDetails.removeClass("hc-details-open-top");
-                }
-            }
-            function LoadSocialProfile(type, href, username, curHCDetails, customCardJSON) {
-                var cardHTML, dataType, urlToRequest, customCallback, loadingHTML, errorHTML;
-                switch (type) {
-                  case "yaf":
-                    {
-                        dataType = "json", urlToRequest = username, cardHTML = function(profileData) {
-                            var online = profileData.Online ? "green" : "red";
-                            var shtml = '<div class="s-card s-card-pad">' + '<div class="card rounded-0" style="width: 330px;">' + '<div class="card-header position-relative">' + '<h6 class="card-title text-center">' + (profileData.RealName ? profileData.RealName : profileData.Name) + "</h6>" + (profileData.Avatar ? '<img src="' + profileData.Avatar + '" class="rounded mx-auto d-block" style="width:75px" alt="" />' : "") + (profileData.Avatar ? '<div class="position-absolute" style="top:0;right:0;border-width: 0 25px 25px 0; border-style: solid; border-color: transparent ' + online + ';" ></div>' : "") + "</div>" + '<div class="card-body p-2">' + '<ul class="list-unstyled mt-1 mb-3">' + (profileData.Location ? '<li class="px-2 py-1"><i class="fas fa-home me-1"></i>' + profileData.Location + "</li>" : "") + (profileData.Rank ? '<li class="px-2 py-1"><i class="fas fa-graduation-cap me-1"></i>' + profileData.Rank + "</li>" : "") + (profileData.Interests ? '<li class="px-2 py-1"><i class="fas fa-running me-1"></i>' + profileData.Interests + "</li>" : "") + (profileData.Joined ? '<li class="px-2 py-1"><i class="fas fa-user-check me-1"></i>' + profileData.Joined + "</li>" : "") + (profileData.HomePage ? '<li class="px-2 py-1"><i class="fas fa-globe me-1"></i><a href="' + profileData.HomePage + '" target="_blank">' + profileData.HomePage + "</a></li>" : "") + '<li class="px-2 py-1"><i class="far fa-comment me-1"></i>' + profileData.Posts + "</li>" + "</ul>" + "</div>" + "</div>" + "</div>";
-                            return shtml;
-                        };
-                        loadingHTML = options.loadingHTML;
-                        errorHTML = options.errorHTML;
-                        customCallback = function() {};
-                        curHCDetails.append('<span class="s-action s-close"><a href="javascript:void(0)"><i class="fas fa-times fa-fw"></i></a></span>');
-                    }
-                    break;
-
-                  default:
-                    break;
-                }
-                if ($.isEmptyObject(customCardJSON)) {
-                    $.ajax({
-                        url: urlToRequest,
-                        type: "GET",
-                        dataType: dataType,
-                        timeout: 6e3,
-                        cache: true,
-                        beforeSend: function() {
-                            curHCDetails.find(".s-message").remove();
-                            curHCDetails.append('<p class="s-message">' + loadingHTML + "</p>");
-                        },
-                        success: function(data) {
-                            if (data.length <= 0) {
-                                curHCDetails.find(".s-message").html(errorHTML);
-                            } else {
-                                curHCDetails.find(".s-message").replaceWith(cardHTML(data));
-                                $(".hc-details").hide();
-                                adjustToViewPort(curHCDetails.closest(".hc-preview"));
-                                curHCDetails.stop(true, true).delay(options.delay).fadeIn();
-                                customCallback(data);
-                            }
-                        },
-                        error: function(jqXHR, textStatus, errorThrown) {
-                            curHCDetails.find(".s-message").html(errorHTML + errorThrown);
-                        }
-                    });
-                } else {
-                    curHCDetails.prepend(cardHTML(customCardJSON));
-                }
-            }
-        });
-    };
-})(jQuery);
-
-(function($) {
-    $.fn.hoverIntent = function(handlerIn, handlerOut, selector) {
-        var cfg = {
-            interval: 100,
-            sensitivity: 7,
-            timeout: 0
-        };
-        if (typeof handlerIn === "object") {
-            cfg = $.extend(cfg, handlerIn);
-        } else if ($.isFunction(handlerOut)) {
-            cfg = $.extend(cfg, {
-                over: handlerIn,
-                out: handlerOut,
-                selector: selector
-            });
-        } else {
-            cfg = $.extend(cfg, {
-                over: handlerIn,
-                out: handlerIn,
-                selector: handlerOut
-            });
+function userCardContent(pop, delay) {
+    fetch(pop.dataset.hovercard, {
+        method: "GET",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json;charset=utf-8"
         }
-        var cX, cY, pX, pY;
-        var track = function(ev) {
-            cX = ev.pageX;
-            cY = ev.pageY;
-        };
-        var compare = function(ev, ob) {
-            ob.hoverIntent_t = clearTimeout(ob.hoverIntent_t);
-            if (Math.abs(pX - cX) + Math.abs(pY - cY) < cfg.sensitivity) {
-                $(ob).off("mousemove.hoverIntent", track);
-                ob.hoverIntent_s = 1;
-                return cfg.over.apply(ob, [ ev ]);
-            } else {
-                pX = cX;
-                pY = cY;
-                ob.hoverIntent_t = setTimeout(function() {
-                    compare(ev, ob);
-                }, cfg.interval);
-            }
-        };
-        var delay = function(ev, ob) {
-            ob.hoverIntent_t = clearTimeout(ob.hoverIntent_t);
-            ob.hoverIntent_s = 0;
-            return cfg.out.apply(ob, [ ev ]);
-        };
-        var handleHover = function(e) {
-            var ev = jQuery.extend({}, e);
-            var ob = this;
-            if (ob.hoverIntent_t) {
-                ob.hoverIntent_t = clearTimeout(ob.hoverIntent_t);
-            }
-            if (e.type == "mouseenter") {
-                pX = ev.pageX;
-                pY = ev.pageY;
-                $(ob).on("mousemove.hoverIntent", track);
-                if (ob.hoverIntent_s != 1) {
-                    ob.hoverIntent_t = setTimeout(function() {
-                        compare(ev, ob);
-                    }, cfg.interval);
-                }
-            } else {
-                $(ob).off("mousemove.hoverIntent", track);
-                if (ob.hoverIntent_s == 1) {
-                    ob.hoverIntent_t = setTimeout(function() {
-                        delay(ev, ob);
-                    }, cfg.timeout);
-                }
-            }
-        };
-        return this.on({
-            "mouseenter.hoverIntent": handleHover,
-            "mouseleave.hoverIntent": handleHover
-        }, cfg.selector);
-    };
-})(jQuery);
+    }).then(res => res.json()).then(profileData => {
+        var content = (profileData.Avatar ? `<img src="${profileData.Avatar}" class="rounded mx-auto d-block" style="width:75px" alt="" />` : "") + '<ul class="list-unstyled m-0">' + (profileData.Location ? `<li class="px-2 py-1"><i class="fas fa-home me-1"></i>${profileData.Location}</li>` : "") + (profileData.Rank ? `<li class="px-2 py-1"><i class="fas fa-graduation-cap me-1"></i>${profileData.Rank}</li>` : "") + (profileData.Interests ? `<li class="px-2 py-1"><i class="fas fa-running me-1"></i>${profileData.Interests}</li>` : "") + (profileData.Joined ? `<li class="px-2 py-1"><i class="fas fa-user-check me-1"></i>${profileData.Joined}</li>` : "") + (profileData.HomePage ? `<li class="px-2 py-1"><i class="fas fa-globe me-1"></i><a href="${profileData.HomePage}" target="_blank">${profileData.HomePage}</a></li>` : "") + '<li class="px-2 py-1"><i class="far fa-comment me-1"></i>' + profileData.Posts + "</li>" + "</ul>";
+        const popover = new bootstrap.Popover(pop, {
+            delay: {
+                show: delay,
+                hide: 100
+            },
+            trigger: "hover",
+            html: true,
+            content: content,
+            template: '<div class="popover" role="tooltip"><div class="popover-arrow"></div><div class="popover-body p-2"></div></div>'
+        });
+    }).catch(function(error) {
+        console.log(error);
+    });
+}
 
 var _self = typeof window !== "undefined" ? window : typeof WorkerGlobalScope !== "undefined" && self instanceof WorkerGlobalScope ? self : {};
 

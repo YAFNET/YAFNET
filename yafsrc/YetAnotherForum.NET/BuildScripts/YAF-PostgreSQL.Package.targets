@@ -66,7 +66,7 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumExtensions.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumExtensionsDnn.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumExtensionsDnn.min.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.hovercard.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\forum\yaf.hoverCard.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\blueimp-gallery\blueimp-gallery.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\blueimp-gallery\blueimp-gallery-indicator.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\blueimp-gallery\jquery.blueimp-gallery.js" />
@@ -93,8 +93,6 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-forum.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\forum.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\InstallWizard.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.hovercard.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\jquery.hovercard.min.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-notify.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\forum-admin.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\prism.css" />
