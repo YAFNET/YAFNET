@@ -10,14 +10,14 @@
         .then(profileData => {
 
             var content =
-                (profileData.Avatar ? `<img src="${profileData.Avatar}" class="rounded mx-auto d-block" style="width:75px" alt="" />` : "") +
+                (profileData.avatar ? `<img src="${profileData.avatar}" class="rounded mx-auto d-block" style="width:75px" alt="" />` : "") +
                     '<ul class="list-unstyled m-0">' +
-                    (profileData.Location ? `<li class="px-2 py-1"><i class="fas fa-home me-1"></i>${profileData.Location}</li>` : "") +
-                    (profileData.Rank ? `<li class="px-2 py-1"><i class="fas fa-graduation-cap me-1"></i>${profileData.Rank}</li>` : "") +
-                    (profileData.Interests ? `<li class="px-2 py-1"><i class="fas fa-running me-1"></i>${profileData.Interests}</li>` : "") +
-                    (profileData.Joined ? `<li class="px-2 py-1"><i class="fas fa-user-check me-1"></i>${profileData.Joined}</li>` : "") +
-                    (profileData.HomePage ? `<li class="px-2 py-1"><i class="fas fa-globe me-1"></i><a href="${profileData.HomePage}" target="_blank">${profileData.HomePage}</a></li>` : "") +
-                    '<li class="px-2 py-1"><i class="far fa-comment me-1"></i>' + profileData.Posts + "</li>" +
+                    (profileData.location ? `<li class="px-2 py-1"><i class="fas fa-home me-1"></i>${profileData.location}</li>` : "") +
+                    (profileData.rank ? `<li class="px-2 py-1"><i class="fas fa-graduation-cap me-1"></i>${profileData.rank}</li>` : "") +
+                    (profileData.interests ? `<li class="px-2 py-1"><i class="fas fa-running me-1"></i>${profileData.interests}</li>` : "") +
+                    (profileData.joined ? `<li class="px-2 py-1"><i class="fas fa-user-check me-1"></i>${profileData.joined}</li>` : "") +
+                    (profileData.homePage ? `<li class="px-2 py-1"><i class="fas fa-globe me-1"></i><a href="${profileData.homePage}" target="_blank">${profileData.homePage}</a></li>` : "") +
+                    '<li class="px-2 py-1"><i class="far fa-comment me-1"></i>' + profileData.posts + "</li>" +
                     "</ul>";
 
 
