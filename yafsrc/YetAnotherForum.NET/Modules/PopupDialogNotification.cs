@@ -44,38 +44,40 @@ public class PopupDialogNotification : BaseUserControl
     {
         // add js for client-side error settings...
         var javaScriptFunction =
-            $@"function {this.ShowModalFunction}(newErrorStr, newErrorType, script) {{ if (newErrorStr != null && newErrorStr != """") {{
-                      var iconFA = '';
-
-                      if (newErrorType == 'warning') {{
-                          iconFA = 'fa fa-exclamation-triangle';
-                      }}
-                      else if (newErrorType == 'danger') {{
-                          iconFA = 'fa fa-exclamation-triangle';
-                      }}
-                      else if (newErrorType == 'info') {{
-                          iconFA = 'fa fa-info-circle';
-                      }}
-                      else if (newErrorType == 'success') {{
-                          iconFA = 'fa fa-check';
-                      }}
-
-                      if (script != null && script != """")
-                      {{
-                         $('.modal-backdrop').remove();
-                         $('#' + script).modal('show');
-                      }}
-
-                      $.notify({{
-                                   title: ""{this.PageBoardContext.BoardSettings.Name}"",
-                                   message: newErrorStr,
-                                   icon: iconFA
-                            }},
-                            {{
-                                  type: newErrorType,
-                                  element: 'body', position: null, placement: {{ from: 'top', align: 'center' }},
-                                  delay: {this.PageBoardContext.BoardSettings.MessageNotifcationDuration} * 1000
-                        }});}} }}";
+            $$"""
+              function {{this.ShowModalFunction}}(newErrorStr, newErrorType, script) { if (newErrorStr != null && newErrorStr != "") {
+                                    var iconFA = '';
+              
+                                    if (newErrorType == 'warning') {
+                                        iconFA = 'fa fa-exclamation-triangle';
+                                    }
+                                    else if (newErrorType == 'danger') {
+                                        iconFA = 'fa fa-exclamation-triangle';
+                                    }
+                                    else if (newErrorType == 'info') {
+                                        iconFA = 'fa fa-info-circle';
+                                    }
+                                    else if (newErrorType == 'success') {
+                                        iconFA = 'fa fa-check';
+                                    }
+              
+                                    if (script != null && script != "")
+                                    {
+                                       $('.modal-backdrop').remove();
+                                       $('#' + script).modal('show');
+                                    }
+              
+                                    new Notify({
+                                                 title: "{{this.PageBoardContext.BoardSettings.Name}}",
+                                                 message: newErrorStr,
+                                                 icon: iconFA
+                                          },
+                                          {
+                                                type: newErrorType,
+                                                element: 'body', position: null, placement: { from: 'top', align: 'center' },
+                                                delay: {{this.PageBoardContext.BoardSettings.MessageNotifcationDuration}} * 1000
+                                      });} }
+              """;
 
         this.PageBoardContext.PageElements.RegisterJsBlock(
             this,
