@@ -1591,7 +1591,7 @@ public static class JavaScriptBlocks
                              iconFA = "fa fa-check";
                          }
                  
-                         $.notify({
+                         new Notify({
                                  title: "{{BoardContext.Current.BoardSettings.Name}}",
                                  message: "{{body}}",
                                  icon: iconFA
@@ -1632,7 +1632,7 @@ public static class JavaScriptBlocks
                              iconFA = "fa fa-check";
                          }
                  
-                         $.notify({
+                         new Notify({
                                  title: "{{BoardContext.Current.BoardSettings.Name}}",
                                  message: body,
                                  icon: iconFA
