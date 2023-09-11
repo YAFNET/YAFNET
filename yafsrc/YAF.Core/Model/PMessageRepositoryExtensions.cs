@@ -452,7 +452,7 @@ public static class PMessageRepositoryExtensions
     {
         CodeContracts.VerifyNotNull(repository);
 
-        if (!messages.NullOrEmpty())
+        if (messages.NullOrEmpty())
         {
             return messages;
         }
