@@ -365,13 +365,6 @@
     <Compile Include="Controls\DisplayConnect.ascx.designer.cs">
       <DependentUpon>DisplayConnect.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\ImageGallery.ascx.cs">
-      <DependentUpon>ImageGallery.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Dialogs\ImageGallery.ascx.designer.cs">
-      <DependentUpon>ImageGallery.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Controls\PollChoiceList.ascx.cs">
       <DependentUpon>PollChoiceList.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1964,7 +1957,6 @@
     <Content Include="Dialogs\AttachmentsUpload.ascx" />
     <Content Include="Controls\BuddyList.ascx" />
     <Content Include="Controls\DisplayConnect.ascx" />
-    <Content Include="Dialogs\ImageGallery.ascx" />
     <Content Include="Controls\PollChoiceList.ascx" />
     <Content Include="Controls\DisplayAd.ascx" />
     <Content Include="Controls\DisplayPost.ascx">
@@ -2206,6 +2198,10 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\bs5-lightbox\dist\index.bundle.min.js" />
+    <Content Include="Scripts\bs5-lightbox\index.js" />
+    <Content Include="Scripts\bs5-lightbox\webpack.cdn.js" />
+    <Content Include="Scripts\bs5-lightbox\webpack.common.js" />
     <Content Include="Scripts\codemirror.min.js" />
     <Content Include="Scripts\forum\bootstrap-touchspin.js" />
     <Content Include="Scripts\forum\yaf.Albums.js" />
@@ -2801,6 +2797,8 @@
     <Content Include="Content\webfonts\fa-v4compatibility.woff2" />
     <None Include="package.json" />
     <Content Include="Resources\mimeTypes.json" />
+    <Content Include="Scripts\bs5-lightbox\.babelrc" />
+    <Content Include="Scripts\bs5-lightbox\dist\index.bundle.min.js.map" />
     <None Include="web.config">
       <SubType>Designer</SubType>
     </None>
@@ -2905,7 +2903,7 @@ xcopy "$(SolutionDir)YAF.Data\YAF.Data.Sqlite\bin\Release\net48\x64\SQLite.Inter
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
+      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
