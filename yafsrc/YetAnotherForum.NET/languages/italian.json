@@ -5285,6 +5285,14 @@
             "#text": "Salva le impostazioni"
           },
           {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Lunghezza massima del testo di ricerca:"
           },
@@ -5843,14 +5851,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token utilizzato per effettuare chiamate sicure al servizio web. Cambia continuamente finché non si salvano le impostazioni dell'host."
-          },
-          {
-            "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
-          },
-          {
-            "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9710,18 +9710,6 @@
             "#text": "Ora corrente: {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "L'utente richiesto non è stato trovato."
-          },
-          {
-            "@tag": "ERROR_HOVERCARD",
-            "#text": "Spiacente, non sono stati trovati dati o qualcosa è andato storto."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "Nome utente non valido o hai superato il limite di richieste di Twitter.<br/><small>Tieni presente che Twitter consente solo 150 richieste all'ora.</small>."
-          },
-          {
             "@tag": "FORUM",
             "#text": "Forum"
           },
@@ -9756,10 +9744,6 @@
           {
             "@tag": "LOADING_FB_HOVERCARD",
             "#text": "Caricamento delle informazioni su Facebook ..."
-          },
-          {
-            "@tag": "LOADING_HOVERCARD",
-            "#text": "Caricamento delle informazioni utente ..."
           },
           {
             "@tag": "LOADING_TWIT_HOVERCARD",

@@ -5293,6 +5293,14 @@
             "#text": "Guardar definições"
           },
           {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Texto de Pesquisa Comprimento Máximo:"
           },
@@ -5851,14 +5859,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Ficha utilizada para fazer chamadas seguras de serviço web. Mudança constante até guardar as configurações do seu anfitrião."
-          },
-          {
-            "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
-          },
-          {
-            "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9718,18 +9718,6 @@
             "#text": "Hora atual: {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "O utilizador solicitado não pôde ser encontrado."
-          },
-          {
-            "@tag": "ERROR_HOVERCARD",
-            "#text": "Lamentamos, não foram encontrados dados ou algo correu mal."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "Nome de utilizador inválido ou ultrapassou o limite de pedidos do Twitter.<br/>>pequeno>Por favor, Twitter permite apenas 150 pedidos por hora.</pequeno>."
-          },
-          {
             "@tag": "FORUM",
             "#text": "Fórum"
           },
@@ -9764,10 +9752,6 @@
           {
             "@tag": "LOADING_FB_HOVERCARD",
             "#text": "Carregar informações do Facebook ..."
-          },
-          {
-            "@tag": "LOADING_HOVERCARD",
-            "#text": "Carregamento de Informação do Utilizador ..."
           },
           {
             "@tag": "LOADING_TWIT_HOVERCARD",

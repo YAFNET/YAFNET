@@ -5293,6 +5293,14 @@
             "#text": "Uložiť nastavenia"
           },
           {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Maximálna dĺžka vyhľadávaného textu:"
           },
@@ -5851,14 +5859,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token používaný na bezpečné volania webovej služby. Neustále sa mení, kým neuložíte nastavenia hostiteľa."
-          },
-          {
-            "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
-          },
-          {
-            "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9718,18 +9718,6 @@
             "#text": "Je presne {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "Požadovaného používateľa sa nepodarilo nájsť."
-          },
-          {
-            "@tag": "ERROR_HOVERCARD",
-            "#text": "Je nám ľúto, nenašli sa žiadne údaje alebo sa niečo pokazilo."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "Neplatné používateľské meno alebo ste prekročili limit požiadaviek na Twitter.<br/><small>Prosím, berte na vedomie, že Twitter povoľuje len 150 požiadaviek za hodinu.</small>."
-          },
-          {
             "@tag": "FORUM",
             "#text": "Fórum"
           },
@@ -9764,10 +9752,6 @@
           {
             "@tag": "LOADING_FB_HOVERCARD",
             "#text": "Načítavanie informácií o Facebooku..."
-          },
-          {
-            "@tag": "LOADING_HOVERCARD",
-            "#text": "Načítanie informácií o používateľovi ..."
           },
           {
             "@tag": "LOADING_TWIT_HOVERCARD",

@@ -9710,18 +9710,6 @@
                     "#text": "Current time: {0}."
                 },
                 {
-                    "@tag": "ERROR_FB_HOVERCARD",
-                    "#text": "The requested user could not be found."
-                },
-                {
-                    "@tag": "ERROR_HOVERCARD",
-                    "#text": "Sorry, no data found or something went wrong."
-                },
-                {
-                    "@tag": "ERROR_TWIT_HOVERCARD",
-                    "#text": "Invalid username or you have exceeded Twitter request limit.<br/><small>Please note, Twitter only allows 150 requests per hour.</small>."
-                },
-                {
                     "@tag": "FORUM",
                     "#text": "Forum"
                 },
@@ -9756,10 +9744,6 @@
                 {
                     "@tag": "LOADING_FB_HOVERCARD",
                     "#text": "Loading Facebook Info ..."
-                },
-                {
-                    "@tag": "LOADING_HOVERCARD",
-                    "#text": "Loading User Info ..."
                 },
                 {
                     "@tag": "LOADING_TWIT_HOVERCARD",

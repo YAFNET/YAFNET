@@ -5293,6 +5293,14 @@
             "#text": "保存设置"
           },
           {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "搜索文本最大长度："
           },
@@ -5851,14 +5859,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "用于进行安全 Web 服务调用的令牌。"
-          },
-          {
-            "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
-          },
-          {
-            "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9718,18 +9718,6 @@
             "#text": "当前时间: {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "找不到请求的用户。"
-          },
-          {
-            "@tag": "ERROR_HOVERCARD",
-            "#text": "抱歉，未找到数据或出现问题。"
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "用户名无效或您已超出 Twitter 请求限制。<br/><small>请注意，Twitter 每小时仅允许 150 个请求。</small>。"
-          },
-          {
             "@tag": "FORUM",
             "#text": "论坛"
           },
@@ -9764,10 +9752,6 @@
           {
             "@tag": "LOADING_FB_HOVERCARD",
             "#text": "加载反馈信息 ..."
-          },
-          {
-            "@tag": "LOADING_HOVERCARD",
-            "#text": "加载用户信息 ..."
           },
           {
             "@tag": "LOADING_TWIT_HOVERCARD",

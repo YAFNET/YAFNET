@@ -5293,6 +5293,14 @@
             "#text": "Uložit nastavení"
           },
           {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Maximální délka hledaného textu:"
           },
@@ -5851,14 +5859,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token používaný k volání zabezpečené webové služby. "
-          },
-          {
-            "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
-          },
-          {
-            "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9718,18 +9718,6 @@
             "#text": "Teď máme přesně {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "Požadovaný uživatel nebyl nalezen."
-          },
-          {
-            "@tag": "ERROR_HOVERCARD",
-            "#text": "Litujeme, nebyla nalezena žádná data nebo se něco pokazilo."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "Neplatné uživatelské jméno nebo jste překročili limit požadavků na Twitteru.<br/><small>Upozorňujeme, že Twitter povoluje pouze 150 požadavků za hodinu.</small>."
-          },
-          {
             "@tag": "FORUM",
             "#text": "Fórum"
           },
@@ -9764,10 +9752,6 @@
           {
             "@tag": "LOADING_FB_HOVERCARD",
             "#text": "Načítání informací o Facebooku..."
-          },
-          {
-            "@tag": "LOADING_HOVERCARD",
-            "#text": "Načítání informací o uživateli..."
           },
           {
             "@tag": "LOADING_TWIT_HOVERCARD",

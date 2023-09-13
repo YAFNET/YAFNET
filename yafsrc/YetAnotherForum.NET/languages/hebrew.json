@@ -5293,6 +5293,14 @@
             "#text": "שמור הגדרות"
           },
           {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "אורך מקסימלי של טקסט חיפוש:"
           },
@@ -5851,14 +5859,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "אסימון המשמש לביצוע שיחות שירות אינטרנט מאובטח. משתנה כל הזמן עד שתשמור את הגדרות המארח שלך."
-          },
-          {
-            "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
-          },
-          {
-            "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9722,18 +9722,6 @@
             "#text": "שעה נוכחית: {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "המשתמש המבוקש לא נמצא."
-          },
-          {
-            "@tag": "ERROR_HOVERCARD",
-            "#text": "מצטערים, לא נמצאו נתונים או שמשהו השתבש."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "שם משתמש לא חוקי או שחרגת ממגבלת הבקשות בטוויטר.<br/> <small>שימו לב, טוויטר מאפשר רק 150 בקשות לשעה.</small> ."
-          },
-          {
             "@tag": "FORUM",
             "#text": "פורום"
           },
@@ -9768,10 +9756,6 @@
           {
             "@tag": "LOADING_FB_HOVERCARD",
             "#text": "טוען מידע בפייסבוק..."
-          },
-          {
-            "@tag": "LOADING_HOVERCARD",
-            "#text": "טוען מידע משתמש..."
           },
           {
             "@tag": "LOADING_TWIT_HOVERCARD",

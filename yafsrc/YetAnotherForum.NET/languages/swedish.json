@@ -5293,6 +5293,14 @@
             "#text": "Spara inställningar"
           },
           {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Maximal längd på söktexten:"
           },
@@ -5851,14 +5859,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token som används för att göra säkra webbtjänstsamtal. Ändras ständigt tills du sparar dina värdinställningar."
-          },
-          {
-            "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
-          },
-          {
-            "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9718,18 +9718,6 @@
             "#text": "Aktuell tid: {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "Den begärda användaren kunde inte hittas."
-          },
-          {
-            "@tag": "ERROR_HOVERCARD",
-            "#text": "Tyvärr hittades inga data eller så gick något fel."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "Felaktigt användarnamn eller så har du överskridit gränsen för Twitter-förfrågningar.<br/><small>Vänligen observera att Twitter endast tillåter 150 förfrågningar per timme.</small>."
-          },
-          {
             "@tag": "FORUM",
             "#text": "Forum"
           },
@@ -9764,10 +9752,6 @@
           {
             "@tag": "LOADING_FB_HOVERCARD",
             "#text": "Laddar Facebook Info ..."
-          },
-          {
-            "@tag": "LOADING_HOVERCARD",
-            "#text": "Laddar användarinformation ..."
           },
           {
             "@tag": "LOADING_TWIT_HOVERCARD",

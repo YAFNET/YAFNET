@@ -5285,6 +5285,14 @@
             "#text": "ذخیره تنظیمات"
           },
           {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "حداکثر طول متن جستجو :"
           },
@@ -5843,14 +5851,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "توکن برای فراخوانی امن وب سرویس استفاده می شود. و مدام در حال تغییر است تا زمانی که شما تنظمیات میزبان را ذخیره کنید."
-          },
-          {
-            "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
-          },
-          {
-            "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9706,18 +9706,6 @@
             "#text": "زمان فعلی: {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "کاربر مورد نظر پیدا نشد."
-          },
-          {
-            "@tag": "ERROR_HOVERCARD",
-            "#text": "متاسفانه هیچ اطلاعاتی یافت نشد و یا خطایی رخ داده است."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "نام کاربری اشتباه است و یا درخواست های توئیتر از حد مجاز گذشته است.<br/><small>توجه داشته باشید که در هر ساعت می توانید 150 توئیت ارسال کنید.</small>."
-          },
-          {
             "@tag": "FORUM",
             "#text": "انجمن"
           },
@@ -9752,10 +9740,6 @@
           {
             "@tag": "LOADING_FB_HOVERCARD",
             "#text": "بارگذاری اطلاعات فیسبوک..."
-          },
-          {
-            "@tag": "LOADING_HOVERCARD",
-            "#text": "بارگذاری اطلاعات کاربر..."
           },
           {
             "@tag": "LOADING_TWIT_HOVERCARD",

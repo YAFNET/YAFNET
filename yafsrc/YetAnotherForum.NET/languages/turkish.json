@@ -5293,6 +5293,14 @@
             "#text": "Ayarları Kaydet"
           },
           {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Arama Metni Maksimum Uzunluk:"
           },
@@ -5851,14 +5859,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Güvenli web hizmeti çağrıları yapmak için kullanılan belirteç. Ana bilgisayar ayarlarınızı kaydedinceye kadar sürekli değişir."
-          },
-          {
-            "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
-          },
-          {
-            "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9718,18 +9718,6 @@
             "#text": "Güncel Saat: {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "İstenen kullanıcı bulunamadı."
-          },
-          {
-            "@tag": "ERROR_HOVERCARD",
-            "#text": "Üzgünüz, veri bulunamadı veya bir şeyler ters gitti."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "Geçersiz kullanıcı adı veya Twitter istek sınırını aştınız.<br/><small>Lütfen Twitter'ın saatte yalnızca 150 isteğe izin verdiğini unutmayın.</small>."
-          },
-          {
             "@tag": "FORUM",
             "#text": "Forum"
           },
@@ -9764,10 +9752,6 @@
           {
             "@tag": "LOADING_FB_HOVERCARD",
             "#text": "Facebook Bilgisi Yükleniyor ..."
-          },
-          {
-            "@tag": "LOADING_HOVERCARD",
-            "#text": "Kullanıcı Bilgileri Yükleniyor ..."
           },
           {
             "@tag": "LOADING_TWIT_HOVERCARD",

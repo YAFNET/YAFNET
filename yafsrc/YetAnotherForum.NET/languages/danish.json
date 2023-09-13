@@ -5293,6 +5293,14 @@
             "#text": "Gem indstillinger"
           },
           {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Søgetekst maksimal længde:"
           },
@@ -5851,14 +5859,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token bruges til at foretage sikre webserviceopkald. "
-          },
-          {
-            "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
-          },
-          {
-            "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9718,18 +9718,6 @@
             "#text": "Klokken er nu: {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "Den anmodede bruger kunne ikke findes."
-          },
-          {
-            "@tag": "ERROR_HOVERCARD",
-            "#text": "Beklager, ingen data fundet, eller noget gik galt."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "Ugyldigt brugernavn, eller du har overskredet Twitter-anmodningsgrænsen.<br/><small>Bemærk venligst, Twitter tillader kun 150 anmodninger i timen.</small>."
-          },
-          {
             "@tag": "FORUM",
             "#text": "Forum"
           },
@@ -9764,10 +9752,6 @@
           {
             "@tag": "LOADING_FB_HOVERCARD",
             "#text": "Indlæser Facebook-oplysninger..."
-          },
-          {
-            "@tag": "LOADING_HOVERCARD",
-            "#text": "Indlæser brugeroplysninger..."
           },
           {
             "@tag": "LOADING_TWIT_HOVERCARD",

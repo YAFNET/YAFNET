@@ -5285,6 +5285,14 @@
             "#text": "Zapisz ustawienia"
           },
           {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Maksymalna długość tekstu wyszukiwania:"
           },
@@ -5843,14 +5851,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token używany do bezpiecznego wywoływania usług sieciowych. Stale się zmienia, dopóki nie zapiszesz ustawień hosta."
-          },
-          {
-            "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
-          },
-          {
-            "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9714,18 +9714,6 @@
             "#text": "Aktualny czas: {0}."
           },
           {
-            "@tag": "ERROR_FB_HOVERCARD",
-            "#text": "Nie znaleziono żądanego użytkownika"
-          },
-          {
-            "@tag": "ERROR_HOVERCARD",
-            "#text": "Sorki, nie znaleziono danych albo coś poszło nie tak."
-          },
-          {
-            "@tag": "ERROR_TWIT_HOVERCARD",
-            "#text": "Błędna nazwa użytkownika lub przekroczono zapytania do Twitter'a.<br/><small>Proszę zwrócić uwagę, że Twitter zezwala tylko na 150 zapytań na godzinę.</small>."
-          },
-          {
             "@tag": "FORUM",
             "#text": "Dział"
           },
@@ -9760,10 +9748,6 @@
           {
             "@tag": "LOADING_FB_HOVERCARD",
             "#text": "Wczytywanie informacji z Facebook'a..."
-          },
-          {
-            "@tag": "LOADING_HOVERCARD",
-            "#text": "Wczytywanie informacji o użytkowniku ..."
           },
           {
             "@tag": "LOADING_TWIT_HOVERCARD",
