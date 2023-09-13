@@ -796,9 +796,9 @@ public class BBCode : IBBCode, IHaveServiceLocator
             if (messageId > 0)
             {
                 imageHtml =
-                    $"<a href=\"${{http}}${{inner}}\" data-gallery=\"#blueimp-gallery-{messageId}\"><img src=\"${{http}}${{inner}}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" onerror=\"this.style.display='none'\" style=\"max-height:${{height}}px;\"></a>";
+                    $"<a href=\"${{http}}${{inner}}\" data-toggle=\"lightbox\" data-gallery=\"#gallery-{messageId}\"><img src=\"${{http}}${{inner}}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" onerror=\"this.style.display='none'\" style=\"max-height:${{height}}px;\"></a>";
                 imageHtmlWithDesc =
-                    $"<a href=\"${{http}}${{inner}}\" alt=\"${{description}}\" title=\"${{description}}\" data-gallery=\"#blueimp-gallery-{messageId}\"><img src=\"${{http}}${{inner}}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" onerror=\"this.style.display='none'\" style=\"max-height:${{height}}px;\"></a>";
+                    $"<a href=\"${{http}}${{inner}}\" alt=\"${{description}}\" title=\"${{description}}\" data-toggle=\"lightbox\" data-gallery=\"#gallery-{messageId}\"><img src=\"${{http}}${{inner}}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" onerror=\"this.style.display='none'\" style=\"max-height:${{height}}px;\"></a>";
             }
             else
             {

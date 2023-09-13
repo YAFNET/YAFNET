@@ -6,6 +6,12 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    // Gallery
+    for (const el of document.querySelectorAll('[data-toggle="lightbox"]')) {
+        const lightBox = window.bootstrap.Lightbox;
+        el.addEventListener("click", lightBox.initialize);
+    }
+
     // Main Menu
     document.querySelectorAll(".dropdown-menu a.dropdown-toggle").forEach(menu => {
         menu.addEventListener("click", (event) => {
@@ -128,6 +134,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".attachedImage").forEach(imageLink => {
         var messageId = imageLink.parentNode.id;
 
-        imageLink.setAttribute("data-gallery", `#blueimp-gallery-${messageId}`);
+        imageLink.setAttribute("data-gallery", `#gallery-${messageId}`);
     });
 });

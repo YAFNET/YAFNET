@@ -51,26 +51,26 @@ public class AlbumImage : BBCodeControl
         }
 
         writer.Write(
-            @"<div class=""card text-bg-dark"" style=""max-width:{0}px"">",
+            """<div class="card text-bg-dark" style="max-width:{0}px">""",
             this.PageBoardContext.BoardSettings.ImageThumbnailMaxWidth);
 
         writer.Write(
-            @"<a href=""{0}resource.ashx?image={1}"" data-gallery=""#blueimp-gallery-{2}"" title=""{1}"">",
+            """<a href="{0}resource.ashx?image={1}" data-toggle="lightbox" data-gallery="#gallery-{2}" title="{1}">""",
             BoardInfo.ForumClientFileRoot,
             imageId,
             this.MessageID.Value);
 
         writer.Write(
-            @"<img src=""{0}resource.ashx?imgprv={1}"" class=""img-user-posted card-img-top"" style=""max-height:{2}px;object-fit:contain"" alt=""{1}"">",
+            """<img src="{0}resource.ashx?imgprv={1}" class="img-user-posted card-img-top" style="max-height:{2}px;object-fit:contain" alt="{1}">""",
             BoardInfo.ForumClientFileRoot,
             imageId,
             this.PageBoardContext.BoardSettings.ImageThumbnailMaxHeight);
 
         writer.Write("</a>");
 
-        writer.Write(@"<div class=""card-body py-1"">");
+        writer.Write("""<div class="card-body py-1">""");
 
-        writer.Write(@"<p class=""card-text text-center small"">{0}</p>", this.GetText("IMAGE_RESIZE_ENLARGE"));
+        writer.Write("""<p class="card-text text-center small">{0}</p>""", this.GetText("IMAGE_RESIZE_ENLARGE"));
 
         writer.Write(@"</div></div>");
     }

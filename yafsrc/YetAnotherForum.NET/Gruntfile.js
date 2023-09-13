@@ -5,12 +5,14 @@
  * Try: http://24ways.org/2013/grunt-is-not-weird-and-hard/
  */
 
-
+const lightBoxWebpackConfig = require("./Scripts/bs5-lightbox/webpack.cdn.js");
 module.exports = function(grunt) {
-
     // CONFIGURATION
     grunt.initConfig({
         pkg: grunt.file.readJSON("package.json"),
+        webpack: {
+            lightBox: lightBoxWebpackConfig
+        },
 
         copy: {
             bootstrap: {
@@ -288,10 +290,8 @@ module.exports = function(grunt) {
                     "Scripts/bootstrap-notify.js",
                     "Scripts/forum/bootstrap-touchspin.js",
                     "Scripts/select2.js",
-                    "Scripts/blueimp-gallery/blueimp-gallery.js",
-                    "Scripts/blueimp-gallery/blueimp-gallery-indicator.js",
-                    "Scripts/blueimp-gallery/jquery.blueimp-gallery.js",
-                    "Scripts/jquery.hovercard.js",
+                    "Scripts/bs5-lightbox/dist/index.bundle.min.js",
+                    "Scripts/forum/yaf.hoverCard.js",
                     "Scripts/prism.js",
                     "node_modules/long-press-event/src/long-press-event.js",
                     "Scripts/forum/yaf.Utilities.js",
@@ -318,10 +318,8 @@ module.exports = function(grunt) {
                     "Scripts/bootstrap-notify.js",
                     "Scripts/forum/bootstrap-touchspin.js",
                     "Scripts/select2.js",
-                    "Scripts/blueimp-gallery/blueimp-gallery.js",
-                    "Scripts/blueimp-gallery/blueimp-gallery-indicator.js",
-                    "Scripts/blueimp-gallery/jquery.blueimp-gallery.js",
-                    "Scripts/jquery.hovercard.js",
+                    "Scripts/bs5-lightbox/dist/index.bundle.min.js",
+                    "Scripts/forum/yaf.hoverCard.js",
                     "Scripts/prism.js",
                     "node_modules/long-press-event/src/long-press-event.js",
                     "Scripts/forum/yaf.Utilities.js",
@@ -349,9 +347,8 @@ module.exports = function(grunt) {
                     "Scripts/bootstrap-notify.js",
                     "Scripts/forum/bootstrap-touchspin.js",
                     "Scripts/select2.js",
-                    "Scripts/blueimp-gallery/blueimp-gallery.js",
-                    "Scripts/blueimp-gallery/jquery.blueimp-gallery.js",
-                    "Scripts/jquery.hovercard.js",
+                    "Scripts/bs5-lightbox/dist/index.bundle.min.js",
+                    "Scripts/forum/yaf.hoverCard.js",
                     "Scripts/prism.js",
                     "node_modules/long-press-event/src/long-press-event.js",
                     "Scripts/forum/yaf.Utilities.js",
@@ -375,9 +372,8 @@ module.exports = function(grunt) {
                     "Scripts/bootstrap-notify.js",
                     "Scripts/forum/bootstrap-touchspin.js",
                     "Scripts/select2.js",
-                    "Scripts/blueimp-gallery/blueimp-gallery.js",
-                    "Scripts/blueimp-gallery/jquery.blueimp-gallery.js",
-                    "Scripts/jquery.hovercard.js",
+                    "Scripts/bs5-lightbox/dist/index.bundle.min.js",
+                    "Scripts/forum/yaf.hoverCard.js",
                     "Scripts/prism.js",
                     "node_modules/long-press-event/src/long-press-event.js",
                     "Scripts/forum/yaf.Utilities.js",
@@ -572,10 +568,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-shell");
     grunt.loadNpmTasks("grunt-replace");
     grunt.loadNpmTasks("grunt-file-append");
+    grunt.loadNpmTasks("grunt-webpack");
 
     grunt.registerTask("default",
         [
-            "devUpdate", "uglify", "sass", "postcss", "cssmin"
+            "devUpdate", "webpack:lightBox", "uglify", "sass", "postcss", "cssmin"
         ]);
 
     grunt.registerTask("updateBootstrap",

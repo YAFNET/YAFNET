@@ -8,6 +8,7 @@
 <%@ Import Namespace="ServiceStack.Text" %>
 
 
+
 <div class="bg-light">
     <div class="container">
         <asp:Repeater runat="server" ID="AlbumImages"
@@ -24,7 +25,7 @@
                       <div class="card mb-4 shadow-sm">
                           <a href='<%# "{0}resource.ashx?image={1}".Fmt(BoardInfo.ForumClientFileRoot, this.Eval("ID")) %>'
                              title='<%#  "{0} - Album IMG Code: [ALBUMIMG]{1}[/ALBUMIMG]".Fmt(this.HtmlEncode(this.Eval("Caption") == null ? this.Eval("FileName") : this.Eval("Caption")), this.UserAlbum.ID) %>'
-                             data-gallery>
+                             data-toggle="lightbox" data-gallery='<%# this.UserAlbum.ID %>' data-caption='<%# this.Eval("Caption") == null ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption")).Trim()%>'>
                               <img src='<%# "{0}resource.ashx?imgprv={1}".Fmt(BoardInfo.ForumClientFileRoot, this.Eval("ID")) %>'
                                    class="card-img-top"
                                    alt='<%# this.Eval("Caption") == null ? this.HtmlEncode(this.Eval("FileName")) : this.HtmlEncode(this.Eval("Caption"))%>'

@@ -10301,1267 +10301,308 @@ document.addEventListener("DOMContentLoaded", function() {
     return select2;
 });
 
-(function(factory) {
+!function() {
     "use strict";
-    if (typeof define === "function" && define.amd) {
-        define([ "./blueimp-helper" ], factory);
-    } else {
-        window.blueimp = window.blueimp || {};
-        window.blueimp.Gallery = factory(window.blueimp.helper || window.jQuery);
-    }
-})(function($) {
-    "use strict";
-    function Gallery(list, options) {
-        if (document.body.style.maxHeight === undefined) {
-            return null;
-        }
-        if (!this || this.options !== Gallery.prototype.options) {
-            return new Gallery(list, options);
-        }
-        if (!list || !list.length) {
-            this.console.log("blueimp Gallery: No or empty list provided as first argument.", list);
-            return;
-        }
-        this.list = list;
-        this.num = list.length;
-        this.initOptions(options);
-        this.initialize();
-    }
-    $.extend(Gallery.prototype, {
-        options: {
-            container: "#blueimp-gallery",
-            slidesContainer: "div",
-            titleElement: "h3",
-            displayClass: "blueimp-gallery-display",
-            controlsClass: "blueimp-gallery-controls",
-            singleClass: "blueimp-gallery-single",
-            leftEdgeClass: "blueimp-gallery-left",
-            rightEdgeClass: "blueimp-gallery-right",
-            playingClass: "blueimp-gallery-playing",
-            svgasimgClass: "blueimp-gallery-svgasimg",
-            smilClass: "blueimp-gallery-smil",
-            slideClass: "slide",
-            slideActiveClass: "slide-active",
-            slidePrevClass: "slide-prev",
-            slideNextClass: "slide-next",
-            slideLoadingClass: "slide-loading",
-            slideErrorClass: "slide-error",
-            slideContentClass: "slide-content",
-            toggleClass: "toggle",
-            prevClass: "prev",
-            nextClass: "next",
-            closeClass: "close",
-            playPauseClass: "play-pause",
-            typeProperty: "type",
-            titleProperty: "title",
-            altTextProperty: "alt",
-            urlProperty: "href",
-            srcsetProperty: "srcset",
-            sizesProperty: "sizes",
-            sourcesProperty: "sources",
-            displayTransition: true,
-            clearSlides: true,
-            toggleControlsOnEnter: true,
-            toggleControlsOnSlideClick: true,
-            toggleSlideshowOnSpace: true,
-            enableKeyboardNavigation: true,
-            closeOnEscape: true,
-            closeOnSlideClick: true,
-            closeOnSwipeUpOrDown: true,
-            closeOnHashChange: true,
-            emulateTouchEvents: true,
-            stopTouchEventsPropagation: false,
-            hidePageScrollbars: true,
-            disableScroll: true,
-            carousel: false,
-            continuous: true,
-            unloadElements: true,
-            startSlideshow: false,
-            slideshowInterval: 5e3,
-            slideshowDirection: "ltr",
-            index: 0,
-            preloadRange: 2,
-            transitionDuration: 300,
-            slideshowTransitionDuration: 500,
-            event: undefined,
-            onopen: undefined,
-            onopened: undefined,
-            onslide: undefined,
-            onslideend: undefined,
-            onslidecomplete: undefined,
-            onclose: undefined,
-            onclosed: undefined
-        },
-        carouselOptions: {
-            hidePageScrollbars: false,
-            toggleControlsOnEnter: false,
-            toggleSlideshowOnSpace: false,
-            enableKeyboardNavigation: false,
-            closeOnEscape: false,
-            closeOnSlideClick: false,
-            closeOnSwipeUpOrDown: false,
-            closeOnHashChange: false,
-            disableScroll: false,
-            startSlideshow: true
-        },
-        console: window.console && typeof window.console.log === "function" ? window.console : {
-            log: function() {}
-        },
-        support: function(element) {
-            var support = {
-                source: !!window.HTMLSourceElement,
-                picture: !!window.HTMLPictureElement,
-                svgasimg: document.implementation.hasFeature("http://www.w3.org/TR/SVG11/feature#Image", "1.1"),
-                smil: !!document.createElementNS && /SVGAnimate/.test(document.createElementNS("http://www.w3.org/2000/svg", "animate").toString()),
-                touch: window.ontouchstart !== undefined || window.DocumentTouch && document instanceof DocumentTouch
-            };
-            var transitions = {
-                webkitTransition: {
-                    end: "webkitTransitionEnd",
-                    prefix: "-webkit-"
-                },
-                MozTransition: {
-                    end: "transitionend",
-                    prefix: "-moz-"
-                },
-                OTransition: {
-                    end: "otransitionend",
-                    prefix: "-o-"
-                },
-                transition: {
-                    end: "transitionend",
-                    prefix: ""
-                }
-            };
-            var prop;
-            for (prop in transitions) {
-                if (Object.prototype.hasOwnProperty.call(transitions, prop) && element.style[prop] !== undefined) {
-                    support.transition = transitions[prop];
-                    support.transition.name = prop;
-                    break;
-                }
-            }
-            function elementTests() {
-                var transition = support.transition;
-                var prop;
-                var translateZ;
-                document.body.appendChild(element);
-                if (transition) {
-                    prop = transition.name.slice(0, -9) + "ransform";
-                    if (element.style[prop] !== undefined) {
-                        element.style[prop] = "translateZ(0)";
-                        translateZ = window.getComputedStyle(element).getPropertyValue(transition.prefix + "transform");
-                        support.transform = {
-                            prefix: transition.prefix,
-                            name: prop,
-                            translate: true,
-                            translateZ: !!translateZ && translateZ !== "none"
-                        };
-                    }
-                }
-                document.body.removeChild(element);
-            }
-            if (document.body) {
-                elementTests();
-            } else {
-                $(document).on("DOMContentLoaded", elementTests);
-            }
-            return support;
-        }(document.createElement("div")),
-        requestAnimationFrame: window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame,
-        cancelAnimationFrame: window.cancelAnimationFrame || window.webkitCancelRequestAnimationFrame || window.webkitCancelAnimationFrame || window.mozCancelAnimationFrame,
-        initialize: function() {
-            this.initStartIndex();
-            if (this.initWidget() === false) {
-                return false;
-            }
-            this.initEventListeners();
-            this.onslide(this.index);
-            this.ontransitionend();
-            if (this.options.startSlideshow) {
-                this.play();
-            }
-        },
-        slide: function(to, duration) {
-            window.clearTimeout(this.timeout);
-            var index = this.index;
-            var direction;
-            var naturalDirection;
-            var diff;
-            if (index === to || this.num === 1) {
-                return;
-            }
-            if (!duration) {
-                duration = this.options.transitionDuration;
-            }
-            if (this.support.transform) {
-                if (!this.options.continuous) {
-                    to = this.circle(to);
-                }
-                direction = Math.abs(index - to) / (index - to);
-                if (this.options.continuous) {
-                    naturalDirection = direction;
-                    direction = -this.positions[this.circle(to)] / this.slideWidth;
-                    if (direction !== naturalDirection) {
-                        to = -direction * this.num + to;
-                    }
-                }
-                diff = Math.abs(index - to) - 1;
-                while (diff) {
-                    diff -= 1;
-                    this.move(this.circle((to > index ? to : index) - diff - 1), this.slideWidth * direction, 0);
-                }
-                to = this.circle(to);
-                this.move(index, this.slideWidth * direction, duration);
-                this.move(to, 0, duration);
-                if (this.options.continuous) {
-                    this.move(this.circle(to - direction), -(this.slideWidth * direction), 0);
-                }
-            } else {
-                to = this.circle(to);
-                this.animate(index * -this.slideWidth, to * -this.slideWidth, duration);
-            }
-            this.onslide(to);
-        },
-        getIndex: function() {
-            return this.index;
-        },
-        getNumber: function() {
-            return this.num;
-        },
-        prev: function() {
-            if (this.options.continuous || this.index) {
-                this.slide(this.index - 1);
-            }
-        },
-        next: function() {
-            if (this.options.continuous || this.index < this.num - 1) {
-                this.slide(this.index + 1);
-            }
-        },
-        play: function(time) {
-            var that = this;
-            var nextIndex = this.index + (this.options.slideshowDirection === "rtl" ? -1 : 1);
-            window.clearTimeout(this.timeout);
-            this.interval = time || this.options.slideshowInterval;
-            if (this.elements[this.index] > 1) {
-                this.timeout = this.setTimeout(!this.requestAnimationFrame && this.slide || function(to, duration) {
-                    that.animationFrameId = that.requestAnimationFrame.call(window, function() {
-                        that.slide(to, duration);
-                    });
-                }, [ nextIndex, this.options.slideshowTransitionDuration ], this.interval);
-            }
-            this.container.addClass(this.options.playingClass);
-            this.slidesContainer[0].setAttribute("aria-live", "off");
-            if (this.playPauseElement.length) {
-                this.playPauseElement[0].setAttribute("aria-pressed", "true");
-            }
-        },
-        pause: function() {
-            window.clearTimeout(this.timeout);
-            this.interval = null;
-            if (this.cancelAnimationFrame) {
-                this.cancelAnimationFrame.call(window, this.animationFrameId);
-                this.animationFrameId = null;
-            }
-            this.container.removeClass(this.options.playingClass);
-            this.slidesContainer[0].setAttribute("aria-live", "polite");
-            if (this.playPauseElement.length) {
-                this.playPauseElement[0].setAttribute("aria-pressed", "false");
-            }
-        },
-        add: function(list) {
-            var i;
-            if (!list.concat) {
-                list = Array.prototype.slice.call(list);
-            }
-            if (!this.list.concat) {
-                this.list = Array.prototype.slice.call(this.list);
-            }
-            this.list = this.list.concat(list);
-            this.num = this.list.length;
-            if (this.num > 2 && this.options.continuous === null) {
-                this.options.continuous = true;
-                this.container.removeClass(this.options.leftEdgeClass);
-            }
-            this.container.removeClass(this.options.rightEdgeClass).removeClass(this.options.singleClass);
-            for (i = this.num - list.length; i < this.num; i += 1) {
-                this.addSlide(i);
-                this.positionSlide(i);
-            }
-            this.positions.length = this.num;
-            this.initSlides(true);
-        },
-        resetSlides: function() {
-            this.slidesContainer.empty();
-            this.unloadAllSlides();
-            this.slides = [];
-        },
-        handleClose: function() {
-            var options = this.options;
-            this.destroyEventListeners();
-            this.pause();
-            this.container[0].style.display = "none";
-            this.container.removeClass(options.displayClass).removeClass(options.singleClass).removeClass(options.leftEdgeClass).removeClass(options.rightEdgeClass);
-            if (options.hidePageScrollbars) {
-                document.body.style.overflow = this.bodyOverflowStyle;
-            }
-            if (this.options.clearSlides) {
-                this.resetSlides();
-            }
-            if (this.options.onclosed) {
-                this.options.onclosed.call(this);
-            }
-        },
-        close: function() {
-            var that = this;
-            function closeHandler(event) {
-                if (event.target === that.container[0]) {
-                    that.container.off(that.support.transition.end, closeHandler);
-                    that.handleClose();
-                }
-            }
-            if (this.options.onclose) {
-                this.options.onclose.call(this);
-            }
-            if (this.support.transition && this.options.displayTransition) {
-                this.container.on(this.support.transition.end, closeHandler);
-                this.container.removeClass(this.options.displayClass);
-            } else {
-                this.handleClose();
-            }
-        },
-        circle: function(index) {
-            return (this.num + index % this.num) % this.num;
-        },
-        move: function(index, dist, duration) {
-            this.translateX(index, dist, duration);
-            this.positions[index] = dist;
-        },
-        translate: function(index, x, y, duration) {
-            if (!this.slides[index]) return;
-            var style = this.slides[index].style;
-            var transition = this.support.transition;
-            var transform = this.support.transform;
-            style[transition.name + "Duration"] = duration + "ms";
-            style[transform.name] = "translate(" + x + "px, " + y + "px)" + (transform.translateZ ? " translateZ(0)" : "");
-        },
-        translateX: function(index, x, duration) {
-            this.translate(index, x, 0, duration);
-        },
-        translateY: function(index, y, duration) {
-            this.translate(index, 0, y, duration);
-        },
-        animate: function(from, to, duration) {
-            if (!duration) {
-                this.slidesContainer[0].style.left = to + "px";
-                return;
-            }
-            var that = this;
-            var start = new Date().getTime();
-            var timer = window.setInterval(function() {
-                var timeElap = new Date().getTime() - start;
-                if (timeElap > duration) {
-                    that.slidesContainer[0].style.left = to + "px";
-                    that.ontransitionend();
-                    window.clearInterval(timer);
-                    return;
-                }
-                that.slidesContainer[0].style.left = (to - from) * (Math.floor(timeElap / duration * 100) / 100) + from + "px";
-            }, 4);
-        },
-        preventDefault: function(event) {
-            if (event.preventDefault) {
-                event.preventDefault();
-            } else {
-                event.returnValue = false;
-            }
-        },
-        stopPropagation: function(event) {
-            if (event.stopPropagation) {
-                event.stopPropagation();
-            } else {
-                event.cancelBubble = true;
-            }
-        },
-        onresize: function() {
-            this.initSlides(true);
-        },
-        onhashchange: function() {
-            if (this.options.closeOnHashChange) {
-                this.close();
-            }
-        },
-        onmousedown: function(event) {
-            if (event.which && event.which === 1 && event.target.nodeName !== "VIDEO" && event.target.nodeName !== "AUDIO") {
-                event.preventDefault();
-                (event.originalEvent || event).touches = [ {
-                    pageX: event.pageX,
-                    pageY: event.pageY
-                } ];
-                this.ontouchstart(event);
-            }
-        },
-        onmousemove: function(event) {
-            if (this.touchStart) {
-                (event.originalEvent || event).touches = [ {
-                    pageX: event.pageX,
-                    pageY: event.pageY
-                } ];
-                this.ontouchmove(event);
-            }
-        },
-        onmouseup: function(event) {
-            if (this.touchStart) {
-                this.ontouchend(event);
-                delete this.touchStart;
-            }
-        },
-        onmouseout: function(event) {
-            if (this.touchStart) {
-                var target = event.target;
-                var related = event.relatedTarget;
-                if (!related || related !== target && !$.contains(target, related)) {
-                    this.onmouseup(event);
-                }
-            }
-        },
-        ontouchstart: function(event) {
-            if (this.options.stopTouchEventsPropagation) {
-                this.stopPropagation(event);
-            }
-            var touch = (event.originalEvent || event).touches[0];
-            this.touchStart = {
-                x: touch.pageX,
-                y: touch.pageY,
-                time: Date.now()
-            };
-            this.isScrolling = undefined;
-            this.touchDelta = {};
-        },
-        ontouchmove: function(event) {
-            if (this.options.stopTouchEventsPropagation) {
-                this.stopPropagation(event);
-            }
-            var touches = (event.originalEvent || event).touches;
-            var touch = touches[0];
-            var scale = (event.originalEvent || event).scale;
-            var index = this.index;
-            var touchDeltaX;
-            var indices;
-            if (touches.length > 1 || scale && scale !== 1) {
-                return;
-            }
-            if (this.options.disableScroll) {
-                event.preventDefault();
-            }
-            this.touchDelta = {
-                x: touch.pageX - this.touchStart.x,
-                y: touch.pageY - this.touchStart.y
-            };
-            touchDeltaX = this.touchDelta.x;
-            if (this.isScrolling === undefined) {
-                this.isScrolling = this.isScrolling || Math.abs(touchDeltaX) < Math.abs(this.touchDelta.y);
-            }
-            if (!this.isScrolling) {
-                event.preventDefault();
-                window.clearTimeout(this.timeout);
-                if (this.options.continuous) {
-                    indices = [ this.circle(index + 1), index, this.circle(index - 1) ];
-                } else {
-                    this.touchDelta.x = touchDeltaX = touchDeltaX / (!index && touchDeltaX > 0 || index === this.num - 1 && touchDeltaX < 0 ? Math.abs(touchDeltaX) / this.slideWidth + 1 : 1);
-                    indices = [ index ];
-                    if (index) {
-                        indices.push(index - 1);
-                    }
-                    if (index < this.num - 1) {
-                        indices.unshift(index + 1);
-                    }
-                }
-                while (indices.length) {
-                    index = indices.pop();
-                    this.translateX(index, touchDeltaX + this.positions[index], 0);
-                }
-            } else if (!this.options.carousel) {
-                this.translateY(index, this.touchDelta.y + this.positions[index], 0);
-            }
-        },
-        ontouchend: function(event) {
-            if (this.options.stopTouchEventsPropagation) {
-                this.stopPropagation(event);
-            }
-            var index = this.index;
-            var absTouchDeltaX = Math.abs(this.touchDelta.x);
-            var slideWidth = this.slideWidth;
-            var duration = Math.ceil(this.options.transitionDuration * (1 - absTouchDeltaX / slideWidth) / 2);
-            var isValidSlide = absTouchDeltaX > 20;
-            var isPastBounds = !index && this.touchDelta.x > 0 || index === this.num - 1 && this.touchDelta.x < 0;
-            var isValidClose = !isValidSlide && this.options.closeOnSwipeUpOrDown && Math.abs(this.touchDelta.y) > 20;
-            var direction;
-            var indexForward;
-            var indexBackward;
-            var distanceForward;
-            var distanceBackward;
-            if (this.options.continuous) {
-                isPastBounds = false;
-            }
-            direction = this.touchDelta.x < 0 ? -1 : 1;
-            if (!this.isScrolling) {
-                if (isValidSlide && !isPastBounds) {
-                    indexForward = index + direction;
-                    indexBackward = index - direction;
-                    distanceForward = slideWidth * direction;
-                    distanceBackward = -slideWidth * direction;
-                    if (this.options.continuous) {
-                        this.move(this.circle(indexForward), distanceForward, 0);
-                        this.move(this.circle(index - 2 * direction), distanceBackward, 0);
-                    } else if (indexForward >= 0 && indexForward < this.num) {
-                        this.move(indexForward, distanceForward, 0);
-                    }
-                    this.move(index, this.positions[index] + distanceForward, duration);
-                    this.move(this.circle(indexBackward), this.positions[this.circle(indexBackward)] + distanceForward, duration);
-                    index = this.circle(indexBackward);
-                    this.onslide(index);
-                } else {
-                    if (this.options.continuous) {
-                        this.move(this.circle(index - 1), -slideWidth, duration);
-                        this.move(index, 0, duration);
-                        this.move(this.circle(index + 1), slideWidth, duration);
-                    } else {
-                        if (index) {
-                            this.move(index - 1, -slideWidth, duration);
-                        }
-                        this.move(index, 0, duration);
-                        if (index < this.num - 1) {
-                            this.move(index + 1, slideWidth, duration);
-                        }
-                    }
-                }
-            } else {
-                if (isValidClose) {
-                    this.close();
-                } else {
-                    this.translateY(index, 0, duration);
-                }
-            }
-        },
-        ontouchcancel: function(event) {
-            if (this.touchStart) {
-                this.ontouchend(event);
-                delete this.touchStart;
-            }
-        },
-        ontransitionend: function(event) {
-            var slide = this.slides[this.index];
-            if (!event || slide === event.target) {
-                if (this.interval) {
-                    this.play();
-                }
-                this.setTimeout(this.options.onslideend, [ this.index, slide ]);
-            }
-        },
-        oncomplete: function(event) {
-            var target = event.target || event.srcElement;
-            var parent = target && target.parentNode;
-            var index;
-            if (!target || !parent) {
-                return;
-            }
-            index = this.getNodeIndex(parent);
-            $(parent).removeClass(this.options.slideLoadingClass);
-            if (event.type === "error") {
-                $(parent).addClass(this.options.slideErrorClass);
-                this.elements[index] = 3;
-            } else {
-                this.elements[index] = 2;
-            }
-            if (target.clientHeight > this.container[0].clientHeight) {
-                target.style.maxHeight = this.container[0].clientHeight;
-            }
-            if (this.interval && this.slides[this.index] === parent) {
-                this.play();
-            }
-            this.setTimeout(this.options.onslidecomplete, [ index, parent ]);
-        },
-        onload: function(event) {
-            this.oncomplete(event);
-        },
-        onerror: function(event) {
-            this.oncomplete(event);
-        },
-        onkeydown: function(event) {
-            switch (event.which || event.keyCode) {
-              case 13:
-                if (this.options.toggleControlsOnEnter) {
-                    this.preventDefault(event);
-                    this.toggleControls();
-                }
-                break;
-
-              case 27:
-                if (this.options.closeOnEscape) {
-                    this.close();
-                    event.stopImmediatePropagation();
-                }
-                break;
-
-              case 32:
-                if (this.options.toggleSlideshowOnSpace) {
-                    this.preventDefault(event);
-                    this.toggleSlideshow();
-                }
-                break;
-
-              case 37:
-                if (this.options.enableKeyboardNavigation) {
-                    this.preventDefault(event);
-                    this.prev();
-                }
-                break;
-
-              case 39:
-                if (this.options.enableKeyboardNavigation) {
-                    this.preventDefault(event);
-                    this.next();
-                }
-                break;
-            }
-        },
-        handleClick: function(event) {
-            var options = this.options;
-            var target = event.target || event.srcElement;
-            var parent = target.parentNode;
-            function isTarget(className) {
-                return $(target).hasClass(className) || $(parent).hasClass(className);
-            }
-            if (isTarget(options.toggleClass)) {
-                this.preventDefault(event);
-                this.toggleControls();
-            } else if (isTarget(options.prevClass)) {
-                this.preventDefault(event);
-                this.prev();
-            } else if (isTarget(options.nextClass)) {
-                this.preventDefault(event);
-                this.next();
-            } else if (isTarget(options.closeClass)) {
-                this.preventDefault(event);
-                this.close();
-            } else if (isTarget(options.playPauseClass)) {
-                this.preventDefault(event);
-                this.toggleSlideshow();
-            } else if (parent === this.slidesContainer[0]) {
-                if (options.closeOnSlideClick) {
-                    this.preventDefault(event);
-                    this.close();
-                } else if (options.toggleControlsOnSlideClick) {
-                    this.preventDefault(event);
-                    this.toggleControls();
-                }
-            } else if (parent.parentNode && parent.parentNode === this.slidesContainer[0]) {
-                if (options.toggleControlsOnSlideClick) {
-                    this.preventDefault(event);
-                    this.toggleControls();
-                }
-            }
-        },
-        onclick: function(event) {
-            if (this.options.emulateTouchEvents && this.touchDelta && (Math.abs(this.touchDelta.x) > 20 || Math.abs(this.touchDelta.y) > 20)) {
-                delete this.touchDelta;
-                return;
-            }
-            return this.handleClick(event);
-        },
-        updateEdgeClasses: function(index) {
-            if (!index) {
-                this.container.addClass(this.options.leftEdgeClass);
-            } else {
-                this.container.removeClass(this.options.leftEdgeClass);
-            }
-            if (index === this.num - 1) {
-                this.container.addClass(this.options.rightEdgeClass);
-            } else {
-                this.container.removeClass(this.options.rightEdgeClass);
-            }
-        },
-        updateActiveSlide: function(oldIndex, newIndex) {
-            var slides = this.slides;
-            var options = this.options;
-            var list = [ {
-                index: newIndex,
-                method: "addClass",
-                hidden: false
-            }, {
-                index: oldIndex,
-                method: "removeClass",
-                hidden: true
-            } ];
-            var item, index;
-            while (list.length) {
-                item = list.pop();
-                $(slides[item.index])[item.method](options.slideActiveClass);
-                index = this.circle(item.index - 1);
-                if (options.continuous || index < item.index) {
-                    $(slides[index])[item.method](options.slidePrevClass);
-                }
-                index = this.circle(item.index + 1);
-                if (options.continuous || index > item.index) {
-                    $(slides[index])[item.method](options.slideNextClass);
-                }
-            }
-            this.slides[oldIndex].setAttribute("aria-hidden", "true");
-            this.slides[newIndex].removeAttribute("aria-hidden");
-        },
-        handleSlide: function(oldIndex, newIndex) {
-            if (!this.options.continuous) {
-                this.updateEdgeClasses(newIndex);
-            }
-            this.updateActiveSlide(oldIndex, newIndex);
-            this.loadElements(newIndex);
-            if (this.options.unloadElements) {
-                this.unloadElements(oldIndex, newIndex);
-            }
-            this.setTitle(newIndex);
-        },
-        onslide: function(index) {
-            this.handleSlide(this.index, index);
-            this.index = index;
-            this.setTimeout(this.options.onslide, [ index, this.slides[index] ]);
-        },
-        setTitle: function(index) {
-            var firstChild = this.slides[index].firstChild;
-            var text = firstChild.title || firstChild.alt;
-            var titleElement = this.titleElement;
-            if (titleElement.length) {
-                this.titleElement.empty();
-                if (text) {
-                    titleElement[0].appendChild(document.createTextNode(text));
-                }
-            }
-        },
-        setTimeout: function(func, args, wait) {
-            var that = this;
-            return func && window.setTimeout(function() {
-                func.apply(that, args || []);
-            }, wait || 0);
-        },
-        imageFactory: function(obj, callback) {
-            var options = this.options;
-            var that = this;
-            var url = obj;
-            var img = this.imagePrototype.cloneNode(false);
-            var picture;
-            var called;
-            var sources;
-            var srcset;
-            var sizes;
-            var title;
-            var altText;
-            var i;
-            function callbackWrapper(event) {
-                if (!called) {
-                    event = {
-                        type: event.type,
-                        target: picture || img
-                    };
-                    if (!event.target.parentNode) {
-                        return that.setTimeout(callbackWrapper, [ event ]);
-                    }
-                    called = true;
-                    $(img).off("load error", callbackWrapper);
-                    callback(event);
-                }
-            }
-            if (typeof url !== "string") {
-                url = this.getItemProperty(obj, options.urlProperty);
-                sources = this.support.picture && this.support.source && this.getItemProperty(obj, options.sourcesProperty);
-                srcset = this.getItemProperty(obj, options.srcsetProperty);
-                sizes = this.getItemProperty(obj, options.sizesProperty);
-                title = this.getItemProperty(obj, options.titleProperty);
-                altText = this.getItemProperty(obj, options.altTextProperty) || title;
-            }
-            img.draggable = false;
-            if (title) {
-                img.title = title;
-            }
-            if (altText) {
-                img.alt = altText;
-            }
-            $(img).on("load error", callbackWrapper);
-            if (sources && sources.length) {
-                picture = this.picturePrototype.cloneNode(false);
-                for (i = 0; i < sources.length; i += 1) {
-                    picture.appendChild($.extend(this.sourcePrototype.cloneNode(false), sources[i]));
-                }
-                picture.appendChild(img);
-                $(picture).addClass(options.toggleClass);
-            }
-            if (srcset) {
-                if (sizes) {
-                    img.sizes = sizes;
-                }
-                img.srcset = srcset;
-            }
-            img.src = url;
-            if (picture) return picture;
-            return img;
-        },
-        createElement: function(obj, callback) {
-            var type = obj && this.getItemProperty(obj, this.options.typeProperty);
-            var factory = type && this[type.split("/")[0] + "Factory"] || this.imageFactory;
-            var element = obj && factory.call(this, obj, callback);
-            if (!element) {
-                element = this.elementPrototype.cloneNode(false);
-                this.setTimeout(callback, [ {
-                    type: "error",
-                    target: element
-                } ]);
-            }
-            $(element).addClass(this.options.slideContentClass);
-            return element;
-        },
-        iteratePreloadRange: function(index, func) {
-            var num = this.num;
-            var options = this.options;
-            var limit = Math.min(num, options.preloadRange * 2 + 1);
-            var j = index;
-            var i;
-            for (i = 0; i < limit; i += 1) {
-                j += i * (i % 2 === 0 ? -1 : 1);
-                if (j < 0 || j >= num) {
-                    if (!options.continuous) continue;
-                    j = this.circle(j);
-                }
-                func.call(this, j);
-            }
-        },
-        loadElement: function(index) {
-            if (!this.elements[index]) {
-                if (this.slides[index].firstChild) {
-                    this.elements[index] = $(this.slides[index]).hasClass(this.options.slideErrorClass) ? 3 : 2;
-                } else {
-                    this.elements[index] = 1;
-                    $(this.slides[index]).addClass(this.options.slideLoadingClass);
-                    this.slides[index].appendChild(this.createElement(this.list[index], this.proxyListener));
-                }
-            }
-        },
-        loadElements: function(index) {
-            this.iteratePreloadRange(index, this.loadElement);
-        },
-        unloadElements: function(oldIndex, newIndex) {
-            var preloadRange = this.options.preloadRange;
-            this.iteratePreloadRange(oldIndex, function(i) {
-                var diff = Math.abs(i - newIndex);
-                if (diff > preloadRange && diff + preloadRange < this.num) {
-                    this.unloadSlide(i);
-                    delete this.elements[i];
-                }
+    var t = {
+        d: function(e, n) {
+            for (var a in n) t.o(n, a) && !t.o(e, a) && Object.defineProperty(e, a, {
+                enumerable: !0,
+                get: n[a]
             });
         },
-        addSlide: function(index) {
-            var slide = this.slidePrototype.cloneNode(false);
-            slide.setAttribute("data-index", index);
-            slide.setAttribute("aria-hidden", "true");
-            this.slidesContainer[0].appendChild(slide);
-            this.slides.push(slide);
-        },
-        positionSlide: function(index) {
-            var slide = this.slides[index];
-            slide.style.width = this.slideWidth + "px";
-            if (this.support.transform) {
-                slide.style.left = index * -this.slideWidth + "px";
-                this.move(index, this.index > index ? -this.slideWidth : this.index < index ? this.slideWidth : 0, 0);
+        o: function(t, e) {
+            return Object.prototype.hasOwnProperty.call(t, e);
+        }
+    }, e = {};
+    t.d(e, {
+        default: function() {
+            return d;
+        }
+    });
+    var n = window.bootstrap;
+    function a(t) {
+        return a = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function(t) {
+            return typeof t;
+        } : function(t) {
+            return t && "function" == typeof Symbol && t.constructor === Symbol && t !== Symbol.prototype ? "symbol" : typeof t;
+        }, a(t);
+    }
+    function o(t) {
+        return function(t) {
+            if (Array.isArray(t)) return i(t);
+        }(t) || function(t) {
+            if ("undefined" != typeof Symbol && null != t[Symbol.iterator] || null != t["@@iterator"]) return Array.from(t);
+        }(t) || r(t) || function() {
+            throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+        }();
+    }
+    function r(t, e) {
+        if (t) {
+            if ("string" == typeof t) return i(t, e);
+            var n = Object.prototype.toString.call(t).slice(8, -1);
+            return "Object" === n && t.constructor && (n = t.constructor.name), 
+            "Map" === n || "Set" === n ? Array.from(t) : "Arguments" === n || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n) ? i(t, e) : void 0;
+        }
+    }
+    function i(t, e) {
+        (null == e || e > t.length) && (e = t.length);
+        for (var n = 0, a = new Array(e); n < e; n++) a[n] = t[n];
+        return a;
+    }
+    function s(t, e) {
+        for (var n = 0; n < e.length; n++) {
+            var a = e[n];
+            a.enumerable = a.enumerable || !1, a.configurable = !0, "value" in a && (a.writable = !0), 
+            Object.defineProperty(t, l(a.key), a);
+        }
+    }
+    function l(t) {
+        var e = function(t, e) {
+            if ("object" !== a(t) || null === t) return t;
+            var n = t[Symbol.toPrimitive];
+            if (void 0 !== n) {
+                var o = n.call(t, e || "default");
+                if ("object" !== a(o)) return o;
+                throw new TypeError("@@toPrimitive must return a primitive value.");
             }
-        },
-        initSlides: function(reload) {
-            var clearSlides, i;
-            if (!reload) {
-                this.positions = [];
-                this.positions.length = this.num;
-                this.elements = {};
-                this.picturePrototype = this.support.picture && document.createElement("picture");
-                this.sourcePrototype = this.support.source && document.createElement("source");
-                this.imagePrototype = document.createElement("img");
-                this.elementPrototype = document.createElement("div");
-                this.slidePrototype = this.elementPrototype.cloneNode(false);
-                $(this.slidePrototype).addClass(this.options.slideClass);
-                this.slides = this.slidesContainer[0].children;
-                clearSlides = this.options.clearSlides || this.slides.length !== this.num;
+            return ("string" === e ? String : Number)(t);
+        }(t, "string");
+        return "symbol" === a(e) ? e : String(e);
+    }
+    var c = {
+        Modal: n.Modal,
+        Carousel: n.Carousel
+    }, u = function() {
+        function t(e) {
+            var n = this, a = arguments.length > 1 && void 0 !== arguments[1] ? arguments[1] : {};
+            !function(t, e) {
+                if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function");
+            }(this, t), this.hash = this.randomHash(), this.settings = Object.assign(Object.assign(Object.assign({}, c.Modal.Default), c.Carousel.Default), {
+                interval: !1,
+                target: '[data-toggle="lightbox"]',
+                gallery: "",
+                size: "xl",
+                constrain: !0
+            }), this.settings = Object.assign(Object.assign({}, this.settings), a), 
+            this.modalOptions = n.setOptionsFromSettings(c.Modal.Default), this.carouselOptions = n.setOptionsFromSettings(c.Carousel.Default), 
+            "string" == typeof e && (this.settings.target = e, e = document.querySelector(this.settings.target)), 
+            this.el = e, this.type = e.dataset.type || "", this.src = this.getSrc(e), 
+            this.sources = this.getGalleryItems(), this.createCarousel(), this.createModal();
+        }
+        var e, n, a;
+        return e = t, n = [ {
+            key: "show",
+            value: function() {
+                document.body.appendChild(this.modalElement), this.modal.show();
             }
-            this.slideWidth = this.container[0].clientWidth;
-            this.slideHeight = this.container[0].clientHeight;
-            this.slidesContainer[0].style.width = this.num * this.slideWidth + "px";
-            if (clearSlides) {
-                this.resetSlides();
+        }, {
+            key: "hide",
+            value: function() {
+                this.modal.hide();
             }
-            for (i = 0; i < this.num; i += 1) {
-                if (clearSlides) {
-                    this.addSlide(i);
-                }
-                this.positionSlide(i);
+        }, {
+            key: "setOptionsFromSettings",
+            value: function(t) {
+                var e = this;
+                return Object.keys(t).reduce(function(t, n) {
+                    return Object.assign(t, function(t, e, n) {
+                        return (e = l(e)) in t ? Object.defineProperty(t, e, {
+                            value: n,
+                            enumerable: !0,
+                            configurable: !0,
+                            writable: !0
+                        }) : t[e] = n, t;
+                    }({}, n, e.settings[n]));
+                }, {});
             }
-            if (this.options.continuous && this.support.transform) {
-                this.move(this.circle(this.index - 1), -this.slideWidth, 0);
-                this.move(this.circle(this.index + 1), this.slideWidth, 0);
+        }, {
+            key: "getSrc",
+            value: function(t) {
+                var e = t.dataset.src || t.dataset.remote || t.href || "http://via.placeholder.com/1600x900";
+                if ("html" === t.dataset.type) return e;
+                /\:\/\//.test(e) || (e = window.location.origin + e);
+                var n = new URL(e);
+                return (t.dataset.footer || t.dataset.caption) && n.searchParams.set("caption", t.dataset.footer || t.dataset.caption), 
+                n.toString();
             }
-            if (!this.support.transform) {
-                this.slidesContainer[0].style.left = this.index * -this.slideWidth + "px";
+        }, {
+            key: "getGalleryItems",
+            value: function() {
+                var t, e = this;
+                if (this.settings.gallery) {
+                    if (Array.isArray(this.settings.gallery)) return this.settings.gallery;
+                    t = this.settings.gallery;
+                } else this.el.dataset.gallery && (t = this.el.dataset.gallery);
+                return t ? o(new Set(Array.from(document.querySelectorAll('[data-gallery="'.concat(t, '"]')), function(t) {
+                    return "".concat(t.dataset.type ? t.dataset.type : "").concat(e.getSrc(t));
+                }))) : [ "".concat(this.type ? this.type : "").concat(this.src) ];
             }
-        },
-        unloadSlide: function(index) {
-            var slide, firstChild;
-            slide = this.slides[index];
-            firstChild = slide.firstChild;
-            if (firstChild !== null) {
-                slide.removeChild(firstChild);
+        }, {
+            key: "getYoutubeId",
+            value: function(t) {
+                if (!t) return !1;
+                var e = t.match(/^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/);
+                return !(!e || 11 !== e[2].length) && e[2];
             }
-        },
-        unloadAllSlides: function() {
-            var i, len;
-            for (i = 0, len = this.slides.length; i < len; i++) {
-                this.unloadSlide(i);
+        }, {
+            key: "getYoutubeLink",
+            value: function(t) {
+                var e = this.getYoutubeId(t);
+                if (!e) return !1;
+                var n = t.split("?"), a = n.length > 1 ? "?" + n[1] : "";
+                return "https://www.youtube.com/embed/".concat(e).concat(a);
             }
-        },
-        toggleControls: function() {
-            var controlsClass = this.options.controlsClass;
-            if (this.container.hasClass(controlsClass)) {
-                this.container.removeClass(controlsClass);
-            } else {
-                this.container.addClass(controlsClass);
+        }, {
+            key: "getInstagramEmbed",
+            value: function(t) {
+                if (/instagram/.test(t)) return t += /\/embed$/.test(t) ? "" : "/embed", 
+                '<iframe src="'.concat(t, '" class="start-50 translate-middle-x" style="max-width: 500px" frameborder="0" scrolling="no" allowtransparency="true"></iframe>');
             }
-        },
-        toggleSlideshow: function() {
-            if (!this.interval) {
-                this.play();
-            } else {
-                this.pause();
+        }, {
+            key: "isEmbed",
+            value: function(e) {
+                var n = new RegExp("(" + t.allowedEmbedTypes.join("|") + ")").test(e), a = /\.(png|jpe?g|gif|svg|webp)/i.test(e) || "image" === this.el.dataset.type;
+                return n || !a;
             }
-        },
-        getNodeIndex: function(element) {
-            return parseInt(element.getAttribute("data-index"), 10);
-        },
-        getNestedProperty: function(obj, property) {
-            property.replace(/\[(?:'([^']+)'|"([^"]+)"|(\d+))\]|(?:(?:^|\.)([^\.\[]+))/g, function(str, singleQuoteProp, doubleQuoteProp, arrayIndex, dotProp) {
-                var prop = dotProp || singleQuoteProp || doubleQuoteProp || arrayIndex && parseInt(arrayIndex, 10);
-                if (str && obj) {
-                    obj = obj[prop];
-                }
-            });
-            return obj;
-        },
-        getDataProperty: function(obj, property) {
-            var key;
-            var prop;
-            if (obj.dataset) {
-                key = property.replace(/-([a-z])/g, function(_, b) {
-                    return b.toUpperCase();
+        }, {
+            key: "createCarousel",
+            value: function() {
+                var e = this, n = document.createElement("template"), a = t.allowedMediaTypes.join("|"), o = this.sources.map(function(t, n) {
+                    t = t.replace(/\/$/, "");
+                    var o = new RegExp("^(".concat(a, ")"), "i"), r = /^html/.test(t), i = /^image/.test(t);
+                    o.test(t) && (t = t.replace(o, ""));
+                    var s = e.settings.constrain ? "mw-100 mh-100 h-auto w-auto m-auto top-0 end-0 bottom-0 start-0" : "h-100 w-100", l = new URLSearchParams(t.split("?")[1]), c = "", u = t;
+                    if (l.get("caption")) {
+                        try {
+                            (u = new URL(t)).searchParams.delete("caption"), u = u.toString();
+                        } catch (e) {
+                            u = t;
+                        }
+                        c = '<div class="carousel-caption d-none d-md-block" style="z-index:2"><p class="bg-secondary rounded">'.concat(l.get("caption"), "</p></div>");
+                    }
+                    var d = '<img src="'.concat(u, '" class="d-block ').concat(s, ' img-fluid" style="z-index: 1; object-fit: contain;" />'), h = "", m = e.getInstagramEmbed(t), f = e.getYoutubeLink(t);
+                    return e.isEmbed(t) && !i && (f && (t = f, h = 'title="YouTube video player" frameborder="0" allow="accelerometer autoplay clipboard-write encrypted-media gyroscope picture-in-picture"'), 
+                    d = m || '<img src="'.concat(t, '" ').concat(h, ' class="d-block w-100" style="object-fit-cover;height:auto" />')), 
+                    r && (d = t), '\n\t\t\t\t<div class="carousel-item '.concat(n ? "" : "active", '" style="min-height: 100px">\n\t\t\t\t\t').concat('<div class="position-absolute top-50 start-50 translate-middle text-white"><div class="spinner-border" style="width: 3rem height: 3rem" role="status"></div></div>', '\n\t\t\t\t\t<div class="ratio ratio-16x9" style="background-color: #000;">').concat(d, "</div>\n\t\t\t\t\t").concat(c, "\n\t\t\t\t</div>");
+                }).join(""), r = this.sources.length < 2 ? "" : '\n\t\t\t<button id="#lightboxCarousel-'.concat(this.hash, '-prev" class="carousel-control carousel-control-prev h-75 m-auto" style="left:-110px" type="button" data-bs-target="#lightboxCarousel-').concat(this.hash, '" data-bs-slide="prev">\n\t\t\t\t<span class="carousel-control-prev-icon" aria-hidden="true"></span>\n\t\t\t\t<span class="visually-hidden">Previous</span>\n\t\t\t</button>\n\t\t\t<button id="#lightboxCarousel-').concat(this.hash, '-next" class="carousel-control carousel-control-next h-75 m-auto" style="right:-110px" type="button" data-bs-target="#lightboxCarousel-').concat(this.hash, '" data-bs-slide="next">\n\t\t\t\t<span class="carousel-control-next-icon" aria-hidden="true"></span>\n\t\t\t\t<span class="visually-hidden">Next</span>\n\t\t\t</button>'), i = "lightbox-carousel carousel slide";
+                "fullscreen" === this.settings.size && (i += " position-absolute w-100 translate-middle top-50 start-50");
+                var s = '\n\t\t\t<div class="carousel-indicators" style="bottom: -40px">\n\t\t\t\t'.concat(this.sources.map(function(t, n) {
+                    return '\n\t\t\t\t\t<button type="button" data-bs-target="#lightboxCarousel-'.concat(e.hash, '" data-bs-slide-to="').concat(n, '" class="').concat(0 === n ? "active" : "", '" aria-current="').concat(0 === n ? "true" : "false", '" aria-label="Slide ').concat(n + 1, '"></button>\n\t\t\t\t');
+                }).join(""), "\n\t\t\t</div>"), l = '\n\t\t\t<div id="lightboxCarousel-'.concat(this.hash, '" class="').concat(i, '" data-bs-ride="carousel" data-bs-interval="').concat(this.carouselOptions.interval, '">\n\t\t\t    <div class="carousel-inner">\n\t\t\t\t\t').concat(o, "\n\t\t\t\t</div>\n\t\t\t    ").concat(s, "\n\t\t\t\t").concat(r, "\n\t\t\t</div>");
+                n.innerHTML = l.trim(), this.carouselElement = n.content.firstChild;
+                var u = Object.assign(Object.assign({}, this.carouselOptions), {
+                    keyboard: !1
                 });
-                prop = obj.dataset[key];
-            } else if (obj.getAttribute) {
-                prop = obj.getAttribute("data-" + property.replace(/([A-Z])/g, "-$1").toLowerCase());
-            }
-            if (typeof prop === "string") {
-                if (/^(true|false|null|-?\d+(\.\d+)?|\{[\s\S]*\}|\[[\s\S]*\])$/.test(prop)) {
-                    try {
-                        return $.parseJSON(prop);
-                    } catch (ignore) {}
-                }
-                return prop;
-            }
-        },
-        getItemProperty: function(obj, property) {
-            var prop = this.getDataProperty(obj, property);
-            if (prop === undefined) {
-                prop = obj[property];
-            }
-            if (prop === undefined) {
-                prop = this.getNestedProperty(obj, property);
-            }
-            return prop;
-        },
-        initStartIndex: function() {
-            var index = this.options.index;
-            var urlProperty = this.options.urlProperty;
-            var i;
-            if (index && typeof index !== "number") {
-                for (i = 0; i < this.num; i += 1) {
-                    if (this.list[i] === index || this.getItemProperty(this.list[i], urlProperty) === this.getItemProperty(index, urlProperty)) {
-                        index = i;
-                        break;
+                this.carousel = new c.Carousel(this.carouselElement, u);
+                var d = this.type && "image" !== this.type ? this.type + this.src : this.src;
+                return this.carousel.to(this.findGalleryItemIndex(this.sources, d)), 
+                !0 === this.carouselOptions.keyboard && document.addEventListener("keydown", function(t) {
+                    if ("ArrowLeft" === t.code) {
+                        var n = document.getElementById("#lightboxCarousel-".concat(e.hash, "-prev"));
+                        return n && n.click(), !1;
                     }
-                }
-            }
-            this.index = this.circle(parseInt(index, 10) || 0);
-        },
-        initEventListeners: function() {
-            var that = this;
-            var slidesContainer = this.slidesContainer;
-            function proxyListener(event) {
-                var type = that.support.transition && that.support.transition.end === event.type ? "transitionend" : event.type;
-                that["on" + type](event);
-            }
-            $(window).on("resize", proxyListener);
-            $(window).on("hashchange", proxyListener);
-            $(document.body).on("keydown", proxyListener);
-            this.container.on("click", proxyListener);
-            if (this.support.touch) {
-                slidesContainer.on("touchstart touchmove touchend touchcancel", proxyListener);
-            } else if (this.options.emulateTouchEvents && this.support.transition) {
-                slidesContainer.on("mousedown mousemove mouseup mouseout", proxyListener);
-            }
-            if (this.support.transition) {
-                slidesContainer.on(this.support.transition.end, proxyListener);
-            }
-            this.proxyListener = proxyListener;
-        },
-        destroyEventListeners: function() {
-            var slidesContainer = this.slidesContainer;
-            var proxyListener = this.proxyListener;
-            $(window).off("resize", proxyListener);
-            $(document.body).off("keydown", proxyListener);
-            this.container.off("click", proxyListener);
-            if (this.support.touch) {
-                slidesContainer.off("touchstart touchmove touchend touchcancel", proxyListener);
-            } else if (this.options.emulateTouchEvents && this.support.transition) {
-                slidesContainer.off("mousedown mousemove mouseup mouseout", proxyListener);
-            }
-            if (this.support.transition) {
-                slidesContainer.off(this.support.transition.end, proxyListener);
-            }
-        },
-        handleOpen: function() {
-            if (this.options.onopened) {
-                this.options.onopened.call(this);
-            }
-        },
-        initWidget: function() {
-            var that = this;
-            function openHandler(event) {
-                if (event.target === that.container[0]) {
-                    that.container.off(that.support.transition.end, openHandler);
-                    that.handleOpen();
-                }
-            }
-            this.container = $(this.options.container);
-            if (!this.container.length) {
-                this.console.log("blueimp Gallery: Widget container not found.", this.options.container);
-                return false;
-            }
-            this.slidesContainer = this.container.find(this.options.slidesContainer).first();
-            if (!this.slidesContainer.length) {
-                this.console.log("blueimp Gallery: Slides container not found.", this.options.slidesContainer);
-                return false;
-            }
-            this.titleElement = this.container.find(this.options.titleElement).first();
-            this.playPauseElement = this.container.find("." + this.options.playPauseClass).first();
-            if (this.num === 1) {
-                this.container.addClass(this.options.singleClass);
-            }
-            if (this.support.svgasimg) {
-                this.container.addClass(this.options.svgasimgClass);
-            }
-            if (this.support.smil) {
-                this.container.addClass(this.options.smilClass);
-            }
-            if (this.options.onopen) {
-                this.options.onopen.call(this);
-            }
-            if (this.support.transition && this.options.displayTransition) {
-                this.container.on(this.support.transition.end, openHandler);
-            } else {
-                this.handleOpen();
-            }
-            if (this.options.hidePageScrollbars) {
-                this.bodyOverflowStyle = document.body.style.overflow;
-                document.body.style.overflow = "hidden";
-            }
-            this.container[0].style.display = "block";
-            this.initSlides();
-            this.container.addClass(this.options.displayClass);
-        },
-        initOptions: function(options) {
-            this.options = $.extend({}, this.options);
-            if (options && options.carousel || this.options.carousel && (!options || options.carousel !== false)) {
-                $.extend(this.options, this.carouselOptions);
-            }
-            $.extend(this.options, options);
-            if (this.num < 3) {
-                this.options.continuous = this.options.continuous ? null : false;
-            }
-            if (!this.support.transition) {
-                this.options.emulateTouchEvents = false;
-            }
-            if (this.options.event) {
-                this.preventDefault(this.options.event);
-            }
-        }
-    });
-    return Gallery;
-});
-
-(function(factory) {
-    "use strict";
-    if (typeof define === "function" && define.amd) {
-        define([ "./blueimp-helper", "./blueimp-gallery" ], factory);
-    } else {
-        factory(window.blueimp.helper || window.jQuery, window.blueimp.Gallery);
-    }
-})(function($, Gallery) {
-    "use strict";
-    var galleryPrototype = Gallery.prototype;
-    $.extend(galleryPrototype.options, {
-        indicatorContainer: "ol",
-        activeIndicatorClass: "active",
-        thumbnailProperty: "thumbnail",
-        thumbnailIndicators: true
-    });
-    var initSlides = galleryPrototype.initSlides;
-    var addSlide = galleryPrototype.addSlide;
-    var resetSlides = galleryPrototype.resetSlides;
-    var handleClick = galleryPrototype.handleClick;
-    var handleSlide = galleryPrototype.handleSlide;
-    var handleClose = galleryPrototype.handleClose;
-    $.extend(galleryPrototype, {
-        createIndicator: function(obj) {
-            var indicator = this.indicatorPrototype.cloneNode(false);
-            var title = this.getItemProperty(obj, this.options.titleProperty);
-            var thumbnailProperty = this.options.thumbnailProperty;
-            var thumbnailUrl;
-            var thumbnail;
-            if (this.options.thumbnailIndicators) {
-                if (thumbnailProperty) {
-                    thumbnailUrl = this.getItemProperty(obj, thumbnailProperty);
-                }
-                if (thumbnailUrl === undefined) {
-                    thumbnail = obj.getElementsByTagName && $(obj).find("img")[0];
-                    if (thumbnail) {
-                        thumbnailUrl = thumbnail.src;
+                    if ("ArrowRight" === t.code) {
+                        var a = document.getElementById("#lightboxCarousel-".concat(e.hash, "-next"));
+                        return a && a.click(), !1;
                     }
+                }), this.carousel;
+            }
+        }, {
+            key: "findGalleryItemIndex",
+            value: function(t, e) {
+                var n, a = 0, o = function(t, e) {
+                    var n = "undefined" != typeof Symbol && t[Symbol.iterator] || t["@@iterator"];
+                    if (!n) {
+                        if (Array.isArray(t) || (n = r(t)) || e && t && "number" == typeof t.length) {
+                            n && (t = n);
+                            var a = 0, o = function() {};
+                            return {
+                                s: o,
+                                n: function() {
+                                    return a >= t.length ? {
+                                        done: !0
+                                    } : {
+                                        done: !1,
+                                        value: t[a++]
+                                    };
+                                },
+                                e: function(t) {
+                                    throw t;
+                                },
+                                f: o
+                            };
+                        }
+                        throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+                    }
+                    var i, s = !0, l = !1;
+                    return {
+                        s: function() {
+                            n = n.call(t);
+                        },
+                        n: function() {
+                            var t = n.next();
+                            return s = t.done, t;
+                        },
+                        e: function(t) {
+                            l = !0, i = t;
+                        },
+                        f: function() {
+                            try {
+                                s || null == n.return || n.return();
+                            } finally {
+                                if (l) throw i;
+                            }
+                        }
+                    };
+                }(t);
+                try {
+                    for (o.s(); !(n = o.n()).done; ) {
+                        if (n.value.includes(e)) return a;
+                        a++;
+                    }
+                } catch (t) {
+                    o.e(t);
+                } finally {
+                    o.f();
                 }
-                if (thumbnailUrl) {
-                    indicator.style.backgroundImage = 'url("' + thumbnailUrl + '")';
-                }
+                return 0;
             }
-            if (title) {
-                indicator.title = title;
+        }, {
+            key: "createModal",
+            value: function() {
+                var t = this, e = document.createElement("template"), n = '\n\t\t\t<div class="modal lightbox fade" id="lightboxModal-'.concat(this.hash, '" tabindex="-1" aria-hidden="true">\n\t\t\t\t<div class="modal-dialog modal-dialog-centered modal-').concat(this.settings.size, '">\n\t\t\t\t\t<div class="modal-content border-0 bg-transparent">\n\t\t\t\t\t\t<div class="modal-body p-0">\n\t\t\t\t\t\t\t<button type="button" class="btn-close position-absolute top-0 end-0 p-3" data-bs-dismiss="modal" aria-label="Close" style="z-index: 2; background: none;">').concat('<svg xmlns="http://www.w3.org/2000/svg" style="position: relative; top: -15px;right:-40px" viewBox="0 0 16 16" fill="#fff"><path d="M.293.293a1 1 0 011.414 0L8 6.586 14.293.293a1 1 0 111.414 1.414L9.414 8l6.293 6.293a1 1 0 01-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 01-1.414-1.414L6.586 8 .293 1.707a1 1 0 010-1.414z"/></svg>', "</button>\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t</div>");
+                return e.innerHTML = n.trim(), this.modalElement = e.content.firstChild, 
+                this.modalElement.querySelector(".modal-body").appendChild(this.carouselElement), 
+                this.modalElement.addEventListener("hidden.bs.modal", function() {
+                    return t.modalElement.remove();
+                }), this.modalElement.querySelector("[data-bs-dismiss]").addEventListener("click", function() {
+                    return t.modal.hide();
+                }), this.modal = new c.Modal(this.modalElement, this.modalOptions), 
+                this.modal;
             }
-            indicator.setAttribute("role", "link");
-            return indicator;
-        },
-        addIndicator: function(index) {
-            if (this.indicatorContainer.length) {
-                var indicator = this.createIndicator(this.list[index]);
-                indicator.setAttribute("data-index", index);
-                this.indicatorContainer[0].appendChild(indicator);
-                this.indicators.push(indicator);
+        }, {
+            key: "randomHash",
+            value: function() {
+                var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : 8;
+                return Array.from({
+                    length: t
+                }, function() {
+                    return Math.floor(36 * Math.random()).toString(36);
+                }).join("");
             }
-        },
-        setActiveIndicator: function(index) {
-            if (this.indicators) {
-                if (this.activeIndicator) {
-                    this.activeIndicator.removeClass(this.options.activeIndicatorClass);
-                }
-                this.activeIndicator = $(this.indicators[index]);
-                this.activeIndicator.addClass(this.options.activeIndicatorClass);
-            }
-        },
-        initSlides: function(reload) {
-            if (!reload) {
-                this.indicatorContainer = this.container.find(this.options.indicatorContainer);
-                if (this.indicatorContainer.length) {
-                    this.indicatorPrototype = document.createElement("li");
-                    this.indicators = this.indicatorContainer[0].children;
-                }
-            }
-            initSlides.call(this, reload);
-        },
-        addSlide: function(index) {
-            addSlide.call(this, index);
-            this.addIndicator(index);
-        },
-        resetSlides: function() {
-            resetSlides.call(this);
-            this.indicatorContainer.empty();
-            this.indicators = [];
-        },
-        handleClick: function(event) {
-            var target = event.target || event.srcElement;
-            var parent = target.parentNode;
-            if (parent === this.indicatorContainer[0]) {
-                this.preventDefault(event);
-                this.slide(this.getNodeIndex(target));
-            } else if (parent.parentNode === this.indicatorContainer[0]) {
-                this.preventDefault(event);
-                this.slide(this.getNodeIndex(parent));
-            } else {
-                return handleClick.call(this, event);
-            }
-        },
-        handleSlide: function(oldIndex, newIndex) {
-            handleSlide.call(this, oldIndex, newIndex);
-            this.setActiveIndicator(newIndex);
-        },
-        handleClose: function() {
-            if (this.activeIndicator) {
-                this.activeIndicator.removeClass(this.options.activeIndicatorClass);
-            }
-            handleClose.call(this);
-        }
-    });
-    return Gallery;
-});
-
-(function(factory) {
-    "use strict";
-    if (typeof define === "function" && define.amd) {
-        define([ "jquery", "./blueimp-gallery" ], factory);
-    } else {
-        factory(window.jQuery, window.blueimp.Gallery);
-    }
-})(function($, Gallery) {
-    "use strict";
-    $(document).on("click", "[data-gallery]", function(event) {
-        var id = $(this).data("gallery");
-        var widget = $(id);
-        var container = widget.length && widget || $(Gallery.prototype.options.container);
-        var callbacks = {
-            onopen: function() {
-                $("#blueimp-gallery").removeClass("d-none");
-                container.data("gallery", this).trigger("open");
-            },
-            onopened: function() {
-                container.trigger("opened");
-            },
-            onslide: function() {
-                container.trigger("slide", arguments);
-            },
-            onslideend: function() {
-                container.trigger("slideend", arguments);
-            },
-            onslidecomplete: function() {
-                container.trigger("slidecomplete", arguments);
-            },
-            onclose: function() {
-                $("#blueimp-gallery").addClass("d-none");
-                container.trigger("close");
-                document.body.style.overflow = null;
-            },
-            onclosed: function() {
-                container.trigger("closed").removeData("gallery");
-            }
-        };
-        var options = $.extend(container.data(), {
-            container: container[0],
-            index: this,
-            event: event
-        }, callbacks);
-        var links = $(this).closest("[data-gallery-group], body").find('[data-gallery="' + id + '"]');
-        if (options.filter) {
-            links = links.filter(options.filter);
-        }
-        return new Gallery(links, options);
-    });
-});
+        } ], n && s(e.prototype, n), a && s(e, a), Object.defineProperty(e, "prototype", {
+            writable: !1
+        }), t;
+    }();
+    u.allowedEmbedTypes = [ "embed", "youtube", "vimeo", "instagram", "url" ], u.allowedMediaTypes = [].concat(o(u.allowedEmbedTypes), [ "image", "html" ]), 
+    u.defaultSelector = '[data-toggle="lightbox"]', u.initialize = function(t) {
+        t.preventDefault(), new u(this).show();
+    }, document.querySelectorAll(u.defaultSelector).forEach(function(t) {
+        return t.addEventListener("click", u.initialize);
+    }), "undefined" != typeof window && window.bootstrap && (window.bootstrap.Lightbox = u);
+    var d = u;
+    window.Lightbox = e.default;
+}();
 
 function userCardContent(pop, delay) {
     fetch(pop.dataset.hovercard, {
@@ -15010,6 +14051,10 @@ document.addEventListener("DOMContentLoaded", function() {
             document.querySelector(this).innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
         });
     }
+    for (const el of document.querySelectorAll('[data-toggle="lightbox"]')) {
+        const lightBox = window.bootstrap.Lightbox;
+        el.addEventListener("click", lightBox.initialize);
+    }
     document.querySelectorAll(".dropdown-menu a.dropdown-toggle").forEach(menu => {
         menu.addEventListener("click", event => {
             var $el = menu, $subMenu = $el.nextElementSibling;
@@ -15115,7 +14160,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     document.querySelectorAll(".attachedImage").forEach(imageLink => {
         var messageId = imageLink.parentNode.id;
-        imageLink.setAttribute("data-gallery", `#blueimp-gallery-${messageId}`);
+        imageLink.setAttribute("data-gallery", `#gallery-${messageId}`);
     });
 });
 

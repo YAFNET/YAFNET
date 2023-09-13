@@ -75,9 +75,10 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumExtensionsDnn.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumExtensionsDnn.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\forum\yaf.hoverCard.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\blueimp-gallery\blueimp-gallery.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\blueimp-gallery\blueimp-gallery-indicator.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\blueimp-gallery\jquery.blueimp-gallery.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bs5-lightbox\index.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bs5-lightbox\dist\index.bundle.min.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bs5-lightbox\webpack.cdn.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bs5-lightbox\webpack.common.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap.bundle.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootstrap.bundle.min.js" />
