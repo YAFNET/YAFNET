@@ -5277,6 +5277,14 @@
             "#text": "Tallenna asetukset"
           },
           {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Hakutekstin enimmäispituus:"
           },
@@ -5835,14 +5843,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token, jota käytetään turvallisten verkkopalvelukutsujen tekemiseen. Muuttuu jatkuvasti, kunnes tallennat isäntäasetukset."
-          },
-          {
-            "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
-          },
-          {
-            "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9690,10 +9690,6 @@
             "#text": "Aika nyt: {0}."
           },
           {
-            "@tag": "ERROR_HOVERCARD",
-            "#text": "Valitettavasti tietoja ei löytynyt tai jokin meni pieleen."
-          },
-          {
             "@tag": "FORUM",
             "#text": "Alue"
           },
@@ -9724,14 +9720,6 @@
           {
             "@tag": "LATEST_POSTS",
             "#text": "Viimeisimmät viestit"
-          },
-          {
-            "@tag": "LOADING_FB_HOVERCARD",
-            "#text": "Ladataan Facebook-info ..."
-          },
-          {
-            "@tag": "LOADING_HOVERCARD",
-            "#text": "Käyttäjätietojen lataaminen ..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",

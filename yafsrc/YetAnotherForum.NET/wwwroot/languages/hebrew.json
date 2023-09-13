@@ -5277,6 +5277,14 @@
             "#text": "שמור הגדרות"
           },
           {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "אורך מקסימלי של טקסט חיפוש:"
           },
@@ -5835,14 +5843,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "אסימון המשמש לביצוע שיחות שירות אינטרנט מאובטח. משתנה כל הזמן עד שתשמור את הגדרות המארח שלך."
-          },
-          {
-            "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
-          },
-          {
-            "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9694,10 +9694,6 @@
             "#text": "שעה נוכחית: {0}."
           },
           {
-            "@tag": "ERROR_HOVERCARD",
-            "#text": "מצטערים, לא נמצאו נתונים או שמשהו השתבש."
-          },
-          {
             "@tag": "FORUM",
             "#text": "פורום"
           },
@@ -9728,14 +9724,6 @@
           {
             "@tag": "LATEST_POSTS",
             "#text": "הודעות אחרונות"
-          },
-          {
-            "@tag": "LOADING_FB_HOVERCARD",
-            "#text": "טוען מידע בפייסבוק..."
-          },
-          {
-            "@tag": "LOADING_HOVERCARD",
-            "#text": "טוען מידע משתמש..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",

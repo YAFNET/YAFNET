@@ -5277,6 +5277,14 @@
             "#text": "Uložiť nastavenia"
           },
           {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Maximálna dĺžka vyhľadávaného textu:"
           },
@@ -5835,14 +5843,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token používaný na bezpečné volania webovej služby. Neustále sa mení, kým neuložíte nastavenia hostiteľa."
-          },
-          {
-            "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
-          },
-          {
-            "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9690,10 +9690,6 @@
             "#text": "Je presne {0}."
           },
           {
-            "@tag": "ERROR_HOVERCARD",
-            "#text": "Je nám ľúto, nenašli sa žiadne údaje alebo sa niečo pokazilo."
-          },
-          {
             "@tag": "FORUM",
             "#text": "Fórum"
           },
@@ -9724,14 +9720,6 @@
           {
             "@tag": "LATEST_POSTS",
             "#text": "Posledné správy"
-          },
-          {
-            "@tag": "LOADING_FB_HOVERCARD",
-            "#text": "Načítavanie informácií o Facebooku..."
-          },
-          {
-            "@tag": "LOADING_HOVERCARD",
-            "#text": "Načítanie informácií o používateľovi ..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",

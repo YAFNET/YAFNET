@@ -5269,6 +5269,14 @@
             "#text": "Сохранить настройки"
           },
           {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Максимальная длина текста для поиска:"
           },
@@ -5827,14 +5835,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Токен для безопасного вызова веб-служб. Чтобы зафиксировать его вы должны сохранить настройки хоста хотя бы раз."
-          },
-          {
-            "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
-          },
-          {
-            "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9682,10 +9682,6 @@
             "#text": "Текущее время: {0}."
           },
           {
-            "@tag": "ERROR_HOVERCARD",
-            "#text": "Извините, данные не найдены или что-то пошло не так."
-          },
-          {
             "@tag": "FORUM",
             "#text": "Форум"
           },
@@ -9716,14 +9712,6 @@
           {
             "@tag": "LATEST_POSTS",
             "#text": "Последние сообщения"
-          },
-          {
-            "@tag": "LOADING_FB_HOVERCARD",
-            "#text": "Загрузка информации Facebook..."
-          },
-          {
-            "@tag": "LOADING_HOVERCARD",
-            "#text": "Загрузка информации о пользователе ..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",

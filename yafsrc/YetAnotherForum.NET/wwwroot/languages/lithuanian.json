@@ -5277,6 +5277,14 @@
             "#text": "Išsaugoti nustatymus"
           },
           {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Didžiausias paieškos teksto ilgis:"
           },
@@ -5835,14 +5843,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Ženklas, naudojamas saugiems žiniatinklio paslaugos skambučiams atlikti. Nuolat keičiasi, kol išsaugote prieglobos nustatymus."
-          },
-          {
-            "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
-          },
-          {
-            "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9690,10 +9690,6 @@
             "#text": "Dabartinis laikas: {0}. "
           },
           {
-            "@tag": "ERROR_HOVERCARD",
-            "#text": "Atsiprašome, duomenų nerasta arba kažkas įvyko ne taip."
-          },
-          {
             "@tag": "FORUM",
             "#text": "Forumas "
           },
@@ -9724,14 +9720,6 @@
           {
             "@tag": "LATEST_POSTS",
             "#text": "Latest Posts "
-          },
-          {
-            "@tag": "LOADING_FB_HOVERCARD",
-            "#text": "Kraunama \"Facebook\" informacija..."
-          },
-          {
-            "@tag": "LOADING_HOVERCARD",
-            "#text": "Naudotojo informacijos įkėlimas ..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",

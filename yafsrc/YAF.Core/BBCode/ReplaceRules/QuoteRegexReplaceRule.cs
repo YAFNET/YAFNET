@@ -72,13 +72,14 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
                 "${innertrunc}",
                 match.Groups["inner"].Value);
 
-            var quote = match.Groups["quote"].Value;
+            var quote = match.Groups["quote"].Value; 
+            var quoteText = this.GetInnerValue(match.Groups["inner"].Value);
 
             var localQuoteWrote = BoardContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEWROTE");
             var localQuotePosted = BoardContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEPOSTED");
 
             // extract post id if exists
-            if (quote.Contains(";"))
+            if (quote.Contains(';'))
             {
                 string postId, userName, topicLink = string.Empty, topicName = string.Empty;
 
@@ -105,20 +106,23 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
                 }
 
                 quote = postId.IsSet()
-                            ? $@"<footer class=""blockquote-footer"">
-                                         <cite>{localQuotePosted.Replace("{0}", userName)}&nbsp;<a href=""{topicLink}"" title=""{topicName}""><i class=""fas fa-external-link-alt""></i></a></cite></footer>
-                                         <p class=""mb-0 mt-2"">"
-                            : $@"<footer class=""blockquote-footer"">
-                                         <cite>{localQuoteWrote.Replace("{0}", quote)}</cite></footer><p class=""mb-0"">";
+                            ? $"""
+                               <p class="card-text text-end fst-italic"><small class="text-body-secondary">{localQuotePosted.Replace("{0}", userName)}&nbsp;<a class="card-link" href="{topicLink}"><i class="fas fa-external-link-alt ms-2"></i></a></small></p>
+                               """
+                            : $"""
+                               <p class="card-text text-end fst-italic"><small class="text-body-secondary">{localQuoteWrote.Replace("{0}", quote)}</small></p>
+                               """;
             }
             else
             {
                 quote =
-                    $@"<footer class=""blockquote-footer"">
-                               <cite>{localQuoteWrote.Replace("{0}", quote)}</cite></footer><p class=""mb-0"">";
+                    $"""
+                     <p class="card-text text-end fst-italic"><small class="text-body-secondary">{localQuoteWrote.Replace("{0}", quote)}</small></p>
+                     """;
             }
 
-            innerReplace.Replace("${quote}", quote);
+            innerReplace.Replace("${quote}", quote); 
+            innerReplace.Replace("${quoteText}", quoteText);
 
             this.Variables.ForEach(
                 variable =>
@@ -126,7 +130,7 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
                         var varName = variable;
                         var handlingValue = string.Empty;
 
-                        if (varName.Contains(":"))
+                        if (varName.Contains(':'))
                         {
                             // has handling section
                             var tmpSplit = varName.Split(':');

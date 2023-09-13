@@ -9682,10 +9682,6 @@
             "#text": "Current time: {0}."
           },
           {
-            "@tag": "ERROR_HOVERCARD",
-            "#text": "Sorry, no data found or something went wrong."
-          },
-          {
             "@tag": "FORUM",
             "#text": "Forum"
           },
@@ -9716,14 +9712,6 @@
           {
             "@tag": "LATEST_POSTS",
             "#text": "Latest Posts"
-          },
-          {
-            "@tag": "LOADING_FB_HOVERCARD",
-            "#text": "Loading Facebook Info ..."
-          },
-          {
-            "@tag": "LOADING_HOVERCARD",
-            "#text": "Loading User Info ..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",

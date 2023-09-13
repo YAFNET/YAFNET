@@ -5277,6 +5277,14 @@
             "#text": "Sauvegarder les paramètres"
           },
           {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Longueur maximale du texte de recherche :"
           },
@@ -5835,14 +5843,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token utilisé pour effectuer des appels de service web sécurisés. Il change constamment jusqu'à ce que vous sauvegardiez vos paramètres d'hôte."
-          },
-          {
-            "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
-          },
-          {
-            "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9690,10 +9690,6 @@
             "#text": "Heure actuelle&nbsp;: {0}."
           },
           {
-            "@tag": "ERROR_HOVERCARD",
-            "#text": "Désolé, aucune donnée n'a été trouvée ou quelque chose s'est mal passé."
-          },
-          {
             "@tag": "FORUM",
             "#text": "Forum"
           },
@@ -9724,14 +9720,6 @@
           {
             "@tag": "LATEST_POSTS",
             "#text": "Derniers messages"
-          },
-          {
-            "@tag": "LOADING_FB_HOVERCARD",
-            "#text": "Chargement des informations sur Facebook ..."
-          },
-          {
-            "@tag": "LOADING_HOVERCARD",
-            "#text": "Chargement des informations utilisateur ..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",

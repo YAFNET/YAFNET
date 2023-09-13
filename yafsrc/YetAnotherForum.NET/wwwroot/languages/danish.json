@@ -5277,6 +5277,14 @@
             "#text": "Gem indstillinger"
           },
           {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Søgetekst maksimal længde:"
           },
@@ -5835,14 +5843,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token bruges til at foretage sikre webserviceopkald. "
-          },
-          {
-            "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
-          },
-          {
-            "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9690,10 +9690,6 @@
             "#text": "Klokken er nu: {0}."
           },
           {
-            "@tag": "ERROR_HOVERCARD",
-            "#text": "Beklager, ingen data fundet, eller noget gik galt."
-          },
-          {
             "@tag": "FORUM",
             "#text": "Forum"
           },
@@ -9724,14 +9720,6 @@
           {
             "@tag": "LATEST_POSTS",
             "#text": "Sidste indlæg"
-          },
-          {
-            "@tag": "LOADING_FB_HOVERCARD",
-            "#text": "Indlæser Facebook-oplysninger..."
-          },
-          {
-            "@tag": "LOADING_HOVERCARD",
-            "#text": "Indlæser brugeroplysninger..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",

@@ -5277,6 +5277,14 @@
             "#text": "Lagre innstillinger"
           },
           {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Maksimal lengde for søketekst:"
           },
@@ -5835,14 +5843,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token som brukes til å foreta sikre nettjenesteanrop. Endres hele tiden til du lagrer vertsinnstillingene."
-          },
-          {
-            "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
-          },
-          {
-            "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9690,10 +9690,6 @@
             "#text": "Klokka er nå: {0}."
           },
           {
-            "@tag": "ERROR_HOVERCARD",
-            "#text": "Beklager, ingen data funnet eller noe gikk galt."
-          },
-          {
             "@tag": "FORUM",
             "#text": "Forum"
           },
@@ -9724,14 +9720,6 @@
           {
             "@tag": "LATEST_POSTS",
             "#text": "Siste innlegg"
-          },
-          {
-            "@tag": "LOADING_FB_HOVERCARD",
-            "#text": "Laster Facebook-informasjon ..."
-          },
-          {
-            "@tag": "LOADING_HOVERCARD",
-            "#text": "Laster brukerinformasjon ..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",

@@ -5269,6 +5269,14 @@
             "#text": "احفظ التغييرات"
           },
           {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "الحد الأقصى لطول نص البحث:"
           },
@@ -5827,14 +5835,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "رمز يستخدم لإجراء مكالمات خدمة ويب آمنة. "
-          },
-          {
-            "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
-          },
-          {
-            "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9678,10 +9678,6 @@
             "#text": "الوقت الحالي: {0}."
           },
           {
-            "@tag": "ERROR_HOVERCARD",
-            "#text": "عذرا ، لم يتم العثور على بيانات أو حدث خطأ ما."
-          },
-          {
             "@tag": "FORUM",
             "#text": "المنتدى"
           },
@@ -9712,14 +9708,6 @@
           {
             "@tag": "LATEST_POSTS",
             "#text": "آخر مشاركات "
-          },
-          {
-            "@tag": "LOADING_FB_HOVERCARD",
-            "#text": "جارٍ تحميل معلومات Facebook ..."
-          },
-          {
-            "@tag": "LOADING_HOVERCARD",
-            "#text": "تحميل معلومات المستخدم ..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",

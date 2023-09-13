@@ -5269,6 +5269,14 @@
             "#text": "Einstellungen Speichern"
           },
           {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Suchtext Maximale Länge:"
           },
@@ -5827,14 +5835,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token die verwendet werden, um sichere Web-Service-Anrufe zu tätigen. Ständig wechselnde, bis Sie Ihren Host Einstellungen  speichern."
-          },
-          {
-            "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
-          },
-          {
-            "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9682,10 +9682,6 @@
             "#text": "Aktuelle Zeit: {0}."
           },
           {
-            "@tag": "ERROR_HOVERCARD",
-            "#text": "Keine Daten gefunden oder etwas ist schief gelaufen."
-          },
-          {
             "@tag": "FORUM",
             "#text": "Forum"
           },
@@ -9716,14 +9712,6 @@
           {
             "@tag": "LATEST_POSTS",
             "#text": "Neuste Beiträge"
-          },
-          {
-            "@tag": "LOADING_FB_HOVERCARD",
-            "#text": "Facebook Benutzer Info laden ..."
-          },
-          {
-            "@tag": "LOADING_HOVERCARD",
-            "#text": "Benutzer Info laden ..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",

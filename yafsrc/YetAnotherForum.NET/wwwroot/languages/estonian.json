@@ -5277,6 +5277,14 @@
             "#text": "Salvesta sätted"
           },
           {
+            "@tag": "SCROLL_TO_POST",
+            "#text": "Scroll to unread/first post"
+          },
+          {
+            "@tag": "SCROLL_TO_POST_HELP",
+            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
+          },
+          {
             "@tag": "SEARCH_MAXLENGTH",
             "#text": "Otsinguteksti maksimaalne pikkus:"
           },
@@ -5835,14 +5843,6 @@
           {
             "@tag": "WSERVICE_TOKEN_HELP",
             "#text": "Token, mida kasutatakse turvaliste veebiteenuste kõnede tegemiseks. "
-          },
-          {
-            "@tag": "SCROLL_TO_POST",
-            "#text": "Scroll to unread/first post"
-          },
-          {
-            "@tag": "SCROLL_TO_POST_HELP",
-            "#text": "If enabled it scrolls to the first unread post/or first new post when opening a topic"
           }
         ]
       },
@@ -9690,10 +9690,6 @@
             "#text": "Kellaaeg: {0}."
           },
           {
-            "@tag": "ERROR_HOVERCARD",
-            "#text": "Kahjuks andmeid ei leitud või midagi läks valesti."
-          },
-          {
             "@tag": "FORUM",
             "#text": "Foorum"
           },
@@ -9724,14 +9720,6 @@
           {
             "@tag": "LATEST_POSTS",
             "#text": "Viimased postitused"
-          },
-          {
-            "@tag": "LOADING_FB_HOVERCARD",
-            "#text": "Facebooki teabe laadimine ..."
-          },
-          {
-            "@tag": "LOADING_HOVERCARD",
-            "#text": "Kasutajateabe laadimine ..."
           },
           {
             "@tag": "MAIN_FORUM_ATOM",
