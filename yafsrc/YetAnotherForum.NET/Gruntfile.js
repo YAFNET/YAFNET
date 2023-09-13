@@ -4,12 +4,18 @@
  * Don't know where to start?
  * Try: http://24ways.org/2013/grunt-is-not-weird-and-hard/
  */
+
+const lightBoxWebpackConfig = require("./wwwroot/lib/bs5-lightbox/webpack.cdn.js");
+
 module.exports = function(grunt) {
-
-
     // CONFIGURATION
     grunt.initConfig({
         pkg: grunt.file.readJSON("package.json"),
+
+        webpack: {
+            lightBox: lightBoxWebpackConfig
+        },
+
         copy: {
             bootstrap: {
                 files: [
@@ -323,7 +329,7 @@ module.exports = function(grunt) {
                     "wwwroot/lib/blueimp-gallery/blueimp-gallery.js",
                     "wwwroot/lib/blueimp-gallery/blueimp-gallery-indicator.js",
                     "wwwroot/lib/blueimp-gallery/jquery.blueimp-gallery.js",
-                    "wwwroot/lib/jquery.hovercard.js",
+                    "wwwroot/lib/forum/yaf.hoverCard.js",
                     "wwwroot/lib/prism.js",
                     "node_modules/long-press-event/src/long-press-event.js",
                     "node_modules/@microsoft/signalr/dist/browser/signalr.js",
@@ -359,7 +365,7 @@ module.exports = function(grunt) {
                     "wwwroot/lib/select2.js",
                     "wwwroot/lib/blueimp-gallery/blueimp-gallery.js",
                     "wwwroot/lib/blueimp-gallery/jquery.blueimp-gallery.js",
-                    "wwwroot/lib/jquery.hovercard.js",
+                    "wwwroot/lib/forum/yaf.hoverCard.js",
                     "wwwroot/lib/prism.js",
                     "node_modules/long-press-event/src/long-press-event.js",
                     "node_modules/@microsoft/signalr/dist/browser/signalr.js",
@@ -588,10 +594,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-replace");
     grunt.loadNpmTasks("grunt-zip");
     grunt.loadNpmTasks("grunt-file-append");
+    grunt.loadNpmTasks("grunt-webpack");
 
     grunt.registerTask("default",
         [
-            "devUpdate", "uglify", "sass", "postcss", "cssmin"
+            "devUpdate", "webpack:lightBox", "uglify", "sass", "postcss", "cssmin"
         ]);
 
     grunt.registerTask("updateBootstrap",

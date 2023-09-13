@@ -36,8 +36,6 @@ using YAF.Types.Attributes;
 /// </summary>
 public class BBCodeService : IBBCodeService, IHaveServiceLocator
 {
-    /* Ederon : 6/16/2007 - conventions */
-
     /// <summary>
     ///   The _options.
     /// </summary>
@@ -276,7 +274,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
         // handle font sizes -- this rule class internally handles the "size" variable
         ruleEngine.AddRule(
             new VariableRegexReplaceRule(
-                @"<span style=""font-size:(?<size>(.*?))px;"">(?<inner>(.*?))</span>",
+                """<span style="font-size:(?<size>(.*?))px;">(?<inner>(.*?))</span>""",
                 "[size=${size}]${inner}[/size]",
                 Options,
                 new[]
@@ -287,7 +285,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
         // font
         ruleEngine.AddRule(
             new VariableRegexReplaceRule(
-                @"<span style=""font-family: (?<font>(.*?));"">(?<inner>(.*?))</span>",
+                """<span style="font-family: (?<font>(.*?));">(?<inner>(.*?))</span>""",
                 "[font=${font}]${inner}[/font]",
                 Options,
                 new[] { "font" }));
@@ -295,7 +293,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
         // color
         ruleEngine.AddRule(
             new VariableRegexReplaceRule(
-                @"<span style=""color: (?<color>(\#?[-a-z0-9]*));"">(?<inner>(.*?))</span>",
+                """<span style="color: (?<color>(\#?[-a-z0-9]*));">(?<inner>(.*?))</span>""",
                 "[color=${color}]${inner}[/color]",
                 Options,
                 new[] { "color" }));
@@ -422,14 +420,14 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
         ruleEngine.AddRule(new SingleRegexReplaceRule("</u>", "[/u]", Options));
         ruleEngine.AddRule(
             new SimpleRegexReplaceRule(
-                @"<span style=""text-decoration: underline;"">(?<inner>(.*?))</span>",
+                """<span style="text-decoration: underline;">(?<inner>(.*?))</span>""",
                 "[u]${inner}[/u]",
                 Options));
 
         // urls
         ruleEngine.AddRule(
             new VariableRegexReplaceRule(
-                @"<a.*?href=""(?<inner>(.*?))"".*?>(?<description>(.*?))</a>",
+                """<a.*?href="(?<inner>(.*?))".*?>(?<description>(.*?))</a>""",
                 "[url=${inner}]${description}[/url]",
                 Options,
                 new[]
@@ -440,7 +438,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
         // e-mails
         ruleEngine.AddRule(
             new VariableRegexReplaceRule(
-                @"<a.*?href=""mailto:(?<email>(.*?))"".*?>(?<inner>(.*?))</a>",
+                """<a.*?href="mailto:(?<email>(.*?))".*?>(?<inner>(.*?))</a>""",
                 "[email=${email}]${inner}[/email]",
                 Options,
                 new[]
@@ -450,21 +448,21 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
 
         ruleEngine.AddRule(
             new VariableRegexReplaceRule(
-                @"<img.*?src=""(?<inner>(.*?))"".*?alt=""(?<description>(.*?))"".*?/>",
+                """<img.*?src="(?<inner>(.*?))".*?alt="(?<description>(.*?))".*?/>""",
                 "[img=${inner}]${description}[/img]",
                 Options,
                 new[] { "description" }));
 
         ruleEngine.AddRule(
             new SimpleRegexReplaceRule(
-                @"<span class=""highlight"">(?<inner>(.*?))</span>",
+                """<span class="highlight">(?<inner>(.*?))</span>""",
                 "[h]${inner}[/h]",
                 Options));
 
         // CODE Tags
         ruleEngine.AddRule(
             new VariableRegexReplaceRule(
-                @"<div class=""code"">.*?<div class=""innercode"">.*?<pre class=""brush:(?<language>(.*?));"">(?<inner>(.*?))</pre>.*?</div>",
+                """<div class="code">.*?<div class="innercode">.*?<pre class="brush:(?<language>(.*?));">(?<inner>(.*?))</pre>.*?</div>""",
                 "[code=${language}]${inner}[/code]",
                 Options,
                 new[]
@@ -536,7 +534,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
         ruleEngine.AddRule(
             new FontSizeRegexReplaceRule(
                 @"\[size=(?<size>(.*?))\](?<inner>(.*?))\[/size\]",
-                @"<span style=""font-size:${size}"">${inner}</span>",
+                """<span style="font-size:${size}">${inner}</span>""",
                 Options));
 
         if (doFormatting)
@@ -576,7 +574,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                     new Regex(
                         @"\[email[^\]]*\](?<inner>([^""\r\n\]\[]+?))\[/email\]",
                         Options | RegexOptions.Compiled),
-                    @"<a href=""mailto:${inner}"">${inner}</a>"));
+                    """<a href="mailto:${inner}">${inner}</a>"""));
 
             // urls
             ruleEngine.AddRule(
@@ -615,7 +613,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
-                        @"^(?!.*youtu).*(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!"")(?<!href="")(?<!src="")(?<inner>(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)",
+                        """^(?!.*youtu).*(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!")(?<!href=")(?<!src=")(?<inner>(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)""",
                         RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled),
                     "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
@@ -628,7 +626,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
-                        @"^(?!.*youtu).*(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?!youtu)(?<!href="")(?<!src="")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~/(/)$]*[^.<|^.\[])?)",
+                        """^(?!.*youtu).*(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?!youtu)(?<!href=")(?<!src=")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~/(/)$]*[^.<|^.\[])?)""",
                         RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled),
                     "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
@@ -641,7 +639,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
-                        @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://)(www.)?youtube\.com\/watch\?v=(?<videoId>[A-Za-z0-9._%-]*)(\&\S+)?)",
+                        """(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href=")(?<!src=")(?<inner>(http://|https://)(www.)?youtube\.com\/watch\?v=(?<videoId>[A-Za-z0-9._%-]*)(\&\S+)?)""",
                         RegexOptions.Multiline | RegexOptions.Compiled),
                     "${before}<div data-oembed-url=\"//youtube.com/embed/${videoId}\" class=\"ratio ratio-16x9\"><iframe src=\"//youtube.com/embed/${videoId}?hd=1\"></iframe></div>",
                     new[]
@@ -656,7 +654,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
-                        @"(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href="")(?<!src="")(?<inner>(http://|https://)youtu\.be\/(?<videoId>[A-Za-z0-9._%-]*)(\&\S+)?)",
+                        """(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href=")(?<!src=")(?<inner>(http://|https://)youtu\.be\/(?<videoId>[A-Za-z0-9._%-]*)(\&\S+)?)""",
                         RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled),
                     "${before}<div data-oembed-url=\"//youtube.com/embed/${videoId}\" class=\"ratio ratio-16x9\"><iframe src=\"//youtube.com/embed/${videoId}?hd=1\"></iframe></div>",
                     new[]
@@ -796,9 +794,9 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
             if (messageId > 0)
             {
                 imageHtml =
-                    $"<a href=\"${{http}}${{inner}}\" data-gallery=\"#blueimp-gallery-{messageId}\"><img src=\"${{http}}${{inner}}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" onerror=\"this.style.display='none'\" style=\"max-height:${{height}}px;\"></a>";
+                    $"<a href=\"${{http}}${{inner}}\" data-gallery=\"gallery-{messageId}\"><img src=\"${{http}}${{inner}}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" onerror=\"this.style.display='none'\" style=\"max-height:${{height}}px;\"></a>";
                 imageHtmlWithDesc =
-                    $"<a href=\"${{http}}${{inner}}\" alt=\"${{description}}\" title=\"${{description}}\" data-gallery=\"#blueimp-gallery-{messageId}\"><img src=\"${{http}}${{inner}}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" onerror=\"this.style.display='none'\" style=\"max-height:${{height}}px;\"></a>";
+                    $"<a href=\"${{http}}${{inner}}\" alt=\"${{description}}\" title=\"${{description}}\" data-gallery=\"gallery-{messageId}\"><img src=\"${{http}}${{inner}}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" onerror=\"this.style.display='none'\" style=\"max-height:${{height}}px;\"></a>";
             }
             else
             {
@@ -893,7 +891,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
         ruleEngine.AddRule(
             new SyntaxHighlighterRegexReplaceRule(
                 new Regex(@"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]\r\n|\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]", Options),
-                @"<div class=""code"">${inner}</div>")
+                """<div class="code">${inner}</div>""")
                 {
                     RuleRank = 2
                 });
@@ -905,32 +903,34 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
         ruleEngine.AddRule(
             new SyntaxHighlighterRegexReplaceRule(
                 new Regex(@"\[code\](?<inner>(.*?))\[/code\]\r\n|\[code\](?<inner>(.*?))\[/code\]", Options),
-                @"<div class=""code"">${inner}</div>"));
+                """<div class="code">${inner}</div>"""));
 
         ruleEngine.AddRule(
             new QuoteRegexReplaceRule(
-                @"\[quote=(?<quote>(.*?))]",
-                @"<blockquote class=""blockquote blockquote-custom pt-3 px-1 pb-1 mb-4 border border-secondary rounded"">
-                                         <div class=""blockquote-custom-icon bg-secondary"">
-                                             <i class=""fa fa-quote-left fa-sm link-light""></i>
-                                         </div>${quote}",
-                Options));
+                @"\[quote=(?<quote>(.*?))](?<inner>(.*?))\[/quote\]\r\n|\[quote=(?<quote>(.*?))](?<inner>(.*?))\[/quote\]",
+                """
+                <div class="card mb-3 border-secondary shadow-sm" >
+                    <div class="card-body">
+                        <p class="card-text"><i class="fa fa-quote-left text-primary fs-4 p-2"></i>${quoteText}</p>
+                        ${quote}
+                    </div>
+                </div>
+                """,
+                Options) { RuleRank = 61 });
 
         // simple open quote tag
-        var simpleOpenQuoteReplace =
-            $@"<blockquote class=""blockquote blockquote-custom pt-3 px-1 pb-1 mb-4 border border-secondary rounded"">
-                          <div class=""blockquote-custom-icon bg-secondary"">
-                              <i class=""fa fa-quote-left fa-sm link-light""></i>
-                          </div>
-                          <footer class=""blockquote-footer""><cite>{localQuoteStr}</cite></footer>
-                          <p class=""mb-0"">";
+        const string SimpleOpenQuoteReplace = """
+                                              <div class="card mb-3 border-secondary shadow-sm" >
+                                              <div class="card-body">
+                                                     <p class="card-text"><i class="fa fa-quote-left text-primary fs-4 p-2"></i>
+                                              """;
 
         ruleEngine.AddRule(
-            new SimpleRegexReplaceRule(@"\[quote\]", simpleOpenQuoteReplace, Options) { RuleRank = 62 });
+            new SimpleRegexReplaceRule(@"\[quote\]", SimpleOpenQuoteReplace, Options) { RuleRank = 62 });
 
         // and finally the closing quote tag
         ruleEngine.AddRule(
-            new SingleRegexReplaceRule(@"\[/quote\]", "</p></blockquote>", Options) { RuleRank = 63 });
+            new SingleRegexReplaceRule(@"\[/quote\]", "</p></div></div>", Options) { RuleRank = 63 });
     }
 
     /// <summary>

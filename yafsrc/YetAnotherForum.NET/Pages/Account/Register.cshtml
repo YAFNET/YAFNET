@@ -59,7 +59,7 @@
                                 <label asp-for="Input.Password" class="form-label"
                                        localized-page="REGISTER" localized-tag="PASSWORD">
                                 </label>
-                                <input asp-for="Input.Password" class="form-control" required />
+                                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" required />
                                 <div class="invalid-feedback">
                                     @Html.LocalizedText("REGISTER", "NEED_PASSWORD")
                                 </div>
@@ -79,7 +79,7 @@
                                 <label asp-for="Input.ConfirmPassword" class="form-label"
                                        localized-page="REGISTER" localized-tag="CONFIRM_PASSWORD">
                                 </label>
-                                <input asp-for="Input.ConfirmPassword" class="form-control" required />
+                                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" required />
                                 <div class="invalid-feedback">
                                     @Html.LocalizedText("REGISTER", "RETYPE_PASSWORD")
                                 </div>

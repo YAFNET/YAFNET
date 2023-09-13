@@ -131,7 +131,7 @@ public class HelpModel : ForumPage
                     item.Title,
                     highlightWords,
                     "<mark>",
-                    @"</mark>");
+                    "</mark>");
             });
 
         if (searchList.Count.Equals(0))

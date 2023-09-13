@@ -568,7 +568,7 @@ public class TestDataModel : AdminPage
                 var updateExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
 
                 return db.ExecuteSqlAsync(
-                    $@" update {updateExpression.Table<PrivateMessage>()} set Flags = Flags | 1 where ToUserId = {toUser.ID}");
+                    $" update {updateExpression.Table<PrivateMessage>()} set Flags = Flags | 1 where ToUserId = {toUser.ID}");
             });
 
         // Clearing cache with old permissions data...

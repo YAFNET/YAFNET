@@ -84,7 +84,7 @@ public class Attach : BBCodeControl
                     $@"<div class=""card text-bg-dark"" style=""max-width:{this.PageContext.BoardSettings.ImageThumbnailMaxWidth}px"">");
 
                 stringBuilder.AppendFormat(
-                    @"<a href=""{0}"" title=""{1}""  data-gallery=""#blueimp-gallery-{2}"">",
+                    @"<a href=""{0}"" title=""{1}""  data-gallery=""gallery-{2}"">",
                     this.Get<IUrlHelper>().Action("GetAttachment", "Attachments", new { attachmentId = attachment.ID, editor = false }),
                     this.HtmlEncode(attachment.FileName),
                     this.MessageID.Value);

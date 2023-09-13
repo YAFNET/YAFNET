@@ -86,7 +86,7 @@ public class ReIndexModel : AdminPage
         }
         catch (Exception ex)
         {
-            this.IndexStatistics = $@"Failure: {ex}";
+            this.IndexStatistics = $"Failure: {ex}";
         }
     }
 

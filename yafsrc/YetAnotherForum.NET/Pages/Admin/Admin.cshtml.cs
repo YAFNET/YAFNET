@@ -283,9 +283,9 @@ public class AdminModel : AdminPage
 
         this.Input.NumCategories = data.Categories;
         this.Input.NumForums = data.Forums;
-        this.Input.NumTopics = $@"{data.Topics:N0}";
-        this.Input.NumPosts = $@"{data.Posts:N0}";
-        this.Input.NumUsers = $@"{data.Users:N0}";
+        this.Input.NumTopics = $"{data.Topics:N0}";
+        this.Input.NumPosts = $"{data.Posts:N0}";
+        this.Input.NumUsers = $"{data.Users:N0}";
 
         var span = DateTime.UtcNow - data.BoardStart;
         double days = span.Days;
@@ -302,13 +302,13 @@ public class AdminModel : AdminPage
             days = 1;
         }
 
-        this.Input.DayPosts = $@"{data.Posts / days:N2}";
-        this.Input.DayTopics = $@"{data.Topics / days:N2}";
-        this.Input.DayUsers = $@"{data.Users / days:N2}";
+        this.Input.DayPosts = $"{data.Posts / days:N2}";
+        this.Input.DayTopics = $"{data.Topics / days:N2}";
+        this.Input.DayUsers = $"{data.Users / days:N2}";
 
         try
         {
-            this.Input.DBSize = $@"{this.Get<IDbAccess>().GetDatabaseSize()} MB";
+            this.Input.DBSize = $"{this.Get<IDbAccess>().GetDatabaseSize()} MB";
         }
         catch (Exception)
         {

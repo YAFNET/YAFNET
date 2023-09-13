@@ -54,7 +54,9 @@
                     <div class="card mb-4 shadow-sm">
                         <a href="@Html.Raw(Model.Get<IUrlHelper>().Action("GetImage", "Albums" , new { imageId=image.ID}))"
                            title="@Html.Raw($"{(image.Caption.IsSet() ? Html.HtmlEncode(image.Caption) : Html.HtmlEncode(image.FileName))} - Album IMG Code: [ALBUMIMG]{image.ID}[/ALBUMIMG]")"
-                           data-gallery>
+                           data-toggle="lightbox"
+                           data-gallery="@Model.Album.ID"
+                           data-caption="@Html.Raw($"{(image.Caption.IsSet() ? Html.HtmlEncode(image.Caption) : Html.HtmlEncode(image.FileName))} - Album IMG Code: [ALBUMIMG]{image.ID}[/ALBUMIMG]")">
                             <img src="@Html.Raw(Model.Get<IUrlHelper>().Action("GetImagePreview", "Albums" , new { imageId=image.ID}))"
                                  class="card-img-top"
                                  alt="@Html.HtmlEncode(image.Caption.IsSet() ?  image.Caption : image.FileName)"

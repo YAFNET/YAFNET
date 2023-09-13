@@ -59,7 +59,7 @@ public class AlbumImage : BBCodeControl
             $@"<div class=""card text-bg-dark"" style=""max-width:{this.PageContext.BoardSettings.ImageThumbnailMaxWidth}px"">");
 
         stringBuilder.AppendFormat(
-            @"<a href=""{0}"" data-gallery=""#blueimp-gallery-{2}"" title=""{1}"">",
+            @"<a href=""{0}"" data-gallery=""gallery-{2}"" title=""{1}"">",
             this.Get<IUrlHelper>().Action("GetImage", "Albums", new { imageId }),
             imageId,
             this.MessageID.Value);
