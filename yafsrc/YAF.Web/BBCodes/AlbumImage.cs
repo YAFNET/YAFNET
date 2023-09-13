@@ -55,7 +55,7 @@ public class AlbumImage : BBCodeControl
             this.PageBoardContext.BoardSettings.ImageThumbnailMaxWidth);
 
         writer.Write(
-            """<a href="{0}resource.ashx?image={1}" data-toggle="lightbox" data-gallery="#gallery-{2}" title="{1}">""",
+            """<a href="{0}resource.ashx?image={1}" data-toggle="lightbox" data-gallery="gallery-{2}" title="{1}">""",
             BoardInfo.ForumClientFileRoot,
             imageId,
             this.MessageID.Value);

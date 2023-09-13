@@ -81,7 +81,7 @@ public class Attach : BBCodeControl
                     this.PageBoardContext.BoardSettings.ImageThumbnailMaxWidth);
 
                 writer.Write(
-                    @"<a href=""{0}resource.ashx?i={1}&b={3}"" title=""{2}""  data-toggle=""lightbox"" data-gallery=""#gallery-{4}"">",
+                    @"<a href=""{0}resource.ashx?i={1}&b={3}"" title=""{2}""  data-toggle=""lightbox"" data-gallery=""gallery-{4}"">",
                     BoardInfo.ForumClientFileRoot,
                     attachment.ID,
                     this.HtmlEncode(attachment.FileName),

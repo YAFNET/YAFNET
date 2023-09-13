@@ -245,9 +245,6 @@ public class Forum : UserControl, IHaveServiceLocator
         // add the footer control after the page...
         this.Controls.Add(this.Footer);
 
-        // Add image gallery dialog
-        this.Controls.Add(this.LoadControl($"{BoardInfo.ForumServerFileRoot}Dialogs/ImageGallery.ascx"));
-
         const string CookieName = "YAF-AcceptCookies";
 
         if (BoardContext.Current.Get<HttpRequestBase>().Cookies[CookieName] == null
