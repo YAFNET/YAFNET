@@ -1857,8 +1857,6 @@
     <Content Include="Content\bootstrap\_accordion.scss" />
     <None Include="Content\forum\attachments-upload.scss" />
     <None Include="Content\forum\cookie-alert.scss" />
-    <Content Include="Content\images\error.svg" />
-    <Content Include="Content\images\play-pause.svg" />
     <Content Include="Content\InstallWizard.css">
       <DependentUpon>InstallWizard.scss</DependentUpon>
     </Content>
