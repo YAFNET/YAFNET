@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ProductVersion>8.0.30703</ProductVersion>
     <TargetFramework>net7.0</TargetFramework>
@@ -29,6 +29,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="7.1.0" />
-    <PackageReference Include="Npgsql" Version="7.0.4" />
+    <PackageReference Include="Npgsql" Version="7.0.6" />
   </ItemGroup>
 </Project>
