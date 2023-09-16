@@ -24,6 +24,7 @@
 
 namespace YAF.Core.Helpers;
 
+using System;
 using System.Text.RegularExpressions;
 
 /// <summary>
@@ -40,6 +41,8 @@ public static class UrlHelper
     {
         return Regex.Matches(
             message,
-            @"((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)").Count;
+            @"((http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)",
+            RegexOptions.None,
+            TimeSpan.FromMilliseconds(100)).Count;
     }
 }

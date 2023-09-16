@@ -140,7 +140,7 @@ public static class NntpUtil
     /// </returns>
     public static string Base64HeaderDecode(string line)
     {
-        var m = Regex.Match(line, @"=\?([^?]+)\?[^?]+\?([^?]+)\?=");
+        var m = Regex.Match(line, @"=\?([^?]+)\?[^?]+\?([^?]+)\?=", RegexOptions.None, TimeSpan.FromMilliseconds(100));
 
         try
         {

@@ -652,7 +652,9 @@ public class NntpConnection : IDisposable
         part = null;
         while (this.sr.ReadLine() is { } response && response != string.Empty)
         {
-            var m = Regex.Match(response, @"^\s+(\S+)$");
+            var m = Regex.Match(response, @"^\s+(\S+)$",
+                RegexOptions.None,
+                TimeSpan.FromMilliseconds(100));
 
             string value;
             if (m.Success)

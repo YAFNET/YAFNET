@@ -24,6 +24,7 @@
 
 namespace YAF.Core.BBCode.ReplaceRules;
 
+using System;
 using System.Text.RegularExpressions;
 
 /// <summary>
@@ -55,7 +56,7 @@ public class SimpleRegexReplaceRule : BaseReplaceRule
     /// </param>
     public SimpleRegexReplaceRule(string regExSearch, string regExReplace, RegexOptions regExOptions)
     {
-        this.RegExSearch = new Regex(regExSearch, regExOptions);
+        this.RegExSearch = new Regex(regExSearch, regExOptions, TimeSpan.FromMilliseconds(100));
         this.RegExReplace = regExReplace;
     }
 

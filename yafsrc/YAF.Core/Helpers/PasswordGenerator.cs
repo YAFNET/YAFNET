@@ -3,6 +3,7 @@
 
 namespace YAF.Core.Helpers;
 
+using System;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 
@@ -91,9 +92,9 @@ public static class PasswordGenerator
         {
             password[characterPosition] = characterSet[RandomNumberGenerator.GetInt32(1, characterSetLength - 1)];
 
-            var moreThanTwoIdenticalInARow = characterPosition > MAXIMUM_IDENTICAL_CONSECUTIVE_CHARS &&
-                                             password[characterPosition] == password[characterPosition - 1] &&
-                                             password[characterPosition - 1] == password[characterPosition - 2];
+            var moreThanTwoIdenticalInARow = characterPosition > MAXIMUM_IDENTICAL_CONSECUTIVE_CHARS
+                                             && password[characterPosition] == password[characterPosition - 1]
+                                             && password[characterPosition - 1] == password[characterPosition - 2];
 
             if (moreThanTwoIdenticalInARow)
             {
@@ -103,9 +104,21 @@ public static class PasswordGenerator
 
         var newPassword = string.Join(null, password);
 
-        while (!PasswordIsValid(includeLowercase, includeUppercase, includeNumeric, includeSpecial, includeSpaces, newPassword))
+        while (!PasswordIsValid(
+                   includeLowercase,
+                   includeUppercase,
+                   includeNumeric,
+                   includeSpecial,
+                   includeSpaces,
+                   newPassword))
         {
-            newPassword = GeneratePassword(includeLowercase, includeUppercase, includeNumeric, includeSpecial, includeSpaces, lengthOfPassword);
+            newPassword = GeneratePassword(
+                includeLowercase,
+                includeUppercase,
+                includeNumeric,
+                includeSpecial,
+                includeSpaces,
+                lengthOfPassword);
         }
 
         return newPassword;
@@ -137,13 +150,31 @@ public static class PasswordGenerator
 
         var lowerCaseIsValid = !includeLowercase || Regex.IsMatch(
                                    password,
-                                   REGEX_LOWERCASE);
+                                   REGEX_LOWERCASE,
+                                   RegexOptions.None,
+                                   TimeSpan.FromMilliseconds(100));
+
         var upperCaseIsValid = !includeUppercase || Regex.IsMatch(
                                    password,
-                                   REGEX_UPPERCASE);
-        var numericIsValid = !includeNumeric || Regex.IsMatch(password, REGEX_NUMERIC);
-        var symbolsAreValid = !includeSpecial || Regex.IsMatch(password, REGEX_SPECIAL);
-        var spacesAreValid = !includeSpaces || Regex.IsMatch(password, REGEX_SPACE);
+                                   REGEX_UPPERCASE,
+                                   RegexOptions.None,
+                                   TimeSpan.FromMilliseconds(100));
+
+        var numericIsValid = !includeNumeric || Regex.IsMatch(
+                                 password,
+                                 REGEX_NUMERIC,
+                                 RegexOptions.None,
+                                 TimeSpan.FromMilliseconds(100));
+        var symbolsAreValid = !includeSpecial || Regex.IsMatch(
+                                  password,
+                                  REGEX_SPECIAL,
+                                  RegexOptions.None,
+                                  TimeSpan.FromMilliseconds(100));
+        var spacesAreValid = !includeSpaces || Regex.IsMatch(
+                                 password,
+                                 REGEX_SPACE,
+                                 RegexOptions.None,
+                                 TimeSpan.FromMilliseconds(100));
 
         return lowerCaseIsValid && upperCaseIsValid && numericIsValid && symbolsAreValid && spacesAreValid;
     }

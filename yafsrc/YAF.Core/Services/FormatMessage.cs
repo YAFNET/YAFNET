@@ -357,7 +357,8 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
 
         var hiddenRegex = new Regex(
             @"\[hide-reply\](?<inner>(.|\n)*?)\[\/hide-reply\]|\[hide-reply-thanks\](?<inner>(.|\n)*?)\[\/hide-reply-thanks\]|\[group-hide\](?<inner>(.|\n)*?)\[\/group-hide\]|\[hide\](?<inner>(.|\n)*?)\[\/hide\]|\[group-hide(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/group-hide\]|\[hide-thanks(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/hide-thanks\]|\[hide-posts(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/hide-posts\]",
-            RegexOptions);
+            RegexOptions,
+            TimeSpan.FromMilliseconds(100));
 
         var hiddenTagMatch = hiddenRegex.Match(body);
 
@@ -384,7 +385,10 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         const RegexOptions RegexOptions =
             RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
 
-        var spoilerRegex = new Regex(@"\[SPOILER\](?<inner>(.|\n)*?)\[\/SPOILER\]", RegexOptions);
+        var spoilerRegex = new Regex(
+            @"\[SPOILER\](?<inner>(.|\n)*?)\[\/SPOILER\]",
+            RegexOptions,
+            TimeSpan.FromMilliseconds(100));
 
         var spoilerTagMatch = spoilerRegex.Match(body);
 
@@ -412,13 +416,15 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     {
         // vzrus: NNTP temporary tweaks to wipe out server hangs. Put it here as it can be in every place.
         // These are '\n\r' things related to multiline regexps.
-        var mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase);
+        var mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase, 
+            TimeSpan.FromMilliseconds(100));
         for (var i = mc1.Count - 1; i >= 0; i--)
         {
             html = html.Insert(mc1[i].Index + 1, " \r");
         }
 
-        var mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase);
+        var mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase, 
+            TimeSpan.FromMilliseconds(100));
         for (var i = mc2.Count - 1; i >= 0; i--)
         {
             html = html.Insert(mc2[i].Index + 1, " \r");
@@ -496,7 +502,8 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
 
         const RegexOptions RegexOptions = RegexOptions.IgnoreCase;
 
-        var matches = Regex.Matches(text, matchRegEx, RegexOptions).OrderByDescending(x => x.Index);
+        var matches = Regex.Matches(text, matchRegEx, RegexOptions, TimeSpan.FromMilliseconds(100))
+            .OrderByDescending(x => x.Index);
 
         matches.ForEach(
             match =>

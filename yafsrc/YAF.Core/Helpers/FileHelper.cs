@@ -47,7 +47,8 @@ public static class FileHelper
     /// <summary>
     /// FileName Validator Regex
     /// </summary>
-    private static readonly Regex FileNameValidator = new(FileNameValidatorExpression, RegexOptions.Compiled);
+    private static readonly Regex FileNameValidator = new(FileNameValidatorExpression, RegexOptions.Compiled,
+        TimeSpan.FromMilliseconds(100));
 
     /// <summary>
     /// FileName Cleaner Expression
@@ -58,7 +59,8 @@ public static class FileHelper
     /// <summary>
     /// FileName Cleaner Regex
     /// </summary>
-    private static readonly Regex FileNameCleaner = new(FileNameCleanerExpression, RegexOptions.Compiled);
+    private static readonly Regex FileNameCleaner = new(FileNameCleanerExpression, RegexOptions.Compiled,
+        TimeSpan.FromMilliseconds(100));
 
     /// <summary>
     /// Validates the name of the file.

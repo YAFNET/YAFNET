@@ -145,7 +145,9 @@ public class User : IEntity, IHaveBoardID, IHaveID
             {
                 var tz = this.TimeZone;
 
-                if (Regex.IsMatch(tz, @"^[\-?\+?\d]*$"))
+                if (Regex.IsMatch(tz, @"^[\-?\+?\d]*$",
+                        RegexOptions.None,
+                        TimeSpan.FromMilliseconds(100)))
                 {
                     return TimeZoneInfo.Local;
                 }

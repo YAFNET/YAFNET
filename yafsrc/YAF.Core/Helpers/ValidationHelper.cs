@@ -129,7 +129,7 @@ public static class ValidationHelper
 
         try
         {
-            var test = Regex.Match(string.Empty, pattern);
+            var test = Regex.Match(string.Empty, pattern, RegexOptions.None, TimeSpan.FromMilliseconds(100));
         }
         catch (ArgumentException)
         {

@@ -479,7 +479,6 @@ public class Migrator
     /// <exception cref="InfoException">$"Could not find Migration '{lastRun.Name}' to revert, aborting.</exception>
     Type? GetNextMigrationRevertToRun(IDbConnection db, List<Type> migrationTypes)
     {
-        Type? nextRun = null;
         var q = db.From<Migration>()
             .OrderByDescending(x => x.Name).Limit(1);
         Migration? lastRun = null;
