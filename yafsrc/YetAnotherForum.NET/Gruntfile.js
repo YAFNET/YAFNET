@@ -276,28 +276,6 @@ module.exports = function(grunt) {
                 ],
                 dest: "wwwroot/js/codemirror.min.js"
             },
-
-            fileUpload: {
-                options: {
-                    sourceMap: false,
-                    output: { beautify: true },
-                    mangle: false,
-                    compress: false
-                },
-                src: [
-                    "wwwroot/lib/jquery.FileUpload/vendor/jquery.ui.widget.js",
-                    "wwwroot/lib/jquery.FileUpload/tmpl.js",
-                    "wwwroot/lib/jquery.FileUpload/load-image.all.min.js",
-                    "wwwroot/lib/jquery.FileUpload/canvas-to-blob.js",
-                    "wwwroot/lib/jquery.FileUpload/jquery.iframe-transport.js",
-                    "wwwroot/lib/jquery.FileUpload/jquery.fileupload.js",
-                    "wwwroot/lib/jquery.FileUpload/jquery.fileupload-process.js",
-                    "wwwroot/lib/jquery.FileUpload/jquery.fileupload-image.js",
-                    "wwwroot/lib/jquery.FileUpload/jquery.fileupload-validate.js",
-                    "wwwroot/lib/jquery.FileUpload/jquery.fileupload-ui.js"
-                ],
-                dest: "wwwroot/js/jquery.fileupload.comb.js"
-            },
             yafEditor: {
                 options: {
                     sourceMap: false,
@@ -385,7 +363,7 @@ module.exports = function(grunt) {
                     "wwwroot/js/yafeditor.min.js": "wwwroot/js/yafeditor.comb.js",
                     "wwwroot/js/InstallWizard.comb.min.js": "wwwroot/js/InstallWizard.comb.js",
                     "wwwroot/js/codemirror.min.js": "wwwroot/js/codemirror.min.js",
-                    "wwwroot/js/jquery.fileupload.comb.min.js": "wwwroot/js/jquery.fileupload.comb.js",
+                    "wwwroot/js/fileUploader.min.js": "wwwroot/lib/fileUploader.js",
                     "wwwroot/js/jquery.ForumExtensions.min.js": "wwwroot/js/jquery.ForumExtensions.js",
                     "wwwroot/js/jquery.ForumAdminExtensions.min.js": "wwwroot/js/jquery.ForumAdminExtensions.js"
 
@@ -479,14 +457,6 @@ module.exports = function(grunt) {
                         "node_modules/codemirror/lib/codemirror.css",
                         "node_modules/codemirror/theme/monokai.css",
                         "node_modules/codemirror/addon/hint/show-hint.css"
-                    ]
-                }
-            },
-            fileUpload: {
-                files: {
-                    "wwwroot/css/jquery.fileupload.comb.min.css": [
-                        "wwwroot/lib/jQuery.FileUpload/jquery.fileupload-ui.css",
-                        "wwwroot/lib/jQuery.FileUpload/jquery.fileupload.css"
                     ]
                 }
             },
