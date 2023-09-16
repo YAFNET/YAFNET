@@ -17,64 +17,25 @@
                                 LocalizedPage="ATTACHMENTS" runat="server" />
         </h4>
         <div>
-            <div id="fileupload">
-                      <div class="fileupload-buttonbar">
-                          <div id="dropzone" class="card link-light bg-dark border-danger mb-3">
-                              <div class="card-body">
-                                  <p class="card-text"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "DROP_HERE") %></p>
-                              </div>
-                          </div>
-                          <div class="alert alert-danger" role="alert" style="display: none">
-                              <%= this.Get<ILocalization>().GetText("ATTACHMENTS", "COMPLETE_WARNING") %>
-                          </div>
-                          <div class="d-grid gap-2">
-                              <span class="btn btn-success fileinput-button m-1">
-                                  <i class="fa fa-plus fa-fw"></i>&nbsp;<YAF:LocalizedLabel id="AddFiles" runat="server" LocalizedPage="ATTACHMENTS" LocalizedTag="ADD_FILES" />
-                                  <input type="file" name="files[]" multiple>
-                              </span>
-                              <button type="submit" class="btn btn-primary start m-1">
-                                  <i class="fa fa-upload fa-fw"></i>&nbsp;<%= this.Get<ILocalization>().GetText("ATTACHMENTS", "START_UPLOADS") %>
-                              </button>
-                              <span class="fileupload-process"></span>
-                          </div>
-                          <div class="col-lg-5 fileupload-progress fade">
-                              <!-- The global progress bar -->
-                              <div class="progress active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                                  <div class="progress-bar progress-bar-striped text-bg-success" style="width:0%;"></div>
-                              </div>
-                              <!-- The extended global progress state -->
-                              <div class="progress-extended">&nbsp;</div>
-                          </div>
-                      </div>
-                      <div id="UploadFilesBox">
-                          <ul class="list-group files"></ul>
-                      </div>
+              <div id="drop-area" class="card link-light bg-dark mb-3 text-center">
+                  <div class="card-body">
+                      <form class="my-form">
+                          <p class="card-text"><%= this.Get<ILocalization>().GetText("ATTACHMENTS", "DROP_HERE") %></p>
+
+                          <span class="btn btn-success fileinput-button m-1">
+                              <i class="fa fa-plus fa-fw"></i>&nbsp;<YAF:LocalizedLabel runat="server" LocalizedPage="ATTACHMENTS" LocalizedTag="ADD_FILES" />
+                              <input type="file" id="fileElem" multiple>
+                          </span>
+                      </form>
                   </div>
-                  <script id="template-upload" type="text/x-tmpl">
-                      {% for (var i=0, file; file=o.files[i]; i++) { %}
-                      <li class="list-group-item list-group-item-action template-upload fade-ui">
-    <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1"><span class="preview"></span></h5>
-      <small class="text-body-secondary size">Processing...</small>
-    </div>
-    <div class="mb-1"> <p class="name">{%=file.name%}</p>
-                                  <strong class="error text-danger"></strong>
-                                  <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-bar progress-bar-success" style="width:0%;"></div></div>
-   </div>
-    <small class="text-body-secondary"><div class="btn-group" role="group">
-                      {% if (!i && !o.options.autoUpload) { %}
-                <button class="btn btn-success btn-sm start" disabled>Start</button>
-            {% } %}
-                      {% if (!i) { %}
-                                      <button class="btn btn-danger btn-sm cancel"><i class="fa fa-times fa-fw"></i>&nbsp;<%= this.Get<ILocalization>().GetText("COMMON", "CANCEL") %></button>
-                                  {% } %}</div></small>
-  </li>
+                  
+              </div>
 
-                      {% } %}
-                  </script>
+            <div class="progress m-2" role="progressbar" id="progress-bar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+                <div class="progress-bar" style="width: 0%"></div>
+            </div>
 
-                  <script id="template-download" type="text/x-tmpl">
-                  </script>
+            <ul class="list-group" id="gallery"></ul>
         </div>
       </div>
       <div class="modal-footer">

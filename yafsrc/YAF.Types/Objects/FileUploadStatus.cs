@@ -51,6 +51,10 @@ public class FilesUploadStatus
         this.SetValues(fileName, fileLength, fileID);
     }
 
+    public FilesUploadStatus()
+    {
+    }
+
     /// <summary>
     /// Gets or sets the name.
     /// </summary>
@@ -58,14 +62,6 @@ public class FilesUploadStatus
     /// The name.
     /// </value>
     public string name { get; set; }
-
-    /// <summary>
-    /// Gets or sets the type.
-    /// </summary>
-    /// <value>
-    /// The type.
-    /// </value>
-    public string type { get; set; }
 
     /// <summary>
     /// Gets or sets the size.
@@ -84,36 +80,12 @@ public class FilesUploadStatus
     public string progress { get; set; }
 
     /// <summary>
-    /// Gets or sets the URL.
-    /// </summary>
-    /// <value>
-    /// The URL.
-    /// </value>
-    public string url { get; set; }
-
-    /// <summary>
     /// Gets or sets the file identifier.
     /// </summary>
     /// <value>
     /// The file identifier.
     /// </value>
     public int fileID { get; set; }
-
-    /// <summary>
-    /// Gets or sets the delete_url.
-    /// </summary>
-    /// <value>
-    /// The delete_url.
-    /// </value>
-    public string delete_url { get; set; }
-
-    /// <summary>
-    /// Gets or sets the delete_type.
-    /// </summary>
-    /// <value>
-    /// The delete_type.
-    /// </value>
-    public string delete_type { get; set; }
 
     /// <summary>
     /// Gets or sets the error.
@@ -132,10 +104,8 @@ public class FilesUploadStatus
     private void SetValues(string fileName, int fileLength, int fileId)
     {
         this.name = fileName;
-        this.type = "image/png";
         this.size = fileLength;
         this.progress = "1.0";
         this.fileID = fileId;
-        this.url = $"{HandlerPath}FileTransferHandler.ashx?f={fileName}";
     }
 }

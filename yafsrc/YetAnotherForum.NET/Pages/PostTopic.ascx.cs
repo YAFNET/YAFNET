@@ -152,8 +152,6 @@ public partial class PostTopic : ForumPage
         if (this.PageBoardContext.UploadAccess)
         {
             this.PageBoardContext.PageElements.AddScriptReference("FileUploadScript");
-
-            this.PageBoardContext.PageElements.RegisterCssIncludeContent("jquery.fileupload.comb.min.css");
         }
 
         this.forumEditor = ForumEditorHelper.GetCurrentForumEditor();

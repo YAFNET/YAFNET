@@ -105,12 +105,7 @@ public class BBCodeEditor : TextEditor
         {
             BoardContext.Current.PageElements.RegisterJsBlock(
                 nameof(JavaScriptBlocks.FileAutoUploadLoadJs),
-                JavaScriptBlocks.FileAutoUploadLoadJs(
-                    this.PageBoardContext.BoardSettings.AllowedFileExtensions.Replace(",", "|"),
-                    this.PageBoardContext.BoardSettings.MaxFileSize,
-                    $"{BoardInfo.ForumClientFileRoot}FileUploader.ashx",
-                    this.PageBoardContext.BoardSettings.ImageAttachmentResizeWidth,
-                    this.PageBoardContext.BoardSettings.ImageAttachmentResizeHeight));
+                JavaScriptBlocks.FileAutoUploadLoadJs($"{BoardInfo.ForumClientFileRoot}FileUploader.ashx"));
         }
 
         // register custom YafBBCode javascript (if there is any)

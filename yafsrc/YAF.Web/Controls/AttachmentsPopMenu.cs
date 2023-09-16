@@ -92,7 +92,7 @@ public class AttachmentsPopMenu : BaseControl, IPostBackEventHandler
         sb.Append("<ul class=\"AttachmentList list-group\">");
         sb.Append("</ul>");
         sb.Append("</div>");
-        sb.Append("<div class=\"OpenUploadDialog\">");
+        sb.Append("<div class=\"OpenUploadDialog mt-1 d-grid gap-2 \">");
         sb.AppendFormat(
             "<button type=\"button\" class=\"btn btn-primary btn-sm\" data-bs-toggle=\"modal\" data-bs-target=\"#UploadDialog\">{0}</button>",
             this.Get<ILocalization>().GetText("ATTACHMENTS", "UPLOAD_NEW"));

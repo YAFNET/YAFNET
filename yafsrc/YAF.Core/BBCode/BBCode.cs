@@ -913,7 +913,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
             new QuoteRegexReplaceRule(
                 @"\[quote=(?<quote>(.*?))](?<inner>(.*?))\[/quote\]\r\n|\[quote=(?<quote>(.*?))](?<inner>(.*?))\[/quote\]",
                 """
-                <div class="card mb-3 border-secondary shadow-sm" >
+                <div class="card mx-3 mb-3 border-secondary shadow-sm" >
                     <div class="card-body">
                         <p class="card-text"><i class="fa fa-quote-left text-primary fs-4 p-2"></i>${quoteText}</p>
                         ${quote}
@@ -924,7 +924,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
 
         // simple open quote tag
         const string SimpleOpenQuoteReplace = """
-                                              <div class="card mb-3 border-secondary shadow-sm" >
+                                              <div class="card mx-3 mb-3 border-secondary shadow-sm" >
                                               <div class="card-body">
                                                      <p class="card-text"><i class="fa fa-quote-left text-primary fs-4 p-2"></i>
                                               """;

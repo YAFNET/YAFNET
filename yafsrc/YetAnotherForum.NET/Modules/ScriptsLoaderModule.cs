@@ -130,8 +130,8 @@ public class ScriptsLoaderModule : SimpleBaseForumModule
             "FileUploadScript",
             new ScriptResourceDefinition
                 {
-                    Path = BoardInfo.GetURLToScripts("jquery.fileupload.comb.min.js"),
-                    DebugPath = BoardInfo.GetURLToScripts("jquery.fileupload.comb.js")
+                    Path = BoardInfo.GetURLToScripts("fileUploader.min.js"),
+                    DebugPath = BoardInfo.GetURLToScripts("fileUploader.js")
                 });
 
         this.PageBoardContext.PageElements.AddScriptReference(

@@ -1602,7 +1602,6 @@
     <Content Include="Content\flags\4x3\zm.svg" />
     <Content Include="Content\flags\4x3\zw.svg" />
     <Content Include="Content\fontawesome\LICENSE-fontawesome.txt" />
-    <Content Include="Content\jquery.fileupload.comb.min.css" />
     <Content Include="BuildScripts\YAF-Sqlite.Package.targets" />
     <Content Include="Content\bootstrap\helpers\_stacks.scss" />
     <Content Include="Content\bootstrap\helpers\_vr.scss" />
@@ -1645,7 +1644,6 @@
     <Content Include="Content\bootstrap-email\scss\_selectors_for_utils.scss" />
     <Content Include="Content\bootstrap-email\scss\_utilities.scss" />
     <Content Include="Content\bootstrap-email\scss\_variables.scss" />
-    <None Include="Content\jquery.netStack.scss" />
     <Content Include="Content\select2\select2.css" />
     <Content Include="Content\Themes\cerulean\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
@@ -1857,7 +1855,6 @@
     <Content Include="Content\fontawesome\_variables.scss" />
     <Content Include="Content\fontawesome\fontawesome-all.scss" />
     <Content Include="Content\favicons\site.webmanifest" />
-    <Content Include="Content\blueimp-gallery.scss" />
     <Content Include="Content\bootstrap\mixins\_deprecate.scss" />
     <Content Include="Content\bootstrap\_spinners.scss" />
     <Content Include="Content\bootstrap\_toasts.scss" />
@@ -1894,9 +1891,7 @@
     <Content Include="Content\InstallWizard.min.css">
       <DependentUpon>InstallWizard.css</DependentUpon>
     </Content>
-    <Content Include="Content\jQuery.FileUpload\jquery.fileupload.css" />
     <Content Include="Content\images\InstallBackground.jpg" />
-    <Content Include="Content\jQuery.FileUpload\jquery.fileupload-ui.css" />
     <Content Include="Content\prism.css" />
     <Content Include="Content\Themes\cyborg\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
@@ -2184,9 +2179,6 @@
     <Content Include="Resources\EmailTemplate.html" />
     <Content Include="Resources\HelpMenuList.xml" />
     <Content Include="robots.txt" />
-    <Content Include="Scripts\blueimp-gallery\blueimp-gallery-indicator.js" />
-    <Content Include="Scripts\blueimp-gallery\blueimp-gallery.js" />
-    <Content Include="Scripts\blueimp-gallery\jquery.blueimp-gallery.js" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootstrap-notify.js" />
     <None Include="Content\forum-admin.scss" />
@@ -2201,6 +2193,8 @@
     <Content Include="Scripts\bs5-lightbox\webpack.cdn.js" />
     <Content Include="Scripts\bs5-lightbox\webpack.common.js" />
     <Content Include="Scripts\codemirror.min.js" />
+    <Content Include="Scripts\fileUploader.js" />
+    <Content Include="Scripts\fileUploader.min.js" />
     <Content Include="Scripts\forum\bootstrap-touchspin.js" />
     <Content Include="Scripts\forum\yaf.Albums.js" />
     <Content Include="Scripts\forum\yaf.hoverCard.js" />
@@ -2220,22 +2214,6 @@
     <Content Include="Scripts\jquery.min.map">
       <DependentUpon>jquery.min.js</DependentUpon>
     </Content>
-    <Content Include="Scripts\jquery.FileUpload\canvas-to-blob.js" />
-    <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-audio.js" />
-    <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-image.js" />
-    <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-process.js" />
-    <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-ui.js" />
-    <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-validate.js" />
-    <Content Include="Scripts\jquery.FileUpload\jquery.fileupload-video.js" />
-    <Content Include="Scripts\jquery.fileupload.comb.js" />
-    <Content Include="Scripts\jquery.fileupload.comb.min.js">
-      <DependentUpon>jquery.fileupload.comb.js</DependentUpon>
-    </Content>
-    <Content Include="Scripts\jquery.FileUpload\jquery.fileupload.js" />
-    <Content Include="Scripts\jquery.FileUpload\jquery.iframe-transport.js" />
-    <Content Include="Scripts\jquery.FileUpload\load-image.all.min.js" />
-    <Content Include="Scripts\jquery.FileUpload\tmpl.js" />
-    <Content Include="Scripts\jquery.FileUpload\vendor\jquery.ui.widget.js" />
     <Content Include="Scripts\jquery.ForumAdminExtensions.js" />
     <Content Include="Scripts\jquery.ForumAdminExtensions.min.js">
       <DependentUpon>jquery.ForumAdminExtensions.js</DependentUpon>
@@ -2747,6 +2725,7 @@
     <Content Include="Scripts\yafeditor\yafEditor.js" />
     <Content Include="Scripts\yafeditor\yafEditor.min.js" />
     <Content Include="UrlRewriter.config" />
+    <Content Include="Content\netStack.scss" />
     <None Include="Content\select2\select2-bootstrap.scss" />
     <Content Include="Content\Themes\cerulean\LICENSE.md" />
     <Content Include="Content\Themes\cosmo\LICENSE.md" />
@@ -2901,7 +2880,7 @@ xcopy "$(SolutionDir)YAF.Data\YAF.Data.Sqlite\bin\Release\net48\x64\SQLite.Inter
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

@@ -26,14 +26,16 @@ namespace YAF.Core.Handlers;
 
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Web.Script.Serialization;
 using System.Web.SessionState;
 
 using YAF.Core.Model;
-using YAF.Core.Utilities;
 using YAF.Types.Models;
 using YAF.Types.Objects;
+
+using MimeTypes = Utilities.MimeTypes;
 
 /// <summary>
 /// The File Upload Handler
@@ -153,12 +155,22 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
 
                 if (!allowedExtensions.Contains(extension))
                 {
-                    throw new HttpRequestValidationException("Invalid File");
+                    statuses.Add(
+                        new FilesUploadStatus {
+                                                  error = "Invalid File"
+                                              });
+
+                    return;
                 }
 
                 if (!MimeTypes.FileMatchContentType(file))
                 {
-                    throw new HttpRequestValidationException("Invalid File");
+                    statuses.Add(
+                        new FilesUploadStatus {
+                                                  error = "Invalid File"
+                                              });
+
+                    return;
                 }
 
                 if (fileName.IsSet())
@@ -171,7 +183,12 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
                 }
                 else
                 {
-                    throw new HttpRequestValidationException("File does not have a name");
+                    statuses.Add(
+                        new FilesUploadStatus {
+                                                  error = "File does not have a name"
+                                              });
+
+                    return;
                 }
 
                 if (fileName.Length > 220)
@@ -183,23 +200,42 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
                 if (this.Get<BoardSettings>().MaxFileSize > 0
                     && file.ContentLength > this.Get<BoardSettings>().MaxFileSize)
                 {
-                    throw new HttpRequestValidationException(
-                        this.Get<ILocalization>().GetTextFormatted(
-                            "UPLOAD_TOOBIG",
-                            file.ContentLength / 1024,
-                            this.Get<BoardSettings>().MaxFileSize / 1024));
+                    statuses.Add(new FilesUploadStatus { error = this.Get<ILocalization>().GetTextFormatted(
+                                                           "UPLOAD_TOOBIG",
+                                                           file.ContentLength / 1024,
+                                                           this.Get<BoardSettings>().MaxFileSize / 1024)
+                                                       });
+
+                    return;
+                }
+
+                Stream resized = null;
+
+                // resize image ?!
+                using (var img = Image.FromStream(file.InputStream))
+                {
+                    if (img.Width > this.Get<BoardSettings>().ImageAttachmentResizeWidth || img.Height > this.Get<BoardSettings>().ImageAttachmentResizeHeight)
+                    {
+                        resized = ImageHelper.GetResizedImageStreamFromImage(img, this.Get<BoardSettings>().ImageAttachmentResizeWidth, this.Get<BoardSettings>().ImageAttachmentResizeHeight);
+                    }
                 }
 
                 int newAttachmentId;
 
                 if (this.Get<BoardSettings>().UseFileTable)
                 {
+                    var image = Image.FromStream(resized ?? file.InputStream);
+
+                    var memoryStream = new MemoryStream();
+                    image.Save(memoryStream, image.RawFormat);
+                    memoryStream.Position = 0;
+
                     newAttachmentId = this.GetRepository<Attachment>().Save(
                         yafUserId,
                         fileName,
-                        file.ContentLength,
+                        memoryStream.Length.ToType<int>(),
                         file.ContentType,
-                        file.InputStream.ToArray());
+                        memoryStream.ToArray());
                 }
                 else
                 {
@@ -218,7 +254,13 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
                         file.ContentLength,
                         file.ContentType);
 
-                    file.SaveAs($"{previousDirectory}/u{yafUserId}-{newAttachmentId}.{fileName}.yafupload");
+                    var newFile = Image.FromStream(resized ?? file.InputStream);
+
+                    using var memory = new MemoryStream();
+                    using var fs = new FileStream($"{previousDirectory}/u{yafUserId}-{newAttachmentId}.{fileName}.yafupload", FileMode.Create, FileAccess.ReadWrite);
+                    newFile.Save(memory, newFile.RawFormat);
+                    var bytes = memory.ToArray();
+                    fs.Write(bytes, 0, bytes.Length);
                 }
 
                 var fullName = Path.GetFileName(fileName);
@@ -227,6 +269,11 @@ public class FileUploader : IHttpHandler, IReadOnlySessionState, IHaveServiceLoc
         }
         catch (Exception ex)
         {
+            statuses.Add(new FilesUploadStatus
+                         {
+                             error = ex.Message
+                         });
+
             this.Get<ILoggerService>().Error(ex, "Error during Attachment upload");
         }
     }
