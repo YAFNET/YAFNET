@@ -54,7 +54,7 @@ yafEditor.prototype.FormatText = function (command, option) {
             wrapSelection(textObj, "[code]", "[/code]");
             break;
         case "codelang":
-            wrapSelection(textObj, "[code=" + option + "]", "[/code]");
+            wrapSelection(textObj, `[code=${option}]`, "[/code]");
             break;
         case "img":
             if (getCurrentSelection(textObj)) {
@@ -75,9 +75,9 @@ yafEditor.prototype.FormatText = function (command, option) {
                                 placeholder: descriptionImage,
                                 callback: function (desc) {
                                     if (desc !== "" && desc !== null) {
-                                        replaceSelection(textObj, "[img=" + url + "]" + desc + "[/img]");
+                                        replaceSelection(textObj, `[img=${url}]${desc}[/img]`);
                                     } else {
-                                        replaceSelection(textObj, "[img]" + url + "[/img]");
+                                        replaceSelection(textObj, `[img]${url}[/img]`);
                                     }
                                 }
                             });
@@ -122,7 +122,7 @@ yafEditor.prototype.FormatText = function (command, option) {
                 callback: function (url) {
                     if (url !== null && url !== "") {
                         if (getCurrentSelection(textObj)) {
-                            wrapSelection(textObj, "[url=" + url + "]", "[/url]");
+                            wrapSelection(textObj, `[url=${url}]`, "[/url]");
                         } else {
                             // ask for the description text...
                             bootbox.prompt({
@@ -130,9 +130,9 @@ yafEditor.prototype.FormatText = function (command, option) {
                                 placeholder: descriptionUrl,
                                 callback: function (desc) {
                                     if (desc != "" && desc != null) {
-                                        replaceSelection(textObj, "[url=" + url + "]" + desc + "[/url]");
+                                        replaceSelection(textObj, `[url=${url}]${desc}[/url]`);
                                     } else {
-                                        replaceSelection(textObj, "[url]" + url + "[/url]");
+                                        replaceSelection(textObj, `[url]${url}[/url]`);
                                     }
                                 }
                             });
@@ -150,16 +150,19 @@ yafEditor.prototype.FormatText = function (command, option) {
             wrapSelection(textObj, "[list=1][*]", "[/list]");
             break;
         case "color":
-            wrapSelection(textObj, "[color=" + option + "]", "[/color]");
+            wrapSelection(textObj, `[color=${option}]`, "[/color]");
             break;
         case "fontsize":
-            wrapSelection(textObj, "[size=" + option + "]", "[/size]");
+            wrapSelection(textObj, `[size=${option}]`, "[/size]");
             break;
         case "AlbumImgId":
-            replaceSelection(textObj, "[albumimg]" + option + "[/albumimg]");
+            replaceSelection(textObj, `[albumimg]${option}[/albumimg]`);
             break;
         case "attach":
-            replaceSelection(textObj, "[attach]" + option + "[/attach]");
+            replaceSelection(textObj, `[attach]${option}[/attach]`);
+            break;
+        case "userlink":
+            replaceSelection(textObj, `[userlink]${option}[/userlink]`);
             break;
         case "selectAll":
             textObj.select();
@@ -181,7 +184,7 @@ yafEditor.prototype.FormatText = function (command, option) {
             break;
         default:
             // make custom option
-            wrapSelection(textObj, "[" + command + "]", "[/" + command + "]");
+            wrapSelection(textObj, `[${command}]`, `[/${command}]`);
             break;
     }
 };

@@ -99,6 +99,7 @@ public class UserController : ForumBaseController
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
+    [ValidateAntiForgeryToken]
     [Authorize]
     [Produces("application/json")]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

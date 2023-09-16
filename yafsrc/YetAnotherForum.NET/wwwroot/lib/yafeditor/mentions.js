@@ -81,7 +81,17 @@
         var query = word.slice(1);
 
         if (query.length >= 3) {
-            fetch(opts.url.replace("{q}", query))
+            fetch(opts.url.replace("{q}", query),
+                    {
+                        method: "GET",
+                        headers: {
+                            "Accept": "application/json",
+                            "Content-Type": "application/json;charset=utf-8",
+                            "RequestVerificationToken": document
+                                .querySelector('input[name="__RequestVerificationToken"]')
+                                .value
+                        }
+                    })
                 .then(response => response.json())
                 .then(data => opts.items = data);
         }
