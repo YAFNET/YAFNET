@@ -8941,7 +8941,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     document.querySelectorAll(".attachedImage").forEach(imageLink => {
         var messageId = imageLink.parentNode.id;
-        imageLink.setAttribute("data-gallery", `#gallery-${messageId}`);
+        imageLink.setAttribute("data-gallery", `gallery-${messageId}`);
     });
 });
 

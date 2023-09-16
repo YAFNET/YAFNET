@@ -1,6 +1,6 @@
 @charset "UTF-8";
 /*!
- * Bootstrap  v5.3.1 (https://getbootstrap.com/)
+ * Bootstrap  v5.3.2 (https://getbootstrap.com/)
  * Copyright 2011-2023 The Bootstrap Authors
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
@@ -100,6 +100,7 @@
   --bs-link-hover-color: #3a466a;
   --bs-link-hover-color-rgb: 58, 70, 106;
   --bs-code-color: #d63384;
+  --bs-highlight-color: #7b8ab8;
   --bs-highlight-bg: #fff3cd;
   --bs-border-width: 0;
   --bs-border-style: solid;
@@ -171,6 +172,8 @@
   --bs-link-color-rgb: 135, 187, 253;
   --bs-link-hover-color-rgb: 159, 201, 253;
   --bs-code-color: #e685b5;
+  --bs-highlight-color: #dee2e6;
+  --bs-highlight-bg: #664d03;
   --bs-border-color: #7b8ab8;
   --bs-border-color-translucent: rgba(255, 255, 255, 0.15);
   --bs-form-valid-color: #8ee07f;
@@ -327,6 +330,7 @@ small, .small {
 
 mark, .mark {
   padding: 0.1875em;
+  color: var(--bs-highlight-color);
   background-color: var(--bs-highlight-bg);
 }
 
@@ -837,7 +841,7 @@ progress {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
-  width: 33.3333333333%;
+  width: 33.33333333%;
 }
 
 .row-cols-4 > * {
@@ -858,7 +862,7 @@ progress {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 auto;
           flex: 0 0 auto;
-  width: 16.6666666667%;
+  width: 16.66666667%;
 }
 
 .col-auto {
@@ -1084,7 +1088,7 @@ progress {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 auto;
             flex: 0 0 auto;
-    width: 33.3333333333%;
+    width: 33.33333333%;
   }
   .row-cols-sm-4 > * {
     -webkit-box-flex: 0;
@@ -1102,7 +1106,7 @@ progress {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 auto;
             flex: 0 0 auto;
-    width: 16.6666666667%;
+    width: 16.66666667%;
   }
   .col-sm-auto {
     -webkit-box-flex: 0;
@@ -1295,7 +1299,7 @@ progress {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 auto;
             flex: 0 0 auto;
-    width: 33.3333333333%;
+    width: 33.33333333%;
   }
   .row-cols-md-4 > * {
     -webkit-box-flex: 0;
@@ -1313,7 +1317,7 @@ progress {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 auto;
             flex: 0 0 auto;
-    width: 16.6666666667%;
+    width: 16.66666667%;
   }
   .col-md-auto {
     -webkit-box-flex: 0;
@@ -1506,7 +1510,7 @@ progress {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 auto;
             flex: 0 0 auto;
-    width: 33.3333333333%;
+    width: 33.33333333%;
   }
   .row-cols-lg-4 > * {
     -webkit-box-flex: 0;
@@ -1524,7 +1528,7 @@ progress {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 auto;
             flex: 0 0 auto;
-    width: 16.6666666667%;
+    width: 16.66666667%;
   }
   .col-lg-auto {
     -webkit-box-flex: 0;
@@ -1717,7 +1721,7 @@ progress {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 auto;
             flex: 0 0 auto;
-    width: 33.3333333333%;
+    width: 33.33333333%;
   }
   .row-cols-xl-4 > * {
     -webkit-box-flex: 0;
@@ -1735,7 +1739,7 @@ progress {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 auto;
             flex: 0 0 auto;
-    width: 16.6666666667%;
+    width: 16.66666667%;
   }
   .col-xl-auto {
     -webkit-box-flex: 0;
@@ -1928,7 +1932,7 @@ progress {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 auto;
             flex: 0 0 auto;
-    width: 33.3333333333%;
+    width: 33.33333333%;
   }
   .row-cols-xxl-4 > * {
     -webkit-box-flex: 0;
@@ -1946,7 +1950,7 @@ progress {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 auto;
             flex: 0 0 auto;
-    width: 16.6666666667%;
+    width: 16.66666667%;
   }
   .col-xxl-auto {
     -webkit-box-flex: 0;
@@ -2116,16 +2120,16 @@ progress {
   --bs-table-bg-type: initial;
   --bs-table-color-state: initial;
   --bs-table-bg-state: initial;
-  --bs-table-color: var(--bs-body-color);
+  --bs-table-color: var(--bs-emphasis-color);
   --bs-table-bg: var(--bs-body-bg);
   --bs-table-border-color: var(--bs-border-color);
   --bs-table-accent-bg: transparent;
-  --bs-table-striped-color: var(--bs-body-color);
-  --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
-  --bs-table-active-color: var(--bs-body-color);
-  --bs-table-active-bg: rgba(0, 0, 0, 0.1);
-  --bs-table-hover-color: var(--bs-body-color);
-  --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+  --bs-table-striped-color: var(--bs-emphasis-color);
+  --bs-table-striped-bg: rgba(var(--bs-emphasis-color-rgb), 0.05);
+  --bs-table-active-color: var(--bs-emphasis-color);
+  --bs-table-active-bg: rgba(var(--bs-emphasis-color-rgb), 0.1);
+  --bs-table-hover-color: var(--bs-emphasis-color);
+  --bs-table-hover-bg: rgba(var(--bs-emphasis-color-rgb), 0.075);
   width: 100%;
   margin-bottom: 1rem;
   vertical-align: top;
@@ -2195,7 +2199,7 @@ progress {
 .table-primary {
   --bs-table-color: #000;
   --bs-table-bg: #d7e8fe;
-  --bs-table-border-color: #c2d1e5;
+  --bs-table-border-color: #acbacb;
   --bs-table-striped-bg: #ccdcf1;
   --bs-table-striped-color: #000;
   --bs-table-active-bg: #c2d1e5;
@@ -2209,7 +2213,7 @@ progress {
 .table-secondary {
   --bs-table-color: #000;
   --bs-table-bg: #f7f9fc;
-  --bs-table-border-color: #dee0e3;
+  --bs-table-border-color: #c6c7ca;
   --bs-table-striped-bg: #ebedef;
   --bs-table-striped-color: #000;
   --bs-table-active-bg: #dee0e3;
@@ -2223,7 +2227,7 @@ progress {
 .table-success {
   --bs-table-color: #000;
   --bs-table-bg: #d9f5d4;
-  --bs-table-border-color: #c3ddbf;
+  --bs-table-border-color: #aec4aa;
   --bs-table-striped-bg: #cee9c9;
   --bs-table-striped-color: #000;
   --bs-table-active-bg: #c3ddbf;
@@ -2237,7 +2241,7 @@ progress {
 .table-info {
   --bs-table-color: #000;
   --bs-table-bg: #dee0fd;
-  --bs-table-border-color: #c8cae4;
+  --bs-table-border-color: #b2b3ca;
   --bs-table-striped-bg: #d3d5f0;
   --bs-table-striped-color: #000;
   --bs-table-active-bg: #c8cae4;
@@ -2251,7 +2255,7 @@ progress {
 .table-warning {
   --bs-table-color: #000;
   --bs-table-bg: #fff3cd;
-  --bs-table-border-color: #e6dbb9;
+  --bs-table-border-color: #ccc2a4;
   --bs-table-striped-bg: #f2e7c3;
   --bs-table-striped-color: #000;
   --bs-table-active-bg: #e6dbb9;
@@ -2265,7 +2269,7 @@ progress {
 .table-danger {
   --bs-table-color: #000;
   --bs-table-bg: #fad3d4;
-  --bs-table-border-color: #e1bebf;
+  --bs-table-border-color: #c8a9aa;
   --bs-table-striped-bg: #eec8c9;
   --bs-table-striped-color: #fff;
   --bs-table-active-bg: #e1bebf;
@@ -2279,7 +2283,7 @@ progress {
 .table-light {
   --bs-table-color: #000;
   --bs-table-bg: #f0f5fa;
-  --bs-table-border-color: #d8dde1;
+  --bs-table-border-color: #c0c4c8;
   --bs-table-striped-bg: #e4e9ee;
   --bs-table-striped-color: #000;
   --bs-table-active-bg: #d8dde1;
@@ -2293,7 +2297,7 @@ progress {
 .table-dark {
   --bs-table-color: #fff;
   --bs-table-bg: #212529;
-  --bs-table-border-color: #373b3e;
+  --bs-table-border-color: #4d5154;
   --bs-table-striped-bg: #2c3034;
   --bs-table-striped-color: #fff;
   --bs-table-active-bg: #373b3e;
@@ -2386,8 +2390,8 @@ progress {
   background-clip: padding-box;
   border: var(--bs-border-width) solid var(--bs-border-color);
   border-radius: var(--bs-border-radius);
-  -webkit-box-shadow: inset 2px 2px 8px rgba(55, 94, 148, 0.3), inset -3px -2px 5px rgba(255, 255, 255, 0.8);
-          box-shadow: inset 2px 2px 8px rgba(55, 94, 148, 0.3), inset -3px -2px 5px rgba(255, 255, 255, 0.8);
+  -webkit-box-shadow: var(--bs-box-shadow-inset);
+          box-shadow: var(--bs-box-shadow-inset);
   -webkit-transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, -webkit-box-shadow 0.15s ease-in-out;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
@@ -2410,8 +2414,8 @@ progress {
   background-color: #f0f5fa;
   border-color: #9bc6fe;
   outline: 0;
-  -webkit-box-shadow: inset 2px 2px 8px rgba(55, 94, 148, 0.3), inset -3px -2px 5px rgba(255, 255, 255, 0.8), 0 0 0 0.25rem rgba(55, 141, 252, 0.25);
-          box-shadow: inset 2px 2px 8px rgba(55, 94, 148, 0.3), inset -3px -2px 5px rgba(255, 255, 255, 0.8), 0 0 0 0.25rem rgba(55, 141, 252, 0.25);
+  -webkit-box-shadow: var(--bs-box-shadow-inset), 0 0 0 0.25rem rgba(55, 141, 252, 0.25);
+          box-shadow: var(--bs-box-shadow-inset), 0 0 0 0.25rem rgba(55, 141, 252, 0.25);
 }
 .form-control::-webkit-date-and-time-value {
   min-width: 85px;
@@ -2683,6 +2687,8 @@ textarea.form-control-lg {
 
 .form-check-input, .aspNetDisabled input, .form-check-custom input {
   --bs-form-check-bg: #f0f5fa;
+  -ms-flex-negative: 0;
+      flex-shrink: 0;
   width: 1em;
   height: 1em;
   margin-top: 0.25em;
@@ -2852,8 +2858,8 @@ textarea.form-control-lg {
   background-color: rgba(55, 94, 148, 0.15);
   border-color: transparent;
   border-radius: 1rem;
-  -webkit-box-shadow: inset 2px 2px 8px rgba(55, 94, 148, 0.3), inset -3px -2px 5px rgba(255, 255, 255, 0.8);
-          box-shadow: inset 2px 2px 8px rgba(55, 94, 148, 0.3), inset -3px -2px 5px rgba(255, 255, 255, 0.8);
+  -webkit-box-shadow: var(--bs-box-shadow-inset);
+          box-shadow: var(--bs-box-shadow-inset);
 }
 .form-range::-moz-range-thumb {
   width: 1rem;
@@ -2884,7 +2890,7 @@ textarea.form-control-lg {
   background-color: rgba(55, 94, 148, 0.15);
   border-color: transparent;
   border-radius: 1rem;
-  box-shadow: inset 2px 2px 8px rgba(55, 94, 148, 0.3), inset -3px -2px 5px rgba(255, 255, 255, 0.8);
+  box-shadow: var(--bs-box-shadow-inset);
 }
 .form-range:disabled {
   pointer-events: none;
@@ -6123,7 +6129,7 @@ textarea.form-control-lg {
   --bs-modal-border-color: var(--bs-border-color-translucent);
   --bs-modal-border-width: var(--bs-border-width);
   --bs-modal-border-radius: var(--bs-border-radius-lg);
-  --bs-modal-box-shadow: 0 0.125rem 0.25rem rgba(55, 94, 148, 0.2);
+  --bs-modal-box-shadow: var(--bs-box-shadow-sm);
   --bs-modal-inner-border-radius: calc(var(--bs-border-radius-lg) - (var(--bs-border-width)));
   --bs-modal-header-padding-x: 1rem;
   --bs-modal-header-padding-y: 1rem;
@@ -6299,7 +6305,7 @@ textarea.form-control-lg {
 @media (min-width: 576px) {
   .modal {
     --bs-modal-margin: 1.75rem;
-    --bs-modal-box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4);
+    --bs-modal-box-shadow: var(--bs-box-shadow);
   }
   .modal-dialog {
     max-width: var(--bs-modal-width);
@@ -6551,7 +6557,7 @@ textarea.form-control-lg {
   --bs-popover-border-color: var(--bs-border-color-translucent);
   --bs-popover-border-radius: var(--bs-border-radius-lg);
   --bs-popover-inner-border-radius: calc(var(--bs-border-radius-lg) - var(--bs-border-width));
-  --bs-popover-box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4);
+  --bs-popover-box-shadow: var(--bs-box-shadow);
   --bs-popover-header-padding-x: 1rem;
   --bs-popover-header-padding-y: 0.5rem;
   --bs-popover-header-font-size: 1rem;
@@ -7041,7 +7047,7 @@ textarea.form-control-lg {
   --bs-offcanvas-bg: var(--bs-body-bg);
   --bs-offcanvas-border-width: var(--bs-border-width);
   --bs-offcanvas-border-color: var(--bs-border-color-translucent);
-  --bs-offcanvas-box-shadow: 0 0.125rem 0.25rem rgba(55, 94, 148, 0.2);
+  --bs-offcanvas-box-shadow: var(--bs-box-shadow-sm);
   --bs-offcanvas-transition: transform 0.3s ease-in-out;
   --bs-offcanvas-title-line-height: 1.5;
 }
@@ -8246,18 +8252,18 @@ textarea.form-control-lg {
 }
 
 .shadow {
-  -webkit-box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4) !important;
-          box-shadow: 5px 5px 10px rgba(55, 94, 148, 0.2), -5px -5px 10px rgba(255, 255, 255, 0.4) !important;
+  -webkit-box-shadow: var(--bs-box-shadow) !important;
+          box-shadow: var(--bs-box-shadow) !important;
 }
 
 .shadow-sm {
-  -webkit-box-shadow: 0 0.125rem 0.25rem rgba(55, 94, 148, 0.2) !important;
-          box-shadow: 0 0.125rem 0.25rem rgba(55, 94, 148, 0.2) !important;
+  -webkit-box-shadow: var(--bs-box-shadow-sm) !important;
+          box-shadow: var(--bs-box-shadow-sm) !important;
 }
 
 .shadow-lg {
-  -webkit-box-shadow: 8px 8px 40px rgba(0, 0, 0, 0.15) !important;
-          box-shadow: 8px 8px 40px rgba(0, 0, 0, 0.15) !important;
+  -webkit-box-shadow: var(--bs-box-shadow-lg) !important;
+          box-shadow: var(--bs-box-shadow-lg) !important;
 }
 
 .shadow-none {
