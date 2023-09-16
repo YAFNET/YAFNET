@@ -37,7 +37,7 @@ public class Migration : IMeta
     /// Gets or sets the name.
     /// </summary>
     /// <value>The name.</value>
-    public string Name { get; set; }
+    public string? Name { get; set; }
     /// <summary>
     /// Gets or sets the description.
     /// </summary>
@@ -57,7 +57,7 @@ public class Migration : IMeta
     /// Gets or sets the connection string.
     /// </summary>
     /// <value>The connection string.</value>
-    public string ConnectionString { get; set; }
+    public string? ConnectionString { get; set; }
     /// <summary>
     /// Gets or sets the named connection.
     /// </summary>
@@ -90,7 +90,7 @@ public class Migration : IMeta
     /// </summary>
     /// <value>The meta.</value>
     [StringLength(StringLengthAttribute.MaxText)]
-    public Dictionary<string, string> Meta { get; set; }
+    public Dictionary<string, string>? Meta { get; set; }
 }
 
 /// <summary>
@@ -232,7 +232,6 @@ public class Migrator
     {
         var completedMigrations = new List<Type>();
 
-        Type? nextRun = null;
         var q = db.From<Migration>()
             .OrderByDescending(x => x.Name);
         // Select all previously run migrations and find the last completed migration
