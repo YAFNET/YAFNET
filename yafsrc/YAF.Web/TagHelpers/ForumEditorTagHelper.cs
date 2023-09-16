@@ -100,13 +100,8 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         if (this.UsersCanUpload && this.EditorMode == EditorMode.Standard && BoardContext.Current.UploadAccess)
         {
             BoardContext.Current.InlineElements.InsertJsBlock(
-                "autoUpload",
-                JavaScriptBlocks.FileAutoUploadLoadJs(
-                    this.Get<BoardSettings>().AllowedFileExtensions.Replace(",", "|"),
-                    this.Get<BoardSettings>().MaxFileSize,
-                    this.Get<IUrlHelper>().Action("Upload", "FileUpload"),
-                    BoardContext.Current.BoardSettings.ImageAttachmentResizeWidth,
-                    BoardContext.Current.BoardSettings.ImageAttachmentResizeHeight));
+                nameof(JavaScriptBlocks.FileAutoUploadLoadJs),
+                JavaScriptBlocks.FileAutoUploadLoadJs(this.Get<IUrlHelper>().Action("Upload", "FileUpload")));
         }
 
         switch (this.EditorMode)
@@ -925,7 +920,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                                  {
                                      Attributes =
                                          {
-                                             ["class"] = "OpenUploadDialog"
+                                             ["class"] = "OpenUploadDialog mt-1 d-grid gap-2"
                                          }
                                  };
         content.AppendHtml(uploadDivTag.RenderStartTag());

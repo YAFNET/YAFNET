@@ -7,13 +7,6 @@
 @using YAF.Web.HtmlHelpers
 @model PostTopicModel
 
-@section StyleSheets {
-    @if (Model.PageBoardContext.UploadAccess)
-    {
-        @await Html.PartialAsync("_FileUploadStylesSheetsPartial")
-    }
-}
-
 <form method="post">
         <div class="row">
             <div class="col">

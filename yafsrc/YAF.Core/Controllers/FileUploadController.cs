@@ -41,6 +41,8 @@ using YAF.Types.Objects;
 using System.Linq;
 using System.Threading.Tasks;
 
+using SixLabors.ImageSharp;
+
 using YAF.Core.BasePages;
 
 /// <summary>
@@ -67,7 +69,13 @@ public class FileUpload : ForumBaseController
 
         if (!this.PageBoardContext.UploadAccess)
         {
-            return await Task.FromResult<ActionResult<List<FilesUploadStatus>>>(this.NotFound(""));
+            statuses.Add(
+                new FilesUploadStatus
+                    {
+                        error = "Invalid File"
+                    });
+
+            return await Task.FromResult<ActionResult<List<FilesUploadStatus>>>(statuses);
         }
 
         try
@@ -83,14 +91,24 @@ public class FileUpload : ForumBaseController
 
                 if (!allowedExtensions.Contains(extension))
                 {
-                    return await Task.FromResult<ActionResult<List<FilesUploadStatus>>>(
-                               this.BadRequest("Invalid File"));
+                    statuses.Add(
+                        new FilesUploadStatus
+                            {
+                                error = "Invalid File"
+                            });
+
+                    return await Task.FromResult<ActionResult<List<FilesUploadStatus>>>(statuses);
                 }
 
                 if (!MimeTypes.FileMatchContentType(file))
                 {
-                    return await Task.FromResult<ActionResult<List<FilesUploadStatus>>>(
-                               this.BadRequest("Invalid File"));
+                    statuses.Add(
+                        new FilesUploadStatus
+                            {
+                                error = "Invalid File"
+                            });
+
+                    return await Task.FromResult<ActionResult<List<FilesUploadStatus>>>(statuses);
                 }
 
                 if (fileName.IsSet())
@@ -103,8 +121,13 @@ public class FileUpload : ForumBaseController
                 }
                 else
                 {
-                    return await Task.FromResult<ActionResult<List<FilesUploadStatus>>>(
-                               this.BadRequest("File does not have a name"));
+                    statuses.Add(
+                        new FilesUploadStatus
+                            {
+                                error = "File does not have a name"
+                            }); 
+                    
+                    return await Task.FromResult<ActionResult<List<FilesUploadStatus>>>(statuses);
                 }
 
                 if (fileName.Length > 220)
@@ -116,27 +139,56 @@ public class FileUpload : ForumBaseController
                 if (this.PageBoardContext.BoardSettings.MaxFileSize > 0
                     && file.Length > this.PageBoardContext.BoardSettings.MaxFileSize)
                 {
-                    return await Task.FromResult<ActionResult<List<FilesUploadStatus>>>(
-                               this.BadRequest(
-                                   this.GetTextFormatted(
-                                       "UPLOAD_TOOBIG",
-                                       file.Length / 1024,
-                                       this.PageBoardContext.BoardSettings.MaxFileSize / 1024)));
+                    statuses.Add(new FilesUploadStatus
+                                     {
+                                         error = this.Get<ILocalization>().GetTextFormatted(
+                                             "UPLOAD_TOOBIG",
+                                             file.Length / 1024,
+                                             this.Get<BoardSettings>().MaxFileSize / 1024)
+                                     });
+
+                    return await Task.FromResult<ActionResult<List<FilesUploadStatus>>>(statuses);
                 }
 
+                Stream resized = null;
+
+                //  resize image ?!
+                using var img = await Image.LoadAsync(file.OpenReadStream());
+               
+                    if (img.Width > this.Get<BoardSettings>().ImageAttachmentResizeWidth || img.Height > this.Get<BoardSettings>().ImageAttachmentResizeHeight)
+                    {
+                        resized = ImageHelper.GetResizedImage(
+                            img,
+                            img.Metadata.DecodedImageFormat,
+                            this.Get<BoardSettings>().ImageAttachmentResizeWidth,
+                            this.Get<BoardSettings>().ImageAttachmentResizeHeight);
+                    }
+                    
                 int newAttachmentId;
 
                 if (this.PageBoardContext.BoardSettings.UseFileTable)
                 {
-                    using var memoryStream = new MemoryStream();
-                    await file.OpenReadStream().CopyToAsync(memoryStream);
+                    if (resized is null)
+                    {
+                        using var memoryStream = new MemoryStream();
+                        await file.OpenReadStream().CopyToAsync(memoryStream);
 
-                    newAttachmentId = this.GetRepository<Attachment>().Save(
-                        yafUserId,
-                        fileName,
-                        file.Length.ToType<int>(),
-                        file.ContentType,
-                        memoryStream.ToArray());
+                        newAttachmentId = this.GetRepository<Attachment>().Save(
+                            yafUserId,
+                            fileName,
+                            file.Length.ToType<int>(),
+                            file.ContentType,
+                            memoryStream.ToArray());
+                    }
+                    else
+                    {
+                        newAttachmentId = this.GetRepository<Attachment>().Save(
+                            yafUserId,
+                            fileName,
+                            resized.Length.ToType<int>(),
+                            file.ContentType,
+                            resized.ToArray());
+                    }
                 }
                 else
                 {
@@ -146,16 +198,31 @@ public class FileUpload : ForumBaseController
                         Directory.CreateDirectory(uploadFolder);
                     }
 
-                    newAttachmentId = this.GetRepository<Attachment>().Save(
-                        yafUserId,
-                        fileName,
-                        file.Length.ToType<int>(),
-                        file.ContentType);
+                    if (resized is null)
+                    {
+                        newAttachmentId = this.GetRepository<Attachment>().Save(
+                            yafUserId,
+                            fileName,
+                            file.Length.ToType<int>(),
+                            file.ContentType);
 
-                    await using var fileStream = new FileStream(
-                        $"{uploadFolder}/u{yafUserId}-{newAttachmentId}.{fileName}.yafupload",
-                        FileMode.Create);
-                    await file.CopyToAsync(fileStream);
+                        await using var fileStream = new FileStream(
+                            $"{uploadFolder}/u{yafUserId}-{newAttachmentId}.{fileName}.yafupload",
+                            FileMode.Create);
+                        await file.CopyToAsync(fileStream);
+                    }
+                    else
+                    {
+                        newAttachmentId = this.GetRepository<Attachment>().Save(
+                            yafUserId,
+                            fileName,
+                            resized.Length.ToType<int>(),
+                            file.ContentType);
+
+                        await using var fs = new FileStream($"{uploadFolder}/u{yafUserId}-{newAttachmentId}.{fileName}.yafupload", FileMode.Create, FileAccess.ReadWrite);
+                        var bytes = resized.ToArray();
+                        fs.Write(bytes, 0, bytes.Length);
+                    }
                 }
 
                 var fullName = Path.GetFileName(fileName);
@@ -164,6 +231,11 @@ public class FileUpload : ForumBaseController
         }
         catch (Exception ex)
         {
+            statuses.Add(new FilesUploadStatus
+                             {
+                                 error = ex.Message
+                             });
+
             this.Get<ILogger<FileUpload>>().Error(ex, "Error during Attachment upload");
         }
 

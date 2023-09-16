@@ -37,6 +37,13 @@ public class FilesUploadStatus
     /// <summary>
     /// Initializes a new instance of the <see cref="FilesUploadStatus"/> class.
     /// </summary>
+    public FilesUploadStatus()
+    {
+    }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="FilesUploadStatus"/> class.
+    /// </summary>
     /// <param name="fileName">
     /// Name of the file.
     /// </param>
@@ -60,14 +67,6 @@ public class FilesUploadStatus
     public string name { get; set; }
 
     /// <summary>
-    /// Gets or sets the type.
-    /// </summary>
-    /// <value>
-    /// The type.
-    /// </value>
-    public string type { get; set; }
-
-    /// <summary>
     /// Gets or sets the size.
     /// </summary>
     /// <value>
@@ -84,36 +83,12 @@ public class FilesUploadStatus
     public string progress { get; set; }
 
     /// <summary>
-    /// Gets or sets the URL.
-    /// </summary>
-    /// <value>
-    /// The URL.
-    /// </value>
-    public string url { get; set; }
-
-    /// <summary>
     /// Gets or sets the file identifier.
     /// </summary>
     /// <value>
     /// The file identifier.
     /// </value>
     public int fileID { get; set; }
-
-    /// <summary>
-    /// Gets or sets the delete_url.
-    /// </summary>
-    /// <value>
-    /// The delete_url.
-    /// </value>
-    public string delete_url { get; set; }
-
-    /// <summary>
-    /// Gets or sets the delete_type.
-    /// </summary>
-    /// <value>
-    /// The delete_type.
-    /// </value>
-    public string delete_type { get; set; }
 
     /// <summary>
     /// Gets or sets the error.
@@ -132,10 +107,8 @@ public class FilesUploadStatus
     private void SetValues(string fileName, int fileLength, int fileId)
     {
         this.name = fileName;
-        this.type = "image/png";
         this.size = fileLength;
         this.progress = "1.0";
         this.fileID = fileId;
-        this.url = $"{HandlerPath}FileTransferHandler.ashx?f={fileName}";
     }
 }

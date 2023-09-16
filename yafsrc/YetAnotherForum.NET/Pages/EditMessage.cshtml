@@ -7,13 +7,6 @@
 @using YAF.Web.HtmlHelpers
 @model EditMessageModel
 
-@section StyleSheets {
-    @if (Model.PageBoardContext.UploadAccess)
-    {
-        @await Html.PartialAsync("_FileUploadStylesSheetsPartial")
-    }
-}
-
 @await Html.PartialAsync("_PollList", Model)
 
 <form method="post">

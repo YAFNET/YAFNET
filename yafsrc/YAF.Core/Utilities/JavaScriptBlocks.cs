@@ -804,146 +804,118 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
-    /// Gets the FileUpload Java Script.
+    /// Gets the Editor File Auto Upload Java Script.
     /// </summary>
-    /// <param name="acceptedFileTypes">
-    /// The accepted file types.
-    /// </param>
-    /// <param name="maxFileSize">
-    /// Maximum size of the file.
-    /// </param>
     /// <param name="fileUploaderUrl">
     /// The file uploader URL.
-    /// </param>
-    /// <param name="imageMaxWidth">
-    /// The image Max Width.
-    /// </param>
-    /// <param name="imageMaxHeight">
-    /// The image Max Height.
     /// </param>
     /// <returns>
     /// Returns the FileUpload Java Script.
     /// </returns>
     [NotNull]
     public static string FileAutoUploadLoadJs(
-        [NotNull] string acceptedFileTypes,
-        [NotNull] int maxFileSize,
-        [NotNull] string fileUploaderUrl,
-        [NotNull] int imageMaxWidth,
-        [NotNull] int imageMaxHeight)
+        [NotNull] string fileUploaderUrl)
     {
         return $$"""
-                 $('.BBCodeEditor').yafFileUpload({
-                                 url: '{{fileUploaderUrl}}',
-                                 acceptFileTypes: new RegExp('(\.|\/)(' + '{{acceptedFileTypes}}' + ')', 'i'),
-                                 imageMaxWidth: {{imageMaxWidth}},
-                                 imageMaxHeight: {{imageMaxHeight}},
-                                 autoUpload: true,
-                                 disableImageResize: /Android(?!.*Chrome)|Opera/
-                                 .test(window.navigator && navigator.userAgent),
-                                 dataType: 'json',
-                                 {{(maxFileSize > 0 ? $"maxFileSize: {maxFileSize}," : string.Empty)}}
-                                 done: function (e, data) {
-                                     insertAttachment( data.result[0].fileID, data.result[0].fileID );
-                                 },
-                                 formData: {
-                                     userID: '{{BoardContext.Current.PageUserID}}'
-                                 },
-                                 dropZone: $('.BBCodeEditor'),
-                                 pasteZone: $('.BBCodeEditor')
-                             });
-                 """;
+                  (function () {
+                      "use strict";
+                      const eventHandlers = zone => {
+                          ["dragenter", "dragover", "dragleave", "drop"].forEach(event => {
+                              zone.addEventListener(event, (e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                              }, false);
+                              document.body.addEventListener(event, (e) => {
+                                  e.preventDefault();
+                                  e.stopPropagation();
+                              }, false);
+                          });
+                  
+                          zone.addEventListener("drop", (e) => {
+                              filesUpload(e.dataTransfer.files);
+                          }, false);
+                      }
+                  
+                      document.addEventListener("DOMContentLoaded",
+                          function() {
+                              const dropZone = document.querySelector(".BBCodeEditor");
+                              eventHandlers(dropZone);
+                          });
+                  
+                      const filesUpload = files => {
+                  
+                          if (!files) return;
+                  
+                          const url = "{{fileUploaderUrl}}";
+                  
+                          const formData = new FormData();
+                  
+                          for (let x = 0; x < files.length; x++) {
+                              formData.append("'file" + x + "'", files[x]);
+                          }
+                  
+                          fetch(url, {
+                              method: "POST",
+                              body: formData,
+                              mode: "cors"
+                          })
+                              .then(response => response.json())
+                              .then(data => {
+                                  if (data.length) {
+                                      if (data[0].error) {
+                                          const _ = new Notify({
+                                                  title: "{{BoardContext.Current.BoardSettings.Name}}",
+                                                  message: data[0].error,
+                                                  icon: "fa fa-exclamation-triangle"
+                                              },
+                                              {
+                                                  type: "danger",
+                                                  element: "body",
+                                                  position: null,
+                                                  placement: { from: "top", align: "center" },
+                                                  delay: {{BoardContext.Current.BoardSettings.MessageNotifcationDuration}} * 1000
+                                              });
+                  
+                                      } else {
+                                          insertAttachment(data[0].fileID, data[0].fileID);
+                                      }
+                                  } else {
+                                      console.error("error");
+                                  }
+                              })
+                              .catch(error => {
+                                  console.error("error: ", error);
+                              });
+                      }
+                  })();
+                  """;
     }
 
     /// <summary>
-    /// Gets the FileUpload Java Script.
+    /// Gets the Editor File Auto Upload Java Script.
     /// </summary>
-    /// <param name="acceptedFileTypes">
-    /// The accepted file types.
-    /// </param>
-    /// <param name="maxFileSize">
-    /// Maximum size of the file.
-    /// </param>
     /// <param name="fileUploaderUrl">
     /// The file uploader URL.
-    /// </param>
-    /// <param name="imageMaxWidth">
-    /// The image Max Width.
-    /// </param>
-    /// <param name="imageMaxHeight">
-    /// The image Max Height.
     /// </param>
     /// <returns>
     /// Returns the FileUpload Java Script.
     /// </returns>
     [NotNull]
     public static string FileUploadLoadJs(
-        [NotNull] string acceptedFileTypes,
-        [NotNull] int maxFileSize,
-        [NotNull] string fileUploaderUrl,
-        [NotNull] int imageMaxWidth,
-        [NotNull] int imageMaxHeight)
+        [NotNull] string fileUploaderUrl)
     {
-        return $@"$(function() {{
+        return $$"""
+                 document.addEventListener("DOMContentLoaded", function() {
+                     const fileUploader = new FileUploader({
+                         dropZone: "drop-area",
+                         url: "{{fileUploaderUrl}}",
+                         fileInput: ".fileinput-button",
+                         errorTitle: "{{BoardContext.Current.BoardSettings.Name}}",
+                         errorDelay: {{BoardContext.Current.BoardSettings.MessageNotifcationDuration}}
+                     });
+                 });
 
-            $('#fileupload').yafFileUpload({{
-                url: '{fileUploaderUrl}',
-                acceptFileTypes: new RegExp('(\.|\/)(' + '{acceptedFileTypes}' + ')', 'i'),
-                imageMaxWidth: {imageMaxWidth},
-                imageMaxHeight: {imageMaxHeight},
-                disableImageResize: /Android(?!.*Chrome)|Opera/
-                .test(window.navigator && navigator.userAgent),
-                dataType: 'json',
-                {(maxFileSize > 0 ? $"maxFileSize: {maxFileSize}," : string.Empty)}
-                start: function (e) {{
-                    $('#fileupload .alert-danger').toggle();
-                }},
-                done: function (e, data) {{
-                    insertAttachment(data.result[0].fileID, data.result[0].fileID);
-                    $('#fileupload').find('.files li:first').remove();
-
-                    if ($('#fileupload').find('.files li').length == 0) {{
-                     $('#UploadDialog').modal('hide');
-                     $('#fileupload .alert-danger').toggle();
-
-                        var pageSize = 5;
-                        var pageNumber = 0;
-                        getPaginationData(pageSize, pageNumber, false);
-                    }}
-                }},
-                formData: {{
-                    allowedUpload: true
-                }},
-                dropZone: $('#UploadDialog')
-            }});
-            $(document).bind('dragover', function (e) {{
-                var dropZone = $('#dropzone'),
-                    timeout = window.dropZoneTimeout;
-                if (!timeout) {{
-                    dropZone.addClass('ui-state-highlight');
-                }} else {{
-                    clearTimeout(timeout);
-                }}
-                var found = false,
-                    node = e.target;
-                do {{
-                    if (node === dropZone[0]) {{
-                        found = true;
-                        break;
-                    }}
-                    node = node.parentNode;
-                }} while (node != null);
-                if (found) {{
-                    dropZone.addClass('ui-widget-content');
-                }} else {{
-                    dropZone.removeClass('ui-widget-content');
-                }}
-                window.dropZoneTimeout = setTimeout(function () {{
-                    window.dropZoneTimeout = null;
-                    dropZone.removeClass('ui-state-highlight ui-widget-content');
-                }}, 100);
-            }});
-        }});";
+                 """;
     }
 
     /// <summary>

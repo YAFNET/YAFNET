@@ -78,20 +78,6 @@
     vertical-align: middle;
 }
 
-// Quotes
-.blockquote-custom {
-    position: relative;
-    margin-top: .25rem;
-
-    .blockquote-footer {
-        margin-top:0px;
-    }
-
-    > .blockquote-custom {
-        margin-top: 2rem;
-    }
-}
-
 .blockquote-custom-icon {
     width: 35px;
     height: 35px;
@@ -120,4 +106,23 @@
 // Tabs
 .tab-content {
     padding-top: 10px;
+}
+
+// Attachment Upload
+.preview .img-thumbnail {
+    max-height: 80px;
+    max-width: 80px;
+}
+
+.fileinput-button input {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    height: 100%;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    font-size: 200px !important;
+    direction: ltr;
+    cursor: pointer;
 }
