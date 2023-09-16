@@ -106,10 +106,11 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
                 continue;
 
             if (i++ > 0)
-                sb.Append(",");
+                sb.Append(',');
 
             sb.Append(GetQuotedColumnName(fieldDef.FieldName));
         }
+
         sb.Append(") VALUES");
 
         var count = 0;
@@ -121,11 +122,15 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
             i = 0;
             foreach (var fieldDef in fieldDefs)
             {
+                if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                    continue;
+
                 if (i++ > 0)
                     sb.Append(',');
 
                 AppendInsertRowValueSql(sb, fieldDef, obj);
             }
+
             sb.Append("),");
         }
         if (count == 0)

@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 using ServiceStack.OrmLite.SqlServer;
 
 namespace ServiceStack.OrmLite;
@@ -18,6 +19,7 @@ public static class SqlServerDialect
     /// </summary>
     /// <value>The provider.</value>
     public static IOrmLiteDialectProvider Provider => SqlServer2012Dialect.Instance;
+
     /// <summary>
     /// Gets the instance.
     /// </summary>
@@ -35,6 +37,7 @@ public static class SqlServer2012Dialect
     /// </summary>
     /// <value>The provider.</value>
     public static IOrmLiteDialectProvider Provider => SqlServer2012OrmLiteDialectProvider.Instance;
+
     /// <summary>
     /// Gets the instance.
     /// </summary>
@@ -52,6 +55,7 @@ public static class SqlServer2014Dialect
     /// </summary>
     /// <value>The provider.</value>
     public static IOrmLiteDialectProvider Provider => SqlServer2014OrmLiteDialectProvider.Instance;
+
     /// <summary>
     /// Gets the instance.
     /// </summary>
@@ -69,6 +73,7 @@ public static class SqlServer2016Dialect
     /// </summary>
     /// <value>The provider.</value>
     public static IOrmLiteDialectProvider Provider => SqlServer2016OrmLiteDialectProvider.Instance;
+
     /// <summary>
     /// Gets the instance.
     /// </summary>
@@ -86,7 +91,7 @@ public static class SqlServer2017Dialect
     /// </summary>
     /// <value>The provider.</value>
     public static IOrmLiteDialectProvider Provider => SqlServer2017OrmLiteDialectProvider.Instance;
-    /// <summary>
+
     /// Gets the instance.
     /// </summary>
     /// <value>The instance.</value>
@@ -103,9 +108,28 @@ public static class SqlServer2019Dialect
     /// </summary>
     /// <value>The provider.</value>
     public static IOrmLiteDialectProvider Provider => SqlServer2019OrmLiteDialectProvider.Instance;
+
     /// <summary>
     /// Gets the instance.
     /// </summary>
     /// <value>The instance.</value>
     public static SqlServer2019OrmLiteDialectProvider Instance => SqlServer2019OrmLiteDialectProvider.Instance;
+}
+
+/// <summary>
+/// Class SqlServer2022Dialect.
+/// </summary>
+public static class SqlServer2022Dialect
+{
+    /// <summary>
+    /// Gets the provider.
+    /// </summary>
+    /// <value>The provider.</value>
+    public static IOrmLiteDialectProvider Provider => SqlServer2022OrmLiteDialectProvider.Instance;
+
+    /// <summary>
+    /// Gets the instance.
+    /// </summary>
+    /// <value>The instance.</value>
+    public static SqlServer2022OrmLiteDialectProvider Instance => SqlServer2022OrmLiteDialectProvider.Instance;
 }
