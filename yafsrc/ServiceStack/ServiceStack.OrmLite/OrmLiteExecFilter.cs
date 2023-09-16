@@ -129,7 +129,9 @@ public class OrmLiteExecFilter : IOrmLiteExecFilter
 
         ormLiteConn.SetLastCommandText(null);
 
-        return new OrmLiteCommand(ormLiteConn, dbCmd);
+        return ormLiteConn != null
+                   ? new OrmLiteCommand(ormLiteConn, dbCmd)
+                   : dbCmd;
     }
 
     /// <summary>

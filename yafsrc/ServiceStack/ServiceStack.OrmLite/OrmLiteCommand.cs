@@ -49,8 +49,8 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// <param name="dbCmd">The database command.</param>
     public OrmLiteCommand(OrmLiteConnection dbConn, IDbCommand dbCmd)
     {
-        this.dbConn = dbConn;
-        this.dbCmd = dbCmd;
+        this.dbConn = dbConn ?? throw new ArgumentNullException(nameof(dbConn));
+        this.dbCmd = dbCmd ?? throw new ArgumentNullException(nameof(dbCmd));
         this.DialectProvider = dbConn.GetDialectProvider();
     }
 

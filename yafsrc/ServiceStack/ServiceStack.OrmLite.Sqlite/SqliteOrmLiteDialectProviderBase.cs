@@ -116,6 +116,9 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
             i = 0;
             foreach (var fieldDef in fieldDefs)
             {
+                if (ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                    continue;
+
                 if (i++ > 0)
                     sb.Append(',');
 
