@@ -122,7 +122,12 @@ public class UserController : ForumBaseController
                             : user.Name.StartsWith(searchQuery));
 
             var userList = usersList.AsEnumerable().Where(u => !this.Get<IUserIgnored>().IsIgnored(u.ID)).Select(
-                u => new { id = u.ID, name = u.DisplayOrUserName() });
+                u => new
+                         {
+                             id = u.ID,
+                             name = u.DisplayOrUserName(),
+                             avatar = this.Get<IAvatars>().GetAvatarUrlForUser(u)
+                         });
 
             return Task.FromResult<ActionResult>(this.Ok(userList));
         }

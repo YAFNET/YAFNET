@@ -24,6 +24,7 @@
 
 namespace YAF.Core.Extensions;
 
+using System;
 using System.Text.RegularExpressions;
 
 /// <summary>
@@ -41,7 +42,8 @@ public static class IReplaceBlocksExtensions
     /// </summary>
     private static readonly Regex _regExHtml = new(
         @"</?\w+((\s+\w+(\s*=\s*(?:"".*?""|'.*?'|[^'"">\s]+))?)+\s*|\s*)/?>",
-        _options | RegexOptions.Compiled);
+        _options | RegexOptions.Compiled,
+        TimeSpan.FromMilliseconds(100));
 
     /// <summary>
     /// Pull replacement blocks from the text

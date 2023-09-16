@@ -287,7 +287,7 @@ module.exports = function(grunt) {
                     "wwwroot/lib/yafeditor/yafeditor.js",
                     "wwwroot/lib/yafeditor/undoManager.js",
                     "wwwroot/lib/yafeditor/autoCloseTags.js",
-                    "node_modules/@w8tcha/bootstrap-suggest/src/bootstrap-suggest.js"
+                    "wwwroot/lib/yafeditor/mentions.js"
                 ],
                 dest: "wwwroot/js/yafeditor.comb.js"
             },

@@ -48,14 +48,16 @@ public class Localization : ILocalization
     /// </summary>
     private static readonly Regex BeginNoParseRegex = new(
         @"(?<!\[noparse\])(?<inner>\[b\])",
-        RegexOptions.Compiled);
+        RegexOptions.Compiled,
+        TimeSpan.FromMilliseconds(100));
 
     /// <summary>
     /// The end no parse regex.
     /// </summary>
     private static readonly Regex EndNoParseRegex = new(
         @"(?<inner>\[/b\])(?!\[/noparse\])",
-        RegexOptions.Compiled);
+        RegexOptions.Compiled,
+        TimeSpan.FromMilliseconds(100));
 
     /// <summary>
     ///   The _culture.

@@ -270,7 +270,7 @@ public static class NntpUtil
                     var m = Regex.Match(
                         line,
                         @"CONTENT-TYPE: ""?([^""\s;]+)",
-                        RegexOptions.IgnoreCase);
+                        RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
 
                     if (!m.Success)
                     {
@@ -288,7 +288,7 @@ public static class NntpUtil
                         m = Regex.Match(
                             line,
                             @"BOUNDARY=""?([^""\s;]+)",
-                            RegexOptions.IgnoreCase);
+                            RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
 
                         if (m.Success)
                         {
@@ -296,7 +296,7 @@ public static class NntpUtil
                             newPart.EmbeddedPartList = new ArrayList();
                         }
 
-                        m = Regex.Match(line, @"CHARSET=""?([^""\s;]+)", RegexOptions.IgnoreCase);
+                        m = Regex.Match(line, @"CHARSET=""?([^""\s;]+)", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
                         if (m.Success)
                         {
                             newPart.Charset = m.Groups[1].ToString();
@@ -305,7 +305,7 @@ public static class NntpUtil
                         m = Regex.Match(
                             line,
                             @"CONTENT-TRANSFER-ENCODING: ""?([^""\s;]+)",
-                            RegexOptions.IgnoreCase);
+                            RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
 
                         if (m.Success)
                         {
@@ -315,7 +315,7 @@ public static class NntpUtil
                         m = Regex.Match(
                             line,
                             @"NAME=""?([^""\s;]+)",
-                            RegexOptions.IgnoreCase);
+                            RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
 
                         if (m.Success)
                         {

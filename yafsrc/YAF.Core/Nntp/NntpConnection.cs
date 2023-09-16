@@ -713,7 +713,7 @@ public class NntpConnection : IDisposable
                         m = Regex.Match(
                             response,
                             @"CONTENT-TYPE: ""?([^""\s;]+)",
-                            RegexOptions.IgnoreCase);
+                            RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
                         if (m.Success)
                         {
                             part.ContentType = m.Groups[1].ToString();
@@ -722,7 +722,7 @@ public class NntpConnection : IDisposable
                         m = Regex.Match(
                             response,
                             @"BOUNDARY=""?([^""\s;]+)",
-                            RegexOptions.IgnoreCase);
+                            RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
                         if (m.Success)
                         {
                             part.Boundary = m.Groups[1].ToString();
@@ -732,7 +732,7 @@ public class NntpConnection : IDisposable
                         m = Regex.Match(
                             response,
                             @"CHARSET=""?([^""\s;]+)",
-                            RegexOptions.IgnoreCase);
+                            RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
                         if (m.Success)
                         {
                             part.Charset = m.Groups[1].ToString();
@@ -741,7 +741,7 @@ public class NntpConnection : IDisposable
                         m = Regex.Match(
                             response,
                             @"NAME=""?([^""\s;]+)",
-                            RegexOptions.IgnoreCase);
+                            RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
                         if (m.Success)
                         {
                             part.Filename = m.Groups[1].ToString();
@@ -755,7 +755,7 @@ public class NntpConnection : IDisposable
                         m = Regex.Match(
                             response,
                             @"CONTENT-TRANSFER-ENCODING: ""?([^""\s;]+)",
-                            RegexOptions.IgnoreCase);
+                            RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
 
                         if (m.Success)
                         {
