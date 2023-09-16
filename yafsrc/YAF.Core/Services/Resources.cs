@@ -97,10 +97,6 @@ public class Resources : IResources, IHaveServiceLocator
 
             var avatarUrl = this.Get<IAvatars>().GetAvatarUrlForUser(user.Item1);
 
-            avatarUrl = avatarUrl.IsNotSet()
-                            ? $"{BoardInfo.ForumClientFileRoot}resource.ashx?avatar={user.Item1.ID}"
-                            : avatarUrl;
-
             var activeUsers = this.Get<IDataCache>().GetOrSet(
                 Constants.Cache.UsersOnlineStatus,
                 () => this.GetRepository<Active>().List(
@@ -231,7 +227,10 @@ public class Resources : IResources, IHaveServiceLocator
                             : user.Name.StartsWith(searchQuery));
 
             var users = usersList.AsEnumerable().Where(u => !this.Get<IUserIgnored>().IsIgnored(u.ID)).Select(
-                u => new { id = u.ID, name = u.DisplayOrUserName() });
+                u => new {
+                             id = u.ID, name = u.DisplayOrUserName(),
+                             avatar = this.Get<IAvatars>().GetAvatarUrlForUser(u)
+                         });
 
             context.Response.Clear();
 

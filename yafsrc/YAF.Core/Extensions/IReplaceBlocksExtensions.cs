@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -23,6 +23,7 @@
  */
 namespace YAF.Core.Extensions;
 
+using System;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -39,8 +40,10 @@ public static class IReplaceBlocksExtensions
     /// <summary>
     /// The _reg ex html.
     /// </summary>
-    private static readonly Regex _regExHtml =
-        new(@"</?\w+((\s+\w+(\s*=\s*(?:"".*?""|'.*?'|[^'"">\s]+))?)+\s*|\s*)/?>", _options | RegexOptions.Compiled);
+    private static readonly Regex _regExHtml = new(
+        @"</?\w+((\s+\w+(\s*=\s*(?:"".*?""|'.*?'|[^'"">\s]+))?)+\s*|\s*)/?>",
+        _options | RegexOptions.Compiled,
+        TimeSpan.FromMilliseconds(100));
 
     /// <summary>
     /// Pull replacement blocks from the text

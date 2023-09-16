@@ -81,6 +81,7 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\fontawesome\**\*.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\forum\**\*.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\yafeditor\autoCloseTags.js" />
+	  <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\yafeditor\mentions.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\yafeditor\undoManager.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\yafeditor\yafeditor.comb.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\yafeditor\yafEditor.js" />

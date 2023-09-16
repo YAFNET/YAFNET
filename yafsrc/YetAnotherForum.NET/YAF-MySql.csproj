@@ -2720,6 +2720,7 @@
     </Content>
     <Content Include="Scripts\forum\yaf.Attachments.js" />
     <Content Include="Scripts\yafeditor\autoCloseTags.js" />
+    <Content Include="Scripts\yafeditor\mentions.js" />
     <Content Include="Scripts\yafeditor\undoManager.js" />
     <Content Include="Scripts\yafeditor\yafeditor.comb.js" />
     <Content Include="Scripts\yafeditor\yafEditor.js" />
@@ -2878,7 +2879,7 @@ del *.xml</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

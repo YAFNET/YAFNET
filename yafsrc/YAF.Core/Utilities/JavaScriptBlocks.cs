@@ -555,32 +555,20 @@ public static class JavaScriptBlocks
         [NotNull] string urlImageDescription,
         [NotNull] string description)
     {
-        return $$"""
-                 var {{editorId}}=new yafEditor("{{editorId}}", "{{urlTitle}}", "{{urlDescription}}", "{{urlImageTitle}}", "{{urlImageDescription}}", "{{description}}");
-                                   function setStyle(style,option) {
-                                            {{editorId}}.FormatText(style,option);
-                                   }
-                                   function insertAttachment(id,url) {
-                                            {{editorId}}.FormatText("attach", id);
-                                   }
-                                   
-                                   {{Config.JQueryAlias}}(".BBCodeEditor").suggest("@",
-                                           {
-                             data: function(q) {
-                                 if (q && q.length > 3) {
-                                     return {{Config.JQueryAlias}}.getJSON("{{BoardInfo.ForumClientFileRoot}}resource.ashx?users=" + q);
-                                            }
-                                           },
-                                           map: function(user)
-                                          {
-                     return {
-                         value: "[userlink]" + user.name + "[/userlink]",
-                         text: "<i class='fas fa-user me-2'></i><strong>" + user.name + "</strong>"
-                     };
-                 }
-                 });
-
-                 """;
+        return $$$"""
+                  var {{{editorId}}}=new yafEditor("{{{editorId}}}", "{{{urlTitle}}}", "{{{urlDescription}}}", "{{{urlImageTitle}}}", "{{{urlImageDescription}}}", "{{{description}}}");
+                                    function setStyle(style,option) {
+                                             {{{editorId}}}.FormatText(style,option);
+                                    }
+                                    function insertAttachment(id,url) {
+                                             {{{editorId}}}.FormatText("attach", id);
+                                    }
+                                    
+                  mentions({id: '{{{editorId}}}', 
+                           lookup: 'user',
+                           url:'{{{BoardInfo.ForumClientFileRoot}}}resource.ashx?users={q}', 
+                           onclick: function (data) {{{{editorId}}}.FormatText("userlink", data.name);}});
+                  """;
     }
 
     /// <summary>

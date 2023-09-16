@@ -13882,35 +13882,6 @@ div#UploadDialog {
   vertical-align: middle;
 }
 
-.blockquote-custom {
-  position: relative;
-  margin-top: 0.25rem;
-}
-.blockquote-custom .blockquote-footer {
-  margin-top: 0px;
-}
-.blockquote-custom > .blockquote-custom {
-  margin-top: 2rem;
-}
-
-.blockquote-custom-icon {
-  width: 35px;
-  height: 35px;
-  border-radius: 50%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  position: absolute;
-  top: -20px;
-  left: 50px;
-}
-
 .popover-body-scrollable {
   max-height: 200px;
   overflow-y: scroll;
@@ -13924,4 +13895,22 @@ div#UploadDialog {
 
 .tab-content {
   padding-top: 10px;
+}
+
+.preview .img-thumbnail {
+  max-height: 80px;
+  max-width: 80px;
+}
+
+.fileinput-button input {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 0;
+  height: 100%;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  font-size: 200px !important;
+  direction: ltr;
+  cursor: pointer;
 }
