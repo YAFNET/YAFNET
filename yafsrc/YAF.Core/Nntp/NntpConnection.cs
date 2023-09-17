@@ -66,6 +66,7 @@ public class NntpConnection : IDisposable
 
     /// <summary>
     /// The username.
+    /// The username.
     /// </summary>
     private string username;
 
@@ -450,7 +451,7 @@ public class NntpConnection : IDisposable
 
         article.Body = article.MimePart == null
                            ? this.GetNormalBody(article.MessageId)
-                           : this.GetMIMEBody(article.MessageId, article.MimePart);
+                           : this.GetMimeBody(article.MessageId, article.MimePart);
 
         return article;
     }
@@ -652,9 +653,7 @@ public class NntpConnection : IDisposable
         part = null;
         while (this.sr.ReadLine() is { } response && response != string.Empty)
         {
-            var m = Regex.Match(response, @"^\s+(\S+)$",
-                RegexOptions.None,
-                TimeSpan.FromMilliseconds(100));
+            var m = Regex.Match(response, @"^\s+(\S+)$", RegexOptions.None, TimeSpan.FromMilliseconds(100));
 
             string value;
             if (m.Success)
@@ -715,7 +714,8 @@ public class NntpConnection : IDisposable
                         m = Regex.Match(
                             response,
                             @"CONTENT-TYPE: ""?([^""\s;]+)",
-                            RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
+                            RegexOptions.IgnoreCase,
+                            TimeSpan.FromMilliseconds(100));
                         if (m.Success)
                         {
                             part.ContentType = m.Groups[1].ToString();
@@ -724,7 +724,8 @@ public class NntpConnection : IDisposable
                         m = Regex.Match(
                             response,
                             @"BOUNDARY=""?([^""\s;]+)",
-                            RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
+                            RegexOptions.IgnoreCase,
+                            TimeSpan.FromMilliseconds(100));
                         if (m.Success)
                         {
                             part.Boundary = m.Groups[1].ToString();
@@ -734,7 +735,8 @@ public class NntpConnection : IDisposable
                         m = Regex.Match(
                             response,
                             @"CHARSET=""?([^""\s;]+)",
-                            RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
+                            RegexOptions.IgnoreCase,
+                            TimeSpan.FromMilliseconds(100));
                         if (m.Success)
                         {
                             part.Charset = m.Groups[1].ToString();
@@ -743,7 +745,8 @@ public class NntpConnection : IDisposable
                         m = Regex.Match(
                             response,
                             @"NAME=""?([^""\s;]+)",
-                            RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
+                            RegexOptions.IgnoreCase,
+                            TimeSpan.FromMilliseconds(100));
                         if (m.Success)
                         {
                             part.Filename = m.Groups[1].ToString();
@@ -757,7 +760,8 @@ public class NntpConnection : IDisposable
                         m = Regex.Match(
                             response,
                             @"CONTENT-TRANSFER-ENCODING: ""?([^""\s;]+)",
-                            RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
+                            RegexOptions.IgnoreCase,
+                            TimeSpan.FromMilliseconds(100));
 
                         if (m.Success)
                         {
@@ -805,8 +809,7 @@ public class NntpConnection : IDisposable
                 if ((buff[0] == 'B' || buff[0] == 'b') && (m = Regex.Match(
                                                                response,
                                                                @"^EGIN \d\d\d (.+)$",
-                                                               RegexOptions.IgnoreCase))
-                    .Success)
+                                                               RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100))).Success)
                 {
                     var ms = new MemoryStream();
                     while ((response = this.sr.ReadLine()) != null
@@ -854,7 +857,7 @@ public class NntpConnection : IDisposable
     /// <returns>
     /// The <see cref="ArticleBody"/>.
     /// </returns>
-    private ArticleBody GetMIMEBody(string messageId, MIMEPart part)
+    private ArticleBody GetMimeBody(string messageId, MIMEPart part)
     {
         ArticleBody body;
         try
@@ -863,7 +866,7 @@ public class NntpConnection : IDisposable
             var sb = new StringBuilder();
             var attachmentList = new ArrayList();
             body = new ArticleBody { IsHtml = true };
-            this.ConvertMIMEContent(messageId, part, sb, attachmentList);
+            this.ConvertMimeContent(messageId, part, sb, attachmentList);
             body.Text = sb.ToString();
             body.Attachments = (NntpAttachment[])attachmentList.ToArray(typeof(NntpAttachment));
         }
@@ -895,18 +898,18 @@ public class NntpConnection : IDisposable
     /// <param name="attachmentList">
     /// The attachment list.
     /// </param>
-    private void ConvertMIMEContent(string messageId, MIMEPart part, StringBuilder sb, IList attachmentList)
+    private void ConvertMimeContent(string messageId, MIMEPart part, StringBuilder sb, IList attachmentList)
     {
-        var m = Regex.Match(part.ContentType, @"MULTIPART", RegexOptions.IgnoreCase);
+        var m = Regex.Match(part.ContentType, "MULTIPART", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
         if (m.Success)
         {
             part.EmbeddedPartList.Cast<MIMEPart>().ForEach(
-                subPart => this.ConvertMIMEContent(messageId, subPart, sb, attachmentList));
+                subPart => this.ConvertMimeContent(messageId, subPart, sb, attachmentList));
 
             return;
         }
 
-        m = Regex.Match(part.ContentType, @"TEXT", RegexOptions.IgnoreCase);
+        m = Regex.Match(part.ContentType, "TEXT", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
         if (m.Success)
         {
             sb.Append(part.Text);
