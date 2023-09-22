@@ -1,4 +1,4 @@
-﻿{
+{
     "name": "yetanotherforum-net",
     "version": "3.1.15",
     "private": true,
@@ -26,10 +26,11 @@
         "@fortawesome/fontawesome-free": "^6.4.2",
         "bootbox": "^6.0.0",
         "bootstrap": "^5.3.2",
-        "bootswatch": "^5.3.1",
+        "bootswatch": "^5.3.2",
         "bs5-lightbox": "^1.8.3",
+        "choices.js": "^10.2.0",
         "codemirror": "^5.65.15",
-        "flag-icons": "^6.11.0",
+        "flag-icons": "^6.11.1",
         "grunt-file-append": "^0.0.7",
         "jquery": "^3.7.1",
         "long-press-event": "^2.4.6",

@@ -17,7 +17,7 @@ jobs:
         vs-version: '17'
 
     - name: Setup NuGet
-      uses: NuGet/setup-nuget@v1.0.5
+      uses: NuGet/setup-nuget@v1
       
     - name: Restore Packages
       run: nuget restore ./yafsrc/YAF.NET-SqlServer.sln
