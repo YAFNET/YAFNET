@@ -547,7 +547,7 @@ public static class JavaScriptBlocks
     /// <param name="description">The description.</param>
     /// <returns>System.String.</returns>
     [NotNull]
-    public static string CreateYafEditorJs(
+    public static string CreateEditorJs(
         [NotNull] string editorId,
         [NotNull] string urlTitle,
         [NotNull] string urlDescription,

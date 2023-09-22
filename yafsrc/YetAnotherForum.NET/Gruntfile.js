@@ -238,12 +238,12 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: [
-                    "Scripts/yafeditor/yafeditor.js",
-                    "Scripts/yafeditor/undoManager.js",
-                    "Scripts/yafeditor/autoCloseTags.js",
-                    "Scripts/yafeditor/mentions.js"
+                    "Scripts/editor/editor.js",
+                    "Scripts/editor/undoManager.js",
+                    "Scripts/editor/autoCloseTags.js",
+                    "Scripts/editor/mentions.js"
                 ],
-                dest: "Scripts/yafeditor/yafeditor.comb.js"
+                dest: "Scripts/editor/editor.comb.js"
             },
             forumExtensions: {
                 options: {
@@ -272,7 +272,7 @@ module.exports = function(grunt) {
                     "Scripts/forum/yaf.Main.js",
                     "Scripts/forum/yaf.contextMenu.js"
                 ],
-                dest: "Scripts/jquery.ForumExtensions.js"
+                dest: "Scripts/forumExtensions.js"
             },
             forumExtensionsDnn: {
                 options: {
@@ -300,7 +300,7 @@ module.exports = function(grunt) {
                     "Scripts/forum/yaf.Main.js",
                     "Scripts/forum/yaf.contextMenu.js"
                 ],
-                dest: "Scripts/jquery.ForumExtensionsDnn.js"
+                dest: "Scripts/forumExtensionsDnn.js"
             },
             forumAdminExtensions: {
                 options: {
@@ -326,7 +326,7 @@ module.exports = function(grunt) {
                     "Scripts/forum/yaf.Main.js",
                     "Scripts/forum/yaf.contextMenu.js"
                 ],
-                dest: "Scripts/jquery.ForumAdminExtensions.js"
+                dest: "Scripts/ForumAdminExtensions.js"
             },
             forumAdminExtensionsDnn: {
                 options: {
@@ -351,18 +351,18 @@ module.exports = function(grunt) {
                     "Scripts/forum/yaf.Main.js",
                     "Scripts/forum/yaf.contextMenu.js"
                 ],
-                dest: "Scripts/jquery.ForumAdminExtensionsDnn.js"
+                dest: "Scripts/ForumAdminExtensionsDnn.js"
             },
             minify: {
                 files: {
-                    "Scripts/yafeditor/yafeditor.min.js": "Scripts/yafeditor/yafeditor.comb.js",
+                    "Scripts/editor/editor.min.js": "Scripts/editor/editor.comb.js",
                     "Scripts/InstallWizard.comb.min.js": "Scripts/InstallWizard.comb.js",
                     "Scripts/codemirror.min.js": "Scripts/codemirror.min.js",
                     "Scripts/fileUploader.min.js": "Scripts/fileUploader.js",
-                    "Scripts/jquery.ForumExtensions.min.js": "Scripts/jquery.ForumExtensions.js",
-                    "Scripts/jquery.ForumExtensionsDnn.min.js": "Scripts/jquery.ForumExtensionsDnn.js",
-                    "Scripts/jquery.ForumAdminExtensions.min.js": "Scripts/jquery.ForumAdminExtensions.js",
-                    "Scripts/jquery.ForumAdminExtensionsDnn.min.js": "Scripts/jquery.ForumAdminExtensionsDnn.js"
+                    "Scripts/forumExtensions.min.js": "Scripts/forumExtensions.js",
+                    "Scripts/forumExtensionsDnn.min.js": "Scripts/forumExtensionsDnn.js",
+                    "Scripts/forumAdminExtensions.min.js": "Scripts/forumAdminExtensions.js",
+                    "Scripts/forumAdminExtensionsDnn.min.js": "Scripts/forumAdminExtensionsDnn.js"
 
                 }
             }

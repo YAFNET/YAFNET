@@ -76,11 +76,11 @@ public class BBCodeEditorBasic : TextEditor
     {
         base.Editor_PreRender(sender, e);
 
-        this.PageBoardContext.PageElements.AddScriptReference("YafEditor", "yafEditor/yafEditor.min.js");
+        this.PageBoardContext.PageElements.AddScriptReference("YafEditor", "editor/editor.min.js");
 
         this.PageBoardContext.PageElements.RegisterJsBlock(
-            nameof(JavaScriptBlocks.CreateYafEditorJs),
-            JavaScriptBlocks.CreateYafEditorJs(
+            nameof(JavaScriptBlocks.CreateEditorJs),
+            JavaScriptBlocks.CreateEditorJs(
                 this.SafeId,
                 this.GetText("COMMON", "TT_URL_TITLE"),
                 this.GetText("COMMON", "TT_URL_DESC"),
