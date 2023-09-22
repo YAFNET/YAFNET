@@ -254,14 +254,7 @@ public class PageElementRegister
     {
         var scriptManager = ScriptManager.GetCurrent(GetCurrentPage().Page);
 
-        if (scriptReference.Name == "jquery")
-        {
-            scriptManager.Scripts.Insert(0, scriptReference);
-        }
-        else
-        {
-            scriptManager.Scripts.Add(scriptReference);
-        }
+        scriptManager.Scripts.Add(scriptReference);
     }
 
     /// <summary>

@@ -43,7 +43,6 @@ public partial class LoginBox : BaseUserControl
     /// </param>
     protected override void OnPreRender([NotNull] EventArgs e)
     {
-        // setup jQuery and YAF JS...
         this.PageBoardContext.PageElements.RegisterJsBlock(
             "yafmodaldialogJs",
             JavaScriptBlocks.LoginBoxLoadJs(".LoginLink", "LoginBox"));

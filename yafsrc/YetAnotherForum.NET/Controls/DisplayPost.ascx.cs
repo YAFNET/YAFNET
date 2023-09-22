@@ -729,10 +729,10 @@ public partial class DisplayPost : BaseUserControl
 
         // Register Javascript
         var addThankBoxHTML =
-            "'<a class=\"btn btn-link\" href=\"javascript:addThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><i class=\"fas fa-heart text-danger fa-fw\"></i><span class=\"ms-1 d-none d-lg-inline-block\">' + response.Text + '</span></a>'";
+            "'<a class=\"btn btn-link\" href=\"javascript:addThanks(' + response.MessageID + ');\" onclick=\"this.blur();\" title=' + response.Title + '><i class=\"fas fa-heart text-danger fa-fw\"></i><span class=\"ms-1 d-none d-lg-inline-block\">' + response.Text + '</span></a>'";
 
         var removeThankBoxHTML =
-            "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + response.MessageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.Title + '><i class=\"far fa-heart fa-fw\"></i><span class=\"ms-1 d-none d-lg-inline-block\">' + response.Text + '</span></a>'";
+            "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + response.MessageID + ');\" onclick=\"this.blur();\" title=' + response.Title + '><i class=\"far fa-heart fa-fw\"></i><span class=\"ms-1 d-none d-lg-inline-block\">' + response.Text + '</span></a>'";
 
         var thanksJs =
             $"{JavaScriptBlocks.AddThanksJs(removeThankBoxHTML)}{Environment.NewLine}{JavaScriptBlocks.RemoveThanksJs(addThankBoxHTML)}";

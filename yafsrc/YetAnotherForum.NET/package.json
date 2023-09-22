@@ -32,7 +32,6 @@
         "codemirror": "^5.65.15",
         "flag-icons": "^6.11.1",
         "grunt-file-append": "^0.0.7",
-        "jquery": "^3.7.1",
         "long-press-event": "^2.4.6",
         "prismjs": "^1.29.0",
         "select2-bootstrap-5-theme": "^1.3.0"

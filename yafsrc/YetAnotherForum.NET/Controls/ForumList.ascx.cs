@@ -311,7 +311,6 @@ public partial class ForumList : BaseUserControl
         var iconLegend = this.LoadControl($"{BoardInfo.ForumServerFileRoot}controls/ForumIconLegend.ascx")
             .RenderToString();
 
-        // setup jQuery and DatePicker JS...
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             "ForumIconLegendPopoverJs",
             JavaScriptBlocks.ForumIconLegendPopoverJs(

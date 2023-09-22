@@ -4297,14 +4297,6 @@
             "#text": "Para usar el servicio de BotScout necesitas una llave API <a href=\"http://botscout.com/getkey.htm\">Regístrate aquí<a>."
           },
           {
-            "@tag": "CDN_JQUERY",
-            "#text": "¿Utilizar el archivo de script jQuery CDN alojado en Google?"
-          },
-          {
-            "@tag": "CDN_JQUERY_HELP",
-            "#text": "Puede utilizar el archivo de script alojado en Google o, en su lugar, utilizar el interno."
-          },
-          {
             "@tag": "CDN_SCRIPTMANAGER",
             "#text": "¿Utilizar los archivos JS del gestor de scripts alojados en la CDN?"
           },

@@ -4305,14 +4305,6 @@
             "#text": "To Use the BotScout Bot Service you need an API Key <a href=\"http://botscout.com/getkey.htm\">Sign Up here<a>."
           },
           {
-            "@tag": "CDN_JQUERY",
-            "#text": "Brug Google Hosted CDN jQuery Script File?"
-          },
-          {
-            "@tag": "CDN_JQUERY_HELP",
-            "#text": "Du kan bruge Google Hosted Script File, eller i stedet bruge intern."
-          },
-          {
             "@tag": "CDN_SCRIPTMANAGER",
             "#text": "Brug CDN Hosted Script Manager JS-filer?"
           },

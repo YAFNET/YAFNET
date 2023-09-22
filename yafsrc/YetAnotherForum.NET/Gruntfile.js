@@ -39,16 +39,6 @@ module.exports = function(grunt) {
                     { expand: true, src: "**/*.scss", cwd: "node_modules/bootswatch/dist", dest: "Content/Themes/" }
                 ]
             },
-            jQuery: {
-                files: [
-                    {
-                        expand: true,
-                        src: ["**/jquery.js", "**/jquery.min.js", "**/jquery.min.map"],
-                        cwd: "node_modules/jquery/dist",
-                        dest: "Scripts/"
-                    }
-                ]
-            },
             fontAwesome: {
                 files: [
                     {
@@ -217,7 +207,6 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: [
-                    "Scripts/jquery.js",
                     "Scripts/bootstrap.bundle.js",
                     "Scripts/forum/InstallWizard.js"
                 ],

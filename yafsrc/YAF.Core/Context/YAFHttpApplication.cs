@@ -146,8 +146,6 @@ public abstract class YafHttpApplication : HttpApplication, IHaveServiceLocator
     {
         // Pass a delegate to the Configure method.
         GlobalConfiguration.Configure(WebApiConfig.Register);
-
-        ScriptManagerHelper.RegisterJQuery();
     }
 
     /// <summary>

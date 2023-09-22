@@ -233,43 +233,6 @@ public static class Config
     public static bool IsPortal => HttpContext.Current.Session != null && HttpContext.Current.Session["YetAnotherPortal.net"] != null;
 
     /// <summary>
-    ///     Gets jQuery Alias
-    /// </summary>
-    [NotNull]
-    [Obsolete("Phasing out, will be removed in YAF 4.0")]
-    public static string JQueryAlias
-    {
-        get
-        {
-            if (IsDotNetNuke)
-            {
-                return "jQuery";
-            }
-
-            var jqueryAlias = GetConfigValueAsString("YAF.JQueryAlias") ?? "jQuery";
-
-            if (!jqueryAlias.Equals("jQuery") || !jqueryAlias.Equals("$"))
-            {
-                return "jQuery";
-            }
-
-            return jqueryAlias;
-        }
-    }
-
-    /// <summary>
-    ///     Gets JQuery Override File Name.
-    /// </summary>
-    public static string JQueryOverrideFile => GetConfigValueAsString("YAF.JQueryOverrideFile")
-                                               ?? string.Empty;
-
-    /// <summary>
-    /// The jQuery version.
-    /// </summary>
-    public static string JQueryVersion => GetConfigValueAsString("YAF.JQueryVersion")
-                                          ?? "3.7.1";
-
-    /// <summary>
     ///     Gets a value indicating whether Boolean to force uploads, and images, themes etc.. from a specific BoardID folder within BoardRoot Example : true /false
     /// </summary>
     public static bool MultiBoardFolders => GetConfigValueAsBool("YAF.MultiBoardFolders", false);
