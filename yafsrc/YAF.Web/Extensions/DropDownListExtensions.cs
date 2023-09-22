@@ -65,7 +65,7 @@ public static class DropDownListExtensions
 
                     item.Attributes.Add(
                         "data-custom-properties",
-                        $$"""{ "label": "<span class='select2-image-select-icon'><i class='fas fa-{{row.Icon}} fa-fw text-secondary me-1'></i>{{row.Forum}}</span>", "url": "{{row.ForumLink}}" }""");
+                        $$"""{ "label": "<i class='fas fa-{{row.Icon}} fa-fw text-secondary me-1'></i>{{row.Forum}}", "url": "{{row.ForumLink}}" }""");
 
                     dropDownList.Items.Add(item);
                 });
@@ -100,7 +100,7 @@ public static class DropDownListExtensions
 
                 item.Attributes.Add(
                     "data-custom-properties",
-                    $$"""{ "label": "<span class='select2-image-select-icon'><i class='far fa-{{textArray[value]}} fa-fw text-secondary me-1'></i>{{text}}</span>" }""");
+                    $$"""{ "label": "<i class='far fa-{{textArray[value]}} fa-fw text-secondary me-1'></i>{{text}}" }""");
 
                 dropDownList.Items.Add(item);
             });

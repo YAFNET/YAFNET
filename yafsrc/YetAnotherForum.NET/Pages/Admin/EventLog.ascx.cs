@@ -287,7 +287,7 @@ public partial class EventLog : AdminPage
 
         allItem.Attributes.Add(
             "data-custom-properties",
-            $$"""{ "label": "<span class='select2-image-select-icon'><i class='fas fa-filter fa-fw text-secondary me-1'></i>{{this.GetText("ALL")}}</span>" }""");
+            $$"""{ "label": "<i class='fas fa-filter fa-fw text-secondary me-1'></i>{{this.GetText("ALL")}}" }""");
 
         this.Types.Items.Add(allItem);
 
@@ -320,7 +320,7 @@ public partial class EventLog : AdminPage
 
                     item.Attributes.Add(
                         "data-custom-properties",
-                        $$"""{ "label": "<span class='select2-image-select-icon'><i class='fas fa-{{icon}} fa-fw text-secondary me-1'></i>{{type}}</span>" }""");
+                        $$"""{ "label": "<i class='fas fa-{{icon}} fa-fw text-secondary me-1'></i>{{type}}" }""");
 
                     this.Types.Items.Add(item);
                 });

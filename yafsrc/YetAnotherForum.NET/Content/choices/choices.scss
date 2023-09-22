@@ -40,6 +40,7 @@ $choices-icon-cross-inverse: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjEi
 $choices-z-index: 1 !default;
 
 .#{$choices-selector} {
+    min-width: 300px;
   position: relative;
   overflow: hidden;
   margin-bottom: $choices-guttering;
@@ -342,7 +343,13 @@ $choices-z-index: 1 !default;
 }
 
 .#{$choices-selector}__item {
-  cursor: default;
+    cursor: default;
+
+    img {
+        max-height: 20px;
+        max-width: 20px;
+        vertical-align: sub;
+    }
 }
 
 .#{$choices-selector}__item--selectable {
