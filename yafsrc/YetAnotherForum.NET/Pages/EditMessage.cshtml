@@ -161,7 +161,7 @@
 
 @section Scripts {
     <script>
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.GetBoardTagsJs("Tags", "Input_TagsValue", Model.Input.Tags)))
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.GetBoardTagsJs("Tags", "Input_TagsValue")))
     </script>
     
     @await Html.PartialAsync("_BBCodeEditorScriptsPartial")

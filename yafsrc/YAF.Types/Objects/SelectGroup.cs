@@ -34,6 +34,15 @@ using System.Runtime.Serialization;
 public class SelectGroup
 {
     /// <summary>
+    /// Gets or sets the id.
+    /// </summary>
+    /// <value>
+    /// The id.
+    /// </value>
+    [DataMember]
+    public int id { get; set; }
+
+    /// <summary>
     /// Gets or sets the text.
     /// </summary>
     /// <value>

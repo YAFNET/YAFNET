@@ -9,7 +9,7 @@
     <div class="input-group">
         <input asp-for="Input.SearchInput" class="form-control searchInput" id="searchInput" placeholder="@Model.GetText("BTNSEARCH")"/>
         <a button-style="Primary" icon="search" text-localized-tag="BTNSEARCH" href="javascript:getSearchResultsData(0);"></a>
-        <a class="dropdown-toggle" role="button" href="#" data-bs-toggle="dropdown" aria-expanded="false" button-style="Secondary" icon="cog" text-localized-tag="OPTIONS"
+        <a class="dropdown-toggle" role="button" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" button-style="Secondary" icon="cog" text-localized-tag="OPTIONS"
            text-localized-page="ADMIN_USERS"></a>
         <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start" aria-labelledby="optionsDropDown">
             <div class="px-3 py-1">
@@ -102,8 +102,5 @@
             false,
             true, 
             "Input_ForumListSelected")))
-
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(
-            JavaScriptBlocks.DropDownToggleJs()))
     </script>
 }

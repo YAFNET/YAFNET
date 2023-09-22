@@ -268,6 +268,7 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
                 case "dropdown":
                     output.Attributes.SetAttribute("aria-expanded", "false");
                     output.Attributes.SetAttribute("type", "button");
+                    output.Attributes.SetAttribute("data-bs-auto-close", "outside");
                     break;
                 case "collapse":
                     output.Attributes.SetAttribute("data-bs-target", this.BsTarget);

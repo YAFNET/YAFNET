@@ -94,7 +94,7 @@
                                 text-localized-page="ADMIN_USERS"
                                 text-localized-tag="FILTER_DROPDOWN"></button>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
-                            <div class="px-3 py-1 dropdown-sm">
+                            <div class="px-3 py-1">
                                 <div class="mb-3">
                                     <form method="post" asp-page-handler="PageSize" asp-route-f="@Model.PageBoardContext.PageForumID">
                                         @Html.LocalizedText("SHOW"):
@@ -298,8 +298,5 @@
                     Model.Get<ILocalization>().GetText("FORUM_JUMP_PLACEHOLDER"),
                     true,
                     false)))
-
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(
-            JavaScriptBlocks.DropDownToggleJs()))
     </script>
 }

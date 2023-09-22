@@ -3,6 +3,7 @@
             {
                 method: "GET",
                 headers: {
+                    "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value,
                     "Accept": "application/json",
                     "Content-Type": "application/json;charset=utf-8"
                 }

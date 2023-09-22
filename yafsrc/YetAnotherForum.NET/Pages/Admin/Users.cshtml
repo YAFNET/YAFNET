@@ -319,8 +319,4 @@
 
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptPartial")
-    
-    <script>
-        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.DropDownToggleJs()));
-    </script>
 }

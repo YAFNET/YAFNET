@@ -19,7 +19,7 @@
                 <div class="card-header">
                     @Html.IconHeader("arrows-alt","MOVEMESSAGE","MOVE_TITLE")
                 </div>
-                <div class="card-body text-center">
+                <div class="card-body">
                     <div class="mb-3">
                         <label for="ForumList" class="form-label" localized-tag="select_forum_moveto"></label>
                         <select id="ForumList" name="forumList"></select>
@@ -80,8 +80,8 @@
 
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.SelectTopicsLoadJs(
             "TopicList", 
+            "Input_TopicListSelected",
             "Input_ForumListSelected", 
-            "Input_TopicListSelected", 
             Model.GetText("select_topic_moveto"))))
     </script>
 }

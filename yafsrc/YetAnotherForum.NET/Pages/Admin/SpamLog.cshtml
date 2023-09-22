@@ -183,8 +183,6 @@
 @section Scripts {
     <script>
 
-    @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.DropDownToggleJs()));
-     
     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.CollapseToggleJs(
         Model.GetText("ADMIN_EVENTLOG", "HIDE"),
         Model.GetText("ADMIN_EVENTLOG", "SHOW"))));

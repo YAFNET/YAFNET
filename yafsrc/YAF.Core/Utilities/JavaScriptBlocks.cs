@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Utilities;
 
-using System.Collections.Generic;
-
 using YAF.Types.Attributes;
 
 /// <summary>
@@ -132,71 +130,95 @@ public static class JavaScriptBlocks
     /// The input Id.
     /// </param>
     /// <param name="hiddenId"></param>
-    /// <param name="existingTags">
-    /// the existing topic tags id
-    /// </param>
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
     [NotNull]
-    public static string GetBoardTagsJs(string inputId, string hiddenId, IEnumerable<string> existingTags = null)
+    public static string GetBoardTagsJs(string inputId, string hiddenId)
     {
-        var tags = new StringBuilder();
-
-        if (!existingTags.NullOrEmpty())
-        {
-            existingTags.ForEach(tag => tags.Append($"$('#{inputId}').append($('<option>', {{value:'{tag}', text:'{tag}', selected: true}}));"));
-        }
-
         return $$"""
-                 {{tags}}$("#{{inputId}}").select2({
-                             tags: true,
-                             tokenSeparators: [',', ' '],
-                             ajax: {
-                                 url: '/api/Tags/GetBoardTags',
-                                 headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
-                                 type: 'POST',
-                                 dataType: 'json',
-                                 contentType: 'application/json; charset=utf-8',
-                                 data: function(params) {
-                                     var query = {
-                                         ForumId: 0,
-                                         UserId: 0,
-                                         PageSize: 15,
-                                         Page: params.page || 0,
-                                         SearchTerm: params.term || ''
-                                     }
-                                     return JSON.stringify(query);
-                                 },
-                                 
-                 error: function(x, e) {
-                     console.log('An Error has occurred!');
-                     console.log(x.responseText);
-                     console.log(x.status);
-                 },
-                                 processResults: function(data, params) {
-                                     params.page = params.page || 0;
+                  var tagsSelect = new Choices('#{{inputId}}', {
+                          allowHTML: false,
+                          addChoices: true,
+                          shouldSort: false,
+                          removeItemButton: true,
+                          placeholder: false,
+                          classNames: { containerOuter: "choices w-100" },
+                          resetScrollPosition: false,
+                          callbackOnCreateTemplates: createTagsSelectTemplates
+                        });
+                        
+                        var query = {
+                      TopicId: {{BoardContext.Current.PageTopicID}},
+                      PageSize: 0,
+                      Page: 0,
+                      SearchTerm: ""
+                  };
+                  
+                  tagsSelect.setChoices(function () { return loadChoiceOptions(query, "/api/Tags/GetBoardTags") });
+                  
+                  const hiddenField = document.getElementById("{{hiddenId}}");
+                  
+                  if (hiddenField.value.length > 0) {
+                      tagsSelect.setValue(hiddenField.value.split(','));
+                  }
+
+                  ["addItem","removeItem"].forEach(function (e) {
+                      tagsSelect.passedElement.element.addEventListener(e, function (event) {
+                          hiddenField.value = tagsSelect.getValue().map(x => x.value).join();
+                      });
+                  });
                  
-                                     var resultsPerPage = 15 * 2;
-                 
-                                     var total = params.page == 0 ? data.results.length : resultsPerPage;
-                 
-                                     return {
-                                         results: data.results,
-                                         pagination: {
-                                             more: total < data.total
-                                         }
-                                     }
-                                 }
-                             },
-                             allowClearing: false,
-                             width: '100%',
-                             theme: 'bootstrap-5',
-                             {{BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}}
-                         }).on("select2:select", function (e) {
-                                   $("#{{hiddenId}}").val($(this).select2('data').map(x => x.text).join());
-                         });
-                 """;
+
+                  tagsSelect.passedElement.element.addEventListener("search", function (event) {
+                  
+                      if (event.detail.value > 2) {
+                          var query = {
+                              ForumId: 0,
+                              TopicId: 0,
+                              PageSize: 15,
+                              Page: 0,
+                              SearchTerm: event.detail.value
+                          };
+                          tagsSelect.setChoices(function () { return loadChoiceOptions(query, "/api/Tags/GetBoardTags") }, "value", "label", true);
+                      }
+                  });
+
+                  tagsSelect.passedElement.element.addEventListener("showDropdown", function () {
+                      var listBox = tagsSelect.choiceList.element;
+                      listBox.addEventListener("scroll", function () {
+                  
+                          const scrollableHeight = listBox.scrollHeight - listBox.clientHeight
+                  
+                          if (listBox.scrollTop >= scrollableHeight) {
+                              const resultsPerPage = 15 * 2,
+                                  choices = tagsSelect._currentState.choices,
+                  
+                                  lastItem = choices[choices.length - 1],
+                  
+                                  currentPage = lastItem.customProperties.page,
+                  
+                                  total = lastItem.customProperties.page == 0
+                                      ? tagsSelect._currentState.choices.length
+                                      : resultsPerPage;
+                  
+                  
+                              if (total < lastItem.customProperties.total) {
+                                  var query = {
+                                      ForumId: 0,
+                                      TopicId: 0,
+                                      PageSize: 15,
+                                      Page: currentPage + 1,
+                                      SearchTerm: ""
+                                  };
+                  
+                                  tagsSelect.setChoices(function () { return loadChoiceOptions(query, "/api/Tags/GetBoardTags") }, "value", "label", false);
+                              }
+                          }
+                      });
+                  });
+
+                  """;
     }
 
     /// <summary>
@@ -571,29 +593,6 @@ public static class JavaScriptBlocks
     /// <summary>
     /// The drop down toggle JS.
     /// </summary>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    public static string DropDownToggleJs()
-    {
-        return """
-               document.querySelectorAll(".dropdown-menu").forEach(dropdown => {
-               
-                   dropdown.addEventListener("click", (e) => {
-                       if (e.target.type === "button") {
-                           new bootstrap.Dropdown(e.target).show();
-                       }
-                       else {
-                           e.stopPropagation();
-                       }
-                   });
-               });
-               """;
-    }
-
-    /// <summary>
-    /// The drop down toggle JS.
-    /// </summary>
     /// <param name="hideText">
     /// The hide Text.
     /// </param>
@@ -905,82 +904,104 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
-    /// select2 topics load JS.
+    /// select topics load JS.
     /// </summary>
-    /// <param name="topicsId">
-    /// The topics Id.
+    /// <param name="topicDropDownId">
+    /// The topic drop down Id.
+    /// </param>
+    /// <param name="topicHiddenId">
+    /// the selected topic Id hidden field
     /// </param>
     /// <param name="forumDropDownId">
     /// The forum drop down identifier.
     /// </param>
-    /// <param name="selectedHiddenId">
-    /// The topic selected Hidden Id.
+    /// <param name="placeHolder">
+    /// The select place holder.
     /// </param>
-    /// <param name="placeHolder"></param>
     /// <returns>
-    /// Returns the select2 topics load JS.
+    /// Returns the select topics load JS.
     /// </returns>
     [NotNull]
-    public static string SelectTopicsLoadJs([NotNull] string topicsId, [NotNull] string forumDropDownId, [NotNull] string selectedHiddenId, [NotNull] string placeHolder)
+    public static string SelectTopicsLoadJs(
+        [NotNull] string topicDropDownId,
+        [NotNull] string topicHiddenId,
+        [NotNull] string forumDropDownId,
+        [NotNull] string placeHolder)
     {
         return $$"""
-                 $('#{{topicsId}}').select2({
-                             ajax: {
-                                 url: '/api/Topic/GetTopics',
-                                 headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
-                                 type: 'POST',
-                                 dataType: 'json',
-                                 contentType: 'application/json',
-                                 minimumInputLength: 0,
-                                 allowClearing: false,
-                                 data: function(params) {
-                                       var query = {
-                                           ForumId : $('#{{forumDropDownId}}').val(),
-                                           TopicId: {{BoardContext.Current.PageTopicID}},
-                                           PageSize: 0,
-                                           Page : params.page || 0,
-                                           SearchTerm : params.term || ''
-                                       }
-                                       return JSON.stringify(query);
-                                 },
-                                 error: function(x, e) {
-                                     console.log('An Error has occurred!');
-                                     console.log(x.responseText);
-                                     console.log(x.status);
-                                 },
-                                 processResults: function(data, params) {
-                                     params.page = params.page || 0;
+                 var topicsSelect = new Choices("#{{topicDropDownId}}", {
+                     allowHTML: false,
+                     shouldSort: false,
+                     classNames: { containerOuter: "choices w-100" },
+                     placeholderValue: "{{placeHolder}}",
+                     resetScrollPosition: false
+                 });
+
+                 var query = {
+                     ForumId: document.getElementById('{{forumDropDownId}}').value,
+                     TopicId: {{BoardContext.Current.PageTopicID}},
+                     PageSize: 0,
+                     Page: 0,
+                     SearchTerm: ""
+                 };
+                 topicsSelect.setChoices(function () { return loadChoiceOptions(query, "/api/Topic/GetTopics") });
+
+                 topicsSelect.passedElement.element.addEventListener("choice", function (event) {
+                     document.getElementById("{{topicHiddenId}}").value = event.detail.choice.value;
+                 });
+
+                 topicsSelect.passedElement.element.addEventListener("search", function (event) {
                  
-                                     var resultsPerPage = 15 * 2;
+                     if (event.detail.value > 2) {
+                         var query = {
+                             ForumId: document.getElementById('{{forumDropDownId}}').value,
+                             TopicId: {{BoardContext.Current.PageTopicID}},
+                             PageSize: 15,
+                             Page: 0,
+                             SearchTerm: event.detail.value
+                         };
+                         topicsSelect.setChoices(function () { return loadChoiceOptions(query, "/api/Topic/GetTopics") }, "value", "label", true);
+                     }
+                 });
+
+                 topicsSelect.passedElement.element.addEventListener("showDropdown", function () {
+                     var listBox = topicsSelect.choiceList.element;
+                     listBox.addEventListener("scroll", function () {
                  
-                                     var total = params.page == 0 ? data.results.length : resultsPerPage;
+                         const scrollableHeight = listBox.scrollHeight - listBox.clientHeight
                  
-                                     return {
-                                         results: data.results,
-                                         pagination: {
-                                             more: total < data.total
-                                         }
-                                     }
-                                 }
-                             },
+                         if (listBox.scrollTop >= scrollableHeight) {
+                             const resultsPerPage = 15 * 2,
+                                 choices = topicsSelect._currentState.choices,
                  
-                             width: '100%',
-                             theme: 'bootstrap-5',
-                             cache: true,
-                             placeholder: '{{placeHolder}}',
-                             {{BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}}
-                          }).on('select2:select', function(e){
-                                    if (e.params.data.total) {
-                                                                  $('#{{selectedHiddenId}}').val(e.params.data.results[0].children[0].id);
-                                                              } else {
-                                                                  $('#{{selectedHiddenId}}').val(e.params.data.id);
-                                                              }
-                             });
+                                 lastItem = choices[choices.length - 1],
+                 
+                                 currentPage = lastItem.customProperties.page,
+                 
+                                 total = lastItem.customProperties.page == 0
+                                     ? topicsSelect._currentState.choices.length
+                                     : resultsPerPage;
+                 
+                 
+                             if (total < lastItem.customProperties.total) {
+                                 var query = {
+                                     ForumId: document.getElementById('{{forumDropDownId}}').value,
+                                     TopicId: {{BoardContext.Current.PageTopicID}},
+                                     PageSize: 15,
+                                     Page: currentPage + 1,
+                                     SearchTerm: ""
+                                 };
+                 
+                                 topicsSelect.setChoices(function () { return loadChoiceOptions(query, "/api/Topic/GetTopics") }, "value", "label", false);
+                             }
+                         }
+                     });
+                 });
                  """;
     }
 
     /// <summary>
-    /// select2 forum load JS.
+    /// select forum load JS.
     /// </summary>
     /// <param name="forumDropDownId">
     /// The forum drop down identifier.
@@ -998,135 +1019,145 @@ public static class JavaScriptBlocks
     /// The selected Hidden Id.
     /// </param>
     /// <returns>
-    /// Returns the select2 topics load JS.
+    /// Returns the select topics load JS.
     /// </returns>
     [NotNull]
-    public static string SelectForumsLoadJs([NotNull] string forumDropDownId, [NotNull] string placeHolder, bool forumLink, bool allForumsOption, [CanBeNull] string selectedHiddenId = null)
+    public static string SelectForumsLoadJs(
+        [NotNull] string forumDropDownId,
+        [NotNull] string placeHolder,
+        bool forumLink,
+        bool allForumsOption,
+        [CanBeNull] string selectedHiddenId = null)
     {
-        var selectHiddenValue = selectedHiddenId.IsSet()
-                                    ? $$"""
-                                        if (e.params.data.total) {
-                                                                                         $('#{{selectedHiddenId}}').val(e.params.data.results[0].children[0].id);
-                                                                                     } else {
-                                                                                         $('#{{selectedHiddenId}}').val(e.params.data.id);
-                                                                                     }
-                                        """
-                                    : string.Empty;
+        // forum link
+        var forumLinkJs = forumLink
+                              ? """
+                                forumsSelect.passedElement.element.addEventListener("choice", function (event) {
+                                    var json;
+                                    
+                                    console.log(event);
+                                
+                                    if (event.detail.choice.customProperties) {
+                                        try {
+                                            json = JSON.parse(event.detail.choice.customProperties);
+                                        } catch (e) {
+                                            json = event.detail.choice.customProperties;
+                                        }
+                                
+                                        if (json.url !== undefined) {
+                                            window.location = json.url;
+                                        }
+                                    }
+                                });
+                                """
+                              : string.Empty;
 
-        var forumSelect = selectedHiddenId.IsSet() ? $$"""
-                                                       var forumsListSelect = $('#{{forumDropDownId}}');
-                                                                   var forumId = $('#{{selectedHiddenId}}').val();
-                                                       
-                                                                   $.ajax({
-                                                                       url: '/api/Forum/GetForum/' + forumId,
-                                                                       headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
-                                                                       type: 'POST',
-                                                                       dataType: 'json'
-                                                                   }).then(function (data) {
-                                                                                       if (data.total > 0) {
-                                                                                       var result = data.results[0].children[0];
-                                                                                              
-                                                                                       var option = new Option(result.text, result.id, true, true);
-                                                                                       forumsListSelect.append(option).trigger('change');
-                                                       
-                                                                                       forumsListSelect.trigger({
-                                                                                           type: 'select2:select',
-                                                                                           params: {
-                                                                                               data: data
-                                                                                           }
-                                                                                       });}
-                                                                   });
-                                                       """ : string.Empty;
+        // selected forum id
+        var selectHiddenValue = selectedHiddenId.IsSet() ? $"document.getElementById('{selectedHiddenId}').value" : "0";
 
+        var selectHiddenJs = selectedHiddenId.IsSet()
+                                 ? $$"""
+                                     forumsSelect.passedElement.element.addEventListener("choice", function (event) {
+                                         document.getElementById("{{selectedHiddenId}}").value = event.detail.choice.value;
+                                     });
+                                     """
+                                 : string.Empty;
+
+        // all forums option
         var allForumsOptionJs = allForumsOption ? "AllForumsOption: true," : string.Empty;
 
+        var placeholderValue = allForumsOption ? string.Empty : $"""placeholderValue: "{placeHolder}",""";
+
         return $$"""
-                 $('#{{forumDropDownId}}').select2({
-                             ajax: {
-                                 url: '/api/Forum/GetForums',
-                                 headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
-                                 type: 'POST',
-                                 dataType: 'json',
-                                 data: function(params) {
-                                       var query = {
-                                           PageSize: 0,
-                                           {{allForumsOptionJs}}
-                                           Page : params.page || 0,
-                                           SearchTerm : params.term || ''
-                                       }
-                                       return query;
-                                 },
-                               
-                                 error: function(x, e) {
-                                     console.log('An Error has occurred!');
-                                     console.log(x.responseText);
-                                     console.log(x.status);
-                                 },
-                                 processResults: function(data, params) {
-                                     params.page = params.page || 0;
+                 var forumsSelect = new Choices("#{{forumDropDownId}}", {
+                     allowHTML: true,
+                     shouldSort: false,
+                     classNames: { containerOuter: "choices w-100 choices-forum" },
+                     {{placeholderValue}}
+                     resetScrollPosition: false,
+                     callbackOnCreateTemplates: createForumSelectTemplates
+                 });
+
+                 {{forumLinkJs}}
+
+                 var forumQuery = {
+                     {{allForumsOptionJs}}
+                     PageSize: 0,
+                     Page: 0,
+                     SearchTerm: ""
+                 };
+
+                 forumsSelect.setChoices(function () {
+                     return loadForumChoiceOptions(forumQuery, "/api/Forum/GetForums", {{selectHiddenValue}}) });
+
+                 {{selectHiddenJs}}
+
+                 forumsSelect.passedElement.element.addEventListener("search", function (event) {
                  
-                                     var resultsPerPage = 15 * 2;
+                     if (event.detail.value > 2) {
+                         var query = {
+                             {{allForumsOptionJs}}
+                             PageSize: 15,
+                             Page: 0,
+                             SearchTerm: event.detail.value
+                         };
+                         forumsSelect.setChoices(function () {
+                             return loadForumChoiceOptions(query, "/api/Forum/GetForums", {{selectHiddenValue}}) },
+                                 "value", "label", true);
+                     }
+                 });
+
+                 forumsSelect.passedElement.element.addEventListener("showDropdown", function () {
+                     var listBox = forumsSelect.choiceList.element;
+                     listBox.addEventListener("scroll", function () {
                  
-                                     var total = params.page == 0 ? data.results.length : resultsPerPage;
+                         const scrollableHeight = listBox.scrollHeight - listBox.clientHeight
                  
-                                         return {
-                                         results: data.results,
-                                         pagination: {
-                                             more: total < data.total
-                                         }
-                                     }
-                                 }
-                             },
-                             placeholder: '{{placeHolder}}',
-                             minimumInputLength: 0,
-                             allowClearing: false,
-                             dropdownAutoWidth: true,
-                             templateResult: function (option) {
-                                                 if (option.loading) {
-                                                     return option.text;
-                                                 }
-                 	                            if (option.id) {
-                 	                                var $container = $("<span class='select2-image-select-icon'><i class='fas fa-comments fa-fw text-secondary me-1'></i>" + option.text + "</span>");
-                                                     return $container;
-                 	                            } else {
-                                                     var $container = $("<span class='select2-image-select-icon'><i class='fas fa-folder fa-fw text-warning me-1'></i>" + option.text + "</span>");
-                                                     return $container;
-                 	                            }
-                 	        },
-                             templateSelection: function (option) {
-                 	                               if (option.id) {
-                 	                               var $container = $("<span class='select2-image-select-icon'><i class='fas fa-comments fa-fw text-secondary me-1'></i>" + option.text + "</span>");
-                                                        return $container;
-                 	                               } else {
-                 	                                   return option.text;
-                 	                               }
-                 	        },
-                             width: '100%',
-                             theme: 'bootstrap-5',
-                             cache: true,
-                             {{BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}}
-                             }).on('select2:select', function(e){
-                                    {{(forumLink ? "window.location = e.params.data.url;" : "")}}
-                                    {{selectHiddenValue}}
-                             });
+                         if (listBox.scrollTop >= scrollableHeight) {
+                             const resultsPerPage = 15 * 2,
+                                 choices = forumsSelect._currentState.choices,
                  
-                             {{forumSelect}}
-                             
+                                 lastItem = choices[choices.length - 1],
+                 
+                                 currentPage = lastItem.customProperties.page,
+                 
+                                 total = lastItem.customProperties.page == 0
+                                     ? forumsSelect._currentState.choices.length
+                                     : resultsPerPage;
+                 
+                             if (total < lastItem.customProperties.total) {
+                                 var query = {
+                                     {{allForumsOptionJs}}
+                                     PageSize: 15,
+                                     Page: currentPage + 1,
+                                     SearchTerm: ""
+                                 };
+                 
+                                 forumsSelect.setChoices(function () {
+                                     return loadForumChoiceOptions(query, "/api/Forum/GetForums", {{selectHiddenValue}}) },
+                                         "value", "label", false);
+                             }
+                         }
+                     });
+                 });
                  """;
     }
 
     /// <summary>
-    /// Select2 load js.
+    /// Select load js.
     /// </summary>
     /// <returns>System.String.</returns>
     [NotNull]
-    public static string Select2LoadJs()
+    public static string ChoicesLoadJs()
     {
          return """
-                $(".select2-select").select2({
-                    width: "100%",
-                    theme: "bootstrap-5",
-                    placeholder: $(this).attr('placeholder')
+                 const choice = new window.Choices(document.querySelector(".select2-select"), {
+                    allowHTML: true,
+                    shouldSort: false,
+                    placeholderValue: document.querySelector(".select2-select").getAttribute("placeholder"),
+                    classNames: {
+                        containerOuter: "choices w-100"
+                    }
                 });
                 """;
     }
@@ -1647,82 +1678,98 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
-    /// select2 user load JS.
+    /// Select user load JS.
     /// </summary>
-    /// <param name="parentId">
-    /// The id of the modal
-    /// </param>
     /// <param name="selectClientId">
     /// The id of the select
     /// </param>
     /// <param name="hiddenUserId">
     /// The hidden id to store the selected user id value
     /// </param>
+    /// <param name="placeHolder">
+    /// The place Holder.
+    /// </param>
     /// <returns>
-    /// Returns the select2 user load JS.
+    /// Returns the select user load JS.
     /// </returns>
     [NotNull]
     public static string SelectUsersLoadJs(
-        [NotNull] string parentId,
         [NotNull] string selectClientId,
-        [NotNull] string hiddenUserId)
+        [NotNull] string hiddenUserId,
+        [NotNull] string placeHolder)
     {
         return $$"""
-                 $('#{{selectClientId}}').select2({
-                             ajax: {
-                                 url: '/api/User/GetUsers',
-                                 headers: { "RequestVerificationToken": $('input[name="__RequestVerificationToken"]').val() },
-                                 type: 'POST',
-                                 dataType: 'json',
-                                 contentType: 'application/json',
-                                 minimumInputLength: 0,
-                                 data: function(params) {
-                                       var query = {
-                                           ForumId : 0,
-                                           UserId: 0,
-                                           PageSize: 0,
-                                           Page : params.page || 0,
-                                           SearchTerm : params.term || ''
-                                       }
-                                       return JSON.stringify(query);
-                                 },
-                                 
-                                 error: function(x, e) {
-                                     console.log('An Error has occurred!');
-                                     console.log(x.responseText);
-                                     console.log(x.status);
-                                 },
-                                 processResults: function(data, params) {
-                                     params.page = params.page || 0;
+                 if (document.getElementById("{{selectClientId}}") != null) {
+
+                 var userSelect = new Choices("#{{selectClientId}}", {
+                     allowHTML: false,
+                     shouldSort: false,
+                     classNames: { containerOuter: "choices w-100" },
+                     placeholderValue: "{{placeHolder}}",
+                     resetScrollPosition: false
+                 });
+
+                 var query = {
+                     ForumId: 0,
+                     TopicId: 0,
+                     PageSize: 0,
+                     Page: 0,
+                     SearchTerm: ""
+                 };
+                 userSelect.setChoices(function () { return loadChoiceOptions(query, "/api/User/GetUsers") });
+
+                 userSelect.passedElement.element.addEventListener("choice", function (event) {
+                     document.getElementById("{{hiddenUserId}}").value = event.detail.choice.value;
+                 });
+
+                 userSelect.passedElement.element.addEventListener("search", function (event) {
                  
-                                     var resultsPerPage = 15 * 2;
+                     if (event.detail.value > 2) {
+                         var query = {
+                             ForumId: 0,
+                             TopicId: 0,
+                             PageSize: 15,
+                             Page: 0,
+                             SearchTerm: event.detail.value
+                         };
+                         userSelect.setChoices(function () { return loadChoiceOptions(query, "/api/User/GetUsers") }, "value", "label", true);
+                     }
+                 });
+
+                 userSelect.passedElement.element.addEventListener("showDropdown", function () {
+                     var listBox = userSelect.choiceList.element;
+                     listBox.addEventListener("scroll", function () {
                  
-                                     var total = params.page == 0 ? data.results.length : resultsPerPage;
+                         const scrollableHeight = listBox.scrollHeight - listBox.clientHeight
                  
-                                     return {
-                                         results: data.results,
-                                         pagination: {
-                                             more: total < data.total
-                                         }
-                                     }
-                                 }
-                             },
-                             dropdownParent: $("#{{parentId}}"),
-                             theme: 'bootstrap-5',
-                             allowClearing: false,
-                             placeholder: '{{BoardContext.Current.Get<ILocalization>().GetText("ADD_USER")}}',
-                             cache: true,
-                             width: '100%',
-                             {{BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}}
-                         });
-                               
-                              $('#{{selectClientId}}').on('select2:select', function (e) {
-                                 if (e.params.data.total) {
-                                                                  $('#{{hiddenUserId}}').val(e.params.data.results[0].children[0].id);
-                                                              } else {
-                                                                  $('#{{hiddenUserId}}').val(e.params.data.id);
-                                                              }
-                             });
+                         if (listBox.scrollTop >= scrollableHeight) {
+                             const resultsPerPage = 15 * 2,
+                                 choices = userSelect._currentState.choices,
+                 
+                                 lastItem = choices[choices.length - 1],
+                 
+                                 currentPage = lastItem.customProperties.page,
+                 
+                                 total = lastItem.customProperties.page == 0
+                                     ? userSelect._currentState.choices.length
+                                     : resultsPerPage;
+                 
+                 
+                             if (total < lastItem.customProperties.total) {
+                                 var query = {
+                                     ForumId: 0,
+                                     TopicId: 0,
+                                     PageSize: 15,
+                                     Page: currentPage + 1,
+                                     SearchTerm: ""
+                                 };
+                 
+                                 userSelect.setChoices(function () { return loadChoiceOptions(query, "/api/User/GetUsers") }, "value", "label", false);
+                             }
+                         }
+                     });
+                 });
+                 }
                  """;
     }
 

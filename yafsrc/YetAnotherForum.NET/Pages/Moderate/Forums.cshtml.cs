@@ -225,7 +225,7 @@ public class ForumsModel : ModerateForumPage
 
         this.UserList = this.GetRepository<UserForum>().List(null, this.PageBoardContext.PageForumID);
 
-        this.Input.ForumListSelected = this.PageBoardContext.PageForumID;
+        this.Input.ForumListSelected = 0;
     }
 
     /// <summary>

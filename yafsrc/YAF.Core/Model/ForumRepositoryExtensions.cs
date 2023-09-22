@@ -467,8 +467,10 @@ public static class ForumRepositoryExtensions
 
                     var countViewsExpression = db.Connection.From<Active>(db.Connection.TableAlias("x"));
                     countViewsExpression.Where(
-                        $@"x.{countViewsExpression.Column<Active>(x => x.ForumID)}=
-                                   {expression.Column<Forum>(x => x.ID, true)}");
+                        $"""
+                         x.{countViewsExpression.Column<Active>(x => x.ForumID)}=
+                                                            {expression.Column<Forum>(x => x.ID, true)}
+                         """);
                     var countViewsSql = countViewsExpression.Select(Sql.Count("1")).ToSelectStatement();
 
                     var lastTopicAccessSql = "NULL";
@@ -479,8 +481,10 @@ public static class ForumRepositoryExtensions
                         var topicAccessExpression =
                             db.Connection.From<TopicReadTracking>(db.Connection.TableAlias("y"));
                         topicAccessExpression.Where(
-                            $@"y.{topicAccessExpression.Column<TopicReadTracking>(y => y.TopicID)}={expression.Column<Topic>(x => x.ID, true)}
-                                    and y.{topicAccessExpression.Column<TopicReadTracking>(y => y.UserID)}={userId}");
+                            $"""
+                             y.{topicAccessExpression.Column<TopicReadTracking>(y => y.TopicID)}={expression.Column<Topic>(x => x.ID, true)}
+                                                                 and y.{topicAccessExpression.Column<TopicReadTracking>(y => y.UserID)}={userId}
+                             """);
                         lastTopicAccessSql = topicAccessExpression.Select(
                                 $" {topicAccessExpression.Column<TopicReadTracking>(x => x.LastAccessDate)}")
                             .ToSelectStatement();
@@ -488,8 +492,10 @@ public static class ForumRepositoryExtensions
                         var forumAccessExpression =
                             db.Connection.From<ForumReadTracking>(db.Connection.TableAlias("x"));
                         forumAccessExpression.Where(
-                            $@"x.{forumAccessExpression.Column<ForumReadTracking>(x => x.ForumID)}={expression.Column<Topic>(x => x.ForumID, true)}
-                                    and x.{forumAccessExpression.Column<ForumReadTracking>(x => x.UserID)}={userId}");
+                            $"""
+                             x.{forumAccessExpression.Column<ForumReadTracking>(x => x.ForumID)}={expression.Column<Topic>(x => x.ForumID, true)}
+                                                                 and x.{forumAccessExpression.Column<ForumReadTracking>(x => x.UserID)}={userId}
+                             """);
                         lastForumAccessSql = forumAccessExpression.Select(
                                 $" {forumAccessExpression.Column<ForumReadTracking>(x => x.LastAccessDate)}")
                             .ToSelectStatement();
@@ -497,8 +503,10 @@ public static class ForumRepositoryExtensions
 
                     expression.Join<Forum>((c, f) => c.ID == f.CategoryID)
                         .Join<Forum, ActiveAccess>((f, x) => x.ForumID == f.ID).CustomJoin(
-                            $@" left outer join {expression.Table<Topic>()} on {expression.Column<Topic>(t => t.ID, true)} =
-                                                                               {expression.Column<Forum>(f => f.LastTopicID, true)} ")
+                            $"""
+                              left outer join {expression.Table<Topic>()} on {expression.Column<Topic>(t => t.ID, true)} =
+                                                                                                            {expression.Column<Forum>(f => f.LastTopicID, true)}
+                             """)
                         .CustomJoin(
                             $@" left outer join {expression.Table<User>()} on {expression.Column<User>(x => x.ID, true)} = {expression.Column<Topic>(t => t.LastUserID, true)} ")
                         .Where<Forum, Category, ActiveAccess>(
@@ -720,11 +728,13 @@ public static class ForumRepositoryExtensions
                         db.Connection.TableAlias("t"));
 
                     countMessagesExpression.Where(
-                        $@"(m.{countMessagesExpression.Column<Message>(x => x.Flags)} & 16) != 16
-                                    and (m.{countMessagesExpression.Column<Message>(x => x.Flags)} & 8) != 8
-                                    and (t.{countMessagesExpression.Column<Topic>(x => x.Flags)} & 8) != 8
-                                    and t.{countMessagesExpression.Column<Topic>(x => x.ForumID)}=
-                                    {expression.Column<Forum>(x => x.ID, true)}");
+                        $"""
+                         (m.{countMessagesExpression.Column<Message>(x => x.Flags)} & 16) != 16
+                                                             and (m.{countMessagesExpression.Column<Message>(x => x.Flags)} & 8) != 8
+                                                             and (t.{countMessagesExpression.Column<Topic>(x => x.Flags)} & 8) != 8
+                                                             and t.{countMessagesExpression.Column<Topic>(x => x.ForumID)}=
+                                                             {expression.Column<Forum>(x => x.ID, true)}
+                         """);
                     var countMessagesSql = countMessagesExpression
                         .Select(Sql.Count(countMessagesExpression.Column<Message>(x => x.ID))).ToSelectStatement();
 
@@ -735,11 +745,13 @@ public static class ForumRepositoryExtensions
                         db.Connection.TableAlias("t"));
 
                     countReportedExpression.Where(
-                        $@"(m.{countReportedExpression.Column<Message>(x => x.Flags)} & 128) = 128
-                                    and (m.{countMessagesExpression.Column<Message>(x => x.Flags)} & 8) != 8
-                                    and (t.{countMessagesExpression.Column<Topic>(x => x.Flags)} & 8) != 8
-                                    and t.{countReportedExpression.Column<Topic>(x => x.ForumID)}=
-                                    {expression.Column<Forum>(x => x.ID, true)}");
+                        $"""
+                         (m.{countReportedExpression.Column<Message>(x => x.Flags)} & 128) = 128
+                                                             and (m.{countMessagesExpression.Column<Message>(x => x.Flags)} & 8) != 8
+                                                             and (t.{countMessagesExpression.Column<Topic>(x => x.Flags)} & 8) != 8
+                                                             and t.{countReportedExpression.Column<Topic>(x => x.ForumID)}=
+                                                             {expression.Column<Forum>(x => x.ID, true)}
+                         """);
                     var countReportedSql = countReportedExpression
                         .Select(Sql.Count(countReportedExpression.Column<Message>(x => x.ID))).ToSelectStatement();
 
@@ -956,6 +968,7 @@ public static class ForumRepositoryExtensions
 
                     var selectGroup = new SelectGroup
                                           {
+                                              id = -category.ID, 
                                               text = category.Name,
                                               children = forumsByCategory.Select(
                                                   forum => new SelectOptions

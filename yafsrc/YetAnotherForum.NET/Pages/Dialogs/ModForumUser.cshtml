@@ -84,7 +84,10 @@
      @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.FormValidatorJQueryJs()));
      
      @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ToolTipJs()));
-     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.Select2LoadJs()));
+     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ChoicesLoadJs()));
 
-    @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.SelectUsersLoadJs("ModForumUserDialog", "UserSelect", "UserID")));
+    @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.SelectUsersLoadJs(
+        "UserSelect", 
+        "UserID", 
+        Current.Get<ILocalization>().GetText("MOD_FORUMUSER", "FIND"))));
 </script>

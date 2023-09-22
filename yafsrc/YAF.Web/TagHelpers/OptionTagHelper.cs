@@ -79,16 +79,16 @@ public class OptionTagHelper : TagHelper, IHaveServiceLocator
             if (this.IsFlagIcon)
             {
                 output.Attributes.SetAttribute(
-                    "data-content",
-                    $"<span class=\"select2-image-select-icon\"><span class=\"fi fi-{this.Item.Value.ToLower()} me-1\"></span>{this.Item.Text}</span>");
+                    "data-custom-properties",
+                    $$"""{ "label": "<span class='fi fi-{{this.Item.Value.ToLower()}} me-1'></span>{{this.Item.Text}}" }""");
             }
             else
             {
                 output.Attributes.SetAttribute(
-                    "data-content",
+                    "data-custom-properties",
                     this.IconName.IsSet()
-                        ? $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-{this.IconName} fa-fw text-secondary me-1\"></i>{this.Item.Text}</span>"
-                        : $"<span class=\"select2-image-select-icon\"><img src=\"{this.Item.Value.ToLower()}\" alt=\"{this.Item.Text}\" />&nbsp;{this.Item.Text}</span>");
+                        ? $$"""{ "label": "<i class='fas fa-{{this.IconName}} fa-fw text-secondary me-1'></i>{{this.Item.Text}}" }"""
+                        : $$"""{ "label": "<img src='{{this.Item.Value.ToLower()}}' alt='{{this.Item.Text}}' />&nbsp;{{this.Item.Text}}" }""");
             }
         }
 

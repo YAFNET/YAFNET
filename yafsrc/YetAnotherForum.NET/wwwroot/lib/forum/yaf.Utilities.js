@@ -1,17 +1,154 @@
-﻿// Helper Function for Select2
-function formatState(state) {
-    if (!state.id) {
-        return state.text;
-    }
+﻿function createTagsSelectTemplates(template) {
+    const removeItemButton = this.config.removeItemButton;
 
-    if (state.element.dataset.content == null) {
-        return state.text;
-    }
+    return {
+        item: function ({ classNames }, data) {
+            var label = data.label;
+            var json;
 
-    const span = document.createElement("span");
-    span.innerHTML = state.element.dataset.content;
+            if (data.customProperties) {
+                try {
+                    json = JSON.parse(data.customProperties);
+                } catch (e) {
+                    json = data.customProperties;
+                }
 
-    return span;
+                label = json.label === undefined ? data.label : json.label;
+            }
+
+            return template(
+                `
+                     <div class="${String(classNames.item)} ${String(data.highlighted
+                    ? classNames.highlightedState
+                    : classNames.itemSelectable)} badge text-bg-primary fs-6 m-1""
+                          data-item data-id="${String(data.id)}" data-value="${String(data.value)}"
+                          ${String(removeItemButton ? "data-deletable" : "")}
+                          ${String(data.active ? 'aria-selected="true"' : "")} ${String(data.disabled
+                        ? 'aria-disabled="true"'
+                        : "")}>
+                        <i class="fas fa-fw fa-tag align-middle me-1"></i>${String(label)}
+                        ${String(removeItemButton ? `<button type="button" class="${String(classNames.button)}" aria-label="Remove item: '${String(data.value)}'" data-button="">Remove item</button>` : "")}
+                     </div>
+                    `
+            );
+        }
+    };
+}
+
+function createForumSelectTemplates(template) {
+    var itemSelectText = this.config.itemSelectText;
+
+    return {
+        item: function ({ classNames }, data) {
+            return template(
+                `
+                                 <div class="${String(classNames.item)} ${String(data.highlighted
+                    ? classNames.highlightedState
+                    : classNames.itemSelectable)}"
+                                      data-item data-id="${String(data.id)}" data-value="${String(data.value)}"
+                                      ${String(data.active ? 'aria-selected="true"' : "")} ${String(data.disabled
+                        ? 'aria-disabled="true"'
+                        : "")}>
+                                    <span><i class="fas fa-fw fa-comments text-secondary me-1"></i>${String(data.label)}</span>
+                                 </div>
+                                `
+            );
+        },
+        choice: function ({ classNames }, data) {
+            return template(
+                `
+                                 <div class="${String(classNames.item)} ${String(classNames.itemChoice)} ${String(
+                    data.disabled ? classNames.itemDisabled : classNames.itemSelectable)}"
+                                      data-select-text="${String(itemSelectText)}" data-choice ${String(data.disabled
+                        ? 'data-choice-disabled aria-disabled="true"'
+                        : "data-choice-selectable")}
+                                      data-id="${String(data.id)}" data-value="${String(data.value)}"
+                                      ${String(data.groupId > 0 ? 'role="treeitem"' : 'role="option"')}>
+                                      <span><i class="fas fa-comments fa-fw text-secondary me-1"></i>${String(
+                            data.label)}</span>
+                                 </div>
+                                 `
+            );
+        },
+        choiceGroup: function ({ classNames }, data) {
+            return template(`
+                     <div class="${String(classNames.item)} fw-bold text-secondary"
+                          data-select-text="${String(itemSelectText)}" data-choice ${String(data.disabled
+                ? 'data-choice-disabled aria-disabled="true"'
+                : "data-choice-selectable")}
+                          data-id="${String(data.id)}" data-value="${String(data.value)}"
+                          ${String(data.groupId > 0 ? 'role="treeitem"' : 'role="option"')}>
+                          <span><i class="fas fa-fw fa-folder text-warning me-1"></i>${String(data.value)}</span>
+                     </div>
+                     `);
+        }
+    };
+}
+
+function loadForumChoiceOptions(params, url, selectedForumId) {
+    return fetch(
+        url,
+        {
+            method: "POST",
+            body: JSON.stringify(params),
+            headers: {
+                "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value,
+                "Accept": "application/json",
+                "Content-Type": "application/json;charset=utf-8"
+            }
+        }).then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            return data.results.map(function (group) {
+                return {
+                    value: group.id,
+                    label: group.text,
+                    choices: group.children.map(function (forum) {
+                        const selectedId = parseInt(selectedForumId);
+                        return {
+                            value: forum.id,
+                            label: forum.text,
+                            selected: selectedId > 0 && selectedId == forum.id,
+                            customProperties: {
+                                page: params.Page,
+                                total: data.total,
+                                url: forum.url
+                            }
+                        }
+                    })
+                };
+            });
+        });
+}
+
+function loadChoiceOptions(params, url) {
+    return fetch(
+        url,
+        {
+            method: "POST",
+            body: JSON.stringify(params),
+            headers: {
+                "RequestVerificationToken": document.querySelector('input[name="__RequestVerificationToken"]').value,
+                "Accept": "application/json",
+                "Content-Type": "application/json;charset=utf-8"
+            }
+        }).then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            return data.results.map(function (result) {
+
+                return {
+                    value: result.id,
+                    label: result.text,
+                    customProperties: {
+                        page: params.Page,
+                        total: data.total
+                    }
+                };
+            });
+        });
 }
 
 function errorLog(x) {

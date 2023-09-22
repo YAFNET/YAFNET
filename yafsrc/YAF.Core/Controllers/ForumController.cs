@@ -79,6 +79,7 @@ public class ForumController : ForumBaseController
                     0,
                     new SelectGroup
                         {
+                            id = 0,
                             text = this.GetText("ALL_CATEGORIES"),
                             children = new List<SelectOptions>
                                            {
@@ -99,43 +100,5 @@ public class ForumController : ForumBaseController
 
             return Task.FromResult<ActionResult<SelectPagedGroupOptions>>(this.Ok(pagedForums));
         }
-    }
-
-    /// <summary>
-    /// Get Forum
-    /// </summary>
-    /// <param name="forumId">
-    /// The forum id.
-    /// </param>
-    /// <returns>
-    /// The <see cref="IActionResult"/>.
-    /// </returns>
-    [ValidateAntiForgeryToken]
-    [HttpPost("GetForum/{forumId:int}")]
-    public IActionResult GetForum([FromRoute] int forumId)
-    {
-        var forums = new List<SelectGroup>();
-
-        if (forumId.Equals(0))
-        {
-            forums.Insert(
-                0,
-                new SelectGroup
-                    {
-                        text = this.GetText("ALL_CATEGORIES"),
-                        children = new List<SelectOptions> {new() {id = "0", text = this.GetText("ALL_FORUMS")}}
-                    });
-        }
-        else
-        {
-            forums = this.GetRepository<Forum>().ListAllSorted(
-                this.PageBoardContext.PageBoardID,
-                this.PageBoardContext.PageUserID,
-                forumId);
-        }
-
-        var pagedForums = new SelectPagedGroupOptions { Total = forums.Count, Results = forums };
-       
-        return this.Ok(pagedForums);
     }
 }

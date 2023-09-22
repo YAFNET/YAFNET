@@ -1,0 +1,51 @@
+﻿/*!
+ * Select2 v4 Bootstrap 5 theme v1.3.0
+*/
+
+@import "choices.scss";
+
+.choices__inner {
+    color: $choices-text-color;
+    padding: $form-select-padding-y $form-select-padding-x;
+    line-height: $form-select-line-height;
+    min-height: inherit;
+}
+
+.choices__list--single {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.choices[data-type*=select-one] .choices__inner {
+    padding-bottom: 0 !important;
+}
+
+.choices[data-type*='select-one']:after {
+    background-color: $form-select-bg;
+    background-image: escape-svg($form-select-indicator);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: contain;
+    padding: 0;
+    margin: 0;
+    border: none;
+    appearance: none;
+    width: 16px;
+    height: 12px;
+    position: absolute;
+    top: calc(50% - 5px);
+    right: 10px;
+}
+
+.choices[data-type*='select-one'].is-open:after {
+    transform: rotate(180deg);
+    padding: 0;
+    margin: 0;
+}
+
+.choices .choices__list {
+    z-index: 99999;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+}
