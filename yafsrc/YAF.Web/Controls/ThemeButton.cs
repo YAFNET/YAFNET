@@ -566,6 +566,11 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
             writer.WriteAttribute("data-bs-toggle", this.DataToggle);
 
             writer.WriteAttribute("aria-expanded", "false");
+
+            if (this.DataToggle is "dropdown")
+            {
+                writer.WriteAttribute("data-bs-auto-close", "outside");
+            }
         }
 
         if (this.Text.IsNotSet() && this.Icon.IsSet())

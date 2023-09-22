@@ -18,7 +18,7 @@
                                 IconName="arrows-alt"
                                 LocalizedTag="MOVE_TITLE"/>
             </div>
-            <div class="card-body text-center">
+            <div class="card-body">
                 <div class="mb-3">
                     <label for="ForumList">
                         <YAF:LocalizedLabel ID="LocalizedLabel2" runat="server" 

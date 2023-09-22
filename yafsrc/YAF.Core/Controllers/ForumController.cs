@@ -81,6 +81,7 @@ public class ForumController : ApiController, IHaveServiceLocator
                     0,
                     new SelectGroup
                         {
+                            id = 0,
                             text = BoardContext.Current.Get<ILocalization>().GetText("ALL_CATEGORIES"),
                             children = new List<SelectOptions>
                                            {

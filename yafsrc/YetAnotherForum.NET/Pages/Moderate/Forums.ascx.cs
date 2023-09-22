@@ -71,10 +71,6 @@ public partial class Forums : ModerateForumPage
                 false,
                 this.ForumListSelected.ClientID));
 
-        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-            nameof(JavaScriptBlocks.DropDownToggleJs),
-            JavaScriptBlocks.DropDownToggleJs());
-
         base.OnPreRender(e);
     }
 
@@ -120,7 +116,7 @@ public partial class Forums : ModerateForumPage
 
         this.DataBind();
 
-        this.ForumListSelected.Value = this.PageBoardContext.PageForumID.ToString();
+        this.ForumListSelected.Value = "0";
     }
 
     /// <summary>

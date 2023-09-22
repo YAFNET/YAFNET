@@ -8455,10 +8455,6 @@
             "#text": "保存"
           },
           {
-            "@tag": "SELECT_LOCALE_JS",
-            "#text": "language:  { errorLoading:function(){return\"无法载入结果。\"},inputTooLong:function(n){return\"请删除\"+(n.input.length-n.maximum)+\"个字符\"},inputTooShort:function(n){return\"请再输入至少\"+(n.minimum-n.input.length)+\"个字符\"},loadingMore:function(){return\"载入更多结果…\"},maximumSelected:function(n){return\"最多只能选择\"+n.maximum+\"个项目\"},noResults:function(){return\"未找到结果\"},searching:function(){return\"搜索中…\"},removeAllItems:function(){return\"删除所有项目\"}} }"
-          },
-          {
             "@tag": "SELECTED_COPY",
             "#text": "复制选定的文本"
           },

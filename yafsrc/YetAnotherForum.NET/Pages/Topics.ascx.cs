@@ -76,8 +76,6 @@ public partial class Topics : ForumPage
                 iconLegend.ToJsString(),
                 "topic-icon-legend-popvover"));
 
-        this.PageBoardContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
-
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.SelectForumsLoadJs),
             JavaScriptBlocks.SelectForumsLoadJs(

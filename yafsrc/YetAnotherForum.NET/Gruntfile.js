@@ -10,6 +10,8 @@ module.exports = function(grunt) {
     // CONFIGURATION
     grunt.initConfig({
         pkg: grunt.file.readJSON("package.json"),
+
+
         webpack: {
             lightBox: lightBoxWebpackConfig
         },
@@ -216,7 +218,6 @@ module.exports = function(grunt) {
                 },
                 src: [
                     "Scripts/jquery.js",
-                    "Scripts/select2.js",
                     "Scripts/bootstrap.bundle.js",
                     "Scripts/forum/InstallWizard.js"
                 ],
@@ -267,7 +268,7 @@ module.exports = function(grunt) {
                     "Scripts/bootbox.js",
                     "Scripts/bootstrap-notify.js",
                     "Scripts/forum/bootstrap-touchspin.js",
-                    "Scripts/select2.js",
+                    "Scripts/choices/assets/scripts/choices.js",
                     "Scripts/bs5-lightbox/dist/index.bundle.min.js",
                     "Scripts/forum/yaf.hoverCard.js",
                     "Scripts/prism.js",
@@ -295,7 +296,7 @@ module.exports = function(grunt) {
                     "Scripts/bootbox.js",
                     "Scripts/bootstrap-notify.js",
                     "Scripts/forum/bootstrap-touchspin.js",
-                    "Scripts/select2.js",
+                    "Scripts/choices/assets/scripts/choices.js",
                     "Scripts/bs5-lightbox/dist/index.bundle.min.js",
                     "Scripts/forum/yaf.hoverCard.js",
                     "Scripts/prism.js",
@@ -324,7 +325,7 @@ module.exports = function(grunt) {
                     "Scripts/bootbox.js",
                     "Scripts/bootstrap-notify.js",
                     "Scripts/forum/bootstrap-touchspin.js",
-                    "Scripts/select2.js",
+                    "Scripts/choices/assets/scripts/choices.js",
                     "Scripts/bs5-lightbox/dist/index.bundle.min.js",
                     "Scripts/forum/yaf.hoverCard.js",
                     "Scripts/prism.js",
@@ -349,7 +350,7 @@ module.exports = function(grunt) {
                     "Scripts/bootbox.js",
                     "Scripts/bootstrap-notify.js",
                     "Scripts/forum/bootstrap-touchspin.js",
-                    "Scripts/select2.js",
+                    "Scripts/choices/assets/scripts/choices.js",
                     "Scripts/bs5-lightbox/dist/index.bundle.min.js",
                     "Scripts/forum/yaf.hoverCard.js",
                     "Scripts/prism.js",

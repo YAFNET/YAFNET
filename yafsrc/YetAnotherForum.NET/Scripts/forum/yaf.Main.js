@@ -30,43 +30,136 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    $(".yafnet .select2-select").each(function () {
-        $(this).select2({
-            width: "100%",
-            theme: "bootstrap-5",
-            placeholder: $(this).attr("placeholder")
-        });
+    document.querySelectorAll(".yafnet .select2-select").forEach(select => {
+        const choice = new window.Choices(select,
+            {
+                allowHTML: true,
+                shouldSort: false,
+                placeholderValue: select.getAttribute("placeholder"),
+                classNames: { containerOuter: "choices w-100" }
+            });
     });
 
-    if ($(".select2-image-select").length) {
-        var selected = $(".select2-image-select").val();
+    document.querySelectorAll(".yafnet .select2-image-select").forEach(select => {
+        var selectedValue = select.value;
+        var groups = new Array();
+        document.querySelectorAll(".yafnet .select2-image-select option[data-category]").forEach(option => {
+            var group = option.dataset.category.trim();
 
-        var groups = {};
-        $(".yafnet .select2-image-select option[data-category]").each(function () {
-            var sGroup = $.trim($(this).attr("data-category"));
-            groups[sGroup] = true;
+            if (groups.indexOf(group) === -1) {
+                groups.push(group);
+            }
         });
-        $.each(groups, function (c) {
-            $(".yafnet .select2-image-select").each(function () {
-                $(this).find("option[data-category='" + c + "']").wrapAll('<optgroup label="' + c + '">');
+
+        groups.forEach(group => {
+            document.querySelectorAll(".yafnet .select2-image-select").forEach(s => {
+
+                var optionGroups = new Array();
+                s.querySelectorAll(`option[data-category='${group}']`).forEach(option => {
+                    if (optionGroups.indexOf(option) === -1) {
+                        optionGroups.push(option);
+                    }
+                });
+
+                const optionGroupElement = document.createElement("optgroup");
+                optionGroupElement.label = group;
+
+                optionGroups.forEach(option => {
+                    option.replaceWith(optionGroupElement);
+
+                    optionGroupElement.appendChild(option);
+                });
             });
         });
+        select.value = selectedValue;
 
-        $(".select2-image-select").val(selected);
-    }
+        const choice = new window.Choices(select, {
+            classNames: { containerOuter: "choices w-100" },
+            allowHTML: true,
+            shouldSort: false,
+            removeItemButton: select.dataset.allowClear === "True",
+            placeholderValue: select.getAttribute("placeholder"),
+            callbackOnCreateTemplates: function (template) {
+                var itemSelectText = this.config.itemSelectText;
+                const removeItemButton = this.config.removeItemButton;
 
-    $(".yafnet .select2-image-select").each(function () {
-        $(this).select2({
-            width: "100%",
-            theme: "bootstrap-5",
-            allowClearing: $(this).data("allow-clear") == "True",
-            dropdownAutoWidth: true,
-            templateResult: formatState,
-            templateSelection: formatState,
-            placeholder: $(this).attr("placeholder")
-        }).on("select2:select", function (e) {
-            if (e.params.data.url) {
-                window.location = e.params.data.url;
+                    return {
+                        item: function ({ classNames }, data) {
+                            var label = data.label;
+                            var json;
+
+                            if (data.customProperties) {
+                                try {
+                                    json = JSON.parse(data.customProperties);
+                                } catch (e) {
+                                    json = data.customProperties;
+                                }
+
+                                label = json.label === undefined ? data.label : json.label;
+                            }
+
+                            return template(
+                                `
+                                 <div class="${String(classNames.item)} ${String(data.highlighted
+                                    ? classNames.highlightedState
+                                    : classNames.itemSelectable)}"
+                                      data-item data-id="${String(data.id)}" data-value="${String(data.value)}"
+                                      ${String(removeItemButton ? "data-deletable" : "")}
+                                      ${String(data.active ? 'aria-selected="true"' : "")} ${String(data.disabled
+                                    ? 'aria-disabled="true"'
+                                    : "")}>
+                                    ${String(label)}
+                                    ${String(removeItemButton ? `<button type="button" class="${String(classNames.button)}" aria-label="Remove item: '${String(data.value)}'" data-button="">Remove item</button>` : "")}
+                                 </div>
+                                `
+                            );
+                        },
+                        choice: function ({ classNames }, data) {
+                            var label = data.label;
+                            var json;
+
+                            if (data.customProperties) {
+                                try {
+                                    json = JSON.parse(data.customProperties);
+                                } catch (e) {
+                                    json = data.customProperties;
+                                }
+
+                                label = json.label === undefined ? data.label : json.label;
+                            }
+
+                            return template(
+                                `
+                                 <div class="${String(classNames.item)} ${String(classNames.itemChoice)} ${String(
+                                    data.disabled ? classNames.itemDisabled : classNames.itemSelectable)}"
+                                      data-select-text="${String(itemSelectText)}" data-choice ${String(data.disabled
+                                    ? 'data-choice-disabled aria-disabled="true"'
+                                    : "data-choice-selectable")}
+                                      data-id="${String(data.id)}" data-value="${String(data.value)}"
+                                      ${String(data.groupId > 0 ? 'role="treeitem"' : 'role="option"')}>
+                                      ${String(label)}
+                                 </div>
+                                 `
+                            );
+                        }
+                    };
+                }
+            }
+        );
+
+        choice.passedElement.element.addEventListener("choice", function (event) {
+            var json;
+
+            if (event.detail.choice.customProperties) {
+                try {
+                    json = JSON.parse(event.detail.choice.customProperties);
+                } catch (e) {
+                    json = event.detail.choice.customProperties;
+                }
+
+                if (json.url !== undefined) {
+                    window.location = json.url;
+                }
             }
         });
     });

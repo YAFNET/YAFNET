@@ -465,8 +465,10 @@ public static class ForumRepositoryExtensions
 
                     var countViewsExpression = db.Connection.From<Active>(db.Connection.TableAlias("x"));
                     countViewsExpression.Where(
-                        $@"x.{countViewsExpression.Column<Active>(x => x.ForumID)}=
-                                   {expression.Column<Forum>(x => x.ID, true)}");
+                        $"""
+                         x.{countViewsExpression.Column<Active>(x => x.ForumID)}=
+                                                            {expression.Column<Forum>(x => x.ID, true)}
+                         """);
                     var countViewsSql = countViewsExpression.Select(Sql.Count("1")).ToSelectStatement();
 
                     var lastTopicAccessSql = "NULL";
@@ -477,8 +479,10 @@ public static class ForumRepositoryExtensions
                         var topicAccessExpression =
                             db.Connection.From<TopicReadTracking>(db.Connection.TableAlias("y"));
                         topicAccessExpression.Where(
-                            $@"y.{topicAccessExpression.Column<TopicReadTracking>(y => y.TopicID)}={expression.Column<Topic>(x => x.ID, true)}
-                                    and y.{topicAccessExpression.Column<TopicReadTracking>(y => y.UserID)}={userId}");
+                            $"""
+                             y.{topicAccessExpression.Column<TopicReadTracking>(y => y.TopicID)}={expression.Column<Topic>(x => x.ID, true)}
+                                                                 and y.{topicAccessExpression.Column<TopicReadTracking>(y => y.UserID)}={userId}
+                             """);
                         lastTopicAccessSql = topicAccessExpression.Select(
                                 $" {topicAccessExpression.Column<TopicReadTracking>(x => x.LastAccessDate)}")
                             .ToSelectStatement();
@@ -953,11 +957,11 @@ public static class ForumRepositoryExtensions
 
                     var selectGroup = new SelectGroup
                                           {
+                                              id = -category.ID,
                                               text = category.Name,
                                               children = forumsByCategory.Select(
                                                   forum => new SelectOptions
                                                                {
-
                                                                    id = forum.ID.ToString(),
                                                                    text = forum.ParentID.HasValue ? $" - {HttpUtility.HtmlEncode(forum.Name)}"
                                                                               : HttpUtility.HtmlEncode(forum.Name),

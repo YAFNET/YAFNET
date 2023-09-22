@@ -45,8 +45,6 @@ public partial class MyNotifications : BaseUserControl
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
     protected override void OnPreRender([NotNull] EventArgs e)
     {
-        this.PageBoardContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
-
         base.OnPreRender(e);
     }
 

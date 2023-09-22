@@ -69,7 +69,7 @@
                                          TextLocalizedTag="FILTER_DROPDOWN"
                                          TextLocalizedPage="ADMIN_USERS"></YAF:ThemeButton>
                         <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
-                            <div class="px-3 py-1 dropdown-sm">
+                            <div class="px-3 py-1">
                                 <div class="mb-3">
                                     <YAF:LocalizedLabel ID="HelpLabel2" runat="server" LocalizedTag="SHOW" />:
                                     <asp:DropDownList runat="server" ID="PageSize"

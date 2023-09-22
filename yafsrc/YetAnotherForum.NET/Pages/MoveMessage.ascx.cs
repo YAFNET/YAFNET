@@ -62,8 +62,9 @@ public partial class MoveMessage : ForumPageRegistered
             nameof(JavaScriptBlocks.SelectTopicsLoadJs),
             JavaScriptBlocks.SelectTopicsLoadJs(
                 "TopicList",
+                this.TopicListSelected.ClientID,
                 this.ForumListSelected.ClientID,
-                this.TopicListSelected.ClientID));
+                this.GetText("select_topic_moveto")));
     }
 
     /// <summary>

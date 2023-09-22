@@ -178,24 +178,24 @@ public partial class EditMessage : ForumPage
             var normal = new ListItem(this.GetText("normal"), "0");
 
             normal.Attributes.Add(
-                "data-content",
-                $"<span class='select2-image-select-icon'><i class='far fa-comment fa-fw me-1'></i>{this.GetText("normal")}</span>");
+                "data-custom-properties",
+                $$"""{ "label": "<span class='select2-image-select-icon'><i class='far fa-comment fa-fw me-1'></i>{{this.GetText("normal")}}</span>" }""");
 
             this.Priority.Items.Add(normal);
 
             var sticky = new ListItem(this.GetText("sticky"), "1");
 
             sticky.Attributes.Add(
-                "data-content",
-                $"<span class='select2-image-select-icon'><i class='fas fa-thumbtack fa-fw me-1'></i>{this.GetText("sticky")}</span>");
+                "data-custom-properties",
+                $$"""{ "label": "<span class='select2-image-select-icon'><i class='fas fa-thumbtack fa-fw me-1'></i>{{this.GetText("sticky")}}</span>" }""");
 
             this.Priority.Items.Add(sticky);
 
             var announcement = new ListItem(this.GetText("announcement"), "2");
 
             announcement.Attributes.Add(
-                "data-content",
-                $"<span class='select2-image-select-icon'><i class='fas fa-bullhorn fa-fw me-1'></i>{this.GetText("announcement")}</span>");
+                "data-custom-properties",
+                $$"""{ "label": "<span class='select2-image-select-icon'><i class='fas fa-bullhorn fa-fw me-1'></i>{{this.GetText("announcement")}}</span>" }""");
 
             this.Priority.Items.Add(announcement);
 
@@ -583,8 +583,7 @@ public partial class EditMessage : ForumPage
             nameof(JavaScriptBlocks.GetBoardTagsJs),
             JavaScriptBlocks.GetBoardTagsJs(
                 "Tags",
-                this.TagsValue.ClientID,
-                topicTags.Any() ? topicTags.Select(t => t.Item2.TagName) : null));
+                this.TagsValue.ClientID));
 
         // Ederon : 9/9/2007 - moderators can reply in locked topics
         if (this.PageBoardContext.PageTopic.TopicFlags.IsLocked && !this.PageBoardContext.ForumModeratorAccess)

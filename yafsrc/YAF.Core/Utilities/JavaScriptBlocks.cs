@@ -21,10 +21,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Utilities;
 
-using System.Collections.Generic;
-using System.Text;
+namespace YAF.Core.Utilities;
 
 using YAF.Core.Context.Start;
 
@@ -42,7 +40,7 @@ public static class JavaScriptBlocks
         $$"""
           function changeImageCaption(imageId, txtTitleId) {
               const newImgTitleTxt = document.getElementById(txtTitleId).value;
-
+          
               fetch("{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/Album/ChangeImageCaption",
                       {
                           method: "POST",
@@ -58,7 +56,7 @@ public static class JavaScriptBlocks
                       errorLog(error);
                   });
           }
-          
+
           """;
 
     /// <summary>
@@ -86,11 +84,11 @@ public static class JavaScriptBlocks
     [NotNull]
     public static string MultiQuoteCallbackSuccessJs =>
         """
-          function multiQuoteSuccess(res) {
-              const multiQuoteButton = document.getElementById(res.Id).parentNode;
-              multiQuoteButton.setAttribute("class", res.NewTitle);
-          }
-          """;
+        function multiQuoteSuccess(res) {
+            const multiQuoteButton = document.getElementById(res.Id).parentNode;
+            multiQuoteButton.setAttribute("class", res.NewTitle);
+        }
+        """;
 
     /// <summary>
     /// Gets the multi quote button JS.
@@ -98,98 +96,123 @@ public static class JavaScriptBlocks
     [NotNull]
     public static string MultiQuoteButtonJs =>
         $$"""
-           function handleMultiQuoteButton(button, msgId, tpId) {
-               const multiQuoteButton = {};
-               multiQuoteButton.ButtonId = button.id;
-               multiQuoteButton.IsMultiQuoteButton = button.checked;
-               multiQuoteButton.MessageId = msgId;
-               multiQuoteButton.TopicId = tpId;
-               multiQuoteButton.ButtonCssClass = document.getElementById(button.id).parentNode.className;
-           
-               fetch("{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/MultiQuote/HandleMultiQuote",
-                       {
-                           method: "POST",
-                           body: JSON.stringify(multiQuoteButton),
-                           headers: {
-                               "Accept": "application/json",
-                               "Content-Type": "application/json;charset=utf-8"
-                           }
-                       }).then(res => res.json())
-                   .then(response => {
-                       multiQuoteSuccess(response);
-                   }).catch(function(error) {
-                       errorLog(error);
-                   });
-           }
-           """;
+          function handleMultiQuoteButton(button, msgId, tpId) {
+              const multiQuoteButton = {};
+              multiQuoteButton.ButtonId = button.id;
+              multiQuoteButton.IsMultiQuoteButton = button.checked;
+              multiQuoteButton.MessageId = msgId;
+              multiQuoteButton.TopicId = tpId;
+              multiQuoteButton.ButtonCssClass = document.getElementById(button.id).parentNode.className;
+          
+              fetch("{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/MultiQuote/HandleMultiQuote",
+                      {
+                          method: "POST",
+                          body: JSON.stringify(multiQuoteButton),
+                          headers: {
+                              "Accept": "application/json",
+                              "Content-Type": "application/json;charset=utf-8"
+                          }
+                      }).then(res => res.json())
+                  .then(response => {
+                      multiQuoteSuccess(response);
+                  }).catch(function(error) {
+                      errorLog(error);
+                  });
+          }
+          """;
 
     /// <summary>
     /// Gets Board Tags JavaScript
     /// </summary>
-    /// <param name="inputId">
-    /// The input Id.
-    /// </param>
-    /// <param name="hiddenId">
-    /// the hidden id
-    /// </param>
-    /// <param name="existingTags">
-    /// the existing topic tags id
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
+    /// <param name="inputId">The input Id.</param>
+    /// <param name="hiddenId">the hidden id</param>
+    /// <returns>The <see cref="string" />.</returns>
     [NotNull]
-    public static string GetBoardTagsJs(string inputId, string hiddenId, IEnumerable<string> existingTags = null)
+    public static string GetBoardTagsJs(string inputId, string hiddenId)
     {
-        var tags = new StringBuilder();
-
-        if (!existingTags.NullOrEmpty())
-        {
-            existingTags.ForEach(tag => tags.Append($"{Config.JQueryAlias}('#{inputId}').append($('<option>', {{value:'{tag}', text:'{tag}', selected: true}}));"));
-        }
-        
         return $$"""
-                 {{tags}}{{Config.JQueryAlias}}("#{{inputId}}").select2({
-                             tags: true,
-                             tokenSeparators: [',', ' '],
-                             ajax: {
-                                 url: '{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/Tags/GetBoardTags',
-                                 type: 'POST',
-                                 dataType: 'json',
-                                 data: function(params) {
-                                     var query = {
-                                         ForumId: 0,
-                                         UserId: 0,
-                                         PageSize: 15,
-                                         Page: params.page || 0,
-                                         SearchTerm: params.term || ''
-                                     }
-                                     return query;
-                                 },
-                                 error: errorLog,
-                                 processResults: function(data, params) {
-                                     params.page = params.page || 0;
+                  var tagsSelect = new Choices('#{{inputId}}', {
+                          allowHTML: false,
+                          addChoices: true,
+                          shouldSort: false,
+                          removeItemButton: true,
+                          placeholder: false,
+                          classNames: { containerOuter: "choices w-100" },
+                          resetScrollPosition: false,
+                          callbackOnCreateTemplates: createTagsSelectTemplates
+                        });
+                        
+                        var query = {
+                      TopicId: {{BoardContext.Current.PageTopicID}},
+                      PageSize: 0,
+                      Page: 0,
+                      SearchTerm: ""
+                  };
+                  
+                  tagsSelect.setChoices(function () { return loadChoiceOptions(query, "{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/Tags/GetBoardTags") });
+                  
+                  const hiddenField = document.getElementById("{{hiddenId}}");
+                  
+                  if (hiddenField.value.length > 0) {
+                      tagsSelect.setValue(hiddenField.value.split(','));
+                  }
+
+                  ["addItem","removeItem"].forEach(function (e) {
+                      tagsSelect.passedElement.element.addEventListener(e, function (event) {
+                          hiddenField.value = tagsSelect.getValue().map(x => x.value).join();
+                      });
+                  });
                  
-                                     var resultsPerPage = 15 * 2;
-                 
-                                     var total = params.page == 0 ? data.Results.length : resultsPerPage;
-                 
-                                     return {
-                                         results: data.Results,
-                                         pagination: {
-                                             more: total < data.Total
-                                         }
-                                     }
-                                 }
-                             },
-                             allowClearing: false,
-                             width: '100%',
-                             theme: 'bootstrap-5',
-                             {{BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}}
-                         }).on("select2:select", function (e) {
-                                   $("#{{hiddenId}}").val($(this).select2('data').map(x => x.text).join());
-                         });
-                 """;
+
+                  tagsSelect.passedElement.element.addEventListener("search", function (event) {
+                  
+                      if (event.detail.value > 2) {
+                          var query = {
+                              ForumId: 0,
+                              TopicId: 0,
+                              PageSize: 15,
+                              Page: 0,
+                              SearchTerm: event.detail.value
+                          };
+                          tagsSelect.setChoices(function () { return loadChoiceOptions(query, "{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/Tags/GetBoardTags") }, "value", "label", true);
+                      }
+                  });
+
+                  tagsSelect.passedElement.element.addEventListener("showDropdown", function () {
+                      var listBox = tagsSelect.choiceList.element;
+                      listBox.addEventListener("scroll", function () {
+                  
+                          const scrollableHeight = listBox.scrollHeight - listBox.clientHeight
+                  
+                          if (listBox.scrollTop >= scrollableHeight) {
+                              const resultsPerPage = 15 * 2,
+                                  choices = tagsSelect._currentState.choices,
+                  
+                                  lastItem = choices[choices.length - 1],
+                  
+                                  currentPage = lastItem.customProperties.page,
+                  
+                                  total = lastItem.customProperties.page == 0
+                                      ? tagsSelect._currentState.choices.length
+                                      : resultsPerPage;
+                  
+                  
+                              if (total < lastItem.customProperties.total) {
+                                  var query = {
+                                      ForumId: 0,
+                                      TopicId: 0,
+                                      PageSize: 15,
+                                      Page: currentPage + 1,
+                                      SearchTerm: ""
+                                  };
+                  
+                                  tagsSelect.setChoices(function () { return loadChoiceOptions(query, "{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/Tags/GetBoardTags") }, "value", "label", false);
+                              }
+                          }
+                      });
+                  });
+
+                  """;
     }
 
     /// <summary>
@@ -232,81 +255,81 @@ public static class JavaScriptBlocks
     public static string AlbumEventsJs([NotNull] string albumEmptyTitle, [NotNull] string imageEmptyCaption)
     {
         return $$"""
-                  function showTexBox(spnTitleId) {
-                      {
-                          const spnTitleVar = document.getElementById("spnTitle" + spnTitleId.substring(8)),
-                              txtTitleVar = document.getElementById("txtTitle" + spnTitleId.substring(8));
-                  
-                          if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute("value", spnTitleVar.firstChild.nodeValue);
-                          if (spnTitleVar.firstChild.nodeValue == "{{albumEmptyTitle}}" || spnTitleVar.firstChild.nodeValue == "{{imageEmptyCaption}}") {
-                              {
-                                  txtTitleVar.value = "";
-                                  spnTitleVar.firstChild.nodeValue = "";
-                              }
-                          }
-                          txtTitleVar.style.display = "inline";
-                          spnTitleVar.style.display = "none";
-                          txtTitleVar.focus();
-                      }
-                  }
-                  
-                  function resetBox(txtTitleId, isAlbum) {
-                      {
-                          const spnTitleVar = document.getElementById("spnTitle" + txtTitleId.substring(8)),
-                              txtTitleVar = document.getElementById(txtTitleId);
-                  
-                          txtTitleVar.style.display = "none";
-                          txtTitleVar.disabled = false;
-                          spnTitleVar.style.display = "inline";
-                          if (spnTitleVar.firstChild != null) txtTitleVar.value = spnTitleVar.firstChild.nodeValue;
-                          if (spnTitleVar.firstChild.nodeValue == "") {
-                              {
-                                  txtTitleVar.value = "";
-                                  if (isAlbum) spnTitleVar.firstChild.nodeValue = "{{albumEmptyTitle}}";
-                                  else spnTitleVar.firstChild.nodeValue = "{{imageEmptyCaption}}";
-                              }
-                          }
-                      }
-                  }
-                  
-                  function checkKey(event, handler, id, isAlbum) {
-                      {
-                          if ((event.keyCode == 13) || (event.which == 13)) {
-                              {
-                                  if (event.preventDefault) event.preventDefault();
-                                  event.cancel = true;
-                                  event.returnValue = false;
-                                  if (spnTitleVar.firstChild.nodeValue != txtTitleVar.value) {
-                                      {
-                                          handler.disabled = true;
-                                          if (isAlbum == true) changeAlbumTitle(id, handler.id);
-                                          else changeImageCaption(id, handler.id);
-                                      }
-                                  } else resetBox(handler.id, isAlbum);
-                              }
-                          } else if ((event.keyCode == 27) || (event.which == 27)) resetBox(handler.id, isAlbum);
-                      }
-                  }
-                  
-                  function blurTextBox(txtTitleId, id, isAlbum) {
-                      {
-                          const spnTitleVar = document.getElementById("spnTitle" + txtTitleId.substring(8)),
-                              txtTitleVar = document.getElementById(txtTitleId);
-                  
-                          if (spnTitleVar.firstChild != null) {
-                              {
-                                  if (spnTitleVar.firstChild.nodeValue != txtTitleVar.value) {
-                                      {
-                                          txtTitleVar.disabled = true;
-                                          if (isAlbum == true) changeAlbumTitle(id, txtTitleId);
-                                          else changeImageCaption(id, txtTitleId);
-                                      }
-                                  } else resetBox(txtTitleId, isAlbum);
-                              }
-                          } else resetBox(txtTitleId, isAlbum);
-                      }
-                  }
-                  """;
+                 function showTexBox(spnTitleId) {
+                     {
+                         const spnTitleVar = document.getElementById("spnTitle" + spnTitleId.substring(8)),
+                             txtTitleVar = document.getElementById("txtTitle" + spnTitleId.substring(8));
+                 
+                         if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute("value", spnTitleVar.firstChild.nodeValue);
+                         if (spnTitleVar.firstChild.nodeValue == "{{albumEmptyTitle}}" || spnTitleVar.firstChild.nodeValue == "{{imageEmptyCaption}}") {
+                             {
+                                 txtTitleVar.value = "";
+                                 spnTitleVar.firstChild.nodeValue = "";
+                             }
+                         }
+                         txtTitleVar.style.display = "inline";
+                         spnTitleVar.style.display = "none";
+                         txtTitleVar.focus();
+                     }
+                 }
+
+                 function resetBox(txtTitleId, isAlbum) {
+                     {
+                         const spnTitleVar = document.getElementById("spnTitle" + txtTitleId.substring(8)),
+                             txtTitleVar = document.getElementById(txtTitleId);
+                 
+                         txtTitleVar.style.display = "none";
+                         txtTitleVar.disabled = false;
+                         spnTitleVar.style.display = "inline";
+                         if (spnTitleVar.firstChild != null) txtTitleVar.value = spnTitleVar.firstChild.nodeValue;
+                         if (spnTitleVar.firstChild.nodeValue == "") {
+                             {
+                                 txtTitleVar.value = "";
+                                 if (isAlbum) spnTitleVar.firstChild.nodeValue = "{{albumEmptyTitle}}";
+                                 else spnTitleVar.firstChild.nodeValue = "{{imageEmptyCaption}}";
+                             }
+                         }
+                     }
+                 }
+
+                 function checkKey(event, handler, id, isAlbum) {
+                     {
+                         if ((event.keyCode == 13) || (event.which == 13)) {
+                             {
+                                 if (event.preventDefault) event.preventDefault();
+                                 event.cancel = true;
+                                 event.returnValue = false;
+                                 if (spnTitleVar.firstChild.nodeValue != txtTitleVar.value) {
+                                     {
+                                         handler.disabled = true;
+                                         if (isAlbum == true) changeAlbumTitle(id, handler.id);
+                                         else changeImageCaption(id, handler.id);
+                                     }
+                                 } else resetBox(handler.id, isAlbum);
+                             }
+                         } else if ((event.keyCode == 27) || (event.which == 27)) resetBox(handler.id, isAlbum);
+                     }
+                 }
+
+                 function blurTextBox(txtTitleId, id, isAlbum) {
+                     {
+                         const spnTitleVar = document.getElementById("spnTitle" + txtTitleId.substring(8)),
+                             txtTitleVar = document.getElementById(txtTitleId);
+                 
+                         if (spnTitleVar.firstChild != null) {
+                             {
+                                 if (spnTitleVar.firstChild.nodeValue != txtTitleVar.value) {
+                                     {
+                                         txtTitleVar.disabled = true;
+                                         if (isAlbum == true) changeAlbumTitle(id, txtTitleId);
+                                         else changeImageCaption(id, txtTitleId);
+                                     }
+                                 } else resetBox(txtTitleId, isAlbum);
+                             }
+                         } else resetBox(txtTitleId, isAlbum);
+                     }
+                 }
+                 """;
     }
 
     /// <summary>
@@ -321,15 +344,15 @@ public static class JavaScriptBlocks
     public static string BlockUiFunctionJs([NotNull] string messageId)
     {
         return $$"""
-                  var modal = new bootstrap.Modal(document.getElementById("{{messageId}}"),
-                      {
-                          backdrop: "static",
-                          keyboard: false
-                      });
-                  
-                  modal.show();
-                                       
-                  """;
+                 var modal = new bootstrap.Modal(document.getElementById("{{messageId}}"),
+                     {
+                         backdrop: "static",
+                         keyboard: false
+                     });
+
+                 modal.show();
+                                      
+                 """;
     }
 
     /// <summary>
@@ -343,45 +366,22 @@ public static class JavaScriptBlocks
     public static string BootstrapTabsLoadJs([NotNull] string tabId, string hiddenId)
     {
         return $$"""
-                  document.addEventListener("DOMContentLoaded", function () {
-                      const selectedTab = document.getElementById("{{hiddenId}}"),
-                          tabId = selectedTab.value !== "" ? selectedTab.value : "View1",
-                          tab = new bootstrap.Tab('#{{tabId}} a[href="#' + tabId + '"]');
-                  
-                      tab.show();
-                  
-                      document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tabEl => {
-                          tabEl.addEventListener("click",
-                              (e) => {
-                                  var tabLink = e.target.href.split('#');
-                  
-                                  if (tabLink.length > 1) {
-                                      selectedTab.value = tabLink[1];
-                                  }
-                              });
-                      });
-                  });
-                  """;
-    }
-
-    /// <summary>
-    /// The drop down toggle JS.
-    /// </summary>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    public static string DropDownToggleJs()
-    {
-        return """
-                 document.querySelectorAll(".dropdown-menu").forEach(dropdown => {
+                 document.addEventListener("DOMContentLoaded", function () {
+                     const selectedTab = document.getElementById("{{hiddenId}}"),
+                         tabId = selectedTab.value !== "" ? selectedTab.value : "View1",
+                         tab = new bootstrap.Tab('#{{tabId}} a[href="#' + tabId + '"]');
                  
-                     dropdown.addEventListener("click", (e) => {
-                         if (e.target.type === "button") {
-                             new bootstrap.Dropdown(e.target).show();
-                         }
-                         else {
-                             e.stopPropagation();
-                         }
+                     tab.show();
+                 
+                     document.querySelectorAll('[data-bs-toggle="tab"]').forEach(tabEl => {
+                         tabEl.addEventListener("click",
+                             (e) => {
+                                 var tabLink = e.target.href.split('#');
+                 
+                                 if (tabLink.length > 1) {
+                                     selectedTab.value = tabLink[1];
+                                 }
+                             });
                      });
                  });
                  """;
@@ -402,16 +402,16 @@ public static class JavaScriptBlocks
     public static string CollapseToggleJs([NotNull] string hideText, [NotNull] string showText)
     {
         return $$"""
-                  document.addEventListener("DOMContentLoaded", function () {
-                      document.querySelectorAll('a[data-bs-toggle="collapse"]').forEach(button => {
-                          if (button.getAttribute("aria-expanded") === "false") {
-                              button.innerHTML = '<i class="fa fa-caret-square-up fa-fw"></i>&nbsp;{{hideText}}';
-                          } else {
-                              button.innerHTML = '<i class="fa fa-caret-square-down fa-fw"></i>&nbsp;{{showText}}';
-                          }
-                      });
-                  });
-                  """;
+                 document.addEventListener("DOMContentLoaded", function () {
+                     document.querySelectorAll('a[data-bs-toggle="collapse"]').forEach(button => {
+                         if (button.getAttribute("aria-expanded") === "false") {
+                             button.innerHTML = '<i class="fa fa-caret-square-up fa-fw"></i>&nbsp;{{hideText}}';
+                         } else {
+                             button.innerHTML = '<i class="fa fa-caret-square-down fa-fw"></i>&nbsp;{{showText}}';
+                         }
+                     });
+                 });
+                 """;
     }
 
     /// <summary>
@@ -426,16 +426,16 @@ public static class JavaScriptBlocks
     public static string LoadGotoAnchor([NotNull] string anchor)
     {
         return $$"""
-                  Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadGotoAnchor);
-                  function loadGotoAnchor() {
-                      const htmlElement = document.querySelector("html");
-                      htmlElement.style.scrollBehavior = "auto";
-                  
-                      document.getElementById("{{anchor}}").scrollIntoView();
-                  
-                      htmlElement.style.scrollBehavior = "smooth";
-                  }
-                  """;
+                 Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadGotoAnchor);
+                 function loadGotoAnchor() {
+                     const htmlElement = document.querySelector("html");
+                     htmlElement.style.scrollBehavior = "auto";
+                 
+                     document.getElementById("{{anchor}}").scrollIntoView();
+                 
+                     htmlElement.style.scrollBehavior = "smooth";
+                 }
+                 """;
     }
 
     /// <summary>
@@ -453,15 +453,15 @@ public static class JavaScriptBlocks
     public static string LoginBoxLoadJs([NotNull] string openLink, [NotNull] string dialogId)
     {
         return $$"""
-                  document.addEventListener("DOMContentLoaded", function () {
-                      document.querySelectorAll("{{openLink}}").forEach(button => {
-                          button.addEventListener("click", () => {
-                              const loginModal = new bootstrap.Modal(document.getElementById("{{dialogId}}"));
-                              loginModal.show();
-                          });
-                      });
-                  });
-                  """;
+                 document.addEventListener("DOMContentLoaded", function () {
+                     document.querySelectorAll("{{openLink}}").forEach(button => {
+                         button.addEventListener("click", () => {
+                             const loginModal = new bootstrap.Modal(document.getElementById("{{dialogId}}"));
+                             loginModal.show();
+                         });
+                     });
+                 });
+                 """;
     }
 
     /// <summary>
@@ -476,32 +476,32 @@ public static class JavaScriptBlocks
     public static string AddThanksJs([NotNull] string removeThankBoxHtml)
     {
         return $$"""
-                  function addThanks(messageId) {
-                      fetch("{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/ThankYou/AddThanks/" + messageId,
-                              {
-                                  method: "POST",
-                                  headers: {
-                                      "Accept": "application/json",
-                                      "Content-Type": "application/json;charset=utf-8"
-                                  }
-                              }).then(res => res.json())
-                          .then(response => {
-                  
-                              document.getElementById('dvThanksInfo' + response.MessageID).innerHTML = response.ThanksInfo;
-                              document.getElementById('dvThankBox' + response.MessageID).innerHTML = {{removeThankBoxHtml}};
-                  
-                              document.querySelectorAll(".thanks-popover").forEach(pop => {
-                                  const popover = new bootstrap.Popover(pop,
-                                      {
-                                          template:
-                                              '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body popover-body-scrollable"></div></div>'
-                                      });
-                              });
-                          }).catch(function (error) {
-                              errorLog(error);
-                          });
-                  }
-                  """;
+                 function addThanks(messageId) {
+                     fetch("{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/ThankYou/AddThanks/" + messageId,
+                             {
+                                 method: "POST",
+                                 headers: {
+                                     "Accept": "application/json",
+                                     "Content-Type": "application/json;charset=utf-8"
+                                 }
+                             }).then(res => res.json())
+                         .then(response => {
+                 
+                             document.getElementById('dvThanksInfo' + response.MessageID).innerHTML = response.ThanksInfo;
+                             document.getElementById('dvThankBox' + response.MessageID).innerHTML = {{removeThankBoxHtml}};
+                 
+                             document.querySelectorAll(".thanks-popover").forEach(pop => {
+                                 const popover = new bootstrap.Popover(pop,
+                                     {
+                                         template:
+                                             '<div class="popover" role="tooltip"><div class="popover-arrow"></div><h3 class="popover-header"></h3><div class="popover-body popover-body-scrollable"></div></div>'
+                                     });
+                             });
+                         }).catch(function (error) {
+                             errorLog(error);
+                         });
+                 }
+                 """;
     }
 
     /// <summary>
@@ -516,24 +516,24 @@ public static class JavaScriptBlocks
     public static string RemoveThanksJs([NotNull] string addThankBoxHtml)
     {
         return $$"""
-                  function removeThanks(messageId) {
-                      fetch("{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/ThankYou/RemoveThanks/" + messageId,
-                              {
-                                  method: "POST",
-                                  headers: {
-                                      "Accept": "application/json",
-                                      "Content-Type": "application/json;charset=utf-8"
-                                  }
-                              }).then(res => res.json())
-                          .then(response => {
-                  
-                              document.getElementById("dvThanksInfo" + response.MessageID).innerHTML = response.ThanksInfo;
-                              document.getElementById("dvThankBox" + response.MessageID).innerHTML = {{addThankBoxHtml}};
-                          }).catch(function(error) {
-                              errorLog(error);
-                          });
-                  }
-                  """;
+                 function removeThanks(messageId) {
+                     fetch("{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/ThankYou/RemoveThanks/" + messageId,
+                             {
+                                 method: "POST",
+                                 headers: {
+                                     "Accept": "application/json",
+                                     "Content-Type": "application/json;charset=utf-8"
+                                 }
+                             }).then(res => res.json())
+                         .then(response => {
+                 
+                             document.getElementById("dvThanksInfo" + response.MessageID).innerHTML = response.ThanksInfo;
+                             document.getElementById("dvThankBox" + response.MessageID).innerHTML = {{addThankBoxHtml}};
+                         }).catch(function(error) {
+                             errorLog(error);
+                         });
+                 }
+                 """;
     }
 
     /// <summary>
@@ -564,9 +564,9 @@ public static class JavaScriptBlocks
                                              {{{editorId}}}.FormatText("attach", id);
                                     }
                                     
-                  mentions({id: '{{{editorId}}}', 
+                  mentions({id: '{{{editorId}}}',
                            lookup: 'user',
-                           url:'{{{BoardInfo.ForumClientFileRoot}}}resource.ashx?users={q}', 
+                           url:'{{{BoardInfo.ForumClientFileRoot}}}resource.ashx?users={q}',
                            onclick: function (data) {{{{editorId}}}.FormatText("userlink", data.name);}});
                   """;
     }
@@ -584,28 +584,26 @@ public static class JavaScriptBlocks
     /// The <see cref="string"/>.
     /// </returns>
     [NotNull]
-    public static string CodeMirrorSqlLoadJs(
-        [NotNull] string editorId,
-        [NotNull] string mime)
+    public static string CodeMirrorSqlLoadJs([NotNull] string editorId, [NotNull] string mime)
     {
         return $$$"""
-                 window.onload = function() {
-                   window.editor = CodeMirror.fromTextArea(document.getElementById('{{{editorId}}}'), {
-                     mode: "{{{mime}}}",
-                     indentWithTabs: true,
-                     smartIndent: true,
-                     lineNumbers: true,
-                     matchBrackets : true,
-                     theme: "monokai",
-                     autofocus: true,
-                     extraKeys: {"Ctrl-Space": "autocomplete"},
-                     hintOptions: {tables: {
-                       users: ["name", "score", "birthDate"],
-                       countries: ["name", "population", "size"]
-                     }}
-                   });
-                 };
-                 """;
+                  window.onload = function() {
+                    window.editor = CodeMirror.fromTextArea(document.getElementById('{{{editorId}}}'), {
+                      mode: "{{{mime}}}",
+                      indentWithTabs: true,
+                      smartIndent: true,
+                      lineNumbers: true,
+                      matchBrackets : true,
+                      theme: "monokai",
+                      autofocus: true,
+                      extraKeys: {"Ctrl-Space": "autocomplete"},
+                      hintOptions: {tables: {
+                        users: ["name", "score", "birthDate"],
+                        countries: ["name", "population", "size"]
+                      }}
+                    });
+                  };
+                  """;
     }
 
     /// <summary>
@@ -618,82 +616,81 @@ public static class JavaScriptBlocks
     /// Returns the FileUpload Java Script.
     /// </returns>
     [NotNull]
-    public static string FileAutoUploadLoadJs(
-        [NotNull] string fileUploaderUrl)
+    public static string FileAutoUploadLoadJs([NotNull] string fileUploaderUrl)
     {
         return $$"""
-                  (function () {
-                      "use strict";
-                      const eventHandlers = zone => {
-                          ["dragenter", "dragover", "dragleave", "drop"].forEach(event => {
-                              zone.addEventListener(event, (e) => {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                              }, false);
-                              document.body.addEventListener(event, (e) => {
-                                  e.preventDefault();
-                                  e.stopPropagation();
-                              }, false);
-                          });
-                  
-                          zone.addEventListener("drop", (e) => {
-                              filesUpload(e.dataTransfer.files);
-                          }, false);
-                      }
-                  
-                      document.addEventListener("DOMContentLoaded",
-                          function() {
-                              const dropZone = document.querySelector(".BBCodeEditor");
-                              eventHandlers(dropZone);
-                          });
-                  
-                      const filesUpload = files => {
-                  
-                          if (!files) return;
-                  
-                          const url = "{{fileUploaderUrl}}";
-                  
-                          const formData = new FormData();
-                  
-                          for (let x = 0; x < files.length; x++) {
-                              formData.append("'file" + x + "'", files[x]);
-                          }
-                  
-                          fetch(url, {
-                              method: "POST",
-                              body: formData,
-                              mode: "cors"
-                          })
-                              .then(response => response.json())
-                              .then(data => {
-                                  if (data.length) {
-                                      if (data[0].error) {
-                                          const _ = new Notify({
-                                                  title: "{{BoardContext.Current.BoardSettings.Name}}",
-                                                  message: data[0].error,
-                                                  icon: "fa fa-exclamation-triangle"
-                                              },
-                                              {
-                                                  type: "danger",
-                                                  element: "body",
-                                                  position: null,
-                                                  placement: { from: "top", align: "center" },
-                                                  delay: {{BoardContext.Current.BoardSettings.MessageNotifcationDuration}} * 1000
-                                              });
-                  
-                                      } else {
-                                          insertAttachment(data[0].fileID, data[0].fileID);
-                                      }
-                                  } else {
-                                      console.error("error");
-                                  }
-                              })
-                              .catch(error => {
-                                  console.error("error: ", error);
-                              });
-                      }
-                  })();
-                  """;
+                 (function () {
+                     "use strict";
+                     const eventHandlers = zone => {
+                         ["dragenter", "dragover", "dragleave", "drop"].forEach(event => {
+                             zone.addEventListener(event, (e) => {
+                                 e.preventDefault();
+                                 e.stopPropagation();
+                             }, false);
+                             document.body.addEventListener(event, (e) => {
+                                 e.preventDefault();
+                                 e.stopPropagation();
+                             }, false);
+                         });
+                 
+                         zone.addEventListener("drop", (e) => {
+                             filesUpload(e.dataTransfer.files);
+                         }, false);
+                     }
+                 
+                     document.addEventListener("DOMContentLoaded",
+                         function() {
+                             const dropZone = document.querySelector(".BBCodeEditor");
+                             eventHandlers(dropZone);
+                         });
+                 
+                     const filesUpload = files => {
+                 
+                         if (!files) return;
+                 
+                         const url = "{{fileUploaderUrl}}";
+                 
+                         const formData = new FormData();
+                 
+                         for (let x = 0; x < files.length; x++) {
+                             formData.append("'file" + x + "'", files[x]);
+                         }
+                 
+                         fetch(url, {
+                             method: "POST",
+                             body: formData,
+                             mode: "cors"
+                         })
+                             .then(response => response.json())
+                             .then(data => {
+                                 if (data.length) {
+                                     if (data[0].error) {
+                                         const _ = new Notify({
+                                                 title: "{{BoardContext.Current.BoardSettings.Name}}",
+                                                 message: data[0].error,
+                                                 icon: "fa fa-exclamation-triangle"
+                                             },
+                                             {
+                                                 type: "danger",
+                                                 element: "body",
+                                                 position: null,
+                                                 placement: { from: "top", align: "center" },
+                                                 delay: {{BoardContext.Current.BoardSettings.MessageNotifcationDuration}} * 1000
+                                             });
+                 
+                                     } else {
+                                         insertAttachment(data[0].fileID, data[0].fileID);
+                                     }
+                                 } else {
+                                     console.error("error");
+                                 }
+                             })
+                             .catch(error => {
+                                 console.error("error: ", error);
+                             });
+                     }
+                 })();
+                 """;
     }
 
     /// <summary>
@@ -706,8 +703,7 @@ public static class JavaScriptBlocks
     /// Returns the FileUpload Java Script.
     /// </returns>
     [NotNull]
-    public static string FileUploadLoadJs(
-        [NotNull] string fileUploaderUrl)
+    public static string FileUploadLoadJs([NotNull] string fileUploaderUrl)
     {
         return $$"""
                  document.addEventListener("DOMContentLoaded", function() {
@@ -719,78 +715,108 @@ public static class JavaScriptBlocks
                          errorDelay: {{BoardContext.Current.BoardSettings.MessageNotifcationDuration}}
                      });
                  });
-                
                  """;
     }
 
     /// <summary>
-    /// select2 topics load JS.
+    /// select topics load JS.
     /// </summary>
-    /// <param name="topicsId">
-    /// The topics Id.
+    /// <param name="topicDropDownId">
+    /// The topic drop down Id.
+    /// </param>
+    /// <param name="topicHiddenId">
+    /// the selected topic Id hidden field
     /// </param>
     /// <param name="forumDropDownId">
     /// The forum drop down identifier.
     /// </param>
-    /// <param name="selectedHiddenId">
-    /// The topic selected Hidden Id.
+    /// <param name="placeHolder">
+    /// The select place holder.
     /// </param>
     /// <returns>
-    /// Returns the select2 topics load JS.
+    /// Returns the select topics load JS.
     /// </returns>
     [NotNull]
-    public static string SelectTopicsLoadJs([NotNull] string topicsId, [NotNull] string forumDropDownId, [NotNull] string selectedHiddenId)
+    public static string SelectTopicsLoadJs(
+        [NotNull] string topicDropDownId,
+        [NotNull] string topicHiddenId,
+        [NotNull] string forumDropDownId,
+        [NotNull] string placeHolder)
     {
         return $$"""
-                 {{Config.JQueryAlias}}('#{{topicsId}}').select2({
-                             ajax: {
-                                 url: '{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/Topic/GetTopics',
-                                 type: 'POST',
-                                 dataType: 'json',
-                                 minimumInputLength: 1,
-                                 data: function(params) {
-                                       var query = {
-                                           ForumId : {{Config.JQueryAlias}}('#{{forumDropDownId}}').val(),
-                                           TopicId: {{BoardContext.Current.PageTopicID}},
-                                           PageSize: 0,
-                                           Page : params.page || 0,
-                                           SearchTerm : params.term || ''
-                                       }
-                                       return query;
-                                 },
-                                 error: errorLog,
-                                 processResults: function(data, params) {
-                                     params.page = params.page || 0;
+                 var topicsSelect = new Choices("#{{topicDropDownId}}", {
+                     allowHTML: false,
+                     shouldSort: false,
+                     classNames: { containerOuter: "choices w-100" },
+                     placeholderValue: "{{placeHolder}}",
+                     resetScrollPosition: false
+                 });
+
+                 var query = {
+                     ForumId: document.getElementById('{{forumDropDownId}}').value,
+                     TopicId: {{BoardContext.Current.PageTopicID}},
+                     PageSize: 0,
+                     Page: 0,
+                     SearchTerm: ""
+                 };
+                 topicsSelect.setChoices(function () { return loadChoiceOptions(query, "{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/Topic/GetTopics") });
+
+                 topicsSelect.passedElement.element.addEventListener("choice", function (event) {
+                     document.getElementById("{{topicHiddenId}}").value = event.detail.choice.value;
+                 });
+
+                 topicsSelect.passedElement.element.addEventListener("search", function (event) {
                  
-                                     var resultsPerPage = 15 * 2;
+                     if (event.detail.value > 2) {
+                         var query = {
+                             ForumId: document.getElementById('{{forumDropDownId}}').value,
+                             TopicId: {{BoardContext.Current.PageTopicID}},
+                             PageSize: 15,
+                             Page: 0,
+                             SearchTerm: event.detail.value
+                         };
+                         topicsSelect.setChoices(function () { return loadChoiceOptions(query, "{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/Topic/GetTopics") }, "value", "label", true);
+                     }
+                 });
+
+                 topicsSelect.passedElement.element.addEventListener("showDropdown", function () {
+                     var listBox = topicsSelect.choiceList.element;
+                     listBox.addEventListener("scroll", function () {
                  
-                                     var total = params.page == 0 ? data.Results.length : resultsPerPage;
+                         const scrollableHeight = listBox.scrollHeight - listBox.clientHeight
                  
-                                     return {
-                                         results: data.Results,
-                                         pagination: {
-                                             more: total < data.Total
-                                         }
-                                     }
-                                 }
-                             },
-                             allowClearing: false,
-                             width: '100%',
-                             theme: 'bootstrap-5',
-                             cache: true,
-                             {{BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}}
-                         }).on('select2:select', function(e){
-                                    if (e.params.data.Total) {
-                                                                  {{Config.JQueryAlias}}('#{{selectedHiddenId}}').val(e.params.data.Results[0].children[0].id);
-                                                              } else {
-                                                                  {{Config.JQueryAlias}}('#{{selectedHiddenId}}').val(e.params.data.id);
-                                                              }
-                             });
+                         if (listBox.scrollTop >= scrollableHeight) {
+                             const resultsPerPage = 15 * 2,
+                                 choices = topicsSelect._currentState.choices,
+                 
+                                 lastItem = choices[choices.length - 1],
+                 
+                                 currentPage = lastItem.customProperties.page,
+                 
+                                 total = lastItem.customProperties.page == 0
+                                     ? topicsSelect._currentState.choices.length
+                                     : resultsPerPage;
+                 
+                 
+                             if (total < lastItem.customProperties.total) {
+                                 var query = {
+                                     ForumId: document.getElementById('{{forumDropDownId}}').value,
+                                     TopicId: {{BoardContext.Current.PageTopicID}},
+                                     PageSize: 15,
+                                     Page: currentPage + 1,
+                                     SearchTerm: ""
+                                 };
+                 
+                                 topicsSelect.setChoices(function () { return loadChoiceOptions(query, "{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/Topic/GetTopics") }, "value", "label", false);
+                             }
+                         }
+                     });
+                 });
                  """;
     }
 
     /// <summary>
-    /// select2 forum load JS.
+    /// select forum load JS.
     /// </summary>
     /// <param name="forumDropDownId">
     /// The forum drop down identifier.
@@ -808,111 +834,127 @@ public static class JavaScriptBlocks
     /// The selected Hidden Id.
     /// </param>
     /// <returns>
-    /// Returns the select2 topics load JS.
+    /// Returns the select topics load JS.
     /// </returns>
     [NotNull]
-    public static string SelectForumsLoadJs([NotNull] string forumDropDownId, [NotNull] string placeHolder, bool forumLink, bool allForumsOption, [CanBeNull] string selectedHiddenId = null)
+    public static string SelectForumsLoadJs(
+        [NotNull] string forumDropDownId,
+        [NotNull] string placeHolder,
+        bool forumLink,
+        bool allForumsOption,
+        [CanBeNull] string selectedHiddenId = null)
     {
-        var selectHiddenValue = selectedHiddenId.IsSet()
-                                    ? $$"""
-                                        if (e.params.data.Total) {
-                                                                                         {{Config.JQueryAlias}}('#{{selectedHiddenId}}').val(e.params.data.Results[0].children[0].id);
-                                                                                     } else {
-                                                                                         {{Config.JQueryAlias}}('#{{selectedHiddenId}}').val(e.params.data.id);
-                                                                                     }
-                                        """
-                                    : string.Empty;
+        // forum link
+        var forumLinkJs = forumLink
+                              ? """
+                                forumsSelect.passedElement.element.addEventListener("choice", function (event) {
+                                    var json;
+                                    
+                                    console.log(event);
+                                
+                                    if (event.detail.choice.customProperties) {
+                                        try {
+                                            json = JSON.parse(event.detail.choice.customProperties);
+                                        } catch (e) {
+                                            json = event.detail.choice.customProperties;
+                                        }
+                                
+                                        if (json.url !== undefined) {
+                                            window.location = json.url;
+                                        }
+                                    }
+                                });
+                                """
+                              : string.Empty;
 
-        var forumSelect = selectedHiddenId.IsSet() ? $@"var forumsListSelect = {Config.JQueryAlias}('#{forumDropDownId}');
-            var forumId = {Config.JQueryAlias}('#{selectedHiddenId}').val();
+        // selected forum id
+        var selectHiddenValue = selectedHiddenId.IsSet() ? $"document.getElementById('{selectedHiddenId}').value" : "0";
 
-            {Config.JQueryAlias}.ajax({{
-                url: '{BoardInfo.ForumClientFileRoot}{WebApiConfig.UrlPrefix}/Forum/GetForum/' + forumId,
-                type: 'POST',
-                dataType: 'json'
-            }}).then(function (data) {{
-                                if (data.Total > 0) {{
-                                var result = data.Results[0].children[0];
-                                       
-                                var option = new Option(result.text, result.id, true, true);
-                                forumsListSelect.append(option).trigger('change');
+        var selectHiddenJs = selectedHiddenId.IsSet()
+                                 ? $$"""
+                                     forumsSelect.passedElement.element.addEventListener("choice", function (event) {
+                                         document.getElementById("{{selectedHiddenId}}").value = event.detail.choice.value;
+                                     });
+                                     """
+                                 : string.Empty;
 
-                                forumsListSelect.trigger({{
-                                    type: 'select2:select',
-                                    params: {{
-                                        data: data
-                                    }}
-                                }});}}
-            }});" : string.Empty;
-
+        // all forums option
         var allForumsOptionJs = allForumsOption ? "AllForumsOption: true," : string.Empty;
 
+        var placeholderValue = allForumsOption ? string.Empty : $"""placeholderValue: "{placeHolder}",""";
+
         return $$"""
-                 {{Config.JQueryAlias}}('#{{forumDropDownId}}').select2({
-                             ajax: {
-                                 url: '{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/Forum/GetForums',
-                                 type: 'POST',
-                                 dataType: 'json',
-                                 data: function(params) {
-                                       var query = {
-                                           PageSize: 0,
-                                           {{allForumsOptionJs}}
-                                           Page : params.page || 0,
-                                           SearchTerm : params.term || ''
-                                       }
-                                       return query;
-                                 },
-                                 error: errorLog,
-                                 processResults: function(data, params) {
-                                     params.page = params.page || 0;
+                 var forumsSelect = new Choices("#{{forumDropDownId}}", {
+                     allowHTML: true,
+                     shouldSort: false,
+                     classNames: { containerOuter: "choices w-100 choices-forum" },
+                     {{placeholderValue}}
+                     resetScrollPosition: false,
+                     callbackOnCreateTemplates: createForumSelectTemplates
+                 });
+
+                 {{forumLinkJs}}
+
+                 var forumQuery = {
+                     {{allForumsOptionJs}}
+                     PageSize: 0,
+                     Page: 0,
+                     SearchTerm: ""
+                 };
+
+                 forumsSelect.setChoices(function () {
+                     return loadForumChoiceOptions(forumQuery, "{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/Forum/GetForums", {{selectHiddenValue}}) });
+
+                 {{selectHiddenJs}}
+
+                 forumsSelect.passedElement.element.addEventListener("search", function (event) {
                  
-                                     var resultsPerPage = 15 * 2;
+                     if (event.detail.value > 2) {
+                         var query = {
+                             {{allForumsOptionJs}}
+                             PageSize: 15,
+                             Page: 0,
+                             SearchTerm: event.detail.value
+                         };
+                         forumsSelect.setChoices(function () {
+                             return loadForumChoiceOptions(query, "{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/Forum/GetForums", {{selectHiddenValue}}) },
+                                 "value", "label", true);
+                     }
+                 });
+
+                 forumsSelect.passedElement.element.addEventListener("showDropdown", function () {
+                     var listBox = forumsSelect.choiceList.element;
+                     listBox.addEventListener("scroll", function () {
                  
-                                     var total = params.page == 0 ? data.Results.length : resultsPerPage;
+                         const scrollableHeight = listBox.scrollHeight - listBox.clientHeight
                  
-                                         return {
-                                         results: data.Results,
-                                         pagination: {
-                                             more: total < data.Total
-                                         }
-                                     }
-                                 }
-                             },
-                             placeholder: '{{placeHolder}}',
-                             minimumInputLength: 0,
-                             allowClearing: false,
-                             dropdownAutoWidth: true,
-                             templateResult: function (option) {
-                                                 if (option.loading) {
-                                                     return option.text;
-                                                 }
-                 	                            if (option.id) {
-                 	                                var $container = {{Config.JQueryAlias}}("<span class='select2-image-select-icon'><i class='fas fa-comments fa-fw text-secondary me-1'></i>" + option.text + "</span>");
-                                                     return $container;
-                 	                            } else {
-                                                     var $container = {{Config.JQueryAlias}}("<span class='select2-image-select-icon'><i class='fas fa-folder fa-fw text-warning me-1'></i>" + option.text + "</span>");
-                                                     return $container;
-                 	                            }
-                 	        },
-                             templateSelection: function (option) {
-                 	                               if (option.id) {
-                 	                               var $container = {{Config.JQueryAlias}}("<span class='select2-image-select-icon'><i class='fas fa-comments fa-fw text-secondary me-1'></i>" + option.text + "</span>");
-                                                        return $container;
-                 	                               } else {
-                 	                                   return option.text;
-                 	                               }
-                 	        },
-                             width: '100%',
-                             theme: 'bootstrap-5',
-                             cache: true,
-                             {{BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}}
-                             }).on('select2:select', function(e){
-                                    {{(forumLink ? "window.location = e.params.data.url;" : "")}}
-                                    {{selectHiddenValue}}
-                             });
+                         if (listBox.scrollTop >= scrollableHeight) {
+                             const resultsPerPage = 15 * 2,
+                                 choices = forumsSelect._currentState.choices,
                  
-                             {{forumSelect}}
-                             
+                                 lastItem = choices[choices.length - 1],
+                 
+                                 currentPage = lastItem.customProperties.page,
+                 
+                                 total = lastItem.customProperties.page == 0
+                                     ? forumsSelect._currentState.choices.length
+                                     : resultsPerPage;
+                 
+                             if (total < lastItem.customProperties.total) {
+                                 var query = {
+                                     {{allForumsOptionJs}}
+                                     PageSize: 15,
+                                     Page: currentPage + 1,
+                                     SearchTerm: ""
+                                 };
+                 
+                                 forumsSelect.setChoices(function () {
+                                     return loadForumChoiceOptions(query, "{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/Forum/GetForums", {{selectHiddenValue}}) },
+                                         "value", "label", false);
+                             }
+                         }
+                     });
+                 });
                  """;
     }
 
@@ -940,92 +982,92 @@ public static class JavaScriptBlocks
         [NotNull] string passwordWeakText)
     {
         return $$"""
-                   document.addEventListener("DOMContentLoaded",
-                   function() {
-                       var password = document.getElementById("{{passwordClientId}}"),
-                           passwordConfirm = document.getElementById("{{confirmPasswordClientId}}"),
-                           progressBar = document.getElementById("progress-password");
-                   
-                       password.addEventListener("keyup",
-                           () => {
-                               checkPassword();
-                           });
-                       passwordConfirm.addEventListener("keyup",
-                           () => {
-                               checkPassword();
-                           });
-                   
-                       function checkPassword() {
-                           const invalid = document.getElementById("PasswordInvalid");
-                   
-                           if (password.value !== "" && passwordConfirm.value !== "" && password.value === passwordConfirm.value) {
-                               invalid.style.display = "none";
-                   
-                               password.classList.remove("is-invalid");
-                               passwordConfirm.classList.remove("is-invalid");
-                           } else {
-                               invalid.style.display = "block";
-                               invalid.innerText = "{{notMatchText}}";
-                   
-                               password.classList.add("is-invalid");
-                               passwordConfirm.classList.add("is-invalid");
-                           }
-                   
-                           const strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g"),
-                               mediumRegex =
-                                   new RegExp(
-                                       "^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$",
-                                       "g"),
-                               okRegex = new RegExp("(?=.{{{minimumChars}},}).*", "g");
-                   
-                           document.getElementById("passwordStrength").classList.remove("d-none");
-                   
-                           const passwordHelp = document.getElementById("passwordHelp");
-                   
-                           if (okRegex.test(password.value) === false) {
-                               passwordHelp.innerText = "{{passwordMinText}}";
-                               progressBar.className = "progress-bar bg-danger w-25";
-                           } else if (strongRegex.test(password.value)) {
-                               passwordHelp.innerText = "{{passwordGoodText}}";
-                   
-                               progressBar.className = "progress-bar bg-success w-100";
-                           } else if (mediumRegex.test(password.value)) {
-                               passwordHelp.innerText = "{{passwordStrongerText}}";
-                               progressBar.className = "progress-bar bg-warning w-75";
-                           } else {
-                               passwordHelp.innerText = "{{passwordWeakText}}";
-                               progressBar.classList.add("progress-bar bg-warning w-50");
-                           }
-                       }
-                   
-                       const form1 = document.querySelector("form");
-                   
-                       // Validate on submit
-                       form1.addEventListener("submit",
-                           function(event) {
-                               if (form1.checkValidity() === false) {
-                                   event.preventDefault();
-                                   event.stopPropagation();
-                               }
-                               form1.classList.add("was-validated");
-                           },
-                           false);
-                   
-                       // Validate on input:
-                       form1.querySelectorAll(".form-control").forEach(input => {
-                           input.addEventListener(("input"),
-                               () => {
-                                   if (input.checkValidity()) {
-                                       input.classList.remove("is-invalid");
-                                       input.classList.add("is-valid");
-                                   } else {
-                                       input.classList.remove("is-valid");
-                                       input.classList.add("is-invalid");
-                                   }
-                               });
-                       });
-                   });
-                   """;
+                 document.addEventListener("DOMContentLoaded",
+                 function() {
+                     var password = document.getElementById("{{passwordClientId}}"),
+                         passwordConfirm = document.getElementById("{{confirmPasswordClientId}}"),
+                         progressBar = document.getElementById("progress-password");
+                 
+                     password.addEventListener("keyup",
+                         () => {
+                             checkPassword();
+                         });
+                     passwordConfirm.addEventListener("keyup",
+                         () => {
+                             checkPassword();
+                         });
+                 
+                     function checkPassword() {
+                         const invalid = document.getElementById("PasswordInvalid");
+                 
+                         if (password.value !== "" && passwordConfirm.value !== "" && password.value === passwordConfirm.value) {
+                             invalid.style.display = "none";
+                 
+                             password.classList.remove("is-invalid");
+                             passwordConfirm.classList.remove("is-invalid");
+                         } else {
+                             invalid.style.display = "block";
+                             invalid.innerText = "{{notMatchText}}";
+                 
+                             password.classList.add("is-invalid");
+                             passwordConfirm.classList.add("is-invalid");
+                         }
+                 
+                         const strongRegex = new RegExp("^(?=.{8,})(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*\\W).*$", "g"),
+                             mediumRegex =
+                                 new RegExp(
+                                     "^(?=.{7,})(((?=.*[A-Z])(?=.*[a-z]))|((?=.*[A-Z])(?=.*[0-9]))|((?=.*[a-z])(?=.*[0-9]))).*$",
+                                     "g"),
+                             okRegex = new RegExp("(?=.{{{minimumChars}},}).*", "g");
+                 
+                         document.getElementById("passwordStrength").classList.remove("d-none");
+                 
+                         const passwordHelp = document.getElementById("passwordHelp");
+                 
+                         if (okRegex.test(password.value) === false) {
+                             passwordHelp.innerText = "{{passwordMinText}}";
+                             progressBar.className = "progress-bar bg-danger w-25";
+                         } else if (strongRegex.test(password.value)) {
+                             passwordHelp.innerText = "{{passwordGoodText}}";
+                 
+                             progressBar.className = "progress-bar bg-success w-100";
+                         } else if (mediumRegex.test(password.value)) {
+                             passwordHelp.innerText = "{{passwordStrongerText}}";
+                             progressBar.className = "progress-bar bg-warning w-75";
+                         } else {
+                             passwordHelp.innerText = "{{passwordWeakText}}";
+                             progressBar.classList.add("progress-bar bg-warning w-50");
+                         }
+                     }
+                 
+                     const form1 = document.querySelector("form");
+                 
+                     // Validate on submit
+                     form1.addEventListener("submit",
+                         function(event) {
+                             if (form1.checkValidity() === false) {
+                                 event.preventDefault();
+                                 event.stopPropagation();
+                             }
+                             form1.classList.add("was-validated");
+                         },
+                         false);
+                 
+                     // Validate on input:
+                     form1.querySelectorAll(".form-control").forEach(input => {
+                         input.addEventListener(("input"),
+                             () => {
+                                 if (input.checkValidity()) {
+                                     input.classList.remove("is-invalid");
+                                     input.classList.add("is-valid");
+                                 } else {
+                                     input.classList.remove("is-valid");
+                                     input.classList.add("is-invalid");
+                                 }
+                             });
+                     });
+                 });
+                 """;
     }
 
     /// <summary>
@@ -1172,23 +1214,23 @@ public static class JavaScriptBlocks
     public static string FormValidatorJs([NotNull] string buttonClientId)
     {
         return $$"""
-                  (function () {
-                      "use strict";
-                      window.addEventListener("load", function () {
-                          var form = document.forms[0];
-                  
-                          const test = document.getElementById("{{buttonClientId}}");
-                          test.addEventListener("click", function (event) {
-                              if (form.checkValidity() === false) {
-                                  event.preventDefault();
-                                  event.stopPropagation();
-                              }
-                              form.classList.add("was-validated");
-                          }, false);
-                  
-                      }, false);
-                  })();
-                  """;
+                 (function () {
+                     "use strict";
+                     window.addEventListener("load", function () {
+                         var form = document.forms[0];
+                 
+                         const test = document.getElementById("{{buttonClientId}}");
+                         test.addEventListener("click", function (event) {
+                             if (form.checkValidity() === false) {
+                                 event.preventDefault();
+                                 event.stopPropagation();
+                             }
+                             form.classList.add("was-validated");
+                         }, false);
+                 
+                     }, false);
+                 })();
+                 """;
     }
 
     /// <summary>
@@ -1204,15 +1246,15 @@ public static class JavaScriptBlocks
     public static string ClickOnEnterJs([NotNull] string buttonClientId)
     {
         return $$"""
-                   if (event.which || event.keyCode) {
-                       if ((event.which == 13) || (event.keyCode == 13)) {
-                           document.getElementById("{{buttonClientId}}").click();
-                           return false;
-                       }
-                   } else {
-                       return true;
-                   };
-                   """;
+                 if (event.which || event.keyCode) {
+                     if ((event.which == 13) || (event.keyCode == 13)) {
+                         document.getElementById("{{buttonClientId}}").click();
+                         return false;
+                     }
+                 } else {
+                     return true;
+                 };
+                 """;
     }
 
     /// <summary>
@@ -1245,30 +1287,30 @@ public static class JavaScriptBlocks
         [NotNull] string link)
     {
         return $$"""
-                  document.addEventListener("DOMContentLoaded", function () {
-                      bootbox.confirm({
-                              centerVertical: true,
-                              title: "{{title}}",
-                              message: "{{text}}",
-                              buttons: {
-                                  confirm: {
-                                      label: '<i class="fa fa-check"></i> ' + "{{yes}}",
-                                      className: "btn-success"
-                                  },
-                                  cancel: {
-                                      label: '<i class="fa fa-times"></i> ' + "{{no}}",
-                                      className: "btn-danger"
-                                  }
-                              },
-                              callback: function (confirmed) {
-                                  if (confirmed) {
-                                      document.location.href = "{{link}}";
-                                  }
-                              }
-                          }
-                      );
-                  });
-                  """;
+                 document.addEventListener("DOMContentLoaded", function () {
+                     bootbox.confirm({
+                             centerVertical: true,
+                             title: "{{title}}",
+                             message: "{{text}}",
+                             buttons: {
+                                 confirm: {
+                                     label: '<i class="fa fa-check"></i> ' + "{{yes}}",
+                                     className: "btn-success"
+                                 },
+                                 cancel: {
+                                     label: '<i class="fa fa-times"></i> ' + "{{no}}",
+                                     className: "btn-danger"
+                                 }
+                             },
+                             callback: function (confirmed) {
+                                 if (confirmed) {
+                                     document.location.href = "{{link}}";
+                                 }
+                             }
+                         }
+                     );
+                 });
+                 """;
     }
 
     /// <summary>
@@ -1301,87 +1343,109 @@ public static class JavaScriptBlocks
         [NotNull] string value)
     {
         return $$"""
-                   bootbox.prompt({
-                       title: "{{title}}",
-                       message: "{{message}}",
-                       value: "{{value}}",
-                       buttons: { cancel: { label: "{{cancel}}" }, confirm: { label: "{{ok}}" } },
-                       callback: function() {}
-                   });
-                   """;
+                 bootbox.prompt({
+                     title: "{{title}}",
+                     message: "{{message}}",
+                     value: "{{value}}",
+                     buttons: { cancel: { label: "{{cancel}}" }, confirm: { label: "{{ok}}" } },
+                     callback: function() {}
+                 });
+                 """;
     }
 
     /// <summary>
-    /// select2 user load JS.
+    /// Select user load JS.
     /// </summary>
-    /// <param name="parentId">
-    /// The id of the modal
-    /// </param>
     /// <param name="selectClientId">
     /// The id of the select
     /// </param>
     /// <param name="hiddenUserId">
     /// The hidden id to store the selected user id value
     /// </param>
+    /// <param name="placeHolder">
+    /// The place Holder.
+    /// </param>
     /// <returns>
-    /// Returns the select2 user load JS.
+    /// Returns the select user load JS.
     /// </returns>
     [NotNull]
     public static string SelectUsersLoadJs(
-        [NotNull] string parentId,
         [NotNull] string selectClientId,
-        [NotNull] string hiddenUserId)
+        [NotNull] string hiddenUserId,
+        [NotNull] string placeHolder)
     {
         return $$"""
-                 {{Config.JQueryAlias}}('#{{selectClientId}}').select2({
-                             ajax: {
-                                 url: '{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/User/GetUsers',
-                                 type: 'POST',
-                                 dataType: 'json',
-                                 contentType: 'application/json',
-                                 minimumInputLength: 0,
-                                 data: function(params) {
-                                       var query = {
-                                           ForumId : 0,
-                                           UserId: 0,
-                                           PageSize: 0,
-                                           Page : params.page || 0,
-                                           SearchTerm : params.term || ''
-                                       }
-                                       return JSON.stringify(query);
-                                 },
-                                 error: errorLog,
-                                 processResults: function(data, params) {
-                                     params.page = params.page || 0;
+                 if (document.getElementById("{{selectClientId}}") != null) {
+
+                 var userSelect = new Choices("#{{selectClientId}}", {
+                     allowHTML: false,
+                     shouldSort: false,
+                     classNames: { containerOuter: "choices w-100" },
+                     placeholderValue: "{{placeHolder}}",
+                     resetScrollPosition: false
+                 });
+
+                 var query = {
+                     ForumId: 0,
+                     TopicId: 0,
+                     PageSize: 0,
+                     Page: 0,
+                     SearchTerm: ""
+                 };
+                 userSelect.setChoices(function () { return loadChoiceOptions(query, "{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/User/GetUsers") });
+
+                 userSelect.passedElement.element.addEventListener("choice", function (event) {
+                     document.getElementById("{{hiddenUserId}}").value = event.detail.choice.value;
+                 });
+
+                 userSelect.passedElement.element.addEventListener("search", function (event) {
                  
-                                     var resultsPerPage = 15 * 2;
+                     if (event.detail.value > 2) {
+                         var query = {
+                             ForumId: 0,
+                             TopicId: 0,
+                             PageSize: 15,
+                             Page: 0,
+                             SearchTerm: event.detail.value
+                         };
+                         userSelect.setChoices(function () { return loadChoiceOptions(query, "{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/User/GetUsers") }, "value", "label", true);
+                     }
+                 });
+
+                 userSelect.passedElement.element.addEventListener("showDropdown", function () {
+                     var listBox = userSelect.choiceList.element;
+                     listBox.addEventListener("scroll", function () {
                  
-                                     var total = params.page == 0 ? data.Results.length : resultsPerPage;
+                         const scrollableHeight = listBox.scrollHeight - listBox.clientHeight
                  
-                                     return {
-                                         results: data.Results,
-                                         pagination: {
-                                             more: total < data.Total
-                                         }
-                                     }
-                                 }
-                             },
-                             dropdownParent: {{Config.JQueryAlias}}("#{{parentId}}"),
-                             theme: 'bootstrap-5',
-                             allowClearing: false,
-                             placeholder: '{{BoardContext.Current.Get<ILocalization>().GetText("ADD_USER")}}',
-                             cache: true,
-                             width: '100%',
-                             {{BoardContext.Current.Get<ILocalization>().GetText("SELECT_LOCALE_JS")}}
-                         });
-                               
-                              {{Config.JQueryAlias}}('#{{selectClientId}}').on('select2:select', function (e) {
-                                 if (e.params.data.Total) {
-                                                                  {{Config.JQueryAlias}}('#{{hiddenUserId}}').val(e.params.data.Results[0].children[0].id);
-                                                              } else {
-                                                                  {{Config.JQueryAlias}}('#{{hiddenUserId}}').val(e.params.data.id);
-                                                              }
-                             });
+                         if (listBox.scrollTop >= scrollableHeight) {
+                             const resultsPerPage = 15 * 2,
+                                 choices = userSelect._currentState.choices,
+                 
+                                 lastItem = choices[choices.length - 1],
+                 
+                                 currentPage = lastItem.customProperties.page,
+                 
+                                 total = lastItem.customProperties.page == 0
+                                     ? userSelect._currentState.choices.length
+                                     : resultsPerPage;
+                 
+                 
+                             if (total < lastItem.customProperties.total) {
+                                 var query = {
+                                     ForumId: 0,
+                                     TopicId: 0,
+                                     PageSize: 15,
+                                     Page: currentPage + 1,
+                                     SearchTerm: ""
+                                 };
+                 
+                                 userSelect.setChoices(function () { return loadChoiceOptions(query, "{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/User/GetUsers") }, "value", "label", false);
+                             }
+                         }
+                     });
+                 });
+                 }
                  """;
     }
 
@@ -1415,30 +1479,30 @@ public static class JavaScriptBlocks
         [NotNull] string link)
     {
         return $$"""
-                  function LogOutClick() {
-                      bootbox.confirm({
-                              centerVertical: true,
-                              title: "{{title}}",
-                              message: "{{text}}",
-                              buttons: {
-                                  confirm: {
-                                      label: '<i class="fa fa-check"></i> ' + "{{yes}}",
-                                      className: "btn-success"
-                                  },
-                                  cancel: {
-                                      label: '<i class="fa fa-times"></i> ' + "{{no}}",
-                                      className: "btn-danger"
-                                  }
-                              },
-                              callback: function (confirmed) {
-                                  if (confirmed) {
-                                      document.location.href = "{{link}}";
-                                  }
-                              }
-                          }
-                      );
-                  }
-                  """;
+                 function LogOutClick() {
+                     bootbox.confirm({
+                             centerVertical: true,
+                             title: "{{title}}",
+                             message: "{{text}}",
+                             buttons: {
+                                 confirm: {
+                                     label: '<i class="fa fa-check"></i> ' + "{{yes}}",
+                                     className: "btn-success"
+                                 },
+                                 cancel: {
+                                     label: '<i class="fa fa-times"></i> ' + "{{no}}",
+                                     className: "btn-danger"
+                                 }
+                             },
+                             callback: function (confirmed) {
+                                 if (confirmed) {
+                                     document.location.href = "{{link}}";
+                                 }
+                             }
+                         }
+                     );
+                 }
+                 """;
     }
 
     /// <summary>
@@ -1454,16 +1518,16 @@ public static class JavaScriptBlocks
     public static string LoadMoreOnScrolling([NotNull] string buttonClientId)
     {
         return $$"""
-                  window.addEventListener("scroll", () => {
-                      const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
-                      if ((scrollTop + clientHeight) >= scrollHeight) {
-                          const btn = document.getElementById("{{buttonClientId}}");
-                          if (btn != null) {
-                              btn.click();
-                          }
-                      }
-                  });
-                  """;
+                 window.addEventListener("scroll", () => {
+                     const { scrollTop, clientHeight, scrollHeight } = document.documentElement;
+                     if ((scrollTop + clientHeight) >= scrollHeight) {
+                         const btn = document.getElementById("{{buttonClientId}}");
+                         if (btn != null) {
+                             btn.click();
+                         }
+                     }
+                 });
+                 """;
     }
 
     /// <summary>

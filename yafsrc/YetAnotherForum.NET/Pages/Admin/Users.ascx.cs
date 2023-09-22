@@ -199,18 +199,6 @@ public partial class Users : AdminPage
     }
 
     /// <summary>
-    /// Registers the needed Java Scripts
-    /// </summary>
-    /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnPreRender([NotNull] EventArgs e)
-    {
-        // setup jQuery and Jquery Ui Tabs.
-        this.PageBoardContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
-
-        base.OnPreRender(e);
-    }
-
-    /// <summary>
     /// Creates navigation page links on top of forum (breadcrumbs).
     /// </summary>
     public override void CreatePageLinks()

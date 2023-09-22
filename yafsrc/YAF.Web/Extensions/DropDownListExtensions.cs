@@ -33,18 +33,22 @@ public static class DropDownListExtensions
     /// Add forum and category icons to dropdown list.
     /// </summary>
     /// <param name="dropDownList">
-    /// The drop down list.
+    ///     The drop down list.
     /// </param>
     /// <param name="forumList">
-    /// The forum list.
+    ///     The forum list.
     /// </param>
-    public static void AddForumAndCategoryIcons(this DropDownList dropDownList, [NotNull] List<ForumSorted> forumList)
+    /// <param name="placeHolderText">the place holder text</param>
+    public static void AddForumAndCategoryIcons(
+        this DropDownList dropDownList,
+        [NotNull] List<ForumSorted> forumList,
+        string placeHolderText)
     {
         CodeContracts.VerifyNotNull(dropDownList);
 
         CodeContracts.VerifyNotNull(forumList);
 
-        dropDownList.Items.Add(new ListItem());
+        dropDownList.Items.Add(new ListItem(placeHolderText));
 
         forumList.ForEach(
             row =>
@@ -59,11 +63,9 @@ public static class DropDownListExtensions
 
                     item.Attributes.Add("data-category", row.Category);
 
-                    item.Attributes.Add("data-url", row.ForumLink);
-
                     item.Attributes.Add(
-                        "data-content",
-                        $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-{row.Icon} fa-fw text-secondary me-1\"></i>{row.Forum}</span>");
+                        "data-custom-properties",
+                        $$"""{ "label": "<span class='select2-image-select-icon'><i class='fas fa-{{row.Icon}} fa-fw text-secondary me-1'></i>{{row.Forum}}</span>", "url": "{{row.ForumLink}}" }""");
 
                     dropDownList.Items.Add(item);
                 });
@@ -97,8 +99,8 @@ public static class DropDownListExtensions
                 var item = new ListItem { Value = value.ToString(), Text = text };
 
                 item.Attributes.Add(
-                    "data-content",
-                    $"<span class=\"select2-image-select-icon\"><i class=\"far fa-{textArray[value]} fa-fw text-secondary me-1\"></i>{text}</span>");
+                    "data-custom-properties",
+                    $$"""{ "label": "<span class='select2-image-select-icon'><i class='far fa-{{textArray[value]}} fa-fw text-secondary me-1'></i>{{text}}</span>" }""");
 
                 dropDownList.Items.Add(item);
             });

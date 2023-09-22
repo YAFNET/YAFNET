@@ -67,17 +67,6 @@ public partial class Members : ForumPage
     }
 
     /// <summary>
-    /// Registers the needed Java Scripts
-    /// </summary>
-    /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnPreRender([NotNull] EventArgs e)
-    {
-        this.PageBoardContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
-
-        base.OnPreRender(e);
-    }
-
-    /// <summary>
     /// Gets the avatar Url for the user
     /// </summary>
     /// <param name="userId">The user id.</param>

@@ -38,17 +38,6 @@ public partial class ProfileTimeline : BaseUserControl
     protected int ItemCount { get; set; }
 
     /// <summary>
-    /// Registers the needed Java Scripts
-    /// </summary>
-    /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnPreRender([NotNull] EventArgs e)
-    {
-        this.PageBoardContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
-
-        base.OnPreRender(e);
-    }
-
-    /// <summary>
     /// The page_ load.
     /// </summary>
     /// <param name="sender">

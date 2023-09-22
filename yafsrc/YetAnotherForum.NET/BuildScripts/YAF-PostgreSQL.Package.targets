@@ -80,7 +80,7 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.ForumAdminExtensionsDnn.min.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\jquery.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\prism.js" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\select2.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\choices\**\*.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\fontawesome\**\*.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\forum\**\*.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\yafeditor\autoCloseTags.js" />
@@ -96,7 +96,6 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-notify.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\forum-admin.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\prism.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\select2\select2.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\zephyr\bootstrap-forum.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\yaf\bootstrap-forum.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\Themes\yeti\bootstrap-forum.css" />

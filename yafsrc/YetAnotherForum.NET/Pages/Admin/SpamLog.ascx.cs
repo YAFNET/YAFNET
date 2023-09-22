@@ -79,8 +79,6 @@ public partial class SpamLog : AdminPage
     /// </param>
     protected override void OnPreRender([NotNull] EventArgs e)
     {
-        this.PageBoardContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
-
         this.PageBoardContext.PageElements.RegisterJsBlock(
             "collapseToggleJs",
             JavaScriptBlocks.CollapseToggleJs(

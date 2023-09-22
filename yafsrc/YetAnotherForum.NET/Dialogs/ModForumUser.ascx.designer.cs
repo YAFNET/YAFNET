@@ -24,6 +24,15 @@ namespace YAF.Dialogs
         protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel1;
 
         /// <summary>
+        /// LocalizedLabel2-Steuerelement.
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld.
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel2;
+
+        /// <summary>
         /// UserName-Steuerelement.
         /// </summary>
         /// <remarks>

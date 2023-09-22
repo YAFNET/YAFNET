@@ -39,8 +39,8 @@ public class CountryImageListBox : DropDownList
     {
         this.Items.Cast<ListItem>().Where(item => item.Value.IsSet()).ForEach(
             item => item.Attributes.Add(
-                "data-content",
-                $"<span class=\"select2-image-select-icon\"><span class=\"fi fi-{item.Value.ToLower()} me-1\" /></span>{item.Text}</span>"));
+                "data-custom-properties",
+                $$"""{ "label": "<span class='select2-image-select-icon'><span class='fi fi-{{item.Value.ToLower()}} me-1' /></span>{{item.Text}}</span>" }"""));
 
         base.Render(writer);
     }

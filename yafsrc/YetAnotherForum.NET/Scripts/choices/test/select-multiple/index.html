@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,user-scalable=no"
+    />
+    <title>Choices</title>
+    <meta
+      name="description"
+      itemprop="description"
+      content="A lightweight, configurable select box/text input plugin. Similar to Select2 and Selectize but without the jQuery dependency."
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="../../assets/images/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="../../assets/images/favicon-32x32.png"
+      sizes="32x32"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="../../assets/images/favicon-16x16.png"
+      sizes="16x16"
+    />
+    <link rel="manifest" href="../../assets/images/manifest.json" />
+    <link
+      rel="mask-icon"
+      href="../../assets/images/safari-pinned-tab.svg"
+      color="#00bcd4"
+    />
+    <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
+    <meta
+      name="msapplication-config"
+      content="../../assets/images/browserconfig.xml"
+    />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- Ignore these -->
+    <link rel="stylesheet" href="../../assets/styles/base.min.css" />
+    <!-- End ignore these -->
+
+    <!-- Choices includes -->
+    <link rel="stylesheet" href="../../assets/styles/choices.min.css" />
+    <script src="../../assets/scripts/choices.min.js"></script>
+    <!-- End Choices includes -->
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="section">
+        <h2>Select multiple inputs</h2>
+        <div data-test-hook="basic">
+          <label for="choices-basic">Basic</label>
+          <button class="disable push-bottom">Disable</button>
+          <button class="enable push-bottom">Enable</button>
+          <select
+            class="form-control"
+            name="choices-basic"
+            id="choices-basic"
+            multiple
+          >
+            <option value="Choice 1">Choice 1</option>
+            <option value="Choice 2">Choice 2</option>
+            <option value="Find me">Choice 3</option>
+            <option value="Choice 4">Choice 4</option>
+          </select>
+        </div>
+
+        <div data-test-hook="remove-button">
+          <label for="choices-remove-button">Remove button</label>
+          <select
+            class="form-control"
+            name="choices-remove-button"
+            id="choices-remove-button"
+            multiple
+          >
+            <option value="Choice 1">Choice 1</option>
+            <option value="Choice 2">Choice 2</option>
+            <option value="Choice 3">Choice 3</option>
+            <option value="Choice 4">Choice 4</option>
+          </select>
+        </div>
+
+        <div data-test-hook="disabled-choice">
+          <label for="choices-disabled-choice">Disabled choice</label>
+          <select
+            class="form-control"
+            name="choices-disabled-choice"
+            id="choices-disabled-choice"
+            multiple
+          >
+            <option value="Choice 1">Choice 1</option>
+            <option value="Choice 2">Choice 2</option>
+            <option value="Choice 3">Choice 3</option>
+            <option value="Choice 4" disabled>Choice 4</option>
+          </select>
+        </div>
+
+        <div data-test-hook="add-items-disabled">
+          <label for="choices-add-items-disabled">Add items disabled</label>
+          <select
+            class="form-control"
+            name="choices-add-items-disabled"
+            id="choices-add-items-disabled"
+            multiple
+          >
+            <option value="Choice 1" selected>Choice 1</option>
+            <option value="Choice 2">Choice 2</option>
+            <option value="Choice 3">Choice 3</option>
+          </select>
+        </div>
+
+        <div data-test-hook="disabled-via-attr">
+          <label for="choices-disabled-via-attr">Disabled via attribute</label>
+          <select
+            class="form-control"
+            name="choices-disabled-via-attr"
+            id="choices-disabled-via-attr"
+            multiple
+            disabled
+          >
+            <option value="Choice 1" selected>Choice 1</option>
+            <option value="Choice 2">Choice 2</option>
+            <option value="Choice 3">Choice 3</option>
+          </select>
+        </div>
+
+        <div data-test-hook="selection-limit">
+          <label for="choices-selection-limit">Input limit</label>
+          <select
+            class="form-control"
+            name="choices-selection-limit"
+            id="choices-selection-limit"
+            multiple
+          >
+            <option value="Choice 1">Choice 1</option>
+            <option value="Choice 2">Choice 2</option>
+            <option value="Choice 3">Choice 3</option>
+            <option value="Choice 4">Choice 4</option>
+            <option value="Choice 5">Choice 5</option>
+            <option value="Choice 6">Choice 6</option>
+          </select>
+        </div>
+
+        <div data-test-hook="prepend-append">
+          <label for="choices-prepend-append">Prepend/append</label>
+          <select
+            class="form-control"
+            name="choices-prepend-append"
+            id="choices-prepend-append"
+            multiple
+          >
+            <option value="Choice 1">Choice 1</option>
+            <option value="Choice 2">Choice 2</option>
+            <option value="Choice 3">Choice 3</option>
+          </select>
+        </div>
+
+        <div data-test-hook="render-choice-limit">
+          <label for="choices-render-choice-limit">Render choice limit</label>
+          <select
+            class="form-control"
+            name="choices-render-choice-limit"
+            id="choices-render-choice-limit"
+            multiple
+          >
+            <option value="Choice 1">Choice 1</option>
+            <option value="Choice 2">Choice 2</option>
+            <option value="Choice 3">Choice 3</option>
+          </select>
+        </div>
+
+        <div data-test-hook="search-floor">
+          <label for="choices-search-floor">Search floor</label>
+          <select
+            class="form-control"
+            name="choices-search-floor"
+            id="choices-search-floor"
+            multiple
+          >
+            <option value="Choice 1">Choice 1</option>
+            <option value="Choice 2">Choice 2</option>
+            <option value="Choice 3">Choice 3</option>
+          </select>
+        </div>
+
+        <div data-test-hook="placeholder-via-option-value">
+          <label for="choices-placeholder-via-option-value"
+            >Placeholder via empty option value</label
+          >
+          <select
+            class="form-control"
+            name="choices-placeholder-via-option-value"
+            id="choices-placeholder-via-option-value"
+            multiple
+          >
+            <option value="">I am a placeholder</option>
+            <option value="Choice 1">Choice 1</option>
+            <option value="Choice 2">Choice 2</option>
+            <option value="Choice 3">Choice 3</option>
+          </select>
+        </div>
+
+        <div data-test-hook="placeholder-via-option-attr">
+          <label for="choices-placeholder-via-option-attr"
+            >Placeholder via option attribute</label
+          >
+          <select
+            class="form-control"
+            name="choices-placeholder-via-option-attr"
+            id="choices-placeholder-via-option-attr"
+            multiple
+          >
+            <option placeholder>I am a placeholder</option>
+            <option value="Choice 1">Choice 1</option>
+            <option value="Choice 2">Choice 2</option>
+            <option value="Choice 3">Choice 3</option>
+          </select>
+        </div>
+
+        <div data-test-hook="remote-data">
+          <label for="choices-remote-data">Remote data</label>
+          <select
+            class="form-control"
+            name="choices-remote-data"
+            id="choices-remote-data"
+            multiple
+          >
+            <option value="">I am a placeholder</option>
+          </select>
+        </div>
+
+        <div data-test-hook="scrolling-dropdown">
+          <label for="choices-scrolling-dropdown">Scrolling dropdown</label>
+          <select
+            class="form-control"
+            name="choices-scrolling-dropdown"
+            id="choices-scrolling-dropdown"
+            multiple
+          >
+            <option value="Choice 1">Choice 1</option>
+            <option value="Choice 2">Choice 2</option>
+            <option value="Choice 3">Choice 3</option>
+            <option value="Choice 4">Choice 4</option>
+            <option value="Choice 5">Choice 5</option>
+            <option value="Choice 6">Choice 6</option>
+            <option value="Choice 7">Choice 7</option>
+            <option value="Choice 8">Choice 8</option>
+            <option value="Choice 9">Choice 9</option>
+            <option value="Choice 10">Choice 10</option>
+            <option value="Choice 11">Choice 11</option>
+            <option value="Choice 12">Choice 12</option>
+            <option value="Choice 13">Choice 13</option>
+            <option value="Choice 14">Choice 14</option>
+            <option value="Choice 15">Choice 15</option>
+          </select>
+        </div>
+
+        <div data-test-hook="groups">
+          <label for="choices-groups">Choice groups</label>
+          <select
+            class="form-control"
+            name="choices-groups"
+            id="choices-groups"
+            multiple
+          >
+            <optgroup label="UK">
+              <option value="London">London</option>
+              <option value="Manchester">Manchester</option>
+              <option value="Liverpool">Liverpool</option>
+            </optgroup>
+            <optgroup label="FR">
+              <option value="Paris">Paris</option>
+              <option value="Lyon">Lyon</option>
+              <option value="Marseille">Marseille</option>
+            </optgroup>
+          </select>
+        </div>
+
+        <div data-test-hook="custom-properties">
+          <label for="choices-custom-properties">Custom properties</label>
+          <select
+            class="form-control"
+            name="choices-custom-properties"
+            id="choices-custom-properties"
+            multiple
+          ></select>
+        </div>
+
+        <div data-test-hook="custom-properties-html">
+          <label for="choices-custom-properties-html">Custom properties</label>
+          <select
+            class="form-control"
+            name="choices-custom-properties-html"
+            id="choices-custom-properties-html"
+          >
+            <option value="Dropdown item 1">Label One</option>
+            <option value="Dropdown item 2">Label Two</option>
+            <option
+              value="Dropdown item 3"
+              data-custom-properties="This option is fantastic"
+              >Label Three</option
+            >
+            <option
+              value="Dropdown item 4"
+              data-custom-properties="{ 'description': 'foo' }"
+              >Label Four</option
+            >
+          </select>
+        </div>
+
+        <div data-test-hook="non-string-values">
+          <label for="choices-non-string-values">Non-string values</label>
+          <select
+            class="form-control"
+            name="choices-non-string-values"
+            id="choices-non-string-values"
+          ></select>
+        </div>
+
+        <div data-test-hook="within-form">
+          <form>
+            <label for="choices-within-form">Within form</label>
+            <select
+              class="form-control"
+              name="choices-within-form"
+              id="choices-within-form"
+              multiple
+            >
+              <option value="Choice 1">Choice 1</option>
+            </select>
+          </form>
+        </div>
+
+        <div data-test-hook="set-choice-by-value">
+          <label for="choices-set-choice-by-value"
+            >Dynamically set choice by value</label
+          >
+          <select
+            class="form-control"
+            name="choices-set-choice-by-value"
+            id="choices-set-choice-by-value"
+            multiple
+          >
+            <option value="Choice 1">Choice 1</option>
+            <option value="Choice 2">Choice 2</option>
+            <option value="Choice 3">Choice 3</option>
+          </select>
+        </div>
+
+        <div data-test-hook="search-by-label">
+          <label for="choices-search-by-label">Search by label</label>
+          <select
+            class="form-control"
+            name="choices-search-by-label"
+            id="choices-search-by-label"
+            multiple
+          >
+            <option value="value1">label1</option>
+            <option value="value2">label2</option>
+          </select>
+        </div>
+
+        <div data-test-hook="allowhtml-undefined">
+          <label for="choices-allowhtml-undefined">HTML allowed by default</label>
+          <select
+            class="form-control"
+            name="choices-allowhtml-undefined"
+            id="choices-allowhtml-undefined"
+            multiple
+          ></select>
+        </div>
+
+        <div data-test-hook="allowhtml-true">
+          <label for="choices-allowhtml-true">HTML allowed</label>
+          <select
+            class="form-control"
+            name="choices-allowhtml-true"
+            id="choices-allowhtml-true"
+            multiple
+          ></select>
+        </div>
+
+        <div data-test-hook="allowhtml-false">
+          <label for="choices-allowhtml-false">HTML disabled</label>
+          <select
+            class="form-control"
+            name="choices-allowhtml-false"
+            id="choices-allowhtml-false"
+            multiple
+          ></select>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const choicesBasic = new Choices('#choices-basic', {
+          allowHTML: true,
+        });
+
+        document
+          .querySelector('button.disable')
+          .addEventListener('click', () => {
+            choicesBasic.disable();
+          });
+
+        document
+          .querySelector('button.enable')
+          .addEventListener('click', () => {
+            choicesBasic.enable();
+          });
+
+        new Choices('#choices-remove-button', {
+          allowHTML: true,
+          removeItemButton: true,
+        });
+
+        new Choices('#choices-disabled-choice', {
+          allowHTML: true,
+        });
+
+        new Choices('#choices-add-items-disabled', {
+          allowHTML: true,
+          addItems: false,
+        });
+
+        new Choices('#choices-disabled-via-attr', {
+          allowHTML: true,
+        });
+
+        new Choices('#choices-selection-limit', {
+          allowHTML: true,
+          maxItemCount: 5,
+        });
+
+        new Choices('#choices-prepend-append', {
+          allowHTML: true,
+          prependValue: 'before-',
+          appendValue: '-after',
+        });
+
+        new Choices('#choices-render-choice-limit', {
+          allowHTML: true,
+          renderChoiceLimit: 1,
+        });
+
+        new Choices('#choices-search-floor', {
+          allowHTML: true,
+          searchFloor: 5,
+        });
+
+        new Choices('#choices-placeholder-via-option-value', {
+          allowHTML: true,
+        });
+
+        new Choices('#choices-placeholder-via-option-attr', {
+          allowHTML: true,
+        });
+
+        new Choices('#choices-remote-data', {
+          allowHTML: true,
+          shouldSort: false,
+        }).setChoices(async () => {
+          const data = await fetch('/data');
+          return data.json();
+        });
+
+        new Choices('#choices-scrolling-dropdown', {
+          allowHTML: true,
+          shouldSort: false,
+        });
+
+        new Choices('#choices-groups', {
+          allowHTML: true,
+        });
+
+        new Choices('#choices-custom-properties', {
+          allowHTML: true,
+          searchFields: ['label', 'value', 'customProperties.country'],
+          choices: [
+            {
+              id: 1,
+              value: 'London',
+              label: 'London',
+              customProperties: {
+                country: 'United Kingdom',
+              },
+            },
+            {
+              id: 2,
+              value: 'Berlin',
+              label: 'Berlin',
+              customProperties: {
+                country: 'Germany',
+              },
+            },
+            {
+              id: 3,
+              value: 'Lisbon',
+              label: 'Lisbon',
+              customProperties: {
+                country: 'Portugal',
+              },
+            },
+          ],
+        });
+
+        new Choices('#choices-custom-properties-html', {
+          allowHTML: true,
+          searchFields: ['label', 'value', 'customProperties'],
+        });
+
+        new Choices('#choices-non-string-values', {
+          allowHTML: true,
+          choices: [
+            {
+              id: 1,
+              label: 'Number',
+              value: 1,
+            },
+            {
+              id: 2,
+              label: 'Boolean',
+              value: true,
+            },
+            {
+              id: 3,
+              label: 'Object',
+              value: {
+                test: true,
+              },
+            },
+            {
+              id: 4,
+              label: 'Array',
+              value: ['test'],
+            },
+          ],
+        });
+
+        new Choices('#choices-within-form', {
+          allowHTML: true,
+        });
+
+        new Choices('#choices-set-choice-by-value', {
+          allowHTML: true,
+        }).setChoiceByValue('Choice 2');
+
+        new Choices('#choices-search-by-label', {
+          allowHTML: true,
+          searchFields: ['label']
+        });
+
+        new Choices('#choices-allowhtml-undefined', {
+          choices: [
+            {
+              id: 1,
+              label: '<b>Choice 1</b>',
+              value: 'Choice 1',
+              selected: true
+            },
+            {
+              id: 2,
+              label: '<b>Choice 2</b>',
+              value: 'Choice 2',
+            },
+            {
+              id: 3,
+              label: 'Choice 3',
+              value: 'Choice 3',
+            },
+          ],
+        });
+
+        new Choices('#choices-allowhtml-true', {
+          allowHTML: true,
+          choices: [
+            {
+              id: 1,
+              label: '<b>Choice 1</b>',
+              value: 'Choice 1',
+              selected: true
+            },
+            {
+              id: 2,
+              label: '<b>Choice 2</b>',
+              value: 'Choice 2',
+            },
+            {
+              id: 3,
+              label: 'Choice 3',
+              value: 'Choice 3',
+            },
+          ],
+        });
+
+        new Choices('#choices-allowhtml-false', {
+          allowHTML: false,
+          choices: [
+            {
+              id: 1,
+              label: '<b>Choice 1</b>',
+              value: 'Choice 1',
+              selected: true
+            },
+            {
+              id: 2,
+              label: '<b>Choice 2</b>',
+              value: 'Choice 2',
+            },
+            {
+              id: 3,
+              label: 'Choice 3',
+              value: 'Choice 3',
+            },
+          ],
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -250,13 +250,13 @@ public partial class Team : ForumPage
 
         var mod = this.completeModsList.Find(m => m.ModeratorID.Equals(modLink.UserID));
 
-        var forums = mod.ForumIDs.Select(forumsItem => forumsItem);
+        var forums = mod.ForumIDs.Select(forumsItem => forumsItem).ToList();
 
         var forumList = this.GetRepository<Types.Models.Forum>().SortModeratorList(forums);
 
         if (forums.Any())
         {
-            forumsJump.AddForumAndCategoryIcons(forumList);
+            forumsJump.AddForumAndCategoryIcons(forumList, this.GetTextFormatted("VIEW_FORUMS", forums.Count()));
 
             forumsJump.Attributes["PlaceHolder"] = this.GetTextFormatted("VIEW_FORUMS", forums.Count());
         }

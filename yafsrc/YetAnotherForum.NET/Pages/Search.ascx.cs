@@ -46,11 +46,6 @@ public partial class Search : ForumPage
     /// </param>
     protected override void OnPreRender([NotNull] EventArgs e)
     {
-        // setup jQuery and Jquery Ui Tabs.
-        this.PageBoardContext.PageElements.RegisterJsBlock(
-            "dropDownToggleJs",
-            JavaScriptBlocks.DropDownToggleJs());
-
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.SelectForumsLoadJs),
             JavaScriptBlocks.SelectForumsLoadJs(

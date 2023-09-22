@@ -247,9 +247,7 @@ public partial class EventLog : AdminPage
     /// </param>
     protected override void OnPreRender([NotNull] EventArgs e)
     {
-        this.PageBoardContext.PageElements.RegisterJsBlock("dropDownToggleJs", JavaScriptBlocks.DropDownToggleJs());
-
-        this.PageBoardContext.PageElements.RegisterJsBlock(
+       this.PageBoardContext.PageElements.RegisterJsBlock(
             "collapseToggleJs",
             JavaScriptBlocks.CollapseToggleJs(
                 this.GetText("ADMIN_EVENTLOG", "HIDE"),
@@ -288,8 +286,8 @@ public partial class EventLog : AdminPage
         var allItem = new ListItem(this.GetText("ALL"), "-1");
 
         allItem.Attributes.Add(
-            "data-content",
-            $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-filter fa-fw text-secondary me-1\"></i>{this.GetText("ALL")}</span>");
+            "data-custom-properties",
+            $$"""{ "label": "<span class='select2-image-select-icon'><i class='fas fa-filter fa-fw text-secondary me-1'></i>{{this.GetText("ALL")}}</span>" }""");
 
         this.Types.Items.Add(allItem);
 
@@ -321,8 +319,8 @@ public partial class EventLog : AdminPage
                     var item = new ListItem { Value = type.ToInt().ToString(), Text = type.ToString() };
 
                     item.Attributes.Add(
-                        "data-content",
-                        $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-{icon} fa-fw text-secondary me-1\"></i>{type}</span>");
+                        "data-custom-properties",
+                        $$"""{ "label": "<span class='select2-image-select-icon'><i class='fas fa-{{icon}} fa-fw text-secondary me-1'></i>{{type}}</span>" }""");
 
                     this.Types.Items.Add(item);
                 });

@@ -416,8 +416,8 @@ public partial class EditForum : AdminPage
 
         this.ParentList.Items.Cast<ListItem>().ForEach(
             item => item.Attributes.Add(
-                "data-content",
-                $"<span class=\"select2-image-select-icon\"><i class=\"fas fa-comments fa-fw text-secondary me-1\"></i><span><span>{item.Text}</span>"));
+                "data-custom-properties",
+                $$"""{ "label": "<span class='select2-image-select-icon'><i class='fas fa-comments fa-fw text-secondary me-1'></i><span><span>{{item.Text}}</span>" }"""));
     }
 
     /// <summary>

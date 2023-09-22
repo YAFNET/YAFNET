@@ -127,9 +127,9 @@ public partial class ModForumUser : BaseUserControl
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.SelectUsersLoadJs),
             JavaScriptBlocks.SelectUsersLoadJs(
-                "ModForumUserDialog",
                 "UserSelect",
-                this.SelectedUserID.ClientID));
+                this.SelectedUserID.ClientID,
+                this.GetText("MOD_FORUMUSER", "FIND")));
     }
 
     /// <summary>
@@ -143,7 +143,6 @@ public partial class ModForumUser : BaseUserControl
     /// </param>
     protected void UpdateClick([NotNull] object sender, [NotNull] EventArgs e)
     {
-
         if (this.UserId.HasValue)
         {
             // save permission
