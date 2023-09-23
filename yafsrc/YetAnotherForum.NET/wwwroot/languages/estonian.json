@@ -8427,10 +8427,6 @@
             "#text": "Salvesta"
           },
           {
-            "@tag": "SELECT_LOCALE_JS",
-            "#text": "language:  { inputTooLong:function(e){var n=e.input.length-e.maximum,t=\"Sisesta \"+n+\" täht\";return 1!=n&&(t+=\"e\"),t+=\" vähem\"},inputTooShort:function(e){var n=e.minimum-e.input.length,t=\"Sisesta \"+n+\" täht\";return 1!=n&&(t+=\"e\"),t+=\" rohkem\"},loadingMore:function(){return\"Laen tulemusi…\"},maximumSelected:function(e){var n=\"Saad vaid \"+e.maximum+\" tulemus\";return 1==e.maximum?n+=\"e\":n+=\"t\",n+=\" valida\"},noResults:function(){return\"Tulemused puuduvad\"},searching:function(){return\"Otsin…\"},removeAllItems:function(){return\"Eemalda kõik esemed\"} }"
-          },
-          {
             "@tag": "SELECTED_COPY",
             "#text": "Kopeeri valitud tekst"
           },

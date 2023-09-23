@@ -8427,10 +8427,6 @@
             "#text": "Enregistrer"
           },
           {
-            "@tag": "SELECT_LOCALE_JS",
-            "#text": "language:  { errorLoading:function(){return\"Les résultats ne peuvent pas être chargés.\"},inputTooLong:function(e){var n=e.input.length-e.maximum;return\"Supprimez \"+n+\" caractère\"+(n>1?\"s\":\"\")},inputTooShort:function(e){var n=e.minimum-e.input.length;return\"Saisissez au moins \"+n+\" caractère\"+(n>1?\"s\":\"\")},loadingMore:function(){return\"Chargement de résultats supplémentaires…\"},maximumSelected:function(e){return\"Vous pouvez seulement sélectionner \"+e.maximum+\" élément\"+(e.maximum>1?\"s\":\"\")},noResults:function(){return\"Aucun résultat trouvé\"},searching:function(){return\"Recherche en cours…\"},removeAllItems:function(){return\"Supprimer tous les éléments\"},removeItem:function(){return\"Supprimer l'élément\"} }"
-          },
-          {
             "@tag": "SELECTED_COPY",
             "#text": "Copier le texte sélectionné"
           },

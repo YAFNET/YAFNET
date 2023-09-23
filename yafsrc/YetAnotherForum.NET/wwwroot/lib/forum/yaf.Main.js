@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 classNames: { containerOuter: "choices w-100" },
                 allowHTML: true,
                 shouldSort: false,
-                removeItemButton: select.dataset.allowClear === "True",
+                removeItemButton: select.dataset.allowClear === "true",
                 placeholderValue: select.getAttribute("placeholder"),
                 callbackOnCreateTemplates: function(template) {
                     var itemSelectText = this.config.itemSelectText;

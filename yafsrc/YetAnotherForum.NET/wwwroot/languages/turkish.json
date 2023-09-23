@@ -8427,10 +8427,6 @@
             "#text": "Kaydet"
           },
           {
-            "@tag": "SELECT_LOCALE_JS",
-            "#text": "language:  { errorLoading:function(){return\"Sonuç yüklenemedi\"},inputTooLong:function(n){return n.input.length-n.maximum+\" karakter daha girmelisiniz\"},inputTooShort:function(n){return\"En az \"+(n.minimum-n.input.length)+\" karakter daha girmelisiniz\"},loadingMore:function(){return\"Daha fazla…\"},maximumSelected:function(n){return\"Sadece \"+n.maximum+\" seçim yapabilirsiniz\"},noResults:function(){return\"Sonuç bulunamadı\"},searching:function(){return\"Aranıyor…\"},removeAllItems:function(){return\"Tüm öğeleri kaldır\"}} }"
-          },
-          {
             "@tag": "SELECTED_COPY",
             "#text": "Seçili Metni Kopyala"
           },

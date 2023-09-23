@@ -137,9 +137,9 @@
                             var modForums = new SelectList(sortedForums, nameof(ForumSorted.ForumID), nameof(ForumSorted.Forum), null, nameof(ForumSorted.Category))
                                 .ToList();
 
-                            modForums.Insert(0, new SelectListItem());
-
                             var placeHolder = Model.Get<ILocalization>().GetTextFormatted("VIEW_FORUMS", forums.Count());
+
+                            modForums.Insert(0, new SelectListItem(placeHolder, null));
 
                             <li class="list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-between mb-3">
