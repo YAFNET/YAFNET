@@ -78,7 +78,7 @@ public class EditCategoryModel : AdminPage
     /// </summary>
     protected void CreateImagesList()
     {
-       var list = new List<SelectListItem> {new(this.GetText("COMMON", "NONE"), "")};
+       var list = new List<SelectListItem> {new(this.GetText("COMMON", "NONE"), "") };
 
        var dir = new DirectoryInfo(
            Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Categories));
@@ -115,7 +115,7 @@ public class EditCategoryModel : AdminPage
 
         string categoryImage = null;
 
-        if (this.Input.CategoryImage.IsSet())
+        if (this.Input.CategoryImage.IsSet() && this.Input.CategoryImage != this.GetText("COMMON", "NONE"))
         {
            categoryImage = this.Input.CategoryImage;
         }

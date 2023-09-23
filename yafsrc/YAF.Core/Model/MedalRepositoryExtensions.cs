@@ -142,6 +142,11 @@ public static class MedalRepositoryExtensions
     {
         CodeContracts.VerifyNotNull(repository);
 
+        if (medalId is 0)
+        {
+            medalId = null;
+        }
+
         if (medalId.HasValue)
         {
             repository.UpdateOnly(

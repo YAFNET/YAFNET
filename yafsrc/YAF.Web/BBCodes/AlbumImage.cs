@@ -56,25 +56,26 @@ public class AlbumImage : BBCodeControl
         }
 
         stringBuilder.Append(
-            $@"<div class=""card text-bg-dark"" style=""max-width:{this.PageContext.BoardSettings.ImageThumbnailMaxWidth}px"">");
+            $"""<div class="card text-bg-dark" style="max-width:{this.PageContext.BoardSettings.ImageThumbnailMaxWidth}px">""");
 
         stringBuilder.AppendFormat(
-            @"<a href=""{0}"" data-gallery=""gallery-{2}"" title=""{1}"">",
+            """<a href="{0}" data-gallery="gallery-{2}" title="{1}">""",
             this.Get<IUrlHelper>().Action("GetImage", "Albums", new { imageId }),
             imageId,
             this.MessageID.Value);
 
         stringBuilder.AppendFormat(
-            @"<img src=""{0}"" class=""img-user-posted card-img-top;object-fit:contain"" style=""max-height:{2}px"" alt=""{1}"">",
+            """<img src="{0}" class="img-user-posted card-img-top" style="max-height:{2}px;max-width:{3}px;object-fit:contain" alt="{1}">""",
             this.Get<IUrlHelper>().Action("GetImagePreview", "Albums", new { imageId }),
             imageId,
-            this.PageContext.BoardSettings.ImageThumbnailMaxHeight);
+            this.PageContext.BoardSettings.ImageThumbnailMaxHeight,
+            this.PageContext.BoardSettings.ImageThumbnailMaxWidth);
 
         stringBuilder.Append("</a>");
 
-        stringBuilder.Append(@"<div class=""card-body py-1"">");
+        stringBuilder.Append("""<div class="card-body py-1">""");
 
-        stringBuilder.Append($@"<p class=""card-text text-center small"">{this.GetText("IMAGE_RESIZE_ENLARGE")}</p>");
+        stringBuilder.Append($"""<p class="card-text text-center small">{this.GetText("IMAGE_RESIZE_ENLARGE")}</p>""");
 
         stringBuilder.Append("</div></div>");
     }

@@ -60,6 +60,7 @@ public class EditMedalModel : AdminPage
     [BindProperty]
     public List<Tuple<Medal, GroupMedal, Group>> GroupList { get; set; }
 
+    [BindProperty] 
     public List<SelectListItem> MedalImages { get; set; }
 
     /// <summary>
@@ -239,7 +240,7 @@ public class EditMedalModel : AdminPage
     /// </summary>
     public IActionResult OnPostSave()
     {
-        if (this.Input.MedalImage.IsNotSet())
+        if (this.Input.MedalImage.IsNotSet() || this.Input.MedalImage == this.GetText("ADMIN_EDITMEDAL", "SELECT_IMAGE"))
         {
             return this.PageBoardContext.Notify(this.GetText("ADMIN_EDITMEDAL", "MSG_IMAGE"), MessageTypes.warning);
         }

@@ -240,7 +240,7 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
         // Write Modal
         if (this.BsTargetUrl.IsSet())
         {
-            output.Attributes.SetAttribute("data-bs-url", $"{this.BsTargetUrl}");
+            output.Attributes.SetAttribute("data-url", $"{this.BsTargetUrl}");
         }
 
         // Write popover content

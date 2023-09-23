@@ -181,7 +181,6 @@ public class ChatHub : Hub, IHaveServiceLocator
         await this.Clients.Caller.SendAsync(
             "sendPrivateMessage",
             toUserId,
-            fromConnectUser.UserName,
             body,
             fromConnectUser.Avatar,
             dateTimeFormatted);

@@ -422,12 +422,16 @@
                 (await Html.PartialAsync("_ForumIconLegend")).RenderToString().ToJsString(),
                 "forum-icon-legend-popvover")))
 
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
+
         @Html.Raw(JsAndCssHelper.CompressJavaScript(
-            JavaScriptBlocks.SelectForumsLoadJs(
-                "ForumJump",
-                Model.Get<ILocalization>().GetText("FORUM_JUMP_PLACEHOLDER"),
-                true,
-                false)))
-            
+            JavaScriptBlocks.DialogFunctionsJs(
+                    JavaScriptBlocks.SelectForumsLoadJs(
+                "ForumList",
+                Model.GetText("SELECT_FORUM"),
+                false,
+                false,
+                "ForumListSelected"))))
+
     </script>
 }

@@ -1,6 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @using YAF.Core.Context
-@using YAF.Core.Helpers
 @using YAF.Core.Services
 @using YAF.Core.Utilities
 @using YAF.Types.Constants
@@ -27,7 +26,7 @@
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
-                    <form asp-controller="LoginBox" asp-action="SignIn">
+                    <form asp-controller="LoginBox" asp-action="SignIn" class="needs-validation" novalidate>
                         <div class="mb-3">
                             <label asp-for="UserName" class="form-label" localized-tag="username"></label>
                             <div class="input-group">
@@ -109,25 +108,19 @@
                             </form>
                         </section>
                     }
-                    </div>
+                </div>
             </div>
 
             @if (Current.IsGuest && !Current.BoardSettings.DisableRegistrations)
             {
                 <div class="modal-footer text-center">
                     <a button-size="Small"
-                            button-style="OutlineSecondary"
-                            Icon="user-plus"
-                            href="@Html.Raw(Current.Get<LinkBuilder>().GetLink(Current.BoardSettings.ShowRulesForRegistration ? ForumPages.Privacy : ForumPages.Account_Register))"
-                            text-localized-tag="REGISTER_INSTEAD"></a>
+                       button-style="OutlineSecondary"
+                       Icon="user-plus"
+                       href="@Html.Raw(Current.Get<LinkBuilder>().GetLink(Current.BoardSettings.ShowRulesForRegistration ? ForumPages.Privacy : ForumPages.Account_Register))"
+                       text-localized-tag="REGISTER_INSTEAD"></a>
                 </div>
             }
         </div>
     </div>
 </div>
-
-<script>
-
-    @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.FormValidatorJs()));
-
-</script>

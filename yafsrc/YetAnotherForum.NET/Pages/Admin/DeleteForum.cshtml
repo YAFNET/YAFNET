@@ -36,33 +36,18 @@
                     <button button-style="Danger"
                             Icon="trash"
                             return-confirm-tag="CONFIRM_DELETE"
-                            data-ajax="true" data-ajax-method="post" data-ajax-complete="completed"
                             asp-route-fa="@Model.Request.RouteValues["fa"]"
                             text-localized-tag="DELETE_FORUM" text-localized-page="ADMIN_DELETEFORUM">
                     </button>
                     <a button-style="Secondary"
-                            Icon="times"
-                            text-localized-tag="CANCEL"
-                            asp-page="@ForumPages.Admin_Forums.GetPageName()"></a>
+                       Icon="times"
+                       text-localized-tag="CANCEL"
+                       asp-page="@ForumPages.Admin_Forums.GetPageName()"></a>
                 </div>
             </div>
         </div>
     </div>
 </form>
-
-<div class="modal fade" id="DeleteForumMessage" aria-hidden="true" aria-labelledby="MessageToggleLabel" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <h5 class="modal-header justify-content-center">
-                @Html.LocalizedText("ADMIN_DELETEFORUM","DELETE_TITLE")
-            </h5>
-            <div class="modal-body text-center">
-                @Html.LocalizedText("ADMIN_DELETEFORUM","DELETE_MSG")
-                <div class="fa-3x"><i class="fas fa-spinner fa-pulse"></i></div>
-            </div>
-        </div>
-    </div>
-</div>
 
 @section Scripts {
     <script>

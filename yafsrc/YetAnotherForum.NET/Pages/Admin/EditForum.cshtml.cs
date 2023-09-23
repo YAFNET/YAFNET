@@ -97,7 +97,7 @@ public class EditForumModel : AdminPage
     /// </summary>
     protected void CreateImagesList()
     {
-        var list = new List<SelectListItem> {new(this.GetText("COMMON", "NONE"), "")};
+        var list = new List<SelectListItem> {new(this.GetText("COMMON", "NONE"), "") };
 
         var dir = new DirectoryInfo(
             Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Forums));
@@ -330,6 +330,11 @@ public class EditForumModel : AdminPage
         if (!this.Input.ModerateAllPosts)
         {
             moderatedPostCount = this.Input.ModeratedPostCount;
+        }
+
+        if (this.Input.ImageURL.Equals(this.GetText("COMMON", "NONE")))
+        {
+            this.Input.ImageURL = null;
         }
 
         var newForumId = this.GetRepository<Forum>().Save(

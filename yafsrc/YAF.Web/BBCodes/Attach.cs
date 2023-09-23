@@ -68,7 +68,7 @@ public class Attach : BBCodeControl
         if (!this.PageContext.DownloadAccess)
         {
             stringBuilder.AppendFormat(
-                @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge text-bg-warning"" role=""alert"">{1}</span>",
+                """<i class="fa fa-file fa-fw"></i>&nbsp;{0} <span class="badge text-bg-warning" role="alert">{1}</span>""",
                 attachment.FileName,
                 this.GetText("ATTACH_NO"));
 
@@ -81,34 +81,35 @@ public class Attach : BBCodeControl
             if (this.PageContext.BoardSettings.EnableImageAttachmentResize)
             {
                 stringBuilder.Append(
-                    $@"<div class=""card text-bg-dark"" style=""max-width:{this.PageContext.BoardSettings.ImageThumbnailMaxWidth}px"">");
+                    $"""<div class="card text-bg-dark" style="max-width:{this.PageContext.BoardSettings.ImageThumbnailMaxWidth}px">""");
 
                 stringBuilder.AppendFormat(
-                    @"<a href=""{0}"" title=""{1}""  data-gallery=""gallery-{2}"">",
+                    """<a href="{0}" title="{1}"  data-gallery="gallery-{2}">""",
                     this.Get<IUrlHelper>().Action("GetAttachment", "Attachments", new { attachmentId = attachment.ID, editor = false }),
                     this.HtmlEncode(attachment.FileName),
                     this.MessageID.Value);
 
                 stringBuilder.AppendFormat(
-                    @"<img src=""{0}"" alt=""{1}"" class=""img-user-posted card-img-top;object-fit:contain"" style=""max-height:{2}px"">",
+                    """<img src="{0}" alt="{1}" class="img-user-posted card-img-top" style="max-height:{2}px;max-width:{3}px;object-fit:contain">""",
                     this.Get<IUrlHelper>().Action("GetAttachment", "Attachments", new { attachmentId = attachment.ID, editor = true }),
                     this.HtmlEncode(attachment.FileName),
-                    this.PageContext.BoardSettings.ImageThumbnailMaxHeight);
+                    this.PageContext.BoardSettings.ImageThumbnailMaxHeight,
+                    this.PageContext.BoardSettings.ImageThumbnailMaxWidth);
 
                 stringBuilder.Append("</a>");
 
                 stringBuilder.Append(
-                    $@"<div class=""card-body py-1""><p class=""card-text small"">{this.GetText("IMAGE_RESIZE_ENLARGE")}");
+                    $"""<div class="card-body py-1"><p class="card-text small">{this.GetText("IMAGE_RESIZE_ENLARGE")}""");
 
                 stringBuilder.Append(
-                    $@"<span class=""text-body-secondary float-end"">{this.GetTextFormatted("IMAGE_RESIZE_VIEWS", attachment.Downloads)}</span></p>");
+                    $"""<span class="text-body-secondary float-end">{this.GetTextFormatted("IMAGE_RESIZE_VIEWS", attachment.Downloads)}</span></p>""");
 
                 stringBuilder.Append("</div></div>");
             }
             else
             {
                 stringBuilder.AppendFormat(
-                    @"<img src=""{0}"" alt=""{1}"" class=""img-user-posted img-thumbnail"" style=""max-height:{2}px"">",
+                    """<img src="{0}" alt="{1}" class="img-user-posted img-thumbnail" style="max-height:{2}px">""",
                     this.Get<IUrlHelper>().Action("GetAttachment", "Attachments", new { attachmentId = attachment.ID, editor = true }),
                     this.HtmlEncode(attachment.FileName),
                     this.PageContext.BoardSettings.ImageThumbnailMaxHeight);
@@ -120,9 +121,11 @@ public class Attach : BBCodeControl
             var kb = (1023 + attachment.Bytes.ToType<int>()) / 1024;
 
             stringBuilder.AppendFormat(
-                @"<i class=""fa fa-file fa-fw""></i>&nbsp;
-                         <a href=""{0}"">{1}</a>
-                         <span>{2}</span>",
+                """
+                <i class="fa fa-file fa-fw"></i>&nbsp;
+                                         <a href="{0}">{1}</a>
+                                         <span>{2}</span>
+                """,
                 this.Get<IUrlHelper>().Action("GetAttachment", "Attachments", new { attachmentId = attachment.ID, editor = true }),
                 attachment.FileName,
                 this.GetTextFormatted("ATTACHMENTINFO", kb, attachment.Downloads));

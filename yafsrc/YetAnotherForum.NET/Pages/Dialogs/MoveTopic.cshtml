@@ -1,7 +1,4 @@
 ﻿@using YAF.Core.Context
-@using YAF.Core.Helpers
-@using YAF.Core.Utilities
-@using YAF.Types.Interfaces
 @using YAF.Web.HtmlHelpers
 
 @model YAF.Types.Modals.MoveTopicModal
@@ -55,15 +52,3 @@
         </div>
     </div>
 </div>
-
-<script>
-     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
-
-    @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.SelectForumsLoadJs(
-        "ForumList",
-        Current.Get<ILocalization>().GetText("SELECT_FORUM"),
-        false,
-        false,
-        "ForumListSelected")));
-
-</script>

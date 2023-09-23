@@ -2,6 +2,8 @@
 
 @model SpamWordsModel
 @using YAF.Core.Extensions
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
 @using YAF.Types.Models
@@ -175,3 +177,13 @@
         </div>
     </div>
 </form>
+
+@section Scripts {
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+        JavaScriptBlocks.DialogFunctionsJs(JavaScriptBlocks.ToolTipJs())))
+
+    </script>
+}

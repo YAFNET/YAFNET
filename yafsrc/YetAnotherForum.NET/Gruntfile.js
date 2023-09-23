@@ -62,12 +62,6 @@ module.exports = function(grunt) {
                     { expand: true, src: "**/*.scss", cwd: "node_modules/bootswatch/dist", dest: "wwwroot/lib/themes/" }
                 ]
             },
-            jQuery: {
-                files: [
-                    // includes files within path
-                    { expand: true, src: "**/jquery.min.js", cwd: "node_modules/jquery/dist", dest: "wwwroot/js/" }
-                ]
-            },
             mdsDateTimePicker: {
                 files: [
                     // includes files within path
@@ -315,11 +309,11 @@ module.exports = function(grunt) {
                     "wwwroot/lib/forum/similarTitles.js",
                     "wwwroot/lib/forum/paging.js",
                     "wwwroot/lib/forum/main.js",
+                    "wwwroot/lib/forum/modals.js",
                     "wwwroot/lib/forum/signalR.js",
                     "wwwroot/lib/forum/contextMenu.js",
                     "wwwroot/lib/forum/chatHub.js",
-                    "node_modules/jquery-validation/dist/jquery.validate.js",
-                    "wwwroot/lib/jquery.serializejson.js"
+                    "wwwroot/lib/form-serialize/index.js"
                 ],
                 dest: "wwwroot/js/forumExtensions.js"
             },
@@ -346,9 +340,10 @@ module.exports = function(grunt) {
                     "wwwroot/lib/forum/notify.js",
                     "wwwroot/lib/forum/paging.js",
                     "wwwroot/lib/forum/main.js",
+                    "wwwroot/lib/forum/modals.js",
                     "wwwroot/lib/forum/notificationHub.js",
                     "wwwroot/lib/forum/contextMenu.js",
-                    "wwwroot/lib/jquery.serializejson.js"
+                    "wwwroot/lib/form-serialize/index.js"
                 ],
                 dest: "wwwroot/js/forumAdminExtensions.js"
             },

@@ -49,44 +49,44 @@ public class BannedEmailController : ForumBaseController
     /// <summary>
     /// Import
     /// </summary>
-    /// <param name="model">The model.</param>
     /// <returns>IActionResult.</returns>
     [ValidateAntiForgeryToken]
     [HttpPost("Import")]
-    public IActionResult Import([FromForm] ImportModal model)
+    public IActionResult Import()
     {
-        if (!model.Import.ContentType.StartsWith("text"))
-        {
-            return this.Ok(
-                new MessageModalNotification(
-                 this.GetTextFormatted("IMPORT_FAILED", model.Import.ContentType),
-                MessageTypes.danger));
-        }
+        var import = this.Request.Form.Files[0];
+         if (!import.ContentType.StartsWith("text"))
+         {
+             return this.Ok(
+                 new MessageModalNotification(
+                  this.GetTextFormatted("IMPORT_FAILED", import.ContentType),
+                 MessageTypes.danger));
+         }
 
-        try
-        {
-            var importedCount = this.Get<IDataImporter>().BannedEmailAddressesImport(
-                this.PageBoardContext.PageBoardID,
-                model.Import.OpenReadStream());
+         try
+         {
+             var importedCount = this.Get<IDataImporter>().BannedEmailAddressesImport(
+                 this.PageBoardContext.PageBoardID,
+                 import.OpenReadStream());
 
-            return this.Ok(
-                new MessageModalNotification(
-               importedCount > 0
-                    ? string.Format(this.GetText("ADMIN_BANNEDEMAIL_IMPORT", "IMPORT_SUCESS"), importedCount)
-                    : this.GetText("ADMIN_BANNEDEMAIL_IMPORT", "IMPORT_NOTHING"),
-                MessageTypes.success));
-        }
-        catch (Exception x)
-        {
-            this.Get<ILogger<BannedEmailController>>().Error(
-                x,
-                string.Format(this.GetText("ADMIN_BANNEDEMAIL_IMPORT", "IMPORT_FAILED"), x.Message));
+             return this.Ok(
+                 new MessageModalNotification(
+                importedCount > 0
+                     ? string.Format(this.GetText("ADMIN_BANNEDEMAIL_IMPORT", "IMPORT_SUCESS"), importedCount)
+                     : this.GetText("ADMIN_BANNEDEMAIL_IMPORT", "IMPORT_NOTHING"),
+                 MessageTypes.success));
+         }
+         catch (Exception x)
+         {
+             this.Get<ILogger<BannedEmailController>>().Error(
+                 x,
+                 string.Format(this.GetText("ADMIN_BANNEDEMAIL_IMPORT", "IMPORT_FAILED"), x.Message));
 
-            return this.Ok(
-                new MessageModalNotification(
-                string.Format(this.GetText("ADMIN_BANNEDEMAIL_IMPORT", "IMPORT_FAILED"), x.Message),
-                MessageTypes.danger));
-        }
+             return this.Ok(
+                 new MessageModalNotification(
+                 string.Format(this.GetText("ADMIN_BANNEDEMAIL_IMPORT", "IMPORT_FAILED"), x.Message),
+                 MessageTypes.danger));
+         }
     }
 
     /// <summary>
@@ -106,7 +106,7 @@ public class BannedEmailController : ForumBaseController
         if (!this.GetRepository<BannedEmail>().Save(
                 model.Id,
                 model.Mask.Trim(),
-                model.BanReason.Trim()))
+                model.BanReason.IsSet() ? model.BanReason.Trim() : model.BanReason))
         {
             return this.Ok(
                 new MessageModalNotification(

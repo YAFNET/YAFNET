@@ -1,6 +1,4 @@
-﻿@using YAF.Core.Helpers
-@using YAF.Core.Utilities
-@using YAF.Web.HtmlHelpers
+﻿@using YAF.Web.HtmlHelpers
 
 @model YAF.Types.Modals.NntpServerEditModal
 
@@ -77,10 +75,3 @@
         </div>
     </div>
 </div>
-
-<script>
-     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
-     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.FormValidatorJQueryJs()));
-     
-     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ToolTipJs()));
-</script>

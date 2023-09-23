@@ -1,7 +1,5 @@
 ﻿@using YAF.Core.Context
 @using YAF.Core.Extensions
-@using YAF.Core.Helpers
-@using YAF.Core.Utilities
 @using YAF.Types.Interfaces
 @using YAF.Types.Models
 @using YAF.Web.HtmlHelpers
@@ -40,7 +38,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form asp-controller="ModForumUser" asp-action="EditModForumUser" class="needs-validation">
+                <form asp-controller="ModForumUser" asp-action="EditModForumUser">
                     <!-- Modal Content START !-->
                     <input asp-for="ForumId" type="hidden" value="@Model.ForumId" />
                     <input asp-for="UserName" type="hidden" value="@Model.UserName" />
@@ -53,7 +51,7 @@
                         }
                         else
                         {
-                            <select id="UserSelect" class="form-select"></select>
+                            <select id="UserSelect" name="UserSelect" class="form-select"></select>
                             <input asp-for="UserID" type="hidden" value="@Model.UserID" />
                         }
                     </div>
@@ -67,7 +65,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button button-style="Primary" data-bs-save="editModal"
+                <button button-style="Primary" data-bs-save="modal"
                         text-localized-tag="@(Model.UserID > 0 ? "SAVE": "ADD_USER")"
                         text-localized-page="MOD_FORUMUSER"
                         Icon="save">
@@ -77,17 +75,3 @@
         </div>
     </div>
 </div>
-
-<script>
-     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
-
-     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.FormValidatorJQueryJs()));
-     
-     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ToolTipJs()));
-     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ChoicesLoadJs()));
-
-    @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.SelectUsersLoadJs(
-        "UserSelect", 
-        "UserID", 
-        Current.Get<ILocalization>().GetText("MOD_FORUMUSER", "FIND"))));
-</script>

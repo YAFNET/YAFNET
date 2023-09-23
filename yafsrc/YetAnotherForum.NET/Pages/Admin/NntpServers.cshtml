@@ -1,6 +1,8 @@
 @page "{handler?}"
 
 @model NntpServersModel
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
 @using YAF.Types.Extensions
 @using YAF.Web.HtmlHelpers
 
@@ -33,19 +35,19 @@
                                     <small>
                                         <div class="btn-group btn-group-sm">
                                             <button bs-toggle="ajax-modal"
-                                                bs-target-url="@(Url.Page("NntpServers", "Edit", new {id = item.ID}))"
-                                                button-style="Info"
-                                                button-size="Small"
-                                                Icon="edit"
-                                                text-localized-tag="EDIT">
+                                                    bs-target-url="@(Url.Page("NntpServers", "Edit", new {id = item.ID}))"
+                                                    button-style="Info"
+                                                    button-size="Small"
+                                                    Icon="edit"
+                                                    text-localized-tag="EDIT">
                                             </button>
                                             <button button-style="Danger"
-                                                button-size="Small"
-                                                asp-page-handler="Delete"
-                                                asp-route-id="@Html.Raw(item.ID)"
-                                                Icon="trash"
-                                                text-localized-tag="DELETE"
-                                            return-confirm-tag="DELETE_SERVER">
+                                                    button-size="Small"
+                                                    asp-page-handler="Delete"
+                                                    asp-route-id="@Html.Raw(item.ID)"
+                                                    Icon="trash"
+                                                    text-localized-tag="DELETE"
+                                                    return-confirm-tag="DELETE_SERVER">
                                             </button>
                                         </div>
                                     </small>
@@ -68,7 +70,7 @@
                                         <div class="dropdown-divider"></div>
                                         <button button-style="None"
                                                 class="dropdown-item"
-                                        bs-toggle="ajax-modal"
+                                                bs-toggle="ajax-modal"
                                                 bs-target-url="@(Url.Page("NntpServers", "Add"))"
                                                 Icon="plus-square"
                                                 text-localized-tag="NEW_SERVER"></button>
@@ -85,14 +87,27 @@
                         </empty>
                     }
                 </div>
-                    <div class="card-footer text-center">
-                        <button button-style="Primary"  
-                                bs-toggle="ajax-modal"
-                                bs-target-url="@(Url.Page("NntpServers", "Add"))"
-                                Icon="plus-square" 
-                                text-localized-tag="NEW_SERVER"></button>
-                    </div>
+                <div class="card-footer text-center">
+                    <button button-style="Primary"  
+                            bs-toggle="ajax-modal"
+                            bs-target-url="@(Url.Page("NntpServers", "Add"))"
+                            Icon="plus-square" 
+                            text-localized-tag="NEW_SERVER"></button>
+                </div>
             </div>
         </div>
     </div>
 </form>
+
+@section Scripts {
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.ModalNotifyJs()));
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.DialogFunctionsJs(
+                string.Format("{0}{1}", 
+                    JavaScriptBlocks.ChoicesLoadJs(), 
+                    JavaScriptBlocks.ToolTipJs()))))
+    </script>
+}

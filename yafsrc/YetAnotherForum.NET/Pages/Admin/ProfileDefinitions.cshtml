@@ -2,6 +2,8 @@
 
 @model ProfileDefinitionsModel
 
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
 @using YAF.Types.Extensions
 @using YAF.Web.HtmlHelpers
 
@@ -9,9 +11,9 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="card mb-3">
-                    <div class="card-header">
-                        @Html.IconHeader("id-card", "ADMIN_PROFILEDEFINITIONS", "TITLE")
-                    </div>
+                <div class="card-header">
+                    @Html.IconHeader("id-card", "ADMIN_PROFILEDEFINITIONS", "TITLE")
+                </div>
                 <div class="card-body">
                     @if (!Model.List.NullOrEmpty())
                     {
@@ -107,3 +109,13 @@
         </div>
     </div>
 </form>
+
+@section Scripts {
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+        JavaScriptBlocks.DialogFunctionsJs(JavaScriptBlocks.ToolTipJs())))
+
+    </script>
+}

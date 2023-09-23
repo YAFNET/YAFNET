@@ -110,8 +110,8 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                 output.Attributes.SetAttribute("class", "BBCodeEditor form-control");
 
                 BoardContext.Current.InlineElements.InsertJsBlock(
-                    nameof(JavaScriptBlocks.CreateYafEditorJs),
-                    JavaScriptBlocks.CreateYafEditorJs(
+                    nameof(JavaScriptBlocks.CreateEditorJs),
+                    JavaScriptBlocks.CreateEditorJs(
                         this.AspFor.Name.Replace(".", "_"),
                         this.GetText("COMMON", "TT_URL_TITLE"),
                         this.GetText("COMMON", "TT_URL_DESC"),
@@ -123,8 +123,8 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                 output.Attributes.SetAttribute("class", "BBCodeEditor form-control");
 
                 BoardContext.Current.InlineElements.InsertJsBlock(
-                    nameof(JavaScriptBlocks.CreateYafEditorJs),
-                    JavaScriptBlocks.CreateYafEditorJs(
+                    nameof(JavaScriptBlocks.CreateEditorJs),
+                    JavaScriptBlocks.CreateEditorJs(
                         this.AspFor.Name.Replace(".", "_"),
                         this.GetText("COMMON", "TT_URL_TITLE"),
                         this.GetText("COMMON", "TT_URL_DESC"),

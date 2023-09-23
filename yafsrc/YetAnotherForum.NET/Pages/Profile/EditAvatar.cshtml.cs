@@ -32,7 +32,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-
 using SixLabors.ImageSharp;
 
 using YAF.Core.Extensions;
@@ -110,7 +109,7 @@ public class EditAvatarModel : ProfilePage
     /// <returns>IActionResult.</returns>
     public IActionResult OnPostGallery()
     {
-        if (this.AvatarGallery.IsNotSet())
+        if (this.AvatarGallery.Equals(this.GetText("OURAVATAR")))
         {
             return this.Page();
         }

@@ -30,6 +30,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 using YAF.Core.Extensions;
+using YAF.Core.Model;
 using YAF.Core.Services;
 using YAF.Types.Modals;
 using YAF.Types.Models;
@@ -106,12 +107,7 @@ public class NntpServersModel : AdminPage
 
     public IActionResult OnPostDelete(int id)
     {
-        var forums = this.GetRepository<NntpForum>().Get(n => n.NntpServerID == id).Select(forum => forum.ForumID)
-            .ToList();
-
-        this.GetRepository<NntpTopic>().DeleteByIds(forums);
-        this.GetRepository<NntpForum>().Delete(n => n.NntpServerID == id);
-        this.GetRepository<NntpForum>().Delete(n => n.NntpServerID == id);
+        this.GetRepository<NntpServer>().Delete(id);
 
         return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_NntpServers);
     }

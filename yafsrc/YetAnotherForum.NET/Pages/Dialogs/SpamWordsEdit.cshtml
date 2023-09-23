@@ -10,7 +10,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">
-                    @Html.LocalizedText("ADMIN_SPAMORDS_EDIT", Model.Id.HasValue ? "TITLE_EDIT" : "TITLE")
+                    @Html.LocalizedText("ADMIN_SPAMWORDS_EDIT", Model.Id.HasValue ? "TITLE_EDIT" : "TITLE")
                 </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
@@ -46,10 +46,3 @@
         </div>
     </div>
 </div>
-
-<script>
-     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
-     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.FormValidatorJQueryJs()));
-     
-     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ToolTipJs()));
-</script>

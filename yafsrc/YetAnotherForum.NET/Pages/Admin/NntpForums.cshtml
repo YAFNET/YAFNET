@@ -1,7 +1,10 @@
 @page "{handler?}"
 
 @model NntpForumsModel
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
 @using YAF.Types.Extensions
+@using YAF.Types.Interfaces
 @using YAF.Web.HtmlHelpers
 
 <form method="post">
@@ -111,3 +114,22 @@
         </div>
     </div>
 </form>
+
+@section Scripts {
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.ModalNotifyJs()));
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.DialogFunctionsJs(
+                string.Format("{0}{1}{2}", 
+                    JavaScriptBlocks.ChoicesLoadJs(), 
+                    JavaScriptBlocks.ToolTipJs(), 
+                    JavaScriptBlocks.SelectForumsLoadJs(
+                        "ForumList", 
+                        Model.GetText("ADMIN_EDITNNTPFORUM", "FORUM"), 
+                        false, 
+                        false, 
+                        "ForumID")))))
+    </script>
+}

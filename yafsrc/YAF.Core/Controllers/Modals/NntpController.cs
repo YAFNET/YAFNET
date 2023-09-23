@@ -84,7 +84,8 @@ public class NntpController : ForumBaseController
             return this.Ok(
                 new MessageModalNotification(
                     this.GetText("ADMIN_EDITNNTPFORUM", "MSG_SELECT_FORUM"),
-                    MessageTypes.warning));        }
+                    MessageTypes.warning));
+        }
 
         this.GetRepository<NntpForum>().Save(
             model.Id,

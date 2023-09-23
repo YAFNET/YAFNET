@@ -1,6 +1,4 @@
-﻿@using YAF.Core.Helpers
-@using YAF.Core.Utilities
-@using YAF.Web.HtmlHelpers
+﻿@using YAF.Web.HtmlHelpers
 
 @model YAF.Types.Modals.ImportModal
 
@@ -17,7 +15,6 @@
             </div>
             <div class="modal-body">
                 <form asp-controller="BannedEmail" asp-action="Import" enctype="multipart/form-data" id="formImport">
-                    <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
                     <!-- Modal Content START !-->
                     <label asp-for="Import" localized-tag="IMPORT_FILE" localized-page="ADMIN_BANNEDEMAIL_IMPORT"></label>
                     <alert type="info" icon="info-circle" localized-page="ADMIN_BANNEDEMAIL" localized-tag="NOTE">
@@ -40,7 +37,3 @@
         </div>
     </div>
 </div>
-
-<script>
-     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
-</script>

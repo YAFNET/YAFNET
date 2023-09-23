@@ -2,6 +2,8 @@
 
 @model BannedEmailsModel
 @using YAF.Core.Extensions
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
 @using YAF.Types.Interfaces.Services
@@ -164,8 +166,8 @@
                 {
                     <div class="card-body">
                         <empty icon="hand-paper"
-                           header-text-page="ADMIN_BANNEDEMAIL" header-text-tag="EMPTY_HEADER"
-                           message-text-page="ADMIN_BANNEDEMAIL" message-text-tag="EMPTY_MESSAGE">
+                               header-text-page="ADMIN_BANNEDEMAIL" header-text-tag="EMPTY_HEADER"
+                               message-text-page="ADMIN_BANNEDEMAIL" message-text-tag="EMPTY_MESSAGE">
                         </empty>
                     </div>
                 }
@@ -207,3 +209,13 @@
         </div>
     </div>
 </form>
+
+@section Scripts {
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.DialogFunctionsJs(JavaScriptBlocks.ToolTipJs())))
+
+    </script>
+}

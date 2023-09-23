@@ -8,7 +8,7 @@
 @inject BoardContext Current
 
 <!-- Modal -->
-<div class="modal fade" id="QuickReplyDialog" tabindex="-1" role="dialog" aria-labelledby="quickReplyLabel" aria-hidden="true">
+<div class="modal fade needs-validation" id="QuickReplyDialog" tabindex="-1" role="dialog" aria-labelledby="quickReplyLabel" aria-hidden="true" novalidate>
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -27,8 +27,7 @@
                       editor-mode="Basic"
                       users-can-upload="false"
                       maxlength="@Current.BoardSettings.MaxPostSize"
-                      max-characters="@Current.BoardSettings.MaxPostSize"></textarea>
-
+                      max-characters="@Current.BoardSettings.MaxPostSize" required></textarea>
                     @if (!Current.IsGuest)
                     {
                         <div class="form-check form-switch mt-3">
@@ -39,7 +38,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button button-style="Primary" data-bs-save="modal"
+                <button button-style="Primary" data-bs-save="editModal"
                         text-localized-tag="SAVE" text-localized-page="POSTMESSAGE"
                         Icon="reply">
                 </button>
@@ -52,8 +51,6 @@
 
 
 <script>
-     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
-
     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.CreateEditorJs(
         "QuickReplyEditor",
         Current.Get<ILocalization>().GetText("COMMON", "TT_URL_TITLE"),

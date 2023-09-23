@@ -94,9 +94,6 @@ public class DeleteForumModel : AdminPage
 
         var newForumId = this.ForumListSelected;
 
-        this.PageBoardContext.RegisterJsBlock(
-            JavaScriptBlocks.BlockUiFunctionJs("DeleteForumMessage"));
-
         if (this.MoveTopics && newForumId != fa)
         {
             // schedule...

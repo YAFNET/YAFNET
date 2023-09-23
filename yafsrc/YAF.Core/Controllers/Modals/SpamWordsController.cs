@@ -49,17 +49,18 @@ public class SpamWordsController : ForumBaseController
     /// <summary>
     /// Import
     /// </summary>
-    /// <param name="model">The model.</param>
     /// <returns>IActionResult.</returns>
     [ValidateAntiForgeryToken]
     [HttpPost("Import")]
-    public IActionResult Import([FromForm] ImportModal model)
+    public IActionResult Import()
     {
-        if (!model.Import.ContentType.StartsWith("text"))
+        var import = this.Request.Form.Files[0]; 
+        
+        if (!import.ContentType.StartsWith("text"))
         {
             return this.Ok(
                 new MessageModalNotification(
-                    this.GetTextFormatted("MSG_IMPORTED_FAILEDX", model.Import.ContentType),
+                    this.GetTextFormatted("MSG_IMPORTED_FAILEDX", import.ContentType),
                     MessageTypes.danger));
         }
 
@@ -67,7 +68,7 @@ public class SpamWordsController : ForumBaseController
         {
             var importedCount = this.Get<IDataImporter>().SpamWordsImport(
                 this.PageBoardContext.PageBoardID,
-                model.Import.OpenReadStream());
+                import.OpenReadStream());
 
             return this.Ok(
                 new MessageModalNotification(

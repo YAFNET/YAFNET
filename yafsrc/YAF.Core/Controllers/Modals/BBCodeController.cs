@@ -30,7 +30,6 @@ using Microsoft.Extensions.Logging;
 
 using YAF.Core.BasePages;
 using YAF.Core.Filters;
-using YAF.Types.Modals;
 using YAF.Types.Objects;
 
 /// <summary>
@@ -47,17 +46,18 @@ public class BBCodeController : ForumBaseController
     /// <summary>
     /// Import
     /// </summary>
-    /// <param name="model">The model.</param>
     /// <returns>IActionResult.</returns>
     [ValidateAntiForgeryToken]
     [HttpPost("Import")]
-    public IActionResult Import([FromForm] ImportModal model)
+    public IActionResult Import()
     {
-        if (!model.Import.ContentType.StartsWith("text"))
+        var import = this.Request.Form.Files[0]; 
+        
+        if (!import.ContentType.StartsWith("text"))
         {
             return this.Ok(
                 new MessageModalNotification(
-               this.GetTextFormatted("IMPORT_FAILED", model.Import.ContentType),
+               this.GetTextFormatted("IMPORT_FAILED", import.ContentType),
                 MessageTypes.danger));
         }
 
@@ -65,7 +65,7 @@ public class BBCodeController : ForumBaseController
         {
             var importedCount = this.Get<IDataImporter>().BBCodeExtensionImport(
                 this.PageBoardContext.PageBoardID,
-                model.Import.OpenReadStream());
+                import.OpenReadStream());
 
             return this.Ok(
                 new MessageModalNotification(

@@ -1,6 +1,8 @@
 @page "{handler?}"
 
 @model ReplaceWordsModel
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
 @using YAF.Types.Extensions
 @using YAF.Web.HtmlHelpers
 
@@ -36,7 +38,7 @@
                                         <span class="fw-bold">
                                             @Html.LocalizedText("ADMIN_REPLACEWORDS", "GOOD"): &nbsp;
                                         </span>
-                                        @Html.HtmlEncode(item.GoodWord))
+                                        @Html.HtmlEncode(item.GoodWord)
                                     </p>
                                     <small>
                                         <div class="btn-group btn-group-sm">
@@ -139,3 +141,13 @@
         </div>
     </div>
 </form>
+
+@section Scripts {
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+        JavaScriptBlocks.DialogFunctionsJs(JavaScriptBlocks.ToolTipJs())))
+
+    </script>
+}

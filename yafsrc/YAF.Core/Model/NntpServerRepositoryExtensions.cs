@@ -101,4 +101,20 @@ public static class NntpServerRepositoryExtensions
             repository.FireNew(entity);
         }
     }
+
+    /// <summary>
+    /// Deletes the specified server.
+    /// </summary>
+    /// <param name="repository">The repository.</param>
+    /// <param name="serverId">The server identifier.</param>
+    public static void Delete(this IRepository<NntpServer> repository, [NotNull] int serverId)
+    {
+        var forums = BoardContext.Current.GetRepository<NntpForum>().Get(n => n.NntpServerID == serverId)
+            .Select(forum => forum.ForumID).ToList();
+
+        BoardContext.Current.GetRepository<NntpTopic>().DeleteByIds(forums);
+        BoardContext.Current.GetRepository<NntpForum>().Delete(n => n.NntpServerID == serverId);
+
+        repository.Delete(n => n.ID == serverId);
+    }
 }

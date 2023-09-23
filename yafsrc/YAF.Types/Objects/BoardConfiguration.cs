@@ -122,11 +122,6 @@ public class BoardConfiguration
     public string BannedIpRedirectUrl { get; set; }
 
     /// <summary>
-    /// Gets or sets the jQuery version.
-    /// </summary>
-    public string JQueryVersion { get; set; } = "3.7.1";
-
-    /// <summary>
     /// Gets or sets the legacy membership hash algorithm type.
     /// </summary>
     public HashAlgorithmType LegacyMembershipHashAlgorithmType { get; set; }

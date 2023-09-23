@@ -1,15 +1,13 @@
 @page "{p:int=1}/{handler?}"
 
 @model UsersModel
-@using YAF.Core.Utilities
-@using YAF.Core.Helpers
 @using YAF.Types.Constants
 @using YAF.Types.Interfaces
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces.Services
 @using YAF.Web.HtmlHelpers
 
-<form method="post" class="needs-validation">
+<form method="post" class="needs-validation" novalidate>
 
     <div class="row">
         <div class="col-xl-12">
@@ -279,6 +277,7 @@
                text-localized-page="ADMIN_USERS">
             </a>
             <button class="mt-1 me-1"
+                    Icon="upload"
                     bs-toggle="ajax-modal"
                     bs-target-url="@Url.Page("SpamWords", "Import")"
                     bs-toggle="modal"

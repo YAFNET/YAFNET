@@ -2,6 +2,7 @@
 
 @model BannedIpsModel
 @using YAF.Core.Extensions
+@using YAF.Core.Utilities
 @using YAF.Types.Interfaces
 @using YAF.Types.Interfaces.Services
 @using YAF.Core.Helpers
@@ -200,3 +201,13 @@
         </div>
     </div>
 </form>
+
+@section Scripts {
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.DialogFunctionsJs(JavaScriptBlocks.ToolTipJs())))
+
+    </script>
+}

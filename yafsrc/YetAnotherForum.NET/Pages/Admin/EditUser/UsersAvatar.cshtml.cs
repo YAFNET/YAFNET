@@ -49,6 +49,7 @@ using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
+using Org.BouncyCastle.Pqc.Crypto.Lms;
 
 public class UsersAvatarModel : AdminPage
 {
@@ -120,7 +121,7 @@ public class UsersAvatarModel : AdminPage
     /// <returns>IActionResult.</returns>
     public IActionResult OnPostGallery()
     {
-        if (!this.AvatarGallery.IsNotSet())
+        if (!this.AvatarGallery.IsNotSet() || this.AvatarGallery == this.GetText("OURAVATAR"))
         {
             return this.Get<LinkBuilder>().Redirect(
                 ForumPages.Admin_EditUser,

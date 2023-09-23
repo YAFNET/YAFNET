@@ -1,7 +1,5 @@
 ﻿@using YAF.Core.Context
 @using YAF.Core.Extensions
-@using YAF.Core.Helpers
-@using YAF.Core.Utilities
 @using YAF.Types.Interfaces
 @using YAF.Types.Models
 @using YAF.Web.HtmlHelpers
@@ -31,26 +29,24 @@
                 <form asp-controller="Nntp" asp-action="EditForum" class="needs-validation">
                     <!-- Modal Content START !-->
                     <input asp-for="Id" type="hidden" value="@Model.Id" />
-                    <div class="row">
-                            <div class="mb-3 col-md-6">
-                                <label info-button="true" class="form-label"
-                                       asp-for="NntpServerID"
-                                               localized-tag="SERVER" LocalizedPage="ADMIN_EDITNNTPFORUM"></label>
-                                <select asp-for="NntpServerID" asp-items="servers"
-                                        class="select2-select"></select>
-                            </div>
-                            <div class="mb-3 col-md-6">
-                                <label info-button="true" class="form-label"
-                                       asp-for="GroupName"
-                                       localized-tag="GROUP" localized-page="ADMIN_EDITNNTPFORUM"></label>
-                                <input asp-for="GroupName" type="text"
-                                             required="required"
-                                             class="form-control" />
-                                <div class="invalid-feedback">
-                                    @Html.LocalizedText("ADMIN_EDITNNTPFORUM","MSG_VALID_GROUP")
-                                </div>
-                            </div>
+                    <div class="mb-3">
+                        <label info-button="true" class="form-label"
+                               asp-for="NntpServerID"
+                               localized-tag="SERVER" LocalizedPage="ADMIN_EDITNNTPFORUM"></label>
+                        <select asp-for="NntpServerID" asp-items="servers"
+                                class="select2-select"></select>
+                    </div>
+                    <div class="mb-3">
+                        <label info-button="true" class="form-label"
+                               asp-for="GroupName"
+                               localized-tag="GROUP" localized-page="ADMIN_EDITNNTPFORUM"></label>
+                        <input asp-for="GroupName" type="text"
+                               required="required"
+                               class="form-control" />
+                        <div class="invalid-feedback">
+                            @Html.LocalizedText("ADMIN_EDITNNTPFORUM","MSG_VALID_GROUP")
                         </div>
+                    </div>
                         <div class="mb-3">
                             <label info-button="true" class="form-label"
                                    asp-for="ForumID"
@@ -89,19 +85,3 @@
         </div>
     </div>
 </div>
-
-<script>
-     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
-
-     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.SelectForumsLoadJs(
-         "ForumList",
-         Current.Get<ILocalization>().GetText("ADMIN_EDITNNTPFORUM", "FORUM"),
-         false,
-         false,
-         "ForumID")));
-     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.FormValidatorJQueryJs()));
-     
-     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ToolTipJs()));
-     
-     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ChoicesLoadJs()));
-</script>

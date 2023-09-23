@@ -97,9 +97,9 @@
     if (!postData.PostDeleted && !postData.IsLocked)
     {
         // Register Javascript
-        const string AddThankBoxHtml = "'<a class=\"btn btn-link\" href=\"javascript:addThanks(' + response.messageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.title + '><i class=\"fas fa-heart text-danger fa-fw\"></i><span class=\"ms-1 d-none d-lg-inline-block\">' + response.text + '</span></a>'";
+        const string AddThankBoxHtml = "'<a class=\"btn btn-link\" href=\"javascript:addThanks(' + response.messageID + ');\" onclick=\"this.blur();\" title=' + response.title + '><i class=\"fas fa-heart text-danger fa-fw\"></i><span class=\"ms-1 d-none d-lg-inline-block\">' + response.text + '</span></a>'";
 
-        const string RemoveThankBoxHtml = "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + response.messageID + ');\" onclick=\"jQuery(this).blur();\" title=' + response.title + '><i class=\"far fa-heart fa-fw\"></i><span class=\"ms-1 d-none d-lg-inline-block\">' + response.text + '</span></a>'";
+        const string RemoveThankBoxHtml = "'<a class=\"btn btn-link\" href=\"javascript:removeThanks(' + response.messageID + ');\" onclick=\"this.blur();\" title=' + response.title + '><i class=\"far fa-heart fa-fw\"></i><span class=\"ms-1 d-none d-lg-inline-block\">' + response.text + '</span></a>'";
 
         var thanksJs = $"{JavaScriptBlocks.AddThanksJs(RemoveThankBoxHtml)}{Environment.NewLine}{JavaScriptBlocks.RemoveThanksJs(AddThankBoxHtml)}";
 

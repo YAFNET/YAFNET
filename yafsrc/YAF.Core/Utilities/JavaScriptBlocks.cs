@@ -339,29 +339,6 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
-    /// Blocks the UI JS
-    /// </summary>
-    /// <param name="messageId">
-    /// The message id.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    public static string BlockUiFunctionJs([NotNull] string messageId)
-    {
-        return $$"""
-                 var modal = new bootstrap.Modal(document.getElementById("{{messageId}}"),
-                     {
-                         backdrop: "static",
-                         keyboard: false
-                     });
-
-                 modal.show();
-                                      
-                 """;
-    }
-
-    /// <summary>
     /// Gets the Bootstrap Tab Load JS.
     /// </summary>
     /// <param name="tabId">The tab Id.</param>
@@ -725,7 +702,7 @@ public static class JavaScriptBlocks
     /// <param name="description">The description.</param>
     /// <returns>System.String.</returns>
     [NotNull]
-    public static string CreateYafEditorJs(
+    public static string CreateEditorJs(
         [NotNull] string editorId,
         [NotNull] string urlTitle,
         [NotNull] string urlDescription,
@@ -1069,6 +1046,7 @@ public static class JavaScriptBlocks
         var placeholderValue = allForumsOption ? string.Empty : $"""placeholderValue: "{placeHolder}",""";
 
         return $$"""
+                 if (document.getElementById("{{forumDropDownId}}") != null) {
                  var forumsSelect = new Choices("#{{forumDropDownId}}", {
                      allowHTML: true,
                      shouldSort: false,
@@ -1140,6 +1118,7 @@ public static class JavaScriptBlocks
                          }
                      });
                  });
+                 }
                  """;
     }
 
@@ -1151,6 +1130,7 @@ public static class JavaScriptBlocks
     public static string ChoicesLoadJs()
     {
          return """
+                 if (document.querySelector(".select2-select") != null) {
                  const choice = new window.Choices(document.querySelector(".select2-select"), {
                     allowHTML: true,
                     shouldSort: false,
@@ -1159,6 +1139,7 @@ public static class JavaScriptBlocks
                         containerOuter: "choices w-100"
                     }
                 });
+                }
                 """;
     }
 
@@ -1427,37 +1408,16 @@ public static class JavaScriptBlocks
     public static string FormValidatorJs()
     {
         return """
-               $(document).ready(function () {
-                   $(".needs-validation").each(function () {
-                       $(this).validate({
-                           errorElement: "div",
-                           errorPlacement: function (error, element) {
-                               $(element).closest("form").addClass("was-validated");
-                               return true;
-                           },
-                       });
-                   });
+               document.querySelectorAll(".needs-validation").forEach(form => {
+                   form.addEventListener("submit", function (event) {
+                       if (!form.checkValidity()) {
+                           event.preventDefault();
+                           event.stopPropagation();
+                       }
+               
+                       form.classList.add("was-validated");
+                   }, false);
                });
-               """;
-    }
-
-    /// <summary>
-    /// Form Validator JS.
-    /// </summary>
-    /// <returns>
-    /// Returns the JS String
-    /// </returns>
-    [NotNull]
-    public static string FormValidatorJQueryJs()
-    {
-        return """
-               var validator = $(".needs-validation").validate({
-                               errorElement: "div",
-                               errorPlacement: function (error, element) {
-                                   $(element).closest("form").addClass("was-validated");
-                                   return true;
-                               },
-                           });
                """;
     }
 
@@ -1605,7 +1565,7 @@ public static class JavaScriptBlocks
     public static string ModalNotifyJs()
     {
         return $$"""
-                 function ShowModalNotify(type, body, formElement) {var iconFA = "";
+                 function showModalNotify(type, body, formElement) {var iconFA = "";
                          var type = type;
                  
                          if (type == "warning") {
@@ -1963,6 +1923,21 @@ public static class JavaScriptBlocks
                         selectedDateToShow: new Date(input.value)
                       });
                  	 }
+                 """;
+    }
+
+    /// <summary>
+    /// Modal dialogs functions js.
+    /// </summary>
+    /// <param name="functionsJs">The functions js.</param>
+    /// <returns>string.</returns>
+    [NotNull]
+    public static string DialogFunctionsJs([NotNull] string functionsJs)
+    {
+        return $$"""
+                 function dialogFunctions(event) {
+                     {{functionsJs}}
+                 }
                  """;
     }
 }

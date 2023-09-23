@@ -2,6 +2,8 @@
 
 @model BannedNamesModel
 @using YAF.Core.Extensions
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
 @using YAF.Types.Interfaces.Services
@@ -32,12 +34,12 @@
                                 </div>
                                 <div class="btn-group btn-group-sm" role="group">
                                     <button class="dropdown-toggle"
-                                        bs-toggle="dropdown"
-                                        button-size="Small"
-                                        button-style="Secondary"
-                                        Icon="filter"
-                                        text-localized-tag="FILTER_DROPDOWN"
-                                        text-localized-page="ADMIN_USERS"></button>
+                                            bs-toggle="dropdown"
+                                            button-size="Small"
+                                            button-style="Secondary"
+                                            Icon="filter"
+                                            text-localized-tag="FILTER_DROPDOWN"
+                                            text-localized-page="ADMIN_USERS"></button>
                                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg-start">
                                         <div class="px-3 py-1">
                                             <div class="mb-3">
@@ -166,7 +168,6 @@
                             bs-target-url="@Url.Page("BannedNames", "Add")"></button>
                     <button class="mb-1"
                             Icon="upload"
-                            bs-toggle="modal"
                             bs-toggle="ajax-modal"
                             bs-target-url="@(Url.Page("BannedNames", "Import"))"
                             button-style="Info"
@@ -191,3 +192,13 @@
         </div>
     </div>
 </form>
+
+@section Scripts {
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.DialogFunctionsJs(JavaScriptBlocks.ToolTipJs())))
+
+    </script>
+}

@@ -58,32 +58,31 @@ public class PostsModalController : ForumBaseController
     [Authorization(AuthorizationAccess.ModeratorAccess)]
     public IActionResult MoveTopic([FromBody] MoveTopicModal model)
     {
-        if (model.ForumListSelected <= 0)
+        if (model.ForumListSelected == this.PageBoardContext.PageForum.ID)
         {
-            return this.Ok(new MessageModalNotification(this.GetText("CANNOT_MOVE_TO_CATEGORY"), MessageTypes.warning));
+            return this.Ok(new MessageModalNotification(
+                this.GetText("MODERATE", "MOVE_TO_DIFFERENT"),
+                MessageTypes.danger));
         }
 
-        // only move if it's a destination is a different forum.
-        if (model.ForumListSelected != this.PageBoardContext.PageForum.ID)
-        {
-            // Ederon : 7/14/2007
-            this.GetRepository<Topic>().Move(
-                this.PageBoardContext.PageTopic,
-                this.PageBoardContext.PageForum.ID,
-                model.ForumListSelected,
-                model.LeavePointer,
-                model.LinkDays);
-        }
+        // Ederon : 7/14/2007
+        this.GetRepository<Topic>().Move(
+            this.PageBoardContext.PageTopic,
+            this.PageBoardContext.PageForum.ID,
+            model.ForumListSelected,
+            model.LeavePointer,
+            model.LinkDays);
 
         this.Get<IDataCache>().Remove("TopicID");
 
-        return this.Ok(this.Get<LinkBuilder>().GetLink(
-            ForumPages.Topics,
-            new { f = this.PageBoardContext.PageForum.ID, name = this.PageBoardContext.PageForum.Name }));
+        return this.Ok(
+            this.Get<LinkBuilder>().GetLink(
+                ForumPages.Topics,
+                new { f = this.PageBoardContext.PageForum.ID, name = this.PageBoardContext.PageForum.Name }));
     }
 
     /// <summary>
-    /// Import
+    /// Quick Reply
     /// </summary>
     /// <param name="model">The model.</param>
     /// <returns>IActionResult.</returns>
@@ -147,8 +146,10 @@ public class PostsModalController : ForumBaseController
                         out var spamResult))
                 {
                     var description =
-                        $@"Spam Check detected possible SPAM ({spamResult}) Original message: [{message}]
-                               posted by User: {(this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName())}";
+                        $"""
+                         Spam Check detected possible SPAM ({spamResult}) Original message: [{message}]
+                                                        posted by User: {(this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName())}
+                         """;
 
                     switch (this.PageBoardContext.BoardSettings.SpamPostHandling)
                     {

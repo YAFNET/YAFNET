@@ -189,13 +189,26 @@
 @section Scripts {
 
     <script>
-        
+
         @Html.Raw(JsAndCssHelper.CompressJavaScript(
             JavaScriptBlocks.SelectForumsLoadJs(
                 "ForumList",
                 Model.GetText("SELECT_FORUM"),
                 false,
                 false,
-                "Input_ForumListSelected")))
+                "Input_ForumListSelected")));
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.DialogFunctionsJs(string.Format("{0}{1}", 
+                JavaScriptBlocks.ChoicesLoadJs(), 
+                JavaScriptBlocks.SelectUsersLoadJs(
+            "UserSelect",
+            "UserID",
+        Model.Get<ILocalization>().GetText("MOD_FORUMUSER", "FIND"))))))
+
+
+       
     </script>
 }

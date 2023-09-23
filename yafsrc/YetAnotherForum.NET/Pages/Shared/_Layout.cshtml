@@ -197,9 +197,6 @@
     </div>
 </div>
 
-<script src="@Html.Raw($"//code.jquery.com/jquery-{Current.Get<BoardConfiguration>().JQueryVersion}.min.js")"
-        asp-fallback-src="@Html.Raw("~/js/jquery.js")"
-        asp-fallback-test="window.jQuery"></script>
 <script src="@(Current.Get<BoardInfo>().GetUrlToScripts($"{ViewBag.ForumJs}.js?v={ViewBag.CdvVersion}"))"></script>
 
 

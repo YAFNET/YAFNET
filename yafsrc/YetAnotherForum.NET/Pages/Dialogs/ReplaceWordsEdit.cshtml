@@ -16,7 +16,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form asp-controller="ReplaceWords" asp-action="Import" class="needs-validation">
+                <form asp-controller="ReplaceWords" asp-action="Edit" class="needs-validation">
                     <!-- Modal Content START !-->
                     <input asp-for="Id" type="hidden" value="@Model.Id" />
 
@@ -52,10 +52,3 @@
         </div>
     </div>
 </div>
-
-<script>
-     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
-     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.FormValidatorJQueryJs()));
-     
-     @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ToolTipJs()));
-</script>

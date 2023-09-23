@@ -4289,22 +4289,6 @@
             "#text": "Um den BotScout.com Bot Service benutzen zu können benötigen Sie einen API Schlüssel  <a href=\"http://botscout.com/getkey.htm\">Hier anmelden<a>."
           },
           {
-            "@tag": "CDN_JQUERY",
-            "#text": "Google Hosted CDN jQuery Script File verwenden?"
-          },
-          {
-            "@tag": "CDN_JQUERY_HELP",
-            "#text": "Sie können die von Google gehostete Skriptdatei oder stattdessen die interne Datei verwenden."
-          },
-          {
-            "@tag": "CDN_SCRIPTMANAGER",
-            "#text": "Verwenden Sie CDN Hosted Script Manager JS-Dateien?"
-          },
-          {
-            "@tag": "CDN_SCRIPTMANAGER_HELP",
-            "#text": "Sie können die im CDN gehosteten Skriptdateien verwenden oder stattdessen interne Dateien verwenden."
-          },
-          {
             "@tag": "CHECK_FOR_BOTSPAM",
             "#text": "Dienst für das automatische Checken von automatischen Spammern:"
           },

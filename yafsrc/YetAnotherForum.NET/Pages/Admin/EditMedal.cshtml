@@ -1,5 +1,7 @@
-@page "{medalId:int?}/{handler?}"
+@page "{handler?}"
 @model EditMedalModel
+@using YAF.Core.Helpers
+@using YAF.Core.Utilities
 @using YAF.Types.Constants
 @using YAF.Types.Interfaces
 @using YAF.Types.Extensions
@@ -289,5 +291,18 @@
 </form>
 
 @section Scripts {
-    @await Html.PartialAsync("_ValidationScriptPartial")
+    <script>
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.ModalNotifyJs()));
+
+        @Html.Raw(JsAndCssHelper.CompressJavaScript(
+            JavaScriptBlocks.DialogFunctionsJs(
+                string.Format("{0}{1}{2}", 
+                    JavaScriptBlocks.ChoicesLoadJs(), 
+                    JavaScriptBlocks.ToolTipJs(), 
+                    JavaScriptBlocks.SelectUsersLoadJs(
+                        "UserSelect", 
+                        "UserID", 
+                        Model.Get<ILocalization>().GetText("MOD_FORUMUSER", "FIND"))))))
+    </script>
 }
