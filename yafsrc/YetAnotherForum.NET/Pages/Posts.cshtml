@@ -149,11 +149,6 @@
                                     ForumPages.Posts,
                                     new { t = Model.PageBoardContext.PageTopicID, name = this.Model.PageBoardContext.PageTopic.TopicName });
 
-                                var facebookUrl = $"http://www.facebook.com/plugins/like.php?href={HttpUtility.UrlEncode(topicUrl)}";
-
-                                var facebookShareUrl =
-                                    $"https://www.facebook.com/sharer/sharer.php?u={HttpUtility.UrlEncode(topicUrl)}";
-
                                 <button text-localized-tag="SHARE" title-localized-tag="SHARE_TOOLTIP"
                                         Icon="share-alt"
                                         button-style="Link"
