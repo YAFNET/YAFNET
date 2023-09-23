@@ -61,10 +61,11 @@ public class AlbumImage : BBCodeControl
             this.MessageID.Value);
 
         writer.Write(
-            """<img src="{0}resource.ashx?imgprv={1}" class="img-user-posted card-img-top" style="max-height:{2}px;object-fit:contain" alt="{1}">""",
+            """<img src="{0}resource.ashx?imgprv={1}" class="img-user-posted card-img-top" style="max-height:{2}px;max-width:{3}px;object-fit:contain" alt="{1}">""",
             BoardInfo.ForumClientFileRoot,
             imageId,
-            this.PageBoardContext.BoardSettings.ImageThumbnailMaxHeight);
+            this.PageBoardContext.BoardSettings.ImageThumbnailMaxHeight,
+            this.PageBoardContext.BoardSettings.ImageThumbnailMaxWidth);
 
         writer.Write("</a>");
 

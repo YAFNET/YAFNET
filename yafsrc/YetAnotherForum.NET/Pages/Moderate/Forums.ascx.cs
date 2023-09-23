@@ -162,12 +162,6 @@ public partial class Forums : ModerateForumPage
             return;
         }
 
-        if (this.ForumListSelected.Value.ToType<int>() <= 0)
-        {
-            this.PageBoardContext.Notify(this.GetText("CANNOT_MOVE_TO_CATEGORY"), MessageTypes.warning);
-            return;
-        }
-
         // only move if it's a destination is a different forum.
         if (this.ForumListSelected.Value.ToType<int>() != this.PageBoardContext.PageForumID)
         {

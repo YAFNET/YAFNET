@@ -24,7 +24,6 @@
 
 namespace YAF.Modules;
 
-using System.Collections.Specialized;
 using System.Web.UI;
 
 using YAF.Types.Attributes;
@@ -45,42 +44,6 @@ public class ScriptsLoaderModule : SimpleBaseForumModule
     }
 
     /// <summary>
-    /// Registers the jQuery script library.
-    /// </summary>
-    private void RegisterJQuery()
-    {
-        if (this.PageBoardContext.PageElements.PageElementExists("jquery"))
-        {
-            return;
-        }
-
-        var registerJQuery = true;
-
-        const string Key = "JQuery-Javascripts";
-
-        // check to see if DotNetAge is around and has registered jQuery for us...
-        if (HttpContext.Current.Items[Key] != null)
-        {
-            if (HttpContext.Current.Items[Key] is StringCollection collection && collection.Contains("jquery"))
-            {
-                registerJQuery = false;
-            }
-        }
-        else if (Config.IsDotNetNuke)
-        {
-            // latest version of DNN should register jQuery for us...
-            registerJQuery = false;
-        }
-
-        if (registerJQuery)
-        {
-            this.PageBoardContext.PageElements.AddScriptReference("jquery");
-        }
-
-        this.PageBoardContext.PageElements.AddPageElement("jquery");
-    }
-
-    /// <summary>
     /// Handles the Load event of the ForumPage control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
@@ -98,32 +61,30 @@ public class ScriptsLoaderModule : SimpleBaseForumModule
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     private void CurrentForumPagePreRender([NotNull] object sender, [NotNull] EventArgs e)
     {
-        this.RegisterJQuery();
-
-        if (this.PageBoardContext.Vars.ContainsKey("yafForumExtensions"))
+        if (this.PageBoardContext.Vars.ContainsKey("forumExtensions"))
         {
             return;
         }
 
         var version = this.PageBoardContext.BoardSettings.CdvVersion;
 
-        var forumJsName = Config.IsDotNetNuke ? "ForumExtensionsDnn" : "ForumExtensions";
-        var adminForumJsName = Config.IsDotNetNuke ? "ForumAdminExtensionsDnn" : "ForumAdminExtensions";
+        var forumJsName = Config.IsDotNetNuke ? "forumExtensionsDnn" : "forumExtensions";
+        var adminForumJsName = Config.IsDotNetNuke ? "forumAdminExtensionsDnn" : "forumAdminExtensions";
 
         ScriptManager.ScriptResourceMapping.AddDefinition(
-            "yafForumAdminExtensions",
+            "forumAdminExtensions",
             new ScriptResourceDefinition
                 {
-                    Path = BoardInfo.GetURLToScripts($"jquery.{adminForumJsName}.min.js?v={version}"),
-                    DebugPath = BoardInfo.GetURLToScripts($"jquery.{adminForumJsName}.js?v={version}")
+                    Path = BoardInfo.GetURLToScripts($"{adminForumJsName}.min.js?v={version}"),
+                    DebugPath = BoardInfo.GetURLToScripts($"{adminForumJsName}.js?v={version}")
                 });
 
         ScriptManager.ScriptResourceMapping.AddDefinition(
-            "yafForumExtensions",
+            "forumExtensions",
             new ScriptResourceDefinition
                 {
-                    Path = BoardInfo.GetURLToScripts($"jquery.{forumJsName}.min.js?v={version}"),
-                    DebugPath = BoardInfo.GetURLToScripts($"jquery.{forumJsName}.js?v={version}")
+                    Path = BoardInfo.GetURLToScripts($"{forumJsName}.min.js?v={version}"),
+                    DebugPath = BoardInfo.GetURLToScripts($"{forumJsName}.js?v={version}")
                 });
 
         ScriptManager.ScriptResourceMapping.AddDefinition(
@@ -135,9 +96,9 @@ public class ScriptsLoaderModule : SimpleBaseForumModule
                 });
 
         this.PageBoardContext.PageElements.AddScriptReference(
-            this.PageBoardContext.CurrentForumPage.IsAdminPage ? "yafForumAdminExtensions" : "yafForumExtensions");
+            this.PageBoardContext.CurrentForumPage.IsAdminPage ? "forumAdminExtensions" : "forumExtensions");
 
-        this.PageBoardContext.Vars["yafForumExtensions"] = true;
+        this.PageBoardContext.Vars["forumExtensions"] = true;
     }
 
     /// <summary>

@@ -64,7 +64,7 @@ public class Attach : BBCodeControl
         if (!this.PageBoardContext.DownloadAccess)
         {
             writer.Write(
-                @"<i class=""fa fa-file fa-fw""></i>&nbsp;{0} <span class=""badge text-bg-warning"" role=""alert"">{1}</span>",
+                """<i class="fa fa-file fa-fw"></i>&nbsp;{0} <span class="badge text-bg-warning" role="alert">{1}</span>""",
                 attachment.FileName,
                 this.GetText("ATTACH_NO"));
 
@@ -77,11 +77,11 @@ public class Attach : BBCodeControl
             if (this.PageBoardContext.BoardSettings.EnableImageAttachmentResize)
             {
                 writer.Write(
-                    @"<div class=""card text-bg-dark"" style=""max-width:{0}px;"">",
+                    """<div class="card text-bg-dark" style="max-width:{0}px;">""",
                     this.PageBoardContext.BoardSettings.ImageThumbnailMaxWidth);
 
                 writer.Write(
-                    @"<a href=""{0}resource.ashx?i={1}&b={3}"" title=""{2}""  data-toggle=""lightbox"" data-gallery=""gallery-{4}"">",
+                    """<a href="{0}resource.ashx?i={1}&b={3}" title="{2}"  data-toggle="lightbox" data-gallery="gallery-{4}">""",
                     BoardInfo.ForumClientFileRoot,
                     attachment.ID,
                     this.HtmlEncode(attachment.FileName),
@@ -89,21 +89,22 @@ public class Attach : BBCodeControl
                     this.MessageID.Value);
 
                 writer.Write(
-                    @"<img src=""{0}resource.ashx?p={1}&b={3}"" alt=""{2}"" class=""img-user-posted card-img-top"" style=""max-height:{4}px;object-fit:contain"">",
+                    """<img src="{0}resource.ashx?p={1}&b={3}" alt="{2}" class="img-user-posted card-img-top" style="max-height:{4}px;max-width:{5}px;object-fit:contain">""",
                     BoardInfo.ForumClientFileRoot,
                     attachment.ID,
                     this.HtmlEncode(attachment.FileName),
                     this.PageBoardContext.PageBoardID,
-                    this.PageBoardContext.BoardSettings.ImageThumbnailMaxHeight);
+                    this.PageBoardContext.BoardSettings.ImageThumbnailMaxHeight,
+                    this.PageBoardContext.BoardSettings.ImageThumbnailMaxWidth);
 
                 writer.Write(@"</a>");
 
                 writer.Write(
-                    @"<div class=""card-body py-1""><p class=""card-text small"">{0}",
+                    """<div class="card-body py-1"><p class="card-text small">{0}""",
                     this.GetText("IMAGE_RESIZE_ENLARGE"));
 
                 writer.Write(
-                    @"<span class=""text-body-secondary float-end"">{0}</span></p>",
+                    """<span class="text-body-secondary float-end">{0}</span></p>""",
                     this.GetTextFormatted("IMAGE_RESIZE_VIEWS", attachment.Downloads));
 
                 writer.Write(@"</div></div>");
@@ -111,12 +112,13 @@ public class Attach : BBCodeControl
             else
             {
                 writer.Write(
-                    @"<img src=""{0}resource.ashx?a={1}&b={3}"" alt=""{2}"" class=""img-user-posted img-thumbnail"" style=""max-height:{4}px;object-fit:contain"">",
+                    """<img src="{0}resource.ashx?a={1}&b={3}" alt="{2}" class="img-user-posted img-thumbnail" style="max-height:{4}px;max-width:{5}px;object-fit:contain">""",
                     BoardInfo.ForumClientFileRoot,
                     attachment.ID,
                     this.HtmlEncode(attachment.FileName),
                     this.PageBoardContext.PageBoardID,
-                    this.PageBoardContext.BoardSettings.ImageThumbnailMaxHeight);
+                    this.PageBoardContext.BoardSettings.ImageThumbnailMaxHeight,
+                    this.PageBoardContext.BoardSettings.ImageThumbnailMaxWidth);
             }
         }
         else
@@ -125,9 +127,11 @@ public class Attach : BBCodeControl
             var kb = (1023 + attachment.Bytes.ToType<int>()) / 1024;
 
             writer.Write(
-                @"<i class=""fa fa-file fa-fw""></i>&nbsp;
-                         <a href=""{0}resource.ashx?a={1}&b={4}"">{2}</a>
-                         <span>{3}</span>",
+                """
+                <i class="fa fa-file fa-fw"></i>&nbsp;
+                                         <a href="{0}resource.ashx?a={1}&b={4}">{2}</a>
+                                         <span>{3}</span>
+                """,
                 BoardInfo.ForumClientFileRoot,
                 attachment.ID,
                 attachment.FileName,

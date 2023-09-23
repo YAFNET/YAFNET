@@ -95,13 +95,8 @@ public partial class NntpServers : AdminPage
                     JavaScriptBlocks.OpenModalJs("NntpServerEditDialog"));
                 break;
             case "delete":
-                var serverId = e.CommandArgument.ToType<int>();
-                var forums = this.GetRepository<NntpForum>().Get(n => n.NntpServerID == serverId).Select(forum => forum.ForumID).ToList();
 
-                this.GetRepository<NntpTopic>().DeleteByIds(forums);
-                this.GetRepository<NntpForum>().Delete(n => n.NntpServerID == serverId);
-                this.GetRepository<NntpForum>().Delete(n => n.NntpServerID == serverId);
-
+                this.GetRepository<NntpServer>().Delete(e.CommandArgument.ToType<int>());
                 this.BindData();
                 break;
         }
