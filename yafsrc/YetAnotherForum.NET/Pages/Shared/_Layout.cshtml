@@ -19,10 +19,10 @@
     ViewBag.CdvVersion = Current.BoardSettings.CdvVersion;
 
     #if DEBUG
-    ViewBag.ForumJs = Current.CurrentForumPage.IsAdminPage ? "ForumAdminExtensions" : "ForumExtensions";
+    ViewBag.ForumJs = Current.CurrentForumPage.IsAdminPage ? "forumAdminExtensions" : "forumExtensions";
     ViewBag.ForumCss = Current.CurrentForumPage.IsAdminPage ? "forum-admin" : "forum";
     #else
-    ViewBag.ForumJs = Current.CurrentForumPage.IsAdminPage ? "ForumAdminExtensions.min" : "ForumExtensions.min";
+    ViewBag.ForumJs = Current.CurrentForumPage.IsAdminPage ? "forumAdminExtensions.min" : "forumExtensions.min";
     ViewBag.ForumCss = Current.CurrentForumPage.IsAdminPage ? "forum-admin.min" : "forum.min";
     #endif
 
@@ -200,7 +200,7 @@
 <script src="@Html.Raw($"//code.jquery.com/jquery-{Current.Get<BoardConfiguration>().JQueryVersion}.min.js")"
         asp-fallback-src="@Html.Raw("~/js/jquery.js")"
         asp-fallback-test="window.jQuery"></script>
-<script src="@(Current.Get<BoardInfo>().GetUrlToScripts($"jquery.{ViewBag.ForumJs}.js?v={ViewBag.CdvVersion}"))"></script>
+<script src="@(Current.Get<BoardInfo>().GetUrlToScripts($"{ViewBag.ForumJs}.js?v={ViewBag.CdvVersion}"))"></script>
 
 
 @await RenderSectionAsync("Scripts", required: false)

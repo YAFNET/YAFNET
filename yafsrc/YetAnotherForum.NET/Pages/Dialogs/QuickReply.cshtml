@@ -54,7 +54,7 @@
 <script>
      @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
 
-    @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.CreateYafEditorJs(
+    @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.CreateEditorJs(
         "QuickReplyEditor",
         Current.Get<ILocalization>().GetText("COMMON", "TT_URL_TITLE"),
         Current.Get<ILocalization>().GetText("COMMON", "TT_URL_DESC"),
