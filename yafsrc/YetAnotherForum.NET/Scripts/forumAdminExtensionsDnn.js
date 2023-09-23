@@ -9,17 +9,17 @@
     }
 })(this, function init($, undefined) {
     "use strict";
-    let exports = {};
-    let VERSION = "6.0.0";
+    const exports = {};
+    const VERSION = "6.0.0";
     exports.VERSION = VERSION;
-    let locales = {
+    const locales = {
         en: {
             OK: "OK",
             CANCEL: "Cancel",
             CONFIRM: "OK"
         }
     };
-    let templates = {
+    const templates = {
         dialog: '<div class="bootbox modal" tabindex="-1" role="dialog" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-body"><div class="bootbox-body"></div></div></div></div></div>',
         header: '<div class="modal-header"><h5 class="modal-title"></h5></div>',
         footer: '<div class="modal-footer"></div>',
@@ -42,7 +42,7 @@
             range: '<input class="bootbox-input bootbox-input-range form-control-range" autocomplete="off" type="range" />'
         }
     };
-    let defaults = {
+    const defaults = {
         locale: "en",
         backdrop: "static",
         animate: true,
@@ -68,7 +68,7 @@
     exports.addLocale = function(name, values) {
         $.each([ "OK", "CANCEL", "CONFIRM" ], function(_, v) {
             if (!values[v]) {
-                throw new Error('Please supply a translation for "' + v + '"');
+                throw new Error(`Please supply a translation for "${v}"`);
             }
         });
         locales[name] = {
@@ -100,19 +100,21 @@
         return exports;
     };
     exports.hideAll = function() {
-        $(".bootbox").modal("hide");
+        document.querySelectorAll(".bootbox").forEach(box => {
+            box.modal("hide");
+        });
         return exports;
     };
     exports.init = function(_$) {
         return init(_$ || $);
     };
     exports.dialog = function(options) {
-        if ($.fn.modal === undefined) {
-            throw new Error('"$.fn.modal" is not defined; please double check you have included the Bootstrap JavaScript library. See https://getbootstrap.com/docs/5.1/getting-started/introduction/ for more details.');
+        if (bootstrap.Modal === undefined) {
+            throw new Error('"bootstrap.Modal" is not defined; please double check you have included the Bootstrap JavaScript library. See https://getbootstrap.com/docs/5.3/getting-started/introduction/ for more details.');
         }
         options = sanitize(options);
-        if ($.fn.modal.Constructor.VERSION) {
-            options.fullBootstrapVersion = $.fn.modal.Constructor.VERSION;
+        if (bootstrap.Modal.VERSION) {
+            options.fullBootstrapVersion = bootstrap.Modal.VERSION;
             let i = options.fullBootstrapVersion.indexOf(".");
             options.bootstrap = options.fullBootstrapVersion.substring(0, i);
         } else {
@@ -120,34 +122,37 @@
             options.fullBootstrapVersion = "2.3.2";
             console.warn("Bootbox will *mostly* work with Bootstrap 2, but we do not officially support it. Please upgrade, if possible.");
         }
-        let dialog = $(templates.dialog);
-        let innerDialog = dialog.find(".modal-dialog");
-        let body = dialog.find(".modal-body");
-        let header = $(templates.header);
-        let footer = $(templates.footer);
+        let dialog = generateElement(templates.dialog);
+        let innerDialog = dialog.querySelector(".modal-dialog");
+        let body = dialog.querySelector(".modal-body");
+        let header = generateElement(templates.header);
+        let footer = generateElement(templates.footer);
         let buttons = options.buttons;
         let callbacks = {
             onEscape: options.onEscape
         };
-        body.find(".bootbox-body").html(options.message);
+        body.querySelector(".bootbox-body").append(options.message);
         if (getKeyLength(options.buttons) > 0) {
-            each(buttons, function(key, b) {
-                let button = $(templates.button);
-                button.data("bb-handler", key);
-                button.addClass(b.className);
+            for (const [ key, b ] of Object.entries(buttons)) {
+                let button = generateElement(templates.button);
+                button.dataset.bbHandler = key;
+                var classNames = b.className.split(" ");
+                classNames.forEach(name => {
+                    button.classList.add(name);
+                });
                 switch (key) {
                   case "ok":
                   case "confirm":
-                    button.addClass("bootbox-accept");
+                    button.classList.add("bootbox-accept");
                     break;
 
                   case "cancel":
-                    button.addClass("bootbox-cancel");
+                    button.classList.add("bootbox-cancel");
                     break;
                 }
-                button.html(b.label);
+                button.innerHTML = b.label;
                 if (b.id) {
-                    button.attr({
+                    button.setAttribute({
                         id: b.id
                     });
                 }
@@ -158,60 +163,62 @@
                 }
                 footer.append(button);
                 callbacks[key] = b.callback;
-            });
+            }
             body.after(footer);
         }
         if (options.animate === true) {
-            dialog.addClass("fade");
+            dialog.classList.add("fade");
         }
         if (options.className) {
-            dialog.addClass(options.className);
+            options.className.split(" ").forEach(name => {
+                dialog.classList.add(name);
+            });
         }
         if (options.id) {
-            dialog.attr({
+            dialog.setAttribute({
                 id: options.id
             });
         }
         if (options.size) {
             if (options.fullBootstrapVersion.substring(0, 3) < "3.1") {
-                console.warn('"size" requires Bootstrap 3.1.0 or higher. You appear to be using ' + options.fullBootstrapVersion + ". Please upgrade to use this option.");
+                console.warn(`"size" requires Bootstrap 3.1.0 or higher. You appear to be using ${options.fullBootstrapVersion}. Please upgrade to use this option.`);
             }
             switch (options.size) {
               case "small":
               case "sm":
-                innerDialog.addClass("modal-sm");
+                innerDialog.classList.add("modal-sm");
                 break;
 
               case "large":
               case "lg":
-                innerDialog.addClass("modal-lg");
+                innerDialog.classList.add("modal-lg");
                 break;
 
               case "extra-large":
               case "xl":
-                innerDialog.addClass("modal-xl");
+                innerDialog.classList.add("modal-xl");
                 if (options.fullBootstrapVersion.substring(0, 3) < "4.2") {
-                    console.warn('Using size "xl"/"extra-large" requires Bootstrap 4.2.0 or higher. You appear to be using ' + options.fullBootstrapVersion + ". Please upgrade to use this option.");
+                    console.warn(`Using size "xl"/"extra-large" requires Bootstrap 4.2.0 or higher. You appear to be using ${options.fullBootstrapVersion}. Please upgrade to use this option.`);
                 }
                 break;
             }
         }
         if (options.scrollable) {
-            innerDialog.addClass("modal-dialog-scrollable");
+            innerDialog.classList.add("modal-dialog-scrollable");
             if (options.fullBootstrapVersion.substring(0, 3) < "4.3") {
-                console.warn('Using "scrollable" requires Bootstrap 4.3.0 or higher. You appear to be using ' + options.fullBootstrapVersion + ". Please upgrade to use this option.");
+                console.warn(`Using "scrollable" requires Bootstrap 4.3.0 or higher. You appear to be using ${options.fullBootstrapVersion}. Please upgrade to use this option.`);
             }
         }
         if (options.title || options.closeButton) {
             if (options.title) {
-                header.find(".modal-title").html(options.title);
+                header.querySelector(".modal-title").innerHTML = options.title;
             } else {
-                header.addClass("border-0");
+                header.classList.add("border-0");
             }
             if (options.closeButton) {
-                let closeButton = $(templates.closeButton);
+                let closeButton = generateElement(templates.closeButton);
                 if (options.bootstrap < 5) {
-                    closeButton.html("&times;");
+                    closeButton.innerHTML = "&times;";
                 }
                 if (options.bootstrap < 4) {
                     header.prepend(closeButton);
@@ -222,45 +229,49 @@
             body.before(header);
         }
         if (options.centerVertical) {
-            innerDialog.addClass("modal-dialog-centered");
+            innerDialog.classList.add("modal-dialog-centered");
             if (options.fullBootstrapVersion < "4.0.0") {
-                console.warn('"centerVertical" requires Bootstrap 4.0.0-beta.3 or higher. You appear to be using ' + options.fullBootstrapVersion + ". Please upgrade to use this option.");
+                console.warn(`"centerVertical" requires Bootstrap 4.0.0-beta.3 or higher. You appear to be using ${options.fullBootstrapVersion}. Please upgrade to use this option.`);
             }
         }
         if (!options.reusable) {
-            dialog.one("hide.bs.modal", {
+            dialog.addEventListener("hide.bs.modal", {
                 dialog: dialog
-            }, unbindModal);
-            dialog.one("hidden.bs.modal", {
+            }, unbindModal, {
+                once: true
+            });
+            dialog.addEventListener("hidden.bs.modal", {
                 dialog: dialog
-            }, destroyModal);
+            }, destroyModal, {
+                once: true
+            });
         }
         if (options.onHide) {
-            if ($.isFunction(options.onHide)) {
-                dialog.on("hide.bs.modal", options.onHide);
+            if (typeof options.onHide === "function") {
+                dialog.addEventListener("hide.bs.modal", options.onHide);
             } else {
                 throw new Error('Argument supplied to "onHide" must be a function');
             }
         }
         if (options.onHidden) {
-            if ($.isFunction(options.onHidden)) {
-                dialog.on("hidden.bs.modal", options.onHidden);
+            if (typeof options.onHidden === "function") {
+                dialog.addEventListener("hidden.bs.modal", options.onHidden);
             } else {
                 throw new Error('Argument supplied to "onHidden" must be a function');
             }
         }
         if (options.onShow) {
-            if ($.isFunction(options.onShow)) {
+            if (typeof options.onShow === "function") {
                 dialog.on("show.bs.modal", options.onShow);
             } else {
                 throw new Error('Argument supplied to "onShow" must be a function');
             }
         }
-        dialog.one("shown.bs.modal", {
+        dialog.addEventListener("shown.bs.modal", {
             dialog: dialog
         }, focusPrimaryButton);
         if (options.onShown) {
-            if ($.isFunction(options.onShown)) {
+            if (typeof options.onShown === "function") {
                 dialog.on("shown.bs.modal", options.onShown);
             } else {
                 throw new Error('Argument supplied to "onShown" must be a function');
@@ -279,44 +290,48 @@
                 dialog.trigger("escape.close.bb");
             });
         }
-        dialog.on("escape.close.bb", function(e) {
+        dialog.addEventListener("escape.close.bb", function(e) {
             if (callbacks.onEscape) {
                 processCallback(e, dialog, callbacks.onEscape);
             }
         });
-        dialog.on("click", ".modal-footer button:not(.disabled)", function(e) {
-            let callbackKey = $(this).data("bb-handler");
-            if (callbackKey !== undefined) {
-                processCallback(e, dialog, callbacks[callbackKey]);
+        document.addEventListener("click", e => {
+            if (e.target.closest(".modal-footer button:not(.disabled)")) {
+                const callbackKey = e.target.closest(".modal-footer button:not(.disabled)").dataset.bbHandler;
+                if (callbackKey !== undefined) {
+                    processCallback(e, dialog, callbacks[callbackKey]);
+                }
             }
         });
-        dialog.on("click", ".bootbox-close-button", function(e) {
-            processCallback(e, dialog, callbacks.onEscape);
+        document.addEventListener("click", e => {
+            if (e.target.closest(".bootbox-close-button")) {
+                processCallback(e, dialog, callbacks.onEscape);
+            }
         });
-        dialog.on("keyup", function(e) {
+        dialog.addEventListener("keyup", function(e) {
             if (e.which === 27) {
                 dialog.trigger("escape.close.bb");
             }
         });
-        $(options.container).append(dialog);
-        dialog.modal({
+        document.querySelector(options.container).append(dialog);
+        const modal = new bootstrap.Modal(dialog, {
             backdrop: options.backdrop,
             keyboard: false,
             show: false
         });
         if (options.show) {
-            dialog.modal("show", options.relatedTarget);
+            modal.show(options.relatedTarget);
         }
-        return dialog;
+        return modal;
     };
     exports.alert = function() {
         let options;
         options = mergeDialogOptions("alert", [ "ok" ], [ "message", "callback" ], arguments);
-        if (options.callback && !$.isFunction(options.callback)) {
+        if (options.callback && typeof options.callback !== "function") {
             throw new Error('alert requires the "callback" property to be a function when provided');
         }
         options.buttons.ok.callback = options.onEscape = function() {
-            if ($.isFunction(options.callback)) {
+            if (typeof options.callback === "function") {
                 return options.callback.call(this);
             }
             return true;
@@ -326,7 +341,7 @@
     exports.confirm = function() {
         let options;
         options = mergeDialogOptions("confirm", [ "cancel", "confirm" ], [ "message", "callback" ], arguments);
-        if (!$.isFunction(options.callback)) {
+        if (typeof options.callback !== "function") {
             throw new Error("confirm requires a callback");
         }
         options.buttons.cancel.callback = options.onEscape = function() {
@@ -344,7 +359,7 @@
         let input;
         let shouldShow;
         let inputOptions;
-        form = $(templates.form);
+        form = generateElement(templates.form);
         options = mergeDialogOptions("prompt", [ "cancel", "confirm" ], [ "title", "callback" ], arguments);
         if (!options.value) {
             options.value = defaults.value;
@@ -360,13 +375,13 @@
         options.buttons.confirm.callback = function() {
             let value;
             if (options.inputType === "checkbox") {
-                value = input.find("input:checked").map(function() {
-                    return $(this).val();
+                value = input.querySelector("input:checked").map(function(e) {
+                    return e.value;
                 }).get();
             } else if (options.inputType === "radio") {
-                value = input.find("input:checked").val();
+                value = input.querySelector("input:checked").value;
             } else {
-                let el = input[0];
+                const el = input[0];
                 if (options.errorMessage) {
                     el.setCustomValidity("");
                 }
@@ -380,11 +395,11 @@
                     return false;
                 } else {
                     if (options.inputType === "select" && options.multiple === true) {
-                        value = input.find("option:selected").map(function() {
-                            return $(this).val();
+                        value = input.querySelector("option:selected").map(function(e) {
+                            return e.value;
                         }).get();
                     } else {
-                        value = input.val();
+                        value = input.value;
                     }
                 }
             }
@@ -393,27 +408,27 @@
         if (!options.title) {
             throw new Error("prompt requires a title");
         }
-        if (!$.isFunction(options.callback)) {
+        if (typeof options.callback !== "function") {
             throw new Error("prompt requires a callback");
         }
         if (!templates.inputs[options.inputType]) {
             throw new Error("Invalid prompt type");
         }
-        input = $(templates.inputs[options.inputType]);
+        input = generateElement(templates.inputs[options.inputType]);
         switch (options.inputType) {
           case "text":
           case "textarea":
           case "email":
           case "password":
-            input.val(options.value);
+            input.value = options.value;
             if (options.placeholder) {
-                input.attr("placeholder", options.placeholder);
+                input.setAttribute("placeholder", options.placeholder);
             }
             if (options.pattern) {
-                input.attr("pattern", options.pattern);
+                input.setAttribute("pattern", options.pattern);
             }
             if (options.maxlength) {
-                input.attr("maxlength", options.maxlength);
+                input.setAttribute("maxlength", options.maxlength);
             }
             if (options.required) {
                 input.prop({
@@ -422,7 +437,7 @@
             }
             if (options.rows && !isNaN(parseInt(options.rows))) {
                 if (options.inputType === "textarea") {
-                    input.attr({
+                    input.setAttribute({
                         rows: options.rows
                     });
                 }
@@ -433,17 +448,17 @@
           case "time":
           case "number":
           case "range":
-            input.val(options.value);
+            input.value = options.value;
             if (options.placeholder) {
-                input.attr("placeholder", options.placeholder);
+                input.setAttribute("placeholder", options.placeholder);
             }
             if (options.pattern) {
-                input.attr("pattern", options.pattern);
+                input.setAttribute("pattern", options.pattern);
             } else {
                 if (options.inputType === "date") {
-                    input.attr("pattern", "d{4}-d{2}-d{2}");
+                    input.setAttribute("pattern", "d{4}-d{2}-d{2}");
                 } else if (options.inputType === "time") {
-                    input.attr("pattern", "d{2}:d{2}");
+                    input.setAttribute("pattern", "d{2}:d{2}");
                 }
             }
             if (options.required) {
@@ -454,7 +469,7 @@
             if (options.inputType !== "date") {
                 if (options.step) {
                     if (options.step === "any" || !isNaN(options.step) && parseFloat(options.step) > 0) {
-                        input.attr("step", options.step);
+                        input.setAttribute("step", options.step);
                     } else {
                         throw new Error('"step" must be a valid positive number or the value "any". See https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#attr-step for more information.');
                     }
@@ -462,10 +477,10 @@
             }
             if (minAndMaxAreValid(options.inputType, options.min, options.max)) {
                 if (options.min !== undefined) {
-                    input.attr("min", options.min);
+                    input.setAttribute("min", options.min);
                 }
                 if (options.max !== undefined) {
-                    input.attr("max", options.max);
+                    input.setAttribute("max", options.max);
                 }
             }
             break;
@@ -489,27 +504,28 @@
                     multiple: true
                 });
             }
-            each(inputOptions, function(_, option) {
+            for (const [ key, value ] of Object.entries(inputOptions)) {
                 let elem = input;
                 if (option.value === undefined || option.text === undefined) {
                     throw new Error('each option needs a "value" property and a "text" property');
                 }
                 if (option.group) {
                     if (!groups[option.group]) {
-                        groups[option.group] = $("<optgroup />").attr("label", option.group);
+                        groups[option.group] = generateElement("<optgroup />").setAttribute("label", option.group);
                     }
                     elem = groups[option.group];
                 }
-                let o = $(templates.option);
-                o.attr("value", option.value).text(option.text);
+                let o = generateElement(templates.option);
+                o.setAttribute("value", option.value).text(option.text);
                 elem.append(o);
-            });
-            each(groups, function(_, group) {
+            }
+            for (const [ key, group ] of Object.entries(groups)) {
                 input.append(group);
-            });
-            input.val(options.value);
+            }
+            input.value = options.value;
             if (options.bootstrap < 5) {
-                input.removeClass("form-select").addClass("form-control");
+                input.classList.remove("form-select");
+                input.classList.add("form-control");
             }
             break;
 
@@ -519,21 +535,21 @@
             if (!inputOptions.length) {
                 throw new Error('prompt with "inputType" set to "checkbox" requires at least one option');
             }
-            input = $('<div class="bootbox-checkbox-list"></div>');
-            each(inputOptions, function(_, option) {
+            input = generateElement('<div class="bootbox-checkbox-list"></div>');
+            for (const [ _, option ] of Object.entries(inputOptions)) {
                 if (option.value === undefined || option.text === undefined) {
                     throw new Error('each option needs a "value" property and a "text" property');
                 }
-                let checkbox = $(templates.inputs[options.inputType]);
-                checkbox.find("input").attr("value", option.value);
-                checkbox.find("label").append("\n" + option.text);
-                each(checkboxValues, function(_, value) {
+                let checkbox = generateElement(templates.inputs[options.inputType]);
+                checkbox.querySelector("input").setAttribute("value", option.value);
+                checkbox.querySelector("label").append(`\n${option.text}`);
+                for (const [ key, value ] of Object.entries(checkboxValues)) {
                     if (value === option.value) {
-                        checkbox.find("input").prop("checked", true);
+                        checkbox.querySelector("input").prop("checked", true);
                     }
-                });
+                }
                 input.append(checkbox);
-            });
+            }
             break;
 
           case "radio":
@@ -544,53 +560,54 @@
             if (!inputOptions.length) {
                 throw new Error('prompt with "inputType" set to "radio" requires at least one option');
             }
-            input = $('<div class="bootbox-radiobutton-list"></div>');
+            input = generateElement('<div class="bootbox-radiobutton-list"></div>');
             let checkFirstRadio = true;
-            each(inputOptions, function(_, option) {
+            for (const [ _, option ] of Object.entries(inputOptions)) {
                 if (option.value === undefined || option.text === undefined) {
                     throw new Error('each option needs a "value" property and a "text" property');
                 }
-                let radio = $(templates.inputs[options.inputType]);
-                radio.find("input").attr("value", option.value);
-                radio.find("label").append("\n" + option.text);
+                let radio = generateElement(templates.inputs[options.inputType]);
+                radio.querySelector("input").setAttribute("value", option.value);
+                radio.querySelector("label").append(`\n${option.text}`);
                 if (options.value !== undefined) {
                     if (option.value === options.value) {
-                        radio.find("input").prop("checked", true);
+                        radio.querySelector("input").prop("checked", true);
                         checkFirstRadio = false;
                     }
                 }
                 input.append(radio);
-            });
+            }
             if (checkFirstRadio) {
-                input.find('input[type="radio"]').first().prop("checked", true);
+                input.querySelector('input[type="radio"]').setAttribute("checked", true);
             }
             break;
         }
         form.append(input);
-        form.on("submit", function(e) {
+        form.addEventListener("submit", function(e) {
             e.preventDefault();
             e.stopPropagation();
-            promptDialog.find(".bootbox-accept").trigger("click");
+            promptDialog.querySelector(".bootbox-accept").click();
         });
-        if ($.trim(options.message) !== "") {
-            let message = $(templates.promptMessage).html(options.message);
+        if (options.message && options.message.trim() !== "") {
+            let message = generateElement(templates.promptMessage).innerHTML = options.message;
             form.prepend(message);
             options.message = form;
         } else {
             options.message = form;
         }
         promptDialog = exports.dialog(options);
-        promptDialog.off("shown.bs.modal", focusPrimaryButton);
-        promptDialog.on("shown.bs.modal", function() {
+        promptDialog._element.removeEventListener("shown.bs.modal", focusPrimaryButton);
+        promptDialog._element.addEventListener("shown.bs.modal", function() {
             input.focus();
         });
+        const modal = new bootstrap.Modal(promptDialog._element);
         if (shouldShow === true) {
-            promptDialog.modal("show");
+            modal.show();
         }
         return promptDialog;
     };
     function mapArguments(args, properties) {
-        let argsLength = args.length;
+        const argsLength = args.length;
         let options = {};
         if (argsLength < 1 || argsLength > 2) {
             throw new Error("Invalid argument length");
@@ -604,41 +621,41 @@
         return options;
     }
     function mergeArguments(defaults, args, properties) {
-        return $.extend(true, {}, defaults, mapArguments(args, properties));
+        return deepExtend({}, defaults, mapArguments(args, properties));
     }
     function mergeDialogOptions(className, labels, properties, args) {
         let locale;
         if (args && args[0]) {
             locale = args[0].locale || defaults.locale;
-            let swapButtons = args[0].swapButtonOrder || defaults.swapButtonOrder;
+            const swapButtons = args[0].swapButtonOrder || defaults.swapButtonOrder;
             if (swapButtons) {
                 labels = labels.reverse();
             }
         }
-        let baseOptions = {
-            className: "bootbox-" + className,
+        const baseOptions = {
+            className: `bootbox-${className}`,
             buttons: createLabels(labels, locale)
         };
         return validateButtons(mergeArguments(baseOptions, args, properties), labels);
     }
     function validateButtons(options, buttons) {
-        let allowedButtons = {};
-        each(buttons, function(key, value) {
+        const allowedButtons = {};
+        for (const [ key, value ] of Object.entries(buttons)) {
             allowedButtons[value] = true;
-        });
-        each(options.buttons, function(key) {
+        }
+        for (const [ key, value ] of Object.entries(options.buttons)) {
             if (allowedButtons[key] === undefined) {
-                throw new Error('button key "' + key + '" is not allowed (options are ' + buttons.join(" ") + ")");
+                throw new Error(`button key "${key}" is not allowed (options are ${buttons.join(" ")})`);
             }
-        });
+        }
         return options;
     }
     function createLabels(labels, locale) {
-        let buttons = {};
+        const buttons = {};
         for (let i = 0, j = labels.length; i < j; i++) {
-            let argument = labels[i];
-            let key = argument.toLowerCase();
-            let value = argument.toUpperCase();
+            const argument = labels[i];
+            const key = argument.toLowerCase();
+            const value = argument.toUpperCase();
             buttons[key] = {
                 label: getText(value, locale)
             };
@@ -646,7 +663,7 @@
         return buttons;
     }
     function getText(key, locale) {
-        let labels = locales[locale];
+        const labels = locales[locale];
         return labels ? labels[key] : locales.en[key];
     }
     function sanitize(options) {
@@ -658,7 +675,7 @@
         if (!options.message) {
             throw new Error('"message" option must not be null or an empty string.');
         }
-        options = $.extend({}, defaults, options);
+        options = Object.assign({}, defaults, options);
         if (!options.backdrop) {
             options.backdrop = options.backdrop === false || options.backdrop === 0 ? false : "static";
         } else {
@@ -669,14 +686,15 @@
         }
         buttons = options.buttons;
         total = getKeyLength(buttons);
-        each(buttons, function(key, button, index) {
-            if ($.isFunction(button)) {
+        var index = 0;
+        for (var [ key, button ] of Object.entries(buttons)) {
+            if (typeof button === "function") {
                 button = buttons[key] = {
                     callback: button
                 };
             }
-            if ($.type(button) !== "object") {
-                throw new Error('button with key "' + key + '" must be an object');
+            if (Object.prototype.toString.call(button).replace(/^\[object (.+)\]$/, "$1").toLowerCase() !== "object") {
+                throw new Error(`button with key "${key}" must be an object`);
             }
             if (!button.label) {
                 button.label = key;
@@ -694,20 +712,15 @@
                     button.className = "btn-secondary btn-default";
                 }
             }
-        });
+            index++;
+        }
         return options;
     }
     function getKeyLength(obj) {
         return Object.keys(obj).length;
     }
-    function each(collection, iterator) {
-        let index = 0;
-        $.each(collection, function(key, value) {
-            iterator(key, value, index++);
-        });
-    }
     function focusPrimaryButton(e) {
-        e.data.dialog.find(".bootbox-accept").first().trigger("focus");
+        e.data.dialog.querySelector(".bootbox-accept").first().trigger("focus");
     }
     function destroyModal(e) {
         if (e.target === e.data.dialog[0]) {
@@ -716,16 +729,16 @@
     }
     function unbindModal(e) {
         if (e.target === e.data.dialog[0]) {
-            e.data.dialog.off("escape.close.bb");
-            e.data.dialog.off("click");
+            e.data.dialog.removeEventListener("escape.close.bb");
+            e.data.dialog.removeEventListener("click");
         }
     }
     function processCallback(e, dialog, callback) {
         e.stopPropagation();
         e.preventDefault();
-        let preserveDialog = $.isFunction(callback) && callback.call(dialog, e) === false;
+        const preserveDialog = typeof callback === "function" && callback.call(dialog, e) === false;
         if (!preserveDialog) {
-            dialog.modal("hide");
+            bootstrap.Modal.getInstance(dialog).hide();
         }
     }
     function minAndMaxAreValid(type, min, max) {
@@ -768,6 +781,11 @@
     }
     function dateIsValid(value) {
         return /(\d{4})-(\d{2})-(\d{2})/.test(value);
+    }
+    function generateElement(html) {
+        const template = document.createElement("template");
+        template.innerHTML = html.trim();
+        return template.content.children[0];
     }
     return exports;
 });
@@ -960,7 +978,7 @@ extend(Notify.prototype, {
                 self.close();
             });
         }
-        if (self.settings.onClick === "function") {
+        if (typeof self.settings.onClick === "function") {
             this.$ele.addEventListener("click", event => {
                 if (event.target !== self.$ele.querySelector('[data-notify="dismiss"]')) {
                     self.settings.onClick.call(this, event);
@@ -998,7 +1016,7 @@ extend(Notify.prototype, {
         const self = this;
         this.$ele.dataset.closing = "true";
         this.$ele.className = `toast ${this.settings.animate.exit}`;
-        if (self.settings.onClose === "function") {
+        if (typeof self.settings.onClose === "function") {
             self.settings.onClose.call(this.$ele);
         }
         self.$ele.remove();
@@ -9911,6 +9929,33 @@ function wrap(el, wrapper) {
 
 function empty(wrap) {
     while (wrap.firstChild) wrap.removeChild(wrap.firstChild);
+}
+
+function deepExtend(out, ...arguments_) {
+    if (!out) {
+        return {};
+    }
+    for (const obj of arguments_) {
+        if (!obj) {
+            continue;
+        }
+        for (const [ key, value ] of Object.entries(obj)) {
+            switch (Object.prototype.toString.call(value)) {
+              case "[object Object]":
+                out[key] = out[key] || {};
+                out[key] = deepExtend(out[key], value);
+                break;
+
+              case "[object Array]":
+                out[key] = deepExtend(new Array(value.length), value);
+                break;
+
+              default:
+                out[key] = value;
+            }
+        }
+    }
+    return out;
 }
 
 function renderAttachPreview(previewClass) {

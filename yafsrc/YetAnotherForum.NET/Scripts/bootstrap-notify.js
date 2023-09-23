@@ -294,7 +294,7 @@ extend(Notify.prototype,
                 });
             }
 
-            if (self.settings.onClick === "function") {
+            if (typeof self.settings.onClick === "function") {
                 this.$ele.addEventListener("click",
                     (event) => {
                         if (event.target !== self.$ele.querySelector('[data-notify="dismiss"]')) {
@@ -348,7 +348,7 @@ extend(Notify.prototype,
 
             this.$ele.className = `toast ${this.settings.animate.exit}`;
 
-            if (self.settings.onClose === "function") {
+            if (typeof self.settings.onClose === "function") {
                 self.settings.onClose.call(this.$ele);
             }
 
