@@ -252,8 +252,6 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: [
-                    "node_modules/jquery/dist/jquery.js",
-                    "wwwroot/lib/select2.js",
                     "wwwroot/lib/bootstrap.bundle.js",
                     "wwwroot/lib/forum/InstallWizard.js"
                 ],
@@ -284,12 +282,12 @@ module.exports = function(grunt) {
                     compress: false
                 },
                 src: [
-                    "wwwroot/lib/yafeditor/yafeditor.js",
-                    "wwwroot/lib/yafeditor/undoManager.js",
-                    "wwwroot/lib/yafeditor/autoCloseTags.js",
-                    "wwwroot/lib/yafeditor/mentions.js"
+                    "wwwroot/lib/editor/editor.js",
+                    "wwwroot/lib/editor/undoManager.js",
+                    "wwwroot/lib/editor/autoCloseTags.js",
+                    "wwwroot/lib/editor/mentions.js"
                 ],
-                dest: "wwwroot/js/yafeditor.comb.js"
+                dest: "wwwroot/js/editor.comb.js"
             },
             forumExtensions: {
                 options: {
@@ -303,7 +301,7 @@ module.exports = function(grunt) {
                     "wwwroot/lib/bootbox.js",
                     "wwwroot/lib/bootstrap-notify.js",
                     "wwwroot/lib/forum/bootstrap-touchspin.js",
-                    "wwwroot/lib/select2.js",
+                    "wwwroot/lib/choices/assets/scripts/choices.js",
                     "wwwroot/lib/bs5-lightbox/dist/index.bundle.min.js",
                     "wwwroot/lib/forum/yaf.hoverCard.js",
                     "wwwroot/lib/prism.js",
@@ -324,7 +322,7 @@ module.exports = function(grunt) {
                     "node_modules/jquery-validation/dist/jquery.validate.js",
                     "wwwroot/lib/jquery.serializejson.js"
                 ],
-                dest: "wwwroot/js/jquery.ForumExtensions.js"
+                dest: "wwwroot/js/forumExtensions.js"
             },
             forumAdminExtensions: {
                 options: {
@@ -338,7 +336,7 @@ module.exports = function(grunt) {
                     "wwwroot/lib/bootbox.js",
                     "wwwroot/lib/bootstrap-notify.js",
                     "wwwroot/lib/forum/bootstrap-touchspin.js",
-                    "wwwroot/lib/select2.js",
+                    "wwwroot/lib/choices/assets/scripts/choices.js",
                     "wwwroot/lib/bs5-lightbox/dist/index.bundle.min.js",
                     "wwwroot/lib/forum/yaf.hoverCard.js",
                     "wwwroot/lib/prism.js",
@@ -356,16 +354,16 @@ module.exports = function(grunt) {
                     "node_modules/jquery-validation/dist/jquery.validate.js",
                     "wwwroot/lib/jquery.serializejson.js"
                 ],
-                dest: "wwwroot/js/jquery.ForumAdminExtensions.js"
+                dest: "wwwroot/js/forumAdminExtensions.js"
             },
             minify: {
                 files: {
-                    "wwwroot/js/yafeditor.min.js": "wwwroot/js/yafeditor.comb.js",
+                    "wwwroot/js/editor.min.js": "wwwroot/js/editor.comb.js",
                     "wwwroot/js/InstallWizard.comb.min.js": "wwwroot/js/InstallWizard.comb.js",
                     "wwwroot/js/codemirror.min.js": "wwwroot/js/codemirror.min.js",
                     "wwwroot/js/fileUploader.min.js": "wwwroot/lib/fileUploader.js",
-                    "wwwroot/js/jquery.ForumExtensions.min.js": "wwwroot/js/jquery.ForumExtensions.js",
-                    "wwwroot/js/jquery.ForumAdminExtensions.min.js": "wwwroot/js/jquery.ForumAdminExtensions.js"
+                    "wwwroot/js/forumExtensions.min.js": "wwwroot/js/forumExtensions.js",
+                    "wwwroot/js/forumAdminExtensions.min.js": "wwwroot/js/forumAdminExtensions.js"
 
                 }
             }
