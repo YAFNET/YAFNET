@@ -407,7 +407,7 @@ public struct JsvTypeSerializer
                 writer.Write(floatVal.ToString("r", cultureInfo ?? CultureInfo.InvariantCulture));
                 break;
             default:
-                writer.Write(floatVal.ToString("r", cultureInfo ?? CultureInfo.InvariantCulture));
+                writer.Write(floatVal.ToString(cultureInfo ?? CultureInfo.InvariantCulture));
                 break;
         }
     }

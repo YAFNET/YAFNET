@@ -21,14 +21,13 @@ public static class TextExtensions
     /// <returns>System.String.</returns>
     public static string ToCsvField(this string text)
     {
+        var itemDelim = CsvConfig.ItemDelimiterString;
         return string.IsNullOrEmpty(text) || !CsvWriter.HasAnyEscapeChars(text)
                    ? text
-                   : string.Concat
-                   (
-                       CsvConfig.ItemDelimiterString,
-                       text.Replace(CsvConfig.ItemDelimiterString, CsvConfig.EscapedItemDelimiterString),
-                       CsvConfig.ItemDelimiterString
-                   );
+                   : string.Concat(
+                       itemDelim,
+                       text.Replace(itemDelim, CsvConfig.EscapedItemDelimiterString),
+                       itemDelim);
     }
 
     /// <summary>
@@ -38,16 +37,18 @@ public static class TextExtensions
     /// <returns>System.Object.</returns>
     public static object ToCsvField(this object text)
     {
-        string textSerialized = text is string ? text.ToString() : TypeSerializer.SerializeToString(text).StripQuotes();
+        var textSerialized = text is string
+                                 ? text.ToString()
+                                 : TypeSerializer.SerializeToString(text).StripQuotes();
 
-        return textSerialized.IsNullOrEmpty() || !CsvWriter.HasAnyEscapeChars(textSerialized)
-                   ? textSerialized
-                   : string.Concat
-                   (
-                       CsvConfig.ItemDelimiterString,
-                       textSerialized.Replace(CsvConfig.ItemDelimiterString, CsvConfig.EscapedItemDelimiterString),
-                       CsvConfig.ItemDelimiterString
-                   );
+        if (textSerialized.IsNullOrEmpty() || !CsvWriter.HasAnyEscapeChars(textSerialized))
+            return textSerialized;
+
+        var itemDelim = CsvConfig.ItemDelimiterString;
+        return string.Concat(
+            itemDelim,
+            textSerialized.Replace(itemDelim, CsvConfig.EscapedItemDelimiterString),
+            itemDelim);
     }
 
     /// <summary>
@@ -57,9 +58,11 @@ public static class TextExtensions
     /// <returns>System.String.</returns>
     public static string FromCsvField(this string text)
     {
-        return string.IsNullOrEmpty(text) || !text.StartsWith(CsvConfig.ItemDelimiterString, StringComparison.Ordinal)
-                   ? text
-                   : text.Substring(CsvConfig.ItemDelimiterString.Length, text.Length - CsvConfig.EscapedItemDelimiterString.Length)
-                       .Replace(CsvConfig.EscapedItemDelimiterString, CsvConfig.ItemDelimiterString);
+        var itemDelim = CsvConfig.ItemDelimiterString;
+        if (string.IsNullOrEmpty(text) || !text.StartsWith(itemDelim, StringComparison.Ordinal))
+            return text;
+        var escapedDelim = CsvConfig.EscapedItemDelimiterString;
+        return text.Substring(itemDelim.Length, text.Length - escapedDelim.Length)
+            .Replace(escapedDelim, itemDelim);
     }
 }
