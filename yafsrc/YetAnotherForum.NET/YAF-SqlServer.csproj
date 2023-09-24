@@ -119,10 +119,12 @@
   <PropertyGroup>
     <ExcludeFilesFromDeployment>package-lock.json;packages.config;Gruntfile.js;YetAnotherForum.NET.snk;Content\bootstrap-notify.css;Content\prism.css;
   web.config;app.config;db.config;mail.config;
-  Scripts\forumAdminExtensionsDnn.js;Scripts\forumAdminExtensionsDnn.min.js;
-  Scripts\bootbox.js;Scripts\bootstrap.bundle.js;Scripts\bootstrap.bundle.min.js;Scripts\bootstrap-notify.js;Scripts\jquery.bootstrap-touchspin.js;
-  Scripts\jquery.hovercard.js;Scripts\prism.js;Scripts\select2.js;**\Content\**\*.scss</ExcludeFilesFromDeployment>
-    <ExcludeFoldersFromDeployment>Content\select2;Content\flag-icons;Content\fontawesome;Content\forum;Content\bootstrap;Content\fileUpload;Scripts\fileUpload;Scripts\blueimp-gallery;Scripts\forum</ExcludeFoldersFromDeployment>
+  Scripts\bootbox.js;Scripts\bootstrap.js;Scripts\bootstrap.min.js;Scripts\bootstrap.bundle.js;Scripts\bootstrap.bundle.min.js;Scripts\bootstrap-notify.js;
+  Scripts\editor\autoCloseTags.js;Scripts\editor\editor.comb.js;Scripts\fileUploader.js;Scripts\editor\undoManager.js;Scripts\editor\mentions.js;Scripts\editor\editor.js;
+  Scripts\prism.js;Scripts\forumAdminExtensionsDnn.js;Scripts\forumAdminExtensionsDnn.min.js;**\Content\**\*.scss;
+  Scripts\forumExtensionsDnn.js;Scripts\forumExtensionsDnn.min.js;
+  </ExcludeFilesFromDeployment>
+    <ExcludeFoldersFromDeployment>Content\flag-icons;Content\fontawesome;Content\forum;Content\bootstrap;Scripts\forum;Scripts\bs5-lightbox;Scripts\choices</ExcludeFoldersFromDeployment>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Deploy|AnyCPU'">
     <OutputPath>bin\</OutputPath>
