@@ -96,7 +96,10 @@ public class AlbumsModel : ForumPage
             return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid);
         }
 
-        this.PageBoardContext.PageLinks.AddLink(this.GetTextFormatted("ALBUMS_HEADER_TEXT", this.AlbumUser.DisplayOrUserName(), string.Empty));
+        var title = this.GetTextFormatted("ALBUMS_HEADER_TEXT", this.AlbumUser.DisplayOrUserName(), string.Empty);
+
+        this.PageBoardContext.PageLinks.AddLink(title);
+        this.PageTitle = title;
 
         return this.BindData(u);
     }

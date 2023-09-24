@@ -58,6 +58,8 @@ public class ForumsModel : AdminPage
     {
         this.PageBoardContext.PageLinks.AddAdminIndex();
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMINMENU", "admin_forums"), string.Empty);
+
+        this.PageTitle = this.GetText("ADMINMENU", "admin_forums");
     }
 
     /// <summary>

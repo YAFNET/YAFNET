@@ -62,7 +62,7 @@ public class SpamLogModel : AdminPage
     /// Initializes a new instance of the <see cref="SpamLogModel"/> class. 
     /// </summary>
     public SpamLogModel()
-        : base("ADMIN_EVENTLOG", ForumPages.Admin_SpamLog)
+        : base("ADMIN_SPAMLOG", ForumPages.Admin_SpamLog)
     {
         this.beautify = new StackTraceBeautify();
     }

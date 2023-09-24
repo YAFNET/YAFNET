@@ -125,6 +125,8 @@ public class EditBBCodeModel : AdminPage
 
         this.PageBoardContext.PageLinks.AddLink(string.Format(this.GetText("ADMIN_BBCODE_EDIT", "TITLE"), strAddEdit), string.Empty);
 
+        this.PageTitle = string.Format(this.GetText("ADMIN_BBCODE_EDIT", "TITLE"), strAddEdit);
+
         this.BindData(b);
 
         return this.Page();

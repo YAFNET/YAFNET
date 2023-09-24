@@ -90,6 +90,8 @@ public class TestDataModel : AdminPage
         this.PageBoardContext.PageLinks.AddAdminIndex();
 
         this.PageBoardContext.PageLinks.AddLink("TEST DATA GENERATOR", string.Empty);
+
+        this.PageTitle = "TEST DATA GENERATOR";
     }
 
     /// <summary>
