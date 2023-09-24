@@ -176,19 +176,22 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         content.AppendHtml(containerCardDiv.RenderStartTag());
 
-        content.AppendHtml(containerCardHeader.RenderStartTag());
-
-        switch (this.EditorMode)
+        if (this.EditorMode is not EditorMode.Sql)
         {
-            case EditorMode.Basic:
-                this.RenderBasicHeader(content);
-                break;
-            case EditorMode.Standard:
-                this.RenderStandardHeader(content);
-                break;
-        }
+            content.AppendHtml(containerCardHeader.RenderStartTag());
 
-        content.AppendHtml(containerCardHeader.RenderEndTag());
+            switch (this.EditorMode)
+            {
+                case EditorMode.Basic:
+                    this.RenderBasicHeader(content);
+                    break;
+                case EditorMode.Standard:
+                    this.RenderStandardHeader(content);
+                    break;
+            }
+
+            content.AppendHtml(containerCardHeader.RenderEndTag());
+        }
 
         content.AppendHtml(containerCardBody.RenderStartTag());
 
