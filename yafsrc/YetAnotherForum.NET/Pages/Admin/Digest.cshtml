@@ -41,30 +41,6 @@
                 </button>
             </div>
         </div>
-            <div class="card mb-3">
-                <div class="card-header">
-                    @Html.IconHeader("envelope","ADMIN_DIGEST","HEADER2")
-                </div>
-                <div class="card-body">
-                    @if (Model.ShowDigestHtml)
-                    {
-                        @Html.LocalizedText("ADMIN_DIGEST", "DIGEST_GENERATE")
-
-                        <p>
-                            <iframe id="DigestFrame" style="width: 100%; height: 500px" title="digest preview"
-                                    src="@Html.Raw(Model.Get<IDigestService>().GetDigestUrl(Model.PageBoardContext.PageUserID, true))">
-                            </iframe>
-                        </p>
-                    }
-                </div>
-                <div class="card-footer text-center">
-                    <button asp-page-handler="GenerateDigest" 
-                            button-style="Primary"
-                            Icon="envelope" 
-                            text-localized-tag="GENERATE_DIGEST">
-                    </button>
-                </div>
-            </div>
 
             <div class="card mb-3">
                 <div class="card-header">

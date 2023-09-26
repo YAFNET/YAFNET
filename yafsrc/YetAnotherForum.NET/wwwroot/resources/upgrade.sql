@@ -1,4 +1,4 @@
-﻿/* Create AspNetUsers Table */
+﻿-- Create AspNetUsers Table
 SET ANSI_NULLS ON
 GO
 
@@ -58,12 +58,11 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}AspNetUsers](
     [Profile_Skype] NVARCHAR (255) NULL,
     [Profile_XMPP] NVARCHAR (255) NULL
     CONSTRAINT [PK_{databaseOwner}.AspNetUsers] PRIMARY KEY CLUSTERED ([Id] ASC)
-    /*FOREIGN KEY ([ApplicationId]) REFERENCES [{databaseOwner}].[aspnet_Applications] ([ApplicationId]),*/
 );
 
 GO
 
-/* Create missing profile columns first if not exist */
+-- Create missing profile columns first if not exist
 
 if not exists (select top 1 1 from sys.columns where object_id=object_id('[{databaseOwner}].[{objectQualifier}prov_Profile]') and name='Interests')
 begin
@@ -174,7 +173,7 @@ end
 GO
 
 
- /* Migrate users standard provider */
+ -- Migrate users standard provider
 if exists (select top 1 1 from sys.objects WHERE object_id = OBJECT_ID(N'[{databaseOwner}].[aspnet_Users]') and type in (N'U'))
 begin
   INSERT INTO [{databaseOwner}].[{objectQualifier}AspNetUsers] (
@@ -243,10 +242,9 @@ begin
       [{databaseOwner}].[{objectQualifier}AspNetUsers].Id IS NULL and [{databaseOwner}].[aspnet_Membership].IsApproved is not null
       end
 GO
-/****/
 
 
- /* Migrate users yaf.net provider */
+ -- Migrate users yaf.net provider
   INSERT INTO [{databaseOwner}].[{objectQualifier}AspNetUsers] (
        ApplicationId,
        Id,
@@ -347,10 +345,7 @@ GO
   WHERE [{databaseOwner}].[{objectQualifier}AspNetUsers].Id IS NULL
 
 
-/*******/
-
-
-/* Create AspNetRoles Table */
+-- Create AspNetRoles Table
 SET ANSI_NULLS ON
 GO
 
@@ -368,7 +363,7 @@ CREATE TABLE [{databaseOwner}].[{objectQualifier}AspNetRoles](
 
 GO
 
-/* Create AspNetUserLogins Table */
+-- Create AspNetUserLogins Table
 SET ANSI_NULLS ON
 GO
 
@@ -397,7 +392,7 @@ GO
 ALTER TABLE [{databaseOwner}].[{objectQualifier}AspNetUserLogins] CHECK CONSTRAINT [FK_AspNetUserLogins_AspNetUsers_UserId]
 GO
 
-/* Create AspNetUserClaims Table */
+-- Create AspNetUserClaims Table
 SET ANSI_NULLS ON
 GO
 
@@ -441,7 +436,7 @@ SELECT RoleId,RoleName
 FROM [{databaseOwner}].[{objectQualifier}prov_Role]
 GO
 
-/* Create AspNetUserRoles Table */
+-- Create AspNetUserRoles Table
 SET ANSI_NULLS ON
 GO
 

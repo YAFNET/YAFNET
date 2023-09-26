@@ -23,9 +23,8 @@
  */
 namespace YAF.Types.Interfaces.Services;
 
-using System.Threading.Tasks;
-
 using MimeKit;
+
 using YAF.Types.Models;
 
 /// <summary>
@@ -34,70 +33,15 @@ using YAF.Types.Models;
 public interface IDigestService
 {
     /// <summary>
-    /// Gets the digest HTML.
-    /// </summary>
-    /// <param name="url">The digest url.</param>
-    /// <returns>
-    /// The get digest html.
-    /// </returns>
-    Task<string> GetDigestHtmlAsync(string url);
-
-    /// <summary>
-    /// Gets the digest HTML.
+    /// Creates the digest email
     /// </summary>
     /// <param name="user">The user.</param>
-    /// <param name="boardSettings">The board settings.</param>
-    /// <param name="showErrors">if set to <c>true</c> [show errors].</param>
-    /// <returns>
-    /// The get digest html.
-    /// </returns>
-    Task<string> GetDigestHtmlAsync(User user, object boardSettings, bool showErrors = false);
-
-    /// <summary>
-    /// Gets the digest URL.
-    /// </summary>
-    /// <param name="userId">The user id.</param>
-    /// <param name="boardSettings">The board settings.</param>
-    /// <param name="showError">Show digest generation errors</param>
-    /// <returns>
-    /// The get digest url.
-    /// </returns>
-    string GetDigestUrl(int userId, object boardSettings, bool showError);
-
-    /// <summary>
-    /// Gets the digest URL.
-    /// </summary>
-    /// <param name="userId">The user id.</param>
-    /// <param name="showError">Show digest generation errors</param>
-    /// <returns>
-    /// The get digest url.
-    /// </returns>
-    string GetDigestUrl(int userId, bool showError);
-
-    /// <summary>
-    /// Creates the Digest Mail Message.
-    /// </summary>
-    /// <param name="subject">
-    /// The subject.
-    /// </param>
-    /// <param name="digestHtml">
-    /// The digest html.
-    /// </param>
-    /// <param name="boardAddress">
-    /// The board Address.
-    /// </param>
-    /// <param name="toEmail">
-    /// The to email.
-    /// </param>
-    /// <param name="toName">
-    /// The to name.
-    /// </param>
-    /// <returns>
-    /// The <see cref="MimeMessage"/>.
-    /// </returns>
-    MimeMessage CreateDigestMessage(
-        [NotNull] string subject,
-        [NotNull] string digestHtml,
+    /// <param name="boardAddress">The board address.</param>
+    /// <param name="toEmail">To email.</param>
+    /// <param name="toName">To name.</param>
+    /// <returns>MailMessage.</returns>
+    MimeMessage CreateDigest(
+        [NotNull] User user,
         [NotNull] MailboxAddress boardAddress,
         [NotNull] string toEmail,
         [CanBeNull] string toName);

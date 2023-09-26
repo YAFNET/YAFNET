@@ -322,9 +322,11 @@ public static class TopicRepositoryExtensions
                     // -- count deleted posts
                     var countDeletedExpression = db.Connection.From<Message>(db.Connection.TableAlias("mes"));
                     countDeletedExpression.Where(
-                        $@"mes.{countDeletedExpression.Column<Message>(x => x.TopicID)}={expression.Column<Topic>(x => x.ID, true)}
-                                    and (mes.{countDeletedExpression.Column<Message>(x => x.Flags)} & 8) = 8
-                                    and mes.{countDeletedExpression.Column<Message>(x => x.UserID)}={userId}");
+                        $"""
+                         mes.{countDeletedExpression.Column<Message>(x => x.TopicID)}={expression.Column<Topic>(x => x.ID, true)}
+                                                             and (mes.{countDeletedExpression.Column<Message>(x => x.Flags)} & 8) = 8
+                                                             and mes.{countDeletedExpression.Column<Message>(x => x.UserID)}={userId}
+                         """);
                     var countDeletedSql = countDeletedExpression.Select(Sql.Count("1")).ToSelectStatement();
 
                     var lastTopicAccessSql = "NULL";
@@ -335,8 +337,10 @@ public static class TopicRepositoryExtensions
                         var topicAccessExpression =
                             db.Connection.From<TopicReadTracking>(db.Connection.TableAlias("y"));
                         topicAccessExpression.Where(
-                            $@"y.{topicAccessExpression.Column<TopicReadTracking>(y => y.TopicID)}={expression.Column<Topic>(x => x.ID, true)}
-                                    and y.{topicAccessExpression.Column<TopicReadTracking>(y => y.UserID)}={userId}");
+                            $"""
+                             y.{topicAccessExpression.Column<TopicReadTracking>(y => y.TopicID)}={expression.Column<Topic>(x => x.ID, true)}
+                                                                 and y.{topicAccessExpression.Column<TopicReadTracking>(y => y.UserID)}={userId}
+                             """);
                         lastTopicAccessSql = topicAccessExpression.Select(
                                 $"{topicAccessExpression.Column<TopicReadTracking>(x => x.LastAccessDate)}").Limit(1)
                             .ToSelectStatement();
@@ -344,8 +348,10 @@ public static class TopicRepositoryExtensions
                         var forumAccessExpression =
                             db.Connection.From<ForumReadTracking>(db.Connection.TableAlias("x"));
                         forumAccessExpression.Where(
-                            $@"x.{forumAccessExpression.Column<ForumReadTracking>(x => x.ForumID)}={expression.Column<Topic>(x => x.ForumID, true)}
-                                    and x.{forumAccessExpression.Column<ForumReadTracking>(x => x.UserID)}={userId}");
+                            $"""
+                             x.{forumAccessExpression.Column<ForumReadTracking>(x => x.ForumID)}={expression.Column<Topic>(x => x.ForumID, true)}
+                                                                 and x.{forumAccessExpression.Column<ForumReadTracking>(x => x.UserID)}={userId}
+                             """);
                         lastForumAccessSql = forumAccessExpression.Select(
                                 $"{forumAccessExpression.Column<ForumReadTracking>(x => x.LastAccessDate)}").Limit(1)
                             .ToSelectStatement();
@@ -354,8 +360,10 @@ public static class TopicRepositoryExtensions
                     // -- last user
                     var lastUserNameExpression = db.Connection.From<User>(db.Connection.TableAlias("usr"));
                     lastUserNameExpression.Where(
-                        $@"usr.{lastUserNameExpression.Column<User>(x => x.ID)}=
-                                   {expression.Column<Topic>(x => x.LastUserID, true)}");
+                        $"""
+                         usr.{lastUserNameExpression.Column<User>(x => x.ID)}=
+                                                            {expression.Column<Topic>(x => x.LastUserID, true)}
+                         """);
                     var lastUserNameSql = lastUserNameExpression.Select(
                         $"{lastUserNameExpression.Column<User>(x => x.Name)}").Limit(1).ToSelectStatement();
 
@@ -368,19 +376,22 @@ public static class TopicRepositoryExtensions
                     var lastUserStyleSql = lastUserNameExpression.Select(
                         $"{lastUserNameExpression.Column<User>(x => x.UserStyle)}").Limit(1).ToSelectStatement();
 
-                    // -- first message
-                    var firstMessageExpression = db.Connection.From<Message>(db.Connection.TableAlias("fm"));
-                    firstMessageExpression.Where(
-                        $@"fm.{firstMessageExpression.Column<Message>(x => x.TopicID)}=
-                                   {OrmLiteConfig.DialectProvider.IsNullFunction(expression.Column<Topic>(x => x.TopicMovedID, true), expression.Column<Topic>(x => x.ID, true))}
-                                   and fm.{firstMessageExpression.Column<Message>(x => x.Position)} = 0");
-                    var firstMessageSql = firstMessageExpression.Select(
-                        $"{firstMessageExpression.Column<Message>(x => x.MessageText)}").Limit(1).ToSelectStatement();
+                    // -- last message
+                    var lastMessageExpression = db.Connection.From<Message>(db.Connection.TableAlias("fm"));
+                    lastMessageExpression.Where(
+                        $"""
+                         fm.{lastMessageExpression.Column<Message>(x => x.ID)}=
+                         {OrmLiteConfig.DialectProvider.IsNullFunction(expression.Column<Topic>(x => x.TopicMovedID, true), expression.Column<Topic>(x => x.LastMessageID, true))}
+                         """);
+
+                    var lastMessageSql = lastMessageExpression.Select(
+                        $"{lastMessageExpression.Column<Message>(x => x.MessageText)}").Limit(1).ToSelectStatement();
 
                     expression.Select<Topic, User, Forum>(
                         (c, b, d) => new
                                          {
                                              ForumID = d.ID,
+                                             ForumName = d.Name,
                                              TopicID = c.ID,
                                              c.Posted,
                                              LinkTopicID = c.TopicMovedID != null ? c.TopicMovedID : c.ID,
@@ -391,7 +402,8 @@ public static class TopicRepositoryExtensions
                                              c.Styles,
                                              c.UserID,
                                              Starter = c.UserName != null ? c.UserName : b.Name,
-                                             StarterDisplay = c.UserDisplayName != null ? c.UserDisplayName : b.DisplayName,
+                                             StarterDisplay =
+                                                 c.UserDisplayName != null ? c.UserDisplayName : b.DisplayName,
                                              Replies = c.NumPosts - 1,
                                              NumPostsDeleted = Sql.Custom($"({countDeletedSql})"),
                                              c.Views,
@@ -409,7 +421,7 @@ public static class TopicRepositoryExtensions
                                              c.Priority,
                                              c.PollID,
                                              ForumFlags = d.Flags,
-                                             FirstMessage = Sql.Custom($"({firstMessageSql})"),
+                                             LastMessage = Sql.Custom($"({lastMessageSql})"),
                                              StarterStyle = b.UserStyle,
                                              StarterSuspended = b.Suspended,
                                              LastForumAccess = Sql.Custom($"({lastForumAccessSql})"),
@@ -705,8 +717,10 @@ public static class TopicRepositoryExtensions
                         var forumReadTrackExpression =
                             db.Connection.From<ForumReadTracking>(db.Connection.TableAlias("x"));
                         forumReadTrackExpression.Where(
-                            $@"x.{forumReadTrackExpression.Column<ForumReadTracking>(x => x.ForumID)}={expression.Column<Forum>(f => f.ID, true)}
-                                        and x.{forumReadTrackExpression.Column<ForumReadTracking>(x => x.UserID)}={pageUserId}");
+                            $"""
+                             x.{forumReadTrackExpression.Column<ForumReadTracking>(x => x.ForumID)}={expression.Column<Forum>(f => f.ID, true)}
+                                                                     and x.{forumReadTrackExpression.Column<ForumReadTracking>(x => x.UserID)}={pageUserId}
+                             """);
                         var forumReadTrackSql = forumReadTrackExpression
                             .Select($"{forumReadTrackExpression.Column<ForumReadTracking>(x => x.LastAccessDate)}")
                             .Limit(1).ToSelectStatement();
@@ -714,8 +728,10 @@ public static class TopicRepositoryExtensions
                         var topicReadTrackExpression =
                             db.Connection.From<TopicReadTracking>(db.Connection.TableAlias("x"));
                         topicReadTrackExpression.Where(
-                            $@"x.{topicReadTrackExpression.Column<TopicReadTracking>(x => x.TopicID)}={expression.Column<Topic>(t => t.ID, true)}
-                                       and x.{topicReadTrackExpression.Column<TopicReadTracking>(x => x.UserID)}={pageUserId}");
+                            $"""
+                             x.{topicReadTrackExpression.Column<TopicReadTracking>(x => x.TopicID)}={expression.Column<Topic>(t => t.ID, true)}
+                                                                    and x.{topicReadTrackExpression.Column<TopicReadTracking>(x => x.UserID)}={pageUserId}
+                             """);
                         var topicReadTrackSql = topicReadTrackExpression
                             .Select($"{topicReadTrackExpression.Column<TopicReadTracking>(x => x.LastAccessDate)}")
                             .Limit(1).ToSelectStatement();
@@ -892,9 +908,11 @@ public static class TopicRepositoryExtensions
                     // -- count deleted posts
                     var countDeletedExpression = db.Connection.From<Message>(db.Connection.TableAlias("mes"));
                     countDeletedExpression.Where(
-                        $@"mes.{countDeletedExpression.Column<Message>(x => x.TopicID)}={expression.Column<Topic>(x => x.ID, true)}
-                                    and (mes.{countDeletedExpression.Column<Message>(x => x.Flags)} & 8) = 8
-                                    and mes.{countDeletedExpression.Column<Message>(x => x.UserID)}={userId}");
+                        $"""
+                         mes.{countDeletedExpression.Column<Message>(x => x.TopicID)}={expression.Column<Topic>(x => x.ID, true)}
+                                                             and (mes.{countDeletedExpression.Column<Message>(x => x.Flags)} & 8) = 8
+                                                             and mes.{countDeletedExpression.Column<Message>(x => x.UserID)}={userId}
+                         """);
                     var countDeletedSql = countDeletedExpression.Select(Sql.Count("1")).ToSelectStatement();
 
                     var lastTopicAccessSql = "NULL";
@@ -905,8 +923,10 @@ public static class TopicRepositoryExtensions
                         var topicAccessExpression =
                             db.Connection.From<TopicReadTracking>(db.Connection.TableAlias("y"));
                         topicAccessExpression.Where(
-                            $@"y.{topicAccessExpression.Column<TopicReadTracking>(y => y.TopicID)}={expression.Column<Topic>(x => x.ID, true)}
-                                    and y.{topicAccessExpression.Column<TopicReadTracking>(y => y.UserID)}={userId}");
+                            $"""
+                             y.{topicAccessExpression.Column<TopicReadTracking>(y => y.TopicID)}={expression.Column<Topic>(x => x.ID, true)}
+                                                                 and y.{topicAccessExpression.Column<TopicReadTracking>(y => y.UserID)}={userId}
+                             """);
                         lastTopicAccessSql = topicAccessExpression.Select(
                                 $"{topicAccessExpression.Column<TopicReadTracking>(x => x.LastAccessDate)}").Limit(1)
                             .ToSelectStatement();
@@ -914,8 +934,10 @@ public static class TopicRepositoryExtensions
                         var forumAccessExpression =
                             db.Connection.From<ForumReadTracking>(db.Connection.TableAlias("x"));
                         forumAccessExpression.Where(
-                            $@"x.{forumAccessExpression.Column<ForumReadTracking>(x => x.ForumID)}={expression.Column<Topic>(x => x.ForumID, true)}
-                                    and x.{forumAccessExpression.Column<ForumReadTracking>(x => x.UserID)}={userId}");
+                            $"""
+                             x.{forumAccessExpression.Column<ForumReadTracking>(x => x.ForumID)}={expression.Column<Topic>(x => x.ForumID, true)}
+                                                                 and x.{forumAccessExpression.Column<ForumReadTracking>(x => x.UserID)}={userId}
+                             """);
                         lastForumAccessSql = forumAccessExpression.Select(
                                 $"{forumAccessExpression.Column<ForumReadTracking>(x => x.LastAccessDate)}").Limit(1)
                             .ToSelectStatement();
@@ -924,8 +946,10 @@ public static class TopicRepositoryExtensions
                     // -- last user
                     var lastUserNameExpression = db.Connection.From<User>(db.Connection.TableAlias("usr"));
                     lastUserNameExpression.Where(
-                        $@"usr.{lastUserNameExpression.Column<User>(x => x.ID)}=
-                                   {expression.Column<Topic>(x => x.LastUserID, true)}");
+                        $"""
+                         usr.{lastUserNameExpression.Column<User>(x => x.ID)}=
+                                                            {expression.Column<Topic>(x => x.LastUserID, true)}
+                         """);
                     var lastUserNameSql = lastUserNameExpression.Select(
                         $"{lastUserNameExpression.Column<User>(x => x.Name)}").Limit(1).ToSelectStatement();
 
@@ -941,9 +965,11 @@ public static class TopicRepositoryExtensions
                     // -- first message
                     var firstMessageExpression = db.Connection.From<Message>(db.Connection.TableAlias("fm"));
                     firstMessageExpression.Where(
-                        $@"fm.{firstMessageExpression.Column<Message>(x => x.TopicID)}=
-                                   {OrmLiteConfig.DialectProvider.IsNullFunction(expression.Column<Topic>(x => x.TopicMovedID, true),expression.Column<Topic>(x => x.ID, true))}
-                                   and fm.{firstMessageExpression.Column<Message>(x => x.Position)} = 0");
+                        $"""
+                         fm.{firstMessageExpression.Column<Message>(x => x.TopicID)}=
+                                                            {OrmLiteConfig.DialectProvider.IsNullFunction(expression.Column<Topic>(x => x.TopicMovedID, true),expression.Column<Topic>(x => x.ID, true))}
+                                                            and fm.{firstMessageExpression.Column<Message>(x => x.Position)} = 0
+                         """);
                     var firstMessageSql = firstMessageExpression.Select(
                         $"{firstMessageExpression.Column<Message>(x => x.MessageText)}").Limit(1).ToSelectStatement();
 
@@ -1296,10 +1322,12 @@ public static class TopicRepositoryExtensions
                     }
 
                     expression.And(
-                        $@"({expression.Column<Topic>(x => x.Flags, true)} & 512) = 0
-                                       and {OrmLiteConfig.DialectProvider.DateDiffFunction("dd",
-                                           expression.Column<Topic>(x => x.LastPosted, true),
-                                           OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {days}");
+                        $"""
+                         ({expression.Column<Topic>(x => x.Flags, true)} & 512) = 0
+                                                                and {OrmLiteConfig.DialectProvider.DateDiffFunction("dd",
+                                                                    expression.Column<Topic>(x => x.LastPosted, true),
+                                                                    OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {days}
+                         """);
 
                     return db.Connection.Select(expression);
                 });

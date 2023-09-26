@@ -26,7 +26,6 @@ namespace YAF.Core.Tasks;
 
 using System;
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
@@ -172,33 +171,18 @@ public class DigestSendTask : LongBackgroundTask
         {
             try
             {
-                var url = this.Get<IDigestService>().GetDigestUrl(user.ID, boardSettings, false);
-
-                var digestHtml = await this.Get<IDigestService>().GetDigestHtmlAsync(url);
-
-                if (digestHtml.IsNotSet())
-                {
-                    return;
-                }
-
                 if (user.ProviderUserKey == null)
                 {
                     return;
                 }
 
-                var subject = Regex.Match(
-                    digestHtml,
-                    "<title>(.*?)</title>",
-                    RegexOptions.Singleline,
-                    TimeSpan.FromMilliseconds(100)).Groups[1].Value.Trim();
-
-                // send the digest...
-                mailMessages.Add(this.Get<IDigestService>().CreateDigestMessage(
-                    subject.Trim(),
-                    digestHtml,
+                var digestMail = this.Get<IDigestService>().CreateDigest(
+                    user,
                     boardEmail,
                     user.Email,
-                    user.DisplayOrUserName()));
+                    user.DisplayOrUserName());
+
+                mailMessages.Add(digestMail);
             }
             catch (Exception e)
             {

@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Services;
 
 using System.Collections.Generic;
@@ -56,6 +57,8 @@ public class TemplateEmail : IHaveServiceLocator
         this.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
         this.TemplateParams["%%forumlink%%"] = this.Get<LinkBuilder>().ForumUrl;
         this.TemplateParams["%%logo%%"] = $"{this.Get<BoardSettings>().BaseUrlMask}{logoUrl}";
+        this.TemplateParams["%%manageLink%%"] =
+            this.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Profile_Subscriptions);
     }
 
     /// <summary>
@@ -197,6 +200,11 @@ public class TemplateEmail : IHaveServiceLocator
         var htmlTemplate = File.ReadAllText(path);
 
         var formattedBody = this.Get<IBBCodeService>().MakeHtml(textBody, true, true);
+
+        this.TemplateParams["{manageText}"] = this.Get<ILocalization>().GetText("DIGEST", "REMOVALTEXT", this.TemplateLanguageFile);
+
+        this.TemplateParams["{manageLinkText}"] =
+            this.Get<ILocalization>().GetText("DIGEST", "REMOVALLINK", this.TemplateLanguageFile);
 
         var html = this.TemplateParams.Keys.Aggregate(
             htmlTemplate,

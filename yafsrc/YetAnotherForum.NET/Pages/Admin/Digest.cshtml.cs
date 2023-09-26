@@ -45,9 +45,6 @@ public class DigestModel : AdminPage
     [BindProperty]
     public string TextSendEmail { get; set; }
 
-    [BindProperty]
-    public bool ShowDigestHtml { get; set; }
-
     /// <summary>
     /// Initializes a new instance of the <see cref="DigestModel"/> class.
     /// </summary>
@@ -77,14 +74,6 @@ public class DigestModel : AdminPage
     }
 
     /// <summary>
-    /// Generate a test Digest
-    /// </summary>
-    public void OnPostGenerateDigest()
-    {
-        this.ShowDigestHtml = true;
-    }
-
-    /// <summary>
     /// Send Test Digest
     /// </summary>
     public async Task<IActionResult> OnPostTestSendAsync()
@@ -97,22 +86,15 @@ public class DigestModel : AdminPage
         try
         {
             // create and send a test digest to the email provided...
-            var digestHtml = await this.Get<IDigestService>().GetDigestHtmlAsync(
+            var digestMail = this.Get<IDigestService>().CreateDigest(
                 this.PageBoardContext.PageUser,
-                this.PageBoardContext.BoardSettings,
-                true);
-
-            // send....
-            var message = this.Get<IDigestService>().CreateDigestMessage(
-                string.Format(this.GetText("DIGEST", "SUBJECT"), this.PageBoardContext.BoardSettings.Name),
-                digestHtml,
                 new MailboxAddress(
                     this.PageBoardContext.BoardSettings.Name,
                     this.PageBoardContext.BoardSettings.ForumEmail),
                 this.TextSendEmail.Trim(),
-                "Digest Send Test");
+                string.Empty);
 
-            await this.Get<IMailService>().SendAllAsync(new List<MimeMessage> { message });
+            await this.Get<IMailService>().SendAllAsync(new List<MimeMessage> { digestMail });
 
             return this.PageBoardContext.Notify(
                 this.GetTextFormatted("MSG_SEND_SUC", "Direct"),

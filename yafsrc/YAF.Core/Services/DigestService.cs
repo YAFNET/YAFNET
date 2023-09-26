@@ -24,8 +24,7 @@
 
 namespace YAF.Core.Services;
 
-using System.Net.Http;
-using System.Threading.Tasks;
+using System;
 
 using MimeKit;
 
@@ -54,135 +53,58 @@ public class DigestService : IDigestService, IHaveServiceLocator
     public IServiceLocator ServiceLocator { get; }
 
     /// <summary>
-    /// Gets the digest HTML.
-    /// </summary>
-    /// <param name="url">The digest url.</param>
-    /// <returns>
-    /// The get digest html.
-    /// </returns>
-    public async Task<string> GetDigestHtmlAsync(string url)
-    {
-        var client = new HttpClient(new HttpClientHandler { UseDefaultCredentials = true });
-
-        var response = await client.GetAsync(url);
-
-        var digestHtml = string.Empty;
-
-        if (response.IsSuccessStatusCode)
-        {
-            digestHtml = await response.Content.ReadAsStringAsync();
-        }
-
-        return digestHtml;
-    }
-
-    /// <summary>
-    /// Gets the digest HTML.
+    /// Creates the digest email
     /// </summary>
     /// <param name="user">The user.</param>
-    /// <param name="boardSettings">The board settings.</param>
-    /// <param name="showErrors">if set to <c>true</c> [show errors].</param>
-    /// <returns>
-    /// The get digest html.
-    /// </returns>
-    public async Task<string> GetDigestHtmlAsync(User user, object boardSettings, bool showErrors = false)
-    {
-        var client = new HttpClient(new HttpClientHandler { UseDefaultCredentials = true });
-
-        var response = await client.GetAsync(this.GetDigestUrl(user.ID, boardSettings, showErrors));
-
-        var digestHtml = string.Empty;
-
-        if (response.IsSuccessStatusCode)
-        {
-            digestHtml = await response.Content.ReadAsStringAsync();
-        }
-
-        return digestHtml;
-    }
-
-    /// <summary>
-    /// Gets the digest URL.
-    /// </summary>
-    /// <param name="userId">The user id.</param>
-    /// <param name="boardSettings">The board settings.</param>
-    /// <param name="showError">Show errors creating the digest.</param>
-    /// <returns>
-    /// The get digest url.
-    /// </returns>
-    public string GetDigestUrl(int userId, object boardSettings, bool showError)
-    {
-        var yafBoardSettings = boardSettings as BoardSettings;
-
-        var digestUrl = $"Digest?token={yafBoardSettings.WebServiceToken}&userId={userId}&boardId={yafBoardSettings.BoardId}&showError={showError}";
-
-        return
-            $"{yafBoardSettings.BaseUrlMask}/{digestUrl}";
-    }
-
-    /// <summary>
-    /// Gets the digest URL.
-    /// </summary>
-    /// <param name="userId">The user id.</param>
-    /// <param name="showError">Show errors creating the digest.</param>
-    /// <returns>
-    /// The get digest url.
-    /// </returns>
-    public string GetDigestUrl(int userId, bool showError)
-    {
-        var digestUrl = this.Get<IUrlHelper>().Page(
-            ForumPages.Digest.GetPageName(),
-            null,
-            new
-                {
-                    token = this.Get<BoardSettings>().WebServiceToken,
-                    userId,
-                    boardId = this.Get<BoardSettings>().BoardId,
-                    showError
-                });
-
-        return
-            $"{this.Get<BoardSettings>().BaseUrlMask}{digestUrl}";
-    }
-
-    /// <summary>
-    /// Creates the Digest Mail Message.
-    /// </summary>
-    /// <param name="subject">
-    /// The subject.
-    /// </param>
-    /// <param name="digestHtml">
-    /// The digest html.
-    /// </param>
-    /// <param name="boardAddress">
-    /// The board Address.
-    /// </param>
-    /// <param name="toEmail">
-    /// The to email.
-    /// </param>
-    /// <param name="toName">
-    /// The to name.
-    /// </param>
-    /// <returns>
-    /// The <see cref="MimeMessage"/>.
-    /// </returns>
-    public MimeMessage CreateDigestMessage(
-        [NotNull] string subject,
-        [NotNull] string digestHtml,
+    /// <param name="boardAddress">The board address.</param>
+    /// <param name="toEmail">To email.</param>
+    /// <param name="toName">To name.</param>
+    /// <returns>MailMessage.</returns>
+    public MimeMessage CreateDigest(
+        [NotNull] User user,
         [NotNull] MailboxAddress boardAddress,
         [NotNull] string toEmail,
         [CanBeNull] string toName)
     {
-        CodeContracts.VerifyNotNull(digestHtml);
+        CodeContracts.VerifyNotNull(user);
         CodeContracts.VerifyNotNull(boardAddress);
         CodeContracts.VerifyNotNull(toEmail);
 
-        return this.Get<IMailService>().CreateMessage(
-            boardAddress,
-            new MailboxAddress(toName, toEmail),
-            boardAddress,
-            subject,
-            "You must have HTML Email Viewer to View.",
-            digestHtml);
+        // get topic hours...
+        var topicHours = -this.Get<BoardSettings>().DigestSendEveryXHours;
+
+        var topicsData = this.Get<DataBroker>().GetDigestTopics(
+            BoardContext.Current.PageBoardID,
+            user.ID,
+            DateTime.Now.AddHours(topicHours),
+            9999);
+
+        var activeTopics = topicsData.Where(
+                t => t.LastPosted > DateTime.Now.AddHours(topicHours) && t.Posted < DateTime.Now.AddHours(topicHours))
+            .ToList();
+
+        var newTopics = topicsData.Where(t => t.Posted > DateTime.Now.AddHours(topicHours))
+            .OrderByDescending(x => x.LastPosted).ToList();
+
+        if (!newTopics.Any() && !activeTopics.Any())
+        {
+            return null;
+        }
+
+        var topics = newTopics.Concat(activeTopics).ToList().GroupBy(x => x.TopicID).Select(x => x.First()).ToList();
+
+        var languageFile = user.LanguageFile.IsSet() && this.Get<BoardSettings>().AllowUserLanguage
+                               ? user.LanguageFile
+                               : this.Get<BoardSettings>().Language;
+
+        var email = new TemplateDigestEmail(topics)
+                        {
+                            TemplateLanguageFile = languageFile
+                        };
+        var subject = string.Format(
+            this.Get<ILocalization>().GetText("DIGEST", "SUBJECT", languageFile),
+            this.Get<BoardSettings>().Name);
+
+        return email.CreateEmail(boardAddress, new MailboxAddress(toEmail, toName), subject);
     }
 }

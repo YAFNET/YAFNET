@@ -233,6 +233,64 @@ module.exports = function(grunt) {
                     "call bootstrap-email wwwroot/Resources/EmailTemplate.html > wwwroot/css/themes/zephyr/EmailTemplate.html -c  wwwroot/lib/themes/zephyr/bootstrap_email.config",
                     "rmdir .sass-cache /s /q"
                 ].join("&&")
+            },
+            emailDigestTemplates: {
+                command: [
+                    "@echo off",
+                    "echo Build cerulean theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/cerulean/DigestTopicTemplate.html  -c wwwroot/lib/themes/cerulean/bootstrap_email.config",
+                    "echo Build cosmo theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/cosmo/DigestTopicTemplate.html -c wwwroot/lib/themes/cosmo/bootstrap_email.config",
+                    "echo Build cyborg theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/cyborg/DigestTopicTemplate.html -c wwwroot/lib/themes/cyborg/bootstrap_email.config",
+                    "echo Build darkly theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/darkly/DigestTopicTemplate.html -c wwwroot/lib/themes/darkly/bootstrap_email.config",
+                    "echo Build flatly theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/flatly/DigestTopicTemplate.html -c wwwroot/lib/themes/flatly/bootstrap_email.config",
+                    "echo Build journal theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/journal/DigestTopicTemplate.html -c wwwroot/lib/themes/journal/bootstrap_email.config",
+                    "echo Build litera theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/litera/DigestTopicTemplate.html -c wwwroot/lib/themes/litera/bootstrap_email.config",
+                    "echo Build lumen theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/lumen/DigestTopicTemplate.html -c wwwroot/lib/themes/lumen/bootstrap_email.config",
+                    "echo Build lux theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/lux/DigestTopicTemplate.html -c wwwroot/lib/themes/lux/bootstrap_email.config",
+                    "echo Build materia theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/materia/DigestTopicTemplate.html -c wwwroot/lib/themes/materia/bootstrap_email.config",
+                    "echo Build minty theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/minty/DigestTopicTemplate.html -c wwwroot/lib/themes/minty/bootstrap_email.config",
+                    "echo Build morph theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/morph/DigestTopicTemplate.html -c wwwroot/lib/themes/morph/bootstrap_email.config",
+                    "echo Build pulse theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/pulse/DigestTopicTemplate.html -c wwwroot/lib/themes/pulse/bootstrap_email.config",
+                    "echo Build quartz theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/quartz/DigestTopicTemplate.html -c wwwroot/lib/themes/quartz/bootstrap_email.config",
+                    "echo Build sandstone theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/sandstone/DigestTopicTemplate.html -c wwwroot/lib/themes/sandstone/bootstrap_email.config",
+                    "echo Build simplex theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/simplex/DigestTopicTemplate.html -c wwwroot/lib/themes/simplex/bootstrap_email.config",
+                    "echo Build sketchy theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/sketchy/DigestTopicTemplate.html -c wwwroot/lib/themes/sketchy/bootstrap_email.config",
+                    "echo Build slate theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/slate/DigestTopicTemplate.html -c wwwroot/lib/themes/slate/bootstrap_email.config",
+                    "echo Build solar theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/solar/DigestTopicTemplate.html -c wwwroot/lib/themes/solar/bootstrap_email.config",
+                    "echo Build spacelab theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/spacelab/DigestTopicTemplate.html -c wwwroot/lib/themes/spacelab/bootstrap_email.config",
+                    "echo Build superhero theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/superhero/DigestTopicTemplate.html -c wwwroot/lib/themes/superhero/bootstrap_email.config",
+                    "echo Build united theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/united/DigestTopicTemplate.html -c wwwroot/lib/themes/united/bootstrap_email.config",
+                    "echo Build vapor theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/vapor/DigestTopicTemplate.html -c wwwroot/lib/themes/vapor/bootstrap_email.config",
+                    "echo Build yaf theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/yaf/DigestTopicTemplate.html -c wwwroot/lib/themes/yaf/bootstrap_email.config",
+                    "echo Build yeti theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/yeti/DigestTopicTemplate.html -c wwwroot/lib/themes/yeti/bootstrap_email.config",
+                    "echo Build zephyr theme digest email template",
+                    "call bootstrap-email wwwroot/Resources/DigestTopicTemplate.html > wwwroot/css/themes/zephyr/DigestTopicTemplate.html -c wwwroot/lib/themes/zephyr/bootstrap_email.config",
+                    "rmdir .sass-cache /s /q"
+                ].join("&&")
             }
         },
 
@@ -579,7 +637,7 @@ module.exports = function(grunt) {
 
     grunt.registerTask("emailTemplates",
         [
-            "shell:emailTemplates"
+            "shell:emailTemplates", "shell:emailDigestTemplates"
         ]);
 
     grunt.registerTask("js",

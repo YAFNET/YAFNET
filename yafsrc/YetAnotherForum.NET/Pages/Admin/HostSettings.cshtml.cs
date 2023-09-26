@@ -740,8 +740,6 @@ public class HostSettingsModel : AdminPage
 
         public int ServerTimeCorrection { get; set; }
 
-        public string WebServiceToken { get; set; }
-
         public string EditTimeOut { get; set; }
 
         public int DisplayNameMinLength { get; set; }
