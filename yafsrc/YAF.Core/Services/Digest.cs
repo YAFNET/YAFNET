@@ -21,11 +21,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Services;
 
-using System.Net;
+using System;
 using System.Net.Mail;
 
+using YAF.Types.Constants;
 using YAF.Types.Models;
 
 /// <summary>
@@ -50,94 +52,57 @@ public class Digest : IDigest, IHaveServiceLocator
     public IServiceLocator ServiceLocator { get; }
 
     /// <summary>
-    /// Gets the digest HTML.
+    /// Creates the digest email
     /// </summary>
-    /// <param name="user">
-    /// The user.
-    /// </param>
-    /// <param name="boardSettings">
-    /// The board Settings.
-    /// </param>
-    /// <param name="showErrors">
-    /// The show Errors.
-    /// </param>
-    /// <returns>
-    /// The get digest html.
-    /// </returns>
-    public string GetDigestHtml(User user, object boardSettings, bool showErrors = false)
-    {
-        var request = (HttpWebRequest)WebRequest.Create(this.GetDigestUrl(user.ID, boardSettings, showErrors));
-
-        var digestHtml = string.Empty;
-
-        // set timeout to max 45 seconds
-        request.Timeout = 45 * 1000;
-
-        var response = request.GetResponse().ToClass<HttpWebResponse>();
-
-        if (response.StatusCode == HttpStatusCode.OK)
-        {
-            digestHtml = response.GetResponseStream().AsString();
-        }
-
-        return digestHtml;
-    }
-
-    /// <summary>
-    /// Gets the digest URL.
-    /// </summary>
-    /// <param name="userId">The user id.</param>
-    /// <param name="boardSettings">The board settings.</param>
-    /// <param name="showErrors">Show errors creating the digest.</param>
-    /// <returns>
-    /// The get digest url.
-    /// </returns>
-    public string GetDigestUrl(int userId, object boardSettings, bool showErrors)
-    {
-        var yafBoardSettings = boardSettings as BoardSettings;
-
-        return
-            $"{yafBoardSettings.BaseUrlMask}{BaseUrlBuilder.AppPath}digest.aspx?token={yafBoardSettings.WebServiceToken}&userid={userId}&boardid={yafBoardSettings.BoardId}&showerror={showErrors.ToString().ToLower()}";
-    }
-
-    /// <summary>
-    /// Creates the Digest Mail Message.
-    /// </summary>
-    /// <param name="subject">
-    /// The subject.
-    /// </param>
-    /// <param name="digestHtml">
-    /// The digest html.
-    /// </param>
-    /// <param name="boardAddress">
-    /// The board Address.
-    /// </param>
-    /// <param name="toEmail">
-    /// The to email.
-    /// </param>
-    /// <param name="toName">
-    /// The to name.
-    /// </param>
-    /// <returns>
-    /// The <see cref="MailMessage"/>.
-    /// </returns>
-    public MailMessage CreateDigestMessage(
-        [NotNull] string subject,
-        [NotNull] string digestHtml,
+    /// <param name="user">The user.</param>
+    /// <param name="boardAddress">The board address.</param>
+    /// <param name="toEmail">To email.</param>
+    /// <param name="toName">To name.</param>
+    /// <returns>MailMessage.</returns>
+    public MailMessage CreateDigest(
+        [NotNull] User user,
         [NotNull] MailAddress boardAddress,
         [NotNull] string toEmail,
         [CanBeNull] string toName)
     {
-        CodeContracts.VerifyNotNull(digestHtml);
+        CodeContracts.VerifyNotNull(user);
         CodeContracts.VerifyNotNull(boardAddress);
         CodeContracts.VerifyNotNull(toEmail);
 
-        return this.Get<IMailService>().CreateMessage(
-            boardAddress,
-            new MailAddress(toEmail, toName),
-            boardAddress,
-            subject,
-            "You must have HTML Email Viewer to View.",
-            digestHtml);
+        // get topic hours...
+        var topicHours = -this.Get<BoardSettings>().DigestSendEveryXHours;
+
+        var topicsData = this.Get<DataBroker>().GetDigestTopics(
+            BoardContext.Current.PageBoardID,
+            user.ID,
+            DateTime.Now.AddHours(topicHours),
+            9999);
+
+        var activeTopics = topicsData.Where(
+                t => t.LastPosted > DateTime.Now.AddHours(topicHours) && t.Posted < DateTime.Now.AddHours(topicHours))
+            .ToList();
+
+        var newTopics = topicsData.Where(t => t.Posted > DateTime.Now.AddHours(topicHours))
+            .OrderByDescending(x => x.LastPosted).ToList();
+
+        if (!newTopics.Any() && !activeTopics.Any())
+        {
+            return null;
+        }
+
+        var topics = newTopics.Concat(activeTopics).ToList().GroupBy(x => x.TopicID).Select(x => x.First()).ToList();
+
+        var languageFile = user.LanguageFile.IsSet() && this.Get<BoardSettings>().AllowUserLanguage
+                               ? user.LanguageFile
+                               : this.Get<BoardSettings>().Language;
+
+        var email = new TemplateDigestEmail(topics) {
+                                                        TemplateLanguageFile = languageFile
+                                                    };
+        var subject = string.Format(
+            this.Get<ILocalization>().GetText("DIGEST", "SUBJECT", languageFile),
+            this.Get<BoardSettings>().Name);
+
+        return email.CreateEmail(boardAddress, new MailAddress(toEmail, toName), subject);
     }
 }

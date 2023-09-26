@@ -53,18 +53,6 @@ public partial class Digest : AdminPage
     }
 
     /// <summary>
-    /// Generate a test Digest
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void GenerateDigestClick([NotNull] object sender, [NotNull] EventArgs e)
-    {
-        this.DigestHtmlPlaceHolder.Visible = true;
-        this.DigestFrame.Attributes["src"] = this.Get<IDigest>()
-            .GetDigestUrl(this.PageBoardContext.PageUserID, this.PageBoardContext.BoardSettings, true);
-    }
-
-    /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
@@ -111,20 +99,16 @@ public partial class Digest : AdminPage
             try
             {
                 // create and send a test digest to the email provided...
-                var digestHtml = this.Get<IDigest>().GetDigestHtml(
+                var digestMail = this.Get<IDigest>().CreateDigest(
                     this.PageBoardContext.PageUser,
-                    this.PageBoardContext.BoardSettings,
-                    true);
-
-                // send....
-                var message = this.Get<IDigest>().CreateDigestMessage(
-                    string.Format(this.GetText("DIGEST", "SUBJECT"), this.PageBoardContext.BoardSettings.Name),
-                    digestHtml,
-                    new MailAddress(this.PageBoardContext.BoardSettings.ForumEmail, this.PageBoardContext.BoardSettings.Name),
+                    new MailAddress(
+                        this.PageBoardContext.BoardSettings.ForumEmail,
+                        this.PageBoardContext.BoardSettings.Name),
                     this.TextSendEmail.Text.Trim(),
-                    "Digest Send Test");
+                    string.Empty);
 
-                this.Get<IMailService>().SendAll(new List<MailMessage> { message });
+                // send
+                this.Get<IMailService>().SendAll(new List<MailMessage> { digestMail });
 
                 this.PageBoardContext.Notify(
                     this.GetTextFormatted("MSG_SEND_SUC", "Direct"),

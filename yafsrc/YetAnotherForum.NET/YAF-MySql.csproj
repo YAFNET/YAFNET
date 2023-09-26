@@ -933,13 +933,6 @@
     <Compile Include="Pages\EmailTopic.ascx.designer.cs">
       <DependentUpon>EmailTopic.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\EmailDigest.ascx.cs">
-      <DependentUpon>EmailDigest.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\EmailDigest.ascx.designer.cs">
-      <DependentUpon>EmailDigest.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Pages\Board.ascx.designer.cs">
       <DependentUpon>Board.ascx</DependentUpon>
     </Compile>
@@ -1127,132 +1120,6 @@
     <Content Include="Content\bootstrap-email\scss\_selectors_for_utils.scss" />
     <Content Include="Content\bootstrap-email\scss\_utilities.scss" />
     <Content Include="Content\bootstrap-email\scss\_variables.scss" />
-    <Content Include="Content\Themes\cerulean\bootstrap-forum.css">
-      <DependentUpon>bootstrap-forum.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\cerulean\bootstrap-forum.min.css">
-      <DependentUpon>bootstrap-forum.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\cosmo\bootstrap-forum.css">
-      <DependentUpon>bootstrap-forum.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\cosmo\bootstrap-forum.min.css">
-      <DependentUpon>bootstrap-forum.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\darkly\bootstrap-forum.css">
-      <DependentUpon>bootstrap-forum.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\darkly\bootstrap-forum.min.css">
-      <DependentUpon>bootstrap-forum.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\flatly\bootstrap-forum.css">
-      <DependentUpon>bootstrap-forum.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\flatly\bootstrap-forum.min.css">
-      <DependentUpon>bootstrap-forum.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\journal\bootstrap-forum.css">
-      <DependentUpon>bootstrap-forum.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\journal\bootstrap-forum.min.css">
-      <DependentUpon>bootstrap-forum.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\litera\bootstrap-forum.css">
-      <DependentUpon>bootstrap-forum.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\litera\bootstrap-forum.min.css">
-      <DependentUpon>bootstrap-forum.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\lumen\bootstrap-forum.css">
-      <DependentUpon>bootstrap-forum.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\lumen\bootstrap-forum.min.css">
-      <DependentUpon>bootstrap-forum.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\lux\bootstrap-forum.css">
-      <DependentUpon>bootstrap-forum.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\lux\bootstrap-forum.min.css">
-      <DependentUpon>bootstrap-forum.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\materia\bootstrap-forum.css">
-      <DependentUpon>bootstrap-forum.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\materia\bootstrap-forum.min.css">
-      <DependentUpon>bootstrap-forum.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\minty\bootstrap-forum.css">
-      <DependentUpon>bootstrap-forum.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\minty\bootstrap-forum.min.css">
-      <DependentUpon>bootstrap-forum.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\morph\bootstrap-forum.css">
-      <DependentUpon>bootstrap-forum.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\morph\bootstrap-forum.min.css">
-      <DependentUpon>bootstrap-forum.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\pulse\bootstrap-forum.css">
-      <DependentUpon>bootstrap-forum.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\pulse\bootstrap-forum.min.css">
-      <DependentUpon>bootstrap-forum.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\quartz\bootstrap-forum.css">
-      <DependentUpon>bootstrap-forum.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\quartz\bootstrap-forum.min.css">
-      <DependentUpon>bootstrap-forum.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\sandstone\bootstrap-forum.css">
-      <DependentUpon>bootstrap-forum.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\sandstone\bootstrap-forum.min.css">
-      <DependentUpon>bootstrap-forum.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\simplex\bootstrap-forum.css">
-      <DependentUpon>bootstrap-forum.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\simplex\bootstrap-forum.min.css">
-      <DependentUpon>bootstrap-forum.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\sketchy\bootstrap-forum.css">
-      <DependentUpon>bootstrap-forum.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\sketchy\bootstrap-forum.min.css">
-      <DependentUpon>bootstrap-forum.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\slate\bootstrap-forum.css">
-      <DependentUpon>bootstrap-forum.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\slate\bootstrap-forum.min.css">
-      <DependentUpon>bootstrap-forum.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\solar\bootstrap-forum.css">
-      <DependentUpon>bootstrap-forum.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\solar\bootstrap-forum.min.css">
-      <DependentUpon>bootstrap-forum.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\spacelab\bootstrap-forum.css">
-      <DependentUpon>bootstrap-forum.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\spacelab\bootstrap-forum.min.css">
-      <DependentUpon>bootstrap-forum.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\superhero\bootstrap-forum.css">
-      <DependentUpon>bootstrap-forum.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\superhero\bootstrap-forum.min.css">
-      <DependentUpon>bootstrap-forum.css</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\united\bootstrap-forum.css">
-      <DependentUpon>bootstrap-forum.scss</DependentUpon>
-    </Content>
-    <Content Include="Content\Themes\united\bootstrap-forum.min.css">
-      <DependentUpon>bootstrap-forum.css</DependentUpon>
-    </Content>
     <Content Include="Content\bootstrap-notify.css" />
     <Content Include="Content\flags\1x1\ad.svg" />
     <Content Include="Content\flags\1x1\ae.svg" />
@@ -1891,36 +1758,312 @@
     </Content>
     <Content Include="Content\images\InstallBackground.jpg" />
     <Content Include="Content\prism.css" />
+    <Content Include="Content\Themes\cerulean\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\cerulean\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\cerulean\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\cerulean\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\cerulean\EmailTemplate.html" />
+    <Content Include="Content\Themes\cerulean\LICENSE.md" />
+    <Content Include="Content\Themes\cerulean\_bootswatch.scss" />
+    <Content Include="Content\Themes\cerulean\_variables.scss" />
+    <Content Include="Content\Themes\cosmo\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\cosmo\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\cosmo\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\cosmo\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\cosmo\EmailTemplate.html" />
+    <Content Include="Content\Themes\cosmo\LICENSE.md" />
+    <Content Include="Content\Themes\cosmo\_bootswatch.scss" />
+    <Content Include="Content\Themes\cosmo\_variables.scss" />
     <Content Include="Content\Themes\cyborg\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
     </Content>
     <Content Include="Content\Themes\cyborg\bootstrap-forum.min.css">
       <DependentUpon>bootstrap-forum.css</DependentUpon>
     </Content>
+    <Content Include="Content\Themes\cyborg\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\cyborg\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\cyborg\EmailTemplate.html" />
+    <Content Include="Content\Themes\cyborg\LICENSE.md" />
+    <Content Include="Content\Themes\cyborg\_bootswatch.scss" />
+    <Content Include="Content\Themes\cyborg\_variables.scss" />
+    <Content Include="Content\Themes\darkly\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\darkly\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\darkly\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\darkly\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\darkly\EmailTemplate.html" />
+    <Content Include="Content\Themes\darkly\LICENSE.md" />
+    <Content Include="Content\Themes\darkly\_bootswatch.scss" />
+    <Content Include="Content\Themes\darkly\_variables.scss" />
+    <Content Include="Content\Themes\flatly\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\flatly\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\flatly\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\flatly\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\flatly\EmailTemplate.html" />
+    <Content Include="Content\Themes\flatly\LICENSE.md" />
+    <Content Include="Content\Themes\flatly\_bootswatch.scss" />
+    <Content Include="Content\Themes\flatly\_variables.scss" />
+    <Content Include="Content\Themes\journal\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\journal\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\journal\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\journal\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\journal\EmailTemplate.html" />
+    <Content Include="Content\Themes\journal\LICENSE.md" />
+    <Content Include="Content\Themes\journal\_bootswatch.scss" />
+    <Content Include="Content\Themes\journal\_variables.scss" />
+    <Content Include="Content\Themes\litera\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\litera\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\litera\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\litera\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\litera\EmailTemplate.html" />
+    <Content Include="Content\Themes\litera\LICENSE.md" />
+    <Content Include="Content\Themes\litera\_bootswatch.scss" />
+    <Content Include="Content\Themes\litera\_variables.scss" />
+    <Content Include="Content\Themes\lumen\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\lumen\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\lumen\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\lumen\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\lumen\EmailTemplate.html" />
+    <Content Include="Content\Themes\lumen\LICENSE.md" />
+    <Content Include="Content\Themes\lumen\_bootswatch.scss" />
+    <Content Include="Content\Themes\lumen\_variables.scss" />
+    <Content Include="Content\Themes\lux\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\lux\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\lux\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\lux\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\lux\EmailTemplate.html" />
+    <Content Include="Content\Themes\lux\LICENSE.md" />
+    <Content Include="Content\Themes\lux\_bootswatch.scss" />
+    <Content Include="Content\Themes\lux\_variables.scss" />
+    <Content Include="Content\Themes\materia\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\materia\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\materia\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\materia\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\materia\EmailTemplate.html" />
+    <Content Include="Content\Themes\materia\LICENSE.md" />
+    <Content Include="Content\Themes\materia\_bootswatch.scss" />
+    <Content Include="Content\Themes\materia\_variables.scss" />
+    <Content Include="Content\Themes\minty\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\minty\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\minty\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\minty\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\minty\EmailTemplate.html" />
+    <Content Include="Content\Themes\minty\LICENSE.md" />
+    <Content Include="Content\Themes\minty\_bootswatch.scss" />
+    <Content Include="Content\Themes\minty\_variables.scss" />
+    <Content Include="Content\Themes\morph\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\morph\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\morph\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\morph\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\morph\EmailTemplate.html" />
+    <Content Include="Content\Themes\morph\_bootswatch.scss" />
+    <Content Include="Content\Themes\morph\_variables.scss" />
+    <Content Include="Content\Themes\pulse\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\pulse\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\pulse\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\pulse\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\pulse\EmailTemplate.html" />
+    <Content Include="Content\Themes\pulse\LICENSE.md" />
+    <Content Include="Content\Themes\pulse\_bootswatch.scss" />
+    <Content Include="Content\Themes\pulse\_variables.scss" />
+    <Content Include="Content\Themes\quartz\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\quartz\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\quartz\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\quartz\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\quartz\EmailTemplate.html" />
+    <Content Include="Content\Themes\quartz\_bootswatch.scss" />
+    <Content Include="Content\Themes\quartz\_variables.scss" />
+    <Content Include="Content\Themes\sandstone\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\sandstone\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\sandstone\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\sandstone\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\sandstone\EmailTemplate.html" />
+    <Content Include="Content\Themes\sandstone\LICENSE.md" />
+    <Content Include="Content\Themes\sandstone\_bootswatch.scss" />
+    <Content Include="Content\Themes\sandstone\_variables.scss" />
+    <Content Include="Content\Themes\simplex\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\simplex\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\simplex\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\simplex\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\simplex\EmailTemplate.html" />
+    <Content Include="Content\Themes\simplex\LICENSE.md" />
+    <Content Include="Content\Themes\simplex\_bootswatch.scss" />
+    <Content Include="Content\Themes\simplex\_variables.scss" />
+    <Content Include="Content\Themes\sketchy\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\sketchy\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\sketchy\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\sketchy\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\sketchy\EmailTemplate.html" />
+    <Content Include="Content\Themes\sketchy\LICENSE.md" />
+    <Content Include="Content\Themes\sketchy\_bootswatch.scss" />
+    <Content Include="Content\Themes\sketchy\_variables.scss" />
+    <Content Include="Content\Themes\slate\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\slate\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\slate\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\slate\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\slate\EmailTemplate.html" />
+    <Content Include="Content\Themes\slate\LICENSE.md" />
+    <Content Include="Content\Themes\slate\_bootswatch.scss" />
+    <Content Include="Content\Themes\slate\_variables.scss" />
+    <Content Include="Content\Themes\solar\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\solar\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\solar\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\solar\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\solar\EmailTemplate.html" />
+    <Content Include="Content\Themes\solar\LICENSE.md" />
+    <Content Include="Content\Themes\solar\_bootswatch.scss" />
+    <Content Include="Content\Themes\solar\_variables.scss" />
+    <Content Include="Content\Themes\spacelab\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\spacelab\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\spacelab\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\spacelab\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\spacelab\EmailTemplate.html" />
+    <Content Include="Content\Themes\spacelab\LICENSE.md" />
+    <Content Include="Content\Themes\spacelab\_bootswatch.scss" />
+    <Content Include="Content\Themes\spacelab\_variables.scss" />
+    <Content Include="Content\Themes\superhero\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\superhero\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\superhero\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\superhero\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\superhero\EmailTemplate.html" />
+    <Content Include="Content\Themes\superhero\LICENSE.md" />
+    <Content Include="Content\Themes\superhero\_bootswatch.scss" />
+    <Content Include="Content\Themes\superhero\_variables.scss" />
+    <Content Include="Content\Themes\united\bootstrap-forum.css">
+      <DependentUpon>bootstrap-forum.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\united\bootstrap-forum.min.css">
+      <DependentUpon>bootstrap-forum.css</DependentUpon>
+    </Content>
+    <Content Include="Content\Themes\united\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\united\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\united\EmailTemplate.html" />
+    <Content Include="Content\Themes\united\LICENSE.md" />
+    <Content Include="Content\Themes\united\_bootswatch.scss" />
+    <Content Include="Content\Themes\united\_variables.scss" />
     <Content Include="Content\Themes\vapor\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
     </Content>
     <Content Include="Content\Themes\vapor\bootstrap-forum.min.css">
       <DependentUpon>bootstrap-forum.css</DependentUpon>
     </Content>
+    <Content Include="Content\Themes\vapor\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\vapor\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\vapor\EmailTemplate.html" />
+    <Content Include="Content\Themes\vapor\_bootswatch.scss" />
+    <Content Include="Content\Themes\vapor\_variables.scss" />
     <Content Include="Content\Themes\yaf\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
     </Content>
     <Content Include="Content\Themes\yaf\bootstrap-forum.min.css">
       <DependentUpon>bootstrap-forum.css</DependentUpon>
     </Content>
+    <Content Include="Content\Themes\yaf\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\yaf\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\yaf\EmailTemplate.html" />
+    <Content Include="Content\Themes\yaf\_variables.scss" />
     <Content Include="Content\Themes\yeti\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
     </Content>
     <Content Include="Content\Themes\yeti\bootstrap-forum.min.css">
       <DependentUpon>bootstrap-forum.css</DependentUpon>
     </Content>
+    <Content Include="Content\Themes\yeti\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\yeti\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\yeti\EmailTemplate.html" />
+    <Content Include="Content\Themes\yeti\LICENSE.md" />
+    <Content Include="Content\Themes\yeti\_bootswatch.scss" />
+    <Content Include="Content\Themes\yeti\_variables.scss" />
     <Content Include="Content\Themes\zephyr\bootstrap-forum.css">
       <DependentUpon>bootstrap-forum.scss</DependentUpon>
     </Content>
     <Content Include="Content\Themes\zephyr\bootstrap-forum.min.css">
       <DependentUpon>bootstrap-forum.css</DependentUpon>
     </Content>
+    <Content Include="Content\Themes\zephyr\bootstrap-forum.scss" />
+    <Content Include="Content\Themes\zephyr\DigestTopicTemplate.html" />
+    <Content Include="Content\Themes\zephyr\EmailTemplate.html" />
+    <Content Include="Content\Themes\zephyr\_bootswatch.scss" />
+    <Content Include="Content\Themes\zephyr\_variables.scss" />
     <Content Include="Controls\EditUsersAttachments.ascx" />
     <Content Include="Controls\EditUsersResetPass.ascx" />
     <Content Include="Controls\OpenAuthProviders.ascx" />
@@ -1993,7 +2136,6 @@
     <Content Include="Dialogs\SpamWordsEdit.ascx" />
     <Content Include="Dialogs\BannedEmailImport.ascx" />
     <Content Include="Dialogs\BBCodeImport.ascx" />
-    <Content Include="digest.aspx" />
     <Content Include="default.aspx" />
     <Content Include="error.aspx" />
     <Content Include="Global.asax" />
@@ -2144,7 +2286,6 @@
     <Content Include="Pages\Profile\Subscriptions.ascx" />
     <Content Include="Pages\DeleteMessage.ascx" />
     <Content Include="Pages\EmailTopic.ascx" />
-    <Content Include="Controls\EmailDigest.ascx" />
     <Content Include="Pages\Board.ascx" />
     <Content Include="Pages\Help.ascx" />
     <Content Include="Pages\Email.ascx" />
@@ -2174,6 +2315,7 @@
     <Content Include="Pages\Search.ascx" />
     <Content Include="Pages\Team.ascx" />
     <Content Include="Pages\Topics.ascx" />
+    <Content Include="Resources\DigestTopicTemplate.html" />
     <Content Include="Resources\EmailTemplate.html" />
     <Content Include="Resources\HelpMenuList.xml" />
     <Content Include="robots.txt" />
@@ -2632,7 +2774,6 @@
     <Content Include="packages.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Content\Themes\yaf\bootstrap-forum.scss" />
     <Content Include="Content\forum\dropdowns.scss" />
     <Content Include="Content\forum\social-icons.scss" />
     <Content Include="Content\forum\button-scroll.scss" />
@@ -2641,76 +2782,12 @@
     <Content Include="Content\forum\editor.scss" />
     <None Include="Content\forum\user-albums.scss" />
     <None Include="Content\InstallWizard.scss" />
-    <Content Include="Content\Themes\cerulean\_bootswatch.scss" />
-    <Content Include="Content\Themes\cerulean\_variables.scss" />
-    <Content Include="Content\Themes\cosmo\_bootswatch.scss" />
-    <Content Include="Content\Themes\cosmo\_variables.scss" />
-    <Content Include="Content\Themes\cyborg\_bootswatch.scss" />
-    <Content Include="Content\Themes\cyborg\_variables.scss" />
-    <Content Include="Content\Themes\darkly\_bootswatch.scss" />
-    <Content Include="Content\Themes\darkly\_variables.scss" />
-    <Content Include="Content\Themes\flatly\_bootswatch.scss" />
-    <Content Include="Content\Themes\flatly\_variables.scss" />
-    <Content Include="Content\Themes\journal\_bootswatch.scss" />
-    <Content Include="Content\Themes\journal\_variables.scss" />
-    <Content Include="Content\Themes\litera\_bootswatch.scss" />
-    <Content Include="Content\Themes\litera\_variables.scss" />
-    <Content Include="Content\Themes\lumen\_bootswatch.scss" />
-    <Content Include="Content\Themes\lumen\_variables.scss" />
-    <Content Include="Content\Themes\lux\_bootswatch.scss" />
-    <Content Include="Content\Themes\lux\_variables.scss" />
-    <Content Include="Content\Themes\materia\_bootswatch.scss" />
-    <Content Include="Content\Themes\materia\_variables.scss" />
-    <Content Include="Content\Themes\minty\_bootswatch.scss" />
-    <Content Include="Content\Themes\minty\_variables.scss" />
-    <Content Include="Content\Themes\pulse\_bootswatch.scss" />
-    <Content Include="Content\Themes\pulse\_variables.scss" />
-    <Content Include="Content\Themes\sandstone\_bootswatch.scss" />
-    <Content Include="Content\Themes\sandstone\_variables.scss" />
-    <Content Include="Content\Themes\simplex\_bootswatch.scss" />
-    <Content Include="Content\Themes\simplex\_variables.scss" />
-    <Content Include="Content\Themes\sketchy\_bootswatch.scss" />
-    <Content Include="Content\Themes\sketchy\_variables.scss" />
-    <Content Include="Content\Themes\slate\_bootswatch.scss" />
-    <Content Include="Content\Themes\slate\_variables.scss" />
-    <Content Include="Content\Themes\solar\_bootswatch.scss" />
-    <Content Include="Content\Themes\solar\_variables.scss" />
-    <Content Include="Content\Themes\spacelab\_bootswatch.scss" />
-    <Content Include="Content\Themes\spacelab\_variables.scss" />
-    <Content Include="Content\Themes\superhero\_bootswatch.scss" />
-    <Content Include="Content\Themes\superhero\_variables.scss" />
-    <Content Include="Content\Themes\united\_bootswatch.scss" />
-    <Content Include="Content\Themes\united\_variables.scss" />
-    <Content Include="Content\Themes\yeti\_bootswatch.scss" />
-    <Content Include="Content\Themes\yeti\_variables.scss" />
-    <Content Include="Content\Themes\cyborg\bootstrap-forum.scss" />
-    <Content Include="Content\Themes\sandstone\bootstrap-forum.scss" />
-    <Content Include="Content\Themes\pulse\bootstrap-forum.scss" />
-    <Content Include="Content\Themes\minty\bootstrap-forum.scss" />
-    <Content Include="Content\Themes\materia\bootstrap-forum.scss" />
-    <Content Include="Content\Themes\lux\bootstrap-forum.scss" />
-    <Content Include="Content\Themes\lumen\bootstrap-forum.scss" />
-    <Content Include="Content\Themes\litera\bootstrap-forum.scss" />
-    <Content Include="Content\Themes\journal\bootstrap-forum.scss" />
-    <Content Include="Content\Themes\flatly\bootstrap-forum.scss" />
-    <Content Include="Content\Themes\darkly\bootstrap-forum.scss" />
-    <Content Include="Content\Themes\cosmo\bootstrap-forum.scss" />
-    <Content Include="Content\Themes\cerulean\bootstrap-forum.scss" />
-    <Content Include="Content\Themes\simplex\bootstrap-forum.scss" />
-    <Content Include="Content\Themes\slate\bootstrap-forum.scss" />
-    <Content Include="Content\Themes\solar\bootstrap-forum.scss" />
-    <Content Include="Content\Themes\spacelab\bootstrap-forum.scss" />
-    <Content Include="Content\Themes\united\bootstrap-forum.scss" />
-    <Content Include="Content\Themes\yeti\bootstrap-forum.scss" />
-    <Content Include="Content\Themes\superhero\bootstrap-forum.scss" />
-    <Content Include="Content\Themes\sketchy\bootstrap-forum.scss" />
     <Content Include="Content\webfonts\fa-brands-400.ttf" />
     <Content Include="Content\webfonts\fa-brands-400.woff2" />
     <Content Include="Content\webfonts\fa-regular-400.ttf" />
     <Content Include="Content\webfonts\fa-regular-400.woff2" />
     <Content Include="Content\webfonts\fa-solid-900.ttf" />
     <Content Include="Content\webfonts\fa-solid-900.woff2" />
-    <Content Include="Content\Themes\yaf\_variables.scss" />
     <None Include="Content\forum.scss" />
     <Content Include="recommended.web.config">
       <SubType>Designer</SubType>
@@ -2724,41 +2801,88 @@
     <Content Include="Scripts\editor\editor.min.js" />
     <Content Include="UrlRewriter.config" />
     <Content Include="Content\netStack.scss" />
-    <Content Include="Content\Themes\cerulean\LICENSE.md" />
-    <Content Include="Content\Themes\cosmo\LICENSE.md" />
-    <Content Include="Content\Themes\cyborg\LICENSE.md" />
-    <Content Include="Content\Themes\darkly\LICENSE.md" />
-    <Content Include="Content\Themes\flatly\LICENSE.md" />
-    <Content Include="Content\Themes\journal\LICENSE.md" />
-    <Content Include="Content\Themes\litera\LICENSE.md" />
-    <Content Include="Content\Themes\lumen\LICENSE.md" />
-    <Content Include="Content\Themes\lux\LICENSE.md" />
-    <Content Include="Content\Themes\materia\LICENSE.md" />
-    <Content Include="Content\Themes\minty\LICENSE.md" />
-    <Content Include="Content\Themes\pulse\LICENSE.md" />
-    <Content Include="Content\Themes\sandstone\LICENSE.md" />
-    <Content Include="Content\Themes\simplex\LICENSE.md" />
-    <Content Include="Content\Themes\sketchy\LICENSE.md" />
-    <Content Include="Content\Themes\slate\LICENSE.md" />
-    <Content Include="Content\Themes\solar\LICENSE.md" />
-    <Content Include="Content\Themes\spacelab\LICENSE.md" />
-    <Content Include="Content\Themes\superhero\LICENSE.md" />
-    <Content Include="Content\Themes\united\LICENSE.md" />
-    <Content Include="Content\Themes\yeti\LICENSE.md" />
-    <Content Include="Content\Themes\morph\_bootswatch.scss" />
-    <Content Include="Content\Themes\morph\_variables.scss" />
-    <Content Include="Content\Themes\quartz\_bootswatch.scss" />
-    <Content Include="Content\Themes\quartz\_variables.scss" />
-    <Content Include="Content\Themes\vapor\_bootswatch.scss" />
-    <Content Include="Content\Themes\vapor\_variables.scss" />
-    <Content Include="Content\Themes\zephyr\_bootswatch.scss" />
-    <Content Include="Content\Themes\zephyr\_variables.scss" />
-    <Content Include="Content\Themes\zephyr\bootstrap-forum.scss" />
-    <Content Include="Content\Themes\vapor\bootstrap-forum.scss" />
-    <Content Include="Content\Themes\morph\bootstrap-forum.scss" />
-    <Content Include="Content\Themes\quartz\bootstrap-forum.scss" />
     <Content Include="Content\webfonts\fa-v4compatibility.ttf" />
     <Content Include="Content\webfonts\fa-v4compatibility.woff2" />
+    <Content Include="Content\Themes\cerulean\bootstrap-email.scss" />
+    <Content Include="Content\Themes\cerulean\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\cerulean\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\cosmo\bootstrap-email.scss" />
+    <Content Include="Content\Themes\cosmo\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\cosmo\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\cyborg\bootstrap-email.scss" />
+    <Content Include="Content\Themes\cyborg\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\cyborg\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\darkly\bootstrap-email.scss" />
+    <Content Include="Content\Themes\darkly\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\darkly\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\flatly\bootstrap-email.scss" />
+    <Content Include="Content\Themes\flatly\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\flatly\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\journal\bootstrap-email.scss" />
+    <Content Include="Content\Themes\journal\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\journal\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\litera\bootstrap-email.scss" />
+    <Content Include="Content\Themes\litera\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\litera\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\lumen\bootstrap-email.scss" />
+    <Content Include="Content\Themes\lumen\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\lumen\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\lux\bootstrap-email.scss" />
+    <Content Include="Content\Themes\lux\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\lux\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\materia\bootstrap-email.scss" />
+    <Content Include="Content\Themes\materia\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\materia\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\minty\bootstrap-email.scss" />
+    <Content Include="Content\Themes\minty\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\minty\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\morph\bootstrap-email.scss" />
+    <Content Include="Content\Themes\morph\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\morph\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\morph\LICENSE.md" />
+    <Content Include="Content\Themes\pulse\bootstrap-email.scss" />
+    <Content Include="Content\Themes\pulse\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\pulse\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\quartz\bootstrap-email.scss" />
+    <Content Include="Content\Themes\quartz\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\quartz\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\sandstone\bootstrap-email.scss" />
+    <Content Include="Content\Themes\sandstone\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\sandstone\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\simplex\bootstrap-email.scss" />
+    <Content Include="Content\Themes\simplex\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\simplex\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\sketchy\bootstrap-email.scss" />
+    <Content Include="Content\Themes\sketchy\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\sketchy\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\slate\bootstrap-email.scss" />
+    <Content Include="Content\Themes\slate\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\slate\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\solar\bootstrap-email.scss" />
+    <Content Include="Content\Themes\solar\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\solar\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\spacelab\bootstrap-email.scss" />
+    <Content Include="Content\Themes\spacelab\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\spacelab\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\superhero\bootstrap-email.scss" />
+    <Content Include="Content\Themes\superhero\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\superhero\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\united\bootstrap-email.scss" />
+    <Content Include="Content\Themes\united\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\united\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\vapor\bootstrap-email.scss" />
+    <Content Include="Content\Themes\vapor\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\vapor\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\yaf\bootstrap-email.scss" />
+    <Content Include="Content\Themes\yaf\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\yaf\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\yaf\_variables-email.scss" />
+    <Content Include="Content\Themes\yeti\bootstrap-email.scss" />
+    <Content Include="Content\Themes\yeti\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\yeti\bootstrap_email.config.rb" />
+    <Content Include="Content\Themes\zephyr\bootstrap-email.scss" />
+    <Content Include="Content\Themes\zephyr\bootstrap-forum.css.map" />
+    <Content Include="Content\Themes\zephyr\bootstrap_email.config.rb" />
     <None Include="package.json" />
     <Content Include="Resources\mimeTypes.json" />
     <Content Include="Scripts\bs5-lightbox\.babelrc" />

@@ -588,30 +588,31 @@ public class DataBroker : IHaveServiceLocator
     }
 
     /// <summary>
-    ///     Get a simple forum/topic listing.
+    ///   Get topics for digest mail
     /// </summary>
     /// <param name="boardId"> The board Id. </param>
     /// <param name="userId"> The user Id. </param>
     /// <param name="timeFrame"> The time Frame. </param>
     /// <param name="maxCount"> The max Count. </param>
     /// <returns> The get simple forum topic. </returns>
-    public List<SimpleForum> GetSimpleForumTopic(int boardId, int userId, DateTime timeFrame, int maxCount)
+    public List<PagedTopic> GetDigestTopics(int boardId, int userId, DateTime timeFrame, int maxCount)
     {
         // If the user is not logged in (Active Access Table is empty), we need to make sure the Active Access Tables are set
         this.GetRepository<ActiveAccess>().InsertPageAccess(boardId, userId, false);
 
-        var forumData = this.GetRepository<Forum>().ListAllWithAccess(boardId, userId)
-            .Select(x => new SimpleForum { ForumID = x.Item1.ID, Name = x.Item1.Name }).ToList();
+        var forums = this.GetRepository<Forum>().ListAllWithAccess(boardId, userId);
+
+        var topics = new List<PagedTopic>();
 
         // get topics for all forums...
-        forumData.ForEach(forum =>
+        forums.ForEach(forum =>
             {
-                var forum1 = forum;
+                var forum1 = forum.Item1;
 
                 // add topics
-                var topics =
+               var forumTopics =
                     this.GetRepository<Topic>().ListPaged(
-                        forum1.ForumID,
+                        forum1.ID,
                         userId,
                         timeFrame,
                         0,
@@ -619,13 +620,10 @@ public class DataBroker : IHaveServiceLocator
                         false);
 
                 // filter first...
-                forum.Topics =
-                    topics.Where(x => x.LastPosted >= timeFrame)
-                        .Select(x => this.LoadSimpleTopic(x, forum1))
-                        .ToList();
+                topics.AddRange(forumTopics.Where(x => x.LastPosted >= timeFrame).ToList());
             });
 
-        return forumData;
+        return topics;
     }
 
     /// <summary>
@@ -638,42 +636,5 @@ public class DataBroker : IHaveServiceLocator
             Constants.Cache.ForumModerators,
             () => this.GetRepository<User>().GetForumModerators(),
             TimeSpan.FromMinutes(this.Get<BoardSettings>().BoardModeratorsCacheTimeout));
-    }
-
-    /// <summary>
-    /// The load simple topic.
-    /// </summary>
-    /// <param name="topic">
-    /// The topic.
-    /// </param>
-    /// <param name="forum">
-    /// The forum.
-    /// </param>
-    /// <returns>
-    /// Returns the simple topic.
-    /// </returns>
-    [NotNull]
-    private SimpleTopic LoadSimpleTopic([NotNull] PagedTopic topic, [NotNull] SimpleForum forum)
-    {
-        CodeContracts.VerifyNotNull(forum);
-
-        return new SimpleTopic
-                   {
-                       TopicID = topic.TopicID,
-                       CreatedDate = topic.Posted,
-                       Subject = topic.Subject,
-                       StartedUserID = topic.UserID,
-                       StartedUserName =
-                           this.Get<BoardSettings>().EnableDisplayName ? topic.StarterDisplay : topic.Starter,
-                       Replies = topic.Replies,
-                       LastPostDate = topic.LastPosted.Value,
-                       LastUserID = topic.LastUserID.Value,
-                       LastUserName =
-                           this.Get<BoardSettings>().EnableDisplayName ? topic.LastUserDisplayName : topic.LastUserName,
-                       LastMessageID = topic.LastMessageID.Value,
-                       FirstMessage = topic.FirstMessage,
-                       LastMessage = this.GetRepository<Message>().GetById(topic.LastMessageID.Value).MessageText,
-                       Forum = forum
-                   };
     }
 }

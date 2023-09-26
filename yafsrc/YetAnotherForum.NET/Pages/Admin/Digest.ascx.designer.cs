@@ -69,42 +69,6 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.ThemeButton Button2;
 
         /// <summary>
-        /// DigestHtmlPlaceHolder-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder DigestHtmlPlaceHolder;
-
-        /// <summary>
-        /// LocalizedLabel6-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Web.Controls.LocalizedLabel LocalizedLabel6;
-
-        /// <summary>
-        /// DigestFrame-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlIframe DigestFrame;
-
-        /// <summary>
-        /// GenerateDigest-Steuerelement.
-        /// </summary>
-        /// <remarks>
-        /// Automatisch generiertes Feld.
-        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton GenerateDigest;
-
-        /// <summary>
         /// LocalizedLabel7-Steuerelement.
         /// </summary>
         /// <remarks>

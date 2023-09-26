@@ -89,8 +89,6 @@ public static class BoardRepositoryExtensions
         BoardContext.Current.GetRepository<Registry>().Save("culture", culture);
         BoardContext.Current.GetRepository<Registry>().Save("language", languageFile);
 
-        BoardContext.Current.GetRepository<Registry>().Save("webservicetoken", Guid.NewGuid().ToString());
-
         // -- Rank
         var rankIdAdmin = BoardContext.Current.GetRepository<Rank>().Insert(
             new Rank

@@ -2000,16 +2000,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets WebServiceToken.
-    /// </summary>
-    public string WebServiceToken
-    {
-        get => this.Registry.GetValue("WebServiceToken", Guid.NewGuid().ToString());
-
-        set => this.Registry.SetValue("WebServiceToken", value);
-    }
-
-    /// <summary>
     /// Gets or sets a value indicating whether ShowBrowsingUsers.
     /// </summary>
     public bool ShowBrowsingUsers

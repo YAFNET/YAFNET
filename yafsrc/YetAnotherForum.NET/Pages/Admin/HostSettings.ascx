@@ -292,12 +292,6 @@
                                 </div>
                             </div>
                             <div class="mb-3">
-                                <YAF:HelpLabel ID="HelpLabel10" runat="server"
-                                               AssociatedControlID="WebServiceToken"
-                                               LocalizedTag="WSERVICE_TOKEN" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <asp:TextBox CssClass="form-control" ID="WebServiceToken" runat="server"></asp:TextBox>
-                            </div>
-                            <div class="mb-3">
                                 <YAF:HelpLabel ID="HelpLabel9" runat="server"
                                                AssociatedControlID="EditTimeOut"
                                                LocalizedTag="POSTEDIT_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />

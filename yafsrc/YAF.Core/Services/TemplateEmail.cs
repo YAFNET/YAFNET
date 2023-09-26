@@ -28,6 +28,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net.Mail;
 
+using YAF.Types.Constants;
+
 /// <summary>
 ///     The YAF template email.
 /// </summary>
@@ -39,7 +41,7 @@ public class TemplateEmail : IHaveServiceLocator
     /// <param name="templateName">
     /// The template name.
     /// </param>
-    public TemplateEmail([CanBeNull]string templateName)
+    public TemplateEmail([CanBeNull] string templateName)
     {
         this.HtmlTemplateFileName = "EmailTemplate.html";
 
@@ -52,6 +54,8 @@ public class TemplateEmail : IHaveServiceLocator
         this.TemplateParams["{forumlink}"] = this.Get<LinkBuilder>().ForumUrl;
         this.TemplateParams["%%forumlink%%"] = this.Get<LinkBuilder>().ForumUrl;
         this.TemplateParams["%%logo%%"] = $"{this.Get<BoardSettings>().BaseUrlMask}{logoUrl}";
+        this.TemplateParams["%%manageLink%%"] =
+            this.Get<LinkBuilder>().GetAbsoluteLink(ForumPages.Profile_Subscriptions);
     }
 
     /// <summary>
@@ -193,6 +197,11 @@ public class TemplateEmail : IHaveServiceLocator
             this.Get<HttpContextBase>().Server.MapPath(this.Get<ITheme>().BuildThemePath(this.HtmlTemplateFileName)));
 
         var formattedBody = this.Get<IBBCode>().MakeHtml(textBody, true, true);
+
+        this.TemplateParams["{manageText}"] = this.Get<ILocalization>().GetText("DIGEST", "REMOVALTEXT", this.TemplateLanguageFile);
+
+        this.TemplateParams["{manageLinkText}"] =
+            this.Get<ILocalization>().GetText("DIGEST", "REMOVALLINK", this.TemplateLanguageFile);
 
         var html = this.TemplateParams.Keys.Aggregate(
             htmlTemplate,

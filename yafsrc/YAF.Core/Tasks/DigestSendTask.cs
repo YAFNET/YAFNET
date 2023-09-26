@@ -26,7 +26,6 @@ namespace YAF.Core.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Net.Mail;
-using System.Text.RegularExpressions;
 
 using YAF.Types.Constants;
 using YAF.Types.Models;
@@ -178,13 +177,6 @@ public class DigestSendTask : LongBackgroundTask
 
                     try
                     {
-                        var digestHtml = this.Get<IDigest>().GetDigestHtml(user, boardSettings);
-
-                        if (digestHtml.IsNotSet())
-                        {
-                            return;
-                        }
-
                         if (user.ProviderUserKey == null)
                         {
                             return;
@@ -195,17 +187,14 @@ public class DigestSendTask : LongBackgroundTask
                             return;
                         }
 
-                        var subject = Regex.Match(digestHtml, "<title>(.*?)</title>", RegexOptions.Singleline).Groups[1]
-                            .Value.Trim();
+                        var digestMail = this.Get<IDigest>().CreateDigest(
+                            user,
+                            boardEmail,
+                            user.Email,
+                            user.DisplayOrUserName());
 
                         // send the digest...
-                        mailMessages.Add(
-                            this.Get<IDigest>().CreateDigestMessage(
-                                subject.Trim(),
-                                digestHtml,
-                                boardEmail,
-                                user.Email,
-                                user.DisplayOrUserName()));
+                        mailMessages.Add(digestMail);
                     }
                     catch (Exception e)
                     {

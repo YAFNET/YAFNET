@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Interfaces.Services;
 
 using System.Net.Mail;
@@ -31,57 +32,15 @@ using System.Net.Mail;
 public interface IDigest
 {
     /// <summary>
-    /// Gets the digest HTML.
+    /// Creates the digest email
     /// </summary>
-    /// <param name="user">
-    /// The user.
-    /// </param>
-    /// <param name="boardSettings">
-    /// The board Settings.
-    /// </param>
-    /// <param name="showErrors">
-    /// The show Errors.
-    /// </param>
-    /// <returns>
-    /// The get digest html.
-    /// </returns>
-    string GetDigestHtml(User user, object boardSettings, bool showErrors = false);
-
-    /// <summary>
-    /// Gets the digest URL.
-    /// </summary>
-    /// <param name="userId">The user id.</param>
-    /// <param name="boardSettings">The board settings.</param>
-    /// <param name="showErrors">Show errors creating the digest.</param>
-    /// <returns>
-    /// The get digest url.
-    /// </returns>
-    public string GetDigestUrl(int userId, object boardSettings, bool showErrors);
-
-    /// <summary>
-    /// Creates the Digest Mail Message.
-    /// </summary>
-    /// <param name="subject">
-    /// The subject.
-    /// </param>
-    /// <param name="digestHtml">
-    /// The digest html.
-    /// </param>
-    /// <param name="boardAddress">
-    /// The board Address.
-    /// </param>
-    /// <param name="toEmail">
-    /// The to email.
-    /// </param>
-    /// <param name="toName">
-    /// The to name.
-    /// </param>
-    /// <returns>
-    /// The <see cref="MailMessage"/>.
-    /// </returns>
-    MailMessage CreateDigestMessage(
-        [NotNull] string subject,
-        [NotNull] string digestHtml,
+    /// <param name="user">The user.</param>
+    /// <param name="boardAddress">The board address.</param>
+    /// <param name="toEmail">To email.</param>
+    /// <param name="toName">To name.</param>
+    /// <returns>MailMessage.</returns>
+    MailMessage CreateDigest(
+        [NotNull] User user,
         [NotNull] MailAddress boardAddress,
         [NotNull] string toEmail,
         [CanBeNull] string toName);

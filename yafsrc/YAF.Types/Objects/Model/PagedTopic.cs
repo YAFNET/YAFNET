@@ -30,6 +30,11 @@ namespace YAF.Types.Objects.Model;
 public class PagedTopic
 {
     /// <summary>
+    /// Gets or sets the forum name.
+    /// </summary>
+    public string ForumName { get; set; }
+
+    /// <summary>
     /// Gets or sets the forum id.
     /// </summary>
     public int ForumID { get; set; }
@@ -202,5 +207,5 @@ public class PagedTopic
     /// <summary>
     /// Gets or sets the first message.
     /// </summary>
-    public string FirstMessage { get; set; }
+    public string LastMessage { get; set; }
 }
