@@ -1,0 +1,137 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v7.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v7.0": {
+      "BootstrapEmail.Cli/1.0.0": {
+        "dependencies": {
+          "BootstrapEmail.Net": "1.4.0",
+          "CommandLineParser": "2.9.1"
+        },
+        "runtime": {
+          "BootstrapEmail.Cli.dll": {}
+        }
+      },
+      "AngleSharp/0.16.1": {
+        "dependencies": {
+          "System.Buffers": "4.5.1",
+          "System.Text.Encoding.CodePages": "5.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/AngleSharp.dll": {
+            "assemblyVersion": "0.16.1.0",
+            "fileVersion": "0.16.1.0"
+          }
+        }
+      },
+      "CommandLineParser/2.9.1": {
+        "runtime": {
+          "lib/netstandard2.0/CommandLine.dll": {
+            "assemblyVersion": "2.9.1.0",
+            "fileVersion": "2.9.1.0"
+          }
+        }
+      },
+      "libsassnetstandard/3.3.8": {
+        "runtime": {
+          "lib/netstandard2.0/LibSass.NET.dll": {
+            "assemblyVersion": "4.0.0.0",
+            "fileVersion": "4.0.0.0"
+          }
+        }
+      },
+      "Microsoft.NETCore.Platforms/5.0.0": {},
+      "PreMailer.Net/2.4.0": {
+        "dependencies": {
+          "AngleSharp": "0.16.1"
+        },
+        "runtime": {
+          "lib/netstandard2.0/PreMailer.Net.dll": {
+            "assemblyVersion": "2.4.0.0",
+            "fileVersion": "2.4.0.0"
+          }
+        }
+      },
+      "System.Buffers/4.5.1": {},
+      "System.Text.Encoding.CodePages/5.0.0": {
+        "dependencies": {
+          "Microsoft.NETCore.Platforms": "5.0.0"
+        }
+      },
+      "BootstrapEmail.Net/1.4.0": {
+        "dependencies": {
+          "CommandLineParser": "2.9.1",
+          "PreMailer.Net": "2.4.0",
+          "libsassnetstandard": "3.3.8"
+        },
+        "runtime": {
+          "BootstrapEmail.Net.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BootstrapEmail.Cli/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AngleSharp/0.16.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-1k7Vbfmr5IUsGaR0QJwTe8XF9zacFUIoWxMgI4X/ipiyKxCWZJZoaG96fNEugL90iubvboRvE1IxuBPibET/Rg==",
+      "path": "anglesharp/0.16.1",
+      "hashPath": "anglesharp.0.16.1.nupkg.sha512"
+    },
+    "CommandLineParser/2.9.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OE0sl1/sQ37bjVsPKKtwQlWDgqaxWgtme3xZz7JssWUzg5JpMIyHgCTY9MVMxOg48fJ1AgGT3tgdH5m/kQ5xhA==",
+      "path": "commandlineparser/2.9.1",
+      "hashPath": "commandlineparser.2.9.1.nupkg.sha512"
+    },
+    "libsassnetstandard/3.3.8": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Fl2ZZM/QxFNPbskAWcNS1BdERWd/SC9CMZ1Qu/pwforWfxRhbelGInwIZtwO5ypQn6n6BTEw+tAa9ebZwQ/9pw==",
+      "path": "libsassnetstandard/3.3.8",
+      "hashPath": "libsassnetstandard.3.3.8.nupkg.sha512"
+    },
+    "Microsoft.NETCore.Platforms/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VyPlqzH2wavqquTcYpkIIAQ6WdenuKoFN0BdYBbCWsclXacSOHNQn66Gt4z5NBqEYW0FAPm5rlvki9ZiCij5xQ==",
+      "path": "microsoft.netcore.platforms/5.0.0",
+      "hashPath": "microsoft.netcore.platforms.5.0.0.nupkg.sha512"
+    },
+    "PreMailer.Net/2.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-eOVXdCItekNZnHdENffyHeo/yqeAO08Q3C1p8S6oBU1cDnrQWkq4iYIo4WDxwrgoqlvUAbBuZhQ+m6hXpJ73hQ==",
+      "path": "premailer.net/2.4.0",
+      "hashPath": "premailer.net.2.4.0.nupkg.sha512"
+    },
+    "System.Buffers/4.5.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Rw7ijyl1qqRS0YQD/WycNst8hUUMgrMH4FCn1nNm27M4VxchZ1js3fVjQaANHO5f3sN4isvP4a+Met9Y4YomAg==",
+      "path": "system.buffers/4.5.1",
+      "hashPath": "system.buffers.4.5.1.nupkg.sha512"
+    },
+    "System.Text.Encoding.CodePages/5.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-NyscU59xX6Uo91qvhOs2Ccho3AR2TnZPomo1Z0K6YpyztBPM/A5VbkzOO19sy3A3i1TtEnTxA7bCe3Us+r5MWg==",
+      "path": "system.text.encoding.codepages/5.0.0",
+      "hashPath": "system.text.encoding.codepages.5.0.0.nupkg.sha512"
+    },
+    "BootstrapEmail.Net/1.4.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

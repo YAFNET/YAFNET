@@ -1,0 +1,47 @@
+$btn-padding-y:               8px !default;
+$btn-padding-x:               12px !default;
+$btn-font-family:             $font-family-base !default;
+$btn-font-size:               $font-size-base !default;
+$btn-line-height:             1.25 * $btn-font-size !default;
+
+$btn-padding-y-sm:            0.25 * $btn-font-size !default;
+$btn-padding-x-sm:            0.5 * $btn-font-size !default;
+$btn-font-size-sm:            0.875 * $btn-font-size !default;
+$btn-line-height-sm:          $btn-line-height * 0.875 !default;
+
+$btn-padding-y-lg:            0.5 * $btn-font-size !default;
+$btn-padding-x-lg:            $btn-font-size !default;
+$btn-font-size-lg:            1.25 * $btn-font-size !default;
+$btn-line-height-lg:          $btn-line-height * 1.25 !default;
+
+$btn-border-width:            $border-width !default;
+$btn-font-weight:             $font-weight-base !default;
+$btn-border-radius:           $border-radius !default;
+$btn-border-radius-lg:        $border-radius-lg !default;
+$btn-border-radius-sm:        $border-radius-sm !default;
+
+
+/** Button Theme Structure Example
+ *
+ * $btn-themes: (
+ *   "primary": (
+ *     "background-color": blue,
+ *     "color": white,
+ *     "border-color": blue
+ *   ),
+ *   "outline-primary": (
+ *     "background-color": transparent,
+ *     "color": blue,
+ *     "border-color": blue
+ *   )
+ * )
+*/
+$tmp-btn-themes: ();
+@each $name, $color in $all-colors {
+  @if $name != "transparent" {
+    $tmp-btn-themes: map-merge($tmp-btn-themes, ($name: ("background-color": $color, "color": color-contrast($color), "border-color": $color)));
+    $tmp-btn-themes: map-merge($tmp-btn-themes, ("outline-#{$name}": ("background-color": transparent, "color": $color, "border-color": $color)));
+  }
+}
+
+$btn-themes: $tmp-btn-themes !default;
