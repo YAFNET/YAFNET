@@ -1,0 +1,169 @@
+//
+// This file will be placed in the head of the document and will not be inlined
+//
+@import 'scss/helpers';
+@import 'scss/variables';
+
+@if $font-faces {
+  @each $font-face in $font-faces {
+    // @font-face has the least quirks in email clients: https://www.litmus.com/blog/the-ultimate-guide-to-web-fonts
+    @font-face {
+      font-family: map-get($font-face, "font-family");
+      font-style: map-get($font-face, "font-style");
+      font-weight: map-get($font-face, "font-weight");
+      src: map-get($font-face, "src");
+    }
+  }
+}
+
+@import 'scss/reboot_head';
+
+/*! allow_purge_after */
+
+@media screen and (max-width: 600px) {
+  // Row Gap
+  @each $space, $value in $spacers {
+    .gap-#{$space}.row,
+    .gap-x-#{$space}.row {
+      margin-right: -1 * $value !important;
+      & > table > tbody > tr > td {
+        padding-right: $value !important;
+      }
+    }
+    .gap-#{$space}.row,
+    .gap-y-#{$space}.row {
+      margin-bottom: -1 * $value !important;
+      & > table > tbody > tr > td {
+        padding-bottom: $value !important;
+      }
+    }
+  }
+  .row-responsive.row {
+    margin-right: 0 !important;
+  }
+
+  // Stack Gap
+  @each $space, $value in $spacers {
+    table.gap-lg-#{$space}.stack-x > tbody > tr > td {
+      padding-right: 0 !important;
+    }
+    table.gap-lg-#{$space}.stack-y > tbody > tr > td {
+      padding-bottom: 0 !important;
+    }
+  }
+  @each $space, $value in $spacers {
+    table.gap-#{$space}.stack-x > tbody > tr > td {
+      padding-right: $value !important;
+    }
+    table.gap-#{$space}.stack-y > tbody > tr > td {
+      padding-bottom: $value !important;
+    }
+  }
+
+  //  Grid
+  @each $key, $value in $grid-cols {
+    td.col-lg-#{$key} {
+      display: block;
+      width: 100% !important;
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+  }
+  td.col-lg {
+    display: block;
+    width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  // Display
+  @each $display in $display-type {
+    .d-lg-#{$display} {
+      display: unset !important;
+    }
+  }
+  @each $display in $display-type {
+    .d-#{$display} {
+      display: $display !important;
+    }
+  }
+
+  // Sizing Max Width / Height
+  @each $name, $property in $sizing-types {
+    @include sizing-util('.max-#{$name}-lg-full') {
+      max-#{$property}: unset !important;
+      #{$property}: auto !important;
+    }
+    @each $size, $value in $sizing {
+      @include sizing-util('.max-#{$name}-lg-#{$size}') {
+        max-#{$property}: unset !important;
+        #{$property}: auto !important;
+      }
+    }
+  }
+  @each $name, $property in $sizing-types {
+    @include sizing-util('.max-#{$name}-full') {
+      max-#{$property}: 100% !important;
+      #{$property}: 100% !important;
+    }
+    @each $size, $value in $sizing {
+      @include sizing-util('.max-#{$name}-#{$size}') {
+        max-#{$property}: $value !important;
+        #{$property}: 100% !important;
+      }
+    }
+  }
+
+  // Sizing Width / Height
+  @each $name, $property in $sizing-types {
+    @include sizing-util('.#{$name}-lg-full') {
+      #{$property}: auto !important;
+    }
+    @include sizing-util('.#{$name}-lg-auto') {
+      #{$property}: auto !important;
+    }
+    @each $size, $value in $sizing {
+      @include sizing-util('.#{$name}-lg-#{$size}') {
+        #{$property}: auto !important;
+      }
+    }
+  }
+  @each $name, $property in $sizing-types {
+    @include sizing-util('.#{$name}-full') {
+      #{$property}: 100% !important;
+    }
+    @include sizing-util('.#{$name}-auto') {
+      #{$property}: auto !important;
+    }
+    @each $size, $value in $sizing {
+      @include sizing-util('.#{$name}-#{$size}') {
+        #{$property}: $value !important;
+      }
+    }
+  }
+
+  // Spacing
+  // Reset large padding to 0 on small device
+  @each $size, $value in $spacers {
+    @include padding-group('lg-', $size, unquote('0 !important'));
+  }
+
+  // Set proper padding on small devices
+  @each $size, $value in $spacers {
+    @include padding-group('', $size, unquote('#{$value} !important'));
+  }
+
+  // Spacers
+  @include spacer-util('*[class*=s-lg-]') {
+    font-size: 0 !important;
+    line-height: 0 !important;
+    height: 0 !important;
+  }
+  @each $size, $value in $spacers {
+    @include spacer-util('.s-#{$size}') {
+      font-size: $value !important;
+      line-height: $value !important;
+      height: $value !important;
+    }
+  }
+}
