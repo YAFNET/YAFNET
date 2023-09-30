@@ -39,7 +39,7 @@ public class MySqlDbAccess : DbAccessBase
     /// <param name="dbProviderFactory">
     /// The database provider factory.
     /// </param>
-    public MySqlDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory)
+    public MySqlDbAccess(Func<string, DbProviderFactory> dbProviderFactory)
         : base(dbProviderFactory, new MySqlDbInformation())
     {
     }

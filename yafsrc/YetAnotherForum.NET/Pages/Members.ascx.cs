@@ -49,7 +49,7 @@ public partial class Members : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    public void Search_Click([NotNull] object sender, [NotNull] EventArgs e)
+    public void Search_Click(object sender, EventArgs e)
     {
         // re-bind data
         this.BindData();
@@ -60,7 +60,7 @@ public partial class Members : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    public void Reset_Click([NotNull] object sender, [NotNull] EventArgs e)
+    public void Reset_Click(object sender, EventArgs e)
     {
         // re-direct to self.
         this.Get<LinkBuilder>().Redirect(ForumPages.Members);

@@ -52,7 +52,7 @@ public partial class Topics : ForumPage
     /// <param name="e">
     /// the Event Arguments
     /// </param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             "TopicStarterPopoverJs",
@@ -119,7 +119,7 @@ public partial class Topics : ForumPage
     /// <param name="e">
     /// The EventArgs object for the topics page.
     /// </param>
-    protected override void OnInit([NotNull] EventArgs e)
+    protected override void OnInit(EventArgs e)
     {
         // in case topic is deleted or not existent
         if (this.PageBoardContext.PageForum == null)
@@ -142,7 +142,7 @@ public partial class Topics : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         this.Get<ISession>().UnreadTopics = 0;
 
@@ -273,7 +273,7 @@ public partial class Topics : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void WatchForum_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void WatchForum_Click(object sender, EventArgs e)
     {
         if (!this.PageBoardContext.ForumReadAccess)
         {
@@ -421,7 +421,7 @@ public partial class Topics : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void MarkRead_Click([NotNull] object sender, [NotNull] EventArgs e)
+    private void MarkRead_Click(object sender, EventArgs e)
     {
         this.Get<IReadTrackCurrentUser>().SetForumRead(this.PageBoardContext.PageForumID);
 
@@ -433,7 +433,7 @@ public partial class Topics : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    private void Pager_PageChange(object sender, EventArgs e)
     {
         this.BindData();
     }
@@ -443,7 +443,7 @@ public partial class Topics : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void ShowList_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
+    private void ShowList_SelectedIndexChanged(object sender, EventArgs e)
     {
         this.showTopicListSelected = this.ShowList.SelectedIndex;
         this.BindData();
@@ -454,7 +454,7 @@ public partial class Topics : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void Topics_Unload([NotNull] object sender, [NotNull] EventArgs e)
+    private void Topics_Unload(object sender, EventArgs e)
     {
         if (this.Get<ISession>().UnreadTopics == 0)
         {

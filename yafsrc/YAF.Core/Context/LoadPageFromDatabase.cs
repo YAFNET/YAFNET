@@ -26,7 +26,6 @@ namespace YAF.Core.Context;
 
 using System;
 
-using YAF.Types.Attributes;
 using YAF.Types.Constants;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
@@ -45,7 +44,7 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
     /// <param name="logger">The logger.</param>
     /// <param name="dataCache">The data cache.</param>
     public LoadPageFromDatabase(
-        [NotNull] IServiceLocator serviceLocator, ILoggerService logger, [NotNull] IDataCache dataCache)
+        IServiceLocator serviceLocator, ILoggerService logger, IDataCache dataCache)
     {
         this.ServiceLocator = serviceLocator;
         this.Logger = logger;
@@ -81,7 +80,7 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
     /// <param name="event">
     /// The event.
     /// </param>
-    public void Handle([NotNull] InitPageLoadEvent @event)
+    public void Handle(InitPageLoadEvent @event)
     {
         string userKey = null;
 

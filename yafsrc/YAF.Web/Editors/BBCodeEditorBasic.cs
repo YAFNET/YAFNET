@@ -40,13 +40,13 @@ public class BBCodeEditorBasic : TextEditor
     /// <summary>
     ///   Gets the Description.
     /// </summary>
-    [NotNull]
+    
     public override string Description => "Standard BBCode Editor";
 
     /// <summary>
     ///   Gets SafeID.
     /// </summary>
-    [NotNull]
+    
     protected string SafeId => this.TextAreaControl.ClientID.Replace("$", "_");
 
     /// <summary>
@@ -72,7 +72,7 @@ public class BBCodeEditorBasic : TextEditor
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected override void Editor_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+    protected override void Editor_PreRender(object sender, EventArgs e)
     {
         base.Editor_PreRender(sender, e);
 
@@ -98,7 +98,7 @@ public class BBCodeEditorBasic : TextEditor
     /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-    protected override void OnInit([NotNull] EventArgs e)
+    protected override void OnInit(EventArgs e)
     {
         base.OnInit(e);
         this.TextAreaControl.Attributes.Add("class", "BBCodeEditor form-control");
@@ -108,7 +108,7 @@ public class BBCodeEditorBasic : TextEditor
     /// Sends server control content to a provided <see cref="T:System.Web.UI.HtmlTextWriter" /> object, which writes the content to be rendered on the client.
     /// </summary>
     /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the server control content.</param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         writer.Write("<div class=\"card\">");
 
@@ -181,11 +181,11 @@ public class BBCodeEditorBasic : TextEditor
     /// <param name="icon">The icon.</param>
     /// <param name="id">The identifier.</param>
     private static void RenderButton(
-        [NotNull] TextWriter writer,
-        [NotNull] string command,
-        [NotNull] string title,
-        [NotNull] string icon,
-        [CanBeNull] string id = null)
+        TextWriter writer,
+        string command,
+        string title,
+        string icon,
+        string id = null)
     {
         writer.WriteLine(
             """

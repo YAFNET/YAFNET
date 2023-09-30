@@ -62,7 +62,7 @@ public partial class Medals : AdminPage
     /// </summary>
     /// <param name="source">The source of the event.</param>
     /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-    protected void MedalListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    protected void MedalListItemCommand(object source, RepeaterCommandEventArgs e)
     {
         var medalId = e.CommandArgument.ToType<int>();
 
@@ -91,7 +91,7 @@ public partial class Medals : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void NewMedalClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void NewMedalClick(object sender, EventArgs e)
     {
         // redirect to medal edit page
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditMedal);
@@ -102,7 +102,7 @@ public partial class Medals : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         // this needs to be done just once, not during post-backs
         if (this.IsPostBack)
@@ -123,8 +123,8 @@ public partial class Medals : AdminPage
     /// <returns>
     /// HTML markup with image representation of a medal.
     /// </returns>
-    [NotNull]
-    protected string RenderImages([NotNull] object data)
+    
+    protected string RenderImages(object data)
     {
         var output = new StringBuilder();
 

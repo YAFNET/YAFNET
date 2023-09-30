@@ -26,8 +26,6 @@ namespace YAF.Modules;
 
 using System.Web.UI.HtmlControls;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 ///     Generates the Favicon code inside the head section
 /// </summary>
@@ -47,7 +45,7 @@ public class FaviconModule : SimpleBaseForumModule
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+    private void CurrentForumPage_PreRender(object sender, EventArgs e)
     {
         var head = this.ForumControl.Page.Header
                    ?? this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");

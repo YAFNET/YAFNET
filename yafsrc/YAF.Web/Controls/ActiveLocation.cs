@@ -69,7 +69,7 @@ public class ActiveLocation : BaseControl
     ///   Gets or sets the localization tag for the current location.
     ///   It should be  equal to page name
     /// </summary>
-    [NotNull]
+    
     public string ForumPage
     {
         get
@@ -126,7 +126,7 @@ public class ActiveLocation : BaseControl
     /// <summary>
     ///   Gets or sets the topic name of the current location
     /// </summary>
-    [NotNull]
+    
     public string TopicName
     {
         get => this.ViewState["TopicName"] != null ? this.ViewState["TopicName"].ToString() : string.Empty;
@@ -158,7 +158,7 @@ public class ActiveLocation : BaseControl
     /// <param name="writer">
     /// The output.
     /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         if (this.ForumPage.IsNotSet())
         {
@@ -332,7 +332,7 @@ public class ActiveLocation : BaseControl
     /// <returns>
     /// The string
     /// </returns>
-    private string RenderAlbumLocation([NotNull] string forumPageAttributes)
+    private string RenderAlbumLocation(string forumPageAttributes)
     {
         var outString = new StringBuilder();
 
@@ -400,7 +400,7 @@ public class ActiveLocation : BaseControl
     /// <returns>
     /// The string
     /// </returns>
-    private string RenderAlbumsLocation([NotNull] string forumPageAttributes)
+    private string RenderAlbumsLocation(string forumPageAttributes)
     {
         var outString = new StringBuilder();
 
@@ -442,7 +442,7 @@ public class ActiveLocation : BaseControl
     /// <returns>
     /// The profile.
     /// </returns>
-    private string RenderProfileLocation([NotNull] string forumPageAttributes)
+    private string RenderProfileLocation(string forumPageAttributes)
     {
         var outString = new StringBuilder();
 

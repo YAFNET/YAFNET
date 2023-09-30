@@ -86,7 +86,7 @@ public static class IRepositoryExtensions
     /// <typeparam name="T">
     /// The Typed Parameter
     /// </typeparam>
-    public static void FireNew<T>([NotNull] this IRepository<T> repository, int? id = null, T entity = null) where T : class, IEntity
+    public static void FireNew<T>(this IRepository<T> repository, int? id = null, T entity = null) where T : class, IEntity
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -105,7 +105,7 @@ public static class IRepositoryExtensions
     /// <typeparam name="T">
     /// The Typed Parameter
     /// </typeparam>
-    public static void FireNew<T>([NotNull] this IRepository<T> repository, T entity) where T : class, IEntity, IHaveID
+    public static void FireNew<T>(this IRepository<T> repository, T entity) where T : class, IEntity, IHaveID
     {
         CodeContracts.VerifyNotNull(repository);
 

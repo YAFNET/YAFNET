@@ -43,7 +43,7 @@ public partial class QuickReply : BaseUserControl
     /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnInit([NotNull] EventArgs e)
+    protected override void OnInit(EventArgs e)
     {
         this.quickReplyEditor =
             new BBCodeEditorBasic { MaxCharacters = this.PageBoardContext.BoardSettings.MaxPostSize };
@@ -56,7 +56,7 @@ public partial class QuickReply : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.Page.IsPostBack)
         {
@@ -82,7 +82,7 @@ public partial class QuickReply : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void QuickReplyClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void QuickReplyClick(object sender, EventArgs e)
     {
         try
         {

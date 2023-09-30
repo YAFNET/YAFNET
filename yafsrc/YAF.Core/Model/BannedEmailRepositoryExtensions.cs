@@ -55,10 +55,10 @@ public static class BannedEmailRepositoryExtensions
     /// </returns>
     public static bool Save(
         this IRepository<BannedEmail> repository,
-        [CanBeNull] int? id,
-        [NotNull] string mask,
-        [NotNull] string reason,
-        [CanBeNull] int? boardId = null)
+        int? id,
+        string mask,
+        string reason,
+        int? boardId = null)
     {
         CodeContracts.VerifyNotNull(repository);
 

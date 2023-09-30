@@ -45,10 +45,10 @@ public class InternalPopMenuItem
     /// The icon.
     /// </param>
     public InternalPopMenuItem(
-        [NotNull] string description,
-        [NotNull] string postBackArgument,
-        [NotNull] string clientScript,
-        [NotNull] string icon)
+        string description,
+        string postBackArgument,
+        string clientScript,
+        string icon)
     {
         this.Description = description;
         this.PostBackArgument = postBackArgument;

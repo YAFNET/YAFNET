@@ -48,7 +48,7 @@ public partial class AttachmentsUpload : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         // show disallowed or allowed localized text depending on the Board Setting
         this.ExtensionTitle.LocalizedTag = "ALLOWED_EXTENSIONS";

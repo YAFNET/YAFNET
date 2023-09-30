@@ -46,7 +46,7 @@ public static class ActiveRepositoryExtensions
     /// <returns>
     /// The <see cref="List"/>.
     /// </returns>
-    public static List<ActiveUser> ListForum(this IRepository<Active> repository, [NotNull] int forumId)
+    public static List<ActiveUser> ListForum(this IRepository<Active> repository, int forumId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -103,7 +103,7 @@ public static class ActiveRepositoryExtensions
     /// <returns>
     /// The <see cref="List"/>.
     /// </returns>
-    public static List<ActiveUser> ListTopic(this IRepository<Active> repository, [NotNull] int topicId)
+    public static List<ActiveUser> ListTopic(this IRepository<Active> repository, int topicId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -168,9 +168,9 @@ public static class ActiveRepositoryExtensions
     /// </returns>
     public static List<ActiveUser> List(
         this IRepository<Active> repository,
-        [NotNull] bool showCrawlers,
-        [NotNull] int activeTime,
-        [CanBeNull] int? boardId = null)
+        bool showCrawlers,
+        int activeTime,
+        int? boardId = null)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -273,11 +273,11 @@ public static class ActiveRepositoryExtensions
     /// </returns>
     public static List<ActiveUser> ListUsersPaged(
         this IRepository<Active> repository,
-        [NotNull] int userId,
-        [NotNull] bool showGuests,
-        [NotNull] bool showCrawlers,
-        [NotNull] int pageIndex,
-        [NotNull] int pageSize)
+        int userId,
+        bool showGuests,
+        bool showCrawlers,
+        int pageIndex,
+        int pageSize)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -380,7 +380,7 @@ public static class ActiveRepositoryExtensions
     /// </returns>
     public static (int ActiveUsers, int ActiveMembers, int ActiveGuests, int ActiveHidden) Stats(
         this IRepository<Active> repository,
-        [NotNull] int boardId)
+        int boardId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -445,7 +445,7 @@ public static class ActiveRepositoryExtensions
     /// <param name="activeTime">
     /// The active Time.
     /// </param>
-    private static void DeleteActive(this IRepository<Active> repository, [NotNull] int activeTime)
+    private static void DeleteActive(this IRepository<Active> repository, int activeTime)
     {
         CodeContracts.VerifyNotNull(repository);
 

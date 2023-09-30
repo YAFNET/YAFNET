@@ -52,7 +52,7 @@ public class ThankYouController : ApiController, IHaveServiceLocator
     /// </returns>
     [Route("ThankYou/GetThanks/{messageId}")]
     [HttpPost]
-    public IHttpActionResult GetThanks([NotNull] int messageId)
+    public IHttpActionResult GetThanks(int messageId)
     {
         var membershipUser = BoardContext.Current.MembershipUser;
 
@@ -87,7 +87,7 @@ public class ThankYouController : ApiController, IHaveServiceLocator
     /// </returns>
     [Route("ThankYou/AddThanks/{messageId}")]
     [HttpPost]
-    public IHttpActionResult AddThanks([NotNull] int messageId)
+    public IHttpActionResult AddThanks(int messageId)
     {
         var membershipUser = BoardContext.Current.MembershipUser;
 
@@ -134,7 +134,7 @@ public class ThankYouController : ApiController, IHaveServiceLocator
     /// </returns>
     [Route("ThankYou/RemoveThanks/{messageId}")]
     [HttpPost]
-    public IHttpActionResult RemoveThanks([NotNull] int messageId)
+    public IHttpActionResult RemoveThanks(int messageId)
     {
         var message = this.GetRepository<Message>().GetById(messageId);
 

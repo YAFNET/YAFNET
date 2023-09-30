@@ -71,15 +71,15 @@ public static class BoardRepositoryExtensions
     /// </returns>
     public static int Create(
         this IRepository<Board> repository,
-        [NotNull] string boardName,
-        [NotNull] string boardEmail,
-        [NotNull] string culture,
-        [NotNull] string languageFile,
-        [NotNull] string userName,
-        [NotNull] string userEmail,
-        [NotNull] string userKey,
-        [NotNull] bool isHostAdmin,
-        [CanBeNull] string rolePrefix)
+        string boardName,
+        string boardEmail,
+        string culture,
+        string languageFile,
+        string userName,
+        string userEmail,
+        string userKey,
+        bool isHostAdmin,
+        string rolePrefix)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -365,7 +365,7 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
     /// <returns>
     /// The <see cref="BoardStat"/>.
     /// </returns>
-    public static BoardStat PostStats(this IRepository<Board> repository, [NotNull] int boardId, [NotNull] bool showNoCountPosts)
+    public static BoardStat PostStats(this IRepository<Board> repository, int boardId, bool showNoCountPosts)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -447,10 +447,10 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
     /// <param name="culture">The culture.</param>
     public static void Save(
         this IRepository<Board> repository,
-        [NotNull] int boardId,
-        [NotNull] string name,
-        [NotNull] string languageFile,
-        [NotNull] string culture)
+        int boardId,
+        string name,
+        string languageFile,
+        string culture)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -474,7 +474,7 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
     /// <returns>
     /// The <see cref="BoardStat"/>.
     /// </returns>
-    public static BoardStat Stats(this IRepository<Board> repository, [NotNull] int boardId)
+    public static BoardStat Stats(this IRepository<Board> repository, int boardId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -553,7 +553,7 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
     /// <param name="boardId">
     /// The board id.
     /// </param>
-    public static void DeleteBoard(this IRepository<Board> repository, [NotNull] int boardId)
+    public static void DeleteBoard(this IRepository<Board> repository, int boardId)
     {
         CodeContracts.VerifyNotNull(repository);
 

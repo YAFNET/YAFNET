@@ -48,8 +48,8 @@ public class BadWordReplace : IBadWordReplace, IHaveServiceLocator
     /// <param name="logger">The logger.</param>
     /// <param name="serviceLocator">The service locator.</param>
     public BadWordReplace(
-        [NotNull] IObjectStore objectStore,
-        [NotNull] ILoggerService logger,
+        IObjectStore objectStore,
+        ILoggerService logger,
         IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
@@ -107,8 +107,8 @@ public class BadWordReplace : IBadWordReplace, IHaveServiceLocator
     /// <exception cref="Exception">
     /// <c>Exception</c>.
     /// </exception>
-    [NotNull]
-    public string Replace([NotNull] string searchText)
+    
+    public string Replace(string searchText)
     {
         if (searchText.IsNotSet())
         {

@@ -37,7 +37,7 @@ public partial class EditUsersInfo : BaseUserControl
     /// <summary>
     /// Gets or sets the User Data.
     /// </summary>
-    [NotNull]
+    
     public Tuple<User, AspNetUsers, Rank, VAccess> User { get; set; }
 
     /// <summary>
@@ -45,7 +45,7 @@ public partial class EditUsersInfo : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         this.IsHostAdminRow.Visible = this.PageBoardContext.PageUser.UserFlags.IsHostAdmin;
 
@@ -62,7 +62,7 @@ public partial class EditUsersInfo : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Save_Click(object sender, EventArgs e)
     {
         // Update the Membership
         if (!this.IsGuestX.Checked)

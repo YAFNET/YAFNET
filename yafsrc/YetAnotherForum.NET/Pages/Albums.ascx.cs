@@ -50,7 +50,7 @@ public partial class Albums : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (!this.PageBoardContext.BoardSettings.EnableAlbum)
         {

@@ -49,7 +49,7 @@ public class ForumUsers : BaseControl
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         // Ederon : 07/14/2007
         if (!this.PageBoardContext.BoardSettings.ShowBrowsingUsers)
@@ -83,7 +83,7 @@ public class ForumUsers : BaseControl
     /// <param name="e">
     /// The e.
     /// </param>
-    private void ForumUsersLoad([NotNull] object sender, [NotNull] EventArgs e)
+    private void ForumUsersLoad(object sender, EventArgs e)
     {
         var inTopic = this.PageBoardContext.PageTopicID > 0;
 

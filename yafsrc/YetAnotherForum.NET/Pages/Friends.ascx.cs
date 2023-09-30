@@ -45,7 +45,7 @@ public partial class Friends : ForumPageRegistered
     /// <param name="e">
     /// the Event Arguments
     /// </param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         // setup jQuery and Jquery Ui Tabs.
         this.PageBoardContext.PageElements.RegisterJsBlock(
@@ -60,7 +60,7 @@ public partial class Friends : ForumPageRegistered
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         this.BindData();
     }
@@ -99,7 +99,7 @@ public partial class Friends : ForumPageRegistered
     /// <param name="buddyList">
     /// The buddy List.
     /// </param>
-    private void InitializeBuddyList([NotNull] BuddyList customBuddyList, FriendMode mode, List<BuddyUser> buddyList)
+    private void InitializeBuddyList(BuddyList customBuddyList, FriendMode mode, List<BuddyUser> buddyList)
     {
         customBuddyList.FriendsList = buddyList;
         customBuddyList.CurrentUserID = this.PageBoardContext.PageUserID;

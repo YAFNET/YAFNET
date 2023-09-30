@@ -36,7 +36,7 @@ public class DbLoggerProvider : ILoggerProvider
     /// <param name="injectServices">
     /// The inject services.
     /// </param>
-    public DbLoggerProvider([NotNull] IInjectServices injectServices)
+    public DbLoggerProvider(IInjectServices injectServices)
     {
         this.InjectServices = injectServices;
     }
@@ -54,8 +54,8 @@ public class DbLoggerProvider : ILoggerProvider
     /// </param>
     /// <returns>
     /// </returns>
-    [NotNull]
-    public ILoggerService Create([CanBeNull] Type type)
+    
+    public ILoggerService Create(Type type)
     {
         var logger = new DbLogger(type);
         this.InjectServices.Inject(logger);

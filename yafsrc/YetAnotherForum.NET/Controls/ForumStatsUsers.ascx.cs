@@ -50,8 +50,8 @@ public partial class ForumStatsUsers : BaseUserControl
     /// <returns>
     /// Returns the formatted active users.
     /// </returns>
-    [NotNull]
-    protected string FormatActiveUsers([NotNull] (int ActiveUsers, int ActiveMembers, int ActiveGuests, int ActiveHidden) activeStats)
+    
+    protected string FormatActiveUsers((int ActiveUsers, int ActiveMembers, int ActiveGuests, int ActiveHidden) activeStats)
     {
         var sb = new StringBuilder();
 
@@ -139,7 +139,7 @@ public partial class ForumStatsUsers : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    private void ForumStatistics_Load([NotNull] object sender, [NotNull] EventArgs e)
+    private void ForumStatistics_Load(object sender, EventArgs e)
     {
         // Active users : Call this before forum_stats to clean up active users
         var activeUsers = this.Get<IDataCache>().GetOrSet(

@@ -45,7 +45,7 @@ public static class TopicTagRepositoryExtensions
     /// <param name="topicId">
     /// The topic ID.
     /// </param>
-    public static void Add(this IRepository<TopicTag> repository, [NotNull] int tagId, [NotNull] int topicId)
+    public static void Add(this IRepository<TopicTag> repository, int tagId, int topicId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -66,7 +66,7 @@ public static class TopicTagRepositoryExtensions
     /// <param name="topicId">
     /// The topic id.
     /// </param>
-    public static void AddTagsToTopic(this IRepository<TopicTag> repository, [CanBeNull] string tagsString, int topicId)
+    public static void AddTagsToTopic(this IRepository<TopicTag> repository, string tagsString, int topicId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -117,7 +117,7 @@ public static class TopicTagRepositoryExtensions
     /// <returns>
     /// The <see cref="List"/>.
     /// </returns>
-    public static List<Tuple<TopicTag, Tag>> List(this IRepository<TopicTag> repository, [NotNull] int topicId)
+    public static List<Tuple<TopicTag, Tag>> List(this IRepository<TopicTag> repository, int topicId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -141,7 +141,7 @@ public static class TopicTagRepositoryExtensions
     /// <returns>
     /// The <see cref="List"/>.
     /// </returns>
-    public static string ListAsDelimitedString(this IRepository<TopicTag> repository, [NotNull] int topicId)
+    public static string ListAsDelimitedString(this IRepository<TopicTag> repository, int topicId)
     {
         CodeContracts.VerifyNotNull(repository);
 

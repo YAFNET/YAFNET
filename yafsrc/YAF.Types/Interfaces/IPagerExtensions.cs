@@ -46,7 +46,7 @@ public static class IPagerExtensions
     /// <returns>
     /// The <see cref="IEnumerable{T}"/>.
     /// </returns>
-    public static IList<T> GetPaged<T>([NotNull] this IList<T> list, [NotNull] IPager pager)
+    public static IList<T> GetPaged<T>(this IList<T> list, IPager pager)
     {
         CodeContracts.VerifyNotNull(list);
         CodeContracts.VerifyNotNull(pager);
@@ -98,7 +98,7 @@ public static class IPagerExtensions
     /// <returns>
     /// The <see cref="int"/> . 
     /// </returns>
-    public static int SkipIndex([NotNull] this IPager pager)
+    public static int SkipIndex(this IPager pager)
     {
         CodeContracts.VerifyNotNull(pager);
 

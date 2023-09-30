@@ -43,7 +43,7 @@ public class HelpMenu : BasePanel
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         var serializer = new XmlSerializer(typeof(List<HelpNavigation>));
 

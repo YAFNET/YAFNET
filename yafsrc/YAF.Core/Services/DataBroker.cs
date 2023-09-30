@@ -125,12 +125,12 @@ public class DataBroker : IHaveServiceLocator
     /// The <see cref="Tuple"/>.
     /// </returns>
     public Tuple<List<SimpleModerator>, List<ForumRead>> BoardLayout(
-        [NotNull] int boardId,
-        [NotNull] int userId,
-        [NotNull] int pageIndex,
-        [NotNull] int pageSize,
-        [CanBeNull] int? categoryId,
-        [CanBeNull] int? parentId)
+        int boardId,
+        int userId,
+        int pageIndex,
+        int pageSize,
+        int? categoryId,
+        int? parentId)
     {
         if (categoryId is 0)
         {
@@ -206,20 +206,20 @@ public class DataBroker : IHaveServiceLocator
     /// The <see cref="PageLoad"/>.
     /// </returns>
     public Tuple<PageLoad, User, Category, Forum, Topic, Message> GetPageLoad(
-        [NotNull] string sessionId,
-        [NotNull] int boardId,
-        [CanBeNull] string userKey,
-        [NotNull] string ip,
-        [NotNull] string location,
-        [NotNull] string forumPage,
-        [NotNull] string browser,
-        [NotNull] string platform,
-        [CanBeNull] int? categoryId,
-        [CanBeNull] int? forumId,
-        [CanBeNull] int? topicId,
-        [CanBeNull] int? messageId,
-        [NotNull] bool isCrawler,
-        [NotNull] bool doNotTrack)
+        string sessionId,
+        int boardId,
+        string userKey,
+        string ip,
+        string location,
+        string forumPage,
+        string browser,
+        string platform,
+        int? categoryId,
+        int? forumId,
+        int? topicId,
+        int? messageId,
+        bool isCrawler,
+        bool doNotTrack)
     {
         while (true)
         {

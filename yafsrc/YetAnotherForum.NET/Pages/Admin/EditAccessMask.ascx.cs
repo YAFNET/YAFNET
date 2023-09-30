@@ -44,7 +44,7 @@ public partial class EditAccessMask : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void CancelClick(object sender, EventArgs e)
     {
         // get back to access masks administration
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_AccessMasks);
@@ -74,7 +74,7 @@ public partial class EditAccessMask : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -94,7 +94,7 @@ public partial class EditAccessMask : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void SaveClick(object sender, EventArgs e)
     {
         // retrieve access mask ID from parameter (if applicable)
         int? accessMaskId = null;

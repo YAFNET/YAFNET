@@ -45,7 +45,7 @@ public partial class RegisterUser : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void ForumRegisterClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void ForumRegisterClick(object sender, EventArgs e)
     {
         this.Page.Validate();
 
@@ -121,7 +121,7 @@ public partial class RegisterUser : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -156,7 +156,7 @@ public partial class RegisterUser : AdminPage
     /// <param name="e">
     /// The <see cref="EventArgs"/> instance containing the event data.
     /// </param>
-    protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void CancelClick(object sender, EventArgs e)
     {
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
     }

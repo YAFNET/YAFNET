@@ -28,7 +28,6 @@ using System;
 using System.Collections.Generic;
 
 using YAF.Core.Tasks;
-using YAF.Types.Attributes;
 
 /// <summary>
 /// Initializes the Application task manager.
@@ -50,7 +49,7 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplic
     /// <param name="logger">
     /// The logger.
     /// </param>
-    public AppInitTaskManager([NotNull] IServiceLocator serviceLocator, [NotNull] ILoggerService logger)
+    public AppInitTaskManager(IServiceLocator serviceLocator, ILoggerService logger)
     {
         this.ServiceLocator = serviceLocator;
         this.Logger = logger;
@@ -83,7 +82,7 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplic
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public override bool StartTask([NotNull] string instanceName, [NotNull] Func<IBackgroundTask> start)
+    public override bool StartTask(string instanceName, Func<IBackgroundTask> start)
     {
         CodeContracts.VerifyNotNull(instanceName);
         CodeContracts.VerifyNotNull(start);
@@ -131,7 +130,7 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpApplic
     /// <param name="event">
     /// The event.
     /// </param>
-    public void Handle([NotNull] HttpApplicationInitEvent @event)
+    public void Handle(HttpApplicationInitEvent @event)
     {
         this.appInstance = @event.HttpApplication;
 

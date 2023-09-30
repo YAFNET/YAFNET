@@ -24,7 +24,6 @@
 namespace YAF.Core.Events;
 
 using YAF.Core.Model;
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -39,7 +38,7 @@ public class UpdateUserStyles : IHaveServiceLocator, IHandleEvent<UpdateUserStyl
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public UpdateUserStyles([NotNull] IServiceLocator serviceLocator)
+    public UpdateUserStyles(IServiceLocator serviceLocator)
     {
         CodeContracts.VerifyNotNull(serviceLocator);
 

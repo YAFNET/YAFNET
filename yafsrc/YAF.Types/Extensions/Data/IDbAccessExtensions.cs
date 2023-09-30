@@ -48,7 +48,7 @@ public static class IDbAccessExtensions
     /// The <see cref="IDbTransaction"/> .
     /// </returns>
     public static IDbTransaction BeginTransaction(
-        [NotNull] this IDbAccess dbAccess,
+        this IDbAccess dbAccess,
         IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted)
     {
         CodeContracts.VerifyNotNull(dbAccess);
@@ -63,8 +63,8 @@ public static class IDbAccessExtensions
     /// <returns>
     /// The <see cref="DbConnection" /> .
     /// </returns>
-    [NotNull]
-    public static DbConnection CreateConnection([NotNull] this IDbAccess dbAccess)
+    
+    public static DbConnection CreateConnection(this IDbAccess dbAccess)
     {
         CodeContracts.VerifyNotNull(dbAccess);
 
@@ -83,8 +83,8 @@ public static class IDbAccessExtensions
     /// <returns>
     /// The <see cref="DbConnection"/> .
     /// </returns>
-    [NotNull]
-    public static DbConnection CreateConnectionOpen([NotNull] this IDbAccess dbAccess)
+    
+    public static DbConnection CreateConnectionOpen(this IDbAccess dbAccess)
     {
         CodeContracts.VerifyNotNull(dbAccess);
 
@@ -114,7 +114,7 @@ public static class IDbAccessExtensions
     /// <returns>
     /// The <see cref="int"/>.
     /// </returns>
-    public static int Update<T>([NotNull] this IDbAccess dbAccess, [NotNull] T update)
+    public static int Update<T>(this IDbAccess dbAccess, T update)
         where T : IEntity
     {
         CodeContracts.VerifyNotNull(dbAccess);
@@ -140,7 +140,7 @@ public static class IDbAccessExtensions
     /// <param name="commandFilter">The command filter.</param>
     /// <returns></returns>
     public static int UpdateAdd<T>(
-        [NotNull] this IDbAccess dbAccess,
+        this IDbAccess dbAccess,
         Expression<Func<T>> updateFields,
         Expression<Func<T, bool>> where = null,
         Action<IDbCommand> commandFilter = null)
@@ -169,7 +169,7 @@ public static class IDbAccessExtensions
     /// <param name="commandFilter">The command filter.</param>
     /// <returns></returns>
     public static int UpdateOnly<T>(
-        [NotNull] this IDbAccess dbAccess,
+        this IDbAccess dbAccess,
         Expression<Func<T>> updateFields,
         Expression<Func<T, bool>> where = null,
         Action<IDbCommand> commandFilter = null)
@@ -186,7 +186,7 @@ public static class IDbAccessExtensions
     /// Returns true if the Query returns any records that match the supplied SqlExpression, E.g:
     /// <para>db.Exists(db.From&lt;Person&gt;().Where(x =&gt; x.Age &lt; 50))</para>
     /// </summary>
-    public static bool Exists<T>([NotNull] this IDbAccess dbAccess, Expression<Func<T, bool>> where = null)
+    public static bool Exists<T>(this IDbAccess dbAccess, Expression<Func<T, bool>> where = null)
         where T : class, IEntity, new()
     {
         return dbAccess.Execute(
@@ -202,7 +202,7 @@ public static class IDbAccessExtensions
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public static string GetDatabaseFragmentationInfo([NotNull] this IDbAccess dbAccess)
+    public static string GetDatabaseFragmentationInfo(this IDbAccess dbAccess)
     {
         CodeContracts.VerifyNotNull(dbAccess);
 
@@ -243,7 +243,7 @@ public static class IDbAccessExtensions
     /// </summary>
     /// <param name="dbAccess">The database access.</param>
     /// <returns>Returns the size of the database</returns>
-    public static int GetDatabaseSize([NotNull] this IDbAccess dbAccess)
+    public static int GetDatabaseSize(this IDbAccess dbAccess)
     {
         CodeContracts.VerifyNotNull(dbAccess);
 
@@ -258,7 +258,7 @@ public static class IDbAccessExtensions
     /// <returns>
     /// Returns the current SQL Engine Edition.
     /// </returns>
-    public static string GetSQLVersion([NotNull] this IDbAccess dbAccess)
+    public static string GetSQLVersion(this IDbAccess dbAccess)
     {
         CodeContracts.VerifyNotNull(dbAccess);
 
@@ -274,7 +274,7 @@ public static class IDbAccessExtensions
     /// The shrink database.
     /// </summary>
     /// <param name="dbAccess">The database access.</param>
-    public static string ShrinkDatabase([NotNull] this IDbAccess dbAccess)
+    public static string ShrinkDatabase(this IDbAccess dbAccess)
     {
         CodeContracts.VerifyNotNull(dbAccess);
 
@@ -295,7 +295,7 @@ public static class IDbAccessExtensions
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public static string ReIndexDatabase([NotNull] this IDbAccess dbAccess, string objectQualifier)
+    public static string ReIndexDatabase(this IDbAccess dbAccess, string objectQualifier)
     {
         CodeContracts.VerifyNotNull(dbAccess);
 
@@ -313,7 +313,7 @@ public static class IDbAccessExtensions
     /// <param name="recoveryMode">
     /// The recovery mode.
     /// </param>
-    public static string ChangeRecoveryMode(this IDbAccess dbAccess, [NotNull] string recoveryMode)
+    public static string ChangeRecoveryMode(this IDbAccess dbAccess, string recoveryMode)
     {
         CodeContracts.VerifyNotNull(dbAccess);
 
@@ -345,9 +345,9 @@ public static class IDbAccessExtensions
     /// The <see cref="string"/>.
     /// </returns>
     public static string RunSQL(
-        [NotNull] this IDbAccess dbAccess,
-        [NotNull] string sql,
-        [NotNull] int timeOut)
+        this IDbAccess dbAccess,
+        string sql,
+        int timeOut)
     {
         CodeContracts.VerifyNotNull(dbAccess);
 
@@ -381,10 +381,10 @@ public static class IDbAccessExtensions
     /// The time Out.
     /// </param>
     public static void SystemInitializeExecuteScripts(
-        [NotNull] this IDbAccess dbAccess,
-        [NotNull] string script,
-        [NotNull] string scriptFile,
-        [NotNull] int timeOut)
+        this IDbAccess dbAccess,
+        string script,
+        string scriptFile,
+        int timeOut)
     {
         CodeContracts.VerifyNotNull(dbAccess);
 

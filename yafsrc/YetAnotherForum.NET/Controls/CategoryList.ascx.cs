@@ -62,7 +62,7 @@ public partial class CategoryList : BaseUserControl
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public string GetCategoryImage([NotNull] ForumRead forum)
+    public string GetCategoryImage(ForumRead forum)
     {
         var hasCategoryImage = forum.CategoryImage.IsSet();
 
@@ -89,7 +89,7 @@ public partial class CategoryList : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void WatchAllClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void WatchAllClick(object sender, EventArgs e)
     {
         var markAll = (ThemeButton)sender;
 
@@ -123,7 +123,7 @@ public partial class CategoryList : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void MarkAllClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void MarkAllClick(object sender, EventArgs e)
     {
         var forums = this.Data.Item2;
 
@@ -143,7 +143,7 @@ public partial class CategoryList : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void ShowMoreClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void ShowMoreClick(object sender, EventArgs e)
     {
         this.PageIndex++;
 
@@ -156,7 +156,7 @@ public partial class CategoryList : BaseUserControl
     /// <param name="e">
     /// the Event Arguments
     /// </param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.LoadMoreOnScrolling),
@@ -174,7 +174,7 @@ public partial class CategoryList : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         this.BindData();
     }
@@ -188,7 +188,7 @@ public partial class CategoryList : BaseUserControl
     /// <returns>
     /// Returns the Forums
     /// </returns>
-    protected Tuple<List<SimpleModerator>, List<ForumRead>> GetForums([NotNull] ForumRead item)
+    protected Tuple<List<SimpleModerator>, List<ForumRead>> GetForums(ForumRead item)
     {
         var forums = this.Data;
 

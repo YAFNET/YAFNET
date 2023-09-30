@@ -85,7 +85,7 @@ public static class PageLinkExtensions
     /// <returns>
     /// The <see cref="PageLinks"/>.
     /// </returns>
-    public static List<PageLink> AddUser(this List<PageLink> pageLinks, [NotNull] int userId, [NotNull] string name)
+    public static List<PageLink> AddUser(this List<PageLink> pageLinks, int userId, string name)
     {
         CodeContracts.VerifyNotNull(pageLinks);
         CodeContracts.VerifyNotNull(name);
@@ -107,7 +107,7 @@ public static class PageLinkExtensions
     /// <returns>
     /// The <see cref="PageLinks"/>.
     /// </returns>
-    public static List<PageLink> AddTopic(this List<PageLink> pageLinks, [NotNull] Topic topic)
+    public static List<PageLink> AddTopic(this List<PageLink> pageLinks, Topic topic)
     {
         CodeContracts.VerifyNotNull(pageLinks);
 
@@ -130,7 +130,7 @@ public static class PageLinkExtensions
     /// </returns>
     public static List<PageLink> AddCategory(
         this List<PageLink> pageLinks,
-        [NotNull] Category category)
+        Category category)
     {
         CodeContracts.VerifyNotNull(pageLinks);
         CodeContracts.VerifyNotNull(category);
@@ -194,7 +194,7 @@ public static class PageLinkExtensions
     /// <param name="title">The title.</param>
     /// <param name="url">The URL.</param>
     /// <returns>Returns the page links</returns>
-    public static List<PageLink> AddLink(this List<PageLink> pageLinks, [NotNull] string title, [CanBeNull] string url = "")
+    public static List<PageLink> AddLink(this List<PageLink> pageLinks, string title, string url = "")
     {
         CodeContracts.VerifyNotNull(pageLinks);
         CodeContracts.VerifyNotNull(title);

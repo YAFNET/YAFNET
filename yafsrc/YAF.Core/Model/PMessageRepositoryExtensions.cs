@@ -27,8 +27,8 @@ public static class PMessageRepositoryExtensions
     /// </param>
     public static void PruneAll(
         this IRepository<PMessage> repository,
-        [NotNull] int daysRead,
-        [NotNull] int daysUnread)
+        int daysRead,
+        int daysUnread)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -83,7 +83,7 @@ public static class PMessageRepositoryExtensions
     /// <param name="userId">
     /// The user id.
     /// </param>
-    public static PMessageCount UserMessageCount(this IRepository<PMessage> repository, [NotNull] int userId)
+    public static PMessageCount UserMessageCount(this IRepository<PMessage> repository, int userId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -157,12 +157,12 @@ public static class PMessageRepositoryExtensions
     /// </param>
     public static void SendMessage(
         this IRepository<PMessage> repository,
-        [NotNull] int fromUserId,
-        [NotNull] int toUserId,
-        [NotNull] string subject,
-        [NotNull] string body,
-        [NotNull] int flags,
-        [CanBeNull] int? replyTo)
+        int fromUserId,
+        int toUserId,
+        string subject,
+        string body,
+        int flags,
+        int? replyTo)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -230,10 +230,10 @@ public static class PMessageRepositoryExtensions
     /// </returns>
     public static List<PagedPm> List(
         this IRepository<PMessage> repository,
-        [NotNull] int userId,
-        [NotNull] PmView view,
-        [NotNull] string sortField,
-        [NotNull] bool sortAscending)
+        int userId,
+        PmView view,
+        string sortField,
+        bool sortAscending)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -357,7 +357,7 @@ public static class PMessageRepositoryExtensions
     /// <param name="userPMessageID">
     /// The user Private Message ID.
     /// </param>
-    public static PagedPm GetMessage(this IRepository<PMessage> repository, [NotNull] int userPMessageID)
+    public static PagedPm GetMessage(this IRepository<PMessage> repository, int userPMessageID)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -381,8 +381,8 @@ public static class PMessageRepositoryExtensions
     /// </returns>
     public static List<PagedPm> List(
         this IRepository<PMessage> repository,
-        [NotNull] int userPMessageId,
-        [NotNull] bool includeReplies)
+        int userPMessageId,
+        bool includeReplies)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -448,7 +448,7 @@ public static class PMessageRepositoryExtensions
     /// </param>
     private static IEnumerable<PagedPm> GetReplies(
         this IRepository<PMessage> repository,
-        [CanBeNull] List<PagedPm> messages)
+        List<PagedPm> messages)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -497,7 +497,7 @@ public static class PMessageRepositoryExtensions
     /// <returns>
     /// The <see cref="List"/>.
     /// </returns>
-    private static List<PagedPm> ListReplies(this IRepository<PMessage> repository, [NotNull] int replyPMessageId)
+    private static List<PagedPm> ListReplies(this IRepository<PMessage> repository, int replyPMessageId)
     {
         CodeContracts.VerifyNotNull(repository);
 

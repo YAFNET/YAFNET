@@ -54,7 +54,7 @@ public partial class Jabber : ForumPage
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.User == null)
         {

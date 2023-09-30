@@ -41,7 +41,7 @@ public class Footer : BaseControl
     /// <summary>
     ///   Gets ThisControl.
     /// </summary>
-    [NotNull]
+    
     public Control ThisControl => this;
 
     /// <summary>
@@ -50,7 +50,7 @@ public class Footer : BaseControl
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         if (!this.SimpleRender)
         {
@@ -66,7 +66,7 @@ public class Footer : BaseControl
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected void RenderRegular([NotNull] ref HtmlTextWriter writer)
+    protected void RenderRegular(ref HtmlTextWriter writer)
     {
         // BEGIN FOOTER
         this.Get<IStopWatch>().Stop();
@@ -86,7 +86,7 @@ public class Footer : BaseControl
     /// <param name="writer">
     /// The writer.
     /// </param>
-    private void RenderGeneratedAndDebug([NotNull] TextWriter writer)
+    private void RenderGeneratedAndDebug(TextWriter writer)
     {
         if (this.PageBoardContext.BoardSettings.ShowPageGenerationTime)
         {
@@ -136,7 +136,7 @@ public class Footer : BaseControl
     /// <param name="writer">
     /// The writer.
     /// </param>
-    private void RenderRulesLink([NotNull] TextWriter writer)
+    private void RenderRulesLink(TextWriter writer)
     {
         if (Config.IsAnyPortal)
         {
@@ -155,7 +155,7 @@ public class Footer : BaseControl
     /// <param name="writer">
     /// The writer.
     /// </param>
-    private void RenderVersion([NotNull] TextWriter writer)
+    private void RenderVersion(TextWriter writer)
     {
         // Copyright Link-back Algorithm
         // Please keep if you haven't purchased a removal or commercial license.

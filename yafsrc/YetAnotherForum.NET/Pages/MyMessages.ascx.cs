@@ -50,7 +50,7 @@ public partial class MyMessages : ForumPageRegistered
     /// <param name="e">
     /// the Event Arguments
     /// </param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         // setup jQuery and Jquery Ui Tabs.
         this.PageBoardContext.PageElements.RegisterJsBlock(
@@ -65,7 +65,7 @@ public partial class MyMessages : ForumPageRegistered
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         // check if this feature is disabled
         if (!this.PageBoardContext.BoardSettings.AllowPrivateMessages)
@@ -112,11 +112,11 @@ public partial class MyMessages : ForumPageRegistered
     /// <param name="limit">The limit.</param>
     /// <returns>Returns the Message Text</returns>
     protected string GetPMessageText(
-        [NotNull] string text,
-        [NotNull] int total,
-        [NotNull] int inbox,
-        [NotNull] int outbox,
-        [NotNull] int limit)
+        string text,
+        int total,
+        int inbox,
+        int outbox,
+        int limit)
     {
         decimal percentage = 0;
 

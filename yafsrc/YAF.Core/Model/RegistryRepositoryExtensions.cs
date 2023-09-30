@@ -43,7 +43,7 @@ public static class RegistryRepositoryExtensions
     /// <param name="boardId">
     /// The board id.
     /// </param>
-    public static void UpdateMaxStats(this IRepository<Registry> repository, [NotNull] int boardId)
+    public static void UpdateMaxStats(this IRepository<Registry> repository, int boardId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -134,7 +134,7 @@ public static class RegistryRepositoryExtensions
     /// <returns>
     /// The <see cref="List"/>.
     /// </returns>
-    public static List<Registry> List(this IRepository<Registry> repository, [CanBeNull] int? boardId = null)
+    public static List<Registry> List(this IRepository<Registry> repository, int? boardId = null)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -150,9 +150,9 @@ public static class RegistryRepositoryExtensions
     /// <param name="boardId">The board identifier.</param>
     public static void Save(
         this IRepository<Registry> repository,
-        [NotNull] string settingName,
-        [CanBeNull] object settingValue,
-        [CanBeNull] int? boardId = null)
+        string settingName,
+        object settingValue,
+        int? boardId = null)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -266,7 +266,7 @@ public static class RegistryRepositoryExtensions
     /// </param>
     public static DbVersionType ValidateVersion(
         this IRepository<Registry> repository,
-        [NotNull] int appVersion)
+        int appVersion)
     {
         CodeContracts.VerifyNotNull(repository);
 

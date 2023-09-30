@@ -31,7 +31,7 @@ public class UserLabel : BaseControl
     /// <summary>
     ///   Gets or sets CSS Class.
     /// </summary>
-    [NotNull]
+    
     public string CssClass
     {
         get => this.ViewState["CssClass"] != null ? this.ViewState["CssClass"].ToString() : string.Empty;
@@ -42,7 +42,7 @@ public class UserLabel : BaseControl
     /// <summary>
     ///   Gets or sets The name of the user for this profile link
     /// </summary>
-    [NotNull]
+    
     public string PostfixText
     {
         get => this.ViewState["PostfixText"] != null ? this.ViewState["PostfixText"].ToString() : string.Empty;
@@ -53,7 +53,7 @@ public class UserLabel : BaseControl
     /// <summary>
     ///   Gets or sets The replace Crawler name of this user for the link. Attention! Use it ONLY for crawlers. 
     /// </summary>
-    [NotNull]
+    
     public string CrawlerName
     {
         get => this.ViewState["CrawlerName"] != null ? this.ViewState["CrawlerName"].ToString() : string.Empty;
@@ -64,7 +64,7 @@ public class UserLabel : BaseControl
     /// <summary>
     ///   Gets or sets Style.
     /// </summary>
-    [NotNull]
+    
     public string Style
     {
         get => this.ViewState["Style"] != null ? this.ViewState["Style"].ToString() : string.Empty;
@@ -75,7 +75,7 @@ public class UserLabel : BaseControl
     /// <summary>
     ///   Gets or sets Style.
     /// </summary>
-    [NotNull]
+    
     public string ReplaceName
     {
         get => this.ViewState["ReplaceName"] != null ? this.ViewState["ReplaceName"].ToString() : string.Empty;
@@ -107,7 +107,7 @@ public class UserLabel : BaseControl
     /// <param name="writer">
     /// The output.
     /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         var displayName = this.ReplaceName;
 
@@ -144,7 +144,7 @@ public class UserLabel : BaseControl
     /// <param name="output">
     /// The output.
     /// </param>
-    protected void RenderMainTagAttributes([NotNull] HtmlTextWriter output)
+    protected void RenderMainTagAttributes(HtmlTextWriter output)
     {
         if (this.ClientID.IsSet())
         {

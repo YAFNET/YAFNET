@@ -60,7 +60,7 @@ public partial class ModForumUser : BaseUserControl
     /// <param name="userId">
     /// The user Id.
     /// </param>
-    public void BindData([NotNull] int forumId, [CanBeNull] int? userId)
+    public void BindData(int forumId, int? userId)
     {
         this.ForumId = forumId;
         this.UserId = userId;
@@ -117,7 +117,7 @@ public partial class ModForumUser : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (!this.PageBoardContext.ForumModeratorAccess)
         {
@@ -141,7 +141,7 @@ public partial class ModForumUser : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void UpdateClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void UpdateClick(object sender, EventArgs e)
     {
         if (this.UserId.HasValue)
         {

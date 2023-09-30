@@ -265,7 +265,7 @@ public class DoubleLinkedList : IList
     /// <param name="index">
     /// The index.
     /// </param>
-    public void CopyTo([NotNull] Array array, int index)
+    public void CopyTo(Array array, int index)
     {
         int i;
         LinkItem current;

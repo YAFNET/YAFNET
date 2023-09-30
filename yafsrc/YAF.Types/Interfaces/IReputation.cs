@@ -50,29 +50,29 @@ public interface IReputation
     /// <returns>
     /// Returns the Html String
     /// </returns>
-    string GenerateReputationBar([NotNull] int points, [NotNull] int userId);
+    string GenerateReputationBar(int points, int userId);
 
     /// <summary>
     /// Gets the reputation bar text.
     /// </summary>
     /// <param name="percentage">The percentage.</param>
     /// <returns>Returns the Text for the Current Value</returns>
-    [NotNull]
-    string GetReputationBarText([NotNull] float percentage);
+    
+    string GetReputationBarText(float percentage);
 
     /// <summary>
     /// Gets the reputation bar color.
     /// </summary>
     /// <param name="percentage">The percentage.</param>
     /// <returns>Returns the Color for the Current Value</returns>
-    [NotNull]
-    string GetReputationBarColor([NotNull] float percentage);
+    
+    string GetReputationBarColor(float percentage);
 
     /// <summary>
     /// Converts the points to percentage.
     /// </summary>
     /// <param name="points">The points.</param>
     /// <returns>Returns the Percentage Value</returns>
-    [NotNull]
-    float ConvertPointsToPercentage([NotNull] int points);
+    
+    float ConvertPointsToPercentage(int points);
 }

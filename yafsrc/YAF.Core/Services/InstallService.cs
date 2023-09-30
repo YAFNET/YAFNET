@@ -135,15 +135,15 @@ public class InstallService : IHaveServiceLocator
     /// The admin provider user key.
     /// </param>
     public void InitializeForum(
-        [NotNull] Guid applicationId,
-        [NotNull] string forumName,
-        [NotNull] string culture,
-        [CanBeNull] string forumEmail,
-        [NotNull] string forumLogo,
-        [NotNull] string forumBaseUrlMask,
-        [NotNull] string adminUserName,
-        [NotNull] string adminEmail,
-        [NotNull] string adminProviderUserKey)
+        Guid applicationId,
+        string forumName,
+        string culture,
+        string forumEmail,
+        string forumLogo,
+        string forumBaseUrlMask,
+        string adminUserName,
+        string adminEmail,
+        string adminProviderUserKey)
     {
         CodeContracts.VerifyNotNull(forumName);
         CodeContracts.VerifyNotNull(forumName);
@@ -198,7 +198,7 @@ public class InstallService : IHaveServiceLocator
     /// <returns>
     /// The test database connection.
     /// </returns>
-    public bool TestDatabaseConnection([NotNull] out string exceptionMessage)
+    public bool TestDatabaseConnection(out string exceptionMessage)
     {
         return this.DbAccess.TestConnection(out exceptionMessage);
     }

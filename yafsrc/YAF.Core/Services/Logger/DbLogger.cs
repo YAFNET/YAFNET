@@ -31,7 +31,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-using YAF.Types.Attributes;
 using YAF.Types.Constants;
 
 using EventLog = YAF.Types.Models.EventLog;
@@ -62,7 +61,7 @@ public class DbLogger : ILoggerService, IHaveServiceLocator
     /// <param name="logType">
     /// The log type.
     /// </param>
-    public DbLogger([CanBeNull] Type logType)
+    public DbLogger(Type logType)
     {
         this.Type = logType;
     }
@@ -123,11 +122,11 @@ public class DbLogger : ILoggerService, IHaveServiceLocator
     /// The exception.
     /// </param>
     public void Log(
-        [NotNull] string message,
-        [NotNull] EventLogTypes eventType = EventLogTypes.Error,
-        [CanBeNull] int? userId = null,
-        [CanBeNull] string source = null,
-        [CanBeNull] Exception exception = null)
+        string message,
+        EventLogTypes eventType = EventLogTypes.Error,
+        int? userId = null,
+        string source = null,
+        Exception exception = null)
     {
         if (!this.IsLogTypeEnabled(eventType))
         {

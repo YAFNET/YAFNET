@@ -64,7 +64,7 @@ public class BBCodeControl : BaseControl
     /// <returns>
     /// Returns the localized string.
     /// </returns>
-    protected string LocalizedString([NotNull] string tag, [NotNull] string defaultString)
+    protected string LocalizedString(string tag, string defaultString)
     {
         return this.Get<ILocalization>().GetTextExists("BBCODEMODULE", tag)
                    ? this.GetText("BBCODEMODULE", tag)

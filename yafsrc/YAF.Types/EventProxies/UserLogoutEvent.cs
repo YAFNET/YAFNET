@@ -34,7 +34,7 @@ public class UserLogoutEvent : IAmEvent
     /// <param name="userId">
     /// The user id.
     /// </param>
-    public UserLogoutEvent([NotNull] int userId)
+    public UserLogoutEvent(int userId)
     {
         this.UserId = userId;
     }

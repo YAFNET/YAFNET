@@ -289,7 +289,7 @@ public class UpgradeService : IHaveServiceLocator
     /// <param name="scriptFile">
     /// The script file.
     /// </param>
-    private void ExecuteScript([NotNull] string scriptFile)
+    private void ExecuteScript(string scriptFile)
     {
         string script;
         var fileName = this.Get<HttpRequestBase>().MapPath(scriptFile);

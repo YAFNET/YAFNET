@@ -52,7 +52,7 @@ public partial class RunSql : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.FormValidatorJs),
@@ -70,7 +70,7 @@ public partial class RunSql : AdminPage
     /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-    protected override void OnInit([NotNull] EventArgs e)
+    protected override void OnInit(EventArgs e)
     {
         this.editor = new CodeMirrorSqlEditor();
 
@@ -97,7 +97,7 @@ public partial class RunSql : AdminPage
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void RunQueryClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void RunQueryClick(object sender, EventArgs e)
     {
         this.txtResult.Text = string.Empty;
         this.ResultHolder.Visible = true;

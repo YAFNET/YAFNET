@@ -41,12 +41,12 @@ public static class ISendMailExtensions
     /// <param name="subject">The subject.</param>
     /// <param name="body">The body.</param>
     public static void Send(
-        [NotNull] this IMailService sendMail,
-        [NotNull] string fromEmail,
-        [NotNull] string toEmail,
-        [NotNull] string senderEmail,
-        [CanBeNull] string subject,
-        [CanBeNull] string body)
+        this IMailService sendMail,
+        string fromEmail,
+        string toEmail,
+        string senderEmail,
+        string subject,
+        string body)
     {
         CodeContracts.VerifyNotNull(fromEmail);
         CodeContracts.VerifyNotNull(toEmail);
@@ -69,12 +69,12 @@ public static class ISendMailExtensions
     /// <param name="subject">The subject.</param>
     /// <param name="bodyText">The body text.</param>
     public static void Send(
-        [NotNull] this IMailService sendMail,
-        [NotNull] MailAddress fromAddress,
-        [NotNull] MailAddress toAddress,
-        [NotNull] MailAddress senderAddress,
-        [CanBeNull] string subject,
-        [CanBeNull] string bodyText)
+        this IMailService sendMail,
+        MailAddress fromAddress,
+        MailAddress toAddress,
+        MailAddress senderAddress,
+        string subject,
+        string bodyText)
     {
         sendMail.Send(fromAddress, toAddress, senderAddress, subject, bodyText, null);
     }
@@ -90,13 +90,13 @@ public static class ISendMailExtensions
     /// <param name="bodyText">The body text.</param>
     /// <param name="bodyHtml">The body html.</param>
     public static void Send(
-        [NotNull] this IMailService sendMail,
-        [NotNull] MailAddress fromAddress,
-        [NotNull] MailAddress toAddress,
-        [NotNull] MailAddress senderAddress,
-        [CanBeNull] string subject,
-        [CanBeNull] string bodyText,
-        [CanBeNull] string bodyHtml)
+        this IMailService sendMail,
+        MailAddress fromAddress,
+        MailAddress toAddress,
+        MailAddress senderAddress,
+        string subject,
+        string bodyText,
+        string bodyHtml)
     {
         CodeContracts.VerifyNotNull(sendMail);
         CodeContracts.VerifyNotNull(fromAddress);
@@ -137,13 +137,13 @@ public static class ISendMailExtensions
     /// The <see cref="MailMessage"/>.
     /// </returns>
     public static MailMessage CreateMessage(
-        [NotNull] this IMailService sendMail,
-        [NotNull] MailAddress fromAddress,
-        [NotNull] MailAddress toAddress,
-        [NotNull] MailAddress senderAddress,
-        [CanBeNull] string subject,
-        [CanBeNull] string bodyText,
-        [CanBeNull] string bodyHtml)
+        this IMailService sendMail,
+        MailAddress fromAddress,
+        MailAddress toAddress,
+        MailAddress senderAddress,
+        string subject,
+        string bodyText,
+        string bodyHtml)
     {
         CodeContracts.VerifyNotNull(sendMail);
         CodeContracts.VerifyNotNull(fromAddress);

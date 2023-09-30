@@ -57,7 +57,7 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// <param name="container">
     /// The container.
     /// </param>
-    public AutoFacServiceLocatorProvider([NotNull] ILifetimeScope container)
+    public AutoFacServiceLocatorProvider(ILifetimeScope container)
     {
         CodeContracts.VerifyNotNull(container);
 
@@ -196,8 +196,8 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// An object that specifies the type of service object to get.
     /// </param>
     /// <filterpriority>2</filterpriority>
-    [CanBeNull]
-    public object GetService([NotNull] Type serviceType)
+    
+    public object GetService(Type serviceType)
     {
         return this.TryGet(serviceType, out var instance) ? instance : null;
     }
@@ -257,7 +257,7 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// <returns>
     /// The try get.
     /// </returns>
-    public bool TryGet(Type serviceType, [NotNull] out object instance)
+    public bool TryGet(Type serviceType, out object instance)
     {
         CodeContracts.VerifyNotNull(serviceType);
 
@@ -279,7 +279,7 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// <returns>
     /// The try get.
     /// </returns>
-    public bool TryGet(Type serviceType, string named, [NotNull] out object instance)
+    public bool TryGet(Type serviceType, string named, out object instance)
     {
         CodeContracts.VerifyNotNull(serviceType);
         CodeContracts.VerifyNotNull(named);
@@ -302,9 +302,9 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// <returns>
     /// The <see cref="IEnumerable"/>.
     /// </returns>
-    [NotNull]
+    
     private static IEnumerable<Parameter> ConvertToAutofacParameters(
-        [NotNull] IEnumerable<IServiceLocationParameter> parameters)
+        IEnumerable<IServiceLocationParameter> parameters)
     {
         CodeContracts.VerifyNotNull(parameters);
 

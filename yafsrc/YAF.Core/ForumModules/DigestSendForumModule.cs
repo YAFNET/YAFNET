@@ -27,7 +27,6 @@ using System;
 
 using YAF.Core.BaseModules;
 using YAF.Core.Tasks;
-using YAF.Types.Attributes;
 
 /// <summary>
 /// The mail sending module.
@@ -54,7 +53,7 @@ public class DigestSendForumModule : BaseForumModule
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void Current_AfterInit([NotNull] object sender, [NotNull] EventArgs e)
+    private void Current_AfterInit(object sender, EventArgs e)
     {
         this.Get<ITaskModuleManager>().StartTask(_KeyName, () => new DigestSendTask());
     }

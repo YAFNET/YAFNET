@@ -44,7 +44,7 @@ public partial class NntpForums : AdminPage
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void NewForumClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void NewForumClick(object sender, EventArgs e)
     {
         this.EditDialog.BindData(null);
 
@@ -58,7 +58,7 @@ public partial class NntpForums : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (!this.IsPostBack)
         {
@@ -82,7 +82,7 @@ public partial class NntpForums : AdminPage
     /// </summary>
     /// <param name="source">The source.</param>
     /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-    protected void RankListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    protected void RankListItemCommand(object source, RepeaterCommandEventArgs e)
     {
         switch (e.CommandName)
         {

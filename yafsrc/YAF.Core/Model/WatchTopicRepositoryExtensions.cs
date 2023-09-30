@@ -66,7 +66,7 @@ public static class WatchTopicRepositoryExtensions
     /// <returns>
     /// The <see cref="int?"/>.
     /// </returns>
-    public static int? Check(this IRepository<WatchTopic> repository, [NotNull] int userId, [NotNull] int topicId)
+    public static int? Check(this IRepository<WatchTopic> repository, int userId, int topicId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -95,9 +95,9 @@ public static class WatchTopicRepositoryExtensions
     /// </returns>
     public static List<WatchTopic> List(
         this IRepository<WatchTopic> repository,
-        [NotNull] int userId,
-        [NotNull] int pageIndex = 0,
-        [NotNull] int pageSize = 10000000)
+        int userId,
+        int pageIndex = 0,
+        int pageSize = 10000000)
     {
         CodeContracts.VerifyNotNull(repository);
 

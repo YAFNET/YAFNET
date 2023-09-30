@@ -25,8 +25,6 @@ namespace YAF.Core.Events;
 
 using System;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The last visit handler.
 /// </summary>
@@ -50,7 +48,7 @@ public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>, IHandl
     /// <param name="requestBase">The request base.</param>
     /// <param name="responseBase">The response base.</param>
     public LastVisitEventHandler(
-        [NotNull] ISession yafSession, HttpRequestBase requestBase, HttpResponseBase responseBase)
+        ISession yafSession, HttpRequestBase requestBase, HttpResponseBase responseBase)
     {
         this.request = requestBase;
         this.response = responseBase;
@@ -81,7 +79,7 @@ public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>, IHandl
     /// <param name="event">
     /// The event.
     /// </param>
-    public void Handle([NotNull] ForumPagePreLoadEvent @event)
+    public void Handle(ForumPagePreLoadEvent @event)
     {
         var previousVisitKey = "PreviousVisit";
 

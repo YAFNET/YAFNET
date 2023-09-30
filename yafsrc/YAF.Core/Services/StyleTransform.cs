@@ -35,7 +35,7 @@ public class StyleTransform : IStyleTransform
     /// <returns>
     /// The decode style by string.
     /// </returns>
-    public string Decode([NotNull] string style)
+    public string Decode(string style)
     {
         if (style.IsNotSet())
         {

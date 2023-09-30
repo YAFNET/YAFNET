@@ -50,7 +50,7 @@ public partial class ForumSubForumList : BaseUserControl
     /// <returns>
     /// Forum link text
     /// </returns>
-    public string GetForumLink([NotNull] ForumRead forum)
+    public string GetForumLink(ForumRead forum)
     {
         // get the Forum Description
         var output = forum.Forum;
@@ -67,7 +67,7 @@ public partial class ForumSubForumList : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="RepeaterItemEventArgs"/> instance containing the event data.</param>
-    protected void SubForumList_ItemCreated([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
+    protected void SubForumList_ItemCreated(object sender, RepeaterItemEventArgs e)
     {
         if (!e.Item.ItemType.Equals(ListItemType.Footer))
         {
@@ -98,7 +98,7 @@ public partial class ForumSubForumList : BaseUserControl
     /// <returns>
     /// Returns the Posts string
     /// </returns>
-    protected string Posts([NotNull] ForumRead item)
+    protected string Posts(ForumRead item)
     {
         return item.RemoteURL.IsNotSet() ? $"{item.Posts:N0}" : "-";
     }
@@ -112,7 +112,7 @@ public partial class ForumSubForumList : BaseUserControl
     /// <returns>
     /// Returns the Topics string
     /// </returns>
-    protected string Topics([NotNull] ForumRead item)
+    protected string Topics(ForumRead item)
     {
         return item.RemoteURL.IsNotSet() ? $"{item.Topics:N0}" : "-";
     }

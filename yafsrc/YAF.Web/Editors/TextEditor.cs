@@ -44,7 +44,7 @@ public class TextEditor : ForumEditor
     /// <summary>
     ///   Gets the Editor Description.
     /// </summary>
-    [NotNull]
+    
     public override string Description => "Plain Text Editor";
 
     /// <summary>
@@ -80,7 +80,7 @@ public class TextEditor : ForumEditor
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected virtual void Editor_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+    protected virtual void Editor_PreRender(object sender, EventArgs e)
     {
     }
 
@@ -88,7 +88,7 @@ public class TextEditor : ForumEditor
     /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-    protected override void OnInit([NotNull] EventArgs e)
+    protected override void OnInit(EventArgs e)
     {
         this.PreRender += this.Editor_PreRender;
 

@@ -57,7 +57,7 @@ public partial class EditUsersSuspend : BaseUserControl
     /// <summary>
     /// Gets the User Data.
     /// </summary>
-    [NotNull]
+    
     private User User
     {
         get
@@ -94,7 +94,7 @@ public partial class EditUsersSuspend : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         this.SuspendInfo.Text = this.GetTextFormatted(
             "SUSPEND_INFO",
@@ -131,7 +131,7 @@ public partial class EditUsersSuspend : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_PreRender(object sender, EventArgs e)
     {
         this.trHeader.Visible = this.ShowHeader;
     }
@@ -145,7 +145,7 @@ public partial class EditUsersSuspend : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void RemoveSuspension_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void RemoveSuspension_Click(object sender, EventArgs e)
     {
         // un-suspend user
         this.GetRepository<User>().Suspend(this.CurrentUserID);
@@ -182,7 +182,7 @@ public partial class EditUsersSuspend : BaseUserControl
     /// <param name="e">
     /// The System.EventArgs inherit from Page.
     /// </param>
-    protected void Suspend_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Suspend_Click(object sender, EventArgs e)
     {
         var access = this.GetRepository<VAccess>().GetSingle(v => v.UserID == this.CurrentUserID);
 

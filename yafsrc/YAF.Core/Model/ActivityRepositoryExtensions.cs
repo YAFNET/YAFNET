@@ -47,7 +47,7 @@ public static class ActivityRepositoryExtensions
     /// </returns>
     public static List<Tuple<Activity, User, Topic>> Notifications(
         this IRepository<Activity> repository,
-        [NotNull] int userId)
+        int userId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -71,7 +71,7 @@ public static class ActivityRepositoryExtensions
     /// <returns>
     /// Returns the User Timeline
     /// </returns>
-    public static List<Tuple<Activity, Topic>> Timeline(this IRepository<Activity> repository, [NotNull] int userId)
+    public static List<Tuple<Activity, Topic>> Timeline(this IRepository<Activity> repository, int userId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -98,8 +98,8 @@ public static class ActivityRepositoryExtensions
     /// </param>
     public static void UpdateNotification(
         this IRepository<Activity> repository,
-        [NotNull] int userId,
-        [NotNull] int messageId)
+        int userId,
+        int messageId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -124,8 +124,8 @@ public static class ActivityRepositoryExtensions
     /// </param>
     public static void UpdateTopicNotification(
         this IRepository<Activity> repository,
-        [NotNull] int userId,
-        [NotNull] int topicId)
+        int userId,
+        int topicId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -145,7 +145,7 @@ public static class ActivityRepositoryExtensions
     /// <param name="userId">
     /// The user id.
     /// </param>
-    public static void MarkAllAsRead(this IRepository<Activity> repository, [NotNull] int userId)
+    public static void MarkAllAsRead(this IRepository<Activity> repository, int userId)
     {
         CodeContracts.VerifyNotNull(repository);
 

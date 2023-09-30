@@ -46,7 +46,7 @@ public partial class Forums : ModerateForumPage
     /// <param name="e">
     /// the Event Arguments
     /// </param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             "TopicStarterPopoverJs",
@@ -79,7 +79,7 @@ public partial class Forums : ModerateForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void AddUser_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void AddUser_Click(object sender, EventArgs e)
     {
         this.ModForumUserDialog.BindData(this.PageBoardContext.PageForumID, null);
 
@@ -128,7 +128,7 @@ public partial class Forums : ModerateForumPage
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void DeleteTopics_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void DeleteTopics_Click(object sender, EventArgs e)
     {
         var list = this.GetSelectedTopics();
 
@@ -151,7 +151,7 @@ public partial class Forums : ModerateForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Move_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Move_Click(object sender, EventArgs e)
     {
         int? linkDays = null;
         var ld = -2;
@@ -202,7 +202,7 @@ public partial class Forums : ModerateForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (!this.PageBoardContext.IsAdmin)
         {
@@ -273,7 +273,7 @@ public partial class Forums : ModerateForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    protected void PagerTop_PageChange(object sender, EventArgs e)
     {
         // rebind
         this.BindData();
@@ -284,7 +284,7 @@ public partial class Forums : ModerateForumPage
     /// </summary>
     /// <param name="source">The source of the event.</param>
     /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-    protected void UserList_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    protected void UserList_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         switch (e.CommandName)
         {

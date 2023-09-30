@@ -96,8 +96,8 @@ public static class BitBoolExtensions
     /// <returns>
     /// The to hex string.
     /// </returns>
-    [NotNull]
-    public static string ToHexString([NotNull] this byte[] hashedBytes)
+    
+    public static string ToHexString(this byte[] hashedBytes)
     {
         CodeContracts.VerifyNotNull(hashedBytes);
 

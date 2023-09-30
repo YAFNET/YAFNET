@@ -40,8 +40,8 @@ public static class ControlHelper
     /// </summary>
     /// <param name="control">The control.</param>
     /// <returns>Returns the Rendered Control as string</returns>
-    [NotNull]
-    public static string RenderToString([NotNull] this Control control)
+    
+    public static string RenderToString(this Control control)
     {
         CodeContracts.VerifyNotNull(control);
 
@@ -68,7 +68,7 @@ public static class ControlHelper
     /// <returns>
     /// The find control recursive reverse.
     /// </returns>
-    public static Control FindControlRecursiveReverse([NotNull] this Control sourceControl, [NotNull] string id)
+    public static Control FindControlRecursiveReverse(this Control sourceControl, string id)
     {
         CodeContracts.VerifyNotNull(sourceControl);
         CodeContracts.VerifyNotNull(id);
@@ -91,7 +91,7 @@ public static class ControlHelper
     /// <returns>
     /// The find control recursive both.
     /// </returns>
-    public static Control FindControlRecursiveBoth([NotNull] this Control sourceControl, [NotNull] string id)
+    public static Control FindControlRecursiveBoth(this Control sourceControl, string id)
     {
         CodeContracts.VerifyNotNull(sourceControl);
         CodeContracts.VerifyNotNull(id);
@@ -121,7 +121,7 @@ public static class ControlHelper
     /// <returns>
     /// Returns the Control as strongly typed
     /// </returns>
-    public static T FindControlAs<T>([NotNull] this Control sourceControl, [NotNull] string id) where T : class
+    public static T FindControlAs<T>(this Control sourceControl, string id) where T : class
     {
         CodeContracts.VerifyNotNull(sourceControl);
         CodeContracts.VerifyNotNull(id);
@@ -140,7 +140,7 @@ public static class ControlHelper
     /// <returns>
     /// The find control recursive as.
     /// </returns>
-    public static T FindControlRecursiveAs<T>([NotNull] this Control sourceControl, [NotNull] string id)
+    public static T FindControlRecursiveAs<T>(this Control sourceControl, string id)
         where T : class
     {
         CodeContracts.VerifyNotNull(sourceControl);
@@ -160,7 +160,7 @@ public static class ControlHelper
     /// <returns>
     /// The find control recursive both as.
     /// </returns>
-    public static T FindControlRecursiveBothAs<T>([NotNull] this Control sourceControl, [NotNull] string id)
+    public static T FindControlRecursiveBothAs<T>(this Control sourceControl, string id)
         where T : class
     {
         CodeContracts.VerifyNotNull(sourceControl);
@@ -183,8 +183,8 @@ public static class ControlHelper
     /// <returns>
     /// A control reference, if found, null, if not
     /// </returns>
-    [CanBeNull]
-    public static Control FindWizardControlRecursive([NotNull] this Wizard wizardControl, [NotNull] string id)
+    
+    public static Control FindWizardControlRecursive(this Wizard wizardControl, string id)
     {
         CodeContracts.VerifyNotNull(wizardControl);
         CodeContracts.VerifyNotNull(id);
@@ -223,8 +223,8 @@ public static class ControlHelper
     /// <returns>
     /// A Control, if found; null, if not
     /// </returns>
-    [CanBeNull]
-    public static Control FindControlRecursive([NotNull] this Control sourceControl, [NotNull] string id)
+    
+    public static Control FindControlRecursive(this Control sourceControl, string id)
     {
         CodeContracts.VerifyNotNull(sourceControl);
         CodeContracts.VerifyNotNull(id);
@@ -265,8 +265,8 @@ public static class ControlHelper
     /// <returns>
     /// List of type T with controls.
     /// </returns>
-    [NotNull]
-    public static IEnumerable<T> FindControlType<T>([NotNull] this Control sourceControl)
+    
+    public static IEnumerable<T> FindControlType<T>(this Control sourceControl)
     {
         CodeContracts.VerifyNotNull(sourceControl);
 
@@ -280,8 +280,8 @@ public static class ControlHelper
     /// <returns>
     /// The make CSS include control.
     /// </returns>
-    [NotNull]
-    public static HtmlLink MakeCssIncludeControl([NotNull] string href)
+    
+    public static HtmlLink MakeCssIncludeControl(string href)
     {
         CodeContracts.VerifyNotNull(href);
 
@@ -301,8 +301,8 @@ public static class ControlHelper
     /// <returns>
     /// Returns the CSS control
     /// </returns>
-    [NotNull]
-    public static HtmlGenericControl MakeCssControl([NotNull] string css)
+    
+    public static HtmlGenericControl MakeCssControl(string css)
     {
         CodeContracts.VerifyNotNull(css);
 
@@ -336,10 +336,10 @@ public static class ControlHelper
     /// <returns>
     /// List of controls found
     /// </returns>
-    [NotNull]
+    
     private static IEnumerable<Control> ControlListNoParents(
-        [NotNull] this Control sourceControl,
-        [NotNull] Func<Control, bool> isControl)
+        this Control sourceControl,
+        Func<Control, bool> isControl)
     {
         CodeContracts.VerifyNotNull(sourceControl);
         CodeContracts.VerifyNotNull(isControl);

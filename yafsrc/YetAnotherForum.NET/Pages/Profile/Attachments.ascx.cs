@@ -48,7 +48,7 @@ public partial class Attachments : ProfilePage
     /// <param name="e">
     /// The <see cref="System.EventArgs"/> instance containing the event data. 
     /// </param>
-    protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    protected void PagerTop_PageChange(object sender, EventArgs e)
     {
         // rebind
         this.BindData();
@@ -73,7 +73,7 @@ public partial class Attachments : ProfilePage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (!this.PageBoardContext.UploadAccess)
         {
@@ -119,7 +119,7 @@ public partial class Attachments : ProfilePage
     /// </summary>
     /// <param name="o">The Data Row object.</param>
     /// <returns>Returns the Preview Image</returns>
-    protected string GetPreviewImage([NotNull] object o)
+    protected string GetPreviewImage(object o)
     {
         var attach = o.ToType<Attachment>();
 

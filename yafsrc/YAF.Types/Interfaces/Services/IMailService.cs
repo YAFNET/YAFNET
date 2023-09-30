@@ -38,5 +38,5 @@ public interface IMailService
     /// <param name="messages">
     /// The messages.
     /// </param>
-    void SendAll([NotNull] IEnumerable<MailMessage> messages);
+    void SendAll(IEnumerable<MailMessage> messages);
 }

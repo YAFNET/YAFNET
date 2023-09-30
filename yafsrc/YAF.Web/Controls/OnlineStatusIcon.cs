@@ -42,7 +42,7 @@ public class OnlineStatusIcon : BaseControl
     /// <value>
     ///   <c>true</c> if suspended; otherwise, <c>false</c>.
     /// </value>
-    [NotNull]
+    
     public DateTime? Suspended { get; set; }
 
     /// <summary>
@@ -51,7 +51,7 @@ public class OnlineStatusIcon : BaseControl
     /// <param name="writer">
     /// The output.
     /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         if (!this.Visible)
         {

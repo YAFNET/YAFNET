@@ -53,7 +53,7 @@ public class BadWordReplaceItem
     /// <param name="options">
     /// The options.
     /// </param>
-    public BadWordReplaceItem([NotNull] string goodWord, [NotNull] string badWord, RegexOptions options)
+    public BadWordReplaceItem(string goodWord, string badWord, RegexOptions options)
     {
         this.Options = options;
         this.GoodWord = goodWord;

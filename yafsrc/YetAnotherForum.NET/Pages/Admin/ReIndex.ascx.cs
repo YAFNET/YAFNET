@@ -47,7 +47,7 @@ public partial class ReIndex : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -78,7 +78,7 @@ public partial class ReIndex : AdminPage
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void GetStatsClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void GetStatsClick(object sender, EventArgs e)
     {
         try
         {
@@ -96,7 +96,7 @@ public partial class ReIndex : AdminPage
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void RecoveryModeClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void RecoveryModeClick(object sender, EventArgs e)
     {
         var recoveryMode = this.RadioButtonList1.SelectedIndex switch
             {
@@ -120,7 +120,7 @@ public partial class ReIndex : AdminPage
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void ReindexClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void ReindexClick(object sender, EventArgs e)
     {
         const string Result = "Done";
 
@@ -137,7 +137,7 @@ public partial class ReIndex : AdminPage
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void ShrinkClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void ShrinkClick(object sender, EventArgs e)
     {
         try
         {

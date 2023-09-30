@@ -66,7 +66,7 @@ public partial class ReportPost : ForumPage
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void CancelClick(object sender, EventArgs e)
     {
         // Redirect to reported post
         this.RedirectToPost();
@@ -81,7 +81,7 @@ public partial class ReportPost : ForumPage
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void ReportClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void ReportClick(object sender, EventArgs e)
     {
         if (!this.Page.IsValid)
         {
@@ -126,7 +126,7 @@ public partial class ReportPost : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.Get<HttpRequestBase>().QueryString.Exists("m"))
         {

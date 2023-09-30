@@ -53,8 +53,8 @@ public class DefaultUserDisplayName : IUserDisplayName, IHaveServiceLocator
     /// <returns>
     /// Returns the Found PageUser
     /// </returns>
-    [NotNull]
-    public IList<User> FindUserContainsName([NotNull] string contains)
+    
+    public IList<User> FindUserContainsName(string contains)
     {
         return this.Get<BoardSettings>().EnableDisplayName
                    ? this.GetRepository<User>().Get(
@@ -73,8 +73,8 @@ public class DefaultUserDisplayName : IUserDisplayName, IHaveServiceLocator
     /// <returns>
     /// The <see cref="User"/>.
     /// </returns>
-    [NotNull]
-    public User FindUserByName([NotNull] string name)
+    
+    public User FindUserByName(string name)
     {
         return this.Get<BoardSettings>().EnableDisplayName
                    ? this.GetRepository<User>().GetSingle(

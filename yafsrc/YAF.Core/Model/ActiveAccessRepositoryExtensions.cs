@@ -50,9 +50,9 @@ public static class ActiveAccessRepositoryExtensions
     /// </param>
     public static void InsertPageAccess(
         this IRepository<ActiveAccess> repository,
-        [CanBeNull] int boardId,
-        [NotNull] int userId,
-        [NotNull] bool isGuest)
+        int boardId,
+        int userId,
+        bool isGuest)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -104,7 +104,7 @@ public static class ActiveAccessRepositoryExtensions
     /// <param name="activeTime">
     /// The active Time.
     /// </param>
-    public static void Delete(this IRepository<ActiveAccess> repository, [NotNull] int activeTime)
+    public static void Delete(this IRepository<ActiveAccess> repository, int activeTime)
     {
         CodeContracts.VerifyNotNull(repository);
 

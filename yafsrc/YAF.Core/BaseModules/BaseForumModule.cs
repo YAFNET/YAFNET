@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.BaseModules;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The base forum module.
 /// </summary>
@@ -48,7 +46,7 @@ public abstract class BaseForumModule : IBaseForumModule, IHaveServiceLocator, I
     /// <summary>
     ///   Gets ModuleId.
     /// </summary>
-    [NotNull]
+    
     public virtual string ModuleId => this.Description.GetHashCode().ToString();
 
     /// <summary>

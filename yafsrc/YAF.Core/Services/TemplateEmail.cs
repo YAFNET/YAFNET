@@ -41,7 +41,7 @@ public class TemplateEmail : IHaveServiceLocator
     /// <param name="templateName">
     /// The template name.
     /// </param>
-    public TemplateEmail([CanBeNull] string templateName)
+    public TemplateEmail(string templateName)
     {
         this.HtmlTemplateFileName = "EmailTemplate.html";
 
@@ -166,7 +166,7 @@ public class TemplateEmail : IHaveServiceLocator
     /// <returns>
     /// The process template.
     /// </returns>
-    public string ProcessTemplate([CanBeNull]string templateName)
+    public string ProcessTemplate(string templateName)
     {
         var email = this.ReadTemplate(templateName, this.TemplateLanguageFile);
 

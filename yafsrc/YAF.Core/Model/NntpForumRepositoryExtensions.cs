@@ -47,8 +47,8 @@ public static class NntpForumRepositoryExtensions
     /// </param>
     public static void Update(
         this IRepository<NntpForum> repository,
-        [NotNull] int nntpForumId,
-        [NotNull] int lastMessageNo)
+        int nntpForumId,
+        int lastMessageNo)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -122,12 +122,12 @@ public static class NntpForumRepositoryExtensions
     /// </param>
     public static void Save(
         this IRepository<NntpForum> repository,
-        [NotNull] int? nntpForumId,
-        [NotNull] int nntpServerId,
-        [NotNull] string groupName,
-        [NotNull] int forumId,
-        [NotNull] bool active,
-        [NotNull] DateTime? dateCutOff)
+        int? nntpForumId,
+        int nntpServerId,
+        string groupName,
+        int forumId,
+        bool active,
+        DateTime? dateCutOff)
     {
         if (nntpForumId.HasValue)
         {

@@ -49,7 +49,7 @@ public interface IBBCode
     /// <returns>
     /// Returns the formatted Message.
     /// </returns>
-    string FormatMessageWithCustomBBCode([NotNull] string message, [NotNull] MessageFlags flags, int? displayUserId, int? messageId);
+    string FormatMessageWithCustomBBCode(string message, MessageFlags flags, int? displayUserId, int? messageId);
 
     /// <summary>
     /// Converts a message containing HTML to BBCode for editing.
@@ -60,7 +60,7 @@ public interface IBBCode
     /// <returns>
     /// The converted text
     /// </returns>
-    string ConvertHtmlToBBCodeForEdit([NotNull] string message);
+    string ConvertHtmlToBBCodeForEdit(string message);
 
     /// <summary>
     /// Creates the rules that convert BBCode to HTML
@@ -84,8 +84,8 @@ public interface IBBCode
     /// Indicates if the formatting is for the Editor.
     /// </param>
     void CreateBBCodeRules(
-        [NotNull] int messageId,
-        [NotNull] IProcessReplaceRules ruleEngine,
+        int messageId,
+        IProcessReplaceRules ruleEngine,
         bool doFormatting,
         bool targetBlankOverride,
         bool useNoFollow,
@@ -101,7 +101,7 @@ public interface IBBCode
     /// <returns>
     /// The localize custom bb code element.
     /// </returns>
-    string LocalizeCustomBBCodeElement([NotNull] string strToLocalize);
+    string LocalizeCustomBBCodeElement(string strToLocalize);
 
     /// <summary>
     /// Converts a string containing BBCode to the equivalent HTML string.
@@ -118,7 +118,7 @@ public interface IBBCode
     /// <returns>
     /// The make html.
     /// </returns>
-    string MakeHtml([NotNull] string inputString, bool doFormatting, bool targetBlankOverride);
+    string MakeHtml(string inputString, bool doFormatting, bool targetBlankOverride);
 
     /// <summary>
     /// Helper function that dandles registering "Custom BBCode" JavaScript (if there is any)
@@ -130,7 +130,7 @@ public interface IBBCode
     /// <param name="currentType">
     /// The current Type.
     /// </param>
-    void RegisterCustomBBCodePageElements([NotNull] Page currentPage, [NotNull] Type currentType);
+    void RegisterCustomBBCodePageElements(Page currentPage, Type currentType);
 
     /// <summary>
     /// Helper function that dandles registering "Custom BBCode" JavaScript (if there is any)
@@ -146,9 +146,9 @@ public interface IBBCode
     /// The editor ID.
     /// </param>
     void RegisterCustomBBCodePageElements(
-        [NotNull] Page currentPage,
-        [NotNull] Type currentType,
-        [NotNull] string editorID);
+        Page currentPage,
+        Type currentType,
+        string editorID);
 
     /// <summary>
     ///     The get custom bb code.

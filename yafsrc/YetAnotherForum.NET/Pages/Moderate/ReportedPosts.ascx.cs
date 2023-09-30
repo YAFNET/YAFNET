@@ -62,7 +62,7 @@ public partial class ReportedPosts : ModerateForumPage
     /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnInit([NotNull] EventArgs e)
+    protected override void OnInit(EventArgs e)
     {
         this.List.ItemCommand += this.List_ItemCommand;
 
@@ -74,7 +74,7 @@ public partial class ReportedPosts : ModerateForumPage
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         // do this just on page load, not post-backs
         if (this.IsPostBack)
@@ -139,7 +139,7 @@ public partial class ReportedPosts : ModerateForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-    private void List_ItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
+    private void List_ItemCommand(object sender, RepeaterCommandEventArgs e)
     {
         Message message;
 

@@ -37,7 +37,7 @@ public class NewUserRegisteredEvent : IAmEvent
     /// <param name="userId">
     /// The user id.
     /// </param>
-    public NewUserRegisteredEvent([NotNull] AspNetUsers user, int userId)
+    public NewUserRegisteredEvent(AspNetUsers user, int userId)
     {
         CodeContracts.VerifyNotNull(user);
 

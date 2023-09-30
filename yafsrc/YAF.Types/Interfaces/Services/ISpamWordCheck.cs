@@ -46,5 +46,5 @@ public interface ISpamWordCheck
     /// <returns>
     /// Returns if the search Text contains a spam word
     /// </returns>
-    bool CheckForSpamWord([NotNull] string searchText, out string spamWord);
+    bool CheckForSpamWord(string searchText, out string spamWord);
 }

@@ -124,7 +124,7 @@ public partial class GroupMedalEdit : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Save_OnClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Save_OnClick(object sender, EventArgs e)
     {
         if (this.GroupId.HasValue)
         {

@@ -24,8 +24,6 @@
 
 namespace YAF.Modules;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The Page Popup Module
 /// </summary>
@@ -117,7 +115,7 @@ public class PagePopupForumModule : SimpleBaseForumModule
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void CurrentForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+    private void CurrentForumPage_PreRender(object sender, EventArgs e)
     {
         this.RegisterLoadString();
     }
@@ -127,7 +125,7 @@ public class PagePopupForumModule : SimpleBaseForumModule
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void ForumControl_Init([NotNull] object sender, [NotNull] EventArgs e)
+    private void ForumControl_Init(object sender, EventArgs e)
     {
         // at this point, init has already been called...
         this.AddErrorPopup();

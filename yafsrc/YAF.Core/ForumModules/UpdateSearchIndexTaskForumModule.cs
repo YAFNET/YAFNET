@@ -27,7 +27,6 @@ using System;
 
 using YAF.Core.BaseModules;
 using YAF.Core.Tasks;
-using YAF.Types.Attributes;
 
 /// <summary>
 /// The Update Search Index Task
@@ -50,7 +49,7 @@ public class UpdateSearchIndexTaskForumModule : BaseForumModule
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    private void CurrentAfterInit([NotNull] object sender, [NotNull] EventArgs e)
+    private void CurrentAfterInit(object sender, EventArgs e)
     {
         this.Get<ITaskModuleManager>().StartTask(UpdateSearchIndexTask.TaskName, () => new UpdateSearchIndexTask());
     }

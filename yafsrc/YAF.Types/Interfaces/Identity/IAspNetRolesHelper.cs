@@ -40,7 +40,7 @@ public interface IAspNetRolesHelper
     /// <param name="role">
     /// The role.
     /// </param>
-    void AddUserToRole([NotNull] AspNetUsers user, [NotNull] string role);
+    void AddUserToRole(AspNetUsers user, string role);
 
     /// <summary>
     /// Creates the user in the YAF DB from the ASP.NET Membership user information.
@@ -55,7 +55,7 @@ public interface IAspNetRolesHelper
     /// <returns>
     /// Returns the UserID of the user if everything was successful. Otherwise, null.
     /// </returns>
-    int? CreateForumUser([NotNull] AspNetUsers user, int pageBoardID);
+    int? CreateForumUser(AspNetUsers user, int pageBoardID);
 
     /// <summary>
     /// Creates the user in the YAF DB from the ASP.NET Membership user information.
@@ -73,7 +73,7 @@ public interface IAspNetRolesHelper
     /// <returns>
     /// Returns the UserID of the user if everything was successful. Otherwise, null.
     /// </returns>
-    int? CreateForumUser([NotNull] AspNetUsers user, [NotNull] string displayName, int pageBoardID);
+    int? CreateForumUser(AspNetUsers user, string displayName, int pageBoardID);
 
     /// <summary>
     /// The create role.
@@ -81,7 +81,7 @@ public interface IAspNetRolesHelper
     /// <param name="roleName">
     /// The role name.
     /// </param>
-    void CreateRole([NotNull] string roleName);
+    void CreateRole(string roleName);
 
     /// <summary>
     /// The delete role.
@@ -89,7 +89,7 @@ public interface IAspNetRolesHelper
     /// <param name="roleName">
     /// The role name.
     /// </param>
-    void DeleteRole([NotNull] string roleName);
+    void DeleteRole(string roleName);
 
     /// <summary>
     /// Check if the forum user was created.
@@ -99,7 +99,7 @@ public interface IAspNetRolesHelper
     /// <returns>
     /// The did create forum user.
     /// </returns>
-    bool DidCreateForumUser([NotNull] AspNetUsers user, int pageBoardID);
+    bool DidCreateForumUser(AspNetUsers user, int pageBoardID);
 
     /// <summary>
     /// Gets all roles.
@@ -118,7 +118,7 @@ public interface IAspNetRolesHelper
     /// <returns>
     /// Returns all Roles
     /// </returns>
-    IList<string> GetRolesForUser([NotNull] AspNetUsers user);
+    IList<string> GetRolesForUser(AspNetUsers user);
 
     /// <summary>
     /// The get users in role.
@@ -143,7 +143,7 @@ public interface IAspNetRolesHelper
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    bool IsMemberOfGroup([NotNull] string groupName, [NotNull] List<GroupMember> groups);
+    bool IsMemberOfGroup(string groupName, List<GroupMember> groups);
 
     /// <summary>
     /// Determines whether [is user in role] [the specified username].
@@ -157,7 +157,7 @@ public interface IAspNetRolesHelper
     /// <returns>
     /// The is user in role.
     /// </returns>
-    bool IsUserInRole([NotNull] AspNetUsers user, [NotNull] string role);
+    bool IsUserInRole(AspNetUsers user, string role);
 
     /// <summary>
     /// The remove user from role.
@@ -168,7 +168,7 @@ public interface IAspNetRolesHelper
     /// <param name="role">
     /// The role.
     /// </param>
-    void RemoveUserFromRole([NotNull] string userProviderKey, [NotNull] string role);
+    void RemoveUserFromRole(string userProviderKey, string role);
 
     /// <summary>
     /// Roles the exists.
@@ -177,7 +177,7 @@ public interface IAspNetRolesHelper
     /// <returns>
     /// The role exists.
     /// </returns>
-    bool RoleExists([NotNull] string roleName);
+    bool RoleExists(string roleName);
 
     /// <summary>
     /// Sets up the user roles from the "start" settings for a given group/role
@@ -188,7 +188,7 @@ public interface IAspNetRolesHelper
     /// <param name="user">
     /// The user.
     /// </param>
-    void SetupUserRoles(int pageBoardID, [NotNull] AspNetUsers user);
+    void SetupUserRoles(int pageBoardID, AspNetUsers user);
 
     /// <summary>
     /// Syncs the ASP.NET roles with YAF group based on YAF (not bi-directional)

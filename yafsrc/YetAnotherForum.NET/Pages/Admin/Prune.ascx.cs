@@ -45,7 +45,7 @@ public partial class Prune : AdminPage
     /// <param name="e">
     /// the Event Arguments
     /// </param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.SelectForumsLoadJs),
@@ -64,7 +64,7 @@ public partial class Prune : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (!this.IsPostBack)
         {
@@ -95,7 +95,7 @@ public partial class Prune : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void CommitClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void CommitClick(object sender, EventArgs e)
     {
         PruneTopicTask.Start(
             this.PageBoardContext.PageBoardID,

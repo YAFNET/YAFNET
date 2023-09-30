@@ -42,7 +42,7 @@ public partial class RestartApp : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         this.DataBind();
     }
@@ -62,7 +62,7 @@ public partial class RestartApp : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void RestartAppClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void RestartAppClick(object sender, EventArgs e)
     {
         HttpRuntime.UnloadAppDomain();
     }

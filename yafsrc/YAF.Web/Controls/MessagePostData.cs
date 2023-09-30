@@ -91,7 +91,7 @@ public class MessagePostData : MessagePost
     /// <summary>
     ///   Gets Signature.
     /// </summary>
-    [CanBeNull]
+    
     public override string Signature
     {
         get
@@ -114,7 +114,7 @@ public class MessagePostData : MessagePost
     /// <returns>
     /// The truncate message.
     /// </returns>
-    public static string TruncateMessage([NotNull] string message)
+    public static string TruncateMessage(string message)
     {
         CodeContracts.VerifyNotNull(message);
 
@@ -128,7 +128,7 @@ public class MessagePostData : MessagePost
     /// Raises the <see cref="E:System.Web.UI.Control.PreRender"/> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         CodeContracts.VerifyNotNull(this.MessageFlags);
 
@@ -144,7 +144,7 @@ public class MessagePostData : MessagePost
     /// The render message.
     /// </summary>
     /// <param name="writer">The writer.</param>
-    protected override void RenderMessage([NotNull] HtmlTextWriter writer)
+    protected override void RenderMessage(HtmlTextWriter writer)
     {
         CodeContracts.VerifyNotNull(writer);
         CodeContracts.VerifyNotNull(this.MessageFlags);

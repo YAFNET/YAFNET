@@ -42,7 +42,7 @@ public interface IDataCache : IObjectStore
     /// </param>
     /// <returns>
     /// </returns>
-    T GetOrSet<T>([NotNull] string key, [NotNull] Func<T> getValue, TimeSpan timeout);
+    T GetOrSet<T>(string key, Func<T> getValue, TimeSpan timeout);
 
     /// <summary>
     /// Sets a cache value with a timeout.
@@ -56,5 +56,5 @@ public interface IDataCache : IObjectStore
     /// <param name="timeout">
     /// The timeout.
     /// </param>
-    void Set([NotNull] string key, object value, TimeSpan timeout);
+    void Set(string key, object value, TimeSpan timeout);
 }

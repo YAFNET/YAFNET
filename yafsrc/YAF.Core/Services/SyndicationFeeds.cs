@@ -165,10 +165,10 @@ public class SyndicationFeeds : IHaveServiceLocator
     /// An Html formatted first message content string.
     /// </returns>
     public string GetPostLatestContent(
-        [NotNull] string text,
+        string text,
         int messageId,
         int messageAuthorUserId,
-        [NotNull] int flags)
+        int flags)
     {
         text = this.Get<IFormatMessage>().FormatSyndicationMessage(
             text,
@@ -188,7 +188,7 @@ public class SyndicationFeeds : IHaveServiceLocator
     /// <returns>
     /// The <see cref="FeedItem"/>.
     /// </returns>
-    public FeedItem GetPostLatestFeed([NotNull] RssFeeds feedType)
+    public FeedItem GetPostLatestFeed(RssFeeds feedType)
     {
         var syndicationItems = new List<SyndicationItem>();
 
@@ -259,7 +259,7 @@ public class SyndicationFeeds : IHaveServiceLocator
     /// <returns>
     /// The <see cref="FeedItem"/>.
     /// </returns>
-    public FeedItem GetPostsFeed([NotNull] RssFeeds feedType, [NotNull] int topicId)
+    public FeedItem GetPostsFeed(RssFeeds feedType, int topicId)
     {
         var syndicationItems = new List<SyndicationItem>();
 
@@ -332,7 +332,7 @@ public class SyndicationFeeds : IHaveServiceLocator
     /// <returns>
     /// The <see cref="FeedItem"/>.
     /// </returns>
-    public FeedItem GetTopicsFeed([NotNull] RssFeeds feedType, [NotNull] int forumId)
+    public FeedItem GetTopicsFeed(RssFeeds feedType, int forumId)
     {
         var syndicationItems = new List<SyndicationItem>();
 
@@ -406,8 +406,8 @@ public class SyndicationFeeds : IHaveServiceLocator
     /// <returns>
     /// Formatted url
     /// </returns>
-    [NotNull]
-    private static string FormatUrlForFeed([NotNull] string inputUrl)
+    
+    private static string FormatUrlForFeed(string inputUrl)
     {
         var formattedUrl = inputUrl;
 

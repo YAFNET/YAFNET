@@ -60,10 +60,10 @@ public class SpamCheck : ISpamCheck, IHaveServiceLocator
     /// Returns if Post is SPAM or not
     /// </returns>
     public bool CheckPostForSpam(
-        [NotNull] string userName,
-        [NotNull] string ipAddress,
-        [NotNull] string postMessage,
-        [CanBeNull] string emailAddress,
+        string userName,
+        string ipAddress,
+        string postMessage,
+        string emailAddress,
         out string result)
     {
         result = string.Empty;
@@ -103,7 +103,7 @@ public class SpamCheck : ISpamCheck, IHaveServiceLocator
     /// <returns>
     /// Returns if Post is SPAM or not
     /// </returns>
-    public bool CheckUserForSpamBot([NotNull]string userName, [CanBeNull]string emailAddress, [NotNull]string ipAddress, out string result)
+    public bool CheckUserForSpamBot(string userName, string emailAddress, string ipAddress, out string result)
     {
         // Check internal
         var internalCheck = new InternalCheck();

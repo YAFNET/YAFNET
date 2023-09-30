@@ -44,8 +44,8 @@ public class StartupInitializeDb : BaseStartupService, ICriticalStartupService, 
     /// The service Locator.
     /// </param>
     public StartupInitializeDb(
-        [NotNull] HttpResponseBase httpResponseBase,
-        [NotNull] IServiceLocator serviceLocator)
+        HttpResponseBase httpResponseBase,
+        IServiceLocator serviceLocator)
     {
         this.HttpResponseBase = httpResponseBase;
         this.ServiceLocator = serviceLocator;
@@ -65,7 +65,7 @@ public class StartupInitializeDb : BaseStartupService, ICriticalStartupService, 
     /// <summary>
     ///     Gets the service name.
     /// </summary>
-    [NotNull]
+    
     protected override string ServiceName => "YafInitializeDb_Init";
 
     /// <summary>

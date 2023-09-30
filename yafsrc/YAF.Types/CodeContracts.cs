@@ -41,8 +41,8 @@ public static class CodeContracts
     ///     <paramref name="obj" /> is
     ///     <c>null</c>.
     /// </exception>
-    [ContractAnnotation("obj:null => halt")]
-    public static void VerifyNotNull<T>([CanBeNull] T obj) where T : class
+    [Obsolete("Phased out in YAF 4.0")]
+    public static void VerifyNotNull<T>(T obj) where T : class
     {
         var argumentName = nameof(obj);
         if (obj == null)

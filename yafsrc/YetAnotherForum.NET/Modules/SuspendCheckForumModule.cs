@@ -24,7 +24,6 @@
 
 namespace YAF.Modules;
 
-using YAF.Types.Attributes;
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models;
@@ -41,7 +40,7 @@ public class SuspendCheckForumModule : SimpleBaseForumModule
     /// <param name="preLoadPage">
     /// The pre load page.
     /// </param>
-    public SuspendCheckForumModule([NotNull] IFireEvent<ForumPagePreLoadEvent> preLoadPage)
+    public SuspendCheckForumModule(IFireEvent<ForumPagePreLoadEvent> preLoadPage)
     {
         preLoadPage.HandleEvent += this._preLoadPage_HandleEvent;
     }
@@ -52,8 +51,8 @@ public class SuspendCheckForumModule : SimpleBaseForumModule
     /// <param name="sender">The sender.</param>
     /// <param name="e">The e.</param>
     private void _preLoadPage_HandleEvent(
-        [NotNull] object sender,
-        [NotNull] EventConverterArgs<ForumPagePreLoadEvent> e)
+        object sender,
+        EventConverterArgs<ForumPagePreLoadEvent> e)
     {
         // check for suspension if enabled...
         if (!this.PageBoardContext.Globals.IsSuspendCheckEnabled)

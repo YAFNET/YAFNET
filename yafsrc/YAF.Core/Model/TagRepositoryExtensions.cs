@@ -47,8 +47,8 @@ public static class TagRepositoryExtensions
     /// </returns>
     public static int Add(
         this IRepository<Tag> repository,
-        [NotNull] string tagName,
-        [CanBeNull] int? boardId = null)
+        string tagName,
+        int? boardId = null)
     {
         CodeContracts.VerifyNotNull(repository);
 

@@ -46,7 +46,7 @@ public static class AdminPageUserAccessRepositoryExtensions
     /// </returns>
     public static IEnumerable<AdminPageUserAccess> List(
         this IRepository<AdminPageUserAccess> repository,
-        [NotNull] int userId)
+        int userId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -71,8 +71,8 @@ public static class AdminPageUserAccessRepositoryExtensions
     /// </returns>
     public static bool HasAccess(
         this IRepository<AdminPageUserAccess> repository,
-        [NotNull] int userId,
-        [NotNull] string pageName)
+        int userId,
+        string pageName)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -95,8 +95,8 @@ public static class AdminPageUserAccessRepositoryExtensions
     /// </param>
     public static void Save(
         this IRepository<AdminPageUserAccess> repository,
-        [NotNull] int userId,
-        [NotNull] string pageName)
+        int userId,
+        string pageName)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -120,8 +120,8 @@ public static class AdminPageUserAccessRepositoryExtensions
     /// </param>
     public static void Delete(
         this IRepository<AdminPageUserAccess> repository,
-        [NotNull] int userId,
-        [NotNull] string pageName)
+        int userId,
+        string pageName)
     {
         CodeContracts.VerifyNotNull(repository);
 

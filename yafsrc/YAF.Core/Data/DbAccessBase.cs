@@ -45,7 +45,7 @@ public abstract class DbAccessBase : IDbAccess
     /// The information.
     /// </param>
     protected DbAccessBase(
-        [NotNull] Func<string, DbProviderFactory> dbProviderFactory, IDbInformation information)
+        Func<string, DbProviderFactory> dbProviderFactory, IDbInformation information)
     {
         this.Information = information;
         this.DbProviderFactory = dbProviderFactory(information.ProviderName);
@@ -125,7 +125,7 @@ public abstract class DbAccessBase : IDbAccess
     /// The <see cref="DbCommand"/> .
     /// </returns>
     public virtual IDbCommand GetCommand(
-        [NotNull] string sql, CommandType commandType, [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null)
+        string sql, CommandType commandType, IEnumerable<KeyValuePair<string, object>> parameters = null)
     {
         var cmd = this.DbProviderFactory.CreateCommand();
         parameters = parameters.IfNullEmpty();
@@ -150,7 +150,7 @@ public abstract class DbAccessBase : IDbAccess
     /// <param name="parameters">
     /// The parameters.
     /// </param>
-    protected virtual void MapParameters([NotNull] IDbCommand cmd, [NotNull] IEnumerable<KeyValuePair<string, object>> parameters)
+    protected virtual void MapParameters(IDbCommand cmd, IEnumerable<KeyValuePair<string, object>> parameters)
     {
         var keyValuePairs = parameters.ToList();
 

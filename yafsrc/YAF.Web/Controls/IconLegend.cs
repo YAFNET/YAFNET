@@ -93,7 +93,7 @@ public class IconLegend : BaseControl
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    private void IconLegendLoad([NotNull] object sender, [NotNull] EventArgs e)
+    private void IconLegendLoad(object sender, EventArgs e)
     {
         string[] themeImageTags =
             {

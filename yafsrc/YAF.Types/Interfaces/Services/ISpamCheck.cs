@@ -40,10 +40,10 @@ public interface ISpamCheck
     /// Returns if Post is SPAM or not
     /// </returns>
     bool CheckPostForSpam(
-        [NotNull] string userName,
-        [NotNull] string ipAddress,
-        [NotNull] string postMessage,
-        [CanBeNull] string emailAddress,
+        string userName,
+        string ipAddress,
+        string postMessage,
+        string emailAddress,
         out string result);
 
     /// <summary>
@@ -57,9 +57,9 @@ public interface ISpamCheck
     /// Returns if Post is SPAM or not
     /// </returns>
     bool CheckUserForSpamBot(
-        [NotNull] string userName,
-        [CanBeNull] string emailAddress,
-        [NotNull] string ipAddress,
+        string userName,
+        string emailAddress,
+        string ipAddress,
         out string result);
 
     /// <summary>

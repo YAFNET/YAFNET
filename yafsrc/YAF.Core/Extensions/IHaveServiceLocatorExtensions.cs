@@ -38,7 +38,7 @@ public static class IHaveServiceLocatorExtensions
     /// <param name="serviceLocator">
     /// The instance that has a service locator.
     /// </param>
-    public static void RunStartupServices([NotNull] this IHaveServiceLocator serviceLocator)
+    public static void RunStartupServices(this IHaveServiceLocator serviceLocator)
     {
         CodeContracts.VerifyNotNull(serviceLocator);
 

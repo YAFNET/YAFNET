@@ -32,7 +32,7 @@ public interface IPanelSessionState
     /// </summary>
     /// <param name = "panelID">panelID</param>
     /// <returns></returns>
-    CollapsiblePanelState this[[NotNull] string panelID] { get; set; }
+    CollapsiblePanelState this[string panelID] { get; set; }
 
     /// <summary>
     /// The toggle panel state.
@@ -43,5 +43,5 @@ public interface IPanelSessionState
     /// <param name="defaultState">
     /// The default state.
     /// </param>
-    void TogglePanelState([NotNull] string panelID, CollapsiblePanelState defaultState);
+    void TogglePanelState(string panelID, CollapsiblePanelState defaultState);
 }

@@ -60,9 +60,9 @@ public class CurrentBoardSettings : IReadWriteProvider<BoardSettings>
     /// The treat Cache Key.
     /// </param>
     public CurrentBoardSettings(
-        [NotNull] IInjectServices injectServices,
-        [NotNull] IHaveBoardID haveBoardId,
-        [NotNull] ITreatCacheKey treatCacheKey)
+        IInjectServices injectServices,
+        IHaveBoardID haveBoardId,
+        ITreatCacheKey treatCacheKey)
     {
         CodeContracts.VerifyNotNull(injectServices);
         CodeContracts.VerifyNotNull(haveBoardId);

@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.Context;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The load page request information.
 /// </summary>
@@ -41,7 +39,7 @@ public class LoadPageRequestInformation : IHandleEvent<InitPageLoadEvent>, IHave
     /// The http request base.
     /// </param>
     public LoadPageRequestInformation(
-        [NotNull] IServiceLocator serviceLocator, [NotNull] HttpRequestBase httpRequestBase)
+        IServiceLocator serviceLocator, HttpRequestBase httpRequestBase)
     {
         this.ServiceLocator = serviceLocator;
         this.HttpRequestBase = httpRequestBase;
@@ -66,7 +64,7 @@ public class LoadPageRequestInformation : IHandleEvent<InitPageLoadEvent>, IHave
     /// Handles the specified @event.
     /// </summary>
     /// <param name="event">The @event.</param>
-    public void Handle([NotNull] InitPageLoadEvent @event)
+    public void Handle(InitPageLoadEvent @event)
     {
         var browser = $"{this.HttpRequestBase.Browser.Browser} {this.HttpRequestBase.Browser.Version}";
         var platform = this.HttpRequestBase.Browser.Platform;

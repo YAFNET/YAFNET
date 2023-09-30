@@ -41,7 +41,7 @@ public class Digest : IDigest, IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public Digest([NotNull] IServiceLocator serviceLocator)
+    public Digest(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }
@@ -60,10 +60,10 @@ public class Digest : IDigest, IHaveServiceLocator
     /// <param name="toName">To name.</param>
     /// <returns>MailMessage.</returns>
     public MailMessage CreateDigest(
-        [NotNull] User user,
-        [NotNull] MailAddress boardAddress,
-        [NotNull] string toEmail,
-        [CanBeNull] string toName)
+        User user,
+        MailAddress boardAddress,
+        string toEmail,
+        string toName)
     {
         CodeContracts.VerifyNotNull(user);
         CodeContracts.VerifyNotNull(boardAddress);

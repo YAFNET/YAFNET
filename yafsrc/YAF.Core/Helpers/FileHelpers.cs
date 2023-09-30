@@ -42,7 +42,7 @@ public static class FileHelpers
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public static bool DeleteFile([NotNull] this Attachment attachment)
+    public static bool DeleteFile(this Attachment attachment)
     {
         CodeContracts.VerifyNotNull(attachment);
 

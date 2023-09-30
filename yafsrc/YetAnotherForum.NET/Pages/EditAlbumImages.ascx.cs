@@ -50,7 +50,7 @@ public partial class EditAlbumImages : ForumPageRegistered
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Back_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Back_Click(object sender, EventArgs e)
     {
         if (this.List.Items.Count > 0)
         {
@@ -80,7 +80,7 @@ public partial class EditAlbumImages : ForumPageRegistered
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void DeleteAlbum_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void DeleteAlbum_Click(object sender, EventArgs e)
     {
         this.DeleteAlbum();
     }
@@ -90,7 +90,7 @@ public partial class EditAlbumImages : ForumPageRegistered
     /// </summary>
     /// <param name="source">The source of the event.</param>
     /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-    protected void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    protected void List_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         switch (e.CommandName)
         {
@@ -146,7 +146,7 @@ public partial class EditAlbumImages : ForumPageRegistered
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (!this.PageBoardContext.BoardSettings.EnableAlbum)
         {
@@ -232,7 +232,7 @@ public partial class EditAlbumImages : ForumPageRegistered
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void UpdateTitle_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void UpdateTitle_Click(object sender, EventArgs e)
     {
         var albumId = this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("a");
         this.txtTitle.Text = HttpUtility.HtmlEncode(this.txtTitle.Text);
@@ -249,7 +249,7 @@ public partial class EditAlbumImages : ForumPageRegistered
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Upload_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Upload_Click(object sender, EventArgs e)
     {
         try
         {
@@ -333,7 +333,7 @@ public partial class EditAlbumImages : ForumPageRegistered
     /// <returns>
     /// true if file is valid for uploading. otherwise false.
     /// </returns>
-    private bool CheckValidFile([NotNull] HtmlInputFile uploadedFile)
+    private bool CheckValidFile(HtmlInputFile uploadedFile)
     {
         var filePath = uploadedFile.PostedFile.FileName.Trim();
 
@@ -369,7 +369,7 @@ public partial class EditAlbumImages : ForumPageRegistered
     /// </summary>
     /// <param name="file">the file.</param>
     /// <exception cref="Exception">Album Image File is too big</exception>
-    private void SaveAttachment([NotNull] HtmlInputFile file)
+    private void SaveAttachment(HtmlInputFile file)
     {
         if (file.PostedFile == null || file.PostedFile.FileName.Trim().Length == 0
                                     || file.PostedFile.ContentLength == 0)

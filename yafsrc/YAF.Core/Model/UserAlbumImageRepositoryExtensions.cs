@@ -46,8 +46,8 @@ public static class UserAlbumImageRepositoryExtensions
     /// <returns>
     /// Returns the number of images in the album with AlbumID.
     /// </returns>
-    [NotNull]
-    public static long CountAlbumImages([NotNull] this IRepository<UserAlbumImage> repository, [NotNull] int albumId)
+    
+    public static long CountAlbumImages(this IRepository<UserAlbumImage> repository, int albumId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -67,8 +67,8 @@ public static class UserAlbumImageRepositoryExtensions
     /// a Data table containing the image(s).
     /// </returns>
     public static List<UserAlbumImage> List(
-        [NotNull] this IRepository<UserAlbumImage> repository,
-        [NotNull] int albumId)
+        this IRepository<UserAlbumImage> repository,
+        int albumId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -95,10 +95,10 @@ public static class UserAlbumImageRepositoryExtensions
     /// a Data table containing the image(s).
     /// </returns>
     public static List<UserAlbumImage> ListPaged(
-        [NotNull] this IRepository<UserAlbumImage> repository,
-        [NotNull] int albumId,
-        [NotNull] int pageIndex,
-        [NotNull] int pageSize)
+        this IRepository<UserAlbumImage> repository,
+        int albumId,
+        int pageIndex,
+        int pageSize)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -120,7 +120,7 @@ public static class UserAlbumImageRepositoryExtensions
     /// a Data table containing the image(s).
     /// </returns>
     public static Tuple<UserAlbumImage, UserAlbum> GetImage(
-        [NotNull] this IRepository<UserAlbumImage> repository,
+        this IRepository<UserAlbumImage> repository,
         int imageId)
     {
         CodeContracts.VerifyNotNull(repository);
@@ -144,7 +144,7 @@ public static class UserAlbumImageRepositoryExtensions
     /// Returns the list of entities
     /// </returns>
     public static List<UserAlbumImage> GetUserAlbumImagesPaged(
-        [NotNull] this IRepository<UserAlbumImage> repository,
+        this IRepository<UserAlbumImage> repository,
         int userId,
         int pageIndex = 0,
         int pageSize = 10000000)
@@ -168,7 +168,7 @@ public static class UserAlbumImageRepositoryExtensions
     /// <returns>
     /// Returns the list of entities
     /// </returns>
-    public static int GetUserAlbumImageCount([NotNull] this IRepository<UserAlbumImage> repository, int userId)
+    public static int GetUserAlbumImageCount(this IRepository<UserAlbumImage> repository, int userId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -185,7 +185,7 @@ public static class UserAlbumImageRepositoryExtensions
     /// </summary>
     /// <param name="repository">The repository.</param>
     /// <param name="imageId">The image identifier.</param>
-    public static void IncrementDownload(this IRepository<UserAlbumImage> repository, [NotNull] int imageId)
+    public static void IncrementDownload(this IRepository<UserAlbumImage> repository, int imageId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -206,8 +206,8 @@ public static class UserAlbumImageRepositoryExtensions
     /// </param>
     public static void UpdateCaption(
         this IRepository<UserAlbumImage> repository,
-        [NotNull] int imageId,
-        [CanBeNull] string caption)
+        int imageId,
+        string caption)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -242,12 +242,12 @@ public static class UserAlbumImageRepositoryExtensions
     /// </param>
     public static void Save(
         this IRepository<UserAlbumImage> repository,
-        [NotNull] int? imageId,
-        [NotNull] int albumId,
-        [CanBeNull] string caption,
-        [NotNull] string fileName,
-        [NotNull] int bytes,
-        [NotNull] string contentType)
+        int? imageId,
+        int albumId,
+        string caption,
+        string fileName,
+        int bytes,
+        string contentType)
     {
         CodeContracts.VerifyNotNull(repository);
 

@@ -33,7 +33,7 @@ public class ProfileMenu : BaseControl
     /// Render the Profile Menu
     /// </summary>
     /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter"/> object that receives the server control content.</param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         var html = new StringBuilder();
         var htmlDropDown = new StringBuilder();

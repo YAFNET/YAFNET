@@ -54,7 +54,7 @@ public static class StreamExtensions
     /// <returns>
     /// Returns the Byte Array
     /// </returns>
-    public static byte[] ToArray([NotNull] this Stream stream)
+    public static byte[] ToArray(this Stream stream)
     {
         CodeContracts.VerifyNotNull(stream);
 

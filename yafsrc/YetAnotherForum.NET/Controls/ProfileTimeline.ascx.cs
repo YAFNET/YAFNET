@@ -46,7 +46,7 @@ public partial class ProfileTimeline : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         this.CreatedTopic.Text = this.GetText("CREATED_TOPIC");
         this.CreatedReply.Text = this.GetText("CREATED_REPLY");
@@ -176,7 +176,7 @@ public partial class ProfileTimeline : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    protected void PagerTop_PageChange(object sender, EventArgs e)
     {
         // rebind
         this.BindData();

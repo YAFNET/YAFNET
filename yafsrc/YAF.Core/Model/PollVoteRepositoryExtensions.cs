@@ -51,8 +51,8 @@ public static class PollVoteRepositoryExtensions
     /// </returns>
     public static List<PollVote> VoteCheck(
         this IRepository<PollVote> repository,
-        [NotNull] int pollId,
-        [NotNull] int userId)
+        int pollId,
+        int userId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -73,7 +73,7 @@ public static class PollVoteRepositoryExtensions
     /// </returns>
     public static List<Tuple<PollVote, User>> Voters(
         this IRepository<PollVote> repository,
-        [NotNull] int pollId)
+        int pollId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -101,9 +101,9 @@ public static class PollVoteRepositoryExtensions
     /// </param>
     public static void Vote(
         this IRepository<PollVote> repository,
-        [NotNull] int choiceId,
-        [CanBeNull] int userId,
-        [NotNull] int pollId)
+        int choiceId,
+        int userId,
+        int pollId)
     {
         CodeContracts.VerifyNotNull(repository);
 

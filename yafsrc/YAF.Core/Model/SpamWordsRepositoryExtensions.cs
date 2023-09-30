@@ -39,9 +39,9 @@ public static class SpamWordsRepositoryExtensions
     /// <param name="boardId">The board identifier.</param>
     public static void Save(
         this IRepository<Spam_Words> repository,
-        [CanBeNull] int? spamWordId,
-        [NotNull] string spamWord,
-        [CanBeNull] int? boardId = null)
+        int? spamWordId,
+        string spamWord,
+        int? boardId = null)
     {
         CodeContracts.VerifyNotNull(repository);
 

@@ -67,7 +67,7 @@ public static class IPHelper
     /// <returns>
     /// IPv4 address if found, else IPv6 address, else localhost.
     /// </returns>
-    public static string GetIpAddressAsString([CanBeNull]string inputIpAddress)
+    public static string GetIpAddressAsString(string inputIpAddress)
     {
         var ipAddressAsString = string.Empty;
 
@@ -133,7 +133,7 @@ public static class IPHelper
     /// <see cref="http://wiki.nginx.org/HttpRealipModule" />
     /// <see cref="http://en.wikipedia.org/wiki/X-Forwarded-For" />
     /// <see cref="http://dev.opera.com/articles/view/opera-mini-request-headers/#x-forwarded-for" />
-    public static string GetUserRealIPAddress([NotNull] this HttpRequest httpRequest)
+    public static string GetUserRealIPAddress(this HttpRequest httpRequest)
     {
         CodeContracts.VerifyNotNull(httpRequest);
 
@@ -150,7 +150,7 @@ public static class IPHelper
     /// <see cref="http://wiki.nginx.org/HttpRealipModule" />
     /// <see cref="http://en.wikipedia.org/wiki/X-Forwarded-For" />
     /// <see cref="http://dev.opera.com/articles/view/opera-mini-request-headers/#x-forwarded-for" />
-    public static string GetUserRealIPAddress([NotNull] this HttpRequestBase httpRequest)
+    public static string GetUserRealIPAddress(this HttpRequestBase httpRequest)
     {
         CodeContracts.VerifyNotNull(httpRequest);
 
@@ -194,7 +194,7 @@ public static class IPHelper
     /// <returns>
     /// true if it's banned
     /// </returns>
-    public static bool IsBanned([NotNull] string ban, [NotNull] string chk)
+    public static bool IsBanned(string ban, string chk)
     {
         CodeContracts.VerifyNotNull(ban);
         CodeContracts.VerifyNotNull(chk);
@@ -331,7 +331,7 @@ public static class IPHelper
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public static bool IsRoutable([NotNull] this IPAddress ipAddress)
+    public static bool IsRoutable(this IPAddress ipAddress)
     {
         CodeContracts.VerifyNotNull(ipAddress);
 

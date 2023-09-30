@@ -30,7 +30,7 @@ using YAF.Types.Models;
 
 public class BoardSettingsService : IHaveServiceLocator
 {
-    public BoardSettingsService([NotNull] ILoggerService logger, IServiceLocator serviceLocator)
+    public BoardSettingsService(ILoggerService logger, IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
         this.Logger = logger;
@@ -51,7 +51,7 @@ public class BoardSettingsService : IHaveServiceLocator
     /// <param name="board">The board.</param>
     /// <returns>BoardSettings.</returns>
     /// <exception cref="YAF.Types.Exceptions.EmptyBoardSettingException">No data for board ID: {boardId}</exception>
-    public BoardSettings LoadBoardSettings([NotNull] int boardId, [CanBeNull] Board board)
+    public BoardSettings LoadBoardSettings(int boardId, Board board)
     {
         if (board == null)
         {

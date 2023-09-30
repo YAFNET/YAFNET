@@ -74,9 +74,9 @@ public class PopMenu : BaseControl, IPostBackEventHandler
     /// The icon.
     /// </param>
     public void AddClientScriptItem(
-        [NotNull] string description,
-        [NotNull] string clientScript,
-        [NotNull] string icon)
+        string description,
+        string clientScript,
+        string icon)
     {
         this.items.Add(new InternalPopMenuItem(description, null, clientScript, icon));
     }
@@ -90,7 +90,7 @@ public class PopMenu : BaseControl, IPostBackEventHandler
     /// <param name="description">
     /// The description.
     /// </param>
-    public void AddPostBackItem([NotNull] string argument, [NotNull] string description)
+    public void AddPostBackItem(string argument, string description)
     {
         this.items.Add(new InternalPopMenuItem(description, argument, null, null));
     }
@@ -107,7 +107,7 @@ public class PopMenu : BaseControl, IPostBackEventHandler
     /// <param name="icon">
     /// The icon.
     /// </param>
-    public void AddPostBackItem([NotNull] string argument, [NotNull] string description, [NotNull] string icon)
+    public void AddPostBackItem(string argument, string description, string icon)
     {
         this.items.Add(new InternalPopMenuItem(description, argument, null, icon));
     }
@@ -118,7 +118,7 @@ public class PopMenu : BaseControl, IPostBackEventHandler
     /// <param name="eventArgument">
     /// The event argument.
     /// </param>
-    public void RaisePostBackEvent([NotNull] string eventArgument)
+    public void RaisePostBackEvent(string eventArgument)
     {
         this.ItemClick?.Invoke(this, new PopEventArgs(eventArgument));
     }
@@ -129,7 +129,7 @@ public class PopMenu : BaseControl, IPostBackEventHandler
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         if (!this.Visible)
         {

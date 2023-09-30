@@ -48,7 +48,7 @@ public class UserIgnored : IUserIgnored, IHaveServiceLocator
     /// <param name="dbBroker">
     /// The db broker.
     /// </param>
-    public UserIgnored([NotNull] HttpSessionStateBase sessionStateBase, IServiceLocator serviceLocator)
+    public UserIgnored(HttpSessionStateBase sessionStateBase, IServiceLocator serviceLocator)
     {
         this.SessionStateBase = sessionStateBase;
         this.ServiceLocator = serviceLocator;

@@ -40,7 +40,7 @@ public partial class AdminMenu : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         this.AdminDropdown.CssClass = "nav-link dropdown-toggle";
 
@@ -79,13 +79,13 @@ public partial class AdminMenu : BaseUserControl
     /// The icon Name.
     /// </param>
     private static void RenderMenuItem(
-        [NotNull] Control holder,
-        [NotNull] string cssClass,
-        [NotNull] string linkText,
-        [NotNull] string linkUrl,
-        [NotNull] bool isActive,
-        [NotNull] bool isDropDownToggle,
-        [NotNull] string iconName)
+        Control holder,
+        string cssClass,
+        string linkText,
+        string linkUrl,
+        bool isActive,
+        bool isDropDownToggle,
+        string iconName)
     {
         var link = new ThemeButton
                        {

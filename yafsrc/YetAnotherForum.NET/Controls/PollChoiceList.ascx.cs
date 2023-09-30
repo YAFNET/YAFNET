@@ -98,7 +98,7 @@ public partial class PollChoiceList : BaseUserControl
     /// <param name="e">
     /// The EventArgs e.
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         this.BindData();
     }
@@ -112,7 +112,7 @@ public partial class PollChoiceList : BaseUserControl
     /// <param name="e">
     /// The RepeaterCommandEventArgs e.
     /// </param>
-    protected void Poll_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    protected void Poll_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         if (e.CommandName != "vote")
         {
@@ -160,7 +160,7 @@ public partial class PollChoiceList : BaseUserControl
     /// <param name="e">
     /// The RepeaterItemEventArgs e.
     /// </param>
-    protected void Poll_OnItemDataBound([NotNull] object source, [NotNull] RepeaterItemEventArgs e)
+    protected void Poll_OnItemDataBound(object source, RepeaterItemEventArgs e)
     {
         var item = e.Item;
         var choice = (Tuple<Poll, Choice>)e.Item.DataItem;
@@ -248,7 +248,7 @@ public partial class PollChoiceList : BaseUserControl
     /// <returns>
     /// Returns the vote width.
     /// </returns>
-    protected int VoteWidth([NotNull] object o)
+    protected int VoteWidth(object o)
     {
         try
         {

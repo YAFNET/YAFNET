@@ -46,7 +46,7 @@ public class CodeMirrorSqlEditor : TextEditor
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected override void Editor_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+    protected override void Editor_PreRender(object sender, EventArgs e)
     {
         this.PageBoardContext.PageElements.AddScriptReference("codemirror", "codemirror.min.js");
 
@@ -73,7 +73,7 @@ public class CodeMirrorSqlEditor : TextEditor
     /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-    protected override void OnInit([NotNull] EventArgs e)
+    protected override void OnInit(EventArgs e)
     {
         base.OnInit(e);
     }

@@ -37,7 +37,7 @@ public class ContextVariableRepository
     /// <param name="dictionary">
     /// The dictionary.
     /// </param>
-    public ContextVariableRepository([NotNull] TypeDictionary dictionary)
+    public ContextVariableRepository(TypeDictionary dictionary)
     {
         this.Vars = dictionary;
     }

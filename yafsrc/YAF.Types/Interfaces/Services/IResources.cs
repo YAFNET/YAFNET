@@ -32,13 +32,13 @@ public interface IResources
     /// Gets the forum user info as JSON string for the hover cards
     /// </summary>
     /// <param name="context">The context.</param>
-    void GetUserInfo([NotNull] HttpContext context);
+    void GetUserInfo(HttpContext context);
 
     /// <summary>
     /// Gets the list of all Custom BB Codes
     /// </summary>
     /// <param name="context">The context.</param>
-    void GetCustomBBCodes([NotNull] HttpContext context);
+    void GetCustomBBCodes(HttpContext context);
 
     /// <summary>
     /// Get all Mentioned Users
@@ -46,7 +46,7 @@ public interface IResources
     /// <param name="context">
     /// The context.
     /// </param>
-    void GetMentionUsers([NotNull] HttpContext context);
+    void GetMentionUsers(HttpContext context);
 
     /// <summary>
     /// Gets the Default Text Avatar
@@ -54,7 +54,7 @@ public interface IResources
     /// <param name="context">
     /// The context.
     /// </param>
-    void GetTextAvatar([NotNull] HttpContext context);
+    void GetTextAvatar(HttpContext context);
 
     /// <summary>
     /// The get response local avatar.
@@ -62,5 +62,5 @@ public interface IResources
     /// <param name="context">
     /// The context.
     /// </param>
-    void GetResponseLocalAvatar([NotNull] HttpContext context);
+    void GetResponseLocalAvatar(HttpContext context);
 }

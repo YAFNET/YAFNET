@@ -77,7 +77,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">
         /// The e.
         /// </param>
-        protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void Cancel_Click(object sender, EventArgs e)
         {
             this.Get<LinkBuilder>().Redirect(ForumPages.Admin_TestData);
         }
@@ -91,7 +91,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">
         /// The e.
         /// </param>
-        protected void CreateTestData_Click([NotNull] object sender, [NotNull] EventArgs e)
+        protected void CreateTestData_Click(object sender, EventArgs e)
         {
             if (!this.Page.IsValid)
             {
@@ -145,7 +145,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">
         /// The e.
         /// </param>
-        protected void ForumsCategory_OnSelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
+        protected void ForumsCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             var forumsCategory = this.GetRepository<Forum>().ListAllFromCategory(
                 this.ForumsCategory.SelectedValue.ToType<int>());
@@ -160,7 +160,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">
         /// the Event Arguments
         /// </param>
-        protected override void OnPreRender([NotNull] EventArgs e)
+        protected override void OnPreRender(EventArgs e)
         {
             // setup jQuery and Jquery Ui Tabs.
             this.PageBoardContext.PageElements.RegisterJsBlock(
@@ -179,7 +179,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">
         /// The e.
         /// </param>
-        protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+        protected void Page_Load(object sender, EventArgs e)
         {
             if (this.IsPostBack)
             {
@@ -243,7 +243,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">
         /// The e.
         /// </param>
-        protected void PostsCategory_OnSelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
+        protected void PostsCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             var postsCategory = this.GetRepository<Forum>().ListAllFromCategory(
                 this.PostsCategory.SelectedValue.ToType<int>());
@@ -261,7 +261,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">
         /// The e.
         /// </param>
-        protected void PostsForum_OnSelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
+        protected void PostsForum_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             var topics = this.GetRepository<Topic>().ListPaged(
                 this.PostsForum.SelectedValue.ToType<int>(),
@@ -284,7 +284,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">
         /// The e.
         /// </param>
-        protected void TopicsCategory_OnSelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
+        protected void TopicsCategory_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             var topicForums = this.GetRepository<Forum>().ListAllFromCategory(
                 this.TopicsCategory.SelectedValue.ToType<int>());
@@ -505,12 +505,12 @@ namespace YAF.Pages.Admin
         /// The create forums.
         /// </returns>
         private int CreateForums(
-            [NotNull] int boardId,
-            [NotNull] int categoryId,
-            [CanBeNull] int? parentId,
-            [NotNull] int numForums,
-            [NotNull] int topicsToCreate,
-            [NotNull] int messagesToCreate)
+            int boardId,
+            int categoryId,
+            int? parentId,
+            int numForums,
+            int topicsToCreate,
+            int messagesToCreate)
         {
             var countMessagesInStatistics = this.ForumsCountMessages.Checked;
 

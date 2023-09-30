@@ -55,7 +55,7 @@ public class SiteMapHandler : IHttpHandler, IReadOnlySessionState, IHaveServiceL
     /// <param name="context">
     /// The context.
     /// </param>
-    public void ProcessRequest([NotNull] HttpContext context)
+    public void ProcessRequest(HttpContext context)
     {
         var siteMap = new SiteMap();
 

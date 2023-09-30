@@ -34,7 +34,7 @@ public class PageLinks : BaseControl
     /// Sends server control content to a provided <see cref="T:System.Web.UI.HtmlTextWriter" /> object, which writes the content to be rendered on the client.
     /// </summary>
     /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the server control content.</param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         List<PageLink> linkedPageList = this.PageBoardContext.PageLinks;
 

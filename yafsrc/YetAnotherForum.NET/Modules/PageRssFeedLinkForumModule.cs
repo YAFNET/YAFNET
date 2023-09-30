@@ -26,8 +26,6 @@ namespace YAF.Modules;
 
 using System.Web.UI.HtmlControls;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// Summary description for PageRssFeedLinkModule
 /// </summary>
@@ -51,7 +49,7 @@ public class PageRssFeedLinkForumModule : SimpleBaseForumModule
     /// <param name="e">
     /// The e.
     /// </param>
-    private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+    private void ForumPage_PreRender(object sender, EventArgs e)
     {
         var head = this.ForumControl.Page.Header ??
                    this.CurrentForumPage.FindControlRecursiveBothAs<HtmlHead>("YafHead");

@@ -36,7 +36,7 @@ public class UtilitiesModule : BaseModule
     /// <param name="builder">
     /// The builder.
     /// </param>
-    protected override void Load([NotNull] ContainerBuilder builder)
+    protected override void Load(ContainerBuilder builder)
     {
         RegisterWebAbstractions(builder);
     }
@@ -47,7 +47,7 @@ public class UtilitiesModule : BaseModule
     /// <param name="builder">
     /// The builder.
     /// </param>
-    private static void RegisterWebAbstractions([NotNull] ContainerBuilder builder)
+    private static void RegisterWebAbstractions(ContainerBuilder builder)
     {
         CodeContracts.VerifyNotNull(builder);
 

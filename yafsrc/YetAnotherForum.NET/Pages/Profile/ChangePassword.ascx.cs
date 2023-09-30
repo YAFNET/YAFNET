@@ -42,7 +42,7 @@ public partial class ChangePassword : ProfilePage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void CancelPushButtonClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void CancelPushButtonClick(object sender, EventArgs e)
     {
         this.Get<LinkBuilder>().Redirect(ForumPages.MyAccount);
     }
@@ -85,7 +85,7 @@ public partial class ChangePassword : ProfilePage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (Config.IsDotNetNuke)
         {

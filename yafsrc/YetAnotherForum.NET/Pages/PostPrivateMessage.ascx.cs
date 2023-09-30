@@ -59,7 +59,7 @@ public partial class PostPrivateMessage : ForumPage
     /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnInit([NotNull] EventArgs e)
+    protected override void OnInit(EventArgs e)
     {
         if (this.PageBoardContext.BoardSettings.AllowPrivateMessageAttachments)
         {
@@ -74,7 +74,7 @@ public partial class PostPrivateMessage : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void AllUsers_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void AllUsers_Click(object sender, EventArgs e)
     {
         // create one entry to show in dropdown
         var li = new ListItem(this.GetText("ALLUSERS"), "0");
@@ -101,7 +101,7 @@ public partial class PostPrivateMessage : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void AllBuddies_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void AllBuddies_Click(object sender, EventArgs e)
     {
         // try to find users by user name
         var usersFound = this.Get<IFriends>().ListAll();
@@ -135,7 +135,7 @@ public partial class PostPrivateMessage : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Cancel_Click(object sender, EventArgs e)
     {
         this.Get<LinkBuilder>().Redirect(ForumPages.MyMessages);
     }
@@ -145,7 +145,7 @@ public partial class PostPrivateMessage : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Clear_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Clear_Click(object sender, EventArgs e)
     {
         // clear drop down
         this.ToList.Items.Clear();
@@ -184,7 +184,7 @@ public partial class PostPrivateMessage : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void FindUsers_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void FindUsers_Click(object sender, EventArgs e)
     {
         if (this.To.Text.Length < 2)
         {
@@ -232,7 +232,7 @@ public partial class PostPrivateMessage : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Init([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Init(object sender, EventArgs e)
     {
         this.editor = ForumEditorHelper.GetCurrentForumEditor();
 
@@ -251,7 +251,7 @@ public partial class PostPrivateMessage : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         // if user isn't authenticated, redirect him to login page
         if (this.User == null || this.PageBoardContext.IsGuest)
@@ -473,7 +473,7 @@ public partial class PostPrivateMessage : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Preview_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Preview_Click(object sender, EventArgs e)
     {
         // make preview row visible
         this.PreviewRow.Visible = true;
@@ -501,7 +501,7 @@ public partial class PostPrivateMessage : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Save_Click(object sender, EventArgs e)
     {
         var replyTo = this.Get<HttpRequestBase>().QueryString.Exists("p")
                           ? this.Get<HttpRequestBase>().QueryString.GetFirstOrDefaultAsInt("p")

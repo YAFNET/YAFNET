@@ -96,7 +96,7 @@ public class DbAccessProvider : IDbAccessProvider
     ///     <c>NoValidDbAccessProviderFoundException</c>
     ///     .
     /// </exception>
-    [CanBeNull]
+    
     public IDbAccess Instance
     {
         get => this._dbAccessSafe.Instance;

@@ -49,7 +49,7 @@ public partial class Statistics : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    private void ForumStatistics_Load([NotNull] object sender, [NotNull] EventArgs e)
+    private void ForumStatistics_Load(object sender, EventArgs e)
     {
         // Forum Statistics
         var postsStatistics = this.Get<IDataCache>().GetOrSet(

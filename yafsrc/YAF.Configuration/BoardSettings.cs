@@ -47,8 +47,8 @@ public class BoardSettings
     }
 
     public BoardSettings(
-        [NotNull] int boardId,
-        [NotNull] string boardName,
+        int boardId,
+        string boardName,
         RegistryDictionaryOverride registry,
         RegistryDictionary registryBoard)
     {

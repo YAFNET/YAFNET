@@ -56,7 +56,7 @@ public partial class MyTopics : ForumPageRegistered
     /// <param name="e">
     /// the Event Arguments
     /// </param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             "TopicStarterPopoverJs",
@@ -92,7 +92,7 @@ public partial class MyTopics : ForumPageRegistered
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (!this.IsPostBack)
         {
@@ -120,7 +120,7 @@ public partial class MyTopics : ForumPageRegistered
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Pager_PageChange(object sender, EventArgs e)
     {
         this.BindData();
     }
@@ -130,7 +130,7 @@ public partial class MyTopics : ForumPageRegistered
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Since_SelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Since_SelectedIndexChanged(object sender, EventArgs e)
     {
         // Set the controls' pager index to 0.
         this.PagerTop.CurrentPageIndex = 0;
@@ -139,7 +139,7 @@ public partial class MyTopics : ForumPageRegistered
         this.BindData();
     }
 
-    protected void TopicModeSelectedIndexChanged([NotNull] object sender, [NotNull] EventArgs e)
+    protected void TopicModeSelectedIndexChanged(object sender, EventArgs e)
     {
         // Set the controls' pager index to 0.
         this.PagerTop.CurrentPageIndex = 0;
@@ -293,7 +293,7 @@ public partial class MyTopics : ForumPageRegistered
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void MarkAll_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void MarkAll_Click(object sender, EventArgs e)
     {
         this.BindData();
 

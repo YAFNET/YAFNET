@@ -43,7 +43,7 @@ public partial class MyNotifications : BaseUserControl
     /// Registers the needed Java Scripts
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         base.OnPreRender(e);
     }
@@ -57,7 +57,7 @@ public partial class MyNotifications : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         this.WasMentioned.Text = this.GetText("WAS_MENTIONED");
         this.ReceivedThanks.Text = this.GetText("RECEIVED_THANKS");
@@ -236,7 +236,7 @@ public partial class MyNotifications : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    protected void PagerTop_PageChange(object sender, EventArgs e)
     {
         // rebind
         this.BindData();

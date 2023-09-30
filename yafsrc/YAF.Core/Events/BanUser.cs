@@ -24,7 +24,6 @@
 namespace YAF.Core.Events;
 
 using YAF.Core.Model;
-using YAF.Types.Attributes;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 
@@ -40,7 +39,7 @@ public class BanUser : IHaveServiceLocator, IHandleEvent<BanUserEvent>
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public BanUser([NotNull] IServiceLocator serviceLocator)
+    public BanUser(IServiceLocator serviceLocator)
     {
         CodeContracts.VerifyNotNull(serviceLocator);
 
@@ -63,7 +62,7 @@ public class BanUser : IHaveServiceLocator, IHandleEvent<BanUserEvent>
     /// <param name="event">
     /// The event.
     /// </param>
-    public void Handle([NotNull]BanUserEvent @event)
+    public void Handle(BanUserEvent @event)
     {
         this.GetRepository<BannedIP>().Save(
             null,

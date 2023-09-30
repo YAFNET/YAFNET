@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.Context;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The load page variables from query.
 /// </summary>
@@ -37,7 +35,7 @@ public class LoadPageVariablesFromQuery : IHandleEvent<InitPageLoadEvent>, IHave
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public LoadPageVariablesFromQuery([NotNull] IServiceLocator serviceLocator)
+    public LoadPageVariablesFromQuery(IServiceLocator serviceLocator)
     {
         CodeContracts.VerifyNotNull(serviceLocator);
 
@@ -58,7 +56,7 @@ public class LoadPageVariablesFromQuery : IHandleEvent<InitPageLoadEvent>, IHave
     /// Handles the specified @event.
     /// </summary>
     /// <param name="event">The @event.</param>
-    public void Handle([NotNull] InitPageLoadEvent @event)
+    public void Handle(InitPageLoadEvent @event)
     {
         var queryString = this.Get<HttpRequestBase>().QueryString;
 

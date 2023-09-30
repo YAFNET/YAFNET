@@ -50,7 +50,7 @@ public class AccountPage : ForumPage
     /// <param name="pageType">
     /// The page Type.
     /// </param>
-    public AccountPage([CanBeNull] string transPage, ForumPages pageType)
+    public AccountPage(string transPage, ForumPages pageType)
         : base(transPage, pageType)
     {
         this.IsAccountPage = true;

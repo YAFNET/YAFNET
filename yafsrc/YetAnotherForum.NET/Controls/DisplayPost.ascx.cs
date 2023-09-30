@@ -48,7 +48,7 @@ public partial class DisplayPost : BaseUserControl
     /// <summary>
     /// Gets or sets the data source.
     /// </summary>
-    [CanBeNull]
+    
     public PagedMessage DataSource { get; set; }
 
     /// <summary>
@@ -310,7 +310,7 @@ public partial class DisplayPost : BaseUserControl
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void MarkAsAnswerClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void MarkAsAnswerClick(object sender, EventArgs e)
     {
         var messageFlags = new MessageFlags(this.PostData.DataRow.Flags) { IsAnswer = true };
 
@@ -355,7 +355,7 @@ public partial class DisplayPost : BaseUserControl
     /// <returns>
     /// The format thanks info.
     /// </returns>
-    [NotNull]
+    
     protected string FormatThanksInfo()
     {
         var sb = new StringBuilder();
@@ -370,7 +370,7 @@ public partial class DisplayPost : BaseUserControl
     /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-    protected override void OnInit([NotNull] EventArgs e)
+    protected override void OnInit(EventArgs e)
     {
         base.OnInit(e);
     }
@@ -384,7 +384,7 @@ public partial class DisplayPost : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         this.UserProfileLink.UserID = this.PostData.UserId;
         this.UserProfileLink.ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName

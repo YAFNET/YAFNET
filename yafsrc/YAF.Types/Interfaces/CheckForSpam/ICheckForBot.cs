@@ -38,7 +38,7 @@ public interface ICheckForBot
     /// <returns>
     /// Returns if user is a possible Bot or not
     /// </returns>
-    bool IsBot([CanBeNull] string ipAddress, [CanBeNull] string emailAddress, [CanBeNull] string userName);
+    bool IsBot(string ipAddress, string emailAddress, string userName);
 
     /// <summary>
     /// Checks if user is a Bot.
@@ -51,8 +51,8 @@ public interface ICheckForBot
     /// Returns if user is a possible Bot or not
     /// </returns>
     bool IsBot(
-        [CanBeNull] string ipAddress,
-        [CanBeNull] string emailAddress,
-        [CanBeNull] string userName,
+        string ipAddress,
+        string emailAddress,
+        string userName,
         out string responseText);
 }

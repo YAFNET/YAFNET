@@ -67,7 +67,7 @@ public partial class BuddyList : BaseUserControl
     /// </param>
     /// <param name="e">
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -114,7 +114,7 @@ public partial class BuddyList : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Pager_PageChange(object sender, EventArgs e)
     {
         this.BindData();
     }
@@ -128,7 +128,7 @@ public partial class BuddyList : BaseUserControl
     /// <param name="e">
     /// the e.
     /// </param>
-    protected void rptBuddy_ItemCommand([NotNull] object sender, [NotNull] CommandEventArgs e)
+    protected void rptBuddy_ItemCommand(object sender, CommandEventArgs e)
     {
         switch (e.CommandName)
         {
@@ -189,7 +189,7 @@ public partial class BuddyList : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void rptBuddy_ItemCreated([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
+    protected void rptBuddy_ItemCreated(object sender, RepeaterItemEventArgs e)
     {
         // In what mode should this control work?
         // 2: display the buddy list and ("Remove Buddy") buttons.

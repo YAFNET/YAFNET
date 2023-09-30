@@ -49,7 +49,7 @@ public class SignaturePreview : MessageBase
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         writer.BeginRender();
 
@@ -69,7 +69,7 @@ public class SignaturePreview : MessageBase
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected void RenderSignature([NotNull] HtmlTextWriter writer)
+    protected void RenderSignature(HtmlTextWriter writer)
     {
         if (!this.DisplayUserID.HasValue)
         {

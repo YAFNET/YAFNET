@@ -47,7 +47,7 @@ public partial class Mail : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -76,7 +76,7 @@ public partial class Mail : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void SendClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void SendClick(object sender, EventArgs e)
     {
         var emails = this.GetRepository<User>().GroupEmails(this.ToList.SelectedValue.ToType<int>());
 
@@ -113,7 +113,7 @@ public partial class Mail : AdminPage
     /// <param name="e">
     /// The <see cref="System.EventArgs"/> instance containing the event data.
     /// </param>
-    protected void TestSmtpClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void TestSmtpClick(object sender, EventArgs e)
     {
         try
         {

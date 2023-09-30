@@ -180,7 +180,7 @@ public partial class PollList : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         this.LoadData();
     }
@@ -269,7 +269,7 @@ public partial class PollList : BaseUserControl
     /// <param name="e">
     /// The EventArgs e.
     /// </param>
-    protected void VoteBubbleEvent([NotNull] object sender, [NotNull] EventArgs e)
+    protected void VoteBubbleEvent(object sender, EventArgs e)
     {
         this.isVoteEvent = true;
         this.LoadData();

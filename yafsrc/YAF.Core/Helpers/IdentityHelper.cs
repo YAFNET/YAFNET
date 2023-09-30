@@ -60,8 +60,8 @@ public static class IdentityHelper
     /// </param>
     public static void RegisterExternalLogin(
         HttpContext context,
-        [NotNull] string provider,
-        [NotNull] string redirectUrl)
+        string provider,
+        string redirectUrl)
     {
         var properties = new AuthenticationProperties { RedirectUri = redirectUrl };
 

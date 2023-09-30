@@ -51,7 +51,7 @@ public abstract class YafHttpApplication : HttpApplication, IHaveServiceLocator
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Application_Error([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Application_Error(object sender, EventArgs e)
     {
         var exception = this.Server.GetLastError();
 
@@ -119,7 +119,7 @@ public abstract class YafHttpApplication : HttpApplication, IHaveServiceLocator
     /// <param name="e">
     /// The e.
     /// </param>
-    protected virtual void Application_End([NotNull] object sender, [NotNull] EventArgs e)
+    protected virtual void Application_End(object sender, EventArgs e)
     {
         if (BoardContext.Current.BoardSettings.AbandonSessionsForDontTrack
             && (BoardContext.Current.Vars.AsBoolean("DontTrack") ?? false)
@@ -142,7 +142,7 @@ public abstract class YafHttpApplication : HttpApplication, IHaveServiceLocator
     /// <param name="e">
     /// The e.
     /// </param>
-    protected virtual void Application_Start([NotNull] object sender, [NotNull] EventArgs e)
+    protected virtual void Application_Start(object sender, EventArgs e)
     {
         // Pass a delegate to the Configure method.
         GlobalConfiguration.Configure(WebApiConfig.Register);
@@ -157,7 +157,7 @@ public abstract class YafHttpApplication : HttpApplication, IHaveServiceLocator
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Session_Start([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Session_Start(object sender, EventArgs e)
     {
         // run startup services...
         this.RunStartupServices();

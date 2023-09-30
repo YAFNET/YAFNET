@@ -55,8 +55,8 @@ public class StaticLockObject : IHaveLockObject
     /// <returns>
     /// The get.
     /// </returns>
-    [NotNull]
-    public object Get([NotNull] string originalKey)
+    
+    public object Get(string originalKey)
     {
         CodeContracts.VerifyNotNull(originalKey);
 

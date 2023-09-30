@@ -70,7 +70,7 @@ public partial class EditLanguage : AdminPage
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="args">The <see cref="System.Web.UI.WebControls.ServerValidateEventArgs"/> instance containing the event data.</param>
-    public void LocalizedTextCheck([NotNull] object sender, [NotNull] ServerValidateEventArgs args)
+    public void LocalizedTextCheck(object sender, ServerValidateEventArgs args)
     {
         var textBox = this.Locals.Items.Cast<DataGridItem>()
             .Select(item => item.FindControlAs<TextBox>("txtLocalized"))
@@ -87,7 +87,7 @@ public partial class EditLanguage : AdminPage
     /// Registers the needed Java Scripts
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         base.OnPreRender(e);
     }
@@ -97,7 +97,7 @@ public partial class EditLanguage : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         this.langPath = this.Get<HttpRequestBase>().MapPath($"{BoardInfo.ForumServerFileRoot}languages");
 
@@ -146,7 +146,7 @@ public partial class EditLanguage : AdminPage
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="System.Web.UI.WebControls.DataGridItemEventArgs"/> instance containing the event data.</param>
-    protected void LocalsItemDataBound([NotNull] object sender, [NotNull] DataGridItemEventArgs e)
+    protected void LocalsItemDataBound(object sender, DataGridItemEventArgs e)
     {
         if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
         {
@@ -177,7 +177,7 @@ public partial class EditLanguage : AdminPage
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void CancelClick(object sender, EventArgs e)
     {
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Languages);
     }
@@ -187,7 +187,7 @@ public partial class EditLanguage : AdminPage
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void LoadPageLocalizationClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void LoadPageLocalizationClick(object sender, EventArgs e)
     {
         this.pageName = this.Pages.SelectedValue;
 
@@ -203,7 +203,7 @@ public partial class EditLanguage : AdminPage
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void SaveClick(object sender, EventArgs e)
     {
         this.UpdateLocalizedValues();
 
@@ -265,7 +265,7 @@ public partial class EditLanguage : AdminPage
     /// </summary>
     /// <param name="sourceFile">The source file.</param>
     /// <param name="translationFile">The DST file.</param>
-    private void PopulateTranslations([NotNull] string sourceFile, [NotNull] string translationFile)
+    private void PopulateTranslations(string sourceFile, string translationFile)
     {
         try
         {
@@ -310,10 +310,10 @@ public partial class EditLanguage : AdminPage
     /// <param name="originalResourceText">The original (english) resource text.</param>
     /// <param name="translationResourceText">The translation resource text.</param>
     private void CreatePageResourceControl(
-        [NotNull] string page,
-        [NotNull] string resourceName,
-        [NotNull] string originalResourceText,
-        [NotNull] string translationResourceText)
+        string page,
+        string resourceName,
+        string originalResourceText,
+        string translationResourceText)
     {
         var translation = new Translation
         {
@@ -330,7 +330,7 @@ public partial class EditLanguage : AdminPage
     /// Creates a header row in the Resource Page DropDown Header text is page section name in XML file.
     /// </summary>
     /// <param name="name">Name of the page.</param>
-    private void CreatePageResourceHeader([NotNull] string name)
+    private void CreatePageResourceHeader(string name)
     {
         this.Pages.Items.Add(new ListItem(name, name));
     }

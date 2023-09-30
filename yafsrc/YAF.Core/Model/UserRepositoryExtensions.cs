@@ -48,7 +48,7 @@ public static class UserRepositoryExtensions
     /// <param name="userId">
     /// The user id.
     /// </param>
-    public static void Promote(this IRepository<User> repository, [NotNull] int userId)
+    public static void Promote(this IRepository<User> repository, int userId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -95,7 +95,7 @@ public static class UserRepositoryExtensions
     /// <param name="boardId">
     /// The board id.
     /// </param>
-    public static void UpdateStyles(this IRepository<User> repository, [NotNull] int boardId)
+    public static void UpdateStyles(this IRepository<User> repository, int boardId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -114,7 +114,7 @@ public static class UserRepositoryExtensions
     /// <param name="userId">
     /// The user Id.
     /// </param>
-    public static void UpdateStyle(this IRepository<User> repository, [NotNull] int userId)
+    public static void UpdateStyle(this IRepository<User> repository, int userId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -146,7 +146,7 @@ public static class UserRepositoryExtensions
     /// <returns>
     /// The <see cref="long"/>.
     /// </returns>
-    public static long BoardMembers(this IRepository<User> repository, [NotNull] int boardId)
+    public static long BoardMembers(this IRepository<User> repository, int boardId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -165,7 +165,7 @@ public static class UserRepositoryExtensions
     /// <returns>
     /// The <see cref="User"/>.
     /// </returns>
-    public static User Latest(this IRepository<User> repository, [NotNull] int boardId)
+    public static User Latest(this IRepository<User> repository, int boardId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -196,7 +196,7 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static List<Tuple<MessageReportedAudit, User>> MessageReporters(
         this IRepository<User> repository,
-        [NotNull] int messageId)
+        int messageId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -225,8 +225,8 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static List<Tuple<User, MessageReportedAudit>> MessageReporter(
         this IRepository<User> repository,
-        [NotNull] int messageId,
-        [NotNull] int userId)
+        int messageId,
+        int userId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -261,10 +261,10 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static List<LastActive> LastActive(
         this IRepository<User> repository,
-        [NotNull] int boardId,
-        [NotNull] int guestUserId,
-        [NotNull] DateTime startDate,
-        [NotNull] int displayNumber)
+        int boardId,
+        int guestUserId,
+        DateTime startDate,
+        int displayNumber)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -313,9 +313,9 @@ public static class UserRepositoryExtensions
     /// </param>
     public static void AddPoints(
         this IRepository<User> repository,
-        [NotNull] int userId,
-        [CanBeNull] int? fromUserId,
-        [NotNull] int points)
+        int userId,
+        int? fromUserId,
+        int points)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -344,9 +344,9 @@ public static class UserRepositoryExtensions
     /// </param>
     public static void RemovePoints(
         this IRepository<User> repository,
-        [NotNull] int userId,
-        [CanBeNull] int? fromUserId,
-        [NotNull] int points)
+        int userId,
+        int? fromUserId,
+        int points)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -384,12 +384,12 @@ public static class UserRepositoryExtensions
     /// </param>
     public static void AdminSave(
         this IRepository<User> repository,
-        [NotNull] int boardId,
-        [NotNull] int userId,
-        [NotNull] string name,
-        [NotNull] string displayName,
-        [NotNull] int flags,
-        [NotNull] int rankId)
+        int boardId,
+        int userId,
+        string name,
+        string displayName,
+        int flags,
+        int rankId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -414,7 +414,7 @@ public static class UserRepositoryExtensions
     /// <param name="userId">
     /// The user Id.
     /// </param>
-    public static void Approve(this IRepository<User> repository, [NotNull] int userId)
+    public static void Approve(this IRepository<User> repository, int userId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -430,7 +430,7 @@ public static class UserRepositoryExtensions
     /// <param name="user">
     /// The user.
     /// </param>
-    public static void Approve(this IRepository<User> repository, [NotNull] User user)
+    public static void Approve(this IRepository<User> repository, User user)
     {
         CodeContracts.VerifyNotNull(repository);
         CodeContracts.VerifyNotNull(user);
@@ -482,13 +482,13 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static int AspNet(
         this IRepository<User> repository,
-        [NotNull] int boardId,
-        [NotNull] string userName,
-        [CanBeNull] string displayName,
-        [NotNull] string email,
-        [NotNull] string providerUserKey,
-        [NotNull] bool isApproved,
-        [CanBeNull] User existingUser = null)
+        int boardId,
+        string userName,
+        string displayName,
+        string email,
+        string providerUserKey,
+        bool isApproved,
+        User existingUser = null)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -599,7 +599,7 @@ public static class UserRepositoryExtensions
     /// <param name="user">
     /// The user that will be deleted
     /// </param>
-    public static void Delete(this IRepository<User> repository, [NotNull] User user)
+    public static void Delete(this IRepository<User> repository, User user)
     {
         CodeContracts.VerifyNotNull(repository);
         CodeContracts.VerifyNotNull(user);
@@ -679,7 +679,7 @@ public static class UserRepositoryExtensions
     /// <param name="userId">
     /// The user id.
     /// </param>
-    public static void DeleteAvatar(this IRepository<User> repository, [NotNull] int userId)
+    public static void DeleteAvatar(this IRepository<User> repository, int userId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -714,7 +714,7 @@ public static class UserRepositoryExtensions
     /// <param name="days">
     /// The days.
     /// </param>
-    public static void DeleteOld(this IRepository<User> repository, [NotNull] int boardId, [NotNull] int days)
+    public static void DeleteOld(this IRepository<User> repository, int boardId, int days)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -748,8 +748,8 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static List<User> WatchMailList(
         this IRepository<User> repository,
-        [NotNull] int topicId,
-        [NotNull] int userId)
+        int topicId,
+        int userId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -784,7 +784,7 @@ public static class UserRepositoryExtensions
     /// <returns>
     /// Returns all Users Emails from the Group
     /// </returns>
-    public static List<string> GroupEmails(this IRepository<User> repository, [NotNull] int groupId)
+    public static List<string> GroupEmails(this IRepository<User> repository, int groupId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -813,7 +813,7 @@ public static class UserRepositoryExtensions
     /// <returns>
     /// Returns the User Id
     /// </returns>
-    public static User GetUserByProviderKey(this IRepository<User> repository, [CanBeNull] int? boardId, [NotNull] string providerUserKey)
+    public static User GetUserByProviderKey(this IRepository<User> repository, int? boardId, string providerUserKey)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -839,8 +839,8 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static dynamic MaxAlbumData(
         this IRepository<User> repository,
-        [NotNull] int userId,
-        [NotNull] int boardId)
+        int userId,
+        int boardId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -882,8 +882,8 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static dynamic SignatureData(
         this IRepository<User> repository,
-        [NotNull] int userId,
-        [NotNull] int boardId)
+        int userId,
+        int boardId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -949,11 +949,11 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static UserLazyData LazyData(
         this IRepository<User> repository,
-        [NotNull] int userId,
-        [NotNull] int boardId,
-        [NotNull] bool showPendingBuddies,
-        [NotNull] bool showUnreadPMs,
-        [NotNull] bool showUserAlbums)
+        int userId,
+        int boardId,
+        bool showPendingBuddies,
+        bool showUnreadPMs,
+        bool showUserAlbums)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1137,8 +1137,8 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static User UpdateNntpUser(
         this IRepository<User> repository,
-        [NotNull] int boardId,
-        [NotNull] string userName)
+        int boardId,
+        string userName)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1184,15 +1184,15 @@ public static class UserRepositoryExtensions
     /// </param>
     public static void Save(
         this IRepository<User> repository,
-        [NotNull] int userId,
-        [CanBeNull] string timeZone,
-        [CanBeNull] string languageFile,
-        [CanBeNull] string culture,
-        [CanBeNull] string themeFile,
+        int userId,
+        string timeZone,
+        string languageFile,
+        string culture,
+        string themeFile,
         ThemeMode themeMode,
-        [NotNull] bool hideUser,
-        [NotNull] bool activity,
-        [NotNull] int pageSize)
+        bool hideUser,
+        bool activity,
+        int pageSize)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1233,8 +1233,8 @@ public static class UserRepositoryExtensions
     /// </param>
     public static void UpdateDisplayName(
         this IRepository<User> repository,
-        [NotNull] User user,
-        [CanBeNull] string displayName)
+        User user,
+        string displayName)
     {
         CodeContracts.VerifyNotNull(repository);
         CodeContracts.VerifyNotNull(user);
@@ -1306,10 +1306,10 @@ public static class UserRepositoryExtensions
     /// </param>
     public static void SaveAvatar(
         this IRepository<User> repository,
-        [NotNull] int userId,
-        [CanBeNull] string avatarUrl,
-        [CanBeNull] Stream stream,
-        [CanBeNull] string avatarImageType)
+        int userId,
+        string avatarUrl,
+        Stream stream,
+        string avatarImageType)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1359,11 +1359,11 @@ public static class UserRepositoryExtensions
     /// </param>
     public static void SaveNotification(
         this IRepository<User> repository,
-        [NotNull] int userId,
-        [NotNull] bool privateNotification,
-        [NotNull] bool autoWatchTopics,
-        [CanBeNull] int? notificationType,
-        [NotNull] bool dailyDigest)
+        int userId,
+        bool privateNotification,
+        bool autoWatchTopics,
+        int? notificationType,
+        bool dailyDigest)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1392,7 +1392,7 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static List<User> ListAdmins(
         this IRepository<User> repository,
-        [NotNull] int? boardId = null)
+        int? boardId = null)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1417,7 +1417,7 @@ public static class UserRepositoryExtensions
     /// <returns>
     /// Returns all Unapproved Users
     /// </returns>
-    public static List<User> GetUnApprovedUsers(this IRepository<User> repository, [NotNull] int boardId)
+    public static List<User> GetUnApprovedUsers(this IRepository<User> repository, int boardId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1432,8 +1432,8 @@ public static class UserRepositoryExtensions
     /// <param name="signature">The signature.</param>
     public static void SaveSignature(
         this IRepository<User> repository,
-        [NotNull] int userId,
-        [CanBeNull] string signature)
+        int userId,
+        string signature)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1446,7 +1446,7 @@ public static class UserRepositoryExtensions
     /// <param name="repository">The repository.</param>
     /// <param name="userId">The user identifier.</param>
     /// <param name="points">The points.</param>
-    public static void SetPoints(this IRepository<User> repository, [NotNull] int userId, [NotNull] int points)
+    public static void SetPoints(this IRepository<User> repository, int userId, int points)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1463,10 +1463,10 @@ public static class UserRepositoryExtensions
     /// <param name="suspendBy">The suspend by.</param>
     public static void Suspend(
         this IRepository<User> repository,
-        [NotNull] int userId,
-        [CanBeNull] DateTime? suspend = null,
-        [CanBeNull] string suspendReason = null,
-        [NotNull] int suspendBy = 0)
+        int userId,
+        DateTime? suspend = null,
+        string suspendReason = null,
+        int suspendBy = 0)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1487,7 +1487,7 @@ public static class UserRepositoryExtensions
     /// <param name="flags">
     /// The flags.
     /// </param>
-    public static void UpdateBlockFlags(this IRepository<User> repository, [NotNull] int userId, [NotNull] int flags)
+    public static void UpdateBlockFlags(this IRepository<User> repository, int userId, int flags)
     {
         CodeContracts.VerifyNotNull(repository);
 

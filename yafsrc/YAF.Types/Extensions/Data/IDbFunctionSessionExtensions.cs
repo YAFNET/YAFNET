@@ -39,7 +39,7 @@ public static class IDbFunctionSessionExtensions
     /// <param name="dbTransaction">
     /// The transaction.
     /// </param>
-    public static void Populate([NotNull] this IDbCommand command, IDbTransaction dbTransaction)
+    public static void Populate(this IDbCommand command, IDbTransaction dbTransaction)
     {
         CodeContracts.VerifyNotNull(dbTransaction);
         CodeContracts.VerifyNotNull(command);

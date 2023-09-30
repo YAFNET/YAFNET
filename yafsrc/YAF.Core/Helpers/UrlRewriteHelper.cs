@@ -42,7 +42,7 @@ public static class UrlRewriteHelper
     /// <returns>
     /// The clean string for url.
     /// </returns>
-    public static string CleanStringForURL([NotNull]string inputString)
+    public static string CleanStringForURL(string inputString)
     {
         CodeContracts.VerifyNotNull(inputString);
 

@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Web.BBCodes;
 
 /// <summary>
@@ -34,7 +35,7 @@ public class AlbumImage : BBCodeControl
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         var imageId = HtmlTagHelper.StripHtml(this.Parameters["inner"]);
 

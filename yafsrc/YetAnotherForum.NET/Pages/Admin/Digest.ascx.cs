@@ -44,7 +44,7 @@ public partial class Digest : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void ForceSendClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void ForceSendClick(object sender, EventArgs e)
     {
         this.PageBoardContext.BoardSettings.ForceDigestSend = true;
         this.Get<BoardSettingsService>().SaveRegistry(this.PageBoardContext.BoardSettings);
@@ -57,7 +57,7 @@ public partial class Digest : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -92,7 +92,7 @@ public partial class Digest : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void TestSendClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void TestSendClick(object sender, EventArgs e)
     {
         if (this.TextSendEmail.Text.IsSet())
         {

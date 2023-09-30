@@ -50,7 +50,7 @@ public class ModerateForumPage : ForumPage
     /// <param name="pageType">
     /// The page Type.
     /// </param>
-    public ModerateForumPage([CanBeNull] string transPage, ForumPages pageType)
+    public ModerateForumPage(string transPage, ForumPages pageType)
         : base(transPage, pageType)
     {
         this.Load += this.ModeratePage_Load;
@@ -66,7 +66,7 @@ public class ModerateForumPage : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void ModeratePage_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void ModeratePage_Load(object sender, EventArgs e)
     {
         // Only moderators are allowed here
         if (!this.PageBoardContext.IsModeratorInAnyForum)

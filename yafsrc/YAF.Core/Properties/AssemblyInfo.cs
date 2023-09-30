@@ -27,8 +27,6 @@ using System.Runtime.InteropServices;
 
 using Microsoft.Owin;
 
-using YAF.Types.Attributes;
-
 using Startup = YAF.Core.Context.Start.Startup;
 
 [assembly: OwinStartup(typeof(Startup))]

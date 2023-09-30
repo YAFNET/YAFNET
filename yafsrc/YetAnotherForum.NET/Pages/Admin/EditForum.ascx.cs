@@ -58,7 +58,7 @@ public partial class EditForum : AdminPage
     /// <param name="e">
     /// The <see cref="EventArgs"/> instance containing the event data.
     /// </param>
-    public void CategoryChange([NotNull] object sender, [NotNull] EventArgs e)
+    public void CategoryChange(object sender, EventArgs e)
     {
         this.BindParentList();
     }
@@ -72,7 +72,7 @@ public partial class EditForum : AdminPage
     /// <param name="e">
     /// The <see cref="EventArgs"/> instance containing the event data.
     /// </param>
-    protected void BindDataAccessMaskId([NotNull] object sender, [NotNull] EventArgs e)
+    protected void BindDataAccessMaskId(object sender, EventArgs e)
     {
         if (sender is not DropDownList dropDownList)
         {
@@ -119,7 +119,7 @@ public partial class EditForum : AdminPage
     /// <param name="e">
     /// An <see cref="T:System.EventArgs"/> object that contains the event data.
     /// </param>
-    protected override void OnInit([NotNull] EventArgs e)
+    protected override void OnInit(EventArgs e)
     {
         this.CategoryList.AutoPostBack = true;
         this.Save.Click += this.SaveClick;
@@ -133,7 +133,7 @@ public partial class EditForum : AdminPage
     /// <param name="e">
     /// An <see cref="T:System.EventArgs"/> object that contains the event data.
     /// </param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         base.OnPreRender(e);
     }
@@ -147,7 +147,7 @@ public partial class EditForum : AdminPage
     /// <param name="e">
     /// The <see cref="EventArgs"/> instance containing the event data.
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.FormValidatorJs),
@@ -283,7 +283,7 @@ public partial class EditForum : AdminPage
     /// <param name="e">
     /// The <see cref="EventArgs"/> instance containing the event data.
     /// </param>
-    protected void SetDropDownIndex([NotNull] object sender, [NotNull] EventArgs e)
+    protected void SetDropDownIndex(object sender, EventArgs e)
     {
         var list = (DropDownList)sender;
 
@@ -355,7 +355,7 @@ public partial class EditForum : AdminPage
     /// <param name="e">
     /// The <see cref="EventArgs"/> instance containing the event data.
     /// </param>
-    private void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
+    private void CancelClick(object sender, EventArgs e)
     {
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
     }
@@ -429,7 +429,7 @@ public partial class EditForum : AdminPage
     /// <param name="e">
     /// The <see cref="EventArgs"/> instance containing the event data.
     /// </param>
-    private void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
+    private void SaveClick(object sender, EventArgs e)
     {
         if (this.CategoryList.SelectedValue.Trim().Length == 0)
         {

@@ -55,7 +55,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public UserStore([NotNull] IServiceLocator serviceLocator)
+    public UserStore(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }
@@ -82,7 +82,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task AddLoginAsync([NotNull] AspNetUsers user, [NotNull] UserLoginInfo login)
+    public virtual Task AddLoginAsync(AspNetUsers user, UserLoginInfo login)
     {
         CodeContracts.VerifyNotNull(user);
         CodeContracts.VerifyNotNull(login);
@@ -106,7 +106,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task<AspNetUsers> FindAsync([NotNull] UserLoginInfo login)
+    public virtual Task<AspNetUsers> FindAsync(UserLoginInfo login)
     {
         var userLogin = this.GetRepository<AspNetUserLogins>().GetSingle(
             i => i.LoginProvider == login.LoginProvider && i.ProviderKey == login.ProviderKey);
@@ -123,7 +123,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task<IList<UserLoginInfo>> GetLoginsAsync([NotNull] AspNetUsers user)
+    public virtual Task<IList<UserLoginInfo>> GetLoginsAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -146,7 +146,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task RemoveLoginAsync([NotNull] AspNetUsers user, [NotNull] UserLoginInfo login)
+    public virtual Task RemoveLoginAsync(AspNetUsers user, UserLoginInfo login)
     {
         CodeContracts.VerifyNotNull(user);
         CodeContracts.VerifyNotNull(login);
@@ -165,7 +165,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task CreateAsync([NotNull] AspNetUsers user)
+    public virtual Task CreateAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -183,7 +183,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task DeleteAsync([NotNull] AspNetUsers user)
+    public virtual Task DeleteAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -199,7 +199,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task<AspNetUsers> FindByIdAsync([NotNull] string userId)
+    public virtual Task<AspNetUsers> FindByIdAsync(string userId)
     {
         CodeContracts.VerifyNotNull(userId);
 
@@ -215,7 +215,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task<AspNetUsers> FindByNameAsync([NotNull] string userName)
+    public virtual Task<AspNetUsers> FindByNameAsync(string userName)
     {
         CodeContracts.VerifyNotNull(userName);
 
@@ -231,7 +231,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task UpdateAsync([NotNull] AspNetUsers user)
+    public virtual Task UpdateAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -257,7 +257,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task AddClaimAsync([NotNull] AspNetUsers user, [NotNull] Claim claim)
+    public virtual Task AddClaimAsync(AspNetUsers user, Claim claim)
     {
         CodeContracts.VerifyNotNull(user);
         CodeContracts.VerifyNotNull(claim);
@@ -281,7 +281,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task<IList<Claim>> GetClaimsAsync([NotNull] AspNetUsers user)
+    public virtual Task<IList<Claim>> GetClaimsAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -304,7 +304,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task RemoveClaimAsync([NotNull] AspNetUsers user, [NotNull] Claim claim)
+    public virtual Task RemoveClaimAsync(AspNetUsers user, Claim claim)
     {
         CodeContracts.VerifyNotNull(user);
         CodeContracts.VerifyNotNull(claim);
@@ -329,7 +329,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task AddToRoleAsync([NotNull] AspNetUsers user, [NotNull] string roleName)
+    public virtual Task AddToRoleAsync(AspNetUsers user, string roleName)
     {
         CodeContracts.VerifyNotNull(user);
         CodeContracts.VerifyNotNull(roleName);
@@ -358,7 +358,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task<IList<string>> GetRolesAsync([NotNull] AspNetUsers user)
+    public virtual Task<IList<string>> GetRolesAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -383,7 +383,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task<bool> IsInRoleAsync([NotNull] AspNetUsers user, [NotNull] string roleName)
+    public virtual Task<bool> IsInRoleAsync(AspNetUsers user, string roleName)
     {
         CodeContracts.VerifyNotNull(user);
         CodeContracts.VerifyNotNull(roleName);
@@ -413,7 +413,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task RemoveFromRoleAsync([NotNull] AspNetUsers user, [NotNull] string roleName)
+    public virtual Task RemoveFromRoleAsync(AspNetUsers user, string roleName)
     {
         CodeContracts.VerifyNotNull(user);
         CodeContracts.VerifyNotNull(roleName);
@@ -439,7 +439,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<string> GetPasswordHashAsync([NotNull] AspNetUsers user)
+    public virtual async Task<string> GetPasswordHashAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -455,7 +455,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<bool> HasPasswordAsync([NotNull] AspNetUsers user)
+    public virtual async Task<bool> HasPasswordAsync(AspNetUsers user)
     {
         var passwordHash = await this.GetPasswordHashAsync(user);
         return passwordHash.IsNotSet();
@@ -473,7 +473,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task SetPasswordHashAsync([NotNull] AspNetUsers user, [NotNull] string passwordHash)
+    public virtual Task SetPasswordHashAsync(AspNetUsers user, string passwordHash)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -490,7 +490,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<string> GetSecurityStampAsync([NotNull] AspNetUsers user)
+    public virtual async Task<string> GetSecurityStampAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -509,7 +509,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task SetSecurityStampAsync([NotNull] AspNetUsers user, [NotNull] string stamp)
+    public virtual Task SetSecurityStampAsync(AspNetUsers user, string stamp)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -526,7 +526,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task<AspNetUsers> FindByEmailAsync([NotNull] string email)
+    public virtual Task<AspNetUsers> FindByEmailAsync(string email)
     {
         return Task.FromResult(this.GetRepository<AspNetUsers>().GetSingle(u => u.Email == email));
     }
@@ -540,7 +540,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<string> GetEmailAsync([NotNull] AspNetUsers user)
+    public virtual async Task<string> GetEmailAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -556,7 +556,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<bool> GetEmailConfirmedAsync([NotNull] AspNetUsers user)
+    public virtual async Task<bool> GetEmailConfirmedAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -575,7 +575,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task SetEmailAsync([NotNull] AspNetUsers user, string email)
+    public virtual Task SetEmailAsync(AspNetUsers user, string email)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -595,7 +595,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task SetEmailConfirmedAsync([NotNull] AspNetUsers user, bool confirmed)
+    public virtual Task SetEmailConfirmedAsync(AspNetUsers user, bool confirmed)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -612,7 +612,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<string> GetPhoneNumberAsync([NotNull] AspNetUsers user)
+    public virtual async Task<string> GetPhoneNumberAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -628,7 +628,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<bool> GetPhoneNumberConfirmedAsync([NotNull] AspNetUsers user)
+    public virtual async Task<bool> GetPhoneNumberConfirmedAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -647,7 +647,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task SetPhoneNumberAsync([NotNull] AspNetUsers user, string phoneNumber)
+    public virtual Task SetPhoneNumberAsync(AspNetUsers user, string phoneNumber)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -667,7 +667,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task SetPhoneNumberConfirmedAsync([NotNull] AspNetUsers user, bool confirmed)
+    public virtual Task SetPhoneNumberConfirmedAsync(AspNetUsers user, bool confirmed)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -684,7 +684,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<bool> GetTwoFactorEnabledAsync([NotNull] AspNetUsers user)
+    public virtual async Task<bool> GetTwoFactorEnabledAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -703,7 +703,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task SetTwoFactorEnabledAsync([NotNull] AspNetUsers user, bool enabled)
+    public virtual Task SetTwoFactorEnabledAsync(AspNetUsers user, bool enabled)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -720,7 +720,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<int> GetAccessFailedCountAsync([NotNull] AspNetUsers user)
+    public virtual async Task<int> GetAccessFailedCountAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -736,7 +736,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<bool> GetLockoutEnabledAsync([NotNull] AspNetUsers user)
+    public virtual async Task<bool> GetLockoutEnabledAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -752,7 +752,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<DateTimeOffset> GetLockoutEndDateAsync([NotNull] AspNetUsers user)
+    public virtual async Task<DateTimeOffset> GetLockoutEndDateAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -771,7 +771,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task<int> IncrementAccessFailedCountAsync([NotNull] AspNetUsers user)
+    public virtual Task<int> IncrementAccessFailedCountAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -789,7 +789,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task ResetAccessFailedCountAsync([NotNull] AspNetUsers user)
+    public virtual Task ResetAccessFailedCountAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -809,7 +809,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task SetLockoutEnabledAsync([NotNull] AspNetUsers user, bool enabled)
+    public virtual Task SetLockoutEnabledAsync(AspNetUsers user, bool enabled)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -829,7 +829,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task SetLockoutEndDateAsync([NotNull] AspNetUsers user, DateTimeOffset lockoutEnd)
+    public virtual Task SetLockoutEndDateAsync(AspNetUsers user, DateTimeOffset lockoutEnd)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -846,7 +846,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    private Task UpdateUser([NotNull] AspNetUsers user)
+    private Task UpdateUser(AspNetUsers user)
     {
         this.GetRepository<AspNetUsers>().Update(user);
 

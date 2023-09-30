@@ -46,7 +46,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public SendNotification([NotNull] IServiceLocator serviceLocator)
+    public SendNotification(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }
@@ -71,9 +71,9 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="newMessageId">The new message id.</param>
     /// <param name="isSpamMessage">if set to <c>true</c> [is spam message].</param>
     public void ToModeratorsThatMessageNeedsApproval(
-        [NotNull] int forumId,
-        [NotNull] int newMessageId,
-        [NotNull] bool isSpamMessage)
+        int forumId,
+        int newMessageId,
+        bool isSpamMessage)
     {
         var moderatorsFiltered = this.Get<DataBroker>().GetModerators().Where(f => f.ForumID.Equals(forumId));
         var moderatorUserNames = new List<string>();
@@ -173,10 +173,10 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// The report Text.
     /// </param>
     public void ToModeratorsThatMessageWasReported(
-        [NotNull] int pageForumID,
-        [NotNull] int reportedMessageId,
-        [NotNull] int reporter,
-        [CanBeNull] string reportText)
+        int pageForumID,
+        int reportedMessageId,
+        int reporter,
+        string reportText)
     {
         try
         {
@@ -268,7 +268,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="subject">
     /// Subject of PM user is notified about.
     /// </param>
-    public void ToPrivateMessageRecipient([NotNull] int toUserId, [NotNull] string subject)
+    public void ToPrivateMessageRecipient(int toUserId, string subject)
     {
         CodeContracts.VerifyNotNull(subject);
 
@@ -345,7 +345,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="messageId">
     /// The message Id.
     /// </param>
-    public void ToWatchingUsers([NotNull] int messageId)
+    public void ToWatchingUsers(int messageId)
     {
         var message = this.GetRepository<Message>().GetMessage(messageId);
 
@@ -361,7 +361,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="newTopic">
     /// Indicates if Post is New Topic or reply
     /// </param>
-    public void ToWatchingUsers([NotNull] Message message, bool newTopic = false)
+    public void ToWatchingUsers(Message message, bool newTopic = false)
     {
         var mailMessages = new List<MailMessage>();
         var boardName = this.BoardSettings.Name;
@@ -473,9 +473,9 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// The template Name.
     /// </param>
     public void SendRegistrationNotificationToUser(
-        [NotNull] AspNetUsers user,
-        [NotNull] string pass,
-        [NotNull] string templateName)
+        AspNetUsers user,
+        string pass,
+        string templateName)
     {
         CodeContracts.VerifyNotNull(user);
         CodeContracts.VerifyNotNull(pass);
@@ -501,7 +501,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// </summary>
     /// <param name="toUserId">To user id.</param>
     /// <param name="medalName">Name of the medal.</param>
-    public void ToUserWithNewMedal([NotNull] int toUserId, [NotNull] string medalName)
+    public void ToUserWithNewMedal(int toUserId, string medalName)
     {
         CodeContracts.VerifyNotNull(medalName);
 
@@ -535,7 +535,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// </summary>
     /// <param name="user">The user.</param>
     /// <param name="removedRoles">The removed roles.</param>
-    public void SendRoleUnAssignmentNotification([NotNull] AspNetUsers user, [NotNull] List<string> removedRoles)
+    public void SendRoleUnAssignmentNotification(AspNetUsers user, List<string> removedRoles)
     {
         CodeContracts.VerifyNotNull(user);
         CodeContracts.VerifyNotNull(removedRoles);
@@ -562,7 +562,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// </summary>
     /// <param name="user">The user.</param>
     /// <param name="addedRoles">The added roles.</param>
-    public void SendRoleAssignmentNotification([NotNull] AspNetUsers user, [NotNull] List<string> addedRoles)
+    public void SendRoleAssignmentNotification(AspNetUsers user, List<string> addedRoles)
     {
         CodeContracts.VerifyNotNull(user);
         CodeContracts.VerifyNotNull(addedRoles);
@@ -590,7 +590,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// </summary>
     /// <param name="user">The user.</param>
     /// <param name="userId">The user id.</param>
-    public void SendRegistrationNotificationEmail([NotNull] AspNetUsers user, [NotNull] int userId)
+    public void SendRegistrationNotificationEmail(AspNetUsers user, int userId)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -630,7 +630,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// </summary>
     /// <param name="user">The user.</param>
     /// <param name="userId">The user id.</param>
-    public void SendSpamBotNotificationToAdmins([NotNull] AspNetUsers user, [NotNull] int userId)
+    public void SendSpamBotNotificationToAdmins(AspNetUsers user, int userId)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -680,7 +680,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// Sends the user welcome notification.
     /// </summary>
     /// <param name="user">The user.</param>
-    public void SendUserWelcomeNotification([NotNull] User user)
+    public void SendUserWelcomeNotification(User user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -740,10 +740,10 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="userId">The user identifier.</param>
     /// <param name="newUsername">The new username.</param>
     public void SendVerificationEmail(
-        [NotNull] AspNetUsers user,
-        [NotNull] string email,
-        [CanBeNull] int? userId,
-        [CanBeNull] string newUsername = null)
+        AspNetUsers user,
+        string email,
+        int? userId,
+        string newUsername = null)
     {
         CodeContracts.VerifyNotNull(email);
         CodeContracts.VerifyNotNull(user);
@@ -781,10 +781,10 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="email">The email.</param>
     /// <param name="userName">Name of the user.</param>
     public void SendUserSuspensionNotification(
-        [NotNull] DateTime suspendedUntil,
-        [NotNull] string suspendReason,
-        [NotNull] string email,
-        [NotNull] string userName)
+        DateTime suspendedUntil,
+        string suspendReason,
+        string email,
+        string userName)
     {
         CodeContracts.VerifyNotNull(suspendReason);
         CodeContracts.VerifyNotNull(email);
@@ -814,7 +814,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// </summary>
     /// <param name="email">The email.</param>
     /// <param name="userName">Name of the user.</param>
-    public void SendUserSuspensionEndedNotification([NotNull] string email, [NotNull] string userName)
+    public void SendUserSuspensionEndedNotification(string email, string userName)
     {
         CodeContracts.VerifyNotNull(email);
         CodeContracts.VerifyNotNull(userName);
@@ -843,7 +843,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="token">
     /// The token.
     /// </param>
-    public void SendPasswordReset([NotNull] AspNetUsers user, [NotNull] string token)
+    public void SendPasswordReset(AspNetUsers user, string token)
     {
         CodeContracts.VerifyNotNull(user);
 

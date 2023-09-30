@@ -37,7 +37,7 @@ public class Icon : BaseControl
     /// The type.
     /// </value>
     [Category("Appearance")]
-    [NotNull]
+    
     public string IconName { get; set; }
 
     /// <summary>
@@ -49,7 +49,7 @@ public class Icon : BaseControl
     /// <summary>
     /// Gets or sets the size.
     /// </summary>
-    [CanBeNull]
+    
     [DefaultValue("")]
     public string IconSize { get; set; }
 
@@ -61,38 +61,38 @@ public class Icon : BaseControl
     /// <summary>
     /// Gets or sets the icon name stack.
     /// </summary>
-    [CanBeNull]
+    
     public string IconStackName { get; set; }
 
     /// <summary>
     /// Gets or sets the icon stack type.
     /// </summary>
-    [CanBeNull]
+    
     public string IconStackType { get; set; }
 
     /// <summary>
     /// Gets or sets the icon stack size.
     /// </summary>
-    [CanBeNull]
+    
     public string IconStackSize { get; set; }
 
     /// <summary>
     /// Gets or sets the icon name badge.
     /// </summary>
-    [CanBeNull]
+    
     public string IconNameBadge { get; set; }
 
     /// <summary>
     /// Gets or sets the icon badge type.
     /// </summary>
-    [CanBeNull]
+    
     public string IconBadgeType { get; set; }
 
     /// <summary>
     /// Outputs server control content to a provided <see cref="T:System.Web.UI.HtmlTextWriter" /> object and stores tracing information about the control if tracing is enabled.
     /// </summary>
     /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the control content.</param>
-    public override void RenderControl([NotNull] HtmlTextWriter writer)
+    public override void RenderControl(HtmlTextWriter writer)
     {
         if (!this.Visible)
         {

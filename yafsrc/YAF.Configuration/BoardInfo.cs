@@ -103,7 +103,7 @@ public static class BoardInfo
     /// <returns>
     /// Returns the URL including the Content path
     /// </returns>
-    public static string GetURLToContent([NotNull] string resourceName)
+    public static string GetURLToContent(string resourceName)
     {
         CodeContracts.VerifyNotNull(resourceName);
 
@@ -117,7 +117,7 @@ public static class BoardInfo
     /// <returns>
     /// Returns the URL including the Content Themes path
     /// </returns>
-    public static string GetURLToContentThemes([NotNull] string resourceName)
+    public static string GetURLToContentThemes(string resourceName)
     {
         CodeContracts.VerifyNotNull(resourceName);
 
@@ -131,7 +131,7 @@ public static class BoardInfo
     /// <returns>
     /// Returns the URL including the Scripts path
     /// </returns>
-    public static string GetURLToScripts([NotNull] string resourceName)
+    public static string GetURLToScripts(string resourceName)
     {
         CodeContracts.VerifyNotNull(resourceName);
 

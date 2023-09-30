@@ -24,8 +24,6 @@
 
 namespace YAF.Modules;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The page bb code registration.
 /// </summary>

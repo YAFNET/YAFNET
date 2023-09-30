@@ -94,7 +94,7 @@ public class UserLink : UserLabel
     /// <param name="e">
     /// the Event Arguments
     /// </param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         if (!this.CanViewProfile || !this.IsHoverCardEnabled)
         {
@@ -113,7 +113,7 @@ public class UserLink : UserLabel
     /// <param name="output">
     /// The output.
     /// </param>
-    protected override void Render([NotNull] HtmlTextWriter output)
+    protected override void Render(HtmlTextWriter output)
     {
         var displayName = this.ReplaceName;
 

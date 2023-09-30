@@ -46,8 +46,8 @@ public interface IFormatMessage
     /// <returns>
     /// Returns a string containing a forbidden BBCode or a null string
     /// </returns>
-    [CanBeNull]
-    string BBCodeForbiddenDetector([NotNull] string stringToClear, [NotNull] string stringToMatch, char delimiter);
+    
+    string BBCodeForbiddenDetector(string stringToClear, string stringToMatch, char delimiter);
 
     /// <summary>
     /// The method used to get response string, if a forbidden tag is detected.
@@ -64,7 +64,7 @@ public interface IFormatMessage
     /// <returns>
     /// A message string.
     /// </returns>
-    string CheckHtmlTags([NotNull] string checkString, [NotNull] string acceptedTags, char delimiter);
+    string CheckHtmlTags(string checkString, string acceptedTags, char delimiter);
 
     /// <summary>
     /// The format message.
@@ -87,7 +87,7 @@ public interface IFormatMessage
     /// <returns>
     /// The formatted message.
     /// </returns>
-    string Format([NotNull] int messageId, [NotNull] string message, [NotNull] MessageFlags messageFlags, bool targetBlankOverride, DateTime messageLastEdited);
+    string Format(int messageId, string message, MessageFlags messageFlags, bool targetBlankOverride, DateTime messageLastEdited);
 
     /// <summary>
     /// Format the Syndication Message
@@ -104,12 +104,12 @@ public interface IFormatMessage
     /// <returns>
     /// The formatted message.
     /// </returns>
-    [NotNull]
+    
     public string FormatSyndicationMessage(
-        [NotNull] string message,
+        string message,
         int messageId,
         int messageAuthorId,
-        [NotNull] MessageFlags messageFlags);
+        MessageFlags messageFlags);
 
     /// <summary>
     /// Removes nested quotes from the given message body.
@@ -120,8 +120,8 @@ public interface IFormatMessage
     /// <returns>
     /// A version of <paramref name="body"/> that contains no nested quotes.
     /// </returns>
-    [NotNull]
-    string RemoveNestedQuotes([NotNull] string body);
+    
+    string RemoveNestedQuotes(string body);
 
     /// <summary>
     /// Removes BBCode Posted Hidden Content
@@ -132,8 +132,8 @@ public interface IFormatMessage
     /// <returns>
     /// The Cleaned body.
     /// </returns>
-    [NotNull]
-    string RemoveHiddenBBCodeContent([NotNull] string body);
+    
+    string RemoveHiddenBBCodeContent(string body);
 
     /// <summary>
     /// Removes Custom BBCodes
@@ -144,8 +144,8 @@ public interface IFormatMessage
     /// <returns>
     /// The Cleaned body.
     /// </returns>
-    [NotNull]
-    string RemoveCustomBBCodes([NotNull] string body);
+    
+    string RemoveCustomBBCodes(string body);
 
     /// <summary>
     /// The repair html.
@@ -159,7 +159,7 @@ public interface IFormatMessage
     /// <returns>
     /// The repaired html.
     /// </returns>
-    string RepairHtml([NotNull] string html, bool allowHtml);
+    string RepairHtml(string html, bool allowHtml);
 
     /// <summary>
     /// Surrounds a word list with prefix/postfix. Case insensitive.
@@ -180,5 +180,5 @@ public interface IFormatMessage
     /// The surround word list.
     /// </returns>
     string SurroundWordList(
-        [NotNull] string message, [NotNull] IList<string> wordList, [NotNull] string prefix, [NotNull] string postfix);
+        string message, IList<string> wordList, string prefix, string postfix);
 }

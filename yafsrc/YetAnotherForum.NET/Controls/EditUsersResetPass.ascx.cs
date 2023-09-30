@@ -37,7 +37,7 @@ public partial class EditUsersResetPass : BaseUserControl
     /// <summary>
     /// Gets or sets the User Data.
     /// </summary>
-    [NotNull]
+    
     public Tuple<User, AspNetUsers, Rank, VAccess> User { get; set; }
 
     /// <summary>
@@ -49,7 +49,7 @@ public partial class EditUsersResetPass : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         this.ChangePassword.Text =
             $"<i class=\"fa fa-key fa-fw\"></i>&nbsp;{this.GetText("ADMIN_EDITUSER", "CHANGE_PASS")}";
@@ -81,7 +81,7 @@ public partial class EditUsersResetPass : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void ChangePassword_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void ChangePassword_Click(object sender, EventArgs e)
     {
         this.Page.Validate();
 

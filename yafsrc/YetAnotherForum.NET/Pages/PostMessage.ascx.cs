@@ -75,7 +75,7 @@ public partial class PostMessage : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Cancel_Click(object sender, EventArgs e)
     {
         // reply to existing topic or editing of existing topic
         this.Get<LinkBuilder>().Redirect(
@@ -155,7 +155,7 @@ public partial class PostMessage : ForumPage
     /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnInit([NotNull] EventArgs e)
+    protected override void OnInit(EventArgs e)
     {
         if (this.PageBoardContext.UploadAccess)
         {
@@ -175,7 +175,7 @@ public partial class PostMessage : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.PageBoardContext.PageForumID == 0)
         {
@@ -370,7 +370,7 @@ public partial class PostMessage : ForumPage
     /// <param name="e">
     /// The Event Arguments.
     /// </param>
-    protected void PostReply_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void PostReply_Click(object sender, EventArgs e)
     {
         if (!this.IsPostReplyVerified())
         {
@@ -530,7 +530,7 @@ public partial class PostMessage : ForumPage
     /// <param name="e">
     /// The Event Arguments.
     /// </param>
-    protected void Preview_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Preview_Click(object sender, EventArgs e)
     {
         this.PreviewRow.Visible = true;
 

@@ -92,7 +92,7 @@ public partial class Ranks : AdminPage
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    protected string LadderInfo([NotNull] object rank)
+    protected string LadderInfo(object rank)
     {
         var dr = (Rank)rank;
 
@@ -108,7 +108,7 @@ public partial class Ranks : AdminPage
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void NewRankClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void NewRankClick(object sender, EventArgs e)
     {
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditRank);
     }
@@ -118,7 +118,7 @@ public partial class Ranks : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -148,7 +148,7 @@ public partial class Ranks : AdminPage
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void RankListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    protected void RankListItemCommand(object source, RepeaterCommandEventArgs e)
     {
         switch (e.CommandName)
         {

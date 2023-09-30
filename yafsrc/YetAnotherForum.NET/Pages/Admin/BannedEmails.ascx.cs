@@ -44,7 +44,7 @@ public partial class BannedEmails : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -84,7 +84,7 @@ public partial class BannedEmails : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-    protected void List_ItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
+    protected void List_ItemCommand(object sender, RepeaterCommandEventArgs e)
     {
         switch (e.CommandName)
         {
@@ -150,7 +150,7 @@ public partial class BannedEmails : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    protected void PagerTop_PageChange(object sender, EventArgs e)
     {
         // rebind
         this.BindData();

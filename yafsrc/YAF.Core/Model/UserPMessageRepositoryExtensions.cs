@@ -49,8 +49,8 @@ public static class UserPMessageRepositoryExtensions
     /// </param>
     public static void MarkAsRead(
         this IRepository<UserPMessage> repository,
-        [NotNull] int messageId,
-        [NotNull] PMessageFlags messageFlags)
+        int messageId,
+        PMessageFlags messageFlags)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -75,7 +75,7 @@ public static class UserPMessageRepositoryExtensions
      /// </param>
     public static void MarkAsRead(
         this IRepository<UserPMessage> repository,
-        [NotNull] UserPMessage message)
+        UserPMessage message)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -93,8 +93,8 @@ public static class UserPMessageRepositoryExtensions
 
     public static List<UserPMessage> List(
         this IRepository<UserPMessage> repository,
-        [NotNull] int userId,
-        [NotNull] PmView view)
+        int userId,
+        PmView view)
     {
         switch (view)
         {
@@ -135,7 +135,7 @@ public static class UserPMessageRepositoryExtensions
     /// </param>
     public static long Delete(
         this IRepository<UserPMessage> repository,
-        [NotNull] int userPmMessageId,
+        int userPmMessageId,
         bool deleteFromOutbox)
     {
         CodeContracts.VerifyNotNull(repository);
@@ -159,7 +159,7 @@ public static class UserPMessageRepositoryExtensions
     /// </param>
     public static int Delete(
         this IRepository<UserPMessage> repository,
-        [NotNull] UserPMessage message,
+        UserPMessage message,
         bool deleteFromOutbox)
     {
         CodeContracts.VerifyNotNull(repository);

@@ -46,7 +46,7 @@ public partial class Subscriptions : ProfilePage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -102,7 +102,7 @@ public partial class Subscriptions : ProfilePage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void PagerTopics_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    protected void PagerTopics_PageChange(object sender, EventArgs e)
     {
         // rebind
         this.BindDataTopics();
@@ -113,7 +113,7 @@ public partial class Subscriptions : ProfilePage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void PagerForums_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    protected void PagerForums_PageChange(object sender, EventArgs e)
     {
         // rebind
         this.BindDataForums();
@@ -124,7 +124,7 @@ public partial class Subscriptions : ProfilePage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void SaveUser_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void SaveUser_Click(object sender, EventArgs e)
     {
         var autoWatchTopicsEnabled = false;
 
@@ -153,7 +153,7 @@ public partial class Subscriptions : ProfilePage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void UnsubscribeForums_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void UnsubscribeForums_Click(object sender, EventArgs e)
     {
         var ids = GetCheckedIds(this.ForumList, "unsubf", "tfid");
 
@@ -173,7 +173,7 @@ public partial class Subscriptions : ProfilePage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void UnsubscribeTopics_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void UnsubscribeTopics_Click(object sender, EventArgs e)
     {
         var ids = GetCheckedIds(this.TopicList, "unsubx", "ttid");
 
@@ -221,7 +221,7 @@ public partial class Subscriptions : ProfilePage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void NotificationType_SelectionChanged([NotNull] object sender, [NotNull] EventArgs e)
+    protected void NotificationType_SelectionChanged(object sender, EventArgs e)
     {
         var selectedValue = this.rblNotificationType.SelectedItem.Value.ToEnum<UserNotificationSetting>();
 

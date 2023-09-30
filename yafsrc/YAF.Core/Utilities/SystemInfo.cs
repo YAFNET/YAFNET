@@ -45,7 +45,7 @@ public static class SystemInfo
     /// <summary>
     /// Gets Processors.
     /// </summary>
-    [NotNull]
+    
     public static string Processors => Environment.ProcessorCount.ToString();
 
     /// <summary>
@@ -54,7 +54,7 @@ public static class SystemInfo
     /// <value>
     /// The runtime string.
     /// </value>
-    [NotNull]
+    
     public static string RuntimeString
     {
         get

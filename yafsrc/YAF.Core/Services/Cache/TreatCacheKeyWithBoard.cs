@@ -35,7 +35,7 @@ public class TreatCacheKeyWithBoard : ITreatCacheKey
     /// <param name="haveBoardId">
     /// The board id.
     /// </param>
-    public TreatCacheKeyWithBoard([NotNull] IHaveBoardID haveBoardId)
+    public TreatCacheKeyWithBoard(IHaveBoardID haveBoardId)
     {
         CodeContracts.VerifyNotNull(haveBoardId);
 

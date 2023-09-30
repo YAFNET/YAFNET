@@ -461,7 +461,7 @@ public class TopicContainer : BaseControl
     /// <param name="item">
     /// The item.
     /// </param>
-    protected void RenderPriorityMessage([NotNull] HtmlTextWriter writer, [NotNull] PagedTopic item)
+    protected void RenderPriorityMessage(HtmlTextWriter writer, PagedTopic item)
     {
         var priorityLabel = new Label();
 
@@ -517,7 +517,7 @@ public class TopicContainer : BaseControl
     /// <returns>
     /// Returns the Topic Image
     /// </returns>
-    protected Icon GetTopicIcon([NotNull] PagedTopic item, DateTime lastRead)
+    protected Icon GetTopicIcon(PagedTopic item, DateTime lastRead)
     {
         var lastPosted = item.LastPosted ?? DateTimeHelper.SqlDbMinTime();
 
@@ -588,7 +588,7 @@ public class TopicContainer : BaseControl
     /// <returns>
     /// Returns the created link.
     /// </returns>
-    protected ThemeButton MakeLink([NotNull] string text, [NotNull] string link, [NotNull] int pageId)
+    protected ThemeButton MakeLink(string text, string link, int pageId)
     {
         return new ()
                    {

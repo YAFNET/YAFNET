@@ -87,7 +87,7 @@ public class Pager : BaseControl, IPostBackEventHandler, IPager
     /// <summary>
     ///   Gets the Current Linked Pager.
     /// </summary>
-    [CanBeNull]
+    
     protected Pager CurrentLinkedPager
     {
         get
@@ -114,7 +114,7 @@ public class Pager : BaseControl, IPostBackEventHandler, IPager
     /// <param name="eventArgument">
     /// The event argument.
     /// </param>
-    public void RaisePostBackEvent([NotNull] string eventArgument)
+    public void RaisePostBackEvent(string eventArgument)
     {
         if (this.LinkedPager != null)
         {
@@ -133,7 +133,7 @@ public class Pager : BaseControl, IPostBackEventHandler, IPager
     /// Copies the pager settings.
     /// </summary>
     /// <param name="toPager">To pager.</param>
-    protected void CopyPagerSettings([NotNull] Pager toPager)
+    protected void CopyPagerSettings(Pager toPager)
     {
         toPager.Count = this.Count;
         toPager.CurrentPageIndex = this.CurrentPageIndex;
@@ -171,7 +171,7 @@ public class Pager : BaseControl, IPostBackEventHandler, IPager
     /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-    protected override void OnInit([NotNull] EventArgs e)
+    protected override void OnInit(EventArgs e)
     {
         base.OnInit(e);
 
@@ -189,7 +189,7 @@ public class Pager : BaseControl, IPostBackEventHandler, IPager
     /// <param name="writer">
     /// The output.
     /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         if (this.LinkedPager != null)
         {
@@ -247,7 +247,7 @@ public class Pager : BaseControl, IPostBackEventHandler, IPager
     /// <param name="postBack">
     /// The post back.
     /// </param>
-    private void OutputLinks([NotNull] HtmlTextWriter output, bool postBack)
+    private void OutputLinks(HtmlTextWriter output, bool postBack)
     {
         var start = this.CurrentPageIndex - 2;
         var end = this.CurrentPageIndex + 3;

@@ -92,8 +92,8 @@ public static class NntpUtil
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    [NotNull]
-    public static string Base64Decode([NotNull] string encodedData, [CanBeNull] Encoding encoding = null)
+    
+    public static string Base64Decode(string encodedData, Encoding encoding = null)
     {
         CodeContracts.VerifyNotNull(encodedData);
 
@@ -114,7 +114,7 @@ public static class NntpUtil
     /// <returns>
     /// The <see cref="int"/>.
     /// </returns>
-    public static int Base64Decode([NotNull] string encodedData, Stream output)
+    public static int Base64Decode(string encodedData, Stream output)
     {
         CodeContracts.VerifyNotNull(encodedData);
 

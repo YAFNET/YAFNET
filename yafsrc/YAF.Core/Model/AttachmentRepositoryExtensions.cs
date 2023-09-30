@@ -58,7 +58,7 @@ public static class AttachmentRepositoryExtensions
     /// The <see cref="List"/>.
     /// </returns>
     public static List<Tuple<User, Attachment>> GetByBoardPaged<T>(
-        [NotNull] this IRepository<T> repository,
+        this IRepository<T> repository,
         out int count,
         int boardId,
         int? pageIndex = 0,
@@ -108,7 +108,7 @@ public static class AttachmentRepositoryExtensions
     /// <param name="attachmentId">
     /// The board id.
     /// </param>
-    public static void Delete(this IRepository<Attachment> repository, [NotNull] int attachmentId)
+    public static void Delete(this IRepository<Attachment> repository, int attachmentId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -135,7 +135,7 @@ public static class AttachmentRepositoryExtensions
     /// </summary>
     /// <param name="repository">The repository.</param>
     /// <param name="attachmentId">The attachment identifier.</param>
-    public static void IncrementDownloadCounter(this IRepository<Attachment> repository, [NotNull] int attachmentId)
+    public static void IncrementDownloadCounter(this IRepository<Attachment> repository, int attachmentId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -154,11 +154,11 @@ public static class AttachmentRepositoryExtensions
     /// <returns>Returns the new attachment identifier</returns>
     public static int Save(
         this IRepository<Attachment> repository,
-        [NotNull] int userId,
-        [NotNull] string fileName,
-        [NotNull] int bytes,
-        [NotNull] string contentType,
-        [CanBeNull] byte[] fileData = null)
+        int userId,
+        string fileName,
+        int bytes,
+        string contentType,
+        byte[] fileData = null)
     {
         CodeContracts.VerifyNotNull(repository);
 

@@ -28,7 +28,7 @@ namespace YAF.Types.Interfaces.Services;
 /// </summary>
 public interface IAttachment
 {
-    void GetResponseAttachment([NotNull] HttpContext context);
+    void GetResponseAttachment(HttpContext context);
 
-    void GetResponseImage([NotNull] HttpContext context);
+    void GetResponseImage(HttpContext context);
 }

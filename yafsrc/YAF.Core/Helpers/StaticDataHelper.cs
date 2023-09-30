@@ -53,7 +53,7 @@ public static class StaticDataHelper
     /// </summary>
     /// <param name="localization">The localization.</param>
     /// <returns>IReadOnlyCollection&lt;ListItem&gt;.</returns>
-    public static IReadOnlyCollection<ListItem> TopicListModes([NotNull] ILocalization localization)
+    public static IReadOnlyCollection<ListItem> TopicListModes(ILocalization localization)
     {
         var modesList = new List<ListItem>();
 
@@ -84,7 +84,7 @@ public static class StaticDataHelper
     /// </summary>
     /// <param name="localization">The localization.</param>
     /// <returns>IReadOnlyCollection&lt;ListItem&gt;.</returns>
-    public static IReadOnlyCollection<ListItem> Gender([NotNull] ILocalization localization)
+    public static IReadOnlyCollection<ListItem> Gender(ILocalization localization)
     {
         var genderList = new List<ListItem>();
 
@@ -117,7 +117,7 @@ public static class StaticDataHelper
     /// <returns>
     /// Returns a Data Table with all country names (localized).
     /// </returns>
-    public static IReadOnlyCollection<ListItem> Country([NotNull] ILocalization localization)
+    public static IReadOnlyCollection<ListItem> Country(ILocalization localization)
     {
         var countriesList = new List<ListItem>();
 
@@ -147,7 +147,7 @@ public static class StaticDataHelper
     /// <returns>
     /// Returns a List with all country names list(localized)
     /// </returns>
-    public static IReadOnlyCollection<ListItem> Region([NotNull] ILocalization localization, [NotNull] string culture)
+    public static IReadOnlyCollection<ListItem> Region(ILocalization localization, string culture)
     {
         var list = new List<ListItem> { new(null, null) };
 
@@ -167,7 +167,7 @@ public static class StaticDataHelper
     /// <returns>
     /// Returns a List with all region names (localized)
     /// </returns>
-    public static IReadOnlyCollection<ListItem> Region([NotNull] string culture)
+    public static IReadOnlyCollection<ListItem> Region(string culture)
     {
         return Region(BoardContext.Current.Get<ILocalization>(), culture);
     }
@@ -350,7 +350,7 @@ public static class StaticDataHelper
     /// <returns>
     /// A default full 4-letter culture from the existing language file.
     /// </returns>
-    public static string CultureDefaultFromFile([CanBeNull] string fileName)
+    public static string CultureDefaultFromFile(string fileName)
     {
         if (fileName.IsNotSet())
         {
@@ -422,7 +422,7 @@ public static class StaticDataHelper
     /// <returns>
     /// Returns a List with all Time Zones
     /// </returns>
-    public static IReadOnlyCollection<ListItem> TimeZones([NotNull] IReadOnlyCollection<TimeZoneInfo> getSystemTimeZones)
+    public static IReadOnlyCollection<ListItem> TimeZones(IReadOnlyCollection<TimeZoneInfo> getSystemTimeZones)
     {
         var list = new List<ListItem>();
 

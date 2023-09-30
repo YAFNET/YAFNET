@@ -49,7 +49,7 @@ public static class TopicRepositoryExtensions
     /// <returns>
     /// The <see cref="Topic"/>.
     /// </returns>
-    public static Topic GetTopicFromMessage(this IRepository<Topic> repository, [NotNull] int messageId)
+    public static Topic GetTopicFromMessage(this IRepository<Topic> repository, int messageId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -72,7 +72,7 @@ public static class TopicRepositoryExtensions
     /// <param name="pollId">
     /// The poll id.
     /// </param>
-    public static void AttachPoll(this IRepository<Topic> repository, [NotNull] int topicId, [NotNull] int pollId)
+    public static void AttachPoll(this IRepository<Topic> repository, int topicId, int pollId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -91,7 +91,7 @@ public static class TopicRepositoryExtensions
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public static string GetNameFromMessage(this IRepository<Topic> repository, [NotNull] int messageId)
+    public static string GetNameFromMessage(this IRepository<Topic> repository, int messageId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -108,8 +108,8 @@ public static class TopicRepositoryExtensions
     /// <param name="messageId">The message identifier.</param>
     public static void SetAnswerMessage(
         this IRepository<Topic> repository,
-        [NotNull] int topicId,
-        [NotNull] int messageId)
+        int topicId,
+        int messageId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -121,7 +121,7 @@ public static class TopicRepositoryExtensions
     /// </summary>
     /// <param name="repository">The repository.</param>
     /// <param name="topicId">The topic identifier.</param>
-    public static void RemoveAnswerMessage(this IRepository<Topic> repository, [NotNull] int topicId)
+    public static void RemoveAnswerMessage(this IRepository<Topic> repository, int topicId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -134,7 +134,7 @@ public static class TopicRepositoryExtensions
     /// <param name="repository">The repository.</param>
     /// <param name="topicId">The topic identifier.</param>
     /// <returns>Returns the Answer Message identifier</returns>
-    public static int? GetAnswerMessage(this IRepository<Topic> repository, [NotNull] int topicId)
+    public static int? GetAnswerMessage(this IRepository<Topic> repository, int topicId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -149,7 +149,7 @@ public static class TopicRepositoryExtensions
     /// <param name="repository">The repository.</param>
     /// <param name="topicId">The topic identifier.</param>
     /// <param name="flags">The topic flags.</param>
-    public static void Lock(this IRepository<Topic> repository, [NotNull] int topicId, [NotNull] int flags)
+    public static void Lock(this IRepository<Topic> repository, int topicId, int flags)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -185,12 +185,12 @@ public static class TopicRepositoryExtensions
     /// </returns>
     public static List<PagedTopic> ListUnansweredPaged(
         this IRepository<Topic> repository,
-        [NotNull] int pageUserId,
-        [NotNull] DateTime sinceDate,
-        [NotNull] DateTime toDate,
-        [NotNull] int pageIndex,
-        [NotNull] int pageSize,
-        [NotNull] bool findLastRead)
+        int pageUserId,
+        DateTime sinceDate,
+        DateTime toDate,
+        int pageIndex,
+        int pageSize,
+        bool findLastRead)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -233,12 +233,12 @@ public static class TopicRepositoryExtensions
     /// </returns>
     public static List<PagedTopic> ListActivePaged(
         this IRepository<Topic> repository,
-        [NotNull] int pageUserId,
-        [NotNull] DateTime sinceDate,
-        [NotNull] DateTime toDate,
-        [NotNull] int pageIndex,
-        [NotNull] int pageSize,
-        [NotNull] bool findLastRead)
+        int pageUserId,
+        DateTime sinceDate,
+        DateTime toDate,
+        int pageIndex,
+        int pageSize,
+        bool findLastRead)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -280,12 +280,12 @@ public static class TopicRepositoryExtensions
     /// </returns>
     public static List<PagedTopic> ListWatchedPaged(
         this IRepository<Topic> repository,
-        [NotNull] int userId,
-        [NotNull] DateTime sinceDate,
-        [NotNull] DateTime toDate,
-        [NotNull] int pageIndex,
-        [NotNull] int pageSize,
-        [CanBeNull] bool findLastRead = false)
+        int userId,
+        DateTime sinceDate,
+        DateTime toDate,
+        int pageIndex,
+        int pageSize,
+        bool findLastRead = false)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -458,12 +458,12 @@ public static class TopicRepositoryExtensions
     /// </returns>
     public static List<PagedTopic> ListByUserPaged(
         this IRepository<Topic> repository,
-        [NotNull] int pageUserId,
-        [NotNull] DateTime sinceDate,
-        [NotNull] DateTime toDate,
-        [NotNull] int pageIndex,
-        [NotNull] int pageSize,
-        [CanBeNull] bool findLastRead = false)
+        int pageUserId,
+        DateTime sinceDate,
+        DateTime toDate,
+        int pageIndex,
+        int pageSize,
+        bool findLastRead = false)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -497,9 +497,9 @@ public static class TopicRepositoryExtensions
     /// </returns>
     public static long CreateByMessage(
         this IRepository<Topic> repository,
-        [NotNull] int messageId,
-        [NotNull] int forumId,
-        [NotNull] string newTopicSubject)
+        int messageId,
+        int forumId,
+        string newTopicSubject)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -541,9 +541,9 @@ public static class TopicRepositoryExtensions
     /// </returns>
     public static List<Tuple<Message, Topic, User>> RssLatest(
         this IRepository<Topic> repository,
-        [NotNull] int boardId,
-        [NotNull] int numOfPostsToRetrieve,
-        [NotNull] int pageUserId)
+        int boardId,
+        int numOfPostsToRetrieve,
+        int pageUserId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -581,9 +581,9 @@ public static class TopicRepositoryExtensions
     /// </returns>
     public static List<LatestTopic> RssList(
         this IRepository<Topic> repository,
-        [NotNull] int forumId,
-        [NotNull] int pageUserId,
-        [NotNull] int topicLimit)
+        int forumId,
+        int pageUserId,
+        int topicLimit)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -652,13 +652,13 @@ public static class TopicRepositoryExtensions
     /// </returns>
     public static List<LatestTopic> Latest(
         this IRepository<Topic> repository,
-        [NotNull] int boardId,
-        [NotNull] int categoryId,
-        [NotNull] int numOfPostsToRetrieve,
-        [NotNull] int pageUserId,
-        [NotNull] bool showNoCountPosts,
-        [NotNull] bool findLastRead,
-        [CanBeNull] int sortOrder = 0)
+        int boardId,
+        int categoryId,
+        int numOfPostsToRetrieve,
+        int pageUserId,
+        bool showNoCountPosts,
+        bool findLastRead,
+        int sortOrder = 0)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -825,12 +825,12 @@ public static class TopicRepositoryExtensions
     /// </returns>
     public static List<PagedTopic> ListPaged(
         this IRepository<Topic> repository,
-        [NotNull] int forumId,
-        [NotNull] int userId,
-        [CanBeNull] DateTime? sinceDate,
-        [NotNull] int pageIndex,
-        [NotNull] int pageSize,
-        [NotNull] bool findLastRead)
+        int forumId,
+        int userId,
+        DateTime? sinceDate,
+        int pageIndex,
+        int pageSize,
+        bool findLastRead)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -869,11 +869,11 @@ public static class TopicRepositoryExtensions
     /// </returns>
     public static List<PagedTopic> ListPaged(
         this IRepository<Topic> repository,
-        [NotNull] int userId,
-        [NotNull] int pageIndex,
-        [NotNull] int pageSize,
-        [NotNull] bool findLastRead,
-        [NotNull] Expression<Func<Topic, ActiveAccess, Category, bool>> whereCriteria)
+        int userId,
+        int pageIndex,
+        int pageSize,
+        bool findLastRead,
+        Expression<Func<Topic, ActiveAccess, Category, bool>> whereCriteria)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1040,11 +1040,11 @@ public static class TopicRepositoryExtensions
     /// </returns>
     public static List<PagedTopic> ListAnnouncementsPaged(
         this IRepository<Topic> repository,
-        [NotNull] int forumId,
-        [NotNull] int userId,
-        [NotNull] int pageIndex,
-        [NotNull] int pageSize,
-        [CanBeNull] bool findLastRead)
+        int forumId,
+        int userId,
+        int pageIndex,
+        int pageSize,
+        bool findLastRead)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1110,19 +1110,19 @@ public static class TopicRepositoryExtensions
     /// </returns>
     public static Topic SaveNew(
         this IRepository<Topic> repository,
-        [NotNull] Forum forum,
-        [NotNull] string subject,
-        [CanBeNull] string status,
-        [CanBeNull] string styles,
-        [CanBeNull] string description,
-        [NotNull] string message,
-        [NotNull] User user,
-        [NotNull] short priority,
-        [CanBeNull] string userName,
-        [NotNull] string userDisplayName,
-        [NotNull] string ip,
-        [NotNull] DateTime posted,
-        [NotNull] MessageFlags flags,
+        Forum forum,
+        string subject,
+        string status,
+        string styles,
+        string description,
+        string message,
+        User user,
+        short priority,
+        string userName,
+        string userDisplayName,
+        string ip,
+        DateTime posted,
+        MessageFlags flags,
         out Message newMessage)
     {
         CodeContracts.VerifyNotNull(repository);
@@ -1190,11 +1190,11 @@ public static class TopicRepositoryExtensions
     /// </param>
     public static void Move(
         this IRepository<Topic> repository,
-        [NotNull] int topicId,
-        [NotNull] int oldForumId,
-        [NotNull] int newForumId,
-        [NotNull] bool showMoved,
-        [NotNull] int linkDays)
+        int topicId,
+        int oldForumId,
+        int newForumId,
+        bool showMoved,
+        int linkDays)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1226,11 +1226,11 @@ public static class TopicRepositoryExtensions
     /// </param>
     public static void Move(
         this IRepository<Topic> repository,
-        [NotNull] Topic topic,
-        [NotNull] int oldForumId,
-        [NotNull] int newForumId,
-        [NotNull] bool showMoved,
-        [NotNull] int linkDays)
+        Topic topic,
+        int oldForumId,
+        int newForumId,
+        bool showMoved,
+        int linkDays)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1292,10 +1292,10 @@ public static class TopicRepositoryExtensions
     /// </returns>
     public static int Prune(
         this IRepository<Topic> repository,
-        [NotNull] int boardId,
-        [NotNull] int forumId,
-        [NotNull] int days,
-        [NotNull] bool permDelete)
+        int boardId,
+        int forumId,
+        int days,
+        bool permDelete)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1345,7 +1345,7 @@ public static class TopicRepositoryExtensions
     /// <param name="topicId">
     /// The topic Id.
     /// </param>
-    public static void Delete(this IRepository<Topic> repository, [NotNull] int forumId, [NotNull] int topicId)
+    public static void Delete(this IRepository<Topic> repository, int forumId, int topicId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1369,9 +1369,9 @@ public static class TopicRepositoryExtensions
     /// </param>
     public static void Delete(
         this IRepository<Topic> repository,
-        [NotNull] int forumId,
-        [NotNull] int topicId,
-        [NotNull] bool eraseTopic)
+        int forumId,
+        int topicId,
+        bool eraseTopic)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1473,7 +1473,7 @@ public static class TopicRepositoryExtensions
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public static bool CheckForDuplicate(this IRepository<Topic> repository, [NotNull] string topicSubject)
+    public static bool CheckForDuplicate(this IRepository<Topic> repository, string topicSubject)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1494,7 +1494,7 @@ public static class TopicRepositoryExtensions
     /// <returns>
     /// The <see cref="Topic"/>.
     /// </returns>
-    public static Topic FindNext(this IRepository<Topic> repository, [NotNull] Topic currentTopic)
+    public static Topic FindNext(this IRepository<Topic> repository, Topic currentTopic)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1515,7 +1515,7 @@ public static class TopicRepositoryExtensions
     /// <returns>
     /// The <see cref="Topic"/>.
     /// </returns>
-    public static Topic FindPrevious(this IRepository<Topic> repository, [NotNull] Topic currentTopic)
+    public static Topic FindPrevious(this IRepository<Topic> repository, Topic currentTopic)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1542,8 +1542,8 @@ public static class TopicRepositoryExtensions
     /// </returns>
     public static List<Topic> SimpleList(
         this IRepository<Topic> repository,
-        [CanBeNull] int startId = 0,
-        [CanBeNull] int limit = 500)
+        int startId = 0,
+        int limit = 500)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1561,7 +1561,7 @@ public static class TopicRepositoryExtensions
     /// </param>
     public static void UnEncodeAllTopicsSubjects(
         this IRepository<Topic> repository,
-        [NotNull] Func<string, string> decodeTopicFunc)
+        Func<string, string> decodeTopicFunc)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1604,8 +1604,8 @@ public static class TopicRepositoryExtensions
     /// </returns>
     public static List<Tuple<Forum, Topic>> GetDeletedTopics(
         this IRepository<Topic> repository,
-        [NotNull] int boardId,
-        [CanBeNull] string filter)
+        int boardId,
+        string filter)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1638,8 +1638,8 @@ public static class TopicRepositoryExtensions
     /// The topic Id.
     /// </param>
     public static void UpdateLastPost(
-        [NotNull] this IRepository<Topic> repository,
-        [NotNull] int topicId)
+        this IRepository<Topic> repository,
+        int topicId)
     {
         CodeContracts.VerifyNotNull(repository);
 

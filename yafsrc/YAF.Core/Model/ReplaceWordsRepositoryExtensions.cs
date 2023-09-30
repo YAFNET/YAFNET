@@ -40,10 +40,10 @@ public static class ReplaceWordsRepositoryExtensions
     /// <param name="boardId">The board identifier.</param>
     public static void Save(
         this IRepository<Replace_Words> repository,
-        [CanBeNull] int? replaceWordId,
-        [NotNull] string badWord,
-        [NotNull] string goodWord,
-        [CanBeNull] int? boardId = null)
+        int? replaceWordId,
+        string badWord,
+        string goodWord,
+        int? boardId = null)
     {
         CodeContracts.VerifyNotNull(repository);
 

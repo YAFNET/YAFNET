@@ -31,8 +31,6 @@ using System.Reflection;
 using Autofac;
 using Autofac.Core.Lifetime;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The dynamic services module.
 /// </summary>
@@ -67,7 +65,7 @@ public class DynamicServicesModule : BaseModule
     /// <param name="assemblies">
     /// The assemblies.
     /// </param>
-    private static void RegisterDynamicServices(ContainerBuilder builder, [NotNull] Assembly[] assemblies)
+    private static void RegisterDynamicServices(ContainerBuilder builder, Assembly[] assemblies)
     {
         CodeContracts.VerifyNotNull(assemblies);
 

@@ -38,5 +38,5 @@ public interface ILoggerProvider
     /// </param>
     /// <returns>
     /// </returns>
-    ILoggerService Create([CanBeNull] Type type);
+    ILoggerService Create(Type type);
 }

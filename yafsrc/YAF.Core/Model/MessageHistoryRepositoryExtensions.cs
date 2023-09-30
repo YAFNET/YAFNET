@@ -50,8 +50,8 @@ public static class MessageHistoryRepositoryExtensions
     /// </returns>
     public static List<MessageHistoryTopic> List(
         this IRepository<MessageHistory> repository,
-        [NotNull] int messageId,
-        [NotNull] int daysToClean)
+        int messageId,
+        int daysToClean)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -130,7 +130,7 @@ public static class MessageHistoryRepositoryExtensions
     /// <param name="daysToClean">
     /// The days to clean.
     /// </param>
-    private static void DeleteOlderThen(this IRepository<MessageHistory> repository, [NotNull] int daysToClean)
+    private static void DeleteOlderThen(this IRepository<MessageHistory> repository, int daysToClean)
     {
         CodeContracts.VerifyNotNull(repository);
 

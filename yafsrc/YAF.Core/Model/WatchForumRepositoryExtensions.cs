@@ -46,7 +46,7 @@ public static class WatchForumRepositoryExtensions
     /// <param name="forumId">
     /// The forum id.
     /// </param>
-    public static void Add(this IRepository<WatchForum> repository, [NotNull] int userId, [NotNull] int forumId)
+    public static void Add(this IRepository<WatchForum> repository, int userId, int forumId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -72,7 +72,7 @@ public static class WatchForumRepositoryExtensions
     /// <returns>
     /// The <see cref="int?"/>.
     /// </returns>
-    public static int? Check(this IRepository<WatchForum> repository, [NotNull] int userId, [NotNull] int forumId)
+    public static int? Check(this IRepository<WatchForum> repository, int userId, int forumId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -101,9 +101,9 @@ public static class WatchForumRepositoryExtensions
     /// </returns>
     public static List<WatchForum> List(
         this IRepository<WatchForum> repository,
-        [NotNull] int userId,
-        [NotNull] int pageIndex = 0,
-        [NotNull] int pageSize = 10000000)
+        int userId,
+        int pageIndex = 0,
+        int pageSize = 10000000)
     {
         CodeContracts.VerifyNotNull(repository);
 

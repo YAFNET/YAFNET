@@ -24,8 +24,6 @@
 
 namespace YAF.Modules;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// Module that handles page permission feature
 /// </summary>
@@ -43,7 +41,7 @@ public class PagePermissionForumModule : SimpleBaseForumModule
     /// <param name="permissions">
     /// The permissions.
     /// </param>
-    public PagePermissionForumModule([NotNull] IPermissions permissions)
+    public PagePermissionForumModule(IPermissions permissions)
     {
         this.permissions = permissions;
     }
@@ -65,7 +63,7 @@ public class PagePermissionForumModule : SimpleBaseForumModule
     /// <param name="e">
     /// The e.
     /// </param>
-    private void CurrentPageLoad([NotNull] object sender, [NotNull] EventArgs e)
+    private void CurrentPageLoad(object sender, EventArgs e)
     {
         // check access permissions for specific pages...
         switch (this.CurrentForumPage.PageType)

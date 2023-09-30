@@ -51,7 +51,7 @@ public class FeedItem : SyndicationFeed
     /// <param name="urlAlphaNum">
     /// The alphanumerically encoded base site Url.
     /// </param>
-    public FeedItem([NotNull] string subTitle, RssFeeds feedType, string urlAlphaNum)
+    public FeedItem(string subTitle, RssFeeds feedType, string urlAlphaNum)
     {
         this.Copyright = new TextSyndicationContent(
             $"Copyright {DateTime.Now.Year} {BoardContext.Current.BoardSettings.Name}");

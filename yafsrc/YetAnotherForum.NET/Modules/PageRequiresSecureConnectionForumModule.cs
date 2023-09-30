@@ -24,8 +24,6 @@
 
 namespace YAF.Modules;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The page requires secure connection module.
 /// </summary>
@@ -49,7 +47,7 @@ public class PageRequiresSecureConnectionForumModule : SimpleBaseForumModule
     /// <param name="e">
     /// The e.
     /// </param>
-    private void ForumControl_Load([NotNull] object sender, [NotNull] EventArgs e)
+    private void ForumControl_Load(object sender, EventArgs e)
     {
         if (HttpContext.Current.Request.IsLocal || HttpContext.Current.Request.IsSecureConnection ||
             !this.PageBoardContext.BoardSettings.RequireSSL)

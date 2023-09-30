@@ -26,7 +26,6 @@ namespace YAF.Core.ForumModules;
 using System;
 
 using YAF.Core.BaseModules;
-using YAF.Types.Attributes;
 
 /// <summary>
 /// The Anti XSRF Forum Module.
@@ -64,7 +63,7 @@ public class AntiXsrfForumModule : BaseForumModule
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    private void CurrentPageInit([NotNull] object sender, [NotNull] EventArgs e)
+    private void CurrentPageInit(object sender, EventArgs e)
     {
         var requestCookie = HttpContext.Current.Request.Cookies[AntiXsrfTokenKey];
 

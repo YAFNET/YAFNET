@@ -59,7 +59,7 @@ public partial class ProfileDefinitions : AdminPage
     /// </summary>
     /// <param name="source">The source.</param>
     /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-    protected void ListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    protected void ListItemCommand(object source, RepeaterCommandEventArgs e)
     {
         var defId = e.CommandArgument.ToType<int>();
 
@@ -107,7 +107,7 @@ public partial class ProfileDefinitions : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {

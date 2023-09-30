@@ -57,7 +57,7 @@ public partial class AlbumImageList : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.Web.UI.WebControls.CommandEventArgs"/> instance containing the event data.</param>
-    protected void AlbumImages_ItemCommand([NotNull] object sender, [NotNull] CommandEventArgs e)
+    protected void AlbumImages_ItemCommand(object sender, CommandEventArgs e)
     {
         if (this.UserAlbum.CoverImageID.ToString() == e.CommandArgument.ToString())
         {
@@ -76,7 +76,7 @@ public partial class AlbumImageList : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterItemEventArgs"/> instance containing the event data.</param>
-    protected void AlbumImages_ItemDataBound([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
+    protected void AlbumImages_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
         if (this.UserID != this.PageBoardContext.PageUserID)
         {
@@ -107,7 +107,7 @@ public partial class AlbumImageList : BaseUserControl
     /// Raises the <see cref="E:System.Web.UI.Control.PreRender"/> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         if (this.UserID == this.PageBoardContext.PageUserID)
         {
@@ -131,7 +131,7 @@ public partial class AlbumImageList : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         this.BindData();
     }
@@ -141,7 +141,7 @@ public partial class AlbumImageList : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Pager_PageChange(object sender, EventArgs e)
     {
         this.BindData();
     }

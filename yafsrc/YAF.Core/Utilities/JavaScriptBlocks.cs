@@ -35,7 +35,7 @@ public static class JavaScriptBlocks
     ///   Gets the script for changing the image caption.
     /// </summary>
     /// <returns></returns>
-    [NotNull]
+    
     public static string ChangeImageCaptionJs =>
         $$"""
           function changeImageCaption(imageId, txtTitleId) {
@@ -65,7 +65,7 @@ public static class JavaScriptBlocks
     /// <returns>
     ///   the callback success js.
     /// </returns>
-    [NotNull]
+    
     public static string AlbumCallbackSuccessJs =>
         """
         function changeTitleSuccess(res){
@@ -81,7 +81,7 @@ public static class JavaScriptBlocks
     /// <summary>
     /// Gets the multi quote callback success JS.
     /// </summary>
-    [NotNull]
+    
     public static string MultiQuoteCallbackSuccessJs =>
         """
         function multiQuoteSuccess(res) {
@@ -93,7 +93,7 @@ public static class JavaScriptBlocks
     /// <summary>
     /// Gets the multi quote button JS.
     /// </summary>
-    [NotNull]
+    
     public static string MultiQuoteButtonJs =>
         $$"""
           function handleMultiQuoteButton(button, msgId, tpId) {
@@ -127,7 +127,7 @@ public static class JavaScriptBlocks
     /// <param name="inputId">The input Id.</param>
     /// <param name="hiddenId">the hidden id</param>
     /// <returns>The <see cref="string" />.</returns>
-    [NotNull]
+    
     public static string GetBoardTagsJs(string inputId, string hiddenId)
     {
         return $$"""
@@ -221,7 +221,7 @@ public static class JavaScriptBlocks
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    [NotNull]
+    
     public static string CookieConsentJs()
     {
         return """
@@ -252,7 +252,7 @@ public static class JavaScriptBlocks
     /// <returns>
     /// The album events JS.
     /// </returns>
-    public static string AlbumEventsJs([NotNull] string albumEmptyTitle, [NotNull] string imageEmptyCaption)
+    public static string AlbumEventsJs(string albumEmptyTitle, string imageEmptyCaption)
     {
         return $$"""
                  function showTexBox(spnTitleId) {
@@ -341,7 +341,7 @@ public static class JavaScriptBlocks
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public static string BlockUiFunctionJs([NotNull] string messageId)
+    public static string BlockUiFunctionJs(string messageId)
     {
         return $$"""
                  var modal = new bootstrap.Modal(document.getElementById("{{messageId}}"),
@@ -363,7 +363,7 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the the Bootstrap Tab Load JS string
     /// </returns>
-    public static string BootstrapTabsLoadJs([NotNull] string tabId, string hiddenId)
+    public static string BootstrapTabsLoadJs(string tabId, string hiddenId)
     {
         return $$"""
                  document.addEventListener("DOMContentLoaded", function () {
@@ -399,7 +399,7 @@ public static class JavaScriptBlocks
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public static string CollapseToggleJs([NotNull] string hideText, [NotNull] string showText)
+    public static string CollapseToggleJs(string hideText, string showText)
     {
         return $$"""
                  document.addEventListener("DOMContentLoaded", function () {
@@ -423,7 +423,7 @@ public static class JavaScriptBlocks
     /// <returns>
     /// The load goto anchor.
     /// </returns>
-    public static string LoadGotoAnchor([NotNull] string anchor)
+    public static string LoadGotoAnchor(string anchor)
     {
         return $$"""
                  Sys.WebForms.PageRequestManager.getInstance().add_pageLoaded(loadGotoAnchor);
@@ -450,7 +450,7 @@ public static class JavaScriptBlocks
     /// <returns>
     /// The YAF modal dialog Load JS.
     /// </returns>
-    public static string LoginBoxLoadJs([NotNull] string openLink, [NotNull] string dialogId)
+    public static string LoginBoxLoadJs(string openLink, string dialogId)
     {
         return $$"""
                  document.addEventListener("DOMContentLoaded", function () {
@@ -473,7 +473,7 @@ public static class JavaScriptBlocks
     /// <returns>
     /// The add thanks JS.
     /// </returns>
-    public static string AddThanksJs([NotNull] string removeThankBoxHtml)
+    public static string AddThanksJs(string removeThankBoxHtml)
     {
         return $$"""
                  function addThanks(messageId) {
@@ -513,7 +513,7 @@ public static class JavaScriptBlocks
     /// <returns>
     /// The remove thanks JS.
     /// </returns>
-    public static string RemoveThanksJs([NotNull] string addThankBoxHtml)
+    public static string RemoveThanksJs(string addThankBoxHtml)
     {
         return $$"""
                  function removeThanks(messageId) {
@@ -546,14 +546,14 @@ public static class JavaScriptBlocks
     /// <param name="urlImageDescription">The URL image description.</param>
     /// <param name="description">The description.</param>
     /// <returns>System.String.</returns>
-    [NotNull]
+    
     public static string CreateEditorJs(
-        [NotNull] string editorId,
-        [NotNull] string urlTitle,
-        [NotNull] string urlDescription,
-        [NotNull] string urlImageTitle,
-        [NotNull] string urlImageDescription,
-        [NotNull] string description)
+        string editorId,
+        string urlTitle,
+        string urlDescription,
+        string urlImageTitle,
+        string urlImageDescription,
+        string description)
     {
         return $$$"""
                   var {{{editorId}}}=new yafEditor("{{{editorId}}}", "{{{urlTitle}}}", "{{{urlDescription}}}", "{{{urlImageTitle}}}", "{{{urlImageDescription}}}", "{{{description}}}");
@@ -583,8 +583,8 @@ public static class JavaScriptBlocks
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    [NotNull]
-    public static string CodeMirrorSqlLoadJs([NotNull] string editorId, [NotNull] string mime)
+    
+    public static string CodeMirrorSqlLoadJs(string editorId, string mime)
     {
         return $$$"""
                   window.onload = function() {
@@ -615,8 +615,8 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the FileUpload Java Script.
     /// </returns>
-    [NotNull]
-    public static string FileAutoUploadLoadJs([NotNull] string fileUploaderUrl)
+    
+    public static string FileAutoUploadLoadJs(string fileUploaderUrl)
     {
         return $$"""
                  (function () {
@@ -702,8 +702,8 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the FileUpload Java Script.
     /// </returns>
-    [NotNull]
-    public static string FileUploadLoadJs([NotNull] string fileUploaderUrl)
+    
+    public static string FileUploadLoadJs(string fileUploaderUrl)
     {
         return $$"""
                  document.addEventListener("DOMContentLoaded", function() {
@@ -736,12 +736,12 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the select topics load JS.
     /// </returns>
-    [NotNull]
+    
     public static string SelectTopicsLoadJs(
-        [NotNull] string topicDropDownId,
-        [NotNull] string topicHiddenId,
-        [NotNull] string forumDropDownId,
-        [NotNull] string placeHolder)
+        string topicDropDownId,
+        string topicHiddenId,
+        string forumDropDownId,
+        string placeHolder)
     {
         return $$"""
                  var topicsSelect = new Choices("#{{topicDropDownId}}", {
@@ -836,13 +836,13 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the select topics load JS.
     /// </returns>
-    [NotNull]
+    
     public static string SelectForumsLoadJs(
-        [NotNull] string forumDropDownId,
-        [NotNull] string placeHolder,
+        string forumDropDownId,
+        string placeHolder,
         bool forumLink,
         bool allForumsOption,
-        [CanBeNull] string selectedHiddenId = null)
+        string selectedHiddenId = null)
     {
         // forum link
         var forumLinkJs = forumLink
@@ -970,16 +970,16 @@ public static class JavaScriptBlocks
     /// <param name="passwordStrongerText">The password stronger text.</param>
     /// <param name="passwordWeakText">The password weak text.</param>
     /// <returns>Returns the Passwords strength checker Java Script</returns>
-    [NotNull]
+    
     public static string PasswordStrengthCheckerJs(
-        [NotNull] string passwordClientId,
-        [NotNull] string confirmPasswordClientId,
-        [NotNull] int minimumChars,
-        [NotNull] string notMatchText,
-        [NotNull] string passwordMinText,
-        [NotNull] string passwordGoodText,
-        [NotNull] string passwordStrongerText,
-        [NotNull] string passwordWeakText)
+        string passwordClientId,
+        string confirmPasswordClientId,
+        int minimumChars,
+        string notMatchText,
+        string passwordMinText,
+        string passwordGoodText,
+        string passwordStrongerText,
+        string passwordWeakText)
     {
         return $$"""
                  document.addEventListener("DOMContentLoaded",
@@ -1077,8 +1077,8 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the JS String
     /// </returns>
-    [NotNull]
-    public static string OpenModalJs([NotNull] string clientId)
+    
+    public static string OpenModalJs(string clientId)
     {
         return $"var myModal = new bootstrap.Modal(document.getElementById(\"{clientId}\"), null);myModal.show();";
     }
@@ -1089,7 +1089,7 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the do Search Java script String
     /// </returns>
-    [NotNull]
+    
     public static string DoSearchJs()
     {
         return "document.addEventListener(\"DOMContentLoaded\", function() { getSearchResultsData(0);});";
@@ -1107,8 +1107,8 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the JS String
     /// </returns>
-    [NotNull]
-    public static string ForumIconLegendPopoverJs([NotNull] string content, [NotNull] string cssClass)
+    
+    public static string ForumIconLegendPopoverJs(string content, string cssClass)
     {
         return $$"""
                  Sys.Application.add_load(function(){var popoverTriggerIconList = [].slice.call(document.querySelectorAll(".{{cssClass}}"));
@@ -1137,8 +1137,8 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the JS String
     /// </returns>
-    [NotNull]
-    public static string TopicLinkPopoverJs([NotNull] string title, [NotNull] string cssClass, [NotNull] string trigger)
+    
+    public static string TopicLinkPopoverJs(string title, string cssClass, string trigger)
     {
         return $$"""
                  Sys.Application.add_load(function(){
@@ -1164,8 +1164,8 @@ public static class JavaScriptBlocks
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    [NotNull]
-    public static string ForumModsPopoverJs([NotNull] string title)
+    
+    public static string ForumModsPopoverJs(string title)
     {
         return $$"""
                  Sys.Application.add_load(function(){
@@ -1189,7 +1189,7 @@ public static class JavaScriptBlocks
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    [NotNull]
+    
     public static string HoverCardJs()
     {
         return $$"""
@@ -1210,8 +1210,8 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the JS String
     /// </returns>
-    [NotNull]
-    public static string FormValidatorJs([NotNull] string buttonClientId)
+    
+    public static string FormValidatorJs(string buttonClientId)
     {
         return $$"""
                  (function () {
@@ -1242,8 +1242,8 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the JS String
     /// </returns>
-    [NotNull]
-    public static string ClickOnEnterJs([NotNull] string buttonClientId)
+    
+    public static string ClickOnEnterJs(string buttonClientId)
     {
         return $$"""
                  if (event.which || event.keyCode) {
@@ -1278,13 +1278,13 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the JS String
     /// </returns>
-    [NotNull]
+    
     public static string BootBoxConfirmJs(
-        [NotNull] string title,
-        [NotNull] string text,
-        [NotNull] string yes,
-        [NotNull] string no,
-        [NotNull] string link)
+        string title,
+        string text,
+        string yes,
+        string no,
+        string link)
     {
         return $$"""
                  document.addEventListener("DOMContentLoaded", function () {
@@ -1334,13 +1334,13 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the JS String
     /// </returns>
-    [NotNull]
+    
     public static string BootBoxPromptJs(
-        [NotNull] string title,
-        [NotNull] string message,
-        [NotNull] string cancel,
-        [NotNull] string ok,
-        [NotNull] string value)
+        string title,
+        string message,
+        string cancel,
+        string ok,
+        string value)
     {
         return $$"""
                  bootbox.prompt({
@@ -1368,11 +1368,11 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the select user load JS.
     /// </returns>
-    [NotNull]
+    
     public static string SelectUsersLoadJs(
-        [NotNull] string selectClientId,
-        [NotNull] string hiddenUserId,
-        [NotNull] string placeHolder)
+        string selectClientId,
+        string hiddenUserId,
+        string placeHolder)
     {
         return $$"""
                  if (document.getElementById("{{selectClientId}}") != null) {
@@ -1470,13 +1470,13 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the JS String
     /// </returns>
-    [NotNull]
+    
     public static string LogOutJs(
-        [NotNull] string title,
-        [NotNull] string text,
-        [NotNull] string yes,
-        [NotNull] string no,
-        [NotNull] string link)
+        string title,
+        string text,
+        string yes,
+        string no,
+        string link)
     {
         return $$"""
                  function LogOutClick() {
@@ -1514,8 +1514,8 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the JS String
     /// </returns>
-    [NotNull]
-    public static string LoadMoreOnScrolling([NotNull] string buttonClientId)
+    
+    public static string LoadMoreOnScrolling(string buttonClientId)
     {
         return $$"""
                  window.addEventListener("scroll", () => {
@@ -1539,8 +1539,8 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the JS String
     /// </returns>
-    [NotNull]
-    public static string ToggleDiffSelectionJs([NotNull] string message)
+    
+    public static string ToggleDiffSelectionJs(string message)
     {
         return $$"""
                  function toggleSelection(source) {

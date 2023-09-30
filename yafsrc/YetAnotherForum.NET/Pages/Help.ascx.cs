@@ -51,7 +51,7 @@ public partial class Help : ForumPage
     /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnInit([NotNull] EventArgs e)
+    protected override void OnInit(EventArgs e)
     {
         this.DoSearch.Click += this.DoSearch_Click;
         base.OnInit(e);
@@ -67,7 +67,7 @@ public partial class Help : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         this.LoadHelpContent();
 
@@ -170,7 +170,7 @@ public partial class Help : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void DoSearch_Click([NotNull] object sender, [NotNull] EventArgs e)
+    private void DoSearch_Click(object sender, EventArgs e)
     {
         if (this.search.Text.IsNotSet())
         {

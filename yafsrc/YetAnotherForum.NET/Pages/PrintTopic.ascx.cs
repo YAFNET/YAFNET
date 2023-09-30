@@ -46,7 +46,7 @@ public partial class PrintTopic : ForumPage
     /// <returns>
     /// The get print body.
     /// </returns>
-    protected string GetPrintBody([NotNull] object o)
+    protected string GetPrintBody(object o)
     {
         var row = (PagedMessage)o;
 
@@ -69,7 +69,7 @@ public partial class PrintTopic : ForumPage
     /// <returns>
     /// The get print header.
     /// </returns>
-    protected string GetPrintHeader([NotNull] object o)
+    protected string GetPrintHeader(object o)
     {
         var row = (PagedMessage)o;
         return
@@ -85,7 +85,7 @@ public partial class PrintTopic : ForumPage
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (!this.Get<HttpRequestBase>().QueryString.Exists("t") || !this.PageBoardContext.ForumReadAccess)
         {

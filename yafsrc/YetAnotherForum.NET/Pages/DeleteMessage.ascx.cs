@@ -80,7 +80,7 @@ public partial class DeleteMessage : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Cancel_Click(object sender, EventArgs e)
     {
         // new topic -- cancel back to forum
         this.Get<LinkBuilder>().Redirect(
@@ -107,7 +107,7 @@ public partial class DeleteMessage : ForumPage
     /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-    protected override void OnInit([NotNull] EventArgs e)
+    protected override void OnInit(EventArgs e)
     {
         this.LinkedPosts.ItemDataBound += this.LinkedPosts_ItemDataBound;
 
@@ -119,7 +119,7 @@ public partial class DeleteMessage : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.FormValidatorJs),
@@ -266,7 +266,7 @@ public partial class DeleteMessage : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void RestoreClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void RestoreClick(object sender, EventArgs e)
     {
         this.GetRepository<Message>().Restore(
             this.PageBoardContext.PageForumID,
@@ -283,7 +283,7 @@ public partial class DeleteMessage : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="RepeaterItemEventArgs"/> instance containing the event data.</param>
-    private void LinkedPosts_ItemDataBound([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
+    private void LinkedPosts_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
         if (e.Item.ItemType != ListItemType.Header)
         {

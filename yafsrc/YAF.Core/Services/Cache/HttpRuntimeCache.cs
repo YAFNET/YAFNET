@@ -64,9 +64,9 @@ public class HttpRuntimeCache : IDataCache
     /// The treat Cache Key.
     /// </param>
     public HttpRuntimeCache(
-        [NotNull] IRaiseEvent eventRaiser, 
-        [NotNull] IHaveLockObject haveLockObject, 
-        [NotNull] ITreatCacheKey treatCacheKey)
+        IRaiseEvent eventRaiser, 
+        IHaveLockObject haveLockObject, 
+        ITreatCacheKey treatCacheKey)
     {
         CodeContracts.VerifyNotNull(eventRaiser);
         CodeContracts.VerifyNotNull(haveLockObject);
@@ -82,7 +82,7 @@ public class HttpRuntimeCache : IDataCache
     /// <param name = "key">
     ///   The key.
     /// </param>
-    public object this[[NotNull] string key]
+    public object this[string key]
     {
         get => this.Get(key);
 
@@ -94,7 +94,7 @@ public class HttpRuntimeCache : IDataCache
     /// </summary>
     /// <returns>
     /// </returns>
-    [NotNull]
+    
     public IEnumerable<KeyValuePair<string, T>> GetAll<T>()
     {
         var isObject = typeof(T) == typeof(object);
@@ -132,7 +132,7 @@ public class HttpRuntimeCache : IDataCache
     /// </param>
     /// <returns>
     /// </returns>
-    public T GetOrSet<T>([NotNull] string key, [NotNull] Func<T> getValue, TimeSpan timeout)
+    public T GetOrSet<T>(string key, Func<T> getValue, TimeSpan timeout)
     {
         CodeContracts.VerifyNotNull(key);
         CodeContracts.VerifyNotNull(getValue);
@@ -201,7 +201,7 @@ public class HttpRuntimeCache : IDataCache
     /// <param name="timeout">
     /// The timeout.
     /// </param>
-    public void Set([NotNull] string key, object value, TimeSpan timeout)
+    public void Set(string key, object value, TimeSpan timeout)
     {
         CodeContracts.VerifyNotNull(key);
 
@@ -235,7 +235,7 @@ public class HttpRuntimeCache : IDataCache
     /// <returns>
     /// The <see cref="object"/>.
     /// </returns>
-    public object Get([NotNull] string originalKey)
+    public object Get(string originalKey)
     {
         CodeContracts.VerifyNotNull(originalKey);
 
@@ -248,7 +248,7 @@ public class HttpRuntimeCache : IDataCache
     /// <param name="key">
     /// The key.
     /// </param>
-    public void Remove([NotNull] string key)
+    public void Remove(string key)
     {
         MemoryCache.Default.Remove(this.CreateKey(key));
     }
@@ -262,7 +262,7 @@ public class HttpRuntimeCache : IDataCache
     /// <param name="value">
     /// The value.
     /// </param>
-    public void Set([NotNull] string key, [CanBeNull] object value)
+    public void Set(string key, object value)
     {
         CodeContracts.VerifyNotNull(key);
 
@@ -278,7 +278,7 @@ public class HttpRuntimeCache : IDataCache
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    private string CreateKey([NotNull] string key)
+    private string CreateKey(string key)
     {
         key = key.Replace('$', '.');
         return this._treatCacheKey.Treat($"{Constants.Cache.YafCacheKey}${key}");
@@ -301,7 +301,7 @@ public class HttpRuntimeCache : IDataCache
     /// <returns>
     /// The <see cref="T"/>.
     /// </returns>
-    private T GetOrSetInternal<T>([NotNull] string key, [NotNull] Func<T> getValue, [NotNull] Action<T> addToCacheFunction)
+    private T GetOrSetInternal<T>(string key, Func<T> getValue, Action<T> addToCacheFunction)
     {
         CodeContracts.VerifyNotNull(key);
         CodeContracts.VerifyNotNull(getValue);

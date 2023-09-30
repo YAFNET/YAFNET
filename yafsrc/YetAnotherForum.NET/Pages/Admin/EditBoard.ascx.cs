@@ -57,7 +57,7 @@ public partial class EditBoard : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void CancelClick(object sender, EventArgs e)
     {
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Boards);
     }
@@ -67,7 +67,7 @@ public partial class EditBoard : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void CreateAdminUserCheckedChanged([NotNull] object sender, [NotNull] EventArgs e)
+    protected void CreateAdminUserCheckedChanged(object sender, EventArgs e)
     {
         this.AdminInfo.Visible = this.CreateAdminUser.Checked;
     }
@@ -82,10 +82,10 @@ public partial class EditBoard : AdminPage
     /// <param name="createUserAndRoles">The create user and roles.</param>
     /// <returns>Returns if the board was created or not</returns>
     protected bool CreateBoard(
-        [NotNull] string adminName,
-        [NotNull] string adminPassword,
-        [NotNull] string adminEmail,
-        [NotNull] string boardName,
+        string adminName,
+        string adminPassword,
+        string adminEmail,
+        string boardName,
         bool createUserAndRoles)
     {
         int newBoardId;
@@ -178,7 +178,7 @@ public partial class EditBoard : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.FormValidatorJs),
@@ -243,7 +243,7 @@ public partial class EditBoard : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void SaveClick(object sender, EventArgs e)
     {
         if (this.BoardId == null && this.CreateAdminUser.Checked)
         {

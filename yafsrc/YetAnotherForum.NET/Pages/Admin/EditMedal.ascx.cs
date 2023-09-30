@@ -62,7 +62,7 @@ public partial class EditMedal : AdminPage
     /// <remarks>
     /// Shows user-medal adding/editing controls.
     /// </remarks>
-    protected void AddGroupClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void AddGroupClick(object sender, EventArgs e)
     {
         this.GroupEditDialog.Visible = true;
         this.GroupEditDialog.BindData(null, this.CurrentMedalId.Value);
@@ -80,7 +80,7 @@ public partial class EditMedal : AdminPage
     /// <remarks>
     /// Shows user-medal adding/editing controls.
     /// </remarks>
-    protected void AddUserClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void AddUserClick(object sender, EventArgs e)
     {
         this.UserEditDialog.Visible = true;
         this.UserEditDialog.BindData(null, this.CurrentMedalId.Value);
@@ -95,7 +95,7 @@ public partial class EditMedal : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void CancelClick(object sender, EventArgs e)
     {
         // go back to medals administration
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Medals);
@@ -129,7 +129,7 @@ public partial class EditMedal : AdminPage
     /// <returns>
     /// The format group link.
     /// </returns>
-    protected string FormatGroupLink([NotNull] object data)
+    protected string FormatGroupLink(object data)
     {
         var dr = (Tuple<Medal, GroupMedal, Group>)data;
 
@@ -148,7 +148,7 @@ public partial class EditMedal : AdminPage
     /// <returns>
     /// The format user link.
     /// </returns>
-    protected string FormatUserLink([NotNull] object data)
+    protected string FormatUserLink(object data)
     {
         var dr = (Tuple<Medal, UserMedal, User>)data;
 
@@ -164,7 +164,7 @@ public partial class EditMedal : AdminPage
     /// </summary>
     /// <param name="source">The source of the event.</param>
     /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-    protected void GroupListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    protected void GroupListItemCommand(object source, RepeaterCommandEventArgs e)
     {
         switch (e.CommandName)
         {
@@ -194,7 +194,7 @@ public partial class EditMedal : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -222,7 +222,7 @@ public partial class EditMedal : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void SaveClick(object sender, EventArgs e)
     {
         if (this.MedalImage.SelectedIndex <= 0)
         {
@@ -255,7 +255,7 @@ public partial class EditMedal : AdminPage
     /// </summary>
     /// <param name="source">The source of the event.</param>
     /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-    protected void UserListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    protected void UserListItemCommand(object source, RepeaterCommandEventArgs e)
     {
         switch (e.CommandName)
         {
@@ -286,7 +286,7 @@ public partial class EditMedal : AdminPage
     /// Registers the needed Java Scripts
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         base.OnPreRender(e);
     }
@@ -300,7 +300,7 @@ public partial class EditMedal : AdminPage
     /// <param name="imageUrl">
     /// URL to search for.
     /// </param>
-    private static void SelectImage([NotNull] ListControl list, [NotNull] string imageUrl)
+    private static void SelectImage(ListControl list, string imageUrl)
     {
         // try to find item in a list
         var item = list.Items.FindByText(imageUrl);

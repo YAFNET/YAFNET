@@ -52,7 +52,7 @@ public class AdminPage : ForumPage
     /// <param name="pageType">
     /// The page Type.
     /// </param>
-    public AdminPage([CanBeNull] string transPage, ForumPages pageType)
+    public AdminPage(string transPage, ForumPages pageType)
         : base(transPage, pageType)
     {
         this.IsAdminPage = true;
@@ -69,7 +69,7 @@ public class AdminPage : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    private void AdminPageLoad([NotNull] object sender, [NotNull] EventArgs e)
+    private void AdminPageLoad(object sender, EventArgs e)
     {
         // not admins are forbidden
         if (!this.PageBoardContext.IsAdmin)

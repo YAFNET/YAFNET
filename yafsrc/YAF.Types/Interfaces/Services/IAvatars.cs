@@ -45,7 +45,7 @@ public interface IAvatars
     /// <returns>
     /// Returns the Avatar Url
     /// </returns>
-    string GetAvatarUrlForUser([NotNull] User user);
+    string GetAvatarUrlForUser(User user);
 
     /// <summary>
     /// The get avatar url for user.

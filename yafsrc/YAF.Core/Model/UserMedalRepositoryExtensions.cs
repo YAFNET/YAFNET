@@ -50,8 +50,8 @@ public static class UserMedalRepositoryExtensions
     /// </returns>
     public static List<Tuple<Medal, UserMedal, User>> List(
         this IRepository<UserMedal> repository,
-        [NotNull] int? userId,
-        [NotNull] int medalId)
+        int? userId,
+        int medalId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -97,11 +97,11 @@ public static class UserMedalRepositoryExtensions
     /// </param>
     public static void Save(
         this IRepository<UserMedal> repository,
-        [NotNull] int userID,
-        [NotNull] int medalID,
-        [NotNull] string message,
-        [NotNull] bool hide,
-        [NotNull] byte sortOrder)
+        int userID,
+        int medalID,
+        string message,
+        bool hide,
+        byte sortOrder)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -135,11 +135,11 @@ public static class UserMedalRepositoryExtensions
     /// </param>
     public static void SaveNew(
         this IRepository<UserMedal> repository,
-        [NotNull] int userID,
-        [NotNull] int medalID,
-        [NotNull] string message,
-        [NotNull] bool hide,
-        [NotNull] byte sortOrder)
+        int userID,
+        int medalID,
+        string message,
+        bool hide,
+        byte sortOrder)
     {
         CodeContracts.VerifyNotNull(repository);
 

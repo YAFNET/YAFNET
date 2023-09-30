@@ -42,7 +42,7 @@ public static class IPermissionsExtensions
     /// <returns>
     /// The check.
     /// </returns>
-    public static bool Check([NotNull] this IPermissions permissions, int permission)
+    public static bool Check(this IPermissions permissions, int permission)
     {
         CodeContracts.VerifyNotNull(permissions);
 
@@ -58,7 +58,7 @@ public static class IPermissionsExtensions
     /// <param name="permission">
     /// The permission.
     /// </param>
-    public static void HandleRequest([NotNull] this IPermissions permissions, int permission)
+    public static void HandleRequest(this IPermissions permissions, int permission)
     {
         CodeContracts.VerifyNotNull(permissions);
 

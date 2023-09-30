@@ -41,7 +41,7 @@ public static class IServiceLocatorExtensions
     /// <returns>
     /// The <see cref="TService"/>.
     /// </returns>
-    public static TService Get<TService>([NotNull] this IServiceLocator serviceLocator)
+    public static TService Get<TService>(this IServiceLocator serviceLocator)
     {
         CodeContracts.VerifyNotNull(serviceLocator);
 
@@ -62,7 +62,7 @@ public static class IServiceLocatorExtensions
     /// <returns>
     /// The <see cref="TService"/>.
     /// </returns>
-    public static TService Get<TService>([NotNull] this IServiceLocator serviceLocator, [NotNull] string named)
+    public static TService Get<TService>(this IServiceLocator serviceLocator, string named)
     {
         CodeContracts.VerifyNotNull(serviceLocator);
         CodeContracts.VerifyNotNull(named);
@@ -84,7 +84,7 @@ public static class IServiceLocatorExtensions
     /// The <see cref="TService"/>.
     /// </returns>
     public static TService Get<TService>(
-        [NotNull] this IServiceLocator serviceLocator, [NotNull] IEnumerable<IServiceLocationParameter> parameters)
+        this IServiceLocator serviceLocator, IEnumerable<IServiceLocationParameter> parameters)
     {
         CodeContracts.VerifyNotNull(serviceLocator);
         CodeContracts.VerifyNotNull(parameters);
@@ -109,7 +109,7 @@ public static class IServiceLocatorExtensions
     /// The <see cref="TService"/>.
     /// </returns>
     public static TService Get<TService>(
-        [NotNull] this IServiceLocator serviceLocator, [NotNull] string named, [NotNull] IEnumerable<IServiceLocationParameter> parameters)
+        this IServiceLocator serviceLocator, string named, IEnumerable<IServiceLocationParameter> parameters)
     {
         CodeContracts.VerifyNotNull(serviceLocator);
         CodeContracts.VerifyNotNull(named);
@@ -129,7 +129,7 @@ public static class IServiceLocatorExtensions
     /// <returns>
     /// The <see cref="TService"/>.
     /// </returns>
-    public static TService Get<TService>([NotNull] this IHaveServiceLocator haveLocator)
+    public static TService Get<TService>(this IHaveServiceLocator haveLocator)
     {
         CodeContracts.VerifyNotNull(haveLocator);
 
@@ -150,7 +150,7 @@ public static class IServiceLocatorExtensions
     /// <returns>
     /// The <see cref="TService"/>.
     /// </returns>
-    public static TService Get<TService>([NotNull] this IHaveServiceLocator haveLocator, [NotNull] string named)
+    public static TService Get<TService>(this IHaveServiceLocator haveLocator, string named)
     {
         CodeContracts.VerifyNotNull(haveLocator);
         CodeContracts.VerifyNotNull(named);
@@ -173,7 +173,7 @@ public static class IServiceLocatorExtensions
     /// The <see cref="TService"/>.
     /// </returns>
     public static TService Get<TService>(
-        [NotNull] this IHaveServiceLocator haveLocator, [NotNull] IEnumerable<IServiceLocationParameter> parameters)
+        this IHaveServiceLocator haveLocator, IEnumerable<IServiceLocationParameter> parameters)
     {
         CodeContracts.VerifyNotNull(haveLocator);
         CodeContracts.VerifyNotNull(parameters);
@@ -199,7 +199,7 @@ public static class IServiceLocatorExtensions
     /// The <see cref="TService"/>.
     /// </returns>
     public static TService Get<TService>(
-        [NotNull] this IHaveServiceLocator haveLocator, [NotNull] string named, [NotNull] IEnumerable<IServiceLocationParameter> parameters)
+        this IHaveServiceLocator haveLocator, string named, IEnumerable<IServiceLocationParameter> parameters)
     {
         CodeContracts.VerifyNotNull(haveLocator);
         CodeContracts.VerifyNotNull(named);
@@ -219,7 +219,7 @@ public static class IServiceLocatorExtensions
     /// <returns>
     /// The <see cref="IRepository{T}"/>.
     /// </returns>
-    public static IRepository<T> GetRepository<T>([NotNull] this IHaveServiceLocator serviceLocator)
+    public static IRepository<T> GetRepository<T>(this IHaveServiceLocator serviceLocator)
         where T : IEntity
     {
         CodeContracts.VerifyNotNull(serviceLocator);
@@ -241,7 +241,7 @@ public static class IServiceLocatorExtensions
     /// <returns>
     /// The try get.
     /// </returns>
-    public static bool TryGet<TService>([NotNull] this IServiceLocator serviceLocator, out TService instance)
+    public static bool TryGet<TService>(this IServiceLocator serviceLocator, out TService instance)
     {
         CodeContracts.VerifyNotNull(serviceLocator);
 
@@ -274,7 +274,7 @@ public static class IServiceLocatorExtensions
     /// The try get.
     /// </returns>
     public static bool TryGet<TService>(
-        [NotNull] this IServiceLocator serviceLocator, [NotNull] string named, out TService instance)
+        this IServiceLocator serviceLocator, string named, out TService instance)
     {
         CodeContracts.VerifyNotNull(serviceLocator);
         CodeContracts.VerifyNotNull(named);
@@ -305,7 +305,7 @@ public static class IServiceLocatorExtensions
     /// <returns>
     /// The try get.
     /// </returns>
-    public static bool TryGet<TService>([NotNull] this IHaveServiceLocator haveLocator, out TService instance)
+    public static bool TryGet<TService>(this IHaveServiceLocator haveLocator, out TService instance)
     {
         CodeContracts.VerifyNotNull(haveLocator);
 
@@ -330,7 +330,7 @@ public static class IServiceLocatorExtensions
     /// The try get.
     /// </returns>
     public static bool TryGet<TService>(
-        [NotNull] this IHaveServiceLocator haveLocator, [NotNull] string named, out TService instance)
+        this IHaveServiceLocator haveLocator, string named, out TService instance)
     {
         CodeContracts.VerifyNotNull(haveLocator);
         CodeContracts.VerifyNotNull(named);

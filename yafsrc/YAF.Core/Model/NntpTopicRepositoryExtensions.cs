@@ -64,14 +64,14 @@ public static class NntpTopicRepositoryExtensions
     /// </param>
     public static void SaveMessage(
         this IRepository<NntpTopic> repository,
-        [NotNull] NntpForum nntpForum,
-        [NotNull] string topicName,
-        [NotNull] string body,
-        [NotNull] User user,
-        [NotNull] string userName,
-        [NotNull] string ip,
-        [NotNull] DateTime posted,
-        [NotNull] string referenceMessageId)
+        NntpForum nntpForum,
+        string topicName,
+        string body,
+        User user,
+        string userName,
+        string ip,
+        DateTime posted,
+        string referenceMessageId)
     {
         CodeContracts.VerifyNotNull(repository);
 

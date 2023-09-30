@@ -36,7 +36,7 @@ public static class PmViewConverter
     /// </summary>
     /// <param name="param">The param.</param>
     /// <returns>Returns the Current View</returns>
-    public static PmView FromQueryString([NotNull] string param)
+    public static PmView FromQueryString(string param)
     {
         if (param.IsNotSet())
         {
@@ -58,7 +58,7 @@ public static class PmViewConverter
     /// <returns>
     /// The to query string param.
     /// </returns>
-    [CanBeNull]
+    
     public static string ToQueryStringParam(PmView view)
     {
         return view switch

@@ -35,7 +35,7 @@ public class PopEventArgs : EventArgs
     /// <param name="eventArgument">
     /// The event argument.
     /// </param>
-    public PopEventArgs([NotNull] string eventArgument)
+    public PopEventArgs(string eventArgument)
     {
         this.Item = eventArgument;
     }

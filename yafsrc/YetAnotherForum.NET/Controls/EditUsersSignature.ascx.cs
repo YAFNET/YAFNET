@@ -111,7 +111,7 @@ public partial class EditUsersSignature : BaseUserControl
     /// <summary>
     /// Gets the User Data.
     /// </summary>
-    [NotNull]
+    
     private User user
     {
         get => this.ViewState["PageUser"].ToType<User>();
@@ -145,7 +145,7 @@ public partial class EditUsersSignature : BaseUserControl
     /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-    protected override void OnInit([NotNull] EventArgs e)
+    protected override void OnInit(EventArgs e)
     {
         var data = this.GetRepository<User>().SignatureData(this.CurrentUserID, this.PageBoardContext.PageBoardID);
 
@@ -178,7 +178,7 @@ public partial class EditUsersSignature : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -197,7 +197,7 @@ public partial class EditUsersSignature : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_PreRender(object sender, EventArgs e)
     {
         this.trHeader.Visible = this.ShowHeader;
     }
@@ -228,7 +228,7 @@ public partial class EditUsersSignature : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    private void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
+    private void Save_Click(object sender, EventArgs e)
     {
         var body = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(this.signatureEditor.Text.Trim()));
 
@@ -338,7 +338,7 @@ public partial class EditUsersSignature : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    private void Preview_Click([NotNull] object sender, [NotNull] EventArgs e)
+    private void Preview_Click(object sender, EventArgs e)
     {
         var body = this.signatureEditor.Text;
 
@@ -386,7 +386,7 @@ public partial class EditUsersSignature : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    private void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+    private void Cancel_Click(object sender, EventArgs e)
     {
         this.DoRedirect();
     }

@@ -100,7 +100,7 @@ public class MostRecentlyUsed : DictionaryBase
     /// <param name="key">
     /// The key.
     /// </param>
-    public object this[[NotNull] object key]
+    public object this[object key]
     {
         get
         {
@@ -151,7 +151,7 @@ public class MostRecentlyUsed : DictionaryBase
     /// <param name="value">
     /// The value.
     /// </param>
-    public void Add([NotNull] object key, [NotNull] object value)
+    public void Add(object key, object value)
     {
         CodeContracts.VerifyNotNull(key);
         CodeContracts.VerifyNotNull(value);
@@ -173,7 +173,7 @@ public class MostRecentlyUsed : DictionaryBase
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public bool Contains([NotNull] object key)
+    public bool Contains(object key)
     {
         CodeContracts.VerifyNotNull(key);
 
@@ -194,7 +194,7 @@ public class MostRecentlyUsed : DictionaryBase
     /// <param name="key">
     /// The key.
     /// </param>
-    public void Remove([NotNull] object key)
+    public void Remove(object key)
     {
         CodeContracts.VerifyNotNull(key);
 
@@ -249,7 +249,7 @@ public class MostRecentlyUsed : DictionaryBase
     /// <param name="value">
     /// The value.
     /// </param>
-    protected override void OnInsert([NotNull] object key, [NotNull] object value)
+    protected override void OnInsert(object key, object value)
     {
         CodeContracts.VerifyNotNull(key);
         CodeContracts.VerifyNotNull(value);

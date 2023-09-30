@@ -46,7 +46,7 @@ public class MailService : IMailService, IHaveServiceLocator
     /// The messages.
     /// </param>
     public void SendAll(
-        [NotNull] IEnumerable<MailMessage> messages)
+        IEnumerable<MailMessage> messages)
     {
         var mailMessages = messages.ToList();
 

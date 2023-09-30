@@ -43,7 +43,7 @@ public interface IAlbum
     /// <param name="imageId">
     /// The image id.
     /// </param>
-    void AlbumImageDelete([NotNull] string uploadFolder, [CanBeNull] int? albumId, int userId, [CanBeNull] int? imageId);
+    void AlbumImageDelete(string uploadFolder, int? albumId, int userId, int? imageId);
 
     /// <summary>
     /// The change image caption.
@@ -57,7 +57,7 @@ public interface IAlbum
     /// <returns>
     /// the return object.
     /// </returns>
-    ReturnClass ChangeImageCaption(int imageId, [NotNull] string newCaption);
+    ReturnClass ChangeImageCaption(int imageId, string newCaption);
 
     /// <summary>
     /// The get album image preview.
@@ -65,7 +65,7 @@ public interface IAlbum
     /// <param name="context">The context.</param>
     /// <param name="localizationFile">The localization file.</param>
     /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
-    void GetAlbumImagePreview([NotNull] HttpContext context, string localizationFile, bool previewCropped);
+    void GetAlbumImagePreview(HttpContext context, string localizationFile, bool previewCropped);
 
     /// <summary>
     /// The get album cover.
@@ -73,7 +73,7 @@ public interface IAlbum
     /// <param name="context">The context.</param>
     /// <param name="localizationFile">The localization file.</param>
     /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
-    void GetAlbumCover([NotNull] HttpContext context, string localizationFile, bool previewCropped);
+    void GetAlbumCover(HttpContext context, string localizationFile, bool previewCropped);
 
     /// <summary>
     /// The get album image.
@@ -81,7 +81,7 @@ public interface IAlbum
     /// <param name="context">
     /// The context.
     /// </param>
-    void GetAlbumImage([NotNull] HttpContext context);
+    void GetAlbumImage(HttpContext context);
 
     /// <summary>
     /// Gets the Preview Image as Response
@@ -89,5 +89,5 @@ public interface IAlbum
     /// <param name="context">The context.</param>
     /// <param name="localizationFile">The localization file.</param>
     /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
-    void GetResponseImagePreview([NotNull] HttpContext context, string localizationFile, bool previewCropped);
+    void GetResponseImagePreview(HttpContext context, string localizationFile, bool previewCropped);
 }

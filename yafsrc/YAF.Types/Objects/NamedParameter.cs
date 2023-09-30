@@ -37,7 +37,7 @@ public class NamedParameter : IServiceLocationParameter
     /// <param name="value">
     /// The value.
     /// </param>
-    public NamedParameter([NotNull] string name, [NotNull] object value)
+    public NamedParameter(string name, object value)
     {
         this.Name = name;
         this.Value = value;

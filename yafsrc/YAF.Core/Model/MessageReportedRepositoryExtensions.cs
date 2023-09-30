@@ -44,7 +44,7 @@ public static class MessageReportedRepositoryExtensions
     /// The forum Id.
     /// </param>
     public static
-        List<ReportedMessage> ListReported(this IRepository<MessageReported> repository, [NotNull] int forumId)
+        List<ReportedMessage> ListReported(this IRepository<MessageReported> repository, int forumId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -114,10 +114,10 @@ public static class MessageReportedRepositoryExtensions
     /// </param>
     public static void Report(
         this IRepository<MessageReported> repository,
-        [NotNull] Tuple<Topic, Message, User, Forum> message,
-        [NotNull] int userId,
-        [NotNull] DateTime reportedDateTime,
-        [NotNull] string reportText)
+        Tuple<Topic, Message, User, Forum> message,
+        int userId,
+        DateTime reportedDateTime,
+        string reportText)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -170,7 +170,7 @@ public static class MessageReportedRepositoryExtensions
     /// <param name="message">
     /// The message.
     /// </param>
-    public static void ReportCopyOver(this IRepository<MessageReported> repository, [NotNull] Message message)
+    public static void ReportCopyOver(this IRepository<MessageReported> repository, Message message)
     {
         CodeContracts.VerifyNotNull(repository);
 

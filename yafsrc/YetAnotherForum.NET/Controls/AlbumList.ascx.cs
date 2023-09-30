@@ -41,7 +41,7 @@ public partial class AlbumList : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void AddAlbum_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void AddAlbum_Click(object sender, EventArgs e)
     {
         this.Get<LinkBuilder>().Redirect(ForumPages.EditAlbumImages, new { a = "new" });
     }
@@ -51,7 +51,7 @@ public partial class AlbumList : BaseUserControl
     /// </summary>
     /// <param name="source">The source of the event.</param>
     /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-    protected void Albums_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    protected void Albums_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         this.Get<LinkBuilder>().Redirect(ForumPages.EditAlbumImages, new { a = e.CommandArgument });
     }
@@ -60,7 +60,7 @@ public partial class AlbumList : BaseUserControl
     /// Raises the <see cref="E:System.Web.UI.Control.PreRender"/> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         if (this.User.ID == this.PageBoardContext.PageUserID)
         {
@@ -82,7 +82,7 @@ public partial class AlbumList : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -129,7 +129,7 @@ public partial class AlbumList : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Pager_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Pager_PageChange(object sender, EventArgs e)
     {
         this.BindData();
     }

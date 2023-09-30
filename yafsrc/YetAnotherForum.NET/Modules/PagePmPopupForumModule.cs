@@ -24,8 +24,6 @@
 
 namespace YAF.Modules;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The Page PM Popup Module
 /// </summary>
@@ -69,7 +67,7 @@ public class PagePmPopupForumModule : SimpleBaseForumModule
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void ForumPageLoad([NotNull] object sender, [NotNull] EventArgs e)
+    private void ForumPageLoad(object sender, EventArgs e)
     {
         this.GeneratePopUp();
     }

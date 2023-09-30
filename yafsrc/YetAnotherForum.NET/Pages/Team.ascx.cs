@@ -52,7 +52,7 @@ public partial class Team : ForumPage
     /// <returns>
     /// Moderators List
     /// </returns>
-    [NotNull]
+    
     protected List<User> GetAdmins()
     {
         // get a row with user lazy data...
@@ -70,7 +70,7 @@ public partial class Team : ForumPage
     /// <returns>
     /// Moderators List
     /// </returns>
-    [NotNull]
+    
     protected List<SimpleModerator> GetModerators()
     {
         var moderators = this.Get<DataBroker>().GetModerators();
@@ -124,7 +124,7 @@ public partial class Team : ForumPage
     /// <param name="e">
     /// The e(EventArgs).
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ShowTeamTo))
         {

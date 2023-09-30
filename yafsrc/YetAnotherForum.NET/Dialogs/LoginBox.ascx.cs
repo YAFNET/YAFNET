@@ -41,7 +41,7 @@ public partial class LoginBox : BaseUserControl
     /// <param name="e">
     /// the Event Arguments
     /// </param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         this.PageBoardContext.PageElements.RegisterJsBlock(
             "yafmodaldialogJs",
@@ -55,7 +55,7 @@ public partial class LoginBox : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -91,7 +91,7 @@ public partial class LoginBox : BaseUserControl
     /// <param name="e">
     /// event args
     /// </param>
-    protected void PasswordRecovery_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void PasswordRecovery_Click(object sender, EventArgs e)
     {
         this.Get<LinkBuilder>().Redirect(ForumPages.Account_ForgotPassword);
     }

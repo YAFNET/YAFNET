@@ -48,7 +48,7 @@ public static class IRegistrationBuilderExtension
     /// </returns>
     public static IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>
         InstancePerBoardContext<TLimit, TActivatorData, TRegistrationStyle>(
-            [NotNull] this IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> builder)
+            this IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> builder)
     {
         CodeContracts.VerifyNotNull(builder);
 

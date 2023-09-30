@@ -47,7 +47,7 @@ public partial class EditUsersAttachments : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -90,7 +90,7 @@ public partial class EditUsersAttachments : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Back_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Back_Click(object sender, EventArgs e)
     {
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Users);
     }
@@ -100,7 +100,7 @@ public partial class EditUsersAttachments : BaseUserControl
     /// </summary>
     /// <param name="source">The source of the event.</param>
     /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-    protected void List_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    protected void List_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         switch (e.CommandName)
         {
@@ -121,7 +121,7 @@ public partial class EditUsersAttachments : BaseUserControl
     /// <param name="e">
     /// The <see cref="System.EventArgs"/> instance containing the event data.
     /// </param>
-    protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    protected void PagerTop_PageChange(object sender, EventArgs e)
     {
         // rebind
         this.BindData();
@@ -132,7 +132,7 @@ public partial class EditUsersAttachments : BaseUserControl
     /// </summary>
     /// <param name="o">The Data Row object.</param>
     /// <returns>Returns the Preview Image</returns>
-    protected string GetPreviewImage([NotNull] object o)
+    protected string GetPreviewImage(object o)
     {
         var attach = o.ToType<Attachment>();
 

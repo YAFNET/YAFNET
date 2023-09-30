@@ -26,7 +26,6 @@ namespace YAF.Modules;
 
 using System.Web.UI.HtmlControls;
 
-using YAF.Types.Attributes;
 using YAF.Web.EventsArgs;
 
 /// <summary>
@@ -48,7 +47,7 @@ public class PageTitleForumModule : SimpleBaseForumModule
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    private void ForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
+    private void ForumPage_Load(object sender, EventArgs e)
     {
         this.GeneratePageTitle();
     }

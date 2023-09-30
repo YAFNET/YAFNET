@@ -51,9 +51,9 @@ public static class ChoiceRepositoryExtensions
     /// </returns>
     public static int AddChoice(
         this IRepository<Choice> repository,
-        [NotNull] int pollId,
-        [NotNull] string choice,
-        [CanBeNull] string objectPath)
+        int pollId,
+        string choice,
+        string objectPath)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -83,9 +83,9 @@ public static class ChoiceRepositoryExtensions
     /// </param>
     public static void UpdateChoice(
         this IRepository<Choice> repository,
-        [NotNull] int choiceId,
-        [NotNull] string choice,
-        [CanBeNull] string objectPath)
+        int choiceId,
+        string choice,
+        string objectPath)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -103,7 +103,7 @@ public static class ChoiceRepositoryExtensions
     /// <param name="choiceId">
     /// The choice id.
     /// </param>
-    public static void Vote(this IRepository<Choice> repository, [NotNull] int choiceId)
+    public static void Vote(this IRepository<Choice> repository, int choiceId)
     {
         CodeContracts.VerifyNotNull(repository);
 

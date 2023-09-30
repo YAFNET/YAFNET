@@ -51,9 +51,9 @@ public static class MemoryCacheExtensions
     /// The typed Parameter
     /// </returns>
     public static T GetOrSet<T>(
-        [NotNull] this MemoryCache cache,
-        [NotNull] string key,
-        [NotNull] Func<T> getValue)
+        this MemoryCache cache,
+        string key,
+        Func<T> getValue)
     {
         CodeContracts.VerifyNotNull(cache);
         CodeContracts.VerifyNotNull(key);
@@ -94,7 +94,7 @@ public static class MemoryCacheExtensions
     /// <typeparam name="T">
     /// The typed Parameter
     /// </typeparam>
-    public static void Set<T>([NotNull] this MemoryCache cache, [NotNull] string key, [NotNull] T value)
+    public static void Set<T>(this MemoryCache cache, string key, T value)
     {
         CodeContracts.VerifyNotNull(cache);
         CodeContracts.VerifyNotNull(key);

@@ -27,7 +27,6 @@ using System;
 
 using YAF.Core.BaseModules;
 using YAF.Core.Tasks;
-using YAF.Types.Attributes;
 
 /// <summary>
 /// The user clean up task module.
@@ -53,7 +52,7 @@ public class UserCleanUpTaskForumModule : BaseForumModule
     /// <param name="e">
     /// The e.
     /// </param>
-    private void Current_AfterInit([NotNull] object sender, [NotNull] EventArgs e)
+    private void Current_AfterInit(object sender, EventArgs e)
     {
         this.Get<ITaskModuleManager>().StartTask(UserCleanUpTask.TaskName, () => new UserCleanUpTask());
     }

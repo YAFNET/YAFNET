@@ -61,15 +61,15 @@ public class NoPostsFoundForTopicException : Exception
     /// The message position.
     /// </param>
     public NoPostsFoundForTopicException(
-        [NotNull] int topicId,
-        [NotNull] int userId,
-        [NotNull] bool updateViewCount,
-        [NotNull] bool showDeleted,
-        [NotNull] DateTime sincePostedDate,
-        [NotNull] DateTime toPostedDate,
-        [NotNull] int pageIndex,
-        [NotNull] int pageSize,
-        [NotNull] int messagePosition)
+        int topicId,
+        int userId,
+        bool updateViewCount,
+        bool showDeleted,
+        DateTime sincePostedDate,
+        DateTime toPostedDate,
+        int pageIndex,
+        int pageSize,
+        int messagePosition)
         : base(
             $@"No posts were found for topic [
                             topicId:{topicId}, userId:{userId}, updateViewCount:{updateViewCount}, 

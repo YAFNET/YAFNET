@@ -58,11 +58,11 @@ public static class BannedIpRepositoryExtensions
     /// </returns>
     public static bool Save(
         this IRepository<BannedIP> repository,
-        [CanBeNull] int? id,
-        [NotNull] string mask,
-        [NotNull] string reason,
-        [NotNull] int userId,
-        [CanBeNull] int? boardId = null)
+        int? id,
+        string mask,
+        string reason,
+        int userId,
+        int? boardId = null)
     {
         CodeContracts.VerifyNotNull(repository);
 

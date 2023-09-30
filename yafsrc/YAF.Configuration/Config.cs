@@ -41,13 +41,13 @@ public static class Config
     /// <summary>
     ///     Gets AppRoot.
     /// </summary>
-    [NotNull]
+    
     public static string AppRoot => GetConfigValueAsString("YAF.AppRoot") ?? string.Empty;
 
     /// <summary>
     ///     Gets the Used for Url Rewriting -- default is "default.\.(.+)$\.(.+)$"
     /// </summary>
-    [NotNull]
+    
     public static string BaseScriptFile => GetConfigValueAsString("YAF.BaseScriptFile") ?? "default.aspx";
 
     /// <summary>
@@ -58,7 +58,7 @@ public static class Config
     /// <summary>
     ///     Gets the Folder to use for board specific uploads, images Example : /Boards/
     /// </summary>
-    [NotNull]
+    
     public static string BoardRoot => GetConfigValueAsString("YAF.BoardRoot") ?? string.Empty;
 
     /// <summary>
@@ -69,7 +69,7 @@ public static class Config
     /// <summary>
     ///     Gets ClientFileRoot.
     /// </summary>
-    [NotNull]
+    
     public static string ClientFileRoot => GetConfigValueAsString("YAF.ClientFileRoot") ?? string.Empty;
 
     /// <summary>
@@ -108,7 +108,7 @@ public static class Config
     /// <summary>
     ///     Gets ConnectionStringName.
     /// </summary>
-    [NotNull]
+    
     public static string ConnectionStringName => GetConfigValueAsString("YAF.ConnectionStringName") ?? "yafnet";
 
     /// <summary>
@@ -127,7 +127,7 @@ public static class Config
     /// <summary>
     ///     Gets the Database Object Qualifier.
     /// </summary>
-    [NotNull]
+    
     public static string DatabaseObjectQualifier
     {
         get
@@ -141,13 +141,13 @@ public static class Config
     /// <summary>
     ///    Gets the Database Schema.
     /// </summary>
-    [NotNull]
+    
     public static string DatabaseSchema => GetConfigValueAsString("YAF.DatabaseSchema") ?? "public";
 
     /// <summary>
     ///    Gets the Database Owner.
     /// </summary>
-    [NotNull]
+    
     public static string DatabaseOwner => GetConfigValueAsString("YAF.DatabaseOwner") ?? "dbo";
 
     /// <summary>
@@ -240,7 +240,7 @@ public static class Config
     /// <summary>
     ///     Gets ServerFileRoot.
     /// </summary>
-    [NotNull]
+    
     public static string ServerFileRoot => GetConfigValueAsString("YAF.FileRoot")
                                            ?? GetConfigValueAsString("YAF.ServerFileRoot") ?? string.Empty;
 
@@ -262,7 +262,7 @@ public static class Config
     /// <summary>
     ///     Gets the Url Rewriting URLRewritingMode? -- default is Unicode.
     /// </summary>
-    [NotNull]
+    
     public static string UrlRewritingMode => GetConfigValueAsString("YAF.URLRewritingMode") ?? string.Empty;
 
     /// <summary>
@@ -314,7 +314,7 @@ public static class Config
     /// <param name="configKey"> The config key. </param>
     /// <param name="defaultValue"> if set to <c>true</c> [default value]. </param>
     /// <returns> Returns the Integer Value </returns>
-    public static int GetConfigValueAsInt([NotNull] string configKey, int defaultValue)
+    public static int GetConfigValueAsInt(string configKey, int defaultValue)
     {
         var value = GetConfigValueAsString(configKey);
 
@@ -327,7 +327,7 @@ public static class Config
     /// <param name="configKey"> The config key. </param>
     /// <param name="defaultValue"> if set to <c>true</c> [default value]. </param>
     /// <returns> Returns Boolean Value </returns>
-    public static bool GetConfigValueAsBool([NotNull] string configKey, bool defaultValue)
+    public static bool GetConfigValueAsBool(string configKey, bool defaultValue)
     {
         var value = GetConfigValueAsString(configKey);
 
@@ -339,7 +339,7 @@ public static class Config
     /// </summary>
     /// <param name="configKey"> The config key. </param>
     /// <returns> Returns String Value </returns>
-    public static string GetConfigValueAsString([NotNull] string configKey)
+    public static string GetConfigValueAsString(string configKey)
     {
         return (from key in WebConfigurationManager.AppSettings.AllKeys
                 where key.Equals(configKey, StringComparison.CurrentCultureIgnoreCase)

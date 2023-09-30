@@ -35,7 +35,7 @@ public class PanelSessionState : IPanelSessionState
     /// <summary>
     ///   Gets panel session state.
     /// </summary>
-    public CollapsiblePanelState this[[NotNull] string panelID]
+    public CollapsiblePanelState this[string panelID]
     {
         // Ederon : 7/14/2007
         get
@@ -105,7 +105,7 @@ public class PanelSessionState : IPanelSessionState
     /// <param name="defaultState">
     /// The default state.
     /// </param>
-    public void TogglePanelState([NotNull] string panelID, CollapsiblePanelState defaultState)
+    public void TogglePanelState(string panelID, CollapsiblePanelState defaultState)
     {
         var currentState = this[panelID];
 

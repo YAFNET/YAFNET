@@ -47,8 +47,8 @@ public static class TopicReadTrackingRepositoryExtensions
     /// </param>
     public static void AddOrUpdate(
         this IRepository<TopicReadTracking> repository,
-        [NotNull] int userId,
-        [NotNull] int topicId)
+        int userId,
+        int topicId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -79,7 +79,7 @@ public static class TopicReadTrackingRepositoryExtensions
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public static bool Delete(this IRepository<TopicReadTracking> repository, [NotNull] int userId)
+    public static bool Delete(this IRepository<TopicReadTracking> repository, int userId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -110,8 +110,8 @@ public static class TopicReadTrackingRepositoryExtensions
     /// </returns>
     public static DateTime? LastRead(
         this IRepository<TopicReadTracking> repository,
-        [NotNull] int userId,
-        [NotNull] int topicId)
+        int userId,
+        int topicId)
     {
         CodeContracts.VerifyNotNull(repository);
 

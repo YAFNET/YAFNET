@@ -29,7 +29,7 @@ public class CollapseButton : LinkButton
     /// <summary>
     ///   Gets or sets AttachedControlID.
     /// </summary>
-    [CanBeNull]
+    
     public string AttachedControlID
     {
         get => this.ViewState["AttachedControlID"]?.ToString();
@@ -65,7 +65,7 @@ public class CollapseButton : LinkButton
     /// <summary>
     ///   Gets or sets PanelID.
     /// </summary>
-    [CanBeNull]
+    
     public string PanelID
     {
         get => this.ViewState["PanelID"]?.ToString();
@@ -108,7 +108,7 @@ public class CollapseButton : LinkButton
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         // setup initial image state...
         this.Text = new Icon
@@ -165,7 +165,7 @@ public class CollapseButton : LinkButton
     /// <returns>
     /// Image URL
     /// </returns>
-    private static string GetCollapsiblePanelIcon([NotNull] string panelId, CollapsiblePanelState defaultState)
+    private static string GetCollapsiblePanelIcon(string panelId, CollapsiblePanelState defaultState)
     {
         CodeContracts.VerifyNotNull(panelId);
 

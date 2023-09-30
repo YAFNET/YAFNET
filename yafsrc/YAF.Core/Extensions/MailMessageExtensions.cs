@@ -43,15 +43,15 @@ public static class MailMessageExtensions
     /// <param name="subject">The subject.</param>
     /// <param name="bodyText">The body text.</param>
     /// <param name="bodyHtml">The body html.</param>
-    [NotNull]
+    
     public static void Populate(
-        [NotNull] this MailMessage mailMessage,
-        [NotNull] MailAddress fromAddress,
-        [NotNull] MailAddress toAddress,
-        [NotNull] MailAddress senderAddress,
-        [CanBeNull] string subject,
-        [CanBeNull] string bodyText,
-        [CanBeNull] string bodyHtml)
+        this MailMessage mailMessage,
+        MailAddress fromAddress,
+        MailAddress toAddress,
+        MailAddress senderAddress,
+        string subject,
+        string bodyText,
+        string bodyHtml)
     {
         CodeContracts.VerifyNotNull(mailMessage);
         CodeContracts.VerifyNotNull(fromAddress);

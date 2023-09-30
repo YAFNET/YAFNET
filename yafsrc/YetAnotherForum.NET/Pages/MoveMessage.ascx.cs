@@ -72,7 +72,7 @@ public partial class MoveMessage : ForumPageRegistered
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void CreateAndMove_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void CreateAndMove_Click(object sender, EventArgs e)
     {
         if (this.TopicSubject.Text.IsSet())
         {
@@ -102,7 +102,7 @@ public partial class MoveMessage : ForumPageRegistered
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Move_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Move_Click(object sender, EventArgs e)
     {
         var moveTopicId = this.TopicListSelected.Value.ToType<int>();
 
@@ -129,7 +129,7 @@ public partial class MoveMessage : ForumPageRegistered
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (!this.Get<HttpRequestBase>().QueryString.Exists("m") || !this.PageBoardContext.ForumModeratorAccess)
         {

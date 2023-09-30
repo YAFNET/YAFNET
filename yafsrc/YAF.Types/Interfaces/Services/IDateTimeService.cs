@@ -55,7 +55,7 @@ public interface IDateTimeService
     /// <returns>
     /// Short formatted date.
     /// </returns>
-    string FormatDateShort([NotNull] DateTime dateTime);
+    string FormatDateShort(DateTime dateTime);
 
     /// <summary>
     /// Formats a DateTime value into 07.03.2003 22:32:34
@@ -66,7 +66,7 @@ public interface IDateTimeService
     /// <returns>
     /// Formatted  <see cref="string"/> of the formatted <see cref="DateTime"/> Object.
     /// </returns>
-    string FormatDateTime([NotNull] DateTime dateTime);
+    string FormatDateTime(DateTime dateTime);
 
     /// <summary>
     /// This formats a DateTime into a short string
@@ -77,7 +77,7 @@ public interface IDateTimeService
     /// <returns>
     /// The formatted string created from the DateTime object.
     /// </returns>
-    string FormatDateTimeShort([NotNull] DateTime dateTime);
+    string FormatDateTimeShort(DateTime dateTime);
 
     /// <summary>
     /// Formats a DateTime value into 07.03.2003 00:00:00 except if 
@@ -89,7 +89,7 @@ public interface IDateTimeService
     /// <returns>
     /// Formatted string of Date Time object
     /// </returns>
-    string FormatDateTimeTopic([NotNull] DateTime dateTime);
+    string FormatDateTimeTopic(DateTime dateTime);
 
     /// <summary>
     /// Formats a DateTime value into 22:32:34
@@ -100,14 +100,14 @@ public interface IDateTimeService
     /// <returns>
     /// The format time.
     /// </returns>
-    string FormatTime([NotNull] DateTime dateTime);
+    string FormatTime(DateTime dateTime);
 
     /// <summary>
     /// Gets the user DateTime.
     /// </summary>
     /// <param name="dateTime">The Date Time.</param>
     /// <returns>Returns the user Date Time</returns>
-    DateTime GetUserDateTime([NotNull] DateTime dateTime);
+    DateTime GetUserDateTime(DateTime dateTime);
 
     /// <summary>
     /// Gets the user DateTime.
@@ -117,5 +117,5 @@ public interface IDateTimeService
     /// <returns>
     /// Returns the user Date Time
     /// </returns>
-    DateTime GetUserDateTime([NotNull] DateTime dateTime, TimeZoneInfo timeZone);
+    DateTime GetUserDateTime(DateTime dateTime, TimeZoneInfo timeZone);
 }

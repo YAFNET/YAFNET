@@ -42,7 +42,7 @@ public partial class EditUsersKill : BaseUserControl
     /// <summary>
     /// Gets or sets the User Data.
     /// </summary>
-    [NotNull]
+    
     public Tuple<User, AspNetUsers, Rank, VAccess> User { get; set; }
 
     /// <summary>
@@ -54,7 +54,7 @@ public partial class EditUsersKill : BaseUserControl
     /// <summary>
     ///   Gets IPAddresses.
     /// </summary>
-    [NotNull]
+    
     public List<string> IPAddresses
     {
         get
@@ -83,7 +83,7 @@ public partial class EditUsersKill : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Kill_OnClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Kill_OnClick(object sender, EventArgs e)
     {
         // Ban User Email?
         if (this.BanEmail.Checked)
@@ -208,7 +208,7 @@ public partial class EditUsersKill : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         // this needs to be done just once, not during post-backs
         if (this.IsPostBack)

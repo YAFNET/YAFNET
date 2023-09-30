@@ -34,7 +34,7 @@ public class HttpApplicationInitEvent : IAmEvent
     /// <param name="httpApplication">
     /// The http application.
     /// </param>
-    public HttpApplicationInitEvent([NotNull] HttpApplication httpApplication)
+    public HttpApplicationInitEvent(HttpApplication httpApplication)
     {
         this.HttpApplication = httpApplication;
     }

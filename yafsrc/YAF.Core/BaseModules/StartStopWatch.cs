@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.BaseModules;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// Stop watch start/stop
 /// </summary>
@@ -42,7 +40,7 @@ public class StartStopWatch : IHandleEvent<ForumPageInitEvent>, IHandleEvent<For
     /// <param name="stopWatch">
     /// The stop watch.
     /// </param>
-    public StartStopWatch([NotNull] IStopWatch stopWatch)
+    public StartStopWatch(IStopWatch stopWatch)
     {
         this.stopWatch = stopWatch;
     }

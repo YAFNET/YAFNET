@@ -72,15 +72,15 @@ public static class EventLogRepositoryExtensions
     /// </returns>
     public static List<PagedEventLog> ListPaged(
         this IRepository<EventLog> repository,
-        [NotNull] int? boardId,
-        [NotNull] int maxRows,
-        [NotNull] int maxDays,
-        [NotNull] int pageIndex,
-        [NotNull] int pageSize,
-        [NotNull] DateTime sinceDate,
-        [NotNull] DateTime toDate,
-        [CanBeNull] int? eventType,
-        [NotNull] bool spamOnly = false)
+        int? boardId,
+        int maxRows,
+        int maxDays,
+        int pageIndex,
+        int pageSize,
+        DateTime sinceDate,
+        DateTime toDate,
+        int? eventType,
+        bool spamOnly = false)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -156,8 +156,8 @@ public static class EventLogRepositoryExtensions
     /// </param>
     public static void DeleteOld(
         this IRepository<EventLog> repository,
-        [NotNull] int maxRows,
-        [NotNull] int maxDays)
+        int maxRows,
+        int maxDays)
     {
         CodeContracts.VerifyNotNull(repository);
 

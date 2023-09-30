@@ -42,7 +42,7 @@ public partial class ActiveDiscussion : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void LatestPosts_ItemDataBound([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
+    protected void LatestPosts_ItemDataBound(object sender, RepeaterItemEventArgs e)
     {
         // populate the controls here...
         if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
@@ -142,7 +142,7 @@ public partial class ActiveDiscussion : BaseUserControl
     /// <param name="e">
     /// the Event Arguments
     /// </param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             "TopicLinkPopoverJs",
@@ -163,7 +163,7 @@ public partial class ActiveDiscussion : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         // Latest forum posts
         // Shows the latest n number of posts on the main forum list page

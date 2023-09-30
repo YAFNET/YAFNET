@@ -27,7 +27,6 @@ using System;
 using System.Web.UI;
 
 using YAF.Core.Services.Startup;
-using YAF.Types.Attributes;
 
 /// <summary>
 /// The unload session module.
@@ -57,7 +56,7 @@ public class UnloadSessionForumModule : BaseForumModule
     /// <param name="e">
     /// The e.
     /// </param>
-    private void UnloadSessionModule_Unload([NotNull] object sender, [NotNull] EventArgs e)
+    private void UnloadSessionModule_Unload(object sender, EventArgs e)
     {
         if (!this.Get<StartupInitializeDb>().Initialized)
         {

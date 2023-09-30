@@ -51,7 +51,7 @@ public partial class PrivateMessage : ForumPageRegistered
     /// </summary>
     /// <param name="source">The source of the event.</param>
     /// <param name="e">The <see cref="RepeaterCommandEventArgs" /> instance containing the event data.</param>
-    protected void Inbox_ItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    protected void Inbox_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
         switch (e.CommandName)
         {
@@ -81,7 +81,7 @@ public partial class PrivateMessage : ForumPageRegistered
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         // check if this feature is disabled
         if (!this.PageBoardContext.BoardSettings.AllowPrivateMessages)
@@ -180,8 +180,8 @@ public partial class PrivateMessage : ForumPageRegistered
     /// Indicating whether the message is in the sender's outbox
     /// </param>
     private void SetMessageView(
-        [NotNull] int fromUserId,
-        [NotNull] int toUserId,
+        int fromUserId,
+        int toUserId,
         bool messageIsInOutbox)
     {
         var isCurrentUserFrom = fromUserId.Equals(this.PageBoardContext.PageUserID);

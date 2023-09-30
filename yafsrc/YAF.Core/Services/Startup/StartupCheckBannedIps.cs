@@ -42,11 +42,11 @@ public class StartupCheckBannedIps : BaseStartupService
     /// <param name="bannedIpRepository">The banned IP repository.</param>
     /// <param name="logger">The logger.</param>
     public StartupCheckBannedIps(
-        [NotNull] IDataCache dataCache,
-        [NotNull] HttpResponseBase httpResponseBase,
-        [NotNull] HttpRequestBase httpRequestBase,
+        IDataCache dataCache,
+        HttpResponseBase httpResponseBase,
+        HttpRequestBase httpRequestBase,
         IRepository<BannedIP> bannedIpRepository,
-        [NotNull] ILoggerService logger)
+        ILoggerService logger)
     {
         this.DataCache = dataCache;
         this.HttpResponseBase = httpResponseBase;
@@ -88,7 +88,7 @@ public class StartupCheckBannedIps : BaseStartupService
     /// <summary>
     ///   Gets the service name.
     /// </summary>
-    [NotNull]
+    
     protected override string ServiceName => "CheckBannedIps_Init";
 
     /// <summary>

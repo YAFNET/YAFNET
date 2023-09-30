@@ -85,21 +85,21 @@ public static class BBCodeRepositoryExtensions
     /// </param>
     public static void Save(
         this IRepository<BBCode> repository,
-        [NotNull] int? codeId,
-        [NotNull] string name,
-        [CanBeNull] string description,
-        [CanBeNull] string onClickJs,
-        [CanBeNull] string displayJs,
-        [CanBeNull] string editJs,
-        [CanBeNull] string displayCss,
-        [NotNull] string searchRegEx,
-        [NotNull] string replaceRegEx,
-        [CanBeNull] string variables,
-        [CanBeNull] bool? useModule,
-        [CanBeNull] bool? useToolbar,
-        [CanBeNull] string moduleClass,
-        [NotNull] int execOrder,
-        [CanBeNull] int? boardId = null)
+        int? codeId,
+        string name,
+        string description,
+        string onClickJs,
+        string displayJs,
+        string editJs,
+        string displayCss,
+        string searchRegEx,
+        string replaceRegEx,
+        string variables,
+        bool? useModule,
+        bool? useToolbar,
+        string moduleClass,
+        int execOrder,
+        int? boardId = null)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -144,8 +144,8 @@ public static class BBCodeRepositoryExtensions
     /// </returns>
     public static List<BBCode> ListPaged(
         this IRepository<BBCode> repository,
-        [NotNull] int boardId,
-        [NotNull] int? pageIndex = 0,
+        int boardId,
+        int? pageIndex = 0,
         int? pageSize = 10000000)
     {
         CodeContracts.VerifyNotNull(repository);

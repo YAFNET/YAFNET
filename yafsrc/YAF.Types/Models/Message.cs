@@ -42,7 +42,7 @@ public class Message : IEntity, IHaveID
     /// <param name="row">
     /// The row.
     /// </param>
-    public Message([NotNull] PagedMessage row)
+    public Message(PagedMessage row)
     {
         this.ID = row.MessageID;
         this.UserID = row.UserID;

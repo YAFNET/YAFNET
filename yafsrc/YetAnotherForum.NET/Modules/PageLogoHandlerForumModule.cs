@@ -24,8 +24,6 @@
 
 namespace YAF.Modules;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// Page Logo Handler Module
 /// </summary>
@@ -56,7 +54,7 @@ public class PageLogoHandlerForumModule : SimpleBaseForumModule
     /// <param name="e">
     /// The e.
     /// </param>
-    private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+    private void ForumPage_PreRender(object sender, EventArgs e)
     {
         var bannerLink = this.CurrentForumPage.FindControlRecursiveBothAs<HyperLink>("BannerLink");
         var image = this.CurrentForumPage.FindControlRecursiveBothAs<Image>("ForumLogo");

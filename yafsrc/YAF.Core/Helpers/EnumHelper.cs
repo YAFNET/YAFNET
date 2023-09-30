@@ -27,8 +27,6 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 ///     The Enumerator helper.
 /// </summary>

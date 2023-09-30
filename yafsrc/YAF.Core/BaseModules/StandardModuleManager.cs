@@ -45,7 +45,7 @@ public class StandardModuleManager<TModule> : IModuleManager<TModule>
     /// <param name="modules">
     /// The modules.
     /// </param>
-    public StandardModuleManager([NotNull] IEnumerable<TModule> modules)
+    public StandardModuleManager(IEnumerable<TModule> modules)
     {
         CodeContracts.VerifyNotNull(modules);
 
@@ -74,7 +74,7 @@ public class StandardModuleManager<TModule> : IModuleManager<TModule>
     /// <returns>
     /// Instance of TModule or null if not found.
     /// </returns>
-    public TModule GetBy([NotNull] string id, bool getInactive)
+    public TModule GetBy(string id, bool getInactive)
     {
         CodeContracts.VerifyNotNull(id);
 
@@ -92,7 +92,7 @@ public class StandardModuleManager<TModule> : IModuleManager<TModule>
     /// <returns>
     /// Instance of TModule or null if not found.
     /// </returns>
-    public TModule GetBy([NotNull] string id)
+    public TModule GetBy(string id)
     {
         CodeContracts.VerifyNotNull(id);
 

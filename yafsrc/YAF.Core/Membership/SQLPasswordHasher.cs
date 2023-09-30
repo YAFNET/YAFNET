@@ -47,8 +47,8 @@ public class SQLPasswordHasher : PasswordHasher
     /// The <see cref="PasswordVerificationResult"/>.
     /// </returns>
     public override PasswordVerificationResult VerifyHashedPassword(
-        [NotNull] string hashedPassword,
-        [NotNull] string providedPassword)
+        string hashedPassword,
+        string providedPassword)
     {
         if (hashedPassword.IsNotSet())
         {
@@ -96,10 +96,10 @@ public class SQLPasswordHasher : PasswordHasher
     /// The <see cref="string"/>.
     /// </returns>
     private static string EncryptPassword(
-        [NotNull] string hashedPassword,
-        [NotNull] string clearPassword,
-        [NotNull] MembershipPasswordFormat passwordFormat,
-        [CanBeNull] string salt)
+        string hashedPassword,
+        string clearPassword,
+        MembershipPasswordFormat passwordFormat,
+        string salt)
     {
         switch (passwordFormat)
         {

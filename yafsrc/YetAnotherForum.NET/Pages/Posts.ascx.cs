@@ -62,7 +62,7 @@ public partial class Posts : ForumPage
     /// <param name="e">
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     /// </param>
-    protected void DeleteTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void DeleteTopic_Click(object sender, EventArgs e)
     {
         if (!this.PageBoardContext.ForumModeratorAccess)
         {
@@ -82,7 +82,7 @@ public partial class Posts : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void EmailTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void EmailTopic_Click(object sender, EventArgs e)
     {
         if (this.User == null)
         {
@@ -98,7 +98,7 @@ public partial class Posts : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void LockTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void LockTopic_Click(object sender, EventArgs e)
     {
         if (!this.PageBoardContext.ForumModeratorAccess)
         {
@@ -126,7 +126,7 @@ public partial class Posts : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void MessageList_OnItemCreated([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
+    protected void MessageList_OnItemCreated(object sender, RepeaterItemEventArgs e)
     {
         if (this.Pager.CurrentPageIndex != 0 || e.Item.ItemIndex != 0)
         {
@@ -156,7 +156,7 @@ public partial class Posts : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void NextTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void NextTopic_Click(object sender, EventArgs e)
     {
         var nextTopic = this.GetRepository<Topic>().FindNext(this.topic);
 
@@ -175,7 +175,7 @@ public partial class Posts : ForumPage
     /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-    protected override void OnInit([NotNull] EventArgs e)
+    protected override void OnInit(EventArgs e)
     {
         this.InitializeComponent();
         base.OnInit(e);
@@ -187,7 +187,7 @@ public partial class Posts : ForumPage
     /// <param name="e">
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     /// </param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         var isWatched = this.HandleWatchTopic();
 
@@ -250,7 +250,7 @@ public partial class Posts : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (!this.PageBoardContext.IsGuest)
         {
@@ -398,7 +398,7 @@ public partial class Posts : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void PostReplyLink_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void PostReplyLink_Click(object sender, EventArgs e)
     {
         // Ederon : 9/9/2007 - moderator can reply in locked posts
         if (this.PageBoardContext.ForumModeratorAccess)
@@ -425,7 +425,7 @@ public partial class Posts : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void PrevTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void PrevTopic_Click(object sender, EventArgs e)
     {
         var previousTopic = this.GetRepository<Topic>().FindPrevious(this.topic);
 
@@ -449,7 +449,7 @@ public partial class Posts : ForumPage
     /// <param name="e">
     /// The <see cref="System.EventArgs"/> instance containing the event data.
     /// </param>
-    protected void TrackTopicClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void TrackTopicClick(object sender, EventArgs e)
     {
         this.GetRepository<WatchTopic>().Add(this.PageBoardContext.PageUserID, this.PageBoardContext.PageTopicID);
         this.PageBoardContext.Notify(this.GetText("INFO_WATCH_TOPIC"), MessageTypes.warning);
@@ -466,7 +466,7 @@ public partial class Posts : ForumPage
     /// <param name="e">
     /// The <see cref="System.EventArgs"/> instance containing the event data.
     /// </param>
-    protected void UnTrackTopicClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void UnTrackTopicClick(object sender, EventArgs e)
     {
         this.GetRepository<WatchTopic>().Delete(
             w => w.TopicID == this.PageBoardContext.PageTopicID && w.UserID == this.PageBoardContext.PageUserID);
@@ -481,7 +481,7 @@ public partial class Posts : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void UnlockTopic_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void UnlockTopic_Click(object sender, EventArgs e)
     {
         if (!this.PageBoardContext.ForumModeratorAccess)
         {
@@ -696,7 +696,7 @@ public partial class Posts : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The Pop Event Arguments.</param>
-    private void ShareMenuItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
+    private void ShareMenuItemClick(object sender, PopEventArgs e)
     {
         switch (e.Item.ToLower())
         {
@@ -713,7 +713,7 @@ public partial class Posts : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void OptionsMenuItemClick([NotNull] object sender, [NotNull] PopEventArgs e)
+    private void OptionsMenuItemClick(object sender, PopEventArgs e)
     {
         switch (e.Item.ToLower())
         {

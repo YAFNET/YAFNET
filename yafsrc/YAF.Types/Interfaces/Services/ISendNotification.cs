@@ -68,7 +68,7 @@ public interface ISendNotification
     /// <param name="subject">
     /// Subject of PM user is notified about.
     /// </param>
-    void ToPrivateMessageRecipient(int toUserId, [NotNull] string subject);
+    void ToPrivateMessageRecipient(int toUserId, string subject);
 
     /// <summary>
     /// The to watching users.
@@ -103,8 +103,8 @@ public interface ISendNotification
     /// The template Name.
     /// </param>
     void SendRegistrationNotificationToUser(
-        [NotNull] AspNetUsers user,
-        [NotNull] string pass,
+        AspNetUsers user,
+        string pass,
         string templateName);
 
     /// <summary>
@@ -112,41 +112,41 @@ public interface ISendNotification
     /// </summary>
     /// <param name="toUserId">To user id.</param>
     /// <param name="medalName">Name of the medal.</param>
-    void ToUserWithNewMedal([NotNull] int toUserId, [NotNull] string medalName);
+    void ToUserWithNewMedal(int toUserId, string medalName);
 
     /// <summary>
     /// Sends the role assignment notification.
     /// </summary>
     /// <param name="user">The user.</param>
     /// <param name="addedRoles">The added roles.</param>
-    void SendRoleAssignmentNotification([NotNull] AspNetUsers user, List<string> addedRoles);
+    void SendRoleAssignmentNotification(AspNetUsers user, List<string> addedRoles);
 
     /// <summary>
     /// Sends the role un assignment notification.
     /// </summary>
     /// <param name="user">The user.</param>
     /// <param name="removedRoles">The removed roles.</param>
-    void SendRoleUnAssignmentNotification([NotNull] AspNetUsers user, List<string> removedRoles);
+    void SendRoleUnAssignmentNotification(AspNetUsers user, List<string> removedRoles);
 
     /// <summary>
     /// The send registration notification email.
     /// </summary>
     /// <param name="user">The user.</param>
     /// <param name="userId">The user id.</param>
-    void SendRegistrationNotificationEmail([NotNull] AspNetUsers user, int userId);
+    void SendRegistrationNotificationEmail(AspNetUsers user, int userId);
 
     /// <summary>
     /// Sends a spam bot notification to admins.
     /// </summary>
     /// <param name="user">The user.</param>
     /// <param name="userId">The user id.</param>
-    void SendSpamBotNotificationToAdmins([NotNull] AspNetUsers user, int userId);
+    void SendSpamBotNotificationToAdmins(AspNetUsers user, int userId);
 
     /// <summary>
     /// Sends the user welcome notification.
     /// </summary>
     /// <param name="user">The user.</param>
-    void SendUserWelcomeNotification([NotNull] User user);
+    void SendUserWelcomeNotification(User user);
 
     /// <summary>
     /// Sends the verification email.
@@ -156,8 +156,8 @@ public interface ISendNotification
     /// <param name="userId">The user identifier.</param>
     /// <param name="newUsername">The new username.</param>
     void SendVerificationEmail(
-        [NotNull] AspNetUsers user,
-        [NotNull] string email,
+        AspNetUsers user,
+        string email,
         int? userId,
         string newUsername = null);
 
@@ -169,17 +169,17 @@ public interface ISendNotification
     /// <param name="email">The email.</param>
     /// <param name="userName">Name of the user.</param>
     void SendUserSuspensionNotification(
-        [NotNull] DateTime suspendedUntil,
-        [NotNull] string suspendReason,
-        [NotNull] string email,
-        [NotNull] string userName);
+        DateTime suspendedUntil,
+        string suspendReason,
+        string email,
+        string userName);
 
     /// <summary>
     /// Sends the user a suspension ended notification.
     /// </summary>
     /// <param name="email">The email.</param>
     /// <param name="userName">Name of the user.</param>
-    void SendUserSuspensionEndedNotification([NotNull] string email, [NotNull] string userName);
+    void SendUserSuspensionEndedNotification(string email, string userName);
 
     /// <summary>
     /// The send password reset.
@@ -190,5 +190,5 @@ public interface ISendNotification
     /// <param name="token">
     /// The token.
     /// </param>
-    void SendPasswordReset([NotNull] AspNetUsers user, [NotNull] string token);
+    void SendPasswordReset(AspNetUsers user, string token);
 }

@@ -46,7 +46,7 @@ public partial class EditUsersPoints : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void AddPoints_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void AddPoints_Click(object sender, EventArgs e)
     {
         this.GetRepository<User>().AddPoints(this.User.ID, null, this.txtAddPoints.Text.ToType<int>());
 
@@ -62,7 +62,7 @@ public partial class EditUsersPoints : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -81,7 +81,7 @@ public partial class EditUsersPoints : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void RemovePoints_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void RemovePoints_Click(object sender, EventArgs e)
     {
         this.GetRepository<User>().RemovePoints(
             this.User.ID,
@@ -99,7 +99,7 @@ public partial class EditUsersPoints : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void SetUserPoints_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void SetUserPoints_Click(object sender, EventArgs e)
     {
         this.GetRepository<User>().SetPoints(this.User.ID, this.txtUserPoints.Text.ToType<int>());
 

@@ -60,7 +60,7 @@ public partial class Login : AccountPage
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.Get<HttpRequestBase>().QueryString.Exists("auth")
             && this.PageBoardContext.BoardSettings.AllowSingleSignOn)
@@ -113,7 +113,7 @@ public partial class Login : AccountPage
     /// <param name="e">
     /// event args
     /// </param>
-    protected void PasswordRecovery_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void PasswordRecovery_Click(object sender, EventArgs e)
     {
         this.Get<LinkBuilder>().Redirect(ForumPages.Account_ForgotPassword);
     }

@@ -117,7 +117,7 @@ public class Forum : UserControl, IHaveServiceLocator
     /// <param name="e">
     /// The e.
     /// </param>
-    public void FirePageTitleSet([NotNull] object sender, [NotNull] ForumPageTitleArgs e)
+    public void FirePageTitleSet(object sender, ForumPageTitleArgs e)
     {
         this.PageTitleSet?.Invoke(this, e);
     }
@@ -142,7 +142,7 @@ public class Forum : UserControl, IHaveServiceLocator
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         // wrap the forum in one main div and then a page div for better CSS selection
         writer.WriteLine();
@@ -272,7 +272,7 @@ public class Forum : UserControl, IHaveServiceLocator
     /// <returns>
     /// The get page source.
     /// </returns>
-    [NotNull]
+    
     private string GetPageSource()
     {
         var pages = this.Get<IEnumerable<ILocatablePage>>().ToList();

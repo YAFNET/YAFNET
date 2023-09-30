@@ -36,19 +36,19 @@ public class BaseReportedPosts : BaseUserControl
     /// <summary>
     ///   Gets or sets Resolved.
     /// </summary>
-    [CanBeNull]
+    
     public virtual string Resolved { get; set; }
 
     /// <summary>
     ///   Gets or sets ResolvedBy. It returns UserID as string value
     /// </summary>
-    [CanBeNull]
+    
     public virtual int? ResolvedBy { get; set; }
 
     /// <summary>
     ///   Gets or sets ResolvedDate.
     /// </summary>
-    [CanBeNull]
+    
     public virtual string ResolvedDate { get; set; }
 
     /// <summary>
@@ -57,7 +57,7 @@ public class BaseReportedPosts : BaseUserControl
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         var reportersList = this.GetRepository<User>().MessageReporters(this.MessageID);
 

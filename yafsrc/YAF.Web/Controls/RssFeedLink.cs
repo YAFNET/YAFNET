@@ -32,7 +32,7 @@ public class RssFeedLink : BaseControl
     /// Renders the specified output.
     /// </summary>
     /// <param name="writer">The output.</param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         if (!this.Visible)
         {

@@ -58,7 +58,7 @@ public class MessageSignature : MessageBase
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         if (this.Signature.IsNotSet())
         {
@@ -94,7 +94,7 @@ public class MessageSignature : MessageBase
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected void RenderSignature([NotNull] HtmlTextWriter writer)
+    protected void RenderSignature(HtmlTextWriter writer)
     {
         if (!this.DisplayUserId.HasValue)
         {

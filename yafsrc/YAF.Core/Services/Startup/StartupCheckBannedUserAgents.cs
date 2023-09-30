@@ -44,11 +44,11 @@ public class StartupCheckBannedUserAgents : BaseStartupService
     /// <param name="bannedUserAgentRepository">The banned user agent repository.</param>
     /// <param name="logger">The logger.</param>
     public StartupCheckBannedUserAgents(
-        [NotNull] IDataCache dataCache,
-        [NotNull] HttpResponseBase httpResponseBase,
-        [NotNull] HttpRequestBase httpRequestBase,
+        IDataCache dataCache,
+        HttpResponseBase httpResponseBase,
+        HttpRequestBase httpRequestBase,
         IRepository<BannedUserAgent> bannedUserAgentRepository,
-        [NotNull] ILoggerService logger)
+        ILoggerService logger)
     {
         this.DataCache = dataCache;
         this.HttpResponseBase = httpResponseBase;
@@ -90,7 +90,7 @@ public class StartupCheckBannedUserAgents : BaseStartupService
     /// <summary>
     ///   Gets the service name.
     /// </summary>
-    [NotNull]
+    
     protected override string ServiceName => "CheckBannedUserAgents_Init";
 
     /// <summary>

@@ -41,7 +41,7 @@ public static class TypeExtensions
     /// <returns>
     /// Returns the Signing Key
     /// </returns>
-    public static StrongNamePublicKeyBlob GetSigningKey([NotNull] this Type sourceType)
+    public static StrongNamePublicKeyBlob GetSigningKey(this Type sourceType)
     {
         CodeContracts.VerifyNotNull(sourceType);
 

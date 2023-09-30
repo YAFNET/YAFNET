@@ -43,7 +43,7 @@ public static class ILocatablePageExtensions
     /// <returns>
     /// The <see cref="ILocatablePage"/>.
     /// </returns>
-    public static ILocatablePage GetPage([NotNull] this IEnumerable<ILocatablePage> locatablePages, [NotNull] string pageName)
+    public static ILocatablePage GetPage(this IEnumerable<ILocatablePage> locatablePages, string pageName)
     {
         return
             locatablePages.FirstOrDefault(p => string.Equals(p.PageName, pageName, StringComparison.CurrentCultureIgnoreCase));

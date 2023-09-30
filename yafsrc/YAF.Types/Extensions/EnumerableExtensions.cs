@@ -38,7 +38,7 @@ public static class EnumerableExtensions
     /// <typeparam name="T">The typed generic list</typeparam>
     /// <param name="list"> </param>
     /// <param name="action"> </param>
-    public static void ForEach<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T> action)
+    public static void ForEach<T>(this IEnumerable<T> list, Action<T> action)
     {
         CodeContracts.VerifyNotNull(list);
         CodeContracts.VerifyNotNull(action);
@@ -54,7 +54,7 @@ public static class EnumerableExtensions
     /// </typeparam>
     /// <param name="list"> </param>
     /// <param name="action"> </param>
-    public static void ForEachFirst<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T, bool> action)
+    public static void ForEachFirst<T>(this IEnumerable<T> list, Action<T, bool> action)
     {
         CodeContracts.VerifyNotNull(list);
         CodeContracts.VerifyNotNull(action);
@@ -77,7 +77,7 @@ public static class EnumerableExtensions
     /// </typeparam>
     /// <param name="list"> </param>
     /// <param name="action"> </param>
-    public static void ForEachIndex<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T, int> action)
+    public static void ForEachIndex<T>(this IEnumerable<T> list, Action<T, int> action)
     {
         CodeContracts.VerifyNotNull(list);
         CodeContracts.VerifyNotNull(action);
@@ -96,7 +96,7 @@ public static class EnumerableExtensions
     /// The typed generic list
     /// </typeparam>
     /// <returns> </returns>
-    public static IEnumerable<T> IfNullEmpty<T>([CanBeNull] this IEnumerable<T> currentEnumerable)
+    public static IEnumerable<T> IfNullEmpty<T>(this IEnumerable<T> currentEnumerable)
     {
         return currentEnumerable ?? Enumerable.Empty<T>();
     }

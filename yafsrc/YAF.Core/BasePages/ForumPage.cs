@@ -29,7 +29,6 @@ using System.Web.UI.WebControls;
 
 using YAF.Core.Handlers;
 using YAF.Core.Utilities.StringUtils;
-using YAF.Types.Attributes;
 using YAF.Types.Constants;
 using YAF.Types.Models.Identity;
 
@@ -70,7 +69,7 @@ public abstract class ForumPage : UserControl,
     /// <param name="pageType">
     /// The page Type.
     /// </param>
-    protected ForumPage([CanBeNull] string transPage, ForumPages pageType)
+    protected ForumPage(string transPage, ForumPages pageType)
     {
         this.Get<IInjectServices>().Inject(this);
 
@@ -156,7 +155,7 @@ public abstract class ForumPage : UserControl,
     /// <summary>
     ///   Gets PageName.
     /// </summary>
-    [NotNull]
+    
     public virtual string PageName => this.GetType().Name.Replace("aspx", string.Empty);
 
     /// <summary>
@@ -237,8 +236,8 @@ public abstract class ForumPage : UserControl,
     /// </summary>
     /// <param name="data">The data.</param>
     /// <returns>Returns the Encoded String</returns>
-    [CanBeNull]
-    public string HtmlEncode([NotNull] object data)
+    
+    public string HtmlEncode(object data)
     {
         return data is not string ? null : this.unicodeEncoder.XSSEncode(data.ToString());
     }
@@ -287,7 +286,7 @@ public abstract class ForumPage : UserControl,
     /// Raises the <see cref="E:System.Web.UI.Control.PreRender"/> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         base.OnPreRender(e);
     }
@@ -296,7 +295,7 @@ public abstract class ForumPage : UserControl,
     /// Writes the document
     /// </summary>
     /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter"/> object that receives the server control content.</param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         base.Render(writer);
 
@@ -309,7 +308,7 @@ public abstract class ForumPage : UserControl,
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void ForumPage_Init([NotNull] object sender, [NotNull] EventArgs e)
+    private void ForumPage_Init(object sender, EventArgs e)
     {
         this.Get<IRaiseEvent>().Raise(new ForumPageInitEvent());
 
@@ -330,7 +329,7 @@ public abstract class ForumPage : UserControl,
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void ForumPage_Load([NotNull] object sender, [NotNull] EventArgs e)
+    private void ForumPage_Load(object sender, EventArgs e)
     {
         this.CreatePageLinks();
 
@@ -343,7 +342,7 @@ public abstract class ForumPage : UserControl,
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void ForumPage_PreRender([NotNull] object sender, [NotNull] EventArgs e)
+    private void ForumPage_PreRender(object sender, EventArgs e)
     {
         this.Get<IRaiseEvent>().Raise(new ForumPagePreRenderEvent());
 
@@ -355,7 +354,7 @@ public abstract class ForumPage : UserControl,
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void ForumPage_Unload([NotNull] object sender, [NotNull] EventArgs e)
+    private void ForumPage_Unload(object sender, EventArgs e)
     {
         this.Get<IRaiseEvent>().Raise(new ForumPageUnloadEvent());
     }

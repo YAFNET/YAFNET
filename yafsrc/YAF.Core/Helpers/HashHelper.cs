@@ -49,8 +49,8 @@ public static class HashHelper
     /// <returns>
     /// Salted Password as Byte Array
     /// </returns>
-    [NotNull]
-    public static byte[] GeneratePasswordBuffer([NotNull] string salt, [NotNull] string clearString, bool standardComp)
+    
+    public static byte[] GeneratePasswordBuffer(string salt, string clearString, bool standardComp)
     {
         var unencodedBytes = Encoding.Unicode.GetBytes(clearString);
         var saltBytes = Convert.FromBase64String(salt);
@@ -99,12 +99,12 @@ public static class HashHelper
     /// Hashed String as Hex or Base64
     /// </returns>
     public static string Hash(
-        [NotNull] string clearString,
+        string clearString,
         HashAlgorithmType hashAlgorithmType = HashAlgorithmType.SHA1,
-        [CanBeNull] string salt = null,
+        string salt = null,
         bool hashHex = true,
         HashCaseType hashCaseType = HashCaseType.Upper,
-        [CanBeNull] string hashRemoveChars = null,
+        string hashRemoveChars = null,
         bool standardComp = true)
     {
         CodeContracts.VerifyNotNull(clearString);
@@ -159,8 +159,8 @@ public static class HashHelper
     /// <returns>
     /// Hashed bytes
     /// </returns>
-    [NotNull]
-    private static byte[] Hash([NotNull] byte[] clearBytes, [NotNull] HashAlgorithmType hashAlgorithmType)
+    
+    private static byte[] Hash(byte[] clearBytes, HashAlgorithmType hashAlgorithmType)
     {
         CodeContracts.VerifyNotNull(clearBytes);
 

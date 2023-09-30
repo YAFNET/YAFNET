@@ -86,7 +86,7 @@ public abstract class ForumEditor : BaseControl, IEditorModule
     /// <param name="editor">
     /// The editor.
     /// </param>
-    protected virtual void AddEditorControl([NotNull] Control editor)
+    protected virtual void AddEditorControl(Control editor)
     {
         var newDiv = new HtmlGenericControl("div") { ID = "EditorDiv" };
         newDiv.Attributes.Add("class", "EditorDiv");

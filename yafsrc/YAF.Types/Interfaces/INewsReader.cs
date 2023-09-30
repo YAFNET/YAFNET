@@ -23,5 +23,5 @@ public interface INewsreader
     /// <returns>
     /// The <see cref="int"/>.
     /// </returns>
-    int ReadArticles([NotNull] int boardId, int lastUpdate, int timeToRun, bool createUsers);
+    int ReadArticles(int boardId, int lastUpdate, int timeToRun, bool createUsers);
 }

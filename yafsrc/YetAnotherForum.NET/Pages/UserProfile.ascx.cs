@@ -58,7 +58,7 @@ public partial class UserProfile : ForumPage
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         // admin or moderator, set edit control to moderator mode...
         if (this.PageBoardContext.IsAdmin || this.PageBoardContext.IsForumModerator)
@@ -89,7 +89,7 @@ public partial class UserProfile : ForumPage
     /// <param name="linkUrl">
     /// The link url.
     /// </param>
-    protected void SetupThemeButtonWithLink([NotNull] ThemeButton thisButton, [NotNull] string linkUrl)
+    protected void SetupThemeButtonWithLink(ThemeButton thisButton, string linkUrl)
     {
         if (linkUrl.IsSet())
         {
@@ -117,7 +117,7 @@ public partial class UserProfile : ForumPage
     /// </summary>lnkBuddy
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.Web.UI.WebControls.CommandEventArgs"/> instance containing the event data.</param>
-    protected void lnk_AddBuddy([NotNull] object sender, [NotNull] CommandEventArgs e)
+    protected void lnk_AddBuddy(object sender, CommandEventArgs e)
     {
         if (e.CommandArgument.ToString() == "addbuddy")
         {
@@ -145,7 +145,7 @@ public partial class UserProfile : ForumPage
     /// <param name="userDisplayName">
     /// The user display name.
     /// </param>
-    private void AddPageLinks([NotNull] string userDisplayName)
+    private void AddPageLinks(string userDisplayName)
     {
         this.PageBoardContext.PageLinks.AddRoot();
         this.PageBoardContext.PageLinks.AddLink(
@@ -246,7 +246,7 @@ public partial class UserProfile : ForumPage
     /// <param name="user">
     /// The user.
     /// </param>
-    private void SetupBuddyList(int userID, [NotNull] Tuple<User, AspNetUsers, Rank, VAccess> user)
+    private void SetupBuddyList(int userID, Tuple<User, AspNetUsers, Rank, VAccess> user)
     {
         if (userID == this.PageBoardContext.PageUserID)
         {
@@ -299,7 +299,7 @@ public partial class UserProfile : ForumPage
     /// <param name="userName">
     /// Name of the user.
     /// </param>
-    private void SetupUserLinks([NotNull] Tuple<User, AspNetUsers, Rank, VAccess> user, string userName)
+    private void SetupUserLinks(Tuple<User, AspNetUsers, Rank, VAccess> user, string userName)
     {
         // homepage link
         this.HomePlaceHolder.Visible = user.Item2.Profile_Homepage.IsSet();
@@ -402,7 +402,7 @@ public partial class UserProfile : ForumPage
     /// <param name="user">
     /// The user.
     /// </param>
-    private void SetupUserProfileInfo([NotNull] Tuple<User, AspNetUsers, Rank, VAccess> user)
+    private void SetupUserProfileInfo(Tuple<User, AspNetUsers, Rank, VAccess> user)
     {
         this.UserLabel1.UserID = user.Item1.ID;
         this.UserLabel1.ReplaceName = user.Item1.DisplayOrUserName();
@@ -580,7 +580,7 @@ public partial class UserProfile : ForumPage
     /// <param name="user">
     /// The user.
     /// </param>
-    private void SetupUserStatistics([NotNull] Tuple<User, AspNetUsers, Rank, VAccess> user)
+    private void SetupUserStatistics(Tuple<User, AspNetUsers, Rank, VAccess> user)
     {
         var allPosts = 0.0;
 

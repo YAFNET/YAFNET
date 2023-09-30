@@ -44,7 +44,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public AspNetRolesHelper([NotNull] IServiceLocator serviceLocator)
+    public AspNetRolesHelper(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }
@@ -63,7 +63,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <param name="role">
     /// The role.
     /// </param>
-    public void AddUserToRole([NotNull] AspNetUsers user, [NotNull] string role)
+    public void AddUserToRole(AspNetUsers user, string role)
     {
         this.Get<IAspNetUsersHelper>().AddToRole(user, role);
     }
@@ -81,7 +81,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <returns>
     /// Returns the UserID of the user if everything was successful. Otherwise, null.
     /// </returns>
-    public int? CreateForumUser([NotNull] AspNetUsers user, int pageBoardID)
+    public int? CreateForumUser(AspNetUsers user, int pageBoardID)
     {
         return this.Get<IAspNetRolesHelper>().CreateForumUser(user, user.UserName, pageBoardID);
     }
@@ -102,7 +102,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <returns>
     /// Returns the UserID of the user if everything was successful. Otherwise, null.
     /// </returns>
-    public int? CreateForumUser([NotNull] AspNetUsers user, [NotNull] string displayName, int pageBoardID)
+    public int? CreateForumUser(AspNetUsers user, string displayName, int pageBoardID)
     {
         int? userId = null;
 
@@ -138,7 +138,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <param name="roleName">
     /// The role name.
     /// </param>
-    public void CreateRole([NotNull] string roleName)
+    public void CreateRole(string roleName)
     {
         var role = new AspNetRoles { Name = roleName };
 
@@ -151,7 +151,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <param name="roleName">
     /// The role name.
     /// </param>
-    public void DeleteRole([NotNull] string roleName)
+    public void DeleteRole(string roleName)
     {
         var role = this.Get<IAspNetRoleManager>().FindByName(roleName);
 
@@ -166,7 +166,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <returns>
     /// The did create forum user.
     /// </returns>
-    public bool DidCreateForumUser([NotNull] AspNetUsers user, int pageBoardID)
+    public bool DidCreateForumUser(AspNetUsers user, int pageBoardID)
     {
         var userID = this.Get<IAspNetRolesHelper>().CreateForumUser(user, pageBoardID);
         return userID != null;
@@ -192,7 +192,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <returns>
     /// Returns all Roles
     /// </returns>
-    public IList<string> GetRolesForUser([NotNull] AspNetUsers user)
+    public IList<string> GetRolesForUser(AspNetUsers user)
     {
         return this.Get<IAspNetRoleManager>().GetRoles(user);
     }
@@ -238,7 +238,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public bool IsMemberOfGroup([NotNull] string groupName, [NotNull] List<GroupMember> groups)
+    public bool IsMemberOfGroup(string groupName, List<GroupMember> groups)
     {
         return groups.Any(
             row => row.IsMember && row.Name == groupName);
@@ -256,7 +256,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <returns>
     /// The is user in role.
     /// </returns>
-    public bool IsUserInRole([NotNull] AspNetUsers user, [NotNull] string role)
+    public bool IsUserInRole(AspNetUsers user, string role)
     {
         return this.Get<IAspNetUsersHelper>().IsInRole(user, role);
     }
@@ -270,7 +270,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <param name="role">
     /// The role.
     /// </param>
-    public void RemoveUserFromRole([NotNull] string userProviderKey, [NotNull] string role)
+    public void RemoveUserFromRole(string userProviderKey, string role)
     {
         this.Get<IAspNetUsersHelper>().RemoveFromRole(userProviderKey, role);
     }
@@ -282,7 +282,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <returns>
     /// The role exists.
     /// </returns>
-    public bool RoleExists([NotNull] string roleName)
+    public bool RoleExists(string roleName)
     {
         return this.Get<IAspNetRoleManager>().RoleExists(roleName);
     }
@@ -296,7 +296,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <param name="user">
     /// The user.
     /// </param>
-    public void SetupUserRoles(int pageBoardID, [NotNull] AspNetUsers user)
+    public void SetupUserRoles(int pageBoardID, AspNetUsers user)
     {
         var groups = this.GetRepository<Group>()
             .Get(g => g.BoardID == pageBoardID && (g.Flags & 2) != 2 && (g.Flags & 4) == 4);

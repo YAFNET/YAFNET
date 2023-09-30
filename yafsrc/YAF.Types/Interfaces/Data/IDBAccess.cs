@@ -60,7 +60,7 @@ public interface IDbAccess
     /// <returns>
     /// The <see cref="T"/>.
     /// </returns>
-    T Execute<T>(Func<IDbCommand, T> execFunc, IDbCommand cmd = null, [CanBeNull] IDbTransaction dbTransaction = null);
+    T Execute<T>(Func<IDbCommand, T> execFunc, IDbCommand cmd = null, IDbTransaction dbTransaction = null);
 
     /// <summary>
     /// The get command.
@@ -78,7 +78,7 @@ public interface IDbAccess
     /// The <see cref="IDbCommand"/>.
     /// </returns>
     IDbCommand GetCommand(
-        [NotNull] string sql,
+        string sql,
         CommandType commandType,
-        [CanBeNull] IEnumerable<KeyValuePair<string, object>> parameters = null);
+        IEnumerable<KeyValuePair<string, object>> parameters = null);
 }

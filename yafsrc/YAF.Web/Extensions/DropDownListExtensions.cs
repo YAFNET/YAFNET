@@ -41,7 +41,7 @@ public static class DropDownListExtensions
     /// <param name="placeHolderText">the place holder text</param>
     public static void AddForumAndCategoryIcons(
         this DropDownList dropDownList,
-        [NotNull] List<ForumSorted> forumList,
+        List<ForumSorted> forumList,
         string placeHolderText)
     {
         CodeContracts.VerifyNotNull(dropDownList);

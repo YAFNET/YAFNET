@@ -44,7 +44,7 @@ public partial class DeleteForum : AdminPage
     /// Registers the needed Java Scripts
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.SelectForumsLoadJs),
@@ -62,7 +62,7 @@ public partial class DeleteForum : AdminPage
     /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnInit([NotNull] EventArgs e)
+    protected override void OnInit(EventArgs e)
     {
         this.Delete.Click += this.SaveClick;
         this.Cancel.Click += this.Cancel_Click;
@@ -75,7 +75,7 @@ public partial class DeleteForum : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -113,7 +113,7 @@ public partial class DeleteForum : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void UpdateStatusTimerTick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void UpdateStatusTimerTick(object sender, EventArgs e)
     {
         // see if the migration is done....
         if (this.Get<ITaskModuleManager>().TryGetTask(ForumDeleteTask.TaskName, out var task) && task.IsRunning)
@@ -132,7 +132,7 @@ public partial class DeleteForum : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+    private void Cancel_Click(object sender, EventArgs e)
     {
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
     }
@@ -142,7 +142,7 @@ public partial class DeleteForum : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
+    private void SaveClick(object sender, EventArgs e)
     {
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             "BlockUiFunctionJs",

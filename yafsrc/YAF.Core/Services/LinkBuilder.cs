@@ -39,7 +39,7 @@ public class LinkBuilder : IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public LinkBuilder([NotNull] IServiceLocator serviceLocator)
+    public LinkBuilder(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }
@@ -70,8 +70,8 @@ public class LinkBuilder : IHaveServiceLocator
     /// <returns>
     /// The get safe raw URL.
     /// </returns>
-    [NotNull]
-    public string GetSafeRawUrl([NotNull] string url)
+    
+    public string GetSafeRawUrl(string url)
     {
         CodeContracts.VerifyNotNull(url);
 

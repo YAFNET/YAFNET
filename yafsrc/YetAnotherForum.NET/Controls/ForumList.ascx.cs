@@ -65,7 +65,7 @@ public partial class ForumList : BaseUserControl
     /// <returns>
     /// Forum link text
     /// </returns>
-    public string GetForumLink([NotNull] ForumRead item)
+    public string GetForumLink(ForumRead item)
     {
         var forumID = item.ForumID;
 
@@ -96,7 +96,7 @@ public partial class ForumList : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="RepeaterItemEventArgs"/> instance containing the event data.</param>
-    protected void ForumList1_ItemCreated([NotNull] object sender, [NotNull] RepeaterItemEventArgs e)
+    protected void ForumList1_ItemCreated(object sender, RepeaterItemEventArgs e)
     {
         if (e.Item.ItemType != ListItemType.Item && e.Item.ItemType != ListItemType.AlternatingItem)
         {
@@ -241,7 +241,7 @@ public partial class ForumList : BaseUserControl
     /// <returns>
     /// The get moderated.
     /// </returns>
-    protected bool GetModerated([NotNull] ForumRead item)
+    protected bool GetModerated(ForumRead item)
     {
         return item.ForumFlags.IsModerated;
     }
@@ -255,7 +255,7 @@ public partial class ForumList : BaseUserControl
     /// <returns>
     /// Returns the Sub Forums
     /// </returns>
-    protected IEnumerable<ForumRead> GetSubForums([NotNull] ForumRead item)
+    protected IEnumerable<ForumRead> GetSubForums(ForumRead item)
     {
         if (!this.HasSubForums(item))
         {
@@ -277,7 +277,7 @@ public partial class ForumList : BaseUserControl
     /// <returns>
     /// The get viewing.
     /// </returns>
-    protected string GetViewing([NotNull] ForumRead item)
+    protected string GetViewing(ForumRead item)
     {
         var viewing = item.Viewing;
 
@@ -295,7 +295,7 @@ public partial class ForumList : BaseUserControl
     /// <returns>
     /// The has sub forums.
     /// </returns>
-    protected bool HasSubForums([NotNull] ForumRead item)
+    protected bool HasSubForums(ForumRead item)
     {
         return item.SubForums > 0;
     }
@@ -306,7 +306,7 @@ public partial class ForumList : BaseUserControl
     /// <param name="e">
     /// the Event Arguments
     /// </param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         var iconLegend = this.LoadControl($"{BoardInfo.ForumServerFileRoot}controls/ForumIconLegend.ascx")
             .RenderToString();
@@ -329,7 +329,7 @@ public partial class ForumList : BaseUserControl
     /// <returns>
     /// Returns the Posts string
     /// </returns>
-    protected string Posts([NotNull] ForumRead item)
+    protected string Posts(ForumRead item)
     {
         return item.RemoteURL.IsNotSet() ? $"{item.Posts:N0}" : "-";
     }
@@ -343,7 +343,7 @@ public partial class ForumList : BaseUserControl
     /// <returns>
     /// Returns the Topics string
     /// </returns>
-    protected string Topics([NotNull] ForumRead item)
+    protected string Topics(ForumRead item)
     {
         return item.RemoteURL.IsNotSet() ? $"{item.Topics:N0}" : "-";
     }

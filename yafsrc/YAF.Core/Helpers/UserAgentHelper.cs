@@ -43,7 +43,7 @@ public static class UserAgentHelper
     /// <returns>
     /// The is search engine spider.
     /// </returns>
-    public static bool IsSearchEngineSpider([CanBeNull] string userAgent)
+    public static bool IsSearchEngineSpider(string userAgent)
     {
         return userAgent.IsSet() && spiders.Match(userAgent.ToLowerInvariant()).Success;
     }
@@ -56,9 +56,9 @@ public static class UserAgentHelper
     /// <param name="platform">The platform.</param>
     /// <param name="isSearchEngine">if set to <c>true</c> [is search engine].</param>
     public static void Platform(
-        [CanBeNull] string userAgent,
+        string userAgent,
         bool isCrawler,
-        [NotNull] ref string platform,
+        ref string platform,
         out bool isSearchEngine)
     {
         CodeContracts.VerifyNotNull(platform);

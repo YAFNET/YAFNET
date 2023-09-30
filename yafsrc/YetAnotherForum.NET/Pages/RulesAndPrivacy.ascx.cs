@@ -51,7 +51,7 @@ public partial class RulesAndPrivacy : ForumPage
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Accept_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Accept_Click(object sender, EventArgs e)
     {
         this.Get<LinkBuilder>().Redirect(ForumPages.Account_Register);
     }
@@ -65,7 +65,7 @@ public partial class RulesAndPrivacy : ForumPage
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Cancel_Click(object sender, EventArgs e)
     {
         this.Get<LinkBuilder>().Redirect(ForumPages.Board);
     }
@@ -90,7 +90,7 @@ public partial class RulesAndPrivacy : ForumPage
     /// <param name="e">
     /// The <see cref="EventArgs"/> instance containing the event data.
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         this.RulesText.Param0 = Config.GDPRControllerAddress.IsSet()
                                     ? Config.GDPRControllerAddress

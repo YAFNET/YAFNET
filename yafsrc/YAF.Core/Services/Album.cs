@@ -45,7 +45,7 @@ public class Album : IAlbum, IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public Album([NotNull] IServiceLocator serviceLocator)
+    public Album(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }
@@ -71,10 +71,10 @@ public class Album : IAlbum, IHaveServiceLocator
     /// The image id.
     /// </param>
     public void AlbumImageDelete(
-        [NotNull] string uploadFolder,
-        [CanBeNull] int? albumId,
+        string uploadFolder,
+        int? albumId,
         int userId,
-        [NotNull] int? imageId)
+        int? imageId)
     {
         if (albumId.HasValue)
         {
@@ -147,7 +147,7 @@ public class Album : IAlbum, IHaveServiceLocator
     /// <returns>
     /// the return object.
     /// </returns>
-    public ReturnClass ChangeImageCaption(int imageId, [NotNull] string newCaption)
+    public ReturnClass ChangeImageCaption(int imageId, string newCaption)
     {
         // load the DB so BoardContext can work...
         CodeContracts.VerifyNotNull(newCaption);
@@ -172,7 +172,7 @@ public class Album : IAlbum, IHaveServiceLocator
     /// <param name="context">The context.</param>
     /// <param name="localizationFile">The localization file.</param>
     /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
-    public void GetAlbumImagePreview([NotNull] HttpContext context, string localizationFile, bool previewCropped)
+    public void GetAlbumImagePreview(HttpContext context, string localizationFile, bool previewCropped)
     {
         // Check QueryString first
         if (!ValidationHelper.IsNumeric(context.Request.QueryString.GetFirstOrDefault("imgprv")))
@@ -237,7 +237,7 @@ public class Album : IAlbum, IHaveServiceLocator
     /// <param name="context">The context.</param>
     /// <param name="localizationFile">The localization file.</param>
     /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
-    public void GetAlbumCover([NotNull] HttpContext context, string localizationFile, bool previewCropped)
+    public void GetAlbumCover(HttpContext context, string localizationFile, bool previewCropped)
     {
         // Check QueryString first
         if (!ValidationHelper.IsNumeric(context.Request.QueryString.GetFirstOrDefault("album")))
@@ -342,7 +342,7 @@ public class Album : IAlbum, IHaveServiceLocator
     /// <param name="context">
     /// The context.
     /// </param>
-    public void GetAlbumImage([NotNull] HttpContext context)
+    public void GetAlbumImage(HttpContext context)
     {
         try
         {
@@ -413,7 +413,7 @@ public class Album : IAlbum, IHaveServiceLocator
     /// <param name="context">The context.</param>
     /// <param name="localizationFile">The localization file.</param>
     /// <param name="previewCropped">if set to <c>true</c> [preview cropped].</param>
-    public void GetResponseImagePreview([NotNull] HttpContext context, string localizationFile, bool previewCropped)
+    public void GetResponseImagePreview(HttpContext context, string localizationFile, bool previewCropped)
     {
         // Check QueryString first
         if (!ValidationHelper.IsNumeric(context.Request.QueryString.GetFirstOrDefault("p")))

@@ -50,12 +50,12 @@ public class HttpClient
     /// <returns>
     /// The post request.
     /// </returns>
-    [NotNull]
+    
     public virtual string PostRequest(
-        [NotNull] Uri url,
-        [CanBeNull] string userAgent,
+        Uri url,
+        string userAgent,
         int timeout,
-        [NotNull] string formParameters)
+        string formParameters)
     {
         CodeContracts.VerifyNotNull(url);
         CodeContracts.VerifyNotNull(formParameters);

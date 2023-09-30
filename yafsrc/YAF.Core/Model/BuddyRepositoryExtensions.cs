@@ -51,8 +51,8 @@ public static class BuddyRepositoryExtensions
     /// </returns>
     public static bool AddRequest(
         this IRepository<Buddy> repository,
-        [NotNull] int fromUserId,
-        [NotNull] int toUserId)
+        int fromUserId,
+        int toUserId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -105,8 +105,8 @@ public static class BuddyRepositoryExtensions
     /// </returns>
     public static bool ApproveRequest(
         this IRepository<Buddy> repository,
-        [NotNull] int fromUserId,
-        [NotNull] int toUserId)
+        int fromUserId,
+        int toUserId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -145,8 +145,8 @@ public static class BuddyRepositoryExtensions
     /// </param>
     public static void DenyRequest(
         this IRepository<Buddy> repository,
-        [NotNull] int fromUserId,
-        [NotNull] int toUserId)
+        int fromUserId,
+        int toUserId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -166,7 +166,7 @@ public static class BuddyRepositoryExtensions
     /// </param>
     public static void RemoveRequest(
         this IRepository<Buddy> repository,
-        [NotNull] int toUserId)
+        int toUserId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -187,8 +187,8 @@ public static class BuddyRepositoryExtensions
     /// </param>
     public static void Remove(
         this IRepository<Buddy> repository,
-        [NotNull] int fromUserId,
-        [NotNull] int toUserId)
+        int fromUserId,
+        int toUserId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -205,7 +205,7 @@ public static class BuddyRepositoryExtensions
     /// <returns>
     /// The containing the buddy list.
     /// </returns>
-    public static List<BuddyUser> ListAll(this IRepository<Buddy> repository, [NotNull] int fromUserId)
+    public static List<BuddyUser> ListAll(this IRepository<Buddy> repository, int fromUserId)
     {
         CodeContracts.VerifyNotNull(repository);
 

@@ -95,23 +95,23 @@ public static class ForumRepositoryExtensions
     /// The <see cref="int"/>.
     /// </returns>
     public static int Save(
-        [NotNull] this IRepository<Forum> repository,
-        [CanBeNull] int? forumId,
-        [NotNull] int categoryId,
-        [CanBeNull] int? parentId,
-        [NotNull] string name,
-        [NotNull] string description,
-        [NotNull] int sortOrder,
-        [NotNull] bool locked,
-        [NotNull] bool hidden,
-        [NotNull] bool isTest,
-        [NotNull] bool moderated,
-        [CanBeNull] int? moderatedPostCount,
-        [NotNull] bool isModeratedNewTopicOnly,
-        [CanBeNull] string remoteUrl,
-        [CanBeNull] string themeUrl,
-        [CanBeNull] string imageUrl,
-        [CanBeNull] string styles)
+        this IRepository<Forum> repository,
+        int? forumId,
+        int categoryId,
+        int? parentId,
+        string name,
+        string description,
+        int sortOrder,
+        bool locked,
+        bool hidden,
+        bool isTest,
+        bool moderated,
+        int? moderatedPostCount,
+        bool isModeratedNewTopicOnly,
+        string remoteUrl,
+        string themeUrl,
+        string imageUrl,
+        string styles)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -189,7 +189,7 @@ public static class ForumRepositoryExtensions
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public static bool IsParentsChecker([NotNull] this IRepository<Forum> repository, [NotNull] int forumId)
+    public static bool IsParentsChecker(this IRepository<Forum> repository, int forumId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -209,8 +209,8 @@ public static class ForumRepositoryExtensions
     /// Returns all Forums for the selected Board Id
     /// </returns>
     public static List<Tuple<Category,Forum>> ListAll(
-        [NotNull] this IRepository<Forum> repository,
-        [NotNull] int boardId)
+        this IRepository<Forum> repository,
+        int boardId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -240,9 +240,9 @@ public static class ForumRepositoryExtensions
     /// Returns all forums accessible to a user
     /// </returns>
     public static List<Tuple<Forum, Category, ActiveAccess>> ListAllWithAccess(
-        [NotNull] this IRepository<Forum> repository,
-        [NotNull] int boardId,
-        [NotNull] int userId)
+        this IRepository<Forum> repository,
+        int boardId,
+        int userId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -273,8 +273,8 @@ public static class ForumRepositoryExtensions
     /// Returns Sorted Forums 
     /// </returns>
     public static List<ForumSorted> ListAllFromCategory(
-        [NotNull] this IRepository<Forum> repository,
-        [NotNull] int categoryId)
+        this IRepository<Forum> repository,
+        int categoryId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -321,10 +321,10 @@ public static class ForumRepositoryExtensions
     /// Returns all Sorted Forums
     /// </returns>
     public static List<SelectGroup> ListAllSorted(
-        [NotNull] this IRepository<Forum> repository,
-        [NotNull] int boardId,
-        [NotNull] int userId,
-        [NotNull] string searchTerm)
+        this IRepository<Forum> repository,
+        int boardId,
+        int userId,
+        string searchTerm)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -355,10 +355,10 @@ public static class ForumRepositoryExtensions
     /// Return the selected forum as Select Group
     /// </returns>
     public static List<SelectGroup> ListAllSorted(
-        [NotNull] this IRepository<Forum> repository,
-        [NotNull] int boardId,
-        [NotNull] int userId,
-        [NotNull] int forumId)
+        this IRepository<Forum> repository,
+        int boardId,
+        int userId,
+        int forumId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -395,11 +395,11 @@ public static class ForumRepositoryExtensions
     /// Returns Paged list of forums
     /// </returns>
     public static List<SelectGroup> ListAllSorted(
-        [NotNull] this IRepository<Forum> repository,
-        [NotNull] int boardId,
-        [NotNull] int userId,
-        [NotNull] int pageIndex,
-        [NotNull] int pageSize,
+        this IRepository<Forum> repository,
+        int boardId,
+        int userId,
+        int pageIndex,
+        int pageSize,
         out Paging pager)
     {
         CodeContracts.VerifyNotNull(repository);
@@ -447,14 +447,14 @@ public static class ForumRepositoryExtensions
     /// Returns List of Forum Read
     /// </returns>
     public static List<ForumRead> ListRead(
-        [NotNull] this IRepository<Forum> repository,
-        [NotNull] int boardId,
-        [NotNull] int userId,
-        [CanBeNull] int? categoryId,
-        [CanBeNull] int? parentId,
-        [NotNull] bool findLastRead, 
-        [NotNull] int pageIndex, 
-        [NotNull] int pageSize)
+        this IRepository<Forum> repository,
+        int boardId,
+        int userId,
+        int? categoryId,
+        int? parentId,
+        bool findLastRead, 
+        int pageIndex, 
+        int pageSize)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -583,7 +583,7 @@ public static class ForumRepositoryExtensions
     /// <returns>
     /// Indicate that forum has been deleted
     /// </returns>
-    public static bool Delete(this IRepository<Forum> repository, [NotNull] int forumId)
+    public static bool Delete(this IRepository<Forum> repository, int forumId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -640,7 +640,7 @@ public static class ForumRepositoryExtensions
     /// <returns>
     /// Indicates that forum has been deleted
     /// </returns>
-    public static bool Move(this IRepository<Forum> repository, [NotNull] int oldForumId, [NotNull] int newForumId)
+    public static bool Move(this IRepository<Forum> repository, int oldForumId, int newForumId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -694,11 +694,11 @@ public static class ForumRepositoryExtensions
     /// <returns>
     /// Returns thee Moderator List for the Board
     /// </returns>
-    [NotNull]
+    
     public static List<ModerateForum> ModerateList(
         this IRepository<Forum> repository,
-        [NotNull] int userId,
-        [NotNull] int boardId)
+        int userId,
+        int boardId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -771,7 +771,7 @@ public static class ForumRepositoryExtensions
     /// </summary>
     /// <param name="repository">The repository.</param>
     /// <param name="forumId">The forum identifier.</param>
-    public static void UpdateStats([NotNull] this IRepository<Forum> repository, [NotNull] int forumId)
+    public static void UpdateStats(this IRepository<Forum> repository, int forumId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -795,7 +795,7 @@ public static class ForumRepositoryExtensions
     /// </summary>
     /// <param name="repository">The repository.</param>
     /// <param name="forumId">The forum identifier.</param>
-    public static void UpdateLastPost([NotNull] this IRepository<Forum> repository, [NotNull] int forumId)
+    public static void UpdateLastPost(this IRepository<Forum> repository, int forumId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -907,10 +907,10 @@ public static class ForumRepositoryExtensions
     /// <returns>
     /// Returns the Sorted Moderator List
     /// </returns>
-    [NotNull]
+    
     public static List<ForumSorted> SortModeratorList(
         this IRepository<Forum> repository,
-        [NotNull] IEnumerable<ModeratorsForums> listSource)
+        IEnumerable<ModeratorsForums> listSource)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -939,10 +939,10 @@ public static class ForumRepositoryExtensions
     /// <returns>
     /// Returns the Sorted List
     /// </returns>
-    [NotNull]
+    
     private static List<SelectGroup> SortList(
         this IRepository<Forum> repository,
-        [NotNull] IEnumerable<Tuple<Forum, Category, ActiveAccess>> listSource)
+        IEnumerable<Tuple<Forum, Category, ActiveAccess>> listSource)
     {
         CodeContracts.VerifyNotNull(repository);
 

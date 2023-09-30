@@ -46,8 +46,8 @@ public static class ReputationVoteRepositoryExtensions
     /// </param>
     public static void UpdateOrAdd(
         this IRepository<ReputationVote> repository,
-        [NotNull] int fromUserId,
-        [NotNull] int toUserId)
+        int fromUserId,
+        int toUserId)
     {
         CodeContracts.VerifyNotNull(repository);
 

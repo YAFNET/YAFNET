@@ -35,7 +35,7 @@ public class ForumPageTitleArgs : EventArgs
     /// <param name="title">
     /// The title.
     /// </param>
-    public ForumPageTitleArgs([NotNull] string title)
+    public ForumPageTitleArgs(string title)
     {
         this.Title = title;
     }

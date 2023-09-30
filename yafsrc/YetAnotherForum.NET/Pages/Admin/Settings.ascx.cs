@@ -49,7 +49,7 @@ public partial class Settings : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.FormValidatorJs),
@@ -78,7 +78,7 @@ public partial class Settings : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void SaveClick(object sender, EventArgs e)
     {
         var languageFile = "english.json";
 
@@ -148,7 +148,7 @@ public partial class Settings : AdminPage
     /// </summary>
     /// <param name="list">The list.</param>
     /// <param name="value">The value.</param>
-    private static void SetSelectedOnList([NotNull] ref DropDownList list, [NotNull] string value)
+    private static void SetSelectedOnList(ref DropDownList list, string value)
     {
         var selItem = list.Items.FindByValue(value);
 

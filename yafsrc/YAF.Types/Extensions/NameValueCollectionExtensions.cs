@@ -46,8 +46,8 @@ public static class NameValueCollectionExtensions
     /// The <see cref="string"/>.
     /// </returns>
     public static string GetFirstOrDefault(
-        [NotNull] this NameValueCollection collection,
-        [NotNull] string paramName)
+        this NameValueCollection collection,
+        string paramName)
     {
         CodeContracts.VerifyNotNull(collection);
         CodeContracts.VerifyNotNull(paramName);
@@ -71,8 +71,8 @@ public static class NameValueCollectionExtensions
     /// The <see cref="T"/>.
     /// </returns>
     public static T GetFirstOrDefaultAs<T>(
-        [NotNull] this NameValueCollection collection,
-        [NotNull] string paramName)
+        this NameValueCollection collection,
+        string paramName)
     {
         CodeContracts.VerifyNotNull(collection);
         CodeContracts.VerifyNotNull(paramName);
@@ -93,8 +93,8 @@ public static class NameValueCollectionExtensions
     /// Returns the integer Value
     /// </returns>
     public static int? GetFirstOrDefaultAsInt(
-        [NotNull] this NameValueCollection collection,
-        [NotNull] string paramName)
+        this NameValueCollection collection,
+        string paramName)
     {
         CodeContracts.VerifyNotNull(collection);
         CodeContracts.VerifyNotNull(paramName);
@@ -122,8 +122,8 @@ public static class NameValueCollectionExtensions
     /// Does not return null.
     /// </returns>
     public static IEnumerable<string> GetValueList(
-        [NotNull] this NameValueCollection collection,
-        [NotNull] string paramName)
+        this NameValueCollection collection,
+        string paramName)
     {
         CodeContracts.VerifyNotNull(collection);
         CodeContracts.VerifyNotNull(paramName);
@@ -145,7 +145,7 @@ public static class NameValueCollectionExtensions
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public static bool Exists([NotNull] this NameValueCollection collection, [NotNull] string paramName)
+    public static bool Exists(this NameValueCollection collection, string paramName)
     {
         CodeContracts.VerifyNotNull(collection);
         CodeContracts.VerifyNotNull(paramName);

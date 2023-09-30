@@ -43,7 +43,7 @@ public class Friends : IFriends, IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public Friends([NotNull] IServiceLocator serviceLocator)
+    public Friends(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }

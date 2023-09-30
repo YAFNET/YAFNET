@@ -51,7 +51,7 @@ public partial class Admin : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    public void BoardStatsSelectChanged([NotNull] object sender, [NotNull] EventArgs e)
+    public void BoardStatsSelectChanged(object sender, EventArgs e)
     {
         // re-bind data
         this.BindData();
@@ -62,7 +62,7 @@ public partial class Admin : AdminPage
     /// </summary>
     /// <param name="source">The source of the event.</param>
     /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-    public void UserListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    public void UserListItemCommand(object source, RepeaterCommandEventArgs e)
     {
         switch (e.CommandName)
         {
@@ -153,7 +153,7 @@ public partial class Admin : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -206,7 +206,7 @@ public partial class Admin : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void PagerTopChange([NotNull] object sender, [NotNull] EventArgs e)
+    protected void PagerTopChange(object sender, EventArgs e)
     {
         this.BindActiveUserData();
     }
@@ -230,7 +230,7 @@ public partial class Admin : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void PagerUnverifiedChange([NotNull] object sender, [NotNull] EventArgs e)
+    protected void PagerUnverifiedChange(object sender, EventArgs e)
     {
         this.BindUnverifiedUsers();
     }

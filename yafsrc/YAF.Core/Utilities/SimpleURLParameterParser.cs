@@ -93,8 +93,8 @@ public class SimpleURLParameterParser
     /// <returns>
     /// Returns the created query string.
     /// </returns>
-    [NotNull]
-    public string CreateQueryString([NotNull] string[] excludeValues)
+    
+    public string CreateQueryString(string[] excludeValues)
     {
         CodeContracts.VerifyNotNull(excludeValues);
 

@@ -39,7 +39,6 @@ namespace YAF.Core.Services.Migrations
     using YAF.Core.Extensions;
     using YAF.Core.Helpers;
     using YAF.Core.Model;
-    using YAF.Types;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
@@ -251,8 +250,8 @@ namespace YAF.Core.Services.Migrations
         /// The migrate create user.
         /// </returns>
         private IdentityResult MigrateCreateUser(
-            [NotNull] string name,
-            [NotNull] string email,
+            string name,
+            string email,
             bool approved,
             out AspNetUsers user)
         {

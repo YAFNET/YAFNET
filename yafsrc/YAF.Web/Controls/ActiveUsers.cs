@@ -37,7 +37,7 @@ public class ActiveUsers : BaseControl
     /// <summary>
     ///   Gets or sets list of users to display in control.
     /// </summary>
-    [CanBeNull]
+    
     public List<ActiveUser> ActiveUsersList
     {
         get
@@ -74,7 +74,7 @@ public class ActiveUsers : BaseControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         // IMPORTANT : call base implementation, raises PreRender event
         base.OnPreRender(e);
@@ -167,7 +167,7 @@ public class ActiveUsers : BaseControl
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         // writes starting tag
         writer.Write(@"<ul class=""list-inline"">");

@@ -41,7 +41,7 @@ public class Session : ISession
     /// <param name="sessionState">
     /// The session state.
     /// </param>
-    public Session([NotNull] HttpSessionStateBase sessionState)
+    public Session(HttpSessionStateBase sessionState)
     {
         CodeContracts.VerifyNotNull(sessionState);
 
@@ -158,7 +158,7 @@ public class Session : ISession
     /// <summary>
     ///   Gets PanelState.
     /// </summary>
-    [NotNull]
+    
     public IPanelSessionState PanelState => new PanelSessionState();
 
     /// <summary>

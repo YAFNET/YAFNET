@@ -41,7 +41,7 @@ public partial class UsersImport : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Import_OnClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Import_OnClick(object sender, EventArgs e)
     {
         try
         {

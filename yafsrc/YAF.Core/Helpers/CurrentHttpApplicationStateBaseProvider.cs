@@ -36,7 +36,7 @@ public class CurrentHttpApplicationStateBaseProvider : IReadWriteProvider<HttpAp
     /// <summary>
     ///   Gets or sets the Instance.
     /// </summary>
-    [CanBeNull]
+    
     public HttpApplicationStateBase Instance
     {
         get

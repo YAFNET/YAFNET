@@ -12,6 +12,7 @@ global using YAF.Core.Extensions;
 global using YAF.Core.Helpers;
 global using YAF.Core.Services;
 global using YAF.Types;
+global using YAF.Types.Attributes;
 global using YAF.Types.EventProxies;
 global using YAF.Types.Extensions;
 global using YAF.Types.Flags;

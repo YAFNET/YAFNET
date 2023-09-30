@@ -106,7 +106,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
     /// </returns>
     public string FormatMessageWithCustomBBCode(
         string message,
-        [NotNull] MessageFlags flags,
+        MessageFlags flags,
         int? displayUserId,
         int? messageId)
     {
@@ -209,7 +209,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
     /// <returns>
     /// The converted text
     /// </returns>
-    public string ConvertHtmlToBBCodeForEdit([NotNull] string message)
+    public string ConvertHtmlToBBCodeForEdit(string message)
     {
         const bool DoFormatting = true;
         const bool TargetBlankOverride = false;
@@ -517,7 +517,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
     /// Indicates if the formatting is for the Editor.
     /// </param>
     public void CreateBBCodeRules(
-        [NotNull] int messageId,
+        int messageId,
         IProcessReplaceRules ruleEngine,
         bool doFormatting,
         bool targetBlankOverride,

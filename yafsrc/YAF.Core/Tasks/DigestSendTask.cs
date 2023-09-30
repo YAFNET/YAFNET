@@ -64,7 +64,7 @@ public class DigestSendTask : LongBackgroundTask
     /// <returns>
     /// The is time to send digest for board.
     /// </returns>
-    private static bool IsTimeToSendDigestForBoard([NotNull] BoardSettings boardSettings)
+    private static bool IsTimeToSendDigestForBoard(BoardSettings boardSettings)
     {
         CodeContracts.VerifyNotNull(boardSettings);
 

@@ -41,7 +41,7 @@ public partial class Pm : AdminPage
 
     /// <summary>Raises the <see cref="E:System.Web.UI.Control.Init"/> event.</summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnInit([NotNull] EventArgs e)
+    protected override void OnInit(EventArgs e)
     {
         this.commit.Click += this.CommitClick;
         base.OnInit(e);
@@ -52,7 +52,7 @@ public partial class Pm : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -88,7 +88,7 @@ public partial class Pm : AdminPage
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    private void CommitClick([NotNull] object sender, [NotNull] EventArgs e)
+    private void CommitClick(object sender, EventArgs e)
     {
         this.GetRepository<PMessage>().PruneAll(this.Days1.Text.ToType<int>(), this.Days2.Text.ToType<int>());
 

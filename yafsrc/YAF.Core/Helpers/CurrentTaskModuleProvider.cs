@@ -35,7 +35,7 @@ public class CurrentTaskModuleProvider : IReadWriteProvider<ITaskModuleManager>
     /// <summary>
     /// Gets or sets the instance.
     /// </summary>
-    [CanBeNull]
+    
     public ITaskModuleManager Instance
     {
         get => MemoryCache.Default[Constants.Cache.TaskModule] as ITaskModuleManager;

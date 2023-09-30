@@ -40,7 +40,7 @@ public class LoggingModule : BaseModule
     /// <param name="builder">
     ///     The builder.
     /// </param>
-    protected override void Load([NotNull] ContainerBuilder builder)
+    protected override void Load(ContainerBuilder builder)
     {
         CodeContracts.VerifyNotNull(builder);
 

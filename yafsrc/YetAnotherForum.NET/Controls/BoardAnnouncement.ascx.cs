@@ -35,7 +35,7 @@ public partial class BoardAnnouncement : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         if (this.PageBoardContext.BoardSettings.BoardAnnouncement.IsNotSet())
         {

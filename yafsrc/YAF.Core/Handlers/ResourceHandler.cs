@@ -49,7 +49,7 @@ public class ResourceHandler : IHttpHandler, IReadOnlySessionState, IHaveService
     /// <param name="context">
     /// The context.
     /// </param>
-    public void ProcessRequest([NotNull] HttpContext context)
+    public void ProcessRequest(HttpContext context)
     {
         if (this.Get<ISession>().LastVisit.HasValue)
         {
@@ -170,7 +170,7 @@ public class ResourceHandler : IHttpHandler, IReadOnlySessionState, IHaveService
     /// <returns>
     /// The check eTag code.
     /// </returns>
-    private static bool CheckETagCode([NotNull] HttpContext context, [NotNull] string etagCode)
+    private static bool CheckETagCode(HttpContext context, string etagCode)
     {
         var ifNoneMatch = context.Request.Headers["If-None-Match"];
 

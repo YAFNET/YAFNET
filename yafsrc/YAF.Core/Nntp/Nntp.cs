@@ -50,7 +50,7 @@ public class Nntp : INewsreader
     /// <param name="logger">
     /// The logger.
     /// </param>
-    public Nntp([NotNull] ILoggerService logger)
+    public Nntp(ILoggerService logger)
     {
         this.Logger = logger;
     }
@@ -69,8 +69,8 @@ public class Nntp : INewsreader
     /// <returns>
     /// The <see cref="NntpConnection"/>.
     /// </returns>
-    [NotNull]
-    public static NntpConnection GetNntpConnection([NotNull] Tuple<NntpForum, NntpServer, Forum> nntpForum)
+    
+    public static NntpConnection GetNntpConnection(Tuple<NntpForum, NntpServer, Forum> nntpForum)
     {
         CodeContracts.VerifyNotNull(nntpForum);
 
@@ -313,8 +313,8 @@ public class Nntp : INewsreader
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    [NotNull]
-    private static string ReplaceBody([NotNull] string body)
+    
+    private static string ReplaceBody(string body)
     {
         // Incorrect tags fixes which are common in nntp messages and cause display problems.
         // These are spotted ones.

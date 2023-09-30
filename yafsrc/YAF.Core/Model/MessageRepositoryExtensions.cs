@@ -54,8 +54,8 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static bool RepliedTopic(
         this IRepository<Message> repository,
-        [NotNull] int topicId,
-        [NotNull] int userId)
+        int topicId,
+        int userId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -76,7 +76,7 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static Message GetMessage(
         this IRepository<Message> repository,
-        [NotNull] int messageId)
+        int messageId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -97,7 +97,7 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static Tuple<Topic, Message, User, Forum> GetMessageAsTuple(
         this IRepository<Message> repository,
-        [NotNull] int messageId)
+        int messageId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -127,8 +127,8 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static Tuple<Topic, Message, User, Forum> GetMessageWithAccess(
         this IRepository<Message> repository,
-        [NotNull] int messageId,
-        [NotNull] int userId)
+        int messageId,
+        int userId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -156,7 +156,7 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static List<Tuple<Forum, Topic, Message>> GetDeletedMessages(
         this IRepository<Message> repository,
-        [NotNull] int boardId)
+        int boardId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -207,15 +207,15 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static List<PagedMessage> PostListPaged(
         this IRepository<Message> repository,
-        [NotNull] int topicId,
-        [NotNull] int userId,
-        [NotNull] bool updateViewCount,
-        [NotNull] bool showDeleted,
-        [NotNull] DateTime sincePostedDate,
-        [NotNull] DateTime toPostedDate,
-        [NotNull] int pageIndex,
-        [NotNull] int pageSize,
-        [NotNull] int messagePosition)
+        int topicId,
+        int userId,
+        bool updateViewCount,
+        bool showDeleted,
+        DateTime sincePostedDate,
+        DateTime toPostedDate,
+        int pageIndex,
+        int pageSize,
+        int messagePosition)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -366,7 +366,7 @@ public static class MessageRepositoryExtensions
     /// <returns>
     /// The <see cref="IEnumerable"/>.
     /// </returns>
-    public static List<Tuple<Message, User>> LastPosts(this IRepository<Message> repository, [NotNull] int topicId)
+    public static List<Tuple<Message, User>> LastPosts(this IRepository<Message> repository, int topicId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -424,10 +424,10 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static List<Tuple<Message, Topic, User>> GetAllUserMessagesWithAccess(
         this IRepository<Message> repository,
-        [NotNull] int boardId,
-        [NotNull] int userId,
-        [NotNull] int pageUserId,
-        [NotNull] int count)
+        int boardId,
+        int userId,
+        int pageUserId,
+        int count)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -461,7 +461,7 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static IEnumerable<SearchMessage> GetAllSearchMessagesByForum(
         this IRepository<Message> repository,
-        [NotNull] int forumId)
+        int forumId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -490,7 +490,7 @@ public static class MessageRepositoryExtensions
     /// <param name="forumId">
     /// The forum Id.
     /// </param>
-    public static void Approve(this IRepository<Message> repository, [NotNull] int messageId, [NotNull] int forumId)
+    public static void Approve(this IRepository<Message> repository, int messageId, int forumId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -556,8 +556,8 @@ public static class MessageRepositoryExtensions
     /// <param name="flags">The flags.</param>
     public static void UpdateFlags(
         this IRepository<Message> repository,
-        [NotNull] int messageId,
-        [NotNull] int flags)
+        int messageId,
+        int flags)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -596,13 +596,13 @@ public static class MessageRepositoryExtensions
     /// </param>
     public static void Delete(
         this IRepository<Message> repository,
-        [NotNull] int forumId,
-        [NotNull] int topicId,
-        [NotNull] Message message,
-        [NotNull] bool isModeratorChanged,
-        [NotNull] string deleteReason,
-        [NotNull] bool deleteLinked,
-        [NotNull] bool eraseMessage,
+        int forumId,
+        int topicId,
+        Message message,
+        bool isModeratorChanged,
+        string deleteReason,
+        bool deleteLinked,
+        bool eraseMessage,
         bool isTopicDeleteAction = false)
     {
         CodeContracts.VerifyNotNull(repository);
@@ -641,9 +641,9 @@ public static class MessageRepositoryExtensions
     /// </param>
     public static void Restore(
         this IRepository<Message> repository,
-        [NotNull] int forumId,
-        [NotNull] int topicId,
-        [NotNull] Message message)
+        int forumId,
+        int topicId,
+        Message message)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -677,10 +677,10 @@ public static class MessageRepositoryExtensions
     /// </param>
     public static void Move(
         this IRepository<Message> repository,
-        [NotNull] Topic oldTopic,
-        [NotNull] Message message,
-        [NotNull] int moveToTopicId,
-        [NotNull] bool moveAll)
+        Topic oldTopic,
+        Message message,
+        int moveToTopicId,
+        bool moveAll)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -716,8 +716,8 @@ public static class MessageRepositoryExtensions
     /// <returns>
     /// The <see cref="List"/>.
     /// </returns>
-    [NotNull]
-    public static List<Message> Replies(this IRepository<Message> repository, [NotNull] int messageId)
+    
+    public static List<Message> Replies(this IRepository<Message> repository, int messageId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -748,10 +748,10 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static (int MessagePosition, int MessageID) FindUnread(
         this IRepository<Message> repository,
-        [NotNull] int topicId,
-        [CanBeNull] int? messageId,
-        [NotNull] DateTime lastRead,
-        [NotNull] bool showDeleted)
+        int topicId,
+        int? messageId,
+        DateTime lastRead,
+        bool showDeleted)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -878,8 +878,8 @@ public static class MessageRepositoryExtensions
     /// </param>
     public static void ReportResolve(
         this IRepository<Message> repository,
-        [NotNull] int messageId,
-        [NotNull] int userId)
+        int messageId,
+        int userId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -937,15 +937,15 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static Message SaveNew(
         this IRepository<Message> repository,
-        [NotNull] Forum forum,
-        [NotNull] Topic topic,
-        [NotNull] User user,
-        [NotNull] string message,
-        [NotNull] string guestUserName,
-        [NotNull] string ipAddress,
-        [NotNull] DateTime posted,
-        [CanBeNull] int? replyTo,
-        [NotNull] MessageFlags flags)
+        Forum forum,
+        Topic topic,
+        User user,
+        string message,
+        string guestUserName,
+        string ipAddress,
+        DateTime posted,
+        int? replyTo,
+        MessageFlags flags)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1051,7 +1051,7 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static List<Tuple<Topic, Message, User>> Unapproved(
         this IRepository<Message> repository,
-        [NotNull] int forumId)
+        int forumId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1106,20 +1106,20 @@ public static class MessageRepositoryExtensions
     /// </param>
     public static void Update(
         this IRepository<Message> repository,
-        [CanBeNull] short? priority,
-        [NotNull] string message,
-        [CanBeNull] string description,
-        [CanBeNull] string status,
-        [CanBeNull] string styles,
-        [CanBeNull] string subject,
-        [NotNull] string reasonOfEdit,
-        [NotNull] bool isModeratorChanged,
-        [NotNull] bool overrideApproval,
-        [NotNull] Topic topic,
-        [NotNull] Message originalMessage,
-        [NotNull] Forum forum,
-        [NotNull] User originalMessageUser,
-        [NotNull] int editedBy)
+        short? priority,
+        string message,
+        string description,
+        string status,
+        string styles,
+        string subject,
+        string reasonOfEdit,
+        bool isModeratorChanged,
+        bool overrideApproval,
+        Topic topic,
+        Message originalMessage,
+        Forum forum,
+        User originalMessageUser,
+        int editedBy)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1251,13 +1251,13 @@ public static class MessageRepositoryExtensions
     /// </param>
     private static void DeleteRecursively(
         this IRepository<Message> repository,
-        [NotNull] Forum forum,
-        [NotNull] int topicId,
-        [NotNull] Message message,
-        [NotNull] bool isModeratorChanged,
-        [NotNull] string deleteReason,
-        [NotNull] bool deleteLinked,
-        [NotNull] bool eraseMessages,
+        Forum forum,
+        int topicId,
+        Message message,
+        bool isModeratorChanged,
+        string deleteReason,
+        bool deleteLinked,
+        bool eraseMessages,
         bool isTopicDeleteAction)
     {
         CodeContracts.VerifyNotNull(repository);
@@ -1325,9 +1325,9 @@ public static class MessageRepositoryExtensions
     /// </param>
     private static void RestoreRecursively(
         this IRepository<Message> repository,
-        [NotNull] int forumId,
-        [NotNull] int topicId,
-        [NotNull] Message message)
+        int forumId,
+        int topicId,
+        Message message)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1358,8 +1358,8 @@ public static class MessageRepositoryExtensions
     /// </param>
     private static void MoveRecursively(
         this IRepository<Message> repository,
-        [NotNull] Message message,
-        [NotNull] int moveToTopicId)
+        Message message,
+        int moveToTopicId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1399,12 +1399,12 @@ public static class MessageRepositoryExtensions
     /// </param>
     private static void DeleteInternal(
         this IRepository<Message> repository,
-        [NotNull] Forum forum,
-        [NotNull] int topicId,
-        [NotNull] Message message,
-        [NotNull] bool isModeratorChanged,
-        [NotNull] string deleteReason,
-        [NotNull] bool eraseMessage,
+        Forum forum,
+        int topicId,
+        Message message,
+        bool isModeratorChanged,
+        string deleteReason,
+        bool eraseMessage,
         bool isTopicDeleteAction)
     {
         CodeContracts.VerifyNotNull(repository);
@@ -1553,9 +1553,9 @@ public static class MessageRepositoryExtensions
     /// </param>
     private static void RestoreInternal(
         this IRepository<Message> repository,
-        [NotNull] int forumId,
-        [NotNull] int topicId,
-        [NotNull] Message message)
+        int forumId,
+        int topicId,
+        Message message)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -1610,8 +1610,8 @@ public static class MessageRepositoryExtensions
     /// </param>
     private static void Move(
         this IRepository<Message> repository,
-        [NotNull] Message message,
-        [NotNull] int moveToTopicId)
+        Message message,
+        int moveToTopicId)
     {
         CodeContracts.VerifyNotNull(repository);
 

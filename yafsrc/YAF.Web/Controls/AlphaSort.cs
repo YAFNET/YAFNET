@@ -64,7 +64,7 @@ public class AlphaSort : BaseControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnLoad([NotNull] EventArgs e)
+    protected override void OnLoad(EventArgs e)
     {
         base.OnLoad(e);
 

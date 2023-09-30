@@ -44,7 +44,7 @@ public partial class EditRank : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Cancel_Click(object sender, EventArgs e)
     {
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Ranks);
     }
@@ -54,7 +54,7 @@ public partial class EditRank : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.FormValidatorJs),
@@ -113,7 +113,7 @@ public partial class EditRank : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Save_Click(object sender, EventArgs e)
     {
         if (!ValidationHelper.IsValidInt(this.PMLimit.Text.Trim()))
         {

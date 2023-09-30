@@ -23,7 +23,6 @@
  */
 namespace YAF.Core.Events.Cache;
 
-using YAF.Types.Attributes;
 using YAF.Types.Constants;
 
 /// <summary>

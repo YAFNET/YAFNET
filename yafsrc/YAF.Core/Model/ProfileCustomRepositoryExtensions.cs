@@ -47,8 +47,8 @@ public static class ProfileCustomRepositoryExtensions
     /// The <see cref="List"/>.
     /// </returns>
     public static List<Tuple<ProfileCustom, ProfileDefinition>> ListByUser(
-        [NotNull] this IRepository<ProfileCustom> repository,
-        [NotNull] int userId)
+        this IRepository<ProfileCustom> repository,
+        int userId)
     {
         CodeContracts.VerifyNotNull(repository);
 

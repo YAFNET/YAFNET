@@ -47,7 +47,7 @@ public partial class BBCodes : AdminPage
     /// <returns>
     /// The Id of the BB Code
     /// </returns>
-    [NotNull]
+    
     protected List<int> GetSelectedBbCodeIDs()
     {
         // get checked items....
@@ -63,7 +63,7 @@ public partial class BBCodes : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -102,7 +102,7 @@ public partial class BBCodes : AdminPage
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-    protected void BbCodeListItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
+    protected void BbCodeListItemCommand(object sender, RepeaterCommandEventArgs e)
     {
         switch (e.CommandName)
         {
@@ -130,7 +130,7 @@ public partial class BBCodes : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    protected void PagerTop_PageChange(object sender, EventArgs e)
     {
         // rebind
         this.BindData();

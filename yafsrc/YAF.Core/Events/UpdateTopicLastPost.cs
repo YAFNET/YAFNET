@@ -24,7 +24,6 @@
 namespace YAF.Core.Events;
 
 using YAF.Core.Model;
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -39,7 +38,7 @@ public class UpdateTopicLastPost : IHaveServiceLocator, IHandleEvent<UpdateTopic
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public UpdateTopicLastPost([NotNull] IServiceLocator serviceLocator)
+    public UpdateTopicLastPost(IServiceLocator serviceLocator)
     {
         CodeContracts.VerifyNotNull(serviceLocator);
 

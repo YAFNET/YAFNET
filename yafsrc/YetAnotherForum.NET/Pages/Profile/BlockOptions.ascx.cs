@@ -46,7 +46,7 @@ public partial class BlockOptions : ProfilePage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-    protected void IgnoredItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
+    protected void IgnoredItemCommand(object sender, RepeaterCommandEventArgs e)
     {
         switch (e.CommandName)
         {
@@ -76,7 +76,7 @@ public partial class BlockOptions : ProfilePage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {

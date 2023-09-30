@@ -41,7 +41,7 @@ public sealed class InvalidResponseException : Exception
     /// <param name="status">
     /// The status.
     /// </param>
-    public InvalidResponseException([NotNull] string message, HttpStatusCode status)
+    public InvalidResponseException(string message, HttpStatusCode status)
         : base(message)
     {
         this.HttpStatus = status;
@@ -56,7 +56,7 @@ public sealed class InvalidResponseException : Exception
     /// <param name="context">
     /// The context.
     /// </param>
-    private InvalidResponseException([NotNull] SerializationInfo info, StreamingContext context)
+    private InvalidResponseException(SerializationInfo info, StreamingContext context)
     {
         this.HttpStatus = (HttpStatusCode)info.GetValue("Status", typeof(HttpStatusCode));
     }

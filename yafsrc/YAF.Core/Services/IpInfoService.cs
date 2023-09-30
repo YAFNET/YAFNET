@@ -44,7 +44,7 @@ public class IpInfoService : IIpInfoService, IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public IpInfoService([NotNull] IServiceLocator serviceLocator)
+    public IpInfoService(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }
@@ -112,7 +112,7 @@ public class IpInfoService : IIpInfoService, IHaveServiceLocator
     /// <returns>
     /// The <see cref="IDictionary"/>.
     /// </returns>
-    private IpLocator GetData([CanBeNull] string ip)
+    private IpLocator GetData(string ip)
     {
         CodeContracts.VerifyNotNull(ip);
 

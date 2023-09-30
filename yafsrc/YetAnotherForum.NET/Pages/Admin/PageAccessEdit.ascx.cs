@@ -50,7 +50,7 @@ public partial class PageAccessEdit : AdminPage
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void CancelClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void CancelClick(object sender, EventArgs e)
     {
         // get back to access admin list
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
@@ -76,7 +76,7 @@ public partial class PageAccessEdit : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -91,7 +91,7 @@ public partial class PageAccessEdit : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void SaveClick(object sender, EventArgs e)
     {
         this.AccessList.Items.Cast<RepeaterItem>().ForEach(
             ri =>
@@ -123,7 +123,7 @@ public partial class PageAccessEdit : AdminPage
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void GrantAllClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void GrantAllClick(object sender, EventArgs e)
     {
         // save permissions to table -  checked only
         this.AccessList.Items.Cast<RepeaterItem>().ForEach(
@@ -141,7 +141,7 @@ public partial class PageAccessEdit : AdminPage
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void RevokeAllClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void RevokeAllClick(object sender, EventArgs e)
     {
         this.AccessList.Items.Cast<RepeaterItem>().ForEach(
             ri =>
@@ -167,7 +167,7 @@ public partial class PageAccessEdit : AdminPage
     /// </summary>
     /// <param name="source">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void AccessList_OnItemDataBound([NotNull] object source, [NotNull] RepeaterItemEventArgs e)
+    protected void AccessList_OnItemDataBound(object source, RepeaterItemEventArgs e)
     {
         var item = e.Item;
         if (item.ItemType != ListItemType.Item && item.ItemType != ListItemType.AlternatingItem)

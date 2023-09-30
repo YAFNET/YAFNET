@@ -42,7 +42,7 @@ public partial class Board : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         // Since these controls have EnabledViewState=false, set their visibility on every page load so that this value is not lost on post-back.
         // This is important for another reason: these are board settings; values in the view state should have no impact on whether these controls are shown or not.

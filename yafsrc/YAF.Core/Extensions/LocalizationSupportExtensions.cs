@@ -42,7 +42,7 @@ public static class LocalizationSupportExtensions
     /// <returns>
     /// The get current item.
     /// </returns>
-    public static string Localize([NotNull] this ILocalizationSupport supportItem, [NotNull] Control currentControl)
+    public static string Localize(this ILocalizationSupport supportItem, Control currentControl)
     {
         CodeContracts.VerifyNotNull(supportItem);
         CodeContracts.VerifyNotNull(currentControl);
@@ -72,8 +72,8 @@ public static class LocalizationSupportExtensions
     /// The localize and render.
     /// </returns>
     public static string LocalizeAndRender(
-        [NotNull] this ILocalizationSupport supportedItem,
-        [NotNull] BaseControl currentControl)
+        this ILocalizationSupport supportedItem,
+        BaseControl currentControl)
     {
         CodeContracts.VerifyNotNull(supportedItem);
         CodeContracts.VerifyNotNull(currentControl);

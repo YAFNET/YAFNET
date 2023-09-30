@@ -67,7 +67,7 @@ public class Avatars : IAvatars
     /// <returns>
     /// Returns the Avatar Url
     /// </returns>
-    public string GetAvatarUrlForUser([NotNull] User user)
+    public string GetAvatarUrlForUser(User user)
     {
         CodeContracts.VerifyNotNull(user);
 

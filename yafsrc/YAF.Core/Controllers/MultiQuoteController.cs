@@ -51,7 +51,7 @@ public class MultiQuoteController : ApiController, IHaveServiceLocator
     /// </returns>
     [Route("MultiQuote/HandleMultiQuote")]
     [HttpPost]
-    public IHttpActionResult HandleMultiQuote([NotNull] MultiQuoteButton quoteButton)
+    public IHttpActionResult HandleMultiQuote(MultiQuoteButton quoteButton)
     {
         var buttonId = quoteButton.ButtonId;
         var isMultiQuoteButton = quoteButton.IsMultiQuoteButton;

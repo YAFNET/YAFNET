@@ -44,7 +44,7 @@ public partial class Tags : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         // do it only once, not on post-backs
         if (this.IsPostBack)
@@ -88,7 +88,7 @@ public partial class Tags : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void PagerTopPageChange([NotNull] object sender, [NotNull] EventArgs e)
+    protected void PagerTopPageChange(object sender, EventArgs e)
     {
         // rebind
         this.BindData();
@@ -113,7 +113,7 @@ public partial class Tags : AdminPage
     /// </summary>
     /// <param name="source">The source of the event.</param>
     /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-    protected void ListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    protected void ListItemCommand(object source, RepeaterCommandEventArgs e)
     {
         // what command are we serving?
         switch (e.CommandName)

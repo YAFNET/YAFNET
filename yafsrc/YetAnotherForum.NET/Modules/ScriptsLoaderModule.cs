@@ -26,8 +26,6 @@ namespace YAF.Modules;
 
 using System.Web.UI;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// Automatic JavaScript Loading Module
 /// </summary>
@@ -48,7 +46,7 @@ public class ScriptsLoaderModule : SimpleBaseForumModule
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    private void CurrentForumPageLoad([NotNull] object sender, [NotNull] EventArgs e)
+    private void CurrentForumPageLoad(object sender, EventArgs e)
     {
         // Load CSS First
         this.RegisterCssFiles(this.PageBoardContext.BoardSettings.CdvVersion);
@@ -59,7 +57,7 @@ public class ScriptsLoaderModule : SimpleBaseForumModule
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    private void CurrentForumPagePreRender([NotNull] object sender, [NotNull] EventArgs e)
+    private void CurrentForumPagePreRender(object sender, EventArgs e)
     {
         if (this.PageBoardContext.Vars.ContainsKey("forumExtensions"))
         {

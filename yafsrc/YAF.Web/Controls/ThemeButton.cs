@@ -155,7 +155,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     /// <summary>
     /// Gets or sets the text.
     /// </summary>
-    [CanBeNull]
+    
     public string Text
     {
         get => this.ViewState["Text"] != null ? this.ViewState["Text"] as string : string.Empty;
@@ -166,7 +166,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     /// <summary>
     /// Gets or sets the CSS class.
     /// </summary>
-    [CanBeNull]
+    
     public string CssClass
     {
         get => this.ViewState["CssClass"] != null ? this.ViewState["CssClass"] as string : string.Empty;
@@ -180,7 +180,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     /// <value>
     /// The icon.
     /// </value>
-    [CanBeNull]
+    
     public string Icon
     {
         get => this.ViewState["Icon"] != null ? this.ViewState["Icon"] as string : string.Empty;
@@ -194,7 +194,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     /// <value>
     /// The icon CSS class.
     /// </value>
-    [CanBeNull]
+    
     public string IconCssClass
     {
         get => this.ViewState["IconCssClass"] != null ? this.ViewState["IconCssClass"] as string : "fa";
@@ -208,7 +208,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     /// <value>
     /// The icon.
     /// </value>
-    [CanBeNull]
+    
     public string IconColor
     {
         get => this.ViewState["IconColor"] != null ? this.ViewState["IconColor"] as string : string.Empty;
@@ -216,7 +216,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
         set => this.ViewState["IconColor"] = value;
     }
 
-    [CanBeNull]
+    
     public string ReturnConfirmTag
     {
         get =>
@@ -233,7 +233,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     /// <value>
     /// The data target.
     /// </value>
-    [CanBeNull]
+    
     public string DataTarget
     {
         get => this.ViewState["DataTarget"] != null ? this.ViewState["DataTarget"] as string : string.Empty;
@@ -244,7 +244,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     /// <summary>
     /// Gets or sets the data content.
     /// </summary>
-    [CanBeNull]
+    
     public string DataContent
     {
         get => this.ViewState["DataContent"] != null ? this.ViewState["DataContent"] as string : string.Empty;
@@ -258,7 +258,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     /// <value>
     /// The data toggle.
     /// </value>
-    [CanBeNull]
+    
     public string DataToggle
     {
         get => this.ViewState["DataToggle"] != null ? this.ViewState["DataToggle"] as string : string.Empty;
@@ -269,13 +269,13 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     /// <summary>
     /// Gets or sets the data dismiss.
     /// </summary>
-    [CanBeNull]
+    
     public string DataDismiss { get; set; }
 
     /// <summary>
     ///    Gets or sets the Setting the link property will make this control non post-back.
     /// </summary>
-    [CanBeNull]
+    
     public string NavigateUrl
     {
         get => this.ViewState["NavigateUrl"] != null ? this.ViewState["NavigateUrl"] as string : string.Empty;
@@ -306,7 +306,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     /// <summary>
     ///    Gets or sets the Localized Page for the optional link description (title)
     /// </summary>
-    [CanBeNull]
+    
     public string TitleLocalizedPage
     {
         get =>
@@ -365,7 +365,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     /// <summary>
     ///    Gets or sets the Localized Tag for the optional link description (title)
     /// </summary>
-    [CanBeNull]
+    
     public string TitleLocalizedTag
     {
         get =>
@@ -379,7 +379,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     /// <summary>
     ///    Gets or sets the Non-localized Title for optional link description
     /// </summary>
-    [CanBeNull]
+    
     public string TitleNonLocalized
     {
         get =>
@@ -396,7 +396,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     /// <param name="eventArgument">
     /// The event argument.
     /// </param>
-    void IPostBackEventHandler.RaisePostBackEvent([NotNull] string eventArgument)
+    void IPostBackEventHandler.RaisePostBackEvent(string eventArgument)
     {
         if (this.CausesValidation)
         {
@@ -430,7 +430,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     /// <param name="writer">
     /// The output.
     /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         if (this.CausesValidation)
         {
@@ -618,7 +618,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     /// <param name="mode">The button action.</param>
     /// <returns>Returns the CSS Class for the button</returns>
     /// <exception cref="InvalidOperationException">Exception when other value</exception>
-    private static string GetAttributeValue([CanBeNull] ButtonStyle mode)
+    private static string GetAttributeValue(ButtonStyle mode)
     {
         return mode switch
             {
@@ -651,7 +651,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     /// <exception cref="InvalidOperationException">
     /// Exception when other value
     /// </exception>
-    private static string GetButtonSizeClass([CanBeNull] ButtonSize size)
+    private static string GetButtonSizeClass(ButtonSize size)
     {
         return size switch
             {
@@ -699,7 +699,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     /// <param name="e">
     /// The e.
     /// </param>
-    private void OnClick([NotNull] EventArgs e)
+    private void OnClick(EventArgs e)
     {
         var handler = (EventHandler)this.Events[ClickEvent];
         handler?.Invoke(this, e);
@@ -711,7 +711,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     /// <param name="e">
     /// The e.
     /// </param>
-    private void OnCommand([NotNull] CommandEventArgs e)
+    private void OnCommand(CommandEventArgs e)
     {
         var handler = (CommandEventHandler)this.Events[CommandEvent];
 
@@ -725,7 +725,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void ThemeButtonLoad([NotNull] object sender, [NotNull] EventArgs e)
+    private void ThemeButtonLoad(object sender, EventArgs e)
     {
         // render the text if available
         if (this.localizedLabel.LocalizedTag.IsSet())

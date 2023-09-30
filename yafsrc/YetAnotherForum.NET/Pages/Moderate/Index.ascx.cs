@@ -95,7 +95,7 @@ public partial class Index : ModerateForumPage
     /// </summary>
     /// <param name="source">The source of the event.</param>
     /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-    protected void ForumListItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    protected void ForumListItemCommand(object source, RepeaterCommandEventArgs e)
     {
         // which command are we handling
         switch (e.CommandName.ToLower())
@@ -118,7 +118,7 @@ public partial class Index : ModerateForumPage
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="System.Web.UI.WebControls.RepeaterCommandEventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         // this needs to be done just once, not during post-backs
         if (this.IsPostBack)

@@ -86,7 +86,7 @@ public class SimpleBaseForumModule : BaseForumModule
     /// <param name="e">
     /// The e.
     /// </param>
-    private void ForumControl_AfterForumPageLoad([NotNull] object sender, [NotNull] AfterForumPageLoad e)
+    private void ForumControl_AfterForumPageLoad(object sender, AfterForumPageLoad e)
     {
         this.InitAfterPage();
     }
@@ -100,7 +100,7 @@ public class SimpleBaseForumModule : BaseForumModule
     /// <param name="e">
     /// The e.
     /// </param>
-    private void ForumControl_BeforeForumPageLoad([NotNull] object sender, [NotNull] BeforeForumPageLoad e)
+    private void ForumControl_BeforeForumPageLoad(object sender, BeforeForumPageLoad e)
     {
         this.InitBeforePage();
     }

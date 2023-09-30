@@ -46,7 +46,7 @@ public partial class SpamWords : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void PagerTopChange([NotNull] object sender, [NotNull] EventArgs e)
+    protected void PagerTopChange(object sender, EventArgs e)
     {
         // rebind
         this.BindData();
@@ -66,7 +66,7 @@ public partial class SpamWords : AdminPage
     /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-    protected override void OnInit([NotNull] EventArgs e)
+    protected override void OnInit(EventArgs e)
     {
         this.list.ItemCommand += this.ListItemCommand;
         base.OnInit(e);
@@ -77,7 +77,7 @@ public partial class SpamWords : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -106,7 +106,7 @@ public partial class SpamWords : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    protected void PagerTop_PageChange(object sender, EventArgs e)
     {
         // rebind
         this.BindData();
@@ -241,7 +241,7 @@ public partial class SpamWords : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="RepeaterCommandEventArgs"/> instance containing the event data.</param>
-    private void ListItemCommand([NotNull] object sender, [NotNull] RepeaterCommandEventArgs e)
+    private void ListItemCommand(object sender, RepeaterCommandEventArgs e)
     {
         switch (e.CommandName)
         {

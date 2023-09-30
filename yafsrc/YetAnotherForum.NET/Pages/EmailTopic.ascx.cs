@@ -44,7 +44,7 @@ public partial class EmailTopic : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (!this.Get<HttpRequestBase>().QueryString.Exists("t") || !this.PageBoardContext.ForumReadAccess
                                                                  || !this.PageBoardContext.BoardSettings.AllowEmailTopic)
@@ -98,7 +98,7 @@ public partial class EmailTopic : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void SendEmail_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void SendEmail_Click(object sender, EventArgs e)
     {
         try
         {

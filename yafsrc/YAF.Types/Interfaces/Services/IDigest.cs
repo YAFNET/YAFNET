@@ -40,8 +40,8 @@ public interface IDigest
     /// <param name="toName">To name.</param>
     /// <returns>MailMessage.</returns>
     MailMessage CreateDigest(
-        [NotNull] User user,
-        [NotNull] MailAddress boardAddress,
-        [NotNull] string toEmail,
-        [CanBeNull] string toName);
+        User user,
+        MailAddress boardAddress,
+        string toEmail,
+        string toName);
 }

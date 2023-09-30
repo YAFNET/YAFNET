@@ -50,7 +50,7 @@ public partial class BBCode_Edit : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void Add_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Add_Click(object sender, EventArgs e)
     {
         this.GetRepository<Types.Models.BBCode>().Save(
             this.BBCodeID,
@@ -104,7 +104,7 @@ public partial class BBCode_Edit : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Cancel_Click(object sender, EventArgs e)
     {
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_BBCodes);
     }
@@ -114,7 +114,7 @@ public partial class BBCode_Edit : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {

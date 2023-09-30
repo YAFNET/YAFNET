@@ -40,7 +40,7 @@ public static class LoggerExtensions
     /// <param name="message">
     /// The message.
     /// </param>
-    public static void Debug(this ILoggerService logger, [NotNull] string message)
+    public static void Debug(this ILoggerService logger, string message)
     {
         logger.Log(message, EventLogTypes.Debug);
     }
@@ -57,7 +57,7 @@ public static class LoggerExtensions
     /// <param name="message">
     /// The message.
     /// </param>
-    public static void Error(this ILoggerService logger, Exception ex, [NotNull] string message)
+    public static void Error(this ILoggerService logger, Exception ex, string message)
     {
         logger.Log(message, EventLogTypes.Error, exception: ex);
     }
@@ -71,7 +71,7 @@ public static class LoggerExtensions
     /// <param name="message">
     /// The message.
     /// </param>
-    public static void Info(this ILoggerService logger, [NotNull] string message)
+    public static void Info(this ILoggerService logger, string message)
     {
         logger.Log(message, EventLogTypes.Information);
     }
@@ -89,9 +89,9 @@ public static class LoggerExtensions
     /// The description.
     /// </param>
     public static void UserDeleted(
-        [NotNull] this ILoggerService logger,
-        [CanBeNull] int? userId,
-        [NotNull] string description)
+        this ILoggerService logger,
+        int? userId,
+        string description)
     {
         CodeContracts.VerifyNotNull(logger);
 
@@ -111,9 +111,9 @@ public static class LoggerExtensions
     /// The description.
     /// </param>
     public static void SpamMessageDetected(
-        [NotNull] this ILoggerService logger,
-        [CanBeNull] int? userId,
-        [NotNull] string description)
+        this ILoggerService logger,
+        int? userId,
+        string description)
     {
         CodeContracts.VerifyNotNull(logger);
 
@@ -133,9 +133,9 @@ public static class LoggerExtensions
     /// The description.
     /// </param>
     public static void SpamBotDetected(
-        [NotNull] this ILoggerService logger,
-        [CanBeNull] int? userId,
-        [NotNull] string description)
+        this ILoggerService logger,
+        int? userId,
+        string description)
     {
         CodeContracts.VerifyNotNull(logger);
 
@@ -161,11 +161,11 @@ public static class LoggerExtensions
     /// The event type.
     /// </param>
     public static void Log(
-        [NotNull] this ILoggerService logger,
-        [CanBeNull] int? userId,
-        [CanBeNull] object source,
-        [NotNull] string description,
-        [NotNull] EventLogTypes eventType = EventLogTypes.Error)
+        this ILoggerService logger,
+        int? userId,
+        object source,
+        string description,
+        EventLogTypes eventType = EventLogTypes.Error)
     {
         CodeContracts.VerifyNotNull(logger);
 
@@ -195,7 +195,7 @@ public static class LoggerExtensions
     /// <param name="args">
     /// The args.
     /// </param>
-    public static void Trace(this ILoggerService logger, [NotNull] string format, [NotNull] params object[] args)
+    public static void Trace(this ILoggerService logger, string format, params object[] args)
     {
         logger.Log(string.Format(format, args), EventLogTypes.Trace);
     }
@@ -212,7 +212,7 @@ public static class LoggerExtensions
     /// <param name="args">
     /// The args.
     /// </param>
-    public static void Warn(this ILoggerService logger, [NotNull] string format, [NotNull] params object[] args)
+    public static void Warn(this ILoggerService logger, string format, params object[] args)
     {
         logger.Log(string.Format(format, args), EventLogTypes.Warning);
     }
@@ -232,7 +232,7 @@ public static class LoggerExtensions
     /// <param name="args">
     /// The args.
     /// </param>
-    public static void Warn(this ILoggerService logger, Exception ex, [NotNull] string format, [NotNull] params object[] args)
+    public static void Warn(this ILoggerService logger, Exception ex, string format, params object[] args)
     {
         logger.Log(string.Format(format, args), EventLogTypes.Warning, exception: ex);
     }

@@ -25,8 +25,6 @@ namespace YAF.Core.Tasks;
 
 using System;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The base background task.
 /// </summary>

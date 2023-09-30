@@ -78,7 +78,7 @@ public class ExportServiceAttribute : Attribute
     /// The register Specified Types.
     /// </param>
     public ExportServiceAttribute(
-        ServiceLifetimeScope serviceLifetimeScope, [CanBeNull] string named, [NotNull] params Type[] registerSpecifiedTypes)
+        ServiceLifetimeScope serviceLifetimeScope, string named, params Type[] registerSpecifiedTypes)
     {
         this.Named = named;
         this.ServiceLifetimeScope = serviceLifetimeScope;
@@ -98,7 +98,7 @@ public class ExportServiceAttribute : Attribute
     /// The register Specified Types.
     /// </param>
     public ExportServiceAttribute(
-        ServiceLifetimeScope serviceLifetimeScope, [CanBeNull] object keyed, [NotNull] params Type[] registerSpecifiedTypes)
+        ServiceLifetimeScope serviceLifetimeScope, object keyed, params Type[] registerSpecifiedTypes)
     {
         this.ServiceLifetimeScope = serviceLifetimeScope;
         this.Keyed = keyed;

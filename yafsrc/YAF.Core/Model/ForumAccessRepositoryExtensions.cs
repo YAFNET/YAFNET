@@ -48,8 +48,8 @@ public static class ForumAccessRepositoryExtensions
     /// </param>
     public static void InitialAssignGroup(
         this IRepository<ForumAccess> repository,
-        [NotNull] int groupId,
-        [NotNull] int accessMaskId)
+        int groupId,
+        int accessMaskId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -84,7 +84,7 @@ public static class ForumAccessRepositoryExtensions
     /// </returns>
     public static List<(int ForumID, string ForumName, int? ParentID, int AccessMaskID)> ListByGroups(
         this IRepository<ForumAccess> repository,
-        [NotNull] int groupId)
+        int groupId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -117,9 +117,9 @@ public static class ForumAccessRepositoryExtensions
     /// <param name="accessMaskId">The access mask identifier.</param>
     public static void Save(
         this IRepository<ForumAccess> repository,
-        [NotNull] int forumId,
-        [NotNull] int groupId,
-        [NotNull] int accessMaskId)
+        int forumId,
+        int groupId,
+        int accessMaskId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -145,9 +145,9 @@ public static class ForumAccessRepositoryExtensions
     /// </param>
     public static void Create(
         this IRepository<ForumAccess> repository,
-        [NotNull] int forumId,
-        [NotNull] int groupId,
-        [NotNull] int accessMaskId)
+        int forumId,
+        int groupId,
+        int accessMaskId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -167,8 +167,8 @@ public static class ForumAccessRepositoryExtensions
     /// The <see cref="List"/>.
     /// </returns>
     public static List<Tuple<ForumAccess, Group>> GetForumAccessList(
-        [NotNull] this IRepository<ForumAccess> repository,
-        [NotNull] int forumId)
+        this IRepository<ForumAccess> repository,
+        int forumId)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -194,8 +194,8 @@ public static class ForumAccessRepositoryExtensions
     /// The <see cref="List"/>.
     /// </returns>
     public static List<Tuple<ForumAccess, AccessMask, Group>> GetReadAccessList(
-        [NotNull] this IRepository<ForumAccess> repository,
-        [NotNull] int forumId)
+        this IRepository<ForumAccess> repository,
+        int forumId)
     {
         CodeContracts.VerifyNotNull(repository);
 

@@ -67,8 +67,8 @@ public static class CategoryRepositoryExtensions
     /// </returns>
     public static List<Category> List(
         this IRepository<Category> repository,
-        [CanBeNull] int? categoryId = null,
-        [CanBeNull] int? boardId = null)
+        int? categoryId = null,
+        int? boardId = null)
     {
         CodeContracts.VerifyNotNull(repository);
 
@@ -108,12 +108,12 @@ public static class CategoryRepositoryExtensions
     /// </returns>
     public static int Save(
         this IRepository<Category> repository,
-        [CanBeNull] int? categoryId,
-        [NotNull] string name,
-        [CanBeNull] string categoryImage,
-        [NotNull] short sortOrder, 
-        [NotNull] CategoryFlags flags,
-        [CanBeNull] int? boardId = null)
+        int? categoryId,
+        string name,
+        string categoryImage,
+        short sortOrder, 
+        CategoryFlags flags,
+        int? boardId = null)
     {
         CodeContracts.VerifyNotNull(repository);
 

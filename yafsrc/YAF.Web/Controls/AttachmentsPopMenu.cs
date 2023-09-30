@@ -52,7 +52,7 @@ public class AttachmentsPopMenu : BaseControl, IPostBackEventHandler
     /// <param name="eventArgument">
     /// The event argument.
     /// </param>
-    public void RaisePostBackEvent([NotNull] string eventArgument)
+    public void RaisePostBackEvent(string eventArgument)
     {
         this.ItemClick?.Invoke(this, new PopEventArgs(eventArgument));
     }
@@ -63,7 +63,7 @@ public class AttachmentsPopMenu : BaseControl, IPostBackEventHandler
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         if (!this.Visible)
         {

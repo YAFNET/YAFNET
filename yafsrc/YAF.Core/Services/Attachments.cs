@@ -42,7 +42,7 @@ public class Attachments : IAttachment, IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public Attachments([NotNull] IServiceLocator serviceLocator)
+    public Attachments(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }
@@ -58,7 +58,7 @@ public class Attachments : IAttachment, IHaveServiceLocator
     /// <param name="context">
     /// The context.
     /// </param>
-    public void GetResponseAttachment([NotNull] HttpContext context)
+    public void GetResponseAttachment(HttpContext context)
     {
         try
         {
@@ -155,7 +155,7 @@ public class Attachments : IAttachment, IHaveServiceLocator
     /// Gets the response image.
     /// </summary>
     /// <param name="context">The context.</param>
-    public void GetResponseImage([NotNull] HttpContext context)
+    public void GetResponseImage(HttpContext context)
     {
         try
         {

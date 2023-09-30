@@ -44,7 +44,7 @@ public static class ITaskModuleManagerExtensions
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public static bool Start<T>([NotNull] this ITaskModuleManager taskModuleManager, [NotNull] Func<T> createTask)
+    public static bool Start<T>(this ITaskModuleManager taskModuleManager, Func<T> createTask)
         where T : IBackgroundTask
     {
         CodeContracts.VerifyNotNull(taskModuleManager);
@@ -69,7 +69,7 @@ public static class ITaskModuleManagerExtensions
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public static bool Start<T>([NotNull] this ITaskModuleManager taskModuleManager, [CanBeNull] object data)
+    public static bool Start<T>(this ITaskModuleManager taskModuleManager, object data)
         where T : IBackgroundTask, new()
     {
         CodeContracts.VerifyNotNull(taskModuleManager);

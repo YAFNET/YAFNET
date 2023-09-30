@@ -50,7 +50,7 @@ public partial class NntpForumEdit : BaseUserControl
     /// <param name="e">
     /// the Event Arguments
     /// </param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.SelectForumsLoadJs),
@@ -118,7 +118,7 @@ public partial class NntpForumEdit : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (!this.IsPostBack)
         {
@@ -135,7 +135,7 @@ public partial class NntpForumEdit : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Save_OnClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Save_OnClick(object sender, EventArgs e)
     {
         if (!this.Page.IsValid)
         {

@@ -62,7 +62,7 @@ public partial class PMList : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void DateLinkAsc_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void DateLinkAsc_Click(object sender, EventArgs e)
     {
         this.SetSort("Created", true);
         this.BindData();
@@ -73,7 +73,7 @@ public partial class PMList : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void DateLinkDesc_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void DateLinkDesc_Click(object sender, EventArgs e)
     {
         this.SetSort("Created", false);
         this.BindData();
@@ -86,7 +86,7 @@ public partial class PMList : BaseUserControl
     /// The source of the event.
     /// </param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void DeleteAll_Click([NotNull] object source, [NotNull] EventArgs e)
+    protected void DeleteAll_Click(object source, EventArgs e)
     {
         var messages = this.GetRepository<UserPMessage>().List(this.PageBoardContext.PageUserID, View);
 
@@ -116,7 +116,7 @@ public partial class PMList : BaseUserControl
     /// <param name="e">
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     /// </param>
-    protected void DeleteSelected_Click([NotNull] object source, [NotNull] EventArgs e)
+    protected void DeleteSelected_Click(object source, EventArgs e)
     {
         var selectedMessages = this.Messages.Items.Cast<RepeaterItem>()
             .Where(item => item.FindControlAs<CheckBox>("ItemCheck").Checked);
@@ -148,7 +148,7 @@ public partial class PMList : BaseUserControl
     /// The source of the event.
     /// </param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void ExportAll_Click([NotNull] object source, [NotNull] EventArgs e)
+    protected void ExportAll_Click(object source, EventArgs e)
     {
         var messageList = this.GetMessagesForExport(null);
 
@@ -177,7 +177,7 @@ public partial class PMList : BaseUserControl
     /// The source of the event.
     /// </param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void ExportSelected_Click([NotNull] object source, [NotNull] EventArgs e)
+    protected void ExportSelected_Click(object source, EventArgs e)
     {
         var exportPmIds = this.Messages.Items.Cast<RepeaterItem>()
             .Where(item => item.FindControlAs<CheckBox>("ItemCheck").Checked)
@@ -215,7 +215,7 @@ public partial class PMList : BaseUserControl
     /// The source of the event.
     /// </param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void FromLinkAsc_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void FromLinkAsc_Click(object sender, EventArgs e)
     {
         this.SetSort(this.View == PmView.Outbox ? "ToUser" : "FromUser", true);
 
@@ -231,7 +231,7 @@ public partial class PMList : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void FromLinkDesc_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void FromLinkDesc_Click(object sender, EventArgs e)
     {
         this.SetSort(this.View == PmView.Outbox ? "ToUser" : "FromUser", false);
 
@@ -245,7 +245,7 @@ public partial class PMList : BaseUserControl
     /// <returns>
     /// The get message link.
     /// </returns>
-    protected string GetMessageLink([NotNull] object messageId)
+    protected string GetMessageLink(object messageId)
     {
         return this.Get<LinkBuilder>().GetLink(
             ForumPages.PrivateMessage,
@@ -259,7 +259,7 @@ public partial class PMList : BaseUserControl
     /// The source of the event.
     /// </param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void MarkAsRead_Click([NotNull] object source, [NotNull] EventArgs e)
+    protected void MarkAsRead_Click(object source, EventArgs e)
     {
         var messages = this.GetRepository<UserPMessage>().List(this.PageBoardContext.PageUserID, this.View);
 
@@ -281,7 +281,7 @@ public partial class PMList : BaseUserControl
     /// The source of the event.
     /// </param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.ViewState["SortField"] == null)
         {
@@ -347,7 +347,7 @@ public partial class PMList : BaseUserControl
     /// The source of the event.
     /// </param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void PagerTop_PageChange([NotNull] object sender, [NotNull] EventArgs e)
+    protected void PagerTop_PageChange(object sender, EventArgs e)
     {
         // rebind
         this.BindData();
@@ -360,7 +360,7 @@ public partial class PMList : BaseUserControl
     /// The source of the event.
     /// </param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void SubjectLinkAsc_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void SubjectLinkAsc_Click(object sender, EventArgs e)
     {
         this.SetSort("Subject", true);
         this.BindData();
@@ -373,7 +373,7 @@ public partial class PMList : BaseUserControl
     /// The source of the event.
     /// </param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected void SubjectLinkDesc_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void SubjectLinkDesc_Click(object sender, EventArgs e)
     {
         this.SetSort("Subject", false);
         this.BindData();
@@ -386,7 +386,7 @@ public partial class PMList : BaseUserControl
     /// <returns>
     /// Returns the filtered Messages
     /// </returns>
-    private List<PagedPm> GetMessagesForExport([CanBeNull] ICollection<int> exportPmIds)
+    private List<PagedPm> GetMessagesForExport(ICollection<int> exportPmIds)
     {
         var list = (List<PagedPm>)this.Messages.DataSource;
 
@@ -484,7 +484,7 @@ public partial class PMList : BaseUserControl
     /// <param name="messageList">
     /// DataView that Contains the Private Messages
     /// </param>
-    private void ExportCsvFile([NotNull] IEnumerable<PagedPm> messageList)
+    private void ExportCsvFile(IEnumerable<PagedPm> messageList)
     {
         this.Get<HttpResponseBase>().Clear();
         this.Get<HttpResponseBase>().ClearContent();
@@ -520,7 +520,7 @@ public partial class PMList : BaseUserControl
     /// <param name="messageList">
     /// DataView that Contains the Private Messages
     /// </param>
-    private void ExportXmlFile([NotNull] IEnumerable<PagedPm> messageList)
+    private void ExportXmlFile(IEnumerable<PagedPm> messageList)
     {
         this.Get<HttpResponseBase>().Clear();
         this.Get<HttpResponseBase>().ClearContent();
@@ -558,7 +558,7 @@ public partial class PMList : BaseUserControl
     /// <param name="ascending">
     /// The ascending.
     /// </param>
-    private void SetSort([NotNull] string field, bool ascending)
+    private void SetSort(string field, bool ascending)
     {
         if (this.ViewState["SortField"] != null && this.ViewState["SortField"].ToString() == field)
         {

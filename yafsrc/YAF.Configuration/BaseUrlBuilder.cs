@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Configuration;
 
 using System.Web.Hosting;
@@ -117,7 +118,7 @@ public abstract class BaseUrlBuilder : IUrlBuilder
     /// <returns>
     /// The get base url from variables.
     /// </returns>
-    [NotNull]
+    
     public static string GetBaseUrlFromVariables()
     {
         var url = new StringBuilder();

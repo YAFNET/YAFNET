@@ -40,7 +40,7 @@ public class PopupDialogNotification : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         // add js for client-side error settings...
         var javaScriptFunction =

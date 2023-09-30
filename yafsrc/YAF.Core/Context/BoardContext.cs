@@ -172,7 +172,7 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// <returns>
     /// Value if it's found, null if it doesn't exist.
     /// </returns>
-    public object this[[NotNull] string varName]
+    public object this[string varName]
     {
         get => this.Vars.ContainsKey(varName) ? this.Vars[varName] : null;
 
@@ -188,7 +188,7 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// <param name="messageType">
     /// The message type.
     /// </param>
-    public void Notify([NotNull] string message, MessageTypes messageType)
+    public void Notify(string message, MessageTypes messageType)
     {
         this.LoadMessage.Add(message, messageType);
     }

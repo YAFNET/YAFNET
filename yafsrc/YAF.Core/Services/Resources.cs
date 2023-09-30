@@ -49,7 +49,7 @@ public class Resources : IResources, IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public Resources([NotNull] IServiceLocator serviceLocator)
+    public Resources(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }
@@ -63,7 +63,7 @@ public class Resources : IResources, IHaveServiceLocator
     /// Gets the forum user info as JSON string for the hover cards
     /// </summary>
     /// <param name="context">The context.</param>
-    public void GetUserInfo([NotNull] HttpContext context)
+    public void GetUserInfo(HttpContext context)
     {
         try
         {
@@ -161,7 +161,7 @@ public class Resources : IResources, IHaveServiceLocator
     /// Gets the list of all Custom BB Codes
     /// </summary>
     /// <param name="context">The context.</param>
-    public void GetCustomBBCodes([NotNull] HttpContext context)
+    public void GetCustomBBCodes(HttpContext context)
     {
         try
         {
@@ -207,7 +207,7 @@ public class Resources : IResources, IHaveServiceLocator
     /// <param name="context">
     /// The context.
     /// </param>
-    public void GetMentionUsers([NotNull] HttpContext context)
+    public void GetMentionUsers(HttpContext context)
     {
         try
         {
@@ -256,7 +256,7 @@ public class Resources : IResources, IHaveServiceLocator
     /// <param name="context">
     /// The context.
     /// </param>
-    public void GetTextAvatar([NotNull] HttpContext context)
+    public void GetTextAvatar(HttpContext context)
     {
         try
         {
@@ -334,7 +334,7 @@ public class Resources : IResources, IHaveServiceLocator
     /// <param name="context">
     /// The context.
     /// </param>
-    public void GetResponseLocalAvatar([NotNull] HttpContext context)
+    public void GetResponseLocalAvatar(HttpContext context)
     {
         try
         {

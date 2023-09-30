@@ -47,7 +47,7 @@ public partial class EditUsersAvatar : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Back_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Back_Click(object sender, EventArgs e)
     {
         this.Get<LinkBuilder>().Redirect(
             this.PageBoardContext.CurrentForumPage.IsAdminPage ? ForumPages.Admin_Users : ForumPages.MyAccount);
@@ -58,7 +58,7 @@ public partial class EditUsersAvatar : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void DeleteAvatar_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void DeleteAvatar_Click(object sender, EventArgs e)
     {
         this.GetRepository<User>().DeleteAvatar(this.currentUserId);
 
@@ -73,7 +73,7 @@ public partial class EditUsersAvatar : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.PageBoardContext.CurrentForumPage.IsAdminPage && this.PageBoardContext.IsAdmin
                                                                && this.Get<HttpRequestBase>().QueryString.Exists("u"))
@@ -106,7 +106,7 @@ public partial class EditUsersAvatar : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void GalleryUpdateClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void GalleryUpdateClick(object sender, EventArgs e)
     {
         if (this.AvatarGallery.SelectedIndex <= 0)
         {
@@ -131,7 +131,7 @@ public partial class EditUsersAvatar : BaseUserControl
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void UploadUpdate_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void UploadUpdate_Click(object sender, EventArgs e)
     {
         if (this.File.PostedFile == null || this.File.PostedFile.FileName.Trim().Length <= 0
                                          || this.File.PostedFile.ContentLength <= 0 || !this.File.PostedFile.FileName.IsImageName())

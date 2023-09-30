@@ -55,7 +55,7 @@ public class Theme : ITheme
     /// <returns>
     ///   <c>true</c> if [is valid theme] [the specified theme]; otherwise, <c>false</c>.
     /// </returns>
-    public static bool IsValidTheme([NotNull] string theme)
+    public static bool IsValidTheme(string theme)
     {
         CodeContracts.VerifyNotNull(theme);
 
@@ -72,7 +72,7 @@ public class Theme : ITheme
     /// <returns>
     /// The build theme path.
     /// </returns>
-    public string BuildThemePath([NotNull] string filename)
+    public string BuildThemePath(string filename)
     {
         CodeContracts.VerifyNotNull(filename);
 
@@ -86,7 +86,7 @@ public class Theme : ITheme
     /// <returns>
     /// The get mapped theme file.
     /// </returns>
-    private static string GetMappedThemeFile([NotNull] string theme)
+    private static string GetMappedThemeFile(string theme)
     {
         CodeContracts.VerifyNotNull(theme);
 

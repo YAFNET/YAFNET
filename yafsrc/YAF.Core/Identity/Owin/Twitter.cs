@@ -202,9 +202,9 @@ public class Twitter : IAuthBase, IHaveServiceLocator
     /// The user Id.
     /// </param>
     private void SendRegistrationMessageToTwitterUser(
-        [NotNull] AspNetUsers user,
-        [NotNull] string pass,
-        [NotNull] int userId)
+        AspNetUsers user,
+        string pass,
+        int userId)
     {
         var subject = string.Format(
             BoardContext.Current.Get<ILocalization>().GetText("COMMON", "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT"),

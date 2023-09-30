@@ -37,7 +37,7 @@ public partial class EditUsersGroups : BaseUserControl
     /// <summary>
     /// Gets or sets the User Data.
     /// </summary>
-    [NotNull]
+    
     public Tuple<User, AspNetUsers, Rank, VAccess> User { get; set; }
 	
     /// <summary>
@@ -49,7 +49,7 @@ public partial class EditUsersGroups : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         // this needs to be done just once, not during post-backs
         if (this.IsPostBack)
@@ -72,7 +72,7 @@ public partial class EditUsersGroups : BaseUserControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Save_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Save_Click(object sender, EventArgs e)
     {
         var addedRoles = new List<string>();
         var removedRoles = new List<string>();

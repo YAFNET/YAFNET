@@ -28,8 +28,6 @@ using System;
 using System.Collections.Generic;
 using System.Reflection;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 ///     The assembly extensions.
 /// </summary>
@@ -46,8 +44,8 @@ public static class AssemblyExtensions
     /// <returns>
     /// The <see cref="IEnumerable"/>.
     /// </returns>
-    [NotNull]
-    public static IEnumerable<Type> FindClassesWithAttribute<T>([NotNull] this IEnumerable<Assembly> assemblies)
+    
+    public static IEnumerable<Type> FindClassesWithAttribute<T>(this IEnumerable<Assembly> assemblies)
         where T : Attribute
     {
         CodeContracts.VerifyNotNull(assemblies);
@@ -72,7 +70,7 @@ public static class AssemblyExtensions
     /// <returns>
     ///     The get assembly sort order.
     /// </returns>
-    public static int GetAssemblySortOrder([NotNull] this Assembly assembly)
+    public static int GetAssemblySortOrder(this Assembly assembly)
     {
         CodeContracts.VerifyNotNull(assembly);
 

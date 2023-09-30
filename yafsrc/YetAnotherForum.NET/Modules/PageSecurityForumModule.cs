@@ -24,7 +24,6 @@
 
 namespace YAF.Modules;
 
-using YAF.Types.Attributes;
 using YAF.Types.EventProxies;
 using YAF.Types.Interfaces.Events;
 
@@ -40,7 +39,7 @@ public class PageSecurityForumModule : SimpleBaseForumModule
     /// <param name="pagePreLoad">
     /// The page pre load.
     /// </param>
-    public PageSecurityForumModule([NotNull] IFireEvent<ForumPagePreLoadEvent> pagePreLoad)
+    public PageSecurityForumModule(IFireEvent<ForumPagePreLoadEvent> pagePreLoad)
     {
         pagePreLoad.HandleEvent += this.PagePreLoad_HandleEvent;
     }
@@ -55,8 +54,8 @@ public class PageSecurityForumModule : SimpleBaseForumModule
     /// The e.
     /// </param>
     private void PagePreLoad_HandleEvent(
-        [NotNull] object sender,
-        [NotNull] EventConverterArgs<ForumPagePreLoadEvent> e)
+        object sender,
+        EventConverterArgs<ForumPagePreLoadEvent> e)
     {
         // no security features for login/logout pages
         if (this.CurrentForumPage.IsAccountPage)

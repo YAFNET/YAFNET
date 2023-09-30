@@ -48,7 +48,7 @@ public static class CollectionExtensions
     /// <typeparam name="TValue">
     /// </typeparam>
     public static void AddOrUpdate<TKey, TValue>(
-        [NotNull] this IDictionary<TKey, TValue> dictionary,
+        this IDictionary<TKey, TValue> dictionary,
         TKey key,
         TValue value)
     {
@@ -78,8 +78,8 @@ public static class CollectionExtensions
     /// <typeparam name="TValue">
     /// </typeparam>
     public static void AddRange<TKey, TValue>(
-        [NotNull] this IDictionary<TKey, TValue> dictionaryFirst,
-        [NotNull] IDictionary<TKey, TValue> dictionarySecondary)
+        this IDictionary<TKey, TValue> dictionaryFirst,
+        IDictionary<TKey, TValue> dictionarySecondary)
     {
         CodeContracts.VerifyNotNull(dictionaryFirst);
         CodeContracts.VerifyNotNull(dictionarySecondary);

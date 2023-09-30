@@ -61,7 +61,7 @@ public partial class HostSettings : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void ActiveDiscussionsCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void ActiveDiscussionsCacheResetClick(object sender, EventArgs e)
     {
         this.RemoveCacheKey(Constants.Cache.ActiveDiscussions);
     }
@@ -71,7 +71,7 @@ public partial class HostSettings : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void BoardModeratorsCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void BoardModeratorsCacheResetClick(object sender, EventArgs e)
     {
         this.RemoveCacheKey(Constants.Cache.ForumModerators);
     }
@@ -81,7 +81,7 @@ public partial class HostSettings : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void BoardUserStatsCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void BoardUserStatsCacheResetClick(object sender, EventArgs e)
     {
         this.RemoveCacheKey(Constants.Cache.BoardUserStats);
     }
@@ -91,7 +91,7 @@ public partial class HostSettings : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void UserLazyDataCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void UserLazyDataCacheResetClick(object sender, EventArgs e)
     {
         // vzrus: remove all users lazy data
         this.Get<IDataCache>().RemoveOf<object>(
@@ -104,7 +104,7 @@ public partial class HostSettings : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void ForumStatisticsCacheResetClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void ForumStatisticsCacheResetClick(object sender, EventArgs e)
     {
         this.RemoveCacheKey(Constants.Cache.BoardStats);
     }
@@ -114,7 +114,7 @@ public partial class HostSettings : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void ResetCacheAllClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void ResetCacheAllClick(object sender, EventArgs e)
     {
         // clear all cache keys
         this.Get<IObjectStore>().Clear();
@@ -127,7 +127,7 @@ public partial class HostSettings : AdminPage
     /// Registers the needed Java Scripts
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         // setup jQuery and YAF JS...
         this.PageBoardContext.PageElements.RegisterJsBlock(
@@ -142,7 +142,7 @@ public partial class HostSettings : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (!this.PageBoardContext.PageUser.UserFlags.IsHostAdmin)
         {
@@ -189,7 +189,7 @@ public partial class HostSettings : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void SaveClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void SaveClick(object sender, EventArgs e)
     {
         // write all the settings back to the settings class
 
@@ -530,7 +530,7 @@ public partial class HostSettings : AdminPage
     /// <returns>
     /// The check cache key.
     /// </returns>
-    private bool CheckCacheKey([NotNull] string key)
+    private bool CheckCacheKey(string key)
     {
         return this.Get<IDataCache>()[key] != null;
     }
@@ -539,7 +539,7 @@ public partial class HostSettings : AdminPage
     /// Removes the cache key.
     /// </summary>
     /// <param name="key">The key.</param>
-    private void RemoveCacheKey([NotNull] string key)
+    private void RemoveCacheKey(string key)
     {
         this.Get<IDataCache>().Remove(key);
         this.CheckCache();

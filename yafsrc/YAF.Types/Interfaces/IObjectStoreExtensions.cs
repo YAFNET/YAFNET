@@ -46,7 +46,7 @@ public static class IObjectStoreExtensions
     /// <returns>
     /// The <see cref="T"/>.
     /// </returns>
-    public static T Get<T>([NotNull] this IObjectStore objectStore, [NotNull] string originalKey)
+    public static T Get<T>(this IObjectStore objectStore, string originalKey)
     {
         CodeContracts.VerifyNotNull(objectStore);
         CodeContracts.VerifyNotNull(originalKey);
@@ -70,7 +70,7 @@ public static class IObjectStoreExtensions
     /// <typeparam name="T">
     /// The Typed Parameter
     /// </typeparam>
-    public static void RemoveOf<T>([NotNull] this IObjectStore objectStore)
+    public static void RemoveOf<T>(this IObjectStore objectStore)
     {
         CodeContracts.VerifyNotNull(objectStore);
 
@@ -83,7 +83,7 @@ public static class IObjectStoreExtensions
     /// <param name="objectStore">
     /// The object store.
     /// </param>
-    public static void Clear([NotNull] this IObjectStore objectStore)
+    public static void Clear(this IObjectStore objectStore)
     {
         // remove all objects in the cache...
         CodeContracts.VerifyNotNull(objectStore);
@@ -100,7 +100,7 @@ public static class IObjectStoreExtensions
     /// <returns>
     /// The <see cref="int"/>.
     /// </returns>
-    public static int Count([NotNull] this IObjectStore objectStore)
+    public static int Count(this IObjectStore objectStore)
     {
         // remove all objects in the cache...
         CodeContracts.VerifyNotNull(objectStore);
@@ -120,7 +120,7 @@ public static class IObjectStoreExtensions
     /// <returns>
     /// The <see cref="int"/>.
     /// </returns>
-    public static int CountOf<T>([NotNull] this IObjectStore objectStore)
+    public static int CountOf<T>(this IObjectStore objectStore)
     {
         // remove all objects in the cache...
         CodeContracts.VerifyNotNull(objectStore);
@@ -141,7 +141,7 @@ public static class IObjectStoreExtensions
     /// The Typed Parameter
     /// </typeparam>
     public static void RemoveOf<T>(
-        [NotNull] this IObjectStore objectStore, [NotNull] Func<KeyValuePair<string, T>, bool> whereFunc)
+        this IObjectStore objectStore, Func<KeyValuePair<string, T>, bool> whereFunc)
     {
         CodeContracts.VerifyNotNull(objectStore);
         CodeContracts.VerifyNotNull(whereFunc);
@@ -159,7 +159,7 @@ public static class IObjectStoreExtensions
     /// The where function.
     /// </param>
     public static void Remove(
-        [NotNull] this IObjectStore objectStore, [NotNull] Func<string, bool> whereFunc)
+        this IObjectStore objectStore, Func<string, bool> whereFunc)
     {
         CodeContracts.VerifyNotNull(objectStore);
         CodeContracts.VerifyNotNull(whereFunc);

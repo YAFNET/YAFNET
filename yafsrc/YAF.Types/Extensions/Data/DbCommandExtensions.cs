@@ -45,7 +45,7 @@ public static class DbCommandExtensions
     /// <param name="item">
     /// The item.
     /// </param>
-    public static void AddParam([NotNull] this IDbCommand cmd, [NotNull] string name, [CanBeNull] object item)
+    public static void AddParam(this IDbCommand cmd, string name, object item)
     {
         CodeContracts.VerifyNotNull(cmd);
         CodeContracts.VerifyNotNull(name);
@@ -62,7 +62,7 @@ public static class DbCommandExtensions
     /// <param name="param">
     /// The param.
     /// </param>
-    public static void AddParam([NotNull] this IDbCommand cmd, KeyValuePair<string, object> param)
+    public static void AddParam(this IDbCommand cmd, KeyValuePair<string, object> param)
     {
         CodeContracts.VerifyNotNull(cmd);
 

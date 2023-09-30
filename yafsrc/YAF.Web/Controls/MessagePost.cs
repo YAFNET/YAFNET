@@ -51,7 +51,7 @@ public class MessagePost : MessageBase
     /// <summary>
     ///   Gets or sets the Words to highlight in this message
     /// </summary>
-    [CanBeNull]
+    
     public virtual IList<string> HighlightWords
     {
         get => this.ViewState["HighlightWords"] as IList<string> ?? new List<string>();
@@ -109,7 +109,7 @@ public class MessagePost : MessageBase
     /// <returns>
     /// The Message with the Span Tag and CSS Class "highlight" that Highlights it
     /// </returns>
-    protected virtual string HighlightMessage([NotNull] string message, bool renderBbCode = false)
+    protected virtual string HighlightMessage(string message, bool renderBbCode = false)
     {
         if (this.HighlightWords.Count > 0)
         {
@@ -125,7 +125,7 @@ public class MessagePost : MessageBase
     /// Raises the <see cref="E:System.Web.UI.Control.PreRender"/> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         if (this.Signature.IsSet())
         {
@@ -148,7 +148,7 @@ public class MessagePost : MessageBase
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         writer.BeginRender();
         writer.WriteBeginTag("div");
@@ -176,7 +176,7 @@ public class MessagePost : MessageBase
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="deleteText">The delete reason text.</param>
-    protected virtual void RenderDeletedMessage([NotNull] HtmlTextWriter writer, string deleteText)
+    protected virtual void RenderDeletedMessage(HtmlTextWriter writer, string deleteText)
     {
         // if message was deleted then write that instead of real body
         if (!this.MessageFlags.IsDeleted)
@@ -200,7 +200,7 @@ public class MessagePost : MessageBase
     /// <param name="editReason">The edit reason text.</param>
     /// <param name="messageId">The message id.</param>
     protected virtual void RenderEditedMessage(
-        [NotNull] HtmlTextWriter writer, [NotNull] DateTime edited, [NotNull] string editReason, int? messageId)
+        HtmlTextWriter writer, DateTime edited, string editReason, int? messageId)
     {
         if (!this.PageBoardContext.BoardSettings.ShowEditedMessage)
         {
@@ -242,7 +242,7 @@ public class MessagePost : MessageBase
     /// <param name="writer">The writer.</param>
     /// <param name="messageId">The message identifier.</param>
     protected virtual void RenderAnswerMessage(
-        [NotNull] HtmlTextWriter writer, int messageId)
+        HtmlTextWriter writer, int messageId)
     {
         writer.Write(
             @"<div class=""alert alert-success alert-dismissible fade show"" role=""alert"">
@@ -259,7 +259,7 @@ public class MessagePost : MessageBase
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected virtual void RenderMessage([NotNull] HtmlTextWriter writer)
+    protected virtual void RenderMessage(HtmlTextWriter writer)
     {
         if (this.MessageFlags.IsDeleted)
         {

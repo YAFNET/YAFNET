@@ -54,7 +54,7 @@ public partial class EditMessage : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Cancel_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Cancel_Click(object sender, EventArgs e)
     {
         // reply to existing topic or editing of existing topic
         this.Get<LinkBuilder>().Redirect(
@@ -117,7 +117,7 @@ public partial class EditMessage : ForumPage
     /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnInit([NotNull] EventArgs e)
+    protected override void OnInit(EventArgs e)
     {
         if (this.PageBoardContext.UploadAccess)
         {
@@ -136,7 +136,7 @@ public partial class EditMessage : ForumPage
     /// Registers the java scripts
     /// </summary>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected override void OnPreRender([NotNull] EventArgs e)
+    protected override void OnPreRender(EventArgs e)
     {
         base.OnPreRender(e);
     }
@@ -146,7 +146,7 @@ public partial class EditMessage : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.PageBoardContext.PageForumID == 0)
         {
@@ -346,7 +346,7 @@ public partial class EditMessage : ForumPage
     /// <param name="e">
     /// The Event Arguments.
     /// </param>
-    protected void PostReply_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void PostReply_Click(object sender, EventArgs e)
     {
         if (!this.IsPostReplyVerified())
         {
@@ -458,7 +458,7 @@ public partial class EditMessage : ForumPage
     /// <param name="e">
     /// The Event Arguments.
     /// </param>
-    protected void Preview_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Preview_Click(object sender, EventArgs e)
     {
         this.PreviewRow.Visible = true;
 
@@ -485,7 +485,7 @@ public partial class EditMessage : ForumPage
     /// <returns>
     /// Returns if user can edit post check.
     /// </returns>
-    private bool CanEditPostCheck([NotNull] Message message, [NotNull] Topic topicInfo)
+    private bool CanEditPostCheck(Message message, Topic topicInfo)
     {
         var postLocked = false;
 
@@ -515,7 +515,7 @@ public partial class EditMessage : ForumPage
     /// <param name="currentMessage">
     /// The current message.
     /// </param>
-    private void InitEditedPost([NotNull] Message currentMessage)
+    private void InitEditedPost(Message currentMessage)
     {
         if (this.forumEditor.UsesBBCode && currentMessage.MessageFlags.IsHtml)
         {

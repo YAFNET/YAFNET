@@ -66,7 +66,7 @@ public static class FileHelper
     /// <returns>
     /// The validate file name.
     /// </returns>
-    [NotNull]
+    
     public static bool ValidateFileName(string fileName)
     {
         return FileNameValidator.IsMatch(fileName);
@@ -81,7 +81,7 @@ public static class FileHelper
     /// <returns>
     /// The clean file name.
     /// </returns>
-    [NotNull]
+    
     public static string CleanFileName(string fileName)
     {
         return FileNameCleaner.Replace(fileName, string.Empty);
@@ -100,9 +100,9 @@ public static class FileHelper
     /// The folder.
     /// </param>
     public static void AddImageFiles(
-        [NotNull] this List<NamedParameter> list,
-        [NotNull] List<FileInfo> files,
-        [NotNull] string folder)
+        this List<NamedParameter> list,
+        List<FileInfo> files,
+        string folder)
     {
         CodeContracts.VerifyNotNull(files);
         CodeContracts.VerifyNotNull(folder);

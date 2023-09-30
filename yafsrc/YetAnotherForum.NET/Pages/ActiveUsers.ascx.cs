@@ -44,7 +44,7 @@ public partial class ActiveUsers : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -92,7 +92,7 @@ public partial class ActiveUsers : ForumPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected void PagerTopPageChange([NotNull] object sender, [NotNull] EventArgs e)
+    protected void PagerTopPageChange(object sender, EventArgs e)
     {
         // rebind
         this.BindData();
@@ -118,7 +118,7 @@ public partial class ActiveUsers : ForumPage
     /// <param name="activeUsers">
     /// The active users.
     /// </param>
-    private static void RemoveAllButGuests([NotNull] ref List<ActiveUser> activeUsers)
+    private static void RemoveAllButGuests(ref List<ActiveUser> activeUsers)
     {
         if (!activeUsers.Any())
         {
@@ -242,7 +242,7 @@ public partial class ActiveUsers : ForumPage
     /// <param name="activeUsers">
     /// The active users.
     /// </param>
-    private void RemoveAllButHiddenUsers([NotNull] ref List<ActiveUser> activeUsers)
+    private void RemoveAllButHiddenUsers(ref List<ActiveUser> activeUsers)
     {
         if (!activeUsers.Any())
         {
@@ -260,7 +260,7 @@ public partial class ActiveUsers : ForumPage
     /// <param name="activeUsers">
     /// The active users.
     /// </param>
-    private void RemoveHiddenUsers([NotNull] ref List<ActiveUser> activeUsers)
+    private void RemoveHiddenUsers(ref List<ActiveUser> activeUsers)
     {
         if (!activeUsers.Any())
         {

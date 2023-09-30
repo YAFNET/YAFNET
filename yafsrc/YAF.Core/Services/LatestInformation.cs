@@ -42,7 +42,7 @@ public class LatestInformation : IHaveServiceLocator, ILatestInformation
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public LatestInformation([NotNull] IServiceLocator serviceLocator)
+    public LatestInformation(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }

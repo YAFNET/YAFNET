@@ -51,10 +51,10 @@ public static class ILoggerExtensions
     /// The event type.
     /// </param>
     public static void Log(
-        [NotNull] this ILoggerService logger, 
-        [CanBeNull] int? userId, 
-        [CanBeNull] object source, 
-        [NotNull] Exception exception, 
+        this ILoggerService logger, 
+        int? userId, 
+        object source, 
+        Exception exception, 
         EventLogTypes eventType = EventLogTypes.Error)
     {
         CodeContracts.VerifyNotNull(logger);

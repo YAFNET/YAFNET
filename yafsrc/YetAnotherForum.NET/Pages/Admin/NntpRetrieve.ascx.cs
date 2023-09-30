@@ -48,7 +48,7 @@ public partial class NntpRetrieve : AdminPage
     /// <returns>
     /// The last message no.
     /// </returns>
-    protected string LastMessageNo([NotNull] object forum)
+    protected string LastMessageNo(object forum)
     {
         var row = (Tuple<NntpForum, NntpServer, Forum>)forum;
         return $"{row.Item1.LastMessageNo:N0}";
@@ -59,7 +59,7 @@ public partial class NntpRetrieve : AdminPage
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         if (this.IsPostBack)
         {
@@ -84,7 +84,7 @@ public partial class NntpRetrieve : AdminPage
     /// </summary>
     /// <param name="sender">The sender.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void RetrieveClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void RetrieveClick(object sender, EventArgs e)
     {
         var seconds = int.Parse(this.Seconds.Text);
         if (seconds < 1)

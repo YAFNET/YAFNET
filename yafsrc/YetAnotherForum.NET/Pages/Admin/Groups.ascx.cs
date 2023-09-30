@@ -114,8 +114,8 @@ public partial class Groups : AdminPage
     /// <returns>
     /// String "Linked" when role is linked to YAF roles, "Un-linkable" otherwise.
     /// </returns>
-    [NotNull]
-    protected string GetLinkedStatus([NotNull] Group currentRow)
+    
+    protected string GetLinkedStatus(Group currentRow)
     {
         // check whether role is Guests role, which can't be linked
         return currentRow.GroupFlags.IsGuest
@@ -132,7 +132,7 @@ public partial class Groups : AdminPage
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void NewGroupClick([NotNull] object sender, [NotNull] EventArgs e)
+    protected void NewGroupClick(object sender, EventArgs e)
     {
         // redirect to new role page
         this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditGroup);
@@ -147,7 +147,7 @@ public partial class Groups : AdminPage
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
     {
         // this needs to be done just once, not during post-backs
         if (this.IsPostBack)
@@ -171,7 +171,7 @@ public partial class Groups : AdminPage
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void RoleListNetItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    protected void RoleListNetItemCommand(object source, RepeaterCommandEventArgs e)
     {
         // detect which command are we handling
         switch (e.CommandName)
@@ -221,7 +221,7 @@ public partial class Groups : AdminPage
     /// <param name="e">
     /// The e.
     /// </param>
-    protected void RoleListYafItemCommand([NotNull] object source, [NotNull] RepeaterCommandEventArgs e)
+    protected void RoleListYafItemCommand(object source, RepeaterCommandEventArgs e)
     {
         // detect which command are we handling
         switch (e.CommandName)

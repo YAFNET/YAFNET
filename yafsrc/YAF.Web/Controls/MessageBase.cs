@@ -68,7 +68,7 @@ public class MessageBase : BaseControl
     /// The Message Id.
     /// </param>
     protected virtual void RenderModulesInBBCode(
-        [NotNull] HtmlTextWriter writer, [NotNull] string message, [NotNull] MessageFlags theseFlags, int? displayUserId, int? messageId)
+        HtmlTextWriter writer, string message, MessageFlags theseFlags, int? displayUserId, int? messageId)
     {
         var workingMessage = message;
 
