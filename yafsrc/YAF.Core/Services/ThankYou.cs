@@ -27,7 +27,6 @@ namespace YAF.Core.Services;
 using System.Web;
 
 using YAF.Core.Model;
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
@@ -70,11 +69,11 @@ public class ThankYou : IThankYou, IHaveServiceLocator
     /// <returns>
     /// Returns ThankYou Info
     /// </returns>
-    [NotNull]
+    
     public ThankYouInfo CreateThankYou(
-        [NotNull] string username,
-        [NotNull] string textTag,
-        [NotNull] string titleTag,
+        string username,
+        string textTag,
+        string titleTag,
         int messageId)
     {
         return new()
@@ -104,11 +103,11 @@ public class ThankYou : IThankYou, IHaveServiceLocator
     /// <returns>
     /// Returns ThankYou Info
     /// </returns>
-    [NotNull]
+    
     public ThankYouInfo GetThankYou(
-        [NotNull] string username,
-        [NotNull] string textTag,
-        [NotNull] string titleTag,
+        string username,
+        string textTag,
+        string titleTag,
         int messageId)
     {
         return new()
@@ -136,7 +135,7 @@ public class ThankYou : IThankYou, IHaveServiceLocator
     /// <returns>
     /// The thanks number.
     /// </returns>
-    public string ThanksInfo([NotNull] string username, int messageId, bool thanksInfoOnly)
+    public string ThanksInfo(string username, int messageId, bool thanksInfoOnly)
     {
         var thanksNumber = this.GetRepository<Thanks>().Count(t => t.MessageID == messageId);
 
@@ -172,8 +171,8 @@ public class ThankYou : IThankYou, IHaveServiceLocator
     /// <returns>
     /// The get thanks.
     /// </returns>
-    [NotNull]
-    private string GetThanks([NotNull] int messageId)
+    
+    private string GetThanks(int messageId)
     {
         var filler = new StringBuilder();
 

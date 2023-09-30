@@ -26,8 +26,6 @@ namespace YAF.Core.Extensions;
 
 using System;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The i task module manager extensions.
 /// </summary>
@@ -47,12 +45,9 @@ public static class ITaskModuleManagerExtensions
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public static bool Start<T>([NotNull] this ITaskModuleManager taskModuleManager, [NotNull] Func<T> createTask)
+    public static bool Start<T>(this ITaskModuleManager taskModuleManager, Func<T> createTask)
         where T : IBackgroundTask
     {
-        CodeContracts.VerifyNotNull(taskModuleManager);
-        CodeContracts.VerifyNotNull(createTask);
-
         var taskName = typeof(T).ToString();
 
         return taskModuleManager.StartTask(taskName, () => createTask());
@@ -72,11 +67,9 @@ public static class ITaskModuleManagerExtensions
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public static bool Start<T>([NotNull] this ITaskModuleManager taskModuleManager, [CanBeNull] object data)
+    public static bool Start<T>(this ITaskModuleManager taskModuleManager, object data)
         where T : IBackgroundTask, new()
     {
-        CodeContracts.VerifyNotNull(taskModuleManager);
-
         return Start(taskModuleManager, () => new T { Data = data });
     }
 }

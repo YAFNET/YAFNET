@@ -47,67 +47,10 @@ public static class NameValueCollectionExtensions
     /// The <see cref="string"/>.
     /// </returns>
     public static string GetFirstOrDefault(
-        [NotNull] this NameValueCollection collection,
-        [NotNull] string paramName)
+        this NameValueCollection collection,
+        string paramName)
     {
-        CodeContracts.VerifyNotNull(collection);
-        CodeContracts.VerifyNotNull(paramName);
-
-        return collection.GetValueList(paramName).FirstOrDefault();
-    }
-
-    /// <summary>
-    /// Gets the first value of <paramref name="paramName"/> in the collection as T or default (Null).
-    /// </summary>
-    /// <typeparam name="T">
-    /// The typed parameter.
-    /// </typeparam>
-    /// <param name="collection">
-    /// The collection.
-    /// </param>
-    /// <param name="paramName">
-    /// The parameter Name.
-    /// </param>
-    /// <returns>
-    /// The <see cref="T"/>.
-    /// </returns>
-    public static T GetFirstOrDefaultAs<T>(
-        [NotNull] this NameValueCollection collection,
-        [NotNull] string paramName)
-    {
-        CodeContracts.VerifyNotNull(collection);
-        CodeContracts.VerifyNotNull(paramName);
-
-        return collection.GetFirstOrDefault(paramName).ToType<T>();
-    }
-
-    /// <summary>
-    /// Get Parameter as integer.
-    /// </summary>
-    /// <param name="collection">
-    /// The collection.
-    /// </param>
-    /// <param name="paramName">
-    /// The parameter name.
-    /// </param>
-    /// <returns>
-    /// Returns the integer Value
-    /// </returns>
-    public static int? GetFirstOrDefaultAsInt(
-        [NotNull] this NameValueCollection collection,
-        [NotNull] string paramName)
-    {
-        CodeContracts.VerifyNotNull(collection);
-        CodeContracts.VerifyNotNull(paramName);
-
-        if (collection.GetFirstOrDefault(paramName) is not null && int.TryParse(
-                collection.GetFirstOrDefault(paramName),
-                out var value))
-        {
-            return value;
-        }
-
-        return null;
+       return collection.GetValueList(paramName).FirstOrDefault();
     }
 
     /// <summary>
@@ -123,12 +66,9 @@ public static class NameValueCollectionExtensions
     /// Does not return null.
     /// </returns>
     public static IEnumerable<string> GetValueList(
-        [NotNull] this NameValueCollection collection,
-        [NotNull] string paramName)
+        this NameValueCollection collection,
+        string paramName)
     {
-        CodeContracts.VerifyNotNull(collection);
-        CodeContracts.VerifyNotNull(paramName);
-
         return collection[paramName] is null
                    ? Enumerable.Empty<string>()
                    : collection[paramName].Split(',').AsEnumerable();
@@ -146,11 +86,8 @@ public static class NameValueCollectionExtensions
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public static bool Exists([NotNull] this NameValueCollection collection, [NotNull] string paramName)
+    public static bool Exists(this NameValueCollection collection, string paramName)
     {
-        CodeContracts.VerifyNotNull(collection);
-        CodeContracts.VerifyNotNull(paramName);
-
         return collection[paramName] is not null;
     }
 }

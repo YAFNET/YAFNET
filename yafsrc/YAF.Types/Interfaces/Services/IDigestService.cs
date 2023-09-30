@@ -41,8 +41,8 @@ public interface IDigestService
     /// <param name="toName">To name.</param>
     /// <returns>MailMessage.</returns>
     MimeMessage CreateDigest(
-        [NotNull] User user,
-        [NotNull] MailboxAddress boardAddress,
-        [NotNull] string toEmail,
-        [CanBeNull] string toName);
+        User user,
+        MailboxAddress boardAddress,
+        string toEmail,
+        string toName);
 }

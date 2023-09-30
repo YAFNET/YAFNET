@@ -455,12 +455,12 @@ public class TestDataModel : AdminPage
     /// The create forums.
     /// </returns>
     private int CreateForums(
-        [NotNull] int boardId,
-        [NotNull] int categoryId,
-        [CanBeNull] int? parentId,
-        [NotNull] int numForums,
-        [NotNull] int topicsToCreate,
-        [NotNull] int messagesToCreate)
+        int boardId,
+        int categoryId,
+        int? parentId,
+        int numForums,
+        int topicsToCreate,
+        int messagesToCreate)
     {
         var countMessagesInStatistics = this.Input.ForumsCountMessages;
 

@@ -64,10 +64,8 @@ public class DynamicServicesModule : BaseModule
     /// <param name="assemblies">
     /// The assemblies.
     /// </param>
-    private static void RegisterDynamicServices(ContainerBuilder builder, [NotNull] Assembly[] assemblies)
+    private static void RegisterDynamicServices(ContainerBuilder builder, Assembly[] assemblies)
     {
-        CodeContracts.VerifyNotNull(assemblies);
-
         var classes = assemblies.FindClassesWithAttribute<ExportServiceAttribute>();
 
         var exclude = new List<Type>

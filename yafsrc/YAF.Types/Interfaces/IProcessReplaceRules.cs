@@ -41,7 +41,7 @@ public interface IProcessReplaceRules
     /// </param>
     /// <exception cref="ArgumentNullException">
     /// </exception>
-    void AddRule([NotNull] IReplaceRule newRule);
+    void AddRule(IReplaceRule newRule);
 
     /// <summary>
     /// Process text using the rules.
@@ -49,5 +49,5 @@ public interface IProcessReplaceRules
     /// <param name="text">
     /// The text.
     /// </param>
-    void Process([NotNull] ref string text);
+    void Process(ref string text);
 }

@@ -70,7 +70,7 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
     /// <value>
     /// The icon.
     /// </value>
-    [CanBeNull]
+    
     public string Icon { get; set; }
 
     /// <summary>
@@ -79,7 +79,7 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
     /// <value>
     /// The icon CSS class.
     /// </value>
-    [CanBeNull]
+    
     public string IconCssClass { get; set; }
 
     /// <summary>
@@ -88,7 +88,7 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
     /// <value>
     /// The icon.
     /// </value>
-    [CanBeNull]
+    
     public string IconColor { get; set; }
 
     /// <summary>
@@ -103,7 +103,7 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
     /// <value>
     /// The return confirm tag.
     /// </value>
-    [CanBeNull]
+    
     public string ReturnConfirmTag { get; set; }
 
     /// <summary>
@@ -118,14 +118,14 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
     /// <value>
     /// The data target.
     /// </value>
-    [CanBeNull]
+    
     public string BsTargetUrl { get; set; }
 
     /// <summary>
     /// Gets or sets the bs target.
     /// </summary>
     /// <value>The bs target.</value>
-    [CanBeNull]
+    
     public string BsTarget { get; set; }
 
     /// <summary>
@@ -134,20 +134,20 @@ public class ButtonHelper : TagHelper, IHaveServiceLocator
     /// <value>
     /// The data toggle.
     /// </value>
-    [CanBeNull]
+    
     public string BsToggle { get; set; }
 
     /// <summary>
     /// Gets or sets the data dismiss.
     /// </summary>
-    [CanBeNull]
+    
     public string BsDismiss { get; set; }
 
     /// <summary>
     /// Gets or sets the content of the bs.
     /// </summary>
     /// <value>The content of the bs.</value>
-    [CanBeNull]
+    
     public string BsContent { get; set; }
 
     /// <summary>

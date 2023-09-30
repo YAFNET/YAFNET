@@ -24,7 +24,6 @@
 
 namespace YAF.Core.Model;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -61,16 +60,14 @@ public static class NntpServerRepositoryExtensions
     /// </param>
     public static void Save(
         this IRepository<NntpServer> repository,
-        [NotNull] int? nntpServerId,
-        [NotNull] int boardId,
-        [NotNull] string name,
-        [NotNull] string address,
-        [NotNull] int? port,
-        [NotNull] string userName,
-        [NotNull] string userPass)
+        int? nntpServerId,
+        int boardId,
+        string name,
+        string address,
+        int? port,
+        string userName,
+        string userPass)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         if (nntpServerId.HasValue)
         {
             repository.UpdateOnly(
@@ -107,7 +104,7 @@ public static class NntpServerRepositoryExtensions
     /// </summary>
     /// <param name="repository">The repository.</param>
     /// <param name="serverId">The server identifier.</param>
-    public static void Delete(this IRepository<NntpServer> repository, [NotNull] int serverId)
+    public static void Delete(this IRepository<NntpServer> repository, int serverId)
     {
         var forums = BoardContext.Current.GetRepository<NntpForum>().Get(n => n.NntpServerID == serverId)
             .Select(forum => forum.ForumID).ToList();

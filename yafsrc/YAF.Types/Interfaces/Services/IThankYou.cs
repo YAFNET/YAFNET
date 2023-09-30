@@ -49,11 +49,11 @@ public interface IThankYou
     /// <returns>
     /// Returns ThankYou Info
     /// </returns>
-    [NotNull]
+    
     ThankYouInfo CreateThankYou(
-        [NotNull] string username,
-        [NotNull] string textTag,
-        [NotNull] string titleTag,
+        string username,
+        string textTag,
+        string titleTag,
         int messageId);
 
     /// <summary>
@@ -74,11 +74,11 @@ public interface IThankYou
     /// <returns>
     /// Returns ThankYou Info
     /// </returns>
-    [NotNull]
+    
     ThankYouInfo GetThankYou(
-        [NotNull] string username,
-        [NotNull] string textTag,
-        [NotNull] string titleTag,
+        string username,
+        string textTag,
+        string titleTag,
         int messageId);
 
     /// <summary>
@@ -97,5 +97,5 @@ public interface IThankYou
     /// <returns>
     /// The thanks info.
     /// </returns>
-    string ThanksInfo([NotNull] string username, int messageId, bool thanksInfoOnly);
+    string ThanksInfo(string username, int messageId, bool thanksInfoOnly);
 }

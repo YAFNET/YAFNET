@@ -39,7 +39,7 @@ public class HttpContextInitEvent : IAmEvent
     /// <param name="httpContext">
     /// The http context.
     /// </param>
-    public HttpContextInitEvent([NotNull] HttpContext httpContext)
+    public HttpContextInitEvent(HttpContext httpContext)
     {
         this.HttpContext = httpContext;
     }

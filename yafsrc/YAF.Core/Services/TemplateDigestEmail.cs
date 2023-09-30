@@ -31,7 +31,6 @@ using Microsoft.AspNetCore.Hosting;
 
 using MimeKit;
 
-using YAF.Types.Attributes;
 using YAF.Types.Objects.Model;
 
 /// <summary>
@@ -43,7 +42,7 @@ public class TemplateDigestEmail : IHaveServiceLocator
     /// Initializes a new instance of the <see cref="TemplateDigestEmail"/> class.
     /// </summary>
     /// <param name="topics">The topics.</param>
-    public TemplateDigestEmail([NotNull] List<PagedTopic> topics)
+    public TemplateDigestEmail(List<PagedTopic> topics)
     {
         this.HtmlTemplateFileName = "EmailTemplate.html";
         this.HtmlDigestTopicTemplateFileName = "DigestTopicTemplate.html";
@@ -129,7 +128,7 @@ public class TemplateDigestEmail : IHaveServiceLocator
     /// </summary>
     /// <param name="subject">The subject.</param>
     /// <returns>System.String.</returns>
-    public string ProcessHtml([CanBeNull] string subject)
+    public string ProcessHtml(string subject)
     {
         var path =
             $"{this.Get<IWebHostEnvironment>().WebRootPath}{this.Get<ITheme>().BuildThemePath(this.HtmlTemplateFileName).Replace("/", "\\")}";
@@ -159,7 +158,7 @@ public class TemplateDigestEmail : IHaveServiceLocator
     /// </summary>
     /// <param name="topic">The topic.</param>
     /// <returns>System.String.</returns>
-    private string ProcessTopic([NotNull] PagedTopic topic)
+    private string ProcessTopic(PagedTopic topic)
     {
         var path =
             $"{this.Get<IWebHostEnvironment>().WebRootPath}{this.Get<ITheme>().BuildThemePath(this.HtmlDigestTopicTemplateFileName).Replace("/", "\\")}";

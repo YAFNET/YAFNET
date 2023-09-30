@@ -33,8 +33,6 @@ using System.Text.RegularExpressions;
 
 using Microsoft.Extensions.Logging;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 ///     The IP Helper Class.
 /// </summary>
@@ -72,7 +70,7 @@ public static class IPHelper
     /// <returns>
     /// IPv4 address if found, else IPv6 address, else localhost.
     /// </returns>
-    public static string GetIpAddressAsString([CanBeNull]string inputIpAddress)
+    public static string GetIpAddressAsString(string inputIpAddress)
     {
         var ipAddressAsString = string.Empty;
 
@@ -83,7 +81,7 @@ public static class IPHelper
         }
 
         // don't resolve ip regex
-        if (inputIpAddress.IsSet() && inputIpAddress.ToLower().Contains("*"))
+        if (inputIpAddress.IsSet() && inputIpAddress.ToLower().Contains('*'))
         {
             return ipAddressAsString;
         }
@@ -123,10 +121,8 @@ public static class IPHelper
     /// <see cref="http://wiki.nginx.org/HttpRealipModule" />
     /// <see cref="http://en.wikipedia.org/wiki/X-Forwarded-For" />
     /// <see cref="http://dev.opera.com/articles/view/opera-mini-request-headers/#x-forwarded-for" />
-    public static string GetUserRealIPAddress([NotNull] this HttpRequest httpRequest)
+    public static string GetUserRealIPAddress(this HttpRequest httpRequest)
     {
-        CodeContracts.VerifyNotNull(httpRequest);
-
         return httpRequest.HttpContext.GetUserRealIPAddress();
     }
 
@@ -139,10 +135,8 @@ public static class IPHelper
     /// <see cref="http://wiki.nginx.org/HttpRealipModule" />
     /// <see cref="http://en.wikipedia.org/wiki/X-Forwarded-For" />
     /// <see cref="http://dev.opera.com/articles/view/opera-mini-request-headers/#x-forwarded-for" />
-    public static string GetUserRealIPAddress([NotNull] this HttpContext httpContext)
+    public static string GetUserRealIPAddress(this HttpContext httpContext)
     {
-        CodeContracts.VerifyNotNull(httpContext);
-
         IPAddress ipAddress;
         var ipString = httpContext.Request.Headers["X-Forwarded-For"].ToString();
 
@@ -183,11 +177,8 @@ public static class IPHelper
     /// <returns>
     /// true if it's banned
     /// </returns>
-    public static bool IsBanned([NotNull] string ban, [NotNull] string chk)
+    public static bool IsBanned(string ban, string chk)
     {
-        CodeContracts.VerifyNotNull(ban);
-        CodeContracts.VerifyNotNull(chk);
-
         var bannedIp = ban.Trim();
 
         if (chk == "::1")
@@ -320,10 +311,8 @@ public static class IPHelper
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public static bool IsRoutable([NotNull] this IPAddress ipAddress)
+    public static bool IsRoutable(this IPAddress ipAddress)
     {
-        CodeContracts.VerifyNotNull(ipAddress);
-
         // Reference: http://en.wikipedia.org/wiki/Reserved_IP_addresses
         var ipAddressBytes = ipAddress.GetAddressBytes();
 

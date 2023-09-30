@@ -26,7 +26,6 @@ namespace YAF.Core.Model;
 
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
 
@@ -52,11 +51,9 @@ public static class MessageHistoryRepositoryExtensions
     /// </returns>
     public static List<MessageHistoryTopic> List(
         this IRepository<MessageHistory> repository,
-        [NotNull] int messageId,
-        [NotNull] int daysToClean)
+        int messageId,
+        int daysToClean)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.DeleteOlderThen(daysToClean);
 
         var list = repository.DbAccess.Execute(
@@ -132,10 +129,8 @@ public static class MessageHistoryRepositoryExtensions
     /// <param name="daysToClean">
     /// The days to clean.
     /// </param>
-    private static void DeleteOlderThen(this IRepository<MessageHistory> repository, [NotNull] int daysToClean)
+    private static void DeleteOlderThen(this IRepository<MessageHistory> repository, int daysToClean)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.DbAccess.Execute(
             db =>
                 {

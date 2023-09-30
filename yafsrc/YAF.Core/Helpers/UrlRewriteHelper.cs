@@ -28,8 +28,6 @@ using System;
 using System.Text.RegularExpressions;
 using System.Web;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// URL Rewrite Helper Class
 /// </summary>
@@ -42,10 +40,8 @@ public static class UrlRewriteHelper
     /// <returns>
     /// The clean string for url.
     /// </returns>
-    public static string CleanStringForUrl([NotNull]string inputString)
+    public static string CleanStringForUrl(string inputString)
     {
-        CodeContracts.VerifyNotNull(inputString);
-
         var sb = new StringBuilder();
 
         // fix ampersand...

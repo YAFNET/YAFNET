@@ -26,8 +26,6 @@ namespace YAF.Core.Extensions;
 
 using MimeKit;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The mail message extensions.
 /// </summary>
@@ -43,20 +41,15 @@ public static class MailMessageExtensions
     /// <param name="subject">The subject.</param>
     /// <param name="bodyText">The body text.</param>
     /// <param name="bodyHtml">The body html.</param>
-    [NotNull]
     public static void Populate(
-        [NotNull] this MimeMessage mailMessage, 
-        [NotNull] MailboxAddress fromAddress, 
-        [NotNull] MailboxAddress toAddress, 
-        [NotNull] MailboxAddress senderAddress,
-        [CanBeNull] string subject, 
-        [CanBeNull] string bodyText, 
-        [CanBeNull] string bodyHtml)
+        this MimeMessage mailMessage, 
+        MailboxAddress fromAddress, 
+        MailboxAddress toAddress, 
+        MailboxAddress senderAddress,
+        string subject, 
+        string bodyText, 
+        string bodyHtml)
     {
-        CodeContracts.VerifyNotNull(mailMessage);
-        CodeContracts.VerifyNotNull(fromAddress);
-        CodeContracts.VerifyNotNull(toAddress);
-
         mailMessage.To.Add(toAddress);
         mailMessage.From.Add(fromAddress);
 

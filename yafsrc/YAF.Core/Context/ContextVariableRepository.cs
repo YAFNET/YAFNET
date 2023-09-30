@@ -25,7 +25,6 @@
 namespace YAF.Core.Context;
 
 using YAF.Configuration.Pattern;
-using YAF.Types.Attributes;
 
 /// <summary>
 /// Place to put helper properties for context variables inside.
@@ -38,7 +37,7 @@ public class ContextVariableRepository
     /// <param name="dictionary">
     /// The dictionary.
     /// </param>
-    public ContextVariableRepository([NotNull] TypeDictionary dictionary)
+    public ContextVariableRepository(TypeDictionary dictionary)
     {
         this.Vars = dictionary;
     }

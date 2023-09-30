@@ -40,5 +40,5 @@ public interface IMailService
     /// <param name="messages">
     ///     The messages.
     /// </param>
-    Task SendAllAsync([NotNull] IEnumerable<MimeMessage> messages);
+    Task SendAllAsync(IEnumerable<MimeMessage> messages);
 }

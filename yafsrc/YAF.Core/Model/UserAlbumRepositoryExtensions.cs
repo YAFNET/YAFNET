@@ -27,7 +27,6 @@ namespace YAF.Core.Model;
 using System;
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -48,10 +47,8 @@ public static class UserAlbumRepositoryExtensions
     /// <returns>
     /// The <see cref="List"/>.
     /// </returns>
-    public static List<UserAlbum> ListByUser([NotNull] this IRepository<UserAlbum> repository, [NotNull] int userId)
+    public static List<UserAlbum> ListByUser(this IRepository<UserAlbum> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.Get(userAlbum => userAlbum.UserID == userId).OrderByDescending(u => u.Updated).ToList();
     }
 
@@ -74,10 +71,8 @@ public static class UserAlbumRepositoryExtensions
     /// <returns>
     /// The <see cref="List"/>.
     /// </returns>
-    public static List<UserAlbum> ListByUserPaged([NotNull] this IRepository<UserAlbum> repository, [NotNull] int userId, [NotNull] int pageIndex, [NotNull] int pageSize)
+    public static List<UserAlbum> ListByUserPaged(this IRepository<UserAlbum> repository, int userId, int pageIndex, int pageSize)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.GetPaged(userAlbum => userAlbum.UserID == userId, pageIndex, pageSize)
             .OrderByDescending(u => u.Updated).ToList();
     }
@@ -94,10 +89,8 @@ public static class UserAlbumRepositoryExtensions
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public static string GetTitle(this IRepository<UserAlbum> repository, [NotNull] int albumId)
+    public static string GetTitle(this IRepository<UserAlbum> repository, int albumId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.GetById(albumId).Title;
     }
 
@@ -110,10 +103,8 @@ public static class UserAlbumRepositoryExtensions
     /// <param name="imageId">
     /// The image id.
     /// </param>
-    public static void DeleteCover(this IRepository<UserAlbum> repository, [NotNull] int imageId)
+    public static void DeleteCover(this IRepository<UserAlbum> repository, int imageId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.UpdateOnly(() => new UserAlbum { CoverImageID = null }, u => u.CoverImageID == imageId);
     }
 
@@ -129,11 +120,9 @@ public static class UserAlbumRepositoryExtensions
     /// <returns>
     /// The <see cref="long"/>.
     /// </returns>
-    [NotNull]
-    public static long CountUserAlbum([NotNull] this IRepository<UserAlbum> repository, [NotNull] int userId)
+    
+    public static long CountUserAlbum(this IRepository<UserAlbum> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.Count(album => album.UserID == userId);
     }
 
@@ -151,8 +140,8 @@ public static class UserAlbumRepositoryExtensions
     /// </param>
     public static void UpdateTitle(
         this IRepository<UserAlbum> repository,
-        [NotNull] int albumId,
-        [NotNull] string title)
+        int albumId,
+        string title)
     {
         repository.UpdateOnly(
             () => new UserAlbum { Title = title },
@@ -173,8 +162,8 @@ public static class UserAlbumRepositoryExtensions
     /// </param>
     public static void UpdateCover(
         this IRepository<UserAlbum> repository,
-        [NotNull] int albumId,
-        [NotNull] int? coverImageId)
+        int albumId,
+        int? coverImageId)
     {
         repository.UpdateOnly(
             () => new UserAlbum { CoverImageID = coverImageId },
@@ -201,9 +190,9 @@ public static class UserAlbumRepositoryExtensions
     /// </returns>
     public static int Save(
         this IRepository<UserAlbum> repository,
-        [NotNull] int userId,
-        [NotNull] string title,
-        [NotNull] int? coverImageId)
+        int userId,
+        string title,
+        int? coverImageId)
     {
         var entity = new UserAlbum
                          {

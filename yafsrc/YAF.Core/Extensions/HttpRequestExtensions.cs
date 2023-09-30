@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Extensions;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 ///     The HttpRequest extensions.
 /// </summary>
@@ -38,11 +36,8 @@ public static class HttpRequestExtensions
     /// <param name="request">The request.</param>
     /// <param name="queryName">Name of the query.</param>
     /// <returns>T.</returns>
-    [CanBeNull]
-    public static T GetQueryOrRouteValue<T>([NotNull] this HttpRequest request, string queryName)
+    public static T GetQueryOrRouteValue<T>(this HttpRequest request, string queryName)
     {
-        CodeContracts.VerifyNotNull(request);
-
         // Check if query string exist
         if (request.Query.ContainsKey(queryName))
         {

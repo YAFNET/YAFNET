@@ -26,8 +26,6 @@ namespace YAF.Core.Extensions;
 
 using System;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The i format message extensions.
 /// </summary>
@@ -52,10 +50,10 @@ public static class IFormatMessageExtensions
     /// The formatted message.
     /// </returns>
     public static string Format(
-        [NotNull] this IFormatMessage formatMessage,
-        [NotNull] int messageId,
-        [NotNull] string message,
-        [NotNull] MessageFlags messageFlags)
+        this IFormatMessage formatMessage,
+        int messageId,
+        string message,
+        MessageFlags messageFlags)
     {
         return formatMessage.Format(messageId, message, messageFlags, false, DateTime.UtcNow);
     }
@@ -82,10 +80,10 @@ public static class IFormatMessageExtensions
     /// The formatted message.
     /// </returns>
     public static string Format(
-        [NotNull] this IFormatMessage formatMessage,
-        [NotNull] int messageId,
-        [NotNull] string message,
-        [NotNull] MessageFlags messageFlags,
+        this IFormatMessage formatMessage,
+        int messageId,
+        string message,
+        MessageFlags messageFlags,
         bool targetBlankOverride)
     {
         return formatMessage.Format(messageId, message, messageFlags, targetBlankOverride, DateTime.UtcNow);

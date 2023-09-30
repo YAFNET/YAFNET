@@ -40,8 +40,8 @@ public static class ForumPagesExtensions
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    [NotNull]
-    public static string GetPageName([NotNull] this ForumPages page)
+    
+    public static string GetPageName(this ForumPages page)
     {
         return $"/{page.ToString().Replace("_", "/")}";
     }

@@ -27,7 +27,6 @@ namespace YAF.Core.Model;
 using System;
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -42,10 +41,8 @@ public static class UserForumRepositoryExtensions
     /// <param name="userId">The user identifier.</param>
     /// <param name="forumId">The forum identifier.</param>
     /// <returns>Returns if deleting was successful or not</returns>
-    public static bool Delete(this IRepository<UserForum> repository, [NotNull] int userId, [NotNull] int forumId)
+    public static bool Delete(this IRepository<UserForum> repository, int userId, int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var success = repository.DbAccess.Execute(
                           db => db.Connection.Delete<UserForum>(x => x.UserID == userId && x.ForumID == forumId)) == 1;
 
@@ -74,11 +71,9 @@ public static class UserForumRepositoryExtensions
     /// </returns>
     public static List<Tuple<User, UserForum, AccessMask>> List(
         this IRepository<UserForum> repository,
-        [CanBeNull] int? userId,
-        [NotNull] int forumId)
+        int? userId,
+        int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
         if (userId.HasValue)
@@ -116,9 +111,9 @@ public static class UserForumRepositoryExtensions
     /// </param>
     public static void Save(
         this IRepository<UserForum> repository,
-        [NotNull] int userId,
-        [NotNull] int forumId,
-        [NotNull] int accessMaskId)
+        int userId,
+        int forumId,
+        int accessMaskId)
     {
         var userForum = repository.GetSingle(x => x.UserID == userId && x.ForumID == forumId);
 

@@ -26,7 +26,6 @@ namespace YAF.Core.Model;
 
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -43,11 +42,9 @@ public static class IgnoreUserRepositoryExtensions
     /// <returns>Returns if deleting was successfully or not</returns>
     public static bool Delete(
         this IRepository<IgnoreUser> repository,
-        [NotNull] int userId,
-        [NotNull] int ignoreUserId)
+        int userId,
+        int ignoreUserId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var success = repository.DbAccess.Execute(
                           db => db.Connection.Delete<IgnoreUser>(
                               x => x.UserID == userId && x.IgnoredUserID == ignoreUserId)) ==
@@ -75,11 +72,9 @@ public static class IgnoreUserRepositoryExtensions
     /// </param>
     public static void AddIgnoredUser(
         this IRepository<IgnoreUser> repository,
-        [NotNull] int userId,
-        [NotNull] int ignoredUserId)
+        int userId,
+        int ignoredUserId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var ignoreUser = repository.GetSingle(i => i.UserID == userId && i.IgnoredUserID == ignoredUserId);
 
         if (ignoreUser == null)
@@ -100,8 +95,7 @@ public static class IgnoreUserRepositoryExtensions
     /// <returns>
     /// The <see cref="List"/>.
     /// </returns>
-    [NotNull]
-    public static List<User> IgnoredUsers(this IRepository<IgnoreUser> repository, [NotNull] int userId)
+    public static List<User> IgnoredUsers(this IRepository<IgnoreUser> repository, int userId)
     {
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<IgnoreUser>();
 

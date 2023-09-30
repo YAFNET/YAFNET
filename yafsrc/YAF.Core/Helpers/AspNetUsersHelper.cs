@@ -36,7 +36,6 @@ using Microsoft.Extensions.Logging;
 
 using YAF.Core.Identity;
 using YAF.Core.Model;
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
 
@@ -52,7 +51,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public AspNetUsersHelper([NotNull] IServiceLocator serviceLocator)
+    public AspNetUsersHelper(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }
@@ -91,8 +90,10 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                     var guest = this.GetRepository<User>().Get(u => u.BoardID == boardId && (u.Flags & 4) == 4);
 
                     var guestUser = guest.FirstOrDefault() ?? throw new NoValidGuestUserForBoardException(
-                            $@"Could not locate the guest user for the board id {BoardContext.Current.PageBoardID}. 
-                                          You might have deleted the guest group or removed the guest user.");
+                                        $"""
+                                         Could not locate the guest user for the board id {BoardContext.Current.PageBoardID}.
+                                                                                   You might have deleted the guest group or removed the guest user.
+                                         """);
                     if (guest.Count > 1)
                     {
                         throw new ApplicationException(
@@ -309,7 +310,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <returns>
     /// Returns if Deleting was successfully
     /// </returns>
-    public bool DeleteAndBanUser([NotNull] User user, [NotNull] AspNetUsers aspNetUser, [NotNull] string userIpAddress)
+    public bool DeleteAndBanUser(User user, AspNetUsers aspNetUser, string userIpAddress)
     {
         // Update Anti SPAM Stats
         this.GetRepository<Registry>().IncrementBannedUsers();
@@ -829,9 +830,6 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// </param>
     public void AddLogin(string userId, UserLoginInfo login)
     {
-        CodeContracts.VerifyNotNull(userId);
-        CodeContracts.VerifyNotNull(login);
-
         if (this.GetRepository<AspNetUserLogins>().GetSingle(l => l.UserId == userId) != null)
         {
             return;
@@ -912,8 +910,8 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// The <see cref="Tuple"/>.
     /// </returns>
     public Tuple<User, AspNetUsers, Rank, VAccess> GetBoardUser(
-        [NotNull] int userId,
-        [CanBeNull] int? boardId = null,
+        int userId,
+        int? boardId = null,
         bool includeNonApproved = false)
     {
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
@@ -955,15 +953,15 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// Returns the board users.
     /// </returns>
     public List<PagedUser> GetUsersPaged(
-        [NotNull] int? boardId,
-        [NotNull] int pageIndex,
-        [NotNull] int pageSize,
-        [CanBeNull] string name,
-        [CanBeNull] string email,
-        [CanBeNull] DateTime? joinedDate,
-        [NotNull] bool onlySuspended,
-        [CanBeNull] int? groupId,
-        [CanBeNull] int? rankId,
+        int? boardId,
+        int pageIndex,
+        int pageSize,
+        string name,
+        string email,
+        DateTime? joinedDate,
+        bool onlySuspended,
+        int? groupId,
+        int? rankId,
         bool includeGuests = true)
     {
         return this.GetRepository<User>().DbAccess.Execute(
@@ -1032,14 +1030,18 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                     if (groupId.HasValue)
                     {
                         countTotalExpression.UnsafeAnd(
-                            $@"exists(select 1 from {countTotalExpression.Table<UserGroup>()} x 
-                                               where x.{countTotalExpression.Column<UserGroup>(x => x.UserID)} = {countTotalExpression.Column<User>(x => x.ID, true)} 
-                                               and x.{countTotalExpression.Column<UserGroup>(x => x.GroupID)} = {groupId.Value})");
+                            $"""
+                             exists(select 1 from {countTotalExpression.Table<UserGroup>()} x
+                                                                            where x.{countTotalExpression.Column<UserGroup>(x => x.UserID)} = {countTotalExpression.Column<User>(x => x.ID, true)}
+                                                                            and x.{countTotalExpression.Column<UserGroup>(x => x.GroupID)} = {groupId.Value})
+                             """);
 
                         expression.UnsafeAnd(
-                            $@"exists(select 1 from {expression.Table<UserGroup>()} x 
-                                               where x.{expression.Column<UserGroup>(x => x.UserID)} = {expression.Column<User>(x => x.ID, true)} 
-                                               and x.{expression.Column<UserGroup>(x => x.GroupID)} = {groupId.Value})");
+                            $"""
+                             exists(select 1 from {expression.Table<UserGroup>()} x
+                                                                            where x.{expression.Column<UserGroup>(x => x.UserID)} = {expression.Column<User>(x => x.ID, true)}
+                                                                            and x.{expression.Column<UserGroup>(x => x.GroupID)} = {groupId.Value})
+                             """);
                     }
 
                     var countTotalSql = countTotalExpression
@@ -1124,20 +1126,20 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// Returns paged members list
     /// </returns>
     public List<PagedUser> ListMembersPaged(
-        [CanBeNull] int? boardId,
-        [CanBeNull] int? groupId,
-        [CanBeNull] int? rankId,
-        [NotNull] char startLetter,
-        [CanBeNull] string name,
-        [CanBeNull] int pageIndex,
-        [CanBeNull] int pageSize,
-        [CanBeNull] int? sortName,
-        [CanBeNull] int? sortRank,
-        [CanBeNull] int? sortJoined,
-        [CanBeNull] int? sortPosts,
-        [CanBeNull] int? sortLastVisit,
-        [CanBeNull] int? numPosts,
-        [NotNull] int numPostCompare)
+        int? boardId,
+        int? groupId,
+        int? rankId,
+        char startLetter,
+        string name,
+        int pageIndex,
+        int pageSize,
+        int? sortName,
+        int? sortRank,
+        int? sortJoined,
+        int? sortPosts,
+        int? sortLastVisit,
+        int? numPosts,
+        int numPostCompare)
     {
         return this.GetRepository<User>().DbAccess.Execute(
             db =>
@@ -1214,14 +1216,18 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                     if (groupId.HasValue)
                     {
                         countTotalExpression.UnsafeAnd(
-                            $@"exists(select 1 from {countTotalExpression.Table<UserGroup>()} x 
-                                               where x.{countTotalExpression.Column<UserGroup>(x => x.UserID)} = {countTotalExpression.Column<User>(x => x.ID, true)} 
-                                               and x.{countTotalExpression.Column<UserGroup>(x => x.GroupID)} = {groupId.Value})");
+                            $"""
+                             exists(select 1 from {countTotalExpression.Table<UserGroup>()} x
+                                                                            where x.{countTotalExpression.Column<UserGroup>(x => x.UserID)} = {countTotalExpression.Column<User>(x => x.ID, true)}
+                                                                            and x.{countTotalExpression.Column<UserGroup>(x => x.GroupID)} = {groupId.Value})
+                             """);
 
                         expression.UnsafeAnd(
-                            $@"exists(select 1 from {expression.Table<UserGroup>()} x 
-                                               where x.{expression.Column<UserGroup>(x => x.UserID)} = {expression.Column<User>(x => x.ID, true)} 
-                                               and x.{expression.Column<UserGroup>(x => x.GroupID)} = {groupId.Value})");
+                            $"""
+                             exists(select 1 from {expression.Table<UserGroup>()} x
+                                                                            where x.{expression.Column<UserGroup>(x => x.UserID)} = {expression.Column<User>(x => x.ID, true)}
+                                                                            and x.{expression.Column<UserGroup>(x => x.GroupID)} = {groupId.Value})
+                             """);
                     }
 
                     var countTotalSql = countTotalExpression

@@ -53,11 +53,11 @@ public static class IconHtmlHelper
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
     public static IHtmlContent Icon(
-        [NotNull] this IHtmlHelper htmlHelper,
-        [NotNull] string iconName,
-        [CanBeNull] string iconType = "",
-        [CanBeNull] string iconStyle = "fas",
-        [CanBeNull] string iconSize = "")
+        this IHtmlHelper htmlHelper,
+        string iconName,
+        string iconType = "",
+        string iconStyle = "fas",
+        string iconSize = "")
     {
         var content = new HtmlContentBuilder();
 
@@ -105,13 +105,13 @@ public static class IconHtmlHelper
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
     public static IHtmlContent IconBadge(
-        [NotNull] this IHtmlHelper htmlHelper,
-        [NotNull] string iconName,
-        /*[CanBeNull] string iconType = "",
-        [CanBeNull] string iconStyle = "fas",
-        [CanBeNull] string iconSize = "",*/
-        [NotNull] string iconBadgeName,
-        [CanBeNull] string iconBadgeType = "")
+        this IHtmlHelper htmlHelper,
+        string iconName,
+        /*string iconType = "",
+        string iconStyle = "fas",
+        string iconSize = "",*/
+        string iconBadgeName,
+        string iconBadgeType = "")
     {
         var content = new HtmlContentBuilder();
 
@@ -177,12 +177,12 @@ public static class IconHtmlHelper
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
     public static IHtmlContent IconStack(
-        [NotNull] this IHtmlHelper htmlHelper,
-        [NotNull] string iconName,
-        [NotNull] string iconType,
-        [NotNull] string iconStackName,
-        [NotNull] string iconStackType,
-        [NotNull] string iconStackSize)
+        this IHtmlHelper htmlHelper,
+        string iconName,
+        string iconType,
+        string iconStackName,
+        string iconStackType,
+        string iconStackSize)
     {
         var content = new HtmlContentBuilder();
 

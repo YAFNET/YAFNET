@@ -31,7 +31,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 using YAF.Configuration.Pattern;
 using YAF.Core.BasePages;
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
@@ -162,7 +161,7 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// <returns>
     /// Value if it's found, null if it doesn't exist.
     /// </returns>
-    public object this[[NotNull] string varName]
+    public object this[string varName]
     {
         get => this.Vars.ContainsKey(varName) ? this.Vars[varName] : null;
 
@@ -174,7 +173,7 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// </summary>
     /// <param name="block">The block.</param>
     /// <returns>PageResult.</returns>
-    public PageResult RegisterJsBlock([NotNull] string block)
+    public PageResult RegisterJsBlock(string block)
     {
         return this.CurrentForumPage.RegisterJsBlock(block).Page();
     }
@@ -188,7 +187,7 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// <param name="messageType">
     /// The message type.
     /// </param>
-    public PageResult Notify([NotNull] string message, MessageTypes messageType)
+    public PageResult Notify(string message, MessageTypes messageType)
     {
         return this.CurrentForumPage.ToastMessage(messageType.ToString(), message).Page();
     }
@@ -198,7 +197,7 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// </summary>
     /// <param name="message">The message.</param>
     /// <param name="messageType">Type of the message.</param>
-    public void SessionNotify([NotNull] string message, MessageTypes messageType)
+    public void SessionNotify(string message, MessageTypes messageType)
     {
         this.SessionMessageService.AddSession(message, messageType);
     }
@@ -206,10 +205,10 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// <summary>
     /// Show Confirm Modal
     /// </summary>
-    public void ShowConfirmModal([NotNull] string title, [NotNull] string text,
-                                 [NotNull] string yes,
-                                 [NotNull] string no,
-                                 [NotNull] string link)
+    public void ShowConfirmModal(string title, string text,
+                                 string yes,
+                                 string no,
+                                 string link)
     {
         this.CurrentForumPage.ConfirmModal(title, text, yes, no, link).Page();
     }

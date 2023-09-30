@@ -36,7 +36,6 @@ using Microsoft.Extensions.Options;
 
 using MimeKit;
 
-using YAF.Types.Attributes;
 using YAF.Types.Objects;
 
 /// <summary>
@@ -71,11 +70,9 @@ public class MailService : IMailService, IHaveServiceLocator
     /// <param name="messages">
     ///     The messages.
     /// </param>
-    public async Task SendAllAsync([NotNull] IEnumerable<MimeMessage> messages)
+    public async Task SendAllAsync(IEnumerable<MimeMessage> messages)
     {
         var mailMessages = messages.ToList();
-
-        CodeContracts.VerifyNotNull(mailMessages);
 
         var smtpClient = new SmtpClient();
 

@@ -26,7 +26,6 @@ namespace YAF.Core.Helpers;
 
 using System;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -43,7 +42,7 @@ public static class UserHelper
     /// <returns>
     /// language file name. If null -- use default language
     /// </returns>
-    public static string GetUserLanguageFile([CanBeNull] User user)
+    public static string GetUserLanguageFile(User user)
     {
         if (user != null && user.LanguageFile.IsSet() && BoardContext.Current.BoardSettings.AllowUserLanguage)
         {

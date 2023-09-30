@@ -40,7 +40,7 @@ public class SqlServerDbAccess : DbAccessBase
     /// <param name="dbProviderFactory">
     /// The database provider factory.
     /// </param>
-    public SqlServerDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory)
+    public SqlServerDbAccess(Func<string, DbProviderFactory> dbProviderFactory)
         : base(dbProviderFactory, new SqlServerDbInformation())
     {
     }

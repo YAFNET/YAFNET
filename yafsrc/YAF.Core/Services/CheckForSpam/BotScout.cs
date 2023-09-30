@@ -30,7 +30,6 @@ using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
 
-using YAF.Types.Attributes;
 using YAF.Types.Interfaces.CheckForSpam;
 
 /// <summary>
@@ -46,9 +45,9 @@ public class BotScout : ICheckForBot
     /// <param name="userName">Name of the user.</param>
     /// <returns>Returns Response Text and if User is Bot or Not</returns>
     public async Task<(string ResponseText, bool IsBot)> IsBotAsync(
-        [CanBeNull] string ipAddress,
-        [CanBeNull] string emailAddress,
-        [CanBeNull] string userName)
+        string ipAddress,
+        string emailAddress,
+        string userName)
     {
         string responseText;
 

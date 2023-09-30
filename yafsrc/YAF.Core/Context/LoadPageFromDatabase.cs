@@ -45,7 +45,7 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
     /// <param name="logger">The logger.</param>
     /// <param name="dataCache">The data cache.</param>
     public LoadPageFromDatabase(
-        [NotNull] IServiceLocator serviceLocator, ILogger<LoadPageFromDatabase> logger, [NotNull] IDataCache dataCache)
+        IServiceLocator serviceLocator, ILogger<LoadPageFromDatabase> logger, IDataCache dataCache)
     {
         this.ServiceLocator = serviceLocator;
         this.Logger = logger;
@@ -81,7 +81,7 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
     /// <param name="event">
     /// The event.
     /// </param>
-    public void Handle([NotNull] InitPageLoadEvent @event)
+    public void Handle(InitPageLoadEvent @event)
     {
         try
         {

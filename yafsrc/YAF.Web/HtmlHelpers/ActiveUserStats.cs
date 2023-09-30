@@ -54,10 +54,10 @@ public static class ActiveUserStatsHtmlHelper
     /// </returns>
     public static IHtmlContent ActiveUserStats(
         this IHtmlHelper htmlHelper,
-        [NotNull] int activeUsers,
-        [NotNull] int activeHidden,
-        [NotNull] int activeMembers,
-        [NotNull] int activeGuests)
+        int activeUsers,
+        int activeHidden,
+        int activeMembers,
+        int activeGuests)
     {
         var content = new HtmlContentBuilder();
 

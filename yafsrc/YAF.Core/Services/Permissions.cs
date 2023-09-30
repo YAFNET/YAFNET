@@ -24,7 +24,6 @@
 
 namespace YAF.Core.Services;
 
-using YAF.Types.Attributes;
 using YAF.Types.Objects;
 
 /// <summary>
@@ -38,7 +37,7 @@ public class Permissions : IPermissions, IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public Permissions([NotNull] IServiceLocator serviceLocator)
+    public Permissions(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }

@@ -103,7 +103,7 @@ public class AttachmentsModel : AdminPage
     /// </summary>
     /// <param name="o">The Data Row object.</param>
     /// <returns>Returns the Preview Image</returns>
-    public string GetPreviewImage([NotNull] object o)
+    public string GetPreviewImage(object o)
     {
         var attach = o.ToType<Attachment>();
 

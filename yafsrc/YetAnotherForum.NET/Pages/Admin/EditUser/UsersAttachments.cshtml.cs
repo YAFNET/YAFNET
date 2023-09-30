@@ -46,7 +46,7 @@ public class UsersAttachmentsModel : AdminPage
     /// <summary>
     /// Gets or sets the User Data.
     /// </summary>
-    [NotNull]
+    
     public Tuple<User, AspNetUsers, Rank, VAccess> EditUser { get; set; }
 
     /// <summary>
@@ -109,7 +109,7 @@ public class UsersAttachmentsModel : AdminPage
     /// <returns>
     /// Returns the Preview Image
     /// </returns>
-    public IHtmlContent GetPreviewImage([NotNull] Attachment attach)
+    public IHtmlContent GetPreviewImage(Attachment attach)
     {
         var fileName = attach.FileName;
         var isImage = fileName.IsImageName();

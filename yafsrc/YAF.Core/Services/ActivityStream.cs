@@ -26,7 +26,6 @@ namespace YAF.Core.Services;
 
 using System;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -40,7 +39,7 @@ public class ActivityStream : IActivityStream, IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public ActivityStream([NotNull] IServiceLocator serviceLocator)
+    public ActivityStream(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }

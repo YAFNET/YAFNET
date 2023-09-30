@@ -132,7 +132,7 @@ public class UserProfileModel : ForumPage
     /// <param name="userDisplayName">
     /// The user display name.
     /// </param>
-    private void AddPageLinks([NotNull] string userDisplayName)
+    private void AddPageLinks(string userDisplayName)
     {
         this.PageBoardContext.PageLinks.AddLink(
             this.GetText("MEMBERS"),

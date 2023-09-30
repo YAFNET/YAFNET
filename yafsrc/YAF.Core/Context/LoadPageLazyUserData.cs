@@ -46,7 +46,7 @@ public class LoadPageLazyUserData : IHandleEvent<InitPageLoadEvent>, IHaveServic
     /// <param name="dataBroker">
     /// The data Broker.
     /// </param>
-    public LoadPageLazyUserData([NotNull] IServiceLocator serviceLocator, [NotNull] DataBroker dataBroker)
+    public LoadPageLazyUserData(IServiceLocator serviceLocator, DataBroker dataBroker)
     {
         this.dataBroker = dataBroker;
         this.ServiceLocator = serviceLocator;
@@ -66,7 +66,7 @@ public class LoadPageLazyUserData : IHandleEvent<InitPageLoadEvent>, IHaveServic
     /// Handles the specified @event.
     /// </summary>
     /// <param name="event">The @event.</param>
-    public void Handle([NotNull] InitPageLoadEvent @event)
+    public void Handle(InitPageLoadEvent @event)
     {
         var activeUserLazyData = this.dataBroker.ActiveUserLazyData(@event.PageLoadData.Item1.UserID);
 

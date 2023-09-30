@@ -26,7 +26,6 @@ namespace YAF.Core.Model;
 
 using System;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -48,11 +47,9 @@ public static class ReputationVoteRepositoryExtensions
     /// </param>
     public static void UpdateOrAdd(
         this IRepository<ReputationVote> repository,
-        [NotNull] int fromUserId,
-        [NotNull] int toUserId)
+        int fromUserId,
+        int toUserId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var voteDate = repository.GetSingle(
             r => r.ReputationFromUserID == fromUserId && r.ReputationToUserID == toUserId);
 

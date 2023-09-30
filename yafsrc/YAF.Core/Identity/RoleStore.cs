@@ -29,8 +29,6 @@ using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Identity;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The role store.
 /// </summary>
@@ -43,7 +41,7 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles>,
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public RoleStore([NotNull] IServiceLocator serviceLocator)
+    public RoleStore(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }
@@ -68,10 +66,8 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<IdentityResult> CreateAsync([NotNull]AspNetRoles role, CancellationToken cancellationToken)
+    public async Task<IdentityResult> CreateAsync(AspNetRoles role, CancellationToken cancellationToken)
     {
-        CodeContracts.VerifyNotNull(role);
-
         cancellationToken.ThrowIfCancellationRequested();
 
         await this.GetRepository<AspNetRoles>().InsertAsync(role, false, token: cancellationToken);
@@ -89,10 +85,8 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task<IdentityResult> UpdateAsync([NotNull] AspNetRoles role, CancellationToken cancellationToken)
+    public async Task<IdentityResult> UpdateAsync(AspNetRoles role, CancellationToken cancellationToken)
     {
-        CodeContracts.VerifyNotNull(role);
-
         cancellationToken.ThrowIfCancellationRequested();
 
         return await this.GetRepository<AspNetRoles>().UpdateAsync(role, cancellationToken) > 0
@@ -106,10 +100,8 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles>,
     /// <param name="role">The role to delete from the store.</param>
     /// <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken" /> used to propagate notifications that the operation should be canceled.</param>
     /// <returns>A <see cref="T:System.Threading.Tasks.Task`1" /> that represents the <see cref="T:Microsoft.AspNetCore.Identity.IdentityResult" /> of the asynchronous query.</returns>
-    public async Task<IdentityResult> DeleteAsync([NotNull]AspNetRoles role, CancellationToken cancellationToken)
+    public async Task<IdentityResult> DeleteAsync(AspNetRoles role, CancellationToken cancellationToken)
     {
-        CodeContracts.VerifyNotNull(role);
-
         cancellationToken.ThrowIfCancellationRequested();
 
         return await this.GetRepository<AspNetRoles>().DeleteAsync(r => r.Id == role.Id, cancellationToken) > 0
@@ -127,7 +119,7 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public Task<AspNetRoles> FindByIdAsync([NotNull]string roleId, CancellationToken cancellationToken)
+    public Task<AspNetRoles> FindByIdAsync(string roleId, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -144,7 +136,7 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public Task<AspNetRoles> FindByNameAsync([NotNull]string normalizedRoleName, CancellationToken cancellationToken)
+    public Task<AspNetRoles> FindByNameAsync(string normalizedRoleName, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 

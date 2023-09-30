@@ -40,7 +40,7 @@ public class SqliteDbAccess : DbAccessBase
     /// <param name="dbProviderFactory">
     /// The database provider factory.
     /// </param>
-    public SqliteDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory)
+    public SqliteDbAccess(Func<string, DbProviderFactory> dbProviderFactory)
         : base(dbProviderFactory, new SqliteDbInformation())
     {
     }

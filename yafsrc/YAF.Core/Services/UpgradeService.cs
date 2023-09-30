@@ -35,7 +35,6 @@ using Microsoft.Extensions.Logging;
 using YAF.Core.Data;
 using YAF.Core.Model;
 using YAF.Core.Services.Migrations;
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -269,7 +268,7 @@ public class UpgradeService : IHaveServiceLocator
     /// <param name="scriptFile">
     /// The script file.
     /// </param>
-    private void ExecuteScript([NotNull] string scriptFile)
+    private void ExecuteScript(string scriptFile)
     {
         string script;
 

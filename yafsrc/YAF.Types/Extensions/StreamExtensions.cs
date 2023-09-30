@@ -55,10 +55,8 @@ public static class StreamExtensions
     /// <returns>
     /// The <see cref="byte[]"/>.
     /// </returns>
-    public static byte[] ToArray([NotNull] this Stream stream)
+    public static byte[] ToArray(this Stream stream)
     {
-        CodeContracts.VerifyNotNull(stream);
-
         var data = new byte[stream.Length];
         stream.Seek(0, SeekOrigin.Begin);
         stream.Read(data, 0, (int)stream.Length);

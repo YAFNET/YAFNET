@@ -43,7 +43,7 @@ public class StartStopWatch : IHandleEvent<ForumPageInitEvent>
     /// <param name="stopWatch">
     /// The stop watch.
     /// </param>
-    public StartStopWatch([NotNull] IStopWatch stopWatch)
+    public StartStopWatch(IStopWatch stopWatch)
     {
         this.stopWatch = stopWatch;
     }

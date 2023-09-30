@@ -27,7 +27,6 @@ namespace YAF.Core.Model;
 using System;
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -43,8 +42,6 @@ public static class WatchTopicRepositoryExtensions
     /// <param name="topicId">The topic identifier.</param>
     public static void Add(this IRepository<WatchTopic> repository, int userId, int topicId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var watchTopic = new WatchTopic { TopicID = topicId, UserID = userId, Created = DateTime.UtcNow };
 
         repository.Insert(watchTopic);
@@ -67,10 +64,8 @@ public static class WatchTopicRepositoryExtensions
     /// <returns>
     /// The <see cref="int?"/>.
     /// </returns>
-    public static int? Check(this IRepository<WatchTopic> repository, [NotNull] int userId, [NotNull] int topicId)
+    public static int? Check(this IRepository<WatchTopic> repository, int userId, int topicId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var topic = repository.GetSingle(w => w.UserID == userId && w.TopicID == topicId);
 
         return topic?.ID;
@@ -96,12 +91,10 @@ public static class WatchTopicRepositoryExtensions
     /// </returns>
     public static List<WatchTopic> List(
         this IRepository<WatchTopic> repository,
-        [NotNull] int userId,
-        [NotNull] int pageIndex = 0,
-        [NotNull] int pageSize = 10000000)
+        int userId,
+        int pageIndex = 0,
+        int pageSize = 10000000)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<WatchTopic>();
 
         expression.Where<WatchTopic>(b => b.UserID == userId)

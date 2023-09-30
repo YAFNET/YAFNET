@@ -108,7 +108,7 @@ public class EditProfileModel : ProfilePage
     /// <value>
     /// The current Culture information.
     /// </value>
-    [NotNull]
+    
     private CultureInfo CurrentCultureInfo {
         get {
             if (this.currentCultureInfo != null)
@@ -127,7 +127,7 @@ public class EditProfileModel : ProfilePage
     /// <summary>
     /// Gets the User Data.
     /// </summary>
-    [NotNull]
+    
     private Tuple<User, AspNetUsers, Rank, VAccess> CurrentUser =>
         this.Get<IAspNetUsersHelper>().GetBoardUser(this.PageBoardContext.PageUserID);
 
@@ -383,7 +383,7 @@ public class EditProfileModel : ProfilePage
     /// <param name="genderSelectedItem">
     /// The gender selected item.
     /// </param>
-    private void LoadGenders([CanBeNull] int genderSelectedItem)
+    private void LoadGenders(int genderSelectedItem)
     {
         var genders = StaticDataHelper.Gender().ToList();
 
@@ -405,7 +405,7 @@ public class EditProfileModel : ProfilePage
     /// <param name="countryCode">
     /// The country code.
     /// </param>
-    private void LoadCountriesAndRegions([CanBeNull] string countryCode)
+    private void LoadCountriesAndRegions(string countryCode)
     {
         var countries = StaticDataHelper.Countries().ToList();
 

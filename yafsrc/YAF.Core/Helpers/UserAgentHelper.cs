@@ -25,7 +25,6 @@
 namespace YAF.Core.Helpers;
 
 using System.Text.RegularExpressions;
-using YAF.Types.Attributes;
 
 /// <summary>
 /// Helper for Figuring out the PageUser Agent.
@@ -46,7 +45,7 @@ public static partial class UserAgentHelper
     /// <returns>
     /// The is search engine spider.
     /// </returns>
-    public static bool SearchEngineSpiderName([CanBeNull] string userAgent)
+    public static bool SearchEngineSpiderName(string userAgent)
     {
         return userAgent.IsSet() && Spiders().Match(userAgent.ToLowerInvariant()).Success;
     }

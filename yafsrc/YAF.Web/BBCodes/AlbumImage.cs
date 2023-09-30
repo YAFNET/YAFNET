@@ -39,7 +39,7 @@ public class AlbumImage : BBCodeControl
     /// <param name="stringBuilder">
     /// The string Builder.
     /// </param>
-    public override void Render([NotNull] StringBuilder stringBuilder)
+    public override void Render(StringBuilder stringBuilder)
     {
         var imageId = HtmlTagHelper.StripHtml(this.Parameters["inner"]);
 

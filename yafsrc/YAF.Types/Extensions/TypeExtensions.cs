@@ -25,8 +25,6 @@ namespace YAF.Types.Extensions;
 
 using System.Text;
 
-using YAF.Types;
-
 /// <summary>
 /// The type extensions.
 /// </summary>
@@ -40,17 +38,15 @@ public static class TypeExtensions
     /// </param>
     /// <returns>
     /// </returns>
-    public static string GetSigningKey([NotNull] this Type sourceType)
+    public static string GetSigningKey(this Type sourceType)
     {
-        CodeContracts.VerifyNotNull(sourceType);
-
         var key = new StringBuilder();
 
         var pk = sourceType.Assembly.GetName().GetPublicKey();
 
         for (var i = 0; i < pk.GetLength(0); i++)
         {
-            key.AppendFormat("{0:x2}", pk[i]);
+            key.Append($"{pk[i]:x2}");
         }
 
         return key.ToString().ToUpperInvariant();

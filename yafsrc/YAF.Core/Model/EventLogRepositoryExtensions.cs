@@ -27,7 +27,6 @@ namespace YAF.Core.Model;
 using System;
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
 
@@ -74,18 +73,16 @@ public static class EventLogRepositoryExtensions
     /// </returns>
     public static List<PagedEventLog> ListPaged(
         this IRepository<EventLog> repository,
-        [NotNull] int? boardId,
-        [NotNull] int maxRows,
-        [NotNull] int maxDays,
-        [NotNull] int pageIndex,
-        [NotNull] int pageSize,
-        [NotNull] DateTime sinceDate,
-        [NotNull] DateTime toDate,
-        [CanBeNull] int? eventType,
-        [NotNull] bool spamOnly = false)
+        int? boardId,
+        int maxRows,
+        int maxDays,
+        int pageIndex,
+        int pageSize,
+        DateTime sinceDate,
+        DateTime toDate,
+        int? eventType,
+        bool spamOnly = false)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.DeleteOld(maxRows, maxDays);
 
         return repository.DbAccess.Execute(
@@ -158,11 +155,9 @@ public static class EventLogRepositoryExtensions
     /// </param>
     public static void DeleteOld(
         this IRepository<EventLog> repository,
-        [NotNull] int maxRows,
-        [NotNull] int maxDays)
+        int maxRows,
+        int maxDays)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         // -- delete entries older than 10 days
         var agesAgo = DateTime.Today.AddDays(-maxDays);
 

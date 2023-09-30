@@ -33,8 +33,6 @@ using Microsoft.Extensions.Logging;
 using ServiceStack;
 using ServiceStack.Text;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// Latest Information service class
 /// </summary>
@@ -46,7 +44,7 @@ public class LatestInformationService : IHaveServiceLocator, ILatestInformationS
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public LatestInformationService([NotNull] IServiceLocator serviceLocator)
+    public LatestInformationService(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }

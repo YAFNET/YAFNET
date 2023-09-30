@@ -24,8 +24,6 @@
 
 namespace YAF.Core.BasePages;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The class that all YAF forum pages are derived from.
 /// </summary>
@@ -69,8 +67,8 @@ public abstract class ForumBaseController : Controller, IHaveServiceLocator, IHa
     /// </summary>
     /// <param name="data">The data.</param>
     /// <returns>Returns the Encoded String</returns>
-    [CanBeNull]
-    public string HtmlEncode([NotNull] object data)
+    
+    public string HtmlEncode(object data)
     {
         return data is not string ? null : this.unicodeEncoder.XSSEncode(data.ToString());
     }

@@ -43,15 +43,9 @@ public static class AssemblyExtensions
     /// </param>
     /// <typeparam name="T">
     /// </typeparam>
-    /// <returns>
-    /// The <see cref="IEnumerable"/>.
-    /// </returns>
-    [NotNull]
-    public static IEnumerable<Type> FindClassesWithAttribute<T>([NotNull] this IEnumerable<Assembly> assemblies)
+    public static IEnumerable<Type> FindClassesWithAttribute<T>(this IEnumerable<Assembly> assemblies)
         where T : Attribute
     {
-        CodeContracts.VerifyNotNull(assemblies);
-
         var moduleClassTypes = new List<Type>();
         var attributeType = typeof(T);
 
@@ -72,10 +66,8 @@ public static class AssemblyExtensions
     /// <returns>
     ///     The get assembly sort order.
     /// </returns>
-    public static int GetAssemblySortOrder([NotNull] this Assembly assembly)
+    public static int GetAssemblySortOrder(this Assembly assembly)
     {
-        CodeContracts.VerifyNotNull(assembly);
-
         var attribute = assembly.GetCustomAttributes(typeof(AssemblyModuleSortOrder), true).OfType<AssemblyModuleSortOrder>();
 
         return attribute.Any() ? attribute.First().SortOrder : 9999;

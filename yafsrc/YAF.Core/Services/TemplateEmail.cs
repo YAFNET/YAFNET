@@ -32,8 +32,6 @@ using Microsoft.AspNetCore.Hosting;
 
 using MimeKit;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 ///     The YAF template email.
 /// </summary>
@@ -45,7 +43,7 @@ public class TemplateEmail : IHaveServiceLocator
     /// <param name="templateName">
     /// The template name.
     /// </param>
-    public TemplateEmail([CanBeNull] string templateName)
+    public TemplateEmail(string templateName)
     {
         this.HtmlTemplateFileName = "EmailTemplate.html";
         this.TemplateName = templateName;
@@ -167,7 +165,7 @@ public class TemplateEmail : IHaveServiceLocator
     /// <returns>
     /// The process template.
     /// </returns>
-    public string ProcessTemplate([CanBeNull] string templateName)
+    public string ProcessTemplate(string templateName)
     {
         var email = this.ReadTemplate(templateName, this.TemplateLanguageFile);
 

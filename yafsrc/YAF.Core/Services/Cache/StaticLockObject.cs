@@ -21,9 +21,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.Services.Cache;
 
-using YAF.Types.Attributes;
+namespace YAF.Core.Services.Cache;
 
 /// <summary>
 /// The static lock object.
@@ -57,11 +56,8 @@ public class StaticLockObject : IHaveLockObject
     /// <returns>
     /// The get.
     /// </returns>
-    [NotNull]
-    public object Get([NotNull] string originalKey)
+    public object Get(string originalKey)
     {
-        CodeContracts.VerifyNotNull(originalKey);
-
         var keyHash = originalKey.GetHashCode();
 
         // make positive if negative...

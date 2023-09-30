@@ -64,7 +64,7 @@ public static class FooterHtmlHelper
     /// <param name="content">
     /// The content.
     /// </param>
-    private static void RenderRulesLink([NotNull] IHtmlContentBuilder content)
+    private static void RenderRulesLink(IHtmlContentBuilder content)
     {
         var rulesTag = new TagBuilder("a");
 
@@ -88,7 +88,7 @@ public static class FooterHtmlHelper
     /// <param name="content">
     /// The content.
     /// </param>
-    private static void RenderVersion([NotNull] IHtmlContentBuilder content)
+    private static void RenderVersion(IHtmlContentBuilder content)
     {
         // Copyright Link-back Algorithm
         // Please keep if you haven't purchased a removal or commercial license.
@@ -156,7 +156,7 @@ public static class FooterHtmlHelper
     /// <param name="content">
     /// The content.
     /// </param>
-    private static void RenderGeneratedAndDebug([NotNull] IHtmlContentBuilder content)
+    private static void RenderGeneratedAndDebug(IHtmlContentBuilder content)
     {
         if (BoardContext.Current.BoardSettings.ShowPageGenerationTime)
         {

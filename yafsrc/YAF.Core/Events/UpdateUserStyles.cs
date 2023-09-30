@@ -40,10 +40,8 @@ public class UpdateUserStyles : IHaveServiceLocator, IHandleEvent<UpdateUserStyl
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public UpdateUserStyles([NotNull] IServiceLocator serviceLocator)
+    public UpdateUserStyles(IServiceLocator serviceLocator)
     {
-        CodeContracts.VerifyNotNull(serviceLocator);
-
         this.ServiceLocator = serviceLocator;
     }
 

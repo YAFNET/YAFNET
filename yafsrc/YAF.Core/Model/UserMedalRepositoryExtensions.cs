@@ -27,7 +27,6 @@ namespace YAF.Core.Model;
 using System;
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -52,11 +51,9 @@ public static class UserMedalRepositoryExtensions
     /// </returns>
     public static List<Tuple<Medal, UserMedal, User>> List(
         this IRepository<UserMedal> repository,
-        [NotNull] int? userId,
-        [NotNull] int medalId)
+        int? userId,
+        int medalId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
 
         if (userId.HasValue)
@@ -99,14 +96,12 @@ public static class UserMedalRepositoryExtensions
     /// </param>
     public static void Save(
         this IRepository<UserMedal> repository,
-        [NotNull] int userId,
-        [NotNull] int medalId,
-        [NotNull] string message,
-        [NotNull] bool hide,
-        [NotNull] byte sortOrder)
+        int userId,
+        int medalId,
+        string message,
+        bool hide,
+        byte sortOrder)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.UpdateOnly(
             () => new UserMedal { Message = message, Hide = hide, SortOrder = sortOrder },
             m => m.UserID == userId && m.MedalID == medalId);
@@ -137,14 +132,12 @@ public static class UserMedalRepositoryExtensions
     /// </param>
     public static void SaveNew(
         this IRepository<UserMedal> repository,
-        [NotNull] int userId,
-        [NotNull] int medalId,
-        [NotNull] string message,
-        [NotNull] bool hide,
-        [NotNull] byte sortOrder)
+        int userId,
+        int medalId,
+        string message,
+        bool hide,
+        byte sortOrder)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var newId = repository.Insert(
             new UserMedal
                 {

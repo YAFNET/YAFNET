@@ -62,7 +62,7 @@ public abstract class ForumPage : PageModel,
     /// <param name="page">
     /// The page.
     /// </param>
-    protected ForumPage([CanBeNull] string transPage, ForumPages page)
+    protected ForumPage(string transPage, ForumPages page)
     {
         this.PageName = page;
 
@@ -148,7 +148,7 @@ public abstract class ForumPage : PageModel,
     /// <summary>
     ///   Gets or sets the PageName.
     /// </summary>
-    [NotNull]
+    
     public ForumPages PageName { get; set; }
 
     /// <summary>
@@ -179,7 +179,7 @@ public abstract class ForumPage : PageModel,
     /// <returns>
     /// The is null.
     /// </returns>
-    public static object IsNull([NotNull] string value)
+    public static object IsNull(string value)
     {
         return value == null || value.ToLower() == string.Empty ? DBNull.Value : value;
     }
@@ -218,8 +218,8 @@ public abstract class ForumPage : PageModel,
     /// </summary>
     /// <param name="data">The data.</param>
     /// <returns>Returns the Encoded String</returns>
-    [CanBeNull]
-    public string HtmlEncode([NotNull] object data)
+    
+    public string HtmlEncode(object data)
     {
         return data is not string ? null : this.unicodeEncoder.XSSEncode(data.ToString());
     }

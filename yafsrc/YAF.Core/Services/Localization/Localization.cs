@@ -35,7 +35,6 @@ using Microsoft.Extensions.Logging;
 
 using Newtonsoft.Json;
 
-using YAF.Types.Attributes;
 using YAF.Types.Objects.Language;
 
 /// <summary>
@@ -89,7 +88,7 @@ public class Localization : ILocalization
     /// <param name="transPage">
     /// The trans page.
     /// </param>
-    public Localization([NotNull] string transPage)
+    public Localization(string transPage)
         : this()
     {
         this.TransPage = transPage;
@@ -123,7 +122,7 @@ public class Localization : ILocalization
     /// <summary>
     ///   Gets LanguageCode.
     /// </summary>
-    [NotNull]
+    
     public string LanguageCode =>
         this.localizer != null
             ? this.localizer.CurrentCulture.TwoLetterISOLanguageName
@@ -159,8 +158,8 @@ public class Localization : ILocalization
     /// <remarks>
     /// If current localization culture is neutral, it's not used in formatting.
     /// </remarks>
-    [NotNull]
-    public string FormatDateTime([NotNull] string format, DateTime date)
+    
+    public string FormatDateTime(string format, DateTime date)
     {
         return this.Culture.IsNeutralCulture ? date.ToString(format) : date.ToString(format, this.Culture);
     }
@@ -180,7 +179,7 @@ public class Localization : ILocalization
     /// <remarks>
     /// If current localization culture is neutral, it's not used in formatting.
     /// </remarks>
-    public string FormatString([NotNull] string format, [NotNull] params object[] args)
+    public string FormatString(string format, params object[] args)
     {
         return this.Culture.IsNeutralCulture ? string.Format(format, args) : string.Format(this.Culture, format, args);
     }
@@ -198,8 +197,8 @@ public class Localization : ILocalization
     /// The Nodes
     /// </returns>
     public IEnumerable<Resource> GetNodesUsingQuery(
-        [NotNull] string page,
-        [NotNull] Func<Resource, bool> predicate)
+        string page,
+        Func<Resource, bool> predicate)
     {
         this.LoadTranslation();
 
@@ -220,8 +219,8 @@ public class Localization : ILocalization
     /// The Nodes
     /// </returns>
     public IEnumerable<Resource> GetCountryNodesUsingQuery(
-        [NotNull] string page,
-        [NotNull] Func<Resource, bool> predicate)
+        string page,
+        Func<Resource, bool> predicate)
     {
         this.LoadTranslation();
 
@@ -242,8 +241,8 @@ public class Localization : ILocalization
     /// The Nodes
     /// </returns>
     public IEnumerable<Resource> GetRegionNodesUsingQuery(
-        [NotNull] string page,
-        [NotNull] Func<Resource, bool> predicate)
+        string page,
+        Func<Resource, bool> predicate)
     {
         this.LoadTranslation();
 
@@ -260,10 +259,8 @@ public class Localization : ILocalization
     /// <returns>
     /// The get text.
     /// </returns>
-    public string GetText([NotNull] string text)
+    public string GetText(string text)
     {
-        CodeContracts.VerifyNotNull(text);
-
         return this.GetText(this.TransPage, text);
     }
 
@@ -276,7 +273,7 @@ public class Localization : ILocalization
     /// <returns>
     /// The get text.
     /// </returns>
-    public string GetAttributeText([NotNull] string text)
+    public string GetAttributeText(string text)
     {
         return HttpUtility.HtmlAttributeEncode(this.GetText(text));
     }
@@ -289,7 +286,7 @@ public class Localization : ILocalization
     /// <returns>
     /// The get text.
     /// </returns>
-    public string GetText([NotNull] string page, [NotNull] string tag)
+    public string GetText(string page, string tag)
     {
         var localizedText = this.GetLocalizedTextInternal(page, tag);
 
@@ -346,7 +343,7 @@ public class Localization : ILocalization
     /// <returns>
     /// The get text.
     /// </returns>
-    public string GetAttributeText([NotNull] string page, [NotNull] string tag)
+    public string GetAttributeText(string page, string tag)
     {
         return HttpUtility.HtmlAttributeEncode(this.GetText(page, tag));
     }
@@ -366,7 +363,7 @@ public class Localization : ILocalization
     /// <returns>
     /// The get text.
     /// </returns>
-    public string GetText([NotNull] string page, [NotNull] string tag, [NotNull] string languageFile)
+    public string GetText(string page, string tag, string languageFile)
     {
         string localizedText;
 
@@ -441,7 +438,7 @@ public class Localization : ILocalization
     /// <returns>
     /// Returns value if text exists.
     /// </returns>
-    public bool GetTextExists([NotNull] string page, [NotNull] string tag)
+    public bool GetTextExists(string page, string tag)
     {
         return this.GetLocalizedTextInternal(page, tag).IsSet();
     }
@@ -458,11 +455,8 @@ public class Localization : ILocalization
     /// <returns>
     /// Returns the Formatted Text
     /// </returns>
-    public string GetTextFormatted([NotNull] string text, [NotNull] params object[] args)
+    public string GetTextFormatted(string text, params object[] args)
     {
-        CodeContracts.VerifyNotNull(text);
-        CodeContracts.VerifyNotNull(args);
-
         var localizedText = this.GetText(this.TransPage, text);
 
         var arraySize = Math.Max(args.Length, 10);
@@ -490,10 +484,8 @@ public class Localization : ILocalization
     /// <returns>
     /// Returns the translation Culture Info.
     /// </returns>
-    public CultureInfo LoadTranslation([NotNull] string fileName)
+    public CultureInfo LoadTranslation(string fileName)
     {
-        CodeContracts.VerifyNotNull(fileName);
-
         if (this.localizer != null)
         {
             return this.localizer.CurrentCulture;
@@ -619,7 +611,7 @@ public class Localization : ILocalization
     /// <returns>
     /// Returns the Language Resource
     /// </returns>
-    public LanguageResource LoadLanguageFile([NotNull] string fileName)
+    public LanguageResource LoadLanguageFile(string fileName)
     {
         using var file = File.OpenText(fileName.Replace(".xml", ".json"));
         using var reader = new JsonTextReader(file);
@@ -641,7 +633,7 @@ public class Localization : ILocalization
     /// <returns>
     /// Returns the localized text internal.
     /// </returns>
-    protected string GetLocalizedTextInternal([NotNull] string page, [NotNull] string tag)
+    protected string GetLocalizedTextInternal(string page, string tag)
     {
         this.LoadTranslation();
 

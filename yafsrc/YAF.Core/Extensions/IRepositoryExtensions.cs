@@ -32,7 +32,6 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-using YAF.Types.Attributes;
 using YAF.Types.Interfaces.Data;
 
 /// <summary>
@@ -52,11 +51,9 @@ public static class IRepositoryExtensions
     /// <returns>
     /// The <see cref="bool"/> .
     /// </returns>
-    public static bool DeleteAll<T>([NotNull] this IRepository<T> repository)
+    public static bool DeleteAll<T>(this IRepository<T> repository)
         where T : class, IEntity, new()
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var success = repository.DbAccess.Execute(db => db.Connection.DeleteAll<T>()) == 1;
 
         if (success)
@@ -82,11 +79,9 @@ public static class IRepositoryExtensions
     /// <returns>
     /// The <see cref="int"/>.
     /// </returns>
-    public static int Delete<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria)
+    public static int Delete<T>(this IRepository<T> repository, Expression<Func<T, bool>> criteria)
         where T : class, IEntity, new()
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.Execute(db => db.Connection.Delete(criteria));
     }
 
@@ -108,12 +103,10 @@ public static class IRepositoryExtensions
     /// <returns>
     /// The <see cref="int"/>.
     /// </returns>
-    public static Task<int> DeleteAsync<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria,
+    public static Task<int> DeleteAsync<T>(this IRepository<T> repository, Expression<Func<T, bool>> criteria,
                                            CancellationToken token = default)
         where T : class, IEntity, new()
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.ExecuteAsync(db => db.DeleteAsync(criteria, token: token));
     }
 
@@ -132,11 +125,9 @@ public static class IRepositoryExtensions
     /// <returns>
     /// The <see cref="bool"/> .
     /// </returns>
-    public static bool DeleteById<T>([NotNull] this IRepository<T> repository, int id)
+    public static bool DeleteById<T>(this IRepository<T> repository, int id)
         where T : class, IEntity, IHaveID, new()
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var success = repository.DbAccess.Execute(db => db.Connection.DeleteById<T>(id)) == 1;
         if (success)
         {
@@ -153,11 +144,9 @@ public static class IRepositoryExtensions
     /// <param name="repository">The repository.</param>
     /// <param name="ids">The ids.</param>
     /// <returns>Returns if deleting was successful or not</returns>
-    public static bool DeleteByIds<T>([NotNull] this IRepository<T> repository, IEnumerable<int> ids)
+    public static bool DeleteByIds<T>(this IRepository<T> repository, IEnumerable<int> ids)
         where T : class, IEntity, IHaveID, new()
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var success = false;
 
         var enumerable = ids.ToList();
@@ -188,11 +177,9 @@ public static class IRepositoryExtensions
     /// <returns>
     /// Returns all entities by the board Id or current board id if none is specified
     /// </returns>
-    public static IList<T> GetByBoardId<T>([NotNull] this IRepository<T> repository, int? boardId = null)
+    public static IList<T> GetByBoardId<T>(this IRepository<T> repository, int? boardId = null)
         where T : IEntity, IHaveBoardID, new()
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var newBoardId = boardId ?? repository.BoardID;
 
         return repository.DbAccess.Execute(db => db.Connection.Where<T>(new { BoardID = newBoardId }));
@@ -217,14 +204,11 @@ public static class IRepositoryExtensions
     /// The <see cref="bool"/> .
     /// </returns>
     public static int Insert<T>(
-        [NotNull] this IRepository<T> repository,
-        [NotNull] T entity,
+        this IRepository<T> repository,
+        T entity,
         bool selectIdentity = true)
         where T : class, IEntity, new()
     {
-        CodeContracts.VerifyNotNull(entity);
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.Execute(db => db.Connection.Insert(entity, selectIdentity)).ToType<int>();
     }
 
@@ -248,16 +232,13 @@ public static class IRepositoryExtensions
     /// The <see cref="bool"/> .
     /// </returns>
     public static Task<long> InsertAsync<T>(
-        [NotNull] this IRepository<T> repository,
-        [NotNull] T entity,
+        this IRepository<T> repository,
+        T entity,
         bool selectIdentity = true,
         CancellationToken token = default)
         where T : class, IEntity, new()
     {
-        CodeContracts.VerifyNotNull(entity);
-        CodeContracts.VerifyNotNull(repository);
-
-        return repository.DbAccess.ExecuteAsync(db => db.InsertAsync(entity, selectIdentity, token: token));
+       return repository.DbAccess.ExecuteAsync(db => db.InsertAsync(entity, selectIdentity, token: token));
     }
 
     /// <summary>
@@ -275,12 +256,9 @@ public static class IRepositoryExtensions
     /// <param name="inserts">
     /// The List to add.
     /// </param>
-    public static void InsertAll<T>([NotNull] this IRepository<T> repository, [NotNull] IEnumerable<T> inserts)
+    public static void InsertAll<T>(this IRepository<T> repository, IEnumerable<T> inserts)
         where T : IEntity
     {
-        CodeContracts.VerifyNotNull(inserts);
-        CodeContracts.VerifyNotNull(repository);
-
         repository.DbAccess.Execute(
             db =>
                 {
@@ -305,14 +283,11 @@ public static class IRepositoryExtensions
     /// The <see cref="bool"/> .
     /// </returns>
     public static int Upsert<T>(
-        [NotNull] this IRepository<T> repository,
-        [NotNull] T entity)
+        this IRepository<T> repository,
+        T entity)
         where T : class, IEntity, IHaveID, new()
     {
-        CodeContracts.VerifyNotNull(entity);
-        CodeContracts.VerifyNotNull(repository);
-
-        var newId = entity.ID;
+       var newId = entity.ID;
 
         if (entity.ID > 0)
         {
@@ -346,13 +321,10 @@ public static class IRepositoryExtensions
     /// The <see cref="bool"/> .
     /// </returns>
     public static bool Update<T>(
-        [NotNull] this IRepository<T> repository,
-        [NotNull] T entity)
+        this IRepository<T> repository,
+        T entity)
         where T : class, IEntity, new()
     {
-        CodeContracts.VerifyNotNull(entity);
-        CodeContracts.VerifyNotNull(repository);
-
         var success = repository.DbAccess.Update(entity) > 0;
 
         return success;
@@ -377,14 +349,11 @@ public static class IRepositoryExtensions
     /// The <see cref="bool"/> .
     /// </returns>
     public static Task<int> UpdateAsync<T>(
-        [NotNull] this IRepository<T> repository,
-        [NotNull] T entity,
+        this IRepository<T> repository,
+        T entity,
         CancellationToken token = default)
         where T : class, IEntity, new()
     {
-        CodeContracts.VerifyNotNull(entity);
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.UpdateAsync(entity, token);
     }
 
@@ -416,14 +385,12 @@ public static class IRepositoryExtensions
     /// The <see cref="bool"/> .
     /// </returns>
     public static int UpdateAdd<T>(
-        [NotNull] this IRepository<T> repository,
+        this IRepository<T> repository,
         Expression<Func<T>> updateFields,
         Expression<Func<T, bool>> where = null,
         Action<IDbCommand> commandFilter = null)
         where T : class, IEntity, IHaveID, new()
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.UpdateAdd(updateFields, where, commandFilter);
     }
 
@@ -445,14 +412,12 @@ public static class IRepositoryExtensions
     /// <param name="commandFilter">The command filter.</param>
     /// <returns></returns>
     public static int UpdateOnly<T>(
-        [NotNull] this IRepository<T> repository,
+        this IRepository<T> repository,
         Expression<Func<T>> updateFields,
         Expression<Func<T, bool>> where = null,
         Action<IDbCommand> commandFilter = null)
         where T : class, IEntity, new()
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.UpdateOnly(updateFields, where, commandFilter);
     }
 
@@ -474,12 +439,10 @@ public static class IRepositoryExtensions
     /// The <see cref="bool"/>.
     /// </returns>
     public static bool Exists<T>(
-        [NotNull] this IRepository<T> repository,
+        this IRepository<T> repository,
         Expression<Func<T, bool>> where = null)
         where T : class, IEntity, new()
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.Exists(where);
     }
 
@@ -490,13 +453,10 @@ public static class IRepositoryExtensions
     /// <param name="repository">The repository.</param>
     /// <param name="criteria">The criteria.</param>
     /// <returns>Returns the Row Count</returns>
-    public static long Count<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria)
+    public static long Count<T>(this IRepository<T> repository, Expression<Func<T, bool>> criteria)
         where T : class, IEntity, new()
     {
-        CodeContracts.VerifyNotNull(repository);
-        CodeContracts.VerifyNotNull(criteria);
-
-        return repository.DbAccess.Execute(db => db.Connection.Count(criteria));
+         return repository.DbAccess.Execute(db => db.Connection.Count(criteria));
     }
 
     /// <summary>
@@ -517,11 +477,9 @@ public static class IRepositoryExtensions
     /// <returns>
     /// The <see cref="T"/> .
     /// </returns>
-    public static T GetById<T>([NotNull] this IRepository<T> repository, int id, bool includeReference = false)
+    public static T GetById<T>(this IRepository<T> repository, int id, bool includeReference = false)
         where T : IEntity, IHaveID, new()
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.Execute(
             db => includeReference ? db.Connection.LoadSingleById<T>(id) : db.Connection.SingleById<T>(id));
     }
@@ -543,11 +501,9 @@ public static class IRepositoryExtensions
     /// <returns>
     /// The <see cref="List"/>.
     /// </returns>
-    public static List<T> GetByIds<T>([NotNull] this IRepository<T> repository, IEnumerable idValues)
+    public static List<T> GetByIds<T>(this IRepository<T> repository, IEnumerable idValues)
         where T : IEntity, new()
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.Execute(db => db.Connection.SelectByIds<T>(idValues));
     }
 
@@ -560,12 +516,10 @@ public static class IRepositoryExtensions
     /// <returns>
     /// The <see cref="T" /> .
     /// </returns>
-    public static T GetSingle<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria)
+    public static T GetSingle<T>(this IRepository<T> repository, Expression<Func<T, bool>> criteria)
         where T : IEntity, new()
     {
-        CodeContracts.VerifyNotNull(repository);
-
-        return repository.DbAccess.Execute(db => db.Connection.Single(criteria));
+       return repository.DbAccess.Execute(db => db.Connection.Single(criteria));
     }
 
     /// <summary>
@@ -578,11 +532,9 @@ public static class IRepositoryExtensions
     /// <returns>
     /// The <see cref="T" /> .
     /// </returns>
-    public static Task<T> GetSingleAsync<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria, CancellationToken cancellationToken = default)
+    public static Task<T> GetSingleAsync<T>(this IRepository<T> repository, Expression<Func<T, bool>> criteria, CancellationToken cancellationToken = default)
         where T : IEntity, new()
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.ExecuteAsync(db => db.SingleAsync(criteria, token: cancellationToken));
     }
 
@@ -593,12 +545,9 @@ public static class IRepositoryExtensions
     /// <param name="repository">The repository.</param>
     /// <param name="criteria">The criteria.</param>
     /// <returns>Returns the list of entities</returns>
-    public static List<T> Get<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria)
+    public static List<T> Get<T>(this IRepository<T> repository, Expression<Func<T, bool>> criteria)
         where T : class, IEntity, new()
     {
-        CodeContracts.VerifyNotNull(repository);
-        CodeContracts.VerifyNotNull(criteria);
-
         return repository.DbAccess.Execute(db => db.Connection.Select(criteria));
     }
 
@@ -610,12 +559,9 @@ public static class IRepositoryExtensions
     /// <param name="criteria">The criteria.</param>
     /// <param name="cancellationToken">The Cancellation token</param>
     /// <returns>Returns the list of entities</returns>
-    public static Task<List<T>> GetAsync<T>([NotNull] this IRepository<T> repository, Expression<Func<T, bool>> criteria, CancellationToken cancellationToken = default)
+    public static Task<List<T>> GetAsync<T>(this IRepository<T> repository, Expression<Func<T, bool>> criteria, CancellationToken cancellationToken = default)
         where T : class, IEntity, new()
     {
-        CodeContracts.VerifyNotNull(repository);
-        CodeContracts.VerifyNotNull(criteria);
-
         return repository.DbAccess.ExecuteAsync(db => db.SelectAsync(criteria, token: cancellationToken));
     }
 
@@ -631,11 +577,9 @@ public static class IRepositoryExtensions
     /// <returns>
     /// Returns the list of entities
     /// </returns>
-    public static List<T> GetAll<T>([NotNull] this IRepository<T> repository)
+    public static List<T> GetAll<T>(this IRepository<T> repository)
         where T : class, IEntity, new()
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.Execute(db => db.Connection.Select<T>());
     }
 
@@ -651,15 +595,12 @@ public static class IRepositoryExtensions
     /// Returns the list of entities
     /// </returns>
     public static List<T> GetPaged<T>(
-        [NotNull] this IRepository<T> repository,
+        this IRepository<T> repository,
         Expression<Func<T, bool>> criteria,
         int? pageIndex = 0,
         int? pageSize = 10000000)
         where T : class, IEntity, IHaveID, new()
     {
-        CodeContracts.VerifyNotNull(repository);
-        CodeContracts.VerifyNotNull(criteria);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<T>();
 
         expression.Where(criteria).OrderByDescending(item => item.ID).Page(pageIndex + 1, pageSize);

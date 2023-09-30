@@ -84,7 +84,7 @@ public interface ISessionService
     /// <summary>
     ///   Gets PanelState.
     /// </summary>
-    [NotNull]
+    
     IPanelSessionState PanelState { get; }
 
     /// <summary>

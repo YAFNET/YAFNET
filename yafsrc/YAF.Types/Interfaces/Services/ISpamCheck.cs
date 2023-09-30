@@ -42,10 +42,10 @@ public interface ISpamCheck
     /// Returns if Post is SPAM or not
     /// </returns>
     bool CheckPostForSpam(
-        [NotNull] string userName,
-        [NotNull] string ipAddress,
-        [NotNull] string postMessage,
-        [CanBeNull] string emailAddress,
+        string userName,
+        string ipAddress,
+        string postMessage,
+        string emailAddress,
         out string result);
 
     /// <summary>
@@ -58,9 +58,9 @@ public interface ISpamCheck
     /// Returns if Post is SPAM or not
     /// </returns>
     Task<(string Result, bool IsBot)> CheckUserForSpamBotAsync(
-        [NotNull] string userName,
-        [CanBeNull] string emailAddress,
-        [NotNull] string ipAddress);
+        string userName,
+        string emailAddress,
+        string ipAddress);
 
     /// <summary>
     /// Check Content for Spam URLs (Count URLs inside Messages)

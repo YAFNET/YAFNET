@@ -62,8 +62,6 @@ public static class IReadTrackCurrentUserExtensions
         DateTime? forumReadOverride,
         DateTime? topicReadOverride)
     {
-        CodeContracts.VerifyNotNull(readTrackCurrentUser);
-
         var lastRead = readTrackCurrentUser.GetTopicRead(topicId, topicReadOverride);
         var lastReadForum = readTrackCurrentUser.GetForumRead(forumId, forumReadOverride);
 
@@ -86,8 +84,6 @@ public static class IReadTrackCurrentUserExtensions
     /// </param>
     public static void SetForumRead(this IReadTrackCurrentUser readTrackCurrentUser, IEnumerable<int> forumIds)
     {
-        CodeContracts.VerifyNotNull(readTrackCurrentUser);
-
         forumIds.ForEach(readTrackCurrentUser.SetForumRead);
     }
 
@@ -102,8 +98,6 @@ public static class IReadTrackCurrentUserExtensions
     /// </param>
     public static void SetTopicRead(this IReadTrackCurrentUser readTrackCurrentUser, IEnumerable<int> topicIds)
     {
-        CodeContracts.VerifyNotNull(readTrackCurrentUser);
-
         topicIds.ForEach(readTrackCurrentUser.SetTopicRead);
     }
 }

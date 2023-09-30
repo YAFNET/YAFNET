@@ -28,8 +28,6 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The html tag helper.
 /// </summary>
@@ -44,7 +42,7 @@ public static class HtmlTagHelper
     /// <returns>
     /// Returns the cleaned string
     /// </returns>
-    public static string StripHtml([CanBeNull] string text)
+    public static string StripHtml(string text)
     {
         return text.IsNotSet() ? text : Regex.Replace(text, @"<(.|\n)*?>", string.Empty);
     }
@@ -58,7 +56,7 @@ public static class HtmlTagHelper
     /// <returns>
     /// The clean html string.
     /// </returns>
-    public static string CleanHtmlString([CanBeNull] string text)
+    public static string CleanHtmlString(string text)
     {
         text = text.Replace("<br />", " ");
         text = text.Replace("&quot;", "\"");
@@ -78,7 +76,7 @@ public static class HtmlTagHelper
     /// <returns>
     /// The is valid tag.
     /// </returns>
-    public static bool IsValidTag([CanBeNull] string tag, IEnumerable<string> allowedTags)
+    public static bool IsValidTag(string tag, IEnumerable<string> allowedTags)
     {
         if (tag.IndexOf("javascript", StringComparison.Ordinal) >= 0)
         {

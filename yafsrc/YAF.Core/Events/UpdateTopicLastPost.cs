@@ -40,10 +40,8 @@ public class UpdateTopicLastPost : IHaveServiceLocator, IHandleEvent<UpdateTopic
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public UpdateTopicLastPost([NotNull] IServiceLocator serviceLocator)
+    public UpdateTopicLastPost(IServiceLocator serviceLocator)
     {
-        CodeContracts.VerifyNotNull(serviceLocator);
-
         this.ServiceLocator = serviceLocator;
     }
 

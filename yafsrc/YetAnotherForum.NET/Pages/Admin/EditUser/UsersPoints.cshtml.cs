@@ -38,7 +38,7 @@ public class UsersPointsModel : AdminPage
     /// <summary>
     /// Gets or sets the User Data.
     /// </summary>
-    [NotNull]
+    
     public User EditUser { get; set; }
 
     /// <summary>

@@ -26,7 +26,6 @@ namespace YAF.Core.Services;
 using System.Collections.Generic;
 using System.Reflection;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -40,7 +39,7 @@ public class LinkBuilder : IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public LinkBuilder([NotNull] IServiceLocator serviceLocator)
+    public LinkBuilder(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }

@@ -36,7 +36,7 @@ public interface IObjectStore : IReadValue<object>, IWriteValue<object>, IRemove
     /// <param name = "key">
     ///   The key.
     /// </param>
-    object this[[NotNull] string key] { get; set; }
+    object this[string key] { get; set; }
 
     /// <summary>
     /// Gets all the cache elements of type T as a KeyValuePair Enumerable. If T is object, all object types should be returned.
@@ -60,5 +60,5 @@ public interface IObjectStore : IReadValue<object>, IWriteValue<object>, IRemove
     /// </param>
     /// <returns>
     /// </returns>
-    T GetOrSet<T>([NotNull] string key, [NotNull] Func<T> getValue);
+    T GetOrSet<T>(string key, Func<T> getValue);
 }

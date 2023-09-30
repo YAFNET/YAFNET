@@ -27,7 +27,6 @@ using Microsoft.Extensions.Logging;
 
 using YAF.Configuration.Pattern;
 using YAF.Core.Model;
-using YAF.Types.Attributes;
 using YAF.Types.Exceptions;
 using YAF.Types.Models;
 
@@ -41,7 +40,7 @@ public class BoardSettingsService : IHaveServiceLocator
     /// <summary>Initializes a new instance of the <see cref="T:YAF.Core.Services.BoardSettingsService" /> class.</summary>
     /// <param name="logger">The logger.</param>
     /// <param name="serviceLocator">The service locator.</param>
-    public BoardSettingsService([NotNull] ILogger<BoardSettingsService> logger, IServiceLocator serviceLocator)
+    public BoardSettingsService(ILogger<BoardSettingsService> logger, IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
         this.Logger = logger;
@@ -62,7 +61,7 @@ public class BoardSettingsService : IHaveServiceLocator
     /// <param name="board">The board.</param>
     /// <returns>BoardSettings.</returns>
     /// <exception cref="YAF.Types.Exceptions.EmptyBoardSettingException">No data for board ID: {boardId}</exception>
-    public BoardSettings LoadBoardSettings([NotNull] int boardId, [CanBeNull] Board board)
+    public BoardSettings LoadBoardSettings(int boardId, Board board)
     {
         if (board == null)
         {

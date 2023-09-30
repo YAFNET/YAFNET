@@ -24,7 +24,6 @@
 
 namespace YAF.Core.Services;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -46,7 +45,7 @@ public class Avatars : IAvatars, IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service Locator.
     /// </param>
-    public Avatars(BoardSettings boardSettings, [NotNull] IServiceLocator serviceLocator)
+    public Avatars(BoardSettings boardSettings, IServiceLocator serviceLocator)
     {
         this.boardSettings = boardSettings;
         this.ServiceLocator = serviceLocator;
@@ -77,10 +76,8 @@ public class Avatars : IAvatars, IHaveServiceLocator
     /// <returns>
     /// Returns the Avatar Url
     /// </returns>
-    public string GetAvatarUrlForUser([NotNull] User user)
+    public string GetAvatarUrlForUser(User user)
     {
-        CodeContracts.VerifyNotNull(user);
-
         return this.GetAvatarUrlForUser(user.ID, user.Avatar, user.AvatarImage != null);
     }
 

@@ -43,7 +43,7 @@ public static class UserLabelHtmlHelper
     /// <returns>
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
-    public static IHtmlContent UserLabel(this IHtmlHelper htmlHelper, [NotNull] User user)
+    public static IHtmlContent UserLabel(this IHtmlHelper htmlHelper, User user)
     {
         var content = new HtmlContentBuilder();
         var context = BoardContext.Current;
@@ -74,7 +74,7 @@ public static class UserLabelHtmlHelper
     /// <returns>
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
-    public static IHtmlContent UserLabel(this IHtmlHelper htmlHelper, [NotNull] string userName, [CanBeNull] string userStyle, [CanBeNull] string crawlerName = null)
+    public static IHtmlContent UserLabel(this IHtmlHelper htmlHelper, string userName, string userStyle, string crawlerName = null)
     {
         var content = new HtmlContentBuilder();
         var context = BoardContext.Current;

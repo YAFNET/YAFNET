@@ -65,11 +65,8 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// <param name="dataCache">
     /// The data Cache.
     /// </param>
-    public ClearCacheOnEvents([NotNull] IServiceLocator serviceLocator, [NotNull] IDataCache dataCache)
+    public ClearCacheOnEvents(IServiceLocator serviceLocator, IDataCache dataCache)
     {
-        CodeContracts.VerifyNotNull(serviceLocator);
-        CodeContracts.VerifyNotNull(dataCache);
-
         this.ServiceLocator = serviceLocator;
         this.DataCache = dataCache;
     }
@@ -95,7 +92,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// <param name="event">
     /// The event.
     /// </param>
-    void IHandleEvent<SuccessfulUserLoginEvent>.Handle([NotNull] SuccessfulUserLoginEvent @event)
+    void IHandleEvent<SuccessfulUserLoginEvent>.Handle(SuccessfulUserLoginEvent @event)
     {
         // to clear the cache to show user in the list at once
         this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
@@ -109,7 +106,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// <param name="event">
     /// The event.
     /// </param>
-    void IHandleEvent<UpdateUserEvent>.Handle([NotNull] UpdateUserEvent @event)
+    void IHandleEvent<UpdateUserEvent>.Handle(UpdateUserEvent @event)
     {
         // clear the cache for this user...
         var userId = @event.UserId;
@@ -135,7 +132,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// <param name="event">
     /// The event.
     /// </param>
-    void IHandleEvent<UserLogoutEvent>.Handle([NotNull] UserLogoutEvent @event)
+    void IHandleEvent<UserLogoutEvent>.Handle(UserLogoutEvent @event)
     {
         // Clearing user cache with permissions data and active users cache...));
         this.DataCache.Remove(string.Format(Constants.Cache.ActiveUserLazyData, @event.UserId));

@@ -36,5 +36,5 @@ public interface ITreatCacheKey
     /// </param>
     /// <returns>
     /// </returns>
-    string Treat([NotNull] string key);
+    string Treat(string key);
 }

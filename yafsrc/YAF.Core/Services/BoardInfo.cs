@@ -27,7 +27,6 @@ namespace YAF.Core.Services;
 using System;
 using System.Runtime.Caching;
 
-using YAF.Types.Attributes;
 using YAF.Types.Objects;
 
 /// <summary>
@@ -106,10 +105,8 @@ public class BoardInfo : IHaveServiceLocator
     /// <returns>
     /// Returns the URL including the Content Themes path
     /// </returns>
-    public string GetUrlToContentThemes([NotNull] string resourceName)
+    public string GetUrlToContentThemes(string resourceName)
     {
-        CodeContracts.VerifyNotNull(resourceName);
-
         return this.Get<IUrlHelper>().Content($"~/css/themes/{resourceName}");
     }
 
@@ -120,11 +117,9 @@ public class BoardInfo : IHaveServiceLocator
     /// <returns>
     /// Returns the URL including the Scripts path
     /// </returns>
-    public string GetUrlToScripts([NotNull] string resourceName)
+    public string GetUrlToScripts(string resourceName)
     {
-        CodeContracts.VerifyNotNull(resourceName);
-
-        return this.Get<IUrlHelper>().Content($"~/js/{resourceName}");
+       return this.Get<IUrlHelper>().Content($"~/js/{resourceName}");
     }
 
     /// <summary>
@@ -132,11 +127,9 @@ public class BoardInfo : IHaveServiceLocator
     /// </summary>
     /// <param name="resourceName">Name of the resource.</param>
     /// <returns>System.String.</returns>
-    public string GetUrlToCss([NotNull] string resourceName)
+    public string GetUrlToCss(string resourceName)
     {
-        CodeContracts.VerifyNotNull(resourceName);
-
-        return this.Get<IUrlHelper>().Content($"~/css/{resourceName}");
+       return this.Get<IUrlHelper>().Content($"~/css/{resourceName}");
     }
 
     /// <summary>
@@ -174,7 +167,6 @@ public class BoardInfo : IHaveServiceLocator
     /// <returns>
     /// The get base url from variables.
     /// </returns>
-    [NotNull]
     public string GetBaseUrlFromVariables()
     {
         var url = new StringBuilder();

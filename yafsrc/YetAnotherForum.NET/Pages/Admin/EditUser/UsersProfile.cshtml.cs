@@ -61,7 +61,7 @@ public class UsersProfileModel : AdminPage
     /// <summary>
     /// Gets or sets the User Data.
     /// </summary>
-    [NotNull]
+    
     public Tuple<User, AspNetUsers, Rank, VAccess> EditUser { get; set; }
 
     /// <summary>
@@ -92,7 +92,7 @@ public class UsersProfileModel : AdminPage
     /// <value>
     /// The current Culture information.
     /// </value>
-    [NotNull]
+    
     private CultureInfo CurrentCultureInfo {
         get {
             if (this.currentCultureInfo != null)
@@ -353,7 +353,7 @@ public class UsersProfileModel : AdminPage
     /// <param name="genderSelectedItem">
     /// The gender selected item.
     /// </param>
-    private void LoadGenders([CanBeNull] int genderSelectedItem)
+    private void LoadGenders(int genderSelectedItem)
     {
         var genders = StaticDataHelper.Gender().ToList();
 
@@ -375,7 +375,7 @@ public class UsersProfileModel : AdminPage
     /// <param name="countryCode">
     /// The country code.
     /// </param>
-    private void LoadCountriesAndRegions([CanBeNull] string countryCode)
+    private void LoadCountriesAndRegions(string countryCode)
     {
         var countries = StaticDataHelper.Countries().ToList();
 

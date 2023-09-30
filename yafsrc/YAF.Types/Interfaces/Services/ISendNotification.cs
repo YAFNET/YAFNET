@@ -91,48 +91,48 @@ public interface ISendNotification
     /// <param name="templateName">
     ///     The template Name.
     /// </param>
-    Task SendRegistrationNotificationToUserAsync([NotNull] AspNetUsers user, [NotNull] string pass, string templateName);
+    Task SendRegistrationNotificationToUserAsync(AspNetUsers user, string pass, string templateName);
 
     /// <summary>
     /// Sends notification that the User was awarded with a Medal
     /// </summary>
     /// <param name="toUserId">To user id.</param>
     /// <param name="medalName">Name of the medal.</param>
-    Task ToUserWithNewMedalAsync([NotNull] int toUserId, [NotNull] string medalName);
+    Task ToUserWithNewMedalAsync(int toUserId, string medalName);
 
     /// <summary>
     /// Sends the role assignment notification.
     /// </summary>
     /// <param name="user">The user.</param>
     /// <param name="addedRoles">The added roles.</param>
-    Task SendRoleAssignmentNotificationAsync([NotNull] AspNetUsers user, List<string> addedRoles);
+    Task SendRoleAssignmentNotificationAsync(AspNetUsers user, List<string> addedRoles);
 
     /// <summary>
     /// Sends the role un assignment notification.
     /// </summary>
     /// <param name="user">The user.</param>
     /// <param name="removedRoles">The removed roles.</param>
-    Task SendRoleUnAssignmentNotificationAsync([NotNull] AspNetUsers user, List<string> removedRoles);
+    Task SendRoleUnAssignmentNotificationAsync(AspNetUsers user, List<string> removedRoles);
 
     /// <summary>
     /// The send registration notification email.
     /// </summary>
     /// <param name="user">The user.</param>
     /// <param name="userId">The user id.</param>
-    Task SendRegistrationNotificationEmailAsync([NotNull] AspNetUsers user, int userId);
+    Task SendRegistrationNotificationEmailAsync(AspNetUsers user, int userId);
 
     /// <summary>
     /// Sends a spam bot notification to admins.
     /// </summary>
     /// <param name="user">The user.</param>
     /// <param name="userId">The user id.</param>
-    Task SendSpamBotNotificationToAdminsAsync([NotNull] AspNetUsers user, int userId);
+    Task SendSpamBotNotificationToAdminsAsync(AspNetUsers user, int userId);
 
     /// <summary>
     /// Sends the user welcome notification.
     /// </summary>
     /// <param name="user">The user.</param>
-    Task SendUserWelcomeNotificationAsync([NotNull] User user);
+    Task SendUserWelcomeNotificationAsync(User user);
 
     /// <summary>
     /// Sends the verification email.
@@ -142,8 +142,8 @@ public interface ISendNotification
     /// <param name="userId">The user identifier.</param>
     /// <param name="newUsername">The new username.</param>
     Task SendVerificationEmailAsync(
-        [NotNull] AspNetUsers user,
-        [NotNull] string email,
+        AspNetUsers user,
+        string email,
         int? userId,
         string newUsername = null);
 
@@ -155,17 +155,17 @@ public interface ISendNotification
     /// <param name="email">The email.</param>
     /// <param name="userName">Name of the user.</param>
     Task SendUserSuspensionNotificationAsync(
-        [NotNull] DateTime suspendedUntil,
-        [NotNull] string suspendReason,
-        [NotNull] string email,
-        [NotNull] string userName);
+        DateTime suspendedUntil,
+        string suspendReason,
+        string email,
+        string userName);
 
     /// <summary>
     /// Sends the user a suspension ended notification.
     /// </summary>
     /// <param name="email">The email.</param>
     /// <param name="userName">Name of the user.</param>
-    Task SendUserSuspensionEndedNotificationAsync([NotNull] string email, [NotNull] string userName);
+    Task SendUserSuspensionEndedNotificationAsync(string email, string userName);
 
     /// <summary>
     /// The send password reset.
@@ -176,5 +176,5 @@ public interface ISendNotification
     /// <param name="token">
     ///     The token.
     /// </param>
-    Task SendPasswordResetAsync([NotNull] AspNetUsers user, [NotNull] string token);
+    Task SendPasswordResetAsync(AspNetUsers user, string token);
 }

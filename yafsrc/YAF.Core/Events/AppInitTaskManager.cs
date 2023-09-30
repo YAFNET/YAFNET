@@ -51,7 +51,7 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpContex
     /// <param name="logger">
     /// The logger.
     /// </param>
-    public AppInitTaskManager([NotNull] IServiceLocator serviceLocator, [NotNull] ILogger<AppInitTaskManager> logger)
+    public AppInitTaskManager(IServiceLocator serviceLocator, ILogger<AppInitTaskManager> logger)
     {
         this.ServiceLocator = serviceLocator;
         this.Logger = logger;
@@ -84,11 +84,8 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpContex
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public override bool StartTask([NotNull] string instanceName, [NotNull] Func<IBackgroundTask> start)
+    public override bool StartTask(string instanceName, Func<IBackgroundTask> start)
     {
-        CodeContracts.VerifyNotNull(instanceName);
-        CodeContracts.VerifyNotNull(start);
-
         if (this.appInstance == null)
         {
             return false;
@@ -130,7 +127,7 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpContex
     /// <param name="event">
     /// The event.
     /// </param>
-    public void Handle([NotNull] HttpContextInitEvent @event)
+    public void Handle(HttpContextInitEvent @event)
     {
         this.appInstance = @event.HttpContext;
 

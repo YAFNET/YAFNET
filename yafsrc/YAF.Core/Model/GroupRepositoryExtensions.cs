@@ -26,7 +26,6 @@ namespace YAF.Core.Model;
 
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
@@ -52,11 +51,9 @@ public static class GroupRepositoryExtensions
     /// </returns>
     public static IList<Group> List(
         this IRepository<Group> repository,
-        [CanBeNull] int? groupId = null,
-        [CanBeNull] int? boardId = null)
+        int? groupId = null,
+        int? boardId = null)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return groupId.HasValue
                    ? repository.Get(g => g.BoardID == boardId && g.ID == groupId.Value)
                    : repository.Get(g => g.BoardID == boardId).OrderBy(o => o.SortOrder).ToList();
@@ -79,11 +76,9 @@ public static class GroupRepositoryExtensions
     /// </returns>
     public static List<GroupMember> Member(
         this IRepository<Group> repository,
-        [NotNull] int boardId,
-        [NotNull] int userId)
+        int boardId,
+        int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.Execute(
             db =>
                 {
@@ -144,21 +139,19 @@ public static class GroupRepositoryExtensions
     /// </returns>
     public static int Save(
         this IRepository<Group> repository,
-        [CanBeNull] int? groupId,
-        [NotNull] int boardId,
-        [NotNull] string name,
-        [NotNull] GroupFlags flags,
-        [NotNull] int accessMaskId,
-        [CanBeNull] string style,
-        [NotNull] short sortOrder,
-        [CanBeNull] string description,
-        [NotNull] int signatureChars,
-        [CanBeNull] string signatureBBCodes,
-        [CanBeNull] int userAlbums,
-        [CanBeNull] int userAlbumImages)
+        int? groupId,
+        int boardId,
+        string name,
+        GroupFlags flags,
+        int accessMaskId,
+        string style,
+        short sortOrder,
+        string description,
+        int signatureChars,
+        string signatureBBCodes,
+        int userAlbums,
+        int userAlbumImages)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         if (groupId.HasValue)
         {
             repository.UpdateOnly(

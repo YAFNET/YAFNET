@@ -27,7 +27,6 @@ namespace YAF.Core.Model;
 using System;
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -49,10 +48,8 @@ public static class ActivityRepositoryExtensions
     /// </returns>
     public static List<Tuple<Activity, User, Topic>> Notifications(
         this IRepository<Activity> repository,
-        [NotNull] int userId)
+        int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
         expression.Join<User>((a, u) => u.ID == a.FromUserID).LeftJoin<Topic>((a, t) => t.ID == a.TopicID.Value)
@@ -73,10 +70,8 @@ public static class ActivityRepositoryExtensions
     /// <returns>
     /// Returns the User Timeline
     /// </returns>
-    public static List<Tuple<Activity, Topic>> Timeline(this IRepository<Activity> repository, [NotNull] int userId)
+    public static List<Tuple<Activity, Topic>> Timeline(this IRepository<Activity> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
         expression.LeftJoin<Topic>((a, t) => t.ID == a.TopicID).Where<Activity>(
@@ -100,11 +95,9 @@ public static class ActivityRepositoryExtensions
     /// </param>
     public static void UpdateNotification(
         this IRepository<Activity> repository,
-        [NotNull] int userId,
-        [NotNull] int messageId)
+        int userId,
+        int messageId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
 
         repository.UpdateOnly(
@@ -126,11 +119,9 @@ public static class ActivityRepositoryExtensions
     /// </param>
     public static void UpdateTopicNotification(
         this IRepository<Activity> repository,
-        [NotNull] int userId,
-        [NotNull] int topicId)
+        int userId,
+        int topicId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
 
         repository.UpdateOnly(
@@ -147,10 +138,8 @@ public static class ActivityRepositoryExtensions
     /// <param name="userId">
     /// The user id.
     /// </param>
-    public static void MarkAllAsRead(this IRepository<Activity> repository, [NotNull] int userId)
+    public static void MarkAllAsRead(this IRepository<Activity> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.UpdateOnly(
             () => new Activity { Notification = false },
             a => a.UserID == userId && a.Notification);

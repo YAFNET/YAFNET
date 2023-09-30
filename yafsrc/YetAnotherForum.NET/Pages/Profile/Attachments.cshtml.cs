@@ -119,7 +119,7 @@ public class AttachmentsModel : ProfilePage
     /// <returns>
     /// Returns the Preview Image
     /// </returns>
-    public IHtmlContent GetPreviewImage([NotNull] Attachment attach)
+    public IHtmlContent GetPreviewImage(Attachment attach)
     {
         var fileName = attach.FileName;
         var isImage = fileName.IsImageName();

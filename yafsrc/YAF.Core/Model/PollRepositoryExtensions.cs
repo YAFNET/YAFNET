@@ -27,7 +27,6 @@ namespace YAF.Core.Model;
 using System;
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -49,10 +48,8 @@ public static class PollRepositoryExtensions
     /// </returns>
     public static List<Tuple<Poll, Choice>> GetPollAndChoices(
         this IRepository<Poll> repository,
-        [NotNull] int pollId)
+        int pollId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Poll>();
 
         expression.Join<Choice>((p, c) => c.PollID == p.ID).Where<Poll>(p => p.ID == pollId);
@@ -71,10 +68,8 @@ public static class PollRepositoryExtensions
     /// </param>
     public static void Remove(
         this IRepository<Poll> repository,
-        [NotNull] int pollId)
+        int pollId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         // delete vote records first
         BoardContext.Current.GetRepository<PollVote>().Delete(p => p.PollID == pollId);
 
@@ -121,16 +116,14 @@ public static class PollRepositoryExtensions
     /// </param>
     public static void Update(
         this IRepository<Poll> repository,
-        [NotNull] int pollId,
-        [NotNull] string question,
-        [CanBeNull] DateTime? closes,
-        [NotNull] bool isClosedBounded,
-        [NotNull] bool allowMultipleChoices,
-        [NotNull] bool showVoters,
-        [CanBeNull] string questionPath)
+        int pollId,
+        string question,
+        DateTime? closes,
+        bool isClosedBounded,
+        bool allowMultipleChoices,
+        bool showVoters,
+        string questionPath)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var flags = new PollFlags
                         {
                             IsClosedBound = isClosedBounded,
@@ -182,16 +175,14 @@ public static class PollRepositoryExtensions
     /// </returns>
     public static int Create(
         this IRepository<Poll> repository,
-        [NotNull] int userId,
-        [NotNull] string question,
-        [CanBeNull] DateTime? closes,
-        [NotNull] bool isClosedBounded,
-        [NotNull] bool allowMultipleChoices,
-        [NotNull] bool showVoters,
-        [CanBeNull] string questionPath)
+        int userId,
+        string question,
+        DateTime? closes,
+        bool isClosedBounded,
+        bool allowMultipleChoices,
+        bool showVoters,
+        string questionPath)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var flags = new PollFlags
                         {
                             IsClosedBound = isClosedBounded,

@@ -14,7 +14,6 @@ global using ServiceStack.OrmLite.Sqlite;
 global using YAF.Configuration;
 global using YAF.Core.Data;
 global using YAF.Core.Events;
-global using YAF.Types;
 global using YAF.Types.Attributes;
 global using YAF.Types.Interfaces.Data;
 global using YAF.Types.Interfaces.Events;

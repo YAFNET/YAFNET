@@ -145,7 +145,7 @@ public interface ILocalization
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    string GetText([NotNull] string text);
+    string GetText(string text);
 
     /// <summary>
     /// Gets the attribute encoded text. 
@@ -156,7 +156,7 @@ public interface ILocalization
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    string GetAttributeText([NotNull] string text);
+    string GetAttributeText(string text);
 
     /// <summary>
     /// Gets the Text
@@ -229,7 +229,7 @@ public interface ILocalization
     /// <returns>
     /// The get text formatted.
     /// </returns>
-    string GetTextFormatted([NotNull] string text, [NotNull] params object[] args);
+    string GetTextFormatted(string text, params object[] args);
 
     /// <summary>
     /// Loads the translation.
@@ -240,7 +240,7 @@ public interface ILocalization
     /// <returns>
     /// The <see cref="CultureInfo"/>.
     /// </returns>
-    CultureInfo LoadTranslation([NotNull] string fileName);
+    CultureInfo LoadTranslation(string fileName);
 
     /// <summary>
     /// Loads the translation.
@@ -256,5 +256,5 @@ public interface ILocalization
     /// <returns>
     /// Returns the Language Resource
     /// </returns>
-    LanguageResource LoadLanguageFile([NotNull]string fileName);
+    LanguageResource LoadLanguageFile(string fileName);
 }

@@ -51,7 +51,7 @@ public class MessagePostDataTagHelper : MessagePostTagHelper
     /// <summary>
     ///   Gets Signature.
     /// </summary>
-    [CanBeNull]
+    
     public override string Signature
     {
         get
@@ -74,10 +74,8 @@ public class MessagePostDataTagHelper : MessagePostTagHelper
     /// <returns>
     /// The truncate message.
     /// </returns>
-    public static string TruncateMessage([NotNull] string message)
+    public static string TruncateMessage(string message)
     {
-        CodeContracts.VerifyNotNull(message);
-
         var maxPostSize = Math.Max(BoardContext.Current.BoardSettings.MaxPostSize, 0);
 
         // 0 == unlimited

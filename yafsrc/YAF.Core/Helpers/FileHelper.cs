@@ -31,8 +31,6 @@ using System.Text.RegularExpressions;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// Provides helper functions for File handling
 /// </summary>
@@ -71,7 +69,6 @@ public static class FileHelper
     /// <returns>
     /// The validate file name.
     /// </returns>
-    [NotNull]
     public static bool ValidateFileName(string fileName)
     {
         return FileNameValidator.IsMatch(fileName);
@@ -86,7 +83,6 @@ public static class FileHelper
     /// <returns>
     /// The clean file name.
     /// </returns>
-    [NotNull]
     public static string CleanFileName(string fileName)
     {
         return FileNameCleaner.Replace(fileName, string.Empty);
@@ -105,13 +101,10 @@ public static class FileHelper
     /// The folder.
     /// </param>
     public static void AddImageFiles(
-        [NotNull] this List<SelectListItem> list,
-        [NotNull] List<FileInfo> files,
-        [NotNull] string folder)
+        this List<SelectListItem> list,
+        List<FileInfo> files,
+        string folder)
     {
-        CodeContracts.VerifyNotNull(files);
-        CodeContracts.VerifyNotNull(folder);
-
         files.Where(
             e => e.Extension.Equals(".png", StringComparison.InvariantCultureIgnoreCase)
                  || e.Extension.Equals(".gif", StringComparison.InvariantCultureIgnoreCase)

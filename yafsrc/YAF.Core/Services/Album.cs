@@ -31,8 +31,6 @@ using Model;
 using Types.Models;
 using Types.Objects;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// Album Service for the current user.
 /// </summary>
@@ -44,7 +42,7 @@ public class Album : IAlbum, IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public Album([NotNull] IServiceLocator serviceLocator)
+    public Album(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }
@@ -70,10 +68,10 @@ public class Album : IAlbum, IHaveServiceLocator
     /// The image id.
     /// </param>
     public void AlbumImageDelete(
-        [NotNull] string uploadFolder,
-        [CanBeNull] int? albumId,
+        string uploadFolder,
+        int? albumId,
         int userId,
-        [NotNull] int? imageId)
+        int? imageId)
     {
         if (albumId.HasValue)
         {
@@ -146,11 +144,9 @@ public class Album : IAlbum, IHaveServiceLocator
     /// <returns>
     /// the return object.
     /// </returns>
-    public ReturnClass ChangeImageCaption(int imageId, [NotNull] string newCaption)
+    public ReturnClass ChangeImageCaption(int imageId, string newCaption)
     {
         // load the DB so BoardContext can work...
-        CodeContracts.VerifyNotNull(newCaption);
-
         this.GetRepository<UserAlbumImage>().UpdateCaption(imageId, newCaption);
 
         var returnObject = new ReturnClass { NewTitle = newCaption };

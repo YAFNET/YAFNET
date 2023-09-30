@@ -27,7 +27,6 @@ namespace YAF.Core.Model;
 using System;
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
 
@@ -46,10 +45,8 @@ public static class MessageReportedRepositoryExtensions
     /// The forum Id.
     /// </param>
     public static
-        List<ReportedMessage> ListReported(this IRepository<MessageReported> repository, [NotNull] int forumId)
+        List<ReportedMessage> ListReported(this IRepository<MessageReported> repository, int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.Execute(
             db =>
                 {
@@ -116,13 +113,11 @@ public static class MessageReportedRepositoryExtensions
     /// </param>
     public static void Report(
         this IRepository<MessageReported> repository,
-        [NotNull] Message message,
-        [NotNull] int userId,
-        [NotNull] DateTime reportedDateTime,
-        [NotNull] string reportText)
+        Message message,
+        int userId,
+        DateTime reportedDateTime,
+        string reportText)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         reportText ??= string.Empty;
 
         if (!repository.Exists(m => m.ID == message.ID))
@@ -172,10 +167,8 @@ public static class MessageReportedRepositoryExtensions
     /// <param name="message">
     /// The message.
     /// </param>
-    public static void ReportCopyOver(this IRepository<MessageReported> repository, [NotNull] Message message)
+    public static void ReportCopyOver(this IRepository<MessageReported> repository, Message message)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.UpdateOnly(() => new MessageReported { Message = message.MessageText }, m => m.ID == message.ID);
     }
 }

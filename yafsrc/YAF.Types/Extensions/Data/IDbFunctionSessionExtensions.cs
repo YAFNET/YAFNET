@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Extensions.Data;
 
 using System.Data;
@@ -39,11 +40,8 @@ public static class IDbFunctionSessionExtensions
     /// <param name="dbTransaction">
     /// The transaction.
     /// </param>
-    public static void Populate([NotNull] this IDbCommand command, IDbTransaction dbTransaction)
+    public static void Populate(this IDbCommand command, IDbTransaction dbTransaction)
     {
-        CodeContracts.VerifyNotNull(dbTransaction);
-        CodeContracts.VerifyNotNull(command);
-
         command.Connection = dbTransaction.Connection;
         command.Transaction = dbTransaction;
     }

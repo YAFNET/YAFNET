@@ -28,8 +28,6 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Text;
 
-using YAF.Types;
-
 /// <summary>
 /// The most recently used.
 /// </summary>
@@ -105,12 +103,10 @@ public class MostRecentlyUsed : DictionaryBase
     /// <param name="key">
     /// The key.
     /// </param>
-    public object this[[NotNull] object key]
+    public object this[object key]
     {
         get
         {
-            CodeContracts.VerifyNotNull(key);
-
             var item = (DoubleLinkedList.LinkItem)this.Dictionary[key];
 
             if (item is null)
@@ -125,9 +121,6 @@ public class MostRecentlyUsed : DictionaryBase
 
         set
         {
-            CodeContracts.VerifyNotNull(key);
-            CodeContracts.VerifyNotNull(value);
-
             if (this.Dictionary.Contains(key))
             {
                 var link = (DoubleLinkedList.LinkItem)this.Dictionary[key];
@@ -156,11 +149,8 @@ public class MostRecentlyUsed : DictionaryBase
     /// <param name="value">
     /// The value.
     /// </param>
-    public void Add([NotNull] object key, [NotNull] object value)
+    public void Add(object key, object value)
     {
-        CodeContracts.VerifyNotNull(key);
-        CodeContracts.VerifyNotNull(value);
-
         var link = this.list.Prepend(value);
 
         this.Dictionary.Add(key, link);
@@ -178,10 +168,8 @@ public class MostRecentlyUsed : DictionaryBase
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public bool Contains([NotNull] object key)
+    public bool Contains(object key)
     {
-        CodeContracts.VerifyNotNull(key);
-
         var hasKey = this.Dictionary.Contains(key);
 
         // Update the reference for this link
@@ -199,10 +187,8 @@ public class MostRecentlyUsed : DictionaryBase
     /// <param name="key">
     /// The key.
     /// </param>
-    public void Remove([NotNull] object key)
+    public void Remove(object key)
     {
-        CodeContracts.VerifyNotNull(key);
-
         var link = (DoubleLinkedList.LinkItem)this.Dictionary[key];
 
         this.Dictionary.Remove(key);
@@ -240,7 +226,7 @@ public class MostRecentlyUsed : DictionaryBase
             buff.Append(item);
         }
 
-        buff.Append("]");
+        buff.Append(']');
 
         return buff.ToString();
     }
@@ -254,11 +240,8 @@ public class MostRecentlyUsed : DictionaryBase
     /// <param name="value">
     /// The value.
     /// </param>
-    protected override void OnInsert([NotNull] object key, [NotNull] object value)
+    protected override void OnInsert(object key, object value)
     {
-        CodeContracts.VerifyNotNull(key);
-        CodeContracts.VerifyNotNull(value);
-
         if (this.Dictionary.Keys.Count < this.Capacity)
         {
             return;

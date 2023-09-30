@@ -45,14 +45,10 @@ public static class IHaveLocalizationExtensions
     /// The get text.
     /// </returns>
     public static string GetText(
-        [NotNull] this IHaveLocalization haveLocalization,
-        [NotNull] string page,
-        [NotNull] string tag)
+        this IHaveLocalization haveLocalization,
+        string page,
+        string tag)
     {
-        CodeContracts.VerifyNotNull(haveLocalization);
-        CodeContracts.VerifyNotNull(page);
-        CodeContracts.VerifyNotNull(tag);
-
         return haveLocalization.Localization.GetText(page, tag);
     }
 
@@ -68,11 +64,8 @@ public static class IHaveLocalizationExtensions
     /// <returns>
     /// The get text.
     /// </returns>
-    public static string GetText([NotNull] this IHaveLocalization haveLocalization, [NotNull] string tag)
+    public static string GetText(this IHaveLocalization haveLocalization, string tag)
     {
-        CodeContracts.VerifyNotNull(haveLocalization);
-        CodeContracts.VerifyNotNull(tag);
-
         return haveLocalization.Localization.GetText(tag);
     }
 
@@ -92,13 +85,10 @@ public static class IHaveLocalizationExtensions
     /// The get text formatted.
     /// </returns>
     public static string GetTextFormatted(
-        [NotNull] this IHaveLocalization haveLocalization,
-        [NotNull] string tag,
-        [CanBeNull] params object[] args)
+        this IHaveLocalization haveLocalization,
+        string tag,
+        params object[] args)
     {
-        CodeContracts.VerifyNotNull(haveLocalization);
-        CodeContracts.VerifyNotNull(tag);
-
         return haveLocalization.Localization.GetTextFormatted(tag, args);
     }
 }

@@ -28,7 +28,6 @@ namespace YAF.Core.Model;
 using System;
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -53,12 +52,10 @@ public static class ActiveAccessRepositoryExtensions
     /// </param>
     public static void InsertPageAccess(
         this IRepository<ActiveAccess> repository,
-        [CanBeNull] int boardId,
-        [NotNull] int userId,
-        [NotNull] bool isGuest)
+        int boardId,
+        int userId,
+        bool isGuest)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         if (repository.Exists(a => a.UserID == userId))
         {
             return;
@@ -107,17 +104,15 @@ public static class ActiveAccessRepositoryExtensions
     /// <param name="activeTime">
     /// The active Time.
     /// </param>
-    public static void Delete(this IRepository<ActiveAccess> repository, [NotNull] int activeTime)
+    public static void Delete(this IRepository<ActiveAccess> repository, int activeTime)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.DbAccess.Execute(
             db =>
                 {
                     var expression = OrmLiteConfig.DialectProvider.SqlExpression<ActiveAccess>();
 
                     expression.Where(
-                        $@"{OrmLiteConfig.DialectProvider.DateDiffFunction(
+                        $"{OrmLiteConfig.DialectProvider.DateDiffFunction(
                             "minute",
                             expression.Column<ActiveAccess>(x => x.LastActive, true),
                             OrmLiteConfig.DialectProvider.GetUtcDateFunction())} > {activeTime} ");

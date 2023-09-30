@@ -512,7 +512,7 @@ public class HostSettingsModel : AdminPage
     /// <returns>
     /// The check cache key.
     /// </returns>
-    private bool CheckCacheKey([NotNull] string key)
+    private bool CheckCacheKey(string key)
     {
         return this.Get<IDataCache>()[key] != null;
     }
@@ -521,7 +521,7 @@ public class HostSettingsModel : AdminPage
     /// Removes the cache key.
     /// </summary>
     /// <param name="key">The key.</param>
-    private void RemoveCacheKey([NotNull] string key)
+    private void RemoveCacheKey(string key)
     {
         if (this.CheckCacheKey(key))
         {

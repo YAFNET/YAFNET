@@ -28,7 +28,6 @@ namespace YAF.Core.Logger
 
     using Microsoft.Extensions.Logging;
 
-    using YAF.Types.Attributes;
     using YAF.Types.Interfaces;
 
     /// <summary>
@@ -97,7 +96,7 @@ namespace YAF.Core.Logger
         /// <param name="injectServices">
         /// The inject services.
         /// </param>
-        public DbLoggerProvider([NotNull] IInjectServices injectServices)
+        public DbLoggerProvider(IInjectServices injectServices)
         {
             this.InjectServices = injectServices;
 
@@ -117,7 +116,7 @@ namespace YAF.Core.Logger
         /// </summary>
         /// <param name="categoryName">The category name for messages produced by the logger.</param>
         /// <returns>The instance of <see cref="T:Microsoft.Extensions.Logging.ILogger" /> that was created.</returns>
-        [NotNull]
+        
         public ILogger CreateLogger(string categoryName)
         {
             var logger = new DbLogger(this, categoryName);

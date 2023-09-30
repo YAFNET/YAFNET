@@ -24,7 +24,6 @@
 
 namespace YAF.Core.Model;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -43,14 +42,12 @@ public static class AccessMaskRepositoryExtensions
     /// <param name="boardId">The board id.</param>
     public static void Save(
         this IRepository<AccessMask> repository,
-        [CanBeNull] int? accessMaskId,
-        [NotNull] string name,
-        [NotNull] AccessFlags flags,
-        [NotNull] short sortOrder,
-        [CanBeNull] int? boardId = null)
+        int? accessMaskId,
+        string name,
+        AccessFlags flags,
+        short sortOrder,
+        int? boardId = null)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var newId = repository.Upsert(
             new AccessMask
                 {

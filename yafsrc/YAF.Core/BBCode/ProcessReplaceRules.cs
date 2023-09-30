@@ -77,8 +77,6 @@ public class ProcessReplaceRules : ICloneable, IProcessReplaceRules
     /// </param>
     public void AddRule(IReplaceRule newRule)
     {
-        CodeContracts.VerifyNotNull(newRule);
-
         lock (this.rulesLock)
         {
             this.rulesList.Add(newRule);

@@ -24,8 +24,6 @@
 
 namespace YAF.Core.BasePages;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The account page.
 /// </summary>
@@ -40,7 +38,7 @@ public class AccountPage : ForumPage
     /// <param name="page">
     /// The page.
     /// </param>
-    public AccountPage([CanBeNull] string transPage, ForumPages page)
+    public AccountPage(string transPage, ForumPages page)
         : base(transPage, page)
     {
         this.IsAccountPage = true;

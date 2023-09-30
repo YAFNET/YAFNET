@@ -28,7 +28,6 @@ using System;
 using System.Collections.Generic;
 using System.Web;
 
-using YAF.Types.Attributes;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Objects;
@@ -97,26 +96,24 @@ public static class ForumRepositoryExtensions
     /// The <see cref="int"/>.
     /// </returns>
     public static int Save(
-        [NotNull] this IRepository<Forum> repository,
-        [CanBeNull] int? forumId,
-        [NotNull] int categoryId,
-        [CanBeNull] int? parentId,
-        [NotNull] string name,
-        [NotNull] string description,
-        [NotNull] int sortOrder,
-        [NotNull] bool locked,
-        [NotNull] bool hidden,
-        [NotNull] bool isTest,
-        [NotNull] bool moderated,
-        [CanBeNull] int? moderatedPostCount,
-        [NotNull] bool isModeratedNewTopicOnly,
-        [CanBeNull] string remoteUrl,
-        [CanBeNull] string themeUrl,
-        [CanBeNull] string imageUrl,
-        [CanBeNull] string styles)
+        this IRepository<Forum> repository,
+        int? forumId,
+        int categoryId,
+        int? parentId,
+        string name,
+        string description,
+        int sortOrder,
+        bool locked,
+        bool hidden,
+        bool isTest,
+        bool moderated,
+        int? moderatedPostCount,
+        bool isModeratedNewTopicOnly,
+        string remoteUrl,
+        string themeUrl,
+        string imageUrl,
+        string styles)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         if (parentId is 0)
         {
             parentId = null;
@@ -191,10 +188,8 @@ public static class ForumRepositoryExtensions
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public static bool IsParentsChecker([NotNull] this IRepository<Forum> repository, [NotNull] int forumId)
+    public static bool IsParentsChecker(this IRepository<Forum> repository, int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.Exists(f => f.ParentID == forumId);
     }
 
@@ -211,11 +206,9 @@ public static class ForumRepositoryExtensions
     /// Returns all Forums for the selected Board Id
     /// </returns>
     public static List<Tuple<Category,Forum>> ListAll(
-        [NotNull] this IRepository<Forum> repository,
-        [NotNull] int boardId)
+        this IRepository<Forum> repository,
+        int boardId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Category>();
 
         expression.LeftJoin<Category, Forum>((category, forum) => category.ID == forum.CategoryID)
@@ -242,12 +235,10 @@ public static class ForumRepositoryExtensions
     /// Returns all forums accessible to a user
     /// </returns>
     public static List<Tuple<Forum, Category, ActiveAccess>> ListAllWithAccess(
-        [NotNull] this IRepository<Forum> repository,
-        [NotNull] int boardId,
-        [NotNull] int userId)
+        this IRepository<Forum> repository,
+        int boardId,
+        int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
 
         expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
@@ -275,11 +266,9 @@ public static class ForumRepositoryExtensions
     /// Returns Sorted Forums 
     /// </returns>
     public static List<ForumSorted> ListAllFromCategory(
-        [NotNull] this IRepository<Forum> repository,
-        [NotNull] int categoryId)
+        this IRepository<Forum> repository,
+        int categoryId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
 
         expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
@@ -323,13 +312,11 @@ public static class ForumRepositoryExtensions
     /// Returns all Sorted Forums
     /// </returns>
     public static List<SelectGroup> ListAllSorted(
-        [NotNull] this IRepository<Forum> repository,
-        [NotNull] int boardId,
-        [NotNull] int userId,
-        [NotNull] string searchTerm)
+        this IRepository<Forum> repository,
+        int boardId,
+        int userId,
+        string searchTerm)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var list = BoardContext.Current.Get<IDataCache>().GetOrSet(
             string.Format(Constants.Cache.ForumJump, BoardContext.Current.PageUserID.ToString()),
             () => repository.ListAllWithAccess(boardId, userId),
@@ -357,13 +344,11 @@ public static class ForumRepositoryExtensions
     /// Return the selected forum as Select Group
     /// </returns>
     public static List<SelectGroup> ListAllSorted(
-        [NotNull] this IRepository<Forum> repository,
-        [NotNull] int boardId,
-        [NotNull] int userId,
-        [NotNull] int forumId)
+        this IRepository<Forum> repository,
+        int boardId,
+        int userId,
+        int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var list = BoardContext.Current.Get<IDataCache>().GetOrSet(
             string.Format(Constants.Cache.ForumJump, BoardContext.Current.PageUserID.ToString()),
             () => repository.ListAllWithAccess(boardId, userId),
@@ -397,15 +382,13 @@ public static class ForumRepositoryExtensions
     /// Returns Paged list of forums
     /// </returns>
     public static List<SelectGroup> ListAllSorted(
-        [NotNull] this IRepository<Forum> repository,
-        [NotNull] int boardId,
-        [NotNull] int userId,
-        [NotNull] int pageIndex,
-        [NotNull] int pageSize,
+        this IRepository<Forum> repository,
+        int boardId,
+        int userId,
+        int pageIndex,
+        int pageSize,
         out Paging pager)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         pager = new Paging { CurrentPageIndex = pageIndex, PageSize = pageSize };
 
         var forums = BoardContext.Current.Get<IDataCache>().GetOrSet(
@@ -449,17 +432,15 @@ public static class ForumRepositoryExtensions
     /// Returns List of Forum Read
     /// </returns>
     public static List<ForumRead> ListRead(
-        [NotNull] this IRepository<Forum> repository,
-        [NotNull] int boardId,
-        [NotNull] int userId,
-        [CanBeNull] int? categoryId,
-        [CanBeNull] int? parentId,
-        [NotNull] bool findLastRead, 
-        [NotNull] int pageIndex, 
-        [NotNull] int pageSize)
+        this IRepository<Forum> repository,
+        int boardId,
+        int userId,
+        int? categoryId,
+        int? parentId,
+        bool findLastRead, 
+        int pageIndex, 
+        int pageSize)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.Execute(
             db =>
                 {
@@ -508,7 +489,7 @@ public static class ForumRepositoryExtensions
                                                                                                             {expression.Column<Forum>(f => f.LastTopicID, true)}
                              """)
                         .CustomJoin(
-                            $@" left outer join {expression.Table<User>()} on {expression.Column<User>(x => x.ID, true)} = {expression.Column<Topic>(t => t.LastUserID, true)} ")
+                            $" left outer join {expression.Table<User>()} on {expression.Column<User>(x => x.ID, true)} = {expression.Column<Topic>(t => t.LastUserID, true)} ")
                         .Where<Forum, Category, ActiveAccess>(
                             (forum, category, x) => category.BoardID == boardId && (category.Flags & 1) == 1 && x.UserID == userId && x.ReadAccess);
 
@@ -516,7 +497,7 @@ public static class ForumRepositoryExtensions
                     var countSubForumsExpression = db.Connection.From<Forum>(db.Connection.TableAlias("sub"));
 
                     countSubForumsExpression.Where(
-                        $@"sub.{countSubForumsExpression.Column<Forum>(x => x.ParentID)}={expression.Column<Forum>(x => x.ID, true)}");
+                        $"sub.{countSubForumsExpression.Column<Forum>(x => x.ParentID)}={expression.Column<Forum>(x => x.ID, true)}");
                     var countSubForumsSql = countSubForumsExpression.Select(Sql.Count("1")).ToSelectStatement();
 
                     if (categoryId.HasValue)
@@ -589,10 +570,8 @@ public static class ForumRepositoryExtensions
     /// <returns>
     /// Indicate that forum has been deleted
     /// </returns>
-    public static bool Delete(this IRepository<Forum> repository, [NotNull] int forumId)
+    public static bool Delete(this IRepository<Forum> repository, int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         if (repository.Exists(f => f.ParentID == forumId))
         {
             repository.UpdateOnly(() => new Forum { ParentID = null }, f => f.ParentID == forumId);
@@ -646,10 +625,8 @@ public static class ForumRepositoryExtensions
     /// <returns>
     /// Indicates that forum has been deleted
     /// </returns>
-    public static bool Move(this IRepository<Forum> repository, [NotNull] int oldForumId, [NotNull] int newForumId)
+    public static bool Move(this IRepository<Forum> repository, int oldForumId, int newForumId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         if (repository.Exists(f => f.ParentID == oldForumId))
         {
             repository.UpdateOnly(() => new Forum { ParentID = null }, f => f.ParentID == oldForumId);
@@ -700,14 +677,11 @@ public static class ForumRepositoryExtensions
     /// <returns>
     /// Returns thee Moderator List for the Board
     /// </returns>
-    [NotNull]
     public static List<ModerateForum> ModerateList(
         this IRepository<Forum> repository,
-        [NotNull] int userId,
-        [NotNull] int boardId)
+        int userId,
+        int boardId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Category>();
 
         var forums = repository.DbAccess.Execute(
@@ -781,10 +755,8 @@ public static class ForumRepositoryExtensions
     /// </summary>
     /// <param name="repository">The repository.</param>
     /// <param name="forumId">The forum identifier.</param>
-    public static void UpdateStats([NotNull] this IRepository<Forum> repository, [NotNull] int forumId)
+    public static void UpdateStats(this IRepository<Forum> repository, int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
         expression.Join<Forum>((t, f) => f.ID == t.ForumID)
@@ -805,10 +777,8 @@ public static class ForumRepositoryExtensions
     /// </summary>
     /// <param name="repository">The repository.</param>
     /// <param name="forumId">The forum identifier.</param>
-    public static void UpdateLastPost([NotNull] this IRepository<Forum> repository, [NotNull] int forumId)
+    public static void UpdateLastPost(this IRepository<Forum> repository, int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
         expression.Join<Message>((t, m) => m.TopicID == t.ID)
@@ -858,8 +828,6 @@ public static class ForumRepositoryExtensions
     /// </param>
     public static void ReOrderAllAscending(this IRepository<Forum> repository, List<Forum> forums)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         short sortOrder = 0;
 
         forums.OrderBy(x => x.Name).ForEach(
@@ -887,8 +855,6 @@ public static class ForumRepositoryExtensions
     /// </param>
     public static void ReOrderAllDescending(this IRepository<Forum> repository, List<Forum> forums)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         short sortOrder = 0;
 
         forums.OrderByDescending(x => x.Name).ForEach(
@@ -917,13 +883,10 @@ public static class ForumRepositoryExtensions
     /// <returns>
     /// Returns the Sorted Moderator List
     /// </returns>
-    [NotNull]
     public static List<ForumSorted> SortModeratorList(
         this IRepository<Forum> repository,
-        [NotNull] IEnumerable<ModeratorsForums> listSource)
+        IEnumerable<ModeratorsForums> listSource)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return listSource.Select(
             forum => new ForumSorted
                          {
@@ -949,13 +912,10 @@ public static class ForumRepositoryExtensions
     /// <returns>
     /// Returns the Sorted List
     /// </returns>
-    [NotNull]
     private static List<SelectGroup> SortList(
         this IRepository<Forum> repository,
-        [NotNull] IEnumerable<Tuple<Forum, Category, ActiveAccess>> listSource)
+        IEnumerable<Tuple<Forum, Category, ActiveAccess>> listSource)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var enumerable = listSource.ToList();
         var categories = enumerable.Select(x => x.Item2).DistinctBy(x => x.ID);
 

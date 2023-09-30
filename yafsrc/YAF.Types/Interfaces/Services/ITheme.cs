@@ -40,5 +40,5 @@ public interface ITheme
     /// <returns>
     /// The build theme path.
     /// </returns>
-    string BuildThemePath([NotNull] string filename);
+    string BuildThemePath(string filename);
 }

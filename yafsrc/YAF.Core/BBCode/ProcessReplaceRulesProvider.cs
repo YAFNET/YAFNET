@@ -26,8 +26,6 @@ namespace YAF.Core.BBCode;
 
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// Gets an instance of replace rules and uses
 ///   caching if possible.
@@ -65,10 +63,10 @@ public class ProcessReplaceRulesProvider : IHaveServiceLocator, IReadOnlyProvide
     /// The unique Flags.
     /// </param>
     public ProcessReplaceRulesProvider(
-        [NotNull] IObjectStore objectStore, 
-        [NotNull] IServiceLocator serviceLocator, 
-        [NotNull] IInjectServices injectServices, 
-        [NotNull] IEnumerable<bool> uniqueFlags)
+        IObjectStore objectStore, 
+        IServiceLocator serviceLocator, 
+        IInjectServices injectServices, 
+        IEnumerable<bool> uniqueFlags)
     {
         this.ServiceLocator = serviceLocator;
         this.objectStore = objectStore;

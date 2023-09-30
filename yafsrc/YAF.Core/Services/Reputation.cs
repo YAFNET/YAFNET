@@ -26,8 +26,6 @@ namespace YAF.Core.Services;
 
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// Class to Generate The Reputation Bar
 /// </summary>
@@ -39,7 +37,7 @@ public class Reputation : IReputation, IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public Reputation([NotNull] IServiceLocator serviceLocator)
+    public Reputation(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }
@@ -80,7 +78,7 @@ public class Reputation : IReputation, IHaveServiceLocator
     /// <returns>
     /// Returns the Html String
     /// </returns>
-    public string GenerateReputationBar([NotNull] int points, [NotNull] int userId)
+    public string GenerateReputationBar(int points, int userId)
     {
         var formatInfo = new NumberFormatInfo { NumberDecimalSeparator = "." };
 
@@ -103,8 +101,8 @@ public class Reputation : IReputation, IHaveServiceLocator
     /// </summary>
     /// <param name="percentage">The percentage.</param>
     /// <returns>Returns the Text for the Current Value</returns>
-    [NotNull]
-    public string GetReputationBarText([NotNull] float percentage)
+    
+    public string GetReputationBarText(float percentage)
     {
         var lookup = new Dictionary<int, string>
                          {
@@ -135,8 +133,8 @@ public class Reputation : IReputation, IHaveServiceLocator
     /// </summary>
     /// <param name="percentage">The percentage.</param>
     /// <returns>Returns the Color for the Current Value</returns>
-    [NotNull]
-    public string GetReputationBarColor([NotNull] float percentage)
+    
+    public string GetReputationBarColor(float percentage)
     {
         var lookup = new Dictionary<int, string>
                          {
@@ -167,8 +165,8 @@ public class Reputation : IReputation, IHaveServiceLocator
     /// </summary>
     /// <param name="points">The points.</param>
     /// <returns>Returns the Percentage Value</returns>
-    [NotNull]
-    public float ConvertPointsToPercentage([NotNull] int points)
+    
+    public float ConvertPointsToPercentage(int points)
     {
         var percentage = points;
 

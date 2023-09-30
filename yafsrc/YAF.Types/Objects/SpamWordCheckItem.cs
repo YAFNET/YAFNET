@@ -51,7 +51,7 @@ public class SpamWordCheckItem
     /// </summary>
     /// <param name="spamWord">The spam word.</param>
     /// <param name="options">The options.</param>
-    public SpamWordCheckItem([NotNull] string spamWord, RegexOptions options)
+    public SpamWordCheckItem(string spamWord, RegexOptions options)
     {
         this.Options = options;
         this._spamWord = spamWord;

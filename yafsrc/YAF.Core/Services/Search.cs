@@ -48,7 +48,6 @@ using Microsoft.Extensions.Logging;
 using YAF.Configuration;
 using YAF.Core.Context;
 using YAF.Core.Model;
-using YAF.Types.Attributes;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Objects;
@@ -94,7 +93,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// Initializes a new instance of the <see cref="Services.Search" /> class.
     /// </summary>
     /// <param name="serviceLocator">The service locator.</param>
-    public Search([NotNull] IServiceLocator serviceLocator)
+    public Search(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
 

@@ -44,7 +44,7 @@ public static class CategoryListHelpers
     /// <returns>
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
-    public static IHtmlContent GetForumIcon(this IHtmlHelper htmlHelper, [NotNull] ForumRead item, DateTime lastRead)
+    public static IHtmlContent GetForumIcon(this IHtmlHelper htmlHelper, ForumRead item, DateTime lastRead)
     {
         var content = new HtmlContentBuilder();
 
@@ -146,7 +146,7 @@ public static class CategoryListHelpers
     /// <returns>
     /// Forum link text
     /// </returns>
-    public static IHtmlContent GetForumLink(this IHtmlHelper htmlHelper, [NotNull] ForumRead item)
+    public static IHtmlContent GetForumLink(this IHtmlHelper htmlHelper, ForumRead item)
     {
         var content = new HtmlContentBuilder();
 
@@ -211,7 +211,7 @@ public static class CategoryListHelpers
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public static string GetModerators(this IHtmlHelper htmlHelper, [NotNull] ForumRead item)
+    public static string GetModerators(this IHtmlHelper htmlHelper, ForumRead item)
     {
         var mods = BoardContext.Current.Get<ISessionService>().Mods.Where(x => x.ForumID == item.ForumID).ToList();
 
@@ -266,7 +266,7 @@ public static class CategoryListHelpers
     /// <returns>
     /// Forum link text
     /// </returns>
-    public static IHtmlContent GetSubForumLink(this IHtmlHelper htmlHelper, [NotNull] ForumRead item)
+    public static IHtmlContent GetSubForumLink(this IHtmlHelper htmlHelper, ForumRead item)
     {
         var content = new HtmlContentBuilder();
 
@@ -314,7 +314,7 @@ public static class CategoryListHelpers
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public static string GetLastPostInfo(this IHtmlHelper htmlHelper, [NotNull] ForumRead item)
+    public static string GetLastPostInfo(this IHtmlHelper htmlHelper, ForumRead item)
     {
         // Last Post Date
         var lastPostedDateTime = item.LastPosted.Value;
@@ -357,7 +357,7 @@ public static class CategoryListHelpers
     /// <returns>
     /// Returns the Sub Forums
     /// </returns>
-    public static IEnumerable<ForumRead> GetSubForums(this IHtmlHelper htmlHelper, [NotNull] ForumRead item)
+    public static IEnumerable<ForumRead> GetSubForums(this IHtmlHelper htmlHelper, ForumRead item)
     {
         return BoardContext.Current.Get<ISessionService>().Forums.Where(forum => forum.ParentID == item.ForumID)
             .Take(BoardContext.Current.BoardSettings.SubForumsInForumList);

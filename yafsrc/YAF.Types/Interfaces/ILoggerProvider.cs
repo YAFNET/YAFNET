@@ -46,7 +46,7 @@
     /// </param>
     /// <returns>
     /// </returns>
-    ILoggerService Create([CanBeNull] Type type);
+    ILoggerService Create(Type type);
 
     #endregion
   }

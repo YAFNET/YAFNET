@@ -32,7 +32,6 @@ using Microsoft.Extensions.Logging;
 
 using ServiceStack.Text;
 
-using YAF.Types.Attributes;
 using YAF.Types.Objects;
 
 /// <summary>
@@ -46,7 +45,7 @@ public class IpInfoService : IIpInfoService, IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public IpInfoService([NotNull] IServiceLocator serviceLocator)
+    public IpInfoService(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }
@@ -102,10 +101,8 @@ public class IpInfoService : IIpInfoService, IHaveServiceLocator
     /// <returns>
     /// The <see cref="IpLocator"/>.
     /// </returns>
-    private async Task<IpLocator> GetDataAsync([CanBeNull] string ip)
+    private async Task<IpLocator> GetDataAsync(string ip)
     {
-        CodeContracts.VerifyNotNull(ip);
-
         if (this.Get<BoardSettings>().IPLocatorResultsMapping.IsNotSet() ||
             this.Get<BoardSettings>().IPLocatorUrlPath.IsNotSet())
         {

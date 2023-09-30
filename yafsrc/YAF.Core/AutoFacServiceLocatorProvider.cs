@@ -33,8 +33,6 @@ using Autofac.Core;
 
 using Microsoft.Extensions.Logging;
 
-using YAF.Types.Attributes;
-
 using NamedParameter = YAF.Types.Objects.NamedParameter;
 using TypedParameter = YAF.Types.Objects.TypedParameter;
 
@@ -61,10 +59,8 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// <param name="container">
     /// The container.
     /// </param>
-    public AutoFacServiceLocatorProvider([NotNull] ILifetimeScope container)
+    public AutoFacServiceLocatorProvider(ILifetimeScope container)
     {
-        CodeContracts.VerifyNotNull(container);
-
         this.Container = container;
     }
 
@@ -116,8 +112,6 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// </returns>
     public object Get(Type serviceType)
     {
-        CodeContracts.VerifyNotNull(serviceType);
-
         return this.Container.Resolve(serviceType);
     }
 
@@ -138,10 +132,7 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// </exception>
     public object Get(Type serviceType, IEnumerable<IServiceLocationParameter> parameters)
     {
-        CodeContracts.VerifyNotNull(serviceType);
-        CodeContracts.VerifyNotNull(parameters);
-
-        return this.Container.Resolve(serviceType, ConvertToAutofacParameters(parameters));
+       return this.Container.Resolve(serviceType, ConvertToAutofacParameters(parameters));
     }
 
     /// <summary>
@@ -158,9 +149,6 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// </returns>
     public object Get(Type serviceType, string named)
     {
-        CodeContracts.VerifyNotNull(serviceType);
-        CodeContracts.VerifyNotNull(named);
-
         return this.Container.ResolveNamed(named, serviceType);
     }
 
@@ -181,11 +169,7 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// </returns>
     public object Get(Type serviceType, string named, IEnumerable<IServiceLocationParameter> parameters)
     {
-        CodeContracts.VerifyNotNull(serviceType);
-        CodeContracts.VerifyNotNull(named);
-        CodeContracts.VerifyNotNull(parameters);
-
-        return this.Container.ResolveNamed(named, serviceType, ConvertToAutofacParameters(parameters));
+       return this.Container.ResolveNamed(named, serviceType, ConvertToAutofacParameters(parameters));
     }
 
     /// <summary>
@@ -200,8 +184,7 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// An object that specifies the type of service object to get.
     /// </param>
     /// <filterpriority>2</filterpriority>
-    [CanBeNull]
-    public object GetService([NotNull] Type serviceType)
+    public object GetService(Type serviceType)
     {
         return this.TryGet(serviceType, out var instance) ? instance : null;
     }
@@ -218,8 +201,6 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     public void InjectMarked<TAttribute>(object instance)
         where TAttribute : Attribute
     {
-        CodeContracts.VerifyNotNull(instance);
-
         // Container.InjectUnsetProperties(instance);
         var type = instance.GetType();
         var attributeType = typeof(TAttribute);
@@ -266,10 +247,8 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// <returns>
     /// The try get.
     /// </returns>
-    public bool TryGet(Type serviceType, [NotNull] out object instance)
+    public bool TryGet(Type serviceType, out object instance)
     {
-        CodeContracts.VerifyNotNull(serviceType);
-
         return this.Container.TryResolve(serviceType, out instance);
     }
 
@@ -288,11 +267,8 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// <returns>
     /// The try get.
     /// </returns>
-    public bool TryGet(Type serviceType, string named, [NotNull] out object instance)
+    public bool TryGet(Type serviceType, string named, out object instance)
     {
-        CodeContracts.VerifyNotNull(serviceType);
-        CodeContracts.VerifyNotNull(named);
-
         return this.Container.TryResolveNamed(named, serviceType, out instance);
     }
 
@@ -311,12 +287,9 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// <returns>
     /// The <see cref="IEnumerable"/>.
     /// </returns>
-    [NotNull]
     private static IEnumerable<Parameter> ConvertToAutofacParameters(
-        [NotNull] IEnumerable<IServiceLocationParameter> parameters)
+        IEnumerable<IServiceLocationParameter> parameters)
     {
-        CodeContracts.VerifyNotNull(parameters);
-
         var autoParams = new List<Parameter>();
 
         parameters.ForEach(

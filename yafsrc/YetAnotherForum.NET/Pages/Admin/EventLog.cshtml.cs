@@ -143,7 +143,7 @@ public class EventLogModel : AdminPage
     /// <returns>
     /// return HTML code of event log entry image
     /// </returns>
-    public string EventIcon([NotNull] PagedEventLog item)
+    public string EventIcon(PagedEventLog item)
     {
         string cssClass, icon;
 

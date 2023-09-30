@@ -29,8 +29,6 @@ using System.Threading.Tasks;
 
 using MimeKit;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 ///   The YAF send mail extensions.
 /// </summary>
@@ -46,16 +44,13 @@ public static class IMailServiceExtensions
     /// <param name="subject">The subject.</param>
     /// <param name="body">The body.</param>
     public static Task SendAsync(
-        [NotNull] this IMailService sendMail,
-        [NotNull] string fromEmail,
-        [NotNull] string toEmail,
-        [NotNull] string senderEmail,
-        [CanBeNull] string subject,
-        [CanBeNull] string body)
+        this IMailService sendMail,
+        string fromEmail,
+        string toEmail,
+        string senderEmail,
+        string subject,
+        string body)
     {
-        CodeContracts.VerifyNotNull(fromEmail);
-        CodeContracts.VerifyNotNull(toEmail);
-
         return sendMail.SendAsync(
             MailboxAddress.Parse(fromEmail),
             MailboxAddress.Parse(toEmail),
@@ -78,16 +73,16 @@ public static class IMailServiceExtensions
     /// <param name="bodyText">The body text.</param>
     /// <param name="bodyHtml">The body html.</param>
     public static Task SendAsync(
-        [NotNull] this IMailService sendMail,
-        [NotNull] string fromEmail,
-        [CanBeNull] string fromName,
-        [NotNull] string toEmail,
-        [CanBeNull] string toName,
-        [NotNull] string senderEmail,
-        [CanBeNull] string senderName,
-        [CanBeNull] string subject,
-        [CanBeNull] string bodyText,
-        [CanBeNull] string bodyHtml)
+        this IMailService sendMail,
+        string fromEmail,
+        string fromName,
+        string toEmail,
+        string toName,
+        string senderEmail,
+        string senderName,
+        string subject,
+        string bodyText,
+        string bodyHtml)
     {
         var fromAddress = MailboxAddress.Parse(fromEmail);
         fromAddress.Name = fromName;
@@ -117,12 +112,12 @@ public static class IMailServiceExtensions
     /// <param name="subject">The subject.</param>
     /// <param name="bodyText">The body text.</param>
     public static Task SendAsync(
-        [NotNull] this IMailService sendMail,
-        [NotNull] MailboxAddress fromAddress,
-        [NotNull] MailboxAddress toAddress,
-        [NotNull] MailboxAddress senderAddress,
-        [CanBeNull] string subject,
-        [CanBeNull] string bodyText)
+        this IMailService sendMail,
+        MailboxAddress fromAddress,
+        MailboxAddress toAddress,
+        MailboxAddress senderAddress,
+        string subject,
+        string bodyText)
     {
         return sendMail.SendAsync(fromAddress, toAddress, senderAddress, subject, bodyText, null);
     }
@@ -138,18 +133,14 @@ public static class IMailServiceExtensions
     /// <param name="bodyText">The body text.</param>
     /// <param name="bodyHtml">The body html.</param>
     public static Task SendAsync(
-        [NotNull] this IMailService sendMail,
-        [NotNull] MailboxAddress fromAddress,
-        [NotNull] MailboxAddress toAddress,
-        [NotNull] MailboxAddress senderAddress,
-        [CanBeNull] string subject,
-        [CanBeNull] string bodyText,
-        [CanBeNull] string bodyHtml)
+        this IMailService sendMail,
+        MailboxAddress fromAddress,
+        MailboxAddress toAddress,
+        MailboxAddress senderAddress,
+        string subject,
+        string bodyText,
+        string bodyHtml)
     {
-        CodeContracts.VerifyNotNull(sendMail);
-        CodeContracts.VerifyNotNull(fromAddress);
-        CodeContracts.VerifyNotNull(toAddress);
-
         var mailMessage = new MimeMessage();
             
         mailMessage.Populate(fromAddress, toAddress, senderAddress, subject, bodyText, bodyHtml);
@@ -185,18 +176,14 @@ public static class IMailServiceExtensions
     /// The <see cref="MimeMessage"/>.
     /// </returns>
     public static MimeMessage CreateMessage(
-        [NotNull] this IMailService sendMail,
-        [NotNull] MailboxAddress fromAddress,
-        [NotNull] MailboxAddress toAddress,
-        [NotNull] MailboxAddress senderAddress,
-        [CanBeNull] string subject,
-        [CanBeNull] string bodyText,
-        [CanBeNull] string bodyHtml)
+        this IMailService sendMail,
+        MailboxAddress fromAddress,
+        MailboxAddress toAddress,
+        MailboxAddress senderAddress,
+        string subject,
+        string bodyText,
+        string bodyHtml)
     {
-        CodeContracts.VerifyNotNull(sendMail);
-        CodeContracts.VerifyNotNull(fromAddress);
-        CodeContracts.VerifyNotNull(toAddress);
-
         var mailMessage = new MimeMessage();
 
         mailMessage.Populate(fromAddress, toAddress, senderAddress, subject, bodyText, bodyHtml);

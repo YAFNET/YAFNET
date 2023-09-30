@@ -41,7 +41,7 @@ public static class ObjectExtensions
     /// <returns>
     /// The is <see langword="null"/> or empty database field.
     /// </returns>
-    public static bool IsNullOrEmptyField([NotNull] this object value)
+    public static bool IsNullOrEmptyField(this object value)
     {
         return value is null || value == DBNull.Value || value.ToString().IsNotSet();
     }
@@ -54,11 +54,9 @@ public static class ObjectExtensions
     /// <returns>
     /// The <see cref="TAttribute" />.
     /// </returns>
-    public static TAttribute GetAttribute<TAttribute>([NotNull] this Type objectType) where TAttribute : Attribute
+    public static TAttribute GetAttribute<TAttribute>(this Type objectType) where TAttribute : Attribute
     {
-        CodeContracts.VerifyNotNull(objectType);
-
-        return objectType.GetCustomAttributes(typeof(TAttribute), false).OfType<TAttribute>().FirstOrDefault();
+         return objectType.GetCustomAttributes(typeof(TAttribute), false).OfType<TAttribute>().FirstOrDefault();
     }
 
     /// <summary>
@@ -71,7 +69,7 @@ public static class ObjectExtensions
     /// <returns>
     /// The has interface.
     /// </returns>
-    public static bool HasInterface<T>([NotNull] this object instance)
+    public static bool HasInterface<T>(this object instance)
     {
         return instance is T;
     }
@@ -94,10 +92,8 @@ public static class ObjectExtensions
     ///     <c>null</c>
     ///     .
     /// </exception>
-    public static bool IsIn<T>(this T source, [NotNull] params T[] list)
+    public static bool IsIn<T>(this T source, params T[] list)
     {
-        CodeContracts.VerifyNotNull(list);
-
         return list.Contains(source);
     }
 
@@ -111,7 +107,7 @@ public static class ObjectExtensions
     /// <returns>
     /// The <see cref="T"/>.
     /// </returns>
-    public static T ToType<T>([CanBeNull] this object instance)
+    public static T ToType<T>(this object instance)
     {
         if (instance is null)
         {
@@ -167,7 +163,7 @@ public static class ObjectExtensions
     /// <returns>
     /// The <see cref="T"/>.
     /// </returns>
-    public static T ToTypeOrDefault<T>([CanBeNull] this object instance, T defaultValue)
+    public static T ToTypeOrDefault<T>(this object instance, T defaultValue)
     {
         try
         {

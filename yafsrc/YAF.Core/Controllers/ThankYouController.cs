@@ -30,7 +30,6 @@ using Microsoft.AspNetCore.Authorization;
 
 using YAF.Core.BasePages;
 using YAF.Core.Model;
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
@@ -57,7 +56,7 @@ public class ThankYouController : ForumBaseController
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ThankYouInfo))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpPost("GetThanks/{messageId:int}")]
-    public Task<ActionResult<ThankYouInfo>> GetThanks([NotNull] int messageId)
+    public Task<ActionResult<ThankYouInfo>> GetThanks(int messageId)
     {
         var membershipUser = this.PageBoardContext.MembershipUser;
 
@@ -97,7 +96,7 @@ public class ThankYouController : ForumBaseController
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ThankYouInfo))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpPost("AddThanks/{messageId:int}")]
-    public Task<ActionResult<ThankYouInfo>> AddThanks([NotNull] int messageId)
+    public Task<ActionResult<ThankYouInfo>> AddThanks(int messageId)
     {
         var membershipUser = this.PageBoardContext.MembershipUser;
 

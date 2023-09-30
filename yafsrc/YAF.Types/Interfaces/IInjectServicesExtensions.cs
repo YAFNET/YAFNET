@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Interfaces;
 
 /// <summary>
@@ -37,11 +38,8 @@ public static class IInjectServicesExtensions
     /// <param name="instance">
     /// The instance.
     /// </param>
-    public static void Inject([NotNull] this IInjectServices injectServices, [NotNull] object instance)
+    public static void Inject(this IInjectServices injectServices, object instance)
     {
-        CodeContracts.VerifyNotNull(injectServices);
-        CodeContracts.VerifyNotNull(instance);
-
         injectServices.InjectMarked<Inject>(instance);
     }
 }

@@ -27,7 +27,6 @@ namespace YAF.Core.Model;
 using System;
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -47,10 +46,8 @@ public static class ThanksRepositoryExtensions
     /// <returns>
     /// The <see cref="long"/>.
     /// </returns>
-    public static long ThanksFromUser(this IRepository<Thanks> repository, [NotNull] int thanksFromUserId)
+    public static long ThanksFromUser(this IRepository<Thanks> repository, int thanksFromUserId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.Count(thanks => thanks.ThanksFromUserID == thanksFromUserId);
     }
 
@@ -70,10 +67,8 @@ public static class ThanksRepositoryExtensions
     /// </returns>
     public static (int Posts, string ThanksReceived) ThanksToUser(
         this IRepository<Thanks> repository,
-        [NotNull] int thanksToUserId)
+        int thanksToUserId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Thanks>();
 
         expression.Where<Thanks>(t => t.ThanksToUserID == thanksToUserId).Select(
@@ -98,15 +93,12 @@ public static class ThanksRepositoryExtensions
     /// <param name="messageId">
     /// The message id.
     /// </param>
-    [NotNull]
     public static void AddMessageThanks(
         this IRepository<Thanks> repository,
-        [NotNull] int fromUserId,
-        [NotNull] int toUserId,
-        [NotNull] int messageId)
+        int fromUserId,
+        int toUserId,
+        int messageId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var newIdentity = repository.Insert(
             new Thanks
                 {
@@ -135,10 +127,8 @@ public static class ThanksRepositoryExtensions
     /// </returns>
     public static List<Tuple<Thanks, User>> MessageGetThanksList(
         this IRepository<Thanks> repository,
-        [NotNull] int messageId)
+        int messageId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Thanks>();
 
         expression.Join<User>((a, b) => a.ThanksFromUserID == b.ID).Where<Thanks>(b => b.MessageID == messageId);
@@ -160,14 +150,11 @@ public static class ThanksRepositoryExtensions
     /// <param name="messageId">
     /// The message id.
     /// </param>
-    [NotNull]
     public static void RemoveMessageThanks(
         this IRepository<Thanks> repository,
-        [NotNull] int fromUserId,
-        [NotNull] int messageId)
+        int fromUserId,
+        int messageId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.Delete(t => t.ThanksFromUserID == fromUserId && t.MessageID == messageId);
     }
 
@@ -188,8 +175,8 @@ public static class ThanksRepositoryExtensions
     /// </returns>
     public static bool ThankedMessage(
         this IRepository<Thanks> repository,
-        [NotNull] int messageId,
-        [NotNull] int userId)
+        int messageId,
+        int userId)
     {
         var thankCount = repository.Count(t => t.MessageID == messageId && t.ThanksFromUserID == userId);
 

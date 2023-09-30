@@ -27,7 +27,6 @@ namespace YAF.Core.Model;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -44,11 +43,9 @@ public static class PrivateMessageRepositoryExtensions
     /// <returns>Returns the Conversation as List</returns>
     public static async Task<List<PrivateMessage>> GetConversationAsync(
         this IRepository<PrivateMessage> repository,
-        [NotNull] int userId,
-        [NotNull] int toUserId)
+        int userId,
+        int toUserId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
 
         // Get conversations from From user to To User
@@ -67,7 +64,7 @@ public static class PrivateMessageRepositoryExtensions
                     var updateExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
 
                     return db.ExecuteSqlAsync(
-                        $@" update {updateExpression.Table<PrivateMessage>()} set Flags = Flags | 1 where FromUserId = {toUserId} and ToUserId = {userId}");
+                        $" update {updateExpression.Table<PrivateMessage>()} set Flags = Flags | 1 where FromUserId = {toUserId} and ToUserId = {userId}");
                 });
 
         var list = await repository.DbAccess.ExecuteAsync(
@@ -85,11 +82,9 @@ public static class PrivateMessageRepositoryExtensions
     /// <param name="toUserId">The to user identifier.</param>
     public static async Task DeleteConversationAsync(
         this IRepository<PrivateMessage> repository,
-        [NotNull] int userId,
-        [NotNull] int toUserId)
+        int userId,
+        int toUserId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         // Delete From UserId
         await BoardContext.Current.GetRepository<PrivateMessage>().DbAccess.ExecuteAsync(
             db =>
@@ -97,7 +92,7 @@ public static class PrivateMessageRepositoryExtensions
                     var updateExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
 
                     return db.ExecuteSqlAsync(
-                        $@" update {updateExpression.Table<PrivateMessage>()} set Flags = Flags | 2 where FromUserId = {userId} and ToUserId = {toUserId}");
+                        $" update {updateExpression.Table<PrivateMessage>()} set Flags = Flags | 2 where FromUserId = {userId} and ToUserId = {toUserId}");
                 });
 
         await BoardContext.Current.GetRepository<PrivateMessage>().DeleteAsync(
@@ -110,7 +105,7 @@ public static class PrivateMessageRepositoryExtensions
                     var updateExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
 
                     return db.ExecuteSqlAsync(
-                        $@" update {updateExpression.Table<PrivateMessage>()} set Flags = Flags | 4 where ToUserId = {userId} and FromUserId = {toUserId}");
+                        $" update {updateExpression.Table<PrivateMessage>()} set Flags = Flags | 4 where ToUserId = {userId} and FromUserId = {toUserId}");
                 });
 
         await BoardContext.Current.GetRepository<PrivateMessage>().DeleteAsync(
@@ -125,10 +120,8 @@ public static class PrivateMessageRepositoryExtensions
     /// <returns>Returns the User List</returns>
     public static async Task<List<User>> GetUserListAsync(
         this IRepository<PrivateMessage> repository,
-        [NotNull] int userId)
+        int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
        var list = await repository.DbAccess.ExecuteAsync(
                       db =>
                           {
@@ -169,10 +162,8 @@ public static class PrivateMessageRepositoryExtensions
     /// <returns>A Task&lt;User&gt; representing the asynchronous operation.</returns>
     public static async Task<User> GetLatestConversationUserAsync(
         this IRepository<PrivateMessage> repository,
-        [NotNull] int userId)
+        int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var list = await repository.DbAccess.ExecuteAsync(db =>
             {
                 var expression = db.From<PrivateMessage>(db.TableAlias("from"));
@@ -198,10 +189,8 @@ public static class PrivateMessageRepositoryExtensions
     /// <param name="days">
     /// The days to delete
     /// </param>
-    public static Task<int> PruneAllAsync(this IRepository<PrivateMessage> repository, [NotNull] int days)
+    public static Task<int> PruneAllAsync(this IRepository<PrivateMessage> repository, int days)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         // Delete Read Messages
         return repository.DbAccess.ExecuteAsync(
             db =>

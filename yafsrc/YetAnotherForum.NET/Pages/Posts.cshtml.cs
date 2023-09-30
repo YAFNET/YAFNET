@@ -106,7 +106,7 @@ public class PostsModel : ForumPage
     /// <summary>
     /// The on get.
     /// </summary>
-    public IActionResult OnGet([CanBeNull] int? p = null, [CanBeNull] int? m = null)
+    public IActionResult OnGet(int? p = null, int? m = null)
     {
         this.Get<ISessionService>().SetPageData(new List<PagedMessage>());
 
@@ -252,7 +252,7 @@ public class PostsModel : ForumPage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private IActionResult BindData([CanBeNull] int? p = null, [CanBeNull] int? m = null)
+    private IActionResult BindData(int? p = null, int? m = null)
     {
         var showDeleted = this.PageBoardContext.IsAdmin || this.PageBoardContext.ForumModeratorAccess ||
                           this.PageBoardContext.BoardSettings.ShowDeletedMessagesToAll;
@@ -454,8 +454,8 @@ public class PostsModel : ForumPage
     private int GetFindMessageId(
         bool showDeleted,
         out int messagePosition,
-        [CanBeNull] int? p = null,
-        [CanBeNull] int? m = null)
+        int? p = null,
+        int? m = null)
     {
         var findMessageId = 0;
         messagePosition = -1;

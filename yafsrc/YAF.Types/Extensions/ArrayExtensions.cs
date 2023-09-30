@@ -27,8 +27,6 @@ namespace YAF.Types.Extensions;
 using System.Collections.Generic;
 using System.Text;
 
-using YAF.Types;
-
 /// <summary>
 /// The bit bool extensions.
 /// </summary>
@@ -99,12 +97,9 @@ public static class BitBoolExtensions
     /// <returns>
     /// The to hex string.
     /// </returns>
-    [NotNull]
-    public static string ToHexString([NotNull] this byte[] hashedBytes)
+    public static string ToHexString(this byte[] hashedBytes)
     {
-        CodeContracts.VerifyNotNull(hashedBytes);
-
-        var builder = new StringBuilder(hashedBytes.Length * 2 + 2);
+       var builder = new StringBuilder(hashedBytes.Length * 2 + 2);
 
         hashedBytes.ForEach(b => builder.AppendFormat("{0:X2}", b));
 

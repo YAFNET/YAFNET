@@ -24,7 +24,6 @@
 
 namespace YAF.Core.Model;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -52,12 +51,10 @@ public static class BannedUserAgentRepositoryExtensions
     /// </returns>
     public static bool Save(
         this IRepository<BannedUserAgent> repository,
-        [CanBeNull] int? id,
-        [NotNull] string mask,
-        [CanBeNull] int? boardId = null)
+        int? id,
+        string mask,
+        int? boardId = null)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         if (id.HasValue)
         {
             repository.UpdateOnly(

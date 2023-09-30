@@ -27,7 +27,6 @@ namespace YAF.Core.Model;
 using System;
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -48,11 +47,9 @@ public static class ProfileCustomRepositoryExtensions
     /// The <see cref="List"/>.
     /// </returns>
     public static List<Tuple<ProfileCustom, ProfileDefinition>> ListByUser(
-        [NotNull] this IRepository<ProfileCustom> repository,
-        [NotNull] int userId)
+        this IRepository<ProfileCustom> repository,
+        int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<ProfileCustom>();
 
         expression.Join<ProfileDefinition>((c, d) => d.ID == c.ProfileDefinitionID)

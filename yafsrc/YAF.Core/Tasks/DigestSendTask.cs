@@ -32,7 +32,6 @@ using Microsoft.Extensions.Logging;
 
 using MimeKit;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -69,10 +68,8 @@ public class DigestSendTask : LongBackgroundTask
     /// <returns>
     /// The is time to send digest for board.
     /// </returns>
-    private static bool IsTimeToSendDigestForBoard([NotNull] BoardSettings boardSettings)
+    private static bool IsTimeToSendDigestForBoard(BoardSettings boardSettings)
     {
-        CodeContracts.VerifyNotNull(boardSettings);
-
         if (!boardSettings.AllowDigestEmail)
         {
             return false;

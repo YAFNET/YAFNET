@@ -26,8 +26,6 @@ namespace YAF.Core.Extensions;
 
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The page model extensions.
 /// </summary>
@@ -39,7 +37,7 @@ public static class PageModelExtensions
     /// <param name="pageModel">The page model.</param>
     /// <param name="scriptBlock">The script block.</param>
     /// <returns>PageModel.</returns>
-    public static PageModel RegisterJsBlock(this PageModel pageModel, [NotNull] string scriptBlock)
+    public static PageModel RegisterJsBlock(this PageModel pageModel, string scriptBlock)
     {
         var tempData = pageModel.TempData;
 
@@ -63,7 +61,7 @@ public static class PageModelExtensions
     /// <returns>
     /// The <see cref="PageModel"/>.
     /// </returns>
-    public static PageModel ToastMessage(this PageModel pageModel, [NotNull] string type, [NotNull] string body)
+    public static PageModel ToastMessage(this PageModel pageModel, string type, string body)
     {
         var tempData = pageModel.TempData;
 
@@ -99,11 +97,11 @@ public static class PageModelExtensions
     /// </returns>
     public static PageModel ConfirmModal(
         this PageModel pageModel,
-        [NotNull] string title,
-        [NotNull] string text,
-        [NotNull] string yes,
-        [NotNull] string no,
-        [NotNull] string link)
+        string title,
+        string text,
+        string yes,
+        string no,
+        string link)
     {
         var tempData = pageModel.TempData;
 

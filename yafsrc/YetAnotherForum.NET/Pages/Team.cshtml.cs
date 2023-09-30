@@ -116,7 +116,7 @@ public class TeamModel : ForumPage
     /// <returns>
     /// Moderators List
     /// </returns>
-    [NotNull]
+    
     private List<User> GetAdmins()
     {
         // get a row with user lazy data...
@@ -134,7 +134,7 @@ public class TeamModel : ForumPage
     /// <returns>
     /// Moderators List
     /// </returns>
-    [NotNull]
+    
     private List<SimpleModerator> GetModerators()
     {
         var moderators = this.Get<DataBroker>().GetModerators();

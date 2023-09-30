@@ -47,7 +47,7 @@ public static class UserLinkHtmlHelper
     /// </returns>
     public static IHtmlContent UserLink(
         this IHtmlHelper htmlHelper,
-        [NotNull] User user)
+        User user)
     {
         return UserLink(htmlHelper, user.ID, user.DisplayOrUserName(), user.Suspended, user.UserStyle);
     }
@@ -69,8 +69,8 @@ public static class UserLinkHtmlHelper
     /// </returns>
     public static IHtmlContent UserLink(
         this IHtmlHelper htmlHelper,
-        [NotNull] int userId,
-        [CanBeNull] string crawler)
+        int userId,
+        string crawler)
     {
         return UserLink(htmlHelper, userId, null, null, string.Empty, false, false, false, string.Empty, crawler);
     }
@@ -104,12 +104,12 @@ public static class UserLinkHtmlHelper
     /// </returns>
     public static IHtmlContent UserLink(
         this IHtmlHelper htmlHelper,
-        [NotNull] int userId,
-        [CanBeNull] string replaceName,
-        [CanBeNull] DateTime? suspended,
-        [NotNull] string style,
-        [NotNull] bool blankTarget,
-        [CanBeNull] string cssClass)
+        int userId,
+        string replaceName,
+        DateTime? suspended,
+        string style,
+        bool blankTarget,
+        string cssClass)
     {
         return UserLink(htmlHelper, userId, replaceName, suspended, style, false, true, blankTarget, cssClass);
     }
@@ -153,16 +153,16 @@ public static class UserLinkHtmlHelper
     /// </returns>
     public static IHtmlContent UserLink(
         this IHtmlHelper htmlHelper,
-        [NotNull] int userId,
-        [CanBeNull] string replaceName,
-        [CanBeNull] DateTime? suspended,
-        [NotNull] string style,
-        [NotNull] bool isGuest = false,
-        [NotNull] bool enableHoverCard = true,
-        [NotNull] bool blankTarget = false,
-        [CanBeNull] string cssClassAppend = "",
-        [CanBeNull] string crawlerName = "",
-        [CanBeNull] string postFixText = "")
+        int userId,
+        string replaceName,
+        DateTime? suspended,
+        string style,
+        bool isGuest = false,
+        bool enableHoverCard = true,
+        bool blankTarget = false,
+        string cssClassAppend = "",
+        string crawlerName = "",
+        string postFixText = "")
     {
         var content = new HtmlContentBuilder();
         var context = BoardContext.Current;

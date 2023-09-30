@@ -39,7 +39,7 @@ public interface ICheckForBot
     /// <param name="userName">Name of the user.</param>
     /// <returns>Returns Response Text and if User is Bot or Not</returns>
     Task<(string ResponseText, bool IsBot)> IsBotAsync(
-        [CanBeNull] string ipAddress,
-        [CanBeNull] string emailAddress,
-        [CanBeNull] string userName);
+        string ipAddress,
+        string emailAddress,
+        string userName);
 }

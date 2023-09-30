@@ -246,8 +246,8 @@ namespace YAF.Core.Services.Migrations
         /// The migrate create user.
         /// </returns>
         private async Task<(IdentityResult Result, AspNetUsers User)> MigrateCreateUserAsync(
-            [NotNull] string name,
-            [NotNull] string email,
+            string name,
+            string email,
             bool approved)
         {
             var password = PasswordGenerator.GeneratePassword(true, true, true, true, false, 16);

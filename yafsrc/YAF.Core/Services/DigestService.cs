@@ -28,7 +28,6 @@ using System;
 
 using MimeKit;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -42,7 +41,7 @@ public class DigestService : IDigestService, IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public DigestService([NotNull] IServiceLocator serviceLocator)
+    public DigestService(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }
@@ -61,15 +60,11 @@ public class DigestService : IDigestService, IHaveServiceLocator
     /// <param name="toName">To name.</param>
     /// <returns>MailMessage.</returns>
     public MimeMessage CreateDigest(
-        [NotNull] User user,
-        [NotNull] MailboxAddress boardAddress,
-        [NotNull] string toEmail,
-        [CanBeNull] string toName)
+        User user,
+        MailboxAddress boardAddress,
+        string toEmail,
+        string toName)
     {
-        CodeContracts.VerifyNotNull(user);
-        CodeContracts.VerifyNotNull(boardAddress);
-        CodeContracts.VerifyNotNull(toEmail);
-
         // get topic hours...
         var topicHours = -this.Get<BoardSettings>().DigestSendEveryXHours;
 

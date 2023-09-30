@@ -29,7 +29,6 @@ using ServiceStack.OrmLite;
 using System;
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
 
@@ -55,11 +54,9 @@ public static class BuddyRepositoryExtensions
     /// </returns>
     public static bool AddRequest(
         this IRepository<Buddy> repository,
-        [NotNull] int fromUserId,
-        [NotNull] int toUserId)
+        int fromUserId,
+        int toUserId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         if (repository.Exists(x => x.FromUserID == fromUserId && x.ToUserID == toUserId))
         {
             return false;
@@ -109,11 +106,9 @@ public static class BuddyRepositoryExtensions
     /// </returns>
     public static bool ApproveRequest(
         this IRepository<Buddy> repository,
-        [NotNull] BuddyUser fromUser,
-        [NotNull] User toUser)
+        BuddyUser fromUser,
+        User toUser)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         if (!repository.Exists(x => x.FromUserID == fromUser.UserID && x.ToUserID == toUser.ID))
         {
             return false;
@@ -161,11 +156,9 @@ public static class BuddyRepositoryExtensions
     /// </param>
     public static void DenyRequest(
         this IRepository<Buddy> repository,
-        [NotNull] int fromUserId,
-        [NotNull] int toUserId)
+        int fromUserId,
+        int toUserId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.Delete(b => b.FromUserID == fromUserId && b.ToUserID == toUserId);
     }
 
@@ -180,10 +173,8 @@ public static class BuddyRepositoryExtensions
     /// </param>
     public static void RemoveRequest(
         this IRepository<Buddy> repository,
-        [NotNull] int toUserId)
+        int toUserId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.Delete(b => b.FromUserID == BoardContext.Current.PageUserID && b.ToUserID == toUserId);
     }
 
@@ -201,11 +192,9 @@ public static class BuddyRepositoryExtensions
     /// </param>
     public static void Remove(
         this IRepository<Buddy> repository,
-        [NotNull] int fromUserId,
-        [NotNull] int toUserId)
+        int fromUserId,
+        int toUserId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.Delete(x => x.FromUserID == fromUserId && x.ToUserID == toUserId);
 
         repository.FireDeleted();
@@ -219,10 +208,8 @@ public static class BuddyRepositoryExtensions
     /// <returns>
     /// The containing the friend list.
     /// </returns>
-    public static List<BuddyUser> GetAllFriends(this IRepository<Buddy> repository, [NotNull] int userId)
+    public static List<BuddyUser> GetAllFriends(this IRepository<Buddy> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Buddy>();
 
         // Get from user friends
@@ -277,10 +264,8 @@ public static class BuddyRepositoryExtensions
     /// <returns>
     /// Returns all pending Received Requests
     /// </returns>
-    public static List<BuddyUser> GetReceivedRequests(this IRepository<Buddy> repository, [NotNull] int userId)
+    public static List<BuddyUser> GetReceivedRequests(this IRepository<Buddy> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Buddy>();
 
         expression.Join<User>((b, u) => u.ID == b.FromUserID && (u.Flags & 2) == 2 && (u.Flags & 32) != 32)
@@ -313,10 +298,8 @@ public static class BuddyRepositoryExtensions
     /// <returns>
     /// Returns all pending Send Requests
     /// </returns>
-    public static List<BuddyUser> GetSendRequests(this IRepository<Buddy> repository, [NotNull] int userId)
+    public static List<BuddyUser> GetSendRequests(this IRepository<Buddy> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Buddy>();
 
         expression.Join<User>((b, u) => u.ID == b.ToUserID && (u.Flags & 2) == 2 && (u.Flags & 32) != 32)

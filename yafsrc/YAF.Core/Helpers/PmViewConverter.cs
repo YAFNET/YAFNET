@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Helpers;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// Converts <see cref="PmView"/>s to and from their URL query string representations.
 /// </summary>
@@ -38,7 +36,7 @@ public static class PmViewConverter
     /// <returns>
     /// The to query string param.
     /// </returns>
-    [CanBeNull]
+    
     public static string ToQueryStringParam(PmView view)
     {
         return view switch

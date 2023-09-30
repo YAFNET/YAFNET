@@ -25,8 +25,6 @@ namespace YAF.Core.Utilities;
 
 using System;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The class gets common system info. Used in data layers other than MSSQL. Created by vzrus 2010
 /// </summary>
@@ -45,7 +43,7 @@ public static class SystemInfo
     /// <summary>
     /// Gets Processors.
     /// </summary>
-    [NotNull]
+    
     public static string Processors => Environment.ProcessorCount.ToString();
 
     /// <summary>

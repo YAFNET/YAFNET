@@ -49,7 +49,7 @@ public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>
     /// The context Accessor.
     /// </param>
     public LastVisitEventHandler(
-        [NotNull] ISessionService yafSession, IHttpContextAccessor contextAccessor)
+        ISessionService yafSession, IHttpContextAccessor contextAccessor)
     {
         this.context = contextAccessor;
         this.YafSession = yafSession;
@@ -71,7 +71,7 @@ public class LastVisitEventHandler : IHandleEvent<ForumPagePreLoadEvent>
     /// <param name="event">
     /// The event.
     /// </param>
-    public void Handle([NotNull] ForumPagePreLoadEvent @event)
+    public void Handle(ForumPagePreLoadEvent @event)
     {
         const string PreviousVisitKey = "PreviousVisit";
 

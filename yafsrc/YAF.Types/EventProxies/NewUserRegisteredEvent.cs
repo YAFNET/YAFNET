@@ -24,7 +24,6 @@
 
 namespace YAF.Types.EventProxies;
 
-using YAF.Types;
 using YAF.Types.Interfaces.Events;
 using YAF.Types.Models.Identity;
 
@@ -42,10 +41,8 @@ public class NewUserRegisteredEvent : IAmEvent
     /// <param name="userId">
     /// The user id.
     /// </param>
-    public NewUserRegisteredEvent([NotNull] AspNetUsers user, int userId)
+    public NewUserRegisteredEvent(AspNetUsers user, int userId)
     {
-        CodeContracts.VerifyNotNull(user);
-
         this.User = user;
         this.UserId = userId;
     }

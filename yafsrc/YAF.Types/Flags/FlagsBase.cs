@@ -63,7 +63,7 @@ public abstract class FlagsBase
     /// <param name="bits">
     /// Boolean values to initialize class with. If their number is lower than 32, remaining bits are set to false. If more than 32 values is specified, excess values are ignored.
     /// </param>
-    protected FlagsBase([NotNull] params bool[] bits)
+    protected FlagsBase(params bool[] bits)
         : this(0)
     {
         // process up to 32 parameters
@@ -156,10 +156,8 @@ public abstract class FlagsBase
     /// <returns>
     /// The enum to index.
     /// </returns>
-    public int EnumToIndex([NotNull] Enum theEnum)
+    public int EnumToIndex(Enum theEnum)
     {
-        CodeContracts.VerifyNotNull(theEnum);
-
         return Convert.ToInt32(Math.Sqrt(Convert.ToInt32(theEnum))) - 1;
     }
 }

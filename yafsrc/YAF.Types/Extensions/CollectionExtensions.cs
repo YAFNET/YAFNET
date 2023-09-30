@@ -27,8 +27,6 @@ namespace YAF.Types.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 
-using YAF.Types;
-
 /// <summary>
 /// The collection extensions.
 /// </summary>
@@ -51,12 +49,10 @@ public static class CollectionExtensions
     /// <typeparam name="TValue">
     /// </typeparam>
     public static void AddOrUpdate<TKey, TValue>(
-        [NotNull] this IDictionary<TKey, TValue> dictionary,
+        this IDictionary<TKey, TValue> dictionary,
         TKey key,
         TValue value)
     {
-        CodeContracts.VerifyNotNull(dictionary);
-
         dictionary[key] = value;
     }
 
@@ -74,12 +70,9 @@ public static class CollectionExtensions
     /// <typeparam name="TValue">
     /// </typeparam>
     public static void AddRange<TKey, TValue>(
-        [NotNull] this IDictionary<TKey, TValue> dictionaryFirst,
-        [NotNull] IDictionary<TKey, TValue> dictionarySecondary)
+        this IDictionary<TKey, TValue> dictionaryFirst,
+        IDictionary<TKey, TValue> dictionarySecondary)
     {
-        CodeContracts.VerifyNotNull(dictionaryFirst);
-        CodeContracts.VerifyNotNull(dictionarySecondary);
-
         dictionarySecondary.ToList().ForEach(i => dictionaryFirst.AddOrUpdate(i.Key, i.Value));
     }
 }

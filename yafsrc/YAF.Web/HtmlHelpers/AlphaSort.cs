@@ -41,7 +41,7 @@ public static class AlphaSortHtmlHelper
     /// <returns>
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
-    public static IHtmlContent AlphaSort([NotNull] this IHtmlHelper htmlHelper, [NotNull] char currentLetter)
+    public static IHtmlContent AlphaSort(this IHtmlHelper htmlHelper, char currentLetter)
     {
         var content = new HtmlContentBuilder();
 

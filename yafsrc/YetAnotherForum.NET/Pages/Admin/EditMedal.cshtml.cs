@@ -178,7 +178,7 @@ public class EditMedalModel : AdminPage
     /// <returns>
     /// The format group link.
     /// </returns>
-    public string FormatGroupLink([NotNull] Tuple<Medal, GroupMedal, Group> item)
+    public string FormatGroupLink(Tuple<Medal, GroupMedal, Group> item)
     {
         return string.Format(
             "<a href=\"{1}\">{0}</a>",
@@ -195,7 +195,7 @@ public class EditMedalModel : AdminPage
     /// <returns>
     /// The format user link.
     /// </returns>
-    public string FormatUserLink([NotNull] Tuple<Medal, UserMedal, User> item)
+    public string FormatUserLink(Tuple<Medal, UserMedal, User> item)
     {
         return string.Format(
             "<a href=\"{2}\">{0}&nbsp;({1})</a>",

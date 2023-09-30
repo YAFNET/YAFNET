@@ -21,14 +21,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Extensions.Data;
 
 using System.Collections.Generic;
 using System.Data;
 using System.Dynamic;
 using System.Linq;
-
-using YAF.Types;
 
 /// <summary>
 /// The Database command extensions.
@@ -47,11 +46,8 @@ public static class DbCommandExtensions
     /// <param name="item">
     /// The item.
     /// </param>
-    public static void AddParam([NotNull] this IDbCommand cmd, [NotNull] string name, [CanBeNull] object item)
+    public static void AddParam(this IDbCommand cmd, string name, object item)
     {
-        CodeContracts.VerifyNotNull(cmd);
-        CodeContracts.VerifyNotNull(name);
-
         AddParam(cmd, new KeyValuePair<string, object>(name, item));
     }
 
@@ -64,10 +60,8 @@ public static class DbCommandExtensions
     /// <param name="param">
     /// The param.
     /// </param>
-    public static void AddParam([NotNull] this IDbCommand cmd, KeyValuePair<string, object> param)
+    public static void AddParam(this IDbCommand cmd, KeyValuePair<string, object> param)
     {
-        CodeContracts.VerifyNotNull(cmd);
-
         var item = param.Value;
 
         var p = cmd.CreateParameter();

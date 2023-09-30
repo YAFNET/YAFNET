@@ -30,8 +30,6 @@ namespace YAF.Core.Extensions
     using Microsoft.Extensions.Logging;
 
     using YAF.Core.Context;
-    using YAF.Types;
-    using YAF.Types.Attributes;
     using YAF.Types.Constants;
     using YAF.Types.Extensions;
     using YAF.Types.Interfaces;
@@ -63,14 +61,12 @@ namespace YAF.Core.Extensions
         /// The event type.
         /// </param>
         public static void Log(
-            [NotNull] this ILogger logger, 
-            [CanBeNull] int? userId, 
-            [CanBeNull] object source, 
-            [CanBeNull] Exception exception, 
+            this ILogger logger, 
+            int? userId, 
+            object source, 
+            Exception exception, 
             EventLogTypes eventType = EventLogTypes.Error)
         {
-            CodeContracts.VerifyNotNull(logger);
-
             var sourceDescription = "unknown";
 
             if (source is Type)

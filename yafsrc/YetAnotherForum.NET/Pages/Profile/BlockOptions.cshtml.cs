@@ -115,7 +115,7 @@ public class BlockOptionsModel : ProfilePage
     /// <param name="userId">
     /// The user id.
     /// </param>
-    public void OnPostDelete([NotNull]int userId)
+    public void OnPostDelete(int userId)
     {
         this.Get<IUserIgnored>().RemoveIgnored(userId);
 

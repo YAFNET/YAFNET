@@ -24,8 +24,6 @@
 
 namespace YAF.Configuration;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The YAF board settings.
 /// </summary>
@@ -53,8 +51,8 @@ public class BoardSettings
     /// <param name="registry">The registry.</param>
     /// <param name="registryBoard">The registry board.</param>
     public BoardSettings(
-        [NotNull] int boardId,
-        [NotNull] string boardName,
+        int boardId,
+        string boardName,
         RegistryDictionaryOverride registry,
         RegistryDictionary registryBoard)
     {

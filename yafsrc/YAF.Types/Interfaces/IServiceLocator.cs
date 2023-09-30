@@ -59,7 +59,7 @@ public interface IServiceLocator : IServiceProvider
     /// <returns>
     /// The get.
     /// </returns>
-    object Get([NotNull] Type serviceType);
+    object Get(Type serviceType);
 
     /// <summary>
     /// The get.
@@ -73,7 +73,7 @@ public interface IServiceLocator : IServiceProvider
     /// <returns>
     /// The get.
     /// </returns>
-    object Get([NotNull] Type serviceType, [NotNull] IEnumerable<IServiceLocationParameter> parameters);
+    object Get(Type serviceType, IEnumerable<IServiceLocationParameter> parameters);
 
     /// <summary>
     /// The get.
@@ -87,7 +87,7 @@ public interface IServiceLocator : IServiceProvider
     /// <returns>
     /// The get.
     /// </returns>
-    object Get([NotNull] Type serviceType, [NotNull] string named);
+    object Get(Type serviceType, string named);
 
     /// <summary>
     /// The get.
@@ -104,7 +104,7 @@ public interface IServiceLocator : IServiceProvider
     /// <returns>
     /// The get.
     /// </returns>
-    object Get([NotNull] Type serviceType, [NotNull] string named, [NotNull] IEnumerable<IServiceLocationParameter> parameters);
+    object Get(Type serviceType, string named, IEnumerable<IServiceLocationParameter> parameters);
 
     /// <summary>
     /// The try get.
@@ -118,7 +118,7 @@ public interface IServiceLocator : IServiceProvider
     /// <returns>
     /// The try get.
     /// </returns>
-    bool TryGet([NotNull] Type serviceType, [NotNull] out object instance);
+    bool TryGet(Type serviceType, out object instance);
 
     /// <summary>
     /// The try get.
@@ -135,5 +135,5 @@ public interface IServiceLocator : IServiceProvider
     /// <returns>
     /// The try get.
     /// </returns>
-    bool TryGet([NotNull] Type serviceType, [NotNull] string named, [NotNull] out object instance);
+    bool TryGet(Type serviceType, string named, out object instance);
 }

@@ -26,8 +26,6 @@ namespace YAF.Core.Extensions;
 
 using Autofac.Builder;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 ///     The i registration builder extension.
 /// </summary>
@@ -50,10 +48,8 @@ public static class IRegistrationBuilderExtension
     /// </returns>
     public static IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle>
         InstancePerBoardContext<TLimit, TActivatorData, TRegistrationStyle>(
-            [NotNull] this IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> builder)
+            this IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> builder)
     {
-        CodeContracts.VerifyNotNull(builder);
-
         return builder.InstancePerMatchingLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
     }
 }

@@ -464,8 +464,8 @@ public interface IAspNetUsersHelper
     /// The <see cref="Tuple"/>.
     /// </returns>
     public Tuple<User, AspNetUsers, Rank, VAccess> GetBoardUser(
-        [NotNull] int userId,
-        [CanBeNull] int? boardId = null,
+        int userId,
+        int? boardId = null,
         bool includeNonApproved = false);
 
     /// <summary>
@@ -485,15 +485,15 @@ public interface IAspNetUsersHelper
     /// Returns the board users.
     /// </returns>
     public List<PagedUser> GetUsersPaged(
-        [NotNull] int? boardId,
-        [NotNull] int pageIndex,
-        [NotNull] int pageSize,
-        [CanBeNull] string name,
-        [CanBeNull] string email,
-        [CanBeNull] DateTime? joinedDate,
-        [NotNull] bool onlySuspended,
-        [CanBeNull] int? groupId,
-        [CanBeNull] int? rankId,
+        int? boardId,
+        int pageIndex,
+        int pageSize,
+        string name,
+        string email,
+        DateTime? joinedDate,
+        bool onlySuspended,
+        int? groupId,
+        int? rankId,
         bool includeGuests = true);
 
     /// <summary>
@@ -545,18 +545,18 @@ public interface IAspNetUsersHelper
     /// The <see cref="List"/>.
     /// </returns>
     public List<PagedUser> ListMembersPaged(
-        [CanBeNull] int? boardId,
-        [CanBeNull] int? groupId,
-        [CanBeNull] int? rankId,
-        [NotNull] char startLetter,
-        [CanBeNull] string name,
-        [CanBeNull] int pageIndex,
-        [CanBeNull] int pageSize,
-        [CanBeNull] int? sortName,
-        [CanBeNull] int? sortRank,
-        [CanBeNull] int? sortJoined,
-        [CanBeNull] int? sortPosts,
-        [CanBeNull] int? sortLastVisit,
-        [CanBeNull] int? numPosts,
-        [NotNull] int numPostCompare);
+        int? boardId,
+        int? groupId,
+        int? rankId,
+        char startLetter,
+        string name,
+        int pageIndex,
+        int pageSize,
+        int? sortName,
+        int? sortRank,
+        int? sortJoined,
+        int? sortPosts,
+        int? sortLastVisit,
+        int? numPosts,
+        int numPostCompare);
 }

@@ -37,7 +37,7 @@ public class SuccessfulUserLoginEvent : IAmEvent
     /// <param name="userId">
     /// The user Id.
     /// </param>
-    public SuccessfulUserLoginEvent([NotNull] int userId)
+    public SuccessfulUserLoginEvent(int userId)
     {
         this.UserId = userId;
     }

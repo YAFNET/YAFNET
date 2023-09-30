@@ -23,8 +23,6 @@
  */
 namespace YAF.Core.Services;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// Transforms the style.
 /// </summary>
@@ -37,7 +35,7 @@ public class StyleTransform : IStyleTransform
     /// <returns>
     /// The decode style by string.
     /// </returns>
-    public string Decode([NotNull] string style)
+    public string Decode(string style)
     {
         if (style.IsNotSet())
         {

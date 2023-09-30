@@ -37,5 +37,5 @@ public interface IInjectServices
     /// <param name="instance">
     /// the object to inject
     /// </param>
-    void InjectMarked<TAttribute>([NotNull] object instance) where TAttribute : Attribute;
+    void InjectMarked<TAttribute>(object instance) where TAttribute : Attribute;
 }

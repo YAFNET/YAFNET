@@ -27,7 +27,6 @@ namespace YAF.Core.Model;
 using System;
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -49,10 +48,8 @@ public static class MedalRepositoryExtensions
     /// </returns>
     public static
         List<(int MedalID, string Name, string Message, string MedalURL, byte SortOrder, bool Hide, int Flags, DateTime DateAwarded)>
-        ListUserMedals(this IRepository<Medal> repository, [NotNull] int userId)
+        ListUserMedals(this IRepository<Medal> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expressionUser = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
 
         expressionUser.Join<UserMedal>((a, b) => b.MedalID == a.ID).Where<UserMedal>(b => b.UserID == userId)
@@ -131,17 +128,15 @@ public static class MedalRepositoryExtensions
     /// </param>
     public static void Save(
         this IRepository<Medal> repository,
-        [NotNull] int? medalId,
-        [NotNull] string name,
-        [CanBeNull] string description,
-        [CanBeNull] string message,
-        [CanBeNull] string category,
-        [CanBeNull] string medalUrl,
-        [NotNull] int flags,
-        [CanBeNull] int? boardId = null)
+        int? medalId,
+        string name,
+        string description,
+        string message,
+        string category,
+        string medalUrl,
+        int flags,
+        int? boardId = null)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         if (medalId is 0)
         {
             medalId = null;

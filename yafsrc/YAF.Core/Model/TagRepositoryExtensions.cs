@@ -24,7 +24,6 @@
 
 namespace YAF.Core.Model;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -49,11 +48,9 @@ public static class TagRepositoryExtensions
     /// </returns>
     public static int Add(
         this IRepository<Tag> repository,
-        [NotNull] string tagName,
-        [CanBeNull] int? boardId = null)
+        string tagName,
+        int? boardId = null)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var newId = repository.Insert(
             new Tag
                 {

@@ -30,7 +30,6 @@ using System.Runtime.Caching;
 using Microsoft.Extensions.Logging;
 
 using YAF.Core.Model;
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects.Nntp;
 
@@ -53,7 +52,7 @@ public class Nntp : INewsreader
     /// <param name="logger">
     /// The logger.
     /// </param>
-    public Nntp([NotNull] ILogger logger)
+    public Nntp(ILogger logger)
     {
         this.Logger = logger;
     }
@@ -72,11 +71,8 @@ public class Nntp : INewsreader
     /// <returns>
     /// The <see cref="NntpConnection"/>.
     /// </returns>
-    [NotNull]
-    public static NntpConnection GetNntpConnection([NotNull] Tuple<NntpForum, NntpServer, Forum> nntpForum)
+    public static NntpConnection GetNntpConnection(Tuple<NntpForum, NntpServer, Forum> nntpForum)
     {
-        CodeContracts.VerifyNotNull(nntpForum);
-
         var nntpConnection = new NntpConnection();
 
         // call connect server
@@ -130,8 +126,7 @@ public class Nntp : INewsreader
             MemoryCache.Default["WorkingInYafNNTP"] = true;
 
             // Only those not updated in the last 30 minutes
-            foreach (var nntpForum in BoardContext.Current.GetRepository<NntpForum>()
-                         .NntpForumList(boardId, true)
+            foreach (var nntpForum in BoardContext.Current.GetRepository<NntpForum>().NntpForumList(boardId, true)
                          .Where(n => (n.Item1.LastUpdate - DateTime.UtcNow).Minutes > lastUpdate))
             {
                 using var nntpConnection = GetNntpConnection(nntpForum);
@@ -173,9 +168,7 @@ public class Nntp : INewsreader
                     while (behindCutOff);
 
                     // update the group lastMessage info...
-                    BoardContext.Current.GetRepository<NntpForum>().Update(
-                        nntpForum.Item1.ID,
-                        currentMessage);
+                    BoardContext.Current.GetRepository<NntpForum>().Update(nntpForum.Item1.ID, currentMessage);
                 }
 
                 for (; currentMessage <= group.High; currentMessage++)
@@ -208,8 +201,7 @@ public class Nntp : INewsreader
 
                         if (dateTime < cutOffDate)
                         {
-                            this.Logger.Debug(
-                                $"Skipped message id {currentMessage} due to date being {dateTime}.");
+                            this.Logger.Debug($"Skipped message id {currentMessage} due to date being {dateTime}.");
                             continue;
                         }
 
@@ -232,9 +224,7 @@ public class Nntp : INewsreader
 
                         if (createUsers)
                         {
-                            guestUser = BoardContext.Current.GetRepository<User>().UpdateNntpUser(
-                                boardId,
-                                fromName);
+                            guestUser = BoardContext.Current.GetRepository<User>().UpdateNntpUser(boardId, fromName);
                         }
 
                         var body = ReplaceBody(article.Body.Text.Trim());
@@ -266,9 +256,7 @@ public class Nntp : INewsreader
                         }
 
                         count = 0;
-                        BoardContext.Current.GetRepository<NntpForum>().Update(
-                            nntpForum.Item1.ID,
-                            lastMessageNo);
+                        BoardContext.Current.GetRepository<NntpForum>().Update(nntpForum.Item1.ID, lastMessageNo);
                     }
                     catch (NntpException exception)
                     {
@@ -288,9 +276,7 @@ public class Nntp : INewsreader
                     }
                 }
 
-                BoardContext.Current.GetRepository<NntpForum>().Update(
-                    nntpForum.Item1.ID,
-                    lastMessageNo);
+                BoardContext.Current.GetRepository<NntpForum>().Update(nntpForum.Item1.ID, lastMessageNo);
 
                 // Total time x seconds for all groups
                 if ((DateTime.UtcNow - dateTimeStart).TotalSeconds > timeToRun)
@@ -316,8 +302,7 @@ public class Nntp : INewsreader
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    [NotNull]
-    private static string ReplaceBody([NotNull] string body)
+    private static string ReplaceBody(string body)
     {
         // Incorrect tags fixes which are common in nntp messages and cause display problems.
         // These are spotted ones.

@@ -27,7 +27,6 @@ namespace YAF.Core.Model;
 using System;
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -44,10 +43,8 @@ public static class RegistryRepositoryExtensions
     /// <param name="boardId">
     /// The board id.
     /// </param>
-    public static void UpdateMaxStats(this IRepository<Registry> repository, [NotNull] int boardId)
+    public static void UpdateMaxStats(this IRepository<Registry> repository, int boardId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var count = repository.DbAccess.Execute(
             db =>
                 {
@@ -77,8 +74,6 @@ public static class RegistryRepositoryExtensions
     /// </param>
     public static void IncrementDeniedRegistrations(this IRepository<Registry> repository)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         BoardContext.Current.BoardSettings.DeniedRegistrations++;
 
         repository.Save(
@@ -95,8 +90,6 @@ public static class RegistryRepositoryExtensions
     /// </param>
     public static void IncrementBannedUsers(this IRepository<Registry> repository)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         BoardContext.Current.BoardSettings.BannedUsers++;
 
         repository.Save(
@@ -113,8 +106,6 @@ public static class RegistryRepositoryExtensions
     /// </param>
     public static void IncrementReportedSpammers(this IRepository<Registry> repository)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         BoardContext.Current.BoardSettings.ReportedSpammers++;
 
         repository.Save(
@@ -135,10 +126,8 @@ public static class RegistryRepositoryExtensions
     /// <returns>
     /// The <see cref="List"/>.
     /// </returns>
-    public static List<Registry> List(this IRepository<Registry> repository, [CanBeNull] int? boardId = null)
+    public static List<Registry> List(this IRepository<Registry> repository, int? boardId = null)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.Get(r => r.BoardID == boardId);
     }
 
@@ -151,12 +140,10 @@ public static class RegistryRepositoryExtensions
     /// <param name="boardId">The board identifier.</param>
     public static void Save(
         this IRepository<Registry> repository,
-        [NotNull] string settingName,
-        [CanBeNull] object settingValue,
-        [CanBeNull] int? boardId = null)
+        string settingName,
+        object settingValue,
+        int? boardId = null)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         settingValue ??= string.Empty;
 
         if (boardId.HasValue)
@@ -205,22 +192,6 @@ public static class RegistryRepositoryExtensions
     }
 
     /// <summary>
-    /// Gets the Current DB Version Name
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <returns>
-    /// Returns the Current DB Version Name
-    /// </returns>
-    public static string GetDbVersionName(this IRepository<Registry> repository)
-    {
-        CodeContracts.VerifyNotNull(repository);
-
-        return repository.GetSingle(r => r.Name.ToLower() == "versionname").Value;
-    }
-
-    /// <summary>
     /// Gets the Current YAF DB Version
     /// </summary>
     /// <param name="repository">
@@ -231,8 +202,6 @@ public static class RegistryRepositoryExtensions
     /// </returns>
     public static int GetDbVersion(this IRepository<Registry> repository)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         int version;
 
         try
@@ -267,10 +236,8 @@ public static class RegistryRepositoryExtensions
     /// </param>
     public static DbVersionType ValidateVersion(
         this IRepository<Registry> repository,
-        [NotNull] int appVersion)
+        int appVersion)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         try
         {
             var registryVersion = repository.GetCurrentVersion();
@@ -310,8 +277,6 @@ public static class RegistryRepositoryExtensions
     /// </param>
     public static void DeleteLegacy(this IRepository<Registry> repository)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.Delete(x => x.Name == "smtpserver");
         repository.Delete(x => x.Name == "avatarremote");
         repository.Delete(x => x.Name == "enablethanksmod");

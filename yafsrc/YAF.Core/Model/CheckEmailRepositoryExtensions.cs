@@ -27,7 +27,6 @@ namespace YAF.Core.Model;
 using System;
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -49,10 +48,8 @@ public static class CheckEmailRepositoryExtensions
     /// </returns>
     public static IList<CheckEmail> ListTyped(
         this IRepository<CheckEmail> repository,
-        [CanBeNull] string email = null)
+        string email = null)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return email.IsSet() ? repository.Get(mail => mail.Email == email) : repository.Get(null);
     }
 
@@ -74,13 +71,9 @@ public static class CheckEmailRepositoryExtensions
     public static void Save(
         this IRepository<CheckEmail> repository,
         int? userId,
-        [NotNull] string hash,
-        [NotNull] string email)
+        string hash,
+        string email)
     {
-        CodeContracts.VerifyNotNull(hash);
-        CodeContracts.VerifyNotNull(email);
-        CodeContracts.VerifyNotNull(repository);
-
         repository.Insert(
             new CheckEmail
                 {
@@ -100,11 +93,8 @@ public static class CheckEmailRepositoryExtensions
     /// <returns>
     /// The <see cref="CheckEmail"/>.
     /// </returns>
-    public static CheckEmail Update(this IRepository<CheckEmail> repository, [NotNull] string hash)
+    public static CheckEmail Update(this IRepository<CheckEmail> repository, string hash)
     {
-        CodeContracts.VerifyNotNull(hash);
-        CodeContracts.VerifyNotNull(repository);
-
         var mail = repository.GetSingle(c => c.Hash == hash);
 
         return mail;

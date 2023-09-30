@@ -29,7 +29,6 @@ using System.Text.RegularExpressions;
 
 using Microsoft.Extensions.Logging;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
@@ -49,7 +48,7 @@ public class SpamWordCheck : ISpamWordCheck, IHaveServiceLocator
     /// <param name="objectStore">The object Store.</param>
     /// <param name="logger">The logger.</param>
     /// <param name="serviceLocator">The service locator.</param>
-    public SpamWordCheck([NotNull] IObjectStore objectStore, [NotNull] ILogger<SpamWordCheck> logger, IServiceLocator serviceLocator)
+    public SpamWordCheck(IObjectStore objectStore, ILogger<SpamWordCheck> logger, IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
         this.ObjectStore = objectStore;
@@ -106,8 +105,8 @@ public class SpamWordCheck : ISpamWordCheck, IHaveServiceLocator
     /// <returns>
     /// Returns if the search Text contains a spam word
     /// </returns>
-    [NotNull]
-    public bool CheckForSpamWord([NotNull] string searchText, out string spamWord)
+    
+    public bool CheckForSpamWord(string searchText, out string spamWord)
     {
         spamWord = string.Empty;
 

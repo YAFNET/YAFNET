@@ -26,7 +26,6 @@ namespace YAF.Core.Model;
 
 using System;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -78,21 +77,19 @@ public static class RankRepositoryExtensions
     /// </param>
     public static void Save(
         this IRepository<Rank> repository,
-        [CanBeNull] int? rankId,
-        [NotNull] int boardId,
-        [NotNull] string name,
-        [NotNull] RankFlags flags,
-        [CanBeNull] int? minPosts,
-        [CanBeNull] string style,
-        [NotNull] short sortOrder,
-        [CanBeNull] string description,
-        [CanBeNull] int signatureChars,
-        [CanBeNull] string signatureBBCodes,
-        [NotNull] int userAlbums,
-        [NotNull] int userAlbumImages)
+        int? rankId,
+        int boardId,
+        string name,
+        RankFlags flags,
+        int? minPosts,
+        string style,
+        short sortOrder,
+        string description,
+        int signatureChars,
+        string signatureBBCodes,
+        int userAlbums,
+        int userAlbumImages)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         if (!flags.IsLadder)
         {
             minPosts = null;
@@ -162,10 +159,8 @@ public static class RankRepositoryExtensions
     /// <returns>
     /// The <see cref="Tuple"/>.
     /// </returns>
-    public static Tuple<User, Rank> GetUserAndRank(this IRepository<Rank> repository, [NotNull] int userId)
+    public static Tuple<User, Rank> GetUserAndRank(this IRepository<Rank> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
         expression.Join<Rank>((u, r) => r.ID == u.RankID).Where<User>(u => u.ID == userId);
@@ -182,10 +177,8 @@ public static class RankRepositoryExtensions
     /// <returns>Returns the Style if the Rank has one</returns>
     public static string GetRankStyeForUser(
         this IRepository<Rank> repository,
-        [NotNull] int userId)
+        int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Rank>();
 
         expression.Join<User>((rank, user) => rank.ID == user.RankID)

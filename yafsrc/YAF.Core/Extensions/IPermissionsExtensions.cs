@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Extensions;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The i permissions extensions.
 /// </summary>
@@ -43,10 +41,8 @@ public static class IPermissionsExtensions
     /// <returns>
     /// The check.
     /// </returns>
-    public static bool Check([NotNull] this IPermissions permissions, int permission)
+    public static bool Check(this IPermissions permissions, int permission)
     {
-        CodeContracts.VerifyNotNull(permissions);
-
         return permissions.Check((ViewPermissions)permission);
     }
 }

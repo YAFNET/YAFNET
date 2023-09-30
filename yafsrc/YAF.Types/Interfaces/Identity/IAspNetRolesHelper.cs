@@ -44,7 +44,7 @@ public interface IAspNetRolesHelper
     /// <param name="role">
     /// The role.
     /// </param>
-    void AddUserToRole([NotNull] AspNetUsers user, [NotNull] string role);
+    void AddUserToRole(AspNetUsers user, string role);
 
     /// <summary>
     /// Creates the user in the YAF DB from the ASP.NET Membership user information.
@@ -59,7 +59,7 @@ public interface IAspNetRolesHelper
     /// <returns>
     /// Returns the UserID of the user if everything was successful. Otherwise, null.
     /// </returns>
-    Task<int?> CreateForumUserAsync([NotNull] AspNetUsers user, int pageBoardId);
+    Task<int?> CreateForumUserAsync(AspNetUsers user, int pageBoardId);
 
     /// <summary>
     /// Creates the user in the YAF DB from the ASP.NET Membership user information.
@@ -77,7 +77,7 @@ public interface IAspNetRolesHelper
     /// <returns>
     /// Returns the UserID of the user if everything was successful. Otherwise, null.
     /// </returns>
-    Task<int?> CreateForumUserAsync([NotNull] AspNetUsers user, [NotNull] string displayName, int pageBoardId);
+    Task<int?> CreateForumUserAsync(AspNetUsers user, string displayName, int pageBoardId);
 
     /// <summary>
     /// The create role.
@@ -85,7 +85,7 @@ public interface IAspNetRolesHelper
     /// <param name="roleName">
     ///     The role name.
     /// </param>
-    Task CreateRoleAsync([NotNull] string roleName);
+    Task CreateRoleAsync(string roleName);
 
     /// <summary>
     /// The delete role.
@@ -93,7 +93,7 @@ public interface IAspNetRolesHelper
     /// <param name="roleName">
     ///     The role name.
     /// </param>
-    Task DeleteRoleAsync([NotNull] string roleName);
+    Task DeleteRoleAsync(string roleName);
 
     /// <summary>
     /// Check if the forum user was created.
@@ -103,7 +103,7 @@ public interface IAspNetRolesHelper
     /// <returns>
     /// The did create forum user.
     /// </returns>
-    bool DidCreateForumUser([NotNull] AspNetUsers user, int pageBoardId);
+    bool DidCreateForumUser(AspNetUsers user, int pageBoardId);
 
     /// <summary>
     /// Gets all roles.
@@ -122,7 +122,7 @@ public interface IAspNetRolesHelper
     /// <returns>
     /// Returns all Roles
     /// </returns>
-    Task<IList<string>> GetRolesForUserAsync([NotNull] AspNetUsers user);
+    Task<IList<string>> GetRolesForUserAsync(AspNetUsers user);
 
     /// <summary>
     /// The get users in role.
@@ -147,7 +147,7 @@ public interface IAspNetRolesHelper
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    bool IsMemberOfGroup([NotNull] string groupName, [NotNull] List<GroupMember> groups);
+    bool IsMemberOfGroup(string groupName, List<GroupMember> groups);
 
     /// <summary>
     /// Roles the exists.
@@ -156,7 +156,7 @@ public interface IAspNetRolesHelper
     /// <returns>
     /// The role exists.
     /// </returns>
-    Task<bool> RoleNameExistsAsync([NotNull] string roleName);
+    Task<bool> RoleNameExistsAsync(string roleName);
 
     /// <summary>
     /// Sets up the user roles from the "start" settings for a given group/role
@@ -167,7 +167,7 @@ public interface IAspNetRolesHelper
     /// <param name="user">
     ///     The user.
     /// </param>
-    Task SetupUserRolesAsync(int pageBoardId, [NotNull] AspNetUsers user);
+    Task SetupUserRolesAsync(int pageBoardId, AspNetUsers user);
 
     /// <summary>
     /// Syncs the ASP.NET roles with YAF group based on YAF (not bi-directional)

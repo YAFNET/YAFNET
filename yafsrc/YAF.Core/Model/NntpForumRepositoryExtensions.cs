@@ -27,7 +27,6 @@ namespace YAF.Core.Model;
 using System;
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -49,11 +48,9 @@ public static class NntpForumRepositoryExtensions
     /// </param>
     public static void Update(
         this IRepository<NntpForum> repository,
-        [NotNull] int nntpForumId,
-        [NotNull] int lastMessageNo)
+        int nntpForumId,
+        int lastMessageNo)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.UpdateOnly(
             () => new NntpForum { LastMessageNo = lastMessageNo, LastUpdate = DateTime.UtcNow },
             n => n.ID == nntpForumId);
@@ -79,8 +76,6 @@ public static class NntpForumRepositoryExtensions
         int boardId,
         bool? active)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<NntpForum>();
 
         if (active.HasValue)
@@ -124,12 +119,12 @@ public static class NntpForumRepositoryExtensions
     /// </param>
     public static void Save(
         this IRepository<NntpForum> repository,
-        [NotNull] int? nntpForumId,
-        [NotNull] int nntpServerId,
-        [NotNull] string groupName,
-        [NotNull] int forumId,
-        [NotNull] bool active,
-        [NotNull] DateTime? dateCutOff)
+        int? nntpForumId,
+        int nntpServerId,
+        string groupName,
+        int forumId,
+        bool active,
+        DateTime? dateCutOff)
     {
         if (nntpForumId.HasValue)
         {

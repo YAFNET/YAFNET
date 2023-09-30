@@ -27,7 +27,6 @@ namespace YAF.Core.Model;
 using System;
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -47,10 +46,8 @@ public static class UserGroupRepositoryExtensions
     /// <returns>
     /// The <see cref="List"/>.
     /// </returns>
-    public static List<Group> List(this IRepository<UserGroup> repository, [NotNull] int userId)
+    public static List<Group> List(this IRepository<UserGroup> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserGroup>();
 
         expression.Join<Group>((a, b) => b.ID == a.GroupID).Where<UserGroup>((a) => a.UserID == userId)
@@ -71,10 +68,8 @@ public static class UserGroupRepositoryExtensions
     /// <param name="groupId">
     /// The group Id.
     /// </param>
-    public static void Remove(this IRepository<UserGroup> repository, [NotNull] int userId, [NotNull] int groupId)
+    public static void Remove(this IRepository<UserGroup> repository, int userId, int groupId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.FireDeleted(repository.Delete(x => x.GroupID == groupId && x.UserID == userId));
     }
 
@@ -95,12 +90,10 @@ public static class UserGroupRepositoryExtensions
     /// </param>
     public static void AddOrRemove(
         this IRepository<UserGroup> repository,
-        [NotNull] int userId,
-        [NotNull] int groupId,
-        [NotNull] bool isMember)
+        int userId,
+        int groupId,
+        bool isMember)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         if (!isMember)
         {
             repository.Remove(userId, groupId);
@@ -132,12 +125,10 @@ public static class UserGroupRepositoryExtensions
     /// </param>
     public static void SetRole(
         this IRepository<UserGroup> repository,
-        [NotNull] int boardId,
-        [NotNull] int userId,
-        [NotNull] string role)
+        int boardId,
+        int userId,
+        string role)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         if (role.IsNotSet())
         {
             repository.Delete(x => x.UserID == userId);
@@ -213,10 +204,8 @@ public static class UserGroupRepositoryExtensions
     /// </returns>
     public static string GetGroupStyeForUser(
         this IRepository<UserGroup> repository,
-        [NotNull] int userId)
+        int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserGroup>();
 
         expression.Join<Group>((userGroup, group) => group.ID == userGroup.GroupID)

@@ -26,7 +26,6 @@ namespace YAF.Core.Model;
 
 using System;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -66,17 +65,15 @@ public static class NntpTopicRepositoryExtensions
     /// </param>
     public static void SaveMessage(
         this IRepository<NntpTopic> repository,
-        [NotNull] NntpForum nntpForum,
-        [NotNull] string topicName,
-        [NotNull] string body,
-        [NotNull] User user,
-        [NotNull] string userName,
-        [NotNull] string ip,
-        [NotNull] DateTime posted,
-        [NotNull] string externalMessageId)
+        NntpForum nntpForum,
+        string topicName,
+        string body,
+        User user,
+        string userName,
+        string ip,
+        DateTime posted,
+        string externalMessageId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         int? replyTo = null;
 
         var externalMessage = BoardContext.Current.GetRepository<Message>()

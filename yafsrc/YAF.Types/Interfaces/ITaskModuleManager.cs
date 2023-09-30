@@ -53,7 +53,7 @@ public interface ITaskModuleManager
     /// <returns>
     /// The is task running.
     /// </returns>
-    bool IsTaskRunning([NotNull] string instanceName);
+    bool IsTaskRunning(string instanceName);
 
     /// <summary>
     /// Check if Tasks are Running.
@@ -63,7 +63,7 @@ public interface ITaskModuleManager
     /// <returns>
     /// The are tasks running.
     /// </returns>
-    bool AreTasksRunning([NotNull] string[] instanceName);
+    bool AreTasksRunning(string[] instanceName);
 
     /// <summary>
     /// Start a non-running task -- will set the <see cref="HttpApplication"/> instance.
@@ -74,14 +74,14 @@ public interface ITaskModuleManager
     /// <param name="startTask">
     /// Task to run
     /// </param>
-    bool StartTask([NotNull] string instanceName, Func<IBackgroundTask> startTask);
+    bool StartTask(string instanceName, Func<IBackgroundTask> startTask);
 
     /// <summary>
     /// Tries the get task.
     /// </summary>
     /// <param name="instanceName">Name of the instance.</param>
     /// <param name="task">The task.</param>
-    bool TryGetTask([NotNull] string instanceName, out IBackgroundTask task);
+    bool TryGetTask(string instanceName, out IBackgroundTask task);
 
     /// <summary>
     /// The try remove task.
@@ -92,5 +92,5 @@ public interface ITaskModuleManager
     /// <returns>
     /// The try remove task.
     /// </returns>
-    bool TryRemoveTask([NotNull] string instanceName);
+    bool TryRemoveTask(string instanceName);
 }

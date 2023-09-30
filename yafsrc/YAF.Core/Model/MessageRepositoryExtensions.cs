@@ -29,7 +29,6 @@ using System.Collections.Generic;
 
 using Microsoft.Extensions.Logging;
 
-using YAF.Types.Attributes;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 using YAF.Types.Objects;
@@ -57,11 +56,9 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static bool RepliedTopic(
         this IRepository<Message> repository,
-        [NotNull] int topicId,
-        [NotNull] int userId)
+        int topicId,
+        int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.Count(m => m.TopicID == topicId && m.UserID == userId) > 0;
     }
 
@@ -79,10 +76,8 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static Message GetMessage(
         this IRepository<Message> repository,
-        [NotNull] int messageId)
+        int messageId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.Execute(db => db.Connection.LoadSingleById<Message>(messageId));
     }
 
@@ -100,10 +95,8 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static Tuple<Topic, Message, User, Forum> GetMessageAsTuple(
         this IRepository<Message> repository,
-        [NotNull] int messageId)
+        int messageId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
         expression.Join<Message>((t, m) => m.TopicID == t.ID).Join<Message, User>((m, u) => u.ID == m.UserID)
@@ -130,11 +123,9 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static Tuple<Topic, Message, User, Forum> GetMessageWithAccess(
         this IRepository<Message> repository,
-        [NotNull] int messageId,
-        [NotNull] int userId)
+        int messageId,
+        int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
         expression.Join<Message>((t, m) => m.TopicID == t.ID).Join<Message, User>((m, u) => u.ID == m.UserID)
@@ -159,10 +150,8 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static List<Tuple<Forum, Topic, Message>> GetDeletedMessages(
         this IRepository<Message> repository,
-        [NotNull] int boardId)
+        int boardId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
 
         expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
@@ -210,18 +199,16 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static List<PagedMessage> PostListPaged(
         this IRepository<Message> repository,
-        [NotNull] int topicId,
-        [NotNull] int userId,
-        [NotNull] bool updateViewCount,
-        [NotNull] bool showDeleted,
-        [NotNull] DateTime sincePostedDate,
-        [NotNull] DateTime toPostedDate,
-        [NotNull] int pageIndex,
-        [NotNull] int pageSize,
-        [NotNull] int messagePosition)
+        int topicId,
+        int userId,
+        bool updateViewCount,
+        bool showDeleted,
+        DateTime sincePostedDate,
+        DateTime toPostedDate,
+        int pageIndex,
+        int pageSize,
+        int messagePosition)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         if (updateViewCount)
         {
             BoardContext.Current.GetRepository<Topic>().UpdateAdd(
@@ -282,16 +269,20 @@ public static class MessageRepositoryExtensions
 
                     var reputationExpression = db.Connection.From<ReputationVote>(db.Connection.TableAlias("x"));
                     reputationExpression.Where(
-                        $@"x.{reputationExpression.Column<ReputationVote>(x => x.ReputationToUserID)}={expression.Column<User>(b => b.ID, true)}
-                                        and x.{reputationExpression.Column<ReputationVote>(x => x.ReputationFromUserID)}={userId}");
+                        $"""
+                         x.{reputationExpression.Column<ReputationVote>(x => x.ReputationToUserID)}={expression.Column<User>(b => b.ID, true)}
+                                                                 and x.{reputationExpression.Column<ReputationVote>(x => x.ReputationFromUserID)}={userId}
+                         """);
                     var reputationSql = reputationExpression
                         .Select($"{reputationExpression.Column<ReputationVote>(x => x.VoteDate)}").Limit(1)
                         .ToSelectStatement();
 
                     var isThankByUserExpression = db.Connection.From<Thanks>(db.Connection.TableAlias("ta"));
                     isThankByUserExpression.Where(
-                        $@"ta.{isThankByUserExpression.Column<Thanks>(x => x.ThanksFromUserID)}={userId}
-                                    and ta.{isThankByUserExpression.Column<Thanks>(x => x.MessageID)}={expression.Column<Message>(x => x.ID, true)}");
+                        $"""
+                         ta.{isThankByUserExpression.Column<Thanks>(x => x.ThanksFromUserID)}={userId}
+                                                             and ta.{isThankByUserExpression.Column<Thanks>(x => x.MessageID)}={expression.Column<Message>(x => x.ID, true)}
+                         """);
                     var isThankByUserSql = isThankByUserExpression.Select(Sql.Count("1")).ToSelectStatement();
 
                     var thanksCountExpression = db.Connection.From<Thanks>(db.Connection.TableAlias("ta"));
@@ -373,10 +364,8 @@ public static class MessageRepositoryExtensions
     /// <returns>
     /// The <see cref="IEnumerable"/>.
     /// </returns>
-    public static List<Tuple<Message, User>> LastPosts(this IRepository<Message> repository, [NotNull] int topicId)
+    public static List<Tuple<Message, User>> LastPosts(this IRepository<Message> repository, int topicId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
         expression.Join<Message, User>((m, u) => m.UserID == u.ID)
@@ -402,8 +391,6 @@ public static class MessageRepositoryExtensions
         this IRepository<Message> repository,
         int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.Execute(db => db.Connection.LoadSelect<Message>(m => m.UserID == userId)
             .OrderByDescending(m => m.Posted));
     }
@@ -431,13 +418,11 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static List<Tuple<Message, Topic, User>> GetAllUserMessagesWithAccess(
         this IRepository<Message> repository,
-        [NotNull] int boardId,
-        [NotNull] int userId,
-        [NotNull] int pageUserId,
-        [NotNull] int count)
+        int boardId,
+        int userId,
+        int pageUserId,
+        int count)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
         expression.Join<User>((a, b) => b.ID == a.UserID)
@@ -468,10 +453,8 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static IEnumerable<SearchMessage> GetAllSearchMessagesByForum(
         this IRepository<Message> repository,
-        [NotNull] int forumId)
+        int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
 
         expression.Join<Topic>((forum, topic) => topic.ForumID == forum.ID)
@@ -497,10 +480,8 @@ public static class MessageRepositoryExtensions
     /// <param name="forumId">
     /// The forum Id.
     /// </param>
-    public static void Approve(this IRepository<Message> repository, [NotNull] int messageId, [NotNull] int forumId)
+    public static void Approve(this IRepository<Message> repository, int messageId, int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var message = repository.GetMessage(messageId);
 
         var flags = message.MessageFlags;
@@ -563,11 +544,9 @@ public static class MessageRepositoryExtensions
     /// <param name="flags">The flags.</param>
     public static void UpdateFlags(
         this IRepository<Message> repository,
-        [NotNull] int messageId,
-        [NotNull] int flags)
+        int messageId,
+        int flags)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.UpdateOnly(() => new Message { Flags = flags }, u => u.ID == messageId);
     }
 
@@ -603,17 +582,15 @@ public static class MessageRepositoryExtensions
     /// </param>
     public static void Delete(
         this IRepository<Message> repository,
-        [NotNull] int forumId,
-        [NotNull] int topicId,
-        [NotNull] Message message,
-        [NotNull] bool isModeratorChanged,
-        [NotNull] string deleteReason,
-        [NotNull] bool deleteLinked,
-        [NotNull] bool eraseMessage,
+        int forumId,
+        int topicId,
+        Message message,
+        bool isModeratorChanged,
+        string deleteReason,
+        bool deleteLinked,
+        bool eraseMessage,
         bool isTopicDeleteAction = false)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var forum = BoardContext.Current.GetRepository<Forum>().GetById(forumId);
 
         repository.DeleteRecursively(
@@ -648,12 +625,10 @@ public static class MessageRepositoryExtensions
     /// </param>
     public static void Restore(
         this IRepository<Message> repository,
-        [NotNull] int forumId,
-        [NotNull] int topicId,
-        [NotNull] Message message)
+        int forumId,
+        int topicId,
+        Message message)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.RestoreRecursively(
             forumId,
             topicId,
@@ -684,13 +659,11 @@ public static class MessageRepositoryExtensions
     /// </param>
     public static void Move(
         this IRepository<Message> repository,
-        [NotNull] Topic oldTopic,
-        [NotNull] Message message,
-        [NotNull] int moveToTopicId,
-        [NotNull] bool moveAll)
+        Topic oldTopic,
+        Message message,
+        int moveToTopicId,
+        bool moveAll)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.Move(message, moveToTopicId);
 
         if (moveAll)
@@ -723,11 +696,8 @@ public static class MessageRepositoryExtensions
     /// <returns>
     /// The <see cref="List"/>.
     /// </returns>
-    [NotNull]
-    public static List<Message> Replies(this IRepository<Message> repository, [NotNull] int messageId)
+    public static List<Message> Replies(this IRepository<Message> repository, int messageId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.Execute(
             db => db.Connection.LoadSelect<Message>(m => (m.Flags & 16) == 16 && m.ReplyTo == messageId));
     }
@@ -755,13 +725,11 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static (int MessagePosition, int MessageID) FindUnread(
         this IRepository<Message> repository,
-        [NotNull] int topicId,
-        [CanBeNull] int? messageId,
-        [NotNull] DateTime lastRead,
-        [NotNull] bool showDeleted)
+        int topicId,
+        int? messageId,
+        DateTime lastRead,
+        bool showDeleted)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var minDateTime = DateTimeHelper.SqlDbMinTime().AddYears(-1);
 
         (int MessagePosition, int MessageID) message;
@@ -885,11 +853,9 @@ public static class MessageRepositoryExtensions
     /// </param>
     public static void ReportResolve(
         this IRepository<Message> repository,
-        [NotNull] int messageId,
-        [NotNull] int userId)
+        int messageId,
+        int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         BoardContext.Current.GetRepository<MessageReported>().UpdateOnly(
             () => new MessageReported { Resolved = true, ResolvedBy = userId, ResolvedDate = DateTime.UtcNow },
             m => m.ID == messageId);
@@ -944,18 +910,16 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static Message SaveNew(
         this IRepository<Message> repository,
-        [NotNull] Forum forum,
-        [NotNull] Topic topic,
-        [NotNull] User user,
-        [NotNull] string message,
-        [NotNull] string guestUserName,
-        [NotNull] string ipAddress,
-        [NotNull] DateTime posted,
-        [CanBeNull] int? replyTo,
-        [NotNull] MessageFlags flags)
+        Forum forum,
+        Topic topic,
+        User user,
+        string message,
+        string guestUserName,
+        string ipAddress,
+        DateTime posted,
+        int? replyTo,
+        MessageFlags flags)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         int position;
 
         var maxPosition = repository.DbAccess.Execute(
@@ -1056,10 +1020,8 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static List<Tuple<Topic, Message, User>> Unapproved(
         this IRepository<Message> repository,
-        [NotNull] int forumId)
+        int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
         expression.Join<Message>((topic, message) => message.TopicID == topic.ID)
@@ -1120,23 +1082,21 @@ public static class MessageRepositoryExtensions
     /// </param>
     public static void Update(
         this IRepository<Message> repository,
-        [CanBeNull] short? priority,
-        [NotNull] string message,
-        [CanBeNull] string description,
-        [CanBeNull] string status,
-        [CanBeNull] string styles,
-        [CanBeNull] string subject,
-        [NotNull] string reasonOfEdit,
-        [NotNull] bool isModeratorChanged,
-        [NotNull] bool overrideApproval,
-        [NotNull] Topic topic,
-        [NotNull] Message originalMessage,
-        [NotNull] Forum forum,
-        [NotNull] User originalMessageUser,
-        [NotNull] int editedBy)
+        short? priority,
+        string message,
+        string description,
+        string status,
+        string styles,
+        string subject,
+        string reasonOfEdit,
+        bool isModeratorChanged,
+        bool overrideApproval,
+        Topic topic,
+        Message originalMessage,
+        Forum forum,
+        User originalMessageUser,
+        int editedBy)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         if (overrideApproval || !forum.ForumFlags.IsModerated)
         {
             originalMessage.MessageFlags.IsApproved = true;
@@ -1265,17 +1225,15 @@ public static class MessageRepositoryExtensions
     /// </param>
     private static void DeleteRecursively(
         this IRepository<Message> repository,
-        [NotNull] Forum forum,
-        [NotNull] int topicId,
-        [NotNull] Message message,
-        [NotNull] bool isModeratorChanged,
-        [NotNull] string deleteReason,
-        [NotNull] bool deleteLinked,
-        [NotNull] bool eraseMessages,
+        Forum forum,
+        int topicId,
+        Message message,
+        bool isModeratorChanged,
+        string deleteReason,
+        bool deleteLinked,
+        bool eraseMessages,
         bool isTopicDeleteAction)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         if (deleteLinked)
         {
             // Delete replies
@@ -1339,12 +1297,10 @@ public static class MessageRepositoryExtensions
     /// </param>
     private static void RestoreRecursively(
         this IRepository<Message> repository,
-        [NotNull] int forumId,
-        [NotNull] int topicId,
-        [NotNull] Message message)
+        int forumId,
+        int topicId,
+        Message message)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         // Restore replies
         var replies = repository.Get(m => m.ReplyTo == message.ID).ToList();
 
@@ -1372,11 +1328,9 @@ public static class MessageRepositoryExtensions
     /// </param>
     private static void MoveRecursively(
         this IRepository<Message> repository,
-        [NotNull] Message message,
-        [NotNull] int moveToTopicId)
+        Message message,
+        int moveToTopicId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var replies = repository.Get(m => m.ReplyTo == message.ID);
 
         replies.ForEach(reply => repository.MoveRecursively(reply, moveToTopicId));
@@ -1413,16 +1367,14 @@ public static class MessageRepositoryExtensions
     /// </param>
     private static void DeleteInternal(
         this IRepository<Message> repository,
-        [NotNull] Forum forum,
-        [NotNull] int topicId,
-        [NotNull] Message message,
-        [NotNull] bool isModeratorChanged,
-        [NotNull] string deleteReason,
-        [NotNull] bool eraseMessage,
+        Forum forum,
+        int topicId,
+        Message message,
+        bool isModeratorChanged,
+        string deleteReason,
+        bool eraseMessage,
         bool isTopicDeleteAction)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         // -- Update LastMessageID in Topic
         BoardContext.Current.GetRepository<Topic>().UpdateOnly(
             () => new Topic
@@ -1567,12 +1519,10 @@ public static class MessageRepositoryExtensions
     /// </param>
     private static void RestoreInternal(
         this IRepository<Message> repository,
-        [NotNull] int forumId,
-        [NotNull] int topicId,
-        [NotNull] Message message)
+        int forumId,
+        int topicId,
+        Message message)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var flags = message.MessageFlags;
 
         flags.IsDeleted = false;
@@ -1624,11 +1574,9 @@ public static class MessageRepositoryExtensions
     /// </param>
     private static void Move(
         this IRepository<Message> repository,
-        [NotNull] Message message,
-        [NotNull] int moveToTopicId)
+        Message message,
+        int moveToTopicId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var replyToId = repository.GetSingle(x => x.Position == 0 && x.TopicID == moveToTopicId)?.ID;
 
         int position;

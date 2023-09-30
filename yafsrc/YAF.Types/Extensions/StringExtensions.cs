@@ -29,8 +29,6 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
-using YAF.Types;
-
 /// <summary>
 /// The string helper.
 /// </summary>
@@ -43,7 +41,7 @@ public static class StringExtensions
     /// <returns>
     /// The JS string.
     /// </returns>
-    public static string ToJsString([CanBeNull] this string str)
+    public static string ToJsString(this string str)
     {
         if (!str.IsSet())
         {
@@ -67,11 +65,8 @@ public static class StringExtensions
     /// <returns>
     /// The fast index of.
     /// </returns>
-    public static int FastIndexOf([NotNull] this string source, [NotNull] string pattern)
+    public static int FastIndexOf(this string source, string pattern)
     {
-        CodeContracts.VerifyNotNull(source);
-        CodeContracts.VerifyNotNull(pattern);
-
         switch (pattern.Length)
         {
             case 0:
@@ -133,11 +128,8 @@ public static class StringExtensions
     /// </summary>
     /// <param name="input">The input.</param>
     /// <param name="forEachAction">For each action.</param>
-    public static void ForEachChar([NotNull] this string input, [NotNull] Action<char> forEachAction)
+    public static void ForEachChar(this string input, Action<char> forEachAction)
     {
-        CodeContracts.VerifyNotNull(input);
-        CodeContracts.VerifyNotNull(forEachAction);
-
         input.ForEach(forEachAction);
     }
 
@@ -148,8 +140,7 @@ public static class StringExtensions
     /// <returns>
     /// The is <see langword="null" /> or empty trimmed.
     /// </returns>
-    [ContractAnnotation("str:null => true")]
-    public static bool IsNotSet([CanBeNull] this string inputString)
+    public static bool IsNotSet(this string inputString)
     {
         return string.IsNullOrWhiteSpace(inputString);
     }
@@ -161,8 +152,7 @@ public static class StringExtensions
     /// <returns>
     /// The is <see langword="null" /> or empty trimmed.
     /// </returns>
-    [ContractAnnotation("str:null => false")]
-    public static bool IsSet([CanBeNull] this string inputString)
+    public static bool IsSet(this string inputString)
     {
         return !string.IsNullOrWhiteSpace(inputString);
     }
@@ -183,7 +173,7 @@ public static class StringExtensions
         }
 
         var r = new Regex(@"\s+");
-        return r.Replace(text, @" ");
+        return r.Replace(text, " ");
     }
 
     /// <summary>
@@ -231,11 +221,8 @@ public static class StringExtensions
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    [NotNull]
-    public static string ToRegExString([NotNull] this string input)
+    public static string ToRegExString(this string input)
     {
-        CodeContracts.VerifyNotNull(input);
-
         var sb = new StringBuilder();
 
         input.ForEachChar(
@@ -268,12 +255,10 @@ public static class StringExtensions
     /// truncated string
     /// </returns>
     public static string Truncate(
-        [CanBeNull] this string input,
+        this string input,
         int inputLimit,
-        [NotNull] string cutOfString = "...")
+        string cutOfString = "...")
     {
-        CodeContracts.VerifyNotNull(cutOfString);
-
         var output = input;
 
         if (input.IsNotSet())
@@ -365,10 +350,8 @@ public static class StringExtensions
     /// <returns>
     /// The <see cref="Guid"/>.
     /// </returns>
-    public static Guid ToGuid([NotNull] this string value)
+    public static Guid ToGuid(this string value)
     {
-        CodeContracts.VerifyNotNull(value);
-
         var bytes = new byte[16];
         BitConverter.GetBytes(value.ToType<int>()).CopyTo(bytes, 0);
         return new Guid(bytes);

@@ -53,7 +53,7 @@ public class LinkedTopicCleanUpTaskForumModule : BaseForumModule
     /// <param name="e">
     /// The e.
     /// </param>
-    private void Current_AfterInit([NotNull] object sender, [NotNull] EventArgs e)
+    private void Current_AfterInit(object sender, EventArgs e)
     {
         this.Get<ITaskModuleManager>().StartTask(LinkedTopicCleanUpTask.TaskName, () => new LinkedTopicCleanUpTask());
     }

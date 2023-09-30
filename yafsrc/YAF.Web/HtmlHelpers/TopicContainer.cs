@@ -278,7 +278,7 @@ public static class TopicContainerHtmlHelper
     /// <returns>
     /// Returns the Topic Image
     /// </returns>
-    private static IHtmlContent GetTopicIcon([NotNull] PagedTopic item, DateTime lastRead, IHtmlHelper htmlHelper)
+    private static IHtmlContent GetTopicIcon(PagedTopic item, DateTime lastRead, IHtmlHelper htmlHelper)
     {
         var context = BoardContext.Current;
 
@@ -371,7 +371,7 @@ public static class TopicContainerHtmlHelper
     /// The item.
     /// </param>
     /// <param name="htmlHelper"></param>
-    private static IHtmlContent RenderPriorityMessage([NotNull] PagedTopic item, [NotNull] IHtmlHelper htmlHelper)
+    private static IHtmlContent RenderPriorityMessage(PagedTopic item, IHtmlHelper htmlHelper)
     {
         var priorityLabel = new TagBuilder("span");
 
@@ -421,7 +421,7 @@ public static class TopicContainerHtmlHelper
     /// <returns>
     /// Returns the Topic Name (with Status Icon)
     /// </returns>
-    private static IHtmlContent FormatTopicName([NotNull] PagedTopic item, [NotNull] IHtmlHelper htmlHelper)
+    private static IHtmlContent FormatTopicName(PagedTopic item, IHtmlHelper htmlHelper)
     {
         var context = BoardContext.Current;
 
@@ -451,7 +451,7 @@ public static class TopicContainerHtmlHelper
     /// <returns>
     /// Returns the formatted replies.
     /// </returns>
-    private static string FormatReplies([NotNull] PagedTopic item)
+    private static string FormatReplies(PagedTopic item)
     {
         var repStr = "&nbsp;";
 
@@ -481,7 +481,7 @@ public static class TopicContainerHtmlHelper
     /// <returns>
     /// Returns the formatted views.
     /// </returns>
-    private static string FormatViews([NotNull] PagedTopic item)
+    private static string FormatViews(PagedTopic item)
     {
         var views = item.Views;
         return item.TopicMovedID.HasValue ? "&nbsp;" : $"{views:N0}";
@@ -502,7 +502,7 @@ public static class TopicContainerHtmlHelper
     /// <param name="topicID">
     /// The topic ID.
     /// </param>
-    private static IHtmlContent CreatePostPager([NotNull] PagedTopic item, [NotNull] int count, [NotNull] int pageSize, [NotNull] int topicID)
+    private static IHtmlContent CreatePostPager(PagedTopic item, int count, int pageSize, int topicID)
     {
         var context = BoardContext.Current;
 

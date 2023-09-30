@@ -98,8 +98,8 @@ public class GroupsModel : AdminPage
     /// <returns>
     /// String "Linked" when role is linked to YAF roles, "Un-linkable" otherwise.
     /// </returns>
-    [NotNull]
-    public string GetLinkedStatus([NotNull] Group currentRow)
+    
+    public string GetLinkedStatus(Group currentRow)
     {
         // check whether role is Guests role, which can't be linked
         return currentRow.GroupFlags.IsGuest

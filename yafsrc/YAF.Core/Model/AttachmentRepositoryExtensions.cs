@@ -29,7 +29,6 @@ using System.Collections.Generic;
 
 using Microsoft.Extensions.Logging;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -62,14 +61,12 @@ public static class AttachmentRepositoryExtensions
     /// The <see cref="List"/>.
     /// </returns>
     public static List<Tuple<User, Attachment>> GetByBoardPaged<T>(
-        [NotNull] this IRepository<T> repository,
+        this IRepository<T> repository,
         out int count,
         int boardId,
         int? pageIndex = 0,
         int? pageSize = 10000000)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
         expression.Join<Attachment>((user, attach) => attach.UserID == user.ID);
@@ -94,8 +91,6 @@ public static class AttachmentRepositoryExtensions
     /// </returns>
     public static List<Message> GetMessageAttachments(this IRepository<Attachment> repository)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
         expression.Join<Attachment>((m, a) => a.MessageID == m.ID);
@@ -112,10 +107,8 @@ public static class AttachmentRepositoryExtensions
     /// <param name="attachmentId">
     /// The board id.
     /// </param>
-    public static void Delete(this IRepository<Attachment> repository, [NotNull] int attachmentId)
+    public static void Delete(this IRepository<Attachment> repository, int attachmentId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var attachment = repository.GetById(attachmentId);
 
         if (attachment != null)
@@ -139,10 +132,8 @@ public static class AttachmentRepositoryExtensions
     /// </summary>
     /// <param name="repository">The repository.</param>
     /// <param name="attachmentId">The attachment identifier.</param>
-    public static void IncrementDownloadCounter(this IRepository<Attachment> repository, [NotNull] int attachmentId)
+    public static void IncrementDownloadCounter(this IRepository<Attachment> repository, int attachmentId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.UpdateAdd(() => new Attachment { Downloads = 1 }, a => a.ID == attachmentId);
     }
 
@@ -158,14 +149,12 @@ public static class AttachmentRepositoryExtensions
     /// <returns>Returns the new attachment identifier</returns>
     public static int Save(
         this IRepository<Attachment> repository,
-        [NotNull] int userId,
-        [NotNull] string fileName,
-        [NotNull] int bytes,
-        [NotNull] string contentType,
-        [CanBeNull] byte[] fileData = null)
+        int userId,
+        string fileName,
+        int bytes,
+        string contentType,
+        byte[] fileData = null)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var entity = new Attachment
                          {
                              MessageID = 0,

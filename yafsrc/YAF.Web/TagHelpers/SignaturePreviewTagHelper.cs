@@ -105,7 +105,7 @@ public class SignaturePreviewTagHelper : TagHelper, IHaveServiceLocator, IHaveLo
     /// <param name="output">
     /// The output.
     /// </param>
-    protected virtual void RenderSignature([NotNull] TagHelperOutput output)
+    protected virtual void RenderSignature(TagHelperOutput output)
     {
         output.TagName = "div";
 
@@ -149,8 +149,8 @@ public class SignaturePreviewTagHelper : TagHelper, IHaveServiceLocator, IHaveLo
     /// The <see cref="string"/>.
     /// </returns>
     private string RenderModulesInBBCode(
-        [NotNull] string message,
-        [NotNull] MessageFlags theseFlags,
+        string message,
+        MessageFlags theseFlags,
         int? displayUserId,
         int? messageId)
     {

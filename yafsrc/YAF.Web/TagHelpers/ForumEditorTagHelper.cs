@@ -958,11 +958,11 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <param name="icon">The icon.</param>
     /// <param name="id">The identifier.</param>
     private static void RenderButton(
-        [NotNull] IHtmlContentBuilder content,
-        [NotNull] string command,
-        [NotNull] string title,
-        [NotNull] string icon,
-        [CanBeNull] string id = null)
+        IHtmlContentBuilder content,
+        string command,
+        string title,
+        string icon,
+        string id = null)
     {
         var iconTag = new TagBuilder("i") { Attributes = { ["class"] = $"fa fa-{icon} fa-fw" } };
 

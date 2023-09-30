@@ -26,8 +26,6 @@ namespace YAF.Core.Extensions;
 
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 ///     The module manager extensions.
 /// </summary>
@@ -39,11 +37,9 @@ public static class IModuleManagerExtensions
     /// <typeparam name="TModule">The type of the module.</typeparam>
     /// <param name="moduleManager">The module Manager.</param>
     /// <returns>Returns all active modules</returns>
-    public static IEnumerable<TModule> GetAll<TModule>([NotNull] this IModuleManager<TModule> moduleManager)
+    public static IEnumerable<TModule> GetAll<TModule>(this IModuleManager<TModule> moduleManager)
         where TModule : IModuleDefinition
     {
-        CodeContracts.VerifyNotNull(moduleManager);
-
         return moduleManager.GetAll(false);
     }
 }

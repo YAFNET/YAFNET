@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Interfaces;
 
 using YAF.Types.EventProxies;
@@ -47,8 +48,6 @@ public static class IRepositoryExtensions
     /// </typeparam>
     public static void FireDeleted<T>(this IRepository<T> repository, int? id = null, T entity = null) where T : class, IEntity
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.Delete, id, entity));
     }
 
@@ -66,8 +65,6 @@ public static class IRepositoryExtensions
     /// </typeparam>
     public static void FireDeleted<T>(this IRepository<T> repository, T entity) where T : class, IEntity, IHaveID
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.Delete, entity.ID, entity));
     }
 
@@ -86,10 +83,8 @@ public static class IRepositoryExtensions
     /// <typeparam name="T">
     /// The Typed Parameter
     /// </typeparam>
-    public static void FireNew<T>([NotNull] this IRepository<T> repository, int? id = null, T entity = null) where T : class, IEntity
+    public static void FireNew<T>(this IRepository<T> repository, int? id = null, T entity = null) where T : class, IEntity
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.New, id, entity));
     }
 
@@ -105,10 +100,8 @@ public static class IRepositoryExtensions
     /// <typeparam name="T">
     /// The Typed Parameter
     /// </typeparam>
-    public static void FireNew<T>([NotNull] this IRepository<T> repository, T entity) where T : class, IEntity, IHaveID
+    public static void FireNew<T>(this IRepository<T> repository, T entity) where T : class, IEntity, IHaveID
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.New, entity.ID, entity));
     }
 
@@ -129,8 +122,6 @@ public static class IRepositoryExtensions
     /// </typeparam>
     public static void FireUpdated<T>(this IRepository<T> repository, int? id = null, T entity = null) where T : class, IEntity
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.Update, id, entity));
     }
 
@@ -148,8 +139,6 @@ public static class IRepositoryExtensions
     /// </typeparam>
     public static void FireUpdated<T>(this IRepository<T> repository, T entity) where T : class, IEntity, IHaveID
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.DbEvent.Raise(new RepositoryEvent<T>(RepositoryEventType.Update, entity.ID, entity));
     }
 }

@@ -27,7 +27,6 @@ namespace YAF.Core.Model;
 using System;
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -47,10 +46,8 @@ public static class WatchForumRepositoryExtensions
     /// <param name="forumId">
     /// The forum id.
     /// </param>
-    public static void Add(this IRepository<WatchForum> repository, [NotNull] int userId, [NotNull] int forumId)
+    public static void Add(this IRepository<WatchForum> repository, int userId, int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var watchForum = new WatchForum { ForumID = forumId, UserID = userId, Created = DateTime.UtcNow };
 
         repository.Insert(watchForum);
@@ -73,10 +70,8 @@ public static class WatchForumRepositoryExtensions
     /// <returns>
     /// The <see cref="int?"/>.
     /// </returns>
-    public static int? Check(this IRepository<WatchForum> repository, [NotNull] int userId, [NotNull] int forumId)
+    public static int? Check(this IRepository<WatchForum> repository, int userId, int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var forum = repository.GetSingle(w => w.UserID == userId && w.ForumID == forumId);
 
         return forum?.ID;
@@ -102,12 +97,10 @@ public static class WatchForumRepositoryExtensions
     /// </returns>
     public static List<WatchForum> List(
         this IRepository<WatchForum> repository,
-        [NotNull] int userId,
-        [NotNull] int pageIndex = 0,
-        [NotNull] int pageSize = 10000000)
+        int userId,
+        int pageIndex = 0,
+        int pageSize = 10000000)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<WatchForum>();
 
         expression.Join<Forum>((a, b) => b.ID == a.ForumID).Where<WatchForum>(b => b.UserID == userId)

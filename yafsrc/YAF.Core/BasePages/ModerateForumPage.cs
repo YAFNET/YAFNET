@@ -24,8 +24,6 @@
 
 namespace YAF.Core.BasePages;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The moderate forum page.
 /// </summary>
@@ -40,7 +38,7 @@ public class ModerateForumPage : ForumPage
     /// <param name="page">
     /// The page.
     /// </param>
-    public ModerateForumPage([CanBeNull] string transPage, ForumPages page)
+    public ModerateForumPage(string transPage, ForumPages page)
         : base(transPage, page)
     {
     }

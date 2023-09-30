@@ -47,5 +47,5 @@ public interface IRaiseEvent
     /// </param>
     /// <param name="logExceptionAction">
     /// </param>
-    void RaiseIssolated<T>(T eventObject, [CanBeNull] Action<string, Exception> logExceptionAction) where T : IAmEvent;
+    void RaiseIssolated<T>(T eventObject, Action<string, Exception> logExceptionAction) where T : IAmEvent;
 }

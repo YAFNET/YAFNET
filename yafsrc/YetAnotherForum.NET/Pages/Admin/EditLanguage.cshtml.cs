@@ -110,7 +110,7 @@ public class EditLanguageModel : AdminPage
     /// <summary>
     /// Checks if Resources are translated and handle Size of the Textboxes based on the Content Length
     /// </summary>
-    public string LocalizedTextBoxClass([NotNull]Translation modelLocal)
+    public string LocalizedTextBoxClass(Translation modelLocal)
     {
         return modelLocal.LocalizedResourceText.Equals(modelLocal.OriginalResourceText, StringComparison.OrdinalIgnoreCase)
                                     ? "form-control is-invalid"
@@ -170,7 +170,7 @@ public class EditLanguageModel : AdminPage
     /// </summary>
     /// <param name="sourceFile">The source file.</param>
     /// <param name="translationFile">The DST file.</param>
-    private void PopulateTranslations([NotNull] string sourceFile, [NotNull] string translationFile)
+    private void PopulateTranslations(string sourceFile, string translationFile)
     {
         try
         {
@@ -215,10 +215,10 @@ public class EditLanguageModel : AdminPage
     /// <param name="originalResourceText">The original (english) resource text.</param>
     /// <param name="translationResourceText">The translation resource text.</param>
     private void CreatePageResourceControl(
-        [NotNull] string page,
-        [NotNull] string resourceName,
-        [NotNull] string originalResourceText,
-        [NotNull] string translationResourceText)
+        string page,
+        string resourceName,
+        string originalResourceText,
+        string translationResourceText)
     {
         var translation = new Translation
         {
@@ -235,7 +235,7 @@ public class EditLanguageModel : AdminPage
     /// Creates a header row in the Resource Page DropDown Header text is page section name in XML file.
     /// </summary>
     /// <param name="name">Name of the page.</param>
-    private void CreatePageResourceHeader([NotNull] string name)
+    private void CreatePageResourceHeader(string name)
     {
         this.PagesList.Add(new SelectListItem(name, name));
     }

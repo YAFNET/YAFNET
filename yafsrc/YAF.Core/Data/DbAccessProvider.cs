@@ -27,7 +27,6 @@ namespace YAF.Core.Data;
 using Autofac.Features.Indexed;
 
 using YAF.Core.Events;
-using YAF.Types.Attributes;
 
 /// <summary>
 ///     The Database connection provider base.
@@ -96,7 +95,7 @@ public class DbAccessProvider : IDbAccessProvider
     ///     <c>NoValidDbAccessProviderFoundException</c>
     ///     .
     /// </exception>
-    [CanBeNull]
+    
     public IDbAccess Instance
     {
         get => this._dbAccessSafe.Instance;

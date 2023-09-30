@@ -26,7 +26,6 @@ namespace YAF.Core.Services;
 using System.Collections.Generic;
 
 using YAF.Core.Model;
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -44,10 +43,8 @@ public class UserIgnored : IUserIgnored, IHaveServiceLocator
     /// </summary>
     /// <param name="contextAccessor">The context accessor.</param>
     /// <param name="serviceLocator">The service locator.</param>
-    public UserIgnored([NotNull] IHttpContextAccessor contextAccessor, IServiceLocator serviceLocator)
+    public UserIgnored(IHttpContextAccessor contextAccessor, IServiceLocator serviceLocator)
     {
-        CodeContracts.VerifyNotNull(contextAccessor);
-
         this.SessionState = contextAccessor.HttpContext.Session;
         this.ServiceLocator = serviceLocator;
     }

@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -51,7 +50,7 @@ public class CheckBannedUserAgents : IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public CheckBannedUserAgents([NotNull] RequestDelegate next, [NotNull] IServiceLocator serviceLocator)
+    public CheckBannedUserAgents(RequestDelegate next, IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
         this.requestDelegate = next;

@@ -93,7 +93,7 @@ public class IndexModel : ForumPage
     /// <param name="target">
     /// The target.
     /// </param>
-    public void OnPostToggleCollapse([NotNull]string target)
+    public void OnPostToggleCollapse(string target)
     {
         this.Get<ISessionService>().PanelState.TogglePanelState(target, this.PageBoardContext.BoardSettings.DefaultCollapsiblePanelState);
 

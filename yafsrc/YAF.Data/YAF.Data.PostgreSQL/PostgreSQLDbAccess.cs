@@ -40,7 +40,7 @@ public class PostgreSQLDbAccess : DbAccessBase
     /// <param name="dbProviderFactory">
     /// The database provider factory.
     /// </param>
-    public PostgreSQLDbAccess([NotNull] Func<string, DbProviderFactory> dbProviderFactory)
+    public PostgreSQLDbAccess(Func<string, DbProviderFactory> dbProviderFactory)
         : base(dbProviderFactory, new PostgreSQLDbInformation())
     {
     }

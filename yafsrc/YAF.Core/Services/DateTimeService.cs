@@ -28,8 +28,6 @@ using System;
 
 using FarsiLibrary.Utils;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The YAF DateTime.
 /// </summary>
@@ -117,7 +115,7 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
     /// <returns>
     /// Short formatted date.
     /// </returns>
-    public string FormatDateShort([NotNull] DateTime dateTime)
+    public string FormatDateShort(DateTime dateTime)
     {
         string dateFormat;
         dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
@@ -149,7 +147,7 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
     /// <returns>
     /// Formatted  <see cref="string"/> of the formatted <see cref="System.DateTime"/> Object.
     /// </returns>
-    public string FormatDateTime([NotNull] DateTime dateTime)
+    public string FormatDateTime(DateTime dateTime)
     {
         dateTime = TimeZoneInfo.ConvertTimeFromUtc(dateTime, BoardContext.Current.TimeZoneInfoUser);
 
@@ -184,7 +182,7 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
     /// <returns>
     /// The formatted string created from the DateTime object.
     /// </returns>
-    public string FormatDateTimeShort([NotNull] DateTime dateTime)
+    public string FormatDateTimeShort(DateTime dateTime)
     {
         string dateFormat;
 
@@ -220,7 +218,7 @@ public class DateTimeService : IDateTimeService, IHaveServiceLocator
     /// <returns>
     /// Formatted string of DateTime object
     /// </returns>
-    public string FormatDateTimeTopic([NotNull] DateTime dateTime)
+    public string FormatDateTimeTopic(DateTime dateTime)
     {
         if (dateTime.Kind == DateTimeKind.Local)
         {

@@ -276,7 +276,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
     /// <returns>
     /// true if file is valid for uploading. otherwise false.
     /// </returns>
-    private bool CheckValidFiles([NotNull]List<IFormFile> files)
+    private bool CheckValidFiles(List<IFormFile> files)
     {
         if (files is not {Count: > 0})
         {
@@ -322,7 +322,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
     /// <param name="files">the file(s).</param>
     /// <param name="albumId"></param>
     /// <exception cref="Exception">Album Image File is too big</exception>
-    private async Task<int?> SaveAttachmentsAsync([NotNull] List<IFormFile> files, int? albumId)
+    private async Task<int?> SaveAttachmentsAsync(List<IFormFile> files, int? albumId)
     {
         // vzrus: the checks here are useless but in a case...
         var data = this.GetRepository<User>().MaxAlbumData(

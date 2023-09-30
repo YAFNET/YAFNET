@@ -26,8 +26,6 @@ namespace YAF.Core.Helpers;
 
 using System.Runtime.Caching;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 ///     The current board settings.
 /// </summary>
@@ -61,14 +59,10 @@ public class CurrentBoardSettings : IReadWriteProvider<BoardSettings>
     /// The treat Cache Key.
     /// </param>
     public CurrentBoardSettings(
-        [NotNull] IInjectServices injectServices,
-        [NotNull] IHaveBoardID haveBoardId,
-        [NotNull] ITreatCacheKey treatCacheKey)
+        IInjectServices injectServices,
+        IHaveBoardID haveBoardId,
+        ITreatCacheKey treatCacheKey)
     {
-        CodeContracts.VerifyNotNull(injectServices);
-        CodeContracts.VerifyNotNull(haveBoardId);
-        CodeContracts.VerifyNotNull(treatCacheKey);
-
         this.injectServices = injectServices;
         this.haveBoardId = haveBoardId;
         this.treatCacheKey = treatCacheKey;

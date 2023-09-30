@@ -46,7 +46,7 @@ public interface IAlbum
     /// <param name="imageId">
     /// The image id.
     /// </param>
-    void AlbumImageDelete([NotNull] string uploadFolder, [CanBeNull] int? albumId, int userId, [CanBeNull] int? imageId);
+    void AlbumImageDelete(string uploadFolder, int? albumId, int userId, int? imageId);
 
     /// <summary>
     /// The change image caption.
@@ -60,5 +60,5 @@ public interface IAlbum
     /// <returns>
     /// the return object.
     /// </returns>
-    ReturnClass ChangeImageCaption(int imageId, [NotNull] string newCaption);
+    ReturnClass ChangeImageCaption(int imageId, string newCaption);
 }

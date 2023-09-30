@@ -31,7 +31,6 @@ using System.IO;
 
 using Microsoft.AspNetCore.Hosting;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 using YAF.Types.Objects.Model;
@@ -50,10 +49,8 @@ public static class UserRepositoryExtensions
     /// <param name="userId">
     /// The user id.
     /// </param>
-    public static void Promote(this IRepository<User> repository, [NotNull] int userId)
+    public static void Promote(this IRepository<User> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         // -- Get user and rank information
         var rankInfo = BoardContext.Current.GetRepository<Rank>().GetUserAndRank(userId);
 
@@ -96,10 +93,8 @@ public static class UserRepositoryExtensions
     /// <param name="boardId">
     /// The board id.
     /// </param>
-    public static void UpdateStyles(this IRepository<User> repository, [NotNull] int boardId)
+    public static void UpdateStyles(this IRepository<User> repository, int boardId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var users = repository.Get(u => u.BoardID == boardId);
 
         users.ForEach(
@@ -115,10 +110,8 @@ public static class UserRepositoryExtensions
     /// <param name="userId">
     /// The user Id.
     /// </param>
-    public static void UpdateStyle(this IRepository<User> repository, [NotNull] int userId)
+    public static void UpdateStyle(this IRepository<User> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var groupStyle = BoardContext.Current.GetRepository<UserGroup>().GetGroupStyeForUser(userId);
         var rankStyle = BoardContext.Current.GetRepository<Rank>().GetRankStyeForUser(userId);
 
@@ -147,10 +140,8 @@ public static class UserRepositoryExtensions
     /// <returns>
     /// The <see cref="long"/>.
     /// </returns>
-    public static long BoardMembers(this IRepository<User> repository, [NotNull] int boardId)
+    public static long BoardMembers(this IRepository<User> repository, int boardId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.Count(u => u.BoardID == boardId && (u.Flags & 4) != 4 && (u.Flags & 32) != 32 && (u.Flags & 2) == 2);
     }
 
@@ -166,10 +157,8 @@ public static class UserRepositoryExtensions
     /// <returns>
     /// The <see cref="User"/>.
     /// </returns>
-    public static User Latest(this IRepository<User> repository, [NotNull] int boardId)
+    public static User Latest(this IRepository<User> repository, int boardId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.Execute(
             db =>
                 {
@@ -197,10 +186,8 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static List<Tuple<MessageReportedAudit, User>> MessageReporters(
         this IRepository<User> repository,
-        [NotNull] int messageId)
+        int messageId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<MessageReportedAudit>();
 
         expression.Join<User>((m, u) => u.ID == m.UserID)
@@ -226,11 +213,9 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static List<Tuple<User, MessageReportedAudit>> MessageReporter(
         this IRepository<User> repository,
-        [NotNull] int messageId,
-        [NotNull] int userId)
+        int messageId,
+        int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
         expression.Join<MessageReportedAudit>((user, m) => m.UserID == userId && m.MessageID == messageId)
@@ -262,13 +247,11 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static List<LastActive> LastActive(
         this IRepository<User> repository,
-        [NotNull] int boardId,
-        [NotNull] int guestUserId,
-        [NotNull] DateTime startDate,
-        [NotNull] int displayNumber)
+        int boardId,
+        int guestUserId,
+        DateTime startDate,
+        int displayNumber)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.Execute(
             db =>
                 {
@@ -276,21 +259,25 @@ public static class UserRepositoryExtensions
                     var expression = provider.SqlExpression<User>();
 
                     expression.CustomJoin(
-                            $@" inner join (select m.{expression.Column<Message>(x => x.UserID)} as ID, 
-                                                 Count(m.{expression.Column<Message>(x => x.UserID)}) as {provider.GetQuotedName("NumOfPosts")}
-                                           from {expression.Table<Message>()} m
-                                           where m.{expression.Column<Message>(x => x.Posted)} >= {OrmLiteConfig.DialectProvider.GetQuotedValue(startDate, startDate.GetType())}
-                                           and (m.{expression.Column<Message>(x => x.Flags)} & 16) = 16
-                                           and (m.{expression.Column<Message>(x => x.Flags)} & 8) != 8
-                                           group by m.{expression.Column<Message>(x => x.UserID)}
-                                         ) as counter on {expression.Column<User>(u => u.ID, true)} = counter.ID ")
+                            $"""
+                              inner join (select m.{expression.Column<Message>(x => x.UserID)} as ID,
+                                                                              Count(m.{expression.Column<Message>(x => x.UserID)}) as {provider.GetQuotedName("NumOfPosts")}
+                                                                        from {expression.Table<Message>()} m
+                                                                        where m.{expression.Column<Message>(x => x.Posted)} >= {OrmLiteConfig.DialectProvider.GetQuotedValue(startDate, startDate.GetType())}
+                                                                        and (m.{expression.Column<Message>(x => x.Flags)} & 16) = 16
+                                                                        and (m.{expression.Column<Message>(x => x.Flags)} & 8) != 8
+                                                                        group by m.{expression.Column<Message>(x => x.UserID)}
+                                                                      ) as counter on {expression.Column<User>(u => u.ID, true)} = counter.ID
+                             """)
                         .Where<User>(u => u.BoardID == boardId && u.ID != guestUserId).Select(
-                            $@"counter.ID,
-                            {expression.Column<User>(u => u.Name, true)},
-                            {expression.Column<User>(u => u.DisplayName, true)},
-                            {expression.Column<User>(u => u.Suspended, true)},
-                            {expression.Column<User>(u => u.UserStyle, true)},
-                            counter.{provider.GetQuotedName("NumOfPosts")}").Take(displayNumber);
+                            $"""
+                             counter.ID,
+                                                         {expression.Column<User>(u => u.Name, true)},
+                                                         {expression.Column<User>(u => u.DisplayName, true)},
+                                                         {expression.Column<User>(u => u.Suspended, true)},
+                                                         {expression.Column<User>(u => u.UserStyle, true)},
+                                                         counter.{provider.GetQuotedName("NumOfPosts")}
+                             """).Take(displayNumber);
 
                     return db.Connection
                         .Select<LastActive>(expression).OrderByDescending(x => x.NumOfPosts).ToList();
@@ -314,12 +301,10 @@ public static class UserRepositoryExtensions
     /// </param>
     public static void AddPoints(
         this IRepository<User> repository,
-        [NotNull] int userId,
-        [CanBeNull] int? fromUserId,
-        [NotNull] int points)
+        int userId,
+        int? fromUserId,
+        int points)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.UpdateAdd(() => new User { Points = points }, u => u.ID == userId);
 
         if (fromUserId.HasValue)
@@ -345,12 +330,10 @@ public static class UserRepositoryExtensions
     /// </param>
     public static void RemovePoints(
         this IRepository<User> repository,
-        [NotNull] int userId,
-        [CanBeNull] int? fromUserId,
-        [NotNull] int points)
+        int userId,
+        int? fromUserId,
+        int points)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.UpdateAdd(() => new User { Points = -points }, u => u.ID == userId);
 
         if (fromUserId.HasValue)
@@ -385,15 +368,13 @@ public static class UserRepositoryExtensions
     /// </param>
     public static void AdminSave(
         this IRepository<User> repository,
-        [NotNull] int boardId,
-        [NotNull] int userId,
-        [NotNull] string name,
-        [NotNull] string displayName,
-        [NotNull] int flags,
-        [NotNull] int rankId)
+        int boardId,
+        int userId,
+        string name,
+        string displayName,
+        int flags,
+        int rankId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.UpdateOnly(
             () => new User
                       {
@@ -415,10 +396,8 @@ public static class UserRepositoryExtensions
     /// <param name="userId">
     /// The user Id.
     /// </param>
-    public static void Approve(this IRepository<User> repository, [NotNull] int userId)
+    public static void Approve(this IRepository<User> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.Approve(repository.GetById(userId));
     }
 
@@ -431,11 +410,8 @@ public static class UserRepositoryExtensions
     /// <param name="user">
     /// The user.
     /// </param>
-    public static void Approve(this IRepository<User> repository, [NotNull] User user)
+    public static void Approve(this IRepository<User> repository, User user)
     {
-        CodeContracts.VerifyNotNull(repository);
-        CodeContracts.VerifyNotNull(user);
-
         var userFlags = user.UserFlags;
 
         if (userFlags.IsApproved)
@@ -483,16 +459,14 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static int AspNet(
         this IRepository<User> repository,
-        [NotNull] int boardId,
-        [NotNull] string userName,
-        [CanBeNull] string displayName,
-        [NotNull] string email,
-        [NotNull] string providerUserKey,
-        [NotNull] bool isApproved,
-        [CanBeNull] User existingUser = null)
+        int boardId,
+        string userName,
+        string displayName,
+        string email,
+        string providerUserKey,
+        bool isApproved,
+        User existingUser = null)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var approvedFlag = 0;
         int userId;
 
@@ -586,11 +560,8 @@ public static class UserRepositoryExtensions
     /// <param name="user">
     /// The user that will be deleted
     /// </param>
-    public static void Delete(this IRepository<User> repository, [NotNull] User user)
+    public static void Delete(this IRepository<User> repository, User user)
     {
-        CodeContracts.VerifyNotNull(repository);
-        CodeContracts.VerifyNotNull(user);
-
         var guestUserId = BoardContext.Current.GuestUserID;
 
         if (guestUserId == user.ID)
@@ -661,10 +632,8 @@ public static class UserRepositoryExtensions
     /// <param name="userId">
     /// The user id.
     /// </param>
-    public static void DeleteAvatar(this IRepository<User> repository, [NotNull] int userId)
+    public static void DeleteAvatar(this IRepository<User> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var user = repository.GetById(userId);
 
         // Delete File if Avatar was uploaded
@@ -697,10 +666,8 @@ public static class UserRepositoryExtensions
     /// <param name="days">
     /// The days.
     /// </param>
-    public static void DeleteOld(this IRepository<User> repository, [NotNull] int boardId, [NotNull] int days)
+    public static void DeleteOld(this IRepository<User> repository, int boardId, int days)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var users = repository.Get(u => u.BoardID == boardId && (u.Flags & 2) != 2)
             .Where(u => (DateTime.UtcNow - u.Joined).Days > days);
 
@@ -731,11 +698,9 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static List<User> WatchMailList(
         this IRepository<User> repository,
-        [NotNull] int topicId,
-        [NotNull] int userId)
+        int topicId,
+        int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<WatchTopic>();
 
         expression.Join<User>((a, b) => b.ID == a.UserID).Where<WatchTopic, User>(
@@ -767,10 +732,8 @@ public static class UserRepositoryExtensions
     /// <returns>
     /// Returns all Users Emails from the Group
     /// </returns>
-    public static List<string> GroupEmails(this IRepository<User> repository, [NotNull] int groupId)
+    public static List<string> GroupEmails(this IRepository<User> repository, int groupId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
         expression.Join<UserGroup>((u, b) => b.UserID == u.ID).Join<UserGroup, Group>((b, c) => c.ID == b.GroupID)
@@ -796,10 +759,8 @@ public static class UserRepositoryExtensions
     /// <returns>
     /// Returns the User Id
     /// </returns>
-    public static User GetUserByProviderKey(this IRepository<User> repository, [CanBeNull] int? boardId, [NotNull] string providerUserKey)
+    public static User GetUserByProviderKey(this IRepository<User> repository, int? boardId, string providerUserKey)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return boardId == null
                    ? repository.GetSingle(u => u.ProviderUserKey == providerUserKey)
                    : repository.GetSingle(u => u.BoardID == boardId && u.ProviderUserKey == providerUserKey);
@@ -822,11 +783,9 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static dynamic MaxAlbumData(
         this IRepository<User> repository,
-        [NotNull] int userId,
-        [NotNull] int boardId)
+        int userId,
+        int boardId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var groupMax = repository.DbAccess.Execute(
             db => db.Connection.Single<(int maxAlbum, int maxAlbumImages)>(
                 db.Connection.From<User>().Join<UserGroup>((a, b) => b.UserID == a.ID)
@@ -865,11 +824,9 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static dynamic SignatureData(
         this IRepository<User> repository,
-        [NotNull] int userId,
-        [NotNull] int boardId)
+        int userId,
+        int boardId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var groupMax = repository.DbAccess.Execute(
             db => db.Connection.Single<(string usrSigBBCodes, int usrSigChars)>(
                 db.Connection.From<User>().Join<UserGroup>((a, b) => b.UserID == a.ID)
@@ -932,14 +889,12 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static UserLazyData LazyData(
         this IRepository<User> repository,
-        [NotNull] int userId,
-        [NotNull] int boardId,
-        [NotNull] bool showPendingBuddies,
-        [NotNull] bool showUnreadPMs,
-        [NotNull] bool showUserAlbums)
+        int userId,
+        int boardId,
+        bool showPendingBuddies,
+        bool showUnreadPMs,
+        bool showUserAlbums)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         while (true)
         {
             return repository.DbAccess.Execute(
@@ -1114,11 +1069,9 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static User UpdateNntpUser(
         this IRepository<User> repository,
-        [NotNull] int boardId,
-        [NotNull] string userName)
+        int boardId,
+        string userName)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var user = repository.GetSingle(u => u.BoardID == boardId && u.Name == userName);
 
         repository.UpdateDisplayName(user, $"{userName} (NNTP)");
@@ -1161,18 +1114,16 @@ public static class UserRepositoryExtensions
     /// </param>
     public static void Save(
         this IRepository<User> repository,
-        [NotNull] int userId,
-        [CanBeNull] string timeZone,
-        [CanBeNull] string languageFile,
-        [CanBeNull] string culture,
-        [CanBeNull] string themeFile,
+        int userId,
+        string timeZone,
+        string languageFile,
+        string culture,
+        string themeFile,
         ThemeMode themeMode,
-        [NotNull] bool hideUser,
-        [NotNull] bool activity,
-        [NotNull] int pageSize)
+        bool hideUser,
+        bool activity,
+        int pageSize)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var user = repository.GetById(userId);
 
         var flags = user.UserFlags;
@@ -1210,12 +1161,9 @@ public static class UserRepositoryExtensions
     /// </param>
     public static void UpdateDisplayName(
         this IRepository<User> repository,
-        [NotNull] User user,
-        [CanBeNull] string displayName)
+        User user,
+        string displayName)
     {
-        CodeContracts.VerifyNotNull(repository);
-        CodeContracts.VerifyNotNull(user);
-
         var updateDisplayName = false;
 
         var oldDisplayName = user.DisplayName;
@@ -1283,13 +1231,11 @@ public static class UserRepositoryExtensions
     /// </param>
     public static void SaveAvatar(
         this IRepository<User> repository,
-        [NotNull] int userId,
-        [CanBeNull] string avatarUrl,
-        [CanBeNull] Stream stream,
-        [CanBeNull] string avatarImageType)
+        int userId,
+        string avatarUrl,
+        Stream stream,
+        string avatarImageType)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         if (avatarUrl == null)
         {
             byte[] data = null;
@@ -1333,13 +1279,11 @@ public static class UserRepositoryExtensions
     /// </param>
     public static void SaveNotification(
         this IRepository<User> repository,
-        [NotNull] int userId,
-        [NotNull] bool autoWatchTopics,
-        [CanBeNull] int? notificationType,
-        [NotNull] bool dailyDigest)
+        int userId,
+        bool autoWatchTopics,
+        int? notificationType,
+        bool dailyDigest)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.UpdateOnly(
             () => new User
                       {
@@ -1364,10 +1308,8 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static List<User> ListAdmins(
         this IRepository<User> repository,
-        [NotNull] int? boardId = null)
+        int? boardId = null)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
         expression.Join<VAccess>((u, v) => v.UserID == u.ID).Where<VAccess, User>(
@@ -1389,10 +1331,8 @@ public static class UserRepositoryExtensions
     /// <returns>
     /// Returns all Unapproved Users
     /// </returns>
-    public static List<User> GetUnApprovedUsers(this IRepository<User> repository, [NotNull] int boardId)
+    public static List<User> GetUnApprovedUsers(this IRepository<User> repository, int boardId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.Get(u => u.BoardID == boardId && (u.Flags & 2) != 2 && (u.Flags & 32) != 32);
     }
 
@@ -1404,11 +1344,9 @@ public static class UserRepositoryExtensions
     /// <param name="signature">The signature.</param>
     public static void SaveSignature(
         this IRepository<User> repository,
-        [NotNull] int userId,
-        [CanBeNull] string signature)
+        int userId,
+        string signature)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.UpdateOnly(() => new User { Signature = signature }, u => u.ID == userId);
     }
 
@@ -1418,10 +1356,8 @@ public static class UserRepositoryExtensions
     /// <param name="repository">The repository.</param>
     /// <param name="userId">The user identifier.</param>
     /// <param name="points">The points.</param>
-    public static void SetPoints(this IRepository<User> repository, [NotNull] int userId, [NotNull] int points)
+    public static void SetPoints(this IRepository<User> repository, int userId, int points)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.UpdateOnly(() => new User { Points = points }, u => u.ID == userId);
     }
 
@@ -1435,13 +1371,11 @@ public static class UserRepositoryExtensions
     /// <param name="suspendBy">The suspend by.</param>
     public static void Suspend(
         this IRepository<User> repository,
-        [NotNull] int userId,
-        [CanBeNull] DateTime? suspend = null,
-        [CanBeNull] string suspendReason = null,
-        [NotNull] int suspendBy = 0)
+        int userId,
+        DateTime? suspend = null,
+        string suspendReason = null,
+        int suspendBy = 0)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.UpdateOnly(
             () => new User { Suspended = suspend, SuspendedReason = suspendReason, SuspendedBy = suspendBy },
             u => u.ID == userId);
@@ -1459,10 +1393,8 @@ public static class UserRepositoryExtensions
     /// <param name="flags">
     /// The flags.
     /// </param>
-    public static void UpdateBlockFlags(this IRepository<User> repository, [NotNull] int userId, [NotNull] int flags)
+    public static void UpdateBlockFlags(this IRepository<User> repository, int userId, int flags)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.UpdateOnly(() => new User { BlockFlags = flags }, u => u.ID == userId);
     }
 
@@ -1478,8 +1410,6 @@ public static class UserRepositoryExtensions
     public static List<ActiveUser> GetRecentUsers(
         this IRepository<User> repository)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var timeSinceLastLogin = DateTime.UtcNow.AddMinutes(0 - 60 * 24 * 30);
 
         var users = repository.DbAccess.Execute(
@@ -1526,8 +1456,6 @@ public static class UserRepositoryExtensions
     public static List<SimpleModerator> GetForumModerators(
         this IRepository<User> repository)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.Execute(
             db =>
                 {

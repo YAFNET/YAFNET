@@ -50,5 +50,5 @@ public interface IBadWordReplace
     /// <exception cref="Exception">
     /// <c>Exception</c>.
     /// </exception>
-    string Replace([NotNull] string searchText);
+    string Replace(string searchText);
 }

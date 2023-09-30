@@ -164,12 +164,12 @@ public static class AdminMenuHtmlHelper
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
     private static IHtmlContent RenderMenuItem(
-        [NotNull] string cssClass,
-        [NotNull] string linkText,
-        [NotNull] string linkUrl,
-        [NotNull] bool isActive,
-        [NotNull] bool isDropDownToggle,
-        [NotNull] string iconName)
+        string cssClass,
+        string linkText,
+        string linkUrl,
+        bool isActive,
+        bool isDropDownToggle,
+        string iconName)
     {
         var link = new TagBuilder("a");
 

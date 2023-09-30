@@ -32,7 +32,6 @@ using System.Web;
 
 using Microsoft.Extensions.Logging;
 
-using YAF.Types.Attributes;
 using YAF.Types.Objects.Nntp;
 
 /// <summary>
@@ -96,12 +95,9 @@ public static class NntpUtil
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    [NotNull]
-    public static string Base64Decode([NotNull] string encodedData, [CanBeNull] Encoding encoding = null)
+    public static string Base64Decode(string encodedData, Encoding encoding = null)
     {
-        CodeContracts.VerifyNotNull(encodedData);
-
-        var decodedDataAsBytes = Convert.FromBase64String(encodedData);
+         var decodedDataAsBytes = Convert.FromBase64String(encodedData);
 
         return (encoding ?? Encoding.Unicode).GetString(decodedDataAsBytes);
     }
@@ -118,10 +114,8 @@ public static class NntpUtil
     /// <returns>
     /// The <see cref="int"/>.
     /// </returns>
-    public static int Base64Decode([NotNull] string encodedData, Stream output)
+    public static int Base64Decode(string encodedData, Stream output)
     {
-        CodeContracts.VerifyNotNull(encodedData);
-
         var decodedDataAsBytes = Convert.FromBase64String(encodedData);
 
         decodedDataAsBytes.AsEnumerable().ForEach(output.WriteByte);

@@ -49,11 +49,8 @@ public static class QueryCollectionExtensions
     /// The <see cref="T"/>.
     /// </returns>
     public static T GetFirstOrDefaultAs<T>(
-        [NotNull] this IQueryCollection collection, [NotNull] string paramName)
+        this IQueryCollection collection, string paramName)
     {
-        CodeContracts.VerifyNotNull(collection);
-        CodeContracts.VerifyNotNull(paramName);
-
         return collection[paramName].FirstOrDefault().ToType<T>();
     }
 }

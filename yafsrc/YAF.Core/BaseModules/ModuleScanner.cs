@@ -29,8 +29,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The module scanner
 /// </summary>
@@ -44,8 +42,7 @@ public class ModuleScanner
     /// </param>
     /// <returns>
     /// </returns>
-    [NotNull]
-    public IEnumerable<Assembly> GetModules([NotNull] string pattern)
+    public IEnumerable<Assembly> GetModules(string pattern)
     {
         var files = GetMatchingFiles(pattern).ToList();
 
@@ -61,8 +58,7 @@ public class ModuleScanner
     /// <returns>
     /// The clean path.
     /// </returns>
-    [NotNull]
-    private static string CleanPath([NotNull] string path)
+    private static string CleanPath(string path)
     {
         if (!Path.IsPathRooted(path))
         {
@@ -78,7 +74,6 @@ public class ModuleScanner
     /// <returns>
     /// The get app base directory.
     /// </returns>
-    [NotNull]
     private static string GetAppBaseDirectory()
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -95,8 +90,7 @@ public class ModuleScanner
     /// </param>
     /// <returns>
     /// </returns>
-    [NotNull]
-    private static IEnumerable<string> GetMatchingFiles([NotNull] string pattern)
+    private static IEnumerable<string> GetMatchingFiles(string pattern)
     {
         var path = CleanPath(Path.GetDirectoryName(pattern));
         var glob = Path.GetFileName(pattern);
@@ -112,10 +106,8 @@ public class ModuleScanner
     /// </param>
     /// <returns>
     /// </returns>
-    private static IEnumerable<Assembly> GetValidateAssemblies([NotNull] IEnumerable<string> fileNames)
+    private static IEnumerable<Assembly> GetValidateAssemblies(IEnumerable<string> fileNames)
     {
-        CodeContracts.VerifyNotNull(fileNames);
-
         foreach (var assemblyFile in fileNames.Where(File.Exists))
         {
             Assembly assembly;

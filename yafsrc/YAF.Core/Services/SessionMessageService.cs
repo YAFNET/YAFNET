@@ -26,7 +26,6 @@ namespace YAF.Core.Services;
 using System;
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Constants;
 using YAF.Types.Objects;
 
@@ -54,7 +53,7 @@ public class SessionMessageService
     /// <summary>
     ///   Gets LoadStringList.
     /// </summary>
-    [NotNull]
+    
     public List<MessageNotification> LoadStringList { get; } = new ();
 
     /// <summary>
@@ -81,7 +80,7 @@ public class SessionMessageService
     /// </summary>
     /// <param name="message">The message you wish to display.</param>
     /// <param name="messageType">Type of the message.</param>
-    public void AddSession([NotNull] string message, MessageTypes messageType)
+    public void AddSession(string message, MessageTypes messageType)
     {
         // add it too the session list...
         this.SessionLoadString.Add(new MessageNotification(message, messageType));
@@ -116,7 +115,7 @@ public class SessionMessageService
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void CurrentUnload([NotNull] object sender, [NotNull] EventArgs e)
+    private void CurrentUnload(object sender, EventArgs e)
     {
         // clear the load message...
         this.Clear();

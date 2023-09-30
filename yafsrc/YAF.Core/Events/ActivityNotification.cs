@@ -39,10 +39,8 @@ public class ActivityNotification : IHaveServiceLocator, IHandleEvent<ActivityNo
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public ActivityNotification([NotNull] IServiceLocator serviceLocator)
+    public ActivityNotification(IServiceLocator serviceLocator)
     {
-        CodeContracts.VerifyNotNull(serviceLocator);
-
         this.ServiceLocator = serviceLocator;
     }
 

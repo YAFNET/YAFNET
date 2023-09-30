@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Services.Cache;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The treat cache key with board.
 /// </summary>
@@ -37,10 +35,8 @@ public class TreatCacheKeyWithBoard : ITreatCacheKey
     /// <param name="haveBoardId">
     /// The board id.
     /// </param>
-    public TreatCacheKeyWithBoard([NotNull] IHaveBoardID haveBoardId)
+    public TreatCacheKeyWithBoard(IHaveBoardID haveBoardId)
     {
-        CodeContracts.VerifyNotNull(haveBoardId);
-
         this.HaveBoardId = haveBoardId;
     }
 

@@ -73,7 +73,7 @@ public class EditUserModel : AdminPage
     /// <value>
     /// The current Culture information.
     /// </value>
-    [NotNull]
+    
     public CultureInfo CurrentCultureInfo {
         get {
             if (this.currentCultureInfo != null)

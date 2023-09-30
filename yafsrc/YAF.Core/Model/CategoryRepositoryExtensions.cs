@@ -26,7 +26,6 @@ namespace YAF.Core.Model;
 
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -41,8 +40,6 @@ public static class CategoryRepositoryExtensions
     /// <returns>Returns the highest sort order.</returns>
     public static int GetHighestSortOrder(this IRepository<Category> repository)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Category>();
 
         expression.Where(x => x.BoardID == repository.BoardID)
@@ -69,11 +66,9 @@ public static class CategoryRepositoryExtensions
     /// </returns>
     public static List<Category> List(
         this IRepository<Category> repository,
-        [CanBeNull] int? categoryId = null,
-        [CanBeNull] int? boardId = null)
+        int? categoryId = null,
+        int? boardId = null)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return categoryId.HasValue
                    ? repository.Get(
                        category => category.BoardID == (boardId ?? repository.BoardID)
@@ -110,15 +105,13 @@ public static class CategoryRepositoryExtensions
     /// </returns>
     public static int Save(
         this IRepository<Category> repository,
-        [CanBeNull] int? categoryId,
-        [NotNull] string name,
-        [CanBeNull] string categoryImage,
-        [NotNull] short sortOrder, 
-        [NotNull] CategoryFlags flags,
-        [CanBeNull] int? boardId = null)
+        int? categoryId,
+        string name,
+        string categoryImage,
+        short sortOrder, 
+        CategoryFlags flags,
+        int? boardId = null)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.Upsert(
             new Category
                 {
@@ -142,8 +135,6 @@ public static class CategoryRepositoryExtensions
     /// </param>
     public static void ReOrderAllAscending(this IRepository<Category> repository, List<Category> categories)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         short sortOrder = 0;
 
         categories.OrderBy(x => x.Name).ForEach(
@@ -168,8 +159,6 @@ public static class CategoryRepositoryExtensions
     /// </param>
     public static void ReOrderAllDescending(this IRepository<Category> repository, List<Category> categories)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         short sortOrder = 0;
 
         categories.OrderByDescending(x => x.Name).ForEach(

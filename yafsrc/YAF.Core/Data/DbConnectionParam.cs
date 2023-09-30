@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Data;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 ///     The database connection parameter.
 /// </summary>
@@ -43,7 +41,7 @@ public struct DbConnectionParam : IDbConnectionParam
     /// <param name="defaultValue">
     /// The default value.
     /// </param>
-    public DbConnectionParam(int id, string name, [NotNull] string defaultValue = null)
+    public DbConnectionParam(int id, string name, string defaultValue = null)
     {
         this.ID = id;
         this.Name = name;

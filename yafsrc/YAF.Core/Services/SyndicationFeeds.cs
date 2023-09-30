@@ -31,7 +31,6 @@ using System.ServiceModel.Syndication;
 using YAF.Core.Model;
 using YAF.Core.Services.Syndication;
 using YAF.Core.Utilities.StringUtils;
-using YAF.Types.Attributes;
 using YAF.Types.Constants;
 using YAF.Types.Models;
 
@@ -67,10 +66,10 @@ public class SyndicationFeeds : IHaveServiceLocator
     /// An Html formatted first message content string.
     /// </returns>
     public string GetPostLatestContent(
-        [NotNull] string text,
+        string text,
         int messageId,
         int messageAuthorUserId,
-        [NotNull] int flags)
+        int flags)
     {
         text = this.Get<IFormatMessage>().FormatSyndicationMessage(
             text,
@@ -299,8 +298,8 @@ public class SyndicationFeeds : IHaveServiceLocator
     /// <returns>
     /// Formatted url
     /// </returns>
-    [NotNull]
-    private static string FormatUrlForFeed([NotNull] string inputUrl)
+    
+    private static string FormatUrlForFeed(string inputUrl)
     {
         var formattedUrl = inputUrl;
 

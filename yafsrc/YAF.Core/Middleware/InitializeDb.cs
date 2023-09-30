@@ -27,7 +27,6 @@ namespace YAF.Core.Middleware;
 using System.Threading.Tasks;
 
 using YAF.Core.Model;
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -49,7 +48,7 @@ public class InitializeDb : IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public InitializeDb([NotNull] RequestDelegate next, [NotNull] IServiceLocator serviceLocator)
+    public InitializeDb(RequestDelegate next, IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
         this.requestDelegate = next;

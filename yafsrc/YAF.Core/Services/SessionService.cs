@@ -28,7 +28,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Objects;
 using YAF.Types.Objects.Model;
 
@@ -43,10 +42,8 @@ public class SessionService : ISessionService
     /// <param name="contextAccessor">
     /// The context Accessor.
     /// </param>
-    public SessionService([NotNull] IHttpContextAccessor contextAccessor)
+    public SessionService(IHttpContextAccessor contextAccessor)
     {
-        CodeContracts.VerifyNotNull(contextAccessor);
-
         this.SessionState = contextAccessor.HttpContext.Session;
     }
 
@@ -159,7 +156,7 @@ public class SessionService : ISessionService
     /// <summary>
     ///   Gets PanelState.
     /// </summary>
-    [NotNull]
+    
     public IPanelSessionState PanelState => new PanelSessionState();
 
     /// <summary>

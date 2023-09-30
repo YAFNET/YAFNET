@@ -29,8 +29,6 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Web;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// YAF FormatMessage provides functions related to formatting the post messages.
 /// </summary>
@@ -79,10 +77,10 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// <returns>
     /// Returns a string containing a forbidden BBCode or a null string
     /// </returns>
-    [CanBeNull]
+    
     public string BBCodeForbiddenDetector(
-        [NotNull] string stringToClear,
-        [NotNull] string stringToMatch,
+        string stringToClear,
+        string stringToMatch,
         char delimiter)
     {
         var codes = stringToMatch.Split(delimiter);
@@ -131,7 +129,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// <returns>
     /// A message string.
     /// </returns>
-    public string CheckHtmlTags([NotNull] string checkString, [NotNull] string acceptedTags, char delimiter)
+    public string CheckHtmlTags(string checkString, string acceptedTags, char delimiter)
     {
         var detectedHtmlTag = this.HtmlTagForbiddenDetector(checkString, acceptedTags, delimiter);
 
@@ -169,9 +167,9 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// The formatted message.
     /// </returns>
     public string Format(
-        [NotNull] int messageId,
-        [NotNull] string message,
-        [NotNull] MessageFlags messageFlags,
+        int messageId,
+        string message,
+        MessageFlags messageFlags,
         bool targetBlankOverride,
         DateTime messageLastEdited)
     {
@@ -235,13 +233,13 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// <returns>
     /// The formatted message.
     /// </returns>
-    [NotNull]
+    
     [Obsolete("Remove Table")]
     public string FormatSyndicationMessage(
-        [NotNull] string message,
+        string message,
         int messageId,
         int messageAuthorId,
-        [NotNull] MessageFlags messageFlags)
+        MessageFlags messageFlags)
     {
         message =
             $@"{this.Format(0, message, messageFlags, false)}";
@@ -282,10 +280,10 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// <returns>
     /// Returns a forbidden HTML tag or a null string
     /// </returns>
-    [CanBeNull]
+    
     public string HtmlTagForbiddenDetector(
-        [NotNull] string stringToClear,
-        [NotNull] string stringToMatch,
+        string stringToClear,
+        string stringToMatch,
         char delimiter)
     {
         var codes = stringToMatch.Split(delimiter);
@@ -328,8 +326,8 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// <returns>
     /// A version of <paramref name="body"/> that contains no nested quotes.
     /// </returns>
-    [NotNull]
-    public string RemoveNestedQuotes([NotNull] string body)
+    
+    public string RemoveNestedQuotes(string body)
     {
         const RegexOptions RegexOptions = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline
                                          ;
@@ -349,8 +347,8 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// <returns>
     /// The Cleaned body.
     /// </returns>
-    [NotNull]
-    public string RemoveHiddenBBCodeContent([NotNull] string body)
+    
+    public string RemoveHiddenBBCodeContent(string body)
     {
         const RegexOptions RegexOptions =
             RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
@@ -379,8 +377,8 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// <returns>
     /// The Cleaned body.
     /// </returns>
-    [NotNull]
-    public string RemoveCustomBBCodes([NotNull] string body)
+    
+    public string RemoveCustomBBCodes(string body)
     {
         const RegexOptions RegexOptions =
             RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
@@ -412,7 +410,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// <returns>
     /// The repaired html.
     /// </returns>
-    public string RepairHtml([NotNull] string html, bool allowHtml)
+    public string RepairHtml(string html, bool allowHtml)
     {
         // vzrus: NNTP temporary tweaks to wipe out server hangs. Put it here as it can be in every place.
         // These are '\n\r' things related to multiline regexps.
@@ -456,17 +454,12 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// The surround word list.
     /// </returns>
     public string SurroundWordList(
-        [NotNull] string message,
-        [NotNull] IList<string> wordList,
-        [NotNull] string prefix,
-        [NotNull] string postfix)
+        string message,
+        IList<string> wordList,
+        string prefix,
+        string postfix)
     {
-        CodeContracts.VerifyNotNull(message);
-        CodeContracts.VerifyNotNull(wordList);
-        CodeContracts.VerifyNotNull(prefix);
-        CodeContracts.VerifyNotNull(postfix);
-
-        wordList.Where(w => w.Length > 3).ForEach(
+       wordList.Where(w => w.Length > 3).ForEach(
             word => MatchAndPerformAction(
                 $"({word.ToLower().ToRegExString()})",
                 message,
@@ -492,14 +485,10 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// The match action.
     /// </param>
     private static void MatchAndPerformAction(
-        [NotNull] string matchRegEx,
-        [NotNull] string text,
-        [NotNull] Action<string, int, int> matchAction)
+        string matchRegEx,
+        string text,
+        Action<string, int, int> matchAction)
     {
-        CodeContracts.VerifyNotNull(matchRegEx);
-        CodeContracts.VerifyNotNull(text);
-        CodeContracts.VerifyNotNull(matchAction);
-
         const RegexOptions RegexOptions = RegexOptions.IgnoreCase;
 
         var matches = Regex.Matches(text, matchRegEx, RegexOptions, TimeSpan.FromMilliseconds(100))
@@ -525,12 +514,9 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// <returns>
     /// The remove html by list.
     /// </returns>
-    private static string RemoveHtmlByList([NotNull] string text, [NotNull] IEnumerable<string> matchList)
+    private static string RemoveHtmlByList(string text, IEnumerable<string> matchList)
     {
         var allowedTags = matchList.ToList();
-
-        CodeContracts.VerifyNotNull(text);
-        CodeContracts.VerifyNotNull(allowedTags);
 
         MatchAndPerformAction(
             "<.*?>",

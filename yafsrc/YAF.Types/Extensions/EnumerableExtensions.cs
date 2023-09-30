@@ -27,8 +27,6 @@ namespace YAF.Types.Extensions;
 using System.Collections.Generic;
 using System.Linq;
 
-using YAF.Types;
-
 /// <summary>
 /// The enumerable extensions.
 /// </summary>
@@ -40,11 +38,8 @@ public static class EnumerableExtensions
     /// <typeparam name="T"> </typeparam>
     /// <param name="list"> </param>
     /// <param name="action"> </param>
-    public static void ForEach<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T> action)
+    public static void ForEach<T>(this IEnumerable<T> list, Action<T> action)
     {
-        CodeContracts.VerifyNotNull(list);
-        CodeContracts.VerifyNotNull(action);
-
         list.ToList().ForEach(action);
     }
 
@@ -54,11 +49,8 @@ public static class EnumerableExtensions
     /// <typeparam name="T"> </typeparam>
     /// <param name="list"> </param>
     /// <param name="action"> </param>
-    public static void ForEachFirst<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T, bool> action)
+    public static void ForEachFirst<T>(this IEnumerable<T> list, Action<T, bool> action)
     {
-        CodeContracts.VerifyNotNull(list);
-        CodeContracts.VerifyNotNull(action);
-
         var isFirst = true;
 
         list.ToList().ForEach(
@@ -75,11 +67,8 @@ public static class EnumerableExtensions
     /// <typeparam name="T"> </typeparam>
     /// <param name="list"> </param>
     /// <param name="action"> </param>
-    public static void ForEachIndex<T>([NotNull] this IEnumerable<T> list, [NotNull] Action<T, int> action)
+    public static void ForEachIndex<T>(this IEnumerable<T> list, Action<T, int> action)
     {
-        CodeContracts.VerifyNotNull(list);
-        CodeContracts.VerifyNotNull(action);
-
         var i = 0;
 
         list.ToList().ForEach(item => action(item, i++));
@@ -92,35 +81,10 @@ public static class EnumerableExtensions
     /// <param name="currentEnumerable"> The current enumerable. </param>
     /// <typeparam name="T"> </typeparam>
     /// <returns> </returns>
-    public static IEnumerable<T> IfNullEmpty<T>([CanBeNull] this IEnumerable<T> currentEnumerable)
+    public static IEnumerable<T> IfNullEmpty<T>(this IEnumerable<T> currentEnumerable)
     {
         return currentEnumerable ?? Enumerable.Empty<T>();
     }
-
-    /*
-    /// <summary>
-    /// The distinct by.
-    /// </summary>
-    /// <param name="source">
-    /// The source.
-    /// </param>
-    /// <param name="keySelector">
-    /// The key selector.
-    /// </param>
-    /// <typeparam name="TSource">
-    /// </typeparam>
-    /// <typeparam name="TKey">
-    /// </typeparam>
-    /// <returns>
-    /// The <see cref="IEnumerable"/>.
-    /// </returns>
-    /*public static IEnumerable<TSource> DistinctBy<TSource, TKey>(
-        this IEnumerable<TSource> source,
-        Func<TSource, TKey> keySelector)
-    {
-        var knownKeys = new HashSet<TKey>();
-        return source.Where(element => knownKeys.Add(keySelector(element)));
-    }*/
 
     /// <summary>
     /// Checks if List is Null Or Empty

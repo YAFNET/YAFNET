@@ -108,7 +108,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <summary>
     ///   Gets or sets the Words to highlight in this message
     /// </summary>
-    [CanBeNull]
+    
     public virtual IList<string> HighlightWords
     {
         get => this.highlightWords ?? new List<string>();
@@ -186,8 +186,6 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// </returns>
     public override Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
     {
-        CodeContracts.VerifyNotNull(this.MessageFlags);
-
         this.HighlightWords = new List<string>();
 
         if (this.Message.IsSet())
@@ -240,7 +238,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <returns>
     /// The Message with the Span Tag and CSS Class "highlight" that Highlights it
     /// </returns>
-    protected virtual string HighlightMessage([NotNull] string message, bool renderBbCode = false)
+    protected virtual string HighlightMessage(string message, bool renderBbCode = false)
     {
         if (this.HighlightWords.Count > 0)
         {
@@ -261,7 +259,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <param name="output">
     /// The output.
     /// </param>
-    protected virtual void RenderSignature([NotNull] TagHelperOutput output)
+    protected virtual void RenderSignature(TagHelperOutput output)
     {
         var hr = new TagBuilder("hr") { TagRenderMode = TagRenderMode.SelfClosing };
 
@@ -303,7 +301,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <param name="deleteText">
     /// The delete reason text.
     /// </param>
-    protected virtual void RenderDeletedMessage([NotNull] TagHelperOutput output, string deleteText)
+    protected virtual void RenderDeletedMessage(TagHelperOutput output, string deleteText)
     {
         // if message was deleted then write that instead of real body
         if (!this.MessageFlags.IsDeleted)
@@ -354,9 +352,9 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// The message id.
     /// </param>
     protected virtual void RenderEditedMessage(
-        [NotNull] TagHelperOutput output,
-        [NotNull] DateTime edited,
-        [NotNull] string editReason,
+        TagHelperOutput output,
+        DateTime edited,
+        string editReason,
         int? msgId)
     {
         if (!this.Get<BoardSettings>().ShowEditedMessage)
@@ -445,7 +443,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <param name="messageId">
     /// The message identifier.
     /// </param>
-    protected virtual void RenderAnswerMessage([NotNull] TagHelperOutput output, int messageId)
+    protected virtual void RenderAnswerMessage(TagHelperOutput output, int messageId)
     {
         var alert = new TagBuilder("div");
 
@@ -489,10 +487,8 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <param name="output">
     /// The output.
     /// </param>
-    protected virtual void RenderSimpleMessage([NotNull] TagHelperOutput output)
+    protected virtual void RenderSimpleMessage(TagHelperOutput output)
     {
-        CodeContracts.VerifyNotNull(output);
-
         var formattedMessage = this.Get<IFormatMessage>().Format(
             0,
             this.HighlightMessage(this.Message, true),
@@ -513,12 +509,8 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <param name="output">
     /// The output.
     /// </param>
-    protected virtual void RenderMessage([NotNull] TagHelperOutput output)
+    protected virtual void RenderMessage(TagHelperOutput output)
     {
-        CodeContracts.VerifyNotNull(output);
-        CodeContracts.VerifyNotNull(this.MessageFlags);
-        CodeContracts.VerifyNotNull(this.CurrentMessage);
-
         if (this.MessageFlags.IsDeleted)
         {
             this.IsModeratorChanged = this.CurrentMessage.IsModeratorChanged ?? false;
@@ -621,8 +613,8 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// The <see cref="string"/>.
     /// </returns>
     protected virtual string RenderModulesInBBCode(
-        [NotNull] string message,
-        [NotNull] MessageFlags theseFlags,
+        string message,
+        MessageFlags theseFlags,
         int? displayUserId,
         int? msgId)
     {

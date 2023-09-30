@@ -73,7 +73,7 @@ public class ActiveUsersModel : ForumPage
     /// <param name="v">
     /// The v.
     /// </param>
-    public IActionResult OnGet([CanBeNull]int? v = null)
+    public IActionResult OnGet(int? v = null)
     {
         return this.BindData(v);
     }
@@ -83,7 +83,7 @@ public class ActiveUsersModel : ForumPage
     /// </summary>
     /// <param name="v">The v.</param>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPost([CanBeNull] int? v = null)
+    public IActionResult OnPost(int? v = null)
     {
         return !this.PageBoardContext.UploadAccess ? this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied) : this.BindData(v);
     }
@@ -94,7 +94,7 @@ public class ActiveUsersModel : ForumPage
     /// <param name="activeUsers">
     /// The active users.
     /// </param>
-    private static void RemoveAllButGuests([NotNull] ref List<ActiveUser> activeUsers)
+    private static void RemoveAllButGuests(ref List<ActiveUser> activeUsers)
     {
         if (!activeUsers.Any())
         {
@@ -111,7 +111,7 @@ public class ActiveUsersModel : ForumPage
     /// <param name="v">
     /// The version.
     /// </param>
-    private IActionResult BindData([CanBeNull] int? v = null)
+    private IActionResult BindData(int? v = null)
     {
         int version;
 
@@ -228,7 +228,7 @@ public class ActiveUsersModel : ForumPage
     /// <param name="activeUsers">
     /// The active users.
     /// </param>
-    private void RemoveAllButHiddenUsers([NotNull] ref List<ActiveUser> activeUsers)
+    private void RemoveAllButHiddenUsers(ref List<ActiveUser> activeUsers)
     {
         if (!activeUsers.Any())
         {
@@ -246,7 +246,7 @@ public class ActiveUsersModel : ForumPage
     /// <param name="activeUsers">
     /// The active users.
     /// </param>
-    private void RemoveHiddenUsers([NotNull] ref List<ActiveUser> activeUsers)
+    private void RemoveHiddenUsers(ref List<ActiveUser> activeUsers)
     {
         if (!activeUsers.Any())
         {

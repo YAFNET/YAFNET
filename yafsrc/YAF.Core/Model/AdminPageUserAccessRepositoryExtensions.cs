@@ -26,7 +26,6 @@ namespace YAF.Core.Model;
 
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -48,10 +47,8 @@ public static class AdminPageUserAccessRepositoryExtensions
     /// </returns>
     public static IEnumerable<AdminPageUserAccess> List(
         this IRepository<AdminPageUserAccess> repository,
-        [NotNull] int userId)
+        int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.Get(a => a.UserID == userId).Select(
             a => new AdminPageUserAccess { PageName = a.PageName, UserID = a.UserID, ReadAccess = true });
     }
@@ -73,11 +70,9 @@ public static class AdminPageUserAccessRepositoryExtensions
     /// </returns>
     public static bool HasAccess(
         this IRepository<AdminPageUserAccess> repository,
-        [NotNull] int userId,
-        [NotNull] string pageName)
+        int userId,
+        string pageName)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var access = repository.GetSingle(a => a.UserID == userId && a.PageName == pageName);
 
         return access != null;
@@ -97,11 +92,9 @@ public static class AdminPageUserAccessRepositoryExtensions
     /// </param>
     public static void Save(
         this IRepository<AdminPageUserAccess> repository,
-        [NotNull] int userId,
-        [NotNull] string pageName)
+        int userId,
+        string pageName)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         if (!repository.Get(a => a.UserID == userId && a.PageName == pageName).Any())
         {
             repository.Insert(new AdminPageUserAccess { UserID = userId, PageName = pageName });
@@ -122,11 +115,9 @@ public static class AdminPageUserAccessRepositoryExtensions
     /// </param>
     public static void Delete(
         this IRepository<AdminPageUserAccess> repository,
-        [NotNull] int userId,
-        [NotNull] string pageName)
+        int userId,
+        string pageName)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.Delete(u => u.UserID == userId && u.PageName == pageName);
     }
 }

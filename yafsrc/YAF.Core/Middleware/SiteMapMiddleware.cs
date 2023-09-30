@@ -29,7 +29,6 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 using YAF.Core.Model;
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
@@ -50,7 +49,7 @@ public class SiteMapMiddleware : IHaveServiceLocator
     /// </summary>
     /// <param name="next">The next.</param>
     /// <param name="serviceLocator">The service locator.</param>
-    public SiteMapMiddleware([NotNull] RequestDelegate next, [NotNull] IServiceLocator serviceLocator)
+    public SiteMapMiddleware(RequestDelegate next, IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
         this.requestDelegate = next;

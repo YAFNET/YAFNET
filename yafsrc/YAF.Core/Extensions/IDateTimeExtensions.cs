@@ -26,8 +26,6 @@ namespace YAF.Core.Extensions;
 
 using System;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The DateTime extensions.
 /// </summary>
@@ -49,13 +47,10 @@ public static class IDateTimeServiceExtensions
     /// Formatted datetime or "[error]" if invalid.
     /// </returns>
     public static string Format(
-        [NotNull] this IDateTimeService dateTimeInstance,
+        this IDateTimeService dateTimeInstance,
         DateTimeFormat format,
-        [NotNull] object objectDateTime)
+        object objectDateTime)
     {
-        CodeContracts.VerifyNotNull(dateTimeInstance);
-        CodeContracts.VerifyNotNull(objectDateTime);
-
         try
         {
             var dateTime = Convert.ToDateTime(objectDateTime);
@@ -91,12 +86,9 @@ public static class IDateTimeServiceExtensions
     /// The format date time topic.
     /// </returns>
     public static string FormatDateTimeTopic(
-        [NotNull] this IDateTimeService dateTimeInstance,
-        [NotNull] object objectDateTime)
+        this IDateTimeService dateTimeInstance,
+        object objectDateTime)
     {
-        CodeContracts.VerifyNotNull(dateTimeInstance);
-        CodeContracts.VerifyNotNull(objectDateTime);
-
         try
         {
             var dateTime = Convert.ToDateTime(objectDateTime);

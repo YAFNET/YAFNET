@@ -24,7 +24,6 @@
 
 namespace YAF.Core.Model;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -52,12 +51,10 @@ public static class ChoiceRepositoryExtensions
     /// </returns>
     public static int AddChoice(
         this IRepository<Choice> repository,
-        [NotNull] int pollId,
-        [NotNull] string choice,
-        [CanBeNull] string objectPath)
+        int pollId,
+        string choice,
+        string objectPath)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var entity = new Choice { PollID = pollId, ChoiceName = choice, Votes = 0, ObjectPath = objectPath };
 
         var newId = repository.Insert(entity);
@@ -84,12 +81,10 @@ public static class ChoiceRepositoryExtensions
     /// </param>
     public static void UpdateChoice(
         this IRepository<Choice> repository,
-        [NotNull] int choiceId,
-        [NotNull] string choice,
-        [CanBeNull] string objectPath)
+        int choiceId,
+        string choice,
+        string objectPath)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.UpdateOnly(
             () => new Choice { ChoiceName = choice, ObjectPath = objectPath },
             c => c.ID == choiceId);
@@ -104,10 +99,8 @@ public static class ChoiceRepositoryExtensions
     /// <param name="choiceId">
     /// The choice id.
     /// </param>
-    public static void Vote(this IRepository<Choice> repository, [NotNull] int choiceId)
+    public static void Vote(this IRepository<Choice> repository, int choiceId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.UpdateAdd(() => new Choice { Votes = 1 }, a => a.ID == choiceId);
     }
 }

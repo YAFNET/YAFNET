@@ -32,7 +32,6 @@ using Microsoft.Extensions.Logging;
 
 using ServiceStack.Text;
 
-using YAF.Types.Attributes;
 using YAF.Types.Interfaces.CheckForSpam;
 using YAF.Types.Objects;
 
@@ -49,9 +48,9 @@ public class StopForumSpam : ICheckForBot
     /// <param name="userName">Name of the user.</param>
     /// <returns>Returns if User is Bot or Not</returns>
     public async Task<(string ResponseText, bool IsBot)> IsBotAsync(
-        [CanBeNull] string ipAddress,
-        [CanBeNull] string emailAddress,
-        [CanBeNull] string userName)
+        string ipAddress,
+        string emailAddress,
+        string userName)
     {
         var responseText = string.Empty;
 
@@ -101,9 +100,9 @@ public class StopForumSpam : ICheckForBot
     /// <param name="userName">Name of the user.</param>
     /// <returns>Returns If the report was successful or not</returns>
     public async Task<bool> ReportUserAsBotAsync(
-        [CanBeNull] string ipAddress,
-        [CanBeNull] string emailAddress,
-        [CanBeNull] string userName)
+        string ipAddress,
+        string emailAddress,
+        string userName)
     {
         var parameters =
             $"username={userName}&ip_addr={ipAddress}&email={emailAddress}&api_key={BoardContext.Current.BoardSettings.StopForumSpamApiKey}";

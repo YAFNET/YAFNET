@@ -26,8 +26,6 @@ namespace YAF.Core.BaseModules;
 
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The standard module manager.
 /// </summary>
@@ -48,10 +46,8 @@ public class StandardModuleManager<TModule> : IModuleManager<TModule>
     /// <param name="modules">
     /// The modules.
     /// </param>
-    public StandardModuleManager([NotNull] IEnumerable<TModule> modules)
+    public StandardModuleManager(IEnumerable<TModule> modules)
     {
-        CodeContracts.VerifyNotNull(modules);
-
         this.modules = modules.ToList();
     }
 
@@ -80,10 +76,8 @@ public class StandardModuleManager<TModule> : IModuleManager<TModule>
     /// <returns>
     /// Instance of TModule or null if not found.
     /// </returns>
-    public TModule GetBy([NotNull] string id, bool getInactive)
+    public TModule GetBy(string id, bool getInactive)
     {
-        CodeContracts.VerifyNotNull(id);
-
         return !getInactive
                    ? this.modules.SingleOrDefault(e => e.ModuleId.Equals(id) && e.Active)
                    : this.modules.SingleOrDefault(e => e.ModuleId.Equals(id));
@@ -98,10 +92,8 @@ public class StandardModuleManager<TModule> : IModuleManager<TModule>
     /// <returns>
     /// Instance of TModule or null if not found.
     /// </returns>
-    public TModule GetBy([NotNull] string id)
+    public TModule GetBy(string id)
     {
-        CodeContracts.VerifyNotNull(id);
-
         return this.modules.SingleOrDefault(e => e.ModuleId.Equals(id));
     }
 }

@@ -38,7 +38,6 @@ using Newtonsoft.Json.Linq;
 using YAF.Configuration;
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
-using YAF.Types.Attributes;
 using YAF.Types.Constants;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces;
@@ -75,7 +74,7 @@ public class DbLogger : ILogger, IHaveServiceLocator
     /// </summary>
     /// <param name="loggerProvider">The database logger provider.</param>
     /// <param name="type">The type.</param>
-    public DbLogger([NotNull] DbLoggerProvider loggerProvider, string type)
+    public DbLogger(DbLoggerProvider loggerProvider, string type)
     {
         this.provider = loggerProvider;
         this.Type = type;
@@ -194,11 +193,11 @@ public class DbLogger : ILogger, IHaveServiceLocator
     /// The exception.
     /// </param>
     public void WriteLog(
-        [NotNull] string message,
-        [NotNull] EventLogTypes eventType = EventLogTypes.Error,
-        [CanBeNull] int? userId = null,
-        [CanBeNull] string source = null,
-        [CanBeNull] Exception exception = null)
+        string message,
+        EventLogTypes eventType = EventLogTypes.Error,
+        int? userId = null,
+        string source = null,
+        Exception exception = null)
     {
         if (!this.IsLogTypeEnabled(eventType))
         {

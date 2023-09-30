@@ -72,7 +72,7 @@ public class NntpRetrieveModel : AdminPage
     /// <returns>
     /// The last message no.
     /// </returns>
-    public string LastMessageNo([NotNull] Tuple<NntpForum, NntpServer, Forum> forum)
+    public string LastMessageNo(Tuple<NntpForum, NntpServer, Forum> forum)
     {
         return $"{forum.Item1.LastMessageNo:N0}";
     }

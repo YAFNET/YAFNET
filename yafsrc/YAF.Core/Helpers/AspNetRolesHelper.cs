@@ -32,7 +32,6 @@ using Microsoft.Extensions.Logging;
 
 using YAF.Core.Identity;
 using YAF.Core.Model;
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
@@ -47,7 +46,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public AspNetRolesHelper([NotNull] IServiceLocator serviceLocator)
+    public AspNetRolesHelper(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }
@@ -71,7 +70,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <param name="role">
     /// The role.
     /// </param>
-    public void AddUserToRole([NotNull] AspNetUsers user, [NotNull] string role)
+    public void AddUserToRole(AspNetUsers user, string role)
     {
         this.Get<IAspNetUsersHelper>().AddToRole(user, role);
     }
@@ -89,7 +88,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <returns>
     /// Returns the UserID of the user if everything was successful. Otherwise, null.
     /// </returns>
-    public Task<int?> CreateForumUserAsync([NotNull] AspNetUsers user, int pageBoardId)
+    public Task<int?> CreateForumUserAsync(AspNetUsers user, int pageBoardId)
     {
         return this.Get<IAspNetRolesHelper>().CreateForumUserAsync(user, user.UserName, pageBoardId);
     }
@@ -110,7 +109,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <returns>
     /// Returns the UserID of the user if everything was successful. Otherwise, null.
     /// </returns>
-    public async Task<int?> CreateForumUserAsync([NotNull] AspNetUsers user, [NotNull] string displayName, int pageBoardId)
+    public async Task<int?> CreateForumUserAsync(AspNetUsers user, string displayName, int pageBoardId)
     {
         int? userId = null;
 
@@ -150,7 +149,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <param name="roleName">
     ///     The role name.
     /// </param>
-    public Task CreateRoleAsync([NotNull] string roleName)
+    public Task CreateRoleAsync(string roleName)
     {
         var role = new AspNetRoles { Name = roleName };
 
@@ -163,7 +162,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <param name="roleName">
     ///     The role name.
     /// </param>
-    public async Task DeleteRoleAsync([NotNull] string roleName)
+    public async Task DeleteRoleAsync(string roleName)
     {
         var role = await this.Get<IAspNetRoleManager>().FindByRoleNameAsync(roleName);
 
@@ -178,7 +177,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <returns>
     /// The did create forum user.
     /// </returns>
-    public bool DidCreateForumUser([NotNull] AspNetUsers user, int pageBoardId)
+    public bool DidCreateForumUser(AspNetUsers user, int pageBoardId)
     {
         var userId = this.Get<IAspNetRolesHelper>().CreateForumUserAsync(user, pageBoardId);
         return userId != null;
@@ -204,7 +203,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <returns>
     /// Returns all Roles
     /// </returns>
-    public Task<IList<string>> GetRolesForUserAsync([NotNull] AspNetUsers user)
+    public Task<IList<string>> GetRolesForUserAsync(AspNetUsers user)
     {
         return this.Get<IAspNetRoleManager>().GetRolesAsync(user);
     }
@@ -250,7 +249,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public bool IsMemberOfGroup([NotNull] string groupName, [NotNull] List<GroupMember> groups)
+    public bool IsMemberOfGroup(string groupName, List<GroupMember> groups)
     {
         return groups.Any(
             row => row.IsMember && row.Name == groupName);
@@ -263,7 +262,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <returns>
     /// The role exists.
     /// </returns>
-    public Task<bool> RoleNameExistsAsync([NotNull] string roleName)
+    public Task<bool> RoleNameExistsAsync(string roleName)
     {
         return this.Get<IAspNetRoleManager>().RoleNameExistsAsync(roleName);
     }
@@ -277,7 +276,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// <param name="user">
     ///     The user.
     /// </param>
-    public async Task SetupUserRolesAsync(int pageBoardId, [NotNull] AspNetUsers user)
+    public async Task SetupUserRolesAsync(int pageBoardId, AspNetUsers user)
     {
         var groups = await this.GetRepository<Group>()
             .GetAsync(g => g.BoardID == pageBoardId && (g.Flags & 2) != 2 && (g.Flags & 4) == 4);

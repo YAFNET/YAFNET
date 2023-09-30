@@ -30,7 +30,6 @@ using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
@@ -53,7 +52,7 @@ public class CheckBannedIps : IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public CheckBannedIps([NotNull] RequestDelegate next, [NotNull] IServiceLocator serviceLocator)
+    public CheckBannedIps(RequestDelegate next, IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
         this.requestDelegate = next;

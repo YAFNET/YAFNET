@@ -26,7 +26,6 @@ namespace YAF.Core.Model;
 
 using System;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -48,11 +47,9 @@ public static class ForumReadTrackingRepositoryExtensions
     /// </param>
     public static void AddOrUpdate(
         this IRepository<ForumReadTracking> repository,
-        [NotNull] int userId,
-        [NotNull] int forumId)
+        int userId,
+        int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var item = repository.GetSingle(x => x.ForumID == forumId && x.UserID == userId);
 
         if (item != null)
@@ -84,10 +81,8 @@ public static class ForumReadTrackingRepositoryExtensions
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public static bool Delete(this IRepository<ForumReadTracking> repository, [NotNull] int userId)
+    public static bool Delete(this IRepository<ForumReadTracking> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var success = repository.Delete(x => x.UserID == userId) == 1;
 
         if (success)
@@ -115,11 +110,9 @@ public static class ForumReadTrackingRepositoryExtensions
     /// </returns>
     public static DateTime? LastRead(
         this IRepository<ForumReadTracking> repository,
-        [NotNull] int userId,
-        [NotNull] int forumId)
+        int userId,
+        int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var forum = repository.GetSingle(t => t.UserID == userId && t.ForumID == forumId);
 
         return forum?.LastAccessDate;

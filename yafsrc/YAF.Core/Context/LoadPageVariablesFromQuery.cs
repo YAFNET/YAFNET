@@ -40,10 +40,8 @@ public class LoadPageVariablesFromQuery : IHandleEvent<InitPageLoadEvent>, IHave
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public LoadPageVariablesFromQuery([NotNull] IServiceLocator serviceLocator)
+    public LoadPageVariablesFromQuery(IServiceLocator serviceLocator)
     {
-        CodeContracts.VerifyNotNull(serviceLocator);
-
         this.ServiceLocator = serviceLocator;
     }
 
@@ -61,7 +59,7 @@ public class LoadPageVariablesFromQuery : IHandleEvent<InitPageLoadEvent>, IHave
     /// Handles the specified @event.
     /// </summary>
     /// <param name="event">The @event.</param>
-    public void Handle([NotNull] InitPageLoadEvent @event)
+    public void Handle(InitPageLoadEvent @event)
     {
         var queryString = this.Get<IHttpContextAccessor>().HttpContext.Request.Query;
 

@@ -88,10 +88,10 @@ public class EditBoardModel : AdminPage
     /// <param name="createUserAndRoles">The create user and roles.</param>
     /// <returns>Returns if the board was created or not</returns>
     private async Task<(bool Result, IdentityError Error)> CreateBoardAsync(
-        [NotNull] string adminName,
-        [NotNull] string adminPassword,
-        [NotNull] string adminEmail,
-        [NotNull] string boardName,
+        string adminName,
+        string adminPassword,
+        string adminEmail,
+        string boardName,
         bool createUserAndRoles)
     {
         int newBoardId;

@@ -43,7 +43,7 @@ public static class LoggerExtensions
     /// <param name="message">
     /// The message.
     /// </param>
-    public static void Debug(this ILogger logger, [NotNull] string message)
+    public static void Debug(this ILogger logger, string message)
     {
         var logEntry = new EventLog { Type = EventLogTypes.Debug.ToInt() };
 
@@ -67,7 +67,7 @@ public static class LoggerExtensions
     /// <param name="message">
     /// The message.
     /// </param>
-    public static void Error(this ILogger logger, Exception ex, [NotNull] string message)
+    public static void Error(this ILogger logger, Exception ex, string message)
     {
         var logEntry = new EventLog { Type = EventLogTypes.Error.ToInt(), Description = ex.ToString(), Exception = ex };
 
@@ -88,7 +88,7 @@ public static class LoggerExtensions
     /// <param name="message">
     /// The message.
     /// </param>
-    public static void Info(this ILogger logger, [NotNull] string message)
+    public static void Info(this ILogger logger, string message)
     {
         var logEntry = new EventLog { Type = EventLogTypes.Information.ToInt() };
 
@@ -112,10 +112,8 @@ public static class LoggerExtensions
     /// <param name="description">
     /// The description.
     /// </param>
-    public static void UserDeleted([NotNull] this ILogger logger, [CanBeNull] int? userId, [NotNull] string description)
+    public static void UserDeleted(this ILogger logger, int? userId, string description)
     {
-        CodeContracts.VerifyNotNull(logger);
-
         var logEntry = new EventLog
                            {
                                Type = EventLogTypes.UserDeleted.ToInt(), Source = "User Deleted", UserID = userId
@@ -142,12 +140,10 @@ public static class LoggerExtensions
     /// The description.
     /// </param>
     public static void SpamMessageDetected(
-        [NotNull] this ILogger logger,
-        [CanBeNull] int? userId,
-        [NotNull] string description)
+        this ILogger logger,
+        int? userId,
+        string description)
     {
-        CodeContracts.VerifyNotNull(logger);
-
         var logEntry = new EventLog
                            {
                                Type = EventLogTypes.SpamMessageDetected.ToInt(),
@@ -176,12 +172,10 @@ public static class LoggerExtensions
     /// The description.
     /// </param>
     public static void SpamBotDetected(
-        [NotNull] this ILogger logger,
-        [CanBeNull] int? userId,
-        [NotNull] string description)
+        this ILogger logger,
+        int? userId,
+        string description)
     {
-        CodeContracts.VerifyNotNull(logger);
-
         var logEntry = new EventLog
                            {
                                Type = EventLogTypes.SpamBotDetected.ToInt(), Source = "Bot Detected", UserID = userId
@@ -217,15 +211,13 @@ public static class LoggerExtensions
     /// The exception.
     /// </param>
     public static void Log(
-        [NotNull] this ILogger logger,
+        this ILogger logger,
         string message,
         EventLogTypes eventType = EventLogTypes.Error,
         int? userId = null,
         string source = null,
         Exception exception = null)
     {
-        CodeContracts.VerifyNotNull(logger);
-
         var logEntry = new EventLog
                            {
                                Type = eventType.ToInt(), Source = source, UserID = userId, Exception = exception
@@ -258,14 +250,12 @@ public static class LoggerExtensions
     /// The event type.
     /// </param>
     public static void Log(
-        [NotNull] this ILogger logger,
-        [CanBeNull] int? userId,
-        [CanBeNull] object source,
-        [NotNull] string description,
-        [NotNull] EventLogTypes eventType = EventLogTypes.Error)
+        this ILogger logger,
+        int? userId,
+        object source,
+        string description,
+        EventLogTypes eventType = EventLogTypes.Error)
     {
-        CodeContracts.VerifyNotNull(logger);
-
         var sourceDescription = "unknown";
 
         if (source is Type)
@@ -299,7 +289,7 @@ public static class LoggerExtensions
     /// <param name="args">
     /// The args.
     /// </param>
-    public static void Warn(this ILogger logger, [NotNull] string format, [NotNull] params object[] args)
+    public static void Warn(this ILogger logger, string format, params object[] args)
     {
         var logEntry = new EventLog { Type = EventLogTypes.Warning.ToInt() };
 

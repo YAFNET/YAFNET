@@ -29,8 +29,6 @@ using System.Collections.Generic;
 
 using Microsoft.Extensions.Logging;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The service locator event raiser.
 /// </summary>
@@ -50,7 +48,7 @@ public class ServiceLocatorEventRaiser : IRaiseEvent
     /// <param name="logger">
     /// The logger.
     /// </param>
-    public ServiceLocatorEventRaiser([NotNull] IServiceLocator serviceLocator, ILogger<ServiceLocatorEventRaiser> logger)
+    public ServiceLocatorEventRaiser(IServiceLocator serviceLocator, ILogger<ServiceLocatorEventRaiser> logger)
     {
         this.Logger = logger;
         this._serviceLocator = serviceLocator;
@@ -83,7 +81,7 @@ public class ServiceLocatorEventRaiser : IRaiseEvent
     /// </param>
     /// <param name="logExceptionAction">
     /// </param>
-    public void RaiseIssolated<T>(T eventObject, [CanBeNull] Action<string, Exception> logExceptionAction)
+    public void RaiseIssolated<T>(T eventObject, Action<string, Exception> logExceptionAction)
         where T : IAmEvent
     {
         this.GetAggregatedAndOrderedEventHandlers<T>().ForEach(

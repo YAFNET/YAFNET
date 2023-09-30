@@ -26,7 +26,6 @@ namespace YAF.Core.Model;
 
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
 
@@ -47,10 +46,8 @@ public static class ActiveRepositoryExtensions
     /// <returns>
     /// The <see cref="List"/>.
     /// </returns>
-    public static List<ActiveUser> ListForum(this IRepository<Active> repository, [NotNull] int forumId)
+    public static List<ActiveUser> ListForum(this IRepository<Active> repository, int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.Execute(
             db =>
                 {
@@ -58,8 +55,10 @@ public static class ActiveRepositoryExtensions
 
                     var countExpression = db.Connection.From<Active>(db.Connection.TableAlias("ac"));
                     countExpression.Where(
-                        $@"ac.{countExpression.Column<Active>(ac => ac.UserID)}={expression.Column<Active>(a => a.UserID, true)}
-                                    and ac.{countExpression.Column<Active>(ac => ac.ForumID)}={forumId}");
+                        $"""
+                         ac.{countExpression.Column<Active>(ac => ac.UserID)}={expression.Column<Active>(a => a.UserID, true)}
+                                                             and ac.{countExpression.Column<Active>(ac => ac.ForumID)}={forumId}
+                         """);
                     var countSql = countExpression.Select(Sql.Count($"{countExpression.Column<Active>(x => x.UserID)}"))
                         .ToSelectStatement();
 
@@ -104,10 +103,8 @@ public static class ActiveRepositoryExtensions
     /// <returns>
     /// The <see cref="List"/>.
     /// </returns>
-    public static List<ActiveUser> ListTopic(this IRepository<Active> repository, [NotNull] int topicId)
+    public static List<ActiveUser> ListTopic(this IRepository<Active> repository, int topicId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.Execute(
             db =>
                 {
@@ -115,8 +112,10 @@ public static class ActiveRepositoryExtensions
 
                     var countExpression = db.Connection.From<Active>(db.Connection.TableAlias("ac"));
                     countExpression.Where(
-                        $@"ac.{countExpression.Column<Active>(ac => ac.UserID)}={expression.Column<Active>(a => a.UserID, true)}
-                                    and ac.{countExpression.Column<Active>(ac => ac.TopicID)}={topicId}");
+                        $"""
+                         ac.{countExpression.Column<Active>(ac => ac.UserID)}={expression.Column<Active>(a => a.UserID, true)}
+                                                             and ac.{countExpression.Column<Active>(ac => ac.TopicID)}={topicId}
+                         """);
                     var countSql = countExpression.Select(Sql.Count($"{countExpression.Column<Active>(x => x.UserID)}"))
                         .ToSelectStatement();
 
@@ -169,12 +168,10 @@ public static class ActiveRepositoryExtensions
     /// </returns>
     public static List<ActiveUser> List(
         this IRepository<Active> repository,
-        [NotNull] bool showCrawlers,
-        [NotNull] int activeTime,
-        [CanBeNull] int? boardId = null)
+        bool showCrawlers,
+        int activeTime,
+        int? boardId = null)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.DeleteActive(activeTime);
 
         // -- we don't delete guest access
@@ -274,14 +271,12 @@ public static class ActiveRepositoryExtensions
     /// </returns>
     public static List<ActiveUser> ListUsersPaged(
         this IRepository<Active> repository,
-        [NotNull] int userId,
-        [NotNull] bool showGuests,
-        [NotNull] bool showCrawlers,
-        [NotNull] int pageIndex,
-        [NotNull] int pageSize)
+        int userId,
+        bool showGuests,
+        bool showCrawlers,
+        int pageIndex,
+        int pageSize)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
         return repository.DbAccess.Execute(
@@ -381,10 +376,8 @@ public static class ActiveRepositoryExtensions
     /// </returns>
     public static (int ActiveUsers, int ActiveMembers, int ActiveGuests, int ActiveHidden) Stats(
         this IRepository<Active> repository,
-        [NotNull] int boardId)
+        int boardId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.Execute(
             db =>
                 {
@@ -446,10 +439,8 @@ public static class ActiveRepositoryExtensions
     /// <param name="activeTime">
     /// The active Time.
     /// </param>
-    private static void DeleteActive(this IRepository<Active> repository, [NotNull] int activeTime)
+    private static void DeleteActive(this IRepository<Active> repository, int activeTime)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.DbAccess.Execute(
             db =>
                 {

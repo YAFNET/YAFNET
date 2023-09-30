@@ -84,7 +84,7 @@ public class RanksModel : AdminPage
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public string LadderInfo([NotNull] Rank rank)
+    public string LadderInfo(Rank rank)
     {
         var isLadder = rank.RankFlags.IsLadder;
 

@@ -38,7 +38,7 @@ public class TypedParameter : IServiceLocationParameter
     /// <param name="value">
     /// The value.
     /// </param>
-    public TypedParameter([NotNull] Type type, [NotNull] object value)
+    public TypedParameter(Type type, object value)
     {
         this.Type = type;
         this.Value = value;

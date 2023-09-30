@@ -94,8 +94,8 @@ public class MedalsModel : AdminPage
     /// <returns>
     /// HTML markup with image representation of a medal.
     /// </returns>
-    [NotNull]
-    public string RenderImages([NotNull] Medal medal)
+    
+    public string RenderImages(Medal medal)
     {
         var output = new StringBuilder();
 

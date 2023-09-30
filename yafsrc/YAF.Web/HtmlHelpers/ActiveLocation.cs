@@ -69,15 +69,15 @@ public static class ActiveLocationHtmlHelper
     /// </returns>
     public static IHtmlContent ActiveLocation(
         this IHtmlHelper htmlHelper,
-        [NotNull] int userId,
-        [NotNull] bool hasForumAccess,
-        [NotNull] string forumPage,
-        [CanBeNull] string location,
-        [CanBeNull] int forumId,
-        [CanBeNull] string forumName,
-        [CanBeNull] int topicId,
-        [CanBeNull] string topicName,
-        [NotNull] bool lastLinkOnly)
+        int userId,
+        bool hasForumAccess,
+        string forumPage,
+        string location,
+        int forumId,
+        string forumName,
+        int topicId,
+        string topicName,
+        bool lastLinkOnly)
     {
         var content = new HtmlContentBuilder();
 
@@ -294,8 +294,8 @@ public static class ActiveLocationHtmlHelper
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
     private static IHtmlContent RenderAlbumLocation(
-        [NotNull] string forumPageAttributes,
-        [NotNull] int currentUserId)
+        string forumPageAttributes,
+        int currentUserId)
     {
         var context = BoardContext.Current;
 
@@ -385,8 +385,8 @@ public static class ActiveLocationHtmlHelper
     /// The string
     /// </returns>
     private static IHtmlContent RenderAlbumsLocation(
-        [NotNull] string forumPageAttributes,
-        [NotNull] int currentUserId)
+        string forumPageAttributes,
+        int currentUserId)
     {
         var context = BoardContext.Current;
 
@@ -440,8 +440,8 @@ public static class ActiveLocationHtmlHelper
     /// The profile.
     /// </returns>
     private static IHtmlContent RenderProfileLocation(
-        [NotNull] string forumPageAttributes,
-        [NotNull] int currentUserId)
+        string forumPageAttributes,
+        int currentUserId)
     {
         var context = BoardContext.Current;
 

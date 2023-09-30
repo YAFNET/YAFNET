@@ -27,7 +27,6 @@ namespace YAF.Core.Services;
 using System.Threading.Tasks;
 
 using YAF.Core.Services.CheckForSpam;
-using YAF.Types.Attributes;
 
 /// <summary>
 /// PageUser and Content Spam Checking
@@ -62,10 +61,10 @@ public class SpamCheck : ISpamCheck, IHaveServiceLocator
     /// Returns if Post is SPAM or not
     /// </returns>
     public bool CheckPostForSpam(
-        [NotNull] string userName,
-        [NotNull] string ipAddress,
-        [NotNull] string postMessage,
-        [CanBeNull] string emailAddress,
+        string userName,
+        string ipAddress,
+        string postMessage,
+        string emailAddress,
         out string result)
     {
         result = string.Empty;
@@ -103,9 +102,9 @@ public class SpamCheck : ISpamCheck, IHaveServiceLocator
     /// Returns if Post is SPAM or not
     /// </returns>
     public async Task<(string Result, bool IsBot)> CheckUserForSpamBotAsync(
-        [NotNull] string userName,
-        [CanBeNull] string emailAddress,
-        [NotNull] string ipAddress)
+        string userName,
+        string emailAddress,
+        string ipAddress)
     {
         // Check internal
         var internalCheck = new InternalCheck();

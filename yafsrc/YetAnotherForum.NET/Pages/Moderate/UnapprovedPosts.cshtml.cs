@@ -141,7 +141,7 @@ public class UnapprovedPostsModel : ModerateForumPage
     /// <returns>
     /// Formatted string with escaped HTML markup and formatted.
     /// </returns>
-    public string FormatMessage([NotNull] Tuple<Topic, Message, User> item)
+    public string FormatMessage(Tuple<Topic, Message, User> item)
     {
         if (item.Item2.MessageFlags.NotFormatted)
         {

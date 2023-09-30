@@ -42,10 +42,8 @@ public class BanUser : IHaveServiceLocator, IHandleEvent<BanUserEvent>
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public BanUser([NotNull] IServiceLocator serviceLocator)
+    public BanUser(IServiceLocator serviceLocator)
     {
-        CodeContracts.VerifyNotNull(serviceLocator);
-
         this.ServiceLocator = serviceLocator;
     }
 
@@ -65,7 +63,7 @@ public class BanUser : IHaveServiceLocator, IHandleEvent<BanUserEvent>
     /// <param name="event">
     /// The event.
     /// </param>
-    public void Handle([NotNull]BanUserEvent @event)
+    public void Handle(BanUserEvent @event)
     {
         this.GetRepository<BannedIP>().Save(
             null,

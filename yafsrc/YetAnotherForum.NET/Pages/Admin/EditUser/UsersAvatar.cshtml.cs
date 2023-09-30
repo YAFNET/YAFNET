@@ -56,7 +56,7 @@ public class UsersAvatarModel : AdminPage
     /// <summary>
     /// Gets or sets the User Data.
     /// </summary>
-    [NotNull]
+    
     public Tuple<User, AspNetUsers, Rank, VAccess> EditUser { get; set; }
 
     public List<SelectListItem> Gallery { get; set; }

@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Helpers;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The collapse panel helper.
 /// </summary>
@@ -43,10 +41,8 @@ public static class CollapsePanelHelper
     /// <returns>
     /// Image URL
     /// </returns>
-    public static string GetCollapsiblePanelIcon([NotNull] string panelId, CollapsiblePanelState defaultState)
+    public static string GetCollapsiblePanelIcon(string panelId, CollapsiblePanelState defaultState)
     {
-        CodeContracts.VerifyNotNull(panelId);
-
         var stateValue = BoardContext.Current.Get<ISessionService>().PanelState[panelId];
 
         if (stateValue != CollapsiblePanelState.None)

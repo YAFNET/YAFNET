@@ -28,8 +28,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 ///     The base task module manager.
 /// </summary>
@@ -48,13 +46,13 @@ public abstract class BaseTaskModuleManager : ITaskModuleManager
     /// <summary>
     ///     All the names of tasks running.
     /// </summary>
-    [NotNull]
+    
     public virtual IList<string> TaskManagerInstances => taskManager.Keys.ToList();
 
     /// <summary>
     ///     Gets TaskManagerSnapshot.
     /// </summary>
-    [NotNull]
+    
     public virtual IDictionary<string, IBackgroundTask> TaskManagerSnapshot
     {
         get
@@ -72,7 +70,7 @@ public abstract class BaseTaskModuleManager : ITaskModuleManager
     /// <returns>
     /// The tasks are running.
     /// </returns>
-    public virtual bool AreTasksRunning([NotNull] string[] instanceName)
+    public virtual bool AreTasksRunning(string[] instanceName)
     {
         var isRunning = false;
             
@@ -97,7 +95,7 @@ public abstract class BaseTaskModuleManager : ITaskModuleManager
     /// <returns>
     ///     The is task running.
     /// </returns>
-    public virtual bool IsTaskRunning([NotNull] string instanceName)
+    public virtual bool IsTaskRunning(string instanceName)
     {
         return this.TryGetTask(instanceName, out var task) && task.IsRunning;
     }
@@ -114,7 +112,7 @@ public abstract class BaseTaskModuleManager : ITaskModuleManager
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public abstract bool StartTask([NotNull] string instanceName, [NotNull] Func<IBackgroundTask> startTask);
+    public abstract bool StartTask(string instanceName, Func<IBackgroundTask> startTask);
 
     /// <summary>
     /// Check if a task exists in the task manager. May not be running.
@@ -125,7 +123,7 @@ public abstract class BaseTaskModuleManager : ITaskModuleManager
     /// <returns>
     /// The task exists.
     /// </returns>
-    public virtual bool TaskExists([NotNull] string instanceName)
+    public virtual bool TaskExists(string instanceName)
     {
         return taskManager.ContainsKey(instanceName);
     }
@@ -142,7 +140,7 @@ public abstract class BaseTaskModuleManager : ITaskModuleManager
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public virtual bool TryGetTask([NotNull] string instanceName, out IBackgroundTask task) => taskManager.TryGetValue(instanceName, out task);
+    public virtual bool TryGetTask(string instanceName, out IBackgroundTask task) => taskManager.TryGetValue(instanceName, out task);
 
     /// <summary>
     /// The try remove task.
@@ -153,7 +151,7 @@ public abstract class BaseTaskModuleManager : ITaskModuleManager
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public virtual bool TryRemoveTask([NotNull] string instanceName)
+    public virtual bool TryRemoveTask(string instanceName)
     {
         return taskManager.TryRemove(instanceName, out _);
     }

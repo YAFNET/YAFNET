@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 
 using YAF.Core.BBCode.ReplaceRules;
-using YAF.Types.Attributes;
 
 /// <summary>
 /// The BBCode Class to Format Message From BB Code to HTML and Reverse.
@@ -103,7 +102,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
     /// </returns>
     public string FormatMessageWithCustomBBCode(
         string message,
-        [NotNull] MessageFlags flags,
+        MessageFlags flags,
         int? displayUserId,
         int? messageId)
     {
@@ -206,7 +205,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
     /// <returns>
     /// The converted text
     /// </returns>
-    public string ConvertHtmlToBBCodeForEdit([NotNull] string message)
+    public string ConvertHtmlToBBCodeForEdit(string message)
     {
         const bool DoFormatting = true;
         const bool TargetBlankOverride = false;
@@ -514,7 +513,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
     /// Indicates if the formatting is for the Editor.
     /// </param>
     public void CreateBBCodeRules(
-        [NotNull] int messageId,
+        int messageId,
         IProcessReplaceRules ruleEngine,
         bool doFormatting,
         bool targetBlankOverride,

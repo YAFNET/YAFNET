@@ -28,7 +28,6 @@ using System.IO;
 
 using Microsoft.AspNetCore.Hosting;
 
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>
@@ -45,10 +44,8 @@ public static class FileHelpers
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public static bool DeleteFile([NotNull] this Attachment attachment)
+    public static bool DeleteFile(this Attachment attachment)
     {
-        CodeContracts.VerifyNotNull(attachment);
-
         var webRootPath = BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath;
 
         var uploadFolder = Path.Combine(webRootPath, BoardContext.Current.Get<BoardFolders>().Uploads);

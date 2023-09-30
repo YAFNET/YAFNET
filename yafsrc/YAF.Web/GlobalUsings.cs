@@ -23,7 +23,6 @@ global using YAF.Core.Model;
 global using YAF.Core.Services;
 global using YAF.Core.Utilities;
 global using YAF.Core.Utilities.StringUtils;
-global using YAF.Types;
 global using YAF.Types.Constants;
 global using YAF.Types.Extensions;
 global using YAF.Types.Flags;

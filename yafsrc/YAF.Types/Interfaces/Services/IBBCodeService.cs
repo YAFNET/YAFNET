@@ -50,7 +50,7 @@ public interface IBBCodeService
     /// <returns>
     /// Returns the formatted Message.
     /// </returns>
-    string FormatMessageWithCustomBBCode([NotNull] string message, [NotNull] MessageFlags flags, int? displayUserId, int? messageId);
+    string FormatMessageWithCustomBBCode(string message, MessageFlags flags, int? displayUserId, int? messageId);
 
     /// <summary>
     /// Converts a message containing BBCode to HTML appropriate for editing in a rich text editor.
@@ -66,7 +66,7 @@ public interface IBBCodeService
     /// The converted text
     /// </returns>
     //[Obsolete]
-    //string ConvertBBCodeToHtmlForEdit([NotNull] string message);
+    //string ConvertBBCodeToHtmlForEdit(string message);
 
     /// <summary>
     /// Converts a message containing HTML to BBCode for editing.
@@ -77,7 +77,7 @@ public interface IBBCodeService
     /// <returns>
     /// The converted text
     /// </returns>
-    string ConvertHtmlToBBCodeForEdit([NotNull] string message);
+    string ConvertHtmlToBBCodeForEdit(string message);
 
     /// <summary>
     /// Creates the rules that convert BBCode to HTML
@@ -101,8 +101,8 @@ public interface IBBCodeService
     /// Indicates if the formatting is for the Editor.
     /// </param>
     void CreateBBCodeRules(
-        [NotNull] int messageId,
-        [NotNull] IProcessReplaceRules ruleEngine,
+        int messageId,
+        IProcessReplaceRules ruleEngine,
         bool doFormatting,
         bool targetBlankOverride,
         bool useNoFollow,
@@ -118,7 +118,7 @@ public interface IBBCodeService
     /// <returns>
     /// The localize custom bb code element.
     /// </returns>
-    string LocalizeCustomBBCodeElement([NotNull] string strToLocalize);
+    string LocalizeCustomBBCodeElement(string strToLocalize);
 
     /// <summary>
     /// Converts a string containing BBCode to the equivalent HTML string.
@@ -135,7 +135,7 @@ public interface IBBCodeService
     /// <returns>
     /// The make html.
     /// </returns>
-    string MakeHtml([NotNull] string inputString, bool doFormatting, bool targetBlankOverride);
+    string MakeHtml(string inputString, bool doFormatting, bool targetBlankOverride);
 
     /// <summary>
     /// Helper function that dandles registering "Custom BBCode" JavaScript (if there is any)
@@ -151,7 +151,7 @@ public interface IBBCodeService
     /// The editor ID.
     /// </param>
     void RegisterCustomBBCodeInlineElements(
-        [NotNull] string editorId);
+        string editorId);
 
     /// <summary>
     ///     The get custom bb code.

@@ -24,8 +24,6 @@
 
 namespace YAF.Core.Extensions;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The db access extensions.
 /// </summary>
@@ -37,7 +35,7 @@ public static class DbAccessV2Extensions
     /// <param name="dbCommand">
     /// The db command.
     /// </param>
-    public static DbCommand ReplaceCommandText([NotNull] this DbCommand dbCommand)
+    public static DbCommand ReplaceCommandText(this DbCommand dbCommand)
     {
         var commandText = dbCommand.CommandText;
 
@@ -61,7 +59,7 @@ public static class DbAccessV2Extensions
     /// <returns>
     /// true if successfully connected
     /// </returns>
-    public static bool TestConnection([NotNull] this IDbAccess dbAccess, [NotNull] out string exceptionMessage)
+    public static bool TestConnection(this IDbAccess dbAccess, out string exceptionMessage)
     {
         exceptionMessage = string.Empty;
         var success = false;

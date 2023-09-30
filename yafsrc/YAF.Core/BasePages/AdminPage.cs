@@ -24,8 +24,6 @@
 
 namespace YAF.Core.BasePages;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// Admin page with extra security. All admin pages need to be derived from this base class.
 /// </summary>
@@ -40,7 +38,7 @@ public class AdminPage : ForumPage
     /// <param name="page">
     /// The page.
     /// </param>
-    public AdminPage([CanBeNull] string transPage, ForumPages page)
+    public AdminPage(string transPage, ForumPages page)
         : base(transPage, page)
     {
         this.IsAdminPage = true;

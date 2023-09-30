@@ -27,7 +27,6 @@ namespace YAF.Core.Services;
 using System;
 
 using YAF.Core.Model;
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
 
@@ -42,7 +41,7 @@ public class Friends : IFriends, IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public Friends([NotNull] IServiceLocator serviceLocator)
+    public Friends(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }

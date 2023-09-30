@@ -79,11 +79,9 @@ public class MySqlDbInformation : IDbInformation
     /// </summary>
     /// <param name="parameters">The Connection Parameters</param>
     /// <returns>Returns the Connection String</returns>
-    public string BuildConnectionString([NotNull] IEnumerable<IDbConnectionParam> parameters)
+    public string BuildConnectionString(IEnumerable<IDbConnectionParam> parameters)
     {
         var connectionParams = parameters.ToList();
-
-        CodeContracts.VerifyNotNull(connectionParams);
 
         var connBuilder = new MySqlConnectionStringBuilder();
 

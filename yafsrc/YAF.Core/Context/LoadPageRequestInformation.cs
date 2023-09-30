@@ -50,9 +50,9 @@ public class LoadPageRequestInformation : IHandleEvent<InitPageLoadEvent>, IHave
     /// The browser Detector.
     /// </param>
     public LoadPageRequestInformation(
-        [NotNull] IServiceLocator serviceLocator,
-        [NotNull] IHttpContextAccessor accessor,
-        [NotNull] IUserAgentParser parser)
+        IServiceLocator serviceLocator,
+        IHttpContextAccessor accessor,
+        IUserAgentParser parser)
     {
         this.ServiceLocator = serviceLocator;
         this.HttpRequestBase = accessor.HttpContext.Request;
@@ -78,7 +78,7 @@ public class LoadPageRequestInformation : IHandleEvent<InitPageLoadEvent>, IHave
     /// Handles the specified @event.
     /// </summary>
     /// <param name="event">The @event.</param>
-    public void Handle([NotNull] InitPageLoadEvent @event)
+    public void Handle(InitPageLoadEvent @event)
     {
         if (this.userAgentParser == null)
         {

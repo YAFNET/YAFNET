@@ -28,7 +28,6 @@ using System;
 using System.Collections.Generic;
 
 using YAF.Core.Context;
-using YAF.Types.Attributes;
 
 /// <summary>
 /// The YAF BBCode control.
@@ -132,7 +131,7 @@ public class BBCodeControl : IHaveServiceLocator, IHaveLocalization
     /// <returns>
     /// Returns the localized string.
     /// </returns>
-    protected string LocalizedString([NotNull] string tag, [NotNull] string defaultString)
+    protected string LocalizedString(string tag, string defaultString)
     {
         return this.Get<ILocalization>().GetTextExists("BBCODEMODULE", tag)
                    ? this.GetText("BBCODEMODULE", tag)

@@ -31,7 +31,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 
 using YAF.Core.Model;
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
@@ -53,7 +52,7 @@ public class ChatHub : Hub, IHaveServiceLocator
     /// <param name="serviceLocator">
     /// The service locator.
     /// </param>
-    public ChatHub([NotNull] IServiceLocator serviceLocator)
+    public ChatHub(IServiceLocator serviceLocator)
     {
         this.ServiceLocator = serviceLocator;
     }
@@ -67,7 +66,7 @@ public class ChatHub : Hub, IHaveServiceLocator
     /// <param name="avatar">the avatar</param>
     /// <param name="toUserId">The Sender User Id</param>
     public async Task ConnectAsync(
-        [NotNull] string avatar,
+        string avatar,
         int toUserId)
     {
         var id = this.Context.ConnectionId;
