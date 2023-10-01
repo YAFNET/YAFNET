@@ -17,7 +17,7 @@ public class IndexFieldsCacheKey
     /// <summary>
     /// The hash code
     /// </summary>
-    readonly int hashCode;
+    private readonly int hashCode;
 
     /// <summary>
     /// Gets the model definition.
@@ -40,7 +40,7 @@ public class IndexFieldsCacheKey
     /// <summary>
     /// Initializes a new instance of the <see cref="IndexFieldsCacheKey"/> class.
     /// </summary>
-    /// <param name="reader">The reader.</param>
+    /// <param name="fields">The fields.</param>
     /// <param name="modelDefinition">The model definition.</param>
     /// <param name="dialect">The dialect.</param>
     public IndexFieldsCacheKey(string[] fields, ModelDefinition modelDefinition, IOrmLiteDialectProvider dialect)

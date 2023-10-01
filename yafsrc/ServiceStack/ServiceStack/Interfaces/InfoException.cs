@@ -15,7 +15,7 @@ namespace ServiceStack;
 /// </summary>
 public class InfoException : Exception
 {
-    public InfoException([CanBeNull] string message) : base(message) { }
+    public InfoException(string message) : base(message) { }
 
     public override string ToString() => Message;
 }

@@ -108,17 +108,17 @@ public enum ProfileSource
 public abstract class DiagnosticEvent
 {
     public virtual string Source => GetType().Name.Replace(nameof(DiagnosticEvent), "");
-    public string EventType { get; set; }
+    public string? EventType { get; set; }
     public Guid OperationId { get; set; }
-    public string Operation { get; set; }
+    public string? Operation { get; set; }
     public string? TraceId { get; set; }
     public string? UserAuthId { get; set; }
     public Exception? Exception { get; set; }
     public long Timestamp { get; set; }
-    public object DiagnosticEntry { get; set; }
+    public object? DiagnosticEntry { get; set; }
     public string? Tag { get; set; }
     public string? StackTrace { get; set; }
-    public Dictionary<string, string> Meta { get; set; }
+    public Dictionary<string, string>? Meta { get; set; }
 }
 
 public class OrmLiteDiagnosticEvent : DiagnosticEvent

@@ -13,6 +13,7 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+
 using ServiceStack.Data;
 using ServiceStack.DataAnnotations;
 using ServiceStack.Logging;
@@ -24,11 +25,11 @@ public class Migration : IMeta
 {
     [AutoIncrement]
     public long Id { get; set; }
-    public string Name { get; set; }
+    public string? Name { get; set; }
     public string? Description { get; set; }
     public DateTime CreatedDate { get; set; }
     public DateTime? CompletedDate { get; set; }
-    public string ConnectionString { get; set; }
+    public string? ConnectionString { get; set; }
     public string? NamedConnection { get; set; }
     [StringLength(StringLengthAttribute.MaxText)]
     public string? Log { get; set; }
@@ -37,7 +38,7 @@ public class Migration : IMeta
     [StringLength(StringLengthAttribute.MaxText)]
     public string? ErrorStackTrace { get; set; }
     [StringLength(StringLengthAttribute.MaxText)]
-    public Dictionary<string, string> Meta { get; set; }
+    public Dictionary<string, string>? Meta { get; set; }
 }
 
 public abstract class MigrationBase : IAppTask
@@ -84,11 +85,10 @@ public class Migrator
     
     public ILog Log { get; set; } = new ConsoleLogger(typeof(Migrator));
 
-    Type? GetNextMigrationToRun(IDbConnection db, List<Type> migrationTypes)
+    private Type? GetNextMigrationToRun(IDbConnection db, List<Type> migrationTypes)
     {
         var completedMigrations = new List<Type>();
 
-        Type? nextRun = null;
         var q = db.From<Migration>()
             .OrderByDescending(x => x.Name).Limit(1);
         var lastRun = db.Single(q);
@@ -282,10 +282,9 @@ public class Migrator
         else
             Init(db);
     }
-    
-    Type? GetNextMigrationRevertToRun(IDbConnection db, List<Type> migrationTypes)
+
+    private Type? GetNextMigrationRevertToRun(IDbConnection db, List<Type> migrationTypes)
     {
-        Type? nextRun = null;
         var q = db.From<Migration>()
             .OrderByDescending(x => x.Name).Limit(1);
         Migration? lastRun = null;

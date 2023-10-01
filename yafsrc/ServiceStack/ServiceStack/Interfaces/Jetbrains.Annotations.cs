@@ -43,7 +43,7 @@ namespace JetBrains.Annotations;
 /// </summary>
 /// <example>
 ///   <code>
-/// [CanBeNull] object Test() =&gt; null;
+/// object Test() =&gt; null;
 /// void UseTest() {
 /// var p = Test();
 /// var s = p.ToString(); // Warning: Possible 'System.NullReferenceException'
@@ -61,7 +61,7 @@ internal sealed class CanBeNullAttribute : Attribute { }
 /// </summary>
 /// <example>
 ///   <code>
-/// [NotNull] object Foo() {
+/// object Foo() {
 /// return null; // Warning: Possible 'null' assignment
 /// }
 /// </code>
@@ -115,7 +115,7 @@ internal sealed class StringFormatMethodAttribute : Attribute
     /// Initializes a new instance of the <see cref="StringFormatMethodAttribute"/> class.
     /// </summary>
     /// <param name="formatParameterName">Specifies which parameter of an annotated method should be treated as format-string</param>
-    public StringFormatMethodAttribute([NotNull] string formatParameterName)
+    public StringFormatMethodAttribute(string formatParameterName)
     {
         FormatParameterName = formatParameterName;
     }
@@ -124,7 +124,7 @@ internal sealed class StringFormatMethodAttribute : Attribute
     /// Gets the name of the format parameter.
     /// </summary>
     /// <value>The name of the format parameter.</value>
-    [NotNull] public string FormatParameterName { get; }
+    public string FormatParameterName { get; }
 }
 
 /// <summary>
@@ -140,7 +140,7 @@ internal sealed class ValueProviderAttribute : Attribute
     /// Initializes a new instance of the <see cref="ValueProviderAttribute"/> class.
     /// </summary>
     /// <param name="name">The name.</param>
-    public ValueProviderAttribute([NotNull] string name)
+    public ValueProviderAttribute(string name)
     {
         Name = name;
     }
@@ -149,7 +149,7 @@ internal sealed class ValueProviderAttribute : Attribute
     /// Gets the name.
     /// </summary>
     /// <value>The name.</value>
-    [NotNull] public string Name { get; }
+    public string Name { get; }
 }
 
 /// <summary>
@@ -202,7 +202,7 @@ internal sealed class NotifyPropertyChangedInvocatorAttribute : Attribute
     /// Initializes a new instance of the <see cref="NotifyPropertyChangedInvocatorAttribute"/> class.
     /// </summary>
     /// <param name="parameterName">Name of the parameter.</param>
-    public NotifyPropertyChangedInvocatorAttribute([NotNull] string parameterName)
+    public NotifyPropertyChangedInvocatorAttribute(string parameterName)
     {
         ParameterName = parameterName;
     }
@@ -211,7 +211,7 @@ internal sealed class NotifyPropertyChangedInvocatorAttribute : Attribute
     /// Gets the name of the parameter.
     /// </summary>
     /// <value>The name of the parameter.</value>
-    [CanBeNull] public string ParameterName { get; }
+    public string ParameterName { get; }
 }
 
 /// <summary>
@@ -276,7 +276,7 @@ internal sealed class ContractAnnotationAttribute : Attribute
     /// Initializes a new instance of the <see cref="ContractAnnotationAttribute"/> class.
     /// </summary>
     /// <param name="contract">The contract.</param>
-    public ContractAnnotationAttribute([NotNull] string contract)
+    public ContractAnnotationAttribute(string contract)
         : this(contract, false) { }
 
     /// <summary>
@@ -284,7 +284,7 @@ internal sealed class ContractAnnotationAttribute : Attribute
     /// </summary>
     /// <param name="contract">The contract.</param>
     /// <param name="forceFullStates">if set to <c>true</c> [force full states].</param>
-    public ContractAnnotationAttribute([NotNull] string contract, bool forceFullStates)
+    public ContractAnnotationAttribute(string contract, bool forceFullStates)
     {
         Contract = contract;
         ForceFullStates = forceFullStates;
@@ -294,7 +294,7 @@ internal sealed class ContractAnnotationAttribute : Attribute
     /// Gets the contract.
     /// </summary>
     /// <value>The contract.</value>
-    [NotNull] public string Contract { get; }
+    public string Contract { get; }
 
     /// <summary>
     /// Gets a value indicating whether [force full states].
@@ -382,7 +382,7 @@ internal sealed class BaseTypeRequiredAttribute : Attribute
     /// Initializes a new instance of the <see cref="BaseTypeRequiredAttribute"/> class.
     /// </summary>
     /// <param name="baseType">Type of the base.</param>
-    public BaseTypeRequiredAttribute([NotNull] Type baseType)
+    public BaseTypeRequiredAttribute(Type baseType)
     {
         BaseType = baseType;
     }
@@ -391,7 +391,7 @@ internal sealed class BaseTypeRequiredAttribute : Attribute
     /// Gets the type of the base.
     /// </summary>
     /// <value>The type of the base.</value>
-    [NotNull] public Type BaseType { get; }
+    public Type BaseType { get; }
 }
 
 /// <summary>
@@ -573,7 +573,7 @@ internal sealed class PublicAPIAttribute : Attribute
     /// Initializes a new instance of the <see cref="PublicAPIAttribute"/> class.
     /// </summary>
     /// <param name="comment">The comment.</param>
-    public PublicAPIAttribute([NotNull] string comment)
+    public PublicAPIAttribute(string comment)
     {
         Comment = comment;
     }
@@ -582,7 +582,7 @@ internal sealed class PublicAPIAttribute : Attribute
     /// Gets the comment.
     /// </summary>
     /// <value>The comment.</value>
-    [CanBeNull] public string Comment { get; }
+    public string Comment { get; }
 }
 
 /// <summary>
@@ -623,7 +623,7 @@ internal sealed class MustUseReturnValueAttribute : Attribute
     /// Initializes a new instance of the <see cref="MustUseReturnValueAttribute"/> class.
     /// </summary>
     /// <param name="justification">The justification.</param>
-    public MustUseReturnValueAttribute([NotNull] string justification)
+    public MustUseReturnValueAttribute(string justification)
     {
         Justification = justification;
     }
@@ -632,7 +632,7 @@ internal sealed class MustUseReturnValueAttribute : Attribute
     /// Gets the justification.
     /// </summary>
     /// <value>The justification.</value>
-    [CanBeNull] public string Justification { get; }
+    public string Justification { get; }
 }
 
 /// <summary>
@@ -681,7 +681,7 @@ internal sealed class PathReferenceAttribute : Attribute
     /// Gets the base path.
     /// </summary>
     /// <value>The base path.</value>
-    [CanBeNull] public string BasePath { get; }
+    public string BasePath { get; }
 }
 
 /// <summary>
@@ -740,7 +740,7 @@ internal sealed class MacroAttribute : Attribute
     /// parameter when the template is expanded.
     /// </summary>
     /// <value>The expression.</value>
-    [CanBeNull] public string Expression { get; set; }
+    public string Expression { get; set; }
 
     /// <summary>
     /// Allows specifying which occurrence of the target parameter becomes editable when the template is deployed.
@@ -757,7 +757,7 @@ internal sealed class MacroAttribute : Attribute
     /// <see cref="MacroAttribute" /> is applied on a template method.
     /// </summary>
     /// <value>The target.</value>
-    [CanBeNull] public string Target { get; set; }
+    public string Target { get; set; }
 }
 
 /// <summary>
@@ -772,7 +772,7 @@ internal sealed class AspMvcAreaMasterLocationFormatAttribute : Attribute
     /// Initializes a new instance of the <see cref="AspMvcAreaMasterLocationFormatAttribute"/> class.
     /// </summary>
     /// <param name="format">The format.</param>
-    public AspMvcAreaMasterLocationFormatAttribute([NotNull] string format)
+    public AspMvcAreaMasterLocationFormatAttribute(string format)
     {
         Format = format;
     }
@@ -781,7 +781,7 @@ internal sealed class AspMvcAreaMasterLocationFormatAttribute : Attribute
     /// Gets the format.
     /// </summary>
     /// <value>The format.</value>
-    [NotNull] public string Format { get; }
+    public string Format { get; }
 }
 
 /// <summary>
@@ -796,7 +796,7 @@ internal sealed class AspMvcAreaPartialViewLocationFormatAttribute : Attribute
     /// Initializes a new instance of the <see cref="AspMvcAreaPartialViewLocationFormatAttribute"/> class.
     /// </summary>
     /// <param name="format">The format.</param>
-    public AspMvcAreaPartialViewLocationFormatAttribute([NotNull] string format)
+    public AspMvcAreaPartialViewLocationFormatAttribute(string format)
     {
         Format = format;
     }
@@ -805,7 +805,7 @@ internal sealed class AspMvcAreaPartialViewLocationFormatAttribute : Attribute
     /// Gets the format.
     /// </summary>
     /// <value>The format.</value>
-    [NotNull] public string Format { get; }
+    public string Format { get; }
 }
 
 /// <summary>
@@ -820,7 +820,7 @@ internal sealed class AspMvcAreaViewLocationFormatAttribute : Attribute
     /// Initializes a new instance of the <see cref="AspMvcAreaViewLocationFormatAttribute"/> class.
     /// </summary>
     /// <param name="format">The format.</param>
-    public AspMvcAreaViewLocationFormatAttribute([NotNull] string format)
+    public AspMvcAreaViewLocationFormatAttribute(string format)
     {
         Format = format;
     }
@@ -829,7 +829,7 @@ internal sealed class AspMvcAreaViewLocationFormatAttribute : Attribute
     /// Gets the format.
     /// </summary>
     /// <value>The format.</value>
-    [NotNull] public string Format { get; }
+    public string Format { get; }
 }
 
 /// <summary>
@@ -844,7 +844,7 @@ internal sealed class AspMvcMasterLocationFormatAttribute : Attribute
     /// Initializes a new instance of the <see cref="AspMvcMasterLocationFormatAttribute"/> class.
     /// </summary>
     /// <param name="format">The format.</param>
-    public AspMvcMasterLocationFormatAttribute([NotNull] string format)
+    public AspMvcMasterLocationFormatAttribute(string format)
     {
         Format = format;
     }
@@ -853,7 +853,7 @@ internal sealed class AspMvcMasterLocationFormatAttribute : Attribute
     /// Gets the format.
     /// </summary>
     /// <value>The format.</value>
-    [NotNull] public string Format { get; }
+    public string Format { get; }
 }
 
 /// <summary>
@@ -868,7 +868,7 @@ internal sealed class AspMvcPartialViewLocationFormatAttribute : Attribute
     /// Initializes a new instance of the <see cref="AspMvcPartialViewLocationFormatAttribute"/> class.
     /// </summary>
     /// <param name="format">The format.</param>
-    public AspMvcPartialViewLocationFormatAttribute([NotNull] string format)
+    public AspMvcPartialViewLocationFormatAttribute(string format)
     {
         Format = format;
     }
@@ -877,7 +877,7 @@ internal sealed class AspMvcPartialViewLocationFormatAttribute : Attribute
     /// Gets the format.
     /// </summary>
     /// <value>The format.</value>
-    [NotNull] public string Format { get; }
+    public string Format { get; }
 }
 
 /// <summary>
@@ -892,7 +892,7 @@ internal sealed class AspMvcViewLocationFormatAttribute : Attribute
     /// Initializes a new instance of the <see cref="AspMvcViewLocationFormatAttribute"/> class.
     /// </summary>
     /// <param name="format">The format.</param>
-    public AspMvcViewLocationFormatAttribute([NotNull] string format)
+    public AspMvcViewLocationFormatAttribute(string format)
     {
         Format = format;
     }
@@ -901,7 +901,7 @@ internal sealed class AspMvcViewLocationFormatAttribute : Attribute
     /// Gets the format.
     /// </summary>
     /// <value>The format.</value>
-    [NotNull] public string Format { get; }
+    public string Format { get; }
 }
 
 /// <summary>
@@ -922,7 +922,7 @@ internal sealed class AspMvcActionAttribute : Attribute
     /// Initializes a new instance of the <see cref="AspMvcActionAttribute"/> class.
     /// </summary>
     /// <param name="anonymousProperty">The anonymous property.</param>
-    public AspMvcActionAttribute([NotNull] string anonymousProperty)
+    public AspMvcActionAttribute(string anonymousProperty)
     {
         AnonymousProperty = anonymousProperty;
     }
@@ -931,7 +931,7 @@ internal sealed class AspMvcActionAttribute : Attribute
     /// Gets the anonymous property.
     /// </summary>
     /// <value>The anonymous property.</value>
-    [CanBeNull] public string AnonymousProperty { get; }
+    public string AnonymousProperty { get; }
 }
 
 /// <summary>
@@ -951,7 +951,7 @@ internal sealed class AspMvcAreaAttribute : Attribute
     /// Initializes a new instance of the <see cref="AspMvcAreaAttribute"/> class.
     /// </summary>
     /// <param name="anonymousProperty">The anonymous property.</param>
-    public AspMvcAreaAttribute([NotNull] string anonymousProperty)
+    public AspMvcAreaAttribute(string anonymousProperty)
     {
         AnonymousProperty = anonymousProperty;
     }
@@ -960,7 +960,7 @@ internal sealed class AspMvcAreaAttribute : Attribute
     /// Gets the anonymous property.
     /// </summary>
     /// <value>The anonymous property.</value>
-    [CanBeNull] public string AnonymousProperty { get; }
+    public string AnonymousProperty { get; }
 }
 
 /// <summary>
@@ -981,7 +981,7 @@ internal sealed class AspMvcControllerAttribute : Attribute
     /// Initializes a new instance of the <see cref="AspMvcControllerAttribute"/> class.
     /// </summary>
     /// <param name="anonymousProperty">The anonymous property.</param>
-    public AspMvcControllerAttribute([NotNull] string anonymousProperty)
+    public AspMvcControllerAttribute(string anonymousProperty)
     {
         AnonymousProperty = anonymousProperty;
     }
@@ -990,7 +990,7 @@ internal sealed class AspMvcControllerAttribute : Attribute
     /// Gets the anonymous property.
     /// </summary>
     /// <value>The anonymous property.</value>
-    [CanBeNull] public string AnonymousProperty { get; }
+    public string AnonymousProperty { get; }
 }
 
 /// <summary>
@@ -1102,7 +1102,7 @@ internal sealed class HtmlElementAttributesAttribute : Attribute
     /// Initializes a new instance of the <see cref="HtmlElementAttributesAttribute"/> class.
     /// </summary>
     /// <param name="name">The name.</param>
-    public HtmlElementAttributesAttribute([NotNull] string name)
+    public HtmlElementAttributesAttribute(string name)
     {
         Name = name;
     }
@@ -1111,7 +1111,7 @@ internal sealed class HtmlElementAttributesAttribute : Attribute
     /// Gets the name.
     /// </summary>
     /// <value>The name.</value>
-    [CanBeNull] public string Name { get; }
+    public string Name { get; }
 }
 
 /// <summary>
@@ -1126,7 +1126,7 @@ internal sealed class HtmlAttributeValueAttribute : Attribute
     /// Initializes a new instance of the <see cref="HtmlAttributeValueAttribute"/> class.
     /// </summary>
     /// <param name="name">The name.</param>
-    public HtmlAttributeValueAttribute([NotNull] string name)
+    public HtmlAttributeValueAttribute(string name)
     {
         Name = name;
     }
@@ -1135,7 +1135,7 @@ internal sealed class HtmlAttributeValueAttribute : Attribute
     /// Gets the name.
     /// </summary>
     /// <value>The name.</value>
-    [NotNull] public string Name { get; }
+    public string Name { get; }
 }
 
 /// <summary>
@@ -1313,7 +1313,7 @@ internal sealed class AspChildControlTypeAttribute : Attribute
     /// </summary>
     /// <param name="tagName">Name of the tag.</param>
     /// <param name="controlType">Type of the control.</param>
-    public AspChildControlTypeAttribute([NotNull] string tagName, [NotNull] Type controlType)
+    public AspChildControlTypeAttribute(string tagName, Type controlType)
     {
         TagName = tagName;
         ControlType = controlType;
@@ -1323,13 +1323,13 @@ internal sealed class AspChildControlTypeAttribute : Attribute
     /// Gets the name of the tag.
     /// </summary>
     /// <value>The name of the tag.</value>
-    [NotNull] public string TagName { get; }
+    public string TagName { get; }
 
     /// <summary>
     /// Gets the type of the control.
     /// </summary>
     /// <value>The type of the control.</value>
-    [NotNull] public Type ControlType { get; }
+    public Type ControlType { get; }
 }
 
 /// <summary>
@@ -1368,7 +1368,7 @@ internal sealed class AspRequiredAttributeAttribute : Attribute
     /// Initializes a new instance of the <see cref="AspRequiredAttributeAttribute"/> class.
     /// </summary>
     /// <param name="attribute">The attribute.</param>
-    public AspRequiredAttributeAttribute([NotNull] string attribute)
+    public AspRequiredAttributeAttribute(string attribute)
     {
         Attribute = attribute;
     }
@@ -1377,7 +1377,7 @@ internal sealed class AspRequiredAttributeAttribute : Attribute
     /// Gets the attribute.
     /// </summary>
     /// <value>The attribute.</value>
-    [NotNull] public string Attribute { get; }
+    public string Attribute { get; }
 }
 
 /// <summary>
@@ -1416,7 +1416,7 @@ internal sealed class RazorImportNamespaceAttribute : Attribute
     /// Initializes a new instance of the <see cref="RazorImportNamespaceAttribute"/> class.
     /// </summary>
     /// <param name="name">The name.</param>
-    public RazorImportNamespaceAttribute([NotNull] string name)
+    public RazorImportNamespaceAttribute(string name)
     {
         Name = name;
     }
@@ -1425,7 +1425,7 @@ internal sealed class RazorImportNamespaceAttribute : Attribute
     /// Gets the name.
     /// </summary>
     /// <value>The name.</value>
-    [NotNull] public string Name { get; }
+    public string Name { get; }
 }
 
 /// <summary>
@@ -1441,7 +1441,7 @@ internal sealed class RazorInjectionAttribute : Attribute
     /// </summary>
     /// <param name="type">The type.</param>
     /// <param name="fieldName">Name of the field.</param>
-    public RazorInjectionAttribute([NotNull] string type, [NotNull] string fieldName)
+    public RazorInjectionAttribute(string type, string fieldName)
     {
         Type = type;
         FieldName = fieldName;
@@ -1451,13 +1451,13 @@ internal sealed class RazorInjectionAttribute : Attribute
     /// Gets the type.
     /// </summary>
     /// <value>The type.</value>
-    [NotNull] public string Type { get; }
+    public string Type { get; }
 
     /// <summary>
     /// Gets the name of the field.
     /// </summary>
     /// <value>The name of the field.</value>
-    [NotNull] public string FieldName { get; }
+    public string FieldName { get; }
 }
 
 /// <summary>
@@ -1472,7 +1472,7 @@ internal sealed class RazorDirectiveAttribute : Attribute
     /// Initializes a new instance of the <see cref="RazorDirectiveAttribute"/> class.
     /// </summary>
     /// <param name="directive">The directive.</param>
-    public RazorDirectiveAttribute([NotNull] string directive)
+    public RazorDirectiveAttribute(string directive)
     {
         Directive = directive;
     }
@@ -1481,7 +1481,7 @@ internal sealed class RazorDirectiveAttribute : Attribute
     /// Gets the directive.
     /// </summary>
     /// <value>The directive.</value>
-    [NotNull] public string Directive { get; }
+    public string Directive { get; }
 }
 
 /// <summary>
@@ -1496,7 +1496,7 @@ internal sealed class RazorPageBaseTypeAttribute : Attribute
     /// Initializes a new instance of the <see cref="RazorPageBaseTypeAttribute"/> class.
     /// </summary>
     /// <param name="baseType">Type of the base.</param>
-    public RazorPageBaseTypeAttribute([NotNull] string baseType)
+    public RazorPageBaseTypeAttribute(string baseType)
     {
         BaseType = baseType;
     }
@@ -1506,7 +1506,7 @@ internal sealed class RazorPageBaseTypeAttribute : Attribute
     /// </summary>
     /// <param name="baseType">Type of the base.</param>
     /// <param name="pageName">Name of the page.</param>
-    public RazorPageBaseTypeAttribute([NotNull] string baseType, string pageName)
+    public RazorPageBaseTypeAttribute(string baseType, string pageName)
     {
         BaseType = baseType;
         PageName = pageName;
@@ -1516,13 +1516,13 @@ internal sealed class RazorPageBaseTypeAttribute : Attribute
     /// Gets the type of the base.
     /// </summary>
     /// <value>The type of the base.</value>
-    [NotNull] public string BaseType { get; }
+    public string BaseType { get; }
 
     /// <summary>
     /// Gets the name of the page.
     /// </summary>
     /// <value>The name of the page.</value>
-    [CanBeNull] public string PageName { get; }
+    public string PageName { get; }
 }
 
 /// <summary>
