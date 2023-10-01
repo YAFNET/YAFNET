@@ -110,7 +110,7 @@ public partial class _default : BasePage, IHaveServiceLocator
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Init([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Page_Init(object sender, EventArgs e)
     {
         // set the connection string provider...
         var previousProvider = this.Get<IDbAccess>().Information.ConnectionString;
@@ -124,7 +124,7 @@ public partial class _default : BasePage, IHaveServiceLocator
     /// Initializes the <see cref="T:System.Web.UI.HtmlTextWriter" /> object and calls on the child controls of the <see cref="T:System.Web.UI.Page" /> to render.
     /// </summary>
     /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> that receives the page content.</param>
-    protected override void Render([NotNull] HtmlTextWriter writer)
+    protected override void Render(HtmlTextWriter writer)
     {
         base.Render(writer);
     }
@@ -138,7 +138,7 @@ public partial class _default : BasePage, IHaveServiceLocator
     /// <param name="e">
     /// The <see cref="System.EventArgs"/> instance containing the event data.
     /// </param>
-    protected void TestDBConnectionManual_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void TestDBConnectionManual_Click(object sender, EventArgs e)
     {
         // attempt to connect DB...
         if (!this.InstallService.TestDatabaseConnection(out var message))
@@ -170,7 +170,7 @@ public partial class _default : BasePage, IHaveServiceLocator
     /// <param name="e">
     /// The <see cref="System.EventArgs"/> instance containing the event data.
     /// </param>
-    protected void TestDBConnection_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void TestDBConnection_Click(object sender, EventArgs e)
     {
         if (!this.InstallService.TestDatabaseConnection(out var message))
         {
@@ -201,7 +201,7 @@ public partial class _default : BasePage, IHaveServiceLocator
     /// <param name="e">
     /// The <see cref="System.EventArgs"/> instance containing the event data.
     /// </param>
-    protected void TestPermissions_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void TestPermissions_Click(object sender, EventArgs e)
     {
         this.CheckWritePermission();
     }
@@ -215,7 +215,7 @@ public partial class _default : BasePage, IHaveServiceLocator
     /// <param name="e">
     /// The <see cref="System.EventArgs"/> instance containing the event data.
     /// </param>
-    protected void TestSmtp_Click([NotNull] object sender, [NotNull] EventArgs e)
+    protected void TestSmtp_Click(object sender, EventArgs e)
     {
         try
         {
@@ -250,7 +250,7 @@ public partial class _default : BasePage, IHaveServiceLocator
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Wizard_ActiveStepChanged([NotNull] object sender, [NotNull] EventArgs e)
+    protected void Wizard_ActiveStepChanged(object sender, EventArgs e)
     {
         var previousVisible = false;
 
@@ -299,7 +299,7 @@ public partial class _default : BasePage, IHaveServiceLocator
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="WizardNavigationEventArgs"/> instance containing the event data.</param>
-    protected void Wizard_FinishButtonClick([NotNull] object sender, [NotNull] WizardNavigationEventArgs e)
+    protected void Wizard_FinishButtonClick(object sender, WizardNavigationEventArgs e)
     {
         this.Get<HttpResponseBase>().Redirect("~/");
     }
@@ -313,7 +313,7 @@ public partial class _default : BasePage, IHaveServiceLocator
     /// <param name="e">
     /// The <see cref="System.Web.UI.WebControls.WizardNavigationEventArgs"/> instance containing the event data.
     /// </param>
-    protected void Wizard_NextButtonClick([NotNull] object sender, [NotNull] WizardNavigationEventArgs e)
+    protected void Wizard_NextButtonClick(object sender, WizardNavigationEventArgs e)
     {
         e.Cancel = true;
 
@@ -381,7 +381,7 @@ public partial class _default : BasePage, IHaveServiceLocator
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="WizardNavigationEventArgs" /> instance containing the event data.</param>
-    protected void Wizard_PreviousButtonClick([NotNull] object sender, [NotNull] WizardNavigationEventArgs e)
+    protected void Wizard_PreviousButtonClick(object sender, WizardNavigationEventArgs e)
     {
         if (this.CurrentWizardStepID == "WizTestSettings")
         {
@@ -400,7 +400,7 @@ public partial class _default : BasePage, IHaveServiceLocator
     /// <returns>
     /// The directory has write permission.
     /// </returns>
-    private static bool DirectoryHasWritePermission([NotNull] string directory)
+    private static bool DirectoryHasWritePermission(string directory)
     {
         bool hasWriteAccess;
 
@@ -429,11 +429,11 @@ public partial class _default : BasePage, IHaveServiceLocator
     /// <param name="info">The info.</param>
     /// <param name="cssClass">The CSS class.</param>
     private static void UpdateInfoPanel(
-        [NotNull] Control infoHolder,
-        [NotNull] ITextControl detailsLiteral,
-        [NotNull] string detailsTitle,
-        [NotNull] string info,
-        [NotNull] string cssClass)
+        Control infoHolder,
+        ITextControl detailsLiteral,
+        string detailsTitle,
+        string info,
+        string cssClass)
     {
         infoHolder.Visible = true;
 
@@ -446,7 +446,7 @@ public partial class _default : BasePage, IHaveServiceLocator
     /// </summary>
     /// <param name="theLabel">The label that's gone be updated.</param>
     /// <param name="status">The status.</param>
-    private void UpdateStatusLabel([NotNull] Label theLabel, int status)
+    private void UpdateStatusLabel(Label theLabel, int status)
     {
         switch (status)
         {
@@ -465,7 +465,7 @@ public partial class _default : BasePage, IHaveServiceLocator
     /// Shows the error message.
     /// </summary>
     /// <param name="msg">The message.</param>
-    private void ShowErrorMessage([NotNull] string msg)
+    private void ShowErrorMessage(string msg)
     {
         msg = msg.Replace("\\", "\\\\");
         msg = msg.Replace("'", "\\'");
@@ -629,7 +629,7 @@ public partial class _default : BasePage, IHaveServiceLocator
     /// <returns>
     /// The index of wizard id.
     /// </returns>
-    private int IndexOfWizardId([NotNull] string id)
+    private int IndexOfWizardId(string id)
     {
         if (this.InstallWizard.FindWizardControlRecursive(id) is WizardStepBase step)
         {
@@ -644,7 +644,7 @@ public partial class _default : BasePage, IHaveServiceLocator
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    private void Page_Load([NotNull] object sender, [NotNull] EventArgs e)
+    private void Page_Load(object sender, EventArgs e)
     {
         if (Config.IsDotNetNuke)
         {
