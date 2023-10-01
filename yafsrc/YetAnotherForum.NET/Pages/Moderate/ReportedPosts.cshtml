@@ -95,22 +95,19 @@
                                             howMany = $"({Model.Get<ILocalization>().GetTextFormatted("REPORTED_TIMES", reporter.Item1.ReportedNumber)})";
                                         }
 
-                                        @if (report.ResolvedDate.HasValue)
+                                        @if (report.ResolvedDate.HasValue && report.ResolvedDate.Value > DateTime.MinValue)
                                         {
-                                            @if (report.ResolvedDate.Value > DateTime.MinValue)
-                                            {
-                                                var resolvedBy = Model.GetRepository<User>().GetById(report.ResolvedBy.Value);
+                                            var resolvedBy = Model.GetRepository<User>().GetById(report.ResolvedBy.Value);
 
-                                                var resolvedByName = resolvedBy.DisplayOrUserName();
+                                            var resolvedByName = resolvedBy.DisplayOrUserName();
 
-                                                <span class="fw-bold me-2">
-                                                    @Html.LocalizedText("RESOLVEDBY")
-                                                    <a href="@Html.Raw(Model.Get<LinkBuilder>().GetUserProfileLink((int)report.ResolvedBy, resolvedByName))">
-                                                        @resolvedByName
-                                                    </a>:
-                                                    @Html.Raw(Model.Get<IDateTimeService>().FormatDateTimeTopic(report.ResolvedDate))
-                                                </span>
-                                            }
+                                            <span class="fw-bold me-2">
+                                                @Html.LocalizedText("RESOLVEDBY")
+                                                <a href="@Html.Raw(Model.Get<LinkBuilder>().GetUserProfileLink((int)report.ResolvedBy, resolvedByName))">
+                                                    @resolvedByName
+                                                </a>:
+                                                @Html.Raw(Model.Get<IDateTimeService>().FormatDateTimeTopic(report.ResolvedDate))
+                                            </span>
                                         }
 
                                         <span class="fw-bold mx-2">

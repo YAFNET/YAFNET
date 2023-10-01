@@ -226,12 +226,12 @@
     </div>
 }
 
-@if (Current.Get<ISessionService>().Forums.First().Total > Current.Get<ISessionService>().Forums.Count)
+@if (Current.Get<ISessionService>().Forums[0].Total > Current.Get<ISessionService>().Forums.Count)
 {
     <div class="text-center" id="category-info-more">
         <div class="alert alert-light" role="alert">
             <span class="me-3 align-top">
-                @Html.LocalizedTextFormatted("FORUMS_SHOWN", Current.Get<ISessionService>().Forums.Count.ToString(), Current.Get<ISessionService>().Forums.First().Total.ToString())
+                @Html.LocalizedTextFormatted("FORUMS_SHOWN", Current.Get<ISessionService>().Forums.Count.ToString(), Current.Get<ISessionService>().Forums[0].Total.ToString())
             </span>
         </div>
     </div>

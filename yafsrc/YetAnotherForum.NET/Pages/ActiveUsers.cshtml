@@ -109,7 +109,7 @@
 <div class="row justify-content-end">
     <div class="col-auto">
         <pager page-size="@Model.Size"
-               count="!Model.UserList.NullOrEmpty() ? Model.UserList.First().UserCount : 0">
+               count="!Model.UserList.NullOrEmpty() ? Model.UserList[0].UserCount : 0">
         </pager>
     </div>
 </div>

@@ -257,13 +257,9 @@
         }
 
         // check if need to display the ad...
-        if (Model.PageBoardContext.BoardSettings.AdPost.IsSet())
+        if (Model.PageBoardContext.BoardSettings.AdPost.IsSet() && (Model.PageBoardContext.IsGuest || Model.PageBoardContext.BoardSettings.ShowAdsToSignedInUsers))
         {
-            if (Model.PageBoardContext.IsGuest || Model.PageBoardContext.BoardSettings.ShowAdsToSignedInUsers)
-            {
-                @await Html.PartialAsync("_DisplayAd")
-            }
-
+            @await Html.PartialAsync("_DisplayAd")
         }
     }
 }

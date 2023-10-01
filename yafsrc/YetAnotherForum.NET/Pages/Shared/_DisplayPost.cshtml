@@ -78,12 +78,9 @@
             }
 
             // Check if the User matches minimal requirements for voting down
-            if (Current.PageUser.Points >= Current.BoardSettings.ReputationMinDownVoting)
+            if (Current.PageUser.Points >= Current.BoardSettings.ReputationMinDownVoting && Model.Points > 0 && Current.BoardSettings.ReputationAllowNegative)
             {
-                if (Model.Points > 0 && Current.BoardSettings.ReputationAllowNegative)
-                {
-                    removeReputationVisible = true;
-                }
+                removeReputationVisible = true;
             }
         }
         else

@@ -298,7 +298,7 @@
         @Html.Raw(JsAndCssHelper.CompressJavaScript(
             JavaScriptBlocks.DialogFunctionsJs(
                 string.Format("{0}{1}{2}", 
-                    JavaScriptBlocks.ChoicesLoadJs(), 
+                    JavaScriptBlocks.ChoicesLoadJs, 
                     JavaScriptBlocks.ToolTipJs(), 
                     JavaScriptBlocks.SelectUsersLoadJs(
                         "UserSelect", 

@@ -48,7 +48,7 @@
                                     <div>
                                         @if (Model.PageBoardContext.BoardSettings.ShowUserOnlineStatus)
                                         {
-                                            if (activeUsers.Any(x => x.UserID == user.ID && !x.IsActiveExcluded))
+                                            if (activeUsers.Exists(x => x.UserID == user.ID && !x.IsActiveExcluded))
                                             {
                                                 <i class="fa fa-circle text-success pe-2"></i>
                                             }

@@ -61,7 +61,7 @@
             // returns number of day to run - null if poll has no expiration date
             daysToRun = Current.Get<PollService>().DaysToRun(poll, out var closesSoon);
 
-            // if the page user can change the poll. Only a group owner, forum moderator  or an admin can do it.   );
+            // if the page user can change the poll. Only a group owner, forum moderator  or an admin can do it.
             var canChange = poll.UserID == Current.PageUserID || Current.IsAdmin ||
                             Current.ForumModeratorAccess;
 
@@ -83,7 +83,7 @@
                 var isClosedBound = poll.Closes.HasValue && poll.PollFlags.IsClosedBound &&
                                     poll.Closes.Value < DateTime.UtcNow;
 
-                var pollHasNoVotes = pollAndChoices.All(row => row.Item2.Votes <= 0);
+                var pollHasNoVotes = pollAndChoices.TrueForAll(row => row.Item2.Votes <= 0);
 
                 // The host admin can forbid a user to change poll after first vote to avoid fakes.
                 if (!Current.BoardSettings.AllowPollChangesAfterFirstVote)
@@ -224,8 +224,8 @@
                                     {
                                         var voterNames = new StringBuilder();
 
-                                        var voteEnabled = hasVoteAccess && isNotVoted && userPollVotes.All(v => choice.Item2.ID != v.ChoiceID) ||
-                                        choice.Item1.PollFlags.AllowMultipleChoice && hasVoteAccess && userPollVotes.All(v => choice.Item2.ID != v.ChoiceID);
+                                        var voteEnabled = hasVoteAccess && isNotVoted && userPollVotes.TrueForAll(v => choice.Item2.ID != v.ChoiceID) ||
+                                        choice.Item1.PollFlags.AllowMultipleChoice && hasVoteAccess && userPollVotes.TrueForAll(v => choice.Item2.ID != v.ChoiceID);
 
                                         if (!voters.NullOrEmpty())
                                         {
@@ -256,7 +256,7 @@
                                                     @(Current.Get<IBadWordReplace>().Replace(choice.Item2.ChoiceName))
                                                 </h5>
 
-                                                @if (userPollVotes.Any(v => choice.Item2.ID == v.ChoiceID))
+                                                @if (userPollVotes.Exists(v => choice.Item2.ID == v.ChoiceID))
                                                 {
                                                     <small>
                                                         <span class="badge text-bg-success" title="@Html.LocalizedText("POLLEDIT", "POLL_VOTED")">

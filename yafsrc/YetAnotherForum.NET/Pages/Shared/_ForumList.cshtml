@@ -186,7 +186,7 @@ forum.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
         }
     </div>
 
-    @if (Model.SubForums.Item2.Any(item => item.ParentID == forum.ForumID))
+    @if (Model.SubForums.Item2.Exists(item => item.ParentID == forum.ForumID))
     {
         <div class="row">
             <div class="col">
