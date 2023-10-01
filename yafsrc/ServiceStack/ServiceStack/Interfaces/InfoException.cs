@@ -19,7 +19,7 @@ public class InfoException : Exception
     /// Initializes a new instance of the <see cref="InfoException"/> class.
     /// </summary>
     /// <param name="message">The message that describes the error.</param>
-    public InfoException([CanBeNull] string message) : base(message) { }
+    public InfoException(string message) : base(message) { }
 
     /// <summary>
     /// Returns a <see cref="System.String" /> that represents this instance.
