@@ -40,7 +40,6 @@ using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 using YAF.Core.Helpers;
 using YAF.Types.Extensions;
-using YAF.Types.Attributes;
 using YAF.Types.Modals;
 
 /// <summary>

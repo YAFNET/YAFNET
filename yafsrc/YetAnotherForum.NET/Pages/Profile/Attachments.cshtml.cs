@@ -37,8 +37,6 @@ using Core.Services;
 using Types.Extensions;
 using Types.Models;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The attachments Page Class.
 /// </summary>

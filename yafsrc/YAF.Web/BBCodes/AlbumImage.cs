@@ -26,8 +26,6 @@ namespace YAF.Web.BBCodes;
 
 using Microsoft.AspNetCore.Mvc;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The Album Image BB Code Module.
 /// </summary>

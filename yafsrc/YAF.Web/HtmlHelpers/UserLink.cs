@@ -26,8 +26,6 @@ namespace YAF.Web.HtmlHelpers;
 
 using Microsoft.AspNetCore.Mvc;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The user link html helper.
 /// </summary>

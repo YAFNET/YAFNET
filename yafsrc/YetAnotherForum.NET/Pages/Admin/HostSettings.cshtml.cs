@@ -30,7 +30,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using YAF.Configuration;
 using YAF.Core.Extensions;
 using YAF.Core.Services;
-using YAF.Types.Attributes;
 using YAF.Types.Extensions;
 using YAF.Types.Extensions.Data;
 using YAF.Types.Interfaces.Data;

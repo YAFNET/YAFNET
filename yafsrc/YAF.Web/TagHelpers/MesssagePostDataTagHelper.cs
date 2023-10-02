@@ -109,14 +109,8 @@ public class MessagePostDataTagHelper : MessagePostTagHelper
 
         if (this.MessageFlags.IsDeleted)
         {
-            this.IsModeratorChanged = this.CurrentMessage.IsModeratorChanged ?? false;
-
-            var deleteText = HttpUtility.HtmlDecode(this.CurrentMessage.DeleteReason).IsSet()
-                                 ? this.Get<IFormatMessage>().RepairHtml(this.CurrentMessage.DeleteReason, true)
-                                 : this.GetText("EDIT_REASON_NA");
-
             // deleted message text...
-            this.RenderDeletedMessage(output, deleteText);
+            this.RenderDeletedMessage(output);
         }
         else if (this.MessageFlags.NotFormatted)
         {

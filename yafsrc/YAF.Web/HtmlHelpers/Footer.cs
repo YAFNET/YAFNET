@@ -29,7 +29,6 @@ using Microsoft.AspNetCore.Http;
 using ServiceStack.Text;
 
 using YAF.Core.Services;
-using YAF.Types.Attributes;
 
 /// <summary>
 /// The footer html helper.

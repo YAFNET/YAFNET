@@ -24,8 +24,6 @@
 
 namespace YAF.Web.HtmlHelpers;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The Category List html helper.
 /// </summary>

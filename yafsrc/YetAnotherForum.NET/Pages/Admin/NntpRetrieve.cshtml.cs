@@ -29,7 +29,6 @@ using System.Linq;
 
 using YAF.Core.Extensions;
 using YAF.Core.Model;
-using YAF.Types.Attributes;
 using YAF.Types.Models;
 
 /// <summary>

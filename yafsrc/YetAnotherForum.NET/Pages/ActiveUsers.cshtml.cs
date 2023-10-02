@@ -39,7 +39,6 @@ using Types.Interfaces;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 using YAF.Core.Helpers;
-using YAF.Types.Attributes;
 
 /// <summary>
 /// The Cookies model.

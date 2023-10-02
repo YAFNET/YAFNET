@@ -28,9 +28,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using ServiceStack.OrmLite;
 
-using YAF.Types.Attributes;
 using YAF.Types.Extensions;
-using static Lucene.Net.Util.Packed.PackedInt32s;
 
 /// <summary>
 /// The Bootstrap alert tag helper.

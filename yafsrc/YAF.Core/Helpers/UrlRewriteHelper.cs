@@ -61,92 +61,125 @@ public static class UrlRewriteHelper
         {
             case "Unicode":
                 {
-                    inputString.ForEach(
-                        currentChar =>
-                            {
-                                if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
-                                {
-                                    sb.Append('-');
-                                }
-                                else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark
-                                         && !char.IsSymbol(currentChar))
-                                {
-                                    sb.Append(currentChar);
-                                }
-                            });
-
-                    var strNew = sb.ToString();
-
-                    while (strNew.EndsWith("-"))
-                    {
-                        strNew = strNew.Remove(strNew.Length - 1, 1);
-                    }
-
-                    return strNew.Length.Equals(0) ? "Default" : HttpUtility.UrlEncode(strNew);
+                    return FormatUnicode(inputString, sb);
                 }
 
             case "Translit":
                 {
-                    string uniDecode;
-
-                    try
-                    {
-                        uniDecode = inputString.Unidecode().Replace(" ", "-");
-                    }
-                    catch (Exception)
-                    {
-                        uniDecode = inputString;
-                    }
-
-                    uniDecode.ForEach(
-                        currentChar =>
-                            {
-                                if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
-                                {
-                                    sb.Append('-');
-                                }
-                                else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark
-                                         && !char.IsSymbol(currentChar))
-                                {
-                                    sb.Append(currentChar);
-                                }
-                            });
-
-                    var strNew = sb.ToString();
-
-                    while (strNew.EndsWith("-"))
-                    {
-                        strNew = strNew.Remove(strNew.Length - 1, 1);
-                    }
-
-                    return strNew.Length.Equals(0) ? "Default" : strNew;
+                    return FormatTranslit(inputString, sb);
                 }
 
             default:
                 {
-                    inputString.ForEach(
-                        currentChar =>
-                            {
-                                if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
-                                {
-                                    sb.Append('-');
-                                }
-                                else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark
-                                         && !char.IsSymbol(currentChar) && currentChar < 128)
-                                {
-                                    sb.Append(currentChar);
-                                }
-                            });
-
-                    var strNew = sb.ToString();
-
-                    while (strNew.EndsWith("-"))
-                    {
-                        strNew = strNew.Remove(strNew.Length - 1, 1);
-                    }
-
-                    return strNew.Length.Equals(0) ? "Default" : strNew;
+                    return FormatDefault(inputString, sb);
                 }
         }
+    }
+
+    /// <summary>
+    /// Formats as default.
+    /// </summary>
+    /// <param name="inputString">The input string.</param>
+    /// <param name="sb">The sb.</param>
+    /// <returns>System.String.</returns>
+    private static string FormatDefault(string inputString, StringBuilder sb)
+    {
+        inputString.ForEach(
+            currentChar =>
+                {
+                    if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
+                    {
+                        sb.Append('-');
+                    }
+                    else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark
+                             && !char.IsSymbol(currentChar) && currentChar < 128)
+                    {
+                        sb.Append(currentChar);
+                    }
+                });
+
+        var strNew = sb.ToString();
+
+        while (strNew.EndsWith("-"))
+        {
+            strNew = strNew.Remove(strNew.Length - 1, 1);
+        }
+
+        return strNew.Length.Equals(0) ? "Default" : strNew;
+    }
+
+    /// <summary>
+    /// Formats the Url in translit format
+    /// </summary>
+    /// <param name="inputString">The input string.</param>
+    /// <param name="sb">The sb.</param>
+    /// <returns>System.String.</returns>
+    private static string FormatTranslit(string inputString, StringBuilder sb)
+    {
+        string uniDecode;
+
+        try
+        {
+            uniDecode = inputString.Unidecode().Replace(" ", "-");
+        }
+        catch (Exception)
+        {
+            uniDecode = inputString;
+        }
+
+        uniDecode.ForEach(
+            currentChar =>
+                {
+                    if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
+                    {
+                        sb.Append('-');
+                    }
+                    else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark
+                             && !char.IsSymbol(currentChar))
+                    {
+                        sb.Append(currentChar);
+                    }
+                });
+
+        var strNew = sb.ToString();
+
+        while (strNew.EndsWith("-"))
+        {
+            strNew = strNew.Remove(strNew.Length - 1, 1);
+        }
+
+        return strNew.Length.Equals(0) ? "Default" : strNew;
+    }
+
+    /// <summary>
+    /// Formats the Url in Unicode Format.
+    /// </summary>
+    /// <param name="inputString">The input string.</param>
+    /// <param name="sb">The sb.</param>
+    /// <returns>System.String.</returns>
+    private static string FormatUnicode(string inputString, StringBuilder sb)
+    {
+        inputString.ForEach(
+            currentChar =>
+                {
+                    if (char.IsWhiteSpace(currentChar) || char.IsPunctuation(currentChar))
+                    {
+                        sb.Append('-');
+                    }
+                    else if (char.GetUnicodeCategory(currentChar) != UnicodeCategory.NonSpacingMark
+                             && !char.IsSymbol(currentChar))
+                    {
+                        sb.Append(currentChar);
+                    }
+                });
+
+        var strNew = sb.ToString();
+
+        while (strNew.EndsWith("-"))
+        {
+            strNew = strNew.Remove(strNew.Length - 1, 1);
+        }
+
+        return strNew.Length.Equals(0) ? "Default" : HttpUtility.UrlEncode(strNew);
     }
 }

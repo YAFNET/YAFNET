@@ -24,8 +24,6 @@
 
 namespace YAF.Web.TagHelpers;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The message post tag helper.
 /// </summary>
@@ -298,11 +296,14 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <param name="output">
     /// The output.
     /// </param>
-    /// <param name="deleteText">
-    /// The delete reason text.
-    /// </param>
-    protected virtual void RenderDeletedMessage(TagHelperOutput output, string deleteText)
+    protected virtual void RenderDeletedMessage(TagHelperOutput output)
     {
+        this.IsModeratorChanged = this.CurrentMessage.IsModeratorChanged ?? false;
+
+        var deleteText = HttpUtility.HtmlDecode(this.CurrentMessage.DeleteReason).IsSet()
+                             ? this.Get<IFormatMessage>().RepairHtml(this.CurrentMessage.DeleteReason, true)
+                             : this.GetText("EDIT_REASON_NA");
+
         // if message was deleted then write that instead of real body
         if (!this.MessageFlags.IsDeleted)
         {
@@ -513,14 +514,8 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     {
         if (this.MessageFlags.IsDeleted)
         {
-            this.IsModeratorChanged = this.CurrentMessage.IsModeratorChanged ?? false;
-
-            var deleteText = HttpUtility.HtmlDecode(this.CurrentMessage.DeleteReason).IsSet()
-                                 ? this.Get<IFormatMessage>().RepairHtml(this.CurrentMessage.DeleteReason, true)
-                                 : this.GetText("EDIT_REASON_NA");
-
             // deleted message text...
-            this.RenderDeletedMessage(output, deleteText);
+            this.RenderDeletedMessage(output);
         }
         else if (this.MessageFlags.NotFormatted)
         {

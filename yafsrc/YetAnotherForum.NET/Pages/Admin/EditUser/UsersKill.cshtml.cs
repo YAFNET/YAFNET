@@ -36,7 +36,6 @@ using YAF.Core.Context;
 using YAF.Core.Extensions;
 using YAF.Core.Model;
 using YAF.Core.Services.CheckForSpam;
-using YAF.Types.Attributes;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;

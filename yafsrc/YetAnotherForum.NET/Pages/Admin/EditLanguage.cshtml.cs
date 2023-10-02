@@ -41,7 +41,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 
 using YAF.Core.Context;
-using YAF.Types.Attributes;
 
 /// <summary>
 /// Administrative Page for the editing of forum properties.

@@ -43,8 +43,6 @@ using YAF.Types.Objects;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// Admin Edit Board Page
 /// </summary>

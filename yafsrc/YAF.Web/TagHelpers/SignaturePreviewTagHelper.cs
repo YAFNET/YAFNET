@@ -24,8 +24,6 @@
 
 namespace YAF.Web.TagHelpers;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The message post tag helper.
 /// </summary>

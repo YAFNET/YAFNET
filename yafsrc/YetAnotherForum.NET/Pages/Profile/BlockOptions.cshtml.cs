@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using YAF.Core.Extensions;
 using YAF.Core.Model;
 using YAF.Core.Services;
-using YAF.Types.Attributes;
 using YAF.Types.EventProxies;
 using YAF.Types.Flags;
 using YAF.Types.Interfaces.Events;

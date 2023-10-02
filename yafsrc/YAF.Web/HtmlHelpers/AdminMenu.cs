@@ -24,8 +24,6 @@
 
 namespace YAF.Web.HtmlHelpers;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The admin menu html helper.
 /// </summary>

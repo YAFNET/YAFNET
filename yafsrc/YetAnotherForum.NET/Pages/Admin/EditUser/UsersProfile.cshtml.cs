@@ -43,7 +43,6 @@ using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Core.Services;
 using YAF.Pages.Profile;
-using YAF.Types.Attributes;
 using YAF.Types.EventProxies;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Events;
