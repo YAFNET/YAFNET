@@ -208,19 +208,19 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
     /// <summary>
     /// The find by name async.
     /// </summary>
-    /// <param name="userName">
+    /// <param name="normalizedUserName">
     /// The user name.
     /// </param>
     /// <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken" /> used to propagate notifications that the operation should be canceled.</param>
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public Task<AspNetUsers> FindByNameAsync(string userName, CancellationToken cancellationToken)
+    public Task<AspNetUsers> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
         return this.GetRepository<AspNetUsers>().GetSingleAsync(
-            u => u.UserName == userName,
+            u => u.UserName == normalizedUserName,
             cancellationToken: cancellationToken);
     }
 
@@ -534,19 +534,19 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
     /// <summary>
     /// The find by email async.
     /// </summary>
-    /// <param name="email">
+    /// <param name="normalizedEmail">
     /// The email.
     /// </param>
     /// <param name="cancellationToken">The <see cref="T:System.Threading.CancellationToken" /> used to propagate notifications that the operation should be canceled.</param>
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public Task<AspNetUsers> FindByEmailAsync(string email, CancellationToken cancellationToken)
+    public Task<AspNetUsers> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
         return this.GetRepository<AspNetUsers>().GetSingleAsync(
-            u => u.Email == email,
+            u => u.Email == normalizedEmail,
             cancellationToken: cancellationToken);
     }
 
