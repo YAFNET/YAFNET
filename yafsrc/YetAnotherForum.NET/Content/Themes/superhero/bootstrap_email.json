@@ -1,4 +1,4 @@
 {
-	"sass_email_location":"Content/Themes/superhero/",
-	"sass_location":"../Tools/BootstrapEmail/"
+	"sass_email_location": "../../YetAnotherForum.NET/Content/Themes/superhero/",
+	"sass_location": "../../YetAnotherForum.NET/Content/bootstrap-email/"
 }
