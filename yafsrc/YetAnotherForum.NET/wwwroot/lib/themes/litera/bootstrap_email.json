@@ -1,4 +1,4 @@
 {
-	"sass_email_location":"Content/Themes/litera/",
-	"sass_location":"../Tools/BootstrapEmail/"
+	"sass_email_location": "../../YetAnotherForum.NET/wwwroot/lib/Themes/litera/",
+	"sass_location":"../../YetAnotherForum.NET/wwwroot/lib/bootstrap-email/"
 }
