@@ -1,4 +1,5 @@
 {
 	"sass_email_location": "../../YetAnotherForum.NET/wwwroot/lib/Themes/cosmo/",
-	"sass_location": "../../YetAnotherForum.NET/wwwroot/lib/bootstrap-email/"
+	"sass_location": "../../YetAnotherForum.NET/wwwroot/lib/bootstrap-email/",
+  "CompileOnlyBody": true
 }
