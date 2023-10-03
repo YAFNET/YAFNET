@@ -654,13 +654,15 @@ public static class OrmLiteUtils
     /// The verify fragment reg ex
     /// </summary>
     public static Regex VerifyFragmentRegEx = new("([^\\w]|^)+(--|;--|;|%|/\\*|\\*/|@@|@|char|nchar|varchar|nvarchar|alter|begin|cast|create|cursor|declare|delete|drop|end|exec|execute|fetch|insert|kill|open|select|sys|sysobjects|syscolumns|table|update)([^\\w]|$)+",
-        RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase,
+        TimeSpan.FromMilliseconds(100));
 
     /// <summary>
     /// The verify SQL reg ex
     /// </summary>
     public static Regex VerifySqlRegEx = new("([^\\w]|^)+(--|;--|;|%|/\\*|\\*/|@@|@|char|nchar|varchar|nvarchar|alter|begin|cast|create|cursor|declare|delete|drop|end|exec|execute|fetch|insert|kill|open|table|update)([^\\w]|$)+",
-        RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        RegexOptions.Singleline | RegexOptions.Compiled | RegexOptions.IgnoreCase,
+        TimeSpan.FromMilliseconds(100));
 
     /// <summary>
     /// Gets or sets the SQL verify fragment function.
@@ -1029,7 +1031,8 @@ public static class OrmLiteUtils
     /// The allowed property chars regex
     /// </summary>
     private static readonly Regex AllowedPropertyCharsRegex = new(@"[^0-9a-zA-Z_]",
-        RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        RegexOptions.Compiled | RegexOptions.CultureInvariant,
+        TimeSpan.FromMilliseconds(100));
 
     /// <summary>
     /// Tries the index of the guess column.

@@ -149,10 +149,7 @@ internal class CsvDictionaryWriter
         {
             foreach (var key in record.Keys)
             {
-                if (!allKeys.Contains(key))
-                {
-                    allKeys.Add(key);
-                }
+                allKeys.Add(key);
             }
             cachedRecords.Add(record);
         }
@@ -162,10 +159,9 @@ internal class CsvDictionaryWriter
         {
             WriteRow(writer, headers);
         }
-        foreach (var cachedRecord in cachedRecords)
+        foreach (var fullRecord in cachedRecords.Select(cachedRecord => headers.ConvertAll(header =>
+                     cachedRecord.TryGetValue(header, out var value) ? value : null)))
         {
-            var fullRecord = headers.ConvertAll(header =>
-                cachedRecord.ContainsKey(header) ? cachedRecord[header] : null);
             WriteRow(writer, fullRecord);
         }
     }
@@ -185,10 +181,9 @@ public static class CsvWriter
     {
         if (string.IsNullOrEmpty(value)) return false;
         
-        foreach (var escapeString in CsvConfig.EscapeStrings)
+        if (CsvConfig.EscapeStrings.Any(value.Contains))
         {
-            if (value.Contains(escapeString))
-                return true;
+            return true;
         }
 
         return value[0] is JsWriter.ListStartChar or JsWriter.MapStartChar;

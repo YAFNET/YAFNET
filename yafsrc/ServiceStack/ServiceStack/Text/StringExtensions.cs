@@ -1009,24 +1009,29 @@ public static class StringExtensions
     /// <summary>
     /// The invalid variable chars regex
     /// </summary>
-    private static readonly Regex InvalidVarCharsRegex = new(@"[^A-Za-z0-9_]", RegexOptions.Compiled);
+    private static readonly Regex InvalidVarCharsRegex = new(@"[^A-Za-z0-9_]", RegexOptions.Compiled,
+        TimeSpan.FromMilliseconds(100));
     /// <summary>
     /// The valid variable chars regex
     /// </summary>
-    private static readonly Regex ValidVarCharsRegex = new(@"^[A-Za-z0-9_]+$", RegexOptions.Compiled);
+    private static readonly Regex ValidVarCharsRegex = new(@"^[A-Za-z0-9_]+$", RegexOptions.Compiled,
+        TimeSpan.FromMilliseconds(100));
     /// <summary>
     /// The invalid variable reference chars regex
     /// </summary>
-    private static readonly Regex InvalidVarRefCharsRegex = new(@"[^A-Za-z0-9._]", RegexOptions.Compiled);
+    private static readonly Regex InvalidVarRefCharsRegex = new(@"[^A-Za-z0-9._]", RegexOptions.Compiled,
+        TimeSpan.FromMilliseconds(100));
     /// <summary>
     /// The valid variable reference chars regex
     /// </summary>
-    private static readonly Regex ValidVarRefCharsRegex = new(@"^[A-Za-z0-9._]+$", RegexOptions.Compiled);
+    private static readonly Regex ValidVarRefCharsRegex = new(@"^[A-Za-z0-9._]+$", RegexOptions.Compiled,
+        TimeSpan.FromMilliseconds(100));
 
     /// <summary>
     /// The split camel case regex
     /// </summary>
-    private static readonly Regex SplitCamelCaseRegex = new("([A-Z]|[0-9]+)", RegexOptions.Compiled);
+    private static readonly Regex SplitCamelCaseRegex = new("([A-Z]|[0-9]+)", RegexOptions.Compiled,
+        TimeSpan.FromMilliseconds(100));
 
     /// <summary>
     /// Converts to enumordefault.
@@ -1457,7 +1462,9 @@ public static class StringExtensions
         {
             var regex = new Regex(
                 "^" + Regex.Escape(dirPattern).Replace(@"\*", "[^\\/]*").Replace(@"\?", ".") + "$"
-            );
+                ,
+                RegexOptions.None,
+                TimeSpan.FromMilliseconds(100));
             if (!regex.IsMatch(dirPart))
                 return false;
         }

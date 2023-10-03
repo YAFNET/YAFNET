@@ -672,18 +672,14 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
                 continue;
 
             var refModelDef = GetModel(fieldDef.ForeignKey.ReferenceType);
-            sbConstraints.AppendFormat(
-                ", \n\n  CONSTRAINT {0} FOREIGN KEY ({1}) REFERENCES {2} ({3})",
-                GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, NamingStrategy, fieldDef)),
-                GetQuotedColumnName(fieldDef.FieldName),
-                GetQuotedTableName(refModelDef),
-                GetQuotedColumnName(refModelDef.PrimaryKey.FieldName));
+            sbConstraints.Append(
+                $", \n\n  CONSTRAINT {this.GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, this.NamingStrategy, fieldDef))} FOREIGN KEY ({this.GetQuotedColumnName(fieldDef.FieldName)}) REFERENCES {this.GetQuotedTableName(refModelDef)} ({this.GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)})");
 
             if (!string.IsNullOrEmpty(fieldDef.ForeignKey.OnDelete))
-                sbConstraints.AppendFormat(" ON DELETE {0}", fieldDef.ForeignKey.OnDelete);
+                sbConstraints.Append($" ON DELETE {fieldDef.ForeignKey.OnDelete}");
 
             if (!string.IsNullOrEmpty(fieldDef.ForeignKey.OnUpdate))
-                sbConstraints.AppendFormat(" ON UPDATE {0}", fieldDef.ForeignKey.OnUpdate);
+                sbConstraints.Append($" ON UPDATE {fieldDef.ForeignKey.OnUpdate}");
         }
 
         var uniqueConstraints = GetUniqueConstraints(modelDef);
@@ -699,7 +695,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
             sbConstraints.Append(" PRIMARY KEY (");
 
             sbConstraints.Append(
-                modelDef.CompositePrimaryKeys.FirstOrDefault().FieldNames.Map(f => modelDef.GetQuotedName(f, this))
+                modelDef.CompositePrimaryKeys.First().FieldNames.Map(f => modelDef.GetQuotedName(f, this))
                     .Join(","));
 
             sbConstraints.Append(") ");
@@ -764,7 +760,8 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         if (fieldDef.PropertyInfo?.HasAttributeCached<TextAttribute>() == true)
         {
             var sql = StringBuilderCache.Allocate();
-            sql.AppendFormat("{0} {1}", GetQuotedName(NamingStrategy.GetColumnName(fieldDef.FieldName)), TextColumnDefinition);
+            sql.Append(
+                $"{this.GetQuotedName(this.NamingStrategy.GetColumnName(fieldDef.FieldName))} {TextColumnDefinition}");
             sql.Append(fieldDef.IsNullable ? " NULL" : " NOT NULL");
             return StringBuilderCache.ReturnAndFree(sql);
         }
@@ -785,7 +782,8 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         if (fieldDef.PropertyInfo?.HasAttributeCached<TextAttribute>() == true)
         {
             var sql = StringBuilderCache.Allocate();
-            sql.AppendFormat("{0} {1}", this.GetQuotedName(this.NamingStrategy.GetColumnName(fieldDef.FieldName)), TextColumnDefinition);
+            sql.Append(
+                $"{this.GetQuotedName(this.NamingStrategy.GetColumnName(fieldDef.FieldName))} {TextColumnDefinition}");
             sql.Append(fieldDef.IsNullable ? " NULL" : " NOT NULL");
             return StringBuilderCache.ReturnAndFree(sql);
         }
@@ -1035,7 +1033,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         var tableName = $"{database}.{base.NamingStrategy.GetTableName(functionName)}";
 
         sb.Append("DROP FUNCTION IF EXISTS ");
-        sb.AppendFormat("{0}", tableName);
+        sb.Append($"{tableName}");
 
         sb.Append(';');
 
@@ -1055,7 +1053,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
 
         var tableName = $"{database}.{base.NamingStrategy.GetTableName(modelDef.ModelName)}";
 
-        sb.AppendFormat("CREATE VIEW {0} as ", tableName);
+        sb.Append($"CREATE VIEW {tableName} as ");
 
         sb.Append(selectSql);
 
@@ -1077,7 +1075,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         var tableName = $"{database}.{base.NamingStrategy.GetTableName(modelDef.ModelName)}";
 
         sb.Append("DROP VIEW IF EXISTS ");
-        sb.AppendFormat("{0}", tableName);
+        sb.Append($"{tableName}");
 
         sb.Append(';');
 
@@ -1098,12 +1096,8 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
 
         var tableName = $"{database}.{base.NamingStrategy.GetTableName(modelDef.ModelName)}";
 
-        sb.AppendFormat("alter table {0}", tableName);
-        sb.AppendFormat(
-            "{0} ADD PRIMARY KEY ({1},{2})",
-            this.NamingStrategy.GetTableName(modelDef),
-            fieldNameA,
-            fieldNameB);
+        sb.Append($"alter table {tableName}");
+        sb.Append($"{this.NamingStrategy.GetTableName(modelDef)} ADD PRIMARY KEY ({fieldNameA},{fieldNameB})");
 
         return StringBuilderCache.ReturnAndFree(sb);
     }
@@ -1132,7 +1126,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
 
         var tableName = $"{database}.{base.NamingStrategy.GetTableName(modelDef.ModelName)}";
 
-        sb.AppendFormat("alter table {0} drop primary key;", tableName);
+        sb.Append($"alter table {tableName} drop primary key;");
 
         return StringBuilderCache.ReturnAndFree(sb);
     }
@@ -1152,12 +1146,9 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
 
         var tableName = $"{database}.{base.NamingStrategy.GetTableName(modelDef.ModelName)}";
 
-        sb.AppendFormat("alter table {0} drop primary key,", tableName);
+        sb.Append($"alter table {tableName} drop primary key,");
 
-        sb.AppendFormat(
-            " ADD PRIMARY KEY ({0},{1});",
-            fieldNameA,
-            fieldNameB);
+        sb.Append($" ADD PRIMARY KEY ({fieldNameA},{fieldNameB});");
 
         return StringBuilderCache.ReturnAndFree(sb);
     }
@@ -1323,20 +1314,18 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
 
                     while (reader.Read())
                     {
-                        results.AppendFormat(@"""{0}""", rowIndex++);
+                        results.Append($@"""{rowIndex++}""");
 
                         // dump all columns...
                         columnNames.ForEach(
-                            col => results.AppendFormat(
-                                @",""{0}""",
-                                reader[col].ToString().Replace("\"", "\"\"")));
+                            col => results.Append($@",""{reader[col].ToString().Replace("\"", "\"\"")}"""));
 
                         results.AppendLine();
                     }
                 }
                 else if (reader.RecordsAffected > 0)
                 {
-                    results.AppendFormat("{0} Record(s) Affected", reader.RecordsAffected);
+                    results.Append($"{reader.RecordsAffected} Record(s) Affected");
                     results.AppendLine();
                 }
                 else
@@ -1358,7 +1347,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
             reader?.Close();
 
             results.AppendLine();
-            results.AppendFormat("SQL ERROR: {0}", x);
+            results.Append($"SQL ERROR: {x}");
         }
 
         return results.ToString();

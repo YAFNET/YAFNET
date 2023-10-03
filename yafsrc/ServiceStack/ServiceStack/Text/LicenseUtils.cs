@@ -1109,7 +1109,8 @@ public static class LicenseUtils
     /// <exception cref="ServiceStack.LicenseException">The license '{0}' is not assigned to CustomerId '{1}'.".Fmt(base64, refId)</exception>
     public static LicenseKey ToLicenseKey(this string licenseKeyText)
     {
-        licenseKeyText = Regex.Replace(licenseKeyText, @"\s+", "");
+        licenseKeyText = Regex.Replace(licenseKeyText, @"\s+", "", RegexOptions.None,
+            TimeSpan.FromMilliseconds(100));
         var parts = licenseKeyText.SplitOnFirst('-');
         var refId = parts[0];
         var base64 = parts[1];
@@ -1147,7 +1148,8 @@ public static class LicenseUtils
     /// <exception cref="ServiceStack.LicenseException">The license '{base64}' is not assigned to CustomerId '{refId}'.</exception>
     public static LicenseKey ToLicenseKeyFallback(this string licenseKeyText)
     {
-        licenseKeyText = Regex.Replace(licenseKeyText, @"\s+", "");
+        licenseKeyText = Regex.Replace(licenseKeyText, @"\s+", "", RegexOptions.None,
+            TimeSpan.FromMilliseconds(100));
         var parts = licenseKeyText.SplitOnFirst('-');
         var refId = parts[0];
         var base64 = parts[1];

@@ -4477,7 +4477,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             for (var i = renameParams.Count - 1; i >= 0; i--)
             {
                 // Replace complete db params [@1] and not partial tokens [@1]0
-                var paramsRegex = new Regex(renameParams[i].Item1 + "([^\\d])");
+                var paramsRegex = new Regex(
+                    renameParams[i].Item1 + "([^\\d])",
+                    RegexOptions.None,
+                    TimeSpan.FromMilliseconds(100));
                 subSelect = paramsRegex.Replace(subSelect, renameParams[i].Item2 + "$1");
             }
 

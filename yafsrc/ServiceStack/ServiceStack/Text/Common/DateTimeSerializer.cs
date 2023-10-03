@@ -109,7 +109,8 @@ public static class DateTimeSerializer
     /// <summary>
     /// The UTC offset information regex
     /// </summary>
-    private static readonly Regex UtcOffsetInfoRegex = new("([+-](?:2[0-3]|[0-1][0-9]):[0-5][0-9])", RegexOptions.Compiled);
+    private static readonly Regex UtcOffsetInfoRegex = new("([+-](?:2[0-3]|[0-1][0-9]):[0-5][0-9])", RegexOptions.Compiled,
+        TimeSpan.FromMilliseconds(100));
 
     /// <summary>
     /// Gets or sets the on parse error function.

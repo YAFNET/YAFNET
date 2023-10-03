@@ -414,7 +414,8 @@ public static class IDbAccessExtensions
         string scriptFile,
         int timeOut)
     {
-        var statements = Regex.Split(script, @"\sGO\s", RegexOptions.IgnoreCase).ToList();
+        var statements = Regex.Split(script, @"\sGO\s", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100))
+            .ToList();
 
         using var trans = dbAccess.CreateConnectionOpen().BeginTransaction();
 

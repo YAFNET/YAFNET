@@ -311,7 +311,8 @@ public class SqlBuilder
         /// <summary>
         /// The regex
         /// </summary>
-        private static readonly Regex regex = new(@"\/\*\*.+\*\*\/", RegexOptions.Compiled | RegexOptions.Multiline);
+        private static readonly Regex regex = new(@"\/\*\*.+\*\*\/", RegexOptions.Compiled | RegexOptions.Multiline,
+            TimeSpan.FromMilliseconds(100));
 
         /// <summary>
         /// Resolves the SQL.

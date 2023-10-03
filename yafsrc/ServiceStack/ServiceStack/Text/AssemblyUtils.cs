@@ -132,7 +132,8 @@ public static class AssemblyUtils
     /// <summary>
     /// The version reg ex
     /// </summary>
-    static readonly Regex versionRegEx = new(", Version=[^\\]]+", PclExport.Instance.RegexOptions);
+    static readonly Regex versionRegEx = new(", Version=[^\\]]+", PclExport.Instance.RegexOptions,
+        TimeSpan.FromMilliseconds(100));
 
     /// <summary>
     /// Converts to typestring.

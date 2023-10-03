@@ -13,6 +13,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -392,13 +393,13 @@ public static class StreamExtensions
     {
 #if NET7_0_OR_GREATER
             if (stream is MemoryStream ms)
-                return System.Security.Cryptography.MD5.HashData(ms.GetBufferAsSpan());
+                return MD5.HashData(ms.GetBufferAsSpan());
 #endif
         if (stream.CanSeek)
         {
             stream.Position = 0;
         }
-        return System.Security.Cryptography.MD5.Create().ComputeHash(stream);
+        return MD5.HashData(stream);
     }
 
     /// <summary>
@@ -407,13 +408,6 @@ public static class StreamExtensions
     /// <param name="stream">The stream.</param>
     /// <returns>System.String.</returns>
     public static string ToMd5Hash(this Stream stream) => ToMd5Bytes(stream).ToHex();
-    /// <summary>
-    /// Converts to md5hash.
-    /// </summary>
-    /// <param name="bytes">The bytes.</param>
-    /// <returns>System.String.</returns>
-    public static string ToMd5Hash(this byte[] bytes) =>
-        System.Security.Cryptography.MD5.Create().ComputeHash(bytes).ToHex();
 
     /// <summary>
     /// Returns bytes in publiclyVisible MemoryStream

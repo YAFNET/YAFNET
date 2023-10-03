@@ -1556,7 +1556,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
 
             var pattern = dbParam.ParameterName + @"(,|\s|\)|$)";
             var replacement = quotedValue.Replace("$", "$$") + "$1";
-            sql = Regex.Replace(sql, pattern, replacement);
+            sql = Regex.Replace(sql, pattern, replacement,
+                RegexOptions.None,
+                TimeSpan.FromMilliseconds(100));
         }
 
         return sql;
@@ -2460,10 +2462,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         {
             sbConstraints.Append(",\n");
 
-            sbConstraints.AppendFormat(" CONSTRAINT {0} PRIMARY KEY (", this.GetPrimaryKeyName(modelDef));
+            sbConstraints.Append($" CONSTRAINT {this.GetPrimaryKeyName(modelDef)} PRIMARY KEY (");
 
             sbConstraints.Append(
-                modelDef.CompositePrimaryKeys.FirstOrDefault().FieldNames.Map(f => modelDef.GetQuotedName(f, this))
+                modelDef.CompositePrimaryKeys.First().FieldNames.Map(f => modelDef.GetQuotedName(f, this))
                     .Join(","));
 
             sbConstraints.Append(") ");

@@ -14,6 +14,7 @@
 
 namespace ServiceStack;
 
+using System;
 using System.Collections;
 using System.Text.RegularExpressions;
 
@@ -121,7 +122,8 @@ public static class Words
         /// <param name="replacement">The replacement.</param>
         public Rule(string pattern, string replacement)
         {
-            regex = new Regex(pattern, RegexOptions.IgnoreCase);
+            regex = new Regex(pattern, RegexOptions.IgnoreCase,
+                TimeSpan.FromMilliseconds(100));
             this.replacement = replacement;
         }
 

@@ -389,7 +389,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
 
                     sbTableOptions.Append($" FILETABLE_COLLATE_FILENAME = {fileTableAttrib.FileTableCollateFileName ?? "database_default" }\n");
                 }
-                sbTableOptions.Append(")");
+                sbTableOptions.Append(')');
             }
         }
 
@@ -405,10 +405,10 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
 
             var primaryKeyName = $"PK_{this.NamingStrategy.GetTableName(modelDef)}";
 
-            sbConstraints.AppendFormat(" CONSTRAINT {0} PRIMARY KEY CLUSTERED  (", primaryKeyName);
+            sbConstraints.Append($" CONSTRAINT {primaryKeyName} PRIMARY KEY CLUSTERED  (");
 
             sbConstraints.Append(
-                modelDef.CompositePrimaryKeys.FirstOrDefault().FieldNames.Map(f => modelDef.GetQuotedName(f, this))
+                modelDef.CompositePrimaryKeys.First().FieldNames.Map(f => modelDef.GetQuotedName(f, this))
                     .Join(","));
 
             sbConstraints.Append(") ");

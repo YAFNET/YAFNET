@@ -286,7 +286,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         }
 
         var sql = StringBuilderCache.Allocate();
-        sql.AppendFormat("{0} {1}", this.GetQuotedColumnName(fieldDef.FieldName), fieldDefinition);
+        sql.Append($"{this.GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
 
         if (fieldDef.IsPrimaryKey)
         {
@@ -466,10 +466,10 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
 
             var primaryKeyName = $"{this.NamingStrategy.GetTableName(modelDef)}_pkey";
 
-            sbConstraints.AppendFormat(" CONSTRAINT {0} PRIMARY KEY (", primaryKeyName);
+            sbConstraints.Append($" CONSTRAINT {primaryKeyName} PRIMARY KEY (");
 
             sbConstraints.Append(
-                modelDef.CompositePrimaryKeys.FirstOrDefault().FieldNames.Map(f => modelDef.GetQuotedName(f, this))
+                modelDef.CompositePrimaryKeys.First().FieldNames.Map(f => modelDef.GetQuotedName(f, this))
                     .Join(","));
 
             sbConstraints.Append(") ");
@@ -1601,7 +1601,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         var tableName = $"{database}.{this.NamingStrategy.GetTableName(functionName)}";
 
         sb.Append("DROP FUNCTION IF EXISTS ");
-        sb.AppendFormat("{0}", tableName);
+        sb.Append($"{tableName}");
 
         sb.Append(';');
 
@@ -1621,7 +1621,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
 
         var tableName = $"{this.NamingStrategy.GetTableName(modelDef.ModelName)}";
 
-        sb.AppendFormat("CREATE VIEW {0} as ", tableName);
+        sb.Append($"CREATE VIEW {tableName} as ");
 
         sb.Append(selectSql);
 
@@ -1643,7 +1643,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         var tableName = $"{database}.{this.NamingStrategy.GetTableName(modelDef.ModelName)}";
 
         sb.Append("DROP VIEW IF EXISTS ");
-        sb.AppendFormat("{0}", tableName);
+        sb.Append($"{tableName}");
 
         sb.Append(';');
 
@@ -1664,11 +1664,8 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
 
         var tableName = this.GetQuotedTableName(modelDef);
 
-        sb.AppendFormat(
-            "ALTER TABLE {0} ADD PRIMARY KEY ({1},{2})",
-            tableName,
-            this.GetQuotedColumnName(fieldNameA),
-            this.GetQuotedColumnName(fieldNameB));
+        sb.Append(
+            $"ALTER TABLE {tableName} ADD PRIMARY KEY ({this.GetQuotedColumnName(fieldNameA)},{this.GetQuotedColumnName(fieldNameB)})");
 
         return StringBuilderCache.ReturnAndFree(sb);
     }

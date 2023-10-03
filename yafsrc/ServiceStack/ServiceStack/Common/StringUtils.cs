@@ -552,12 +552,14 @@ public static class StringUtils
     /// The strip HTML unicode reg ex
     /// </summary>
     static readonly Regex StripHtmlUnicodeRegEx =
-        new(@"&(#)?([xX])?([^ \f\n\r\t\v;]+);", RegexOptions.Compiled);
+        new(@"&(#)?([xX])?([^ \f\n\r\t\v;]+);", RegexOptions.Compiled,
+            TimeSpan.FromMilliseconds(100));
 
     /// <summary>
     /// The safe input reg ex
     /// </summary>
-    static readonly Regex SafeInputRegEx = new(@"[^\w\s\.,@-\\+\\/]", RegexOptions.Compiled);
+    static readonly Regex SafeInputRegEx = new(@"[^\w\s\.,@-\\+\\/]", RegexOptions.Compiled,
+        TimeSpan.FromMilliseconds(100));
 
     /// <summary>
     /// HTMLs the encode lite.
