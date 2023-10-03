@@ -185,6 +185,20 @@ public class HttpRuntimeCache : IDataCache
     /// <param name="value">
     /// The value.
     /// </param>
+    public void Set(string key, object value)
+    {
+        MemoryCache.Default[this.CreateKey(key)] = value;
+    }
+
+    /// <summary>
+    /// The set.
+    /// </summary>
+    /// <param name="key">
+    /// The key.
+    /// </param>
+    /// <param name="value">
+    /// The value.
+    /// </param>
     /// <param name="timeout">
     /// The timeout.
     /// </param>
@@ -234,20 +248,6 @@ public class HttpRuntimeCache : IDataCache
     public void Remove(string key)
     {
         MemoryCache.Default.Remove(this.CreateKey(key));
-    }
-
-    /// <summary>
-    /// The set.
-    /// </summary>
-    /// <param name="key">
-    /// The key.
-    /// </param>
-    /// <param name="value">
-    /// The value.
-    /// </param>
-    public void Set(string key, object value)
-    {
-        MemoryCache.Default[this.CreateKey(key)] = value;
     }
 
     /// <summary>

@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Interfaces;
 
 using System.Collections.Generic;
@@ -73,6 +74,24 @@ public static class IObjectStoreExtensions
     }
 
     /// <summary>
+    /// The remote all where.
+    /// </summary>
+    /// <param name="objectStore">
+    /// The object store.
+    /// </param>
+    /// <param name="whereFunc">
+    /// The where function.
+    /// </param>
+    /// <typeparam name="T">
+    /// The Typed Parameter
+    /// </typeparam>
+    public static void RemoveOf<T>(
+        this IObjectStore objectStore, Func<KeyValuePair<string, T>, bool> whereFunc)
+    {
+        objectStore.GetAll<T>().Where(whereFunc).ToList().ForEach(i => objectStore.Remove(i.Key));
+    }
+
+    /// <summary>
     /// Clear the entire cache.
     /// </summary>
     /// <param name="objectStore">
@@ -114,24 +133,6 @@ public static class IObjectStoreExtensions
     {
         // remove all objects in the cache...
         return objectStore.GetAll<T>().Count();
-    }
-
-    /// <summary>
-    /// The remote all where.
-    /// </summary>
-    /// <param name="objectStore">
-    /// The object store.
-    /// </param>
-    /// <param name="whereFunc">
-    /// The where function.
-    /// </param>
-    /// <typeparam name="T">
-    /// The Typed Parameter
-    /// </typeparam>
-    public static void RemoveOf<T>(
-        this IObjectStore objectStore, Func<KeyValuePair<string, T>, bool> whereFunc)
-    {
-        objectStore.GetAll<T>().Where(whereFunc).ToList().ForEach(i => objectStore.Remove(i.Key));
     }
 
     /// <summary>

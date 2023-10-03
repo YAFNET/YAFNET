@@ -251,20 +251,6 @@ public class Localization : ILocalization
     }
 
     /// <summary>
-    /// Gets the Localized Text
-    /// </summary>
-    /// <param name="text">
-    /// The text.
-    /// </param>
-    /// <returns>
-    /// The get text.
-    /// </returns>
-    public string GetText(string text)
-    {
-        return this.GetText(this.TransPage, text);
-    }
-
-    /// <summary>
     /// Gets the attribute encoded text. 
     /// </summary>
     /// <param name="text">
@@ -276,6 +262,33 @@ public class Localization : ILocalization
     public string GetAttributeText(string text)
     {
         return HttpUtility.HtmlAttributeEncode(this.GetText(text));
+    }
+
+    /// <summary>
+    /// Gets the localized text
+    /// </summary>
+    /// <param name="page">The page.</param>
+    /// <param name="tag">The tag.</param>
+    /// <returns>
+    /// The get text.
+    /// </returns>
+    public string GetAttributeText(string page, string tag)
+    {
+        return HttpUtility.HtmlAttributeEncode(this.GetText(page, tag));
+    }
+
+    /// <summary>
+    /// Gets the Localized Text
+    /// </summary>
+    /// <param name="text">
+    /// The text.
+    /// </param>
+    /// <returns>
+    /// The get text.
+    /// </returns>
+    public string GetText(string text)
+    {
+        return this.GetText(this.TransPage, text);
     }
 
     /// <summary>
@@ -333,19 +346,6 @@ public class Localization : ILocalization
         localizedText = localizedText.Replace("[/noparse]", string.Empty);
 
         return localizedText;
-    }
-
-    /// <summary>
-    /// Gets the localized text
-    /// </summary>
-    /// <param name="page">The page.</param>
-    /// <param name="tag">The tag.</param>
-    /// <returns>
-    /// The get text.
-    /// </returns>
-    public string GetAttributeText(string page, string tag)
-    {
-        return HttpUtility.HtmlAttributeEncode(this.GetText(page, tag));
     }
 
     /// <summary>
