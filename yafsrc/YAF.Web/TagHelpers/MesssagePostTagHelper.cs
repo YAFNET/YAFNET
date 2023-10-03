@@ -165,7 +165,9 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                         var bbcodeTable = this.Get<IBBCodeService>().GetCustomBBCode();
                         return bbcodeTable
                             .Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet())
-                            .ToDictionary(codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, Options));
+                            .ToDictionary(
+                                codeRow => codeRow,
+                                codeRow => new Regex(codeRow.SearchRegex, Options, TimeSpan.FromMilliseconds(100)));
                     });
         }
     }

@@ -43,7 +43,8 @@ public static partial class EmojiOne
                 str,
                 $"{IGNORE_PATTERN}|{SHORTNAME_PATTERN}",
                 ShortNameToUnicodeCallback,
-                RegexOptions.IgnoreCase);
+                RegexOptions.IgnoreCase,
+                TimeSpan.FromMilliseconds(100));
         }
 
         if (ascii)
@@ -69,7 +70,8 @@ public static partial class EmojiOne
                 str,
                 $"{IGNORE_PATTERN}|{ASCII_PATTERN}",
                 AsciiToUnicodeCallback,
-                RegexOptions.IgnoreCase);
+                RegexOptions.IgnoreCase,
+                TimeSpan.FromMilliseconds(100));
         }
 
         return str;

@@ -52,7 +52,7 @@ public static class UrlRewriteHelper
                           ? HttpUtility.UrlDecode(inputString.Trim())
                           : HttpUtility.HtmlDecode(inputString.Trim());
 
-        inputString = Regex.Replace(inputString, @"\p{Cs}", string.Empty);
+        inputString = Regex.Replace(inputString, @"\p{Cs}", string.Empty, RegexOptions.None, TimeSpan.FromMilliseconds(100));
 
         // normalize the Unicode
         inputString = inputString.Normalize(NormalizationForm.FormD);

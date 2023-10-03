@@ -15,6 +15,7 @@
 
 namespace YAF.Core.Utilities.StringUtils;
 
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -160,18 +161,21 @@ public partial class StackTraceBeautify
             var line = lines[i];
             var li = line;
 
-            var hli = new Regex($@"(\S*){selectedLanguage.At} .*\)");
+            var hli = new Regex($@"(\S*){selectedLanguage.At} .*\)", RegexOptions.None,
+                TimeSpan.FromMilliseconds(100));
 
             if (hli.IsMatch(line))
             {
                 // Frame
-                var regFrame = new Regex($@"(\S*){selectedLanguage.At} .*\)");
+                var regFrame = new Regex($@"(\S*){selectedLanguage.At} .*\)", RegexOptions.None,
+                    TimeSpan.FromMilliseconds(100));
                 var partsFrame = regFrame.Match(line).Value;
 
                 partsFrame = partsFrame.Replace($"{selectedLanguage.At} ", string.Empty);
 
                 // Frame -> ParameterList
-                var regParamList = new Regex("\\(.*\\)");
+                var regParamList = new Regex("\\(.*\\)", RegexOptions.None,
+                    TimeSpan.FromMilliseconds(100));
 
                 var partsParamList = regParamList.Match(line).Value;
 
@@ -225,7 +229,8 @@ public partial class StackTraceBeautify
                     .Replace(partsTypeMethod, stringTypeMethod);
 
                 // Line
-                var regLine = new Regex($"(:{selectedLanguage.Line}.*)");
+                var regLine = new Regex($"(:{selectedLanguage.Line}.*)", RegexOptions.None,
+                    TimeSpan.FromMilliseconds(100));
 
                 var partsLine = regLine.Match(line).Value;
                 partsLine = partsLine.Replace(":", string.Empty).Replace("\r", string.Empty);
@@ -233,7 +238,8 @@ public partial class StackTraceBeautify
                 // File => (!) text requires multiline to exec regex, otherwise it will return null.
                 var regFile = new Regex(
                     $"({selectedLanguage.In}\\s.*)",
-                    RegexOptions.Multiline);
+                    RegexOptions.Multiline,
+                    TimeSpan.FromMilliseconds(100));
 
                 var partsFile = regFile.Match(line).Value;
                 partsFile = partsFile.Replace($"{selectedLanguage.In} ", string.Empty)
@@ -304,8 +310,10 @@ public partial class StackTraceBeautify
     /// </returns>
     private static string FormatException(string exceptionMessage, string languageAt)
     {
-        var regex = new Regex(@"(-{3}\s)(.*?)(-{3})");
-        var regex2 = new Regex($@"(\s){languageAt} ([^-:]*?)\((.*?)\)");
+        var regex = new Regex(@"(-{3}\s)(.*?)(-{3})", RegexOptions.None,
+            TimeSpan.FromMilliseconds(100));
+        var regex2 = new Regex($@"(\s){languageAt} ([^-:]*?)\((.*?)\)", RegexOptions.None,
+            TimeSpan.FromMilliseconds(100));
 
         var result = regex.IsMatch(exceptionMessage) ? regex.Replace(exceptionMessage, string.Empty) : exceptionMessage;
 
@@ -317,16 +325,16 @@ public partial class StackTraceBeautify
         return result;
     }
 
-    [GeneratedRegex("(\\s*)at .*\\)")]
+    [GeneratedRegex("(\\s*)at .*\\)", RegexOptions.None, 100)]
     private static partial Regex EnglishRegex();
 
-    [GeneratedRegex("(\\s*)ved .*\\)")]
+    [GeneratedRegex("(\\s*)ved .*\\)", RegexOptions.None, 100)]
     private static partial Regex DanishRegex();
 
-    [GeneratedRegex("(\\s*)bei .*\\)")]
+    [GeneratedRegex("(\\s*)bei .*\\)", RegexOptions.None, 100)]
     private static partial Regex GermanRegex();
 
-    [GeneratedRegex("(\\s*)в .*\\)")]
+    [GeneratedRegex("(\\s*)в .*\\)", RegexOptions.None, 100)]
     private static partial Regex RussianRegex();
 }
 

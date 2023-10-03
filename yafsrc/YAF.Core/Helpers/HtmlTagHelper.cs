@@ -44,7 +44,7 @@ public static class HtmlTagHelper
     /// </returns>
     public static string StripHtml(string text)
     {
-        return text.IsNotSet() ? text : Regex.Replace(text, @"<(.|\n)*?>", string.Empty);
+        return text.IsNotSet() ? text : Regex.Replace(text, @"<(.|\n)*?>", string.Empty, RegexOptions.None, TimeSpan.FromMilliseconds(100));
     }
 
     /// <summary>

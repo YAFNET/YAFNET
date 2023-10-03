@@ -82,7 +82,7 @@ public static class BBCodeHelper
     /// </returns>
     public static string StripBBCode(string text)
     {
-        return Regex.Replace(text, @"\[(.|\n)*?\]", string.Empty);
+        return Regex.Replace(text, @"\[(.|\n)*?\]", string.Empty, RegexOptions.None, TimeSpan.FromMilliseconds(100));
     }
 
     /// <summary>

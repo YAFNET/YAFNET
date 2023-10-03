@@ -46,7 +46,7 @@ public static class ValidationHelper
         return Regex.IsMatch(
             email,
             @"^([0-9a-z]+[-._+&])*[0-9a-z]+@([-0-9a-z]+[.])+[a-z]{2,6}$",
-            RegexOptions.IgnoreCase);
+            RegexOptions.IgnoreCase,TimeSpan.FromMilliseconds(100));
     }
 
     /// <summary>

@@ -233,7 +233,6 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// <returns>
     /// The formatted message.
     /// </returns>
-    
     [Obsolete("Remove Table")]
     public string FormatSyndicationMessage(
         string message,
@@ -280,7 +279,6 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// <returns>
     /// Returns a forbidden HTML tag or a null string
     /// </returns>
-    
     public string HtmlTagForbiddenDetector(
         string stringToClear,
         string stringToMatch,
@@ -326,13 +324,12 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// <returns>
     /// A version of <paramref name="body"/> that contains no nested quotes.
     /// </returns>
-    
     public string RemoveNestedQuotes(string body)
     {
         const RegexOptions RegexOptions = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline
                                          ;
 
-        var quote = new Regex(@"\[quote(\=[^\]]*)?\](.*?)\[/quote\]", RegexOptions);
+        var quote = new Regex(@"\[quote(\=[^\]]*)?\](.*?)\[/quote\]", RegexOptions, TimeSpan.FromMilliseconds(100));
 
         // remove quotes from old messages
         return quote.Replace(body, string.Empty).TrimStart();
@@ -347,7 +344,6 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// <returns>
     /// The Cleaned body.
     /// </returns>
-    
     public string RemoveHiddenBBCodeContent(string body)
     {
         const RegexOptions RegexOptions =
@@ -377,7 +373,6 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// <returns>
     /// The Cleaned body.
     /// </returns>
-    
     public string RemoveCustomBBCodes(string body)
     {
         const RegexOptions RegexOptions =
