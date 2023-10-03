@@ -469,14 +469,14 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
             sbConstraints.Append($" CONSTRAINT {primaryKeyName} PRIMARY KEY (");
 
             sbConstraints.Append(
-                modelDef.CompositePrimaryKeys.First().FieldNames.Map(f => modelDef.GetQuotedName(f, this))
+                modelDef.CompositePrimaryKeys[0].FieldNames.Map(f => modelDef.GetQuotedName(f, this))
                     .Join(","));
 
             sbConstraints.Append(") ");
         }
 
-        var sql = $"CREATE TABLE {this.GetQuotedTableName(modelDef)} " +
-                  $"\n(\n  {StringBuilderCache.ReturnAndFree(sbColumns)}{StringBuilderCacheAlt.ReturnAndFree(sbConstraints)} \n); \n";
+        var sql =
+            $"CREATE TABLE {this.GetQuotedTableName(modelDef)} \n(\n  {StringBuilderCache.ReturnAndFree(sbColumns)}{StringBuilderCacheAlt.ReturnAndFree(sbConstraints)} \n); \n";
 
         return sql;
     }

@@ -626,7 +626,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 new VariableRegexReplaceRule(
                     new Regex(
                         """^(?!.*youtu).*(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?!youtu)(?<!href=")(?<!src=")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~/(/)$]*[^.<|^.\[])?)""",
-                        RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled),
+                        RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled, TimeSpan.FromMilliseconds(100)),
                     "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
                     new[]

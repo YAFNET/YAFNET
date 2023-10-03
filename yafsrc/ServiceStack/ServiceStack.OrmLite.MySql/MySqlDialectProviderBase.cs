@@ -695,7 +695,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
             sbConstraints.Append(" PRIMARY KEY (");
 
             sbConstraints.Append(
-                modelDef.CompositePrimaryKeys.First().FieldNames.Map(f => modelDef.GetQuotedName(f, this))
+                modelDef.CompositePrimaryKeys[0].FieldNames.Map(f => modelDef.GetQuotedName(f, this))
                     .Join(","));
 
             sbConstraints.Append(") ");
