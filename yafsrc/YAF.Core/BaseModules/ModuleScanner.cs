@@ -42,7 +42,7 @@ public class ModuleScanner
     /// </param>
     /// <returns>
     /// </returns>
-    public static IEnumerable<Assembly> GetModules(string pattern)
+    public IEnumerable<Assembly> GetModules(string pattern)
     {
         var files = GetMatchingFiles(pattern).ToList();
 
