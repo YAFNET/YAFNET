@@ -28,13 +28,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-public static class StringUtils
+public static partial class StringUtils
 {
     public static List<string> GetLinks(string message)
     {
-        var urlRx = new Regex(@"https?:\/\/(?:w{1,3}\.)?[^\s.]+(?:\.[a-z]+)*(?::\d+)?(?![^<]*(?:<\/\w+>|\/?>))", RegexOptions.IgnoreCase);
+        var urlRx = UrlRegex();
 
         var matches = urlRx.Matches(message);
         return (from Match match in matches select match.Value).ToList();
     }
+
+    [GeneratedRegex(@"https?:\/\/(?:w{1,3}\.)?[^\s.]+(?:\.[a-z]+)*(?::\d+)?(?![^<]*(?:<\/\w+>|\/?>))", RegexOptions.IgnoreCase, "de-DE")]
+    private static partial Regex UrlRegex();
 }

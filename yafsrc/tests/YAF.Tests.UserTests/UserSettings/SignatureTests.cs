@@ -58,14 +58,11 @@ public class SignatureTests : TestBase
                         pageSource.Contains("Edit Signature"),
                         "Edit Signature is not available for that User");
 
-                    await page.FrameLocator("iframe[title=\"Editor\\, Signature\"]").GetByRole(
-                            AriaRole.Textbox,
-                            new() { Name = "Editor, Signature" })
-                        .FillAsync("This is a Test Signature created by an Unit Test.");
+                    await page.Locator(".BBCodeEditor").FillAsync("This is a Test Signature created by an Unit Test.");
 
                     await page.Locator("//*[contains(@formaction,'Preview')]").ClickAsync();
 
-                    var previewCell = await page.Locator(".card-body").TextContentAsync();
+                    var previewCell = await page.Locator(".card-body").First.TextContentAsync();
 
                     Assert.AreEqual(
                         "This is a Test Signature created by an Unit Test.",

@@ -73,8 +73,7 @@ public class MessageTests : TestBase
                     Assert.IsTrue(pageSource.Contains("Post a reply"), "Post Reply not possible");
 
                     // Create New Reply
-                    await page.FrameLocator("iframe[title=\"Editor\\, Input_Editor\"]")
-                        .GetByRole(AriaRole.Textbox, new() { Name = "Editor, Input_Editor" }).FillAsync(
+                    await page.Locator(".BBCodeEditor").FillAsync(
                         "This is a Test Reply in an Test Topic Created by an automated Unit Test");
 
                     // Post New Topic
@@ -135,9 +134,7 @@ public class MessageTests : TestBase
                     Assert.IsTrue(pageSource.Contains("Post a reply"), "Post Reply not possible");
 
                     // Create New Reply
-                    await page.FrameLocator("iframe[title=\"Editor\\, Input_Editor\"]")
-                        .GetByRole(AriaRole.Textbox, new() { Name = "Editor, Input_Editor" })
-                        .FillAsync("  Quoting Test");
+                    await page.Locator(".BBCodeEditor").FillAsync("  Quoting Test");
 
                     // Post New Topic
                     await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();
@@ -184,8 +181,7 @@ public class MessageTests : TestBase
                     Assert.IsTrue(pageSource.Contains("Post a reply"), "Post Reply not possible");
 
                     // Create New Reply A
-                    await page.FrameLocator("iframe[title=\"Editor\\, Input_Editor\"]")
-                        .GetByRole(AriaRole.Textbox, new() { Name = "Editor, Input_Editor" }).FillAsync("Test Reply A");
+                    await page.Locator(".BBCodeEditor").FillAsync("Test Reply A");
 
                     // Post New Message
                     await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();
@@ -207,8 +203,7 @@ public class MessageTests : TestBase
                     Assert.IsTrue(pageSource.Contains("Post a reply"), "Post Reply not possible");
 
                     // Create New Reply B
-                    await page.FrameLocator("iframe[title=\"Editor\\, Input_Editor\"]")
-                        .GetByRole(AriaRole.Textbox, new() { Name = "Editor, Input_Editor" }).FillAsync("Test Reply B");
+                    await page.Locator(".BBCodeEditor").FillAsync("Test Reply B");
 
                     // Post New Message
                     await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();
@@ -230,8 +225,7 @@ public class MessageTests : TestBase
                     Assert.IsTrue(pageSource.Contains("Post a reply"), "Post Reply not possible");
 
                     // Create New Reply B
-                    await page.FrameLocator("iframe[title=\"Editor\\, Input_Editor\"]")
-                        .GetByRole(AriaRole.Textbox, new() { Name = "Editor, Input_Editor" }).FillAsync("Test Reply C");
+                    await page.Locator(".BBCodeEditor").FillAsync("Test Reply C");
 
                     // Post New Message
                     await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();
@@ -256,8 +250,7 @@ public class MessageTests : TestBase
 
                     Assert.IsTrue(pageSource.Contains("Post a reply"), "Post Reply not possible");
 
-                    var editorContent = await page.FrameLocator("iframe[title=\"Editor\\, Input_Editor\"]")
-                                            .GetByRole(AriaRole.Textbox, new() { Name = "Editor, Input_Editor" })
+                    var editorContent = await page.Locator(".BBCodeEditor")
                                             .TextContentAsync();
 
                     Assert.IsNotNull(editorContent, "Content is empty");
@@ -267,9 +260,7 @@ public class MessageTests : TestBase
                     Assert.IsTrue(editorContent.Contains("Test Reply C"), "Test Replay C quote not found");
 
                     // Create New Reply
-                    await page.FrameLocator("iframe[title=\"Editor\\, Input_Editor\"]")
-                        .GetByRole(AriaRole.Textbox, new() { Name = "Editor, Input_Editor" }).FillAsync(
-                            $"{editorContent}  Multi Quoting Test");
+                    await page.Locator(".BBCodeEditor").FillAsync($"{editorContent}  Multi Quoting Test");
 
                     // Post New Topic
                     await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();

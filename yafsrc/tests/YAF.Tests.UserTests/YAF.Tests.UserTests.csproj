@@ -25,8 +25,8 @@
     <ProjectReference Include="..\YAF.Tests.Utils\YAF.Tests.Utils.csproj" />
   </ItemGroup>
   <ItemGroup>
-	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
-    <PackageReference Include="Microsoft.Playwright.NUnit" Version="1.35.0" />
+	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
+    <PackageReference Include="Microsoft.Playwright.NUnit" Version="1.37.1" />
     <PackageReference Include="NUnit" Version="3.13.3" />
   </ItemGroup>
 </Project>

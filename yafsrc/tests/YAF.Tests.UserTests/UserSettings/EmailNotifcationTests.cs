@@ -296,6 +296,8 @@ public class EmailNotificationTests : TestBase
                     while (this.Base.SmtpServer.ReceivedEmailCount.Equals(0))
                     {
                         Thread.Sleep(5000);
+
+                        await Task.Delay(5000);
                     }
 
                     var mail = this.Base.SmtpServer.ReceivedEmail[0];

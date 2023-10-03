@@ -60,8 +60,7 @@ public static class TopicExtensions
         // Create New Topic
         await page.Locator("//input[contains(@id,'_TopicSubject')]").FillAsync($"Auto Created Test Topic - {DateTime.UtcNow}");
 
-        await page.FrameLocator("iframe[title=\"Editor\\, Input_Editor\"]")
-            .GetByRole(AriaRole.Textbox, new() { Name = "Editor, Input_Editor" })
+        await page.Locator(".BBCodeEditor")
             .FillAsync("This is a Test Message Created by an automated Unit Test");
 
         // Post New Topic
@@ -108,8 +107,7 @@ public static class TopicExtensions
         }
 
         // Create New Reply
-        await page.FrameLocator("iframe[title=\"Editor\\, Input_Editor\"]")
-            .GetByRole(AriaRole.Textbox, new() { Name = "Editor, Input_Editor" }).FillAsync(message);
+        await page.Locator(".BBCodeEditor").FillAsync(message);
 
         // Post New Reply
         await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();

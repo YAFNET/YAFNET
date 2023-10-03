@@ -68,8 +68,7 @@ public class TopicTests : TestBase
                         await page.Locator("//input[contains(@id,'_TopicDescription')]").FillAsync("Test Description");
                     }
 
-                    await page.FrameLocator("iframe[title=\"Editor\\, Input_Editor\"]")
-                        .GetByRole(AriaRole.Textbox, new() { Name = "Editor, Input_Editor" })
+                    await page.Locator(".BBCodeEditor")
                         .FillAsync("This is a Test Message Created by an automated Unit Test");
 
                     // Post New Topic
@@ -122,8 +121,7 @@ public class TopicTests : TestBase
                     await page.Locator("//input[contains(@id,'_TopicDescription')]").FillAsync("Test Description");
                 }
 
-                await page.FrameLocator("iframe[title=\"Editor\\, Input_Editor\"]")
-                .GetByRole(AriaRole.Textbox, new() { Name = "Editor, Input_Editor" })
+                await page.Locator(".BBCodeEditor")
                 .FillAsync("This is a Test Message Created by an automated Unit Test");
 
                 // Post New Topic

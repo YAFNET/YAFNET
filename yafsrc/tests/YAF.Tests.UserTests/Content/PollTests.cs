@@ -366,9 +366,7 @@ public class PollTests : TestBase
             await page.Locator("//input[contains(@id,'_TopicDescription')]").FillAsync("Poll Testing");
         }
 
-        await page.FrameLocator("iframe[title=\"Editor\\, Input_Editor\"]")
-            .GetByRole(AriaRole.Textbox, new() { Name = "Editor, Input_Editor" })
-            .FillAsync("This is a test topic to test the Poll Creating");
+        await page.Locator(".BBCodeEditor").FillAsync("This is a test topic to test the Poll Creating");
 
         // Post New Topic
         await page.Locator("//*[contains(@formaction,'PostReply')]").ClickAsync();
