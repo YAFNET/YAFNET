@@ -751,6 +751,16 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     }
 
     /// <summary>
+    /// Converts to dropforeignkeystatement.
+    /// </summary>
+    /// <param name="schema">The schema.</param>
+    /// <param name="table">The table.</param>
+    /// <param name="foreignKeyName">Name of the foreign key.</param>
+    /// <returns>string.</returns>
+    public override string ToDropForeignKeyStatement(string schema, string table, string foreignKeyName) =>
+        $"ALTER TABLE {GetQuotedTableName(table, schema)} DROP FOREIGN KEY {GetQuotedName(foreignKeyName)};";
+
+    /// <summary>
     /// Gets the column definition.
     /// </summary>
     /// <param name="fieldDef">The field definition.</param>

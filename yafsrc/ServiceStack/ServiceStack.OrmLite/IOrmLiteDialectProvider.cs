@@ -1064,6 +1064,16 @@ public interface IOrmLiteDialectProvider
                                                  OnFkOption onUpdate,
                                                  OnFkOption onDelete,
                                                  string foreignKeyName = null);
+
+    /// <summary>
+    /// Converts to dropforeignkeystatement.
+    /// </summary>
+    /// <param name="schema">The schema.</param>
+    /// <param name="table">The table.</param>
+    /// <param name="foreignKeyName">Name of the foreign key.</param>
+    /// <returns>System.String.</returns>
+    string ToDropForeignKeyStatement(string schema, string table, string foreignKeyName);
+
     /// <summary>
     /// Converts to createindexstatement.
     /// </summary>

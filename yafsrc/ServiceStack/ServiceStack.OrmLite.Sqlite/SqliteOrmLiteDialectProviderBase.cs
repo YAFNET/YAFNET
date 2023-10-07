@@ -289,11 +289,8 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
                     Directory.CreateDirectory(existingDir);
                 }
             }
-#if NET7_0_OR_GREATER
-                connString.AppendFormat(@"Data Source={0};", connectionString.Trim());
-#else
-            connString.AppendFormat(@"Data Source={0};Version=3;New=True;Compress=True;", connectionString.Trim());
-#endif
+
+            connString.AppendFormat("Data Source={0};", connectionString.Trim());
         }
         else
         {
@@ -316,8 +313,16 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
             }
         }
 
+        ConnectionStringFilter?.Invoke(connString);
+
         return CreateConnection(StringBuilderCache.ReturnAndFree(connString));
     }
+
+    /// <summary>
+    /// Gets or sets the connection string filter.
+    /// </summary>
+    /// <value>The connection string filter.</value>
+    public Action<StringBuilder> ConnectionStringFilter { get; set; }
 
     /// <summary>
     /// Creates the connection.

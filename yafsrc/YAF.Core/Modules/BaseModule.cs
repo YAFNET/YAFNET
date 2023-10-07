@@ -35,8 +35,6 @@ using Autofac.Core;
 
 using YAF.Core.BaseModules;
 
-using Module = Autofac.Module;
-
 /// <summary>
 /// The base module.
 /// </summary>
@@ -52,7 +50,7 @@ public abstract class BaseModule : Module, IHaveSortOrder
     /// </summary>
     static BaseModule()
     {
-        ExtensionAssemblies = new ModuleScanner().GetModules("YAF*.dll")
+        ExtensionAssemblies = ModuleScanner.GetModules("YAF*.dll")
             .Concat(
                 AppDomain.CurrentDomain.GetAssemblies().Where(
                     a => a.FullName.StartsWith("Autofac") && a.FullName.StartsWith("FarsiLibrary")

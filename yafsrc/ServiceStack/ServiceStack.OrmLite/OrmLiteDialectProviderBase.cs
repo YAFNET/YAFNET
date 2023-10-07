@@ -3230,6 +3230,16 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     }
 
     /// <summary>
+    /// Converts to dropforeignkeystatement.
+    /// </summary>
+    /// <param name="schema">The schema.</param>
+    /// <param name="table">The table.</param>
+    /// <param name="foreignKeyName">Name of the foreign key.</param>
+    /// <returns>string.</returns>
+    public virtual string ToDropForeignKeyStatement(string schema, string table, string foreignKeyName) =>
+        $"ALTER TABLE {GetQuotedTableName(table, schema)} DROP CONSTRAINT {GetQuotedName(foreignKeyName)};";
+
+    /// <summary>
     /// Converts to create index statement.
     /// </summary>
     /// <typeparam name="T"></typeparam>

@@ -92,7 +92,7 @@ public class OrmLiteConnection
             return;
         }
 
-        dbConnection?.Dispose();
+        dbConnection.Dispose();
         dbConnection = null;
     }
 
