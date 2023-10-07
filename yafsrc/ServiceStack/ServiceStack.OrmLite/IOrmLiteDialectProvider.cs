@@ -990,6 +990,9 @@ public interface IOrmLiteDialectProvider
                                                  OnFkOption onUpdate,
                                                  OnFkOption onDelete,
                                                  string foreignKeyName = null);
+
+    string ToDropForeignKeyStatement(string schema, string table, string foreignKeyName);
+
     /// <summary>
     /// Converts to createindexstatement.
     /// </summary>

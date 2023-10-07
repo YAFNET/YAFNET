@@ -738,6 +738,9 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         return "SELECT 1";
     }
 
+    public override string ToDropForeignKeyStatement(string schema, string table, string foreignKeyName) =>
+        $"ALTER TABLE {GetQuotedTableName(table, schema)} DROP FOREIGN KEY {GetQuotedName(foreignKeyName)};";
+
     /// <summary>
     /// Gets the column definition.
     /// </summary>

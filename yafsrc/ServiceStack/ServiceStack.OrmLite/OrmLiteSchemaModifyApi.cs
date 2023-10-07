@@ -419,15 +419,25 @@ public static class OrmLiteSchemaModifyApi
     /// </summary>
     /// <typeparam name="T">The Table Model</typeparam>
     /// <param name="dbConn">The database connection.</param>
-    /// <param name="name">The name.</param>
-    public static void DropForeignKey<T>(this IDbConnection dbConn, string name)
+    public static void DropForeignKeys<T>(this IDbConnection dbConn)
     {
         var provider = dbConn.GetDialectProvider();
         var modelDef = ModelDefinition<T>.Definition;
 
-        var command = provider.GetDropForeignKeyConstraint(modelDef, name);
+        var dropSql = provider.GetDropForeignKeyConstraints(modelDef);
 
-        dbConn.ExecuteSql(command);
+        if (string.IsNullOrEmpty(dropSql))
+            throw new NotSupportedException($"Drop All Foreign Keys not supported by {provider.GetType().Name}");
+
+        dbConn.ExecuteSql(dropSql);
+    }
+
+    public static void DropForeignKey<T>(this IDbConnection dbConn, string foreignKeyName)
+    {
+        var provider = dbConn.GetDialectProvider();
+        var modelDef = ModelDefinition<T>.Definition;
+        var dropSql = provider.ToDropForeignKeyStatement(modelDef.Schema, modelDef.ModelName, foreignKeyName);
+        dbConn.ExecuteSql(dropSql);
     }
 
     /// <summary>

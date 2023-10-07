@@ -22,6 +22,16 @@ public class SqliteOrmLiteDialectProvider : SqliteOrmLiteDialectProviderBase
     public static SqliteOrmLiteDialectProvider Instance = new();
 
     /// <summary>
+    /// Initializes a new instance of the <see cref="SqliteOrmLiteDialectProvider"/> class.
+    /// </summary>
+    public SqliteOrmLiteDialectProvider()
+    {
+#if NETFX
+        ConnectionStringFilter = sb => sb.Append("Version=3;New=True;Compress=True");
+#endif
+    }
+
+    /// <summary>
     /// Creates the connection.
     /// </summary>
     /// <param name="connectionString">The connection string.</param>
