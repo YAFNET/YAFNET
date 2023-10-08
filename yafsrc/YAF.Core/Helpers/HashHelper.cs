@@ -159,7 +159,6 @@ public static class HashHelper
     /// <returns>
     /// Hashed bytes
     /// </returns>
-    
     private static byte[] Hash(byte[] clearBytes, HashAlgorithmType hashAlgorithmType)
     {
         CodeContracts.VerifyNotNull(clearBytes);

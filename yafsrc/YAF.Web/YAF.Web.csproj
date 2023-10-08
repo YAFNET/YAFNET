@@ -3,7 +3,7 @@
     <ProductVersion>9.0.30729</ProductVersion>
     <FileUpgradeFlags />
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <TargetFrameworks>net48</TargetFrameworks>
+    <TargetFrameworks>net481</TargetFrameworks>
     <UpgradeBackupLocation />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
+    <PackageReference Include="OEmbed.Core" Version="2.0.0" />
     <Compile Update="Controls\BaseReportedPosts.cs" />
   </ItemGroup>
   <ItemGroup>

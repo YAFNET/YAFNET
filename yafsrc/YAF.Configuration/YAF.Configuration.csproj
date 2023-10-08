@@ -3,7 +3,7 @@
     <ProductVersion>9.0.30729</ProductVersion>
     <FileUpgradeFlags />
     <UpgradeBackupLocation />
-    <TargetFrameworks>net48</TargetFrameworks>
+    <TargetFrameworks>net481</TargetFrameworks>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>

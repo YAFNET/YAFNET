@@ -90,7 +90,7 @@ public class Digest : IDigest, IHaveServiceLocator
             return null;
         }
 
-        var topics = newTopics.Concat(activeTopics).ToList().GroupBy(x => x.TopicID).Select(x => x.First()).ToList();
+        var topics = newTopics.Concat(activeTopics).GroupBy(x => x.TopicID).Select(x => x.First()).ToList();
 
         var languageFile = user.LanguageFile.IsSet() && this.Get<BoardSettings>().AllowUserLanguage
                                ? user.LanguageFile

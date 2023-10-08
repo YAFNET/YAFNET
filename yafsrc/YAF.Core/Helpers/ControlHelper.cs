@@ -21,9 +21,9 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Helpers;
 
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Web.UI;
@@ -40,11 +40,8 @@ public static class ControlHelper
     /// </summary>
     /// <param name="control">The control.</param>
     /// <returns>Returns the Rendered Control as string</returns>
-    
     public static string RenderToString(this Control control)
     {
-        CodeContracts.VerifyNotNull(control);
-
         (control as IRaiseControlLifeCycles)?.RaiseLoad();
 
         if (!control.Visible)
@@ -70,9 +67,6 @@ public static class ControlHelper
     /// </returns>
     public static Control FindControlRecursiveReverse(this Control sourceControl, string id)
     {
-        CodeContracts.VerifyNotNull(sourceControl);
-        CodeContracts.VerifyNotNull(id);
-
         var foundControl = sourceControl.FindControl(id);
 
         if (foundControl != null)
@@ -93,9 +87,6 @@ public static class ControlHelper
     /// </returns>
     public static Control FindControlRecursiveBoth(this Control sourceControl, string id)
     {
-        CodeContracts.VerifyNotNull(sourceControl);
-        CodeContracts.VerifyNotNull(id);
-
         var found = FindControlRecursiveReverse(sourceControl, id);
         if (found != null)
         {
@@ -123,9 +114,6 @@ public static class ControlHelper
     /// </returns>
     public static T FindControlAs<T>(this Control sourceControl, string id) where T : class
     {
-        CodeContracts.VerifyNotNull(sourceControl);
-        CodeContracts.VerifyNotNull(id);
-
         var foundControl = sourceControl.FindControl(id);
 
         return foundControl is T ? foundControl.ToClass<T>() : null;
@@ -143,9 +131,6 @@ public static class ControlHelper
     public static T FindControlRecursiveAs<T>(this Control sourceControl, string id)
         where T : class
     {
-        CodeContracts.VerifyNotNull(sourceControl);
-        CodeContracts.VerifyNotNull(id);
-
         var foundControl = FindControlRecursive(sourceControl, id);
 
         return foundControl is T ? foundControl.ToClass<T>() : null;
@@ -163,9 +148,6 @@ public static class ControlHelper
     public static T FindControlRecursiveBothAs<T>(this Control sourceControl, string id)
         where T : class
     {
-        CodeContracts.VerifyNotNull(sourceControl);
-        CodeContracts.VerifyNotNull(id);
-
         var foundControl = FindControlRecursiveBoth(sourceControl, id);
 
         return foundControl is T ? foundControl.ToClass<T>() : null;
@@ -183,12 +165,8 @@ public static class ControlHelper
     /// <returns>
     /// A control reference, if found, null, if not
     /// </returns>
-    
     public static Control FindWizardControlRecursive(this Wizard wizardControl, string id)
     {
-        CodeContracts.VerifyNotNull(wizardControl);
-        CodeContracts.VerifyNotNull(id);
-
         Control foundControl = null;
 
         for (var i = 0; i < wizardControl.WizardSteps.Count; i++)
@@ -223,12 +201,8 @@ public static class ControlHelper
     /// <returns>
     /// A Control, if found; null, if not
     /// </returns>
-    
     public static Control FindControlRecursive(this Control sourceControl, string id)
     {
-        CodeContracts.VerifyNotNull(sourceControl);
-        CodeContracts.VerifyNotNull(id);
-
         var foundControl = sourceControl.FindControl(id);
 
         if (foundControl != null)
@@ -238,7 +212,7 @@ public static class ControlHelper
 
         if (!sourceControl.HasControls())
         {
-            return foundControl;
+            return null;
         }
 
         foreach (Control tmpCtr in sourceControl.Controls)
@@ -265,11 +239,8 @@ public static class ControlHelper
     /// <returns>
     /// List of type T with controls.
     /// </returns>
-    
     public static IEnumerable<T> FindControlType<T>(this Control sourceControl)
     {
-        CodeContracts.VerifyNotNull(sourceControl);
-
         return sourceControl.Controls.OfType<T>();
     }
 
@@ -280,11 +251,8 @@ public static class ControlHelper
     /// <returns>
     /// The make CSS include control.
     /// </returns>
-    
     public static HtmlLink MakeCssIncludeControl(string href)
     {
-        CodeContracts.VerifyNotNull(href);
-
         var stylesheet = new HtmlLink { Href = href };
         stylesheet.Attributes.Add("rel", "stylesheet");
         stylesheet.Attributes.Add("type", "text/css");
@@ -301,11 +269,8 @@ public static class ControlHelper
     /// <returns>
     /// Returns the CSS control
     /// </returns>
-    
     public static HtmlGenericControl MakeCssControl(string css)
     {
-        CodeContracts.VerifyNotNull(css);
-
         var style = new HtmlGenericControl { TagName = "style" };
         style.Attributes.Add("type", "text/css");
         style.InnerHtml = css;
@@ -322,30 +287,5 @@ public static class ControlHelper
         var meta = new HtmlMeta { Name = "robots", Content = "noindex,follow" };
 
         return meta;
-    }
-
-    /// <summary>
-    /// Finds a control recursively (forward only) using <paramref name="isControl"/> function.
-    /// </summary>
-    /// <param name="sourceControl">
-    /// Control to start search from.
-    /// </param>
-    /// <param name="isControl">
-    /// Function to test if we found the control.
-    /// </param>
-    /// <returns>
-    /// List of controls found
-    /// </returns>
-    
-    private static IEnumerable<Control> ControlListNoParents(
-        this Control sourceControl,
-        Func<Control, bool> isControl)
-    {
-        CodeContracts.VerifyNotNull(sourceControl);
-        CodeContracts.VerifyNotNull(isControl);
-
-        return
-            (from c in sourceControl.Controls.Cast<Control>().AsQueryable() where !c.HasControls() select c).AsEnumerable().Where(
-                isControl).ToList();
     }
 }

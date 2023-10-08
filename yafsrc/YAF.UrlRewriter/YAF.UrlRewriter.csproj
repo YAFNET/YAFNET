@@ -14,7 +14,7 @@
     <FileUpgradeFlags />
     <UpgradeBackupLocation />
     <SignAssembly>false</SignAssembly>
-    <TargetFrameworks>net48</TargetFrameworks>
+    <TargetFrameworks>net481</TargetFrameworks>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>

@@ -254,7 +254,7 @@
                 onEscape: options.onEscape
             };
 
-            body.querySelector(".bootbox-body").append(options.message);
+            body.querySelector(".bootbox-body").innerHTML = options.message;
 
             // Only attempt to create buttons if at least one has been defined in the options object
             if (getKeyLength(options.buttons) > 0) {
@@ -617,34 +617,7 @@
                 } else if (options.inputType === "radio") {
                     value = input.querySelector("input:checked").value;
                 } else {
-                    const el = input[0];
-
-                    // Clear any previous custom error message
-                    if (options.errorMessage) {
-                        el.setCustomValidity("");
-                    }
-
-                    if (el.checkValidity && !el.checkValidity()) {
-                        // If a custom error message was provided, add it now
-                        if (options.errorMessage) {
-                            el.setCustomValidity(options.errorMessage);
-                        }
-
-                        if (el.reportValidity) {
-                            el.reportValidity();
-                        }
-
-                        // prevents button callback from being called
-                        return false;
-                    } else {
-                        if (options.inputType === "select" && options.multiple === true) {
-                            value = input.querySelector("option:selected").map(function(e) {
-                                return e.value;
-                            }).get();
-                        } else {
-                            value = input.value;
-                        }
-                    }
+                    value = input.value;
                 }
 
                 return options.callback.call(this, value);
