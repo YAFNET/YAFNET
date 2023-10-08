@@ -45,6 +45,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 
+using OEmbed.Core.Extensions;
+
 using UAParser.Extensions;
 
 using YAF.Configuration;
@@ -101,6 +103,7 @@ public class Startup : IHaveServiceLocator
         services.AddMemoryCache();
 
         services.AddUserAgentParser();
+        services.AddOEmbed();
 
         services.Configure<IdentityOptions>(
             options =>

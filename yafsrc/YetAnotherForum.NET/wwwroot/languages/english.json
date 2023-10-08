@@ -8271,6 +8271,10 @@
             "#text": "Most users ever online was {0:N0} on {1}."
           },
           {
+            "@tag": "MEDIA",
+            "#text": "Insert Media"
+          },
+          {
             "@tag": "MENU",
             "#text": "Menu"
           },
@@ -8541,6 +8545,10 @@
           {
             "@tag": "TT_DESCRIPTION",
             "#text": "Description"
+          },
+          {
+            "@tag": "TT_MEDIA",
+            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           },
           {
             "@tag": "UNREAD_MENTION_MSG",

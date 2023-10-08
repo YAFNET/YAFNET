@@ -5,26 +5,26 @@
  * @author itsmikita@gmail.com
  */
 
-var AutoCloseTags = function(textarea) {
-        this.textarea = textarea;
+var AutoCloseTags = function (textarea) {
+    this.textarea = textarea;
 
-        // Auto-close tags
-        this.autoClosingTags = [
-            "b", "i", "u", "h", "code", "img", "quote", "left", "center", "right",
-            "indent", "list", "color",
-            "size", "albumimg", "attach", "youtube", "vimeo",
-            "instagram", "twitter", "facebook", "googlewidget", "spoiler", "userlink", "googlemaps",
-            "hide", "group-hide", "hide-thanks", "hide-reply-thanks", "hide-reply", "hide-posts", "dailymotion", "audio"
-        ];
-        this.enableAutoCloseTags();
-    };
+    // Auto-close tags
+    this.autoClosingTags = [
+        "b", "i", "u", "h", "code", "img", "quote", "left", "center", "right",
+        "indent", "list", "color",
+        "size", "albumimg", "attach", "youtube", "vimeo",
+        "instagram", "twitter", "facebook", "googlewidget", "spoiler", "userlink", "googlemaps",
+        "hide", "group-hide", "hide-thanks", "hide-reply-thanks", "hide-reply", "hide-posts", "dailymotion", "audio", "media"
+    ];
+    this.enableAutoCloseTags();
+};
 
 AutoCloseTags.prototype = {
-    enableAutoCloseTags: function() {
+    enableAutoCloseTags: function () {
         var self = this;
 
         this.textarea.addEventListener("keydown",
-            function(event) {
+            function (event) {
                 const keyCode = event.key;
 
                 // Close tag ']'

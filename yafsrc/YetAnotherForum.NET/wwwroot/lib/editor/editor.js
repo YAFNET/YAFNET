@@ -1,10 +1,11 @@
-﻿var yafEditor = function (name, urlTitle, urlDescription, urlImageTitle, urlImageDescription, description) {
+﻿var yafEditor = function (name, urlTitle, urlDescription, urlImageTitle, urlImageDescription, description, mediaTitle) {
     this.Name = name;
     this.UrlTitle = urlTitle;
     this.UrlDescription = urlDescription;
     this.UrlImageTitle = urlImageTitle;
     this.UrlImageDescription = urlImageDescription;
     this.Description = description;
+    this.MediaTitle = mediaTitle;
 
     // Render Album Images DropDown
     if (document.getElementById("PostAlbumsListPlaceholder") != null) {
@@ -56,36 +57,59 @@ yafEditor.prototype.FormatText = function (command, option) {
         case "codelang":
             wrapSelection(textObj, `[code=${option}]`, "[/code]");
             break;
-        case "img":
-            if (getCurrentSelection(textObj)) {
-                wrapSelection(textObj, "[img]", "[/img]");
-            }
-            else {
-                var descriptionImage = this.Description;
-                var titleImage = this.UrlImageDescription;
+        case "media":
+            {
 
-                bootbox.prompt({
-                    title: this.UrlImageTitle,
-                    placeholder: "https://",
-                    callback: function (url) {
-                        if (url !== null && url !== "") {
-                            // ask for the description text...
-                            bootbox.prompt({
-                                title: titleImage,
-                                placeholder: descriptionImage,
-                                callback: function (desc) {
-                                    if (desc !== "" && desc !== null) {
-                                        replaceSelection(textObj, `[img=${url}]${desc}[/img]`);
-                                    } else {
-                                        replaceSelection(textObj, `[img]${url}[/img]`);
-                                    }
+                if (getCurrentSelection(textObj)) {
+                    wrapSelection(textObj, "[media]", "[/media]");
+                }
+                else {
+                    bootbox.prompt({
+                        title: this.MediaTitle,
+                        placeholder: "https://",
+                        callback: function (url) {
+                            replaceSelection(textObj, `[media]${url}[/media]`);
+                        }
+                    });
+                }
+            }
+
+            break;
+        case "img":
+            {
+                if (getCurrentSelection(textObj)) {
+                    wrapSelection(textObj, "[img]", "[/img]");
+                }
+                else {
+                    bootbox.confirm({
+                        title: this.UrlImageTitle,
+                        message: `<form><div class="mb-3">
+                                 <label for="url" class="form-label">${this.UrlImageTitle}</label> 
+                                 <input type="text" class="form-control" id="url" placeholder="https://" />
+                             </div>
+                             <div class="mb-3">
+                                 <label for="desc" class="form-label">${this.UrlImageDescription}</label>
+                                 <input type="text" class="form-control" id="desc" placeholder="${this.Description}" />
+                             </div></form>
+                                 `,
+                        callback: function (result) {
+                            console.log("1");
+                            if (result) {
+                                const url = document.getElementById("url").value,
+                                    desc = document.getElementById("desc").value;
+
+                                if (desc !== "" && desc !== null) {
+                                    replaceSelection(textObj, `[img=${url}]${desc}[/img]`);
+                                } else {
+                                    replaceSelection(textObj, `[img]${url}[/img]`);
                                 }
-                            });
+                            }
 
                         }
-                    }
-                });
+                    });
+                }
             }
+
             break;
         case "quote":
             wrapSelection(textObj, "[quote]", "[/quote]");
@@ -113,34 +137,34 @@ yafEditor.prototype.FormatText = function (command, option) {
             }
             break;
         case "createlink":
-            var descriptionUrl = this.Description;
-            var titleUrl = this.UrlDescription;
+            {
+                bootbox.confirm({
+                    title: this.UrlTitle,
+                    message: `<form><div class="mb-3">
+                                 <label for="url" class="form-label">${this.UrlTitle}</label> 
+                                 <input type="text" class="form-control" id="url" placeholder="https://" />
+                             </div>
+                             <div class="mb-3">
+                                 <label for="desc" class="form-label">${this.UrlDescription}</label>
+                                 <input type="text" class="form-control" id="desc" placeholder="${this.Description}" />
+                             </div></form>
+                                 `,
+                    callback: function (result) {
+                        console.log("2");
+                        if (result) {
+                            const url = document.getElementById("url").value,
+                                desc = document.getElementById("desc").value;
 
-            bootbox.prompt({
-                title: this.UrlTitle,
-                placeholder: "https://",
-                callback: function (url) {
-                    if (url !== null && url !== "") {
-                        if (getCurrentSelection(textObj)) {
-                            wrapSelection(textObj, `[url=${url}]`, "[/url]");
-                        } else {
-                            // ask for the description text...
-                            bootbox.prompt({
-                                title: titleUrl,
-                                placeholder: descriptionUrl,
-                                callback: function (desc) {
-                                    if (desc != "" && desc != null) {
-                                        replaceSelection(textObj, `[url=${url}]${desc}[/url]`);
-                                    } else {
-                                        replaceSelection(textObj, `[url]${url}[/url]`);
-                                    }
-                                }
-                            });
+                            if (desc !== "" && desc != null) {
+                                replaceSelection(textObj, `[url=${url}]${desc}[/url]`);
+                            } else {
+                                replaceSelection(textObj, `[url]${url}[/url]`);
+                            }
                         }
 
                     }
-                }
-            });
+                });
+            }
 
             break;
         case "unorderedlist":
@@ -191,16 +215,16 @@ yafEditor.prototype.FormatText = function (command, option) {
 
 function removeFormat(input) {
     if (input.setSelectionRange) {
-        var selectionStart = input.selectionStart;
-        var selectionEnd = input.selectionEnd;
+        const selectionStart = input.selectionStart;
+        const selectionEnd = input.selectionEnd;
 
-        var selectedText = input.value.substring(selectionStart, selectionEnd);
+        const selectedText = input.value.substring(selectionStart, selectionEnd);
 
-        var regex = /\[.*?\]/g;
+        const regex = /\[.*?\]/g;
 
-        var replacedText = selectedText.replace(regex, "");
+        const replacedText = selectedText.replace(regex, "");
 
-        var replacedLength = selectedText.length - replacedText.length;
+        const replacedLength = selectedText.length - replacedText.length;
 
         input.value = input.value.replace(selectedText, replacedText);
 
@@ -213,7 +237,7 @@ function setSelectionRange(input, selectionStart, selectionEnd) {
         input.focus();
         input.setSelectionRange(selectionStart, selectionEnd);
     } else if (input.createTextRange) {
-        var range = input.createTextRange();
+        const range = input.createTextRange();
         range.collapse(true);
         range.moveEnd("character", selectionEnd);
         range.moveStart("character", selectionStart);
@@ -227,8 +251,8 @@ function setCaretToPos(input, pos) {
 
 function replaceSelection(input, replaceString) {
     if (input.setSelectionRange) {
-        var selectionStart = input.selectionStart;
-        var selectionEnd = input.selectionEnd;
+        const selectionStart = input.selectionStart,
+        selectionEnd = input.selectionEnd;
         input.value = input.value.substring(0, selectionStart)
             + replaceString
             + input.value.substring(selectionEnd);
@@ -250,10 +274,10 @@ function replaceSelection(input, replaceString) {
 
 function removeFromSelection(input, preString, postString) {
     if (input.setSelectionRange) {
-        var selectionStart = input.selectionStart;
-        var selectionEnd = input.selectionEnd;
+        const selectionStart = input.selectionStart;
+        const selectionEnd = input.selectionEnd;
 
-        var selectedText = input.value.substring(selectionStart, selectionEnd);
+        const selectedText = input.value.substring(selectionStart, selectionEnd);
 
         if (selectedText.indexOf(preString) != -1 && selectedText.indexOf(postString) != -1) {
 
@@ -275,8 +299,8 @@ function removeFromSelection(input, preString, postString) {
 
 function wrapSelection(input, preString, postString) {
     if (input.setSelectionRange) {
-        var selectionStart = input.selectionStart;
-        var selectionEnd = input.selectionEnd;
+        const selectionStart = input.selectionStart;
+        const selectionEnd = input.selectionEnd;
         input.value = input.value.substring(0, selectionStart)
             + preString
             + input.value.substring(selectionStart, selectionEnd)
@@ -291,7 +315,7 @@ function wrapSelection(input, preString, postString) {
             setCaretToPos(input, selectionStart + (preString).length);
         }
     } else if (document.selection) {
-        var sel = document.selection.createRange().text;
+        const sel = document.selection.createRange().text;
         if (sel) {
             document.selection.createRange().text = preString + sel + postString;
             input.focus();
@@ -313,7 +337,7 @@ function getCurrentSelection(input) {
     if (input.setSelectionRange) {
         return input.selectionStart != input.selectionEnd;
     } else if (document.selection) {
-        var range = document.selection.createRange();
+        const range = document.selection.createRange();
         return range.parentElement() == input && range.text != "";
     } else {
         return false;

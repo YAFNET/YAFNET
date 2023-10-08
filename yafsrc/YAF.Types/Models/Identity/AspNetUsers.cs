@@ -345,18 +345,6 @@ public class AspNetUsers<TKey> : IEntity, IHasId<TKey>
     public string Profile_FacebookId { get; set; }
 
     /// <summary>
-    /// Gets or sets Twitter.
-    /// </summary>
-    [Obsolete]
-    public string Profile_Twitter { get; set; }
-
-    /// <summary>
-    /// Gets or sets Twitter.
-    /// </summary>
-    [Obsolete]
-    public string Profile_TwitterId { get; set; }
-
-    /// <summary>
     /// Gets or sets Interests.
     /// </summary>
     public string Profile_Interests { get; set; }

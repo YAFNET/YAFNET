@@ -115,7 +115,8 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                         this.GetText("COMMON", "TT_URL_DESC"),
                         this.GetText("COMMON", "TT_IMAGE_TITLE"),
                         this.GetText("COMMON", "TT_IMAGE_DESC"),
-                        this.GetText("COMMON", "TT_DESCRIPTION")));
+                        this.GetText("COMMON", "TT_DESCRIPTION"),
+                        this.GetText("COMMON", "TT_MEDIA")));
                 break;
             case EditorMode.Standard:
                 output.Attributes.SetAttribute("class", "BBCodeEditor form-control");
@@ -128,7 +129,8 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                         this.GetText("COMMON", "TT_URL_DESC"),
                         this.GetText("COMMON", "TT_IMAGE_TITLE"),
                         this.GetText("COMMON", "TT_IMAGE_DESC"),
-                        this.GetText("COMMON", "TT_DESCRIPTION")));
+                        this.GetText("COMMON", "TT_DESCRIPTION"),
+                        this.GetText("COMMON", "TT_MEDIA")));
                 break;
             case EditorMode.Sql:
                 {
@@ -611,6 +613,8 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
             var group9 = CreateBtnGroupTag();
             content.AppendHtml(group9.RenderStartTag());
 
+            RenderButton(content, "setStyle('media','')", this.GetText("COMMON", "MEDIA"), "photo-film");
+
             if (customBbCodesWithToolbar.Any())
             {
                 customBbCodesWithToolbar.ForEach(
@@ -666,7 +670,8 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
             var dropDownMenu3 = new TagBuilder("div") { Attributes = { ["class"] = "dropdown-menu fill-width" } };
             content.AppendHtml(dropDownMenu1.RenderStartTag());
 
-            customBbCodesWithNoToolbar.Where(x => x.Name.ToLower() != "attach" && x.Name.ToLower() != "albumimg")
+            customBbCodesWithNoToolbar.Where(
+                    x => x.Name.ToLower() != "attach" && x.Name.ToLower() != "albumimg" && x.Name.ToLower() != "media")
                 .ForEach(
                     row =>
                         {

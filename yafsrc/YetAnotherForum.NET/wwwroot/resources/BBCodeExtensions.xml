@@ -1,4 +1,19 @@
 ﻿<YafBBCodeList>
+    <YafBBCode>
+        <Name>MEDIA</Name>
+        <Description>[MEDIA][localization=MEDIA]Put URL Here[/localization][/MEDIA]</Description>
+        <OnClickJS />
+        <DisplayJS />
+        <EditJS />
+        <DisplayCSS />
+        <SearchRegex>\[media\](?&lt;inner&gt;.+?)\[\/media\]</SearchRegex>
+        <ReplaceRegex />
+        <Variables />
+        <UseModule>true</UseModule>
+        <UseToolbar>false</UseToolbar>
+        <ModuleClass>YAF.Web.BBCodes.MediaBBCodeModule, YAF.Web</ModuleClass>
+        <ExecOrder>1</ExecOrder>
+    </YafBBCode>
 	<YafBBCode>
         <Name>TWITTER</Name>
         <Description>[TWITTER][localization=TWITTER_DESCRIPTION]Enter the Status URL of the Tweet you want to embed[/localization][/TWITTER]</Description>

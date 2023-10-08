@@ -38,7 +38,7 @@ using YAF.Core.BaseModules;
 /// <summary>
 /// The base module.
 /// </summary>
-public abstract class BaseModule : Module, IHaveSortOrder
+public abstract class BaseModule : Autofac.Module, IHaveSortOrder
 {
     /// <summary>
     ///     Gets or sets ExtensionAssemblies.

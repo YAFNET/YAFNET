@@ -8,6 +8,9 @@
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="OEmbed.Core" Version="2.0.0" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\YAF.Configuration\YAF.Configuration.csproj" />
     <ProjectReference Include="..\YAF.Core\YAF.Core.csproj" />
     <ProjectReference Include="..\YAF.Types\YAF.Types.csproj" />
