@@ -28,7 +28,6 @@ using System;
 using System.IO;
 using System.Web.UI;
 
-using YAF.Types;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces;
 
@@ -86,7 +85,8 @@ public class BBCodeEditorBasic : TextEditor
                 this.GetText("COMMON", "TT_URL_DESC"),
                 this.GetText("COMMON", "TT_IMAGE_TITLE"),
                 this.GetText("COMMON", "TT_IMAGE_DESC"),
-                this.GetText("COMMON", "TT_DESCRIPTION")));
+                this.GetText("COMMON", "TT_DESCRIPTION"),
+                this.GetText("COMMON", "MEDIA")));
 
         // register custom YafBBCode javascript (if there is any)
         // this call is supposed to be after editor load since it may use
@@ -195,6 +195,8 @@ public class BBCodeEditorBasic : TextEditor
             icon,
             title,
             command,
-            id.IsSet() ? $@" id=""{id}""" : string.Empty);
+            id.IsSet() ? $"""
+                           id="{id}"
+                          """ : string.Empty);
     }
 }

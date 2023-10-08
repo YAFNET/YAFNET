@@ -1,10 +1,11 @@
-﻿var yafEditor = function (name, urlTitle, urlDescription, urlImageTitle, urlImageDescription, description) {
+﻿var yafEditor = function (name, urlTitle, urlDescription, urlImageTitle, urlImageDescription, description, mediaTitle) {
     this.Name = name;
     this.UrlTitle = urlTitle;
     this.UrlDescription = urlDescription;
     this.UrlImageTitle = urlImageTitle;
     this.UrlImageDescription = urlImageDescription;
     this.Description = description;
+    this.MediaTitle = mediaTitle;
 
     // Render Album Images DropDown
     if (document.getElementById("PostAlbumsListPlaceholder") != null) {
@@ -56,36 +57,58 @@ yafEditor.prototype.FormatText = function (command, option) {
         case "codelang":
             wrapSelection(textObj, `[code=${option}]`, "[/code]");
             break;
-        case "img":
-            if (getCurrentSelection(textObj)) {
-                wrapSelection(textObj, "[img]", "[/img]");
+        case "media":
+            {
+                if (getCurrentSelection(textObj)) {
+                    wrapSelection(textObj, "[media]", "[/media]");
+                }
+                else {
+                    bootbox.prompt({
+                        title: this.MediaTitle,
+                        placeholder: "https://",
+                        callback: function (url) {
+                            replaceSelection(textObj, `[media]${url}[/media]`);
+                        }
+                    });
+                }
             }
-            else {
-                var descriptionImage = this.Description;
-                var titleImage = this.UrlImageDescription;
+            
+            break;
+        case "img":
+            {
+                if (getCurrentSelection(textObj)) {
+                    wrapSelection(textObj, "[img]", "[/img]");
+                }
+                else {
+                    bootbox.confirm({
+                        title: this.UrlImageTitle,
+                        message: `<form><div class="mb-3">
+                 <label for="url" class="form-label">${this.UrlImageTitle}</label> 
+                 <input type="text" class="form-control" id="url" placeholder="https://" />
+             </div>
+             <div class="mb-3">
+                 <label for="desc" class="form-label">${this.UrlImageDescription}</label>
+                 <input type="text" class="form-control" id="desc" placeholder="${this.Description}" />
+             </div></form>
+                 `,
+                        callback: function (result) {
+                            console.log("1");
+                            if (result) {
+                                const url = document.getElementById("url").value,
+                                    desc = document.getElementById("desc").value;
 
-                bootbox.prompt({
-                    title: this.UrlImageTitle,
-                    placeholder: "https://",
-                    callback: function (url) {
-                        if (url !== null && url !== "") {
-                            // ask for the description text...
-                            bootbox.prompt({
-                                title: titleImage,
-                                placeholder: descriptionImage,
-                                callback: function (desc) {
-                                    if (desc !== "" && desc !== null) {
-                                        replaceSelection(textObj, `[img=${url}]${desc}[/img]`);
-                                    } else {
-                                        replaceSelection(textObj, `[img]${url}[/img]`);
-                                    }
+                                if (desc !== "" && desc !== null) {
+                                    replaceSelection(textObj, `[img=${url}]${desc}[/img]`);
+                                } else {
+                                    replaceSelection(textObj, `[img]${url}[/img]`);
                                 }
-                            });
+                            }
 
                         }
-                    }
-                });
+                    });
+                }
             }
+
             break;
         case "quote":
             wrapSelection(textObj, "[quote]", "[/quote]");
@@ -113,34 +136,35 @@ yafEditor.prototype.FormatText = function (command, option) {
             }
             break;
         case "createlink":
-            var descriptionUrl = this.Description;
-            var titleUrl = this.UrlDescription;
+            {
 
-            bootbox.prompt({
-                title: this.UrlTitle,
-                placeholder: "https://",
-                callback: function (url) {
-                    if (url !== null && url !== "") {
-                        if (getCurrentSelection(textObj)) {
-                            wrapSelection(textObj, `[url=${url}]`, "[/url]");
-                        } else {
-                            // ask for the description text...
-                            bootbox.prompt({
-                                title: titleUrl,
-                                placeholder: descriptionUrl,
-                                callback: function (desc) {
-                                    if (desc != "" && desc != null) {
-                                        replaceSelection(textObj, `[url=${url}]${desc}[/url]`);
-                                    } else {
-                                        replaceSelection(textObj, `[url]${url}[/url]`);
-                                    }
-                                }
-                            });
+                bootbox.confirm({
+                    title: this.UrlTitle,
+                    message: `<form><div class="mb-3">
+                  <label for="url" class="form-label">${this.UrlTitle}</label> 
+                  <input type="text" class="form-control" id="url" placeholder="https://" />
+              </div>
+              <div class="mb-3">
+                  <label for="desc" class="form-label">${this.UrlDescription}</label>
+                  <input type="text" class="form-control" id="desc" placeholder="${this.Description}" />
+              </div></form>
+                  `,
+                    callback: function (result) {
+                        console.log("2");
+                        if (result) {
+                            const url = document.getElementById("url").value,
+                                desc = document.getElementById("desc").value;
+
+                            if (desc !== "" && desc != null) {
+                                replaceSelection(textObj, `[url=${url}]${desc}[/url]`);
+                            } else {
+                                replaceSelection(textObj, `[url]${url}[/url]`);
+                            }
                         }
 
                     }
-                }
-            });
+                });
+            }
 
             break;
         case "unorderedlist":

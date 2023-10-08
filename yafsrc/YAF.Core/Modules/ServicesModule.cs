@@ -32,6 +32,9 @@ using Autofac;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
+using OEmbed.Core;
+using OEmbed.Core.Interfaces;
+
 using YAF.Core.BaseModules;
 using YAF.Core.BBCode;
 using YAF.Core.Handlers;
@@ -125,6 +128,8 @@ public class ServicesModule : BaseModule
         builder.RegisterType<InstallService>().AsSelf().PreserveExistingDefaults();
         builder.RegisterType<UpgradeService>().AsSelf().PreserveExistingDefaults();
 
+        builder.RegisterType<OEmbed>().As<IOEmbed>().SingleInstance().PreserveExistingDefaults();
+
         // localization registration...
         builder.RegisterType<LocalizationProvider>().InstancePerLifetimeScope().PreserveExistingDefaults();
         builder.Register(k => k.Resolve<IComponentContext>().Resolve<LocalizationProvider>().Localization)
@@ -173,12 +178,12 @@ public class ServicesModule : BaseModule
     {
         // user manager
         var x = new IdentityDbContext();
-        builder.Register(c => x);
+        builder.Register(_ => x);
 
         builder.RegisterType<UserStore>().As<IUserStore<AspNetUsers>>().InstancePerBoardContext();
         builder.RegisterType<AspNetUsersManager>().AsSelf().InstancePerBoardContext();
 
-        builder.Register(c => HttpContext.Current.GetOwinContext().Authentication).As<IAuthenticationManager>();
+        builder.Register(_ => HttpContext.Current.GetOwinContext().Authentication).As<IAuthenticationManager>();
 
         builder.RegisterType<RoleStore>().As<IRoleStore<AspNetRoles, string>>().InstancePerBoardContext();
         builder.RegisterType<AspNetRoleManager>().As<IAspNetRoleManager>().InstancePerBoardContext();

@@ -5091,7 +5091,7 @@
         let callbacks = {
             onEscape: options.onEscape
         };
-        body.querySelector(".bootbox-body").append(options.message);
+        body.querySelector(".bootbox-body").innerHTML = options.message;
         if (getKeyLength(options.buttons) > 0) {
             for (const [ key, b ] of Object.entries(buttons)) {
                 let button = generateElement(templates.button);
@@ -5341,27 +5341,7 @@
             } else if (options.inputType === "radio") {
                 value = input.querySelector("input:checked").value;
             } else {
-                const el = input[0];
-                if (options.errorMessage) {
-                    el.setCustomValidity("");
-                }
-                if (el.checkValidity && !el.checkValidity()) {
-                    if (options.errorMessage) {
-                        el.setCustomValidity(options.errorMessage);
-                    }
-                    if (el.reportValidity) {
-                        el.reportValidity();
-                    }
-                    return false;
-                } else {
-                    if (options.inputType === "select" && options.multiple === true) {
-                        value = input.querySelector("option:selected").map(function(e) {
-                            return e.value;
-                        }).get();
-                    } else {
-                        value = input.value;
-                    }
-                }
+                value = input.value;
             }
             return options.callback.call(this, value);
         };

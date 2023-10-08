@@ -176,11 +176,11 @@ function deepExtend(out, ...arguments_) {
 
         for (const [key, value] of Object.entries(obj)) {
             switch (Object.prototype.toString.call(value)) {
-            case '[object Object]':
+            case "[object Object]":
                 out[key] = out[key] || {};
                 out[key] = deepExtend(out[key], value);
                 break;
-            case '[object Array]':
+            case "[object Array]":
                 out[key] = deepExtend(new Array(value.length), value);
                 break;
             default:
@@ -223,11 +223,11 @@ document.addEventListener("click", function (event) {
             message: text,
             buttons: {
                 confirm: {
-                    label: '<i class="fa fa-check"></i> ' + button.dataset.yes,
+                    label: `<i class="fa fa-check"></i> ${button.dataset.yes}`,
                     className: "btn-success"
                 },
                 cancel: {
-                    label: '<i class="fa fa-times"></i> ' + button.dataset.no,
+                    label: `<i class="fa fa-times"></i> ${button.dataset.no}`,
                     className: "btn-danger"
                 }
             },

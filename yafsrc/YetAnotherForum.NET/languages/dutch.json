@@ -8657,6 +8657,14 @@
           {
             "@tag": "YES",
             "#text": "Ja"
+          },
+          {
+            "@tag": "MEDIA",
+            "#text": "Insert Media"
+          },
+          {
+            "@tag": "TT_MEDIA",
+            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           }
         ]
       },

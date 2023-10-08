@@ -127,7 +127,6 @@ public static class JavaScriptBlocks
     /// <param name="inputId">The input Id.</param>
     /// <param name="hiddenId">the hidden id</param>
     /// <returns>The <see cref="string" />.</returns>
-    
     public static string GetBoardTagsJs(string inputId, string hiddenId)
     {
         return $$"""
@@ -221,7 +220,6 @@ public static class JavaScriptBlocks
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    
     public static string CookieConsentJs()
     {
         return """
@@ -545,18 +543,19 @@ public static class JavaScriptBlocks
     /// <param name="urlImageTitle">The URL image title.</param>
     /// <param name="urlImageDescription">The URL image description.</param>
     /// <param name="description">The description.</param>
+    /// <param name="mediaTitle">The media title.</param>
     /// <returns>System.String.</returns>
-    
     public static string CreateEditorJs(
         string editorId,
         string urlTitle,
         string urlDescription,
         string urlImageTitle,
         string urlImageDescription,
-        string description)
+        string description,
+        string mediaTitle)
     {
         return $$$"""
-                  var {{{editorId}}}=new yafEditor("{{{editorId}}}", "{{{urlTitle}}}", "{{{urlDescription}}}", "{{{urlImageTitle}}}", "{{{urlImageDescription}}}", "{{{description}}}");
+                  var {{{editorId}}}=new yafEditor("{{{editorId}}}", "{{{urlTitle}}}", "{{{urlDescription}}}", "{{{urlImageTitle}}}", "{{{urlImageDescription}}}", "{{{description}}}", "{{{mediaTitle}}}");
                                     function setStyle(style,option) {
                                              {{{editorId}}}.FormatText(style,option);
                                     }
@@ -583,7 +582,6 @@ public static class JavaScriptBlocks
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    
     public static string CodeMirrorSqlLoadJs(string editorId, string mime)
     {
         return $$$"""
@@ -615,7 +613,6 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the FileUpload Java Script.
     /// </returns>
-    
     public static string FileAutoUploadLoadJs(string fileUploaderUrl)
     {
         return $$"""
@@ -702,7 +699,6 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the FileUpload Java Script.
     /// </returns>
-    
     public static string FileUploadLoadJs(string fileUploaderUrl)
     {
         return $$"""
@@ -736,7 +732,6 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the select topics load JS.
     /// </returns>
-    
     public static string SelectTopicsLoadJs(
         string topicDropDownId,
         string topicHiddenId,
@@ -836,7 +831,6 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the select topics load JS.
     /// </returns>
-    
     public static string SelectForumsLoadJs(
         string forumDropDownId,
         string placeHolder,
@@ -970,7 +964,6 @@ public static class JavaScriptBlocks
     /// <param name="passwordStrongerText">The password stronger text.</param>
     /// <param name="passwordWeakText">The password weak text.</param>
     /// <returns>Returns the Passwords strength checker Java Script</returns>
-    
     public static string PasswordStrengthCheckerJs(
         string passwordClientId,
         string confirmPasswordClientId,
@@ -1077,7 +1070,6 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the JS String
     /// </returns>
-    
     public static string OpenModalJs(string clientId)
     {
         return $"var myModal = new bootstrap.Modal(document.getElementById(\"{clientId}\"), null);myModal.show();";
@@ -1089,7 +1081,6 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the do Search Java script String
     /// </returns>
-    
     public static string DoSearchJs()
     {
         return "document.addEventListener(\"DOMContentLoaded\", function() { getSearchResultsData(0);});";
@@ -1107,7 +1098,6 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the JS String
     /// </returns>
-    
     public static string ForumIconLegendPopoverJs(string content, string cssClass)
     {
         return $$"""
@@ -1137,7 +1127,6 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the JS String
     /// </returns>
-    
     public static string TopicLinkPopoverJs(string title, string cssClass, string trigger)
     {
         return $$"""
@@ -1164,7 +1153,6 @@ public static class JavaScriptBlocks
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    
     public static string ForumModsPopoverJs(string title)
     {
         return $$"""
@@ -1189,7 +1177,6 @@ public static class JavaScriptBlocks
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    
     public static string HoverCardJs()
     {
         return $$"""
@@ -1210,7 +1197,6 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the JS String
     /// </returns>
-    
     public static string FormValidatorJs(string buttonClientId)
     {
         return $$"""
@@ -1242,7 +1228,6 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the JS String
     /// </returns>
-    
     public static string ClickOnEnterJs(string buttonClientId)
     {
         return $$"""
@@ -1278,7 +1263,6 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the JS String
     /// </returns>
-    
     public static string BootBoxConfirmJs(
         string title,
         string text,
@@ -1334,7 +1318,6 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the JS String
     /// </returns>
-    
     public static string BootBoxPromptJs(
         string title,
         string message,
@@ -1368,7 +1351,6 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the select user load JS.
     /// </returns>
-    
     public static string SelectUsersLoadJs(
         string selectClientId,
         string hiddenUserId,
@@ -1470,7 +1452,6 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the JS String
     /// </returns>
-    
     public static string LogOutJs(
         string title,
         string text,
@@ -1514,7 +1495,6 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the JS String
     /// </returns>
-    
     public static string LoadMoreOnScrolling(string buttonClientId)
     {
         return $$"""
@@ -1539,7 +1519,6 @@ public static class JavaScriptBlocks
     /// <returns>
     /// Returns the JS String
     /// </returns>
-    
     public static string ToggleDiffSelectionJs(string message)
     {
         return $$"""

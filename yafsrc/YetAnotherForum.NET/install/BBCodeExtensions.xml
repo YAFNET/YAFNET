@@ -1,4 +1,19 @@
 ﻿<YafBBCodeList>
+    <YafBBCode>
+        <Name>MEDIA</Name>
+        <Description>[MEDIA][localization=MEDIA]Put URL Here[/localization][/MEDIA]</Description>
+        <OnClickJS />
+        <DisplayJS />
+        <EditJS />
+        <DisplayCSS />
+        <SearchRegex>\[media\](?&lt;inner&gt;.+?)\[\/media\]</SearchRegex>
+        <ReplaceRegex />
+        <Variables />
+        <UseModule>true</UseModule>
+        <UseToolbar>false</UseToolbar>
+        <ModuleClass>YAF.Web.BBCodes.MediaBBCodeModule, YAF.Web</ModuleClass>
+        <ExecOrder>1</ExecOrder>
+    </YafBBCode>
 	<YafBBCode>
         <Name>TWITTER</Name>
         <Description>[TWITTER][localization=TWITTER_DESCRIPTION]Enter the Status URL of the Tweet you want to embed[/localization][/TWITTER]</Description>
@@ -7,7 +22,7 @@
         <EditJS></EditJS>
         <DisplayCSS></DisplayCSS>
         <SearchRegex>\[twitter\](?&lt;statusID&gt;\d*)\[/twitter\]|\[twitter\]https://twitter.com/(.*?)/status/(?&lt;statusID&gt;\d*)(.*?)\[/twitter\]</SearchRegex>
-        <ReplaceRegex>&lt;div class="ratio w-50"  style="--bs-aspect-ratio: 56%;" data-oembed-url="https%3A%2F%2Ftwitter.com%2Fx%2Fstatus%2F${statusID}"&gt;&lt;iframe src="https://twitframe.com/show?url=https%3A%2F%2Ftwitter.com%2Fx%2Fstatus%2F${statusID}"&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;p&gt;&lt;/p&gt;</ReplaceRegex>
+        <ReplaceRegex>&lt;div class="ratio w-50"  style="--bs-aspect-ratio: 56%;" data-oembed-url="https%3A%2F%2Ftwitter.com%2Fx%2Fstatus%2F${statusID}"&gt;&lt;iframe src="https://twitframe.com/show?url=https%3A%2F%2Ftwitter.com%2Fx%2Fstatus%2F${statusID}"&gt;&lt;/iframe&gt;&lt;/div&gt;</ReplaceRegex>
         <Variables>statusID</Variables>
         <UseModule>false</UseModule>
         <UseToolbar>true</UseToolbar>

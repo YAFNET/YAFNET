@@ -30,7 +30,6 @@ using System.Web.UI;
 
 using YAF.Configuration;
 using YAF.Core.Utilities;
-using YAF.Types;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces;
 using YAF.Web.Controls;
@@ -99,7 +98,8 @@ public class BBCodeEditor : TextEditor
                 this.GetText("COMMON", "TT_URL_DESC"),
                 this.GetText("COMMON", "TT_IMAGE_TITLE"),
                 this.GetText("COMMON", "TT_IMAGE_DESC"),
-                this.GetText("COMMON", "TT_DESCRIPTION")));
+                this.GetText("COMMON", "TT_DESCRIPTION"),
+                this.GetText("COMMON", "TT_MEDIA")));
 
         if (this.UserCanUpload && this.AllowsUploads)
         {
@@ -166,9 +166,11 @@ public class BBCodeEditor : TextEditor
 
         // add drop down for optional "extra" codes...
         writer.WriteLine(
-            @"<button type=""button"" class=""btn btn-primary dropdown-toggle"" title=""{0}""
-                       data-bs-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
-                  <i class=""fa fa-font fa-fw""></i> {0}</button>",
+            """
+            <button type="button" class="btn btn-primary dropdown-toggle" title="{0}"
+                                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fa fa-font fa-fw"></i> {0}</button>
+            """,
             this.GetText("COMMON", "FONT_COLOR"));
 
         writer.Write("<div class=\"dropdown-menu editorColorMenu\">");
@@ -184,8 +186,8 @@ public class BBCodeEditor : TextEditor
             {
                 writer.WriteLine(
                     color == "White"
-                        ? @"<a class=""dropdown-item"" href=""#"" onclick=""setStyle('color', '{0}');"" style=""color:{0};background:grey"">{1}</a>"
-                        : @"<a class=""dropdown-item"" href=""#"" onclick=""setStyle('color', '{0}');"" style=""color:{0}"">{1}</a>",
+                        ? """<a class="dropdown-item" href="#" onclick="setStyle('color', '{0}');" style="color:{0};background:grey">{1}</a>"""
+                        : """<a class="dropdown-item" href="#" onclick="setStyle('color', '{0}');" style="color:{0}">{1}</a>""",
                     color.Replace(" ", string.Empty).ToLower(),
                     color);
             });
@@ -197,9 +199,11 @@ public class BBCodeEditor : TextEditor
 
         // add drop down for optional "extra" codes...
         writer.WriteLine(
-            @"<button type=""button"" class=""btn btn-primary dropdown-toggle"" title=""{0}""
-                       data-bs-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
-                  <i class=""fa fa-font fa-fw""></i> {0}</button>",
+            """
+            <button type="button" class="btn btn-primary dropdown-toggle" title="{0}"
+                                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fa fa-font fa-fw"></i> {0}</button>
+            """,
             this.GetText("COMMON", "FONT_SIZE"));
 
         writer.Write("<div class=\"dropdown-menu\">");
@@ -207,7 +211,7 @@ public class BBCodeEditor : TextEditor
         for (var index = 1; index < 9; index++)
         {
             writer.WriteLine(
-                @"<a class=""dropdown-item"" href=""#"" onclick=""setStyle('fontsize', {0});"">{1}</a>",
+                """<a class="dropdown-item" href="#" onclick="setStyle('fontsize', {0});">{1}</a>""",
                 index,
                 index.Equals(5) ? "Default" : index.ToString());
         }
@@ -228,9 +232,11 @@ public class BBCodeEditor : TextEditor
 
         // add drop down for optional "extra" codes...
         writer.WriteLine(
-            @"<button type=""button"" class=""btn btn-primary dropdown-toggle"" title=""{0}""
-                       data-bs-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
-                  <i class=""fa fa-code fa-fw""></i></button>",
+            """
+            <button type="button" class="btn btn-primary dropdown-toggle" title="{0}"
+                                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fa fa-code fa-fw"></i></button>
+            """,
             this.GetText("COMMON", "TT_CODE"));
 
         var highLightList = new List<Types.Objects.ListItem> {
@@ -255,7 +261,7 @@ public class BBCodeEditor : TextEditor
 
         highLightList.ForEach(
             item => writer.WriteLine(
-                @"<a class=""dropdown-item"" href=""#"" onclick=""setStyle('codelang','{0}')"">{1}</a>",
+                """<a class="dropdown-item" href="#" onclick="setStyle('codelang','{0}')">{1}</a>""",
                 item.Value,
                 item.Name));
 
@@ -272,9 +278,11 @@ public class BBCodeEditor : TextEditor
          {
              // add drop down for optional "extra" codes...
              writer.WriteLine(
-                 @"<button type=""button"" class=""btn btn-primary dropdown-toggle albums-toggle"" title=""{0}""
-                    data-bs-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
-               <i class=""fa fa-images fa-fw""></i></button>",
+                 """
+                 <button type="button" class="btn btn-primary dropdown-toggle albums-toggle" title="{0}"
+                                     data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa fa-images fa-fw"></i></button>
+                 """,
                  this.GetText("COMMON", "ALBUMIMG_CODE"));
 
              writer.Write("<div class=\"dropdown-menu\">");
@@ -293,9 +301,11 @@ public class BBCodeEditor : TextEditor
 
             // add drop down for optional "extra" codes...
             writer.WriteLine(
-                @"<button type=""button"" class=""btn btn-primary dropdown-toggle attachments-toggle"" title=""{0}""
-                       data-bs-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
-                  <i class=""fa fa-paperclip fa-fw""></i></button>",
+                """
+                <button type="button" class="btn btn-primary dropdown-toggle attachments-toggle" title="{0}"
+                                       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  <i class="fa fa-paperclip fa-fw"></i></button>
+                """,
                 this.GetText("COMMON", "ATTACH_BBCODE"));
 
             writer.Write("<div class=\"dropdown-menu\">");
@@ -347,6 +357,8 @@ public class BBCodeEditor : TextEditor
             writer.Write("</div>");
             writer.Write("<div class=\"btn-group btn-group-sm me-2 mb-2\" role =\"group\">");
 
+            RenderButton(writer, "setStyle('media','')", this.GetText("COMMON", "MEDIA"), "photo-film");
+
             if (customBbCodesWithToolbar.Any())
             {
                 customBbCodesWithToolbar.ForEach(
@@ -359,8 +371,10 @@ public class BBCodeEditor : TextEditor
                                                 : $"setStyle('{row.Name.Trim()}','')";
 
                             writer.WriteLine(
-                                @"<button type=""button"" class=""btn btn-primary"" onclick=""{2}"" title=""{1}""{3}>
-              <i class=""fab fa-{0} fa-fw""></i></button>",
+                                """
+                                <button type="button" class="btn btn-primary" onclick="{2}" title="{1}"{3}>
+                                              <i class="fab fa-{0} fa-fw"></i></button>
+                                """,
                                 row.Name.ToLower(),
                                 this.Get<IBBCode>().LocalizeCustomBBCodeElement(row.Description.Trim()),
                                 onclickJs,
@@ -370,14 +384,17 @@ public class BBCodeEditor : TextEditor
 
             // add drop down for optional "extra" codes...
             writer.WriteLine(
-                @"<div class=""btn-group btn-group-sm"" role=""group""><button type=""button"" class=""btn btn-primary dropdown-toggle"" title=""{0}""
-                   data-bs-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">
-              <i class=""fa fa-plug fa-fw""></i></button>",
+                """
+                <div class="btn-group btn-group-sm" role="group"><button type="button" class="btn btn-primary dropdown-toggle" title="{0}"
+                                   data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fa fa-plug fa-fw"></i></button>
+                """,
                 this.GetText("COMMON", "CUSTOM_BBCODE"));
 
             writer.Write("<div class=\"dropdown-menu fill-width\">");
 
-            customBbCodesWithNoToolbar.Where(x => x.Name.ToLower() != "attach" && x.Name.ToLower() != "albumimg")
+            customBbCodesWithNoToolbar.Where(
+                    x => x.Name.ToLower() != "attach" && x.Name.ToLower() != "albumimg" && x.Name.ToLower() != "media")
                 .ForEach(
                     row =>
                     {
@@ -392,7 +409,7 @@ public class BBCodeEditor : TextEditor
                         var onclickJs = row.OnClickJS.IsSet() ? row.OnClickJS : $"setStyle('{row.Name.Trim()}','')";
 
                         writer.WriteLine(
-                            @"<a class=""dropdown-item"" href=""#"" onclick=""{0}"">{1}</a>",
+                            """<a class="dropdown-item" href="#" onclick="{0}">{1}</a>""",
                             onclickJs,
                             name);
                     });
@@ -491,11 +508,15 @@ public class BBCodeEditor : TextEditor
         string id = null)
     {
         writer.WriteLine(
-            @"<button type=""button"" class=""btn btn-primary"" onclick=""{2}"" title=""{1}""{3}>
-                  <i class=""fa fa-{0} fa-fw""></i></button>",
+            """
+            <button type="button" class="btn btn-primary" onclick="{2}" title="{1}"{3}>
+                              <i class="fa fa-{0} fa-fw"></i></button>
+            """,
             icon,
             title,
             command,
-            id.IsSet() ? $@" id=""{id}""" : string.Empty);
+            id.IsSet() ? $"""
+                           id="{id}"
+                          """ : string.Empty);
     }
 }

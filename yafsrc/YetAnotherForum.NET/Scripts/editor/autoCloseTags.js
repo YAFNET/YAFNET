@@ -14,7 +14,8 @@ var AutoCloseTags = function(textarea) {
             "indent", "list", "color",
             "size", "albumimg", "attach", "youtube", "vimeo",
             "instagram", "twitter", "facebook", "googlewidget", "spoiler", "userlink", "googlemaps",
-            "hide", "group-hide", "hide-thanks", "hide-reply-thanks", "hide-reply", "hide-posts", "dailymotion", "audio"
+            "hide", "group-hide", "hide-thanks", "hide-reply-thanks", "hide-reply", "hide-posts", "dailymotion",
+            "audio", "media"
         ];
         this.enableAutoCloseTags();
     };
