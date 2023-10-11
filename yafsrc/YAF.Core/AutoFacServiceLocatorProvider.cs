@@ -39,7 +39,13 @@ using TypedParameter = YAF.Types.Objects.TypedParameter;
 /// <summary>
 ///     The AutoFac service locator provider.
 /// </summary>
-public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServices
+/// <remarks>
+/// Initializes a new instance of the <see cref="AutoFacServiceLocatorProvider"/> class.
+/// </remarks>
+/// <param name="container">
+/// The container.
+/// </param>
+public class AutoFacServiceLocatorProvider(ILifetimeScope container) : IScopeServiceLocator, IInjectServices
 {
     /// <summary>
     ///     The default flags.
@@ -54,20 +60,9 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
             new();
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AutoFacServiceLocatorProvider"/> class.
-    /// </summary>
-    /// <param name="container">
-    /// The container.
-    /// </param>
-    public AutoFacServiceLocatorProvider(ILifetimeScope container)
-    {
-        this.Container = container;
-    }
-
-    /// <summary>
     ///     Gets or sets Container.
     /// </summary>
-    public ILifetimeScope Container { get; set; }
+    public ILifetimeScope Container { get; set; } = container;
 
     /// <summary>
     /// Gets the tag.

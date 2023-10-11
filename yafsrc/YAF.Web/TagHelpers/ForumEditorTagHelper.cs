@@ -26,6 +26,7 @@ namespace YAF.Web.TagHelpers;
 
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+
 using ServiceStack.OrmLite;
 
 using YAF.Types.Extensions;
@@ -802,7 +803,10 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         content.AppendHtml(containerCardFooter.RenderEndTag());
     }
 
-
+    /// <summary>
+    /// Renders the albums drop down.
+    /// </summary>
+    /// <param name="content">The content.</param>
     private void RenderAlbumsDropDown(IHtmlContentBuilder content)
     {
         var menuTag =
@@ -865,6 +869,10 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         content.AppendHtml(menuTag.RenderEndTag());
     }
 
+    /// <summary>
+    /// Renders the attachments drop down.
+    /// </summary>
+    /// <param name="content">The content.</param>
     private void RenderAttachmentsDropDown(IHtmlContentBuilder content)
     {
         var menuTag =
@@ -992,11 +1000,19 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         content.AppendHtml(button.RenderEndTag());
     }
 
+    /// <summary>
+    /// Creates the toolbar tag.
+    /// </summary>
+    /// <returns>TagBuilder.</returns>
     private static TagBuilder CreateToolbarTag()
     {
         return new TagBuilder("div") { Attributes = { ["class"] = "btn-toolbar", ["role"] = "toolbar" } };
     }
 
+    /// <summary>
+    /// Creates the BTN group tag.
+    /// </summary>
+    /// <returns>TagBuilder.</returns>
     private static TagBuilder CreateBtnGroupTag()
     {
         return new TagBuilder("div")

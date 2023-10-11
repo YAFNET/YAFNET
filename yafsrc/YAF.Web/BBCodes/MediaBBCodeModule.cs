@@ -27,7 +27,7 @@ namespace YAF.Web.BBCodes;
 using OEmbed.Core.Interfaces;
 
 /// <summary>
-/// The BB Code UserLink Module
+/// The media bbcode Module
 /// </summary>
 public class MediaBBCodeModule : BBCodeControl
 {

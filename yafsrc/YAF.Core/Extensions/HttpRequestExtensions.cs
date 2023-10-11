@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System;
+
 namespace YAF.Core.Extensions;
 
 /// <summary>
@@ -39,21 +41,40 @@ public static class HttpRequestExtensions
     public static T GetQueryOrRouteValue<T>(this HttpRequest request, string queryName)
     {
         // Check if query string exist
+        T query;
+
         if (request.Query.ContainsKey(queryName))
         {
-            var query = request.Query[queryName].FirstOrDefault().ToType<T>();
+            query = request.Query[queryName].FirstOrDefault().ToType<T>();
 
             return query;
         }
 
         // Check if route value exist
-        if (request.RouteValues.TryGetValue(queryName, out var value))
+        if (!request.RouteValues.TryGetValue(queryName, out var value))
         {
-            var query = value.ToType<T>();
-
-            return query;
+            return default;
         }
 
-        return default;
+        query = value.ToType<T>();
+
+        return query;
+    }
+
+    /// <summary>
+    /// Gets the Base Url from the HttpRequest
+    /// </summary>
+    /// <param name="req">The req.</param>
+    /// <returns>System.Nullable&lt;System.String&gt;.</returns>
+    public static string BaseUrl(this HttpRequest req)
+    {
+        if (req == null) return null;
+        var uriBuilder = new UriBuilder(req.Scheme, req.Host.Host, req.Host.Port ?? -1);
+        if (uriBuilder.Uri.IsDefaultPort)
+        {
+            uriBuilder.Port = -1;
+        }
+
+        return uriBuilder.Uri.AbsoluteUri;
     }
 }
