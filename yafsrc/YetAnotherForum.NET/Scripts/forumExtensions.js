@@ -5091,7 +5091,11 @@
         let callbacks = {
             onEscape: options.onEscape
         };
-        body.querySelector(".bootbox-body").innerHTML = options.message;
+        if (typeof options.message === "string") {
+            body.querySelector(".bootbox-body").innerHTML = options.message;
+        } else {
+            body.querySelector(".bootbox-body").append(options.message);
+        }
         if (getKeyLength(options.buttons) > 0) {
             for (const [ key, b ] of Object.entries(buttons)) {
                 let button = generateElement(templates.button);
@@ -5195,14 +5199,16 @@
             }
         }
         if (!options.reusable) {
-            dialog.addEventListener("hide.bs.modal", {
-                dialog: dialog
-            }, unbindModal, {
+            dialog.addEventListener("hide.bs.modal", function() {
+                dialog.removeEventListener("escape.close.bb", null);
+                dialog.removeEventListener("click", null);
+            }, {
                 once: true
             });
-            dialog.addEventListener("hidden.bs.modal", {
-                dialog: dialog
-            }, destroyModal, {
+            dialog.addEventListener("hidden.bs.modal", function(e) {
+                dialog.remove();
+                dialog = null;
+            }, {
                 once: true
             });
         }
@@ -5247,7 +5253,7 @@
                 if (startedOnBody || e.target !== e.currentTarget) {
                     return;
                 }
-                dialog.trigger("escape.close.bb");
+                trigger(dialog, "escape.close.bb");
             });
         }
         dialog.addEventListener("escape.close.bb", function(e) {
@@ -5255,9 +5261,9 @@
                 processCallback(e, dialog, callbacks.onEscape);
             }
         });
-        document.addEventListener("click", e => {
-            if (e.target.closest(".modal-footer button:not(.disabled)")) {
-                const callbackKey = e.target.closest(".modal-footer button:not(.disabled)").dataset.bbHandler;
+        dialog.addEventListener("click", e => {
+            if (e.target.nodeName.toLowerCase() === "button" && !e.target.classList.contains("disabled")) {
+                const callbackKey = e.target.dataset.bbHandler;
                 if (callbackKey !== undefined) {
                     processCallback(e, dialog, callbacks[callbackKey]);
                 }
@@ -5270,7 +5276,7 @@
         });
         dialog.addEventListener("keyup", function(e) {
             if (e.which === 27) {
-                dialog.trigger("escape.close.bb");
+                trigger(dialog, "escape.close.bb");
             }
         });
         document.querySelector(options.container).append(dialog);
@@ -5660,24 +5666,13 @@
         return Object.keys(obj).length;
     }
     function focusPrimaryButton(e) {
-        e.data.dialog.querySelector(".bootbox-accept").first().trigger("focus");
-    }
-    function destroyModal(e) {
-        if (e.target === e.data.dialog[0]) {
-            e.data.dialog.remove();
-        }
-    }
-    function unbindModal(e) {
-        if (e.target === e.data.dialog[0]) {
-            e.data.dialog.removeEventListener("escape.close.bb");
-            e.data.dialog.removeEventListener("click");
-        }
+        trigger(de.data.dialog.querySelector(".bootbox-accept").first(), "focus");
     }
     function processCallback(e, dialog, callback) {
         e.stopPropagation();
         e.preventDefault();
         const preserveDialog = typeof callback === "function" && callback.call(dialog, e) === false;
-        if (!preserveDialog) {
+        if (!preserveDialog && dialog) {
             bootstrap.Modal.getInstance(dialog).hide();
         }
     }
@@ -5721,6 +5716,42 @@
     }
     function dateIsValid(value) {
         return /(\d{4})-(\d{2})-(\d{2})/.test(value);
+    }
+    function trigger(el, eventType) {
+        if (typeof eventType === "string" && typeof el[eventType] === "function") {
+            el[eventType]();
+        } else {
+            const event = typeof eventType === "string" ? new Event(eventType, {
+                bubbles: true
+            }) : eventType;
+            el.dispatchEvent(event);
+        }
+    }
+    function deepExtend(out, ...arguments_) {
+        if (!out) {
+            return {};
+        }
+        for (const obj of arguments_) {
+            if (!obj) {
+                continue;
+            }
+            for (const [ key, value ] of Object.entries(obj)) {
+                switch (Object.prototype.toString.call(value)) {
+                  case "[object Object]":
+                    out[key] = out[key] || {};
+                    out[key] = deepExtend(out[key], value);
+                    break;
+
+                  case "[object Array]":
+                    out[key] = deepExtend(new Array(value.length), value);
+                    break;
+
+                  default:
+                    out[key] = value;
+                }
+            }
+        }
+        return out;
     }
     function generateElement(html) {
         const template = document.createElement("template");
@@ -14925,11 +14956,11 @@ document.addEventListener("click", function(event) {
             message: text,
             buttons: {
                 confirm: {
-                    label: '<i class="fa fa-check"></i> ' + button.dataset.yes,
+                    label: `<i class="fa fa-check"></i> ${button.dataset.yes}`,
                     className: "btn-success"
                 },
                 cancel: {
-                    label: '<i class="fa fa-times"></i> ' + button.dataset.no,
+                    label: `<i class="fa fa-times"></i> ${button.dataset.no}`,
                     className: "btn-danger"
                 }
             },
