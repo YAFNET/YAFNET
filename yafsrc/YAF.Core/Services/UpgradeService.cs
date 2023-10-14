@@ -40,7 +40,19 @@ using YAF.Types.Models;
 /// <summary>
 ///     The upgrade service.
 /// </summary>
-public class UpgradeService : IHaveServiceLocator
+/// <remarks>
+/// Initializes a new instance of the <see cref="UpgradeService"/> class.
+/// </remarks>
+/// <param name="serviceLocator">
+/// The service locator.
+/// </param>
+/// <param name="raiseEvent">
+/// The raise Event.
+/// </param>
+/// <param name="access">
+/// The access.
+/// </param>
+public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEvent, IDbAccess access) : IHaveServiceLocator
 {
     /// <summary>
     ///     The BBCode extensions import xml file.
@@ -53,28 +65,9 @@ public class UpgradeService : IHaveServiceLocator
     private const string SpamWordsImport = "SpamWords.xml";
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="UpgradeService"/> class.
-    /// </summary>
-    /// <param name="serviceLocator">
-    /// The service locator.
-    /// </param>
-    /// <param name="raiseEvent">
-    /// The raise Event.
-    /// </param>
-    /// <param name="access">
-    /// The access.
-    /// </param>
-    public UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEvent, IDbAccess access)
-    {
-        this.RaiseEvent = raiseEvent;
-        this.DbAccess = access;
-        this.ServiceLocator = serviceLocator;
-    }
-
-    /// <summary>
     ///     Gets or sets the raise event.
     /// </summary>
-    public IRaiseEvent RaiseEvent { get; set; }
+    public IRaiseEvent RaiseEvent { get; set; } = raiseEvent;
 
     /// <summary>
     /// Gets or sets the database access.
@@ -82,12 +75,12 @@ public class UpgradeService : IHaveServiceLocator
     /// <value>
     /// The database access.
     /// </value>
-    public IDbAccess DbAccess { get; set; }
+    public IDbAccess DbAccess { get; set; } = access;
 
     /// <summary>
     ///     Gets or sets the service locator.
     /// </summary>
-    public IServiceLocator ServiceLocator { get; set; }
+    public IServiceLocator ServiceLocator { get; set; } = serviceLocator;
 
     /// <summary>
     /// Initialize Or Upgrade the Database
@@ -110,7 +103,9 @@ public class UpgradeService : IHaveServiceLocator
         // Check if BaseUrlMask is set and if not automatically write it
         if (this.GetRepository<Registry>().GetSingle(r => r.Name.ToLower() == "BaseUrlMask") == null)
         {
-            this.GetRepository<Registry>().Save("baseurlmask", this.Get<BoardInfo>().GetBaseUrlFromVariables());
+            this.GetRepository<Registry>().Save(
+                "baseurlmask",
+                this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl()); 
         }
 
         if (prevVersion < 80)

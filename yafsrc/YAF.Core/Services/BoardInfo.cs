@@ -32,21 +32,16 @@ using YAF.Types.Objects;
 /// <summary>
 /// Class provides helper functions related to the forum path and URLs as well as forum version information.
 /// </summary>
-public class BoardInfo : IHaveServiceLocator
+/// <remarks>
+/// Initializes a new instance of the <see cref="BoardInfo"/> class.
+/// </remarks>
+/// <param name="serviceLocator">The service locator.</param>
+public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
 {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="BoardInfo"/> class.
-    /// </summary>
-    /// <param name="serviceLocator">The service locator.</param>
-    public BoardInfo(IServiceLocator serviceLocator)
-    {
-        this.ServiceLocator = serviceLocator;
-    }
-
     /// <summary>
     /// Gets or sets the ServiceLocator.
     /// </summary>
-    public IServiceLocator ServiceLocator { get; set; }
+    public IServiceLocator ServiceLocator { get; set; } = serviceLocator;
 
     /// <summary>
     /// Gets the Current YAF Application Version string
@@ -145,47 +140,20 @@ public class BoardInfo : IHaveServiceLocator
             {
                 if (MemoryCache.Default["BoardSettings$1"] is not BoardSettings boardSettings)
                 {
-                    return this.Get<BoardInfo>().GetBaseUrlFromVariables();
+                    return this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl();
                 }
 
                 baseUrlMask = boardSettings.BaseUrlMask.IsSet()
                                   ? TreatBaseUrl(boardSettings.BaseUrlMask)
-                                  : this.Get<BoardInfo>().GetBaseUrlFromVariables();
+                                  : this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl();
             }
             catch (Exception)
             {
-                baseUrlMask = this.Get<BoardInfo>().GetBaseUrlFromVariables();
+                baseUrlMask = this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl();
             }
 
             return baseUrlMask;
         }
-    }
-
-    /// <summary>
-    /// Gets the base URL from variables.
-    /// </summary>
-    /// <returns>
-    /// The get base url from variables.
-    /// </returns>
-    public string GetBaseUrlFromVariables()
-    {
-        var url = new StringBuilder();
-
-        var request = this.Get<IHttpContextAccessor>().HttpContext.Request;
-
-        var serverPort = request.Host.Port.GetValueOrDefault(80);
-        var isSecure = request.IsHttps || serverPort == 443;
-
-        url.Append(isSecure ? "https" : "http");
-
-        url.Append($"://{request.Host.Host}");
-
-        if (!isSecure && serverPort != 80 || isSecure && serverPort != 443)
-        {
-            url.Append($":{serverPort}");
-        }
-
-        return url.ToString();
     }
 
     /// <summary>
