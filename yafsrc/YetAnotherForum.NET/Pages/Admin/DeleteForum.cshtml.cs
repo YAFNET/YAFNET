@@ -25,7 +25,7 @@
 
 namespace YAF.Pages.Admin;
 
-using System.Threading;
+using System.Threading.Tasks;
 
 using YAF.Core.Extensions;
 using YAF.Core.Services;
@@ -88,7 +88,7 @@ public class DeleteForumModel : AdminPage
     /// <summary>
     /// Delete The Forum
     /// </summary>
-    public IActionResult OnPost(int fa)
+    public async Task<IActionResult> OnPostAsync(int fa)
     {
         string errorMessage;
 
@@ -112,7 +112,7 @@ public class DeleteForumModel : AdminPage
 
         while (this.Get<ITaskModuleManager>().IsTaskRunning(ForumDeleteTask.TaskName))
         {
-            Thread.Sleep(4000);
+            await Task.Delay(4000);
         }
 
         return this.RedirectToPage(ForumPages.Admin_Forums.GetPageName());

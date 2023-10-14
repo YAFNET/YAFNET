@@ -295,8 +295,6 @@ public class EmailNotificationTests : TestBase
                     // Check if an Email was received
                     while (this.Base.SmtpServer.ReceivedEmailCount.Equals(0))
                     {
-                        Thread.Sleep(5000);
-
                         await Task.Delay(5000);
                     }
 

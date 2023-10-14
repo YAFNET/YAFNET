@@ -1,21 +1,20 @@
 ﻿@using Microsoft.AspNetCore.Http
 @using Microsoft.AspNetCore.Localization
-@using YAF.Core.Context
+@using YAF.Core.Extensions
 @using YAF.Core.Helpers
-@using YAF.Core.Services
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
 @using YAF.Types.Objects
 
 @inject ILocalization Localization;
-@inject BoardInfo BoardInfo;
+@inject IHttpContextAccessor ContextAccessor;
 
 @model YAF.Types.Modals.InstallModal
 
 @{
     Layout = "_LayoutInstall";
 
-    var requestCultureFeature = BoardContext.Current.Get<IHttpContextAccessor>().HttpContext.Features.Get<IRequestCultureFeature>();
+    var requestCultureFeature = ContextAccessor.HttpContext.Features.Get<IRequestCultureFeature>();
     var requestCulture = requestCultureFeature.RequestCulture;
 
     Localization.TransPage = "INSTALL";
@@ -63,7 +62,7 @@
             </asp:Label>
             <input id="forumBaseUrlMask" name="forumBaseUrlMask" required
                    placeholder="@Localization.GetText("ForumUrl")"
-                   type="text" value="@BoardInfo.GetBaseUrlFromVariables()"
+                   type="text" value="@ContextAccessor.HttpContext?.Request.BaseUrl()"
                    class="form-control"/>
         </div>
         <hr/>

@@ -63,7 +63,7 @@ public class MessageTests : TestBase
                         Assert.IsTrue(await page.CreateNewTestTopicAsync(this.Base.TestSettings), "Topic Creating failed");
 
                         // Wait 60 seconds to avoid post flood
-                        Thread.Sleep(31000);
+                        await Task.Delay(31000);
                     }
 
                     await page.Locator("//button[contains(@formaction,'ReplyLink')]").First.ClickAsync();
@@ -124,7 +124,7 @@ public class MessageTests : TestBase
                             "Topic Creating failed");
 
                         // Wait 60 seconds to avoid post flood
-                        Thread.Sleep(60000);
+                        await Task.Delay(60000);
                     }
 
                     await page.GetByRole(AriaRole.Button, new() { Name = " Reply with Quote" }).First.ClickAsync();
@@ -171,7 +171,7 @@ public class MessageTests : TestBase
                     Assert.IsTrue(await page.CreateNewTestTopicAsync(this.Base.TestSettings), "Topic Creating failed");
 
                     // Wait 30 seconds to avoid post flood
-                    Thread.Sleep(60000);
+                    await Task.Delay(60000);
 
                     // Post Replay A
                     await page.Locator("//button[contains(@formaction,'ReplyLink')]").First.ClickAsync();
@@ -191,7 +191,7 @@ public class MessageTests : TestBase
                     Assert.IsTrue(pageSource.Contains("Test Reply A"), "Reply Message failed");
 
                     // Wait 30 seconds to avoid post flood
-                    Thread.Sleep(60000);
+                    await Task.Delay(60000);
 
                     /////
 
@@ -213,7 +213,7 @@ public class MessageTests : TestBase
                     Assert.IsTrue(pageSource.Contains("Test Reply B"), "Reply Message failed");
 
                     // Wait 30 seconds to avoid post flood
-                    Thread.Sleep(60000);
+                    await Task.Delay(60000);
 
                     /////
 
@@ -235,7 +235,7 @@ public class MessageTests : TestBase
                     Assert.IsTrue(pageSource.Contains("Test Reply C"), "Reply Message failed");
 
                     // Wait 30 seconds to avoid post flood
-                    Thread.Sleep(60000);
+                    await Task.Delay(60000);
 
                     /////
 
