@@ -115,7 +115,7 @@ public static class IconHtmlHelper
 
         var span = new TagBuilder("span");
 
-        span.AddCssClass("fa-stack me-1");
+        span.AddCssClass($"fa-stack me-1 {iconBadgeType}");
 
         /*var className = iconType.IsSet() ? $"fa-stack-1x {iconType}" : "fa-stack-1x";
 
@@ -124,26 +124,19 @@ public static class IconHtmlHelper
             className += $" {iconSize}";
         }*/
 
-        var className = "fa-stack-1x";
-
         var iconTag = new TagBuilder("i");
 
         //iconTag.AddCssClass($"{iconStyle} fa-{iconName} {className}");
-        iconTag.AddCssClass($"fas fa-{iconName} {className}");
+        iconTag.AddCssClass($"fas fa-{iconName} fa-stack-1x");
 
         iconTag.TagRenderMode = TagRenderMode.Normal;
 
         span.InnerHtml.AppendHtml(iconTag);
 
-        var iconCircleTag = new TagBuilder("i");
-
-        iconCircleTag.AddCssClass("fa fa-circle fa-badge-bg fa-inverse text-light");
-
-        span.InnerHtml.AppendHtml(iconCircleTag);
-
         var iconBadgeTag = new TagBuilder("i");
 
-        iconBadgeTag.AddCssClass($"fa fa-{iconBadgeName} fa-badge {iconBadgeType}");
+        iconBadgeTag.AddCssClass(
+            iconBadgeType.IsSet() ? $"fa fa-{iconBadgeName} fa-badge {iconBadgeType}" : $"fa fa-{iconBadgeName} fa-badge");
 
         span.InnerHtml.AppendHtml(iconBadgeTag);
 

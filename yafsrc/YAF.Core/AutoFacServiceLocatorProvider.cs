@@ -94,6 +94,7 @@ public class AutoFacServiceLocatorProvider(ILifetimeScope container) : IScopeSer
     public void Dispose()
     {
         this.Container.Dispose();
+        GC.SuppressFinalize(this);
     }
 
     /// <summary>

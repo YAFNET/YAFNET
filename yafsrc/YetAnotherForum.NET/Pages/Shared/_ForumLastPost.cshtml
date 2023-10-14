@@ -62,14 +62,9 @@
 
         var span = Current.BoardSettings.ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
 
-        infoContent = $@"
-                          {lastUserLink.RenderToString()}
-                          <span class=""fa-stack"">
-                                                    <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
-                                                    <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
-                                                    <i class=""fa fa-clock fa-badge text-secondary""></i>
-                                                </span>&nbsp;{span}{formattedDatetime}</span>
-                         ";
+        var iconBadge = Html.IconBadge("calendar-day", "clock");
+
+        infoContent = $"{lastUserLink.RenderToString()}{iconBadge.RenderToString()}&nbsp;{span}{formattedDatetime}</span>";
 
         infoText = string.Format(
             Current.Get<ILocalization>().GetText("Default", "BY"),

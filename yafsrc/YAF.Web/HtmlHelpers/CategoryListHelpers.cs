@@ -50,12 +50,12 @@ public static class CategoryListHelpers
 
         if (item.ImageURL.IsNotSet())
         {
-            var forumIconNew = BoardContext.Current.Get<IHtmlHelper>().Icon("comments", "text-success", "fas", "fa-2x");
+            var forumIconNew = htmlHelper.Icon("comments", "text-success", "fas", "fa-2x");
 
-            var forumIconNormal = BoardContext.Current.Get<IHtmlHelper>()
+            var forumIconNormal = htmlHelper
                 .Icon("comments", "text-secondary", "fas", "fa-2x");
 
-            var forumIconLocked = BoardContext.Current.Get<IHtmlHelper>().IconStack(
+            var forumIconLocked = htmlHelper.IconStack(
                 "comments",
                 "text-secondary",
                 "lock",
@@ -158,7 +158,7 @@ public static class CategoryListHelpers
 
             link.MergeAttribute("data-bs-toggle", "tooltip");
 
-            link.InnerHtml.AppendHtml(BoardContext.Current.CurrentForumPage.HtmlEncode(item.Forum));
+            link.InnerHtml.AppendHtml(htmlHelper.HtmlEncode(item.Forum));
 
             if (item.RemoteURL.IsSet())
             {
@@ -200,7 +200,7 @@ public static class CategoryListHelpers
     /// <summary>
     /// Get moderators.
     /// </summary>
-    /// <param name="htmlHelper">
+    /// <param name="^^^^^^per">
     /// The html helper.
     /// </param>
     /// <param name="item">
@@ -233,7 +233,7 @@ public static class CategoryListHelpers
                     else
                     {
                         // Render Moderator PageUser Link
-                        var userLink = BoardContext.Current.Get<IHtmlHelper>().UserLink(
+                        var userLink = htmlHelper.UserLink(
                             row.ModeratorID,
                             BoardContext.Current.BoardSettings.EnableDisplayName ? row.DisplayName : row.Name,
                             null,
@@ -318,7 +318,7 @@ public static class CategoryListHelpers
         var lastPostedDateTime = item.LastPosted.Value;
 
         // Last Topic PageUser
-        var lastUserLink = BoardContext.Current.Get<IHtmlHelper>().UserLink(
+        var lastUserLink = htmlHelper.UserLink(
             item.LastUserID.Value,
             BoardContext.Current.BoardSettings.EnableDisplayName ? item.LastUserDisplayName : item.LastUser,
             item.LastUserSuspended,
@@ -335,14 +335,14 @@ public static class CategoryListHelpers
 
         var span = BoardContext.Current.BoardSettings.ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
 
-        return $@"
-                          {lastUserLink.RenderToString()}
-                          <span class=""fa-stack"">
-                                                    <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
-                                                    <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
-                                                    <i class=""fa fa-clock fa-badge text-secondary""></i>
-                                                </span>&nbsp;{span}{formattedDatetime}</span>
-                         ";
+        var iconBadge = htmlHelper.IconBadge("calendar-day", "clock");
+
+        return $"""
+                
+                                          {lastUserLink.RenderToString()}
+                                          {iconBadge.RenderToString()}&nbsp;{span}{formattedDatetime}</span>
+                                         
+                """;
     }
 
     /// <summary>

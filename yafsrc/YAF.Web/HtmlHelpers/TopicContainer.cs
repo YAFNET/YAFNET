@@ -115,7 +115,7 @@ public static class TopicContainerHtmlHelper
         var span = context.BoardSettings.ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
 
         var dateTimeIcon = htmlHelper.IconBadge(
-            "calender-day", 
+            "calendar-day", 
             "clock",
             "text-secondary");
 

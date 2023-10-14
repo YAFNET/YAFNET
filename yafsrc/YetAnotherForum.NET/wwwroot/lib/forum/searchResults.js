@@ -146,7 +146,7 @@
                             }"><i class="fas fa-external-link-alt"></i></a> <small class="text-body-secondary">(<a href="${dataItem.forumUrl}">${dataItem.forumName
                             }</a>)</small></h5></div><div class="card-body px-0"><h6 class="card-subtitle mb-2 text-body-secondary">${data.Description
                             }</h6><p class="card-text messageContent">${dataItem.message
-                            }</p></div><div class="card-footer bg-transparent border-top-0 px-0 py-2"> <small class="text-body-secondary"><span class="fa-stack"><i class="fa fa-calendar-day fa-stack-1x text-secondary"></i><i class="fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse"></i> <i class="fa fa-clock fa-badge text-secondary"></i> </span>${posted} ${dataItem.posted} <i class="fa fa-user fa-fw text-secondary"></i>${by} ${useDisplayName
+                            }</p></div><div class="card-footer bg-transparent border-top-0 px-0 py-2"> <small class="text-body-secondary"><span class="fa-stack"><i class="fa fa-calendar-day fa-stack-1x text-secondary"></i><i class="fa fa-clock fa-badge text-secondary"></i> </span>${posted} ${dataItem.posted} <i class="fa fa-user fa-fw text-secondary"></i>${by} ${useDisplayName
                                 ? dataItem.userDisplayName
                                 : dataItem.userName}${tags}</small> </div></div></div></div>`;
 
