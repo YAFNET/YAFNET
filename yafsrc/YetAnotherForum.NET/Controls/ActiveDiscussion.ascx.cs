@@ -104,7 +104,7 @@ public partial class ActiveDiscussion : BaseUserControl
             item.LastForumAccess ?? DateTimeHelper.SqlDbMinTime(),
             item.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
 
-        if ((DateTime)item.LastPosted > lastRead)
+        if (item.LastPosted.HasValue && item.LastPosted.Value > lastRead)
         {
             postIcon.Visible = true;
             postIcon.CssClass = "badge text-bg-success";
@@ -126,14 +126,15 @@ public partial class ActiveDiscussion : BaseUserControl
                               ? item.LastUserDisplayName
                               : item.LastUserName;
 
-        info.DataContent = $@"
-                          {lastUserLink.RenderToString()}
-                          <span class=""fa-stack"">
-                                                    <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
-                                                    <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
-                                                    <i class=""fa fa-clock fa-badge text-secondary""></i>
-                                                </span>&nbsp;{formattedDatetime}
-                         ";
+        info.DataContent = $"""
+                            
+                                                      {lastUserLink.RenderToString()}
+                                                      <span class="fa-stack">
+                                                                                <i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>
+                                                                                <i class="fa fa-clock fa-badge text-secondary"></i>
+                                                                            </span>&nbsp;{formattedDatetime}
+                                                     
+                            """;
     }
 
     /// <summary>

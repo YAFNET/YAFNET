@@ -175,8 +175,6 @@ public class Icon : BaseControl
         writer.Write(HtmlTextWriter.TagRightChar);
 
         writer.WriteEndTag(HtmlTextWriterTag.I.ToString());
-
-        writer.Write(@"<i class=""fa fa-circle fa-badge-bg fa-inverse text-light""></i>");
         writer.WriteBeginTag(HtmlTextWriterTag.I.ToString());
 
         writer.WriteAttribute(

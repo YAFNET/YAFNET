@@ -1,4 +1,4 @@
-<%@ Control Language="C#" AutoEventWireup="True" EnableViewState="false" CodeBehind="SimilarTopics.ascx.cs"
+﻿<%@ Control Language="C#" AutoEventWireup="True" EnableViewState="false" CodeBehind="SimilarTopics.ascx.cs"
     Inherits="YAF.Controls.SimilarTopics" %>
 
 <%@ Import Namespace="YAF.Types.Interfaces" %>
@@ -35,7 +35,6 @@
                       </YAF:UserLink>
                 <span class="fa-stack">
                     <i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>
-                    <i class="fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse"></i>
                     <i class="fa fa-clock fa-badge text-secondary"></i>
                 </span>
                 <YAF:DisplayDateTime ID="CreatedDate" runat="server"

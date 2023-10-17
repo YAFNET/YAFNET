@@ -117,14 +117,15 @@ public partial class ForumLastPost : BaseUserControl
                                             DateTimeFormat.BothTopic,
                                             lastPostedDateTime);
 
-            this.Info.DataContent = $@"
-                          {lastUserLink.RenderToString()}
-                          <span class=""fa-stack"">
-                                                    <i class=""fa fa-calendar-day fa-stack-1x text-secondary""></i>
-                                                    <i class=""fa fa-circle fa-badge-bg fa-inverse fa-outline-inverse""></i>
-                                                    <i class=""fa fa-clock fa-badge text-secondary""></i>
-                                                </span>&nbsp;{formattedDatetime}
-                         ";
+            this.Info.DataContent = $"""
+                                     
+                                                               {lastUserLink.RenderToString()}
+                                                               <span class="fa-stack">
+                                                                                         <i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>
+                                                                                         <i class="fa fa-clock fa-badge text-secondary"></i>
+                                                                                     </span>&nbsp;{formattedDatetime}
+                                                              
+                                     """;
 
             this.Info.Text = string.Format(
                 this.GetText("Default", "BY"),
