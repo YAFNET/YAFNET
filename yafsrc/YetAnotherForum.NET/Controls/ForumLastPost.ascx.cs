@@ -118,7 +118,6 @@ public partial class ForumLastPost : BaseUserControl
                                             lastPostedDateTime);
 
             this.Info.DataContent = $"""
-                                     
                                                                {lastUserLink.RenderToString()}
                                                                <span class="fa-stack">
                                                                                          <i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>

@@ -4,6 +4,7 @@ using YAF.Lucene.Net.Support.IO;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Runtime.CompilerServices;
@@ -21,7 +22,7 @@ namespace YAF.Lucene.Net.Util
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -219,6 +220,8 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// LUCENENET specific - cache the temp directory path so we can return it from a property.
         /// </summary>
+        [SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "This is a SonarCloud issue")]
+        [SuppressMessage("Security Hotspot", "S5443:Using publicly writable directories is security-sensitive", Justification = "Temp file names are chosen at random so they cannot be guessed by malicous users")]
         private static readonly string DEFAULT_TEMP_DIR = Path.GetTempPath();
 
         /// <summary>

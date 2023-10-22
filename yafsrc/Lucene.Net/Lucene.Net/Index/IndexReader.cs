@@ -4,7 +4,7 @@ using YAF.Lucene.Net.Support;
 using YAF.Lucene.Net.Support.Threading;
 using YAF.Lucene.Net.Util;
 #if !FEATURE_CONDITIONALWEAKTABLE_ENUMERATOR
-using Prism.Events;
+using YAF.Lucene.Net.Util.Events;
 #endif
 using System;
 using System.Collections;
@@ -23,7 +23,7 @@ namespace YAF.Lucene.Net.Index
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -32,10 +32,10 @@ namespace YAF.Lucene.Net.Index
      * limitations under the License.
      */
 
-    using Directory = YAF.Lucene.Net.Store.Directory;
+    using Directory = Lucene.Net.Store.Directory;
     using Document = Documents.Document;
     using DocumentStoredFieldVisitor = DocumentStoredFieldVisitor;
-    using IOUtils = YAF.Lucene.Net.Util.IOUtils;
+    using IOUtils = Lucene.Net.Util.IOUtils;
 
     /// <summary>
     /// <see cref="IndexReader"/> is an abstract class, providing an interface for accessing an
@@ -157,7 +157,7 @@ namespace YAF.Lucene.Net.Index
                 if (!parentReaders.TryGetValue(key: reader, out _))
                 {
                     parentReaders.Add(key: reader, value: null);
-                    reader.SubscribeToGetParentReadersEvent(eventAggregator.GetEvent<Events.GetParentReadersEvent>());
+                    reader.SubscribeToGetParentReadersEvent(eventAggregator.GetEvent<WeakEvents.GetParentReadersEvent>());
                 }
 #endif
             }
@@ -211,8 +211,8 @@ namespace YAF.Lucene.Net.Index
                 {
                     IndexReader target = kvp.Key;
 #else
-                var e = new Events.GetParentReadersEventArgs();
-                eventAggregator.GetEvent<Events.GetParentReadersEvent>().Publish(e);
+                var e = new WeakEvents.GetParentReadersEventArgs();
+                eventAggregator.GetEvent<WeakEvents.GetParentReadersEvent>().Publish(e);
                 foreach (var target in e.ParentReaders)
                 {
 #endif
@@ -636,10 +636,10 @@ namespace YAF.Lucene.Net.Index
         // LUCENENET specific - since .NET Standard 2.0 and .NET Framework don't have a CondtionalWeakTable enumerator,
         // we use a weak event to retrieve the ConditionalWeakTable items
         [ExcludeFromRamUsageEstimation]
-        private readonly ISet<Events.GetParentReadersEvent> getParentReadersEvents = new JCG.HashSet<Events.GetParentReadersEvent>();
+        private readonly ISet<WeakEvents.GetParentReadersEvent> getParentReadersEvents = new JCG.HashSet<WeakEvents.GetParentReadersEvent>();
         [ExcludeFromRamUsageEstimation]
-        private readonly ISet<Events.GetCacheKeysEvent> getCacheKeysEvents = new JCG.HashSet<Events.GetCacheKeysEvent>();
-        internal void SubscribeToGetParentReadersEvent(Events.GetParentReadersEvent getParentReadersEvent)
+        private readonly ISet<WeakEvents.GetCacheKeysEvent> getCacheKeysEvents = new JCG.HashSet<WeakEvents.GetCacheKeysEvent>();
+        internal void SubscribeToGetParentReadersEvent(WeakEvents.GetParentReadersEvent getParentReadersEvent)
         {
             if (getParentReadersEvent is null)
                 throw new ArgumentNullException(nameof(getParentReadersEvent));
@@ -647,7 +647,7 @@ namespace YAF.Lucene.Net.Index
                 getParentReadersEvent.Subscribe(OnGetParentReaders);
         }
 
-        internal void SubscribeToGetCacheKeysEvent(Events.GetCacheKeysEvent getCacheKeysEvent)
+        internal void SubscribeToGetCacheKeysEvent(WeakEvents.GetCacheKeysEvent getCacheKeysEvent)
         {
             if (getCacheKeysEvent is null)
                 throw new ArgumentNullException(nameof(getCacheKeysEvent));
@@ -662,12 +662,12 @@ namespace YAF.Lucene.Net.Index
         }
 
         // LUCENENET specific: Add weak event handler for .NET Standard 2.0 and .NET Framework, since we don't have an enumerator to use
-        private void OnGetParentReaders(Events.GetParentReadersEventArgs e)
+        private void OnGetParentReaders(WeakEvents.GetParentReadersEventArgs e)
         {
             e.ParentReaders.Add(this);
         }
 
-        private void OnGetCacheKeys(Events.GetCacheKeysEventArgs e)
+        private void OnGetCacheKeys(WeakEvents.GetCacheKeysEventArgs e)
         {
             e.CacheKeys.Add(this.CoreCacheKey);
         }

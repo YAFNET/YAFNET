@@ -52,6 +52,16 @@ public partial class ActiveDiscussion : BaseUserControl
 
         var item = (LatestTopic)e.Item.DataItem;
 
+        if (!item.LastUserID.HasValue)
+        {
+            return;
+        }
+
+        if (!item.LastPosted.HasValue)
+        {
+            return;
+        }
+
         var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(item.Topic));
 
         // get the controls
@@ -104,7 +114,7 @@ public partial class ActiveDiscussion : BaseUserControl
             item.LastForumAccess ?? DateTimeHelper.SqlDbMinTime(),
             item.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
 
-        if (item.LastPosted.HasValue && item.LastPosted.Value > lastRead)
+        if (item.LastPosted.Value > lastRead)
         {
             postIcon.Visible = true;
             postIcon.CssClass = "badge text-bg-success";
@@ -112,7 +122,7 @@ public partial class ActiveDiscussion : BaseUserControl
             postIcon.Text = this.GetText("NEW_MESSAGE");
         }
 
-        var lastPostedDateTime = (DateTime)item.LastPosted;
+        var lastPostedDateTime = item.LastPosted.Value;
 
         var formattedDatetime = this.PageBoardContext.BoardSettings.ShowRelativeTime
                                     ? lastPostedDateTime.ToRelativeTime()
@@ -127,7 +137,6 @@ public partial class ActiveDiscussion : BaseUserControl
                               : item.LastUserName;
 
         info.DataContent = $"""
-                            
                                                       {lastUserLink.RenderToString()}
                                                       <span class="fa-stack">
                                                                                 <i class="fa fa-calendar-day fa-stack-1x text-secondary"></i>

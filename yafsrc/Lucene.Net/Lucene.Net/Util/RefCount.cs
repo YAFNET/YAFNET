@@ -1,5 +1,5 @@
-using J2N.Threading.Atomic;
-using System;
+﻿using J2N.Threading.Atomic;
+
 using System.Runtime.CompilerServices;
 
 namespace YAF.Lucene.Net.Util

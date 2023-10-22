@@ -276,7 +276,7 @@ namespace YAF.Lucene.Net.Analysis.Compound.Hyphenation
 
         protected static string GetPattern(string word)
         {
-            StringBuilder pat = new StringBuilder();
+            StringBuilder pat = new();
             int len = word.Length;
             for (int i = 0; i < len; i++)
             {
@@ -297,7 +297,7 @@ namespace YAF.Lucene.Net.Analysis.Compound.Hyphenation
                 if (item is string)
                 {
                     string str = (string)item;
-                    StringBuilder buf = new StringBuilder();
+                    StringBuilder buf = new();
                     for (int j = 0; j < str.Length; j++)
                     {
                         char c = str[j];
@@ -331,13 +331,12 @@ namespace YAF.Lucene.Net.Analysis.Compound.Hyphenation
 
         protected virtual string GetExceptionWord<T1>(IList<T1> ex)
         {
-            StringBuilder res = new StringBuilder();
-            for (int i = 0; i < ex.Count; i++)
+            StringBuilder res = new();
+            foreach (object item in ex)
             {
-                object item = ex[i];
-                if (item is string)
+                if (item is string s)
                 {
-                    res.Append((string)item);
+                    res.Append(s);
                 }
                 else
                 {

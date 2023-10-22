@@ -1,7 +1,6 @@
 ﻿using YAF.Lucene.Net.Support;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 #if !FEATURE_TYPE_GETMETHOD__BINDINGFLAGS_PARAMS
 using System.Linq;
 #endif

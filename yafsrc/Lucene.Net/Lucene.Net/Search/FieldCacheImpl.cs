@@ -7,7 +7,7 @@ using YAF.Lucene.Net.Support.IO;
 using YAF.Lucene.Net.Support.Threading;
 using YAF.Lucene.Net.Util;
 #if !FEATURE_CONDITIONALWEAKTABLE_ENUMERATOR
-using Prism.Events;
+using YAF.Lucene.Net.Util.Events;
 #endif
 using System;
 using System.Collections.Generic;
@@ -26,7 +26,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -35,27 +35,27 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
-    using BinaryDocValues = YAF.Lucene.Net.Index.BinaryDocValues;
-    using BytesRef = YAF.Lucene.Net.Util.BytesRef;
-    using DocsEnum = YAF.Lucene.Net.Index.DocsEnum;
-    using DocTermOrds = YAF.Lucene.Net.Index.DocTermOrds;
-    using DocValues = YAF.Lucene.Net.Index.DocValues;
-    using FieldCacheSanityChecker = YAF.Lucene.Net.Util.FieldCacheSanityChecker;
-    using FieldInfo = YAF.Lucene.Net.Index.FieldInfo;
-    using FixedBitSet = YAF.Lucene.Net.Util.FixedBitSet;
-    using GrowableWriter = YAF.Lucene.Net.Util.Packed.GrowableWriter;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using IndexReader = YAF.Lucene.Net.Index.IndexReader;
-    using MonotonicAppendingInt64Buffer = YAF.Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
-    using NumericDocValues = YAF.Lucene.Net.Index.NumericDocValues;
-    using PackedInt32s = YAF.Lucene.Net.Util.Packed.PackedInt32s;
-    using PagedBytes = YAF.Lucene.Net.Util.PagedBytes;
-    using SegmentReader = YAF.Lucene.Net.Index.SegmentReader;
-    using SortedDocValues = YAF.Lucene.Net.Index.SortedDocValues;
-    using SortedSetDocValues = YAF.Lucene.Net.Index.SortedSetDocValues;
-    using Terms = YAF.Lucene.Net.Index.Terms;
-    using TermsEnum = YAF.Lucene.Net.Index.TermsEnum;
+    using AtomicReader = Lucene.Net.Index.AtomicReader;
+    using BinaryDocValues = Lucene.Net.Index.BinaryDocValues;
+    using BytesRef = Lucene.Net.Util.BytesRef;
+    using DocsEnum = Lucene.Net.Index.DocsEnum;
+    using DocTermOrds = Lucene.Net.Index.DocTermOrds;
+    using DocValues = Lucene.Net.Index.DocValues;
+    using FieldCacheSanityChecker = Lucene.Net.Util.FieldCacheSanityChecker;
+    using FieldInfo = Lucene.Net.Index.FieldInfo;
+    using FixedBitSet = Lucene.Net.Util.FixedBitSet;
+    using GrowableWriter = Lucene.Net.Util.Packed.GrowableWriter;
+    using IBits = Lucene.Net.Util.IBits;
+    using IndexReader = Lucene.Net.Index.IndexReader;
+    using MonotonicAppendingInt64Buffer = Lucene.Net.Util.Packed.MonotonicAppendingInt64Buffer;
+    using NumericDocValues = Lucene.Net.Index.NumericDocValues;
+    using PackedInt32s = Lucene.Net.Util.Packed.PackedInt32s;
+    using PagedBytes = Lucene.Net.Util.PagedBytes;
+    using SegmentReader = Lucene.Net.Index.SegmentReader;
+    using SortedDocValues = Lucene.Net.Index.SortedDocValues;
+    using SortedSetDocValues = Lucene.Net.Index.SortedSetDocValues;
+    using Terms = Lucene.Net.Index.Terms;
+    using TermsEnum = Lucene.Net.Index.TermsEnum;
 
     /// <summary>
     /// Expert: The default cache implementation, storing all values in memory.
@@ -188,8 +188,8 @@ namespace YAF.Lucene.Net.Search
 #else
                 // LUCENENET specific - since .NET Standard 2.0 and .NET Framework don't have a CondtionalWeakTable enumerator,
                 // we use a weak event to retrieve the readerKey instances and then lookup the values in the table one by one.
-                var e = new Events.GetCacheKeysEventArgs();
-                eventAggregator.GetEvent<Events.GetCacheKeysEvent>().Publish(e);
+                var e = new WeakEvents.GetCacheKeysEventArgs();
+                eventAggregator.GetEvent<WeakEvents.GetCacheKeysEvent>().Publish(e);
                 foreach (object readerKey in e.CacheKeys)
                 {
                     if (cache.readerCache.TryGetValue(readerKey, out IDictionary<TKey, object> innerCache))
@@ -270,7 +270,7 @@ namespace YAF.Lucene.Net.Search
 #if !FEATURE_CONDITIONALWEAKTABLE_ENUMERATOR
             // LUCENENET specific - since .NET Standard 2.0 and .NET Framework don't have a CondtionalWeakTable enumerator,
             // we use a weak event to retrieve the readerKey instances
-            reader.SubscribeToGetCacheKeysEvent(eventAggregator.GetEvent<Events.GetCacheKeysEvent>());
+            reader.SubscribeToGetCacheKeysEvent(eventAggregator.GetEvent<WeakEvents.GetCacheKeysEvent>());
 #endif
         }
 

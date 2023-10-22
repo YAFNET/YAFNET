@@ -3,7 +3,7 @@ using YAF.Lucene.Net.Runtime.CompilerServices;
 using YAF.Lucene.Net.Support.Threading;
 using YAF.Lucene.Net.Util;
 #if !FEATURE_CONDITIONALWEAKTABLE_ENUMERATOR
-using Prism.Events;
+using YAF.Lucene.Net.Util.Events;
 #endif
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -19,7 +19,7 @@ namespace YAF.Lucene.Net.Search
      * (the "License"); you may not use this file except in compliance with
      * the License.  You may obtain a copy of the License at
      *
-     *     https://www.apache.org/licenses/LICENSE-2.0
+     *     http://www.apache.org/licenses/LICENSE-2.0
      *
      * Unless required by applicable law or agreed to in writing, software
      * distributed under the License is distributed on an "AS IS" BASIS,
@@ -28,11 +28,11 @@ namespace YAF.Lucene.Net.Search
      * limitations under the License.
      */
 
-    using AtomicReader = YAF.Lucene.Net.Index.AtomicReader;
-    using AtomicReaderContext = YAF.Lucene.Net.Index.AtomicReaderContext;
-    using IBits = YAF.Lucene.Net.Util.IBits;
-    using RamUsageEstimator = YAF.Lucene.Net.Util.RamUsageEstimator;
-    using WAH8DocIdSet = YAF.Lucene.Net.Util.WAH8DocIdSet;
+    using AtomicReader = Lucene.Net.Index.AtomicReader;
+    using AtomicReaderContext = Lucene.Net.Index.AtomicReaderContext;
+    using IBits = Lucene.Net.Util.IBits;
+    using RamUsageEstimator = Lucene.Net.Util.RamUsageEstimator;
+    using WAH8DocIdSet = Lucene.Net.Util.WAH8DocIdSet;
 
     /// <summary>
     /// Wraps another <see cref="Search.Filter"/>'s result and caches it.  The purpose is to allow
@@ -136,7 +136,7 @@ namespace YAF.Lucene.Net.Search
                     cache.AddOrUpdate(key, docIdSet);
                     // LUCENENET specific - since .NET Standard 2.0 and .NET Framework don't have a CondtionalWeakTable enumerator,
                     // we use a weak event to retrieve the DocIdSet instances
-                    reader.SubscribeToGetCacheKeysEvent(eventAggregator.GetEvent<Events.GetCacheKeysEvent>());
+                    reader.SubscribeToGetCacheKeysEvent(eventAggregator.GetEvent<WeakEvents.GetCacheKeysEvent>());
                 }
                 finally
                 {
@@ -200,8 +200,8 @@ namespace YAF.Lucene.Net.Search
                 // we use a weak event to retrieve the DocIdSet instances. We look each of these up here to avoid the need
                 // to attach events to the DocIdSet instances themselves (thus using the existing IndexReader.Dispose()
                 // method to detach the events rather than using a finalizer in DocIdSet to ensure they are cleaned up).
-                var e = new Events.GetCacheKeysEventArgs();
-                eventAggregator.GetEvent<Events.GetCacheKeysEvent>().Publish(e);
+                var e = new WeakEvents.GetCacheKeysEventArgs();
+                eventAggregator.GetEvent<WeakEvents.GetCacheKeysEvent>().Publish(e);
                 foreach (var key in e.CacheKeys)
                     if (cache.TryGetValue(key, out DocIdSet value))
                         docIdSets.Add(value);
