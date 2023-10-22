@@ -57,8 +57,8 @@ public class AppTaskResult
     /// <param name="tasksRun">The tasks run.</param>
     public AppTaskResult(List<IAppTask> tasksRun)
     {
-        TasksRun = tasksRun;
-        TypesCompleted = tasksRun.Where(x => x.Error == null).Map(x => x.GetType());
+        this.TasksRun = tasksRun;
+        this.TypesCompleted = tasksRun.Where(x => x.Error == null).Map(x => x.GetType());
     }
 
     /// <summary>
@@ -68,7 +68,7 @@ public class AppTaskResult
     public string GetLogs()
     {
         var sb = StringBuilderCache.Allocate();
-        foreach (var instance in TasksRun)
+        foreach (var instance in this.TasksRun)
         {
             var migrationType = instance.GetType();
             var descFmt = AppTasks.GetDescFmt(migrationType);
@@ -76,6 +76,7 @@ public class AppTaskResult
             sb.AppendLine(instance.Log);
             sb.AppendLine();
         }
+
         return StringBuilderCache.ReturnAndFree(sb);
     }
 
@@ -84,21 +85,24 @@ public class AppTaskResult
     /// </summary>
     /// <value>The error.</value>
     public Exception? Error { get; set; }
+
     /// <summary>
     /// Gets the types completed.
     /// </summary>
     /// <value>The types completed.</value>
     public List<Type> TypesCompleted { get; }
+
     /// <summary>
     /// Gets the tasks run.
     /// </summary>
     /// <value>The tasks run.</value>
     public List<IAppTask> TasksRun { get; }
+
     /// <summary>
     /// Gets a value indicating whether this <see cref="AppTaskResult" /> is succeeded.
     /// </summary>
     /// <value><c>true</c> if succeeded; otherwise, <c>false</c>.</value>
-    public bool Succeeded => Error == null && TasksRun.All(x => x.Error == null);
+    public bool Succeeded => this.Error == null && this.TasksRun.All(x => x.Error == null);
 }
 
 /// <summary>
@@ -111,11 +115,13 @@ public class AppTasks
     /// </summary>
     /// <value>The instance.</value>
     public static AppTasks Instance { get; set; } = new();
+
     /// <summary>
     /// Gets or sets the log.
     /// </summary>
     /// <value>The log.</value>
     public ILog Log { get; set; } = new ConsoleLogger(typeof(AppTasks));
+
     /// <summary>
     /// Gets the tasks.
     /// </summary>
@@ -201,6 +207,7 @@ public class AppTasks
                         exitCode = i + 1; // return 1-based index of AppTask that failed
                         Instance.Log.Error($"Failed to run AppTask '{appTask}'", e);
                     }
+
                     return exitCode;
                 }
             }
@@ -208,8 +215,10 @@ public class AppTasks
             {
                 Instance.Log.Info("No AppTasks to run, exiting...");
             }
+
             return 0;
         }
+
         return null;
     }
 
@@ -224,6 +233,7 @@ public class AppTasks
         {
             onExit?.Invoke();
             Environment.Exit(exitCode.Value);
+
             // Trying to Stop Application before app.Run() throws Unhandled exception. System.OperationCanceledException
             // var appLifetime = ApplicationServices.Resolve<IHostApplicationLifetime>();
             // Environment.ExitCode = exitCode;
@@ -239,7 +249,7 @@ public class AppTasks
     public static string GetDescFmt(Type nextRun)
     {
         var desc = GetDesc(nextRun);
-        return desc != null ? " '" + desc + "'" : "";
+        return desc != null ? " '" + desc + "'" : string.Empty;
     }
 
     /// <summary>

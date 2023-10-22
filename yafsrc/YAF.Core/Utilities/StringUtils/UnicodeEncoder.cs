@@ -148,26 +148,20 @@ public class UnicodeEncoder
     /// <summary>
     /// The Html Code Class
     /// </summary>
-    public class HtmlCode
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="HtmlCode"/> class.
+    /// </remarks>
+    /// <param name="htmlNumber">The HTML number.</param>
+    /// <param name="symbol">The symbol.</param>
+    public class HtmlCode(string htmlNumber, string symbol)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="HtmlCode"/> class.
-        /// </summary>
-        /// <param name="htmlNumber">The HTML number.</param>
-        /// <param name="symbol">The symbol.</param>
-        public HtmlCode(string htmlNumber, string symbol)
-        {
-            this.HTMLNumber = htmlNumber;
-            this.Symbol = symbol;
-        }
-
         /// <summary>
         /// Gets or sets the symbol.
         /// </summary>
         /// <value>
         /// The symbol.
         /// </value>
-        public string Symbol { get; set; }
+        public string Symbol { get; set; } = symbol;
 
         /// <summary>
         /// Gets or sets the HTML number.
@@ -175,6 +169,6 @@ public class UnicodeEncoder
         /// <value>
         /// The HTML number.
         /// </value>
-        public string HTMLNumber { get; set; }
+        public string HTMLNumber { get; set; } = htmlNumber;
     }
 }

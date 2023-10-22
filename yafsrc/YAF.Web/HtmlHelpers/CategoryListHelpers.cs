@@ -338,7 +338,6 @@ public static class CategoryListHelpers
         var iconBadge = htmlHelper.IconBadge("calendar-day", "clock");
 
         return $"""
-                
                                           {lastUserLink.RenderToString()}
                                           {iconBadge.RenderToString()}&nbsp;{span}{formattedDatetime}</span>
                                          
