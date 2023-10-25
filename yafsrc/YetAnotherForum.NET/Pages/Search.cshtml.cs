@@ -141,11 +141,11 @@ public class SearchModel : ForumPage
         }
 
         if (doSearch)
-        { 
+        {
             this.PageBoardContext.RegisterJsBlock(
                 JavaScriptBlocks.DoSearchJs());
         }
-        
+
         return this.Page();
     }
 

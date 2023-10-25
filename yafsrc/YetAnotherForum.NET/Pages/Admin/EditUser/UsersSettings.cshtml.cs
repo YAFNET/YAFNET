@@ -121,7 +121,7 @@ public class UsersSettingsModel : AdminPage
 
             if (!ValidationHelper.IsValidEmail(newEmail))
             {
-                this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning); 
+                this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_EMAIL"), MessageTypes.warning);
                 return this.Get<LinkBuilder>().Redirect(
                     ForumPages.Admin_EditUser,
                     new { u = this.Input.UserId, tab = "View10" });
@@ -181,7 +181,7 @@ public class UsersSettingsModel : AdminPage
             this.Input.TimeZone,
             language,
             culture,
-            theme, 
+            theme,
             themeMode,
             this.Input.HideMe,
             this.Input.Activity,

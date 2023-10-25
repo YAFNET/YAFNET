@@ -34,12 +34,12 @@ public enum RepositoryEventType
     /// <summary>
     ///     The new.
     /// </summary>
-    New, 
+    New,
 
     /// <summary>
     ///     The update.
     /// </summary>
-    Update, 
+    Update,
 
     /// <summary>
     ///     The delete.
@@ -57,13 +57,13 @@ public class RepositoryEvent<T> : IAmEvent
     where T : class, IEntity
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="RepositoryEvent{T}"/> class. 
+    /// Initializes a new instance of the <see cref="RepositoryEvent{T}"/> class.
     /// </summary>
     /// <param name="repositoryEventType">
-    /// The repository event type. 
+    /// The repository event type.
     /// </param>
     /// <param name="entityId">
-    /// The entity id. 
+    /// The entity id.
     /// </param>
     /// <param name="entity">
     /// The entity.

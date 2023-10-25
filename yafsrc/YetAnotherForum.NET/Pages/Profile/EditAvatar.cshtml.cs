@@ -32,6 +32,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
+
 using SixLabors.ImageSharp;
 
 using YAF.Core.Extensions;

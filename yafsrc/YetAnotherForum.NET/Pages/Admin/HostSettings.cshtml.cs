@@ -97,7 +97,7 @@ public class HostSettingsModel : AdminPage
     public List<SelectListItem> ShowShareTopicToList { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="HostSettingsModel"/> class. 
+    /// Initializes a new instance of the <see cref="HostSettingsModel"/> class.
     /// </summary>
     public HostSettingsModel()
         : base("ADMIN_HOSTSETTINGS", ForumPages.Admin_HostSettings)

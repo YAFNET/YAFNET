@@ -28,7 +28,6 @@ namespace YAF.Types.Models;
 /// A class which represents the WatchTopic table.
 /// </summary>
 [Serializable]
-
 [UniqueConstraint(nameof(TopicID), nameof(UserID))]
 public class WatchTopic : IEntity, IHaveID
 {

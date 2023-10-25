@@ -38,7 +38,6 @@ public static class CommandTextHelpers
     /// <returns>
     /// The get command text replaced.
     /// </returns>
-    
     public static string GetCommandTextReplaced(string commandText)
     {
         commandText = commandText.Replace("{databaseOwner}", Config.DatabaseOwner);

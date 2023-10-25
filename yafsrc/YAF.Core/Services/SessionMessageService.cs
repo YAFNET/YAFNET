@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Services;
 
 using System;
@@ -53,7 +54,6 @@ public class SessionMessageService
     /// <summary>
     ///   Gets LoadStringList.
     /// </summary>
-    
     public List<MessageNotification> LoadStringList { get; } = new ();
 
     /// <summary>

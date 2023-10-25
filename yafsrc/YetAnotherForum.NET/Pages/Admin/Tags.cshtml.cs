@@ -63,8 +63,7 @@ public class TagsModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public  void OnGet() 
-            
+    public  void OnGet()
     {
         this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
 

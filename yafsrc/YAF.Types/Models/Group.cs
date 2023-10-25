@@ -28,7 +28,6 @@ namespace YAF.Types.Models;
 /// A class which represents the Group table.
 /// </summary>
 [Serializable]
-
 [UniqueConstraint(nameof(BoardID), nameof(Name))]
 public class Group : IEntity, IHaveID, IHaveBoardID
 {

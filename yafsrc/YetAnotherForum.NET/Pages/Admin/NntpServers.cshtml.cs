@@ -46,7 +46,7 @@ public class NntpServersModel : AdminPage
     public IList<NntpServer> List { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="NntpServersModel"/> class. 
+    /// Initializes a new instance of the <see cref="NntpServersModel"/> class.
     /// </summary>
     public NntpServersModel()
         : base("ADMIN_NNTPSERVERS", ForumPages.Admin_NntpServers)

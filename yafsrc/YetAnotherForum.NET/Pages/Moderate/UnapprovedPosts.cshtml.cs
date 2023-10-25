@@ -89,7 +89,7 @@ public class UnapprovedPostsModel : ModerateForumPage
     public IActionResult OnPostDelete(int messageId, int topicId)
     {
         var message = this.GetRepository<Message>().GetById(messageId);
-        
+
         this.GetRepository<Message>().Delete(
             this.PageBoardContext.PageForumID,
             topicId,

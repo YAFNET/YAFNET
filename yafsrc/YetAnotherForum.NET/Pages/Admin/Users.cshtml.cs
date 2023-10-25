@@ -67,7 +67,7 @@ public class UsersModel : AdminPage
     public List<PagedUser> List { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="UsersModel"/> class. 
+    /// Initializes a new instance of the <see cref="UsersModel"/> class.
     /// </summary>
     public UsersModel()
         : base("ADMIN_USERS", ForumPages.Admin_Users)
@@ -189,7 +189,7 @@ public class UsersModel : AdminPage
             return $@"<span class=""badge text-bg-warning"">{this.GetText("ADMIN_EDITUSER","DISABLED")}</span>";
         }
 
-        return $@"<span class=""badge text-bg-danger"">{this.GetText("NOT_APPROVED")}</span>";
+        return $"""<span class="badge text-bg-danger">{this.GetText("NOT_APPROVED")}</span>""";
     }
 
     /// <summary>
@@ -303,7 +303,7 @@ public class UsersModel : AdminPage
          if (this.Input.Since.IsSet())
          {
              // get selected value
-             sinceValue = int.Parse(this.Input.Since); 
+             sinceValue = int.Parse(this.Input.Since);
 
              sinceDate = sinceValue switch {
                  > 0 => DateTime.UtcNow - TimeSpan.FromDays(sinceValue),

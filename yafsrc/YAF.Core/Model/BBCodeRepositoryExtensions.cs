@@ -37,49 +37,49 @@ public static class BBCodeRepositoryExtensions
     /// The save.
     /// </summary>
     /// <param name="repository">
-    /// The repository. 
+    /// The repository.
     /// </param>
     /// <param name="codeId">
-    /// The b b code id. 
+    /// The b b code id.
     /// </param>
     /// <param name="name">
-    /// The name. 
+    /// The name.
     /// </param>
     /// <param name="description">
-    /// The description. 
+    /// The description.
     /// </param>
     /// <param name="onClickJs">
-    /// The on click JS. 
+    /// The on click JS.
     /// </param>
     /// <param name="displayJs">
-    /// The display JS. 
+    /// The display JS.
     /// </param>
     /// <param name="editJs">
-    /// The edit JS. 
+    /// The edit JS.
     /// </param>
     /// <param name="displayCss">
-    /// The display CSS. 
+    /// The display CSS.
     /// </param>
     /// <param name="searchRegEx">
-    /// The search Regular Expression. 
+    /// The search Regular Expression.
     /// </param>
     /// <param name="replaceRegEx">
-    /// The replace Regular Expression. 
+    /// The replace Regular Expression.
     /// </param>
     /// <param name="variables">
-    /// The variables. 
+    /// The variables.
     /// </param>
     /// <param name="useModule">
-    /// The use module. 
+    /// The use module.
     /// </param>
     /// <param name="useToolbar">
     /// Thee use Toolbar
     /// </param>
     /// <param name="moduleClass">
-    /// The module class. 
+    /// The module class.
     /// </param>
     /// <param name="execOrder">
-    /// The exec order. 
+    /// The exec order.
     /// </param>
     /// <param name="boardId">
     /// The board Id.

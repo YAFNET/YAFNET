@@ -39,7 +39,7 @@ public class PruneModel : AdminPage
     public InputModel Input { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PruneModel"/> class. 
+    /// Initializes a new instance of the <see cref="PruneModel"/> class.
     /// </summary>
     public PruneModel()
         : base("ADMIN_PRUNE", ForumPages.Admin_Prune)

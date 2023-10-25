@@ -6,7 +6,7 @@
 
 @inject BoardContext Current
 
-@{ 
+@{
     var activeUsers = Current.GetRepository<Active>().ListTopic(Current.PageTopicID);
 }
 

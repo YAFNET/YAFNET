@@ -54,7 +54,8 @@ public class BannedNameController : ForumBaseController
     [HttpPost("Import")]
     public IActionResult Import()
     {
-        var import = this.Request.Form.Files[0]; 
+        var import = this.Request.Form.Files[0];
+
         if (!import.ContentType.StartsWith("text"))
         {
             return this.Ok(

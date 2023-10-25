@@ -64,7 +64,7 @@ public static class ForumReadTrackingRepositoryExtensions
                 new ForumReadTracking { UserID = userId, ForumID = forumId, LastAccessDate = DateTime.UtcNow });
         }
 
-        // -- Delete TopicReadTracking for forum... 
+        // -- Delete TopicReadTracking for forum...
         // Remark : not needed ?!
         // BoardContext.Current.GetRepository<TopicReadTracking>().Delete(x => x.UserID == userId)
     }

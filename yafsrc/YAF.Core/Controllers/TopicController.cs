@@ -87,8 +87,8 @@ public class TopicController : ForumBaseController
                 DateTimeHelper.SqlDbMinTime(),
                 searchTopic.Page,
                 15,
-                false); 
-            
+                false);
+
             topics.RemoveAll(t => t.TopicID == searchTopic.TopicId);
 
             var topicsList = (from PagedTopic topic in topics

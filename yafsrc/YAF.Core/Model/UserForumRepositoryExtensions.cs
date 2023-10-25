@@ -89,7 +89,7 @@ public static class UserForumRepositoryExtensions
                 .Where<UserForum>((b) => b.ForumID == forumId)
                 .Select<User, UserForum, AccessMask>((user, b, c) => new { user, b, c });
         }
-            
+
         return repository.DbAccess.Execute(
             db => db.Connection.SelectMulti<User, UserForum, AccessMask>(expression));
     }

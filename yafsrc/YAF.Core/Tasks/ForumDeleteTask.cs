@@ -64,7 +64,7 @@ public class ForumDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
     /// <param name="forumId">
     /// The forum id.
     /// </param>
-    /// <param name="failureMessage"> 
+    /// <param name="failureMessage">
     /// The failure message - is empty if task is launched successfully.
     /// </param>
     /// <returns>
@@ -106,7 +106,7 @@ public class ForumDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
     /// <param name="forumNewId">
     /// The Forum New Id.
     /// </param>
-    /// <param name="failureMessage"> 
+    /// <param name="failureMessage">
     /// The failure message - is empty if task is launched successfully.
     /// </param>
     /// <returns>

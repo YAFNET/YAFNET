@@ -54,8 +54,8 @@ public class SpamWordsController : ForumBaseController
     [HttpPost("Import")]
     public IActionResult Import()
     {
-        var import = this.Request.Form.Files[0]; 
-        
+        var import = this.Request.Form.Files[0];
+
         if (!import.ContentType.StartsWith("text"))
         {
             return this.Ok(
@@ -103,7 +103,7 @@ public class SpamWordsController : ForumBaseController
         {
             model.Id = null;
         }
-        
+
         if (!ValidationHelper.IsValidRegex(model.SpamWord.Trim()))
         {
             this.Ok(

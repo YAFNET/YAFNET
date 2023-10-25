@@ -64,7 +64,7 @@ public class SessionService : ISessionService
     /// <value>The mods.</value>
     public List<SimpleModerator> Mods
     {
-        get => this.SessionState.GetData<List<SimpleModerator>>("Mods"); 
+        get => this.SessionState.GetData<List<SimpleModerator>>("Mods");
 
         set => this.SessionState.SetData("Mods", value);
     }
@@ -156,7 +156,6 @@ public class SessionService : ISessionService
     /// <summary>
     ///   Gets PanelState.
     /// </summary>
-    
     public IPanelSessionState PanelState => new PanelSessionState();
 
     /// <summary>

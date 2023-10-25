@@ -77,10 +77,10 @@ public static class IReadTrackCurrentUserExtensions
     /// The set forum read.
     /// </summary>
     /// <param name="readTrackCurrentUser">
-    /// The read track current user. 
+    /// The read track current user.
     /// </param>
     /// <param name="forumIds">
-    /// The forum ids. 
+    /// The forum ids.
     /// </param>
     public static void SetForumRead(this IReadTrackCurrentUser readTrackCurrentUser, IEnumerable<int> forumIds)
     {
@@ -91,10 +91,10 @@ public static class IReadTrackCurrentUserExtensions
     /// The set topic read.
     /// </summary>
     /// <param name="readTrackCurrentUser">
-    /// The read track current user. 
+    /// The read track current user.
     /// </param>
     /// <param name="topicIds">
-    /// The topic ids. 
+    /// The topic ids.
     /// </param>
     public static void SetTopicRead(this IReadTrackCurrentUser readTrackCurrentUser, IEnumerable<int> topicIds)
     {

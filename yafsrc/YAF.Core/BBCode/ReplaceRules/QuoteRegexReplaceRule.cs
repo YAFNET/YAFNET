@@ -72,7 +72,7 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
                 "${innertrunc}",
                 match.Groups["inner"].Value);
 
-            var quote = match.Groups["quote"].Value; 
+            var quote = match.Groups["quote"].Value;
             var quoteText = this.GetInnerValue(match.Groups["inner"].Value);
 
             var localQuoteWrote = BoardContext.Current.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTEWROTE");
@@ -121,7 +121,7 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
                      """;
             }
 
-            innerReplace.Replace("${quote}", quote); 
+            innerReplace.Replace("${quote}", quote);
             innerReplace.Replace("${quoteText}", quoteText);
 
             this.Variables.ForEach(

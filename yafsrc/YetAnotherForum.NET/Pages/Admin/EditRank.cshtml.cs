@@ -42,7 +42,7 @@ public class EditRankModel : AdminPage
     public InputModel Input { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="EditRankModel"/> class. 
+    /// Initializes a new instance of the <see cref="EditRankModel"/> class.
     /// </summary>
     public EditRankModel()
         : base("ADMIN_EDITRANK", ForumPages.Admin_EditRank)

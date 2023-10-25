@@ -74,7 +74,7 @@ public class CustomBBCodes : ForumBaseController
         {
             this.Get<ILogger<CustomBBCodes>>().Log(BoardContext.Current != null ? BoardContext.Current.PageUserID : null, this, x, EventLogTypes.Information);
 
-            return Task.FromResult<ActionResult<List<string>>>(this.NotFound()); 
+            return Task.FromResult<ActionResult<List<string>>>(this.NotFound());
         }
     }
 }

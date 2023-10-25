@@ -159,7 +159,7 @@ public class GroupFlags : FlagsBase
 
         set => this[1] = value;
     }
-        
+
     /// <summary>
     /// Gets or sets a value indicating whether group/role is starting role for new users.
     /// </summary>

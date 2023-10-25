@@ -201,14 +201,8 @@
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.ModalNotifyJs()));
 
         @Html.Raw(JsAndCssHelper.CompressJavaScript(
-            JavaScriptBlocks.DialogFunctionsJs(string.Format("{0}{1}", 
-                JavaScriptBlocks.ChoicesLoadJs, 
-                JavaScriptBlocks.SelectUsersLoadJs(
-            "UserSelect",
-            "UserID",
-        Model.Get<ILocalization>().GetText("MOD_FORUMUSER", "FIND"))))))
+            JavaScriptBlocks.DialogFunctionsJs($"{JavaScriptBlocks.ChoicesLoadJs}{JavaScriptBlocks.SelectUsersLoadJs("UserSelect", "UserID", Model.Get<ILocalization>().GetText("MOD_FORUMUSER", "FIND"))}")))
 
 
-       
     </script>
 }

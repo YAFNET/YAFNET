@@ -468,7 +468,7 @@ public enum ForumPages
     /// The Admin task manager page.
     /// </summary>
     Admin_TaskManager,
-    
+
     /// <summary>
     /// The admin_ test data.
     /// </summary>

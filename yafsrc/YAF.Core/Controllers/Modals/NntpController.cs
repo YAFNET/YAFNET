@@ -64,7 +64,7 @@ public class NntpController : ForumBaseController
 
         return this.Ok();
     }
-    
+
     /// <summary>
     /// Edit Forum
     /// </summary>
@@ -78,7 +78,7 @@ public class NntpController : ForumBaseController
         {
             model.Id = null;
         }
-        
+
         if (model.ForumID <= 0)
         {
             return this.Ok(

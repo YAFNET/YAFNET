@@ -290,8 +290,10 @@ public class RegisterModel : AccountPage
             this.Get<ILogger<RegisterModel>>().Log(
                 null,
                 "Bot Detected",
-                $@"Bot Check detected a possible SPAM BOT: (user name : '{userName}', 
-                                  email : '{this.Input.Email}', ip: '{userIpAddress}', reason : {check.Result}), user was rejected.",
+                $"""
+                 Bot Check detected a possible SPAM BOT: (user name : '{userName}',
+                                                   email : '{this.Input.Email}', ip: '{userIpAddress}', reason : {check.Result}), user was rejected.
+                 """,
                 EventLogTypes.SpamBotDetected);
 
             if (this.PageBoardContext.BoardSettings.BanBotIpOnDetection)

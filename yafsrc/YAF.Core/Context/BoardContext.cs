@@ -234,7 +234,7 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
         this.MembershipUser = this.Get<IAspNetUsersHelper>().GetUserAsync().Result;
 
         this.PageLinks = new List<PageLink>();
-        
+
         this.BeforeInit?.Invoke(this, EventArgs.Empty);
 
         var pageLoadEvent = new InitPageLoadEvent();

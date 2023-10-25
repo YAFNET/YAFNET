@@ -160,9 +160,9 @@
                             <div>
                                 <ul class="list-inline">
                                     <li class="list-inline-item">
-                                        @Html.UserLink(postData.UserId, 
-                                            Current.BoardSettings.EnableDisplayName ? Model.DisplayName : Model.UserName, 
-                                            Model.Suspended, Model.Style, 
+                                        @Html.UserLink(postData.UserId,
+                                            Current.BoardSettings.EnableDisplayName ? Model.DisplayName : Model.UserName,
+                                            Model.Suspended, Model.Style,
                                             postFixText: Model.IP == "NNTP" ? Current.Get<ILocalization>().GetText("EXTERNALUSER") : string.Empty)
 
                                         @if (addReputationVisible)
@@ -337,7 +337,7 @@
                                                    text-localized-tag="BUTTON_UNDELETE"
                                                    title-localized-tag="BUTTON_UNDELETE_TT"
                                                    class="dropdown-item"
-                                                   href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.DeleteMessage, 
+                                                   href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.DeleteMessage,
                                                              new {m = postData.MessageId}))"></a>
                                             }
 
@@ -349,7 +349,7 @@
                                             <a button-style="None" icon="th-list"
                                                text-localized-page="POSTS" text-localized-tag="SEARCHUSER"
                                                class="dropdown-item"
-                                               href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.Search, 
+                                               href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.Search,
                                                          new {postedby = Current.BoardSettings.EnableDisplayName ? Model.DisplayName : Model.UserName}))"></a>
 
                                             @if (Current.IsAdmin)
@@ -357,7 +357,7 @@
                                                 <a button-style="None" icon="cogs"
                                                    text-localized-page="POSTS" text-localized-tag="EDITUSER"
                                                    class="dropdown-item"
-                                                   href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, 
+                                                   href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser,
                                                              new {u = postData.UserId}))"></a>
                                             }
 
@@ -533,7 +533,7 @@
                                            text-localized-tag="BUTTON_DELETE"
                                            title-localized-tag="BUTTON_DELETE_TT"
                                            class="dropdown-item"
-                                           href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.DeleteMessage, 
+                                           href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.DeleteMessage,
                                                      new {m = postData.MessageId}))"></a>
                                     }
 
@@ -545,7 +545,7 @@
                                            text-localized-tag="BUTTON_UNDELETE"
                                            title-localized-tag="BUTTON_UNDELETE_TT"
                                            class="dropdown-item"
-                                           href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.DeleteMessage, 
+                                           href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.DeleteMessage,
                                                      new {m = postData.MessageId}))"></a>
                                     }
 
@@ -559,7 +559,7 @@
                                         <a button-style="None" icon="th-list"
                                            text-localized-page="POSTS" text-localized-tag="SEARCHUSER"
                                            class="dropdown-item"
-                                           href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.Search, 
+                                           href="@(Current.Get<LinkBuilder>().GetLink(ForumPages.Search,
                                                      new {postedby = Current.BoardSettings.EnableDisplayName ? Model.DisplayName : Model.UserName}))"></a>
 
                                         @if (Current.IsAdmin)
@@ -594,8 +594,8 @@
                     {
                         var username = Current.CurrentForumPage.HtmlEncode(Current.BoardSettings.EnableDisplayName ? Model.DisplayName : Model.UserName);
 
-                        var thanksLabelText = Model.ThanksNumber == 1 ? 
-                                                  Current.Get<ILocalization>().GetTextFormatted("THANKSINFOSINGLE", username) : 
+                        var thanksLabelText = Model.ThanksNumber == 1 ?
+                                                  Current.Get<ILocalization>().GetTextFormatted("THANKSINFOSINGLE", username) :
                                                   Current.Get<ILocalization>().GetTextFormatted("THANKSINFO", Model.ThanksNumber, username);
 
                         var formatThanksInfo = $"<ol id=\"popover-list-{postData.MessageId}\"></ol>";

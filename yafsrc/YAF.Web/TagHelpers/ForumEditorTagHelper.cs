@@ -216,7 +216,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <param name="content">The content.</param>
     private void RenderFirstToolbar(IHtmlContentBuilder content)
     {
-        // Render First Toolbar 
+        // Render First Toolbar
         var toolbar = CreateToolbarTag();
 
         content.AppendHtml(toolbar.RenderStartTag());
@@ -272,7 +272,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <param name="content">The content.</param>
     private void RenderSecondToolbar(IHtmlContentBuilder content)
     {
-        // Render First Toolbar 
+        // Render First Toolbar
         var toolbar = CreateToolbarTag();
 
         content.AppendHtml(toolbar.RenderStartTag());
@@ -858,7 +858,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                                  };
         content.AppendHtml(placeHolderTag.RenderStartTag());
 
-        // List 
+        // List
         var listTag = new TagBuilder("ul") { Attributes = { ["class"] = "AttachmentList list-group" } };
         content.AppendHtml(listTag);
 
@@ -884,7 +884,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
             new TagBuilder("div") { Attributes = { ["class"] = "content", ["id"] = "AttachmentsListBox" } };
 
         content.AppendHtml(listBoxTag.RenderStartTag());
-        
+
         // Pager
         var pagerTag =
             new TagBuilder("div") { Attributes = { ["id"] = "AttachmentsListPager" } };
@@ -923,7 +923,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                                  };
         content.AppendHtml(placeHolderTag.RenderStartTag());
 
-        // List 
+        // List
         var listTag = new TagBuilder("ul") { Attributes = { ["class"] = "AttachmentList list-group" } };
         content.AppendHtml(listTag);
 

@@ -121,15 +121,6 @@
             JavaScriptBlocks.ModalNotifyJs()));
 
         @Html.Raw(JsAndCssHelper.CompressJavaScript(
-            JavaScriptBlocks.DialogFunctionsJs(
-                string.Format("{0}{1}{2}", 
-                    JavaScriptBlocks.ChoicesLoadJs, 
-                    JavaScriptBlocks.ToolTipJs(), 
-                    JavaScriptBlocks.SelectForumsLoadJs(
-                        "ForumList", 
-                        Model.GetText("ADMIN_EDITNNTPFORUM", "FORUM"), 
-                        false, 
-                        false, 
-                        "ForumID")))))
+            JavaScriptBlocks.DialogFunctionsJs($"{JavaScriptBlocks.ChoicesLoadJs}{JavaScriptBlocks.ToolTipJs()}{JavaScriptBlocks.SelectForumsLoadJs("ForumList", Model.GetText("ADMIN_EDITNNTPFORUM", "FORUM"), false, false, "ForumID")}")))
     </script>
 }

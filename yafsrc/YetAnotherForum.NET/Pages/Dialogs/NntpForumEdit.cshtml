@@ -9,8 +9,8 @@
 @inject BoardContext Current
 
 @{
-    var servers = new SelectList(Current.GetRepository<NntpServer>().GetByBoardId().OrderBy(s => s.Name), 
-        nameof(NntpServer.ID), 
+    var servers = new SelectList(Current.GetRepository<NntpServer>().GetByBoardId().OrderBy(s => s.Name),
+        nameof(NntpServer.ID),
         nameof(NntpServer.Name));
 }
 

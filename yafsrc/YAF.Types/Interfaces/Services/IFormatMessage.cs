@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Interfaces.Services;
 
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ using System.Collections.Generic;
 public interface IFormatMessage
 {
     /// <summary>
-    /// The method to detect a forbidden BBCode tag from delimited by 'delimiter' list 
+    /// The method to detect a forbidden BBCode tag from delimited by 'delimiter' list
     ///   'stringToMatch'
     /// </summary>
     /// <param name="stringToClear">
@@ -63,6 +64,7 @@ public interface IFormatMessage
     /// <returns>
     /// A message string.
     /// </returns>
+    [Obsolete]
     string CheckHtmlTags(string checkString, string acceptedTags, char delimiter);
 
     /// <summary>
@@ -103,7 +105,6 @@ public interface IFormatMessage
     /// <returns>
     /// The formatted message.
     /// </returns>
-    
     string FormatSyndicationMessage(
         string message,
         int messageId,
@@ -119,7 +120,6 @@ public interface IFormatMessage
     /// <returns>
     /// A version of <paramref name="body"/> that contains no nested quotes.
     /// </returns>
-    
     string RemoveNestedQuotes(string body);
 
     /// <summary>
@@ -131,7 +131,6 @@ public interface IFormatMessage
     /// <returns>
     /// The Cleaned body.
     /// </returns>
-    
     string RemoveHiddenBBCodeContent(string body);
 
     /// <summary>
@@ -143,7 +142,6 @@ public interface IFormatMessage
     /// <returns>
     /// The Cleaned body.
     /// </returns>
-    
     string RemoveCustomBBCodes(string body);
 
     /// <summary>

@@ -93,7 +93,6 @@ public class MedalsModel : AdminPage
     /// <returns>
     /// HTML markup with image representation of a medal.
     /// </returns>
-    
     public string RenderImages(Medal medal)
     {
         var output = new StringBuilder();

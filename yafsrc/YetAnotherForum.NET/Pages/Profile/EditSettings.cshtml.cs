@@ -167,7 +167,7 @@ public class EditSettingsModel : ProfilePage
                     this.GetText("PROFILE", "DUPLICATED_EMAIL"),
                     MessageTypes.warning);
 
-                this.BindData(); 
+                this.BindData();
             }
         }
 

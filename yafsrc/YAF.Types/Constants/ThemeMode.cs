@@ -21,12 +21,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Constants;
 
 /// <summary>
 /// Enum ThemeMode
 /// </summary>
-public enum ThemeMode   
+public enum ThemeMode
 {
     /// <summary>
     ///   Light Mode

@@ -263,7 +263,7 @@ public static class ForumRepositoryExtensions
     /// The category ID.
     /// </param>
     /// <returns>
-    /// Returns Sorted Forums 
+    /// Returns Sorted Forums
     /// </returns>
     public static List<ForumSorted> ListAllFromCategory(
         this IRepository<Forum> repository,
@@ -437,8 +437,8 @@ public static class ForumRepositoryExtensions
         int userId,
         int? categoryId,
         int? parentId,
-        bool findLastRead, 
-        int pageIndex, 
+        bool findLastRead,
+        int pageIndex,
         int pageSize)
     {
         return repository.DbAccess.Execute(
@@ -516,7 +516,7 @@ public static class ForumRepositoryExtensions
                     var countTotalSql = countTotalExpression
                         .Select(Sql.Count($"{countTotalExpression.Column<Forum>(x => x.ID, true)}")).ToSelectStatement();
 
-                    expression.OrderBy<Category>(a => a.SortOrder).ThenBy<Forum>(b => b.SortOrder).Page(pageIndex + 1, pageSize); 
+                    expression.OrderBy<Category>(a => a.SortOrder).ThenBy<Forum>(b => b.SortOrder).Page(pageIndex + 1, pageSize);
 
                     expression.Select<Category, Forum, ActiveAccess, Topic, User>(
                         (a, b, x, t, lastUser) => new
@@ -928,7 +928,7 @@ public static class ForumRepositoryExtensions
 
                     var selectGroup = new SelectGroup
                                           {
-                                              id = -category.ID, 
+                                              id = -category.ID,
                                               text = category.Name,
                                               children = forumsByCategory.Select(
                                                   forum => new SelectOptions

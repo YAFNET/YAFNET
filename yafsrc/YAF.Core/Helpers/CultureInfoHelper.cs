@@ -55,7 +55,7 @@ public static class CultureInfoHelper
 
         // Get first default full culture from a language file tag.
         var langFileCulture = StaticDataHelper.CultureDefaultFromFile(languageFile);
-        
+
         var langTag =  langFileCulture[..2] == culture4Tag[..2] ? culture4Tag : langFileCulture;
 
         return CultureInfo.CreateSpecificCulture(langTag);

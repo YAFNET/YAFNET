@@ -220,7 +220,7 @@ public class DbLogger : ILogger, IHaveServiceLocator
         var values = new JObject
                          {
                              ["Message"] = message,
-                             ["UserIP"] = userIp, 
+                             ["UserIP"] = userIp,
                              ["Url"] = httpContext != null ? httpContext.Request.Path.ToString() : "",
                              ["ExceptionMessage"] = exception?.Message,
                              ["ExceptionStackTrace"] = exception?.StackTrace,

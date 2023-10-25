@@ -71,7 +71,7 @@ namespace YAF.Core.Logger
             finally
             {
                 this.IsDisposed = true;
-                GC.SuppressFinalize(this);  // instructs GC not bother to call the destructor   
+                GC.SuppressFinalize(this);  // instructs GC not bother to call the destructor
             }
         }
 
@@ -116,7 +116,6 @@ namespace YAF.Core.Logger
         /// </summary>
         /// <param name="categoryName">The category name for messages produced by the logger.</param>
         /// <returns>The instance of <see cref="T:Microsoft.Extensions.Logging.ILogger" /> that was created.</returns>
-        
         public ILogger CreateLogger(string categoryName)
         {
             var logger = new DbLogger(this, categoryName);

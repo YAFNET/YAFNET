@@ -47,9 +47,8 @@ public class GroupsModel : AdminPage
 
     [BindProperty]
     public StringCollection RoleListNet { get; set; }
-    
     /// <summary>
-    /// Initializes a new instance of the <see cref="GroupsModel"/> class. 
+    /// Initializes a new instance of the <see cref="GroupsModel"/> class.
     /// </summary>
     public GroupsModel()
         : base("ADMIN_GROUPS", ForumPages.Admin_Groups)
@@ -87,7 +86,6 @@ public class GroupsModel : AdminPage
         return item.IsSet() ? "badge text-bg-success" : "badge text-bg-danger";
     }
 
-
     /// <summary>
     /// Get status of provider role VS YAF roles.
     /// </summary>
@@ -97,7 +95,6 @@ public class GroupsModel : AdminPage
     /// <returns>
     /// String "Linked" when role is linked to YAF roles, "Un-linkable" otherwise.
     /// </returns>
-    
     public string GetLinkedStatus(Group currentRow)
     {
         // check whether role is Guests role, which can't be linked

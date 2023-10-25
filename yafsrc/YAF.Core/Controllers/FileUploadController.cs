@@ -125,8 +125,8 @@ public class FileUpload : ForumBaseController
                         new FilesUploadStatus
                             {
                                 error = "File does not have a name"
-                            }); 
-                    
+                            });
+
                     return await Task.FromResult<ActionResult<List<FilesUploadStatus>>>(statuses);
                 }
 
@@ -154,16 +154,17 @@ public class FileUpload : ForumBaseController
 
                 //  resize image ?!
                 using var img = await Image.LoadAsync(file.OpenReadStream());
-               
-                    if (img.Width > this.Get<BoardSettings>().ImageAttachmentResizeWidth || img.Height > this.Get<BoardSettings>().ImageAttachmentResizeHeight)
-                    {
-                        resized = ImageHelper.GetResizedImage(
-                            img,
-                            img.Metadata.DecodedImageFormat,
-                            this.Get<BoardSettings>().ImageAttachmentResizeWidth,
-                            this.Get<BoardSettings>().ImageAttachmentResizeHeight);
-                    }
-                    
+
+                if (img.Width > this.Get<BoardSettings>().ImageAttachmentResizeWidth
+                    || img.Height > this.Get<BoardSettings>().ImageAttachmentResizeHeight)
+                {
+                    resized = ImageHelper.GetResizedImage(
+                        img,
+                        img.Metadata.DecodedImageFormat,
+                        this.Get<BoardSettings>().ImageAttachmentResizeWidth,
+                        this.Get<BoardSettings>().ImageAttachmentResizeHeight);
+                }
+
                 int newAttachmentId;
 
                 if (this.PageBoardContext.BoardSettings.UseFileTable)

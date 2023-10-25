@@ -125,7 +125,7 @@ public class PostsModel : ForumPage
         {
             // attempt to get permission by redirecting to login...
             var result = this.Get<IPermissions>().HandleRequest(ViewPermissions.RegisteredUsers);
-            
+
             if (result != null)
             {
                 return result;
@@ -144,7 +144,7 @@ public class PostsModel : ForumPage
                 this.Get<ISessionService>().MultiQuoteIds = null;
             }
         }
-        
+
         var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.PageBoardContext.PageTopic.TopicName));
 
         this.TopicSubject = this.PageBoardContext.PageTopic.Description.IsSet()

@@ -62,7 +62,7 @@ public class EditLanguageModel : AdminPage
     public List<SelectListItem> PagesList { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="EditLanguageModel"/> class. 
+    /// Initializes a new instance of the <see cref="EditLanguageModel"/> class.
     /// </summary>
     public EditLanguageModel()
         : base("ADMIN_EDITLANGUAGE", ForumPages.Admin_EditLanguage)

@@ -713,7 +713,7 @@ public class NntpConnection : IDisposable
                     {
                         m = Regex.Match(
                             response,
-                            @"CONTENT-TYPE: ""?([^""\s;]+)",
+                            """CONTENT-TYPE: "?([^"\s;]+)""",
                             RegexOptions.IgnoreCase,
                             TimeSpan.FromMilliseconds(100));
                         if (m.Success)
@@ -723,7 +723,7 @@ public class NntpConnection : IDisposable
 
                         m = Regex.Match(
                             response,
-                            @"BOUNDARY=""?([^""\s;]+)",
+                            """BOUNDARY="?([^"\s;]+)""",
                             RegexOptions.IgnoreCase,
                             TimeSpan.FromMilliseconds(100));
                         if (m.Success)
@@ -734,7 +734,7 @@ public class NntpConnection : IDisposable
 
                         m = Regex.Match(
                             response,
-                            @"CHARSET=""?([^""\s;]+)",
+                            """CHARSET="?([^"\s;]+)""",
                             RegexOptions.IgnoreCase,
                             TimeSpan.FromMilliseconds(100));
                         if (m.Success)
@@ -744,7 +744,7 @@ public class NntpConnection : IDisposable
 
                         m = Regex.Match(
                             response,
-                            @"NAME=""?([^""\s;]+)",
+                            """NAME="?([^"\s;]+)""",
                             RegexOptions.IgnoreCase,
                             TimeSpan.FromMilliseconds(100));
                         if (m.Success)
@@ -759,7 +759,7 @@ public class NntpConnection : IDisposable
                     {
                         m = Regex.Match(
                             response,
-                            @"CONTENT-TRANSFER-ENCODING: ""?([^""\s;]+)",
+                            """CONTENT-TRANSFER-ENCODING: "?([^"\s;]+)""",
                             RegexOptions.IgnoreCase,
                             TimeSpan.FromMilliseconds(100));
 

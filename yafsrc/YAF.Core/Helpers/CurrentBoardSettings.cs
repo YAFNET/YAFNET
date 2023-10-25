@@ -93,7 +93,7 @@ public class CurrentBoardSettings : IReadWriteProvider<BoardSettings>
     }
 
     /// <summary>
-    /// Reset Board Settings 
+    /// Reset Board Settings
     /// </summary>
     public void Reset()
     {

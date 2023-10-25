@@ -55,8 +55,8 @@ public class ReplaceWordsController : ForumBaseController
     [HttpPost("Import")]
     public IActionResult Import()
     {
-        var import = this.Request.Form.Files[0]; 
-        
+        var import = this.Request.Form.Files[0];
+
         if (!import.ContentType.StartsWith("text"))
         {
             return this.Ok(
@@ -136,7 +136,7 @@ public class ReplaceWordsController : ForumBaseController
         {
             model.Id = null;
         }
-        
+
         if (!ValidationHelper.IsValidRegex(model.BadWord.Trim()))
         {
             return this.Ok(

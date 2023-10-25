@@ -38,7 +38,7 @@ public class TaskManagerModel : AdminPage
     public IDictionary<string, IBackgroundTask> Tasks { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="TaskManagerModel"/> class. 
+    /// Initializes a new instance of the <see cref="TaskManagerModel"/> class.
     /// </summary>
     public TaskManagerModel()
         : base("ADMIN_TASKMANAGER", ForumPages.Admin_TaskManager)

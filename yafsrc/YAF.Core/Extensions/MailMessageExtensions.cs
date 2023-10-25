@@ -42,12 +42,12 @@ public static class MailMessageExtensions
     /// <param name="bodyText">The body text.</param>
     /// <param name="bodyHtml">The body html.</param>
     public static void Populate(
-        this MimeMessage mailMessage, 
-        MailboxAddress fromAddress, 
-        MailboxAddress toAddress, 
+        this MimeMessage mailMessage,
+        MailboxAddress fromAddress,
+        MailboxAddress toAddress,
         MailboxAddress senderAddress,
-        string subject, 
-        string bodyText, 
+        string subject,
+        string bodyText,
         string bodyHtml)
     {
         mailMessage.To.Add(toAddress);

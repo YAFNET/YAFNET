@@ -57,7 +57,7 @@ public class EditBoardModel : AdminPage
     public SelectList Cultures { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="EditBoardModel"/> class. 
+    /// Initializes a new instance of the <see cref="EditBoardModel"/> class.
     /// </summary>
     public EditBoardModel()
         : base("ADMIN_EDITBOARD", ForumPages.Admin_EditBoard)

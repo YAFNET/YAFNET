@@ -51,7 +51,6 @@ public class MessagePostDataTagHelper : MessagePostTagHelper
     /// <summary>
     ///   Gets Signature.
     /// </summary>
-    
     public override string Signature
     {
         get
@@ -101,7 +100,7 @@ public class MessagePostDataTagHelper : MessagePostTagHelper
             this.CurrentMessage = new Message(this.PagedMessage);
             this.MessageFlags = this.CurrentMessage.MessageFlags;
         }
-        
+
         if (!this.MessageFlags.IsDeleted && !this.Get<IAspNetUsersHelper>().IsGuestUser(this.CurrentMessage.UserID))
         {
             this.DisplayUserId = this.CurrentMessage.UserID;

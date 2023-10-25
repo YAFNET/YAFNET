@@ -46,7 +46,7 @@ public class NntpRetrieveModel : AdminPage
     public int Seconds { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="NntpRetrieveModel"/> class. 
+    /// Initializes a new instance of the <see cref="NntpRetrieveModel"/> class.
     /// </summary>
     public NntpRetrieveModel()
         : base("ADMIN_NNTPRETRIEVE", ForumPages.Admin_NntpRetrieve)

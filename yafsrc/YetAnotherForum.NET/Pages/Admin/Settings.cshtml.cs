@@ -67,7 +67,7 @@ public class SettingsModel : AdminPage
     public List<SelectListItem> DefaultCollapsiblePanelStates { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SqlMapper.Settings"/> class. 
+    /// Initializes a new instance of the <see cref="SqlMapper.Settings"/> class.
     /// </summary>
     public SettingsModel()
         : base("ADMIN_BOARDSETTINGS", ForumPages.Admin_Settings)

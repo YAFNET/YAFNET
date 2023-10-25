@@ -1,3 +1,4 @@
+
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
@@ -21,6 +22,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Interfaces.Services;
 
 /// <summary>

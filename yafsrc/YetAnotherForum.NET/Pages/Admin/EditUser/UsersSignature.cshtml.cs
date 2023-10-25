@@ -126,19 +126,23 @@ public class UsersSignatureModel : AdminPage
                             case 1:
                                 this.Get<ILogger<EditSignatureModel>>().SpamBotDetected(
                                     this.Input.UserId,
-                                    $@"Internal Spam Word Check detected a SPAM BOT: (
-                                                      user name : '{user.Item1.Name}', 
-                                                      user id : '{this.Input.UserId}') 
-                                                 after the user included a spam word in his/her signature: {result}");
+                                    $"""
+                                     Internal Spam Word Check detected a SPAM BOT: (
+                                                                                           user name : '{user.Item1.Name}',
+                                                                                           user id : '{this.Input.UserId}')
+                                                                                      after the user included a spam word in his/her signature: {result}
+                                     """);
                                 break;
                             case 2:
                             {
                                 this.Get<ILogger<EditSignatureModel>>().SpamBotDetected(
                                     this.Input.UserId,
-                                    $@"Internal Spam Word Check detected a SPAM BOT: (
-                                                       user name : '{user.Item1.Name}', 
-                                                       user id : '{this.Input.UserId}') 
-                                                 after the user included a spam word in his/her signature: {result}, user was deleted and the name, email and IP Address are banned.");
+                                    $"""
+                                     Internal Spam Word Check detected a SPAM BOT: (
+                                                                                            user name : '{user.Item1.Name}',
+                                                                                            user id : '{this.Input.UserId}')
+                                                                                      after the user included a spam word in his/her signature: {result}, user was deleted and the name, email and IP Address are banned.
+                                     """);
 
                                 break;
                             }

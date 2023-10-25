@@ -49,7 +49,7 @@ public class RegisterUserModel : AdminPage
     public InputModel Input { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RegisterUserModel"/> class. 
+    /// Initializes a new instance of the <see cref="RegisterUserModel"/> class.
     /// </summary>
     public RegisterUserModel()
         : base("ADMIN_REGUSER", ForumPages.Admin_RegisterUser)

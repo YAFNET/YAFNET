@@ -299,8 +299,10 @@ public class PostTopicModel : ForumPage
                     this.PageBoardContext.IsGuest ? null : this.PageBoardContext.MembershipUser.Email,
                     out var spamResult))
             {
-                var description = $@"Spam Check detected possible SPAM ({spamResult}) 
-                           posted by PageUser: {(this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName())}";
+                var description = $"""
+                                   Spam Check detected possible SPAM ({spamResult})
+                                                              posted by PageUser: {(this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName())}
+                                   """;
 
                 switch (this.PageBoardContext.BoardSettings.SpamPostHandling)
                 {

@@ -69,7 +69,7 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
     /// </summary>
     /// <value>The name of the query.</value>
     [HtmlAttributeName("query-name")]
-    public string QueryName { get; set; } 
+    public string QueryName { get; set; }
 
     /// <summary>
     ///   Gets or sets Count.

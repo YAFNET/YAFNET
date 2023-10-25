@@ -35,10 +35,10 @@ public static class IRepositoryExtensions
     /// The fire deleted.
     /// </summary>
     /// <param name="repository">
-    /// The repository. 
+    /// The repository.
     /// </param>
     /// <param name="id">
-    /// The id. 
+    /// The id.
     /// </param>
     /// <param name="entity">
     /// The entity.
@@ -72,10 +72,10 @@ public static class IRepositoryExtensions
     /// The fire new.
     /// </summary>
     /// <param name="repository">
-    /// The repository. 
+    /// The repository.
     /// </param>
     /// <param name="id">
-    /// The id. 
+    /// The id.
     /// </param>
     /// <param name="entity">
     /// The entity.
@@ -109,10 +109,10 @@ public static class IRepositoryExtensions
     /// The fire updated.
     /// </summary>
     /// <param name="repository">
-    /// The repository. 
+    /// The repository.
     /// </param>
     /// <param name="id">
-    /// The id. 
+    /// The id.
     /// </param>
     /// <param name="entity">
     /// The entity.

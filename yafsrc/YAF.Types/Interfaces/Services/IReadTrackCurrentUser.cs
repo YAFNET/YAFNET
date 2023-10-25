@@ -61,7 +61,7 @@ public interface IReadTrackCurrentUser
     /// Add Or Update The Forum Read DateTime
     /// </summary>
     /// <param name="forumId">
-    /// The forum Id of the Forum 
+    /// The forum Id of the Forum.
     /// </param>
     void SetForumRead(int forumId);
 

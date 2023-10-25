@@ -54,45 +54,55 @@
         {
             foreach (var topic in activeTopics)
             {
+                if (!topic.LastPosted.HasValue)
+                {
+                    continue;
+                }
+
+                if (!topic.LastUserID.HasValue)
+                {
+                    continue;
+                }
+
                 var topicSubject = Current.Get<IBadWordReplace>().Replace(Html.HtmlEncode(topic.Topic));
 
                 var topicStyle = topic.Styles;
 
                 var styles = Current.BoardSettings.UseStyledTopicTitles && topicStyle.IsSet()
-                    ? Current.Get<IStyleTransform>().Decode(topic.Styles)
-                    : string.Empty;
+                                 ? Current.Get<IStyleTransform>().Decode(topic.Styles)
+                                 : string.Empty;
 
                 var lastRead = Current.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                topic.ForumID,
-                topic.TopicID,
-                topic.LastForumAccess ?? DateTimeHelper.SqlDbMinTime(),
-                topic.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
+                    topic.ForumID,
+                    topic.TopicID,
+                    topic.LastForumAccess ?? DateTimeHelper.SqlDbMinTime(),
+                    topic.LastTopicAccess ?? DateTimeHelper.SqlDbMinTime());
 
                 var startedByText = Current.Get<ILocalization>().GetTextFormatted(
                     "VIEW_TOPIC_STARTED_BY",
-                Current.BoardSettings.EnableDisplayName ? topic.UserDisplayName : topic.UserName);
+                    Current.BoardSettings.EnableDisplayName ? topic.UserDisplayName : topic.UserName);
 
                 var inForumText = Current.Get<ILocalization>().GetTextFormatted("IN_FORUM", Html.HtmlEncode(topic.Forum));
 
-                var lastPostedDateTime = (DateTime)topic.LastPosted;
+                var lastPostedDateTime = topic.LastPosted.Value;
 
                 var formattedDatetime = Current.BoardSettings.ShowRelativeTime
-                ? lastPostedDateTime.ToRelativeTime()
-                    : Current.Get<IDateTimeService>().Format(
-                        DateTimeFormat.BothTopic,
-                        lastPostedDateTime);
+                                            ? lastPostedDateTime.ToRelativeTime()
+                                            : Current.Get<IDateTimeService>().Format(
+                                                DateTimeFormat.BothTopic,
+                                                lastPostedDateTime);
 
                 var span = Current.BoardSettings.ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
 
                 var iconBadge = Html.IconBadge("calendar-day", "clock");
 
-                var infoData = $@"{Html.UserLink((int)topic.LastUserID, Current.BoardSettings.EnableDisplayName
-                ? topic.LastUserDisplayName
-                : topic.LastUserName, topic.LastUserSuspended, topic.LastUserStyle).RenderToString()} 
-                       {iconBadge.RenderToString()}&nbsp;{span}{formattedDatetime}</span>";
+                var infoData = $@"{Html.UserLink(topic.LastUserID.Value, Current.BoardSettings.EnableDisplayName
+                                                                             ? topic.LastUserDisplayName
+                                                                             : topic.LastUserName, topic.LastUserSuspended, topic.LastUserStyle).RenderToString()}
+{iconBadge.RenderToString()}&nbsp;{span}{formattedDatetime}</span>";
 
                 <li class="list-group-item pt-2 list-group-item-action">
-                    <a button-style="Link"
+                    <a button-style="@ButtonStyle.Link"
                        role="button"
                        icon="comment"
                        icon-css-class="far"
@@ -108,22 +118,22 @@
                     @if ((DateTime)topic.LastPosted > lastRead)
                     {
                         <span localized-page="COMMON"
-                               localized-tag="NEW_MESSAGE"
+                              localized-tag="NEW_MESSAGE"
                               class="badge text-bg-success"></span>
                     }
 
                     <a class=" p-0"
                        role="button"
-                       button-style="Link"
+                       button-style="@ButtonStyle.Link"
                        text="@Html.Raw($"({topic.Forum})")"
                        href="@Html.Raw(Current.Get<LinkBuilder>().GetForumLink(topic.ForumID, topic.Forum))"></a>
 
-                    <a button-style="Link"
+                    <a button-style="@ButtonStyle.Link"
                        icon="info-circle"
                        icon-color="text-secondary"
                        text-localized-page="DEFAULT"
                        text-localized-tag="BY"
-               text-param0="@Html.Raw(Current.BoardSettings.EnableDisplayName ? topic.UserDisplayName : topic.UserName)"
+                       text-param0="@Html.Raw(Current.BoardSettings.EnableDisplayName ? topic.UserDisplayName : topic.UserName)"
                        bs-content="@infoData"
                        class=" topic-link-popover p-0"
                        bs-toggle="popover"></a>

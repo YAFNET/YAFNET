@@ -71,7 +71,7 @@ public class UserLinkBBCodeModule : BBCodeControl
 
             stringBuilder.Append("<!-- BEGIN user link -->");
             stringBuilder.Append("<span>");
-                
+
             stringBuilder.Append(userLink.RenderToString());
 
             stringBuilder.Append("</span>");

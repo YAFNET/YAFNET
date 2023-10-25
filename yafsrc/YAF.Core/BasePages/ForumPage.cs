@@ -148,7 +148,6 @@ public abstract class ForumPage : PageModel,
     /// <summary>
     ///   Gets or sets the PageName.
     /// </summary>
-    
     public ForumPages PageName { get; set; }
 
     /// <summary>
@@ -218,7 +217,6 @@ public abstract class ForumPage : PageModel,
     /// </summary>
     /// <param name="data">The data.</param>
     /// <returns>Returns the Encoded String</returns>
-    
     public string HtmlEncode(object data)
     {
         return data is not string ? null : this.unicodeEncoder.XSSEncode(data.ToString());

@@ -28,7 +28,6 @@ namespace YAF.Types.Models;
 /// A class which represents the CheckEmail table.
 /// </summary>
 [Serializable]
-
 [UniqueConstraint(nameof(Hash))]
 public class CheckEmail : IEntity, IHaveID
 {

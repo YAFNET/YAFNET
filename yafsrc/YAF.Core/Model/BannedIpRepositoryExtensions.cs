@@ -37,19 +37,19 @@ public static class BannedIpRepositoryExtensions
     /// Save or Update Banned IP
     /// </summary>
     /// <param name="repository">
-    /// The repository. 
+    /// The repository.
     /// </param>
     /// <param name="id">
     /// The id.
     /// </param>
     /// <param name="mask">
-    /// The mask. 
+    /// The mask.
     /// </param>
     /// <param name="reason">
-    /// The reason. 
+    /// The reason.
     /// </param>
     /// <param name="userId">
-    /// The user id. 
+    /// The user id.
     /// </param>
     /// <param name="boardId">
     /// The board Id.

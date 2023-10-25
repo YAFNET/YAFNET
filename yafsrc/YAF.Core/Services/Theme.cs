@@ -65,10 +65,10 @@ public class Theme : ITheme
     /// Gets full path to the given theme file.
     /// </summary>
     /// <param name="filename">
-    /// Short name of theme file. 
+    /// Short name of theme file.
     /// </param>
     /// <returns>
-    /// The build theme path. 
+    /// The build theme path.
     /// </returns>
     public string BuildThemePath(string filename)
     {

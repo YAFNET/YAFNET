@@ -25,6 +25,7 @@
 namespace YAF.Pages.Admin;
 
 using System.Globalization;
+
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Services;
@@ -44,7 +45,7 @@ public class EditUserModel : AdminPage
     private CultureInfo currentCultureInfo;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="EditUserModel"/> class. 
+    /// Initializes a new instance of the <see cref="EditUserModel"/> class.
     /// </summary>
     public EditUserModel()
         : base("ADMIN_EDITUSER", ForumPages.Admin_EditUser)
@@ -58,9 +59,6 @@ public class EditUserModel : AdminPage
     public Tuple<User, AspNetUsers, Rank, VAccess> EditUser { get; set; }
 
     [BindProperty]
-    public AspNetUsers EditUserAspNetUsers { get; set; }
-
-    [BindProperty]
     public Rank EditUserRank { get; set; }
 
     [BindProperty]
@@ -72,7 +70,6 @@ public class EditUserModel : AdminPage
     /// <value>
     /// The current Culture information.
     /// </value>
-    
     public CultureInfo CurrentCultureInfo {
         get {
             if (this.currentCultureInfo != null)

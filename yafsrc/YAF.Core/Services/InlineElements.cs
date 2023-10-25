@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Services;
 
 using System.Collections.Generic;
@@ -33,7 +34,7 @@ using YAF.Types.Objects;
 public class InlineElements
 {
     /// <summary>
-    ///   Gets the Inline CSS or Script blocks 
+    ///   Gets the Inline CSS or Script blocks
     /// </summary>
     public List<InlineItem> Items { get; } = new ();
 
@@ -73,8 +74,8 @@ public class InlineElements
             new InlineItem
                 {
                     Type = InlineType.Script,
-                    Name = name, 
-                    Code = JsAndCssHelper.CompressJavaScript(script), 
+                    Name = name,
+                    Code = JsAndCssHelper.CompressJavaScript(script),
                     IsInjected = false
                 });
     }

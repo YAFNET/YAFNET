@@ -32,7 +32,7 @@ namespace YAF.Types.Attributes;
 public class StringValueAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="StringValueAttribute"/> class. 
+    /// Initializes a new instance of the <see cref="StringValueAttribute"/> class.
     /// Constructor used to init a StringValue Attribute
     /// </summary>
     /// <param name="value">

@@ -97,7 +97,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
     /// <param name="a">
     /// The album Id.
     /// </param>
-    public IActionResult OnGet(string a) 
+    public IActionResult OnGet(string a)
     {
         if (!this.PageBoardContext.BoardSettings.EnableAlbum)
         {
@@ -233,7 +233,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
             }
         }
 
-        // Has the user uploaded maximum number of images?   
+        // Has the user uploaded maximum number of images?
         // vzrus: changed for DB check The default number of album images is 0. In the case albums are disabled.
         if (this.AllowedImages > 0)
         {
@@ -393,7 +393,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
             {
                 allStats = 0;
             }
-            
+
             // Images count. If we reached limit then we exit.
             if (allStats >= usrAlbumImagesAllowed)
             {

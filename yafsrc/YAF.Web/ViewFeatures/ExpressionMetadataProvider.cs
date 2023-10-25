@@ -86,8 +86,9 @@ internal static class CultureSwitcherViewComponent
                 var containerMetadata = metadataProvider.GetMetadataForType(viewDataInfo.Container.GetType());
                 var propertyMetadata = containerMetadata.Properties[viewDataInfo.PropertyInfo.Name];
 
-                Func<object, object> modelAccessor = (ignore) => viewDataInfo.Value;
-                return containerExplorer.GetExplorerForExpression(propertyMetadata, modelAccessor);
+                return containerExplorer.GetExplorerForExpression(propertyMetadata, ModelAccessor);
+
+                object ModelAccessor(object ignore) => viewDataInfo.Value;
             }
 
             if (viewDataInfo.Value != null)

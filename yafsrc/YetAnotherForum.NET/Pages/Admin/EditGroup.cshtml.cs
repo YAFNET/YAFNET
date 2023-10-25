@@ -60,7 +60,7 @@ public class EditGroupModel : AdminPage
     public SelectList NewAccessMasks { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="EditGroupModel"/> class. 
+    /// Initializes a new instance of the <see cref="EditGroupModel"/> class.
     /// </summary>
     public EditGroupModel()
         : base("ADMIN_EDITGROUP", ForumPages.Admin_EditGroup)
@@ -89,7 +89,7 @@ public class EditGroupModel : AdminPage
     public void OnGet(int? i)
     {
         this.Input = new InputModel();
-        
+
         // bind data
         this.BindData(i);
 

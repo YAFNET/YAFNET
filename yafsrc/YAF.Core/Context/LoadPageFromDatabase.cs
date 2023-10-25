@@ -100,7 +100,7 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
             var forumPage = BoardContext.Current.CurrentForumPage != null
                                 ? BoardContext.Current.CurrentForumPage.PageName.ToString()
                                 : string.Empty;
-                
+
             var location = context.Request.Query.GetFirstOrDefaultAs<string>("u");
 
             if (location.IsNotSet())

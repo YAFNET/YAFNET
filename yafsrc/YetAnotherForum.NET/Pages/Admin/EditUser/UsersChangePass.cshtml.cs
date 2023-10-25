@@ -99,7 +99,7 @@ public class UsersChangePassModel : AdminPage
                     this.Get<ILocalization>().GetText("ADMIN_EDITUSER", "ERROR_PASS_NOTMATCH"),
                     MessageTypes.danger);
             }
-            
+
             var newPass = this.Input.NewPassword.Trim();
 
             var token = await this.Get<IAspNetUsersHelper>().GeneratePasswordResetTokenAsync(this.EditUser.Item2);

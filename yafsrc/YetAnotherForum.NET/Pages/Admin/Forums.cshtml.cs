@@ -44,7 +44,7 @@ public class ForumsModel : AdminPage
     public List<Category> CategoryList { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ForumsModel"/> class. 
+    /// Initializes a new instance of the <see cref="ForumsModel"/> class.
     /// </summary>
     public ForumsModel()
         : base("ADMIN_FORUMS", ForumPages.Admin_Forums)

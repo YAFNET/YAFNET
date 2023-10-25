@@ -107,7 +107,6 @@ public class EditProfileModel : ProfilePage
     /// <value>
     /// The current Culture information.
     /// </value>
-    
     private CultureInfo CurrentCultureInfo {
         get {
             if (this.currentCultureInfo != null)
@@ -126,7 +125,6 @@ public class EditProfileModel : ProfilePage
     /// <summary>
     /// Gets the User Data.
     /// </summary>
-    
     private Tuple<User, AspNetUsers, Rank, VAccess> CurrentUser =>
         this.Get<IAspNetUsersHelper>().GetBoardUser(this.PageBoardContext.PageUserID);
 
@@ -352,7 +350,7 @@ public class EditProfileModel : ProfilePage
     private void LoadCustomProfile()
     {
         this.Input.CustomProfile = this.GetRepository<ProfileDefinition>().GetByBoardId().ToList();
-            
+
         if (this.Input.CustomProfile is null || !this.Input.CustomProfile.Any())
         {
             return;

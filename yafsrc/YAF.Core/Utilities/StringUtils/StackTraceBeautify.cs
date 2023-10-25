@@ -117,14 +117,9 @@ public partial class StackTraceBeautify
         var clone = new StringBuilder();
 
         // search for language
-        foreach (var line in lines)
+        foreach (var line in lines.Where(line => lang == string.Empty))
         {
-            if (lang != string.Empty)
-            {
-                continue;
-            }
-
-            if (EnglishRegex().IsMatch(line)) 
+            if (EnglishRegex().IsMatch(line))
             {
                 lang = "english";
             }

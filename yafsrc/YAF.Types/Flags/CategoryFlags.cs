@@ -30,7 +30,7 @@ namespace YAF.Types.Flags;
 public class CategoryFlags : FlagsBase
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="CategoryFlags"/> class. 
+    /// Initializes a new instance of the <see cref="CategoryFlags"/> class.
     /// </summary>
     /// <param name="bitValue">
     /// The bit value.

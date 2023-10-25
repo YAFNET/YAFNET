@@ -44,7 +44,7 @@ public class ReplaceWordsModel : AdminPage
     public IList<Replace_Words> List { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ReplaceWordsModel"/> class. 
+    /// Initializes a new instance of the <see cref="ReplaceWordsModel"/> class.
     /// </summary>
     public ReplaceWordsModel()
         : base("ADMIN_REPLACEWORDS", ForumPages.Admin_ReplaceWords)

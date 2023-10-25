@@ -39,7 +39,7 @@ using YAF.Types.Models;
 /// <summary>
 /// The Admin Banned Emails Page.
 /// </summary>
-public class BannedEmailsModel : AdminPage 
+public class BannedEmailsModel : AdminPage
 {
     [BindProperty]
     public List<BannedEmail> List { get; set; }
@@ -48,7 +48,7 @@ public class BannedEmailsModel : AdminPage
     public string SearchInput { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="BannedEmailsModel"/> class. 
+    /// Initializes a new instance of the <see cref="BannedEmailsModel"/> class.
     /// </summary>
     public BannedEmailsModel()
         : base("ADMIN_BANNEDEMAIL", ForumPages.Admin_BannedEmails)
@@ -70,7 +70,10 @@ public class BannedEmailsModel : AdminPage
     /// </summary>
     public void OnGet()
     {
-        this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
+        this.PageSizeList = new SelectList(
+            StaticDataHelper.PageEntries(),
+            nameof(SelectListItem.Value),
+            nameof(SelectListItem.Text));
         this.BindData();
     }
 

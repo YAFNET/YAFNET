@@ -51,7 +51,6 @@ public class UsersKillModel : AdminPage
     /// <summary>
     /// Gets or sets the User Data.
     /// </summary>
-    
     public User EditUser { get; set; }
 
     [BindProperty]
@@ -66,7 +65,6 @@ public class UsersKillModel : AdminPage
     /// <summary>
     ///   Gets the IPAddresses.
     /// </summary>
-    
     public List<string> IpAddresses {
         get {
             var list = this.AllPostsByUser.Select(m => m.IP).OrderBy(x => x).Distinct().ToList();

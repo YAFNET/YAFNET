@@ -33,7 +33,6 @@ public static class JavaScriptBlocks
     ///   Gets the script for changing the image caption.
     /// </summary>
     /// <returns></returns>
-    
     public static string ChangeImageCaptionJs =>
         """
           function changeImageCaption(imageId, txtTitleId) {
@@ -64,7 +63,6 @@ public static class JavaScriptBlocks
     /// <returns>
     ///   the callback success js.
     /// </returns>
-    
     public static string AlbumCallbackSuccessJs =>
         """
         function changeTitleSuccess(res){
@@ -80,7 +78,6 @@ public static class JavaScriptBlocks
     /// <summary>
     /// Gets the multi quote callback success JS.
     /// </summary>
-    
     public static string MultiQuoteCallbackSuccessJs =>
         """
         function multiQuoteSuccess(res) {
@@ -92,7 +89,6 @@ public static class JavaScriptBlocks
     /// <summary>
     /// Gets the multi quote button JS.
     /// </summary>
-    
     public static string MultiQuoteButtonJs =>
         """
           function handleMultiQuoteButton(button, msgId, tpId) {

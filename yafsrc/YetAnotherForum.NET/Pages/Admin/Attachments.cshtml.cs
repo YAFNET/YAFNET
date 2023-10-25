@@ -38,7 +38,7 @@ using YAF.Types.Models;
 /// <summary>
 /// The Admin Manage User Attachments Page.
 /// </summary>
-public class AttachmentsModel : AdminPage 
+public class AttachmentsModel : AdminPage
 {
     /// <summary>
     /// Gets or sets the attachments.
@@ -69,10 +69,13 @@ public class AttachmentsModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public  void OnGet()
+    public void OnGet()
     {
-        this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
-        
+        this.PageSizeList = new SelectList(
+            StaticDataHelper.PageEntries(),
+            nameof(SelectListItem.Value),
+            nameof(SelectListItem.Text));
+
         // bind data to controls
         this.BindData();
     }
@@ -108,7 +111,10 @@ public class AttachmentsModel : AdminPage
 
         var fileName = attach.FileName;
         var isImage = fileName.IsImageName();
-        var url = this.Get<IUrlHelper>().Action("GetAttachment", "Attachments", new { attachmentId = attach.ID, editor = true });
+        var url = this.Get<IUrlHelper>().Action(
+            "GetAttachment",
+            "Attachments",
+            new { attachmentId = attach.ID, editor = true });
 
         return isImage
                    ? $"<img src=\"{url}\" alt=\"{fileName}\" title=\"{fileName}\" data-url=\"{url}\" style=\"max-width:30px\" class=\"me-2 img-thumbnail attachments-preview\" />"

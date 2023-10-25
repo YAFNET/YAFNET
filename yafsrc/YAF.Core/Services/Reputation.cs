@@ -84,16 +84,18 @@ public class Reputation : IReputation, IHaveServiceLocator
 
         var percentage = this.Get<IReputation>().ConvertPointsToPercentage(points);
 
-        return $@"<div class=""progress"">
-                      <div class=""progress-bar progress-bar-striped{this.Get<IReputation>().GetReputationBarColor(percentage)}"" 
-                           role=""progressbar""
-                           aria-label=""{this.GetReputationBarText(percentage)}""
-                           style=""width:{percentage.ToString(formatInfo)}%;"" 
-                           aria-valuenow=""{percentage.ToString(formatInfo)}"" 
-                           aria-valuemax=""100"">
-                      {percentage.ToString(formatInfo)}% ({this.GetReputationBarText(percentage)})
-                      </div>
-                  </div>";
+        return $"""
+                <div class="progress">
+                                      <div class="progress-bar progress-bar-striped{this.Get<IReputation>().GetReputationBarColor(percentage)}"
+                                           role="progressbar"
+                                           aria-label="{this.GetReputationBarText(percentage)}"
+                                           style="width:{percentage.ToString(formatInfo)}%;"
+                                           aria-valuenow="{percentage.ToString(formatInfo)}"
+                                           aria-valuemax="100">
+                                      {percentage.ToString(formatInfo)}% ({this.GetReputationBarText(percentage)})
+                                      </div>
+                                  </div>
+                """;
     }
 
     /// <summary>
@@ -101,7 +103,6 @@ public class Reputation : IReputation, IHaveServiceLocator
     /// </summary>
     /// <param name="percentage">The percentage.</param>
     /// <returns>Returns the Text for the Current Value</returns>
-    
     public string GetReputationBarText(float percentage)
     {
         var lookup = new Dictionary<int, string>
@@ -133,7 +134,6 @@ public class Reputation : IReputation, IHaveServiceLocator
     /// </summary>
     /// <param name="percentage">The percentage.</param>
     /// <returns>Returns the Color for the Current Value</returns>
-    
     public string GetReputationBarColor(float percentage)
     {
         var lookup = new Dictionary<int, string>
@@ -165,7 +165,6 @@ public class Reputation : IReputation, IHaveServiceLocator
     /// </summary>
     /// <param name="points">The points.</param>
     /// <returns>Returns the Percentage Value</returns>
-    
     public float ConvertPointsToPercentage(int points)
     {
         var percentage = points;

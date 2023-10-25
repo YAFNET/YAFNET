@@ -53,7 +53,7 @@ public class ProfileDefinitionController : ForumBaseController
         {
             model.Id = null;
         }
-        
+
         this.GetRepository<ProfileDefinition>().Upsert(
             new ProfileDefinition
                 {

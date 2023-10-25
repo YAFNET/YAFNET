@@ -55,7 +55,7 @@ public class EditCategoryModel : AdminPage
     public List<SelectListItem> CategoryImages { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="EditCategoryModel"/> class. 
+    /// Initializes a new instance of the <see cref="EditCategoryModel"/> class.
     /// </summary>
     public EditCategoryModel()
         : base("ADMIN_EDITCATEGORY", ForumPages.Admin_EditCategory)
@@ -153,7 +153,7 @@ public class EditCategoryModel : AdminPage
     {
         if (c.HasValue)
         {
-            this.BindExisting(); 
+            this.BindExisting();
         }
         else
         {
@@ -174,7 +174,7 @@ public class EditCategoryModel : AdminPage
         {
             sortOrder = 1;
         }
-    
+
         this.Input.SortOrder = sortOrder;
     }
 

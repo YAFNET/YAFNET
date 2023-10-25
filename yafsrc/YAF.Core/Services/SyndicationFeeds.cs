@@ -298,7 +298,6 @@ public class SyndicationFeeds : IHaveServiceLocator
     /// <returns>
     /// Formatted url
     /// </returns>
-    
     private static string FormatUrlForFeed(string inputUrl)
     {
         var formattedUrl = inputUrl;

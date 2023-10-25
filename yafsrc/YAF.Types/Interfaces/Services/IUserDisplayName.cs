@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Interfaces.Services;
 
 using System.Collections.Generic;
@@ -50,7 +51,6 @@ public interface IUserDisplayName
     /// <returns>
     /// Returns the Found User
     /// </returns>
-    
     IList<User> FindUserContainsName(string contains);
 
     /// <summary>
@@ -62,6 +62,5 @@ public interface IUserDisplayName
     /// <returns>
     /// The <see cref="User"/>.
     /// </returns>
-    
     User FindUserByName(string name);
 }

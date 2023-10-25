@@ -207,7 +207,7 @@ public class Albums : ForumBaseController
         {
             this.Get<ILogger<Albums>>().Log(this.PageBoardContext.PageUserID, this, x, EventLogTypes.Information);
 
-            return this.NotFound(); 
+            return this.NotFound();
         }
     }
 }

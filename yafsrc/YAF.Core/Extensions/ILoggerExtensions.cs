@@ -25,7 +25,7 @@
 namespace YAF.Core.Extensions
 {
     using System;
-    
+
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Logging;
 
@@ -61,10 +61,10 @@ namespace YAF.Core.Extensions
         /// The event type.
         /// </param>
         public static void Log(
-            this ILogger logger, 
-            int? userId, 
-            object source, 
-            Exception exception, 
+            this ILogger logger,
+            int? userId,
+            object source,
+            Exception exception,
             EventLogTypes eventType = EventLogTypes.Error)
         {
             var sourceDescription = "unknown";

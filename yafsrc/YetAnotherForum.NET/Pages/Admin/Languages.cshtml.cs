@@ -45,7 +45,7 @@ public class LanguagesModel : AdminPage
     public int Count { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="LanguagesModel"/> class. 
+    /// Initializes a new instance of the <see cref="LanguagesModel"/> class.
     /// </summary>
     public LanguagesModel()
         : base("ADMIN_LANGUAGES", ForumPages.Admin_Languages)
@@ -90,6 +90,6 @@ public class LanguagesModel : AdminPage
 
         this.Count = cultures.Count;
 
-        this.List = cultures.GetPaged(pager); 
+        this.List = cultures.GetPaged(pager);
     }
 }

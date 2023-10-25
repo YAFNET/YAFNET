@@ -207,7 +207,7 @@ public class UserFlags : FlagsBase
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether a user profile/personal data was changed. 
+    /// Gets or sets a value indicating whether a user profile/personal data was changed.
     /// The flag is set every time when a user profile changes.
     /// Used for portal integration.
     /// </summary>

@@ -63,9 +63,9 @@ public class ProcessReplaceRulesProvider : IHaveServiceLocator, IReadOnlyProvide
     /// The unique Flags.
     /// </param>
     public ProcessReplaceRulesProvider(
-        IObjectStore objectStore, 
-        IServiceLocator serviceLocator, 
-        IInjectServices injectServices, 
+        IObjectStore objectStore,
+        IServiceLocator serviceLocator,
+        IInjectServices injectServices,
         IEnumerable<bool> uniqueFlags)
     {
         this.ServiceLocator = serviceLocator;
@@ -82,7 +82,7 @@ public class ProcessReplaceRulesProvider : IHaveServiceLocator, IReadOnlyProvide
         get
         {
             return this.objectStore.GetOrSet(
-                string.Format(Constants.Cache.ReplaceRules, this.uniqueFlags.ToIntOfBits()), 
+                string.Format(Constants.Cache.ReplaceRules, this.uniqueFlags.ToIntOfBits()),
                 () =>
                     {
                         var processRules = new ProcessReplaceRules();

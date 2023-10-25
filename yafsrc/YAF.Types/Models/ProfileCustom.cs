@@ -28,7 +28,6 @@ namespace YAF.Types.Models;
 /// A class which represents the ProfileCustom table.
 /// </summary>
 [Serializable]
-
 [CompositePrimaryKey(nameof(ProfileDefinitionID), nameof(UserID))]
 public class ProfileCustom : IEntity
 {

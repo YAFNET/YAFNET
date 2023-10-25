@@ -44,7 +44,7 @@ public class ProfileDefinitionsModel : AdminPage
     public IList<ProfileDefinition> List { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="ProfileDefinitionsModel"/> class. 
+    /// Initializes a new instance of the <see cref="ProfileDefinitionsModel"/> class.
     /// </summary>
     public ProfileDefinitionsModel()
         : base("ADMIN_PROFILEDEFINITIONS", ForumPages.Admin_ProfileDefinitions)

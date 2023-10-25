@@ -45,7 +45,7 @@ public class PageAccessEditModel : AdminPage
     public int UserID { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageAccessEditModel"/> class. 
+    /// Initializes a new instance of the <see cref="PageAccessEditModel"/> class.
     /// </summary>
     public PageAccessEditModel()
         : base("ADMIN_PAGEACCESSEDIT", ForumPages.Admin_PageAccessEdit)

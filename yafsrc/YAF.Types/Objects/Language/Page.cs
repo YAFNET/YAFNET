@@ -27,6 +27,7 @@ namespace YAF.Types.Objects.Language;
 using Newtonsoft.Json;
 
 using System.Collections.Generic;
+
 using YAF.Types.Extensions;
 
 /// <summary>

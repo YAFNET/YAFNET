@@ -58,25 +58,25 @@ public static class HelpMenuHtmlHelper
         htmlDropDown.Append("""<div class="dropdown d-lg-none d-grid gap-2">""");
 
         htmlDropDown.Append(
-            @"<button class=""btn btn-secondary dropdown-toggle"" type=""button"" id=""dropdownMenuButton"" data-bs-toggle=""dropdown"" aria-haspopup=""true"" aria-expanded=""false"">");
+            """<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">""");
 
-        htmlDropDown.AppendFormat("{0}</button>", context.Get<ILocalization>().GetText("HELP_INDEX", "INDEX"));
+        htmlDropDown.Append($"{context.Get<ILocalization>().GetText("HELP_INDEX", "INDEX")}</button>");
 
         htmlDropDown.Append(
-            @"<div class=""dropdown-menu scrollable-dropdown"" aria-labelledby=""dropdownMenuButton"">");
+            """<div class="dropdown-menu scrollable-dropdown" aria-labelledby="dropdownMenuButton">""");
 
         var faqPage = "index";
 
-        if (htmlHelper.ViewContext.HttpContext.Request.RouteValues.ContainsKey("faq"))
+        if (htmlHelper.ViewContext.HttpContext.Request.RouteValues.TryGetValue("faq", out var routeValue))
         {
-            faqPage = htmlHelper.ViewContext.HttpContext.Request.RouteValues["faq"].ToString();
+            faqPage = routeValue.ToString();
         }
 
         // Index / Search
         var indexTag = new TagBuilder("h6");
 
         var indexContent =
-            $@"<a href=""{context.Get<LinkBuilder>().GetLink(ForumPages.Help, new { faq = "index" })}"">{context.Get<ILocalization>().GetText("HELP_INDEX", "INDEX")} / {context.Get<ILocalization>().GetText("BTNSEARCH")}</a>";
+            $"""<a href="{context.Get<LinkBuilder>().GetLink(ForumPages.Help, new { faq = "index" })}">{context.Get<ILocalization>().GetText("HELP_INDEX", "INDEX")} / {context.Get<ILocalization>().GetText("BTNSEARCH")}</a>""";
 
         indexTag.AddCssClass("h6 pt-4 pb-3 mb-4 border-bottom text-uppercase");
 
@@ -88,35 +88,37 @@ public static class HelpMenuHtmlHelper
         indexTag.InnerHtml.AppendHtml(indexContent);
 
         htmlDropDown.AppendFormat(
-            @"<a href=""{1}"" class=""dropdown-item"">{0}</a>",
+            """<a href="{1}" class="dropdown-item">{0}</a>""",
             context.Get<ILocalization>().GetText("BTNSEARCH"),
             context.Get<LinkBuilder>().GetLink(ForumPages.Help, new { faq = "index" }));
 
-        html.Append(@"<nav><div class=""accordion accordion-flush"">");
+        html.Append("""<nav><div class="accordion accordion-flush">""");
 
         helpNavList.ForEach(
             category =>
                 {
                     var expanded = category.HelpPages.Any(p => p.ToLower().Equals(faqPage));
 
-                    html.Append(@"<div class=""accordion-item"">");
+                    html.Append("""<div class="accordion-item">""");
 
                     html.AppendFormat(
-                        @"<h2 class=""accordion-header""><button class=""h2 accordion-button collapsed ps-0"" data-bs-toggle=""collapse"" aria-expanded=""{2}"" data-bs-target=""#{1}"" type=""button"">
-                              {0}
-                          </button></h2>",
+                        """
+                        <h2 class="accordion-header"><button class="h2 accordion-button collapsed ps-0" data-bs-toggle="collapse" aria-expanded="{2}" data-bs-target="#{1}" type="button">
+                                                      {0}
+                                                  </button></h2>
+                        """,
                         context.Get<ILocalization>().GetText("HELP_INDEX", category.HelpCategory),
                         category.HelpCategory,
                         expanded.ToString().ToLower());
 
                     htmlDropDown.AppendFormat(
-                        @"<h6 class=""dropdown-header"">{0}</h6>",
+                        """<h6 class="dropdown-header">{0}</h6>""",
                         context.Get<ILocalization>().GetText("HELP_INDEX", category.HelpCategory));
 
                     html.AppendFormat(
                         expanded
-                            ? @"<ul class=""list-unstyled ps-3 accordion-collapse collapse show"" id=""{0}"">"
-                            : @"<ul class=""list-unstyled ps-3 accordion-collapse collapse"" id=""{0}"">",
+                            ? """<ul class="list-unstyled ps-3 accordion-collapse collapse show" id="{0}">"""
+                            : """<ul class="list-unstyled ps-3 accordion-collapse collapse" id="{0}">""",
                         category.HelpCategory);
 
                     category.HelpPages.ForEach(
@@ -136,47 +138,47 @@ public static class HelpMenuHtmlHelper
                                     }
 
                                     html.AppendFormat(
-                                        @"<li><a href=""{0}"" title=""{1}"" class=""{2}"">{1}</a></li>",
+                                        """<li><a href="{0}" title="{1}" class="{2}">{1}</a></li>""",
                                         link,
                                         context.Get<ILocalization>().GetText("HELP_INDEX", $"{helpPage}TITLE"),
                                         selectedStyle);
 
                                     htmlDropDown.AppendFormat(
-                                        @"<a href=""{0}"" class=""dropdown-item"">{1}</a>",
+                                        """<a href="{0}" class="dropdown-item">{1}</a>""",
                                         link,
                                         context.Get<ILocalization>().GetText("HELP_INDEX", $"{helpPage}TITLE"));
                                 }
                                 else
                                 {
                                     html.AppendFormat(
-                                        @"<li><a href=""{0}"" title=""{1}"" class=""{2}"">{1}</a></li>",
+                                        """<li><a href="{0}" title="{1}" class="{2}">{1}</a></li>""",
                                         link,
                                         context.Get<ILocalization>().GetText("HELP_INDEX", $"{helpPage}TITLE"),
                                         selectedStyle);
 
                                     htmlDropDown.AppendFormat(
-                                        @"<a href=""{0}"" class=""dropdown-item"">{1}</a>",
+                                        """<a href="{0}" class="dropdown-item">{1}</a>""",
                                         link,
                                         context.Get<ILocalization>().GetText("HELP_INDEX", $"{helpPage}TITLE"));
                                 }
                             });
 
-                    html.Append(@"</ul></div>");
+                    html.Append("</ul></div>");
                 });
 
         html.Append("</div></nav>");
 
-        htmlDropDown.Append(@"</div></div>");
+        htmlDropDown.Append("</div></div>");
 
         // render the contents of the help menu....
         content.AppendHtml(
-            @"<div class=""col-md-3 d-none d-lg-block bg-light sidebar""><div class=""sidebar-sticky"">");
+            """<div class="col-md-3 d-none d-lg-block bg-light sidebar"><div class="sidebar-sticky">""");
 
         content.AppendHtml(indexTag);
 
         content.AppendHtml(html.ToString());
 
-        content.AppendHtml(@"</div></div>");
+        content.AppendHtml("</div></div>");
 
         // Write Mobile Drop down
         content.AppendHtml(htmlDropDown.ToString());

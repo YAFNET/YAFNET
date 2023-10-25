@@ -28,7 +28,6 @@ namespace YAF.Types.Models;
 ///     A class which represents the YAF_Rank table in the YAF Database.
 /// </summary>
 [Serializable]
-
 [UniqueConstraint(nameof(BoardID), nameof(Name))]
 public class Rank : IEntity, IHaveID, IHaveBoardID
 {

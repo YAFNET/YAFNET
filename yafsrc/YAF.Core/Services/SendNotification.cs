@@ -76,7 +76,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     public async Task ToModeratorsThatMessageNeedsApprovalAsync(int forumId, int newMessageId, bool isSpamMessage)
     {
         var moderatorsFiltered = this.Get<DataBroker>().GetModerators().Where(f => f.ForumID.Equals(forumId));
-        var moderatorUserNames = new List<string>(); 
+        var moderatorUserNames = new List<string>();
 
         foreach (var moderator in moderatorsFiltered)
         {
@@ -569,7 +569,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
         {
             var hostUsers = await this.GetRepository<User>()
                 .GetAsync(u => u.BoardID == BoardContext.Current.PageBoardID && (u.Flags & 1) == 1);
-                
+
                 var hostUser = hostUsers.FirstOrDefault();
 
                 if (hostUser != null)

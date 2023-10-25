@@ -71,10 +71,12 @@ public class NoPostsFoundForTopicException : Exception
         int pageSize,
         int messagePosition)
         : base(
-            $@"No posts were found for topic [
-                            topicId:{topicId}, userId:{userId}, updateViewCount:{updateViewCount}, 
-                            showDeleted:{showDeleted}, sincePostedDate:{sincePostedDate}, toPostedDate:{toPostedDate}, 
-                            pageIndex:{pageIndex}, pageSize:{pageSize}, messagePosition:{messagePosition}]")
+            $"""
+             No posts were found for topic [
+                                         topicId:{topicId}, userId:{userId}, updateViewCount:{updateViewCount},
+                                         showDeleted:{showDeleted}, sincePostedDate:{sincePostedDate}, toPostedDate:{toPostedDate},
+                                         pageIndex:{pageIndex}, pageSize:{pageSize}, messagePosition:{messagePosition}]
+             """)
     {
     }
 }

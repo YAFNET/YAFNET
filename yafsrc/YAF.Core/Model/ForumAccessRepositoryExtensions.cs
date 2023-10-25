@@ -172,7 +172,7 @@ public static class ForumAccessRepositoryExtensions
     }
 
     /// <summary>
-    /// Gets the forum Read Access 
+    /// Gets the forum Read Access
     /// </summary>
     /// <param name="repository">
     /// The repository.

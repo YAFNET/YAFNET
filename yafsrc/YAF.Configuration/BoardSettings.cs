@@ -1995,7 +1995,7 @@ public class BoardSettings
         get => this.RegistryBoard.GetValue("ForceUpdateSearchIndex", false);
 
         set => this.RegistryBoard.SetValue("ForceUpdateSearchIndex", value);
-    } 
+    }
 
     /// <summary>
     /// Gets or sets a value indicating whether two column board layout.

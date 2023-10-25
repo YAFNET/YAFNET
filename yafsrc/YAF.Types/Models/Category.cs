@@ -29,6 +29,7 @@ namespace YAF.Types.Models;
 /// </summary>
 [Serializable]
 
+
 [UniqueConstraint(nameof(BoardID), nameof(Name))]
 public class Category : IEntity, IHaveID, IHaveBoardID
 {

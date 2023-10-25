@@ -42,7 +42,7 @@ public class PmModel : AdminPage
     public InputModel Input { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PmModel"/> class. 
+    /// Initializes a new instance of the <see cref="PmModel"/> class.
     /// </summary>
     public PmModel()
         : base("ADMIN_PM", ForumPages.Admin_Pm)

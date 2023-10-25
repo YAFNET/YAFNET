@@ -150,7 +150,7 @@ public class UsersGroupsModel : AdminPage
 
         // get user roles
         var roles = this.GetRepository<Group>().Member(this.PageBoardContext.PageBoardID, userId);
-        
+
         foreach (var role in roles.Where(role => role.IsMember))
         {
             role.Selected = true;

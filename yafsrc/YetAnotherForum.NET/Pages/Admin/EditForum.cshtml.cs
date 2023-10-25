@@ -72,7 +72,7 @@ public class EditForumModel : AdminPage
     public IReadOnlyCollection<SelectListItem> Themes { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="EditForumModel"/> class. 
+    /// Initializes a new instance of the <see cref="EditForumModel"/> class.
     /// </summary>
     public EditForumModel()
         : base("ADMIN_EDITFORUM", ForumPages.Admin_EditForum)
@@ -288,7 +288,7 @@ public class EditForumModel : AdminPage
         }
 
         // The picked forum cannot be a child forum as it's a parent
-        // If we update a forum ForumID > 0 
+        // If we update a forum ForumID > 0
         if (forumId.HasValue && parentId.HasValue && !this.Input.Copy)
         {
             // check if parent and forum is the same

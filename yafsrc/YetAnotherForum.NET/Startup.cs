@@ -234,7 +234,7 @@ public class Startup : IHaveServiceLocator
             options.SupportedCultures = supportedCultures;
             options.SupportedUICultures = supportedCultures;
         });
-        
+
         services.AddSingleton<IActionContextAccessor, ActionContextAccessor>().AddScoped(
               x => x.GetRequiredService<IUrlHelperFactory>()
                   .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext));

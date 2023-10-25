@@ -106,7 +106,6 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <summary>
     ///   Gets or sets the Words to highlight in this message
     /// </summary>
-    
     public virtual IList<string> HighlightWords
     {
         get => this.highlightWords ?? new List<string>();
@@ -246,8 +245,8 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
             message = this.Get<IFormatMessage>().SurroundWordList(
                 message,
                 this.HighlightWords,
-                renderBbCode ? "[h]" : @"<span class=""highlight"">",
-                renderBbCode ? "[/h]" : @"</span>");
+                renderBbCode ? "[h]" : """<span class="highlight">""",
+                renderBbCode ? "[/h]" : "</span>");
         }
 
         return message;

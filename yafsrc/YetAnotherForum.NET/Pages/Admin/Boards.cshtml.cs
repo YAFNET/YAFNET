@@ -41,7 +41,7 @@ public class BoardsModel : AdminPage
     public List<Board> List { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="BoardsModel"/> class. 
+    /// Initializes a new instance of the <see cref="BoardsModel"/> class.
     /// </summary>
     public BoardsModel()
         : base("ADMIN_BOARDS", ForumPages.Admin_Boards)

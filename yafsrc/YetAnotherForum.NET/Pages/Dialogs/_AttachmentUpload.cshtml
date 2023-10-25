@@ -7,7 +7,7 @@
 
 @{
     Current.InlineElements.InsertJsBlock(
-        nameof(JavaScriptBlocks.FileUploadLoadJs), 
+        nameof(JavaScriptBlocks.FileUploadLoadJs),
         JavaScriptBlocks.FileUploadLoadJs(Current.Get<IUrlHelper>().Action("Upload", "FileUpload")));
 }
 
@@ -40,18 +40,19 @@
                     </div>
                     <ul class="list-group" id="gallery"></ul>
                 </div>
-            <div class="modal-footer">
-                @if (Current.BoardSettings.MaxFileSize > 0)
-                {
-                    <alert type="warning">
-                        @(Current.Get<ILocalization>().GetTextFormatted("UPLOAD_NOTE",(Current.BoardSettings.MaxFileSize / 1024).ToString()))
-                    </alert>
-                }
-                <div class="alert alert-info" role="alert">
-                    <strong>
-                        @Html.LocalizedText("ALLOWED_EXTENSIONS")
-                    </strong>
-                    @(Current.BoardSettings.AllowedFileExtensions.Replace(",", ", "))
+                <div class="modal-footer">
+                    @if (Current.BoardSettings.MaxFileSize > 0)
+                    {
+                        <alert type="warning">
+                            @(Current.Get<ILocalization>().GetTextFormatted("UPLOAD_NOTE", (Current.BoardSettings.MaxFileSize / 1024).ToString()))
+                        </alert>
+                    }
+                    <div class="alert alert-info" role="alert">
+                        <strong>
+                            @Html.LocalizedText("ALLOWED_EXTENSIONS")
+                        </strong>
+                        @(Current.BoardSettings.AllowedFileExtensions.Replace(",", ", "))
+                    </div>
                 </div>
             </div>
         </div>

@@ -30,7 +30,7 @@ using ServiceStack.DataAnnotations;
 /// A class which represents the yaf_PollGroupCluster table. Only used for Dropping
 /// </summary>
 [Serializable]
-public partial class PollGroupCluster : IEntity, IHaveID
+public class PollGroupCluster : IEntity, IHaveID
 {
     /// <summary>
     /// Gets or sets the id.

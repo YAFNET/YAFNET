@@ -120,7 +120,6 @@ public static class UserAlbumRepositoryExtensions
     /// <returns>
     /// The <see cref="long"/>.
     /// </returns>
-    
     public static long CountUserAlbum(this IRepository<UserAlbum> repository, int userId)
     {
         return repository.Count(album => album.UserID == userId);

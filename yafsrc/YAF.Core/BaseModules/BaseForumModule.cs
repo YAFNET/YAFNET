@@ -44,7 +44,6 @@ public abstract class BaseForumModule : IBaseForumModule, IHaveServiceLocator, I
     /// <summary>
     ///   Gets ModuleId.
     /// </summary>
-    
     public virtual string ModuleId => this.Description.GetHashCode().ToString();
 
     /// <summary>
@@ -67,7 +66,7 @@ public abstract class BaseForumModule : IBaseForumModule, IHaveServiceLocator, I
     /// </summary>
     public virtual void Init()
     {
-        // do nothing... 
+        // do nothing...
     }
 
     /// <summary>

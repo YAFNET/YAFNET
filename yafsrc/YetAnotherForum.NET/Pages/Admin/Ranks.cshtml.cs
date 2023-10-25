@@ -42,7 +42,7 @@ public class RanksModel : AdminPage
     public IList<Rank> List { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RanksModel"/> class. 
+    /// Initializes a new instance of the <see cref="RanksModel"/> class.
     /// </summary>
     public RanksModel()
         : base("ADMIN_RANKS", ForumPages.Admin_Ranks)

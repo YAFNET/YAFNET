@@ -47,7 +47,7 @@ public class BBCodesModel : AdminPage
     public List<BBCode> List { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="BBCodesModel"/> class. 
+    /// Initializes a new instance of the <see cref="BBCodesModel"/> class.
     /// </summary>
     public BBCodesModel()
         : base("ADMIN_BBCODE", ForumPages.Admin_BBCodes)

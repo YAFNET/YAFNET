@@ -57,7 +57,7 @@ public static class PrivateMessageRepositoryExtensions
         expression2.Where(p => p.ToUserId == userId && p.FromUserId == toUserId && (p.Flags & 4) != 4)
             .Select<PrivateMessage>(p => p);
 
-        // Mark all to messages as read 
+        // Mark all to messages as read
         await BoardContext.Current.GetRepository<PrivateMessage>().DbAccess.ExecuteAsync(
             db =>
                 {

@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Services;
 
 using System.Collections.Generic;
@@ -53,7 +54,6 @@ public class DefaultUserDisplayName : IUserDisplayName, IHaveServiceLocator
     /// <returns>
     /// Returns the Found PageUser
     /// </returns>
-    
     public IList<User> FindUserContainsName(string contains)
     {
         return this.Get<BoardSettings>().EnableDisplayName
@@ -73,7 +73,6 @@ public class DefaultUserDisplayName : IUserDisplayName, IHaveServiceLocator
     /// <returns>
     /// The <see cref="User"/>.
     /// </returns>
-    
     public User FindUserByName(string name)
     {
         return this.Get<BoardSettings>().EnableDisplayName

@@ -41,7 +41,7 @@ using YAF.Types.Objects;
 public class ReIndexModel : AdminPage
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="ReIndexModel"/> class. 
+    /// Initializes a new instance of the <see cref="ReIndexModel"/> class.
     /// </summary>
     public ReIndexModel()
         : base("ADMIN_REINDEX", ForumPages.Admin_ReIndex)

@@ -90,12 +90,12 @@ public static class DbCommandExtensions
 
             switch (item)
             {
-                case Guid _:
+                case Guid:
                     p.Value = item.ToString();
                     p.DbType = DbType.String;
                     p.Size = 4000;
                     break;
-                case ExpandoObject _:
+                case ExpandoObject:
                     {
                         var d = (IDictionary<string, object>)item;
                         p.Value = d.Values.FirstOrDefault();

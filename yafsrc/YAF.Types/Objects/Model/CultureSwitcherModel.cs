@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects.Model; 
+namespace YAF.Types.Objects.Model;
 
 using System.Globalization;
 using System.Collections.Generic;

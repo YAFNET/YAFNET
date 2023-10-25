@@ -67,7 +67,7 @@ public class InstallModel : InstallPage
         {
             return this.RedirectToPage(ForumPages.Index.GetPageName());
         }
-        
+
         this.Get<ILocalization>().TransPage = "INSTALL";
 
         // fake the board settings

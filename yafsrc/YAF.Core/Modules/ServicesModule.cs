@@ -149,7 +149,7 @@ public class ServicesModule : BaseModule
         builder.RegisterInstance(new ControlSettings()).AsSelf().SingleInstance();
 
         builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>().SingleInstance();
-        builder.RegisterType<ActionContextAccessor>().As<IActionContextAccessor>().SingleInstance(); 
+        builder.RegisterType<ActionContextAccessor>().As<IActionContextAccessor>().SingleInstance();
         builder.RegisterType<NotificationClient>().AsSelf().SingleInstance();
     }
 

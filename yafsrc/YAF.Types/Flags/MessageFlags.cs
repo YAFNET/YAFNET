@@ -210,11 +210,11 @@ public class MessageFlags : FlagsBase
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether this message is locked. 
+    /// Gets or sets a value indicating whether this message is locked.
     /// Locked messages cannot be modified/deleted/replied to.
     /// </summary>
     /// <remarks>
-    /// Used for "ghost" posts that don't really exist, 
+    /// Used for "ghost" posts that don't really exist,
     /// such as advertisement posts.
     /// </remarks>
     public bool IsLocked

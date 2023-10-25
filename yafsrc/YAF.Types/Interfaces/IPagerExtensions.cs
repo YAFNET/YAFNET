@@ -58,10 +58,10 @@ public static class IPagerExtensions
     /// The page count.
     /// </summary>
     /// <param name="pager">
-    /// The pager. 
+    /// The pager.
     /// </param>
     /// <returns>
-    /// The <see cref="int"/> . 
+    /// The <see cref="int"/> .
     /// </returns>
     public static int PageCount(this IPager pager)
     {
@@ -89,10 +89,10 @@ public static class IPagerExtensions
     /// The skip index.
     /// </summary>
     /// <param name="pager">
-    /// The pager. 
+    /// The pager.
     /// </param>
     /// <returns>
-    /// The <see cref="int"/> . 
+    /// The <see cref="int"/> .
     /// </returns>
     public static int SkipIndex(this IPager pager)
     {

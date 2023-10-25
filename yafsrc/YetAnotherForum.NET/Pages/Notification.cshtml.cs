@@ -84,7 +84,7 @@ public class NotificationModel : ForumPageRegistered
     /// </summary>
     [BindProperty]
     public bool WatchForumReply { get; set; } = true;
-    
+
     /// <summary>
     /// The watch topic reply.
     /// </summary>

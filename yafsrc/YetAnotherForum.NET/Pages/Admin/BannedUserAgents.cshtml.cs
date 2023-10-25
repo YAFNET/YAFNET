@@ -48,7 +48,7 @@ public class BannedUserAgentsModel : AdminPage
     public string SearchInput{ get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="BannedUserAgentsModel"/> class. 
+    /// Initializes a new instance of the <see cref="BannedUserAgentsModel"/> class.
     /// </summary>
     public BannedUserAgentsModel()
         : base("ADMIN_BANNED_USERAGENTS", ForumPages.Admin_BannedUserAgents)

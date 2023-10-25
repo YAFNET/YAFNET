@@ -48,7 +48,7 @@ public class DeleteForumModel : AdminPage
     public int ForumListSelected { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="DeleteForumModel"/> class. 
+    /// Initializes a new instance of the <see cref="DeleteForumModel"/> class.
     /// </summary>
     public DeleteForumModel()
         : base("ADMIN_DELETEFORUM", ForumPages.Admin_DeleteForum)

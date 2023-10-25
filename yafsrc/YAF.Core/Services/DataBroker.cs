@@ -232,7 +232,7 @@ public class DataBroker : IHaveServiceLocator
 
             // -- find a guest id should do it every time to be sure that guest access rights are in ActiveAccess table
             var guestUser = this.Get<IAspNetUsersHelper>().GuestUser(boardId);
-                
+
             if (userKey == null)
             {
                 currentUser = guestUser;

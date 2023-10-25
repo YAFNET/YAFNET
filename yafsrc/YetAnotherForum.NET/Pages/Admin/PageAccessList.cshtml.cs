@@ -43,7 +43,7 @@ public class PageAccessListModel : AdminPage
     public IEnumerable<User> List { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="PageAccessListModel"/> class. 
+    /// Initializes a new instance of the <see cref="PageAccessListModel"/> class.
     /// </summary>
     public PageAccessListModel()
         : base("ADMIN_PAGEACCESSLIST", ForumPages.Admin_PageAccessList)

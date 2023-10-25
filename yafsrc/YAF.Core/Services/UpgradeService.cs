@@ -105,7 +105,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
         {
             this.GetRepository<Registry>().Save(
                 "baseurlmask",
-                this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl()); 
+                this.Get<IHttpContextAccessor>().HttpContext?.Request.BaseUrl());
         }
 
         if (prevVersion < 80)
@@ -139,7 +139,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
         {
             await this.Get<V81_Migration>().MigrateDatabaseAsync(this.DbAccess);
         }
-            
+
         if (prevVersion < 82)
         {
             await this.Get<V82_Migration>().MigrateDatabaseAsync(this.DbAccess);

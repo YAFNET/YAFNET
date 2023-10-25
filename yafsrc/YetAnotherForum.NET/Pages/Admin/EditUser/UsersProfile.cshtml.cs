@@ -60,7 +60,6 @@ public class UsersProfileModel : AdminPage
     /// <summary>
     /// Gets or sets the User Data.
     /// </summary>
-    
     public Tuple<User, AspNetUsers, Rank, VAccess> EditUser { get; set; }
 
     /// <summary>
@@ -91,7 +90,6 @@ public class UsersProfileModel : AdminPage
     /// <value>
     /// The current Culture information.
     /// </value>
-    
     private CultureInfo CurrentCultureInfo {
         get {
             if (this.currentCultureInfo != null)
@@ -259,7 +257,7 @@ public class UsersProfileModel : AdminPage
         {
             this.PageBoardContext.SessionNotify(
                 this.GetTextFormatted("FIELD_TOOLONG", this.GetText("EDIT_PROFILE", "OCCUPATION"), 400),
-                MessageTypes.warning); 
+                MessageTypes.warning);
             return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
         }
 

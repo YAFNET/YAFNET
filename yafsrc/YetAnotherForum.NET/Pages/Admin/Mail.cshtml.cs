@@ -52,7 +52,7 @@ public class MailModel : AdminPage
     public List<SelectListItem> List { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="MailModel"/> class. 
+    /// Initializes a new instance of the <see cref="MailModel"/> class.
     /// </summary>
     public MailModel()
         : base("ADMIN_MAIL", ForumPages.Admin_Mail)

@@ -38,7 +38,7 @@ public static class StreamExtensions
     /// The the Stream.
     /// </param>
     /// <returns>
-    /// The stream to string. 
+    /// The stream to string.
     /// </returns>
     public static string AsString(this Stream theStream)
     {

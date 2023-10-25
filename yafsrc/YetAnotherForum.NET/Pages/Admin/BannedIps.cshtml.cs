@@ -49,7 +49,7 @@ public class BannedIpsModel : AdminPage
     public string SearchInput { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="BannedIpsModel"/> class. 
+    /// Initializes a new instance of the <see cref="BannedIpsModel"/> class.
     /// </summary>
     public BannedIpsModel()
         : base("ADMIN_BANNEDIP", ForumPages.Admin_BannedIps)

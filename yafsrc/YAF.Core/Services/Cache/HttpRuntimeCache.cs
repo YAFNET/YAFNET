@@ -62,8 +62,8 @@ public class HttpRuntimeCache : IDataCache
     /// The treat Cache Key.
     /// </param>
     public HttpRuntimeCache(
-        IRaiseEvent eventRaiser, 
-        IHaveLockObject haveLockObject, 
+        IRaiseEvent eventRaiser,
+        IHaveLockObject haveLockObject,
         ITreatCacheKey treatCacheKey)
     {
         this._eventRaiser = eventRaiser;
@@ -129,8 +129,8 @@ public class HttpRuntimeCache : IDataCache
     public T GetOrSet<T>(string key, Func<T> getValue, TimeSpan timeout)
     {
         return this.GetOrSetInternal(
-            key, 
-            getValue, 
+            key,
+            getValue,
             c =>
                 {
                     var cacheItemPolicy = new CacheItemPolicy

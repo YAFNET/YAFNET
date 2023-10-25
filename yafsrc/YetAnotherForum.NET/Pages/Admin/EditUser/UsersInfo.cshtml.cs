@@ -49,7 +49,6 @@ public class UsersInfoModel : AdminPage
     /// <summary>
     /// Gets or sets the User Data.
     /// </summary>
-    
     public Tuple<User, AspNetUsers, Rank, VAccess> EditUser { get; set; }
 
     /// <summary>

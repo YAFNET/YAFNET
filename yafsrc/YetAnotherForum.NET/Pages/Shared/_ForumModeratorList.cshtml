@@ -30,9 +30,9 @@
             else
             {
                 // Render Moderator PageUser Link
-                var userLink = Current.Get<IHtmlHelper>().UserLink(row.ModeratorID, 
-                    Current.BoardSettings.EnableDisplayName ? row.DisplayName : row.Name, 
-                    null, 
+                var userLink = Current.Get<IHtmlHelper>().UserLink(row.ModeratorID,
+                    Current.BoardSettings.EnableDisplayName ? row.DisplayName : row.Name,
+                    null,
                     row.Style);
 
                 content.Append(userLink.RenderToString());

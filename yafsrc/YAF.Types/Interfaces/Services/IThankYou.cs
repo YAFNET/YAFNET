@@ -49,7 +49,6 @@ public interface IThankYou
     /// <returns>
     /// Returns ThankYou Info
     /// </returns>
-    
     ThankYouInfo CreateThankYou(
         string username,
         string textTag,
@@ -74,7 +73,6 @@ public interface IThankYou
     /// <returns>
     /// Returns ThankYou Info
     /// </returns>
-    
     ThankYouInfo GetThankYou(
         string username,
         string textTag,

@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Utilities;
 
 using System;
@@ -43,7 +44,6 @@ public static class SystemInfo
     /// <summary>
     /// Gets Processors.
     /// </summary>
-    
     public static string Processors => Environment.ProcessorCount.ToString();
 
     /// <summary>

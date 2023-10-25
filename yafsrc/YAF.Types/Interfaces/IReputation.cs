@@ -57,7 +57,6 @@ public interface IReputation
     /// </summary>
     /// <param name="percentage">The percentage.</param>
     /// <returns>Returns the Text for the Current Value</returns>
-    
     string GetReputationBarText(float percentage);
 
     /// <summary>
@@ -65,7 +64,6 @@ public interface IReputation
     /// </summary>
     /// <param name="percentage">The percentage.</param>
     /// <returns>Returns the Color for the Current Value</returns>
-    
     string GetReputationBarColor(float percentage);
 
     /// <summary>
@@ -73,6 +71,5 @@ public interface IReputation
     /// </summary>
     /// <param name="points">The points.</param>
     /// <returns>Returns the Percentage Value</returns>
-    
     float ConvertPointsToPercentage(int points);
 }

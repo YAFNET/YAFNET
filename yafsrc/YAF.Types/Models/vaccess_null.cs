@@ -28,7 +28,7 @@ namespace YAF.Types.Models;
 ///     A class which represents the yaf_vaccess_null views.
 /// </summary>
 [Serializable]
-public partial class vaccess_null : IEntity
+public class vaccess_null : IEntity
 {
     /// <summary>
     /// Gets or sets the user identifier.

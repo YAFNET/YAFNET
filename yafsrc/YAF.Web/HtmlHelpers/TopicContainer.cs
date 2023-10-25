@@ -72,7 +72,7 @@ public static class TopicContainerHtmlHelper
         var topicIcon = new TagBuilder("a");
 
         topicIcon.AddCssClass("topic-icon-legend-popvover");
-            
+
         topicIcon.MergeAttribute("tabindex", "0");
         topicIcon.MergeAttribute("role", "button");
         topicIcon.MergeAttribute("aria-label", "topic indicator icon");
@@ -115,18 +115,18 @@ public static class TopicContainerHtmlHelper
         var span = context.BoardSettings.ShowRelativeTime ? @"<span class=""popover-timeago"">" : "<span>";
 
         var dateTimeIcon = htmlHelper.IconBadge(
-            "calendar-day", 
+            "calendar-day",
             "clock",
             "text-secondary");
 
         topicLink.Attributes.Add(
             "data-bs-content",
-            $@"{topicStarterLink.RenderToString()}{dateTimeIcon.RenderToString()}{span}{formattedStartedDatetime}</span>");
+            $"{topicStarterLink.RenderToString()}{dateTimeIcon.RenderToString()}{span}{formattedStartedDatetime}</span>");
 
         if (topic.LastMessageID.HasValue && topic.LastPosted > lastRead)
         {
             var success = new TagBuilder("span");
-                
+
             success.AddCssClass("badge text-bg-success me-1");
 
             success.InnerHtml.Append(context.Get<ILocalization>().GetText("NEW_POSTS"));
@@ -229,7 +229,7 @@ public static class TopicContainerHtmlHelper
 
         infoLastPost.MergeAttribute(
             "data-bs-content",
-            $@"{userLast.RenderToString()}{dateTimeIcon.RenderToString()}{span}{formattedDatetime}</span>");
+            $"{userLast.RenderToString()}{dateTimeIcon.RenderToString()}{span}{formattedDatetime}</span>");
         infoLastPost.MergeAttribute("href", "#!");
         infoLastPost.MergeAttribute("data-bs-toggle", "popover");
 
@@ -413,7 +413,7 @@ public static class TopicContainerHtmlHelper
     }
 
     /// <summary>
-    /// Format the Topic Name and Add Status Icon/Text 
+    /// Format the Topic Name and Add Status Icon/Text
     /// if enabled and available
     /// </summary>
     /// <returns>

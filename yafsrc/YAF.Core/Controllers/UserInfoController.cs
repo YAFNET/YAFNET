@@ -136,7 +136,7 @@ public class UserInfo : ForumBaseController
         {
             this.Get<ILogger<UserInfo>>().Log(this.PageBoardContext.PageUserID, this, x, EventLogTypes.Information);
 
-            return Task.FromResult<ActionResult<ForumUserInfo>>(this.NotFound()); 
+            return Task.FromResult<ActionResult<ForumUserInfo>>(this.NotFound());
         }
     }
 }

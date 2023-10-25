@@ -47,7 +47,7 @@ public class NntpForumsModel : AdminPage
     public List<Tuple<NntpForum, NntpServer, Forum>> List { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="NntpForumsModel"/> class. 
+    /// Initializes a new instance of the <see cref="NntpForumsModel"/> class.
     /// </summary>
     public NntpForumsModel()
         : base("ADMIN_NNTPFORUMS", ForumPages.Admin_NntpForums)

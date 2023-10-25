@@ -74,7 +74,7 @@ public class TestDataModel : AdminPage
     public List<SelectListItem> TopicPriorities { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="TestDataModel"/> class. 
+    /// Initializes a new instance of the <see cref="TestDataModel"/> class.
     /// </summary>
     public TestDataModel()
         : base("ADMIN_TESTDATA", ForumPages.Admin_TestData)

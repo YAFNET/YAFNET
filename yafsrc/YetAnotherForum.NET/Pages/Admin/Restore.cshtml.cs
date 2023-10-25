@@ -63,7 +63,7 @@ public class RestoreModel : AdminPage
     public SelectList MessagesPageSizeList { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RestoreModel"/> class. 
+    /// Initializes a new instance of the <see cref="RestoreModel"/> class.
     /// </summary>
     public RestoreModel()
         : base("ADMIN_RESTORE", ForumPages.Admin_Restore)
@@ -82,8 +82,7 @@ public class RestoreModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public void OnGet(int p, int p2) 
-            
+    public void OnGet(int p, int p2)
     {
         this.BindData(p, p2);
     }

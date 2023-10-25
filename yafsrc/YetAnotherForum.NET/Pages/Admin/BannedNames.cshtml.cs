@@ -48,7 +48,7 @@ public class BannedNamesModel : AdminPage
     public string SearchInput{ get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="BannedNamesModel"/> class. 
+    /// Initializes a new instance of the <see cref="BannedNamesModel"/> class.
     /// </summary>
     public BannedNamesModel()
         : base("ADMIN_BANNEDNAME", ForumPages.Admin_BannedNames)

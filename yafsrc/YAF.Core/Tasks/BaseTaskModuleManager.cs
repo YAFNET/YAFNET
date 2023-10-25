@@ -46,13 +46,11 @@ public abstract class BaseTaskModuleManager : ITaskModuleManager
     /// <summary>
     ///     All the names of tasks running.
     /// </summary>
-    
     public virtual IList<string> TaskManagerInstances => taskManager.Keys.ToList();
 
     /// <summary>
     ///     Gets TaskManagerSnapshot.
     /// </summary>
-    
     public virtual IDictionary<string, IBackgroundTask> TaskManagerSnapshot
     {
         get
@@ -73,7 +71,7 @@ public abstract class BaseTaskModuleManager : ITaskModuleManager
     public virtual bool AreTasksRunning(string[] instanceName)
     {
         var isRunning = false;
-            
+
         foreach (var s in instanceName)
         {
             isRunning = this.TryGetTask(s, out var task) && task.IsRunning;

@@ -42,7 +42,7 @@ public class EditBBCodeModel : AdminPage
     public InputModel Input { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="EditBBCodeModel"/> class. 
+    /// Initializes a new instance of the <see cref="EditBBCodeModel"/> class.
     /// </summary>
     public EditBBCodeModel()
         : base("ADMIN_BBCODE_EDIT", ForumPages.Admin_EditBBCode)

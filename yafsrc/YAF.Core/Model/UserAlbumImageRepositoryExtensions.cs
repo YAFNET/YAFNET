@@ -146,7 +146,7 @@ public static class UserAlbumImageRepositoryExtensions
             .Where<UserAlbumImage, UserAlbum>((image, userAlbum) => userAlbum.UserID == userId)
             .OrderByDescending<UserAlbumImage>(item => item.ID).Page(pageIndex + 1, pageSize);
 
-        return repository.DbAccess.Execute(db => db.Connection.Select(expression)); 
+        return repository.DbAccess.Execute(db => db.Connection.Select(expression));
     }
 
     /// <summary>

@@ -9,7 +9,7 @@
 
 @inject BoardContext Current
 
-@{ 
+@{
     var tagsList = Current.GetRepository<TopicTag>().List(Current.PageTopicID);
 }
 

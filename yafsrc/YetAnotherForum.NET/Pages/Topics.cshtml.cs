@@ -198,7 +198,7 @@ public class TopicsModel : ForumPage
                 w => w.ForumID == this.PageBoardContext.PageForumID
                      && w.UserID == this.PageBoardContext.PageUserID);
 
-            this.PageBoardContext.Notify(this.GetText("INFO_UNWATCH_FORUM"), MessageTypes.success); 
+            this.PageBoardContext.Notify(this.GetText("INFO_UNWATCH_FORUM"), MessageTypes.success);
         }
         else
         {

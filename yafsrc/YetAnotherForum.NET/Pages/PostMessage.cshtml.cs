@@ -348,8 +348,10 @@ public class PostMessageModel : ForumPage
                     out var spamResult))
             {
                 var description =
-                    $@"Spam Check detected possible SPAM ({spamResult}) Original message: [{this.Input.Editor}]
-                                 posted by PageUser: {(this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName())}";
+                    $"""
+                     Spam Check detected possible SPAM ({spamResult}) Original message: [{this.Input.Editor}]
+                                                      posted by PageUser: {(this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName())}
+                     """;
 
                 switch (this.PageBoardContext.BoardSettings.SpamPostHandling)
                 {

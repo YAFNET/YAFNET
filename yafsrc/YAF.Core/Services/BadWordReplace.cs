@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Services;
 
 using System;
@@ -108,7 +109,6 @@ public class BadWordReplace : IBadWordReplace, IHaveServiceLocator
     /// <exception cref="Exception">
     /// <c>Exception</c>.
     /// </exception>
-    
     public string Replace(string searchText)
     {
         if (searchText.IsNotSet())

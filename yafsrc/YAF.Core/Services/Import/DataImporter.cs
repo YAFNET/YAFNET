@@ -460,14 +460,14 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
 
         if (row.Table.Columns.Contains("Gender") && ((string)row["Gender"]).IsSet())
         {
-            var _ = int.TryParse((string)row["Gender"], out var gender);
+            _ = int.TryParse((string)row["Gender"], out var gender);
 
             userProfile.Gender = gender;
         }
 
         if (row.Table.Columns.Contains("Birthday") && ((string)row["Birthday"]).IsSet())
         {
-            var _ = DateTime.TryParse((string)row["Birthday"], out var userBirthdate);
+            _ = DateTime.TryParse((string)row["Birthday"], out var userBirthdate);
 
             if (userBirthdate > DateTimeHelper.SqlDbMinTime())
             {
@@ -584,7 +584,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
 
         if (row.Table.Columns.Contains("Timezone") && ((string)row["Timezone"]).IsSet())
         {
-            var _ = int.TryParse((string)row["Timezone"], out timeZone);
+            _ = int.TryParse((string)row["Timezone"], out timeZone);
         }
 
         var autoWatchTopicsEnabled = BoardContext.Current.BoardSettings.DefaultNotificationSetting

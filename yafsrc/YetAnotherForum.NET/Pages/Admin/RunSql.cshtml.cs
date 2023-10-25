@@ -43,7 +43,7 @@ public class RunSqlModel : AdminPage
     public string Result { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="RunSqlModel"/> class. 
+    /// Initializes a new instance of the <see cref="RunSqlModel"/> class.
     /// </summary>
     public RunSqlModel()
         : base("ADMIN_RUNSQL", ForumPages.Admin_RunSql)

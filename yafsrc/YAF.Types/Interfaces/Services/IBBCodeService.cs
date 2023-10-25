@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Interfaces.Services;
 
 using System.Collections.Generic;
@@ -51,22 +52,6 @@ public interface IBBCodeService
     /// Returns the formatted Message.
     /// </returns>
     string FormatMessageWithCustomBBCode(string message, MessageFlags flags, int? displayUserId, int? messageId);
-
-    /// <summary>
-    /// Converts a message containing BBCode to HTML appropriate for editing in a rich text editor.
-    /// </summary>
-    /// <remarks>
-    /// quotes are not converted to HTML.  "[quote]...[/quote]" will remain in the string 
-    ///   returned, as to appear in plain text in rich text editors.
-    /// </remarks>
-    /// <param name="message">
-    /// String containing the body of the message to convert
-    /// </param>
-    /// <returns>
-    /// The converted text
-    /// </returns>
-    //[Obsolete]
-    //string ConvertBBCodeToHtmlForEdit(string message);
 
     /// <summary>
     /// Converts a message containing HTML to BBCode for editing.

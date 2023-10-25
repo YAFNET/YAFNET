@@ -9,7 +9,7 @@
 
 @{
     ViewBag.CdvVersion = Current.BoardSettings.CdvVersion;
-    
+
     #if DEBUG
     ViewBag.ForumJs = Current.CurrentForumPage.IsAdminPage ? "forumAdminExtensions" : "forumExtensions";
     #else

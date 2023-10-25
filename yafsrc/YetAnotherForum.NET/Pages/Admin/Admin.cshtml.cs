@@ -91,7 +91,7 @@ public class AdminModel : AdminPage
     public SelectList UnverifiedPageSizeList { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="AdminModel"/> class. 
+    /// Initializes a new instance of the <see cref="AdminModel"/> class.
     /// </summary>
     public AdminModel()
         : base("ADMIN_ADMIN", ForumPages.Admin_Admin)
@@ -330,7 +330,7 @@ public class AdminModel : AdminPage
 
         var pager = new Paging {
                                    CurrentPageIndex = p2,
-                                   PageSize = this.Input.UnverifiedPageSize, 
+                                   PageSize = this.Input.UnverifiedPageSize,
                                    Count = unverifiedUsers.Count
                                };
 

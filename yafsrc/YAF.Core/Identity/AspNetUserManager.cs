@@ -184,7 +184,7 @@ public class AspNetUsersManager : UserManager<AspNetUsers>
     /// The role Name.
     /// </param>
     public void AddToRole(AspNetUsers user, string roleName)
-    { 
+    {
         this.AddToRoleAsync(user, roleName);
     }
 

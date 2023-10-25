@@ -200,7 +200,7 @@ public static class CategoryListHelpers
     /// <summary>
     /// Get moderators.
     /// </summary>
-    /// <param name="^^^^^^per">
+    /// <param name="htmlHelper">
     /// The html helper.
     /// </param>
     /// <param name="item">

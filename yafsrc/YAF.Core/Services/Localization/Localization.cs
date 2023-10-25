@@ -74,7 +74,7 @@ public class Localization : ILocalization
     private Localizer localizer;
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Localization"/> class. 
+    /// Initializes a new instance of the <see cref="Localization"/> class.
     ///   Initializes a new instance of the <see cref="YAF.Core"/> class.
     /// </summary>
     public Localization()
@@ -82,7 +82,7 @@ public class Localization : ILocalization
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Localization"/> class. 
+    /// Initializes a new instance of the <see cref="Localization"/> class.
     /// Initializes a new instance of the <see cref="YAF.Core"/> class.
     /// </summary>
     /// <param name="transPage">
@@ -122,7 +122,6 @@ public class Localization : ILocalization
     /// <summary>
     ///   Gets LanguageCode.
     /// </summary>
-    
     public string LanguageCode =>
         this.localizer != null
             ? this.localizer.CurrentCulture.TwoLetterISOLanguageName
@@ -158,7 +157,6 @@ public class Localization : ILocalization
     /// <remarks>
     /// If current localization culture is neutral, it's not used in formatting.
     /// </remarks>
-    
     public string FormatDateTime(string format, DateTime date)
     {
         return this.Culture.IsNeutralCulture ? date.ToString(format) : date.ToString(format, this.Culture);
@@ -251,7 +249,7 @@ public class Localization : ILocalization
     }
 
     /// <summary>
-    /// Gets the attribute encoded text. 
+    /// Gets the attribute encoded text.
     /// </summary>
     /// <param name="text">
     /// The text.
@@ -442,7 +440,7 @@ public class Localization : ILocalization
     {
         return this.GetLocalizedTextInternal(page, tag).IsSet();
     }
-        
+
     /// <summary>
     /// Formats a localized string -- but verifies the parameter count matches
     /// </summary>

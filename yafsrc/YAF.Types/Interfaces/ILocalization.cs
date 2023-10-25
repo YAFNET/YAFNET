@@ -21,10 +21,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Interfaces;
 
 using System.Collections.Generic;
 using System.Globalization;
+
 using YAF.Types.Objects.Language;
 
 /// <summary>
@@ -148,7 +150,7 @@ public interface ILocalization
     string GetText(string text);
 
     /// <summary>
-    /// Gets the attribute encoded text. 
+    /// Gets the attribute encoded text.
     /// </summary>
     /// <param name="text">
     /// The text.

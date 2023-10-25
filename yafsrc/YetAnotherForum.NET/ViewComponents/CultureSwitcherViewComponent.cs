@@ -36,7 +36,7 @@ using YAF.Types.Objects.Model;
 public class CultureSwitcherViewComponent : ViewComponent
 {
     private readonly IOptions<RequestLocalizationOptions> localizationOptions;
-   
+
     public CultureSwitcherViewComponent(IOptions<RequestLocalizationOptions> localizationOptions)
     {
         this.localizationOptions = localizationOptions;

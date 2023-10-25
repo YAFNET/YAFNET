@@ -140,8 +140,10 @@ public class NotifyController : ForumBaseController
 
                     var notify = activity.Notification ? "text-success" : "text-secondary";
 
-                    iconLabel.InnerHtml.AppendHtml($@"<i class=""fas fa-circle fa-stack-2x {notify}""></i>
-                                        <i class=""fas fa-{icon} fa-stack-1x fa-inverse""></i>");
+                    iconLabel.InnerHtml.AppendHtml($"""
+                                                    <i class="fas fa-circle fa-stack-2x {notify}"></i>
+                                                                                            <i class="fas fa-{icon} fa-stack-1x fa-inverse"></i>
+                                                    """);
 
                     messageHolder.AppendHtml(iconLabel);
 

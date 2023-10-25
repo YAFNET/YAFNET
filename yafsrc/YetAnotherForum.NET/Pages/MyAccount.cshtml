@@ -201,8 +201,8 @@
                                 var icon = string.Empty;
                                 var title = string.Empty;
 
-                                var url = activity.Item2.ID is not 0 ? 
-                                              Model.Get<LinkBuilder>().GetTopicLink(activity.Item2.ID, activity.Item2.TopicName) : 
+                                var url = activity.Item2.ID is not 0 ?
+                                              Model.Get<LinkBuilder>().GetTopicLink(activity.Item2.ID, activity.Item2.TopicName) :
                                               "";
 
                                 if (activity.Item1.ActivityFlags.CreatedTopic)

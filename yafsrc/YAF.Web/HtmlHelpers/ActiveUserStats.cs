@@ -72,7 +72,7 @@ public static class ActiveUserStatsHtmlHelper
                                                   context.BoardSettings.ShowCrawlersInActiveList);
         if (canViewActive && (showGuestTotal || activeMembers > 0 && activeGuests <= 0))
         {
-            // always show active users...       
+            // always show active users...
             var link = new TagBuilder("a");
 
             link.MergeAttribute("href", context.Get<LinkBuilder>().GetLink(ForumPages.ActiveUsers, new { v = 0 }));

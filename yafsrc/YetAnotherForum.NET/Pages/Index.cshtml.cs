@@ -98,7 +98,7 @@ public class IndexModel : ForumPage
 
         this.BindData();
     }
-    
+
     /// <summary>
     /// Load More Forums and Categories
     /// </summary>

@@ -90,7 +90,7 @@
                                 <select asp-for="ThemeMode" class="select2-image-select">
                                     @foreach (var item in Model.ThemeModes)
                                     {
-                                        var customProperty = $@"{{ ""label"": ""<i class='far fa-{item.Group.Name} fa-fw text-secondary me-1'></i>{item.Text}"" }}";
+                                        var customProperty = $$"""{ "label": "<i class='far fa-{{item.Group.Name}} fa-fw text-secondary me-1'></i>{{item.Text}}" }""";
 
                                         if (item.Selected)
                                         {

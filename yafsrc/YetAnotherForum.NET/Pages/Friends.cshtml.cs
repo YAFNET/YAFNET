@@ -144,7 +144,6 @@ public class FriendsModel : ForumPageRegistered
         return this.Get<LinkBuilder>().Redirect(ForumPages.Friends);
     }
 
-
     /// <summary>
     /// Accept all friend requests
     /// </summary>
@@ -216,7 +215,7 @@ public class FriendsModel : ForumPageRegistered
         var pager = new Paging { CurrentPageIndex = this.PageBoardContext.PageIndex, PageSize = this.Size, Count = this.ListView.Count};
 
         this.ListView = friends.GetPaged(pager).ToList();
-        
+
         this.Header = mode switch {
             FriendMode.ReceivedRequests => this.GetText("FRIENDS", "PENDING_REQUESTS"),
             FriendMode.SendRequests => this.GetText("FRIENDS", "YOUR_REQUESTS"),

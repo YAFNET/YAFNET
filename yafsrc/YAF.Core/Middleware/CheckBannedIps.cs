@@ -112,7 +112,9 @@ public class CheckBannedIps : IHaveServiceLocator
             this.Get<ILogger<CheckBannedIps>>().Log(
                 null,
                 "Banned IP Blocked",
-                $@"Ending Response for Banned PageUser at IP ""{ipToCheck}""",
+                $"""
+                 Ending Response for Banned PageUser at IP "{ipToCheck}"
+                 """,
                 EventLogTypes.IpBanDetected);
         }
 

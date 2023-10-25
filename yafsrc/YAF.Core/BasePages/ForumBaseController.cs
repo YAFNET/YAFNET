@@ -67,7 +67,6 @@ public abstract class ForumBaseController : Controller, IHaveServiceLocator, IHa
     /// </summary>
     /// <param name="data">The data.</param>
     /// <returns>Returns the Encoded String</returns>
-    
     public string HtmlEncode(object data)
     {
         return data is not string ? null : this.unicodeEncoder.XSSEncode(data.ToString());

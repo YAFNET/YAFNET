@@ -56,7 +56,7 @@ public class TeamModel : ForumPage
     /// <summary>
     ///   Gets or sets the Moderators List
     /// </summary>
-    [BindProperty] 
+    [BindProperty]
     public List<SimpleModerator> CompleteMods { get; set; }
 
     /// <summary>
@@ -115,7 +115,6 @@ public class TeamModel : ForumPage
     /// <returns>
     /// Moderators List
     /// </returns>
-    
     private List<User> GetAdmins()
     {
         // get a row with user lazy data...
@@ -133,7 +132,6 @@ public class TeamModel : ForumPage
     /// <returns>
     /// Moderators List
     /// </returns>
-    
     private List<SimpleModerator> GetModerators()
     {
         var moderators = this.Get<DataBroker>().GetModerators();

@@ -31,10 +31,10 @@
                 @if (!Model.Users.NullOrEmpty())
                 {
                     var activeUsers = Model.Get<IDataCache>().GetOrSet(
-                        Constants.Cache.UsersOnlineStatus, 
+                        Constants.Cache.UsersOnlineStatus,
                         () => Model.GetRepository<Active>().List(
-                            Model.PageBoardContext.BoardSettings.ShowCrawlersInActiveList, 
-                            Model.PageBoardContext.BoardSettings.ActiveListTime), 
+                            Model.PageBoardContext.BoardSettings.ShowCrawlersInActiveList,
+                            Model.PageBoardContext.BoardSettings.ActiveListTime),
                         TimeSpan.FromMilliseconds(BoardContext.Current.BoardSettings.OnlineStatusCacheTimeout));
 
                     <ul class="list-group list-group-flush chat-list mb-0">

@@ -54,8 +54,8 @@
                                     </div>
                                     <p class="mb-1">
                                         @Html.LocalizedText("POSTMESSAGE","EDITEDBY"):
-                                        @Html.UserLink(message.EditedBy, 
-                                            Model.PageBoardContext.BoardSettings.EnableDisplayName ? message.DisplayName : message.Name, 
+                                        @Html.UserLink(message.EditedBy,
+                                            Model.PageBoardContext.BoardSettings.EnableDisplayName ? message.DisplayName : message.Name,
                                             message.Suspended,
                                             message.UserStyle)
 

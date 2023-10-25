@@ -43,7 +43,7 @@ public class EditAccessMaskModel : AdminPage
     public InputModel Input { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="EditAccessMaskModel"/> class. 
+    /// Initializes a new instance of the <see cref="EditAccessMaskModel"/> class.
     /// </summary>
     public EditAccessMaskModel()
         : base("ADMIN_EDITACCESSMASKS", ForumPages.Admin_EditAccessMask)

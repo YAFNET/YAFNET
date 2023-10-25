@@ -59,7 +59,7 @@ public class EditMedalModel : AdminPage
     [BindProperty]
     public List<Tuple<Medal, GroupMedal, Group>> GroupList { get; set; }
 
-    [BindProperty] 
+    [BindProperty]
     public List<SelectListItem> MedalImages { get; set; }
 
     /// <summary>
@@ -261,7 +261,7 @@ public class EditMedalModel : AdminPage
             this.Input.Category,
             medalImage,
             flags.BitValue);
-      
+
         // go back to medals administration
         return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Medals);
     }

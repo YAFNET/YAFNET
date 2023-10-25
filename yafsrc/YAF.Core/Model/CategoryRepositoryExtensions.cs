@@ -108,7 +108,7 @@ public static class CategoryRepositoryExtensions
         int? categoryId,
         string name,
         string categoryImage,
-        short sortOrder, 
+        short sortOrder,
         CategoryFlags flags,
         int? boardId = null)
     {

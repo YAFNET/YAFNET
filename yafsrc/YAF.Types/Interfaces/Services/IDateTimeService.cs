@@ -30,7 +30,7 @@ namespace YAF.Types.Interfaces.Services;
 public interface IDateTimeService
 {
     /// <summary>
-    ///   Gets the time zone offset 
+    ///   Gets the time zone offset
     ///   for the current user.
     /// </summary>
     TimeSpan TimeOffset { get; }
@@ -80,7 +80,7 @@ public interface IDateTimeService
     string FormatDateTimeShort(DateTime dateTime);
 
     /// <summary>
-    /// Formats a DateTime value into 07.03.2003 00:00:00 except if 
+    /// Formats a DateTime value into 07.03.2003 00:00:00 except if
     ///   the date is yesterday or today -- in which case it says that.
     /// </summary>
     /// <param name="dateTime">

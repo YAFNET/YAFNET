@@ -39,7 +39,7 @@ public static class FileHelpers
     /// Deletes an attachment from the file system. No exceptions are handled in this function.
     /// </summary>
     /// <param name="attachment">
-    /// The attachment. 
+    /// The attachment.
     /// </param>
     /// <returns>
     /// The <see cref="bool"/>.

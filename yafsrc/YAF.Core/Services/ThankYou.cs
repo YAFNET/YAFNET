@@ -69,7 +69,6 @@ public class ThankYou : IThankYou, IHaveServiceLocator
     /// <returns>
     /// Returns ThankYou Info
     /// </returns>
-    
     public ThankYouInfo CreateThankYou(
         string username,
         string textTag,
@@ -103,7 +102,6 @@ public class ThankYou : IThankYou, IHaveServiceLocator
     /// <returns>
     /// Returns ThankYou Info
     /// </returns>
-    
     public ThankYouInfo GetThankYou(
         string username,
         string textTag,
@@ -171,7 +169,6 @@ public class ThankYou : IThankYou, IHaveServiceLocator
     /// <returns>
     /// The get thanks.
     /// </returns>
-    
     private string GetThanks(int messageId)
     {
         var filler = new StringBuilder();
@@ -187,7 +184,7 @@ public class ThankYou : IThankYou, IHaveServiceLocator
 
                     // vzrus: quick fix for the incorrect link. URL rewriting don't work :(
                     filler.AppendFormat(
-                        @"<li class=""list-inline-item""><a id=""{0}"" href=""{1}""><u>{2}</u></a>",
+                        """<li class="list-inline-item"><a id="{0}" href="{1}"><u>{2}</u></a>""",
                         dr.Item2.ID,
                         this.Get<LinkBuilder>().GetUserProfileLink(dr.Item2.ID, name),
                         name);

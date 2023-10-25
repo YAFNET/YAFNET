@@ -241,16 +241,6 @@ public class DiffMatchPatch
         return diffs;
     }
 
-    /**
-         * 
-         * @param text1 
-         * @param text2 
-         * @param checkLines 
-         * @param deadline 
-         * @return 
-         */
-
-
     /// <summary>
     /// Find the differences between two texts.  Assumes that the texts do not
     /// have any common prefix or suffix.
@@ -330,27 +320,19 @@ public class DiffMatchPatch
         return this.Bisect(text1, text2, deadline);
     }
 
-    /**
-         * Do a quick line-level diff on both strings, then re-diff the parts for
-         * greater accuracy.
-         * This speedup can produce non-minimal diffs.
-         * @param text1 Old string to be diffed.
-         * @param text2 New string to be diffed.
-         * @param deadline Time when the diff should be complete by.
-         * @return List of Diff objects.
-         */
-
     /// <summary>
-    /// Lines the mode.
+    /// Do a quick line-level diff on both strings, then re-diff the parts for
+    /// greater accuracy.
+    /// This speedup can produce non-minimal diffs.
     /// </summary>
-    /// <param name="text1">The text1.</param>
-    /// <param name="text2">The text2.</param>
-    /// <param name="deadline">The deadline.</param>
-    /// <returns>List&lt;Diff&gt;.</returns>
+    /// <param name="text1">Old string to be diffed.</param>
+    /// <param name="text2">New string to be diffed.</param>
+    /// <param name="deadline">Time when the diff should be complete by.</param>
+    /// <returns>List of Diff objects.</returns>
     private List<Diff> LineMode(string text1, string text2, DateTime deadline)
     {
         // Scan the text on a line-by-line basis first.
-        var a = this.LinesToChars(text1, text2);
+        var a = LinesToChars(text1, text2);
         text1 = (string) a[0];
         text2 = (string) a[1];
         var lineArray = (List<string>) a[2];
@@ -409,23 +391,15 @@ public class DiffMatchPatch
         return diffs;
     }
 
-    /**
-         * Find the 'middle snake' of a diff, split the problem in two
-         * and return the recursively constructed diff.
-         * See Myers 1986 paper: An O(ND) Difference Algorithm and Its Variations.
-         * @param text1 Old string to be diffed.
-         * @param text2 New string to be diffed.
-         * @param deadline Time at which to bail if not yet complete.
-         * @return List of Diff objects.
-         */
-
     /// <summary>
-    /// Bisects the specified text1.
+    /// Find the 'middle snake' of a diff, split the problem in two
+    /// and return the recursively constructed diff.
+    /// See Myers 1986 paper: An O(ND) Difference Algorithm and Its Variations.
     /// </summary>
-    /// <param name="text1">The text1.</param>
-    /// <param name="text2">The text2.</param>
-    /// <param name="deadline">The deadline.</param>
-    /// <returns>List&lt;Diff&gt;.</returns>
+    /// <param name="text1">Old string to be diffed.</param>
+    /// <param name="text2">New string to be diffed.</param>
+    /// <param name="deadline">Time at which to bail if not yet complete.</param>
+    /// <returns>List of Diff objects.</returns>
     protected List<Diff> Bisect(string text1, string text2, DateTime deadline)
     {
         // Cache the text lengths to prevent multiple calls.
@@ -571,26 +545,16 @@ public class DiffMatchPatch
         return diffs;
     }
 
-    /**
-         * Given the location of the 'middle snake', split the diff in two parts
-         * and recurse.
-         * @param text1 Old string to be diffed.
-         * @param text2 New string to be diffed.
-         * @param x Index of split point in text1.
-         * @param y Index of split point in text2.
-         * @param deadline Time at which to bail if not yet complete.
-         * @return LinkedList of Diff objects.
-         */
-
     /// <summary>
-    /// Bisects the split.
+    /// Given the location of the 'middle snake', split the diff in two parts
+    /// and recurse.
     /// </summary>
-    /// <param name="text1">The text1.</param>
-    /// <param name="text2">The text2.</param>
-    /// <param name="x">The x.</param>
-    /// <param name="y">The y.</param>
-    /// <param name="deadline">The deadline.</param>
-    /// <returns>List&lt;Diff&gt;.</returns>
+    /// <param name="text1">Old string to be diffed.</param>
+    /// <param name="text2">New string to be diffed.</param>
+    /// <param name="x">Index of split point in text1.</param>
+    /// <param name="y">Index of split point in text2.</param>
+    /// <param name="deadline">Time at which to bail if not yet complete.</param>
+    /// <returns>LinkedList of Diff objects.</returns>
     private List<Diff> BisectSplit(string text1, string text2, int x, int y, DateTime deadline)
     {
         var text1A = text1[..x];
@@ -606,23 +570,16 @@ public class DiffMatchPatch
         return diffs;
     }
 
-    /**
-         * Split two texts into a list of strings.  Reduce the texts to a string of
-         * hashes where each Unicode character represents one line.
-         * @param text1 First string.
-         * @param text2 Second string.
-         * @return Three element Object array, containing the encoded text1, the
-         *     encoded text2 and the List of unique strings.  The zeroth element
-         *     of the List of unique strings is intentionally blank.
-         */
-
     /// <summary>
-    /// Lineses to chars.
+    /// Split two texts into a list of strings.  Reduce the texts to a string of
+    /// * hashes where each Unicode character represents one line.
     /// </summary>
-    /// <param name="text1">The text1.</param>
-    /// <param name="text2">The text2.</param>
-    /// <returns>System.Object[].</returns>
-    protected object[] LinesToChars(string text1, string text2)
+    /// <param name="text1">First string.</param>
+    /// <param name="text2">Second string.</param>
+    /// <returns>Three element Object array, containing the encoded text1, the
+    /// encoded text2 and the List of unique strings.  The zeroth element
+    /// of the List of unique strings is intentionally blank.</returns>
+    protected static object[] LinesToChars(string text1, string text2)
     {
         var lineArray = new List<string>();
         var lineHash = new Dictionary<string, int>();
@@ -1315,7 +1272,7 @@ public class DiffMatchPatch
                     if (diffs[pointer].Text.EndsWith(diffs[pointer - 1].Text, StringComparison.Ordinal))
                     {
                         // Shift the edit over the previous equality.
-                        diffs[pointer].Text = diffs[pointer - 1].Text + diffs[pointer].Text[..(diffs[pointer].Text.Length - diffs[pointer - 1].Text.Length)];
+                        diffs[pointer].Text = diffs[pointer - 1].Text + diffs[pointer].Text[..^diffs[pointer - 1].Text.Length];
                         diffs[pointer + 1].Text = diffs[pointer - 1].Text + diffs[pointer + 1].Text;
                         diffs.Splice(pointer - 1, 1);
                         changes = true;

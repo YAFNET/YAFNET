@@ -7,12 +7,11 @@
 
 @inject BoardContext Current
 
-@{ 
+@{
     var topicsList = Current.Get<ISearch>().SearchSimilar(
         Current.PageTopicID.ToString(),
         Current.PageTopic.TopicName,
         "Topic").Take(5).ToList();
-
 }
 
 @if (!topicsList.NullOrEmpty())
@@ -26,8 +25,6 @@
                 
                 @foreach (var topic in topicsList)
                 {
-                    var iconBadge = Html.IconBadge("calendar-day", "clock");
-
                     <li class="list-group-item">
                         <a href="@(topic.TopicUrl)">
                             <strong>@Html.HtmlEncode(Current.Get<IBadWordReplace>().Replace(topic.Topic))</strong>

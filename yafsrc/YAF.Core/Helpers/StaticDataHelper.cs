@@ -185,7 +185,7 @@ public static class StaticDataHelper
 
         // Get all language files info
         var dir = new DirectoryInfo(Path.Combine(webRootPath, "languages"));
-        
+
         var files = dir.GetFiles("*.json");
 
         var resources = new List<LanguageResource>();
@@ -483,7 +483,7 @@ public static class StaticDataHelper
         var localization = BoardContext.Current.Get<ILocalization>();
 
         var modes = EnumExtensions.GetAllItems<ThemeMode>();
-        
+
         var optionGroupLight = new SelectListGroup { Name = "sun" };
         var optionGroupDark = new SelectListGroup { Name = "moon" };
 

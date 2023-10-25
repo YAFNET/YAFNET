@@ -28,7 +28,6 @@ namespace YAF.Types.Models;
 /// A class which represents the ProfileDefinition table.
 /// </summary>
 [Serializable]
-
 [UniqueConstraint(nameof(ID))]
 public class ProfileDefinition : IEntity, IHaveID, IHaveBoardID
 {

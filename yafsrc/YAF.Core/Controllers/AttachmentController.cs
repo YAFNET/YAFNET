@@ -71,7 +71,7 @@ public class AttachmentController : ForumBaseController
                     var description = $"{attach.FileName} ({attach.Bytes / 1024} kb)";
 
                     var iconImage = attach.FileName.IsImageName()
-                                        ? $@"<img src=""{url}"" alt=""{description}"" title=""{description}"" class=""img-fluid img-thumbnail me-1 attachments-preview"" />"
+                                        ? $"""<img src="{url}" alt="{description}" title="{description}" class="img-fluid img-thumbnail me-1 attachments-preview" />"""
                                         : "<i class=\"far fa-file-alt attachment-icon\"></i>";
 
                     var attachment = new AttachmentItem

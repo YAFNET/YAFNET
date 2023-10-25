@@ -50,7 +50,7 @@ public class SpamWordsModel : AdminPage
     public string SearchInput { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="SpamWordsModel"/> class. 
+    /// Initializes a new instance of the <see cref="SpamWordsModel"/> class.
     /// </summary>
     public SpamWordsModel()
         : base("ADMIN_SPAMWORDS", ForumPages.Admin_SpamWords)
@@ -177,7 +177,6 @@ public class SpamWordsModel : AdminPage
 
         this.List = bannedList;
     }
-    
     public void OnPostDelete(int id)
     {
         this.GetRepository<Spam_Words>().DeleteById(id);

@@ -77,7 +77,6 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// <returns>
     /// Returns a string containing a forbidden BBCode or a null string
     /// </returns>
-    
     public string BBCodeForbiddenDetector(
         string stringToClear,
         string stringToMatch,
@@ -129,6 +128,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// <returns>
     /// A message string.
     /// </returns>
+    [Obsolete]
     public string CheckHtmlTags(string checkString, string acceptedTags, char delimiter)
     {
         var detectedHtmlTag = this.HtmlTagForbiddenDetector(checkString, acceptedTags, delimiter);
@@ -409,14 +409,14 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     {
         // vzrus: NNTP temporary tweaks to wipe out server hangs. Put it here as it can be in every place.
         // These are '\n\r' things related to multiline regexps.
-        var mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase, 
+        var mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase,
             TimeSpan.FromMilliseconds(100));
         for (var i = mc1.Count - 1; i >= 0; i--)
         {
             html = html.Insert(mc1[i].Index + 1, " \r");
         }
 
-        var mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase, 
+        var mc2 = Regex.Matches(html, "[^\r]\n\r\n[^\r]", RegexOptions.IgnoreCase,
             TimeSpan.FromMilliseconds(100));
         for (var i = mc2.Count - 1; i >= 0; i--)
         {

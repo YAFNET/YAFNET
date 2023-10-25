@@ -248,7 +248,7 @@ public static class IRepositoryExtensions
     /// </para>
     /// </summary>
     /// <typeparam name="T">
-    /// The Model 
+    /// The Model
     /// </typeparam>
     /// <param name="repository">
     /// The repository.

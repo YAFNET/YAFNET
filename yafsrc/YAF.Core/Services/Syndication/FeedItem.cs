@@ -21,10 +21,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Services.Syndication;
 
 using System;
 using System.ServiceModel.Syndication;
+
 using YAF.Core.Services;
 using YAF.Core.Utilities.StringUtils;
 using YAF.Types.Constants;
