@@ -1618,7 +1618,11 @@ public static class OrmLiteUtils
     /// <summary>
     /// The regex password
     /// </summary>
-    public static Regex RegexPassword = new("(Password|Pwd)=([^;,]+(,\\d+)?)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+    public static Regex RegexPassword = new(
+        "(Password|Pwd)=([^;,]+(,\\d+)?)",
+        RegexOptions.Compiled | RegexOptions.IgnoreCase,
+        TimeSpan.FromMilliseconds(100));
+
     /// <summary>
     /// Masks the password.
     /// </summary>

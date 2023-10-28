@@ -64,15 +64,8 @@
         margin-right: 50px;
         margin-left: 0;
 
+        &:before,
         &:after {
-            border-right-color: $primary;
-            right: auto;
-            left: 100%;
-            border-right-color: transparent;
-            border-left-color: $primary-bg-subtle;
-        }
-
-        &:before {
             border-right-color: $primary;
             right: auto;
             left: 100%;

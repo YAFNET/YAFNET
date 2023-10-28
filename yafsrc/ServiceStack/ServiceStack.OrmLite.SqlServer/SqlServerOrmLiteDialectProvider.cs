@@ -176,10 +176,12 @@ namespace ServiceStack.OrmLite.SqlServer
         {
             var schemaSql = " AND s.Name = {0}".SqlFmt(this, schema ?? DefaultSchema);
 
-            var sql = @"SELECT t.NAME, p.rows FROM sys.tables t INNER JOIN sys.schemas s ON t.schema_id = s.schema_id 
-                               INNER JOIN sys.indexes i ON t.OBJECT_ID = i.object_id 
-                               INNER JOIN sys.partitions p ON i.object_id = p.OBJECT_ID AND i.index_id = p.index_id
-                         WHERE t.is_ms_shipped = 0 " + schemaSql + " GROUP BY t.NAME, p.Rows";
+            var sql = """
+                      SELECT t.NAME, p.rows FROM sys.tables t INNER JOIN sys.schemas s ON t.schema_id = s.schema_id
+                                                     INNER JOIN sys.indexes i ON t.OBJECT_ID = i.object_id
+                                                     INNER JOIN sys.partitions p ON i.object_id = p.OBJECT_ID AND i.index_id = p.index_id
+                                               WHERE t.is_ms_shipped = 0
+                      """ + schemaSql + " GROUP BY t.NAME, p.Rows";
             return sql;
         }
 
@@ -1984,7 +1986,9 @@ namespace ServiceStack.OrmLite.SqlServer
 
                         while (reader.Read())
                         {
-                            results.AppendFormat(@"""{0}""", rowIndex++);
+                            results.AppendFormat("""
+                                                 "{0}"
+                                                 """, rowIndex++);
 
                             // dump all columns...
                             columnNames.ForEach(

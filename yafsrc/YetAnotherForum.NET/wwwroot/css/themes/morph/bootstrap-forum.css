@@ -14231,14 +14231,7 @@ textarea.form-control-lg {
   margin-right: 50px;
   margin-left: 0;
 }
-.end .direct-chat-text:after {
-  border-right-color: #378dfc;
-  right: auto;
-  left: 100%;
-  border-right-color: transparent;
-  border-left-color: #d7e8fe;
-}
-.end .direct-chat-text:before {
+.end .direct-chat-text:before, .end .direct-chat-text:after {
   border-right-color: #378dfc;
   right: auto;
   left: 100%;
@@ -14258,9 +14251,6 @@ textarea.form-control-lg {
   width: 45px;
 }
 
-/*!
- * Select2 v4 Bootstrap 5 theme v1.3.0
-*/
 /* ===============================
 =            Choices            =
 =============================== */

@@ -74,24 +74,6 @@ public class Command
         return endPos;
     }
 
-    //Output different format for debugging to verify command was parsed correctly
-    /// <summary>
-    /// Converts to debugstring.
-    /// </summary>
-    /// <returns>System.String.</returns>
-    public virtual string ToDebugString()
-    {
-        var sb = StringBuilderCacheAlt.Allocate();
-        foreach (var arg in Args)
-        {
-            if (sb.Length > 0)
-                sb.Append('|');
-            sb.Append(arg);
-        }
-
-        return $"[{Name}:{StringBuilderCacheAlt.ReturnAndFree(sb)}]{Suffix}";
-    }
-
     /// <summary>
     /// Returns a <see cref="System.String" /> that represents this instance.
     /// </summary>

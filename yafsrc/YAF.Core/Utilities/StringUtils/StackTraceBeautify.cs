@@ -213,7 +213,7 @@ public partial class StackTraceBeautify
                 // Frame -> Type & Method
                 var partsTypeMethod = partsFrame.Replace(partsParamList, string.Empty).Replace("\r", string.Empty);
                 var arrTypeMethod = partsTypeMethod.Split('.').ToList();
-                var method = arrTypeMethod.Last();
+                var method = arrTypeMethod[^1];
 
                 var type = partsTypeMethod.Replace($".{method}", string.Empty);
                 var stringTypeMethod =

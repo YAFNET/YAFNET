@@ -376,7 +376,7 @@ div.code-toolbar > .toolbar > .toolbar-item > span:focus {
 }
 
 /*!
- * Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2022 Fonticons, Inc.
  */
@@ -10893,30 +10893,12 @@ readers do not read off random characters that represent icons */
 }
 
 /* Extensions */
-.fa-badge-bg {
-  position: absolute;
-  right: 0%;
-  bottom: -5%;
-  font-size: 91%;
-  height: 60%;
-  width: 60%;
-  line-height: 102%;
-  text-align: center;
-}
-
 .fa-badge {
   position: absolute;
   right: 16%;
-  bottom: 26%;
+  bottom: 15%;
   font-size: 70%;
-  height: 30%;
-  width: 30%;
-  line-height: 120%;
-  text-align: center;
-}
-
-.fa-outline-inverse {
-  text-shadow: -0.12ex 0 #FFF, -0.1ex -0.1ex #FFF, 0 -0.12ex #FFF, 0.1ex -0.1ex #FFF, 0.12ex 0 #FFF, 0.1ex 0.1ex #FFF, 0 0.12ex #FFF, -0.1ex 0.1ex #FFF;
+  text-shadow: -0.12ex 0 var(--bs-light-border-subtle), -0.1ex -0.1ex var(--bs-light-border-subtle), 0 -0.12ex var(--bs-light-border-subtle), 0.1ex -0.1ex var(--bs-light-border-subtle), 0.12ex 0 var(--bs-light-border-subtle), 0.1ex 0.1ex var(--bs-light-border-subtle), 0 0.12ex var(--bs-light-border-subtle), -0.1ex 0.1ex var(--bs-light-border-subtle);
 }
 
 .fib, .fi {
@@ -12917,12 +12899,6 @@ div#UploadDialog {
   position: relative;
 }
 
-.list-group-albums img {
-  cursor: pointer;
-  max-width: 60px;
-  max-height: 80px;
-}
-
 .cookiealert {
   position: fixed;
   bottom: 0;
@@ -12947,14 +12923,6 @@ div#UploadDialog {
   opacity: 1;
   -webkit-transform: translateY(0);
           transform: translateY(0);
-}
-
-.cke_button__attachments_icon,
-.cke_button__bbcodeselector_icon,
-.cke_button__highlight_icon,
-.cke_button__vimeo_icon,
-.cke_button__instagram_icon {
-  background-size: auto !important;
 }
 
 #YafBody {

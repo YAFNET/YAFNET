@@ -164,12 +164,6 @@ public class AppTasks
     }
 
     /// <summary>
-    /// Determines whether [is run as application task].
-    /// </summary>
-    /// <returns><c>true</c> if [is run as application task]; otherwise, <c>false</c>.</returns>
-    public static bool IsRunAsAppTask() => GetAppTaskCommands() != null;
-
-    /// <summary>
     /// Rans as task.
     /// </summary>
     /// <returns>System.Nullable&lt;System.Int32&gt;.</returns>
@@ -262,5 +256,4 @@ public class AppTasks
         var desc = nextRun.GetDescription() ?? nextRun.FirstAttribute<NotesAttribute>()?.Notes;
         return desc;
     }
-
 }

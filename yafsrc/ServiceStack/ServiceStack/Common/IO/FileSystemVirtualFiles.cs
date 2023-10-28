@@ -294,30 +294,4 @@ public class FileSystemVirtualFiles
         }
     }
 
-    /// <summary>
-    /// Asserts the directory.
-    /// </summary>
-    /// <param name="dirPath">The dir path.</param>
-    /// <param name="timeoutMs">The timeout ms.</param>
-    /// <returns>System.String.</returns>
-    public static string AssertDirectory(string dirPath, int timeoutMs = 1000)
-    {
-        if (string.IsNullOrEmpty(dirPath))
-            return null;
-
-        try
-        {
-            ExecUtils.RetryOnException(() =>
-                {
-                    if (!Directory.Exists(dirPath))
-                        Directory.CreateDirectory(dirPath);
-                }, TimeSpan.FromMilliseconds(timeoutMs));
-            return dirPath;
-        }
-        catch (TimeoutException e)
-        {
-            throw e.InnerException ?? e;
-        }
-    }
-
 }

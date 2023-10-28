@@ -13729,14 +13729,7 @@ a.list-group-item-danger.active:hover, a.list-group-item-danger.active:focus {
   margin-right: 50px;
   margin-left: 0;
 }
-.end .direct-chat-text:after {
-  border-right-color: #158cba;
-  right: auto;
-  left: 100%;
-  border-right-color: transparent;
-  border-left-color: #d0e8f1;
-}
-.end .direct-chat-text:before {
+.end .direct-chat-text:before, .end .direct-chat-text:after {
   border-right-color: #158cba;
   right: auto;
   left: 100%;
@@ -13756,9 +13749,6 @@ a.list-group-item-danger.active:hover, a.list-group-item-danger.active:focus {
   width: 45px;
 }
 
-/*!
- * Select2 v4 Bootstrap 5 theme v1.3.0
-*/
 /* ===============================
 =            Choices            =
 =============================== */

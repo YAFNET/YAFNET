@@ -13561,14 +13561,7 @@ label {
   margin-right: 50px;
   margin-left: 0;
 }
-.end .direct-chat-text:after {
-  border-right-color: #d9230f;
-  right: auto;
-  left: 100%;
-  border-right-color: transparent;
-  border-left-color: #f7d3cf;
-}
-.end .direct-chat-text:before {
+.end .direct-chat-text:before, .end .direct-chat-text:after {
   border-right-color: #d9230f;
   right: auto;
   left: 100%;
@@ -13588,9 +13581,6 @@ label {
   width: 45px;
 }
 
-/*!
- * Select2 v4 Bootstrap 5 theme v1.3.0
-*/
 /* ===============================
 =            Choices            =
 =============================== */

@@ -783,7 +783,7 @@ public class DiffMatchPatch
         if (this.DiffTimeout <= 0)
         {
             // Don't risk returning a non-optimal diff if we have unlimited time.
-            return null;
+            return Array.Empty<string>();
         }
 
         var longtext = text1.Length > text2.Length ? text1 : text2;
@@ -856,7 +856,9 @@ public class DiffMatchPatch
             bestShortTextB = shortText[(j + prefixLength)..];
         }
 
-        return bestCommon.Length * 2 >= longtext.Length ? new[] {bestLongtextA, bestLongtextB, bestShortTextA, bestShortTextB, bestCommon} : null;
+        return bestCommon.Length * 2 >= longtext.Length
+                   ? new[] { bestLongtextA, bestLongtextB, bestShortTextA, bestShortTextB, bestCommon }
+                   : Array.Empty<string>();
     }
 
     /// <summary>
