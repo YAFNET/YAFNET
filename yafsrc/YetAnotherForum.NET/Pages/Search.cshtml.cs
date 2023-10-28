@@ -143,7 +143,7 @@ public class SearchModel : ForumPage
         if (doSearch)
         {
             this.PageBoardContext.RegisterJsBlock(
-                JavaScriptBlocks.DoSearchJs());
+                JavaScriptBlocks.DoSearchJs);
         }
 
         return this.Page();
