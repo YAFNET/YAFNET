@@ -143,7 +143,7 @@
         Include="$(MSBuildProjectDirectory)\**\*.css"
         Exclude="@(DefaultExclude)"
       />
-      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.html" Exclude="$(MSBuildProjectDirectory)\node_modules\**;$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
+      <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.html" Exclude="$(MSBuildProjectDirectory)\Content\bootstrap-email\templates\*.html;$(MSBuildProjectDirectory)\node_modules\**;$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.htm" Exclude="$(MSBuildProjectDirectory)\node_modules\**;$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.xml" Exclude="$(MSBuildProjectDirectory)\node_modules\**;$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.aspx" Exclude="$(MSBuildProjectDirectory)\**\_source\**;$(MSBuildProjectDirectory)\**\obj\**;$(MSBuildProjectDirectory)\**\_ReSharper*\**;$(MSBuildProjectDirectory)\**\bin\**;$(MSBuildProjectDirectory)\**\*.zip;$(MSBuildProjectDirectory)\**\Thumbs.db;" />
@@ -158,7 +158,7 @@
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\*.config" Exclude="$(MSBuildProjectDirectory)\packages.config;$(MSBuildProjectDirectory)\web.config;$(MSBuildProjectDirectory)\recommended.web.config" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.browser" />
       <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.mdf" />
-	  <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.json" Exclude="$(MSBuildProjectDirectory)\node_modules\**;$(MSBuildProjectDirectory)\**\package.json;$(MSBuildProjectDirectory)\**\package-lock.json" />
+	  <yafInstall-Include Include="$(MSBuildProjectDirectory)\**\*.json" Exclude="$(MSBuildProjectDirectory)\Content\themes\**\*.*;$(MSBuildProjectDirectory)\node_modules\**;$(MSBuildProjectDirectory)\**\package.json;$(MSBuildProjectDirectory)\**\package-lock.json" />
     </ItemGroup>
 
     <ItemGroup>
