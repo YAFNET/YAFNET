@@ -27,7 +27,6 @@ namespace YAF.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using System.Web;
 
 /// <summary>
 /// YAF FormatMessage provides functions related to formatting the post messages.
@@ -94,12 +93,12 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
                     var bbCode = tag.Replace("/", string.Empty).Replace("]", string.Empty);
 
                     // If tag contains attributes kill them for checking
-                    if (bbCode.Contains("="))
+                    if (bbCode.Contains('='))
                     {
                         bbCode = bbCode.Remove(bbCode.IndexOf("=", StringComparison.Ordinal));
                     }
 
-                    if (codes.Any(allowedTag => bbCode.ToLower().Equals(allowedTag.ToLower())))
+                    if (Array.Exists(codes, allowedTag => bbCode.ToLower().Equals(allowedTag.ToLower())))
                     {
                         return;
                     }
@@ -111,38 +110,6 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
                 });
 
         return forbiddenTagList.ToDelimitedString(",");
-    }
-
-    /// <summary>
-    /// The method used to get response string, if a forbidden tag is detected.
-    /// </summary>
-    /// <param name="checkString">
-    /// The string to check.
-    /// </param>
-    /// <param name="acceptedTags">
-    /// The list of accepted tags.
-    /// </param>
-    /// <param name="delimiter">
-    /// The delimiter in a tags list.
-    /// </param>
-    /// <returns>
-    /// A message string.
-    /// </returns>
-    [Obsolete]
-    public string CheckHtmlTags(string checkString, string acceptedTags, char delimiter)
-    {
-        var detectedHtmlTag = this.HtmlTagForbiddenDetector(checkString, acceptedTags, delimiter);
-
-        if (detectedHtmlTag.IsSet() && detectedHtmlTag != "ALL")
-        {
-            return this.Get<ILocalization>().GetTextFormatted(
-                "HTMLTAG_WRONG",
-                HttpUtility.HtmlEncode(detectedHtmlTag));
-        }
-
-        return detectedHtmlTag == "ALL"
-                   ? this.Get<ILocalization>().GetText("HTMLTAG_FORBIDDEN")
-                   : string.Empty;
     }
 
     /// <summary>

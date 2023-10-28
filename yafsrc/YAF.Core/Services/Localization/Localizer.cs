@@ -86,27 +86,7 @@ public class Localizer
         Func<Resource, bool> predicate)
     {
         var pagePointer =
-            this.localizationLanguageResources.Resources.Page.FirstOrDefault(p => p.Name.ToUpper().Equals(this.currentPage));
-
-        return pagePointer != null
-                   ? pagePointer.Resource.Where(predicate)
-                   : this.localizationLanguageResources.Resources.Page.SelectMany(p => p.Resource).Where(predicate);
-    }
-
-    /// <summary>
-    /// The get nodes using query.
-    /// </summary>
-    /// <param name="predicate">
-    /// The predicate.
-    /// </param>
-    /// <returns>
-    /// The Nodes.
-    /// </returns>
-    public IEnumerable<Resource> GetCountryNodesUsingQuery(
-        Func<Resource, bool> predicate)
-    {
-        var pagePointer =
-            this.localizationLanguageResources.Resources.Page.FirstOrDefault(p => p.Name.ToUpper().Equals(this.currentPage));
+            this.localizationLanguageResources.Resources.Page.Find(p => p.Name.ToUpper().Equals(this.currentPage));
 
         return pagePointer != null
                    ? pagePointer.Resource.Where(predicate)
@@ -126,13 +106,13 @@ public class Localizer
         tag = tag.ToUpper();
 
         var pagePointer =
-            this.localizationLanguageResources.Resources.Page.FirstOrDefault(p => p.Name.Equals(this.currentPage));
+            this.localizationLanguageResources.Resources.Page.Find(p => p.Name.Equals(this.currentPage));
 
         Resource pageResource = null;
 
         if (pagePointer != null)
         {
-            pageResource = pagePointer.Resource.FirstOrDefault(r => r.Tag.Equals(tag));
+            pageResource = pagePointer.Resource.Find(r => r.Tag.Equals(tag));
         }
 
         pageResource ??= this.localizationLanguageResources.Resources.Page.SelectMany(p => p.Resource)
@@ -245,7 +225,7 @@ public class Localizer
     {
         if (this.fileName == string.Empty || !File.Exists(this.fileName))
         {
-            throw new ApplicationException($"Invalid language file {this.fileName}");
+            throw new ArgumentException($"Invalid language file {this.fileName}");
         }
 
         var json = BoardContext.Current.Get<ILocalization>().LoadLanguageFile(this.fileName);

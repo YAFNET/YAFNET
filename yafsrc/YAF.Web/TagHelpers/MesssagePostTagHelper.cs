@@ -202,12 +202,11 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         }
         else
         {
-            if (this.CurrentMessage is not null)
+            if (this.CurrentMessage is not null && !this.MessageFlags.IsDeleted
+                                                && !this.Get<IAspNetUsersHelper>()
+                                                    .IsGuestUser(this.CurrentMessage.UserID))
             {
-                if (!this.MessageFlags.IsDeleted && !this.Get<IAspNetUsersHelper>().IsGuestUser(this.CurrentMessage.UserID))
-                {
-                    this.DisplayUserId = this.CurrentMessage.UserID;
-                }
+                this.DisplayUserId = this.CurrentMessage.UserID;
             }
 
             output.TagName = "div";

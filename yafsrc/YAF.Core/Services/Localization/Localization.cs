@@ -205,50 +205,6 @@ public class Localization : ILocalization
     }
 
     /// <summary>
-    /// The get nodes using query.
-    /// </summary>
-    /// <param name="page">
-    /// The page.
-    /// </param>
-    /// <param name="predicate">
-    /// The predicate.
-    /// </param>
-    /// <returns>
-    /// The Nodes
-    /// </returns>
-    public IEnumerable<Resource> GetCountryNodesUsingQuery(
-        string page,
-        Func<Resource, bool> predicate)
-    {
-        this.LoadTranslation();
-
-        this.localizer.SetPage(page);
-        return this.localizer.GetCountryNodesUsingQuery(predicate);
-    }
-
-    /// <summary>
-    /// The get nodes using query.
-    /// </summary>
-    /// <param name="page">
-    /// The page.
-    /// </param>
-    /// <param name="predicate">
-    /// The predicate.
-    /// </param>
-    /// <returns>
-    /// The Nodes
-    /// </returns>
-    public IEnumerable<Resource> GetRegionNodesUsingQuery(
-        string page,
-        Func<Resource, bool> predicate)
-    {
-        this.LoadTranslation();
-
-        this.localizer.SetPage(page);
-        return this.localizer.GetCountryNodesUsingQuery(predicate);
-    }
-
-    /// <summary>
     /// Gets the attribute encoded text.
     /// </summary>
     /// <param name="text">
@@ -492,44 +448,36 @@ public class Localization : ILocalization
         var isInstallPage = this.TransPage.IsSet() && this.TransPage.Equals("INSTALL");
 
 #if !DEBUG
-            if (this.localizer == null && BoardContext.Current.Get<IDataCache>().Get($"Localizer.{fileName}") != null) {
-                this.localizer = BoardContext.Current.Get<IDataCache>().Get($"Localizer.{fileName}") as Localizer;
-            }
-#endif
-        if (this.localizer == null)
+        if (BoardContext.Current.Get<IDataCache>().Get($"Localizer.{fileName}") != null)
         {
-            this.localizer = new Localizer(
-                Path.Combine(BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath, "languages", fileName),
-                !isInstallPage);
+            this.localizer = BoardContext.Current.Get<IDataCache>().Get($"Localizer.{fileName}") as Localizer;
+        }
+#endif
+
+        this.localizer = new Localizer(
+            Path.Combine(BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath, "languages", fileName),
+            !isInstallPage);
 
 #if !DEBUG
-                BoardContext.Current.Get<IDataCache>().Set($"Localizer.{fileName}", this.localizer);
+        BoardContext.Current.Get<IDataCache>().Set($"Localizer.{fileName}", this.localizer);
 #endif
-        }
 
         // If not using default language load that too
-        if (fileName.ToLower() != "english.json")
+        if (fileName.ToLower() != "english.json" && this.defaultLocale is null)
         {
 #if !DEBUG
-                if (this.defaultLocale == null &&
-                    BoardContext.Current.Get<IDataCache>().Get("DefaultLocale") != null)
-                {
-                    this.defaultLocale = BoardContext.Current.Get<IDataCache>().Get("DefaultLocale") as Localizer;
-                }
+            if (BoardContext.Current.Get<IDataCache>().Get("DefaultLocale") != null)
+            {
+                this.defaultLocale = BoardContext.Current.Get<IDataCache>().Get("DefaultLocale") as Localizer;
+            }
 #endif
 
-            if (this.defaultLocale == null)
-            {
-                this.defaultLocale = new Localizer(
-                    Path.Combine(
-                        BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath,
-                        "languages",
-                        "english.json"),
-                    !isInstallPage);
+            this.defaultLocale = new Localizer(
+                Path.Combine(BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath, "languages", "english.json"),
+                !isInstallPage);
 #if !DEBUG
-                    BoardContext.Current.Get<IDataCache>().Set("DefaultLocale",this.defaultLocale);
+            BoardContext.Current.Get<IDataCache>().Set("DefaultLocale", this.defaultLocale);
 #endif
-            }
         }
 
         try

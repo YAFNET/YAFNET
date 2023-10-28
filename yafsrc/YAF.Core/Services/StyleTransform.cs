@@ -24,6 +24,8 @@
 
 namespace YAF.Core.Services;
 
+using System;
+
 /// <summary>
 /// Transforms the style.
 /// </summary>
@@ -63,6 +65,7 @@ public class StyleTransform : IStyleTransform
     private static string GetColorOnly(string styleString)
     {
         var styleArray = styleString.Split(';');
-        return styleArray.FirstOrDefault(t => t.ToLower().Contains("color"));
+
+        return Array.Find(styleArray, t => t.ToLower().Contains("color"));
     }
 }

@@ -166,25 +166,16 @@ public class EventLogModel : AdminPage
                 icon = "radiation";
                 cssClass = "danger";
                 break;
+            case EventLogTypes.Debug:
             case EventLogTypes.Warning:
+            case EventLogTypes.Trace:
+            case EventLogTypes.SqlError:
                 icon = "exclamation-triangle";
                 cssClass = "warning";
                 break;
             case EventLogTypes.Information:
                 icon = "exclamation";
                 cssClass = "info";
-                break;
-            case EventLogTypes.Debug:
-                icon = "exclamation-triangle";
-                cssClass = "warning";
-                break;
-            case EventLogTypes.Trace:
-                icon = "exclamation-triangle";
-                cssClass = "warning";
-                break;
-            case EventLogTypes.SqlError:
-                icon = "exclamation-triangle";
-                cssClass = "warning";
                 break;
             case EventLogTypes.UserSuspended:
                 icon = "user-clock";
@@ -203,16 +194,13 @@ public class EventLogModel : AdminPage
                 cssClass = "danger";
                 break;
             case EventLogTypes.IpBanSet:
+            case EventLogTypes.IpBanDetected:
                 icon = "hand-paper";
                 cssClass = "warning";
                 break;
             case EventLogTypes.IpBanLifted:
                 icon = "slash";
                 cssClass = "success";
-                break;
-            case EventLogTypes.IpBanDetected:
-                icon = "hand-paper";
-                cssClass = "warning";
                 break;
             case EventLogTypes.SpamBotReported:
                 icon = "user-ninja";

@@ -96,7 +96,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
                                          """);
                     if (guest.Count > 1)
                     {
-                        throw new ApplicationException(
+                        throw new ArgumentException(
                             $"Found {guest.Count} possible guest users. There should be one and only one user marked as guest.");
                     }
 

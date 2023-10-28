@@ -115,7 +115,7 @@ public class GroupsModel : AdminPage
         this.BindData();
     }
 
-    public IActionResult OnPostAddNet(string role)
+    public IActionResult OnPostAdd(string role)
     {
         // save role and get its ID
         var groupFlags = new GroupFlags();
@@ -145,29 +145,6 @@ public class GroupsModel : AdminPage
 
         // re-bind data
         this.BindData();
-    }
-
-    public IActionResult OnPostAdd(string role)
-    {
-        // save role and get its ID
-        var groupFlags = new GroupFlags();
-
-        var groupId = this.GetRepository<Group>().Save(
-            null,
-            this.PageBoardContext.PageBoardID,
-            role,
-            groupFlags,
-            1,
-            null,
-            100,
-            null,
-            0,
-            null,
-            0,
-            0);
-
-        // redirect to newly created role
-        return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditGroup, new { i = groupId });
     }
 
     public void OnPostDelete(int id)

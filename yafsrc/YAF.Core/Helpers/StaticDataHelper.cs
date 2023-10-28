@@ -137,7 +137,7 @@ public static class StaticDataHelper
 
         countriesList.Add(item);
 
-        var countries = localization.GetRegionNodesUsingQuery("COUNTRY", x => x.Tag.StartsWith(string.Empty))
+        var countries = localization.GetNodesUsingQuery("COUNTRY", x => x.Tag.StartsWith(string.Empty))
             .OrderBy(c => c.Text).ToList();
 
         // vzrus: a temporary hack - it returns all tags if the page is not found
@@ -163,7 +163,7 @@ public static class StaticDataHelper
     {
         var list = new List<SelectListItem> { new(localization.GetText("COMMON", "NONE"), null) };
 
-        var countries = localization.GetCountryNodesUsingQuery("REGION", x => x.Tag.StartsWith($"RGN_{culture}_")).ToList();
+        var countries = localization.GetNodesUsingQuery("REGION", x => x.Tag.StartsWith($"RGN_{culture}_")).ToList();
 
         countries.ForEach(
             node => list.Add(new SelectListItem(node.Text, node.Tag.Replace($"RGN_{culture}_", string.Empty))));

@@ -102,7 +102,7 @@ public class AppTaskResult
     /// Gets a value indicating whether this <see cref="AppTaskResult" /> is succeeded.
     /// </summary>
     /// <value><c>true</c> if succeeded; otherwise, <c>false</c>.</value>
-    public bool Succeeded => this.Error == null && this.TasksRun.All(x => x.Error == null);
+    public bool Succeeded => this.Error == null && this.TasksRun.TrueForAll(x => x.Error == null);
 }
 
 /// <summary>

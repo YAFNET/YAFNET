@@ -68,7 +68,7 @@ public class IntermittentBackgroundTask : BaseBackgroundTask
         // we're running this thread now...
         this.IsRunning = true;
 
-        // create the timer...);
+        // create the timer
         this.intermittentTimer = new Timer(this.TimerCallback, null, this.StartDelayMs, this.RunPeriodMs);
     }
 

@@ -230,11 +230,11 @@ public class UsersAvatarModel : AdminPage
                 "Avatar",
                 new {userId = this.Input.UserId, v = DateTime.Now.Ticks.ToString()});
         }
-        else if (currentUser.Avatar.IsSet() && currentUser.Avatar.StartsWith("/"))
+        else if (currentUser.Avatar.IsSet() && currentUser.Avatar.StartsWith('/'))
         {
             if (currentUser.Avatar.Contains(this.Get<BoardFolders>().Avatars))
             {
-                var item = avatars.FirstOrDefault(x => x.Value == currentUser.Avatar);
+                var item = avatars.Find(x => x.Value == currentUser.Avatar);
 
                 if (item != null)
                 {

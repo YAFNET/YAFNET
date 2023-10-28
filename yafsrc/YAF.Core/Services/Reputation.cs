@@ -122,8 +122,7 @@ public class Reputation : IReputation, IHaveServiceLocator
 
         if (percentage > 1)
         {
-            pageName =
-                lookup.OrderBy(s => s.Key).Where(x => percentage < x.Key).Select(x => x.Value).FirstOrDefault();
+            pageName = lookup.Where(x => percentage < x.Key).OrderBy(s => s.Key).Select(x => x.Value).FirstOrDefault();
         }
 
         return this.Get<ILocalization>().GetText("REPUTATION_VALUES", pageName);

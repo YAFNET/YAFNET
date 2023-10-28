@@ -109,36 +109,6 @@ public interface ILocalization
         string page, Func<Resource, bool> predicate);
 
     /// <summary>
-    /// The get country nodes using query.
-    /// </summary>
-    /// <param name="page">
-    /// The page.
-    /// </param>
-    /// <param name="predicate">
-    /// The predicate.
-    /// </param>
-    /// <returns>
-    /// The Nodes
-    /// </returns>
-    IEnumerable<Resource> GetCountryNodesUsingQuery(
-        string page, Func<Resource, bool> predicate);
-
-    /// <summary>
-    /// The get region nodes using query.
-    /// </summary>
-    /// <param name="page">
-    /// The page.
-    /// </param>
-    /// <param name="predicate">
-    /// The predicate.
-    /// </param>
-    /// <returns>
-    /// The Nodes
-    /// </returns>
-    IEnumerable<Resource> GetRegionNodesUsingQuery(
-        string page, Func<Resource, bool> predicate);
-
-    /// <summary>
     /// Gets the Text
     /// </summary>
     /// <param name="text">

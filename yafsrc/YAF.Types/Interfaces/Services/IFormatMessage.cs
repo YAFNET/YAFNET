@@ -50,24 +50,6 @@ public interface IFormatMessage
     string BBCodeForbiddenDetector(string stringToClear, string stringToMatch, char delimiter);
 
     /// <summary>
-    /// The method used to get response string, if a forbidden tag is detected.
-    /// </summary>
-    /// <param name="checkString">
-    /// The string to check.
-    /// </param>
-    /// <param name="acceptedTags">
-    /// The list of accepted tags.
-    /// </param>
-    /// <param name="delimiter">
-    /// The delimiter in a tags list.
-    /// </param>
-    /// <returns>
-    /// A message string.
-    /// </returns>
-    [Obsolete]
-    string CheckHtmlTags(string checkString, string acceptedTags, char delimiter);
-
-    /// <summary>
     /// The format message.
     /// </summary>
     /// <param name="messageId">

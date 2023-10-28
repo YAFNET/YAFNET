@@ -150,7 +150,10 @@ public class UsersProfileModel : AdminPage
         if (this.Input.HomePage.IsSet())
         {
             // add http:// by default
-            if (!Regex.IsMatch(this.Input.HomePage.Trim(), @"^(http|https|ftp|ftps|git|svn|news)\://.*", RegexOptions.NonBacktracking))
+            if (!Regex.IsMatch(
+                    this.Input.HomePage.Trim(),
+                    @"^(http|https|ftp|ftps|git|svn|news)\://.*",
+                    RegexOptions.NonBacktracking))
             {
                 this.Input.HomePage = $"https://{this.Input.HomePage.Trim()}";
             }
@@ -158,34 +161,34 @@ public class UsersProfileModel : AdminPage
             if (!ValidationHelper.IsValidUrl(this.Input.HomePage))
             {
                 this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_HOME"), MessageTypes.warning);
-                return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
+                return this.Get<LinkBuilder>().Redirect(
+                    ForumPages.Admin_EditUser,
+                    new { u = this.Input.UserId, tab = "View3" });
             }
 
-            if (this.EditUser.Item1.NumPosts < this.PageBoardContext.BoardSettings.IgnoreSpamWordCheckPostCount)
+            // Check for spam
+            if (this.EditUser.Item1.NumPosts < this.PageBoardContext.BoardSettings.IgnoreSpamWordCheckPostCount
+                && this.Get<ISpamWordCheck>().CheckForSpamWord(this.Input.HomePage, out _))
             {
-                // Check for spam
-                if (this.Get<ISpamWordCheck>().CheckForSpamWord(this.Input.HomePage, out _))
+                switch (this.PageBoardContext.BoardSettings.BotHandlingOnRegister)
                 {
-                    switch (this.PageBoardContext.BoardSettings.BotHandlingOnRegister)
+                    // Log and Send Message to Admins
+                    case 1:
+                        this.Get<ILogger<EditProfileModel>>().Log(
+                            null,
+                            "Bot Detected",
+                            $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{userId}') after the user changed the profile Homepage url to: {this.Input.HomePage}",
+                            EventLogTypes.SpamBotDetected);
+                        break;
+                    case 2:
                     {
-                        // Log and Send Message to Admins
-                        case 1:
-                            this.Get<ILogger<EditProfileModel>>().Log(
-                                null,
-                                "Bot Detected",
-                                $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{userId}') after the user changed the profile Homepage url to: {this.Input.HomePage}",
-                                EventLogTypes.SpamBotDetected);
-                            break;
-                        case 2:
-                        {
-                            this.Get<ILogger<EditProfileModel>>().Log(
-                                null,
-                                "Bot Detected",
-                                $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{userId}') after the user changed the profile Homepage url to: {this.Input.HomePage}, user was deleted and the name, email and IP Address are banned.",
-                                EventLogTypes.SpamBotDetected);
+                        this.Get<ILogger<EditProfileModel>>().Log(
+                            null,
+                            "Bot Detected",
+                            $"Internal Spam Word Check detected a SPAM BOT: (user name : '{userName}', user id : '{userId}') after the user changed the profile Homepage url to: {this.Input.HomePage}, user was deleted and the name, email and IP Address are banned.",
+                            EventLogTypes.SpamBotDetected);
 
-                            break;
-                        }
+                        break;
                     }
                 }
             }

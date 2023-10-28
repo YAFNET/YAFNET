@@ -90,7 +90,7 @@ public static class EnumHelper
 
         if (enumType.BaseType != typeof(Enum))
         {
-            throw new ApplicationException("Enum To Dictionary conversion does not support non-enum types");
+            throw new ArgumentException("Enum To Dictionary conversion does not support non-enum types");
         }
 
         var list = new Dictionary<TValue, string>();

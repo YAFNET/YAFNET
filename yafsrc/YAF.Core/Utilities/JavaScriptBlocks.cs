@@ -215,30 +215,6 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
-    /// The cookie consent JS.
-    /// </summary>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    public static string CookieConsentJs()
-    {
-        return """
-               function addConsentCookie(name, value, days) {
-                       var expires;
-               
-                       if (days) {
-                           var date = new Date();
-                           date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                           expires = "; expires=" + date.toGMTString();
-                       } else {
-                           expires = "";
-                       }
-                       document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value) + expires + "; path=/";
-                   }
-               """;
-    }
-
-    /// <summary>
     /// Java Script events for Album pages.
     /// </summary>
     /// <param name="albumEmptyTitle">
@@ -1110,22 +1086,6 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
-    /// Select load js.
-    /// </summary>
-    public const string ChoicesLoadJs = """
-                                           if (document.querySelector(".select2-select") != null) {
-                                           const choice = new window.Choices(document.querySelector(".select2-select"), {
-                                              allowHTML: true,
-                                              shouldSort: false,
-                                              placeholderValue: document.querySelector(".select2-select").getAttribute("placeholder"),
-                                              classNames: {
-                                                  containerOuter: "choices w-100"
-                                              }
-                                          });
-                                          }
-                                          """;
-
-    /// <summary>
     /// Gets the Passwords strength checker Java Script.
     /// </summary>
     /// <param name="passwordClientId">The password client identifier.</param>
@@ -1261,17 +1221,6 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
-    /// Gets the Do Search java script.
-    /// </summary>
-    /// <returns>
-    /// Returns the do Search Java script String
-    /// </returns>
-    public static string DoSearchJs()
-    {
-        return "document.addEventListener(\"DOMContentLoaded\", function() { getSearchResultsData(0);});";
-    }
-
-    /// <summary>
     /// Renders the Forum Icon Legend Popover JS.
     /// </summary>
     /// <param name="content">
@@ -1371,40 +1320,6 @@ public static class JavaScriptBlocks
                  	});
                  });
                  """;
-    }
-
-    /// <summary>
-    /// Form Validator JS.
-    /// </summary>
-    /// <returns>
-    /// Returns the JS String
-    /// </returns>
-    public static string FormValidatorJs()
-    {
-        return """
-               document.querySelectorAll(".needs-validation").forEach(form => {
-                   form.addEventListener("submit", function (event) {
-                       if (!form.checkValidity()) {
-                           event.preventDefault();
-                           event.stopPropagation();
-                       }
-               
-                       form.classList.add("was-validated");
-                   }, false);
-               });
-               """;
-    }
-
-    /// <summary>
-    /// ToolTip js.
-    /// </summary>
-    /// <returns>System.String.</returns>
-    public static string ToolTipJs()
-    {
-        return """
-               if (typeof tooltipTriggerList !== 'undefined') {const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
-                                const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))  }
-               """;
     }
 
     /// <summary>
@@ -1820,54 +1735,6 @@ public static class JavaScriptBlocks
                  """;
     }
 
-    /// <summary>
-    /// Renders toggleSelection Function JS.
-    /// </summary>
-    /// <returns>
-    /// Returns the JS String
-    /// </returns>
-    public static string SetGroupMaskJs()
-    {
-        return """
-               document.getElementById("Save").addEventListener("click", (e) => {
-                 
-                   document.querySelectorAll(".accessMasks").forEach(mask => {
-                       var roleId = document.getElementById("Input_Id").value;
-               
-                       if (roleId) {
-                           const forumId = mask.parentNode.querySelector("input[type='hidden']").value,
-                               accessMaskId = mask.parentNode.querySelector("select option:checked").value,
-                               data = {};
-               
-                           data.UserId = forumId;
-                           data.PageSize = accessMaskId;
-                           data.PageNumber = roleId;
-               
-                           const ajaxUrl = "/api/AccessMask/SetGroupMask";
-               
-                           fetch(ajaxUrl,
-                               {
-                                   method: "POST",
-                                   body: JSON.stringify(data),
-                                   headers: {
-                                       'Accept': "application/json",
-                                       'Content-Type': "application/json;charset=utf-8",
-                                       'RequestVerificationToken': document
-                                           .querySelector('input[name="__RequestVerificationToken"]').value
-                                   }
-                               });
-                       }
-                   });
-               });
-               """;
-    }
-
-    /// <summary>
-    /// Starts the chat js.
-    /// </summary>
-    /// <returns>System.String.</returns>
-    public const string StartChatJs = "startChat();";
-
     public static string PersianDateTimePickerJs(string inputId)
     {
         return $$"""
@@ -1900,4 +1767,123 @@ public static class JavaScriptBlocks
                  }
                  """;
     }
+
+    /// <summary>
+    /// Renders toggleSelection Function JS.
+    /// </summary>
+    /// <returns>
+    /// Returns the JS String
+    /// </returns>
+    public const string SetGroupMaskJs = """
+                                         document.getElementById("Save").addEventListener("click", (e) => {
+                                           
+                                             document.querySelectorAll(".accessMasks").forEach(mask => {
+                                                 var roleId = document.getElementById("Input_Id").value;
+                                         
+                                                 if (roleId) {
+                                                     const forumId = mask.parentNode.querySelector("input[type='hidden']").value,
+                                                         accessMaskId = mask.parentNode.querySelector("select option:checked").value,
+                                                         data = {};
+                                         
+                                                     data.UserId = forumId;
+                                                     data.PageSize = accessMaskId;
+                                                     data.PageNumber = roleId;
+                                         
+                                                     const ajaxUrl = "/api/AccessMask/SetGroupMask";
+                                         
+                                                     fetch(ajaxUrl,
+                                                         {
+                                                             method: "POST",
+                                                             body: JSON.stringify(data),
+                                                             headers: {
+                                                                 'Accept': "application/json",
+                                                                 'Content-Type': "application/json;charset=utf-8",
+                                                                 'RequestVerificationToken': document
+                                                                     .querySelector('input[name="__RequestVerificationToken"]').value
+                                                             }
+                                                         });
+                                                 }
+                                             });
+                                         });
+                                         """;
+
+    /// <summary>
+    /// Starts the chat js.
+    /// </summary>
+    /// <returns>System.String.</returns>
+    public const string StartChatJs = "startChat();";
+
+    /// <summary>
+    /// The cookie consent JS.
+    /// </summary>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    public const string CookieConsentJs = """
+                                          function addConsentCookie(name, value, days) {
+                                                  var expires;
+                                          
+                                                  if (days) {
+                                                      var date = new Date();
+                                                      date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                                                      expires = "; expires=" + date.toGMTString();
+                                                  } else {
+                                                      expires = "";
+                                                  }
+                                                  document.cookie = encodeURIComponent(name) + "=" + encodeURIComponent(value) + expires + "; path=/";
+                                              }
+                                          """;
+
+    /// <summary>
+    /// Select load js.
+    /// </summary>
+    public const string ChoicesLoadJs = """
+                                         if (document.querySelector(".select2-select") != null) {
+                                         const choice = new window.Choices(document.querySelector(".select2-select"), {
+                                            allowHTML: true,
+                                            shouldSort: false,
+                                            placeholderValue: document.querySelector(".select2-select").getAttribute("placeholder"),
+                                            classNames: {
+                                                containerOuter: "choices w-100"
+                                            }
+                                        });
+                                        }
+                                        """;
+
+    /// <summary>
+    /// Gets the Do Search java script.
+    /// </summary>
+    /// <returns>
+    /// Returns the do Search Java script String
+    /// </returns>
+    public const string DoSearchJs =
+        "document.addEventListener(\"DOMContentLoaded\", function() { getSearchResultsData(0);});";
+
+    /// <summary>
+    /// Form Validator JS.
+    /// </summary>
+    /// <returns>
+    /// Returns the JS String
+    /// </returns>
+    public const string FormValidatorJs = """
+                                          document.querySelectorAll(".needs-validation").forEach(form => {
+                                              form.addEventListener("submit", function (event) {
+                                                  if (!form.checkValidity()) {
+                                                      event.preventDefault();
+                                                      event.stopPropagation();
+                                                  }
+                                          
+                                                  form.classList.add("was-validated");
+                                              }, false);
+                                          });
+                                          """;
+
+    /// <summary>
+    /// ToolTip js.
+    /// </summary>
+    /// <returns>System.String.</returns>
+    public const string ToolTipJs = """
+                                    if (typeof tooltipTriggerList !== 'undefined') {const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+                                                     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))  }
+                                    """;
 }

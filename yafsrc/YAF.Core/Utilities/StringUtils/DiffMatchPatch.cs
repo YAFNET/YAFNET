@@ -373,7 +373,7 @@ public class DiffMatchPatch
                         pointer = pointer - countDelete - countInsert;
                         var subDiff = this.DiffMain(textDelete, textInsert, false, deadline);
                         diffs.InsertRange(pointer, subDiff);
-                        pointer = pointer + subDiff.Count;
+                        pointer += subDiff.Count;
                     }
 
                     countInsert = 0;

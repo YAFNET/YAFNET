@@ -297,7 +297,7 @@ public class UsersKillModel : AdminPage
         // ban user ips...
         var name = user.DisplayOrUserName();
 
-        this.IpAddresses.Except(allIps).ToList().Where(i => i.IsSet()).ForEach(
+        this.IpAddresses.Except(allIps).Where(i => i.IsSet()).ForEach(
             ip =>
             {
                 var linkUserBan = this.Get<ILocalization>().GetTextFormatted(
