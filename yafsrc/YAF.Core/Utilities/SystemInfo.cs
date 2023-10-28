@@ -27,7 +27,7 @@ namespace YAF.Core.Utilities;
 using System;
 
 /// <summary>
-/// The class gets common system info. Used in data layers other than MSSQL. Created by vzrus 2010
+/// The class gets common system info. Used in data layers other than MSSQL.
 /// </summary>
 public static class SystemInfo
 {

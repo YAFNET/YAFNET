@@ -924,7 +924,7 @@ public class NntpConnection : IDisposable
     /// <summary>
     /// The response.
     /// </summary>
-    private class Response
+    private sealed class Response
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Response"/> class.

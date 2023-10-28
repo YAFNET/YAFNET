@@ -92,7 +92,7 @@ public static class EventLogRepositoryExtensions
 
                     var guestUserId = BoardContext.Current.GuestUserID;
 
-                    expression.Join<User>((e, u) => u.ID == (e.UserID != null ? e.UserID : guestUserId));
+                    expression.Join<User>((e, u) => u.ID == (e.UserID ?? guestUserId));
 
                     expression.Where<EventLog, User>(
                         (a, b) => b.BoardID == (boardId ?? repository.BoardID) && a.EventTime >= sinceDate &&
@@ -111,10 +111,8 @@ public static class EventLogRepositoryExtensions
                     }
 
                     // -- count total
-                    var countTotalExpression = expression;
-
-                    var countTotalSql = countTotalExpression
-                        .Select(Sql.Count($"{countTotalExpression.Column<EventLog>(x => x.ID)}")).ToSelectStatement();
+                    var countTotalSql = expression
+                        .Select(Sql.Count($"{expression.Column<EventLog>(x => x.ID)}")).ToSelectStatement();
 
                     expression.Select<EventLog, User>(
                         (a, b) => new

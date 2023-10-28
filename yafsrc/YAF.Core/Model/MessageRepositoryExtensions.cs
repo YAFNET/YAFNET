@@ -287,10 +287,11 @@ public static class MessageRepositoryExtensions
 
                     var thanksCountExpression = db.Connection.From<Thanks>(db.Connection.TableAlias("ta"));
                     thanksCountExpression.Where(
-                        $@"ta.{thanksCountExpression.Column<Thanks>(x => x.MessageID)}={expression.Column<Message>(x => x.ID, true)}");
+                        $"ta.{thanksCountExpression.Column<Thanks>(x => x.MessageID)}={expression.Column<Message>(x => x.ID, true)}");
                     var thanksCountSql = thanksCountExpression
                         .Select(Sql.Count($"{thanksCountExpression.Column<Thanks>(x => x.ID)}")).ToSelectStatement();
 
+#pragma warning disable IDE0075
                     expression.Select<Message, User, Topic, Forum, Category, Rank>(
                         (m, b, d, g, h, c) => new
                                                   {
@@ -320,8 +321,8 @@ public static class MessageRepositoryExtensions
                                                       m.Position,
                                                       m.DeleteReason,
                                                       m.ExternalMessageId,
-                                                      UserName = m.UserName != null ? m.UserName : b.Name,
-                                                      DisplayName = m.UserDisplayName != null ? m.UserDisplayName : b.DisplayName,
+                                                      UserName = m.UserName ?? b.Name,
+                                                      DisplayName = m.UserDisplayName ?? b.DisplayName,
                                                       b.BlockFlags,
                                                       b.Suspended,
                                                       b.Joined,
@@ -340,13 +341,15 @@ public static class MessageRepositoryExtensions
                                                       RankName = c.Name,
                                                       RankStyle = c.Style,
                                                       Style = b.UserStyle,
-                                                      Edited = m.Edited != null ? m.Edited : m.Posted,
+                                                      Edited = m.Edited ?? m.Posted,
+                                                      // ReSharper disable once RedundantTernaryExpression
                                                       HasAvatarImage = b.AvatarImage != null ? true : false,
                                                       IsThankedByUser = Sql.Custom($"({isThankByUserSql})"),
                                                       ThanksNumber = Sql.Custom($"({thanksCountSql})"),
                                                       PageIndex = pageIndex,
                                                       TotalRows = totalRows
                                                   });
+#pragma warning restore IDE0075
 
                     return db.Connection.Select<PagedMessage>(expression);
                 });
@@ -1255,16 +1258,13 @@ public static class MessageRepositoryExtensions
         }
 
         // Ederon : erase message for good
-        if (eraseMessages)
+        if (eraseMessages && BoardContext.Current.CurrentForumPage != null)
         {
-            if (BoardContext.Current.CurrentForumPage != null)
-            {
-                BoardContext.Current.Get<ILogger<IRepository<Message>>>().Log(
-                    BoardContext.Current.PageUserID,
-                    "YAF",
-                    BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_MESSAGE", message.ID),
-                    EventLogTypes.Information);
-            }
+            BoardContext.Current.Get<ILogger<IRepository<Message>>>().Log(
+                BoardContext.Current.PageUserID,
+                "YAF",
+                BoardContext.Current.Get<ILocalization>().GetTextFormatted("DELETED_MESSAGE", message.ID),
+                EventLogTypes.Information);
         }
 
         repository.DeleteInternal(

@@ -208,7 +208,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         MessageFlags messageFlags)
     {
         message =
-            $@"{this.Format(0, message, messageFlags, false)}";
+            $"{this.Format(0, message, messageFlags, false)}";
 
         message = message.Replace("<div class=\"innerquote\">", "<blockquote>").Replace("[quote]", "</blockquote>");
 
@@ -229,57 +229,6 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
             messageId);
 
         return formattedMessage;
-    }
-
-    /// <summary>
-    /// The method to detect a forbidden HTML code from delimited by delimiter list
-    /// </summary>
-    /// <param name="stringToClear">
-    /// The string To Clear.
-    /// </param>
-    /// <param name="stringToMatch">
-    /// The string To Match.
-    /// </param>
-    /// <param name="delimiter">
-    /// The delimiter string.
-    /// </param>
-    /// <returns>
-    /// Returns a forbidden HTML tag or a null string
-    /// </returns>
-    public string HtmlTagForbiddenDetector(
-        string stringToClear,
-        string stringToMatch,
-        char delimiter)
-    {
-        var codes = stringToMatch.Split(delimiter);
-
-        var forbiddenTagList = new List<string>();
-
-        MatchAndPerformAction(
-            "<.*?>",
-            stringToClear,
-            (tag, _, _) =>
-                {
-                    var code = tag.Replace("/", string.Empty).Replace(">", string.Empty);
-
-                    // If tag contains attributes kill them for checking
-                    if (code.Contains("=\""))
-                    {
-                        code = code.Remove(code.IndexOf(" ", StringComparison.Ordinal));
-                    }
-
-                    if (codes.Any(allowedTag => code.ToLower().Equals(allowedTag.ToLower())))
-                    {
-                        return;
-                    }
-
-                    if (!forbiddenTagList.Contains(code))
-                    {
-                        forbiddenTagList.Add(code);
-                    }
-                });
-
-        return forbiddenTagList.ToDelimitedString(",");
     }
 
     /// <summary>

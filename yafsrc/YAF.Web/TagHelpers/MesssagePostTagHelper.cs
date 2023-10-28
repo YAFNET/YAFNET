@@ -387,7 +387,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         alert.InnerHtml.AppendHtml(icon);
 
-        alert.InnerHtml.AppendFormat("{0} {1}", this.GetText("EDITED"), whoChanged);
+        alert.InnerHtml.AppendFormat("{0} {1} ", this.GetText("EDITED"), whoChanged);
 
         alert.InnerHtml.AppendHtml(editedDateTime);
 

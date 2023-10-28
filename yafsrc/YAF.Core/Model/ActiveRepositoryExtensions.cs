@@ -283,7 +283,7 @@ public static class ActiveRepositoryExtensions
             db =>
                 {
                     expression.Join<Rank>((u, r) => r.ID == u.RankID).Join<Active>((u, a) => a.UserID == u.ID)
-                        .Join<Active, ActiveAccess>((a, x) => x.ForumID == (a.ForumID != null ? a.ForumID : 0));
+                        .Join<Active, ActiveAccess>((a, x) => x.ForumID == (a.ForumID ?? 0));
 
                     if (showGuests)
                     {

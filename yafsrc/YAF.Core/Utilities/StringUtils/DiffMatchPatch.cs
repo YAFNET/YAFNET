@@ -145,13 +145,6 @@ public class DiffMatchPatch
     public float DiffTimeout = 1.0f;
 
     /// <summary>
-    /// How far to search for a match (0 = exact location, 1000+ = broad match).
-    /// A match this many characters away from the expected location will add
-    /// 1.0 to the score (0.0 is a perfect match).
-    /// </summary>
-    public int MatchDistance = 1000;
-
-    /// <summary>
     /// Chunk size for context length.
     /// </summary>
     public short PatchMargin = 4;
@@ -797,7 +790,7 @@ public class DiffMatchPatch
         var shortText = text1.Length > text2.Length ? text2 : text1;
         if (longtext.Length < 4 || shortText.Length * 2 < longtext.Length)
         {
-            return null; // Pointless.
+            return Array.Empty<string>(); // Pointless.
         }
 
         // First check if the second quarter is the seed for a half-match.
@@ -807,7 +800,7 @@ public class DiffMatchPatch
         string[] hm;
         if (hm1 == null && hm2 == null)
         {
-            return null;
+            return Array.Empty<string>();
         }
 
         if (hm2 == null)

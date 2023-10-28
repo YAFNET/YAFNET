@@ -541,7 +541,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
             ruleEngine.AddRule(
                 new CodeRegexReplaceRule(
                     new Regex(@"\[noparse\](?<inner>(.*?))\[/noparse\]", Options | RegexOptions.Compiled, TimeSpan.FromMilliseconds(100)),
-                    @"${inner}"));
+                    "${inner}"));
 
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(

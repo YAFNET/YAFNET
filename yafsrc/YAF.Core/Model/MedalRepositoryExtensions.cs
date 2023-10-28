@@ -52,15 +52,17 @@ public static class MedalRepositoryExtensions
     {
         var expressionUser = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
 
+#pragma warning disable IDE0075
         expressionUser.Join<UserMedal>((a, b) => b.MedalID == a.ID).Where<UserMedal>(b => b.UserID == userId)
             .Select<Medal, UserMedal>(
                 (a, b) => new
                               {
                                   MedalID = a.ID,
                                   a.Name,
-                                  Message = b.Message != null ? b.Message : a.Message,
+                                  Message = b.Message ?? a.Message,
                                   a.MedalURL,
                                   b.SortOrder,
+                                  // ReSharper disable once SimplifyConditionalTernaryExpression
                                   Hide = (a.Flags & 4) == 0 ? false : b.Hide,
                                   a.Flags,
                                   b.DateAwarded
@@ -80,13 +82,16 @@ public static class MedalRepositoryExtensions
                               {
                                   MedalID = a.ID,
                                   a.Name,
-                                  Message = b.Message != null ? b.Message : a.Message,
+                                  Message = b.Message ?? a.Message,
                                   a.MedalURL,
                                   b.SortOrder,
+                                  // ReSharper disable once SimplifyConditionalTernaryExpression
                                   Hide = (a.Flags & 4) == 0 ? false : b.Hide,
                                   a.Flags,
                                   DateAwarded = default(DateTime)
                               });
+
+#pragma warning restore IDE0075
 
         var userGroupMedals = repository.DbAccess.Execute(
             db => db.Connection

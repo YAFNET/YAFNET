@@ -24,7 +24,6 @@ global using YAF.Core.Services;
 global using YAF.Core.Tasks;
 global using YAF.Core.Utilities;
 global using YAF.Core.Utilities.StringUtils;
-global using YAF.Types;
 global using YAF.Types.Constants;
 global using YAF.Types.EventProxies;
 global using YAF.Types.Exceptions;

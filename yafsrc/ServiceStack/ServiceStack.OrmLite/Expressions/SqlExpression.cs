@@ -2854,7 +2854,6 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
                 return $"{r}={this.GetQuotedTrueValue()}";
             }
-
         }
         else if (lambda.Body.NodeType == ExpressionType.Conditional && this.Sep == " ")
         {

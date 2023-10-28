@@ -81,14 +81,14 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
             // extract post id if exists
             if (quote.Contains(';'))
             {
-                string postId, userName, topicLink = string.Empty, topicName = string.Empty;
+                string postId, userName, topicLink = string.Empty;
 
                 try
                 {
                     postId = quote[(quote.LastIndexOf(";", StringComparison.Ordinal) + 1)..];
                     userName = quote = quote.Remove(quote.LastIndexOf(";", StringComparison.Ordinal));
 
-                    topicName = BoardContext.Current.GetRepository<Topic>().GetNameFromMessage(postId.ToType<int>());
+                    var topicName = BoardContext.Current.GetRepository<Topic>().GetNameFromMessage(postId.ToType<int>());
 
                     topicLink = BoardContext.Current.Get<LinkBuilder>().GetLink(
                         ForumPages.Posts,

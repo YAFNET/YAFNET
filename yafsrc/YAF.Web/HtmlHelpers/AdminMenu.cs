@@ -75,49 +75,49 @@ public static class AdminMenuHtmlHelper
                 "tachometer-alt"));
 
         // Admin - Settings Menu
-        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
+        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(
                 x => x.PageName is "Admin_BoardAnnouncement" or "Admin_Settings" or "Admin_Forums" or "Admin_ReplaceWords" or "Admin_BBCodes" or "Admin_Languages"))
         {
             content.AppendHtml(RenderAdminSettings(pagesAccess, context));
         }
 
         // Admin - Spam Protection Menu
-        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
+        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(
                 x => x.PageName is "Admin_SpamLog" or "Admin_SpamWords" or "Admin_BannedEmails" or "Admin_BannedIps" or "Admin_BannedNames" or "Admin_BannedUserAgents"))
         {
             content.AppendHtml(RenderAdminSpamProtection(pagesAccess, context));
         }
 
         // Admin - Users and Roles Menu
-        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
+        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(
                 x => x.PageName is "Admin_ProfileDefinitions" or "Admin_AccessMasks" or "Admin_Groups" or "Admin_Ranks" or "Admin_Users" or "Admin_Medals" or "Admin_Mail" or "Admin_Digest"))
         {
             content.AppendHtml(RenderAdminUsersAndRoles(pagesAccess, context));
         }
 
         // Admin - Maintenance Menu
-        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
+        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(
                 x => x.PageName is "Admin_Attachments" or "Admin_Tags" or "Admin_Prune" or "Admin_Restore" or "Admin_TaskManager" or "Admin_EventLog" or "Admin_RestartApp"))
         {
             content.AppendHtml(RenderAdminMaintenance(pagesAccess, context));
         }
 
         // Admin - Database Menu
-        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
+        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(
                 x => x.PageName is "Admin_ReIndex" or "Admin_RunSql"))
         {
             content.AppendHtml(RenderAdminDatabase(pagesAccess, context));
         }
 
         // Admin - Nntp Menu
-        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
+        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(
                 x => x.PageName is "Admin_NntpRetrieve" or "Admin_NntpForums" or "Admin_NntpServers"))
         {
             content.AppendHtml(RenderAdminNntp(pagesAccess, context));
         }
 
         // Admin - Upgrade Menu
-        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Version"))
+        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(x => x.PageName == "Admin_Version"))
         {
             content.AppendHtml(RenderAdminUpgrade(pagesAccess, context));
         }

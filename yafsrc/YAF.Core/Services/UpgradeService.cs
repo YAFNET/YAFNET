@@ -397,7 +397,6 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
                                     catch (Exception ex)
                                     {
                                         this.Get<ILogger<UpgradeService>>().Log(null, this, ex);
-                                        //this.GetRepository<Attachment>().DeleteById(attach.ID);
                                     }
                                 }
 

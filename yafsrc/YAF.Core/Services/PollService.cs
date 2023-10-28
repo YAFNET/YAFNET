@@ -78,7 +78,7 @@ public class PollService : IHaveServiceLocator
             return ts.TotalDays.ToType<int>();
         }
 
-        if (!(ts.TotalSeconds > 0))
+        if (ts.TotalSeconds <= 0)
         {
             return 0;
         }
