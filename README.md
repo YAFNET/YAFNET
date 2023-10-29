@@ -20,7 +20,7 @@ If you have any questions or would like to get in touch with the project, please
 
 ## Source 
 * The netfx branch contains the current Stable YAF 3.1.x Release
-* The master branch containts the current BETA YAF 4.x.x
+* The master branch contains the current BETA YAF 4.x.x
 
 ### Installation & Upgrade
 
