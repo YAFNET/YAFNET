@@ -57,7 +57,6 @@ public partial class EditUser : AdminPage
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected override void OnPreRender(EventArgs e)
     {
-        // setup jQuery and Jquery Ui Tabs.
         this.PageBoardContext.PageElements.RegisterJsBlock(
             "EditUserTabsJs",
             JavaScriptBlocks.BootstrapTabsLoadJs(this.EditUserTabs.ClientID, this.hidLastTab.ClientID));

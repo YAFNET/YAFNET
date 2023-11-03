@@ -168,7 +168,6 @@ public partial class PostTopic : ForumPage
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     protected override void OnPreRender(EventArgs e)
     {
-        // setup jQuery and Jquery Ui Tabs.
         this.PageBoardContext.PageElements.RegisterJsBlock(
             nameof(JavaScriptBlocks.GetBoardTagsJs),
             JavaScriptBlocks.GetBoardTagsJs("Tags", this.TagsValue.ClientID));

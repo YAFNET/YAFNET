@@ -1,4 +1,4 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
@@ -21,28 +21,24 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-namespace YAF.Core.ForumModules;
+
+namespace YAF.Modules;
 
 using System;
 
-using YAF.Core.BaseModules;
+using YAF.Core.Context;
 
 /// <summary>
 /// The Anti XSRF Forum Module.
 /// "https://software-security.sans.org/developer-how-to/developer-guide-csrf"
 /// </summary>
 [Module("Anti CSRF Forum Module", "Tiny Gecko", 1)]
-public class AntiXsrfForumModule : BaseForumModule
+public class AntiXsrfModule : SimpleBaseForumModule
 {
     /// <summary>
     /// The anti XSRF token key.
     /// </summary>
     private const string AntiXsrfTokenKey = "__AntiXsrfToken";
-
-    /// <summary>
-    /// The anti XSRF user name key.
-    /// </summary>
-    private const string AntiXsrfUserNameKey = "__AntiXsrfUserName";
 
     /// <summary>
     /// The anti XSRF token value.
@@ -55,7 +51,7 @@ public class AntiXsrfForumModule : BaseForumModule
     public override void Init()
     {
         // hook the page init for mail sending...
-        this.PageBoardContext.Init += this.CurrentPageInit;
+        this.ForumControl.InitForumPage += this.CurrentPageInit;
     }
 
     /// <summary>
@@ -71,7 +67,7 @@ public class AntiXsrfForumModule : BaseForumModule
         {
             this.antiXsrfTokenValue = requestCookie.Value;
 
-            this.PageBoardContext.CurrentForumPage.Page.ViewStateUserKey = this.antiXsrfTokenValue;
+            this.ForumControl.Page.ViewStateUserKey = this.antiXsrfTokenValue;
         }
         else
         {
@@ -79,25 +75,20 @@ public class AntiXsrfForumModule : BaseForumModule
             // Generate a new Anti-XSRF token
             this.antiXsrfTokenValue = Guid.NewGuid().ToString("N");
 
-            this.PageBoardContext.CurrentForumPage.Page.ViewStateUserKey = this.antiXsrfTokenValue;
+            this.ForumControl.Page.ViewStateUserKey = this.antiXsrfTokenValue;
 
             // Create the non-persistent CSRF cookie
-            var responseCookie = new HttpCookie(AntiXsrfTokenKey)
-                                     {
-                                         HttpOnly = true,
-                                         Value = this.antiXsrfTokenValue,
-                                         Secure = BoardContext.Current.Get<HttpRequestBase>().IsSecureConnection
-                                     };
-
-            if (HttpContext.Current.Request.IsSecureConnection)
-            {
-                responseCookie.Secure = true;
-            }
+            var responseCookie = new HttpCookie(AntiXsrfTokenKey) {
+                                                                      HttpOnly = true,
+                                                                      Value = this.antiXsrfTokenValue,
+                                                                      Secure = BoardContext.Current
+                                                                          .Get<HttpRequestBase>().IsSecureConnection
+                                                                  };
 
             HttpContext.Current.Response.Cookies.Set(responseCookie);
         }
 
-        this.PageBoardContext.CurrentForumPage.Page.PreLoad += this.Page_OnPreLoad;
+        this.ForumControl.Page.PreLoad += this.Page_OnPreLoad;
     }
 
     /// <summary>
@@ -113,17 +104,15 @@ public class AntiXsrfForumModule : BaseForumModule
     /// </exception>
     private void Page_OnPreLoad(object sender, EventArgs e)
     {
-        if (!this.PageBoardContext.CurrentForumPage.Page.IsPostBack)
+        if (!ForumControl.Page.IsPostBack)
         {
-            HttpContext.Current.Items[AntiXsrfTokenKey] = this.PageBoardContext.CurrentForumPage.Page.ViewStateUserKey;
-            HttpContext.Current.Items[AntiXsrfUserNameKey] = HttpContext.Current.User.Identity.Name ?? string.Empty;
+            // Set Anti-XSRF token
+            this.Get<IDataCache>().Set(AntiXsrfTokenKey, ForumControl.Page.ViewStateUserKey);
         }
         else
         {
             // Validate the Anti-XSRF token
-            if ((string)HttpContext.Current.Items[AntiXsrfTokenKey] != this.antiXsrfTokenValue ||
-                (string)HttpContext.Current.Items[AntiXsrfUserNameKey] !=
-                (HttpContext.Current.User.Identity.Name ?? string.Empty))
+            if ((string)this.Get<IDataCache>().Get(AntiXsrfTokenKey) != this.antiXsrfTokenValue)
             {
                 throw new InvalidOperationException("Validation of Anti -XSRF token failed.");
             }

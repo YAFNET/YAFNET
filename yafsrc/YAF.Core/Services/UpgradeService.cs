@@ -44,7 +44,19 @@ using Constants = YAF.Types.Constants.Constants;
 /// <summary>
 ///     The upgrade service.
 /// </summary>
-public class UpgradeService : IHaveServiceLocator
+/// <remarks>
+/// Initializes a new instance of the <see cref="UpgradeService"/> class.
+/// </remarks>
+/// <param name="serviceLocator">
+/// The service locator.
+/// </param>
+/// <param name="raiseEvent">
+/// The raise Event.
+/// </param>
+/// <param name="access">
+/// The access.
+/// </param>
+public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEvent, IDbAccess access) : IHaveServiceLocator
 {
     /// <summary>
     ///     The BBCode extensions import xml file.
@@ -57,28 +69,9 @@ public class UpgradeService : IHaveServiceLocator
     private const string SpamWordsImport = "Install/SpamWords.xml";
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="UpgradeService"/> class.
-    /// </summary>
-    /// <param name="serviceLocator">
-    /// The service locator.
-    /// </param>
-    /// <param name="raiseEvent">
-    /// The raise Event.
-    /// </param>
-    /// <param name="access">
-    /// The access.
-    /// </param>
-    public UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEvent, IDbAccess access)
-    {
-        this.RaiseEvent = raiseEvent;
-        this.DbAccess = access;
-        this.ServiceLocator = serviceLocator;
-    }
-
-    /// <summary>
     ///     Gets or sets the raise event.
     /// </summary>
-    public IRaiseEvent RaiseEvent { get; set; }
+    public IRaiseEvent RaiseEvent { get; set; } = raiseEvent;
 
     /// <summary>
     /// Gets or sets the database access.
@@ -86,12 +79,12 @@ public class UpgradeService : IHaveServiceLocator
     /// <value>
     /// The database access.
     /// </value>
-    public IDbAccess DbAccess { get; set; }
+    public IDbAccess DbAccess { get; set; } = access;
 
     /// <summary>
     ///     Gets or sets the service locator.
     /// </summary>
-    public IServiceLocator ServiceLocator { get; set; }
+    public IServiceLocator ServiceLocator { get; set; } = serviceLocator;
 
     /// <summary>
     /// Initialize Or Upgrade the Database
@@ -156,7 +149,7 @@ public class UpgradeService : IHaveServiceLocator
         {
             this.Get<V81_Migration>().MigrateDatabase(this.DbAccess);
         }
-            
+
         if (prevVersion < 82)
         {
             this.Get<V82_Migration>().MigrateDatabase(this.DbAccess);

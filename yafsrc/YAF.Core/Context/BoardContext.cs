@@ -76,9 +76,6 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
 
         // init the repository
         this.Globals = new ContextVariableRepository(this.Vars);
-
-        // init context...
-        this.Init?.Invoke(this, EventArgs.Empty);
     }
 
     /// <summary>
@@ -90,11 +87,6 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// The before init.
     /// </summary>
     public event EventHandler<EventArgs> BeforeInit;
-
-    /// <summary>
-    /// On BoardContext Constructor Call
-    /// </summary>
-    public event EventHandler<EventArgs> Init;
 
     /// <summary>
     /// On BoardContext Unload Call

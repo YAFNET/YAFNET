@@ -69,6 +69,11 @@ public class Forum : UserControl, IHaveServiceLocator
     public event EventHandler<BeforeForumPageLoad> BeforeForumPageLoad;
 
     /// <summary>
+    /// Occurs when [initialize forum page].
+    /// </summary>
+    public event EventHandler<InitForumPage> InitForumPage;
+
+    /// <summary>
     ///   The page title set.
     /// </summary>
     public event EventHandler<ForumPageTitleArgs> PageTitleSet;
@@ -188,6 +193,8 @@ public class Forum : UserControl, IHaveServiceLocator
 
         this.Controls.Add(yafScriptManager);
 
+        this.InitForumPage?.Invoke(this, new InitForumPage());
+
         base.OnInit(e);
     }
 
@@ -272,7 +279,6 @@ public class Forum : UserControl, IHaveServiceLocator
     /// <returns>
     /// The get page source.
     /// </returns>
-    
     private string GetPageSource()
     {
         var pages = this.Get<IEnumerable<ILocatablePage>>().ToList();

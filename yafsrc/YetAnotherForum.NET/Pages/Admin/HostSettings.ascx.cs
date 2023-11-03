@@ -129,7 +129,7 @@ public partial class HostSettings : AdminPage
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
     protected override void OnPreRender(EventArgs e)
     {
-        // setup jQuery and YAF JS...
+        // setup YAF JS...
         this.PageBoardContext.PageElements.RegisterJsBlock(
             nameof(JavaScriptBlocks.BootstrapTabsLoadJs),
             JavaScriptBlocks.BootstrapTabsLoadJs("v-pills-tab", this.hidLastTab.ClientID));

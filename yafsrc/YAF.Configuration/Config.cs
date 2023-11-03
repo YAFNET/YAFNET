@@ -108,7 +108,6 @@ public static class Config
     /// <summary>
     ///     Gets ConnectionStringName.
     /// </summary>
-    
     public static string ConnectionStringName => GetConfigValueAsString("YAF.ConnectionStringName") ?? "yafnet";
 
     /// <summary>
@@ -127,7 +126,6 @@ public static class Config
     /// <summary>
     ///     Gets the Database Object Qualifier.
     /// </summary>
-    
     public static string DatabaseObjectQualifier
     {
         get

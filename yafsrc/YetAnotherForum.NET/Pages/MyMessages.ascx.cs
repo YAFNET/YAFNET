@@ -52,7 +52,6 @@ public partial class MyMessages : ForumPageRegistered
     /// </param>
     protected override void OnPreRender(EventArgs e)
     {
-        // setup jQuery and Jquery Ui Tabs.
         this.PageBoardContext.PageElements.RegisterJsBlock(
             "yafPmTabsJs",
             JavaScriptBlocks.BootstrapTabsLoadJs(this.PmTabs.ClientID, this.hidLastTab.ClientID));

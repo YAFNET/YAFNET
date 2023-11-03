@@ -578,7 +578,6 @@ public partial class EditMessage : ForumPage
             this.TagsValue.Value = topicTags.Select(t => t.Item2.TagName).ToDelimitedString(",");
         }
 
-        // setup jQuery and Jquery Ui Tabs.
         this.PageBoardContext.PageElements.RegisterJsBlock(
             nameof(JavaScriptBlocks.GetBoardTagsJs),
             JavaScriptBlocks.GetBoardTagsJs(

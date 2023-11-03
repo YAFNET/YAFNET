@@ -25,6 +25,7 @@ namespace YAF.Types.Interfaces;
 
 using System.Collections.Generic;
 using System.Globalization;
+
 using YAF.Types.Objects.Language;
 
 /// <summary>
@@ -107,36 +108,6 @@ public interface ILocalization
         string page, Func<Resource, bool> predicate);
 
     /// <summary>
-    /// The get country nodes using query.
-    /// </summary>
-    /// <param name="page">
-    /// The page.
-    /// </param>
-    /// <param name="predicate">
-    /// The predicate.
-    /// </param>
-    /// <returns>
-    /// The Nodes
-    /// </returns>
-    IEnumerable<Resource> GetCountryNodesUsingQuery(
-        string page, Func<Resource, bool> predicate);
-
-    /// <summary>
-    /// The get region nodes using query.
-    /// </summary>
-    /// <param name="page">
-    /// The page.
-    /// </param>
-    /// <param name="predicate">
-    /// The predicate.
-    /// </param>
-    /// <returns>
-    /// The Nodes
-    /// </returns>
-    IEnumerable<Resource> GetRegionNodesUsingQuery(
-        string page, Func<Resource, bool> predicate);
-
-    /// <summary>
     /// Gets the Text
     /// </summary>
     /// <param name="text">
@@ -148,7 +119,7 @@ public interface ILocalization
     string GetText(string text);
 
     /// <summary>
-    /// Gets the attribute encoded text. 
+    /// Gets the attribute encoded text.
     /// </summary>
     /// <param name="text">
     /// The text.

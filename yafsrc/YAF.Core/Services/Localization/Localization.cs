@@ -113,7 +113,6 @@ public class Localization : ILocalization
     /// <summary>
     ///   Gets LanguageCode.
     /// </summary>
-    
     public string LanguageCode =>
         this.localizer != null
             ? this.localizer.CurrentCulture.TwoLetterISOLanguageName
@@ -149,7 +148,6 @@ public class Localization : ILocalization
     /// <remarks>
     /// If current localization culture is neutral, it's not used in formatting.
     /// </remarks>
-    
     public string FormatDateTime(string format, DateTime date)
     {
         return this.Culture.IsNeutralCulture ? date.ToString(format) : date.ToString(format, this.Culture);
@@ -198,50 +196,6 @@ public class Localization : ILocalization
     }
 
     /// <summary>
-    /// The get nodes using query.
-    /// </summary>
-    /// <param name="page">
-    /// The page.
-    /// </param>
-    /// <param name="predicate">
-    /// The predicate.
-    /// </param>
-    /// <returns>
-    /// The Nodes
-    /// </returns>
-    public IEnumerable<Resource> GetCountryNodesUsingQuery(
-        string page,
-        Func<Resource, bool> predicate)
-    {
-        this.LoadTranslation();
-
-        this.localizer.SetPage(page);
-        return this.localizer.GetCountryNodesUsingQuery(predicate);
-    }
-
-    /// <summary>
-    /// The get nodes using query.
-    /// </summary>
-    /// <param name="page">
-    /// The page.
-    /// </param>
-    /// <param name="predicate">
-    /// The predicate.
-    /// </param>
-    /// <returns>
-    /// The Nodes
-    /// </returns>
-    public IEnumerable<Resource> GetRegionNodesUsingQuery(
-        string page,
-        Func<Resource, bool> predicate)
-    {
-        this.LoadTranslation();
-
-        this.localizer.SetPage(page);
-        return this.localizer.GetCountryNodesUsingQuery(predicate);
-    }
-
-    /// <summary>
     /// Gets the Localized Text
     /// </summary>
     /// <param name="text">
@@ -252,8 +206,6 @@ public class Localization : ILocalization
     /// </returns>
     public string GetText(string text)
     {
-        CodeContracts.VerifyNotNull(text);
-
         return this.GetText(this.TransPage, text);
     }
 
@@ -450,9 +402,6 @@ public class Localization : ILocalization
     /// </returns>
     public string GetTextFormatted(string text, params object[] args)
     {
-        CodeContracts.VerifyNotNull(text);
-        CodeContracts.VerifyNotNull(args);
-
         var localizedText = this.GetText(this.TransPage, text);
 
         var arraySize = Math.Max(args.Length, 10);

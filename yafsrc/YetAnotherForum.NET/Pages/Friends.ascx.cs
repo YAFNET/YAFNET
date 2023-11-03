@@ -47,7 +47,6 @@ public partial class Friends : ForumPageRegistered
     /// </param>
     protected override void OnPreRender(EventArgs e)
     {
-        // setup jQuery and Jquery Ui Tabs.
         this.PageBoardContext.PageElements.RegisterJsBlock(
             "yafBuddiesTabsJs",
             JavaScriptBlocks.BootstrapTabsLoadJs(this.BuddiesTabs.ClientID, this.hidLastTab.ClientID));

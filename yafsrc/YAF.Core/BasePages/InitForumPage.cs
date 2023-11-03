@@ -21,27 +21,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.BasePages;
 
 using System;
-using System.Web.UI;
 
 /// <summary>
-/// EventArgs class for the PageTitleSet event
+/// EventArgs class for the ForumPage Init event
 /// </summary>
-public class ForumPageRenderedArgs : EventArgs
-{
-    /// <summary>
-    /// Initializes a new instance of the <see cref="ForumPageRenderedArgs"/> class.
-    /// </summary>
-    /// <param name="writer">The writer.</param>
-    public ForumPageRenderedArgs(HtmlTextWriter writer)
-    {
-        this.Writer = writer;
-    }
-
-    /// <summary>
-    /// Gets the writer.
-    /// </summary>
-    public HtmlTextWriter Writer { get; }
-}
+public class InitForumPage : EventArgs;

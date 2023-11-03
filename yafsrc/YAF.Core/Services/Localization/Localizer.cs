@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Services.Localization;
 
 using System;
@@ -83,26 +84,6 @@ public class Localizer
     /// The Nodes.
     /// </returns>
     public IEnumerable<Resource> GetNodesUsingQuery(
-        Func<Resource, bool> predicate)
-    {
-        var pagePointer =
-            this.localizationLanguageResources.Resources.Page.FirstOrDefault(p => p.Name.ToUpper().Equals(this.currentPage));
-
-        return pagePointer != null
-                   ? pagePointer.Resource.Where(predicate)
-                   : this.localizationLanguageResources.Resources.Page.SelectMany(p => p.Resource).Where(predicate);
-    }
-
-    /// <summary>
-    /// The get nodes using query.
-    /// </summary>
-    /// <param name="predicate">
-    /// The predicate.
-    /// </param>
-    /// <returns>
-    /// The Nodes.
-    /// </returns>
-    public IEnumerable<Resource> GetCountryNodesUsingQuery(
         Func<Resource, bool> predicate)
     {
         var pagePointer =

@@ -44,7 +44,7 @@ public class ForumDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
     /// <summary>
     /// Gets TaskName.
     /// </summary>
-    public static string TaskName { get; } = "ForumDeleteTask";
+    public static string TaskName => "ForumDeleteTask";
 
     /// <summary>
     /// Gets or sets ForumId.
