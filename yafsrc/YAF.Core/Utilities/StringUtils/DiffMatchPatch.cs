@@ -344,14 +344,14 @@ public class DiffMatchPatch
         var countDelete = 0;
         var countInsert = 0;
         var textDelete = string.Empty;
-        var textInsert = string.Empty;
+        var textInsert = new StringBuilder();
         while (pointer < diffs.Count)
         {
             switch (diffs[pointer].Operation)
             {
                 case Operation.Insert:
                     countInsert++;
-                    textInsert += diffs[pointer].Text;
+                    textInsert.Append(diffs[pointer].Text);
                     break;
                 case Operation.Delete:
                     countDelete++;
@@ -364,7 +364,7 @@ public class DiffMatchPatch
                         // Delete the offending records and add the merged ones.
                         diffs.RemoveRange(pointer - countDelete - countInsert, countDelete + countInsert);
                         pointer = pointer - countDelete - countInsert;
-                        var subDiff = this.DiffMain(textDelete, textInsert, false, deadline);
+                        var subDiff = this.DiffMain(textDelete, textInsert.ToString(), false, deadline);
                         diffs.InsertRange(pointer, subDiff);
                         pointer += subDiff.Count;
                     }
@@ -372,7 +372,7 @@ public class DiffMatchPatch
                     countInsert = 0;
                     countDelete = 0;
                     textDelete = string.Empty;
-                    textInsert = string.Empty;
+                    textInsert = textInsert.Clear();
                     break;
             }
 
