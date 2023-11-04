@@ -101,6 +101,12 @@ public class MessagePostDataTagHelper : MessagePostTagHelper
             this.MessageFlags = this.CurrentMessage.MessageFlags;
         }
 
+        output.TagName = "div";
+
+        output.Attributes.Add("id", this.CurrentMessage.ID.ToString());
+
+        output.Attributes.Add("class", "selectionQuoteable");
+
         if (!this.MessageFlags.IsDeleted && !this.Get<IAspNetUsersHelper>().IsGuestUser(this.CurrentMessage.UserID))
         {
             this.DisplayUserId = this.CurrentMessage.UserID;
