@@ -13,14 +13,13 @@
 If you have any questions or would like to get in touch with the project, please see the contact information at the bottom of this document.
 
 ## Prerequisites:
-* ASP.NET .NET Framework 4.8 (YAF v3.x)
+* ASP.NET .NET Framework 4.8.1 (YAF v3.x)
 * ASP.NET Core 7.0 (YAF v4.x)
 * BuildPackages requires .NET v7
-* npm & node.js to Build YAF v4.x.x source
 
 ## Source 
-* The netfx branch contains the current Stable YAF 3.1.x Release
-* The master branch containts the current BETA YAF 4.x.x
+* The [netfx branch](https://github.com/YAFNET/YAFNET/tree/netfx) contains the current Stable YAF 3.1.x Release
+* The [master branch](https://github.com/YAFNET/YAFNET) contains the current BETA YAF 4.x.x
 
 ### Installation & Upgrade
 
@@ -29,7 +28,7 @@ If you have any questions or would like to get in touch with the project, please
 
 ### DNN Module
 
-YAF is also available as a DNN Module, you can download it on the [GitHub Project Page](https://github.com/YAFNET/YAFNET-DNN)
+YAF v3.x.x is also available as a DNN Module, you can download it on the [GitHub Project Page](https://github.com/YAFNET/YAFNET-DNN)
 
 ### Demo Forum
 
