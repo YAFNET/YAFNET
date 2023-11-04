@@ -18,8 +18,8 @@ If you have any questions or would like to get in touch with the project, please
 * BuildPackages requires .NET v7
 
 ## Source 
-* The netfx branch contains the current Stable YAF 3.1.x Release
-* The master branch contains the current BETA YAF 4.x.x
+* The [netfx branch](https://github.com/YAFNET/YAFNET/tree/netfx) contains the current Stable YAF 3.1.x Release
+* The [master branch](https://github.com/YAFNET/YAFNET) contains the current BETA YAF 4.x.x
 
 ### Installation & Upgrade
 
