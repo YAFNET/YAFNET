@@ -1,7 +1,7 @@
 ﻿<%@ Control language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.EditLanguage" Codebehind="EditLanguage.ascx.cs" %>
 
 
-<YAF:PageLinks runat="server" id="PageLinks" />
+<YAF:PageLinks runat="server" ID="PageLinks" />
 
 <div class="row">
     <div class="col-xl-12">

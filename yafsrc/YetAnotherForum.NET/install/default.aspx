@@ -5,7 +5,7 @@
 <head runat="server" id="YafHead">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>YAF.NET <%# Localization.GetText("Installation") %></title>
+    <title>YAF.NET <%# this.Localization.GetText("Installation") %></title>
    <link href="../Content/InstallWizard.min.css" rel="stylesheet" type="text/css" />
 </head>
 <body>

@@ -1,6 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="YAF.Pages.Admin.BBCode_Edit" Codebehind="BBCode_Edit.ascx.cs" %>
 
-<YAF:PageLinks runat="server" id="PageLinks" />
+<YAF:PageLinks runat="server" ID="PageLinks" />
 
     <div class="row">
         <div class="col-xl-12">
