@@ -441,10 +441,10 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// <param name="output">
     /// The output.
     /// </param>
-    /// <param name="messageId">
-    /// The message identifier.
+    /// <param name="answerMessageId">
+    /// The answer message identifier.
     /// </param>
-    protected virtual void RenderAnswerMessage(TagHelperOutput output, int messageId)
+    protected virtual void RenderAnswerMessage(TagHelperOutput output, int answerMessageId)
     {
         var alert = new TagBuilder("div");
 
@@ -459,7 +459,7 @@ public class MessagePostTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
             "href",
             this.Get<LinkBuilder>().GetLink(
                 ForumPages.Posts,
-                new { m = messageId, name = BoardContext.Current.PageTopic.TopicName }));
+                new { m = answerMessageId, name = BoardContext.Current.PageTopic.TopicName }));
 
         var icon = new TagBuilder("i");
 

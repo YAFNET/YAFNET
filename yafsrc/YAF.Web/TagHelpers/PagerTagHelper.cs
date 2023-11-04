@@ -25,6 +25,7 @@
 namespace YAF.Web.TagHelpers;
 
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
 
 using RouteData = Microsoft.AspNetCore.Routing.RouteData;
@@ -64,6 +65,9 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
     /// <value>The page context.</value>
     public BoardContext PageContext => BoardContext.Current;
 
+    [ViewContext]
+    public ViewContext ViewContext { get; set; }
+
     /// <summary>
     /// Gets or sets the name of the query.
     /// </summary>
@@ -102,13 +106,13 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
             this.QueryName = "p";
         }
 
-        var routeData = this.Get<IHttpContextAccessor>().HttpContext.GetRouteData();
+        var routeData = this.ViewContext.HttpContext.GetRouteData();
 
         int index;
 
-        if (this.Get<IHttpContextAccessor>().HttpContext.Request.Query.ContainsKey(this.QueryName))
+        if (this.ViewContext.HttpContext.Request.Query.ContainsKey(this.QueryName))
         {
-            var query = this.Get<IHttpContextAccessor>().HttpContext.Request.Query[this.QueryName].FirstOrDefault()
+            var query = this.ViewContext.HttpContext.Request.Query[this.QueryName].FirstOrDefault()
             .ToType<int>();
 
             index = query > 0 ? query - 1 : 0;
@@ -305,14 +309,7 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
     /// </returns>
     private string GetLinkUrl(IDictionary<string, string> query, int page)
     {
-        if (query.ContainsKey(this.QueryName))
-        {
-            query[this.QueryName] = page.ToString();
-        }
-        else
-        {
-            query.Add(this.QueryName, page.ToString());
-        }
+        query[this.QueryName] = page.ToString();
 
         string url;
         switch (this.PageContext.CurrentForumPage.PageName)
