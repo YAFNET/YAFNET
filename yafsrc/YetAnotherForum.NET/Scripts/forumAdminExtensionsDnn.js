@@ -1,11 +1,11 @@
 (function(root, factory) {
     "use strict";
     if (typeof define === "function" && define.amd) {
-        define([ "jquery" ], factory);
+        define([ "bootstrap" ], factory);
     } else if (typeof exports === "object") {
-        module.exports = factory(require("jquery"));
+        module.exports = factory(require("bootstrap"));
     } else {
-        root.bootbox = factory(root.jQuery);
+        root.bootbox = factory(root.bootstrap);
     }
 })(this, function init($, undefined) {
     "use strict";
@@ -66,7 +66,7 @@
         return name ? locales[name] : locales;
     };
     exports.addLocale = function(name, values) {
-        $.each([ "OK", "CANCEL", "CONFIRM" ], function(_, v) {
+        [ "OK", "CANCEL", "CONFIRM" ].forEach(v => {
             if (!values[v]) {
                 throw new Error(`Please supply a translation for "${v}"`);
             }
@@ -96,12 +96,12 @@
         } else {
             values = arguments[0];
         }
-        $.extend(defaults, values);
+        Object.assign(defaults, values);
         return exports;
     };
     exports.hideAll = function() {
         document.querySelectorAll(".bootbox").forEach(box => {
-            box.modal("hide");
+            bootstrap.Modal.getInstance(box).hide();
         });
         return exports;
     };
@@ -161,9 +161,7 @@
                     });
                 }
                 if (b.disabled === true) {
-                    button.prop({
-                        disabled: true
-                    });
+                    button.disabled = true;
                 }
                 footer.append(button);
                 callbacks[key] = b.callback;
@@ -222,7 +220,7 @@
             if (options.closeButton) {
                 let closeButton = generateElement(templates.closeButton);
                 if (options.bootstrap < 5) {
-                    closeButton.innerHTML = "&times;";
+                    closeButton.innerHTML = "&#215;";
                 }
                 if (options.bootstrap < 4) {
                     header.prepend(closeButton);
@@ -245,7 +243,7 @@
             }, {
                 once: true
             });
-            dialog.addEventListener("hidden.bs.modal", function(e) {
+            dialog.addEventListener("hidden.bs.modal", function() {
                 dialog.remove();
                 dialog = null;
             }, {
@@ -268,7 +266,7 @@
         }
         if (options.onShow) {
             if (typeof options.onShow === "function") {
-                dialog.on("show.bs.modal", options.onShow);
+                addEventListener(dialog, "show.bs.modal", options.onShow);
             } else {
                 throw new Error('Argument supplied to "onShow" must be a function');
             }
@@ -278,18 +276,18 @@
         }, focusPrimaryButton);
         if (options.onShown) {
             if (typeof options.onShown === "function") {
-                dialog.on("shown.bs.modal", options.onShown);
+                addEventListener(dialog, "shown.bs.modal", options.onShown);
             } else {
                 throw new Error('Argument supplied to "onShown" must be a function');
             }
         }
         if (options.backdrop === true) {
             let startedOnBody = false;
-            dialog.on("mousedown", ".modal-content", function(e) {
+            addEventListener(dialog, "mousedown", function(e) {
                 e.stopPropagation();
                 startedOnBody = true;
             });
-            dialog.on("click.dismiss.bs.modal", function(e) {
+            addEventListener(dialog, "click.dismiss.bs.modal", function(e) {
                 if (startedOnBody || e.target !== e.currentTarget) {
                     return;
                 }
@@ -319,7 +317,11 @@
                 trigger(dialog, "escape.close.bb");
             }
         });
-        document.querySelector(options.container).append(dialog);
+        if (typeof options.container === "object") {
+            options.container.append(dialog);
+        } else {
+            document.querySelector(options.container).append(dialog);
+        }
         const modal = new bootstrap.Modal(dialog, {
             backdrop: options.backdrop,
             keyboard: false,
@@ -328,7 +330,7 @@
         if (options.show) {
             modal.show(options.relatedTarget);
         }
-        return modal;
+        return dialog;
     };
     exports.alert = function() {
         let options;
@@ -381,11 +383,11 @@
         options.buttons.confirm.callback = function() {
             let value;
             if (options.inputType === "checkbox") {
-                value = input.querySelector("input:checked").map(function(e) {
+                value = Array.from(input.querySelectorAll('input[type="checkbox"]:checked')).map(function(e) {
                     return e.value;
-                }).get();
+                });
             } else if (options.inputType === "radio") {
-                value = input.querySelector("input:checked").value;
+                value = input.querySelector('input[type="radio"]:checked').value;
             } else {
                 value = input.value;
             }
@@ -417,15 +419,11 @@
                 input.setAttribute("maxlength", options.maxlength);
             }
             if (options.required) {
-                input.prop({
-                    required: true
-                });
+                input.required = true;
             }
             if (options.rows && !isNaN(parseInt(options.rows))) {
                 if (options.inputType === "textarea") {
-                    input.setAttribute({
-                        rows: options.rows
-                    });
+                    input.setAttribute("rows", options.rows);
                 }
             }
             break;
@@ -448,9 +446,7 @@
                 }
             }
             if (options.required) {
-                input.prop({
-                    required: true
-                });
+                input.required = true;
             }
             if (options.inputType !== "date") {
                 if (options.step) {
@@ -472,37 +468,36 @@
             break;
 
           case "select":
-            let groups = {};
+            var groups = {};
             inputOptions = options.inputOptions || [];
-            if (!$.isArray(inputOptions)) {
+            if (!Array.isArray(inputOptions)) {
                 throw new Error("Please pass an array of input options");
             }
             if (!inputOptions.length) {
                 throw new Error('prompt with "inputType" set to "select" requires at least one option');
             }
             if (options.required) {
-                input.prop({
-                    required: true
-                });
+                input.required = true;
             }
             if (options.multiple) {
-                input.prop({
-                    multiple: true
-                });
+                input.multiple = true;
             }
-            for (const [ key, value ] of Object.entries(inputOptions)) {
+            for (const [ , option ] of Object.entries(inputOptions)) {
                 let elem = input;
                 if (option.value === undefined || option.text === undefined) {
                     throw new Error('each option needs a "value" property and a "text" property');
                 }
                 if (option.group) {
                     if (!groups[option.group]) {
-                        groups[option.group] = generateElement("<optgroup />").setAttribute("label", option.group);
+                        var groupElement = generateElement("<optgroup />");
+                        groupElement.setAttribute("label", option.group);
+                        groups[option.group] = groupElement;
                     }
                     elem = groups[option.group];
                 }
                 let o = generateElement(templates.option);
-                o.setAttribute("value", option.value).text(option.text);
+                o.setAttribute("value", option.value);
+                o.textContent = option.text;
                 elem.append(o);
             }
             for (const [ key, group ] of Object.entries(groups)) {
@@ -516,7 +511,7 @@
             break;
 
           case "checkbox":
-            let checkboxValues = $.isArray(options.value) ? options.value : [ options.value ];
+            var checkboxValues = Array.isArray(options.value) ? options.value : [ options.value ];
             inputOptions = options.inputOptions || [];
             if (!inputOptions.length) {
                 throw new Error('prompt with "inputType" set to "checkbox" requires at least one option');
@@ -531,7 +526,7 @@
                 checkbox.querySelector("label").append(`\n${option.text}`);
                 for (const [ key, value ] of Object.entries(checkboxValues)) {
                     if (value === option.value) {
-                        checkbox.querySelector("input").prop("checked", true);
+                        checkbox.querySelector("input").checked = true;
                     }
                 }
                 input.append(checkbox);
@@ -539,7 +534,7 @@
             break;
 
           case "radio":
-            if (options.value !== undefined && $.isArray(options.value)) {
+            if (options.value !== undefined && Array.isArray(options.value)) {
                 throw new Error('prompt with "inputType" set to "radio" requires a single, non-array value for "value"');
             }
             inputOptions = options.inputOptions || [];
@@ -547,7 +542,7 @@
                 throw new Error('prompt with "inputType" set to "radio" requires at least one option');
             }
             input = generateElement('<div class="bootbox-radiobutton-list"></div>');
-            let checkFirstRadio = true;
+            var checkFirstRadio = true;
             for (const [ _, option ] of Object.entries(inputOptions)) {
                 if (option.value === undefined || option.text === undefined) {
                     throw new Error('each option needs a "value" property and a "text" property');
@@ -557,7 +552,7 @@
                 radio.querySelector("label").append(`\n${option.text}`);
                 if (options.value !== undefined) {
                     if (option.value === options.value) {
-                        radio.querySelector("input").prop("checked", true);
+                        radio.querySelector("input").checked = true;
                         checkFirstRadio = false;
                     }
                 }
@@ -582,16 +577,42 @@
             options.message = form;
         }
         promptDialog = exports.dialog(options);
-        promptDialog._element.removeEventListener("shown.bs.modal", focusPrimaryButton);
-        promptDialog._element.addEventListener("shown.bs.modal", function() {
+        promptDialog.removeEventListener("shown.bs.modal", focusPrimaryButton);
+        promptDialog.addEventListener("shown.bs.modal", function() {
             input.focus();
         });
-        const modal = new bootstrap.Modal(promptDialog._element);
+        const modal = new bootstrap.Modal(promptDialog);
         if (shouldShow === true) {
             modal.show();
         }
         return promptDialog;
     };
+    function deepExtend(out, ...arguments_) {
+        if (!out) {
+            return {};
+        }
+        for (const obj of arguments_) {
+            if (!obj) {
+                continue;
+            }
+            for (const [ key, value ] of Object.entries(obj)) {
+                switch (Object.prototype.toString.call(value)) {
+                  case "[object Object]":
+                    out[key] = out[key] || {};
+                    out[key] = deepExtend(out[key], value);
+                    break;
+
+                  case "[object Array]":
+                    out[key] = deepExtend(new Array(value.length), value);
+                    break;
+
+                  default:
+                    out[key] = value;
+                }
+            }
+        }
+        return out;
+    }
     function mapArguments(args, properties) {
         const argsLength = args.length;
         let options = {};
@@ -705,7 +726,7 @@
     function getKeyLength(obj) {
         return Object.keys(obj).length;
     }
-    function focusPrimaryButton(e) {
+    function focusPrimaryButton() {
         trigger(de.data.dialog.querySelector(".bootbox-accept").first(), "focus");
     }
     function processCallback(e, dialog, callback) {
@@ -767,36 +788,31 @@
             el.dispatchEvent(event);
         }
     }
-    function deepExtend(out, ...arguments_) {
-        if (!out) {
-            return {};
-        }
-        for (const obj of arguments_) {
-            if (!obj) {
-                continue;
-            }
-            for (const [ key, value ] of Object.entries(obj)) {
-                switch (Object.prototype.toString.call(value)) {
-                  case "[object Object]":
-                    out[key] = out[key] || {};
-                    out[key] = deepExtend(out[key], value);
-                    break;
-
-                  case "[object Array]":
-                    out[key] = deepExtend(new Array(value.length), value);
-                    break;
-
-                  default:
-                    out[key] = value;
-                }
-            }
-        }
-        return out;
-    }
     function generateElement(html) {
         const template = document.createElement("template");
         template.innerHTML = html.trim();
         return template.content.children[0];
+    }
+    function addEventListener(el, eventName, eventHandler, selector) {
+        if (selector) {
+            const wrappedHandler = e => {
+                if (!e.target) {
+                    return;
+                }
+                const el = e.target.closest(selector);
+                if (el) {
+                    eventHandler.call(el, e);
+                }
+            };
+            el.addEventListener(eventName, wrappedHandler);
+            return wrappedHandler;
+        } else {
+            const wrappedHandler = e => {
+                eventHandler.call(el, e);
+            };
+            el.addEventListener(eventName, wrappedHandler);
+            return wrappedHandler;
+        }
     }
     return exports;
 });
