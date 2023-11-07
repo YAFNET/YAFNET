@@ -99,7 +99,7 @@ public static class JavaScriptBlocks
               multiQuoteButton.TopicId = tpId;
               multiQuoteButton.ButtonCssClass = document.getElementById(button.id).parentNode.className;
           
-              fetch("{/api/MultiQuote/HandleMultiQuote",
+              fetch("/api/MultiQuote/HandleMultiQuote",
                       {
                           method: "POST",
                           body: JSON.stringify(multiQuoteButton),
