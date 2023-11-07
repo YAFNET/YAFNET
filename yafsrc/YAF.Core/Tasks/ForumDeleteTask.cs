@@ -38,7 +38,7 @@ public class ForumDeleteTask : LongBackgroundTask, ICriticalBackgroundTask
     /// <summary>
     /// The Blocking Task Names.
     /// </summary>
-    private static readonly string[] BlockingTaskNames = Constants.ForumRebuild.BlockingTaskNames;
+    private readonly static string[] BlockingTaskNames = Constants.ForumRebuild.BlockingTaskNames;
 
     /// <summary>
     /// Gets TaskName.

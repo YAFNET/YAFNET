@@ -24,6 +24,7 @@
 
 namespace YAF.Core.Tasks;
 
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -32,11 +33,6 @@ using System.Threading.Tasks;
 /// </summary>
 public class IntermittentBackgroundTask : BaseBackgroundTask
 {
-    /// <summary>
-    /// The intermittent timer.
-    /// </summary>
-    protected Timer intermittentTimer;
-
     /// <summary>
     /// Gets or sets Start Delay.
     /// </summary>
@@ -68,30 +64,23 @@ public class IntermittentBackgroundTask : BaseBackgroundTask
         // we're running this thread now...
         this.IsRunning = true;
 
-        // create the timer
-        this.intermittentTimer = new Timer(this.TimerCallback, null, this.StartDelayMs, this.RunPeriodMs);
+        this.ExecuteTask();
     }
 
     /// <summary>
-    /// The timer callback.
+    /// Executes the task.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    protected virtual void TimerCallback(object sender)
+    public virtual void ExecuteTask()
     {
-        if (!Monitor.TryEnter(this))
-        {
-            return;
-        }
+        Task.Run(async () => {
+            while (true)
+            {
+                await this.RunOnceAsync();
 
-        try
-        {
-            this.RunOnceAsync();
-        }
-        finally
-        {
-            Monitor.Exit(this);
-        }
+                await Task.Delay(TimeSpan.FromSeconds(this.StartDelayMs));
+
+                return true;
+            }
+        });
     }
 }

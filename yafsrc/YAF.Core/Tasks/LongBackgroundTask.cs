@@ -46,18 +46,12 @@ public class LongBackgroundTask : IntermittentBackgroundTask
     }
 
     /// <summary>
-    /// The timer callback.
+    /// Executes the task.
     /// </summary>
-    /// <param name="sender">
-    /// The sender.
-    /// </param>
-    protected override void TimerCallback(object sender)
+    public override void ExecuteTask()
     {
         lock (this.lockObj)
         {
-            // we're done with this timer...
-            this.intermittentTimer.Dispose();
-
             // run this item once...
             this.RunOnceAsync();
 

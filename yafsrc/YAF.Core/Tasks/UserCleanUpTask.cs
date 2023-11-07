@@ -53,7 +53,7 @@ public class UserCleanUpTask : IntermittentBackgroundTask
     /// <summary>
     /// The run once.
     /// </summary>
-    public override async Task RunOnceAsync()
+    public async override Task RunOnceAsync()
     {
         try
         {

@@ -49,7 +49,7 @@ public abstract class BaseBackgroundTask : IBackgroundTask, IHaveServiceLocator
     /// <summary>
     /// The lock object.
     /// </summary>
-    protected readonly object LockObject = new ();
+    readonly protected object LockObject = new ();
 
     /// <summary>
     /// The started.
