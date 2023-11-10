@@ -65,18 +65,20 @@ public class SiteMapHandler : IHttpHandler, IReadOnlySessionState, IHaveServiceL
 
         forumList.ForEach(
             forum => siteMap.Add(
-                new UrlLocation
-                    {
-                        Url = this.Get<LinkBuilder>().GetTopicLink(forum.Item1.ID, forum.Item1.Name),
-                        Priority = 0.8D,
-                        LastModified =
-                            forum.Item1.LastPosted.HasValue
-                                ? forum.Item1.LastPosted.Value.ToString(
-                                    "yyyy-MM-ddTHH:mm:ss",
-                                    CultureInfo.InvariantCulture)
-                                : DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ss", CultureInfo.InvariantCulture),
-                        ChangeFrequency = UrlLocation.ChangeFrequencies.always
-                    }));
+                new UrlLocation {
+                                    Url = this.Get<LinkBuilder>().GetAbsoluteLink(
+                                        ForumPages.Posts,
+                                        new { t = forum.Item1.ID, name = forum.Item1.Name }).Replace("&amp;", "&"),
+                                    Priority = 0.8D,
+                                    LastModified = forum.Item1.LastPosted.HasValue
+                                                       ? forum.Item1.LastPosted.Value.ToString(
+                                                           "yyyy-MM-ddTHH:mm:ss",
+                                                           CultureInfo.InvariantCulture)
+                                                       : DateTime.UtcNow.ToString(
+                                                           "yyyy-MM-ddTHH:mm:ss",
+                                                           CultureInfo.InvariantCulture),
+                                    ChangeFrequency = UrlLocation.ChangeFrequencies.always
+                                }));
 
         context.Response.Clear();
 
