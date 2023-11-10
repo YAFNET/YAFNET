@@ -65,6 +65,11 @@ public enum ForumPages
     ActiveUsers,
 
     /// <summary>
+    /// The site map
+    /// </summary>
+    SiteMap,
+
+    /// <summary>
     /// The post topic page.
     /// </summary>
     PostTopic,

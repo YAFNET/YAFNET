@@ -96,7 +96,11 @@ public class Startup : IHaveServiceLocator
     /// </param>
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddRazorPages();
+        services.AddRazorPages(options =>
+        {
+            options.Conventions.AddPageRoute("/SiteMap", "Sitemap.xml");
+        });
+
         services.AddControllers();
         services.AddSignalR();
 
@@ -235,9 +239,9 @@ public class Startup : IHaveServiceLocator
             options.SupportedUICultures = supportedCultures;
         });
 
-        services.AddSingleton<IActionContextAccessor, ActionContextAccessor>().AddScoped(
-              x => x.GetRequiredService<IUrlHelperFactory>()
-                  .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext));
+       services.AddSingleton<IActionContextAccessor, ActionContextAccessor>().AddScoped(
+                x => x.GetRequiredService<IUrlHelperFactory>()
+                    .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext));
 
         services.AddSingleton<IUserIdProvider, NameUserIdProvider>();
 
@@ -342,10 +346,6 @@ public class Startup : IHaveServiceLocator
 
         app.UseAuthentication();
         app.UseAuthorization();
-
-        app.MapWhen(
-            context => context.Request.Path.ToString().Contains("sitemap.xml", StringComparison.InvariantCultureIgnoreCase),
-            appBranch => appBranch.UseMiddleware<SiteMapMiddleware>());
 
         app.UseEndpoints(endpoints =>
         {
