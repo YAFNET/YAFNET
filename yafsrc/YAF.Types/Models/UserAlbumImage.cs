@@ -38,6 +38,13 @@ public class UserAlbumImage : IEntity, IHaveID
     public int ID { get; set; }
 
     /// <summary>
+    /// Gets or sets the reference user album.
+    /// </summary>
+    /// <value>The user album.</value>
+    [Reference]
+    public UserAlbum UserAlbum { get; set; }
+
+    /// <summary>
     /// Gets or sets the album id.
     /// </summary>
     [References(typeof(UserAlbum))]

@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Interfaces.Services;
 
-using Objects;
-
 /// <summary>
 /// The Album interface.
 /// </summary>
@@ -49,7 +47,18 @@ public interface IAlbum
     void AlbumImageDelete(string uploadFolder, int? albumId, int userId, int? imageId);
 
     /// <summary>
-    /// The change image caption.
+    /// Changes the album title.
+    /// </summary>
+    /// <param name="imageId">
+    /// The Image id.
+    /// </param>
+    /// <param name="newTitle">
+    /// The New title.
+    /// </param>
+    void ChangeAlbumTitle(int imageId, string newTitle);
+
+    /// <summary>
+    /// Changes the album image caption.
     /// </summary>
     /// <param name="imageId">
     /// The Image id.
@@ -57,8 +66,5 @@ public interface IAlbum
     /// <param name="newCaption">
     /// The New caption.
     /// </param>
-    /// <returns>
-    /// the return object.
-    /// </returns>
-    ReturnClass ChangeImageCaption(int imageId, string newCaption);
+    void ChangeImageCaption(int imageId, string newCaption);
 }

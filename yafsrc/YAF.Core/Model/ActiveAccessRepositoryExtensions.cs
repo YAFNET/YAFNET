@@ -89,7 +89,18 @@ public static class ActiveAccessRepositoryExtensions
                                      EditAccess = access.EditAccess > 0,
                                      DeleteAccess = access.DeleteAccess > 0
                                  }));
-		repository.InsertAll(activeList.DistinctBy(a => new { a.UserID, a.ForumID }));
+
+        activeList.DistinctBy(a => new { a.UserID, a.ForumID }).ForEach(
+            a =>
+            {
+                try
+                {
+                    repository.Insert(a);
+                }
+                catch (Exception)
+                {
+                }
+            });
     }
 
     /// <summary>

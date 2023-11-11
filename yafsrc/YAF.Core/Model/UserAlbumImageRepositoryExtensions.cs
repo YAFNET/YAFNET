@@ -178,28 +178,6 @@ public static class UserAlbumImageRepositoryExtensions
     }
 
     /// <summary>
-    /// The update caption.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="imageId">
-    /// The image id.
-    /// </param>
-    /// <param name="caption">
-    /// The caption.
-    /// </param>
-    public static void UpdateCaption(
-        this IRepository<UserAlbumImage> repository,
-        int imageId,
-        string caption)
-    {
-        repository.UpdateOnly(
-            () => new UserAlbumImage { Caption = caption },
-            f => f.ID == imageId);
-    }
-
-    /// <summary>
     /// Inserts/Saves a user image.
     /// </summary>
     /// <param name="repository">

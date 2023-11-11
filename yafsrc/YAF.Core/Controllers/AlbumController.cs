@@ -25,6 +25,7 @@
 namespace YAF.Core.Controllers;
 
 using System.Collections.Generic;
+using System.Web;
 
 using YAF.Core.BasePages;
 using YAF.Core.Model;
@@ -40,26 +41,43 @@ using YAF.Types.Objects;
 public class AlbumController : ForumBaseController
 {
     /// <summary>
-    /// The change image caption.
+    /// Change the album title.
     /// </summary>
-    /// <param name="jsonData">
-    /// The JSON Data.
-    /// </param>
-    /// <returns>
-    /// the return object.
-    /// </returns>
     [ValidateAntiForgeryToken]
-    [HttpPost("ChangeImageCaption")]
-    public IActionResult ChangeImageCaption([FromBody] UserAlbumImage jsonData)
+    [HttpPost("ChangeAlbumTitle")]
+    public IActionResult ChangeAlbumTitle()
     {
-        var albumImage = this.GetRepository<UserAlbumImage>().GetImage(jsonData.ID);
+        var imageId = this.Request.Form["id"].ToString().ToType<int>();
+        var newCaption = HttpUtility.HtmlEncode(this.Request.Form["value"].ToString()).Trim();
 
-        if (albumImage.Item2.UserID != this.PageBoardContext.PageUserID)
+        if (newCaption.Equals(this.Get<ILocalization>().GetText("ALBUM_CHANGE_TITLE")))
         {
-            return this.NotFound();
+            return this.Ok();
         }
 
-        return this.Ok(this.Get<IAlbum>().ChangeImageCaption(jsonData.ID, jsonData.Caption));
+        this.Get<IAlbum>().ChangeAlbumTitle(imageId, newCaption);
+        return this.Ok();
+    }
+
+    /// <summary>
+    /// Change the album image caption.
+    /// </summary>
+    [ValidateAntiForgeryToken]
+    [HttpPost("ChangeImageCaption")]
+    public IActionResult ChangeImageCaption()
+    {
+        var imageId = this.Request.Form["id"].ToString().ToType<int>();
+        var newCaption = HttpUtility.HtmlEncode(this.Request.Form["value"].ToString()).Trim();
+
+        if (newCaption.Equals(this.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION"))
+            || newCaption.Equals(this.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION2")))
+        {
+            return this.Ok();
+        }
+
+        this.Get<IAlbum>().ChangeImageCaption(imageId, newCaption);
+
+        return this.Ok();
     }
 
     /// <summary>

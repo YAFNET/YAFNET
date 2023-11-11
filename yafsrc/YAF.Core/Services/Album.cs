@@ -133,7 +133,30 @@ public class Album : IAlbum, IHaveServiceLocator
     }
 
     /// <summary>
-    /// The change image caption.
+    /// Changes the album title.
+    /// </summary>
+    /// <param name="imageId">
+    /// The Image id.
+    /// </param>
+    /// <param name="newTitle">
+    /// The New title.
+    /// </param>
+    public void ChangeAlbumTitle(int imageId, string newTitle)
+    {
+        var album = this.GetRepository<UserAlbum>().GetById(imageId);
+
+        if (album.UserID != BoardContext.Current.PageUserID)
+        {
+            return;
+        }
+
+        album.Title = newTitle;
+
+        this.GetRepository<UserAlbum>().Update(album);
+    }
+
+    /// <summary>
+    /// Change the album image caption.
     /// </summary>
     /// <param name="imageId">
     /// The Image id.
@@ -141,22 +164,17 @@ public class Album : IAlbum, IHaveServiceLocator
     /// <param name="newCaption">
     /// The New caption.
     /// </param>
-    /// <returns>
-    /// the return object.
-    /// </returns>
-    public ReturnClass ChangeImageCaption(int imageId, string newCaption)
+    public void ChangeImageCaption(int imageId, string newCaption)
     {
-        // load the DB so BoardContext can work...
-        this.GetRepository<UserAlbumImage>().UpdateCaption(imageId, newCaption);
+        var image = this.GetRepository<UserAlbumImage>().GetById(imageId, true);
 
-        var returnObject = new ReturnClass { NewTitle = newCaption };
+        if (image.UserAlbum.UserID != BoardContext.Current.PageUserID)
+        {
+            return;
+        }
 
-        returnObject.NewTitle = newCaption == string.Empty
-                                    ? this.Get<ILocalization>().GetText(
-                                        "ALBUM",
-                                        "ALBUM_IMAGE_CHANGE_CAPTION")
-                                    : newCaption;
-        returnObject.Id = imageId.ToString();
-        return returnObject;
+        image.Caption = newCaption;
+
+        this.GetRepository<UserAlbumImage>().Update(image);
     }
 }

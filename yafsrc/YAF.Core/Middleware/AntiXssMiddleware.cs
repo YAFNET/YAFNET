@@ -100,7 +100,8 @@ public class AntiXssMiddleware
             var path = context.Request.Path.Value;
             var content = await ReadRequestBodyAsync(context);
 
-            if (path != null && path.Contains("/api"))
+            if (path != null && (path.Contains("/api") || path.Contains("/Profile/") || path.Contains("/Admin/")
+                                 || path.Contains("/EditAlbumImages/")))
             {
                 await this.next(context).ConfigureAwait(false);
                 return;
@@ -125,7 +126,7 @@ public class AntiXssMiddleware
     /// </summary>
     /// <param name="context">The context.</param>
     /// <returns>The <see cref="Task" />.</returns>
-    private static async Task<string> ReadRequestBodyAsync(HttpContext context)
+    private async static Task<string> ReadRequestBodyAsync(HttpContext context)
     {
         var buffer = new MemoryStream();
         await context.Request.Body.CopyToAsync(buffer);

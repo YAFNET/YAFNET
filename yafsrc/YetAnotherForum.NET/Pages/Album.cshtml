@@ -74,17 +74,11 @@
                                 var caption = image.Caption.IsNotSet() ? Model.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION") : Html.HtmlEncode(image.Caption);
 
                                 <p class="card-text mb-3">
-                                    <span id="@Html.Raw($"spnTitle{image.ID}")"
-                                          onclick="showTexBox(this.id)"
-                                          title="@caption">
-                                        @Html.Icon("pen", "text-secondary")
-
-                                        @caption
-                                    </span>
-                                    <input type="text" id="@Html.Raw($"txtTitle{image.ID}")"
-                                           class="form-control"
-                                           onkeydown="@Html.Raw($"checkKey(event, this, '{image.ID}',false)")"
-                                           onblur="@Html.Raw($"blurTextBox(this.id, '{image.ID}', false)")" style="display: none;" />
+                                    @Html.Icon("pen", "text-secondary")
+                                    <a class="album-image-caption border-bottom border-danger border-3" data-type="text"
+                                       data-id="@Html.Raw(image.ID)"
+                                        data-url="/api/Album/ChangeImageCaption"
+                                        data-title="@Html.LocalizedText(image.Caption.IsNotSet() ? "ALBUM_IMAGE_CHANGE_CAPTION" : "ALBUM_IMAGE_CHANGE_CAPTION2")">@caption</a>
                                 </p>
                             }
                             
@@ -143,15 +137,7 @@
     @if (Model.AlbumUser.ID == Model.PageBoardContext.PageUserID)
     {
         <script>
-            @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.AlbumEventsJs(
-                Model.Get<ILocalization>().GetText("ALBUM_CHANGE_TITLE").ToJsString(),
-                Model.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION").ToJsString())))
-
-            @Html.Raw(JsAndCssHelper.CompressJavaScript(
-                        JavaScriptBlocks.ChangeImageCaptionJs))
-
-            @Html.Raw(JsAndCssHelper.CompressJavaScript(
-                        JavaScriptBlocks.AlbumCallbackSuccessJs))
+            @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.AlbumImageEditCaptionJs()))
         </script>
     }
 }

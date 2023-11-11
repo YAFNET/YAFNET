@@ -68,7 +68,11 @@ public static class HttpRequestExtensions
     /// <returns>System.Nullable&lt;System.String&gt;.</returns>
     public static string BaseUrl(this HttpRequest req)
     {
-        if (req == null) return null;
+        if (req == null)
+        {
+            return null;
+        }
+
         var uriBuilder = new UriBuilder(req.Scheme, req.Host.Host, req.Host.Port ?? -1);
         if (uriBuilder.Uri.IsDefaultPort)
         {
