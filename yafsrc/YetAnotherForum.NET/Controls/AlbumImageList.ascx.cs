@@ -113,14 +113,8 @@ public partial class AlbumImageList : BaseUserControl
         {
             // Register Js Blocks.
             this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                "AlbumEventsJs",
-                JavaScriptBlocks.AlbumEventsJs(
-                    this.GetText("ALBUM_CHANGE_TITLE").ToJsString(), this.GetText("ALBUM_IMAGE_CHANGE_CAPTION").ToJsString()));
-
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                "ChangeImageCaptionJs", JavaScriptBlocks.ChangeImageCaptionJs);
-            this.PageBoardContext.PageElements.RegisterJsBlockStartup(
-                "AlbumCallbackSuccessJS", JavaScriptBlocks.AlbumCallbackSuccessJs);
+                nameof(JavaScriptBlocks.AlbumImageEditCaptionJs),
+                JavaScriptBlocks.AlbumImageEditCaptionJs());
         }
 
         base.OnPreRender(e);

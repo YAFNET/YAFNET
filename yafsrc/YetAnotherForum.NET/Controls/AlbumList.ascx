@@ -7,6 +7,7 @@
 <%@ Import Namespace="YAF.Core.Services" %>
 <%@ Import Namespace="YAF.Configuration" %>
 <%@ Import Namespace="ServiceStack.Text" %>
+<%@ Import Namespace="YAF.Core.Context.Start" %>
 
 <section class="text-center container">
     <div class="row">
@@ -53,7 +54,20 @@
                         </a>
                         <div class="card-body">
                             <p class="card-text">
-                                <%# this.HtmlEncode(this.Eval("Title"))%>
+                                <asp:Label runat="server"
+                                           Visible="<%# this.User.ID != this.PageBoardContext.PageUserID %>"
+                                           CssClass="card-text">
+                                    <%# this.HtmlEncode(this.Eval("Title"))%>
+                                </asp:Label>
+                                <asp:Label runat="server"
+                                           Visible="<%# this.User.ID == this.PageBoardContext.PageUserID %>"
+                                           CssClass="card-text">
+                                    <YAF:Icon runat="server" IconName="pen" IconType="text-secondary"/>
+                                    <a class="album-caption border-bottom border-danger border-3" data-type="text" 
+                                       data-id='<%# this.Eval("ID") %>' 
+                                       data-url='<%# "{0}{1}/Album/ChangeAlbumTitle".Fmt(BoardInfo.ForumClientFileRoot, WebApiConfig.UrlPrefix) %>'
+                                       data-title='<%#  this.GetText("ALBUM_CHANGE_TITLE") %>'><%# this.Eval("Title").IsNullOrEmptyField() ? this.GetText("ALBUM_CHANGE_TITLE") : this.HtmlEncode(this.Eval("Title"))%></a>
+                                </asp:Label>
                             </p>
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">

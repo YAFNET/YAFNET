@@ -46,11 +46,8 @@ public static class UserAlbumImageRepositoryExtensions
     /// <returns>
     /// Returns the number of images in the album with AlbumID.
     /// </returns>
-    
     public static long CountAlbumImages(this IRepository<UserAlbumImage> repository, int albumId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.Count(albumImage => albumImage.AlbumID == albumId);
     }
 
@@ -70,8 +67,6 @@ public static class UserAlbumImageRepositoryExtensions
         this IRepository<UserAlbumImage> repository,
         int albumId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.Get(albumImage => albumImage.AlbumID == albumId).OrderByDescending(a => a.Uploaded)
             .ToList();
     }
@@ -100,9 +95,7 @@ public static class UserAlbumImageRepositoryExtensions
         int pageIndex,
         int pageSize)
     {
-        CodeContracts.VerifyNotNull(repository);
-
-        return repository.GetPaged(albumImage => albumImage.AlbumID == albumId, pageIndex, pageSize)
+       return repository.GetPaged(albumImage => albumImage.AlbumID == albumId, pageIndex, pageSize)
             .OrderByDescending(a => a.Uploaded).ToList();
     }
 
@@ -123,9 +116,7 @@ public static class UserAlbumImageRepositoryExtensions
         this IRepository<UserAlbumImage> repository,
         int imageId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserAlbumImage>();
+       var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserAlbumImage>();
 
         expression.Join<UserAlbumImage, UserAlbum>((image, userAlbum) => userAlbum.ID == image.AlbumID)
             .Where<UserAlbumImage, UserAlbum>((image, userAlbum) => image.ID == imageId);
@@ -149,15 +140,13 @@ public static class UserAlbumImageRepositoryExtensions
         int pageIndex = 0,
         int pageSize = 10000000)
     {
-        CodeContracts.VerifyNotNull(repository);
-
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserAlbumImage>();
+       var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserAlbumImage>();
 
         expression.Join<UserAlbumImage, UserAlbum>((image, userAlbum) => userAlbum.ID == image.AlbumID)
             .Where<UserAlbumImage, UserAlbum>((image, userAlbum) => userAlbum.UserID == userId)
             .OrderByDescending<UserAlbumImage>(item => item.ID).Page(pageIndex + 1, pageSize);
 
-        return repository.DbAccess.Execute(db => db.Connection.Select(expression)); 
+        return repository.DbAccess.Execute(db => db.Connection.Select(expression));
     }
 
     /// <summary>
@@ -170,8 +159,6 @@ public static class UserAlbumImageRepositoryExtensions
     /// </returns>
     public static int GetUserAlbumImageCount(this IRepository<UserAlbumImage> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserAlbumImage>();
 
         expression.Join<UserAlbumImage, UserAlbum>((image, userAlbum) => userAlbum.ID == image.AlbumID)
@@ -187,33 +174,7 @@ public static class UserAlbumImageRepositoryExtensions
     /// <param name="imageId">The image identifier.</param>
     public static void IncrementDownload(this IRepository<UserAlbumImage> repository, int imageId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.UpdateAdd(() => new UserAlbumImage { Downloads = 1 }, u => u.ID == imageId);
-    }
-
-    /// <summary>
-    /// The update caption.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="imageId">
-    /// The image id.
-    /// </param>
-    /// <param name="caption">
-    /// The caption.
-    /// </param>
-    public static void UpdateCaption(
-        this IRepository<UserAlbumImage> repository,
-        int imageId,
-        string caption)
-    {
-        CodeContracts.VerifyNotNull(repository);
-
-        repository.UpdateOnly(
-            () => new UserAlbumImage { Caption = caption },
-            f => f.ID == imageId);
     }
 
     /// <summary>
@@ -249,8 +210,6 @@ public static class UserAlbumImageRepositoryExtensions
         int bytes,
         string contentType)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.Insert(
             new UserAlbumImage
                 {

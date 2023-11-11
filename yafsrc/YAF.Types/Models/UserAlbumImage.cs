@@ -36,6 +36,9 @@ public class UserAlbumImage : IEntity, IHaveID
     [AutoIncrement]
     public int ID { get; set; }
 
+    [Reference]
+    public UserAlbum UserAlbum { get; set; }
+
     /// <summary>
     /// Gets or sets the album id.
     /// </summary>

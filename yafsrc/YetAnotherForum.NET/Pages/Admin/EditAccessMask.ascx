@@ -131,7 +131,7 @@
                     <YAF:ThemeButton ID="Cancel" runat="server"
                                      OnClick="CancelClick"
                                      Type="Secondary"
-                                     Icon="reply"
+                                     Icon="times"
                                      TextLocalizedTag="CANCEL" />
                 </div>
             </div>

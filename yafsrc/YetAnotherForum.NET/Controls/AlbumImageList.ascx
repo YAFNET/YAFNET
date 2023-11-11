@@ -6,7 +6,7 @@
 <%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Configuration" %>
 <%@ Import Namespace="ServiceStack.Text" %>
-
+<%@ Import Namespace="YAF.Core.Context.Start" %>
 
 
 <div class="bg-light">
@@ -40,19 +40,13 @@
                               <asp:Label runat="server"
                                          Visible="<%# this.UserID == this.PageBoardContext.PageUserID %>"
                                          CssClass="card-text mb-3">
-                                  <span id='<%# "spnTitle{0}".Fmt(this.Eval("ID")) %>'
-                                        onclick="showTexBox(this.id)"
-                                        title='<%# this.Eval("Caption") == null ? this.GetText("ALBUM_IMAGE_CHANGE_CAPTION") : this.GetText("ALBUM_IMAGE_CHANGE_CAPTION2") %>'
-                                        data-bs-toggle="tooltip">
-                                      <YAF:Icon runat="server" IconName="pen" IconType="text-secondary"/>
-                                      <%# this.Eval("Caption").IsNullOrEmptyField() ? this.GetText("ALBUM_IMAGE_CHANGE_CAPTION") : this.HtmlEncode(this.Eval("Caption"))%>
-                                  </span>
-                                  <input type="text" id='<%# "txtTitle{0}".Fmt(this.Eval("ID")) %>'
-                                         class="form-control"
-                                         onkeydown="checkKey(event, this,'<%# this.Eval("ID") %>',false)"
-                                         onblur="blurTextBox(this.id, '<%# this.Eval("ID")%>', false)" style="display: none;" />
+                                  <YAF:Icon runat="server" IconName="pen" IconType="text-secondary"/>
+                                  <a class="album-image-caption border-bottom border-danger border-3" data-type="text" 
+                                     data-id='<%# this.Eval("ID") %>' 
+                                     data-url='<%# "{0}{1}/Album/ChangeImageCaption".Fmt(BoardInfo.ForumClientFileRoot, WebApiConfig.UrlPrefix) %>'
+                                     data-title='<%#  this.GetText(this.Eval("Caption") == null ? "ALBUM_IMAGE_CHANGE_CAPTION" : "ALBUM_IMAGE_CHANGE_CAPTION2") %>'><%# this.Eval("Caption").IsNullOrEmptyField() ? this.GetText("ALBUM_IMAGE_CHANGE_CAPTION") : this.HtmlEncode(this.Eval("Caption"))%></a>
                               </asp:Label>
-                              <div class="d-flex justify-content-between align-items-center">
+                              <div class="d-flex justify-content-between align-items-center mt-1">
                                   <div class="btn-group">
                                       <YAF:ThemeButton ID="SetCover" runat="server"
                                                        CommandArgument='<%# this.Eval("ID") %>'

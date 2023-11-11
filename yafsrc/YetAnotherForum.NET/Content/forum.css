@@ -375,6 +375,20 @@ div.code-toolbar > .toolbar > .toolbar-item > span:focus {
   animation-name: fadeOutUp;
 }
 
+.dark-editable-element {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.dark-editable-element-disabled {
+  border-bottom: none;
+  cursor: default;
+}
+
+.dark-editable {
+  max-width: none;
+}
+
 /*!
 * Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com
 * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)

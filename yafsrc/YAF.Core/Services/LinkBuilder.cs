@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Services;
 
 using ServiceStack.Text;
@@ -70,16 +71,15 @@ public class LinkBuilder : IHaveServiceLocator
     /// <returns>
     /// The get safe raw URL.
     /// </returns>
-    
     public string GetSafeRawUrl(string url)
     {
-        CodeContracts.VerifyNotNull(url);
-
         var processedRaw = url;
+
         processedRaw = processedRaw.Replace("\"", string.Empty);
         processedRaw = processedRaw.Replace("<", "%3C");
         processedRaw = processedRaw.Replace(">", "%3E");
         processedRaw = processedRaw.Replace("&", "%26");
+
         return processedRaw.Replace("'", string.Empty);
     }
 
@@ -337,9 +337,7 @@ public class LinkBuilder : IHaveServiceLocator
 
         var parameters = values.ToObjectDictionary();
 
-        queryString = parameters.Aggregate(
-            queryString,
-            (current, param) => $"{current}&{param.Key}={param.Value}");
+        queryString = parameters.Aggregate(queryString, (current, param) => $"{current}&{param.Key}={param.Value}");
 
         return queryString;
     }

@@ -45,21 +45,44 @@ public class AlbumController : ApiController, IHaveServiceLocator
     public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
     /// <summary>
-    /// The change image caption.
+    /// Change the album title.
     /// </summary>
-    /// <param name="jsonData">
-    /// The JSON Data.
-    /// </param>
-    /// <returns>
-    /// the return object.
-    /// </returns>
+    [Route("Album/ChangeAlbumTitle")]
+    [HttpPost]
+    public IHttpActionResult ChangeAlbumTitle()
+    {
+        var imageId = this.Get<HttpRequestBase>().Form["id"].ToType<int>();
+        var newCaption = HttpUtility.HtmlEncode(this.Get<HttpRequestBase>().Form["value"].Trim());
+
+        if (newCaption.Equals(this.Get<ILocalization>().GetText("ALBUM_CHANGE_TITLE")))
+        {
+            return this.Ok();
+        }
+
+        this.Get<IAlbum>().ChangeAlbumTitle(imageId, newCaption);
+
+        return this.Ok();
+    }
+
+    /// <summary>
+    /// Change the album image caption.
+    /// </summary>
     [Route("Album/ChangeImageCaption")]
     [HttpPost]
-    public IHttpActionResult ChangeImageCaption(JObject jsonData)
+    public IHttpActionResult ChangeImageCaption()
     {
-        dynamic json = jsonData;
+        var imageId = this.Get<HttpRequestBase>().Form["id"].ToType<int>();
+        var newCaption = HttpUtility.HtmlEncode(this.Get<HttpRequestBase>().Form["value"].Trim());
 
-        return this.Ok(this.Get<IAlbum>().ChangeImageCaption((int)json.ImageId, (string)json.NewCaption));
+        if (newCaption.Equals(this.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION"))
+            || newCaption.Equals(this.Get<ILocalization>().GetText("ALBUM_IMAGE_CHANGE_CAPTION2")))
+        {
+            return this.Ok();
+        }
+
+        this.Get<IAlbum>().ChangeImageCaption(imageId, newCaption);
+
+        return this.Ok();
     }
 
     /// <summary>

@@ -274,16 +274,20 @@ public static class MessageRepositoryExtensions
 
                     var reputationExpression = db.Connection.From<ReputationVote>(db.Connection.TableAlias("x"));
                     reputationExpression.Where(
-                        $@"x.{reputationExpression.Column<ReputationVote>(x => x.ReputationToUserID)}={expression.Column<User>(b => b.ID, true)}
-                                        and x.{reputationExpression.Column<ReputationVote>(x => x.ReputationFromUserID)}={userId}");
+                        $"""
+                         x.{reputationExpression.Column<ReputationVote>(x => x.ReputationToUserID)}={expression.Column<User>(b => b.ID, true)}
+                                                                 and x.{reputationExpression.Column<ReputationVote>(x => x.ReputationFromUserID)}={userId}
+                         """);
                     var reputationSql = reputationExpression
                         .Select($"{reputationExpression.Column<ReputationVote>(x => x.VoteDate)}").Limit(1)
                         .ToSelectStatement();
 
                     var isThankByUserExpression = db.Connection.From<Thanks>(db.Connection.TableAlias("ta"));
                     isThankByUserExpression.Where(
-                        $@"ta.{isThankByUserExpression.Column<Thanks>(x => x.ThanksFromUserID)}={userId}
-                                    and ta.{isThankByUserExpression.Column<Thanks>(x => x.MessageID)}={expression.Column<Message>(x => x.ID, true)}");
+                        $"""
+                         ta.{isThankByUserExpression.Column<Thanks>(x => x.ThanksFromUserID)}={userId}
+                                                             and ta.{isThankByUserExpression.Column<Thanks>(x => x.MessageID)}={expression.Column<Message>(x => x.ID, true)}
+                         """);
                     var isThankByUserSql = isThankByUserExpression.Select(Sql.Count("1")).ToSelectStatement();
 
                     var thanksCountExpression = db.Connection.From<Thanks>(db.Connection.TableAlias("ta"));
@@ -716,7 +720,6 @@ public static class MessageRepositoryExtensions
     /// <returns>
     /// The <see cref="List"/>.
     /// </returns>
-    
     public static List<Message> Replies(this IRepository<Message> repository, int messageId)
     {
         CodeContracts.VerifyNotNull(repository);

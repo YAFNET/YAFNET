@@ -32,56 +32,8 @@ using YAF.Core.Context.Start;
 public static class JavaScriptBlocks
 {
     /// <summary>
-    ///   Gets the script for changing the image caption.
-    /// </summary>
-    /// <returns></returns>
-    
-    public static string ChangeImageCaptionJs =>
-        $$"""
-          function changeImageCaption(imageId, txtTitleId) {
-              const newImgTitleTxt = document.getElementById(txtTitleId).value;
-          
-              fetch("{{BoardInfo.ForumClientFileRoot}}{{WebApiConfig.UrlPrefix}}/Album/ChangeImageCaption",
-                      {
-                          method: "POST",
-                          body: JSON.stringify({ ImageId: imageId, NewCaption: newImgTitleTxt }),
-                          headers: {
-                              "Accept": "application/json",
-                              "Content-Type": "application/json;charset=utf-8"
-                          }
-                      }).then(res => res.json())
-                  .then(response => {
-                      changeTitleSuccess(response);
-                  }).catch(function(error) {
-                      errorLog(error);
-                  });
-          }
-
-          """;
-
-    /// <summary>
-    ///   Gets the script for album/image title/image callback.
-    /// </summary>
-    /// <returns>
-    ///   the callback success js.
-    /// </returns>
-    
-    public static string AlbumCallbackSuccessJs =>
-        """
-        function changeTitleSuccess(res){
-                          txtTitleVar =  document.getElementById("txtTitle" + res.Id);
-                          spnTitleVar = document.getElementById("spnTitle" + res.Id);
-                          txtTitleVar =  document.getElementById("txtTitle" + res.Id);
-                          spnTitleVar.firstChild.nodeValue = res.NewTitle;
-                          txtTitleVar.disabled = false;
-                          spnTitleVar.style.display = 'inline';
-                          txtTitleVar.style.display='none';}
-        """;
-
-    /// <summary>
     /// Gets the multi quote callback success JS.
     /// </summary>
-    
     public static string MultiQuoteCallbackSuccessJs =>
         """
         function multiQuoteSuccess(res) {
@@ -93,7 +45,6 @@ public static class JavaScriptBlocks
     /// <summary>
     /// Gets the multi quote button JS.
     /// </summary>
-    
     public static string MultiQuoteButtonJs =>
         $$"""
           function handleMultiQuoteButton(button, msgId, tpId) {
@@ -239,95 +190,29 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
-    /// Java Script events for Album pages.
+    /// Get the album edit caption java script
     /// </summary>
-    /// <param name="albumEmptyTitle">
-    /// The Album Empty Title.
-    /// </param>
-    /// <param name="imageEmptyCaption">
-    /// The Image Empty Caption.
-    /// </param>
-    /// <returns>
-    /// The album events JS.
-    /// </returns>
-    public static string AlbumEventsJs(string albumEmptyTitle, string imageEmptyCaption)
+    /// <returns>The album edit caption JS.</returns>
+    public static string AlbumEditCaptionJs()
     {
-        return $$"""
-                 function showTexBox(spnTitleId) {
-                     {
-                         const spnTitleVar = document.getElementById("spnTitle" + spnTitleId.substring(8)),
-                             txtTitleVar = document.getElementById("txtTitle" + spnTitleId.substring(8));
-                 
-                         if (spnTitleVar.firstChild != null) txtTitleVar.setAttribute("value", spnTitleVar.firstChild.nodeValue);
-                         if (spnTitleVar.firstChild.nodeValue == "{{albumEmptyTitle}}" || spnTitleVar.firstChild.nodeValue == "{{imageEmptyCaption}}") {
-                             {
-                                 txtTitleVar.value = "";
-                                 spnTitleVar.firstChild.nodeValue = "";
-                             }
-                         }
-                         txtTitleVar.style.display = "inline";
-                         spnTitleVar.style.display = "none";
-                         txtTitleVar.focus();
-                     }
-                 }
+        return """
+               document.querySelectorAll(".album-caption").forEach(el => {
+                  const popover = new DarkEditable(el);
+               });
+               """;
+    }
 
-                 function resetBox(txtTitleId, isAlbum) {
-                     {
-                         const spnTitleVar = document.getElementById("spnTitle" + txtTitleId.substring(8)),
-                             txtTitleVar = document.getElementById(txtTitleId);
-                 
-                         txtTitleVar.style.display = "none";
-                         txtTitleVar.disabled = false;
-                         spnTitleVar.style.display = "inline";
-                         if (spnTitleVar.firstChild != null) txtTitleVar.value = spnTitleVar.firstChild.nodeValue;
-                         if (spnTitleVar.firstChild.nodeValue == "") {
-                             {
-                                 txtTitleVar.value = "";
-                                 if (isAlbum) spnTitleVar.firstChild.nodeValue = "{{albumEmptyTitle}}";
-                                 else spnTitleVar.firstChild.nodeValue = "{{imageEmptyCaption}}";
-                             }
-                         }
-                     }
-                 }
-
-                 function checkKey(event, handler, id, isAlbum) {
-                     {
-                         if ((event.keyCode == 13) || (event.which == 13)) {
-                             {
-                                 if (event.preventDefault) event.preventDefault();
-                                 event.cancel = true;
-                                 event.returnValue = false;
-                                 if (spnTitleVar.firstChild.nodeValue != txtTitleVar.value) {
-                                     {
-                                         handler.disabled = true;
-                                         if (isAlbum == true) changeAlbumTitle(id, handler.id);
-                                         else changeImageCaption(id, handler.id);
-                                     }
-                                 } else resetBox(handler.id, isAlbum);
-                             }
-                         } else if ((event.keyCode == 27) || (event.which == 27)) resetBox(handler.id, isAlbum);
-                     }
-                 }
-
-                 function blurTextBox(txtTitleId, id, isAlbum) {
-                     {
-                         const spnTitleVar = document.getElementById("spnTitle" + txtTitleId.substring(8)),
-                             txtTitleVar = document.getElementById(txtTitleId);
-                 
-                         if (spnTitleVar.firstChild != null) {
-                             {
-                                 if (spnTitleVar.firstChild.nodeValue != txtTitleVar.value) {
-                                     {
-                                         txtTitleVar.disabled = true;
-                                         if (isAlbum == true) changeAlbumTitle(id, txtTitleId);
-                                         else changeImageCaption(id, txtTitleId);
-                                     }
-                                 } else resetBox(txtTitleId, isAlbum);
-                             }
-                         } else resetBox(txtTitleId, isAlbum);
-                     }
-                 }
-                 """;
+    /// <summary>
+    /// Get the album image edit caption java script
+    /// </summary>
+    /// <returns>The album image edit caption JS.</returns>
+    public static string AlbumImageEditCaptionJs()
+    {
+        return """
+                  document.querySelectorAll(".album-image-caption").forEach(el => {
+                     const popover = new DarkEditable(el);
+                  });
+                  """;
     }
 
     /// <summary>

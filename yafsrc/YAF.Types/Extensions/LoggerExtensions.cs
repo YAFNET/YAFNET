@@ -59,7 +59,7 @@ public static class LoggerExtensions
     /// </param>
     public static void Error(this ILoggerService logger, Exception ex, string message)
     {
-        logger.Log(message, EventLogTypes.Error, exception: ex);
+        logger.Log(message, exception: ex);
     }
 
     /// <summary>
@@ -93,8 +93,6 @@ public static class LoggerExtensions
         int? userId,
         string description)
     {
-        CodeContracts.VerifyNotNull(logger);
-
         logger.Log(description, EventLogTypes.UserDeleted, userId, "User Deleted");
     }
 
@@ -115,8 +113,6 @@ public static class LoggerExtensions
         int? userId,
         string description)
     {
-        CodeContracts.VerifyNotNull(logger);
-
         logger.Log(description, EventLogTypes.SpamMessageDetected, userId, "Spam Message Detected");
     }
 
@@ -137,8 +133,6 @@ public static class LoggerExtensions
         int? userId,
         string description)
     {
-        CodeContracts.VerifyNotNull(logger);
-
         logger.Log(description, EventLogTypes.SpamBotDetected, userId, "Bot Detected");
     }
 
@@ -167,8 +161,6 @@ public static class LoggerExtensions
         string description,
         EventLogTypes eventType = EventLogTypes.Error)
     {
-        CodeContracts.VerifyNotNull(logger);
-
         var sourceDescription = "unknown";
 
         if (source is Type)

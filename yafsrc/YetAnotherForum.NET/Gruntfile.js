@@ -314,6 +314,7 @@ module.exports = function(grunt) {
                 src: [
                     "Scripts/bootstrap.bundle.js",
                     "Scripts/bootbox.js",
+                    "Scripts/dark-editable.js",
                     "Scripts/bootstrap-notify.js",
                     "Scripts/forum/bootstrap-touchspin.js",
                     "Scripts/choices/assets/scripts/choices.js",
@@ -342,6 +343,7 @@ module.exports = function(grunt) {
                 },
                 src: [
                     "Scripts/bootbox.js",
+                    "Scripts/dark-editable.js",
                     "Scripts/bootstrap-notify.js",
                     "Scripts/forum/bootstrap-touchspin.js",
                     "Scripts/choices/assets/scripts/choices.js",
@@ -371,6 +373,7 @@ module.exports = function(grunt) {
                 src: [
                     "Scripts/bootstrap.bundle.js",
                     "Scripts/bootbox.js",
+                    "Scripts/dark-editable.js",
                     "Scripts/bootstrap-notify.js",
                     "Scripts/forum/bootstrap-touchspin.js",
                     "Scripts/choices/assets/scripts/choices.js",
@@ -397,6 +400,7 @@ module.exports = function(grunt) {
                 src: [
                     "Scripts/bootbox.js",
                     "Scripts/bootstrap-notify.js",
+                    "Scripts/dark-editable.js",
                     "Scripts/forum/bootstrap-touchspin.js",
                     "Scripts/choices/assets/scripts/choices.js",
                     "Scripts/bs5-lightbox/dist/index.bundle.min.js",

@@ -56,6 +56,7 @@ AutoCloseTags.prototype = {
     }
 };
 
-document.addEventListener("DOMContentLoaded", function () {
-    const autoCloseTags = new AutoCloseTags(document.querySelector(".BBCodeEditor"));
-})
+document.addEventListener("DOMContentLoaded",
+    function() {
+        const autoCloseTags = new AutoCloseTags(document.querySelector(".BBCodeEditor"));
+    });
