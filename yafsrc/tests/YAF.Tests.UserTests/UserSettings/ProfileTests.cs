@@ -61,11 +61,11 @@ public class ProfileTests : TestBase
                         "Changing the Language is disabled for Users");
 
                     // Switch Language to German
-                    await page.Locator("#select2-Language-container").ClickAsync();
-                    await page.Locator("//li[contains(@id,'-de-DE')]").ClickAsync();
+                    await page.Locator("//select[@id='Language']/following::div[1]").ClickAsync();
+                    await page.Locator("//div[contains(@data-value,'de-DE')]").ClickAsync();
 
                     // Save the Changes
-                    await page.Locator("//button[contains(@type,'submit')]").ClickAsync();
+                    await page.Locator("//button[contains(@type,'submit')]").Last.ClickAsync();
 
                     await page.ReloadAsync();
 
@@ -76,11 +76,11 @@ public class ProfileTests : TestBase
                     await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Profile/EditSettings");
 
                     // Switch Language Back to English
-                    await page.Locator("#select2-Language-container").ClickAsync();
-                    await page.Locator("//li[contains(@id,'-en-US')]").First.ClickAsync();
+                    await page.Locator("//select[@id='Language']/following::div[1]").ClickAsync();
+                    await page.Locator("//div[contains(@data-value,'en-US')]").ClickAsync();
 
                     // Save the Changes
-                    await page.Locator("//button[contains(@type,'submit')]").ClickAsync();
+                    await page.Locator("//button[contains(@type,'submit')]").Last.ClickAsync();
 
                     await page.ReloadAsync();
 
@@ -121,11 +121,11 @@ public class ProfileTests : TestBase
                         "Changing the Theme is disabled for Users");
 
                     // Switch Theme to "flatly"
-                    await page.Locator("#select2-Theme-container").ClickAsync();
-                    await page.Locator("//li[contains(@id,'-flatly')]").ClickAsync();
+                    await page.Locator("//select[@id='Theme']/following::div[1]").ClickAsync();
+                    await page.Locator("//div[contains(@data-value,'flatly')]").ClickAsync();
 
                     // Save the Changes
-                    await page.Locator("//button[contains(@type,'submit')]").ClickAsync();
+                    await page.Locator("//button[contains(@type,'submit')]").Last.ClickAsync();
 
                     Assert.IsNotNull(
                         await page.Locator("//link[contains(@href,'Themes/flatly/bootstrap')]").IsVisibleAsync(),
@@ -134,11 +134,11 @@ public class ProfileTests : TestBase
                     await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Profile/EditSettings");
 
                     // Switch Theme back to the yaf theme
-                    await page.Locator("#select2-Theme-container").ClickAsync();
-                    await page.Locator("//li[contains(@id,'-yaf')]").ClickAsync();
+                    await page.Locator("//select[@id='Theme']/following::div[1]").ClickAsync();
+                    await page.Locator("//div[contains(@data-value,'yaf')]").ClickAsync();
 
                     // Save the Changes
-                    await page.Locator("//button[contains(@type,'submit')]").ClickAsync();
+                    await page.Locator("//button[contains(@type,'submit')]").Last.ClickAsync();
 
                     Assert.IsNotNull(
                         await page.Locator("//link[contains(@href,'Themes/yaf/bootstrap')]").IsVisibleAsync(),
@@ -189,7 +189,7 @@ public class ProfileTests : TestBase
                     await emailInput.FillAsync(NewEmailAddress);
 
                     // Save the Profile Changes
-                    await page.Locator("//button[contains(@type,'submit')]").ClickAsync();
+                    await page.Locator("//button[contains(@type,'submit')]").Last.ClickAsync();
 
                     await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Profile/EditSettings");
 
@@ -206,7 +206,7 @@ public class ProfileTests : TestBase
                     await emailInput.FillAsync(oldEmailAddress);
 
                     // Save the Profile Changes
-                    await page.Locator("//button[contains(@type,'submit')]").ClickAsync();
+                    await page.Locator("//button[contains(@type,'submit')]").Last.ClickAsync();
 
                     await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Profile/EditSettings");
 
@@ -245,12 +245,12 @@ public class ProfileTests : TestBase
                     Assert.IsTrue(pageSource.Contains("Country"), "Changing the Country is disabled for Users");
 
                     // Switch Country to "Germany"
-                    await page.Locator("#select2-Input_Country-container").ClickAsync();
-                    await page.GetByRole(AriaRole.Option, new() { Name = "Germany" }).ClickAsync();
+                    await page.Locator("//select[@id='Input_Country']/following::div[1]").ClickAsync();
+                    await page.Locator("//div[contains(@data-value,'DE')]").Last.ClickAsync();
 
                     // Switch Region to "Berlin"
-                    await page.Locator("#select2-Input_Region-container").ClickAsync();
-                    await page.GetByRole(AriaRole.Option, new() { Name = "Berlin" }).ClickAsync();
+                    await page.Locator("//select[@id='Input_Region']/following::div[1]").ClickAsync();
+                    await page.Locator("//div[contains(@data-value,'BER')]").Last.ClickAsync();
 
                     // Save the Profile Changes
                     await page.Locator("//button[contains(@formaction,'UpdateProfile')]").ClickAsync();

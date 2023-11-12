@@ -52,7 +52,7 @@ public class FriendTests : TestBase
 
                     // Do actual test
 
-                    // Go to Members Page and Find the Test User 
+                    // Go to Members Page and Find the Test User
                     await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Members");
 
                     var pageSource = await page.ContentAsync();
@@ -270,7 +270,9 @@ public class FriendTests : TestBase
 
                     await delete.ClickAsync();
 
-                    await page.Locator(".btn-success").ClickAsync();
+                    pageSource = await page.ContentAsync();
+
+                    Assert.IsTrue(pageSource.Contains("has been removed from your Friend list."));
                 },
             this.BrowserType);
     }

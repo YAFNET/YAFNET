@@ -74,10 +74,15 @@ public class LoginLogoutUser : TestBase
                         await page.GotoAsync(this.Base.TestSettings.TestForumUrl);
                     }
 
+                    if (await page.Locator("button").Filter(new() { HasText = "Close" }).IsVisibleAsync())
+                    {
+                        await page.Locator("button").Filter(new() { HasText = "Close" }).ClickAsync();
+                    }
+
                     await page.Locator("#navbarSupportedContent").GetByRole(AriaRole.Button, new() { Name = "Login" })
                         .ClickAsync();
 
-                    Assert.IsTrue(await page.Locator("//*[contains(@id, 'UserName')]").IsVisibleAsync());
+                    await page.Locator("//*[contains(@id, 'UserName')]").WaitForAsync();
 
                     await page.Locator("//*[contains(@id, 'UserName')]").FillAsync(this.Base.TestSettings.TestUserName);
                     await page.Locator("//input[contains(@id, 'Password')]")

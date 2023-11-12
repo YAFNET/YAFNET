@@ -34,7 +34,7 @@ public class EmailNotificationTests : TestBase
     /// <summary>
     /// Add watch topic test.
     /// </summary>
-    [Test]
+    [Test, Order(1)]
     public async Task AddWatchTopicTest()
     {
         await this.Base.PlaywrightFixture.GotoPageAsync(
@@ -97,7 +97,7 @@ public class EmailNotificationTests : TestBase
     /// <summary>
     /// Delete watch topic test.
     /// </summary>
-    [Test]
+    [Test, Order(2)]
     public async Task DeleteWatchTopicTest()
     {
         await this.Base.PlaywrightFixture.GotoPageAsync(
@@ -145,7 +145,7 @@ public class EmailNotificationTests : TestBase
     /// <summary>
     /// Add watch forum test.
     /// </summary>
-    [Test]
+    [Test, Order(3)]
     public async Task AddWatchForumTest()
     {
         await this.Base.PlaywrightFixture.GotoPageAsync(
@@ -202,7 +202,7 @@ public class EmailNotificationTests : TestBase
     /// <summary>
     /// Delete watch forum test.
     /// </summary>
-    [Test]
+    [Test, Order(4)]
     public async Task DeleteWatchForumTest()
     {
         await this.Base.PlaywrightFixture.GotoPageAsync(
@@ -258,8 +258,6 @@ public class EmailNotificationTests : TestBase
                             this.Base.TestSettings.TestUserPassword),
                         "Login failed");
 
-                    // Do actual test
-                    
                     // Go to Test Topic
                     await page.GotoAsync(
                         $"{this.Base.TestSettings.TestForumUrl}Posts?t={this.Base.TestSettings.TestTopicId}&name=test");

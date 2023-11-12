@@ -97,5 +97,5 @@ public class TestConfig
     /// Gets or sets the test mail port.
     /// </summary>
     /// <value>The test mail port.</value>
-    public int TestMailPort { get; set; } = 25; 
+    public int TestMailPort { get; set; } = 25;
 }

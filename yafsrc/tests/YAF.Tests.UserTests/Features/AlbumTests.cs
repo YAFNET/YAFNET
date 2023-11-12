@@ -290,20 +290,18 @@ public class AlbumTests : TestBase
                     pageSource = await page.ContentAsync();
 
                     Assert.IsTrue(pageSource.Contains("Album Images"));
-                    
-                    var imageTitleSpan = page.Locator("//span[contains(@id,'spnTitle')]").First;
 
-                    await imageTitleSpan.ClickAsync();
+                    await page.Locator(".album-image-caption").ClickAsync();
 
-                    var attribute = await imageTitleSpan.GetAttributeAsync("id");
+                    var captionTextBox = page.GetByRole(AriaRole.Textbox);
 
-                    Assert.IsNotNull(attribute);
+                    await captionTextBox.ClickAsync();
 
-                    var imageTitleInput = page.Locator($"#{attribute.Replace("spn", "txt")}");
+                    await captionTextBox.ClearAsync();
 
-                    await imageTitleInput.FillAsync("TestCaption");
+                    await captionTextBox.FillAsync("TestCaption");
 
-                    await imageTitleInput.PressAsync("Enter");
+                    await captionTextBox.PressAsync("Enter");
 
                     await page.ReloadAsync();
 
@@ -315,9 +313,63 @@ public class AlbumTests : TestBase
     }
 
     /// <summary>
-    /// Deletes an image from album test.
+    /// Edit the album title test.
     /// </summary>
     [Test, Order(6)]
+    public async Task EditAlbumTitleTest()
+    {
+        await this.Base.PlaywrightFixture.GotoPageAsync(
+            this.Base.TestSettings.TestForumUrl,
+            async page =>
+            {
+                // Log user in first!
+                Assert.IsTrue(
+                    await page.LoginUserAsync(
+                        this.Base.TestSettings,
+                        this.Base.TestSettings.TestUserName,
+                        this.Base.TestSettings.TestUserPassword),
+                    "Login failed");
+
+                // Do actual test
+                await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}MyAccount");
+
+                var pageSource = await page.ContentAsync();
+
+                Assert.IsTrue(pageSource.Contains("Edit Albums"), "Albums Feature is not available for that User");
+
+                await page.GetByText("Edit Albums").First.ClickAsync();
+
+                pageSource = await page.ContentAsync();
+
+                Assert.IsTrue(pageSource.Contains("albums"), "Albums Feature is not available for that User");
+
+                Assert.IsTrue(await page.GetByText("Add New Album").IsVisibleAsync(), "Albums doesn't exists.");
+
+                await page.Locator(".album-caption").First.ClickAsync();
+
+                var captionTextBox = page.GetByRole(AriaRole.Textbox);
+
+                await captionTextBox.ClickAsync();
+
+                await captionTextBox.ClearAsync();
+
+                await captionTextBox.FillAsync("Test Album");
+
+                await captionTextBox.PressAsync("Enter");
+
+                await page.ReloadAsync();
+
+                pageSource = await page.ContentAsync();
+
+                Assert.IsTrue(pageSource.Contains("Test Album"), "Edit Title Failed");
+            },
+            this.BrowserType);
+    }
+
+    /// <summary>
+    /// Deletes an image from album test.
+    /// </summary>
+    [Test, Order(7)]
     public async Task DeleteImageFromAlbumTest()
     {
         await this.Base.PlaywrightFixture.GotoPageAsync(

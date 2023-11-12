@@ -69,7 +69,7 @@ public class ChangePasswordTests : TestBase
                         .FillAsync($"{this.Base.TestSettings.TestUserPassword}ABCDEF");
 
                     // Submit
-                    await page.Locator("//button[contains(@type,'submit')]").ClickAsync();
+                    await page.Locator("//button[contains(@type,'submit')]").Last.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
@@ -91,7 +91,7 @@ public class ChangePasswordTests : TestBase
                         .FillAsync(this.Base.TestSettings.TestUserPassword);
 
                     // Submit
-                    await page.Locator("//button[contains(@type,'submit')]").ClickAsync();
+                    await page.Locator("//button[contains(@type,'submit')]").Last.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 

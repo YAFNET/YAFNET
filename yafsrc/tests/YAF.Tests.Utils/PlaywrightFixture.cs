@@ -59,7 +59,7 @@ public class PlaywrightFixture
     /// <summary>
     /// Initialize the Playwright fixture.
     /// </summary>
-    public async Task InitializeAsync()
+    public async Task InitializeAsync(string url)
     {
         var launchOptions = new BrowserTypeLaunchOptions { Headless = true, };
 
@@ -71,6 +71,21 @@ public class PlaywrightFixture
         this.ChromiumBrowser = new Lazy<Task<IBrowser>>(this.Playwright.Chromium.LaunchAsync(launchOptions));
         this.FirefoxBrowser = new Lazy<Task<IBrowser>>(this.Playwright.Firefox.LaunchAsync(launchOptions));
         this.WebkitBrowser = new Lazy<Task<IBrowser>>(this.Playwright.Webkit.LaunchAsync(launchOptions));
+
+        // Create the host factory with the App class as parameter and the
+        // url we are going to use.
+        var hostFactory = new WebTestingHostFactory<AssemblyClassLocator>();
+        hostFactory
+            // Override host configuration to mock stuff if required.
+            .WithWebHostBuilder(
+                builder =>
+                {
+                    // Setup the url to use.
+                    builder.UseUrls(url);
+                    // Replace or add services if needed.
+                })
+            // Create the host using the CreateDefaultClient method.
+            .CreateDefaultClient();
     }
 
     /// <summary>
@@ -133,21 +148,6 @@ public class PlaywrightFixture
     /// <returns>The GotoPage task.</returns>
     public async Task GotoPageAsync(string url, Func<IPage, Task> testHandler, Browser browserType)
     {
-        // Create the host factory with the App class as parameter and the
-        // url we are going to use.
-        var hostFactory = new WebTestingHostFactory<AssemblyClassLocator>();
-        hostFactory
-            // Override host configuration to mock stuff if required.
-            .WithWebHostBuilder(
-                builder =>
-                    {
-                        // Setup the url to use.
-                        builder.UseUrls(url);
-                        // Replace or add services if needed.
-                    })
-            // Create the host using the CreateDefaultClient method.
-            .CreateDefaultClient();
-
         // select and launch the browser.
         var browser = await this.SelectBrowserAsync(browserType);
 
@@ -190,7 +190,7 @@ public class PlaywrightFixture
         }
         finally
         {
-            // Make sure the page is closed 
+            // Make sure the page is closed
             await page.CloseAsync();
 
             // Stop tracing and save data into a zip archive.
@@ -217,6 +217,10 @@ public class PlaywrightFixture
             };
     }
 
+    /// <summary>
+    /// Gets the random unused port.
+    /// </summary>
+    /// <returns>System.Int32.</returns>
     public static int GetRandomUnusedPort()
     {
         var listener = new TcpListener(IPAddress.Any, 0);

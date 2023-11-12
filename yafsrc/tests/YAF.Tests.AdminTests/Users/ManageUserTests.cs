@@ -129,7 +129,7 @@ public class ManageUserTests : TestBase
                     await page.Locator("//button[contains(@data-bs-target,'#View2')]").ClickAsync();
 
                     // Add TestUser to Test Role
-                    await page.GetByLabel("TestRole").CheckAsync();
+                    await page.GetByLabel("TestRole").First.CheckAsync();
 
                     // Save changes
                     await page.Locator("//button[contains(@formaction,'UsersGroups?handler=Save')]").ClickAsync();
@@ -152,9 +152,9 @@ public class ManageUserTests : TestBase
                     // Go To Tab User Roles
                     await page.Locator("//button[contains(@data-bs-target,'#View2')]").ClickAsync();
 
-                    Assert.IsTrue(await page.GetByLabel("TestRole").IsCheckedAsync());
+                    Assert.IsTrue(await page.GetByLabel("TestRole").First.IsCheckedAsync());
 
-                    await page.GetByLabel("TestRole").UncheckAsync();
+                    await page.GetByLabel("TestRole").First.UncheckAsync();
 
                     // Save changes
                     await page.Locator("//button[contains(@formaction,'UsersGroups?handler=Save')]").ClickAsync();

@@ -41,7 +41,7 @@ public class WebTestingHostFactory<TProgram> : WebApplicationFactory<TProgram>
     where TProgram : class
 {
     // Override the CreateHost to build our HTTP host server.
-    protected override IHost CreateHost(IHostBuilder builder)
+    override protected IHost CreateHost(IHostBuilder builder)
     {
         // Create the host that is actually used by the
         // TestServer (In Memory).

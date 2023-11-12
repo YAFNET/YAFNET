@@ -65,7 +65,7 @@ public class AvatarTests : TestBase
                         pageSource.Contains("Select your Avatar from our Collection"),
                         "Avatar Collection not available");
 
-                    await page.Locator(".select2-selection").ClickAsync();
+                    await page.Locator(".choices__list").First.ClickAsync();
 
                     await page.GetByRole(AriaRole.Option, new() { Name = "SampleAvatar.gif SampleAvatar.gif" })
                         .ClickAsync();

@@ -21,12 +21,11 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\YAF.Types\YAF.Types.csproj" />
-    <ProjectReference Include="..\YAF.Tests.Utils\YAF.Tests.Utils.csproj" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
+    <PackageReference Include="NUnit" Version="3.14.0" />
   </ItemGroup>
   <ItemGroup>
-	  <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
-    <PackageReference Include="Microsoft.Playwright.NUnit" Version="1.39.0" />
-    <PackageReference Include="NUnit" Version="3.13.3" />
+    <ProjectReference Include="..\..\YAF.Types\YAF.Types.csproj" />
+    <ProjectReference Include="..\YAF.Tests.Utils\YAF.Tests.Utils.csproj" />
   </ItemGroup>
 </Project>

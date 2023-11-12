@@ -62,7 +62,7 @@ public class InstallBase
     {
         var configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile(@"appSettings.json", false, false)
+            .AddJsonFile("appSettings.json", false, false)
             .AddEnvironmentVariables()
             .Build();
 
@@ -82,7 +82,7 @@ public class InstallBase
     {
         this.PlaywrightFixture = new PlaywrightFixture();
 
-        return this.PlaywrightFixture.InitializeAsync();
+        return this.PlaywrightFixture.InitializeAsync(this.TestSettings.TestForumUrl);
     }
 
     /// <summary>

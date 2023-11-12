@@ -51,8 +51,8 @@ public class PollTests : TestBase
                     Assert.IsTrue(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
-                            this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.AdminUserName,
+                            this.Base.TestSettings.AdminPassword),
                         "Login failed");
 
                     // Do actual test
@@ -76,8 +76,8 @@ public class PollTests : TestBase
                     Assert.IsTrue(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
-                            this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.AdminUserName,
+                            this.Base.TestSettings.AdminPassword),
                         "Login failed");
 
                     // Do actual test
@@ -150,8 +150,8 @@ public class PollTests : TestBase
                     Assert.IsTrue(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
-                            this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.AdminUserName,
+                            this.Base.TestSettings.AdminPassword),
                         "Login failed");
 
                     // Do actual test
@@ -202,8 +202,8 @@ public class PollTests : TestBase
                     Assert.IsTrue(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
-                            this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.AdminUserName,
+                            this.Base.TestSettings.AdminPassword),
                         "Login failed");
 
                     // Do actual test
@@ -234,7 +234,7 @@ public class PollTests : TestBase
 
                     Assert.IsTrue(pageSource.Contains("Thank you for your vote!"), "Voting failed");
 
-                    // Close info alert 
+                    // Close info alert
                     await page.Locator(".btn-close").ClickAsync();
 
                     // Vote for Option 5
@@ -296,7 +296,7 @@ public class PollTests : TestBase
     }
 
     /// <summary>
-    /// Create a new Topic with Poll where the Poll Question 
+    /// Create a new Topic with Poll where the Poll Question
     /// and Answer Choices contains images test.
     /// </summary>
     [Test]
