@@ -78,8 +78,6 @@ public class IntermittentBackgroundTask : BaseBackgroundTask
                 await this.RunOnceAsync();
 
                 await Task.Delay(TimeSpan.FromSeconds(this.StartDelayMs));
-
-                return true;
             }
         });
     }

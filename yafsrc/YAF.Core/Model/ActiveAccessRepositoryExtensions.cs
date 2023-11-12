@@ -99,6 +99,7 @@ public static class ActiveAccessRepositoryExtensions
                 }
                 catch (Exception)
                 {
+                    // ignored
                 }
             });
     }

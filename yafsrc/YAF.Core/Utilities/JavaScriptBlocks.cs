@@ -72,6 +72,28 @@ public static class JavaScriptBlocks
           """;
 
     /// <summary>
+    /// Get the album edit caption java script
+    /// </summary>
+    /// <returns>The album edit caption JS.</returns>
+    public static string AlbumEditCaptionJs =>
+        """
+        document.querySelectorAll(".album-caption").forEach(el => {
+           const popover = new DarkEditable(el);
+        });
+        """;
+
+    /// <summary>
+    /// Get the album image edit caption java script
+    /// </summary>
+    /// <returns>The album image edit caption JS.</returns>
+    public static string AlbumImageEditCaptionJs =>
+        """
+        document.querySelectorAll(".album-image-caption").forEach(el => {
+           const popover = new DarkEditable(el);
+        });
+        """;
+
+    /// <summary>
     /// Gets Board Tags JavaScript
     /// </summary>
     /// <param name="inputId">
@@ -166,32 +188,6 @@ public static class JavaScriptBlocks
                   });
 
                   """;
-    }
-
-    /// <summary>
-    /// Get the album edit caption java script
-    /// </summary>
-    /// <returns>The album edit caption JS.</returns>
-    public static string AlbumEditCaptionJs()
-    {
-        return """
-               document.querySelectorAll(".album-caption").forEach(el => {
-                  const popover = new DarkEditable(el);
-               });
-               """;
-    }
-
-    /// <summary>
-    /// Get the album image edit caption java script
-    /// </summary>
-    /// <returns>The album image edit caption JS.</returns>
-    public static string AlbumImageEditCaptionJs()
-    {
-        return """
-               document.querySelectorAll(".album-image-caption").forEach(el => {
-                  const popover = new DarkEditable(el);
-               });
-               """;
     }
 
     /// <summary>
