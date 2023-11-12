@@ -59,7 +59,7 @@ public static class BoardInfo
     /// <summary>
     /// Gets the Current YAF Build Date
     /// </summary>
-    public static DateTime AppVersionDate => new(2023, 10, 14, 06, 59, 00, DateTimeKind.Utc);
+    public static DateTime AppVersionDate => new(2023, 11, 12, 06, 40, 00, DateTimeKind.Utc);
 
     /// <summary>
     /// Creates a string that is the YAF Application Version from a long value
@@ -72,9 +72,9 @@ public static class BoardInfo
         var version = new YafVersion
                           {
                               Major = 3,
-                              Minor = 1,
-                              Build = 16,
-                              ReleaseType = ReleaseType.BETA,
+                              Minor = 2,
+                              Build = 0,
+                              ReleaseType = ReleaseType.Regular,
                               ReleaseNumber = 0
                           };
 
@@ -105,8 +105,6 @@ public static class BoardInfo
     /// </returns>
     public static string GetURLToContent(string resourceName)
     {
-        CodeContracts.VerifyNotNull(resourceName);
-
         return $"{ForumClientFileRoot}Content/{resourceName}";
     }
 
@@ -119,8 +117,6 @@ public static class BoardInfo
     /// </returns>
     public static string GetURLToContentThemes(string resourceName)
     {
-        CodeContracts.VerifyNotNull(resourceName);
-
         return $"{ForumClientFileRoot}Content/Themes/{resourceName}";
     }
 
@@ -133,8 +129,6 @@ public static class BoardInfo
     /// </returns>
     public static string GetURLToScripts(string resourceName)
     {
-        CodeContracts.VerifyNotNull(resourceName);
-
         return $"{ForumClientFileRoot}Scripts/{resourceName}";
     }
 }

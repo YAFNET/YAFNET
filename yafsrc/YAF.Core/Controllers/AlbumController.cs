@@ -118,7 +118,7 @@ public class AlbumController : ApiController, IHaveServiceLocator
                                          {
                                              FileName = image.FileName,
                                              OnClick = $"setStyle('AlbumImgId', '{image.ID}')", IconImage =
-                                                 $@"<img src=""{url}"" alt=""{(image.Caption.IsSet() ? image.Caption : image.FileName)}"" title=""{(image.Caption.IsSet() ? image.Caption : image.FileName)}"" class=""img-fluid img-thumbnail me-1 attachments-preview"" />",
+                                                 $"""<img src="{url}" alt="{(image.Caption.IsSet() ? image.Caption : image.FileName)}" title="{(image.Caption.IsSet() ? image.Caption : image.FileName)}" class="img-fluid img-thumbnail me-1 attachments-preview" />""",
                                              DataURL = url
                                          };
 
