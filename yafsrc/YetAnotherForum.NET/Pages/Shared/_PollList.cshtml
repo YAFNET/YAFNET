@@ -358,7 +358,7 @@
     </form>
 }
 
-@if (!Current.PageTopic.PollID.HasValue && Current.BoardSettings.AllowedPollChoiceNumber > 0 && hasOwnerExistingGroupAccess)
+@if (!Current.PageTopic.PollID.HasValue && Current.BoardSettings.AllowedPollChoiceNumber > 0 && hasOwnerExistingGroupAccess && Current.ForumPollAccess)
 {
     <div class="row">
         <div class="col">
