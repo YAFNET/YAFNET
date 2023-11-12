@@ -353,6 +353,7 @@ module.exports = function(grunt) {
                 src: [
                     "wwwroot/lib/bootstrap.bundle.js",
                     "wwwroot/lib/bootbox.js",
+                    "wwwroot/lib/dark-editable.js",
                     "wwwroot/lib/bootstrap-notify.js",
                     "wwwroot/lib/forum/bootstrap-touchspin.js",
                     "wwwroot/lib/choices/assets/scripts/choices.js",
@@ -387,6 +388,7 @@ module.exports = function(grunt) {
                 src: [
                     "wwwroot/lib/bootstrap.bundle.js",
                     "wwwroot/lib/bootbox.js",
+                    "wwwroot/lib/dark-editable.js",
                     "wwwroot/lib/bootstrap-notify.js",
                     "wwwroot/lib/forum/bootstrap-touchspin.js",
                     "wwwroot/lib/choices/assets/scripts/choices.js",
