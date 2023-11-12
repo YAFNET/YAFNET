@@ -1,6 +1,18 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.2.0
+* [NEW] updated quote styling
+* [CHANGES] upgraded to .NET Framework v4.8.1
+* [CHANGES] hover cards now using bs popovers
+* [CHANGES] Digest Email now uses email template
+* [CHANGES] updated edit album title & album image caption UI
+* [FIXED] Show PM Replies
+* [FIXED] Sitemap urls
+* removed jquery
+* replaced all jquery plugins with vanilla JS
+* bug fixes
+
 # YetAnotherForum.NET v3.1.15
 * [FIXED #941] Replacing the CKEditor with the (old) improved BBCode Editor
 * [FIXED] Upgrade process
