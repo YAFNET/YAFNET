@@ -92,7 +92,7 @@ public partial class PollList : BaseUserControl
     protected bool CanCreatePoll()
     {
         return this.PageBoardContext.BoardSettings.AllowedPollChoiceNumber > 0 && this.HasOwnerExistingGroupAccess() &&
-               this.PollId >= 0;
+               this.PollId >= 0 && this.PageBoardContext.ForumPollAccess;
     }
 
     /// <summary>
@@ -282,8 +282,7 @@ public partial class PollList : BaseUserControl
     {
         this.CreatePoll.NavigateUrl = this.Get<LinkBuilder>().GetLink(ForumPages.PollEdit, this.ParamsToSend());
         this.CreatePoll.DataBind();
-
-        this.NewPollRow.Visible = true;
+        this.CreatePoll.Visible = this.NewPollRow.Visible = this.CanCreatePoll();
     }
 
     /// <summary>
@@ -320,7 +319,6 @@ public partial class PollList : BaseUserControl
             this.TotalVotes.Text = this.pollAndChoices.Sum(x => x.Item2.Votes).ToString();
 
             this.EditPoll.Visible = this.CanEditPoll();
-            this.CreatePoll.Visible = this.CanCreatePoll();
 
             // Binding question image
             this.BindPollQuestionImage();
