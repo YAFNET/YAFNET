@@ -356,7 +356,7 @@ class DarkEditable {
         if (option.method == "POST") {
             option.body = form;
         } else {
-            url += "?" + new URLSearchParams(form).toString();
+            url += `?${new URLSearchParams(form).toString()}`;
         }
         const response = await fetch(url, option);
         return response;
@@ -396,12 +396,4 @@ class DarkEditable {
     }
 
     /* METHODS END */
-}
-
-const editable = document.querySelectorAll('.dark-edit');
-let i = 0;
-const edit_length = editable.length;
-
-for (i = 0; i < edit_length; i++) {
-    new DarkEditable(editable[i], { pos: 'bottom' });
 }

@@ -57,6 +57,7 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Gruntfile.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\fileUploader.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\bootbox.js" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\dark-editable.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\InstallWizard.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\InstallWizard.comb.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\fileUploader.js" />
@@ -87,7 +88,7 @@
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\editor\editor.comb.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Scripts\editor\editor.js" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap\**\*.css" />
-      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\css\**\*.css" />
+      <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\dark-editable.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\bootstrap-forum.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\forum.css" />
       <DefaultExclude Include="$(MSBuildProjectDirectory)\Content\InstallWizard.css" />
