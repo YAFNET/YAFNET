@@ -8,6 +8,7 @@ YetAnotherForum.NET Changelog
 * [CHANGES] Digest Email now uses email template
 * [CHANGES] updated edit album title & album image caption UI
 * [FIXED] Show PM Replies
+* [FIXED] Sitemap urls
 * removed jquery
 * replaced all jquery plugins with vanilla JS
 * bug fixes
