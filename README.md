@@ -14,8 +14,8 @@ If you have any questions or would like to get in touch with the project, please
 
 ## Prerequisites:
 * ASP.NET .NET Framework 4.8.1 (YAF v3.2.x)
-* ASP.NET Core 7.0 (YAF v4.x)
-* BuildPackages requires .NET v7
+* ASP.NET Core 8.0 (YAF v4.x)
+* BuildPackages requires .NET v8
 
 ## Source 
 * The [netfx branch](https://github.com/YAFNET/YAFNET/tree/netfx) contains the current Stable YAF 3.2.x Release
