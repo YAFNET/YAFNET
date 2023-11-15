@@ -156,7 +156,7 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// <summary>
     /// Gets the YAF Context Global Instance Variables Use for plugins or other situations where a value is needed per instance.
     /// </summary>
-    public TypeDictionary Vars { get; } = new ();
+    public TypeDictionary Vars { get; } = [];
 
     /// <summary>
     /// Returns a value from the BoardContext Global Instance Variables (Vars) collection.
@@ -203,7 +203,7 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
             return;
         }
 
-        this.PageLinks = new List<PageLink>();
+        this.PageLinks = [];
 
         this.BeforeInit?.Invoke(this, EventArgs.Empty);
 
