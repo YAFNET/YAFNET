@@ -1,4 +1,4 @@
-name: YAF.NET v4 (.NET v7)
+name: YAF.NET v4 (.NET v8)
 on:
   push:
     branches:
@@ -10,7 +10,7 @@ jobs:
     runs-on: windows-latest
     strategy:
       matrix:
-        dotnet-version: [ '7.0.x' ]
+        dotnet-version: [ '8.0.x' ]
 
     steps:
       - uses: actions/checkout@v3
