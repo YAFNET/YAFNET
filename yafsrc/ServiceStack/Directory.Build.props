@@ -1,8 +1,8 @@
 ﻿<Project>
 
   <PropertyGroup>
-    <Version>6.11.1</Version>
-    <AssemblyVersion>6.0.0.0</AssemblyVersion>
+    <Version>8.0.0</Version>
+    <AssemblyVersion>8.0.0.0</AssemblyVersion>
     <Authors>ServiceStack</Authors>
     <Company>ServiceStack, Inc.</Company>
     <Copyright>&#169; 2008-2022 ServiceStack, Inc</Copyright>
@@ -25,14 +25,10 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
 	
-	<PropertyGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
-		<DefineConstants>$(DefineConstants);NET7_0;NET7_0_OR_GREATER</DefineConstants>
+	<PropertyGroup Condition=" '$(TargetFramework)' == 'NET8_0_OR_GREATER' ">
+		<DefineConstants>$(DefineConstants);NET8_0;NET7_0_OR_GREATER;NETCORE;NETCORE_SUPPORT</DefineConstants>
 		<SignAssembly>True</SignAssembly>
 		<DelaySign>False</DelaySign>
 		<AssemblyOriginatorKeyFile>../servicestack.snk</AssemblyOriginatorKeyFile>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net7.0' ">
-		<DefineConstants>$(DefineConstants);NETCORE;NETCORE_SUPPORT</DefineConstants>
 	</PropertyGroup>
 </Project>

@@ -134,7 +134,7 @@ public static class DateTimeExtensions
         return (ticks - UnixEpoch) / TimeSpan.TicksPerMillisecond;
     }
 
-#if NET7_0
+#if NET7_0_OR_GREATER
     /// <summary>
     /// Converts to unixtimems.
     /// </summary>

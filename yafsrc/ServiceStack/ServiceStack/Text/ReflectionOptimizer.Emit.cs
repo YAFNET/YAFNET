@@ -14,6 +14,8 @@ using System.Runtime.Serialization;
 
 namespace ServiceStack.Text
 {
+    using System.Runtime.CompilerServices;
+
     /// <summary>
     /// Class EmitReflectionOptimizer. This class cannot be inherited.
     /// Implements the <see cref="ServiceStack.Text.ReflectionOptimizer" />
@@ -348,7 +350,7 @@ namespace ServiceStack.Text
             }
 
             //Anonymous types don't have empty constructors
-            return () => FormatterServices.GetUninitializedObject(type);
+            return () => RuntimeHelpers.GetUninitializedObject(type);
         }
 
         /// <summary>

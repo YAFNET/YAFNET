@@ -1,10 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <PackageId>ServiceStack.OrmLite.Core</PackageId>
     <AssemblyName>ServiceStack.OrmLite</AssemblyName>
     <RootNamespace>ServiceStack.OrmLite</RootNamespace>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Title>ServiceStack.OrmLite</Title>
     <PackageDescription>
       ServiceStack.OrmLite

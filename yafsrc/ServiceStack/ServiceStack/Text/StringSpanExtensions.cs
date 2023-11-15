@@ -723,11 +723,12 @@ public static class StringSpanExtensions
     /// <param name="value">The value.</param>
     /// <param name="needle">The needle.</param>
     /// <param name="start">The start.</param>
-    /// <returns>System.Int32.</returns>
+    /// <param name="comparisonType">Type of the comparison.</param>
+    /// <returns>int.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static int IndexOf(this ReadOnlySpan<char> value, string needle, int start)
+    public static int IndexOf(this ReadOnlySpan<char> value, string needle, int start, StringComparison comparisonType = StringComparison.Ordinal)
     {
-        var pos = value.Slice(start).IndexOf(needle.AsSpan());
+        var pos = value[start..].IndexOf(needle.AsSpan(), comparisonType);
         return pos == -1 ? -1 : start + pos;
     }
 
@@ -929,8 +930,33 @@ public static class StringSpanExtensions
         for (var n = length - 1; n >= 0; n--)
         {
             if (value[n] == needle)
+            {
                 count++;
+            }
         }
+
+        return count;
+    }
+
+    /// <summary>
+    /// Counts the occurrences of.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="needle">The needle.</param>
+    /// <param name="comparisonType">Type of the comparison.</param>
+    /// <returns>int.</returns>
+    public static int CountOccurrencesOf(
+        this ReadOnlySpan<char> text,
+        string needle,
+        StringComparison comparisonType = StringComparison.Ordinal)
+    {
+        int count = 0, minIndex = text.IndexOf(needle, 0, comparisonType);
+        while (minIndex != -1)
+        {
+            minIndex = text.IndexOf(needle, minIndex + needle.Length, comparisonType);
+            count++;
+        }
+
         return count;
     }
 

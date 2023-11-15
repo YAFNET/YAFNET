@@ -250,10 +250,21 @@ namespace ServiceStack.OrmLite.Converters
             var enumKind = GetEnumKind(fieldType);
 
             if (enumKind == EnumKind.Char)
+            {
                 return Enum.ToObject(fieldType, (int)ToCharValue(value));
+            }
 
             if (value is string strVal)
-                return Enum.Parse(fieldType, strVal, ignoreCase: true);
+            {
+                if (string.IsNullOrEmpty(strVal))
+                {
+                    return Enum.ToObject(fieldType, 0);
+                }
+
+                return Enum.TryParse(fieldType, strVal, ignoreCase: true, out var ret)
+                           ? ret
+                           : Text.TypeSerializer.DeserializeFromString(strVal, fieldType);
+            }
 
             return Enum.ToObject(fieldType, value);
         }

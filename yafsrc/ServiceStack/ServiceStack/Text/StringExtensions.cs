@@ -1583,6 +1583,15 @@ public static class StringExtensions
         text.AsSpan().CountOccurrencesOf(needle);
 
     /// <summary>
+    /// Counts the occurrences of.
+    /// </summary>
+    /// <param name="text">The text.</param>
+    /// <param name="needle">The needle.</param>
+    /// <returns>int.</returns>
+    public static int CountOccurrencesOf(this string text, string needle) =>
+    text.AsSpan().CountOccurrencesOf(needle);
+
+    /// <summary>
     /// Normalizes the new lines.
     /// </summary>
     /// <param name="text">The text.</param>

@@ -458,7 +458,7 @@ public struct JsvTypeSerializer
             JsWriter.WriteEnumFlags(writer, enumValue);
     }
 
-#if NET7_0
+#if NET7_0_OR_GREATER
     /// <summary>
     /// Writes the date only.
     /// </summary>

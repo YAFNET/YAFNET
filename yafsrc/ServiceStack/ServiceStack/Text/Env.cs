@@ -86,8 +86,8 @@ public static class Env
         SupportsDynamic = true;
 #endif
 
-#if NET7_0
-        IsNet7 = true;
+#if NET8_0_OR_GREATER
+        IsNet8 = true;
 #endif
 
         if (!IsUWP)
@@ -128,7 +128,7 @@ public static class Env
     internal static void UpdateServerUserAgent()
     {
         ServerUserAgent =
-            $"ServiceStack/{VersionString} {PclExport.Instance.PlatformName}{(IsLinux ? "/Linux" : IsOSX ? "/OSX" : IsUnix ? "/Unix" : IsWindows ? "/Windows" : "/UnknownOS")}{(IsIOS ? "/iOS" : IsAndroid ? "/Android" : IsUWP ? "/UWP" : "")}{(IsNet7 ? "/net6" : IsNetFramework ? "netfx" : "")}/{LicenseUtils.Info}";
+            $"ServiceStack/{VersionString} {PclExport.Instance.PlatformName}{(IsLinux ? "/Linux" : IsOSX ? "/OSX" : IsUnix ? "/Unix" : IsWindows ? "/Windows" : "/UnknownOS")}{(IsIOS ? "/iOS" : IsAndroid ? "/Android" : IsUWP ? "/UWP" : "")}{(IsNet8 ? "/net8" : IsNetFramework ? "netfx" : "")}/{LicenseUtils.Info}";
     }
 
     /// <summary>
@@ -140,7 +140,7 @@ public static class Env
     /// <summary>
     /// The service stack version
     /// </summary>
-    public static decimal ServiceStackVersion = 6.111m;
+    public static decimal ServiceStackVersion = 8.0m;
 
     /// <summary>
     /// Gets or sets a value indicating whether this instance is linux.
@@ -218,7 +218,7 @@ public static class Env
     /// Gets or sets a value indicating whether this instance is net7.
     /// </summary>
     /// <value><c>true</c> if this instance is net7; otherwise, <c>false</c>.</value>
-    public static bool IsNet7 { get; set; }
+    public static bool IsNet8 { get; set; }
 
     /// <summary>
     /// Gets a value indicating whether [supports expressions].

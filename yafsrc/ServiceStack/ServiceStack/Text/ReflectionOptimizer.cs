@@ -4,9 +4,11 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 
 namespace ServiceStack.Text;
@@ -259,10 +261,12 @@ public sealed class RuntimeReflectionOptimizer : ReflectionOptimizer
     {
         var emptyCtor = type.GetConstructor(Type.EmptyTypes);
         if (emptyCtor != null)
+        {
             return () => Activator.CreateInstance(type);
+        }
 
         //Anonymous types don't have empty constructors
-        return () => FormatterServices.GetUninitializedObject(type);
+        return () => RuntimeHelpers.GetUninitializedObject(type);
     }
 }
 

@@ -34,7 +34,7 @@ public static class CrossSiteScriptingValidation
     /// <summary>
     /// The starting chars
     /// </summary>
-    private static readonly char[] StartingChars = { '<', '&' };
+    private readonly static char[] StartingChars = ['<', '&'];
 
     /// <summary>
     /// Determines whether [is dangerous string] [the specified s].
@@ -53,10 +53,16 @@ public static class CrossSiteScriptingValidation
             var n = s.IndexOfAny(StartingChars, i);
 
             // If not found, the string is safe
-            if (n < 0) return false;
+            if (n < 0)
+            {
+                return false;
+            }
 
             // If it's the last char, it's safe
-            if (n == s.Length - 1) return false;
+            if (n == s.Length - 1)
+            {
+                return false;
+            }
 
             matchIndex = n;
 
@@ -64,11 +70,19 @@ public static class CrossSiteScriptingValidation
             {
                 case '<':
                     // If the < is followed by a letter or '!', it's unsafe (looks like a tag or HTML comment)
-                    if (IsAtoZ(s[n + 1]) || s[n + 1] == '!' || s[n + 1] == '/' || s[n + 1] == '?') return true;
+                    if (IsAtoZ(s[n + 1]) || s[n + 1] == '!' || s[n + 1] == '/' || s[n + 1] == '?')
+                    {
+                        return true;
+                    }
+
                     break;
                 case '&':
                     // If the & is followed by a #, it's unsafe (e.g. S)
-                    if (s[n + 1] == '#') return true;
+                    if (s[n + 1] == '#')
+                    {
+                        return true;
+                    }
+
                     break;
             }
 
@@ -95,7 +109,7 @@ public static class CrossSiteScriptingValidation
     {
         if (headers["P3P"].NullOrEmpty())
         {
-            headers.Add("P3P", "CP=\"IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT\"");
+            headers.Append("P3P", "CP=\"IDC DSP COR ADM DEVi TAIi PSA PSD IVAi IVDi CONi HIS OUR IND CNT\"");
         }
     }
 

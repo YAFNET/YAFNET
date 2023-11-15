@@ -4,7 +4,7 @@
     <PackageId>ServiceStack.OrmLite.SqlServer.Core</PackageId>
     <AssemblyName>ServiceStack.OrmLite.SqlServer</AssemblyName>
     <RootNamespace>ServiceStack.OrmLite.SqlServer</RootNamespace>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Title>ServiceStack.OrmLite.SqlServer</Title>
     <PackageDescription>
       ServiceStack.OrmLite.SqlServer
@@ -12,6 +12,10 @@
     <PackageTags>SQLServer;OrmLite;RDBMS;SQL;POCO;Code-First;ORM;Schema-less;Blobs</PackageTags>
     <DefineConstants>$(DefineConstants);ASYNC;MSDATA</DefineConstants>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.2" />
