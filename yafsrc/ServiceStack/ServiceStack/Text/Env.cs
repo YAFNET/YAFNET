@@ -125,7 +125,7 @@ public static class Env
     /// <summary>
     /// Updates the server user agent.
     /// </summary>
-    internal static void UpdateServerUserAgent()
+    static internal void UpdateServerUserAgent()
     {
         ServerUserAgent =
             $"ServiceStack/{VersionString} {PclExport.Instance.PlatformName}{(IsLinux ? "/Linux" : IsOSX ? "/OSX" : IsUnix ? "/Unix" : IsWindows ? "/Windows" : "/UnknownOS")}{(IsIOS ? "/iOS" : IsAndroid ? "/Android" : IsUWP ? "/UWP" : "")}{(IsNet8 ? "/net8" : IsNetFramework ? "netfx" : "")}/{LicenseUtils.Info}";

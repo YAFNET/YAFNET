@@ -26,15 +26,15 @@ public static class DateTimeExtensions
     /// <summary>
     /// The unix epoch date time UTC
     /// </summary>
-    private static readonly DateTime UnixEpochDateTimeUtc = new(UnixEpoch, DateTimeKind.Utc);
+    private readonly static DateTime UnixEpochDateTimeUtc = new(UnixEpoch, DateTimeKind.Utc);
     /// <summary>
     /// The unix epoch date time unspecified
     /// </summary>
-    private static readonly DateTime UnixEpochDateTimeUnspecified = new(UnixEpoch, DateTimeKind.Unspecified);
+    private readonly static DateTime UnixEpochDateTimeUnspecified = new(UnixEpoch, DateTimeKind.Unspecified);
     /// <summary>
     /// The minimum date time UTC
     /// </summary>
-    private static readonly DateTime MinDateTimeUtc = new(1, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+    private readonly static DateTime MinDateTimeUtc = new(1, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
     /// <summary>
     /// Froms the unix time.

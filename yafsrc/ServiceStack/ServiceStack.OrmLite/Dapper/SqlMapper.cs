@@ -83,7 +83,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <summary>
         /// The query cache
         /// </summary>
-        private static readonly System.Collections.Concurrent.ConcurrentDictionary<Identity, CacheInfo> _queryCache = new();
+        private readonly static System.Collections.Concurrent.ConcurrentDictionary<Identity, CacheInfo> _queryCache = new();
         /// <summary>
         /// Sets the query cache.
         /// </summary>
@@ -329,7 +329,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns>bool.</returns>
-        internal static bool HasTypeHandler(Type type) => typeHandlers.ContainsKey(type);
+        static internal bool HasTypeHandler(Type type) => typeHandlers.ContainsKey(type);
 
         /// <summary>
         /// Configure the specified type to be processed by a custom handler.
@@ -1240,7 +1240,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <summary>
         /// The error two rows
         /// </summary>
-        private static readonly int[] ErrTwoRows = new int[2], ErrZeroRows = Array.Empty<int>();
+        private readonly static int[] ErrTwoRows = new int[2], ErrZeroRows = Array.Empty<int>();
         /// <summary>
         /// Throws the multiple rows.
         /// </summary>
@@ -2082,7 +2082,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="returnNullIfFirstMissing">The return null if first missing.</param>
         /// <returns>System.Func&lt;System.Data.IDataReader, object&gt;.</returns>
         /// <exception cref="DapperTable">names</exception>
-        internal static Func<IDataReader, object> GetDapperRowDeserializer(IDataRecord reader, int startBound, int length, bool returnNullIfFirstMissing)
+        static internal Func<IDataReader, object> GetDapperRowDeserializer(IDataRecord reader, int startBound, int length, bool returnNullIfFirstMissing)
         {
             var fieldCount = reader.FieldCount;
             if (length == -1)
@@ -2219,7 +2219,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// </summary>
         /// <param name="count">The count.</param>
         /// <returns>int.</returns>
-        internal static int GetListPaddingExtraCount(int count)
+        static internal int GetListPaddingExtraCount(int count)
         {
             switch (count)
             {
@@ -2564,7 +2564,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <summary>
         /// The smells like OLE database
         /// </summary>
-        private static readonly Regex smellsLikeOleDb = new(@"(?<![\p{L}\p{N}@_])[?@:](?![\p{L}\p{N}@_])", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled, TimeSpan.FromMilliseconds(100)),
+        private readonly static Regex smellsLikeOleDb = new(@"(?<![\p{L}\p{N}@_])[?@:](?![\p{L}\p{N}@_])", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled, TimeSpan.FromMilliseconds(100)),
             literalTokens = new(@"(?<![\p{L}\p{N}_])\{=([\p{L}\p{N}_]+)\}", RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant | RegexOptions.Compiled, TimeSpan.FromMilliseconds(100)),
             pseudoPositional = new(@"\?([\p{L}_][\p{L}\p{N}_]*)\?", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled, TimeSpan.FromMilliseconds(100));
 
@@ -2582,7 +2582,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <summary>
         /// The format
         /// </summary>
-        internal static readonly MethodInfo format = typeof(SqlMapper).GetMethod("Format", BindingFlags.Public | BindingFlags.Static);
+        readonly static internal MethodInfo format = typeof(SqlMapper).GetMethod("Format", BindingFlags.Public | BindingFlags.Static);
 
         /// <summary>
         /// Convert numeric values to their string form for SQL literal purposes.
@@ -2666,7 +2666,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="parameters">The parameters.</param>
         /// <param name="command">The command.</param>
         /// <param name="tokens">The tokens.</param>
-        internal static void ReplaceLiterals(IParameterLookup parameters, IDbCommand command, IList<LiteralToken> tokens)
+        static internal void ReplaceLiterals(IParameterLookup parameters, IDbCommand command, IList<LiteralToken> tokens)
         {
             var sql = command.CommandText;
             foreach (var token in tokens)
@@ -2685,7 +2685,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// </summary>
         /// <param name="sql">The SQL.</param>
         /// <returns>System.Collections.Generic.IList&lt;ServiceStack.OrmLite.Dapper.SqlMapper.LiteralToken&gt;.</returns>
-        internal static IList<LiteralToken> GetLiteralTokens(string sql)
+        static internal IList<LiteralToken> GetLiteralTokens(string sql)
         {
             if (string.IsNullOrEmpty(sql)) return LiteralToken.None;
             if (!literalTokens.IsMatch(sql)) return LiteralToken.None;
@@ -2730,7 +2730,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="literals">The literals.</param>
         /// <returns>System.Action&lt;System.Data.IDbCommand, object&gt;.</returns>
         /// <exception cref="NotSupportedException">ValueTuple should not be used for parameters - the language-level names are not available to use as parameter names, and it adds unnecessary boxing</exception>
-        internal static Action<IDbCommand, object> CreateParamInfoGenerator(Identity identity, bool checkForDuplicates, bool removeUnused, IList<LiteralToken> literals)
+        static internal Action<IDbCommand, object> CreateParamInfoGenerator(Identity identity, bool checkForDuplicates, bool removeUnused, IList<LiteralToken> literals)
         {
             Type type = identity.parametersType;
 
@@ -3136,7 +3136,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <summary>
         /// To strings
         /// </summary>
-        private static readonly Dictionary<TypeCode, MethodInfo> toStrings = new[]
+        private readonly static Dictionary<TypeCode, MethodInfo> toStrings = new[]
         {
             typeof(bool), typeof(sbyte), typeof(byte), typeof(ushort), typeof(short),
             typeof(uint), typeof(int), typeof(ulong), typeof(long), typeof(float), typeof(double), typeof(decimal)
@@ -3155,7 +3155,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <summary>
         /// The string replace
         /// </summary>
-        private static readonly MethodInfo StringReplace = typeof(string).GetPublicInstanceMethod(nameof(string.Replace), new Type[] { typeof(string), typeof(string) }),
+        private readonly static MethodInfo StringReplace = typeof(string).GetPublicInstanceMethod(nameof(string.Replace), new Type[] { typeof(string), typeof(string) }),
             InvariantCulture = typeof(CultureInfo).GetProperty(nameof(CultureInfo.InvariantCulture), BindingFlags.Public | BindingFlags.Static).GetGetMethod();
 
         /// <summary>
@@ -3358,7 +3358,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <summary>
         /// The enum parse
         /// </summary>
-        private static readonly MethodInfo
+        private readonly static MethodInfo
                     enumParse = typeof(Enum).GetMethod(nameof(Enum.Parse), new Type[] { typeof(Type), typeof(string), typeof(bool) }),
                     getItem = typeof(IDataRecord).GetProperties(BindingFlags.Instance | BindingFlags.Public)
                         .Where(p => p.GetIndexParameters().Length > 0 && p.GetIndexParameters()[0].ParameterType == typeof(int))
@@ -3401,7 +3401,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <summary>
         /// The type maps
         /// </summary>
-        private static readonly Hashtable _typeMaps = new();
+        private readonly static Hashtable _typeMaps = new();
 
         /// <summary>
         /// Set custom mapping for type deserializers

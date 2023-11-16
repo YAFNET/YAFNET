@@ -64,7 +64,7 @@ public class TypeProperties<T> : TypeProperties
     /// <summary>
     /// The instance
     /// </summary>
-    public static readonly TypeProperties<T> Instance = new();
+    public readonly static TypeProperties<T> Instance = new();
 
     /// <summary>
     /// Initializes static members of the <see cref="TypeProperties{T}" /> class.
@@ -118,7 +118,7 @@ public abstract class TypeProperties
     /// <summary>
     /// The factory type
     /// </summary>
-    public static readonly Type FactoryType = typeof(TypeProperties<>);
+    public readonly static Type FactoryType = typeof(TypeProperties<>);
 
     /// <summary>
     /// Gets the specified type.

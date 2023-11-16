@@ -21,7 +21,7 @@ public static class JsvReader
     /// <summary>
     /// The instance
     /// </summary>
-    internal static readonly JsReader<JsvTypeSerializer> Instance = new();
+    readonly static internal JsReader<JsvTypeSerializer> Instance = new();
 
     /// <summary>
     /// The parse function cache
@@ -90,7 +90,7 @@ public static class JsvReader
 /// Class JsvReader.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-internal static class JsvReader<T>
+static internal class JsvReader<T>
 {
     /// <summary>
     /// The read function

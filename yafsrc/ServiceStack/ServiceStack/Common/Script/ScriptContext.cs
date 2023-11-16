@@ -1050,7 +1050,7 @@ public static class ScriptContextUtils
     /// <param name="pageResult">The page result.</param>
     /// <returns>A Task&lt;Tuple`2&gt; representing the asynchronous operation.</returns>
     /// <exception cref="ServiceStack.Script.ScriptException"></exception>
-    public static async Task<Tuple<bool, object>> EvaluateResultAsync(this PageResult pageResult)
+    public async static Task<Tuple<bool, object>> EvaluateResultAsync(this PageResult pageResult)
     {
         try
         {
@@ -1076,7 +1076,7 @@ public static class ScriptContextUtils
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
     /// <exception cref="ServiceStack.Script.ScriptException"></exception>
-    public static async Task RenderAsync(this PageResult pageResult, Stream stream, CancellationToken token = default)
+    public async static Task RenderAsync(this PageResult pageResult, Stream stream, CancellationToken token = default)
     {
         if (pageResult.ResultOutput != null)
         {
@@ -1141,7 +1141,7 @@ public static class ScriptContextUtils
     /// <param name="stream">The stream.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
     /// <exception cref="ServiceStack.Script.ScriptException"></exception>
-    public static async Task RenderToStreamAsync(this PageResult pageResult, Stream stream)
+    public async static Task RenderToStreamAsync(this PageResult pageResult, Stream stream)
     {
         try
         {
@@ -1195,7 +1195,7 @@ public static class ScriptContextUtils
     /// <param name="pageResult">The page result.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;System.String&gt; representing the asynchronous operation.</returns>
-    public static async Task<string> RenderScriptAsync(this PageResult pageResult, CancellationToken token = default)
+    public async static Task<string> RenderScriptAsync(this PageResult pageResult, CancellationToken token = default)
     {
         try
         {

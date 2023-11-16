@@ -521,14 +521,14 @@ public sealed class ExpressionReflectionOptimizer : ReflectionOptimizer
     /// <summary>
     /// The set field method
     /// </summary>
-    private static readonly MethodInfo setFieldMethod = typeof(ExpressionReflectionOptimizer).GetStaticMethod(nameof(SetField));
+    private readonly static MethodInfo setFieldMethod = typeof(ExpressionReflectionOptimizer).GetStaticMethod(nameof(SetField));
     /// <summary>
     /// Sets the field.
     /// </summary>
     /// <typeparam name="TValue">The type of the t value.</typeparam>
     /// <param name="field">The field.</param>
     /// <param name="newValue">The new value.</param>
-    internal static void SetField<TValue>(ref TValue field, TValue newValue) => field = newValue;
+    static internal void SetField<TValue>(ref TValue field, TValue newValue) => field = newValue;
 
     /// <summary>
     /// Creates the setter.

@@ -1533,7 +1533,7 @@ public static partial class HttpUtils
     /// <param name="responseFilter">The response filter.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;string&gt; representing the asynchronous operation.</returns>
-    public static async Task<string> SendStringToUrlAsync(
+    public async static Task<string> SendStringToUrlAsync(
         this HttpClient client,
         string url,
         string method = HttpMethods.Post,
@@ -1841,7 +1841,7 @@ public static partial class HttpUtils
     /// <param name="responseFilter">The response filter.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;byte[]&gt; representing the asynchronous operation.</returns>
-    public static async Task<byte[]> SendBytesToUrlAsync(
+    public async static Task<byte[]> SendBytesToUrlAsync(
         this HttpClient client,
         string url,
         string method = HttpMethods.Post,
@@ -2150,7 +2150,7 @@ public static partial class HttpUtils
     /// <param name="responseFilter">The response filter.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;System.IO.Stream&gt; representing the asynchronous operation.</returns>
-    public static async Task<Stream> SendStreamToUrlAsync(
+    public async static Task<Stream> SendStreamToUrlAsync(
         this HttpClient client,
         string url,
         string method = HttpMethods.Post,
@@ -2220,7 +2220,7 @@ public static partial class HttpUtils
     /// <param name="url">The URL.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;System.Net.Http.HttpResponseMessage?&gt; representing the asynchronous operation.</returns>
-    public static async Task<HttpResponseMessage?> GetErrorResponseAsync(
+    public async static Task<HttpResponseMessage?> GetErrorResponseAsync(
         this string url,
         CancellationToken token = default)
     {
@@ -2411,7 +2411,7 @@ public static partial class HttpUtils
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;System.Net.Http.HttpResponseMessage&gt; representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentException">nameof(httpReq.RequestUri)</exception>
-    public static async Task<HttpResponseMessage> UploadFileAsync(
+    public async static Task<HttpResponseMessage> UploadFileAsync(
         this HttpClient client,
         HttpRequestMessage httpReq,
         Stream fileStream,
@@ -2476,7 +2476,7 @@ public static partial class HttpUtils
     /// <returns>A Task&lt;System.Threading.Tasks.Task&gt; representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentNullException">nameof(fileName)</exception>
     /// <exception cref="ArgumentException">Mime-type not found for file: " + fileName</exception>
-    public static async Task UploadFileAsync(
+    public async static Task UploadFileAsync(
         this HttpRequestMessage webRequest,
         Stream fileStream,
         string fileName,
@@ -2630,7 +2630,7 @@ public static partial class HttpUtils
     /// <param name="responseFilter">The response filter.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;System.Net.Http.HttpResponseMessage&gt; representing the asynchronous operation.</returns>
-    public static async Task<HttpResponseMessage> PostFileToUrlAsync(
+    public async static Task<HttpResponseMessage> PostFileToUrlAsync(
         this string url,
         FileInfo uploadFileInfo,
         string uploadFileMimeType,
@@ -2697,7 +2697,7 @@ public static partial class HttpUtils
     /// <param name="responseFilter">The response filter.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;System.Net.Http.HttpResponseMessage&gt; representing the asynchronous operation.</returns>
-    public static async Task<HttpResponseMessage> PutFileToUrlAsync(
+    public async static Task<HttpResponseMessage> PutFileToUrlAsync(
         this string url,
         FileInfo uploadFileInfo,
         string uploadFileMimeType,

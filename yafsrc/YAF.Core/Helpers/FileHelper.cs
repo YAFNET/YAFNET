@@ -39,25 +39,25 @@ public static class FileHelper
     /// <summary>
     /// FileName Validator Expression
     /// </summary>
-    private static readonly string FileNameValidatorExpression =
+    private readonly static string FileNameValidatorExpression =
         $"^[^{string.Join(string.Empty, Array.ConvertAll(Path.GetInvalidFileNameChars(), x => Regex.Escape(x.ToString())))}]+$";
 
     /// <summary>
     /// FileName Validator Regex
     /// </summary>
-    private static readonly Regex FileNameValidator = new(FileNameValidatorExpression, RegexOptions.Compiled,
+    private readonly static Regex FileNameValidator = new(FileNameValidatorExpression, RegexOptions.Compiled,
         TimeSpan.FromMilliseconds(100));
 
     /// <summary>
     /// FileName Cleaner Expression
     /// </summary>
-    private static readonly string FileNameCleanerExpression =
+    private readonly static string FileNameCleanerExpression =
         $"[{string.Join(string.Empty, Array.ConvertAll(Path.GetInvalidFileNameChars(), x => Regex.Escape(x.ToString())))}]";
 
     /// <summary>
     /// FileName Cleaner Regex
     /// </summary>
-    private static readonly Regex FileNameCleaner = new(FileNameCleanerExpression, RegexOptions.Compiled,
+    private readonly static Regex FileNameCleaner = new(FileNameCleanerExpression, RegexOptions.Compiled,
         TimeSpan.FromMilliseconds(100));
 
     /// <summary>

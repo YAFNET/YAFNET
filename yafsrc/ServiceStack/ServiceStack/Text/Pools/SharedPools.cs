@@ -43,7 +43,7 @@ public static class SharedPools
     /// Used to reduce the # of temporary byte[]s created to satisfy serialization and
     /// other I/O requests
     /// </summary>
-    public static readonly ObjectPool<byte[]> ByteArray = new(() => new byte[ByteBufferSize], ByteBufferCount);
+    public readonly static ObjectPool<byte[]> ByteArray = new(() => new byte[ByteBufferSize], ByteBufferCount);
 
     /// <summary>
     /// The byte buffer size
@@ -64,7 +64,7 @@ public static class SharedPools
         /// <summary>
         /// The instance
         /// </summary>
-        public static readonly ObjectPool<T> Instance = new(() => new T(), 100);
+        public readonly static ObjectPool<T> Instance = new(() => new T(), 100);
     }
 
     /// <summary>
@@ -76,7 +76,7 @@ public static class SharedPools
         /// <summary>
         /// The instance
         /// </summary>
-        public static readonly ObjectPool<T> Instance = new(() => new T(), 20);
+        public readonly static ObjectPool<T> Instance = new(() => new T(), 20);
     }
 
     /// <summary>
@@ -88,7 +88,7 @@ public static class SharedPools
         /// <summary>
         /// The instance
         /// </summary>
-        public static readonly ObjectPool<Dictionary<string, T>> Instance =
+        public readonly static ObjectPool<Dictionary<string, T>> Instance =
             new(() => new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase), 20);
     }
 }

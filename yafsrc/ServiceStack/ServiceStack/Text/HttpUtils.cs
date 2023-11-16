@@ -544,7 +544,7 @@ public static partial class HttpUtils
     /// <param name="ex">The ex.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;System.String&gt; representing the asynchronous operation.</returns>
-    public static async Task<string> GetResponseBodyAsync(this Exception ex, CancellationToken token = default)
+    public async static Task<string> GetResponseBodyAsync(this Exception ex, CancellationToken token = default)
     {
         if (ex is not WebException webEx || webEx.Response == null
                                          || webEx.Status != WebExceptionStatus.ProtocolError)

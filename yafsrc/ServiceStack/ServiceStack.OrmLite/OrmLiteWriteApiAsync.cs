@@ -559,7 +559,7 @@ namespace ServiceStack.OrmLite
         /// <param name="references">if set to <c>true</c> [references].</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>true if a row was inserted; false if it was updated</returns>
-        public static async Task<bool> SaveAsync<T>(this IDbConnection dbConn, T obj, bool references = false, CancellationToken token = default)
+        public async static Task<bool> SaveAsync<T>(this IDbConnection dbConn, T obj, bool references = false, CancellationToken token = default)
         {
             if (!references)
                 return await dbConn.Exec(dbCmd => dbCmd.SaveAsync(obj, token)).ConfigAwait();

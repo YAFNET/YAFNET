@@ -28,7 +28,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <summary>
     /// The log
     /// </summary>
-    internal static ILog Log = LogManager.GetLogger(typeof(OrmLiteWriteCommandExtensions));
+    static internal ILog Log = LogManager.GetLogger(typeof(OrmLiteWriteCommandExtensions));
 
     /// <summary>
     /// Creates the schema.
@@ -37,7 +37,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     /// <exception cref="System.InvalidOperationException">Type {typeof(T).Name} does not have a schema attribute, just CreateSchema(string schemaName) instead</exception>
-    internal static bool CreateSchema<T>(this IDbCommand dbCmd)
+    static internal bool CreateSchema<T>(this IDbCommand dbCmd)
     {
         var schemaName = typeof(T).FirstAttribute<SchemaAttribute>()?.Name;
         if (schemaName == null) throw new InvalidOperationException($"Type {typeof(T).Name} does not have a schema attribute, just CreateSchema(string schemaName) instead");
@@ -50,7 +50,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="schemaName">Name of the schema.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    internal static bool CreateSchema(this IDbCommand dbCmd, string schemaName)
+    static internal bool CreateSchema(this IDbCommand dbCmd, string schemaName)
     {
         schemaName.ThrowIfNullOrEmpty(nameof(schemaName));
         var dialectProvider = dbCmd.GetDialectProvider();
@@ -83,7 +83,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="overwrite">if set to <c>true</c> [overwrite].</param>
     /// <param name="tableTypes">The table types.</param>
-    internal static void CreateTables(this IDbCommand dbCmd, bool overwrite, params Type[] tableTypes)
+    static internal void CreateTables(this IDbCommand dbCmd, bool overwrite, params Type[] tableTypes)
     {
         foreach (var tableType in tableTypes)
         {
@@ -98,7 +98,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="overwrite">if set to <c>true</c> [overwrite].</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    internal static bool CreateTable<T>(this IDbCommand dbCmd, bool overwrite = false)
+    static internal bool CreateTable<T>(this IDbCommand dbCmd, bool overwrite = false)
     {
         var tableType = typeof(T);
         return CreateTable(dbCmd, overwrite, tableType);
@@ -111,7 +111,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="overwrite">if set to <c>true</c> [overwrite].</param>
     /// <param name="modelType">Type of the model.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    internal static bool CreateTable(this IDbCommand dbCmd, bool overwrite, Type modelType)
+    static internal bool CreateTable(this IDbCommand dbCmd, bool overwrite, Type modelType)
     {
         var modelDef = modelType.GetModelDefinition();
 
@@ -231,7 +231,7 @@ public static class OrmLiteWriteCommandExtensions
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
     /// <param name="tableName">Name of the table.</param>
-    internal static void DropTable(this IDbCommand dbCmd, string tableName)
+    static internal void DropTable(this IDbCommand dbCmd, string tableName)
     {
         try
         {
@@ -251,7 +251,7 @@ public static class OrmLiteWriteCommandExtensions
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="dbCmd">The database command.</param>
-    internal static void DropTable<T>(this IDbCommand dbCmd)
+    static internal void DropTable<T>(this IDbCommand dbCmd)
     {
         DropTable(dbCmd, ModelDefinition<T>.Definition);
     }
@@ -261,7 +261,7 @@ public static class OrmLiteWriteCommandExtensions
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
     /// <param name="modelType">Type of the model.</param>
-    internal static void DropTable(this IDbCommand dbCmd, Type modelType)
+    static internal void DropTable(this IDbCommand dbCmd, Type modelType)
     {
         DropTable(dbCmd, modelType.GetModelDefinition());
     }
@@ -271,7 +271,7 @@ public static class OrmLiteWriteCommandExtensions
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
     /// <param name="tableTypes">The table types.</param>
-    internal static void DropTables(this IDbCommand dbCmd, params Type[] tableTypes)
+    static internal void DropTables(this IDbCommand dbCmd, params Type[] tableTypes)
     {
         foreach (var modelDef in tableTypes.Select(type => type.GetModelDefinition()))
         {
@@ -324,7 +324,7 @@ public static class OrmLiteWriteCommandExtensions
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
     /// <returns>System.String.</returns>
-    internal static string LastSql(this IDbCommand dbCmd)
+    static internal string LastSql(this IDbCommand dbCmd)
     {
         return dbCmd.CommandText;
     }
@@ -337,7 +337,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="sqlParams">The SQL parameters.</param>
     /// <param name="commandFilter">The command filter.</param>
     /// <returns>System.Int32.</returns>
-    internal static int ExecuteSql(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams = null, Action<IDbCommand> commandFilter = null)
+    static internal int ExecuteSql(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams = null, Action<IDbCommand> commandFilter = null)
     {
         dbCmd.CommandText = sql;
 
@@ -364,7 +364,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="anonType">Type of the anon.</param>
     /// <param name="commandFilter">The command filter.</param>
     /// <returns>System.Int32.</returns>
-    internal static int ExecuteSql(this IDbCommand dbCmd, string sql, object anonType, Action<IDbCommand> commandFilter = null)
+    static internal int ExecuteSql(this IDbCommand dbCmd, string sql, object anonType, Action<IDbCommand> commandFilter = null)
     {
         if (anonType != null)
             dbCmd.SetParameters(anonType.ToObjectDictionary(), excludeDefaults: false, sql: ref sql);
@@ -539,7 +539,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="values">The values.</param>
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <returns>System.Object[].</returns>
-    internal static object[] PopulateValues(this IDataReader reader, object[] values, IOrmLiteDialectProvider dialectProvider)
+    static internal object[] PopulateValues(this IDataReader reader, object[] values, IOrmLiteDialectProvider dialectProvider)
     {
         if (!OrmLiteConfig.DeoptimizeReader)
         {
@@ -573,7 +573,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="obj">The object.</param>
     /// <param name="commandFilter">The command filter.</param>
     /// <returns>System.Int32.</returns>
-    internal static int Update<T>(this IDbCommand dbCmd, T obj, Action<IDbCommand> commandFilter = null)
+    static internal int Update<T>(this IDbCommand dbCmd, T obj, Action<IDbCommand> commandFilter = null)
     {
         return dbCmd.UpdateInternal<T>(obj, commandFilter);
     }
@@ -586,7 +586,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="obj">The object.</param>
     /// <param name="commandFilter">The command filter.</param>
     /// <returns>System.Int32.</returns>
-    internal static int Update<T>(this IDbCommand dbCmd, Dictionary<string, object> obj, Action<IDbCommand> commandFilter = null)
+    static internal int Update<T>(this IDbCommand dbCmd, Dictionary<string, object> obj, Action<IDbCommand> commandFilter = null)
     {
         return dbCmd.UpdateInternal<T>(obj, commandFilter);
     }
@@ -599,7 +599,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="obj">The object.</param>
     /// <param name="commandFilter">The command filter.</param>
     /// <returns>System.Int32.</returns>
-    internal static int UpdateInternal<T>(this IDbCommand dbCmd, object obj, Action<IDbCommand> commandFilter = null)
+    static internal int UpdateInternal<T>(this IDbCommand dbCmd, object obj, Action<IDbCommand> commandFilter = null)
     {
         OrmLiteUtils.AssertNotAnonType<T>();
 
@@ -624,7 +624,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="hadRowVersion">if set to <c>true</c> [had row version].</param>
     /// <returns>System.Int32.</returns>
     /// <exception cref="ServiceStack.Data.OptimisticConcurrencyException"></exception>
-    internal static int UpdateAndVerify<T>(this IDbCommand dbCmd, Action<IDbCommand> commandFilter, bool hadRowVersion)
+    static internal int UpdateAndVerify<T>(this IDbCommand dbCmd, Action<IDbCommand> commandFilter, bool hadRowVersion)
     {
         commandFilter?.Invoke(dbCmd);
         var rowsUpdated = dbCmd.ExecNonQuery();
@@ -643,7 +643,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="objs">The objs.</param>
     /// <param name="commandFilter">The command filter.</param>
     /// <returns>System.Int32.</returns>
-    internal static int Update<T>(this IDbCommand dbCmd, T[] objs, Action<IDbCommand> commandFilter = null)
+    static internal int Update<T>(this IDbCommand dbCmd, T[] objs, Action<IDbCommand> commandFilter = null)
     {
         return dbCmd.UpdateAll(objs: objs, commandFilter: commandFilter);
     }
@@ -657,7 +657,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="commandFilter">The command filter.</param>
     /// <returns>System.Int32.</returns>
     /// <exception cref="ServiceStack.Data.OptimisticConcurrencyException"></exception>
-    internal static int UpdateAll<T>(this IDbCommand dbCmd, IEnumerable<T> objs, Action<IDbCommand> commandFilter = null)
+    static internal int UpdateAll<T>(this IDbCommand dbCmd, IEnumerable<T> objs, Action<IDbCommand> commandFilter = null)
     {
         OrmLiteUtils.AssertNotAnonType<T>();
 
@@ -725,7 +725,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="anonType">Type of the anon.</param>
     /// <param name="commandFilter">The command filter.</param>
     /// <returns>System.Int32.</returns>
-    internal static int Delete<T>(this IDbCommand dbCmd, T anonType, Action<IDbCommand> commandFilter = null)
+    static internal int Delete<T>(this IDbCommand dbCmd, T anonType, Action<IDbCommand> commandFilter = null)
     {
         return dbCmd.Delete<T>((object)anonType, commandFilter);
     }
@@ -738,7 +738,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="anonType">Type of the anon.</param>
     /// <param name="commandFilter">The command filter.</param>
     /// <returns>System.Int32.</returns>
-    internal static int Delete<T>(this IDbCommand dbCmd, object anonType, Action<IDbCommand> commandFilter = null)
+    static internal int Delete<T>(this IDbCommand dbCmd, object anonType, Action<IDbCommand> commandFilter = null)
     {
         var dialectProvider = dbCmd.GetDialectProvider();
 
@@ -759,7 +759,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="filter">The filter.</param>
     /// <returns>System.Int32.</returns>
-    internal static int DeleteNonDefaults<T>(this IDbCommand dbCmd, T filter)
+    static internal int DeleteNonDefaults<T>(this IDbCommand dbCmd, T filter)
     {
         var dialectProvider = dbCmd.GetDialectProvider();
         var hadRowVersion = dialectProvider.PrepareParameterizedDeleteStatement<T>(
@@ -777,7 +777,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="objs">The objs.</param>
     /// <returns>System.Int32.</returns>
-    internal static int Delete<T>(this IDbCommand dbCmd, T[] objs)
+    static internal int Delete<T>(this IDbCommand dbCmd, T[] objs)
     {
         if (objs.Length == 0)
             return 0;
@@ -792,7 +792,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="filters">The filters.</param>
     /// <returns>System.Int32.</returns>
-    internal static int DeleteNonDefaults<T>(this IDbCommand dbCmd, T[] filters)
+    static internal int DeleteNonDefaults<T>(this IDbCommand dbCmd, T[] filters)
     {
         if (filters.Length == 0) return 0;
 
@@ -857,7 +857,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="id">The identifier.</param>
     /// <param name="commandFilter">The command filter.</param>
     /// <returns>System.Int32.</returns>
-    internal static int DeleteById<T>(this IDbCommand dbCmd, object id, Action<IDbCommand> commandFilter = null)
+    static internal int DeleteById<T>(this IDbCommand dbCmd, object id, Action<IDbCommand> commandFilter = null)
     {
         var sql = DeleteByIdSql<T>(dbCmd, id);
 
@@ -871,7 +871,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="id">The identifier.</param>
     /// <returns>System.String.</returns>
-    internal static string DeleteByIdSql<T>(this IDbCommand dbCmd, object id)
+    static internal string DeleteByIdSql<T>(this IDbCommand dbCmd, object id)
     {
         var modelDef = ModelDefinition<T>.Definition;
         var dialectProvider = dbCmd.GetDialectProvider();
@@ -896,7 +896,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="rowVersion">The row version.</param>
     /// <param name="commandFilter">The command filter.</param>
     /// <exception cref="ServiceStack.Data.OptimisticConcurrencyException">The row was modified or deleted since the last read</exception>
-    internal static void DeleteById<T>(this IDbCommand dbCmd, object id, ulong rowVersion, Action<IDbCommand> commandFilter = null)
+    static internal void DeleteById<T>(this IDbCommand dbCmd, object id, ulong rowVersion, Action<IDbCommand> commandFilter = null)
     {
         var sql = DeleteByIdSql<T>(dbCmd, id, rowVersion);
 
@@ -914,7 +914,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="rowVersion">The row version.</param>
     /// <returns>System.String.</returns>
     /// <exception cref="System.InvalidOperationException">Cannot use DeleteById with rowVersion for model type without a row version column</exception>
-    internal static string DeleteByIdSql<T>(this IDbCommand dbCmd, object id, ulong rowVersion)
+    static internal string DeleteByIdSql<T>(this IDbCommand dbCmd, object id, ulong rowVersion)
     {
         OrmLiteUtils.AssertNotAnonType<T>();
 
@@ -955,7 +955,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="idValues">The identifier values.</param>
     /// <returns>System.Int32.</returns>
-    internal static int DeleteByIds<T>(this IDbCommand dbCmd, IEnumerable idValues)
+    static internal int DeleteByIds<T>(this IDbCommand dbCmd, IEnumerable idValues)
     {
         OrmLiteUtils.AssertNotAnonType<T>();
 
@@ -975,7 +975,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="sqlIn">The SQL in.</param>
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <returns>System.String.</returns>
-    internal static string GetDeleteByIdsSql<T>(string sqlIn, IOrmLiteDialectProvider dialectProvider)
+    static internal string GetDeleteByIdsSql<T>(string sqlIn, IOrmLiteDialectProvider dialectProvider)
     {
         var modelDef = ModelDefinition<T>.Definition;
 
@@ -990,7 +990,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="dbCmd">The database command.</param>
     /// <returns>System.Int32.</returns>
-    internal static int DeleteAll<T>(this IDbCommand dbCmd)
+    static internal int DeleteAll<T>(this IDbCommand dbCmd)
     {
         OrmLiteUtils.AssertNotAnonType<T>();
 
@@ -1004,7 +1004,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="rows">The rows.</param>
     /// <returns>System.Int32.</returns>
-    internal static int DeleteAll<T>(this IDbCommand dbCmd, IEnumerable<T> rows)
+    static internal int DeleteAll<T>(this IDbCommand dbCmd, IEnumerable<T> rows)
     {
         var ids = rows.Map(x => x.GetId());
         return dbCmd.DeleteByIds<T>(ids);
@@ -1016,7 +1016,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="tableType">Type of the table.</param>
     /// <returns>System.Int32.</returns>
-    internal static int DeleteAll(this IDbCommand dbCmd, Type tableType)
+    static internal int DeleteAll(this IDbCommand dbCmd, Type tableType)
     {
         return dbCmd.ExecuteSql(dbCmd.GetDialectProvider().ToDeleteStatement(tableType, null));
     }
@@ -1029,7 +1029,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>System.Int32.</returns>
-    internal static int Delete<T>(this IDbCommand dbCmd, string sql, object anonType = null)
+    static internal int Delete<T>(this IDbCommand dbCmd, string sql, object anonType = null)
     {
         OrmLiteUtils.AssertNotAnonType<T>();
 
@@ -1045,7 +1045,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>System.Int32.</returns>
-    internal static int Delete(this IDbCommand dbCmd, Type tableType, string sql, object anonType = null)
+    static internal int Delete(this IDbCommand dbCmd, Type tableType, string sql, object anonType = null)
     {
         if (anonType != null) dbCmd.SetParameters(tableType, anonType, excludeDefaults: false, sql: ref sql);
         return dbCmd.ExecuteSql(dbCmd.GetDialectProvider().ToDeleteStatement(tableType, sql));
@@ -1061,7 +1061,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="selectIdentity">if set to <c>true</c> [select identity].</param>
     /// <param name="enableIdentityInsert">if set to <c>true</c> [enable identity insert].</param>
     /// <returns>System.Int64.</returns>
-    internal static long Insert<T>(this IDbCommand dbCmd, T obj, Action<IDbCommand> commandFilter, bool selectIdentity = false, bool enableIdentityInsert = false)
+    static internal long Insert<T>(this IDbCommand dbCmd, T obj, Action<IDbCommand> commandFilter, bool selectIdentity = false, bool enableIdentityInsert = false)
     {
         OrmLiteUtils.AssertNotAnonType<T>();
 
@@ -1108,7 +1108,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="commandFilter">The command filter.</param>
     /// <param name="selectIdentity">if set to <c>true</c> [select identity].</param>
     /// <returns>System.Int64.</returns>
-    internal static long Insert<T>(this IDbCommand dbCmd, Dictionary<string, object> obj,
+    static internal long Insert<T>(this IDbCommand dbCmd, Dictionary<string, object> obj,
                                    Action<IDbCommand> commandFilter, bool selectIdentity = false)
     {
         OrmLiteUtils.AssertNotAnonType<T>();
@@ -1156,7 +1156,7 @@ public static class OrmLiteWriteCommandExtensions
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="obj">The object.</param>
-    internal static void RemovePrimaryKeyWithDefaultValue<T>(this Dictionary<string, object> obj)
+    static internal void RemovePrimaryKeyWithDefaultValue<T>(this Dictionary<string, object> obj)
     {
         var pkField = typeof(T).GetModelDefinition().PrimaryKey;
         if (pkField != null && (pkField.AutoIncrement || pkField.AutoId))
@@ -1212,7 +1212,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <param name="obj">The object.</param>
     /// <returns>System.Int64.</returns>
-    internal static long PopulateReturnValues<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, object obj)
+    static internal long PopulateReturnValues<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, object obj)
     {
         if (reader.Read())
         {
@@ -1239,7 +1239,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="commandFilter">The command filter.</param>
     /// <param name="objs">The objs.</param>
-    internal static void Insert<T>(this IDbCommand dbCmd, Action<IDbCommand> commandFilter, params T[] objs)
+    static internal void Insert<T>(this IDbCommand dbCmd, Action<IDbCommand> commandFilter, params T[] objs)
     {
         dbCmd.InsertAll(objs: objs, commandFilter: commandFilter);
     }
@@ -1252,7 +1252,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="query">The query.</param>
     /// <param name="commandFilter">The command filter.</param>
     /// <returns>System.Int64.</returns>
-    internal static long InsertIntoSelect<T>(this IDbCommand dbCmd, ISqlExpression query, Action<IDbCommand> commandFilter) =>
+    static internal long InsertIntoSelect<T>(this IDbCommand dbCmd, ISqlExpression query, Action<IDbCommand> commandFilter) =>
         dbCmd.InsertIntoSelectInternal<T>(query, commandFilter).ExecNonQuery();
 
     /// <summary>
@@ -1263,7 +1263,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="query">The query.</param>
     /// <param name="commandFilter">The command filter.</param>
     /// <returns>IDbCommand.</returns>
-    internal static IDbCommand InsertIntoSelectInternal<T>(this IDbCommand dbCmd, ISqlExpression query, Action<IDbCommand> commandFilter)
+    static internal IDbCommand InsertIntoSelectInternal<T>(this IDbCommand dbCmd, ISqlExpression query, Action<IDbCommand> commandFilter)
     {
         var dialectProvider = dbCmd.GetDialectProvider();
 
@@ -1293,7 +1293,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="objs">The objs.</param>
     /// <param name="commandFilter">The command filter.</param>
-    internal static void InsertAll<T>(this IDbCommand dbCmd, IEnumerable<T> objs, Action<IDbCommand> commandFilter)
+    static internal void InsertAll<T>(this IDbCommand dbCmd, IEnumerable<T> objs, Action<IDbCommand> commandFilter)
     {
         IDbTransaction dbTrans = null;
 
@@ -1339,7 +1339,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="dbCmd">The database command.</param>
     /// <param name="objs">The objs.</param>
-    internal static void InsertUsingDefaults<T>(this IDbCommand dbCmd, params T[] objs)
+    static internal void InsertUsingDefaults<T>(this IDbCommand dbCmd, params T[] objs)
     {
         IDbTransaction dbTrans = null;
 
@@ -1390,7 +1390,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="objs">The objs.</param>
     /// <returns>System.Int32.</returns>
-    internal static int Save<T>(this IDbCommand dbCmd, params T[] objs)
+    static internal int Save<T>(this IDbCommand dbCmd, params T[] objs)
     {
         return SaveAll(dbCmd, objs);
     }
@@ -1403,7 +1403,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="obj">The object.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     /// <exception cref="ServiceStack.Data.OptimisticConcurrencyException">No rows were inserted or updated</exception>
-    internal static bool Save<T>(this IDbCommand dbCmd, T obj)
+    static internal bool Save<T>(this IDbCommand dbCmd, T obj)
     {
         var modelDef = typeof(T).GetModelDefinition();
         var id = modelDef.GetPrimaryKey(obj);
@@ -1447,7 +1447,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="objs">The objs.</param>
     /// <returns>System.Int32.</returns>
-    internal static int SaveAll<T>(this IDbCommand dbCmd, IEnumerable<T> objs)
+    static internal int SaveAll<T>(this IDbCommand dbCmd, IEnumerable<T> objs)
     {
         var saveRows = objs.ToList();
 
@@ -1519,7 +1519,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="dbCmd">The database command.</param>
     /// <param name="instance">The instance.</param>
-    internal static void SaveAllReferences<T>(this IDbCommand dbCmd, T instance) =>
+    static internal void SaveAllReferences<T>(this IDbCommand dbCmd, T instance) =>
         SaveAllReferences(dbCmd, ModelDefinition<T>.Definition, instance);
 
     /// <summary>
@@ -1528,7 +1528,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="modelDef">The model definition.</param>
     /// <param name="instance">The instance.</param>
-    internal static void SaveAllReferences(IDbCommand dbCmd, ModelDefinition modelDef, object instance)
+    static internal void SaveAllReferences(IDbCommand dbCmd, ModelDefinition modelDef, object instance)
     {
         var pkValue = modelDef.PrimaryKey.GetValue(instance);
         var fieldDefs = modelDef.ReferenceFieldDefinitionsArray;
@@ -1599,7 +1599,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="instance">The instance.</param>
     /// <param name="refs">The refs.</param>
-    internal static void SaveReferences<T, TRef>(this IDbCommand dbCmd, T instance, params TRef[] refs)
+    static internal void SaveReferences<T, TRef>(this IDbCommand dbCmd, T instance, params TRef[] refs)
     {
         var modelDef = ModelDefinition<T>.Definition;
         var pkValue = modelDef.PrimaryKey.GetValue(instance);
@@ -1639,7 +1639,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="dbCmd">The database command.</param>
     /// <param name="obj">The object.</param>
-    internal static void ExecuteProcedure<T>(this IDbCommand dbCmd, T obj)
+    static internal void ExecuteProcedure<T>(this IDbCommand dbCmd, T obj)
     {
         var dialectProvider = dbCmd.GetDialectProvider();
         dialectProvider.PrepareStoredProcedureStatement(dbCmd, obj);
@@ -1653,7 +1653,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="modelDef">The model definition.</param>
     /// <param name="id">The identifier.</param>
     /// <returns>System.Object.</returns>
-    internal static object GetRowVersion(this IDbCommand dbCmd, ModelDefinition modelDef, object id)
+    static internal object GetRowVersion(this IDbCommand dbCmd, ModelDefinition modelDef, object id)
     {
         var sql = RowVersionSql(dbCmd, modelDef, id);
         var to = dbCmd.GetDialectProvider().FromDbRowVersion(modelDef.RowVersion.FieldType, dbCmd.Scalar<object>(sql));
@@ -1671,7 +1671,7 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="modelDef">The model definition.</param>
     /// <param name="id">The identifier.</param>
     /// <returns>System.String.</returns>
-    internal static string RowVersionSql(this IDbCommand dbCmd, ModelDefinition modelDef, object id)
+    static internal string RowVersionSql(this IDbCommand dbCmd, ModelDefinition modelDef, object id)
     {
         var dialectProvider = dbCmd.GetDialectProvider();
         var idParamString = dialectProvider.GetParam();

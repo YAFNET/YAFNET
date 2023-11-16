@@ -44,19 +44,19 @@ public static class TypeConstants
     /// <summary>
     /// The zero task
     /// </summary>
-    public static readonly Task<int> ZeroTask;
+    public readonly static Task<int> ZeroTask;
     /// <summary>
     /// The true task
     /// </summary>
-    public static readonly Task<bool> TrueTask;
+    public readonly static Task<bool> TrueTask;
     /// <summary>
     /// The false task
     /// </summary>
-    public static readonly Task<bool> FalseTask;
+    public readonly static Task<bool> FalseTask;
     /// <summary>
     /// The empty task
     /// </summary>
-    public static readonly Task<object> EmptyTask;
+    public readonly static Task<object> EmptyTask;
 
     /// <summary>
     /// The non width white space

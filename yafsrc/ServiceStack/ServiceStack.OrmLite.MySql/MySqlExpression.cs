@@ -29,7 +29,7 @@ public class MySqlExpression<T> : SqlExpression<T>
     /// </summary>
     /// <param name="quotedColName">Name of the quoted col.</param>
     /// <returns>string.</returns>
-    protected override string ToCast(string quotedColName)
+    override protected string ToCast(string quotedColName)
     {
         return $"cast({quotedColName} as char(1000))";
     }
@@ -50,7 +50,7 @@ public class MySqlExpression<T> : SqlExpression<T>
     /// </summary>
     /// <param name="m">The m.</param>
     /// <returns>object.</returns>
-    protected override object VisitColumnAccessMethod(MethodCallExpression m)
+    override protected object VisitColumnAccessMethod(MethodCallExpression m)
     {
         if (m.Method.Name != nameof(ToString) || m.Object?.Type != typeof(DateTime))
         {
@@ -76,7 +76,7 @@ public class MySqlExpression<T> : SqlExpression<T>
     /// <param name="quotedColName">Name of the quoted col.</param>
     /// <param name="subSelect">The sub select.</param>
     /// <returns>System.String.</returns>
-    protected override string CreateInSubQuerySql(object quotedColName, string subSelect)
+    override protected string CreateInSubQuerySql(object quotedColName, string subSelect)
     {
         return $"{quotedColName} IN (SELECT * FROM ({subSelect})  SubQuery)";
     }

@@ -34,7 +34,7 @@ public static partial class SqlMapper
         /// <summary>
         /// The by type
         /// </summary>
-        private static readonly Hashtable byType = new();
+        private readonly static Hashtable byType = new();
 
         /// <summary>
         /// The type
@@ -45,7 +45,7 @@ public static partial class SqlMapper
         /// Purges the specified type.
         /// </summary>
         /// <param name="type">The type.</param>
-        internal static void Purge(Type type)
+        static internal void Purge(Type type)
         {
             lock (byType)
             {
@@ -56,7 +56,7 @@ public static partial class SqlMapper
         /// <summary>
         /// Purges this instance.
         /// </summary>
-        internal static void Purge()
+        static internal void Purge()
         {
             lock (byType)
             {
@@ -73,7 +73,7 @@ public static partial class SqlMapper
         /// <param name="length">The length.</param>
         /// <param name="returnNullIfFirstMissing">if set to <c>true</c> [return null if first missing].</param>
         /// <returns>Func&lt;IDataReader, System.Object&gt;.</returns>
-        internal static Func<IDataReader, object> GetReader(Type type, IDataReader reader, int startBound, int length, bool returnNullIfFirstMissing)
+        static internal Func<IDataReader, object> GetReader(Type type, IDataReader reader, int startBound, int length, bool returnNullIfFirstMissing)
         {
             var found = (TypeDeserializerCache)byType[type];
             if (found == null)

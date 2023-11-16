@@ -59,7 +59,7 @@ internal sealed class SqlDataRecordListTVPParameter<T> : SqlMapper.ICustomQueryP
     /// <param name="parameter">The parameter.</param>
     /// <param name="data">The data.</param>
     /// <param name="typeName">Name of the type.</param>
-    internal static void Set(IDbDataParameter parameter, IEnumerable<T> data, string typeName)
+    static internal void Set(IDbDataParameter parameter, IEnumerable<T> data, string typeName)
     {
         parameter.Value = data != null && data.Any() ? data : null;
         StructuredHelper.ConfigureTVP(parameter, typeName);
@@ -73,7 +73,7 @@ static class StructuredHelper
     /// <summary>
     /// The s udt
     /// </summary>
-    private static readonly Hashtable s_udt = new Hashtable(), s_tvp = new Hashtable();
+    private readonly static Hashtable s_udt = new Hashtable(), s_tvp = new Hashtable();
 
     /// <summary>
     /// Gets the udt.
@@ -158,13 +158,13 @@ static class StructuredHelper
     /// </summary>
     /// <param name="parameter">The parameter.</param>
     /// <param name="typeName">Name of the type.</param>
-    internal static void ConfigureUDT(IDbDataParameter parameter, string typeName)
+    static internal void ConfigureUDT(IDbDataParameter parameter, string typeName)
         => GetUDT(parameter.GetType())(parameter, typeName);
     /// <summary>
     /// Configures the TVP.
     /// </summary>
     /// <param name="parameter">The parameter.</param>
     /// <param name="typeName">Name of the type.</param>
-    internal static void ConfigureTVP(IDbDataParameter parameter, string typeName)
+    static internal void ConfigureTVP(IDbDataParameter parameter, string typeName)
         => GetTVP(parameter.GetType())(parameter, typeName);
 }

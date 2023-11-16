@@ -240,7 +240,7 @@ public class MostRecentlyUsed : DictionaryBase
     /// <param name="value">
     /// The value.
     /// </param>
-    protected override void OnInsert(object key, object value)
+    override protected void OnInsert(object key, object value)
     {
         if (this.Dictionary.Keys.Count < this.Capacity)
         {

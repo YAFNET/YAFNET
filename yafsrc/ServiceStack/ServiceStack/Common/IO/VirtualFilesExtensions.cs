@@ -436,7 +436,7 @@ public static class VirtualDirectoryExtensions
     /// <param name="file">The file.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    public static async Task WriteFileAsync(this IVirtualFiles vfs, string filePath, IVirtualFile file, CancellationToken token = default) =>
+    public async static Task WriteFileAsync(this IVirtualFiles vfs, string filePath, IVirtualFile file, CancellationToken token = default) =>
         await vfs.WriteFileAsync(filePath, file, token).ConfigAwait();
     /// <summary>
     /// Write file as an asynchronous operation.
@@ -446,7 +446,7 @@ public static class VirtualDirectoryExtensions
     /// <param name="textContents">The text contents.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    public static async Task WriteFileAsync(this IVirtualFiles vfs, string filePath, string textContents, CancellationToken token = default) =>
+    public async static Task WriteFileAsync(this IVirtualFiles vfs, string filePath, string textContents, CancellationToken token = default) =>
         await vfs.WriteFileAsync(filePath, textContents, token).ConfigAwait();
     /// <summary>
     /// Write file as an asynchronous operation.
@@ -456,7 +456,7 @@ public static class VirtualDirectoryExtensions
     /// <param name="textContents">The text contents.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    public static async Task WriteFileAsync(this IVirtualFiles vfs, string filePath, ReadOnlyMemory<char> textContents, CancellationToken token = default) =>
+    public async static Task WriteFileAsync(this IVirtualFiles vfs, string filePath, ReadOnlyMemory<char> textContents, CancellationToken token = default) =>
         await vfs.WriteFileAsync(filePath, textContents, token).ConfigAwait();
     /// <summary>
     /// Write file as an asynchronous operation.
@@ -466,7 +466,7 @@ public static class VirtualDirectoryExtensions
     /// <param name="binaryContents">The binary contents.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    public static async Task WriteFileAsync(this IVirtualFiles vfs, string filePath, byte[] binaryContents, CancellationToken token = default) =>
+    public async static Task WriteFileAsync(this IVirtualFiles vfs, string filePath, byte[] binaryContents, CancellationToken token = default) =>
         await vfs.WriteFileAsync(filePath, binaryContents, token).ConfigAwait();
     /// <summary>
     /// Write file as an asynchronous operation.
@@ -476,7 +476,7 @@ public static class VirtualDirectoryExtensions
     /// <param name="romBytes">The rom bytes.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    public static async Task WriteFileAsync(this IVirtualFiles vfs, string filePath, ReadOnlyMemory<byte> romBytes, CancellationToken token = default) =>
+    public async static Task WriteFileAsync(this IVirtualFiles vfs, string filePath, ReadOnlyMemory<byte> romBytes, CancellationToken token = default) =>
         await vfs.WriteFileAsync(filePath, romBytes, token).ConfigAwait();
     /// <summary>
     /// Write file as an asynchronous operation.
@@ -486,6 +486,6 @@ public static class VirtualDirectoryExtensions
     /// <param name="stream">The stream.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    public static async Task WriteFileAsync(this IVirtualFiles vfs, string filePath, Stream stream, CancellationToken token = default) =>
+    public async static Task WriteFileAsync(this IVirtualFiles vfs, string filePath, Stream stream, CancellationToken token = default) =>
         await vfs.WriteFileAsync(filePath, stream, token).ConfigAwait();
 }

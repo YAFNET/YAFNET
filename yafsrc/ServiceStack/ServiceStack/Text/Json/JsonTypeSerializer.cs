@@ -85,7 +85,7 @@ public struct JsonTypeSerializer
     /// </summary>
     /// <param name="typeAttr">The type attribute.</param>
     /// <returns>System.String.</returns>
-    internal static string GetTypeAttrInObject(string typeAttr) => $"{{\"{typeAttr}\":";
+    static internal string GetTypeAttrInObject(string typeAttr) => $"{{\"{typeAttr}\":";
 
     /// <summary>
     /// Gets the write function.
@@ -677,7 +677,7 @@ public struct JsonTypeSerializer
     /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Invalid unquoted string ending with: " + json.SafeSubstring(json.Length - 50, 50).ToString()</exception>
     /// <exception cref="System.Exception">Invalid unquoted string starting with: " + json.SafeSubstring(50).ToString()</exception>
     /// <exception cref="System.Exception">Invalid unquoted string ending with: " + json.SafeSubstring(json.Length - 50, 50).ToString()</exception>
-    internal static ReadOnlySpan<char> ParseString(ReadOnlySpan<char> json, ref int index)
+    static internal ReadOnlySpan<char> ParseString(ReadOnlySpan<char> json, ref int index)
     {
         var jsonLength = json.Length;
 
@@ -770,7 +770,7 @@ public struct JsonTypeSerializer
     /// <summary>
     /// The is safe json chars
     /// </summary>
-    static readonly char[] IsSafeJsonChars = { JsonUtils.QuoteChar, JsonUtils.EscapeChar };
+    readonly static char[] IsSafeJsonChars = { JsonUtils.QuoteChar, JsonUtils.EscapeChar };
 
     /// <summary>
     /// Unescapes the json string.

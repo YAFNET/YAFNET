@@ -21,11 +21,11 @@ public class ResourceVirtualFile : AbstractVirtualFileBase
     /// <summary>
     /// The backing assembly
     /// </summary>
-    protected readonly Assembly BackingAssembly;
+    readonly protected Assembly BackingAssembly;
     /// <summary>
     /// The file name
     /// </summary>
-    protected readonly string FileName;
+    readonly protected string FileName;
 
     /// <summary>
     /// Gets the name.

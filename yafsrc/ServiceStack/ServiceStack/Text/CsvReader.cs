@@ -246,20 +246,20 @@ public class CsvReader<T>
     /// <summary>
     /// The property setters
     /// </summary>
-    internal static List<SetMemberDelegate<T>> PropertySetters;
+    static internal List<SetMemberDelegate<T>> PropertySetters;
     /// <summary>
     /// The property setters map
     /// </summary>
-    internal static Dictionary<string, SetMemberDelegate<T>> PropertySettersMap;
+    static internal Dictionary<string, SetMemberDelegate<T>> PropertySettersMap;
 
     /// <summary>
     /// The property converters
     /// </summary>
-    internal static List<ParseStringDelegate> PropertyConverters;
+    static internal List<ParseStringDelegate> PropertyConverters;
     /// <summary>
     /// The property converters map
     /// </summary>
-    internal static Dictionary<string, ParseStringDelegate> PropertyConvertersMap;
+    static internal Dictionary<string, ParseStringDelegate> PropertyConvertersMap;
 
     /// <summary>
     /// Initializes static members of the <see cref="CsvReader{T}" /> class.
@@ -272,7 +272,7 @@ public class CsvReader<T>
     /// <summary>
     /// Resets this instance.
     /// </summary>
-    internal static void Reset()
+    static internal void Reset()
     {
         Headers = new List<string>();
 

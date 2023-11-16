@@ -15,7 +15,7 @@ using System.Runtime.CompilerServices;
 /// <summary>
 /// Class OrmLiteDiagnostics.
 /// </summary>
-internal static class OrmLiteDiagnostics
+static internal class OrmLiteDiagnostics
 {
     /// <summary>
     /// Writes the command before.

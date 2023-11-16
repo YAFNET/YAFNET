@@ -55,7 +55,7 @@ public class AutoFacServiceLocatorProvider(ILifetimeScope container) : IScopeSer
     /// <summary>
     ///     The _injection cache.
     /// </summary>
-    private static readonly
+    private readonly static
         ConcurrentDictionary<KeyValuePair<Type, Type>, IList<Tuple<Type, Type, Action<object, object>>>> InjectionCache =
             new();
 

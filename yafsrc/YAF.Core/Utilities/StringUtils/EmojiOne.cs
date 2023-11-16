@@ -116,7 +116,7 @@ public static partial class EmojiOne
     /// <returns>
     /// Returns the converted string
     /// </returns>
-    internal static string ToCodePoint(string unicode)
+    static internal string ToCodePoint(string unicode)
     {
         var codepoint = string.Empty;
         for (var i = 0; i < unicode.Length; i += char.IsSurrogatePair(unicode, i) ? 2 : 1)
@@ -137,7 +137,7 @@ public static partial class EmojiOne
     /// </summary>
     /// <param name="codepoint">The codepoint.</param>
     /// <returns>Returns the converted string</returns>
-    internal static string ToUnicode(string codepoint)
+    static internal string ToUnicode(string codepoint)
     {
         if (codepoint.Contains('-'))
         {

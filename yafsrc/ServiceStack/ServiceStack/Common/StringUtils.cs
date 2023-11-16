@@ -464,7 +464,7 @@ public static class StringUtils
     /// <summary>
     /// The escaped character map
     /// </summary>
-    public static readonly Dictionary<char, string> EscapedCharMap = new()
+    public readonly static Dictionary<char, string> EscapedCharMap = new()
                                                                          {
                                                                              // {'\'', @"\'"},
                                                                              {'\"', "\\\""},
@@ -551,14 +551,14 @@ public static class StringUtils
     /// <summary>
     /// The strip HTML unicode reg ex
     /// </summary>
-    static readonly Regex StripHtmlUnicodeRegEx =
+    readonly static Regex StripHtmlUnicodeRegEx =
         new(@"&(#)?([xX])?([^ \f\n\r\t\v;]+);", RegexOptions.Compiled,
             TimeSpan.FromMilliseconds(100));
 
     /// <summary>
     /// The safe input reg ex
     /// </summary>
-    static readonly Regex SafeInputRegEx = new(@"[^\w\s\.,@-\\+\\/]", RegexOptions.Compiled,
+    readonly static Regex SafeInputRegEx = new(@"[^\w\s\.,@-\\+\\/]", RegexOptions.Compiled,
         TimeSpan.FromMilliseconds(100));
 
     /// <summary>
@@ -654,7 +654,7 @@ public static class StringUtils
     /// <summary>
     /// The field separators
     /// </summary>
-    private static readonly char[] FieldSeparators = { ',', ';' };
+    private readonly static char[] FieldSeparators = { ',', ';' };
     /// <summary>
     /// Splits the variable names.
     /// </summary>
@@ -823,7 +823,7 @@ public static class StringUtils
     /// <summary>
     /// The HTML character codes
     /// </summary>
-    public static readonly IDictionary<string, string> HtmlCharacterCodes = new SortedDictionary<string, string> {
+    public readonly static IDictionary<string, string> HtmlCharacterCodes = new SortedDictionary<string, string> {
                                                                                     {@"&Aacute;", 193.ToChar()},
                                                                                     {@"&aacute;", 225.ToChar()},
                                                                                     {@"&Abreve;", 258.ToChar()},

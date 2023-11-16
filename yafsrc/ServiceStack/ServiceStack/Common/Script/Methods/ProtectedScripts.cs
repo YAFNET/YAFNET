@@ -31,7 +31,7 @@ public class ProtectedScripts : ScriptMethods
     /// <summary>
     /// The instance
     /// </summary>
-    public static readonly ProtectedScripts Instance = new();
+    public readonly static ProtectedScripts Instance = new();
 
     /// <summary>
     /// Resolves the specified scope.
@@ -1739,7 +1739,7 @@ public class ProtectedScripts : ScriptMethods
     /// <summary>
     /// All cache names
     /// </summary>
-    static readonly string[] AllCacheNames = {
+    readonly static string[] AllCacheNames = {
                                                      nameof(ScriptContext.Cache),
                                                      nameof(ScriptContext.CacheMemory),
                                                      nameof(ScriptContext.ExpiringCache),

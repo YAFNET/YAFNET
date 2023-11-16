@@ -58,7 +58,7 @@ namespace ServiceStack.Text
         /// <typeparam name="T"></typeparam>
         /// <param name="memberInfo">The member information.</param>
         /// <returns>DynamicMethod.</returns>
-        internal static DynamicMethod CreateDynamicGetMethod<T>(MemberInfo memberInfo)
+        static internal DynamicMethod CreateDynamicGetMethod<T>(MemberInfo memberInfo)
         {
             var memberType = memberInfo is FieldInfo ? "Field" : "Property";
             var name = $"_Get{memberType}[T]_{memberInfo.Name}_";
@@ -274,14 +274,14 @@ namespace ServiceStack.Text
         /// <summary>
         /// The dynamic get method arguments
         /// </summary>
-        static readonly Type[] DynamicGetMethodArgs = { typeof(object) };
+        readonly static Type[] DynamicGetMethodArgs = { typeof(object) };
 
         /// <summary>
         /// Creates the dynamic get method.
         /// </summary>
         /// <param name="memberInfo">The member information.</param>
         /// <returns>DynamicMethod.</returns>
-        internal static DynamicMethod CreateDynamicGetMethod(MemberInfo memberInfo)
+        static internal DynamicMethod CreateDynamicGetMethod(MemberInfo memberInfo)
         {
             var memberType = memberInfo is FieldInfo ? "Field" : "Property";
             var name = $"_Get{memberType}_{memberInfo.Name}_";
@@ -356,14 +356,14 @@ namespace ServiceStack.Text
         /// <summary>
         /// The dynamic set method arguments
         /// </summary>
-        static readonly Type[] DynamicSetMethodArgs = { typeof(object), typeof(object) };
+        readonly static Type[] DynamicSetMethodArgs = { typeof(object), typeof(object) };
 
         /// <summary>
         /// Creates the dynamic set method.
         /// </summary>
         /// <param name="memberInfo">The member information.</param>
         /// <returns>DynamicMethod.</returns>
-        internal static DynamicMethod CreateDynamicSetMethod(MemberInfo memberInfo)
+        static internal DynamicMethod CreateDynamicSetMethod(MemberInfo memberInfo)
         {
             var memberType = memberInfo is FieldInfo ? "Field" : "Property";
             var name = $"_Set{memberType}_{memberInfo.Name}_";
@@ -394,15 +394,15 @@ namespace ServiceStack.Text
         /// <summary>
         /// The module builder
         /// </summary>
-        static readonly ModuleBuilder ModuleBuilder;
+        readonly static ModuleBuilder ModuleBuilder;
         /// <summary>
         /// The dynamic assembly
         /// </summary>
-        static readonly AssemblyBuilder DynamicAssembly;
+        readonly static AssemblyBuilder DynamicAssembly;
         /// <summary>
         /// The empty types
         /// </summary>
-        static readonly Type[] EmptyTypes = Type.EmptyTypes;
+        readonly static Type[] EmptyTypes = Type.EmptyTypes;
 
         /// <summary>
         /// Gets the instance for.

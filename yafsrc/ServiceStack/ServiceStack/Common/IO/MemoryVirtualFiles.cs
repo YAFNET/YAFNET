@@ -74,7 +74,7 @@ public class MemoryVirtualFiles
     /// <summary>
     /// Initializes this instance.
     /// </summary>
-    protected override void Initialize() { }
+    override protected void Initialize() { }
 
     /// <summary>
     /// Gets the file.
@@ -477,7 +477,7 @@ public class InMemoryVirtualDirectory : AbstractVirtualDirectoryBase
     /// </summary>
     /// <param name="fileName">Name of the file.</param>
     /// <returns>IVirtualFile.</returns>
-    protected override IVirtualFile GetFileFromBackingDirectoryOrDefault(string fileName)
+    override protected IVirtualFile GetFileFromBackingDirectoryOrDefault(string fileName)
     {
         return GetFile(fileName);
     }
@@ -487,7 +487,7 @@ public class InMemoryVirtualDirectory : AbstractVirtualDirectoryBase
     /// </summary>
     /// <param name="globPattern">The glob pattern.</param>
     /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
-    protected override IEnumerable<IVirtualFile> GetMatchingFilesInDir(string globPattern)
+    override protected IEnumerable<IVirtualFile> GetMatchingFilesInDir(string globPattern)
     {
         if (pathProvider.Files.Count == 0)
             return TypeConstants<IVirtualFile>.EmptyArray;
@@ -514,7 +514,7 @@ public class InMemoryVirtualDirectory : AbstractVirtualDirectoryBase
     /// </summary>
     /// <param name="directoryName">Name of the directory.</param>
     /// <returns>IVirtualDirectory.</returns>
-    protected override IVirtualDirectory GetDirectoryFromBackingDirectoryOrDefault(string directoryName)
+    override protected IVirtualDirectory GetDirectoryFromBackingDirectoryOrDefault(string directoryName)
     {
         var subDir = DirPath.CombineWith(directoryName);
         return new InMemoryVirtualDirectory(pathProvider, subDir, this);

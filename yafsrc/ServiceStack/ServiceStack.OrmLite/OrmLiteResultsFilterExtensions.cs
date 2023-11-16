@@ -24,7 +24,7 @@ public static class OrmLiteResultsFilterExtensions
     /// <summary>
     /// The log
     /// </summary>
-    internal static ILog Log = LogManager.GetLogger(typeof(OrmLiteResultsFilterExtensions));
+    static internal ILog Log = LogManager.GetLogger(typeof(OrmLiteResultsFilterExtensions));
 
     /// <summary>
     /// Executes the non query.
@@ -196,7 +196,7 @@ public static class OrmLiteResultsFilterExtensions
     /// <param name="sqlParams">The SQL parameters.</param>
     /// <param name="onlyFields">The only fields.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> ExprConvertToList<T>(this IDbCommand dbCmd, string sql = null, IEnumerable<IDbDataParameter> sqlParams = null, HashSet<string> onlyFields = null)
+    static internal List<T> ExprConvertToList<T>(this IDbCommand dbCmd, string sql = null, IEnumerable<IDbDataParameter> sqlParams = null, HashSet<string> onlyFields = null)
     {
         if (sql != null)
             dbCmd.CommandText = sql;
@@ -236,7 +236,7 @@ public static class OrmLiteResultsFilterExtensions
     /// <param name="refType">Type of the reference.</param>
     /// <param name="sql">The SQL.</param>
     /// <returns>System.Object.</returns>
-    internal static object ConvertTo(this IDbCommand dbCmd, Type refType, string sql = null)
+    static internal object ConvertTo(this IDbCommand dbCmd, Type refType, string sql = null)
     {
         if (sql != null)
             dbCmd.CommandText = sql;
@@ -256,7 +256,7 @@ public static class OrmLiteResultsFilterExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="sqlParams">The SQL parameters.</param>
     /// <returns>T.</returns>
-    internal static T Scalar<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams)
+    static internal T Scalar<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams)
     {
         return dbCmd.SetParameters(sqlParams).Scalar<T>(sql);
     }
@@ -268,7 +268,7 @@ public static class OrmLiteResultsFilterExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="sql">The SQL.</param>
     /// <returns>T.</returns>
-    internal static T Scalar<T>(this IDbCommand dbCmd, string sql = null)
+    static internal T Scalar<T>(this IDbCommand dbCmd, string sql = null)
     {
         if (sql != null)
             dbCmd.CommandText = sql;
@@ -344,7 +344,7 @@ public static class OrmLiteResultsFilterExtensions
     /// <param name="sqlParams">The SQL parameters.</param>
     /// <param name="onlyFields">The only fields.</param>
     /// <returns>T.</returns>
-    internal static T ExprConvertTo<T>(this IDbCommand dbCmd, string sql = null, IEnumerable<IDbDataParameter> sqlParams = null, HashSet<string> onlyFields = null)
+    static internal T ExprConvertTo<T>(this IDbCommand dbCmd, string sql = null, IEnumerable<IDbDataParameter> sqlParams = null, HashSet<string> onlyFields = null)
     {
         if (sql != null)
             dbCmd.CommandText = sql;
@@ -365,7 +365,7 @@ public static class OrmLiteResultsFilterExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="sql">The SQL.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> Column<T>(this IDbCommand dbCmd, string sql = null)
+    static internal List<T> Column<T>(this IDbCommand dbCmd, string sql = null)
     {
         if (sql != null)
             dbCmd.CommandText = sql;
@@ -385,7 +385,7 @@ public static class OrmLiteResultsFilterExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="sqlParams">The SQL parameters.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> Column<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams)
+    static internal List<T> Column<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams)
     {
         return dbCmd.SetParameters(sqlParams).Column<T>(sql);
     }
@@ -397,7 +397,7 @@ public static class OrmLiteResultsFilterExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="sql">The SQL.</param>
     /// <returns>HashSet&lt;T&gt;.</returns>
-    internal static HashSet<T> ColumnDistinct<T>(this IDbCommand dbCmd, string sql = null)
+    static internal HashSet<T> ColumnDistinct<T>(this IDbCommand dbCmd, string sql = null)
     {
         if (sql != null)
             dbCmd.CommandText = sql;
@@ -416,7 +416,7 @@ public static class OrmLiteResultsFilterExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="expression">The expression.</param>
     /// <returns>HashSet&lt;T&gt;.</returns>
-    internal static HashSet<T> ColumnDistinct<T>(this IDbCommand dbCmd, ISqlExpression expression)
+    static internal HashSet<T> ColumnDistinct<T>(this IDbCommand dbCmd, ISqlExpression expression)
     {
         dbCmd.PopulateWith(expression, QueryType.Select);
 
@@ -435,7 +435,7 @@ public static class OrmLiteResultsFilterExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="sql">The SQL.</param>
     /// <returns>Dictionary&lt;K, V&gt;.</returns>
-    internal static Dictionary<K, V> Dictionary<K, V>(this IDbCommand dbCmd, string sql = null)
+    static internal Dictionary<K, V> Dictionary<K, V>(this IDbCommand dbCmd, string sql = null)
     {
         if (sql != null)
             dbCmd.CommandText = sql;
@@ -455,7 +455,7 @@ public static class OrmLiteResultsFilterExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="expression">The expression.</param>
     /// <returns>Dictionary&lt;K, V&gt;.</returns>
-    internal static Dictionary<K, V> Dictionary<K, V>(this IDbCommand dbCmd, ISqlExpression expression)
+    static internal Dictionary<K, V> Dictionary<K, V>(this IDbCommand dbCmd, ISqlExpression expression)
     {
         dbCmd.PopulateWith(expression, QueryType.Select);
 
@@ -474,7 +474,7 @@ public static class OrmLiteResultsFilterExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="sql">The SQL.</param>
     /// <returns>List&lt;KeyValuePair&lt;K, V&gt;&gt;.</returns>
-    internal static List<KeyValuePair<K, V>> KeyValuePairs<K, V>(this IDbCommand dbCmd, string sql = null)
+    static internal List<KeyValuePair<K, V>> KeyValuePairs<K, V>(this IDbCommand dbCmd, string sql = null)
     {
         if (sql != null)
             dbCmd.CommandText = sql;
@@ -494,7 +494,7 @@ public static class OrmLiteResultsFilterExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="expression">The expression.</param>
     /// <returns>List&lt;KeyValuePair&lt;K, V&gt;&gt;.</returns>
-    internal static List<KeyValuePair<K, V>> KeyValuePairs<K, V>(this IDbCommand dbCmd, ISqlExpression expression)
+    static internal List<KeyValuePair<K, V>> KeyValuePairs<K, V>(this IDbCommand dbCmd, ISqlExpression expression)
     {
         dbCmd.PopulateWith(expression, QueryType.Select);
 
@@ -514,7 +514,7 @@ public static class OrmLiteResultsFilterExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="sqlParams">The SQL parameters.</param>
     /// <returns>Dictionary&lt;K, List&lt;V&gt;&gt;.</returns>
-    internal static Dictionary<K, List<V>> Lookup<K, V>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams)
+    static internal Dictionary<K, List<V>> Lookup<K, V>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams)
     {
         return dbCmd.SetParameters(sqlParams).Lookup<K, V>(sql);
     }
@@ -527,7 +527,7 @@ public static class OrmLiteResultsFilterExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="sql">The SQL.</param>
     /// <returns>Dictionary&lt;K, List&lt;V&gt;&gt;.</returns>
-    internal static Dictionary<K, List<V>> Lookup<K, V>(this IDbCommand dbCmd, string sql = null)
+    static internal Dictionary<K, List<V>> Lookup<K, V>(this IDbCommand dbCmd, string sql = null)
     {
         if (sql != null)
             dbCmd.CommandText = sql;

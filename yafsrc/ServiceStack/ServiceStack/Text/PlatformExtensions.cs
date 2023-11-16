@@ -29,7 +29,7 @@ public static class PlatformExtensions
     /// <param name="subType">Type of the sub.</param>
     /// <returns>PropertyInfo[].</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static PropertyInfo[] GetTypesPublicProperties(this Type subType)
+    static internal PropertyInfo[] GetTypesPublicProperties(this Type subType)
     {
         return subType.GetProperties(
             BindingFlags.FlattenHierarchy |
@@ -43,7 +43,7 @@ public static class PlatformExtensions
     /// <param name="subType">Type of the sub.</param>
     /// <returns>PropertyInfo[].</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static PropertyInfo[] GetTypesProperties(this Type subType)
+    static internal PropertyInfo[] GetTypesProperties(this Type subType)
     {
         return subType.GetProperties(
             BindingFlags.FlattenHierarchy |
@@ -169,7 +169,7 @@ public static class PlatformExtensions
     /// <summary>
     /// The has attribute cache
     /// </summary>
-    private static readonly ConcurrentDictionary<Tuple<MemberInfo, Type>, bool> hasAttributeCache = new();
+    private readonly static ConcurrentDictionary<Tuple<MemberInfo, Type>, bool> hasAttributeCache = new();
     /// <summary>
     /// Determines whether [has attribute cached] [the specified member information].
     /// </summary>
@@ -201,7 +201,7 @@ public static class PlatformExtensions
     /// <summary>
     /// The has attribute of cache
     /// </summary>
-    private static readonly ConcurrentDictionary<Tuple<MemberInfo, Type>, bool> hasAttributeOfCache = new();
+    private readonly static ConcurrentDictionary<Tuple<MemberInfo, Type>, bool> hasAttributeOfCache = new();
 
     /// <summary>
     /// Determines whether [has attribute named] [the specified name].
@@ -311,7 +311,7 @@ public static class PlatformExtensions
     /// <param name="pi">The pi.</param>
     /// <returns>System.String.</returns>
     /// <exception cref="System.ArgumentException">Property '{0}' has no DeclaringType".Fmt(pi.Name)</exception>
-    internal static string UniqueKey(this PropertyInfo pi)
+    static internal string UniqueKey(this PropertyInfo pi)
     {
         if (pi.DeclaringType == null)
             throw new ArgumentException("Property '{0}' has no DeclaringType".Fmt(pi.Name));
@@ -887,7 +887,7 @@ public static class PlatformExtensions
     /// <summary>
     /// To object map cache
     /// </summary>
-    private static readonly ConcurrentDictionary<Type, ObjectDictionaryDefinition> toObjectMapCache =
+    private readonly static ConcurrentDictionary<Type, ObjectDictionaryDefinition> toObjectMapCache =
         new();
 
     /// <summary>

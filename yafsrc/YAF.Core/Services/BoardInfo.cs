@@ -165,7 +165,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     /// </returns>
     private static string TreatBaseUrl(string baseUrl)
     {
-        if (baseUrl.EndsWith("/"))
+        if (baseUrl.EndsWith('/'))
         {
             // remove ending slash...
             baseUrl = baseUrl.Remove(baseUrl.Length - 1, 1);

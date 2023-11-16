@@ -34,7 +34,7 @@ public static class HttpStatus
     /// <summary>
     /// The descriptions
     /// </summary>
-    private static readonly string[][] Descriptions =
+    private readonly static string[][] Descriptions =
         {
             null, new[]
                       {

@@ -21,7 +21,7 @@ public static class SharpPagesExtensions
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <returns>A Task&lt;System.String&gt; representing the asynchronous operation.</returns>
-    public static async Task<string> RenderToStringAsync(this IStreamWriterAsync writer)
+    public async static Task<string> RenderToStringAsync(this IStreamWriterAsync writer)
     {
         using var ms = MemoryStreamFactory.GetStream();
         await writer.WriteToAsync(ms);

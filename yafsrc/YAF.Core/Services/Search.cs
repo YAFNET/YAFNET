@@ -72,7 +72,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// <summary>
     /// The search index folder.
     /// </summary>
-    private static readonly string SearchIndexFolder = AppDomain.CurrentDomain.GetData("SearchDataDirectory").ToString();
+    private readonly static string SearchIndexFolder = AppDomain.CurrentDomain.GetData("SearchDataDirectory").ToString();
 
     /// <summary>
     /// The standardAnalyzer.

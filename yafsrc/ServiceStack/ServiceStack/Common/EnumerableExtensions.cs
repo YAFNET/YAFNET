@@ -567,7 +567,7 @@ public static class EnumerableExtensions
     /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
     /// <exception cref="System.ArgumentNullException">source</exception>
     /// <exception cref="System.ArgumentNullException">predicate</exception>
-    public static async Task<bool> AllAsync<T>(this IEnumerable<T> source, Func<T, Task<bool>> predicate)
+    public async static Task<bool> AllAsync<T>(this IEnumerable<T> source, Func<T, Task<bool>> predicate)
     {
         if (source == null)
             throw new ArgumentNullException(nameof(source));
@@ -592,7 +592,7 @@ public static class EnumerableExtensions
     /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
     /// <exception cref="System.ArgumentNullException">source</exception>
     /// <exception cref="System.ArgumentNullException">predicate</exception>
-    public static async Task<bool> AllAsync<T>(this IEnumerable<Task<T>> source, Func<T, bool> predicate)
+    public async static Task<bool> AllAsync<T>(this IEnumerable<Task<T>> source, Func<T, bool> predicate)
     {
         if (source == null)
             throw new ArgumentNullException(nameof(source));
@@ -616,7 +616,7 @@ public static class EnumerableExtensions
     /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
     /// <exception cref="System.ArgumentNullException">source</exception>
     /// <exception cref="System.ArgumentNullException">predicate</exception>
-    public static async Task<bool> AnyAsync<T>(this IEnumerable<T> source, Func<T, Task<bool>> predicate)
+    public async static Task<bool> AnyAsync<T>(this IEnumerable<T> source, Func<T, Task<bool>> predicate)
     {
         if (source == null)
             throw new ArgumentNullException(nameof(source));
@@ -641,7 +641,7 @@ public static class EnumerableExtensions
     /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
     /// <exception cref="System.ArgumentNullException">source</exception>
     /// <exception cref="System.ArgumentNullException">predicate</exception>
-    public static async Task<bool> AnyAsync<T>(this IEnumerable<Task<T>> source, Func<T, bool> predicate)
+    public async static Task<bool> AnyAsync<T>(this IEnumerable<Task<T>> source, Func<T, bool> predicate)
     {
         if (source == null)
             throw new ArgumentNullException(nameof(source));

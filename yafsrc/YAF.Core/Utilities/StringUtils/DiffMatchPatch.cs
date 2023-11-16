@@ -26,7 +26,7 @@ using System.Text.RegularExpressions;
 /// <summary>
 /// The compatibility extensions.
 /// </summary>
-internal static class CompatibilityExtensions
+static internal class CompatibilityExtensions
 {
     /// <summary>
     /// JScript splice function
@@ -572,7 +572,7 @@ public class DiffMatchPatch
     /// <returns>Three element Object array, containing the encoded text1, the
     /// encoded text2 and the List of unique strings.  The zeroth element
     /// of the List of unique strings is intentionally blank.</returns>
-    protected static object[] LinesToChars(string text1, string text2)
+    static protected object[] LinesToChars(string text1, string text2)
     {
         var lineArray = new List<string>();
         var lineHash = new Dictionary<string, int>();

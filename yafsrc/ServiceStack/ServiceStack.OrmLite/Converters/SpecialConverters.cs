@@ -204,7 +204,7 @@ namespace ServiceStack.OrmLite.Converters
         /// <summary>
         /// The int enums
         /// </summary>
-        static readonly ConcurrentDictionary<Type, bool> intEnums = new();
+        readonly static ConcurrentDictionary<Type, bool> intEnums = new();
 
         /// <summary>
         /// Determines whether [is int enum] [the specified field type].

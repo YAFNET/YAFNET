@@ -22,7 +22,7 @@ public static class JsonWriter
     /// <summary>
     /// The instance
     /// </summary>
-    public static readonly JsWriter<JsonTypeSerializer> Instance = new();
+    public readonly static JsWriter<JsonTypeSerializer> Instance = new();
 
     /// <summary>
     /// The write function cache
@@ -33,7 +33,7 @@ public static class JsonWriter
     /// Removes the cache function.
     /// </summary>
     /// <param name="forType">For type.</param>
-    internal static void RemoveCacheFn(Type forType)
+    static internal void RemoveCacheFn(Type forType)
     {
         Dictionary<Type, WriteObjectDelegate> snapshot, newCache;
         do
@@ -51,7 +51,7 @@ public static class JsonWriter
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>WriteObjectDelegate.</returns>
-    internal static WriteObjectDelegate GetWriteFn(Type type)
+    static internal WriteObjectDelegate GetWriteFn(Type type)
     {
         try
         {
@@ -93,7 +93,7 @@ public static class JsonWriter
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>TypeInfo.</returns>
-    internal static TypeInfo GetTypeInfo(Type type)
+    static internal TypeInfo GetTypeInfo(Type type)
     {
         try
         {
@@ -130,7 +130,7 @@ public static class JsonWriter
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="value">The value.</param>
-    internal static void WriteLateBoundObject(TextWriter writer, object value)
+    static internal void WriteLateBoundObject(TextWriter writer, object value)
     {
         if (value == null)
         {
@@ -193,7 +193,7 @@ public static class JsonWriter<T>
     /// <summary>
     /// The type information
     /// </summary>
-    internal static TypeInfo TypeInfo;
+    static internal TypeInfo TypeInfo;
     /// <summary>
     /// The cache function
     /// </summary>

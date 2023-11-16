@@ -40,7 +40,7 @@ internal sealed class XmlDocumentHandler : XmlTypeHandler<XmlDocument>
     /// </summary>
     /// <param name="xml">The string to parse.</param>
     /// <returns>T.</returns>
-    protected override XmlDocument Parse(string xml)
+    override protected XmlDocument Parse(string xml)
     {
         var doc = new XmlDocument();
         doc.LoadXml(xml);
@@ -52,7 +52,7 @@ internal sealed class XmlDocumentHandler : XmlTypeHandler<XmlDocument>
     /// </summary>
     /// <param name="xml">The string to format.</param>
     /// <returns>System.String.</returns>
-    protected override string Format(XmlDocument xml) => xml.OuterXml;
+    override protected string Format(XmlDocument xml) => xml.OuterXml;
 }
 
 /// <summary>
@@ -65,13 +65,13 @@ internal sealed class XDocumentHandler : XmlTypeHandler<XDocument>
     /// </summary>
     /// <param name="xml">The string to parse.</param>
     /// <returns>T.</returns>
-    protected override XDocument Parse(string xml) => XDocument.Parse(xml);
+    override protected XDocument Parse(string xml) => XDocument.Parse(xml);
     /// <summary>
     /// Format an instace into a string (the instance will never be null)
     /// </summary>
     /// <param name="xml">The string to format.</param>
     /// <returns>System.String.</returns>
-    protected override string Format(XDocument xml) => xml.ToString();
+    override protected string Format(XDocument xml) => xml.ToString();
 }
 
 /// <summary>
@@ -84,11 +84,11 @@ internal sealed class XElementHandler : XmlTypeHandler<XElement>
     /// </summary>
     /// <param name="xml">The string to parse.</param>
     /// <returns>T.</returns>
-    protected override XElement Parse(string xml) => XElement.Parse(xml);
+    override protected XElement Parse(string xml) => XElement.Parse(xml);
     /// <summary>
     /// Formats the specified XML.
     /// </summary>
     /// <param name="xml">The XML.</param>
     /// <returns>System.String.</returns>
-    protected override string Format(XElement xml) => xml.ToString();
+    override protected string Format(XElement xml) => xml.ToString();
 }

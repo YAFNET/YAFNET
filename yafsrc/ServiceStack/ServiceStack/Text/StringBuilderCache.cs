@@ -109,7 +109,7 @@ public static class StringBuilderCacheAlt
 /// <summary>
 /// Class StringBuilderThreadStatic.
 /// </summary>
-internal static class StringBuilderThreadStatic
+static internal class StringBuilderThreadStatic
 {
     /// <summary>
     /// The cache

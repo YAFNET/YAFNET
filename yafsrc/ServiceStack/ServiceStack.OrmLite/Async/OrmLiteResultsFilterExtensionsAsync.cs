@@ -27,7 +27,7 @@ namespace ServiceStack.OrmLite
         /// <summary>
         /// The log
         /// </summary>
-        internal static ILog Log = LogManager.GetLogger(typeof(OrmLiteResultsFilterExtensionsAsync));
+        static internal ILog Log = LogManager.GetLogger(typeof(OrmLiteResultsFilterExtensionsAsync));
 
         /// <summary>
         /// Executes the non query asynchronous.
@@ -119,7 +119,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;List`1&gt; representing the asynchronous operation.</returns>
-        public static async Task<List<T>> ConvertToListAsync<T>(this IDbCommand dbCmd, string sql, CancellationToken token)
+        public async static Task<List<T>> ConvertToListAsync<T>(this IDbCommand dbCmd, string sql, CancellationToken token)
         {
             if (sql != null)
                 dbCmd.CommandText = sql;
@@ -154,7 +154,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;IList&gt; representing the asynchronous operation.</returns>
-        public static async Task<IList> ConvertToListAsync(this IDbCommand dbCmd, Type refType, string sql, CancellationToken token)
+        public async static Task<IList> ConvertToListAsync(this IDbCommand dbCmd, Type refType, string sql, CancellationToken token)
         {
             if (sql != null)
                 dbCmd.CommandText = sql;
@@ -177,7 +177,7 @@ namespace ServiceStack.OrmLite
         /// <param name="onlyFields">The only fields.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;List`1&gt; representing the asynchronous operation.</returns>
-        internal static async Task<List<T>> ExprConvertToListAsync<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams, HashSet<string> onlyFields, CancellationToken token)
+        async static internal Task<List<T>> ExprConvertToListAsync<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams, HashSet<string> onlyFields, CancellationToken token)
         {
             if (sql != null)
                 dbCmd.CommandText = sql;
@@ -211,7 +211,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;T&gt; representing the asynchronous operation.</returns>
-        public static async Task<T> ConvertToAsync<T>(this IDbCommand dbCmd, string sql, CancellationToken token)
+        public async static Task<T> ConvertToAsync<T>(this IDbCommand dbCmd, string sql, CancellationToken token)
         {
             if (sql != null)
                 dbCmd.CommandText = sql;
@@ -232,7 +232,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Object&gt; representing the asynchronous operation.</returns>
-        internal static async Task<object> ConvertToAsync(this IDbCommand dbCmd, Type refType, string sql, CancellationToken token)
+        async static internal Task<object> ConvertToAsync(this IDbCommand dbCmd, Type refType, string sql, CancellationToken token)
         {
             if (sql != null)
                 dbCmd.CommandText = sql;
@@ -278,7 +278,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;T&gt; representing the asynchronous operation.</returns>
-        public static async Task<T> ScalarAsync<T>(this IDbCommand dbCmd, string sql, CancellationToken token)
+        public async static Task<T> ScalarAsync<T>(this IDbCommand dbCmd, string sql, CancellationToken token)
         {
             if (sql != null)
                 dbCmd.CommandText = sql;
@@ -378,7 +378,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sqlParams">The SQL parameters.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;T&gt; representing the asynchronous operation.</returns>
-        internal static async Task<T> ExprConvertToAsync<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams, CancellationToken token)
+        async static internal Task<T> ExprConvertToAsync<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams, CancellationToken token)
         {
             if (sql != null)
                 dbCmd.CommandText = sql;
@@ -402,7 +402,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sqlParams">The SQL parameters.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;List&lt;T&gt;&gt;.</returns>
-        internal static Task<List<T>> ColumnAsync<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams, CancellationToken token)
+        static internal Task<List<T>> ColumnAsync<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams, CancellationToken token)
         {
             return dbCmd.SetParameters(sqlParams).ColumnAsync<T>(sql, token);
         }
@@ -415,7 +415,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;List`1&gt; representing the asynchronous operation.</returns>
-        internal static async Task<List<T>> ColumnAsync<T>(this IDbCommand dbCmd, string sql, CancellationToken token)
+        async static internal Task<List<T>> ColumnAsync<T>(this IDbCommand dbCmd, string sql, CancellationToken token)
         {
             if (sql != null)
                 dbCmd.CommandText = sql;
@@ -437,7 +437,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sqlParams">The SQL parameters.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;HashSet&lt;T&gt;&gt;.</returns>
-        internal static Task<HashSet<T>> ColumnDistinctAsync<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams, CancellationToken token)
+        static internal Task<HashSet<T>> ColumnDistinctAsync<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams, CancellationToken token)
         {
             return dbCmd.SetParameters(sqlParams).ColumnDistinctAsync<T>(sql, token);
         }
@@ -450,7 +450,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;HashSet`1&gt; representing the asynchronous operation.</returns>
-        internal static async Task<HashSet<T>> ColumnDistinctAsync<T>(this IDbCommand dbCmd, string sql, CancellationToken token)
+        async static internal Task<HashSet<T>> ColumnDistinctAsync<T>(this IDbCommand dbCmd, string sql, CancellationToken token)
         {
             if (sql != null)
                 dbCmd.CommandText = sql;
@@ -473,7 +473,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sqlParams">The SQL parameters.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;Dictionary&lt;K, V&gt;&gt;.</returns>
-        internal static Task<Dictionary<K, V>> DictionaryAsync<K, V>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams, CancellationToken token)
+        static internal Task<Dictionary<K, V>> DictionaryAsync<K, V>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams, CancellationToken token)
         {
             return dbCmd.SetParameters(sqlParams).DictionaryAsync<K, V>(sql, token);
         }
@@ -487,7 +487,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;Dictionary`2&gt; representing the asynchronous operation.</returns>
-        internal static async Task<Dictionary<K, V>> DictionaryAsync<K, V>(this IDbCommand dbCmd, string sql, CancellationToken token)
+        async static internal Task<Dictionary<K, V>> DictionaryAsync<K, V>(this IDbCommand dbCmd, string sql, CancellationToken token)
         {
             if (sql != null)
                 dbCmd.CommandText = sql;
@@ -510,7 +510,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sqlParams">The SQL parameters.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;List&lt;KeyValuePair&lt;K, V&gt;&gt;&gt;.</returns>
-        internal static Task<List<KeyValuePair<K, V>>> KeyValuePairsAsync<K, V>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams, CancellationToken token)
+        static internal Task<List<KeyValuePair<K, V>>> KeyValuePairsAsync<K, V>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams, CancellationToken token)
         {
             return dbCmd.SetParameters(sqlParams).KeyValuePairsAsync<K, V>(sql, token);
         }
@@ -524,7 +524,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;List`1&gt; representing the asynchronous operation.</returns>
-        internal static async Task<List<KeyValuePair<K, V>>> KeyValuePairsAsync<K, V>(this IDbCommand dbCmd, string sql, CancellationToken token)
+        async static internal Task<List<KeyValuePair<K, V>>> KeyValuePairsAsync<K, V>(this IDbCommand dbCmd, string sql, CancellationToken token)
         {
             if (sql != null)
                 dbCmd.CommandText = sql;
@@ -547,7 +547,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sqlParams">The SQL parameters.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;Dictionary&lt;K, List&lt;V&gt;&gt;&gt;.</returns>
-        internal static Task<Dictionary<K, List<V>>> LookupAsync<K, V>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams, CancellationToken token)
+        static internal Task<Dictionary<K, List<V>>> LookupAsync<K, V>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams, CancellationToken token)
         {
             return dbCmd.SetParameters(sqlParams).LookupAsync<K, V>(sql, token);
         }
@@ -561,7 +561,7 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;Dictionary`2&gt; representing the asynchronous operation.</returns>
-        internal static async Task<Dictionary<K, List<V>>> LookupAsync<K, V>(this IDbCommand dbCmd, string sql, CancellationToken token)
+        async static internal Task<Dictionary<K, List<V>>> LookupAsync<K, V>(this IDbCommand dbCmd, string sql, CancellationToken token)
         {
             if (sql != null)
                 dbCmd.CommandText = sql;

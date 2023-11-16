@@ -97,7 +97,7 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<AspNetUsers> FindAsync(UserLoginInfo login)
+    public async virtual Task<AspNetUsers> FindAsync(UserLoginInfo login)
     {
         var userLogin = await this.GetRepository<AspNetUserLogins>().GetSingleAsync(
                             i => i.LoginProvider == login.LoginProvider && i.ProviderKey == login.ProviderKey);
@@ -119,7 +119,7 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<IList<UserLoginInfo>> GetLoginsAsync(AspNetUsers user)
+    public async virtual Task<IList<UserLoginInfo>> GetLoginsAsync(AspNetUsers user)
     {
         var logins = await this.GetRepository<AspNetUserLogins>().GetAsync(l => l.UserId == user.Id);
 
@@ -281,7 +281,7 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<IList<Claim>> GetClaimsAsync(AspNetUsers user)
+    public async virtual Task<IList<Claim>> GetClaimsAsync(AspNetUsers user)
     {
         var claims = await this.GetRepository<AspNetUserClaims>().GetAsync(l => l.UserId == user.Id);
 
@@ -779,7 +779,7 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<int> IncrementAccessFailedCountAsync(AspNetUsers user)
+    public async virtual Task<int> IncrementAccessFailedCountAsync(AspNetUsers user)
     {
         user.AccessFailedCount++;
 

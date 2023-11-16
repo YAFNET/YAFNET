@@ -92,11 +92,11 @@ public static class JsWriter
     /// <summary>
     /// The CSV chars
     /// </summary>
-    public static readonly char[] CsvChars = { ItemSeperator, QuoteChar };
+    public readonly static char[] CsvChars = { ItemSeperator, QuoteChar };
     /// <summary>
     /// The escape chars
     /// </summary>
-    public static readonly char[] EscapeChars = { QuoteChar, MapKeySeperator, ItemSeperator, MapStartChar, MapEndChar, ListStartChar, ListEndChar, ReturnChar, LineFeedChar };
+    public readonly static char[] EscapeChars = { QuoteChar, MapKeySeperator, ItemSeperator, MapStartChar, MapEndChar, ListStartChar, ListEndChar, ReturnChar, LineFeedChar };
 
     /// <summary>
     /// The length from largest character
@@ -105,7 +105,7 @@ public static class JsWriter
     /// <summary>
     /// The escape character flags
     /// </summary>
-    private static readonly bool[] EscapeCharFlags = new bool[LengthFromLargestChar];
+    private readonly static bool[] EscapeCharFlags = new bool[LengthFromLargestChar];
 
     /// <summary>
     /// Initializes static members of the <see cref="JsWriter" /> class.
@@ -141,7 +141,7 @@ public static class JsWriter
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="ranOnce">if set to <c>true</c> [ran once].</param>
-    internal static void WriteItemSeperatorIfRanOnce(TextWriter writer, ref bool ranOnce)
+    static internal void WriteItemSeperatorIfRanOnce(TextWriter writer, ref bool ranOnce)
     {
         if (ranOnce)
             writer.Write(ItemSeperator);
@@ -154,7 +154,7 @@ public static class JsWriter
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    internal static bool ShouldUseDefaultToStringMethod(Type type)
+    static internal bool ShouldUseDefaultToStringMethod(Type type)
     {
         var underlyingType = Nullable.GetUnderlyingType(type) ?? type;
         switch (underlyingType.GetTypeCode())
@@ -315,7 +315,7 @@ public class JsWriter<TSerializer>
     /// <summary>
     /// The serializer
     /// </summary>
-    private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
+    private readonly static ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="JsWriter{TSerializer}" /> class.

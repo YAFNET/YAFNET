@@ -17,7 +17,7 @@ public static class HttpMethods
     /// <summary>
     /// All verbs
     /// </summary>
-    static readonly string[] allVerbs =
+    readonly static string[] allVerbs =
         {
             "OPTIONS", "GET", "HEAD", "POST", "PUT", "DELETE", "TRACE", "CONNECT", // RFC 2616
             "PROPFIND", "PROPPATCH", "MKCOL", "COPY", "MOVE", "LOCK", "UNLOCK", // RFC 2518

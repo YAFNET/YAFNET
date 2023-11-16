@@ -25,7 +25,7 @@ internal sealed class DisposedReader : DbDataReader
     /// <summary>
     /// The instance
     /// </summary>
-    internal static readonly DisposedReader Instance = new DisposedReader();
+    readonly static internal DisposedReader Instance = new DisposedReader();
     /// <summary>
     /// Prevents a default instance of the <see cref="DisposedReader" /> class from being created.
     /// </summary>
@@ -100,7 +100,7 @@ internal sealed class DisposedReader : DbDataReader
     /// Releases the managed resources used by the <see cref="T:System.Data.Common.DbDataReader" /> and optionally releases the unmanaged resources.
     /// </summary>
     /// <param name="disposing"><see langword="true" /> to release managed and unmanaged resources; <see langword="false" /> to release only unmanaged resources.</param>
-    protected override void Dispose(bool disposing) { }
+    override protected void Dispose(bool disposing) { }
     /// <summary>
     /// Gets the value of the specified column as a Boolean.
     /// </summary>
@@ -168,7 +168,7 @@ internal sealed class DisposedReader : DbDataReader
     /// </summary>
     /// <param name="ordinal">The zero-based column ordinal.</param>
     /// <returns>A <see cref="T:System.Data.Common.DbDataReader" /> object.</returns>
-    protected override DbDataReader GetDbDataReader(int ordinal) => ThrowDisposed<DbDataReader>();
+    override protected DbDataReader GetDbDataReader(int ordinal) => ThrowDisposed<DbDataReader>();
     /// <summary>
     /// Gets the value of the specified column as a <see cref="T:System.Decimal" /> object.
     /// </summary>
@@ -341,7 +341,7 @@ internal sealed class DisposedReader : DbDataReader
 /// <summary>
 /// Class WrappedReader.
 /// </summary>
-internal static class WrappedReader
+static internal class WrappedReader
 {
     // the purpose of wrapping here is to allow closing a reader to *also* close
     // the command, without having to explicitly hand the command back to the
@@ -475,7 +475,7 @@ internal sealed class DbWrappedReader : DbDataReader, IWrappedDataReader
     /// Releases the managed resources used by the <see cref="T:System.Data.Common.DbDataReader" /> and optionally releases the unmanaged resources.
     /// </summary>
     /// <param name="disposing"><see langword="true" /> to release managed and unmanaged resources; <see langword="false" /> to release only unmanaged resources.</param>
-    protected override void Dispose(bool disposing)
+    override protected void Dispose(bool disposing)
     {
         if (disposing)
         {
@@ -748,7 +748,7 @@ internal sealed class DbWrappedReader : DbDataReader, IWrappedDataReader
     /// <param name="ordinal">The zero-based column ordinal.</param>
     /// <returns>A <see cref="T:System.Data.Common.DbDataReader" /> object.</returns>
     /// <exception cref="System.NotSupportedException"></exception>
-    protected override DbDataReader GetDbDataReader(int ordinal) => ((IDataReader)_reader).GetData(ordinal) as DbDataReader ?? throw new NotSupportedException();
+    override protected DbDataReader GetDbDataReader(int ordinal) => ((IDataReader)_reader).GetData(ordinal) as DbDataReader ?? throw new NotSupportedException();
 }
 
 /// <summary>

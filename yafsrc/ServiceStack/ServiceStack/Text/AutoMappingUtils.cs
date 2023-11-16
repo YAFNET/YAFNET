@@ -23,19 +23,19 @@ public static class AutoMappingUtils
     /// <summary>
     /// The converters
     /// </summary>
-    internal static readonly ConcurrentDictionary<Tuple<Type, Type>, GetMemberDelegate> converters
+    readonly static internal ConcurrentDictionary<Tuple<Type, Type>, GetMemberDelegate> converters
         = new();
 
     /// <summary>
     /// The populators
     /// </summary>
-    internal static readonly ConcurrentDictionary<Tuple<Type, Type>, PopulateMemberDelegate> populators
+    readonly static internal ConcurrentDictionary<Tuple<Type, Type>, PopulateMemberDelegate> populators
         = new();
 
     /// <summary>
     /// The ignore mappings
     /// </summary>
-    internal static readonly ConcurrentDictionary<Tuple<Type, Type>, bool> ignoreMappings
+    readonly static internal ConcurrentDictionary<Tuple<Type, Type>, bool> ignoreMappings
         = new();
 
     /// <summary>
@@ -489,7 +489,7 @@ public static class AutoMappingUtils
     /// <summary>
     /// The assignment definition cache
     /// </summary>
-    private static readonly ConcurrentDictionary<string, AssignmentDefinition> AssignmentDefinitionCache
+    private readonly static ConcurrentDictionary<string, AssignmentDefinition> AssignmentDefinitionCache
         = new();
 
     /// <summary>
@@ -498,7 +498,7 @@ public static class AutoMappingUtils
     /// <param name="toType">To type.</param>
     /// <param name="fromType">From type.</param>
     /// <returns>AssignmentDefinition.</returns>
-    internal static AssignmentDefinition GetAssignmentDefinition(Type toType, Type fromType)
+    static internal AssignmentDefinition GetAssignmentDefinition(Type toType, Type fromType)
     {
         var cacheKey = CreateCacheKey(fromType, toType);
 
@@ -531,7 +531,7 @@ public static class AutoMappingUtils
     /// <param name="fromType">From type.</param>
     /// <param name="toType">To type.</param>
     /// <returns>System.String.</returns>
-    internal static string CreateCacheKey(Type fromType, Type toType)
+    static internal string CreateCacheKey(Type fromType, Type toType)
     {
         var cacheKey = fromType.FullName + ">" + toType.FullName;
         return cacheKey;
@@ -1417,7 +1417,7 @@ public delegate void SetMemberRefDelegate<T>(ref T instance, object value);
 /// <summary>
 /// Class TypeConverter.
 /// </summary>
-internal static class TypeConverter
+static internal class TypeConverter
 {
     /// <summary>
     /// Creates the type converter.

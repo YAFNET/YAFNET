@@ -305,7 +305,7 @@ public static class OrmLiteReadExpressionsApi
     /// <param name="live">if set to <c>true</c> [live].</param>
     /// <param name="schema">The schema.</param>
     /// <returns>A Task&lt;List`1&gt; representing the asynchronous operation.</returns>
-    public static async Task<List<KeyValuePair<string, long>>> GetTableNamesWithRowCountsAsync(
+    public async static Task<List<KeyValuePair<string, long>>> GetTableNamesWithRowCountsAsync(
         this IDbConnection db,
         bool live = false,
         string schema = null)
@@ -433,7 +433,7 @@ public static class OrmLiteReadExpressionsApi
     /// <param name="name">The name.</param>
     /// <returns>SavePoint.</returns>
     /// <exception cref="System.ArgumentException"></exception>
-    public static async Task<SavePoint> SavePointAsync(this IDbTransaction trans, string name)
+    public async static Task<SavePoint> SavePointAsync(this IDbTransaction trans, string name)
     {
         if (trans is not OrmLiteTransaction dbTrans)
             throw new ArgumentException($"{trans.GetType().Name} is not an OrmLiteTransaction. Use db.OpenTransaction() to Create OrmLite Transactions");

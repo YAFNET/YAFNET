@@ -76,7 +76,7 @@ public class FileSystemVirtualFiles
     /// </summary>
     /// <exception cref="ServiceStack.DiagnosticEvent.Exception">RootDir '{RootDirInfo.FullName}' for virtual path does not exist</exception>
     /// <exception cref="System.Exception">RootDir '{RootDirInfo.FullName}' for virtual path does not exist</exception>
-    protected sealed override void Initialize()
+    override protected sealed void Initialize()
     {
         if (!RootDirInfo.Exists)
             throw new Exception($"RootDir '{RootDirInfo.FullName}' for virtual path does not exist");
@@ -151,7 +151,7 @@ public class FileSystemVirtualFiles
     /// <param name="contents">The contents.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    public override async Task WriteFileAsync(string filePath, object contents, CancellationToken token = default)
+    public async override Task WriteFileAsync(string filePath, object contents, CancellationToken token = default)
     {
         if (contents == null)
             return;

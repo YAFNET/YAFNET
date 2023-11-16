@@ -37,7 +37,7 @@ public sealed class SharpScript : ScriptLanguage
     /// <summary>
     /// The language
     /// </summary>
-    public static readonly ScriptLanguage Language = new SharpScript();
+    public readonly static ScriptLanguage Language = new SharpScript();
 
     /// <summary>
     /// Gets the name.
@@ -71,7 +71,7 @@ public sealed class ScriptTemplate : ScriptLanguage
     /// <summary>
     /// The language
     /// </summary>
-    public static readonly ScriptLanguage Language = new ScriptTemplate();
+    public readonly static ScriptLanguage Language = new ScriptTemplate();
 
     /// <summary>
     /// Gets the name.
@@ -100,7 +100,7 @@ public sealed class ScriptTemplate : ScriptLanguage
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
     /// <exception cref="NotSupportedException">{{page}} can only be called once per render, in the Layout page.</exception>
-    public override async Task<bool> WritePageFragmentAsync(ScriptScopeContext scope, PageFragment fragment, CancellationToken token)
+    public async override Task<bool> WritePageFragmentAsync(ScriptScopeContext scope, PageFragment fragment, CancellationToken token)
     {
         if (fragment is PageStringFragment str)
         {
@@ -259,7 +259,7 @@ public static class ScriptTemplateUtils
     /// <param name="script">The script.</param>
     /// <param name="args">The arguments.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    public static async Task<string> EvaluateScriptAsync(this ScriptContext context, string script, Dictionary<string, object> args = null)
+    public async static Task<string> EvaluateScriptAsync(this ScriptContext context, string script, Dictionary<string, object> args = null)
     {
         var pageResult = new PageResult(context.SharpScriptPage(script));
         args.Each((x, y) => pageResult.Args[x] = y);
@@ -305,7 +305,7 @@ public static class ScriptTemplateUtils
     /// <param name="script">The script.</param>
     /// <param name="args">The arguments.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    public static async Task<T> EvaluateAsync<T>(this ScriptContext context, string script, Dictionary<string, object> args = null) =>
+    public async static Task<T> EvaluateAsync<T>(this ScriptContext context, string script, Dictionary<string, object> args = null) =>
         (await context.EvaluateAsync(script, args).ConfigAwait()).ConvertTo<T>();
 
     /// <summary>
@@ -317,7 +317,7 @@ public static class ScriptTemplateUtils
     /// <returns>A Task representing the asynchronous operation.</returns>
     /// <exception cref="NotSupportedException">ScriptContextUtils.ErrorNoReturn</exception>
     /// <exception cref="PageResult">context.SharpScriptPage(script)</exception>
-    public static async Task<object> EvaluateAsync(this ScriptContext context, string script, Dictionary<string, object> args = null)
+    public async static Task<object> EvaluateAsync(this ScriptContext context, string script, Dictionary<string, object> args = null)
     {
         var pageResult = new PageResult(context.SharpScriptPage(script));
         args.Each((x, y) => pageResult.Args[x] = y);
@@ -1013,7 +1013,7 @@ public static class ScriptTemplateUtils
     /// <summary>
     /// The object argument
     /// </summary>
-    private static readonly Type[] ObjectArg = { typeof(object) };
+    private readonly static Type[] ObjectArg = { typeof(object) };
     /// <summary>
     /// Creates the convert method.
     /// </summary>

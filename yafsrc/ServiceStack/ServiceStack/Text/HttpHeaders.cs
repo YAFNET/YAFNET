@@ -386,7 +386,7 @@ public static class CompressionTypes
     /// <summary>
     /// All compression types
     /// </summary>
-    public static readonly string[] AllCompressionTypes =
+    public readonly static string[] AllCompressionTypes =
         {
 #if NET7_0_OR_GREATER
                 Brotli,

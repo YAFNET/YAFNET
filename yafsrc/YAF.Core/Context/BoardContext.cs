@@ -153,7 +153,7 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// <summary>
     /// Gets the YAF Context Global Instance Variables Use for plugins or other situations where a value is needed per instance.
     /// </summary>
-    public TypeDictionary Vars { get; } = new();
+    public TypeDictionary Vars { get; } = [];
 
     /// <summary>
     /// Returns a value from the BoardContext Global Instance Variables (Vars) collection.
@@ -163,7 +163,7 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// </returns>
     public object this[string varName]
     {
-        get => this.Vars.ContainsKey(varName) ? this.Vars[varName] : null;
+        get => this.Vars.TryGetValue(varName, out var value) ? value : null;
 
         set => this.Vars[varName] = value;
     }
@@ -224,7 +224,7 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// <summary>
     /// Initialize the user data and page data...
     /// </summary>
-    protected override void InitUserAndPage()
+    override protected void InitUserAndPage()
     {
         if (this.UserPageDataLoaded)
         {
@@ -233,7 +233,7 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
 
         this.MembershipUser = this.Get<IAspNetUsersHelper>().GetUserAsync().Result;
 
-        this.PageLinks = new List<PageLink>();
+        this.PageLinks = [];
 
         this.BeforeInit?.Invoke(this, EventArgs.Empty);
 

@@ -381,13 +381,13 @@ public static class JsConfig
     /// Gets the json type attribute in object.
     /// </summary>
     /// <value>The json type attribute in object.</value>
-    internal static string JsonTypeAttrInObject => JsConfigScope.Current != null ? JsConfigScope.Current.JsonTypeAttrInObject : Config.Instance.JsonTypeAttrInObject;
+    static internal string JsonTypeAttrInObject => JsConfigScope.Current != null ? JsConfigScope.Current.JsonTypeAttrInObject : Config.Instance.JsonTypeAttrInObject;
 
     /// <summary>
     /// Gets the JSV type attribute in object.
     /// </summary>
     /// <value>The JSV type attribute in object.</value>
-    internal static string JsvTypeAttrInObject => JsConfigScope.Current != null ? JsConfigScope.Current.JsvTypeAttrInObject : Config.Instance.JsvTypeAttrInObject;
+    static internal string JsvTypeAttrInObject => JsConfigScope.Current != null ? JsConfigScope.Current.JsvTypeAttrInObject : Config.Instance.JsvTypeAttrInObject;
 
     /// <summary>
     /// Gets or sets the type writer.
@@ -497,12 +497,12 @@ public static class JsConfig
     /// <summary>
     /// The has serialize function
     /// </summary>
-    internal static HashSet<Type> HasSerializeFn = new();
+    static internal HashSet<Type> HasSerializeFn = new();
 
     /// <summary>
     /// The has include default value
     /// </summary>
-    internal static HashSet<Type> HasIncludeDefaultValue = new();
+    static internal HashSet<Type> HasIncludeDefaultValue = new();
 
     /// <summary>
     /// The treat value as reference types
@@ -524,7 +524,7 @@ public static class JsConfig
     /// </summary>
     /// <param name="valueType">Type of the value.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    internal static bool TreatAsRefType(Type valueType)
+    static internal bool TreatAsRefType(Type valueType)
     {
         return TreatValueAsRefTypes.Contains(valueType.IsGenericType ? valueType.GetGenericTypeDefinition() : valueType);
     }
@@ -694,7 +694,7 @@ public static class JsConfig
     /// Invokes the reset.
     /// </summary>
     /// <param name="genericType">Type of the generic.</param>
-    internal static void InvokeReset(this Type genericType)
+    static internal void InvokeReset(this Type genericType)
     {
         var methodInfo = genericType.GetStaticMethod("Reset");
         methodInfo.Invoke(null, null);
@@ -703,17 +703,17 @@ public static class JsConfig
     /// <summary>
     /// The unique types
     /// </summary>
-    internal static HashSet<Type> __uniqueTypes = new();
+    static internal HashSet<Type> __uniqueTypes = new();
     /// <summary>
     /// The unique types count
     /// </summary>
-    internal static int __uniqueTypesCount;
+    static internal int __uniqueTypesCount;
 
     /// <summary>
     /// Adds the type of the unique.
     /// </summary>
     /// <param name="type">The type.</param>
-    internal static void AddUniqueType(Type type)
+    static internal void AddUniqueType(Type type)
     {
         if (__uniqueTypes.Contains(type))
             return;
@@ -751,7 +751,7 @@ public class JsConfig<T>
     /// Gets the configuration.
     /// </summary>
     /// <returns>Config.</returns>
-    internal static Config GetConfig()
+    static internal Config GetConfig()
     {
         var config = new Config().Populate(JsConfig.GetConfig());
         if (TextCase != TextCase.Default)
@@ -991,7 +991,7 @@ public class JsConfig<T>
     /// <param name="serializer">The serializer.</param>
     /// <param name="str">The string.</param>
     /// <returns>System.Object.</returns>
-    internal static object ParseFn(ITypeSerializer serializer, string str)
+    static internal object ParseFn(ITypeSerializer serializer, string str)
     {
         if (RawDeserializeFn != null && !JsState.InDeserializer<T>())
         {
@@ -1026,7 +1026,7 @@ public class JsConfig<T>
     /// <summary>
     /// Clears the function caches.
     /// </summary>
-    internal static void ClearFnCaches()
+    static internal void ClearFnCaches()
     {
         JsonWriter<T>.Reset();
         JsvWriter<T>.Reset();

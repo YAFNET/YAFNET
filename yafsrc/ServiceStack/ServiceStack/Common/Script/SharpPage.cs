@@ -156,7 +156,7 @@ public class SharpPage
     /// Initializes this instance.
     /// </summary>
     /// <returns>SharpPage.</returns>
-    public virtual async Task<SharpPage> Init()
+    public async virtual Task<SharpPage> Init()
     {
         if (IsImmutable)
             return this;
@@ -307,11 +307,11 @@ public class SharpPartialPage : SharpPage
     /// <summary>
     /// The temporary files
     /// </summary>
-    private static readonly MemoryVirtualFiles TempFiles = new();
+    private readonly static MemoryVirtualFiles TempFiles = new();
     /// <summary>
     /// The temporary dir
     /// </summary>
-    private static readonly InMemoryVirtualDirectory TempDir = new(TempFiles, ScriptConstants.TempFilePath);
+    private readonly static InMemoryVirtualDirectory TempDir = new(TempFiles, ScriptConstants.TempFilePath);
 
     /// <summary>
     /// Creates the file.

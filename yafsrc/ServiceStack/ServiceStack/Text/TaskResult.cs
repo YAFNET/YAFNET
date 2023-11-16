@@ -25,19 +25,19 @@ public static class TaskResult
     /// <summary>
     /// The true
     /// </summary>
-    public static readonly Task<bool> True;
+    public readonly static Task<bool> True;
     /// <summary>
     /// The false
     /// </summary>
-    public static readonly Task<bool> False;
+    public readonly static Task<bool> False;
     /// <summary>
     /// The finished
     /// </summary>
-    public static readonly Task Finished;
+    public readonly static Task Finished;
     /// <summary>
     /// The canceled
     /// </summary>
-    public static readonly Task Canceled;
+    public readonly static Task Canceled;
 
     /// <summary>
     /// Initializes static members of the <see cref="TaskResult" /> class.
@@ -65,11 +65,11 @@ internal class TaskResult<T>
     /// <summary>
     /// The canceled
     /// </summary>
-    public static readonly Task<T> Canceled;
+    public readonly static Task<T> Canceled;
     /// <summary>
     /// The default
     /// </summary>
-    public static readonly Task<T> Default;
+    public readonly static Task<T> Default;
 
     /// <summary>
     /// Initializes static members of the <see cref="TaskResult{T}" /> class.

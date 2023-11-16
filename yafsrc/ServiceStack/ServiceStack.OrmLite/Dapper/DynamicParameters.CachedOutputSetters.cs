@@ -25,13 +25,13 @@ public partial class DynamicParameters
     /// Class CachedOutputSetters.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    internal static class CachedOutputSetters<T>
+    static internal class CachedOutputSetters<T>
     {
         // Intentional, abusing generics to get our cache splits
         // ReSharper disable once StaticMemberInGenericType
         /// <summary>
         /// The cache
         /// </summary>
-        public static readonly Hashtable Cache = new Hashtable();
+        public readonly static Hashtable Cache = new Hashtable();
     }
 }

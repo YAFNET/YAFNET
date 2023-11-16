@@ -214,7 +214,7 @@ public sealed class DefaultMemory : MemoryProvider
     /// </summary>
     /// <param name="maxValue">The maximum value.</param>
     /// <returns>Exception.</returns>
-    internal static Exception CreateOverflowException(long maxValue) =>
+    static internal Exception CreateOverflowException(long maxValue) =>
         new OverflowException(string.Format(OverflowMessage, SignedMaxValueToIntType(maxValue)));
 
     /// <summary>
@@ -222,7 +222,7 @@ public sealed class DefaultMemory : MemoryProvider
     /// </summary>
     /// <param name="maxValue">The maximum value.</param>
     /// <returns>Exception.</returns>
-    internal static Exception CreateOverflowException(ulong maxValue) =>
+    static internal Exception CreateOverflowException(ulong maxValue) =>
         new OverflowException(string.Format(OverflowMessage, UnsignedMaxValueToIntType(maxValue)));
 
     /// <summary>
@@ -533,7 +533,7 @@ public sealed class DefaultMemory : MemoryProvider
     /// <summary>
     /// The lo16
     /// </summary>
-    private static readonly byte[] lo16 = {
+    private readonly static byte[] lo16 = {
                                                   255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
                                                   255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
                                                   255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -550,7 +550,7 @@ public sealed class DefaultMemory : MemoryProvider
     /// <summary>
     /// The hi16
     /// </summary>
-    private static readonly byte[] hi16 = {
+    private readonly static byte[] hi16 = {
                                                   255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
                                                   255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
                                                   255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -670,7 +670,7 @@ public sealed class DefaultMemory : MemoryProvider
     /// <param name="offset">The offset.</param>
     /// <param name="count">The count.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    private static async Task WriteAsyncAndReturn(Stream stream, byte[] bytes, int offset, int count, CancellationToken token)
+    private async static Task WriteAsyncAndReturn(Stream stream, byte[] bytes, int offset, int count, CancellationToken token)
     {
         try
         {
@@ -699,7 +699,7 @@ public sealed class DefaultMemory : MemoryProvider
     /// <param name="value">The value.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    public override async Task WriteAsync(Stream stream, ReadOnlyMemory<byte> value, CancellationToken token = default)
+    public async override Task WriteAsync(Stream stream, ReadOnlyMemory<byte> value, CancellationToken token = default)
     {
         byte[] bytes = BufferPool.GetBuffer(value.Length);
         try
@@ -752,7 +752,7 @@ public sealed class DefaultMemory : MemoryProvider
     /// <param name="type">The type.</param>
     /// <param name="deserializer">The deserializer.</param>
     /// <returns>A Task&lt;System.Object&gt; representing the asynchronous operation.</returns>
-    public override async Task<object> DeserializeAsync(Stream stream, Type type,
+    public async override Task<object> DeserializeAsync(Stream stream, Type type,
                                                         DeserializeStringSpanDelegate deserializer)
     {
         var fromPool = false;
@@ -1092,20 +1092,20 @@ enum ParseState
 /// Class SignedInteger.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-internal static class SignedInteger<T> where T : struct, IComparable<T>, IEquatable<T>, IConvertible
+static internal class SignedInteger<T> where T : struct, IComparable<T>, IEquatable<T>, IConvertible
 {
     /// <summary>
     /// The type code
     /// </summary>
-    private static readonly TypeCode typeCode;
+    private readonly static TypeCode typeCode;
     /// <summary>
     /// The minimum value
     /// </summary>
-    private static readonly long minValue;
+    private readonly static long minValue;
     /// <summary>
     /// The maximum value
     /// </summary>
-    private static readonly long maxValue;
+    private readonly static long maxValue;
 
     /// <summary>
     /// Initializes static members of the <see cref="SignedInteger{T}" /> class.
@@ -1143,7 +1143,7 @@ internal static class SignedInteger<T> where T : struct, IComparable<T>, IEquata
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
-    internal static object ParseNullableObject(ReadOnlySpan<char> value)
+    static internal object ParseNullableObject(ReadOnlySpan<char> value)
     {
         return value.IsNullOrEmpty() ? null : ParseObject(value);
     }
@@ -1153,7 +1153,7 @@ internal static class SignedInteger<T> where T : struct, IComparable<T>, IEquata
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
-    internal static object ParseObject(ReadOnlySpan<char> value)
+    static internal object ParseObject(ReadOnlySpan<char> value)
     {
         var result = ParseInt64(value);
 
@@ -1311,16 +1311,16 @@ internal static class SignedInteger<T> where T : struct, IComparable<T>, IEquata
 /// Class UnsignedInteger.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-internal static class UnsignedInteger<T> where T : struct, IComparable<T>, IEquatable<T>, IConvertible
+static internal class UnsignedInteger<T> where T : struct, IComparable<T>, IEquatable<T>, IConvertible
 {
     /// <summary>
     /// The type code
     /// </summary>
-    private static readonly TypeCode typeCode;
+    private readonly static TypeCode typeCode;
     /// <summary>
     /// The maximum value
     /// </summary>
-    private static readonly ulong maxValue;
+    private readonly static ulong maxValue;
 
     /// <summary>
     /// Initializes static members of the <see cref="UnsignedInteger{T}" /> class.
@@ -1344,7 +1344,7 @@ internal static class UnsignedInteger<T> where T : struct, IComparable<T>, IEqua
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
-    internal static object ParseNullableObject(ReadOnlySpan<char> value)
+    static internal object ParseNullableObject(ReadOnlySpan<char> value)
     {
         return value.IsNullOrEmpty() ? null : ParseObject(value);
     }
@@ -1354,7 +1354,7 @@ internal static class UnsignedInteger<T> where T : struct, IComparable<T>, IEqua
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
-    internal static object ParseObject(ReadOnlySpan<char> value)
+    static internal object ParseObject(ReadOnlySpan<char> value)
     {
         var result = ParseUInt64(value);
 
@@ -1393,7 +1393,7 @@ internal static class UnsignedInteger<T> where T : struct, IComparable<T>, IEqua
     /// <param name="value">The value.</param>
     /// <returns>System.UInt64.</returns>
     /// <exception cref="System.FormatException"></exception>
-    internal static ulong ParseUInt64(ReadOnlySpan<char> value)
+    static internal ulong ParseUInt64(ReadOnlySpan<char> value)
     {
         if (value.IsEmpty)
             throw new FormatException(MemoryProvider.BadFormat);

@@ -23,7 +23,7 @@ public class FileSystemMapping : AbstractVirtualPathProviderBase
     /// <summary>
     /// The root dir information
     /// </summary>
-    protected readonly DirectoryInfo RootDirInfo;
+    readonly protected DirectoryInfo RootDirInfo;
     /// <summary>
     /// The root dir
     /// </summary>
@@ -85,7 +85,7 @@ public class FileSystemMapping : AbstractVirtualPathProviderBase
     /// </summary>
     /// <exception cref="ServiceStack.DiagnosticEvent.Exception">RootDir '{RootDirInfo.FullName}' for virtual path does not exist</exception>
     /// <exception cref="System.Exception">RootDir '{RootDirInfo.FullName}' for virtual path does not exist</exception>
-    protected sealed override void Initialize()
+    override protected sealed void Initialize()
     {
         if (!RootDirInfo.Exists)
             throw new Exception($"RootDir '{RootDirInfo.FullName}' for virtual path does not exist");

@@ -17,13 +17,13 @@ using System.Linq;
 /// </summary>
 /// <typeparam name="T"></typeparam>
 /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
-internal static class DeserializeSpecializedCollections<T, TSerializer>
+static internal class DeserializeSpecializedCollections<T, TSerializer>
     where TSerializer : ITypeSerializer
 {
     /// <summary>
     /// The cache function
     /// </summary>
-    private static readonly ParseStringSpanDelegate CacheFn;
+    private readonly static ParseStringSpanDelegate CacheFn;
 
     /// <summary>
     /// Initializes static members of the <see cref="DeserializeSpecializedCollections{T, TSerializer}" /> class.
@@ -105,7 +105,7 @@ internal static class DeserializeSpecializedCollections<T, TSerializer>
     /// Gets the generic queue parse function.
     /// </summary>
     /// <returns>ParseStringSpanDelegate.</returns>
-    internal static ParseStringSpanDelegate GetGenericQueueParseFn()
+    static internal ParseStringSpanDelegate GetGenericQueueParseFn()
     {
         var enumerableInterface = typeof(T).GetTypeWithGenericInterfaceOf(typeof(IEnumerable<>));
         var elementType = enumerableInterface.GetGenericArguments()[0];
@@ -158,7 +158,7 @@ internal static class DeserializeSpecializedCollections<T, TSerializer>
     /// Gets the generic stack parse function.
     /// </summary>
     /// <returns>ParseStringSpanDelegate.</returns>
-    internal static ParseStringSpanDelegate GetGenericStackParseFn()
+    static internal ParseStringSpanDelegate GetGenericStackParseFn()
     {
         var enumerableInterface = typeof(T).GetTypeWithGenericInterfaceOf(typeof(IEnumerable<>));
 

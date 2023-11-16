@@ -45,7 +45,7 @@ public static class DeserializeArrayWithElements<TSerializer>
     /// <summary>
     /// The signature
     /// </summary>
-    private static readonly Type[] signature = { typeof(ReadOnlySpan<char>), typeof(ParseStringSpanDelegate) };
+    private readonly static Type[] signature = { typeof(ReadOnlySpan<char>), typeof(ParseStringSpanDelegate) };
 
     /// <summary>
     /// Gets the parse string span function.
@@ -85,7 +85,7 @@ public static class DeserializeArrayWithElements<T, TSerializer>
     /// <summary>
     /// The serializer
     /// </summary>
-    private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
+    private readonly static ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
     /// <summary>
     /// Parses the generic array.
@@ -149,7 +149,7 @@ public static class DeserializeArrayWithElements<T, TSerializer>
 /// Class DeserializeArray.
 /// </summary>
 /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
-internal static class DeserializeArray<TSerializer>
+static internal class DeserializeArray<TSerializer>
     where TSerializer : ITypeSerializer
 {
     /// <summary>
@@ -198,18 +198,18 @@ internal static class DeserializeArray<TSerializer>
 /// </summary>
 /// <typeparam name="T"></typeparam>
 /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
-internal static class DeserializeArray<T, TSerializer>
+static internal class DeserializeArray<T, TSerializer>
     where TSerializer : ITypeSerializer
 {
     /// <summary>
     /// The serializer
     /// </summary>
-    private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
+    private readonly static ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
     /// <summary>
     /// The cache function
     /// </summary>
-    private static readonly ParseStringSpanDelegate CacheFn;
+    private readonly static ParseStringSpanDelegate CacheFn;
 
     /// <summary>
     /// Initializes static members of the <see cref="DeserializeArray{T, TSerializer}" /> class.

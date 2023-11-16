@@ -279,7 +279,7 @@ public sealed class NetCoreMemory : MemoryProvider
     /// <param name="value">The value.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    public override async Task WriteAsync(Stream stream, ReadOnlyMemory<char> value, CancellationToken token = default)
+    public async override Task WriteAsync(Stream stream, ReadOnlyMemory<char> value, CancellationToken token = default)
     {
         var utf8 = ToUtf8(value.Span);
         if (stream is MemoryStream ms)
@@ -314,7 +314,7 @@ public sealed class NetCoreMemory : MemoryProvider
     /// <param name="value">The value.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    public override async Task WriteAsync(Stream stream, ReadOnlyMemory<byte> value, CancellationToken token = default)
+    public async override Task WriteAsync(Stream stream, ReadOnlyMemory<byte> value, CancellationToken token = default)
     {
         if (stream is MemoryStream ms)
             ms.Write(value.Span);
@@ -353,7 +353,7 @@ public sealed class NetCoreMemory : MemoryProvider
     /// <param name="type">The type.</param>
     /// <param name="deserializer">The deserializer.</param>
     /// <returns>A Task&lt;System.Object&gt; representing the asynchronous operation.</returns>
-    public override async Task<object> DeserializeAsync(
+    public async override Task<object> DeserializeAsync(
         Stream stream,
         Type type,
         DeserializeStringSpanDelegate deserializer)

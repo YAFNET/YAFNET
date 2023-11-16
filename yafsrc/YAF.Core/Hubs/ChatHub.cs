@@ -44,7 +44,7 @@ public class ChatHub : Hub, IHaveServiceLocator
     /// <summary>
     /// The connected users.
     /// </summary>
-    private static readonly List<ChatUser> ConnectedUsers = new();
+    private readonly static List<ChatUser> ConnectedUsers = new();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SendNotification"/> class.

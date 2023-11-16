@@ -59,7 +59,7 @@ public static partial class SqlMapper
             /// <summary>
             /// The default
             /// </summary>
-            public static readonly DeadValue Default = new DeadValue();
+            public readonly static DeadValue Default = new DeadValue();
             /// <summary>
             /// Prevents a default instance of the <see cref="DeadValue" /> class from being created.
             /// </summary>

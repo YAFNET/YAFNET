@@ -64,7 +64,7 @@ public sealed class JsConfigScope : Config, IDisposable
     /// Gets the current.
     /// </summary>
     /// <value>The current.</value>
-    internal static JsConfigScope Current =>
+    static internal JsConfigScope Current =>
 #if NET7_0_OR_GREATER
             head.Value;
 #else
@@ -103,11 +103,11 @@ public class Config
     /// Gets the instance.
     /// </summary>
     /// <value>The instance.</value>
-    internal static Config Instance => instance ??= new Config(Defaults);
+    static internal Config Instance => instance ??= new Config(Defaults);
     /// <summary>
     /// The has initialize
     /// </summary>
-    internal static bool HasInit;
+    static internal bool HasInit;
 
     /// <summary>
     /// Asserts the not initialize.
@@ -147,7 +147,7 @@ public class Config
     /// <summary>
     /// Resets this instance.
     /// </summary>
-    internal static void Reset()
+    static internal void Reset()
     {
         HasInit = false;
         Instance.Populate(Defaults);

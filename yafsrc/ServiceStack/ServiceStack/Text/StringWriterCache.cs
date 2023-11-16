@@ -112,7 +112,7 @@ public static class StringWriterCacheAlt
 /// <summary>
 /// Class StringWriterThreadStatic.
 /// </summary>
-internal static class StringWriterThreadStatic
+static internal class StringWriterThreadStatic
 {
     /// <summary>
     /// The cache

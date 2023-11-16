@@ -325,15 +325,15 @@ public partial class SharpPages : ISharpPages
     /// Gets the temporary files.
     /// </summary>
     /// <value>The temporary files.</value>
-    internal static MemoryVirtualFiles TempFiles => tempFiles ??= new MemoryVirtualFiles();
+    static internal MemoryVirtualFiles TempFiles => tempFiles ??= new MemoryVirtualFiles();
     /// <summary>
     /// The temporary dir
     /// </summary>
-    private static readonly InMemoryVirtualDirectory tempDir;
+    private readonly static InMemoryVirtualDirectory tempDir;
     /// <summary>
     /// The temporary dir
     /// </summary>
-    internal static readonly InMemoryVirtualDirectory TempDir = tempDir ??= new InMemoryVirtualDirectory(TempFiles, ScriptConstants.TempFilePath);
+    readonly static internal InMemoryVirtualDirectory TempDir = tempDir ??= new InMemoryVirtualDirectory(TempFiles, ScriptConstants.TempFilePath);
 
     /// <summary>
     /// Called when [time page].

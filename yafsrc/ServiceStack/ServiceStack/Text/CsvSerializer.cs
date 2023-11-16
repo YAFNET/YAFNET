@@ -47,7 +47,7 @@ public class CsvSerializer
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>WriteObjectDelegate.</returns>
-    internal static WriteObjectDelegate GetWriteFn(Type type)
+    static internal WriteObjectDelegate GetWriteFn(Type type)
     {
         try
         {
@@ -87,7 +87,7 @@ public class CsvSerializer
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>ParseStringDelegate.</returns>
-    internal static ParseStringDelegate GetReadFn(Type type)
+    static internal ParseStringDelegate GetReadFn(Type type)
     {
         try
         {
@@ -279,7 +279,7 @@ public class CsvSerializer
     /// <typeparam name="T"></typeparam>
     /// <param name="results">The results.</param>
     /// <returns>T.</returns>
-    internal static T ConvertFrom<T>(object results)
+    static internal T ConvertFrom<T>(object results)
     {
         if (results is T variable)
             return variable;
@@ -307,7 +307,7 @@ public class CsvSerializer
     /// <param name="type">The type.</param>
     /// <param name="results">The results.</param>
     /// <returns>System.Object.</returns>
-    internal static object ConvertFrom(Type type, object results)
+    static internal object ConvertFrom(Type type, object results)
     {
         if (type.IsInstanceOfType(results))
             return results;
@@ -379,12 +379,12 @@ public static class CsvSerializer<T>
     /// <summary>
     /// The write cache function
     /// </summary>
-    private static readonly WriteObjectDelegate WriteCacheFn;
+    private readonly static WriteObjectDelegate WriteCacheFn;
 
     /// <summary>
     /// The read cache function
     /// </summary>
-    private static readonly ParseStringDelegate ReadCacheFn;
+    private readonly static ParseStringDelegate ReadCacheFn;
 
     /// <summary>
     /// Gets the properties.

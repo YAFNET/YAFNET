@@ -32,7 +32,7 @@ public class PostgreSQLDbInformation : IDbInformation
     /// <summary>
     /// The YAF Provider Upgrade script list
     /// </summary>
-    private static readonly string[] IdentityUpgradeScriptList = Array.Empty<string>();
+    private readonly static string[] IdentityUpgradeScriptList = Array.Empty<string>();
 
     /// <summary>
     /// The DB parameters

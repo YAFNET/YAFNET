@@ -40,7 +40,7 @@ public sealed class CharPool
     /// <summary>
     /// The pool
     /// </summary>
-    private static readonly CachedBuffer[] Pool = new CachedBuffer[POOL_SIZE];
+    private readonly static CachedBuffer[] Pool = new CachedBuffer[POOL_SIZE];
 
     /// <summary>
     /// Gets the buffer.

@@ -27,9 +27,9 @@ namespace YAF.Web.ViewFeatures;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 // NOTE: This is copied from .net core 2.0 code as this is removed from .net core 3.0
-internal static class NameAndIdProvider
+static internal class NameAndIdProvider
 {
-    private static readonly object PreviousNameAndIdKey = typeof(PreviousNameAndId);
+    private readonly static object PreviousNameAndIdKey = typeof(PreviousNameAndId);
 
     /// <summary>
     /// Returns a valid HTML 4.01 "id" attribute value for an element with the given <paramref name="fullName"/>.

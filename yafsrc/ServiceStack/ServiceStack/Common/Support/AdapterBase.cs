@@ -58,7 +58,7 @@ public abstract class AdapterBase
     /// <typeparam name="T"></typeparam>
     /// <param name="action">The action.</param>
     /// <returns>A Task&lt;T&gt; representing the asynchronous operation.</returns>
-    protected async Task<T> ExecuteAsync<T>(Func<Task<T>> action)
+    async protected Task<T> ExecuteAsync<T>(Func<Task<T>> action)
     {
         var before = DateTime.UtcNow;
         if (Log.IsDebugEnabled)
@@ -87,7 +87,7 @@ public abstract class AdapterBase
     /// <param name="action">The action.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;T&gt; representing the asynchronous operation.</returns>
-    protected async Task<T> ExecuteAsync<T>(Func<CancellationToken,Task<T>> action, CancellationToken token)
+    async protected Task<T> ExecuteAsync<T>(Func<CancellationToken,Task<T>> action, CancellationToken token)
     {
         var before = DateTime.UtcNow;
         if (Log.IsDebugEnabled)
@@ -139,7 +139,7 @@ public abstract class AdapterBase
     /// </summary>
     /// <param name="action">The action.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    protected async Task ExecuteAsync(Func<Task> action)
+    async protected Task ExecuteAsync(Func<Task> action)
     {
         DateTime before = DateTime.UtcNow;
         if (Log.IsDebugEnabled)
@@ -166,7 +166,7 @@ public abstract class AdapterBase
     /// <param name="action">The action.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    protected async Task ExecuteAsync(Func<CancellationToken,Task> action, CancellationToken token)
+    async protected Task ExecuteAsync(Func<CancellationToken,Task> action, CancellationToken token)
     {
         DateTime before = DateTime.UtcNow;
         if (Log.IsDebugEnabled)

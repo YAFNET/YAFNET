@@ -20,11 +20,11 @@ namespace ServiceStack.Text
         /// <summary>
         /// The XML writer settings
         /// </summary>
-        public static readonly XmlWriterSettings XmlWriterSettings = new();
+        public readonly static XmlWriterSettings XmlWriterSettings = new();
         /// <summary>
         /// The XML reader settings
         /// </summary>
-        public static readonly XmlReaderSettings XmlReaderSettings = new();
+        public readonly static XmlReaderSettings XmlReaderSettings = new();
 
         /// <summary>
         /// The instance

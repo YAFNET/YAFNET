@@ -105,7 +105,7 @@ public static class DynamicRowUtils
     /// <typeparam name="T"></typeparam>
     /// <param name="row">The row.</param>
     /// <returns>System.Object.</returns>
-    internal static object ToFilterType<T>(this object row) => ToFilterType(row, typeof(T));
+    static internal object ToFilterType<T>(this object row) => ToFilterType(row, typeof(T));
 
     /// <summary>
     /// Converts to filtertype.
@@ -113,7 +113,7 @@ public static class DynamicRowUtils
     /// <param name="row">The row.</param>
     /// <param name="type">The type.</param>
     /// <returns>System.Object.</returns>
-    internal static object ToFilterType(this object row, Type type) => row == null
+    static internal object ToFilterType(this object row, Type type) => row == null
                                                                            ? null
                                                                            : type.IsInstanceOfType(row)
                                                                                ? row

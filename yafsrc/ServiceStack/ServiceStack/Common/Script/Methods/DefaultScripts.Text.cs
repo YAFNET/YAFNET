@@ -448,7 +448,7 @@ public partial class DefaultScripts
     /// </summary>
     /// <param name="target">The target.</param>
     /// <returns>System.Object.</returns>
-    internal static object ConvertDumpType(object target)
+    static internal object ConvertDumpType(object target)
     {
         var targetType = target.GetType();
         var genericKvps = targetType.GetTypeWithGenericTypeDefinitionOf(typeof(KeyValuePair<,>));

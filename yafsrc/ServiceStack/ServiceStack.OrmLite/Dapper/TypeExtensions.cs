@@ -12,7 +12,7 @@ namespace ServiceStack.OrmLite.Dapper;
 /// <summary>
 /// Class TypeExtensions.
 /// </summary>
-internal static class TypeExtensions
+static internal class TypeExtensions
 {
     /// <summary>
     /// Gets the public instance method.

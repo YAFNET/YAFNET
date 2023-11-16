@@ -173,7 +173,7 @@ public static class ProcessUtils
     /// <param name="onError">The on error.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
     /// <exception cref="System.ArgumentNullException">arguments</exception>
-    public static async Task RunShellAsync(string arguments, string workingDir = null, int? timeoutMs = null,
+    public async static Task RunShellAsync(string arguments, string workingDir = null, int? timeoutMs = null,
                                            Action<string> onOut = null, Action<string> onError = null)
     {
         if (string.IsNullOrEmpty(arguments))
@@ -200,7 +200,7 @@ public static class ProcessUtils
     /// <param name="onOut">The on out.</param>
     /// <param name="onError">The on error.</param>
     /// <returns>A Task&lt;ProcessResult&gt; representing the asynchronous operation.</returns>
-    public static async Task<ProcessResult> RunAsync(ProcessStartInfo startInfo, int? timeoutMs = null,
+    public async static Task<ProcessResult> RunAsync(ProcessStartInfo startInfo, int? timeoutMs = null,
                                                      Action<string> onOut = null, Action<string> onError = null)
     {
         startInfo.RedirectStandardOutput = true;

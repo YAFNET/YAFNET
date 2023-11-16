@@ -13,7 +13,7 @@ using System.Text;
 /// <summary>
 /// Class SharedPoolExtensions.
 /// </summary>
-internal static class SharedPoolExtensions
+static internal class SharedPoolExtensions
 {
     /// <summary>
     /// The threshold

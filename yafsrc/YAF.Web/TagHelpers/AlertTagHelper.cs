@@ -118,7 +118,7 @@ public class AlertTagHelper : TagHelper, IHaveServiceLocator, IHaveLocalization
     /// <param name="output">
     /// The output.
     /// </param>
-    public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
+    public async override Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
     {
         output.TagName = "div";
 

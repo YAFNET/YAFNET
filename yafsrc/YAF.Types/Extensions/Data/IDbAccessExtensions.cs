@@ -108,7 +108,7 @@ public static class IDbAccessExtensions
     /// <returns>
     /// The <see cref="DbConnection"/> .
     /// </returns>
-    public static async Task<IDbConnection> CreateConnectionOpenAsync(this IDbAccess dbAccess)
+    public async static Task<IDbConnection> CreateConnectionOpenAsync(this IDbAccess dbAccess)
     {
         var factory =  new OrmLiteConnectionFactory(
             dbAccess.Information.ConnectionString(),

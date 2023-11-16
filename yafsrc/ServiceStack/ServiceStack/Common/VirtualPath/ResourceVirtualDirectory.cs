@@ -246,7 +246,7 @@ public class ResourceVirtualDirectory : AbstractVirtualDirectoryBase
     /// </summary>
     /// <param name="fileName">Name of the file.</param>
     /// <returns>IVirtualFile.</returns>
-    protected override IVirtualFile GetFileFromBackingDirectoryOrDefault(string fileName)
+    override protected IVirtualFile GetFileFromBackingDirectoryOrDefault(string fileName)
     {
         var file = Files.FirstOrDefault(f => f.Name.EqualsIgnoreCase(fileName));
         if (file != null)
@@ -277,7 +277,7 @@ public class ResourceVirtualDirectory : AbstractVirtualDirectoryBase
     /// </summary>
     /// <param name="globPattern">The glob pattern.</param>
     /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
-    protected override IEnumerable<IVirtualFile> GetMatchingFilesInDir(string globPattern)
+    override protected IEnumerable<IVirtualFile> GetMatchingFilesInDir(string globPattern)
     {
         var useGlob = globPattern.TrimStart('/');
         var useGlobTranslate = this.TranslatePath(useGlob);
@@ -293,7 +293,7 @@ public class ResourceVirtualDirectory : AbstractVirtualDirectoryBase
     /// </summary>
     /// <param name="directoryName">Name of the directory.</param>
     /// <returns>IVirtualDirectory.</returns>
-    protected override IVirtualDirectory GetDirectoryFromBackingDirectoryOrDefault(string directoryName)
+    override protected IVirtualDirectory GetDirectoryFromBackingDirectoryOrDefault(string directoryName)
     {
         return this.Directories.FirstOrDefault(d => d.Name.EqualsIgnoreCase(directoryName))
                ?? this.Directories.FirstOrDefault(d => d.Name.EqualsIgnoreCase(TranslatePath(directoryName ?? "")));
@@ -303,7 +303,7 @@ public class ResourceVirtualDirectory : AbstractVirtualDirectoryBase
     /// Gets the real path to root.
     /// </summary>
     /// <returns>System.String.</returns>
-    protected override string GetRealPathToRoot()
+    override protected string GetRealPathToRoot()
     {
         var path = base.GetRealPathToRoot();
         return path.TrimStart('.');

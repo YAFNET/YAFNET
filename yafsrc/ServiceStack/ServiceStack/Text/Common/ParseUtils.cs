@@ -12,7 +12,7 @@ using System;
 /// <summary>
 /// Class ParseUtils.
 /// </summary>
-internal static class ParseUtils
+static internal class ParseUtils
 {
     /// <summary>
     /// Gets the special parse method.

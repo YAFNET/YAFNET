@@ -40,7 +40,7 @@ public class ProcessReplaceRules : ICloneable, IProcessReplaceRules
     /// <summary>
     ///     The rules lock.
     /// </summary>
-    private readonly object rulesLock = new();
+    private readonly object rulesLock = new ();
 
     /// <summary>
     ///     The need sort.

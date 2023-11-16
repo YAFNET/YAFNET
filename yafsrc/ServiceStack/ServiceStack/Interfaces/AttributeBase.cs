@@ -28,5 +28,5 @@ public class AttributeBase : Attribute
     /// <summary>
     /// The type identifier
     /// </summary>
-    protected readonly Guid typeId; //Hack required to give Attributes unique identity
+    readonly protected Guid typeId; //Hack required to give Attributes unique identity
 }

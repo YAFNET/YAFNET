@@ -15,13 +15,13 @@ namespace ServiceStack.Text.Common;
 /// Class DeserializeCollection.
 /// </summary>
 /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
-internal static class DeserializeCollection<TSerializer>
+static internal class DeserializeCollection<TSerializer>
     where TSerializer : ITypeSerializer
 {
     /// <summary>
     /// The serializer
     /// </summary>
-    private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
+    private readonly static ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
     /// <summary>
     /// Gets the parse method.

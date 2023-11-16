@@ -84,7 +84,7 @@ public class ResourceVirtualFiles
     /// <summary>
     /// The namespace special chars
     /// </summary>
-    static readonly char[] NamespaceSpecialChars = { ' ', '\u00A0', ',', ';', '|', '~', '@', '#', '%', '^', '&',
+    readonly static char[] NamespaceSpecialChars = { ' ', '\u00A0', ',', ';', '|', '~', '@', '#', '%', '^', '&',
                                                        '*', '+', '-', /*'/', '\\',*/ '<', '>', '?', '[', ']', '(', ')', '{',
                                                        '}', '\"', '\'', '!'};
 
@@ -177,7 +177,7 @@ public class ResourceVirtualFiles
     /// <summary>
     /// Initializes this instance.
     /// </summary>
-    protected sealed override void Initialize()
+    override protected sealed void Initialize()
     {
         var asm = BackingAssembly;
         RootDir = new ResourceVirtualDirectory(this, null, asm, LastModified, RootNamespace);

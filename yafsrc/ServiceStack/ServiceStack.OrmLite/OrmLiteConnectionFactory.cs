@@ -176,7 +176,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     /// </summary>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;IDbConnection&gt; representing the asynchronous operation.</returns>
-    public virtual async Task<IDbConnection> OpenDbConnectionAsync(CancellationToken token = default)
+    public async virtual Task<IDbConnection> OpenDbConnectionAsync(CancellationToken token = default)
     {
         var connection = this.CreateDbConnection();
         if (connection is OrmLiteConnection ormliteConn)
@@ -195,7 +195,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     /// <param name="namedConnection">The named connection.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;IDbConnection&gt; representing the asynchronous operation.</returns>
-    public virtual async Task<IDbConnection> OpenDbConnectionAsync(string namedConnection, CancellationToken token = default)
+    public async virtual Task<IDbConnection> OpenDbConnectionAsync(string namedConnection, CancellationToken token = default)
     {
         var connection = CreateDbConnection(namedConnection);
         if (connection is OrmLiteConnection ormliteConn)
@@ -236,7 +236,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;IDbConnection&gt; representing the asynchronous operation.</returns>
     /// <exception cref="System.ArgumentNullException">connectionString</exception>
-    public virtual async Task<IDbConnection> OpenDbConnectionStringAsync(string connectionString, CancellationToken token = default)
+    public async virtual Task<IDbConnection> OpenDbConnectionStringAsync(string connectionString, CancellationToken token = default)
     {
         if (connectionString == null)
             throw new ArgumentNullException(nameof(connectionString));
@@ -285,7 +285,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     /// <exception cref="System.ArgumentNullException">connectionString</exception>
     /// <exception cref="System.ArgumentNullException">providerName</exception>
     /// <exception cref="System.ArgumentException"></exception>
-    public virtual async Task<IDbConnection> OpenDbConnectionStringAsync(string connectionString, string providerName, CancellationToken token = default)
+    public async virtual Task<IDbConnection> OpenDbConnectionStringAsync(string connectionString, string providerName, CancellationToken token = default)
     {
         if (connectionString == null)
             throw new ArgumentNullException(nameof(connectionString));
@@ -647,7 +647,7 @@ public static class OrmLiteConnectionFactoryExtensions
     /// <param name="dbFactory">The database factory.</param>
     /// <param name="connInfo">The connection information.</param>
     /// <returns>A Task&lt;IDbConnection&gt; representing the asynchronous operation.</returns>
-    public static async Task<IDbConnection> OpenDbConnectionAsync(this IDbConnectionFactory dbFactory, ConnectionInfo connInfo)
+    public async static Task<IDbConnection> OpenDbConnectionAsync(this IDbConnectionFactory dbFactory, ConnectionInfo connInfo)
     {
         if (dbFactory is IDbConnectionFactoryExtended dbFactoryExt && connInfo != null)
         {

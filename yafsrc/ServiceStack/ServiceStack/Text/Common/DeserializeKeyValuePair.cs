@@ -15,13 +15,13 @@ namespace ServiceStack.Text.Common;
 /// Class DeserializeKeyValuePair.
 /// </summary>
 /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
-internal static class DeserializeKeyValuePair<TSerializer>
+static internal class DeserializeKeyValuePair<TSerializer>
     where TSerializer : ITypeSerializer
 {
     /// <summary>
     /// The serializer
     /// </summary>
-    private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
+    private readonly static ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
     /// <summary>
     /// The key index
@@ -81,7 +81,7 @@ internal static class DeserializeKeyValuePair<TSerializer>
     /// <summary>
     /// The signature
     /// </summary>
-    static readonly Type[] signature = { typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate), typeof(ParseStringSpanDelegate) };
+    readonly static Type[] signature = { typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate), typeof(ParseStringSpanDelegate) };
 
     /// <summary>
     /// Parses the type of the key value pair.

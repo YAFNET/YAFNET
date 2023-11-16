@@ -23,7 +23,7 @@ public class Diagnostics
     /// <summary>
     /// The instance
     /// </summary>
-    private static readonly Diagnostics Instance = new();
+    private readonly static Diagnostics Instance = new();
 
     /// <summary>
     /// Prevents a default instance of the <see cref="Diagnostics"/> class from being created.

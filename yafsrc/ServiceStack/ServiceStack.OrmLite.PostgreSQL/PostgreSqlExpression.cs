@@ -30,7 +30,7 @@ public class PostgreSqlExpression<T> : SqlExpression<T>
     /// <param name="tableDef">The table definition.</param>
     /// <param name="memberName">Name of the member.</param>
     /// <returns>string.</returns>
-    protected override string GetQuotedColumnName(ModelDefinition tableDef, string memberName)
+    override protected string GetQuotedColumnName(ModelDefinition tableDef, string memberName)
     {
         if (!useFieldName)
         {

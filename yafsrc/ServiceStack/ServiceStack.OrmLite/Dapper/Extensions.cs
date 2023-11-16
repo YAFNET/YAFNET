@@ -12,7 +12,7 @@ namespace ServiceStack.OrmLite.Dapper;
 /// <summary>
 /// Class Extensions.
 /// </summary>
-internal static class Extensions
+static internal class Extensions
 {
     /// <summary>
     /// Creates a <see cref="Task{TResult}" /> with a less specific generic parameter that perfectly mirrors the
@@ -23,7 +23,7 @@ internal static class Extensions
     /// <param name="task">The task.</param>
     /// <returns>Task&lt;TTo&gt;.</returns>
     /// <exception cref="System.ArgumentNullException">task</exception>
-    internal static Task<TTo> CastResult<TFrom, TTo>(this Task<TFrom> task)
+    static internal Task<TTo> CastResult<TFrom, TTo>(this Task<TFrom> task)
         where TFrom : TTo
     {
         if (task is null) throw new ArgumentNullException(nameof(task));

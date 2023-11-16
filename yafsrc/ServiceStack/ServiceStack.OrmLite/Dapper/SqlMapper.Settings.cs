@@ -28,7 +28,7 @@ public static partial class SqlMapper
         /// Gets the allowed command behaviors.
         /// </summary>
         /// <value>The allowed command behaviors.</value>
-        internal static CommandBehavior AllowedCommandBehaviors { get; private set; } = DefaultAllowedCommandBehaviors;
+        static internal CommandBehavior AllowedCommandBehaviors { get; private set; } = DefaultAllowedCommandBehaviors;
         /// <summary>
         /// Sets the allowed command behaviors.
         /// </summary>
@@ -66,7 +66,7 @@ public static partial class SqlMapper
         /// <param name="behavior">The behavior.</param>
         /// <param name="ex">The ex.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        internal static bool DisableCommandBehaviorOptimizations(CommandBehavior behavior, Exception ex)
+        static internal bool DisableCommandBehaviorOptimizations(CommandBehavior behavior, Exception ex)
         {
             if (AllowedCommandBehaviors == DefaultAllowedCommandBehaviors
                 && (behavior & (CommandBehavior.SingleResult | CommandBehavior.SingleRow)) != 0)

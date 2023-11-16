@@ -32,7 +32,7 @@ public class SqliteExpression<T> : SqlExpression<T>
     /// </summary>
     /// <param name="m">The m.</param>
     /// <returns>object.</returns>
-    protected override object VisitColumnAccessMethod(MethodCallExpression m)
+    override protected object VisitColumnAccessMethod(MethodCallExpression m)
     {
         List<object> args = this.VisitExpressionList(m.Arguments);
         var quotedColName = Visit(m.Object);
@@ -63,7 +63,7 @@ public class SqliteExpression<T> : SqlExpression<T>
     /// </summary>
     /// <param name="m">The m.</param>
     /// <returns>object.</returns>
-    protected override object VisitSqlMethodCall(MethodCallExpression m)
+    override protected object VisitSqlMethodCall(MethodCallExpression m)
     {
         var args = this.VisitInSqlExpressionList(m.Arguments);
         object quotedColName = args[0];
@@ -101,7 +101,7 @@ public class SqliteExpression<T> : SqlExpression<T>
     /// </summary>
     /// <param name="arg">The argument.</param>
     /// <returns>PartialSqlString.</returns>
-    protected override PartialSqlString ToLengthPartialString(object arg)
+    override protected PartialSqlString ToLengthPartialString(object arg)
     {
         return new PartialSqlString($"LENGTH({arg})");
     }

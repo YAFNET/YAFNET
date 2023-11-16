@@ -22,7 +22,7 @@ public static class DeserializeListWithElements<TSerializer>
     /// <summary>
     /// The serializer
     /// </summary>
-    internal static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
+    readonly static internal ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
     /// <summary>
     /// The parse delegate cache
@@ -42,7 +42,7 @@ public static class DeserializeListWithElements<TSerializer>
     /// <summary>
     /// The signature
     /// </summary>
-    private static readonly Type[] signature = { typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate) };
+    private readonly static Type[] signature = { typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate) };
 
     /// <summary>
     /// Gets the list type parse string span function.
@@ -213,7 +213,7 @@ public static class DeserializeListWithElements<T, TSerializer>
     /// <summary>
     /// The serializer
     /// </summary>
-    private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
+    private readonly static ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
     /// <summary>
     /// Parses the generic list.
@@ -329,7 +329,7 @@ public static class DeserializeList<T, TSerializer>
     /// <summary>
     /// The cache function
     /// </summary>
-    private static readonly ParseStringSpanDelegate CacheFn;
+    private readonly static ParseStringSpanDelegate CacheFn;
 
     /// <summary>
     /// Initializes static members of the <see cref="DeserializeList{T, TSerializer}" /> class.
@@ -391,13 +391,13 @@ public static class DeserializeList<T, TSerializer>
 /// </summary>
 /// <typeparam name="T"></typeparam>
 /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
-internal static class DeserializeEnumerable<T, TSerializer>
+static internal class DeserializeEnumerable<T, TSerializer>
     where TSerializer : ITypeSerializer
 {
     /// <summary>
     /// The cache function
     /// </summary>
-    private static readonly ParseStringSpanDelegate CacheFn;
+    private readonly static ParseStringSpanDelegate CacheFn;
 
     /// <summary>
     /// Initializes static members of the <see cref="DeserializeEnumerable{T, TSerializer}" /> class.

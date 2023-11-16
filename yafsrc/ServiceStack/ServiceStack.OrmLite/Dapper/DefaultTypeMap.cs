@@ -46,7 +46,7 @@ public sealed class DefaultTypeMap : SqlMapper.ITypeMap
     /// <param name="propertyInfo">The property information.</param>
     /// <param name="type">The type.</param>
     /// <returns>MethodInfo.</returns>
-    internal static MethodInfo GetPropertySetter(PropertyInfo propertyInfo, Type type)
+    static internal MethodInfo GetPropertySetter(PropertyInfo propertyInfo, Type type)
     {
         if (propertyInfo.DeclaringType == type) return propertyInfo.GetSetMethod(true);
 
@@ -64,7 +64,7 @@ public sealed class DefaultTypeMap : SqlMapper.ITypeMap
     /// </summary>
     /// <param name="t">The t.</param>
     /// <returns>List&lt;PropertyInfo&gt;.</returns>
-    internal static List<PropertyInfo> GetSettableProps(Type t)
+    static internal List<PropertyInfo> GetSettableProps(Type t)
     {
         return t
             .GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)
@@ -77,7 +77,7 @@ public sealed class DefaultTypeMap : SqlMapper.ITypeMap
     /// </summary>
     /// <param name="t">The t.</param>
     /// <returns>List&lt;FieldInfo&gt;.</returns>
-    internal static List<FieldInfo> GetSettableFields(Type t)
+    static internal List<FieldInfo> GetSettableFields(Type t)
     {
         return t.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).ToList();
     }

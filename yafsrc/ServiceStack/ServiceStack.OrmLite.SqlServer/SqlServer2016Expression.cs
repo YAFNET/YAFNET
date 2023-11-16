@@ -33,7 +33,7 @@ public class SqlServer2016Expression<T> : SqlServerExpression<T>
     /// <param name="m">The m.</param>
     /// <returns>System.Object.</returns>
     /// <exception cref="System.NotSupportedException"></exception>
-    protected override object VisitSqlMethodCall(MethodCallExpression m)
+    override protected object VisitSqlMethodCall(MethodCallExpression m)
     {
         List<object> args = this.VisitInSqlExpressionList(m.Arguments);
         object quotedColName = args[0];

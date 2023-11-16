@@ -19,7 +19,7 @@ public static class DeserializeBuiltin<T>
     /// <summary>
     /// The cached parse function
     /// </summary>
-    private static readonly ParseStringSpanDelegate CachedParseFn;
+    private readonly static ParseStringSpanDelegate CachedParseFn;
     /// <summary>
     /// Initializes static members of the <see cref="DeserializeBuiltin{T}" /> class.
     /// </summary>

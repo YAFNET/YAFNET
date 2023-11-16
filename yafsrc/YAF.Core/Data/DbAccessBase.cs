@@ -123,7 +123,7 @@ public abstract class DbAccessBase : IDbAccess
     /// <returns>
     /// The <see cref="T"/>.
     /// </returns>
-    public virtual async Task<T> ExecuteAsync<T>(Func<IDbConnection, Task<T>> execFunc)
+    public async virtual Task<T> ExecuteAsync<T>(Func<IDbConnection, Task<T>> execFunc)
     {
         using var connection = await this.CreateConnectionOpenAsync();
 

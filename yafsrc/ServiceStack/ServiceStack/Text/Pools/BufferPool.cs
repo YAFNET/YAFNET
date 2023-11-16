@@ -41,7 +41,7 @@ public sealed class BufferPool
     /// <summary>
     /// The pool
     /// </summary>
-    private static readonly CachedBuffer[] Pool = new CachedBuffer[POOL_SIZE];
+    private readonly static CachedBuffer[] Pool = new CachedBuffer[POOL_SIZE];
 
     /// <summary>
     /// Gets the buffer.
@@ -194,7 +194,7 @@ internal sealed class Helpers
     /// </summary>
     /// <param name="condition">if set to <c>true</c> [condition].</param>
     [System.Diagnostics.Conditional("DEBUG")]
-    internal static void DebugAssert(bool condition)
+    static internal void DebugAssert(bool condition)
     {
 #if DEBUG   
         if (!condition && System.Diagnostics.Debugger.IsAttached) 

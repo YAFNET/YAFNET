@@ -19,7 +19,7 @@ namespace ServiceStack.OrmLite
     /// <summary>
     /// Class WriteExpressionCommandExtensionsAsync.
     /// </summary>
-    internal static class WriteExpressionCommandExtensionsAsync
+    static internal class WriteExpressionCommandExtensionsAsync
     {
         /// <summary>
         /// Updates the only asynchronous.
@@ -31,7 +31,7 @@ namespace ServiceStack.OrmLite
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        internal static Task<int> UpdateOnlyFieldsAsync<T>(this IDbCommand dbCmd, T model, SqlExpression<T> onlyFields, Action<IDbCommand> commandFilter, CancellationToken token)
+        static internal Task<int> UpdateOnlyFieldsAsync<T>(this IDbCommand dbCmd, T model, SqlExpression<T> onlyFields, Action<IDbCommand> commandFilter, CancellationToken token)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
 
@@ -52,7 +52,7 @@ namespace ServiceStack.OrmLite
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
         /// <exception cref="System.ArgumentNullException">onlyFields</exception>
-        internal static Task<int> UpdateOnlyFieldsAsync<T>(this IDbCommand dbCmd, T obj,
+        static internal Task<int> UpdateOnlyFieldsAsync<T>(this IDbCommand dbCmd, T obj,
             Expression<Func<T, object>> onlyFields,
             Expression<Func<T, bool>> where,
             Action<IDbCommand> commandFilter,
@@ -81,7 +81,7 @@ namespace ServiceStack.OrmLite
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
         /// <exception cref="System.ArgumentNullException">onlyFields</exception>
-        internal static Task<int> UpdateOnlyFieldsAsync<T>(this IDbCommand dbCmd, T obj,
+        static internal Task<int> UpdateOnlyFieldsAsync<T>(this IDbCommand dbCmd, T obj,
             string[] onlyFields,
             Expression<Func<T, bool>> where,
             Action<IDbCommand> commandFilter,
@@ -108,7 +108,7 @@ namespace ServiceStack.OrmLite
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        internal static Task<int> UpdateOnlyFieldsAsync<T>(this IDbCommand dbCmd,
+        static internal Task<int> UpdateOnlyFieldsAsync<T>(this IDbCommand dbCmd,
             Expression<Func<T>> updateFields,
             SqlExpression<T> q,
             Action<IDbCommand> commandFilter,
@@ -132,7 +132,7 @@ namespace ServiceStack.OrmLite
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        internal static Task<int> UpdateOnlyFieldsAsync<T>(this IDbCommand dbCmd,
+        static internal Task<int> UpdateOnlyFieldsAsync<T>(this IDbCommand dbCmd,
             Expression<Func<T>> updateFields,
             string whereExpression,
             IEnumerable<IDbDataParameter> sqlParams,
@@ -259,7 +259,7 @@ namespace ServiceStack.OrmLite
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Int32&gt; representing the asynchronous operation.</returns>
         /// <exception cref="System.ArgumentNullException">updateFields</exception>
-        public static async Task<int> UpdateOnlyReferencesAsync<T>(this IDbCommand dbCmd,
+        public async static Task<int> UpdateOnlyReferencesAsync<T>(this IDbCommand dbCmd,
                                                                    Dictionary<string, object> updateFields, Func<Dictionary<string, object>, Task<int>> fn, CancellationToken token = default)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
@@ -301,7 +301,7 @@ namespace ServiceStack.OrmLite
         /// <param name="obj">The object.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        internal static Task<int> UpdateNonDefaultsAsync<T>(this IDbCommand dbCmd, T item, Expression<Func<T, bool>> obj, CancellationToken token)
+        static internal Task<int> UpdateNonDefaultsAsync<T>(this IDbCommand dbCmd, T item, Expression<Func<T, bool>> obj, CancellationToken token)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
 
@@ -323,7 +323,7 @@ namespace ServiceStack.OrmLite
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        internal static Task<int> UpdateAsync<T>(this IDbCommand dbCmd, T item, Expression<Func<T, bool>> expression, Action<IDbCommand> commandFilter, CancellationToken token)
+        static internal Task<int> UpdateAsync<T>(this IDbCommand dbCmd, T item, Expression<Func<T, bool>> expression, Action<IDbCommand> commandFilter, CancellationToken token)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
 
@@ -346,7 +346,7 @@ namespace ServiceStack.OrmLite
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        internal static Task<int> UpdateAsync<T>(this IDbCommand dbCmd, object updateOnly, Expression<Func<T, bool>> where, Action<IDbCommand> commandFilter, CancellationToken token)
+        static internal Task<int> UpdateAsync<T>(this IDbCommand dbCmd, object updateOnly, Expression<Func<T, bool>> where, Action<IDbCommand> commandFilter, CancellationToken token)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
 
@@ -370,7 +370,7 @@ namespace ServiceStack.OrmLite
         /// <param name="onlyFields">The only fields.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task.</returns>
-        internal static Task InsertOnlyAsync<T>(this IDbCommand dbCmd, T obj, string[] onlyFields, CancellationToken token)
+        static internal Task InsertOnlyAsync<T>(this IDbCommand dbCmd, T obj, string[] onlyFields, CancellationToken token)
         {
             OrmLiteUtils.AssertNotAnonType<T>();
 
@@ -408,7 +408,7 @@ namespace ServiceStack.OrmLite
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        internal static Task<int> DeleteAsync<T>(this IDbCommand dbCmd, Expression<Func<T, bool>> where,
+        static internal Task<int> DeleteAsync<T>(this IDbCommand dbCmd, Expression<Func<T, bool>> where,
             Action<IDbCommand> commandFilter, CancellationToken token)
         {
             var q = dbCmd.GetDialectProvider().SqlExpression<T>();
@@ -425,7 +425,7 @@ namespace ServiceStack.OrmLite
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        internal static Task<int> DeleteAsync<T>(this IDbCommand dbCmd, SqlExpression<T> q,
+        static internal Task<int> DeleteAsync<T>(this IDbCommand dbCmd, SqlExpression<T> q,
             Action<IDbCommand> commandFilter, CancellationToken token)
         {
             var sql = q.ToDeleteRowStatement();
@@ -442,7 +442,7 @@ namespace ServiceStack.OrmLite
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        internal static Task<int> DeleteWhereAsync<T>(this IDbCommand dbCmd, string whereFilter, object[] whereParams,
+        static internal Task<int> DeleteWhereAsync<T>(this IDbCommand dbCmd, string whereFilter, object[] whereParams,
             Action<IDbCommand> commandFilter, CancellationToken token)
         {
             var q = dbCmd.GetDialectProvider().SqlExpression<T>();

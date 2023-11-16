@@ -27,15 +27,15 @@ public static class Words
     /// <summary>
     /// The plurals
     /// </summary>
-    private static readonly ArrayList plurals = new();
+    private readonly static ArrayList plurals = new();
     /// <summary>
     /// The singulars
     /// </summary>
-    private static readonly ArrayList singulars = new();
+    private readonly static ArrayList singulars = new();
     /// <summary>
     /// The uncountables
     /// </summary>
-    private static readonly ArrayList uncountables = new();
+    private readonly static ArrayList uncountables = new();
 
     /// <summary>
     /// Initializes static members of the <see cref="Words"/> class.

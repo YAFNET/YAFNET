@@ -365,7 +365,7 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
     /// </summary>
     /// <param name="outputStream">The output stream.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    internal async Task WriteToAsyncInternal(Stream outputStream, CancellationToken token)
+    async internal Task WriteToAsyncInternal(Stream outputStream, CancellationToken token)
     {
         await Init().ConfigAwait();
 
@@ -448,7 +448,7 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
     /// <param name="callTrace">The call trace.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    internal async Task WriteFragmentsAsync(ScriptScopeContext scope, IEnumerable<PageFragment> fragments, string callTrace, CancellationToken token)
+    async internal Task WriteFragmentsAsync(ScriptScopeContext scope, IEnumerable<PageFragment> fragments, string callTrace, CancellationToken token)
     {
         stackTrace.Push(callTrace);
 
@@ -752,7 +752,7 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
     /// <param name="page">The page.</param>
     /// <param name="scope">The scope.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    internal async Task WritePageAsyncInternal(SharpPage page, ScriptScopeContext scope, CancellationToken token = default)
+    async internal Task WritePageAsyncInternal(SharpPage page, ScriptScopeContext scope, CancellationToken token = default)
     {
         await page.Init().ConfigAwait(); //reload modified changes if needed
 

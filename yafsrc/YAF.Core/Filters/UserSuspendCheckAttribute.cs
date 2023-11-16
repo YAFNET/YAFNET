@@ -51,7 +51,7 @@ public class UserSuspendCheckAttribute : ResultFilterAttribute, IHaveServiceLoca
     /// <param name="next">The next.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
     /// <inheritdoc />
-    public override async Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
+    public async override Task OnResultExecutionAsync(ResultExecutingContext context, ResultExecutionDelegate next)
     {
         // check for suspension if enabled...
         if (BoardContext.Current.Globals.IsSuspendCheckEnabled && BoardContext.Current.IsSuspended)

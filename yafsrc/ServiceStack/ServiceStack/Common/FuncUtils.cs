@@ -19,7 +19,7 @@ public static class FuncUtils
     /// <summary>
     /// The log
     /// </summary>
-    private static readonly ILog Log = LogManager.GetLogger(typeof(FuncUtils));
+    private readonly static ILog Log = LogManager.GetLogger(typeof(FuncUtils));
 
     /// <summary>
     /// Invokes the action provided and returns true if no excpetion was thrown.

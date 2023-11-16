@@ -18,7 +18,7 @@ using ServiceStack.Text;
 /// <summary>
 /// Class WriteExpressionCommandExtensions.
 /// </summary>
-internal static class WriteExpressionCommandExtensions
+static internal class WriteExpressionCommandExtensions
 {
     /// <summary>
     /// Update only Fields.
@@ -48,7 +48,7 @@ internal static class WriteExpressionCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="model">The model.</param>
     /// <param name="onlyFields">The only fields.</param>
-    internal static void UpdateOnlySql<T>(this IDbCommand dbCmd, T model, SqlExpression<T> onlyFields)
+    static internal void UpdateOnlySql<T>(this IDbCommand dbCmd, T model, SqlExpression<T> onlyFields)
     {
         OrmLiteUtils.AssertNotAnonType<T>();
 
@@ -79,7 +79,7 @@ internal static class WriteExpressionCommandExtensions
     /// <param name="commandFilter">The command filter.</param>
     /// <returns>System.Int32.</returns>
     /// <exception cref="System.ArgumentNullException">onlyFields</exception>
-    internal static int UpdateOnlyFields<T>(this IDbCommand dbCmd, T obj,
+    static internal int UpdateOnlyFields<T>(this IDbCommand dbCmd, T obj,
                                             Expression<Func<T, object>> onlyFields = null,
                                             Expression<Func<T, bool>> where = null,
                                             Action<IDbCommand> commandFilter = null)
@@ -108,7 +108,7 @@ internal static class WriteExpressionCommandExtensions
     /// <param name="commandFilter">The command filter.</param>
     /// <returns>System.Int32.</returns>
     /// <exception cref="System.ArgumentNullException">onlyFields</exception>
-    internal static int UpdateOnlyFields<T>(this IDbCommand dbCmd, T obj,
+    static internal int UpdateOnlyFields<T>(this IDbCommand dbCmd, T obj,
                                             string[] onlyFields = null,
                                             Expression<Func<T, bool>> where = null,
                                             Action<IDbCommand> commandFilter = null)
@@ -135,7 +135,7 @@ internal static class WriteExpressionCommandExtensions
     /// <param name="q">The q.</param>
     /// <param name="commandFilter">The command filter.</param>
     /// <returns>System.Int32.</returns>
-    internal static int UpdateOnlyFields<T>(this IDbCommand dbCmd,
+    static internal int UpdateOnlyFields<T>(this IDbCommand dbCmd,
                                             Expression<Func<T>> updateFields,
                                             SqlExpression<T> q,
                                             Action<IDbCommand> commandFilter = null)
@@ -156,7 +156,7 @@ internal static class WriteExpressionCommandExtensions
     /// <param name="q">The q.</param>
     /// <param name="commandFilter">The command filter.</param>
     /// <returns>System.Int32.</returns>
-    internal static int UpdateOnly<T>(this IDbCommand dbCmd,
+    static internal int UpdateOnly<T>(this IDbCommand dbCmd,
                                       Expression<Func<T>> updateFields,
                                       SqlExpression<T> q,
                                       Action<IDbCommand> commandFilter = null)
@@ -177,7 +177,7 @@ internal static class WriteExpressionCommandExtensions
     /// <param name="q">The q.</param>
     /// <returns>IDbCommand.</returns>
     /// <exception cref="System.ArgumentNullException">updateFields</exception>
-    internal static IDbCommand InitUpdateOnly<T>(this IDbCommand dbCmd, Expression<Func<T>> updateFields, SqlExpression<T> q)
+    static internal IDbCommand InitUpdateOnly<T>(this IDbCommand dbCmd, Expression<Func<T>> updateFields, SqlExpression<T> q)
     {
         if (updateFields == null)
         {
@@ -204,7 +204,7 @@ internal static class WriteExpressionCommandExtensions
     /// <param name="dbParams">The database parameters.</param>
     /// <param name="commandFilter">The command filter.</param>
     /// <returns>System.Int32.</returns>
-    internal static int UpdateOnlyFields<T>(this IDbCommand dbCmd,
+    static internal int UpdateOnlyFields<T>(this IDbCommand dbCmd,
                                             Expression<Func<T>> updateFields,
                                             string whereExpression,
                                             IEnumerable<IDbDataParameter> dbParams,
@@ -227,7 +227,7 @@ internal static class WriteExpressionCommandExtensions
     /// <param name="sqlParams">The SQL parameters.</param>
     /// <returns>IDbCommand.</returns>
     /// <exception cref="System.ArgumentNullException">updateFields</exception>
-    internal static IDbCommand InitUpdateOnly<T>(this IDbCommand dbCmd, Expression<Func<T>> updateFields, string whereExpression, IEnumerable<IDbDataParameter> sqlParams)
+    static internal IDbCommand InitUpdateOnly<T>(this IDbCommand dbCmd, Expression<Func<T>> updateFields, string whereExpression, IEnumerable<IDbDataParameter> sqlParams)
     {
         if (updateFields == null)
         {
@@ -272,7 +272,7 @@ internal static class WriteExpressionCommandExtensions
     /// <param name="q">The q.</param>
     /// <returns>IDbCommand.</returns>
     /// <exception cref="System.ArgumentNullException">updateFields</exception>
-    internal static IDbCommand InitUpdateAdd<T>(this IDbCommand dbCmd, Expression<Func<T>> updateFields, SqlExpression<T> q)
+    static internal IDbCommand InitUpdateAdd<T>(this IDbCommand dbCmd, Expression<Func<T>> updateFields, SqlExpression<T> q)
     {
         if (updateFields == null)
         {
@@ -328,7 +328,7 @@ internal static class WriteExpressionCommandExtensions
     /// <param name="args">The arguments.</param>
     /// <returns>System.String.</returns>
     /// <exception cref="System.NotSupportedException">'{typeof(T).Name}' does not have a primary key</exception>
-    internal static string GetUpdateOnlyWhereExpression<T>(this IOrmLiteDialectProvider dialectProvider,
+    static internal string GetUpdateOnlyWhereExpression<T>(this IOrmLiteDialectProvider dialectProvider,
                                                            Dictionary<string, object> updateFields, out object[] args)
     {
         var modelDef = typeof(T).GetModelDefinition();
@@ -463,7 +463,7 @@ internal static class WriteExpressionCommandExtensions
     /// <param name="whereExpression">The where expression.</param>
     /// <param name="whereParams">The where parameters.</param>
     /// <exception cref="System.ArgumentNullException">updateFields</exception>
-    internal static void PrepareUpdateOnly<T>(this IDbCommand dbCmd, Dictionary<string, object> updateFields, string whereExpression, object[] whereParams)
+    static internal void PrepareUpdateOnly<T>(this IDbCommand dbCmd, Dictionary<string, object> updateFields, string whereExpression, object[] whereParams)
     {
         if (updateFields == null)
         {
@@ -547,7 +547,7 @@ internal static class WriteExpressionCommandExtensions
     /// <param name="updateOnly">The update only.</param>
     /// <param name="whereSql">The where SQL.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    internal static bool PrepareUpdateAnonSql<T>(this IDbCommand dbCmd, IOrmLiteDialectProvider dialectProvider, object updateOnly, string whereSql)
+    static internal bool PrepareUpdateAnonSql<T>(this IDbCommand dbCmd, IOrmLiteDialectProvider dialectProvider, object updateOnly, string whereSql)
     {
         var sql = StringBuilderCache.Allocate();
         var modelDef = typeof(T).GetModelDefinition();
@@ -657,7 +657,7 @@ internal static class WriteExpressionCommandExtensions
     /// <param name="insertFields">The insert fields.</param>
     /// <returns>IDbCommand.</returns>
     /// <exception cref="System.ArgumentNullException">insertFields</exception>
-    internal static IDbCommand InitInsertOnly<T>(this IDbCommand dbCmd, Expression<Func<T>> insertFields)
+    static internal IDbCommand InitInsertOnly<T>(this IDbCommand dbCmd, Expression<Func<T>> insertFields)
     {
         if (insertFields == null)
         {

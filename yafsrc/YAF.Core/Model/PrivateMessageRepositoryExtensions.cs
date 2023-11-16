@@ -41,7 +41,7 @@ public static class PrivateMessageRepositoryExtensions
     /// <param name="userId">The from user identifier.</param>
     /// <param name="toUserId">The to user identifier.</param>
     /// <returns>Returns the Conversation as List</returns>
-    public static async Task<List<PrivateMessage>> GetConversationAsync(
+    public async static Task<List<PrivateMessage>> GetConversationAsync(
         this IRepository<PrivateMessage> repository,
         int userId,
         int toUserId)
@@ -80,7 +80,7 @@ public static class PrivateMessageRepositoryExtensions
     /// <param name="repository">The repository.</param>
     /// <param name="userId">The from user identifier.</param>
     /// <param name="toUserId">The to user identifier.</param>
-    public static async Task DeleteConversationAsync(
+    public async static Task DeleteConversationAsync(
         this IRepository<PrivateMessage> repository,
         int userId,
         int toUserId)
@@ -118,7 +118,7 @@ public static class PrivateMessageRepositoryExtensions
     /// <param name="repository">The repository.</param>
     /// <param name="userId">The user identifier.</param>
     /// <returns>Returns the User List</returns>
-    public static async Task<List<User>> GetUserListAsync(
+    public async static Task<List<User>> GetUserListAsync(
         this IRepository<PrivateMessage> repository,
         int userId)
     {
@@ -160,7 +160,7 @@ public static class PrivateMessageRepositoryExtensions
     /// <param name="repository">The repository.</param>
     /// <param name="userId">The user identifier.</param>
     /// <returns>A Task&lt;User&gt; representing the asynchronous operation.</returns>
-    public static async Task<User> GetLatestConversationUserAsync(
+    public async static Task<User> GetLatestConversationUserAsync(
         this IRepository<PrivateMessage> repository,
         int userId)
     {
