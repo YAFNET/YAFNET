@@ -52,7 +52,7 @@ public partial class Topics : ForumPage
     /// <param name="e">
     /// the Event Arguments
     /// </param>
-    protected override void OnPreRender(EventArgs e)
+    override protected void OnPreRender(EventArgs e)
     {
         this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             "TopicStarterPopoverJs",
@@ -119,7 +119,7 @@ public partial class Topics : ForumPage
     /// <param name="e">
     /// The EventArgs object for the topics page.
     /// </param>
-    protected override void OnInit(EventArgs e)
+    override protected void OnInit(EventArgs e)
     {
         // in case topic is deleted or not existent
         if (this.PageBoardContext.PageForum == null)

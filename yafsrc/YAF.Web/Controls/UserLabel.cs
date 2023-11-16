@@ -107,7 +107,7 @@ public class UserLabel : BaseControl
     /// <param name="writer">
     /// The output.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    override protected void Render(HtmlTextWriter writer)
     {
         var displayName = this.ReplaceName;
 

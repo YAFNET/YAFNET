@@ -91,7 +91,7 @@ public class StartupCheckBannedUserAgents : BaseStartupService
     ///   Gets the service name.
     /// </summary>
     
-    protected override string ServiceName => "CheckBannedUserAgents_Init";
+    override protected string ServiceName => "CheckBannedUserAgents_Init";
 
     /// <summary>
     /// The run service.
@@ -99,7 +99,7 @@ public class StartupCheckBannedUserAgents : BaseStartupService
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    protected override bool RunService()
+    override protected bool RunService()
     {
         try
         {

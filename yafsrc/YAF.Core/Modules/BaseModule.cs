@@ -46,7 +46,7 @@ public abstract class BaseModule : Module, IHaveSortOrder
     /// <summary>
     ///     Gets or sets ExtensionAssemblies.
     /// </summary>
-    protected static readonly Assembly[] ExtensionAssemblies;
+    readonly static protected Assembly[] ExtensionAssemblies;
 
     /// <summary>
     /// Initializes static members of the <see cref="BaseModule"/> class.

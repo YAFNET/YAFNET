@@ -35,12 +35,12 @@ public static class IReplaceBlocksExtensions
     /// <summary>
     /// The _options.
     /// </summary>
-    private static readonly RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
+    private readonly static RegexOptions _options = RegexOptions.IgnoreCase | RegexOptions.Multiline;
 
     /// <summary>
     /// The _reg ex html.
     /// </summary>
-    private static readonly Regex _regExHtml = new(
+    private readonly static Regex _regExHtml = new(
         @"</?\w+((\s+\w+(\s*=\s*(?:"".*?""|'.*?'|[^'"">\s]+))?)+\s*|\s*)/?>",
         _options | RegexOptions.Compiled,
         TimeSpan.FromMilliseconds(100));

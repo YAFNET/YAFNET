@@ -44,7 +44,7 @@ public partial class DeleteForum : AdminPage
     /// Registers the needed Java Scripts
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnPreRender(EventArgs e)
+    override protected void OnPreRender(EventArgs e)
     {
        this.PageBoardContext.PageElements.RegisterJsBlockStartup(
             nameof(JavaScriptBlocks.SelectForumsLoadJs),
@@ -62,7 +62,7 @@ public partial class DeleteForum : AdminPage
     /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnInit(EventArgs e)
+    override protected void OnInit(EventArgs e)
     {
         this.Delete.Click += this.SaveClick;
         this.Cancel.Click += this.Cancel_Click;

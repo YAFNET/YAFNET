@@ -88,7 +88,7 @@ public class SyntaxHighlighterRegexReplaceRule : SimpleRegexReplaceRule
     /// <returns>
     /// The get inner value.
     /// </returns>
-    protected override string GetInnerValue(string innerValue)
+    override protected string GetInnerValue(string innerValue)
     {
         return innerValue;
     }

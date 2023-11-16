@@ -160,7 +160,7 @@ namespace YAF.Pages.Admin
         /// <param name="e">
         /// the Event Arguments
         /// </param>
-        protected override void OnPreRender(EventArgs e)
+        override protected void OnPreRender(EventArgs e)
         {
             // setup jQuery and Jquery Ui Tabs.
             this.PageBoardContext.PageElements.RegisterJsBlock(

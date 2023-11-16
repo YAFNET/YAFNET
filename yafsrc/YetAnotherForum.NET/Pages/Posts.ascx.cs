@@ -175,7 +175,7 @@ public partial class Posts : ForumPage
     /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-    protected override void OnInit(EventArgs e)
+    override protected void OnInit(EventArgs e)
     {
         this.InitializeComponent();
         base.OnInit(e);
@@ -187,7 +187,7 @@ public partial class Posts : ForumPage
     /// <param name="e">
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     /// </param>
-    protected override void OnPreRender(EventArgs e)
+    override protected void OnPreRender(EventArgs e)
     {
         var isWatched = this.HandleWatchTopic();
 

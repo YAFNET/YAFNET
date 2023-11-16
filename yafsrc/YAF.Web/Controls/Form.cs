@@ -45,7 +45,7 @@ public class Form : HtmlForm
     /// </summary>
     /// <param name="writer">The output writer.</param>
     /// <exclude />
-    protected override void RenderChildren(HtmlTextWriter writer)
+    override protected void RenderChildren(HtmlTextWriter writer)
     {
         writer.RenderBeginTag(HtmlTextWriterTag.Div);
         base.RenderChildren(writer);
@@ -57,7 +57,7 @@ public class Form : HtmlForm
     /// </summary>
     /// <param name="writer">The output writer.</param>
     /// <exclude />
-    protected override void RenderAttributes(HtmlTextWriter writer)
+    override protected void RenderAttributes(HtmlTextWriter writer)
     {
         writer.WriteAttribute(Constants.AttrName, this.GetName());
         this.Attributes.Remove(Constants.AttrName);

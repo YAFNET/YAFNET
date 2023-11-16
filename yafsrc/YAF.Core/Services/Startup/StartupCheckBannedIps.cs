@@ -89,7 +89,7 @@ public class StartupCheckBannedIps : BaseStartupService
     ///   Gets the service name.
     /// </summary>
     
-    protected override string ServiceName => "CheckBannedIps_Init";
+    override protected string ServiceName => "CheckBannedIps_Init";
 
     /// <summary>
     /// The run service.
@@ -97,7 +97,7 @@ public class StartupCheckBannedIps : BaseStartupService
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    protected override bool RunService()
+    override protected bool RunService()
     {
         try
         {

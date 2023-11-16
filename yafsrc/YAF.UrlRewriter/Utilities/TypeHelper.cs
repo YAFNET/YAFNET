@@ -17,7 +17,7 @@ using System;
 /// <summary>
 /// Helper class for dealing with types.
 /// </summary>
-internal static class TypeHelper
+static internal class TypeHelper
 {
     /// <summary>
     /// Loads and activates a type

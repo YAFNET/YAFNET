@@ -34,12 +34,12 @@ public class SimpleRegexReplaceRule : BaseReplaceRule
     /// <summary>
     ///   The replace regex.
     /// </summary>
-    protected readonly string RegExReplace;
+    readonly protected string RegExReplace;
 
     /// <summary>
     ///   The search regex.
     /// </summary>
-    protected readonly Regex RegExSearch;
+    readonly protected Regex RegExSearch;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SimpleRegexReplaceRule"/> class.

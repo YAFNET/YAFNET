@@ -51,7 +51,7 @@ public class OnlineStatusIcon : BaseControl
     /// <param name="writer">
     /// The output.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    override protected void Render(HtmlTextWriter writer)
     {
         if (!this.Visible)
         {

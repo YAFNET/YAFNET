@@ -40,7 +40,7 @@ public partial class Header : BaseUserControl
     /// <param name="e">
     /// the Event Arguments
     /// </param>
-    protected override void OnPreRender(EventArgs e)
+    override protected void OnPreRender(EventArgs e)
     {
         this.RenderQuickSearch();
 

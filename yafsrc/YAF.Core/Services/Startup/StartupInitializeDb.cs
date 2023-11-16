@@ -66,7 +66,7 @@ public class StartupInitializeDb : BaseStartupService, ICriticalStartupService, 
     ///     Gets the service name.
     /// </summary>
     
-    protected override string ServiceName => "YafInitializeDb_Init";
+    override protected string ServiceName => "YafInitializeDb_Init";
 
     /// <summary>
     /// The run service.
@@ -74,7 +74,7 @@ public class StartupInitializeDb : BaseStartupService, ICriticalStartupService, 
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    protected override bool RunService()
+    override protected bool RunService()
     {
         if (HttpContext.Current == null)
         {

@@ -41,7 +41,7 @@ public class SessionHttpControllerRouteHandler : HttpControllerRouteHandler
     /// <returns>
     /// The <see cref="IHttpHandler"/>.
     /// </returns>
-    protected override IHttpHandler GetHttpHandler(RequestContext requestContext)
+    override protected IHttpHandler GetHttpHandler(RequestContext requestContext)
     {
         return new SessionControllerHandler(requestContext.RouteData);
     }

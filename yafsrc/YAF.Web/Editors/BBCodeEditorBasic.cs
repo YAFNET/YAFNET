@@ -71,7 +71,7 @@ public class BBCodeEditorBasic : TextEditor
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
-    protected override void Editor_PreRender(object sender, EventArgs e)
+    override protected void Editor_PreRender(object sender, EventArgs e)
     {
         base.Editor_PreRender(sender, e);
 
@@ -98,7 +98,7 @@ public class BBCodeEditorBasic : TextEditor
     /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-    protected override void OnInit(EventArgs e)
+    override protected void OnInit(EventArgs e)
     {
         base.OnInit(e);
         this.TextAreaControl.Attributes.Add("class", "BBCodeEditor form-control");
@@ -108,7 +108,7 @@ public class BBCodeEditorBasic : TextEditor
     /// Sends server control content to a provided <see cref="T:System.Web.UI.HtmlTextWriter" /> object, which writes the content to be rendered on the client.
     /// </summary>
     /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> object that receives the server control content.</param>
-    protected override void Render(HtmlTextWriter writer)
+    override protected void Render(HtmlTextWriter writer)
     {
         writer.Write("<div class=\"card\">");
 

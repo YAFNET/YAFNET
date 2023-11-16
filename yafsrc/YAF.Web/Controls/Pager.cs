@@ -171,7 +171,7 @@ public class Pager : BaseControl, IPostBackEventHandler, IPager
     /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-    protected override void OnInit(EventArgs e)
+    override protected void OnInit(EventArgs e)
     {
         base.OnInit(e);
 
@@ -189,7 +189,7 @@ public class Pager : BaseControl, IPostBackEventHandler, IPager
     /// <param name="writer">
     /// The output.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    override protected void Render(HtmlTextWriter writer)
     {
         if (this.LinkedPager != null)
         {

@@ -46,7 +46,7 @@ public class GeneralModule : BaseModule
     /// <param name="builder">
     /// The builder.
     /// </param>
-    protected override void Load(ContainerBuilder builder)
+    override protected void Load(ContainerBuilder builder)
     {
         RegisterDataBindings(builder);
         RegisterGeneral(builder);

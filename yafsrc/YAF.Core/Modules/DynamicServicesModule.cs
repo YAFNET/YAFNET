@@ -47,7 +47,7 @@ public class DynamicServicesModule : BaseModule
     /// <param name="builder">
     /// The container builder.
     /// </param>
-    protected override void Load(ContainerBuilder builder)
+    override protected void Load(ContainerBuilder builder)
     {
         // external first...
         RegisterDynamicServices(builder, ExtensionAssemblies);

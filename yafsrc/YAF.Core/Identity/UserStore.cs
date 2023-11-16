@@ -439,7 +439,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<string> GetPasswordHashAsync(AspNetUsers user)
+    public async virtual Task<string> GetPasswordHashAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -455,7 +455,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<bool> HasPasswordAsync(AspNetUsers user)
+    public async virtual Task<bool> HasPasswordAsync(AspNetUsers user)
     {
         var passwordHash = await this.GetPasswordHashAsync(user);
         return passwordHash.IsNotSet();
@@ -490,7 +490,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<string> GetSecurityStampAsync(AspNetUsers user)
+    public async virtual Task<string> GetSecurityStampAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -540,7 +540,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<string> GetEmailAsync(AspNetUsers user)
+    public async virtual Task<string> GetEmailAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -556,7 +556,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<bool> GetEmailConfirmedAsync(AspNetUsers user)
+    public async virtual Task<bool> GetEmailConfirmedAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -612,7 +612,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<string> GetPhoneNumberAsync(AspNetUsers user)
+    public async virtual Task<string> GetPhoneNumberAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -628,7 +628,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<bool> GetPhoneNumberConfirmedAsync(AspNetUsers user)
+    public async virtual Task<bool> GetPhoneNumberConfirmedAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -684,7 +684,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<bool> GetTwoFactorEnabledAsync(AspNetUsers user)
+    public async virtual Task<bool> GetTwoFactorEnabledAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -720,7 +720,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<int> GetAccessFailedCountAsync(AspNetUsers user)
+    public async virtual Task<int> GetAccessFailedCountAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -736,7 +736,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<bool> GetLockoutEnabledAsync(AspNetUsers user)
+    public async virtual Task<bool> GetLockoutEnabledAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 
@@ -752,7 +752,7 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual async Task<DateTimeOffset> GetLockoutEndDateAsync(AspNetUsers user)
+    public async virtual Task<DateTimeOffset> GetLockoutEndDateAsync(AspNetUsers user)
     {
         CodeContracts.VerifyNotNull(user);
 

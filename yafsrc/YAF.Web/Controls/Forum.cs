@@ -133,7 +133,7 @@ public class Forum : UserControl, IHaveServiceLocator
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnUnload(EventArgs e)
+    override protected void OnUnload(EventArgs e)
     {
         base.OnUnload(e);
 
@@ -147,7 +147,7 @@ public class Forum : UserControl, IHaveServiceLocator
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    override protected void Render(HtmlTextWriter writer)
     {
         // wrap the forum in one main div and then a page div for better CSS selection
         writer.WriteLine();
@@ -166,7 +166,7 @@ public class Forum : UserControl, IHaveServiceLocator
     /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnInit(EventArgs e)
+    override protected void OnInit(EventArgs e)
     {
         // handle script manager first...
         var yafScriptManager = ScriptManager.GetCurrent(this.Page);
@@ -202,7 +202,7 @@ public class Forum : UserControl, IHaveServiceLocator
     /// Raises the <see cref="E:System.Web.UI.Control.Load"/> event.
     /// </summary>
     /// <param name="e">The <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnLoad(EventArgs e)
+    override protected void OnLoad(EventArgs e)
     {
         // context is ready to be loaded, call the before page load event...
         this.BeforeForumPageLoad?.Invoke(this, new BeforeForumPageLoad());

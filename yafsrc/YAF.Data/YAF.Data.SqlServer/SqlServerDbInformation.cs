@@ -32,7 +32,7 @@ public class SqlServerDbInformation : IDbInformation
     /// <summary>
     /// The YAF Provider Upgrade script list
     /// </summary>
-    private static readonly string[] IdentityUpgradeScriptList = {"install/mssql/upgrade/identity/upgrade.sql"};
+    private readonly static string[] IdentityUpgradeScriptList = {"install/mssql/upgrade/identity/upgrade.sql"};
 
     /// <summary>
     /// The DB parameters

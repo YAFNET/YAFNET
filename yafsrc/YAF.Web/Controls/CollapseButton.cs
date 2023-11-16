@@ -108,7 +108,7 @@ public class CollapseButton : LinkButton
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnPreRender(EventArgs e)
+    override protected void OnPreRender(EventArgs e)
     {
         // setup initial image state...
         this.Text = new Icon
@@ -144,7 +144,7 @@ public class CollapseButton : LinkButton
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnClick(EventArgs e)
+    override protected void OnClick(EventArgs e)
     {
         // toggle the status...
         BoardContext.Current.Get<ISession>().PanelState.TogglePanelState(this.PanelID, this.DefaultState);

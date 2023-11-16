@@ -16,7 +16,7 @@ using YAF.UrlRewriter.Utilities;
 /// <summary>
 /// Extension methods for the XmlNode class.
 /// </summary>
-internal static class XmlNodeExtensions
+static internal class XmlNodeExtensions
 {
     /// <summary>
     /// Gets a required attribute from an XML node.

@@ -35,7 +35,7 @@ public class CountryImageListBox : DropDownList
     /// <param name="writer">
     /// The <paramref name="writer"/>.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    override protected void Render(HtmlTextWriter writer)
     {
         this.Items.Cast<ListItem>().Where(item => item.Value.IsSet()).ForEach(
             item => item.Attributes.Add(

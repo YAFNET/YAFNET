@@ -188,7 +188,7 @@ public static class Constants
         /// <summary>
         /// The blocking task names.
         /// </summary>
-        public static readonly string[] BlockingTaskNames =
+        public readonly static string[] BlockingTaskNames =
             {
                 "ForumDeleteTask"
             };

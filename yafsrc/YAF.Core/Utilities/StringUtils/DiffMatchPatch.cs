@@ -26,7 +26,7 @@ using System.Text.RegularExpressions;
 /// <summary>
 /// The compatibility extensions.
 /// </summary>
-internal static class CompatibilityExtensions
+static internal class CompatibilityExtensions
 {
     /// <summary>
     /// JScript splice function

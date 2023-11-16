@@ -50,7 +50,7 @@ public class LongBackgroundTask : IntermittentBackgroundTask
     /// <param name="sender">
     /// The sender.
     /// </param>
-    protected override void TimerCallback(object sender)
+    override protected void TimerCallback(object sender)
     {
         lock (this.lockObj)
         {

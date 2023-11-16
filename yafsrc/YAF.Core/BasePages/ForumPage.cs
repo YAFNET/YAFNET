@@ -286,7 +286,7 @@ public abstract class ForumPage : UserControl,
     /// Raises the <see cref="E:System.Web.UI.Control.PreRender"/> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnPreRender(EventArgs e)
+    override protected void OnPreRender(EventArgs e)
     {
         base.OnPreRender(e);
     }
@@ -295,7 +295,7 @@ public abstract class ForumPage : UserControl,
     /// Writes the document
     /// </summary>
     /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter"/> object that receives the server control content.</param>
-    protected override void Render(HtmlTextWriter writer)
+    override protected void Render(HtmlTextWriter writer)
     {
         base.Render(writer);
 

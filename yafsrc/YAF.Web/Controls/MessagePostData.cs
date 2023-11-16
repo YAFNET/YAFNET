@@ -128,7 +128,7 @@ public class MessagePostData : MessagePost
     /// Raises the <see cref="E:System.Web.UI.Control.PreRender"/> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnPreRender(EventArgs e)
+    override protected void OnPreRender(EventArgs e)
     {
         CodeContracts.VerifyNotNull(this.MessageFlags);
 
@@ -144,7 +144,7 @@ public class MessagePostData : MessagePost
     /// The render message.
     /// </summary>
     /// <param name="writer">The writer.</param>
-    protected override void RenderMessage(HtmlTextWriter writer)
+    override protected void RenderMessage(HtmlTextWriter writer)
     {
         CodeContracts.VerifyNotNull(writer);
         CodeContracts.VerifyNotNull(this.MessageFlags);

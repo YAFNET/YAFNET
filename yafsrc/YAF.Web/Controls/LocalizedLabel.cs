@@ -75,7 +75,7 @@ public class LocalizedLabel : BaseControl, ILocalizationSupport
     /// Shows the localized text string (if available)
     /// </summary>
     /// <param name="writer">The output.</param>
-    protected override void Render(HtmlTextWriter writer)
+    override protected void Render(HtmlTextWriter writer)
     {
         writer.BeginRender();
 

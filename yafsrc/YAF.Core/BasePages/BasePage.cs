@@ -35,7 +35,7 @@ public class BasePage : Page
     /// <summary>
     /// The initialize culture.
     /// </summary>
-    protected override void InitializeCulture()
+    override protected void InitializeCulture()
     {
         var language = "en-US";
 

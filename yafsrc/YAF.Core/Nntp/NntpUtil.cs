@@ -39,7 +39,7 @@ public static class NntpUtil
     /// <summary>
     ///   The base 64 pem code.
     /// </summary>
-    private static readonly char[] Base64PemCode =
+    private readonly static char[] Base64PemCode =
         {
             'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
             'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
@@ -50,7 +50,7 @@ public static class NntpUtil
     /// <summary>
     ///   The hex value.
     /// </summary>
-    private static readonly int[] HexValue;
+    private readonly static int[] HexValue;
 
     /// <summary>
     ///   Initializes static members of the <see cref = "NntpUtil" /> class.

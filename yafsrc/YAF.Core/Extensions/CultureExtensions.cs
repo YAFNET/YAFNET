@@ -48,7 +48,7 @@ public static class CultureExtensions
     /// <summary>
     /// The pc.
     /// </summary>
-    private static readonly PersianCalendar pc = new();
+    private readonly static PersianCalendar pc = new();
 
     /// <summary>
     /// Gets the persian calendar.

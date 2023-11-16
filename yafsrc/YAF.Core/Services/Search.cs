@@ -65,7 +65,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// <summary>
     /// The search index folder.
     /// </summary>
-    private static readonly string SearchIndexFolder = Path.Combine(
+    private readonly static string SearchIndexFolder = Path.Combine(
         AppDomain.CurrentDomain.GetData("DataDirectory").ToString(),
         "search_index");
 

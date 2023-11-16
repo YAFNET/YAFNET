@@ -38,7 +38,7 @@ public static class IPHelper
     /// <summary>
     /// The non routable IP v4 networks.
     /// </summary>
-    private static readonly List<string> NonRoutableIPv4Networks = new()
+    private readonly static List<string> NonRoutableIPv4Networks = new()
                                                                        {
                                                                            "10.0.0.0/8",
                                                                            "172.16.0.0/12",
@@ -51,7 +51,7 @@ public static class IPHelper
     /// <summary>
     /// The non routable IP v6 networks.
     /// </summary>
-    private static readonly List<string> NonRoutableIPv6Networks = new()
+    private readonly static List<string> NonRoutableIPv6Networks = new()
                                                                        {
                                                                            "::/128",
                                                                            "::1/128",

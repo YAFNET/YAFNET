@@ -36,7 +36,7 @@ public class UtilitiesModule : BaseModule
     /// <param name="builder">
     /// The builder.
     /// </param>
-    protected override void Load(ContainerBuilder builder)
+    override protected void Load(ContainerBuilder builder)
     {
         RegisterWebAbstractions(builder);
     }

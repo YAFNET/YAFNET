@@ -52,7 +52,7 @@ public class ForumPageBase : Page, IHaveServiceLocator, IRequireStartupServices
     /// <summary>
     /// The initialize culture.
     /// </summary>
-    protected override void InitializeCulture()
+    override protected void InitializeCulture()
     {
         var language = "en-US";
 
@@ -79,7 +79,7 @@ public class ForumPageBase : Page, IHaveServiceLocator, IRequireStartupServices
     /// <param name="e">
     /// The <see cref="EventArgs"/> instance containing the event data.
     /// </param>
-    protected override void OnError(EventArgs e)
+    override protected void OnError(EventArgs e)
     {
         if (!this.Get<StartupInitializeDb>().Initialized)
         {

@@ -129,7 +129,7 @@ public class PopMenu : BaseControl, IPostBackEventHandler
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    override protected void Render(HtmlTextWriter writer)
     {
         if (!this.Visible)
         {

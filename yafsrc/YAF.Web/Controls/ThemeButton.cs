@@ -34,12 +34,12 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     /// <summary>
     ///   The click event.
     /// </summary>
-    private static readonly object ClickEvent = new();
+    private readonly static object ClickEvent = new();
 
     /// <summary>
     ///   The command event.
     /// </summary>
-    private static readonly object CommandEvent = new();
+    private readonly static object CommandEvent = new();
 
     /// <summary>
     ///   The localized label.
@@ -430,7 +430,7 @@ public class ThemeButton : BaseControl, IPostBackEventHandler, IButtonControl
     /// <param name="writer">
     /// The output.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    override protected void Render(HtmlTextWriter writer)
     {
         if (this.CausesValidation)
         {

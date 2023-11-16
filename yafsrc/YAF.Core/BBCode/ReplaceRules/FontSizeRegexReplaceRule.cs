@@ -57,7 +57,7 @@ public class FontSizeRegexReplaceRule : VariableRegexReplaceRule
     /// <returns>
     /// The manage variable value.
     /// </returns>
-    protected override string ManageVariableValue(string variableName, string variableValue, string handlingValue)
+    override protected string ManageVariableValue(string variableName, string variableValue, string handlingValue)
     {
         return variableName == "size" ? GetFontSize(variableValue) : variableValue;
     }

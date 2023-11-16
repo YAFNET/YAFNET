@@ -147,7 +147,7 @@ public partial class PostTopic : ForumPage
     /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
     /// </summary>
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    protected override void OnInit(EventArgs e)
+    override protected void OnInit(EventArgs e)
     {
         if (this.PageBoardContext.UploadAccess)
         {
@@ -166,7 +166,7 @@ public partial class PostTopic : ForumPage
     /// Registers the java scripts
     /// </summary>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected override void OnPreRender(EventArgs e)
+    override protected void OnPreRender(EventArgs e)
     {
         this.PageBoardContext.PageElements.RegisterJsBlock(
             nameof(JavaScriptBlocks.GetBoardTagsJs),

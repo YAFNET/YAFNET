@@ -32,7 +32,7 @@ public class SqliteDbInformation : IDbInformation
     /// <summary>
     /// The YAF Provider Upgrade script list
     /// </summary>
-    private static readonly string[] IdentityUpgradeScriptList = { };
+    private readonly static string[] IdentityUpgradeScriptList = { };
 
     /// <summary>
     /// The DB parameters

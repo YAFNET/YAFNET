@@ -33,7 +33,7 @@ public class Attach : BBCodeControl
     /// Render The Album Image as Link with Image
     /// </summary>
     /// <param name="writer">The writer.</param>
-    protected override void Render(HtmlTextWriter writer)
+    override protected void Render(HtmlTextWriter writer)
     {
         var attachId = HtmlTagHelper.StripHtml(this.Parameters["inner"]);
 

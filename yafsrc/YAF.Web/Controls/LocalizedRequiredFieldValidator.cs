@@ -79,7 +79,7 @@ public class LocalizedRequiredFieldValidator : RequiredFieldValidator, ILocaliza
     /// Raises the <see cref="E:System.Web.UI.Control.Load" /> event.
     /// </summary>
     /// <param name="e">The <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-    protected override void OnLoad(EventArgs e)
+    override protected void OnLoad(EventArgs e)
     {
         base.OnLoad(e);
 

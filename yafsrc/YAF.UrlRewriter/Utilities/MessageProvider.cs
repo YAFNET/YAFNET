@@ -19,17 +19,17 @@ using System.Resources;
 /// <summary>
 /// Message provider.
 /// </summary>
-internal static class MessageProvider
+static internal class MessageProvider
 {
     /// <summary>
     /// The message cache.
     /// </summary>
-    private static readonly IDictionary<Message, string> MessageCache = new Dictionary<Message, string>();
+    private readonly static IDictionary<Message, string> MessageCache = new Dictionary<Message, string>();
 
     /// <summary>
     /// The resources.
     /// </summary>
-    private static readonly ResourceManager Resources = new(Constants.Messages, Assembly.GetExecutingAssembly());
+    private readonly static ResourceManager Resources = new(Constants.Messages, Assembly.GetExecutingAssembly());
 
     /// <summary>
     /// Formats a string.

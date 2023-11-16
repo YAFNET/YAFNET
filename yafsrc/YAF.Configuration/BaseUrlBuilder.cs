@@ -179,7 +179,7 @@ public abstract class BaseUrlBuilder : IUrlBuilder
     /// <returns>
     /// The treat base url.
     /// </returns>
-    protected static string TreatBaseUrl(string baseUrl)
+    static protected string TreatBaseUrl(string baseUrl)
     {
         if (baseUrl.EndsWith("/"))
         {
@@ -197,7 +197,7 @@ public abstract class BaseUrlBuilder : IUrlBuilder
     /// <returns>
     /// The treat path string.
     /// </returns>
-    protected static string TreatPathStr(string altRoot)
+    static protected string TreatPathStr(string altRoot)
     {
         var pathBuilder = new StringBuilder();
 

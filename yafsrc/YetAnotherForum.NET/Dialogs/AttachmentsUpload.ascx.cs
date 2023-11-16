@@ -33,7 +33,7 @@ public partial class AttachmentsUpload : BaseUserControl
     /// Handles the PreRender event
     /// </summary>
     /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    protected override void OnPreRender(EventArgs e)
+    override protected void OnPreRender(EventArgs e)
     {
         base.OnPreRender(e);
 

@@ -47,7 +47,7 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// <summary>
     ///     The _injection cache.
     /// </summary>
-    private static readonly
+    private readonly static
         ConcurrentDictionary<KeyValuePair<Type, Type>, IList<Tuple<Type, Type, Action<object, object>>>> InjectionCache =
             new();
 

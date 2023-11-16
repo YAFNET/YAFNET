@@ -74,7 +74,7 @@ public class ActiveUsers : BaseControl
     /// <param name="e">
     /// The e.
     /// </param>
-    protected override void OnPreRender(EventArgs e)
+    override protected void OnPreRender(EventArgs e)
     {
         // IMPORTANT : call base implementation, raises PreRender event
         base.OnPreRender(e);
@@ -167,7 +167,7 @@ public class ActiveUsers : BaseControl
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    override protected void Render(HtmlTextWriter writer)
     {
         // writes starting tag
         writer.Write(@"<ul class=""list-inline"">");

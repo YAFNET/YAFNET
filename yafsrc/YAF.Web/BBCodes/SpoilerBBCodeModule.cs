@@ -34,7 +34,7 @@ public class SpoilerBBCodeModule : BBCodeControl
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    override protected void Render(HtmlTextWriter writer)
     {
         var spoilerTitle = this.HtmlEncode(
             this.LocalizedString(

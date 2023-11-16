@@ -34,7 +34,7 @@ public class ExampleBBCodeModule : BBCodeControl
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    override protected void Render(HtmlTextWriter writer)
     {
         writer.Write($"Hello, you wrote this: {this.Parameters["inner"]}");
     }

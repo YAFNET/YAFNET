@@ -49,7 +49,7 @@ public class ForumUsers : BaseControl
     /// <param name="writer">
     /// The writer.
     /// </param>
-    protected override void Render(HtmlTextWriter writer)
+    override protected void Render(HtmlTextWriter writer)
     {
         // Ederon : 07/14/2007
         if (!this.PageBoardContext.BoardSettings.ShowBrowsingUsers)
