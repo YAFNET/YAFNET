@@ -99,6 +99,11 @@ public class RegisterModel : AccountPage
     {
         this.Input = new InputModel();
 
+        if (this.PageBoardContext.BoardSettings.DisableRegistrations)
+        {
+            return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
+        }
+
         if (this.ErrorMessage.IsSet())
         {
             this.ModelState.AddModelError(string.Empty, this.ErrorMessage);
