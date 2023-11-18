@@ -104,17 +104,19 @@ public class AntiXsrfModule : SimpleBaseForumModule
     /// </exception>
     private void Page_OnPreLoad(object sender, EventArgs e)
     {
-        if (!ForumControl.Page.IsPostBack)
+        var cacheKey = $"{this.Get<HttpSessionStateBase>().SessionID}{AntiXsrfTokenKey}";
+
+        if (!this.ForumControl.Page.IsPostBack)
         {
             // Set Anti-XSRF token
-            this.Get<IDataCache>().Set(AntiXsrfTokenKey, ForumControl.Page.ViewStateUserKey);
+            this.Get<IDataCache>().Set(cacheKey, this.ForumControl.Page.ViewStateUserKey);
         }
         else
         {
             // Validate the Anti-XSRF token
-            if ((string)this.Get<IDataCache>().Get(AntiXsrfTokenKey) != this.antiXsrfTokenValue)
+            if ((string)this.Get<IDataCache>().Get(cacheKey) != this.antiXsrfTokenValue)
             {
-                throw new InvalidOperationException("Validation of Anti -XSRF token failed.");
+               throw new InvalidOperationException("Validation of Anti -XSRF token failed.");
             }
         }
     }
