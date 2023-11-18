@@ -98,6 +98,11 @@ public partial class Register : AccountPage
     /// </param>
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (this.PageBoardContext.BoardSettings.DisableRegistrations)
+        {
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
+        }
+
         if (this.IsPostBack)
         {
             this.BodyRegister.CssClass = "card-body was-validated";
