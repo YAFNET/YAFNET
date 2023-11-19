@@ -73,8 +73,8 @@ public static class BoardInfo
                           {
                               Major = 3,
                               Minor = 2,
-                              Build = 0,
-                              ReleaseType = ReleaseType.Regular,
+                              Build = 1,
+                              ReleaseType = ReleaseType.BETA,
                               ReleaseNumber = 0
                           };
 

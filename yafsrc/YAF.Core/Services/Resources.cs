@@ -260,6 +260,14 @@ public class Resources : IResources, IHaveServiceLocator
     {
         try
         {
+            if (!ValidationHelper.IsNumeric(context.Request.QueryString["avatar"]))
+            {
+                context.Response.Write(
+                    "Error: Resource has been moved or is unavailable. Please contact the forum admin.");
+
+                return;
+            }
+
             var user = BoardContext.Current.GetRepository<User>()
                 .GetById(context.Request.QueryString.GetFirstOrDefaultAs<int>("avatar"));
 
@@ -270,7 +278,7 @@ public class Resources : IResources, IHaveServiceLocator
 
                 return;
             }
-                
+
             var name = new UnicodeEncoder().XSSEncode(user.DisplayOrUserName());
 
             if (name.StartsWith("&"))
