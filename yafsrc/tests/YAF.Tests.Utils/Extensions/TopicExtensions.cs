@@ -46,7 +46,7 @@ public static class TopicExtensions
     /// Returns if Creating of the 
     /// New Topic was successfully or not
     /// </returns>
-    public static async Task<bool> CreateNewTestTopicAsync(this IPage page, TestConfig testSettings)
+    public async static Task<bool> CreateNewTestTopicAsync(this IPage page, TestConfig testSettings)
     {
         await page.GotoAsync($"{testSettings.TestForumUrl}PostTopic/{testSettings.TestForumId}");
 
@@ -84,7 +84,7 @@ public static class TopicExtensions
     /// <returns>
     /// Returns if Reply was Created or not
     /// </returns>
-    public static async Task<bool> CreateNewReplyInTestTopicAsync(this IPage page, TestConfig testSettings, string message)
+    public async static Task<bool> CreateNewReplyInTestTopicAsync(this IPage page, TestConfig testSettings, string message)
     {
         // Go to Post New Topic
         await page.GotoAsync(

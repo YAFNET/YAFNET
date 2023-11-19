@@ -44,7 +44,7 @@ public static class RegisterLoginExtensions
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public static async Task<bool> LogOutUserAsync(this IPage page)
+    public async static Task<bool> LogOutUserAsync(this IPage page)
     {
         await page.Locator(".nav-link-user-dropdown").ClickAsync();
         await page.Locator("//a[contains(@aria-label, 'sign-out-alt')]").ClickAsync();
@@ -101,7 +101,7 @@ public static class RegisterLoginExtensions
     /// </param>
     /// <returns>Returns if Successfully or not
     /// </returns>
-    public static async Task<bool> LoginAdminUserAsync(this IPage page, TestConfig testSettings)
+    public async static Task<bool> LoginAdminUserAsync(this IPage page, TestConfig testSettings)
     {
         await page.LogOutUserAsync();
 
@@ -133,7 +133,7 @@ public static class RegisterLoginExtensions
     /// <param name="userName">Name of the user.</param>
     /// <param name="userPassword">The user password.</param>
     /// <returns>If User login was successfully or not</returns>
-    public static async Task<bool> LoginUserAsync(this IPage page, TestConfig testSettings, string userName, string userPassword)
+    public async static Task<bool> LoginUserAsync(this IPage page, TestConfig testSettings, string userName, string userPassword)
     {
         await page.GotoAsync($"{testSettings.TestForumUrl}Account/login");
 
@@ -170,7 +170,7 @@ public static class RegisterLoginExtensions
     /// <returns>
     /// If User was Registered or not
     /// </returns>
-    private static async Task<bool> RegisterUserAsync(this IPage page, TestConfig testSettings, SimpleSmtpServer simpleSmtpServer, string userName, string email, string password)
+    private async static Task<bool> RegisterUserAsync(this IPage page, TestConfig testSettings, SimpleSmtpServer simpleSmtpServer, string userName, string email, string password)
     {
         await page.GotoAsync($"{testSettings.TestForumUrl}Account/Register");
 
