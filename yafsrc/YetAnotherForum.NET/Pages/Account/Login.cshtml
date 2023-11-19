@@ -15,12 +15,12 @@
             <div class="card-body">
                 <section>
                     <form method="post" class="needs-validation" novalidate>
-                        
+
                         @if (Model.ShowNotApproved)
                         {
                             <div class="mb-3">
                                 <alert type="warning">
-                                    @Html.LocalizedText("LOGIN","ACCOUNT_NOT_APPROVED")
+                                    @Html.LocalizedText("LOGIN", "ACCOUNT_NOT_APPROVED")
                                     <button button
                                             button-style="None"
                                             class="alert-link"
@@ -50,7 +50,7 @@
                                 <span class="input-group-text">
                                     @Html.Icon("key", "text-secondary")
                                 </span>
-                                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" required/>
+                                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" required />
                                 <div class="invalid-feedback">
                                     @Html.LocalizedText("PAGE", "NEED_PASSWORD")
                                 </div>
@@ -62,7 +62,7 @@
                         <div class="row">
                             <div class="mb-3 col-md-6">
                                 <div class="form-check">
-                                    <input asp-for="Input.RememberMe" class="form-check-input"/>
+                                    <input asp-for="Input.RememberMe" class="form-check-input" />
                                     <label asp-for="Input.RememberMe" class="form-check-label"
                                            localized-page="LOGIN" localized-tag="AUTO">
                                     </label>

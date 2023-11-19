@@ -10,13 +10,77 @@
         <profileMenu></profileMenu>
     </div>
     <div class="col">
+        <div class="card mb-3">
+            <div class="card-header">
+                @if (Model.TwoFactorEnabled)
+                {
+                    @Html.IconHeader("key", "EDIT_SETTINGS", "DISABLE_TWO_FACTOR_HEADER")
+                }
+                else
+                {
+                    @Html.IconHeader("key", "EDIT_SETTINGS", "TWO_FACTOR_HEADER")
+                }
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    @if (Model.TwoFactorEnabled)
+                    {
+                        <div class="mb-3">
+                            <label asp-for="InputCode" class="form-label" localized-page="EDIT_SETTINGS" localized-tag="SETUP_CODE"></label>
+                            <input type="text" class="form-control" asp-for="InputCode" placeholder="@Html.LocalizedText("TWO_FA_PLACEHOLDER")">
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit"
+                                    button-style="Primary"
+                                    icon="check"
+                                    asp-page-handler="DisableTwoFa"
+                                    text-localized-page="EDIT_SETTINGS"
+                                    text-localized-tag="DISABLE_2FA"></button>
+                            <input type="hidden" asp-for="TwoFactorKey" />
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-info mb-3">
+                            <div class="d-flex">
+                                <div>
+                                    <i class="fas fa-info-circle me-3 mt-1" style="font-size: 2.5em"></i>
+                                </div>
+                                <div class="small">
+                                    <ul class="mt-0 mb-0">
+                                        @Html.LocalizedText("EDIT_SETTINGS", "INFO")
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <img src="@Model.BarcodeImageUrl" alt="barcode" />
+                        </div>
+                        <alert type="info" icon="info">@Model.SetupCode</alert>
+                        <div class="mb-3">
+                            <label asp-for="InputCode" class="form-label" localized-page="EDIT_SETTINGS" localized-tag="SETUP_CODE"></label>
+                            <input type="text" class="form-control" asp-for="InputCode" placeholder="@Html.LocalizedText("TWO_FA_PLACEHOLDER")">
+                        </div>
+                        <div class="mb-3">
+                            <button type="submit"
+                                    button-style="Primary"
+                                    icon="check"
+                                    asp-page-handler="EnableTwoFa"
+                                    text-localized-page="EDIT_SETTINGS"
+                                    text-localized-tag="ENABLE_2FA"></button>
+                            <input type="hidden" asp-for="TwoFactorKey" />
+                        </div>
+                    }
+                </form>
+            </div>
+        </div>
+
         <div class="card">
             <div class="card-header">
                 @Html.IconHeader("user-cog", "EDIT_SETTINGS", "TITLE")
             </div>
             <div class="card-body">
                 <form method="post">
-
                     <h4>
                         @Html.LocalizedText("EDIT_PROFILE", "FORUM_SETTINGS")
                     </h4>
@@ -25,7 +89,7 @@
                     {
                         <div class="mb-3">
                             <div class="form-check form-switch">
-                                <input asp-for="HideMe" class="form-check-input" role="switch" />
+                                <input asp-for="HideMe" class="form-check-input" role="switch"/>
                                 <label asp-for="HideMe" class="form-check-label"
                                        localized-page="EDIT_PROFILE"
                                        localized-tag="HIDEME">
@@ -36,7 +100,7 @@
 
                     <div class="mb-3">
                         <div class="form-check form-switch">
-                            <input asp-for="Activity" class="form-check-input" role="switch" />
+                            <input asp-for="Activity" class="form-check-input" role="switch"/>
                             <label asp-for="Activity" class="form-check-label"
                                    localized-page="EDIT_PROFILE"
                                    localized-tag="ACTIVITY">
@@ -144,7 +208,7 @@
                         <div class="mb-3">
                             <label asp-for="Email" localized-page="EDIT_PROFILE" localized-tag="EMAIL" class="form-label">
                             </label>
-                            <input asp-for="Email" class="form-control" />
+                            <input asp-for="Email" class="form-control"/>
                         </div>
                     }
 

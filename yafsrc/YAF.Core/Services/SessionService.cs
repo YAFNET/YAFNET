@@ -184,6 +184,14 @@ public class SessionService : ISessionService
     }
 
     /// <summary>
+    /// Clears the page data.
+    /// </summary>
+    public void ClearPageData()
+    {
+        this.SessionState.Remove($"PageData_{BoardContext.Current.PageUserID}");
+    }
+
+    /// <summary>
     ///   Gets or sets TopicRead.
     /// </summary>
     public Hashtable TopicRead
@@ -255,7 +263,7 @@ public class SessionService : ISessionService
     /// </param>
     public void SetForumRead(int forumId, DateTime date)
     {
-        var t = this.ForumRead ?? new Hashtable();
+        var t = this.ForumRead ?? [];
 
         t[forumId] = date;
         this.ForumRead = t;
@@ -272,7 +280,7 @@ public class SessionService : ISessionService
     /// </param>
     public void SetTopicRead(int topicId, DateTime date)
     {
-        var t = this.TopicRead ?? new Hashtable();
+        var t = this.TopicRead ?? [];
 
         t[topicId] = date;
         this.TopicRead = t;

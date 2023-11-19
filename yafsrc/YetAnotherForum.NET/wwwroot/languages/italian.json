@@ -8271,6 +8271,10 @@
             "#text": "Il numero massimo di utenti registrati contemporaneamente in linea è stato {0} il {1}."
           },
           {
+            "@tag": "MEDIA",
+            "#text": "Insert Media"
+          },
+          {
             "@tag": "MENU",
             "#text": "Menù"
           },
@@ -8507,6 +8511,10 @@
             "#text": "Elenco puntato"
           },
           {
+            "@tag": "TT_MEDIA",
+            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -8621,14 +8629,6 @@
           {
             "@tag": "YES",
             "#text": "Sì"
-          },
-          {
-            "@tag": "MEDIA",
-            "#text": "Insert Media"
-          },
-          {
-            "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           }
         ]
       },
@@ -10307,6 +10307,38 @@
           {
             "@tag": "TITLE",
             "#text": "Modifica delle impostazioni"
+          },
+          {
+            "@tag": "DISABLE_2FA",
+            "#text": "Disable Two Factor Authentication"
+          },
+          {
+            "@tag": "DISABLE_TWO_FACTOR_HEADER",
+            "#text": "Disable Two Factor Authentication"
+          },
+          {
+            "@tag": "ENABLE_2FA",
+            "#text": "Turn on Two Factor Authentication"
+          },
+          {
+            "@tag": "INFO",
+            "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
+          },
+          {
+            "@tag": "INPUT_CODE",
+            "#text": "Input security code"
+          },
+          {
+            "@tag": "SETUP_CODE",
+            "#text": "Setup code"
+          },
+          {
+            "@tag": "TWO_FACTOR_HEADER",
+            "#text": "Enable Two Factor Authentication"
+          },
+          {
+            "@tag": "WRONG_CODE",
+            "#text": "You have entered the wrong 2FA Code!"
           }
         ]
       },
@@ -11681,6 +11713,18 @@
           {
             "@tag": "WRONG_USERNAME_EMAIL",
             "#text": "Nome utente o indirizzo e-mail errato."
+          },
+          {
+            "@tag": "TWO_FA_INFO",
+            "#text": "Please enter a validation code from your Authenticator app."
+          },
+          {
+            "@tag": "TWO_FA_PLACEHOLDER",
+            "#text": "Validation code: ### ###"
+          },
+          {
+            "@tag": "TWO_FA_VALIDATION",
+            "#text": "Two-Factor Validation"
           }
         ]
       },

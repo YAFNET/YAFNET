@@ -70,6 +70,36 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     public IPasswordHasher<AspNetUsers> PasswordHasher => this.Get<AspNetUsersManager>().PasswordHasher;
 
     /// <summary>
+    /// Enable 2FA for the ASP net user
+    /// </summary>
+    /// <param name="aspNetUser">The ASP net user.</param>
+    /// <param name="twoFactorKey">The two factor key.</param>
+    /// <returns>Task.</returns>
+    public Task SetTwoFactorEnabledAsync(AspNetUsers aspNetUser, string twoFactorKey)
+    {
+        aspNetUser.TwoFactorEnabled = true;
+
+        aspNetUser.MobilePIN = twoFactorKey;
+
+        return this.Get<AspNetUsersManager>().UpdateUsrAsync(aspNetUser);
+    }
+
+    /// <summary>
+    /// Disable 2FA for the ASP net user
+    /// </summary>
+    /// <param name="aspNetUser">The ASP net user.</param>
+    /// <param name="twoFactorKey">The two factor key.</param>
+    /// <returns>Task.</returns>
+    public Task SetTwoFactorDisabledAsync(AspNetUsers aspNetUser, string twoFactorKey)
+    {
+        aspNetUser.TwoFactorEnabled = false;
+
+        aspNetUser.MobilePIN = string.Empty;
+
+        return this.Get<AspNetUsersManager>().UpdateUsrAsync(aspNetUser);
+    }
+
+    /// <summary>
     /// Gets the guest user for the current board.
     /// </summary>
     /// <param name="boardId">
@@ -586,15 +616,15 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// The sign in.
     /// </summary>
     /// <param name="user">
-    /// The user.
+    ///     The user.
     /// </param>
     /// <param name="isPersistent">
-    /// The is persistent.
+    ///     The is persistent.
     /// </param>
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public async Task SignInAsync(AspNetUsers user, bool isPersistent = true)
+    public async Task<IActionResult> SignInAsync(AspNetUsers user, bool isPersistent = true)
     {
         await this.Get<SignInManager<AspNetUsers>>().SignOutAsync();
 
@@ -606,6 +636,8 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         await this.Get<IAspNetUsersHelper>().UpdateUserAsync(user);
 
         this.Get<IRaiseEvent>().Raise(new SuccessfulUserLoginEvent(BoardContext.Current.PageUserID));
+
+        return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
     }
 
     /// <summary>

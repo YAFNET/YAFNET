@@ -75,6 +75,8 @@ public class ServicesModule : BaseModule
             .PreserveExistingDefaults();
         builder.RegisterType<BoardInfo>().AsSelf().InstancePerLifetimeScope()
             .PreserveExistingDefaults();
+        builder.RegisterType<TwoFactorAuthService>().As<ITwoFactorAuthService>().InstancePerLifetimeScope()
+            .PreserveExistingDefaults();
 
         builder.RegisterType<BBCodeService>().As<IBBCodeService>().InstancePerLifetimeScope()
             .PreserveExistingDefaults();

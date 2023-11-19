@@ -101,6 +101,11 @@ public interface ISessionService
     public void SetPageData<T>(T newData);
 
     /// <summary>
+    /// Clears the page data.
+    /// </summary>
+    public void ClearPageData();
+
+    /// <summary>
     ///   Gets or sets TopicRead.
     /// </summary>
     Hashtable TopicRead { get; set; }

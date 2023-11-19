@@ -73,6 +73,10 @@ public class LoginModel : AccountPage
     [TempData]
     public string ErrorMessage { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether [show not approved].
+    /// </summary>
+    /// <value><c>true</c> if [show not approved]; otherwise, <c>false</c>.</value>
     [TempData]
     public bool ShowNotApproved { get; set; }
 
@@ -90,7 +94,7 @@ public class LoginModel : AccountPage
     /// </summary>
     public override void CreatePageLinks()
     {
-        this.PageBoardContext.PageLinks.AddLink(this.GetText("LOGIN","TITLE"));
+        this.PageBoardContext.PageLinks.AddLink(this.GetText("LOGIN", "TITLE"));
     }
 
     /// <summary>
@@ -105,6 +109,8 @@ public class LoginModel : AccountPage
         {
             this.ModelState.AddModelError(string.Empty, this.ErrorMessage);
         }
+
+        this.Input = new InputModel();
 
         return Task.CompletedTask;
     }
@@ -128,7 +134,9 @@ public class LoginModel : AccountPage
             return await this.HandleExternalLoginAsync(auth);
         }
 
-        return this.Get<ISessionService>().InfoMessage.IsSet() ? this.PageBoardContext.Notify(this.Get<ISessionService>().InfoMessage, MessageTypes.danger) : this.Page();
+        return this.Get<ISessionService>().InfoMessage.IsSet()
+                   ? this.PageBoardContext.Notify(this.Get<ISessionService>().InfoMessage, MessageTypes.danger)
+                   : this.Page();
     }
 
     /// <summary>
@@ -164,7 +172,7 @@ public class LoginModel : AccountPage
             this.Email = user.Email;
             this.ShowNotApproved = true;
 
-            return this.PageBoardContext.Notify(this.GetText("LOGIN","ACCOUNT_NOT_APPROVED"), MessageTypes.warning);
+            return this.PageBoardContext.Notify(this.GetText("LOGIN", "ACCOUNT_NOT_APPROVED"), MessageTypes.warning);
         }
 
         // Valid user, verify password
@@ -174,17 +182,13 @@ public class LoginModel : AccountPage
         switch (result)
         {
             case PasswordVerificationResult.Success:
-                await this.Get<IAspNetUsersHelper>().SignInAsync(user, this.Input.RememberMe);
-
-               return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
+                return await this.SignInAsync(user);
 
             case PasswordVerificationResult.SuccessRehashNeeded:
                 user.PasswordHash = this.Get<IAspNetUsersHelper>().PasswordHasher
                     .HashPassword(user, this.Input.Password);
 
-                await this.Get<IAspNetUsersHelper>().SignInAsync(user, this.Input.RememberMe);
-
-                return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
+                return await this.SignInAsync(user);
 
             default:
             {
@@ -214,6 +218,23 @@ public class LoginModel : AccountPage
     }
 
     /// <summary>
+    /// Sign in user.
+    /// </summary>
+    /// <param name="user">The user.</param>
+    /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
+    public async Task<IActionResult> SignInAsync(AspNetUsers user)
+    {
+        if (user.TwoFactorEnabled)
+        {
+            return this.Get<LinkBuilder>().Redirect(ForumPages.Account_Authorize);
+        }
+
+        this.Get<ISessionService>().SetPageData(user);
+
+        return await this.Get<IAspNetUsersHelper>().SignInAsync(user, this.Input.RememberMe);
+    }
+
+    /// <summary>
     /// Go to Register Page.
     /// </summary>
     public IActionResult OnPostRegister()
@@ -235,15 +256,13 @@ public class LoginModel : AccountPage
     /// </returns>
     public Task<ActionResult> OnPostAuthAsync(string auth)
     {
-        var redirectUrl = this.Get<LinkBuilder>().GetLink(
-            ForumPages.Account_Login,
-            new { auth, handler = "Callback" });
+        var redirectUrl = this.Get<LinkBuilder>().GetLink(ForumPages.Account_Login, new { auth, handler = "Callback" });
 
         var properties = this.Get<SignInManager<AspNetUsers>>()
             .ConfigureExternalAuthenticationProperties(auth, redirectUrl);
 
-        ServicePointManager.SecurityProtocol = SecurityProtocolType.SystemDefault |
-                                               SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.SystemDefault | SecurityProtocolType.Tls12
+                                               | SecurityProtocolType.Tls13;
 
         return Task.FromResult<ActionResult>(new ChallengeResult(auth, properties));
     }
@@ -273,8 +292,9 @@ public class LoginModel : AccountPage
 
         var verifyEmail = new TemplateEmail("VERIFYEMAIL");
 
-        var subject = this.Get<ILocalization>()
-            .GetTextFormatted("VERIFICATION_EMAIL_SUBJECT", this.PageBoardContext.BoardSettings.Name);
+        var subject = this.Get<ILocalization>().GetTextFormatted(
+            "VERIFICATION_EMAIL_SUBJECT",
+            this.PageBoardContext.BoardSettings.Name);
 
         verifyEmail.TemplateParams["{link}"] = this.Get<LinkBuilder>().GetAbsoluteLink(
             ForumPages.Account_Approve,
@@ -285,9 +305,7 @@ public class LoginModel : AccountPage
 
         await verifyEmail.SendEmailAsync(new MailboxAddress(this.Input.UserName, checkMail.Email), subject);
 
-        return this.PageBoardContext.Notify(
-            this.GetText("LOGIN", "MSG_MESSAGE_SEND"),
-            MessageTypes.success);
+        return this.PageBoardContext.Notify(this.GetText("LOGIN", "MSG_MESSAGE_SEND"), MessageTypes.success);
     }
 
     /// <summary>

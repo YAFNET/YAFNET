@@ -100,17 +100,13 @@ public class LoginBox : ForumBaseController
         switch (result)
         {
             case PasswordVerificationResult.Success:
-                await this.Get<IAspNetUsersHelper>().SignInAsync(user, model.RememberMe);
-
-                return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
+                return await this.SignInAsync(user, model);
 
             case PasswordVerificationResult.SuccessRehashNeeded:
                 user.PasswordHash = this.Get<IAspNetUsersHelper>().PasswordHasher
                     .HashPassword(user, model.Password);
 
-                await this.Get<IAspNetUsersHelper>().SignInAsync(user, model.RememberMe);
-
-                return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
+                return await this.SignInAsync(user, model);
 
             default:
                 {
@@ -162,5 +158,23 @@ public class LoginBox : ForumBaseController
                                                SecurityProtocolType.Tls12 | SecurityProtocolType.Tls13;
 
         return Task.FromResult<IActionResult>(new ChallengeResult(auth, properties));
+    }
+
+    /// <summary>
+    /// Sign in user
+    /// </summary>
+    /// <param name="user">The user.</param>
+    /// <param name="modal">The modal.</param>
+    /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
+    public async Task<IActionResult> SignInAsync(AspNetUsers user, LoginModal modal)
+    {
+        if (!user.TwoFactorEnabled)
+        {
+            return await this.Get<IAspNetUsersHelper>().SignInAsync(user, modal.RememberMe);
+        }
+
+        this.Get<ISessionService>().SetPageData(user);
+
+        return this.Get<LinkBuilder>().Redirect(ForumPages.Account_Authorize);
     }
 }

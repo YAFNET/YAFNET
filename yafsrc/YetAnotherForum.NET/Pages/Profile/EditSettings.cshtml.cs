@@ -55,6 +55,25 @@ public class EditSettingsModel : ProfilePage
     {
     }
 
+    [BindProperty]
+    public string TwoFactorKey { get; set; }
+
+    [BindProperty]
+    public string BarcodeImageUrl { get; set; }
+
+    [BindProperty]
+    public string SetupCode { get; set; }
+
+    [BindProperty]
+    public string InputCode { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether [two factor enabled].
+    /// </summary>
+    /// <value><c>true</c> if [two factor enabled]; otherwise, <c>false</c>.</value>
+    [BindProperty]
+    public bool TwoFactorEnabled { get; set; }
+
     /// <summary>
     /// Gets or sets a value indicating whether activity.
     /// </summary>
@@ -122,7 +141,9 @@ public class EditSettingsModel : ProfilePage
     /// </summary>
     public override void CreatePageLinks()
     {
-        this.PageBoardContext.PageLinks.AddLink(this.PageBoardContext.PageUser.DisplayOrUserName(), this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
+        this.PageBoardContext.PageLinks.AddLink(
+            this.PageBoardContext.PageUser.DisplayOrUserName(),
+            this.Get<LinkBuilder>().GetLink(ForumPages.MyAccount));
         this.PageBoardContext.PageLinks.AddLink(this.GetText("EDIT_SETTINGS", "TITLE"), string.Empty);
     }
 
@@ -159,13 +180,13 @@ public class EditSettingsModel : ProfilePage
 
             try
             {
-                await this.Get<IAspNetUsersHelper>().UpdateEmailAsync(this.PageBoardContext.MembershipUser, this.Email.Trim());
+                await this.Get<IAspNetUsersHelper>().UpdateEmailAsync(
+                    this.PageBoardContext.MembershipUser,
+                    this.Email.Trim());
             }
             catch (ApplicationException)
             {
-                this.PageBoardContext.Notify(
-                    this.GetText("PROFILE", "DUPLICATED_EMAIL"),
-                    MessageTypes.warning);
+                this.PageBoardContext.Notify(this.GetText("PROFILE", "DUPLICATED_EMAIL"), MessageTypes.warning);
 
                 this.BindData();
             }
@@ -187,9 +208,8 @@ public class EditSettingsModel : ProfilePage
         }
         else
         {
-            StaticDataHelper.Cultures()
-                .Where(row => culture == row.CultureTag).ForEach(
-                    row => language = row.CultureFile);
+            StaticDataHelper.Cultures().Where(row => culture == row.CultureTag)
+                .ForEach(row => language = row.CultureFile);
         }
 
         // save remaining settings to the DB
@@ -202,15 +222,11 @@ public class EditSettingsModel : ProfilePage
             themeMode,
             this.HideMe,
             this.Activity,
-            this.Size
-        );
+            this.Size);
 
         if (this.PageBoardContext.PageUser.UserFlags.IsGuest)
         {
-            this.GetRepository<Registry>().Save(
-                "timezone",
-                this.TimeZone,
-                this.PageBoardContext.PageBoardID);
+            this.GetRepository<Registry>().Save("timezone", this.TimeZone, this.PageBoardContext.PageBoardID);
         }
 
         // clear the cache for this user...)
@@ -222,11 +238,54 @@ public class EditSettingsModel : ProfilePage
     }
 
     /// <summary>
+    /// Check Entered 2FA Code, and if correct enable 2FA for the Current User
+    /// </summary>
+    /// <returns>IActionResult.</returns>
+    public async Task<IActionResult> OnPostEnableTwoFaAsync()
+    {
+        if (!this.Get<ITwoFactorAuthService>().ValidatePin(this.TwoFactorKey, this.InputCode))
+        {
+            this.BindData();
+
+            return this.PageBoardContext.Notify(this.GetText("EDIT_SETTINGS", "WRONG_CODE"), MessageTypes.warning);
+        }
+
+        await this.Get<IAspNetUsersHelper>().SetTwoFactorEnabledAsync(
+            this.PageBoardContext.MembershipUser,
+            this.TwoFactorKey);
+
+        return this.Get<LinkBuilder>().Redirect(ForumPages.Profile_EditSettings);
+    }
+
+    /// <summary>
+    /// Check Entered 2FA Code, and if correct disable 2FA for the Current User
+    /// </summary>
+    /// <returns>IActionResult.</returns>
+    public async Task<IActionResult> OnPostDisableTwoFaAsync()
+    {
+        if (!this.Get<ITwoFactorAuthService>().ValidatePin(this.TwoFactorKey, this.InputCode))
+        {
+            this.BindData();
+
+            return this.PageBoardContext.Notify(this.GetText("EDIT_SETTINGS", "WRONG_CODE"), MessageTypes.warning);
+        }
+
+        await this.Get<IAspNetUsersHelper>().SetTwoFactorDisabledAsync(
+            this.PageBoardContext.MembershipUser,
+            this.TwoFactorKey);
+
+        return this.Get<LinkBuilder>().Redirect(ForumPages.Profile_EditSettings);
+    }
+
+    /// <summary>
     /// Binds the data.
     /// </summary>
     private void BindData()
     {
-        this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
+        this.PageSizeList = new SelectList(
+            StaticDataHelper.PageEntries(),
+            nameof(SelectListItem.Value),
+            nameof(SelectListItem.Text));
 
         this.TimeZones = StaticDataHelper.TimeZones();
 
@@ -282,13 +341,40 @@ public class EditSettingsModel : ProfilePage
 
         this.Activity = this.PageBoardContext.PageUser.Activity;
 
-        if (!this.PageBoardContext.BoardSettings.AllowUserLanguage || !this.Languages.Any())
+        this.RenderTwoFactor();
+
+        if (!this.PageBoardContext.BoardSettings.AllowUserLanguage || this.Languages.Count == 0)
         {
             return;
         }
 
         // If 2-letter language code is the same we return Culture, else we return a default full culture from language file
         this.Language = this.GetCulture();
+    }
+
+    /// <summary>
+    /// Renders the two factor authentication UI if user has enabled or disabled the setting.
+    /// </summary>
+    private void RenderTwoFactor()
+    {
+        this.TwoFactorEnabled = this.PageBoardContext.MembershipUser.TwoFactorEnabled;
+
+        if (this.TwoFactorEnabled)
+        {
+            // Render Disable 2FA UI
+            this.TwoFactorKey = this.PageBoardContext.MembershipUser.MobilePIN;
+        }
+        else
+        {
+            // Render Enable 2FA UI
+
+            this.TwoFactorKey = this.Get<ITwoFactorAuthService>().CreateAccountSecretKey(this.PageBoardContext.PageUser);
+
+            var setupInfo = this.Get<ITwoFactorAuthService>().GenerateSetupCode(this.TwoFactorKey);
+
+            this.SetupCode = setupInfo.ManualEntryKey;
+            this.BarcodeImageUrl = setupInfo.QrCodeSetupImageUrl;
+        }
     }
 
     /// <summary>

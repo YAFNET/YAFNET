@@ -10305,8 +10305,40 @@
         "@name": "EDIT_SETTINGS",
         "Resource": [
           {
+            "@tag": "ENABLE_2FA",
+            "#text": "Turn on Two Factor Authentication"
+          },
+          {
             "@tag": "TITLE",
             "#text": "Edit Settings"
+          },
+          {
+            "@tag": "DISABLE_2FA",
+            "#text": "Disable Two Factor Authentication"
+          },
+          {
+            "@tag": "DISABLE_TWO_FACTOR_HEADER",
+            "#text": "Disable Two Factor Authentication"
+          },
+          {
+            "@tag": "INFO",
+            "#text": "<li>Open your Authenticator app and add a new account</li><li>Scan the QR Code or manually enter the setup code</li><li>Enter the validation code from your Authenticator</li><li>Click to <i>Turn on Two Factor Authentication</i></li>"
+          },
+          {
+            "@tag": "TWO_FACTOR_HEADER",
+            "#text": "Enable Two Factor Authentication"
+          },
+          {
+            "@tag": "INPUT_CODE",
+            "#text": "Input security code"
+          },
+          {
+            "@tag": "SETUP_CODE",
+            "#text": "Setup code"
+          },
+          {
+            "@tag": "WRONG_CODE",
+            "#text": "You have entered the wrong 2FA Code!"
           }
         ]
       },
@@ -11669,6 +11701,18 @@
           {
             "@tag": "TITLE",
             "#text": "Login"
+          },
+          {
+            "@tag": "TWO_FA_VALIDATION",
+            "#text": "Two-Factor Validation"
+          },
+          {
+            "@tag": "TWO_FA_PLACEHOLDER",
+            "#text": "Validation code: ### ###"
+          },
+          {
+            "@tag": "TWO_FA_INFO",
+            "#text": "Please enter a validation code from your Authenticator app."
           },
           {
             "@tag": "UPDATE_EMAIL",

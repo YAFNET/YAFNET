@@ -36,8 +36,8 @@ public class BoardSettings
     {
         this.BoardId = 0;
         this.Name = string.Empty;
-        this.Registry = new RegistryDictionaryOverride();
-        this.RegistryBoard = new RegistryDictionary();
+        this.Registry = [];
+        this.RegistryBoard = [];
 
         // set the board dictionary as the override...
         this.Registry.OverrideDictionary = this.RegistryBoard;

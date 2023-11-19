@@ -235,6 +235,11 @@ public enum ForumPages
     Account_Login,
 
     /// <summary>
+    /// The Login Authorize 2FA page.
+    /// </summary>
+    Account_Authorize,
+
+    /// <summary>
     /// The Account Info Page.
     /// </summary>
     MyAccount,

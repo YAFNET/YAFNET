@@ -50,6 +50,22 @@ public interface IAspNetUsersHelper
     IPasswordHasher<AspNetUsers> PasswordHasher { get; }
 
     /// <summary>
+    /// Enable 2FA for the ASP net user
+    /// </summary>
+    /// <param name="aspNetUser">The ASP net user.</param>
+    /// <param name="twoFactorKey">The two factor key.</param>
+    /// <returns>Task.</returns>
+    Task SetTwoFactorEnabledAsync(AspNetUsers aspNetUser, string twoFactorKey);
+
+    /// <summary>
+    /// Disable 2FA for the ASP net user
+    /// </summary>
+    /// <param name="aspNetUser">The ASP net user.</param>
+    /// <param name="twoFactorKey">The two factor key.</param>
+    /// <returns>Task.</returns>
+    Task SetTwoFactorDisabledAsync(AspNetUsers aspNetUser, string twoFactorKey);
+
+    /// <summary>
     /// Gets the guest user for the current board.
     /// </summary>
     /// <param name="boardId">
@@ -263,15 +279,15 @@ public interface IAspNetUsersHelper
     /// The sign in.
     /// </summary>
     /// <param name="user">
-    /// The user.
+    ///     The user.
     /// </param>
     /// <param name="isPersistent">
-    /// The is persistent.
+    ///     The is persistent.
     /// </param>
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    Task SignInAsync(AspNetUsers user, bool isPersistent = true);
+    Task<IActionResult> SignInAsync(AspNetUsers user, bool isPersistent = true);
 
     /// <summary>
     /// The sign in external.
