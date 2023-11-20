@@ -9,7 +9,7 @@
     myModal.show();
 
     document.querySelectorAll(".btn-primary,.btn-info").forEach(button => {
-        box.addEventListener("click",
+        button.addEventListener("click",
             function() {
                 // code…
                 button.innerHTML =
