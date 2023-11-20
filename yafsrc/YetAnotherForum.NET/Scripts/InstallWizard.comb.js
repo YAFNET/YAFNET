@@ -4965,7 +4965,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     myModal.show();
     document.querySelectorAll(".btn-primary,.btn-info").forEach(button => {
-        box.addEventListener("click", function() {
+        button.addEventListener("click", function() {
             button.innerHTML = "<span class='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span> Loading...";
         });
     });
