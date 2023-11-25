@@ -85,23 +85,22 @@ public class SearchController : ForumBaseController
     [ValidateAntiForgeryToken]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SearchGridDataSet))]
     [HttpPost("GetSearchResults")]
-    public Task<ActionResult<SearchGridDataSet>> GetSearchResults([FromBody] SearchTopic searchTopic)
+    public async Task<ActionResult<SearchGridDataSet>> GetSearchResults([FromBody] SearchTopic searchTopic)
     {
-        var results = this.Get<ISearch>().SearchPaged(
-            out var totalHits,
+        var results = await this.Get<ISearch>().SearchPagedAsync(
             searchTopic.ForumId,
             searchTopic.SearchTerm,
             searchTopic.Page,
             searchTopic.PageSize);
 
-        return Task.FromResult<ActionResult<SearchGridDataSet>>(
-            this.Ok(
-                new SearchGridDataSet
-                    {
-                        PageNumber = searchTopic.Page,
-                        TotalRecords = totalHits,
-                        PageSize = searchTopic.PageSize,
-                        SearchResults = results
-                    }));
+        return await Task.FromResult<ActionResult<SearchGridDataSet>>(
+                   this.Ok(
+                       new SearchGridDataSet
+                       {
+                           PageNumber = searchTopic.Page,
+                           TotalRecords = results.Item2,
+                           PageSize = searchTopic.PageSize,
+                           SearchResults = results.Item1
+                       }));
     }
 }

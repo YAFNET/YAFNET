@@ -24,8 +24,6 @@
 
 namespace YAF.Web.TagHelpers;
 
-using YAF.Types.Attributes;
-
 /// <summary>
 /// The message post tag helper.
 /// </summary>
@@ -93,7 +91,7 @@ public class MessagePostDataTagHelper : MessagePostTagHelper
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public override Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
+    public async override Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
     {
         if (this.PagedMessage is not null)
         {
@@ -141,7 +139,7 @@ public class MessagePostDataTagHelper : MessagePostTagHelper
                 false,
                 editedMessageDateTime);
 
-            output.Content.AppendHtml(this.RenderModulesInBBCode(
+            output.Content.AppendHtml(await this.RenderModulesInBBCodeAsync(
                 formattedMessage,
                 this.MessageFlags,
                 this.DisplayUserId,
@@ -167,7 +165,7 @@ public class MessagePostDataTagHelper : MessagePostTagHelper
                 this.HighlightMessage(this.Message, true),
                 this.MessageFlags);
 
-            output.Content.AppendHtml(this.RenderModulesInBBCode(
+            output.Content.AppendHtml(await this.RenderModulesInBBCodeAsync(
                 formattedMessage,
                 this.MessageFlags,
                 this.DisplayUserId,
@@ -179,7 +177,5 @@ public class MessagePostDataTagHelper : MessagePostTagHelper
                 this.RenderAnswerMessage(output, this.CurrentMessage.AnswerMessageId.Value);
             }
         }
-
-        return Task.CompletedTask;
     }
 }

@@ -27,6 +27,7 @@ namespace YAF.Core.BBCode;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 using YAF.Core.BBCode.ReplaceRules;
 
@@ -38,8 +39,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
     /// <summary>
     ///   The _options.
     /// </summary>
-    private const RegexOptions Options =
-        RegexOptions.IgnoreCase | RegexOptions.Singleline;
+    private const RegexOptions Options = RegexOptions.IgnoreCase | RegexOptions.Singleline;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="BBCode"/> class.
@@ -75,32 +75,33 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
         this.Get<IObjectStore>().GetOrSet(
             "CustomBBCodeRegExDictionary",
             () =>
-                {
-                    var bbcodeTable = this.GetCustomBBCode();
-                    return bbcodeTable
-                        .Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet())
-                        .ToDictionary(codeRow => codeRow, codeRow => new Regex(codeRow.SearchRegex, Options, TimeSpan.FromMilliseconds(100)));
-                });
+            {
+                var bbcodeTable = this.GetCustomBBCode();
+                return bbcodeTable.Where(b => (b.UseModule ?? false) && b.ModuleClass.IsSet() && b.SearchRegex.IsSet())
+                    .ToDictionary(
+                        codeRow => codeRow,
+                        codeRow => new Regex(codeRow.SearchRegex, Options, TimeSpan.FromMilliseconds(100)));
+            });
 
     /// <summary>
     /// Formats the message with Custom BBCodes
     /// </summary>
     /// <param name="message">
-    /// The message.
+    ///     The message.
     /// </param>
     /// <param name="flags">
-    /// The Message flags.
+    ///     The Message flags.
     /// </param>
     /// <param name="displayUserId">
-    /// The display user id.
+    ///     The display user id.
     /// </param>
     /// <param name="messageId">
-    /// The message id.
+    ///     The message id.
     /// </param>
     /// <returns>
     /// Returns the formatted Message.
     /// </returns>
-    public string FormatMessageWithCustomBBCode(
+    public async Task<string> FormatMessageWithCustomBBCodeAsync(
         string message,
         MessageFlags flags,
         int? displayUserId,
@@ -109,57 +110,53 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
         var workingMessage = message;
 
         // handle custom bbcodes row by row...
-        this.CustomBBCode.ForEach(
-            keyPair =>
+        foreach (var (codeRow, value) in this.CustomBBCode)
+        {
+            Match match;
+
+            do
+            {
+                match = value.Match(workingMessage);
+
+                if (!match.Success)
                 {
-                    var codeRow = keyPair.Key;
+                    continue;
+                }
 
-                    Match match;
+                var sb = new StringBuilder();
 
-                    do
-                    {
-                        match = keyPair.Value.Match(workingMessage);
+                var paramDic = new Dictionary<string, string> { { "inner", match.Groups["inner"].Value } };
 
-                        if (!match.Success)
-                        {
-                            continue;
-                        }
+                if (codeRow.Variables.IsSet() && codeRow.Variables.Split(';').Length != 0)
+                {
+                    var vars = codeRow.Variables.Split(';');
 
-                        var sb = new StringBuilder();
+                    var match1 = match;
 
-                        var paramDic = new Dictionary<string, string> { { "inner", match.Groups["inner"].Value } };
+                    vars.Where(v => match1.Groups[v] != null).ForEach(v => paramDic.Add(v, match1.Groups[v].Value));
+                }
 
-                        if (codeRow.Variables.IsSet() && codeRow.Variables.Split(';').Length != 0)
-                        {
-                            var vars = codeRow.Variables.Split(';');
+                sb.Append(workingMessage[..match.Groups[0].Index]);
 
-                            var match1 = match;
+                // create/render the control...
+                var module = Type.GetType(codeRow.ModuleClass, true, false);
+                var customModule = (BBCodeControl)Activator.CreateInstance(module);
 
-                            vars.Where(v => match1.Groups[v] != null).ForEach(
-                                v => paramDic.Add(v, match1.Groups[v].Value));
-                        }
+                // assign parameters...
+                customModule.CurrentMessageFlags = flags;
+                customModule.DisplayUserID = displayUserId;
+                customModule.MessageID = messageId;
+                customModule.Parameters = paramDic;
 
-                        sb.Append(workingMessage[..match.Groups[0].Index]);
+                // render this control...
+                await customModule.RenderAsync(sb);
 
-                        // create/render the control...
-                        var module = Type.GetType(codeRow.ModuleClass, true, false);
-                        var customModule = (BBCodeControl)Activator.CreateInstance(module);
+                sb.Append(workingMessage[(match.Groups[0].Index + match.Groups[0].Length)..]);
 
-                        // assign parameters...
-                        customModule.CurrentMessageFlags = flags;
-                        customModule.DisplayUserID = displayUserId;
-                        customModule.MessageID = messageId;
-                        customModule.Parameters = paramDic;
-
-                        // render this control...
-                        customModule.RenderAsync(sb);
-
-                        sb.Append(workingMessage[(match.Groups[0].Index + match.Groups[0].Length)..]);
-
-                        workingMessage = sb.ToString();
-                    }
-                    while (match.Success);
-                });
+                workingMessage = sb.ToString();
+            }
+            while (match.Success);
+        }
 
         return workingMessage;
     }
@@ -213,10 +210,9 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
 
         // get the rules engine from the creator...
         var ruleEngine = this.ProcessReplaceRulesFactory(
-            new[]
-                {
-                    DoFormatting, TargetBlankOverride, this.Get<BoardSettings>().UseNoFollowLinks, ForBBCodeEditing
-                });
+            new[] {
+                      DoFormatting, TargetBlankOverride, this.Get<BoardSettings>().UseNoFollowLinks, ForBBCodeEditing
+                  });
 
         if (!ruleEngine.HasRules)
         {
@@ -243,10 +239,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 "[center]${inner}[/center]",
                 Options));
         ruleEngine.AddRule(
-            new SimpleRegexReplaceRule(
-                "<div align=\"left\">(?<inner>(.*?))</div>",
-                "[left]${inner}[/left]",
-                Options));
+            new SimpleRegexReplaceRule("<div align=\"left\">(?<inner>(.*?))</div>", "[left]${inner}[/left]", Options));
         ruleEngine.AddRule(
             new SimpleRegexReplaceRule(
                 "<div align=\"right\">(?<inner>(.*?))</div>",
@@ -276,10 +269,9 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 """<span style="font-size:(?<size>(.*?))px;">(?<inner>(.*?))</span>""",
                 "[size=${size}]${inner}[/size]",
                 Options,
-                new[]
-                    {
-                        "size"
-                    }) { RuleRank = 10 });
+                new[] {
+                          "size"
+                      }) { RuleRank = 10 });
 
         // font
         ruleEngine.AddRule(
@@ -298,16 +290,14 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 new[] { "color" }));
 
         // lists
-        ruleEngine.AddRule(
-            new SimpleRegexReplaceRule("<ul>(?<inner>(.*?))</ul>", "[list]${inner}[/list]", Options));
+        ruleEngine.AddRule(new SimpleRegexReplaceRule("<ul>(?<inner>(.*?))</ul>", "[list]${inner}[/list]", Options));
 
         ruleEngine.AddRule(
             new SimpleRegexReplaceRule(
                 "<ol type=\"1\">(?<inner>(.*?))</ol>",
                 "[list=1]${inner}[/list]",
                 RegexOptions.Singleline));
-        ruleEngine.AddRule(
-            new SimpleRegexReplaceRule("<ol>(?<inner>(.*?))</ol>", "[list=i]${inner}[/list]", Options));
+        ruleEngine.AddRule(new SimpleRegexReplaceRule("<ol>(?<inner>(.*?))</ol>", "[list=i]${inner}[/list]", Options));
 
         ruleEngine.AddRule(
             new SimpleRegexReplaceRule(
@@ -369,10 +359,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 "[center]${inner}[/center]",
                 Options));
         ruleEngine.AddRule(
-            new SimpleRegexReplaceRule(
-                "<div align=\"left\">(?<inner>(.*?))</div>",
-                "[left]${inner}[/left]",
-                Options));
+            new SimpleRegexReplaceRule("<div align=\"left\">(?<inner>(.*?))</div>", "[left]${inner}[/left]", Options));
         ruleEngine.AddRule(
             new SimpleRegexReplaceRule(
                 "<div align=\"right\">(?<inner>(.*?))</div>",
@@ -429,10 +416,9 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 """<a.*?href="(?<inner>(.*?))".*?>(?<description>(.*?))</a>""",
                 "[url=${inner}]${description}[/url]",
                 Options,
-                new[]
-                    {
-                        "description"
-                    }) { RuleRank = 2 });
+                new[] {
+                          "description"
+                      }) { RuleRank = 2 });
 
         // e-mails
         ruleEngine.AddRule(
@@ -440,10 +426,9 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 """<a.*?href="mailto:(?<email>(.*?))".*?>(?<inner>(.*?))</a>""",
                 "[email=${email}]${inner}[/email]",
                 Options,
-                new[]
-                    {
-                        "email"
-                    }) { RuleRank = 1 });
+                new[] {
+                          "email"
+                      }) { RuleRank = 1 });
 
         ruleEngine.AddRule(
             new VariableRegexReplaceRule(
@@ -464,19 +449,17 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 """<div class="code">.*?<div class="innercode">.*?<pre class="brush:(?<language>(.*?));">(?<inner>(.*?))</pre>.*?</div>""",
                 "[code=${language}]${inner}[/code]",
                 Options,
-                new[]
-                    {
-                        "language"
-                    }) { RuleRank = 97 });
+                new[] {
+                          "language"
+                      }) { RuleRank = 97 });
 
         ruleEngine.AddRule(
             new SimpleRegexReplaceRule(
                 "<div class=\"code\">.*?<div class=\"innercode\">(?<inner>(.*?))</div>",
                 "[code]${inner}[/code]",
-                Options)
-                {
-                    RuleRank = 98
-                });
+                Options) {
+                             RuleRank = 98
+                         });
 
         ruleEngine.AddRule(new SimpleRegexReplaceRule("<br />", "\r\n", Options));
         ruleEngine.AddRule(new SimpleRegexReplaceRule("<br>", "\r\n", Options));
@@ -520,9 +503,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
         bool useNoFollow,
         bool isEditMode = false)
     {
-        var target = this.Get<BoardSettings>().BlankLinks || targetBlankOverride
-                         ? "target=\"_blank\""
-                         : string.Empty;
+        var target = this.Get<BoardSettings>().BlankLinks || targetBlankOverride ? "target=\"_blank\"" : string.Empty;
 
         var noFollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
 
@@ -537,22 +518,25 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
         {
             ruleEngine.AddRule(
                 new CodeRegexReplaceRule(
-                    new Regex(@"\[noparse\](?<inner>(.*?))\[/noparse\]", Options | RegexOptions.Compiled, TimeSpan.FromMilliseconds(100)),
+                    new Regex(
+                        @"\[noparse\](?<inner>(.*?))\[/noparse\]",
+                        Options | RegexOptions.Compiled,
+                        TimeSpan.FromMilliseconds(100)),
                     "${inner}"));
 
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(
-                    new Regex(@"\[B\](?<inner>(.*?))\[/B\]", Options | RegexOptions.Compiled, TimeSpan.FromMilliseconds(100)),
+                    new Regex(
+                        @"\[B\](?<inner>(.*?))\[/B\]",
+                        Options | RegexOptions.Compiled,
+                        TimeSpan.FromMilliseconds(100)),
                     "<strong>${inner}</strong>"));
 
-            ruleEngine.AddRule(
-                new SimpleRegexReplaceRule(@"\[S\](?<inner>(.*?))\[/S\]", "<s>${inner}</s>", Options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(@"\[S\](?<inner>(.*?))\[/S\]", "<s>${inner}</s>", Options));
 
-            ruleEngine.AddRule(
-                new SimpleRegexReplaceRule(@"\[I\](?<inner>(.*?))\[/I\]", "<em>${inner}</em>", Options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(@"\[I\](?<inner>(.*?))\[/I\]", "<em>${inner}</em>", Options));
 
-            ruleEngine.AddRule(
-                new SimpleRegexReplaceRule(@"\[U\](?<inner>(.*?))\[/U\]", "<u>${inner}</u>", Options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(@"\[U\](?<inner>(.*?))\[/U\]", "<u>${inner}</u>", Options));
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(@"\[h\](?<inner>(.*?))\[/h\]", "<mark>${inner}</mark>", Options));
 
@@ -561,7 +545,8 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 new VariableRegexReplaceRule(
                     new Regex(
                         @"\[email=(?<email>[^\]]*)\](?<inner>([^""\r\n\]\[]+?))\[/email\]",
-                        Options | RegexOptions.Compiled, TimeSpan.FromMilliseconds(100)),
+                        Options | RegexOptions.Compiled,
+                        TimeSpan.FromMilliseconds(100)),
                     "<a href=\"mailto:${email}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>",
                     new[] { "email" }));
 
@@ -569,7 +554,8 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 new SimpleRegexReplaceRule(
                     new Regex(
                         @"\[email[^\]]*\](?<inner>([^""\r\n\]\[]+?))\[/email\]",
-                        Options | RegexOptions.Compiled, TimeSpan.FromMilliseconds(100)),
+                        Options | RegexOptions.Compiled,
+                        TimeSpan.FromMilliseconds(100)),
                     """<a href="mailto:${inner}">${inner}</a>"""));
 
             // urls
@@ -577,90 +563,86 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 new VariableRegexReplaceRule(
                     new Regex(
                         @"\[url\=(?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://))?(?<url>([^javascript:])([^""\r\n\]\[]*?))\](?<inner>(.+?))\[/url\]",
-                        Options | RegexOptions.Compiled, TimeSpan.FromMilliseconds(100)),
+                        Options | RegexOptions.Compiled,
+                        TimeSpan.FromMilliseconds(100)),
                     "<a {0} {1} href=\"${http}${url}\" title=\"${http}${url}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
-                    new[]
-                        {
-                            "url", "http"
-                        },
-                    new[]
-                        {
-                            string.Empty, string.Empty // "http://"
-                        }) { RuleRank = 10 });
+                    new[] {
+                              "url", "http"
+                          },
+                    new[] {
+                              string.Empty, string.Empty // "http://"
+                          }) { RuleRank = 10 });
 
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
                         @"\[url\](?<http>(skype:)|(http://)|(https://)|(ftp://)|(ftps://)|(mailto:))?(?<inner>([^javascript:])(.+?))\[/url\]",
-                        Options | RegexOptions.Compiled, TimeSpan.FromMilliseconds(100)),
+                        Options | RegexOptions.Compiled,
+                        TimeSpan.FromMilliseconds(100)),
                     "<a {0} {1} href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
-                    new[]
-                        {
-                            "http"
-                        },
-                    new[]
-                        {
-                            string.Empty, string.Empty // "http://"
-                        }) { RuleRank = 11 });
+                    new[] {
+                              "http"
+                          },
+                    new[] {
+                              string.Empty, string.Empty // "http://"
+                          }) { RuleRank = 11 });
 
             // urls
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
                         """^(?!.*youtu).*(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!")(?<!href=")(?<!src=")(?<inner>(http|ftp|https):\/\/[\w\-_]+(\.[\w\-_]+)+([\w\-\.,@?^=%&amp;:/~\+#]*[\w\-\@?^=%&amp;/~\+#])?)""",
-                        RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled, TimeSpan.FromMilliseconds(100)),
+                        RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled,
+                        TimeSpan.FromMilliseconds(100)),
                     "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
-                    new[]
-                        {
-                            "before"
-                        },
+                    new[] {
+                              "before"
+                          },
                     new[] { string.Empty }) { RuleRank = 12 });
 
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
                         """^(?!.*youtu).*(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?!youtu)(?<!href=")(?<!src=")(?<inner>(http://|https://|ftp://)(?:[\w-]+\.)+[\w-]+(?:/[\w-./?%&=+;,:#~/(/)$]*[^.<|^.\[])?)""",
-                        RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled, TimeSpan.FromMilliseconds(100)),
+                        RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled,
+                        TimeSpan.FromMilliseconds(100)),
                     "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
-                    new[]
-                        {
-                            "before"
-                        },
+                    new[] {
+                              "before"
+                          },
                     new[] { string.Empty }) { RuleRank = 13 });
 
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
                         """(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href=")(?<!src=")(?<inner>(http://|https://)(www.)?youtube\.com\/watch\?v=(?<videoId>[A-Za-z0-9._%-]*)(\&\S+)?)""",
-                        RegexOptions.Multiline | RegexOptions.Compiled, TimeSpan.FromMilliseconds(100)),
+                        RegexOptions.Multiline | RegexOptions.Compiled,
+                        TimeSpan.FromMilliseconds(100)),
                     "${before}<div data-oembed-url=\"//youtube.com/embed/${videoId}\" class=\"ratio ratio-16x9\"><iframe src=\"//youtube.com/embed/${videoId}?hd=1\"></iframe></div>",
-                    new[]
-                        {
-                            "before", "videoId"
-                        },
-                    new[] { string.Empty })
-                    {
-                        RuleRank = 8
-                    });
+                    new[] {
+                              "before", "videoId"
+                          },
+                    new[] { string.Empty }) {
+                                                RuleRank = 8
+                                            });
 
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
                         """(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href=")(?<!src=")(?<inner>(http://|https://)youtu\.be\/(?<videoId>[A-Za-z0-9._%-]*)(\&\S+)?)""",
-                        RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled, TimeSpan.FromMilliseconds(100)),
+                        RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled,
+                        TimeSpan.FromMilliseconds(100)),
                     "${before}<div data-oembed-url=\"//youtube.com/embed/${videoId}\" class=\"ratio ratio-16x9\"><iframe src=\"//youtube.com/embed/${videoId}?hd=1\"></iframe></div>",
-                    new[]
-                        {
-                            "before", "videoId"
-                        },
-                    new[] { string.Empty })
-                    {
-                        RuleRank = 9
-                    });
+                    new[] {
+                              "before", "videoId"
+                          },
+                    new[] { string.Empty }) {
+                                                RuleRank = 9
+                                            });
 
             // font
             ruleEngine.AddRule(
@@ -680,56 +662,50 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
 
             // lists
             ruleEngine.AddRule(
-                new SimpleRegexReplaceRule(@"\[list\]\r\n(?<inner>(.*?))\[/list\]", "<ul>${inner}</ul>", Options)
-                {
+                new SimpleRegexReplaceRule(@"\[list\]\r\n(?<inner>(.*?))\[/list\]", "<ul>${inner}</ul>", Options) {
                     RuleRank = 15
                 });
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(
                     @"\[list=1\]\r\n(?<inner>(.*?))\[/list\]",
                     "<ol style=\"list-style-type:number\">${inner}</ol>",
-                    RegexOptions.Singleline)
-                {
-                    RuleRank = 16
-                });
+                    RegexOptions.Singleline) {
+                                                 RuleRank = 16
+                                             });
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(
                     @"\[list=i\]\r\n(?<inner>(.*?))\[/list\]",
                     "<ol style=\"list-style-type:lower-roman\">${inner}</ol>",
-                    RegexOptions.Singleline)
-                {
-                    RuleRank = 17
-                });
+                    RegexOptions.Singleline) {
+                                                 RuleRank = 17
+                                             });
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(
                     @"\[list=I\]\r\n(?<inner>(.*?))\[/list\]",
                     "<ol style=\"list-style-type:upper-roman\">${inner}</ol>",
-                    RegexOptions.Singleline)
-                {
-                    RuleRank = 18
-                });
+                    RegexOptions.Singleline) {
+                                                 RuleRank = 18
+                                             });
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(
                     @"\[list=a\]\r\n(?<inner>(.*?))\[/list\]",
                     "<ol style=\"list-style-type:lower-alpha\">${inner}</ol>",
-                    RegexOptions.Singleline)
-                {
-                    RuleRank = 19
-                });
+                    RegexOptions.Singleline) {
+                                                 RuleRank = 19
+                                             });
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(
                     @"\[list=A\]\r\n(?<inner>(.*?))\[/list\]",
                     "<ol style=\"list-style-type:upper-alpha\">${inner}</ol>",
-                    RegexOptions.Singleline)
-                {
-                    RuleRank = 20
-                });
+                    RegexOptions.Singleline) {
+                                                 RuleRank = 20
+                                             });
 
             // bullets
-            ruleEngine.AddRule(new SimpleRegexReplaceRule(@"\[\*\](?<inner>(.*?))\r\n", "<li>${inner}</li>", Options)
-            {
-                RuleRank = 14
-            });
+            ruleEngine.AddRule(
+                new SimpleRegexReplaceRule(@"\[\*\](?<inner>(.*?))\r\n", "<li>${inner}</li>", Options) {
+                    RuleRank = 14
+                });
 
             // alignment
             ruleEngine.AddRule(
@@ -756,27 +732,11 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                     Options));
 
             // Tables
-            ruleEngine.AddRule(
-                new SimpleRegexReplaceRule(
-                    @"\[td\]",
-                    "<td>",
-                    Options));
-            ruleEngine.AddRule(
-                new SimpleRegexReplaceRule(
-                    @"\[/td\]",
-                    "</td>",
-                    Options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(@"\[td\]", "<td>", Options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(@"\[/td\]", "</td>", Options));
 
-            ruleEngine.AddRule(
-                new SimpleRegexReplaceRule(
-                    @"\[tr\]",
-                    "<tr>",
-                    Options));
-            ruleEngine.AddRule(
-                new SimpleRegexReplaceRule(
-                    @"\[/tr\]",
-                    "</tr>",
-                    Options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(@"\[tr\]", "<tr>", Options));
+            ruleEngine.AddRule(new SimpleRegexReplaceRule(@"\[/tr\]", "</tr>", Options));
 
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(
@@ -796,7 +756,8 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
             }
             else
             {
-                imageHtml = "<img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" onerror=\"this.style.display='none'\" style=\"max-height:${height}px;\">";
+                imageHtml =
+                    "<img src=\"${http}${inner}\" alt=\"UserPostedImage\" class=\"img-user-posted img-thumbnail\" onerror=\"this.style.display='none'\" style=\"max-height:${height}px;\">";
                 imageHtmlWithDesc =
                     "<img src=\"${http}${inner}\" alt=\"${description}\" title=\"${description}\" class=\"img-user-posted img-thumbnail\" onerror=\"this.style.display='none'\" style=\"max-height:${height}px;\">";
             }
@@ -806,46 +767,43 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 new VariableRegexReplaceRule(
                     new Regex(
                         @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>((?!.+logout)[^""\r\n\]\[]+?\.((googleusercontent[^\[]*)|(jpg[^\[]*)|(jpeg[^\[]*)|(bmp[^\[]*)|(png[^\[]*)|(gif[^\[]*)|(tif[^\[]*)|(ashx[^\[]*)|(php[^\[]*)|(aspx[^\[]*))))\[/img\]",
-                        Options | RegexOptions.Compiled, TimeSpan.FromMilliseconds(100)),
+                        Options | RegexOptions.Compiled,
+                        TimeSpan.FromMilliseconds(100)),
                     imageHtml,
-                    new[]
-                        {
-                            "http", "height"
-                        },
-                    new[] { "http://", this.Get<BoardSettings>().ImageThumbnailMaxHeight.ToString() })
-                    {
-                        RuleRank = 70
-                    });
+                    new[] {
+                              "http", "height"
+                          },
+                    new[] { "http://", this.Get<BoardSettings>().ImageThumbnailMaxHeight.ToString() }) {
+                    RuleRank = 70
+                });
 
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
                         @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>((?!.+logout)[^""\r\n\]\[]+?\.((googleusercontent[^\[]*)|(jpg[^\]\[/img\]]*)|(jpeg[^\[\[/img\]]*)|(bmp[^\[\[/img\]]*)|(png[^\]\[/img\]]*)|(gif[^\]\[/img\]]*)|(tif[^\]\[/img\]]*)|(ashx[^\]\[/img\]]*)|(php[^\]\[/img\]]*)|(aspx[^\]\[/img\]]*))))\]\[/img\]",
-                        Options | RegexOptions.Compiled, TimeSpan.FromMilliseconds(100)),
+                        Options | RegexOptions.Compiled,
+                        TimeSpan.FromMilliseconds(100)),
                     imageHtml,
-                    new[]
-                        {
-                            "http", "height"
-                        },
-                    new[] { "http://", this.Get<BoardSettings>().ImageThumbnailMaxHeight.ToString() })
-                    {
-                        RuleRank = 71
-                    });
+                    new[] {
+                              "http", "height"
+                          },
+                    new[] { "http://", this.Get<BoardSettings>().ImageThumbnailMaxHeight.ToString() }) {
+                    RuleRank = 71
+                });
 
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
                     new Regex(
                         @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>((?!.+logout)[^""\r\n\]\[]+?\.((googleusercontent[^\[]*)|(jpg[^\]]*)|(jpeg[^\]]*)|(bmp[^\]]*)|(png[^\]]*)|(gif[^\]]*)|(tif[^\]]*)|(ashx[^\]]*)|(php[^\]]*)|(aspx[^\]]*))))\](?<description>[^\[]*)\[/img\]",
-                        Options | RegexOptions.Compiled, TimeSpan.FromMilliseconds(100)),
+                        Options | RegexOptions.Compiled,
+                        TimeSpan.FromMilliseconds(100)),
                     imageHtmlWithDesc,
-                    new[]
-                        {
-                            "http", "description", "height"
-                        },
-                    new[] { "http://", string.Empty, this.Get<BoardSettings>().ImageThumbnailMaxHeight.ToString() })
-                    {
-                        RuleRank = 72
-                    });
+                    new[] {
+                              "http", "description", "height"
+                          },
+                    new[] { "http://", string.Empty, this.Get<BoardSettings>().ImageThumbnailMaxHeight.ToString() }) {
+                    RuleRank = 72
+                });
 
             // basic hr and br rules
             var horizontalLineRule = new SingleRegexReplaceRule(
@@ -859,10 +817,9 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
             var breakRule = new SingleRegexReplaceRule(
                                 "\r\n",
                                 "<br />",
-                                RegexOptions.IgnoreCase | RegexOptions.Multiline)
-                                {
-                                    RuleRank = horizontalLineRule.RuleRank + 1
-                                };
+                                RegexOptions.IgnoreCase | RegexOptions.Multiline) {
+                                RuleRank = horizontalLineRule.RuleRank + 1
+                            };
 
             // Ensure the newline rule is processed after the HR rule, otherwise the newline characters in the HR regex will never match
             ruleEngine.AddRule(horizontalLineRule);
@@ -874,10 +831,9 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 var breakRule2 = new SingleRegexReplaceRule(
                                      "\n\n",
                                      "<br /><br />",
-                                     RegexOptions.IgnoreCase | RegexOptions.Multiline)
-                                     {
-                                         RuleRank = horizontalLineRule.RuleRank + 2
-                                     };
+                                     RegexOptions.IgnoreCase | RegexOptions.Multiline) {
+                                     RuleRank = horizontalLineRule.RuleRank + 2
+                                 };
 
                 ruleEngine.AddRule(breakRule2);
             }
@@ -886,11 +842,13 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
         // add rule for code block type with syntax highlighting
         ruleEngine.AddRule(
             new SyntaxHighlighterRegexReplaceRule(
-                new Regex(@"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]\r\n|\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]", Options, TimeSpan.FromMilliseconds(100)),
-                """<div class="code">${inner}</div>""")
-                {
-                    RuleRank = 2
-                });
+                new Regex(
+                    @"\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]\r\n|\[code=(?<language>[^\]]*)\](?<inner>(.*?))\[/code\]",
+                    Options,
+                    TimeSpan.FromMilliseconds(100)),
+                """<div class="code">${inner}</div>""") {
+                                                            RuleRank = 2
+                                                        });
 
         // handle custom BBCode
         this.AddCustomBBCodeRules(ruleEngine);
@@ -898,7 +856,10 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
         // add rule for code block type with no syntax highlighting
         ruleEngine.AddRule(
             new SyntaxHighlighterRegexReplaceRule(
-                new Regex(@"\[code\](?<inner>(.*?))\[/code\]\r\n|\[code\](?<inner>(.*?))\[/code\]", Options, TimeSpan.FromMilliseconds(100)),
+                new Regex(
+                    @"\[code\](?<inner>(.*?))\[/code\]\r\n|\[code\](?<inner>(.*?))\[/code\]",
+                    Options,
+                    TimeSpan.FromMilliseconds(100)),
                 """<div class="code">${inner}</div>"""));
 
         ruleEngine.AddRule(
@@ -921,12 +882,10 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                                                      <p class="card-text"><i class="fa fa-quote-left text-primary fs-4 p-2"></i>
                                               """;
 
-        ruleEngine.AddRule(
-            new SimpleRegexReplaceRule(@"\[quote\]", SimpleOpenQuoteReplace, Options) { RuleRank = 62 });
+        ruleEngine.AddRule(new SimpleRegexReplaceRule(@"\[quote\]", SimpleOpenQuoteReplace, Options) { RuleRank = 62 });
 
         // and finally the closing quote tag
-        ruleEngine.AddRule(
-            new SingleRegexReplaceRule(@"\[/quote\]", "</p></div></div>", Options) { RuleRank = 63 });
+        ruleEngine.AddRule(new SingleRegexReplaceRule(@"\[/quote\]", "</p></div></div>", Options) { RuleRank = 63 });
     }
 
     /// <summary>
@@ -941,7 +900,10 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
     /// </returns>
     public string LocalizeCustomBBCodeElement(string strToLocalize)
     {
-        var regExSearch = new Regex(@"\[localization=(?<tag>[^\]]*)\](?<inner>(.+?))\[/localization\]", Options, TimeSpan.FromMilliseconds(100));
+        var regExSearch = new Regex(
+            @"\[localization=(?<tag>[^\]]*)\](?<inner>(.+?))\[/localization\]",
+            Options,
+            TimeSpan.FromMilliseconds(100));
 
         var sb = new StringBuilder(strToLocalize);
 
@@ -1030,41 +992,39 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
 
         codes.ForEach(
             row =>
+            {
+                string displayScript = null;
+                string editScript = null;
+
+                if (row.DisplayJS.IsSet())
                 {
-                    string displayScript = null;
-                    string editScript = null;
+                    displayScript = this.LocalizeCustomBBCodeElement(row.DisplayJS.Trim());
+                }
 
-                    if (row.DisplayJS.IsSet())
-                    {
-                        displayScript = this.LocalizeCustomBBCodeElement(row.DisplayJS.Trim());
-                    }
+                if (editorId.IsSet() && row.EditJS.IsSet())
+                {
+                    editScript = this.LocalizeCustomBBCodeElement(row.EditJS.Trim());
 
-                    if (editorId.IsSet() && row.EditJS.IsSet())
-                    {
-                        editScript = this.LocalizeCustomBBCodeElement(row.EditJS.Trim());
+                    // replace any instances of editor ID in the javascript in case the ID is needed
+                    editScript = editScript.Replace("{editorid}", editorId);
+                }
 
-                        // replace any instances of editor ID in the javascript in case the ID is needed
-                        editScript = editScript.Replace("{editorid}", editorId);
-                    }
+                if (displayScript.IsSet() || editScript.IsSet())
+                {
+                    javaScriptScriptBuilder.AppendLine($"{displayScript}\r\n{editScript}");
+                }
 
-                    if (displayScript.IsSet() || editScript.IsSet())
-                    {
-                        javaScriptScriptBuilder.AppendLine($"{displayScript}\r\n{editScript}");
-                    }
-
-                    // see if there is any CSS associated with this BBCode
-                    if (row.DisplayCSS.IsSet())
-                    {
-                        // yes, add it into the builder
-                        cssBuilder.AppendLine(this.LocalizeCustomBBCodeElement(row.DisplayCSS.Trim()));
-                    }
-                });
+                // see if there is any CSS associated with this BBCode
+                if (row.DisplayCSS.IsSet())
+                {
+                    // yes, add it into the builder
+                    cssBuilder.AppendLine(this.LocalizeCustomBBCodeElement(row.DisplayCSS.Trim()));
+                }
+            });
 
         if (javaScriptScriptBuilder.ToString().Trim().Length > 0)
         {
-            BoardContext.Current.InlineElements.InsertJsBlock(
-                $"{ScriptID}_script",
-                javaScriptScriptBuilder.ToString());
+            BoardContext.Current.InlineElements.InsertJsBlock($"{ScriptID}_script", javaScriptScriptBuilder.ToString());
         }
 
         if (cssBuilder.ToString().Trim().Length > 0)
@@ -1098,30 +1058,29 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
         // handle custom bbcodes row by row...
         bbcodeTable.Where(codeRow => !(codeRow.UseModule ?? false) && codeRow.SearchRegex.IsSet()).ForEach(
             codeRow =>
+            {
+                if (codeRow.Variables.IsSet())
                 {
-                    if (codeRow.Variables.IsSet())
-                    {
-                        // handle variables...
-                        var variables = codeRow.Variables.Split(';');
+                    // handle variables...
+                    var variables = codeRow.Variables.Split(';');
 
-                        var rule = new VariableRegexReplaceRule(
-                                       codeRow.SearchRegex,
-                                       codeRow.ReplaceRegex,
-                                       Options,
-                                       variables) { RuleRank = 50 };
+                    var rule = new VariableRegexReplaceRule(
+                                   codeRow.SearchRegex,
+                                   codeRow.ReplaceRegex,
+                                   Options,
+                                   variables) { RuleRank = 50 };
 
-                        rulesEngine.AddRule(rule);
-                    }
-                    else
-                    {
-                        // just standard replace...
-                        var rule = new SimpleRegexReplaceRule(codeRow.SearchRegex, codeRow.ReplaceRegex, Options)
-                                       {
-                                           RuleRank = 50
-                                       };
+                    rulesEngine.AddRule(rule);
+                }
+                else
+                {
+                    // just standard replace...
+                    var rule = new SimpleRegexReplaceRule(codeRow.SearchRegex, codeRow.ReplaceRegex, Options) {
+                                   RuleRank = 50
+                               };
 
-                        rulesEngine.AddRule(rule);
-                    }
-                });
+                    rulesEngine.AddRule(rule);
+                }
+            });
     }
 }

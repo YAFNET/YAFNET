@@ -27,6 +27,7 @@ namespace YAF.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.ServiceModel.Syndication;
+using System.Threading.Tasks;
 
 using YAF.Core.Model;
 using YAF.Core.Services.Syndication;
@@ -65,13 +66,13 @@ public class SyndicationFeeds : IHaveServiceLocator
     /// <returns>
     /// An Html formatted first message content string.
     /// </returns>
-    public string GetPostLatestContent(
+    public async Task<string> GetPostLatestContentAsync(
         string text,
         int messageId,
         int messageAuthorUserId,
         int flags)
     {
-        text = this.Get<IFormatMessage>().FormatSyndicationMessage(
+        text = await this.Get<IFormatMessage>().FormatSyndicationMessageAsync(
             text,
             messageId,
             messageAuthorUserId,
@@ -86,7 +87,7 @@ public class SyndicationFeeds : IHaveServiceLocator
     /// <returns>
     /// The <see cref="FeedItem"/>.
     /// </returns>
-    public FeedItem GetPostLatestFeed()
+    public async Task<FeedItem> GetPostLatestFeedAsync()
     {
         var syndicationItems = new List<SyndicationItem>();
 
@@ -101,46 +102,45 @@ public class SyndicationFeeds : IHaveServiceLocator
                 : 50,
             BoardContext.Current.PageUserID);
 
-        topics.ForEach(
-            topic =>
-                {
-                    var lastPosted = topic.Item2.LastPosted.Value + this.Get<IDateTimeService>().TimeOffset;
-                    if (syndicationItems.Count <= 0)
-                    {
-                        feed.LastUpdatedTime = lastPosted + this.Get<IDateTimeService>().TimeOffset;
-                        feed.Authors.Add(
-                            SyndicationItemExtensions.NewSyndicationPerson(
-                                string.Empty,
-                                topic.Item2.UserID,
-                                topic.Item2.UserName,
-                                topic.Item2.UserDisplayName));
-                    }
+        foreach (var topic in topics)
+        {
+            var lastPosted = topic.Item2.LastPosted.Value + this.Get<IDateTimeService>().TimeOffset;
+            if (syndicationItems.Count <= 0)
+            {
+                feed.LastUpdatedTime = lastPosted + this.Get<IDateTimeService>().TimeOffset;
+                feed.Authors.Add(
+                    SyndicationItemExtensions.NewSyndicationPerson(
+                        string.Empty,
+                        topic.Item2.UserID,
+                        topic.Item2.UserName,
+                        topic.Item2.UserDisplayName));
+            }
 
-                    feed.Contributors.Add(
-                        SyndicationItemExtensions.NewSyndicationPerson(
-                            string.Empty,
-                            topic.Item2.LastUserID.Value,
-                            topic.Item2.LastUserName,
-                            topic.Item2.LastUserDisplayName));
+            feed.Contributors.Add(
+                SyndicationItemExtensions.NewSyndicationPerson(
+                    string.Empty,
+                    topic.Item2.LastUserID.Value,
+                    topic.Item2.LastUserName,
+                    topic.Item2.LastUserDisplayName));
 
-                    syndicationItems.AddSyndicationItem(
-                        topic.Item2.TopicName,
-                        this.GetPostLatestContent(
-                            topic.Item1.MessageText,
-                            topic.Item1.ID,
-                            topic.Item1.UserID,
-                            topic.Item2.LastMessageFlags ?? 22),
-                        null,
-                        this.Get<LinkBuilder>().GetAbsoluteLink(
-                            ForumPages.Posts,
-                            new { t = topic.Item2.ID, name = topic.Item2.TopicName }),
-                        $"urn:{urlAlphaNum}:ft{RssFeeds.LatestPosts}:tid{topic.Item2.ID}:mid{topic.Item2.LastMessageID}:{BoardContext.Current.PageBoardID}"
-                            .Unidecode(),
-                        lastPosted,
-                        feed);
+            syndicationItems.AddSyndicationItem(
+                topic.Item2.TopicName,
+                await this.GetPostLatestContentAsync(
+                    topic.Item1.MessageText,
+                    topic.Item1.ID,
+                    topic.Item1.UserID,
+                    topic.Item2.LastMessageFlags ?? 22),
+                null,
+                this.Get<LinkBuilder>().GetAbsoluteLink(
+                    ForumPages.Posts,
+                    new { t = topic.Item2.ID, name = topic.Item2.TopicName }),
+                $"urn:{urlAlphaNum}:ft{RssFeeds.LatestPosts}:tid{topic.Item2.ID}:mid{topic.Item2.LastMessageID}:{BoardContext.Current.PageBoardID}"
+                    .Unidecode(),
+                lastPosted,
+                feed);
 
-                    feed.Items = syndicationItems;
-                });
+            feed.Items = syndicationItems;
+        }
 
         return feed;
     }
@@ -154,7 +154,7 @@ public class SyndicationFeeds : IHaveServiceLocator
     /// <returns>
     /// The <see cref="FeedItem"/>.
     /// </returns>
-    public FeedItem GetPostsFeed(int topicId)
+    public async Task<FeedItem> GetPostsFeedAsync(int topicId)
     {
         var syndicationItems = new List<SyndicationItem>();
 
@@ -178,37 +178,34 @@ public class SyndicationFeeds : IHaveServiceLocator
             RssFeeds.Posts,
             urlAlphaNum);
 
-        posts.ForEach(
-            row =>
-                {
-                    var posted = row.Edited + this.Get<IDateTimeService>().TimeOffset;
+        foreach (var row in posts)
+        {
+            var posted = row.Edited + this.Get<IDateTimeService>().TimeOffset;
 
-                    if (syndicationItems.Count <= 0)
-                    {
-                        feed.Authors.Add(
-                            SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row.UserID, null, null));
-                        feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
-                    }
+            if (syndicationItems.Count <= 0)
+            {
+                feed.Authors.Add(SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row.UserID, null, null));
+                feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
+            }
 
-                    feed.Contributors.Add(
-                        SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row.UserID, null, null));
+            feed.Contributors.Add(SyndicationItemExtensions.NewSyndicationPerson(string.Empty, row.UserID, null, null));
 
-                    syndicationItems.AddSyndicationItem(
-                        row.Topic,
-                        this.Get<IFormatMessage>().FormatSyndicationMessage(
-                            row.Message,
-                            row.MessageID,
-                            row.UserID,
-                            new MessageFlags(row.Flags)),
-                        null,
-                        this.Get<LinkBuilder>().GetAbsoluteLink(
-                            ForumPages.Posts,
-                            new { m = row.MessageID, name = row.Topic, find = "lastpost" }),
-                        $"urn:{urlAlphaNum}:ft{RssFeeds.Posts}:meid{row.MessageID}:{BoardContext.Current.PageBoardID}"
-                            .Unidecode(),
-                        posted,
-                        feed);
-                });
+            syndicationItems.AddSyndicationItem(
+                row.Topic,
+                await this.Get<IFormatMessage>().FormatSyndicationMessageAsync(
+                    row.Message,
+                    row.MessageID,
+                    row.UserID,
+                    new MessageFlags(row.Flags)),
+                null,
+                this.Get<LinkBuilder>().GetAbsoluteLink(
+                    ForumPages.Posts,
+                    new { m = row.MessageID, name = row.Topic, find = "lastpost" }),
+                $"urn:{urlAlphaNum}:ft{RssFeeds.Posts}:meid{row.MessageID}:{BoardContext.Current.PageBoardID}"
+                    .Unidecode(),
+                posted,
+                feed);
+        }
 
         feed.Items = syndicationItems;
 
@@ -224,7 +221,7 @@ public class SyndicationFeeds : IHaveServiceLocator
     /// <returns>
     /// The <see cref="FeedItem"/>.
     /// </returns>
-    public FeedItem GetTopicsFeed(int forumId)
+    public async Task<FeedItem> GetTopicsFeedAsync(int forumId)
     {
         var syndicationItems = new List<SyndicationItem>();
 
@@ -240,49 +237,40 @@ public class SyndicationFeeds : IHaveServiceLocator
             RssFeeds.Topics,
             urlAlphaNum);
 
-        topics.ForEach(
-            topic =>
-                {
-                    var lastPosted = topic.LastPosted + this.Get<IDateTimeService>().TimeOffset;
+        foreach (var topic in topics)
+        {
+            var lastPosted = topic.LastPosted + this.Get<IDateTimeService>().TimeOffset;
 
-                    if (syndicationItems.Count <= 0)
-                    {
-                        feed.Authors.Add(
-                            SyndicationItemExtensions.NewSyndicationPerson(
-                                string.Empty,
-                                topic.LastUserID.Value,
-                                null,
-                                null));
-                        feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
-                    }
+            if (syndicationItems.Count <= 0)
+            {
+                feed.Authors.Add(
+                    SyndicationItemExtensions.NewSyndicationPerson(string.Empty, topic.LastUserID.Value, null, null));
+                feed.LastUpdatedTime = DateTime.UtcNow + this.Get<IDateTimeService>().TimeOffset;
+            }
 
-                    feed.Contributors.Add(
-                        SyndicationItemExtensions.NewSyndicationPerson(
-                            string.Empty,
-                            topic.LastUserID.Value,
-                            null,
-                            null));
+            feed.Contributors.Add(
+                SyndicationItemExtensions.NewSyndicationPerson(string.Empty, topic.LastUserID.Value, null, null));
 
-                    var postLink = this.Get<LinkBuilder>().GetAbsoluteLink(
-                        ForumPages.Posts,
-                        new { m = topic.LastMessageID.Value, name = topic.Topic });
+            var postLink = this.Get<LinkBuilder>().GetAbsoluteLink(
+                ForumPages.Posts,
+                new { m = topic.LastMessageID.Value, name = topic.Topic });
 
-                    var content = this.GetPostLatestContent(
-                        topic.LastMessage,
-                        topic.LastMessageID.Value,
-                        topic.LastUserID.Value,
-                        topic.LastMessageFlags.Value);
+            var content = await this.GetPostLatestContentAsync(
+                              topic.LastMessage,
+                              topic.LastMessageID.Value,
+                              topic.LastUserID.Value,
+                              topic.LastMessageFlags.Value);
 
-                    syndicationItems.AddSyndicationItem(
-                        topic.Topic,
-                        content,
-                        null,
-                        postLink,
-                        $"urn:{urlAlphaNum}:ft{RssFeeds.Topics}:tid{topic.TopicID}:lmid{topic.LastMessageID}:{BoardContext.Current.PageBoardID}"
-                            .Unidecode(),
-                        lastPosted.Value,
-                        feed);
-                });
+            syndicationItems.AddSyndicationItem(
+                topic.Topic,
+                content,
+                null,
+                postLink,
+                $"urn:{urlAlphaNum}:ft{RssFeeds.Topics}:tid{topic.TopicID}:lmid{topic.LastMessageID}:{BoardContext.Current.PageBoardID}"
+                    .Unidecode(),
+                lastPosted.Value,
+                feed);
+        }
 
         feed.Items = syndicationItems;
 

@@ -67,10 +67,8 @@ public class Attach : BBCodeControl
         // user doesn't have rights to download, don't show the image
         if (!this.PageContext.DownloadAccess)
         {
-            stringBuilder.AppendFormat(
-                """<i class="fa fa-file fa-fw"></i>&nbsp;{0} <span class="badge text-bg-warning" role="alert">{1}</span>""",
-                attachment.FileName,
-                this.GetText("ATTACH_NO"));
+            stringBuilder.Append(
+                $"""<i class="fa fa-file fa-fw"></i>&nbsp;{attachment.FileName} <span class="badge text-bg-warning" role="alert">{this.GetText("ATTACH_NO")}</span>""");
 
             return Task.CompletedTask;
         }

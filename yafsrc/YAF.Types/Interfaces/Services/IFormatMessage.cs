@@ -25,6 +25,7 @@
 namespace YAF.Types.Interfaces.Services;
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 /// <summary>
 /// The FormatMessage Interface
@@ -76,22 +77,18 @@ public interface IFormatMessage
     /// Format the Syndication Message
     /// </summary>
     /// <param name="message">
-    /// The message.
+    ///     The message.
     /// </param>
     /// <param name="messageId">
-    /// The Message Id</param>
+    ///     The Message Id</param>
     /// <param name="messageAuthorId">The Message Author User Id</param>
     /// <param name="messageFlags">
-    /// The message flags.
+    ///     The message flags.
     /// </param>
     /// <returns>
     /// The formatted message.
     /// </returns>
-    string FormatSyndicationMessage(
-        string message,
-        int messageId,
-        int messageAuthorId,
-        MessageFlags messageFlags);
+    Task<string> FormatSyndicationMessageAsync(string message, int messageId, int messageAuthorId, MessageFlags messageFlags);
 
     /// <summary>
     /// Removes nested quotes from the given message body.

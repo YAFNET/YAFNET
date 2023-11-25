@@ -27,6 +27,7 @@ namespace YAF.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 /// <summary>
 /// YAF FormatMessage provides functions related to formatting the post messages.
@@ -95,7 +96,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
                     // If tag contains attributes kill them for checking
                     if (bbCode.Contains('='))
                     {
-                        bbCode = bbCode.Remove(bbCode.IndexOf("=", StringComparison.Ordinal));
+                        bbCode = bbCode.Remove(bbCode.IndexOf('='));
                     }
 
                     if (Array.Exists(codes, allowedTag => bbCode.ToLower().Equals(allowedTag.ToLower())))
@@ -189,19 +190,18 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// Format the Syndication Message
     /// </summary>
     /// <param name="message">
-    /// The message.
+    ///     The message.
     /// </param>
     /// <param name="messageId">
-    /// The Message Id</param>
+    ///     The Message Id</param>
     /// <param name="messageAuthorId">The Message Author User Id</param>
     /// <param name="messageFlags">
-    /// The message flags.
+    ///     The message flags.
     /// </param>
     /// <returns>
     /// The formatted message.
     /// </returns>
-    [Obsolete("Remove Table")]
-    public string FormatSyndicationMessage(
+    public async Task<string> FormatSyndicationMessageAsync(
         string message,
         int messageId,
         int messageAuthorId,
@@ -222,7 +222,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
             message,
             messageFlags);
 
-        formattedMessage = this.Get<IBBCodeService>().FormatMessageWithCustomBBCode(
+        formattedMessage = await this.Get<IBBCodeService>().FormatMessageWithCustomBBCodeAsync(
             formattedMessage,
             messageFlags,
             messageAuthorId,

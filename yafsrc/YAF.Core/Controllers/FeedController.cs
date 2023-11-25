@@ -27,6 +27,7 @@ namespace YAF.Core.Controllers;
 using System;
 using System.IO;
 using System.ServiceModel.Syndication;
+using System.Threading.Tasks;
 using System.Xml;
 
 using YAF.Core.BasePages;
@@ -45,7 +46,7 @@ public class Feed : ForumBaseController
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetLatestPosts")]
-    public ActionResult GetLatestPosts()
+    public async Task<ActionResult> GetLatestPosts()
     {
         if (!this.Get<BoardSettings>().ShowAtomLink)
         {
@@ -60,16 +61,16 @@ public class Feed : ForumBaseController
 
         try
         {
-            var feed = this.Get<SyndicationFeeds>().GetPostLatestFeed();
+            var feed = await this.Get<SyndicationFeeds>().GetPostLatestFeedAsync();
 
-            var settings = new XmlWriterSettings {Encoding = Encoding.UTF8};
+            var settings = new XmlWriterSettings {Encoding = Encoding.UTF8, Async = true };
 
             using var stream = new MemoryStream();
-            using (var xmlWriter = XmlWriter.Create(stream, settings))
+            await using (var xmlWriter = XmlWriter.Create(stream, settings))
             {
                 var formatter = new Atom10FeedFormatter(feed);
                 formatter.WriteTo(xmlWriter);
-                xmlWriter.Flush();
+                await xmlWriter.FlushAsync();
             }
 
             return this.File(stream.ToArray(), "application/rss+xml; charset=utf-8");
@@ -89,7 +90,7 @@ public class Feed : ForumBaseController
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetTopicsFeed")]
-    public ActionResult GetTopicsFeed(int f)
+    public async Task<ActionResult> GetTopicsFeed(int f)
     {
         if (!this.Get<BoardSettings>().ShowAtomLink)
         {
@@ -104,16 +105,16 @@ public class Feed : ForumBaseController
 
         try
         {
-            var feed = this.Get<SyndicationFeeds>().GetTopicsFeed(f);
+            var feed = await this.Get<SyndicationFeeds>().GetTopicsFeedAsync(f);
 
-            var settings = new XmlWriterSettings { Encoding = Encoding.UTF8 };
+            var settings = new XmlWriterSettings { Encoding = Encoding.UTF8, Async = true };
 
             using var stream = new MemoryStream();
-            using (var xmlWriter = XmlWriter.Create(stream, settings))
+            await using (var xmlWriter = XmlWriter.Create(stream, settings))
             {
                 var formatter = new Atom10FeedFormatter(feed);
                 formatter.WriteTo(xmlWriter);
-                xmlWriter.Flush();
+                await xmlWriter.FlushAsync();
             }
 
             return this.File(stream.ToArray(), "application/rss+xml; charset=utf-8");
@@ -133,7 +134,7 @@ public class Feed : ForumBaseController
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet("GetPostsFeed")]
-    public ActionResult GetPostsFeed(int t)
+    public async Task<ActionResult> GetPostsFeed(int t)
     {
         if (!this.Get<BoardSettings>().ShowAtomLink)
         {
@@ -148,16 +149,16 @@ public class Feed : ForumBaseController
 
         try
         {
-            var feed = this.Get<SyndicationFeeds>().GetPostsFeed(t);
+            var feed = await this.Get<SyndicationFeeds>().GetPostsFeedAsync(t);
 
-            var settings = new XmlWriterSettings { Encoding = Encoding.UTF8 };
+            var settings = new XmlWriterSettings { Encoding = Encoding.UTF8, Async = true};
 
             using var stream = new MemoryStream();
-            using (var xmlWriter = XmlWriter.Create(stream, settings))
+            await using (var xmlWriter = XmlWriter.Create(stream, settings))
             {
                 var formatter = new Atom10FeedFormatter(feed);
                 formatter.WriteTo(xmlWriter);
-                xmlWriter.Flush();
+                await xmlWriter.FlushAsync();
             }
 
             return this.File(stream.ToArray(), "application/rss+xml; charset=utf-8");

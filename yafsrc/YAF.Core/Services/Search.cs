@@ -49,6 +49,7 @@ using YAF.Configuration;
 using YAF.Core.Context;
 using YAF.Core.Model;
 using YAF.Types.Constants;
+using YAF.Types.Extensions;
 using YAF.Types.Models;
 using YAF.Types.Objects;
 
@@ -264,10 +265,10 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         try
         {
-            var name = message.UserName ?? (message.UserDisplayName ?? string.Empty);
+            var name = message.UserName ?? message.UserDisplayName ?? string.Empty;
             var userDisplayName = message.UserDisplayName ?? string.Empty;
             var userStyle = message.UserStyle ?? string.Empty;
-            var description = message.Description ?? (message.Topic ?? string.Empty);
+            var description = message.Description ?? message.Topic ?? string.Empty;
 
             var doc = new Document
                           {
@@ -387,22 +388,6 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     }
 
     /// <summary>
-    /// Searches the specified user identifier.
-    /// </summary>
-    /// <param name="forumId">The forum identifier.</param>
-    /// <param name="input">The input.</param>
-    /// <param name="fieldName">Name of the field.</param>
-    /// <returns>
-    /// Returns the search results
-    /// </returns>
-    public List<SearchMessage> DoSearch(int forumId, string input, string fieldName = "")
-    {
-        return input.IsNotSet()
-                   ? new List<SearchMessage>()
-                   : this.SearchIndex(out _, forumId, input, fieldName);
-    }
-
-    /// <summary>
     /// Searches for similar words
     /// </summary>
     /// <param name="filter">
@@ -427,7 +412,6 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// <summary>
     /// Searches the paged.
     /// </summary>
-    /// <param name="totalHits">The total hits.</param>
     /// <param name="forumId">The forum identifier.</param>
     /// <param name="input">The input.</param>
     /// <param name="pageIndex">Index of the page.</param>
@@ -436,28 +420,28 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// <returns>
     /// Returns the search results
     /// </returns>
-    public List<SearchMessage> SearchPaged(
-        out int totalHits,
+    public async Task<Tuple<List<SearchMessage>, int>> SearchPagedAsync(
         int forumId,
         string input,
         int pageIndex,
         int pageSize,
         string fieldName = "")
     {
-        if (input.IsSet())
+        if (!input.IsSet())
         {
-            try
-            {
-                return this.SearchIndex(out totalHits, forumId, input, fieldName, pageIndex, pageSize);
-            }
-            catch (Exception exception)
-            {
-                this.Get<ILogger<Search>>().Error(exception, "Search Error");
-            }
+            return new Tuple<List<SearchMessage>, int>(new List<SearchMessage>(), 0);
         }
 
-        totalHits = 0;
-        return new List<SearchMessage>();
+        try
+        {
+            return await this.SearchIndexAsync(forumId, input, fieldName, pageIndex, pageSize);
+        }
+        catch (Exception exception)
+        {
+            this.Get<ILogger<Search>>().Error(exception, "Search Error");
+        }
+
+        return new Tuple<List<SearchMessage>, int>(new List<SearchMessage>(), 0);
     }
 
     /// <summary>
@@ -469,11 +453,11 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// <returns>
     /// Returns the search results
     /// </returns>
-    public List<SearchMessage> SearchDefault(int forumId, string input, string fieldName = "")
+    public async Task<Tuple<List<SearchMessage>, int>> SearchDefaultAsync(int forumId, string input, string fieldName = "")
     {
         return input.IsNotSet()
-                   ? new List<SearchMessage>()
-                   : this.SearchIndex(out _, forumId, input, fieldName);
+                   ? new Tuple<List<SearchMessage>, int>(new List<SearchMessage>(), 0)
+                   : await this.SearchIndexAsync(forumId, input, fieldName);
     }
 
     /// <summary>
@@ -545,7 +529,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         var results = hits.Select(hit => this.MapSearchDocumentToData(searcher.Doc(hit.Doc), userAccessList))
             .ToList();
 
-        return results.Any()
+        return results.Count != 0
                    ? results.Where(item => item != null).GroupBy(x => x.Topic).Select(y => y.FirstOrDefault()).ToList()
                    : new List<SearchMessage>();
     }
@@ -562,7 +546,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         var forumId = doc.Get("ForumId").ToType<int>();
 
-        if (!userAccessList.Any() || !userAccessList.Exists(v => v.ForumID == forumId && v.ReadAccess > 0))
+        if (userAccessList.Count == 0 || !userAccessList.Exists(v => v.ForumID == forumId && v.ReadAccess > 0))
         {
             return null;
         }
@@ -684,7 +668,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// <returns>
     /// Returns the Search Message
     /// </returns>
-    private SearchMessage MapSearchDocumentToData(
+    private async Task<SearchMessage> MapSearchDocumentToDataAsync(
         Highlighter highlighter,
         Analyzer analyzer,
         Document doc,
@@ -692,7 +676,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         var forumId = doc.Get("ForumId").ToType<int>();
 
-        if (!userAccessList.Any() || !userAccessList.Exists(v => v.ForumID == forumId && v.ReadAccess > 0))
+        if (userAccessList.Count == 0 || !userAccessList.Exists(v => v.ForumID == forumId && v.ReadAccess > 0))
         {
             return null;
         }
@@ -724,11 +708,11 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             message,
             messageFlags);
 
-        formattedMessage = this.Get<IBBCodeService>().FormatMessageWithCustomBBCode(
-            formattedMessage,
-            new MessageFlags(flags),
-            doc.Get("UserId").ToType<int>(),
-            doc.Get("MessageId").ToType<int>());
+        formattedMessage = await this.Get<IBBCodeService>().FormatMessageWithCustomBBCodeAsync(
+                               formattedMessage,
+                               new MessageFlags(flags),
+                               doc.Get("UserId").ToType<int>(),
+                               doc.Get("MessageId").ToType<int>());
 
         message = formattedMessage;
 
@@ -758,39 +742,34 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             posted = doc.Get("Posted");
         }
 
-        return new SearchMessage
-                   {
-                       MessageId = doc.Get("MessageId").ToType<int>(),
-                       Message = message,
-                       Flags = flags,
-                       Posted = posted,
-                       UserName = HttpUtility.HtmlEncode(doc.Get("Author")),
-                       UserId = doc.Get("UserId").ToType<int>(),
-                       TopicId = doc.Get("TopicId").ToType<int>(),
-                       Topic = topic.IsSet() ? topic : doc.Get("Topic"),
-                       TopicTags = doc.Get("TopicTags"),
-                       ForumId = doc.Get("ForumId").ToType<int>(),
-                       Description = doc.Get("Description"),
-                       TopicUrl =
-                           this.Get<LinkBuilder>().GetTopicLink(
-                               doc.Get("TopicId").ToType<int>(),
-                               doc.Get("Topic")),
-                       MessageUrl =
-                           this.Get<LinkBuilder>().GetLink(
-                               ForumPages.Posts,
-                               new
-                                   {
-                                       m = doc.Get("MessageId").ToType<int>(),
-                                       name = doc.Get("Topic")
-                                   }),
-                       ForumUrl =
-                           this.Get<LinkBuilder>().GetForumLink(
-                               doc.Get("ForumId").ToType<int>(),
-                               doc.Get("ForumName")),
-                       UserDisplayName = HttpUtility.HtmlEncode(doc.Get("AuthorDisplay")),
-                       ForumName = doc.Get("ForumName"),
-                       UserStyle = doc.Get("AuthorStyle")
-                   };
+        return new SearchMessage {
+                                     MessageId = doc.Get("MessageId").ToType<int>(),
+                                     Message = message,
+                                     Flags = flags,
+                                     Posted = posted,
+                                     UserName = HttpUtility.HtmlEncode(doc.Get("Author")),
+                                     UserId = doc.Get("UserId").ToType<int>(),
+                                     TopicId = doc.Get("TopicId").ToType<int>(),
+                                     Topic = topic.IsSet() ? topic : doc.Get("Topic"),
+                                     TopicTags = doc.Get("TopicTags"),
+                                     ForumId = doc.Get("ForumId").ToType<int>(),
+                                     Description = doc.Get("Description"),
+                                     TopicUrl = this.Get<LinkBuilder>().GetTopicLink(
+                                         doc.Get("TopicId").ToType<int>(),
+                                         doc.Get("Topic")),
+                                     MessageUrl = this.Get<LinkBuilder>().GetLink(
+                                         ForumPages.Posts,
+                                         new {
+                                                 m = doc.Get("MessageId").ToType<int>(),
+                                                 name = doc.Get("Topic")
+                                             }),
+                                     ForumUrl = this.Get<LinkBuilder>().GetForumLink(
+                                         doc.Get("ForumId").ToType<int>(),
+                                         doc.Get("ForumName")),
+                                     UserDisplayName = HttpUtility.HtmlEncode(doc.Get("AuthorDisplay")),
+                                     ForumName = doc.Get("ForumName"),
+                                     UserStyle = doc.Get("AuthorStyle")
+                                 };
     }
 
     /// <summary>
@@ -806,7 +785,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// <returns>
     /// Returns the search list
     /// </returns>
-    private List<SearchMessage> MapSearchToDataList(
+    private async Task<List<SearchMessage>> MapSearchToDataListAsync(
         Highlighter highlighter,
         Analyzer analyzer,
         IndexSearcher searcher,
@@ -816,17 +795,19 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         List<VAccess> userAccessList)
     {
         var skip = pageSize * pageIndex;
-
-        return hits.Select(
-                hit => this.MapSearchDocumentToData(highlighter, analyzer, searcher.Doc(hit.Doc), userAccessList))
-            .Where(item => item != null).OrderByDescending(item => item.MessageId).Skip(skip).Take(pageSize)
-            .ToList();
+        return await hits.ToAsyncEnumerable()
+                   .SelectAwait(
+                       async hit => await this.MapSearchDocumentToDataAsync(
+                                        highlighter,
+                                        analyzer,
+                                        searcher.Doc(hit.Doc),
+                                        userAccessList)).Where(item => item != null)
+                   .OrderByDescending(item => item.MessageId).Skip(skip).Take(pageSize).ToListAsync();
     }
 
     /// <summary>
     /// Searches the index.
     /// </summary>
-    /// <param name="totalHits">The total hits.</param>
     /// <param name="forumId">The forum identifier.</param>
     /// <param name="searchQuery">The search query.</param>
     /// <param name="searchField">The search field.</param>
@@ -835,8 +816,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     /// <returns>
     /// Returns the Search results
     /// </returns>
-    private List<SearchMessage> SearchIndex(
-        out int totalHits,
+    private async Task<Tuple<List<SearchMessage>, int>> SearchIndexAsync(
         int forumId,
         string searchQuery,
         string searchField = "",
@@ -845,8 +825,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         if (searchQuery.Replace("*", string.Empty).Replace("?", string.Empty).IsNotSet())
         {
-            totalHits = 0;
-            return new List<SearchMessage>();
+            return new Tuple<List<SearchMessage>, int>(new List<SearchMessage>(), 0);
         }
 
         // Insert forum access here
@@ -862,8 +841,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
         if (searcher == null)
         {
-            totalHits = 0;
-            return new List<SearchMessage>();
+            return new Tuple<List<SearchMessage>, int>(new List<SearchMessage>(), 0);
         }
 
         var hitsLimit = this.Get<BoardSettings>().ReturnSearchMax;
@@ -888,11 +866,10 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             scorer = new QueryScorer(query);
 
             var hits = searcher.Search(query, hitsLimit).ScoreDocs;
-            totalHits = hits.Length;
 
             var highlighter = new Highlighter(formatter, scorer) { TextFragmenter = fragmenter };
 
-            var results = this.MapSearchToDataList(
+            var results = await this.MapSearchToDataListAsync(
                 highlighter,
                 analyzer,
                 searcher,
@@ -903,7 +880,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
             analyzer.Dispose();
 
-            return results;
+            return new Tuple<List<SearchMessage>, int>(results, hits.Length);
         }
         else
         {
@@ -944,10 +921,9 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
             var hits = searcher.Search(query, fil.Any() ? fil : null, hitsLimit, sort).ScoreDocs;
 
-            totalHits = hits.Length;
             var highlighter = new Highlighter(formatter, scorer) { TextFragmenter = fragmenter };
 
-            var results = this.MapSearchToDataList(
+            var results = await this.MapSearchToDataListAsync(
                 highlighter,
                 analyzer,
                 searcher,
@@ -958,7 +934,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
             this.searcherManager.Release(searcher);
 
-            return results;
+            return new Tuple<List<SearchMessage>, int>(results, hits.Length);
         }
     }
 

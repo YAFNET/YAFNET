@@ -103,17 +103,6 @@ public interface ISearch
     int CountHits(string input);
 
     /// <summary>
-    /// Searches the specified user identifier.
-    /// </summary>
-    /// <param name="forumId">The forum identifier.</param>
-    /// <param name="input">The input.</param>
-    /// <param name="fieldName">Name of the field.</param>
-    /// <returns>
-    /// Returns the search results
-    /// </returns>
-    List<SearchMessage> DoSearch(int forumId, string input, string fieldName = "");
-
-    /// <summary>
     /// Searches for similar words
     /// </summary>
     /// <param name="filter">
@@ -133,7 +122,6 @@ public interface ISearch
     /// <summary>
     /// Searches the paged.
     /// </summary>
-    /// <param name="totalHits">The total hits.</param>
     /// <param name="forumId">The forum identifier.</param>
     /// <param name="input">The input.</param>
     /// <param name="pageIndex">Index of the page.</param>
@@ -142,7 +130,12 @@ public interface ISearch
     /// <returns>
     /// Returns the search results
     /// </returns>
-    List<SearchMessage> SearchPaged(out int totalHits, int forumId, string input, int pageIndex, int pageSize, string fieldName = "");
+    Task<Tuple<List<SearchMessage>, int>> SearchPagedAsync(
+        int forumId,
+        string input,
+        int pageIndex,
+        int pageSize,
+        string fieldName = "");
 
     /// <summary>
     /// Searches the default.
@@ -153,5 +146,5 @@ public interface ISearch
     /// <returns>
     /// Returns the search results
     /// </returns>
-    List<SearchMessage> SearchDefault(int forumId, string input, string fieldName = "");
+    Task<Tuple<List<SearchMessage>, int>> SearchDefaultAsync(int forumId, string input, string fieldName = "");
 }

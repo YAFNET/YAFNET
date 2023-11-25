@@ -25,6 +25,7 @@
 namespace YAF.Types.Interfaces.Services;
 
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using YAF.Types.Models;
 
@@ -37,21 +38,21 @@ public interface IBBCodeService
     /// Formats the message with Custom BBCodes
     /// </summary>
     /// <param name="message">
-    /// The message.
+    ///     The message.
     /// </param>
     /// <param name="flags">
-    /// The Message flags.
+    ///     The Message flags.
     /// </param>
     /// <param name="displayUserId">
-    /// The display user id.
+    ///     The display user id.
     /// </param>
     /// <param name="messageId">
-    /// The message id.
+    ///     The message id.
     /// </param>
     /// <returns>
     /// Returns the formatted Message.
     /// </returns>
-    string FormatMessageWithCustomBBCode(string message, MessageFlags flags, int? displayUserId, int? messageId);
+    Task<string> FormatMessageWithCustomBBCodeAsync(string message, MessageFlags flags, int? displayUserId, int? messageId);
 
     /// <summary>
     /// Converts a message containing HTML to BBCode for editing.
