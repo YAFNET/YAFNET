@@ -81,7 +81,7 @@ public class DbAccessProvider : IDbAccessProvider
                     else
                     {
                         throw new NoValidDbAccessProviderFoundException(
-                            $@"Unable to Locate Provider Named ""{this.ProviderName}"" in Data Access Providers (DLL Not Located in Bin Directory?).");
+                            $"""Unable to Locate Provider Named "{this.ProviderName}" in Data Access Providers (DLL Not Located in Bin Directory?).""");
                     }
 
                     return dbAccess;
@@ -96,7 +96,6 @@ public class DbAccessProvider : IDbAccessProvider
     ///     <c>NoValidDbAccessProviderFoundException</c>
     ///     .
     /// </exception>
-    
     public IDbAccess Instance
     {
         get => this._dbAccessSafe.Instance;
