@@ -547,7 +547,7 @@ public class TestDataModel : AdminPage
         {
             this.randomGuid = Guid.NewGuid().ToString();
 
-            var messageId = this.GetRepository<PrivateMessage>().Insert(
+            _ = this.GetRepository<PrivateMessage>().Insert(
                 new PrivateMessage
                 {
                     Created = DateTime.UtcNow,

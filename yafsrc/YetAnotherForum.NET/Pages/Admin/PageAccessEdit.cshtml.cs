@@ -183,7 +183,7 @@ public class PageAccessEditModel : AdminPage
         listPages.ToList().ForEach(
             listPage =>
             {
-                if (dt != null && dt.Any(a => a.PageName == listPage && hostPages.All(s => s != a.PageName)))
+                if (dt != null && dt.Any(a => a.PageName == listPage && Array.TrueForAll(hostPages, s => s != a.PageName)))
                 {
                     found = true;
                     pagesAll.Add(
@@ -195,7 +195,7 @@ public class PageAccessEditModel : AdminPage
                 }
 
                 // If it doesn't contain page for the user add it.
-                if (!found && hostPages.All(s => s != listPage))
+                if (!found && Array.TrueForAll(hostPages, s => s != listPage))
                 {
                     pagesAll.Add(
                         new AdminPageUserAccess {
