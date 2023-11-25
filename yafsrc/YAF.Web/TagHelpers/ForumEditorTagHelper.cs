@@ -235,7 +235,6 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         RenderButton(content, "setStyle('paste','')", this.GetText("COMMON", "TT_PASTE"), "paste");
 
         content.AppendHtml(group1.RenderEndTag());
-        //
 
         // Group 2
         var group2 = CreateBtnGroupTag();
@@ -248,7 +247,6 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         RenderButton(content, "setStyle('redo','')", this.GetText("COMMON", "TT_REDO"), "rotate-right", "redo");
 
         content.AppendHtml(group2.RenderEndTag());
-        //
 
         // Group 3
         var group3 = CreateBtnGroupTag();
@@ -261,7 +259,6 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         RenderButton(content, "setStyle('removeFormat','')", this.GetText("COMMON", "TT_REMOVE"), "remove-format");
 
         content.AppendHtml(group3.RenderEndTag());
-        //
 
         content.AppendHtml(toolbar.RenderEndTag());
     }
@@ -287,7 +284,6 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         RenderButton(content, "setStyle('underline','')", this.GetText("COMMON", "TT_UNDERLINE"), "underline");
 
         content.AppendHtml(group1.RenderEndTag());
-        //
 
         // Group 11
         var group11 = CreateBtnGroupTag();
@@ -340,7 +336,6 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         content.AppendHtml(dropDownMenu5.RenderEndTag());
 
         content.AppendHtml(group11.RenderEndTag());
-        //
 
         // Group 10
         var group10 = CreateBtnGroupTag();
@@ -410,7 +405,6 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         RenderButton(content, "setStyle('highlight','')", this.GetText("COMMON", "TT_HIGHLIGHT"), "pen-square");
 
         content.AppendHtml(group2.RenderEndTag());
-        //
 
         // Group 3
         var group3 = CreateBtnGroupTag();
@@ -485,7 +479,6 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         content.AppendHtml(dropDownMenu1.RenderEndTag());
 
         content.AppendHtml(group3.RenderEndTag());
-        //
 
         // Group 4
         var group4 = CreateBtnGroupTag();
@@ -522,11 +515,9 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
             this.RenderAlbumsDropDown(content);
 
             content.AppendHtml(dropDownMenu2.RenderEndTag());
-            //
         }
 
         content.AppendHtml(group4.RenderEndTag());
-        //
 
         if (this.UsersCanUpload && BoardContext.Current.UploadAccess)
         {
@@ -560,7 +551,6 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
             this.RenderAttachmentsDropDown(content);
 
             content.AppendHtml(dropDownMenu2.RenderEndTag());
-            //
 
             content.AppendHtml(group5.RenderEndTag());
         }
@@ -574,7 +564,6 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         RenderButton(content, "setStyle('orderedlist','')", this.GetText("COMMON", "TT_LISTORDERED"), "list-ol");
 
         content.AppendHtml(group6.RenderEndTag());
-        //
 
         // Group 7
         var group7 = CreateBtnGroupTag();
@@ -587,7 +576,6 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         RenderButton(content, "setStyle('justifyright','')", this.GetText("COMMON", "TT_ALIGNRIGHT"), "align-right");
 
         content.AppendHtml(group7.RenderEndTag());
-        //
 
         // Group 8
         var group8 = CreateBtnGroupTag();
@@ -603,10 +591,9 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
         var customBbCodesWithToolbar = customBbCode.Where(code => code.UseToolbar == true).ToList();
         var customBbCodesWithNoToolbar =
-            customBbCode.Where(code => code.UseToolbar == false || code.UseToolbar.HasValue == false);
+            customBbCode.Where(code => code.UseToolbar == false || !code.UseToolbar.HasValue);
 
         content.AppendHtml(group8.RenderEndTag());
-        //
 
         if (customBbCode.Any())
         {
@@ -616,7 +603,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
 
             RenderButton(content, "setStyle('media','')", this.GetText("COMMON", "MEDIA"), "photo-film");
 
-            if (customBbCodesWithToolbar.Any())
+            if (customBbCodesWithToolbar.Count != 0)
             {
                 customBbCodesWithToolbar.ForEach(
                     row =>
@@ -704,10 +691,8 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                         });
 
             content.AppendHtml(dropDownMenu3.RenderEndTag());
-            //
 
             content.AppendHtml(group9.RenderEndTag());
-            //
         }
 
         content.AppendHtml(toolbar.RenderEndTag());

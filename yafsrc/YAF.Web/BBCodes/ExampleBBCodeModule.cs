@@ -33,10 +33,12 @@ public class ExampleBBCodeModule : BBCodeControl
     /// The render.
     /// </summary>
     /// <param name="stringBuilder">
-    /// The string Builder.
+    ///     The string Builder.
     /// </param>
-    public override void Render(StringBuilder stringBuilder)
+    public override Task RenderAsync(StringBuilder stringBuilder)
     {
         stringBuilder.Append($"Hello, you wrote this: {this.Parameters["inner"]}");
+
+        return Task.CompletedTask;
     }
 }

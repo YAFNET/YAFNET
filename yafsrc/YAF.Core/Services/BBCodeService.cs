@@ -129,7 +129,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
 
                         var paramDic = new Dictionary<string, string> { { "inner", match.Groups["inner"].Value } };
 
-                        if (codeRow.Variables.IsSet() && codeRow.Variables.Split(';').Any())
+                        if (codeRow.Variables.IsSet() && codeRow.Variables.Split(';').Length != 0)
                         {
                             var vars = codeRow.Variables.Split(';');
 
@@ -152,7 +152,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                         customModule.Parameters = paramDic;
 
                         // render this control...
-                        customModule.Render(sb);
+                        customModule.RenderAsync(sb);
 
                         sb.Append(workingMessage[(match.Groups[0].Index + match.Groups[0].Length)..]);
 
@@ -525,9 +525,6 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                          : string.Empty;
 
         var noFollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
-
-        // pull localized strings
-        var localQuoteStr = this.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTE");
 
         // handle font sizes -- this rule class internally handles the "size" variable
         ruleEngine.AddRule(

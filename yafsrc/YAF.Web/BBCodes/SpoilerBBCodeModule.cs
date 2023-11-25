@@ -33,9 +33,9 @@ public class SpoilerBBCodeModule : BBCodeControl
     /// The render.
     /// </summary>
     /// <param name="stringBuilder">
-    /// The string Builder.
+    ///     The string Builder.
     /// </param>
-    public override void Render(StringBuilder stringBuilder)
+    public override Task RenderAsync(StringBuilder stringBuilder)
     {
         var spoilerTitle = this.HtmlEncode(
             this.LocalizedString(
@@ -44,15 +44,19 @@ public class SpoilerBBCodeModule : BBCodeControl
 
         stringBuilder.Append("<!-- BEGIN spoiler -->");
         stringBuilder.AppendFormat(
-            @"<p>
-                      <a class=""btn btn-secondary btn-sm"" data-bs-toggle=""collapse"" href=""#{0}"" role=""button"" aria-expanded=""false"" title=""{2}"">{1}</a>
-                  </p>
-                  <div class=""collapse"" id=""{0}""><div class=""card card-body"">",
+            """
+            <p>
+                                  <a class="btn btn-secondary btn-sm" data-bs-toggle="collapse" href="#{0}" role="button" aria-expanded="false" title="{2}">{1}</a>
+                              </p>
+                              <div class="collapse" id="{0}"><div class="card card-body">
+            """,
             this.GetUniqueID("spoil_"),
             this.HtmlEncode(this.LocalizedString("SPOILERMOD_SHOW", "Show Spoiler")),
             spoilerTitle);
         stringBuilder.Append(this.Parameters["inner"]);
         stringBuilder.Append("</div></div>");
         stringBuilder.Append("<!-- END spoiler -->");
+
+        return Task.CompletedTask;
     }
 }

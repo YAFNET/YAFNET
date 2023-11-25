@@ -150,11 +150,6 @@ public static class Constants
         public const string UserMedals = "UserMedals{0}";
 
         /// <summary>
-        ///   The user signature cache.
-        /// </summary>
-        public const string UserSignatureCache = "UserSignatureCache";
-
-        /// <summary>
         ///   The users online status.
         /// </summary>
         public const string UsersOnlineStatus = "UsersOnlineStatus";
@@ -183,14 +178,14 @@ public static class Constants
     /// <summary>
     /// The forum rebuild.
     /// </summary>
-    public struct ForumRebuild
+    public readonly struct ForumRebuild
     {
         /// <summary>
         /// The blocking task names.
         /// </summary>
         public readonly static string[] BlockingTaskNames =
-            {
+            [
                 "ForumDeleteTask"
-            };
+            ];
     }
 }

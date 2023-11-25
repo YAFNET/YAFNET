@@ -33,15 +33,15 @@ public class HideReplyModule : BBCodeControl
     /// The render.
     /// </summary>
     /// <param name="stringBuilder">
-    /// The string Builder.
+    ///     The string Builder.
     /// </param>
-    public override void Render(StringBuilder stringBuilder)
+    public override Task RenderAsync(StringBuilder stringBuilder)
     {
         var hiddenContent = this.Parameters["inner"];
 
         if (hiddenContent.IsNotSet())
         {
-            return;
+            return Task.CompletedTask;
         }
 
         var description = this.LocalizedString(
@@ -59,7 +59,8 @@ public class HideReplyModule : BBCodeControl
         if (BoardContext.Current.IsAdmin)
         {
             stringBuilder.Append(hiddenContent);
-            return;
+
+            return Task.CompletedTask;
         }
 
         var userId = BoardContext.Current.PageUserID;
@@ -67,7 +68,8 @@ public class HideReplyModule : BBCodeControl
         if (BoardContext.Current.IsGuest)
         {
             stringBuilder.Append(shownContentGuest);
-            return;
+
+            return Task.CompletedTask;
         }
 
         if (this.DisplayUserID == userId ||
@@ -78,5 +80,7 @@ public class HideReplyModule : BBCodeControl
         }
 
         stringBuilder.Append(shownContent);
+
+        return Task.CompletedTask;
     }
 }

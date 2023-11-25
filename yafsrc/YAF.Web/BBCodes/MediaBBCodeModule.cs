@@ -35,9 +35,9 @@ public class MediaBBCodeModule : BBCodeControl
     /// The render.
     /// </summary>
     /// <param name="stringBuilder">
-    /// The string Builder.
+    ///     The string Builder.
     /// </param>
-    public async override void Render(StringBuilder stringBuilder)
+    public async override Task RenderAsync(StringBuilder stringBuilder)
     {
         var url = this.Parameters["inner"];
 

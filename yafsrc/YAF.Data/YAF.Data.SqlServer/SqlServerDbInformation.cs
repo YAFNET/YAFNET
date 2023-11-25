@@ -323,10 +323,12 @@ public class SqlServerDbInformation : IDbInformation
     /// </param>
     public bool CreateIndexViews(IDbAccess dbAccess, IDbCommand dbCommand)
     {
-        var selectSql = @"[UserID] ASC,
-                              [ForumID] ASC,
-                              [AccessMaskID] ASC,
-                              [GroupID] ASC";
+        var selectSql = """
+                        [UserID] ASC,
+                        [ForumID] ASC,
+                        [AccessMaskID] ASC,
+                        [GroupID] ASC
+                        """;
 
         dbCommand.Connection.CreateViewIndex<vaccess_user>("UserForum_PK", selectSql);
         dbCommand.Connection.CreateViewIndex<vaccess_null>("UserForum_PK", selectSql);

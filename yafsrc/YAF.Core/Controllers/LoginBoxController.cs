@@ -166,7 +166,7 @@ public class LoginBox : ForumBaseController
     /// <param name="user">The user.</param>
     /// <param name="modal">The modal.</param>
     /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
-    public async Task<IActionResult> SignInAsync(AspNetUsers user, LoginModal modal)
+    private async Task<IActionResult> SignInAsync(AspNetUsers user, LoginModal modal)
     {
         if (!user.TwoFactorEnabled)
         {

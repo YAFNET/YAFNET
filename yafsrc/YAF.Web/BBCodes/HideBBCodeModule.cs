@@ -33,9 +33,9 @@ public class HideBBCodeModule : BBCodeControl
     /// The render.
     /// </summary>
     /// <param name="stringBuilder">
-    /// The string Builder.
+    ///     The string Builder.
     /// </param>
-    public override void Render(StringBuilder stringBuilder)
+    public override Task RenderAsync(StringBuilder stringBuilder)
     {
         var hiddenContent = this.Parameters["inner"];
 
@@ -57,7 +57,7 @@ public class HideBBCodeModule : BBCodeControl
 
         if (hiddenContent.IsNotSet())
         {
-            return;
+            return Task.CompletedTask;
         }
 
         var description = this.LocalizedString(
@@ -75,7 +75,7 @@ public class HideBBCodeModule : BBCodeControl
         if (BoardContext.Current.IsAdmin)
         {
             stringBuilder.Append(hiddenContent);
-            return;
+            return Task.CompletedTask;
         }
 
         var userId = BoardContext.Current.PageUserID;
@@ -94,7 +94,7 @@ public class HideBBCodeModule : BBCodeControl
             if (BoardContext.Current.IsGuest)
             {
                 stringBuilder.Append(shownContentGuest);
-                return;
+                return Task.CompletedTask;
             }
 
             if (this.DisplayUserID == userId ||
@@ -121,7 +121,7 @@ public class HideBBCodeModule : BBCodeControl
             if (BoardContext.Current.IsGuest)
             {
                 stringBuilder.Append(shownContentGuest);
-                return;
+                return Task.CompletedTask;
             }
 
             if (this.DisplayUserID == userId ||
@@ -140,7 +140,7 @@ public class HideBBCodeModule : BBCodeControl
             if (BoardContext.Current.IsGuest)
             {
                 stringBuilder.Append(shownContentGuest);
-                return;
+                return Task.CompletedTask;
             }
 
             if (this.DisplayUserID == userId ||
@@ -151,14 +151,18 @@ public class HideBBCodeModule : BBCodeControl
             }
             else
             {
-                shownContent = $@"<div class=""alert alert-danger"" role=""alert"">
-                <h4 class=""alert-heading"">Hidden Content</h4>
-                <hr>
-                <p class=""mb-0"">{description}</p>
-</div>";
+                shownContent = $"""
+                                <div class="alert alert-danger" role="alert">
+                                                <h4 class="alert-heading">Hidden Content</h4>
+                                                <hr>
+                                                <p class="mb-0">{description}</p>
+                                </div>
+                                """;
             }
         }
 
         stringBuilder.Append(shownContent);
+
+        return Task.CompletedTask;
     }
 }

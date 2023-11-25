@@ -198,7 +198,7 @@ public class SignaturePreviewTagHelper : TagHelper, IHaveServiceLocator, IHaveLo
                         customModule.Parameters = paramDic;
 
                         // render this control...
-                        customModule.Render(sb);
+                        customModule.RenderAsync(sb);
 
                         sb.Append(workingMessage[(match.Groups[0].Index + match.Groups[0].Length)..]);
 

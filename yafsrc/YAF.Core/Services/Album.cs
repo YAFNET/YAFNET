@@ -29,7 +29,6 @@ using System.IO;
 using Model;
 
 using Types.Models;
-using Types.Objects;
 
 /// <summary>
 /// Album Service for the current user.

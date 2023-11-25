@@ -33,9 +33,9 @@ public class GroupHide : BBCodeControl
     /// The render.
     /// </summary>
     /// <param name="stringBuilder">
-    /// The string Builder.
+    ///     The string Builder.
     /// </param>
-    public override void Render(StringBuilder stringBuilder)
+    public async override Task RenderAsync(StringBuilder stringBuilder)
     {
         var hiddenContent = this.Parameters["inner"];
 
@@ -78,8 +78,8 @@ public class GroupHide : BBCodeControl
             var groups = groupString.Split(';');
 
             // Check For Role Hiding
-            if (this.Get<IAspNetRolesHelper>().GetRolesForUserAsync(
-                    BoardContext.Current.MembershipUser).Result.Any(role => !groups.Any(role.Equals)))
+            if ((await this.Get<IAspNetRolesHelper>().GetRolesForUserAsync(
+                     BoardContext.Current.MembershipUser)).Any(role => !groups.Any(role.Equals)))
             {
                 shownContentGuest = hiddenContent;
             }

@@ -24,12 +24,9 @@
 
 namespace YAF.Core.Events.Cache;
 
-using System;
-
 using YAF.Types.Attributes;
 using YAF.Types.Constants;
 using YAF.Types.Models;
-using YAF.Types.Structures;
 
 /// <summary>
 /// The clear cache on events.
@@ -113,14 +110,6 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
 
         // update forum moderators cache just in case something was changed...
         this.ClearModeratorsCache();
-
-        var cache = this.DataCache.GetOrSet(
-            Constants.Cache.UserSignatureCache,
-            () => new MostRecentlyUsed(250),
-            TimeSpan.FromMinutes(10));
-
-        // remove from the the signature cache...
-        cache.Remove(userId);
 
         // Clearing cache with old Active User Lazy Data ...
         this.DataCache.Remove(string.Format(Constants.Cache.ActiveUserLazyData, userId));

@@ -35,22 +35,22 @@ public class AlbumImage : BBCodeControl
     /// Render The Album Image as Link with Image
     /// </summary>
     /// <param name="stringBuilder">
-    /// The string Builder.
+    ///     The string Builder.
     /// </param>
-    public override void Render(StringBuilder stringBuilder)
+    public override Task RenderAsync(StringBuilder stringBuilder)
     {
         var imageId = HtmlTagHelper.StripHtml(this.Parameters["inner"]);
 
         if (!ValidationHelper.IsNumeric(imageId))
         {
-            return;
+            return Task.CompletedTask;
         }
 
         var albumImage = this.GetRepository<UserAlbumImage>().GetById(imageId.ToType<int>());
 
         if (albumImage is null || !this.PageContext.BoardSettings.EnableAlbum)
         {
-            return;
+            return Task.CompletedTask;
         }
 
         stringBuilder.Append(
@@ -76,5 +76,7 @@ public class AlbumImage : BBCodeControl
         stringBuilder.Append($"""<p class="card-text text-center small">{this.GetText("IMAGE_RESIZE_ENLARGE")}</p>""");
 
         stringBuilder.Append("</div></div>");
+
+        return Task.CompletedTask;
     }
 }

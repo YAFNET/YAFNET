@@ -26,6 +26,7 @@ namespace YAF.Core.BBCode;
 
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using YAF.Core.Context;
 
@@ -142,9 +143,10 @@ public class BBCodeControl : IHaveServiceLocator, IHaveLocalization
     /// The render.
     /// </summary>
     /// <param name="stringBuilder">
-    /// The string builder.
+    ///     The string builder.
     /// </param>
-    public virtual void Render(StringBuilder stringBuilder)
+    public virtual Task RenderAsync(StringBuilder stringBuilder)
     {
+        return Task.CompletedTask;
     }
 }

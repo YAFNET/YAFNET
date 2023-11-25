@@ -35,22 +35,22 @@ public class Attach : BBCodeControl
     /// Render The Album Image as Link with Image
     /// </summary>
     /// <param name="stringBuilder">
-    /// The string Builder.
+    ///     The string Builder.
     /// </param>
-    public override void Render(StringBuilder stringBuilder)
+    public override Task RenderAsync(StringBuilder stringBuilder)
     {
         var attachId = HtmlTagHelper.StripHtml(this.Parameters["inner"]);
 
         if (!ValidationHelper.IsNumeric(attachId))
         {
-            return;
+            return Task.CompletedTask;
         }
 
         var attachment = this.GetRepository<Attachment>().GetById(attachId.ToType<int>());
 
         if (attachment is null)
         {
-            return;
+            return Task.CompletedTask;
         }
 
         var filename = attachment.FileName.ToLower();
@@ -72,7 +72,7 @@ public class Attach : BBCodeControl
                 attachment.FileName,
                 this.GetText("ATTACH_NO"));
 
-            return;
+            return Task.CompletedTask;
         }
 
         if (showImage)
@@ -130,5 +130,7 @@ public class Attach : BBCodeControl
                 attachment.FileName,
                 this.GetTextFormatted("ATTACHMENTINFO", kb, attachment.Downloads));
         }
+
+        return Task.CompletedTask;
     }
 }

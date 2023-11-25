@@ -33,13 +33,13 @@ public class UserLinkBBCodeModule : BBCodeControl
     /// The render.
     /// </summary>
     /// <param name="stringBuilder">
-    /// The string Builder.
+    ///     The string Builder.
     /// </param>
-    public override void Render(StringBuilder stringBuilder)
+    public async override Task RenderAsync(StringBuilder stringBuilder)
     {
         var userName = this.Parameters["inner"];
 
-        if (userName.StartsWith("@"))
+        if (userName.StartsWith('@'))
         {
             userName = userName.Replace("@", string.Empty);
         }
@@ -49,7 +49,7 @@ public class UserLinkBBCodeModule : BBCodeControl
             return;
         }
 
-        var user = this.Get<IAspNetUsersHelper>().GetUserByNameAsync(userName.Trim()).Result;
+        var user = await this.Get<IAspNetUsersHelper>().GetUserByNameAsync(userName.Trim());
 
         if (user is not null)
         {
