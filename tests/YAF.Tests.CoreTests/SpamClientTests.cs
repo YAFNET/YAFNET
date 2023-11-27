@@ -31,64 +31,52 @@ using YAF.Core.Services.CheckForSpam;
 /// <summary>
 /// The spam client tester.
 /// </summary>
-[TestFixture]
 public class SpamClientTests
 {
     /// <summary>
     /// A Test to Check for Bot via StopForumSpam.com API
     /// </summary>
-    [Test]
+    [Fact(Skip = "Ignore from automatic testing")]
     [Description("A Test to Check for Bot via StopForumSpam.com API")]
-    [Ignore("Ignore from automatic testing")]
     public void Check_For_Bot_Test_via_StopForumSpam()
     {
-        Assert.IsTrue(
+        Assert.True(
             new StopForumSpam().IsBot("84.16.230.111", "uuruznfdxw@gmail.com", "someone", out var responseText),
-            "This should be a Bot{0}",
-            responseText);
+            $"This should be a Bot{responseText}");
     }
 
     /// <summary>
     /// A Test to Check for Bot via BotScout.com API
     /// </summary>
-    [Test]
+    [Fact(Skip = "Ignore from automatic testing")]
     [Description("A Test to Check for Bot via BotScout.com API")]
-    [Ignore("Ignore from automatic testing")]
     public void Check_For_Bot_Test_via_BotScout()
     {
-        Assert.IsTrue(
+        Assert.True(
             new BotScout().IsBot("84.16.230.111", "krasnhello@mail.ru", "someone", out var responseText),
-            "This should be a Bot{0}",
-            responseText);
+            $"This should be a Bot{responseText}");
     }
 
     /// <summary>
     /// A Test to Check for Bot via BotScout.com or StopForumSpam.com API
     /// </summary>
-    [Test]
+    [Fact(Skip = "Ignore from automatic testing")]
     [Description("A Test to Check for Bot via BotScout.com API or StopForumSpam.com API")]
-    [Ignore("Ignore from automatic testing")]
     public void Check_For_Bot_Test()
     {
         var botScoutCheck = new BotScout().IsBot("84.16.230.111", "krasnhello@mail.ru", "someone", out _);
-        var stopForumSpamCheck = new StopForumSpam().IsBot(
-            "84.16.230.111",
-            "krasnhello@mail.ru",
-            "someone",
-            out _);
+        var stopForumSpamCheck = new StopForumSpam().IsBot("84.16.230.111", "krasnhello@mail.ru", "someone", out _);
 
-        Assert.IsTrue(botScoutCheck | stopForumSpamCheck, "This should be a Bot");
+        Assert.True(botScoutCheck | stopForumSpamCheck, "This should be a Bot");
     }
 
     /// <summary>
     /// The report_ user_ as_ bot_ test.
     /// </summary>
-    [Test]
-    [Ignore("Ignore until api key is set")]
+    [Fact(Skip = "Ignore until api key is set")]
     public void Report_User_As_Bot_Test()
     {
-        var parameters =
-            "username=someone&ip_addr=84.16.230.111&email=krasnhello@mail.ru&api_key=XXXXXXXXXXX";
+        var parameters = "username=someone&ip_addr=84.16.230.111&email=krasnhello@mail.ru&api_key=XXXXXXXXXXX";
 
         var result = new HttpClient().PostRequest(
             new Uri("https://www.stopforumspam.com/add.php"),
@@ -96,6 +84,6 @@ public class SpamClientTests
             5000,
             parameters);
 
-        Assert.IsTrue(result.Equals("success"), result);
+        Assert.True(result.Equals("success"), result);
     }
 }

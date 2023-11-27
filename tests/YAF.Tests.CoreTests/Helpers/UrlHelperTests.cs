@@ -27,13 +27,12 @@ namespace YAF.Tests.CoreTests.Helpers;
 /// <summary>
 /// YAF.Utils UrlHelper Tests
 /// </summary>
-[TestFixture]
 public class UrlHelperTests
 {
     /// <summary>
     /// Count all URLs Test
     /// </summary>
-    [Test]
+    [Fact]
     [Description("Count all URLs Test.")]
     public void CountUrls_Test()
     {
@@ -41,7 +40,7 @@ public class UrlHelperTests
             @"Indeed, back to the drawing board. You might be against [url=http://supplementsbook.org/ketoslim/]Ketoslim[/url] for some reason. 
                  Read More: [url = http://supplementsbook.org/ketoslim/]http://supplementsbook.org/ketoslim/[/url]";
 
-        Assert.AreEqual(
+        Assert.Equal(
             3,
             UrlHelper.CountUrls(TestMessage));
     }

@@ -32,13 +32,12 @@ using YAF.Types.Extensions;
 /// <summary>
 /// The copyright key removal tests.
 /// </summary>
-[TestFixture]
 public class CopyrightKeyRemovalTests
 {
     /// <summary>
     /// Verify Copyright Removal Key Test.
     /// </summary>
-    [Test]
+    [Fact]
     [Description("Verify Copyright Removal Key Test")]
     public void CopyrightRemoval_Match_Test()
     {
@@ -61,6 +60,6 @@ public class CopyrightKeyRemovalTests
             this.GetType().GetSigningKey().ToString(),
             false);
 
-        Assert.AreEqual(currentDomainHash, "QLZDULM1U21NB2SISMH4TSRRBA0=");
+        Assert.Equal(currentDomainHash, "QLZDULM1U21NB2SISMH4TSRRBA0=");
     }
 }
