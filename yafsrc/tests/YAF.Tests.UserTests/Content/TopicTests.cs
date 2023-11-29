@@ -42,11 +42,11 @@ public class TopicTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -57,7 +57,7 @@ public class TopicTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Post New Topic"), "Post New Topic not possible");
+                    Assert.That(pageSource, Does.Contain("Post New Topic"), "Post New Topic not possible");
 
                     // Create New Topic
                     await page.Locator("//input[contains(@id,'_TopicSubject')]")
@@ -76,7 +76,7 @@ public class TopicTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Next Topic"), "Topic Creating failed");
+                    Assert.That(pageSource, Does.Contain("Next Topic"), "Topic Creating failed");
                 },
             this.BrowserType);
     }
@@ -93,11 +93,11 @@ public class TopicTests : TestBase
             async page =>
             {
                 // Log user in first!
-                Assert.IsTrue(
+                Assert.That(
                 await page.LoginUserAsync(
                     this.Base.TestSettings,
                     this.Base.TestSettings.AdminUserName,
-                    this.Base.TestSettings.AdminPassword),
+                    this.Base.TestSettings.AdminPassword), Is.True,
                 "Login failed");
 
                 // Do actual test
@@ -108,7 +108,7 @@ public class TopicTests : TestBase
 
                 var pageSource = await page.ContentAsync();
 
-                Assert.IsTrue(pageSource.Contains("Post New Topic"), "Post New Topic not possible");
+                Assert.That(pageSource, Does.Contain("Post New Topic"), "Post New Topic not possible");
 
                 var topicTitle = $"Auto Created Test Topic for deleting - {DateTime.UtcNow}";
 
@@ -129,7 +129,7 @@ public class TopicTests : TestBase
 
                 pageSource = await page.ContentAsync();
 
-                Assert.IsTrue(pageSource.Contains("Next Topic"), "Topic Creating failed");
+                Assert.That(pageSource, Does.Contain("Next Topic"), "Topic Creating failed");
 
                 // Delete Topic
                 await page.GetByRole(AriaRole.Button, new() { Name = " Manage Topic" }).First.ClickAsync();
@@ -140,7 +140,7 @@ public class TopicTests : TestBase
 
                 pageSource = await page.ContentAsync();
 
-                Assert.IsFalse(pageSource.Contains(topicTitle), "Topic Deleting failed");
+                Assert.That(pageSource.Contains(topicTitle), Is.False, "Topic Deleting failed");
                 ////
             },
             this.BrowserType);

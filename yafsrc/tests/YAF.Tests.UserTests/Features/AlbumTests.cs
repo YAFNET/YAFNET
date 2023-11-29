@@ -44,11 +44,11 @@ public class AlbumTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -56,14 +56,14 @@ public class AlbumTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Edit Albums"), "Albums Feature is not available for that User");
+                    Assert.That(pageSource, Does.Contain("Edit Albums"), "Albums Feature is not available for that User");
 
                     await page.GetByText("Edit Albums").First.ClickAsync();
 
                     // Add New Album
                     var addAlbumButton = page.GetByText("Add New Album");
 
-                    Assert.IsNotNull(addAlbumButton, "User has already reached max. Album Limit");
+                    Assert.That(addAlbumButton, Is.Not.Null, "User has already reached max. Album Limit");
 
                     await addAlbumButton.ClickAsync();
 
@@ -82,8 +82,8 @@ public class AlbumTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(
-                        pageSource.Contains($"{this.Base.TestSettings.TestUserName} Album: TestAlbum"),
+                    Assert.That(
+                        pageSource, Does.Contain($"{this.Base.TestSettings.TestUserName} Album: TestAlbum"),
                         "New Album Creating Failed");
                 },
             this.BrowserType);
@@ -98,11 +98,11 @@ public class AlbumTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -110,22 +110,25 @@ public class AlbumTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Edit Albums"), "Albums Feature is not available for that User");
+                    Assert.That(pageSource, Does.Contain("Edit Albums"), "Albums Feature is not available for that User");
 
                     await page.GetByText("Edit Albums").First.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("albums"), "Albums Feature is not available for that User");
+                    Assert.Multiple(async () =>
+                    {
+                        Assert.That(pageSource, Does.Contain("albums"), "Albums Feature is not available for that User");
 
-                    Assert.IsTrue(await page.GetByText("Add New Album").IsVisibleAsync(), "Albums doesn't exists.");
+                        Assert.That(await page.GetByText("Add New Album").IsVisibleAsync(), Is.True, "Albums doesn't exists.");
+                    });
 
                     // Edit Album
                     await page.GetByRole(AriaRole.Button, new() { Name = "Edit" }).First.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Add/Edit Album"));
+                    Assert.That(pageSource, Does.Contain("Add/Edit Album"));
 
                     // Another Test Image
                     var filePath = Path.GetFullPath(@"..\..\..\..\testfiles\testImage.jpg");
@@ -135,7 +138,7 @@ public class AlbumTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("testImage.jpg"), "Image Adding Failed");
+                    Assert.That(pageSource, Does.Contain("testImage.jpg"), "Image Adding Failed");
                 },
             this.BrowserType);
     }
@@ -151,11 +154,11 @@ public class AlbumTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -163,33 +166,36 @@ public class AlbumTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Edit Albums"), "Albums Feature is not available for that User");
+                    Assert.That(pageSource, Does.Contain("Edit Albums"), "Albums Feature is not available for that User");
 
                     await page.GetByText("Edit Albums").First.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("albums"), "Albums Feature is not available for that User");
+                    Assert.Multiple(async () =>
+                    {
+                        Assert.That(pageSource, Does.Contain("albums"), "Albums Feature is not available for that User");
 
-                    Assert.IsTrue(await page.GetByText("Add New Album").IsVisibleAsync(), "Albums doesn't exists.");
+                        Assert.That(await page.GetByText("Add New Album").IsVisibleAsync(), Is.True, "Albums doesn't exists.");
+                    });
 
                     // View Album
                     await page.GetByRole(AriaRole.Button, new() { Name = "View" }).First.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Album Images"));
+                    Assert.That(pageSource, Does.Contain("Album Images"));
 
                     // Set First Album Image as Cover
                     var setCoverButton = page.Locator(".btn-cover").First;
 
-                    Assert.AreEqual("Set as Cover", await setCoverButton.TextContentAsync(), "Image is already Cover");
+                    Assert.That(await setCoverButton.TextContentAsync(), Is.EqualTo("Set as Cover"), "Image is already Cover");
 
                     await setCoverButton.ClickAsync();
 
                     setCoverButton = page.Locator(".btn-cover").First;
 
-                    Assert.AreEqual("Remove Cover", await setCoverButton.TextContentAsync(), "Set as Cover Failed");
+                    Assert.That(await setCoverButton.TextContentAsync(), Is.EqualTo("Remove Cover"), "Set as Cover Failed");
                 },
             this.BrowserType);
     }
@@ -205,11 +211,11 @@ public class AlbumTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -217,36 +223,38 @@ public class AlbumTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Edit Albums"), "Albums Feature is not available for that User");
+                    Assert.That(pageSource, Does.Contain("Edit Albums"), "Albums Feature is not available for that User");
 
                     await page.GetByText("Edit Albums").First.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("albums"), "Albums Feature is not available for that User");
+                    Assert.Multiple(async () =>
+                    {
+                        Assert.That(pageSource, Does.Contain("albums"), "Albums Feature is not available for that User");
 
-                    Assert.IsTrue(await page.GetByText("Add New Album").IsVisibleAsync(), "Albums doesn't exists.");
+                        Assert.That(await page.GetByText("Add New Album").IsVisibleAsync(), Is.True, "Albums doesn't exists.");
+                    });
 
                     // View Album
                     await page.GetByRole(AriaRole.Button, new() { Name = "View" }).First.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Album Images"));
+                    Assert.That(pageSource, Does.Contain("Album Images"));
 
                     // Remove Cover from first Album Image
                     var setCoverButton = page.Locator(".btn-cover").First;
 
-                    Assert.AreEqual(
-                        "Remove Cover",
-                        await setCoverButton.TextContentAsync(),
+                    Assert.That(
+                        await setCoverButton.TextContentAsync(), Is.EqualTo("Remove Cover"),
                         "Image is not set as Cover");
 
                     await setCoverButton.ClickAsync();
 
                     setCoverButton = page.Locator(".btn-cover").First;
 
-                    Assert.AreEqual("Set as Cover", await setCoverButton.TextContentAsync(), "Remove as Cover Failed");
+                    Assert.That(await setCoverButton.TextContentAsync(), Is.EqualTo("Set as Cover"), "Remove as Cover Failed");
                 },
             this.BrowserType);
     }
@@ -262,11 +270,11 @@ public class AlbumTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -274,22 +282,25 @@ public class AlbumTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Edit Albums"), "Albums Feature is not available for that User");
+                    Assert.That(pageSource, Does.Contain("Edit Albums"), "Albums Feature is not available for that User");
 
                     await page.GetByText("Edit Albums").First.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("albums"), "Albums Feature is not available for that User");
+                    Assert.Multiple(async () =>
+                    {
+                        Assert.That(pageSource, Does.Contain("albums"), "Albums Feature is not available for that User");
 
-                    Assert.IsTrue(await page.GetByText("Add New Album").IsVisibleAsync(), "Albums doesn't exists.");
+                        Assert.That(await page.GetByText("Add New Album").IsVisibleAsync(), Is.True, "Albums doesn't exists.");
+                    });
 
                     // View Album
                     await page.GetByRole(AriaRole.Button, new() { Name = "View" }).First.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Album Images"));
+                    Assert.That(pageSource, Does.Contain("Album Images"));
 
                     await page.Locator(".album-image-caption").ClickAsync();
 
@@ -307,7 +318,7 @@ public class AlbumTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("TestCaption"), "Edit Caption Failed");
+                    Assert.That(pageSource, Does.Contain("TestCaption"), "Edit Caption Failed");
                 },
             this.BrowserType);
     }
@@ -323,11 +334,11 @@ public class AlbumTests : TestBase
             async page =>
             {
                 // Log user in first!
-                Assert.IsTrue(
+                Assert.That(
                     await page.LoginUserAsync(
                         this.Base.TestSettings,
                         this.Base.TestSettings.TestUserName,
-                        this.Base.TestSettings.TestUserPassword),
+                        this.Base.TestSettings.TestUserPassword), Is.True,
                     "Login failed");
 
                 // Do actual test
@@ -335,15 +346,18 @@ public class AlbumTests : TestBase
 
                 var pageSource = await page.ContentAsync();
 
-                Assert.IsTrue(pageSource.Contains("Edit Albums"), "Albums Feature is not available for that User");
+                Assert.That(pageSource, Does.Contain("Edit Albums"), "Albums Feature is not available for that User");
 
                 await page.GetByText("Edit Albums").First.ClickAsync();
 
                 pageSource = await page.ContentAsync();
 
-                Assert.IsTrue(pageSource.Contains("albums"), "Albums Feature is not available for that User");
+                Assert.Multiple(async () =>
+                {
+                    Assert.That(pageSource, Does.Contain("albums"), "Albums Feature is not available for that User");
 
-                Assert.IsTrue(await page.GetByText("Add New Album").IsVisibleAsync(), "Albums doesn't exists.");
+                    Assert.That(await page.GetByText("Add New Album").IsVisibleAsync(), Is.True, "Albums doesn't exists.");
+                });
 
                 await page.Locator(".album-caption").First.ClickAsync();
 
@@ -361,7 +375,7 @@ public class AlbumTests : TestBase
 
                 pageSource = await page.ContentAsync();
 
-                Assert.IsTrue(pageSource.Contains("Test Album"), "Edit Title Failed");
+                Assert.That(pageSource, Does.Contain("Test Album"), "Edit Title Failed");
             },
             this.BrowserType);
     }
@@ -377,11 +391,11 @@ public class AlbumTests : TestBase
             async page =>
             {
                 // Log user in first!
-                Assert.IsTrue(
+                Assert.That(
                     await page.LoginUserAsync(
                         this.Base.TestSettings,
                         this.Base.TestSettings.TestUserName,
-                        this.Base.TestSettings.TestUserPassword),
+                        this.Base.TestSettings.TestUserPassword), Is.True,
                     "Login failed");
 
                 // Do actual test
@@ -389,22 +403,25 @@ public class AlbumTests : TestBase
 
                 var pageSource = await page.ContentAsync();
 
-                Assert.IsTrue(pageSource.Contains("Edit Albums"), "Albums Feature is not available for that User");
+                Assert.That(pageSource, Does.Contain("Edit Albums"), "Albums Feature is not available for that User");
 
                 await page.GetByText("Edit Albums").First.ClickAsync();
 
                 pageSource = await page.ContentAsync();
 
-                Assert.IsTrue(pageSource.Contains("albums"), "Albums Feature is not available for that User");
+                Assert.Multiple(async () =>
+                {
+                    Assert.That(pageSource, Does.Contain("albums"), "Albums Feature is not available for that User");
 
-                Assert.IsTrue(await page.GetByText("Add New Album").IsVisibleAsync(), "Albums doesn't exists.");
+                    Assert.That(await page.GetByText("Add New Album").IsVisibleAsync(), Is.True, "Albums doesn't exists.");
+                });
 
                 // Edit Album
                 await page.GetByRole(AriaRole.Button, new() { Name = "Edit" }).First.ClickAsync();
 
                 pageSource = await page.ContentAsync();
 
-                Assert.IsTrue(pageSource.Contains("Add/Edit Album"));
+                Assert.That(pageSource, Does.Contain("Add/Edit Album"));
 
                 // Get The Images Count
                 var textOld = await page.GetByText("Delete", new() { Exact = true }).CountAsync();
@@ -417,7 +434,7 @@ public class AlbumTests : TestBase
 
                 var textNew = await page.GetByText("Delete", new() { Exact = true }).CountAsync();
 
-                Assert.AreNotEqual(textNew, textOld, "Image deleting failed");
+                Assert.That(textOld, Is.Not.EqualTo(textNew), "Image deleting failed");
             },
             this.BrowserType);
     }
@@ -433,11 +450,11 @@ public class AlbumTests : TestBase
             async page =>
             {
                 // Log user in first!
-                Assert.IsTrue(
+                Assert.That(
                     await page.LoginUserAsync(
                         this.Base.TestSettings,
                         this.Base.TestSettings.TestUserName,
-                        this.Base.TestSettings.TestUserPassword),
+                        this.Base.TestSettings.TestUserPassword), Is.True,
                     "Login failed");
 
                 // Do actual test
@@ -445,7 +462,7 @@ public class AlbumTests : TestBase
 
                 var pageSource = await page.ContentAsync();
 
-                Assert.IsTrue(pageSource.Contains("Edit Albums"), "Albums Feature is not available for that User");
+                Assert.That(pageSource, Does.Contain("Edit Albums"), "Albums Feature is not available for that User");
 
                 await page.GetByText("Edit Albums").First.ClickAsync();
 
@@ -453,11 +470,11 @@ public class AlbumTests : TestBase
 
                 pageSource = await page.ContentAsync();
 
-                Assert.IsTrue(pageSource.Contains("Add/Edit Album"));
+                Assert.That(pageSource, Does.Contain("Add/Edit Album"));
 
                 var albumTitle = await page.Locator("#AlbumTitle").GetAttributeAsync("Value");
 
-                Assert.IsNotNull(albumTitle);
+                Assert.That(albumTitle, Is.Not.Null);
 
                 await page.GetByText("Delete Album").ClickAsync();
 
@@ -467,13 +484,13 @@ public class AlbumTests : TestBase
 
                 pageSource = await page.ContentAsync();
 
-                Assert.IsTrue(pageSource.Contains("Edit Albums"), "Albums Feature is not available for that User");
+                Assert.That(pageSource, Does.Contain("Edit Albums"), "Albums Feature is not available for that User");
 
                 await page.GetByText("Edit Albums").First.ClickAsync();
 
                 pageSource = await page.ContentAsync();
 
-                Assert.IsFalse(pageSource.Contains(albumTitle), "Album deleting failed");
+                Assert.That(pageSource.Contains(albumTitle), Is.False, "Album deleting failed");
             },
             this.BrowserType);
     }

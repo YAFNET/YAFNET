@@ -42,11 +42,11 @@ public class SignatureTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -54,8 +54,8 @@ public class SignatureTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(
-                        pageSource.Contains("Edit Signature"),
+                    Assert.That(
+                        pageSource, Does.Contain("Edit Signature"),
                         "Edit Signature is not available for that User");
 
                     await page.Locator(".BBCodeEditor").FillAsync("This is a Test Signature created by an Unit Test.");
@@ -64,9 +64,8 @@ public class SignatureTests : TestBase
 
                     var previewCell = await page.Locator(".card-body").First.TextContentAsync();
 
-                    Assert.AreEqual(
-                        "This is a Test Signature created by an Unit Test.",
-                        previewCell,
+                    Assert.That(
+                        previewCell, Is.EqualTo("This is a Test Signature created by an Unit Test."),
                         "Signature changing failed");
                 },
             this.BrowserType);

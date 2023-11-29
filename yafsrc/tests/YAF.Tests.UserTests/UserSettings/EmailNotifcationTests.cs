@@ -42,11 +42,11 @@ public class EmailNotificationTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -57,39 +57,42 @@ public class EmailNotificationTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsFalse(
-                        pageSource.Contains("You've passed an invalid value to the forum."),
+                    Assert.That(
+                        pageSource.Contains("You've passed an invalid value to the forum."), Is.False,
                         "Test Topic Doesn't Exists");
 
                     // Get Topic Title
                     var topicTitle = await page.Locator(".active").TextContentAsync();
 
-                    Assert.IsNotNull(topicTitle);
+                    Assert.That(topicTitle, Is.Not.Null);
 
                     // Open Topic Options Menu
                     await page.GetByRole(AriaRole.Button, new() { Name = " Tools" }).ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(
-                        pageSource.Contains("Watch this topic"),
+                    Assert.That(
+                        pageSource, Does.Contain("Watch this topic"),
                         "Watch Topic is disabled, or User already Watches that Topic");
 
                     await page.Locator("//button[contains(@formaction,'TrackTopic')]").ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("You will now be"), "Watch topic failed");
+                    Assert.That(pageSource, Does.Contain("You will now be"), "Watch topic failed");
 
                     await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Profile/Subscriptions");
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(
-                        pageSource.Contains("Email Notification Preferences"),
-                        "Email Notification Preferences is not available for that User");
+                    Assert.Multiple(async () =>
+                    {
+                        Assert.That(
+                                            pageSource, Does.Contain("Email Notification Preferences"),
+                                            "Email Notification Preferences is not available for that User");
 
-                    Assert.IsTrue(await page.GetByText(topicTitle).IsVisibleAsync());
+                        Assert.That(await page.GetByText(topicTitle).IsVisibleAsync(), Is.True);
+                    });
                 },
             this.BrowserType);
     }
@@ -105,11 +108,11 @@ public class EmailNotificationTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -120,8 +123,8 @@ public class EmailNotificationTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsFalse(
-                        pageSource.Contains("You've passed an invalid value to the forum."),
+                    Assert.That(
+                        pageSource.Contains("You've passed an invalid value to the forum."), Is.False,
                         "Test Topic Doesn't Exists");
 
                     // Open Topic Options Menu
@@ -129,15 +132,15 @@ public class EmailNotificationTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(
-                        pageSource.Contains("Unwatch this topic"),
+                    Assert.That(
+                        pageSource, Does.Contain("Unwatch this topic"),
                         "Watch Topic is disabled, or User doesn't watch this topic");
 
                     await page.Locator("//button[contains(@formaction,'UnTrackTopic')]").ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("You will no longer"), "Unwatch topic failed");
+                    Assert.That(pageSource, Does.Contain("You will no longer"), "Unwatch topic failed");
                 },
             this.BrowserType);
     }
@@ -153,11 +156,11 @@ public class EmailNotificationTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -166,35 +169,41 @@ public class EmailNotificationTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("New Topic"), "Test Forum with that ID doesn't exists");
+                    Assert.That(pageSource, Does.Contain("New Topic"), "Test Forum with that ID doesn't exists");
 
                     // Get Forum Title
                     var forumTitle = await page.Locator(".active").First.TextContentAsync();
 
-                    Assert.IsNotNull(forumTitle);
+                    Assert.Multiple(() =>
+                    {
+                        Assert.That(forumTitle, Is.Not.Null);
 
-                    Assert.IsTrue(
-                        pageSource.Contains("Watch Forum"),
-                        "Watch Forum is disabled, or User already Watches that Forum");
+                        Assert.That(
+                            pageSource, Does.Contain("Watch Forum"),
+                            "Watch Forum is disabled, or User already Watches that Forum");
+                    });
 
                     // Watch the Test Forum
                     await page.Locator("//button[contains(@formaction,'WatchForum')]").ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(
-                        pageSource.Contains("You will now be notified when new posts are made in this forum."),
+                    Assert.That(
+                        pageSource, Does.Contain("You will now be notified when new posts are made in this forum."),
                         "Watch form failed");
 
                     await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Profile/Subscriptions");
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(
-                        pageSource.Contains("Email Notification Preferences"),
-                        "Email Notification Preferences is not available for that User");
+                    Assert.Multiple(async () =>
+                    {
+                        Assert.That(
+                                            pageSource, Does.Contain("Email Notification Preferences"),
+                                            "Email Notification Preferences is not available for that User");
 
-                    Assert.IsTrue(await page.GetByText(forumTitle).IsVisibleAsync());
+                        Assert.That(await page.GetByText(forumTitle).IsVisibleAsync(), Is.True);
+                    });
                 },
             this.BrowserType);
     }
@@ -210,11 +219,11 @@ public class EmailNotificationTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -223,18 +232,18 @@ public class EmailNotificationTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("New Topic"), "Test Forum with that ID doesn't exists");
+                    Assert.That(pageSource, Does.Contain("New Topic"), "Test Forum with that ID doesn't exists");
 
-                    Assert.IsTrue(
-                        pageSource.Contains("Unwatch Forum"),
+                    Assert.That(
+                        pageSource, Does.Contain("Unwatch Forum"),
                         "Watch Forum is disabled, or User doesn't watch that Forum");
 
                     await page.Locator("//button[contains(@formaction,'WatchForum')]").ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(
-                        pageSource.Contains("You will no longer be notified when new posts are made in this forum."),
+                    Assert.That(
+                        pageSource, Does.Contain("You will no longer be notified when new posts are made in this forum."),
                         "Watch forum failed");
                 },
             this.BrowserType);
@@ -251,11 +260,11 @@ public class EmailNotificationTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Go to Test Topic
@@ -264,8 +273,8 @@ public class EmailNotificationTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsFalse(
-                        pageSource.Contains("You've passed an invalid value to the forum."),
+                    Assert.That(
+                        pageSource.Contains("You've passed an invalid value to the forum."), Is.False,
                         "Test Topic Doesn't Exists");
 
                     // Open Topic Options Menu
@@ -280,14 +289,14 @@ public class EmailNotificationTests : TestBase
 
                         pageSource = await page.ContentAsync();
 
-                        Assert.IsTrue(pageSource.Contains("You will now be"), "Watch topic failed");
+                        Assert.That(pageSource, Does.Contain("You will now be"), "Watch topic failed");
                     }
 
                     // Login as Admin and Post A Reply in the Test Topic
                     await page.LoginAdminUserAsync(this.Base.TestSettings);
 
-                    Assert.IsTrue(
-                        await page.CreateNewReplyInTestTopicAsync(this.Base.TestSettings, "Reply Message"),
+                    Assert.That(
+                        await page.CreateNewReplyInTestTopicAsync(this.Base.TestSettings, "Reply Message"), Is.True,
                         "Reply Message as Admin failed");
 
                     // Check if an Email was received
@@ -298,23 +307,20 @@ public class EmailNotificationTests : TestBase
 
                     var mail = this.Base.SmtpServer.ReceivedEmail[0];
 
-                    Assert.AreEqual(
-                        $"{this.Base.TestSettings.TestUserName.ToLower()}@test.com",
-                        mail.ToAddresses[0].ToString(),
+                    Assert.That(
+                        mail.ToAddresses[0].ToString(), Is.EqualTo($"{this.Base.TestSettings.TestUserName.ToLower()}@test.com"),
                         "Receiver does not match");
 
-                    Assert.AreEqual(
-                        this.Base.TestSettings.TestForumMail,
-                        mail.FromAddress.Address,
+                    Assert.That(
+                        mail.FromAddress.Address, Is.EqualTo(this.Base.TestSettings.TestForumMail),
                         "Sender does not match");
 
-                    Assert.AreEqual(
-                        $"Topic Subscription New Post Notification (From {this.Base.TestSettings.TestApplicationName})",
-                        mail.Headers["Subject"],
+                    Assert.That(
+                        mail.Headers["Subject"], Is.EqualTo($"Topic Subscription New Post Notification (From {this.Base.TestSettings.TestApplicationName})"),
                         "Subject does not match");
 
-                    Assert.IsTrue(
-                        mail.MessageParts[0].BodyData.StartsWith("There's a new post in topic \""),
+                    Assert.That(
+                        mail.MessageParts[0].BodyData.StartsWith("There's a new post in topic \""), Is.True,
                         "Body does not match");
                 },
             this.BrowserType);

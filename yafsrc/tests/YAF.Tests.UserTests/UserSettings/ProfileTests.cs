@@ -42,11 +42,11 @@ public class ProfileTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -54,10 +54,10 @@ public class ProfileTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Edit Settings"), "Edit Settings is not available for that User");
+                    Assert.That(pageSource, Does.Contain("Edit Settings"), "Edit Settings is not available for that User");
 
-                    Assert.IsTrue(
-                        pageSource.Contains("What language do you want to use"),
+                    Assert.That(
+                        pageSource, Does.Contain("What language do you want to use"),
                         "Changing the Language is disabled for Users");
 
                     // Switch Language to German
@@ -71,7 +71,7 @@ public class ProfileTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Dein Account"), "Changing Language failed");
+                    Assert.That(pageSource, Does.Contain("Dein Account"), "Changing Language failed");
 
                     await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Profile/EditSettings");
 
@@ -86,7 +86,7 @@ public class ProfileTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Your Account"), "Changing Language failed");
+                    Assert.That(pageSource, Does.Contain("Your Account"), "Changing Language failed");
                 },
             this.BrowserType);
     }
@@ -102,11 +102,11 @@ public class ProfileTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -114,10 +114,10 @@ public class ProfileTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Edit Settings"), "Edit Settings is not available for that User");
+                    Assert.That(pageSource, Does.Contain("Edit Settings"), "Edit Settings is not available for that User");
 
-                    Assert.IsTrue(
-                        pageSource.Contains("Select your preferred theme"),
+                    Assert.That(
+                        pageSource, Does.Contain("Select your preferred theme"),
                         "Changing the Theme is disabled for Users");
 
                     // Switch Theme to "flatly"
@@ -127,8 +127,8 @@ public class ProfileTests : TestBase
                     // Save the Changes
                     await page.Locator("//button[contains(@type,'submit')]").Last.ClickAsync();
 
-                    Assert.IsNotNull(
-                        await page.Locator("//link[contains(@href,'Themes/flatly/bootstrap')]").IsVisibleAsync(),
+                    Assert.That(
+                        await page.Locator("//link[contains(@href,'Themes/flatly/bootstrap')]").IsVisibleAsync(), Is.True,
                         "Changing Forum Theme failed");
 
                     await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Profile/EditSettings");
@@ -140,8 +140,8 @@ public class ProfileTests : TestBase
                     // Save the Changes
                     await page.Locator("//button[contains(@type,'submit')]").Last.ClickAsync();
 
-                    Assert.IsNotNull(
-                        await page.Locator("//link[contains(@href,'Themes/yaf/bootstrap')]").IsVisibleAsync(),
+                    Assert.That(
+                        await page.Locator("//link[contains(@href,'Themes/yaf/bootstrap')]").IsVisibleAsync(), Is.True,
                         "Changing Forum Theme failed");
                 },
             this.BrowserType);
@@ -158,11 +158,11 @@ public class ProfileTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -170,10 +170,10 @@ public class ProfileTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Edit Settings"), "Edit Settings is not available for that User");
+                    Assert.That(pageSource, Does.Contain("Edit Settings"), "Edit Settings is not available for that User");
 
-                    Assert.IsTrue(
-                        pageSource.Contains("Change Email Address"),
+                    Assert.That(
+                        pageSource, Does.Contain("Change Email Address"),
                         "Changing the Email Address is disabled for Users");
 
                     // Switch Theme to "Black Grey"
@@ -182,7 +182,7 @@ public class ProfileTests : TestBase
                     var oldEmailAddress = await emailInput.GetAttributeAsync("value");
                     const string NewEmailAddress = "testmail123@localhost.com";
 
-                    Assert.IsNotNull(oldEmailAddress);
+                    Assert.That(oldEmailAddress, Is.Not.Null);
 
                     await emailInput.ClearAsync();
 
@@ -193,9 +193,8 @@ public class ProfileTests : TestBase
 
                     await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Profile/EditSettings");
 
-                    Assert.AreEqual(
-                        NewEmailAddress,
-                        await emailInput.GetAttributeAsync("value"),
+                    Assert.That(
+                        await emailInput.GetAttributeAsync("value"), Is.EqualTo(NewEmailAddress),
                         $"Email Address should match {NewEmailAddress}");
 
                     await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Profile/EditSettings");
@@ -212,7 +211,7 @@ public class ProfileTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains(oldEmailAddress), "Email Address Changing back failed");
+                    Assert.That(pageSource, Does.Contain(oldEmailAddress), "Email Address Changing back failed");
                 },
             this.BrowserType);
     }
@@ -228,11 +227,11 @@ public class ProfileTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -240,9 +239,9 @@ public class ProfileTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Edit Profile"), "Edit Profile is not available for that User");
+                    Assert.That(pageSource, Does.Contain("Edit Profile"), "Edit Profile is not available for that User");
 
-                    Assert.IsTrue(pageSource.Contains("Country"), "Changing the Country is disabled for Users");
+                    Assert.That(pageSource, Does.Contain("Country"), "Changing the Country is disabled for Users");
 
                     // Switch Country to "Germany"
                     await page.Locator("//select[@id='Input_Country']/following::div[1]").ClickAsync();
@@ -259,7 +258,7 @@ public class ProfileTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Germany") && pageSource.Contains("Berlin"));
+                    Assert.That(pageSource.Contains("Germany") && pageSource.Contains("Berlin"), Is.True);
                 },
             this.BrowserType);
     }

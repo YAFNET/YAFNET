@@ -43,11 +43,11 @@ public class FriendTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.AdminUserName,
-                            this.Base.TestSettings.AdminPassword),
+                            this.Base.TestSettings.AdminPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -57,7 +57,7 @@ public class FriendTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Filter"), "Members List View Permissions needs to be enabled");
+                    Assert.That(pageSource, Does.Contain("Filter"), "Members List View Permissions needs to be enabled");
 
                     await page.GetByRole(AriaRole.Button, new() { Name = " Filter" }).ClickAsync();
 
@@ -68,23 +68,23 @@ public class FriendTests : TestBase
 
                     var userProfileLink = page.GetByText(this.Base.TestSettings.TestUserName).First;
 
-                    Assert.IsNotNull(userProfileLink, "User Profile Not Found");
+                    Assert.That(userProfileLink, Is.Not.Null, "User Profile Not Found");
 
                     await userProfileLink.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsFalse(pageSource.Contains("Remove Friend"), "User is already a Friend");
+                    Assert.That(pageSource.Contains("Remove Friend"), Is.False, "User is already a Friend");
 
-                    Assert.IsTrue(
-                        pageSource.Contains("Add as Friend"),
+                    Assert.That(
+                        pageSource, Does.Contain("Add as Friend"),
                         "My Friends function is not available for that User, or is disabled for that Forum");
 
                     await page.Locator("//a[contains(@href,'AddFriendRequest')]").ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Friend request sent."));
+                    Assert.That(pageSource, Does.Contain("Friend request sent."));
                 },
             this.BrowserType);
     }
@@ -100,11 +100,11 @@ public class FriendTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -119,8 +119,8 @@ public class FriendTests : TestBase
                         await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Friends");
                     }
 
-                    Assert.IsTrue(
-                        pageSource.Contains("Friend List"),
+                    Assert.That(
+                        pageSource, Does.Contain("Friend List"),
                         "My Friends function is not available for that User, or is disabled for that Forum");
 
                     await page.GetByRole(AriaRole.Combobox, new() { Name = "friend mode" })
@@ -131,7 +131,7 @@ public class FriendTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("You have been added to "), "Approve Friend Failed");
+                    Assert.That(pageSource, Does.Contain("You have been added to "), "Approve Friend Failed");
                 },
             this.BrowserType);
     }
@@ -147,11 +147,11 @@ public class FriendTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -168,8 +168,8 @@ public class FriendTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(
-                        pageSource.Contains("Friend List"),
+                    Assert.That(
+                        pageSource, Does.Contain("Friend List"),
                         "My Friends function is not available for that User, or is disabled for that Forum");
 
                     await page.GetByRole(AriaRole.Combobox, new() { Name = "friend mode" })
@@ -182,7 +182,7 @@ public class FriendTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Friend request denied."), "Deny Request Failed");
+                    Assert.That(pageSource, Does.Contain("Friend request denied."), "Deny Request Failed");
                 },
             this.BrowserType);
     }
@@ -198,11 +198,11 @@ public class FriendTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -219,8 +219,8 @@ public class FriendTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(
-                        pageSource.Contains("Friend List"),
+                    Assert.That(
+                        pageSource, Does.Contain("Friend List"),
                         "My Friends function is not available for that User, or is disabled for that Forum");
 
                     await page.GetByRole(AriaRole.Combobox, new() { Name = "friend mode" })
@@ -231,7 +231,7 @@ public class FriendTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("You and "), "Approve and Add Friend Failed");
+                    Assert.That(pageSource, Does.Contain("You and "), "Approve and Add Friend Failed");
                 },
             this.BrowserType);
     }
@@ -247,11 +247,11 @@ public class FriendTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -259,20 +259,20 @@ public class FriendTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(
-                        pageSource.Contains("Friend List"),
+                    Assert.That(
+                        pageSource, Does.Contain("Friend List"),
                         "My Friends function is not available for that User, or is disabled for that Forum");
 
                     // Select the Newest Friend
                     var delete = page.Locator("//button[contains(@formaction,'Remove')]");
 
-                    Assert.IsNotNull(delete, "Currently the Test User doesn't have any Friends");
+                    Assert.That(delete, Is.Not.Null, "Currently the Test User doesn't have any Friends");
 
                     await delete.ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("has been removed from your Friend list."));
+                    Assert.That(pageSource, Does.Contain("has been removed from your Friend list."));
                 },
             this.BrowserType);
     }

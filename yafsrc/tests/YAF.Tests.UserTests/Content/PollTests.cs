@@ -48,11 +48,11 @@ public class PollTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.AdminUserName,
-                            this.Base.TestSettings.AdminPassword),
+                            this.Base.TestSettings.AdminPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -72,35 +72,38 @@ public class PollTests : TestBase
             this.Base.TestSettings.TestForumUrl,
             async page =>
                 {
-                    // Log user in first!
-                    Assert.IsTrue(
-                        await page.LoginUserAsync(
-                            this.Base.TestSettings,
-                            this.Base.TestSettings.AdminUserName,
-                            this.Base.TestSettings.AdminPassword),
-                        "Login failed");
+                    Assert.Multiple(async () =>
+                    {
+                        // Log user in first!
+                        Assert.That(
+                            await page.LoginUserAsync(
+                                this.Base.TestSettings,
+                                this.Base.TestSettings.AdminUserName,
+                                this.Base.TestSettings.AdminPassword), Is.True,
+                            "Login failed");
 
-                    // Do actual test
+                        // Do actual test
 
-                    // First Creating a new test topic with the test user
-                    Assert.IsTrue(
-                        await page.CreateNewTestTopicAsync(this.Base.TestSettings),
-                        "Topic Creating failed");
+                        // First Creating a new test topic with the test user
+                        Assert.That(
+                            await page.CreateNewTestTopicAsync(this.Base.TestSettings), Is.True,
+                            "Topic Creating failed");
+                    });
 
                     // Go to edit Page
                     await page.GetByRole(AriaRole.Button, new() { Name = "" }).First.ClickAsync();
                     await page.Locator("//a[contains(@href,'EditMessage')]").First.ClickAsync();
 
-                    Assert.IsTrue(
-                        await page.GetByRole(AriaRole.Button, new() { Name = " Create Poll" }).IsVisibleAsync(),
+                    Assert.That(
+                        await page.GetByRole(AriaRole.Button, new() { Name = " Create Poll" }).IsVisibleAsync(), Is.True,
                         "Editing not allowed for that user. Or the user is not allowed to create Polls");
 
                     await page.GetByRole(AriaRole.Button, new() { Name = " Create Poll" }).ClickAsync();
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(
-                        pageSource.Contains("Create Poll"),
+                    Assert.That(
+                        pageSource, Does.Contain("Create Poll"),
                         "Creating Poll not possible, or the user has not access to it");
 
                     // Enter Poll Question
@@ -128,7 +131,7 @@ public class PollTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Is this a Test Question?"), "Poll Creating Failed");
+                    Assert.That(pageSource, Does.Contain("Is this a Test Question?"), "Poll Creating Failed");
 
                     this.testPollTopicUrl = page.Url;
                 },
@@ -147,11 +150,11 @@ public class PollTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.AdminUserName,
-                            this.Base.TestSettings.AdminPassword),
+                            this.Base.TestSettings.AdminPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -163,11 +166,11 @@ public class PollTests : TestBase
                     // Now Login with Test User 2
                     await page.LogOutUserAsync();
 
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName2,
-                            this.Base.TestSettings.TestUser2Password),
+                            this.Base.TestSettings.TestUser2Password), Is.True,
                         "Login with test user 2 failed");
 
                     // Go To New Test Topic Url
@@ -175,14 +178,14 @@ public class PollTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(!pageSource.Contains("You already voted"), "User has already voted");
+                    Assert.That(!pageSource.Contains("You already voted"), Is.True, "User has already voted");
 
                     // Vote for Option 3
                     await page.Locator("//button[contains(@id,'VoteButton')]").Nth(2).ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Thank you for your vote!"), "Voting failed");
+                    Assert.That(pageSource, Does.Contain("Thank you for your vote!"), "Voting failed");
                 },
             this.BrowserType);
     }
@@ -199,11 +202,11 @@ public class PollTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.AdminUserName,
-                            this.Base.TestSettings.AdminPassword),
+                            this.Base.TestSettings.AdminPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -213,11 +216,11 @@ public class PollTests : TestBase
                     }
 
                     // Now Login with Test User 2
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName2,
-                            this.Base.TestSettings.TestUser2Password),
+                            this.Base.TestSettings.TestUser2Password), Is.True,
                         "Login with test user 2 failed");
 
                     // Go To New Test Topic Url
@@ -225,14 +228,14 @@ public class PollTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(!pageSource.Contains("You already voted"), "User has already voted");
+                    Assert.That(!pageSource.Contains("You already voted"), Is.True, "User has already voted");
 
                     // Vote for Option 3
                     await page.Locator("//button[contains(@id,'VoteButton')]").Nth(2).ClickAsync();
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Thank you for your vote!"), "Voting failed");
+                    Assert.That(pageSource, Does.Contain("Thank you for your vote!"), "Voting failed");
 
                     // Close info alert
                     await page.Locator(".btn-close").ClickAsync();
@@ -242,7 +245,7 @@ public class PollTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Thank you for your vote!"), "Voting failed");
+                    Assert.That(pageSource, Does.Contain("Thank you for your vote!"), "Voting failed");
                 },
             this.BrowserType);
     }
@@ -259,11 +262,11 @@ public class PollTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -280,8 +283,8 @@ public class PollTests : TestBase
                     await page.GotoAsync(this.testPollTopicUrl);
 
                     // Remove Poll
-                    Assert.IsTrue(
-                        await page.Locator("//*[contains(@formaction,'RemovePoll')]").IsVisibleAsync(),
+                    Assert.That(
+                        await page.Locator("//*[contains(@formaction,'RemovePoll')]").IsVisibleAsync(), Is.True,
                         "Editing not allowed for that user");
 
                     await page.Locator("//*[contains(@formaction,'RemovePoll')]").ClickAsync();
@@ -290,7 +293,7 @@ public class PollTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Poll was removed!"), "Deleting Poll failed");
+                    Assert.That(pageSource, Does.Contain("Poll was removed!"), "Deleting Poll failed");
                 },
             this.BrowserType);
     }
@@ -317,16 +320,16 @@ public class PollTests : TestBase
 
                     await page.GotoAsync(this.testPollTopicUrl);
 
-                    Assert.IsTrue(
-                        await page.Locator("//img[contains(@alt,'Option 2')]").IsVisibleAsync(),
+                    Assert.That(
+                        await page.Locator("//img[contains(@alt,'Option 2')]").IsVisibleAsync(), Is.True,
                         "Image Not Found");
 
                     var choiceImage2 = await page.Locator("//img[contains(@alt,'Option 2')]").GetAttributeAsync("src");
 
-                    Assert.IsNotNull(choiceImage2);
+                    Assert.That(choiceImage2, Is.Not.Null);
 
-                    Assert.IsTrue(
-                        choiceImage2.Equals("https://yetanotherforum.net/assets/img/YAFLogo.svg"),
+                    Assert.That(
+                        choiceImage2, Is.EqualTo("https://yetanotherforum.net/assets/img/YAFLogo.svg"),
                         "Image Url does not match");
                 },
             this.BrowserType);
@@ -348,9 +351,9 @@ public class PollTests : TestBase
 
         var pageSource = await page.ContentAsync();
 
-        Assert.IsTrue(pageSource.Contains("Post New Topic"), "Post New Topic not possible");
+        Assert.That(pageSource, Does.Contain("Post New Topic"), "Post New Topic not possible");
 
-        Assert.IsTrue(pageSource.Contains("Add Poll"), "User does doesn't have Poll Access");
+        Assert.That(pageSource, Does.Contain("Add Poll"), "User does doesn't have Poll Access");
 
         // Enable Add Poll Option
         await page.Locator("//input[contains(@id,'_AddPoll')]").CheckAsync();
@@ -373,7 +376,7 @@ public class PollTests : TestBase
 
         pageSource = await page.ContentAsync();
 
-        Assert.IsTrue(pageSource.Contains("Create Poll"), "Topic Creating failed");
+        Assert.That(pageSource, Does.Contain("Create Poll"), "Topic Creating failed");
 
         // Enter Poll Question
         await page.Locator("//input[contains(@id,'Question')]").First.FillAsync("Is this a Test Question?");
@@ -447,7 +450,7 @@ public class PollTests : TestBase
 
         pageSource = await page.ContentAsync();
 
-        Assert.IsTrue(pageSource.Contains("Poll Question:"), "Poll Creating Failed");
+        Assert.That(pageSource, Does.Contain("Poll Question:"), "Poll Creating Failed");
 
         this.testPollTopicUrl = page.Url;
     }

@@ -43,11 +43,11 @@ public class MessageTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -60,7 +60,7 @@ public class MessageTests : TestBase
                     if (pageSource.Contains("You tried to enter an area where you didn't have access."))
                     {
                         // Topic doesn't exist create a topic first
-                        Assert.IsTrue(await page.CreateNewTestTopicAsync(this.Base.TestSettings), "Topic Creating failed");
+                        Assert.That(await page.CreateNewTestTopicAsync(this.Base.TestSettings), Is.True, "Topic Creating failed");
 
                         // Wait 60 seconds to avoid post flood
                         await Task.Delay(31000);
@@ -70,7 +70,7 @@ public class MessageTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Post a reply"), "Post Reply not possible");
+                    Assert.That(pageSource, Does.Contain("Post a reply"), "Post Reply not possible");
 
                     // Create New Reply
                     await page.Locator(".BBCodeEditor").FillAsync(
@@ -81,9 +81,8 @@ public class MessageTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(
-                        pageSource.Contains(
-                            "This is a Test Reply in an Test Topic Created by an automated Unit Test"),
+                    Assert.That(
+                        pageSource, Does.Contain("This is a Test Reply in an Test Topic Created by an automated Unit Test"),
                         "Reply Message failed");
                 },
             this.BrowserType);
@@ -101,11 +100,11 @@ public class MessageTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -119,8 +118,8 @@ public class MessageTests : TestBase
                     if (pageSource.Contains("You've passed an invalid value to the forum."))
                     {
                         // Topic doesn't exist create a topic first
-                        Assert.IsTrue(
-                            await page.CreateNewTestTopicAsync(this.Base.TestSettings),
+                        Assert.That(
+                            await page.CreateNewTestTopicAsync(this.Base.TestSettings), Is.True,
                             "Topic Creating failed");
 
                         // Wait 60 seconds to avoid post flood
@@ -131,7 +130,7 @@ public class MessageTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Post a reply"), "Post Reply not possible");
+                    Assert.That(pageSource, Does.Contain("Post a reply"), "Post Reply not possible");
 
                     // Create New Reply
                     await page.Locator(".BBCodeEditor").FillAsync("  Quoting Test");
@@ -141,7 +140,7 @@ public class MessageTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Quoting Test"), "Quoting Message Failed");
+                    Assert.That(pageSource, Does.Contain("Quoting Test"), "Quoting Message Failed");
                 },
             this.BrowserType);
     }
@@ -157,18 +156,21 @@ public class MessageTests : TestBase
             this.Base.TestSettings.TestForumUrl,
             async page =>
                 {
-                    // Log user in first!
-                    Assert.IsTrue(
-                        await page.LoginUserAsync(
-                            this.Base.TestSettings,
-                            this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
-                        "Login failed");
+                    Assert.Multiple(async () =>
+                    {
+                        // Log user in first!
+                        Assert.That(
+                            await page.LoginUserAsync(
+                                this.Base.TestSettings,
+                                this.Base.TestSettings.TestUserName,
+                                this.Base.TestSettings.TestUserPassword), Is.True,
+                            "Login failed");
 
-                    // Do actual test
+                        // Do actual test
 
-                    // First Creating a new test topic with the test user
-                    Assert.IsTrue(await page.CreateNewTestTopicAsync(this.Base.TestSettings), "Topic Creating failed");
+                        // First Creating a new test topic with the test user
+                        Assert.That(await page.CreateNewTestTopicAsync(this.Base.TestSettings), Is.True, "Topic Creating failed");
+                    });
 
                     // Wait 30 seconds to avoid post flood
                     await Task.Delay(60000);
@@ -178,7 +180,7 @@ public class MessageTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Post a reply"), "Post Reply not possible");
+                    Assert.That(pageSource, Does.Contain("Post a reply"), "Post Reply not possible");
 
                     // Create New Reply A
                     await page.Locator(".BBCodeEditor").FillAsync("Test Reply A");
@@ -188,7 +190,7 @@ public class MessageTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Test Reply A"), "Reply Message failed");
+                    Assert.That(pageSource, Does.Contain("Test Reply A"), "Reply Message failed");
 
                     // Wait 30 seconds to avoid post flood
                     await Task.Delay(60000);
@@ -200,7 +202,7 @@ public class MessageTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Post a reply"), "Post Reply not possible");
+                    Assert.That(pageSource, Does.Contain("Post a reply"), "Post Reply not possible");
 
                     // Create New Reply B
                     await page.Locator(".BBCodeEditor").FillAsync("Test Reply B");
@@ -210,7 +212,7 @@ public class MessageTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Test Reply B"), "Reply Message failed");
+                    Assert.That(pageSource, Does.Contain("Test Reply B"), "Reply Message failed");
 
                     // Wait 30 seconds to avoid post flood
                     await Task.Delay(60000);
@@ -222,7 +224,7 @@ public class MessageTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Post a reply"), "Post Reply not possible");
+                    Assert.That(pageSource, Does.Contain("Post a reply"), "Post Reply not possible");
 
                     // Create New Reply B
                     await page.Locator(".BBCodeEditor").FillAsync("Test Reply C");
@@ -232,7 +234,7 @@ public class MessageTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Test Reply C"), "Reply Message failed");
+                    Assert.That(pageSource, Does.Contain("Test Reply C"), "Reply Message failed");
 
                     // Wait 30 seconds to avoid post flood
                     await Task.Delay(60000);
@@ -248,16 +250,16 @@ public class MessageTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Post a reply"), "Post Reply not possible");
+                    Assert.That(pageSource, Does.Contain("Post a reply"), "Post Reply not possible");
 
                     var editorContent = await page.Locator(".BBCodeEditor")
                                             .TextContentAsync();
 
-                    Assert.IsNotNull(editorContent, "Content is empty");
+                    Assert.That(editorContent, Is.Not.Null, "Content is empty");
 
-                    Assert.IsTrue(editorContent.Contains("Test Reply A"), "Test Replay A quote not found");
-                    Assert.IsTrue(editorContent.Contains("Test Reply B"), "Test Replay B quote not found");
-                    Assert.IsTrue(editorContent.Contains("Test Reply C"), "Test Replay C quote not found");
+                    Assert.That(editorContent, Does.Contain("Test Reply A"), "Test Replay A quote not found");
+                    Assert.That(editorContent, Does.Contain("Test Reply B"), "Test Replay B quote not found");
+                    Assert.That(editorContent, Does.Contain("Test Reply C"), "Test Replay C quote not found");
 
                     // Create New Reply
                     await page.Locator(".BBCodeEditor").FillAsync($"{editorContent}  Multi Quoting Test");
@@ -267,7 +269,7 @@ public class MessageTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Multi Quoting Test"), "MultiQuoting Message Failed");
+                    Assert.That(pageSource, Does.Contain("Multi Quoting Test"), "MultiQuoting Message Failed");
                 },
             this.BrowserType);
     }

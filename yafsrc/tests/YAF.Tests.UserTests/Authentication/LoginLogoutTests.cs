@@ -48,10 +48,10 @@ public class LoginLogoutUser : TestBase
                         await page.LogOutUserAsync();
                     }
 
-                    Assert.IsTrue(await page.LoginUserAsync(
+                    Assert.That(await page.LoginUserAsync(
                                       this.Base.TestSettings,
                                       this.Base.TestSettings.TestUserName,
-                                      this.Base.TestSettings.TestUserPassword), "Login Failed");
+                                      this.Base.TestSettings.TestUserPassword), Is.True, "Login Failed");
                 }, this.BrowserType);
     }
 
@@ -90,8 +90,8 @@ public class LoginLogoutUser : TestBase
 
                     await page.Locator("//*[contains(@id, 'LoginButton')]").ClickAsync();
 
-                    Assert.IsTrue(await page.Locator("//li[contains(@class,'dropdown-notify')]").IsVisibleAsync());
-                    Assert.IsTrue(await page.Locator("//li[contains(@class,'dropdown-notify')]").IsVisibleAsync());
+                    Assert.That(await page.Locator("//li[contains(@class,'dropdown-notify')]").IsVisibleAsync(), Is.True);
+                    Assert.That(await page.Locator("//li[contains(@class,'dropdown-notify')]").IsVisibleAsync(), Is.True);
                 }, this.BrowserType);
     }
 
@@ -109,14 +109,14 @@ public class LoginLogoutUser : TestBase
                     if (!await page.Locator("//li[contains(@class,'dropdown-notify')]").IsVisibleAsync())
                     {
                         // Login First
-                        Assert.IsTrue(await page.LoginUserAsync(
+                        Assert.That(await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword), "Login Failed");
+                            this.Base.TestSettings.TestUserPassword), Is.True, "Login Failed");
                     }
 
-                    Assert.IsTrue(
-                        await page.LogOutUserAsync(),
+                    Assert.That(
+                        await page.LogOutUserAsync(), Is.True,
                         "Logout Failed");
                 },
             this.BrowserType);

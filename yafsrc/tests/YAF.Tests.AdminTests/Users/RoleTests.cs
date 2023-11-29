@@ -43,11 +43,11 @@ public class RoleTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.AdminUserName,
-                            this.Base.TestSettings.AdminPassword),
+                            this.Base.TestSettings.AdminPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -69,7 +69,7 @@ public class RoleTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains(roleName), "Test Role creating failed");
+                    Assert.That(pageSource, Does.Contain(roleName), "Test Role creating failed");
                 },
             this.BrowserType);
     }

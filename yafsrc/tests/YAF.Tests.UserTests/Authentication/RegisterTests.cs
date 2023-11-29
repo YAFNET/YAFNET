@@ -47,12 +47,12 @@ public class RegisterUser : TestBase
             this.Base.TestSettings.TestForumUrl,
             async page =>
                 {
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.RegisterUserAsync(
                             this.Base.TestSettings,
                             this.Base.SmtpServer,
                             userName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Registration failed");
                 }, this.BrowserType);
     }
@@ -76,8 +76,8 @@ public class RegisterUser : TestBase
                     var pageSource = await page.ContentAsync();
 
                     // Check if Registrations are Disabled
-                    Assert.IsFalse(
-                        pageSource.Contains("You tried to enter an area where you didn't have access"),
+                    Assert.That(
+                        pageSource.Contains("You tried to enter an area where you didn't have access"), Is.False,
                         "Registrations are disabled");
 
                     // Accept the Rules
@@ -103,8 +103,8 @@ public class RegisterUser : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(
-                        pageSource.Contains("Sorry Spammers are not allowed in the Forum!"),
+                    Assert.That(
+                        pageSource, Does.Contain("Sorry Spammers are not allowed in the Forum!"),
                         "Spam Check Failed");
                 },
             this.BrowserType);

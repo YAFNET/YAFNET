@@ -39,7 +39,7 @@ public class EmojiOneTests
     public void AsciiToUnicode_Test()
     {
         // single smiley
-        var text = @":D";
+        var text = ":D";
         var expected = "😃";
         var actual = EmojiOne.AsciiToUnicode(EmojiOne.ShortNameToUnicode(text));
 

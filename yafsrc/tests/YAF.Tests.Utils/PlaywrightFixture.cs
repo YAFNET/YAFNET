@@ -165,7 +165,7 @@ public class PlaywrightFixture
 
         var page = await context.NewPageAsync().ConfigureAwait(false);
 
-        Assert.NotNull(page);
+        Assert.That(page, Is.Not.Null);
         //page.Should().NotBeNull();
 
         try
@@ -174,13 +174,13 @@ public class PlaywrightFixture
             // network activity is done.
             var gotoResult = await page.GotoAsync(url);
 
-            Assert.NotNull(gotoResult);
+            Assert.That(gotoResult, Is.Not.Null);
             //gotoResult.Should().NotBeNull();
 
             await gotoResult.FinishedAsync();
 
             //gotoResult.Ok.Should().BeTrue();
-            Assert.NotNull(gotoResult.Ok);
+            Assert.That(gotoResult.Ok, Is.True);
 
             await page.GetByRole(AriaRole.Button, new PageGetByRoleOptions { Name = "Close" })
                 .Filter(new LocatorFilterOptions { HasText = "Close" }).ClickAsync();

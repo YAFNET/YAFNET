@@ -42,11 +42,11 @@ public class HostSettingsTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.AdminUserName,
-                            this.Base.TestSettings.AdminPassword),
+                            this.Base.TestSettings.AdminPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -59,7 +59,7 @@ public class HostSettingsTests : TestBase
                     var input = page.Locator("//input[contains(@id,'_ImageAttachmentResizeWidth')]");
                     var width = await input.GetAttributeAsync("value");
 
-                    Assert.IsNotNull(width);
+                    Assert.That(width, Is.Not.Null);
 
                     await input.ClearAsync();
                     await input.FillAsync("350");
@@ -74,9 +74,9 @@ public class HostSettingsTests : TestBase
 
                     var value = await input.GetAttributeAsync("value");
 
-                    Assert.IsNotNull(value);
+                    Assert.That(value, Is.Not.Null);
 
-                    Assert.IsTrue(value.Equals("350"));
+                    Assert.That(value, Is.EqualTo("350"));
 
                     // Restore old Setting
                     await input.ClearAsync();
@@ -86,7 +86,7 @@ public class HostSettingsTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Who is Online"));
+                    Assert.That(pageSource, Does.Contain("Who is Online"));
                 },
             this.BrowserType);
     }

@@ -42,11 +42,11 @@ public class ChangePasswordTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -54,8 +54,8 @@ public class ChangePasswordTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(
-                        pageSource.Contains("Change Password"),
+                    Assert.That(
+                        pageSource, Does.Contain("Change Password"),
                         "Change Password is not available for that User");
 
                     // Enter Old Password
@@ -73,8 +73,8 @@ public class ChangePasswordTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(
-                        pageSource.Contains("Password has been successfully changed."),
+                    Assert.That(
+                        pageSource, Does.Contain("Password has been successfully changed."),
                         "Changing Password Failed");
 
                     // Now Change Password Back to Default Password
@@ -95,8 +95,8 @@ public class ChangePasswordTests : TestBase
 
                     pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(
-                        pageSource.Contains("Password has been successfully changed."),
+                    Assert.That(
+                        pageSource, Does.Contain("Password has been successfully changed."),
                         "Changing Password Failed");
                 },
             this.BrowserType);

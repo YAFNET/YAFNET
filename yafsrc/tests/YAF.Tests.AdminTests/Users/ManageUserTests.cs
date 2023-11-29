@@ -41,51 +41,59 @@ public class ManageUserTests : TestBase
         await this.Base.PlaywrightFixture.GotoPageAsync(
             this.Base.TestSettings.TestForumUrl,
             async page =>
-                {
-                    // Log user in first!
-                    Assert.IsTrue(
-                        await page.LoginUserAsync(
-                            this.Base.TestSettings,
-                            this.Base.TestSettings.AdminUserName,
-                            this.Base.TestSettings.AdminPassword),
-                        "Login failed");
+            {
+                // Log user in first!
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.Base.TestSettings,
+                        this.Base.TestSettings.AdminUserName,
+                        this.Base.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
 
-                    // Do actual test
+                // Do actual test
 
-                    await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Admin/Users");
+                await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Admin/Users");
 
-                    await page.GetByRole(AriaRole.Button, new() { Name = " Filter" }).ClickAsync();
+                await page.GetByRole(AriaRole.Button, new() { Name = " Filter" }).ClickAsync();
 
-                    // Search for TestUser
-                    var searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
-                    await searchNameInput.FillAsync("TestUser");
-                    await searchNameInput.PressAsync("Enter");
+                // Search for TestUser
+                var searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
+                await searchNameInput.FillAsync("TestUser");
+                await searchNameInput.PressAsync("Enter");
 
-                    var editUserButton = page.Locator(
-                        "//a[contains(@href,'EditUser')]",
-                        new PageLocatorOptions { HasText = "TestUser" });
+                var editUserButton = page.Locator(
+                    "//a[contains(@href,'EditUser')]",
+                    new PageLocatorOptions { HasText = "TestUser" });
 
-                    Assert.IsNotNull(
-                        editUserButton,
-                        "Random Test User doesn't Exist, Please Run the Register_Random_New_User_Test before");
+                Assert.Multiple(
+                    async () =>
+                    {
+                        Assert.That(
+                            editUserButton,
+                            Is.Not.Null,
+                            "Random Test User doesn't Exist, Please Run the Register_Random_New_User_Test before");
 
-                    Assert.IsTrue(
-                        await editUserButton.CountAsync() > 2,
-                        "Random Test User doesn't Exist, Please Run the Register_Random_New_User_Test before");
+                        Assert.That(
+                            await editUserButton.CountAsync() > 2,
+                            Is.True,
+                            "Random Test User doesn't Exist, Please Run the Register_Random_New_User_Test before");
+                    });
 
-                    var href = await editUserButton.Nth(2).GetAttributeAsync("href");
+                var href = await editUserButton.Nth(2).GetAttributeAsync("href");
 
-                    Assert.NotNull(href);
+                Assert.That(href, Is.Not.Null);
 
-                    var userId = href[(href.LastIndexOf("/", StringComparison.Ordinal) + 1)..];
+                var userId = href[(href.LastIndexOf('/') + 1)..];
 
-                    Assert.IsFalse(
-                        await editUserButton.Nth(2).TextContentAsync() == this.Base.TestSettings.TestUserName);
+                Assert.That(
+                    await editUserButton.Nth(2).TextContentAsync(),
+                    Is.Not.EqualTo(this.Base.TestSettings.TestUserName));
 
-                    await page.Locator($"//button[contains(@formaction,'Delete?id={userId}')]").First.ClickAsync();
+                await page.Locator($"//button[contains(@formaction,'Delete?id={userId}')]").First.ClickAsync();
 
-                    await page.Locator(".btn-success").ClickAsync();
-                },
+                await page.Locator(".btn-success").ClickAsync();
+            },
             this.BrowserType);
     }
 
@@ -99,66 +107,67 @@ public class ManageUserTests : TestBase
         await this.Base.PlaywrightFixture.GotoPageAsync(
             this.Base.TestSettings.TestForumUrl,
             async page =>
-                {
-                    // Log user in first!
-                    Assert.IsTrue(
-                        await page.LoginUserAsync(
-                            this.Base.TestSettings,
-                            this.Base.TestSettings.AdminUserName,
-                            this.Base.TestSettings.AdminPassword),
-                        "Login failed");
+            {
+                // Log user in first!
+                Assert.That(
+                    await page.LoginUserAsync(
+                        this.Base.TestSettings,
+                        this.Base.TestSettings.AdminUserName,
+                        this.Base.TestSettings.AdminPassword),
+                    Is.True,
+                    "Login failed");
 
-                    // Do actual test
+                // Do actual test
 
-                    await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Admin/Users");
+                await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Admin/Users");
 
-                    await page.GetByRole(AriaRole.Button, new() { Name = " Filter" }).ClickAsync();
+                await page.GetByRole(AriaRole.Button, new() { Name = " Filter" }).ClickAsync();
 
-                    // Search for TestUser
-                    var searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
-                    await searchNameInput.FillAsync(this.Base.TestSettings.TestUserName);
-                    await searchNameInput.PressAsync("Enter");
+                // Search for TestUser
+                var searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
+                await searchNameInput.FillAsync(this.Base.TestSettings.TestUserName);
+                await searchNameInput.PressAsync("Enter");
 
-                    var userProfileLink = page.Locator("//a[contains(@href,'EditUser')]").First;
+                var userProfileLink = page.Locator("//a[contains(@href,'EditUser')]").First;
 
-                    Assert.IsNotNull(userProfileLink, "Test User doesn't Exist");
+                Assert.That(userProfileLink, Is.Not.Null, "Test User doesn't Exist");
 
-                    await userProfileLink.ClickAsync();
+                await userProfileLink.ClickAsync();
 
-                    // Go To Tab User Roles
-                    await page.Locator("//button[contains(@data-bs-target,'#View2')]").ClickAsync();
+                // Go To Tab User Roles
+                await page.Locator("//button[contains(@data-bs-target,'#View2')]").ClickAsync();
 
-                    // Add TestUser to Test Role
-                    await page.GetByLabel("TestRole").First.CheckAsync();
+                // Add TestUser to Test Role
+                await page.GetByLabel("TestRole").First.CheckAsync();
 
-                    // Save changes
-                    await page.Locator("//button[contains(@formaction,'UsersGroups?handler=Save')]").ClickAsync();
+                // Save changes
+                await page.Locator("//button[contains(@formaction,'UsersGroups?handler=Save')]").ClickAsync();
 
-                    await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Admin/Users");
+                await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Admin/Users");
 
-                    await page.GetByRole(AriaRole.Button, new() { Name = " Filter" }).ClickAsync();
+                await page.GetByRole(AriaRole.Button, new() { Name = " Filter" }).ClickAsync();
 
-                    // Search for TestUser
-                    searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
-                    await searchNameInput.FillAsync(this.Base.TestSettings.TestUserName);
-                    await searchNameInput.PressAsync("Enter");
+                // Search for TestUser
+                searchNameInput = page.Locator("//input[contains(@id,'_Name')]");
+                await searchNameInput.FillAsync(this.Base.TestSettings.TestUserName);
+                await searchNameInput.PressAsync("Enter");
 
-                    userProfileLink = page.Locator("//a[contains(@href,'EditUser')]").First;
+                userProfileLink = page.Locator("//a[contains(@href,'EditUser')]").First;
 
-                    Assert.IsNotNull(userProfileLink, "Test User doesn't Exist");
+                Assert.That(userProfileLink, Is.Not.Null, "Test User doesn't Exist");
 
-                    await userProfileLink.ClickAsync();
+                await userProfileLink.ClickAsync();
 
-                    // Go To Tab User Roles
-                    await page.Locator("//button[contains(@data-bs-target,'#View2')]").ClickAsync();
+                // Go To Tab User Roles
+                await page.Locator("//button[contains(@data-bs-target,'#View2')]").ClickAsync();
 
-                    Assert.IsTrue(await page.GetByLabel("TestRole").First.IsCheckedAsync());
+                Assert.That(await page.GetByLabel("TestRole").First.IsCheckedAsync(), Is.True);
 
-                    await page.GetByLabel("TestRole").First.UncheckAsync();
+                await page.GetByLabel("TestRole").First.UncheckAsync();
 
-                    // Save changes
-                    await page.Locator("//button[contains(@formaction,'UsersGroups?handler=Save')]").ClickAsync();
-                },
+                // Save changes
+                await page.Locator("//button[contains(@formaction,'UsersGroups?handler=Save')]").ClickAsync();
+            },
             this.BrowserType);
     }
 }

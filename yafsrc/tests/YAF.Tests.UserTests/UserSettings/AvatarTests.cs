@@ -44,11 +44,11 @@ public class AvatarTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -58,11 +58,11 @@ public class AvatarTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Modify Avatar"), "Modify Avatar is not available for that User");
+                    Assert.That(pageSource, Does.Contain("Modify Avatar"), "Modify Avatar is not available for that User");
 
                     // Select an Avatar from the Avatar Collection
-                    Assert.IsTrue(
-                        pageSource.Contains("Select your Avatar from our Collection"),
+                    Assert.That(
+                        pageSource, Does.Contain("Select your Avatar from our Collection"),
                         "Avatar Collection not available");
 
                     await page.Locator(".choices__list").First.ClickAsync();
@@ -77,9 +77,9 @@ public class AvatarTests : TestBase
 
                     var src = await image.GetAttributeAsync("src");
 
-                    Assert.IsNotNull(src);
+                    Assert.That(src, Is.Not.Null);
 
-                    Assert.IsTrue(src.Contains("SampleAvatar.gif"), "Modify Avatar Failed");
+                    Assert.That(src, Does.Contain("SampleAvatar.gif"), "Modify Avatar Failed");
                 },
             this.BrowserType);
     }
@@ -95,11 +95,11 @@ public class AvatarTests : TestBase
             async page =>
                 {
                     // Log user in first!
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login failed");
 
                     // Do actual test
@@ -109,9 +109,9 @@ public class AvatarTests : TestBase
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("Modify Avatar"), "Modify Avatar is not available for that User");
+                    Assert.That(pageSource, Does.Contain("Modify Avatar"), "Modify Avatar is not available for that User");
 
-                    Assert.IsTrue(pageSource.Contains("Upload Avatar from Your Computer"), "Upload Avatars disabled");
+                    Assert.That(pageSource, Does.Contain("Upload Avatar from Your Computer"), "Upload Avatars disabled");
 
                     var filePath = Path.GetFullPath(@"..\..\..\..\testfiles\avatar.png");
 
@@ -125,9 +125,9 @@ public class AvatarTests : TestBase
 
                     var src = await image.GetAttributeAsync("src");
 
-                    Assert.IsNotNull(src);
+                    Assert.That(src, Is.Not.Null);
 
-                    Assert.IsTrue(src.Contains(".png"), "Modify Avatar Failed");
+                    Assert.That(src, Does.Contain(".png"), "Modify Avatar Failed");
                 },
             this.BrowserType);
     }

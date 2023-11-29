@@ -43,43 +43,46 @@ public class ReputationTests : TestBase
             this.Base.TestSettings.TestForumUrl,
             async page =>
                 {
-                    // Log user in first!
-                    Assert.IsTrue(
-                        await page.LoginUserAsync(
-                            this.Base.TestSettings,
-                            this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
-                        "Login failed");
+                    Assert.Multiple(async () =>
+                    {
+                        // Log user in first!
+                        Assert.That(
+                            await page.LoginUserAsync(
+                                this.Base.TestSettings,
+                                this.Base.TestSettings.TestUserName,
+                                this.Base.TestSettings.TestUserPassword), Is.True,
+                            "Login failed");
 
-                    // Do actual test
+                        // Do actual test
 
-                    // First Creating a new test topic with the test user
-                    Assert.IsTrue(
-                        await page.CreateNewTestTopicAsync(this.Base.TestSettings),
-                        "Topic Creating failed");
+                        // First Creating a new test topic with the test user
+                        Assert.That(
+                            await page.CreateNewTestTopicAsync(this.Base.TestSettings), Is.True,
+                            "Topic Creating failed");
+                    });
 
                     var newTestTopicUrl = page.Url;
 
                     // Now Login with Test User 2
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName2,
-                            this.Base.TestSettings.TestUser2Password),
+                            this.Base.TestSettings.TestUser2Password), Is.True,
                         "Login with test user 2 failed");
 
                     // Go To New Test Topic Url
                     await page.GotoAsync(newTestTopicUrl);
 
-                    Assert.IsTrue(
-                        await page.Locator("//a[contains(@class,'AddReputation_')]").IsVisibleAsync(),
+                    Assert.That(
+                        await page.Locator("//a[contains(@class,'AddReputation_')]").IsVisibleAsync(), Is.True,
                         "Reputation is deactivated  in yaf or the user has already voted within the last 24 hours, or the user doesn't have enough points to be allowed to vote");
 
                     await page.Locator("//a[contains(@class,'AddReputation_')]").ClickAsync();
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("You have successfully given +1"), "Voting failed");
+                    Assert.That(pageSource, Does.Contain("You have successfully given +1"), "Voting failed");
                 },
             this.BrowserType);
     }
@@ -95,43 +98,46 @@ public class ReputationTests : TestBase
             this.Base.TestSettings.TestForumUrl,
             async page =>
                 {
-                    // Log user in first!
-                    Assert.IsTrue(
-                        await page.LoginUserAsync(
-                            this.Base.TestSettings,
-                            this.Base.TestSettings.TestUserName2,
-                            this.Base.TestSettings.TestUser2Password),
-                        "Login failed");
+                    Assert.Multiple(async () =>
+                    {
+                        // Log user in first!
+                        Assert.That(
+                            await page.LoginUserAsync(
+                                this.Base.TestSettings,
+                                this.Base.TestSettings.TestUserName2,
+                                this.Base.TestSettings.TestUser2Password), Is.True,
+                            "Login failed");
 
-                    // Do actual test
+                        // Do actual test
 
-                    // First Creating a new test topic with the test user
-                    Assert.IsTrue(
-                        await page.CreateNewTestTopicAsync(this.Base.TestSettings),
-                        "Topic Creating failed");
+                        // First Creating a new test topic with the test user
+                        Assert.That(
+                            await page.CreateNewTestTopicAsync(this.Base.TestSettings), Is.True,
+                            "Topic Creating failed");
+                    });
 
                     var newTestTopicUrl = page.Url;
 
                     // Now Login with Test User 2
-                    Assert.IsTrue(
+                    Assert.That(
                         await page.LoginUserAsync(
                             this.Base.TestSettings,
                             this.Base.TestSettings.TestUserName,
-                            this.Base.TestSettings.TestUserPassword),
+                            this.Base.TestSettings.TestUserPassword), Is.True,
                         "Login with test user 2 failed");
 
                     // Go To New Test Topic Url
                     await page.GotoAsync(newTestTopicUrl);
 
-                    Assert.IsTrue(
-                        await page.Locator("//a[contains(@class,'RemoveReputation_')]").IsVisibleAsync(),
+                    Assert.That(
+                        await page.Locator("//a[contains(@class,'RemoveReputation_')]").IsVisibleAsync(), Is.True,
                         "Reputation is deactivated (Or negative Reputation) in yaf or the user has already voted within the last 24 hours, or the user doesn't have enough points to be allowed to vote");
 
                     await page.Locator("//a[contains(@class,'RemoveReputation_')]").ClickAsync();
 
                     var pageSource = await page.ContentAsync();
 
-                    Assert.IsTrue(pageSource.Contains("You have successfully removed -1"), "Voting failed");
+                    Assert.That(pageSource, Does.Contain("You have successfully removed -1"), "Voting failed");
                 },
             this.BrowserType);
     }
