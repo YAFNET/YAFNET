@@ -390,12 +390,12 @@ div.code-toolbar > .toolbar > .toolbar-item > span:focus {
 }
 
 /*!
-* Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com
+* Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com
 * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
 * Copyright 2023 Fonticons, Inc.
 */
 /*!
- * Font Awesome Free 6.5.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2023 Fonticons, Inc.
  */
@@ -8813,7 +8813,7 @@ readers do not read off random characters that represent icons */
 }
 
 /*!
- * Font Awesome Free 6.5.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2023 Fonticons, Inc.
  */
@@ -8835,7 +8835,7 @@ readers do not read off random characters that represent icons */
 }
 
 /*!
- * Font Awesome Free 6.5.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2023 Fonticons, Inc.
  */
@@ -9520,6 +9520,10 @@ readers do not read off random characters that represent icons */
   content: "\f78d";
 }
 
+.fa-shoelace:before {
+  content: "\e60c";
+}
+
 .fa-mdb:before {
   content: "\f8ca";
 }
@@ -9862,6 +9866,10 @@ readers do not read off random characters that represent icons */
 
 .fa-vine:before {
   content: "\f1ca";
+}
+
+.fa-signal-messenger:before {
+  content: "\e663";
 }
 
 .fa-paypal:before {
@@ -10508,6 +10516,10 @@ readers do not read off random characters that represent icons */
   content: "\f3f9";
 }
 
+.fa-webflow:before {
+  content: "\e65c";
+}
+
 .fa-rebel:before {
   content: "\f1d0";
 }
@@ -10917,7 +10929,7 @@ readers do not read off random characters that represent icons */
 }
 
 /*!
- * Font Awesome Free 6.5.0 by @fontawesome - https://fontawesome.com
+ * Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
  * Copyright 2023 Fonticons, Inc.
  */
