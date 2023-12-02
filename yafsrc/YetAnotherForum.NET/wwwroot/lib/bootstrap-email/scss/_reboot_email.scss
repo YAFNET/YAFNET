@@ -29,6 +29,12 @@ img {
   display: block;
 }
 
+table {
+    -premailer-border: 0;
+    -premailer-cellpadding: 0;
+    -premailer-cellspacing: 0;
+}
+
 // to fix centering in yahoo
 table[align=center] {
   margin: 0 auto;
