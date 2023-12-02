@@ -125,7 +125,7 @@ public class UsersKillModel : AdminPage
         }
 
         // Ban User IP?
-        if (this.Input.BanIps && this.IpAddresses.Any())
+        if (this.Input.BanIps && this.IpAddresses.Count != 0)
         {
             this.BanUserIps(user.Item1);
         }
@@ -142,7 +142,7 @@ public class UsersKillModel : AdminPage
         this.DeleteAllUserMessages();
 
         if (this.Input.ReportUser && this.PageBoardContext.BoardSettings.StopForumSpamApiKey.IsSet() &&
-            this.IpAddresses.Any())
+            this.IpAddresses.Count != 0)
         {
             try
             {

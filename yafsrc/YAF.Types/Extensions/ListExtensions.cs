@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -22,37 +22,23 @@
  * under the License.
  */
 
-namespace YAF.Types.EventProxies;
+namespace YAF.Types.Extensions;
 
-using YAF.Types.Interfaces.Events;
+using System.Collections.Generic;
 
 /// <summary>
-/// The update user private message event.
+/// The list extensions.
 /// </summary>
-public class UpdateUserPrivateMessageEvent : IAmEvent
+public static class ListExtensions
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="UpdateUserPrivateMessageEvent"/> class.
+    /// Checks if List is Null Or Empty
     /// </summary>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="userPmMessageId">
-    /// The user pm message id.
-    /// </param>
-    public UpdateUserPrivateMessageEvent(int userId, int userPmMessageId)
+    /// <typeparam name="T"></typeparam>
+    /// <param name="source">The source.</param>
+    /// <returns><c>true</c> if Null Or Empty, <c>false</c> otherwise.</returns>
+    public static bool HasItems<T>(this List<T> source)
     {
-        this.UserId = userId;
-        this.UserPmMessageId = userPmMessageId;
+        return source.Count != 0;
     }
-
-    /// <summary>
-    /// Gets or sets UserId.
-    /// </summary>
-    public int UserId { get; set; }
-
-    /// <summary>
-    /// Gets or sets UserPmMessageId.
-    /// </summary>
-    public int UserPmMessageId { get; set; }
 }

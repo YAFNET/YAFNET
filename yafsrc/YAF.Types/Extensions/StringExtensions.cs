@@ -283,7 +283,7 @@ public static class StringExtensions
         // need to cut out the rest of it
         if (input.Substring(output.Length, 1) != " ")
         {
-            var lastSpace = output.LastIndexOf(" ", StringComparison.Ordinal);
+            var lastSpace = output.LastIndexOf(' ');
 
             // if we found a space then, cut back to that space
             if (lastSpace != -1)

@@ -185,7 +185,7 @@ public class ReportedPostsModel : ModerateForumPage
         // get reported posts for this forum
         var reported = this.GetRepository<MessageReported>().ListReported(f);
 
-        if (!reported.Any())
+        if (reported.Count == 0)
         {
             // nope -- redirect back to the moderate main...
             return this.Get<LinkBuilder>().Redirect(ForumPages.Moderate_Moderate);

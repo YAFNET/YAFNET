@@ -78,8 +78,8 @@ public class HighLighter
         // extract highlight
         if (language.Contains(";"))
         {
-            highlight = language[(language.IndexOf(";", StringComparison.Ordinal) + 1)..];
-            language = language.Remove(language.IndexOf(";", StringComparison.Ordinal));
+            highlight = language[(language.IndexOf(';') + 1)..];
+            language = language.Remove(language.IndexOf(';'));
         }
 
         // Create Output

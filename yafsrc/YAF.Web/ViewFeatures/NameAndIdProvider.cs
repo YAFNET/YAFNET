@@ -193,7 +193,7 @@ static internal class NameAndIdProvider
 
         previousNameAndId.HtmlFieldPrefix = htmlFieldPrefix;
         previousNameAndId.Expression = expression;
-        if (expression.StartsWith("[", StringComparison.Ordinal))
+        if (expression.StartsWith('['))
         {
             // The expression might represent an indexer access, in which case  with a 'dot' would be invalid.
             previousNameAndId.OutputFullName = htmlFieldPrefix + expression;

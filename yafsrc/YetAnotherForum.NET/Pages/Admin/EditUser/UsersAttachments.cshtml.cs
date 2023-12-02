@@ -88,7 +88,7 @@ public class UsersAttachmentsModel : AdminPage
     {
        var items = this.Attachments.Where(x => x.Selected).ToList();
 
-        if (items.Any())
+        if (items.Count != 0)
         {
             items.ForEach(item => this.GetRepository<Attachment>().DeleteById(item.ID));
 

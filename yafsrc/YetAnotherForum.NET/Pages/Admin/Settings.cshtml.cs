@@ -102,7 +102,7 @@ public class SettingsModel : AdminPage
 
         var cultures = StaticDataHelper.Cultures().Where(c => c.CultureTag.Equals(this.Input.Culture)).ToList();
 
-        if (cultures.Any())
+        if (cultures.Count != 0)
         {
             languageFile = cultures.FirstOrDefault()!.CultureFile;
         }

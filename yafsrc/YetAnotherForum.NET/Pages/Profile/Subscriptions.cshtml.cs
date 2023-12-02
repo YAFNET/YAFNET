@@ -190,7 +190,7 @@ public class SubscriptionsModel : ProfilePage
     {
         var items = this.Input.Forums.Where(x => x.Selected).ToList();
 
-        if (items.Any())
+        if (items.Count != 0)
         {
             items.ForEach(item => this.GetRepository<WatchForum>().DeleteById(item.ID));
         }
@@ -215,7 +215,7 @@ public class SubscriptionsModel : ProfilePage
     {
         var items = this.Input.Topics.Where(x => x.Selected).ToList();
 
-        if (items.Any())
+        if (items.Count != 0)
         {
             items.ForEach(item => this.GetRepository<WatchTopic>().DeleteById(item.ID));
         }

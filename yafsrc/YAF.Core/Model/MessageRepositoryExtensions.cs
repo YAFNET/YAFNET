@@ -1242,7 +1242,7 @@ public static class MessageRepositoryExtensions
             // Delete replies
             var replies = repository.Get(m => m.ReplyTo == message.ID).ToList();
 
-            if (replies.Any())
+            if (replies.HasItems())
             {
                 replies.ForEach(
                     reply => repository.DeleteRecursively(

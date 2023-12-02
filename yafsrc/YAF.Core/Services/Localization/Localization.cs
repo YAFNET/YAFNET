@@ -521,7 +521,7 @@ public class Localization : ILocalization
                 {
                     if (x.CultureTag.Contains("-"))
                     {
-                        x.CultureTag = x.CultureTag.Remove(x.CultureTag.IndexOf("-", StringComparison.Ordinal));
+                        x.CultureTag = x.CultureTag.Remove(x.CultureTag.IndexOf('-'));
                     }
 
                     return x.CultureTag == currentCulture;

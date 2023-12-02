@@ -94,7 +94,7 @@ public class AttachmentController : ForumBaseController
                 {
                     PageNumber = pageNumber,
                     TotalRecords =
-                        attachments.Any()
+                        attachments.Count != 0
                             ? this.GetRepository<Attachment>().Count(a => a.UserID == userId)
                                 .ToType<int>()
                             : 0,

@@ -310,7 +310,7 @@ public class EditForumModel : AdminPage
         {
             var forumList = this.GetRepository<Forum>().Get(f => f.Name == this.Input.Name.Trim());
 
-            if (forumList.Any() && !this.PageBoardContext.BoardSettings.AllowForumsWithSameName)
+            if (forumList.Count != 0 && !this.PageBoardContext.BoardSettings.AllowForumsWithSameName)
             {
                 return this.PageBoardContext.Notify(
                     this.GetText("ADMIN_EDITFORUM", "MSG_FORUMNAME_EXISTS"),

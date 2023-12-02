@@ -25,7 +25,6 @@
 namespace YAF.Pages;
 
 using System.Collections.Generic;
-using System.Linq;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -241,7 +240,7 @@ public class TopicsModel : ForumPage
             this.PageBoardContext.PageForumID);
 
         // Render Sub forum(s)
-        if (forums.Item2.Any())
+        if (forums.Item2.Count != 0)
         {
             this.SubForums = forums;
         }

@@ -216,7 +216,7 @@ public class UsersAvatarModel : AdminPage
 
         var avatars = this.LoadAvatarGallery();
 
-        if (avatars.Any())
+        if (avatars.Count != 0)
         {
             this.Gallery = avatars;
         }

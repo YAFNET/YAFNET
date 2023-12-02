@@ -305,7 +305,7 @@ public static class ActiveLocationHtmlHelper
             forumPageAttributes[(forumPageAttributes.IndexOf("a=", StringComparison.Ordinal) + 2)..];
 
         albumID = albumID.Contains("&")
-                      ? albumID[..albumID.IndexOf("&", StringComparison.Ordinal)].Trim()
+                      ? albumID[..albumID.IndexOf('&')].Trim()
                       : albumID[..].Trim();
 
         if (userId.HasValue && ValidationHelper.IsValidInt(albumID))

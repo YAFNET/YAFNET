@@ -175,7 +175,7 @@ public static class NntpUtil
         try
         {
             nntpDateTime = nntpDateTime[(nntpDateTime.IndexOf(',') + 1)..];
-            if (nntpDateTime.IndexOf("(", StringComparison.Ordinal) > 0)
+            if (nntpDateTime.IndexOf('(') > 0)
             {
                 nntpDateTime = nntpDateTime[..(nntpDateTime.IndexOf('(') - 1)].Trim();
             }

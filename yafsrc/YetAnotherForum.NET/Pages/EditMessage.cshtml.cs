@@ -440,7 +440,7 @@ public class EditMessageModel : ForumPage
 
         var topicsList = this.GetRepository<TopicTag>().List(this.PageBoardContext.PageTopicID);
 
-        if (!topicsList.Any())
+        if (topicsList.Count == 0)
         {
             return;
         }

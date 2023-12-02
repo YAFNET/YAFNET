@@ -30,7 +30,7 @@ namespace YAF.Types.Interfaces.Services;
 public interface IAlbum
 {
     /// <summary>
-    /// Deletes the specified album/image.
+    /// Deletes the specified album.
     /// </summary>
     /// <param name="uploadFolder">
     /// The Upload folder.
@@ -41,10 +41,21 @@ public interface IAlbum
     /// <param name="userId">
     /// The user id.
     /// </param>
+    void AlbumDelete(string uploadFolder, int albumId, int userId);
+
+    /// <summary>
+    /// Deletes the specified image.
+    /// </summary>
+    /// <param name="uploadFolder">
+    /// The Upload folder.
+    /// </param>
     /// <param name="imageId">
     /// The image id.
     /// </param>
-    void AlbumImageDelete(string uploadFolder, int? albumId, int userId, int? imageId);
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
+    void AlbumImageDelete(string uploadFolder, int imageId, int userId);
 
     /// <summary>
     /// Changes the album title.

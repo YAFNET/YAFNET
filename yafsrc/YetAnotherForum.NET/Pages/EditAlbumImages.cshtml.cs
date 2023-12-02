@@ -143,9 +143,8 @@ public class EditAlbumImagesModel : ForumPageRegistered
 
         this.Get<IAlbum>().AlbumImageDelete(
             path,
-            null,
-            this.PageBoardContext.PageUserID,
-            imageId);
+            imageId,
+            this.PageBoardContext.PageUserID);
 
         this.BindData(albumId);
     }
@@ -254,11 +253,10 @@ public class EditAlbumImagesModel : ForumPageRegistered
     {
         var path = Path.Combine(this.Get<IWebHostEnvironment>().WebRootPath, this.Get<BoardFolders>().Uploads);
 
-        this.Get<IAlbum>().AlbumImageDelete(
+        this.Get<IAlbum>().AlbumDelete(
             path,
             albumId,
-            this.PageBoardContext.PageUserID,
-            null);
+            this.PageBoardContext.PageUserID);
 
         // clear the cache for this user to update albums|images stats...
         this.Get<IRaiseEvent>().Raise(new UpdateUserEvent(this.PageBoardContext.PageUserID));

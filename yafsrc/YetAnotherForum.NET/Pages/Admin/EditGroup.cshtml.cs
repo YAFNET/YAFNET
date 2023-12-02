@@ -210,7 +210,7 @@ public class EditGroupModel : AdminPage
             // create new role...
             await this.Get<IAspNetRolesHelper>().CreateRoleAsync(roleName);
 
-            if (users.Any())
+            if (users.Count != 0)
             {
                 // put users into new role...
                 users.ForEach(user => this.Get<IAspNetRolesHelper>().AddUserToRole(user, roleName));

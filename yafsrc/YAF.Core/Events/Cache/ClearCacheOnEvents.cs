@@ -50,8 +50,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
                                   IHandleEvent<RepositoryEvent<Forum>>,
                                   IHandleEvent<RepositoryEvent<Message>>,
                                   IHandleEvent<RepositoryEvent<Topic>>,
-                                  IHandleEvent<RepositoryEvent<UserGroup>>,
-                                  IHandleEvent<UpdateUserPrivateMessageEvent>
+                                  IHandleEvent<RepositoryEvent<UserGroup>>
 {
     /// <summary>
     /// Initializes a new instance of the <see cref="ClearCacheOnEvents"/> class.
@@ -331,17 +330,6 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
         }
 
         this.ClearAccess();
-    }
-
-    /// <summary>
-    /// The handle.
-    /// </summary>
-    /// <param name="event">
-    /// The event.
-    /// </param>
-    public void Handle(UpdateUserPrivateMessageEvent @event)
-    {
-        this.DataCache.Remove(string.Format(Constants.Cache.ActiveUserLazyData, @event.UserId));
     }
 
     /// <summary>

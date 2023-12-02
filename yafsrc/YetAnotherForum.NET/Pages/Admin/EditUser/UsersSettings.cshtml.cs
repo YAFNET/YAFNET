@@ -239,7 +239,7 @@ public class UsersSettingsModel : AdminPage
             this.Input.TimeZone = user.Item1.TimeZoneInfo.Id;
         }
 
-        if (this.PageBoardContext.BoardSettings.AllowUserTheme && this.Themes.Any())
+        if (this.PageBoardContext.BoardSettings.AllowUserTheme && this.Themes.Count != 0)
         {
             // Allows to use different per-forum themes,
             // While "Allow PageUser Change Theme" option in the host settings is true
@@ -275,7 +275,7 @@ public class UsersSettingsModel : AdminPage
 
         this.Input.Size = user.Item1.PageSize;
 
-        if (!this.PageBoardContext.BoardSettings.AllowUserLanguage || !this.Languages.Any())
+        if (!this.PageBoardContext.BoardSettings.AllowUserLanguage || this.Languages.Count == 0)
         {
             return;
         }

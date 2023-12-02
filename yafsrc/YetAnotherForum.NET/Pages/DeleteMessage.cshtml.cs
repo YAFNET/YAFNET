@@ -127,7 +127,7 @@ public class DeleteMessageModel : ForumPage
         // delete message...
         var replies = this.GetRepository<Message>().Replies(this.PageBoardContext.PageMessage.ID);
 
-        if (replies.Any() && (this.PageBoardContext.ForumModeratorAccess || this.PageBoardContext.IsAdmin))
+        if (replies.Count != 0 && (this.PageBoardContext.ForumModeratorAccess || this.PageBoardContext.IsAdmin))
         {
             this.LinkedPosts = replies;
         }

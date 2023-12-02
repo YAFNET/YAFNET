@@ -350,7 +350,7 @@ public class UserProfileModel : ForumPage
             () => this.GetRepository<Medal>().ListUserMedals(this.CombinedUser.Item1.ID),
             TimeSpan.FromMinutes(10));
 
-        if (!userMedals.Any())
+        if (userMedals.Count == 0)
         {
             return;
         }

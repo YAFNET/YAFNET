@@ -307,7 +307,7 @@ public class EditSettingsModel : ProfilePage
             this.TimeZone = this.PageBoardContext.PageUser.TimeZoneInfo.Id;
         }
 
-        if (this.PageBoardContext.BoardSettings.AllowUserTheme && this.Themes.Any())
+        if (this.PageBoardContext.BoardSettings.AllowUserTheme && this.Themes.Count != 0)
         {
             // Allows to use different per-forum themes,
             // While "Allow PageUser Change Theme" option in the host settings is true

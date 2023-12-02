@@ -349,7 +349,7 @@ public class RegisterModel : AccountPage
     {
         this.Input.CustomProfile = this.GetRepository<ProfileDefinition>().GetByBoardId().ToList();
 
-        if (this.Input.CustomProfile is null || !this.Input.CustomProfile.Any())
+        if (this.Input.CustomProfile is null || this.Input.CustomProfile.Count == 0)
         {
             return;
         }

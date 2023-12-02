@@ -110,9 +110,9 @@ public class JabberModel : ForumPage
             // get full user data...
             var userDataHe = await this.Get<IAspNetUsersHelper>().GetUserAsync(this.CurrentUser.ProviderUserKey);
 
-            var serverHe = userDataHe.Profile_XMPP[(userDataHe.Profile_XMPP.IndexOf("@", StringComparison.Ordinal) + 1)..].Trim();
+            var serverHe = userDataHe.Profile_XMPP[(userDataHe.Profile_XMPP.IndexOf('@') + 1)..].Trim();
 
-            var serverMe = this.PageBoardContext.MembershipUser.Profile_XMPP[(this.PageBoardContext.MembershipUser.Profile_XMPP.IndexOf("@", StringComparison.Ordinal) + 1)..].Trim();
+            var serverMe = this.PageBoardContext.MembershipUser.Profile_XMPP[(this.PageBoardContext.MembershipUser.Profile_XMPP.IndexOf('@') + 1)..].Trim();
 
             this.Message = serverMe == serverHe
                                ? this.GetTextFormatted("SERVERSAME", userDataHe.Profile_XMPP)

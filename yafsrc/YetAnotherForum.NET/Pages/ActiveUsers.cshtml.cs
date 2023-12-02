@@ -95,7 +95,7 @@ public class ActiveUsersModel : ForumPage
     /// </param>
     private static void RemoveAllButGuests(ref List<ActiveUser> activeUsers)
     {
-        if (!activeUsers.Any())
+        if (activeUsers.Count == 0)
         {
             return;
         }
@@ -229,7 +229,7 @@ public class ActiveUsersModel : ForumPage
     /// </param>
     private void RemoveAllButHiddenUsers(ref List<ActiveUser> activeUsers)
     {
-        if (!activeUsers.Any())
+        if (activeUsers.Count == 0)
         {
             return;
         }
@@ -247,7 +247,7 @@ public class ActiveUsersModel : ForumPage
     /// </param>
     private void RemoveHiddenUsers(ref List<ActiveUser> activeUsers)
     {
-        if (!activeUsers.Any())
+        if (activeUsers.Count == 0)
         {
             return;
         }

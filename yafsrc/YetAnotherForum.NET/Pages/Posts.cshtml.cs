@@ -273,7 +273,7 @@ public class PostsModel : ForumPage
             this.Size,
             messagePosition);
 
-        if (!postList.Any())
+        if (postList.Count == 0)
         {
             var topicException = new NoPostsFoundForTopicException(
                 this.PageBoardContext.PageTopicID,

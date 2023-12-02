@@ -52,7 +52,7 @@ public class Album : IAlbum, IHaveServiceLocator
     public IServiceLocator ServiceLocator { get; set; }
 
     /// <summary>
-    /// Deletes the specified album/image.
+    /// Deletes the specified album.
     /// </summary>
     /// <param name="uploadFolder">
     /// The Upload folder.
@@ -63,71 +63,80 @@ public class Album : IAlbum, IHaveServiceLocator
     /// <param name="userId">
     /// The user id.
     /// </param>
+    public void AlbumDelete(
+        string uploadFolder,
+        int albumId,
+        int userId)
+    {
+        var albums = BoardContext.Current.GetRepository<UserAlbumImage>().List(albumId);
+
+        albums.ForEach(
+            dr =>
+            {
+                var fullName = $"{uploadFolder}/{userId}.{albumId}.{dr.FileName}.yafalbum";
+                var file = new FileInfo(fullName);
+
+                try
+                {
+                    if (!file.Exists)
+                    {
+                        return;
+                    }
+
+                    File.SetAttributes(fullName, FileAttributes.Normal);
+                    File.Delete(fullName);
+                }
+                finally
+                {
+                    var imageIdDelete = dr.ID;
+                    BoardContext.Current.GetRepository<UserAlbumImage>().DeleteById(imageIdDelete);
+                    BoardContext.Current.GetRepository<UserAlbum>().DeleteCover(imageIdDelete);
+                }
+            });
+
+        this.GetRepository<UserAlbumImage>().Delete(a => a.AlbumID == albumId.ToType<int>());
+
+        this.GetRepository<UserAlbum>().Delete(a => a.ID == albumId.ToType<int>());
+    }
+
+    /// <summary>
+    /// Deletes the specified image.
+    /// </summary>
+    /// <param name="uploadFolder">
+    /// The Upload folder.
+    /// </param>
     /// <param name="imageId">
     /// The image id.
     /// </param>
+    /// <param name="userId">
+    /// The user id.
+    /// </param>
     public void AlbumImageDelete(
         string uploadFolder,
-        int? albumId,
-        int userId,
-        int? imageId)
+        int imageId,
+        int userId)
     {
-        if (albumId.HasValue)
+        var image = this.GetRepository<UserAlbumImage>().GetImage(imageId);
+
+        var fileName = image.Item1.FileName;
+        var imgAlbumId = image.Item1.AlbumID.ToString();
+        var fullName = $"{uploadFolder}/{userId}.{imgAlbumId}.{fileName}.yafalbum";
+        var file = new FileInfo(fullName);
+
+        try
         {
-            var albums = BoardContext.Current.GetRepository<UserAlbumImage>().List(albumId.Value);
+            if (!file.Exists)
+            {
+                return;
+            }
 
-            albums.ForEach(
-                dr =>
-                    {
-                        var fullName = $"{uploadFolder}/{userId}.{albumId}.{dr.FileName}.yafalbum";
-                        var file = new FileInfo(fullName);
-
-                        try
-                        {
-                            if (!file.Exists)
-                            {
-                                return;
-                            }
-
-                            File.SetAttributes(fullName, FileAttributes.Normal);
-                            File.Delete(fullName);
-                        }
-                        finally
-                        {
-                            var imageIdDelete = dr.ID;
-                            BoardContext.Current.GetRepository<UserAlbumImage>().DeleteById(imageIdDelete);
-                            BoardContext.Current.GetRepository<UserAlbum>().DeleteCover(imageIdDelete);
-                        }
-                    });
-
-            this.GetRepository<UserAlbumImage>().Delete(a => a.AlbumID == albumId.ToType<int>());
-
-            this.GetRepository<UserAlbum>().Delete(a => a.ID == albumId.ToType<int>());
+            File.SetAttributes(fullName, FileAttributes.Normal);
+            File.Delete(fullName);
         }
-        else
+        finally
         {
-            var image = this.GetRepository<UserAlbumImage>().GetImage(imageId.Value);
-
-            var fileName = image.Item1.FileName;
-            var imgAlbumId = image.Item1.AlbumID.ToString();
-            var fullName = $"{uploadFolder}/{userId}.{imgAlbumId}.{fileName}.yafalbum";
-            var file = new FileInfo(fullName);
-
-            try
-            {
-                if (!file.Exists)
-                {
-                    return;
-                }
-
-                File.SetAttributes(fullName, FileAttributes.Normal);
-                File.Delete(fullName);
-            }
-            finally
-            {
-                this.GetRepository<UserAlbumImage>().DeleteById(imageId.Value);
-                this.GetRepository<UserAlbum>().DeleteCover(imageId.Value);
-            }
+            this.GetRepository<UserAlbumImage>().DeleteById(imageId);
+            this.GetRepository<UserAlbum>().DeleteCover(imageId);
         }
     }
 
