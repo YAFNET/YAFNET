@@ -18,7 +18,7 @@ internal class TypeConfig
     /// <summary>
     /// The type
     /// </summary>
-    internal readonly Type Type;
+    readonly internal Type Type;
 
     /// <summary>
     /// The enable anonymous field setters
@@ -80,7 +80,7 @@ public static class TypeConfig<T>
     /// <summary>
     /// The configuration
     /// </summary>
-    internal static TypeConfig config;
+    static internal TypeConfig config;
 
     /// <summary>
     /// Gets the configuration.
@@ -129,7 +129,7 @@ public static class TypeConfig<T>
     /// <summary>
     /// Initializes this instance.
     /// </summary>
-    internal static void Init()
+    static internal void Init()
     {
         if (config == null)
         {
@@ -189,7 +189,7 @@ public static class TypeConfig<T>
     /// Gets the state.
     /// </summary>
     /// <returns>TypeConfig.</returns>
-    internal static TypeConfig GetState()
+    static internal TypeConfig GetState()
     {
         return Config;
     }

@@ -202,7 +202,7 @@ namespace ServiceStack.OrmLite.Converters
         /// <summary>
         /// The int enums
         /// </summary>
-        static readonly ConcurrentDictionary<Type, bool> intEnums = new();
+        readonly static ConcurrentDictionary<Type, bool> intEnums = new();
 
         /// <summary>
         /// Determines whether [is int enum] [the specified field type].
@@ -248,10 +248,26 @@ namespace ServiceStack.OrmLite.Converters
             var enumKind = GetEnumKind(fieldType);
 
             if (enumKind == EnumKind.Char)
+            {
                 return Enum.ToObject(fieldType, (int)ToCharValue(value));
+            }
 
             if (value is string strVal)
-                return Enum.Parse(fieldType, strVal, ignoreCase: true);
+            {
+                if (string.IsNullOrEmpty(strVal))
+                {
+                    return Enum.ToObject(fieldType, 0);
+                }
+
+                try
+                {
+                    return Enum.Parse(fieldType, strVal, ignoreCase: true);
+                }
+                catch (Exception)
+                {
+                    return Text.TypeSerializer.DeserializeFromString(strVal, fieldType);
+                }
+            }
 
             return Enum.ToObject(fieldType, value);
         }

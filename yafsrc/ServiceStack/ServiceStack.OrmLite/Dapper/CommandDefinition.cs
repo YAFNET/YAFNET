@@ -22,7 +22,7 @@ public struct CommandDefinition
     /// </summary>
     /// <param name="parameters">The parameters.</param>
     /// <returns>CommandDefinition.</returns>
-    internal static CommandDefinition ForCallback(object parameters)
+    static internal CommandDefinition ForCallback(object parameters)
     {
         return parameters is DynamicParameters ? new CommandDefinition(parameters) : default;
     }

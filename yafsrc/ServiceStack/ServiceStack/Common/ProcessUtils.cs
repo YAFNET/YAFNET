@@ -158,7 +158,7 @@ public static class ProcessUtils
     /// <summary>
     /// Run the command with the OS's command runner 
     /// </summary>
-    public static async Task RunShellAsync(string arguments, string workingDir = null, int? timeoutMs = null,
+    public async static Task RunShellAsync(string arguments, string workingDir = null, int? timeoutMs = null,
                                            Action<string> onOut = null, Action<string> onError = null)
     {
         if (string.IsNullOrEmpty(arguments))
@@ -185,7 +185,7 @@ public static class ProcessUtils
     /// <param name="onOut">The on out.</param>
     /// <param name="onError">The on error.</param>
     /// <returns>A Task&lt;ProcessResult&gt; representing the asynchronous operation.</returns>
-    public static async Task<ProcessResult> RunAsync(ProcessStartInfo startInfo, int? timeoutMs = null,
+    public async static Task<ProcessResult> RunAsync(ProcessStartInfo startInfo, int? timeoutMs = null,
                                                      Action<string> onOut = null, Action<string> onError = null)
     {
         startInfo.RedirectStandardOutput = true;

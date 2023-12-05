@@ -215,7 +215,7 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="schemaName">Name of the schema.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-        public override async Task<bool> DoesSchemaExistAsync(
+        public async override Task<bool> DoesSchemaExistAsync(
             IDbCommand dbCmd,
             string schemaName,
             CancellationToken token = default)
@@ -286,7 +286,7 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="schema">The schema.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-        public override async Task<bool> DoesTableExistAsync(
+        public async override Task<bool> DoesTableExistAsync(
             IDbCommand dbCmd,
             string tableName,
             string schema = null,
@@ -339,7 +339,7 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="schema">The schema.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-        public override async Task<bool> DoesColumnExistAsync(
+        public async override Task<bool> DoesColumnExistAsync(
             IDbConnection db,
             string columnName,
             string tableName,
@@ -1143,7 +1143,7 @@ namespace ServiceStack.OrmLite.SqlServer
         /// </summary>
         /// <param name="fieldDef">The field definition.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        protected override bool ShouldSkipInsert(FieldDefinition fieldDef) =>
+        override protected bool ShouldSkipInsert(FieldDefinition fieldDef) =>
             fieldDef.ShouldSkipInsert() || fieldDef.AutoId;
 
         /// <summary>
@@ -1434,7 +1434,7 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="take">The take.</param>
         /// <param name="selectType">Type of the select.</param>
         /// <returns>System.String.</returns>
-        protected static string SqlTop(string sql, int take, string selectType = null)
+        static protected string SqlTop(string sql, int take, string selectType = null)
         {
             selectType ??= sql.StartsWithIgnoreCase("SELECT DISTINCT") ? "SELECT DISTINCT" : "SELECT";
 
@@ -1666,7 +1666,7 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="fn">The function.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;List&lt;T&gt;&gt;.</returns>
-        public override async Task<List<T>> ReaderEach<T>(
+        public async override Task<List<T>> ReaderEach<T>(
             IDataReader reader,
             Func<T> fn,
             CancellationToken token = default)
@@ -1697,7 +1697,7 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="source">The source.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;Return&gt;.</returns>
-        public override async Task<Return> ReaderEach<Return>(
+        public async override Task<Return> ReaderEach<Return>(
             IDataReader reader,
             Action fn,
             Return source,
@@ -1726,7 +1726,7 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="fn">The function.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;T&gt;.</returns>
-        public override async Task<T> ReaderRead<T>(IDataReader reader, Func<T> fn, CancellationToken token = default)
+        public async override Task<T> ReaderRead<T>(IDataReader reader, Func<T> fn, CancellationToken token = default)
         {
             try
             {

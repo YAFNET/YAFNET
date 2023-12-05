@@ -14,17 +14,17 @@ namespace ServiceStack.Text.Common;
 /// <summary>
 /// Class DeserializeTypeRefJsv.
 /// </summary>
-internal static class DeserializeTypeRefJsv
+static internal class DeserializeTypeRefJsv
 {
     /// <summary>
     /// The serializer
     /// </summary>
-    private static readonly JsvTypeSerializer Serializer = (JsvTypeSerializer)JsvTypeSerializer.Instance;
+    private readonly static JsvTypeSerializer Serializer = (JsvTypeSerializer)JsvTypeSerializer.Instance;
 
     /// <summary>
     /// The type attribute
     /// </summary>
-    static readonly ReadOnlyMemory<char> typeAttr = JsWriter.TypeAttr.AsMemory();
+    readonly static ReadOnlyMemory<char> typeAttr = JsWriter.TypeAttr.AsMemory();
 
     /// <summary>
     /// Strings to type.
@@ -34,7 +34,7 @@ internal static class DeserializeTypeRefJsv
     /// <param name="ctorFn">The ctor function.</param>
     /// <param name="typeAccessors">The type accessors.</param>
     /// <returns>System.Object.</returns>
-    internal static object StringToType(ReadOnlySpan<char> strType,
+    static internal object StringToType(ReadOnlySpan<char> strType,
                                         TypeConfig typeConfig,
                                         EmptyCtorDelegate ctorFn,
                                         KeyValuePair<string, TypeAccessor>[] typeAccessors)

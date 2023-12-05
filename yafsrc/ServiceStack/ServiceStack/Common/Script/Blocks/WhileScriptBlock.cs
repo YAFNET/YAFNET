@@ -32,7 +32,7 @@ public class WhileScriptBlock : ScriptBlock
     /// <param name="block">The block.</param>
     /// <param name="ct">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    public override async Task WriteAsync(ScriptScopeContext scope, PageBlockFragment block, CancellationToken ct)
+    public async override Task WriteAsync(ScriptScopeContext scope, PageBlockFragment block, CancellationToken ct)
     {
         var result = await block.Argument.GetJsExpressionAndEvaluateToBoolAsync(scope,
                          ifNone: () => throw new NotSupportedException("'while' block does not have a valid expression")).ConfigAwait();

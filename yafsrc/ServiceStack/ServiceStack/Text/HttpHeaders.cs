@@ -170,7 +170,7 @@ public static class HttpHeaders
 
 public static class CompressionTypes
 {
-    public static readonly string[] AllCompressionTypes =
+    public readonly static string[] AllCompressionTypes =
         {
 #if NET6_0_OR_GREATER
                 Brotli,

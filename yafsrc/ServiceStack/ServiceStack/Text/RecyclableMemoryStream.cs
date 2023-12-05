@@ -1278,7 +1278,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
     /// <summary>
     /// The empty array
     /// </summary>
-    private static readonly byte[] emptyArray = Array.Empty<byte>();
+    private readonly static byte[] emptyArray = Array.Empty<byte>();
 
     /// <summary>
     /// All of these blocks must be the same size
@@ -1463,7 +1463,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
     /// Returns the memory used by this stream back to the pool.
     /// </summary>
     /// <param name="disposing">Whether we're disposing (true), or being called by the finalizer (false)</param>
-    protected override void Dispose(bool disposing)
+    override protected void Dispose(bool disposing)
     {
         if (Interlocked.CompareExchange(ref this.disposedState, 1, 0) != 0)
         {

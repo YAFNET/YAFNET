@@ -2125,7 +2125,7 @@ public static class DynamicNumber
     /// <summary>
     /// The rank numbers
     /// </summary>
-    static readonly Dictionary<int, IDynamicNumber> RankNumbers = new() {
+    readonly static Dictionary<int, IDynamicNumber> RankNumbers = new() {
                                                                                 {1, DynamicSByte.Instance},
                                                                                 {2, DynamicByte.Instance},
                                                                                 {3, DynamicShort.Instance},
@@ -2530,7 +2530,7 @@ public static class DynamicNumber
 /// <summary>
 /// Class DynamicNumberExtensions.
 /// </summary>
-internal static class DynamicNumberExtensions
+static internal class DynamicNumberExtensions
 {
     /// <summary>
     /// Parses the string.
@@ -2538,7 +2538,7 @@ internal static class DynamicNumberExtensions
     /// <param name="number">The number.</param>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
-    internal static object ParseString(this IDynamicNumber number, object value)
+    static internal object ParseString(this IDynamicNumber number, object value)
     {
         if (value is string s)
             return number.TryParse(s, out object x) ? x : null;

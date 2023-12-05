@@ -32,7 +32,7 @@ public static class OrmLiteReadCommandExtensions
     /// <summary>
     /// The log
     /// </summary>
-    internal static ILog Log = LogManager.GetLogger(typeof(OrmLiteReadCommandExtensions));
+    static internal ILog Log = LogManager.GetLogger(typeof(OrmLiteReadCommandExtensions));
 
     /// <summary>
     /// The use database connection extensions
@@ -45,7 +45,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="sql">The SQL.</param>
     /// <returns>IDataReader.</returns>
-    internal static IDataReader ExecReader(this IDbCommand dbCmd, string sql)
+    static internal IDataReader ExecReader(this IDbCommand dbCmd, string sql)
     {
         dbCmd.CommandText = sql;
 
@@ -64,7 +64,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="commandBehavior">The command behavior.</param>
     /// <returns>IDataReader.</returns>
-    internal static IDataReader ExecReader(this IDbCommand dbCmd, string sql, CommandBehavior commandBehavior)
+    static internal IDataReader ExecReader(this IDbCommand dbCmd, string sql, CommandBehavior commandBehavior)
     {
         dbCmd.CommandText = sql;
 
@@ -83,7 +83,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="parameters">The parameters.</param>
     /// <returns>IDataReader.</returns>
-    internal static IDataReader ExecReader(
+    static internal IDataReader ExecReader(
         this IDbCommand dbCmd,
         string sql,
         IEnumerable<IDataParameter> parameters)
@@ -110,7 +110,7 @@ public static class OrmLiteReadCommandExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="dbCmd">The database command.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> Select<T>(this IDbCommand dbCmd)
+    static internal List<T> Select<T>(this IDbCommand dbCmd)
     {
         return Select<T>(dbCmd, (string)null);
     }
@@ -122,7 +122,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="name">The name.</param>
     /// <param name="value">The value.</param>
-    internal static void SetFilter<T>(this IDbCommand dbCmd, string name, object value)
+    static internal void SetFilter<T>(this IDbCommand dbCmd, string name, object value)
     {
         var dialectProvider = dbCmd.GetDialectProvider();
 
@@ -144,7 +144,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="anonType">Type of the anon.</param>
     /// <param name="excludeDefaults">if set to <c>true</c> [exclude defaults].</param>
     /// <returns>IDbCommand.</returns>
-    internal static IDbCommand SetFilters<T>(this IDbCommand dbCmd, object anonType, bool excludeDefaults)
+    static internal IDbCommand SetFilters<T>(this IDbCommand dbCmd, object anonType, bool excludeDefaults)
     {
         string ignore = null;
         dbCmd.SetParameters<T>(anonType, excludeDefaults, ref ignore); //needs to be called first
@@ -158,7 +158,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="expression">The expression.</param>
     /// <param name="queryType">Type of the query.</param>
-    internal static void PopulateWith(this IDbCommand dbCmd, ISqlExpression expression, QueryType queryType)
+    static internal void PopulateWith(this IDbCommand dbCmd, ISqlExpression expression, QueryType queryType)
     {
         dbCmd.CommandText = expression.ToSelectStatement(queryType); //needs to evaluate SQL before setting params
         dbCmd.SetParameters(expression.Params);
@@ -173,7 +173,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="excludeDefaults">if set to <c>true</c> [exclude defaults].</param>
     /// <param name="sql">The SQL.</param>
     /// <returns>IDbCommand.</returns>
-    internal static IDbCommand SetParameters<T>(
+    static internal IDbCommand SetParameters<T>(
         this IDbCommand dbCmd,
         object anonType,
         bool excludeDefaults,
@@ -186,7 +186,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="sqlParams">The SQL parameters.</param>
     /// <returns>IDbCommand.</returns>
-    internal static IDbCommand SetParameters(this IDbCommand dbCmd, IEnumerable<IDbDataParameter> sqlParams)
+    static internal IDbCommand SetParameters(this IDbCommand dbCmd, IEnumerable<IDbDataParameter> sqlParams)
     {
         if (sqlParams == null)
             return dbCmd;
@@ -242,7 +242,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="excludeDefaults">if set to <c>true</c> [exclude defaults].</param>
     /// <param name="sql">The SQL.</param>
     /// <returns>IDbCommand.</returns>
-    internal static IDbCommand SetParameters(
+    static internal IDbCommand SetParameters(
         this IDbCommand dbCmd,
         Dictionary<string, object> dict,
         bool excludeDefaults,
@@ -320,7 +320,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="excludeDefaults">if set to <c>true</c> [exclude defaults].</param>
     /// <param name="sql">The SQL.</param>
     /// <returns>IDbCommand.</returns>
-    internal static IDbCommand SetParameters(
+    static internal IDbCommand SetParameters(
         this IDbCommand dbCmd,
         Type type,
         object anonType,
@@ -409,7 +409,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="value">The value.</param>
     /// <param name="propType">Type of the property.</param>
     /// <param name="fieldDef">The field definition.</param>
-    internal static void SetParamValue(
+    static internal void SetParamValue(
         this IOrmLiteDialectProvider dialectProvider,
         IDbDataParameter p,
         object value,
@@ -449,7 +449,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="modelDef">The model definition.</param>
     /// <param name="excludeDefaults">if set to <c>true</c> [exclude defaults].</param>
     /// <param name="fn">The function.</param>
-    internal static void ForEachParam(
+    static internal void ForEachParam(
         this Dictionary<string, object> values,
         ModelDefinition modelDef,
         bool excludeDefaults,
@@ -478,7 +478,7 @@ public static class OrmLiteReadCommandExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>List&lt;System.String&gt;.</returns>
-    internal static List<string> AllFields<T>(this object anonType)
+    static internal List<string> AllFields<T>(this object anonType)
     {
         var ret = new List<string>();
         anonType.ToObjectDictionary().ForEachParam(
@@ -494,7 +494,7 @@ public static class OrmLiteReadCommandExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>Dictionary&lt;System.String, System.Object&gt;.</returns>
-    internal static Dictionary<string, object> AllFieldsMap<T>(this object anonType)
+    static internal Dictionary<string, object> AllFieldsMap<T>(this object anonType)
     {
         var ret = new Dictionary<string, object>();
         anonType.ToObjectDictionary().ForEachParam(
@@ -509,7 +509,7 @@ public static class OrmLiteReadCommandExtensions
     /// </summary>
     /// <param name="fieldValues">The field values.</param>
     /// <returns>Dictionary&lt;System.String, System.Object&gt;.</returns>
-    internal static Dictionary<string, object> NonDefaultsOnly(this Dictionary<string, object> fieldValues)
+    static internal Dictionary<string, object> NonDefaultsOnly(this Dictionary<string, object> fieldValues)
     {
         var map = new Dictionary<string, object>();
         foreach (var entry in fieldValues)
@@ -554,7 +554,7 @@ public static class OrmLiteReadCommandExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="dbCmd">The database command.</param>
     /// <returns>System.String.</returns>
-    internal static string GetFilterSql<T>(this IDbCommand dbCmd)
+    static internal string GetFilterSql<T>(this IDbCommand dbCmd)
     {
         var dialectProvider = dbCmd.GetDialectProvider();
         var modelDef = typeof(T).GetModelDefinition();
@@ -595,7 +595,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="idValues">The identifier values.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> SelectByIds<T>(this IDbCommand dbCmd, IEnumerable idValues)
+    static internal List<T> SelectByIds<T>(this IDbCommand dbCmd, IEnumerable idValues)
     {
         var sqlIn = dbCmd.SetIdsInSqlParams(idValues);
         return string.IsNullOrEmpty(sqlIn)
@@ -613,7 +613,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="value">The value.</param>
     /// <returns>T.</returns>
-    internal static T SingleById<T>(this IDbCommand dbCmd, object value)
+    static internal T SingleById<T>(this IDbCommand dbCmd, object value)
     {
         if (value == null)
         {
@@ -632,7 +632,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="name">The name.</param>
     /// <param name="value">The value.</param>
     /// <returns>T.</returns>
-    internal static T SingleWhere<T>(this IDbCommand dbCmd, string name, object value)
+    static internal T SingleWhere<T>(this IDbCommand dbCmd, string name, object value)
     {
         SetFilter<T>(dbCmd, name, value);
         return dbCmd.ConvertTo<T>();
@@ -645,7 +645,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>T.</returns>
-    internal static T Single<T>(this IDbCommand dbCmd, object anonType)
+    static internal T Single<T>(this IDbCommand dbCmd, object anonType)
     {
         dbCmd.SetFilters<T>(anonType, excludeDefaults: false);
 
@@ -660,7 +660,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="sqlParams">The SQL parameters.</param>
     /// <returns>T.</returns>
-    internal static T Single<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams)
+    static internal T Single<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams)
     {
         dbCmd.SetParameters(sqlParams);
 
@@ -677,7 +677,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>T.</returns>
-    internal static T Single<T>(this IDbCommand dbCmd, string sql, object anonType)
+    static internal T Single<T>(this IDbCommand dbCmd, string sql, object anonType)
     {
         dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
 
@@ -694,7 +694,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="name">The name.</param>
     /// <param name="value">The value.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> Where<T>(this IDbCommand dbCmd, string name, object value)
+    static internal List<T> Where<T>(this IDbCommand dbCmd, string name, object value)
     {
         SetFilter<T>(dbCmd, name, value);
         return dbCmd.ConvertToList<T>();
@@ -707,7 +707,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> Where<T>(this IDbCommand dbCmd, object anonType)
+    static internal List<T> Where<T>(this IDbCommand dbCmd, object anonType)
     {
         dbCmd.SetFilters<T>(anonType);
 
@@ -722,7 +722,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="sqlParams">The SQL parameters.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> Select<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams)
+    static internal List<T> Select<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams)
     {
         dbCmd.CommandText = dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql);
         if (sqlParams != null) dbCmd.SetParameters(sqlParams);
@@ -738,7 +738,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> Select<T>(this IDbCommand dbCmd, string sql, object anonType = null)
+    static internal List<T> Select<T>(this IDbCommand dbCmd, string sql, object anonType = null)
     {
         if (anonType != null) dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
         dbCmd.CommandText = dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql);
@@ -754,7 +754,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="dict">The dictionary.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> Select<T>(this IDbCommand dbCmd, string sql, Dictionary<string, object> dict)
+    static internal List<T> Select<T>(this IDbCommand dbCmd, string sql, Dictionary<string, object> dict)
     {
         if (dict != null) SetParameters(dbCmd, dict, (bool)false, sql: ref sql);
         dbCmd.CommandText = dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql);
@@ -769,7 +769,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="fromTableType">Type of from table.</param>
     /// <returns>List&lt;TModel&gt;.</returns>
-    internal static List<TModel> Select<TModel>(this IDbCommand dbCmd, Type fromTableType)
+    static internal List<TModel> Select<TModel>(this IDbCommand dbCmd, Type fromTableType)
     {
         return Select<TModel>(dbCmd, fromTableType, null);
     }
@@ -783,7 +783,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> Select<T>(this IDbCommand dbCmd, Type fromTableType, string sql, object anonType = null)
+    static internal List<T> Select<T>(this IDbCommand dbCmd, Type fromTableType, string sql, object anonType = null)
     {
         if (anonType != null) dbCmd.SetParameters(fromTableType, anonType, excludeDefaults: false, sql: ref sql);
         dbCmd.CommandText = ToSelect<T>(dbCmd.GetDialectProvider(), fromTableType, sql);
@@ -799,7 +799,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="fromTableType">Type of from table.</param>
     /// <param name="sqlFilter">The SQL filter.</param>
     /// <returns>System.String.</returns>
-    internal static string ToSelect<TModel>(
+    static internal string ToSelect<TModel>(
         IOrmLiteDialectProvider dialectProvider,
         Type fromTableType,
         string sqlFilter)
@@ -826,7 +826,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="sqlParams">The SQL parameters.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> SqlList<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams)
+    static internal List<T> SqlList<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams)
     {
         dbCmd.CommandText = sql;
 
@@ -841,7 +841,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> SqlList<T>(this IDbCommand dbCmd, string sql, object anonType = null)
+    static internal List<T> SqlList<T>(this IDbCommand dbCmd, string sql, object anonType = null)
     {
         if (anonType != null) dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
         dbCmd.CommandText = sql;
@@ -857,7 +857,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="dict">The dictionary.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> SqlList<T>(this IDbCommand dbCmd, string sql, Dictionary<string, object> dict)
+    static internal List<T> SqlList<T>(this IDbCommand dbCmd, string sql, Dictionary<string, object> dict)
     {
         if (dict != null) SetParameters(dbCmd, dict, false, sql: ref sql);
         dbCmd.CommandText = sql;
@@ -873,7 +873,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="dbCmdFilter">The database command filter.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> SqlList<T>(this IDbCommand dbCmd, string sql, Action<IDbCommand> dbCmdFilter)
+    static internal List<T> SqlList<T>(this IDbCommand dbCmd, string sql, Action<IDbCommand> dbCmdFilter)
     {
         dbCmdFilter?.Invoke(dbCmd);
         dbCmd.CommandText = sql;
@@ -889,7 +889,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="sqlParams">The SQL parameters.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> SqlColumn<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams)
+    static internal List<T> SqlColumn<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams)
     {
         dbCmd.SetParameters(sqlParams).CommandText = sql;
         return dbCmd.ConvertToList<T>();
@@ -917,7 +917,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="dict">The dictionary.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> SqlColumn<T>(this IDbCommand dbCmd, string sql, Dictionary<string, object> dict)
+    static internal List<T> SqlColumn<T>(this IDbCommand dbCmd, string sql, Dictionary<string, object> dict)
     {
         if (dict != null) SetParameters(dbCmd, dict, false, sql: ref sql);
         dbCmd.CommandText = sql;
@@ -933,7 +933,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="sqlParams">The SQL parameters.</param>
     /// <returns>T.</returns>
-    internal static T SqlScalar<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams)
+    static internal T SqlScalar<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams)
     {
         return dbCmd.SetParameters(sqlParams).Scalar<T>(sql);
     }
@@ -946,7 +946,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>T.</returns>
-    internal static T SqlScalar<T>(this IDbCommand dbCmd, string sql, object anonType = null)
+    static internal T SqlScalar<T>(this IDbCommand dbCmd, string sql, object anonType = null)
     {
         if (anonType != null) dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
 
@@ -961,7 +961,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="dict">The dictionary.</param>
     /// <returns>T.</returns>
-    internal static T SqlScalar<T>(this IDbCommand dbCmd, string sql, Dictionary<string, object> dict)
+    static internal T SqlScalar<T>(this IDbCommand dbCmd, string sql, Dictionary<string, object> dict)
     {
         if (dict != null) SetParameters(dbCmd, dict, false, sql: ref sql);
 
@@ -975,7 +975,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="filter">The filter.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> SelectNonDefaults<T>(this IDbCommand dbCmd, object filter)
+    static internal List<T> SelectNonDefaults<T>(this IDbCommand dbCmd, object filter)
     {
         dbCmd.SetFilters<T>(filter, excludeDefaults: true);
 
@@ -990,7 +990,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> SelectNonDefaults<T>(this IDbCommand dbCmd, string sql, object anonType = null)
+    static internal List<T> SelectNonDefaults<T>(this IDbCommand dbCmd, string sql, object anonType = null)
     {
         if (anonType != null) dbCmd.SetParameters<T>(anonType, excludeDefaults: true, sql: ref sql);
 
@@ -1005,7 +1005,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="sqlParams">The SQL parameters.</param>
     /// <returns>IEnumerable&lt;T&gt;.</returns>
-    internal static IEnumerable<T> SelectLazy<T>(
+    static internal IEnumerable<T> SelectLazy<T>(
         this IDbCommand dbCmd,
         string sql,
         IEnumerable<IDbDataParameter> sqlParams)
@@ -1021,7 +1021,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>IEnumerable&lt;T&gt;.</returns>
-    internal static IEnumerable<T> SelectLazy<T>(this IDbCommand dbCmd, string sql, object anonType = null)
+    static internal IEnumerable<T> SelectLazy<T>(this IDbCommand dbCmd, string sql, object anonType = null)
     {
         if (anonType != null) dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
         var dialectProvider = dbCmd.GetDialectProvider();
@@ -1057,7 +1057,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="sqlParams">The SQL parameters.</param>
     /// <returns>IEnumerable&lt;T&gt;.</returns>
-    internal static IEnumerable<T> ColumnLazy<T>(
+    static internal IEnumerable<T> ColumnLazy<T>(
         this IDbCommand dbCmd,
         string sql,
         IEnumerable<IDbDataParameter> sqlParams)
@@ -1073,7 +1073,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>IEnumerable&lt;T&gt;.</returns>
-    internal static IEnumerable<T> ColumnLazy<T>(this IDbCommand dbCmd, string sql, object anonType)
+    static internal IEnumerable<T> ColumnLazy<T>(this IDbCommand dbCmd, string sql, object anonType)
     {
         foreach (var p in dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql).ColumnLazy<T>(sql))
             yield return p;
@@ -1119,7 +1119,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>IEnumerable&lt;T&gt;.</returns>
-    internal static IEnumerable<T> WhereLazy<T>(this IDbCommand dbCmd, object anonType)
+    static internal IEnumerable<T> WhereLazy<T>(this IDbCommand dbCmd, object anonType)
     {
         dbCmd.SetFilters<T>(anonType);
 
@@ -1151,7 +1151,7 @@ public static class OrmLiteReadCommandExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="dbCmd">The database command.</param>
     /// <returns>IEnumerable&lt;T&gt;.</returns>
-    internal static IEnumerable<T> SelectLazy<T>(this IDbCommand dbCmd)
+    static internal IEnumerable<T> SelectLazy<T>(this IDbCommand dbCmd)
     {
         return SelectLazy<T>(dbCmd, null);
     }
@@ -1164,7 +1164,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>T.</returns>
-    internal static T Scalar<T>(this IDbCommand dbCmd, string sql, object anonType = null)
+    static internal T Scalar<T>(this IDbCommand dbCmd, string sql, object anonType = null)
     {
         if (anonType != null) dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
 
@@ -1178,7 +1178,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="reader">The reader.</param>
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <returns>T.</returns>
-    internal static T Scalar<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider)
+    static internal T Scalar<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider)
     {
         while (reader.Read())
         {
@@ -1196,7 +1196,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="reader">The reader.</param>
     /// <param name="columnIndex">Index of the column.</param>
     /// <returns>T.</returns>
-    internal static T ToScalar<T>(IOrmLiteDialectProvider dialectProvider, IDataReader reader, int columnIndex = 0)
+    static internal T ToScalar<T>(IOrmLiteDialectProvider dialectProvider, IDataReader reader, int columnIndex = 0)
     {
         var nullableType = Nullable.GetUnderlyingType(typeof(T));
         if (nullableType != null)
@@ -1229,7 +1229,7 @@ public static class OrmLiteReadCommandExtensions
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
     /// <returns>System.Int64.</returns>
-    internal static long LastInsertId(this IDbCommand dbCmd)
+    static internal long LastInsertId(this IDbCommand dbCmd)
     {
         if (OrmLiteConfig.ResultsFilter != null)
             return OrmLiteConfig.ResultsFilter.GetLastInsertId(dbCmd);
@@ -1245,7 +1245,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> Column<T>(this IDbCommand dbCmd, string sql, object anonType = null)
+    static internal List<T> Column<T>(this IDbCommand dbCmd, string sql, object anonType = null)
     {
         if (anonType != null) dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
 
@@ -1259,7 +1259,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="reader">The reader.</param>
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> Column<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider)
+    static internal List<T> Column<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider)
     {
         var columValues = new List<T>();
 
@@ -1286,7 +1286,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="sqlParams">The SQL parameters.</param>
     /// <returns>HashSet&lt;T&gt;.</returns>
-    internal static HashSet<T> ColumnDistinct<T>(
+    static internal HashSet<T> ColumnDistinct<T>(
         this IDbCommand dbCmd,
         string sql,
         IEnumerable<IDbDataParameter> sqlParams)
@@ -1302,7 +1302,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>HashSet&lt;T&gt;.</returns>
-    internal static HashSet<T> ColumnDistinct<T>(this IDbCommand dbCmd, string sql, object anonType = null)
+    static internal HashSet<T> ColumnDistinct<T>(this IDbCommand dbCmd, string sql, object anonType = null)
     {
         return dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql).ColumnDistinct<T>(sql);
     }
@@ -1314,7 +1314,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="reader">The reader.</param>
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <returns>HashSet&lt;T&gt;.</returns>
-    internal static HashSet<T> ColumnDistinct<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider)
+    static internal HashSet<T> ColumnDistinct<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider)
     {
         var columValues = new HashSet<T>();
         while (reader.Read())
@@ -1351,7 +1351,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="reader">The reader.</param>
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <returns>Dictionary&lt;K, List&lt;V&gt;&gt;.</returns>
-    internal static Dictionary<K, List<V>> Lookup<K, V>(
+    static internal Dictionary<K, List<V>> Lookup<K, V>(
         this IDataReader reader,
         IOrmLiteDialectProvider dialectProvider)
     {
@@ -1383,7 +1383,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>Dictionary&lt;K, V&gt;.</returns>
-    internal static Dictionary<K, V> Dictionary<K, V>(this IDbCommand dbCmd, string sql, object anonType = null)
+    static internal Dictionary<K, V> Dictionary<K, V>(this IDbCommand dbCmd, string sql, object anonType = null)
     {
         if (anonType != null)
             SetParameters(dbCmd, anonType.ToObjectDictionary(), excludeDefaults: false, sql: ref sql);
@@ -1399,7 +1399,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="reader">The reader.</param>
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <returns>Dictionary&lt;K, V&gt;.</returns>
-    internal static Dictionary<K, V> Dictionary<K, V>(
+    static internal Dictionary<K, V> Dictionary<K, V>(
         this IDataReader reader,
         IOrmLiteDialectProvider dialectProvider)
     {
@@ -1425,7 +1425,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>List&lt;KeyValuePair&lt;K, V&gt;&gt;.</returns>
-    internal static List<KeyValuePair<K, V>> KeyValuePairs<K, V>(
+    static internal List<KeyValuePair<K, V>> KeyValuePairs<K, V>(
         this IDbCommand dbCmd,
         string sql,
         object anonType = null)
@@ -1444,7 +1444,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="reader">The reader.</param>
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <returns>List&lt;KeyValuePair&lt;K, V&gt;&gt;.</returns>
-    internal static List<KeyValuePair<K, V>> KeyValuePairs<K, V>(
+    static internal List<KeyValuePair<K, V>> KeyValuePairs<K, V>(
         this IDataReader reader,
         IOrmLiteDialectProvider dialectProvider)
     {
@@ -1468,7 +1468,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    internal static bool Exists<T>(this IDbCommand dbCmd, object anonType)
+    static internal bool Exists<T>(this IDbCommand dbCmd, object anonType)
     {
         string sql = null;
         if (anonType != null)
@@ -1488,7 +1488,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    internal static bool Exists<T>(this IDbCommand dbCmd, string sql, object anonType = null)
+    static internal bool Exists<T>(this IDbCommand dbCmd, string sql, object anonType = null)
     {
         if (anonType != null) SetParameters(dbCmd, anonType.ToObjectDictionary(), (bool)false, sql: ref sql);
 
@@ -1504,7 +1504,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="dbCommand">The database command.</param>
     /// <param name="fromObjWithProperties">From object with properties.</param>
     /// <returns>List&lt;TOutputModel&gt;.</returns>
-    internal static List<TOutputModel> SqlProcedure<TOutputModel>(
+    static internal List<TOutputModel> SqlProcedure<TOutputModel>(
         this IDbCommand dbCommand,
         object fromObjWithProperties)
     {
@@ -1520,7 +1520,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="sqlFilter">The SQL filter.</param>
     /// <param name="filterParams">The filter parameters.</param>
     /// <returns>List&lt;TOutputModel&gt;.</returns>
-    internal static List<TOutputModel> SqlProcedureFmt<TOutputModel>(
+    static internal List<TOutputModel> SqlProcedureFmt<TOutputModel>(
         this IDbCommand dbCmd,
         object fromObjWithProperties,
         string sqlFilter,
@@ -1553,14 +1553,14 @@ public static class OrmLiteReadCommandExtensions
     /// </summary>
     /// <param name="result">The result.</param>
     /// <returns>System.Int64.</returns>
-    internal static long ToLong(int result) => result;
+    static internal long ToLong(int result) => result;
 
     /// <summary>
     /// Converts to long.
     /// </summary>
     /// <param name="result">The result.</param>
     /// <returns>System.Int64.</returns>
-    internal static long ToLong(object result)
+    static internal long ToLong(object result)
     {
         if (result is DBNull) return default(long);
         if (result is int) return (int)result;
@@ -1577,7 +1577,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="value">The value.</param>
     /// <param name="include">The include.</param>
     /// <returns>T.</returns>
-    internal static T LoadSingleById<T>(this IDbCommand dbCmd, object value, string[] include = null)
+    static internal T LoadSingleById<T>(this IDbCommand dbCmd, object value, string[] include = null)
     {
         var row = dbCmd.SingleById<T>(value);
         if (row == null)
@@ -1633,7 +1633,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="expr">The expr.</param>
     /// <param name="include">The include.</param>
     /// <returns>List&lt;Into&gt;.</returns>
-    internal static List<Into> LoadListWithReferences<Into, From>(
+    static internal List<Into> LoadListWithReferences<Into, From>(
         this IDbCommand dbCmd,
         SqlExpression<From> expr = null,
         IEnumerable<string> include = null)
@@ -1827,7 +1827,7 @@ public static class OrmLiteReadCommandExtensions
     /// <param name="inParams">The in parameters.</param>
     /// <param name="excludeDefaults">if set to <c>true</c> [exclude defaults].</param>
     /// <returns>IDbCommand.</returns>
-    internal static IDbCommand SqlProc(
+    static internal IDbCommand SqlProc(
         this IDbCommand dbCmd,
         string name,
         object inParams = null,

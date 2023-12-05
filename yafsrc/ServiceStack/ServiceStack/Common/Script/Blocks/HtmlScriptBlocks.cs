@@ -570,7 +570,7 @@ public abstract class ScriptHtmlBlock : ScriptBlock
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
     /// <exception cref="System.NotSupportedException">'where' should be a string expression but instead found '{oWhere.GetType().Name}'</exception>
-    public override async Task WriteAsync(ScriptScopeContext scope, PageBlockFragment block, CancellationToken token)
+    public async override Task WriteAsync(ScriptScopeContext scope, PageBlockFragment block, CancellationToken token)
     {
         var htmlAttrs = await block.Argument.GetJsExpressionAndEvaluateAsync(scope) as Dictionary<string, object>;
         var hasEach = false;

@@ -26,7 +26,7 @@ public static class UntypedApiExtensions
     /// <summary>
     /// The untyped API map
     /// </summary>
-    static readonly ConcurrentDictionary<Type, Type> untypedApiMap =
+    readonly static ConcurrentDictionary<Type, Type> untypedApiMap =
         new();
 
     /// <summary>

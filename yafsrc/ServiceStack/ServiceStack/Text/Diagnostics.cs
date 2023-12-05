@@ -17,7 +17,7 @@ using System.Data;
 
 public class Diagnostics
 {
-    private static readonly Diagnostics Instance = new();
+    private readonly static Diagnostics Instance = new();
     private Diagnostics() { }
 
     private bool includeStackTrace;

@@ -123,7 +123,7 @@ public abstract class PclExport
     /// <summary>
     /// The dir seps
     /// </summary>
-    public static readonly char[] DirSeps = { '\\', '/' };
+    public readonly static char[] DirSeps = { '\\', '/' };
 
     /// <summary>
     /// The platform name

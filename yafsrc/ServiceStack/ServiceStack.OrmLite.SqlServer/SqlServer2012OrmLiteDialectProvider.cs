@@ -53,7 +53,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
     /// <param name="sequenceName">Name of the sequence.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-    public override async Task<bool> DoesSequenceExistAsync(IDbCommand dbCmd, string sequenceName, CancellationToken token = default)
+    public async override Task<bool> DoesSequenceExistAsync(IDbCommand dbCmd, string sequenceName, CancellationToken token = default)
     {
         var sql = "SELECT CASE WHEN EXISTS (SELECT 1 FROM sys.sequences WHERE object_id=object_id({0})) THEN 1 ELSE 0 END"
             .SqlFmt(this, sequenceName);
@@ -68,7 +68,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
     /// </summary>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns>System.String.</returns>
-    protected override string GetAutoIncrementDefinition(FieldDefinition fieldDef)
+    override protected string GetAutoIncrementDefinition(FieldDefinition fieldDef)
     {
         return !string.IsNullOrEmpty(fieldDef.Sequence)
                    ? $"DEFAULT NEXT VALUE FOR {Sequence(NamingStrategy.GetSchemaName(GetModel(fieldDef.PropertyInfo?.ReflectedType)), fieldDef.Sequence)}"
@@ -80,7 +80,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
     /// </summary>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    protected override bool ShouldSkipInsert(FieldDefinition fieldDef) =>
+    override protected bool ShouldSkipInsert(FieldDefinition fieldDef) =>
         fieldDef.ShouldSkipInsert() && string.IsNullOrEmpty(fieldDef.Sequence);
 
     /// <summary>
@@ -88,7 +88,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
     /// </summary>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    protected override bool SupportsSequences(FieldDefinition fieldDef) =>
+    override protected bool SupportsSequences(FieldDefinition fieldDef) =>
         !string.IsNullOrEmpty(fieldDef.Sequence);
 
     /// <summary>

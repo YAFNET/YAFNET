@@ -44,7 +44,7 @@ public static partial class SqlMapper
         /// Sets the handler.
         /// </summary>
         /// <param name="handler">The handler.</param>
-        internal static void SetHandler(ITypeHandler handler)
+        static internal void SetHandler(ITypeHandler handler)
         {
 #pragma warning disable 618
             TypeHandlerCache<T>.handler = handler;

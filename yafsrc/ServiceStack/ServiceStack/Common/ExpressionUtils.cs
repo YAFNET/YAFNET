@@ -23,7 +23,7 @@ public static class ExpressionUtils
     /// <summary>
     /// The log
     /// </summary>
-    private static readonly ILog Log = LogManager.GetLogger(typeof(ExpressionUtils));
+    private readonly static ILog Log = LogManager.GetLogger(typeof(ExpressionUtils));
 
     /// <summary>
     /// Converts to propertyinfo.

@@ -359,9 +359,9 @@ public static class JsConfig
         }
     }
 
-    internal static string JsonTypeAttrInObject => JsConfigScope.Current != null ? JsConfigScope.Current.JsonTypeAttrInObject : Config.Instance.JsonTypeAttrInObject;
+    static internal string JsonTypeAttrInObject => JsConfigScope.Current != null ? JsConfigScope.Current.JsonTypeAttrInObject : Config.Instance.JsonTypeAttrInObject;
 
-    internal static string JsvTypeAttrInObject => JsConfigScope.Current != null ? JsConfigScope.Current.JsvTypeAttrInObject : Config.Instance.JsvTypeAttrInObject;
+    static internal string JsvTypeAttrInObject => JsConfigScope.Current != null ? JsConfigScope.Current.JsvTypeAttrInObject : Config.Instance.JsvTypeAttrInObject;
 
     /// <summary>
     /// 
@@ -459,9 +459,9 @@ public static class JsConfig
         set => Config.AssertNotInit().AssumeUtc = value;
     }
 
-    internal static HashSet<Type> HasSerializeFn = new();
+    static internal HashSet<Type> HasSerializeFn = new();
 
-    internal static HashSet<Type> HasIncludeDefaultValue = new();
+    static internal HashSet<Type> HasIncludeDefaultValue = new();
 
     /// <summary>
     /// 
@@ -477,7 +477,7 @@ public static class JsConfig
         set => Config.AssertNotInit().PreferInterfaces = value;
     }
 
-    internal static bool TreatAsRefType(Type valueType)
+    static internal bool TreatAsRefType(Type valueType)
     {
         return TreatValueAsRefTypes.Contains(valueType.IsGenericType ? valueType.GetGenericTypeDefinition() : valueType);
     }
@@ -629,16 +629,16 @@ public static class JsConfig
         typeof(TypeConfig<>).MakeGenericType(cachesForType).InvokeReset();
     }
 
-    internal static void InvokeReset(this Type genericType)
+    static internal void InvokeReset(this Type genericType)
     {
         var methodInfo = genericType.GetStaticMethod("Reset");
         methodInfo.Invoke(null, null);
     }
 
-    internal static HashSet<Type> __uniqueTypes = new();
-    internal static int __uniqueTypesCount;
+    static internal HashSet<Type> __uniqueTypes = new();
+    static internal int __uniqueTypesCount;
 
-    internal static void AddUniqueType(Type type)
+    static internal void AddUniqueType(Type type)
     {
         if (__uniqueTypes.Contains(type))
             return;
@@ -669,7 +669,7 @@ public class JsConfig<T>
         RuntimeHelpers.RunClassConstructor(typeof(T).TypeHandle);
     }
 
-    internal static Config GetConfig()
+    static internal Config GetConfig()
     {
         var config = new Config().Populate(JsConfig.GetConfig());
         if (TextCase != TextCase.Default)
@@ -885,7 +885,7 @@ public class JsConfig<T>
         return DeSerializeFn(str);
     }
 
-    internal static object ParseFn(ITypeSerializer serializer, string str)
+    static internal object ParseFn(ITypeSerializer serializer, string str)
     {
         if (RawDeserializeFn != null && !JsState.InDeserializer<T>())
         {
@@ -917,7 +917,7 @@ public class JsConfig<T>
         return parseFn(str);
     }
 
-    internal static void ClearFnCaches()
+    static internal void ClearFnCaches()
     {
         JsonWriter<T>.Reset();
         JsvWriter<T>.Reset();

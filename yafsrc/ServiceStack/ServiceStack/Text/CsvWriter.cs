@@ -199,7 +199,7 @@ public static class CsvWriter
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="ranOnce">if set to <c>true</c> [ran once].</param>
-    internal static void WriteItemSeperatorIfRanOnce(TextWriter writer, ref bool ranOnce)
+    static internal void WriteItemSeperatorIfRanOnce(TextWriter writer, ref bool ranOnce)
     {
         if (ranOnce)
             writer.Write(CsvConfig.ItemSeperatorString);
@@ -228,16 +228,16 @@ public class CsvWriter<T>
     /// <summary>
     /// The property getters
     /// </summary>
-    internal static List<GetMemberDelegate<T>> PropertyGetters;
+    static internal List<GetMemberDelegate<T>> PropertyGetters;
     /// <summary>
     /// The property infos
     /// </summary>
-    internal static List<PropertyInfo> PropertyInfos;
+    static internal List<PropertyInfo> PropertyInfos;
 
     /// <summary>
     /// The optimized writer
     /// </summary>
-    private static readonly WriteObjectDelegate OptimizedWriter;
+    private readonly static WriteObjectDelegate OptimizedWriter;
 
     /// <summary>
     /// Initializes static members of the <see cref="CsvWriter{T}" /> class.
@@ -256,7 +256,7 @@ public class CsvWriter<T>
     /// <summary>
     /// Resets this instance.
     /// </summary>
-    internal static void Reset()
+    static internal void Reset()
     {
         Headers = new List<string>();
 

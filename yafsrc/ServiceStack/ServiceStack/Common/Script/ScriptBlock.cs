@@ -84,7 +84,7 @@ public abstract class ScriptBlock : IConfigureScriptContext
     /// <param name="callTrace">The call trace.</param>
     /// <param name="cancel">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    protected virtual async Task WriteAsync(ScriptScopeContext scope, PageFragment[] body, string callTrace, CancellationToken cancel)
+    async protected virtual Task WriteAsync(ScriptScopeContext scope, PageFragment[] body, string callTrace, CancellationToken cancel)
     {
         await scope.PageResult.WriteFragmentsAsync(scope, body, callTrace, cancel).ConfigAwait();
     }
@@ -97,7 +97,7 @@ public abstract class ScriptBlock : IConfigureScriptContext
     /// <param name="callTrace">The call trace.</param>
     /// <param name="cancel">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    protected virtual async Task WriteAsync(ScriptScopeContext scope, JsStatement[] body, string callTrace, CancellationToken cancel)
+    async protected virtual Task WriteAsync(ScriptScopeContext scope, JsStatement[] body, string callTrace, CancellationToken cancel)
     {
         await scope.PageResult.WriteStatementsAsync(scope, body, callTrace, cancel).ConfigAwait();
     }
@@ -109,7 +109,7 @@ public abstract class ScriptBlock : IConfigureScriptContext
     /// <param name="fragment">The fragment.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    protected virtual async Task WriteBodyAsync(ScriptScopeContext scope, PageBlockFragment fragment, CancellationToken token)
+    async protected virtual Task WriteBodyAsync(ScriptScopeContext scope, PageBlockFragment fragment, CancellationToken token)
     {
         await WriteAsync(scope, fragment.Body, GetCallTrace(fragment), token).ConfigAwait();
     }
@@ -121,7 +121,7 @@ public abstract class ScriptBlock : IConfigureScriptContext
     /// <param name="fragment">The fragment.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    protected virtual async Task WriteElseAsync(ScriptScopeContext scope, PageElseBlock fragment, CancellationToken token)
+    async protected virtual Task WriteElseAsync(ScriptScopeContext scope, PageElseBlock fragment, CancellationToken token)
     {
         await WriteAsync(scope, fragment.Body, GetElseCallTrace(fragment), token).ConfigAwait();
     }
@@ -133,7 +133,7 @@ public abstract class ScriptBlock : IConfigureScriptContext
     /// <param name="elseBlocks">The else blocks.</param>
     /// <param name="cancel">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    protected async Task WriteElseAsync(ScriptScopeContext scope, PageElseBlock[] elseBlocks, CancellationToken cancel)
+    async protected Task WriteElseAsync(ScriptScopeContext scope, PageElseBlock[] elseBlocks, CancellationToken cancel)
     {
         foreach (var elseBlock in elseBlocks)
         {

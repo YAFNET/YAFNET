@@ -312,7 +312,7 @@ public class SqlBuilder
         /// <summary>
         /// The regex
         /// </summary>
-        private static readonly Regex regex = new(@"\/\*\*.+\*\*\/", RegexOptions.Compiled | RegexOptions.Multiline);
+        private readonly static Regex regex = new(@"\/\*\*.+\*\*\/", RegexOptions.Compiled | RegexOptions.Multiline);
 
         /// <summary>
         /// Resolves the SQL.

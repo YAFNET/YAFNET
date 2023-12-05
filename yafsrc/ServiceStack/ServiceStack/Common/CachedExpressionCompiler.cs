@@ -27,7 +27,7 @@ namespace ServiceStack
         /// <summary>
         /// The unused parameter expr
         /// </summary>
-        private static readonly ParameterExpression _unusedParameterExpr = Expression.Parameter(typeof(object), "_unused");
+        private readonly static ParameterExpression _unusedParameterExpr = Expression.Parameter(typeof(object), "_unused");
 
         // Implements caching around LambdaExpression.Compile() so that equivalent expression trees only have to be
         // compiled once.
@@ -136,7 +136,7 @@ namespace ServiceStack.ExpressionUtil
         /// Adds to hash code combiner.
         /// </summary>
         /// <param name="combiner">The combiner.</param>
-        internal override void AddToHashCodeCombiner(HashCodeCombiner combiner)
+        override internal void AddToHashCodeCombiner(HashCodeCombiner combiner)
         {
             combiner.AddObject(Method);
             base.AddToHashCodeCombiner(combiner);
@@ -146,7 +146,7 @@ namespace ServiceStack.ExpressionUtil
     /// <summary>
     /// Class CachedExpressionCompiler.
     /// </summary>
-    internal static class CachedExpressionCompiler
+    static internal class CachedExpressionCompiler
     {
         // This is the entry point to the cached expression compilation system. The system
         // will try to turn the expression into an actual delegate as quickly as possible,
@@ -180,19 +180,19 @@ namespace ServiceStack.ExpressionUtil
             /// <summary>
             /// The simple member access dictionary
             /// </summary>
-            private static readonly ConcurrentDictionary<MemberInfo, Func<TIn, TOut>> _simpleMemberAccessDict =
+            private readonly static ConcurrentDictionary<MemberInfo, Func<TIn, TOut>> _simpleMemberAccessDict =
                 new();
 
             /// <summary>
             /// The constant member access dictionary
             /// </summary>
-            private static readonly ConcurrentDictionary<MemberInfo, Func<object, TOut>> _constMemberAccessDict =
+            private readonly static ConcurrentDictionary<MemberInfo, Func<object, TOut>> _constMemberAccessDict =
                 new();
 
             /// <summary>
             /// The fingerprinted cache
             /// </summary>
-            private static readonly ConcurrentDictionary<ExpressionFingerprintChain, Hoisted<TIn, TOut>> _fingerprintedCache =
+            private readonly static ConcurrentDictionary<ExpressionFingerprintChain, Hoisted<TIn, TOut>> _fingerprintedCache =
                 new();
 
             /// <summary>
@@ -679,7 +679,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitBinary(BinaryExpression node)
+        override protected Expression VisitBinary(BinaryExpression node)
         {
             if (_gaveUp)
             {
@@ -694,7 +694,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitBlock(BlockExpression node)
+        override protected Expression VisitBlock(BlockExpression node)
         {
             return GiveUp(node);
         }
@@ -704,7 +704,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override CatchBlock VisitCatchBlock(CatchBlock node)
+        override protected CatchBlock VisitCatchBlock(CatchBlock node)
         {
             return GiveUp(node);
         }
@@ -714,7 +714,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitConditional(ConditionalExpression node)
+        override protected Expression VisitConditional(ConditionalExpression node)
         {
             if (_gaveUp)
             {
@@ -729,7 +729,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitConstant(ConstantExpression node)
+        override protected Expression VisitConstant(ConstantExpression node)
         {
             if (_gaveUp)
             {
@@ -746,7 +746,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitDebugInfo(DebugInfoExpression node)
+        override protected Expression VisitDebugInfo(DebugInfoExpression node)
         {
             return GiveUp(node);
         }
@@ -756,7 +756,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitDefault(DefaultExpression node)
+        override protected Expression VisitDefault(DefaultExpression node)
         {
             if (_gaveUp)
             {
@@ -771,7 +771,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitDynamic(DynamicExpression node)
+        override protected Expression VisitDynamic(DynamicExpression node)
         {
             return GiveUp(node);
         }
@@ -781,7 +781,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override ElementInit VisitElementInit(ElementInit node)
+        override protected ElementInit VisitElementInit(ElementInit node)
         {
             return GiveUp(node);
         }
@@ -791,7 +791,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitExtension(Expression node)
+        override protected Expression VisitExtension(Expression node)
         {
             return GiveUp(node);
         }
@@ -801,7 +801,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitGoto(GotoExpression node)
+        override protected Expression VisitGoto(GotoExpression node)
         {
             return GiveUp(node);
         }
@@ -811,7 +811,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitIndex(IndexExpression node)
+        override protected Expression VisitIndex(IndexExpression node)
         {
             if (_gaveUp)
             {
@@ -826,7 +826,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitInvocation(InvocationExpression node)
+        override protected Expression VisitInvocation(InvocationExpression node)
         {
             return GiveUp(node);
         }
@@ -836,7 +836,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitLabel(LabelExpression node)
+        override protected Expression VisitLabel(LabelExpression node)
         {
             return GiveUp(node);
         }
@@ -846,7 +846,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override LabelTarget VisitLabelTarget(LabelTarget node)
+        override protected LabelTarget VisitLabelTarget(LabelTarget node)
         {
             return GiveUp(node);
         }
@@ -857,7 +857,7 @@ namespace ServiceStack.ExpressionUtil
         /// <typeparam name="T">The type of the delegate.</typeparam>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitLambda<T>(Expression<T> node)
+        override protected Expression VisitLambda<T>(Expression<T> node)
         {
             if (_gaveUp)
             {
@@ -872,7 +872,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitListInit(ListInitExpression node)
+        override protected Expression VisitListInit(ListInitExpression node)
         {
             return GiveUp(node);
         }
@@ -882,7 +882,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitLoop(LoopExpression node)
+        override protected Expression VisitLoop(LoopExpression node)
         {
             return GiveUp(node);
         }
@@ -892,7 +892,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitMember(MemberExpression node)
+        override protected Expression VisitMember(MemberExpression node)
         {
             if (_gaveUp)
             {
@@ -907,7 +907,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override MemberAssignment VisitMemberAssignment(MemberAssignment node)
+        override protected MemberAssignment VisitMemberAssignment(MemberAssignment node)
         {
             return GiveUp(node);
         }
@@ -917,7 +917,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override MemberBinding VisitMemberBinding(MemberBinding node)
+        override protected MemberBinding VisitMemberBinding(MemberBinding node)
         {
             return GiveUp(node);
         }
@@ -927,7 +927,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitMemberInit(MemberInitExpression node)
+        override protected Expression VisitMemberInit(MemberInitExpression node)
         {
             return GiveUp(node);
         }
@@ -937,7 +937,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override MemberListBinding VisitMemberListBinding(MemberListBinding node)
+        override protected MemberListBinding VisitMemberListBinding(MemberListBinding node)
         {
             return GiveUp(node);
         }
@@ -947,7 +947,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override MemberMemberBinding VisitMemberMemberBinding(MemberMemberBinding node)
+        override protected MemberMemberBinding VisitMemberMemberBinding(MemberMemberBinding node)
         {
             return GiveUp(node);
         }
@@ -957,7 +957,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitMethodCall(MethodCallExpression node)
+        override protected Expression VisitMethodCall(MethodCallExpression node)
         {
             if (_gaveUp)
             {
@@ -972,7 +972,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitNew(NewExpression node)
+        override protected Expression VisitNew(NewExpression node)
         {
             return GiveUp(node);
         }
@@ -982,7 +982,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitNewArray(NewArrayExpression node)
+        override protected Expression VisitNewArray(NewArrayExpression node)
         {
             return GiveUp(node);
         }
@@ -992,7 +992,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitParameter(ParameterExpression node)
+        override protected Expression VisitParameter(ParameterExpression node)
         {
             if (_gaveUp)
             {
@@ -1016,7 +1016,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitRuntimeVariables(RuntimeVariablesExpression node)
+        override protected Expression VisitRuntimeVariables(RuntimeVariablesExpression node)
         {
             return GiveUp(node);
         }
@@ -1026,7 +1026,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitSwitch(SwitchExpression node)
+        override protected Expression VisitSwitch(SwitchExpression node)
         {
             return GiveUp(node);
         }
@@ -1036,7 +1036,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override SwitchCase VisitSwitchCase(SwitchCase node)
+        override protected SwitchCase VisitSwitchCase(SwitchCase node)
         {
             return GiveUp(node);
         }
@@ -1046,7 +1046,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitTry(TryExpression node)
+        override protected Expression VisitTry(TryExpression node)
         {
             return GiveUp(node);
         }
@@ -1056,7 +1056,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitTypeBinary(TypeBinaryExpression node)
+        override protected Expression VisitTypeBinary(TypeBinaryExpression node)
         {
             if (_gaveUp)
             {
@@ -1071,7 +1071,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitUnary(UnaryExpression node)
+        override protected Expression VisitUnary(UnaryExpression node)
         {
             if (_gaveUp)
             {
@@ -1178,7 +1178,7 @@ namespace ServiceStack.ExpressionUtil
         /// <summary>
         /// The hoisted constants parameter expr
         /// </summary>
-        private static readonly ParameterExpression _hoistedConstantsParamExpr = Expression.Parameter(typeof(List<object>), "hoistedConstants");
+        private readonly static ParameterExpression _hoistedConstantsParamExpr = Expression.Parameter(typeof(List<object>), "hoistedConstants");
         /// <summary>
         /// The number constants processed
         /// </summary>
@@ -1212,7 +1212,7 @@ namespace ServiceStack.ExpressionUtil
         /// </summary>
         /// <param name="node">The expression to visit.</param>
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
-        protected override Expression VisitConstant(ConstantExpression node)
+        override protected Expression VisitConstant(ConstantExpression node)
         {
             // rewrite the constant expression as (TConst)hoistedConstants[i];
             return Expression.Convert(Expression.Property(_hoistedConstantsParamExpr, "Item", Expression.Constant(_numConstantsProcessed++)), node.Type);
@@ -1273,7 +1273,7 @@ namespace ServiceStack.ExpressionUtil
         /// Adds to hash code combiner.
         /// </summary>
         /// <param name="combiner">The combiner.</param>
-        internal override void AddToHashCodeCombiner(HashCodeCombiner combiner)
+        override internal void AddToHashCodeCombiner(HashCodeCombiner combiner)
         {
             combiner.AddObject(Indexer);
             base.AddToHashCodeCombiner(combiner);
@@ -1371,7 +1371,7 @@ namespace ServiceStack.ExpressionUtil
         /// Adds to hash code combiner.
         /// </summary>
         /// <param name="combiner">The combiner.</param>
-        internal override void AddToHashCodeCombiner(HashCodeCombiner combiner)
+        override internal void AddToHashCodeCombiner(HashCodeCombiner combiner)
         {
             combiner.AddObject(Member);
             base.AddToHashCodeCombiner(combiner);
@@ -1432,7 +1432,7 @@ namespace ServiceStack.ExpressionUtil
         /// Adds to hash code combiner.
         /// </summary>
         /// <param name="combiner">The combiner.</param>
-        internal override void AddToHashCodeCombiner(HashCodeCombiner combiner)
+        override internal void AddToHashCodeCombiner(HashCodeCombiner combiner)
         {
             combiner.AddObject(Method);
             base.AddToHashCodeCombiner(combiner);
@@ -1490,7 +1490,7 @@ namespace ServiceStack.ExpressionUtil
         /// Adds to hash code combiner.
         /// </summary>
         /// <param name="combiner">The combiner.</param>
-        internal override void AddToHashCodeCombiner(HashCodeCombiner combiner)
+        override internal void AddToHashCodeCombiner(HashCodeCombiner combiner)
         {
             combiner.AddInt32(ParameterIndex);
             base.AddToHashCodeCombiner(combiner);
@@ -1548,7 +1548,7 @@ namespace ServiceStack.ExpressionUtil
         /// Adds to hash code combiner.
         /// </summary>
         /// <param name="combiner">The combiner.</param>
-        internal override void AddToHashCodeCombiner(HashCodeCombiner combiner)
+        override internal void AddToHashCodeCombiner(HashCodeCombiner combiner)
         {
             combiner.AddObject(TypeOperand);
             base.AddToHashCodeCombiner(combiner);
@@ -1609,7 +1609,7 @@ namespace ServiceStack.ExpressionUtil
         /// Adds to hash code combiner.
         /// </summary>
         /// <param name="combiner">The combiner.</param>
-        internal override void AddToHashCodeCombiner(HashCodeCombiner combiner)
+        override internal void AddToHashCodeCombiner(HashCodeCombiner combiner)
         {
             combiner.AddObject(Method);
             base.AddToHashCodeCombiner(combiner);

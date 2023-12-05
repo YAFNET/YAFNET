@@ -432,7 +432,7 @@ public static class LicenseUtils
     /// <summary>
     /// The revoked subs
     /// </summary>
-    private static readonly int[] revokedSubs = { 4018, 4019, 4041, 4331, 4581 };
+    private readonly static int[] revokedSubs = { 4018, 4019, 4041, 4331, 4581 };
 
     /// <summary>
     /// Class __ActivatedLicense.
@@ -442,7 +442,7 @@ public static class LicenseUtils
         /// <summary>
         /// The license key
         /// </summary>
-        internal readonly LicenseKey LicenseKey;
+        readonly internal LicenseKey LicenseKey;
         /// <summary>
         /// Initializes a new instance of the <see cref="__ActivatedLicense"/> class.
         /// </summary>
@@ -487,7 +487,7 @@ public static class LicenseUtils
     /// <summary>
     /// The lock object
     /// </summary>
-    private static readonly object lockObj = new();
+    private readonly static object lockObj = new();
 
     /// <summary>
     /// Registers the license.
@@ -632,7 +632,7 @@ public static class LicenseUtils
         __activatedLicense = new __ActivatedLicense(key);
     }
 
-    internal static string Info => __activatedLicense?.LicenseKey == null
+    static internal string Info => __activatedLicense?.LicenseKey == null
                                        ? "NO"
                                        : __activatedLicense.LicenseKey.Type switch
                                            {

@@ -40,7 +40,7 @@ public static class StringSpanExtensions
     /// <param name="obj">The object.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static object Value(this object obj) =>
+    static internal object Value(this object obj) =>
         obj is string { Length: 1 } value && value[0] == TypeConstants.NonWidthWhiteSpace
             ? ""
             : obj;
@@ -725,9 +725,13 @@ public static class StringSpanExtensions
     /// <param name="start">The start.</param>
     /// <returns>System.Int32.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static int IndexOf(this ReadOnlySpan<char> value, string needle, int start)
+    public static int IndexOf(
+        this ReadOnlySpan<char> value,
+        string needle,
+        int start,
+        StringComparison comparisonType = StringComparison.Ordinal)
     {
-        var pos = value.Slice(start).IndexOf(needle.AsSpan());
+        var pos = value.Slice(start).IndexOf(needle.AsSpan(), comparisonType);
         return pos == -1 ? -1 : start + pos;
     }
 
@@ -930,6 +934,17 @@ public static class StringSpanExtensions
         {
             if (value[n] == needle)
                 count++;
+        }
+        return count;
+    }
+
+    public static int CountOccurrencesOf(this ReadOnlySpan<char> text, string needle, StringComparison comparisonType = StringComparison.Ordinal)
+    {
+        int count = 0, minIndex = text.IndexOf(needle, 0, comparisonType);
+        while (minIndex != -1)
+        {
+            minIndex = text.IndexOf(needle, minIndex + needle.Length, comparisonType);
+            count++;
         }
         return count;
     }

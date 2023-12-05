@@ -23,7 +23,7 @@ public static class WriteListsOfElements<TSerializer>
     /// <summary>
     /// The serializer
     /// </summary>
-    private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
+    private readonly static ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
     /// <summary>
     /// The list cache FNS
@@ -266,7 +266,7 @@ public static class WriteListsOfElements<T, TSerializer>
     /// <summary>
     /// The element write function
     /// </summary>
-    private static readonly WriteObjectDelegate ElementWriteFn;
+    private readonly static WriteObjectDelegate ElementWriteFn;
 
     /// <summary>
     /// Initializes static members of the <see cref="WriteListsOfElements{T, TSerializer}" /> class.
@@ -532,7 +532,7 @@ public static class WriteListsOfElements<T, TSerializer>
 /// <summary>
 /// Class WriteLists.
 /// </summary>
-internal static class WriteLists
+static internal class WriteLists
 {
     /// <summary>
     /// Writes the list string.
@@ -637,13 +637,13 @@ internal static class WriteLists
 /// </summary>
 /// <typeparam name="T"></typeparam>
 /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
-internal static class WriteLists<T, TSerializer>
+static internal class WriteLists<T, TSerializer>
     where TSerializer : ITypeSerializer
 {
     /// <summary>
     /// The serializer
     /// </summary>
-    private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
+    private readonly static ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
     /// <summary>
     /// Initializes static members of the <see cref="WriteLists{T, TSerializer}" /> class.

@@ -373,7 +373,7 @@ public static class OrmLiteConfig
     /// Gets or sets a value indicating whether [throw on error].
     /// </summary>
     /// <value><c>true</c> if [throw on error]; otherwise, <c>false</c>.</value>
-    public static bool ThrowOnError { get; set; }
+    public static bool ThrowOnError { get; set; } = true;
 
     /// <summary>
     /// The sanitize field name for parameter name function

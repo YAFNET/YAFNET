@@ -500,7 +500,7 @@ public static class ReflectionExtensions
         /// <summary>
         /// The empty ctor function
         /// </summary>
-        public static readonly EmptyCtorDelegate EmptyCtorFn;
+        public readonly static EmptyCtorDelegate EmptyCtorFn;
         /// <summary>
         /// Initializes static members of the <see cref="TypeMeta{T}"/> class.
         /// </summary>
@@ -699,7 +699,7 @@ public static class ReflectionExtensions
     /// <summary>
     /// The ignore attributes named
     /// </summary>
-    internal static string[] IgnoreAttributesNamed = new[] {
+    static internal string[] IgnoreAttributesNamed = new[] {
                                                                    "IgnoreDataMemberAttribute",
                                                                    "JsonIgnoreAttribute"
                                                                };
@@ -707,7 +707,7 @@ public static class ReflectionExtensions
     /// <summary>
     /// Resets this instance.
     /// </summary>
-    internal static void Reset()
+    static internal void Reset()
     {
         IgnoreAttributesNamed = new[] {
                                               "IgnoreDataMemberAttribute",

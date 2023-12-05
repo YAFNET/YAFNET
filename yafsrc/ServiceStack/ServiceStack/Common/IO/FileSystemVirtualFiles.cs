@@ -75,7 +75,7 @@ public class FileSystemVirtualFiles
     /// Initializes this instance.
     /// </summary>
     /// <exception cref="System.Exception">RootDir '{RootDirInfo.FullName}' for virtual path does not exist</exception>
-    protected sealed override void Initialize()
+    override protected sealed void Initialize()
     {
         if (!RootDirInfo.Exists)
             throw new Exception($"RootDir '{RootDirInfo.FullName}' for virtual path does not exist");
@@ -143,7 +143,7 @@ public class FileSystemVirtualFiles
         stream.WriteTo(fs);
     }
 
-    public override async Task WriteFileAsync(string filePath, object contents, CancellationToken token = default)
+    public async override Task WriteFileAsync(string filePath, object contents, CancellationToken token = default)
     {
         if (contents == null)
             return;

@@ -107,7 +107,7 @@ public static partial class SqlMapper
             /// <summary>
             /// The s converter
             /// </summary>
-            private static readonly TypeConverter s_converter = new ExpandableObjectConverter();
+            private readonly static TypeConverter s_converter = new ExpandableObjectConverter();
             /// <summary>
             /// Returns a type converter for this instance of a component.
             /// </summary>
@@ -151,14 +151,14 @@ public static partial class SqlMapper
             /// </summary>
             /// <param name="row">The row.</param>
             /// <returns>PropertyDescriptorCollection.</returns>
-            internal static PropertyDescriptorCollection GetProperties(DapperRow row) => GetProperties(row?.table, row);
+            static internal PropertyDescriptorCollection GetProperties(DapperRow row) => GetProperties(row?.table, row);
             /// <summary>
             /// Gets the properties.
             /// </summary>
             /// <param name="table">The table.</param>
             /// <param name="row">The row.</param>
             /// <returns>PropertyDescriptorCollection.</returns>
-            internal static PropertyDescriptorCollection GetProperties(DapperTable table, IDictionary<string, object> row = null)
+            static internal PropertyDescriptorCollection GetProperties(DapperTable table, IDictionary<string, object> row = null)
             {
                 string[] names = table?.FieldNames;
                 if (names == null || names.Length == 0) return PropertyDescriptorCollection.Empty;

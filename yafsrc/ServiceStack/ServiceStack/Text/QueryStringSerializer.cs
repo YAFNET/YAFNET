@@ -37,7 +37,7 @@ public static class QueryStringSerializer
     /// <summary>
     /// The instance
     /// </summary>
-    internal static readonly JsWriter<JsvTypeSerializer> Instance;
+    readonly static internal JsWriter<JsvTypeSerializer> Instance;
 
     /// <summary>
     /// The write function cache
@@ -55,7 +55,7 @@ public static class QueryStringSerializer
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>WriteObjectDelegate.</returns>
-    internal static WriteObjectDelegate GetWriteFn(Type type)
+    static internal WriteObjectDelegate GetWriteFn(Type type)
     {
         try
         {
@@ -132,7 +132,7 @@ public static class QueryStringWriter<T>
     /// <summary>
     /// The cache function
     /// </summary>
-    private static readonly WriteObjectDelegate CacheFn;
+    private readonly static WriteObjectDelegate CacheFn;
 
     /// <summary>
     /// Writes the function.
@@ -191,7 +191,7 @@ public static class QueryStringWriter<T>
     /// <summary>
     /// The serializer
     /// </summary>
-    private static readonly ITypeSerializer Serializer = JsvTypeSerializer.Instance;
+    private readonly static ITypeSerializer Serializer = JsvTypeSerializer.Instance;
     /// <summary>
     /// Writes the i dictionary.
     /// </summary>
@@ -321,7 +321,7 @@ public static class QueryStringStrategy
     /// <summary>
     /// The type configuration cache
     /// </summary>
-    static readonly ConcurrentDictionary<Type, PropertyTypeConfig> typeConfigCache =
+    readonly static ConcurrentDictionary<Type, PropertyTypeConfig> typeConfigCache =
         new();
 
     /// <summary>

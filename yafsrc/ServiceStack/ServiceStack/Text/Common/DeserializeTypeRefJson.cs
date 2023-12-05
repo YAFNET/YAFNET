@@ -13,12 +13,12 @@ namespace ServiceStack.Text.Common;
 /// <summary>
 /// Class DeserializeTypeRefJson.
 /// </summary>
-internal static class DeserializeTypeRefJson
+static internal class DeserializeTypeRefJson
 {
     /// <summary>
     /// The serializer
     /// </summary>
-    private static readonly JsonTypeSerializer Serializer = (JsonTypeSerializer)JsonTypeSerializer.Instance;
+    private readonly static JsonTypeSerializer Serializer = (JsonTypeSerializer)JsonTypeSerializer.Instance;
 
     /// <summary>
     /// Strings to type.
@@ -28,7 +28,7 @@ internal static class DeserializeTypeRefJson
     /// <param name="ctorFn">The ctor function.</param>
     /// <param name="typeAccessors">The type accessors.</param>
     /// <returns>System.Object.</returns>
-    internal static object StringToType(ReadOnlySpan<char> strType,
+    static internal object StringToType(ReadOnlySpan<char> strType,
                                         TypeConfig typeConfig,
                                         EmptyCtorDelegate ctorFn,
                                         KeyValuePair<string, TypeAccessor>[] typeAccessors)

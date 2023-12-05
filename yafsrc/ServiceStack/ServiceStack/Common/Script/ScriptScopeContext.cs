@@ -332,7 +332,7 @@ public static class ScriptScopeContextUtils
     /// <param name="pageParams">The page parameters.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    public static async Task WritePageAsync(this ScriptScopeContext scope, SharpPage page, SharpCodePage codePage, Dictionary<string, object> pageParams, CancellationToken token = default)
+    public async static Task WritePageAsync(this ScriptScopeContext scope, SharpPage page, SharpCodePage codePage, Dictionary<string, object> pageParams, CancellationToken token = default)
     {
         await scope.PageResult.WritePageAsync(page, codePage, scope.ScopeWithParams(pageParams), token).ConfigAwait();
     }

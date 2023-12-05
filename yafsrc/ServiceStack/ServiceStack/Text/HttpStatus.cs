@@ -23,7 +23,7 @@ public static class HttpStatus
         return string.Empty;
     }
 
-    private static readonly string[][] Descriptions =
+    private readonly static string[][] Descriptions =
         {
             null, new[]
                       {

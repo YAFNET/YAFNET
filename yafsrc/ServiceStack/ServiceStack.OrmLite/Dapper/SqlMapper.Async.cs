@@ -466,7 +466,7 @@ public static partial class SqlMapper
     /// <param name="effectiveType">Type of the effective.</param>
     /// <param name="command">The command.</param>
     /// <returns>A Task&lt;IEnumerable`1&gt; representing the asynchronous operation.</returns>
-    private static async Task<IEnumerable<T>> QueryAsync<T>(this IDbConnection cnn, Type effectiveType, CommandDefinition command)
+    private async static Task<IEnumerable<T>> QueryAsync<T>(this IDbConnection cnn, Type effectiveType, CommandDefinition command)
     {
         object param = command.Parameters;
         var identity = new Identity(command.CommandText, command.CommandType, cnn, effectiveType, param?.GetType());
@@ -537,7 +537,7 @@ public static partial class SqlMapper
     /// <param name="effectiveType">Type of the effective.</param>
     /// <param name="command">The command.</param>
     /// <returns>A Task&lt;T&gt; representing the asynchronous operation.</returns>
-    private static async Task<T> QueryRowAsync<T>(this IDbConnection cnn, Row row, Type effectiveType, CommandDefinition command)
+    private async static Task<T> QueryRowAsync<T>(this IDbConnection cnn, Row row, Type effectiveType, CommandDefinition command)
     {
         object param = command.Parameters;
         var identity = new Identity(command.CommandText, command.CommandType, cnn, effectiveType, param?.GetType());
@@ -658,7 +658,7 @@ public static partial class SqlMapper
     /// <param name="command">The command.</param>
     /// <param name="multiExec">The multi execute.</param>
     /// <returns>A Task&lt;System.Int32&gt; representing the asynchronous operation.</returns>
-    private static async Task<int> ExecuteMultiImplAsync(IDbConnection cnn, CommandDefinition command, IEnumerable multiExec)
+    private async static Task<int> ExecuteMultiImplAsync(IDbConnection cnn, CommandDefinition command, IEnumerable multiExec)
     {
         bool isFirst = true;
         int total = 0;
@@ -759,7 +759,7 @@ public static partial class SqlMapper
     /// <param name="command">The command.</param>
     /// <param name="param">The parameter.</param>
     /// <returns>A Task&lt;System.Int32&gt; representing the asynchronous operation.</returns>
-    private static async Task<int> ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, object param)
+    private async static Task<int> ExecuteImplAsync(IDbConnection cnn, CommandDefinition command, object param)
     {
         var identity = new Identity(command.CommandText, command.CommandType, cnn, null, param?.GetType());
         var info = GetCacheInfo(identity, param, command.AddToCache);
@@ -1040,7 +1040,7 @@ public static partial class SqlMapper
     /// <param name="map">The map.</param>
     /// <param name="splitOn">The split on.</param>
     /// <returns>A Task&lt;IEnumerable`1&gt; representing the asynchronous operation.</returns>
-    private static async Task<IEnumerable<TReturn>> MultiMapAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(this IDbConnection cnn, CommandDefinition command, Delegate map, string splitOn)
+    private async static Task<IEnumerable<TReturn>> MultiMapAsync<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(this IDbConnection cnn, CommandDefinition command, Delegate map, string splitOn)
     {
         object param = command.Parameters;
         var identity = new Identity<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh>(command.CommandText, command.CommandType, cnn, typeof(TFirst), param?.GetType());
@@ -1094,7 +1094,7 @@ public static partial class SqlMapper
     /// <param name="splitOn">The split on.</param>
     /// <returns>A Task&lt;IEnumerable`1&gt; representing the asynchronous operation.</returns>
     /// <exception cref="System.ArgumentException">you must provide at least one type to deserialize</exception>
-    private static async Task<IEnumerable<TReturn>> MultiMapAsync<TReturn>(this IDbConnection cnn, CommandDefinition command, Type[] types, Func<object[], TReturn> map, string splitOn)
+    private async static Task<IEnumerable<TReturn>> MultiMapAsync<TReturn>(this IDbConnection cnn, CommandDefinition command, Type[] types, Func<object[], TReturn> map, string splitOn)
     {
         if (types.Length < 1)
         {
@@ -1159,7 +1159,7 @@ public static partial class SqlMapper
     /// <param name="cnn">The connection to query on.</param>
     /// <param name="command">The command to execute for this query.</param>
     /// <returns>A Task&lt;GridReader&gt; representing the asynchronous operation.</returns>
-    public static async Task<GridReader> QueryMultipleAsync(this IDbConnection cnn, CommandDefinition command)
+    public async static Task<GridReader> QueryMultipleAsync(this IDbConnection cnn, CommandDefinition command)
     {
         object param = command.Parameters;
         var identity = new Identity(command.CommandText, command.CommandType, cnn, typeof(GridReader), param?.GetType());
@@ -1286,7 +1286,7 @@ public static partial class SqlMapper
     /// <param name="command">The command.</param>
     /// <param name="commandBehavior">The command behavior.</param>
     /// <returns>A Task&lt;DbDataReader&gt; representing the asynchronous operation.</returns>
-    private static async Task<DbDataReader> ExecuteWrappedReaderImplAsync(IDbConnection cnn, CommandDefinition command, CommandBehavior commandBehavior)
+    private async static Task<DbDataReader> ExecuteWrappedReaderImplAsync(IDbConnection cnn, CommandDefinition command, CommandBehavior commandBehavior)
     {
         Action<IDbCommand, object> paramReader = GetParameterReader(cnn, ref command);
 
@@ -1361,7 +1361,7 @@ public static partial class SqlMapper
     /// <param name="cnn">The CNN.</param>
     /// <param name="command">The command.</param>
     /// <returns>A Task&lt;T&gt; representing the asynchronous operation.</returns>
-    private static async Task<T> ExecuteScalarImplAsync<T>(IDbConnection cnn, CommandDefinition command)
+    private async static Task<T> ExecuteScalarImplAsync<T>(IDbConnection cnn, CommandDefinition command)
     {
         Action<IDbCommand, object> paramReader = null;
         object param = command.Parameters;

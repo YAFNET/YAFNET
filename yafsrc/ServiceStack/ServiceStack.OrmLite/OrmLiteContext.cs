@@ -24,7 +24,7 @@ public class OrmLiteContext
     /// <summary>
     /// The instance
     /// </summary>
-    public static readonly OrmLiteContext Instance = new();
+    public readonly static OrmLiteContext Instance = new();
 
     /// <summary>
     /// Tell ServiceStack to use ThreadStatic Items Collection for Context Scoped items.
@@ -159,7 +159,7 @@ public class OrmLiteContext
     /// <typeparam name="T"></typeparam>
     /// <param name="key">The key.</param>
     /// <param name="value">The value.</param>
-    internal static void SetItem<T>(string key, T value)
+    static internal void SetItem<T>(string key, T value)
     {
         if (Equals(value, default(T)))
         {
@@ -214,7 +214,7 @@ public class OrmLiteContext
     /// Gets or sets the ts transaction.
     /// </summary>
     /// <value>The ts transaction.</value>
-    internal static IDbTransaction TSTransaction
+    static internal IDbTransaction TSTransaction
     {
         get
         {

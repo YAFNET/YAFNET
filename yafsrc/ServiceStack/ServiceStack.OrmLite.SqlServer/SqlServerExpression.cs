@@ -56,7 +56,7 @@ public class SqlServerExpression<T> : SqlExpression<T>
     /// </summary>
     /// <param name="arg">The argument.</param>
     /// <returns>ServiceStack.OrmLite.PartialSqlString.</returns>
-    protected override PartialSqlString ToLengthPartialString(object arg)
+    override protected PartialSqlString ToLengthPartialString(object arg)
     {
         return new PartialSqlString($"LEN({arg})");
     }
@@ -65,7 +65,7 @@ public class SqlServerExpression<T> : SqlExpression<T>
     /// Converts to placeholder and parameter.
     /// </summary>
     /// <param name="right">The right.</param>
-    protected override void ConvertToPlaceholderAndParameter(ref object right)
+    override protected void ConvertToPlaceholderAndParameter(ref object right)
     {
         var paramName = Params.Count.ToString();
         var paramValue = right;
@@ -90,7 +90,7 @@ public class SqlServerExpression<T> : SqlExpression<T>
     /// <param name="originalRight">The original right.</param>
     /// <param name="left">The left.</param>
     /// <param name="right">The right.</param>
-    protected override void VisitFilter(string operand, object originalLeft, object originalRight, ref object left, ref object right)
+    override protected void VisitFilter(string operand, object originalLeft, object originalRight, ref object left, ref object right)
     {
         base.VisitFilter(operand, originalLeft, originalRight, ref left, ref right);
 
@@ -126,7 +126,7 @@ internal class SqlServerExpressionUtils
     /// <param name="item">The item.</param>
     /// <param name="excludeDefaults">if set to <c>true</c> [exclude defaults].</param>
     /// <exception cref="System.ArgumentException">No non-null or non-default values were provided for type: {typeof(T).Name}</exception>
-    internal static void PrepareSqlServerUpdateStatement<T>(IDbCommand dbCmd, SqlExpression<T> q, T item, bool excludeDefaults = false)
+    static internal void PrepareSqlServerUpdateStatement<T>(IDbCommand dbCmd, SqlExpression<T> q, T item, bool excludeDefaults = false)
     {
         q.CopyParamsTo(dbCmd);
 

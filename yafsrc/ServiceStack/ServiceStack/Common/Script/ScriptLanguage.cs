@@ -115,7 +115,7 @@ public sealed class ScriptVerbatim : ScriptLanguage
     /// <summary>
     /// The language
     /// </summary>
-    public static readonly ScriptLanguage Language = new ScriptVerbatim();
+    public readonly static ScriptLanguage Language = new ScriptVerbatim();
 
     /// <summary>
     /// Gets the name.

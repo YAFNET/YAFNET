@@ -26,7 +26,7 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
     /// <summary>
     /// The parameter reader cache
     /// </summary>
-    private static readonly Dictionary<SqlMapper.Identity, Action<IDbCommand, object>> paramReaderCache = new Dictionary<SqlMapper.Identity, Action<IDbCommand, object>>();
+    private readonly static Dictionary<SqlMapper.Identity, Action<IDbCommand, object>> paramReaderCache = new Dictionary<SqlMapper.Identity, Action<IDbCommand, object>>();
     /// <summary>
     /// The parameters
     /// </summary>

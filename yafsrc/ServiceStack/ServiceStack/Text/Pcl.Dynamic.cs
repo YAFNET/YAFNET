@@ -25,12 +25,12 @@ public static class DeserializeDynamic<TSerializer>
     /// <summary>
     /// The serializer
     /// </summary>
-    private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
+    private readonly static ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
     /// <summary>
     /// The cached parse function
     /// </summary>
-    private static readonly ParseStringSpanDelegate CachedParseFn;
+    private readonly static ParseStringSpanDelegate CachedParseFn;
     /// <summary>
     /// Initializes static members of the <see cref="DeserializeDynamic{TSerializer}"/> class.
     /// </summary>
@@ -239,7 +239,7 @@ public class DynamicJson : DynamicObject
     /// </summary>
     /// <param name="pascalCase">The pascal case.</param>
     /// <returns>System.String.</returns>
-    internal static string Underscored(string pascalCase)
+    static internal string Underscored(string pascalCase)
     {
         return Underscored(pascalCase.ToCharArray());
     }
@@ -249,7 +249,7 @@ public class DynamicJson : DynamicObject
     /// </summary>
     /// <param name="pascalCase">The pascal case.</param>
     /// <returns>System.String.</returns>
-    internal static string Underscored(IEnumerable<char> pascalCase)
+    static internal string Underscored(IEnumerable<char> pascalCase)
     {
         var sb = StringBuilderCache.Allocate();
         var i = 0;

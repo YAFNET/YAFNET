@@ -513,7 +513,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// </summary>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    protected override bool ShouldSkipInsert(FieldDefinition fieldDef) =>
+    override protected bool ShouldSkipInsert(FieldDefinition fieldDef) =>
         fieldDef.ShouldSkipInsert() || fieldDef.AutoId;
 
     /// <summary>
@@ -740,7 +740,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <param name="schema">The schema.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-    public override async Task<bool> DoesTableExistAsync(IDbCommand dbCmd, string tableName, string schema = null, CancellationToken token=default)
+    public async override Task<bool> DoesTableExistAsync(IDbCommand dbCmd, string tableName, string schema = null, CancellationToken token=default)
     {
         var sql = DoesTableExistSql(dbCmd, tableName, schema);
         var result = await dbCmd.ExecLongScalarAsync(sql, token);
@@ -815,7 +815,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <param name="schemaName">Name of the schema.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-    public override async Task<bool> DoesSchemaExistAsync(IDbCommand dbCmd, string schemaName, CancellationToken token = default)
+    public async override Task<bool> DoesSchemaExistAsync(IDbCommand dbCmd, string schemaName, CancellationToken token = default)
     {
         dbCmd.CommandText = $"SELECT EXISTS(SELECT 1 FROM pg_namespace WHERE nspname = '{GetSchemaName(schemaName).SqlParam()}');";
         var query = await dbCmd.ScalarAsync();
@@ -857,7 +857,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <param name="schema">The schema.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-    public override async Task<bool> DoesColumnExistAsync(IDbConnection db, string columnName, string tableName, string schema = null,
+    public async override Task<bool> DoesColumnExistAsync(IDbConnection db, string columnName, string tableName, string schema = null,
                                                           CancellationToken token = default)
     {
         var sql = DoesColumnExistSql(columnName, tableName, ref schema);
@@ -1176,7 +1176,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <param name="fieldDef">The field definition.</param>
     /// <param name="obj">The object.</param>
     /// <returns>System.Object.</returns>
-    protected override object GetValue(FieldDefinition fieldDef, object obj)
+    override protected object GetValue(FieldDefinition fieldDef, object obj)
     {
         if (fieldDef.CustomFieldDefinition != null && NativeTypes.ContainsKey(fieldDef.CustomFieldDefinition)
                                                    && UseRawValue(fieldDef.CustomFieldDefinition))
@@ -1355,7 +1355,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <param name="fn">The function.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;List&lt;T&gt;&gt;.</returns>
-    public override async Task<List<T>> ReaderEach<T>(IDataReader reader, Func<T> fn, CancellationToken token = default)
+    public async override Task<List<T>> ReaderEach<T>(IDataReader reader, Func<T> fn, CancellationToken token = default)
     {
         try
         {
@@ -1382,7 +1382,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <param name="source">The source.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;Return&gt;.</returns>
-    public override async Task<Return> ReaderEach<Return>(IDataReader reader, Action fn, Return source, CancellationToken token = default)
+    public async override Task<Return> ReaderEach<Return>(IDataReader reader, Action fn, Return source, CancellationToken token = default)
     {
         try
         {
@@ -1406,7 +1406,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <param name="fn">The function.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;T&gt;.</returns>
-    public override async Task<T> ReaderRead<T>(IDataReader reader, Func<T> fn, CancellationToken token = default)
+    public async override Task<T> ReaderRead<T>(IDataReader reader, Func<T> fn, CancellationToken token = default)
     {
         try
         {

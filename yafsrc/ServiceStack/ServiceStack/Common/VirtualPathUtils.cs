@@ -163,7 +163,7 @@ public static class VirtualPathUtils
     /// Sleeps the back off multiplier.
     /// </summary>
     /// <param name="i">The i.</param>
-    internal static void SleepBackOffMultiplier(this int i)
+    static internal void SleepBackOffMultiplier(this int i)
     {
         var nextTryMs = (2 ^ i) * 50;
 #if NETCORE

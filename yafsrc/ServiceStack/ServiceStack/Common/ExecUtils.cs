@@ -62,7 +62,7 @@ namespace ServiceStack
         /// <param name="instances">The instances.</param>
         /// <param name="action">The action.</param>
         /// <returns>A Task representing the asynchronous operation.</returns>
-        public static async Task ExecAllAsync<T>(this IEnumerable<T> instances, Func<T, Task> action)
+        public async static Task ExecAllAsync<T>(this IEnumerable<T> instances, Func<T, Task> action)
         {
             foreach (var instance in instances)
             {
@@ -85,7 +85,7 @@ namespace ServiceStack
         /// <param name="instances">The instances.</param>
         /// <param name="action">The action.</param>
         /// <returns>A Task&lt;TReturn&gt; representing the asynchronous operation.</returns>
-        public static async Task<TReturn> ExecAllReturnFirstAsync<T, TReturn>(this IEnumerable<T> instances, Func<T, Task<TReturn>> action)
+        public async static Task<TReturn> ExecAllReturnFirstAsync<T, TReturn>(this IEnumerable<T> instances, Func<T, Task<TReturn>> action)
         {
             TReturn firstResult = default;
             var i = 0;
@@ -169,7 +169,7 @@ namespace ServiceStack
         /// <param name="instances">The instances.</param>
         /// <param name="action">The action.</param>
         /// <returns>A Task&lt;TReturn&gt; representing the asynchronous operation.</returns>
-        public static async Task<TReturn> ExecReturnFirstWithResultAsync<T, TReturn>(this IEnumerable<T> instances, Func<T, Task<TReturn>> action)
+        public async static Task<TReturn> ExecReturnFirstWithResultAsync<T, TReturn>(this IEnumerable<T> instances, Func<T, Task<TReturn>> action)
         {
             foreach (var instance in instances)
             {
@@ -221,7 +221,7 @@ namespace ServiceStack
         /// <param name="timeOut">The time out.</param>
         /// <returns>A Task representing the asynchronous operation.</returns>
         /// <exception cref="System.TimeoutException">Exceeded timeout of {timeOut.Value}</exception>
-        public static async Task RetryUntilTrueAsync(Func<Task<bool>> action, TimeSpan? timeOut = null)
+        public async static Task RetryUntilTrueAsync(Func<Task<bool>> action, TimeSpan? timeOut = null)
         {
             var i = 0;
             var firstAttempt = DateTime.UtcNow;
@@ -277,7 +277,7 @@ namespace ServiceStack
         /// <param name="timeOut">The time out.</param>
         /// <returns>A Task representing the asynchronous operation.</returns>
         /// <exception cref="System.TimeoutException">Exceeded timeout of {timeOut.Value}</exception>
-        public static async Task RetryOnExceptionAsync(Func<Task> action, TimeSpan? timeOut)
+        public async static Task RetryOnExceptionAsync(Func<Task> action, TimeSpan? timeOut)
         {
             var i = 0;
             Exception lastEx = null;
@@ -331,7 +331,7 @@ namespace ServiceStack
         /// <param name="action">The action.</param>
         /// <param name="maxRetries">The maximum retries.</param>
         /// <returns>A Task representing the asynchronous operation.</returns>
-        public static async Task RetryOnExceptionAsync(Func<Task> action, int maxRetries)
+        public async static Task RetryOnExceptionAsync(Func<Task> action, int maxRetries)
         {
             for (var i = 0; i < maxRetries; i++)
             {

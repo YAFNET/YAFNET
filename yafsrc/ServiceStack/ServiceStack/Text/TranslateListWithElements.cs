@@ -296,7 +296,7 @@ public class TranslateListWithConvertibleElements<TFrom, TTo>
     /// <summary>
     /// The convert function
     /// </summary>
-    private static readonly Func<TFrom, TTo> ConvertFn;
+    private readonly static Func<TFrom, TTo> ConvertFn;
 
     /// <summary>
     /// Initializes static members of the <see cref="TranslateListWithConvertibleElements{TFrom, TTo}"/> class.

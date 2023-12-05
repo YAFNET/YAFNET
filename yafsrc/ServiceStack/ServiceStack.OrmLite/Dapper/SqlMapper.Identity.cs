@@ -32,11 +32,11 @@ public static partial class SqlMapper
         /// <summary>
         /// The s type hash
         /// </summary>
-        private static readonly int s_typeHash;
+        private readonly static int s_typeHash;
         /// <summary>
         /// The s type count
         /// </summary>
-        private static readonly int s_typeCount = CountNonTrivial(out s_typeHash);
+        private readonly static int s_typeCount = CountNonTrivial(out s_typeHash);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Identity{TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh}"/> class.
@@ -92,13 +92,13 @@ public static partial class SqlMapper
         /// Gets the type count.
         /// </summary>
         /// <value>The type count.</value>
-        internal override int TypeCount => s_typeCount;
+        override internal int TypeCount => s_typeCount;
         /// <summary>
         /// Gets the type.
         /// </summary>
         /// <param name="index">The index.</param>
         /// <returns>Type.</returns>
-        internal override Type GetType(int index)
+        override internal Type GetType(int index)
         {
             switch (index)
             {
@@ -160,14 +160,14 @@ public static partial class SqlMapper
         /// Gets the type count.
         /// </summary>
         /// <value>The type count.</value>
-        internal override int TypeCount => _types.Length;
+        override internal int TypeCount => _types.Length;
 
         /// <summary>
         /// Gets the type.
         /// </summary>
         /// <param name="index">The index.</param>
         /// <returns>Type.</returns>
-        internal override Type GetType(int index) => _types[index];
+        override internal Type GetType(int index) => _types[index];
 
         /// <summary>
         /// Hashes the types.

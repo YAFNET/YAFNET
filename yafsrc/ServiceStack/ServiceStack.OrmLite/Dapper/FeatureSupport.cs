@@ -17,7 +17,7 @@ internal class FeatureSupport
     /// <summary>
     /// The default
     /// </summary>
-    private static readonly FeatureSupport
+    private readonly static FeatureSupport
         Default = new(false),
 
         Postgres = new(true);

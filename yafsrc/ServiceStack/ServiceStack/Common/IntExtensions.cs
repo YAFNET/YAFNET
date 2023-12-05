@@ -102,7 +102,7 @@ namespace ServiceStack
         /// <param name="actionFn">The action function.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task representing the asynchronous operation.</returns>
-        public static async Task TimesAsync(this int times, Func<int, Task> actionFn, CancellationToken token = default)
+        public async static Task TimesAsync(this int times, Func<int, Task> actionFn, CancellationToken token = default)
         {
             for (var i = 0; i < times; i++)
             {
@@ -119,7 +119,7 @@ namespace ServiceStack
         /// <param name="actionFn">The action function.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;List`1&gt; representing the asynchronous operation.</returns>
-        public static async Task<List<T>> TimesAsync<T>(this int times, Func<int, Task<T>> actionFn, CancellationToken token = default)
+        public async static Task<List<T>> TimesAsync<T>(this int times, Func<int, Task<T>> actionFn, CancellationToken token = default)
         {
             var list = new List<T>();
             for (var i = 0; i < times; i++)

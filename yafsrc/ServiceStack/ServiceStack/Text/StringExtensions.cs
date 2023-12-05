@@ -997,24 +997,24 @@ public static class StringExtensions
     /// <summary>
     /// The invalid variable chars regex
     /// </summary>
-    private static readonly Regex InvalidVarCharsRegex = new(@"[^A-Za-z0-9_]", RegexOptions.Compiled);
+    private readonly static Regex InvalidVarCharsRegex = new(@"[^A-Za-z0-9_]", RegexOptions.Compiled);
     /// <summary>
     /// The valid variable chars regex
     /// </summary>
-    private static readonly Regex ValidVarCharsRegex = new(@"^[A-Za-z0-9_]+$", RegexOptions.Compiled);
+    private readonly static Regex ValidVarCharsRegex = new(@"^[A-Za-z0-9_]+$", RegexOptions.Compiled);
     /// <summary>
     /// The invalid variable reference chars regex
     /// </summary>
-    private static readonly Regex InvalidVarRefCharsRegex = new(@"[^A-Za-z0-9._]", RegexOptions.Compiled);
+    private readonly static Regex InvalidVarRefCharsRegex = new(@"[^A-Za-z0-9._]", RegexOptions.Compiled);
     /// <summary>
     /// The valid variable reference chars regex
     /// </summary>
-    private static readonly Regex ValidVarRefCharsRegex = new(@"^[A-Za-z0-9._]+$", RegexOptions.Compiled);
+    private readonly static Regex ValidVarRefCharsRegex = new(@"^[A-Za-z0-9._]+$", RegexOptions.Compiled);
 
     /// <summary>
     /// The split camel case regex
     /// </summary>
-    private static readonly Regex SplitCamelCaseRegex = new("([A-Z]|[0-9]+)", RegexOptions.Compiled);
+    private readonly static Regex SplitCamelCaseRegex = new("([A-Z]|[0-9]+)", RegexOptions.Compiled);
 
     /// <summary>
     /// Converts to enumordefault.
@@ -1199,7 +1199,7 @@ public static class StringExtensions
     /// <summary>
     /// The system type chars
     /// </summary>
-    private static readonly char[] SystemTypeChars = { '<', '>', '+' };
+    private readonly static char[] SystemTypeChars = { '<', '>', '+' };
 
     /// <summary>
     /// Determines whether [is user type] [the specified type].
@@ -1561,6 +1561,9 @@ public static class StringExtensions
     /// <param name="needle">The needle.</param>
     /// <returns>int.</returns>
     public static int CountOccurrencesOf(this string text, char needle) =>
+        text.AsSpan().CountOccurrencesOf(needle);
+
+    public static int CountOccurrencesOf(this string text, string needle) =>
         text.AsSpan().CountOccurrencesOf(needle);
 
     /// <summary>

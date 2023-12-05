@@ -56,7 +56,7 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="typeAttr">The type attribute.</param>
     /// <returns>System.String.</returns>
-    internal static string GetTypeAttrInObject(string typeAttr) => $"{{{typeAttr}:";
+    static internal string GetTypeAttrInObject(string typeAttr) => $"{{{typeAttr}:";
 
     /// <summary>
     /// Gets the write function.
@@ -75,7 +75,7 @@ public struct JsvTypeSerializer
     /// <summary>
     /// The default type information
     /// </summary>
-    static readonly TypeInfo DefaultTypeInfo = new() { EncodeMapKey = false };
+    readonly static TypeInfo DefaultTypeInfo = new() { EncodeMapKey = false };
 
     /// <summary>
     /// Gets the type information.

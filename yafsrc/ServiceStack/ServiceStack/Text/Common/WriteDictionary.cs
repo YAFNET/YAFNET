@@ -32,13 +32,13 @@ internal delegate void WriteMapDelegate(
 /// Class WriteDictionary.
 /// </summary>
 /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
-internal static class WriteDictionary<TSerializer>
+static internal class WriteDictionary<TSerializer>
     where TSerializer : ITypeSerializer
 {
     /// <summary>
     /// The serializer
     /// </summary>
-    private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
+    private readonly static ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
     /// <summary>
     /// Class MapKey.
@@ -48,7 +48,7 @@ internal static class WriteDictionary<TSerializer>
         /// <summary>
         /// The key type
         /// </summary>
-        internal readonly Type KeyType;
+        readonly internal Type KeyType;
         /// <summary>
         /// The value type
         /// </summary>
@@ -256,7 +256,7 @@ public static class ToStringDictionaryMethods<TKey, TValue, TSerializer>
     /// <summary>
     /// The serializer
     /// </summary>
-    private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
+    private readonly static ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
     /// <summary>
     /// Writes the i dictionary.

@@ -49,7 +49,7 @@ public static class JsExpressionUtils
     /// <param name="scope">The scope.</param>
     /// <param name="ifNone">If none.</param>
     /// <returns>A Task&lt;System.Object&gt; representing the asynchronous operation.</returns>
-    public static async Task<object> GetJsExpressionAndEvaluateAsync(this ReadOnlyMemory<char> expr, ScriptScopeContext scope, Action ifNone = null)
+    public async static Task<object> GetJsExpressionAndEvaluateAsync(this ReadOnlyMemory<char> expr, ScriptScopeContext scope, Action ifNone = null)
     {
         if (expr.IsNullOrEmpty())
         {

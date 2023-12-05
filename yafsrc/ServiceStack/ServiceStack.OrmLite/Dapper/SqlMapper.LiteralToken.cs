@@ -45,6 +45,6 @@ public static partial class SqlMapper
         /// <summary>
         /// The none
         /// </summary>
-        internal static readonly IList<LiteralToken> None = Array.Empty<LiteralToken>();
+        readonly static internal IList<LiteralToken> None = Array.Empty<LiteralToken>();
     }
 }

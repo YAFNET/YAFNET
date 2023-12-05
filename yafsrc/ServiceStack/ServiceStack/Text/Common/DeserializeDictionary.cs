@@ -22,7 +22,7 @@ public static class DeserializeDictionary<TSerializer>
     /// <summary>
     /// The serializer
     /// </summary>
-    private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
+    private readonly static ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
     /// <summary>
     /// The key index
@@ -355,7 +355,7 @@ public static class DeserializeDictionary<TSerializer>
     /// <summary>
     /// The signature
     /// </summary>
-    private static readonly Type[] signature = { typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate), typeof(ParseStringSpanDelegate) };
+    private readonly static Type[] signature = { typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate), typeof(ParseStringSpanDelegate) };
 
     /// <summary>
     /// Parses the type of the dictionary.

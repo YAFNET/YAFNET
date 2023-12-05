@@ -128,7 +128,7 @@ public class PageFormat
     /// <param name="pageResult">The page result.</param>
     /// <param name="req">The req.</param>
     /// <param name="ex">The ex.</param>
-    public virtual async Task DefaultViewException(PageResult pageResult, IRequest req, Exception ex)
+    public async virtual Task DefaultViewException(PageResult pageResult, IRequest req, Exception ex)
     {
         var sb = StringBuilderCache.Allocate();
         if (ContentType == MimeTypes.Html)
@@ -238,7 +238,7 @@ public class HtmlPageFormat : PageFormat
     /// </summary>
     /// <param name="stream">The stream.</param>
     /// <returns>Stream.</returns>
-    public static async Task<Stream> HtmlEncodeTransformer(Stream stream)
+    public async static Task<Stream> HtmlEncodeTransformer(Stream stream)
     {
         var contents = await stream.ReadToEndAsync().ConfigAwait();
         var htmlEncoded = contents.HtmlEncode();

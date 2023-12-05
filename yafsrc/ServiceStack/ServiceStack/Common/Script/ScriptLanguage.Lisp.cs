@@ -63,7 +63,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The language
         /// </summary>
-        public static readonly ScriptLanguage Language = new ScriptLisp();
+        public readonly static ScriptLanguage Language = new ScriptLisp();
 
         /// <summary>
         /// Gets the name.
@@ -121,7 +121,7 @@ namespace ServiceStack.Script
         /// <param name="fragment">The fragment.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-        public override async Task<bool> WritePageFragmentAsync(ScriptScopeContext scope, PageFragment fragment, CancellationToken token)
+        public async override Task<bool> WritePageFragmentAsync(ScriptScopeContext scope, PageFragment fragment, CancellationToken token)
         {
             if (fragment is PageLispStatementFragment blockFragment)
             {
@@ -142,7 +142,7 @@ namespace ServiceStack.Script
         /// <param name="statement">The statement.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-        public override async Task<bool> WriteStatementAsync(ScriptScopeContext scope, JsStatement statement, CancellationToken token)
+        public async override Task<bool> WriteStatementAsync(ScriptScopeContext scope, JsStatement statement, CancellationToken token)
         {
             var page = scope.PageResult;
             if (statement is LispStatements lispStatement)
@@ -486,7 +486,7 @@ namespace ServiceStack.Script
         /// <param name="lisp">The lisp.</param>
         /// <param name="args">The arguments.</param>
         /// <returns>A Task&lt;System.String&gt; representing the asynchronous operation.</returns>
-        public static async Task<string> RenderLispAsync(this ScriptContext context, string lisp, Dictionary<string, object> args = null)
+        public async static Task<string> RenderLispAsync(this ScriptContext context, string lisp, Dictionary<string, object> args = null)
         {
             var pageResult = GetLispPageResult(context, lisp, args);
             return await pageResult.RenderScriptAsync();
@@ -550,7 +550,7 @@ namespace ServiceStack.Script
         /// <param name="lisp">The lisp.</param>
         /// <param name="args">The arguments.</param>
         /// <returns>A Task&lt;T&gt; representing the asynchronous operation.</returns>
-        public static async Task<T> EvaluateLispAsync<T>(this ScriptContext context, string lisp, Dictionary<string, object> args = null) =>
+        public async static Task<T> EvaluateLispAsync<T>(this ScriptContext context, string lisp, Dictionary<string, object> args = null) =>
             (await context.EvaluateLispAsync(lisp, args)).ConvertTo<T>();
 
         /// <summary>
@@ -561,7 +561,7 @@ namespace ServiceStack.Script
         /// <param name="args">The arguments.</param>
         /// <returns>A Task&lt;System.Object&gt; representing the asynchronous operation.</returns>
         /// <exception cref="System.NotSupportedException"></exception>
-        public static async Task<object> EvaluateLispAsync(this ScriptContext context, string lisp, Dictionary<string, object> args = null)
+        public async static Task<object> EvaluateLispAsync(this ScriptContext context, string lisp, Dictionary<string, object> args = null)
         {
             var pageResult = GetLispPageResult(context, lisp, args);
 
@@ -591,26 +591,26 @@ namespace ServiceStack.Script
     /// <summary>
     /// Class Utils.
     /// </summary>
-    internal static class Utils
+    static internal class Utils
     {
         /// <summary>
         /// Lisps the bool.
         /// </summary>
         /// <param name="t">if set to <c>true</c> [t].</param>
         /// <returns>System.Object.</returns>
-        internal static object lispBool(this bool t) => t ? Lisp.TRUE : null;
+        static internal object lispBool(this bool t) => t ? Lisp.TRUE : null;
         /// <summary>
         /// Froms the lisp.
         /// </summary>
         /// <param name="o">The o.</param>
         /// <returns>System.Object.</returns>
-        internal static object fromLisp(this object o) => o == Lisp.TRUE ? true : o;
+        static internal object fromLisp(this object o) => o == Lisp.TRUE ? true : o;
         /// <summary>
         /// Lasts the argument.
         /// </summary>
         /// <param name="a">a.</param>
         /// <returns>System.Object.</returns>
-        internal static object lastArg(this object[] a)
+        static internal object lastArg(this object[] a)
         {
             var last = a[a.Length - 1];
             return last is Lisp.Cell lastCell ? lastCell.Car : last;
@@ -621,7 +621,7 @@ namespace ServiceStack.Script
         /// <param name="a">a.</param>
         /// <returns>IEnumerable.</returns>
         /// <exception cref="ServiceStack.Script.LispEvalException">not IEnumerable</exception>
-        internal static IEnumerable assertEnumerable(this object a)
+        static internal IEnumerable assertEnumerable(this object a)
         {
             if (a == null)
                 return TypeConstants.EmptyObjectArray;
@@ -637,7 +637,7 @@ namespace ServiceStack.Script
         /// <param name="b">The b.</param>
         /// <returns>System.Int32.</returns>
         /// <exception cref="ServiceStack.Script.LispEvalException">not IComparable</exception>
-        internal static int compareTo(this object a, object b)
+        static internal int compareTo(this object a, object b)
         {
             return a == null || b == null
                 ? a == b ? 0 : a == null ? -1 : 1
@@ -665,7 +665,7 @@ namespace ServiceStack.Script
         /// </summary>
         /// <param name="o">The o.</param>
         /// <returns>System.Object.</returns>
-        internal static object unwrapScriptValue(this object o)
+        static internal object unwrapScriptValue(this object o)
         {
             if (o is Task t)
                 o = t.GetResult();
@@ -920,7 +920,7 @@ namespace ServiceStack.Script
             /// <summary>
             /// Table of interned symbols
             /// </summary>
-            protected static readonly Dictionary<string, Sym> Table =
+            readonly static protected Dictionary<string, Sym> Table =
                 new();
 
             /// <summary>
@@ -931,7 +931,7 @@ namespace ServiceStack.Script
             /// <returns>Sym.</returns>
             /// <remarks>If the name is not interned yet, such a symbol
             /// will be constructed with <paramref name="make" />.</remarks>
-            protected static Sym New(string name, Func<string, Sym> make)
+            static protected Sym New(string name, Func<string, Sym> make)
             {
                 lock (Table)
                 {
@@ -987,156 +987,156 @@ namespace ServiceStack.Script
             /// </summary>
             /// <param name="name">The name.</param>
             /// <returns>Sym.</returns>
-            internal static new Sym New(string name)
+            static internal new Sym New(string name)
                 => New(name, s => new Keyword(s));
         }
 
         /// <summary>
         /// The symbol of <c>t</c>
         /// </summary>
-        public static readonly Sym TRUE = Sym.New("t");
+        public readonly static Sym TRUE = Sym.New("t");
         /// <summary>
         /// The bool true
         /// </summary>
-        public static readonly Sym BOOL_TRUE = Sym.New("true");
+        public readonly static Sym BOOL_TRUE = Sym.New("true");
         /// <summary>
         /// The bool false
         /// </summary>
-        public static readonly Sym BOOL_FALSE = Sym.New("false");
+        public readonly static Sym BOOL_FALSE = Sym.New("false");
         /// <summary>
         /// The verbose
         /// </summary>
-        private static readonly Sym VERBOSE = Sym.New("verbose");
+        private readonly static Sym VERBOSE = Sym.New("verbose");
 
         /// <summary>
         /// The cond
         /// </summary>
-        private static readonly Sym COND = Keyword.New("cond");
+        private readonly static Sym COND = Keyword.New("cond");
         /// <summary>
         /// The lambda
         /// </summary>
-        private static readonly Sym LAMBDA = Keyword.New("lambda");
+        private readonly static Sym LAMBDA = Keyword.New("lambda");
         /// <summary>
         /// The function
         /// </summary>
-        private static readonly Sym FN = Keyword.New("fn");
+        private readonly static Sym FN = Keyword.New("fn");
         /// <summary>
         /// The macro
         /// </summary>
-        private static readonly Sym MACRO = Keyword.New("macro");
+        private readonly static Sym MACRO = Keyword.New("macro");
         /// <summary>
         /// The progn
         /// </summary>
-        private static readonly Sym PROGN = Keyword.New("progn");
+        private readonly static Sym PROGN = Keyword.New("progn");
         /// <summary>
         /// The quasiquote
         /// </summary>
-        private static readonly Sym QUASIQUOTE = Keyword.New("quasiquote");
+        private readonly static Sym QUASIQUOTE = Keyword.New("quasiquote");
         /// <summary>
         /// The quote
         /// </summary>
-        private static readonly Sym QUOTE = Keyword.New("quote");
+        private readonly static Sym QUOTE = Keyword.New("quote");
         /// <summary>
         /// The setq
         /// </summary>
-        private static readonly Sym SETQ = Keyword.New("setq");
+        private readonly static Sym SETQ = Keyword.New("setq");
         /// <summary>
         /// The export
         /// </summary>
-        private static readonly Sym EXPORT = Keyword.New("export");
+        private readonly static Sym EXPORT = Keyword.New("export");
 
         /// <summary>
         /// The bound
         /// </summary>
-        private static readonly Sym BOUND = Sym.New("bound?");
+        private readonly static Sym BOUND = Sym.New("bound?");
 
         /// <summary>
         /// The back quote
         /// </summary>
-        private static readonly Sym BACK_QUOTE = Sym.New("`");
+        private readonly static Sym BACK_QUOTE = Sym.New("`");
         /// <summary>
         /// The command at
         /// </summary>
-        private static readonly Sym COMMAND_AT = Sym.New(",@");
+        private readonly static Sym COMMAND_AT = Sym.New(",@");
         /// <summary>
         /// The comma
         /// </summary>
-        private static readonly Sym COMMA = Sym.New(",");
+        private readonly static Sym COMMA = Sym.New(",");
         /// <summary>
         /// The dot
         /// </summary>
-        private static readonly Sym DOT = Sym.New(".");
+        private readonly static Sym DOT = Sym.New(".");
         /// <summary>
         /// The left paren
         /// </summary>
-        private static readonly Sym LEFT_PAREN = Sym.New("(");
+        private readonly static Sym LEFT_PAREN = Sym.New("(");
         /// <summary>
         /// The right paren
         /// </summary>
-        private static readonly Sym RIGHT_PAREN = Sym.New(")");
+        private readonly static Sym RIGHT_PAREN = Sym.New(")");
         /// <summary>
         /// The single quote
         /// </summary>
-        private static readonly Sym SINGLE_QUOTE = Sym.New("'");
+        private readonly static Sym SINGLE_QUOTE = Sym.New("'");
 
         /// <summary>
         /// The append
         /// </summary>
-        private static readonly Sym APPEND = Sym.New("append");
+        private readonly static Sym APPEND = Sym.New("append");
         /// <summary>
         /// The cons
         /// </summary>
-        private static readonly Sym CONS = Sym.New("cons");
+        private readonly static Sym CONS = Sym.New("cons");
         /// <summary>
         /// The list
         /// </summary>
-        internal static readonly Sym LIST = Sym.New("list");
+        readonly static internal Sym LIST = Sym.New("list");
         /// <summary>
         /// The rest
         /// </summary>
-        private static readonly Sym REST = Sym.New("&rest");
+        private readonly static Sym REST = Sym.New("&rest");
         /// <summary>
         /// The unquote
         /// </summary>
-        private static readonly Sym UNQUOTE = Sym.New("unquote");
+        private readonly static Sym UNQUOTE = Sym.New("unquote");
         /// <summary>
         /// The unquote splicing
         /// </summary>
-        private static readonly Sym UNQUOTE_SPLICING = Sym.New("unquote-splicing");
+        private readonly static Sym UNQUOTE_SPLICING = Sym.New("unquote-splicing");
 
         /// <summary>
         /// The left brace
         /// </summary>
-        private static readonly Sym LEFT_BRACE = Sym.New("{");
+        private readonly static Sym LEFT_BRACE = Sym.New("{");
         /// <summary>
         /// The right brace
         /// </summary>
-        private static readonly Sym RIGHT_BRACE = Sym.New("}");
+        private readonly static Sym RIGHT_BRACE = Sym.New("}");
         /// <summary>
         /// The hash
         /// </summary>
-        private static readonly Sym HASH = Sym.New("#");
+        private readonly static Sym HASH = Sym.New("#");
         /// <summary>
         /// The percent
         /// </summary>
-        private static readonly Sym PERCENT = Sym.New("%");
+        private readonly static Sym PERCENT = Sym.New("%");
         /// <summary>
         /// The newmap
         /// </summary>
-        private static readonly Sym NEWMAP = Sym.New("new-map");
+        private readonly static Sym NEWMAP = Sym.New("new-map");
         /// <summary>
         /// The argument
         /// </summary>
-        private static readonly Sym ARG = Sym.New("_a");
+        private readonly static Sym ARG = Sym.New("_a");
 
         /// <summary>
         /// The left bracket
         /// </summary>
-        private static readonly Sym LEFT_BRACKET = Sym.New("[");
+        private readonly static Sym LEFT_BRACKET = Sym.New("[");
         /// <summary>
         /// The right bracket
         /// </summary>
-        private static readonly Sym RIGHT_BRACKET = Sym.New("]");
+        private readonly static Sym RIGHT_BRACKET = Sym.New("]");
 
         //------------------------------------------------------------------
 
@@ -1661,7 +1661,7 @@ namespace ServiceStack.Script
             /// <summary>
             /// Table of the global values of symbols
             /// </summary>
-            internal readonly Dictionary<Sym, object> Globals = new();
+            readonly internal Dictionary<Sym, object> Globals = new();
 
             /// <summary>
             /// Gets the symbol value.
@@ -4377,7 +4377,7 @@ namespace ServiceStack.Script
         /// <summary>
         /// The quotes
         /// </summary>
-        private static readonly Dictionary<Sym, string> Quotes = new() {
+        private readonly static Dictionary<Sym, string> Quotes = new() {
             [QUOTE] = "'",
             [QUASIQUOTE] = "`",
             [UNQUOTE] = ",",

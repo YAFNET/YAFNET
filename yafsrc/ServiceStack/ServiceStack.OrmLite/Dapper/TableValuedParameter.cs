@@ -58,7 +58,7 @@ internal sealed class TableValuedParameter : SqlMapper.ICustomQueryParameter
     /// <param name="parameter">The parameter.</param>
     /// <param name="table">The table.</param>
     /// <param name="typeName">Name of the type.</param>
-    internal static void Set(IDbDataParameter parameter, DataTable table, string typeName)
+    static internal void Set(IDbDataParameter parameter, DataTable table, string typeName)
     {
 #pragma warning disable 0618
         parameter.Value = SqlMapper.SanitizeParameterValue(table);

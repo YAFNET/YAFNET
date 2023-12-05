@@ -560,7 +560,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="schema">The schema.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-    public override async Task<bool> DoesTableExistAsync(IDbCommand dbCmd, string tableName, string schema = null, CancellationToken token=default)
+    public async override Task<bool> DoesTableExistAsync(IDbCommand dbCmd, string tableName, string schema = null, CancellationToken token=default)
     {
         var sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = {0} AND TABLE_SCHEMA = {1}"
             .SqlFmt(GetTableName(tableName, schema).StripDbQuotes(), dbCmd.Connection.Database);
@@ -598,7 +598,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="schema">The schema.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-    public override async Task<bool> DoesColumnExistAsync(IDbConnection db, string columnName, string tableName, string schema = null, CancellationToken token=default)
+    public async override Task<bool> DoesColumnExistAsync(IDbConnection db, string columnName, string tableName, string schema = null, CancellationToken token=default)
     {
         tableName = GetTableName(tableName, schema).StripQuotes();
         var sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS"
@@ -942,7 +942,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="fn">The function.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;List&lt;T&gt;&gt;.</returns>
-    public override async Task<List<T>> ReaderEach<T>(IDataReader reader, Func<T> fn, CancellationToken token = default)
+    public async override Task<List<T>> ReaderEach<T>(IDataReader reader, Func<T> fn, CancellationToken token = default)
     {
         try
         {
@@ -969,7 +969,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="source">The source.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;Return&gt;.</returns>
-    public override async Task<Return> ReaderEach<Return>(IDataReader reader, Action fn, Return source, CancellationToken token = default)
+    public async override Task<Return> ReaderEach<Return>(IDataReader reader, Action fn, Return source, CancellationToken token = default)
     {
         try
         {
@@ -993,7 +993,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="fn">The function.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;T&gt;.</returns>
-    public override async Task<T> ReaderRead<T>(IDataReader reader, Func<T> fn, CancellationToken token = default)
+    public async override Task<T> ReaderRead<T>(IDataReader reader, Func<T> fn, CancellationToken token = default)
     {
         try
         {

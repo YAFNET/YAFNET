@@ -360,7 +360,7 @@ public static partial class HttpUtils
         return responseStream.ReadToEnd(UseEncoding);
     }
 
-    public static async Task<string> GetResponseBodyAsync(this Exception ex, CancellationToken token = default)
+    public async static Task<string> GetResponseBodyAsync(this Exception ex, CancellationToken token = default)
     {
         if (ex is not WebException webEx || webEx.Response == null
                                          || webEx.Status != WebExceptionStatus.ProtocolError)

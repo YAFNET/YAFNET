@@ -65,7 +65,7 @@ public class MultiVirtualFiles
     /// <summary>
     /// Initializes this instance.
     /// </summary>
-    protected sealed override void Initialize() { }
+    override protected sealed void Initialize() { }
 
     /// <summary>
     /// Combines the virtual path.

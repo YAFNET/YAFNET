@@ -41,12 +41,12 @@ public static class OrmLiteUtils
     /// <summary>
     /// The index fields cache
     /// </summary>
-    private static readonly Dictionary<IndexFieldsCacheKey, Tuple<FieldDefinition, int, IOrmLiteConverter>[]> indexFieldsCache = new();
+    private readonly static Dictionary<IndexFieldsCacheKey, Tuple<FieldDefinition, int, IOrmLiteConverter>[]> indexFieldsCache = new();
 
     /// <summary>
     /// The log
     /// </summary>
-    internal static ILog Log = LogManager.GetLogger(typeof(OrmLiteUtils));
+    static internal ILog Log = LogManager.GetLogger(typeof(OrmLiteUtils));
 
     /// <summary>
     /// Handles the exception.
@@ -116,14 +116,14 @@ public static class OrmLiteUtils
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>bool.</returns>
-    internal static bool IsTuple(this Type type) => type.Name.StartsWith("Tuple`", StringComparison.Ordinal);
+    static internal bool IsTuple(this Type type) => type.Name.StartsWith("Tuple`", StringComparison.Ordinal);
 
     /// <summary>
     /// Determines whether [is value tuple] [the specified type].
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>bool.</returns>
-    internal static bool IsValueTuple(this Type type) => type.Name.StartsWith("ValueTuple`", StringComparison.Ordinal);
+    static internal bool IsValueTuple(this Type type) => type.Name.StartsWith("ValueTuple`", StringComparison.Ordinal);
 
     /// <summary>
     /// Determines whether this instance is scalar.
@@ -370,7 +370,7 @@ public static class OrmLiteUtils
     /// <param name="genericArgs">The generic arguments.</param>
     /// <param name="values">The values.</param>
     /// <returns>System.Collections.Generic.List&lt;object&gt;.</returns>
-    internal static List<object> ToMultiTuple(this IDataReader reader,
+    static internal List<object> ToMultiTuple(this IDataReader reader,
                                               IOrmLiteDialectProvider dialectProvider,
                                               List<Tuple<FieldDefinition, int, IOrmLiteConverter>[]> modelIndexCaches,
                                               Type[] genericArgs,
@@ -395,7 +395,7 @@ public static class OrmLiteUtils
     /// <param name="onlyFields">The only fields.</param>
     /// <param name="genericArgs">The generic arguments.</param>
     /// <returns>System.Collections.Generic.List&lt;System.Tuple&lt;ServiceStack.OrmLite.FieldDefinition, int, ServiceStack.OrmLite.IOrmLiteConverter&gt;[]&gt;.</returns>
-    internal static List<Tuple<FieldDefinition, int, IOrmLiteConverter>[]> GetMultiIndexCaches(
+    static internal List<Tuple<FieldDefinition, int, IOrmLiteConverter>[]> GetMultiIndexCaches(
         this IDataReader reader,
         IOrmLiteDialectProvider dialectProvider,
         HashSet<string> onlyFields,
@@ -492,7 +492,7 @@ public static class OrmLiteUtils
     /// <param name="tableType">Type of the table.</param>
     /// <param name="dialect">The dialect.</param>
     /// <returns>string.</returns>
-    internal static string GetColumnNames(this Type tableType, IOrmLiteDialectProvider dialect)
+    static internal string GetColumnNames(this Type tableType, IOrmLiteDialectProvider dialect)
     {
         return GetColumnNames(tableType.GetModelDefinition(), dialect);
     }
@@ -537,7 +537,7 @@ public static class OrmLiteUtils
     /// <param name="dbCmd">The database command.</param>
     /// <param name="idValues">The identifier values.</param>
     /// <returns>string.</returns>
-    internal static string SetIdsInSqlParams(this IDbCommand dbCmd, IEnumerable idValues)
+    static internal string SetIdsInSqlParams(this IDbCommand dbCmd, IEnumerable idValues)
     {
         var inArgs = Sql.Flatten(idValues);
         var sbParams = StringBuilderCache.Allocate();
@@ -1002,7 +1002,7 @@ public static class OrmLiteUtils
     /// <param name="fieldDef">The field definition.</param>
     /// <param name="dbFieldMap">The database field map.</param>
     /// <returns>int.</returns>
-    internal static int FindColumnIndex(IOrmLiteDialectProvider dialectProvider, FieldDefinition fieldDef, Dictionary<string, int> dbFieldMap)
+    static internal int FindColumnIndex(IOrmLiteDialectProvider dialectProvider, FieldDefinition fieldDef, Dictionary<string, int> dbFieldMap)
     {
         var fieldName = dialectProvider.NamingStrategy.GetColumnName(fieldDef.FieldName);
         if (dbFieldMap.TryGetValue(fieldName, out var index))
@@ -1030,7 +1030,7 @@ public static class OrmLiteUtils
     /// <summary>
     /// The allowed property chars regex
     /// </summary>
-    private static readonly Regex AllowedPropertyCharsRegex = new(@"[^0-9a-zA-Z_]",
+    private readonly static Regex AllowedPropertyCharsRegex = new(@"[^0-9a-zA-Z_]",
         RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
     /// <summary>
@@ -1139,7 +1139,7 @@ public static class OrmLiteUtils
     /// <summary>
     /// The quoted chars
     /// </summary>
-    private static readonly char[] QuotedChars = { '"', '`', '[', ']' };
+    private readonly static char[] QuotedChars = { '"', '`', '[', ']' };
 
     /// <summary>
     /// Aliases the or column.
@@ -1310,7 +1310,7 @@ public static class OrmLiteUtils
     /// <param name="refType">Type of the reference.</param>
     /// <param name="childResults">The child results.</param>
     /// <param name="refField">The reference field.</param>
-    internal static void SetListChildResults<Parent>(List<Parent> parents, ModelDefinition modelDef,
+    static internal void SetListChildResults<Parent>(List<Parent> parents, ModelDefinition modelDef,
                                                      FieldDefinition fieldDef, Type refType, IList childResults, FieldDefinition refField)
     {
         var map = new Dictionary<object, List<object>>();
@@ -1347,7 +1347,7 @@ public static class OrmLiteUtils
     /// <param name="refModelDef">The reference model definition.</param>
     /// <param name="refSelf">The reference self.</param>
     /// <param name="childResults">The child results.</param>
-    internal static void SetRefSelfChildResults<Parent>(List<Parent> parents, FieldDefinition fieldDef, ModelDefinition refModelDef, FieldDefinition refSelf, IList childResults)
+    static internal void SetRefSelfChildResults<Parent>(List<Parent> parents, FieldDefinition fieldDef, ModelDefinition refModelDef, FieldDefinition refSelf, IList childResults)
     {
         var map = new Dictionary<object, object>();
         foreach (var result in childResults)
@@ -1375,7 +1375,7 @@ public static class OrmLiteUtils
     /// <param name="fieldDef">The field definition.</param>
     /// <param name="refField">The reference field.</param>
     /// <param name="childResults">The child results.</param>
-    internal static void SetRefFieldChildResults<Parent>(List<Parent> parents, ModelDefinition modelDef,
+    static internal void SetRefFieldChildResults<Parent>(List<Parent> parents, ModelDefinition modelDef,
                                                          FieldDefinition fieldDef, FieldDefinition refField, IList childResults)
     {
         var map = new Dictionary<object, object>();

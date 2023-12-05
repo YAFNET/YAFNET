@@ -23,9 +23,9 @@ using System.Text.RegularExpressions;
 /// </summary>
 public static class Words
 {
-    private static readonly ArrayList plurals = new();
-    private static readonly ArrayList singulars = new();
-    private static readonly ArrayList uncountables = new();
+    private readonly static ArrayList plurals = new();
+    private readonly static ArrayList singulars = new();
+    private readonly static ArrayList uncountables = new();
 
     static Words()
     {

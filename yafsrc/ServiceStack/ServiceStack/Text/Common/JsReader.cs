@@ -21,7 +21,7 @@ public class JsReader<TSerializer>
     /// <summary>
     /// The serializer
     /// </summary>
-    private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
+    private readonly static ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
     /// <summary>
     /// Gets the parse function.

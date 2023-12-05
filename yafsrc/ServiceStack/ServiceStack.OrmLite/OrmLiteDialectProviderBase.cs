@@ -36,7 +36,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <summary>
     /// The log
     /// </summary>
-    protected static readonly ILog Log = LogManager.GetLogger(typeof(IOrmLiteDialectProvider));
+    readonly static protected ILog Log = LogManager.GetLogger(typeof(IOrmLiteDialectProvider));
 
     /// <summary>
     /// Initializes a new instance of the <see cref="OrmLiteDialectProviderBase{TDialect}"/> class.
@@ -2555,7 +2555,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="schema">The schema.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-    public virtual async Task<bool> DoesTableExistAsync(
+    public async virtual Task<bool> DoesTableExistAsync(
         IDbConnection db,
         string tableName,
         string schema = null,
@@ -2886,7 +2886,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="modelType">Type of the model.</param>
     /// <returns>ModelDefinition.</returns>
-    protected static ModelDefinition GetModel(Type modelType) => modelType.GetModelDefinition();
+    static protected ModelDefinition GetModel(Type modelType) => modelType.GetModelDefinition();
 
     /// <summary>
     /// SQLs the expression.
@@ -3391,7 +3391,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="fn">The function.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;List&lt;T&gt;&gt;.</returns>
-    public virtual async Task<List<T>> ReaderEach<T>(
+    public async virtual Task<List<T>> ReaderEach<T>(
         IDataReader reader,
         Func<T> fn,
         CancellationToken token = default)
@@ -3422,7 +3422,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="source">The source.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;Return&gt;.</returns>
-    public virtual async Task<Return> ReaderEach<Return>(
+    public async virtual Task<Return> ReaderEach<Return>(
         IDataReader reader,
         Action fn,
         Return source,
@@ -3451,7 +3451,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="fn">The function.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;T&gt;.</returns>
-    public virtual async Task<T> ReaderRead<T>(IDataReader reader, Func<T> fn, CancellationToken token = default)
+    public async virtual Task<T> ReaderRead<T>(IDataReader reader, Func<T> fn, CancellationToken token = default)
     {
         try
         {

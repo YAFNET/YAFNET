@@ -21,22 +21,22 @@ namespace ServiceStack.Text.Common;
 /// </summary>
 /// <typeparam name="T"></typeparam>
 /// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
-internal static class WriteType<T, TSerializer>
+static internal class WriteType<T, TSerializer>
     where TSerializer : ITypeSerializer
 {
     /// <summary>
     /// The serializer
     /// </summary>
-    private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
+    private readonly static ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
     /// <summary>
     /// The property writers
     /// </summary>
-    internal static TypePropertyWriter[] PropertyWriters;
+    static internal TypePropertyWriter[] PropertyWriters;
     /// <summary>
     /// The write type information
     /// </summary>
-    private static readonly WriteObjectDelegate WriteTypeInfo;
+    private readonly static WriteObjectDelegate WriteTypeInfo;
 
     /// <summary>
     /// Gets a value indicating whether this instance is included.
@@ -339,59 +339,59 @@ internal static class WriteType<T, TSerializer>
         /// <summary>
         /// The property type
         /// </summary>
-        internal readonly Type PropertyType;
+        readonly internal Type PropertyType;
         /// <summary>
         /// The property name
         /// </summary>
-        internal readonly string propertyName;
+        readonly internal string propertyName;
         /// <summary>
         /// The property order
         /// </summary>
-        internal readonly int propertyOrder;
+        readonly internal int propertyOrder;
         /// <summary>
         /// The property suppress default configuration
         /// </summary>
-        internal readonly bool propertySuppressDefaultConfig;
+        readonly internal bool propertySuppressDefaultConfig;
         /// <summary>
         /// The property suppress default attribute
         /// </summary>
-        internal readonly bool propertySuppressDefaultAttribute;
+        readonly internal bool propertySuppressDefaultAttribute;
         /// <summary>
         /// The property reference name
         /// </summary>
-        internal readonly string propertyReferenceName;
+        readonly internal string propertyReferenceName;
         /// <summary>
         /// The property name CLS friendly
         /// </summary>
-        internal readonly string propertyNameCLSFriendly;
+        readonly internal string propertyNameCLSFriendly;
         /// <summary>
         /// The property name lowercase underscore
         /// </summary>
-        internal readonly string propertyNameLowercaseUnderscore;
+        readonly internal string propertyNameLowercaseUnderscore;
         /// <summary>
         /// The getter function
         /// </summary>
-        internal readonly GetMemberDelegate<T> GetterFn;
+        readonly internal GetMemberDelegate<T> GetterFn;
         /// <summary>
         /// The write function
         /// </summary>
-        internal readonly WriteObjectDelegate WriteFn;
+        readonly internal WriteObjectDelegate WriteFn;
         /// <summary>
         /// The default value
         /// </summary>
-        internal readonly object DefaultValue;
+        readonly internal object DefaultValue;
         /// <summary>
         /// The should serialize
         /// </summary>
-        internal readonly Func<T, bool> shouldSerialize;
+        readonly internal Func<T, bool> shouldSerialize;
         /// <summary>
         /// The should serialize dynamic
         /// </summary>
-        internal readonly Func<T, string, bool?> shouldSerializeDynamic;
+        readonly internal Func<T, string, bool?> shouldSerializeDynamic;
         /// <summary>
         /// The is enum
         /// </summary>
-        internal readonly bool isEnum;
+        readonly internal bool isEnum;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TypePropertyWriter" /> struct.
@@ -634,7 +634,7 @@ internal static class WriteType<T, TSerializer>
     /// <param name="propertyName">Name of the property.</param>
     /// <param name="config">The configuration.</param>
     /// <returns>System.String.</returns>
-    internal static string GetPropertyName(string propertyName, Config config)
+    static internal string GetPropertyName(string propertyName, Config config)
     {
         return config.TextCase switch {
                 TextCase.CamelCase => propertyName.ToCamelCase(),
@@ -646,7 +646,7 @@ internal static class WriteType<T, TSerializer>
     /// <summary>
     /// The array brackets
     /// </summary>
-    private static readonly char[] ArrayBrackets = { '[', ']' };
+    private readonly static char[] ArrayBrackets = { '[', ']' };
 
     /// <summary>
     /// Writes the complex query string properties.

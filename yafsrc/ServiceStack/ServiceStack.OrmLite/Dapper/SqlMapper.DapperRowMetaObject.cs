@@ -45,11 +45,11 @@ public static partial class SqlMapper
         /// <summary>
         /// The get value method
         /// </summary>
-        private static readonly MethodInfo getValueMethod = typeof(IDictionary<string, object>).GetProperty("Item").GetGetMethod();
+        private readonly static MethodInfo getValueMethod = typeof(IDictionary<string, object>).GetProperty("Item").GetGetMethod();
         /// <summary>
         /// The set value method
         /// </summary>
-        private static readonly MethodInfo setValueMethod = typeof(DapperRow).GetMethod("SetValue", new Type[] { typeof(string), typeof(object) });
+        private readonly static MethodInfo setValueMethod = typeof(DapperRow).GetMethod("SetValue", new Type[] { typeof(string), typeof(object) });
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DapperRowMetaObject"/> class.
@@ -158,7 +158,7 @@ public static partial class SqlMapper
         /// <summary>
         /// The s nix keys
         /// </summary>
-        static readonly string[] s_nixKeys = Array.Empty<string>();
+        readonly static string[] s_nixKeys = Array.Empty<string>();
         /// <summary>
         /// Gets the dynamic member names.
         /// </summary>

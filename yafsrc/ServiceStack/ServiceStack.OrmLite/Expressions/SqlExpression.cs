@@ -4814,7 +4814,7 @@ public abstract class SelectItem
     /// Converts to string.
     /// </summary>
     /// <returns>string.</returns>
-    public abstract override string ToString();
+    public override abstract string ToString();
 }
 
 /// <summary>
@@ -5050,7 +5050,7 @@ public static class DbDataParameterExtensions
     /// <param name="p">The p.</param>
     /// <param name="value">The value.</param>
     /// <param name="dbType">Type of the database.</param>
-    internal static void ConfigureParam(this IOrmLiteDialectProvider dialectProvider, IDbDataParameter p, object value, DbType? dbType)
+    static internal void ConfigureParam(this IOrmLiteDialectProvider dialectProvider, IDbDataParameter p, object value, DbType? dbType)
     {
         if (value != null)
         {

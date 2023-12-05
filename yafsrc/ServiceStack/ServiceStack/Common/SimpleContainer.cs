@@ -34,12 +34,12 @@ public class SimpleContainer : IContainer, IResolver
     /// <summary>
     /// The instance cache
     /// </summary>
-    protected readonly ConcurrentDictionary<Type, object> InstanceCache = new();
+    readonly protected ConcurrentDictionary<Type, object> InstanceCache = new();
 
     /// <summary>
     /// The factory
     /// </summary>
-    protected readonly ConcurrentDictionary<Type, Func<object>> Factory = new();
+    readonly protected ConcurrentDictionary<Type, Func<object>> Factory = new();
 
     /// <summary>
     /// Resolves the specified type.

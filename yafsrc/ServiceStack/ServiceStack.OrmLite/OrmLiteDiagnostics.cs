@@ -12,7 +12,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 
-internal static class OrmLiteDiagnostics
+static internal class OrmLiteDiagnostics
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Guid WriteCommandBefore(this DiagnosticListener listener, IDbCommand dbCmd, [CallerMemberName] string operation = "")

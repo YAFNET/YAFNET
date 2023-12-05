@@ -133,7 +133,7 @@ public class FileSystemVirtualDirectory : AbstractVirtualDirectoryBase
     /// </summary>
     /// <param name="fName">Name of the f.</param>
     /// <returns>IVirtualFile.</returns>
-    protected override IVirtualFile GetFileFromBackingDirectoryOrDefault(string fName)
+    override protected IVirtualFile GetFileFromBackingDirectoryOrDefault(string fName)
     {
         var fInfo = EnumerateFiles(fName).FirstOrDefault();
 
@@ -147,7 +147,7 @@ public class FileSystemVirtualDirectory : AbstractVirtualDirectoryBase
     /// </summary>
     /// <param name="globPattern">The glob pattern.</param>
     /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
-    protected override IEnumerable<IVirtualFile> GetMatchingFilesInDir(string globPattern)
+    override protected IEnumerable<IVirtualFile> GetMatchingFilesInDir(string globPattern)
     {
         try
         {
@@ -188,7 +188,7 @@ public class FileSystemVirtualDirectory : AbstractVirtualDirectoryBase
     /// </summary>
     /// <param name="dName">Name of the d.</param>
     /// <returns>IVirtualDirectory.</returns>
-    protected override IVirtualDirectory GetDirectoryFromBackingDirectoryOrDefault(string dName)
+    override protected IVirtualDirectory GetDirectoryFromBackingDirectoryOrDefault(string dName)
     {
         var dInfo = EnumerateDirectories(dName)
             .FirstOrDefault();

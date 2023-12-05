@@ -73,7 +73,7 @@ public class TypeFields<T> : TypeFields
     /// <summary>
     /// The instance
     /// </summary>
-    public static readonly TypeFields<T> Instance = new();
+    public readonly static TypeFields<T> Instance = new();
 
     /// <summary>
     /// Initializes static members of the <see cref="TypeFields{T}"/> class.
@@ -110,7 +110,7 @@ public class TypeFields<T> : TypeFields
     /// </summary>
     /// <param name="propertyName">Name of the property.</param>
     /// <returns>FieldAccessor.</returns>
-    public new static FieldAccessor GetAccessor(string propertyName)
+    public static new FieldAccessor GetAccessor(string propertyName)
     {
         return Instance.FieldsMap.TryGetValue(propertyName, out FieldAccessor info)
                    ? info

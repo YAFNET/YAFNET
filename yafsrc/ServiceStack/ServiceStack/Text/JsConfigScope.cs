@@ -42,7 +42,7 @@ public sealed class JsConfigScope : Config, IDisposable
 #endif
     }
 
-    internal static JsConfigScope Current =>
+    static internal JsConfigScope Current =>
 #if NETCORE
             head.Value;
 #else
@@ -74,8 +74,8 @@ public sealed class JsConfigScope : Config, IDisposable
 public class Config
 {
     private static Config instance;
-    internal static Config Instance => instance ??= new Config(Defaults);
-    internal static bool HasInit;
+    static internal Config Instance => instance ??= new Config(Defaults);
+    static internal bool HasInit;
 
     /// <summary>
     /// 
@@ -109,7 +109,7 @@ public class Config
         InitStackTrace = Environment.StackTrace;
     }
 
-    internal static void Reset()
+    static internal void Reset()
     {
         HasInit = false;
         Instance.Populate(Defaults);

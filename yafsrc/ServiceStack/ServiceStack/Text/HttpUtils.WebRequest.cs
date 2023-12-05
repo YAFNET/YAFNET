@@ -912,7 +912,7 @@ namespace ServiceStack
             return stream.ReadToEnd(UseEncoding);
         }
 
-        public static async Task<string> SendStringToUrlAsync(
+        public async static Task<string> SendStringToUrlAsync(
             this string url,
             string method = null,
             string requestBody = null,
@@ -1094,7 +1094,7 @@ namespace ServiceStack
             return stream.ReadFully();
         }
 
-        public static async Task<byte[]> SendBytesToUrlAsync(
+        public async static Task<byte[]> SendBytesToUrlAsync(
             this string url,
             string method = null,
             byte[] requestBody = null,
@@ -1278,7 +1278,7 @@ namespace ServiceStack
         /// <summary>
         /// Returns HttpWebResponse Stream which must be disposed
         /// </summary>
-        public static async Task<Stream> SendStreamToUrlAsync(
+        public async static Task<Stream> SendStreamToUrlAsync(
             this string url,
             string method = null,
             Stream requestBody = null,
@@ -1348,7 +1348,7 @@ namespace ServiceStack
             }
         }
 
-        public static async Task<HttpWebResponse> GetErrorResponseAsync(this string url)
+        public async static Task<HttpWebResponse> GetErrorResponseAsync(this string url)
         {
             try
             {
@@ -1409,7 +1409,7 @@ namespace ServiceStack
             PclExport.Instance.CloseStream(outputStream);
         }
 
-        public static async Task UploadFileAsync(
+        public async static Task UploadFileAsync(
             this WebRequest webRequest,
             Stream fileStream,
             string fileName,
@@ -1467,7 +1467,7 @@ namespace ServiceStack
             UploadFile(webRequest, fileStream, fileName, mimeType);
         }
 
-        public static async Task UploadFileAsync(
+        public async static Task UploadFileAsync(
             this WebRequest webRequest,
             Stream fileStream,
             string fileName,
@@ -1573,7 +1573,7 @@ namespace ServiceStack
             return webReq.GetResponse();
         }
 
-        public static async Task<WebResponse> PostFileToUrlAsync(
+        public async static Task<WebResponse> PostFileToUrlAsync(
             this string url,
             FileInfo uploadFileInfo,
             string uploadFileMimeType,
@@ -1629,7 +1629,7 @@ namespace ServiceStack
             return webReq.GetResponse();
         }
 
-        public static async Task<WebResponse> PutFileToUrlAsync(
+        public async static Task<WebResponse> PutFileToUrlAsync(
             this string url,
             FileInfo uploadFileInfo,
             string uploadFileMimeType,
@@ -1676,7 +1676,7 @@ namespace ServiceStack
             return webRequest.GetResponse();
         }
 
-        public static async Task<WebResponse> UploadFileAsync(
+        public async static Task<WebResponse> UploadFileAsync(
             this WebRequest webRequest,
             FileInfo uploadFileInfo,
             string uploadFileMimeType)

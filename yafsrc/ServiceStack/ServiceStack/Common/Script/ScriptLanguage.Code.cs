@@ -33,7 +33,7 @@ public sealed class ScriptCode : ScriptLanguage
     /// <summary>
     /// The language
     /// </summary>
-    public static readonly ScriptLanguage Language = new ScriptCode();
+    public readonly static ScriptLanguage Language = new ScriptCode();
 
     /// <summary>
     /// Gets the name.
@@ -76,7 +76,7 @@ public sealed class ScriptCode : ScriptLanguage
     /// <param name="fragment">The fragment.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-    public override async Task<bool> WritePageFragmentAsync(ScriptScopeContext scope, PageFragment fragment, CancellationToken token)
+    public async override Task<bool> WritePageFragmentAsync(ScriptScopeContext scope, PageFragment fragment, CancellationToken token)
     {
         var page = scope.PageResult;
         if (fragment is PageJsBlockStatementFragment blockFragment)
@@ -99,7 +99,7 @@ public sealed class ScriptCode : ScriptLanguage
     /// <param name="statement">The statement.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-    public override async Task<bool> WriteStatementAsync(ScriptScopeContext scope, JsStatement statement, CancellationToken token)
+    public async override Task<bool> WriteStatementAsync(ScriptScopeContext scope, JsStatement statement, CancellationToken token)
     {
         var page = scope.PageResult;
         if (statement is JsExpressionStatement exprStatement)
@@ -213,7 +213,7 @@ public static class ScriptCodeUtils
     /// <param name="code">The code.</param>
     /// <param name="args">The arguments.</param>
     /// <returns>A Task&lt;System.String&gt; representing the asynchronous operation.</returns>
-    public static async Task<string> RenderCodeAsync(this ScriptContext context, string code, Dictionary<string, object> args = null)
+    public async static Task<string> RenderCodeAsync(this ScriptContext context, string code, Dictionary<string, object> args = null)
     {
         var pageResult = GetCodePageResult(context, code, args);
         return await pageResult.RenderScriptAsync().ConfigAwait();
@@ -294,7 +294,7 @@ public static class ScriptCodeUtils
     /// <param name="code">The code.</param>
     /// <param name="args">The arguments.</param>
     /// <returns>A Task&lt;T&gt; representing the asynchronous operation.</returns>
-    public static async Task<T> EvaluateCodeAsync<T>(this ScriptContext context, string code, Dictionary<string, object> args = null) =>
+    public async static Task<T> EvaluateCodeAsync<T>(this ScriptContext context, string code, Dictionary<string, object> args = null) =>
         (await context.EvaluateCodeAsync(code, args).ConfigAwait()).ConvertTo<T>();
 
     /// <summary>
@@ -305,7 +305,7 @@ public static class ScriptCodeUtils
     /// <param name="args">The arguments.</param>
     /// <returns>A Task&lt;System.Object&gt; representing the asynchronous operation.</returns>
     /// <exception cref="System.NotSupportedException"></exception>
-    public static async Task<object> EvaluateCodeAsync(this ScriptContext context, string code, Dictionary<string, object> args = null)
+    public async static Task<object> EvaluateCodeAsync(this ScriptContext context, string code, Dictionary<string, object> args = null)
     {
         var pageResult = GetCodePageResult(context, code, args);
 
@@ -325,7 +325,7 @@ public static class ScriptCodeUtils
     /// <returns>JsStatement[].</returns>
     /// <exception cref="ServiceStack.Script.SyntaxErrorException">Unterminated multi-line comment, near {line.DebugLiteral()}</exception>
     /// <exception cref="ServiceStack.Script.SyntaxErrorException">Unexpected syntax after expression: {afterExpr.ToString()}, near {line.DebugLiteral()}</exception>
-    internal static JsStatement[] ParseCodeStatements(this ScriptContext context, ReadOnlyMemory<char> code)
+    static internal JsStatement[] ParseCodeStatements(this ScriptContext context, ReadOnlyMemory<char> code)
     {
         var to = new List<JsStatement>();
 
@@ -522,7 +522,7 @@ public static class ScriptCodeUtils
     /// <param name="lineLength">Length of the line.</param>
     /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static ReadOnlyMemory<char> FromStartToPreviousLine(this ReadOnlyMemory<char> literal, int cursorPos, int lineLength)
+    static internal ReadOnlyMemory<char> FromStartToPreviousLine(this ReadOnlyMemory<char> literal, int cursorPos, int lineLength)
     {
         var ret = literal.Slice(0, cursorPos - lineLength);
         while (!ret.Span.SafeCharEquals(ret.Length - 1, '\n'))
@@ -544,7 +544,7 @@ public static class ScriptCodeUtils
     /// <param name="lineLength">Length of the line.</param>
     /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static ReadOnlyMemory<char> ToLineStart(this ReadOnlyMemory<char> literal, int cursorPos, int lineLength)
+    static internal ReadOnlyMemory<char> ToLineStart(this ReadOnlyMemory<char> literal, int cursorPos, int lineLength)
     {
         var CLRF = literal.Span.SafeCharEquals(cursorPos - 2, '\r');
         var ret = literal.Slice(cursorPos - lineLength -
@@ -563,7 +563,7 @@ public static class ScriptCodeUtils
     /// <param name="statementPos">The statement position.</param>
     /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    internal static ReadOnlyMemory<char> ToLineStart(this ReadOnlyMemory<char> literal, int cursorPos, int lineLength, int statementPos)
+    static internal ReadOnlyMemory<char> ToLineStart(this ReadOnlyMemory<char> literal, int cursorPos, int lineLength, int statementPos)
     {
         var ret = literal.Slice(statementPos, cursorPos - statementPos - lineLength);
         while (!ret.Span.SafeCharEquals(ret.Length - 1, '\n'))
@@ -589,7 +589,7 @@ public static class ScriptCodeUtils
     /// <param name="body">The body.</param>
     /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
     /// <exception cref="ServiceStack.Script.SyntaxErrorException">End block for '{blockName.ToString()}' not found.</exception>
-    internal static ReadOnlyMemory<char> ParseCodeBody(this ReadOnlyMemory<char> literal, ReadOnlyMemory<char> blockName, out ReadOnlyMemory<char> body)
+    static internal ReadOnlyMemory<char> ParseCodeBody(this ReadOnlyMemory<char> literal, ReadOnlyMemory<char> blockName, out ReadOnlyMemory<char> body)
     {
         var inStatements = 0;
 
@@ -652,7 +652,7 @@ public static class ScriptCodeUtils
     /// <param name="elseBody">The else body.</param>
     /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
     /// <exception cref="ServiceStack.Script.SyntaxErrorException">End 'else' statement not found.</exception>
-    internal static ReadOnlyMemory<char> ParseCodeElseBlock(this ReadOnlyMemory<char> literal, ReadOnlyMemory<char> blockName,
+    static internal ReadOnlyMemory<char> ParseCodeElseBlock(this ReadOnlyMemory<char> literal, ReadOnlyMemory<char> blockName,
                                                             out ReadOnlyMemory<char> elseArgument, out ReadOnlyMemory<char> elseBody)
     {
         var inStatements = 0;
@@ -719,7 +719,7 @@ public static class ScriptCodeUtils
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
     /// <exception cref="ServiceStack.Script.SyntaxErrorException">Expected filter separator '|' but was {literal.DebugFirstChar()}</exception>
     /// <exception cref="ServiceStack.Script.SyntaxErrorException">Unexpected syntax '{literal.ToString()}', Expected pipeline operator '|>'</exception>
-    internal static ReadOnlySpan<char> ParseExpression(this ReadOnlySpan<char> literal, out JsToken expr, out List<JsCallExpression> filters)
+    static internal ReadOnlySpan<char> ParseExpression(this ReadOnlySpan<char> literal, out JsToken expr, out List<JsCallExpression> filters)
     {
         literal = literal.ParseJsExpression(out expr, filterExpression: true);
         filters = null;

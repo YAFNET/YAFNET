@@ -50,7 +50,7 @@ public class IgnoreResult : IResultInstruction
     /// <summary>
     /// The value
     /// </summary>
-    public static readonly IgnoreResult Value = new();
+    public readonly static IgnoreResult Value = new();
     /// <summary>
     /// Prevents a default instance of the <see cref="IgnoreResult"/> class from being created.
     /// </summary>

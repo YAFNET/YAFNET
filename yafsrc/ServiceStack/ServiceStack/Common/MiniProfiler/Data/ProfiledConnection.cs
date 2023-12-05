@@ -112,7 +112,7 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// Gets a value indicating whether the component can raise an event.
     /// </summary>
     /// <value><c>true</c> if this instance can raise events; otherwise, <c>false</c>.</value>
-    protected override bool CanRaiseEvents => true;
+    override protected bool CanRaiseEvents => true;
 
     /// <summary>
     /// Gets or sets the string used to open the connection.
@@ -228,7 +228,7 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// </summary>
     /// <param name="isolationLevel">Specifies the isolation level for the transaction.</param>
     /// <returns>An object representing the new transaction.</returns>
-    protected override DbTransaction BeginDbTransaction(IsolationLevel isolationLevel)
+    override protected DbTransaction BeginDbTransaction(IsolationLevel isolationLevel)
     {
         return new ProfiledDbTransaction(_conn.BeginTransaction(isolationLevel), this);
     }
@@ -237,7 +237,7 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// Creates and returns a <see cref="T:System.Data.Common.DbCommand" /> object associated with the current connection.
     /// </summary>
     /// <returns>A <see cref="T:System.Data.Common.DbCommand" /> object.</returns>
-    protected override DbCommand CreateDbCommand()
+    override protected DbCommand CreateDbCommand()
     {
         return new ProfiledCommand(_conn.CreateCommand(), this, _profiler);
     }
@@ -246,7 +246,7 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// Releases the unmanaged resources used by the <see cref="T:System.ComponentModel.Component" /> and optionally releases the managed resources.
     /// </summary>
     /// <param name="disposing"><see langword="true" /> to release both managed and unmanaged resources; <see langword="false" /> to release only unmanaged resources.</param>
-    protected override void Dispose(bool disposing)
+    override protected void Dispose(bool disposing)
     {
         if (disposing && _conn != null)
         {

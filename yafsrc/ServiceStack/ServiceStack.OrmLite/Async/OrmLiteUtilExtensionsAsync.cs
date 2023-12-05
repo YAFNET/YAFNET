@@ -21,7 +21,7 @@ namespace ServiceStack.OrmLite
     /// <summary>
     /// Class OrmLiteUtilExtensionsAsync.
     /// </summary>
-    internal static class OrmLiteUtilExtensionsAsync
+    static internal class OrmLiteUtilExtensionsAsync
     {
         /// <summary>
         /// Creates the instance.
@@ -41,7 +41,7 @@ namespace ServiceStack.OrmLite
         /// <param name="dialectProvider">The dialect provider.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;T&gt; representing the asynchronous operation.</returns>
-        public static async Task<T> ConvertToAsync<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, CancellationToken token)
+        public async static Task<T> ConvertToAsync<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, CancellationToken token)
         {
             using (reader)
                 return await dialectProvider.ReaderRead(reader, () =>
@@ -73,7 +73,7 @@ namespace ServiceStack.OrmLite
         /// <param name="onlyFields">The only fields.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;List`1&gt; representing the asynchronous operation.</returns>
-        public static async Task<List<T>> ConvertToListAsync<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, HashSet<string> onlyFields, CancellationToken token)
+        public async static Task<List<T>> ConvertToListAsync<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, HashSet<string> onlyFields, CancellationToken token)
         {
             if (typeof(T) == typeof(List<object>))
             {
@@ -164,7 +164,7 @@ namespace ServiceStack.OrmLite
         /// <param name="type">The type.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Object&gt; representing the asynchronous operation.</returns>
-        public static async Task<object> ConvertToAsync(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, Type type, CancellationToken token)
+        public async static Task<object> ConvertToAsync(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, Type type, CancellationToken token)
         {
             var modelDef = type.GetModelDefinition();
             var indexCache = reader.GetIndexFieldsCache(modelDef, dialectProvider);
@@ -187,7 +187,7 @@ namespace ServiceStack.OrmLite
         /// <param name="type">The type.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;IList&gt; representing the asynchronous operation.</returns>
-        public static async Task<IList> ConvertToListAsync(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, Type type, CancellationToken token)
+        public async static Task<IList> ConvertToListAsync(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, Type type, CancellationToken token)
         {
             var modelDef = type.GetModelDefinition();
             var indexCache = reader.GetIndexFieldsCache(modelDef, dialectProvider);

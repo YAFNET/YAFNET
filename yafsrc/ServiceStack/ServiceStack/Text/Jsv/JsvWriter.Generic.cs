@@ -21,7 +21,7 @@ public static class JsvWriter
     /// <summary>
     /// The instance
     /// </summary>
-    public static readonly JsWriter<JsvTypeSerializer> Instance = new();
+    public readonly static JsWriter<JsvTypeSerializer> Instance = new();
 
     /// <summary>
     /// The write function cache
@@ -32,7 +32,7 @@ public static class JsvWriter
     /// Removes the cache function.
     /// </summary>
     /// <param name="forType">For type.</param>
-    internal static void RemoveCacheFn(Type forType)
+    static internal void RemoveCacheFn(Type forType)
     {
         Dictionary<Type, WriteObjectDelegate> snapshot, newCache;
         do

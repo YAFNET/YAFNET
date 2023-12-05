@@ -21,7 +21,7 @@ public static class JsonReader
     /// <summary>
     /// The instance
     /// </summary>
-    public static readonly JsReader<JsonTypeSerializer> Instance = new();
+    public readonly static JsReader<JsonTypeSerializer> Instance = new();
 
     /// <summary>
     /// The parse function cache
@@ -33,21 +33,21 @@ public static class JsonReader
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>ParseStringDelegate.</returns>
-    internal static ParseStringDelegate GetParseFn(Type type) => v => GetParseStringSpanFn(type)(v.AsSpan());
+    static internal ParseStringDelegate GetParseFn(Type type) => v => GetParseStringSpanFn(type)(v.AsSpan());
 
     /// <summary>
     /// Gets the parse span function.
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>ParseStringSpanDelegate.</returns>
-    internal static ParseStringSpanDelegate GetParseSpanFn(Type type) => v => GetParseStringSpanFn(type)(v);
+    static internal ParseStringSpanDelegate GetParseSpanFn(Type type) => v => GetParseStringSpanFn(type)(v);
 
     /// <summary>
     /// Gets the parse string span function.
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>ParseStringSpanDelegate.</returns>
-    internal static ParseStringSpanDelegate GetParseStringSpanFn(Type type)
+    static internal ParseStringSpanDelegate GetParseStringSpanFn(Type type)
     {
         ParseFnCache.TryGetValue(type, out var parseFactoryFn);
 
@@ -91,7 +91,7 @@ public static class JsonReader
 /// Class JsonReader.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-internal static class JsonReader<T>
+static internal class JsonReader<T>
 {
     /// <summary>
     /// The read function

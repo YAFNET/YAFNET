@@ -612,11 +612,11 @@ public static class ViewUtils
     /// <summary>
     /// The default scripts
     /// </summary>
-    internal static readonly DefaultScripts DefaultScripts = new();
+    readonly static internal DefaultScripts DefaultScripts = new();
     /// <summary>
     /// The HTML scripts
     /// </summary>
-    private static readonly HtmlScripts HtmlScripts = new();
+    private readonly static HtmlScripts HtmlScripts = new();
 
     /// <summary>
     /// Gets or sets the nav items key.
@@ -1075,7 +1075,7 @@ public static class ViewUtils
     /// <param name="httpReq">The HTTP req.</param>
     /// <param name="key">The key.</param>
     /// <returns>System.Object.</returns>
-    internal static object GetItem(this IRequest httpReq, string key)
+    static internal object GetItem(this IRequest httpReq, string key)
     {
         if (httpReq == null) return null;
 

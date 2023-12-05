@@ -30,7 +30,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <summary>
     /// The instance
     /// </summary>
-    public static readonly DefaultScripts Instance = new();
+    public readonly static DefaultScripts Instance = new();
 
     /// <summary>
     /// Gets the remove new lines for.
@@ -1452,7 +1452,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <exception cref="System.ArgumentNullException">target</exception>
     /// <exception cref="System.ArgumentNullException">other</exception>
     /// <exception cref="System.NotSupportedException"></exception>
-    internal static bool compareTo(object target, object other, Func<int, bool> fn)
+    static internal bool compareTo(object target, object other, Func<int, bool> fn)
     {
         if (target == null || target == JsNull.Value)
             throw new ArgumentNullException(nameof(target));
@@ -3218,7 +3218,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <summary>
     /// The internal keys
     /// </summary>
-    private static readonly HashSet<string> InternalKeys = new()
+    private readonly static HashSet<string> InternalKeys = new()
                                                                {
                                                                    ScriptConstants.It, ScriptConstants.PartialArg };
 

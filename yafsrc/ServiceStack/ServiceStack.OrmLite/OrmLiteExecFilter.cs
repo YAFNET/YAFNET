@@ -254,7 +254,7 @@ public class OrmLiteExecFilter : IOrmLiteExecFilter
     /// <param name="dbConn">The database connection.</param>
     /// <param name="filter">The filter.</param>
     /// <returns>T.</returns>
-    public virtual async Task<T> Exec<T>(IDbConnection dbConn, Func<IDbCommand, Task<T>> filter)
+    public async virtual Task<T> Exec<T>(IDbConnection dbConn, Func<IDbCommand, Task<T>> filter)
     {
         var dbCmd = this.CreateCommand(dbConn);
         var id = Diagnostics.OrmLite.WriteCommandBefore(dbCmd);
@@ -291,7 +291,7 @@ public class OrmLiteExecFilter : IOrmLiteExecFilter
     /// <param name="dbConn">The database connection.</param>
     /// <param name="filter">The filter.</param>
     /// <returns>IDbCommand.</returns>
-    public virtual async Task<IDbCommand> Exec(IDbConnection dbConn, Func<IDbCommand, Task<IDbCommand>> filter)
+    public async virtual Task<IDbCommand> Exec(IDbConnection dbConn, Func<IDbCommand, Task<IDbCommand>> filter)
     {
         var dbCmd = this.CreateCommand(dbConn);
         return await filter(dbCmd);
@@ -302,7 +302,7 @@ public class OrmLiteExecFilter : IOrmLiteExecFilter
     /// </summary>
     /// <param name="dbConn">The database connection.</param>
     /// <param name="filter">The filter.</param>
-    public virtual async Task Exec(IDbConnection dbConn, Func<IDbCommand, Task> filter)
+    public async virtual Task Exec(IDbConnection dbConn, Func<IDbCommand, Task> filter)
     {
         var dbCmd = this.CreateCommand(dbConn);
         var id = Diagnostics.OrmLite.WriteCommandBefore(dbCmd);

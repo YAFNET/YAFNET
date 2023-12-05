@@ -46,7 +46,7 @@ public static class PathUtils
     /// <param name="sb">The sb.</param>
     /// <param name="paths">The paths.</param>
     /// <returns>System.String.</returns>
-    internal static string CombinePaths(StringBuilder sb, params string[] paths)
+    static internal string CombinePaths(StringBuilder sb, params string[] paths)
     {
         AppendPaths(sb, paths);
         return sb.ToString();
@@ -98,7 +98,7 @@ public static class PathUtils
     /// <summary>
     /// The slashes
     /// </summary>
-    private static readonly char[] Slashes = { '/', '\\' };
+    private readonly static char[] Slashes = { '/', '\\' };
 
     /// <summary>
     /// Trims the end if.
@@ -225,7 +225,7 @@ public static class PathUtils
     /// <param name="items">The items.</param>
     /// <param name="converter">The converter.</param>
     /// <returns>List&lt;To&gt;.</returns>
-    internal static List<To> Map<To>(System.Collections.IEnumerable items, Func<object, To> converter)
+    static internal List<To> Map<To>(System.Collections.IEnumerable items, Func<object, To> converter)
     {
         return items == null ? new List<To>() : (from object item in items select converter(item)).ToList();
     }

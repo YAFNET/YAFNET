@@ -17,7 +17,7 @@ using ServiceStack.Text;
 /// <summary>
 /// Class ReadExpressionCommandExtensions.
 /// </summary>
-internal static class ReadExpressionCommandExtensions
+static internal class ReadExpressionCommandExtensions
 {
     /// <summary>
     /// Selects the specified q.
@@ -26,7 +26,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="q">The q.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> Select<T>(this IDbCommand dbCmd, SqlExpression<T> q)
+    static internal List<T> Select<T>(this IDbCommand dbCmd, SqlExpression<T> q)
     {
         var sql = q.SelectInto<T>(QueryType.Select);
         return dbCmd.ExprConvertToList<T>(sql, q.Params, onlyFields: q.OnlyFields);
@@ -39,7 +39,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="predicate">The predicate.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> Select<T>(this IDbCommand dbCmd, Expression<Func<T, bool>> predicate)
+    static internal List<T> Select<T>(this IDbCommand dbCmd, Expression<Func<T, bool>> predicate)
     {
         var q = dbCmd.GetDialectProvider().SqlExpression<T>();
         string sql = q.Where(predicate).SelectInto<T>(QueryType.Select);
@@ -55,7 +55,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="q">The q.</param>
     /// <returns>List&lt;Tuple&lt;T, T2&gt;&gt;.</returns>
-    internal static List<Tuple<T, T2>> SelectMulti<T, T2>(this IDbCommand dbCmd, SqlExpression<T> q)
+    static internal List<Tuple<T, T2>> SelectMulti<T, T2>(this IDbCommand dbCmd, SqlExpression<T> q)
     {
         q.SelectIfDistinct(q.CreateMultiSelect<T, T2, EOT, EOT, EOT, EOT, EOT, EOT>(dbCmd.GetDialectProvider()));
         return dbCmd.ExprConvertToList<Tuple<T, T2>>(q.ToSelectStatement(QueryType.Select), q.Params, onlyFields: q.OnlyFields);
@@ -70,7 +70,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="q">The q.</param>
     /// <returns>List&lt;Tuple&lt;T, T2, T3&gt;&gt;.</returns>
-    internal static List<Tuple<T, T2, T3>> SelectMulti<T, T2, T3>(this IDbCommand dbCmd, SqlExpression<T> q)
+    static internal List<Tuple<T, T2, T3>> SelectMulti<T, T2, T3>(this IDbCommand dbCmd, SqlExpression<T> q)
     {
         q.SelectIfDistinct(q.CreateMultiSelect<T, T2, T3, EOT, EOT, EOT, EOT, EOT>(dbCmd.GetDialectProvider()));
         return dbCmd.ExprConvertToList<Tuple<T, T2, T3>>(q.ToSelectStatement(QueryType.Select), q.Params, onlyFields: q.OnlyFields);
@@ -86,7 +86,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="q">The q.</param>
     /// <returns>List&lt;Tuple&lt;T, T2, T3, T4&gt;&gt;.</returns>
-    internal static List<Tuple<T, T2, T3, T4>> SelectMulti<T, T2, T3, T4>(this IDbCommand dbCmd, SqlExpression<T> q)
+    static internal List<Tuple<T, T2, T3, T4>> SelectMulti<T, T2, T3, T4>(this IDbCommand dbCmd, SqlExpression<T> q)
     {
         q.SelectIfDistinct(q.CreateMultiSelect<T, T2, T3, T4, EOT, EOT, EOT, EOT>(dbCmd.GetDialectProvider()));
         return dbCmd.ExprConvertToList<Tuple<T, T2, T3, T4>>(q.ToSelectStatement(QueryType.Select), q.Params, onlyFields: q.OnlyFields);
@@ -103,7 +103,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="q">The q.</param>
     /// <returns>List&lt;Tuple&lt;T, T2, T3, T4, T5&gt;&gt;.</returns>
-    internal static List<Tuple<T, T2, T3, T4, T5>> SelectMulti<T, T2, T3, T4, T5>(this IDbCommand dbCmd, SqlExpression<T> q)
+    static internal List<Tuple<T, T2, T3, T4, T5>> SelectMulti<T, T2, T3, T4, T5>(this IDbCommand dbCmd, SqlExpression<T> q)
     {
         q.SelectIfDistinct(q.CreateMultiSelect<T, T2, T3, T4, T5, EOT, EOT, EOT>(dbCmd.GetDialectProvider()));
         return dbCmd.ExprConvertToList<Tuple<T, T2, T3, T4, T5>>(q.ToSelectStatement(QueryType.Select), q.Params, onlyFields: q.OnlyFields);
@@ -121,7 +121,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="q">The q.</param>
     /// <returns>List&lt;Tuple&lt;T, T2, T3, T4, T5, T6&gt;&gt;.</returns>
-    internal static List<Tuple<T, T2, T3, T4, T5, T6>> SelectMulti<T, T2, T3, T4, T5, T6>(this IDbCommand dbCmd, SqlExpression<T> q)
+    static internal List<Tuple<T, T2, T3, T4, T5, T6>> SelectMulti<T, T2, T3, T4, T5, T6>(this IDbCommand dbCmd, SqlExpression<T> q)
     {
         q.SelectIfDistinct(q.CreateMultiSelect<T, T2, T3, T4, T5, T6, EOT, EOT>(dbCmd.GetDialectProvider()));
         return dbCmd.ExprConvertToList<Tuple<T, T2, T3, T4, T5, T6>>(q.ToSelectStatement(QueryType.Select), q.Params, onlyFields: q.OnlyFields);
@@ -140,13 +140,13 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="q">The q.</param>
     /// <returns>List&lt;Tuple&lt;T, T2, T3, T4, T5, T6, T7&gt;&gt;.</returns>
-    internal static List<Tuple<T, T2, T3, T4, T5, T6, T7>> SelectMulti<T, T2, T3, T4, T5, T6, T7>(this IDbCommand dbCmd, SqlExpression<T> q)
+    static internal List<Tuple<T, T2, T3, T4, T5, T6, T7>> SelectMulti<T, T2, T3, T4, T5, T6, T7>(this IDbCommand dbCmd, SqlExpression<T> q)
     {
         q.SelectIfDistinct(q.CreateMultiSelect<T, T2, T3, T4, T5, T6, T7, EOT>(dbCmd.GetDialectProvider()));
         return dbCmd.ExprConvertToList<Tuple<T, T2, T3, T4, T5, T6, T7>>(q.ToSelectStatement(QueryType.Select), q.Params, onlyFields: q.OnlyFields);
     }
 
-    internal static List<Tuple<T, T2, T3, T4, T5, T6, T7, T8>> SelectMulti<T, T2, T3, T4, T5, T6, T7, T8>(this IDbCommand dbCmd, SqlExpression<T> q)
+    static internal List<Tuple<T, T2, T3, T4, T5, T6, T7, T8>> SelectMulti<T, T2, T3, T4, T5, T6, T7, T8>(this IDbCommand dbCmd, SqlExpression<T> q)
     {
         q.SelectIfDistinct(q.CreateMultiSelect<T, T2, T3, T4, T5, T6, T7, T8>(dbCmd.GetDialectProvider()));
         return dbCmd.ExprConvertToList<Tuple<T, T2, T3, T4, T5, T6, T7, T8>>(q.ToSelectStatement(QueryType.Select), q.Params, onlyFields: q.OnlyFields);
@@ -165,7 +165,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="q">The q.</param>
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <returns>System.String.</returns>
-    internal static string CreateMultiSelect<T, T2, T3, T4, T5, T6, T7, T8>(this SqlExpression<T> q, IOrmLiteDialectProvider dialectProvider)
+    static internal string CreateMultiSelect<T, T2, T3, T4, T5, T6, T7, T8>(this SqlExpression<T> q, IOrmLiteDialectProvider dialectProvider)
     {
         var sb = StringBuilderCache.Allocate()
             .Append($"{dialectProvider.GetQuotedTableName(typeof(T).GetModelDefinition())}.*, {Sql.EOT}");
@@ -194,7 +194,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="q">The q.</param>
     /// <param name="tableSelects">The table selects.</param>
     /// <returns>System.String.</returns>
-    internal static string CreateMultiSelect(this ISqlExpression q, string[] tableSelects)
+    static internal string CreateMultiSelect(this ISqlExpression q, string[] tableSelects)
     {
         var sb = StringBuilderCache.Allocate();
 
@@ -218,7 +218,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="q">The q.</param>
     /// <param name="tableSelects">The table selects.</param>
     /// <returns>List&lt;Tuple&lt;T, T2&gt;&gt;.</returns>
-    internal static List<Tuple<T, T2>> SelectMulti<T, T2>(this IDbCommand dbCmd, SqlExpression<T> q, string[] tableSelects)
+    static internal List<Tuple<T, T2>> SelectMulti<T, T2>(this IDbCommand dbCmd, SqlExpression<T> q, string[] tableSelects)
     {
         return dbCmd.ExprConvertToList<Tuple<T, T2>>(q.Select(q.CreateMultiSelect(tableSelects)).ToSelectStatement(), q.Params, onlyFields: q.OnlyFields);
     }
@@ -233,7 +233,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="q">The q.</param>
     /// <param name="tableSelects">The table selects.</param>
     /// <returns>List&lt;Tuple&lt;T, T2, T3&gt;&gt;.</returns>
-    internal static List<Tuple<T, T2, T3>> SelectMulti<T, T2, T3>(this IDbCommand dbCmd, SqlExpression<T> q, string[] tableSelects)
+    static internal List<Tuple<T, T2, T3>> SelectMulti<T, T2, T3>(this IDbCommand dbCmd, SqlExpression<T> q, string[] tableSelects)
     {
         return dbCmd.ExprConvertToList<Tuple<T, T2, T3>>(q.Select(q.CreateMultiSelect(tableSelects)).ToSelectStatement(), q.Params, onlyFields: q.OnlyFields);
     }
@@ -249,7 +249,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="q">The q.</param>
     /// <param name="tableSelects">The table selects.</param>
     /// <returns>List&lt;Tuple&lt;T, T2, T3, T4&gt;&gt;.</returns>
-    internal static List<Tuple<T, T2, T3, T4>> SelectMulti<T, T2, T3, T4>(this IDbCommand dbCmd, SqlExpression<T> q, string[] tableSelects)
+    static internal List<Tuple<T, T2, T3, T4>> SelectMulti<T, T2, T3, T4>(this IDbCommand dbCmd, SqlExpression<T> q, string[] tableSelects)
     {
         return dbCmd.ExprConvertToList<Tuple<T, T2, T3, T4>>(q.Select(q.CreateMultiSelect(tableSelects)).ToSelectStatement(), q.Params, onlyFields: q.OnlyFields);
     }
@@ -266,7 +266,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="q">The q.</param>
     /// <param name="tableSelects">The table selects.</param>
     /// <returns>List&lt;Tuple&lt;T, T2, T3, T4, T5&gt;&gt;.</returns>
-    internal static List<Tuple<T, T2, T3, T4, T5>> SelectMulti<T, T2, T3, T4, T5>(this IDbCommand dbCmd, SqlExpression<T> q, string[] tableSelects)
+    static internal List<Tuple<T, T2, T3, T4, T5>> SelectMulti<T, T2, T3, T4, T5>(this IDbCommand dbCmd, SqlExpression<T> q, string[] tableSelects)
     {
         return dbCmd.ExprConvertToList<Tuple<T, T2, T3, T4, T5>>(q.Select(q.CreateMultiSelect(tableSelects)).ToSelectStatement(), q.Params, onlyFields: q.OnlyFields);
     }
@@ -284,7 +284,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="q">The q.</param>
     /// <param name="tableSelects">The table selects.</param>
     /// <returns>List&lt;Tuple&lt;T, T2, T3, T4, T5, T6&gt;&gt;.</returns>
-    internal static List<Tuple<T, T2, T3, T4, T5, T6>> SelectMulti<T, T2, T3, T4, T5, T6>(this IDbCommand dbCmd, SqlExpression<T> q, string[] tableSelects)
+    static internal List<Tuple<T, T2, T3, T4, T5, T6>> SelectMulti<T, T2, T3, T4, T5, T6>(this IDbCommand dbCmd, SqlExpression<T> q, string[] tableSelects)
     {
         return dbCmd.ExprConvertToList<Tuple<T, T2, T3, T4, T5, T6>>(q.Select(q.CreateMultiSelect(tableSelects)).ToSelectStatement(), q.Params, onlyFields: q.OnlyFields);
     }
@@ -303,12 +303,12 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="q">The q.</param>
     /// <param name="tableSelects">The table selects.</param>
     /// <returns>List&lt;Tuple&lt;T, T2, T3, T4, T5, T6, T7&gt;&gt;.</returns>
-    internal static List<Tuple<T, T2, T3, T4, T5, T6, T7>> SelectMulti<T, T2, T3, T4, T5, T6, T7>(this IDbCommand dbCmd, SqlExpression<T> q, string[] tableSelects)
+    static internal List<Tuple<T, T2, T3, T4, T5, T6, T7>> SelectMulti<T, T2, T3, T4, T5, T6, T7>(this IDbCommand dbCmd, SqlExpression<T> q, string[] tableSelects)
     {
         return dbCmd.ExprConvertToList<Tuple<T, T2, T3, T4, T5, T6, T7>>(q.Select(q.CreateMultiSelect(tableSelects)).ToSelectStatement(), q.Params, onlyFields: q.OnlyFields);
     }
 
-    internal static List<Tuple<T, T2, T3, T4, T5, T6, T7, T8>> SelectMulti<T, T2, T3, T4, T5, T6, T7, T8>(this IDbCommand dbCmd, SqlExpression<T> q, string[] tableSelects)
+    static internal List<Tuple<T, T2, T3, T4, T5, T6, T7, T8>> SelectMulti<T, T2, T3, T4, T5, T6, T7, T8>(this IDbCommand dbCmd, SqlExpression<T> q, string[] tableSelects)
     {
         return dbCmd.ExprConvertToList<Tuple<T, T2, T3, T4, T5, T6, T7, T8>>(q.Select(q.CreateMultiSelect(tableSelects)).ToSelectStatement(QueryType.Select), q.Params, onlyFields: q.OnlyFields);
     }
@@ -320,7 +320,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="predicate">The predicate.</param>
     /// <returns>T.</returns>
-    internal static T Single<T>(this IDbCommand dbCmd, Expression<Func<T, bool>> predicate)
+    static internal T Single<T>(this IDbCommand dbCmd, Expression<Func<T, bool>> predicate)
     {
         var q = dbCmd.GetDialectProvider().SqlExpression<T>();
 
@@ -334,7 +334,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="q">The q.</param>
     /// <returns>T.</returns>
-    internal static T Single<T>(this IDbCommand dbCmd, SqlExpression<T> q)
+    static internal T Single<T>(this IDbCommand dbCmd, SqlExpression<T> q)
     {
         string sql = q.Limit(1).SelectInto<T>(QueryType.Select);
 
@@ -380,7 +380,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="field">The field.</param>
     /// <param name="predicate">The predicate.</param>
     /// <returns>TKey.</returns>
-    internal static TKey Scalar<T, TKey>(this IDbCommand dbCmd,
+    static internal TKey Scalar<T, TKey>(this IDbCommand dbCmd,
                                          Expression<Func<T, object>> field, Expression<Func<T, bool>> predicate)
     {
         var q = dbCmd.GetDialectProvider().SqlExpression<T>();
@@ -395,7 +395,7 @@ internal static class ReadExpressionCommandExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="dbCmd">The database command.</param>
     /// <returns>System.Int64.</returns>
-    internal static long Count<T>(this IDbCommand dbCmd)
+    static internal long Count<T>(this IDbCommand dbCmd)
     {
         var q = dbCmd.GetDialectProvider().SqlExpression<T>();
         var sql = q.ToCountStatement();
@@ -409,7 +409,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="expression">The expression.</param>
     /// <returns>System.Int64.</returns>
-    internal static long Count<T>(this IDbCommand dbCmd, SqlExpression<T> expression)
+    static internal long Count<T>(this IDbCommand dbCmd, SqlExpression<T> expression)
     {
         var sql = expression.ToCountStatement();
         return GetCount(dbCmd, sql, expression.Params);
@@ -422,7 +422,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="predicate">The predicate.</param>
     /// <returns>System.Int64.</returns>
-    internal static long Count<T>(this IDbCommand dbCmd, Expression<Func<T, bool>> predicate)
+    static internal long Count<T>(this IDbCommand dbCmd, Expression<Func<T, bool>> predicate)
     {
         var q = dbCmd.GetDialectProvider().SqlExpression<T>();
         q.Where(predicate);
@@ -436,7 +436,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="sql">The SQL.</param>
     /// <returns>System.Int64.</returns>
-    internal static long GetCount(this IDbCommand dbCmd, string sql)
+    static internal long GetCount(this IDbCommand dbCmd, string sql)
     {
         return dbCmd.Column<long>(sql).Sum();
     }
@@ -448,7 +448,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="sqlParams">The SQL parameters.</param>
     /// <returns>System.Int64.</returns>
-    internal static long GetCount(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams)
+    static internal long GetCount(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams)
     {
         return dbCmd.Column<long>(sql, sqlParams).Sum();
     }
@@ -460,7 +460,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="expression">The expression.</param>
     /// <returns>System.Int64.</returns>
-    internal static long RowCount<T>(this IDbCommand dbCmd, SqlExpression<T> expression)
+    static internal long RowCount<T>(this IDbCommand dbCmd, SqlExpression<T> expression)
     {
         //ORDER BY throws when used in sub selects in SQL Server. Removing OrderBy() clause since it doesn't impact results
         var countExpr = expression.Clone().OrderBy();
@@ -474,7 +474,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="anonType">Type of the anon.</param>
     /// <returns>System.Int64.</returns>
-    internal static long RowCount(this IDbCommand dbCmd, string sql, object anonType)
+    static internal long RowCount(this IDbCommand dbCmd, string sql, object anonType)
     {
         if (anonType != null)
             dbCmd.SetParameters(anonType.ToObjectDictionary(), excludeDefaults: false, sql: ref sql);
@@ -489,7 +489,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="sql">The SQL.</param>
     /// <param name="sqlParams">The SQL parameters.</param>
     /// <returns>System.Int64.</returns>
-    internal static long RowCount(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams)
+    static internal long RowCount(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams)
     {
         return dbCmd.SetParameters(sqlParams).Scalar<long>(dbCmd.GetDialectProvider().ToRowCountStatement(sql));
     }
@@ -502,7 +502,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="expression">The expression.</param>
     /// <param name="include">The include.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> LoadSelect<T>(this IDbCommand dbCmd, SqlExpression<T> expression = null, IEnumerable<string> include = null)
+    static internal List<T> LoadSelect<T>(this IDbCommand dbCmd, SqlExpression<T> expression = null, IEnumerable<string> include = null)
     {
         return dbCmd.LoadListWithReferences<T, T>(expression, include);
     }
@@ -516,7 +516,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="expression">The expression.</param>
     /// <param name="include">The include.</param>
     /// <returns>List&lt;Into&gt;.</returns>
-    internal static List<Into> LoadSelect<Into, From>(this IDbCommand dbCmd, SqlExpression<From> expression, IEnumerable<string> include = null)
+    static internal List<Into> LoadSelect<Into, From>(this IDbCommand dbCmd, SqlExpression<From> expression, IEnumerable<string> include = null)
     {
         return dbCmd.LoadListWithReferences<Into, From>(expression, include);
     }
@@ -529,7 +529,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="predicate">The predicate.</param>
     /// <param name="include">The include.</param>
     /// <returns>List&lt;T&gt;.</returns>
-    internal static List<T> LoadSelect<T>(this IDbCommand dbCmd, Expression<Func<T, bool>> predicate, IEnumerable<string> include = null)
+    static internal List<T> LoadSelect<T>(this IDbCommand dbCmd, Expression<Func<T, bool>> predicate, IEnumerable<string> include = null)
     {
         var expr = dbCmd.GetDialectProvider().SqlExpression<T>().Where(predicate);
         return dbCmd.LoadListWithReferences<T, T>(expr, include);
@@ -541,7 +541,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="sql">The SQL.</param>
     /// <returns>DataTable.</returns>
-    internal static DataTable GetSchemaTable(this IDbCommand dbCmd, string sql)
+    static internal DataTable GetSchemaTable(this IDbCommand dbCmd, string sql)
     {
         using var reader = dbCmd.ExecReader(sql, CommandBehavior.KeyInfo);
         return reader.GetSchemaTable();
@@ -571,7 +571,7 @@ internal static class ReadExpressionCommandExtensions
     /// <param name="dt">The dt.</param>
     /// <param name="dbCmd">The database command.</param>
     /// <returns>ColumnSchema[].</returns>
-    internal static ColumnSchema[] ToColumnSchemas(this DataTable dt, IDbCommand dbCmd)
+    static internal ColumnSchema[] ToColumnSchemas(this DataTable dt, IDbCommand dbCmd)
     {
         var ret = new List<ColumnSchema>();
         foreach (DataRow row in dt.Rows)

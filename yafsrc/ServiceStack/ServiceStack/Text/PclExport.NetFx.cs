@@ -668,7 +668,7 @@ namespace ServiceStack.Text
         /// <summary>
         /// The serializer
         /// </summary>
-        private static readonly ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
+        private readonly static ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
 
         /// <summary>
         /// Verifies the start index of the and get.
@@ -1018,7 +1018,7 @@ namespace ServiceStack.Text
         /// <summary>
         /// The type lookyp
         /// </summary>
-        private static readonly Hashtable typeLookyp = new();
+        private readonly static Hashtable typeLookyp = new();
 
         /// <summary>
         /// Create a new instance of this type
@@ -1203,7 +1203,7 @@ namespace ServiceStack.Text
         /// <summary>
         /// The strinq equals
         /// </summary>
-        private static readonly MethodInfo strinqEquals = typeof(string).GetMethod("op_Equality", new Type[] { typeof(string), typeof(string) });
+        private readonly static MethodInfo strinqEquals = typeof(string).GetMethod("op_Equality", new Type[] { typeof(string), typeof(string) });
 
         /// <summary>
         /// Class DelegateAccessor. This class cannot be inherited.

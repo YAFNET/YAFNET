@@ -97,7 +97,7 @@ public static class DateTimeSerializer
     /// <summary>
     /// The XSD time separator index
     /// </summary>
-    private static readonly int XsdTimeSeparatorIndex = XsdDateTimeFormat.IndexOf(XsdTimeSeparator);
+    private readonly static int XsdTimeSeparatorIndex = XsdDateTimeFormat.IndexOf(XsdTimeSeparator);
     /// <summary>
     /// The XSD UTC suffix
     /// </summary>
@@ -105,11 +105,11 @@ public static class DateTimeSerializer
     /// <summary>
     /// The date time separators
     /// </summary>
-    private static readonly char[] DateTimeSeparators = { '-', '/' };
+    private readonly static char[] DateTimeSeparators = { '-', '/' };
     /// <summary>
     /// The UTC offset information regex
     /// </summary>
-    private static readonly Regex UtcOffsetInfoRegex = new("([+-](?:2[0-3]|[0-1][0-9]):[0-5][0-9])", RegexOptions.Compiled);
+    private readonly static Regex UtcOffsetInfoRegex = new("([+-](?:2[0-3]|[0-1][0-9]):[0-5][0-9])", RegexOptions.Compiled);
 
     /// <summary>
     /// Gets or sets the on parse error function.
@@ -637,7 +637,7 @@ public static class DateTimeSerializer
     /// <summary>
     /// The time zone chars
     /// </summary>
-    static readonly char[] TimeZoneChars = { '+', '-' };
+    readonly static char[] TimeZoneChars = { '+', '-' };
 
     /// <summary>
     /// The minimum date time offset WCF value
@@ -765,7 +765,7 @@ public static class DateTimeSerializer
     /// <summary>
     /// The local time zone
     /// </summary>
-    internal static TimeZoneInfo LocalTimeZone = GetLocalTimeZoneInfo();
+    static internal TimeZoneInfo LocalTimeZone = GetLocalTimeZoneInfo();
 
     /// <summary>
     /// Uses the configuration specified setting.

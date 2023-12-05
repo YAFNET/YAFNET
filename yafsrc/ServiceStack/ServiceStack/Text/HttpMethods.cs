@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 public static class HttpMethods
 {
-    static readonly string[] allVerbs =
+    readonly static string[] allVerbs =
         {
             "OPTIONS", "GET", "HEAD", "POST", "PUT", "DELETE", "TRACE", "CONNECT", // RFC 2616
             "PROPFIND", "PROPPATCH", "MKCOL", "COPY", "MOVE", "LOCK", "UNLOCK", // RFC 2518

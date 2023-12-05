@@ -133,7 +133,7 @@ public static class StreamExtensions
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
     /// <exception cref="ArgumentOutOfRangeException">nameof(bufferSize)</exception>
-    public static async Task<byte[]> ReadFullyAsync(this Stream input, int bufferSize, CancellationToken token = default)
+    public async static Task<byte[]> ReadFullyAsync(this Stream input, int bufferSize, CancellationToken token = default)
     {
         if (bufferSize < 1)
             throw new ArgumentOutOfRangeException(nameof(bufferSize));
@@ -162,7 +162,7 @@ public static class StreamExtensions
     /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
     /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
     /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
-    public static async Task<byte[]> ReadFullyAsync(this Stream input, byte[] buffer, CancellationToken token = default)
+    public async static Task<byte[]> ReadFullyAsync(this Stream input, byte[] buffer, CancellationToken token = default)
     {
         if (buffer == null)
             throw new ArgumentNullException(nameof(buffer));
@@ -285,7 +285,7 @@ public static class StreamExtensions
     /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
     /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
     /// <exception cref="ArgumentNullException">nameof(buffer)</exception>
-    public static async Task<long> CopyToAsync(this Stream input, Stream output, byte[] buffer, CancellationToken token = default)
+    public async static Task<long> CopyToAsync(this Stream input, Stream output, byte[] buffer, CancellationToken token = default)
     {
         if (buffer == null)
             throw new ArgumentNullException(nameof(buffer));
@@ -629,7 +629,7 @@ public static class StreamExtensions
     /// <param name="encoding">The encoding.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    public static async Task WriteToAsync(this MemoryStream stream, Stream output, Encoding encoding, CancellationToken token)
+    public async static Task WriteToAsync(this MemoryStream stream, Stream output, Encoding encoding, CancellationToken token)
     {
 #if NETCORE
             if (stream.TryGetBuffer(out var buffer))
@@ -698,7 +698,7 @@ public static class StreamExtensions
     /// </summary>
     /// <param name="stream">The stream.</param>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    public static async Task<MemoryStream> CopyToNewMemoryStreamAsync(this Stream stream)
+    public async static Task<MemoryStream> CopyToNewMemoryStreamAsync(this Stream stream)
     {
         var ms = MemoryStreamFactory.GetStream();
         await stream.CopyToAsync(ms).ConfigAwait();
