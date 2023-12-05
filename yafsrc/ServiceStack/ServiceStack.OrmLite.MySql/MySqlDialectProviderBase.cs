@@ -688,7 +688,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
             sbConstraints.Append(",\n" + uniqueConstraints);
         }
 
-        if (modelDef.CompositePrimaryKeys.Any())
+        if (modelDef.CompositePrimaryKeys.Count != 0)
         {
             sbConstraints.Append(",\n");
 

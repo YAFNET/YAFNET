@@ -2544,7 +2544,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
             setFields
                 .Append(this.DialectProvider.GetQuotedColumnName(fieldDef.FieldName))
-                .Append("=")
+                .Append('=')
                 .Append(this.DialectProvider.GetUpdateParam(dbCmd, value, fieldDef));
         }
 
@@ -2592,7 +2592,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
             setFields
                 .Append(this.DialectProvider.GetQuotedColumnName(fieldDef.FieldName))
-                .Append("=")
+                .Append('=')
                 .Append(this.DialectProvider.GetUpdateParam(dbCmd, value, fieldDef));
         }
 

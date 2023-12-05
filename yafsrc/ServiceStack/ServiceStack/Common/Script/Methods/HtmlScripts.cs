@@ -972,19 +972,7 @@ public class HtmlScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="attrs">The attrs.</param>
     /// <returns>IRawString.</returns>
     public IRawString htmlB(string innerHtml, Dictionary<string, object> attrs) => htmlTag(innerHtml, attrs, "b");
-    /// <summary>
-    /// HTMLs the b.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <returns>IRawString.</returns>
-    public IRawString htmlB(string text) => htmlTag(new Dictionary<string, object> { ["text"] = text }, "b");
 
-    /// <summary>
-    /// HTMLs the ul.
-    /// </summary>
-    /// <param name="attrs">The attrs.</param>
-    /// <returns>IRawString.</returns>
-    public IRawString htmlUl(Dictionary<string, object> attrs) => htmlTag(attrs, "ul");
     /// <summary>
     /// HTMLs the ul.
     /// </summary>

@@ -158,7 +158,7 @@ public class FileSystemVirtualFiles
 
         var realFilePath = RootDir.RealPath.CombineWith(filePath);
         EnsureDirectory(Path.GetDirectoryName(realFilePath));
-        using var fs = File.Open(realFilePath, FileMode.Create, FileAccess.Write);
+        await using var fs = File.Open(realFilePath, FileMode.Create, FileAccess.Write);
 
         switch (contents)
         {
@@ -178,7 +178,7 @@ public class FileSystemVirtualFiles
                 await fs.WriteAsync(romBytes, token).ConfigAwait();
                 break;
             case Stream stream:
-                await stream.CopyToAsync(fs).ConfigAwait();
+                await stream.CopyToAsync(fs, token).ConfigAwait();
                 break;
             default:
                 throw this.CreateContentNotSupportedException(contents);

@@ -411,7 +411,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public IOrmLiteConverter GetConverter(Type type)
     {
         type = Nullable.GetUnderlyingType(type) ?? type;
-        return this.Converters.TryGetValue(type, out IOrmLiteConverter converter) ? converter : null;
+        return this.Converters.TryGetValue(type, out var converter) ? converter : null;
     }
 
     /// <summary>
@@ -422,7 +422,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public virtual bool ShouldQuoteValue(Type fieldType)
     {
         var converter = this.GetConverter(fieldType);
-        return converter == null || converter is NativeValueOrmLiteConverter;
+        return converter is null or NativeValueOrmLiteConverter;
     }
 
     /// <summary>
@@ -826,7 +826,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         sql.Append($"{this.GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
 
         // Check for Composite PrimaryKey First
-        if (modelDef.CompositePrimaryKeys.Any())
+        if (modelDef.CompositePrimaryKeys.Count != 0)
         {
             sql.Append(fieldDef.IsNullable ? " NULL" : " NOT NULL");
         }
@@ -2335,7 +2335,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         if (string.IsNullOrEmpty(sql))
             return null;
 
-        if (!sql.StartsWith("{"))
+        if (!sql.StartsWith('{'))
             return sql;
 
         return this.Variables.TryGetValue(sql, out var variable) ? variable : null;
@@ -2458,7 +2458,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             sbConstraints.Append(",\n" + uniqueConstraints);
         }
 
-        if (modelDef.CompositePrimaryKeys.Any())
+        if (modelDef.CompositePrimaryKeys.Count != 0)
         {
             sbConstraints.Append(",\n");
 
@@ -2596,7 +2596,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
 
                 var parts = fieldName.SplitOnLast(' ');
                 if (parts.Length == 2 &&
-                    (parts[1].ToLower().StartsWith("desc") || parts[1].ToLower().StartsWith("asc")))
+                    (parts[1].StartsWith("desc", StringComparison.CurrentCultureIgnoreCase) || parts[1].StartsWith("asc", StringComparison.CurrentCultureIgnoreCase)))
                 {
                     sb.Append(this.GetQuotedColumnName(parts[0])).Append(' ').Append(parts[1]);
                 }
@@ -3216,7 +3216,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         var referenceMD = ModelDefinition<TForeign>.Definition;
         var referenceFieldName = referenceMD.GetFieldDefinition(foreignField).FieldName;
 
-        string name = this.GetQuotedName(
+        var name = this.GetQuotedName(
             foreignKeyName.IsNullOrEmpty()
                 ? "fk_" + sourceMD.ModelName + "_" + fieldName + "_" + referenceFieldName
                 : foreignKeyName);
@@ -3255,14 +3255,14 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         var sourceDef = ModelDefinition<T>.Definition;
         var fieldName = sourceDef.GetFieldDefinition(field).FieldName;
 
-        string name = this.GetQuotedName(
+        var name = this.GetQuotedName(
             indexName.IsNullOrEmpty()
                 ? (unique ? "uidx" : "idx") + "_" + sourceDef.ModelName + "_" + fieldName
                 : indexName);
 
-        string command = $"CREATE {(unique ? "UNIQUE" : string.Empty)} " +
-                         $"INDEX {name} ON {this.GetQuotedTableName(sourceDef)}" +
-                         $"({this.GetQuotedColumnName(fieldName)});";
+        var command = $"CREATE {(unique ? "UNIQUE" : string.Empty)} " +
+                      $"INDEX {name} ON {this.GetQuotedTableName(sourceDef)}" +
+                      $"({this.GetQuotedColumnName(fieldName)});";
         return command;
     }
 

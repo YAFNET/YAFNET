@@ -80,13 +80,6 @@ public static class JSON
         var unescapedString = JsonTypeSerializer.Unescape(json);
         return unescapedString.ToString();
     }
-
-    /// <summary>
-    /// Stringifies the specified value.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>System.String.</returns>
-    public static string stringify(object value) => value.ToJson();
 }
 
 /// <summary>
@@ -94,31 +87,6 @@ public static class JSON
 /// </summary>
 public static class JS
 {
-    /// <summary>
-    /// The eval cache key prefix
-    /// </summary>
-    public const string EvalCacheKeyPrefix = "scriptvalue:";
-    /// <summary>
-    /// The eval script cache key prefix
-    /// </summary>
-    public const string EvalScriptCacheKeyPrefix = "scriptvalue.script:";
-    /// <summary>
-    /// The eval ast cache key prefix
-    /// </summary>
-    public const string EvalAstCacheKeyPrefix = "scriptvalue.ast:";
-
-    /// <summary>
-    /// Configure ServiceStack.Text JSON Serializer to use Templates JS parsing
-    /// </summary>
-    public static void Configure()
-    {
-        JsonTypeSerializer.Instance.ObjectDeserializer = JSON.parseSpan;
-    }
-
-    /// <summary>
-    /// Uns the configure.
-    /// </summary>
-    public static void UnConfigure() => JsonTypeSerializer.Instance.ObjectDeserializer = null;
 
     /// <summary>
     /// Creates the scope.
@@ -135,52 +103,6 @@ public static class JS
         context.Init();
         return new ScriptScopeContext(new PageResult(context.EmptyPage), null, args);
     }
-
-    /// <summary>
-    /// Parse JS Expression into an AST Token
-    /// </summary>
-    /// <param name="js">The js.</param>
-    /// <returns>JsToken.</returns>
-    public static JsToken expression(string js)
-    {
-        js.ParseJsExpression(out var token);
-        return token;
-    }
-
-    /// <summary>
-    /// Returns cached AST of a single expression
-    /// </summary>
-    /// <param name="context">The context.</param>
-    /// <param name="expr">The expr.</param>
-    /// <returns>JsToken.</returns>
-    public static JsToken expressionCached(ScriptContext context, string expr)
-    {
-        var evalAstCacheKey = EvalAstCacheKeyPrefix + expr;
-        var ret = (JsToken)context.Cache.GetOrAdd(evalAstCacheKey, key =>
-            expression(expr));
-        return ret;
-    }
-
-    /// <summary>
-    /// Returns cached AST of a script
-    /// </summary>
-    /// <param name="context">The context.</param>
-    /// <param name="evalCode">The eval code.</param>
-    /// <returns>SharpPage.</returns>
-    public static SharpPage scriptCached(ScriptContext context, string evalCode)
-    {
-        var evalScriptCacheKey = EvalScriptCacheKeyPrefix + evalCode;
-        var ret = (SharpPage)context.Cache.GetOrAdd(evalScriptCacheKey, key =>
-            context.CodeSharpPage(evalCode));
-        return ret;
-    }
-
-    /// <summary>
-    /// Evals the specified js.
-    /// </summary>
-    /// <param name="js">The js.</param>
-    /// <returns>System.Object.</returns>
-    public static object eval(string js) => eval(js, CreateScope());
     /// <summary>
     /// Evals the specified js.
     /// </summary>
@@ -198,50 +120,5 @@ public static class JS
     {
         js.ParseJsExpression(out var token);
         return ScriptLanguage.UnwrapValue(token.Evaluate(scope));
-    }
-
-    /// <summary>
-    /// Evals the specified context.
-    /// </summary>
-    /// <param name="context">The context.</param>
-    /// <param name="expr">The expr.</param>
-    /// <param name="args">The arguments.</param>
-    /// <returns>System.Object.</returns>
-    public static object eval(ScriptContext context, string expr, Dictionary<string, object> args = null) =>
-        eval(context, expr.AsSpan(), args);
-    /// <summary>
-    /// Evals the specified context.
-    /// </summary>
-    /// <param name="context">The context.</param>
-    /// <param name="expr">The expr.</param>
-    /// <param name="args">The arguments.</param>
-    /// <returns>System.Object.</returns>
-    public static object eval(ScriptContext context, ReadOnlySpan<char> expr, Dictionary<string, object> args = null)
-    {
-        return eval(expr, new ScriptScopeContext(new PageResult(context.EmptyPage), null, args));
-    }
-    /// <summary>
-    /// Evals the specified context.
-    /// </summary>
-    /// <param name="context">The context.</param>
-    /// <param name="token">The token.</param>
-    /// <param name="args">The arguments.</param>
-    /// <returns>System.Object.</returns>
-    public static object eval(ScriptContext context, JsToken token, Dictionary<string, object> args = null)
-    {
-        return ScriptLanguage.UnwrapValue(token.Evaluate(new ScriptScopeContext(new PageResult(context.EmptyPage), null, args)));
-    }
-
-    /// <summary>
-    /// Lightweight expression evaluator of a single JS Expression with results cached in global context cache
-    /// </summary>
-    /// <param name="context">The context.</param>
-    /// <param name="expr">The expr.</param>
-    /// <returns>System.Object.</returns>
-    public static object evalCached(ScriptContext context, string expr)
-    {
-        var evalValue = context.Cache.GetOrAdd(EvalCacheKeyPrefix + expr,
-            key => eval(context, expr.AsSpan()));
-        return evalValue;
     }
 }

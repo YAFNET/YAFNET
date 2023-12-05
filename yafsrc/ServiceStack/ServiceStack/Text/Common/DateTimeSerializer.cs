@@ -546,7 +546,7 @@ public static class DateTimeSerializer
     /// <returns>System.TimeSpan.</returns>
     public static TimeSpan ParseTimeSpan(string dateTimeStr)
     {
-        return dateTimeStr.StartsWith("P", StringComparison.Ordinal) || dateTimeStr.StartsWith("-P", StringComparison.Ordinal)
+        return dateTimeStr.StartsWith('P') || dateTimeStr.StartsWith("-P", StringComparison.Ordinal)
                    ? ParseXsdTimeSpan(dateTimeStr)
                    : dateTimeStr.Contains(":")
                        ? TimeSpan.Parse(dateTimeStr)

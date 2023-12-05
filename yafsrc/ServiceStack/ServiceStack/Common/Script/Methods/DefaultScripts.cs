@@ -110,11 +110,6 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// </summary>
     /// <returns>DateTimeOffset.</returns>
     public DateTimeOffset nowOffset() => DateTimeOffset.Now;
-    /// <summary>
-    /// UTCs the now offset.
-    /// </summary>
-    /// <returns>DateTimeOffset.</returns>
-    public DateTimeOffset utcNowOffset() => DateTimeOffset.UtcNow;
 
     /// <summary>
     /// Nguids this instance.
@@ -963,26 +958,12 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     public object ifShowRaw(object test, object useValue) => isTrue(test) ? raw(useValue) : StopExecution.Value;
 
     /// <summary>
-    /// Uses if.
-    /// </summary>
-    /// <param name="useValue">The use value.</param>
-    /// <param name="test">The test.</param>
-    /// <returns>System.Object.</returns>
-    public object useIf(object useValue, object test) => isTrue(test) ? useValue : StopExecution.Value;
-    /// <summary>
     /// Shows if.
     /// </summary>
     /// <param name="useValue">The use value.</param>
     /// <param name="test">The test.</param>
     /// <returns>System.Object.</returns>
     public object showIf(object useValue, object test) => isTrue(test) ? useValue : StopExecution.Value;
-    /// <summary>
-    /// Shows if exists.
-    /// </summary>
-    /// <param name="useValue">The use value.</param>
-    /// <param name="test">The test.</param>
-    /// <returns>System.Object.</returns>
-    public object showIfExists(object useValue, object test) => !isNull(test) ? useValue : StopExecution.Value;
 
     /// <summary>
     /// Uses the specified ignore target.
@@ -2267,25 +2248,6 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <returns>System.Int32.</returns>
     public int toCharCode(object target) => toChar(target);
 
-    /// <summary>
-    /// To the UTF8 bytes.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Byte[].</returns>
-    public byte[] toUtf8Bytes(string target) => target.ToUtf8Bytes();
-    /// <summary>
-    /// Froms the UTF8 bytes.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.String.</returns>
-    public string fromUtf8Bytes(byte[] target) => target.FromUtf8Bytes();
-
-    /// <summary>
-    /// To the byte.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Byte.</returns>
-    public byte toByte(object target) => target.ConvertTo<byte>();
     /// <summary>
     /// To the int.
     /// </summary>

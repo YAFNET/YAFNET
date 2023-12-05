@@ -66,14 +66,6 @@ public static partial class HttpUtils
                                                                      | DecompressionMethods.GZip,
             };
 
-    // This was the least desirable end to this sadness https://github.com/dotnet/aspnetcore/issues/28385
-    // Requires <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" /> 
-    // public static IHttpClientFactory ClientFactory { get; set; } = new ServiceCollection()
-    //     .AddHttpClient()
-    //     .Configure<HttpClientFactoryOptions>(options => 
-    //         options.HttpMessageHandlerBuilderActions.Add(builder => builder.PrimaryHandler = HandlerFactory))
-    //     .BuildServiceProvider().GetRequiredService<IHttpClientFactory>();
-
     // Escape & BYO IHttpClientFactory
     /// <summary>
     /// The client factory
@@ -117,87 +109,6 @@ public static partial class HttpUtils
         Action<HttpResponseMessage>? responseFilter = null)
     {
         return url.GetStringFromUrl(accept: MimeTypes.Json, requestFilter, responseFilter);
-    }
-
-    /// <summary>
-    /// Gets the json from URL asynchronous.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>System.Threading.Tasks.Task&lt;string&gt;.</returns>
-    public static Task<string> GetJsonFromUrlAsync(
-        this string url,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null,
-        CancellationToken token = default)
-    {
-        return url.GetStringFromUrlAsync(accept: MimeTypes.Json, requestFilter, responseFilter, token: token);
-    }
-
-    /// <summary>
-    /// Gets the XML from URL.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <returns>string.</returns>
-    public static string GetXmlFromUrl(
-        this string url,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null)
-    {
-        return url.GetStringFromUrl(accept: MimeTypes.Xml, requestFilter, responseFilter);
-    }
-
-    /// <summary>
-    /// Gets the XML from URL asynchronous.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>System.Threading.Tasks.Task&lt;string&gt;.</returns>
-    public static Task<string> GetXmlFromUrlAsync(
-        this string url,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null,
-        CancellationToken token = default)
-    {
-        return url.GetStringFromUrlAsync(accept: MimeTypes.Xml, requestFilter, responseFilter, token: token);
-    }
-
-    /// <summary>
-    /// Gets the CSV from URL.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <returns>string.</returns>
-    public static string GetCsvFromUrl(
-        this string url,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null)
-    {
-        return url.GetStringFromUrl(accept: MimeTypes.Csv, requestFilter, responseFilter);
-    }
-
-    /// <summary>
-    /// Gets the CSV from URL asynchronous.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>System.Threading.Tasks.Task&lt;string&gt;.</returns>
-    public static Task<string> GetCsvFromUrlAsync(
-        this string url,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null,
-        CancellationToken token = default)
-    {
-        return url.GetStringFromUrlAsync(accept: MimeTypes.Csv, requestFilter, responseFilter, token: token);
     }
 
     /// <summary>
@@ -377,7 +288,7 @@ public static partial class HttpUtils
         Action<HttpRequestMessage>? requestFilter = null,
         Action<HttpResponseMessage>? responseFilter = null)
     {
-        string? postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
+        var postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
 
         return SendStringToUrl(
             url,
@@ -407,7 +318,7 @@ public static partial class HttpUtils
         Action<HttpResponseMessage>? responseFilter = null,
         CancellationToken token = default)
     {
-        string? postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
+        var postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
 
         return SendStringToUrlAsync(
             url,
@@ -415,159 +326,6 @@ public static partial class HttpUtils
             contentType: MimeTypes.FormUrlEncoded,
             requestBody: postFormData,
             accept: accept,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter,
-            token: token);
-    }
-
-    /// <summary>
-    /// Posts the json to URL.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="json">The json.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <returns>string.</returns>
-    public static string PostJsonToUrl(
-        this string url,
-        string json,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null)
-    {
-        return SendStringToUrl(
-            url,
-            method: HttpMethods.Post,
-            requestBody: json,
-            contentType: MimeTypes.Json,
-            accept: MimeTypes.Json,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter);
-    }
-
-    /// <summary>
-    /// Posts the json to URL asynchronous.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="json">The json.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>System.Threading.Tasks.Task&lt;string&gt;.</returns>
-    public static Task<string> PostJsonToUrlAsync(
-        this string url,
-        string json,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null,
-        CancellationToken token = default)
-    {
-        return SendStringToUrlAsync(
-            url,
-            method: HttpMethods.Post,
-            requestBody: json,
-            contentType: MimeTypes.Json,
-            accept: MimeTypes.Json,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter,
-            token: token);
-    }
-
-    /// <summary>
-    /// Posts the json to URL.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="data">The data.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <returns>string.</returns>
-    public static string PostJsonToUrl(
-        this string url,
-        object data,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null)
-    {
-        return SendStringToUrl(
-            url,
-            method: HttpMethods.Post,
-            requestBody: data.ToJson(),
-            contentType: MimeTypes.Json,
-            accept: MimeTypes.Json,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter);
-    }
-
-    /// <summary>
-    /// Posts the json to URL asynchronous.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="data">The data.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>System.Threading.Tasks.Task&lt;string&gt;.</returns>
-    public static Task<string> PostJsonToUrlAsync(
-        this string url,
-        object data,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null,
-        CancellationToken token = default)
-    {
-        return SendStringToUrlAsync(
-            url,
-            method: HttpMethods.Post,
-            requestBody: data.ToJson(),
-            contentType: MimeTypes.Json,
-            accept: MimeTypes.Json,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter,
-            token: token);
-    }
-
-    /// <summary>
-    /// Posts the XML to URL.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="xml">The XML.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <returns>string.</returns>
-    public static string PostXmlToUrl(
-        this string url,
-        string xml,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null)
-    {
-        return SendStringToUrl(
-            url,
-            method: HttpMethods.Post,
-            requestBody: xml,
-            contentType: MimeTypes.Xml,
-            accept: MimeTypes.Xml,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter);
-    }
-
-    /// <summary>
-    /// Posts the XML to URL asynchronous.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="xml">The XML.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>System.Threading.Tasks.Task&lt;string&gt;.</returns>
-    public static Task<string> PostXmlToUrlAsync(
-        this string url,
-        string xml,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null,
-        CancellationToken token = default)
-    {
-        return SendStringToUrlAsync(
-            url,
-            method: HttpMethods.Post,
-            requestBody: xml,
-            contentType: MimeTypes.Xml,
-            accept: MimeTypes.Xml,
             requestFilter: requestFilter,
             responseFilter: responseFilter,
             token: token);
@@ -754,7 +512,7 @@ public static partial class HttpUtils
         Action<HttpRequestMessage>? requestFilter = null,
         Action<HttpResponseMessage>? responseFilter = null)
     {
-        string? postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
+        var postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
 
         return SendStringToUrl(
             url,
@@ -784,7 +542,7 @@ public static partial class HttpUtils
         Action<HttpResponseMessage>? responseFilter = null,
         CancellationToken token = default)
     {
-        string? postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
+        var postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
 
         return SendStringToUrlAsync(
             url,
@@ -792,159 +550,6 @@ public static partial class HttpUtils
             contentType: MimeTypes.FormUrlEncoded,
             requestBody: postFormData,
             accept: accept,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter,
-            token: token);
-    }
-
-    /// <summary>
-    /// Puts the json to URL.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="json">The json.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <returns>string.</returns>
-    public static string PutJsonToUrl(
-        this string url,
-        string json,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null)
-    {
-        return SendStringToUrl(
-            url,
-            method: HttpMethods.Put,
-            requestBody: json,
-            contentType: MimeTypes.Json,
-            accept: MimeTypes.Json,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter);
-    }
-
-    /// <summary>
-    /// Puts the json to URL asynchronous.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="json">The json.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>System.Threading.Tasks.Task&lt;string&gt;.</returns>
-    public static Task<string> PutJsonToUrlAsync(
-        this string url,
-        string json,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null,
-        CancellationToken token = default)
-    {
-        return SendStringToUrlAsync(
-            url,
-            method: HttpMethods.Put,
-            requestBody: json,
-            contentType: MimeTypes.Json,
-            accept: MimeTypes.Json,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter,
-            token: token);
-    }
-
-    /// <summary>
-    /// Puts the json to URL.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="data">The data.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <returns>string.</returns>
-    public static string PutJsonToUrl(
-        this string url,
-        object data,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null)
-    {
-        return SendStringToUrl(
-            url,
-            method: HttpMethods.Put,
-            requestBody: data.ToJson(),
-            contentType: MimeTypes.Json,
-            accept: MimeTypes.Json,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter);
-    }
-
-    /// <summary>
-    /// Puts the json to URL asynchronous.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="data">The data.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>System.Threading.Tasks.Task&lt;string&gt;.</returns>
-    public static Task<string> PutJsonToUrlAsync(
-        this string url,
-        object data,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null,
-        CancellationToken token = default)
-    {
-        return SendStringToUrlAsync(
-            url,
-            method: HttpMethods.Put,
-            requestBody: data.ToJson(),
-            contentType: MimeTypes.Json,
-            accept: MimeTypes.Json,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter,
-            token: token);
-    }
-
-    /// <summary>
-    /// Puts the XML to URL.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="xml">The XML.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <returns>string.</returns>
-    public static string PutXmlToUrl(
-        this string url,
-        string xml,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null)
-    {
-        return SendStringToUrl(
-            url,
-            method: HttpMethods.Put,
-            requestBody: xml,
-            contentType: MimeTypes.Xml,
-            accept: MimeTypes.Xml,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter);
-    }
-
-    /// <summary>
-    /// Puts the XML to URL asynchronous.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="xml">The XML.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>System.Threading.Tasks.Task&lt;string&gt;.</returns>
-    public static Task<string> PutXmlToUrlAsync(
-        this string url,
-        string xml,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null,
-        CancellationToken token = default)
-    {
-        return SendStringToUrlAsync(
-            url,
-            method: HttpMethods.Put,
-            requestBody: xml,
-            contentType: MimeTypes.Xml,
-            accept: MimeTypes.Xml,
             requestFilter: requestFilter,
             responseFilter: responseFilter,
             token: token);
@@ -972,33 +577,6 @@ public static partial class HttpUtils
             accept: MimeTypes.Csv,
             requestFilter: requestFilter,
             responseFilter: responseFilter);
-    }
-
-    /// <summary>
-    /// Puts the CSV to URL asynchronous.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="csv">The CSV.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>System.Threading.Tasks.Task&lt;string&gt;.</returns>
-    public static Task<string> PutCsvToUrlAsync(
-        this string url,
-        string csv,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null,
-        CancellationToken token = default)
-    {
-        return SendStringToUrlAsync(
-            url,
-            method: HttpMethods.Put,
-            requestBody: csv,
-            contentType: MimeTypes.Csv,
-            accept: MimeTypes.Csv,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter,
-            token: token);
     }
 
     /// <summary>
@@ -1131,7 +709,7 @@ public static partial class HttpUtils
         Action<HttpRequestMessage>? requestFilter = null,
         Action<HttpResponseMessage>? responseFilter = null)
     {
-        string? postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
+        var postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
 
         return SendStringToUrl(
             url,
@@ -1161,7 +739,7 @@ public static partial class HttpUtils
         Action<HttpResponseMessage>? responseFilter = null,
         CancellationToken token = default)
     {
-        string? postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
+        var postFormData = formData != null ? QueryStringSerializer.SerializeToString(formData) : null;
 
         return SendStringToUrlAsync(
             url,
@@ -1169,108 +747,6 @@ public static partial class HttpUtils
             contentType: MimeTypes.FormUrlEncoded,
             requestBody: postFormData,
             accept: accept,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter,
-            token: token);
-    }
-
-    /// <summary>
-    /// Patches the json to URL.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="json">The json.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <returns>string.</returns>
-    public static string PatchJsonToUrl(
-        this string url,
-        string json,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null)
-    {
-        return SendStringToUrl(
-            url,
-            method: HttpMethods.Patch,
-            requestBody: json,
-            contentType: MimeTypes.Json,
-            accept: MimeTypes.Json,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter);
-    }
-
-    /// <summary>
-    /// Patches the json to URL asynchronous.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="json">The json.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>System.Threading.Tasks.Task&lt;string&gt;.</returns>
-    public static Task<string> PatchJsonToUrlAsync(
-        this string url,
-        string json,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null,
-        CancellationToken token = default)
-    {
-        return SendStringToUrlAsync(
-            url,
-            method: HttpMethods.Patch,
-            requestBody: json,
-            contentType: MimeTypes.Json,
-            accept: MimeTypes.Json,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter,
-            token: token);
-    }
-
-    /// <summary>
-    /// Patches the json to URL.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="data">The data.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <returns>string.</returns>
-    public static string PatchJsonToUrl(
-        this string url,
-        object data,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null)
-    {
-        return SendStringToUrl(
-            url,
-            method: HttpMethods.Patch,
-            requestBody: data.ToJson(),
-            contentType: MimeTypes.Json,
-            accept: MimeTypes.Json,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter);
-    }
-
-    /// <summary>
-    /// Patches the json to URL asynchronous.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="data">The data.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>System.Threading.Tasks.Task&lt;string&gt;.</returns>
-    public static Task<string> PatchJsonToUrlAsync(
-        this string url,
-        object data,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null,
-        CancellationToken token = default)
-    {
-        return SendStringToUrlAsync(
-            url,
-            method: HttpMethods.Patch,
-            requestBody: data.ToJson(),
-            contentType: MimeTypes.Json,
-            accept: MimeTypes.Json,
             requestFilter: requestFilter,
             responseFilter: responseFilter,
             token: token);
@@ -1317,100 +793,6 @@ public static partial class HttpUtils
         return SendStringToUrlAsync(
             url,
             method: HttpMethods.Delete,
-            accept: accept,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter,
-            token: token);
-    }
-
-    /// <summary>
-    /// Optionses from URL.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="accept">The accept.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <returns>string.</returns>
-    public static string OptionsFromUrl(
-        this string url,
-        string accept = "*/*",
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null)
-    {
-        return SendStringToUrl(
-            url,
-            method: HttpMethods.Options,
-            accept: accept,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter);
-    }
-
-    /// <summary>
-    /// Optionses from URL asynchronous.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="accept">The accept.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>System.Threading.Tasks.Task&lt;string&gt;.</returns>
-    public static Task<string> OptionsFromUrlAsync(
-        this string url,
-        string accept = "*/*",
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null,
-        CancellationToken token = default)
-    {
-        return SendStringToUrlAsync(
-            url,
-            method: HttpMethods.Options,
-            accept: accept,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter,
-            token: token);
-    }
-
-    /// <summary>
-    /// Heads from URL.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="accept">The accept.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <returns>string.</returns>
-    public static string HeadFromUrl(
-        this string url,
-        string accept = "*/*",
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null)
-    {
-        return SendStringToUrl(
-            url,
-            method: HttpMethods.Head,
-            accept: accept,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter);
-    }
-
-    /// <summary>
-    /// Heads from URL asynchronous.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="accept">The accept.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>System.Threading.Tasks.Task&lt;string&gt;.</returns>
-    public static Task<string> HeadFromUrlAsync(
-        this string url,
-        string accept = "*/*",
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null,
-        CancellationToken token = default)
-    {
-        return SendStringToUrlAsync(
-            url,
-            method: HttpMethods.Head,
             accept: accept,
             requestFilter: requestFilter,
             responseFilter: responseFilter,
@@ -1476,7 +858,9 @@ public static partial class HttpUtils
         {
             httpReq.Content = new StringContent(requestBody, UseEncoding);
             if (contentType != null)
+            {
                 httpReq.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(contentType);
+            }
         }
 
         requestFilter?.Invoke(httpReq);
@@ -1551,7 +935,9 @@ public static partial class HttpUtils
         {
             httpReq.Content = new StringContent(requestBody, UseEncoding);
             if (contentType != null)
+            {
                 httpReq.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(contentType);
+            }
         }
 
         requestFilter?.Invoke(httpReq);
@@ -1560,51 +946,6 @@ public static partial class HttpUtils
         responseFilter?.Invoke(httpRes);
         httpRes.EnsureSuccessStatusCode();
         return await httpRes.Content.ReadAsStringAsync(token).ConfigAwait();
-    }
-
-    /// <summary>
-    /// Gets the bytes from URL.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="accept">The accept.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <returns>byte[].</returns>
-    public static byte[] GetBytesFromUrl(
-        this string url,
-        string accept = "*/*",
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null)
-    {
-        return url.SendBytesToUrl(
-            method: HttpMethods.Get,
-            accept: accept,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter);
-    }
-
-    /// <summary>
-    /// Gets the bytes from URL asynchronous.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="accept">The accept.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>System.Threading.Tasks.Task&lt;byte[]&gt;.</returns>
-    public static Task<byte[]> GetBytesFromUrlAsync(
-        this string url,
-        string accept = "*/*",
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null,
-        CancellationToken token = default)
-    {
-        return url.SendBytesToUrlAsync(
-            method: HttpMethods.Get,
-            accept: accept,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter,
-            token: token);
     }
 
     /// <summary>
@@ -1658,65 +999,6 @@ public static partial class HttpUtils
         return SendBytesToUrlAsync(
             url,
             method: HttpMethods.Post,
-            contentType: contentType,
-            requestBody: requestBody,
-            accept: accept,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter,
-            token: token);
-    }
-
-    /// <summary>
-    /// Puts the bytes to URL.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="requestBody">The request body.</param>
-    /// <param name="contentType">Type of the content.</param>
-    /// <param name="accept">The accept.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <returns>byte[].</returns>
-    public static byte[] PutBytesToUrl(
-        this string url,
-        byte[]? requestBody = null,
-        string? contentType = null,
-        string accept = "*/*",
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null)
-    {
-        return SendBytesToUrl(
-            url,
-            method: HttpMethods.Put,
-            contentType: contentType,
-            requestBody: requestBody,
-            accept: accept,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter);
-    }
-
-    /// <summary>
-    /// Puts the bytes to URL asynchronous.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="requestBody">The request body.</param>
-    /// <param name="contentType">Type of the content.</param>
-    /// <param name="accept">The accept.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>System.Threading.Tasks.Task&lt;byte[]&gt;.</returns>
-    public static Task<byte[]> PutBytesToUrlAsync(
-        this string url,
-        byte[]? requestBody = null,
-        string? contentType = null,
-        string accept = "*/*",
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null,
-        CancellationToken token = default)
-    {
-        return SendBytesToUrlAsync(
-            url,
-            method: HttpMethods.Put,
             contentType: contentType,
             requestBody: requestBody,
             accept: accept,
@@ -1784,7 +1066,9 @@ public static partial class HttpUtils
         {
             httpReq.Content = new ReadOnlyMemoryContent(requestBody);
             if (contentType != null)
+            {
                 httpReq.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(contentType);
+            }
         }
 
         requestFilter?.Invoke(httpReq);
@@ -1859,7 +1143,9 @@ public static partial class HttpUtils
         {
             httpReq.Content = new ReadOnlyMemoryContent(requestBody);
             if (contentType != null)
+            {
                 httpReq.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(contentType);
+            }
         }
 
         requestFilter?.Invoke(httpReq);
@@ -1869,51 +1155,6 @@ public static partial class HttpUtils
         httpRes.EnsureSuccessStatusCode();
         return await (await httpRes.Content.ReadAsStreamAsync(token).ConfigAwait()).ReadFullyAsync(token)
                    .ConfigAwait();
-    }
-
-    /// <summary>
-    /// Gets the stream from URL.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="accept">The accept.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <returns>System.IO.Stream.</returns>
-    public static Stream GetStreamFromUrl(
-        this string url,
-        string accept = "*/*",
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null)
-    {
-        return url.SendStreamToUrl(
-            method: HttpMethods.Get,
-            accept: accept,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter);
-    }
-
-    /// <summary>
-    /// Gets the stream from URL asynchronous.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="accept">The accept.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>System.Threading.Tasks.Task&lt;System.IO.Stream&gt;.</returns>
-    public static Task<Stream> GetStreamFromUrlAsync(
-        this string url,
-        string accept = "*/*",
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null,
-        CancellationToken token = default)
-    {
-        return url.SendStreamToUrlAsync(
-            method: HttpMethods.Get,
-            accept: accept,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter,
-            token: token);
     }
 
     /// <summary>
@@ -2004,37 +1245,6 @@ public static partial class HttpUtils
     }
 
     /// <summary>
-    /// Puts the stream to URL asynchronous.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="requestBody">The request body.</param>
-    /// <param name="contentType">Type of the content.</param>
-    /// <param name="accept">The accept.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>System.Threading.Tasks.Task&lt;System.IO.Stream&gt;.</returns>
-    public static Task<Stream> PutStreamToUrlAsync(
-        this string url,
-        Stream? requestBody = null,
-        string? contentType = null,
-        string accept = "*/*",
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null,
-        CancellationToken token = default)
-    {
-        return SendStreamToUrlAsync(
-            url,
-            method: HttpMethods.Put,
-            contentType: contentType,
-            requestBody: requestBody,
-            accept: accept,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter,
-            token: token);
-    }
-
-    /// <summary>
     /// Sends the stream to URL.
     /// </summary>
     /// <param name="url">The URL.</param>
@@ -2093,7 +1303,9 @@ public static partial class HttpUtils
         {
             httpReq.Content = new StreamContent(requestBody);
             if (contentType != null)
+            {
                 httpReq.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(contentType);
+            }
         }
 
         requestFilter?.Invoke(httpReq);
@@ -2168,7 +1380,9 @@ public static partial class HttpUtils
         {
             httpReq.Content = new StreamContent(requestBody);
             if (contentType != null)
+            {
                 httpReq.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(contentType);
+            }
         }
 
         requestFilter?.Invoke(httpReq);
@@ -2247,10 +1461,10 @@ public static partial class HttpUtils
     /// </summary>
     /// <param name="webRes">The web resource.</param>
     /// <returns>System.Threading.Tasks.Task&lt;string&gt;.</returns>
-    public static Task<string> ReadToEndAsync(this HttpResponseMessage webRes)
+    public async static Task<string> ReadToEndAsync(this HttpResponseMessage webRes)
     {
-        using var stream = webRes.Content.ReadAsStream();
-        return stream.ReadToEndAsync(UseEncoding);
+        await using var stream = await webRes.Content.ReadAsStreamAsync();
+        return await stream.ReadToEndAsync(UseEncoding);
     }
 
     /// <summary>
@@ -2262,8 +1476,7 @@ public static partial class HttpUtils
     {
         using var stream = webRes.Content.ReadAsStream();
         using var reader = new StreamReader(stream, UseEncoding, true, 1024, leaveOpen: true);
-        string? line;
-        while ((line = reader.ReadLine()) != null)
+        while (reader.ReadLine() is { } line)
         {
             yield return line;
         }
@@ -2305,7 +1518,6 @@ public static partial class HttpUtils
             responseFilter);
     }
 
-
     /// <summary>
     /// Uploads the file.
     /// </summary>
@@ -2334,7 +1546,9 @@ public static partial class HttpUtils
         Action<HttpResponseMessage>? responseFilter = null)
     {
         if (httpReq.RequestUri == null)
+        {
             throw new ArgumentException(nameof(httpReq.RequestUri));
+        }
 
         httpReq.Method = new HttpMethod(method);
         httpReq.Headers.Add(HttpHeaders.Accept, accept);
@@ -2425,7 +1639,9 @@ public static partial class HttpUtils
         CancellationToken token = default)
     {
         if (httpReq.RequestUri == null)
+        {
             throw new ArgumentException(nameof(httpReq.RequestUri));
+        }
 
         httpReq.Method = new HttpMethod(method);
         httpReq.Headers.Add(HttpHeaders.Accept, accept);
@@ -2458,10 +1674,15 @@ public static partial class HttpUtils
     public static void UploadFile(this HttpRequestMessage httpReq, Stream fileStream, string fileName)
     {
         if (fileName == null)
+        {
             throw new ArgumentNullException(nameof(fileName));
+        }
+
         var mimeType = MimeTypes.GetMimeType(fileName);
         if (mimeType == null)
+        {
             throw new ArgumentException("Mime-type not found for file: " + fileName);
+        }
 
         UploadFile(httpReq, fileStream, fileName, mimeType);
     }
@@ -2483,36 +1704,17 @@ public static partial class HttpUtils
         CancellationToken token = default)
     {
         if (fileName == null)
+        {
             throw new ArgumentNullException(nameof(fileName));
+        }
+
         var mimeType = MimeTypes.GetMimeType(fileName);
         if (mimeType == null)
+        {
             throw new ArgumentException("Mime-type not found for file: " + fileName);
+        }
 
         await UploadFileAsync(webRequest, fileStream, fileName, mimeType, token: token).ConfigAwait();
-    }
-
-    /// <summary>
-    /// Posts the XML to URL.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="data">The data.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <returns>string.</returns>
-    public static string PostXmlToUrl(
-        this string url,
-        object data,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null)
-    {
-        return SendStringToUrl(
-            url,
-            method: HttpMethods.Post,
-            requestBody: data.ToXml(),
-            contentType: MimeTypes.Xml,
-            accept: MimeTypes.Xml,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter);
     }
 
     /// <summary>
@@ -2535,30 +1737,6 @@ public static partial class HttpUtils
             requestBody: data.ToCsv(),
             contentType: MimeTypes.Csv,
             accept: MimeTypes.Csv,
-            requestFilter: requestFilter,
-            responseFilter: responseFilter);
-    }
-
-    /// <summary>
-    /// Puts the XML to URL.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="data">The data.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <returns>string.</returns>
-    public static string PutXmlToUrl(
-        this string url,
-        object data,
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null)
-    {
-        return SendStringToUrl(
-            url,
-            method: HttpMethods.Put,
-            requestBody: data.ToXml(),
-            contentType: MimeTypes.Xml,
-            accept: MimeTypes.Xml,
             requestFilter: requestFilter,
             responseFilter: responseFilter);
     }
@@ -2687,41 +1865,6 @@ public static partial class HttpUtils
     }
 
     /// <summary>
-    /// Put file to URL as an asynchronous operation.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="uploadFileInfo">The upload file information.</param>
-    /// <param name="uploadFileMimeType">Type of the upload file MIME.</param>
-    /// <param name="accept">The accept.</param>
-    /// <param name="requestFilter">The request filter.</param>
-    /// <param name="responseFilter">The response filter.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>A Task&lt;System.Net.Http.HttpResponseMessage&gt; representing the asynchronous operation.</returns>
-    public async static Task<HttpResponseMessage> PutFileToUrlAsync(
-        this string url,
-        FileInfo uploadFileInfo,
-        string uploadFileMimeType,
-        string accept = "*/*",
-        Action<HttpRequestMessage>? requestFilter = null,
-        Action<HttpResponseMessage>? responseFilter = null,
-        CancellationToken token = default)
-    {
-        var webReq = new HttpRequestMessage(HttpMethod.Put, url);
-        await using var fileStream = uploadFileInfo.OpenRead();
-        var fileName = uploadFileInfo.Name;
-
-        return await webReq.UploadFileAsync(
-                   fileStream,
-                   fileName,
-                   uploadFileMimeType,
-                   accept: accept,
-                   method: HttpMethods.Post,
-                   requestFilter: requestFilter,
-                   responseFilter: responseFilter,
-                   token: token).ConfigAwait();
-    }
-
-    /// <summary>
     /// Adds the header.
     /// </summary>
     /// <param name="res">The resource.</param>
@@ -2739,7 +1882,9 @@ public static partial class HttpUtils
     public static string? GetHeader(this HttpRequestMessage req, string name)
     {
         if (RequestHeadersResolver.TryGetValue(name, out var fn))
+        {
             return fn(req);
+        }
 
         return req.Headers.TryGetValues(name, out var headers)
                    ? headers.FirstOrDefault()
@@ -2755,14 +1900,14 @@ public static partial class HttpUtils
     /// </summary>
     /// <value>The request headers resolver.</value>
     public static Dictionary<string, Func<HttpRequestMessage, string?>> RequestHeadersResolver { get; set; } =
-        new(StringComparer.OrdinalIgnoreCase) { };
+        new(StringComparer.OrdinalIgnoreCase);
 
     /// <summary>
     /// Gets or sets the response headers resolver.
     /// </summary>
     /// <value>The response headers resolver.</value>
     public static Dictionary<string, Func<HttpResponseMessage, string?>> ResponseHeadersResolver { get; set; } =
-        new(StringComparer.OrdinalIgnoreCase) { };
+        new(StringComparer.OrdinalIgnoreCase);
 
     /// <summary>
     /// Returns first Response Header in HttpResponseMessage Headers and Content.Headers
@@ -2773,7 +1918,9 @@ public static partial class HttpUtils
     public static string? GetHeader(this HttpResponseMessage res, string name)
     {
         if (ResponseHeadersResolver.TryGetValue(name, out var fn))
+        {
             return fn(res);
+        }
 
         return res.Headers.TryGetValues(name, out var headers)
                    ? headers.FirstOrDefault()
@@ -2802,7 +1949,10 @@ public static partial class HttpUtils
         else if (name.Equals(HttpHeaders.ContentType, StringComparison.OrdinalIgnoreCase))
         {
             if (httpReq.Content == null)
+            {
                 throw new NotSupportedException("Can't set ContentType before Content is populated");
+            }
+
             httpReq.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(value);
         }
         else if (name.Equals(HttpHeaders.Referer, StringComparison.OrdinalIgnoreCase))
@@ -2843,27 +1993,46 @@ public static partial class HttpUtils
         }
 
         if (config.UserAgent != null)
+        {
             headers.Add(new(HttpHeaders.UserAgent, config.UserAgent));
+        }
+
         if (config.ContentType != null)
         {
             if (httpReq.Content == null)
+            {
                 throw new NotSupportedException("Can't set ContentType before Content is populated");
+            }
+
             httpReq.Content.Headers.ContentType = MediaTypeHeaderValue.Parse(config.ContentType);
         }
 
         if (config.Referer != null)
+        {
             httpReq.Headers.Referrer = new Uri(config.Referer);
+        }
+
         if (config.Authorization != null)
+        {
             httpReq.Headers.Authorization = new AuthenticationHeaderValue(
                 config.Authorization.Name,
                 config.Authorization.Value);
+        }
+
         if (config.Range != null)
+        {
             httpReq.Headers.Range = new RangeHeaderValue(config.Range.From, config.Range.To);
+        }
+
         if (config.Expect != null)
+        {
             httpReq.Headers.Expect.Add(new(config.Expect));
+        }
 
         if (config.TransferEncodingChunked != null)
+        {
             httpReq.Headers.TransferEncodingChunked = config.TransferEncodingChunked.Value;
+        }
         else if (config.TransferEncoding?.Length > 0)
         {
             foreach (var enc in config.TransferEncoding)
@@ -2896,7 +2065,10 @@ public static partial class HttpUtils
             c =>
                 {
                     c.Accept = "*/*";
-                    if (headers != null) c.Headers = headers;
+                    if (headers != null)
+                    {
+                        c.Headers = headers;
+                    }
                 });
 
         var httpRes = client.Send(httpReq);

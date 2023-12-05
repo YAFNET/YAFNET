@@ -603,7 +603,7 @@ static internal class WriteExpressionCommandExtensions
 
             sql
                 .Append(dialectProvider.GetQuotedColumnName(fieldDef.FieldName))
-                .Append("=")
+                .Append('=')
                 .Append(dialectProvider.GetUpdateParam(dbCmd, value, fieldDef));
         }
 

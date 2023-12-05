@@ -7,7 +7,6 @@
 namespace ServiceStack.Text;
 
 using System.Collections.Generic;
-using System.Runtime.Serialization;
 
 /// <summary>
 /// UX friendly alternative alias of Dictionary&lt;string, object&gt;

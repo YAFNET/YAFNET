@@ -423,7 +423,6 @@ public static class CsvSerializer<T>
     private static WriteObjectDelegate GetWriteFn()
     {
         PropertyInfo firstCandidate = null;
-        Type bestCandidateEnumerableType;
         PropertyInfo bestCandidate = null;
 
         if (typeof(T).IsValueType)
@@ -432,7 +431,7 @@ public static class CsvSerializer<T>
         }
 
         //If type is an enumerable property itself write that
-        bestCandidateEnumerableType = typeof(T).GetTypeWithGenericTypeDefinitionOf(typeof(IEnumerable<>));
+        var bestCandidateEnumerableType = typeof(T).GetTypeWithGenericTypeDefinitionOf(typeof(IEnumerable<>));
         if (bestCandidateEnumerableType != null)
         {
             var dictionaryOrKvps = typeof(T).HasInterface(typeof(IEnumerable<KeyValuePair<string, object>>))

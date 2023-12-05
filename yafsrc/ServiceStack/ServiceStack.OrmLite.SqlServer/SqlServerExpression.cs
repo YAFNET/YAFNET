@@ -154,7 +154,7 @@ internal class SqlServerExpressionUtils
 
             setFields
                 .Append(dialectProvider.GetQuotedColumnName(fieldDef.FieldName))
-                .Append("=")
+                .Append('=')
                 .Append(dialectProvider.GetUpdateParam(dbCmd, value, fieldDef));
         }
 

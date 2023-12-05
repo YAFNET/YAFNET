@@ -102,7 +102,7 @@ public class TimeSpanConverter
         decimal seconds = 0;
         long sign = 1;
 
-        if (xsdDuration.StartsWith("-", StringComparison.Ordinal))
+        if (xsdDuration.StartsWith('-'))
         {
             sign = -1;
             xsdDuration = xsdDuration.Substring(1); //strip sign

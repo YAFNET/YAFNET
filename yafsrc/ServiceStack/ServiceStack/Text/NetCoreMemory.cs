@@ -154,14 +154,14 @@ public sealed class NetCoreMemory : MemoryProvider
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Int16.</returns>
-    public override short ParseInt16(ReadOnlySpan<char> value) => short.Parse(value);
+    public short ParseInt16(ReadOnlySpan<char> value) => short.Parse(value);
 
     /// <summary>
     /// Parses the u int16.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.UInt16.</returns>
-    public override ushort ParseUInt16(ReadOnlySpan<char> value) => ushort.Parse(value);
+    public ushort ParseUInt16(ReadOnlySpan<char> value) => ushort.Parse(value);
 
     /// <summary>
     /// Parses the int32.
@@ -175,7 +175,7 @@ public sealed class NetCoreMemory : MemoryProvider
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.UInt32.</returns>
-    public override uint ParseUInt32(ReadOnlySpan<char> value) => uint.Parse(value);
+    public uint ParseUInt32(ReadOnlySpan<char> value) => uint.Parse(value);
 
     /// <summary>
     /// Parses the u int32.

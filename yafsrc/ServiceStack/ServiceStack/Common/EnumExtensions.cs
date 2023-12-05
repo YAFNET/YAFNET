@@ -13,19 +13,6 @@ namespace ServiceStack;
 using ServiceStack.Text;
 
 /// <summary>
-/// Class EnumUtils.
-/// </summary>
-public static class EnumUtils
-{
-    /// <summary>
-    /// Gets the values.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns>IEnumerable&lt;T&gt;.</returns>
-    public static IEnumerable<T> GetValues<T>() where T : Enum => Enum.GetValues(typeof(T)).Cast<T>();
-}
-
-/// <summary>
 /// Class EnumExtensions.
 /// </summary>
 public static class EnumExtensions

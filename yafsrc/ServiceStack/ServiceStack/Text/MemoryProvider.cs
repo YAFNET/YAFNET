@@ -26,7 +26,7 @@ public abstract class MemoryProvider
     /// </summary>
     public static MemoryProvider Instance =
 #if NET7_0_OR_GREATER
-            NetCoreMemory.Provider;
+        NetCoreMemory.Provider;
 #else
         DefaultMemory.Provider;
 #endif
@@ -35,6 +35,7 @@ public abstract class MemoryProvider
     /// The bad format
     /// </summary>
     internal const string BadFormat = "Input string was not in a correct format.";
+
     /// <summary>
     /// The overflow message
     /// </summary>
@@ -47,6 +48,7 @@ public abstract class MemoryProvider
     /// <param name="result">if set to <c>true</c> [result].</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public abstract bool TryParseBoolean(ReadOnlySpan<char> value, out bool result);
+
     /// <summary>
     /// Parses the boolean.
     /// </summary>
@@ -61,12 +63,14 @@ public abstract class MemoryProvider
     /// <param name="result">The result.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public abstract bool TryParseDecimal(ReadOnlySpan<char> value, out decimal result);
+
     /// <summary>
     /// Parses the decimal.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Decimal.</returns>
     public abstract decimal ParseDecimal(ReadOnlySpan<char> value);
+
     /// <summary>
     /// Parses the decimal.
     /// </summary>
@@ -82,6 +86,7 @@ public abstract class MemoryProvider
     /// <param name="result">The result.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public abstract bool TryParseFloat(ReadOnlySpan<char> value, out float result);
+
     /// <summary>
     /// Parses the float.
     /// </summary>
@@ -96,6 +101,7 @@ public abstract class MemoryProvider
     /// <param name="result">The result.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public abstract bool TryParseDouble(ReadOnlySpan<char> value, out double result);
+
     /// <summary>
     /// Parses the double.
     /// </summary>
@@ -109,36 +115,21 @@ public abstract class MemoryProvider
     /// <param name="value">The value.</param>
     /// <returns>System.SByte.</returns>
     public abstract sbyte ParseSByte(ReadOnlySpan<char> value);
+
     /// <summary>
     /// Parses the byte.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Byte.</returns>
     public abstract byte ParseByte(ReadOnlySpan<char> value);
-    /// <summary>
-    /// Parses the int16.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>System.Int16.</returns>
-    public abstract short ParseInt16(ReadOnlySpan<char> value);
-    /// <summary>
-    /// Parses the u int16.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>System.UInt16.</returns>
-    public abstract ushort ParseUInt16(ReadOnlySpan<char> value);
+
     /// <summary>
     /// Parses the int32.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Int32.</returns>
     public abstract int ParseInt32(ReadOnlySpan<char> value);
-    /// <summary>
-    /// Parses the u int32.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>System.UInt32.</returns>
-    public abstract uint ParseUInt32(ReadOnlySpan<char> value);
+
     /// <summary>
     /// Parses the u int32.
     /// </summary>
@@ -146,12 +137,14 @@ public abstract class MemoryProvider
     /// <param name="style">The style.</param>
     /// <returns>System.UInt32.</returns>
     public abstract uint ParseUInt32(ReadOnlySpan<char> value, NumberStyles style);
+
     /// <summary>
     /// Parses the int64.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Int64.</returns>
     public abstract long ParseInt64(ReadOnlySpan<char> value);
+
     /// <summary>
     /// Parses the u int64.
     /// </summary>
@@ -186,6 +179,7 @@ public abstract class MemoryProvider
     /// <param name="stream">The stream.</param>
     /// <param name="value">The value.</param>
     public abstract void Write(Stream stream, ReadOnlyMemory<char> value);
+
     /// <summary>
     /// Writes the specified stream.
     /// </summary>
@@ -201,6 +195,7 @@ public abstract class MemoryProvider
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task.</returns>
     public abstract Task WriteAsync(Stream stream, ReadOnlyMemory<char> value, CancellationToken token = default);
+
     /// <summary>
     /// Writes the asynchronous.
     /// </summary>
@@ -235,8 +230,7 @@ public abstract class MemoryProvider
     /// <param name="type">The type.</param>
     /// <param name="deserializer">The deserializer.</param>
     /// <returns>Task&lt;System.Object&gt;.</returns>
-    public abstract Task<object> DeserializeAsync(Stream stream, Type type,
-                                                  DeserializeStringSpanDelegate deserializer);
+    public abstract Task<object> DeserializeAsync(Stream stream, Type type, DeserializeStringSpanDelegate deserializer);
 
     /// <summary>
     /// Appends the specified sb.
@@ -252,6 +246,7 @@ public abstract class MemoryProvider
     /// <param name="bytes">The bytes.</param>
     /// <returns>System.Int32.</returns>
     public abstract int GetUtf8CharCount(ReadOnlySpan<byte> bytes);
+
     /// <summary>
     /// Gets the UTF8 byte count.
     /// </summary>
@@ -265,6 +260,7 @@ public abstract class MemoryProvider
     /// <param name="source">The source.</param>
     /// <returns>ReadOnlyMemory&lt;System.Byte&gt;.</returns>
     public abstract ReadOnlyMemory<byte> ToUtf8(ReadOnlySpan<char> source);
+
     /// <summary>
     /// Froms the UTF8.
     /// </summary>
@@ -279,6 +275,7 @@ public abstract class MemoryProvider
     /// <param name="destination">The destination.</param>
     /// <returns>System.Int32.</returns>
     public abstract int ToUtf8(ReadOnlySpan<char> source, Span<byte> destination);
+
     /// <summary>
     /// Froms the UTF8.
     /// </summary>
@@ -293,12 +290,14 @@ public abstract class MemoryProvider
     /// <param name="source">The source.</param>
     /// <returns>System.Byte[].</returns>
     public abstract byte[] ToUtf8Bytes(ReadOnlySpan<char> source);
+
     /// <summary>
     /// Froms the UTF8 bytes.
     /// </summary>
     /// <param name="source">The source.</param>
     /// <returns>System.String.</returns>
     public abstract string FromUtf8Bytes(ReadOnlySpan<byte> source);
+
     /// <summary>
     /// Converts to memorystream.
     /// </summary>

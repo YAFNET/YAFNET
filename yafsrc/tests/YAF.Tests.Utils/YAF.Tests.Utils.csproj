@@ -13,10 +13,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.0" />
     <PackageReference Include="Microsoft.Playwright" Version="1.40.0" />
     <PackageReference Include="netDumbster" Version="3.0.1" />
-	  <PackageReference Include="NUnit" Version="4.0.0" />
+	  <PackageReference Include="NUnit" Version="4.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\YAF.Types\YAF.Types.csproj" />
     <ProjectReference Include="..\..\YetAnotherForum.NET\YAF-SqlServer.csproj" />
+    <ProjectReference Include="..\..\YetAnotherForum.NET\YetAnotherForum.NET.csproj" />
   </ItemGroup>
 </Project>

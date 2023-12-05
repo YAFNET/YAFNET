@@ -1240,7 +1240,8 @@ namespace ServiceStack.OrmLite.Dapper
         /// <summary>
         /// The error two rows
         /// </summary>
-        private readonly static int[] ErrTwoRows = new int[2], ErrZeroRows = Array.Empty<int>();
+        private readonly static int[] ErrTwoRows = new int[2], ErrZeroRows = [];
+
         /// <summary>
         /// Throws the multiple rows.
         /// </summary>
@@ -1248,14 +1249,12 @@ namespace ServiceStack.OrmLite.Dapper
         /// <exception cref="InvalidOperationException"></exception>
         private static void ThrowMultipleRows(Row row)
         {
-            switch (row)
+            _ = row switch
             {  // get the standard exception from the runtime
-                case Row.Single: ErrTwoRows.Single();
-                    break;
-                case Row.SingleOrDefault: ErrTwoRows.SingleOrDefault();
-                    break;
-                default: throw new InvalidOperationException();
-            }
+                Row.Single => ErrTwoRows.Single(),
+                Row.SingleOrDefault => ErrTwoRows.SingleOrDefault(),
+                _ => throw new InvalidOperationException(),
+            };
         }
 
         /// <summary>

@@ -443,11 +443,6 @@ public static class LicenseUtils
         /// </summary>
         internal const string ExceededPremiumFeature =
             "Unauthorized use of a commercial-only premium feature." + UpgradeInstructions;
-
-        /// <summary>
-        /// The unauthorized access request
-        /// </summary>
-        public const string UnauthorizedAccessRequest = "Unauthorized access request of a licensed feature.";
     }
 
     /// <summary>

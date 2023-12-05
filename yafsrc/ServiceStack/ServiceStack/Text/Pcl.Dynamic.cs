@@ -213,12 +213,12 @@ public class DynamicJson : DynamicObject
         if (_hash.ContainsKey(name))
         {
             var json = _hash[name].ToString();
-            if (json.TrimStart(' ').StartsWith("{", StringComparison.Ordinal))
+            if (json.TrimStart(' ').StartsWith('{'))
             {
                 result = Deserialize(json);
                 return true;
             }
-            else if (json.TrimStart(' ').StartsWith("[", StringComparison.Ordinal))
+            else if (json.TrimStart(' ').StartsWith('['))
             {
                 result = JsonArrayObjects.Parse(json).Select(a =>
                     {

@@ -148,7 +148,7 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
 
         var bucketCount = fieldDef.PropertyInfo?.FirstAttribute<SqlServerBucketCountAttribute>()?.Count;
 
-        if (modelDef.CompositePrimaryKeys.Any())
+        if (modelDef.CompositePrimaryKeys.Count != 0)
         {
             sql.Append(fieldDef.IsNullable ? " NULL" : " NOT NULL");
         }

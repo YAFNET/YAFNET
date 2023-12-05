@@ -367,7 +367,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         sql.Append($"{this.GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
 
         // Check for Composite PrimaryKey First
-        if (modelDef.CompositePrimaryKeys.Any())
+        if (modelDef.CompositePrimaryKeys.Count != 0)
         {
             sql.Append(fieldDef.IsNullable ? " NULL" : " NOT NULL");
         }
@@ -460,7 +460,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
             sbConstraints.Append(",\n" + uniqueConstraints);
         }
 
-        if (modelDef.CompositePrimaryKeys.Any())
+        if (modelDef.CompositePrimaryKeys.Count != 0)
         {
             sbConstraints.Append(",\n");
 

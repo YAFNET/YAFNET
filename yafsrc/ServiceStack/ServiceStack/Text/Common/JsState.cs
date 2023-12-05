@@ -20,43 +20,43 @@ static internal class JsState
     /// The writing key count
     /// </summary>
     [ThreadStatic]
-    static internal int WritingKeyCount = 0;
+    static internal int WritingKeyCount;
 
     /// <summary>
     /// The is writing value
     /// </summary>
     [ThreadStatic]
-    static internal bool IsWritingValue = false;
+    static internal bool IsWritingValue;
 
     /// <summary>
     /// The is writing dynamic
     /// </summary>
     [ThreadStatic]
-    static internal bool IsWritingDynamic = false;
+    static internal bool IsWritingDynamic;
 
     /// <summary>
     /// The is runtime type
     /// </summary>
     [ThreadStatic]
-    static internal bool IsRuntimeType = false;
+    static internal bool IsRuntimeType;
 
     /// <summary>
     /// The query string mode
     /// </summary>
     [ThreadStatic]
-    static internal bool QueryStringMode = false;
+    static internal bool QueryStringMode;
 
     /// <summary>
     /// The depth
     /// </summary>
     [ThreadStatic]
-    static internal int Depth = 0;
+    static internal int Depth;
 
     /// <summary>
     /// The is CSV
     /// </summary>
     [ThreadStatic]
-    static internal bool IsCsv = false;
+    static internal bool IsCsv;
 
     /// <summary>
     /// The declaring type
@@ -68,7 +68,7 @@ static internal class JsState
     /// The in serializer FNS
     /// </summary>
     [ThreadStatic]
-    static internal HashSet<Type> InSerializerFns = new();
+    static internal HashSet<Type> InSerializerFns;
 
     /// <summary>
     /// Registers the serializer.
@@ -76,7 +76,7 @@ static internal class JsState
     /// <typeparam name="T"></typeparam>
     static internal void RegisterSerializer<T>()
     {
-        InSerializerFns ??= new HashSet<Type>();
+        InSerializerFns ??= [];
 
         InSerializerFns.Add(typeof(T));
     }
@@ -87,10 +87,7 @@ static internal class JsState
     /// <typeparam name="T"></typeparam>
     static internal void UnRegisterSerializer<T>()
     {
-        if (InSerializerFns == null)
-            return;
-
-        InSerializerFns.Remove(typeof(T));
+        InSerializerFns?.Remove(typeof(T));
     }
 
     /// <summary>
@@ -109,13 +106,23 @@ static internal class JsState
     [ThreadStatic]
     static internal HashSet<Type> InDeserializerFns;
 
+    static JsState()
+    {
+        IsWritingValue = false;
+        IsWritingDynamic = false;
+        IsRuntimeType = false;
+        QueryStringMode = false;
+        InSerializerFns = [];
+        WritingKeyCount = 0;
+    }
+
     /// <summary>
     /// Registers the deserializer.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     static internal void RegisterDeserializer<T>()
     {
-        InDeserializerFns ??= new HashSet<Type>();
+        InDeserializerFns ??= [];
 
         InDeserializerFns.Add(typeof(T));
     }
@@ -148,7 +155,9 @@ static internal class JsState
     static internal bool Traverse(object value)
     {
         if (++Depth <= JsConfig.MaxDepth)
+        {
             return true;
+        }
 
         Tracer.Instance.WriteError(
             $"Exceeded MaxDepth limit of {JsConfig.MaxDepth} attempting to serialize {value.GetType().Name}");
@@ -159,7 +168,10 @@ static internal class JsState
     /// Uns the traverse.
     /// </summary>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static internal void UnTraverse() => --Depth;
+    static internal void UnTraverse()
+    {
+        --Depth;
+    }
 
     /// <summary>
     /// Resets this instance.

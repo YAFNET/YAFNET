@@ -124,13 +124,11 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
         var gens = new List<string>();
         var modelDef = GetModel(tableType);
 
-        foreach (var fieldDef in modelDef.FieldDefinitions)
+        foreach (var fieldDef in modelDef.FieldDefinitions.Where(fieldDef => !string.IsNullOrEmpty(fieldDef.Sequence)))
         {
-            if (!string.IsNullOrEmpty(fieldDef.Sequence))
-            {
-                gens.AddIfNotExists(fieldDef.Sequence);
-            }
+            gens.AddIfNotExists(fieldDef.Sequence);
         }
+
         return gens;
     }
 
@@ -282,7 +280,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
             }
         }
 
-        if (modelDef.CompositePrimaryKeys.Any())
+        if (modelDef.CompositePrimaryKeys.Count != 0)
         {
             sql.Append(fieldDef.IsNullable ? " NULL" : " NOT NULL");
         }
@@ -399,7 +397,7 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
             sbConstraints.Append(",\n" + uniqueConstraints);
         }
 
-        if (modelDef.CompositePrimaryKeys.Any())
+        if (modelDef.CompositePrimaryKeys.Count != 0)
         {
             sbConstraints.Append(",\n");
 
