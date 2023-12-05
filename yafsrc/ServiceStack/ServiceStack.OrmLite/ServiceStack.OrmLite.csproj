@@ -3,7 +3,7 @@
   <PropertyGroup>
     <PackageId>ServiceStack.OrmLite</PackageId>
     <AssemblyName>ServiceStack.OrmLite</AssemblyName>
-    <TargetFrameworks>net48</TargetFrameworks>
+    <TargetFrameworks>net481</TargetFrameworks>
     <Title>OrmLite - Fast, code-first, config-free POCO ORM</Title>
     <PackageDescription>
       Common library for the Light, simple and fast convention-based code-first POCO, OrmLite.
@@ -19,7 +19,7 @@
     <PackageReference Include="System.Memory" Version="4.5.5" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
+  <ItemGroup>
     <Reference Include="System.Net" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>

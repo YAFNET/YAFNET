@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net48</TargetFrameworks>
+    <TargetFrameworks>net481</TargetFrameworks>
     <AssemblyName>ServiceStack.OrmLite.MySql</AssemblyName>
     <PackageId>ServiceStack.OrmLite.MySql</PackageId>
     <RootNamespace>ServiceStack.OrmLite.MySql</RootNamespace>
@@ -15,7 +15,7 @@
     <ProjectReference Include="..\ServiceStack.OrmLite\ServiceStack.OrmLite.csproj" />
     <PackageReference Include="MySql.Data" Version="8.2.0" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
+  <ItemGroup>
     <Reference Include="System.Net" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
   </ItemGroup>

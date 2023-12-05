@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net48</TargetFrameworks>
+    <TargetFrameworks>net481</TargetFrameworks>
     <AssemblyName>ServiceStack.OrmLite.Sqlite</AssemblyName>
     <PackageId>ServiceStack.OrmLite.Sqlite</PackageId>
     <Title>OrmLite.Sqlite - Fast, code-first, config-free POCO ORM</Title>

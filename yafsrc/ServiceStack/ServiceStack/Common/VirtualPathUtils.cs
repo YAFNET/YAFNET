@@ -168,7 +168,7 @@ public static class VirtualPathUtils
         var nextTryMs = (2 ^ i) * 50;
 #if NETCORE
             System.Threading.Tasks.Task.Delay(nextTryMs).Wait();
-#elif NET48
+#elif NET481
         System.Threading.Thread.Sleep(nextTryMs);
 #endif
     }

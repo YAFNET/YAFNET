@@ -3,7 +3,7 @@
   <PropertyGroup>
     <PackageId>ServiceStack.OrmLite.PostgreSQL</PackageId>
     <AssemblyName>ServiceStack.OrmLite.PostgreSQL</AssemblyName>
-    <TargetFrameworks>net48</TargetFrameworks>
+    <TargetFrameworks>net481</TargetFrameworks>
     <Title>OrmLite.PostgreSQL - Fast, code-first, config-free POCO ORM</Title>
     <PackageDescription>
       Light, simple and fast convention-based code-first POCO ORM for PostgreSQL.

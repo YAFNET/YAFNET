@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 using ServiceStack.Text;
 using ServiceStack.Text.Json;
 
-#if NET48
+#if NET481
 using ServiceStack.Text.Extensions;
 #endif
 

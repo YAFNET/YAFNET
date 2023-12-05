@@ -2,7 +2,7 @@
   <PropertyGroup>
     <PackageId>ServiceStack</PackageId>
     <AssemblyName>ServiceStack</AssemblyName>
-    <TargetFrameworks>net48</TargetFrameworks>
+    <TargetFrameworks>net481</TargetFrameworks>
     <Title>.NET's fastest JSON Serializer by ServiceStack</Title>
     <PackageDescription>
       .NET's fastest JSON, JSV and CSV Text Serializers. Fast, Light, Resilient.
@@ -16,7 +16,7 @@
     <PackageReference Include="System.Memory" Version="4.5.5" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
   </ItemGroup>
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net48' ">
+  <ItemGroup>
     <Reference Include="System.Configuration" />
   </ItemGroup>
 </Project>

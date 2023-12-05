@@ -25,21 +25,10 @@
     <Optimize>true</Optimize>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net48' ">
-    <DefineConstants>$(DefineConstants);NETFX;NET48</DefineConstants>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'net481' ">
+    <DefineConstants>$(DefineConstants);NETFX;NET481</DefineConstants>
     <SignAssembly>True</SignAssembly>
     <DelaySign>False</DelaySign>
     <AssemblyOriginatorKeyFile>../servicestack.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-	
-	<PropertyGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
-		<DefineConstants>$(DefineConstants);NET7_0;NET7_0_OR_GREATER</DefineConstants>
-		<SignAssembly>True</SignAssembly>
-		<DelaySign>False</DelaySign>
-		<AssemblyOriginatorKeyFile>../servicestack.snk</AssemblyOriginatorKeyFile>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(TargetFramework)' == 'net6.0' OR '$(TargetFramework)' == 'net7.0' ">
-		<DefineConstants>$(DefineConstants);NETCORE;NETCORE_SUPPORT</DefineConstants>
-	</PropertyGroup>
 </Project>

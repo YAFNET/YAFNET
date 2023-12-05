@@ -18,7 +18,7 @@ using System.Text.RegularExpressions;
 using ServiceStack.Script;
 using ServiceStack.Text;
 
-#if NET48
+#if NET481
 using ServiceStack.Text.Extensions;
 #endif
 

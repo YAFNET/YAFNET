@@ -101,17 +101,6 @@ public interface ISearch
     int CountHits(string input);
 
     /// <summary>
-    /// Searches the specified user identifier.
-    /// </summary>
-    /// <param name="forumId">The forum identifier.</param>
-    /// <param name="input">The input.</param>
-    /// <param name="fieldName">Name of the field.</param>
-    /// <returns>
-    /// Returns the search results
-    /// </returns>
-    List<SearchMessage> DoSearch(int forumId, string input, string fieldName = "");
-
-    /// <summary>
     /// Searches for similar words
     /// </summary>
     /// <param name="filter">

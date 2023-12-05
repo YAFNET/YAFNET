@@ -382,22 +382,6 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     }
 
     /// <summary>
-    /// Searches the specified user identifier.
-    /// </summary>
-    /// <param name="forumId">The forum identifier.</param>
-    /// <param name="input">The input.</param>
-    /// <param name="fieldName">Name of the field.</param>
-    /// <returns>
-    /// Returns the search results
-    /// </returns>
-    public List<SearchMessage> DoSearch(int forumId, string input, string fieldName = "")
-    {
-        return input.IsNotSet()
-                   ? new List<SearchMessage>()
-                   : this.SearchIndex(out _, forumId, input, fieldName);
-    }
-
-    /// <summary>
     /// Searches for similar words
     /// </summary>
     /// <param name="filter">

@@ -124,7 +124,7 @@ public partial class _default : BasePage, IHaveServiceLocator
     /// Initializes the <see cref="T:System.Web.UI.HtmlTextWriter" /> object and calls on the child controls of the <see cref="T:System.Web.UI.Page" /> to render.
     /// </summary>
     /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> that receives the page content.</param>
-    protected override void Render(HtmlTextWriter writer)
+    override protected void Render(HtmlTextWriter writer)
     {
         base.Render(writer);
     }
