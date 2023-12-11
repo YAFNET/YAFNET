@@ -17,6 +17,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\YAF.Types\YAF.Types.csproj" />
-	<ProjectReference Include="..\..\YetAnotherForum.NET\YAF-SqlServer.csproj" />
+    <ProjectReference Include="..\..\YetAnotherForum.NET\YAF-SqlServer.csproj" />
   </ItemGroup>
 </Project>
