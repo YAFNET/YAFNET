@@ -54,7 +54,9 @@ public static class OrmLiteUtils
     public static void HandleException(Exception ex, string message = null, params object[] args)
     {
         if (OrmLiteConfig.ThrowOnError)
+        {
             throw ex;
+        }
 
         Log.Error(ex, message ?? ex.Message, args);
     }

@@ -45,6 +45,7 @@ public static class OrmLiteConfig
     /// The dialect provider
     /// </summary>
     private static IOrmLiteDialectProvider dialectProvider;
+
     /// <summary>
     /// Gets or sets the dialect provider.
     /// </summary>
