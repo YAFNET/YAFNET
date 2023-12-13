@@ -10,8 +10,6 @@
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent />
-    <SignAssembly>false</SignAssembly>
-    <AssemblyOriginatorKeyFile>YetAnotherForum.NET.snk</AssemblyOriginatorKeyFile>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
