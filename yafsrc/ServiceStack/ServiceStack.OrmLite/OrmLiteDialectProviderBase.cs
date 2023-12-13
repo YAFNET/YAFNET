@@ -693,10 +693,11 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <returns>System.String.</returns>
     public virtual string GetQuotedTableName(string tableName, string schema = null)
     {
-        /*if (schema == null)
+        if (schema == null)
         {
             return this.GetQuotedName(this.NamingStrategy.GetTableName(tableName));
-        }*/
+        }
+        
         var escapedSchema = this.NamingStrategy.GetSchemaName(schema).Replace(".", "\".\"");
 
         return

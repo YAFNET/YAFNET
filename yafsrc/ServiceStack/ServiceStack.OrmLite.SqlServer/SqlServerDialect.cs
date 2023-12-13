@@ -92,6 +92,7 @@ public static class SqlServer2017Dialect
     /// <value>The provider.</value>
     public static IOrmLiteDialectProvider Provider => SqlServer2017OrmLiteDialectProvider.Instance;
 
+    /// <summary>
     /// Gets the instance.
     /// </summary>
     /// <value>The instance.</value>
