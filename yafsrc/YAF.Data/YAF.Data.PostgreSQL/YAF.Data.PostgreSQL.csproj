@@ -6,9 +6,6 @@
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 	<CopyRefAssembliesToPublishDirectory>true</CopyRefAssembliesToPublishDirectory>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <PostBuildEvent />
-    <PostBuildEvent />
-    <PostBuildEvent />
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent />

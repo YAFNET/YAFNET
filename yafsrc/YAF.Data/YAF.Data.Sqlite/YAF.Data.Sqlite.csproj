@@ -3,10 +3,9 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <TargetFramework>net8.0</TargetFramework>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+	<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	<CopyRefAssembliesToPublishDirectory>true</CopyRefAssembliesToPublishDirectory>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <PostBuildEvent />
-    <PostBuildEvent />
-    <PostBuildEvent />
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent />
