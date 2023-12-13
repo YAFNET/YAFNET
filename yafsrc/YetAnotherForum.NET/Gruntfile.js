@@ -151,28 +151,28 @@ module.exports = function(grunt) {
             deploySqlServer: {
                 command: [
                     "@echo off",
-                    "rmdir bin\\Release\\net7.0\\publish\\ /s /q ",
+                    "rmdir bin\\Release\\net8.0\\publish\\ /s /q 2>nul",
                     "dotnet publish /p:Configuration=Release ../YAF.NET-SqlServer.sln"
                 ].join("&&")
             },
             deployMySql: {
                 command: [
                     "@echo off",
-                    "rmdir bin\\Release\\net7.0\\publish\\ /s /q ",
+                    "rmdir bin\\Release\\net8.0\\publish\\ /s /q 2>nul",
                     "dotnet publish /p:Configuration=Release ../YAF.NET-MySql.sln"
                 ].join("&&")
             },
             deployPostgreSQL: {
                 command: [
                     "@echo off",
-                    "rmdir bin\\Release\\net7.0\\publish\\ /s /q ",
+                    "rmdir bin\\Release\\net8.0\\publish\\ /s /q 2>nul",
                     "dotnet publish /p:Configuration=Release ../YAF.NET-PostgreSQL.sln"
                 ].join("&&")
             },
             deploySqlite: {
                 command: [
                     "@echo off",
-                    "rmdir bin\\Release\\net7.0\\publish\\ /s /q ",
+                    "rmdir bin\\Release\\net8.0\\publish\\ /s /q 2>nul",
                     "dotnet publish /p:Configuration=Release ../YAF.NET-Sqlite.sln"
                 ].join("&&")
             },
@@ -579,23 +579,23 @@ module.exports = function(grunt) {
         },
         zip: {
             "YAF-SqlServer-Deploy": {
-                cwd: "bin/Release/net7.0/publish/",
-                src: ["bin/Release/net7.0/publish/**/*"],
+                cwd: "bin/Release/net8.0/publish/",
+                src: ["bin/Release/net8.0/publish/**/*"],
                 dest: "../deploy/YAF.SqlSever-v<%= pkg.version %>.zip"
             },
             "YAF-MySql-Deploy": {
-                cwd: "bin/Release/net7.0/publish/",
-                src: ["bin/Release/net7.0/publish/**/*"],
+                cwd: "bin/Release/net8.0/publish/",
+                src: ["bin/Release/net8.0/publish/**/*"],
                 dest: "../deploy/YAF.MySql-v<%= pkg.version %>.zip"
             },
             "YAF-PostgreSQL-Deploy": {
-                cwd: "bin/Release/net7.0/publish/",
-                src: ["bin/Release/net7.0/publish/**/*"],
+                cwd: "bin/Release/net8.0/publish/",
+                src: ["bin/Release/net8.0/publish/**/*"],
                 dest: "../deploy/YAF.PostgreSQL-v<%= pkg.version %>.zip"
             },
             "YAF-Sqlite-Deploy": {
-                cwd: "bin/Release/net7.0/publish/",
-                src: ["bin/Release/net7.0/publish/**/*"],
+                cwd: "bin/Release/net8.0/publish/",
+                src: ["bin/Release/net8.0/publish/**/*"],
                 dest: "../deploy/YAF.Sqlite-v<%= pkg.version %>.zip"
             }
         }
