@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	<CopyRefAssembliesToPublishDirectory>true</CopyRefAssembliesToPublishDirectory>
     <RootNamespace>YAF</RootNamespace>
   </PropertyGroup>
 
