@@ -42,4 +42,15 @@ public interface ITheme
     /// The build theme path.
     /// </returns>
     string BuildThemePath(string filename);
+
+    /// <summary>
+    /// Gets mapped path to the given theme file.
+    /// </summary>
+    /// <param name="filename">
+    /// Short name of theme file.
+    /// </param>
+    /// <returns>
+    /// The build theme path.
+    /// </returns>
+    string BuildMappedThemePath(string filename);
 }

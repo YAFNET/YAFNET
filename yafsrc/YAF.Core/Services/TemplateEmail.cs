@@ -192,8 +192,7 @@ public class TemplateEmail : IHaveServiceLocator
     /// </returns>
     private string ProcessHtml(string textBody)
     {
-        var path =
-            $"{this.Get<IWebHostEnvironment>().WebRootPath}{this.Get<ITheme>().BuildThemePath(this.HtmlTemplateFileName).Replace("/", "\\")}";
+        var path = this.Get<ITheme>().BuildMappedThemePath(this.HtmlTemplateFileName);
 
         var htmlTemplate = File.ReadAllText(path);
 

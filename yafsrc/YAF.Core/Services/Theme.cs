@@ -76,6 +76,19 @@ public class Theme : ITheme
     }
 
     /// <summary>
+    /// Gets mapped path to the given theme file.
+    /// </summary>
+    /// <param name="filename">Short name of theme file.</param>
+    /// <returns>The build theme path.</returns>
+    public string BuildMappedThemePath(string filename)
+    {
+        var webRootPath = BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath;
+
+        return Path.Combine(webRootPath, "css", "themes", this.ThemeFile, filename);
+    }
+
+
+    /// <summary>
     /// Gets the mapped theme file.
     /// </summary>
     /// <param name="theme">The theme.</param>

@@ -94,7 +94,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     }
 
     /// <summary>
-    /// Helper function that creates the URL to the Content  themes folder.
+    /// Helper function that creates the URL to the Content themes folder.
     /// </summary>
     /// <param name="resourceName">Name of the resource.</param>
     /// <returns>
@@ -114,7 +114,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     /// </returns>
     public string GetUrlToScripts(string resourceName)
     {
-       return this.Get<IUrlHelper>().Content($"~/js/{resourceName}");
+        return this.Get<IUrlHelper>().Content($"~/js/{resourceName}");
     }
 
     /// <summary>
@@ -124,7 +124,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     /// <returns>System.String.</returns>
     public string GetUrlToCss(string resourceName)
     {
-       return this.Get<IUrlHelper>().Content($"~/css/{resourceName}");
+        return this.Get<IUrlHelper>().Content($"~/css/{resourceName}");
     }
 
     /// <summary>
