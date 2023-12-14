@@ -92,7 +92,7 @@ public static class ActiveAccessRepositoryExtensions
 
         activeList.DistinctBy(a => new { a.UserID, a.ForumID });
 
-        repository.InsertAll(activeList);
+        repository.BulkInsert(activeList.DistinctBy(a => new { a.UserID, a.ForumID }));
     }
 
     /// <summary>
