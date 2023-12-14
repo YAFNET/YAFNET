@@ -250,6 +250,7 @@ public class BBCodeEditor : TextEditor
                                                                  new() { Value = "git", Name = "Git" },
                                                                  new() { Value = "markup", Name = "HTML" },
                                                                  new() { Value = "java", Name = "Java" },
+                                                                 new() { Value = "json", Name = "JSON" },
                                                                  new() { Value = "javascript", Name = "JavaScript" },
                                                                  new() { Value = "python", Name = "Python" },
                                                                  new() { Value = "sql", Name = "SQL" },
