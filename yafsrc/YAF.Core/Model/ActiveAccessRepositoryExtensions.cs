@@ -90,18 +90,7 @@ public static class ActiveAccessRepositoryExtensions
                                      DeleteAccess = access.DeleteAccess > 0
                                  }));
 
-        activeList.DistinctBy(a => new { a.UserID, a.ForumID }).ForEach(
-            a =>
-            {
-                try
-                {
-                    repository.Insert(a);
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
-            });
+        repository.BulkInsert(activeList.DistinctBy(a => new { a.UserID, a.ForumID }));
     }
 
     /// <summary>

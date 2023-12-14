@@ -268,6 +268,23 @@ public static class IRepositoryExtensions
     }
 
     /// <summary>
+    /// Uses the most optimal approach to bulk insert multiple rows for each RDBMS provider.
+    /// </summary>
+    /// <typeparam name="T">The Model.</typeparam>
+    /// <param name="repository">The repository.</param>
+    /// <param name="inserts">The inserts.</param>
+    public static void BulkInsert<T>(this IRepository<T> repository, IEnumerable<T> inserts)
+        where T : IEntity
+    {
+        repository.DbAccess.Execute(
+            db =>
+            {
+                db.Connection.BulkInsert(inserts);
+                return inserts.Count();
+            });
+    }
+
+    /// <summary>
     /// Update or Insert entity.
     /// </summary>
     /// <typeparam name="T">
