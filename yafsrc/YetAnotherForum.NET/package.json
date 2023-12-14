@@ -3,7 +3,7 @@
     "version": "3.2.0",
     "private": true,
     "devDependencies": {
-        "@babel/preset-env": "^7.23.2",
+        "@babel/preset-env": "^7.23.6",
         "@lodder/grunt-postcss": "^3.1.1",
         "@w8tcha/grunt-dev-update": "^2.3.1",
         "autoprefixer": "^10.4.16",
