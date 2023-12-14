@@ -220,7 +220,7 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
         cancellationToken.ThrowIfCancellationRequested();
 
         return this.GetRepository<AspNetUsers>().GetSingleAsync(
-            u => u.UserName == normalizedUserName,
+            u => u.UserName.ToLower() == normalizedUserName.ToLower(),
             cancellationToken: cancellationToken);
     }
 
@@ -546,7 +546,7 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
         cancellationToken.ThrowIfCancellationRequested();
 
         return this.GetRepository<AspNetUsers>().GetSingleAsync(
-            u => u.Email == normalizedEmail,
+            u => u.Email.ToLower() == normalizedEmail.ToLower(),
             cancellationToken: cancellationToken);
     }
 
