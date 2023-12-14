@@ -447,6 +447,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
                                     new() { Value = "markup", Text = "HTML" },
                                     new() { Value = "java", Text = "Java" },
                                     new() { Value = "javascript", Text = "JavaScript" },
+                                    new() { Value = "json", Text = "JSON" },
                                     new() { Value = "python", Text = "Python" },
                                     new() { Value = "sql", Text = "SQL" },
                                     new() { Value = "markup", Text = "XML" },
