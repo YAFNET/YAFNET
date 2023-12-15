@@ -60,6 +60,9 @@ static internal class OrmLiteConfigExtensions
     /// <exception cref="System.NotSupportedException">[AutoId] is only valid for Guid properties for {modelType.Name}.{propertyInfo.Name} integer property use [AutoIncrement] instead</exception>
     static internal ModelDefinition GetModelDefinition(this Type modelType)
     {
+        if (modelType == null)
+            return null;
+
         if (typeModelDefinitionMap.TryGetValue(modelType, out var modelDef))
         {
             return modelDef;

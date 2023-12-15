@@ -165,10 +165,6 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// </summary>
     protected bool selectDistinct = false;
     /// <summary>
-    /// The visited expression is table column
-    /// </summary>
-    protected bool visitedExpressionIsTableColumn = false;
-    /// <summary>
     /// The skip parameterization for this expression
     /// </summary>
     protected bool skipParameterizationForThisExpression = false;
@@ -260,7 +256,6 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         to.useFieldName = this.useFieldName;
         to.selectDistinct = this.selectDistinct;
         to.WhereStatementWithoutWhereString = this.WhereStatementWithoutWhereString;
-        to.visitedExpressionIsTableColumn = this.visitedExpressionIsTableColumn;
         to.skipParameterizationForThisExpression = this.skipParameterizationForThisExpression;
         to.UseSelectPropertiesAsAliases = this.UseSelectPropertiesAsAliases;
         to.hasEnsureConditions = this.hasEnsureConditions;
@@ -346,7 +341,6 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         sb.Append(this.useFieldName ? "1" : "0");
         sb.Append(this.selectDistinct ? "1" : "0");
         sb.Append(this.WhereStatementWithoutWhereString ? "1" : "0");
-        sb.Append(this.visitedExpressionIsTableColumn ? "1" : "0");
         sb.Append(this.skipParameterizationForThisExpression ? "1" : "0");
         sb.Append(this.UseSelectPropertiesAsAliases ? "1" : "0");
         sb.Append(this.hasEnsureConditions ? "1" : "0");
@@ -2750,8 +2744,6 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>object.</returns>
     public virtual object Visit(Expression exp)
     {
-        this.visitedExpressionIsTableColumn = false;
-
         if (exp == null)
             return string.Empty;
 
@@ -3005,7 +2997,8 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             }
             else if (left is not PartialSqlString)
             {
-                left = this.DialectProvider.GetQuotedValue(left, left?.GetType());
+                //left = DialectProvider.GetQuotedValue(left, left?.GetType());
+                left = GetValue(left, left?.GetType());
             }
             else if (right is not PartialSqlString)
             {
@@ -3190,9 +3183,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <param name="right">The right.</param>
     private static void Swap(ref object left, ref object right)
     {
-        var temp = right;
-        right = left;
-        left = temp;
+        (right, left) = (left, right);
     }
 
     /// <summary>
@@ -3203,20 +3194,40 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <param name="originalRight">The original right.</param>
     /// <param name="left">The left.</param>
     /// <param name="right">The right.</param>
-    protected virtual void VisitFilter(string operand, object originalLeft, object originalRight, ref object left, ref object right)
+    protected virtual void VisitFilter(string operand, object originalLeft, object originalRight, ref object left,
+        ref object right)
     {
-        if (this.skipParameterizationForThisExpression || this.visitedExpressionIsTableColumn)
+        if (this.skipParameterizationForThisExpression)
             return;
 
         if (originalLeft is EnumMemberAccess && originalRight is EnumMemberAccess)
             return;
 
-        if (operand == "AND" || operand == "OR" || operand == "is" || operand == "is not")
+        if (operand is "AND" or "OR")
             return;
 
-        if (!(right is PartialSqlString))
+        if (left is not PartialSqlString && left?.ToString() != "null")
         {
-            this.ConvertToPlaceholderAndParameter(ref right);
+            if (!(originalLeft is MemberExpression leftMe && IsTableColumn(leftMe)))
+            {
+                ConvertToPlaceholderAndParameter(ref left);
+            }
+            else
+            {
+                left = DialectProvider.GetQuotedValue(left, left?.GetType());
+            }
+        }
+
+        if (right is not PartialSqlString && right?.ToString() != "null")
+        {
+            if (!(originalRight is MemberExpression rightMe && IsTableColumn(rightMe)))
+            {
+                ConvertToPlaceholderAndParameter(ref right);
+            }
+            else
+            {
+                right = DialectProvider.GetQuotedValue(right, right?.GetType());
+            }
         }
     }
 
@@ -3270,6 +3281,19 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         return CachedExpressionCompiler.Evaluate(m);
     }
 
+    protected bool IsTableColumn(MemberExpression m)
+    {
+        var modelType = m.Expression?.Type;
+        if (m.Expression?.NodeType == ExpressionType.Convert)
+        {
+            if (m.Expression is UnaryExpression unaryExpr)
+            {
+                modelType = unaryExpr.Operand.Type;
+            }
+        }
+        return modelType?.GetModelDefinition() != null;
+    }
+
     /// <summary>
     /// Gets the member expression.
     /// </summary>
@@ -3287,8 +3311,6 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                 modelType = unaryExpr.Operand.Type;
             }
         }
-
-        this.OnVisitMemberType(modelType);
 
         var tableDef = modelType.GetModelDefinition();
 
@@ -3338,16 +3360,6 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         }
 
         return null;
-    }
-
-    /// <summary>
-    /// Called when [visit member type].
-    /// </summary>
-    /// <param name="modelType">Type of the model.</param>
-    protected virtual void OnVisitMemberType(Type modelType)
-    {
-        var tableDef = modelType.GetModelDefinition();
-        if (tableDef != null) this.visitedExpressionIsTableColumn = true;
     }
 
     /// <summary>
