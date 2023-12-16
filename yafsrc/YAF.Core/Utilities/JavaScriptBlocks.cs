@@ -271,7 +271,7 @@ public static class JavaScriptBlocks
     }
 
     /// <summary>
-    /// The collapse toggle JS.
+    /// The event log collapse toggle button JS.
     /// </summary>
     /// <param name="hideText">
     /// The hide Text.
@@ -286,12 +286,15 @@ public static class JavaScriptBlocks
     {
         return $$"""
                  document.addEventListener("DOMContentLoaded", function () {
-                     document.querySelectorAll('a[data-bs-toggle="collapse"]').forEach(button => {
-                         if (button.getAttribute("aria-expanded") === "false") {
-                             button.innerHTML = '<i class="fa fa-caret-square-up fa-fw"></i>&nbsp;{{hideText}}';
-                         } else {
-                             button.innerHTML = '<i class="fa fa-caret-square-down fa-fw"></i>&nbsp;{{showText}}';
-                         }
+                     document.querySelectorAll('button[data-bs-toggle="collapse"]').forEach(button => {
+                     
+                         button.addEventListener("click", event => {
+                             if (button.getAttribute("aria-expanded") === "false") {
+                                 button.innerHTML = '<i class="fa fa-caret-square-down fa-fw"></i>&nbsp;{{showText}}';
+                             } else {
+                                 button.innerHTML = '<i class="fa fa-caret-square-up fa-fw"></i>&nbsp;{{hideText}}';
+                             }
+                         });
                      });
                  });
                  """;

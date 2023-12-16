@@ -31,6 +31,7 @@
                                            AssociatedControlID="Description"
                                            LocalizedTag="DESCRIPTION" LocalizedPage="ADMIN_EDITFORUM" />
                             <asp:TextBox ID="Description" runat="server" 
+                                         MaxLength="255"
                                          CssClass="form-control"
                                          required="required"></asp:TextBox>
                             <div class="invalid-feedback">

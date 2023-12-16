@@ -88,58 +88,58 @@ public static class EventLogRepositoryExtensions
 
         return repository.DbAccess.Execute(
             db =>
+            {
+                var expression = OrmLiteConfig.DialectProvider.SqlExpression<EventLog>();
+
+                var guestUserId = BoardContext.Current.GuestUserID;
+
+                expression.Join<User>((e, u) => u.ID == (e.UserID != null ? e.UserID : guestUserId));
+
+                expression.Where<EventLog, User>(
+                    (a, b) => b.BoardID == (boardId ?? repository.BoardID) && a.EventTime >= sinceDate &&
+                              a.EventTime <= toDate);
+
+                if (eventType.HasValue)
                 {
-                    var expression = OrmLiteConfig.DialectProvider.SqlExpression<EventLog>();
+                    expression.And(a => a.Type == eventType);
+                }
 
-                    var guestUserId = BoardContext.Current.GuestUserID;
+                if (spamOnly)
+                {
+                    expression.And(
+                        a => a.Type == 1003 || a.Type == 1004 || a.Type == 1005 || a.Type == 2000 ||
+                             a.Type == 2001 || a.Type == 2002 || a.Type == 2003);
+                }
 
-                    expression.Join<User>((e, u) => u.ID == (e.UserID != null ? e.UserID : guestUserId));
+                // -- count total
+                var countTotalExpression = expression;
 
-                    expression.Where<EventLog, User>(
-                        (a, b) => b.BoardID == (boardId ?? repository.BoardID) && a.EventTime >= sinceDate &&
-                                  a.EventTime <= toDate);
+                var countTotalSql = countTotalExpression
+                    .Select(Sql.Count($"{countTotalExpression.Column<EventLog>(x => x.ID)}")).ToSelectStatement();
 
-                    if (eventType.HasValue)
-                    {
-                        expression.And(a => a.Type == eventType);
-                    }
+                expression.Select<EventLog, User>(
+                    (a, b) => new {
+                        a.UserID,
+                        a.ID,
+                        a.EventTime,
+                        a.Source,
+                        a.Description,
+                        a.Type,
+                        b.Name,
+                        b.DisplayName,
+                        b.Suspended,
+                        b.UserStyle,
+                        b.Flags,
+                        TotalRows = Sql.Custom($"({countTotalSql})")
+                    });
 
-                    if (spamOnly)
-                    {
-                        expression.And(
-                            a => a.Type == 1003 || a.Type == 1004 || a.Type == 1005 || a.Type == 2000 ||
-                                 a.Type == 2001 || a.Type == 2002 || a.Type == 2003);
-                    }
+                expression.OrderByDescending(a => a.ID);
 
-                    // -- count total
-                    var countTotalExpression = expression;
+                // Set Paging
+                expression.Page(pageIndex + 1, pageSize);
 
-                    var countTotalSql = countTotalExpression
-                        .Select(Sql.Count($"{countTotalExpression.Column<EventLog>(x => x.ID)}")).ToSelectStatement();
-
-                    expression.Select<EventLog, User>(
-                        (a, b) => new
-                                      {
-                                          a.UserID,
-                                          a.ID,
-                                          a.EventTime,
-                                          a.Source,
-                                          a.Description,
-                                          a.Type,
-                                          b.Name,
-                                          b.DisplayName,
-                                          b.Suspended,
-                                          b.UserStyle,
-                                          TotalRows = Sql.Custom($"({countTotalSql})")
-                                      });
-
-                    expression.OrderByDescending(a => a.ID);
-
-                    // Set Paging
-                    expression.Page(pageIndex + 1, pageSize);
-
-                    return db.Connection.Select<PagedEventLog>(expression);
-                });
+                return db.Connection.Select<PagedEventLog>(expression);
+            });
     }
 
     /// <summary>

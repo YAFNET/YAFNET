@@ -222,7 +222,8 @@ public partial class EventLog : AdminPage
                                UserID = item.UserID,
                                Suspended = item.Suspended,
                                Style = item.UserStyle,
-                               ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name
+                               ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name,
+                               IsGuest = item.UserFlags.IsGuest
                            };
 
         return userLink.RenderToString();
