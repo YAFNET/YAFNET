@@ -29,7 +29,7 @@ namespace YAF.Types.Objects.Model;
 /// </summary>
 public class PagedEventLog
 {
-    /// <summary>
+   /// <summary>
     /// Gets or sets the user id.
     /// </summary>
     public int UserID { get; set; }
@@ -78,6 +78,12 @@ public class PagedEventLog
     /// Gets or sets the user style.
     /// </summary>
     public string UserStyle { get; set; }
+
+    public int Flags { get; set; }
+
+    public UserFlags UserFlags {
+        get => new(this.Flags);
+    }
 
     /// <summary>
     /// Gets or sets the total rows.

@@ -127,6 +127,7 @@ public static class EventLogRepositoryExtensions
                                           b.DisplayName,
                                           b.Suspended,
                                           b.UserStyle,
+                                          b.Flags,
                                           TotalRows = Sql.Custom($"({countTotalSql})")
                                       });
 

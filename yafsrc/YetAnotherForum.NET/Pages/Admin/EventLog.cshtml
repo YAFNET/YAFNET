@@ -118,7 +118,8 @@
                                         @Html.UserLink(item.UserID,
                                             Model.PageBoardContext.BoardSettings.EnableDisplayName ? item.DisplayName : item.Name,
                                             item.Suspended,
-                                            item.UserStyle)
+                                            item.UserStyle,
+                                            isGuest: item.UserFlags.IsGuest)
                                     </p>
                                     <div class="small">
                                         <div class="btn-group btn-group-sm">
@@ -213,7 +214,6 @@
 
 @section Scripts {
     <script>
-
         @Html.Raw(JsAndCssHelper.CompressJavaScript(JavaScriptBlocks.CollapseToggleJs(
         Model.GetText("ADMIN_EVENTLOG", "HIDE"),
         Model.GetText("ADMIN_EVENTLOG", "SHOW"))));
