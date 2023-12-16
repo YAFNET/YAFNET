@@ -34,7 +34,7 @@ public static class UserAgentHelper
     /// <summary>
     /// The spiders detection regex
     /// </summary>
-    private readonly static Regex spiders = new("bot|spider|yandex|crawler|appie|robot|atomz|");
+    private readonly static Regex spiders = new("bot|spider|yandex|crawler|appie|robot|atomz");
 
     /// <summary>
     /// Validates if the user agent is a search engine spider
