@@ -529,7 +529,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         var modelDef = ModelDefinition<T>.Definition;
 
         var sb = StringBuilderCache.Allocate()
-            .Append($"COPY {this.GetTableName(modelDef)} (");
+            .Append($"COPY {this.GetQuotedTableName(modelDef)} (");
 
         var fieldDefs = this.GetInsertFieldDefinitions(modelDef, insertFields: config.InsertFields);
         var i = 0;
@@ -541,7 +541,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
             if (i++ > 0)
                 sb.Append(',');
 
-            sb.Append(this.NamingStrategy.GetColumnName(fieldDef.FieldName));
+            sb.Append($"\"{this.NamingStrategy.GetColumnName(fieldDef.FieldName)}\"");
         }
 
         sb.Append(") FROM STDIN (FORMAT BINARY)");
