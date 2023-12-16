@@ -21,11 +21,11 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Model;
 
 using System;
 using System.Collections.Generic;
-
 using YAF.Types.Models;
 
 /// <summary>
@@ -54,8 +54,6 @@ public static class ActiveAccessRepositoryExtensions
         int userId,
         bool isGuest)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         if (repository.Exists(a => a.UserID == userId))
         {
             return;
@@ -106,8 +104,6 @@ public static class ActiveAccessRepositoryExtensions
     /// </param>
     public static void Delete(this IRepository<ActiveAccess> repository, int activeTime)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.DbAccess.Execute(
             db =>
                 {

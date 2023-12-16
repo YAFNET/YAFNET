@@ -51,8 +51,6 @@ public static class ForumAccessRepositoryExtensions
         int groupId,
         int accessMaskId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
 
         expression.Join<Category>((f, c) => c.ID == f.CategoryID)
@@ -61,13 +59,17 @@ public static class ForumAccessRepositoryExtensions
         var forums = repository.DbAccess.Execute(
             db => db.Connection.Select(expression));
 
+        var accessList = new List<ForumAccess>();
+
         forums.ForEach(
-            f => repository.Insert(new ForumAccess
-                                       {
-                                           GroupID = groupId,
-                                           ForumID = f.ID,
-                                           AccessMaskID = accessMaskId
-                                       }));
+            f => accessList.Add(new ForumAccess
+            {
+                GroupID = groupId,
+                ForumID = f.ID,
+                AccessMaskID = accessMaskId
+            }));
+
+        repository.BulkInsert(accessList);
     }
 
     /// <summary>
@@ -86,8 +88,6 @@ public static class ForumAccessRepositoryExtensions
         this IRepository<ForumAccess> repository,
         int groupId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<ForumAccess>();
 
         expression.Join<Forum>((access, forum) => forum.ID == access.ForumID)
@@ -121,8 +121,6 @@ public static class ForumAccessRepositoryExtensions
         int groupId,
         int accessMaskId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.UpdateOnly(
             () => new ForumAccess { AccessMaskID = accessMaskId },
             f => f.ForumID == forumId && f.GroupID == groupId);
@@ -149,8 +147,6 @@ public static class ForumAccessRepositoryExtensions
         int groupId,
         int accessMaskId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.Insert(new ForumAccess { AccessMaskID = accessMaskId, GroupID = groupId, ForumID = forumId });
     }
 
@@ -170,8 +166,6 @@ public static class ForumAccessRepositoryExtensions
         this IRepository<ForumAccess> repository,
         int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<ForumAccess>();
 
         expression.Join<ForumAccess, Group>((access, group) => group.ID == access.GroupID)
@@ -197,8 +191,6 @@ public static class ForumAccessRepositoryExtensions
         this IRepository<ForumAccess> repository,
         int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<ForumAccess>();
 
         expression.Join<AccessMask>((fa, am) => am.ID == fa.AccessMaskID)

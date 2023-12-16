@@ -46,10 +46,15 @@ public class DateTimeOffsetConverter : OrmLiteConverter
         {
             return value;
         }
-        if (value is DateTime)
+        if (value is DateTime dateTime)
         {
-            return new DateTimeOffset((DateTime)value);
+            return dateTime == DateTime.MinValue
+                ? DateTimeOffset.MinValue
+                : dateTime == DateTime.MaxValue
+                    ? DateTimeOffset.MaxValue
+                    : new DateTimeOffset(dateTime);
         }
+
         var convertedValue = DialectProvider.StringSerializer.DeserializeFromString(value.ToString(), fieldType);
         return convertedValue;
     }

@@ -40,8 +40,6 @@ public static class IHaveServiceLocatorExtensions
     /// </param>
     public static void RunStartupServices(this IHaveServiceLocator serviceLocator)
     {
-        CodeContracts.VerifyNotNull(serviceLocator);
-
         var startupServices = serviceLocator.Get<IEnumerable<IStartupService>>().ToList();
 
         // run critical first...
