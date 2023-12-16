@@ -203,22 +203,21 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
 
                 // log the user out...
                 // FormsAuthentication.SignOut();
-                if (BoardContext.Current.CurrentForumPage.PageName != ForumPages.Info)
-                {
-                    // show a failure notice since something is probably up with membership...
-                    this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Failure);
-                }
-                else
+                if (BoardContext.Current.CurrentForumPage is null ||
+                    BoardContext.Current.CurrentForumPage.PageName == ForumPages.Info)
                 {
                     // totally failing... just re-throw the exception...
                     throw;
                 }
+
+                // show a failure notice since something is probably up with membership...
+                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Failure);
 #else
         catch (Exception)
         {
             // re-throw exception...
             throw;
 #endif
-        }
+            }
     }
 }
