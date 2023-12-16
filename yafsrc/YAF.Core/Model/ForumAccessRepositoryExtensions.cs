@@ -59,13 +59,17 @@ public static class ForumAccessRepositoryExtensions
         var forums = repository.DbAccess.Execute(
             db => db.Connection.Select(expression));
 
+        var accessList = new List<ForumAccess>();
+
         forums.ForEach(
-            f => repository.Insert(new ForumAccess
+            f => accessList.Add(new ForumAccess
                                        {
                                            GroupID = groupId,
                                            ForumID = f.ID,
                                            AccessMaskID = accessMaskId
                                        }));
+
+        repository.BulkInsert(accessList);
     }
 
     /// <summary>

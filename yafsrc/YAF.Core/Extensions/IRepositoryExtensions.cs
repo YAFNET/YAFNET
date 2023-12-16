@@ -242,32 +242,6 @@ public static class IRepositoryExtensions
     }
 
     /// <summary>
-    /// Insert a collection of POCOs in a transaction. E.g:
-    /// <para>
-    /// db.InsertAll(new[] { new Person { Id = 9, FirstName = "Biggie", LastName = "Smalls", Age = 24 } })
-    /// </para>
-    /// </summary>
-    /// <typeparam name="T">
-    /// The Model
-    /// </typeparam>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="inserts">
-    /// The List to add.
-    /// </param>
-    public static void InsertAll<T>(this IRepository<T> repository, IEnumerable<T> inserts)
-        where T : IEntity
-    {
-        repository.DbAccess.Execute(
-            db =>
-                {
-                    db.Connection.InsertAll(inserts);
-                    return inserts.Count();
-                });
-    }
-
-    /// <summary>
     /// Uses the most optimal approach to bulk insert multiple rows for each RDBMS provider.
     /// </summary>
     /// <typeparam name="T">The Model.</typeparam>

@@ -70,14 +70,14 @@ public static class CheckEmailRepositoryExtensions
     /// </param>
     public static void Save(
         this IRepository<CheckEmail> repository,
-        int? userId,
+        int userId,
         string hash,
         string email)
     {
         repository.Insert(
             new CheckEmail
                 {
-                    UserID = userId.Value, Email = email.ToLower(), Created = DateTime.UtcNow, Hash = hash
+                    UserID = userId, Email = email.ToLower(), Created = DateTime.UtcNow, Hash = hash
                 });
     }
 

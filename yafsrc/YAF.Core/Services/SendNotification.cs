@@ -601,7 +601,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     public async Task SendVerificationEmailAsync(
         AspNetUsers user,
         string email,
-        int? userId,
+        int userId,
         string newUsername = null)
     {
         var token = HttpUtility.UrlEncode(

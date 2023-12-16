@@ -145,7 +145,7 @@ public interface ISendNotification
     Task SendVerificationEmailAsync(
         AspNetUsers user,
         string email,
-        int? userId,
+        int userId,
         string newUsername = null);
 
     /// <summary>

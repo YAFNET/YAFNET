@@ -180,7 +180,7 @@ public class RegisterModel : AccountPage
             // handle e-mail verification
             var email = this.Input.Email.Trim();
 
-            await this.Get<ISendNotification>().SendVerificationEmailAsync(user, email, userId);
+            await this.Get<ISendNotification>().SendVerificationEmailAsync(user, email, userId.Value);
 
             if (this.PageBoardContext.BoardSettings.NotificationOnUserRegisterEmailList.IsSet())
             {

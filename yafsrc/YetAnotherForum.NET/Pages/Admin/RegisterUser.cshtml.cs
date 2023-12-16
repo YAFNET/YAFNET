@@ -122,7 +122,7 @@ public class RegisterUserModel : AdminPage
         var autoWatchTopicsEnabled = this.PageBoardContext.BoardSettings.DefaultNotificationSetting
             .Equals(UserNotificationSetting.TopicsIPostToOrSubscribeTo);
 
-        await this.Get<ISendNotification>().SendVerificationEmailAsync(user, newEmail, userId, newUsername);
+        await this.Get<ISendNotification>().SendVerificationEmailAsync(user, newEmail, userId.Value, newUsername);
 
         this.GetRepository<User>().SaveNotification(
             this.Get<IAspNetUsersHelper>().GetUserFromProviderUserKey(user.Id).ID,

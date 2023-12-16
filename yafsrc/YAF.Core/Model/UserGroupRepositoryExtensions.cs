@@ -157,8 +157,11 @@ public static class UserGroupRepositoryExtensions
                     var list = repository.DbAccess.Execute(
                         db => db.Connection.Select(expression));
 
-                    list.ForEach(
-                        access => BoardContext.Current.GetRepository<ForumAccess>().Insert(access));
+                    var forumAccessList = new List<ForumAccess>();
+
+                    list.ForEach(forumAccessList.Add);
+
+                    BoardContext.Current.GetRepository<ForumAccess>().BulkInsert(forumAccessList);
                 }
                 catch (Exception)
                 {
@@ -167,14 +170,17 @@ public static class UserGroupRepositoryExtensions
 
                     var forums = BoardContext.Current.GetRepository<Forum>().ListAll(boardId);
 
+                    var forumAccessList = new List<ForumAccess>();
+
                     forums.ForEach(
-                        forum => BoardContext.Current.GetRepository<ForumAccess>().Insert(
-                            new ForumAccess
-                                {
-                                    AccessMaskID = guestAccessMask.ID,
-                                    ForumID = forum.Item1.ID,
-                                    GroupID = groupId.Value
-                                }));
+                        forum => forumAccessList.Add(
+                            new ForumAccess {
+                                AccessMaskID = guestAccessMask.ID,
+                                ForumID = forum.Item1.ID,
+                                GroupID = groupId.Value
+                            }));
+
+                    BoardContext.Current.GetRepository<ForumAccess>().BulkInsert(forumAccessList);
                 }
             }
             else

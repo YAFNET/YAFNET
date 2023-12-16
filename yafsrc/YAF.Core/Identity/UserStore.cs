@@ -76,16 +76,14 @@ public class UserStore : IUserEmailStore<AspNetUsers>,
     /// <returns>
     /// The <see cref="Task"/>.
     /// </returns>
-    public virtual Task AddLoginAsync(AspNetUsers user, UserLoginInfo login)
+    public async virtual Task AddLoginAsync(AspNetUsers user, UserLoginInfo login)
     {
         var userLogin = new AspNetUserLogins
                             {
                                 UserId = user.Id, ProviderKey = login.ProviderKey, LoginProvider = login.LoginProvider
                             };
 
-        this.GetRepository<AspNetUserLogins>().Insert(userLogin, false);
-
-        return Task.FromResult(0);
+        await this.GetRepository<AspNetUserLogins>().InsertAsync(userLogin, false);
     }
 
     /// <summary>
