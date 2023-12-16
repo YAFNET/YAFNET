@@ -34,7 +34,7 @@ public static class UserAgentHelper
     /// <summary>
     /// The spiders detection regex
     /// </summary>
-    private readonly static Regex spiders = new("bot|spider|yandex|crawler|appie|robot|atomz");
+    private readonly static Regex spiders = new("bot|spider|yandex|crawler|appie|robot|atomz|");
 
     /// <summary>
     /// Validates if the user agent is a search engine spider
@@ -61,8 +61,6 @@ public static class UserAgentHelper
         ref string platform,
         out bool isSearchEngine)
     {
-        CodeContracts.VerifyNotNull(platform);
-
         isSearchEngine = false;
 
         if (userAgent.IsNotSet())
@@ -71,6 +69,8 @@ public static class UserAgentHelper
 
             return;
         }
+
+        isSearchEngine = isCrawler || IsSearchEngineSpider(userAgent);
 
         if (userAgent.Contains("Windows NT "))
         {
@@ -142,10 +142,6 @@ public static class UserAgentHelper
         else if (userAgent.Contains("Mac OS X"))
         {
             platform = "Mac OS X";
-        }
-        else
-        {
-            isSearchEngine = isCrawler || IsSearchEngineSpider(userAgent);
         }
     }
 }
