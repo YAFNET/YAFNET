@@ -268,9 +268,9 @@ public class EditForumModel : AdminPage
     }
 
     /// <summary>
-    /// Handles the Click event of the Save control.
+    /// Save the Forum
     /// </summary>
-    public IActionResult OnPostSave()
+    public IActionResult OnPostSave(int? fa = null, bool copy = false)
     {
         if (this.Input.CategoryID == 0)
         {
@@ -332,7 +332,7 @@ public class EditForumModel : AdminPage
             moderatedPostCount = this.Input.ModeratedPostCount;
         }
 
-        if (this.Input.ImageURL.Equals(this.GetText("COMMON", "NONE")))
+        if (this.Input.ImageURL.IsSet() && this.Input.ImageURL.Equals(this.GetText("COMMON", "NONE")))
         {
             this.Input.ImageURL = null;
         }
