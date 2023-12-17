@@ -1569,6 +1569,92 @@ public static class TopicRepositoryExtensions
     }
 
     /// <summary>
+    /// Get Deleted Topics paged.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <param name="filter">
+    /// The filter.
+    /// </param>
+    /// <param name="pageIndex">
+    /// The page index.
+    /// </param>
+    /// <param name="pageSize">
+    /// The page size.
+    /// </param>
+    /// <returns>
+    /// The <see cref="List"/>.
+    /// </returns>
+    public static List<PagedTopic> GetDeletedTopicsPaged(
+        this IRepository<Topic> repository,
+        int boardId,
+        string filter,
+        int pageIndex,
+        int pageSize)
+    {
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
+
+        if (filter.IsSet())
+        {
+            expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
+                .Join<Topic>((f, t) => t.ForumID == f.ID).Where<Topic, Category>(
+                    (t, category) =>
+                        category.BoardID == boardId && (category.Flags & 1) == 1 && (t.Flags & 8) == 8 && t.TopicName.Contains(filter));
+        }
+        else
+        {
+            expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
+                .Join<Topic>((f, t) => t.ForumID == f.ID).Where<Topic, Category>(
+                    (t, category) => category.BoardID == boardId && (category.Flags & 1) == 1 && (t.Flags & 8) == 8);
+        }
+
+        // -- count total
+        var countTotalExpression = expression;
+
+        var countTotalSql = countTotalExpression
+            .Select(Sql.Count($"{countTotalExpression.Column<Topic>(x => x.ID)}")).ToSelectStatement();
+
+        expression.Select<Forum, Topic>(
+            (forum, topic) => new {
+                ForumID = forum.ID,
+                ForumName = forum.Name,
+                TopicID = topic.ID,
+                topic.Posted,
+                LinkTopicID = topic.TopicMovedID != null ? topic.TopicMovedID : topic.ID,
+                topic.TopicMovedID,
+                Subject = topic.TopicName,
+                topic.Description,
+                topic.Status,
+                topic.Styles,
+                topic.UserID,
+                Replies = topic.NumPosts - 1,
+                topic.Views,
+                topic.LastPosted,
+                topic.LastUserID,
+                topic.LastMessageFlags,
+                topic.LastMessageID,
+                LastTopicID = topic.ID,
+                topic.LinkDate,
+                TopicFlags = topic.Flags,
+                topic.Priority,
+                topic.PollID,
+                ForumFlags = forum.Flags,
+                topic.TopicImage,
+                topic.NumPosts,
+                TotalRows = Sql.Custom($"({countTotalSql})")
+            });
+
+        // Set Paging
+        expression.Page(pageIndex + 1, pageSize);
+
+        return repository.DbAccess.Execute(db => db.Connection.Select<PagedTopic>(expression));
+    }
+
+    /// <summary>
     /// Updates the Forum Last Post.
     /// </summary>
     /// <param name="repository">

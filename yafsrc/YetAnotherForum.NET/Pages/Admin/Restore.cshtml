@@ -71,20 +71,20 @@
                             <li class="list-group-item list-group-item-action">
                                 <div class="d-flex w-100 justify-content-between">
                                     <h5 class="mb-1">
-                                        @Html.Raw(topic.Item2.TopicName)
+                                        @Html.Raw(topic.Subject)
 
-                                        @if (topic.Item2.NumPosts > 0)
+                                        @if (topic.NumPosts > 0)
                                         {
                                             <a button-style="Link"
                                                icon="external-link-alt"
                                                asp-page="@ForumPages.Posts"
-                                               asp-route-t="@topic.Item2.ID"
-                                               asp-route-name="@Html.HtmlEncode(topic.Item2.TopicName)">
+                                               asp-route-t="@topic.TopicID"
+                                               asp-route-name="@Html.HtmlEncode(topic.Subject)">
                                             </a>
                                         }
                                     </h5>
                                     <small>
-                                        @Html.Raw($"{topic.Item2.NumPosts} {Model.GetText("POSTS")}")
+                                        @Html.Raw($"{topic.NumPosts} {Model.GetText("POSTS")}")
                                     </small>
                                 </div>
                                 <p class="mb-1">
@@ -93,23 +93,23 @@
                                 <small>
                                     <div class="btn-group">
 
-                                        @if (topic.Item2.NumPosts > 0)
+                                        @if (topic.NumPosts > 0)
                                         {
                                             <button text-localized-tag="RESTORE_TOPIC"
                                                     Icon="trash-restore"
                                                     button-style="Success"
                                                     asp-page-handler="RestoreTopic"
                                                     asp-route-p2="@Model.Request.RouteValues["p2"]"
-                                                    asp-route-topicId="@topic.Item2.ID"
-                                                    asp-route-forumId="@topic.Item1.ID"></button>
+                                                    asp-route-topicId="@topic.TopicID"
+                                                    asp-route-forumId="@topic.ForumID"></button>
                                         }
                                        
                                         <button text-localized-tag="DELETE"
                                                 button-style="Danger"
                                                 Icon="trash"
                                                 asp-route-p2="@Model.Request.RouteValues["p2"]"
-                                                asp-route-topicId="@topic.Item2.ID"
-                                                asp-route-forumId="@topic.Item1.ID"
+                                                asp-route-topicId="@topic.TopicID"
+                                                asp-route-forumId="@topic.ForumID"
                                                 asp-page-handler="DeleteTopic">
                                         </button>
                                     </div>
@@ -153,7 +153,7 @@
     <div class="row justify-content-end">
         <div class="col-auto">
             <pager page-size="@Model.Size"
-                   count="@Model.TopicsCount"
+                   count="!Model.DeletedTopics.NullOrEmpty() ? Model.DeletedTopics.FirstOrDefault()!.TotalRows : 0"
                    query-name="p">
             </pager>
         </div>
@@ -192,19 +192,19 @@
                                 <li class="list-group-item list-group-item-action">
                                     <div class="d-flex w-100 justify-content-between">
                                         <h5 class="mb-1">
-                                            @Html.Raw(message.Item2.TopicName)
+                                            @Html.Raw(message.Topic)
 
                                             <a button-style="Link"
                                                Icon="external-link-alt"
                                                asp-page="@ForumPages.Posts.GetPageName()"
-                                               asp-route-m="@message.Item3.ID"
-                                               asp-route-name="@Html.HtmlEncode(message.Item2.TopicName)">
+                                               asp-route-m="@message.MessageID"
+                                               asp-route-name="@Html.HtmlEncode(message.Topic)">
                                             </a>
 
                                         </h5>
                                     </div>
                                     <p class="mb-1">
-                                        @Html.Raw(message.Item3.MessageText)
+                                        @Html.Raw(message.Message)
                                     </p>
                                     <small>
                                         <div class="btn-group">
@@ -213,17 +213,17 @@
                                                     button-style="Success"
                                                     asp-page-handler="RestorePost"
                                                     asp-route-p="@Model.Request.RouteValues["p"]"
-                                                    asp-route-topicId="@message.Item2.ID"
-                                                    asp-route-forumId="@message.Item1.ID"
-                                                    asp-route-messageId="@message.Item3.ID"></button>
+                                                    asp-route-topicId="@message.TopicID"
+                                                    asp-route-forumId="@message.ForumID"
+                                                    asp-route-messageId="@message.MessageID"></button>
                                             <button asp-page-handler="DeletePost"
                                                     text-localized-tag="DELETE"
                                                     button-style="Danger"
                                                     Icon="trash"
                                                     asp-route-p="@Model.Request.RouteValues["p"]"
-                                                    asp-route-topicId="@message.Item2.ID"
-                                                    asp-route-forumId="@message.Item1.ID"
-                                                    asp-route-messageId="@message.Item3.ID">
+                                                    asp-route-topicId="@message.TopicID"
+                                                    asp-route-forumId="@message.ForumID"
+                                                    asp-route-messageId="@message.MessageID">
                                             </button>
                                         </div>
                                     </small>
@@ -257,7 +257,7 @@
     <div class="row justify-content-end">
         <div class="col-auto">
             <pager page-size="@Model.Size"
-                   count="@Model.MessagesCount"
+                   count="!Model.DeletedMessages.NullOrEmpty() ? Model.DeletedMessages.FirstOrDefault()!.TotalRows : 0"
                    query-name="p2">
             </pager>
         </div>

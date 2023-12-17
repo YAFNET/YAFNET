@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using YAF.Types.Objects.Model;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -32,7 +34,6 @@ using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
 using YAF.Types.Models;
-using YAF.Types.Objects;
 
 /// <summary>
 /// The Admin Restore Topics Page
@@ -43,19 +44,13 @@ public class RestoreModel : AdminPage
     public string Filter { get; set; }
 
     [BindProperty]
-    public IList<Tuple<Forum, Topic>> DeletedTopics { get; set; }
+    public List<PagedTopic> DeletedTopics { get; set; }
 
     [BindProperty]
-    public IList<Tuple<Forum, Topic, Message>> DeletedMessages { get; set; }
+    public List<PagedMessage> DeletedMessages { get; set; }
 
     [BindProperty]
     public int MessagesPageSize { get; set; }
-
-    [BindProperty]
-    public int TopicsCount { get; set; }
-
-    [BindProperty]
-    public int MessagesCount { get; set; }
 
     /// <summary>
     /// Gets or sets the pageSize List.
@@ -235,35 +230,36 @@ public class RestoreModel : AdminPage
 
         this.MessagesPageSize = this.PageBoardContext.PageUser.PageSize;
 
-        // Bind Topics
+        this.BindDeletedTopics(p);
+
+        this.BindDeletedMessages(p2);
+    }
+
+    /// <summary>
+    /// Binds the deleted topics.
+    /// </summary>
+    /// <param name="p">
+    /// The page index.
+    /// </param>
+    private void BindDeletedTopics(int p)
+    {
         var deletedTopics =
-            this.GetRepository<Topic>().GetDeletedTopics(this.PageBoardContext.PageBoardID, this.Filter);
+            this.GetRepository<Topic>().GetDeletedTopicsPaged(this.PageBoardContext.PageBoardID, this.Filter, p - 1, this.Size);
 
-        this.TopicsCount = deletedTopics.Count;
+        this.DeletedTopics = deletedTopics;
+    }
 
-        var pagerTopics = new Paging {
-                                         CurrentPageIndex = p,
-                                         PageSize = this.Size,
-                                         Count = deletedTopics.Count
-                                     };
+    /// <summary>
+    /// Bind deleted Messages.
+    /// </summary>
+    /// <param name="p2">
+    /// The page index.
+    /// </param>
+    private void BindDeletedMessages(int p2)
+    {
+        var deletedMessages = this.GetRepository<Message>()
+            .GetDeletedMessagesPaged(this.PageBoardContext.PageBoardID, p2 - 1, MessagesPageSize);
 
-        var deletedTopicPaged = deletedTopics.GetPaged(pagerTopics);
-
-        this.DeletedTopics = deletedTopicPaged;
-
-        // Bind Messages
-        var deletedMessages = this.GetRepository<Message>().GetDeletedMessages(this.PageBoardContext.PageBoardID);
-
-        this.MessagesCount = deletedMessages.Count;
-
-        var pagerMessages = new Paging {
-                                           CurrentPageIndex = p2,
-                                           PageSize = this.MessagesPageSize,
-                                           Count = MessagesCount
-                                       };
-
-        var deletedMessagesPaged = deletedMessages.GetPaged(pagerMessages);
-
-        this.DeletedMessages = deletedMessagesPaged;
+        this.DeletedMessages = deletedMessages;
     }
 }

@@ -1,4 +1,4 @@
-@page "{p:int=0}/{p2:int=0}/{handler?}"
+@page "{p:int=0}/{p2:int=1}/{handler?}"
 @model AdminModel
 @using YAF.Types.Interfaces
 @using YAF.Types.Interfaces.Services
@@ -10,7 +10,7 @@
 
 @inject BoardContext Current
 
-<form method="post">
+<form method="post">6
     <div class="row">
         <div class="col-xl-12">
             <h1>@Html.LocalizedText("ADMIN_ADMIN","ADMIN_ADMIN")</h1>

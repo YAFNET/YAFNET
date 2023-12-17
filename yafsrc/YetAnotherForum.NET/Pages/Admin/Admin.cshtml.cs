@@ -329,7 +329,7 @@ public class AdminModel : AdminPage
         var unverifiedUsers = this.GetRepository<User>().GetUnApprovedUsers(this.PageBoardContext.PageBoardID);
 
         var pager = new Paging {
-                                   CurrentPageIndex = p2,
+                                   CurrentPageIndex = p2 - 1,
                                    PageSize = this.Input.UnverifiedPageSize,
                                    Count = unverifiedUsers.Count
                                };

@@ -137,7 +137,7 @@ public static class MessageRepositoryExtensions
     }
 
     /// <summary>
-    /// Get Deleted Topics
+    /// Gets the deleted posts.
     /// </summary>
     /// <param name="repository">
     /// The repository.
@@ -146,7 +146,7 @@ public static class MessageRepositoryExtensions
     /// The board id.
     /// </param>
     /// <returns>
-    /// List of deleted Topics
+    /// List of deleted posts.
     /// </returns>
     public static List<Tuple<Forum, Topic, Message>> GetDeletedMessages(
         this IRepository<Message> repository,
@@ -159,6 +159,81 @@ public static class MessageRepositoryExtensions
             .Where<Message, Category>((m, category) => category.BoardID == boardId && (m.Flags & 8) == 8 && (category.Flags & 1) == 1);
 
         return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Forum, Topic, Message>(expression));
+    }
+
+    /// <summary>
+    /// Get the (paged) deleted posts.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <param name="pageIndex">
+    /// The page index.
+    /// </param>
+    /// <param name="pageSize">
+    /// The page size.
+    /// </param>
+    /// <returns>
+    /// List of deleted Topics
+    /// </returns>
+    public static List<PagedMessage> GetDeletedMessagesPaged(
+        this IRepository<Message> repository,
+        int boardId,
+        int pageIndex,
+        int pageSize)
+    {
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
+
+        expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
+            .Join<Topic>((f, t) => t.ForumID == f.ID).Join<Topic, Message>((t, m) => m.TopicID == t.ID)
+            .Where<Message, Category>((m, category) => category.BoardID == boardId && (m.Flags & 8) == 8 && (category.Flags & 1) == 1);
+
+        // -- count total
+        var countTotalExpression = expression;
+
+        var countTotalSql = countTotalExpression
+            .Select(Sql.Count($"{countTotalExpression.Column<Message>(x => x.ID)}")).ToSelectStatement();
+
+        expression.Select<Forum, Topic, Message>(
+            (g, d, m) => new {
+                TopicID = d.ID,
+                Topic = d.TopicName,
+                d.Priority,
+                d.Description,
+                d.Status,
+                d.Styles,
+                d.PollID,
+                TopicOwnerID = d.UserID,
+                d.AnswerMessageId,
+                TopicFlags = d.Flags,
+                ForumFlags = g.Flags,
+                ForumName = g.Name,
+                MessageID = m.ID,
+                m.Posted,
+                Message = m.MessageText,
+                m.IP,
+                m.Flags,
+                m.EditReason,
+                m.IsModeratorChanged,
+                IsDeleted =
+                    Sql.Custom<bool>(
+                        $"({OrmLiteConfig.DialectProvider.ConvertFlag($"{expression.Column<Message>(x => x.Flags, true)}&8")})"),
+                m.Position,
+                m.DeleteReason,
+                m.ExternalMessageId,
+                d.Views,
+                d.ForumID,
+                Edited = m.Edited != null ? m.Edited : m.Posted,
+                TotalRows = Sql.Custom($"({countTotalSql})")
+            });
+
+        // Set Paging
+        expression.Page(pageIndex + 1, pageSize);
+
+        return repository.DbAccess.Execute(db => db.Connection.Select<PagedMessage>(expression));
     }
 
     /// <summary>
