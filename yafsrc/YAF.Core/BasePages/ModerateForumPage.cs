@@ -68,8 +68,8 @@ public class ModerateForumPage : ForumPage
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     protected void ModeratePage_Load(object sender, EventArgs e)
     {
-        // Only moderators are allowed here
-        if (!this.PageBoardContext.IsModeratorInAnyForum || !this.PageBoardContext.IsAdmin)
+        // Only moderators and admins are allowed here
+        if (!(this.PageBoardContext.IsModeratorInAnyForum || this.PageBoardContext.IsAdmin))
         {
             this.Get<LinkBuilder>().AccessDenied();
         }
