@@ -69,7 +69,7 @@ public class ModerateForumPage : ForumPage
     protected void ModeratePage_Load(object sender, EventArgs e)
     {
         // Only moderators are allowed here
-        if (!this.PageBoardContext.IsModeratorInAnyForum)
+        if (!this.PageBoardContext.IsModeratorInAnyForum || !this.PageBoardContext.IsAdmin)
         {
             this.Get<LinkBuilder>().AccessDenied();
         }
