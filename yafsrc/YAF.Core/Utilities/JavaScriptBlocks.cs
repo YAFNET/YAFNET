@@ -233,11 +233,10 @@ public static class JavaScriptBlocks
                    editUserId = {{userId}};
                                
                    function loadTab(tabName) {
-                       var tab = document.getElementById(tabName.substring(1));
+                       var tab = document.getElementById(tabName.substring(1))
                        switch (tabName) {
                        case "#View1":
                            if (tab.innerHTML.length === 0) {
-                            console.log(editUserId);
                                fetch("/Admin/EditUser/UsersInfo?userId=" + editUserId,
                                        {
                                            method: "GET",
@@ -248,9 +247,10 @@ public static class JavaScriptBlocks
                                        }).then(res => res.text())
                                    .then(response => {
                                        tab.innerHTML = response;
+                                       loadSelectMenus();
                                    }).catch(function(error) {
-                       errorLog(error);
-                   });
+                                       errorLog(error);
+                                   });
                            }
                            break;
                        case "#View2":
@@ -404,6 +404,8 @@ public static class JavaScriptBlocks
                            }
                            break;
                        }
+                       
+                       loadSelectMenus();
                    }
                    
                    document.addEventListener("DOMContentLoaded", function () {

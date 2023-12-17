@@ -12,163 +12,7 @@ document.addEventListener("DOMContentLoaded", function () {
         el.addEventListener("click", lightBox.initialize);
     }
 
-    // Main Menu
-    document.querySelectorAll(".dropdown-menu a.dropdown-toggle").forEach(menu => {
-        menu.addEventListener("click", (event) => {
-            var $el = menu, $subMenu = $el.nextElementSibling;
-
-            document.querySelectorAll(".dropdown-menu .show").forEach(dropDownMenu => {
-                dropDownMenu.classList.remove("show");
-            });
-
-            $subMenu.classList.add("show");
-
-            $subMenu.style.top = $el.offsetTop - 10;
-            $subMenu.style.left = $el.offsetWidth - 4;
-
-            event.stopPropagation();
-        });
-    });
-
-    document.querySelectorAll(".yafnet .select2-select").forEach(select => {
-        const choice = new window.Choices(select,
-            {
-                allowHTML: true,
-                shouldSort: false,
-                placeholderValue: select.getAttribute("placeholder"),
-                classNames: { containerOuter: "choices w-100" }
-            });
-    });
-
-
-    document.querySelectorAll(".yafnet .select2-image-select").forEach(select => {
-        var selectedValue = select.value;
-        var groups = new Array();
-        document.querySelectorAll(".yafnet .select2-image-select option[data-category]").forEach(option => {
-            var group = option.dataset.category.trim();
-
-            if (groups.indexOf(group) === -1) {
-                groups.push(group);
-            }
-        });
-
-        groups.forEach(group => {
-            document.querySelectorAll(".yafnet .select2-image-select").forEach(s => {
-
-                var optionGroups = new Array();
-                s.querySelectorAll(`option[data-category='${group}']`).forEach(option => {
-                    if (optionGroups.indexOf(option) === -1) {
-                        optionGroups.push(option);
-                    }
-                });
-
-                const optionGroupElement = document.createElement("optgroup");
-                optionGroupElement.label = group;
-
-                optionGroups.forEach(option => {
-                    option.replaceWith(optionGroupElement);
-
-                    optionGroupElement.appendChild(option);
-                });
-            });
-        });
-        select.value = selectedValue;
-
-        const choice = new window.Choices(select,
-            {
-                classNames: { containerOuter: "choices w-100" },
-                allowHTML: true,
-                shouldSort: false,
-                removeItemButton: select.dataset.allowClear === "true",
-                placeholderValue: select.getAttribute("placeholder"),
-                callbackOnCreateTemplates: function(template) {
-                    var itemSelectText = this.config.itemSelectText;
-                    const removeItemButton = this.config.removeItemButton;
-
-                    return {
-                        item: function({ classNames }, data) {
-                            var label = data.label;
-                            var json;
-
-                            if (data.customProperties) {
-                                try {
-                                    json = JSON.parse(data.customProperties);
-                                } catch (e) {
-                                    json = data.customProperties;
-                                }
-
-                                label = json.label === undefined ? data.label : json.label;
-                            }
-
-                            return template(
-                                `
-                                 <div class="${String(classNames.item)} ${String(data.highlighted
-                                    ? classNames.highlightedState
-                                    : classNames.itemSelectable)}"
-                                      data-item data-id="${String(data.id)}" data-value="${String(data.value)}"
-                                      ${String(removeItemButton ? "data-deletable" : "")}
-                                      ${String(data.active ? 'aria-selected="true"' : "")} ${String(data.disabled
-                                    ? 'aria-disabled="true"'
-                                    : "")}>
-                                    ${String(label)}
-                                    ${String(removeItemButton
-                                    ? `<button type="button" class="${String(classNames.button)
-                                    }" aria-label="Remove item: '${String(data.value)
-                                    }'" data-button="">Remove item</button>`
-                                    : "")}
-                                 </div>
-                                `
-                            );
-                        },
-                        choice: function({ classNames }, data) {
-                            var label = data.label;
-                            var json;
-
-                            if (data.customProperties) {
-                                try {
-                                    json = JSON.parse(data.customProperties);
-                                } catch (e) {
-                                    json = data.customProperties;
-                                }
-
-                                label = json.label === undefined ? data.label : json.label;
-                            }
-
-                            return template(
-                                `
-                                 <div class="${String(classNames.item)} ${String(classNames.itemChoice)} ${String(
-                                    data.disabled ? classNames.itemDisabled : classNames.itemSelectable)}"
-                                      data-select-text="${String(itemSelectText)}" data-choice ${String(data.disabled
-                                    ? 'data-choice-disabled aria-disabled="true"'
-                                    : "data-choice-selectable")}
-                                      data-id="${String(data.id)}" data-value="${String(data.value)}"
-                                      ${String(data.groupId > 0 ? 'role="treeitem"' : 'role="option"')}>
-                                      ${String(label)}
-                                 </div>
-                                 `
-                            );
-                        }
-                    };
-                }
-            });
-
-        choice.passedElement.element.addEventListener("choice",
-            function(event) {
-                var json;
-
-                if (event.detail.choice.customProperties) {
-                    try {
-                        json = JSON.parse(event.detail.choice.customProperties);
-                    } catch (e) {
-                        json = event.detail.choice.customProperties;
-                    }
-
-                    if (json.url !== undefined) {
-                        window.location = json.url;
-                    }
-                }
-            });
-    });
+    loadSelectMenus();
 
     if (document.getElementById("PostAttachmentListPlaceholder") != null) {
         const pageSize = 5;
@@ -231,3 +75,161 @@ document.addEventListener("DOMContentLoaded", function () {
         imageLink.setAttribute("data-gallery", `gallery-${messageId}`);
     });
 });
+
+function loadSelectMenus() {
+    document.querySelectorAll(".dropdown-menu a.dropdown-toggle").forEach(menu => {
+        menu.addEventListener("click", (event) => {
+            var $el = menu, $subMenu = $el.nextElementSibling;
+
+            document.querySelectorAll(".dropdown-menu .show").forEach(dropDownMenu => {
+                dropDownMenu.classList.remove("show");
+            });
+
+            $subMenu.classList.add("show");
+
+            $subMenu.style.top = $el.offsetTop - 10;
+            $subMenu.style.left = $el.offsetWidth - 4;
+
+            event.stopPropagation();
+        });
+    });
+
+    document.querySelectorAll(".yafnet .select2-select").forEach(select => {
+        const choice = new window.Choices(select,
+            {
+                allowHTML: true,
+                shouldSort: false,
+                placeholderValue: select.getAttribute("placeholder"),
+                classNames: { containerOuter: "choices w-100" }
+            });
+    });
+
+    document.querySelectorAll(".yafnet .select2-image-select").forEach(select => {
+        var selectedValue = select.value;
+        var groups = new Array();
+        document.querySelectorAll(".yafnet .select2-image-select option[data-category]").forEach(option => {
+            var group = option.dataset.category.trim();
+
+            if (groups.indexOf(group) === -1) {
+                groups.push(group);
+            }
+        });
+
+        groups.forEach(group => {
+            document.querySelectorAll(".yafnet .select2-image-select").forEach(s => {
+
+                var optionGroups = new Array();
+                s.querySelectorAll(`option[data-category='${group}']`).forEach(option => {
+                    if (optionGroups.indexOf(option) === -1) {
+                        optionGroups.push(option);
+                    }
+                });
+
+                const optionGroupElement = document.createElement("optgroup");
+                optionGroupElement.label = group;
+
+                optionGroups.forEach(option => {
+                    option.replaceWith(optionGroupElement);
+
+                    optionGroupElement.appendChild(option);
+                });
+            });
+        });
+        select.value = selectedValue;
+
+        const choice = new window.Choices(select,
+            {
+                classNames: { containerOuter: "choices w-100" },
+                allowHTML: true,
+                shouldSort: false,
+                removeItemButton: select.dataset.allowClear === "true",
+                placeholderValue: select.getAttribute("placeholder"),
+                callbackOnCreateTemplates: function (template) {
+                    var itemSelectText = this.config.itemSelectText;
+                    const removeItemButton = this.config.removeItemButton;
+
+                    return {
+                        item: function ({ classNames }, data) {
+                            var label = data.label;
+                            var json;
+
+                            if (data.customProperties) {
+                                try {
+                                    json = JSON.parse(data.customProperties);
+                                } catch (e) {
+                                    json = data.customProperties;
+                                }
+
+                                label = json.label === undefined ? data.label : json.label;
+                            }
+
+                            return template(
+                                `
+                                 <div class="${String(classNames.item)} ${String(data.highlighted
+                                    ? classNames.highlightedState
+                                    : classNames.itemSelectable)}"
+                                      data-item data-id="${String(data.id)}" data-value="${String(data.value)}"
+                                      ${String(removeItemButton ? "data-deletable" : "")}
+                                      ${String(data.active ? 'aria-selected="true"' : "")} ${String(data.disabled
+                                        ? 'aria-disabled="true"'
+                                        : "")}>
+                                    ${String(label)}
+                                    ${String(removeItemButton
+                                            ? `<button type="button" class="${String(classNames.button)
+                                            }" aria-label="Remove item: '${String(data.value)
+                                            }'" data-button="">Remove item</button>`
+                                            : "")}
+                                 </div>
+                                `
+                            );
+                        },
+                        choice: function ({ classNames }, data) {
+                            var label = data.label;
+                            var json;
+
+                            if (data.customProperties) {
+                                try {
+                                    json = JSON.parse(data.customProperties);
+                                } catch (e) {
+                                    json = data.customProperties;
+                                }
+
+                                label = json.label === undefined ? data.label : json.label;
+                            }
+
+                            return template(
+                                `
+                                 <div class="${String(classNames.item)} ${String(classNames.itemChoice)} ${String(
+                                    data.disabled ? classNames.itemDisabled : classNames.itemSelectable)}"
+                                      data-select-text="${String(itemSelectText)}" data-choice ${String(data.disabled
+                                        ? 'data-choice-disabled aria-disabled="true"'
+                                        : "data-choice-selectable")}
+                                      data-id="${String(data.id)}" data-value="${String(data.value)}"
+                                      ${String(data.groupId > 0 ? 'role="treeitem"' : 'role="option"')}>
+                                      ${String(label)}
+                                 </div>
+                                 `
+                            );
+                        }
+                    };
+                }
+            });
+
+        choice.passedElement.element.addEventListener("choice",
+            function (event) {
+                var json;
+
+                if (event.detail.choice.customProperties) {
+                    try {
+                        json = JSON.parse(event.detail.choice.customProperties);
+                    } catch (e) {
+                        json = event.detail.choice.customProperties;
+                    }
+
+                    if (json.url !== undefined) {
+                        window.location = json.url;
+                    }
+                }
+            });
+    });
+}
