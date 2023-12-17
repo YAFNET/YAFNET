@@ -1,8 +1,8 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Inherits="YAF.Pages.Admin.Restore" CodeBehind="Restore.ascx.cs" %>
 <%@ Import Namespace="YAF.Types.Constants" %>
-<%@ Import Namespace="YAF.Types.Extensions" %>
 <%@ Import Namespace="YAF.Core.Services" %>
 <%@ Import Namespace="ServiceStack.Text" %>
+<%@ Import Namespace="YAF.Types.Objects.Model" %>
 
 
 <YAF:PageLinks runat="server" ID="PageLinks" />
@@ -70,15 +70,15 @@
                         <li class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">
-                                    <%# this.Eval("Item2.TopicName") %>
+                                    <%# ((PagedTopic)Container.DataItem).Subject %>
                                     <YAF:ThemeButton runat="server" ID="ThemeButton1"
                                                      Type="Link"
                                                      Icon="external-link-alt"
-                                                     Visible='<%# this.Eval("Item2.NumPosts").ToType<int>() > 0 %>'
-                                                     NavigateUrl='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t = this.Eval("Item2.ID"), name = this.Eval("Item2.TopicName") }) %>'>
+                                                     Visible="<%# ((PagedTopic)Container.DataItem).NumPosts > 0 %>"
+                                                     NavigateUrl="<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t = ((PagedTopic)Container.DataItem).TopicID, name = ((PagedTopic)Container.DataItem).Subject }) %>">
                                 </YAF:ThemeButton>
                                 </h5>
-                                <small><%# "{0} {1}".Fmt(this.Eval("Item2.NumPosts"), this.GetText("POSTS")) %></small>
+                                <small><%# "{0} {1}".Fmt(((PagedTopic)Container.DataItem).NumPosts, this.GetText("POSTS")) %></small>
                             </div>
                             <p class="mb-1">
 
@@ -90,14 +90,14 @@
                                                      Icon="trash-restore"
                                                      Type="Success"
                                                      CommandName="restore"
-                                                     Visible='<%# this.Eval("Item2.NumPosts").ToType<int>() > 0 %>'
-                                                     CommandArgument='<%# this.Eval("Item2.ID") + ";" + this.Eval("Item1.ID") %>'></YAF:ThemeButton>
+                                                     Visible="<%# ((PagedTopic)Container.DataItem).NumPosts > 0 %>"
+                                                     CommandArgument='<%# ((PagedTopic)Container.DataItem).TopicID + ";" + ((PagedTopic)Container.DataItem).ForumID %>'></YAF:ThemeButton>
                                     <YAF:ThemeButton runat="server" ID="Delete"
                                                      TextLocalizedTag="DELETE"
                                                      Type="Danger"
                                                      Icon="trash"
                                                      CommandName="delete"
-                                                     CommandArgument='<%# this.Eval("Item2.ID") + ";" + this.Eval("Item1.ID") %>'>
+                                                     CommandArgument='<%# ((PagedTopic)Container.DataItem).TopicID + ";" + ((PagedTopic)Container.DataItem).ForumID %>'>
                                     </YAF:ThemeButton>
                                 </div>
                             </small>
@@ -181,16 +181,16 @@
                         <li class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                                 <h5 class="mb-1">
-                                    <%# this.Eval("Item2.TopicName") %>
+                                    <%# ((PagedMessage)Container.DataItem).Topic %>
                                     <YAF:ThemeButton runat="server" ID="ThemeButton1"
                                                      Type="Link"
                                                      Icon="external-link-alt"
-                                                     NavigateUrl='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { m = this.Eval("Item3.ID"), name = this.Eval("Item2.TopicName") }) %>'>
+                                                     NavigateUrl="<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { m = ((PagedMessage)Container.DataItem).MessageID, name = ((PagedMessage)Container.DataItem).Topic }) %>">
                                 </YAF:ThemeButton>
                                 </h5>
                             </div>
                             <p class="mb-1">
-                                <%# this.Eval("Item3.MessageText") %>
+                                <%# ((PagedMessage)Container.DataItem).Message %>
                             </p>
                             <small>
                                 <div class="btn-group">
@@ -199,13 +199,13 @@
                                                      Icon="trash-restore"
                                                      Type="Success"
                                                      CommandName="restore"
-                                                     CommandArgument='<%# this.Eval("Item3.ID") + ";" + this.Eval("Item1.ID") + ";" + this.Eval("Item2.ID") %>'></YAF:ThemeButton>
+                                                     CommandArgument='<%# ((PagedMessage)Container.DataItem).MessageID + ";" + ((PagedMessage)Container.DataItem).ForumID + ";" + ((PagedMessage)Container.DataItem).TopicID %>'></YAF:ThemeButton>
                                     <YAF:ThemeButton runat="server" ID="Delete"
                                                      TextLocalizedTag="DELETE"
                                                      Type="Danger"
                                                      Icon="trash"
                                                      CommandName="delete"
-                                                     CommandArgument='<%# this.Eval("Item3.ID") + ";" + this.Eval("Item1.ID") + ";" + this.Eval("Item2.ID") %>'>
+                                                     CommandArgument='<%# ((PagedMessage)Container.DataItem).MessageID + ";" + ((PagedMessage)Container.DataItem).ForumID + ";" + ((PagedMessage)Container.DataItem).TopicID %>'>
                                     </YAF:ThemeButton>
                                 </div>
                             </small>

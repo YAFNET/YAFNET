@@ -51,8 +51,6 @@ public static class TopicRepositoryExtensions
     /// </returns>
     public static Topic GetTopicFromMessage(this IRepository<Topic> repository, int messageId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
         expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(m => m.ID == messageId).Take(1);
@@ -74,8 +72,6 @@ public static class TopicRepositoryExtensions
     /// </param>
     public static void AttachPoll(this IRepository<Topic> repository, int topicId, int pollId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.UpdateOnly(() => new Topic { PollID = pollId }, t => t.ID == topicId);
     }
 
@@ -93,8 +89,6 @@ public static class TopicRepositoryExtensions
     /// </returns>
     public static string GetNameFromMessage(this IRepository<Topic> repository, int messageId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var topic = repository.GetTopicFromMessage(messageId);
 
         return topic == null ? string.Empty : topic.TopicName;
@@ -111,8 +105,6 @@ public static class TopicRepositoryExtensions
         int topicId,
         int messageId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.UpdateOnly(() => new Topic { AnswerMessageId = messageId }, t => t.ID == topicId);
     }
 
@@ -123,8 +115,6 @@ public static class TopicRepositoryExtensions
     /// <param name="topicId">The topic identifier.</param>
     public static void RemoveAnswerMessage(this IRepository<Topic> repository, int topicId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.UpdateOnly(() => new Topic { AnswerMessageId = null }, t => t.ID == topicId);
     }
 
@@ -136,8 +126,6 @@ public static class TopicRepositoryExtensions
     /// <returns>Returns the Answer Message identifier</returns>
     public static int? GetAnswerMessage(this IRepository<Topic> repository, int topicId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var topic = repository.GetById(topicId);
 
         return topic?.AnswerMessageId;
@@ -151,8 +139,6 @@ public static class TopicRepositoryExtensions
     /// <param name="flags">The topic flags.</param>
     public static void Lock(this IRepository<Topic> repository, int topicId, int flags)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.UpdateOnly(() => new Topic { Flags = flags }, t => t.ID == topicId);
     }
 
@@ -192,8 +178,6 @@ public static class TopicRepositoryExtensions
         int pageSize,
         bool findLastRead)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.ListPaged(
             pageUserId,
             pageIndex,
@@ -240,8 +224,6 @@ public static class TopicRepositoryExtensions
         int pageSize,
         bool findLastRead)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.ListPaged(
             pageUserId,
             pageIndex,
@@ -287,8 +269,6 @@ public static class TopicRepositoryExtensions
         int pageSize,
         bool findLastRead = false)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         Expression<Func<Topic, bool>> whereCriteria = t =>
             (t.Flags & 8) != 8 && t.TopicMovedID == null && t.LastPosted != null && t.LastPosted > sinceDate
             && t.LastPosted < toDate;
@@ -465,8 +445,6 @@ public static class TopicRepositoryExtensions
         int pageSize,
         bool findLastRead = false)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.ListPaged(
             pageUserId,
             pageIndex,
@@ -501,8 +479,6 @@ public static class TopicRepositoryExtensions
         int forumId,
         string newTopicSubject)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var message = BoardContext.Current.GetRepository<Message>().GetById(messageId);
 
         var topic = new Topic
@@ -545,8 +521,6 @@ public static class TopicRepositoryExtensions
         int numOfPostsToRetrieve,
         int pageUserId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
         expression.Join<Topic>((m, t) => m.ID == t.LastMessageID).Join<Topic, User>((t, u) => u.ID == t.LastUserID)
@@ -585,8 +559,6 @@ public static class TopicRepositoryExtensions
         int pageUserId,
         int topicLimit)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
         return repository.DbAccess.Execute(
@@ -660,8 +632,6 @@ public static class TopicRepositoryExtensions
         bool findLastRead,
         int sortOrder = 0)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
         return repository.DbAccess.Execute(
@@ -832,8 +802,6 @@ public static class TopicRepositoryExtensions
         int pageSize,
         bool findLastRead)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.ListPaged(
             userId,
             pageIndex,
@@ -875,8 +843,6 @@ public static class TopicRepositoryExtensions
         bool findLastRead,
         Expression<Func<Topic, ActiveAccess, Category, bool>> whereCriteria)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
         return repository.DbAccess.Execute(
@@ -1046,8 +1012,6 @@ public static class TopicRepositoryExtensions
         int pageSize,
         bool findLastRead)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.ListPaged(
             userId,
             pageIndex,
@@ -1125,8 +1089,6 @@ public static class TopicRepositoryExtensions
         MessageFlags flags,
         out Message newMessage)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var topicFlags = new TopicFlags{IsPersistent = flags.IsPersistent };
 
         var topic = new Topic
@@ -1196,8 +1158,6 @@ public static class TopicRepositoryExtensions
         bool showMoved,
         int linkDays)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var topic = repository.GetById(topicId);
 
         repository.Move(topic, oldForumId, newForumId, showMoved, linkDays);
@@ -1232,8 +1192,6 @@ public static class TopicRepositoryExtensions
         bool showMoved,
         int linkDays)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         if (showMoved)
         {
             // -- delete an old link if exists
@@ -1297,8 +1255,6 @@ public static class TopicRepositoryExtensions
         int days,
         bool permDelete)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var topics = repository.DbAccess.Execute(
             db =>
                 {
@@ -1347,8 +1303,6 @@ public static class TopicRepositoryExtensions
     /// </param>
     public static void Delete(this IRepository<Topic> repository, int forumId, int topicId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.Delete(forumId, topicId, false);
     }
 
@@ -1373,8 +1327,6 @@ public static class TopicRepositoryExtensions
         int topicId,
         bool eraseTopic)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var topic = repository.GetById(topicId);
 
         BoardContext.Current.GetRepository<Forum>().UpdateOnly(
@@ -1475,8 +1427,6 @@ public static class TopicRepositoryExtensions
     /// </returns>
     public static bool CheckForDuplicate(this IRepository<Topic> repository, string topicSubject)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var topic = repository.GetSingle(t => t.TopicName.Contains(topicSubject) && t.TopicMovedID == null);
 
         return topic != null;
@@ -1496,8 +1446,6 @@ public static class TopicRepositoryExtensions
     /// </returns>
     public static Topic FindNext(this IRepository<Topic> repository, Topic currentTopic)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.Get(
             t => t.LastPosted > currentTopic.LastPosted && t.ForumID == currentTopic.ForumID &&
                  (t.Flags & 8) != 8 && t.TopicMovedID == null).OrderBy(t => t.LastPosted).FirstOrDefault();
@@ -1517,8 +1465,6 @@ public static class TopicRepositoryExtensions
     /// </returns>
     public static Topic FindPrevious(this IRepository<Topic> repository, Topic currentTopic)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.Get(
                 t => t.LastPosted < currentTopic.LastPosted && t.ForumID == currentTopic.ForumID &&
                      (t.Flags & 8) != 8 && t.TopicMovedID == null).OrderByDescending(t => t.LastPosted)
@@ -1545,8 +1491,6 @@ public static class TopicRepositoryExtensions
         int startId = 0,
         int limit = 500)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.Get(t => t.ID >= limit && t.ID < startId + limit).OrderBy(t => t.ID).ToList();
     }
 
@@ -1563,8 +1507,6 @@ public static class TopicRepositoryExtensions
         this IRepository<Topic> repository,
         Func<string, string> decodeTopicFunc)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var topics = repository.SimpleList(0, 99999999);
 
         topics.Where(t => t.TopicName.IsSet()).ForEach(
@@ -1607,8 +1549,6 @@ public static class TopicRepositoryExtensions
         int boardId,
         string filter)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
 
         if (filter.IsSet())
@@ -1629,6 +1569,92 @@ public static class TopicRepositoryExtensions
     }
 
     /// <summary>
+    /// Get Deleted Topics paged.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <param name="filter">
+    /// The filter.
+    /// </param>
+    /// <param name="pageIndex">
+    /// The page index.
+    /// </param>
+    /// <param name="pageSize">
+    /// The page size.
+    /// </param>
+    /// <returns>
+    /// The <see cref="List"/>.
+    /// </returns>
+    public static List<PagedTopic> GetDeletedTopicsPaged(
+        this IRepository<Topic> repository,
+        int boardId,
+        string filter,
+        int pageIndex,
+        int pageSize)
+    {
+        var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
+
+        if (filter.IsSet())
+        {
+            expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
+                .Join<Topic>((f, t) => t.ForumID == f.ID).Where<Topic, Category>(
+                    (t, category) =>
+                        category.BoardID == boardId && (category.Flags & 1) == 1 && (t.Flags & 8) == 8 && t.TopicName.Contains(filter));
+        }
+        else
+        {
+            expression.Join<Forum, Category>((forum, category) => category.ID == forum.CategoryID)
+                .Join<Topic>((f, t) => t.ForumID == f.ID).Where<Topic, Category>(
+                    (t, category) => category.BoardID == boardId && (category.Flags & 1) == 1 && (t.Flags & 8) == 8);
+        }
+
+        // -- count total
+        var countTotalExpression = expression;
+
+        var countTotalSql = countTotalExpression
+            .Select(Sql.Count($"{countTotalExpression.Column<Topic>(x => x.ID)}")).ToSelectStatement();
+
+        expression.Select<Forum, Topic>(
+            (forum, topic) => new {
+                ForumID = forum.ID,
+                ForumName = forum.Name,
+                TopicID = topic.ID,
+                topic.Posted,
+                LinkTopicID = topic.TopicMovedID != null ? topic.TopicMovedID : topic.ID,
+                topic.TopicMovedID,
+                Subject = topic.TopicName,
+                topic.Description,
+                topic.Status,
+                topic.Styles,
+                topic.UserID,
+                Replies = topic.NumPosts - 1,
+                topic.Views,
+                topic.LastPosted,
+                topic.LastUserID,
+                topic.LastMessageFlags,
+                topic.LastMessageID,
+                LastTopicID = topic.ID,
+                topic.LinkDate,
+                TopicFlags = topic.Flags,
+                topic.Priority,
+                topic.PollID,
+                ForumFlags = forum.Flags,
+                topic.TopicImage,
+                topic.NumPosts,
+                TotalRows = Sql.Custom($"({countTotalSql})")
+            });
+
+        // Set Paging
+        expression.Page(pageIndex + 1, pageSize);
+
+        return repository.DbAccess.Execute(db => db.Connection.Select<PagedTopic>(expression));
+    }
+
+    /// <summary>
     /// Updates the Forum Last Post.
     /// </summary>
     /// <param name="repository">
@@ -1641,8 +1667,6 @@ public static class TopicRepositoryExtensions
         this IRepository<Topic> repository,
         int topicId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
         expression.Join<Topic>((m, t) => t.ID == m.TopicID).Where<Message>(m => (m.Flags & 24) == 16 && m.TopicID == topicId)

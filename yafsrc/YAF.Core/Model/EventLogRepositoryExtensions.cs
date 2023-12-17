@@ -82,8 +82,6 @@ public static class EventLogRepositoryExtensions
         int? eventType,
         bool spamOnly = false)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.DeleteOld(maxRows, maxDays);
 
         return repository.DbAccess.Execute(

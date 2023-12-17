@@ -46,11 +46,9 @@ public static class IPagerExtensions
     /// <returns>
     /// The <see cref="IEnumerable{T}"/>.
     /// </returns>
+    [Obsolete("Use sql paging instead")]
     public static IList<T> GetPaged<T>(this IList<T> list, IPager pager)
     {
-        CodeContracts.VerifyNotNull(list);
-        CodeContracts.VerifyNotNull(pager);
-
         pager.Count = list.Count;
 
         return list.Skip(pager.SkipIndex()).Take(pager.PageSize).ToList();
@@ -67,8 +65,6 @@ public static class IPagerExtensions
     /// </returns>
     public static int PageCount(this IPager pager)
     {
-        CodeContracts.VerifyNotNull(pager);
-
         return PageCount(pager.Count, pager.PageSize);
     }
 
@@ -100,8 +96,6 @@ public static class IPagerExtensions
     /// </returns>
     public static int SkipIndex(this IPager pager)
     {
-        CodeContracts.VerifyNotNull(pager);
-
         return (int)Math.Ceiling((double)pager.CurrentPageIndex * pager.PageSize);
     }
 }

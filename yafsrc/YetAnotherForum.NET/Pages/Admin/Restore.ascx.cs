@@ -311,32 +311,29 @@ public partial class Restore : AdminPage
         this.PagerTop.PageSize = this.PageSize.SelectedValue.ToType<int>();
         this.PagerMessages.PageSize = this.PageSizeMessages.SelectedValue.ToType<int>();
 
+        var pageIndexTopics = this.PagerTop.CurrentPageIndex;
+        var pageIndexMessages = this.PagerMessages.CurrentPageIndex;
+
         var deletedTopics = this.GetRepository<Topic>()
-            .GetDeletedTopics(this.PageBoardContext.PageBoardID, this.Filter.Text);
+            .GetDeletedTopicsPaged(this.PageBoardContext.PageBoardID, this.Filter.Text, pageIndexTopics,
+                this.PagerTop.PageSize);
 
-        var count = deletedTopics.Count;
-
-        var deletedTopicPaged = deletedTopics.GetPaged(this.PagerTop);
-
-        this.DeletedTopics.DataSource = deletedTopicPaged;
+        this.DeletedTopics.DataSource = deletedTopics;
         this.DeletedTopics.DataBind();
 
-        this.PagerTop.Count = deletedTopicPaged.Any()
-                                  ? count
-                                  : 0;
+        this.PagerTop.Count = !deletedTopics.NullOrEmpty()
+            ? deletedTopics.FirstOrDefault()!.TotalRows
+            : 0;
 
         var deletedMessages = this.GetRepository<Message>()
-            .GetDeletedMessages(this.PageBoardContext.PageBoardID);
+            .GetDeletedMessagesPaged(this.PageBoardContext.PageBoardID, pageIndexMessages,
+                this.PagerMessages.PageSize);
 
-        count = deletedMessages.Count;
-
-        var deletedMessagesPaged = deletedMessages.GetPaged(this.PagerMessages);
-
-        this.DeletedMessages.DataSource = deletedMessagesPaged;
+        this.DeletedMessages.DataSource = deletedMessages;
         this.DeletedMessages.DataBind();
 
-        this.PagerMessages.Count = deletedMessagesPaged.Any()
-                                       ? count
-                                       : 0;
+        this.PagerMessages.Count = !deletedMessages.NullOrEmpty()
+            ? deletedMessages.FirstOrDefault()!.TotalRows
+            : 0;
     }
 }

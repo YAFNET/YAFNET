@@ -205,6 +205,11 @@ public class PagedTopic
     public int NumPostsDeleted { get; set; }
 
     /// <summary>
+    /// Gets or sets the number of posts.
+    /// </summary>
+    public int NumPosts { get; set; }
+
+    /// <summary>
     /// Gets or sets the first message.
     /// </summary>
     public string LastMessage { get; set; }
