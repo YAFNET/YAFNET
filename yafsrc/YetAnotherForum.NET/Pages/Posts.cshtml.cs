@@ -479,27 +479,28 @@ public class PostsModel : ForumPage
             }
             else
             {
-                // find first unread message
-                var lastRead = !this.PageBoardContext.IsCrawler
-                                   ? this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
-                                       this.PageBoardContext.PageForumID,
-                                       this.PageBoardContext.PageTopicID,
-                                       null,
-                                       null)
-                                   : DateTime.UtcNow;
-
-                var unreadFirst = this.GetRepository<Message>().FindUnread(
-                    this.PageBoardContext.PageTopicID,
-                    null,
-                    lastRead,
-                    showDeleted);
-
-                findMessageId = unreadFirst.MessageID;
-                messagePosition = unreadFirst.MessagePosition;
-
-                if (this.PageBoardContext.PageUser.Activity)
+                if (!this.PageBoardContext.IsCrawler)
                 {
-                    this.GetRepository<Activity>().UpdateNotification(this.PageBoardContext.PageUserID, findMessageId);
+                    // find first unread message
+                    var lastRead = this.Get<IReadTrackCurrentUser>().GetForumTopicRead(
+                        this.PageBoardContext.PageForumID,
+                        this.PageBoardContext.PageTopicID,
+                        null,
+                        null);
+
+                    var unreadFirst = this.GetRepository<Message>().FindUnread(
+                        this.PageBoardContext.PageTopicID,
+                        null,
+                        lastRead,
+                        showDeleted);
+
+                    findMessageId = unreadFirst.MessageID;
+                    messagePosition = unreadFirst.MessagePosition;
+
+                    if (this.PageBoardContext.PageUser.Activity)
+                    {
+                        this.GetRepository<Activity>().UpdateNotification(this.PageBoardContext.PageUserID, findMessageId);
+                    }
                 }
             }
         }
