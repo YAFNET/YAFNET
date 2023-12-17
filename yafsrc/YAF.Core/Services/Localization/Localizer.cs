@@ -103,7 +103,7 @@ public class Localizer
         // default the out parameters
         localizedText = string.Empty;
 
-        tag = tag.ToUpper();
+        tag = tag.ToUpper(CultureInfo.InvariantCulture);
 
         var pagePointer =
             this.localizationLanguageResources.Resources.Page.Find(p => p.Name.Equals(this.currentPage));
