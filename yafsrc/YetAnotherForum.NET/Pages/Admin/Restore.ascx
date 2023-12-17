@@ -184,7 +184,7 @@
                                     <%# this.Eval("Item2.TopicName") %>
                                     <YAF:ThemeButton runat="server" ID="ThemeButton1"
                                                      Type="Link"
-                                                     Icon="external-link-alt">
+                                                     Icon="external-link-alt"
                                                      NavigateUrl='<%# this.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { m = this.Eval("Item3.ID"), name = this.Eval("Item2.TopicName") }) %>'>
                                 </YAF:ThemeButton>
                                 </h5>
