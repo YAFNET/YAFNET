@@ -1,6 +1,13 @@
 YetAnotherForum.NET Changelog
 ====================
 
+# YetAnotherForum.NET v3.2.2
+* [FIXED] Install wizard
+* [FIXED] crawler detection
+* [FIXED #1032] admin access to moderate page
+* [FIXED] eventlog toggle button
+* bug fixes
+
 # YetAnotherForum.NET v3.2.1
 * [FIXED] create poll button access
 * [FIXED] disable register page
