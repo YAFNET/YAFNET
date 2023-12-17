@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core;
 
 using System;
@@ -48,7 +49,8 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     ///     The _injection cache.
     /// </summary>
     private readonly static
-        ConcurrentDictionary<KeyValuePair<Type, Type>, IList<Tuple<Type, Type, Action<object, object>>>> InjectionCache =
+        ConcurrentDictionary<KeyValuePair<Type, Type>, IList<Tuple<Type, Type, Action<object, object>>>>
+        InjectionCache =
             new();
 
     /// <summary>
@@ -59,8 +61,6 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// </param>
     public AutoFacServiceLocatorProvider(ILifetimeScope container)
     {
-        CodeContracts.VerifyNotNull(container);
-
         this.Container = container;
     }
 
@@ -98,6 +98,20 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// </summary>
     public void Dispose()
     {
+#if DEBUG
+        var diagnosticsLib =
+            Assembly.Load(
+                "System.Diagnostics.DiagnosticSource, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51");
+        var diagnosticSourceEventSourceType = diagnosticsLib.GetType("System.Diagnostics.DiagnosticSourceEventSource");
+        var diagnosticSourceEventSource = diagnosticSourceEventSourceType.InvokeMember("Log",
+            BindingFlags.Static | BindingFlags.GetField | BindingFlags.Public, null, null, null);
+
+        if (diagnosticSourceEventSource is IDisposable disposable)
+        {
+            disposable.Dispose();
+        }
+#endif
+
         this.Container.Dispose();
     }
 
@@ -112,8 +126,6 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// </returns>
     public object Get(Type serviceType)
     {
-        CodeContracts.VerifyNotNull(serviceType);
-
         return this.Container.Resolve(serviceType);
     }
 
@@ -134,9 +146,6 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// </exception>
     public object Get(Type serviceType, IEnumerable<IServiceLocationParameter> parameters)
     {
-        CodeContracts.VerifyNotNull(serviceType);
-        CodeContracts.VerifyNotNull(parameters);
-
         return this.Container.Resolve(serviceType, ConvertToAutofacParameters(parameters));
     }
 
@@ -154,9 +163,6 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// </returns>
     public object Get(Type serviceType, string named)
     {
-        CodeContracts.VerifyNotNull(serviceType);
-        CodeContracts.VerifyNotNull(named);
-
         return this.Container.ResolveNamed(named, serviceType);
     }
 
@@ -177,10 +183,6 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// </returns>
     public object Get(Type serviceType, string named, IEnumerable<IServiceLocationParameter> parameters)
     {
-        CodeContracts.VerifyNotNull(serviceType);
-        CodeContracts.VerifyNotNull(named);
-        CodeContracts.VerifyNotNull(parameters);
-
         return this.Container.ResolveNamed(named, serviceType, ConvertToAutofacParameters(parameters));
     }
 
@@ -196,7 +198,6 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// An object that specifies the type of service object to get.
     /// </param>
     /// <filterpriority>2</filterpriority>
-    
     public object GetService(Type serviceType)
     {
         return this.TryGet(serviceType, out var instance) ? instance : null;
@@ -213,8 +214,6 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// </param>
     public void InjectMarked<TAttribute>(object instance) where TAttribute : Attribute
     {
-        CodeContracts.VerifyNotNull(instance);
-
         // Container.InjectUnsetProperties(instance);
         var type = instance.GetType();
         var attributeType = typeof(TAttribute);
@@ -226,8 +225,10 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
             // find them...
             properties =
                 type.GetProperties(DefaultFlags)
-                    .Where(p => p.GetSetMethod(false) != null && !p.GetIndexParameters().Any() && p.IsDefined(attributeType, true))
-                    .Select(p => Tuple.Create(p.PropertyType, p.DeclaringType, new Action<object, object>((i, v) => p.SetValue(i, v, null))))
+                    .Where(p => p.GetSetMethod(false) != null && !p.GetIndexParameters().Any() &&
+                                p.IsDefined(attributeType, true))
+                    .Select(p => Tuple.Create(p.PropertyType, p.DeclaringType,
+                        new Action<object, object>((i, v) => p.SetValue(i, v, null))))
                     .ToList();
 
             InjectionCache.AddOrUpdate(keyPair, k => properties, (k, v) => properties);
@@ -235,14 +236,14 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
 
         properties.ForEach(
             injectProp =>
-                {
-                    var serviceInstance = injectProp.Item1 == typeof(ILoggerService)
-                                              ? this.Container.Resolve<ILoggerProvider>().Create(injectProp.Item2)
-                                              : this.Container.Resolve(injectProp.Item1);
+            {
+                var serviceInstance = injectProp.Item1 == typeof(ILoggerService)
+                    ? this.Container.Resolve<ILoggerProvider>().Create(injectProp.Item2)
+                    : this.Container.Resolve(injectProp.Item1);
 
-                    // set value is super slow... best not to use it very much.
-                    injectProp.Item3(instance, serviceInstance);
-                });
+                // set value is super slow... best not to use it very much.
+                injectProp.Item3(instance, serviceInstance);
+            });
     }
 
     /// <summary>
@@ -259,8 +260,6 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// </returns>
     public bool TryGet(Type serviceType, out object instance)
     {
-        CodeContracts.VerifyNotNull(serviceType);
-
         return this.Container.TryResolve(serviceType, out instance);
     }
 
@@ -281,9 +280,6 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// </returns>
     public bool TryGet(Type serviceType, string named, out object instance)
     {
-        CodeContracts.VerifyNotNull(serviceType);
-        CodeContracts.VerifyNotNull(named);
-
         return this.Container.TryResolveNamed(named, serviceType, out instance);
     }
 
@@ -302,30 +298,27 @@ public class AutoFacServiceLocatorProvider : IScopeServiceLocator, IInjectServic
     /// <returns>
     /// The <see cref="IEnumerable"/>.
     /// </returns>
-    
     private static IEnumerable<Parameter> ConvertToAutofacParameters(
         IEnumerable<IServiceLocationParameter> parameters)
     {
-        CodeContracts.VerifyNotNull(parameters);
-
         var autoParams = new List<Parameter>();
 
         parameters.ForEach(
             parameter =>
+            {
+                switch (parameter)
                 {
-                    switch (parameter)
-                    {
-                        case NamedParameter param1:
-                            autoParams.Add(new Autofac.NamedParameter(param1.Name, param1.Value));
-                            break;
-                        case TypedParameter param:
-                            autoParams.Add(new Autofac.TypedParameter(param.Type, param.Value));
-                            break;
-                        default:
-                            throw new NotSupportedException($"Parameter Type of {parameter.GetType()} is not supported.");
-                    }
-                });
-            
+                    case NamedParameter param1:
+                        autoParams.Add(new Autofac.NamedParameter(param1.Name, param1.Value));
+                        break;
+                    case TypedParameter param:
+                        autoParams.Add(new Autofac.TypedParameter(param.Type, param.Value));
+                        break;
+                    default:
+                        throw new NotSupportedException($"Parameter Type of {parameter.GetType()} is not supported.");
+                }
+            });
+
         return autoParams;
     }
 }
