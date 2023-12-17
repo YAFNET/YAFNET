@@ -286,8 +286,7 @@ public static class JavaScriptBlocks
     {
         return $$"""
                  document.addEventListener("DOMContentLoaded", function () {
-                     document.querySelectorAll('button[data-bs-toggle="collapse"]').forEach(button => {
-                     
+                     document.querySelectorAll('a[data-bs-toggle="collapse"]').forEach(button => {
                          button.addEventListener("click", event => {
                              if (button.getAttribute("aria-expanded") === "false") {
                                  button.innerHTML = '<i class="fa fa-caret-square-down fa-fw"></i>&nbsp;{{showText}}';
