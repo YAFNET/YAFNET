@@ -473,7 +473,7 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
                     // -- count Posts
                     var countPostsExpression = db.Connection.From<Message>();
 
-                    countPostsExpression.Join<Topic>((a, b) => b.ID == a.TopicID)
+                    countPostsExpression.Join<Topic>((a, b) => b.ID == a.TopicID && (a.Flags & 8) != 8)
                         .Join<Topic, Forum>((b, c) => c.ID == b.ForumID)
                         .Join<Forum, Category>((b, c) => c.ID == b.CategoryID);
 
@@ -484,7 +484,7 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
                     // -- count Topics
                     var countTopicsExpression = db.Connection.From<Topic>();
 
-                    countTopicsExpression.Join<Forum>((a, b) => b.ID == a.ForumID)
+                    countTopicsExpression.Join<Forum>((a, b) => b.ID == a.ForumID && (a.Flags & 8) != 8 && a.NumPosts > 0)
                         .Join<Forum, Category>((b, c) => c.ID == b.CategoryID && (c.Flags & 1) == 1);
 
                     countTopicsExpression.Where<Category>(c => c.BoardID == boardId);
