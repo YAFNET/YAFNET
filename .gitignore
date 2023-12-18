@@ -113,3 +113,4 @@ yafsrc/ServiceStack/.vs/ServiceStack.OrmLite/DesignTimeBuild/.dtbcache
 node_modules/
 *.yafupload
 *.yafalbum
+yafsrc/YetAnotherForum.NET/package-lock.json
