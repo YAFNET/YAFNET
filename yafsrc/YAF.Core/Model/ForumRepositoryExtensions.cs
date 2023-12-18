@@ -778,7 +778,8 @@ public static class ForumRepositoryExtensions
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
         expression.Join<Forum>((t, f) => f.ID == t.ForumID)
-            .Where<Topic, Forum>((t, f) => (f.ID == forumId || f.ParentID == forumId) && (t.Flags & 8) != 8).Take(1)
+            .Where<Topic, Forum>((t, f) =>
+                (f.ID == forumId || f.ParentID == forumId) && (t.Flags & 8) != 8 && t.NumPosts > 0).Take(1)
             .Select<Topic, Forum>(
                 (t, f) => new { PostsCount = Sql.Sum(t.NumPosts), TopicsCount = Sql.Count(t.ID), });
 
