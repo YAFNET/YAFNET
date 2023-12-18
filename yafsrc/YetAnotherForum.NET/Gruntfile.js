@@ -148,31 +148,33 @@ module.exports = function(grunt) {
         },
 
         shell: {
+            deletePublish: {
+                command: [
+                    "@echo off",
+                    "if exist bin\\Release\\net8.0\\publish\\ (rmdir bin\\Release\\net8.0\\publish\\ /s /q)"
+                ].join("&&")
+            },
             deploySqlServer: {
                 command: [
                     "@echo off",
-                    "rmdir bin\\Release\\net8.0\\publish\\ /s /q 2>nul",
                     "dotnet publish /p:Configuration=Release ../YAF.NET-SqlServer.sln"
                 ].join("&&")
             },
             deployMySql: {
                 command: [
                     "@echo off",
-                    "rmdir bin\\Release\\net8.0\\publish\\ /s /q 2>nul",
                     "dotnet publish /p:Configuration=Release ../YAF.NET-MySql.sln"
                 ].join("&&")
             },
             deployPostgreSQL: {
                 command: [
                     "@echo off",
-                    "rmdir bin\\Release\\net8.0\\publish\\ /s /q 2>nul",
                     "dotnet publish /p:Configuration=Release ../YAF.NET-PostgreSQL.sln"
                 ].join("&&")
             },
             deploySqlite: {
                 command: [
                     "@echo off",
-                    "rmdir bin\\Release\\net8.0\\publish\\ /s /q 2>nul",
                     "dotnet publish /p:Configuration=Release ../YAF.NET-Sqlite.sln"
                 ].join("&&")
             },
@@ -656,22 +658,22 @@ module.exports = function(grunt) {
 
     grunt.registerTask("deploy-SqlServer",
         [
-            "uglify", "sass", "postcss", "cssmin", "shell:deploySqlServer", "zip:YAF-SqlServer-Deploy"
+            "uglify", "sass", "postcss", "cssmin", "shell:deletePublish", "shell:deploySqlServer", "zip:YAF-SqlServer-Deploy"
         ]);
 
     grunt.registerTask("deploy-MySql",
         [
-            "uglify", "sass", "postcss", "cssmin", "shell:deployMySql", "zip:YAF-MySql-Deploy"
+            "uglify", "sass", "postcss", "cssmin", "shell:deletePublish", "shell:deployMySql", "zip:YAF-MySql-Deploy"
         ]);
 
     grunt.registerTask("deploy-PostgreSQL",
         [
-            "uglify", "sass", "postcss", "cssmin", "shell:deployPostgreSQL", "zip:YAF-PostgreSQL-Deploy"
+            "uglify", "sass", "postcss", "cssmin", "shell:deletePublish", "shell:deployPostgreSQL", "zip:YAF-PostgreSQL-Deploy"
         ]);
 
     grunt.registerTask("deploy-Sqlite",
         [
-            "uglify", "sass", "postcss", "cssmin", "shell:deploySqlite", "zip:YAF-Sqlite-Deploy"
+            "uglify", "sass", "postcss", "cssmin", "shell:deletePublish", "shell:deploySqlite", "zip:YAF-Sqlite-Deploy"
         ]);
 
     grunt.registerTask("deploy",
