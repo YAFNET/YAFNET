@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Extensions.Data;
 
 using System.Collections.Generic;
@@ -51,8 +52,6 @@ public static class IDbAccessExtensions
         this IDbAccess dbAccess,
         IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted)
     {
-        CodeContracts.VerifyNotNull(dbAccess);
-
         return dbAccess.CreateConnectionOpen().BeginTransaction(isolationLevel);
     }
 
@@ -63,11 +62,8 @@ public static class IDbAccessExtensions
     /// <returns>
     /// The <see cref="DbConnection" /> .
     /// </returns>
-    
     public static DbConnection CreateConnection(this IDbAccess dbAccess)
     {
-        CodeContracts.VerifyNotNull(dbAccess);
-
         var connection = dbAccess.DbProviderFactory.CreateConnection();
         connection.ConnectionString = dbAccess.Information.ConnectionString();
 
@@ -83,11 +79,8 @@ public static class IDbAccessExtensions
     /// <returns>
     /// The <see cref="DbConnection"/> .
     /// </returns>
-    
     public static DbConnection CreateConnectionOpen(this IDbAccess dbAccess)
     {
-        CodeContracts.VerifyNotNull(dbAccess);
-
         var connection = dbAccess.CreateConnection();
 
         if (connection.State != ConnectionState.Open)
@@ -117,8 +110,6 @@ public static class IDbAccessExtensions
     public static int Update<T>(this IDbAccess dbAccess, T update)
         where T : IEntity
     {
-        CodeContracts.VerifyNotNull(dbAccess);
-
         return dbAccess.Execute(db => db.Connection.Update(update));
     }
 
@@ -204,8 +195,6 @@ public static class IDbAccessExtensions
     /// </returns>
     public static string GetDatabaseFragmentationInfo(this IDbAccess dbAccess)
     {
-        CodeContracts.VerifyNotNull(dbAccess);
-
         var result = new StringBuilder();
 
         try
@@ -245,8 +234,6 @@ public static class IDbAccessExtensions
     /// <returns>Returns the size of the database</returns>
     public static int GetDatabaseSize(this IDbAccess dbAccess)
     {
-        CodeContracts.VerifyNotNull(dbAccess);
-
         return dbAccess.Execute(
             db => db.Connection.Scalar<int>(OrmLiteConfig.DialectProvider.DatabaseSize(db.Connection.Database)));
     }
@@ -260,8 +247,6 @@ public static class IDbAccessExtensions
     /// </returns>
     public static string GetSQLVersion(this IDbAccess dbAccess)
     {
-        CodeContracts.VerifyNotNull(dbAccess);
-
         var version = dbAccess.Execute(
             db => db.Connection.Scalar<string>(OrmLiteConfig.DialectProvider.SQLVersion()));
 
@@ -276,8 +261,6 @@ public static class IDbAccessExtensions
     /// <param name="dbAccess">The database access.</param>
     public static string ShrinkDatabase(this IDbAccess dbAccess)
     {
-        CodeContracts.VerifyNotNull(dbAccess);
-
         return dbAccess.Execute(
             db => db.Connection.Scalar<string>(
                 OrmLiteConfig.DialectProvider.ShrinkDatabase(db.Connection.Database)));
@@ -297,8 +280,6 @@ public static class IDbAccessExtensions
     /// </returns>
     public static string ReIndexDatabase(this IDbAccess dbAccess, string objectQualifier)
     {
-        CodeContracts.VerifyNotNull(dbAccess);
-
         return dbAccess.Execute(
             db => db.Connection.Scalar<string>(
                 OrmLiteConfig.DialectProvider.ReIndexDatabase(db.Connection.Database, objectQualifier)));
@@ -315,8 +296,6 @@ public static class IDbAccessExtensions
     /// </param>
     public static string ChangeRecoveryMode(this IDbAccess dbAccess, string recoveryMode)
     {
-        CodeContracts.VerifyNotNull(dbAccess);
-
         try
         {
             return dbAccess.Execute(
@@ -349,9 +328,7 @@ public static class IDbAccessExtensions
         string sql,
         int timeOut)
     {
-        CodeContracts.VerifyNotNull(dbAccess);
-
-        return dbAccess.Execute(
+       return dbAccess.Execute(
             db =>
                 {
                     using var cmd = db.Connection.CreateCommand();
@@ -386,8 +363,6 @@ public static class IDbAccessExtensions
         string scriptFile,
         int timeOut)
     {
-        CodeContracts.VerifyNotNull(dbAccess);
-
         var statements = Regex.Split(script, "\\sGO\\s", RegexOptions.IgnoreCase).ToList();
 
         using var trans = dbAccess.CreateConnectionOpen().BeginTransaction();
