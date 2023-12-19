@@ -141,8 +141,6 @@ public class EditGroupModel : AdminPage
         this.Input.Description = this.Group.Description;
 
         this.Input.IsGuestX = flags.IsGuest;
-
-        this.Get<ISessionService>().SetPageData(this.Group);
     }
 
     /// <summary>
