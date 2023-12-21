@@ -148,6 +148,12 @@ module.exports = function(grunt) {
         },
 
         shell: {
+            compileLanguages: {
+                command: [
+                    "@echo off",
+                    "..\\Tools\\LanguageManager\\YAF.LanguageManager %CD%\\bin\\Release\\net8.0\\publish\\wwwroot\\languages\\ -minify"
+                ].join("&&")
+            },
             deletePublish: {
                 command: [
                     "@echo off",
@@ -658,22 +664,22 @@ module.exports = function(grunt) {
 
     grunt.registerTask("deploy-SqlServer",
         [
-            "uglify", "sass", "postcss", "cssmin", "shell:deletePublish", "shell:deploySqlServer", "zip:YAF-SqlServer-Deploy"
+            "uglify", "sass", "postcss", "cssmin", "shell:deletePublish", "shell:deploySqlServer", "shell:compileLanguages", "zip:YAF-SqlServer-Deploy"
         ]);
 
     grunt.registerTask("deploy-MySql",
         [
-            "uglify", "sass", "postcss", "cssmin", "shell:deletePublish", "shell:deployMySql", "zip:YAF-MySql-Deploy"
+            "uglify", "sass", "postcss", "cssmin", "shell:deletePublish", "shell:deployMySql", "shell:compileLanguages", "zip:YAF-MySql-Deploy"
         ]);
 
     grunt.registerTask("deploy-PostgreSQL",
         [
-            "uglify", "sass", "postcss", "cssmin", "shell:deletePublish", "shell:deployPostgreSQL", "zip:YAF-PostgreSQL-Deploy"
+            "uglify", "sass", "postcss", "cssmin", "shell:deletePublish", "shell:deployPostgreSQL", "shell:compileLanguages", "zip:YAF-PostgreSQL-Deploy"
         ]);
 
     grunt.registerTask("deploy-Sqlite",
         [
-            "uglify", "sass", "postcss", "cssmin", "shell:deletePublish", "shell:deploySqlite", "zip:YAF-Sqlite-Deploy"
+            "uglify", "sass", "postcss", "cssmin", "shell:deletePublish", "shell:deploySqlite", "shell:compileLanguages", "zip:YAF-Sqlite-Deploy"
         ]);
 
     grunt.registerTask("deploy",
