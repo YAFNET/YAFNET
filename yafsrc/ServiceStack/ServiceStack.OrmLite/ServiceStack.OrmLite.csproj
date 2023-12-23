@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ServiceStack\ServiceStack.csproj" />
+    <ProjectReference Include="..\ServiceStack.Lite\ServiceStack.Lite.csproj" />
   </ItemGroup>
 
 </Project>

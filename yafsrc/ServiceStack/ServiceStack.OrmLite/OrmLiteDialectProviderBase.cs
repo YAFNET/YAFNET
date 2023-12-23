@@ -20,7 +20,6 @@ using System.Threading.Tasks;
 using ServiceStack.DataAnnotations;
 using ServiceStack.Logging;
 using ServiceStack.OrmLite.Converters;
-using ServiceStack.Script;
 using ServiceStack.Text;
 
 /// <summary>

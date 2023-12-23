@@ -2969,7 +2969,7 @@
     <Content Include="YetAnotherForum.NET.snk" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ServiceStack\ServiceStack\ServiceStack.csproj">
+    <ProjectReference Include="..\ServiceStack\ServiceStack.Lite\ServiceStack.Lite.csproj">
       <Project>{aa001480-3713-4927-8650-ed1e16afb791}</Project>
       <Name>ServiceStack</Name>
     </ProjectReference>

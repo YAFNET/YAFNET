@@ -75,6 +75,7 @@
     <ProjectReference Include="..\Lucene.Net\Lucene.Net.Queries\YAF.Lucene.Net.Queries.csproj" />
     <ProjectReference Include="..\Lucene.Net\Lucene.Net.QueryParser\YAF.Lucene.Net.QueryParser.csproj" />
     <ProjectReference Include="..\Lucene.Net\Lucene.Net\YAF.Lucene.Net.csproj" />
+    <ProjectReference Include="..\ServiceStack\ServiceStack.Lite\ServiceStack.Lite.csproj" />
     <ProjectReference Include="..\ServiceStack\ServiceStack.OrmLite\ServiceStack.OrmLite.csproj" />
     <ProjectReference Include="..\YAF.Configuration\YAF.Configuration.csproj" />
     <ProjectReference Include="..\YAF.Types\YAF.Types.csproj" />

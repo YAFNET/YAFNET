@@ -19,7 +19,6 @@ using global::MySql.Data.MySqlClient;
 
 using ServiceStack.OrmLite.MySql.Converters;
 using ServiceStack.OrmLite.MySql.DataAnnotations;
-using ServiceStack.Script;
 using ServiceStack.Text;
 
 /// <summary>

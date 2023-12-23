@@ -60,7 +60,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceStack", "ServiceStack\ServiceStack\ServiceStack.csproj", "{AA001480-3713-4927-8650-ED1E16AFB791}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceStack.Lite", "ServiceStack\ServiceStack.Lite\ServiceStack.Lite.csproj", "{AA001480-3713-4927-8650-ED1E16AFB791}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceStack.OrmLite.MySql", "ServiceStack\ServiceStack.OrmLite.MySql\ServiceStack.OrmLite.MySql.csproj", "{69CB7E8B-1EAC-4A36-9B66-E59BE51D579C}"
 EndProject
