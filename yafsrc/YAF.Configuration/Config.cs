@@ -30,22 +30,9 @@ namespace YAF.Configuration;
 public static class Config
 {
     /// <summary>
-    ///     Gets or sets the Database Connection String.
-    /// </summary>
-    public static string ConnectionString { get; set; }
-
-    /// <summary>
     /// Gets or sets the SQL Command Timeout.
     /// </summary>
     public static int SqlCommandTimeout { get; set; }
-
-    /// <summary>
-    /// Gets or sets the name of the connection provider.
-    /// </summary>
-    /// <value>
-    /// The name of the connection provider.
-    /// </value>
-    public static string ConnectionProviderName { get; set; }
 
     /// <summary>
     /// Gets or sets the database schema.

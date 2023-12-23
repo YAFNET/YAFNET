@@ -22,36 +22,46 @@
  * under the License.
  */
 
+using Microsoft.Extensions.Configuration;
+using YAF.Core.Context;
+using YAF.Types.Interfaces;
+using YAF.Types.Objects;
+
 namespace YAF.Data.SqlServer;
 
 /// <summary>
 /// MySQL DB Information
 /// </summary>
-public class SqlServerDbInformation : IDbInformation
+public class SqlServerDbInformation : IDbInformation, IHaveServiceLocator
 {
     /// <summary>
     /// The YAF Provider Upgrade script list
     /// </summary>
-    private readonly static string[] IdentityUpgradeScriptList = {"upgrade.sql"};
+    private readonly static string[] IdentityUpgradeScriptList = ["upgrade.sql"];
 
     /// <summary>
     /// The DB parameters
     /// </summary>
-    private readonly DbConnectionParam[] connectionParameters = {
-                                                                        new(0, "Password", string.Empty),
-                                                                        new(1, "Data Source", "(local)"),
-                                                                        new(2, "Initial Catalog", string.Empty),
-                                                                        new(11, "Use Integrated Security", "true")
-                                                                    };
+    private readonly DbConnectionParam[] connectionParameters = [
+        new DbConnectionParam(0, "Password", string.Empty),
+        new DbConnectionParam(1, "Data Source", "(local)"),
+        new DbConnectionParam(2, "Initial Catalog", string.Empty),
+        new DbConnectionParam(11, "Use Integrated Security", "true")
+    ];
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SqlServerDbInformation"/> class.
     /// </summary>
     public SqlServerDbInformation()
     {
-        this.ConnectionString = () => Config.ConnectionString;
+        this.ConnectionString = () => this.Get<IConfiguration>().GetConnectionString("DefaultConnection");
         this.ProviderName = SqlServerDbAccess.ProviderTypeName;
     }
+
+    /// <summary>
+    ///   Gets the ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
     /// <summary>
     /// Gets or sets the DB Connection String
@@ -125,19 +135,19 @@ public class SqlServerDbInformation : IDbInformation
 
         vaccessGroupSelect.AppendFormat(
             " [{0}].[{1}] b",
-            Config.DatabaseOwner,
+            this.Get<BoardConfiguration>().DatabaseOwner,
             dbCommand.Connection.GetTableName<UserGroup>());
         vaccessGroupSelect.AppendFormat(
             " INNER JOIN [{0}].[{1}] c on c.GroupID=b.GroupID",
-            Config.DatabaseOwner,
+            this.Get<BoardConfiguration>().DatabaseOwner,
             dbCommand.Connection.GetTableName<ForumAccess>());
         vaccessGroupSelect.AppendFormat(
             " INNER JOIN [{0}].[{1}] d on d.AccessMaskID=c.AccessMaskID",
-            Config.DatabaseOwner,
+            this.Get<BoardConfiguration>().DatabaseOwner,
             dbCommand.Connection.GetTableName<AccessMask>());
         vaccessGroupSelect.AppendFormat(
             " INNER JOIN [{0}].[{1}] e on e.GroupID=b.GroupID",
-            Config.DatabaseOwner,
+            this.Get<BoardConfiguration>().DatabaseOwner,
             dbCommand.Connection.GetTableName<Group>());
 
         dbCommand.Connection.CreateView<vaccess_group>(vaccessGroupSelect);
@@ -165,7 +175,7 @@ public class SqlServerDbInformation : IDbInformation
 
         vaccessNullSelect.AppendFormat(
             " [{0}].[{1}] a",
-            Config.DatabaseOwner,
+            this.Get<BoardConfiguration>().DatabaseOwner,
             dbCommand.Connection.GetTableName<User>());
 
         dbCommand.Connection.CreateView<vaccess_null>(vaccessNullSelect);
@@ -192,12 +202,12 @@ public class SqlServerDbInformation : IDbInformation
         vaccessUserSelect.Append(" from");
         vaccessUserSelect.AppendFormat(
             " [{0}].[{1}] b",
-            Config.DatabaseOwner,
+            this.Get<BoardConfiguration>().DatabaseOwner,
             dbCommand.Connection.GetTableName<UserForum>());
 
         vaccessUserSelect.AppendFormat(
             " INNER JOIN [{0}].[{1}] c on c.AccessMaskID=b.AccessMaskID",
-            Config.DatabaseOwner,
+            this.Get<BoardConfiguration>().DatabaseOwner,
             dbCommand.Connection.GetTableName<AccessMask>());
 
         dbCommand.Connection.CreateView<vaccess_user>(vaccessUserSelect);
@@ -227,7 +237,7 @@ public class SqlServerDbInformation : IDbInformation
         vaccessFullSelect.Append(" from ");
         vaccessFullSelect.AppendFormat(
             "[{0}].[{1}] b",
-            Config.DatabaseOwner,
+            this.Get<BoardConfiguration>().DatabaseOwner,
             dbCommand.Connection.GetTableName<vaccess_user>());
 
         vaccessFullSelect.Append(" union all select ");
@@ -239,7 +249,7 @@ public class SqlServerDbInformation : IDbInformation
         vaccessFullSelect.Append(" from ");
         vaccessFullSelect.AppendFormat(
             "[{0}].[{1}] b",
-            Config.DatabaseOwner,
+            this.Get<BoardConfiguration>().DatabaseOwner,
             dbCommand.Connection.GetTableName<vaccess_group>());
 
         vaccessFullSelect.Append(" union all select ");
@@ -251,7 +261,7 @@ public class SqlServerDbInformation : IDbInformation
         vaccessFullSelect.Append(" from ");
         vaccessFullSelect.AppendFormat(
             "[{0}].[{1}] b",
-            Config.DatabaseOwner,
+            this.Get<BoardConfiguration>().DatabaseOwner,
             dbCommand.Connection.GetTableName<vaccess_null>());
 
         vaccessFullSelect.Append(" ) access GROUP BY UserID,ForumID");
@@ -269,14 +279,14 @@ public class SqlServerDbInformation : IDbInformation
 
         vaccessSelect.AppendFormat(
             "IsModerator = (select count(1) from[{0}].[{1}] v1,",
-            Config.DatabaseOwner,
+            this.Get<BoardConfiguration>().DatabaseOwner,
             dbCommand.Connection.GetTableName<UserGroup>());
-        vaccessSelect.AppendFormat("[{0}].[{1}] w2,", Config.DatabaseOwner, dbCommand.Connection.GetTableName<Group>());
+        vaccessSelect.AppendFormat("[{0}].[{1}] w2,", this.Get<BoardConfiguration>().DatabaseOwner, dbCommand.Connection.GetTableName<Group>());
         vaccessSelect.AppendFormat(
             "[{0}].[{1}] x,",
-            Config.DatabaseOwner,
+            this.Get<BoardConfiguration>().DatabaseOwner,
             dbCommand.Connection.GetTableName<ForumAccess>());
-        vaccessSelect.AppendFormat("[{0}].[{1}] y", Config.DatabaseOwner, dbCommand.Connection.GetTableName<AccessMask>());
+        vaccessSelect.AppendFormat("[{0}].[{1}] y", this.Get<BoardConfiguration>().DatabaseOwner, dbCommand.Connection.GetTableName<AccessMask>());
         vaccessSelect.Append(" where v1.UserID = a.UserID and w2.GroupID = v1.GroupID and x.GroupID = w2.GroupID");
         vaccessSelect.Append(" and y.AccessMaskID = x.AccessMaskID and (y.Flags & 64) <> 0),");
 
@@ -294,15 +304,15 @@ public class SqlServerDbInformation : IDbInformation
 
         vaccessSelect.AppendFormat(
             " [{0}].[{1}] as x WITH(NOLOCK)",
-            Config.DatabaseOwner,
+            this.Get<BoardConfiguration>().DatabaseOwner,
             dbCommand.Connection.GetTableName<VAccessFull>());
         vaccessSelect.AppendFormat(
             " INNER JOIN [{0}].[{1}] a WITH(NOLOCK) on a.UserID=x.UserID",
-            Config.DatabaseOwner,
+            this.Get<BoardConfiguration>().DatabaseOwner,
             dbCommand.Connection.GetTableName<UserGroup>());
         vaccessSelect.AppendFormat(
             " INNER JOIN [{0}].[{1}] b WITH(NOLOCK) on b.GroupID=a.GroupID",
-            Config.DatabaseOwner,
+            this.Get<BoardConfiguration>().DatabaseOwner,
             dbCommand.Connection.GetTableName<Group>());
 
         vaccessSelect.Append(" GROUP BY a.UserID,x.ForumID");

@@ -25,11 +25,7 @@
 namespace YAF;
 
 using System.Threading.Tasks;
-
-using Autofac.Extensions.DependencyInjection;
-
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
 using YAF.Core.Extensions;
@@ -50,13 +46,8 @@ public class Program
     /// </returns>
     public static Task Main(string[] args)
     {
-        var host = Host.CreateDefaultBuilder(args).UseServiceProviderFactory(new AutofacServiceProviderFactory())
-            .ConfigureAppConfiguration(config => config.AddJsonFile(
-                "helpmenu.json")).ConfigureAppConfiguration(config => config.AddJsonFile(
-                "mimeTypes.json")).ConfigureLogging(logging =>
-                       {
-                           logging.AddDbLogger();
-                       })
+        var host = Host.CreateDefaultBuilder(args).UseAutofacServiceProviderFactory()
+            .ConfigureYafAppConfiguration().ConfigureYafLogging()
             .ConfigureWebHostDefaults(webHostBuilder => webHostBuilder.UseStartup<Startup>()).Build();
 
         return host.RunAsync();
@@ -66,6 +57,4 @@ public class Program
 /// <summary>
 /// Helper Class for testing
 /// </summary>
-public class AssemblyClassLocator
-{
-}
+public class AssemblyClassLocator;

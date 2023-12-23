@@ -22,14 +22,20 @@
  * under the License.
  */
 
-using System.Diagnostics.CodeAnalysis;
+using System;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OEmbed.Core.Extensions;
+using UAParser.Extensions;
 using YAF.Core.Hubs;
+using YAF.Types.Objects;
 
 namespace YAF.Core.Extensions;
 
@@ -39,12 +45,90 @@ namespace YAF.Core.Extensions;
 public static class ServiceCollectionExtensionsExtensions
 {
     /// <summary>
-    ///  Adds YAF.NET core services to the specified services collection.
+    /// Adds YAF.NET core service extensions.
     /// </summary>
     /// <param name="services">The services.</param>
     /// <returns>IServiceCollection.</returns>
-    public static IServiceCollection AddYAFCore(this IServiceCollection services)
+    public static IServiceCollection AddYafExtensions(this IServiceCollection services)
     {
+        services.AddMemoryCache();
+
+        services.AddUserAgentParser();
+        services.AddOEmbed();
+
+        services.AddSession(options =>
+        {
+            options.IdleTimeout = TimeSpan.FromHours(4);
+            options.Cookie.Name = ".YAFNET.Session";
+            options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+            options.Cookie.SameSite = SameSiteMode.Strict;
+            options.Cookie.HttpOnly = true;
+        });
+
+        services.AddHttpContextAccessor();
+
+        services.AddOutputCache();
+
+        return services;
+    }
+
+    /// <summary>
+    /// Adds YAF.NET core service Identity Options.
+    /// </summary>
+    /// <param name="services">The services.</param>
+    /// <returns>IServiceCollection.</returns>
+    public static IServiceCollection AddYafIdentityOptions(this IServiceCollection services)
+    {
+        services.Configure<IdentityOptions>(
+            options =>
+            {
+                // Password settings.
+                options.Password.RequireDigit = BoardContext.Current.BoardSettings.PasswordRequireDigit;
+                options.Password.RequireLowercase = BoardContext.Current.BoardSettings.PasswordRequireLowercase;
+                options.Password.RequireNonAlphanumeric =
+                    BoardContext.Current.BoardSettings.PasswordRequireNonLetterOrDigit;
+                options.Password.RequireUppercase = BoardContext.Current.BoardSettings.PasswordRequireUppercase;
+                options.Password.RequiredLength = BoardContext.Current.BoardSettings.MinRequiredPasswordLength;
+
+                // Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+
+                // User settings.
+                options.User.AllowedUserNameCharacters =
+                    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = true;
+            });
+
+        services.AddDefaultIdentity<AspNetUsers>(o => o.SignIn.RequireConfirmedAccount = true)
+            .AddUserManager<AspNetUserManager<AspNetUsers>>().AddRoles<AspNetRoles>().AddDefaultTokenProviders();
+
+        return services;
+    }
+
+    /// <summary>
+    ///  Adds YAF.NET core services to the specified services collection.
+    /// </summary>
+    /// <param name="services">The services.</param>
+    /// <param name="configuration"></param>
+    /// <returns>IServiceCollection.</returns>
+    public static IServiceCollection AddYafCore(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddYafExtensions();
+
+        services.AddYafIdentityOptions();
+
+        services.AddYafAuthentication(configuration);
+
+        services.AddYafInstallLanguages();
+
+        // Mail Configuration
+        services.Configure<MailConfiguration>(configuration.GetSection("MailConfiguration"));
+
+        // Board Configuration
+        services.Configure<BoardConfiguration>(configuration.GetSection("BoardConfiguration"));
+
         services.AddSingleton<IActionContextAccessor, ActionContextAccessor>().AddScoped(
             x => x.GetRequiredService<IUrlHelperFactory>()
                 .GetUrlHelper(x.GetRequiredService<IActionContextAccessor>().ActionContext));
@@ -57,11 +141,75 @@ public static class ServiceCollectionExtensionsExtensions
     }
 
     /// <summary>
+    /// Adds the yaf Authentication.
+    /// </summary>
+    /// <param name="services">The services.</param>
+    /// <param name="configuration"></param>
+    /// <returns>IServiceCollection.</returns>
+    public static IServiceCollection AddYafAuthentication(this IServiceCollection services,
+        IConfiguration configuration)
+    {
+        var boardConfig = configuration.GetSection("BoardConfiguration").Get<BoardConfiguration>();
+
+        var authenticationBuilder = services.AddAuthentication();
+
+        authenticationBuilder.AddCookie(
+            options =>
+            {
+                options.ExpireTimeSpan = TimeSpan.FromDays(7);
+                options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/Account/Logout";
+                options.AccessDeniedPath = "/Info";
+                options.SlidingExpiration = true;
+            });
+
+        if (boardConfig.GoogleClientSecret.IsSet() && boardConfig.GoogleClientID.IsSet())
+        {
+            authenticationBuilder.AddGoogle(
+                AuthService.google.ToString(),
+                options =>
+                {
+                    options.ClientId = boardConfig.GoogleClientID;
+                    options.ClientSecret = boardConfig.GoogleClientSecret;
+                    options.SignInScheme = IdentityConstants.ExternalScheme;
+
+                    options.ClaimActions.MapJsonKey("urn:google:email", "email", "string");
+                    options.ClaimActions.MapJsonKey("urn:google:id", "id", "string");
+                    options.ClaimActions.MapJsonKey("urn:google:name", "name", "string");
+                });
+        }
+
+        if (boardConfig.FacebookSecretKey.IsSet() && boardConfig.FacebookAPIKey.IsSet())
+        {
+            authenticationBuilder.AddFacebook(
+                AuthService.facebook.ToString(),
+                options =>
+                {
+                    options.ClientId = boardConfig.FacebookAPIKey;
+                    options.ClientSecret = boardConfig.FacebookSecretKey;
+                    options.SignInScheme = IdentityConstants.ExternalScheme;
+
+                    options.Scope.Add("email");
+
+                    options.Fields.Add("name");
+                    options.Fields.Add("email");
+
+                    options.ClaimActions.MapJsonKey("urn:facebook:email", "email", "string");
+                    options.ClaimActions.MapJsonKey("urn:facebook:id", "id", "string");
+                    options.ClaimActions.MapJsonKey("urn:facebook:name", "name", "string");
+                });
+        }
+
+
+        return services;
+    }
+
+    /// <summary>
     /// Adds the yaf install languages.
     /// </summary>
     /// <param name="services">The services.</param>
     /// <returns>IServiceCollection.</returns>
-    public static IServiceCollection AddYAFInstallLanguages(this IServiceCollection services)
+    public static IServiceCollection AddYafInstallLanguages(this IServiceCollection services)
     {
         services.Configure<RequestLocalizationOptions>(options =>
         {

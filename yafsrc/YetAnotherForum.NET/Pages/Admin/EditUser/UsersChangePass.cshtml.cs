@@ -49,9 +49,6 @@ public class UsersChangePassModel : AdminPage
     [BindProperty]
     public Tuple<User, AspNetUsers, Rank, VAccess> EditUser { get; set; }
 
-    [BindProperty]
-    public List<SelectListItem> SuspendUnits { get; set; }
-
     /// <summary>
     /// Gets or sets the input.
     /// </summary>

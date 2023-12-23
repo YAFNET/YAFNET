@@ -33,6 +33,12 @@ using System.Data;
 public interface IDbInformation
 {
     /// <summary>
+    /// Gets the service locator.
+    /// </summary>
+    /// <value>The service locator.</value>
+    public IServiceLocator ServiceLocator { get; }
+
+    /// <summary>
     /// Gets or sets the DB Connection String
     /// </summary>
     Func<string> ConnectionString { get; set; }

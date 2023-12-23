@@ -727,8 +727,6 @@ public class HostSettingsModel : AdminPage
 
         public bool ShowQuickSearch { get; set; }
 
-        public bool UserAgentBadLog { get; set; }
-
         public string AppOsName { get; set; }
 
         public string AppRuntime { get; set; }

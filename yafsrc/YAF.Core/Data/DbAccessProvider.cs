@@ -27,6 +27,7 @@ namespace YAF.Core.Data;
 using Autofac.Features.Indexed;
 
 using YAF.Core.Events;
+using YAF.Types.Objects;
 
 /// <summary>
 ///     The Database connection provider base.
@@ -114,7 +115,7 @@ public class DbAccessProvider : IDbAccessProvider
     /// </summary>
     public string ProviderName
     {
-        get => this._providerName ??= Config.ConnectionProviderName;
+        get => this._providerName ??= _serviceLocator.Get<BoardConfiguration>().ConnectionProviderName;
 
         set
         {

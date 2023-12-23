@@ -61,9 +61,6 @@ public class EditUserModel : AdminPage
     [BindProperty]
     public Rank EditUserRank { get; set; }
 
-    [BindProperty]
-    public VAccess EditUserVaccess { get; set; }
-
     /// <summary>
     /// Gets the current Culture information.
     /// </summary>

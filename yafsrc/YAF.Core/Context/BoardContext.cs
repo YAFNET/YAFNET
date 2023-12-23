@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Collections.Generic;
+
 namespace YAF.Core.Context;
 
 using System;
@@ -161,7 +163,7 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     /// </returns>
     public object this[string varName]
     {
-        get => this.Vars.TryGetValue(varName, out var value) ? value : null;
+        get => this.Vars.GetValueOrDefault(varName);
 
         set => this.Vars[varName] = value;
     }

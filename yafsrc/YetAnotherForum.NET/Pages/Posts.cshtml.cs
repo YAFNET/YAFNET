@@ -76,12 +76,6 @@ public class PostsModel : ForumPage
     public List<PagedMessage> Messages { get; set; }
 
     /// <summary>
-    /// Gets or sets the show topic list selected.
-    /// </summary>
-    [BindProperty]
-    public int ShowTopicListSelected { get; set; }
-
-    /// <summary>
     /// The create page links.
     /// </summary>
     public override void CreatePageLinks()

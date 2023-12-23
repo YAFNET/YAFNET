@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using Microsoft.Extensions.Configuration;
+
 namespace YAF.Core.Middleware;
 
 using System.Threading.Tasks;
@@ -85,7 +87,7 @@ public class InitializeDb : IHaveServiceLocator
                 return;
             }
 
-            if (Config.ConnectionString == null)
+            if (this.Get<IConfiguration>().GetConnectionString("DefaultConnection") == null)
             {
                 // attempt to create a connection string...
                 response.Redirect("/Install/Install");

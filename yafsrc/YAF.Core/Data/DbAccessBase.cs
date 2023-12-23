@@ -30,6 +30,7 @@ using System.Data;
 using System.Threading.Tasks;
 
 using YAF.Types.Interfaces.Data;
+using YAF.Types.Objects;
 
 /// <summary>
 ///     The DB access base.

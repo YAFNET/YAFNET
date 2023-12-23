@@ -56,14 +56,6 @@ public class MessageHistoryModel : ForumPageRegistered
     }
 
     /// <summary>
-    /// Gets or sets the revisions count.
-    /// </summary>
-    /// <value>
-    /// The revisions count.
-    /// </value>
-    protected int RevisionsCount { get; set; }
-
-    /// <summary>
     /// Called when [get].
     /// </summary>
     /// <param name="m">The message ID.</param>

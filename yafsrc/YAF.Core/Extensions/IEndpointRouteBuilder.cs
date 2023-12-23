@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2020 Ingo Herbote
+ * Copyright (C) 2014-2023 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -22,37 +22,24 @@
  * under the License.
  */
 
-namespace YAF.Core.Modules;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Routing;
+using YAF.Core.Hubs;
 
-using System.Reflection;
-
-using Autofac.Core;
+namespace YAF.Core.Extensions;
 
 /// <summary>
-/// The bootstrap module.
+/// Extensions for the <see cref="IEndpointRouteBuilder"/>.
 /// </summary>
-public class BootstrapModule : BaseModule
+public static class IEndpointRouteBuilderExtensions
 {
     /// <summary>
-    /// Bootstrap module is always called first
+    /// Maps the yaf hubs.
     /// </summary>
-    public override int SortOrder => 1;
-
-    /// <summary>
-    /// The load.
-    /// </summary>
-    /// <param name="builder">
-    /// The builder.
-    /// </param>
-    override protected void Load(ContainerBuilder builder)
+    /// <param name="endpoints">The endpoints.</param>
+    public static void MapYafHubs(this IEndpointRouteBuilder endpoints)
     {
-        // register all the modules in this assembly first -- excluding this module
-        this.RegisterBaseModules<IModule>(
-            builder,
-            [Assembly.GetExecutingAssembly()],
-            new[] { typeof(BootstrapModule) });
-
-        // register all the modules in scanned assemblies
-        this.RegisterBaseModules<IModule>(builder, ExtensionAssemblies);
+        endpoints.MapHub<NotificationHub>("/NotificationHub");
+        endpoints.MapHub<ChatHub>("/ChatHub");
     }
 }

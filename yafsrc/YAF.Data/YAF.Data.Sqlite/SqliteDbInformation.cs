@@ -22,34 +22,43 @@
  * under the License.
  */
 
+using Microsoft.Extensions.Configuration;
+using YAF.Core.Context;
+using YAF.Types.Interfaces;
+
 namespace YAF.Data.Sqlite;
 
 /// <summary>
 /// MySQL DB Information
 /// </summary>
-public class SqliteDbInformation : IDbInformation
+public class SqliteDbInformation : IDbInformation, IHaveServiceLocator
 {
     /// <summary>
     /// The YAF Provider Upgrade script list
     /// </summary>
-    private readonly static string[] IdentityUpgradeScriptList = Array.Empty<string>();
+    private readonly static string[] IdentityUpgradeScriptList = [];
 
     /// <summary>
     /// The DB parameters
     /// </summary>
-    private readonly DbConnectionParam[] connectionParameters = {
-                                                                        new(0, "Password", string.Empty),
-                                                                        new(1, "Data Source", "(local)")
-                                                                    };
+    private readonly DbConnectionParam[] connectionParameters = [
+        new DbConnectionParam(0, "Password", string.Empty),
+        new DbConnectionParam(1, "Data Source", "(local)")
+    ];
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SqliteDbInformation"/> class.
     /// </summary>
     public SqliteDbInformation()
     {
-        this.ConnectionString = () => Config.ConnectionString;
+        this.ConnectionString = () => this.Get<IConfiguration>().GetConnectionString("DefaultConnection");
         this.ProviderName = SqliteDbAccess.ProviderTypeName;
     }
+
+    /// <summary>
+    ///   Gets the ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
     /// <summary>
     /// Gets or sets the DB Connection String

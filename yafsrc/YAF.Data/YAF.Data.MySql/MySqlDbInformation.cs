@@ -22,36 +22,45 @@
  * under the License.
  */
 
+using Microsoft.Extensions.Configuration;
+using YAF.Core.Context;
+using YAF.Types.Interfaces;
+
 namespace YAF.Data.MySql;
 
 /// <summary>
 /// MySQL DB Information
 /// </summary>
-public class MySqlDbInformation : IDbInformation
+public class MySqlDbInformation : IDbInformation, IHaveServiceLocator
 {
     /// <summary>
     /// The YAF Provider Upgrade script list
     /// </summary>
-    private readonly static string[] IdentityUpgradeScriptList = {
-                                                                         "upgrade.sql"
-                                                                     };
+    private readonly static string[] IdentityUpgradeScriptList = [
+        "upgrade.sql"
+    ];
 
     /// <summary>
     /// The DB parameters
     /// </summary>
-    private readonly DbConnectionParam[] connectionParameters = {
-                                                                        new(0, "Password", string.Empty),
-                                                                        new(1, "Data Source", "(local)")
-                                                                    };
+    private readonly DbConnectionParam[] connectionParameters = [
+        new DbConnectionParam(0, "Password", string.Empty),
+        new DbConnectionParam(1, "Data Source", "(local)")
+    ];
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MySqlDbInformation"/> class.
     /// </summary>
     public MySqlDbInformation()
     {
-        this.ConnectionString = () => Config.ConnectionString;
+        this.ConnectionString = () => this.Get<IConfiguration>().GetConnectionString("DefaultConnection");
         this.ProviderName = MySqlDbAccess.ProviderTypeName;
     }
+
+    /// <summary>
+    ///   Gets the ServiceLocator.
+    /// </summary>
+    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 
     /// <summary>
     /// Gets or sets the DB Connection String

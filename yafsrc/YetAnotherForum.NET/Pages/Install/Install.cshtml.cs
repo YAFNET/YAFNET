@@ -41,6 +41,7 @@ using System.Threading.Tasks;
 using YAF.Core.Extensions;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models.Identity;
+using Microsoft.Extensions.Configuration;
 
 public class InstallModel : InstallPage
 {
@@ -57,7 +58,9 @@ public class InstallModel : InstallPage
         // set the connection string provider...
         var previousProvider = this.Get<IDbAccess>().Information.ConnectionString;
 
-        string DynamicConnectionString() => Config.ConnectionString.IsSet() ? Config.ConnectionString : previousProvider();
+        string DynamicConnectionString() => this.Get<IConfiguration>().GetConnectionString("DefaultConnection").IsSet()
+            ? this.Get<IConfiguration>().GetConnectionString("DefaultConnection")
+            : previousProvider();
 
         this.DbAccess.Information.ConnectionString = DynamicConnectionString;
 

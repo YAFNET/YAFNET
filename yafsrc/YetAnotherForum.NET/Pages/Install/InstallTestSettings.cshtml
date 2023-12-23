@@ -1,9 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Http
 @using Microsoft.AspNetCore.Localization
-@using YAF.Configuration
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.Extensions.Configuration
 @using YAF.Core.Context
 @using YAF.Types.Extensions
 @using YAF.Types.Interfaces
+@using YAF.Types.Objects
 
 @inject ILocalization Localization;
 
@@ -30,10 +32,10 @@
             @Localization.GetText("ConnectionTest")
         </h4>
         <h4>
-            @Config.ConnectionProviderName
+            @(BoardContext.Current.Get<BoardConfiguration>().ConnectionProviderName.ToString())
         </h4>
         <p class="text-body-secondary">
-            @Config.ConnectionString
+            @(BoardContext.Current.Get<IConfiguration>().GetConnectionString("DefaultConnection").ToString())
         </p>
 
         <hr/>

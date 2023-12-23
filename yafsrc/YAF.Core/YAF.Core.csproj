@@ -9,6 +9,7 @@
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
     <PackageReference Include="FarsiLibrary.Core" Version="2.8.0" />
     <PackageReference Include="GoogleAuthenticator" Version="3.1.1" />
     <PackageReference Include="Lucene.Net" Version="4.8.0-beta00016" />
@@ -27,6 +28,7 @@
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="OEmbed.Core" Version="2.0.0" />
     <PackageReference Include="SixLabors.ImageSharp" Version="3.1.1" />
   </ItemGroup>
   <ItemGroup>
