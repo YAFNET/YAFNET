@@ -177,7 +177,7 @@ public class SignaturePreviewTagHelper : TagHelper, IHaveServiceLocator, IHaveLo
 
                         var paramDic = new Dictionary<string, string> { { "inner", match.Groups["inner"].Value } };
 
-                        if (codeRow.Variables.IsSet() && codeRow.Variables.Split(';').Any())
+                        if (codeRow.Variables.IsSet() && codeRow.Variables.Split(';').Length != 0)
                         {
                             var vars = codeRow.Variables.Split(';');
 

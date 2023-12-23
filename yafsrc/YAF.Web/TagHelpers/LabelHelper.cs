@@ -123,7 +123,7 @@ public class LabelHelper : TagHelper, IHaveServiceLocator, ILocalizationSupport
                        ? this.Get<ILocalization>().GetText(this.LocalizedPage, this.LocalizedTag)
                        : this.Get<ILocalization>().GetText(this.LocalizedTag);
 
-        output.Content.Append(text.Fmt(this.Param0, this.Param1, this.Param2));
+        output.Content.Append(text.FormatWith(this.Param0, this.Param1, this.Param2));
 
         if (!this.InfoButton)
         {

@@ -81,7 +81,7 @@ public class DigestService : IDigestService, IHaveServiceLocator
         var newTopics = topicsData.Where(t => t.Posted > DateTime.Now.AddHours(topicHours))
             .OrderByDescending(x => x.LastPosted).ToList();
 
-        if (!newTopics.Any() && !activeTopics.Any())
+        if (!newTopics.HasItems() && !activeTopics.HasItems())
         {
             return null;
         }

@@ -336,9 +336,9 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                     mailMessages.Add(watchEmail.CreateEmail(fromAddress, toAddress, subject));
                 });
 
-        if (mailMessages.Any())
+        if (mailMessages.HasItems())
         {
-            // Now send all mails..
+            // Now send all mails
             await this.Get<IMailService>().SendAllAsync(mailMessages);
         }
     }

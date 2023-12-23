@@ -429,7 +429,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         if (!input.IsSet())
         {
-            return new Tuple<List<SearchMessage>, int>(new List<SearchMessage>(), 0);
+            return new Tuple<List<SearchMessage>, int>([], 0);
         }
 
         try
@@ -441,7 +441,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             this.Get<ILogger<Search>>().Error(exception, "Search Error");
         }
 
-        return new Tuple<List<SearchMessage>, int>(new List<SearchMessage>(), 0);
+        return new Tuple<List<SearchMessage>, int>([], 0);
     }
 
     /// <summary>
@@ -909,7 +909,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
             else
             {
                 // filter user access
-                if (userAccessList.Any())
+                if (userAccessList.HasItems())
                 {
                     userAccessList.Where(a => a.ReadAccess == 0).ForEach(
                         access => fil.Add(

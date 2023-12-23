@@ -163,7 +163,7 @@ public class NotifyController : ForumBaseController
                     {
                         PageNumber = pageNumber,
                         TotalRecords =
-                            activities.Any()
+                            activities.HasItems()
                                 ? this.GetRepository<Activity>().Count(
                                     a => a.UserID == userId && a.FromUserID.HasValue
                                                              && a.Notification).ToType<int>()

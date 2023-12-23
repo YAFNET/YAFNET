@@ -26,8 +26,6 @@ using System.IO;
 
 using Microsoft.AspNetCore.Hosting;
 
-using ServiceStack.Text;
-
 /// <summary>
 /// The YAF theme.
 /// </summary>
@@ -72,7 +70,7 @@ public class Theme : ITheme
     /// </returns>
     public string BuildThemePath(string filename)
     {
-        return BoardContext.Current.Get<BoardInfo>().GetUrlToContentThemes(this.ThemeFile.CombineWith(filename));
+        return BoardContext.Current.Get<BoardInfo>().GetUrlToContentThemes(Path.Combine(this.ThemeFile, filename));
     }
 
     /// <summary>

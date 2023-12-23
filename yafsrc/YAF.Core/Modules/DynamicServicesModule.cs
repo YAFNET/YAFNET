@@ -88,7 +88,7 @@ public class DynamicServicesModule : BaseModule
                     Type[] typesToRegister;
 
                     if (exportAttribute.RegisterSpecifiedTypes != null
-                        && exportAttribute.RegisterSpecifiedTypes.Any())
+                        && exportAttribute.RegisterSpecifiedTypes.Length != 0)
                     {
                         // only register types provided...
                         typesToRegister = exportAttribute.RegisterSpecifiedTypes;

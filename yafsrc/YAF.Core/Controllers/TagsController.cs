@@ -72,7 +72,7 @@ public class TagsController : ForumBaseController
             var tagsList = (from Tag tag in tagsPaged
                             select new SelectOptions {text = tag.TagName, id = tag.ID.ToString()}).ToList();
 
-            var pagedTags = new SelectPagedOptions {Total = tagsList.Any() ? tags.Count : 0, Results = tagsList};
+            var pagedTags = new SelectPagedOptions {Total = tagsList.HasItems() ? tags.Count : 0, Results = tagsList};
 
             return Task.FromResult<ActionResult<SearchGridDataSet>>(this.Ok(pagedTags));
         }

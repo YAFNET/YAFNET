@@ -95,7 +95,7 @@ public static class AdminPageUserAccessRepositoryExtensions
         int userId,
         string pageName)
     {
-        if (!repository.Get(a => a.UserID == userId && a.PageName == pageName).Any())
+        if (!repository.Exists(a => a.UserID == userId && a.PageName == pageName))
         {
             repository.Insert(new AdminPageUserAccess { UserID = userId, PageName = pageName });
         }

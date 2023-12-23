@@ -22,11 +22,11 @@
  * under the License.
  */
 
+using ServiceStack.Text;
+
 namespace YAF.Web.HtmlHelpers;
 
 using Microsoft.AspNetCore.Http;
-
-using ServiceStack.Text;
 
 using YAF.Core.Services;
 
@@ -165,7 +165,7 @@ public static class FooterHtmlHelper
 
             generatedTag.InnerHtml.Append(
                 BoardContext.Current.Get<ILocalization>().GetText("COMMON", "GENERATED")
-                    .Fmt(BoardContext.Current.Get<IStopWatch>().Duration));
+                    .FormatWith(BoardContext.Current.Get<IStopWatch>().Duration));
 
             content.AppendHtml(generatedTag);
         }

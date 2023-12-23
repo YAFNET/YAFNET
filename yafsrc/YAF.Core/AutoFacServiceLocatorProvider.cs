@@ -208,7 +208,7 @@ public class AutoFacServiceLocatorProvider(ILifetimeScope container) : IScopeSer
             // find them...
             properties = type.GetProperties(DefaultFlags)
                 .Where(
-                    p => p.GetSetMethod(false) != null && !p.GetIndexParameters().Any()
+                    p => p.GetSetMethod(false) != null && p.GetIndexParameters().Length == 0
                                                        && p.IsDefined(attributeType, true)).Select(
                     p => Tuple.Create(
                         p.PropertyType,

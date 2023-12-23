@@ -50,7 +50,7 @@ public static class ActiveUsersHtmlHelper
         var context = BoardContext.Current;
 
         // we shall continue only if there are active user data available
-        if (!activeUsersList.Any())
+        if (!activeUsersList.HasItems())
         {
             return content;
         }

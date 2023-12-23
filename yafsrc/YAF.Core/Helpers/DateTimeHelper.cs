@@ -243,6 +243,6 @@ public static partial class DateTimeHelper
         }
     }
 
-    [GeneratedRegex("^[\\-?\\+?\\d]*$")]
+    [GeneratedRegex(@"^[\-?\+?\d]*$")]
     private static partial Regex LocalRegex();
 }

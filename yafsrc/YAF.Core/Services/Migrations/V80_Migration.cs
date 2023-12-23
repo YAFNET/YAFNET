@@ -1385,7 +1385,7 @@ namespace YAF.Core.Services.Migrations
                    WHERE TYPE='P'
                    AND name like '{Config.DatabaseObjectQualifier}%'");
 
-            if (list.Any())
+            if (list.HasItems())
             {
                 list.ForEach(drop => dbCommand.Connection.ExecuteSql(drop));
             }
@@ -1406,7 +1406,7 @@ namespace YAF.Core.Services.Migrations
                    FROM sys.triggers
                    where name like '{Config.DatabaseObjectQualifier}%'");
 
-            if (list.Any())
+            if (list.HasItems())
             {
                 list.ForEach(drop => dbCommand.Connection.ExecuteSql(drop));
             }

@@ -105,7 +105,7 @@ public class SessionMessageService
             return null;
         }
 
-        return !this.LoadStringList.Any()
+        return !this.LoadStringList.HasItems()
                    ? null
                    : this.LoadStringList.First();
     }

@@ -69,22 +69,7 @@ public class InstallService : IHaveServiceLocator
     /// <summary>
     ///     Gets a value indicating whether this instance is forum installed.
     /// </summary>
-    public bool IsForumInstalled
-    {
-        get
-        {
-            try
-            {
-                var boards = this.GetRepository<Board>().GetAll();
-                return boards.Any();
-            }
-            catch
-            {
-                // failure... no boards.
-                return false;
-            }
-        }
-    }
+    public bool IsForumInstalled => this.GetRepository<Board>().TableExists() && this.GetRepository<Board>().Exists(b => b.ID > 0);
 
     /// <summary>
     ///     Gets or sets the raise event.

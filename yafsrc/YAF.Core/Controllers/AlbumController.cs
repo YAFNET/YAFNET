@@ -127,7 +127,7 @@ public class AlbumController : ForumBaseController
                 {
                     PageNumber = pageNumber,
                     TotalRecords =
-                        albumImages.Any()
+                        albumImages.HasItems()
                             ? this.GetRepository<UserAlbumImage>().GetUserAlbumImageCount(userId)
                             : 0,
                     PageSize = pageSize,

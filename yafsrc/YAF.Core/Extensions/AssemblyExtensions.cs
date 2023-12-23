@@ -51,7 +51,7 @@ public static class AssemblyExtensions
 
         // get classes...
         assemblies.Select(
-            a => a.GetExportedTypes().Where(t => !t.IsAbstract && t.GetCustomAttributes(attributeType, true).Any())
+            a => a.GetExportedTypes().Where(t => !t.IsAbstract && t.GetCustomAttributes(attributeType, true).Length != 0)
                 .ToList()).ForEach(types => moduleClassTypes.AddRange(types));
 
         return moduleClassTypes.Distinct();
@@ -68,8 +68,8 @@ public static class AssemblyExtensions
     /// </returns>
     public static int GetAssemblySortOrder(this Assembly assembly)
     {
-        var attribute = assembly.GetCustomAttributes(typeof(AssemblyModuleSortOrder), true).OfType<AssemblyModuleSortOrder>();
+        var attribute = assembly.GetCustomAttributes(typeof(AssemblyModuleSortOrder), true).OfType<AssemblyModuleSortOrder>().ToList();
 
-        return attribute.Any() ? attribute.First().SortOrder : 9999;
+        return attribute.HasItems() ? attribute.First().SortOrder : 9999;
     }
 }

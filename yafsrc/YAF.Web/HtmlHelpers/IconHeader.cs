@@ -79,7 +79,7 @@ public static class IconHeaderHtmlHelper
 
         var icon = htmlHelper.Icon(iconName, iconType, "fas", iconSize);
 
-        var header = BoardContext.Current.Get<ILocalization>().GetText(page, tag).Fmt(param0, param1, param2);
+        var header = BoardContext.Current.Get<ILocalization>().GetText(page, tag).FormatWith(param0, param1, param2);
 
         /*if (text.IsSet())
         {

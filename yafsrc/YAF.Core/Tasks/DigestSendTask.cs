@@ -136,7 +136,7 @@ public class DigestSendTask : LongBackgroundTask
                     u => u.BoardID == board.ID && (u.Flags & 2) == 2 && (u.Flags & 4) != 4
                          && (u.Flags & 32) != 32 && u.DailyDigest);
 
-                if (usersWithDigest.Any())
+                if (usersWithDigest.HasItems())
                 {
                     // start sending...
                     await this.SendDigestToUsersAsync(usersWithDigest, boardSettings);

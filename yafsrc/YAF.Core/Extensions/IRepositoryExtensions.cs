@@ -413,6 +413,24 @@ public static class IRepositoryExtensions
     }
 
     /// <summary>
+    /// Checks whether a Table Exists.
+    /// </summary>
+    /// <typeparam name="T">
+    /// </typeparam>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <returns>
+    /// The <see cref="bool"/>.
+    /// </returns>
+    public static bool TableExists<T>(
+        this IRepository<T> repository)
+        where T : class, IEntity, new()
+    {
+        return repository.DbAccess.TableExists<T>();
+    }
+
+    /// <summary>
     /// Returns true if the Query returns any records that match the supplied SqlExpression, E.g:
     /// <para>
     /// db.Exists(db.From&lt;Person&gt;().Where(x =&gt; x.Age &lt; 50))

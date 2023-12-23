@@ -1379,7 +1379,7 @@ public static class MessageRepositoryExtensions
         // Restore replies
         var replies = repository.Get(m => m.ReplyTo == message.ID).ToList();
 
-        if (replies.Any())
+        if (replies.HasItems())
         {
             replies.ForEach(reply => repository.RestoreRecursively(forumId, topicId, reply));
         }

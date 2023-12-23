@@ -24,8 +24,6 @@
 
 namespace YAF.Types.Extensions.Data;
 
-using ServiceStack.Text;
-
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
@@ -114,7 +112,7 @@ public static class IDbAccessExtensions
             dbAccess.Information.ConnectionString(),
             OrmLiteConfig.DialectProvider);
 
-        var connection = await factory.OpenDbConnectionAsync().ConfigAwait();
+        var connection = await factory.OpenDbConnectionAsync();
 
         return connection;
     }
@@ -222,6 +220,17 @@ public static class IDbAccessExtensions
                 updateFields,
                 where, //OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where),
                 commandFilter));
+    }
+
+    /// <summary>
+    /// Checks whether a Table Exists. E.g:
+    /// <para>db.TableExists&lt;Person&gt;()</para>
+    /// </summary>
+    public static bool TableExists<T>(this IDbAccess dbAccess)
+        where T : class, IEntity, new()
+    {
+        return dbAccess.Execute(
+            db => db.Connection.TableExists<T>());
     }
 
     /// <summary>

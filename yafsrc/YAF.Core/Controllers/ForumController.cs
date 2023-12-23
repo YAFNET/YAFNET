@@ -94,7 +94,7 @@ public class ForumController : ForumBaseController
 
             var pagedForums = new SelectPagedGroupOptions
                                   {
-                                      Total = forums.Any() ? pager.Count : 0,
+                                      Total = forums.HasItems() ? pager.Count : 0,
                                       Results = forums
                                   };
 
