@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <PackageId>ServiceStack.Lite.Core</PackageId>
+    <AssemblyName>ServiceStack.Lite</AssemblyName>
+    <RootNamespace>ServiceStack</RootNamespace>
+    <TargetFramework>net8.0</TargetFramework>
+    <Title>ServiceStack.Lite</Title>
+    <PackageTags>JSON;Text;Serializer;CSV;JSV;HTTP;Auto Mapping;Dump;Reflection;JS;Utils;Fast</PackageTags>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(TargetFramework)' == 'NET8_0' ">
+    <DefineConstants>$(DefineConstants);NET8_0</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+	  <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="8.0.0" />
+	  <PackageReference Include="System.Runtime" Version="4.3.1" />
+	  <PackageReference Include="System.Reflection.Emit" Version="4.7.0" />
+	  <PackageReference Include="System.Reflection.Emit.LightWeight" Version="4.7.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Common\MiniProfiler\Data\ProfiledCommand.cs" />
+    <Compile Update="Common\MiniProfiler\Data\ProfiledConnection.cs" />
+  </ItemGroup>
+</Project>

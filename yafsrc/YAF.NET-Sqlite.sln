@@ -26,7 +26,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YAF.Data.Sqlite", "YAF.Data
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceStack.OrmLite.Sqlite.Core", "ServiceStack\ServiceStack.OrmLite.Sqlite\ServiceStack.OrmLite.Sqlite.Core.csproj", "{D7A72F6F-366B-49DD-887A-25C7B28F8A09}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceStack.Core", "ServiceStack\ServiceStack\ServiceStack.Core.csproj", "{4AE6A61D-9E13-4972-B7AA-F1AA49F17178}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceStack.Lite.Core", "ServiceStack\ServiceStack.Lite\ServiceStack.Lite.Core.csproj", "{4AE6A61D-9E13-4972-B7AA-F1AA49F17178}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YAF.Web", "YAF.Web\YAF.Web.csproj", "{C8A24D90-4D1B-4D2C-8D04-D48AB31E411F}"
 EndProject
