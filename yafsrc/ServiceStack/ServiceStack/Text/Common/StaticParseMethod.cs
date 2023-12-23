@@ -31,7 +31,7 @@ static internal class ParseMethodUtilities
     public static ParseStringDelegate GetParseFn<T>(string parseMethod)
     {
         // Get the static Parse(string) method on the type supplied
-        var parseMethodInfo = typeof(T).GetStaticMethod(parseMethod, new[] { typeof(string) });
+        var parseMethodInfo = typeof(T).GetStaticMethod(parseMethod, [typeof(string)]);
         if (parseMethodInfo == null)
             return null;
 
@@ -77,7 +77,7 @@ static internal class ParseMethodUtilities
     public static ParseStringSpanDelegate GetParseStringSpanFn<T>(string parseMethod)
     {
         // Get the static Parse(string) method on the type supplied
-        var parseMethodInfo = typeof(T).GetStaticMethod(parseMethod, new[] { typeof(string) });
+        var parseMethodInfo = typeof(T).GetStaticMethod(parseMethod, [typeof(string)]);
         if (parseMethodInfo == null)
             return null;
 

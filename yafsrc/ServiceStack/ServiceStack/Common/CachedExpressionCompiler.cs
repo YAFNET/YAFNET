@@ -530,7 +530,7 @@ namespace ServiceStack.ExpressionUtil
         /// <summary>
         /// The elements
         /// </summary>
-        public readonly List<ExpressionFingerprint> Elements = new();
+        public readonly List<ExpressionFingerprint> Elements = [];
 
         /// <summary>
         /// Indicates whether the current object is equal to another object of the same type.
@@ -596,11 +596,11 @@ namespace ServiceStack.ExpressionUtil
         /// <summary>
         /// The seen constants
         /// </summary>
-        private readonly List<object> _seenConstants = new();
+        private readonly List<object> _seenConstants = [];
         /// <summary>
         /// The seen parameters
         /// </summary>
-        private readonly List<ParameterExpression> _seenParameters = new();
+        private readonly List<ParameterExpression> _seenParameters = [];
         /// <summary>
         /// The current chain
         /// </summary>

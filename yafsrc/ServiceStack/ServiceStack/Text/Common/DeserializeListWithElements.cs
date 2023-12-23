@@ -42,7 +42,8 @@ public static class DeserializeListWithElements<TSerializer>
     /// <summary>
     /// The signature
     /// </summary>
-    private readonly static Type[] signature = { typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate) };
+    private readonly static Type[] signature = [typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate)
+    ];
 
     /// <summary>
     /// Gets the list type parse string span function.
@@ -104,20 +105,10 @@ public static class DeserializeListWithElements<TSerializer>
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>List&lt;System.String&gt;.</returns>
-    public static List<string> ParseStringList(string value)
-    {
-        return ParseStringList(value.AsSpan());
-    }
-
-    /// <summary>
-    /// Parses the string list.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>List&lt;System.String&gt;.</returns>
     public static List<string> ParseStringList(ReadOnlySpan<char> value)
     {
         if ((value = StripList(value)).IsNullOrEmpty())
-            return value.IsEmpty ? null : new List<string>();
+            return value.IsEmpty ? null : [];
 
         var to = new List<string>();
         var valueLength = value.Length;
@@ -144,17 +135,10 @@ public static class DeserializeListWithElements<TSerializer>
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>List&lt;System.Int32&gt;.</returns>
-    public static List<int> ParseIntList(string value) => ParseIntList(value.AsSpan());
-
-    /// <summary>
-    /// Parses the int list.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>List&lt;System.Int32&gt;.</returns>
     public static List<int> ParseIntList(ReadOnlySpan<char> value)
     {
         if ((value = StripList(value)).IsNullOrEmpty())
-            return value.IsEmpty ? null : new List<int>();
+            return value.IsEmpty ? null : [];
 
         var to = new List<int>();
         var valueLength = value.Length;
@@ -175,17 +159,10 @@ public static class DeserializeListWithElements<TSerializer>
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>List&lt;System.Byte&gt;.</returns>
-    public static List<byte> ParseByteList(string value) => ParseByteList(value.AsSpan());
-
-    /// <summary>
-    /// Parses the byte list.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>List&lt;System.Byte&gt;.</returns>
     public static List<byte> ParseByteList(ReadOnlySpan<char> value)
     {
         if ((value = StripList(value)).IsNullOrEmpty())
-            return value.IsEmpty ? null : new List<byte>();
+            return value.IsEmpty ? null : [];
 
         var to = new List<byte>();
         var valueLength = value.Length;
@@ -214,18 +191,6 @@ public static class DeserializeListWithElements<T, TSerializer>
     /// The serializer
     /// </summary>
     private readonly static ITypeSerializer Serializer = JsWriter.GetTypeSerializer<TSerializer>();
-
-    /// <summary>
-    /// Parses the generic list.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="createListType">Type of the create list.</param>
-    /// <param name="parseFn">The parse function.</param>
-    /// <returns>ICollection&lt;T&gt;.</returns>
-    public static ICollection<T> ParseGenericList(string value, Type createListType, ParseStringDelegate parseFn)
-    {
-        return ParseGenericList(value.AsSpan(), createListType, v => parseFn(v.ToString()));
-    }
 
     /// <summary>
     /// Parses the generic list.

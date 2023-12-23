@@ -13,6 +13,4 @@ namespace ServiceStack.DataAnnotations;
 /// use to indicate that property is part of the pk
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
-public class PrimaryKeyAttribute : AttributeBase
-{
-}
+public class PrimaryKeyAttribute : AttributeBase;

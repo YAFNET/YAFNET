@@ -22,7 +22,7 @@ public class CompositeIndexAttribute : AttributeBase
     /// </summary>
     public CompositeIndexAttribute()
     {
-        this.FieldNames = new List<string>();
+        this.FieldNames = [];
     }
 
     /// <summary>
@@ -31,7 +31,7 @@ public class CompositeIndexAttribute : AttributeBase
     /// <param name="fieldNames">The field names.</param>
     public CompositeIndexAttribute(params string[] fieldNames)
     {
-        this.FieldNames = new List<string>(fieldNames);
+        this.FieldNames = [..fieldNames];
     }
 
     /// <summary>
@@ -42,7 +42,7 @@ public class CompositeIndexAttribute : AttributeBase
     public CompositeIndexAttribute(bool unique, params string[] fieldNames)
     {
         this.Unique = unique;
-        this.FieldNames = new List<string>(fieldNames);
+        this.FieldNames = [..fieldNames];
     }
 
     /// <summary>

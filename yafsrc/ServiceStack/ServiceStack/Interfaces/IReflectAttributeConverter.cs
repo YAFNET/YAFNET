@@ -13,14 +13,7 @@ using System.Reflection;
 /// <summary>
 /// Interface IReflectAttributeConverter
 /// </summary>
-public interface IReflectAttributeConverter
-{
-    /// <summary>
-    /// Converts to reflectattribute.
-    /// </summary>
-    /// <returns>ReflectAttribute.</returns>
-    ReflectAttribute ToReflectAttribute();
-}
+public interface IReflectAttributeConverter;
 
 /// <summary>
 /// Class ReflectAttribute.

@@ -14,4 +14,4 @@ namespace ServiceStack.DataAnnotations;
 /// </summary>
 /// <seealso cref="ServiceStack.AttributeBase" />
 [AttributeUsage(AttributeTargets.Property)]
-public class UniqueAttribute : AttributeBase { }
+public class UniqueAttribute : AttributeBase;

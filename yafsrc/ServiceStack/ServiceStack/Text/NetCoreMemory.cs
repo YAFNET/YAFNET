@@ -150,20 +150,6 @@ public sealed class NetCoreMemory : MemoryProvider
     public override byte ParseByte(ReadOnlySpan<char> value) => byte.Parse(value);
 
     /// <summary>
-    /// Parses the int16.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>System.Int16.</returns>
-    public short ParseInt16(ReadOnlySpan<char> value) => short.Parse(value);
-
-    /// <summary>
-    /// Parses the u int16.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>System.UInt16.</returns>
-    public ushort ParseUInt16(ReadOnlySpan<char> value) => ushort.Parse(value);
-
-    /// <summary>
     /// Parses the int32.
     /// </summary>
     /// <param name="value">The value.</param>
@@ -174,38 +160,10 @@ public sealed class NetCoreMemory : MemoryProvider
     /// Parses the u int32.
     /// </summary>
     /// <param name="value">The value.</param>
-    /// <returns>System.UInt32.</returns>
-    public uint ParseUInt32(ReadOnlySpan<char> value) => uint.Parse(value);
-
-    /// <summary>
-    /// Parses the u int32.
-    /// </summary>
-    /// <param name="value">The value.</param>
     /// <param name="style">The style.</param>
     /// <returns>System.UInt32.</returns>
     public override uint ParseUInt32(ReadOnlySpan<char> value, NumberStyles style) =>
         uint.Parse(value.ToString(), NumberStyles.HexNumber);
-
-    /// <summary>
-    /// Parses the int64.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>System.Int64.</returns>
-    public override long ParseInt64(ReadOnlySpan<char> value) => long.Parse(value);
-
-    /// <summary>
-    /// Parses the u int64.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>System.UInt64.</returns>
-    public override ulong ParseUInt64(ReadOnlySpan<char> value) => ulong.Parse(value);
-
-    /// <summary>
-    /// Parses the unique identifier.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>Guid.</returns>
-    public override Guid ParseGuid(ReadOnlySpan<char> value) => Guid.Parse(value);
 
     /// <summary>
     /// Parses the base64.
@@ -233,16 +191,6 @@ public sealed class NetCoreMemory : MemoryProvider
         {
             BufferPool.ReleaseBufferToPool(ref bytes);
         }
-    }
-
-    /// <summary>
-    /// Converts to base64.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>System.String.</returns>
-    public override string ToBase64(ReadOnlyMemory<byte> value)
-    {
-        return Convert.ToBase64String(value.Span);
     }
 
     /// <summary>
@@ -417,20 +365,6 @@ public sealed class NetCoreMemory : MemoryProvider
     }
 
     /// <summary>
-    /// Gets the UTF8 character count.
-    /// </summary>
-    /// <param name="bytes">The bytes.</param>
-    /// <returns>System.Int32.</returns>
-    public override int GetUtf8CharCount(ReadOnlySpan<byte> bytes) => Encoding.UTF8.GetCharCount(bytes);
-
-    /// <summary>
-    /// Gets the UTF8 byte count.
-    /// </summary>
-    /// <param name="chars">The chars.</param>
-    /// <returns>System.Int32.</returns>
-    public override int GetUtf8ByteCount(ReadOnlySpan<char> chars) => Encoding.UTF8.GetByteCount(chars);
-
-    /// <summary>
     /// Converts to utf8.
     /// </summary>
     /// <param name="source">The source.</param>
@@ -456,36 +390,11 @@ public sealed class NetCoreMemory : MemoryProvider
     }
 
     /// <summary>
-    /// Converts to utf8.
-    /// </summary>
-    /// <param name="source">The source.</param>
-    /// <param name="destination">The destination.</param>
-    /// <returns>System.Int32.</returns>
-    public override int ToUtf8(ReadOnlySpan<char> source, Span<byte> destination) =>
-        Encoding.UTF8.GetBytes(source, destination);
-
-    /// <summary>
-    /// Froms the UTF8.
-    /// </summary>
-    /// <param name="source">The source.</param>
-    /// <param name="destination">The destination.</param>
-    /// <returns>System.Int32.</returns>
-    public override int FromUtf8(ReadOnlySpan<byte> source, Span<char> destination) =>
-        Encoding.UTF8.GetChars(source.WithoutBom(), destination);
-
-    /// <summary>
     /// Converts to utf8bytes.
     /// </summary>
     /// <param name="source">The source.</param>
     /// <returns>System.Byte[].</returns>
     public override byte[] ToUtf8Bytes(ReadOnlySpan<char> source) => ToUtf8(source).ToArray();
-
-    /// <summary>
-    /// Froms the UTF8 bytes.
-    /// </summary>
-    /// <param name="source">The source.</param>
-    /// <returns>System.String.</returns>
-    public override string FromUtf8Bytes(ReadOnlySpan<byte> source) => FromUtf8(source.WithoutBom()).ToString();
 
     /// <summary>
     /// Converts to memorystream.

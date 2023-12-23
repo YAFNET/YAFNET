@@ -317,23 +317,6 @@ public sealed partial class RecyclableMemoryStreamManager
         }
 
         /// <summary>
-        /// Logged when ToArray is called on a stream.
-        /// </summary>
-        /// <param name="guid">A unique ID for this stream.</param>
-        /// <param name="tag">A temporary ID for this stream, usually indicates current usage.</param>
-        /// <param name="stack">Call stack of the ToArray call.</param>
-        /// <param name="size">Length of stream</param>
-        /// <remarks>Note: Stacks will only be populated if RecyclableMemoryStreamManager.GenerateCallStacks is true.</remarks>
-        [Event(5, Level = EventLevel.Verbose)]
-        public void MemoryStreamToArray(Guid guid, string tag, string stack, int size)
-        {
-            if (this.IsEnabled(EventLevel.Verbose, EventKeywords.None))
-            {
-                WriteEvent(5, guid, tag ?? string.Empty, stack ?? string.Empty, size);
-            }
-        }
-
-        /// <summary>
         /// Logged when the RecyclableMemoryStreamManager is initialized.
         /// </summary>
         /// <param name="blockSize">Size of blocks, in bytes.</param>
@@ -659,14 +642,6 @@ public partial class RecyclableMemoryStreamManager
     public bool AggressiveBufferReturn { get; set; }
 
     /// <summary>
-    /// Causes an exception to be thrown if ToArray is ever called.
-    /// </summary>
-    /// <value>The throw exception on to array.</value>
-    /// <remarks>Calling ToArray defeats the purpose of a pooled buffer. Use this property to discover code that is calling ToArray. If this is
-    /// set and stream.ToArray() is called, a NotSupportedException will be thrown.</remarks>
-    public bool ThrowExceptionOnToArray { get; set; }
-
-    /// <summary>
     /// Removes and returns a single block from the pool.
     /// </summary>
     /// <returns>A byte[] array</returns>
@@ -964,14 +939,6 @@ public partial class RecyclableMemoryStreamManager
     }
 
     /// <summary>
-    /// Reports the stream to array.
-    /// </summary>
-    internal void ReportStreamToArray()
-    {
-        this.StreamConvertedToArray?.Invoke();
-    }
-
-    /// <summary>
     /// Reports the usage report.
     /// </summary>
     /// <param name="smallPoolInUseBytes">The small pool in use bytes.</param>
@@ -1230,11 +1197,6 @@ public partial class RecyclableMemoryStreamManager
     /// Triggered when a stream is finalized.
     /// </summary>
     public event StreamLengthReportHandler StreamLength;
-
-    /// <summary>
-    /// Triggered when a user converts a stream to array.
-    /// </summary>
-    public event EventHandler StreamConvertedToArray;
 
     /// <summary>
     /// Triggered when a large buffer is discarded, along with the reason for the discard.

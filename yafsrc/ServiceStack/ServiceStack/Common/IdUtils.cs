@@ -239,17 +239,6 @@ public static class IdUtils
     }
 
     /// <summary>
-    /// Converts to safepathcachekey.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="idValue">The identifier value.</param>
-    /// <returns>System.String.</returns>
-    public static string ToSafePathCacheKey<T>(this string idValue)
-    {
-        return CreateCacheKeyPath<T>(idValue);
-    }
-
-    /// <summary>
     /// Converts to urn.
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -314,29 +303,6 @@ public static class IdUtils
     {
         var id = GetId(entity);
         return $"urn:{typeof(T).Name.ToLowerInvariant()}:{id}";
-    }
-
-    /// <summary>
-    /// Creates the cache key path.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="idValue">The identifier value.</param>
-    /// <returns>System.String.</returns>
-    public static string CreateCacheKeyPath<T>(string idValue)
-    {
-        if (idValue.Length < 4)
-        {
-            idValue = idValue.PadLeft(4, '0');
-        }
-        idValue = idValue.Replace(" ", "-");
-
-        var rootDir = typeof(T).Name;
-        var dir1 = idValue.Substring(0, 2);
-        var dir2 = idValue.Substring(2, 2);
-
-        var path = $"{rootDir}{PclExport.Instance.DirSep}{dir1}{PclExport.Instance.DirSep}{dir2}{PclExport.Instance.DirSep}{idValue}";
-
-        return path;
     }
 
     /// <summary>

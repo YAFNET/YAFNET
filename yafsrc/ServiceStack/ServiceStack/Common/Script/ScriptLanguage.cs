@@ -131,8 +131,5 @@ public sealed class ScriptVerbatim : ScriptLanguage
     /// <param name="modifiers">The modifiers.</param>
     /// <returns>List&lt;PageFragment&gt;.</returns>
     public override List<PageFragment> Parse(ScriptContext context, ReadOnlyMemory<char> body, ReadOnlyMemory<char> modifiers) =>
-        new()
-            {
-                new PageStringFragment(body)
-            };
+        [new PageStringFragment(body)];
 }

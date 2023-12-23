@@ -249,7 +249,7 @@ public class SharpPage
 
         var pageFragments = pageVars.TryGetValue("ignore", out object ignore)
                             && ("page".Equals(ignore.ToString()) || "template".Equals(ignore.ToString()))
-                                ? new List<PageFragment> { new PageStringFragment(bodyContents) }
+                                ? [new PageStringFragment(bodyContents)]
                                 : ScriptLanguage.Parse(Context, bodyContents);
 
         foreach (var fragment in pageFragments)

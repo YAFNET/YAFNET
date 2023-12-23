@@ -57,7 +57,7 @@ public partial class ScriptContext : IDisposable
     /// Gets or sets the page formats.
     /// </summary>
     /// <value>The page formats.</value>
-    public List<PageFormat> PageFormats { get; set; } = new();
+    public List<PageFormat> PageFormats { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the index page.
@@ -84,12 +84,6 @@ public partial class ScriptContext : IDisposable
     public IVirtualPathProvider VirtualFiles { get; set; } = new MemoryVirtualFiles();
 
     /// <summary>
-    /// Where to store cached files, if unspecified falls back to configured VirtualFiles if it implements IVirtualFiles (i.e. writable)
-    /// </summary>
-    /// <value>The cache files.</value>
-    public IVirtualFiles CacheFiles { get; set; }
-
-    /// <summary>
     /// Gets the arguments.
     /// </summary>
     /// <value>The arguments.</value>
@@ -112,31 +106,31 @@ public partial class ScriptContext : IDisposable
     /// Scan Types and auto-register any Script Methods, Blocks and Code Pages
     /// </summary>
     /// <value>The scan types.</value>
-    public List<Type> ScanTypes { get; set; } = new();
+    public List<Type> ScanTypes { get; set; } = [];
 
     /// <summary>
     /// Scan Assemblies and auto-register any Script Methods, Blocks and Code Pages
     /// </summary>
     /// <value>The scan assemblies.</value>
-    public List<Assembly> ScanAssemblies { get; set; } = new();
+    public List<Assembly> ScanAssemblies { get; set; } = [];
 
     /// <summary>
     /// Allow scripting of Types from specified Assemblies
     /// </summary>
     /// <value>The script assemblies.</value>
-    public List<Assembly> ScriptAssemblies { get; set; } = new();
+    public List<Assembly> ScriptAssemblies { get; set; } = [];
 
     /// <summary>
     /// Allow scripting of the specified Types
     /// </summary>
     /// <value>The script types.</value>
-    public List<Type> ScriptTypes { get; set; } = new();
+    public List<Type> ScriptTypes { get; set; } = [];
 
     /// <summary>
     /// Lookup Namespaces for resolving Types in Scripts
     /// </summary>
     /// <value>The script namespaces.</value>
-    public List<string> ScriptNamespaces { get; set; } = new();
+    public List<string> ScriptNamespaces { get; set; } = [];
 
     /// <summary>
     /// Allow scripting of all Types in loaded Assemblies
@@ -171,7 +165,7 @@ public partial class ScriptContext : IDisposable
     /// Gets the preprocessors.
     /// </summary>
     /// <value>The preprocessors.</value>
-    public List<Func<string, string>> Preprocessors { get; } = new();
+    public List<Func<string, string>> Preprocessors { get; } = [];
 
     /// <summary>
     /// Gets or sets the default script language.
@@ -183,7 +177,7 @@ public partial class ScriptContext : IDisposable
     /// Gets the script languages.
     /// </summary>
     /// <value>The script languages.</value>
-    public List<ScriptLanguage> ScriptLanguages { get; } = new();
+    public List<ScriptLanguage> ScriptLanguages { get; } = [];
 
     /// <summary>
     /// Gets the script languages array.
@@ -195,25 +189,25 @@ public partial class ScriptContext : IDisposable
     /// Gets the script methods.
     /// </summary>
     /// <value>The script methods.</value>
-    public List<ScriptMethods> ScriptMethods { get; } = new();
+    public List<ScriptMethods> ScriptMethods { get; } = [];
 
     /// <summary>
     /// Insert additional Methods at the start so they have priority over default Script Methods
     /// </summary>
     /// <value>The insert script methods.</value>
-    public List<ScriptMethods> InsertScriptMethods { get; } = new();
+    public List<ScriptMethods> InsertScriptMethods { get; } = [];
 
     /// <summary>
     /// Gets the script blocks.
     /// </summary>
     /// <value>The script blocks.</value>
-    public List<ScriptBlock> ScriptBlocks { get; } = new();
+    public List<ScriptBlock> ScriptBlocks { get; } = [];
 
     /// <summary>
     /// Insert additional Blocks at the start so they have priority over default Script Blocks
     /// </summary>
     /// <value>The insert script blocks.</value>
-    public List<ScriptBlock> InsertScriptBlocks { get; } = new();
+    public List<ScriptBlock> InsertScriptBlocks { get; } = [];
 
     /// <summary>
     /// Gets the code pages.
@@ -225,7 +219,7 @@ public partial class ScriptContext : IDisposable
     /// Gets the exclude filters named.
     /// </summary>
     /// <value>The exclude filters named.</value>
-    public HashSet<string> ExcludeFiltersNamed { get; } = new();
+    public HashSet<string> ExcludeFiltersNamed { get; } = [];
 
     /// <summary>
     /// The script languages map
@@ -295,19 +289,19 @@ public partial class ScriptContext : IDisposable
     /// Gets the plugins.
     /// </summary>
     /// <value>The plugins.</value>
-    public List<IScriptPlugin> Plugins { get; } = new();
+    public List<IScriptPlugin> Plugins { get; } = [];
 
     /// <summary>
     /// Insert plugins at the start of Plugins so they're registered first
     /// </summary>
     /// <value>The insert plugins.</value>
-    public List<IScriptPlugin> InsertPlugins { get; } = new();
+    public List<IScriptPlugin> InsertPlugins { get; } = [];
 
     /// <summary>
     /// Gets the file filter names.
     /// </summary>
     /// <value>The file filter names.</value>
-    public HashSet<string> FileFilterNames { get; } = new() { "includeFile", "fileContents" };
+    public HashSet<string> FileFilterNames { get; } = ["includeFile", "fileContents"];
 
     /// <summary>
     /// Available transformers that can transform context filter stream outputs
@@ -358,12 +352,6 @@ public partial class ScriptContext : IDisposable
     public int MaxQuota { get; set; } = 10000;
 
     /// <summary>
-    /// Limit Max number for micro ops like evaluating an AST instruction (default 1M)
-    /// </summary>
-    /// <value>The maximum evaluations.</value>
-    public long MaxEvaluations { get; set; } = 1000000;
-
-    /// <summary>
     /// Limit Recursion Max StackDepth (default 25)
     /// </summary>
     /// <value>The maximum stack depth.</value>
@@ -383,12 +371,12 @@ public partial class ScriptContext : IDisposable
     /// Gets or sets the remove new line after filters named.
     /// </summary>
     /// <value>The remove new line after filters named.</value>
-    public HashSet<string> RemoveNewLineAfterFiltersNamed { get; set; } = new();
+    public HashSet<string> RemoveNewLineAfterFiltersNamed { get; set; } = [];
     /// <summary>
     /// Gets or sets the only evaluate filters when skipping page filter execution.
     /// </summary>
     /// <value>The only evaluate filters when skipping page filter execution.</value>
-    public HashSet<string> OnlyEvaluateFiltersWhenSkippingPageFilterExecution { get; set; } = new();
+    public HashSet<string> OnlyEvaluateFiltersWhenSkippingPageFilterExecution { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the parse as language.
@@ -432,20 +420,6 @@ public partial class ScriptContext : IDisposable
     /// </summary>
     /// <value>The protected methods.</value>
     public ProtectedScripts ProtectedMethods => ScriptMethods.FirstOrDefault(x => x is ProtectedScripts) as ProtectedScripts;
-
-    /// <summary>
-    /// Asserts the protected methods.
-    /// </summary>
-    /// <returns>ProtectedScripts.</returns>
-    /// <exception cref="System.NotSupportedException">ScriptContext is not configured with ProtectedScripts</exception>
-    public ProtectedScripts AssertProtectedMethods() => ProtectedMethods ??
-                                                        throw new NotSupportedException("ScriptContext is not configured with ProtectedScripts");
-
-    /// <summary>
-    /// Gets the HTML methods.
-    /// </summary>
-    /// <value>The HTML methods.</value>
-    public HtmlScripts HtmlMethods => ScriptMethods.FirstOrDefault(x => x is HtmlScripts) as HtmlScripts;
 
     /// <summary>
     /// Gets the page.
@@ -653,9 +627,7 @@ public partial class ScriptContext : IDisposable
         Pages = new SharpPages(this);
         PageFormats.Add(new HtmlPageFormat());
         ScriptMethods.Add(new DefaultScripts());
-        ScriptMethods.Add(new HtmlScripts());
         Plugins.Add(new DefaultScriptBlocks());
-        Plugins.Add(new HtmlScriptBlocks());
         FilterTransformers[ScriptConstants.HtmlEncode] = HtmlPageFormat.HtmlEncodeTransformer;
         FilterTransformers["end"] = stream => (TypeConstants.EmptyByteArray.InMemoryStream() as Stream).InTask();
         FilterTransformers["buffer"] = stream => stream.InTask();
@@ -686,28 +658,6 @@ public partial class ScriptContext : IDisposable
     public ScriptContext RemoveFilters(Predicate<ScriptMethods> match)
     {
         ScriptMethods.RemoveAll(match);
-        return this;
-    }
-
-    /// <summary>
-    /// Removes the blocks.
-    /// </summary>
-    /// <param name="match">The match.</param>
-    /// <returns>ScriptContext.</returns>
-    public ScriptContext RemoveBlocks(Predicate<ScriptBlock> match)
-    {
-        ScriptBlocks.RemoveAll(match);
-        return this;
-    }
-
-    /// <summary>
-    /// Removes the plugins.
-    /// </summary>
-    /// <param name="match">The match.</param>
-    /// <returns>ScriptContext.</returns>
-    public ScriptContext RemovePlugins(Predicate<IScriptPlugin> match)
-    {
-        Plugins.RemoveAll(match);
         return this;
     }
 
@@ -1125,39 +1075,6 @@ public static class ScriptContextUtils
                 var ex = e.UnwrapIfSingleException();
                 throw ex;
             }
-        }
-        catch (Exception e)
-        {
-            if (ShouldRethrow(e))
-                throw;
-            throw HandleException(e, pageResult);
-        }
-    }
-
-    /// <summary>
-    /// Render to stream as an asynchronous operation.
-    /// </summary>
-    /// <param name="pageResult">The page result.</param>
-    /// <param name="stream">The stream.</param>
-    /// <returns>A Task representing the asynchronous operation.</returns>
-    /// <exception cref="ServiceStack.Script.ScriptException"></exception>
-    public async static Task RenderToStreamAsync(this PageResult pageResult, Stream stream)
-    {
-        try
-        {
-            if (pageResult.ResultOutput != null)
-            {
-                if (pageResult.LastFilterError != null)
-                    throw new ScriptException(pageResult);
-
-                await stream.WriteAsync(MemoryProvider.Instance.ToUtf8Bytes(pageResult.ResultOutput.AsSpan()));
-                return;
-            }
-
-            await pageResult.Init();
-            await pageResult.WriteToAsync(stream);
-            if (pageResult.LastFilterError != null)
-                throw new ScriptException(pageResult);
         }
         catch (Exception e)
         {

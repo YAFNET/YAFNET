@@ -43,10 +43,10 @@ public class ComputeAttribute : AttributeBase
 /// </summary>
 /// <seealso cref="ServiceStack.AttributeBase" />
 [AttributeUsage(AttributeTargets.Property)]
-public class ComputedAttribute : AttributeBase { }
+public class ComputedAttribute : AttributeBase;
 
 /// <summary>
 /// Whether to persist field
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
-public class PersistedAttribute : AttributeBase { }
+public class PersistedAttribute : AttributeBase;

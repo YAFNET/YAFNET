@@ -22,7 +22,7 @@ public class UniqueConstraintAttribute : AttributeBase
     /// </summary>
     public UniqueConstraintAttribute()
     {
-        this.FieldNames = new List<string>();
+        this.FieldNames = [];
     }
 
     /// <summary>
@@ -31,7 +31,7 @@ public class UniqueConstraintAttribute : AttributeBase
     /// <param name="fieldNames">The field names.</param>
     public UniqueConstraintAttribute(params string[] fieldNames)
     {
-        this.FieldNames = new List<string>(fieldNames);
+        this.FieldNames = [..fieldNames];
     }
 
     /// <summary>

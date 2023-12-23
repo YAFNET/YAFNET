@@ -11,14 +11,6 @@ using System.IO;
 namespace ServiceStack.Text.Common;
 
 /// <summary>
-/// Delegate WriteListDelegate
-/// </summary>
-/// <param name="writer">The writer.</param>
-/// <param name="oList">The o list.</param>
-/// <param name="toStringFn">To string function.</param>
-internal delegate void WriteListDelegate(TextWriter writer, object oList, WriteObjectDelegate toStringFn);
-
-/// <summary>
 /// Delegate WriteDelegate
 /// </summary>
 /// <param name="writer">The writer.</param>

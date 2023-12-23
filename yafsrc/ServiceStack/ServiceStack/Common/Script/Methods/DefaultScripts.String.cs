@@ -27,71 +27,10 @@ namespace ServiceStack.Script;
 public partial class DefaultScripts
 {
     /// <summary>
-    /// Raws the specified value.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>IRawString.</returns>
-    public IRawString raw(object value)
-    {
-        if (value == null || Equals(value, JsNull.Value))
-            return ScriptConstants.EmptyRawString;
-        if (value is string s)
-            return s == string.Empty ? ScriptConstants.EmptyRawString : s.ToRawString();
-        if (value is IRawString r)
-            return r;
-        if (value is bool b)
-            return b ? ScriptConstants.TrueRawString : ScriptConstants.FalseRawString;
-
-        var rawStr = value.ToString().ToRawString();
-        return rawStr;
-    }
-
-    /// <summary>
-    /// Applications the setting.
-    /// </summary>
-    /// <param name="name">The name.</param>
-    /// <returns>System.String.</returns>
-    public string appSetting(string name) => Context.AppSettings.GetString(name);
-
-    /// <summary>
-    /// Indents this instance.
-    /// </summary>
-    /// <returns>System.String.</returns>
-    public string indent() => Context.Args[ScriptConstants.DefaultIndent] as string;
-    /// <summary>
-    /// Indentses the specified count.
-    /// </summary>
-    /// <param name="count">The count.</param>
-    /// <returns>System.String.</returns>
-    public string indents(int count) => repeat(Context.Args[ScriptConstants.DefaultIndent] as string, count);
-    /// <summary>
-    /// Spaces this instance.
-    /// </summary>
-    /// <returns>System.String.</returns>
-    public string space() => " ";
-    /// <summary>
-    /// Spaceses the specified count.
-    /// </summary>
-    /// <param name="count">The count.</param>
-    /// <returns>System.String.</returns>
-    public string spaces(int count) => padLeft("", count, ' ');
-    /// <summary>
     /// News the line.
     /// </summary>
     /// <returns>System.String.</returns>
     public string newLine() => Context.Args[ScriptConstants.DefaultNewLine] as string;
-    /// <summary>
-    /// News the lines.
-    /// </summary>
-    /// <param name="count">The count.</param>
-    /// <returns>System.String.</returns>
-    public string newLines(int count) => repeat(newLine(), count);
-    /// <summary>
-    /// News the line.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.String.</returns>
-    public string newLine(string target) => target + newLine();
 
     /// <summary>
     /// Currencies the specified decimal value.
@@ -116,132 +55,18 @@ public partial class DefaultScripts
     }
 
     /// <summary>
-    /// Formats the raw.
-    /// </summary>
-    /// <param name="obj">The object.</param>
-    /// <param name="fmt">The FMT.</param>
-    /// <returns>IRawString.</returns>
-    public IRawString formatRaw(object obj, string fmt) => raw(string.Format(fmt.Replace("{{", "{").Replace("}}", "}"), obj));
-
-    /// <summary>
-    /// Formats the specified object.
-    /// </summary>
-    /// <param name="obj">The object.</param>
-    /// <param name="format">The format.</param>
-    /// <returns>System.String.</returns>
-    public string format(object obj, string format) => obj is IFormattable formattable
-                                                           ? formattable.ToString(format, null)
-                                                           : string.Format(format, obj);
-
-    /// <summary>
-    /// FMTs the specified format.
-    /// </summary>
-    /// <param name="format">The format.</param>
-    /// <param name="arg">The argument.</param>
-    /// <returns>System.String.</returns>
-    public string fmt(string format, object arg)
-    {
-        if (arg is object[] args)
-            return string.Format(format, args);
-
-        if (arg is List<object> argsList)
-            return string.Format(format, argsList.ToArray());
-
-        return string.Format(format, arg);
-    }
-    /// <summary>
-    /// FMTs the specified format.
-    /// </summary>
-    /// <param name="format">The format.</param>
-    /// <param name="arg0">The arg0.</param>
-    /// <param name="arg1">The arg1.</param>
-    /// <returns>System.String.</returns>
-    public string fmt(string format, object arg0, object arg1) => string.Format(format, arg0, arg1);
-    /// <summary>
-    /// FMTs the specified format.
-    /// </summary>
-    /// <param name="format">The format.</param>
-    /// <param name="arg0">The arg0.</param>
-    /// <param name="arg1">The arg1.</param>
-    /// <param name="arg2">The arg2.</param>
-    /// <returns>System.String.</returns>
-    public string fmt(string format, object arg0, object arg1, object arg2) => string.Format(format, arg0, arg1, arg2);
-
-    /// <summary>
-    /// Appends the specified target.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="suffix">The suffix.</param>
-    /// <returns>System.String.</returns>
-    public string append(string target, string suffix) => target + suffix;
-    /// <summary>
-    /// Appends the line.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.String.</returns>
-    public string appendLine(string target) => target + newLine();
-
-    /// <summary>
-    /// Appends the FMT.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="format">The format.</param>
-    /// <param name="arg">The argument.</param>
-    /// <returns>System.String.</returns>
-    public string appendFmt(string target, string format, object arg) => target + fmt(format, arg);
-    /// <summary>
-    /// Appends the FMT.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="format">The format.</param>
-    /// <param name="arg0">The arg0.</param>
-    /// <param name="arg1">The arg1.</param>
-    /// <returns>System.String.</returns>
-    public string appendFmt(string target, string format, object arg0, object arg1) => target + fmt(format, arg0, arg1);
-    /// <summary>
-    /// Appends the FMT.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="format">The format.</param>
-    /// <param name="arg0">The arg0.</param>
-    /// <param name="arg1">The arg1.</param>
-    /// <param name="arg2">The arg2.</param>
-    /// <returns>System.String.</returns>
-    public string appendFmt(string target, string format, object arg0, object arg1, object arg2) => target + fmt(format, arg0, arg1, arg2);
-
-    /// <summary>
     /// Dates the format.
     /// </summary>
     /// <param name="dateValue">The date value.</param>
     /// <returns>System.String.</returns>
     public string dateFormat(DateTime dateValue) => dateValue.ToString((string)Context.Args[ScriptConstants.DefaultDateFormat]);
-    /// <summary>
-    /// Dates the format.
-    /// </summary>
-    /// <param name="dateValue">The date value.</param>
-    /// <param name="format">The format.</param>
-    /// <returns>System.String.</returns>
-    /// <exception cref="System.ArgumentNullException">format</exception>
-    public string dateFormat(DateTime dateValue, string format) => dateValue.ToString(format ?? throw new ArgumentNullException(nameof(format)));
-    /// <summary>
-    /// Dates the time format.
-    /// </summary>
-    /// <param name="dateValue">The date value.</param>
-    /// <returns>System.String.</returns>
-    public string dateTimeFormat(DateTime dateValue) => dateValue.ToString((string)Context.Args[ScriptConstants.DefaultDateTimeFormat]);
+  
     /// <summary>
     /// Times the format.
     /// </summary>
     /// <param name="timeValue">The time value.</param>
     /// <returns>System.String.</returns>
     public string timeFormat(TimeSpan timeValue) => timeValue.ToString((string)Context.Args[ScriptConstants.DefaultTimeFormat]);
-    /// <summary>
-    /// Times the format.
-    /// </summary>
-    /// <param name="timeValue">The time value.</param>
-    /// <param name="format">The format.</param>
-    /// <returns>System.String.</returns>
-    public string timeFormat(TimeSpan timeValue, string format) => timeValue.ToString(format);
 
     /// <summary>
     /// Splits the case.
@@ -345,22 +170,6 @@ public partial class DefaultScripts
     public string substring(string text, int startIndex, int length) => text.SafeSubstring(startIndex, length);
 
     /// <summary>
-    /// Substrings the with ellipsis.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <param name="length">The length.</param>
-    /// <returns>System.String.</returns>
-    public string substringWithEllipsis(string text, int length) => text.SubstringWithEllipsis(0, length);
-    /// <summary>
-    /// Substrings the with ellipsis.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <param name="startIndex">The start index.</param>
-    /// <param name="length">The length.</param>
-    /// <returns>System.String.</returns>
-    public string substringWithEllipsis(string text, int startIndex, int length) => text.SubstringWithEllipsis(startIndex, length);
-
-    /// <summary>
     /// Lefts the part.
     /// </summary>
     /// <param name="text">The text.</param>
@@ -374,13 +183,7 @@ public partial class DefaultScripts
     /// <param name="needle">The needle.</param>
     /// <returns>System.String.</returns>
     public string rightPart(string text, string needle) => text.RightPart(needle);
-    /// <summary>
-    /// Lasts the left part.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <param name="needle">The needle.</param>
-    /// <returns>System.String.</returns>
-    public string lastLeftPart(string text, string needle) => text.LastLeftPart(needle);
+
     /// <summary>
     /// Lasts the right part.
     /// </summary>
@@ -530,7 +333,7 @@ public partial class DefaultScripts
         if (delimiter is string s)
             return s.Length == 1
                        ? stringList.Split(s[0])
-                       : stringList.Split(new[] { s }, StringSplitOptions.RemoveEmptyEntries);
+                       : stringList.Split([s], StringSplitOptions.RemoveEmptyEntries);
         if (delimiter is IEnumerable<string> strDelims)
             return strDelims.All(x => x.Length == 1)
                        ? stringList.Split(strDelims.Select(x => x[0]).ToArray(), StringSplitOptions.RemoveEmptyEntries)
@@ -547,7 +350,7 @@ public partial class DefaultScripts
     /// <returns>System.String[].</returns>
     public string[] glob(IEnumerable<string> strings, string pattern)
     {
-        var list = strings?.ToList() ?? new List<string>();
+        var list = strings?.ToList() ?? [];
         return list.Where(x => x.Glob(pattern)).ToArray();
     }
 
@@ -560,46 +363,6 @@ public partial class DefaultScripts
     public string globln(IEnumerable<string> strings, string pattern) => joinln(glob(strings, pattern));
 
     /// <summary>
-    /// Parses the key value text.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>Dictionary&lt;System.String, System.String&gt;.</returns>
-    public Dictionary<string, string> parseKeyValueText(string target) => target?.ParseKeyValueText();
-    /// <summary>
-    /// Parses the key value text.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="delimiter">The delimiter.</param>
-    /// <returns>Dictionary&lt;System.String, System.String&gt;.</returns>
-    public Dictionary<string, string> parseKeyValueText(string target, string delimiter) => target?.ParseKeyValueText(delimiter);
-
-    /// <summary>
-    /// Parses as key values.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>IEnumerable&lt;KeyValuePair&lt;System.String, System.String&gt;&gt;.</returns>
-    public IEnumerable<KeyValuePair<string, string>> parseAsKeyValues(string target) => target?.ParseAsKeyValues();
-    /// <summary>
-    /// Parses as key values.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="delimiter">The delimiter.</param>
-    /// <returns>IEnumerable&lt;KeyValuePair&lt;System.String, System.String&gt;&gt;.</returns>
-    public IEnumerable<KeyValuePair<string, string>> parseAsKeyValues(string target, string delimiter) => target?.ParseAsKeyValues(delimiter);
-
-    /// <summary>
-    /// Keyses the specified target.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>ICollection.</returns>
-    /// <exception cref="System.NotSupportedException"></exception>
-    public ICollection keys(object target) =>
-        target is IDictionary d
-            ? d.Keys
-            : target is IList l
-                ? times(l.Count)
-                : throw new NotSupportedException($"{target.GetType().Name} is not supported");
-    /// <summary>
     /// Valueses the specified target.
     /// </summary>
     /// <param name="target">The target.</param>
@@ -609,58 +372,6 @@ public partial class DefaultScripts
         target is IDictionary d
             ? d.Values
             : target as IList ?? throw new NotSupportedException($"{target.GetType().Name} is not supported");
-
-    /// <summary>
-    /// Adds the path.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="pathToAppend">The path to append.</param>
-    /// <returns>System.String.</returns>
-    public string addPath(string target, string pathToAppend) => target.AppendPath(pathToAppend);
-    /// <summary>
-    /// Adds the paths.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="pathsToAppend">The paths to append.</param>
-    /// <returns>System.String.</returns>
-    public string addPaths(string target, IEnumerable pathsToAppend) =>
-        target.AppendPath(pathsToAppend.Map(x => x.ToString()).ToArray());
-
-    /// <summary>
-    /// Adds the query string.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="urlParams">The URL parameters.</param>
-    /// <returns>System.String.</returns>
-    public string addQueryString(string url, object urlParams) =>
-        urlParams.AssertOptions(nameof(addQueryString)).Aggregate(url, (current, entry) => current.AddQueryParam(entry.Key, entry.Value));
-
-    /// <summary>
-    /// Adds the hash parameters.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="urlParams">The URL parameters.</param>
-    /// <returns>System.String.</returns>
-    public string addHashParams(string url, object urlParams) =>
-        urlParams.AssertOptions(nameof(addHashParams)).Aggregate(url, (current, entry) => current.AddHashParam(entry.Key, entry.Value));
-
-    /// <summary>
-    /// Sets the query string.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="urlParams">The URL parameters.</param>
-    /// <returns>System.String.</returns>
-    public string setQueryString(string url, object urlParams) =>
-        urlParams.AssertOptions(nameof(setQueryString)).Aggregate(url, (current, entry) => current.SetQueryParam(entry.Key, entry.Value?.ToString()));
-
-    /// <summary>
-    /// Sets the hash parameters.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="urlParams">The URL parameters.</param>
-    /// <returns>System.String.</returns>
-    public string setHashParams(string url, object urlParams) =>
-        urlParams.AssertOptions(nameof(setHashParams)).Aggregate(url, (current, entry) => current.SetHashParam(entry.Key, entry.Value?.ToString()));
 
     /// <summary>
     /// Repeatings the specified times.
@@ -693,24 +404,6 @@ public partial class DefaultScripts
     /// <returns>System.String.</returns>
     public string escapeSingleQuotes(string text) => text?.Replace("'", "\\'");
     /// <summary>
-    /// Escapes the double quotes.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <returns>System.String.</returns>
-    public string escapeDoubleQuotes(string text) => text?.Replace("\"", "\\\"");
-    /// <summary>
-    /// Escapes the backticks.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <returns>System.String.</returns>
-    public string escapeBackticks(string text) => text?.Replace("`", "\\`");
-    /// <summary>
-    /// Escapes the prime quotes.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <returns>System.String.</returns>
-    public string escapePrimeQuotes(string text) => text?.Replace("′", "\\′");
-    /// <summary>
     /// Escapes the new lines.
     /// </summary>
     /// <param name="text">The text.</param>
@@ -725,13 +418,6 @@ public partial class DefaultScripts
     public IRawString jsString(string text) => string.IsNullOrEmpty(text)
                                                    ? RawString.Empty
                                                    : escapeNewLines(escapeSingleQuotes(text)).ToRawString();
-    /// <summary>
-    /// Jses the quoted string.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <returns>IRawString.</returns>
-    public IRawString jsQuotedString(string text) =>
-        ("'" + escapeNewLines(escapeSingleQuotes(text ?? "")) + "'").ToRawString();
 
     /// <summary>
     /// Serializes the specified scope.
@@ -830,26 +516,6 @@ public partial class DefaultScripts
     /// <param name="value">The value.</param>
     /// <returns>IRawString.</returns>
     public IRawString csv(object value) => (value.AssertNoCircularDeps().ToCsv() ?? "").ToRawString();
-    /// <summary>
-    /// Dumps the specified value.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>IRawString.</returns>
-    public IRawString dump(object value) => serialize(value, null, x => x.Dump() ?? "");
-    /// <summary>
-    /// Indents the json.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>IRawString.</returns>
-    public IRawString indentJson(object value) => indentJson(value, null);
-    /// <summary>
-    /// Indents the json.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="jsconfig">The jsconfig.</param>
-    /// <returns>IRawString.</returns>
-    public IRawString indentJson(object value, string jsconfig) =>
-        (value as string ?? json(value).ToRawString()).IndentJson().ToRawString();
 
     //Blocks
     /// <summary>
@@ -885,22 +551,6 @@ public partial class DefaultScripts
     public Task jsv(ScriptScopeContext scope, object items, string jsConfig) => serialize(scope, items, jsConfig, x => x.ToJsv());
 
     /// <summary>
-    /// Dumps the specified scope.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="items">The items.</param>
-    /// <returns>Task.</returns>
-    public Task dump(ScriptScopeContext scope, object items) => jsv(scope, items, null);
-    /// <summary>
-    /// Dumps the specified scope.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="items">The items.</param>
-    /// <param name="jsConfig">The js configuration.</param>
-    /// <returns>Task.</returns>
-    public Task dump(ScriptScopeContext scope, object items, string jsConfig) => serialize(scope, items, jsConfig, x => x.Dump());
-
-    /// <summary>
     /// CSVs the specified scope.
     /// </summary>
     /// <param name="scope">The scope.</param>
@@ -916,56 +566,12 @@ public partial class DefaultScripts
     public Task xml(ScriptScopeContext scope, object items) => scope.OutputStream.WriteAsync(items.ToXml());
 
     /// <summary>
-    /// Jsons to object.
-    /// </summary>
-    /// <param name="json">The json.</param>
-    /// <returns>JsonObject.</returns>
-    public JsonObject jsonToObject(string json) => JsonObject.Parse(json);
-    /// <summary>
-    /// Jsons to array objects.
-    /// </summary>
-    /// <param name="json">The json.</param>
-    /// <returns>JsonArrayObjects.</returns>
-    public JsonArrayObjects jsonToArrayObjects(string json) => JsonArrayObjects.Parse(json);
-    /// <summary>
-    /// Jsons to object dictionary.
-    /// </summary>
-    /// <param name="json">The json.</param>
-    /// <returns>Dictionary&lt;System.String, System.Object&gt;.</returns>
-    public Dictionary<string, object> jsonToObjectDictionary(string json) => json.FromJson<Dictionary<string, object>>();
-    /// <summary>
-    /// Jsons to string dictionary.
-    /// </summary>
-    /// <param name="json">The json.</param>
-    /// <returns>Dictionary&lt;System.String, System.String&gt;.</returns>
-    public Dictionary<string, string> jsonToStringDictionary(string json) => json.FromJson<Dictionary<string, string>>();
-
-    /// <summary>
-    /// JSVs to object dictionary.
-    /// </summary>
-    /// <param name="json">The json.</param>
-    /// <returns>Dictionary&lt;System.String, System.Object&gt;.</returns>
-    public Dictionary<string, object> jsvToObjectDictionary(string json) => json.FromJsv<Dictionary<string, object>>();
-    /// <summary>
-    /// JSVs to string dictionary.
-    /// </summary>
-    /// <param name="json">The json.</param>
-    /// <returns>Dictionary&lt;System.String, System.String&gt;.</returns>
-    public Dictionary<string, string> jsvToStringDictionary(string json) => json.FromJsv<Dictionary<string, string>>();
-
-    /// <summary>
     /// Evals the specified scope.
     /// </summary>
     /// <param name="scope">The scope.</param>
     /// <param name="js">The js.</param>
     /// <returns>System.Object.</returns>
     public object eval(ScriptScopeContext scope, string js) => JS.eval(js, scope);
-    /// <summary>
-    /// Parses the json.
-    /// </summary>
-    /// <param name="json">The json.</param>
-    /// <returns>System.Object.</returns>
-    public object parseJson(string json) => JSON.parse(json);
 
     /// <summary>
     /// Parses the CSV.
@@ -982,22 +588,6 @@ public partial class DefaultScripts
         var strList = trimmedBody.ToString().FromCsv<List<List<string>>>();
         return strList;
     }
-
-    /// <summary>
-    /// Parses the key values.
-    /// </summary>
-    /// <param name="keyValuesText">The key values text.</param>
-    /// <returns>List&lt;KeyValuePair&lt;System.String, System.String&gt;&gt;.</returns>
-    public List<KeyValuePair<string, string>> parseKeyValues(string keyValuesText) =>
-        parseKeyValues(keyValuesText, " ");
-    /// <summary>
-    /// Parses the key values.
-    /// </summary>
-    /// <param name="keyValuesText">The key values text.</param>
-    /// <param name="delimiter">The delimiter.</param>
-    /// <returns>List&lt;KeyValuePair&lt;System.String, System.String&gt;&gt;.</returns>
-    public List<KeyValuePair<string, string>> parseKeyValues(string keyValuesText, string delimiter) =>
-        keyValuesText.Trim().ParseAsKeyValues(delimiter);
 
     /// <summary>
     /// Determines whether the specified file or ext is binary.

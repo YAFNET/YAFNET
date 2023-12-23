@@ -283,16 +283,6 @@ public static class JsonWriter<T>
     }
 
     /// <summary>
-    /// Writes the root object.
-    /// </summary>
-    /// <param name="writer">The writer.</param>
-    /// <param name="value">The value.</param>
-    public static void WriteRootObject(TextWriter writer, object value)
-    {
-        GetRootObjectWriteFn(value)(writer, value);
-    }
-
-    /// <summary>
     /// Gets the root object write function.
     /// </summary>
     /// <param name="value">The value.</param>

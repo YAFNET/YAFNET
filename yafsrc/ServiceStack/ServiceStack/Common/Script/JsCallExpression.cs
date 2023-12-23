@@ -185,7 +185,7 @@ public class JsCallExpression : JsExpression
             var argFn = ResolveDelegate(scope, name);
             if (argFn is Delegate fn)
             {
-                var ret = InvokeDelegate(fn, expr?.Object.Evaluate(scope), expr != null, new List<object>());
+                var ret = InvokeDelegate(fn, expr?.Object.Evaluate(scope), expr != null, []);
                 return ret;
             }
 
@@ -198,7 +198,7 @@ public class JsCallExpression : JsExpression
                     if (targetValue == StopExecution.Value)
                         return targetValue;
 
-                    value = result.InvokeFilter(invoker, filter, new[] { targetValue }, name);
+                    value = result.InvokeFilter(invoker, filter, [targetValue], name);
                     return value;
                 }
 
@@ -209,7 +209,7 @@ public class JsCallExpression : JsExpression
                     if (targetValue == StopExecution.Value)
                         return targetValue;
 
-                    value = result.InvokeFilter(invoker, filter, new[] { scope, targetValue }, name);
+                    value = result.InvokeFilter(invoker, filter, [scope, targetValue], name);
                     return value;
                 }
             }

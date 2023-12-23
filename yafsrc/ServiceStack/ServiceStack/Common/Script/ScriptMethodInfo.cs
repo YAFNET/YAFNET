@@ -5,7 +5,6 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using ServiceStack.Text;
@@ -25,11 +24,6 @@ public class ScriptMethodInfo
     /// The parameters
     /// </summary>
     private readonly ParameterInfo[] @params;
-    /// <summary>
-    /// Gets the method information.
-    /// </summary>
-    /// <returns>MethodInfo.</returns>
-    public MethodInfo GetMethodInfo() => methodInfo;
 
     /// <summary>
     /// Gets the name.
@@ -41,11 +35,7 @@ public class ScriptMethodInfo
     /// </summary>
     /// <value>The first parameter.</value>
     public string FirstParam => @params.FirstOrDefault()?.Name;
-    /// <summary>
-    /// Gets the first type of the parameter.
-    /// </summary>
-    /// <value>The first type of the parameter.</value>
-    public string FirstParamType => @params.FirstOrDefault()?.ParameterType.Name;
+
     /// <summary>
     /// Gets the type of the return.
     /// </summary>
@@ -69,11 +59,6 @@ public class ScriptMethodInfo
     /// </summary>
     /// <value>The parameter names.</value>
     public string[] ParamNames => @params.Select(x => x.Name).ToArray();
-    /// <summary>
-    /// Gets the parameter types.
-    /// </summary>
-    /// <value>The parameter types.</value>
-    public string[] ParamTypes => @params.Select(x => x.ParameterType.Name.ToString()).ToArray();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ScriptMethodInfo" /> class.
@@ -86,27 +71,6 @@ public class ScriptMethodInfo
     {
         this.methodInfo = methodInfo ?? throw new ArgumentNullException(nameof(methodInfo));
         this.@params = @params ?? throw new ArgumentNullException(nameof(@params));
-    }
-
-    /// <summary>
-    /// Gets the script methods.
-    /// </summary>
-    /// <param name="scriptMethodsType">Type of the script methods.</param>
-    /// <param name="where">The where.</param>
-    /// <returns>List&lt;ScriptMethodInfo&gt;.</returns>
-    public static List<ScriptMethodInfo> GetScriptMethods(Type scriptMethodsType, Func<MethodInfo, bool> where = null)
-    {
-        var filters = scriptMethodsType.GetMethods(BindingFlags.Instance | BindingFlags.Public);
-        var to = filters
-            .OrderBy(x => x.Name)
-            .ThenBy(x => x.GetParameters().Length)
-            .Where(x => x.DeclaringType != typeof(ScriptMethods) && x.DeclaringType != typeof(object))
-            .Where(m => !m.IsSpecialName);
-
-        if (where != null)
-            to = to.Where(where);
-
-        return to.Select(Create).ToList();
     }
 
     /// <summary>

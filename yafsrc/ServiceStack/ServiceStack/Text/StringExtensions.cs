@@ -63,16 +63,6 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Encodes the XML.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>string.</returns>
-    public static string EncodeXml(this string value)
-    {
-        return value.Replace("<", "&lt;").Replace(">", "&gt;").Replace("&", "&amp;");
-    }
-
-    /// <summary>
     /// Encodes the json.
     /// </summary>
     /// <param name="value">The value.</param>
@@ -105,21 +95,6 @@ public static class StringExtensions
                        value.Replace(JsWriter.QuoteString, TypeSerializer.DoubleQuoteString),
                        JsWriter.QuoteString
                    );
-    }
-
-    /// <summary>
-    /// Decodes the JSV.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>string.</returns>
-    public static string DecodeJsv(this string value)
-    {
-        const int startingQuotePos = 1;
-        const int endingQuotePos = 2;
-        return string.IsNullOrEmpty(value) || value[0] != JsWriter.QuoteChar
-                   ? value
-                   : value.Substring(startingQuotePos, value.Length - endingQuotePos)
-                       .Replace(TypeSerializer.DoubleQuoteString, JsWriter.QuoteString);
     }
 
     /// <summary>
@@ -417,8 +392,8 @@ public static class StringExtensions
         if (strVal == null) return TypeConstants.EmptyStringArray;
         var pos = strVal.IndexOf(needle);
         return pos == -1
-                   ? new[] { strVal }
-                   : new[] { strVal.Substring(0, pos), strVal.Substring(pos + 1) };
+                   ? [strVal]
+                   : [strVal.Substring(0, pos), strVal.Substring(pos + 1)];
     }
 
     /// <summary>
@@ -432,8 +407,8 @@ public static class StringExtensions
         if (strVal == null) return TypeConstants.EmptyStringArray;
         var pos = strVal.IndexOf(needle, StringComparison.OrdinalIgnoreCase);
         return pos == -1
-                   ? new[] { strVal }
-                   : new[] { strVal.Substring(0, pos), strVal.Substring(pos + needle.Length) };
+                   ? [strVal]
+                   : [strVal.Substring(0, pos), strVal.Substring(pos + needle.Length)];
     }
 
     /// <summary>
@@ -447,8 +422,8 @@ public static class StringExtensions
         if (strVal == null) return TypeConstants.EmptyStringArray;
         var pos = strVal.LastIndexOf(needle);
         return pos == -1
-                   ? new[] { strVal }
-                   : new[] { strVal.Substring(0, pos), strVal.Substring(pos + 1) };
+                   ? [strVal]
+                   : [strVal.Substring(0, pos), strVal.Substring(pos + 1)];
     }
 
     /// <summary>
@@ -462,8 +437,8 @@ public static class StringExtensions
         if (strVal == null) return TypeConstants.EmptyStringArray;
         var pos = strVal.LastIndexOf(needle, StringComparison.OrdinalIgnoreCase);
         return pos == -1
-                   ? new[] { strVal }
-                   : new[] { strVal.Substring(0, pos), strVal.Substring(pos + needle.Length) };
+                   ? [strVal]
+                   : [strVal.Substring(0, pos), strVal.Substring(pos + needle.Length)];
     }
 
     /// <summary>
@@ -495,36 +470,6 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Converts to jsv.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="obj">The object.</param>
-    /// <param name="configure">The configure.</param>
-    /// <returns>System.String.</returns>
-    public static string ToJsv<T>(this T obj, Action<Config> configure)
-    {
-        var config = new Config();
-        configure(config);
-        using (JsConfig.With(config))
-        {
-            return ToJsv(obj);
-        }
-    }
-
-    /// <summary>
-    /// Converts to safejsv.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="obj">The object.</param>
-    /// <returns>string.</returns>
-    public static string ToSafeJsv<T>(this T obj)
-    {
-        return TypeSerializer.HasCircularReferences(obj)
-                   ? obj.ToSafePartialObjectDictionary().ToJsv()
-                   : obj.ToJsv();
-    }
-
-    /// <summary>
     /// Froms the JSV.
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -533,17 +478,6 @@ public static class StringExtensions
     public static T FromJsv<T>(this string jsv)
     {
         return TypeSerializer.DeserializeFromString<T>(jsv);
-    }
-
-    /// <summary>
-    /// Froms the JSV span.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="jsv">The JSV.</param>
-    /// <returns>T.</returns>
-    public static T FromJsvSpan<T>(this ReadOnlySpan<char> jsv)
-    {
-        return TypeSerializer.DeserializeFromSpan<T>(jsv);
     }
 
     /// <summary>
@@ -557,19 +491,6 @@ public static class StringExtensions
         return JsConfig.PreferInterfaces
                    ? JsonSerializer.SerializeToString(obj, AssemblyUtils.MainInterface<T>())
                    : JsonSerializer.SerializeToString(obj);
-    }
-
-    /// <summary>
-    /// Converts to safejson.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="obj">The object.</param>
-    /// <returns>string.</returns>
-    public static string ToSafeJson<T>(this T obj)
-    {
-        return TypeSerializer.HasCircularReferences(obj)
-                   ? obj.ToSafePartialObjectDictionary().ToJson()
-                   : obj.ToJson();
     }
 
     /// <summary>
@@ -708,13 +629,6 @@ public static class StringExtensions
     /// <param name="filePath">The file path.</param>
     /// <returns>bool.</returns>
     public static bool FileExists(this string filePath) => PclExport.Instance.FileExists(filePath);
-
-    /// <summary>
-    /// Directories the exists.
-    /// </summary>
-    /// <param name="dirPath">The dir path.</param>
-    /// <returns>bool.</returns>
-    public static bool DirectoryExists(this string dirPath) => PclExport.Instance.DirectoryExists(dirPath);
 
     /// <summary>
     /// Creates the directory.
@@ -914,26 +828,6 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Converts to lowersafe.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>string.</returns>
-    public static string ToLowerSafe(this string value)
-    {
-        return value?.ToLower();
-    }
-
-    /// <summary>
-    /// Converts to uppersafe.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>string.</returns>
-    public static string ToUpperSafe(this string value)
-    {
-        return value?.ToUpper();
-    }
-
-    /// <summary>
     /// Safes the substring.
     /// </summary>
     /// <param name="value">The value.</param>
@@ -1011,21 +905,6 @@ public static class StringExtensions
     /// </summary>
     private readonly static Regex InvalidVarCharsRegex = new(@"[^A-Za-z0-9_]", RegexOptions.Compiled,
         TimeSpan.FromMilliseconds(100));
-    /// <summary>
-    /// The valid variable chars regex
-    /// </summary>
-    private readonly static Regex ValidVarCharsRegex = new(@"^[A-Za-z0-9_]+$", RegexOptions.Compiled,
-        TimeSpan.FromMilliseconds(100));
-    /// <summary>
-    /// The invalid variable reference chars regex
-    /// </summary>
-    private readonly static Regex InvalidVarRefCharsRegex = new(@"[^A-Za-z0-9._]", RegexOptions.Compiled,
-        TimeSpan.FromMilliseconds(100));
-    /// <summary>
-    /// The valid variable reference chars regex
-    /// </summary>
-    private readonly static Regex ValidVarRefCharsRegex = new(@"^[A-Za-z0-9._]+$", RegexOptions.Compiled,
-        TimeSpan.FromMilliseconds(100));
 
     /// <summary>
     /// The split camel case regex
@@ -1034,34 +913,11 @@ public static class StringExtensions
         TimeSpan.FromMilliseconds(100));
 
     /// <summary>
-    /// Converts to enumordefault.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="value">The value.</param>
-    /// <param name="defaultValue">The default value.</param>
-    /// <returns>T.</returns>
-    public static T ToEnumOrDefault<T>(this string value, T defaultValue)
-    {
-        if (string.IsNullOrEmpty(value)) return defaultValue;
-        return (T)Enum.Parse(typeof(T), value, true);
-    }
-
-    /// <summary>
     /// Splits the camel case.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>string.</returns>
     public static string SplitCamelCase(this string value) => SplitCamelCaseRegex.Replace(value, " $1").TrimStart();
-
-    /// <summary>
-    /// Converts to invariantupper.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>string.</returns>
-    public static string ToInvariantUpper(this char value)
-    {
-        return PclExport.Instance.ToInvariantUpper(value);
-    }
 
     /// <summary>
     /// Determines whether the specified value is empty.
@@ -1124,33 +980,12 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Determines whether [is valid variable name] [the specified name].
-    /// </summary>
-    /// <param name="name">The name.</param>
-    /// <returns>bool.</returns>
-    public static bool IsValidVarName(this string name) => ValidVarCharsRegex.IsMatch(name);
-    /// <summary>
-    /// Determines whether [is valid variable reference] [the specified name].
-    /// </summary>
-    /// <param name="name">The name.</param>
-    /// <returns>bool.</returns>
-    public static bool IsValidVarRef(this string name) => ValidVarRefCharsRegex.IsMatch(name);
-
-    /// <summary>
     /// Safes the name of the variable.
     /// </summary>
     /// <param name="text">The text.</param>
     /// <returns>string.</returns>
     public static string SafeVarName(this string text) => !string.IsNullOrEmpty(text)
                                                               ? InvalidVarCharsRegex.Replace(text, "_") : null;
-
-    /// <summary>
-    /// Safes the variable reference.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <returns>string.</returns>
-    public static string SafeVarRef(this string text) => !string.IsNullOrEmpty(text)
-                                                             ? InvalidVarRefCharsRegex.Replace(text, "_") : null;
 
     /// <summary>
     /// Joins the specified items.
@@ -1168,55 +1003,9 @@ public static class StringExtensions
     public static string Join(this List<string> items, string delimeter) => string.Join(delimeter, items.ToArray());
 
     /// <summary>
-    /// Converts to parentpath.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <returns>string.</returns>
-    public static string ToParentPath(this string path)
-    {
-        var pos = path.LastIndexOf('/');
-        if (pos == -1) return "/";
-
-        var parentPath = path.Substring(0, pos);
-        return parentPath;
-    }
-
-    /// <summary>
-    /// Removes the character flags.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <param name="charFlags">The character flags.</param>
-    /// <returns>string.</returns>
-    public static string RemoveCharFlags(this string text, bool[] charFlags)
-    {
-        if (text == null) return null;
-
-        var copy = text.ToCharArray();
-        var nonWsPos = 0;
-
-        foreach (var @char in text)
-        {
-            if (@char < charFlags.Length && charFlags[@char]) continue;
-            copy[nonWsPos++] = @char;
-        }
-
-        return new string(copy, 0, nonWsPos);
-    }
-
-    /// <summary>
-    /// Converts to nullifempty.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <returns>string.</returns>
-    public static string ToNullIfEmpty(this string text)
-    {
-        return string.IsNullOrEmpty(text) ? null : text;
-    }
-
-    /// <summary>
     /// The system type chars
     /// </summary>
-    private readonly static char[] SystemTypeChars = { '<', '>', '+' };
+    private readonly static char[] SystemTypeChars = ['<', '>', '+'];
 
     /// <summary>
     /// Determines whether [is user type] [the specified type].
@@ -1226,17 +1015,6 @@ public static class StringExtensions
     public static bool IsUserType(this Type type)
     {
         return type.IsClass
-               && !type.IsSystemType();
-    }
-
-    /// <summary>
-    /// Determines whether [is user enum] [the specified type].
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns>bool.</returns>
-    public static bool IsUserEnum(this Type type)
-    {
-        return type.IsEnum
                && !type.IsSystemType();
     }
 
@@ -1287,12 +1065,6 @@ public static class StringExtensions
     /// <param name="text">The text.</param>
     /// <returns>long.</returns>
     public static long ToLong(this string text) => long.Parse(text);
-    /// <summary>
-    /// Converts to int64.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <returns>long.</returns>
-    public static long ToInt64(this string text) => long.Parse(text);
 
     /// <summary>
     /// Converts to long.
@@ -1301,35 +1073,6 @@ public static class StringExtensions
     /// <param name="defaultValue">The default value.</param>
     /// <returns>long.</returns>
     public static long ToLong(this string text, long defaultValue) => long.TryParse(text, out var ret) ? ret : defaultValue;
-    /// <summary>
-    /// Converts to int64.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <param name="defaultValue">The default value.</param>
-    /// <returns>long.</returns>
-    public static long ToInt64(this string text, long defaultValue) => long.TryParse(text, out var ret) ? ret : defaultValue;
-
-    /// <summary>
-    /// Converts to float.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <returns>float.</returns>
-    public static float ToFloat(this string text) => text == null ? default : float.Parse(text);
-
-    /// <summary>
-    /// Converts to floatinvariant.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <returns>float.</returns>
-    public static float ToFloatInvariant(this string text) => text == null ? default : float.Parse(text, CultureInfo.InvariantCulture);
-
-    /// <summary>
-    /// Converts to float.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <param name="defaultValue">The default value.</param>
-    /// <returns>float.</returns>
-    public static float ToFloat(this string text, float defaultValue) => float.TryParse(text, out var ret) ? ret : defaultValue;
 
     /// <summary>
     /// Converts to double.
@@ -1337,13 +1080,6 @@ public static class StringExtensions
     /// <param name="text">The text.</param>
     /// <returns>double.</returns>
     public static double ToDouble(this string text) => text == null ? default : double.Parse(text);
-
-    /// <summary>
-    /// Converts to doubleinvariant.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <returns>double.</returns>
-    public static double ToDoubleInvariant(this string text) => text == null ? default : double.Parse(text, CultureInfo.InvariantCulture);
 
     /// <summary>
     /// Converts to double.
@@ -1359,13 +1095,6 @@ public static class StringExtensions
     /// <param name="text">The text.</param>
     /// <returns>decimal.</returns>
     public static decimal ToDecimal(this string text) => text == null ? default : decimal.Parse(text);
-
-    /// <summary>
-    /// Converts to decimalinvariant.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <returns>decimal.</returns>
-    public static decimal ToDecimalInvariant(this string text) => text == null ? default : decimal.Parse(text, CultureInfo.InvariantCulture);
 
     /// <summary>
     /// Converts to decimal.
@@ -1420,64 +1149,6 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Globs the path.
-    /// </summary>
-    /// <param name="filePath">The file path.</param>
-    /// <param name="pattern">The pattern.</param>
-    /// <returns>bool.</returns>
-    public static bool GlobPath(this string filePath, string pattern)
-    {
-        if (string.IsNullOrEmpty(filePath) || string.IsNullOrEmpty(pattern))
-            return false;
-
-        var sanitizedPath = filePath.Replace('\\', '/');
-        if (sanitizedPath[0] == '/')
-            sanitizedPath = sanitizedPath.Substring(1);
-        var sanitizedPattern = pattern.Replace('\\', '/');
-        if (sanitizedPattern[0] == '/')
-            sanitizedPattern = sanitizedPattern.Substring(1);
-
-        if (sanitizedPattern.IndexOf('*') == -1 && sanitizedPattern.IndexOf('?') == -1)
-            return sanitizedPath == sanitizedPattern;
-
-        var patternParts = sanitizedPattern.SplitOnLast('/');
-        var parts = sanitizedPath.SplitOnLast('/');
-        if (parts.Length == 1)
-            return parts[0].Glob(pattern);
-
-        var dirPart = parts[0];
-        var filePart = parts[1];
-        if (patternParts.Length == 1)
-            return filePart.Glob(patternParts[0]);
-
-        var dirPattern = patternParts[0];
-        var filePattern = patternParts[1];
-
-        if (dirPattern.IndexOf("**", StringComparison.Ordinal) >= 0)
-        {
-            if (!sanitizedPath.StartsWith(dirPattern.LeftPart("**").TrimEnd('*', '/')))
-                return false;
-        }
-        else if (dirPattern.IndexOf('*') >= 0 || dirPattern.IndexOf('?') >= 0)
-        {
-            var regex = new Regex(
-                "^" + Regex.Escape(dirPattern).Replace(@"\*", "[^\\/]*").Replace(@"\?", ".") + "$"
-                ,
-                RegexOptions.None,
-                TimeSpan.FromMilliseconds(100));
-            if (!regex.IsMatch(dirPart))
-                return false;
-        }
-        else
-        {
-            if (dirPart != dirPattern)
-                return false;
-        }
-
-        return filePart.Glob(filePattern);
-    }
-
-    /// <summary>
     /// Trims the prefixes.
     /// </summary>
     /// <param name="fromString">From string.</param>
@@ -1495,68 +1166,6 @@ public static class StringExtensions
         }
 
         return fromString;
-    }
-
-    /// <summary>
-    /// Froms the ASCII bytes.
-    /// </summary>
-    /// <param name="bytes">The bytes.</param>
-    /// <returns>string.</returns>
-    public static string FromAsciiBytes(this byte[] bytes)
-    {
-        return bytes == null ? null
-                   : PclExport.Instance.GetAsciiString(bytes);
-    }
-
-    /// <summary>
-    /// Converts to asciibytes.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>byte[].</returns>
-    public static byte[] ToAsciiBytes(this string value)
-    {
-        return PclExport.Instance.GetAsciiBytes(value);
-    }
-
-    /// <summary>
-    /// Parses the key value text.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <param name="delimiter">The delimiter.</param>
-    /// <returns>System.Collections.Generic.Dictionary&lt;string, string&gt;.</returns>
-    public static Dictionary<string, string> ParseKeyValueText(this string text, string delimiter = " ")
-    {
-        var to = new Dictionary<string, string>();
-        if (text == null) return to;
-
-        foreach (var parts in text.ReadLines().Select(line => line.Trim().SplitOnFirst(delimiter)))
-        {
-            var key = parts[0].Trim();
-            if (key.Length == 0 || key.StartsWith("#")) continue;
-            to[key] = parts.Length == 2 ? parts[1].Trim() : null;
-        }
-
-        return to;
-    }
-
-    /// <summary>
-    /// Parses as key values.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <param name="delimiter">The delimiter.</param>
-    /// <returns>System.Collections.Generic.List&lt;System.Collections.Generic.KeyValuePair&lt;string, string&gt;&gt;.</returns>
-    public static List<KeyValuePair<string, string>> ParseAsKeyValues(this string text, string delimiter = " ")
-    {
-        var to = new List<KeyValuePair<string, string>>();
-        if (text == null) return to;
-
-        to.AddRange(
-            from parts in text.ReadLines().Select(line => line.Trim().SplitOnFirst(delimiter))
-            let key = parts[0].Trim()
-            where key.Length != 0 && !key.StartsWith("#")
-            select new KeyValuePair<string, string>(key, parts.Length == 2 ? parts[1].Trim() : null));
-
-        return to;
     }
 
     /// <summary>
@@ -1582,55 +1191,7 @@ public static class StringExtensions
     public static int CountOccurrencesOf(this string text, char needle) =>
         text.AsSpan().CountOccurrencesOf(needle);
 
-    /// <summary>
-    /// Counts the occurrences of.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <param name="needle">The needle.</param>
-    /// <returns>int.</returns>
-    public static int CountOccurrencesOf(this string text, string needle) =>
-    text.AsSpan().CountOccurrencesOf(needle);
-
-    /// <summary>
-    /// Normalizes the new lines.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <returns>string.</returns>
-    public static string NormalizeNewLines(this string text)
-    {
-        return text?.Replace("\r\n", "\n").Trim();
-    }
-
 #if !LITE
-    /// <summary>
-    /// Hexadecimals the escape.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <param name="anyCharOf">Any character of.</param>
-    /// <returns>string.</returns>
-    public static string HexEscape(this string text, params char[] anyCharOf)
-    {
-        if (string.IsNullOrEmpty(text)) return text;
-        if (anyCharOf == null || anyCharOf.Length == 0) return text;
-
-        var encodeCharMap = new HashSet<char>(anyCharOf);
-
-        var sb = StringBuilderThreadStatic.Allocate();
-        var textLength = text.Length;
-        for (var i = 0; i < textLength; i++)
-        {
-            var c = text[i];
-            if (encodeCharMap.Contains(c))
-            {
-                sb.Append('%' + ((int)c).ToString("x"));
-            }
-            else
-            {
-                sb.Append(c);
-            }
-        }
-        return StringBuilderThreadStatic.ReturnAndFree(sb);
-    }
 
     /// <summary>
     /// Converts to xml.
@@ -1643,16 +1204,6 @@ public static class StringExtensions
         return XmlSerializer.SerializeToString(obj);
     }
 
-    /// <summary>
-    /// Froms the XML.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="json">The json.</param>
-    /// <returns>T.</returns>
-    public static T FromXml<T>(this string json)
-    {
-        return XmlSerializer.DeserializeFromString<T>(json);
-    }
 #endif
 
     /// <summary>

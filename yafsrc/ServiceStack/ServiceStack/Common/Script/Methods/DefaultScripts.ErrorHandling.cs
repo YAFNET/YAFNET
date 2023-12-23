@@ -12,8 +12,6 @@ using System.Threading.Tasks;
 
 namespace ServiceStack.Script;
 
-using ServiceStack.Text;
-
 // ReSharper disable InconsistentNaming
 
 /// <summary>
@@ -37,29 +35,7 @@ public partial class DefaultScripts
         return StopExecution.Value;
     }
 
-    /// <summary>
-    /// Catches the error.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="errorBinding">The error binding.</param>
-    /// <returns>System.Object.</returns>
-    public object catchError(ScriptScopeContext scope, string errorBinding)
-    {
-        scope.PageResult.CatchExceptionsIn = errorBinding;
-        return StopExecution.Value;
-    }
 
-    /// <summary>
-    /// Assigns the error and continue executing.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="errorBinding">The error binding.</param>
-    /// <returns>System.Object.</returns>
-    public object assignErrorAndContinueExecuting(ScriptScopeContext scope, string errorBinding)
-    {
-        assignError(scope, errorBinding);
-        return continueExecutingFiltersOnError(scope);
-    }
 
     /// <summary>
     /// Continues the executing filters on error.
@@ -98,34 +74,6 @@ public partial class DefaultScripts
     }
 
     /// <summary>
-    /// Ends if error.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <returns>System.Object.</returns>
-    public object endIfError(ScriptScopeContext scope) => scope.PageResult.LastFilterError != null ? StopExecution.Value : IgnoreResult.Value;
-    /// <summary>
-    /// Ends if error.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="value">The value.</param>
-    /// <returns>System.Object.</returns>
-    public object endIfError(ScriptScopeContext scope, object value) => scope.PageResult.LastFilterError != null ? StopExecution.Value : value;
-
-    /// <summary>
-    /// Ifs the no error.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <returns>System.Object.</returns>
-    public object ifNoError(ScriptScopeContext scope) => scope.PageResult.LastFilterError != null ? StopExecution.Value : IgnoreResult.Value;
-    /// <summary>
-    /// Ifs the no error.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="value">The value.</param>
-    /// <returns>System.Object.</returns>
-    public object ifNoError(ScriptScopeContext scope, object value) => scope.PageResult.LastFilterError != null ? StopExecution.Value : value;
-
-    /// <summary>
     /// Ifs the error.
     /// </summary>
     /// <param name="scope">The scope.</param>
@@ -138,32 +86,6 @@ public partial class DefaultScripts
     /// <param name="scope">The scope.</param>
     /// <returns>System.Object.</returns>
     public object ifError(ScriptScopeContext scope) => (object)scope.PageResult.LastFilterError ?? StopExecution.Value;
-    /// <summary>
-    /// Ifs the debug.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <returns>System.Object.</returns>
-    public object ifDebug(ScriptScopeContext scope, object ignoreTarget) => ifDebug(scope);
-    /// <summary>
-    /// Ifs the debug.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <returns>System.Object.</returns>
-    public object ifDebug(ScriptScopeContext scope) => scope.Context.DebugMode ? IgnoreResult.Value : StopExecution.Value;
-    /// <summary>
-    /// Debugs the mode.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <returns>System.Object.</returns>
-    public object debugMode(ScriptScopeContext scope) => scope.Context.DebugMode;
-
-    /// <summary>
-    /// Determines whether the specified scope has error.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <returns><c>true</c> if the specified scope has error; otherwise, <c>false</c>.</returns>
-    public bool hasError(ScriptScopeContext scope) => scope.PageResult.LastFilterError != null;
 
     /// <summary>
     /// Lasts the error.
@@ -171,20 +93,6 @@ public partial class DefaultScripts
     /// <param name="scope">The scope.</param>
     /// <returns>Exception.</returns>
     public Exception lastError(ScriptScopeContext scope) => scope.PageResult.LastFilterError;
-    /// <summary>
-    /// Lasts the error message.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <returns>System.String.</returns>
-    public string lastErrorMessage(ScriptScopeContext scope) => scope.PageResult.LastFilterError?.Message;
-    /// <summary>
-    /// Lasts the error stack trace.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <returns>System.String.</returns>
-    public string lastErrorStackTrace(ScriptScopeContext scope) => scope.PageResult.LastFilterStackTrace?.Length > 0
-                                                                       ? scope.PageResult.LastFilterStackTrace.Map(x => "   at " + x).Join(Environment.NewLine)
-                                                                       : null;
 
     /// <summary>
     /// Ensures all arguments not null.

@@ -208,7 +208,7 @@ public static class AutoMappingUtils
 
         var mi = GetImplicitCastMethod(fromType, toType);
         if (mi != null)
-            return mi.Invoke(null, new[] { from });
+            return mi.Invoke(null, [from]);
 
         switch (from)
         {
@@ -333,11 +333,11 @@ public static class AutoMappingUtils
 
         var mi = GetImplicitCastMethod(fromType, toType);
         if (mi != null)
-            return mi.Invoke(null, new[] { from });
+            return mi.Invoke(null, [from]);
 
         mi = GetExplicitCastMethod(fromType, toType);
         if (mi != null)
-            return mi.Invoke(null, new[] { from });
+            return mi.Invoke(null, [from]);
 
         if (s != null)
             return TypeSerializer.DeserializeFromString(s, toType);
@@ -363,7 +363,7 @@ public static class AutoMappingUtils
 
                 var toKvpArgs = toKvpType.GetGenericArguments();
                 var toCtor = toKvpType.GetConstructor(toKvpArgs);
-                var to = toCtor.Invoke(new[] { fromKey.ConvertTo(toKvpArgs[0]), fromValue.ConvertTo(toKvpArgs[1]) });
+                var to = toCtor.Invoke([fromKey.ConvertTo(toKvpArgs[0]), fromValue.ConvertTo(toKvpArgs[1])]);
                 return to;
             }
 
@@ -619,7 +619,7 @@ public static class AutoMappingUtils
         var propertySetMethodInfo = propertyInfo.GetSetMethod(true);
         if (propertySetMethodInfo != null)
         {
-            propertySetMethodInfo.Invoke(obj, new[] { value });
+            propertySetMethodInfo.Invoke(obj, [value]);
         }
     }
 
@@ -845,31 +845,6 @@ public static class AutoMappingUtils
     }
 
     /// <summary>
-    /// Gets the property attributes.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="fromType">From type.</param>
-    /// <returns>IEnumerable&lt;KeyValuePair&lt;PropertyInfo, T&gt;&gt;.</returns>
-    public static IEnumerable<KeyValuePair<PropertyInfo, T>> GetPropertyAttributes<T>(Type fromType)
-    {
-        var attributeType = typeof(T);
-        var baseType = fromType;
-        do
-        {
-            var propertyInfos = baseType.AllProperties();
-            foreach (var propertyInfo in propertyInfos)
-            {
-                var attributes = propertyInfo.GetCustomAttributes(attributeType, true);
-                foreach (var attribute in attributes)
-                {
-                    yield return new KeyValuePair<PropertyInfo, T>(propertyInfo, (T)attribute);
-                }
-            }
-        }
-        while ((baseType = baseType.BaseType) != null);
-    }
-
-    /// <summary>
     /// Tries the convert collections.
     /// </summary>
     /// <param name="fromType">From type.</param>
@@ -1066,13 +1041,13 @@ public static class AutoMappingUtils
                             }
                         case IEnumerable toList:
                             {
-                                var addMethod = toType.GetMethod(nameof(IList.Add), new[] { toKvpDefType });
+                                var addMethod = toType.GetMethod(nameof(IList.Add), [toKvpDefType]);
                                 if (addMethod != null)
                                 {
                                     foreach (var entry in values)
                                     {
                                         var toEntry = entry.ConvertTo(toKvpDefType);
-                                        addMethod.Invoke(toList, new[] { toEntry });
+                                        addMethod.Invoke(toList, [toEntry]);
                                     }
                                     return toList;
                                 }

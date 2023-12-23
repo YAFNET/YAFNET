@@ -29,7 +29,7 @@ public class MemoryVirtualFiles
     /// </summary>
     public MemoryVirtualFiles()
     {
-        this.files = new List<InMemoryVirtualFile>();
+        this.files = [];
         this.rootDirectory = new InMemoryVirtualDirectory(this, null);
     }
 
@@ -256,9 +256,7 @@ public class MemoryVirtualFiles
         do
         {
             snapshot = files;
-            newFiles = new List<InMemoryVirtualFile>(files.Where(x => x.FilePath != file.FilePath)) {
-                               file
-                           };
+            newFiles = [..this.files.Where(x => x.FilePath != file.FilePath), file];
         } while (!ReferenceEquals(
                      Interlocked.CompareExchange(ref files, newFiles, snapshot), snapshot));
     }

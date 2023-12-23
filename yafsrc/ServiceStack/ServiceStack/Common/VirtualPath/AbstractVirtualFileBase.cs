@@ -7,8 +7,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using ServiceStack.IO;
 using ServiceStack.Text;
 using ServiceStack.VirtualPath;
@@ -26,7 +24,7 @@ namespace ServiceStack.VirtualPath
         /// Gets or sets the scan skip paths.
         /// </summary>
         /// <value>The scan skip paths.</value>
-        public static List<string> ScanSkipPaths { get; set; } = new();
+        public static List<string> ScanSkipPaths { get; set; } = [];
 
         /// <summary>
         /// Gets or sets the virtual path provider.
@@ -92,16 +90,6 @@ namespace ServiceStack.VirtualPath
         }
 
         /// <summary>
-        /// Gets the file hash.
-        /// </summary>
-        /// <returns>System.String.</returns>
-        public virtual string GetFileHash()
-        {
-            using var stream = OpenRead();
-            return stream.ToMd5Hash();
-        }
-
-        /// <summary>
         /// Opens the text.
         /// </summary>
         /// <returns>StreamReader.</returns>
@@ -119,16 +107,6 @@ namespace ServiceStack.VirtualPath
             using var reader = OpenText();
             var text = reader.ReadToEnd();
             return text;
-        }
-
-        /// <summary>
-        /// Reads all bytes.
-        /// </summary>
-        /// <returns>System.Byte[].</returns>
-        public virtual byte[] ReadAllBytes()
-        {
-            using var stream = OpenRead();
-            return stream.ReadFully();
         }
 
         /// <summary>
@@ -248,87 +226,6 @@ namespace ServiceStack
             }
             return false;
         }
-
-        /// <summary>
-        /// Gets all root directories.
-        /// </summary>
-        /// <param name="vfs">The VFS.</param>
-        /// <returns>IVirtualDirectory[].</returns>
-        public static IVirtualDirectory[] GetAllRootDirectories(this IVirtualPathProvider vfs) => vfs is MultiVirtualFiles mvfs
-            ? mvfs.ChildProviders.Select(x => x.RootDirectory).ToArray()
-            : new[] { vfs.RootDirectory };
-
-        /// <summary>
-        /// Gets the virtual file source.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="vfs">The VFS.</param>
-        /// <returns>T.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static T GetVirtualFileSource<T>(this IVirtualPathProvider vfs) where T : class => vfs as T ??
-            (vfs is MultiVirtualFiles mvfs ? mvfs.ChildProviders.FirstOrDefault(x => x is T) as T : null);
-
-        /// <summary>
-        /// Gets the memory virtual files.
-        /// </summary>
-        /// <param name="vfs">The VFS.</param>
-        /// <returns>MemoryVirtualFiles.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static MemoryVirtualFiles GetMemoryVirtualFiles(this IVirtualPathProvider vfs) =>
-            vfs.GetVirtualFileSource<MemoryVirtualFiles>();
-
-        /// <summary>
-        /// Gets the file system virtual files.
-        /// </summary>
-        /// <param name="vfs">The VFS.</param>
-        /// <returns>FileSystemVirtualFiles.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static FileSystemVirtualFiles GetFileSystemVirtualFiles(this IVirtualPathProvider vfs) =>
-            vfs.GetVirtualFileSource<FileSystemVirtualFiles>();
-
-        /// <summary>
-        /// Gets the resource virtual files.
-        /// </summary>
-        /// <param name="vfs">The VFS.</param>
-        /// <returns>ResourceVirtualFiles.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static ResourceVirtualFiles GetResourceVirtualFiles(this IVirtualPathProvider vfs) =>
-            vfs.GetVirtualFileSource<ResourceVirtualFiles>();
-
-        /// <summary>
-        /// Gets the text contents as memory.
-        /// </summary>
-        /// <param name="file">The file.</param>
-        /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
-        public static ReadOnlyMemory<char> GetTextContentsAsMemory(this IVirtualFile file)
-        {
-            var contents = file.GetContents();
-            var span = contents is ReadOnlyMemory<char> rom
-                ? rom
-                : contents is string s
-                    ? s.AsMemory()
-                    : file.ReadAllText().AsMemory();
-            return span;
-        }
-
-        /// <summary>
-        /// Gets the bytes contents as memory.
-        /// </summary>
-        /// <param name="file">The file.</param>
-        /// <returns>ReadOnlyMemory&lt;System.Byte&gt;.</returns>
-        public static ReadOnlyMemory<byte> GetBytesContentsAsMemory(this IVirtualFile file)
-        {
-            var contents = file.GetContents();
-            var span = contents is ReadOnlyMemory<byte> rom
-                ? rom
-                : contents is ReadOnlyMemory<char> romChars
-                    ? MemoryProvider.Instance.ToUtf8(romChars.Span)
-                    : contents is string s
-                        ? MemoryProvider.Instance.ToUtf8(s.AsSpan())
-                        : file.ReadAllBytes().AsMemory();
-            return span;
-        }
-
     }
 
 }

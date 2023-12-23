@@ -13,8 +13,6 @@ using ServiceStack.VirtualPath;
 
 namespace ServiceStack.IO;
 
-using ServiceStack.Text;
-
 /// <summary>
 /// Class MultiVirtualFiles.
 /// Implements the <see cref="ServiceStack.VirtualPath.AbstractVirtualPathProviderBase" />
@@ -58,7 +56,7 @@ public class MultiVirtualFiles
         if (childProviders == null || childProviders.Length == 0)
             throw new ArgumentNullException(nameof(childProviders));
 
-        this.ChildProviders = new List<IVirtualPathProvider>(childProviders);
+        this.ChildProviders = [..childProviders];
         Initialize();
     }
 
@@ -66,17 +64,6 @@ public class MultiVirtualFiles
     /// Initializes this instance.
     /// </summary>
     override protected sealed void Initialize() { }
-
-    /// <summary>
-    /// Combines the virtual path.
-    /// </summary>
-    /// <param name="basePath">The base path.</param>
-    /// <param name="relativePath">The relative path.</param>
-    /// <returns>System.String.</returns>
-    public override string CombineVirtualPath(string basePath, string relativePath)
-    {
-        return basePath.CombineWith(relativePath);
-    }
 
     /// <summary>
     /// Directories the exists.

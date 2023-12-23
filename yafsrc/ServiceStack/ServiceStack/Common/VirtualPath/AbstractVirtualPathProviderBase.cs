@@ -39,17 +39,6 @@ public abstract class AbstractVirtualPathProviderBase : IVirtualPathProvider
     public abstract string RealPathSeparator { get; }
 
     /// <summary>
-    /// Combines the virtual path.
-    /// </summary>
-    /// <param name="basePath">The base path.</param>
-    /// <param name="relativePath">The relative path.</param>
-    /// <returns>System.String.</returns>
-    public virtual string CombineVirtualPath(string basePath, string relativePath)
-    {
-        return string.Concat(basePath, VirtualPathSeparator, relativePath);
-    }
-
-    /// <summary>
     /// Files the exists.
     /// </summary>
     /// <param name="virtualPath">The virtual path.</param>
@@ -93,27 +82,6 @@ public abstract class AbstractVirtualPathProviderBase : IVirtualPathProvider
         var virtualFile = RootDirectory.GetFile(SanitizePath(virtualPath));
         virtualFile?.Refresh();
         return virtualFile;
-    }
-
-    /// <summary>
-    /// Gets the file hash.
-    /// </summary>
-    /// <param name="virtualPath">The virtual path.</param>
-    /// <returns>System.String.</returns>
-    public virtual string GetFileHash(string virtualPath)
-    {
-        var f = GetFile(virtualPath);
-        return GetFileHash(f);
-    }
-
-    /// <summary>
-    /// Gets the file hash.
-    /// </summary>
-    /// <param name="virtualFile">The virtual file.</param>
-    /// <returns>System.String.</returns>
-    public virtual string GetFileHash(IVirtualFile virtualFile)
-    {
-        return virtualFile == null ? string.Empty : virtualFile.GetFileHash();
     }
 
     /// <summary>

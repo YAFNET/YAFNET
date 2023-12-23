@@ -20,12 +20,6 @@ public interface IAppSettings
     Dictionary<string, string> GetAll();
 
     /// <summary>
-    /// Gets all keys.
-    /// </summary>
-    /// <returns>List&lt;System.String&gt;.</returns>
-    List<string> GetAllKeys();
-
-    /// <summary>
     /// Existses the specified key.
     /// </summary>
     /// <param name="key">The key.</param>
@@ -62,13 +56,6 @@ public interface IAppSettings
     IDictionary<string, string> GetDictionary(string key);
 
     /// <summary>
-    /// Gets the key value pairs.
-    /// </summary>
-    /// <param name="key">The key.</param>
-    /// <returns>List&lt;KeyValuePair&lt;System.String, System.String&gt;&gt;.</returns>
-    List<KeyValuePair<string, string>> GetKeyValuePairs(string key);
-
-    /// <summary>
     /// Gets the specified name.
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -84,20 +71,4 @@ public interface IAppSettings
     /// <param name="defaultValue">The default value.</param>
     /// <returns>T.</returns>
     T Get<T>(string name, T defaultValue);
-}
-
-/// <summary>
-/// Interface IRuntimeAppSettings
-/// </summary>
-public interface IRuntimeAppSettings
-{
-    /// <summary>
-    /// Gets the specified request.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="request">The request.</param>
-    /// <param name="name">The name.</param>
-    /// <param name="defaultValue">The default value.</param>
-    /// <returns>T.</returns>
-    T Get<T>(Web.IRequest request, string name, T defaultValue);
 }

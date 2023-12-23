@@ -155,16 +155,6 @@ public static class ScriptTemplateUtils
             p => p.ScriptLanguage = SharpScript.Language);
 
     /// <summary>
-    /// Create SharpPage configured to use #Script Templates
-    /// </summary>
-    /// <param name="context">The context.</param>
-    /// <param name="code">The code.</param>
-    /// <returns>ServiceStack.Script.SharpPage.</returns>
-    public static SharpPage TemplateSharpPage(this ScriptContext context, string code)
-        => context.Pages.OneTimePage(code, context.PageFormats[0].Extension,
-            p => p.ScriptLanguage = ScriptTemplate.Language);
-
-    /// <summary>
     /// Render #Script output to string
     /// </summary>
     /// <param name="context">The context.</param>
@@ -240,30 +230,6 @@ public static class ScriptTemplateUtils
         var pageResult = new PageResult(context.SharpScriptPage(script));
         args.Each((x, y) => pageResult.Args[x] = y);
         return pageResult.RenderScript();
-    }
-
-    /// <summary>
-    /// Render #Script output to string asynchronously
-    /// </summary>
-    /// <param name="context">The context.</param>
-    /// <param name="script">The script.</param>
-    /// <param name="args">The arguments.</param>
-    /// <returns>System.Threading.Tasks.Task&lt;string&gt;.</returns>
-    public static Task<string> RenderScriptAsync(this ScriptContext context, string script, Dictionary<string, object> args = null) =>
-        context.EvaluateScriptAsync(script, args);
-
-    /// <summary>
-    /// Alias for RenderScriptAsync
-    /// </summary>
-    /// <param name="context">The context.</param>
-    /// <param name="script">The script.</param>
-    /// <param name="args">The arguments.</param>
-    /// <returns>A Task representing the asynchronous operation.</returns>
-    public async static Task<string> EvaluateScriptAsync(this ScriptContext context, string script, Dictionary<string, object> args = null)
-    {
-        var pageResult = new PageResult(context.SharpScriptPage(script));
-        args.Each((x, y) => pageResult.Args[x] = y);
-        return await pageResult.RenderScriptAsync().ConfigAwait();
     }
 
     /// <summary>
@@ -822,31 +788,6 @@ public static class ScriptTemplateUtils
     public static ConcurrentDictionary<string, Func<ScriptScopeContext, object, object>> BinderCache { get; } = new();
 
     /// <summary>
-    /// Gets the member expression.
-    /// </summary>
-    /// <param name="targetType">Type of the target.</param>
-    /// <param name="expression">The expression.</param>
-    /// <returns>System.Func&lt;ServiceStack.Script.ScriptScopeContext, object, object&gt;.</returns>
-    /// <exception cref="ArgumentNullException">nameof(targetType)</exception>
-    /// <exception cref="ArgumentNullException">nameof(expression)</exception>
-    public static Func<ScriptScopeContext, object, object> GetMemberExpression(Type targetType, ReadOnlyMemory<char> expression)
-    {
-        if (targetType == null)
-            throw new ArgumentNullException(nameof(targetType));
-        if (expression.IsNullOrWhiteSpace())
-            throw new ArgumentNullException(nameof(expression));
-
-        var key = targetType.FullName + ':' + expression;
-
-        if (BinderCache.TryGetValue(key, out var fn))
-            return fn;
-
-        BinderCache[key] = fn = Compile(targetType, expression);
-
-        return fn;
-    }
-
-    /// <summary>
     /// Compiles the specified type.
     /// </summary>
     /// <param name="type">The type.</param>
@@ -959,7 +900,7 @@ public static class ScriptTemplateUtils
                         }
                         else
                         {
-                            var indexMethod = currType.GetMethod("get_Item", new[] { value.GetType() });
+                            var indexMethod = currType.GetMethod("get_Item", [value.GetType()]);
                             body = Expression.Call(body, indexMethod, valueExpr);
                             currType = indexMethod.ReturnType;
                         }
@@ -1013,7 +954,7 @@ public static class ScriptTemplateUtils
     /// <summary>
     /// The object argument
     /// </summary>
-    private readonly static Type[] ObjectArg = { typeof(object) };
+    private readonly static Type[] ObjectArg = [typeof(object)];
     /// <summary>
     /// Creates the convert method.
     /// </summary>

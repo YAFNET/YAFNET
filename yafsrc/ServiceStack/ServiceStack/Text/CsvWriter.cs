@@ -253,10 +253,10 @@ public class CsvWriter<T>
     /// </summary>
     static internal void Reset()
     {
-        Headers = new List<string>();
+        Headers = [];
 
-        PropertyGetters = new List<GetMemberDelegate<T>>();
-        PropertyInfos = new List<PropertyInfo>();
+        PropertyGetters = [];
+        PropertyInfos = [];
         foreach (var propertyInfo in TypeConfig<T>.Properties)
         {
             if (!propertyInfo.CanRead || propertyInfo.GetGetMethod(true) == null) continue;

@@ -37,7 +37,7 @@ public class Command
     /// Gets the arguments.
     /// </summary>
     /// <value>The arguments.</value>
-    public List<ReadOnlyMemory<char>> Args { get; internal set; } = new();
+    public List<ReadOnlyMemory<char>> Args { get; internal set; } = [];
 
     /// <summary>
     /// Gets or sets the suffix.
@@ -90,10 +90,4 @@ public class Command
 
         return $"{Name}({StringBuilderCacheAlt.ReturnAndFree(sb)}){Suffix}";
     }
-
-    /// <summary>
-    /// Ases the memory.
-    /// </summary>
-    /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
-    public ReadOnlyMemory<char> AsMemory() => ToString().AsMemory();
 }

@@ -27,19 +27,4 @@ public static class X
     /// <returns>System.Nullable&lt;To&gt;.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static To? Map<From, To>(From? from, Func<From, To> fn) => from == null ? default : fn(from);
-
-    /// <summary>
-    /// Applies the specified object.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="obj">The object.</param>
-    /// <param name="fn">The function.</param>
-    /// <returns>T.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T Apply<T>(T obj, Action<T>? fn = null)
-    {
-        fn?.Invoke(obj);
-
-        return obj;
-    }
 }

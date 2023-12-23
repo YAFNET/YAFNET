@@ -218,18 +218,6 @@ public class JsonObject : Dictionary<string, string>, IEnumerable<KeyValuePair<s
     /// </summary>
     /// <param name="key">The key.</param>
     /// <returns>System.String.</returns>
-    public string GetUnescaped(string key)
-    {
-        return this.TryGetValue(key, out var value)
-                   ? value
-                   : null;
-    }
-
-    /// <summary>
-    /// Get unescaped string value
-    /// </summary>
-    /// <param name="key">The key.</param>
-    /// <returns>System.String.</returns>
     public string Child(string key)
     {
         return this.TryGetValue(key, out var value)

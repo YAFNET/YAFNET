@@ -52,28 +52,6 @@ public static class JsonSerializer
     /// <summary>
     /// Deserializes from span.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="value">The value.</param>
-    /// <returns>T.</returns>
-    public static T DeserializeFromSpan<T>(ReadOnlySpan<char> value)
-    {
-        return JsonReader<T>.Parse(value) is T obj ? obj : default;
-    }
-
-    /// <summary>
-    /// Deserializes from reader.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="reader">The reader.</param>
-    /// <returns>T.</returns>
-    public static T DeserializeFromReader<T>(TextReader reader)
-    {
-        return DeserializeFromString<T>(reader.ReadToEnd());
-    }
-
-    /// <summary>
-    /// Deserializes from span.
-    /// </summary>
     /// <param name="type">The type.</param>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
@@ -95,17 +73,6 @@ public static class JsonSerializer
         return string.IsNullOrEmpty(value)
                    ? null
                    : JsonReader.GetParseFn(type)(value);
-    }
-
-    /// <summary>
-    /// Deserializes from reader.
-    /// </summary>
-    /// <param name="reader">The reader.</param>
-    /// <param name="type">The type.</param>
-    /// <returns>System.Object.</returns>
-    public static object DeserializeFromReader(TextReader reader, Type type)
-    {
-        return DeserializeFromString(reader.ReadToEnd(), type);
     }
 
     /// <summary>
@@ -163,25 +130,6 @@ public static class JsonSerializer
             WriteObjectToWriter(value, JsonWriter.GetWriteFn(type), writer);
         }
         return StringWriterThreadStatic.ReturnAndFree(writer);
-    }
-
-    /// <summary>
-    /// Serializes to writer.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="type">The type.</param>
-    /// <param name="writer">The writer.</param>
-    public static void SerializeToWriter(object value, Type type, TextWriter writer)
-    {
-        if (value == null) return;
-        if (type == typeof(string))
-        {
-            JsonUtils.WriteString(writer, value as string);
-            return;
-        }
-
-        OnSerialize?.Invoke(value);
-        WriteObjectToWriter(value, JsonWriter.GetWriteFn(type), writer);
     }
 
     /// <summary>

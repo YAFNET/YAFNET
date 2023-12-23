@@ -8,8 +8,6 @@
 namespace ServiceStack;
 
 using System;
-using System.Collections.Generic;
-using System.Reflection;
 using System.Text;
 
 using ServiceStack.DataAnnotations;
@@ -58,7 +56,7 @@ public class ValidateRequestAttribute : AttributeBase, IValidateRule, IReflectAt
     [Ignore]
     public string[] Conditions
     {
-        get => new[] { Condition };
+        get => [Condition];
         set => Condition = ValidateAttribute.Combine("&&", value);
     }
 
@@ -104,30 +102,6 @@ public class ValidateRequestAttribute : AttributeBase, IValidateRule, IReflectAt
     {
         get => throw new NotSupportedException(nameof(AnyConditions));
         set => Condition = ValidateAttribute.Combine("||", value);
-    }
-
-    /// <summary>
-    /// Converts to reflectattribute.
-    /// </summary>
-    /// <returns>ReflectAttribute.</returns>
-    public ReflectAttribute ToReflectAttribute()
-    {
-        var to = new ReflectAttribute
-                     {
-                         Name = "ValidateRequest",
-                         PropertyArgs = new List<KeyValuePair<PropertyInfo, object>>()
-                     };
-        if (!string.IsNullOrEmpty(Validator))
-            to.PropertyArgs.Add(new KeyValuePair<PropertyInfo, object>(GetType().GetProperty(nameof(Validator)), Validator));
-        else if (!string.IsNullOrEmpty(Condition))
-            to.PropertyArgs.Add(new KeyValuePair<PropertyInfo, object>(GetType().GetProperty(nameof(Condition)), Condition));
-        if (!string.IsNullOrEmpty(ErrorCode))
-            to.PropertyArgs.Add(new KeyValuePair<PropertyInfo, object>(GetType().GetProperty(nameof(ErrorCode)), ErrorCode));
-        if (!string.IsNullOrEmpty(Message))
-            to.PropertyArgs.Add(new KeyValuePair<PropertyInfo, object>(GetType().GetProperty(nameof(Message)), Message));
-        if (StatusCode != default)
-            to.PropertyArgs.Add(new KeyValuePair<PropertyInfo, object>(GetType().GetProperty(nameof(StatusCode)), StatusCode));
-        return to;
     }
 }
 //Default ITypeValidator defined in ValidateScripts 
@@ -284,28 +258,6 @@ public class ValidateAttribute : AttributeBase, IValidateRule, IReflectAttribute
         sb.Insert(0, '(');
         sb.Append(')');
         return sb.ToString();
-    }
-
-    /// <summary>
-    /// Converts to reflectattribute.
-    /// </summary>
-    /// <returns>ReflectAttribute.</returns>
-    public ReflectAttribute ToReflectAttribute()
-    {
-        var to = new ReflectAttribute
-                     {
-                         Name = "Validate",
-                         PropertyArgs = new List<KeyValuePair<PropertyInfo, object>>()
-                     };
-        if (!string.IsNullOrEmpty(Validator))
-            to.PropertyArgs.Add(new KeyValuePair<PropertyInfo, object>(GetType().GetProperty(nameof(Validator)), Validator));
-        else if (!string.IsNullOrEmpty(Condition))
-            to.PropertyArgs.Add(new KeyValuePair<PropertyInfo, object>(GetType().GetProperty(nameof(Condition)), Condition));
-        if (!string.IsNullOrEmpty(ErrorCode))
-            to.PropertyArgs.Add(new KeyValuePair<PropertyInfo, object>(GetType().GetProperty(nameof(ErrorCode)), ErrorCode));
-        if (!string.IsNullOrEmpty(Message))
-            to.PropertyArgs.Add(new KeyValuePair<PropertyInfo, object>(GetType().GetProperty(nameof(Message)), Message));
-        return to;
     }
 }
 

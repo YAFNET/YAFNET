@@ -37,17 +37,6 @@ public class ProfiledProviderFactory : DbProviderFactory
     protected DbProviderFactory WrappedFactory { get; private set; }
 
     /// <summary>
-    /// Allow to re-init the provider factory.
-    /// </summary>
-    /// <param name="profiler">The profiler.</param>
-    /// <param name="wrappedFactory">The wrapped factory.</param>
-    public void InitProfiledDbProviderFactory(IDbProfiler profiler, DbProviderFactory wrappedFactory)
-    {
-        Profiler = profiler;
-        WrappedFactory = wrappedFactory;
-    }
-
-    /// <summary>
     /// proxy
     /// </summary>
     /// <param name="profiler">The profiler.</param>

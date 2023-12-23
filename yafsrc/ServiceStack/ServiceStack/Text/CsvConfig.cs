@@ -148,7 +148,7 @@ public static class CsvConfig
     /// <returns>System.String[].</returns>
     private static string[] GetEscapeStrings()
     {
-        return new[] { ItemDelimiterString, ItemSeperatorString, RowSeparatorString, "\r", "\n" };
+        return [ItemDelimiterString, ItemSeperatorString, RowSeparatorString, "\r", "\n"];
     }
 
     /// <summary>

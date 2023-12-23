@@ -14,6 +14,4 @@ namespace ServiceStack.DataAnnotations;
 /// </summary>
 /// <seealso cref="ServiceStack.AttributeBase" />
 [AttributeUsage(AttributeTargets.Property)]
-public class ReferenceAttribute : AttributeBase
-{
-}
+public class ReferenceAttribute : AttributeBase;

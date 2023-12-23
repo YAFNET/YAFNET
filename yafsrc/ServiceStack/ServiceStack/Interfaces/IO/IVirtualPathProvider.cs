@@ -31,14 +31,6 @@ public interface IVirtualPathProvider
     string RealPathSeparator { get; }
 
     /// <summary>
-    /// Combines the virtual path.
-    /// </summary>
-    /// <param name="basePath">The base path.</param>
-    /// <param name="relativePath">The relative path.</param>
-    /// <returns>System.String.</returns>
-    string CombineVirtualPath(string basePath, string relativePath);
-
-    /// <summary>
     /// Files the exists.
     /// </summary>
     /// <param name="virtualPath">The virtual path.</param>
@@ -57,18 +49,6 @@ public interface IVirtualPathProvider
     /// <param name="virtualPath">The virtual path.</param>
     /// <returns>IVirtualFile.</returns>
     IVirtualFile GetFile(string virtualPath);
-    /// <summary>
-    /// Gets the file hash.
-    /// </summary>
-    /// <param name="virtualPath">The virtual path.</param>
-    /// <returns>System.String.</returns>
-    string GetFileHash(string virtualPath);
-    /// <summary>
-    /// Gets the file hash.
-    /// </summary>
-    /// <param name="virtualFile">The virtual file.</param>
-    /// <returns>System.String.</returns>
-    string GetFileHash(IVirtualFile virtualFile);
 
     /// <summary>
     /// Gets the directory.

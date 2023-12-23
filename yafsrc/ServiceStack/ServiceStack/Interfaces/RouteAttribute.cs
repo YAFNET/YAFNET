@@ -6,8 +6,6 @@
 // ***********************************************************************
 
 using System;
-using System.Collections.Generic;
-using System.Reflection;
 
 namespace ServiceStack;
 
@@ -163,54 +161,6 @@ public class RouteAttribute : AttributeBase, IReflectAttributeConverter
             hashCode = (hashCode * 397) ^ Priority;
             return hashCode;
         }
-    }
-
-    /// <summary>
-    /// Converts to reflectattribute.
-    /// </summary>
-    /// <returns>ReflectAttribute.</returns>
-    public ReflectAttribute ToReflectAttribute()
-    {
-        if (Summary == null && Notes == null && Matches == null && Priority == default)
-        {
-            // Return ideal Constructor Args 
-            if (Path != null && Verbs != null)
-            {
-                return new ReflectAttribute
-                           {
-                               ConstructorArgs = new List<KeyValuePair<PropertyInfo, object>> {
-                                                         new(GetType().GetProperty(nameof(Path)), Path),
-                                                         new(GetType().GetProperty(nameof(Verbs)), Verbs),
-                                                     }
-                           };
-            }
-
-            return new ReflectAttribute
-                       {
-                           ConstructorArgs = new List<KeyValuePair<PropertyInfo, object>> {
-                                                     new(GetType().GetProperty(nameof(Path)), Path),
-                                                 }
-                       };
-        }
-
-        // Otherwise return Property Args
-        var to = new ReflectAttribute
-                     {
-                         PropertyArgs = new List<KeyValuePair<PropertyInfo, object>> {
-                                                new(GetType().GetProperty(nameof(Path)), Path),
-                                            }
-                     };
-        if (Verbs != null)
-            to.PropertyArgs.Add(new KeyValuePair<PropertyInfo, object>(GetType().GetProperty(nameof(Verbs)), Verbs));
-        if (Summary != null)
-            to.PropertyArgs.Add(new KeyValuePair<PropertyInfo, object>(GetType().GetProperty(nameof(Summary)), Summary));
-        if (Notes != null)
-            to.PropertyArgs.Add(new KeyValuePair<PropertyInfo, object>(GetType().GetProperty(nameof(Notes)), Notes));
-        if (Matches != null)
-            to.PropertyArgs.Add(new KeyValuePair<PropertyInfo, object>(GetType().GetProperty(nameof(Matches)), Matches));
-        if (Priority != default)
-            to.PropertyArgs.Add(new KeyValuePair<PropertyInfo, object>(GetType().GetProperty(nameof(Priority)), Priority));
-        return to;
     }
 }
 

@@ -6,8 +6,6 @@
 // ***********************************************************************
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
@@ -64,20 +62,6 @@ public delegate object InstanceMapper(object instance);
 /// </summary>
 public static class TypeExtensions
 {
-    /// <summary>
-    /// Gets the referenced types.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns>Type[].</returns>
-    public static Type[] GetReferencedTypes(this Type type)
-    {
-        var refTypes = new HashSet<Type> { type };
-
-        AddReferencedTypes(type, refTypes);
-
-        return refTypes.ToArray();
-    }
-
     /// <summary>
     /// Adds the referenced types.
     /// </summary>
@@ -542,93 +526,5 @@ public static class TypeExtensions
     public static object ConvertToObject<T>(T value)
     {
         return value;
-    }
-
-    /// <summary>
-    /// Check if #nullable enabled reference type is non nullable
-    /// </summary>
-    /// <param name="property">The property.</param>
-    /// <returns>true if #nullable enabled reference type, false if optional, null if value Type or #nullable not enabled</returns>
-    public static bool? IsNotNullable(this PropertyInfo property) =>
-        IsNotNullable(property.PropertyType, property.DeclaringType, property.CustomAttributes);
-
-    /// <summary>
-    /// Check if #nullable enabled reference type is non nullable
-    /// </summary>
-    /// <param name="memberType">Type of the member.</param>
-    /// <param name="declaringType">Type of the declaring.</param>
-    /// <param name="customAttributes">The custom attributes.</param>
-    /// <returns>true if #nullable enabled reference type, false if optional, null if value Type or #nullable not enabled</returns>
-    public static bool? IsNotNullable(Type memberType, MemberInfo declaringType, IEnumerable<CustomAttributeData> customAttributes)
-    {
-        if (!memberType.IsValueType)
-        {
-            var nullable = customAttributes
-                .FirstOrDefault(x => x.AttributeType.FullName == "System.Runtime.CompilerServices.NullableAttribute");
-            if (nullable != null && nullable.ConstructorArguments.Count == 1)
-            {
-                var attributeArgument = nullable.ConstructorArguments[0];
-                if (attributeArgument.ArgumentType == typeof(byte[]))
-                {
-                    var args = (ReadOnlyCollection<CustomAttributeTypedArgument>)attributeArgument.Value;
-                    if (args.Count > 0 && args[0].ArgumentType == typeof(byte))
-                    {
-                        return (byte)args[0].Value == 1;
-                    }
-                }
-                else if (attributeArgument.ArgumentType == typeof(byte))
-                {
-                    return (byte)attributeArgument.Value == 1;
-                }
-            }
-
-            for (var type = declaringType; type != null; type = type.DeclaringType)
-            {
-                var context = type.CustomAttributes
-                    .FirstOrDefault(x => x.AttributeType.FullName == "System.Runtime.CompilerServices.NullableContextAttribute");
-                if (context != null &&
-                    context.ConstructorArguments.Count == 1 &&
-                    context.ConstructorArguments[0].ArgumentType == typeof(byte))
-                {
-                    return (byte)context.ConstructorArguments[0].Value == 1;
-                }
-            }
-        }
-        return null;
-    }
-
-    /// <summary>
-    /// Gets the property accessor.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <param name="forProperty">For property.</param>
-    /// <returns>Func&lt;System.Object, System.Object&gt;.</returns>
-    public static Func<object, object> GetPropertyAccessor(this Type type, PropertyInfo forProperty)
-    {
-        var lambda = CreatePropertyAccessorExpression(type, forProperty);
-        var fn = (Func<object, object>)lambda.Compile();
-        return fn;
-    }
-
-    /// <summary>
-    /// Creates the property accessor expression.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <param name="forProperty">For property.</param>
-    /// <returns>LambdaExpression.</returns>
-    public static LambdaExpression CreatePropertyAccessorExpression(Type type, PropertyInfo forProperty)
-    {
-        var paramInstance = Expression.Parameter(typeof(object), "instance");
-
-        var castToType = type.IsValueType
-                             ? Expression.Convert(paramInstance, type)
-                             : Expression.TypeAs(paramInstance, type);
-
-        var propExpr = Expression.Property(castToType, forProperty);
-
-        var lambda = Expression.Lambda(typeof(Func<object, object>),
-            propExpr,
-            paramInstance);
-        return lambda;
     }
 }

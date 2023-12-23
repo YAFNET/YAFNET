@@ -14,6 +14,4 @@ namespace ServiceStack.DataAnnotations;
 /// </summary>
 /// <seealso cref="ServiceStack.AttributeBase" />
 [AttributeUsage(AttributeTargets.Enum)]
-public class EnumAsIntAttribute : AttributeBase
-{
-}
+public class EnumAsIntAttribute : AttributeBase;

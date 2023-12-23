@@ -40,14 +40,6 @@ public interface ILogWithException : ILog
     /// <param name="format">The format.</param>
     /// <param name="args">The args.</param>
     void Error(Exception exception, string format, params object[] args);
-
-    /// <summary>
-    /// Logs a Fatal format message and exception.
-    /// </summary>
-    /// <param name="exception">Exception related to the event.</param>
-    /// <param name="format">The format.</param>
-    /// <param name="args">The args.</param>
-    void Fatal(Exception exception, string format, params object[] args);
 }
 
 /// <summary>
@@ -128,25 +120,6 @@ public static class ILogWithExceptionExtensions
         else
         {
             logger.Error(string.Format(format, args), exception);
-        }
-    }
-
-    /// <summary>
-    /// Logs a Fatal format message and exception.
-    /// </summary>
-    /// <param name="logger">The logger</param>
-    /// <param name="exception">Exception related to the event.</param>
-    /// <param name="format">The format.</param>
-    /// <param name="args">The args.</param>
-    public static void Fatal(this ILog logger, Exception exception, string format, params object[] args)
-    {
-        if (logger is ILogWithException exceptionLogger)
-        {
-            exceptionLogger.Fatal(exception, format, args);
-        }
-        else
-        {
-            logger.Fatal(string.Format(format, args), exception);
         }
     }
 }

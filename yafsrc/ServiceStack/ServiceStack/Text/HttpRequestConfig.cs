@@ -7,9 +7,7 @@
 
 #nullable enable
 
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ServiceStack;
 
@@ -69,31 +67,15 @@ public class HttpRequestConfig
     /// Gets or sets the headers.
     /// </summary>
     /// <value>The headers.</value>
-    public List<NameValue> Headers { get; set; } = new();
-    /// <summary>
-    /// Sets the authentication bearer.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    public void SetAuthBearer(string value) => Authorization = new("Bearer", value);
-    /// <summary>
-    /// Sets the authentication basic.
-    /// </summary>
-    /// <param name="name">The name.</param>
-    /// <param name="value">The value.</param>
-    public void SetAuthBasic(string name, string value) =>
-        Authorization = new("Basic", Convert.ToBase64String(Encoding.UTF8.GetBytes(name + ":" + value)));
+    public List<NameValue> Headers { get; set; } = [];
+
     /// <summary>
     /// Sets the range.
     /// </summary>
     /// <param name="from">From.</param>
     /// <param name="to">To.</param>
     public void SetRange(long from, long? to = null) => Range = new(from, to);
-    /// <summary>
-    /// Adds the header.
-    /// </summary>
-    /// <param name="name">The name.</param>
-    /// <param name="value">The value.</param>
-    public void AddHeader(string name, string value) => Headers.Add(new(name, value));
+
     /// <summary>
     /// Class NameValue.
     /// </summary>

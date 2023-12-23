@@ -59,10 +59,6 @@ public enum ApplyTo
     /// </summary>
     Trace = 1 << 8,
     /// <summary>
-    /// The property find
-    /// </summary>
-    PropFind = 1 << 9,
-    /// <summary>
     /// The property patch
     /// </summary>
     PropPatch = 1 << 10,

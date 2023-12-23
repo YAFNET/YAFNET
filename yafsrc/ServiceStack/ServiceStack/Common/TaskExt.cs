@@ -18,44 +18,6 @@ using ServiceStack.Text;
 public static class TaskExt
 {
     /// <summary>
-    /// Ases the task exception.
-    /// </summary>
-    /// <param name="ex">The ex.</param>
-    /// <returns>Task&lt;System.Object&gt;.</returns>
-    public static Task<object> AsTaskException(this Exception ex)
-    {
-        var tcs = new TaskCompletionSource<object>();
-        tcs.SetException(ex);
-        return tcs.Task;
-    }
-
-    /// <summary>
-    /// Ases the task exception.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="ex">The ex.</param>
-    /// <returns>Task&lt;T&gt;.</returns>
-    public static Task<T> AsTaskException<T>(this Exception ex)
-    {
-        var tcs = new TaskCompletionSource<T>();
-        tcs.SetException(ex);
-        return tcs.Task;
-    }
-
-    /// <summary>
-    /// Ases the task result.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="result">The result.</param>
-    /// <returns>Task&lt;T&gt;.</returns>
-    public static Task<T> AsTaskResult<T>(this T result)
-    {
-        var tcs = new TaskCompletionSource<T>();
-        tcs.SetResult(result);
-        return tcs.Task;
-    }
-
-    /// <summary>
     /// Gets the result.
     /// </summary>
     /// <param name="task">The task.</param>

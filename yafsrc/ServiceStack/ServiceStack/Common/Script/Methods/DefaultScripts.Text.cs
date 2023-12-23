@@ -38,12 +38,12 @@ public class MarkdownTable
     /// Gets the headers.
     /// </summary>
     /// <value>The headers.</value>
-    public List<string> Headers { get; } = new();
+    public List<string> Headers { get; } = [];
     /// <summary>
     /// Gets the rows.
     /// </summary>
     /// <value>The rows.</value>
-    public List<List<string>> Rows { get; } = new();
+    public List<List<string>> Rows { get; } = [];
 
     /// <summary>
     /// Renders this instance.
@@ -152,35 +152,6 @@ public class MarkdownTable
 /// <seealso cref="ServiceStack.Script.IConfigureScriptContext" />
 public partial class DefaultScripts
 {
-    /// <summary>
-    /// Texts the list.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>IRawString.</returns>
-    public IRawString textList(IEnumerable target) => TextList(target, new TextDumpOptions { Defaults = Context.DefaultMethods }).ToRawString();
-    /// <summary>
-    /// Texts the list.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="options">The options.</param>
-    /// <returns>IRawString.</returns>
-    public IRawString textList(IEnumerable target, Dictionary<string, object> options) =>
-        TextList(target, TextDumpOptions.Parse(options, Context.DefaultMethods)).ToRawString();
-
-    /// <summary>
-    /// Texts the dump.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>IRawString.</returns>
-    public IRawString textDump(object target) => TextDump(target, new TextDumpOptions { Defaults = Context.DefaultMethods }).ToRawString();
-    /// <summary>
-    /// Texts the dump.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="options">The options.</param>
-    /// <returns>IRawString.</returns>
-    public IRawString textDump(object target, Dictionary<string, object> options) =>
-        TextDump(target, TextDumpOptions.Parse(options, Context.DefaultMethods)).ToRawString();
 
     /// <summary>
     /// Texts the list.

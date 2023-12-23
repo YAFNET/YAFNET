@@ -27,7 +27,7 @@ public class ResourceVirtualDirectory : AbstractVirtualDirectoryBase
     /// Gets or sets the embedded resource treat as files.
     /// </summary>
     /// <value>The embedded resource treat as files.</value>
-    public static HashSet<string> EmbeddedResourceTreatAsFiles { get; set; } = new ();
+    public static HashSet<string> EmbeddedResourceTreatAsFiles { get; set; } = [];
 
     /// <summary>
     /// The backing assembly
@@ -157,8 +157,8 @@ public class ResourceVirtualDirectory : AbstractVirtualDirectoryBase
     /// <param name="manifestResourceNames">The manifest resource names.</param>
     protected void InitializeDirectoryStructure(List<string> manifestResourceNames)
     {
-        SubDirectories = new List<ResourceVirtualDirectory>();
-        SubFiles = new List<ResourceVirtualFile>();
+        SubDirectories = [];
+        SubFiles = [];
 
         SubFiles.AddRange(manifestResourceNames
             .Where(n => n.Count(c => c == '.') <= 1 || EmbeddedResourceTreatAsFiles.Contains(n))
@@ -218,18 +218,6 @@ public class ResourceVirtualDirectory : AbstractVirtualDirectoryBase
             LogManager.GetLogger(GetType()).Warn(ex.Message, ex);
             return null;
         }
-    }
-
-    /// <summary>
-    /// Consumes the tokens for virtual dir.
-    /// </summary>
-    /// <param name="resourceTokens">The resource tokens.</param>
-    /// <returns>ResourceVirtualDirectory.</returns>
-    /// <exception cref="System.NotImplementedException"></exception>
-    protected virtual ResourceVirtualDirectory ConsumeTokensForVirtualDir(Stack<string> resourceTokens)
-    {
-        var subDirName = resourceTokens.Pop();
-        throw new NotImplementedException();
     }
 
     /// <summary>

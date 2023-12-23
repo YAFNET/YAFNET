@@ -7,8 +7,6 @@
 namespace ServiceStack.Text.Pools;
 
 // Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
-using System;
-using System.Collections.Generic;
 
 /// <summary>
 /// Shared object pool for roslyn
@@ -30,16 +28,6 @@ public static class SharedPools
     }
 
     /// <summary>
-    /// pool that uses string as key with StringComparer.OrdinalIgnoreCase as key comparer
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns>ServiceStack.Text.Pools.ObjectPool&lt;System.Collections.Generic.Dictionary&lt;string, T&gt;&gt;.</returns>
-    public static ObjectPool<Dictionary<string, T>> StringIgnoreCaseDictionary<T>()
-    {
-        return StringIgnoreCaseDictionaryNormalPool<T>.Instance;
-    }
-
-    /// <summary>
     /// Used to reduce the # of temporary byte[]s created to satisfy serialization and
     /// other I/O requests
     /// </summary>
@@ -56,18 +44,6 @@ public static class SharedPools
     private const int ByteBufferCount = 512;
 
     /// <summary>
-    /// Class DefaultBigPool.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    private static class DefaultBigPool<T> where T : class, new()
-    {
-        /// <summary>
-        /// The instance
-        /// </summary>
-        public readonly static ObjectPool<T> Instance = new(() => new T(), 100);
-    }
-
-    /// <summary>
     /// Class DefaultNormalPool.
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -77,18 +53,5 @@ public static class SharedPools
         /// The instance
         /// </summary>
         public readonly static ObjectPool<T> Instance = new(() => new T(), 20);
-    }
-
-    /// <summary>
-    /// Class StringIgnoreCaseDictionaryNormalPool.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    private static class StringIgnoreCaseDictionaryNormalPool<T>
-    {
-        /// <summary>
-        /// The instance
-        /// </summary>
-        public readonly static ObjectPool<Dictionary<string, T>> Instance =
-            new(() => new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase), 20);
     }
 }

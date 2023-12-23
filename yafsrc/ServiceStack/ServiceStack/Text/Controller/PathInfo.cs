@@ -60,7 +60,7 @@ public class PathInfo
     public PathInfo(string actionName, List<string> arguments, Dictionary<string, string> options)
     {
         ActionName = actionName;
-        Arguments = arguments ?? new List<string>();
+        Arguments = arguments ?? [];
         Options = options ?? new Dictionary<string, string>();
     }
 
@@ -71,24 +71,13 @@ public class PathInfo
     public string FirstArgument => this.Arguments.Count > 0 ? this.Arguments[0] : null;
 
     /// <summary>
-    /// Gets the argument value.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="index">The index.</param>
-    /// <returns>T.</returns>
-    public T GetArgumentValue<T>(int index)
-    {
-        return TypeSerializer.DeserializeFromString<T>(this.Arguments[index]);
-    }
-
-    /// <summary>
     /// Parses the specified path URI.
     /// </summary>
     /// <param name="pathUri">The path URI.</param>
     /// <returns>PathInfo.</returns>
     public static PathInfo Parse(string pathUri)
     {
-        var actionParts = pathUri.Split(new[] { "://" }, StringSplitOptions.None);
+        var actionParts = pathUri.Split(["://"], StringSplitOptions.None);
         var controllerName = actionParts.Length == 2
                                  ? actionParts[0]
                                  : null;

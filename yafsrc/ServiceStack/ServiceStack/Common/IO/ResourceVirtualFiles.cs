@@ -84,9 +84,11 @@ public class ResourceVirtualFiles
     /// <summary>
     /// The namespace special chars
     /// </summary>
-    readonly static char[] NamespaceSpecialChars = { ' ', '\u00A0', ',', ';', '|', '~', '@', '#', '%', '^', '&',
+    readonly static char[] NamespaceSpecialChars = [
+        ' ', '\u00A0', ',', ';', '|', '~', '@', '#', '%', '^', '&',
                                                        '*', '+', '-', /*'/', '\\',*/ '<', '>', '?', '[', ']', '(', ')', '{',
-                                                       '}', '\"', '\'', '!'};
+                                                       '}', '\"', '\'', '!'
+    ];
 
     /// <summary>
     /// Cleans the chars.
@@ -116,11 +118,10 @@ public class ResourceVirtualFiles
     /// Gets or sets the partial file names.
     /// </summary>
     /// <value>The partial file names.</value>
-    public static HashSet<string> PartialFileNames { get; set; } = new()
-                                                                       {
-                                                                           "min.js",
-                                                                           "min.css",
-                                                                       };
+    public static HashSet<string> PartialFileNames { get; set; } = [
+        "min.js",
+        "min.css"
+    ];
 
     /// <summary>
     /// Cleans the path.
@@ -181,16 +182,5 @@ public class ResourceVirtualFiles
     {
         var asm = BackingAssembly;
         RootDir = new ResourceVirtualDirectory(this, null, asm, LastModified, RootNamespace);
-    }
-
-    /// <summary>
-    /// Combines the virtual path.
-    /// </summary>
-    /// <param name="basePath">The base path.</param>
-    /// <param name="relativePath">The relative path.</param>
-    /// <returns>System.String.</returns>
-    public override string CombineVirtualPath(string basePath, string relativePath)
-    {
-        return string.Concat(basePath, VirtualPathSeparator, relativePath);
     }
 }

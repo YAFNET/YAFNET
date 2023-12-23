@@ -23,19 +23,9 @@ public static class MimeTypes
     public static Dictionary<string, string> ExtensionMimeTypes = new();
 
     /// <summary>
-    /// The UTF8 suffix
-    /// </summary>
-    public const string Utf8Suffix = "; charset=utf-8";
-
-    /// <summary>
     /// The HTML
     /// </summary>
     public const string Html = "text/html";
-
-    /// <summary>
-    /// The HTML UTF8
-    /// </summary>
-    public const string HtmlUtf8 = Html + Utf8Suffix;
 
     /// <summary>
     /// The CSS
@@ -56,11 +46,6 @@ public static class MimeTypes
     /// The json
     /// </summary>
     public const string Json = "application/json";
-
-    /// <summary>
-    /// The problem json
-    /// </summary>
-    public const string ProblemJson = "application/problem+json";
 
     /// <summary>
     /// The json text
@@ -113,34 +98,9 @@ public static class MimeTypes
     public const string Pkg = "application/x-newton-compatible-pkg";
 
     /// <summary>
-    /// The form URL encoded
-    /// </summary>
-    public const string FormUrlEncoded = "application/x-www-form-urlencoded";
-
-    /// <summary>
-    /// The multi part form data
-    /// </summary>
-    public const string MultiPartFormData = "multipart/form-data";
-
-    /// <summary>
     /// The json report
     /// </summary>
     public const string JsonReport = "text/jsonreport";
-
-    /// <summary>
-    /// The soap11
-    /// </summary>
-    public const string Soap11 = "text/xml; charset=utf-8";
-
-    /// <summary>
-    /// The soap12
-    /// </summary>
-    public const string Soap12 = "application/soap+xml";
-
-    /// <summary>
-    /// The yaml
-    /// </summary>
-    public const string Yaml = "application/yaml";
 
     /// <summary>
     /// The yaml text
@@ -151,11 +111,6 @@ public static class MimeTypes
     /// The plain text
     /// </summary>
     public const string PlainText = "text/plain";
-
-    /// <summary>
-    /// The markdown text
-    /// </summary>
-    public const string MarkdownText = "text/markdown";
 
     /// <summary>
     /// The MSG pack
@@ -193,21 +148,6 @@ public static class MimeTypes
     public const string Cert = "application/x-x509-ca-cert";
 
     /// <summary>
-    /// The image PNG
-    /// </summary>
-    public const string ImagePng = "image/png";
-
-    /// <summary>
-    /// The image GIF
-    /// </summary>
-    public const string ImageGif = "image/gif";
-
-    /// <summary>
-    /// The image JPG
-    /// </summary>
-    public const string ImageJpg = "image/jpeg";
-
-    /// <summary>
     /// The image SVG
     /// </summary>
     public const string ImageSvg = "image/svg+xml";
@@ -221,11 +161,6 @@ public static class MimeTypes
     /// The binary
     /// </summary>
     public const string Binary = "application/octet-stream";
-
-    /// <summary>
-    /// The server sent events
-    /// </summary>
-    public const string ServerSentEvents = "text/event-stream";
 
     /// <summary>
     /// Gets the extension.

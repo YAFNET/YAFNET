@@ -80,42 +80,12 @@ public enum Feature
     Html = 1 << 9,
 
     /// <summary>
-    /// The custom format
-    /// </summary>
-    CustomFormat = 1 << 10,
-
-    /// <summary>
-    /// The markdown
-    /// </summary>
-    Markdown = 1 << 11,
-
-    /// <summary>
     /// The razor
     /// </summary>
     Razor = 1 << 12,
 
     /// <summary>
-    /// The proto buf
-    /// </summary>
-    ProtoBuf = 1 << 13,
-
-    /// <summary>
-    /// The MSG pack
-    /// </summary>
-    MsgPack = 1 << 14,
-
-    /// <summary>
     /// The wire
     /// </summary>
     Wire = 1 << 15,
-
-    /// <summary>
-    /// The GRPC
-    /// </summary>
-    Grpc = 1 << 16,
-
-    /// <summary>
-    /// The service discovery
-    /// </summary>
-    ServiceDiscovery = 1 << 17,
 }

@@ -23,129 +23,6 @@ namespace ServiceStack.Script;
 public partial class DefaultScripts
 {
     /// <summary>
-    /// Steps the specified target.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="scopeOptions">The scope options.</param>
-    /// <returns>List&lt;System.Object&gt;.</returns>
-    public List<object> step(IEnumerable target, object scopeOptions)
-    {
-        var items = target.AssertEnumerable(nameof(step));
-
-        var scopedParams = scopeOptions.AssertOptions(nameof(step));
-
-        var from = scopedParams.TryGetValue("from", out object oFrom)
-                       ? (int)oFrom
-                       : 0;
-
-        var by = scopedParams.TryGetValue("by", out object oBy)
-                     ? (int)oBy
-                     : 1;
-
-        var to = new List<object>();
-        var itemsArray = items.ToArray();
-        for (var i = from; i < itemsArray.Length; i += by)
-        {
-            to.Add(itemsArray[i]);
-        }
-
-        return to;
-    }
-
-    /// <summary>
-    /// Elements at.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="index">The index.</param>
-    /// <returns>System.Object.</returns>
-    public object elementAt(IEnumerable target, int index)
-    {
-        var items = target.AssertEnumerable(nameof(elementAt));
-
-        var i = 0;
-        foreach (var item in items)
-        {
-            if (i++ == index)
-                return item;
-        }
-
-        return null;
-    }
-
-    /// <summary>
-    /// Determines whether [contains] [the specified target].
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="needle">The needle.</param>
-    /// <returns><c>true</c> if [contains] [the specified target]; otherwise, <c>false</c>.</returns>
-    /// <exception cref="System.NotSupportedException">'{nameof(contains)}' requires a string or IEnumerable but received a '{target.GetType().Name}' instead</exception>
-    public bool contains(object target, object needle)
-    {
-        if (isNull(needle))
-            return false;
-
-        if (target is string s)
-        {
-            if (needle is char c)
-                return s.IndexOf(c) >= 0;
-            return s.IndexOf(needle.ToString(), StringComparison.Ordinal) >= 0;
-        }
-        if (target is IEnumerable items)
-        {
-            foreach (var item in items)
-            {
-                if (Equals(item, needle))
-                    return true;
-            }
-            return false;
-        }
-        throw new NotSupportedException($"'{nameof(contains)}' requires a string or IEnumerable but received a '{target.GetType().Name}' instead");
-    }
-
-    /// <summary>
-    /// Sequences the equals.
-    /// </summary>
-    /// <param name="a">a.</param>
-    /// <param name="b">The b.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public bool sequenceEquals(IEnumerable a, IEnumerable b) => a.Cast<object>().SequenceEqual(b.Cast<object>());
-
-    /// <summary>
-    /// Takes the specified scope.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="original">The original.</param>
-    /// <param name="countOrBinding">The count or binding.</param>
-    /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
-    public IEnumerable<object> take(ScriptScopeContext scope, IEnumerable<object> original, object countOrBinding) =>
-        original.Take(scope.GetValueOrEvaluateBinding<int>(countOrBinding));
-
-    /// <summary>
-    /// Skips the specified scope.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="original">The original.</param>
-    /// <param name="countOrBinding">The count or binding.</param>
-    /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
-    public IEnumerable<object> skip(ScriptScopeContext scope, IEnumerable<object> original, object countOrBinding) =>
-        original.Skip(scope.GetValueOrEvaluateBinding<int>(countOrBinding));
-
-    /// <summary>
-    /// Limits the specified scope.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="original">The original.</param>
-    /// <param name="skipOrBinding">The skip or binding.</param>
-    /// <param name="takeOrBinding">The take or binding.</param>
-    /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
-    public IEnumerable<object> limit(ScriptScopeContext scope, IEnumerable<object> original, object skipOrBinding, object takeOrBinding)
-    {
-        var skip = scope.GetValueOrEvaluateBinding<int>(skipOrBinding);
-        var take = scope.GetValueOrEvaluateBinding<int>(takeOrBinding);
-        return original.Skip(skip).Take(take);
-    }
-
-    /// <summary>
     /// Counts the specified scope.
     /// </summary>
     /// <param name="scope">The scope.</param>
@@ -447,7 +324,7 @@ public partial class DefaultScripts
                 {
                     foreach (var b in current)
                     {
-                        to.Add(new[] { a, b });
+                        to.Add([a, b]);
                     }
                 }
                 else if (bindValue != null)
@@ -461,7 +338,7 @@ public partial class DefaultScripts
             {
                 foreach (var b in currentArray)
                 {
-                    to.Add(new[] { a, b });
+                    to.Add([a, b]);
                 }
             }
         }

@@ -64,29 +64,6 @@ public static class TypeSerializer
     }
 
     /// <summary>
-    /// Deserializes from span.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="value">The value.</param>
-    /// <returns>T.</returns>
-    public static T DeserializeFromSpan<T>(ReadOnlySpan<char> value)
-    {
-        if (value.IsEmpty) return default;
-        return (T)JsvReader<T>.Parse(value);
-    }
-
-    /// <summary>
-    /// Deserializes from reader.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="reader">The reader.</param>
-    /// <returns>T.</returns>
-    public static T DeserializeFromReader<T>(TextReader reader)
-    {
-        return DeserializeFromString<T>(reader.ReadToEnd());
-    }
-
-    /// <summary>
     /// Parses the specified type.
     /// </summary>
     /// <param name="value">The value.</param>
@@ -175,17 +152,6 @@ public static class TypeSerializer
     }
 
     /// <summary>
-    /// Recursively prints the contents of any POCO object in a human-friendly, readable format
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="instance">The instance.</param>
-    /// <returns>System.String.</returns>
-    public static string Dump<T>(this T instance)
-    {
-        return SerializeAndFormat(instance);
-    }
-
-    /// <summary>
     /// Print string.Format to Console.WriteLine
     /// </summary>
     /// <param name="text">The text.</param>
@@ -214,46 +180,6 @@ public static class TypeSerializer
     public static void Print(this long longValue)
     {
         PclExport.Instance.WriteLine(longValue.ToString(CultureInfo.InvariantCulture));
-    }
-
-    /// <summary>
-    /// Serializes the and format.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="instance">The instance.</param>
-    /// <returns>System.String.</returns>
-    public static string SerializeAndFormat<T>(this T instance)
-    {
-        if (instance is Delegate fn)
-            return Dump(fn);
-
-        var dtoStr = !HasCircularReferences(instance)
-                         ? SerializeToString(instance)
-                         : SerializeToString(instance.ToSafePartialObjectDictionary());
-        var formatStr = JsvFormatter.Format(dtoStr);
-        return formatStr;
-    }
-
-    /// <summary>
-    /// Dumps the specified function.
-    /// </summary>
-    /// <param name="fn">The function.</param>
-    /// <returns>System.String.</returns>
-    public static string Dump(this Delegate fn)
-    {
-        var method = fn.GetType().GetMethod("Invoke");
-        var sb = StringBuilderThreadStatic.Allocate();
-        foreach (var param in method.GetParameters())
-        {
-            if (sb.Length > 0)
-                sb.Append(", ");
-
-            sb.AppendFormat("{0} {1}", param.ParameterType.Name, param.Name);
-        }
-
-        var methodName = fn.Method.Name;
-        var info = $"{method.ReturnType.Name} {methodName}({StringBuilderThreadStatic.ReturnAndFree(sb)})";
-        return info;
     }
 
     /// <summary>

@@ -72,7 +72,7 @@ public class FileSystemMapping : AbstractVirtualPathProviderBase
         if (alias == null)
             throw new ArgumentNullException(nameof(alias));
 
-        if (alias.IndexOfAny(new[] { '/', '\\' }) >= 0)
+        if (alias.IndexOfAny(['/', '\\']) >= 0)
             throw new ArgumentException($"Alias '{alias}' cannot contain directory separators");
 
         this.Alias = alias;

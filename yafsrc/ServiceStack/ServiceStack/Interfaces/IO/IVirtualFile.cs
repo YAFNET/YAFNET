@@ -28,12 +28,6 @@ public interface IVirtualFile : IVirtualNode
     string Extension { get; }
 
     /// <summary>
-    /// Gets the file hash.
-    /// </summary>
-    /// <returns>System.String.</returns>
-    string GetFileHash();
-
-    /// <summary>
     /// Opens the read.
     /// </summary>
     /// <returns>Stream.</returns>

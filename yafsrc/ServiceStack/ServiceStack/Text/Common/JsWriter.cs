@@ -42,10 +42,7 @@ public static class JsWriter
     /// The map end character
     /// </summary>
     public const char MapEndChar = '}';
-    /// <summary>
-    /// The map null value
-    /// </summary>
-    public const string MapNullValue = "\"\"";
+
     /// <summary>
     /// The empty map
     /// </summary>
@@ -90,13 +87,10 @@ public static class JsWriter
     public const string MapKeySeperatorString = ":";
 
     /// <summary>
-    /// The CSV chars
-    /// </summary>
-    public readonly static char[] CsvChars = { ItemSeperator, QuoteChar };
-    /// <summary>
     /// The escape chars
     /// </summary>
-    public readonly static char[] EscapeChars = { QuoteChar, MapKeySeperator, ItemSeperator, MapStartChar, MapEndChar, ListStartChar, ListEndChar, ReturnChar, LineFeedChar };
+    public readonly static char[] EscapeChars = [QuoteChar, MapKeySeperator, ItemSeperator, MapStartChar, MapEndChar, ListStartChar, ListEndChar, ReturnChar, LineFeedChar
+    ];
 
     /// <summary>
     /// The length from largest character

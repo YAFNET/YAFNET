@@ -525,20 +525,6 @@ public struct JsvTypeSerializer
     public ParseStringDelegate GetParseFn<T>() => JsvReader.Instance.GetParseFn<T>();
 
     /// <summary>
-    /// Gets the parse function.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns>ParseStringDelegate.</returns>
-    public ParseStringDelegate GetParseFn(Type type) => JsvReader.GetParseFn(type);
-
-    /// <summary>
-    /// Gets the parse string span function.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns>ParseStringSpanDelegate.</returns>
-    public ParseStringSpanDelegate GetParseStringSpanFn<T>() => JsvReader.Instance.GetParseStringSpanFn<T>();
-
-    /// <summary>
     /// Gets the parse string span function.
     /// </summary>
     /// <param name="type">The type.</param>
@@ -555,15 +541,6 @@ public struct JsvTypeSerializer
     {
         return UnescapeSafeString(value).Value();
     }
-
-    /// <summary>
-    /// Unescapes the safe string.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>System.String.</returns>
-    public string UnescapeSafeString(string value) => JsState.IsCsv
-                                                          ? value
-                                                          : value.FromCsvField();
 
     /// <summary>
     /// Unescapes the safe string.
@@ -614,24 +591,8 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="value">The value.</param>
     /// <param name="i">The i.</param>
-    /// <returns>System.String.</returns>
-    public string EatTypeValue(string value, ref int i) => EatValue(value, ref i);
-
-    /// <summary>
-    /// Eats the type value.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="i">The i.</param>
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
     public ReadOnlySpan<char> EatTypeValue(ReadOnlySpan<char> value, ref int i) => EatValue(value, ref i);
-
-    /// <summary>
-    /// Eats the map start character.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="i">The i.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public bool EatMapStartChar(string value, ref int i) => EatMapStartChar(value.AsSpan(), ref i);
 
     /// <summary>
     /// Eats the map start character.
@@ -645,14 +606,6 @@ public struct JsvTypeSerializer
         if (success) i++;
         return success;
     }
-
-    /// <summary>
-    /// Eats the map key.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="i">The i.</param>
-    /// <returns>System.String.</returns>
-    public string EatMapKey(string value, ref int i) => EatMapKey(value.AsSpan(), ref i).ToString();
 
     /// <summary>
     /// Eats the map key.
@@ -722,43 +675,9 @@ public struct JsvTypeSerializer
     /// <param name="value">The value.</param>
     /// <param name="i">The i.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public bool EatMapKeySeperator(string value, ref int i)
-    {
-        return value[i++] == JsWriter.MapKeySeperator;
-    }
-
-    /// <summary>
-    /// Eats the map key seperator.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="i">The i.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public bool EatMapKeySeperator(ReadOnlySpan<char> value, ref int i)
     {
         return value[i++] == JsWriter.MapKeySeperator;
-    }
-
-    /// <summary>
-    /// Eats the item seperator or map end character.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="i">The i.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Expected '{JsWriter.ItemSeperator}' or '{JsWriter.MapEndChar}'</exception>
-    /// <exception cref="System.Exception">Expected '{JsWriter.ItemSeperator}' or '{JsWriter.MapEndChar}'</exception>
-    public bool EatItemSeperatorOrMapEndChar(string value, ref int i)
-    {
-        if (i == value.Length) return false;
-
-        var success = value[i] == JsWriter.ItemSeperator
-                      || value[i] == JsWriter.MapEndChar;
-
-        if (success)
-            i++;
-        else if (Env.StrictMode) throw new Exception(
-            $"Expected '{JsWriter.ItemSeperator}' or '{JsWriter.MapEndChar}'");
-
-        return success;
     }
 
     /// <summary>
@@ -789,25 +708,7 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="value">The value.</param>
     /// <param name="i">The i.</param>
-    public void EatWhitespace(string value, ref int i) { }
-
-    /// <summary>
-    /// Eats the whitespace.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="i">The i.</param>
     public void EatWhitespace(ReadOnlySpan<char> value, ref int i) { }
-
-    /// <summary>
-    /// Eats the value.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="i">The i.</param>
-    /// <returns>System.String.</returns>
-    public string EatValue(string value, ref int i)
-    {
-        return EatValue(value.AsSpan(), ref i).ToString();
-    }
 
     /// <summary>
     /// Eats the value.

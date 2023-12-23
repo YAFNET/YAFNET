@@ -23,10 +23,7 @@ public class DebugLogger : ILog
     /// The error
     /// </summary>
     const string ERROR = "ERROR: ";
-    /// <summary>
-    /// The fatal
-    /// </summary>
-    const string FATAL = "FATAL: ";
+
     /// <summary>
     /// The information
     /// </summary>
@@ -153,35 +150,6 @@ public class DebugLogger : ILog
     }
 
     /// <summary>
-    /// Logs a Fatal message and exception.
-    /// </summary>
-    /// <param name="message">The message.</param>
-    /// <param name="exception">The exception.</param>
-    public void Fatal(object message, Exception exception)
-    {
-        Log(FATAL + message, exception);
-    }
-
-    /// <summary>
-    /// Fatals the specified message.
-    /// </summary>
-    /// <param name="message">The message.</param>
-    public void Fatal(object message)
-    {
-        Log(FATAL + message);
-    }
-
-    /// <summary>
-    /// Logs a Error format message.
-    /// </summary>
-    /// <param name="format">The format.</param>
-    /// <param name="args">The args.</param>
-    public void FatalFormat(string format, params object[] args)
-    {
-        LogFormat(FATAL + format, args);
-    }
-
-    /// <summary>
     /// Logs an Info message and exception.
     /// </summary>
     /// <param name="message">The message.</param>
@@ -198,16 +166,6 @@ public class DebugLogger : ILog
     public void Info(object message)
     {
         Log(INFO + message);
-    }
-
-    /// <summary>
-    /// Logs an Info format message.
-    /// </summary>
-    /// <param name="format">The format.</param>
-    /// <param name="args">The args.</param>
-    public void InfoFormat(string format, params object[] args)
-    {
-        LogFormat(INFO + format, args);
     }
 
     /// <summary>

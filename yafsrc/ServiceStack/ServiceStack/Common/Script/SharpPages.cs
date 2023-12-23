@@ -74,13 +74,6 @@ public interface ISharpPages
     /// <param name="virtualPath">The virtual path.</param>
     /// <returns>SharpCodePage.</returns>
     SharpCodePage GetCodePage(string virtualPath);
-
-    /// <summary>
-    /// Gets the last modified.
-    /// </summary>
-    /// <param name="page">The page.</param>
-    /// <returns>DateTime.</returns>
-    DateTime GetLastModified(SharpPage page);
 }
 
 /// <summary>
@@ -375,36 +368,6 @@ public partial class SharpPages : ISharpPages
 #endif
             throw e.UnwrapIfSingleException();
         }
-    }
-
-    /// <summary>
-    /// Gets the last modified.
-    /// </summary>
-    /// <param name="page">The page.</param>
-    /// <returns>DateTime.</returns>
-    /// <exception cref="ArgumentNullException">nameof(page)</exception>
-    /// <exception cref="System.ArgumentNullException">page</exception>
-    public DateTime GetLastModified(SharpPage page)
-    {
-        if (page == null)
-            throw new ArgumentNullException(nameof(page));
-
-        page.File.Refresh();
-        var maxLastModified = page.File.LastModified;
-
-        var layout = page.IsLayout ? null : page.LayoutPage ?? ResolveLayoutPage(page, null);
-        if (layout != null)
-        {
-            var layoutLastModified = GetLastModifiedPage(layout);
-            if (layoutLastModified > maxLastModified)
-                maxLastModified = layoutLastModified;
-        }
-
-        var pageLastModified = GetLastModifiedPage(page);
-        if (pageLastModified > maxLastModified)
-            maxLastModified = pageLastModified;
-
-        return maxLastModified;
     }
 
     /// <summary>

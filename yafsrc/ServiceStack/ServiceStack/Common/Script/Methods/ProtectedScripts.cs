@@ -11,7 +11,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using ServiceStack.DataAnnotations;
@@ -48,56 +47,6 @@ public class ProtectedScripts : ScriptMethods
                                      : throw new NotSupportedException($"{nameof(resolve)} requires a Type or Type Name, received '{type.GetType().Name}'"));
 
         var instance = scope.Context.Container.Resolve(t);
-        return instance;
-    }
-
-    /// <summary>
-    /// Defaults the specified type name.
-    /// </summary>
-    /// <param name="typeName">Name of the type.</param>
-    /// <returns>System.Object.</returns>
-    public object @default(string typeName)
-    {
-        var type = assertTypeOf(typeName);
-        return type.GetDefaultValue();
-    }
-
-    /// <summary>
-    /// News the specified type name.
-    /// </summary>
-    /// <param name="typeName">Name of the type.</param>
-    /// <returns>System.Object.</returns>
-    public object @new(string typeName)
-    {
-        var type = @typeof(typeName);
-        return type != null
-                   ? createInstance(type)
-                   : null;
-    }
-
-    /// <summary>
-    /// News the specified type name.
-    /// </summary>
-    /// <param name="typeName">Name of the type.</param>
-    /// <param name="constructorArgs">The constructor arguments.</param>
-    /// <returns>System.Object.</returns>
-    public object @new(string typeName, List<object> constructorArgs)
-    {
-        var type = @typeof(typeName);
-        return type != null
-                   ? createInstance(type, constructorArgs)
-                   : null;
-    }
-
-    /// <summary>
-    /// Sets the specified instance.
-    /// </summary>
-    /// <param name="instance">The instance.</param>
-    /// <param name="args">The arguments.</param>
-    /// <returns>System.Object.</returns>
-    public object set(object instance, Dictionary<string, object> args)
-    {
-        args.PopulateInstance(instance);
         return instance;
     }
 
@@ -139,52 +88,6 @@ public class ProtectedScripts : ScriptMethods
         argList = argList.Substring(0, argList.Length - 1);
         var splitArgs = StringUtils.SplitGenericArgs(argList);
         return splitArgs;
-    }
-
-    /// <summary>
-    /// Creates the instance.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns>System.Object.</returns>
-    public object createInstance(Type type) => AssertCanCreateType(type).CreateInstance();
-
-    /// <summary>
-    /// Creates the instance.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <param name="constructorArgs">The constructor arguments.</param>
-    /// <returns>System.Object.</returns>
-    public object createInstance(Type type, List<object> constructorArgs)
-    {
-        var key = callKey(AssertCanCreateType(type), "<new>", constructorArgs);
-
-        var activator = (ObjectActivator)Context.Cache.GetOrAdd(key, k =>
-            {
-
-                var args = constructorArgs;
-                var argTypes = args?.Select(x => x?.GetType()).ToArray() ?? TypeConstants.EmptyTypeArray;
-
-                var ctorInfo = ResolveConstructor(type, argTypes);
-                return ctorInfo.GetActivator();
-            });
-
-        return activator(constructorArgs?.ToArray() ?? TypeConstants.EmptyObjectArray);
-    }
-
-    /// <summary>
-    /// Asserts the type of the can create.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns>Type.</returns>
-    private Type AssertCanCreateType(Type type)
-    {
-        if (type == null)
-            throw new ArgumentNullException(nameof(type));
-
-        if (!type.IsPublic && !Context.AllowScriptingOfAllTypes)
-            throw new NotSupportedException(
-                "Can only create instances of non public Types when AllowScriptingOfAllTypes=true");
-        return type;
     }
 
     /// <summary>
@@ -247,13 +150,6 @@ public class ProtectedScripts : ScriptMethods
 
         return targetCtor;
     }
-
-    /// <summary>
-    /// Gets the type.
-    /// </summary>
-    /// <param name="instance">The instance.</param>
-    /// <returns>Type.</returns>
-    public Type getType(object instance) => instance?.GetType();
 
     /// <summary>
     /// Types the name of the qualified.
@@ -480,48 +376,6 @@ public class ProtectedScripts : ScriptMethods
     }
 
     /// <summary>
-    /// Calls the specified instance.
-    /// </summary>
-    /// <param name="instance">The instance.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>System.Object.</returns>
-    public object call(object instance, string name) => call(instance, name, null);
-
-    /// <summary>
-    /// Calls the key.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <param name="name">The name.</param>
-    /// <param name="args">The arguments.</param>
-    /// <returns>System.String.</returns>
-    internal string callKey(Type type, string name, List<object> args)
-    {
-        var sb = StringBuilderCache.Allocate()
-            .Append("call:")
-            .Append(type.Namespace)
-            .Append('.')
-            .Append(type.Name)
-            .Append('.')
-            .Append(name);
-
-        if (type.GenericTypeArguments.Length > 0)
-        {
-            sb.Append('<');
-            for (var i = 0; i < type.GenericTypeArguments.Length; i++)
-            {
-                if (i > 0)
-                    sb.Append(',');
-                var genericArg = type.GenericTypeArguments[i];
-                sb.Append(typeQualifiedName(genericArg));
-            }
-            sb.Append('>');
-        }
-
-        appendArgTypes(sb, args);
-        return StringBuilderCache.ReturnAndFree(sb);
-    }
-
-    /// <summary>
     /// Arguments the types string.
     /// </summary>
     /// <param name="args">The arguments.</param>
@@ -554,48 +408,6 @@ public class ProtectedScripts : ScriptMethods
         }
 
         sb.Append(')');
-    }
-
-    /// <summary>
-    /// Calls the specified instance.
-    /// </summary>
-    /// <param name="instance">The instance.</param>
-    /// <param name="name">The name.</param>
-    /// <param name="args">The arguments.</param>
-    /// <returns>System.Object.</returns>
-    public object call(object instance, string name, List<object> args)
-    {
-        if (instance == null)
-            throw new ArgumentNullException(nameof(instance));
-        if (name == null)
-            throw new ArgumentNullException(nameof(name));
-
-        var type = instance.GetType();
-
-        var key = callKey(type, name, args);
-
-        var invoker = (Delegate)Context.Cache.GetOrAdd(key, k =>
-            {
-                var argTypes = args?.Select(x => x?.GetType()).ToArray();
-                var targetMethod = ResolveMethod(type, name, argTypes, argTypes?.Length ?? 0, out var fn);
-                if (targetMethod != null && targetMethod.IsStatic)
-                    throw new NotSupportedException($"Cannot call static method {instance.GetType().Name}.{targetMethod.Name}");
-
-                return fn ?? targetMethod.GetInvokerDelegate();
-            });
-
-        if (invoker is MethodInvoker methodInvoker)
-        {
-            var ret = methodInvoker(instance, args?.ToArray() ?? TypeConstants.EmptyObjectArray);
-            return ret;
-        }
-        if (invoker is ActionInvoker actionInvoker)
-        {
-            actionInvoker(instance, args?.ToArray() ?? TypeConstants.EmptyObjectArray);
-            return IgnoreResult.Value;
-        }
-
-        throw new NotSupportedException($"Cannot call {invoker.GetType().Name} methods");
     }
 
     /// <summary>
@@ -895,19 +707,6 @@ public class ProtectedScripts : ScriptMethods
     static string MethodNotExists(string methodName) => $"Method {methodName} does not exist";
 
     /// <summary>
-    /// VFSs the memory.
-    /// </summary>
-    /// <returns>MemoryVirtualFiles.</returns>
-    public MemoryVirtualFiles vfsMemory() => new();
-
-    /// <summary>
-    /// VFSs the file system.
-    /// </summary>
-    /// <param name="dirPath">The dir path.</param>
-    /// <returns>FileSystemVirtualFiles.</returns>
-    public FileSystemVirtualFiles vfsFileSystem(string dirPath) => new(dirPath);
-
-    /// <summary>
     /// Oses the paths.
     /// </summary>
     /// <param name="path">The path.</param>
@@ -1011,68 +810,11 @@ public class ProtectedScripts : ScriptMethods
     }
 
     /// <summary>
-    /// Ifs the debug include script.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="virtualPath">The virtual path.</param>
-    public async Task ifDebugIncludeScript(ScriptScopeContext scope, string virtualPath)
-    {
-        if (scope.Context.DebugMode)
-        {
-            await scope.OutputStream.WriteAsync("<script>").ConfigAwait();
-            await includeFile(scope, virtualPath).ConfigAwait();
-            await scope.OutputStream.WriteAsync("</script>").ConfigAwait();
-        }
-    }
-
-    /// <summary>
     /// Gets the virtual files.
     /// </summary>
     /// <value>The virtual files.</value>
     IVirtualPathProvider VirtualFiles => Context.VirtualFiles;
 
-    // Old Aliases for Backwards compatibility
-    /// <summary>
-    /// VFSs all files.
-    /// </summary>
-    /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
-    [Alias("allFiles")]
-    public IEnumerable<IVirtualFile> vfsAllFiles() => allFiles(VirtualFiles);
-    /// <summary>
-    /// VFSs all root files.
-    /// </summary>
-    /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
-    [Alias("allRootFiles")]
-    public IEnumerable<IVirtualFile> vfsAllRootFiles() => allRootFiles(VirtualFiles);
-    /// <summary>
-    /// VFSs all root directories.
-    /// </summary>
-    /// <returns>IEnumerable&lt;IVirtualDirectory&gt;.</returns>
-    [Alias("allRootDirectories")]
-    public IEnumerable<IVirtualDirectory> vfsAllRootDirectories() => allRootDirectories(VirtualFiles);
-    /// <summary>
-    /// VFSs the combine path.
-    /// </summary>
-    /// <param name="basePath">The base path.</param>
-    /// <param name="relativePath">The relative path.</param>
-    /// <returns>System.String.</returns>
-    [Alias("combinePath")]
-    public string vfsCombinePath(string basePath, string relativePath) => combinePath(VirtualFiles, basePath, relativePath);
-    /// <summary>
-    /// Dirs the files find.
-    /// </summary>
-    /// <param name="dirPath">The dir path.</param>
-    /// <param name="globPattern">The glob pattern.</param>
-    /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
-    [Alias("findFilesInDirectory")]
-    public IEnumerable<IVirtualFile> dirFilesFind(string dirPath, string globPattern) => findFilesInDirectory(VirtualFiles, dirPath, globPattern);
-    /// <summary>
-    /// Fileses the find.
-    /// </summary>
-    /// <param name="globPattern">The glob pattern.</param>
-    /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
-    [Alias("findFiles")]
-    public IEnumerable<IVirtualFile> filesFind(string globPattern) => findFiles(VirtualFiles, globPattern);
     /// <summary>
     /// Files the write.
     /// </summary>
@@ -1096,13 +838,7 @@ public class ProtectedScripts : ScriptMethods
     /// <returns>System.String.</returns>
     [Alias("deleteFile")]
     public string fileDelete(string virtualPath) => deleteFile(VirtualFiles, virtualPath);
-    /// <summary>
-    /// Dirs the delete.
-    /// </summary>
-    /// <param name="virtualPath">The virtual path.</param>
-    /// <returns>System.String.</returns>
-    [Alias("deleteFile")]
-    public string dirDelete(string virtualPath) => deleteFile(VirtualFiles, virtualPath);
+
     /// <summary>
     /// Files the read all.
     /// </summary>
@@ -1110,13 +846,6 @@ public class ProtectedScripts : ScriptMethods
     /// <returns>System.String.</returns>
     [Alias("fileTextContents")]
     public string fileReadAll(string virtualPath) => fileTextContents(VirtualFiles, virtualPath);
-    /// <summary>
-    /// Files the read all bytes.
-    /// </summary>
-    /// <param name="virtualPath">The virtual path.</param>
-    /// <returns>System.Byte[].</returns>
-    [Alias("fileBytesContent")]
-    public byte[] fileReadAllBytes(string virtualPath) => fileBytesContent(VirtualFiles, virtualPath);
 
     /// <summary>
     /// Alls the files.
@@ -1131,44 +860,6 @@ public class ProtectedScripts : ScriptMethods
     public IEnumerable<IVirtualFile> allFiles(IVirtualPathProvider vfs) => vfs.GetAllFiles();
 
     /// <summary>
-    /// Alls the root files.
-    /// </summary>
-    /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
-    public IEnumerable<IVirtualFile> allRootFiles() => allRootFiles(VirtualFiles);
-    /// <summary>
-    /// Alls the root files.
-    /// </summary>
-    /// <param name="vfs">The VFS.</param>
-    /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
-    public IEnumerable<IVirtualFile> allRootFiles(IVirtualPathProvider vfs) => vfs.GetRootFiles();
-    /// <summary>
-    /// Alls the root directories.
-    /// </summary>
-    /// <returns>IEnumerable&lt;IVirtualDirectory&gt;.</returns>
-    public IEnumerable<IVirtualDirectory> allRootDirectories() => allRootDirectories(VirtualFiles);
-    /// <summary>
-    /// Alls the root directories.
-    /// </summary>
-    /// <param name="vfs">The VFS.</param>
-    /// <returns>IEnumerable&lt;IVirtualDirectory&gt;.</returns>
-    public IEnumerable<IVirtualDirectory> allRootDirectories(IVirtualPathProvider vfs) => vfs.GetRootDirectories();
-    /// <summary>
-    /// Combines the path.
-    /// </summary>
-    /// <param name="basePath">The base path.</param>
-    /// <param name="relativePath">The relative path.</param>
-    /// <returns>System.String.</returns>
-    public string combinePath(string basePath, string relativePath) => combinePath(VirtualFiles, basePath, relativePath);
-    /// <summary>
-    /// Combines the path.
-    /// </summary>
-    /// <param name="vfs">The VFS.</param>
-    /// <param name="basePath">The base path.</param>
-    /// <param name="relativePath">The relative path.</param>
-    /// <returns>System.String.</returns>
-    public string combinePath(IVirtualPathProvider vfs, string basePath, string relativePath) => vfs.CombineVirtualPath(basePath, relativePath);
-
-    /// <summary>
     /// Dirs the specified virtual path.
     /// </summary>
     /// <param name="virtualPath">The virtual path.</param>
@@ -1181,90 +872,6 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="virtualPath">The virtual path.</param>
     /// <returns>IVirtualDirectory.</returns>
     public IVirtualDirectory dir(IVirtualPathProvider vfs, string virtualPath) => vfs.GetDirectory(virtualPath);
-    /// <summary>
-    /// Dirs the exists.
-    /// </summary>
-    /// <param name="virtualPath">The virtual path.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public bool dirExists(string virtualPath) => VirtualFiles.DirectoryExists(virtualPath);
-    /// <summary>
-    /// Dirs the exists.
-    /// </summary>
-    /// <param name="vfs">The VFS.</param>
-    /// <param name="virtualPath">The virtual path.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public bool dirExists(IVirtualPathProvider vfs, string virtualPath) => vfs.DirectoryExists(virtualPath);
-    /// <summary>
-    /// Dirs the file.
-    /// </summary>
-    /// <param name="dirPath">The dir path.</param>
-    /// <param name="fileName">Name of the file.</param>
-    /// <returns>IVirtualFile.</returns>
-    public IVirtualFile dirFile(string dirPath, string fileName) => dirFile(VirtualFiles, dirPath, fileName);
-    /// <summary>
-    /// Dirs the file.
-    /// </summary>
-    /// <param name="vfs">The VFS.</param>
-    /// <param name="dirPath">The dir path.</param>
-    /// <param name="fileName">Name of the file.</param>
-    /// <returns>IVirtualFile.</returns>
-    public IVirtualFile dirFile(IVirtualPathProvider vfs, string dirPath, string fileName) => vfs.GetDirectory(dirPath)?.GetFile(fileName);
-    /// <summary>
-    /// Dirs the files.
-    /// </summary>
-    /// <param name="dirPath">The dir path.</param>
-    /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
-    public IEnumerable<IVirtualFile> dirFiles(string dirPath) => dirFiles(VirtualFiles, dirPath);
-    /// <summary>
-    /// Dirs the files.
-    /// </summary>
-    /// <param name="vfs">The VFS.</param>
-    /// <param name="dirPath">The dir path.</param>
-    /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
-    public IEnumerable<IVirtualFile> dirFiles(IVirtualPathProvider vfs, string dirPath) => vfs.GetDirectory(dirPath)?.GetFiles() ?? new List<IVirtualFile>();
-    /// <summary>
-    /// Dirs the directory.
-    /// </summary>
-    /// <param name="dirPath">The dir path.</param>
-    /// <param name="dirName">Name of the dir.</param>
-    /// <returns>IVirtualDirectory.</returns>
-    public IVirtualDirectory dirDirectory(string dirPath, string dirName) => dirDirectory(VirtualFiles, dirPath, dirName);
-    /// <summary>
-    /// Dirs the directory.
-    /// </summary>
-    /// <param name="vfs">The VFS.</param>
-    /// <param name="dirPath">The dir path.</param>
-    /// <param name="dirName">Name of the dir.</param>
-    /// <returns>IVirtualDirectory.</returns>
-    public IVirtualDirectory dirDirectory(IVirtualPathProvider vfs, string dirPath, string dirName) => vfs.GetDirectory(dirPath)?.GetDirectory(dirName);
-    /// <summary>
-    /// Dirs the directories.
-    /// </summary>
-    /// <param name="dirPath">The dir path.</param>
-    /// <returns>IEnumerable&lt;IVirtualDirectory&gt;.</returns>
-    public IEnumerable<IVirtualDirectory> dirDirectories(string dirPath) => dirDirectories(VirtualFiles, dirPath);
-    /// <summary>
-    /// Dirs the directories.
-    /// </summary>
-    /// <param name="vfs">The VFS.</param>
-    /// <param name="dirPath">The dir path.</param>
-    /// <returns>IEnumerable&lt;IVirtualDirectory&gt;.</returns>
-    public IEnumerable<IVirtualDirectory> dirDirectories(IVirtualPathProvider vfs, string dirPath) => vfs.GetDirectory(dirPath)?.GetDirectories() ?? new List<IVirtualDirectory>();
-    /// <summary>
-    /// Finds the files in directory.
-    /// </summary>
-    /// <param name="dirPath">The dir path.</param>
-    /// <param name="globPattern">The glob pattern.</param>
-    /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
-    public IEnumerable<IVirtualFile> findFilesInDirectory(string dirPath, string globPattern) => findFilesInDirectory(VirtualFiles, dirPath, globPattern);
-    /// <summary>
-    /// Finds the files in directory.
-    /// </summary>
-    /// <param name="vfs">The VFS.</param>
-    /// <param name="dirPath">The dir path.</param>
-    /// <param name="globPattern">The glob pattern.</param>
-    /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
-    public IEnumerable<IVirtualFile> findFilesInDirectory(IVirtualPathProvider vfs, string dirPath, string globPattern) => vfs.GetDirectory(dirPath)?.GetAllMatchingFiles(globPattern);
 
     /// <summary>
     /// Finds the files.
@@ -1273,21 +880,6 @@ public class ProtectedScripts : ScriptMethods
     /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
     public IEnumerable<IVirtualFile> findFiles(string globPattern) => findFiles(VirtualFiles, globPattern);
 
-    /// <summary>
-    /// Dirs the find files.
-    /// </summary>
-    /// <param name="dir">The dir.</param>
-    /// <param name="globPattern">The glob pattern.</param>
-    /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
-    public IEnumerable<IVirtualFile> dirFindFiles(IVirtualDirectory dir, string globPattern) => dir.GetAllMatchingFiles(globPattern);
-    /// <summary>
-    /// Dirs the find files.
-    /// </summary>
-    /// <param name="dir">The dir.</param>
-    /// <param name="globPattern">The glob pattern.</param>
-    /// <param name="maxDepth">The maximum depth.</param>
-    /// <returns>IEnumerable&lt;IVirtualFile&gt;.</returns>
-    public IEnumerable<IVirtualFile> dirFindFiles(IVirtualDirectory dir, string globPattern, int maxDepth) => dir.GetAllMatchingFiles(globPattern, maxDepth);
     /// <summary>
     /// Finds the files.
     /// </summary>
@@ -1363,25 +955,6 @@ public class ProtectedScripts : ScriptMethods
     }
 
     /// <summary>
-    /// Writes the text files.
-    /// </summary>
-    /// <param name="vfs">The VFS.</param>
-    /// <param name="textFiles">The text files.</param>
-    /// <returns>System.Object.</returns>
-    public object writeTextFiles(IVirtualPathProvider vfs, Dictionary<string, string> textFiles)
-    {
-        vfs.WriteFiles(textFiles);
-        return IgnoreResult.Value;
-    }
-
-    /// <summary>
-    /// Appends to file.
-    /// </summary>
-    /// <param name="virtualPath">The virtual path.</param>
-    /// <param name="contents">The contents.</param>
-    /// <returns>System.String.</returns>
-    public string appendToFile(string virtualPath, object contents) => appendToFile(VirtualFiles, virtualPath, contents);
-    /// <summary>
     /// Appends to file.
     /// </summary>
     /// <param name="vfs">The VFS.</param>
@@ -1445,309 +1018,19 @@ public class ProtectedScripts : ScriptMethods
     /// <returns>System.String.</returns>
     public string fileTextContents(IVirtualPathProvider vfs, string virtualPath) => vfs.GetFile(virtualPath)?.ReadAllText();
 
-    /// <summary>
-    /// Files the contents.
-    /// </summary>
-    /// <param name="vfs">The VFS.</param>
-    /// <param name="virtualPath">The virtual path.</param>
-    /// <returns>System.Object.</returns>
-    public object fileContents(IVirtualPathProvider vfs, string virtualPath) =>
-        vfs.GetFile(virtualPath).GetContents();
-
-    // string virtual filePath or IVirtualFile
-    /// <summary>
-    /// Files the contents.
-    /// </summary>
-    /// <param name="file">The file.</param>
-    /// <returns>System.Object.</returns>
-    public object fileContents(object file) => file is null
-                                                   ? null
-                                                   : file is string path
-                                                       ? fileContents(VirtualFiles, path)
-                                                       : file is IVirtualFile ifile
-                                                           ? ifile.GetContents()
-                                                           : throw new NotSupportedException(nameof(fileContents) + " expects string virtualPath or IVirtualFile but was " + file.GetType().Name);
-
-    /// <summary>
-    /// Texts the contents.
-    /// </summary>
-    /// <param name="file">The file.</param>
-    /// <returns>System.String.</returns>
-    public string textContents(IVirtualFile file) => file?.ReadAllText();
-    /// <summary>
-    /// Files the content of the bytes.
-    /// </summary>
-    /// <param name="virtualPath">The virtual path.</param>
-    /// <returns>System.Byte[].</returns>
-    public byte[] fileBytesContent(string virtualPath) => fileBytesContent(VirtualFiles, virtualPath);
-    /// <summary>
-    /// Files the content of the bytes.
-    /// </summary>
-    /// <param name="vfs">The VFS.</param>
-    /// <param name="virtualPath">The virtual path.</param>
-    /// <returns>System.Byte[].</returns>
-    public byte[] fileBytesContent(IVirtualPathProvider vfs, string virtualPath) => vfs.GetFile(virtualPath)?.ReadAllBytes();
-    /// <summary>
-    /// Byteses the content.
-    /// </summary>
-    /// <param name="file">The file.</param>
-    /// <returns>System.Byte[].</returns>
-    public byte[] bytesContent(IVirtualFile file) => file?.ReadAllBytes();
-    /// <summary>
-    /// Files the hash.
-    /// </summary>
-    /// <param name="virtualPath">The virtual path.</param>
-    /// <returns>System.String.</returns>
-    public string fileHash(string virtualPath) => fileHash(VirtualFiles, virtualPath);
-    /// <summary>
-    /// Files the hash.
-    /// </summary>
-    /// <param name="vfs">The VFS.</param>
-    /// <param name="virtualPath">The virtual path.</param>
-    /// <returns>System.String.</returns>
-    public string fileHash(IVirtualPathProvider vfs, string virtualPath) => vfs.GetFileHash(virtualPath);
-    /// <summary>
-    /// Files the hash.
-    /// </summary>
-    /// <param name="file">The file.</param>
-    /// <returns>System.String.</returns>
-    public string fileHash(IVirtualFile file) => file?.GetFileHash();
-    /// <summary>
-    /// Files the is binary.
-    /// </summary>
-    /// <param name="file">The file.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public bool fileIsBinary(IVirtualFile file) => MimeTypes.IsBinary(MimeTypes.GetMimeType(file.Extension));
-    /// <summary>
-    /// Files the type of the content.
-    /// </summary>
-    /// <param name="file">The file.</param>
-    /// <returns>System.String.</returns>
-    public string fileContentType(IVirtualFile file) => MimeTypes.GetMimeType(file.Extension);
-
-
-    /// <summary>
-    /// Converts the type of the data type to content.
-    /// </summary>
-    /// <param name="dataType">Type of the data.</param>
-    /// <returns>System.String.</returns>
-    private static string ConvertDataTypeToContentType(string dataType)
-    {
-        switch (dataType)
-        {
-            case "json":
-                return MimeTypes.Json;
-            case "jsv":
-                return MimeTypes.Jsv;
-            case "csv":
-                return MimeTypes.Csv;
-            case "xml":
-                return MimeTypes.Xml;
-            case "text":
-                return MimeTypes.PlainText;
-            case "form":
-                return MimeTypes.FormUrlEncoded;
-        }
-
-        throw new NotSupportedException($"Unknown dataType '{dataType}'");
-    }
-
-    /// <summary>
-    /// Converts the data to string.
-    /// </summary>
-    /// <param name="data">The data.</param>
-    /// <param name="contentType">Type of the content.</param>
-    /// <returns>System.String.</returns>
-    private static string ConvertDataToString(object data, string contentType)
-    {
-        if (data is string s)
-            return s;
-        switch (contentType)
-        {
-            case MimeTypes.PlainText:
-                return data.ToString();
-            case MimeTypes.Json:
-                return data.ToJson();
-            case MimeTypes.Csv:
-                return data.ToCsv();
-            case MimeTypes.Jsv:
-                return data.ToJsv();
-            case MimeTypes.Xml:
-                return data.ToXml();
-            case MimeTypes.FormUrlEncoded:
-                WriteComplexTypeDelegate holdQsStrategy = QueryStringStrategy.FormUrlEncoded;
-                QueryStringSerializer.ComplexTypeStrategy = QueryStringStrategy.FormUrlEncoded;
-                var urlEncodedBody = QueryStringSerializer.SerializeToString(data);
-                QueryStringSerializer.ComplexTypeStrategy = holdQsStrategy;
-                return urlEncodedBody;
-        }
-
-        throw new NotSupportedException($"Can not serialize to unknown Content-Type '{contentType}'");
-    }
-
-    /// <summary>
-    /// Creates the cache key.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="options">The options.</param>
-    /// <returns>System.String.</returns>
-    public static string CreateCacheKey(string url, Dictionary<string, object> options = null)
-    {
-        var sb = StringBuilderCache.Allocate()
-            .Append(url);
-
-        if (options != null)
-        {
-            foreach (var entry in options)
-            {
-                sb.Append(entry.Key)
-                    .Append('=')
-                    .Append(entry.Value);
-            }
-        }
-
-        return StringBuilderCache.ReturnAndFree(sb);
-    }
-
-    /// <summary>
-    /// Scripts the methods.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <returns>List&lt;ScriptMethodInfo&gt;.</returns>
-    public List<ScriptMethodInfo> scriptMethods(ScriptScopeContext scope)
-    {
-        var methods = scope.Context.ScriptMethods.SelectMany(x => ScriptMethodInfo.GetScriptMethods(x.GetType()))
-            .OrderBy(x => x.Name)
-            .ThenBy(x => x.ParamCount)
-            .ToList();
-        return methods;
-    }
-
-    /// <summary>
-    /// Scripts the method names.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <returns>List&lt;System.String&gt;.</returns>
-    public List<string> scriptMethodNames(ScriptScopeContext scope) => scriptMethods(scope)
-        .Map(x => x.Name);
-
-    /// <summary>
-    /// Scripts the method signatures.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <returns>List&lt;System.String&gt;.</returns>
-    public List<string> scriptMethodSignatures(ScriptScopeContext scope) => scriptMethods(scope)
-        .Map(x => x.Signature);
-
-    /// <summary>
-    /// Filters the methods.
-    /// </summary>
-    /// <param name="methodInfos">The method infos.</param>
-    /// <returns>ScriptMethodInfo[].</returns>
-    private ScriptMethodInfo[] filterMethods(MethodInfo[] methodInfos) =>
-        methodInfos.Where(m => !m.IsSpecialName && m.DeclaringType != typeof(object))
-            .Select(ScriptMethodInfo.Create).ToArray();
-    /// <summary>
-    /// Methodses the specified o.
-    /// </summary>
-    /// <param name="o">The o.</param>
-    /// <returns>List&lt;System.String&gt;.</returns>
-    public List<string> methods(object o)
-    {
-        if (o == null)
-            return TypeConstants.EmptyStringList;
-
-        var mis = methodTypes(o);
-        return mis.Map(x => x.Name).OrderBy(x => x).ToList();
-    }
-
-    /// <summary>
-    /// Methods the types.
-    /// </summary>
-    /// <param name="o">The o.</param>
-    /// <returns>ScriptMethodInfo[].</returns>
-    public ScriptMethodInfo[] methodTypes(object o)
-    {
-        if (o == null)
-            return TypeConstants<ScriptMethodInfo>.EmptyArray;
-
-        var type = o as Type ?? o.GetType();
-
-        return filterMethods(type.GetInstanceMethods());
-    }
-
-    /// <summary>
-    /// Statics the methods.
-    /// </summary>
-    /// <param name="o">The o.</param>
-    /// <returns>List&lt;System.String&gt;.</returns>
-    public List<string> staticMethods(object o)
-    {
-        if (o == null)
-            return TypeConstants.EmptyStringList;
-
-        var mis = staticMethodTypes(o);
-        return mis.Map(x => x.Name).OrderBy(x => x).ToList();
-    }
-
-    /// <summary>
-    /// Statics the method types.
-    /// </summary>
-    /// <param name="o">The o.</param>
-    /// <returns>ScriptMethodInfo[].</returns>
-    public ScriptMethodInfo[] staticMethodTypes(object o)
-    {
-        if (o == null)
-            return TypeConstants<ScriptMethodInfo>.EmptyArray;
-
-        var type = o as Type ?? o.GetType();
-
-        return filterMethods(type.GetMethods(BindingFlags.Static | BindingFlags.Public));
-    }
-
-    /// <summary>
-    /// Alls the method types.
-    /// </summary>
-    /// <param name="o">The o.</param>
-    /// <returns>ScriptMethodInfo[].</returns>
-    public ScriptMethodInfo[] allMethodTypes(object o)
-    {
-        if (o == null)
-            return TypeConstants<ScriptMethodInfo>.EmptyArray;
-
-        var type = o as Type ?? o.GetType();
-
-        return type.GetMethods(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic)
-            .Select(ScriptMethodInfo.Create).ToArray();
-    }
-
-    /// <summary>
-    /// Alls the member infos.
-    /// </summary>
-    /// <param name="o">The o.</param>
-    /// <returns>MemberInfo[].</returns>
-    public MemberInfo[] allMemberInfos(object o)
-    {
-        if (o == null)
-            return TypeConstants<MemberInfo>.EmptyArray;
-
-        var type = o as Type ?? o.GetType();
-
-        return type.GetMembers(BindingFlags.Static | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-    }
 
     /// <summary>
     /// All cache names
     /// </summary>
-    readonly static string[] AllCacheNames = {
-                                                     nameof(ScriptContext.Cache),
+    readonly static string[] AllCacheNames = [
+        nameof(ScriptContext.Cache),
                                                      nameof(ScriptContext.CacheMemory),
                                                      nameof(ScriptContext.ExpiringCache),
                                                      nameof(ScriptTemplateUtils.BinderCache),
                                                      nameof(ScriptContext.JsTokenCache),
                                                      nameof(ScriptContext.AssignExpressionCache),
-                                                     nameof(ScriptContext.PathMappings),
-                                                 };
+                                                     nameof(ScriptContext.PathMappings)
+    ];
 
     /// <summary>
     /// Gets the cache.
@@ -1785,7 +1068,7 @@ public class ProtectedScripts : ScriptMethods
     public object cacheClear(ScriptScopeContext scope, object cacheNames)
     {
         IEnumerable<string> caches = cacheNames switch {
-            string strName => strName.EqualsIgnoreCase("all") ? AllCacheNames : new[] {strName},
+            string strName => strName.EqualsIgnoreCase("all") ? AllCacheNames : [strName],
             IEnumerable<string> nameList => nameList,
             _ => throw new NotSupportedException(
                      $"{nameof(cacheClear)} expects a cache name or list of cache names but received: {cacheNames.GetType().Name}")
@@ -1803,17 +1086,6 @@ public class ProtectedScripts : ScriptMethods
         }
 
         return entriesRemoved;
-    }
-
-    /// <summary>
-    /// Invalidates all caches.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <returns>System.Object.</returns>
-    public object invalidateAllCaches(ScriptScopeContext scope)
-    {
-        cacheClear(scope, "all");
-        return scope.Context.InvalidateCachesBefore = DateTime.UtcNow;
     }
 
     /// <summary>
@@ -1909,48 +1181,6 @@ public class ProtectedScripts : ScriptMethods
     }
 
     /// <summary>
-    /// Executables the path.
-    /// </summary>
-    /// <param name="exeName">Name of the executable.</param>
-    /// <returns>System.String.</returns>
-    public string exePath(string exeName)
-    {
-        try
-        {
-            var p = new Process
-                        {
-                            StartInfo =
-                                {
-                                    UseShellExecute = false,
-                                    FileName = Env.IsWindows
-                                                   ? "where"  //Win 7/Server 2003+
-                                                   : "which", //macOS / Linux
-                                    Arguments = exeName,
-                                    RedirectStandardOutput = true
-                                }
-                        };
-            p.Start();
-            var output = p.StandardOutput.ReadToEnd();
-            p.WaitForExit();
-
-            if (p.ExitCode == 0)
-            {
-                // just return first match
-                var fullPath = output.Substring(0, output.IndexOf(Environment.NewLine, StringComparison.Ordinal));
-                if (!string.IsNullOrEmpty(fullPath))
-                {
-                    return fullPath;
-                }
-            }
-        }
-        catch
-        {
-            // ignored
-        }
-        return null;
-    }
-
-    /// <summary>
     /// Exits the specified exit code.
     /// </summary>
     /// <param name="exitCode">The exit code.</param>
@@ -1959,17 +1189,6 @@ public class ProtectedScripts : ScriptMethods
     {
         Environment.Exit(exitCode);
         return StopExecution.Value;
-    }
-
-    /// <summary>
-    /// Inspects the vars.
-    /// </summary>
-    /// <param name="vars">The vars.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult inspectVars(object vars)
-    {
-        Inspect.vars(vars);
-        return IgnoreResult.Value;
     }
 
     /// <summary>
@@ -2117,46 +1336,6 @@ public class ProtectedScripts : ScriptMethods
     public DirectoryScripts Directory() => new();
 
     /// <summary>
-    /// Hexadecimals the hash.
-    /// </summary>
-    /// <param name="hash">The hash.</param>
-    /// <param name="s">The s.</param>
-    /// <returns>System.String.</returns>
-    static string HexHash(HashAlgorithm hash, string s) => HexHash(hash, s.ToUtf8Bytes());
-    /// <summary>
-    /// Hexadecimals the hash.
-    /// </summary>
-    /// <param name="hash">The hash.</param>
-    /// <param name="bytes">The bytes.</param>
-    /// <returns>System.String.</returns>
-    static string HexHash(HashAlgorithm hash, byte[] bytes)
-    {
-        using var _ = hash;
-        return bytes == null || bytes.Length == 0 ? null : _.ComputeHash(bytes).ToHex();
-    }
-  
-    /// <summary>
-    /// Sha256s the specified target.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.String.</returns>
-    public string sha256(object target) => target is string s
-                                               ? HexHash(SHA256.Create(), s)
-                                               : target is byte[] b
-                                                   ? HexHash(SHA256.Create(), b)
-                                                   : throw new NotSupportedException(target?.GetType().Name);
-    /// <summary>
-    /// Sha512s the specified target.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.String.</returns>
-    public string sha512(object target) => target is string s
-                                               ? HexHash(SHA512.Create(), s)
-                                               : target is byte[] b
-                                                   ? HexHash(SHA512.Create(), b)
-                                                   : throw new NotSupportedException(target?.GetType().Name);
-
-    /// <summary>
     /// Deletes the specified path.
     /// </summary>
     /// <param name="path">The path.</param>
@@ -2227,233 +1406,6 @@ public class ProtectedScripts : ScriptMethods
     /// <param name="to">To.</param>
     /// <returns>IgnoreResult.</returns>
     public IgnoreResult Copy(IOScript os, string from, string to) => os.Copy(from, to);
-
-    /// <summary>
-    /// Creates the specified from.
-    /// </summary>
-    /// <param name="from">From.</param>
-    /// <param name="to">To.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult Create(string from, string to) => File().Copy(from, to);
-    /// <summary>
-    /// Creates the specified fs.
-    /// </summary>
-    /// <param name="fs">The fs.</param>
-    /// <param name="from">From.</param>
-    /// <param name="to">To.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult Create(FileScripts fs, string from, string to) => fs.Copy(from, to);
-
-    /// <summary>
-    /// Replaces the specified from.
-    /// </summary>
-    /// <param name="from">From.</param>
-    /// <param name="to">To.</param>
-    /// <param name="backup">The backup.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult Replace(string from, string to, string backup) => File().Replace(from, to, backup);
-    /// <summary>
-    /// Replaces the specified fs.
-    /// </summary>
-    /// <param name="fs">The fs.</param>
-    /// <param name="from">From.</param>
-    /// <param name="to">To.</param>
-    /// <param name="backup">The backup.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult Replace(FileScripts fs, string from, string to, string backup) => fs.Replace(from, to, backup);
-
-    /// <summary>
-    /// Reads all bytes.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <returns>System.Byte[].</returns>
-    public byte[] ReadAllBytes(string path) => File().ReadAllBytes(path);
-    /// <summary>
-    /// Reads all bytes.
-    /// </summary>
-    /// <param name="fs">The fs.</param>
-    /// <param name="path">The path.</param>
-    /// <returns>System.Byte[].</returns>
-    public byte[] ReadAllBytes(FileScripts fs, string path) => fs.ReadAllBytes(path);
-    /// <summary>
-    /// Reads all lines.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <returns>System.String[].</returns>
-    public string[] ReadAllLines(string path) => File().ReadAllLines(path);
-    /// <summary>
-    /// Reads all lines.
-    /// </summary>
-    /// <param name="fs">The fs.</param>
-    /// <param name="path">The path.</param>
-    /// <returns>System.String[].</returns>
-    public string[] ReadAllLines(FileScripts fs, string path) => fs.ReadAllLines(path);
-    /// <summary>
-    /// Reads all text.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <returns>System.String.</returns>
-    public string ReadAllText(string path) => File().ReadAllText(path);
-    /// <summary>
-    /// Reads all text.
-    /// </summary>
-    /// <param name="fs">The fs.</param>
-    /// <param name="path">The path.</param>
-    /// <returns>System.String.</returns>
-    public string ReadAllText(FileScripts fs, string path) => fs.ReadAllText(path);
-
-    /// <summary>
-    /// Writes all bytes.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <param name="bytes">The bytes.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult WriteAllBytes(string path, byte[] bytes) => File().WriteAllBytes(path, bytes);
-    /// <summary>
-    /// Writes all bytes.
-    /// </summary>
-    /// <param name="fs">The fs.</param>
-    /// <param name="path">The path.</param>
-    /// <param name="bytes">The bytes.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult WriteAllBytes(FileScripts fs, string path, byte[] bytes) => fs.WriteAllBytes(path, bytes);
-    /// <summary>
-    /// Writes all lines.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <param name="lines">The lines.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult WriteAllLines(string path, string[] lines) => File().WriteAllLines(path, lines);
-    /// <summary>
-    /// Writes all lines.
-    /// </summary>
-    /// <param name="fs">The fs.</param>
-    /// <param name="path">The path.</param>
-    /// <param name="lines">The lines.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult WriteAllLines(FileScripts fs, string path, string[] lines) => fs.WriteAllLines(path, lines);
-    /// <summary>
-    /// Writes all text.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <param name="text">The text.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult WriteAllText(string path, string text) => File().WriteAllText(path, text);
-    /// <summary>
-    /// Writes all text.
-    /// </summary>
-    /// <param name="fs">The fs.</param>
-    /// <param name="path">The path.</param>
-    /// <param name="text">The text.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult WriteAllText(FileScripts fs, string path, string text) => fs.WriteAllText(path, text);
-
-    /// <summary>
-    /// Appends all lines.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <param name="lines">The lines.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult AppendAllLines(string path, string[] lines) => File().AppendAllLines(path, lines);
-    /// <summary>
-    /// Appends all lines.
-    /// </summary>
-    /// <param name="fs">The fs.</param>
-    /// <param name="path">The path.</param>
-    /// <param name="lines">The lines.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult AppendAllLines(FileScripts fs, string path, string[] lines) => fs.AppendAllLines(path, lines);
-    /// <summary>
-    /// Appends all text.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <param name="text">The text.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult AppendAllText(string path, string text) => File().AppendAllText(path, text);
-    /// <summary>
-    /// Appends all text.
-    /// </summary>
-    /// <param name="fs">The fs.</param>
-    /// <param name="path">The path.</param>
-    /// <param name="text">The text.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult AppendAllText(FileScripts fs, string path, string text) => fs.AppendAllText(path, text);
-
-    /// <summary>
-    /// Creates the directory.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult CreateDirectory(string path) => Directory().CreateDirectory(path);
-    /// <summary>
-    /// Creates the directory.
-    /// </summary>
-    /// <param name="ds">The ds.</param>
-    /// <param name="path">The path.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult CreateDirectory(DirectoryScripts ds, string path) => ds.CreateDirectory(path);
-
-    /// <summary>
-    /// Gets the directories.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <returns>System.String[].</returns>
-    public string[] GetDirectories(string path) => Directory().GetDirectories(path);
-    /// <summary>
-    /// Gets the directories.
-    /// </summary>
-    /// <param name="ds">The ds.</param>
-    /// <param name="path">The path.</param>
-    /// <returns>System.String[].</returns>
-    public string[] GetDirectories(DirectoryScripts ds, string path) => ds.GetDirectories(path);
-    /// <summary>
-    /// Gets the files.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <returns>System.String[].</returns>
-    public string[] GetFiles(string path) => Directory().GetFiles(path);
-    /// <summary>
-    /// Gets the files.
-    /// </summary>
-    /// <param name="ds">The ds.</param>
-    /// <param name="path">The path.</param>
-    /// <returns>System.String[].</returns>
-    public string[] GetFiles(DirectoryScripts ds, string path) => ds.GetFiles(path);
-    /// <summary>
-    /// Gets the logical drives.
-    /// </summary>
-    /// <returns>System.String[].</returns>
-    public string[] GetLogicalDrives() => Directory().GetLogicalDrives();
-    /// <summary>
-    /// Gets the logical drives.
-    /// </summary>
-    /// <param name="ds">The ds.</param>
-    /// <returns>System.String[].</returns>
-    public string[] GetLogicalDrives(DirectoryScripts ds) => ds.GetLogicalDrives();
-    /// <summary>
-    /// Gets the current directory.
-    /// </summary>
-    /// <returns>System.String.</returns>
-    public string GetCurrentDirectory() => Directory().GetCurrentDirectory();
-    /// <summary>
-    /// Gets the current directory.
-    /// </summary>
-    /// <param name="ds">The ds.</param>
-    /// <returns>System.String.</returns>
-    public string GetCurrentDirectory(DirectoryScripts ds) => ds.GetCurrentDirectory();
-    /// <summary>
-    /// Gets the directory root.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <returns>System.String.</returns>
-    public string GetDirectoryRoot(string path) => Directory().GetDirectoryRoot(path);
-    /// <summary>
-    /// Gets the directory root.
-    /// </summary>
-    /// <param name="ds">The ds.</param>
-    /// <param name="path">The path.</param>
-    /// <returns>System.String.</returns>
-    public string GetDirectoryRoot(DirectoryScripts ds, string path) => ds.GetDirectoryRoot(path);
 }
 
 /// <summary>
@@ -2557,45 +1509,11 @@ public class FileScripts : IOScript
         return IgnoreResult.Value;
     }
     /// <summary>
-    /// Reads all bytes.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <returns>System.Byte[].</returns>
-    public byte[] ReadAllBytes(string path) => File.ReadAllBytes(path);
-    /// <summary>
-    /// Reads all lines.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <returns>System.String[].</returns>
-    public string[] ReadAllLines(string path) => File.ReadAllLines(path);
-    /// <summary>
     /// Reads all text.
     /// </summary>
     /// <param name="path">The path.</param>
     /// <returns>System.String.</returns>
     public string ReadAllText(string path) => File.ReadAllText(path);
-    /// <summary>
-    /// Writes all bytes.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <param name="bytes">The bytes.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult WriteAllBytes(string path, byte[] bytes)
-    {
-        File.WriteAllBytes(path, bytes);
-        return IgnoreResult.Value;
-    }
-    /// <summary>
-    /// Writes all lines.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <param name="lines">The lines.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult WriteAllLines(string path, string[] lines)
-    {
-        File.WriteAllLines(path, lines);
-        return IgnoreResult.Value;
-    }
     /// <summary>
     /// Writes all text.
     /// </summary>
@@ -2605,28 +1523,6 @@ public class FileScripts : IOScript
     public IgnoreResult WriteAllText(string path, string text)
     {
         File.WriteAllText(path, text);
-        return IgnoreResult.Value;
-    }
-    /// <summary>
-    /// Appends all lines.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <param name="lines">The lines.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult AppendAllLines(string path, string[] lines)
-    {
-        File.AppendAllLines(path, lines);
-        return IgnoreResult.Value;
-    }
-    /// <summary>
-    /// Appends all text.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <param name="text">The text.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult AppendAllText(string path, string text)
-    {
-        File.AppendAllText(path, text);
         return IgnoreResult.Value;
     }
 }
@@ -2675,34 +1571,14 @@ public class DirectoryScripts : IOScript
     /// <param name="path">The path.</param>
     /// <returns>System.String[].</returns>
     public string[] GetFiles(string path) => Directory.GetFiles(path);
-    /// <summary>
-    /// Gets the logical drives.
-    /// </summary>
-    /// <returns>System.String[].</returns>
-    public string[] GetLogicalDrives() => Directory.GetLogicalDrives();
-    /// <summary>
-    /// Gets the file system entries.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <returns>System.String[].</returns>
-    public string[] GetFileSystemEntries(string path) => Directory.GetFileSystemEntries(path);
+
     /// <summary>
     /// Gets the parent.
     /// </summary>
     /// <param name="path">The path.</param>
     /// <returns>DirectoryInfo.</returns>
     public DirectoryInfo GetParent(string path) => Directory.GetParent(path);
-    /// <summary>
-    /// Gets the current directory.
-    /// </summary>
-    /// <returns>System.String.</returns>
-    public string GetCurrentDirectory() => Directory.GetCurrentDirectory();
-    /// <summary>
-    /// Gets the directory root.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <returns>System.String.</returns>
-    public string GetDirectoryRoot(string path) => Directory.GetDirectoryRoot(path);
+
     /// <summary>
     /// Moves the specified from.
     /// </summary>

@@ -199,24 +199,6 @@ public static class PlatformExtensions
     }
 
     /// <summary>
-    /// The has attribute of cache
-    /// </summary>
-    private readonly static ConcurrentDictionary<Tuple<MemberInfo, Type>, bool> hasAttributeOfCache = new();
-
-    /// <summary>
-    /// Determines whether [has attribute named] [the specified name].
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <param name="name">The name.</param>
-    /// <returns><c>true</c> if [has attribute named] [the specified name]; otherwise, <c>false</c>.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool HasAttributeNamed(this Type type, string name)
-    {
-        var normalizedAttr = name.Replace("Attribute", "").ToLower();
-        return type.AllAttributes().Any(x => x.GetType().Name.Replace("Attribute", "").ToLower() == normalizedAttr);
-    }
-
-    /// <summary>
     /// Determines whether [has attribute named] [the specified name].
     /// </summary>
     /// <param name="pi">The pi.</param>
@@ -227,32 +209,6 @@ public static class PlatformExtensions
     {
         var normalizedAttr = name.Replace("Attribute", "").ToLower();
         return pi.AllAttributesLazy().Any(x => x.GetType().Name.Replace("Attribute", "").ToLower() == normalizedAttr);
-    }
-
-    /// <summary>
-    /// Determines whether [has attribute named] [the specified name].
-    /// </summary>
-    /// <param name="fi">The fi.</param>
-    /// <param name="name">The name.</param>
-    /// <returns><c>true</c> if [has attribute named] [the specified name]; otherwise, <c>false</c>.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool HasAttributeNamed(this FieldInfo fi, string name)
-    {
-        var normalizedAttr = name.Replace("Attribute", "").ToLower();
-        return fi.AllAttributes().Any(x => x.GetType().Name.Replace("Attribute", "").ToLower() == normalizedAttr);
-    }
-
-    /// <summary>
-    /// Determines whether [has attribute named] [the specified name].
-    /// </summary>
-    /// <param name="mi">The mi.</param>
-    /// <param name="name">The name.</param>
-    /// <returns><c>true</c> if [has attribute named] [the specified name]; otherwise, <c>false</c>.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool HasAttributeNamed(this MemberInfo mi, string name)
-    {
-        var normalizedAttr = name.Replace("Attribute", "").ToLower();
-        return mi.AllAttributes().Any(x => x.GetType().Name.Replace("Attribute", "").ToLower() == normalizedAttr);
     }
 
     /// <summary>
@@ -275,15 +231,6 @@ public static class PlatformExtensions
                    ? type.HasAttribute<DataContractAttribute>()
                    : type.GetCustomAttributes(true).Any(x => x.GetType().Name == DataContract);
     }
-
-    /// <summary>
-    /// Alls the properties.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns>PropertyInfo[].</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static PropertyInfo[] AllProperties(this Type type) =>
-        type.GetProperties(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
 
     //Should only register Runtime Attributes on StartUp, So using non-ThreadSafe Dictionary is OK
     /// <summary>
@@ -328,7 +275,7 @@ public static class PlatformExtensions
     public static Type AddAttributes(this Type type, params Attribute[] attrs)
     {
         if (!typeAttributesMap.TryGetValue(type, out var typeAttrs))
-            typeAttributesMap[type] = typeAttrs = new List<Attribute>();
+            typeAttributesMap[type] = typeAttrs = [];
 
         typeAttrs.AddRange(attrs);
         return type;
@@ -345,7 +292,7 @@ public static class PlatformExtensions
     {
         var key = propertyInfo.UniqueKey();
         if (!propertyAttributesMap.TryGetValue(key, out var propertyAttrs))
-            propertyAttributesMap[key] = propertyAttrs = new List<Attribute>();
+            propertyAttributesMap[key] = propertyAttrs = [];
 
         propertyAttrs.AddRange(attrs);
 
@@ -364,7 +311,7 @@ public static class PlatformExtensions
         var key = propertyInfo.UniqueKey();
 
         if (!propertyAttributesMap.TryGetValue(key, out var propertyAttrs))
-            propertyAttributesMap[key] = propertyAttrs = new List<Attribute>();
+            propertyAttributesMap[key] = propertyAttrs = [];
 
         propertyAttrs.RemoveAll(x => x.GetType() == attr.GetType());
 
@@ -382,7 +329,7 @@ public static class PlatformExtensions
     public static List<TAttr> GetAttributes<TAttr>(this PropertyInfo propertyInfo)
     {
         return !propertyAttributesMap.TryGetValue(propertyInfo.UniqueKey(), out var propertyAttrs)
-                   ? new List<TAttr>()
+                   ? []
                    : propertyAttrs.OfType<TAttr>().ToList();
     }
 
@@ -394,7 +341,7 @@ public static class PlatformExtensions
     public static List<Attribute> GetAttributes(this PropertyInfo propertyInfo)
     {
         return !propertyAttributesMap.TryGetValue(propertyInfo.UniqueKey(), out var propertyAttrs)
-                   ? new List<Attribute>()
+                   ? []
                    : propertyAttrs.ToList();
     }
 
@@ -407,7 +354,7 @@ public static class PlatformExtensions
     public static List<Attribute> GetAttributes(this PropertyInfo propertyInfo, Type attrType)
     {
         return !propertyAttributesMap.TryGetValue(propertyInfo.UniqueKey(), out var propertyAttrs)
-                   ? new List<Attribute>()
+                   ? []
                    : propertyAttrs.Where(x => attrType.IsInstanceOf(x.GetType())).ToList();
     }
 
@@ -902,7 +849,7 @@ public static class PlatformExtensions
         /// <summary>
         /// The fields
         /// </summary>
-        public readonly List<ObjectDictionaryFieldDefinition> Fields = new();
+        public readonly List<ObjectDictionaryFieldDefinition> Fields = [];
         /// <summary>
         /// The fields map
         /// </summary>

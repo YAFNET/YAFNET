@@ -51,12 +51,6 @@ public class ApiResponseAttribute : AttributeBase, IApiResponseDescription
     public string Description { get; set; }
 
     /// <summary>
-    /// If set to true, the response is default for all non-explicitly defined status codes
-    /// </summary>
-    /// <value><c>true</c> if this instance is default response; otherwise, <c>false</c>.</value>
-    public bool IsDefaultResponse { get; set; }
-
-    /// <summary>
     /// Open API schema definition type for response
     /// </summary>
     /// <value>The type of the response.</value>

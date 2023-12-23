@@ -156,36 +156,6 @@ public static class CharMemoryExtensions
     }
 
     /// <summary>
-    /// Lasts the left part.
-    /// </summary>
-    /// <param name="strVal">The string value.</param>
-    /// <param name="needle">The needle.</param>
-    /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
-    public static ReadOnlyMemory<char> LastLeftPart(this ReadOnlyMemory<char> strVal, char needle)
-    {
-        if (strVal.IsEmpty) return strVal;
-        var pos = strVal.LastIndexOf(needle);
-        return pos == -1
-                   ? strVal
-                   : strVal.Slice(0, pos);
-    }
-
-    /// <summary>
-    /// Lasts the left part.
-    /// </summary>
-    /// <param name="strVal">The string value.</param>
-    /// <param name="needle">The needle.</param>
-    /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
-    public static ReadOnlyMemory<char> LastLeftPart(this ReadOnlyMemory<char> strVal, string needle)
-    {
-        if (strVal.IsEmpty) return strVal;
-        var pos = strVal.LastIndexOf(needle);
-        return pos == -1
-                   ? strVal
-                   : strVal.Slice(0, pos);
-    }
-
-    /// <summary>
     /// Lasts the right part.
     /// </summary>
     /// <param name="strVal">The string value.</param>

@@ -33,23 +33,11 @@ public sealed class CharPool
     /// The pool size
     /// </summary>
     private const int POOL_SIZE = 20;
-    /// <summary>
-    /// The buffer length
-    /// </summary>
-    public const int BUFFER_LENGTH = 1450; //<= MTU - DJB
+
     /// <summary>
     /// The pool
     /// </summary>
     private readonly static CachedBuffer[] Pool = new CachedBuffer[POOL_SIZE];
-
-    /// <summary>
-    /// Gets the buffer.
-    /// </summary>
-    /// <returns>System.Char[].</returns>
-    public static char[] GetBuffer()
-    {
-        return GetBuffer(BUFFER_LENGTH);
-    }
 
     /// <summary>
     /// Gets the buffer.

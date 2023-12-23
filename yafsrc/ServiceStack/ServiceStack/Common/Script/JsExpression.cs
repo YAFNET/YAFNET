@@ -707,7 +707,7 @@ public class JsArrowFunctionExpression : JsExpression
     /// </summary>
     /// <param name="param">The parameter.</param>
     /// <param name="body">The body.</param>
-    public JsArrowFunctionExpression(JsIdentifier param, JsToken body) : this(new[] { param }, body) { }
+    public JsArrowFunctionExpression(JsIdentifier param, JsToken body) : this([param], body) { }
     /// <summary>
     /// Initializes a new instance of the <see cref="JsArrowFunctionExpression" /> class.
     /// </summary>

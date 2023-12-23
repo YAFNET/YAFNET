@@ -139,39 +139,11 @@ public abstract class MemoryProvider
     public abstract uint ParseUInt32(ReadOnlySpan<char> value, NumberStyles style);
 
     /// <summary>
-    /// Parses the int64.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>System.Int64.</returns>
-    public abstract long ParseInt64(ReadOnlySpan<char> value);
-
-    /// <summary>
-    /// Parses the u int64.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>System.UInt64.</returns>
-    public abstract ulong ParseUInt64(ReadOnlySpan<char> value);
-
-    /// <summary>
-    /// Parses the unique identifier.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>Guid.</returns>
-    public abstract Guid ParseGuid(ReadOnlySpan<char> value);
-
-    /// <summary>
     /// Parses the base64.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Byte[].</returns>
     public abstract byte[] ParseBase64(ReadOnlySpan<char> value);
-
-    /// <summary>
-    /// Converts to base64.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>System.String.</returns>
-    public abstract string ToBase64(ReadOnlyMemory<byte> value);
 
     /// <summary>
     /// Writes the specified stream.
@@ -241,20 +213,6 @@ public abstract class MemoryProvider
     public abstract StringBuilder Append(StringBuilder sb, ReadOnlySpan<char> value);
 
     /// <summary>
-    /// Gets the UTF8 character count.
-    /// </summary>
-    /// <param name="bytes">The bytes.</param>
-    /// <returns>System.Int32.</returns>
-    public abstract int GetUtf8CharCount(ReadOnlySpan<byte> bytes);
-
-    /// <summary>
-    /// Gets the UTF8 byte count.
-    /// </summary>
-    /// <param name="chars">The chars.</param>
-    /// <returns>System.Int32.</returns>
-    public abstract int GetUtf8ByteCount(ReadOnlySpan<char> chars);
-
-    /// <summary>
     /// Converts to utf8.
     /// </summary>
     /// <param name="source">The source.</param>
@@ -269,34 +227,11 @@ public abstract class MemoryProvider
     public abstract ReadOnlyMemory<char> FromUtf8(ReadOnlySpan<byte> source);
 
     /// <summary>
-    /// Converts to utf8.
-    /// </summary>
-    /// <param name="source">The source.</param>
-    /// <param name="destination">The destination.</param>
-    /// <returns>System.Int32.</returns>
-    public abstract int ToUtf8(ReadOnlySpan<char> source, Span<byte> destination);
-
-    /// <summary>
-    /// Froms the UTF8.
-    /// </summary>
-    /// <param name="source">The source.</param>
-    /// <param name="destination">The destination.</param>
-    /// <returns>System.Int32.</returns>
-    public abstract int FromUtf8(ReadOnlySpan<byte> source, Span<char> destination);
-
-    /// <summary>
     /// Converts to utf8bytes.
     /// </summary>
     /// <param name="source">The source.</param>
     /// <returns>System.Byte[].</returns>
     public abstract byte[] ToUtf8Bytes(ReadOnlySpan<char> source);
-
-    /// <summary>
-    /// Froms the UTF8 bytes.
-    /// </summary>
-    /// <param name="source">The source.</param>
-    /// <returns>System.String.</returns>
-    public abstract string FromUtf8Bytes(ReadOnlySpan<byte> source);
 
     /// <summary>
     /// Converts to memorystream.

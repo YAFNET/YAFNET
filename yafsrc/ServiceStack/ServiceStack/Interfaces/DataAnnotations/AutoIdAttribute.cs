@@ -14,6 +14,4 @@ namespace ServiceStack.DataAnnotations;
 /// </summary>
 /// <seealso cref="ServiceStack.AttributeBase" />
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-public class AutoIdAttribute : AttributeBase
-{
-}
+public class AutoIdAttribute : AttributeBase;

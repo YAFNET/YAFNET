@@ -175,43 +175,6 @@ public class CsvSerializer
     }
 
     /// <summary>
-    /// Deserializes from stream.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="stream">The stream.</param>
-    /// <returns>T.</returns>
-    public static T DeserializeFromStream<T>(Stream stream)
-    {
-        if (stream == null) return default;
-        using var reader = new StreamReader(stream, UseEncoding);
-        return DeserializeFromString<T>(reader.ReadToEnd());
-    }
-
-    /// <summary>
-    /// Deserializes from stream.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <param name="stream">The stream.</param>
-    /// <returns>System.Object.</returns>
-    public static object DeserializeFromStream(Type type, Stream stream)
-    {
-        if (stream == null) return null;
-        using var reader = new StreamReader(stream, UseEncoding);
-        return DeserializeFromString(type, reader.ReadToEnd());
-    }
-
-    /// <summary>
-    /// Deserializes from reader.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="reader">The reader.</param>
-    /// <returns>T.</returns>
-    public static T DeserializeFromReader<T>(TextReader reader)
-    {
-        return DeserializeFromString<T>(reader.ReadToEnd());
-    }
-
-    /// <summary>
     /// Deserializes from string.
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -292,7 +255,7 @@ public class CsvSerializer
                 var pi = ciParams.First();
                 if (pi.ParameterType.IsAssignableFrom(typeof(T)))
                 {
-                    var to = ci.Invoke(new[] { results });
+                    var to = ci.Invoke([results]);
                     return (T)to;
                 }
             }
@@ -320,7 +283,7 @@ public class CsvSerializer
                 var pi = ciParams.First();
                 if (pi.ParameterType.IsAssignableFrom(type))
                 {
-                    var to = ci.Invoke(new[] { results });
+                    var to = ci.Invoke([results]);
                     return to;
                 }
             }
@@ -355,19 +318,6 @@ public class CsvSerializer
     /// <typeparam name="T">the type</typeparam>
     /// <returns>System.ValueTuple&lt;System.String, Type&gt;[].</returns>
     public static (string PropertyName, Type PropertyType)[] PropertiesFor<T>() => CsvSerializer<T>.Properties;
-
-    /// <summary>
-    /// Properties For Type
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns>System.ValueTuple&lt;System.String, Type&gt;[].</returns>
-    public static (string PropertyName, Type PropertyType)[] PropertiesFor(Type type)
-    {
-        var genericType = typeof(CsvSerializer<>).MakeGenericType(type);
-        var pi = genericType.GetProperty("Properties", BindingFlags.Public | BindingFlags.Static);
-        var ret = ((string PropertyName, Type PropertyType)[])pi!.GetValue(null, null);
-        return ret;
-    }
 }
 
 /// <summary>

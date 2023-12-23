@@ -21,22 +21,20 @@ public static class ScriptConfig
     /// Rethrow fatal exceptions thrown on incorrect API usage
     /// </summary>
     /// <value>The fatal exceptions.</value>
-    public static HashSet<Type> FatalExceptions { get; set; } = new()
-                                                                    {
-                                                                        typeof(NotSupportedException),
-                                                                        typeof(NotImplementedException),
-                                                                        typeof(StackOverflowException),
-                                                                    };
+    public static HashSet<Type> FatalExceptions { get; set; } = [
+        typeof(NotSupportedException),
+        typeof(NotImplementedException),
+        typeof(StackOverflowException)
+    ];
 
     /// <summary>
     /// Gets or sets the capture and evaluate exceptions to null.
     /// </summary>
     /// <value>The capture and evaluate exceptions to null.</value>
-    public static HashSet<Type> CaptureAndEvaluateExceptionsToNull { get; set; } = new()
-        {
-            typeof(NullReferenceException),
-            typeof(ArgumentNullException),
-        };
+    public static HashSet<Type> CaptureAndEvaluateExceptionsToNull { get; set; } = [
+        typeof(NullReferenceException),
+        typeof(ArgumentNullException)
+    ];
     /// <summary>
     /// Gets or sets the default culture.
     /// </summary>

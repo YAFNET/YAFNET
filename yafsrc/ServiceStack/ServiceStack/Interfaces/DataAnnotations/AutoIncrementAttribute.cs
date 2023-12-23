@@ -14,6 +14,4 @@ namespace ServiceStack.DataAnnotations;
 /// </summary>
 /// <seealso cref="ServiceStack.AttributeBase" />
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
-public class AutoIncrementAttribute : AttributeBase
-{
-}
+public class AutoIncrementAttribute : AttributeBase;

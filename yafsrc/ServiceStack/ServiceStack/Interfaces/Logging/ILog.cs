@@ -63,21 +63,6 @@ public interface ILog
     void ErrorFormat(string format, params object[] args);
 
     /// <summary>
-    /// Logs a Fatal message and exception.
-    /// </summary>
-    /// <param name="message">The message.</param>
-    /// <param name="exception">The exception.</param>
-    void Fatal(object message, Exception exception);
-
-    /// <summary>
-    /// Logs a Error format message.
-    /// </summary>
-    /// <param name="format">The format.</param>
-    /// <param name="args">The args.</param>
-    [JetBrains.Annotations.StringFormatMethod("format")]
-    void FatalFormat(string format, params object[] args);
-
-    /// <summary>
     /// Logs an Info message and exception.
     /// </summary>
     /// <param name="message">The message.</param>
@@ -89,14 +74,6 @@ public interface ILog
     /// <param name="message">The message.</param>
     /// <param name="exception">The exception.</param>
     void Info(object message, Exception exception);
-
-    /// <summary>
-    /// Logs an Info format message.
-    /// </summary>
-    /// <param name="format">The format.</param>
-    /// <param name="args">The args.</param>
-    [JetBrains.Annotations.StringFormatMethod("format")]
-    void InfoFormat(string format, params object[] args);
 
     /// <summary>
     /// Logs a Warning message.

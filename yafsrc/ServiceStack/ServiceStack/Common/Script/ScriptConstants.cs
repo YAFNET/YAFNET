@@ -19,22 +19,12 @@ public static class ScriptConstants
     /// The default date format
     /// </summary>
     public const string DefaultDateFormat = nameof(ScriptConfig.DefaultDateFormat);
-    /// <summary>
-    /// The default date time format
-    /// </summary>
-    public const string DefaultDateTimeFormat = nameof(ScriptConfig.DefaultDateTimeFormat);
+
     /// <summary>
     /// The default time format
     /// </summary>
     public const string DefaultTimeFormat = nameof(ScriptConfig.DefaultTimeFormat);
-    /// <summary>
-    /// The default file cache expiry
-    /// </summary>
-    public const string DefaultFileCacheExpiry = nameof(ScriptConfig.DefaultFileCacheExpiry);
-    /// <summary>
-    /// The default URL cache expiry
-    /// </summary>
-    public const string DefaultUrlCacheExpiry = nameof(ScriptConfig.DefaultUrlCacheExpiry);
+
     /// <summary>
     /// The default indent
     /// </summary>
@@ -51,14 +41,6 @@ public static class ScriptConstants
     /// The default string comparison
     /// </summary>
     public const string DefaultStringComparison = nameof(ScriptConfig.DefaultStringComparison);
-    /// <summary>
-    /// The default table class name
-    /// </summary>
-    public const string DefaultTableClassName = nameof(ScriptConfig.DefaultTableClassName);
-    /// <summary>
-    /// The default error class name
-    /// </summary>
-    public const string DefaultErrorClassName = nameof(ScriptConfig.DefaultErrorClassName);
 
     /// <summary>
     /// The debug
@@ -116,10 +98,7 @@ public static class ScriptConstants
     /// The path information
     /// </summary>
     public const string PathInfo = "PathInfo";
-    /// <summary>
-    /// The path base
-    /// </summary>
-    public const string PathBase = "PathBase";
+
     /// <summary>
     /// The path arguments
     /// </summary>
@@ -169,16 +148,6 @@ public static class ScriptConstants
     /// </summary>
     public const string ErrorMessage = nameof(ErrorMessage);
 
-    /// <summary>
-    /// Gets the empty raw string.
-    /// </summary>
-    /// <value>The empty raw string.</value>
-    public static IRawString EmptyRawString { get; } = new RawString("");
-    /// <summary>
-    /// Gets the true raw string.
-    /// </summary>
-    /// <value>The true raw string.</value>
-    public static IRawString TrueRawString { get; } = new RawString("true");
     /// <summary>
     /// Gets the false raw string.
     /// </summary>

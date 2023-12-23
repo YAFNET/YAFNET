@@ -13,7 +13,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -120,73 +119,6 @@ public static class StreamExtensions
     }
 
     /// <summary>
-    /// Reads the given stream up to the end, returning the data as a byte array.
-    /// </summary>
-    /// <param name="input">The input.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>Task&lt;System.Byte[]&gt;.</returns>
-    public static Task<byte[]> ReadFullyAsync(this Stream input, CancellationToken token = default) =>
-        ReadFullyAsync(input, DefaultBufferSize, token);
-
-    /// <summary>
-    /// Reads the given stream up to the end, returning the data as a byte
-    /// array, using the given buffer size.
-    /// </summary>
-    /// <param name="input">The input.</param>
-    /// <param name="bufferSize">Size of the buffer.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>A Task representing the asynchronous operation.</returns>
-    /// <exception cref="System.ArgumentOutOfRangeException">bufferSize</exception>
-    public async static Task<byte[]> ReadFullyAsync(this Stream input, int bufferSize, CancellationToken token = default)
-    {
-        if (bufferSize < 1)
-            throw new ArgumentOutOfRangeException(nameof(bufferSize));
-
-        byte[] buffer = BufferPool.GetBuffer(bufferSize);
-        try
-        {
-            return await ReadFullyAsync(input, buffer, token);
-        }
-        finally
-        {
-            BufferPool.ReleaseBufferToPool(ref buffer);
-        }
-    }
-
-    /// <summary>
-    /// Reads the given stream up to the end, returning the data as a byte
-    /// array, using the given buffer for transferring data. Note that the
-    /// current contents of the buffer is ignored, so the buffer needn't
-    /// be cleared beforehand.
-    /// </summary>
-    /// <param name="input">The input.</param>
-    /// <param name="buffer">The buffer.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>A Task representing the asynchronous operation.</returns>
-    /// <exception cref="System.ArgumentNullException">buffer</exception>
-    /// <exception cref="System.ArgumentNullException">input</exception>
-    /// <exception cref="System.ArgumentException">Buffer has length of 0</exception>
-    public async static Task<byte[]> ReadFullyAsync(this Stream input, byte[] buffer, CancellationToken token = default)
-    {
-        if (buffer == null)
-            throw new ArgumentNullException(nameof(buffer));
-
-        if (input == null)
-            throw new ArgumentNullException(nameof(input));
-
-        if (buffer.Length == 0)
-            throw new ArgumentException("Buffer has length of 0");
-
-        // We could do all our own work here, but using MemoryStream is easier
-        // and likely to be just as efficient.
-        using var tempStream = MemoryStreamFactory.GetStream();
-        await CopyToAsync(input, tempStream, buffer, token);
-        // No need to copy the buffer if it's the right size
-        return tempStream.Length == tempStream.GetBuffer().Length ? tempStream.GetBuffer() : tempStream.ToArray();
-        // Okay, make a copy that's the right size
-    }
-
-    /// <summary>
     /// Reads the given stream up to the end, returning the MemoryStream Buffer as ReadOnlyMemory&lt;byte&gt;.
     /// </summary>
     /// <param name="input">The input.</param>
@@ -276,44 +208,6 @@ public static class StreamExtensions
     }
 
     /// <summary>
-    /// Copies all the data from one stream into another, using the given
-    /// buffer for transferring data. Note that the current contents of
-    /// the buffer is ignored, so the buffer needn't be cleared beforehand.
-    /// </summary>
-    /// <param name="input">The input.</param>
-    /// <param name="output">The output.</param>
-    /// <param name="buffer">The buffer.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>A Task representing the asynchronous operation.</returns>
-    /// <exception cref="System.ArgumentNullException">buffer</exception>
-    /// <exception cref="System.ArgumentNullException">input</exception>
-    /// <exception cref="System.ArgumentNullException">output</exception>
-    /// <exception cref="System.ArgumentException">Buffer has length of 0</exception>
-    public async static Task<long> CopyToAsync(this Stream input, Stream output, byte[] buffer, CancellationToken token = default)
-    {
-        if (buffer == null)
-            throw new ArgumentNullException(nameof(buffer));
-
-        if (input == null)
-            throw new ArgumentNullException(nameof(input));
-
-        if (output == null)
-            throw new ArgumentNullException(nameof(output));
-
-        if (buffer.Length == 0)
-            throw new ArgumentException("Buffer has length of 0");
-
-        long total = 0;
-        int read;
-        while ((read = await input.ReadAsync(buffer, 0, buffer.Length, token)) > 0)
-        {
-            await output.WriteAsync(buffer, 0, read, token);
-            total += read;
-        }
-        return total;
-    }
-
-    /// <summary>
     /// Combines the specified bytes.
     /// </summary>
     /// <param name="bytes">The bytes.</param>
@@ -335,11 +229,6 @@ public static class StreamExtensions
 
         return to;
     }
-
-    /// <summary>
-    /// The asynchronous buffer size
-    /// </summary>
-    public static int AsyncBufferSize = 81920; // CopyToAsync() default value
 
     /// <summary>
     /// Writes the asynchronous.
@@ -364,16 +253,6 @@ public static class StreamExtensions
         MemoryProvider.Instance.WriteAsync(stream, bytes, token);
 
     /// <summary>
-    /// Copies to asynchronous.
-    /// </summary>
-    /// <param name="input">The input.</param>
-    /// <param name="output">The output.</param>
-    /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-    /// <returns>System.Threading.Tasks.Task.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Task CopyToAsync(this Stream input, Stream output, CancellationToken token = default) => input.CopyToAsync(output, AsyncBufferSize, token);
-
-    /// <summary>
     /// Writes the asynchronous.
     /// </summary>
     /// <param name="stream">The stream.</param>
@@ -383,31 +262,6 @@ public static class StreamExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Task WriteAsync(this Stream stream, string text, CancellationToken token = default) =>
         MemoryProvider.Instance.WriteAsync(stream, text.AsMemory(), token);
-
-    /// <summary>
-    /// Converts to md5hash.
-    /// </summary>
-    /// <param name="stream">The stream.</param>
-    /// <returns>string.</returns>
-    public static byte[] ToMd5Bytes(this Stream stream)
-    {
-#if NET7_0_OR_GREATER
-            if (stream is MemoryStream ms)
-                return MD5.HashData(ms.GetBufferAsSpan());
-#endif
-        if (stream.CanSeek)
-        {
-            stream.Position = 0;
-        }
-        return MD5.HashData(stream);
-    }
-
-    /// <summary>
-    /// Converts to md5hash.
-    /// </summary>
-    /// <param name="stream">The stream.</param>
-    /// <returns>System.String.</returns>
-    public static string ToMd5Hash(this Stream stream) => ToMd5Bytes(stream).ToHex();
 
     /// <summary>
     /// Returns bytes in publiclyVisible MemoryStream

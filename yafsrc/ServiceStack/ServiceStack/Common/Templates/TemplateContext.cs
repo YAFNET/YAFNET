@@ -12,7 +12,4 @@ namespace ServiceStack.Script;
 /// Implements the <see cref="ServiceStack.Script.ISharpPages" />
 /// </summary>
 /// <seealso cref="ServiceStack.Script.ISharpPages" />
-public partial class SharpPages
-{
-
-}
+public partial class SharpPages;

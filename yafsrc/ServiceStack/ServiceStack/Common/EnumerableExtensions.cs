@@ -9,7 +9,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
 using ServiceStack.Text;
 
 namespace ServiceStack;
@@ -19,132 +18,6 @@ namespace ServiceStack;
 /// </summary>
 public static class EnumerableUtils
 {
-    /// <summary>
-    /// Firsts the or default.
-    /// </summary>
-    /// <param name="items">The items.</param>
-    /// <returns>System.Object.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object FirstOrDefault(IEnumerable items)
-    {
-        if (items == null)
-            return null;
-
-        foreach (var item in items)
-        {
-            return item;
-        }
-
-        return null;
-    }
-
-    /// <summary>
-    /// Elements at.
-    /// </summary>
-    /// <param name="items">The items.</param>
-    /// <param name="index">The index.</param>
-    /// <returns>System.Object.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object ElementAt(IEnumerable items, int index)
-    {
-        if (items == null)
-            return null;
-        var i = 0;
-        foreach (var item in items)
-            if (i++ == index)
-                return item;
-        return null;
-    }
-
-    /// <summary>
-    /// Skips the specified items.
-    /// </summary>
-    /// <param name="items">The items.</param>
-    /// <param name="count">The count.</param>
-    /// <returns>List&lt;System.Object&gt;.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static List<object> Skip(IEnumerable items, int count)
-    {
-        if (items == null)
-            return TypeConstants.EmptyObjectList;
-        var to = new List<object>();
-        int i = 0;
-        foreach (var item in items)
-        {
-            if (count > i++)
-                continue;
-
-            to.Add(item);
-        }
-        return to;
-    }
-
-    /// <summary>
-    /// Splits the on first.
-    /// </summary>
-    /// <param name="items">The items.</param>
-    /// <param name="first">The first.</param>
-    /// <returns>List&lt;System.Object&gt;.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static List<object> SplitOnFirst(IEnumerable items, out object first)
-    {
-        first = null;
-        if (items == null)
-            return TypeConstants.EmptyObjectList;
-        var to = new List<object>();
-        int i = 0;
-        foreach (var item in items)
-        {
-            if (i++ < 1)
-            {
-                first = item;
-                continue;
-            }
-            to.Add(item);
-        }
-        return to;
-    }
-
-    /// <summary>
-    /// Takes the specified items.
-    /// </summary>
-    /// <param name="items">The items.</param>
-    /// <param name="count">The count.</param>
-    /// <returns>List&lt;System.Object&gt;.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static List<object> Take(IEnumerable items, int count)
-    {
-        if (items == null)
-            return TypeConstants.EmptyObjectList;
-        var to = new List<object>();
-        int i = 0;
-        foreach (var item in items)
-        {
-            if (count > i++)
-            {
-                to.Add(item);
-                continue;
-            }
-            return to;
-        }
-        return to;
-    }
-
-    /// <summary>
-    /// Counts the specified items.
-    /// </summary>
-    /// <param name="items">The items.</param>
-    /// <returns>System.Int32.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static int Count(IEnumerable items)
-    {
-        if (items == null)
-            return 0;
-        return items is ICollection c
-                   ? c.Count
-                   : items.Cast<object>().Count();
-    }
-
     /// <summary>
     /// Converts to list.
     /// </summary>
@@ -218,7 +91,7 @@ public static class EnumerableExtensions
     /// <param name="items">The items.</param>
     /// <returns>HashSet&lt;T&gt;.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static HashSet<T> ToSet<T>(this IEnumerable<T> items) => new(items);
+    public static HashSet<T> ToSet<T>(this IEnumerable<T> items) => [..items];
 
     /// <summary>
     /// Eaches the specified action.
@@ -234,24 +107,6 @@ public static class EnumerableExtensions
         foreach (var value in values)
         {
             action(value);
-        }
-    }
-
-    /// <summary>
-    /// Eaches the specified action.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="values">The values.</param>
-    /// <param name="action">The action.</param>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static void Each<T>(this IEnumerable<T> values, Action<int, T> action)
-    {
-        if (values == null) return;
-
-        var i = 0;
-        foreach (var value in values)
-        {
-            action(i++, value);
         }
     }
 
@@ -286,7 +141,7 @@ public static class EnumerableExtensions
     public static List<To> Map<To, From>(this IEnumerable<From> items, Func<From, To> converter)
     {
         if (items == null)
-            return new List<To>();
+            return [];
 
         var list = new List<To>();
         foreach (var item in items)
@@ -306,77 +161,7 @@ public static class EnumerableExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static List<To> Map<To>(this IEnumerable items, Func<object, To> converter)
     {
-        return items == null ? new List<To>() : (from object item in items select converter(item)).ToList();
-    }
-
-    /// <summary>
-    /// Converts to objects.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="items">The items.</param>
-    /// <returns>List&lt;System.Object&gt;.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static List<object> ToObjects<T>(this IEnumerable<T> items)
-    {
-        var to = new List<object>();
-        foreach (var item in items)
-        {
-            to.Add(item);
-        }
-        return to;
-    }
-
-    /// <summary>
-    /// Firsts the non default or empty.
-    /// </summary>
-    /// <param name="values">The values.</param>
-    /// <returns>System.String.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string FirstNonDefaultOrEmpty(this IEnumerable<string> values)
-    {
-        foreach (var value in values)
-        {
-            if (!string.IsNullOrEmpty(value)) return value;
-        }
-        return null;
-    }
-
-    /// <summary>
-    /// Firsts the non default.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="values">The values.</param>
-    /// <returns>T.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T FirstNonDefault<T>(this IEnumerable<T> values)
-    {
-        foreach (var value in values)
-        {
-            if (!Equals(value, default(T))) return value;
-        }
-        return default;
-    }
-
-    /// <summary>
-    /// Equivalents to.
-    /// </summary>
-    /// <param name="bytes">The bytes.</param>
-    /// <param name="other">The other.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool EquivalentTo(this byte[] bytes, byte[] other)
-    {
-        if (bytes == null || other == null)
-            return bytes == other;
-
-        if (bytes.Length != other.Length)
-            return false;
-
-        var compare = 0;
-        for (var i = 0; i < other.Length; i++)
-            compare |= other[i] ^ bytes[i];
-
-        return compare == 0;
+        return items == null ? [] : (from object item in items select converter(item)).ToList();
     }
 
     /// <summary>
@@ -435,42 +220,6 @@ public static class EnumerableExtensions
     }
 
     /// <summary>
-    /// Equivalents to.
-    /// </summary>
-    /// <typeparam name="K"></typeparam>
-    /// <typeparam name="V"></typeparam>
-    /// <param name="a">a.</param>
-    /// <param name="b">The b.</param>
-    /// <param name="comparer">The comparer.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public static bool EquivalentTo<K, V>(this IDictionary<K, V> a, IDictionary<K, V> b, Func<V, V, bool> comparer = null)
-    {
-        comparer ??= (v1, v2) => v1.Equals(v2);
-
-        if (a == null || b == null)
-            return a == b;
-
-        if (a.Count != b.Count)
-            return false;
-
-        foreach (var entry in a)
-        {
-            if (!b.TryGetValue(entry.Key, out V value))
-                return false;
-            if (entry.Value == null || value == null)
-            {
-                if (entry.Value == null && value == null)
-                    continue;
-
-                return false;
-            }
-            if (!comparer(entry.Value, value))
-                return false;
-        }
-        return true;
-    }
-
-    /// <summary>
     /// Batcheses the of.
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -521,34 +270,16 @@ public static class EnumerableExtensions
     }
 
     /// <summary>
-    /// Converts to dictionary.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <typeparam name="TKey">The type of the t key.</typeparam>
-    /// <typeparam name="TValue">The type of the t value.</typeparam>
-    /// <param name="list">The list.</param>
-    /// <param name="map">The map.</param>
-    /// <returns>Dictionary&lt;TKey, TValue&gt;.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Dictionary<TKey, TValue> ToDictionary<T, TKey, TValue>(this IEnumerable<T> list, Func<T, KeyValuePair<TKey, TValue>> map)
-    {
-        var to = new Dictionary<TKey, TValue>();
-        foreach (var item in list)
-        {
-            var entry = map(item);
-            to[entry.Key] = entry.Value;
-        }
-        return to;
-    }
-
-    /// <summary>
     /// Return T[0] when enumerable is null, safe to use in enumerations like foreach
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="enumerable">The enumerable.</param>
     /// <returns>IEnumerable&lt;T&gt;.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static IEnumerable<T> Safe<T>(this IEnumerable<T> enumerable) => enumerable ?? TypeConstants<T>.EmptyArray;
+    public static IEnumerable<T> Safe<T>(this IEnumerable<T> enumerable)
+    {
+        return enumerable ?? TypeConstants<T>.EmptyArray;
+    }
 
     /// <summary>
     /// Safes the specified enumerable.
@@ -556,104 +287,9 @@ public static class EnumerableExtensions
     /// <param name="enumerable">The enumerable.</param>
     /// <returns>IEnumerable.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static IEnumerable Safe(this IEnumerable enumerable) => enumerable ?? TypeConstants.EmptyObjectArray;
-
-    /// <summary>
-    /// All as an asynchronous operation.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="source">The source.</param>
-    /// <param name="predicate">The predicate.</param>
-    /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-    /// <exception cref="System.ArgumentNullException">source</exception>
-    /// <exception cref="System.ArgumentNullException">predicate</exception>
-    public async static Task<bool> AllAsync<T>(this IEnumerable<T> source, Func<T, Task<bool>> predicate)
+    public static IEnumerable Safe(this IEnumerable enumerable)
     {
-        if (source == null)
-            throw new ArgumentNullException(nameof(source));
-        if (predicate == null)
-            throw new ArgumentNullException(nameof(predicate));
-        foreach (var item in source)
-        {
-            var result = await predicate(item).ConfigAwait();
-            if (!result)
-                return false;
-        }
-        return true;
-    }
-
-    // This is for synchronous predicates with an async source.
-    /// <summary>
-    /// All as an asynchronous operation.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="source">The source.</param>
-    /// <param name="predicate">The predicate.</param>
-    /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-    /// <exception cref="System.ArgumentNullException">source</exception>
-    /// <exception cref="System.ArgumentNullException">predicate</exception>
-    public async static Task<bool> AllAsync<T>(this IEnumerable<Task<T>> source, Func<T, bool> predicate)
-    {
-        if (source == null)
-            throw new ArgumentNullException(nameof(source));
-        if (predicate == null)
-            throw new ArgumentNullException(nameof(predicate));
-        foreach (var item in source)
-        {
-            var awaitedItem = await item.ConfigAwait();
-            if (!predicate(awaitedItem))
-                return false;
-        }
-        return true;
-    }
-
-    /// <summary>
-    /// Any as an asynchronous operation.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="source">The source.</param>
-    /// <param name="predicate">The predicate.</param>
-    /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-    /// <exception cref="System.ArgumentNullException">source</exception>
-    /// <exception cref="System.ArgumentNullException">predicate</exception>
-    public async static Task<bool> AnyAsync<T>(this IEnumerable<T> source, Func<T, Task<bool>> predicate)
-    {
-        if (source == null)
-            throw new ArgumentNullException(nameof(source));
-        if (predicate == null)
-            throw new ArgumentNullException(nameof(predicate));
-        foreach (var item in source)
-        {
-            var result = await predicate(item).ConfigAwait();
-            if (result)
-                return true;
-        }
-        return false;
-    }
-
-    // This is for synchronous predicates with an async source.
-    /// <summary>
-    /// Any as an asynchronous operation.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="source">The source.</param>
-    /// <param name="predicate">The predicate.</param>
-    /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-    /// <exception cref="System.ArgumentNullException">source</exception>
-    /// <exception cref="System.ArgumentNullException">predicate</exception>
-    public async static Task<bool> AnyAsync<T>(this IEnumerable<Task<T>> source, Func<T, bool> predicate)
-    {
-        if (source == null)
-            throw new ArgumentNullException(nameof(source));
-        if (predicate == null)
-            throw new ArgumentNullException(nameof(predicate));
-        foreach (var item in source)
-        {
-            var awaitedItem = await item.ConfigAwait();
-            if (predicate(awaitedItem))
-                return true;
-        }
-        return false;
+        return enumerable ?? TypeConstants.EmptyObjectArray;
     }
 
 }

@@ -36,52 +36,49 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// Gets the remove new lines for.
     /// </summary>
     /// <value>The remove new lines for.</value>
-    public static List<string> RemoveNewLinesFor { get; } = new()
-                                                                {
-                                                                    nameof(to),
-                                                                    nameof(toGlobal),
-                                                                    nameof(assignTo),
-                                                                    nameof(assignToGlobal),
-                                                                    nameof(assignError),
-                                                                    nameof(addTo),
-                                                                    nameof(addToGlobal),
-                                                                    nameof(addToStart),
-                                                                    nameof(addToStartGlobal),
-                                                                    nameof(appendTo),
-                                                                    nameof(appendToGlobal),
-                                                                    nameof(prependTo),
-                                                                    nameof(prependToGlobal),
-                                                                    nameof(forEach),
-                                                                    nameof(@do),
-                                                                    nameof(end),
-                                                                    nameof(@throw),
-                                                                    nameof(ifThrow),
-                                                                    nameof(throwIf),
-                                                                    nameof(throwIf),
-                                                                    nameof(ifThrowArgumentException),
-                                                                    nameof(ifThrowArgumentNullException),
-                                                                    nameof(throwArgumentNullExceptionIf),
-                                                                    nameof(throwArgumentException),
-                                                                    nameof(throwArgumentNullException),
-                                                                    nameof(throwNotSupportedException),
-                                                                    nameof(throwNotImplementedException),
-                                                                    nameof(throwUnauthorizedAccessException),
-                                                                    nameof(throwFileNotFoundException),
-                                                                    nameof(throwOptimisticConcurrencyException),
-                                                                    nameof(throwNotSupportedException),
-                                                                    nameof(ifError),
-                                                                    nameof(skipExecutingFiltersOnError),
-                                                                    nameof(continueExecutingFiltersOnError),
-                                                                };
+    public static List<string> RemoveNewLinesFor { get; } = [
+        nameof(to),
+        nameof(toGlobal),
+        nameof(assignTo),
+        nameof(assignToGlobal),
+        nameof(assignError),
+        nameof(addTo),
+        nameof(addToGlobal),
+        nameof(addToStart),
+        nameof(addToStartGlobal),
+        nameof(appendTo),
+        nameof(appendToGlobal),
+        nameof(prependTo),
+        nameof(prependToGlobal),
+        nameof(@do),
+        nameof(end),
+        nameof(@throw),
+        nameof(ifThrow),
+        nameof(throwIf),
+        nameof(throwIf),
+        nameof(ifThrowArgumentException),
+        nameof(ifThrowArgumentNullException),
+        nameof(throwArgumentNullExceptionIf),
+        nameof(throwArgumentException),
+        nameof(throwArgumentNullException),
+        nameof(throwNotSupportedException),
+        nameof(throwNotImplementedException),
+        nameof(throwUnauthorizedAccessException),
+        nameof(throwFileNotFoundException),
+        nameof(throwOptimisticConcurrencyException),
+        nameof(throwNotSupportedException),
+        nameof(ifError),
+        nameof(skipExecutingFiltersOnError),
+        nameof(continueExecutingFiltersOnError)
+    ];
 
     /// <summary>
     /// The evaluate when skipping filter execution
     /// </summary>
-    public static List<string> EvaluateWhenSkippingFilterExecution = new()
-                                                                         {
-                                                                             nameof(ifError),
-                                                                             nameof(lastError),
-                                                                         };
+    public static List<string> EvaluateWhenSkippingFilterExecution = [
+        nameof(ifError),
+        nameof(lastError)
+    ];
 
     /// <summary>
     /// Configures the specified context.
@@ -92,137 +89,13 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
         RemoveNewLinesFor.Each(name => context.RemoveNewLineAfterFiltersNamed.Add(name));
         EvaluateWhenSkippingFilterExecution.Each(name => context.OnlyEvaluateFiltersWhenSkippingPageFilterExecution.Add(name));
     }
-
-    // methods without arguments can be used in bindings, e.g. {{ now |> dateFormat }}
-    /// <summary>
-    /// Nows this instance.
-    /// </summary>
-    /// <returns>DateTime.</returns>
-    public DateTime now() => DateTime.Now;
-    /// <summary>
-    /// UTCs the now.
-    /// </summary>
-    /// <returns>DateTime.</returns>
-    public DateTime utcNow() => DateTime.UtcNow;
-
-    /// <summary>
-    /// Nows the offset.
-    /// </summary>
-    /// <returns>DateTimeOffset.</returns>
-    public DateTimeOffset nowOffset() => DateTimeOffset.Now;
-
-    /// <summary>
-    /// Nguids this instance.
-    /// </summary>
-    /// <returns>Guid.</returns>
-    public Guid nguid() => Guid.NewGuid();
-
-    /// <summary>
-    /// Adds the ticks.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="count">The count.</param>
-    /// <returns>DateTime.</returns>
-    public DateTime addTicks(DateTime target, int count) => target.AddTicks(count);
-    /// <summary>
-    /// Adds the milliseconds.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="count">The count.</param>
-    /// <returns>DateTime.</returns>
-    public DateTime addMilliseconds(DateTime target, int count) => target.AddMilliseconds(count);
-    /// <summary>
-    /// Adds the seconds.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="count">The count.</param>
-    /// <returns>DateTime.</returns>
-    public DateTime addSeconds(DateTime target, int count) => target.AddSeconds(count);
-    /// <summary>
-    /// Adds the minutes.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="count">The count.</param>
-    /// <returns>DateTime.</returns>
-    public DateTime addMinutes(DateTime target, int count) => target.AddMinutes(count);
-    /// <summary>
-    /// Adds the hours.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="count">The count.</param>
-    /// <returns>DateTime.</returns>
-    public DateTime addHours(DateTime target, int count) => target.AddHours(count);
-    /// <summary>
-    /// Adds the days.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="count">The count.</param>
-    /// <returns>DateTime.</returns>
-    public DateTime addDays(DateTime target, int count) => target.AddDays(count);
-    /// <summary>
-    /// Adds the months.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="count">The count.</param>
-    /// <returns>DateTime.</returns>
-    public DateTime addMonths(DateTime target, int count) => target.AddMonths(count);
-    /// <summary>
-    /// Adds the years.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="count">The count.</param>
-    /// <returns>DateTime.</returns>
-    public DateTime addYears(DateTime target, int count) => target.AddYears(count);
-
-    /// <summary>
-    /// Itemses the of.
-    /// </summary>
-    /// <param name="count">The count.</param>
-    /// <param name="target">The target.</param>
-    /// <returns>List&lt;System.Object&gt;.</returns>
-    public List<object> itemsOf(int count, object target)
-    {
-        AssertWithinMaxQuota(count);
-        var to = new List<object>();
-        for (var i = 0; i < count; i++)
-        {
-            to.Add(target);
-        }
-        return to;
-    }
-
-    /// <summary>
-    /// Timeses the specified count.
-    /// </summary>
-    /// <param name="count">The count.</param>
-    /// <returns>List&lt;System.Int32&gt;.</returns>
-    public List<int> times(int count) => AssertWithinMaxQuota(count).Times().ToList();
-    /// <summary>
-    /// Ranges the specified count.
-    /// </summary>
-    /// <param name="count">The count.</param>
-    /// <returns>IEnumerable&lt;System.Int32&gt;.</returns>
-    public IEnumerable<int> range(int count) => Enumerable.Range(0, AssertWithinMaxQuota(count));
-    /// <summary>
-    /// Ranges the specified start.
-    /// </summary>
-    /// <param name="start">The start.</param>
-    /// <param name="count">The count.</param>
-    /// <returns>IEnumerable&lt;System.Int32&gt;.</returns>
-    public IEnumerable<int> range(int start, int count) => Enumerable.Range(start, AssertWithinMaxQuota(count));
-
+  
     /// <summary>
     /// Determines whether the specified value is even.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns><c>true</c> if the specified value is even; otherwise, <c>false</c>.</returns>
     public bool isEven(int value) => value % 2 == 0;
-    /// <summary>
-    /// Determines whether the specified value is odd.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns><c>true</c> if the specified value is odd; otherwise, <c>false</c>.</returns>
-    public bool isOdd(int value) => !isEven(value);
 
     /// <summary>
     /// Determines whether the specified target is true.
@@ -231,12 +104,6 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <returns><c>true</c> if the specified target is true; otherwise, <c>false</c>.</returns>
     public static bool isTrue(object target) => target is true;
 
-    /// <summary>
-    /// Determines whether the specified target is truthy.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns><c>true</c> if the specified target is truthy; otherwise, <c>false</c>.</returns>
-    public static bool isTruthy(object target) => !isFalsy(target);
     /// <summary>
     /// Determines whether the specified target is falsy.
     /// </summary>
@@ -260,98 +127,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
         return false;
     }
 
-    /// <summary>
-    /// Iifs the specified test.
-    /// </summary>
-    /// <param name="test">The test.</param>
-    /// <param name="ifTrue">If true.</param>
-    /// <param name="ifFalse">If false.</param>
-    /// <returns>System.Object.</returns>
-    public object iif(object test, object ifTrue, object ifFalse) => isTrue(test) ? ifTrue : ifFalse;
-    /// <summary>
-    /// Whens the specified return target.
-    /// </summary>
-    /// <param name="returnTarget">The return target.</param>
-    /// <param name="test">The test.</param>
-    /// <returns>System.Object.</returns>
-    public object when(object returnTarget, object test) => @if(returnTarget, test);     //alias
 
-    /// <summary>
-    /// Ifs the not.
-    /// </summary>
-    /// <param name="returnTarget">The return target.</param>
-    /// <param name="test">The test.</param>
-    /// <returns>System.Object.</returns>
-    public object ifNot(object returnTarget, object test) => !isTrue(test) ? returnTarget : StopExecution.Value;
-    /// <summary>
-    /// Unlesses the specified return target.
-    /// </summary>
-    /// <param name="returnTarget">The return target.</param>
-    /// <param name="test">The test.</param>
-    /// <returns>System.Object.</returns>
-    public object unless(object returnTarget, object test) => ifNot(returnTarget, test); //alias
-
-    /// <summary>
-    /// Otherwises the specified return target.
-    /// </summary>
-    /// <param name="returnTarget">The return target.</param>
-    /// <param name="elseReturn">The else return.</param>
-    /// <returns>System.Object.</returns>
-    public object otherwise(object returnTarget, object elseReturn) => returnTarget ?? elseReturn;
-
-    /// <summary>
-    /// Ifs the else.
-    /// </summary>
-    /// <param name="returnTarget">The return target.</param>
-    /// <param name="test">The test.</param>
-    /// <param name="defaultValue">The default value.</param>
-    /// <returns>System.Object.</returns>
-    public object ifElse(object returnTarget, object test, object defaultValue) => test is true ? returnTarget : defaultValue;
-    /// <summary>
-    /// Ifs the not else.
-    /// </summary>
-    /// <param name="returnTarget">The return target.</param>
-    /// <param name="test">The test.</param>
-    /// <param name="defaultValue">The default value.</param>
-    /// <returns>System.Object.</returns>
-    public object ifNotElse(object returnTarget, object test, object defaultValue) => !isTrue(test) ? returnTarget : defaultValue;
-    /// <summary>
-    /// Unlesses the else.
-    /// </summary>
-    /// <param name="returnTarget">The return target.</param>
-    /// <param name="test">The test.</param>
-    /// <param name="defaultValue">The default value.</param>
-    /// <returns>System.Object.</returns>
-    public object unlessElse(object returnTarget, object test, object defaultValue) => ifNotElse(returnTarget, test, defaultValue); //alias
-
-    /// <summary>
-    /// Ifs the falsy.
-    /// </summary>
-    /// <param name="returnTarget">The return target.</param>
-    /// <param name="test">The test.</param>
-    /// <returns>System.Object.</returns>
-    public object ifFalsy(object returnTarget, object test) => isFalsy(test) ? returnTarget : StopExecution.Value;
-    /// <summary>
-    /// Ifs the truthy.
-    /// </summary>
-    /// <param name="returnTarget">The return target.</param>
-    /// <param name="test">The test.</param>
-    /// <returns>System.Object.</returns>
-    public object ifTruthy(object returnTarget, object test) => !isFalsy(test) ? returnTarget : StopExecution.Value;
-    /// <summary>
-    /// Falsies the specified test.
-    /// </summary>
-    /// <param name="test">The test.</param>
-    /// <param name="returnIfFalsy">The return if falsy.</param>
-    /// <returns>System.Object.</returns>
-    public object falsy(object test, object returnIfFalsy) => isFalsy(test) ? returnIfFalsy : null;
-    /// <summary>
-    /// Truthies the specified test.
-    /// </summary>
-    /// <param name="test">The test.</param>
-    /// <param name="returnIfTruthy">The return if truthy.</param>
-    /// <returns>System.Object.</returns>
-    public object truthy(object test, object returnIfTruthy) => !isFalsy(test) ? returnIfTruthy : null;
 
     /// <summary>
     /// Determines whether the specified test is null.
@@ -359,37 +135,10 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="test">The test.</param>
     /// <returns><c>true</c> if the specified test is null; otherwise, <c>false</c>.</returns>
     public bool isNull(object test) => ViewUtils.IsNull(test);
-    /// <summary>
-    /// Determines whether [is not null] [the specified test].
-    /// </summary>
-    /// <param name="test">The test.</param>
-    /// <returns><c>true</c> if [is not null] [the specified test]; otherwise, <c>false</c>.</returns>
-    public bool isNotNull(object test) => !isNull(test);
-    /// <summary>
-    /// Existses the specified test.
-    /// </summary>
-    /// <param name="test">The test.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public bool exists(object test) => !isNull(test);
 
-    /// <summary>
-    /// Determines whether the specified value is zero.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns><c>true</c> if the specified value is zero; otherwise, <c>false</c>.</returns>
-    public bool isZero(double value) => value.Equals(0d);
-    /// <summary>
-    /// Determines whether the specified value is positive.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns><c>true</c> if the specified value is positive; otherwise, <c>false</c>.</returns>
-    public bool isPositive(double value) => value > 0;
-    /// <summary>
-    /// Determines whether the specified value is negative.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns><c>true</c> if the specified value is negative; otherwise, <c>false</c>.</returns>
-    public bool isNegative(double value) => value < 0;
+
+
+
     /// <summary>
     /// Determines whether [is na n] [the specified value].
     /// </summary>
@@ -403,19 +152,6 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <returns><c>true</c> if the specified value is infinity; otherwise, <c>false</c>.</returns>
     public bool isInfinity(double value) => double.IsInfinity(value);
 
-    /// <summary>
-    /// Ifs the exists.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object ifExists(object target) => target;
-    /// <summary>
-    /// Ifs the exists.
-    /// </summary>
-    /// <param name="returnTarget">The return target.</param>
-    /// <param name="test">The test.</param>
-    /// <returns>System.Object.</returns>
-    public object ifExists(object returnTarget, object test) => !isNull(test) ? returnTarget : StopExecution.Value;
     /// <summary>
     /// Ifs the not exists.
     /// </summary>
@@ -484,36 +220,6 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
         return false;
     }
 
-    /// <summary>
-    /// Determines whether [is null or white space] [the specified target].
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns><c>true</c> if [is null or white space] [the specified target]; otherwise, <c>false</c>.</returns>
-    public bool IsNullOrWhiteSpace(object target) => target == null || target is string s && string.IsNullOrWhiteSpace(s);
-
-    /// <summary>
-    /// Determines whether the specified source is enum.
-    /// </summary>
-    /// <param name="source">The source.</param>
-    /// <param name="value">The value.</param>
-    /// <returns><c>true</c> if the specified source is enum; otherwise, <c>false</c>.</returns>
-    public bool isEnum(Enum source, object value) => value is string strEnum
-                                                         ? Equals(source, Enum.Parse(source.GetType(), strEnum, ignoreCase: true))
-                                                         : value is Enum enumValue
-                                                             ? Equals(source, enumValue)
-                                                             : Equals(source, Enum.ToObject(source.GetType(), value));
-
-    /// <summary>
-    /// Determines whether the specified source has flag.
-    /// </summary>
-    /// <param name="source">The source.</param>
-    /// <param name="value">The value.</param>
-    /// <returns><c>true</c> if the specified source has flag; otherwise, <c>false</c>.</returns>
-    public bool hasFlag(Enum source, object value) => value is string strEnum
-                                                          ? source.HasFlag((Enum)Enum.Parse(source.GetType(), strEnum, ignoreCase: true))
-                                                          : value is Enum enumValue
-                                                              ? source.HasFlag(enumValue)
-                                                              : source.HasFlag((Enum)Enum.ToObject(source.GetType(), value));
 
     /// <summary>
     /// Ends this instance.
@@ -535,571 +241,6 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     public StopExecution end(object ignore) => StopExecution.Value;
 
     /// <summary>
-    /// Ends if null.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object endIfNull(object target) => isNull(target) ? StopExecution.Value : target;
-    /// <summary>
-    /// Ends if null.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object endIfNull(object ignoreTarget, object target) => isNull(target) ? StopExecution.Value : target;
-    /// <summary>
-    /// Ends if not null.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object endIfNotNull(object target) => !isNull(target) ? StopExecution.Value : IgnoreResult.Value;
-    /// <summary>
-    /// Ends if not null.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object endIfNotNull(object ignoreTarget, object target) => !isNull(target) ? StopExecution.Value : IgnoreResult.Value;
-    /// <summary>
-    /// Ends if exists.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object endIfExists(object target) => !isNull(target) ? StopExecution.Value : IgnoreResult.Value;
-    /// <summary>
-    /// Ends if exists.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object endIfExists(object ignoreTarget, object target) => !isNull(target) ? StopExecution.Value : IgnoreResult.Value;
-    /// <summary>
-    /// Ends if empty.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object endIfEmpty(object target) => isEmpty(target) ? StopExecution.Value : target;
-    /// <summary>
-    /// Ends if empty.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object endIfEmpty(object ignoreTarget, object target) => isEmpty(target) ? StopExecution.Value : target;
-    /// <summary>
-    /// Ends if not empty.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object endIfNotEmpty(object target) => !isEmpty(target) ? StopExecution.Value : IgnoreResult.Value;
-    /// <summary>
-    /// Ends if not empty.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object endIfNotEmpty(object ignoreTarget, object target) => !isEmpty(target) ? StopExecution.Value : IgnoreResult.Value;
-    /// <summary>
-    /// Ends if falsy.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object endIfFalsy(object target) => isFalsy(target) ? StopExecution.Value : target;
-    /// <summary>
-    /// Ends if falsy.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object endIfFalsy(object ignoreTarget, object target) => isFalsy(target) ? StopExecution.Value : target;
-    /// <summary>
-    /// Ends if truthy.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object endIfTruthy(object target) => !isFalsy(target) ? StopExecution.Value : IgnoreResult.Value;
-    /// <summary>
-    /// Ends if truthy.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object endIfTruthy(object ignoreTarget, object target) => !isFalsy(target) ? StopExecution.Value : IgnoreResult.Value;
-    /// <summary>
-    /// Ends if.
-    /// </summary>
-    /// <param name="test">The test.</param>
-    /// <returns>System.Object.</returns>
-    public object endIf(object test) => isTrue(test) ? StopExecution.Value : IgnoreResult.Value;
-
-    /// <summary>
-    /// Ends if.
-    /// </summary>
-    /// <param name="returnTarget">The return target.</param>
-    /// <param name="test">if set to <c>true</c> [test].</param>
-    /// <returns>System.Object.</returns>
-    public object endIf(object returnTarget, bool test) => test ? StopExecution.Value : returnTarget;
-    /// <summary>
-    /// Ends if any.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="target">The target.</param>
-    /// <param name="expression">The expression.</param>
-    /// <returns>System.Object.</returns>
-    public object endIfAny(ScriptScopeContext scope, object target, object expression) => any(scope, target, expression) ? StopExecution.Value : target;
-    /// <summary>
-    /// Ends if all.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="target">The target.</param>
-    /// <param name="expression">The expression.</param>
-    /// <returns>System.Object.</returns>
-    public object endIfAll(ScriptScopeContext scope, object target, object expression) => all(scope, target, expression) ? StopExecution.Value : target;
-    /// <summary>
-    /// Ends the where.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="target">The target.</param>
-    /// <param name="expression">The expression.</param>
-    /// <returns>System.Object.</returns>
-    public object endWhere(ScriptScopeContext scope, object target, object expression) => endWhere(scope, target, expression, null);
-
-    /// <summary>
-    /// Ends the where.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="target">The target.</param>
-    /// <param name="expression">The expression.</param>
-    /// <param name="scopeOptions">The scope options.</param>
-    /// <returns>System.Object.</returns>
-    public object endWhere(ScriptScopeContext scope, object target, object expression, object scopeOptions)
-    {
-        var literal = scope.AssertExpression(nameof(count), expression);
-        var scopedParams = scope.GetParamsWithItemBinding(nameof(count), scopeOptions, out string itemBinding);
-
-        var expr = literal.GetCachedJsExpression(scope);
-        scope = scope.Clone();
-        scope.AddItemToScope(itemBinding, target);
-        var result = expr.EvaluateToBool(scope);
-
-        return result
-                   ? StopExecution.Value
-                   : target;
-    }
-
-    /// <summary>
-    /// Ifs the end.
-    /// </summary>
-    /// <param name="test">if set to <c>true</c> [test].</param>
-    /// <returns>System.Object.</returns>
-    public object ifEnd(bool test) => test ? StopExecution.Value : IgnoreResult.Value;
-    /// <summary>
-    /// Ifs the end.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="test">if set to <c>true</c> [test].</param>
-    /// <returns>System.Object.</returns>
-    public object ifEnd(object ignoreTarget, bool test) => test ? StopExecution.Value : IgnoreResult.Value;
-    /// <summary>
-    /// Ifs the not end.
-    /// </summary>
-    /// <param name="test">if set to <c>true</c> [test].</param>
-    /// <returns>System.Object.</returns>
-    public object ifNotEnd(bool test) => !test ? StopExecution.Value : IgnoreResult.Value;
-    /// <summary>
-    /// Ifs the not end.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="test">if set to <c>true</c> [test].</param>
-    /// <returns>System.Object.</returns>
-    public object ifNotEnd(object ignoreTarget, bool test) => !test ? StopExecution.Value : IgnoreResult.Value;
-
-    /// <summary>
-    /// Onlies if null.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object onlyIfNull(object target) => !isNull(target) ? StopExecution.Value : IgnoreResult.Value;
-    /// <summary>
-    /// Onlies if null.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object onlyIfNull(object ignoreTarget, object target) => !isNull(target) ? StopExecution.Value : IgnoreResult.Value;
-    /// <summary>
-    /// Onlies if not null.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object onlyIfNotNull(object target) => isNull(target) ? StopExecution.Value : target;
-    /// <summary>
-    /// Onlies if not null.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object onlyIfNotNull(object ignoreTarget, object target) => isNull(target) ? StopExecution.Value : target;
-    /// <summary>
-    /// Onlies if exists.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object onlyIfExists(object target) => isNull(target) ? StopExecution.Value : target;
-    /// <summary>
-    /// Onlies if exists.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object onlyIfExists(object ignoreTarget, object target) => isNull(target) ? StopExecution.Value : target;
-    /// <summary>
-    /// Onlies if empty.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object onlyIfEmpty(object target) => !isEmpty(target) ? StopExecution.Value : IgnoreResult.Value;
-    /// <summary>
-    /// Onlies if empty.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object onlyIfEmpty(object ignoreTarget, object target) => !isEmpty(target) ? StopExecution.Value : IgnoreResult.Value;
-    /// <summary>
-    /// Onlies if not empty.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object onlyIfNotEmpty(object target) => isEmpty(target) ? StopExecution.Value : target;
-    /// <summary>
-    /// Onlies if not empty.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object onlyIfNotEmpty(object ignoreTarget, object target) => isEmpty(target) ? StopExecution.Value : target;
-    /// <summary>
-    /// Onlies if falsy.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object onlyIfFalsy(object target) => !isFalsy(target) ? StopExecution.Value : IgnoreResult.Value;
-    /// <summary>
-    /// Onlies if falsy.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object onlyIfFalsy(object ignoreTarget, object target) => !isFalsy(target) ? StopExecution.Value : IgnoreResult.Value;
-    /// <summary>
-    /// Onlies if truthy.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object onlyIfTruthy(object target) => isFalsy(target) ? StopExecution.Value : target;
-    /// <summary>
-    /// Onlies if truthy.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object onlyIfTruthy(object ignoreTarget, object target) => isFalsy(target) ? StopExecution.Value : target;
-    /// <summary>
-    /// Onlies if.
-    /// </summary>
-    /// <param name="test">The test.</param>
-    /// <returns>System.Object.</returns>
-    public object onlyIf(object test) => !isTrue(test) ? StopExecution.Value : IgnoreResult.Value;
-
-    /// <summary>
-    /// Onlies if.
-    /// </summary>
-    /// <param name="returnTarget">The return target.</param>
-    /// <param name="test">if set to <c>true</c> [test].</param>
-    /// <returns>System.Object.</returns>
-    public object onlyIf(object returnTarget, bool test) => !test ? StopExecution.Value : returnTarget;
-    /// <summary>
-    /// Onlies if any.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="target">The target.</param>
-    /// <param name="expression">The expression.</param>
-    /// <returns>System.Object.</returns>
-    public object onlyIfAny(ScriptScopeContext scope, object target, object expression) => !any(scope, target, expression) ? StopExecution.Value : target;
-    /// <summary>
-    /// Onlies if all.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="target">The target.</param>
-    /// <param name="expression">The expression.</param>
-    /// <returns>System.Object.</returns>
-    public object onlyIfAll(ScriptScopeContext scope, object target, object expression) => !all(scope, target, expression) ? StopExecution.Value : target;
-    /// <summary>
-    /// Onlies the where.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="target">The target.</param>
-    /// <param name="expression">The expression.</param>
-    /// <returns>System.Object.</returns>
-    public object onlyWhere(ScriptScopeContext scope, object target, object expression) => onlyWhere(scope, target, expression, null);
-
-    /// <summary>
-    /// Onlies if debug.
-    /// </summary>
-    /// <param name="returnTarget">The return target.</param>
-    /// <returns>System.Object.</returns>
-    public object onlyIfDebug(object returnTarget) => !Context.DebugMode ? StopExecution.Value : returnTarget;
-    /// <summary>
-    /// Ends if debug.
-    /// </summary>
-    /// <param name="returnTarget">The return target.</param>
-    /// <returns>System.Object.</returns>
-    public object endIfDebug(object returnTarget) => Context.DebugMode ? StopExecution.Value : returnTarget;
-
-    /// <summary>
-    /// Onlies the where.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="target">The target.</param>
-    /// <param name="expression">The expression.</param>
-    /// <param name="scopeOptions">The scope options.</param>
-    /// <returns>System.Object.</returns>
-    public object onlyWhere(ScriptScopeContext scope, object target, object expression, object scopeOptions)
-    {
-        var literal = scope.AssertExpression(nameof(count), expression);
-        var scopedParams = scope.GetParamsWithItemBinding(nameof(count), scopeOptions, out string itemBinding);
-
-        var expr = literal.GetCachedJsExpression(scope);
-        scope = scope.Clone();
-        scope.AddItemToScope(itemBinding, target);
-        var result = expr.EvaluateToBool(scope);
-
-        return result
-                   ? target
-                   : StopExecution.Value;
-    }
-
-    /// <summary>
-    /// Ifs the only.
-    /// </summary>
-    /// <param name="test">if set to <c>true</c> [test].</param>
-    /// <returns>System.Object.</returns>
-    public object ifOnly(bool test) => !test ? StopExecution.Value : IgnoreResult.Value;
-    /// <summary>
-    /// Ifs the only.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="test">if set to <c>true</c> [test].</param>
-    /// <returns>System.Object.</returns>
-    public object ifOnly(object ignoreTarget, bool test) => !test ? StopExecution.Value : IgnoreResult.Value;
-    /// <summary>
-    /// Ifs the not only.
-    /// </summary>
-    /// <param name="test">if set to <c>true</c> [test].</param>
-    /// <returns>System.Object.</returns>
-    public object ifNotOnly(bool test) => test ? StopExecution.Value : IgnoreResult.Value;
-    /// <summary>
-    /// Ifs the not only.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="test">if set to <c>true</c> [test].</param>
-    /// <returns>System.Object.</returns>
-    public object ifNotOnly(object ignoreTarget, bool test) => test ? StopExecution.Value : IgnoreResult.Value;
-
-
-    /// <summary>
-    /// Ifs the do.
-    /// </summary>
-    /// <param name="test">The test.</param>
-    /// <returns>System.Object.</returns>
-    public object ifDo(object test) => isTrue(test) ? IgnoreResult.Value : StopExecution.Value;
-    /// <summary>
-    /// Ifs the do.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="test">The test.</param>
-    /// <returns>System.Object.</returns>
-    public object ifDo(object ignoreTarget, object test) => isTrue(test) ? IgnoreResult.Value : StopExecution.Value;
-    /// <summary>
-    /// Does if.
-    /// </summary>
-    /// <param name="test">The test.</param>
-    /// <returns>System.Object.</returns>
-    public object doIf(object test) => isTrue(test) ? IgnoreResult.Value : StopExecution.Value;
-    /// <summary>
-    /// Does if.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="test">The test.</param>
-    /// <returns>System.Object.</returns>
-    public object doIf(object ignoreTarget, object test) => isTrue(test) ? IgnoreResult.Value : StopExecution.Value;
-
-    /// <summary>
-    /// Ifs the use.
-    /// </summary>
-    /// <param name="test">The test.</param>
-    /// <param name="useValue">The use value.</param>
-    /// <returns>System.Object.</returns>
-    public object ifUse(object test, object useValue) => isTrue(test) ? useValue : StopExecution.Value;
-    /// <summary>
-    /// Ifs the show.
-    /// </summary>
-    /// <param name="test">The test.</param>
-    /// <param name="useValue">The use value.</param>
-    /// <returns>System.Object.</returns>
-    public object ifShow(object test, object useValue) => isTrue(test) ? useValue : StopExecution.Value;
-    /// <summary>
-    /// Ifs the show raw.
-    /// </summary>
-    /// <param name="test">The test.</param>
-    /// <param name="useValue">The use value.</param>
-    /// <returns>System.Object.</returns>
-    public object ifShowRaw(object test, object useValue) => isTrue(test) ? raw(useValue) : StopExecution.Value;
-
-    /// <summary>
-    /// Shows if.
-    /// </summary>
-    /// <param name="useValue">The use value.</param>
-    /// <param name="test">The test.</param>
-    /// <returns>System.Object.</returns>
-    public object showIf(object useValue, object test) => isTrue(test) ? useValue : StopExecution.Value;
-
-    /// <summary>
-    /// Uses the specified ignore target.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="useValue">The use value.</param>
-    /// <returns>System.Object.</returns>
-    public object use(object ignoreTarget, object useValue) => useValue;
-    /// <summary>
-    /// Shows the specified ignore target.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="useValue">The use value.</param>
-    /// <returns>System.Object.</returns>
-    public object show(object ignoreTarget, object useValue) => useValue;
-    /// <summary>
-    /// Shows the raw.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="content">The content.</param>
-    /// <returns>IRawString.</returns>
-    public IRawString showRaw(object ignoreTarget, string content) => content.ToRawString();
-
-    /// <summary>
-    /// Uses the FMT.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="format">The format.</param>
-    /// <param name="arg">The argument.</param>
-    /// <returns>System.Object.</returns>
-    public object useFmt(object ignoreTarget, string format, object arg) => fmt(format, arg);
-    /// <summary>
-    /// Uses the FMT.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="format">The format.</param>
-    /// <param name="arg1">The arg1.</param>
-    /// <param name="arg2">The arg2.</param>
-    /// <returns>System.Object.</returns>
-    public object useFmt(object ignoreTarget, string format, object arg1, object arg2) => fmt(format, arg1, arg2);
-    /// <summary>
-    /// Uses the FMT.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="format">The format.</param>
-    /// <param name="arg1">The arg1.</param>
-    /// <param name="arg2">The arg2.</param>
-    /// <param name="arg3">The arg3.</param>
-    /// <returns>System.Object.</returns>
-    public object useFmt(object ignoreTarget, string format, object arg1, object arg2, object arg3) => fmt(format, arg1, arg2, arg3);
-    /// <summary>
-    /// Uses the format.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="arg">The argument.</param>
-    /// <param name="fmt">The FMT.</param>
-    /// <returns>System.Object.</returns>
-    public object useFormat(object ignoreTarget, object arg, string fmt) => format(arg, fmt);
-
-    /// <summary>
-    /// Shows the FMT.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="format">The format.</param>
-    /// <param name="arg">The argument.</param>
-    /// <returns>System.Object.</returns>
-    public object showFmt(object ignoreTarget, string format, object arg) => fmt(format, arg);
-    /// <summary>
-    /// Shows the FMT.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="format">The format.</param>
-    /// <param name="arg1">The arg1.</param>
-    /// <param name="arg2">The arg2.</param>
-    /// <returns>System.Object.</returns>
-    public object showFmt(object ignoreTarget, string format, object arg1, object arg2) => fmt(format, arg1, arg2);
-    /// <summary>
-    /// Shows the FMT.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="format">The format.</param>
-    /// <param name="arg1">The arg1.</param>
-    /// <param name="arg2">The arg2.</param>
-    /// <param name="arg3">The arg3.</param>
-    /// <returns>System.Object.</returns>
-    public object showFmt(object ignoreTarget, string format, object arg1, object arg2, object arg3) => fmt(format, arg1, arg2, arg3);
-    /// <summary>
-    /// Shows the format.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="arg">The argument.</param>
-    /// <param name="fmt">The FMT.</param>
-    /// <returns>System.Object.</returns>
-    public object showFormat(object ignoreTarget, object arg, string fmt) => format(arg, fmt);
-
-    /// <summary>
-    /// Shows the FMT raw.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="format">The format.</param>
-    /// <param name="arg">The argument.</param>
-    /// <returns>IRawString.</returns>
-    public IRawString showFmtRaw(object ignoreTarget, string format, object arg) => raw(fmt(format, arg));
-    /// <summary>
-    /// Shows the FMT raw.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="format">The format.</param>
-    /// <param name="arg1">The arg1.</param>
-    /// <param name="arg2">The arg2.</param>
-    /// <returns>IRawString.</returns>
-    public IRawString showFmtRaw(object ignoreTarget, string format, object arg1, object arg2) => raw(fmt(format, arg1, arg2));
-    /// <summary>
-    /// Shows the FMT raw.
-    /// </summary>
-    /// <param name="ignoreTarget">The ignore target.</param>
-    /// <param name="format">The format.</param>
-    /// <param name="arg1">The arg1.</param>
-    /// <param name="arg2">The arg2.</param>
-    /// <param name="arg3">The arg3.</param>
-    /// <returns>IRawString.</returns>
-    public IRawString showFmtRaw(object ignoreTarget, string format, object arg1, object arg2, object arg3) => raw(fmt(format, arg1, arg2, arg3));
-
-    /// <summary>
-    /// Determines whether the specified target is string.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns><c>true</c> if the specified target is string; otherwise, <c>false</c>.</returns>
-    public bool isString(object target) => target is string;
-    /// <summary>
-    /// Determines whether the specified target is int.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns><c>true</c> if the specified target is int; otherwise, <c>false</c>.</returns>
-    public bool isInt(object target) => target is int;
-    /// <summary>
     /// Determines whether the specified target is long.
     /// </summary>
     /// <param name="target">The target.</param>
@@ -1111,24 +252,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="target">The target.</param>
     /// <returns><c>true</c> if the specified target is integer; otherwise, <c>false</c>.</returns>
     public bool isInteger(object target) => target?.GetType().IsIntegerType() == true;
-    /// <summary>
-    /// Determines whether the specified target is double.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns><c>true</c> if the specified target is double; otherwise, <c>false</c>.</returns>
-    public bool isDouble(object target) => target is double;
-    /// <summary>
-    /// Determines whether the specified target is float.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns><c>true</c> if the specified target is float; otherwise, <c>false</c>.</returns>
-    public bool isFloat(object target) => target is float;
-    /// <summary>
-    /// Determines whether the specified target is decimal.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns><c>true</c> if the specified target is decimal; otherwise, <c>false</c>.</returns>
-    public bool isDecimal(object target) => target is decimal;
+
     /// <summary>
     /// Determines whether the specified target is bool.
     /// </summary>
@@ -1177,18 +301,6 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="target">The target.</param>
     /// <returns><c>true</c> if the specified target is bytes; otherwise, <c>false</c>.</returns>
     public bool isBytes(object target) => target is byte[];
-    /// <summary>
-    /// Determines whether [is object dictionary] [the specified target].
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns><c>true</c> if [is object dictionary] [the specified target]; otherwise, <c>false</c>.</returns>
-    public bool isObjectDictionary(object target) => target is IDictionary<string, object>;
-    /// <summary>
-    /// Determines whether [is string dictionary] [the specified target].
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns><c>true</c> if [is string dictionary] [the specified target]; otherwise, <c>false</c>.</returns>
-    public bool isStringDictionary(object target) => target is IDictionary<string, string>;
 
     /// <summary>
     /// Determines whether the specified target is type.
@@ -1203,12 +315,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="target">The target.</param>
     /// <returns><c>true</c> if the specified target is number; otherwise, <c>false</c>.</returns>
     public bool isNumber(object target) => target?.GetType().IsNumericType() == true;
-    /// <summary>
-    /// Determines whether [is real number] [the specified target].
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns><c>true</c> if [is real number] [the specified target]; otherwise, <c>false</c>.</returns>
-    public bool isRealNumber(object target) => target?.GetType().IsRealNumberType() == true;
+
     /// <summary>
     /// Determines whether the specified target is enum.
     /// </summary>
@@ -1251,12 +358,6 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="target">The target.</param>
     /// <returns><c>true</c> if the specified target is tuple; otherwise, <c>false</c>.</returns>
     public bool isTuple(object target) => target?.GetType().IsTuple() == true;
-    /// <summary>
-    /// Determines whether [is key value pair] [the specified target].
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns><c>true</c> if [is key value pair] [the specified target]; otherwise, <c>false</c>.</returns>
-    public bool isKeyValuePair(object target) => "KeyValuePair`2".Equals(target?.GetType().Name);
 
     /// <summary>
     /// Instances the of.
@@ -1292,21 +393,6 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="target">The target.</param>
     /// <returns>System.Int32.</returns>
     public int length(object target) => target is IEnumerable e ? e.Cast<object>().Count() : 0;
-
-    /// <summary>
-    /// Determines whether [has minimum count] [the specified target].
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="minCount">The minimum count.</param>
-    /// <returns><c>true</c> if [has minimum count] [the specified target]; otherwise, <c>false</c>.</returns>
-    public bool hasMinCount(object target, int minCount) => target is IEnumerable e && e.Cast<object>().Count() >= minCount;
-    /// <summary>
-    /// Determines whether [has maximum count] [the specified target].
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="maxCount">The maximum count.</param>
-    /// <returns><c>true</c> if [has maximum count] [the specified target]; otherwise, <c>false</c>.</returns>
-    public bool hasMaxCount(object target, int maxCount) => target is IEnumerable e && e.Cast<object>().Count() <= maxCount;
 
     /// <summary>
     /// Ors the specified LHS.
@@ -1493,14 +579,6 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="original">The original.</param>
     /// <returns>IEnumerable&lt;System.Object&gt;.</returns>
     public IEnumerable<object> reverse(ScriptScopeContext scope, IEnumerable<object> original) => original.Reverse();
-
-    /// <summary>
-    /// Keys the value pair.
-    /// </summary>
-    /// <param name="key">The key.</param>
-    /// <param name="value">The value.</param>
-    /// <returns>KeyValuePair&lt;System.String, System.Object&gt;.</returns>
-    public KeyValuePair<string, object> keyValuePair(string key, object value) => new(key, value);
 
     /// <summary>
     /// Prepends to.
@@ -1858,39 +936,6 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     }
 
     /// <summary>
-    /// Resolves the argument.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>System.Object.</returns>
-    public object resolveArg(ScriptScopeContext scope, string name) => scope.GetValue(name);
-    /// <summary>
-    /// Resolves the global.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>System.Object.</returns>
-    public object resolveGlobal(ScriptScopeContext scope, string name) => resolvePageArg(scope, name);
-    /// <summary>
-    /// Resolves the page argument.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>System.Object.</returns>
-    public object resolvePageArg(ScriptScopeContext scope, string name) => scope.PageResult.Args.TryGetValue(name, out var value)
-                                                                               ? value
-                                                                               : null;
-    /// <summary>
-    /// Resolves the context argument.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>System.Object.</returns>
-    public object resolveContextArg(ScriptScopeContext scope, string name) => scope.Context.Args.TryGetValue(name, out var value)
-                                                                                  ? value
-                                                                                  : null;
-
-    /// <summary>
     /// Assigns the specified scope.
     /// </summary>
     /// <param name="scope">The scope.</param>
@@ -1899,16 +944,6 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <returns>System.Object.</returns>
     public object assign(ScriptScopeContext scope, string argExpr, object value) =>
         assignArgs(scope, argExpr, value, scope.ScopedParams);
-
-    /// <summary>
-    /// Assigns the global.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="argExpr">The argument expr.</param>
-    /// <param name="value">The value.</param>
-    /// <returns>System.Object.</returns>
-    public object assignGlobal(ScriptScopeContext scope, string argExpr, object value) =>
-        assignArgs(scope, argExpr, value, scope.PageResult.Args);
 
     /// <summary>
     /// Assigns the arguments.
@@ -1922,7 +957,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <exception cref="System.NotSupportedException">Cannot assign to non-existing '{targetName}' in {argExpr}</exception>
     private object assignArgs(ScriptScopeContext scope, string argExpr, object value, Dictionary<string, object> args) //from filter
     {
-        var targetEndPos = argExpr.IndexOfAny(new[] { '.', '[' });
+        var targetEndPos = argExpr.IndexOfAny(['.', '[']);
         if (targetEndPos == -1)
         {
             args[argExpr] = value;
@@ -2206,12 +1241,6 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <returns>List&lt;System.Object&gt;.</returns>
     public List<object> toList(IEnumerable target) => target.Map(x => x);
     /// <summary>
-    /// To the string list.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>List&lt;System.String&gt;.</returns>
-    public List<string> toStringList(IEnumerable target) => ViewUtils.ToStringList(target);
-    /// <summary>
     /// To the array.
     /// </summary>
     /// <param name="target">The target.</param>
@@ -2242,13 +1271,6 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
                                                     : target.ConvertTo<char[]>();
 
     /// <summary>
-    /// To the character code.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Int32.</returns>
-    public int toCharCode(object target) => toChar(target);
-
-    /// <summary>
     /// To the int.
     /// </summary>
     /// <param name="target">The target.</param>
@@ -2260,12 +1282,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="target">The target.</param>
     /// <returns>System.Int64.</returns>
     public long toLong(object target) => target.ConvertTo<long>();
-    /// <summary>
-    /// To the float.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Single.</returns>
-    public float toFloat(object target) => target.ConvertTo<float>();
+
     /// <summary>
     /// To the double.
     /// </summary>
@@ -2418,45 +1435,6 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     }
 
     /// <summary>
-    /// To the object dictionary.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>Dictionary&lt;System.String, System.Object&gt;.</returns>
-    public Dictionary<string, object> toObjectDictionary(object target) => target.ToObjectDictionary();
-    /// <summary>
-    /// To the string dictionary.
-    /// </summary>
-    /// <param name="map">The map.</param>
-    /// <returns>Dictionary&lt;System.String, System.String&gt;.</returns>
-    public Dictionary<string, string> toStringDictionary(IDictionary map)
-    {
-        if (isNull(map))
-            return null;
-
-        var to = new Dictionary<string, string>();
-        foreach (var key in map.Keys)
-        {
-            var value = map[key];
-            to[key.ToString()] = value?.ToString();
-        }
-        return to;
-    }
-
-    /// <summary>
-    /// Splits the string list.
-    /// </summary>
-    /// <param name="strings">The strings.</param>
-    /// <returns>List&lt;System.String&gt;.</returns>
-    public List<string> splitStringList(IEnumerable strings) => ViewUtils.SplitStringList(strings);
-
-    /// <summary>
-    /// To the variable names.
-    /// </summary>
-    /// <param name="names">The names.</param>
-    /// <returns>List&lt;System.String&gt;.</returns>
-    public List<string> toVarNames(IEnumerable names) => ViewUtils.SplitStringList(names);
-
-    /// <summary>
     /// Asserts the within maximum quota.
     /// </summary>
     /// <param name="value">The value.</param>
@@ -2503,13 +1481,6 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     /// <param name="target">The target.</param>
     /// <returns>IRawString.</returns>
     public IRawString typeName(object target) => (target?.GetType().Name ?? "null").ToRawString();
-    /// <summary>
-    /// Types the full name.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>IRawString.</returns>
-    public IRawString typeFullName(object target) =>
-        (target != null ? Context.ProtectedMethods.typeQualifiedName(target.GetType()) : "null").ToRawString();
 
     /// <summary>
     /// Ofs the specified scope.
@@ -2619,35 +1590,6 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
         var type = o as Type ?? o.GetType();
 
         return type.GetPublicProperties();
-    }
-
-    /// <summary>
-    /// Statics the props.
-    /// </summary>
-    /// <param name="o">The o.</param>
-    /// <returns>List&lt;System.String&gt;.</returns>
-    public List<string> staticProps(object o)
-    {
-        if (o == null)
-            return TypeConstants.EmptyStringList;
-
-        var pis = staticPropTypes(o);
-        return pis.Map(x => x.Name).OrderBy(x => x).ToList();
-    }
-
-    /// <summary>
-    /// Statics the property types.
-    /// </summary>
-    /// <param name="o">The o.</param>
-    /// <returns>PropertyInfo[].</returns>
-    public PropertyInfo[] staticPropTypes(object o)
-    {
-        if (o == null)
-            return TypeConstants<PropertyInfo>.EmptyArray;
-
-        var type = o as Type ?? o.GetType();
-
-        return type.GetProperties(BindingFlags.Static | BindingFlags.Public);
     }
 
     /// <summary>
@@ -2875,7 +1817,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
 
         var stringsSet = stringKeys != null
                              ? new HashSet<string>(stringKeys, StringComparer.OrdinalIgnoreCase)
-                             : new HashSet<string> { stringKey };
+                             : [stringKey];
 
         var singleItem = target is IDictionary || target is not IEnumerable;
         if (singleItem)
@@ -3107,108 +2049,9 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     }
 
     /// <summary>
-    /// Withouts the null values.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object withoutNullValues(object target)
-    {
-        if (target is IDictionary<string, object> objDictionary)
-        {
-            var keys = objDictionary.Keys.ToList();
-            var to = new Dictionary<string, object>();
-            foreach (var key in keys)
-            {
-                var value = objDictionary[key];
-                if (!isNull(value))
-                {
-                    to[key] = value;
-                }
-            }
-            return to;
-        }
-        if (target is IEnumerable list)
-        {
-            var to = new List<object>();
-            foreach (var item in list)
-            {
-                if (!isNull(item))
-                    to.Add(item);
-            }
-            return to;
-        }
-        return target;
-    }
-
-    /// <summary>
-    /// Withouts the empty values.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <returns>System.Object.</returns>
-    public object withoutEmptyValues(object target)
-    {
-        if (target is IDictionary<string, object> objDictionary)
-        {
-            var keys = objDictionary.Keys.ToList();
-            var to = new Dictionary<string, object>();
-            foreach (var key in keys)
-            {
-                var value = objDictionary[key];
-                if (!isEmpty(value))
-                {
-                    to[key] = value;
-                }
-            }
-            return to;
-        }
-        if (target is IEnumerable list)
-        {
-            var to = new List<object>();
-            foreach (var item in list)
-            {
-                if (!isEmpty(item))
-                    to.Add(item);
-            }
-            return to;
-        }
-        return target;
-    }
-
-    /// <summary>
-    /// Withes the keys.
-    /// </summary>
-    /// <param name="target">The target.</param>
-    /// <param name="keys">The keys.</param>
-    /// <returns>System.Object.</returns>
-    /// <exception cref="System.NotSupportedException"></exception>
-    public object withKeys(IDictionary<string, object> target, object keys)
-    {
-        if (keys == null)
-            return target;
-
-        var strKeys = keys is string s
-                          ? new List<string> { s }
-                          : keys is IEnumerable e
-                              ? e.Map(x => x.ToString())
-                              : throw new NotSupportedException($"{nameof(withoutKeys)} expects a collection of key names but received ${keys.GetType().Name}");
-
-        var to = new Dictionary<string, object>();
-        foreach (var entry in target)
-        {
-            if (!strKeys.Contains(entry.Key))
-                continue;
-
-            to[entry.Key] = entry.Value;
-        }
-        return to;
-    }
-
-    /// <summary>
     /// The internal keys
     /// </summary>
-    private readonly static HashSet<string> InternalKeys = new()
-                                                               {
-                                                                   ScriptConstants.It, ScriptConstants.PartialArg };
+    private readonly static HashSet<string> InternalKeys = [ScriptConstants.It, ScriptConstants.PartialArg];
 
     /// <summary>
     /// Owns the props.
@@ -3240,7 +2083,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
             return target;
 
         var strKeys = keys is string s
-                          ? new List<string> { s }
+                          ? [s]
                           : keys is IEnumerable e
                               ? e.Map(x => x.ToString())
                               : throw new NotSupportedException($"{nameof(withoutKeys)} expects a collection of key names but received ${keys.GetType().Name}");
@@ -3272,7 +2115,7 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     public object merge(IDictionary<string, object> target, object sources)
     {
         var srcArray = sources is IDictionary<string, object> d
-                           ? new object[] { d }
+                           ? [d]
                            : sources is List<IDictionary<string, object>> ld
                                ? ld.ToArray()
                                : sources is List<object> lo
@@ -3281,41 +2124,6 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
                                          $"{nameof(merge)} cannot merge objects of type ${sources.GetType().Name}");
 
         return target.MergeIntoObjectDictionary(srcArray);
-    }
-
-    /// <summary>
-    /// Dirs the path.
-    /// </summary>
-    /// <param name="filePath">The file path.</param>
-    /// <returns>System.String.</returns>
-    public string dirPath(string filePath)
-    {
-        if (string.IsNullOrEmpty(filePath) || filePath[^1] == '/')
-            return null;
-
-        var lastDirPos = filePath.LastIndexOf('/');
-        return lastDirPos >= 0
-                   ? filePath.Substring(0, lastDirPos)
-                   : null;
-    }
-
-    /// <summary>
-    /// Resolves the asset.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="virtualPath">The virtual path.</param>
-    /// <returns>System.String.</returns>
-    public string resolveAsset(ScriptScopeContext scope, string virtualPath)
-    {
-        if (string.IsNullOrEmpty(virtualPath))
-            return string.Empty;
-
-        if (!scope.Context.Args.TryGetValue(ScriptConstants.AssetsBase, out object assetsBase))
-            return virtualPath;
-
-        return virtualPath[0] == '/'
-                   ? assetsBase.ToString().CombineWith(virtualPath).ResolvePaths()
-                   : assetsBase.ToString().CombineWith(dirPath(scope.Page.VirtualPath), virtualPath).ResolvePaths();
     }
 
     /// <summary>
@@ -3369,22 +2177,6 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
     }
 
     /// <summary>
-    /// Writelns the specified scope.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="value">The value.</param>
-    /// <returns>IgnoreResult.</returns>
-    public IgnoreResult writeln(ScriptScopeContext scope, object value)
-    {
-        if (value != null)
-        {
-            var s = $"{value}\n";
-            MemoryProvider.Instance.Write(scope.OutputStream, s.AsMemory());
-        }
-        return IgnoreResult.Value;
-    }
-
-    /// <summary>
     /// Unwraps the specified value.
     /// </summary>
     /// <param name="value">The value.</param>
@@ -3399,12 +2191,6 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
         }
         return value;
     }
-    /// <summary>
-    /// Synchronizes the specified value.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>System.Object.</returns>
-    public object sync(object value) => unwrap(value);
 }
 
 /// <summary>
@@ -3417,25 +2203,12 @@ public partial class DefaultScripts : ScriptMethods, IConfigureScriptContext
 public partial class DefaultScripts //Methods named after common keywords breaks intelli-sense when trying to use them
 {
     /// <summary>
-    /// Ifs the specified test.
-    /// </summary>
-    /// <param name="test">The test.</param>
-    /// <returns>System.Object.</returns>
-    public object @if(object test) => test is true ? IgnoreResult.Value : StopExecution.Value;
-    /// <summary>
     /// Ifs the specified return target.
     /// </summary>
     /// <param name="returnTarget">The return target.</param>
     /// <param name="test">The test.</param>
     /// <returns>System.Object.</returns>
     public object @if(object returnTarget, object test) => test is true ? returnTarget : StopExecution.Value;
-    /// <summary>
-    /// Defaults the specified return target.
-    /// </summary>
-    /// <param name="returnTarget">The return target.</param>
-    /// <param name="elseReturn">The else return.</param>
-    /// <returns>System.Object.</returns>
-    public object @default(object returnTarget, object elseReturn) => returnTarget ?? elseReturn;
 
     /// <summary>
     /// Throws the specified scope.
@@ -3452,27 +2225,4 @@ public partial class DefaultScripts //Methods named after common keywords breaks
     /// <param name="options">The options.</param>
     /// <returns>System.Object.</returns>
     public object @throw(ScriptScopeContext scope, string message, object options) => new Exception(message).InStopFilter(scope, options);
-
-    /// <summary>
-    /// Returns the specified scope.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <returns>StopExecution.</returns>
-    public StopExecution @return(ScriptScopeContext scope) => @return(scope, null, null);
-    /// <summary>
-    /// Returns the specified scope.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="returnValue">The return value.</param>
-    /// <returns>StopExecution.</returns>
-    public StopExecution @return(ScriptScopeContext scope, object returnValue) => @return(scope, returnValue, null);
-    /// <summary>
-    /// Returns the specified scope.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="returnValue">The return value.</param>
-    /// <param name="returnArgs">The return arguments.</param>
-    /// <returns>StopExecution.</returns>
-    public StopExecution @return(ScriptScopeContext scope, object returnValue, Dictionary<string, object> returnArgs) =>
-        scope.ReturnValue(returnValue, returnArgs);
 }

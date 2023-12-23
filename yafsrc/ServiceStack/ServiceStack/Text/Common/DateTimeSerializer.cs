@@ -105,7 +105,7 @@ public static class DateTimeSerializer
     /// <summary>
     /// The date time separators
     /// </summary>
-    private readonly static char[] DateTimeSeparators = { '-', '/' };
+    private readonly static char[] DateTimeSeparators = ['-', '/'];
     /// <summary>
     /// The UTC offset information regex
     /// </summary>
@@ -638,7 +638,7 @@ public static class DateTimeSerializer
     /// <summary>
     /// The time zone chars
     /// </summary>
-    readonly static char[] TimeZoneChars = { '+', '-' };
+    readonly static char[] TimeZoneChars = ['+', '-'];
 
     /// <summary>
     /// The minimum date time offset WCF value

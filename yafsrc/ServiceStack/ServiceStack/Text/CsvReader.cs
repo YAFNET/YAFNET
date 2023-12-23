@@ -274,12 +274,12 @@ public class CsvReader<T>
     /// </summary>
     static internal void Reset()
     {
-        Headers = new List<string>();
+        Headers = [];
 
-        PropertySetters = new List<SetMemberDelegate<T>>();
+        PropertySetters = [];
         PropertySettersMap = new Dictionary<string, SetMemberDelegate<T>>(PclExport.Instance.InvariantComparerIgnoreCase);
 
-        PropertyConverters = new List<ParseStringDelegate>();
+        PropertyConverters = [];
         PropertyConvertersMap = new Dictionary<string, ParseStringDelegate>(PclExport.Instance.InvariantComparerIgnoreCase);
 
         foreach (var propertyInfo in TypeConfig<T>.Properties)
@@ -417,7 +417,7 @@ public class CsvReader<T>
 
         if (typeof(T).IsAssignableFrom(typeof(List<string>)))
         {
-            return new List<T>(rows.Select(x => (T)(object)CsvReader.ParseFields(x)));
+            return [..rows.Select(x => (T)(object)CsvReader.ParseFields(x))];
         }
 
         List<string> headers = null;

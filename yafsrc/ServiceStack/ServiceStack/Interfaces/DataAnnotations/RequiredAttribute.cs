@@ -12,6 +12,4 @@ namespace ServiceStack.DataAnnotations;
 /// Create NOT NULL Columns in Data Models.
 /// Use [ValidateNotNull] to use https://docs.servicestack.net/validation to enforce a not null property
 /// </summary>
-public class RequiredAttribute : AttributeBase
-{
-}
+public class RequiredAttribute : AttributeBase;

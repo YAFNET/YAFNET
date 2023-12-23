@@ -159,20 +159,6 @@ public sealed class DefaultMemory : MemoryProvider
     public override byte ParseByte(ReadOnlySpan<char> value) => UnsignedInteger<byte>.ParseByte(value);
 
     /// <summary>
-    /// Parses the int16.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>System.Int16.</returns>
-    public short ParseInt16(ReadOnlySpan<char> value) => SignedInteger<short>.ParseInt16(value);
-
-    /// <summary>
-    /// Parses the u int16.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>System.UInt16.</returns>
-    public ushort ParseUInt16(ReadOnlySpan<char> value) => UnsignedInteger<ushort>.ParseUInt16(value);
-
-    /// <summary>
     /// Parses the int32.
     /// </summary>
     /// <param name="value">The value.</param>
@@ -183,31 +169,10 @@ public sealed class DefaultMemory : MemoryProvider
     /// Parses the u int32.
     /// </summary>
     /// <param name="value">The value.</param>
-    /// <returns>System.UInt32.</returns>
-    public uint ParseUInt32(ReadOnlySpan<char> value) => UnsignedInteger<uint>.ParseUInt32(value);
-
-    /// <summary>
-    /// Parses the u int32.
-    /// </summary>
-    /// <param name="value">The value.</param>
     /// <param name="style">The style.</param>
     /// <returns>System.UInt32.</returns>
     public override uint ParseUInt32(ReadOnlySpan<char> value, NumberStyles style) =>
         uint.Parse(value.ToString(), style);
-
-    /// <summary>
-    /// Parses the int64.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>System.Int64.</returns>
-    public override long ParseInt64(ReadOnlySpan<char> value) => SignedInteger<int>.ParseInt64(value);
-
-    /// <summary>
-    /// Parses the u int64.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>System.UInt64.</returns>
-    public override ulong ParseUInt64(ReadOnlySpan<char> value) => UnsignedInteger<ulong>.ParseUInt64(value);
 
     /// <summary>
     /// Creates the overflow exception.
@@ -533,8 +498,8 @@ public sealed class DefaultMemory : MemoryProvider
     /// <summary>
     /// The lo16
     /// </summary>
-    private readonly static byte[] lo16 = {
-                                                  255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
+    private readonly static byte[] lo16 = [
+        255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
                                                   255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
                                                   255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
                                                   255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -545,13 +510,13 @@ public sealed class DefaultMemory : MemoryProvider
                                                   255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
                                                   255, 255, 255, 255, 255, 255, 255, 10, 11, 12,
                                                   13, 14, 15
-                                              };
+    ];
 
     /// <summary>
     /// The hi16
     /// </summary>
-    private readonly static byte[] hi16 = {
-                                                  255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
+    private readonly static byte[] hi16 = [
+        255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
                                                   255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
                                                   255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
                                                   255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
@@ -562,7 +527,7 @@ public sealed class DefaultMemory : MemoryProvider
                                                   255, 255, 255, 255, 255, 255, 255, 255, 255, 255,
                                                   255, 255, 255, 255, 255, 255, 255, 160, 176, 192,
                                                   208, 224, 240
-                                              };
+    ];
 
     /// <summary>
     /// Parses the unique identifier.
@@ -570,7 +535,7 @@ public sealed class DefaultMemory : MemoryProvider
     /// <param name="value">The value.</param>
     /// <returns>Guid.</returns>
     /// <exception cref="System.FormatException"></exception>
-    public override Guid ParseGuid(ReadOnlySpan<char> value)
+    public Guid ParseGuid(ReadOnlySpan<char> value)
     {
         if (value.IsEmpty)
             throw new FormatException(BadFormat);
@@ -809,18 +774,6 @@ public sealed class DefaultMemory : MemoryProvider
     }
 
     /// <summary>
-    /// Converts to base64.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>System.String.</returns>
-    public override string ToBase64(ReadOnlyMemory<byte> value)
-    {
-        return MemoryMarshal.TryGetArray(value, out var segment)
-                   ? Convert.ToBase64String(segment.Array, 0, segment.Count)
-                   : Convert.ToBase64String(value.ToArray());
-    }
-
-    /// <summary>
     /// Appends the specified sb.
     /// </summary>
     /// <param name="sb">The sb.</param>
@@ -830,22 +783,6 @@ public sealed class DefaultMemory : MemoryProvider
     {
         return sb.Append(value.ToArray());
     }
-
-    /// <summary>
-    /// Gets the UTF8 character count.
-    /// </summary>
-    /// <param name="bytes">The bytes.</param>
-    /// <returns>System.Int32.</returns>
-    public override int GetUtf8CharCount(ReadOnlySpan<byte> bytes) =>
-        Encoding.UTF8.GetCharCount(bytes.ToArray()); //SLOW
-
-    /// <summary>
-    /// Gets the UTF8 byte count.
-    /// </summary>
-    /// <param name="chars">The chars.</param>
-    /// <returns>System.Int32.</returns>
-    public override int GetUtf8ByteCount(ReadOnlySpan<char> chars) =>
-        Encoding.UTF8.GetByteCount(chars.ToArray()); //SLOW
 
     /// <summary>
     /// Converts to utf8.
@@ -874,48 +811,11 @@ public sealed class DefaultMemory : MemoryProvider
     }
 
     /// <summary>
-    /// Converts to utf8.
-    /// </summary>
-    /// <param name="source">The source.</param>
-    /// <param name="destination">The destination.</param>
-    /// <returns>System.Int32.</returns>
-    public override int ToUtf8(ReadOnlySpan<char> source, Span<byte> destination)
-    {
-        var chars = source.ToArray();
-        var bytes = destination.ToArray();
-        var bytesWritten = Encoding.UTF8.GetBytes(chars, 0, source.Length, bytes, 0);
-        new ReadOnlySpan<byte>(bytes, 0, bytesWritten).CopyTo(destination);
-        return bytesWritten;
-    }
-
-    /// <summary>
-    /// Froms the UTF8.
-    /// </summary>
-    /// <param name="source">The source.</param>
-    /// <param name="destination">The destination.</param>
-    /// <returns>System.Int32.</returns>
-    public override int FromUtf8(ReadOnlySpan<byte> source, Span<char> destination)
-    {
-        var bytes = source.WithoutBom().ToArray();
-        var chars = destination.ToArray();
-        var charsWritten = Encoding.UTF8.GetChars(bytes, 0, bytes.Length, chars, 0);
-        new ReadOnlySpan<char>(chars, 0, charsWritten).CopyTo(destination);
-        return charsWritten;
-    }
-
-    /// <summary>
     /// Converts to utf8bytes.
     /// </summary>
     /// <param name="source">The source.</param>
     /// <returns>System.Byte[].</returns>
     public override byte[] ToUtf8Bytes(ReadOnlySpan<char> source) => Encoding.UTF8.GetBytes(source.ToArray());
-
-    /// <summary>
-    /// Froms the UTF8 bytes.
-    /// </summary>
-    /// <param name="source">The source.</param>
-    /// <returns>System.String.</returns>
-    public override string FromUtf8Bytes(ReadOnlySpan<byte> source) => Encoding.UTF8.GetString(source.WithoutBom().ToArray());
 
     /// <summary>
     /// Converts to memorystream.
@@ -1173,12 +1073,7 @@ static internal class SignedInteger<T> where T : struct, IComparable<T>, IEquata
     /// <param name="value">The value.</param>
     /// <returns>System.SByte.</returns>
     public static sbyte ParseSByte(ReadOnlySpan<char> value) => (sbyte)ParseInt64(value);
-    /// <summary>
-    /// Parses the int16.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>System.Int16.</returns>
-    public static short ParseInt16(ReadOnlySpan<char> value) => (short)ParseInt64(value);
+
     /// <summary>
     /// Parses the int32.
     /// </summary>
@@ -1374,18 +1269,6 @@ static internal class UnsignedInteger<T> where T : struct, IComparable<T>, IEqua
     /// <param name="value">The value.</param>
     /// <returns>System.Byte.</returns>
     public static byte ParseByte(ReadOnlySpan<char> value) => (byte)ParseUInt64(value);
-    /// <summary>
-    /// Parses the u int16.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>System.UInt16.</returns>
-    public static ushort ParseUInt16(ReadOnlySpan<char> value) => (ushort)ParseUInt64(value);
-    /// <summary>
-    /// Parses the u int32.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>System.UInt32.</returns>
-    public static uint ParseUInt32(ReadOnlySpan<char> value) => (uint)ParseUInt64(value);
 
     /// <summary>
     /// Parses the u int64.

@@ -32,7 +32,7 @@ public class JsTemplateLiteral : JsExpression
     /// </summary>
     /// <param name="cooked">The cooked.</param>
     public JsTemplateLiteral(string cooked)
-        : this(new[] { new JsTemplateElement(cooked, cooked, tail: true) }) { }
+        : this([new JsTemplateElement(cooked, cooked, tail: true)]) { }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="JsTemplateLiteral" /> class.

@@ -62,11 +62,12 @@ public sealed class ScriptCode : ScriptLanguage
 
         var statements = context.ParseCodeStatements(body);
 
-        return new List<PageFragment> {
-                                              new PageJsBlockStatementFragment(new JsBlockStatement(statements)) {
-                                                      Quiet = quiet,
-                                                  },
-                                          };
+        return [
+            new PageJsBlockStatementFragment(new JsBlockStatement(statements)) {
+                Quiet = quiet,
+            }
+
+        ];
     }
 
     /// <summary>
@@ -284,36 +285,6 @@ public static class ScriptCodeUtils
             throw new NotSupportedException(ScriptContextUtils.ErrorNoReturn);
 
         return ScriptLanguage.UnwrapValue(returnValue);
-    }
-
-    /// <summary>
-    /// Evaluate code as an asynchronous operation.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="context">The context.</param>
-    /// <param name="code">The code.</param>
-    /// <param name="args">The arguments.</param>
-    /// <returns>A Task&lt;T&gt; representing the asynchronous operation.</returns>
-    public async static Task<T> EvaluateCodeAsync<T>(this ScriptContext context, string code, Dictionary<string, object> args = null) =>
-        (await context.EvaluateCodeAsync(code, args).ConfigAwait()).ConvertTo<T>();
-
-    /// <summary>
-    /// Evaluate code as an asynchronous operation.
-    /// </summary>
-    /// <param name="context">The context.</param>
-    /// <param name="code">The code.</param>
-    /// <param name="args">The arguments.</param>
-    /// <returns>A Task&lt;System.Object&gt; representing the asynchronous operation.</returns>
-    /// <exception cref="System.NotSupportedException"></exception>
-    public async static Task<object> EvaluateCodeAsync(this ScriptContext context, string code, Dictionary<string, object> args = null)
-    {
-        var pageResult = GetCodePageResult(context, code, args);
-
-        var ret = await pageResult.EvaluateResultAsync().ConfigAwait();
-        if (!ret.Item1)
-            throw new NotSupportedException(ScriptContextUtils.ErrorNoReturn);
-
-        return ScriptLanguage.UnwrapValue(ret.Item2);
     }
 
 
@@ -728,7 +699,7 @@ public static class ScriptCodeUtils
         literal = literal.AdvancePastWhitespace();
         if (literal.FirstCharEquals(ScriptTemplateUtils.FilterSep))
         {
-            filters = new List<JsCallExpression>();
+            filters = [];
             literal = literal.AdvancePastPipeOperator();
 
             while (true)

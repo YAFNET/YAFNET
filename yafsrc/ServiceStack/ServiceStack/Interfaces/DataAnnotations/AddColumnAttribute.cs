@@ -13,23 +13,19 @@ namespace ServiceStack.DataAnnotations;
 /// Implements the <see cref="ServiceStack.AttributeBase" />
 /// </summary>
 /// <seealso cref="ServiceStack.AttributeBase" />
-public abstract class AlterColumnAttribute : AttributeBase { }
+public abstract class AlterColumnAttribute : AttributeBase;
 
 /// <summary>
 /// Add Column during Db.Migrate, optional as adding columns are implied
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
-public class AddColumnAttribute : AlterColumnAttribute
-{
-}
+public class AddColumnAttribute : AlterColumnAttribute;
 
 /// <summary>
 /// Remove Column during Db.Migrate
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
-public class RemoveColumnAttribute : AlterColumnAttribute
-{
-}
+public class RemoveColumnAttribute : AlterColumnAttribute;
 
 /// <summary>
 /// Remove Column during Db.Migrate

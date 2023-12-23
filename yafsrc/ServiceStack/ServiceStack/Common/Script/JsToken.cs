@@ -155,7 +155,7 @@ public static class JsTokenUtils
     /// </summary>
     static JsTokenUtils()
     {
-        NewLineUtf8 = new byte[] { 10 }; // UTF8.GetBytes("\n");
+        NewLineUtf8 = [10]; // UTF8.GetBytes("\n");
         var n = new byte['e' + 1];
         n['0'] = n['1'] = n['2'] = n['3'] = n['4'] = n['5'] = n['6'] = n['7'] = n['8'] = n['9'] = n['.'] = True;
         ValidNumericChars = n;
@@ -429,19 +429,6 @@ public static class JsTokenUtils
                                                                                 : throw new NotSupportedException(token.GetType().Name + " is not a JsExpression");
 
     /// <summary>
-    /// Converts to jsaststring.
-    /// </summary>
-    /// <param name="token">The token.</param>
-    /// <returns>System.String.</returns>
-    public static string ToJsAstString(this JsToken token)
-    {
-        using (JsConfig.With(new Config { IncludeNullValuesInDictionaries = true }))
-        {
-            return token.ToJsAst().ToJson().IndentJson();
-        }
-    }
-
-    /// <summary>
     /// Debugs the first character.
     /// </summary>
     /// <param name="literal">The literal.</param>
@@ -449,13 +436,6 @@ public static class JsTokenUtils
     static internal string DebugFirstChar(this ReadOnlySpan<char> literal) => literal.IsNullOrEmpty()
                                                                                   ? "<end>"
                                                                                   : $"'{literal[0]}'";
-
-    /// <summary>
-    /// Debugs the first character.
-    /// </summary>
-    /// <param name="literal">The literal.</param>
-    /// <returns>System.String.</returns>
-    static internal string DebugFirstChar(this ReadOnlyMemory<char> literal) => literal.Span.DebugFirstChar();
 
     /// <summary>
     /// Debugs the character.
@@ -527,49 +507,6 @@ public static class JsTokenUtils
             return b;
 
         return !DefaultScripts.isFalsy(ret);
-    }
-
-    /// <summary>
-    /// Evaluate if result can be async, if so converts async result to Task&lt;object&gt; otherwise wraps result in a Task
-    /// </summary>
-    /// <param name="token">The token.</param>
-    /// <param name="scope">The scope.</param>
-    /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-    public async static Task<bool> EvaluateToBoolAsync(this JsToken token, ScriptScopeContext scope)
-    {
-        var ret = await token.EvaluateAsync(scope);
-        if (ret is bool b)
-            return b;
-
-        return !DefaultScripts.isFalsy(ret);
-    }
-
-    /// <summary>
-    /// Evaluate if result can be async, if so converts async result to Task&lt;object&gt; otherwise wraps result in a Task
-    /// </summary>
-    /// <param name="token">The token.</param>
-    /// <param name="scope">The scope.</param>
-    /// <param name="result">if set to <c>true</c> [result].</param>
-    /// <param name="asyncResult">The asynchronous result.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public static bool EvaluateToBool(this JsToken token, ScriptScopeContext scope, out bool? result, out Task<bool> asyncResult)
-    {
-        if (token.Evaluate(scope, out var oResult, out var oAsyncResult))
-        {
-            result = oResult is bool b ? b : !DefaultScripts.isFalsy(oResult);
-            asyncResult = null;
-            return true;
-        }
-
-        result = null;
-
-        var tcs = new TaskCompletionSource<bool>();
-        oAsyncResult.ContinueWith(t => tcs.SetResult(!DefaultScripts.isFalsy(t.Result)), TaskContinuationOptions.OnlyOnRanToCompletion);
-        oAsyncResult.ContinueWith(t => tcs.SetException(t.Exception.InnerExceptions), TaskContinuationOptions.OnlyOnFaulted);
-        oAsyncResult.ContinueWith(t => tcs.SetCanceled(), TaskContinuationOptions.OnlyOnCanceled);
-        asyncResult = tcs.Task;
-
-        return false;
     }
 
     /// <summary>
@@ -923,57 +860,6 @@ public static class JsTokenUtils
     }
 
     /// <summary>
-    /// Parses the arguments list.
-    /// </summary>
-    /// <param name="literal">The literal.</param>
-    /// <param name="args">The arguments.</param>
-    /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
-    /// <exception cref="ServiceStack.Script.SyntaxErrorException">Expected identifier but was instead '{arg.DebugToken()}', near: {literal.DebugLiteral()}</exception>
-    /// <exception cref="ServiceStack.Script.SyntaxErrorException">Expected ',' or ')' but was instead '{literal.DebugFirstChar()}', near: {literal.DebugLiteral()}</exception>
-    /// <exception cref="ServiceStack.Script.SyntaxErrorException">Expected '(' but was instead '{literal.DebugFirstChar()}', near: {literal.DebugLiteral()}</exception>
-    public static ReadOnlySpan<char> ParseArgumentsList(this ReadOnlySpan<char> literal, out List<JsIdentifier> args)
-    {
-        args = new List<JsIdentifier>();
-        var c = literal[0];
-        if (c == '(')
-        {
-            literal = literal.Advance(1);
-
-            while (true)
-            {
-                literal = literal.AdvancePastWhitespace();
-                literal = literal.ParseIdentifier(out var arg);
-                if (arg is not JsIdentifier param)
-                    throw new SyntaxErrorException(
-                        $"Expected identifier but was instead '{arg.DebugToken()}', near: {literal.DebugLiteral()}");
-
-                args.Add(param);
-
-                literal = literal.AdvancePastWhitespace();
-
-                if (literal.FirstCharEquals(')'))
-                {
-                    literal = literal.Advance(1);
-                    break;
-                }
-
-                if (!literal.FirstCharEquals(','))
-                    throw new SyntaxErrorException(
-                        $"Expected ',' or ')' but was instead '{literal.DebugFirstChar()}', near: {literal.DebugLiteral()}");
-
-                literal = literal.Advance(1);
-            }
-        }
-        else
-        {
-            throw new SyntaxErrorException(
-                $"Expected '(' but was instead '{literal.DebugFirstChar()}', near: {literal.DebugLiteral()}");
-        }
-
-        return literal;
-    }
-
-    /// <summary>
     /// Parses the js template literal.
     /// </summary>
     /// <param name="literal">The literal.</param>
@@ -1156,7 +1042,7 @@ public static class JsTokenUtils
                 var peekLiteral = literal.AdvancePastWhitespace();
                 if (peekLiteral.StartsWith("=>"))
                 {
-                    literal = peekLiteral.ParseArrowExpressionBody(new[] { new JsIdentifier("it") }, out var arrowExpr);
+                    literal = peekLiteral.ParseArrowExpressionBody([new JsIdentifier("it")], out var arrowExpr);
                     node = arrowExpr;
                     return new(literal, arrowExpr);
                 }
@@ -1458,7 +1344,7 @@ public static class CallExpressionUtils
 
         if (literal.StartsWith("=>"))
         {
-            literal = literal.ParseArrowExpressionBody(new[] { new JsIdentifier("it") }, out var arrowExpr);
+            literal = literal.ParseArrowExpressionBody([new JsIdentifier("it")], out var arrowExpr);
             expression = new JsCallExpression(identifier, arrowExpr);
             return literal;
         }
@@ -1516,7 +1402,7 @@ public static class CallExpressionUtils
     /// <exception cref="ServiceStack.Script.SyntaxErrorException">Unterminated arguments expression near: {literal.DebugLiteral()}</exception>
     static internal ReadOnlySpan<char> ParseArguments(this ReadOnlySpan<char> literal, out List<JsToken> arguments, char termination)
     {
-        arguments = new List<JsToken>();
+        arguments = [];
 
         while (!literal.IsNullOrEmpty())
         {

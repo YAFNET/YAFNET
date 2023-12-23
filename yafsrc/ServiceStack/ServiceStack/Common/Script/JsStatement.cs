@@ -12,9 +12,7 @@ namespace ServiceStack.Script;
 /// <summary>
 /// Class JsStatement.
 /// </summary>
-public abstract class JsStatement
-{
-}
+public abstract class JsStatement;
 
 /// <summary>
 /// Class JsFilterExpressionStatement.
@@ -46,7 +44,7 @@ public class JsFilterExpressionStatement : JsStatement
     /// <param name="filters">The filters.</param>
     public JsFilterExpressionStatement(string originalText, JsToken expr, params JsCallExpression[] filters)
     {
-        FilterExpression = new PageVariableFragment(originalText.AsMemory(), expr, new List<JsCallExpression>(filters));
+        FilterExpression = new PageVariableFragment(originalText.AsMemory(), expr, [..filters]);
     }
 
     /// <summary>
@@ -103,7 +101,7 @@ public class JsBlockStatement : JsStatement
     /// <param name="statement">The statement.</param>
     public JsBlockStatement(JsStatement statement)
     {
-        Statements = new[] {statement};
+        Statements = [statement];
     }
 
     /// <summary>

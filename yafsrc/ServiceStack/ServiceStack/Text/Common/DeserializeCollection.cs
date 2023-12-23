@@ -165,7 +165,7 @@ static internal class DeserializeCollection<TSerializer>
     /// <summary>
     /// The arguments
     /// </summary>
-    static Type[] arguments = { typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate) };
+    static Type[] arguments = [typeof(ReadOnlySpan<char>), typeof(Type), typeof(ParseStringSpanDelegate)];
 
     /// <summary>
     /// Parses the type of the collection.
@@ -181,7 +181,7 @@ static internal class DeserializeCollection<TSerializer>
             return parseDelegate(value, createType, parseFn);
 
         var mi = typeof(DeserializeCollection<TSerializer>).GetStaticMethod("ParseCollection", arguments);
-        var genericMi = mi.MakeGenericMethod(new[] { elementType });
+        var genericMi = mi.MakeGenericMethod([elementType]);
         parseDelegate = (ParseCollectionDelegate)genericMi.MakeDelegate(typeof(ParseCollectionDelegate));
 
         Dictionary<Type, ParseCollectionDelegate> snapshot, newCache;

@@ -27,28 +27,6 @@ public static class VirtualFilesExtensions
     private const string ErrorNotWritable = "{0} does not implement IVirtualFiles";
 
     /// <summary>
-    /// Determines whether the specified file path is file.
-    /// </summary>
-    /// <param name="pathProvider">The path provider.</param>
-    /// <param name="filePath">The file path.</param>
-    /// <returns><c>true</c> if the specified file path is file; otherwise, <c>false</c>.</returns>
-    public static bool IsFile(this IVirtualPathProvider pathProvider, string filePath)
-    {
-        return pathProvider.FileExists(filePath);
-    }
-
-    /// <summary>
-    /// Determines whether the specified file path is directory.
-    /// </summary>
-    /// <param name="pathProvider">The path provider.</param>
-    /// <param name="filePath">The file path.</param>
-    /// <returns><c>true</c> if the specified file path is directory; otherwise, <c>false</c>.</returns>
-    public static bool IsDirectory(this IVirtualPathProvider pathProvider, string filePath)
-    {
-        return pathProvider.DirectoryExists(filePath);
-    }
-
-    /// <summary>
     /// Writes the file.
     /// </summary>
     /// <param name="pathProvider">The path provider.</param>
@@ -77,52 +55,7 @@ public static class VirtualFilesExtensions
 
         writableFs.WriteFile(filePath, stream);
     }
-
-    /// <summary>
-    /// Writes the file.
-    /// </summary>
-    /// <param name="pathProvider">The path provider.</param>
-    /// <param name="filePath">The file path.</param>
-    /// <param name="bytes">The bytes.</param>
-    /// <exception cref="System.InvalidOperationException"></exception>
-    public static void WriteFile(this IVirtualPathProvider pathProvider, string filePath, byte[] bytes)
-    {
-        if (pathProvider is not IVirtualFiles writableFs)
-            throw new InvalidOperationException(ErrorNotWritable.Fmt(pathProvider.GetType().Name));
-
-        using var ms = MemoryStreamFactory.GetStream(bytes);
-        writableFs.WriteFile(filePath, ms);
-    }
-
-    /// <summary>
-    /// Writes the file.
-    /// </summary>
-    /// <param name="pathProvider">The path provider.</param>
-    /// <param name="filePath">The file path.</param>
-    /// <param name="text">The text.</param>
-    /// <exception cref="System.InvalidOperationException"></exception>
-    public static void WriteFile(this IVirtualPathProvider pathProvider, string filePath, ReadOnlyMemory<char> text)
-    {
-        if (pathProvider is not AbstractVirtualPathProviderBase writableFs)
-            throw new InvalidOperationException(ErrorNotWritable.Fmt(pathProvider.GetType().Name));
-
-        writableFs.WriteFile(filePath, text);
-    }
-
-    /// <summary>
-    /// Writes the file.
-    /// </summary>
-    /// <param name="pathProvider">The path provider.</param>
-    /// <param name="filePath">The file path.</param>
-    /// <param name="bytes">The bytes.</param>
-    /// <exception cref="System.InvalidOperationException"></exception>
-    public static void WriteFile(this IVirtualPathProvider pathProvider, string filePath, ReadOnlyMemory<byte> bytes)
-    {
-        if (pathProvider is not AbstractVirtualPathProviderBase writableFs)
-            throw new InvalidOperationException(ErrorNotWritable.Fmt(pathProvider.GetType().Name));
-
-        writableFs.WriteFile(filePath, bytes);
-    }
+    
 
     /// <summary>
     /// Writes the file.

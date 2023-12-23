@@ -15,22 +15,22 @@ namespace ServiceStack.DataAnnotations;
 /// properties with this attribute are ignored when building sql sentences
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
-public class IgnoreAttribute : AttributeBase { }
+public class IgnoreAttribute : AttributeBase;
 
 /// <summary>
 /// Ignore this property in SELECT statements
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
-public class IgnoreOnSelectAttribute : AttributeBase { }
+public class IgnoreOnSelectAttribute : AttributeBase;
 
 /// <summary>
 /// Ignore this property in UPDATE statements
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
-public class IgnoreOnUpdateAttribute : AttributeBase { }
+public class IgnoreOnUpdateAttribute : AttributeBase;
 
 /// <summary>
 /// Ignore this property in INSERT statements
 /// </summary>
 [AttributeUsage(AttributeTargets.Property)]
-public class IgnoreOnInsertAttribute : AttributeBase { }
+public class IgnoreOnInsertAttribute : AttributeBase;

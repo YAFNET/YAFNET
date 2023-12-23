@@ -90,32 +90,6 @@ public class NullDebugLogger : ILog
     }
 
     /// <summary>
-    /// Logs a Fatal message and exception.
-    /// </summary>
-    /// <param name="message">The message.</param>
-    /// <param name="exception">The exception.</param>
-    public void Fatal(object message, Exception exception)
-    {
-    }
-
-    /// <summary>
-    /// Logs a Fatal message.
-    /// </summary>
-    /// <param name="message">The message.</param>
-    public void Fatal(object message)
-    {
-    }
-
-    /// <summary>
-    /// Logs a Error format message.
-    /// </summary>
-    /// <param name="format">The format.</param>
-    /// <param name="args">The args.</param>
-    public void FatalFormat(string format, params object[] args)
-    {
-    }
-
-    /// <summary>
     /// Logs an Info message and exception.
     /// </summary>
     /// <param name="message">The message.</param>
@@ -129,15 +103,6 @@ public class NullDebugLogger : ILog
     /// </summary>
     /// <param name="message">The message.</param>
     public void Info(object message)
-    {
-    }
-
-    /// <summary>
-    /// Logs an Info format message.
-    /// </summary>
-    /// <param name="format">The format.</param>
-    /// <param name="args">The args.</param>
-    public void InfoFormat(string format, params object[] args)
     {
     }
 

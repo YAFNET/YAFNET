@@ -71,29 +71,6 @@ public static class XLinqExtensions
     }
 
     /// <summary>
-    /// Gets the bool or default.
-    /// </summary>
-    /// <param name="el">The el.</param>
-    /// <param name="name">The name.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public static bool GetBoolOrDefault(this XElement el, string name)
-    {
-        return GetElementValueOrDefault(el, name, x => (bool)x);
-    }
-
-    /// <summary>
-    /// Gets the nullable bool.
-    /// </summary>
-    /// <param name="el">The el.</param>
-    /// <param name="name">The name.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public static bool? GetNullableBool(this XElement el, string name)
-    {
-        var childEl = GetElement(el, name);
-        return IsNullOrEmpty(childEl?.Value) ? null : (bool?)childEl;
-    }
-
-    /// <summary>
     /// Gets the int.
     /// </summary>
     /// <param name="el">The el.</param>
@@ -117,18 +94,6 @@ public static class XLinqExtensions
     }
 
     /// <summary>
-    /// Gets the nullable int.
-    /// </summary>
-    /// <param name="el">The el.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>System.Nullable&lt;System.Int32&gt;.</returns>
-    public static int? GetNullableInt(this XElement el, string name)
-    {
-        var childEl = GetElement(el, name);
-        return IsNullOrEmpty(childEl?.Value) ? null : (int?)childEl;
-    }
-
-    /// <summary>
     /// Gets the long.
     /// </summary>
     /// <param name="el">The el.</param>
@@ -141,64 +106,6 @@ public static class XLinqExtensions
     }
 
     /// <summary>
-    /// Gets the long or default.
-    /// </summary>
-    /// <param name="el">The el.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>System.Int64.</returns>
-    public static long GetLongOrDefault(this XElement el, string name)
-    {
-        return GetElementValueOrDefault(el, name, x => (long)x);
-    }
-
-    /// <summary>
-    /// Gets the nullable long.
-    /// </summary>
-    /// <param name="el">The el.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>System.Nullable&lt;System.Int64&gt;.</returns>
-    public static long? GetNullableLong(this XElement el, string name)
-    {
-        var childEl = GetElement(el, name);
-        return IsNullOrEmpty(childEl?.Value) ? null : (long?)childEl;
-    }
-
-    /// <summary>
-    /// Gets the decimal.
-    /// </summary>
-    /// <param name="el">The el.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>System.Decimal.</returns>
-    public static decimal GetDecimal(this XElement el, string name)
-    {
-        AssertElementHasValue(el, name);
-        return (decimal)GetElement(el, name);
-    }
-
-    /// <summary>
-    /// Gets the decimal or default.
-    /// </summary>
-    /// <param name="el">The el.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>System.Decimal.</returns>
-    public static decimal GetDecimalOrDefault(this XElement el, string name)
-    {
-        return GetElementValueOrDefault(el, name, x => (decimal)x);
-    }
-
-    /// <summary>
-    /// Gets the nullable decimal.
-    /// </summary>
-    /// <param name="el">The el.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>System.Nullable&lt;System.Decimal&gt;.</returns>
-    public static decimal? GetNullableDecimal(this XElement el, string name)
-    {
-        var childEl = GetElement(el, name);
-        return IsNullOrEmpty(childEl?.Value) ? null : (decimal?)childEl;
-    }
-
-    /// <summary>
     /// Gets the date time.
     /// </summary>
     /// <param name="el">The el.</param>
@@ -208,29 +115,6 @@ public static class XLinqExtensions
     {
         AssertElementHasValue(el, name);
         return (DateTime)GetElement(el, name);
-    }
-
-    /// <summary>
-    /// Gets the date time or default.
-    /// </summary>
-    /// <param name="el">The el.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>DateTime.</returns>
-    public static DateTime GetDateTimeOrDefault(this XElement el, string name)
-    {
-        return GetElementValueOrDefault(el, name, x => (DateTime)x);
-    }
-
-    /// <summary>
-    /// Gets the nullable date time.
-    /// </summary>
-    /// <param name="el">The el.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>System.Nullable&lt;DateTime&gt;.</returns>
-    public static DateTime? GetNullableDateTime(this XElement el, string name)
-    {
-        var childEl = GetElement(el, name);
-        return IsNullOrEmpty(childEl?.Value) ? null : (DateTime?)childEl;
     }
 
     /// <summary>
@@ -254,53 +138,6 @@ public static class XLinqExtensions
     public static TimeSpan GetTimeSpanOrDefault(this XElement el, string name)
     {
         return GetElementValueOrDefault(el, name, x => (TimeSpan)x);
-    }
-
-    /// <summary>
-    /// Gets the nullable time span.
-    /// </summary>
-    /// <param name="el">The el.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>System.Nullable&lt;TimeSpan&gt;.</returns>
-    public static TimeSpan? GetNullableTimeSpan(this XElement el, string name)
-    {
-        var childEl = GetElement(el, name);
-        return IsNullOrEmpty(childEl?.Value) ? null : (TimeSpan?)childEl;
-    }
-
-    /// <summary>
-    /// Gets the unique identifier.
-    /// </summary>
-    /// <param name="el">The el.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>Guid.</returns>
-    public static Guid GetGuid(this XElement el, string name)
-    {
-        AssertElementHasValue(el, name);
-        return (Guid)GetElement(el, name);
-    }
-
-    /// <summary>
-    /// Gets the unique identifier or default.
-    /// </summary>
-    /// <param name="el">The el.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>Guid.</returns>
-    public static Guid GetGuidOrDefault(this XElement el, string name)
-    {
-        return GetElementValueOrDefault(el, name, x => (Guid)x);
-    }
-
-    /// <summary>
-    /// Gets the nullable unique identifier.
-    /// </summary>
-    /// <param name="el">The el.</param>
-    /// <param name="name">The name.</param>
-    /// <returns>System.Nullable&lt;Guid&gt;.</returns>
-    public static Guid? GetNullableGuid(this XElement el, string name)
-    {
-        var childEl = GetElement(el, name);
-        return IsNullOrEmpty(childEl?.Value) ? null : (Guid?)childEl;
     }
 
     /// <summary>

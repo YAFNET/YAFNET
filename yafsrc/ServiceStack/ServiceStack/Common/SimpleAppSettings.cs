@@ -6,7 +6,6 @@
 // ***********************************************************************
 
 using System.Collections.Generic;
-using System.Linq;
 using ServiceStack.Configuration;
 
 namespace ServiceStack;
@@ -39,12 +38,6 @@ public class SimpleAppSettings : IAppSettings
     /// </summary>
     /// <returns>Dictionary&lt;System.String, System.String&gt;.</returns>
     public Dictionary<string, string> GetAll() => settings;
-
-    /// <summary>
-    /// Gets all keys.
-    /// </summary>
-    /// <returns>List&lt;System.String&gt;.</returns>
-    public List<string> GetAllKeys() => settings.Keys.ToList();
 
     /// <summary>
     /// Existses the specified key.
@@ -88,12 +81,6 @@ public class SimpleAppSettings : IAppSettings
     /// <param name="key">The key.</param>
     /// <returns>IDictionary&lt;System.String, System.String&gt;.</returns>
     public IDictionary<string, string> GetDictionary(string key) => GetString(key).FromJsv<Dictionary<string, string>>();
-    /// <summary>
-    /// Gets the key value pairs.
-    /// </summary>
-    /// <param name="key">The key.</param>
-    /// <returns>List&lt;KeyValuePair&lt;System.String, System.String&gt;&gt;.</returns>
-    public List<KeyValuePair<string, string>> GetKeyValuePairs(string key) => GetString(key).FromJsv<List<KeyValuePair<string, string>>>();
 
     /// <summary>
     /// Gets the specified key.

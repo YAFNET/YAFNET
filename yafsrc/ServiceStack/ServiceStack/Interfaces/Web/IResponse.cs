@@ -36,29 +36,10 @@ public interface IResponse
     int StatusCode { get; set; }
 
     /// <summary>
-    /// The Response Status Description
-    /// </summary>
-    /// <value>The status description.</value>
-    string StatusDescription { get; set; }
-
-    /// <summary>
     /// The Content-Type for this Response
     /// </summary>
     /// <value>The type of the content.</value>
     string ContentType { get; set; }
-
-    /// <summary>
-    /// Add a Header to this Response
-    /// </summary>
-    /// <param name="name">The name.</param>
-    /// <param name="value">The value.</param>
-    void AddHeader(string name, string value);
-
-    /// <summary>
-    /// Remove an existing Header added on this Response
-    /// </summary>
-    /// <param name="name">The name.</param>
-    void RemoveHeader(string name);
 
     /// <summary>
     /// Get an existing Header added to this Response
@@ -127,12 +108,6 @@ public interface IResponse
     /// </summary>
     /// <param name="contentLength">Length of the content.</param>
     void SetContentLength(long contentLength);
-
-    /// <summary>
-    /// Whether the underlying TCP Connection for this Response should remain open
-    /// </summary>
-    /// <value><c>true</c> if [keep alive]; otherwise, <c>false</c>.</value>
-    bool KeepAlive { get; set; }
 
     /// <summary>
     /// Whether the HTTP Response Headers have already been written.

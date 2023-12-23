@@ -14,7 +14,7 @@ namespace ServiceStack.Script;
 /// <summary>
 /// Class PageFragment.
 /// </summary>
-public abstract class PageFragment { }
+public abstract class PageFragment;
 
 /// <summary>
 /// Class PageVariableFragment.
@@ -430,7 +430,7 @@ public class PageElseBlock : PageFragment
     /// <param name="argument">The argument.</param>
     /// <param name="block">The block.</param>
     public PageElseBlock(string argument, JsBlockStatement block)
-        : this(argument.AsMemory(), new PageFragment[] { new PageJsBlockStatementFragment(block) }) { }
+        : this(argument.AsMemory(), [new PageJsBlockStatementFragment(block)]) { }
     /// <summary>
     /// Initializes a new instance of the <see cref="PageElseBlock" /> class.
     /// </summary>

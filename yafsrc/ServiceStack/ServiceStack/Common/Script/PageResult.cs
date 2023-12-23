@@ -20,7 +20,7 @@ namespace ServiceStack.Script;
 /// <summary>
 /// Interface IPageResult
 /// </summary>
-public interface IPageResult { }
+public interface IPageResult;
 
 // Render a Template Page to the Response OutputStream
 /// <summary>
@@ -134,7 +134,7 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
     /// Don't allow access to specified filters
     /// </summary>
     /// <value>The exclude filters named.</value>
-    public HashSet<string> ExcludeFiltersNamed { get; } = new();
+    public HashSet<string> ExcludeFiltersNamed { get; } = [];
 
     /// <summary>
     /// The last error thrown by a filter
@@ -221,16 +221,6 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
     internal bool PageProcessed { get; set; }
 
     /// <summary>
-    /// Asserts the next evaluation.
-    /// </summary>
-    /// <exception cref="System.NotSupportedException">Exceeded Max Evaluations of {Context.MaxEvaluations}. \nMaxEvaluations can be changed in `ScriptContext.MaxEvaluations`.</exception>
-    public void AssertNextEvaluation()
-    {
-        if (Evaluations++ >= Context.MaxEvaluations)
-            throw new NotSupportedException($"Exceeded Max Evaluations of {Context.MaxEvaluations}. \nMaxEvaluations can be changed in `ScriptContext.MaxEvaluations`.");
-    }
-
-    /// <summary>
     /// Asserts the next partial.
     /// </summary>
     /// <exception cref="System.NotSupportedException">Exceeded Max Partial StackDepth of {Context.MaxStackDepth}. \nMaxStackDepth can be changed in `ScriptContext.MaxStackDepth`.</exception>
@@ -257,11 +247,11 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
     private PageResult(PageFormat format)
     {
         Args = new Dictionary<string, object>();
-        ScriptMethods = new List<ScriptMethods>();
-        ScriptBlocks = new List<ScriptBlock>();
+        ScriptMethods = [];
+        ScriptBlocks = [];
         Partials = new Dictionary<string, SharpPage>();
-        PageTransformers = new List<Func<Stream, Task<Stream>>>();
-        OutputTransformers = new List<Func<Stream, Task<Stream>>>();
+        PageTransformers = [];
+        OutputTransformers = [];
         FilterTransformers = new Dictionary<string, Func<Stream, Task<Stream>>>();
         Options = new Dictionary<string, string>
                       {
@@ -674,16 +664,6 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
     }
 
     /// <summary>
-    /// Asserts the initialize.
-    /// </summary>
-    /// <exception cref="System.NotSupportedException">PageResult.Init() required for this operation.</exception>
-    private void AssertInit()
-    {
-        if (!hasInit)
-            throw new NotSupportedException("PageResult.Init() required for this operation.");
-    }
-
-    /// <summary>
     /// Writes the page asynchronous.
     /// </summary>
     /// <param name="page">The page.</param>
@@ -959,7 +939,7 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
                     var hasContextFilterAsBinding = GetContextFilterAsBinding(var.Binding, out filter);
                     if (hasContextFilterAsBinding != null)
                     {
-                        value = InvokeFilter(hasContextFilterAsBinding, filter, new object[] { scope }, var.Binding);
+                        value = InvokeFilter(hasContextFilterAsBinding, filter, [scope], var.Binding);
                     }
                     else
                     {
@@ -1324,33 +1304,6 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
     }
 
     /// <summary>
-    /// Parses the js expression.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="literal">The literal.</param>
-    /// <param name="token">The token.</param>
-    /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
-    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Invalid literal: {literal.ToString()} in '{var.OriginalText}'</exception>
-    /// <exception cref="System.Exception">Invalid literal: {literal.ToString()} in '{var.OriginalText}'</exception>
-    public ReadOnlySpan<char> ParseJsExpression(ScriptScopeContext scope, ReadOnlySpan<char> literal, out JsToken token)
-    {
-        try
-        {
-            return literal.ParseJsExpression(out token);
-        }
-        catch (ArgumentException e)
-        {
-            if (scope.ScopedParams.TryGetValue(nameof(PageVariableFragment), out var oVar)
-                && oVar is PageVariableFragment var && !var.OriginalText.IsNullOrEmpty())
-            {
-                throw new Exception($"Invalid literal: {literal.ToString()} in '{var.OriginalText}'", e);
-            }
-
-            throw;
-        }
-    }
-
-    /// <summary>
     /// The blocks map
     /// </summary>
     private readonly Dictionary<string, ScriptBlock> blocksMap = new();
@@ -1496,7 +1449,7 @@ public class PageResult : IPageResult, IStreamWriterAsync, IHasOptions, IDisposa
                                                 : (invoker = GetFilterAsBinding(name, out var filter)) != null
                                                     ? InvokeFilter(invoker, filter, Array.Empty<object>(), name)
                                                     : (invoker = GetContextFilterAsBinding(name, out filter)) != null
-                                                        ? InvokeFilter(invoker, filter, new object[] { scope }, name)
+                                                        ? InvokeFilter(invoker, filter, [scope], name)
                                                         : null;
         return ret;
     }

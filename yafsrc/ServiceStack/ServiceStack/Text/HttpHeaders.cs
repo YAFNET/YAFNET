@@ -16,55 +16,9 @@ namespace ServiceStack;
 public static class HttpHeaders
 {
     /// <summary>
-    /// The x parameter override prefix
-    /// </summary>
-    public const string XParamOverridePrefix = "X-Param-Override-";
-
-    /// <summary>
-    /// The x HTTP method override
-    /// </summary>
-    public const string XHttpMethodOverride = "X-Http-Method-Override";
-
-    /// <summary>
-    /// The x automatic batch completed
-    /// </summary>
-    public const string
-        XAutoBatchCompleted = "X-AutoBatch-Completed"; // How many requests were completed before first failure
-
-    /// <summary>
     /// The x tag
     /// </summary>
     public const string XTag = "X-Tag";
-
-    /// <summary>
-    /// The x user authentication identifier
-    /// </summary>
-    public const string XUserAuthId = "X-UAId";
-
-    /// <summary>
-    /// The x trigger
-    /// </summary>
-    public const string XTrigger = "X-Trigger"; // Trigger Events on UserAgent
-
-    /// <summary>
-    /// The x forwarded for
-    /// </summary>
-    public const string XForwardedFor = "X-Forwarded-For"; // IP Address
-
-    /// <summary>
-    /// The x forwarded port
-    /// </summary>
-    public const string XForwardedPort = "X-Forwarded-Port"; // 80
-
-    /// <summary>
-    /// The x forwarded protocol
-    /// </summary>
-    public const string XForwardedProtocol = "X-Forwarded-Proto"; // http or https
-
-    /// <summary>
-    /// The x real ip
-    /// </summary>
-    public const string XRealIp = "X-Real-IP";
 
     /// <summary>
     /// The x location
@@ -75,11 +29,6 @@ public static class HttpHeaders
     /// The x status
     /// </summary>
     public const string XStatus = "X-Status";
-
-    /// <summary>
-    /// The x powered by
-    /// </summary>
-    public const string XPoweredBy = "X-Powered-By";
 
     /// <summary>
     /// The referer
@@ -95,16 +44,6 @@ public static class HttpHeaders
     /// If modified since
     /// </summary>
     public const string IfModifiedSince = "If-Modified-Since";
-
-    /// <summary>
-    /// If unmodified since
-    /// </summary>
-    public const string IfUnmodifiedSince = "If-Unmodified-Since";
-
-    /// <summary>
-    /// If none match
-    /// </summary>
-    public const string IfNoneMatch = "If-None-Match";
 
     /// <summary>
     /// If match
@@ -182,39 +121,9 @@ public static class HttpHeaders
     public const string Authorization = "Authorization";
 
     /// <summary>
-    /// The WWW authenticate
-    /// </summary>
-    public const string WwwAuthenticate = "WWW-Authenticate";
-
-    /// <summary>
     /// The allow origin
     /// </summary>
     public const string AllowOrigin = "Access-Control-Allow-Origin";
-
-    /// <summary>
-    /// The allow methods
-    /// </summary>
-    public const string AllowMethods = "Access-Control-Allow-Methods";
-
-    /// <summary>
-    /// The allow headers
-    /// </summary>
-    public const string AllowHeaders = "Access-Control-Allow-Headers";
-
-    /// <summary>
-    /// The allow credentials
-    /// </summary>
-    public const string AllowCredentials = "Access-Control-Allow-Credentials";
-
-    /// <summary>
-    /// The expose headers
-    /// </summary>
-    public const string ExposeHeaders = "Access-Control-Expose-Headers";
-
-    /// <summary>
-    /// The access control maximum age
-    /// </summary>
-    public const string AccessControlMaxAge = "Access-Control-Max-Age";
 
     /// <summary>
     /// The origin
@@ -247,24 +156,9 @@ public static class HttpHeaders
     public const string Range = "Range";
 
     /// <summary>
-    /// The SOAP action
-    /// </summary>
-    public const string SOAPAction = "SOAPAction";
-
-    /// <summary>
     /// The allow
     /// </summary>
     public const string Allow = "Allow";
-
-    /// <summary>
-    /// The accept charset
-    /// </summary>
-    public const string AcceptCharset = "Accept-Charset";
-
-    /// <summary>
-    /// The accept language
-    /// </summary>
-    public const string AcceptLanguage = "Accept-Language";
 
     /// <summary>
     /// The connection
@@ -292,24 +186,9 @@ public static class HttpHeaders
     public const string Pragma = "Pragma";
 
     /// <summary>
-    /// The proxy authenticate
-    /// </summary>
-    public const string ProxyAuthenticate = "Proxy-Authenticate";
-
-    /// <summary>
-    /// The proxy authorization
-    /// </summary>
-    public const string ProxyAuthorization = "Proxy-Authorization";
-
-    /// <summary>
     /// The proxy connection
     /// </summary>
     public const string ProxyConnection = "Proxy-Connection";
-
-    /// <summary>
-    /// The set cookie2
-    /// </summary>
-    public const string SetCookie2 = "Set-Cookie2";
 
     /// <summary>
     /// The te
@@ -383,17 +262,6 @@ public static class HttpHeaders
 /// </summary>
 public static class CompressionTypes
 {
-    /// <summary>
-    /// All compression types
-    /// </summary>
-    public readonly static string[] AllCompressionTypes =
-        {
-#if NET7_0_OR_GREATER
-                Brotli,
-#endif
-            Deflate, GZip,
-        };
-
 #if NET7_0_OR_GREATER
     /// <summary>
     /// The default
@@ -430,22 +298,6 @@ public static class CompressionTypes
 #else
         return compressionType is Deflate or GZip;
 #endif
-    }
-
-    /// <summary>
-    /// Asserts the is valid.
-    /// </summary>
-    /// <param name="compressionType">Type of the compression.</param>
-    /// <exception cref="NotSupportedException">compressionType + " is not a supported compression type. Valid types: "
-    ///                                 + string.Join(", ", AllCompressionTypes)</exception>
-    public static void AssertIsValid(string compressionType)
-    {
-        if (!IsValid(compressionType))
-        {
-            throw new NotSupportedException(
-                compressionType + " is not a supported compression type. Valid types: "
-                                + string.Join(", ", AllCompressionTypes));
-        }
     }
 
     /// <summary>

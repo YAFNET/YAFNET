@@ -65,7 +65,7 @@ public static class TypeConstants
     /// <summary>
     /// The non width white space chars
     /// </summary>
-    public static char[] NonWidthWhiteSpaceChars = { (char)0x200B };
+    public static char[] NonWidthWhiteSpaceChars = [(char)0x200B];
 
     /// <summary>
     /// Gets the null string span.
@@ -93,22 +93,7 @@ public static class TypeConstants
     /// The empty string array
     /// </summary>
     public static string[] EmptyStringArray = Array.Empty<string>();
-    /// <summary>
-    /// The empty long array
-    /// </summary>
-    public static long[] EmptyLongArray = Array.Empty<long>();
-    /// <summary>
-    /// The empty int array
-    /// </summary>
-    public static int[] EmptyIntArray = Array.Empty<int>();
-    /// <summary>
-    /// The empty character array
-    /// </summary>
-    public static char[] EmptyCharArray = Array.Empty<char>();
-    /// <summary>
-    /// The empty bool array
-    /// </summary>
-    public static bool[] EmptyBoolArray = Array.Empty<bool>();
+
     /// <summary>
     /// The empty byte array
     /// </summary>
@@ -137,31 +122,11 @@ public static class TypeConstants
     /// <summary>
     /// The empty string list
     /// </summary>
-    public static List<string> EmptyStringList = new(0);
-    /// <summary>
-    /// The empty long list
-    /// </summary>
-    public static List<long> EmptyLongList = new(0);
-    /// <summary>
-    /// The empty int list
-    /// </summary>
-    public static List<int> EmptyIntList = new(0);
-    /// <summary>
-    /// The empty character list
-    /// </summary>
-    public static List<char> EmptyCharList = new(0);
-    /// <summary>
-    /// The empty bool list
-    /// </summary>
-    public static List<bool> EmptyBoolList = new(0);
+    public static List<string> EmptyStringList = [];
     /// <summary>
     /// The empty object list
     /// </summary>
-    public static List<object> EmptyObjectList = new(0);
-    /// <summary>
-    /// The empty type list
-    /// </summary>
-    public static List<Type> EmptyTypeList = new(0);
+    public static List<object> EmptyObjectList = [];
 }
 
 /// <summary>
@@ -177,9 +142,5 @@ public static class TypeConstants<T>
     /// <summary>
     /// The empty list
     /// </summary>
-    public static List<T> EmptyList = new(0);
-    /// <summary>
-    /// The empty hash set
-    /// </summary>
-    public static HashSet<T> EmptyHashSet = new();
+    public static List<T> EmptyList = [];
 }

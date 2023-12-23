@@ -10,8 +10,6 @@ namespace ServiceStack.Web;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
-using System.Threading.Tasks;
-
 using ServiceStack.Configuration;
 
 /// <summary>
@@ -60,33 +58,4 @@ public interface IRequest : IResolver
     /// </summary>
     /// <value>The form data.</value>
     NameValueCollection FormData { get; }
-    /// <summary>
-    /// Buffer the Request InputStream so it can be re-read
-    /// </summary>
-    /// <value><c>true</c> if [use buffered stream]; otherwise, <c>false</c>.</value>
-    bool UseBufferedStream { get; set; }
-
-    /// <summary>
-    /// The entire string contents of Request.InputStream
-    /// </summary>
-    /// <returns>System.String.</returns>
-    string GetRawBody();
-
-    /// <summary>
-    /// The entire string contents of Request.InputStream async
-    /// </summary>
-    /// <returns>Task&lt;System.String&gt;.</returns>
-    Task<string> GetRawBodyAsync();
-
-    /// <summary>
-    /// The Absolute URL for the request
-    /// </summary>
-    /// <value>The absolute URI.</value>
-    string AbsoluteUri { get; }
-
-    /// <summary>
-    /// The Request Body Input Stream
-    /// </summary>
-    /// <value>The input stream.</value>
-    Stream InputStream { get; }
 }

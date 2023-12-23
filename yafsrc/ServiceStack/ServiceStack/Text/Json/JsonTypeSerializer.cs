@@ -590,28 +590,6 @@ public struct JsonTypeSerializer
     /// <summary>
     /// Gets the parse string span function.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns>ParseStringSpanDelegate.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public ParseStringSpanDelegate GetParseStringSpanFn<T>()
-    {
-        return JsonReader.Instance.GetParseStringSpanFn<T>();
-    }
-
-    /// <summary>
-    /// Gets the parse function.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns>ParseStringDelegate.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public ParseStringDelegate GetParseFn(Type type)
-    {
-        return JsonReader.GetParseFn(type);
-    }
-
-    /// <summary>
-    /// Gets the parse string span function.
-    /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>ParseStringSpanDelegate.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -746,14 +724,6 @@ public struct JsonTypeSerializer
     /// Unescapes the safe string.
     /// </summary>
     /// <param name="value">The value.</param>
-    /// <returns>System.String.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public string UnescapeSafeString(string value) => UnescapeSafeString(value.AsSpan()).ToString();
-
-    /// <summary>
-    /// Unescapes the safe string.
-    /// </summary>
-    /// <param name="value">The value.</param>
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public ReadOnlySpan<char> UnescapeSafeString(ReadOnlySpan<char> value)
@@ -770,7 +740,7 @@ public struct JsonTypeSerializer
     /// <summary>
     /// The is safe json chars
     /// </summary>
-    readonly static char[] IsSafeJsonChars = { JsonUtils.QuoteChar, JsonUtils.EscapeChar };
+    readonly static char[] IsSafeJsonChars = [JsonUtils.QuoteChar, JsonUtils.EscapeChar];
 
     /// <summary>
     /// Unescapes the json string.
@@ -1039,17 +1009,6 @@ public struct JsonTypeSerializer
     /// </summary>
     /// <param name="value">The value.</param>
     /// <param name="i">The i.</param>
-    /// <returns>System.String.</returns>
-    public string EatTypeValue(string value, ref int i)
-    {
-        return EatValue(value, ref i);
-    }
-
-    /// <summary>
-    /// Eats the type value.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="i">The i.</param>
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
     public ReadOnlySpan<char> EatTypeValue(ReadOnlySpan<char> value, ref int i)
     {
@@ -1062,27 +1021,11 @@ public struct JsonTypeSerializer
     /// <param name="value">The value.</param>
     /// <param name="i">The i.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public bool EatMapStartChar(string value, ref int i) => EatMapStartChar(value.AsSpan(), ref i);
-
-    /// <summary>
-    /// Eats the map start character.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="i">The i.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public bool EatMapStartChar(ReadOnlySpan<char> value, ref int i)
     {
         for (; i < value.Length; i++) { var c = value[i]; if (!JsonUtils.IsWhiteSpace(c)) break; } //Whitespace inline
         return value[i++] == JsWriter.MapStartChar;
     }
-
-    /// <summary>
-    /// Eats the map key.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="i">The i.</param>
-    /// <returns>System.String.</returns>
-    public string EatMapKey(string value, ref int i) => EatMapKey(value.AsSpan(), ref i).ToString();
 
     /// <summary>
     /// Eats the map key.
@@ -1127,14 +1070,6 @@ public struct JsonTypeSerializer
         return value.Slice(tokenStartPos, i - tokenStartPos);
     }
 
-    /// <summary>
-    /// Eats the map key seperator.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="i">The i.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public bool EatMapKeySeperator(string value, ref int i) => EatMapKeySeperator(value.AsSpan(), ref i);
-
 
     /// <summary>
     /// Eats the map key seperator.
@@ -1147,17 +1082,6 @@ public struct JsonTypeSerializer
         for (; i < value.Length; i++) { var c = value[i]; if (!JsonUtils.IsWhiteSpace(c)) break; } //Whitespace inline
         if (value.Length == i) return false;
         return value[i++] == JsWriter.MapKeySeperator;
-    }
-
-    /// <summary>
-    /// Eats the item seperator or map end character.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="i">The i.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public bool EatItemSeperatorOrMapEndChar(string value, ref int i)
-    {
-        return EatItemSeperatorOrMapEndChar(value.AsSpan(), ref i);
     }
 
     /// <summary>
@@ -1199,27 +1123,6 @@ public struct JsonTypeSerializer
     public void EatWhitespace(ReadOnlySpan<char> value, ref int i)
     {
         for (; i < value.Length; i++) { var c = value[i]; if (!JsonUtils.IsWhiteSpace(c)) break; } //Whitespace inline
-    }
-
-    /// <summary>
-    /// Eats the whitespace.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="i">The i.</param>
-    public void EatWhitespace(string value, ref int i)
-    {
-        for (; i < value.Length; i++) { var c = value[i]; if (!JsonUtils.IsWhiteSpace(c)) break; } //Whitespace inline
-    }
-
-    /// <summary>
-    /// Eats the value.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="i">The i.</param>
-    /// <returns>System.String.</returns>
-    public string EatValue(string value, ref int i)
-    {
-        return EatValue(value.AsSpan(), ref i).ToString();
     }
 
     /// <summary>

@@ -6,7 +6,6 @@
 // ***********************************************************************
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using ServiceStack.Text;
 
 namespace ServiceStack.Script;
@@ -16,111 +15,6 @@ namespace ServiceStack.Script;
 /// </summary>
 public static class JsExpressionUtils
 {
-    /// <summary>
-    /// Gets the js expression and evaluate.
-    /// </summary>
-    /// <param name="expr">The expr.</param>
-    /// <param name="scope">The scope.</param>
-    /// <param name="ifNone">If none.</param>
-    /// <returns>System.Object.</returns>
-    public static object GetJsExpressionAndEvaluate(this ReadOnlyMemory<char> expr, ScriptScopeContext scope, Action ifNone = null)
-    {
-        if (expr.IsNullOrEmpty())
-        {
-            ifNone?.Invoke();
-            return null;
-        }
-
-        var token = expr.GetCachedJsExpression(scope);
-        if (token == null)
-        {
-            ifNone?.Invoke();
-            return null;
-        }
-
-        var result = token.Evaluate(scope);
-        return result;
-    }
-
-    /// <summary>
-    /// Get js expression and evaluate as an asynchronous operation.
-    /// </summary>
-    /// <param name="expr">The expr.</param>
-    /// <param name="scope">The scope.</param>
-    /// <param name="ifNone">If none.</param>
-    /// <returns>A Task&lt;System.Object&gt; representing the asynchronous operation.</returns>
-    public async static Task<object> GetJsExpressionAndEvaluateAsync(this ReadOnlyMemory<char> expr, ScriptScopeContext scope, Action ifNone = null)
-    {
-        if (expr.IsNullOrEmpty())
-        {
-            ifNone?.Invoke();
-            return TypeConstants.EmptyTask;
-        }
-
-        var token = expr.GetCachedJsExpression(scope);
-        if (token == null)
-        {
-            ifNone?.Invoke();
-            return TypeConstants.EmptyTask;
-        }
-
-        var ret = await token.EvaluateAsync(scope).ConfigAwait();
-        return ret == JsNull.Value
-                   ? null
-                   : ret;
-    }
-
-    /// <summary>
-    /// Gets the js expression and evaluate to bool.
-    /// </summary>
-    /// <param name="expr">The expr.</param>
-    /// <param name="scope">The scope.</param>
-    /// <param name="ifNone">If none.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public static bool GetJsExpressionAndEvaluateToBool(this ReadOnlyMemory<char> expr, ScriptScopeContext scope, Action ifNone = null)
-    {
-        if (expr.IsNullOrEmpty())
-        {
-            ifNone?.Invoke();
-            return false;
-        }
-
-        var token = expr.GetCachedJsExpression(scope);
-        if (token == null)
-        {
-            ifNone?.Invoke();
-            return false;
-        }
-
-        var result = token.EvaluateToBool(scope);
-        return result;
-    }
-
-    /// <summary>
-    /// Gets the js expression and evaluate to bool asynchronous.
-    /// </summary>
-    /// <param name="expr">The expr.</param>
-    /// <param name="scope">The scope.</param>
-    /// <param name="ifNone">If none.</param>
-    /// <returns>Task&lt;System.Boolean&gt;.</returns>
-    public static Task<bool> GetJsExpressionAndEvaluateToBoolAsync(this ReadOnlyMemory<char> expr, ScriptScopeContext scope, Action ifNone = null)
-    {
-        if (expr.IsNullOrEmpty())
-        {
-            ifNone?.Invoke();
-            return TypeConstants.FalseTask;
-        }
-
-        var token = expr.GetCachedJsExpression(scope);
-        if (token == null)
-        {
-            ifNone?.Invoke();
-            return TypeConstants.FalseTask;
-        }
-
-        return token.EvaluateToBoolAsync(scope);
-    }
-
     /// <summary>
     /// Gets the cached js expression.
     /// </summary>
@@ -170,15 +64,6 @@ public static class JsExpressionUtils
         literal.ParseJsExpression(out token, filterExpression: false);
 
     /// <summary>
-    /// Parses the js expression.
-    /// </summary>
-    /// <param name="literal">The literal.</param>
-    /// <param name="token">The token.</param>
-    /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
-    public static ReadOnlySpan<char> ParseJsExpression(this ReadOnlyMemory<char> literal, out JsToken token) =>
-        literal.Span.ParseJsExpression(out token, filterExpression: false);
-
-    /// <summary>
     /// The conditional expression test character
     /// </summary>
     private const char ConditionalExpressionTestChar = '?';
@@ -215,7 +100,7 @@ public static class JsExpressionUtils
         {
             if (peekLiteral.StartsWith("=>"))
             {
-                literal = peekLiteral.ParseArrowExpressionBody(new[] { identifier }, out var arrowExpr);
+                literal = peekLiteral.ParseArrowExpressionBody([identifier], out var arrowExpr);
                 token = arrowExpr;
                 return literal;
             }

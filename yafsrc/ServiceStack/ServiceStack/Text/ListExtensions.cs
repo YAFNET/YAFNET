@@ -112,7 +112,7 @@ public static class ListExtensions
     /// <returns>List&lt;T&gt;.</returns>
     public static List<T> InList<T>(this T value)
     {
-        return new List<T> { value };
+        return [value];
     }
 
     /// <summary>
@@ -123,7 +123,7 @@ public static class ListExtensions
     /// <returns>T[].</returns>
     public static T[] InArray<T>(this T value)
     {
-        return new[] { value };
+        return [value];
     }
 
     /// <summary>

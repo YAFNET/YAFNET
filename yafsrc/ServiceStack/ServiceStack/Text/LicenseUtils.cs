@@ -349,12 +349,6 @@ public class LicenseKey
 public static class LicenseUtils
 {
     /// <summary>
-    /// The runtime public key
-    /// </summary>
-    public const string RuntimePublicKey =
-        "<RSAKeyValue><Modulus>nkqwkUAcuIlVzzOPENcQ+g5ALCe4LyzzWv59E4a7LuOM1Nb+hlNlnx2oBinIkvh09EyaxIX2PmaY0KtyDRIh+PoItkKeJe/TydIbK/bLa0+0Axuwa0MFShE6HdJo/dynpODm64+Sg1XfhICyfsBBSxuJMiVKjlMDIxu9kDg7vEs=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue>";
-
-    /// <summary>
     /// The license public key
     /// </summary>
     public const string LicensePublicKey =
@@ -487,24 +481,9 @@ public static class LicenseUtils
     }
 
     /// <summary>
-    /// Asserts the evaluation license.
-    /// </summary>
-    /// <exception cref="LicenseException">The evaluation license for this software has expired. " +
-    ///                                        "See https://servicestack.net to upgrade to a valid license.</exception>
-    /// <exception cref="ServiceStack.LicenseException">The evaluation license for this software has expired. " +
-    /// "See https://servicestack.net to upgrade to a valid license.</exception>
-    public static void AssertEvaluationLicense()
-    {
-        if (DateTime.UtcNow > new DateTime(2013, 12, 31))
-            throw new LicenseException(
-                "The evaluation license for this software has expired. "
-                + "See https://servicestack.net to upgrade to a valid license.").Trace();
-    }
-
-    /// <summary>
     /// The revoked subs
     /// </summary>
-    private readonly static int[] revokedSubs = { 4018, 4019, 4041, 4331, 4581 };
+    private readonly static int[] revokedSubs = [4018, 4019, 4041, 4331, 4581];
 
     /// <summary>
     /// Class __ActivatedLicense.
@@ -922,17 +901,6 @@ public static class LicenseUtils
     }
 
     /// <summary>
-    /// Determines whether [has licensed feature] [the specified feature].
-    /// </summary>
-    /// <param name="feature">The feature.</param>
-    /// <returns><c>true</c> if [has licensed feature] [the specified feature]; otherwise, <c>false</c>.</returns>
-    public static bool HasLicensedFeature(LicenseFeature feature)
-    {
-        var licensedFeatures = ActivatedLicenseFeatures();
-        return (feature & licensedFeatures) == feature;
-    }
-
-    /// <summary>
     /// Asserts the valid usage.
     /// </summary>
     /// <param name="feature">The feature.</param>
@@ -1175,22 +1143,6 @@ public static class LicenseUtils
     public static string GetHashKeyToSign(this LicenseKey key)
     {
         return $"{key.Ref}:{key.Name}:{key.Expiry:yyyy-MM-dd}:{key.Type}";
-    }
-
-    /// <summary>
-    /// Gets the inner most exception.
-    /// </summary>
-    /// <param name="ex">The ex.</param>
-    /// <returns>Exception.</returns>
-    public static Exception GetInnerMostException(this Exception ex)
-    {
-        //Extract true exception from static initializers (e.g. LicenseException)
-        while (ex.InnerException != null)
-        {
-            ex = ex.InnerException;
-        }
-
-        return ex;
     }
 
     //License Utils

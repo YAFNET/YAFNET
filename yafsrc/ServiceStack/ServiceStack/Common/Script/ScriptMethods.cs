@@ -39,7 +39,7 @@ public enum InvokerType
 /// <summary>
 /// Interface IResultInstruction
 /// </summary>
-public interface IResultInstruction { }
+public interface IResultInstruction;
 /// <summary>
 /// Class IgnoreResult.
 /// Implements the <see cref="ServiceStack.Script.IResultInstruction" />
@@ -139,11 +139,6 @@ public class ScriptException : Exception
     /// </summary>
     /// <value>The page result.</value>
     public PageResult PageResult { get; }
-    /// <summary>
-    /// Gets the page stack trace.
-    /// </summary>
-    /// <value>The page stack trace.</value>
-    public string PageStackTrace => PageResult.LastFilterStackTrace.Map(x => "   at " + x).Join(Environment.NewLine);
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ScriptException" /> class.
@@ -488,35 +483,6 @@ public static class TemplateFilterUtils
         }
 
         return newScope;
-    }
-
-    /// <summary>
-    /// Gets the value or evaluate binding.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="scope">The scope.</param>
-    /// <param name="valueOrBinding">The value or binding.</param>
-    /// <returns>T.</returns>
-    public static T GetValueOrEvaluateBinding<T>(this ScriptScopeContext scope, object valueOrBinding) =>
-        (T)GetValueOrEvaluateBinding(scope, valueOrBinding, typeof(T));
-
-    /// <summary>
-    /// Gets the value or evaluate binding.
-    /// </summary>
-    /// <param name="scope">The scope.</param>
-    /// <param name="valueOrBinding">The value or binding.</param>
-    /// <param name="returnType">Type of the return.</param>
-    /// <returns>System.Object.</returns>
-    public static object GetValueOrEvaluateBinding(this ScriptScopeContext scope, object valueOrBinding, Type returnType)
-    {
-        if (valueOrBinding is string literal)
-        {
-            literal.ParseJsExpression(out var token);
-            var oValue = token.Evaluate(scope);
-            return oValue.ConvertTo(returnType);
-        }
-
-        return valueOrBinding.ConvertTo(returnType);
     }
 
     /// <summary>

@@ -32,18 +32,4 @@ public static class DictionaryExtensions
             return true;
         }
     }
-
-    /// <summary>
-    /// Removes the key.
-    /// </summary>
-    /// <typeparam name="TKey">The type of the t key.</typeparam>
-    /// <typeparam name="TValue">The type of the t value.</typeparam>
-    /// <param name="map">The map.</param>
-    /// <param name="key">The key.</param>
-    /// <returns>Dictionary&lt;TKey, TValue&gt;.</returns>
-    public static Dictionary<TKey, TValue> RemoveKey<TKey, TValue>(this Dictionary<TKey, TValue> map, TKey key)
-    {
-        map?.Remove(key);
-        return map;
-    }
 }

@@ -497,17 +497,17 @@ public static class JsConfig
     /// <summary>
     /// The has serialize function
     /// </summary>
-    static internal HashSet<Type> HasSerializeFn = new();
+    static internal HashSet<Type> HasSerializeFn = [];
 
     /// <summary>
     /// The has include default value
     /// </summary>
-    static internal HashSet<Type> HasIncludeDefaultValue = new();
+    static internal HashSet<Type> HasIncludeDefaultValue = [];
 
     /// <summary>
     /// The treat value as reference types
     /// </summary>
-    public static HashSet<Type> TreatValueAsRefTypes = new();
+    public static HashSet<Type> TreatValueAsRefTypes = [];
 
     /// <summary>
     /// If set to true, Interface types will be preferred over concrete types when serializing.
@@ -585,25 +585,25 @@ public static class JsConfig
     /// Gets or sets the allow runtime type with attributes named.
     /// </summary>
     /// <value>The allow runtime type with attributes named.</value>
-    public static HashSet<string> AllowRuntimeTypeWithAttributesNamed { get; set; } = new();
+    public static HashSet<string> AllowRuntimeTypeWithAttributesNamed { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the allow runtime type with interfaces named.
     /// </summary>
     /// <value>The allow runtime type with interfaces named.</value>
-    public static HashSet<string> AllowRuntimeTypeWithInterfacesNamed { get; set; } = new();
+    public static HashSet<string> AllowRuntimeTypeWithInterfacesNamed { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the allow runtime type in types.
     /// </summary>
     /// <value>The allow runtime type in types.</value>
-    public static HashSet<string> AllowRuntimeTypeInTypes { get; set; } = new();
+    public static HashSet<string> AllowRuntimeTypeInTypes { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the allow runtime type in types with namespaces.
     /// </summary>
     /// <value>The allow runtime type in types with namespaces.</value>
-    public static HashSet<string> AllowRuntimeTypeInTypesWithNamespaces { get; set; } = new();
+    public static HashSet<string> AllowRuntimeTypeInTypesWithNamespaces { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the type of the allow runtime.
@@ -640,41 +640,38 @@ public static class JsConfig
         Env.StrictMode = false;
         Config.Reset();
         AutoMappingUtils.Reset();
-        HasSerializeFn = new HashSet<Type>();
-        HasIncludeDefaultValue = new HashSet<Type>();
-        TreatValueAsRefTypes = new HashSet<Type> { typeof(KeyValuePair<,>) };
-        __uniqueTypes = new HashSet<Type>();
+        HasSerializeFn = [];
+        HasIncludeDefaultValue = [];
+        TreatValueAsRefTypes = [typeof(KeyValuePair<,>)];
+        __uniqueTypes = [];
 
         // Called when writing each string, too expensive to maintain as scoped config
         AllowRuntimeInterfaces = true;
         AllowRuntimeType = null;
-        AllowRuntimeTypeWithAttributesNamed = new HashSet<string>
-                                                  {
-                                                      nameof(SerializableAttribute),
-                                                      nameof(DataContractAttribute),
-                                                      nameof(RuntimeSerializableAttribute),
-                                                  };
-        AllowRuntimeTypeWithInterfacesNamed = new HashSet<string>
-                                                  {
-                                                      "IConvertible",
-                                                      "ISerializable",
-                                                      "IRuntimeSerializable",
-                                                      "IMeta",
-                                                      "IReturn`1",
-                                                      "IReturnVoid",
-                                                      "IVerb",
-                                                      "ICrud",
-                                                      "IMeta",
-                                                      "IAuthTokens",
-                                                      "IHasResponseStatus",
-                                                      "IHasId`1"
-                                                  };
-        AllowRuntimeTypeInTypesWithNamespaces = new HashSet<string>
-                                                    {
-                                                        "ServiceStack.Auth",
-                                                        "ServiceStack.Messaging"
-                                                    };
-        AllowRuntimeTypeInTypes = new();
+        AllowRuntimeTypeWithAttributesNamed = [
+            nameof(SerializableAttribute),
+            nameof(DataContractAttribute),
+            nameof(RuntimeSerializableAttribute)
+        ];
+        AllowRuntimeTypeWithInterfacesNamed = [
+            "IConvertible",
+            "ISerializable",
+            "IRuntimeSerializable",
+            "IMeta",
+            "IReturn`1",
+            "IReturnVoid",
+            "IVerb",
+            "ICrud",
+            "IMeta",
+            "IAuthTokens",
+            "IHasResponseStatus",
+            "IHasId`1"
+        ];
+        AllowRuntimeTypeInTypesWithNamespaces = [
+            "ServiceStack.Auth",
+            "ServiceStack.Messaging"
+        ];
+        AllowRuntimeTypeInTypes = [];
         PlatformExtensions.ClearRuntimeAttributes();
         ReflectionExtensions.Reset();
         JsState.Reset();
@@ -703,7 +700,7 @@ public static class JsConfig
     /// <summary>
     /// The unique types
     /// </summary>
-    static internal HashSet<Type> __uniqueTypes = new();
+    static internal HashSet<Type> __uniqueTypes = [];
     /// <summary>
     /// The unique types count
     /// </summary>
@@ -722,7 +719,7 @@ public static class JsConfig
         do
         {
             snapshot = __uniqueTypes;
-            newTypes = new HashSet<Type>(__uniqueTypes) { type };
+            newTypes = [..__uniqueTypes, type];
             __uniqueTypesCount = newTypes.Count;
 
         }

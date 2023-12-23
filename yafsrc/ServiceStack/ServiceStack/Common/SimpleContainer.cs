@@ -29,7 +29,7 @@ public class SimpleContainer : IContainer, IResolver
     /// Gets the ignore types named.
     /// </summary>
     /// <value>The ignore types named.</value>
-    public HashSet<string> IgnoreTypesNamed { get; } = new();
+    public HashSet<string> IgnoreTypesNamed { get; } = [];
 
     /// <summary>
     /// The instance cache
@@ -230,35 +230,6 @@ public static class ContainerExtensions
     /// <summary>
     /// Adds the transient.
     /// </summary>
-    /// <typeparam name="TService">The type of the t service.</typeparam>
-    /// <param name="container">The container.</param>
-    /// <returns>ServiceStack.IContainer.</returns>
-    public static IContainer AddTransient<TService>(this IContainer container) =>
-        container.AddTransient(typeof(TService), container.CreateFactory(typeof(TService)));
-
-    /// <summary>
-    /// Adds the transient.
-    /// </summary>
-    /// <typeparam name="TService">The type of the t service.</typeparam>
-    /// <param name="container">The container.</param>
-    /// <param name="factory">The factory.</param>
-    /// <returns>ServiceStack.IContainer.</returns>
-    public static IContainer AddTransient<TService>(this IContainer container, Func<TService> factory) =>
-        container.AddTransient(typeof(TService), () => factory());
-
-    /// <summary>
-    /// Adds the transient.
-    /// </summary>
-    /// <typeparam name="TService">The type of the t service.</typeparam>
-    /// <typeparam name="TImpl">The type of the t implementation.</typeparam>
-    /// <param name="container">The container.</param>
-    /// <returns>ServiceStack.IContainer.</returns>
-    public static IContainer AddTransient<TService, TImpl>(this IContainer container) where TImpl : TService =>
-        container.AddTransient(typeof(TService), container.CreateFactory(typeof(TImpl)));
-
-    /// <summary>
-    /// Adds the transient.
-    /// </summary>
     /// <param name="container">The container.</param>
     /// <param name="type">The type.</param>
     /// <returns>ServiceStack.IContainer.</returns>
@@ -270,29 +241,10 @@ public static class ContainerExtensions
     /// </summary>
     /// <typeparam name="TService">The type of the t service.</typeparam>
     /// <param name="container">The container.</param>
-    /// <returns>ServiceStack.IContainer.</returns>
-    public static IContainer AddSingleton<TService>(this IContainer container) =>
-        container.AddSingleton(typeof(TService), container.CreateFactory(typeof(TService)));
-
-    /// <summary>
-    /// Adds the singleton.
-    /// </summary>
-    /// <typeparam name="TService">The type of the t service.</typeparam>
-    /// <param name="container">The container.</param>
     /// <param name="factory">The factory.</param>
     /// <returns>ServiceStack.IContainer.</returns>
     public static IContainer AddSingleton<TService>(this IContainer container, Func<TService> factory) =>
         container.AddSingleton(typeof(TService), () => factory());
-
-    /// <summary>
-    /// Adds the singleton.
-    /// </summary>
-    /// <typeparam name="TService">The type of the t service.</typeparam>
-    /// <typeparam name="TImpl">The type of the t implementation.</typeparam>
-    /// <param name="container">The container.</param>
-    /// <returns>ServiceStack.IContainer.</returns>
-    public static IContainer AddSingleton<TService, TImpl>(this IContainer container) where TImpl : TService =>
-        container.AddSingleton(typeof(TService), container.CreateFactory(typeof(TImpl)));
 
     /// <summary>
     /// Adds the singleton.

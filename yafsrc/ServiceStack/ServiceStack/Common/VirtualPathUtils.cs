@@ -47,24 +47,7 @@ public static class VirtualPathUtils
         if (string.IsNullOrEmpty(str))
             return new Stack<string>();
 
-        var tokens = str.Split(new[] { virtualPathSeparator }, StringSplitOptions.RemoveEmptyEntries);
-        return new Stack<string>(tokens.Reverse());
-    }
-
-    /// <summary>
-    /// Tokenizes the resource path.
-    /// </summary>
-    /// <param name="str">The string.</param>
-    /// <param name="pathSeparator">The path separator.</param>
-    /// <returns>Stack&lt;System.String&gt;.</returns>
-    public static Stack<string> TokenizeResourcePath(this string str, char pathSeparator = '.')
-    {
-        if (string.IsNullOrEmpty(str))
-            return new Stack<string>();
-
-        var n = str.Count(c => c == pathSeparator);
-        var tokens = str.Split(new[] { pathSeparator }, n);
-
+        var tokens = str.Split([virtualPathSeparator], StringSplitOptions.RemoveEmptyEntries);
         return new Stack<string>(tokens.Reverse());
     }
 
@@ -76,7 +59,7 @@ public static class VirtualPathUtils
     /// <returns>IEnumerable&lt;IGrouping&lt;System.String, System.String[]&gt;&gt;.</returns>
     public static IEnumerable<IGrouping<string, string[]>> GroupByFirstToken(this IEnumerable<string> resourceNames, char pathSeparator = '.')
     {
-        return resourceNames.Select(n => n.Split(new[] { pathSeparator }, 2))
+        return resourceNames.Select(n => n.Split([pathSeparator], 2))
             .GroupBy(t => t[0]);
     }
 
@@ -120,37 +103,6 @@ public static class VirtualPathUtils
     public static bool IsDirectory(this IVirtualNode node)
     {
         return node is IVirtualDirectory;
-    }
-
-    /// <summary>
-    /// Gets the virtual node.
-    /// </summary>
-    /// <param name="pathProvider">The path provider.</param>
-    /// <param name="virtualPath">The virtual path.</param>
-    /// <returns>IVirtualNode.</returns>
-    public static IVirtualNode GetVirtualNode(this IVirtualPathProvider pathProvider, string virtualPath)
-    {
-        return (IVirtualNode)pathProvider.GetFile(virtualPath)
-               ?? pathProvider.GetDirectory(virtualPath);
-    }
-
-    /// <summary>
-    /// Gets the default document.
-    /// </summary>
-    /// <param name="dir">The dir.</param>
-    /// <param name="defaultDocuments">The default documents.</param>
-    /// <returns>IVirtualFile.</returns>
-    public static IVirtualFile GetDefaultDocument(this IVirtualDirectory dir, List<string> defaultDocuments)
-    {
-        foreach (var defaultDoc in defaultDocuments)
-        {
-            var defaultFile = dir.GetFile(defaultDoc);
-            if (defaultFile == null) continue;
-
-            return defaultFile;
-        }
-
-        return null;
     }
 
     /// <summary>

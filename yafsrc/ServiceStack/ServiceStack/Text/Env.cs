@@ -390,31 +390,6 @@ public static class Env
         task.ConfigureAwait(ContinueOnCapturedContext);
 
     /// <summary>
-    /// Only .ConfigAwait(false) in .NET Core as loses HttpContext.Current in NETFX/ASP.NET
-    /// </summary>
-    /// <param name="task">The task.</param>
-    /// <returns>Task.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#if NET7_0_OR_GREATER
-    public static ConfiguredTaskAwaitable ConfigAwaitNetCore(this Task task) => task.ConfigureAwait(false);
-#else
-    public static Task ConfigAwaitNetCore(this Task task) => task;
-#endif
-
-    /// <summary>
-    /// Only .ConfigAwait(false) in .NET Core as loses HttpContext.Current in NETFX/ASP.NET
-    /// </summary>
-    /// <typeparam name="T">The type parameter</typeparam>
-    /// <param name="task">The task.</param>
-    /// <returns>Task&lt;T&gt;.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-#if NET7_0_OR_GREATER
-    public static ConfiguredTaskAwaitable<T> ConfigAwaitNetCore<T>(this Task<T> task) => task.ConfigureAwait(false);
-#else
-    public static Task<T> ConfigAwaitNetCore<T>(this Task<T> task) => task;
-#endif
-
-    /// <summary>
     /// Configurations the await.
     /// </summary>
     /// <param name="task">The task.</param>

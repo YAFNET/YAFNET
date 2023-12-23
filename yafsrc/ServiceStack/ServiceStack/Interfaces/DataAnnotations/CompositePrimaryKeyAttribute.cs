@@ -23,7 +23,7 @@ public class CompositePrimaryKeyAttribute : AttributeBase
     /// <param name="fieldNames">The field names.</param>
     public CompositePrimaryKeyAttribute(params string[] fieldNames)
     {
-        this.FieldNames = new List<string>(fieldNames);
+        this.FieldNames = [..fieldNames];
     }
 
     /// <summary>

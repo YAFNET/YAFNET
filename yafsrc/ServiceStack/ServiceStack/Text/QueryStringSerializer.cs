@@ -8,15 +8,12 @@
 namespace ServiceStack.Text;
 
 using ServiceStack.Text.Common;
-using ServiceStack.Text.Json;
 using ServiceStack.Text.Jsv;
 
 using System;
 using System.Collections;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 
@@ -310,73 +307,5 @@ internal class PropertyTypeConfig<T>
                          TypeConfig = TypeConfig<T>.GetState(),
                          WriteFn = WriteType<T, JsvTypeSerializer>.WriteComplexQueryStringProperties,
                      };
-    }
-}
-
-/// <summary>
-/// Class QueryStringStrategy.
-/// </summary>
-public static class QueryStringStrategy
-{
-    /// <summary>
-    /// The type configuration cache
-    /// </summary>
-    readonly static ConcurrentDictionary<Type, PropertyTypeConfig> typeConfigCache =
-        new();
-
-    /// <summary>
-    /// Forms the URL encoded.
-    /// </summary>
-    /// <param name="writer">The writer.</param>
-    /// <param name="propertyName">Name of the property.</param>
-    /// <param name="obj">The object.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public static bool FormUrlEncoded(TextWriter writer, string propertyName, object obj)
-    {
-        if (obj is IDictionary map)
-        {
-            var i = 0;
-            foreach (var key in map.Keys)
-            {
-                if (i++ > 0)
-                    writer.Write('&');
-
-                var value = map[key];
-                writer.Write(propertyName);
-                writer.Write('[');
-                writer.Write(key.ToString());
-                writer.Write("]=");
-
-                switch (value)
-                {
-                    case null:
-                        writer.Write(JsonUtils.Null);
-                        break;
-                    case string strValue when strValue == string.Empty: /*ignore*/
-                        break;
-                    default:
-                        {
-                            var writeFn = JsvWriter.GetWriteFn(value.GetType());
-                            writeFn(writer, value);
-                            break;
-                        }
-                }
-            }
-
-            return true;
-        }
-
-        var typeConfig = typeConfigCache.GetOrAdd(obj.GetType(), t =>
-            {
-                var genericType = typeof(PropertyTypeConfig<>).MakeGenericType(t);
-                var fi = genericType.Fields().First(x => x.Name == "Config");
-
-                var config = (PropertyTypeConfig)fi.GetValue(null);
-                return config;
-            });
-
-        typeConfig.WriteFn(propertyName, writer, obj);
-
-        return true;
     }
 }

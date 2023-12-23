@@ -8,7 +8,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -21,15 +20,6 @@ using ServiceStack.Text.Support;
 /// </summary>
 public static class AssemblyUtils
 {
-    /// <summary>
-    /// The file URI
-    /// </summary>
-    private const string FileUri = "file:///";
-    /// <summary>
-    /// The URI seperator
-    /// </summary>
-    private const char UriSeperator = '/';
-
     /// <summary>
     /// The type cache
     /// </summary>
@@ -100,33 +90,6 @@ public static class AssemblyUtils
     {
         var assemblies = PclExport.Instance.GetAllAssemblies();
         return assemblies.Select(assembly => assembly.GetType(typeName)).FirstOrDefault(type => type != null);
-    }
-
-    /// <summary>
-    /// Loads the assembly.
-    /// </summary>
-    /// <param name="assemblyPath">The assembly path.</param>
-    /// <returns>System.Reflection.Assembly.</returns>
-    public static Assembly LoadAssembly(string assemblyPath)
-    {
-        return PclExport.Instance.LoadAssembly(assemblyPath);
-    }
-
-    /// <summary>
-    /// Gets the assembly bin path.
-    /// </summary>
-    /// <param name="assembly">The assembly.</param>
-    /// <returns>string.</returns>
-    public static string GetAssemblyBinPath(Assembly assembly)
-    {
-        var codeBase = PclExport.Instance.GetAssemblyCodeBase(assembly);
-        var binPathPos = codeBase.LastIndexOf(UriSeperator);
-        var assemblyPath = codeBase.Substring(0, binPathPos + 1);
-        if (assemblyPath.StartsWith(FileUri, StringComparison.OrdinalIgnoreCase))
-        {
-            assemblyPath = assemblyPath.Remove(0, FileUri.Length);
-        }
-        return assemblyPath;
     }
 
     /// <summary>

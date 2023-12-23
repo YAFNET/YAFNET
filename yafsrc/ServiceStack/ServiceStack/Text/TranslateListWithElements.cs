@@ -220,22 +220,6 @@ public class TranslateListWithElements<T>
     }
 
     /// <summary>
-    /// Translates to i list.
-    /// </summary>
-    /// <param name="fromList">From list.</param>
-    /// <param name="toInstanceOfType">Type of to instance of.</param>
-    /// <returns>IList.</returns>
-    public static IList TranslateToIList(IList fromList, Type toInstanceOfType)
-    {
-        var to = (IList)toInstanceOfType.CreateInstance();
-        foreach (var item in fromList)
-        {
-            to.Add(item);
-        }
-        return to;
-    }
-
-    /// <summary>
     /// Lates the bound translate to generic i collection.
     /// </summary>
     /// <param name="fromList">From list.</param>

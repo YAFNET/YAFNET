@@ -9,7 +9,6 @@ namespace ServiceStack.Text;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Threading;
 
@@ -194,16 +193,6 @@ public abstract class TypeFields
     public FieldInfo[] PublicFieldInfos { get; protected set; }
 
     /// <summary>
-    /// Gets the public field.
-    /// </summary>
-    /// <param name="name">The name.</param>
-    /// <returns>FieldInfo.</returns>
-    public virtual FieldInfo GetPublicField(string name)
-    {
-        return PublicFieldInfos.FirstOrDefault(fi => fi.Name == name);
-    }
-
-    /// <summary>
     /// Gets the public getter.
     /// </summary>
     /// <param name="name">The name.</param>
@@ -237,21 +226,6 @@ public abstract class TypeFields
 
         return FieldsMap.TryGetValue(name, out FieldAccessor info)
                    ? info.PublicSetter
-                   : null;
-    }
-
-    /// <summary>
-    /// Gets the public setter reference.
-    /// </summary>
-    /// <param name="name">The name.</param>
-    /// <returns>SetMemberRefDelegate.</returns>
-    public virtual SetMemberRefDelegate GetPublicSetterRef(string name)
-    {
-        if (name == null)
-            return null;
-
-        return FieldsMap.TryGetValue(name, out FieldAccessor info)
-                   ? info.PublicSetterRef
                    : null;
     }
 }

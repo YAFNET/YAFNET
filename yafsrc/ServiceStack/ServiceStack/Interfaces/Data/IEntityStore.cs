@@ -6,7 +6,6 @@
 // ***********************************************************************
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace ServiceStack.Data;
@@ -25,14 +24,6 @@ public interface IEntityStore : IDisposable
     /// <param name="id">The identifier.</param>
     /// <returns>T.</returns>
     T GetById<T>(object id);
-
-    /// <summary>
-    /// Gets the by ids.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="ids">The ids.</param>
-    /// <returns>IList&lt;T&gt;.</returns>
-    IList<T> GetByIds<T>(ICollection ids);
 
     /// <summary>
     /// Stores the specified entity.
@@ -62,13 +53,6 @@ public interface IEntityStore : IDisposable
     /// <typeparam name="T"></typeparam>
     /// <param name="id">The identifier.</param>
     void DeleteById<T>(object id);
-
-    /// <summary>
-    /// Deletes the by ids.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="ids">The ids.</param>
-    void DeleteByIds<T>(ICollection ids);
 
     /// <summary>
     /// Deletes all.

@@ -19,40 +19,6 @@ using System.Text;
 public static class PathUtils
 {
     /// <summary>
-    /// Maps the absolute path.
-    /// </summary>
-    /// <param name="relativePath">The relative path.</param>
-    /// <param name="appendPartialPathModifier">The append partial path modifier.</param>
-    /// <returns>System.String.</returns>
-    public static string MapAbsolutePath(this string relativePath, string appendPartialPathModifier)
-    {
-        return PclExport.Instance.MapAbsolutePath(relativePath, appendPartialPathModifier);
-    }
-
-    /// <summary>
-    /// Maps the path of a file in the bin\ folder of a self-hosted scenario
-    /// </summary>
-    /// <param name="relativePath">the relative path</param>
-    /// <returns>the absolute path</returns>
-    /// <remarks>Assumes static content is copied to /bin/ folder with the assemblies</remarks>
-    public static string MapAbsolutePath(this string relativePath)
-    {
-        return PclExport.Instance.MapAbsolutePath(relativePath, null);
-    }
-
-    /// <summary>
-    /// Combines the paths.
-    /// </summary>
-    /// <param name="sb">The sb.</param>
-    /// <param name="paths">The paths.</param>
-    /// <returns>System.String.</returns>
-    static internal string CombinePaths(StringBuilder sb, params string[] paths)
-    {
-        AppendPaths(sb, paths);
-        return sb.ToString();
-    }
-
-    /// <summary>
     /// Appends the paths.
     /// </summary>
     /// <param name="sb">The sb.</param>
@@ -72,33 +38,9 @@ public static class PathUtils
     }
 
     /// <summary>
-    /// Combines the paths.
-    /// </summary>
-    /// <param name="paths">The paths.</param>
-    /// <returns>System.String.</returns>
-    public static string CombinePaths(params string[] paths)
-    {
-        var sb = StringBuilderThreadStatic.Allocate();
-        AppendPaths(sb, paths);
-        return StringBuilderThreadStatic.ReturnAndFree(sb);
-    }
-
-    /// <summary>
-    /// Asserts the dir.
-    /// </summary>
-    /// <param name="dirPath">The dir path.</param>
-    /// <returns>System.String.</returns>
-    public static string AssertDir(this string dirPath)
-    {
-        if (!dirPath.DirectoryExists())
-            dirPath.CreateDirectory();
-        return dirPath;
-    }
-
-    /// <summary>
     /// The slashes
     /// </summary>
-    private readonly static char[] Slashes = { '/', '\\' };
+    private readonly static char[] Slashes = ['/', '\\'];
 
     /// <summary>
     /// Trims the end if.
@@ -167,43 +109,6 @@ public static class PathUtils
     }
 
     /// <summary>
-    /// Resolves the paths.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <returns>System.String.</returns>
-    public static string ResolvePaths(this string path)
-    {
-        if (path == null || path.IndexOfAny("./", "/.") == -1)
-            return path;
-
-        var schemePos = path.IndexOf("://", StringComparison.Ordinal);
-        var prefix = schemePos >= 0
-                         ? path.Substring(0, schemePos + 3)
-                         : "";
-
-        var parts = path.Substring(prefix.Length).Split('/').ToList();
-        var combinedPaths = new List<string>();
-        foreach (var part in parts)
-        {
-            if (string.IsNullOrEmpty(part) || part == ".")
-                continue;
-
-            if (part == ".." && combinedPaths.Count > 0)
-                combinedPaths.RemoveAt(combinedPaths.Count - 1);
-            else
-                combinedPaths.Add(part);
-        }
-
-        var resolvedPath = string.Join("/", combinedPaths);
-        if (path[0] == '/' && prefix.Length == 0)
-            resolvedPath = "/" + resolvedPath;
-
-        return path[path.Length - 1] == '/' && resolvedPath.Length > 0
-                   ? prefix + resolvedPath + "/"
-                   : prefix + resolvedPath;
-    }
-
-    /// <summary>
     /// Converts to strings.
     /// </summary>
     /// <param name="thesePaths">The these paths.</param>
@@ -227,6 +132,6 @@ public static class PathUtils
     /// <returns>List&lt;To&gt;.</returns>
     static internal List<To> Map<To>(System.Collections.IEnumerable items, Func<object, To> converter)
     {
-        return items == null ? new List<To>() : (from object item in items select converter(item)).ToList();
+        return items == null ? [] : (from object item in items select converter(item)).ToList();
     }
 }

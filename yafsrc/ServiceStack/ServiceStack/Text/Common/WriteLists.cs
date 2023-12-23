@@ -301,26 +301,6 @@ public static class WriteListsOfElements<T, TSerializer>
     }
 
     /// <summary>
-    /// Writes the generic list.
-    /// </summary>
-    /// <param name="writer">The writer.</param>
-    /// <param name="list">The list.</param>
-    public static void WriteGenericList(TextWriter writer, List<T> list)
-    {
-        writer.Write(JsWriter.ListStartChar);
-
-        var ranOnce = false;
-        var listLength = list.Count;
-        for (var i = 0; i < listLength; i++)
-        {
-            JsWriter.WriteItemSeperatorIfRanOnce(writer, ref ranOnce);
-            ElementWriteFn(writer, list[i]);
-        }
-
-        writer.Write(JsWriter.ListEndChar);
-    }
-
-    /// <summary>
     /// Writes the type of the list value.
     /// </summary>
     /// <param name="writer">The writer.</param>

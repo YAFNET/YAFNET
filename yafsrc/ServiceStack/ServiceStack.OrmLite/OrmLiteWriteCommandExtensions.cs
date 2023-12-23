@@ -1269,8 +1269,7 @@ public static class OrmLiteWriteCommandExtensions
 
         var sql = query.ToSelectStatement(QueryType.Select);
         var selectFields = query.GetUntypedSqlExpression()
-            .SelectExpression
-            .Substring("SELECT ".Length)
+            .SelectExpression["SELECT ".Length..]
             .ParseCommands();
 
         var fieldsOrAliases = selectFields

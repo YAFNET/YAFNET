@@ -32,20 +32,9 @@ public static class DeserializeArrayWithElements<TSerializer>
     public delegate object ParseArrayOfElementsDelegate(ReadOnlySpan<char> value, ParseStringSpanDelegate parseFn);
 
     /// <summary>
-    /// Gets the parse function.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns>Func&lt;System.String, ParseStringDelegate, System.Object&gt;.</returns>
-    public static Func<string, ParseStringDelegate, object> GetParseFn(Type type)
-    {
-        var func = GetParseStringSpanFn(type);
-        return (s, d) => func(s.AsSpan(), v => d(v.ToString()));
-    }
-
-    /// <summary>
     /// The signature
     /// </summary>
-    private readonly static Type[] signature = { typeof(ReadOnlySpan<char>), typeof(ParseStringSpanDelegate) };
+    private readonly static Type[] signature = [typeof(ReadOnlySpan<char>), typeof(ParseStringSpanDelegate)];
 
     /// <summary>
     /// Gets the parse string span function.
@@ -93,15 +82,6 @@ public static class DeserializeArrayWithElements<T, TSerializer>
     /// <param name="value">The value.</param>
     /// <param name="elementParseFn">The element parse function.</param>
     /// <returns>T[].</returns>
-    public static T[] ParseGenericArray(string value, ParseStringDelegate elementParseFn) =>
-        ParseGenericArray(value.AsSpan(), v => elementParseFn(v.ToString()));
-
-    /// <summary>
-    /// Parses the generic array.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="elementParseFn">The element parse function.</param>
-    /// <returns>T[].</returns>
     public static T[] ParseGenericArray(ReadOnlySpan<char> value, ParseStringSpanDelegate elementParseFn)
     {
         if ((value = DeserializeListWithElements<TSerializer>.StripList(value)).IsNullOrEmpty())
@@ -142,54 +122,6 @@ public static class DeserializeArrayWithElements<T, TSerializer>
 
             return to.ToArray();
         }
-    }
-}
-
-/// <summary>
-/// Class DeserializeArray.
-/// </summary>
-/// <typeparam name="TSerializer">The type of the t serializer.</typeparam>
-static internal class DeserializeArray<TSerializer>
-    where TSerializer : ITypeSerializer
-{
-    /// <summary>
-    /// The parse delegate cache
-    /// </summary>
-    private static Dictionary<Type, ParseStringSpanDelegate> ParseDelegateCache = new();
-
-    /// <summary>
-    /// Gets the parse function.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns>ParseStringDelegate.</returns>
-    public static ParseStringDelegate GetParseFn(Type type) => v => GetParseStringSpanFn(type)(v.AsSpan());
-
-    /// <summary>
-    /// Gets the parse string span function.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns>ParseStringSpanDelegate.</returns>
-    public static ParseStringSpanDelegate GetParseStringSpanFn(Type type)
-    {
-        if (ParseDelegateCache.TryGetValue(type, out var parseFn)) return parseFn;
-
-        var genericType = typeof(DeserializeArray<,>).MakeGenericType(type, typeof(TSerializer));
-
-        var mi = genericType.GetStaticMethod("GetParseStringSpanFn");
-        var parseFactoryFn = (Func<ParseStringSpanDelegate>)mi.MakeDelegate(
-            typeof(Func<ParseStringSpanDelegate>));
-        parseFn = parseFactoryFn();
-
-        Dictionary<Type, ParseStringSpanDelegate> snapshot, newCache;
-        do
-        {
-            snapshot = ParseDelegateCache;
-            newCache = new Dictionary<Type, ParseStringSpanDelegate>(ParseDelegateCache) { [type] = parseFn };
-
-        } while (!ReferenceEquals(
-                     Interlocked.CompareExchange(ref ParseDelegateCache, newCache, snapshot), snapshot));
-
-        return parseFn;
     }
 }
 

@@ -307,27 +307,6 @@ public interface ITypeSerializer
 #endif
 
     /// <summary>
-    /// Gets the parse function.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns>ParseStringDelegate.</returns>
-    ParseStringDelegate GetParseFn<T>();
-
-    /// <summary>
-    /// Gets the parse string span function.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns>ParseStringSpanDelegate.</returns>
-    ParseStringSpanDelegate GetParseStringSpanFn<T>();
-
-    /// <summary>
-    /// Gets the parse function.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns>ParseStringDelegate.</returns>
-    ParseStringDelegate GetParseFn(Type type);
-
-    /// <summary>
     /// Gets the parse string span function.
     /// </summary>
     /// <param name="type">The type.</param>
@@ -380,23 +359,8 @@ public interface ITypeSerializer
     /// Unescapes the safe string.
     /// </summary>
     /// <param name="value">The value.</param>
-    /// <returns>System.String.</returns>
-    string UnescapeSafeString(string value);
-
-    /// <summary>
-    /// Unescapes the safe string.
-    /// </summary>
-    /// <param name="value">The value.</param>
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
     ReadOnlySpan<char> UnescapeSafeString(ReadOnlySpan<char> value);
-
-    /// <summary>
-    /// Eats the type value.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="i">The i.</param>
-    /// <returns>System.String.</returns>
-    string EatTypeValue(string value, ref int i);
 
     /// <summary>
     /// Eats the type value.
@@ -412,23 +376,7 @@ public interface ITypeSerializer
     /// <param name="value">The value.</param>
     /// <param name="i">The i.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    bool EatMapStartChar(string value, ref int i);
-
-    /// <summary>
-    /// Eats the map start character.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="i">The i.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     bool EatMapStartChar(ReadOnlySpan<char> value, ref int i);
-
-    /// <summary>
-    /// Eats the map key.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="i">The i.</param>
-    /// <returns>System.String.</returns>
-    string EatMapKey(string value, ref int i);
 
     /// <summary>
     /// Eats the map key.
@@ -444,22 +392,7 @@ public interface ITypeSerializer
     /// <param name="value">The value.</param>
     /// <param name="i">The i.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    bool EatMapKeySeperator(string value, ref int i);
-
-    /// <summary>
-    /// Eats the map key seperator.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="i">The i.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     bool EatMapKeySeperator(ReadOnlySpan<char> value, ref int i);
-
-    /// <summary>
-    /// Eats the whitespace.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="i">The i.</param>
-    void EatWhitespace(string value, ref int i);
 
     /// <summary>
     /// Eats the whitespace.
@@ -473,24 +406,8 @@ public interface ITypeSerializer
     /// </summary>
     /// <param name="value">The value.</param>
     /// <param name="i">The i.</param>
-    /// <returns>System.String.</returns>
-    string EatValue(string value, ref int i);
-
-    /// <summary>
-    /// Eats the value.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="i">The i.</param>
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
     ReadOnlySpan<char> EatValue(ReadOnlySpan<char> value, ref int i);
-
-    /// <summary>
-    /// Eats the item seperator or map end character.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <param name="i">The i.</param>
-    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    bool EatItemSeperatorOrMapEndChar(string value, ref int i);
 
     /// <summary>
     /// Eats the item seperator or map end character.

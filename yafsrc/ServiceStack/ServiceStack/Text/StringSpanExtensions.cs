@@ -10,7 +10,6 @@ namespace ServiceStack.Text;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
@@ -359,36 +358,6 @@ public static class StringSpanExtensions
         return pos == -1
                    ? strVal
                    : strVal.Slice(pos + needle.Length);
-    }
-
-    /// <summary>
-    /// Lasts the left part.
-    /// </summary>
-    /// <param name="strVal">The string value.</param>
-    /// <param name="needle">The needle.</param>
-    /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
-    public static ReadOnlySpan<char> LastLeftPart(this ReadOnlySpan<char> strVal, char needle)
-    {
-        if (strVal.IsEmpty) return strVal;
-        var pos = strVal.LastIndexOf(needle);
-        return pos == -1
-                   ? strVal
-                   : strVal.Slice(0, pos);
-    }
-
-    /// <summary>
-    /// Lasts the left part.
-    /// </summary>
-    /// <param name="strVal">The string value.</param>
-    /// <param name="needle">The needle.</param>
-    /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
-    public static ReadOnlySpan<char> LastLeftPart(this ReadOnlySpan<char> strVal, string needle)
-    {
-        if (strVal.IsEmpty) return strVal;
-        var pos = strVal.LastIndexOf(needle);
-        return pos == -1
-                   ? strVal
-                   : strVal.Slice(0, pos);
     }
 
     /// <summary>
@@ -894,30 +863,6 @@ public static class StringSpanExtensions
     public static byte[] ParseBase64(this ReadOnlySpan<char> value) => MemoryProvider.Instance.ParseBase64(value);
 
     /// <summary>
-    /// Converts to utf8.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>ReadOnlyMemory&lt;System.Byte&gt;.</returns>
-    public static ReadOnlyMemory<byte> ToUtf8(this ReadOnlySpan<char> value) =>
-        MemoryProvider.Instance.ToUtf8(value);
-
-    /// <summary>
-    /// Converts to stringlist.
-    /// </summary>
-    /// <param name="from">From.</param>
-    /// <returns>List&lt;System.String&gt;.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static List<string> ToStringList(this IEnumerable<ReadOnlyMemory<char>> from)
-    {
-        var to = new List<string>();
-        if (from != null)
-        {
-            to.AddRange(from.Select(item => item.ToString()));
-        }
-        return to;
-    }
-
-    /// <summary>
     /// Counts the occurrences of.
     /// </summary>
     /// <param name="value">The value.</param>
@@ -933,28 +878,6 @@ public static class StringSpanExtensions
             {
                 count++;
             }
-        }
-
-        return count;
-    }
-
-    /// <summary>
-    /// Counts the occurrences of.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <param name="needle">The needle.</param>
-    /// <param name="comparisonType">Type of the comparison.</param>
-    /// <returns>int.</returns>
-    public static int CountOccurrencesOf(
-        this ReadOnlySpan<char> text,
-        string needle,
-        StringComparison comparisonType = StringComparison.Ordinal)
-    {
-        int count = 0, minIndex = text.IndexOf(needle, 0, comparisonType);
-        while (minIndex != -1)
-        {
-            minIndex = text.IndexOf(needle, minIndex + needle.Length, comparisonType);
-            count++;
         }
 
         return count;

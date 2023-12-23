@@ -360,12 +360,6 @@ public abstract class DiagnosticEvent
     public long Timestamp { get; set; }
 
     /// <summary>
-    /// Gets or sets the diagnostic entry.
-    /// </summary>
-    /// <value>The diagnostic entry.</value>
-    public object? DiagnosticEntry { get; set; }
-
-    /// <summary>
     /// Gets or sets the tag.
     /// </summary>
     /// <value>The tag.</value>
