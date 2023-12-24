@@ -152,9 +152,9 @@ public class Forum : UserControl, IHaveServiceLocator
         // wrap the forum in one main div and then a page div for better CSS selection
         writer.WriteLine();
 
-        writer.Write(@"<div id=""{0}"" class=""yafnet"">", this.ClientID);
+        writer.Write("""<div id="{0}" class="yafnet">""", this.ClientID);
 
-        writer.Write(@"<div class=""page-{0}"">", this.page.PageName.ToLower().Replace("_", "-"));
+        writer.Write("""<div class="page-{0}">""", this.page.PageName.ToLower().Replace("_", "-"));
 
         // render the forum
         base.Render(writer);

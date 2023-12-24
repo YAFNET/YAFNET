@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Configuration;
 
 using System.Globalization;
@@ -137,7 +138,7 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether whether the password requires a numeric digit ('0' - '9').
+    /// Gets or sets a value indicating whether the password requires a numeric digit ('0' - '9').
     /// </summary>
     public bool PasswordRequireDigit
     {
@@ -442,7 +443,7 @@ public class BoardSettings
 
     /// <summary>
     /// Gets or sets a value indicating whether send an
-    /// Email when a Single User is awarded with an Medal.
+    /// Email when a Single User is awarded with a Medal.
     /// </summary>
     public bool EmailUserOnMedalAward
     {
@@ -497,13 +498,13 @@ public class BoardSettings
 
     /// <summary>
     /// Gets or sets a value indicating whether
-    /// which Spam Service Type should been used
+    /// which Spam Service Type should be used
     /// </summary>
     public SpamService SpamService => this.SpamServiceType.ToEnum<SpamService>();
 
     /// <summary>
     /// Gets or sets a value indicating whether
-    /// which Spam Service Type should been used
+    /// which Spam Service Type should be used
     /// </summary>
     public int SpamServiceType
     {
@@ -513,13 +514,13 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether which Spam Service Type should been used
+    /// Gets or sets a value indicating whether which Spam Service Type should be used
     /// </summary>
     public BotSpamService BotSpamService => this.BotSpamServiceType.ToEnum<BotSpamService>();
 
     /// <summary>
     /// Gets or sets a value indicating whether
-    /// which Spam Service Type should been used
+    /// which Spam Service Type should be used
     /// </summary>
     public int BotSpamServiceType
     {
@@ -529,12 +530,12 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether what to to with a SPAM Message
+    /// Gets or sets a value indicating whether how to handle a SPAM Message
     /// </summary>
     public SpamPostHandling SpamPostHandling => this.SpamMessageHandling.ToEnum<SpamPostHandling>();
 
     /// <summary>
-    /// Gets or sets a value indicating whether what to to with a SPAM Message
+    /// Gets or sets a value indicating whether how to handle a SPAM Message
     /// </summary>
     public int SpamMessageHandling
     {
@@ -544,8 +545,7 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether
-    /// what to to with Bots during Registration
+    /// How to handle Bots during Registration
     /// 0 = Disabled
     /// 1 = Log and Send Message to Admins
     /// 2 = Block user from Registration
@@ -1578,8 +1578,6 @@ public class BoardSettings
         set => this.Registry.SetValue("ShowModeratorList", value);
     }
 
-   
-
     /// <summary>
     /// Gets or sets a value indicating whether UseNoFollowLinks.
     /// </summary>
@@ -1681,7 +1679,7 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether use Custom Context Menu
+    /// Gets or sets a value indicating whether to use Custom Context Menu
     /// or the Default browser Context Menu
     /// </summary>
     public bool UseCustomContextMenu
@@ -1722,7 +1720,7 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets sets the Number of Views a Topic must have to became
+    /// Gets or sets the Number of Views a Topic must have to became
     /// Hot.
     /// </summary>
     public int PopularTopicViews
@@ -1814,7 +1812,7 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether use user info hover Cards.
+    /// Gets or sets a value indicating whether to use user info hover Cards.
     /// </summary>
     public bool EnableUserInfoHoverCards
     {
