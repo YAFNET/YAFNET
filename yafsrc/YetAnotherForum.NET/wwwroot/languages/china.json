@@ -1902,10 +1902,6 @@
             "#text": "版权删除密钥："
           },
           {
-            "@tag": "COPYRIGHT_REMOVAL_KEY_DOWN",
-            "#text": "购买删除密钥"
-          },
-          {
             "@tag": "COPYRIGHT_REMOVAL_KEY_HELP",
             "#text": "Remove the copyright information and link back to YAF from the footer of your entire forum domain. Available<a href=\"https://yetanotherforum.net/purchase.aspx\">from YAF.NET site</a>. "
           },
@@ -10313,10 +10309,6 @@
         "@name": "EDIT_SETTINGS",
         "Resource": [
           {
-            "@tag": "TITLE",
-            "#text": "编辑设置"
-          },
-          {
             "@tag": "DISABLE_2FA",
             "#text": "Disable Two Factor Authentication"
           },
@@ -10339,6 +10331,10 @@
           {
             "@tag": "SETUP_CODE",
             "#text": "Setup code"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "编辑设置"
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
@@ -11719,18 +11715,6 @@
             "#text": "登录"
           },
           {
-            "@tag": "UPDATE_EMAIL",
-            "#text": "请现在更改你的邮件地址!"
-          },
-          {
-            "@tag": "USERNAME",
-            "#text": "用户名:"
-          },
-          {
-            "@tag": "WRONG_USERNAME_EMAIL",
-            "#text": "错误的用户名或电子邮件地址."
-          },
-          {
             "@tag": "TWO_FA_INFO",
             "#text": "Please enter a validation code from your Authenticator app."
           },
@@ -11741,6 +11725,18 @@
           {
             "@tag": "TWO_FA_VALIDATION",
             "#text": "Two-Factor Validation"
+          },
+          {
+            "@tag": "UPDATE_EMAIL",
+            "#text": "请现在更改你的邮件地址!"
+          },
+          {
+            "@tag": "USERNAME",
+            "#text": "用户名:"
+          },
+          {
+            "@tag": "WRONG_USERNAME_EMAIL",
+            "#text": "错误的用户名或电子邮件地址."
           }
         ]
       },

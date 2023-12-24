@@ -1899,11 +1899,7 @@
           },
           {
             "@tag": "COPYRIGHT_REMOVAL_KEY",
-            "#text": "Copyright Removal Key:"
-          },
-          {
-            "@tag": "COPYRIGHT_REMOVAL_KEY_DOWN",
-            "#text": "Purchase Removal Key"
+            "#text": "Hide Copyright:"
           },
           {
             "@tag": "COPYRIGHT_REMOVAL_KEY_HELP",

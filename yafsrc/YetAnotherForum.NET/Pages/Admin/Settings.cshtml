@@ -55,17 +55,11 @@
                     <input type="text" asp-for="Input.ForumBaseUrlMask" class="form-control"/>
                 </div>
                 <div class="mb-3">
-                    <label class="form-label" info-button="true" 
-                           asp-for="Input.CopyrightRemovalKey"
+                    <label class="form-label" info-button="true"
+                           asp-for="Input.HideCopyright"
                            localized-tag="COPYRIGHT_REMOVAL_KEY" localized-page="ADMIN_BOARDSETTINGS"></label>
-                    <div class="input-group">
-                        <input type="text" asp-for="Input.CopyrightRemovalKey"  
-                               class="form-control"/>
-                        <a href="https://yetanotherforum.net/purchase.aspx"
-                           button-style="Info"
-                           Icon="key"
-                           text-localized-tag="COPYRIGHT_REMOVAL_KEY_DOWN">
-                        </a>
+                    <div class="form-check form-switch">
+                        <input type="checkbox" asp-for="Input.HideCopyright" class="form-check-input"/>
                     </div>
                 </div>
                 <div class="mb-3">

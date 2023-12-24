@@ -26,8 +26,6 @@ using ServiceStack.Text;
 
 namespace YAF.Web.HtmlHelpers;
 
-using Microsoft.AspNetCore.Http;
-
 using YAF.Core.Services;
 
 /// <summary>
@@ -38,13 +36,10 @@ public static class FooterHtmlHelper
     /// <summary>
     /// The footer helper.
     /// </summary>
-    /// <param name="htmlHelper">
-    /// The html helper.
-    /// </param>
     /// <returns>
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
-    public static IHtmlContent FooterHelper(this IHtmlHelper htmlHelper)
+    public static IHtmlContent FooterHelper(this IHtmlHelper _)
     {
         var content = new HtmlContentBuilder();
 
@@ -63,7 +58,7 @@ public static class FooterHtmlHelper
     /// <param name="content">
     /// The content.
     /// </param>
-    private static void RenderRulesLink(IHtmlContentBuilder content)
+    private static void RenderRulesLink(HtmlContentBuilder content)
     {
         var rulesTag = new TagBuilder("a");
 
@@ -77,8 +72,6 @@ public static class FooterHtmlHelper
         rulesTag.TagRenderMode = TagRenderMode.Normal;
 
         content.AppendHtml(rulesTag);
-
-        content.AppendHtml(" | ");
     }
 
     /// <summary>
@@ -87,34 +80,14 @@ public static class FooterHtmlHelper
     /// <param name="content">
     /// The content.
     /// </param>
-    private static void RenderVersion(IHtmlContentBuilder content)
+    private static void RenderVersion(HtmlContentBuilder content)
     {
-        // Copyright Link-back Algorithm
-        // Please keep if you haven't purchased a removal or commercial license.
-        var domainKey = BoardContext.Current.BoardSettings.CopyrightRemovalDomainKey;
-        var url = BoardContext.Current.Get<IHttpContextAccessor>().HttpContext.Request;
-
-        if (domainKey.IsSet())
+        if (BoardContext.Current.BoardSettings.HideCopyright)
         {
-            var dnsSafeHost = url.Host.ToString().ToLower();
-
-            // handle www domains correctly.
-            if (dnsSafeHost.StartsWith("www."))
-            {
-                dnsSafeHost = dnsSafeHost.Replace("www.", string.Empty);
-            }
-
-            var currentDomainHash = HashHelper.Hash(
-                dnsSafeHost,
-                HashAlgorithmType.SHA1,
-                content.GetType().GetSigningKey(),
-                false);
-
-            if (domainKey.Equals(currentDomainHash))
-            {
-                return;
-            }
+            return;
         }
+
+        content.AppendHtml(" | ");
 
         var yafUrlTag = new TagBuilder("a");
 
@@ -155,7 +128,7 @@ public static class FooterHtmlHelper
     /// <param name="content">
     /// The content.
     /// </param>
-    private static void RenderGeneratedAndDebug(IHtmlContentBuilder content)
+    private static void RenderGeneratedAndDebug(HtmlContentBuilder content)
     {
         if (BoardContext.Current.BoardSettings.ShowPageGenerationTime)
         {

@@ -369,7 +369,7 @@ public static class TopicContainerHtmlHelper
     /// The item.
     /// </param>
     /// <param name="htmlHelper"></param>
-    private static IHtmlContent RenderPriorityMessage(PagedTopic item, IHtmlHelper htmlHelper)
+    private static TagBuilder RenderPriorityMessage(PagedTopic item, IHtmlHelper htmlHelper)
     {
         var priorityLabel = new TagBuilder("span");
 
@@ -419,7 +419,7 @@ public static class TopicContainerHtmlHelper
     /// <returns>
     /// Returns the Topic Name (with Status Icon)
     /// </returns>
-    private static IHtmlContent FormatTopicName(PagedTopic item, IHtmlHelper htmlHelper)
+    private static TagBuilder FormatTopicName(PagedTopic item, IHtmlHelper htmlHelper)
     {
         var context = BoardContext.Current;
 
@@ -497,16 +497,16 @@ public static class TopicContainerHtmlHelper
     /// <param name="pageSize">
     /// The page Size.
     /// </param>
-    /// <param name="topicID">
+    /// <param name="topicId">
     /// The topic ID.
     /// </param>
-    private static IHtmlContent CreatePostPager(PagedTopic item, int count, int pageSize, int topicID)
+    private static IHtmlContent CreatePostPager(PagedTopic item, int count, int pageSize, int topicId)
     {
         var context = BoardContext.Current;
 
         var content = new HtmlContentBuilder();
 
-        const int NumToDisplay = 4;
+        const int numToDisplay = 4;
         var pageCount = IPagerExtensions.PageCount(count, pageSize);
 
         if (pageCount <= 1)
@@ -523,7 +523,7 @@ public static class TopicContainerHtmlHelper
 
         pagination.AddCssClass("pagination pagination-sm");
 
-        if (pageCount > NumToDisplay)
+        if (pageCount > numToDisplay)
         {
             var pageItemFirst = new TagBuilder("li");
 
@@ -535,7 +535,7 @@ public static class TopicContainerHtmlHelper
 
             pageLinkFirst.MergeAttribute(
                 "href",
-                context.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t = topicID, name = item.Subject }));
+                context.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t = topicId, name = item.Subject }));
 
             pageLinkFirst.InnerHtml.Append("1");
 
@@ -543,7 +543,7 @@ public static class TopicContainerHtmlHelper
             pagination.InnerHtml.AppendHtml(pageItemFirst);
 
             // show links from the end
-            for (var i = pageCount - (NumToDisplay - 1); i < pageCount; i++)
+            for (var i = pageCount - (numToDisplay - 1); i < pageCount; i++)
             {
                 var post = i + 1;
 
@@ -557,7 +557,7 @@ public static class TopicContainerHtmlHelper
 
                 pageLink.MergeAttribute(
                     "href",
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t = topicID, name = item.Subject, p = post }));
+                    context.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t = topicId, name = item.Subject, p = post }));
 
                 pageLink.InnerHtml.Append(post.ToString());
 
@@ -581,7 +581,7 @@ public static class TopicContainerHtmlHelper
 
                 pageLink.MergeAttribute(
                     "href",
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t = topicID, name = item.Subject, p = post }));
+                    context.Get<LinkBuilder>().GetLink(ForumPages.Posts, new { t = topicId, name = item.Subject, p = post }));
 
                 pageLink.InnerHtml.Append(post.ToString());
 

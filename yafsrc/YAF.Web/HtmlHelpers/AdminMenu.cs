@@ -32,13 +32,10 @@ public static class AdminMenuHtmlHelper
     /// <summary>
     /// The admin menu.
     /// </summary>
-    /// <param name="htmlHelper">
-    /// The html helper.
-    /// </param>
     /// <returns>
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
-    public static IHtmlContent AdminMenu(this IHtmlHelper htmlHelper)
+    public static IHtmlContent AdminMenu(this IHtmlHelper _)
     {
         var content = new HtmlContentBuilder();
         var context = BoardContext.Current;
@@ -58,7 +55,7 @@ public static class AdminMenuHtmlHelper
     /// <returns>
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
-    private static IHtmlContent RenderMenuItems(IHtmlContentBuilder content, BoardContext context)
+    private static HtmlContentBuilder RenderMenuItems(HtmlContentBuilder content, BoardContext context)
     {
         var pagesAccess = context.Get<IDataCache>().GetOrSet(
             string.Format(Constants.Cache.AdminPageAccess, context.PageUserID),
@@ -161,7 +158,7 @@ public static class AdminMenuHtmlHelper
     /// <returns>
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
-    private static IHtmlContent RenderMenuItem(
+    private static TagBuilder RenderMenuItem(
         string cssClass,
         string linkText,
         string linkUrl,

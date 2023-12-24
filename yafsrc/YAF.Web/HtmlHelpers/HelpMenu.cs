@@ -44,7 +44,7 @@ public static class HelpMenuHtmlHelper
     {
         var context = BoardContext.Current;
 
-        List<HelpNavigation> helpNavList = new ();
+        List<HelpNavigation> helpNavList = [];
 
         var content = new HtmlContentBuilder();
 

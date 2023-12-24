@@ -1902,10 +1902,6 @@
             "#text": "Autorių teisių pašalinimo raktas:"
           },
           {
-            "@tag": "COPYRIGHT_REMOVAL_KEY_DOWN",
-            "#text": "Pirkimo pašalinimo raktas"
-          },
-          {
             "@tag": "COPYRIGHT_REMOVAL_KEY_HELP",
             "#text": "Remove the copyright information and link back to YAF from the footer of your entire forum domain. Available<a href=\"https://yetanotherforum.net/purchase.aspx\">from YAF.NET site</a>. "
           },
@@ -10313,10 +10309,6 @@
         "@name": "EDIT_SETTINGS",
         "Resource": [
           {
-            "@tag": "TITLE",
-            "#text": "Redaguoti nustatymus"
-          },
-          {
             "@tag": "DISABLE_2FA",
             "#text": "Disable Two Factor Authentication"
           },
@@ -10339,6 +10331,10 @@
           {
             "@tag": "SETUP_CODE",
             "#text": "Setup code"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Redaguoti nustatymus"
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
@@ -11719,18 +11715,6 @@
             "#text": "Prisijungimas "
           },
           {
-            "@tag": "UPDATE_EMAIL",
-            "#text": "Please Update Your E-Mail Adress now!"
-          },
-          {
-            "@tag": "USERNAME",
-            "#text": "Vartotojo vardas: "
-          },
-          {
-            "@tag": "WRONG_USERNAME_EMAIL",
-            "#text": "\r\n      Neteisingas vartotojo vardas arba elektroninio pašto\r\n\r\n      adresą.\r\n    "
-          },
-          {
             "@tag": "TWO_FA_INFO",
             "#text": "Please enter a validation code from your Authenticator app."
           },
@@ -11741,6 +11725,18 @@
           {
             "@tag": "TWO_FA_VALIDATION",
             "#text": "Two-Factor Validation"
+          },
+          {
+            "@tag": "UPDATE_EMAIL",
+            "#text": "Please Update Your E-Mail Adress now!"
+          },
+          {
+            "@tag": "USERNAME",
+            "#text": "Vartotojo vardas: "
+          },
+          {
+            "@tag": "WRONG_USERNAME_EMAIL",
+            "#text": "\r\n      Neteisingas vartotojo vardas arba elektroninio pašto\r\n\r\n      adresą.\r\n    "
           }
         ]
       },

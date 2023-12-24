@@ -280,7 +280,7 @@ public static class UserLinkHtmlHelper
     /// <returns>
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
-    private static IHtmlContent RenderStatusIcon(BoardContext context, int userId, DateTime? suspended)
+    private static TagBuilder RenderStatusIcon(BoardContext context, int userId, DateTime? suspended)
     {
         var activeUsers = context.Get<IDataCache>().GetOrSet(
             Constants.Cache.UsersOnlineStatus,

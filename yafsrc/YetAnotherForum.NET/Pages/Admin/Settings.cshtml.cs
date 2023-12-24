@@ -132,7 +132,7 @@ public class SettingsModel : AdminPage
             this.Input.DefaultCollapsiblePanelState.ToEnum<CollapsiblePanelState>();
         boardSettings.BaseUrlMask = this.Input.ForumBaseUrlMask;
         boardSettings.ForumEmail = this.Input.ForumEmail;
-        boardSettings.CopyrightRemovalDomainKey = this.Input.CopyrightRemovalKey;
+        boardSettings.HideCopyright = this.Input.HideCopyright;
         boardSettings.DigestSendEveryXHours = this.Input.DigestSendEveryXHours;
 
         if (this.Input.BoardLogo.IsSet())
@@ -244,7 +244,7 @@ public class SettingsModel : AdminPage
 
         this.Input.BoardLogo = boardSettings.ForumLogo;
 
-        this.Input.CopyrightRemovalKey = boardSettings.CopyrightRemovalDomainKey;
+        this.Input.HideCopyright = boardSettings.HideCopyright;
 
         this.Input.DigestSendEveryXHours = boardSettings.DigestSendEveryXHours;
     }
@@ -282,7 +282,7 @@ public class SettingsModel : AdminPage
 
         public string ForumBaseUrlMask { get; set; }
 
-        public string CopyrightRemovalKey { get; set; }
+        public bool HideCopyright { get; set; }
 
         public string Theme { get; set; }
 

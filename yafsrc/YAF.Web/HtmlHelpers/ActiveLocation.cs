@@ -202,7 +202,7 @@ public static class ActiveLocationHtmlHelper
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    private static IHtmlContent RenderTopicsOrForumLocations(
+    private static HtmlContentBuilder RenderTopicsOrForumLocations(
         ForumPages forumPageName,
         bool hasForumAccess,
         bool lastLinkOnly,
@@ -291,7 +291,7 @@ public static class ActiveLocationHtmlHelper
     /// <returns>
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
-    private static IHtmlContent RenderAlbumLocation(
+    private static HtmlContentBuilder RenderAlbumLocation(
         string forumPageAttributes,
         int currentUserId)
     {
@@ -382,7 +382,7 @@ public static class ActiveLocationHtmlHelper
     /// <returns>
     /// The string
     /// </returns>
-    private static IHtmlContent RenderAlbumsLocation(
+    private static HtmlContentBuilder RenderAlbumsLocation(
         string forumPageAttributes,
         int currentUserId)
     {
@@ -437,7 +437,7 @@ public static class ActiveLocationHtmlHelper
     /// <returns>
     /// The profile.
     /// </returns>
-    private static IHtmlContent RenderProfileLocation(
+    private static HtmlContentBuilder RenderProfileLocation(
         string forumPageAttributes,
         int currentUserId)
     {

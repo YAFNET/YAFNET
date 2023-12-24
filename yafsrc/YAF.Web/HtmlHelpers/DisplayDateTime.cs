@@ -93,7 +93,7 @@ public static class DisplayDateTimeHtmlHelper
         }
         catch (InvalidCastException)
         {
-            // not useable...
+            // not usable...
         }
 
         return DateTimeHelper.SqlDbMinTime();

@@ -381,13 +381,14 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets Copyright Removal Domain Key.
+    /// Gets or sets the hide copyright.
     /// </summary>
-    public string CopyrightRemovalDomainKey
+    /// <value>The hide copyright.</value>
+    public bool HideCopyright
     {
-        get => this.RegistryBoard.GetValue<string>("CopyrightRemovalDomainKey", null);
+        get => this.RegistryBoard.GetValue("HideCopyright", false);
 
-        set => this.RegistryBoard.SetValue("CopyrightRemovalDomainKey", value);
+        set => this.RegistryBoard.SetValue("HideCopyright", value);
     }
 
     /// <summary>

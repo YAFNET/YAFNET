@@ -1902,10 +1902,6 @@
             "#text": "Copyright Verwijder Sleutel:"
           },
           {
-            "@tag": "COPYRIGHT_REMOVAL_KEY_DOWN",
-            "#text": "Verwijderingssleutel kopen"
-          },
-          {
             "@tag": "COPYRIGHT_REMOVAL_KEY_HELP",
             "#text": "Verwijder de copyright informatie en link naar YAF in de voettekst van het forum. Beschikbaar via <a href=\"https://yetanotherforum.net/purchase.aspx\">de YAF.NET website</a>. "
           },
@@ -10305,10 +10301,6 @@
         "@name": "EDIT_SETTINGS",
         "Resource": [
           {
-            "@tag": "TITLE",
-            "#text": "Instellingen bewerken"
-          },
-          {
             "@tag": "DISABLE_2FA",
             "#text": "Disable Two Factor Authentication"
           },
@@ -10331,6 +10323,10 @@
           {
             "@tag": "SETUP_CODE",
             "#text": "Setup code"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Instellingen bewerken"
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
@@ -11703,18 +11699,6 @@
             "#text": "Inloggen"
           },
           {
-            "@tag": "UPDATE_EMAIL",
-            "#text": "Pas aub je e-mail adres aan!"
-          },
-          {
-            "@tag": "USERNAME",
-            "#text": "Gebruikersnaam:"
-          },
-          {
-            "@tag": "WRONG_USERNAME_EMAIL",
-            "#text": "Ongeldige gebruikersnaam of e-mail adres."
-          },
-          {
             "@tag": "TWO_FA_INFO",
             "#text": "Please enter a validation code from your Authenticator app."
           },
@@ -11725,6 +11709,18 @@
           {
             "@tag": "TWO_FA_VALIDATION",
             "#text": "Two-Factor Validation"
+          },
+          {
+            "@tag": "UPDATE_EMAIL",
+            "#text": "Pas aub je e-mail adres aan!"
+          },
+          {
+            "@tag": "USERNAME",
+            "#text": "Gebruikersnaam:"
+          },
+          {
+            "@tag": "WRONG_USERNAME_EMAIL",
+            "#text": "Ongeldige gebruikersnaam of e-mail adres."
           }
         ]
       },

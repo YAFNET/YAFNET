@@ -203,7 +203,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// Renders the standard header.
     /// </summary>
     /// <param name="content">The content.</param>
-    private void RenderStandardHeader(IHtmlContentBuilder content)
+    private void RenderStandardHeader(HtmlContentBuilder content)
     {
         this.RenderFirstToolbar(content);
 
@@ -214,7 +214,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// Renders the first toolbar.
     /// </summary>
     /// <param name="content">The content.</param>
-    private void RenderFirstToolbar(IHtmlContentBuilder content)
+    private void RenderFirstToolbar(HtmlContentBuilder content)
     {
         // Render First Toolbar
         var toolbar = CreateToolbarTag();
@@ -267,7 +267,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// Renders the second toolbar.
     /// </summary>
     /// <param name="content">The content.</param>
-    private void RenderSecondToolbar(IHtmlContentBuilder content)
+    private void RenderSecondToolbar(HtmlContentBuilder content)
     {
         // Render First Toolbar
         var toolbar = CreateToolbarTag();
@@ -703,7 +703,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// Renders the basic header.
     /// </summary>
     /// <param name="content">The content.</param>
-    private void RenderBasicHeader(IHtmlContentBuilder content)
+    private void RenderBasicHeader(HtmlContentBuilder content)
     {
         var toolbar = CreateToolbarTag();
 
@@ -770,7 +770,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// Renders the footer.
     /// </summary>
     /// <param name="content">The content.</param>
-    private void RenderFooter(IHtmlContentBuilder content)
+    private void RenderFooter(HtmlContentBuilder content)
     {
         var containerCardFooter =
             new TagBuilder("div") { Attributes = { ["class"] = "card-footer text-body-secondary text-end" } };
@@ -793,7 +793,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// Renders the albums drop down.
     /// </summary>
     /// <param name="content">The content.</param>
-    private void RenderAlbumsDropDown(IHtmlContentBuilder content)
+    private void RenderAlbumsDropDown(HtmlContentBuilder content)
     {
         var menuTag =
             new TagBuilder("div") { Attributes = { ["class"] = "AlbumsListMenu dropdown-item" } };
@@ -859,7 +859,7 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
     /// Renders the attachments drop down.
     /// </summary>
     /// <param name="content">The content.</param>
-    private void RenderAttachmentsDropDown(IHtmlContentBuilder content)
+    private void RenderAttachmentsDropDown(HtmlContentBuilder content)
     {
         var menuTag =
             new TagBuilder("div") { Attributes = { ["class"] = "AttachmentListMenu dropdown-item" } };

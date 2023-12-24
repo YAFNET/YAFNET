@@ -84,15 +84,6 @@ public static class IconHtmlHelper
     /// <param name="iconName">
     /// The icon Name.
     /// </param>
-    /// <param name="iconType">
-    /// The icon Type.
-    /// </param>
-    /// <param name="iconStyle">
-    /// The icon Style.
-    /// </param>
-    /// <param name="iconSize">
-    /// The icon Size.
-    /// </param>
     /// <param name="iconBadgeName">
     /// The icon Badge Name.
     /// </param>
@@ -105,9 +96,6 @@ public static class IconHtmlHelper
     public static IHtmlContent IconBadge(
         this IHtmlHelper htmlHelper,
         string iconName,
-        /*string iconType = "",
-        string iconStyle = "fas",
-        string iconSize = "",*/
         string iconBadgeName,
         string iconBadgeType = "")
     {
@@ -117,16 +105,8 @@ public static class IconHtmlHelper
 
         span.AddCssClass($"fa-stack me-1 {iconBadgeType}");
 
-        /*var className = iconType.IsSet() ? $"fa-stack-1x {iconType}" : "fa-stack-1x";
-
-        if (iconSize.IsSet())
-        {
-            className += $" {iconSize}";
-        }*/
-
         var iconTag = new TagBuilder("i");
 
-        //iconTag.AddCssClass($"{iconStyle} fa-{iconName} {className}");
         iconTag.AddCssClass($"fas fa-{iconName} fa-stack-1x");
 
         iconTag.TagRenderMode = TagRenderMode.Normal;

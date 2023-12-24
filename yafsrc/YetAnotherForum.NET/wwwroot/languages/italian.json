@@ -1902,10 +1902,6 @@
             "#text": "Chiave di rimozione del copyright:"
           },
           {
-            "@tag": "COPYRIGHT_REMOVAL_KEY_DOWN",
-            "#text": "Acquisto della chiave di rimozione"
-          },
-          {
             "@tag": "COPYRIGHT_REMOVAL_KEY_HELP",
             "#text": "Remove the copyright information and link back to YAF from the footer of your entire forum domain. Available<a href=\"https://yetanotherforum.net/purchase.aspx\">from YAF.NET site</a>. "
           },
@@ -10305,10 +10301,6 @@
         "@name": "EDIT_SETTINGS",
         "Resource": [
           {
-            "@tag": "TITLE",
-            "#text": "Modifica delle impostazioni"
-          },
-          {
             "@tag": "DISABLE_2FA",
             "#text": "Disable Two Factor Authentication"
           },
@@ -10331,6 +10323,10 @@
           {
             "@tag": "SETUP_CODE",
             "#text": "Setup code"
+          },
+          {
+            "@tag": "TITLE",
+            "#text": "Modifica delle impostazioni"
           },
           {
             "@tag": "TWO_FACTOR_HEADER",
@@ -11703,18 +11699,6 @@
             "#text": "Connetti"
           },
           {
-            "@tag": "UPDATE_EMAIL",
-            "#text": "Per favore modifica immediatamente il tuo indirizzo e-mail!"
-          },
-          {
-            "@tag": "USERNAME",
-            "#text": "Nome utente o indirizzo e-mail:"
-          },
-          {
-            "@tag": "WRONG_USERNAME_EMAIL",
-            "#text": "Nome utente o indirizzo e-mail errato."
-          },
-          {
             "@tag": "TWO_FA_INFO",
             "#text": "Please enter a validation code from your Authenticator app."
           },
@@ -11725,6 +11709,18 @@
           {
             "@tag": "TWO_FA_VALIDATION",
             "#text": "Two-Factor Validation"
+          },
+          {
+            "@tag": "UPDATE_EMAIL",
+            "#text": "Per favore modifica immediatamente il tuo indirizzo e-mail!"
+          },
+          {
+            "@tag": "USERNAME",
+            "#text": "Nome utente o indirizzo e-mail:"
+          },
+          {
+            "@tag": "WRONG_USERNAME_EMAIL",
+            "#text": "Nome utente o indirizzo e-mail errato."
           }
         ]
       },
