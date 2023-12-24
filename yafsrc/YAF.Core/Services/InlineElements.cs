@@ -36,7 +36,7 @@ public class InlineElements
     /// <summary>
     ///   Gets the Inline CSS or Script blocks
     /// </summary>
-    public List<InlineItem> Items { get; } = new ();
+    public List<InlineItem> Items { get; } = [];
 
     /// <summary>
     /// Insert Internal Style sheet in the header

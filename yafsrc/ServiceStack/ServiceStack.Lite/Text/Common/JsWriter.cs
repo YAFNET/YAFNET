@@ -8,7 +8,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices;
 using ServiceStack.Text.Json;
 using ServiceStack.Text.Jsv;
 
@@ -81,10 +80,6 @@ public static class JsWriter
     /// The item seperator string
     /// </summary>
     public const string ItemSeperatorString = ",";
-    /// <summary>
-    /// The map key seperator string
-    /// </summary>
-    public const string MapKeySeperatorString = ":";
 
     /// <summary>
     /// The escape chars
@@ -621,26 +616,5 @@ public class JsWriter<TSerializer>
     public void WriteType(TextWriter writer, object value)
     {
         Serializer.WriteRawString(writer, JsConfig.TypeWriter((Type)value));
-    }
-
-    /// <summary>
-    /// Initializes the aot.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    [MethodImpl(MethodImplOptions.NoInlining | MethodImplOptions.NoOptimization)]
-    public static void InitAot<T>()
-    {
-        WriteListsOfElements<T, TSerializer>.WriteList(null, null);
-        WriteListsOfElements<T, TSerializer>.WriteIList(null, null);
-        WriteListsOfElements<T, TSerializer>.WriteEnumerable(null, null);
-        WriteListsOfElements<T, TSerializer>.WriteListValueType(null, null);
-        WriteListsOfElements<T, TSerializer>.WriteIListValueType(null, null);
-        WriteListsOfElements<T, TSerializer>.WriteGenericArrayValueType(null, null);
-        WriteListsOfElements<T, TSerializer>.WriteArray(null, null);
-
-        TranslateListWithElements<T>.LateBoundTranslateToGenericICollection(null, null);
-        TranslateListWithConvertibleElements<T, T>.LateBoundTranslateToGenericICollection(null, null);
-
-        QueryStringWriter<T>.WriteObject(null, null);
     }
 }

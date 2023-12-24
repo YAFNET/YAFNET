@@ -56,7 +56,9 @@ public static class DeserializeListWithElements<TSerializer>
         Type createListType, Type elementType, ParseStringSpanDelegate parseFn)
     {
         if (ParseDelegateCache.TryGetValue(elementType, out var parseDelegate))
+        {
             return parseDelegate.Invoke;
+        }
 
         var genericType = typeof(DeserializeListWithElements<,>).MakeGenericType(elementType, typeof(TSerializer));
         var mi = genericType.GetStaticMethod("ParseGenericList", signature);
@@ -108,7 +110,9 @@ public static class DeserializeListWithElements<TSerializer>
     public static List<string> ParseStringList(ReadOnlySpan<char> value)
     {
         if ((value = StripList(value)).IsNullOrEmpty())
+        {
             return value.IsEmpty ? null : [];
+        }
 
         var to = new List<string>();
         var valueLength = value.Length;

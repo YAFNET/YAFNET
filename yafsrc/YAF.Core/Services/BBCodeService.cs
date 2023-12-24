@@ -269,9 +269,9 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 """<span style="font-size:(?<size>(.*?))px;">(?<inner>(.*?))</span>""",
                 "[size=${size}]${inner}[/size]",
                 Options,
-                new[] {
-                          "size"
-                      }) { RuleRank = 10 });
+                [
+                    "size"
+                ]) { RuleRank = 10 });
 
         // font
         ruleEngine.AddRule(
@@ -279,7 +279,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 """<span style="font-family: (?<font>(.*?));">(?<inner>(.*?))</span>""",
                 "[font=${font}]${inner}[/font]",
                 Options,
-                new[] { "font" }));
+                ["font"]));
 
         // color
         ruleEngine.AddRule(
@@ -287,7 +287,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 """<span style="color: (?<color>(\#?[-a-z0-9]*));">(?<inner>(.*?))</span>""",
                 "[color=${color}]${inner}[/color]",
                 Options,
-                new[] { "color" }));
+                ["color"]));
 
         // lists
         ruleEngine.AddRule(new SimpleRegexReplaceRule("<ul>(?<inner>(.*?))</ul>", "[list]${inner}[/list]", Options));
@@ -416,9 +416,9 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 """<a.*?href="(?<inner>(.*?))".*?>(?<description>(.*?))</a>""",
                 "[url=${inner}]${description}[/url]",
                 Options,
-                new[] {
-                          "description"
-                      }) { RuleRank = 2 });
+                [
+                    "description"
+                ]) { RuleRank = 2 });
 
         // e-mails
         ruleEngine.AddRule(
@@ -426,16 +426,16 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 """<a.*?href="mailto:(?<email>(.*?))".*?>(?<inner>(.*?))</a>""",
                 "[email=${email}]${inner}[/email]",
                 Options,
-                new[] {
-                          "email"
-                      }) { RuleRank = 1 });
+                [
+                    "email"
+                ]) { RuleRank = 1 });
 
         ruleEngine.AddRule(
             new VariableRegexReplaceRule(
                 """<img.*?src="(?<inner>(.*?))".*?alt="(?<description>(.*?))".*?/>""",
                 "[img=${inner}]${description}[/img]",
                 Options,
-                new[] { "description" }));
+                ["description"]));
 
         ruleEngine.AddRule(
             new SimpleRegexReplaceRule(
@@ -449,9 +449,9 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                 """<div class="code">.*?<div class="innercode">.*?<pre class="brush:(?<language>(.*?));">(?<inner>(.*?))</pre>.*?</div>""",
                 "[code=${language}]${inner}[/code]",
                 Options,
-                new[] {
-                          "language"
-                      }) { RuleRank = 97 });
+                [
+                    "language"
+                ]) { RuleRank = 97 });
 
         ruleEngine.AddRule(
             new SimpleRegexReplaceRule(
@@ -548,7 +548,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                         Options | RegexOptions.Compiled,
                         TimeSpan.FromMilliseconds(100)),
                     "<a href=\"mailto:${email}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>",
-                    new[] { "email" }));
+                    ["email"]));
 
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(
@@ -567,12 +567,12 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                         TimeSpan.FromMilliseconds(100)),
                     "<a {0} {1} href=\"${http}${url}\" title=\"${http}${url}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
-                    new[] {
-                              "url", "http"
-                          },
-                    new[] {
-                              string.Empty, string.Empty // "http://"
-                          }) { RuleRank = 10 });
+                    [
+                        "url", "http"
+                    ],
+                    [
+                        string.Empty, string.Empty // "http://"
+                    ]) { RuleRank = 10 });
 
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
@@ -582,12 +582,12 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                         TimeSpan.FromMilliseconds(100)),
                     "<a {0} {1} href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
-                    new[] {
-                              "http"
-                          },
-                    new[] {
-                              string.Empty, string.Empty // "http://"
-                          }) { RuleRank = 11 });
+                    [
+                        "http"
+                    ],
+                    [
+                        string.Empty, string.Empty // "http://"
+                    ]) { RuleRank = 11 });
 
             // urls
             ruleEngine.AddRule(
@@ -598,10 +598,10 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                         TimeSpan.FromMilliseconds(100)),
                     "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
-                    new[] {
-                              "before"
-                          },
-                    new[] { string.Empty }) { RuleRank = 12 });
+                    [
+                        "before"
+                    ],
+                    [string.Empty]) { RuleRank = 12 });
 
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
@@ -611,10 +611,10 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                         TimeSpan.FromMilliseconds(100)),
                     "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
-                    new[] {
-                              "before"
-                          },
-                    new[] { string.Empty }) { RuleRank = 13 });
+                    [
+                        "before"
+                    ],
+                    [string.Empty]) { RuleRank = 13 });
 
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
@@ -623,10 +623,10 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                         RegexOptions.Multiline | RegexOptions.Compiled,
                         TimeSpan.FromMilliseconds(100)),
                     "${before}<div data-oembed-url=\"//youtube.com/embed/${videoId}\" class=\"ratio ratio-16x9\"><iframe src=\"//youtube.com/embed/${videoId}?hd=1\"></iframe></div>",
-                    new[] {
-                              "before", "videoId"
-                          },
-                    new[] { string.Empty }) {
+                    [
+                        "before", "videoId"
+                    ],
+                    [string.Empty]) {
                                                 RuleRank = 8
                                             });
 
@@ -637,10 +637,10 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                         RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled,
                         TimeSpan.FromMilliseconds(100)),
                     "${before}<div data-oembed-url=\"//youtube.com/embed/${videoId}\" class=\"ratio ratio-16x9\"><iframe src=\"//youtube.com/embed/${videoId}?hd=1\"></iframe></div>",
-                    new[] {
-                              "before", "videoId"
-                          },
-                    new[] { string.Empty }) {
+                    [
+                        "before", "videoId"
+                    ],
+                    [string.Empty]) {
                                                 RuleRank = 9
                                             });
 
@@ -650,7 +650,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                     @"\[font=(?<font>([-a-z0-9, ]*))\](?<inner>(.*?))\[/font\]",
                     "<span style=\"font-family:${font}\">${inner}</span>",
                     Options,
-                    new[] { "font" }));
+                    ["font"]));
 
             // color
             ruleEngine.AddRule(
@@ -658,7 +658,7 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                     @"\[color=(?<color>(\#?[-a-z0-9]*))\](?<inner>(.*?))\[/color\]",
                     "<span style=\"color:${color}\">${inner}</span>",
                     Options,
-                    new[] { "color" }));
+                    ["color"]));
 
             // lists
             ruleEngine.AddRule(
@@ -770,10 +770,10 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                         Options | RegexOptions.Compiled,
                         TimeSpan.FromMilliseconds(100)),
                     imageHtml,
-                    new[] {
-                              "http", "height"
-                          },
-                    new[] { "http://", this.Get<BoardSettings>().ImageThumbnailMaxHeight.ToString() }) {
+                    [
+                        "http", "height"
+                    ],
+                    ["http://", this.Get<BoardSettings>().ImageThumbnailMaxHeight.ToString()]) {
                     RuleRank = 70
                 });
 
@@ -784,10 +784,10 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                         Options | RegexOptions.Compiled,
                         TimeSpan.FromMilliseconds(100)),
                     imageHtml,
-                    new[] {
-                              "http", "height"
-                          },
-                    new[] { "http://", this.Get<BoardSettings>().ImageThumbnailMaxHeight.ToString() }) {
+                    [
+                        "http", "height"
+                    ],
+                    ["http://", this.Get<BoardSettings>().ImageThumbnailMaxHeight.ToString()]) {
                     RuleRank = 71
                 });
 
@@ -798,10 +798,10 @@ public class BBCodeService : IBBCodeService, IHaveServiceLocator
                         Options | RegexOptions.Compiled,
                         TimeSpan.FromMilliseconds(100)),
                     imageHtmlWithDesc,
-                    new[] {
-                              "http", "description", "height"
-                          },
-                    new[] { "http://", string.Empty, this.Get<BoardSettings>().ImageThumbnailMaxHeight.ToString() }) {
+                    [
+                        "http", "description", "height"
+                    ],
+                    ["http://", string.Empty, this.Get<BoardSettings>().ImageThumbnailMaxHeight.ToString()]) {
                     RuleRank = 72
                 });
 

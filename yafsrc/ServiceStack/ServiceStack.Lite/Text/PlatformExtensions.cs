@@ -69,22 +69,6 @@ public static class PlatformExtensions
     }
 
     /// <summary>
-    /// Propertieses the specified type.
-    /// </summary>
-    /// <param name="type">The type.</param>
-    /// <returns>PropertyInfo[].</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static PropertyInfo[] Properties(this Type type)
-    {
-        return type.GetProperties(
-            BindingFlags.FlattenHierarchy |
-            BindingFlags.Instance |
-            BindingFlags.Static |
-            BindingFlags.Public |
-            BindingFlags.NonPublic);
-    }
-
-    /// <summary>
     /// Gets all fields.
     /// </summary>
     /// <param name="type">The type.</param>

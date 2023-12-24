@@ -25,11 +25,7 @@ public abstract class MemoryProvider
     /// The instance
     /// </summary>
     public static MemoryProvider Instance =
-#if NET7_0_OR_GREATER
         NetCoreMemory.Provider;
-#else
-        DefaultMemory.Provider;
-#endif
 
     /// <summary>
     /// The bad format

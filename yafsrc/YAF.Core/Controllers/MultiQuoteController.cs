@@ -58,7 +58,7 @@ public class MultiQuoteController : ForumBaseController
 
         var yafSession = this.Get<ISessionService>();
 
-        var multiQuoteIds = yafSession.MultiQuoteIds ?? new List<MultiQuote>();
+        var multiQuoteIds = yafSession.MultiQuoteIds ?? [];
 
         var multiQuote = new MultiQuote { MessageID = messageId, TopicID = topicId };
 

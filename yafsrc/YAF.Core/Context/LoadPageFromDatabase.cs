@@ -217,7 +217,7 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
         {
             // re-throw exception...
             throw;
+        }
 #endif
-            }
     }
 }

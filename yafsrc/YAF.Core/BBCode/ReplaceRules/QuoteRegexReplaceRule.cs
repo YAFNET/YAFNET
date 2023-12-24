@@ -42,7 +42,7 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
     /// <param name="replaceRegex">The replace regex.</param>
     /// <param name="options">The options.</param>
     public QuoteRegexReplaceRule(string searchRegex, string replaceRegex, RegexOptions options)
-        : base(searchRegex, replaceRegex, options, new[] { "quote" })
+        : base(searchRegex, replaceRegex, options, ["quote"])
     {
         this.RuleRank = 60;
     }

@@ -18,33 +18,6 @@ using System.Threading.Tasks;
 public static class StreamExtensions
 {
     /// <summary>
-    /// Writes to.
-    /// </summary>
-    /// <param name="inStream">The in stream.</param>
-    /// <param name="outStream">The out stream.</param>
-    /// <returns>long.</returns>
-    public static long WriteTo(this Stream inStream, Stream outStream)
-    {
-        if (inStream is MemoryStream memoryStream)
-        {
-            memoryStream.WriteTo(outStream);
-            return memoryStream.Position;
-        }
-
-        var data = new byte[4096];
-        long total = 0;
-        int bytesRead;
-
-        while ((bytesRead = inStream.Read(data, 0, data.Length)) > 0)
-        {
-            outStream.Write(data, 0, bytesRead);
-            total += bytesRead;
-        }
-
-        return total;
-    }
-
-    /// <summary>
     /// @jonskeet: Collection of utility methods which operate on streams.
     /// r285, February 26th 2009: http://www.yoda.arachsys.com/csharp/miscutil/
     /// </summary>
@@ -66,20 +39,10 @@ public static class StreamExtensions
     {
         ms.Position = 0;
 
-#if NET7_0_OR_GREATER
-            if (ms.TryGetBuffer(out var buffer))
-            {
-                return encoding.GetString(buffer.Array, buffer.Offset, buffer.Count);
-            }
-#else
-        try
+        if (ms.TryGetBuffer(out var buffer))
         {
-            return encoding.GetString(ms.GetBuffer(), 0, (int)ms.Length);
+            return encoding.GetString(buffer.Array, buffer.Offset, buffer.Count);
         }
-        catch (UnauthorizedAccessException)
-        {
-        }
-#endif
 
         Tracer.Instance.WriteWarning("MemoryStream wasn't created with a publiclyVisible:true byte[] buffer, falling back to slow impl");
 
@@ -94,20 +57,10 @@ public static class StreamExtensions
     /// <returns>ReadOnlySpan&lt;System.Byte&gt;.</returns>
     public static ReadOnlySpan<byte> GetBufferAsSpan(this MemoryStream ms)
     {
-#if NET7_0_OR_GREATER
-            if (ms.TryGetBuffer(out var buffer))
-            {
-                return new ReadOnlySpan<byte>(buffer.Array, buffer.Offset, buffer.Count);
-            }
-#else
-        try
+        if (ms.TryGetBuffer(out var buffer))
         {
-            return new ReadOnlySpan<byte>(ms.GetBuffer(), 0, (int) ms.Length);
+            return new ReadOnlySpan<byte>(buffer.Array, buffer.Offset, buffer.Count);
         }
-        catch (UnauthorizedAccessException)
-        {
-        }
-#endif
 
         Tracer.Instance.WriteWarning("MemoryStream in GetBufferAsSpan() wasn't created with a publiclyVisible:true byte[] buffer, falling back to slow impl");
         return new ReadOnlySpan<byte>(ms.ToArray());
@@ -120,20 +73,10 @@ public static class StreamExtensions
     /// <returns>byte[].</returns>
     public static byte[] GetBufferAsBytes(this MemoryStream ms)
     {
-#if NET7_0_OR_GREATER
-            if (ms.TryGetBuffer(out var buffer))
-            {
-                return buffer.Array;
-            }
-#else
-        try
+        if (ms.TryGetBuffer(out var buffer))
         {
-            return ms.GetBuffer();
+            return buffer.Array;
         }
-        catch (UnauthorizedAccessException)
-        {
-        }
-#endif
 
         Tracer.Instance.WriteWarning("MemoryStream in GetBufferAsBytes() wasn't created with a publiclyVisible:true byte[] buffer, falling back to slow impl");
         return ms.ToArray();

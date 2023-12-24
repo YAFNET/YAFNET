@@ -65,12 +65,12 @@
             var canChange = poll.UserID == Current.PageUserID || Current.IsAdmin ||
                             Current.ForumModeratorAccess;
 
-            if (pollAndChoices.Any())
+            if (pollAndChoices.HasItems())
             {
                 // Check if the user is already voted in polls in the group
                 userPollVotes = Current.GetRepository<PollVote>().VoteCheck(poll.ID, Current.PageUserID);
 
-                isNotVoted = !userPollVotes.Any();
+                isNotVoted = !userPollVotes.HasItems();
 
                 // This is not a guest w/o poll option view permissions, we bind the control.
                 if (poll.PollFlags.ShowVoters)
@@ -217,7 +217,7 @@
                                      href="@Html.HtmlEncode(poll.ObjectPath)" />
                             }
 
-                            @if (!(!hasVoteAccess && userPollVotes.Any()))
+                            @if (!(!hasVoteAccess && userPollVotes.HasItems()))
                             {
                                 <ul class="list-group">
                                     @foreach (var choice in pollAndChoices)
@@ -231,7 +231,7 @@
                                         {
                                             var votersByChoice = voters.Where(i => i.Item1.ChoiceID == choice.Item2.ID).ToList();
 
-                                            if (votersByChoice.Any())
+                                            if (votersByChoice.HasItems())
                                             {
                                                 voterNames.Append("(");
 

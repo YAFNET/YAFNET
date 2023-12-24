@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        @if (Model.IpAddresses.Any())
+        @if (Model.IpAddresses.HasItems())
         {
             <div class="mb-3 col-md-4">
                 <div class="form-check form-switch">
@@ -93,7 +93,7 @@
                                                 : Model.Get<IAspNetUsersHelper>().GuestUser(Model.PageBoardContext.PageBoardID).Name)"></a>)
     </div>
 
-    @if (Model.PageBoardContext.BoardSettings.StopForumSpamApiKey.IsSet() && Model.IpAddresses.Any())
+    @if (Model.PageBoardContext.BoardSettings.StopForumSpamApiKey.IsSet() && Model.IpAddresses.HasItems())
     {
         <div class="mb-3">
             <div class="form-check form-switch">

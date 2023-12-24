@@ -52,7 +52,7 @@ public class ProcessReplaceRules : ICloneable, IProcessReplaceRules
     /// </summary>
     public ProcessReplaceRules()
     {
-        this.rulesList = new List<IReplaceRule>();
+        this.rulesList = [];
     }
 
     /// <summary>

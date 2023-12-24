@@ -43,7 +43,7 @@
                 activeUsers1Day1.Count,
                 activeUsers30Day.Count);
 
-            if (activeUsers1Day1.Any())
+            if (activeUsers1Day1.HasItems())
             {
                 recentUsers = activeUsers1Day1;
             }
@@ -106,7 +106,7 @@
     </div>
 }
 
-@if (mostActiveUsers.Any())
+@if (mostActiveUsers.HasItems())
 {
     <div class="card mb-3">
         <div class="card-header d-flex align-items-center">

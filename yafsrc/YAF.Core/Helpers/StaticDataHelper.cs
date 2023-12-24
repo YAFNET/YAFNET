@@ -548,17 +548,15 @@ public static class StaticDataHelper
     {
         var list = new List<SelectListItem>();
 
-        string[] textArray =
-            {
-                "all", "last_day", "last_two_days", "last_week", "last_two_weeks", "last_month", "last_two_months",
+        string[] textArray = [
+            "all", "last_day", "last_two_days", "last_week", "last_two_weeks", "last_month", "last_two_months",
                 "last_six_months", "last_year"
-            };
+        ];
 
-        string[] textArrayProp =
-            {
-                "All", "Last Day", "Last Two Days", "Last Week", "Last Two Weeks", "Last Month", "Last Two Months",
+        string[] textArrayProp = [
+            "All", "Last Day", "Last Two Days", "Last Week", "Last Two Weeks", "Last Month", "Last Two Months",
                 "Last Six Months", "Last Year"
-            };
+        ];
 
         for (var i = 0; i < 8; i++)
         {
@@ -586,7 +584,7 @@ public static class StaticDataHelper
     {
         var list = new List<SelectListItem>();
 
-        string[] textArray = { "ENTRIES_5", "ENTRIES_10", "ENTRIES_20", "ENTRIES_25", "ENTRIES_50", };
+        string[] textArray = ["ENTRIES_5", "ENTRIES_10", "ENTRIES_20", "ENTRIES_25", "ENTRIES_50"];
 
         textArray.ForEach(
             text =>

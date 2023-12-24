@@ -405,7 +405,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     public List<SearchMessage> SearchSimilar(string filter, string input, string fieldName = "")
     {
         return input.IsNotSet()
-                   ? new List<SearchMessage>()
+                   ? []
                    : this.SearchSimilarIndex(filter, input, fieldName);
     }
 
@@ -456,7 +456,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     public async Task<Tuple<List<SearchMessage>, int>> SearchDefaultAsync(int forumId, string input, string fieldName = "")
     {
         return input.IsNotSet()
-                   ? new Tuple<List<SearchMessage>, int>(new List<SearchMessage>(), 0)
+                   ? new Tuple<List<SearchMessage>, int>([], 0)
                    : await this.SearchIndexAsync(forumId, input, fieldName);
     }
 
@@ -531,7 +531,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
         return results.Count != 0
                    ? results.Where(item => item != null).GroupBy(x => x.Topic).Select(y => y.FirstOrDefault()).ToList()
-                   : new List<SearchMessage>();
+                   : [];
     }
 
     /// <summary>
@@ -825,7 +825,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         if (searchQuery.Replace("*", string.Empty).Replace("?", string.Empty).IsNotSet())
         {
-            return new Tuple<List<SearchMessage>, int>(new List<SearchMessage>(), 0);
+            return new Tuple<List<SearchMessage>, int>([], 0);
         }
 
         // Insert forum access here
@@ -841,7 +841,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
         if (searcher == null)
         {
-            return new Tuple<List<SearchMessage>, int>(new List<SearchMessage>(), 0);
+            return new Tuple<List<SearchMessage>, int>([], 0);
         }
 
         var hitsLimit = this.Get<BoardSettings>().ReturnSearchMax;
@@ -886,11 +886,10 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         {
             var parser = new MultiFieldQueryParser(
                 MatchVersion,
-                new[]
-                    {
-                        "Message", "Topic",
+                [
+                    "Message", "Topic",
                         this.Get<BoardSettings>().EnableDisplayName ? "AuthorDisplay" : "Author", "TopicTags"
-                    },
+                ],
                 analyzer);
 
             var query = ParseQuery(searchQuery, parser);
@@ -960,7 +959,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         if (searchQuery.Replace("*", string.Empty).Replace("?", string.Empty).IsNotSet())
         {
-            return new List<SearchMessage>();
+            return [];
         }
 
         // Insert forum access here
@@ -970,7 +969,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
         if (searcher == null)
         {
-            return new List<SearchMessage>();
+            return [];
         }
 
         var booleanFilter = new BooleanFilter

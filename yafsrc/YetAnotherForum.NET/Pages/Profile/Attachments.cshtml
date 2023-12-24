@@ -62,7 +62,7 @@
                                     </li>
                                 }
                             </ul>
-                            @if (Model.Attachments.Any())
+                            @if (Model.Attachments.HasItems())
                             {
                                 <button asp-page-handler="DeleteSelected"
                                         class=" m-3"

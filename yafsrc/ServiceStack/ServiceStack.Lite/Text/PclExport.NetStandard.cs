@@ -365,15 +365,6 @@ public class NetStandardPclExport : PclExport
     }
 
     /// <summary>
-    /// Registers the query string writer.
-    /// </summary>
-    public static void RegisterQueryStringWriter()
-    {
-        var i = 0;
-        if (QueryStringWriter<Poco>.WriteFn() != null) i++;
-    }
-
-    /// <summary>
     /// Registers the element.
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -452,7 +443,6 @@ public class NetStandardPclExport : PclExport
             if (jsvWriter.GetWriteFn<T>() != null) i++;
 
             //RegisterCsvSerializer<T>();
-            RegisterQueryStringWriter();
             return i;
         }
 
@@ -496,7 +486,6 @@ public class NetStandardPclExport : PclExport
             TranslateListWithElements<T>.LateBoundTranslateToGenericICollection(null, null);
             TranslateListWithConvertibleElements<T, T>.LateBoundTranslateToGenericICollection(null, null);
 
-            QueryStringWriter<T>.WriteObject(null, null);
             return i;
         }
 

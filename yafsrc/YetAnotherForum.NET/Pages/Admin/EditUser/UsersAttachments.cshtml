@@ -43,26 +43,26 @@
         </div>
         <div class="card-body">
             <ul class="list-group list-group-flush">
-                    @for (var i = 0; i < Model.Attachments.Count; i++)
-                    {
-                        <li class="list-group-item d-inline-flex align-items-center">
-                            <input type="hidden" asp-for="@Model.Attachments[i].ID" />
+                @for (var i = 0; i < Model.Attachments.Count; i++)
+                {
+                    <li class="list-group-item d-inline-flex align-items-center">
+                        <input type="hidden" asp-for="@Model.Attachments[i].ID" />
 
-                            <div class="form-check">
-                                <input asp-for="@Model.Attachments[i].Selected" class="form-check-input" />
-                                <label class="form-check-label" asp-for="@Model.Attachments[i].Selected">
-                                    &nbsp;
-                                </label>
-                            </div>
+                        <div class="form-check">
+                            <input asp-for="@Model.Attachments[i].Selected" class="form-check-input" />
+                            <label class="form-check-label" asp-for="@Model.Attachments[i].Selected">
+                                &nbsp;
+                            </label>
+                        </div>
 
-                            @Model.GetPreviewImage(Model.Attachments[i])
-                            <span class="text-truncate">
-                                @Model.Attachments[i].FileName <em>(@Model.Attachments[i].Bytes/1024kb)</em>
-                            </span>
-                        </li>
-                    }
-                </ul>
-                @if (Model.Attachments.Any())
+                        @Model.GetPreviewImage(Model.Attachments[i])
+                        <span class="text-truncate">
+                            @Model.Attachments[i].FileName <em>(@Model.Attachments[i].Bytes/1024kb)</em>
+                        </span>
+                    </li>
+                }
+            </ul>
+            @if (Model.Attachments.HasItems())
                 {
                     <button type="submit"
                         asp-page-handler="DeleteSelected"

@@ -52,7 +52,7 @@ public class DynamicServicesModule : BaseModule
         RegisterDynamicServices(builder, ExtensionAssemblies);
 
         // internal bindings next...
-        RegisterDynamicServices(builder, new[] { Assembly.GetExecutingAssembly() });
+        RegisterDynamicServices(builder, [Assembly.GetExecutingAssembly()]);
     }
 
     /// <summary>

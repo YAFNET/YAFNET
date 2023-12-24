@@ -23,46 +23,6 @@ using System.Text.RegularExpressions;
 public static class StringExtensions
 {
     /// <summary>
-    /// Converts from base: 0 - 62
-    /// </summary>
-    /// <param name="source">The source.</param>
-    /// <param name="from">From.</param>
-    /// <param name="to">To.</param>
-    /// <returns>string.</returns>
-    /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Parameter: '{source}' is not valid integer (in base {from}).</exception>
-    public static string BaseConvert(this string source, int from, int to)
-    {
-        var chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        var len = source.Length;
-        if (len == 0)
-            throw new Exception($"Parameter: '{source}' is not valid integer (in base {from}).");
-        var minus = source[0] == '-' ? "-" : "";
-        var src = minus == "" ? source : source.Substring(1);
-        len = src.Length;
-        if (len == 0)
-            throw new Exception($"Parameter: '{source}' is not valid integer (in base {from}).");
-
-        var d = 0;
-        for (int i = 0; i < len; i++) // Convert to decimal
-        {
-            int c = chars.IndexOf(src[i]);
-            if (c >= from)
-                throw new Exception($"Parameter: '{source}' is not valid integer (in base {from}).");
-            d = d * from + c;
-        }
-        if (to == 10 || d == 0)
-            return minus + d;
-
-        var result = "";
-        while (d > 0)   // Convert to desired
-        {
-            result = chars[d % to] + result;
-            d /= to;
-        }
-        return minus + result;
-    }
-
-    /// <summary>
     /// Encodes the JSV.
     /// </summary>
     /// <param name="value">The value.</param>
@@ -123,106 +83,6 @@ public static class StringExtensions
         return StringBuilderThreadStatic.ReturnAndFree(sb);
     }
 
-    /// <summary>
-    /// URLs the decode.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <returns>string.</returns>
-    public static string UrlDecode(this string text)
-    {
-        if (string.IsNullOrEmpty(text)) return null;
-
-        var bytes = new List<byte>();
-
-        var textLength = text.Length;
-        for (var i = 0; i < textLength; i++)
-        {
-            var c = text[i];
-            switch (c)
-            {
-                case '+':
-                    bytes.Add(32);
-                    break;
-                case '%':
-                    {
-                        var hexNo = Convert.ToByte(text.Substring(i + 1, 2), 16);
-                        bytes.Add(hexNo);
-                        i += 2;
-                        break;
-                    }
-                default:
-                    bytes.Add((byte)c);
-                    break;
-            }
-        }
-
-        byte[] byteArray = bytes.ToArray();
-        return Encoding.UTF8.GetString(byteArray, 0, byteArray.Length);
-    }
-
-    /// <summary>
-    /// URLs the format.
-    /// </summary>
-    /// <param name="url">The URL.</param>
-    /// <param name="urlComponents">The URL components.</param>
-    /// <returns>string.</returns>
-    public static string UrlFormat(this string url, params string[] urlComponents)
-    {
-        var encodedUrlComponents = new string[urlComponents.Length];
-        for (var i = 0; i < urlComponents.Length; i++)
-        {
-            var x = urlComponents[i];
-            encodedUrlComponents[i] = x.UrlEncode();
-        }
-
-        return string.Format(url, encodedUrlComponents);
-    }
-
-    /// <summary>
-    /// Withes the trailing slash.
-    /// </summary>
-    /// <param name="path">The path.</param>
-    /// <returns>string.</returns>
-    /// <exception cref="System.ArgumentNullException">path</exception>
-    public static string WithTrailingSlash(this string path)
-    {
-        return path switch
-            {
-                null => throw new ArgumentNullException(nameof(path)),
-                "" => "/",
-                _ => path[^1] != '/' ? path + "/" : path
-            };
-    }
-
-    /// <summary>
-    /// Appends the path.
-    /// </summary>
-    /// <param name="uri">The URI.</param>
-    /// <param name="uriComponents">The URI components.</param>
-    /// <returns>string.</returns>
-    public static string AppendPath(this string uri, params string[] uriComponents)
-    {
-        return AppendUrlPaths(uri, uriComponents);
-    }
-
-    /// <summary>
-    /// Appends the URL paths.
-    /// </summary>
-    /// <param name="uri">The URI.</param>
-    /// <param name="uriComponents">The URI components.</param>
-    /// <returns>string.</returns>
-    public static string AppendUrlPaths(this string uri, params string[] uriComponents)
-    {
-        var sb = StringBuilderThreadStatic.Allocate();
-        sb.Append(uri.WithTrailingSlash());
-        var i = 0;
-        foreach (var uriComponent in uriComponents)
-        {
-            if (i++ > 0) sb.Append('/');
-            sb.Append(uriComponent.UrlEncode());
-        }
-        return StringBuilderThreadStatic.ReturnAndFree(sb);
-    }
 
     /// <summary>
     /// Froms the UTF8 bytes.
@@ -505,23 +365,6 @@ public static class StringExtensions
     /// <param name="args">The arguments.</param>
     /// <returns>string.</returns>
     public static string FormatWith(this string text, params object[] args) => string.Format(text, args);
-
-    /// <summary>
-    /// FMTs the specified text.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <param name="args">The arguments.</param>
-    /// <returns>string.</returns>
-    public static string Fmt(this string text, params object[] args) => string.Format(text, args);
-
-    /// <summary>
-    /// FMTs the specified text.
-    /// </summary>
-    /// <param name="text">The text.</param>
-    /// <param name="provider">The provider.</param>
-    /// <param name="args">The arguments.</param>
-    /// <returns>string.</returns>
-    public static string Fmt(this string text, IFormatProvider provider, params object[] args) => string.Format(provider, text, args);
 
     /// <summary>
     /// FMTs the specified text.

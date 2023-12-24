@@ -58,11 +58,6 @@ public static class MimeTypes
     public const string Jsv = "application/jsv";
 
     /// <summary>
-    /// The JSV text
-    /// </summary>
-    public const string JsvText = "text/jsv";
-
-    /// <summary>
     /// The CSV
     /// </summary>
     public const string Csv = "text/csv";

@@ -58,7 +58,7 @@
 
         @if (Model.Input.ShowSubscribeList)
         {
-            @if (Model.Input.Forums.Any())
+            @if (Model.Input.Forums.HasItems())
             {
                 <div class="row">
                     <div class="col">
@@ -125,7 +125,7 @@
                 </div>
             }
 
-            @if (Model.Input.Topics.Any())
+            @if (Model.Input.Topics.HasItems())
             {
                 <div class="row">
                     <div class="col">

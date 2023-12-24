@@ -81,14 +81,12 @@ public class ForumController : ForumBaseController
                         {
                             id = 0,
                             text = this.GetText("ALL_CATEGORIES"),
-                            children = new List<SelectOptions>
-                                           {
-                                               new ()
-                                                   {
-                                                       id = "0",
-                                                       text = this.GetText("ALL_FORUMS")
-                                                   }
-                                           }
+                            children = [
+                                new() {
+                                    id = "0",
+                                    text = this.GetText("ALL_FORUMS")
+                                }
+                            ]
                         });
             }
 

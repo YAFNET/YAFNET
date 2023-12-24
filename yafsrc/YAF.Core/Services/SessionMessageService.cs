@@ -54,7 +54,7 @@ public class SessionMessageService
     /// <summary>
     ///   Gets LoadStringList.
     /// </summary>
-    public List<MessageNotification> LoadStringList { get; } = new ();
+    public List<MessageNotification> LoadStringList { get; } = [];
 
     /// <summary>
     /// Gets the session load string.

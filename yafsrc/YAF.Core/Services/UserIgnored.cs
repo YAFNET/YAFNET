@@ -129,7 +129,7 @@ public class UserIgnored : IUserIgnored, IHaveServiceLocator
         }
         else
         {
-            userList = new List<int>();
+            userList = [];
         }
 
         // get fresh values

@@ -12,7 +12,7 @@
 
 @model TopicsModel
 
-@if (Model.SubForums != null && Model.SubForums.Item2.Any())
+@if (Model.SubForums != null && Model.SubForums.Item2.HasItems())
 {
     <div class="row">
         <div class="col">
@@ -146,7 +146,7 @@
                 </div>
             </div>
             <div class="card-body">
-                @if (!Model.Announcements.Any() && !Model.Topics.Any())
+                @if (!Model.Announcements.HasItems() && !Model.Topics.HasItems())
                 {
                     <alert type="info" localized-tag="NO_TOPICS"></alert>
                 }

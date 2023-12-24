@@ -729,7 +729,7 @@ public class NntpConnection : IDisposable
                         if (m.Success)
                         {
                             part.Boundary = m.Groups[1].ToString();
-                            part.EmbeddedPartList = new ArrayList();
+                            part.EmbeddedPartList = [];
                         }
 
                         m = Regex.Match(

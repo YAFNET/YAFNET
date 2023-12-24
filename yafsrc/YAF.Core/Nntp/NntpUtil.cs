@@ -42,13 +42,12 @@ public static class NntpUtil
     /// <summary>
     ///   The base 64 pem code.
     /// </summary>
-    private readonly static char[] Base64PemCode =
-        {
-            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+    private readonly static char[] Base64PemCode = [
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
             'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
             'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+',
             '/'
-        };
+    ];
 
     /// <summary>
     ///   The hex value.
@@ -287,7 +286,7 @@ public static class NntpUtil
                         if (m.Success)
                         {
                             newPart.Boundary = m.Groups[1].ToString();
-                            newPart.EmbeddedPartList = new ArrayList();
+                            newPart.EmbeddedPartList = [];
                         }
 
                         m = Regex.Match(line, """CHARSET="?([^"\s;]+)""", RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
@@ -314,7 +313,7 @@ public static class NntpUtil
                         if (m.Success)
                         {
                             newPart.Filename = Base64HeaderDecode(m.Groups[1].ToString());
-                            newPart.Filename = newPart.Filename[(newPart.Filename.LastIndexOfAny(new[] { '\\', '/' }) + 1)..];
+                            newPart.Filename = newPart.Filename[(newPart.Filename.LastIndexOfAny(['\\', '/']) + 1)..];
                         }
 
                         line = sr.ReadLine();

@@ -1,11 +1,14 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.TagHelpers
 @using YAF.Core.Context
 @using YAF.Core.Services
 @using YAF.Core.Utilities
 @using YAF.Types.Constants
+@using YAF.Types.Extensions
 @using YAF.Types.Interfaces
 @using YAF.Types.Models.Identity
 @using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
 
 @inject SignInManager<AspNetUsers> SignInManager
 
@@ -85,7 +88,7 @@
                                 <div class="d-grid gap-2">
                                     @{
                                         var loginProviders = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-                                        if (loginProviders.Any())
+                                        if (loginProviders.HasItems())
                                         {
                                             @foreach (var provider in loginProviders)
                                             {

@@ -41,27 +41,25 @@ public static class IPHelper
     /// <summary>
     /// The non routable IP v4 networks.
     /// </summary>
-    private readonly static List<string> NonRoutableIPv4Networks = new()
-                                                                       {
-                                                                           "10.0.0.0/8",
-                                                                           "172.16.0.0/12",
-                                                                           "192.168.0.0/16",
-                                                                           "169.254.0.0/16",
-                                                                           "127.0.0.0/8",
-                                                                           "0.0.0.0/8"
-                                                                       };
+    private readonly static List<string> NonRoutableIPv4Networks = [
+        "10.0.0.0/8",
+        "172.16.0.0/12",
+        "192.168.0.0/16",
+        "169.254.0.0/16",
+        "127.0.0.0/8",
+        "0.0.0.0/8"
+    ];
 
     /// <summary>
     /// The non routable IP v6 networks.
     /// </summary>
-    private readonly static List<string> NonRoutableIPv6Networks = new()
-                                                                       {
-                                                                           "::/128",
-                                                                           "::1/128",
-                                                                           "2001:db8::/32",
-                                                                           "fc00::/7",
-                                                                           "::ffff:0:0/96"
-                                                                       };
+    private readonly static List<string> NonRoutableIPv6Networks = [
+        "::/128",
+        "::1/128",
+        "2001:db8::/32",
+        "fc00::/7",
+        "::ffff:0:0/96"
+    ];
 
     /// <summary>
     /// Attempts to get an IPv4 from IPv6 address - falls back to IPv6, then localhost.

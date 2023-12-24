@@ -50,7 +50,7 @@
         @Html.IconHeader("comments", "DEFAULT", "ACTIVE_DISCUSSIONS", "fa-2x")
     </div>
     <ul class="list-group list-group-flush">
-        @if (activeTopics.Any())
+        @if (activeTopics.HasItems())
         {
             foreach (var topic in activeTopics)
             {

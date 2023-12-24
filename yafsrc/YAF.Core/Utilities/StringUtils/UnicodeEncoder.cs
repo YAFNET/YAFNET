@@ -35,12 +35,12 @@ public class UnicodeEncoder
     /// <summary>
     /// The HTML unicode's
     /// </summary>
-    private readonly List<HtmlCode> htmlUniCodes = new();
+    private readonly List<HtmlCode> htmlUniCodes = [];
 
     /// <summary>
     /// The simple list of codes that are needed
     /// </summary>
-    private readonly List<HtmlCode> htmlSimpleCodes = new();
+    private readonly List<HtmlCode> htmlSimpleCodes = [];
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UnicodeEncoder"/> class.

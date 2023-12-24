@@ -90,13 +90,12 @@ public partial class StackTraceBeautify
         this.fileCssClass = "st-file";
         this.lineCssClass = "st-line";
 
-        this.languages = new List<Language>
-                             {
-                                 new () { Name = "english", At = "at", In = "in", Line = "line" },
-                                 new () { Name = "danish", At = "ved", In = "i", Line = "linje" },
-                                 new () { Name = "german", At = "bei", In = "in", Line = "Zeile" },
-                                 new () { Name = "russian", At = "в", In = "в", Line = "строка" }
-                             };
+        this.languages = [
+            new() { Name = "english", At = "at", In = "in", Line = "line" },
+            new() { Name = "danish", At = "ved", In = "i", Line = "linje" },
+            new() { Name = "german", At = "bei", In = "in", Line = "Zeile" },
+            new() { Name = "russian", At = "в", In = "в", Line = "строка" }
+        ];
     }
 
     /// <summary>

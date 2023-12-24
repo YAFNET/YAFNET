@@ -1,6 +1,9 @@
 ﻿@page "{handler?}"
 
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using YAF.Types.Extensions
 @using YAF.Web.HtmlHelpers
+@using YAF.Web.TagHelpers
 @model YAF.Pages.Moderate.ModerateModel
 
 <div class="row">
@@ -8,7 +11,7 @@
     {
         var forums = Model.Forums.Where(f => f.CategoryID == category.ID).ToList();
 
-        if (forums.Any())
+        if (forums.HasItems())
         {
             <div class="col">
                 <div class="card mb-3">
@@ -81,7 +84,7 @@
     }
 </div>
 
-@if (!Model.Forums.Any())
+@if (!Model.Forums.HasItems())
 {
     <alert icon="check"
            icon-text-color="text-success"

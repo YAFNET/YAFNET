@@ -94,7 +94,7 @@ public static class MimeTypes
     /// </summary>
     private static void InitializeMimeTypeLists()
     {
-        mimeTypes = new List<MimeType>();
+        mimeTypes = [];
 
         var config = BoardContext.Current.Get<IConfiguration>();
 
