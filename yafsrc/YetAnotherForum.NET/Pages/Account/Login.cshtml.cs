@@ -224,14 +224,14 @@ public class LoginModel : AccountPage
     /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
     public async Task<IActionResult> SignInAsync(AspNetUsers user)
     {
-        if (user.TwoFactorEnabled)
+        if (!user.TwoFactorEnabled)
         {
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Account_Authorize);
+            return await this.Get<IAspNetUsersHelper>().SignInAsync(user, this.Input.RememberMe);
         }
 
         this.Get<ISessionService>().SetPageData(user);
 
-        return await this.Get<IAspNetUsersHelper>().SignInAsync(user, this.Input.RememberMe);
+        return this.Get<LinkBuilder>().Redirect(ForumPages.Account_Authorize);
     }
 
     /// <summary>
