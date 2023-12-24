@@ -49,17 +49,10 @@
             </div>
             <div class="mb-3">
                 <YAF:HelpLabel ID="HelpLabel2" runat="server"
-                               AssociatedControlID="CopyrightRemovalKey"
+                               AssociatedControlID="HideCopyright"
                                LocalizedTag="COPYRIGHT_REMOVAL_KEY" LocalizedPage="ADMIN_BOARDSETTINGS"/>
-                <div class="input-group">
-                    <asp:TextBox ID="CopyrightRemovalKey" runat="server" 
-                                 CssClass="form-control"></asp:TextBox>
-                    <YAF:ThemeButton runat="server" ID="GetRemovalKey"
-                                     NavigateUrl="https://yetanotherforum.net/purchase.aspx"
-                                     Type="Info"
-                                     Icon="key"
-                                     TextLocalizedTag="COPYRIGHT_REMOVAL_KEY_DOWN">
-                    </YAF:ThemeButton>
+                <div class="form-check form-switch">
+                    <asp:CheckBox ID="HideCopyright" runat="server" Text="&nbsp;"></asp:CheckBox>
                 </div>
             </div>
             <div class="mb-3">

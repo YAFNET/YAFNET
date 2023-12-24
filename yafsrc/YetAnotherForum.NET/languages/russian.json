@@ -1902,10 +1902,6 @@
             "#text": "Ключ удаления копирайта:"
           },
           {
-            "@tag": "COPYRIGHT_REMOVAL_KEY_DOWN",
-            "#text": "Приобрести ключ для удаления"
-          },
-          {
             "@tag": "COPYRIGHT_REMOVAL_KEY_HELP",
             "#text": "Удалить информацию о копирайте и ссылку на YAF из подвала вашего форума. Доступно на <a href=\"https://yetanotherforum.net/purchase.aspx\">сайта YAF.NET </a>. "
           },
@@ -8303,6 +8299,10 @@
             "#text": "{1} было больше всего пользователей - {0}."
           },
           {
+            "@tag": "MEDIA",
+            "#text": "Insert Media"
+          },
+          {
             "@tag": "MENU",
             "#text": "Меню"
           },
@@ -8543,6 +8543,10 @@
             "#text": "Неупорядоченный список"
           },
           {
+            "@tag": "TT_MEDIA",
+            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -8657,14 +8661,6 @@
           {
             "@tag": "YES",
             "#text": "Да"
-          },
-          {
-            "@tag": "MEDIA",
-            "#text": "Insert Media"
-          },
-          {
-            "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           }
         ]
       },

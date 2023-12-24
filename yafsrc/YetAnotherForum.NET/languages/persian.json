@@ -1902,10 +1902,6 @@
             "#text": "کلید حذف کپی رایت:"
           },
           {
-            "@tag": "COPYRIGHT_REMOVAL_KEY_DOWN",
-            "#text": "خرید کلید حذف "
-          },
-          {
             "@tag": "COPYRIGHT_REMOVAL_KEY_HELP",
             "#text": "حذف نام و عنوان YAF از زیر انجمن موجود در لینک : <a href=\"https://yetanotherforum.net/purchase.aspx\">سایت YAF</a>. "
           },
@@ -8299,6 +8295,10 @@
             "#text": "بیشترین تعداد کاربران آنلاین: {0} کاربر در تاریخ {1}"
           },
           {
+            "@tag": "MEDIA",
+            "#text": "Insert Media"
+          },
+          {
             "@tag": "MENU",
             "#text": "منو"
           },
@@ -8539,6 +8539,10 @@
             "#text": "فهرست نامرتب"
           },
           {
+            "@tag": "TT_MEDIA",
+            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -8653,14 +8657,6 @@
           {
             "@tag": "YES",
             "#text": "بلی"
-          },
-          {
-            "@tag": "MEDIA",
-            "#text": "Insert Media"
-          },
-          {
-            "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           }
         ]
       },

@@ -1902,10 +1902,6 @@
             "#text": "Fjerningsnøkkel for opphavsrett:"
           },
           {
-            "@tag": "COPYRIGHT_REMOVAL_KEY_DOWN",
-            "#text": "Nøkkel for fjerning av kjøp"
-          },
-          {
             "@tag": "COPYRIGHT_REMOVAL_KEY_HELP",
             "#text": "Remove the copyright information and link back to YAF from the footer of your entire forum domain. Available<a href=\"https://yetanotherforum.net/purchase.aspx\">from YAF.NET site</a>. "
           },
@@ -8311,6 +8307,10 @@
             "#text": "Maksimalt antall brukere innlogget var {0:N0} on {1}."
           },
           {
+            "@tag": "MEDIA",
+            "#text": "Insert Media"
+          },
+          {
             "@tag": "MENU",
             "#text": "Meny"
           },
@@ -8551,6 +8551,10 @@
             "#text": "Uordnet liste"
           },
           {
+            "@tag": "TT_MEDIA",
+            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -8665,14 +8669,6 @@
           {
             "@tag": "YES",
             "#text": "Ja"
-          },
-          {
-            "@tag": "MEDIA",
-            "#text": "Insert Media"
-          },
-          {
-            "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           }
         ]
       },

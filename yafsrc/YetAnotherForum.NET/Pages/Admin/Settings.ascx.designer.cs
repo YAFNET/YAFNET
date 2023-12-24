@@ -105,22 +105,13 @@ namespace YAF.Pages.Admin
         protected global::YAF.Web.Controls.HelpLabel HelpLabel2;
 
         /// <summary>
-        /// CopyrightRemovalKey control.
+        /// HideCopyright control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox CopyrightRemovalKey;
-
-        /// <summary>
-        /// GetRemovalKey control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::YAF.Web.Controls.ThemeButton GetRemovalKey;
+        protected global::System.Web.UI.WebControls.CheckBox HideCopyright;
 
         /// <summary>
         /// LocalizedLabel5 control.

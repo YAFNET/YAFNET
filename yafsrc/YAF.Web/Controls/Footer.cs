@@ -41,7 +41,6 @@ public class Footer : BaseControl
     /// <summary>
     ///   Gets ThisControl.
     /// </summary>
-    
     public Control ThisControl => this;
 
     /// <summary>
@@ -71,7 +70,7 @@ public class Footer : BaseControl
         // BEGIN FOOTER
         this.Get<IStopWatch>().Stop();
 
-        writer.Write(@"<footer class=""footer""><div class=""text-end"">");
+        writer.Write("""<footer class="footer"><div class="text-end">""");
 
         this.RenderRulesLink(writer);
 
@@ -90,7 +89,7 @@ public class Footer : BaseControl
     {
         if (this.PageBoardContext.BoardSettings.ShowPageGenerationTime)
         {
-            writer.Write(@"<br /><span class=""text-body-secondary small"">");
+            writer.Write("""<br /><span class="text-body-secondary small">""");
             writer.Write(this.GetText("COMMON", "GENERATED"), this.Get<IStopWatch>().Duration);
             writer.Write("</span>");
         }
@@ -104,9 +103,11 @@ public class Footer : BaseControl
         }
 
         writer.Write(
-            @"<br /><br /><div style=""margin:auto;padding:5px;text-align:right;font-size:7pt;"">
-                              <span class=""text-danger"">YAF Compiled in <strong>DEBUG MODE</strong></span>.
-                  <br />Recompile in <strong>RELEASE MODE</strong> to remove this information:");
+            """
+            <br /><br /><div style="margin:auto;padding:5px;text-align:right;font-size:7pt;">
+                                          <span class="text-danger">YAF Compiled in <strong>DEBUG MODE</strong></span>.
+                              <br />Recompile in <strong>RELEASE MODE</strong> to remove this information:
+            """);
 
         var extensions = this.Get<IList<Assembly>>("ExtensionAssemblies").Select(a => a.FullName).ToList();
 
@@ -116,13 +117,13 @@ public class Footer : BaseControl
         }
 
         writer.Write(
-            @"<div style=""margin:auto;padding:5px;text-align:right;font-size:7pt;""><span style=""color: green"">{0}</span></div>",
+            """<div style="margin:auto;padding:5px;text-align:right;font-size:7pt;"><span style="color: green">{0}</span></div>""",
             Config.ConnectionProviderName);
 
         if (extensions.Any(x => x.Contains(".Module")))
         {
             writer.Write(
-                @"<br /><br />Extensions Loaded: <span style=""color: green"">{0}</span>",
+                """<br /><br />Extensions Loaded: <span style="color: green">{0}</span>""",
                 extensions.Where(x => x.Contains(".Module")).ToDelimitedString("<br />"));
         }
 
@@ -144,7 +145,7 @@ public class Footer : BaseControl
         }
 
         writer.Write(
-            @"<a title=""{1}"" href=""{0}"">{1}</a> | ",
+            """<a title="{1}" href="{0}">{1}</a>""",
             this.Get<LinkBuilder>().GetLink(ForumPages.RulesAndPrivacy),
             this.GetText("COMMON", "PRIVACY_POLICY"));
     }
@@ -157,34 +158,14 @@ public class Footer : BaseControl
     /// </param>
     private void RenderVersion(TextWriter writer)
     {
-        // Copyright Link-back Algorithm
-        // Please keep if you haven't purchased a removal or commercial license.
-        var domainKey = this.PageBoardContext.BoardSettings.CopyrightRemovalDomainKey;
-        var url = this.Get<HttpRequestBase>().Url;
-
-        if (domainKey.IsSet() && url != null)
+        if (this.PageBoardContext.BoardSettings.HideCopyright)
         {
-            var dnsSafeHost = url.Host.ToLowerInvariant();
-            if (dnsSafeHost.LastIndexOf('.') != dnsSafeHost.IndexOf('.'))
-            {
-                dnsSafeHost = dnsSafeHost.Remove(
-                    0,
-                    dnsSafeHost.IndexOf('.') + 1);
-            }
-
-            var currentDomainHash = HashHelper.Hash(
-                dnsSafeHost,
-                HashAlgorithmType.SHA1,
-                this.GetType().GetSigningKey().ToString(),
-                false);
-
-            if (domainKey.Equals(currentDomainHash))
-            {
-                return;
-            }
+            return;
         }
 
-        writer.Write(@"<a target=""_blank"" title=""YetAnotherForum.NET"" href=""https://www.yetanotherforum.net"">");
+        writer.Write(" | ");
+
+        writer.Write("""<a target="_blank" title="YetAnotherForum.NET" href="https://www.yetanotherforum.net">""");
         writer.Write(this.GetText("COMMON", "POWERED_BY"));
         writer.Write(@" YAF.NET");
 
@@ -203,7 +184,7 @@ public class Footer : BaseControl
         }
 
         writer.Write(
-            @"</a> | <a target=""_blank"" title=""{0}"" href=""{1}"">YAF.NET &copy; 2003-{2} YetAnotherForum.NET</a>",
+            """</a> | <a target="_blank" title="{0}" href="{1}">YAF.NET &copy; 2003-{2} YetAnotherForum.NET</a>""",
             "YetAnotherForum.NET",
             "https://www.yetanotherforum.net",
             DateTime.UtcNow.Year);

@@ -1902,10 +1902,6 @@
             "#text": "Klucz do usunięcia brandingu:"
           },
           {
-            "@tag": "COPYRIGHT_REMOVAL_KEY_DOWN",
-            "#text": "Zakup Klucz do usuwania"
-          },
-          {
             "@tag": "COPYRIGHT_REMOVAL_KEY_HELP",
             "#text": "Usuwa informacje o prawach autorskich i linki do strony domowej YAF ze stopki na forum. Dostępne na <a href=\"https://yetanotherforum.net/purchase.aspx\">stronie YAF.NET</a>."
           },
@@ -8303,6 +8299,10 @@
             "#text": "Najwięcej użytkowników było {0:N0} on {1}."
           },
           {
+            "@tag": "MEDIA",
+            "#text": "Insert Media"
+          },
+          {
             "@tag": "MENU",
             "#text": "Menu"
           },
@@ -8543,6 +8543,10 @@
             "#text": "Lista punktowa"
           },
           {
+            "@tag": "TT_MEDIA",
+            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -8657,14 +8661,6 @@
           {
             "@tag": "YES",
             "#text": "Tak"
-          },
-          {
-            "@tag": "MEDIA",
-            "#text": "Insert Media"
-          },
-          {
-            "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           }
         ]
       },

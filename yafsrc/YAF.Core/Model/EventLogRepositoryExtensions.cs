@@ -157,8 +157,6 @@ public static class EventLogRepositoryExtensions
         int maxRows,
         int maxDays)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         // -- delete entries older than 10 days
         var agesAgo = DateTime.Today.AddDays(-maxDays);
 

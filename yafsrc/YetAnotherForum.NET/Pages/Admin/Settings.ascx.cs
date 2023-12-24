@@ -113,7 +113,7 @@ public partial class Settings : AdminPage
         boardSettings.DefaultCollapsiblePanelState = this.DefaultCollapsiblePanelState.SelectedValue.ToEnum<CollapsiblePanelState>();
         boardSettings.BaseUrlMask = this.ForumBaseUrlMask.Text;
         boardSettings.ForumEmail = this.ForumEmail.Text;
-        boardSettings.CopyrightRemovalDomainKey = this.CopyrightRemovalKey.Text.Trim();
+        boardSettings.HideCopyright = this.HideCopyright.Checked;
         boardSettings.DigestSendEveryXHours = this.DigestSendEveryXHours.Text.ToType<int>();
 
         if (this.BoardLogo.SelectedIndex > 0)
@@ -281,7 +281,7 @@ public partial class Settings : AdminPage
             item.Selected = true;
         }
 
-        this.CopyrightRemovalKey.Text = boardSettings.CopyrightRemovalDomainKey;
+        this.HideCopyright.Checked = boardSettings.HideCopyright;
 
         this.DigestSendEveryXHours.Text = boardSettings.DigestSendEveryXHours.ToString();
     }

@@ -1902,10 +1902,6 @@
             "#text": "Copyright Entfernungsschlüssel:"
           },
           {
-            "@tag": "COPYRIGHT_REMOVAL_KEY_DOWN",
-            "#text": "Schlüssel zum Entfernen kaufen"
-          },
-          {
             "@tag": "COPYRIGHT_REMOVAL_KEY_HELP",
             "#text": "Entfernen Sie die Copyright-Informationen und den Link zu YAF aus der Fußzeile Ihrer gesamten Forum Domäne.  Erhältlich <a href=\"https://yetanotherforum.net/purchase.aspx\"> auf der YAF.NET Website </ a>."
           },
@@ -8303,6 +8299,10 @@
             "#text": "Mitgliederrekord: {0} gleichzeitig online ({1})."
           },
           {
+            "@tag": "MEDIA",
+            "#text": "Insert Media"
+          },
+          {
             "@tag": "MENU",
             "#text": "Menü"
           },
@@ -8543,6 +8543,10 @@
             "#text": "Unsortierte Liste"
           },
           {
+            "@tag": "TT_MEDIA",
+            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -8657,14 +8661,6 @@
           {
             "@tag": "YES",
             "#text": "Ja"
-          },
-          {
-            "@tag": "MEDIA",
-            "#text": "Insert Media"
-          },
-          {
-            "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           }
         ]
       },

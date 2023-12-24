@@ -49,7 +49,6 @@ public static class HashHelper
     /// <returns>
     /// Salted Password as Byte Array
     /// </returns>
-    
     public static byte[] GeneratePasswordBuffer(string salt, string clearString, bool standardComp)
     {
         var unencodedBytes = Encoding.Unicode.GetBytes(clearString);
@@ -107,8 +106,6 @@ public static class HashHelper
         string hashRemoveChars = null,
         bool standardComp = true)
     {
-        CodeContracts.VerifyNotNull(clearString);
-
         byte[] buffer;
 
         if (salt.IsSet())
@@ -161,8 +158,6 @@ public static class HashHelper
     /// </returns>
     private static byte[] Hash(byte[] clearBytes, HashAlgorithmType hashAlgorithmType)
     {
-        CodeContracts.VerifyNotNull(clearBytes);
-
         return hashAlgorithmType switch {
             HashAlgorithmType.SHA1 => SHA1.Create().ComputeHash(clearBytes),
             HashAlgorithmType.MD5 => MD5.Create().ComputeHash(clearBytes),

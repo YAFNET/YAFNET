@@ -174,6 +174,17 @@ public static class IDbAccessExtensions
     }
 
     /// <summary>
+    /// Checks whether a Table Exists. E.g:
+    /// <para>db.TableExists&lt;Person&gt;()</para>
+    /// </summary>
+    public static bool TableExists<T>(this IDbAccess dbAccess)
+        where T : class, IEntity, new()
+    {
+        return dbAccess.Execute(
+            db => db.Connection.TableExists<T>());
+    }
+
+    /// <summary>
     /// Returns true if the Query returns any records that match the supplied SqlExpression, E.g:
     /// <para>db.Exists(db.From&lt;Person&gt;().Where(x =&gt; x.Age &lt; 50))</para>
     /// </summary>

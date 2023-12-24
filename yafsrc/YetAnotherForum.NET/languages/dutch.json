@@ -1902,10 +1902,6 @@
             "#text": "Copyright Verwijder Sleutel:"
           },
           {
-            "@tag": "COPYRIGHT_REMOVAL_KEY_DOWN",
-            "#text": "Verwijderingssleutel kopen"
-          },
-          {
             "@tag": "COPYRIGHT_REMOVAL_KEY_HELP",
             "#text": "Verwijder de copyright informatie en link naar YAF in de voettekst van het forum. Beschikbaar via <a href=\"https://yetanotherforum.net/purchase.aspx\">de YAF.NET website</a>. "
           },
@@ -8303,6 +8299,10 @@
             "#text": "Grootste aantal gebruikers ooit online was {0:N0} on {1}."
           },
           {
+            "@tag": "MEDIA",
+            "#text": "Insert Media"
+          },
+          {
             "@tag": "MENU",
             "#text": "Menu"
           },
@@ -8543,6 +8543,10 @@
             "#text": "Ongesorteerde lijst"
           },
           {
+            "@tag": "TT_MEDIA",
+            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
+          },
+          {
             "@tag": "TT_PASTE",
             "#text": "Paste (Ctrl+V)"
           },
@@ -8657,14 +8661,6 @@
           {
             "@tag": "YES",
             "#text": "Ja"
-          },
-          {
-            "@tag": "MEDIA",
-            "#text": "Insert Media"
-          },
-          {
-            "@tag": "TT_MEDIA",
-            "#text": "Paste the media url in the input (For example an YouTube Video, Spotify Playlist or Instagram Image)."
           }
         ]
       },
