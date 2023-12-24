@@ -107,7 +107,7 @@ public static class ActiveUsersHtmlHelper
                     // we might not want to add this user link if user is marked as hidden
                     if (user.IsActiveExcluded)
                     {
-                        // hidden user are always visible to admin and himself)
+                        // hidden user are always visible to admin and himself
                         if (context.IsAdmin || user.UserID == context.PageUserID)
                         {
                             var icon = new TagBuilder("i");

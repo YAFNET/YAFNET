@@ -29,20 +29,14 @@ using YAF.Types.Interfaces.Events;
 /// <summary>
 /// The forum page init event.
 /// </summary>
-public class ForumPageInitEvent : IAmEvent
-{
-}
+public class ForumPageInitEvent : IAmEvent;
 
 /// <summary>
 /// The forum page pre load event.
 /// </summary>
-public class ForumPagePreLoadEvent : IAmEvent
-{
-}
+public class ForumPagePreLoadEvent : IAmEvent;
 
 /// <summary>
 /// The forum page post load event.
 /// </summary>
-public class ForumPagePostLoadEvent : IAmEvent
-{
-}
+public class ForumPagePostLoadEvent : IAmEvent;

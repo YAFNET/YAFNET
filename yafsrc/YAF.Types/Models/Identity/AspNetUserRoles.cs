@@ -27,9 +27,7 @@ namespace YAF.Types.Models.Identity;
 /// <summary>
 /// The asp net user roles.
 /// </summary>
-public class AspNetUserRoles : AspNetUserRoles<string, string>
-{
-}
+public class AspNetUserRoles : AspNetUserRoles<string, string>;
 
 /// <summary>
 /// The asp net user roles.

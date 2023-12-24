@@ -27,6 +27,4 @@ namespace YAF.Types.Interfaces.Tasks;
 /// <summary>
 /// Marker interface for a task that is very important and shouldn't be stopped
 /// </summary>
-public interface ICriticalBackgroundTask
-{
-}
+public interface ICriticalBackgroundTask;

@@ -35,7 +35,7 @@ public static class StreamExtensions
     /// Converts a Stream to a String.
     /// </summary>
     /// <param name="theStream">
-    /// The the Stream.
+    /// The Stream.
     /// </param>
     /// <returns>
     /// The stream to string.

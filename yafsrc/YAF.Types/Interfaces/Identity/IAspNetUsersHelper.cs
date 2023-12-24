@@ -468,17 +468,12 @@ public interface IAspNetUsersHelper
     Task<AspNetUsers> ValidateUserAsync(string userName);
 
     /// <summary>
-    /// Gets the board user by Id.
+    /// Gets the board user.
     /// </summary>
-    /// <param name="userId">
-    /// The user id.
-    /// </param>
-    /// <param name="boardId">
-    /// The board id.
-    /// </param>
-    /// <returns>
-    /// The <see cref="Tuple"/>.
-    /// </returns>
+    /// <param name="userId">The user identifier.</param>
+    /// <param name="boardId">The board identifier.</param>
+    /// <param name="includeNonApproved">if set to <c>true</c> [include non approved].</param>
+    /// <returns>Tuple&lt;User, AspNetUsers, Rank, VAccess&gt;.</returns>
     public Tuple<User, AspNetUsers, Rank, VAccess> GetBoardUser(
         int userId,
         int? boardId = null,

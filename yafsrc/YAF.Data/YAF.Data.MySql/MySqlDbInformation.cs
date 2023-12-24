@@ -23,6 +23,7 @@
  */
 
 using Microsoft.Extensions.Configuration;
+
 using YAF.Core.Context;
 using YAF.Types.Interfaces;
 

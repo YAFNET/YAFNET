@@ -38,11 +38,6 @@ public class SpamWordCheckItem
     private readonly object _activeLock = new();
 
     /// <summary>
-    ///   The _bad word.
-    /// </summary>
-    private readonly string _spamWord;
-
-    /// <summary>
     ///   The _active.
     /// </summary>
     private bool _active = true;
@@ -55,7 +50,6 @@ public class SpamWordCheckItem
     public SpamWordCheckItem(string spamWord, RegexOptions options)
     {
         this.Options = options;
-        this._spamWord = spamWord;
 
         try
         {

@@ -25,6 +25,7 @@
 namespace YAF;
 
 using Autofac;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

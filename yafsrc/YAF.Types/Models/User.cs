@@ -43,7 +43,7 @@ public class User : IEntity, IHaveBoardID, IHaveID
     {
         try
         {
-            this.ProviderUserKey = this.UserFlags.IsGuest ? null : this.ProviderUserKey;
+            //this.ProviderUserKey = this.UserFlags.IsGuest ? null : this.ProviderUserKey;
             this.Points = 1;
             this.PageSize = 5;
             this.Activity = true;

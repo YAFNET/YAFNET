@@ -72,7 +72,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
             Minor = 0,
             Build = 0,
             ReleaseType = ReleaseType.BETA,
-            ReleaseNumber = 267
+            ReleaseNumber = 2
         };
 
         var versionString = new StringBuilder();

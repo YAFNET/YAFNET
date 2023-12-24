@@ -27,9 +27,7 @@ namespace YAF.Types.Models.Identity;
 /// <summary>
 /// The asp net user claims.
 /// </summary>
-public class AspNetUserClaims : AspNetUserClaims<string>
-{
-}
+public class AspNetUserClaims : AspNetUserClaims<string>;
 
 /// <summary>
 /// The asp net user claims.

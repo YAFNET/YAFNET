@@ -27,6 +27,4 @@ namespace YAF.Types.Interfaces.Data;
 /// <summary>
 /// The Entity interface.
 /// </summary>
-public interface IEntity
-{
-}
+public interface IEntity;

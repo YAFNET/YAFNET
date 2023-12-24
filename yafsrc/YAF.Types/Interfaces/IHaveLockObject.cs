@@ -27,6 +27,4 @@ namespace YAF.Types.Interfaces;
 /// <summary>
 /// The i have lock object.
 /// </summary>
-public interface IHaveLockObject : IReadValue<object>
-{
-}
+public interface IHaveLockObject : IReadValue<object>;

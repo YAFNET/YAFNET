@@ -39,14 +39,14 @@ public class SiteMap
     /// <summary>
     /// The map.
     /// </summary>
-    private ArrayList map;
+    private readonly ArrayList map;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SiteMap"/> class.
     /// </summary>
     public SiteMap()
     {
-        this.map = new ArrayList();
+        this.map = [];
     }
 
     /// <summary>

@@ -24,6 +24,7 @@
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
+
 using YAF.Core.Hubs;
 
 namespace YAF.Core.Extensions;

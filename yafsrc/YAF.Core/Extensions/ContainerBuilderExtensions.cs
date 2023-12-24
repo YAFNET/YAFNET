@@ -23,6 +23,7 @@
  */
 
 using Microsoft.Extensions.Options;
+
 using YAF.Core.Modules;
 using YAF.Types.Objects;
 

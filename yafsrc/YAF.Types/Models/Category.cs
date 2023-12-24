@@ -28,8 +28,6 @@ namespace YAF.Types.Models;
 /// A class which represents the Category table.
 /// </summary>
 [Serializable]
-
-
 [UniqueConstraint(nameof(BoardID), nameof(Name))]
 public class Category : IEntity, IHaveID, IHaveBoardID
 {

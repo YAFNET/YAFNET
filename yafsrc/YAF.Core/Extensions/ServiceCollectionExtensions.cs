@@ -23,6 +23,7 @@
  */
 
 using System;
+
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -32,8 +33,11 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using OEmbed.Core.Extensions;
+
 using UAParser.Extensions;
+
 using YAF.Core.Hubs;
 using YAF.Types.Objects;
 

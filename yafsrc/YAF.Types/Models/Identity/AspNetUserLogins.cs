@@ -27,9 +27,7 @@ namespace YAF.Types.Models.Identity;
 /// <summary>
 /// The asp net user logins.
 /// </summary>
-public class AspNetUserLogins : AspNetUserLogins<string>
-{
-}
+public class AspNetUserLogins : AspNetUserLogins<string>;
 
 /// <summary>
 /// The asp net user logins.

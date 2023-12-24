@@ -67,7 +67,7 @@ public interface ITaskModuleManager
     bool AreTasksRunning(string[] instanceName);
 
     /// <summary>
-    /// Start a non-running task -- will set the <see cref="HttpApplication"/> instance.
+    /// Start a non-running task
     /// </summary>
     /// <param name="instanceName">
     /// Unique name of this task

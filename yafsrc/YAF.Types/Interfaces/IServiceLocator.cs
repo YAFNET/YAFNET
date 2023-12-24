@@ -29,9 +29,7 @@ using System.Collections.Generic;
 /// <summary>
 /// The ScopeServiceLocator interface.
 /// </summary>
-public interface IScopeServiceLocator : IServiceLocator, IDisposable
-{
-}
+public interface IScopeServiceLocator : IServiceLocator, IDisposable;
 
 /// <summary>
 ///     The i service locator.

@@ -365,11 +365,10 @@ public class ForumEditorTagHelper : TagHelper, IHaveServiceLocator, IHaveLocaliz
         var dropDownMenu4 = new TagBuilder("div") { Attributes = { ["class"] = "dropdown-menu" } };
         content.AppendHtml(dropDownMenu4.RenderStartTag());
 
-        string[] colors =
-            {
-                "Dark Red", "Red", "Orange", "Brown", "Yellow", "Green", "Olive", "Cyan", "Blue", "Dark Blue", "Indigo",
-                "Violet", "White", "Black"
-            };
+        string[] colors = [
+            "Dark Red", "Red", "Orange", "Brown", "Yellow", "Green", "Olive", "Cyan", "Blue", "Dark Blue", "Indigo",
+            "Violet", "White", "Black"
+        ];
 
         foreach (var color in colors)
         {
