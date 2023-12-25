@@ -139,11 +139,12 @@
                                  TextLocalizedTag="CREATE_USER"
                                  Icon="user-plus"
                                  Type="Primary"
-                                 CssClass="btn-loading"
+                                 CssClass="btn-loading m-1"
                                  OnClick="RegisterClick" />
                 <YAF:ThemeButton runat="server" ID="LoginButton"
                                  CausesValidation="False"
                                  TextLocalizedTag="LOGIN_INSTEAD"
+                                 CssClass="m-1"
                                  Type="OutlineSecondary"
                                  Visible="False"
                                  Icon="sign-in-alt" />
