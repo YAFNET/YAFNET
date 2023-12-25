@@ -77,13 +77,13 @@ public class EditBoardModel : AdminPage
     }
 
     /// <summary>
-    /// The create board.
+    /// Creates the new Board.
     /// </summary>
     /// <param name="adminName">The admin name.</param>
     /// <param name="adminPassword">The admin password.</param>
     /// <param name="adminEmail">The admin email.</param>
     /// <param name="boardName">The board name.</param>
-    /// <param name="createUserAndRoles">The create user and roles.</param>
+    /// <param name="createUserAndRoles">Create user and roles.</param>
     /// <returns>Returns if the board was created or not</returns>
     private async Task<(bool Result, IdentityError Error)> CreateBoardAsync(
         string adminName,
@@ -171,7 +171,7 @@ public class EditBoardModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public IActionResult OnGet(int? b)
+    public IActionResult OnGet(int b)
     {
         this.Input = new InputModel();
 
@@ -181,9 +181,9 @@ public class EditBoardModel : AdminPage
             "CultureNativeName",
             this.PageBoardContext.BoardSettings.Culture);
 
-        if (b.HasValue)
+        if (b > 0)
         {
-            var board = this.GetRepository<Board>().GetById(b.Value);
+            var board = this.GetRepository<Board>().GetById(b);
 
             if (board is null)
             {
@@ -250,7 +250,7 @@ public class EditBoardModel : AdminPage
             }
             else
             {
-                // create admin user from logged in user...
+                // create admin user from logged-in user...
                 var result = await this.CreateBoardAsync(null, null, null, this.Input.Name.Trim(), false);
 
                 boardCreated = result.Result;
@@ -284,7 +284,7 @@ public class EditBoardModel : AdminPage
     /// The new admin.
     /// </param>
     /// <returns>
-    /// Returns the New Board Id
+    /// Returns the New Board ID
     /// </returns>
     private int DbCreateBoard(string boardName, string langFile, AspNetUsers newAdmin)
     {

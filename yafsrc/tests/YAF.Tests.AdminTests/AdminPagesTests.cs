@@ -55,7 +55,6 @@ public class AdminPagesTests : TestBase
 
                 foreach (var pageName in Enum.GetNames(typeof(ForumPages)).Where(x =>
                              x.StartsWith("Admin_") && !x.Equals("Admin_PageAccessEdit") &&
-                             !x.Equals("Admin_EditBoard") &&
                              !x.Equals("Admin_EditForum") &&
                              !x.Equals("Admin_DeleteForum") &&
                              !x.Equals("Admin_EditLanguage")))
