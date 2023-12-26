@@ -13214,18 +13214,6 @@ th {
   color: inherit;
 }
 
-/* Help sidebar */
-.sidebar-sticky li {
-  background: #fff;
-}
-.sidebar-sticky li:hover {
-  background-color: var(--bs-tertiary-bg);
-}
-.sidebar-sticky .a.nav-link {
-  display: block;
-  color: #343a40;
-}
-
 .direct-chat-messages {
   -webkit-transform: translate(0, 0);
           transform: translate(0, 0);

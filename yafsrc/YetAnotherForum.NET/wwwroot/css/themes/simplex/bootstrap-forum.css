@@ -13489,18 +13489,6 @@ label {
   color: #373a3c;
 }
 
-/* Help sidebar */
-.sidebar-sticky li {
-  background: #fff;
-}
-.sidebar-sticky li:hover {
-  background-color: #d9230f;
-}
-.sidebar-sticky .a.nav-link {
-  display: block;
-  color: #373a3c;
-}
-
 .direct-chat-messages {
   -webkit-transform: translate(0, 0);
           transform: translate(0, 0);

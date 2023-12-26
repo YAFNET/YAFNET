@@ -29,7 +29,6 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 using YAF.Core.Extensions;
 using YAF.Core.Services;
@@ -55,14 +54,16 @@ public class HelpModel : ForumPage
     /// <summary>
     /// Initializes a new instance of the <see cref="HelpModel"/> class.
     /// </summary>
-    /// <param name="logger">
-    /// The logger.
-    /// </param>
-    public HelpModel(ILogger<HelpModel> logger)
+    public HelpModel()
         : base("HELP_INDEX", ForumPages.Help)
     {
     }
 
+    /// <summary>
+    /// Called when [get].
+    /// </summary>
+    /// <param name="faq">The FAQ.</param>
+    /// <returns>Microsoft.AspNetCore.Mvc.IActionResult.</returns>
     public IActionResult OnGet(string faq = null)
     {
         if (!this.Get<IPermissions>().Check(this.PageBoardContext.BoardSettings.ShowHelpTo))
@@ -86,7 +87,7 @@ public class HelpModel : ForumPage
             this.GetText("HELP_INDEX", faq != "index" ? $"{faq}TITLE" : "SEARCHHELPTITLE"),
             string.Empty);
 
-        this.HelpContents = new List<HelpContent>();
+        this.HelpContents = [];
 
         this.HelpContents = helpContent;
 
@@ -116,8 +117,8 @@ public class HelpModel : ForumPage
         var highlightWords = new List<string> { this.Input.Search };
 
         var searchList = this.helpContents.FindAll(
-            check => check.Content.ToLower().Contains(this.Input.Search.ToLower()) ||
-                     check.Title.ToLower().Contains(this.Input.Search.ToLower()));
+            check => check.Content.Contains(this.Input.Search, StringComparison.CurrentCultureIgnoreCase) ||
+                     check.Title.Contains(this.Input.Search, StringComparison.CurrentCultureIgnoreCase));
 
         searchList.ForEach(
             item =>
@@ -155,7 +156,7 @@ public class HelpModel : ForumPage
 
         config.GetSection(nameof(HelpNavigation)).Bind(helpNavigation);
 
-        this.helpContents = new List<HelpContent>();
+        this.helpContents = [];
 
         helpNavigation.SelectMany(category => category.HelpPages).ForEach(
             helpPage =>

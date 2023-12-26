@@ -13496,18 +13496,6 @@ legend {
   border-bottom: none;
 }
 
-/* Help sidebar */
-.sidebar-sticky li {
-  background: #222;
-}
-.sidebar-sticky li:hover {
-  background-color: #2a9fd6;
-}
-.sidebar-sticky .a.nav-link {
-  display: block;
-  color: #222;
-}
-
 .direct-chat-messages {
   -webkit-transform: translate(0, 0);
           transform: translate(0, 0);

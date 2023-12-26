@@ -13435,18 +13435,6 @@ textarea.form-control-lg {
   --bs-tooltip-color: var(--bs-emphasis-color);
 }
 
-/* Help sidebar */
-.sidebar-sticky li {
-  background: #fdf6e3;
-}
-.sidebar-sticky li:hover {
-  background-color: #002b36;
-}
-.sidebar-sticky .a.nav-link {
-  display: block;
-  color: #073642;
-}
-
 .direct-chat-messages {
   -webkit-transform: translate(0, 0);
           transform: translate(0, 0);

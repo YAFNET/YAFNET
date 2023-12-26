@@ -13506,18 +13506,6 @@ label,
   background-color: rgba(255, 255, 255, 0.075);
 }
 
-/* Help sidebar */
-.sidebar-sticky li {
-  background: #abb6c2;
-}
-.sidebar-sticky li:hover {
-  background-color: rgba(255, 255, 255, 0.075);
-}
-.sidebar-sticky .a.nav-link {
-  display: block;
-  color: #343a40;
-}
-
 .direct-chat-messages {
   -webkit-transform: translate(0, 0);
           transform: translate(0, 0);

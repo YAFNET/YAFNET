@@ -13741,18 +13741,6 @@ pre {
   border-radius: 255px 25px 225px 25px/25px 225px 25px 255px;
 }
 
-/* Help sidebar */
-.sidebar-sticky li {
-  background: #fff;
-}
-.sidebar-sticky li:hover {
-  background-color: #333;
-}
-.sidebar-sticky .a.nav-link {
-  display: block;
-  color: #333;
-}
-
 .direct-chat-messages {
   -webkit-transform: translate(0, 0);
           transform: translate(0, 0);

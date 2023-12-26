@@ -55,6 +55,7 @@ public static class HelpMenuHtmlHelper
         var html = new StringBuilder();
         var htmlDropDown = new StringBuilder();
 
+
         htmlDropDown.Append("""<div class="dropdown d-lg-none d-grid gap-2">""");
 
         htmlDropDown.Append(
@@ -73,26 +74,38 @@ public static class HelpMenuHtmlHelper
         }
 
         // Index / Search
-        var indexTag = new TagBuilder("h6");
-
         var indexContent =
             $"""<a href="{context.Get<LinkBuilder>().GetLink(ForumPages.Help, new { faq = "index" })}">{context.Get<ILocalization>().GetText("HELP_INDEX", "INDEX")} / {context.Get<ILocalization>().GetText("BTNSEARCH")}</a>""";
-
-        indexTag.AddCssClass("h6 pt-4 pb-3 mb-4 border-bottom text-uppercase");
-
-        if (faqPage.Equals("index"))
-        {
-            indexTag.AddCssClass("fw-bold");
-        }
-
-        indexTag.InnerHtml.AppendHtml(indexContent);
 
         htmlDropDown.AppendFormat(
             """<a href="{1}" class="dropdown-item">{0}</a>""",
             context.Get<ILocalization>().GetText("BTNSEARCH"),
             context.Get<LinkBuilder>().GetLink(ForumPages.Help, new { faq = "index" }));
 
-        html.Append("""<nav><div class="accordion accordion-flush">""");
+        html.Append("""<nav><div class="accordion">""");
+
+        // Render Index Item
+        html.Append("""<div class="accordion-item">""");
+
+        html.AppendFormat(
+            """
+            <h2 class="accordion-header"><button class="accordion-button{3}" data-bs-toggle="collapse" aria-expanded="{2}" data-bs-target="#{1}" type="button">
+                                          {0}
+                                      </button></h2>
+            """,
+            context.Get<ILocalization>().GetText("HELP_INDEX", "INDEX"),
+            "index",
+            faqPage.Equals("index"),
+            faqPage.Equals("index") ? "" : " collapsed");
+
+        html.AppendFormat(
+            faqPage.Equals("index")
+                ? """<ul class="list-unstyled pb-0 accordion-body accordion-collapse collapse show" id="index">"""
+                : """<ul class="list-unstyled pb-0 accordion-body accordion-collapse collapse" id="index">""");
+
+        html.AppendFormat(faqPage.Equals("index") ? "<li class=\"fw-bold\">{0}</li>" : "<li>{0}</li>", indexContent);
+
+        html.Append("</ul></div>");
 
         helpNavList.ForEach(
             category =>
@@ -103,22 +116,22 @@ public static class HelpMenuHtmlHelper
 
                     html.AppendFormat(
                         """
-                        <h2 class="accordion-header"><button class="h2 accordion-button collapsed ps-0" data-bs-toggle="collapse" aria-expanded="{2}" data-bs-target="#{1}" type="button">
+                        <h2 class="accordion-header"><button class="accordion-button{3}" data-bs-toggle="collapse" aria-expanded="{2}" data-bs-target="#{1}" type="button">
                                                       {0}
                                                   </button></h2>
                         """,
                         context.Get<ILocalization>().GetText("HELP_INDEX", category.HelpCategory),
                         category.HelpCategory,
-                        expanded.ToString().ToLower());
+                        expanded.ToString().ToLower(),
+                        expanded ? "" : " collapsed");
 
-                    htmlDropDown.AppendFormat(
-                        """<h6 class="dropdown-header">{0}</h6>""",
-                        context.Get<ILocalization>().GetText("HELP_INDEX", category.HelpCategory));
+                    htmlDropDown.Append(
+                        $"""<h6 class="dropdown-header">{context.Get<ILocalization>().GetText("HELP_INDEX", category.HelpCategory)}</h6>""");
 
                     html.AppendFormat(
                         expanded
-                            ? """<ul class="list-unstyled ps-3 accordion-collapse collapse show" id="{0}">"""
-                            : """<ul class="list-unstyled ps-3 accordion-collapse collapse" id="{0}">""",
+                            ? """<ul class="list-unstyled pb-0 accordion-body accordion-collapse collapse show" id="{0}">"""
+                            : """<ul class="list-unstyled pb-0 accordion-body accordion-collapse collapse" id="{0}">""",
                         category.HelpCategory);
 
                     category.HelpPages.ForEach(
@@ -172,13 +185,11 @@ public static class HelpMenuHtmlHelper
 
         // render the contents of the help menu....
         content.AppendHtml(
-            """<div class="col-md-3 d-none d-lg-block bg-light sidebar"><div class="sidebar-sticky">""");
-
-        content.AppendHtml(indexTag);
+            """<div class="col-md-3 d-none d-lg-block">""");
 
         content.AppendHtml(html.ToString());
 
-        content.AppendHtml("</div></div>");
+        content.AppendHtml("</div>");
 
         // Write Mobile Drop down
         content.AppendHtml(htmlDropDown.ToString());

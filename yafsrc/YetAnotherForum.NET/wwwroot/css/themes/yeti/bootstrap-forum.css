@@ -13611,18 +13611,6 @@ label,
   border-top-right-radius: 0;
 }
 
-/* Help sidebar */
-.sidebar-sticky li {
-  background: #eee;
-}
-.sidebar-sticky li:hover {
-  background-color: var(--bs-tertiary-bg);
-}
-.sidebar-sticky .a.nav-link {
-  display: block;
-  color: #333;
-}
-
 .direct-chat-messages {
   -webkit-transform: translate(0, 0);
           transform: translate(0, 0);
