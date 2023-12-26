@@ -37,7 +37,7 @@ public partial class Help : ForumPage
     /// <summary>
     ///  List with the Help Content
     /// </summary>
-    private readonly List<HelpContent> helpContents = new();
+    private readonly List<HelpContent> helpContents = [];
 
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Help" /> class.
@@ -48,9 +48,9 @@ public partial class Help : ForumPage
     }
 
     /// <summary>
-    /// Raises the <see cref="E:System.Web.UI.Control.Init"/> event.
+    /// Handles the <see cref="E:Init" /> event.
     /// </summary>
-    /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
     override protected void OnInit(EventArgs e)
     {
         this.DoSearch.Click += this.DoSearch_Click;
@@ -243,7 +243,7 @@ public partial class Help : ForumPage
 
         foreach (var helpPage in helpNavigation.SelectMany(category => category.HelpPages))
         {
-            string helpContent = helpPage.HelpPage switch {
+            var helpContent = helpPage.HelpPage switch {
                     "RECOVER" => this.GetTextFormatted(
                         $"{helpPage.HelpPage}CONTENT",
                         this.Get<LinkBuilder>().GetLink(ForumPages.Account_ForgotPassword)),

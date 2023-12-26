@@ -13887,18 +13887,6 @@ legend {
   background-color: #23272b;
 }
 
-/* Help sidebar */
-.sidebar-sticky li {
-  background: #e9ecef;
-}
-.sidebar-sticky li:hover {
-  background-color: #272b30;
-}
-.sidebar-sticky .a.nav-link {
-  display: block;
-  color: #3a3f44;
-}
-
 /* ===============================
 =            Choices            =
 =============================== */

@@ -13447,18 +13447,6 @@ textarea.form-control-lg {
   --bs-tooltip-color: var(--bs-emphasis-color);
 }
 
-/* Help sidebar */
-.sidebar-sticky li {
-  background: #adb5bd;
-}
-.sidebar-sticky li:hover {
-  background-color: #375a7f;
-}
-.sidebar-sticky .a.nav-link {
-  display: block;
-  color: #303030;
-}
-
 /* ===============================
 =            Choices            =
 =============================== */

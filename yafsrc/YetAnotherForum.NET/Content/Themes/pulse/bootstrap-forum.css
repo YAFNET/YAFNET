@@ -13187,18 +13187,6 @@ textarea.form-control-lg {
   color: #5c507c;
 }
 
-/* Help sidebar */
-.sidebar-sticky li {
-  background: #f9f8fc;
-}
-.sidebar-sticky li:hover {
-  background-color: #593196;
-}
-.sidebar-sticky .a.nav-link {
-  display: block;
-  color: #343a40;
-}
-
 /* ===============================
 =            Choices            =
 =============================== */

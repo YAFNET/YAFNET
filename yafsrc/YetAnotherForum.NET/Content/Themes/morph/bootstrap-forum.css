@@ -14163,18 +14163,6 @@ textarea.form-control-lg {
   background-color: transparent;
 }
 
-/* Help sidebar */
-.sidebar-sticky li {
-  background: #f0f5fa;
-}
-.sidebar-sticky li:hover {
-  background-color: transparent;
-}
-.sidebar-sticky .a.nav-link {
-  display: block;
-  color: #444b40;
-}
-
 /* ===============================
 =            Choices            =
 =============================== */

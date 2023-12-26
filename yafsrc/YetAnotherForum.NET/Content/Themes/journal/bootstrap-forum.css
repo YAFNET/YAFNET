@@ -13389,18 +13389,6 @@ textarea.form-control-lg {
   text-decoration: none;
 }
 
-/* Help sidebar */
-.sidebar-sticky li {
-  background: #f8f9fa;
-}
-.sidebar-sticky li:hover {
-  background-color: var(--bs-tertiary-bg);
-}
-.sidebar-sticky .a.nav-link {
-  display: block;
-  color: #333;
-}
-
 /* ===============================
 =            Choices            =
 =============================== */
