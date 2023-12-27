@@ -189,7 +189,7 @@ public class FriendsModel : ForumPageRegistered
             nameof(SelectListItem.Value),
             nameof(SelectListItem.Text));
 
-        this.ListView = new List<BuddyUser>();
+        this.ListView = [];
 
         var mode = this.Mode.ToEnum<FriendMode>();
 
@@ -214,7 +214,7 @@ public class FriendsModel : ForumPageRegistered
 
         var pager = new Paging { CurrentPageIndex = this.PageBoardContext.PageIndex, PageSize = this.Size, Count = this.ListView.Count};
 
-        this.ListView = friends.GetPaged(pager).ToList();
+        this.ListView = [.. friends.GetPaged(pager)];
 
         this.Header = mode switch {
             FriendMode.ReceivedRequests => this.GetText("FRIENDS", "PENDING_REQUESTS"),

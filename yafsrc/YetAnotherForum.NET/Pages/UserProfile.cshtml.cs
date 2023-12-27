@@ -25,7 +25,6 @@
 namespace YAF.Pages;
 
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -58,72 +57,51 @@ public class UserProfileModel : ForumPage
     {
     }
 
-    [BindProperty]
-    public Tuple<User, AspNetUsers, Rank, VAccess> CombinedUser { get; set; }
+    [BindProperty] public Tuple<User, AspNetUsers, Rank, VAccess> CombinedUser { get; set; }
 
-    [BindProperty]
-    public List<Tuple<ProfileCustom, ProfileDefinition>> CustomProfile { get; set; }
+    [BindProperty] public List<Tuple<ProfileCustom, ProfileDefinition>> CustomProfile { get; set; }
 
-    [BindProperty]
-    public List<Group> Groups { get; set; }
+    [BindProperty] public List<Group> Groups { get; set; }
 
-    [BindProperty]
-    public List<Tuple<Message, Topic, User>> LastPosts { get; set; }
+    [BindProperty] public List<Tuple<Message, Topic, User>> LastPosts { get; set; }
 
-    [BindProperty]
-    public List<BuddyUser> Friends { get; set; }
+    [BindProperty] public List<BuddyUser> Friends { get; set; }
 
-    [BindProperty]
-    public (int Posts, string ThanksReceived) Thanks { get; set; }
+    [BindProperty] public (int Posts, string ThanksReceived) Thanks { get; set; }
 
-    [BindProperty]
-    public string Stats { get; set; }
+    [BindProperty] public string Stats { get; set; }
 
-    [BindProperty]
-    public string Medals { get; set; }
+    [BindProperty] public string Medals { get; set; }
 
-    [BindProperty]
-    public string FacebookUrl { get; set; }
+    [BindProperty] public string FacebookUrl { get; set; }
 
-    [BindProperty]
-    public string SkypeUrl { get; set; }
+    [BindProperty] public string SkypeUrl { get; set; }
 
-    [BindProperty]
-    public string BlogUrl { get; set; }
+    [BindProperty] public string BlogUrl { get; set; }
 
-    [BindProperty]
-    public string XmppUrl { get; set; }
+    [BindProperty] public string XmppUrl { get; set; }
 
-    [BindProperty]
-    public bool ShowAddBuddyLink { get; set; }
+    [BindProperty] public bool ShowAddBuddyLink { get; set; }
 
-    [BindProperty]
-    public bool ShowRemoveBuddyLink { get; set; }
+    [BindProperty] public bool ShowRemoveBuddyLink { get; set; }
 
-    [BindProperty]
-    public bool ShowPmLink { get; set; }
+    [BindProperty] public bool ShowPmLink { get; set; }
 
-    [BindProperty]
-    public bool ShowEmailLink { get; set; }
+    [BindProperty] public bool ShowEmailLink { get; set; }
 
-    [BindProperty]
-    public bool ShowSocialMediaCard { get; set; }
+    [BindProperty] public bool ShowSocialMediaCard { get; set; }
 
-    [BindProperty]
-    public string SuspendReason { get; set; }
+    [BindProperty] public string SuspendReason { get; set; }
 
-    [BindProperty]
-    public int SuspendCount { get; set; }
+    [BindProperty] public int SuspendCount { get; set; }
 
-    [BindProperty]
-    public string SuspendUnit { get; set; }
+    [BindProperty] public string SuspendUnit { get; set; }
 
-    public List<SelectListItem> SuspendUnits =>
-        new() {
-                  new SelectListItem(this.GetText("PROFILE", "DAYS"), "1"),
-                  new SelectListItem(this.GetText("PROFILE", "HOURS"), "2"),
-                  new SelectListItem(this.GetText("PROFILE", "MINUTES"), "3")
-              };
+    public List<SelectListItem> SuspendUnits => [
+        new SelectListItem(this.GetText("PROFILE", "DAYS"), "1"),
+        new SelectListItem(this.GetText("PROFILE", "HOURS"), "2"),
+        new SelectListItem(this.GetText("PROFILE", "MINUTES"), "3")
+    ];
 
     /// <summary>
     /// add page links.
@@ -147,10 +125,10 @@ public class UserProfileModel : ForumPage
     public IActionResult OnGet(int u)
     {
         return u == 0
-                   ?
-                   // No such user exists
-                   this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid)
-                   : this.BindData(u);
+            ?
+            // No such user exists
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Invalid)
+            : this.BindData(u);
     }
 
     public Task OnPostRemoveSuspensionAsync(int u)
@@ -390,7 +368,7 @@ public class UserProfileModel : ForumPage
         {
             var link = this.CombinedUser.Item2.Profile_Blog.Replace("\"", string.Empty);
 
-            if (!link.ToLower().StartsWith("http"))
+            if (!link.StartsWith("http", StringComparison.CurrentCultureIgnoreCase))
             {
                 link = $"https://{link}";
             }
@@ -401,8 +379,8 @@ public class UserProfileModel : ForumPage
         if (this.CombinedUser.Item2.Profile_Facebook.IsSet())
         {
             this.FacebookUrl = ValidationHelper.IsNumeric(this.CombinedUser.Item2.Profile_Facebook)
-                                   ? $"https://www.facebook.com/profile.php?id={this.CombinedUser.Item2.Profile_Facebook}"
-                                   : this.CombinedUser.Item2.Profile_Facebook;
+                ? $"https://www.facebook.com/profile.php?id={this.CombinedUser.Item2.Profile_Facebook}"
+                : this.CombinedUser.Item2.Profile_Facebook;
         }
 
         if (this.CombinedUser.Item2.Profile_XMPP.IsSet())

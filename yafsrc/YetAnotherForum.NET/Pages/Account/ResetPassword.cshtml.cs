@@ -31,7 +31,6 @@ using System.Threading.Tasks;
 using System.Web;
 
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Logging;
 
 using YAF.Core.Extensions;
 using YAF.Core.Services;
@@ -50,20 +49,11 @@ using DataType = System.ComponentModel.DataAnnotations.DataType;
 public class ResetPasswordModel : AccountPage
 {
     /// <summary>
-    /// The logger.
-    /// </summary>
-    private readonly ILogger<ResetPasswordModel> logger;
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="ResetPasswordModel"/> class.
     /// </summary>
-    /// <param name="logger">
-    /// The logger.
-    /// </param>
-    public ResetPasswordModel(ILogger<ResetPasswordModel> logger)
+    public ResetPasswordModel()
         : base("ACCOUNT_RESEST_PASSWORD", ForumPages.Account_ResetPassword)
     {
-        this.logger = logger;
     }
 
     /// <summary>
@@ -119,7 +109,8 @@ public class ResetPasswordModel : AccountPage
             return this.PageBoardContext.Notify(this.GetText("USERNAME_FAILURE"), MessageTypes.danger);
         }
 
-        var result = await this.Get<IAspNetUsersHelper>().ResetPasswordAsync(user, HttpUtility.UrlDecode(code, Encoding.UTF8), this.Input.Password);
+        var result = await this.Get<IAspNetUsersHelper>()
+            .ResetPasswordAsync(user, HttpUtility.UrlDecode(code, Encoding.UTF8), this.Input.Password);
 
         if (result.Succeeded)
         {

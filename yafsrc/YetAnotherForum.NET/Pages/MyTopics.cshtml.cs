@@ -198,7 +198,10 @@ public class MyTopicsModel : ForumPageRegistered
         this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
 
         // Load Topic Mode
-        this.TopicMode = new List<SelectListItem>(new SelectList(StaticDataHelper.TopicListModes(), nameof(SelectListItem.Value), nameof(SelectListItem.Text)));
+        this.TopicMode = [
+            ..new SelectList(StaticDataHelper.TopicListModes(), nameof(SelectListItem.Value),
+                nameof(SelectListItem.Text))
+        ];
 
         this.InitSinceDropdown();
     }
@@ -210,28 +213,28 @@ public class MyTopicsModel : ForumPageRegistered
     {
         var lastVisit = this.Get<ISessionService>().LastVisit;
 
-        this.Since = new List<SelectListItem> {
-                                                  // value 0, for since last visit
-                                                  new(
-                                                      this.GetTextFormatted(
-                                                          "last_visit",
-                                                          this.Get<IDateTimeService>().FormatDateTime(
-                                                              lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime()
-                                                                  ? lastVisit.Value
-                                                                  : DateTime.UtcNow)),
-                                                      "0"),
-                                                  // negative values for hours backward
-                                                  new(this.GetText("last_hour"), "-1"),
-                                                  new(this.GetText("last_two_hours"), "-2"),
-                                                  new(this.GetText("last_eight_hours"), "-8"),
-                                                  // positive values for days backward
-                                                  new(this.GetText("last_day"), "1"),
-                                                  new(this.GetText("last_two_days"), "2"),
-                                                  new(this.GetText("last_week"), "7"),
-                                                  new(this.GetText("last_two_weeks"), "14"),
-                                                  new(this.GetText("last_month"), "31"),
-                                                  new(this.GetText("show_all"), "9999")
-                                              };
+        this.Since = [
+            new(
+                this.GetTextFormatted(
+                    "last_visit",
+                    this.Get<IDateTimeService>().FormatDateTime(
+                        lastVisit.HasValue && lastVisit.Value != DateTimeHelper.SqlDbMinTime()
+                            ? lastVisit.Value
+                            : DateTime.UtcNow)),
+                "0"),
+            // negative values for hours backward
+
+            new(this.GetText("last_hour"), "-1"),
+            new(this.GetText("last_two_hours"), "-2"),
+            new(this.GetText("last_eight_hours"), "-8"),
+            // positive values for days backward
+            new(this.GetText("last_day"), "1"),
+            new(this.GetText("last_two_days"), "2"),
+            new(this.GetText("last_week"), "7"),
+            new(this.GetText("last_two_weeks"), "14"),
+            new(this.GetText("last_month"), "31"),
+            new(this.GetText("show_all"), "9999")
+        ];
     }
 
     /// <summary>

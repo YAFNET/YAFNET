@@ -242,7 +242,7 @@ public class SubscriptionsModel : ProfilePage
             nameof(SelectListItem.Value),
             nameof(SelectListItem.Text));
 
-        this.NotificationTypes = new List<SelectListItem>();
+        this.NotificationTypes = [];
 
         var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();
 

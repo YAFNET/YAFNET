@@ -101,6 +101,10 @@ public class AttachmentsModel : ProfilePage
         return this.Page();
     }
 
+    /// <summary>
+    /// Called when [post].
+    /// </summary>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPost()
     {
         this.BindData();

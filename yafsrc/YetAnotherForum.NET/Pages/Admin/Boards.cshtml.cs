@@ -23,6 +23,8 @@
  * under the License.
  */
 
+using Microsoft.AspNetCore.Mvc.RazorPages;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -74,7 +76,7 @@ public class BoardsModel : AdminPage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private IActionResult BindData()
+    private PageResult BindData()
     {
         this.List = this.GetRepository<Board>().GetAll();
 

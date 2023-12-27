@@ -85,7 +85,7 @@ public class EditLanguageModel : AdminPage
     /// <summary>
     ///   The translations.
     /// </summary>
-    private readonly List<Translation> translations = new();
+    private readonly List<Translation> translations = [];
 
     /// <summary>
     /// Handles the Load event of the Page control.
@@ -246,7 +246,7 @@ public class EditLanguageModel : AdminPage
         // Get all language files info
         var langPath = Path.Combine(webRootPath, "languages");
 
-        this.PagesList = new List<SelectListItem>();
+        this.PagesList = [];
 
         this.PopulateTranslations(Path.Combine(langPath, "english.json"), Path.Combine(langPath, x));
 

@@ -85,7 +85,7 @@ public class MyMessagesModel : ForumPageRegistered
     {
         this.PrivateMessages = new List<PrivateMessage>();
 
-        this.Users = new List<User>();
+        this.Users = [];
 
         this.Users = await this.GetRepository<PrivateMessage>().GetUserListAsync(this.PageBoardContext.PageUserID);
 

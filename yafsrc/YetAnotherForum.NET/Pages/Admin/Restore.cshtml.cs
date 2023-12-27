@@ -258,7 +258,7 @@ public class RestoreModel : AdminPage
     private void BindDeletedMessages(int p2)
     {
         var deletedMessages = this.GetRepository<Message>()
-            .GetDeletedMessagesPaged(this.PageBoardContext.PageBoardID, p2 - 1, MessagesPageSize);
+            .GetDeletedMessagesPaged(this.PageBoardContext.PageBoardID, p2 - 1, this.MessagesPageSize);
 
         this.DeletedMessages = deletedMessages;
     }

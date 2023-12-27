@@ -93,7 +93,7 @@ public class MembersModel : ForumPage
             }
 
             // try to convert to char
-            char.TryParse(value, out currentLetter);
+            _ = char.TryParse(value, out currentLetter);
 
             // since we cannot use '#' in URL, we use '_' instead, this is to give it the right meaning
             if (currentLetter == '_')
@@ -337,11 +337,11 @@ public class MembersModel : ForumPage
 
         this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
 
-        this.NumPostList = new List<SelectListItem> {
-                                                        new(this.GetText("MEMBERS", "NUMPOSTSEQUAL"), "1"),
-                                                        new(this.GetText("MEMBERS", "NUMPOSTSLESSOREQUAL"), "2"),
-                                                        new(this.GetText("MEMBERS", "NUMPOSTSMOREOREQUAL"), "3")
-                                                    };
+        this.NumPostList = [
+            new(this.GetText("MEMBERS", "NUMPOSTSEQUAL"), "1"),
+            new(this.GetText("MEMBERS", "NUMPOSTSLESSOREQUAL"), "2"),
+            new(this.GetText("MEMBERS", "NUMPOSTSMOREOREQUAL"), "3")
+        ];
 
         // get list of user ranks for filtering
         var ranks = this.GetRepository<Rank>().GetByBoardId().OrderBy(r => r.SortOrder).ToList();
@@ -350,14 +350,14 @@ public class MembersModel : ForumPage
 
         ranks.RemoveAll(r => r.Name == "Guest");
 
-        this.RanksList = new List<SelectListItem>(new SelectList(ranks, nameof(Rank.ID), nameof(Rank.Name)));
+        this.RanksList = [..new SelectList(ranks, nameof(Rank.ID), nameof(Rank.Name))];
 
         // get list of user ranks for filtering
         var groups = this.GetRepository<Group>().GetByBoardId().OrderBy(r => r.SortOrder).Where(g => !g.GroupFlags.IsGuest).ToList();
 
         groups.Insert(0, new Group { Name = this.GetText("ALL"), ID = 0 });
 
-        this.GroupsList = new List<SelectListItem>(new SelectList(groups, nameof(Group.ID), nameof(Group.Name)));
+        this.GroupsList = [..new SelectList(groups, nameof(Group.ID), nameof(Group.Name))];
 
         var numberOfPosts = this.Input.NumPosts;
 

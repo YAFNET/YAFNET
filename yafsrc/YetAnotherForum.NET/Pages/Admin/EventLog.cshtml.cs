@@ -318,7 +318,7 @@ public class EventLogModel : AdminPage
     {
         this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
 
-        this.Types = new List<SelectListItem> { new(this.GetText("ALL"), "-1") };
+        this.Types = [new(this.GetText("ALL"), "-1")];
 
         EnumExtensions.GetAllItems<EventLogTypes>().ForEach(
             type =>
@@ -379,7 +379,7 @@ public class EventLogModel : AdminPage
     /// </summary>
     public class InputModel
     {
-        public string SinceDate { get; set; } 
+        public string SinceDate { get; set; }
         public string ToDate { get; set; }
 
         public int Type { get; set; } = -1;

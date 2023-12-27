@@ -188,7 +188,7 @@ public class ForumsModel : ModerateForumPage
     /// <summary>
     /// Deletes all the Selected Topics
     /// </summary>
-    public IActionResult OnPostDeleteTopics(int f)
+    public IActionResult OnPostDeleteTopics()
     {
         var list = this.TopicList.Where(x => x.Selected).ToList();
 

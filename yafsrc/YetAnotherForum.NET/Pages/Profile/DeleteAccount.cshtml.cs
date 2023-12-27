@@ -53,7 +53,7 @@ public class DeleteAccountModel : ProfilePage
     /// <summary>
     /// Gets or sets the options.
     /// </summary>
-    public string[] Options { get; set; } = { "suspend", "delete" };
+    public string[] Options { get; set; } = ["suspend", "delete"];
 
     /// <summary>
     /// Gets or sets the option.

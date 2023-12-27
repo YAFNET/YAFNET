@@ -63,6 +63,10 @@ public class MedalsModel : AdminPage
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_MEDALS", "TITLE"), string.Empty);
     }
 
+    /// <summary>
+    /// Delete Medal
+    /// </summary>
+    /// <param name="medalId">The medal identifier.</param>
     public void OnPostDelete(int medalId)
     {
         // delete medal

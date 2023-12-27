@@ -178,7 +178,7 @@ public class PollEditModel : ForumPage
             this.Input.PollExpire = string.Empty;
             this.Input.Question = string.Empty;
 
-            choices = new List<Choice>();
+            choices = [];
 
             // we add dummy rows to data table to fill in repeater empty fields
             var dummyRowsCount = this.PageBoardContext.BoardSettings.AllowedPollChoiceNumber - 1;

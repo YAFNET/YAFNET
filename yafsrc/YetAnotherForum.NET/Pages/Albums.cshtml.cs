@@ -129,7 +129,7 @@ public class AlbumsModel : ForumPage
                 return this.Get<LinkBuilder>().AccessDenied();
             }
 
-            this.Albums = new List<UserAlbum>();
+            this.Albums = [];
         }
 
         var userAlbum = (int)this.GetRepository<User>().MaxAlbumData(

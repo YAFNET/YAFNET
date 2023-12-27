@@ -252,7 +252,7 @@ public class TopicsModel : ForumPage
             10,
             this.PageBoardContext.BoardSettings.UseReadTrackingByDatabase);
 
-        int[] days = { 1, 2, 7, 14, 31, 2 * 31, 6 * 31, 356 };
+        int[] days = [1, 2, 7, 14, 31, 2 * 31, 6 * 31, 356];
 
         this.Topics = this.GetRepository<Topic>().ListPaged(
             this.PageBoardContext.PageForumID,

@@ -136,7 +136,7 @@ public class MailModel : AdminPage
     {
         var groups = this.GetRepository<Group>().List(boardId: this.PageBoardContext.PageBoardID).Where(g => !g.GroupFlags.IsGuest).ToList();
 
-        this.List = new List<SelectListItem>(new SelectList(groups, nameof(Group.ID), nameof(Group.Name)));
+        this.List = [..new SelectList(groups, nameof(Group.ID), nameof(Group.Name))];
 
         this.Input.TestSubject = this.GetText("TEST_SUBJECT");
            this.Input.TestBody = this.GetText("TEST_BODY");

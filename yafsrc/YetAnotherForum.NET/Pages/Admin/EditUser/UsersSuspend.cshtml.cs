@@ -211,11 +211,11 @@ public class UsersSuspendModel : AdminPage
     /// </summary>
     private void BindData(int userId)
     {
-        this.SuspendUnits = new List<SelectListItem> {
-                                                         new(this.GetText("PROFILE", "DAYS"), "1"),
-                                                         new(this.GetText("PROFILE", "HOURS"), "2"),
-                                                         new(this.GetText("PROFILE", "MINUTES"), "3")
-                                                     };
+        this.SuspendUnits = [
+            new(this.GetText("PROFILE", "DAYS"), "1"),
+            new(this.GetText("PROFILE", "HOURS"), "2"),
+            new(this.GetText("PROFILE", "MINUTES"), "3")
+        ];
 
         this.EditUser =
             this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as

@@ -190,24 +190,25 @@ public class SettingsModel : AdminPage
         // population default notification setting options...
         var items = EnumHelper.EnumToDictionary<UserNotificationSetting>();
 
-        this.DefaultNotificationSettings = new List<SelectListItem>();
+        this.DefaultNotificationSettings = [];
 
         items.ForEach(
             x => this.DefaultNotificationSettings.Add(
                 new SelectListItem(HtmlTagHelper.StripHtml(this.GetText("SUBSCRIPTIONS", x.Value)), x.Key.ToString())));
 
-        this.DefaultCollapsiblePanelStates = new List<SelectListItem> {
-                                                                          new(
-                                                                              this.GetText(
-                                                                                  "ADMIN_BOARDSETTINGS",
-                                                                                  "EXPANDED"),
-                                                                              "0"),
-                                                                          new(
-                                                                              this.GetText(
-                                                                                  "ADMIN_BOARDSETTINGS",
-                                                                                  "COLLAPSED"),
-                                                                              "1")
-                                                                      };
+        this.DefaultCollapsiblePanelStates = [
+            new(
+                this.GetText(
+                    "ADMIN_BOARDSETTINGS",
+                    "EXPANDED"),
+                "0"),
+
+            new(
+                this.GetText(
+                    "ADMIN_BOARDSETTINGS",
+                    "COLLAPSED"),
+                "1")
+        ];
 
         this.ForumDefaultAccessMasks = new SelectList(
             this.GetRepository<AccessMask>().GetByBoardId(),

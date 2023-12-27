@@ -134,7 +134,7 @@ public class EditMessageModel : ForumPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public IActionResult OnGet(int m)
+    public IActionResult OnGet()
     {
         this.Input = new InputModel();
 

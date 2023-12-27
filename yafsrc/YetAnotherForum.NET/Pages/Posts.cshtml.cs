@@ -39,7 +39,6 @@ using YAF.Types.Exceptions;
 using YAF.Types.Extensions;
 using YAF.Types.Modals;
 using YAF.Types.Models;
-using YAF.Types.Objects;
 using YAF.Types.Objects.Model;
 
 /// <summary>
@@ -57,11 +56,6 @@ public class PostsModel : ForumPage
 
     [TempData]
     public string TopicSubject { get; set; }
-
-    /// <summary>
-    /// Gets or sets the sub forums.
-    /// </summary>
-    public Tuple<List<SimpleModerator>, List<ForumRead>> SubForums { get; set; }
 
     /// <summary>
     /// Gets or sets the announcements.
@@ -112,8 +106,6 @@ public class PostsModel : ForumPage
                     this.PageBoardContext.PageTopicID);
             }
         }
-
-        //this.BindData();
 
         if (this.PageBoardContext.IsGuest && !this.PageBoardContext.ForumReadAccess)
         {
@@ -346,6 +338,10 @@ public class PostsModel : ForumPage
                       new {t = this.PageBoardContext.PageTopicID});
     }
 
+    /// <summary>
+    /// Share topic on Reddit.
+    /// </summary>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostReddit()
     {
         var topicUrl = this.Get<LinkBuilder>().GetLink(

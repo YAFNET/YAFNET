@@ -255,16 +255,17 @@ public class UsersKillModel : AdminPage
 
         this.EditUser = user.Item1;
 
-        this.SuspendOrDeleteList = new List<SelectListItem> {
-                                                                new(
-                                                                    this.GetText("ADMIN_EDITUSER", "DELETE_ACCOUNT"),
-                                                                    "delete"),
-                                                                new(
-                                                                    this.GetText(
-                                                                        "ADMIN_EDITUSER",
-                                                                        "SUSPEND_ACCOUNT_USER"),
-                                                                    "suspend")
-                                                            };
+        this.SuspendOrDeleteList = [
+            new(
+                this.GetText("ADMIN_EDITUSER", "DELETE_ACCOUNT"),
+                "delete"),
+
+            new(
+                this.GetText(
+                    "ADMIN_EDITUSER",
+                    "SUSPEND_ACCOUNT_USER"),
+                "suspend")
+        ];
     }
 
     /// <summary>

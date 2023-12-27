@@ -41,8 +41,14 @@ using System.Threading.Tasks;
 using YAF.Core.Extensions;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models.Identity;
+
 using Microsoft.Extensions.Configuration;
 
+/// <summary>
+/// Class InstallModel.
+/// Implements the <see cref="YAF.Core.BasePages.InstallPage" />
+/// </summary>
+/// <seealso cref="YAF.Core.BasePages.InstallPage" />
 public class InstallModel : InstallPage
 {
     /// <summary>
@@ -53,14 +59,14 @@ public class InstallModel : InstallPage
     /// </value>
     public IDbAccess DbAccess => this.Get<IDbAccess>();
 
+    /// <summary>
+    /// Called when [get].
+    /// </summary>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnGet()
     {
         // set the connection string provider...
         var previousProvider = this.Get<IDbAccess>().Information.ConnectionString;
-
-        string DynamicConnectionString() => this.Get<IConfiguration>().GetConnectionString("DefaultConnection").IsSet()
-            ? this.Get<IConfiguration>().GetConnectionString("DefaultConnection")
-            : previousProvider();
 
         this.DbAccess.Information.ConnectionString = DynamicConnectionString;
 
@@ -85,8 +91,16 @@ public class InstallModel : InstallPage
                        this.ViewData,
                        new InstallModal())
                };
+
+        string DynamicConnectionString() => this.Get<IConfiguration>().GetConnectionString("DefaultConnection").IsSet()
+            ? this.Get<IConfiguration>().GetConnectionString("DefaultConnection")
+            : previousProvider();
     }
 
+    /// <summary>
+    /// Load the test settings page.
+    /// </summary>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostInstallTestSettings()
     {
         var connectionSuccess = this.InstallService.TestDatabaseConnection(out var message);
@@ -149,6 +163,10 @@ public class InstallModel : InstallPage
                };
     }
 
+    /// <summary>
+    /// Loads the initial db page.
+    /// </summary>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostInstallInitDatabase()
     {
         this.Get<IDataCache>().Set("Install", "InstallInitDatabase");
@@ -161,6 +179,10 @@ public class InstallModel : InstallPage
                                      };
     }
 
+    /// <summary>
+    /// Loads the create forum page.
+    /// </summary>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostInstallCreateForum()
     {
         this.InstallService.InitializeDatabase();
@@ -175,6 +197,17 @@ public class InstallModel : InstallPage
                                      };
     }
 
+    /// <summary>
+    /// Loads the installation finish page.
+    /// </summary>
+    /// <param name="forumName">Name of the forum.</param>
+    /// <param name="cultures">The cultures.</param>
+    /// <param name="forumEmailAddress">The forum email address.</param>
+    /// <param name="forumBaseUrlMask">The forum base URL mask.</param>
+    /// <param name="userName">Name of the user.</param>
+    /// <param name="adminEmail">The admin email.</param>
+    /// <param name="password1">The password1.</param>
+    /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
     public async Task<IActionResult> OnPostInstallFinishedAsync(
         string forumName,
         string cultures,
@@ -182,8 +215,7 @@ public class InstallModel : InstallPage
         string forumBaseUrlMask,
         string userName,
         string adminEmail,
-        string password1,
-        string password2)
+        string password1)
     {
         var result =
             await
@@ -211,6 +243,10 @@ public class InstallModel : InstallPage
                                      };
     }
 
+    /// <summary>
+    /// Go to new Forum.
+    /// </summary>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostComplete()
     {
         this.Get<IDataCache>().Remove("Install");

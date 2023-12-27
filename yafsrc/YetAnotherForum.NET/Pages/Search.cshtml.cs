@@ -32,6 +32,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using YAF.Core.Extensions;
 using YAF.Types.Extensions;
 
+/// <summary>
+/// Class SearchModel.
+/// Implements the <see cref="YAF.Core.BasePages.ForumPage" />
+/// </summary>
+/// <seealso cref="YAF.Core.BasePages.ForumPage" />
 public class SearchModel : ForumPage
 {
     /// <summary>
@@ -76,34 +81,36 @@ public class SearchModel : ForumPage
         var doSearch = false;
 
         // Load result dropdown
-        this.ResultsPerPageList = new List<SelectListItem> {
-                                                               new() {Text = this.GetText("result5"), Value = "5"},
-                                                               new() {Text = this.GetText("result10"), Value = "10"},
-                                                               new() {Text = this.GetText("result25"), Value = "25"},
-                                                               new() {Text = this.GetText("result50"), Value = "50"}
-                                                           };
+        this.ResultsPerPageList = [
+            new() { Text = this.GetText("result5"), Value = "5" },
+            new() { Text = this.GetText("result10"), Value = "10" },
+            new() { Text = this.GetText("result25"), Value = "25" },
+            new() { Text = this.GetText("result50"), Value = "50" }
+        ];
 
         // Load listSearchWhat dropdown
-        this.SearchWhatList = new List<SelectListItem> {
-                                                           new() {
-                                                                     Text = this.GetText("match_exact"),
-                                                                     Value = "2"
-                                                                 },
-                                                           new() {
-                                                                     Text = this.GetText("match_any"),
-                                                                     Value = "1"
-                                                                 },
-                                                           new() {
-                                                                     Text = this.GetText("match_all"),
-                                                                     Value = "0"
-                                                                 }
-                                                       };
+        this.SearchWhatList = [
+            new() {
+                Text = this.GetText("match_exact"),
+                Value = "2"
+            },
+
+            new() {
+                Text = this.GetText("match_any"),
+                Value = "1"
+            },
+
+            new() {
+                Text = this.GetText("match_all"),
+                Value = "0"
+            }
+        ];
 
         // Load TitleOnly dropdown
-        this.TitleOnlyList = new List<SelectListItem> {
-                                                          new() {Text = this.GetText("POST_AND_TITLE"), Value = "0"},
-                                                          new() {Text = this.GetText("TITLE_ONLY"), Value = "1"}
-                                                      };
+        this.TitleOnlyList = [
+            new() { Text = this.GetText("POST_AND_TITLE"), Value = "0" },
+            new() { Text = this.GetText("TITLE_ONLY"), Value = "1" }
+        ];
 
         this.Input.SearchWhat = "2";
 

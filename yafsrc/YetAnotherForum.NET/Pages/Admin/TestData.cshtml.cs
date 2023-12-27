@@ -202,11 +202,11 @@ public class TestDataModel : AdminPage
         // Board lists
         this.BoardList = new SelectList(this.GetRepository<Board>().GetAll(), nameof(Board.ID), nameof(Board.Name));
 
-        this.TopicPriorities = new List<SelectListItem> {
-                                                            new("Normal", "0"),
-                                                            new("Sticky", "1"),
-                                                            new("Announcement", "2")
-                                                        };
+        this.TopicPriorities = [
+            new("Normal", "0"),
+            new("Sticky", "1"),
+            new("Announcement", "2")
+        ];
 
         if (this.Input.ForumsCategory != 0)
         {

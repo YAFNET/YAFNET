@@ -169,7 +169,7 @@ public class PostMessageModel : ForumPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public IActionResult OnGet(int t, int p, int? q = null, string text = null)
+    public IActionResult OnGet(int? q = null, string text = null)
 
     {
         this.Input = new InputModel();

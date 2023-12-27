@@ -199,29 +199,29 @@ public class UsersModel : AdminPage
     {
         var lastVisit = this.Get<ISessionService>().LastVisit;
 
-        this.SinceList = new List<SelectListItem> {
-                                                      // value 0, for since last visit
-                                                      new(
-                                                          this.GetTextFormatted(
-                                                              "last_visit",
-                                                              this.Get<IDateTimeService>().FormatDateTime(
-                                                                  lastVisit.HasValue && lastVisit.Value
-                                                                  != DateTimeHelper.SqlDbMinTime()
-                                                                      ? lastVisit.Value
-                                                                      : DateTime.UtcNow)),
-                                                          "0"),
-                                                      // negative values for hours backward
-                                                      new("Last hour", "-1"),
-                                                      new("Last two hours", "-2"),
-                                                      // positive values for days backward
-                                                      new("Last day", "1"),
-                                                      new("Last two days", "2"),
-                                                      new("Last week", "7"),
-                                                      new("Last two weeks", "14"),
-                                                      new("Last month", "31"),
-                                                      // all time (i.e. no filter)
-                                                      new("All time", "9999")
-                                                  };
+        this.SinceList = [
+            new(
+                this.GetTextFormatted(
+                    "last_visit",
+                    this.Get<IDateTimeService>().FormatDateTime(
+                        lastVisit.HasValue && lastVisit.Value
+                        != DateTimeHelper.SqlDbMinTime()
+                            ? lastVisit.Value
+                            : DateTime.UtcNow)),
+                "0"),
+            // negative values for hours backward
+
+            new("Last hour", "-1"),
+            new("Last two hours", "-2"),
+            // positive values for days backward
+            new("Last day", "1"),
+            new("Last two days", "2"),
+            new("Last week", "7"),
+            new("Last two weeks", "14"),
+            new("Last month", "31"),
+            // all time (i.e. no filter)
+            new("All time", "9999")
+        ];
     }
 
     /// <summary>

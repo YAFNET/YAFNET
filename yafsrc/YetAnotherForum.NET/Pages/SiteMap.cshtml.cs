@@ -38,6 +38,11 @@ using YAF.Core.Context;
 using YAF.Core.Extensions;
 using YAF.Types.Objects;
 
+/// <summary>
+/// Class SiteMapModel.
+/// Implements the <see cref="YAF.Core.BasePages.ForumPage" />
+/// </summary>
+/// <seealso cref="YAF.Core.BasePages.ForumPage" />
 public class SiteMapModel : ForumPage
 {
     /// <summary>

@@ -179,7 +179,7 @@ public class PostTopicModel : ForumPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public IActionResult OnGet(int f)
+    public IActionResult OnGet()
 
     {
         this.Input = new InputModel();

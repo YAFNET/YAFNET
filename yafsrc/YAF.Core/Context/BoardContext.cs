@@ -169,7 +169,7 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
     }
 
     /// <summary>
-    /// Registers the Java Script block.
+    /// Registers the JavaScript block.
     /// </summary>
     /// <param name="block">The block.</param>
     /// <returns>PageResult.</returns>

@@ -77,10 +77,10 @@ public class RegisterModel : AccountPage
     public InputModel Input { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the user is possible spam bot.
+    /// Gets or sets a value indicating whether the user is possible spam-bot.
     /// </summary>
     /// <value>
-    /// <c>true</c> if the user is possible spam bot; otherwise, <c>false</c>.
+    /// <c>true</c> if the user is possible spam-bot; otherwise, <c>false</c>.
     /// </value>
     private bool IsPossibleSpamBot { get; set; }
 
@@ -207,7 +207,7 @@ public class RegisterModel : AccountPage
     {
         var userName = this.Input.UserName.Trim();
 
-        // username cannot contain semi-colon or to be a bad word
+        // username cannot contain semicolon or to be a bad word
         var badWord = this.Get<IBadWordReplace>().ReplaceItems.Any(
             i => userName.Equals(i.BadWord, StringComparison.CurrentCultureIgnoreCase));
 
@@ -347,7 +347,7 @@ public class RegisterModel : AccountPage
     /// </summary>
     private void LoadCustomProfile()
     {
-        this.Input.CustomProfile = this.GetRepository<ProfileDefinition>().GetByBoardId().ToList();
+        this.Input.CustomProfile = [.. this.GetRepository<ProfileDefinition>().GetByBoardId()];
 
         if (this.Input.CustomProfile is null || this.Input.CustomProfile.Count == 0)
         {

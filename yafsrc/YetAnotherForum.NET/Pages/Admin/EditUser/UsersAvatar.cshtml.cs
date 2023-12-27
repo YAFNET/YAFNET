@@ -331,7 +331,7 @@ public class UsersAvatarModel : AdminPage
 
         var fileName = Path.Combine(uploadFolderPath, this.Upload.FileName);
 
-        var pos = fileName.LastIndexOfAny(new[] { '/', '\\' });
+        var pos = fileName.LastIndexOfAny(['/', '\\']);
 
         if (pos >= 0)
         {

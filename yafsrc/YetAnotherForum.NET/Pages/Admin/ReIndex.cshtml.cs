@@ -156,10 +156,10 @@ public class ReIndexModel : AdminPage
 
     private void BindData()
     {
-        this.RecoveryModes = new List<SelectListItem> {
-                                                          new(this.GetText("ADMIN_REINDEX", "RECOVERY1"), "FULL", true),
-                                                          new(this.GetText("ADMIN_REINDEX", "RECOVERY2"), "SIMPLE"),
-                                                          new(this.GetText("ADMIN_REINDEX", "RECOVERY3"), "BULK_LOGGED")
-                                                      };
+        this.RecoveryModes = [
+            new(this.GetText("ADMIN_REINDEX", "RECOVERY1"), "FULL", true),
+            new(this.GetText("ADMIN_REINDEX", "RECOVERY2"), "SIMPLE"),
+            new(this.GetText("ADMIN_REINDEX", "RECOVERY3"), "BULK_LOGGED")
+        ];
     }
 }

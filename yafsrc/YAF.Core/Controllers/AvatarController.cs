@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using Microsoft.AspNetCore.OutputCaching;
+
 namespace YAF.Core.Controllers;
 
 using System;
@@ -49,6 +51,7 @@ public class AvatarController : ForumBaseController
     /// </returns>
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(FileStreamResult))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [OutputCache(Duration = int.MaxValue)]
     [HttpGet("GetTextAvatar")]
     public FileStreamResult GetTextAvatar(int userId)
     {
@@ -64,7 +67,7 @@ public class AvatarController : ForumBaseController
 
             var name = new UnicodeEncoder().XSSEncode(user.DisplayOrUserName());
 
-            if (name.StartsWith("&"))
+            if (name.StartsWith('&'))
             {
                 name = name.Replace("&", string.Empty);
             }

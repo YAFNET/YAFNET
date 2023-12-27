@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using Microsoft.AspNetCore.Identity;
+
 namespace YAF.Pages.Admin.EditUser;
 
 using System.Collections.Generic;
@@ -322,7 +324,7 @@ public class UsersProfileModel : AdminPage
     /// </summary>
     private void LoadCustomProfile()
     {
-        this.Input.CustomProfile = this.GetRepository<ProfileDefinition>().GetByBoardId().ToList();
+        this.Input.CustomProfile = [.. this.GetRepository<ProfileDefinition>().GetByBoardId()];
 
         if (this.Input.CustomProfile is null || this.Input.CustomProfile.Count == 0)
         {
@@ -408,7 +410,7 @@ public class UsersProfileModel : AdminPage
         }
         else
         {
-            this.Regions = new List<SelectListItem>();
+            this.Regions = [];
         }
 
         this.Countries = countries;
@@ -425,13 +427,13 @@ public class UsersProfileModel : AdminPage
     /// </returns>
     private static List<SelectListItem> LookForNewRegionsBind(string country)
     {
-        return StaticDataHelper.Regions(country).ToList();
+        return [.. StaticDataHelper.Regions(country)];
     }
 
     /// <summary>
     /// Update user Profile Info.
     /// </summary>
-    private Task UpdateUserProfileAsync()
+    private Task<IdentityResult> UpdateUserProfileAsync()
     {
         var userProfile = new ProfileInfo {
                                               Country = this.Input.Country,

@@ -239,7 +239,7 @@ public class EditForumModel : AdminPage
     /// </summary>
     private void BindParentList()
     {
-        this.ParentForums = new List<SelectListItem>();
+        this.ParentForums = [];
 
         var forums = this.GetRepository<Forum>().ListAllFromCategory(this.Input.CategoryID);
 

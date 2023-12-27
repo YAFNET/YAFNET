@@ -76,7 +76,7 @@ public class RegisterUserModel : AdminPage
     /// </summary>
     public async Task<IActionResult> OnPostForumRegisterAsync()
     {
-        if (!ModelState.IsValid)
+        if (!this.ModelState.IsValid)
         {
             return this.Page();
         }

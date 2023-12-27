@@ -316,92 +316,101 @@ public class HostSettingsModel : AdminPage
         this.ShowTeamToList = dropDownLists;
         this.ShowShareTopicToList = dropDownLists;
 
-        this.SpamServiceTypeList = new List<SelectListItem> {
-                                                                new(this.GetText("ADMIN_COMMON", "DISABLED"), "0"),
-                                                                new(
-                                                                    this.GetText(
-                                                                        "ADMIN_HOSTSETTINGS",
-                                                                        "SPAM_SERVICE_TYP_3"),
-                                                                    "3")
-                                                            };
+        this.SpamServiceTypeList = [
+            new(this.GetText("ADMIN_COMMON", "DISABLED"), "0"),
+            new(
+                this.GetText(
+                    "ADMIN_HOSTSETTINGS",
+                    "SPAM_SERVICE_TYP_3"),
+                "3")
+        ];
 
-        this.BotSpamServiceTypeList = new List<SelectListItem> {
-                                                                   new(this.GetText("ADMIN_COMMON", "DISABLED"), "0"),
-                                                                   new(
-                                                                       this.GetText(
-                                                                           "ADMIN_HOSTSETTINGS",
-                                                                           "BOT_CHECK_1"),
-                                                                       "1"),
-                                                                   new(
-                                                                       this.GetText(
-                                                                           "ADMIN_HOSTSETTINGS",
-                                                                           "BOT_CHECK_2"),
-                                                                       "2"),
-                                                                   new(
-                                                                       this.GetText(
-                                                                           "ADMIN_HOSTSETTINGS",
-                                                                           "BOT_CHECK_4"),
-                                                                       "4")
-                                                               };
+        this.BotSpamServiceTypeList = [
+            new(this.GetText("ADMIN_COMMON", "DISABLED"), "0"),
+            new(
+                this.GetText(
+                    "ADMIN_HOSTSETTINGS",
+                    "BOT_CHECK_1"),
+                "1"),
 
-        this.SpamMessageHandlingList = new List<SelectListItem> {
-                                                                    new(
-                                                                        this.GetText(
-                                                                            "ADMIN_HOSTSETTINGS",
-                                                                            "SPAM_MESSAGE_0"),
-                                                                        "0"),
-                                                                    new(
-                                                                        this.GetText(
-                                                                            "ADMIN_HOSTSETTINGS",
-                                                                            "SPAM_MESSAGE_1"),
-                                                                        "1"),
-                                                                    new(
-                                                                        this.GetText(
-                                                                            "ADMIN_HOSTSETTINGS",
-                                                                            "SPAM_MESSAGE_2"),
-                                                                        "2"),
-                                                                    new(
-                                                                        this.GetText(
-                                                                            "ADMIN_HOSTSETTINGS",
-                                                                            "SPAM_MESSAGE_3"),
-                                                                        "3")
-                                                                };
+            new(
+                this.GetText(
+                    "ADMIN_HOSTSETTINGS",
+                    "BOT_CHECK_2"),
+                "2"),
 
-        this.BotHandlingOnRegisterList = new List<SelectListItem> {
-                                                                      new(
-                                                                          this.GetText(
-                                                                              "ADMIN_HOSTSETTINGS",
-                                                                              "BOT_MESSAGE_0"),
-                                                                          "0"),
-                                                                      new(
-                                                                          this.GetText(
-                                                                              "ADMIN_HOSTSETTINGS",
-                                                                              "BOT_MESSAGE_1"),
-                                                                          "1"),
-                                                                      new(
-                                                                          this.GetText(
-                                                                              "ADMIN_HOSTSETTINGS",
-                                                                              "BOT_MESSAGE_2"),
-                                                                          "2")
-                                                                  };
+            new(
+                this.GetText(
+                    "ADMIN_HOSTSETTINGS",
+                    "BOT_CHECK_4"),
+                "4")
+        ];
 
-        this.SendWelcomeNotificationAfterRegisterList = new List<SelectListItem> {
-                                                            new(
-                                                                this.GetText(
-                                                                    "ADMIN_HOSTSETTINGS",
-                                                                    "WELCOME_NOTIFICATION_0"),
-                                                                "0"),
-                                                            new(
-                                                                this.GetText(
-                                                                    "ADMIN_HOSTSETTINGS",
-                                                                    "WELCOME_NOTIFICATION_1"),
-                                                                "1"),
-                                                            new(
-                                                                this.GetText(
-                                                                    "ADMIN_HOSTSETTINGS",
-                                                                    "WELCOME_NOTIFICATION_2"),
-                                                                "2")
-                                                        };
+        this.SpamMessageHandlingList = [
+            new(
+                this.GetText(
+                    "ADMIN_HOSTSETTINGS",
+                    "SPAM_MESSAGE_0"),
+                "0"),
+
+            new(
+                this.GetText(
+                    "ADMIN_HOSTSETTINGS",
+                    "SPAM_MESSAGE_1"),
+                "1"),
+
+            new(
+                this.GetText(
+                    "ADMIN_HOSTSETTINGS",
+                    "SPAM_MESSAGE_2"),
+                "2"),
+
+            new(
+                this.GetText(
+                    "ADMIN_HOSTSETTINGS",
+                    "SPAM_MESSAGE_3"),
+                "3")
+        ];
+
+        this.BotHandlingOnRegisterList = [
+            new(
+                this.GetText(
+                    "ADMIN_HOSTSETTINGS",
+                    "BOT_MESSAGE_0"),
+                "0"),
+
+            new(
+                this.GetText(
+                    "ADMIN_HOSTSETTINGS",
+                    "BOT_MESSAGE_1"),
+                "1"),
+
+            new(
+                this.GetText(
+                    "ADMIN_HOSTSETTINGS",
+                    "BOT_MESSAGE_2"),
+                "2")
+        ];
+
+        this.SendWelcomeNotificationAfterRegisterList = [
+            new(
+                this.GetText(
+                    "ADMIN_HOSTSETTINGS",
+                    "WELCOME_NOTIFICATION_0"),
+                "0"),
+
+            new(
+                this.GetText(
+                    "ADMIN_HOSTSETTINGS",
+                    "WELCOME_NOTIFICATION_1"),
+                "1"),
+
+            new(
+                this.GetText(
+                    "ADMIN_HOSTSETTINGS",
+                    "WELCOME_NOTIFICATION_2"),
+                "2")
+        ];
     }
 
     /// <summary>
@@ -501,7 +510,7 @@ public class HostSettingsModel : AdminPage
         this.Input.AppMemory =
             $"{SystemInfo.AllocatedMemory.ToType<long>() / 1000000} MB of {SystemInfo.MappedMemory.ToType<long>() / 1000000} MB";
         this.Input.AppOsName = SystemInfo.VersionString;
-        this.Input.AppRuntime = $".NET {Environment.Version.ToString()}";
+        this.Input.AppRuntime = $".NET {Environment.Version}";
     }
 
     /// <summary>

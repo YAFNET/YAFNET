@@ -30,7 +30,6 @@ using System.Threading.Tasks;
 using System.Web;
 
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Logging;
 
 using YAF.Core.Extensions;
 using YAF.Core.Services;
@@ -48,10 +47,7 @@ public class ForgotPasswordModel : AccountPage
     /// <summary>
     /// Initializes a new instance of the <see cref="ForgotPasswordModel"/> class.
     /// </summary>
-    /// <param name="logger">
-    /// The logger.
-    /// </param>
-    public ForgotPasswordModel(ILogger<ForgotPasswordModel> logger)
+    public ForgotPasswordModel()
         : base("RECOVER_PASSWORD", ForumPages.Account_ForgotPassword)
     {
     }
@@ -91,7 +87,7 @@ public class ForgotPasswordModel : AccountPage
     /// </returns>
     public async Task<IActionResult> OnPostAsync()
     {
-        var user = this.Input.UserName.Contains("@")
+        var user = this.Input.UserName.Contains('@')
                        ? await this.Get<IAspNetUsersHelper>().GetUserByEmailAsync(this.Input.UserName)
                        : await this.Get<IAspNetUsersHelper>().GetUserByNameAsync(this.Input.UserName);
 

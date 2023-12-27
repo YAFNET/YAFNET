@@ -134,22 +134,22 @@ public class BoardAnnouncementModel : AdminPage
         var boardSettings = this.PageBoardContext.BoardSettings;
 
         // add items to the dropdown
-        this.UntilUnits = new List<SelectListItem> {
-                                                       new() {Value = "3", Text = this.GetText("PROFILE", "MONTH")},
-                                                       new() {Value = "1", Text = this.GetText("PROFILE", "DAYS")},
-                                                       new() {Value = "2", Text = this.GetText("PROFILE", "HOURS")}
-                                                   };
+        this.UntilUnits = [
+            new SelectListItem { Value = "3", Text = this.GetText("PROFILE", "MONTH") },
+            new SelectListItem { Value = "1", Text = this.GetText("PROFILE", "DAYS") },
+            new SelectListItem { Value = "2", Text = this.GetText("PROFILE", "HOURS") }
+        ];
 
-        this.Types = new List<SelectListItem> {
-                                                  new() {Value = "primary", Text = "primary"},
-                                                  new() {Value = "secondary", Text = "secondary"},
-                                                  new() {Value = "success", Text = "success"},
-                                                  new() {Value = "danger", Text = "danger"},
-                                                  new() {Value = "warning", Text = "warning"},
-                                                  new() {Value = "info", Text = "info"},
-                                                  new() {Value = "light", Text = "light"},
-                                                  new() {Value = "dark", Text = "dark"}
-                                              };
+        this.Types = [
+            new SelectListItem { Value = "primary", Text = "primary" },
+            new SelectListItem { Value = "secondary", Text = "secondary" },
+            new SelectListItem { Value = "success", Text = "success" },
+            new SelectListItem { Value = "danger", Text = "danger" },
+            new SelectListItem { Value = "warning", Text = "warning" },
+            new SelectListItem { Value = "info", Text = "info" },
+            new SelectListItem { Value = "light", Text = "light" },
+            new SelectListItem { Value = "dark", Text = "dark" }
+        ];
 
         // select hours
         this.Input.BoardAnnouncementUntilUnit = 1;

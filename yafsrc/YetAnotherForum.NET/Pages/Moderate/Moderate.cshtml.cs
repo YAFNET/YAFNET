@@ -117,6 +117,6 @@ public class ModerateModel : ModerateForumPage
         this.Forums = this.GetRepository<Forum>()
             .ModerateList(this.PageBoardContext.PageUserID, this.PageBoardContext.PageBoardID);
 
-        this.Categories = this.GetRepository<Category>().GetByBoardId().OrderBy(c => c.SortOrder).ToList();
+        this.Categories = [.. this.GetRepository<Category>().GetByBoardId().OrderBy(c => c.SortOrder)];
     }
 }

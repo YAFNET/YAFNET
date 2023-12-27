@@ -215,7 +215,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
                 return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
             }
 
-            this.Images = new List<UserAlbumImage>();
+            this.Images = [];
         }
         else
         {
@@ -289,7 +289,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
                 return false;
             }
 
-            if (item.ContentType.ToLower().Contains("text"))
+            if (item.ContentType.Contains("text", StringComparison.CurrentCultureIgnoreCase))
             {
                 return false;
             }
@@ -298,7 +298,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
 
             // remove the "period"
             extension = extension.Replace(".", string.Empty);
-            string[] imageExtensions = { "jpg", "gif", "png", "bmp" };
+            string[] imageExtensions = ["jpg", "gif", "png", "bmp"];
 
             // If we don't get a match from the db, then the extension is not allowed
             // also, check to see an image is being uploaded.
@@ -359,7 +359,7 @@ public class EditAlbumImagesModel : ForumPageRegistered
 
             var filename = file.FileName;
 
-            var pos = filename.LastIndexOfAny(new[] { '/', '\\' });
+            var pos = filename.LastIndexOfAny(['/', '\\']);
             if (pos >= 0)
             {
                 filename = filename[(pos + 1)..];

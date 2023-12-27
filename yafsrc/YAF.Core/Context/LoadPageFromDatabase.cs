@@ -98,8 +98,8 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
             Tuple<PageLoad, User, Category, Forum, Topic, Message> pageRow;
 
             var forumPage = BoardContext.Current.CurrentForumPage != null
-                                ? BoardContext.Current.CurrentForumPage.PageName.ToString()
-                                : string.Empty;
+                ? BoardContext.Current.CurrentForumPage.PageName.ToString()
+                : string.Empty;
 
             var location = context.Request.Query.GetFirstOrDefaultAs<string>("u");
 
@@ -165,8 +165,7 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
 
                 // fail...
                 break;
-            }
-            while (pageRow == null && userKey != null);
+            } while (pageRow == null && userKey != null);
 
             // add all loaded page data into our data dictionary...
             @event.PageLoadData = pageRow ?? throw new ArgumentException("Unable to find the Guest User!");
@@ -194,24 +193,25 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
         }
 
 #if !DEBUG
-            catch (Exception x)
+        catch (Exception x)
+        {
+            // log the exception...
+            this.Logger.Error(
+                x,
+                $"Failure Initializing User/Page (URL: {this.Get<IHttpContextAccessor>().HttpContext.Request.Path}).");
+
+            // log the user out...
+            // FormsAuthentication.SignOut();
+            if (BoardContext.Current.CurrentForumPage is null ||
+                BoardContext.Current.CurrentForumPage.PageName == ForumPages.Info)
             {
-                // log the exception...
-                this.Logger.Error(
-                    x,
-                    $"Failure Initializing User/Page (URL: {this.Get<IHttpContextAccessor>().HttpContext.Request.Path}).");
+                // totally failing... just re-throw the exception...
+                throw;
+            }
 
-                // log the user out...
-                // FormsAuthentication.SignOut();
-                if (BoardContext.Current.CurrentForumPage is null ||
-                    BoardContext.Current.CurrentForumPage.PageName == ForumPages.Info)
-                {
-                    // totally failing... just re-throw the exception...
-                    throw;
-                }
-
-                // show a failure notice since something is probably up with membership...
-                this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Failure);
+            // show a failure notice since something is probably up with membership...
+            this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.Failure);
+        }
 #else
         catch (Exception)
         {

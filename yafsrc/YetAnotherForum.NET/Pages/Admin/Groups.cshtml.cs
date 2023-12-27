@@ -47,6 +47,7 @@ public class GroupsModel : AdminPage
 
     [BindProperty]
     public StringCollection RoleListNet { get; set; }
+
     /// <summary>
     /// Initializes a new instance of the <see cref="GroupsModel"/> class.
     /// </summary>
@@ -69,7 +70,7 @@ public class GroupsModel : AdminPage
     /// <summary>
     ///   Temporary storage of un-linked provider roles.
     /// </summary>
-    private readonly StringCollection availableRoles = new();
+    private readonly StringCollection availableRoles = [];
 
     /// <summary>
     /// Format string color.

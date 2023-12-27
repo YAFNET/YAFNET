@@ -58,7 +58,7 @@ public static class PrivateMessageRepositoryExtensions
             .Select<PrivateMessage>(p => p);
 
         // Mark all to messages as read
-        await BoardContext.Current.GetRepository<PrivateMessage>().DbAccess.ExecuteAsync(
+        await repository.DbAccess.ExecuteAsync(
             db =>
                 {
                     var updateExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
@@ -71,7 +71,7 @@ public static class PrivateMessageRepositoryExtensions
             db => db.SelectAsync<PrivateMessage>(
                 $"{expression.ToMergedParamsSelectStatement()} UNION ALL {expression2.ToMergedParamsSelectStatement()}"));
 
-        return list.OrderBy(x => x.ID).ToList();
+        return [.. list.OrderBy(x => x.ID)];
     }
 
     /// <summary>
@@ -86,7 +86,7 @@ public static class PrivateMessageRepositoryExtensions
         int toUserId)
     {
         // Delete From UserId
-        await BoardContext.Current.GetRepository<PrivateMessage>().DbAccess.ExecuteAsync(
+        await repository.DbAccess.ExecuteAsync(
             db =>
                 {
                     var updateExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
@@ -95,11 +95,11 @@ public static class PrivateMessageRepositoryExtensions
                         $" update {updateExpression.Table<PrivateMessage>()} set Flags = Flags | 2 where FromUserId = {userId} and ToUserId = {toUserId}");
                 });
 
-        await BoardContext.Current.GetRepository<PrivateMessage>().DeleteAsync(
+        await repository.DeleteAsync(
             x => x.FromUserId == userId && x.ToUserId == toUserId && (x.Flags & 4) == 4 && (x.Flags & 2) == 2);
 
         // Delete to UserId
-        await BoardContext.Current.GetRepository<PrivateMessage>().DbAccess.ExecuteAsync(
+        await repository.DbAccess.ExecuteAsync(
             db =>
                 {
                     var updateExpression = OrmLiteConfig.DialectProvider.SqlExpression<PrivateMessage>();
@@ -108,7 +108,7 @@ public static class PrivateMessageRepositoryExtensions
                         $" update {updateExpression.Table<PrivateMessage>()} set Flags = Flags | 4 where ToUserId = {userId} and FromUserId = {toUserId}");
                 });
 
-        await BoardContext.Current.GetRepository<PrivateMessage>().DeleteAsync(
+        await repository.DeleteAsync(
             x => x.ToUserId == userId && x.FromUserId == toUserId && (x.Flags & 4) == 4 && (x.Flags & 2) == 2);
     }
 
@@ -151,7 +151,7 @@ public static class PrivateMessageRepositoryExtensions
                                   $"{expression.ToMergedParamsSelectStatement()} UNION ALL {expression2.ToMergedParamsSelectStatement()}");
                           });
 
-        return list.DistinctBy(x => x.ID).OrderBy(x => x.Name).ToList();
+        return [.. list.DistinctBy(x => x.ID).OrderBy(x => x.Name)];
     }
 
     /// <summary>
@@ -181,7 +181,7 @@ public static class PrivateMessageRepositoryExtensions
     }
 
     /// <summary>
-    /// Delete all Private Messages (Chats) older then x days
+    /// Delete all Private Messages (Chats) older than x days
     /// </summary>
     /// <param name="repository">
     /// The repository.

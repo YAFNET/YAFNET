@@ -58,7 +58,7 @@ public class ReportPostModel : ForumPage
     /// <summary>
     /// Report Message.
     /// </summary>
-    public async Task<IActionResult> OnPostReportAsync(int? m = null)
+    public async Task<IActionResult> OnPostReportAsync()
     {
         if (this.Report.Length > this.PageBoardContext.BoardSettings.MaxReportPostChars)
         {
