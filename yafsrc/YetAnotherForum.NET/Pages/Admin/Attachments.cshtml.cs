@@ -46,6 +46,10 @@ public class AttachmentsModel : AdminPage
     [BindProperty]
     public List<Tuple<User, Attachment>> List { get; set; }
 
+    /// <summary>
+    /// Gets or sets the count.
+    /// </summary>
+    /// <value>The count.</value>
     [BindProperty]
     public int Count { get; set; }
 

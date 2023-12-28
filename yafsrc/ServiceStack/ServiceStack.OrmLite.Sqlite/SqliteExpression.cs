@@ -8,7 +8,6 @@
 namespace ServiceStack.OrmLite.Sqlite;
 
 using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 
 /// <summary>
@@ -36,7 +35,7 @@ public class SqliteExpression<T> : SqlExpression<T>
     override protected object VisitColumnAccessMethod(MethodCallExpression m)
     {
         var args = this.VisitExpressionList(m.Arguments);
-        var quotedColName = Visit(m.Object);
+        var quotedColName = this.Visit(m.Object);
 
         if (!IsSqlClass(quotedColName))
         {
@@ -55,11 +54,15 @@ public class SqliteExpression<T> : SqlExpression<T>
                     statement = $"substr({quotedColName}, {startIndex}, {length})";
                 }
                 else
+                {
                     statement = $"substr({quotedColName}, {startIndex})";
+                }
+
                 break;
             default:
                 return base.VisitColumnAccessMethod(m);
         }
+
         return new PartialSqlString(statement);
     }
 
@@ -76,30 +79,33 @@ public class SqliteExpression<T> : SqlExpression<T>
 
         string statement;
 
-        if (m.Method.Name == nameof(string.ToString) && m.Object?.Type == typeof(DateTime))
+        switch (m.Method.Name)
         {
-            var arg = args.Count > 0 ? args[0] : null;
-            if (arg == null) statement = ToCast(quotedColName.ToString());
-            else statement = $"strftime('{arg}',{quotedColName})";
-            return new PartialSqlString(statement);
-        }
-
-        if (m.Method.Name == nameof(string.Substring))
-        {
-            var startIndex = int.Parse(args[0].ToString()) + 1;
-            if (args.Count == 2)
+            case nameof(string.ToString) when m.Object?.Type == typeof(DateTime):
             {
-                var length = int.Parse(args[1].ToString());
-                statement = $"substr({quotedColName}, {startIndex}, {length})";
+                var arg = args.Count > 0 ? args[0] : null;
+                statement = arg == null ? this.ToCast(quotedColName.ToString()) : $"strftime('{arg}',{quotedColName})";
+
+                return new PartialSqlString(statement);
             }
-            else
-                statement = $"substr({quotedColName}, {startIndex})";
+            case nameof(string.Substring):
+            {
+                var startIndex = int.Parse(args[0].ToString()) + 1;
+                if (args.Count == 2)
+                {
+                    var length = int.Parse(args[1].ToString());
+                    statement = $"substr({quotedColName}, {startIndex}, {length})";
+                }
+                else
+                {
+                    statement = $"substr({quotedColName}, {startIndex})";
+                }
 
-            return new PartialSqlString(statement);
+                return new PartialSqlString(statement);
+            }
+            default:
+                return base.VisitSqlMethodCall(m);
         }
-
-
-        return base.VisitSqlMethodCall(m);
     }
 
     /// <summary>

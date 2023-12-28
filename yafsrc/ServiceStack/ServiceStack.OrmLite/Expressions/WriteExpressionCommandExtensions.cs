@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 namespace ServiceStack.OrmLite;
 
 using System;
@@ -635,6 +636,29 @@ static internal class WriteExpressionCommandExtensions
     }
 
     /// <summary>
+    /// Upserts the specified model.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="dbCmd">The database command.</param>
+    /// <param name="model">The model.</param>
+    /// <param name="q">The q.</param>
+    /// <param name="commandFilter">The command filter.</param>
+    /// <returns>System.Int32.</returns>
+    static internal int Upsert<T>(this IDbCommand dbCmd,
+        T model,
+        SqlExpression<T> q,
+        Action<IDbCommand> commandFilter = null)
+    {
+        OrmLiteUtils.AssertNotAnonType<T>();
+
+        OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, model);
+
+        var cmd = dbCmd.InitUpsert(model, q);
+        commandFilter?.Invoke(cmd);
+        return cmd.ExecNonQuery();
+    }
+
+    /// <summary>
     /// Inserts the only.
     /// </summary>
     /// <typeparam name="T">The Model</typeparam>
@@ -647,6 +671,25 @@ static internal class WriteExpressionCommandExtensions
         dbCmd.InitInsertOnly(insertFields);
 
         return selectIdentity ? dbCmd.ExecLongScalar(dbCmd.CommandText + dbCmd.GetDialectProvider().GetLastInsertIdSqlSuffix<T>()) : dbCmd.ExecuteNonQuery();
+    }
+
+    /// <summary>
+    /// Initializes the upsert.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="dbCmd">The database command.</param>
+    /// <param name="model">The model.</param>
+    /// <param name="q">The q.</param>
+    /// <returns>IDbCommand.</returns>
+    static internal IDbCommand InitUpsert<T>(this IDbCommand dbCmd, T model, SqlExpression<T> q)
+    {
+        OrmLiteUtils.AssertNotAnonType<T>();
+
+        q.CopyParamsTo(dbCmd);
+
+        dbCmd.GetDialectProvider().PrepareUpsertRowStatement(dbCmd, model, q.WhereExpression);
+
+        return dbCmd;
     }
 
     /// <summary>

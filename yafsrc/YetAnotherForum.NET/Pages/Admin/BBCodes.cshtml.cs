@@ -43,6 +43,10 @@ using YAF.Types.Models;
 /// </summary>
 public class BBCodesModel : AdminPage
 {
+    /// <summary>
+    /// Gets or sets the list.
+    /// </summary>
+    /// <value>The list.</value>
     [BindProperty]
     public List<BBCode> List { get; set; }
 
@@ -116,13 +120,13 @@ public class BBCodesModel : AdminPage
                     new XElement("ModuleClass", bbCode.ModuleClass),
                     new XElement("ExecOrder", bbCode.ExecOrder)));
 
-            const string FileName = "BBCodeExport.xml";
+            const string fileName = "BBCodeExport.xml";
 
             var writer = new System.Xml.Serialization.XmlSerializer(element.GetType());
             var stream = new MemoryStream();
             writer.Serialize(stream, element);
 
-            return this.File(stream.ToArray(), "application/xml", FileName);
+            return this.File(stream.ToArray(), "application/xml", fileName);
         }
 
         this.BindData();
@@ -130,6 +134,10 @@ public class BBCodesModel : AdminPage
         return this.PageBoardContext.Notify(this.GetText("ADMIN_BBCODE", "MSG_NOTHING_SELECTED"), MessageTypes.warning);
     }
 
+    /// <summary>
+    /// Delete entry.
+    /// </summary>
+    /// <param name="b">The b.</param>
     public void OnPostDelete(int b)
     {
         this.GetRepository<BBCode>().DeleteById(b);
@@ -144,6 +152,10 @@ public class BBCodesModel : AdminPage
         this.BindData();
     }
 
+    /// <summary>
+    /// Opens the import dialog.
+    /// </summary>
+    /// <returns>PartialViewResult.</returns>
     public PartialViewResult OnGetImport()
     {
         return new PartialViewResult

@@ -45,8 +45,16 @@ public class BoardAnnouncementModel : AdminPage
     [BindProperty]
     public InputModel Input { get; set; }
 
+    /// <summary>
+    /// Gets or sets the until units.
+    /// </summary>
+    /// <value>The until units.</value>
     public List<SelectListItem> UntilUnits { get; set; }
 
+    /// <summary>
+    /// Gets or sets the types.
+    /// </summary>
+    /// <value>The types.</value>
     public List<SelectListItem> Types { get; set; }
 
     /// <summary>

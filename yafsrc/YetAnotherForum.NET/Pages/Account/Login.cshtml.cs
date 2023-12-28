@@ -80,6 +80,10 @@ public class LoginModel : AccountPage
     [TempData]
     public bool ShowNotApproved { get; set; }
 
+    /// <summary>
+    /// Gets or sets the email.
+    /// </summary>
+    /// <value>The email.</value>
     [TempData]
     public string Email { get; set; }
 

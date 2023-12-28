@@ -41,9 +41,17 @@ using YAF.Types.Models;
 /// </summary>
 public class BannedEmailsModel : AdminPage
 {
+    /// <summary>
+    /// Gets or sets the list.
+    /// </summary>
+    /// <value>The list.</value>
     [BindProperty]
     public List<BannedEmail> List { get; set; }
 
+    /// <summary>
+    /// Gets or sets the search input.
+    /// </summary>
+    /// <value>The search input.</value>
     [BindProperty]
     public string SearchInput { get; set; }
 
@@ -77,6 +85,11 @@ public class BannedEmailsModel : AdminPage
         this.BindData();
     }
 
+    /// <summary>
+    /// Delete Item.
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostDelete(int id)
     {
         this.GetRepository<BannedEmail>().DeleteById(id);
@@ -90,6 +103,10 @@ public class BannedEmailsModel : AdminPage
             MessageTypes.success);
     }
 
+    /// <summary>
+    /// Opens the import dialog.
+    /// </summary>
+    /// <returns>PartialViewResult.</returns>
     public PartialViewResult OnGetImport()
     {
         return new PartialViewResult {
@@ -100,6 +117,10 @@ public class BannedEmailsModel : AdminPage
                                      };
     }
 
+    /// <summary>
+    /// Opens the add new Entry dialog.
+    /// </summary>
+    /// <returns>PartialViewResult.</returns>
     public PartialViewResult OnGetAdd()
     {
         return new PartialViewResult {
@@ -110,6 +131,11 @@ public class BannedEmailsModel : AdminPage
                                      };
     }
 
+    /// <summary>
+    /// Opens the edit dialog.
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <returns>PartialViewResult.</returns>
     public PartialViewResult OnGetEdit(int id)
     {
         // Edit
@@ -159,7 +185,7 @@ public class BannedEmailsModel : AdminPage
     {
         var bannedEmails = this.GetRepository<BannedEmail>().GetByBoardId();
 
-        const string FileName = "BannedEmailsExport.txt";
+        const string fileName = "BannedEmailsExport.txt";
 
         var stream = new MemoryStream();
         var streamWriter = new StreamWriter(stream);
@@ -173,7 +199,7 @@ public class BannedEmailsModel : AdminPage
 
         streamWriter.Close();
 
-        return this.File(stream.ToArray(), "application/vnd.text", FileName);
+        return this.File(stream.ToArray(), "application/vnd.text", fileName);
     }
 
     /// <summary>

@@ -106,6 +106,13 @@ public class AdminModel : AdminPage
         this.PageBoardContext.PageLinks.AddAdminIndex();
     }
 
+    /// <summary>
+    /// Resend user approve email.
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <param name="p">The p.</param>
+    /// <param name="p2">The p2.</param>
+    /// <returns>A Task&lt;IActionResult&gt; representing the asynchronous operation.</returns>
     public async Task<IActionResult> OnPostResendEmailAsync(int id, int p, int p2)
     {
         var unApprovedUsers = this.GetRepository<User>().GetUnApprovedUsers(this.PageBoardContext.PageBoardID);
@@ -147,6 +154,13 @@ public class AdminModel : AdminPage
         return this.Page();
     }
 
+    /// <summary>
+    /// Delete unapproved user
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <param name="p">The p.</param>
+    /// <param name="p2">The p2.</param>
+    /// <returns>A Task representing the asynchronous operation.</returns>
     public async Task OnPostDeleteAsync(int id, int p, int p2)
     {
         await this.Get<IAspNetUsersHelper>().DeleteUserAsync(id);
@@ -154,6 +168,13 @@ public class AdminModel : AdminPage
         this.BindData(p, p2);
     }
 
+    /// <summary>
+    /// Approve user.
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <param name="p">The p.</param>
+    /// <param name="p2">The p2.</param>
+    /// <returns>A Task representing the asynchronous operation.</returns>
     public async Task OnPostApproveAsync(int id, int p, int p2)
     {
         await this.Get<IAspNetUsersHelper>().ApproveUserAsync(id);
@@ -161,6 +182,12 @@ public class AdminModel : AdminPage
         this.BindData(p, p2);
     }
 
+    /// <summary>
+    /// Delete all unapproved user(s).
+    /// </summary>
+    /// <param name="p">The p.</param>
+    /// <param name="p2">The p2.</param>
+    /// <returns>A Task representing the asynchronous operation.</returns>
     public async Task OnPostDeleteAllAsync(int p, int p2)
     {
         var daysValueAll = this.Input.DaysOld;
@@ -170,6 +197,12 @@ public class AdminModel : AdminPage
         this.BindData(p, p2);
     }
 
+    /// <summary>
+    /// Approve all unapproved user(s).
+    /// </summary>
+    /// <param name="p">The p.</param>
+    /// <param name="p2">The p2.</param>
+    /// <returns>A Task representing the asynchronous operation.</returns>
     public async Task OnPostApproveAllAsync(int p, int p2)
     {
         await this.Get<IAspNetUsersHelper>().ApproveAllAsync();
@@ -185,6 +218,11 @@ public class AdminModel : AdminPage
         this.BindData(p, p2);
     }
 
+    /// <summary>
+    /// Called when [post].
+    /// </summary>
+    /// <param name="p">The p.</param>
+    /// <param name="p2">The p2.</param>
     public void OnPost(int p, int p2)
     {
         this.BindData(p, p2);

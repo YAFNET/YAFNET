@@ -53,6 +53,10 @@ public class AuthorizeModel : AccountPage
     /// </summary>
     public override bool IsProtected => false;
 
+    /// <summary>
+    /// Gets or sets the validation code.
+    /// </summary>
+    /// <value>The validation code.</value>
     [Required]
     [BindProperty]
     public string ValidationCode { get; set; }

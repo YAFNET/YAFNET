@@ -79,8 +79,16 @@ public class PagedEventLog
     /// </summary>
     public string UserStyle { get; set; }
 
+    /// <summary>
+    /// Gets or sets the flags.
+    /// </summary>
+    /// <value>The flags.</value>
     public int Flags { get; set; }
 
+    /// <summary>
+    /// Gets the user flags.
+    /// </summary>
+    /// <value>The user flags.</value>
     public UserFlags UserFlags {
         get => new(this.Flags);
     }

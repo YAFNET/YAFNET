@@ -7,100 +7,157 @@
 
 using System;
 using System.Threading.Tasks;
+
 using ServiceStack.Text;
 
 namespace ServiceStack.OrmLite;
 
+/// <summary>
+/// Class SavePoint.
+/// </summary>
 public class SavePoint
 {
+    /// <summary>
+    /// Gets the transaction.
+    /// </summary>
+    /// <value>The transaction.</value>
     private OrmLiteTransaction Transaction { get; }
+
+    /// <summary>
+    /// Gets the dialect provider.
+    /// </summary>
+    /// <value>The dialect provider.</value>
     private IOrmLiteDialectProvider DialectProvider { get; }
+
+    /// <summary>
+    /// Gets the name.
+    /// </summary>
+    /// <value>The name.</value>
     public string Name { get; }
+
+    /// <summary>
+    /// The did release
+    /// </summary>
     private bool didRelease;
+
+    /// <summary>
+    /// The did rollback
+    /// </summary>
     private bool didRollback;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="SavePoint"/> class.
+    /// </summary>
+    /// <param name="transaction">The transaction.</param>
+    /// <param name="name">The name.</param>
     public SavePoint(OrmLiteTransaction transaction, string name)
     {
-        Transaction = transaction;
-        Name = name;
-        DialectProvider = Transaction.Db.GetDialectProvider();
+        this.Transaction = transaction;
+        this.Name = name;
+        this.DialectProvider = this.Transaction.Db.GetDialectProvider();
     }
 
+    /// <summary>
+    /// Verifies the state of the valid.
+    /// </summary>
+    /// <exception cref="System.InvalidOperationException">SAVEPOINT {Name} already RELEASED</exception>
+    /// <exception cref="System.InvalidOperationException">SAVEPOINT {Name} already ROLLBACKED</exception>
     void VerifyValidState()
     {
-        if (didRelease)
-            throw new InvalidOperationException($"SAVEPOINT {Name} already RELEASED");
-        if (didRollback)
-            throw new InvalidOperationException($"SAVEPOINT {Name} already ROLLBACKED");
+        if (this.didRelease)
+            throw new InvalidOperationException($"SAVEPOINT {this.Name} already RELEASED");
+        if (this.didRollback)
+            throw new InvalidOperationException($"SAVEPOINT {this.Name} already ROLLBACKED");
     }
 
+    /// <summary>
+    /// Saves this instance.
+    /// </summary>
     public void Save()
     {
-        VerifyValidState();
+        this.VerifyValidState();
 
-        var sql = DialectProvider.ToCreateSavePoint(Name);
+        var sql = this.DialectProvider.ToCreateSavePoint(this.Name);
         if (!string.IsNullOrEmpty(sql))
         {
-            Transaction.Db.ExecuteSql(sql);
+            this.Transaction.Db.ExecuteSql(sql);
         }
     }
 
+    /// <summary>
+    /// Save as an asynchronous operation.
+    /// </summary>
+    /// <returns>A Task representing the asynchronous operation.</returns>
     public async Task SaveAsync()
     {
-        VerifyValidState();
+        this.VerifyValidState();
 
-        var sql = DialectProvider.ToCreateSavePoint(Name);
+        var sql = this.DialectProvider.ToCreateSavePoint(this.Name);
         if (!string.IsNullOrEmpty(sql))
         {
-            await Transaction.Db.ExecuteSqlAsync(sql).ConfigAwait();
+            await this.Transaction.Db.ExecuteSqlAsync(sql).ConfigAwait();
         }
     }
-        
+
+    /// <summary>
+    /// Releases this instance.
+    /// </summary>
     public void Release()
     {
-        VerifyValidState();
-        didRelease = true;
-        
-        var sql = DialectProvider.ToReleaseSavePoint(Name);
+        this.VerifyValidState();
+        this.didRelease = true;
+
+        var sql = this.DialectProvider.ToReleaseSavePoint(this.Name);
         if (!string.IsNullOrEmpty(sql))
         {
-            Transaction.Db.ExecuteSql(sql);
+            this.Transaction.Db.ExecuteSql(sql);
         }
     }
-        
+
+    /// <summary>
+    /// Release as an asynchronous operation.
+    /// </summary>
+    /// <returns>A Task representing the asynchronous operation.</returns>
     public async Task ReleaseAsync()
     {
-        VerifyValidState();
-        didRelease = true;
-        
-        var sql = DialectProvider.ToReleaseSavePoint(Name);
+        this.VerifyValidState();
+        this.didRelease = true;
+
+        var sql = this.DialectProvider.ToReleaseSavePoint(this.Name);
         if (!string.IsNullOrEmpty(sql))
         {
-            await Transaction.Db.ExecuteSqlAsync(sql).ConfigAwait();
+            await this.Transaction.Db.ExecuteSqlAsync(sql).ConfigAwait();
         }
     }
 
+    /// <summary>
+    /// Rollbacks this instance.
+    /// </summary>
     public void Rollback()
     {
-        VerifyValidState();
-        didRollback = true;
+        this.VerifyValidState();
+        this.didRollback = true;
 
-        var sql = DialectProvider.ToRollbackSavePoint(Name);
+        var sql = this.DialectProvider.ToRollbackSavePoint(this.Name);
         if (!string.IsNullOrEmpty(sql))
         {
-            Transaction.Db.ExecuteSql(sql);
+            this.Transaction.Db.ExecuteSql(sql);
         }
     }
 
+    /// <summary>
+    /// Rollback as an asynchronous operation.
+    /// </summary>
+    /// <returns>A Task representing the asynchronous operation.</returns>
     public async Task RollbackAsync()
     {
-        VerifyValidState();
-        didRollback = true;
+        this.VerifyValidState();
+        this.didRollback = true;
 
-        var sql = DialectProvider.ToRollbackSavePoint(Name);
+        var sql = this.DialectProvider.ToRollbackSavePoint(this.Name);
         if (!string.IsNullOrEmpty(sql))
         {
-            await Transaction.Db.ExecuteSqlAsync(sql).ConfigAwait();
+            await this.Transaction.Db.ExecuteSqlAsync(sql).ConfigAwait();
         }
     }
 }

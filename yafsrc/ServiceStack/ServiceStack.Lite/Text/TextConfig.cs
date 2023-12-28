@@ -10,7 +10,14 @@ using System.Security.Cryptography;
 
 namespace ServiceStack.Text;
 
+/// <summary>
+/// Class TextConfig.
+/// </summary>
 public class TextConfig
 {
+    /// <summary>
+    /// Gets or sets the create sha.
+    /// </summary>
+    /// <value>The create sha.</value>
     public static Func<SHA1> CreateSha { get; set; } = SHA1.Create;
 }

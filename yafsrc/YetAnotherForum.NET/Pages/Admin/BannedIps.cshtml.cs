@@ -42,9 +42,17 @@ using YAF.Types.Models;
 /// </summary>
 public class BannedIpsModel : AdminPage
 {
+    /// <summary>
+    /// Gets or sets the list.
+    /// </summary>
+    /// <value>The list.</value>
     [BindProperty]
     public List<BannedIP> List { get; set; }
 
+    /// <summary>
+    /// Gets or sets the search input.
+    /// </summary>
+    /// <value>The search input.</value>
     [BindProperty]
     public string SearchInput { get; set; }
 
@@ -108,7 +116,7 @@ public class BannedIpsModel : AdminPage
     {
         var bannedIps = this.GetRepository<BannedIP>().GetByBoardId();
 
-        const string FileName = "BannedIpsExport.txt";
+        const string fileName = "BannedIpsExport.txt";
 
         var stream = new MemoryStream();
         var streamWriter = new StreamWriter(stream);
@@ -122,9 +130,14 @@ public class BannedIpsModel : AdminPage
 
         streamWriter.Close();
 
-        return this.File(stream.ToArray(), "application/vnd.text", FileName);
+        return this.File(stream.ToArray(), "application/vnd.text", fileName);
     }
 
+    /// <summary>
+    /// Delete Item.
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostDelete(int id)
     {
         var ipAddress = this.GetIpFromId(id);
@@ -147,6 +160,10 @@ public class BannedIpsModel : AdminPage
         return this.PageBoardContext.Notify(this.GetTextFormatted("MSG_REMOVEBAN_IP", ipAddress), MessageTypes.success);
     }
 
+    /// <summary>
+    /// Opens the import dialog.
+    /// </summary>
+    /// <returns>PartialViewResult.</returns>
     public PartialViewResult OnGetImport()
     {
         return new PartialViewResult
@@ -158,6 +175,10 @@ public class BannedIpsModel : AdminPage
                };
     }
 
+    /// <summary>
+    /// Opens the add new Entry dialog.
+    /// </summary>
+    /// <returns>PartialViewResult.</returns>
     public PartialViewResult OnGetAdd()
     {
         return new PartialViewResult {
@@ -168,6 +189,11 @@ public class BannedIpsModel : AdminPage
                                      };
     }
 
+    /// <summary>
+    /// Opens the edit dialog.
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <returns>PartialViewResult.</returns>
     public PartialViewResult OnGetEdit(int id)
     {
         // Edit

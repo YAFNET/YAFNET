@@ -1076,26 +1076,24 @@ public static class OrmLiteWriteCommandExtensions
 
             return InsertInternal<T>(dialectProvider, dbCmd, obj, commandFilter, selectIdentity);
         }
-        else
+
+        try
         {
-            try
+            dialectProvider.EnableIdentityInsert<T>(dbCmd);
+            dialectProvider.PrepareParameterizedInsertStatement<T>(dbCmd,
+                insertFields: dialectProvider.GetNonDefaultValueInsertFields<T>(obj),
+                shouldInclude: f => f == pkField);
+            InsertInternal<T>(dialectProvider, dbCmd, obj, commandFilter, selectIdentity);
+            if (selectIdentity)
             {
-                dialectProvider.EnableIdentityInsert<T>(dbCmd);
-                dialectProvider.PrepareParameterizedInsertStatement<T>(dbCmd,
-                    insertFields: dialectProvider.GetNonDefaultValueInsertFields<T>(obj),
-                    shouldInclude: f => f == pkField);
-                InsertInternal<T>(dialectProvider, dbCmd, obj, commandFilter, selectIdentity);
-                if (selectIdentity)
-                {
-                    var id = pkField.GetValue(obj);
-                    return Convert.ToInt64(id);
-                }
-                return default;
+                var id = pkField.GetValue(obj);
+                return Convert.ToInt64(id);
             }
-            finally
-            {
-                dialectProvider.DisableIdentityInsert<T>(dbCmd);
-            }
+            return default;
+        }
+        finally
+        {
+            dialectProvider.DisableIdentityInsert<T>(dbCmd);
         }
     }
 

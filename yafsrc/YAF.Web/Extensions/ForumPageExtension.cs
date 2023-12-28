@@ -31,6 +31,11 @@ using YAF.Core.BasePages;
 /// </summary>
 public static class ForumPageExtensions
 {
+    /// <summary>
+    /// Generates the page title.
+    /// </summary>
+    /// <param name="page">The page.</param>
+    /// <returns>string.</returns>
     public static string GeneratePageTitle(this ForumPage page)
     {
         var title = new StringBuilder();

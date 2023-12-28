@@ -51,11 +51,6 @@ public class ChoicesTagHelper : TagHelper
     private ICollection<string> _currentValues;
 
     /// <summary>
-    /// The metadata provider
-    /// </summary>
-    private IModelMetadataProvider _metadataProvider;
-
-    /// <summary>
     /// The identifier attribute dot replacement
     /// </summary>
     private const string IdAttributeDotReplacement = "_";
@@ -68,7 +63,6 @@ public class ChoicesTagHelper : TagHelper
     public ChoicesTagHelper(IHtmlGenerator generator, IModelMetadataProvider metadataProvider)
     {
         this.Generator = generator;
-        this._metadataProvider = metadataProvider;
     }
 
     /// <inheritdoc />
@@ -121,10 +115,7 @@ public class ChoicesTagHelper : TagHelper
     /// <inheritdoc />
     public override void Init(TagHelperContext context)
     {
-        if (context is null)
-        {
-            throw new ArgumentNullException(nameof(context));
-        }
+        ArgumentNullException.ThrowIfNull(context);
 
         if (this.For is null)
         {
@@ -141,7 +132,7 @@ public class ChoicesTagHelper : TagHelper
                               typeof(IEnumerable).IsAssignableFrom(realModelType);
         this._currentValues = this.Generator.GetCurrentValues(this.ViewContext, this.For.ModelExplorer, this.For.Name, this._allowMultiple);
 
-        // Whether or not (not being highly unlikely) we generate anything, could update contained <option/>
+        // Whether (not being highly unlikely) we generate anything, could update contained <option/>
         // elements. Provide selected values for <option/> tag helpers.
         var currentValues = this._currentValues is null ? null : new CurrentValues(this._currentValues);
         context.Items[typeof(ChoicesTagHelper)] = currentValues;
@@ -151,15 +142,9 @@ public class ChoicesTagHelper : TagHelper
     /// <remarks>Does nothing if <see cref="For"/> is <c>null</c>.</remarks>
     public override void Process(TagHelperContext context, TagHelperOutput output)
     {
-        if (context is null)
-        {
-            throw new ArgumentNullException(nameof(context));
-        }
+        ArgumentNullException.ThrowIfNull(context);
 
-        if (output is null)
-        {
-            throw new ArgumentNullException(nameof(output));
-        }
+        ArgumentNullException.ThrowIfNull(output);
 
         // Pass through attribute that is also a well-known HTML attribute. Must be done prior to any copying
         // from a TagBuilder.
@@ -231,10 +216,7 @@ public class ChoicesTagHelper : TagHelper
         bool allowMultiple,
         object htmlAttributes)
     {
-        if (viewContext is null)
-        {
-            throw new ArgumentNullException(nameof(viewContext));
-        }
+        ArgumentNullException.ThrowIfNull(viewContext);
 
         var currentValues = this.Generator.GetCurrentValues(viewContext, modelExplorer, expression, allowMultiple);
         return this.GenerateSelect(
@@ -272,10 +254,7 @@ public class ChoicesTagHelper : TagHelper
         bool allowMultiple,
         object htmlAttributes)
     {
-        if (viewContext is null)
-        {
-            throw new ArgumentNullException(nameof(viewContext));
-        }
+        ArgumentNullException.ThrowIfNull(viewContext);
 
         var fullName = NameAndIdProvider.GetFullHtmlFieldName(viewContext, expression);
         var htmlAttributeDictionary = GetHtmlAttributeDictionaryOrNull(htmlAttributes);
@@ -557,10 +536,7 @@ public class ChoicesTagHelper : TagHelper
         ViewContext viewContext,
         string expression)
     {
-        if (viewContext is null)
-        {
-            throw new ArgumentNullException(nameof(viewContext));
-        }
+        ArgumentNullException.ThrowIfNull(viewContext);
 
         // Method is called only if user did not pass a select list in. They must provide select list items in the
         // ViewData dictionary and definitely not as the Model. (Even if the Model datatype were correct, a

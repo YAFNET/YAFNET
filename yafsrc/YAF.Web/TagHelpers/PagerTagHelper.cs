@@ -65,6 +65,10 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
     /// <value>The page context.</value>
     public BoardContext PageContext => BoardContext.Current;
 
+    /// <summary>
+    /// Gets or sets the view context.
+    /// </summary>
+    /// <value>The view context.</value>
     [ViewContext]
     public ViewContext ViewContext { get; set; }
 

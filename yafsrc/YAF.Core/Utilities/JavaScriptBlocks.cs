@@ -1624,6 +1624,11 @@ public static class JavaScriptBlocks
                  """;
     }
 
+    /// <summary>
+    /// Persians the date time picker js.
+    /// </summary>
+    /// <param name="inputId">The input identifier.</param>
+    /// <returns>string.</returns>
     public static string PersianDateTimePickerJs(string inputId)
     {
         return $$"""

@@ -297,6 +297,22 @@ public static class IRepositoryExtensions
     }
 
     /// <summary>
+    /// Update/Insert the specified entity.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="repository">The repository.</param>
+    /// <param name="entity">The entity.</param>
+    /// <param name="where">The where.</param>
+    public static void Upsert<T>(
+        this IRepository<T> repository,
+        T entity,
+        Expression<Func<T, bool>> where)
+        where T : class, IEntity
+    {
+        repository.DbAccess.Upsert(entity, where);
+    }
+
+    /// <summary>
     /// The update.
     /// </summary>
     /// <param name="repository">
@@ -400,16 +416,14 @@ public static class IRepositoryExtensions
     /// <param name="repository">The repository.</param>
     /// <param name="updateFields">The update fields.</param>
     /// <param name="where">The where.</param>
-    /// <param name="commandFilter">The command filter.</param>
     /// <returns></returns>
     public static int UpdateOnly<T>(
         this IRepository<T> repository,
         Expression<Func<T>> updateFields,
-        Expression<Func<T, bool>> where = null,
-        Action<IDbCommand> commandFilter = null)
+        Expression<Func<T, bool>> where = null)
         where T : class, IEntity, new()
     {
-        return repository.DbAccess.UpdateOnly(updateFields, where, commandFilter);
+        return repository.DbAccess.UpdateOnly(updateFields, where);
     }
 
     /// <summary>

@@ -3281,6 +3281,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         return CachedExpressionCompiler.Evaluate(m);
     }
 
+    /// <summary>
+    /// Determines whether [is table column] [the specified m].
+    /// </summary>
+    /// <param name="m">The m.</param>
+    /// <returns>bool.</returns>
     protected bool IsTableColumn(MemberExpression m)
     {
         var modelType = m.Expression?.Type;

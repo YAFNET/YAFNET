@@ -29,7 +29,6 @@ using ServiceStack.Text;
 /// <seealso cref="ServiceStack.OrmLite.OrmLiteDialectProviderBase{TDialect}" />
 public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProviderBase<TDialect> where TDialect : IOrmLiteDialectProvider
 {
-
     /// <summary>
     /// The text column definition
     /// </summary>
@@ -1315,7 +1314,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
                     columnNames.ForEach(
                         n =>
                             {
-                                results.Append(",");
+                                results.Append(',');
                                 results.Append(n);
                             });
 
@@ -1323,7 +1322,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
 
                     while (reader.Read())
                     {
-                        results.Append($@"""{rowIndex++}""");
+                        results.Append($"{rowIndex++}");
 
                         // dump all columns...
                         columnNames.ForEach(

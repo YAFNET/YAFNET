@@ -39,6 +39,10 @@ using YAF.Types.Models;
 /// </summary>
 public class BoardsModel : AdminPage
 {
+    /// <summary>
+    /// Gets or sets the list.
+    /// </summary>
+    /// <value>The list.</value>
     [BindProperty]
     public List<Board> List { get; set; }
 
@@ -67,6 +71,11 @@ public class BoardsModel : AdminPage
         return !this.PageBoardContext.PageUser.UserFlags.IsHostAdmin ? this.Get<LinkBuilder>().AccessDenied() : this.BindData();
     }
 
+    /// <summary>
+    /// Delete the board.
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostDelete(int id)
     {
         this.GetRepository<Board>().DeleteBoard(id);

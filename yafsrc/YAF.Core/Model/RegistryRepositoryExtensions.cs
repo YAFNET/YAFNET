@@ -67,7 +67,7 @@ public static class RegistryRepositoryExtensions
     }
 
     /// <summary>
-    /// Increment the the Denied User Registration Count.
+    /// Increment the Denied User Registration Count.
     /// </summary>
     /// <param name="repository">
     /// The repository.
@@ -148,44 +148,20 @@ public static class RegistryRepositoryExtensions
 
         if (boardId.HasValue)
         {
-            var registry = repository.GetSingle(
+            repository.Upsert(
+                new Registry {
+                    BoardID = boardId.Value, Name = settingName.ToLower(), Value = settingValue.ToString()
+                },
                 r => r.Name.ToLower() == settingName.ToLower() && r.BoardID == boardId.Value);
-
-            if (registry != null)
-            {
-                registry.Value = settingValue.ToString();
-
-                repository.Update(registry);
-            }
-            else
-            {
-                repository.Insert(
-                    new Registry
-                        {
-                            BoardID = boardId.Value, Name = settingName.ToLower(), Value = settingValue.ToString()
-                        });
-            }
         }
         else
         {
-            var registry = repository.GetSingle(
+            repository.Upsert(
+                new Registry
+                {
+                    BoardID = null, Name = settingName.ToLower(), Value = settingValue.ToString()
+                },
                 r => r.Name.ToLower() == settingName.ToLower() && r.BoardID == null);
-
-            if (registry != null)
-            {
-                registry.Value = settingValue.ToString();
-
-                repository.Update(registry);
-            }
-            else
-            {
-                repository.Insert(
-                    new Registry
-                        {
-                            Name = settingName.ToLower(),
-                            Value = settingValue.ToString()
-                        });
-            }
         }
 
         repository.FireUpdated();
