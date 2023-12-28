@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Model;
 
 using System;
@@ -45,8 +46,6 @@ public static class RegistryRepositoryExtensions
     /// </param>
     public static void UpdateMaxStats(this IRepository<Registry> repository, int boardId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var count = repository.DbAccess.Execute(
             db =>
                 {
@@ -76,8 +75,6 @@ public static class RegistryRepositoryExtensions
     /// </param>
     public static void IncrementDeniedRegistrations(this IRepository<Registry> repository)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         BoardContext.Current.BoardSettings.DeniedRegistrations++;
 
         repository.Save(
@@ -94,8 +91,6 @@ public static class RegistryRepositoryExtensions
     /// </param>
     public static void IncrementBannedUsers(this IRepository<Registry> repository)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         BoardContext.Current.BoardSettings.BannedUsers++;
 
         repository.Save(
@@ -112,8 +107,6 @@ public static class RegistryRepositoryExtensions
     /// </param>
     public static void IncrementReportedSpammers(this IRepository<Registry> repository)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         BoardContext.Current.BoardSettings.ReportedSpammers++;
 
         repository.Save(
@@ -136,8 +129,6 @@ public static class RegistryRepositoryExtensions
     /// </returns>
     public static List<Registry> List(this IRepository<Registry> repository, int? boardId = null)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.Get(r => r.BoardID == boardId);
     }
 
@@ -154,69 +145,27 @@ public static class RegistryRepositoryExtensions
         object settingValue,
         int? boardId = null)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         settingValue ??= string.Empty;
 
         if (boardId.HasValue)
         {
-            var registry = repository.GetSingle(
+            repository.Upsert(
+                new Registry {
+                    BoardID = boardId.Value, Name = settingName.ToLower(), Value = settingValue.ToString()
+                },
                 r => r.Name.ToLower() == settingName.ToLower() && r.BoardID == boardId.Value);
-
-            if (registry != null)
-            {
-                registry.Value = settingValue.ToString();
-
-                repository.Update(registry);
-            }
-            else
-            {
-                repository.Insert(
-                    new Registry
-                        {
-                            BoardID = boardId.Value, Name = settingName.ToLower(), Value = settingValue.ToString()
-                        });
-            }
         }
         else
         {
-            var registry = repository.GetSingle(
+            repository.Upsert(
+                new Registry
+                {
+                    BoardID = null, Name = settingName.ToLower(), Value = settingValue.ToString()
+                },
                 r => r.Name.ToLower() == settingName.ToLower() && r.BoardID == null);
-
-            if (registry != null)
-            {
-                registry.Value = settingValue.ToString();
-
-                repository.Update(registry);
-            }
-            else
-            {
-                repository.Insert(
-                    new Registry
-                        {
-                            Name = settingName.ToLower(),
-                            Value = settingValue.ToString()
-                        });
-            }
         }
 
         repository.FireUpdated();
-    }
-
-    /// <summary>
-    /// Gets the Current DB Version Name
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <returns>
-    /// Returns the Current DB Version Name
-    /// </returns>
-    public static string GetDbVersionName(this IRepository<Registry> repository)
-    {
-        CodeContracts.VerifyNotNull(repository);
-
-        return repository.GetSingle(r => r.Name.ToLower() == "versionname").Value;
     }
 
     /// <summary>
@@ -230,8 +179,6 @@ public static class RegistryRepositoryExtensions
     /// </returns>
     public static int GetDbVersion(this IRepository<Registry> repository)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         int version;
 
         try
@@ -268,8 +215,6 @@ public static class RegistryRepositoryExtensions
         this IRepository<Registry> repository,
         int appVersion)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         try
         {
             var registryVersion = repository.GetCurrentVersion();
@@ -309,8 +254,6 @@ public static class RegistryRepositoryExtensions
     /// </param>
     public static void DeleteLegacy(this IRepository<Registry> repository)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         repository.Delete(x => x.Name == "smtpserver");
         repository.Delete(x => x.Name == "avatarremote");
         repository.Delete(x => x.Name == "enablethanksmod");

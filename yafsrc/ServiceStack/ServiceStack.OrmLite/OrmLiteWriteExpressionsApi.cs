@@ -348,6 +348,23 @@ public static class OrmLiteWriteExpressionsApi
     }
 
     /// <summary>
+    /// Update/Insert the specified model.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="dbConn">The database connection.</param>
+    /// <param name="model">The model.</param>
+    /// <param name="where">The where.</param>
+    /// <param name="commandFilter">The command filter.</param>
+    public static int Upsert<T>(this IDbConnection dbConn,
+        T model,
+        Expression<Func<T, bool>> where = null,
+        Action<IDbCommand> commandFilter = null)
+    {
+        return dbConn.Exec(dbCmd =>
+            dbCmd.Upsert(model, dbCmd.GetDialectProvider().SqlExpression<T>().Where(where), commandFilter));
+    }
+
+    /// <summary>
     /// Delete the rows that matches the where expression, e.g:
     /// db.Delete&lt;Person&gt;(p =&gt; p.Age == 27);
     /// DELETE FROM "Person" WHERE ("Age" = 27)

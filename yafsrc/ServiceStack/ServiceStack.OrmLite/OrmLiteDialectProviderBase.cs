@@ -2183,6 +2183,99 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     }
 
     /// <summary>
+    /// Prepares the upsert row statement.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="dbCmd">The database command.</param>
+    /// <param name="model">The model.</param>
+    /// <param name="sqlFilter">The SQL filter.</param>
+    /// <exception cref="Exception">$"No valid update properties provided (e.g. () => new Person {{ Age = 27 }}): {dbCmd.CommandText}</exception>
+    public virtual void PrepareUpsertRowStatement<T>(
+        IDbCommand dbCmd,
+        T model,
+        string sqlFilter)
+    {
+        var sql = StringBuilderCache.Allocate();
+        var modelDef = typeof(T).GetModelDefinition();
+
+        var sbColumnNames = StringBuilderCache.Allocate();
+        var sbColumnValues = StringBuilderCacheAlt.Allocate();
+
+
+        foreach (var fieldDef in modelDef.FieldDefinitions)
+        {
+            if (fieldDef.ShouldSkipUpdate() || fieldDef.IsPrimaryKey || fieldDef.AutoIncrement)
+            {
+                continue;
+            }
+
+            var value = fieldDef.GetValue(model);
+
+            try
+            {
+                // Set column name
+                if (sbColumnNames.Length > 0)
+                {
+                    sbColumnNames.Append(',');
+                }
+
+                sbColumnNames.Append(this.GetQuotedColumnName(fieldDef.FieldName));
+
+
+                if (sql.Length > 0)
+                {
+                    sql.Append(", ");
+                }
+
+                sql.Append(this.GetQuotedColumnName(fieldDef.FieldName));
+
+                sql.Append('=');
+
+                // set column values
+                var updateValue = this.GetUpdateParam(dbCmd, value, fieldDef);
+
+                sql.Append(updateValue);
+
+                if (sbColumnValues.Length > 0)
+                {
+                    sbColumnValues.Append(',');
+                }
+
+                sbColumnValues.Append(updateValue);
+            }
+            catch (Exception ex)
+            {
+                OrmLiteUtils.HandleException(ex, "ERROR in PrepareUpdateRowStatement(cmd,args): " + ex.Message);
+            }
+        }
+
+        var upsertSql = StringBuilderCache.Allocate();
+
+        upsertSql.Append($" UPDATE {this.GetQuotedTableName(modelDef)} ");
+        upsertSql.Append(
+            $" SET {StringBuilderCache.ReturnAndFree(sql)}{(string.IsNullOrEmpty(sqlFilter) ? string.Empty : " ")}{sqlFilter};");
+
+        upsertSql.Append(
+            $" INSERT INTO {this.GetQuotedTableName(modelDef)}({StringBuilderCache.ReturnAndFree(sbColumnNames)}) ");
+        upsertSql.Append($" SELECT {StringBuilderCacheAlt.ReturnAndFree(sbColumnValues)}");
+
+        upsertSql.Append(" WHERE NOT EXISTS (");
+
+        upsertSql.Append(
+            $"SELECT 1 FROM {this.GetQuotedTableName(modelDef)} {(string.IsNullOrEmpty(sqlFilter) ? string.Empty : " ")}{sqlFilter}");
+
+        upsertSql.Append(");");
+
+        dbCmd.CommandText = StringBuilderCache.ReturnAndFree(upsertSql);
+
+        if (upsertSql.Length == 0)
+        {
+            throw new Exception(
+                $"No valid update properties provided (e.g. () => new Person {{ Age = 27 }}): {dbCmd.CommandText}");
+        }
+    }
+
+    /// <summary>
     /// Converts to deletestatement.
     /// </summary>
     /// <param name="tableType">Type of the table.</param>

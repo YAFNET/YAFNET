@@ -83,15 +83,13 @@ public class ForumController : ApiController, IHaveServiceLocator
                         {
                             id = 0,
                             text = BoardContext.Current.Get<ILocalization>().GetText("ALL_CATEGORIES"),
-                            children = new List<SelectOptions>
-                                           {
-                                               new ()
-                                                   {
-                                                       id = "0",
-                                                       text = BoardContext.Current.Get<ILocalization>()
-                                                           .GetText("ALL_FORUMS")
-                                                   }
-                                           }
+                            children = [
+                                new SelectOptions {
+                                    id = "0",
+                                    text = BoardContext.Current.Get<ILocalization>()
+                                        .GetText("ALL_FORUMS")
+                                }
+                            ]
                         });
             }
 
@@ -127,15 +125,13 @@ public class ForumController : ApiController, IHaveServiceLocator
                 new SelectGroup
                     {
                         text = BoardContext.Current.Get<ILocalization>().GetText("ALL_CATEGORIES"),
-                        children = new List<SelectOptions>
-                                       {
-                                           new ()
-                                               {
-                                                   id = "0",
-                                                   text = BoardContext.Current.Get<ILocalization>()
-                                                       .GetText("ALL_FORUMS")
-                                               }
-                                       }
+                        children = [
+                            new SelectOptions {
+                                id = "0",
+                                text = BoardContext.Current.Get<ILocalization>()
+                                    .GetText("ALL_FORUMS")
+                            }
+                        ]
                     });
         }
         else

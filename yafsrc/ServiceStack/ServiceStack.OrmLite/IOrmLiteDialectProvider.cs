@@ -558,6 +558,15 @@ public interface IOrmLiteDialectProvider
     void PrepareUpdateRowStatement<T>(IDbCommand dbCmd, Dictionary<string, object> args, string sqlFilter);
 
     /// <summary>
+    /// Prepares the upsert row statement.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="dbCmd">The database command.</param>
+    /// <param name="model">The model.</param>
+    /// <param name="sqlFilter">The SQL filter.</param>
+    void PrepareUpsertRowStatement<T>(IDbCommand dbCmd, T model, string sqlFilter);
+
+    /// <summary>
     /// Prepares the update row add statement.
     /// </summary>
     /// <typeparam name="T"></typeparam>

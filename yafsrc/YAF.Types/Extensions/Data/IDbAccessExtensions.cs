@@ -93,6 +93,20 @@ public static class IDbAccessExtensions
     }
 
     /// <summary>
+    /// Update/Insert entity.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="dbAccess">The database access.</param>
+    /// <param name="entity">The entity.</param>
+    /// <param name="where">The where.</param>
+    public static void Upsert<T>(this IDbAccess dbAccess, T entity,
+        Expression<Func<T, bool>> where)
+        where T : IEntity
+    {
+        dbAccess.Execute(db => db.Connection.Upsert(entity, where));
+    }
+
+    /// <summary>
     /// Runs the update command.
     /// </summary>
     /// <typeparam name="T">
@@ -157,20 +171,18 @@ public static class IDbAccessExtensions
     /// <param name="dbAccess">The database access.</param>
     /// <param name="updateFields">The update fields.</param>
     /// <param name="where">The where.</param>
-    /// <param name="commandFilter">The command filter.</param>
     /// <returns></returns>
     public static int UpdateOnly<T>(
         this IDbAccess dbAccess,
         Expression<Func<T>> updateFields,
-        Expression<Func<T, bool>> where = null,
-        Action<IDbCommand> commandFilter = null)
+        Expression<Func<T, bool>> where = null)
         where T : class, IEntity, new()
     {
         return dbAccess.Execute(
             db => db.Connection.UpdateOnlyFields(
                 updateFields,
                 where, //OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where),
-                commandFilter));
+                null));
     }
 
     /// <summary>

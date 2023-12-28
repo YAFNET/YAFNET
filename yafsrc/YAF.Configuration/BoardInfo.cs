@@ -109,7 +109,7 @@ public static class BoardInfo
     }
 
     /// <summary>
-    /// Helper function that creates the URL to the Content  themes folder.
+    /// Helper function that creates the URL to the Content themes folder.
     /// </summary>
     /// <param name="resourceName">Name of the resource.</param>
     /// <returns>
