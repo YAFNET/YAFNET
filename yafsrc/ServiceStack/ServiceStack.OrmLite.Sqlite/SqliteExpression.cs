@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 namespace ServiceStack.OrmLite.Sqlite;
 
 using System;
@@ -34,10 +35,14 @@ public class SqliteExpression<T> : SqlExpression<T>
     /// <returns>object.</returns>
     override protected object VisitColumnAccessMethod(MethodCallExpression m)
     {
-        List<object> args = this.VisitExpressionList(m.Arguments);
+        var args = this.VisitExpressionList(m.Arguments);
         var quotedColName = Visit(m.Object);
+
         if (!IsSqlClass(quotedColName))
-            quotedColName = ConvertToParam(quotedColName);
+        {
+            quotedColName = this.ConvertToParam(quotedColName);
+        }
+
         string statement;
 
         switch (m.Method.Name)
@@ -93,7 +98,8 @@ public class SqliteExpression<T> : SqlExpression<T>
             return new PartialSqlString(statement);
         }
 
-        return base.VisitColumnAccessMethod(m);
+
+        return base.VisitSqlMethodCall(m);
     }
 
     /// <summary>
