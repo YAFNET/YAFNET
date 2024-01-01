@@ -51,8 +51,8 @@ public sealed class JsConfigScope : Config, IDisposable
     {
         PclExport.Instance.BeginThreadAffinity();
 
-#if NET7_0_OR_GREATER        
-            parent = head.Value;
+#if NET7_0_OR_GREATER
+        this.parent = head.Value;
             head.Value = this;
 #else
         parent = head;
@@ -76,11 +76,11 @@ public sealed class JsConfigScope : Config, IDisposable
     /// </summary>
     public void Dispose()
     {
-        if (!disposed)
+        if (!this.disposed)
         {
-            disposed = true;
+            this.disposed = true;
 #if NET7_0_OR_GREATER        
-                head.Value = parent;
+                head.Value = this.parent;
 #else
             head = parent;
 #endif
@@ -114,9 +114,13 @@ public class Config
     /// </summary>
     /// <returns>Config.</returns>
     /// <exception cref="System.NotSupportedException">JsConfig can't be mutated after JsConfig.Init(). Use BeginScope() or CreateScope() to use custom config after Init().</exception>
-    public static Config AssertNotInit() => HasInit
-                                                ? throw new NotSupportedException("JsConfig can't be mutated after JsConfig.Init(). Use BeginScope() or CreateScope() to use custom config after Init().")
-                                                : Instance;
+    public static Config AssertNotInit()
+    {
+        return HasInit
+            ? throw new NotSupportedException(
+                "JsConfig can't be mutated after JsConfig.Init(). Use BeginScope() or CreateScope() to use custom config after Init().")
+            : Instance;
+    }
 
     /// <summary>
     /// The initialize stack trace
@@ -126,7 +130,11 @@ public class Config
     /// <summary>
     /// Initializes this instance.
     /// </summary>
-    public static void Init() => Init(null);
+    public static void Init()
+    {
+        Init(null);
+    }
+
     /// <summary>
     /// Initializes the specified configuration.
     /// </summary>
@@ -135,10 +143,14 @@ public class Config
     public static void Init(Config config)
     {
         if (HasInit && Env.StrictMode)
+        {
             throw new NotSupportedException($"JsConfig has already been initialized at: {InitStackTrace}");
+        }
 
         if (config != null)
+        {
             instance = config;
+        }
 
         HasInit = true;
         InitStackTrace = Environment.StackTrace;
@@ -158,7 +170,7 @@ public class Config
     /// </summary>
     public Config()
     {
-        Populate(Instance);
+        this.Populate(Instance);
     }
 
     /// <summary>
@@ -168,7 +180,9 @@ public class Config
     private Config(Config config)
     {
         if (config != null) // Defaults=null, instance=Defaults
-            Populate(config);
+        {
+            this.Populate(config);
+        }
     }
 
     /// <summary>
@@ -253,13 +267,13 @@ public class Config
     /// <value>The type attribute.</value>
     public string TypeAttr
     {
-        get => typeAttr;
+        get => this.typeAttr;
         set
         {
-            typeAttrSpan = null;
-            jsonTypeAttrInObject = null;
-            jsvTypeAttrInObject = null;
-            typeAttr = value;
+            this.typeAttrSpan = null;
+            this.jsonTypeAttrInObject = null;
+            this.jsvTypeAttrInObject = null;
+            this.typeAttr = value;
         }
     }
 
@@ -271,7 +285,7 @@ public class Config
     /// Gets the type attribute memory.
     /// </summary>
     /// <value>The type attribute memory.</value>
-    public ReadOnlyMemory<char> TypeAttrMemory => typeAttrSpan ??= TypeAttr.AsMemory();
+    public ReadOnlyMemory<char> TypeAttrMemory => this.typeAttrSpan ??= this.TypeAttr.AsMemory();
     /// <summary>
     /// Gets or sets the date time format.
     /// </summary>
@@ -285,7 +299,7 @@ public class Config
     /// Gets the json type attribute in object.
     /// </summary>
     /// <value>The json type attribute in object.</value>
-    internal string JsonTypeAttrInObject => jsonTypeAttrInObject ??= JsonTypeSerializer.GetTypeAttrInObject(TypeAttr);
+    internal string JsonTypeAttrInObject => this.jsonTypeAttrInObject ??= JsonTypeSerializer.GetTypeAttrInObject(this.TypeAttr);
     /// <summary>
     /// The JSV type attribute in object
     /// </summary>
@@ -294,7 +308,7 @@ public class Config
     /// Gets the JSV type attribute in object.
     /// </summary>
     /// <value>The JSV type attribute in object.</value>
-    internal string JsvTypeAttrInObject => jsvTypeAttrInObject ??= JsvTypeSerializer.GetTypeAttrInObject(TypeAttr);
+    internal string JsvTypeAttrInObject => this.jsvTypeAttrInObject ??= JsvTypeSerializer.GetTypeAttrInObject(this.TypeAttr);
 
     /// <summary>
     /// Gets or sets the type writer.
@@ -466,44 +480,44 @@ public class Config
     /// <returns>Config.</returns>
     public Config Populate(Config config)
     {
-        ConvertObjectTypesIntoStringDictionary = config.ConvertObjectTypesIntoStringDictionary;
-        TryToParsePrimitiveTypeValues = config.TryToParsePrimitiveTypeValues;
-        TryToParseNumericType = config.TryToParseNumericType;
-        TryParseIntoBestFit = config.TryParseIntoBestFit;
-        ParsePrimitiveFloatingPointTypes = config.ParsePrimitiveFloatingPointTypes;
-        ParsePrimitiveIntegerTypes = config.ParsePrimitiveIntegerTypes;
-        ExcludeDefaultValues = config.ExcludeDefaultValues;
-        ExcludePropertyReferences = config.ExcludePropertyReferences;
-        IncludeNullValues = config.IncludeNullValues;
-        IncludeNullValuesInDictionaries = config.IncludeNullValuesInDictionaries;
-        IncludeDefaultEnums = config.IncludeDefaultEnums;
-        TreatEnumAsInteger = config.TreatEnumAsInteger;
-        ExcludeTypeInfo = config.ExcludeTypeInfo;
-        IncludeTypeInfo = config.IncludeTypeInfo;
-        Indent = config.Indent;
-        TypeAttr = config.TypeAttr;
-        DateTimeFormat = config.DateTimeFormat;
-        TypeWriter = config.TypeWriter;
-        TypeFinder = config.TypeFinder;
-        ParsePrimitiveFn = config.ParsePrimitiveFn;
-        DateHandler = config.DateHandler;
-        TimeSpanHandler = config.TimeSpanHandler;
-        TextCase = config.TextCase;
-        PropertyConvention = config.PropertyConvention;
-        ThrowOnError = config.ThrowOnError;
-        SkipDateTimeConversion = config.SkipDateTimeConversion;
-        AlwaysUseUtc = config.AlwaysUseUtc;
-        AssumeUtc = config.AssumeUtc;
-        AppendUtcOffset = config.AppendUtcOffset;
-        EscapeUnicode = config.EscapeUnicode;
-        EscapeHtmlChars = config.EscapeHtmlChars;
-        PreferInterfaces = config.PreferInterfaces;
-        IncludePublicFields = config.IncludePublicFields;
-        MaxDepth = config.MaxDepth;
-        OnDeserializationError = config.OnDeserializationError;
-        ModelFactory = config.ModelFactory;
-        ExcludeTypes = config.ExcludeTypes;
-        ExcludeTypeNames = config.ExcludeTypeNames;
+        this.ConvertObjectTypesIntoStringDictionary = config.ConvertObjectTypesIntoStringDictionary;
+        this.TryToParsePrimitiveTypeValues = config.TryToParsePrimitiveTypeValues;
+        this.TryToParseNumericType = config.TryToParseNumericType;
+        this.TryParseIntoBestFit = config.TryParseIntoBestFit;
+        this.ParsePrimitiveFloatingPointTypes = config.ParsePrimitiveFloatingPointTypes;
+        this.ParsePrimitiveIntegerTypes = config.ParsePrimitiveIntegerTypes;
+        this.ExcludeDefaultValues = config.ExcludeDefaultValues;
+        this.ExcludePropertyReferences = config.ExcludePropertyReferences;
+        this.IncludeNullValues = config.IncludeNullValues;
+        this.IncludeNullValuesInDictionaries = config.IncludeNullValuesInDictionaries;
+        this.IncludeDefaultEnums = config.IncludeDefaultEnums;
+        this.TreatEnumAsInteger = config.TreatEnumAsInteger;
+        this.ExcludeTypeInfo = config.ExcludeTypeInfo;
+        this.IncludeTypeInfo = config.IncludeTypeInfo;
+        this.Indent = config.Indent;
+        this.TypeAttr = config.TypeAttr;
+        this.DateTimeFormat = config.DateTimeFormat;
+        this.TypeWriter = config.TypeWriter;
+        this.TypeFinder = config.TypeFinder;
+        this.ParsePrimitiveFn = config.ParsePrimitiveFn;
+        this.DateHandler = config.DateHandler;
+        this.TimeSpanHandler = config.TimeSpanHandler;
+        this.TextCase = config.TextCase;
+        this.PropertyConvention = config.PropertyConvention;
+        this.ThrowOnError = config.ThrowOnError;
+        this.SkipDateTimeConversion = config.SkipDateTimeConversion;
+        this.AlwaysUseUtc = config.AlwaysUseUtc;
+        this.AssumeUtc = config.AssumeUtc;
+        this.AppendUtcOffset = config.AppendUtcOffset;
+        this.EscapeUnicode = config.EscapeUnicode;
+        this.EscapeHtmlChars = config.EscapeHtmlChars;
+        this.PreferInterfaces = config.PreferInterfaces;
+        this.IncludePublicFields = config.IncludePublicFields;
+        this.MaxDepth = config.MaxDepth;
+        this.OnDeserializationError = config.OnDeserializationError;
+        this.ModelFactory = config.ModelFactory;
+        this.ExcludeTypes = config.ExcludeTypes;
+        this.ExcludeTypeNames = config.ExcludeTypeNames;
         return this;
     }
 }

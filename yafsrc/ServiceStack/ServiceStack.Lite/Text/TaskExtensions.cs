@@ -22,10 +22,14 @@ public static class TaskExtensions
     public static Exception UnwrapIfSingleException(this Exception ex)
     {
         if (ex is not AggregateException aex)
+        {
             return ex;
+        }
 
         if (aex.InnerExceptions is { Count: 1 })
+        {
             return aex.InnerExceptions[0].UnwrapIfSingleException();
+        }
 
         return aex;
     }

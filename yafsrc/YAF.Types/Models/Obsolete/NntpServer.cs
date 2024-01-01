@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -22,52 +22,56 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects.Nntp;
-
-using System.Collections;
+namespace YAF.Types.Models;
 
 /// <summary>
-/// The mime part.
+/// A class which represents the NntpServer table.
 /// </summary>
-public class MIMEPart
+[Serializable]
+public class NntpServer : IEntity, IHaveID, IHaveBoardID
 {
     /// <summary>
-    /// Gets or sets BinaryData.
+    /// Gets or sets the id.
     /// </summary>
-    public byte[] BinaryData { get; set; }
+    [Alias("NntpServerID")]
+    [AutoIncrement]
+    public int ID { get; set; }
 
     /// <summary>
-    /// Gets or sets Boundary.
+    /// Gets or sets the board id.
     /// </summary>
-    public string Boundary { get; set; }
+    [References(typeof(Board))]
+    [Required]
+    public int BoardID { get; set; }
 
     /// <summary>
-    /// Gets or sets ContentType.
+    /// Gets or sets the name.
     /// </summary>
-    public string ContentType { get; set; }
+    [Required]
+    [StringLength(50)]
+    public string Name { get; set; }
 
     /// <summary>
-    /// Gets or sets ContentTransferEncoding.
+    /// Gets or sets the address.
     /// </summary>
-    public string ContentTransferEncoding { get; set; }
+    [Required]
+    [StringLength(100)]
+    public string Address { get; set; }
 
     /// <summary>
-    /// Gets or sets Charset.
+    /// Gets or sets the port.
     /// </summary>
-    public string Charset { get; set; }
+    public int? Port { get; set; }
 
     /// <summary>
-    /// Gets or sets Filename.
+    /// Gets or sets the user name.
     /// </summary>
-    public string Filename { get; set; }
+    [StringLength(255)]
+    public string UserName { get; set; }
 
     /// <summary>
-    /// Gets or sets Text.
+    /// Gets or sets the user pass.
     /// </summary>
-    public string Text { get; set; }
-
-    /// <summary>
-    /// Gets or sets EmbeddedPartList.
-    /// </summary>
-    public ArrayList EmbeddedPartList { get; set; }
+    [StringLength(50)]
+    public string UserPass { get; set; }
 }

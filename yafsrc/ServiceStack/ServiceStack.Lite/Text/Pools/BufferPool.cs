@@ -22,7 +22,9 @@ public sealed class BufferPool
         lock (Pool)
         {
             for (var i = 0; i < Pool.Length; i++)
+            {
                 Pool[i] = null;
+            }
         }
     }
 
@@ -43,7 +45,7 @@ public sealed class BufferPool
     /// <returns>System.Byte[].</returns>
     public static byte[] GetBuffer(int minSize)
     {
-        byte[] cachedBuff = GetCachedBuffer(minSize);
+        var cachedBuff = GetCachedBuffer(minSize);
         return cachedBuff ?? new byte[minSize];
     }
 
@@ -97,7 +99,10 @@ public sealed class BufferPool
     /// <param name="buffer">The buffer.</param>
     public static void ReleaseBufferToPool(ref byte[] buffer)
     {
-        if (buffer == null) return;
+        if (buffer == null)
+        {
+            return;
+        }
 
         lock (Pool)
         {
@@ -144,12 +149,12 @@ public sealed class BufferPool
         /// Gets a value indicating whether this instance is alive.
         /// </summary>
         /// <value><c>true</c> if this instance is alive; otherwise, <c>false</c>.</value>
-        public bool IsAlive => _reference.IsAlive;
+        public bool IsAlive => this._reference.IsAlive;
         /// <summary>
         /// Gets the buffer.
         /// </summary>
         /// <value>The buffer.</value>
-        public byte[] Buffer => (byte[])_reference.Target;
+        public byte[] Buffer => (byte[])this._reference.Target;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CachedBuffer" /> class.
@@ -157,8 +162,8 @@ public sealed class BufferPool
         /// <param name="buffer">The buffer.</param>
         public CachedBuffer(byte[] buffer)
         {
-            Size = buffer.Length;
-            _reference = new WeakReference(buffer);
+            this.Size = buffer.Length;
+            this._reference = new WeakReference(buffer);
         }
     }
 }
@@ -181,8 +186,11 @@ internal sealed class Helpers
     static internal void DebugAssert(bool condition)
     {
 #if DEBUG   
-        if (!condition && System.Diagnostics.Debugger.IsAttached) 
+        if (!condition && System.Diagnostics.Debugger.IsAttached)
+        {
             System.Diagnostics.Debugger.Break();
+        }
+
         System.Diagnostics.Debug.Assert(condition);
 #endif
     }

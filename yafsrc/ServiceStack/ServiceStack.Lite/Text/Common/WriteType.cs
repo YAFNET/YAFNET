@@ -102,7 +102,10 @@ static internal class WriteType<T, TSerializer>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     private static bool TryWriteSelfType(TextWriter writer)
     {
-        if (ShouldSkipType()) return false;
+        if (ShouldSkipType())
+        {
+            return false;
+        }
 
         var config = JsConfig.GetConfig();
 
@@ -120,7 +123,10 @@ static internal class WriteType<T, TSerializer>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     private static bool TryWriteTypeInfo(TextWriter writer, object obj)
     {
-        if (obj == null || ShouldSkipType()) return false;
+        if (obj == null || ShouldSkipType())
+        {
+            return false;
+        }
 
         var config = JsConfig.GetConfig();
 
@@ -177,7 +183,10 @@ static internal class WriteType<T, TSerializer>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     private static bool Init()
     {
-        if (!typeof(T).IsClass && !typeof(T).IsInterface && !JsConfig.TreatAsRefType(typeof(T))) return false;
+        if (!typeof(T).IsClass && !typeof(T).IsInterface && !JsConfig.TreatAsRefType(typeof(T)))
+        {
+            return false;
+        }
 
         var propertyInfos = TypeConfig<T>.Properties;
         var fieldInfos = TypeConfig<T>.Fields;
@@ -201,21 +210,24 @@ static internal class WriteType<T, TSerializer>
             var propertyInfo = propertyInfos[i];
 
             string propertyName, propertyNameCLSFriendly, propertyNameLowercaseUnderscore, propertyDeclaredTypeName;
-            int propertyOrder = -1;
+            var propertyOrder = -1;
             var propertyType = propertyInfo.PropertyType;
             var defaultValue = propertyType.GetDefaultValue();
-            bool propertySuppressDefaultConfig = defaultValue != null
-                                                 && propertyType.IsValueType
-                                                 && !propertyType.IsEnum
-                                                 && JsConfig.HasSerializeFn.Contains(propertyType)
-                                                 && !JsConfig.HasIncludeDefaultValue.Contains(propertyType);
-            bool propertySuppressDefaultAttribute = false;
+            var propertySuppressDefaultConfig = defaultValue != null
+                                                && propertyType.IsValueType
+                                                && !propertyType.IsEnum
+                                                && JsConfig.HasSerializeFn.Contains(propertyType)
+                                                && !JsConfig.HasIncludeDefaultValue.Contains(propertyType);
+            var propertySuppressDefaultAttribute = false;
 
             var shouldSerialize = GetShouldSerializeMethod(propertyInfo);
             if (isDataContract)
             {
                 var dcsDataMember = propertyInfo.GetDataMember();
-                if (dcsDataMember == null) continue;
+                if (dcsDataMember == null)
+                {
+                    continue;
+                }
 
                 propertyName = dcsDataMember.Name ?? propertyInfo.Name;
                 propertyNameCLSFriendly = dcsDataMember.Name ?? propertyName.ToCamelCase();
@@ -260,20 +272,23 @@ static internal class WriteType<T, TSerializer>
             var fieldInfo = fieldInfos[i];
 
             string propertyName, propertyNameCLSFriendly, propertyNameLowercaseUnderscore, propertyDeclaredTypeName;
-            int propertyOrder = -1;
+            var propertyOrder = -1;
             var propertyType = fieldInfo.FieldType;
             var defaultValue = propertyType.GetDefaultValue();
-            bool propertySuppressDefaultConfig = defaultValue != null
-                                                 && propertyType.IsValueType && !propertyType.IsEnum
-                                                 && JsConfig.HasSerializeFn.Contains(propertyType)
-                                                 && !JsConfig.HasIncludeDefaultValue.Contains(propertyType);
-            bool propertySuppressDefaultAttribute = false;
+            var propertySuppressDefaultConfig = defaultValue != null
+                                                && propertyType.IsValueType && !propertyType.IsEnum
+                                                && JsConfig.HasSerializeFn.Contains(propertyType)
+                                                && !JsConfig.HasIncludeDefaultValue.Contains(propertyType);
+            var propertySuppressDefaultAttribute = false;
 
             var shouldSerialize = GetShouldSerializeMethod(fieldInfo);
             if (isDataContract)
             {
                 var dcsDataMember = fieldInfo.GetDataMember();
-                if (dcsDataMember == null) continue;
+                if (dcsDataMember == null)
+                {
+                    continue;
+                }
 
                 propertyName = dcsDataMember.Name ?? fieldInfo.Name;
                 propertyNameCLSFriendly = dcsDataMember.Name ?? propertyName.ToCamelCase();
@@ -311,7 +326,7 @@ static internal class WriteType<T, TSerializer>
             );
         }
 
-        PropertyWriters = PropertyWriters.OrderBy(x => x.propertyOrder).ToArray();
+        PropertyWriters = [.. PropertyWriters.OrderBy(x => x.propertyOrder)];
         return true;
     }
 
@@ -328,9 +343,9 @@ static internal class WriteType<T, TSerializer>
         internal string GetPropertyName(Config config)
         {
             return config.TextCase switch {
-                    TextCase.CamelCase => propertyNameCLSFriendly,
-                    TextCase.SnakeCase => propertyNameLowercaseUnderscore,
-                    _ => propertyName
+                    TextCase.CamelCase => this.propertyNameCLSFriendly,
+                    TextCase.SnakeCase => this.propertyNameLowercaseUnderscore,
+                    _ => this.propertyName
                 };
         }
 
@@ -439,15 +454,20 @@ static internal class WriteType<T, TSerializer>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool ShouldWriteProperty(object propertyValue, Config config)
         {
-            var isDefaultValue = propertyValue == null || Equals(DefaultValue, propertyValue);
+            var isDefaultValue = propertyValue == null || Equals(this.DefaultValue, propertyValue);
             if (isDefaultValue)
             {
-                if (!isEnum)
+                if (!this.isEnum)
                 {
-                    if (propertySuppressDefaultAttribute || config.ExcludeDefaultValues)
+                    if (this.propertySuppressDefaultAttribute || config.ExcludeDefaultValues)
+                    {
                         return false;
-                    if (!Serializer.IncludeNullValues && (propertyValue == null || propertySuppressDefaultConfig))
+                    }
+
+                    if (!Serializer.IncludeNullValues && (propertyValue == null || this.propertySuppressDefaultConfig))
+                    {
                         return false;
+                    }
                 }
                 else if (!config.IncludeDefaultEnums)
                 {
@@ -532,15 +552,24 @@ static internal class WriteType<T, TSerializer>
         }
 
         if (typeof(TSerializer) == typeof(JsonTypeSerializer) && JsState.WritingKeyCount > 0)
+        {
             writer.Write(JsWriter.QuoteChar);
+        }
 
         writer.Write(JsWriter.MapStartChar);
 
         var i = 0;
         if (WriteTypeInfo != null || JsState.IsWritingDynamic)
         {
-            if (JsConfig.PreferInterfaces && TryWriteSelfType(writer)) i++;
-            else if (TryWriteTypeInfo(writer, instance)) i++;
+            if (JsConfig.PreferInterfaces && TryWriteSelfType(writer))
+            {
+                i++;
+            }
+            else if (TryWriteTypeInfo(writer, instance))
+            {
+                i++;
+            }
+
             JsState.IsWritingDynamic = false;
         }
 
@@ -550,12 +579,14 @@ static internal class WriteType<T, TSerializer>
 
             var typedInstance = (T)instance;
             var len = PropertyWriters.Length;
-            for (int index = 0; index < len; index++)
+            for (var index = 0; index < len; index++)
             {
                 var propertyWriter = PropertyWriters[index];
 
                 if (propertyWriter.shouldSerialize?.Invoke(typedInstance) == false)
+                {
                     continue;
+                }
 
                 var dontSkipDefault = false;
                 if (propertyWriter.shouldSerializeDynamic != null)
@@ -564,9 +595,13 @@ static internal class WriteType<T, TSerializer>
                     if (shouldSerialize.HasValue)
                     {
                         if (shouldSerialize.Value)
+                        {
                             dontSkipDefault = true;
+                        }
                         else
+                        {
                             continue;
+                        }
                     }
                 }
 
@@ -575,18 +610,29 @@ static internal class WriteType<T, TSerializer>
                 if (!dontSkipDefault)
                 {
                     if (!propertyWriter.ShouldWriteProperty(propertyValue, config))
+                    {
                         continue;
+                    }
 
-                    if (config.ExcludePropertyReferences?.Contains(propertyWriter.propertyReferenceName) == true) continue;
+                    if (config.ExcludePropertyReferences?.Contains(propertyWriter.propertyReferenceName) == true)
+                    {
+                        continue;
+                    }
                 }
 
                 if (i++ > 0)
+                {
                     writer.Write(JsWriter.ItemSeperator);
+                }
 
                 Serializer.WritePropertyName(writer, propertyWriter.GetPropertyName(config));
                 writer.Write(JsWriter.MapKeySeperator);
 
-                if (typeof(TSerializer) == typeof(JsonTypeSerializer)) JsState.IsWritingValue = true;
+                if (typeof(TSerializer) == typeof(JsonTypeSerializer))
+                {
+                    JsState.IsWritingValue = true;
+                }
+
                 try
                 {
                     if (propertyValue == null)
@@ -600,7 +646,10 @@ static internal class WriteType<T, TSerializer>
                 }
                 finally
                 {
-                    if (typeof(TSerializer) == typeof(JsonTypeSerializer)) JsState.IsWritingValue = false;
+                    if (typeof(TSerializer) == typeof(JsonTypeSerializer))
+                    {
+                        JsState.IsWritingValue = false;
+                    }
                 }
             }
         }
@@ -608,7 +657,9 @@ static internal class WriteType<T, TSerializer>
         writer.Write(JsWriter.MapEndChar);
 
         if (typeof(TSerializer) == typeof(JsonTypeSerializer) && JsState.WritingKeyCount > 0)
+        {
             writer.Write(JsWriter.QuoteChar);
+        }
     }
 
     /// <summary>
@@ -621,9 +672,16 @@ static internal class WriteType<T, TSerializer>
     {
         var writeFn = Serializer.GetWriteFn(valueType);
         var prevState = JsState.IsWritingDynamic;
-        if (!JsConfig<T>.ExcludeTypeInfo.GetValueOrDefault()) JsState.IsWritingDynamic = true;
+        if (!JsConfig<T>.ExcludeTypeInfo.GetValueOrDefault())
+        {
+            JsState.IsWritingDynamic = true;
+        }
+
         writeFn(writer, value);
-        if (!JsConfig<T>.ExcludeTypeInfo.GetValueOrDefault()) JsState.IsWritingDynamic = prevState;
+        if (!JsConfig<T>.ExcludeTypeInfo.GetValueOrDefault())
+        {
+            JsState.IsWritingDynamic = prevState;
+        }
     }
 
     /// <summary>

@@ -44,7 +44,7 @@ public class TagAttribute : AttributeBase
     /// <param name="applyTo">The apply to.</param>
     public TagAttribute(string name, ApplyTo applyTo)
     {
-        Name = name;
-        ApplyTo = applyTo;
+        this.Name = name;
+        this.ApplyTo = applyTo;
     }
 }

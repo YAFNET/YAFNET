@@ -132,8 +132,8 @@ public class ObjectPool<T> where T : class
 #if !PCL
         Debug.Assert(size >= 1);
 #endif
-        _factory = factory;
-        _items = new Element[size - 1];
+        this._factory = factory;
+        this._items = new Element[size - 1];
     }
 
     /// <summary>
@@ -142,7 +142,7 @@ public class ObjectPool<T> where T : class
     /// <returns>T.</returns>
     private T CreateInstance()
     {
-        var inst = _factory();
+        var inst = this._factory();
         return inst;
     }
 
@@ -159,10 +159,10 @@ public class ObjectPool<T> where T : class
         // Note that the initial read is optimistically not synchronized. That is intentional. 
         // We will interlock only when we have a candidate. in a worst case we may miss some
         // recently returned objects. Not a big deal.
-        T inst = _firstItem;
-        if (inst == null || inst != Interlocked.CompareExchange(ref _firstItem, null, inst))
+        var inst = this._firstItem;
+        if (inst == null || inst != Interlocked.CompareExchange(ref this._firstItem, null, inst))
         {
-            inst = AllocateSlow();
+            inst = this.AllocateSlow();
         }
 
 #if DETECT_LEAKS
@@ -183,14 +183,14 @@ public class ObjectPool<T> where T : class
     /// <returns>T.</returns>
     private T AllocateSlow()
     {
-        var items = _items;
+        var items = this._items;
 
-        for (int i = 0; i < items.Length; i++)
+        for (var i = 0; i < items.Length; i++)
         {
             // Note that the initial read is optimistically not synchronized. That is intentional. 
             // We will interlock only when we have a candidate. in a worst case we may miss some
             // recently returned objects. Not a big deal.
-            T inst = items[i].Value;
+            var inst = items[i].Value;
             if (inst != null)
             {
                 if (inst == Interlocked.CompareExchange(ref items[i].Value, null, inst))
@@ -200,7 +200,7 @@ public class ObjectPool<T> where T : class
             }
         }
 
-        return CreateInstance();
+        return this.CreateInstance();
     }
 
     /// <summary>
@@ -212,19 +212,19 @@ public class ObjectPool<T> where T : class
     /// reducing how far we will typically search in Allocate.</remarks>
     public void Free(T obj)
     {
-        Validate(obj);
-        ForgetTrackedObject(obj);
+        this.Validate(obj);
+        this.ForgetTrackedObject(obj);
 
-        if (_firstItem == null)
+        if (this._firstItem == null)
         {
             // Intentionally not using interlocked here. 
             // In a worst case scenario two objects may be stored into same slot.
             // It is very unlikely to happen and will only mean that one of the objects will get collected.
-            _firstItem = obj;
+            this._firstItem = obj;
         }
         else
         {
-            FreeSlow(obj);
+            this.FreeSlow(obj);
         }
     }
 
@@ -234,8 +234,8 @@ public class ObjectPool<T> where T : class
     /// <param name="obj">The object.</param>
     private void FreeSlow(T obj)
     {
-        var items = _items;
-        for (int i = 0; i < items.Length; i++)
+        var items = this._items;
+        for (var i = 0; i < items.Length; i++)
         {
             if (items[i].Value == null)
             {
@@ -302,11 +302,11 @@ public class ObjectPool<T> where T : class
 #if !PCL
         Debug.Assert(obj != null, "freeing null?");
 
-        Debug.Assert(_firstItem != obj, "freeing twice?");
+        Debug.Assert(this._firstItem != obj, "freeing twice?");
 #endif
 
-        var items = _items;
-        for (int i = 0; i < items.Length; i++)
+        var items = this._items;
+        for (var i = 0; i < items.Length; i++)
         {
             var value = items[i].Value;
             if (value == null)

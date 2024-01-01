@@ -52,11 +52,13 @@
     {
         pollAndChoices = Current.GetRepository<Poll>().GetPollAndChoices(Current.PageTopic.PollID.Value);
 
+        var pollTuple = pollAndChoices.FirstOrDefault();
+
         // Check if Poll Exist
-        if (pollAndChoices.FirstOrDefault() != null)
+        if (pollTuple != null)
         {
             // Set Poll
-            poll = pollAndChoices.FirstOrDefault().Item1;
+            poll = pollTuple.Item1;
 
             // returns number of day to run - null if poll has no expiration date
             daysToRun = Current.Get<PollService>().DaysToRun(poll, out var closesSoon);

@@ -77,20 +77,30 @@ public class JsReader<TSerializer>
         var type = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
 
         if (JsConfig<T>.HasDeserializeFn)
+        {
             return value => JsConfig<T>.ParseFn(Serializer, value.Value());
+        }
 
         if (type.IsEnum)
+        {
             return x => ParseUtils.TryParseEnum(type, Serializer.UnescapeSafeString(x).Value());
+        }
 
         if (type == typeof(string))
+        {
             return Serializer.UnescapeStringAsObject;
+        }
 
         if (type == typeof(object))
+        {
             return DeserializeType<TSerializer>.ObjectStringToType;
+        }
 
         var specialParseFn = ParseUtils.GetSpecialParseMethod(type);
         if (specialParseFn != null)
+        {
             return v => specialParseFn(v.Value());
+        }
 
         if (type.IsArray)
         {
@@ -99,37 +109,55 @@ public class JsReader<TSerializer>
 
         var builtInMethod = DeserializeBuiltin<T>.ParseStringSpan;
         if (builtInMethod != null)
+        {
             return value => builtInMethod(Serializer.UnescapeSafeString(value));
+        }
 
         if (type.HasGenericType())
         {
             if (type.IsOrHasGenericInterfaceTypeOf(typeof(IList<>)))
+            {
                 return DeserializeList<T, TSerializer>.ParseStringSpan;
+            }
 
             if (type.IsOrHasGenericInterfaceTypeOf(typeof(IDictionary<,>)))
+            {
                 return DeserializeDictionary<TSerializer>.GetParseStringSpanMethod(type);
+            }
 
             if (type.IsOrHasGenericInterfaceTypeOf(typeof(ICollection<>)))
+            {
                 return DeserializeCollection<TSerializer>.GetParseStringSpanMethod(type);
+            }
 
             if (type.HasAnyTypeDefinitionsOf(typeof(Queue<>))
                 || type.HasAnyTypeDefinitionsOf(typeof(Stack<>)))
+            {
                 return DeserializeSpecializedCollections<T, TSerializer>.ParseStringSpan;
+            }
 
             if (type.IsOrHasGenericInterfaceTypeOf(typeof(KeyValuePair<,>)))
+            {
                 return DeserializeKeyValuePair<TSerializer>.GetParseStringSpanMethod(type);
+            }
 
             if (type.IsOrHasGenericInterfaceTypeOf(typeof(IEnumerable<>)))
+            {
                 return DeserializeEnumerable<T, TSerializer>.ParseStringSpan;
+            }
 
             var customFn = DeserializeCustomGenericType<TSerializer>.GetParseStringSpanMethod(type);
             if (customFn != null)
+            {
                 return customFn;
+            }
         }
 
         var pclParseFn = PclExport.Instance.GetJsReaderParseStringSpanMethod<TSerializer>(typeof(T));
         if (pclParseFn != null)
+        {
             return pclParseFn;
+        }
 
         var isDictionary = typeof(T) != typeof(IEnumerable) && typeof(T) != typeof(ICollection)
                                                             && (typeof(T).IsAssignableFrom(typeof(IDictionary)) || typeof(T).HasInterface(typeof(IDictionary)));
@@ -144,7 +172,9 @@ public class JsReader<TSerializer>
         {
             var parseFn = DeserializeSpecializedCollections<T, TSerializer>.ParseStringSpan;
             if (parseFn != null)
+            {
                 return parseFn;
+            }
         }
 
         if (type.IsValueType)
@@ -152,27 +182,37 @@ public class JsReader<TSerializer>
             //at first try to find more faster `ParseStringSpan` method
             var staticParseStringSpanMethod = StaticParseMethod<T>.ParseStringSpan;
             if (staticParseStringSpanMethod != null)
+            {
                 return value => staticParseStringSpanMethod(Serializer.UnescapeSafeString(value));
+            }
 
             //then try to find `Parse` method
             var staticParseMethod = StaticParseMethod<T>.Parse;
             if (staticParseMethod != null)
+            {
                 return value => staticParseMethod(Serializer.UnescapeSafeString(value).ToString());
+            }
         }
         else
         {
             var staticParseStringSpanMethod = StaticParseRefTypeMethod<TSerializer, T>.ParseStringSpan;
             if (staticParseStringSpanMethod != null)
+            {
                 return value => staticParseStringSpanMethod(Serializer.UnescapeSafeString(value));
+            }
 
             var staticParseMethod = StaticParseRefTypeMethod<TSerializer, T>.Parse;
             if (staticParseMethod != null)
+            {
                 return value => staticParseMethod(Serializer.UnescapeSafeString(value).ToString());
+            }
         }
 
         var typeConstructor = DeserializeType<TSerializer>.GetParseStringSpanMethod(TypeConfig<T>.GetState());
         if (typeConstructor != null)
+        {
             return typeConstructor;
+        }
 
         var stringConstructor = DeserializeTypeUtils.GetParseStringSpanMethod(type);
         return stringConstructor ?? DeserializeType<TSerializer>.ParseAbstractType<T>;

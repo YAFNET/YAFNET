@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -197,7 +197,8 @@ public class AutoFacServiceLocatorProvider(ILifetimeScope container) : IScopeSer
     public void InjectMarked<TAttribute>(object instance)
         where TAttribute : Attribute
     {
-        // Container.InjectUnsetProperties(instance);
+        //this.Container.InjectUnsetProperties(instance);
+
         var type = instance.GetType();
         var attributeType = typeof(TAttribute);
 
@@ -283,7 +284,7 @@ public class AutoFacServiceLocatorProvider(ILifetimeScope container) : IScopeSer
     /// <returns>
     /// The <see cref="IEnumerable"/>.
     /// </returns>
-    private static IEnumerable<Parameter> ConvertToAutofacParameters(
+    private static List<Parameter> ConvertToAutofacParameters(
         IEnumerable<IServiceLocationParameter> parameters)
     {
         var autoParams = new List<Parameter>();

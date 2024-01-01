@@ -21,7 +21,7 @@ public static class DeserializeArrayWithElements<TSerializer>
     /// <summary>
     /// The parse delegate cache
     /// </summary>
-    private static Dictionary<Type, ParseArrayOfElementsDelegate> ParseDelegateCache = new();
+    private static Dictionary<Type, ParseArrayOfElementsDelegate> ParseDelegateCache = [];
 
     /// <summary>
     /// Delegate ParseArrayOfElementsDelegate
@@ -43,7 +43,10 @@ public static class DeserializeArrayWithElements<TSerializer>
     /// <returns>ParseArrayOfElementsDelegate.</returns>
     public static ParseArrayOfElementsDelegate GetParseStringSpanFn(Type type)
     {
-        if (ParseDelegateCache.TryGetValue(type, out var parseFn)) return parseFn.Invoke;
+        if (ParseDelegateCache.TryGetValue(type, out var parseFn))
+        {
+            return parseFn.Invoke;
+        }
 
         var genericType = typeof(DeserializeArrayWithElements<,>).MakeGenericType(type, typeof(TSerializer));
         var mi = genericType.GetStaticMethod("ParseGenericArray", signature);
@@ -85,7 +88,9 @@ public static class DeserializeArrayWithElements<T, TSerializer>
     public static T[] ParseGenericArray(ReadOnlySpan<char> value, ParseStringSpanDelegate elementParseFn)
     {
         if ((value = DeserializeListWithElements<TSerializer>.StripList(value)).IsNullOrEmpty())
-            return value.IsEmpty ? null : Array.Empty<T>();
+        {
+            return value.IsEmpty ? null : [];
+        }
 
         if (value[0] == JsWriter.MapStartChar)
         {
@@ -98,7 +103,7 @@ public static class DeserializeArrayWithElements<T, TSerializer>
                 Serializer.EatItemSeperatorOrMapEndChar(value, ref i);
             } while (i < value.Length);
 
-            return itemValues.ToArray();
+            return [.. itemValues];
         }
         else
         {
@@ -120,7 +125,7 @@ public static class DeserializeArrayWithElements<T, TSerializer>
                 }
             }
 
-            return to.ToArray();
+            return [.. to];
         }
     }
 }
@@ -172,12 +177,19 @@ static internal class DeserializeArray<T, TSerializer>
     {
         var type = typeof(T);
         if (!type.IsArray)
+        {
             throw new ArgumentException($"Type {type.FullName} is not an Array type");
+        }
 
         if (type == typeof(string[]))
+        {
             return ParseStringArray;
+        }
+
         if (type == typeof(byte[]))
+        {
             return v => ParseByteArray(v.ToString());
+        }
 
         var elementType = type.GetElementType();
         var elementParseFn = Serializer.GetParseStringSpanFn(elementType);
@@ -197,8 +209,11 @@ static internal class DeserializeArray<T, TSerializer>
     public static string[] ParseStringArray(ReadOnlySpan<char> value)
     {
         if ((value = DeserializeListWithElements<TSerializer>.StripList(value)).IsNullOrEmpty())
+        {
             return value.IsEmpty ? null : TypeConstants.EmptyStringArray;
-        return DeserializeListWithElements<TSerializer>.ParseStringList(value).ToArray();
+        }
+
+        return [.. DeserializeListWithElements<TSerializer>.ParseStringList(value)];
     }
 
     /// <summary>
@@ -206,14 +221,20 @@ static internal class DeserializeArray<T, TSerializer>
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.String[].</returns>
-    public static string[] ParseStringArray(string value) => ParseStringArray(value.AsSpan());
+    public static string[] ParseStringArray(string value)
+    {
+        return ParseStringArray(value.AsSpan());
+    }
 
     /// <summary>
     /// Parses the byte array.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Byte[].</returns>
-    public static byte[] ParseByteArray(string value) => ParseByteArray(value.AsSpan());
+    public static byte[] ParseByteArray(string value)
+    {
+        return ParseByteArray(value.AsSpan());
+    }
 
     /// <summary>
     /// Parses the byte array.
@@ -225,13 +246,17 @@ static internal class DeserializeArray<T, TSerializer>
         var isArray = value.Length > 1 && value[0] == '[';
 
         if ((value = DeserializeListWithElements<TSerializer>.StripList(value)).IsNullOrEmpty())
+        {
             return value.IsEmpty ? null : TypeConstants.EmptyByteArray;
+        }
 
         if ((value = Serializer.UnescapeString(value)).IsNullOrEmpty())
+        {
             return TypeConstants.EmptyByteArray;
+        }
 
         return !isArray
                    ? value.ParseBase64()
-                   : DeserializeListWithElements<TSerializer>.ParseByteList(value).ToArray();
+                   : [.. DeserializeListWithElements<TSerializer>.ParseByteList(value)];
     }
 }

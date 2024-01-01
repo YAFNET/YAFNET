@@ -435,7 +435,10 @@ public static class DiagnosticsUtils
     public static Activity? GetRoot(this Activity? activity)
     {
         if (activity == null)
+        {
             return null;
+        }
+
         while (activity.Parent != null)
         {
             activity = activity.Parent;
@@ -449,23 +452,30 @@ public static class DiagnosticsUtils
     /// </summary>
     /// <param name="activity">The activity.</param>
     /// <returns>System.Nullable&lt;System.String&gt;.</returns>
-    public static string? GetTraceId(this Activity? activity) => GetRoot(activity)?.ParentId;
+    public static string? GetTraceId(this Activity? activity)
+    {
+        return GetRoot(activity)?.ParentId;
+    }
 
     /// <summary>
     /// Gets the user identifier.
     /// </summary>
     /// <param name="activity">The activity.</param>
     /// <returns>System.Nullable&lt;System.String&gt;.</returns>
-    public static string? GetUserId(this Activity? activity) =>
-        GetRoot(activity)?.GetTagItem(Diagnostics.Activity.UserId) as string;
+    public static string? GetUserId(this Activity? activity)
+    {
+        return GetRoot(activity)?.GetTagItem(Diagnostics.Activity.UserId) as string;
+    }
 
     /// <summary>
     /// Gets the tag.
     /// </summary>
     /// <param name="activity">The activity.</param>
     /// <returns>System.Nullable&lt;System.String&gt;.</returns>
-    public static string? GetTag(this Activity? activity) =>
-        GetRoot(activity)?.GetTagItem(Diagnostics.Activity.Tag) as string;
+    public static string? GetTag(this Activity? activity)
+    {
+        return GetRoot(activity)?.GetTagItem(Diagnostics.Activity.Tag) as string;
+    }
 
     /// <summary>
     /// Initializes the specified activity.

@@ -74,7 +74,10 @@ public static class PlatformExtensions
     /// <param name="type">The type.</param>
     /// <returns>FieldInfo[].</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static FieldInfo[] GetAllFields(this Type type) => type.IsInterface ? TypeConstants.EmptyFieldInfoArray : type.Fields();
+    public static FieldInfo[] GetAllFields(this Type type)
+    {
+        return type.IsInterface ? TypeConstants.EmptyFieldInfoArray : type.Fields();
+    }
 
     /// <summary>
     /// Gets the public fields.
@@ -82,9 +85,13 @@ public static class PlatformExtensions
     /// <param name="type">The type.</param>
     /// <returns>FieldInfo[].</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static FieldInfo[] GetPublicFields(this Type type) => type.IsInterface
-                                                                     ? TypeConstants.EmptyFieldInfoArray
-                                                                     : CollectionExtensions.ToArray(type.GetFields(BindingFlags.FlattenHierarchy | BindingFlags.Public | BindingFlags.Instance));
+    public static FieldInfo[] GetPublicFields(this Type type)
+    {
+        return type.IsInterface
+            ? TypeConstants.EmptyFieldInfoArray
+            : CollectionExtensions.ToArray(type.GetFields(BindingFlags.FlattenHierarchy | BindingFlags.Public |
+                                                          BindingFlags.Instance));
+    }
 
     /// <summary>
     /// Gets the public members.
@@ -92,7 +99,10 @@ public static class PlatformExtensions
     /// <param name="type">The type.</param>
     /// <returns>MemberInfo[].</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static MemberInfo[] GetPublicMembers(this Type type) => type.GetMembers(BindingFlags.Public | BindingFlags.Instance);
+    public static MemberInfo[] GetPublicMembers(this Type type)
+    {
+        return type.GetMembers(BindingFlags.Public | BindingFlags.Instance);
+    }
 
     /// <summary>
     /// Gets all public members.
@@ -100,8 +110,10 @@ public static class PlatformExtensions
     /// <param name="type">The type.</param>
     /// <returns>MemberInfo[].</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static MemberInfo[] GetAllPublicMembers(this Type type) =>
-        type.GetMembers(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+    public static MemberInfo[] GetAllPublicMembers(this Type type)
+    {
+        return type.GetMembers(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy);
+    }
 
     /// <summary>
     /// Gets the static method.
@@ -110,8 +122,10 @@ public static class PlatformExtensions
     /// <param name="methodName">Name of the method.</param>
     /// <returns>MethodInfo.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static MethodInfo GetStaticMethod(this Type type, string methodName) =>
-        type.GetMethod(methodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+    public static MethodInfo GetStaticMethod(this Type type, string methodName)
+    {
+        return type.GetMethod(methodName, BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+    }
 
     /// <summary>
     /// Gets the instance method.
@@ -120,8 +134,10 @@ public static class PlatformExtensions
     /// <param name="methodName">Name of the method.</param>
     /// <returns>MethodInfo.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static MethodInfo GetInstanceMethod(this Type type, string methodName) =>
-        type.GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+    public static MethodInfo GetInstanceMethod(this Type type, string methodName)
+    {
+        return type.GetMethod(methodName, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+    }
 
     /// <summary>
     /// Determines whether the specified type has attribute.
@@ -130,7 +146,10 @@ public static class PlatformExtensions
     /// <param name="type">The type.</param>
     /// <returns><c>true</c> if the specified type has attribute; otherwise, <c>false</c>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool HasAttribute<T>(this Type type) => type.AllAttributes().Any(x => x.GetType() == typeof(T));
+    public static bool HasAttribute<T>(this Type type)
+    {
+        return type.AllAttributes().Exists(x => x.GetType() == typeof(T));
+    }
 
     /// <summary>
     /// Determines whether the specified pi has attribute.
@@ -139,7 +158,10 @@ public static class PlatformExtensions
     /// <param name="pi">The pi.</param>
     /// <returns><c>true</c> if the specified pi has attribute; otherwise, <c>false</c>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool HasAttribute<T>(this PropertyInfo pi) => pi.AllAttributes().Any(x => x.GetType() == typeof(T));
+    public static bool HasAttribute<T>(this PropertyInfo pi)
+    {
+        return pi.AllAttributes().Exists(x => x.GetType() == typeof(T));
+    }
 
     /// <summary>
     /// Determines whether the specified fi has attribute.
@@ -148,7 +170,10 @@ public static class PlatformExtensions
     /// <param name="fi">The fi.</param>
     /// <returns><c>true</c> if the specified fi has attribute; otherwise, <c>false</c>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool HasAttribute<T>(this FieldInfo fi) => fi.AllAttributes().Any(x => x.GetType() == typeof(T));
+    public static bool HasAttribute<T>(this FieldInfo fi)
+    {
+        return fi.AllAttributes().Exists(x => x.GetType() == typeof(T));
+    }
 
     /// <summary>
     /// The has attribute cache
@@ -165,16 +190,18 @@ public static class PlatformExtensions
     {
         var key = new Tuple<MemberInfo, Type>(memberInfo, typeof(T));
         if (hasAttributeCache.TryGetValue(key, out var hasAttr))
+        {
             return hasAttr;
+        }
 
         hasAttr = memberInfo is Type t
-                      ? t.AllAttributes().Any(x => x.GetType() == typeof(T))
+                      ? t.AllAttributes().Exists(x => x.GetType() == typeof(T))
                       : memberInfo is PropertyInfo pi
-                          ? pi.AllAttributes().Any(x => x.GetType() == typeof(T))
+                          ? pi.AllAttributes().Exists(x => x.GetType() == typeof(T))
                           : memberInfo is FieldInfo fi
-                              ? fi.AllAttributes().Any(x => x.GetType() == typeof(T))
+                              ? fi.AllAttributes().Exists(x => x.GetType() == typeof(T))
                               : memberInfo is MethodInfo mi
-                                  ? mi.AllAttributes().Any(x => x.GetType() == typeof(T))
+                                  ? mi.AllAttributes().Exists(x => x.GetType() == typeof(T))
                                   : throw new NotSupportedException(memberInfo.GetType().Name);
 
         hasAttributeCache[key] = hasAttr;
@@ -198,7 +225,7 @@ public static class PlatformExtensions
     /// <summary>
     /// The data contract
     /// </summary>
-    const string DataContract = "DataContractAttribute";
+    private const string DataContract = "DataContractAttribute";
 
     /// <summary>
     /// Determines whether the specified type is dto.
@@ -209,31 +236,33 @@ public static class PlatformExtensions
     public static bool IsDto(this Type type)
     {
         if (type == null)
+        {
             return false;
+        }
 
         return !Env.IsMono
                    ? type.HasAttribute<DataContractAttribute>()
-                   : type.GetCustomAttributes(true).Any(x => x.GetType().Name == DataContract);
+                   : type.GetCustomAttributes(true).Exists(x => x.GetType().Name == DataContract);
     }
 
     //Should only register Runtime Attributes on StartUp, So using non-ThreadSafe Dictionary is OK
     /// <summary>
     /// The property attributes map
     /// </summary>
-    static Dictionary<string, List<Attribute>> propertyAttributesMap = new();
+    private static Dictionary<string, List<Attribute>> propertyAttributesMap = [];
 
     /// <summary>
     /// The type attributes map
     /// </summary>
-    static Dictionary<Type, List<Attribute>> typeAttributesMap = new();
+    private static Dictionary<Type, List<Attribute>> typeAttributesMap = [];
 
     /// <summary>
     /// Clears the runtime attributes.
     /// </summary>
     public static void ClearRuntimeAttributes()
     {
-        propertyAttributesMap = new Dictionary<string, List<Attribute>>();
-        typeAttributesMap = new Dictionary<Type, List<Attribute>>();
+        propertyAttributesMap = [];
+        typeAttributesMap = [];
     }
 
     /// <summary>
@@ -245,7 +274,9 @@ public static class PlatformExtensions
     static internal string UniqueKey(this PropertyInfo pi)
     {
         if (pi.DeclaringType == null)
+        {
             throw new ArgumentException("Property '{0}' has no DeclaringType".Fmt(pi.Name));
+        }
 
         return pi.DeclaringType.Namespace + "." + pi.DeclaringType.Name + "." + pi.Name;
     }
@@ -259,7 +290,9 @@ public static class PlatformExtensions
     public static Type AddAttributes(this Type type, params Attribute[] attrs)
     {
         if (!typeAttributesMap.TryGetValue(type, out var typeAttrs))
+        {
             typeAttributesMap[type] = typeAttrs = [];
+        }
 
         typeAttrs.AddRange(attrs);
         return type;
@@ -276,7 +309,9 @@ public static class PlatformExtensions
     {
         var key = propertyInfo.UniqueKey();
         if (!propertyAttributesMap.TryGetValue(key, out var propertyAttrs))
+        {
             propertyAttributesMap[key] = propertyAttrs = [];
+        }
 
         propertyAttrs.AddRange(attrs);
 
@@ -295,7 +330,9 @@ public static class PlatformExtensions
         var key = propertyInfo.UniqueKey();
 
         if (!propertyAttributesMap.TryGetValue(key, out var propertyAttrs))
+        {
             propertyAttributesMap[key] = propertyAttrs = [];
+        }
 
         propertyAttrs.RemoveAll(x => x.GetType() == attr.GetType());
 
@@ -326,7 +363,7 @@ public static class PlatformExtensions
     {
         return !propertyAttributesMap.TryGetValue(propertyInfo.UniqueKey(), out var propertyAttrs)
                    ? []
-                   : propertyAttrs.ToList();
+                   : [.. propertyAttrs];
     }
 
     /// <summary>
@@ -352,7 +389,9 @@ public static class PlatformExtensions
         var attrs = propertyInfo.GetCustomAttributes(true);
         var runtimeAttrs = propertyInfo.GetAttributes();
         if (runtimeAttrs.Count == 0)
+        {
             return attrs;
+        }
 
         runtimeAttrs.AddRange(attrs.Cast<Attribute>());
         return runtimeAttrs.Cast<object>().ToArray();
@@ -388,7 +427,9 @@ public static class PlatformExtensions
         var attrs = propertyInfo.GetCustomAttributes(attrType, true);
         var runtimeAttrs = propertyInfo.GetAttributes(attrType);
         if (runtimeAttrs.Count == 0)
+        {
             return attrs;
+        }
 
         runtimeAttrs.AddRange(attrs.Cast<Attribute>());
         return runtimeAttrs.Cast<object>().ToArray();
@@ -418,7 +459,10 @@ public static class PlatformExtensions
     /// <param name="paramInfo">The parameter information.</param>
     /// <returns>System.Object[].</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object[] AllAttributes(this ParameterInfo paramInfo) => paramInfo.GetCustomAttributes(true);
+    public static object[] AllAttributes(this ParameterInfo paramInfo)
+    {
+        return paramInfo.GetCustomAttributes(true);
+    }
 
     /// <summary>
     /// Alls the attributes.
@@ -426,7 +470,10 @@ public static class PlatformExtensions
     /// <param name="fieldInfo">The field information.</param>
     /// <returns>System.Object[].</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object[] AllAttributes(this FieldInfo fieldInfo) => fieldInfo.GetCustomAttributes(true);
+    public static object[] AllAttributes(this FieldInfo fieldInfo)
+    {
+        return fieldInfo.GetCustomAttributes(true);
+    }
 
     /// <summary>
     /// Alls the attributes.
@@ -434,7 +481,10 @@ public static class PlatformExtensions
     /// <param name="memberInfo">The member information.</param>
     /// <returns>System.Object[].</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object[] AllAttributes(this MemberInfo memberInfo) => memberInfo.GetCustomAttributes(true);
+    public static object[] AllAttributes(this MemberInfo memberInfo)
+    {
+        return memberInfo.GetCustomAttributes(true);
+    }
 
     /// <summary>
     /// Alls the attributes.
@@ -443,7 +493,10 @@ public static class PlatformExtensions
     /// <param name="attrType">Type of the attribute.</param>
     /// <returns>System.Object[].</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object[] AllAttributes(this ParameterInfo paramInfo, Type attrType) => paramInfo.GetCustomAttributes(attrType, true);
+    public static object[] AllAttributes(this ParameterInfo paramInfo, Type attrType)
+    {
+        return paramInfo.GetCustomAttributes(attrType, true);
+    }
 
     /// <summary>
     /// Alls the attributes.
@@ -467,7 +520,10 @@ public static class PlatformExtensions
     /// <param name="attrType">Type of the attribute.</param>
     /// <returns>System.Object[].</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object[] AllAttributes(this FieldInfo fieldInfo, Type attrType) => fieldInfo.GetCustomAttributes(attrType, true);
+    public static object[] AllAttributes(this FieldInfo fieldInfo, Type attrType)
+    {
+        return fieldInfo.GetCustomAttributes(attrType, true);
+    }
 
     /// <summary>
     /// Alls the attributes.
@@ -475,7 +531,10 @@ public static class PlatformExtensions
     /// <param name="type">The type.</param>
     /// <returns>System.Object[].</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object[] AllAttributes(this Type type) => type.GetCustomAttributes(true).Union(type.GetRuntimeAttributes()).ToArray();
+    public static object[] AllAttributes(this Type type)
+    {
+        return type.GetCustomAttributes(true).Union(type.GetRuntimeAttributes()).ToArray();
+    }
 
     /// <summary>
     /// Alls the attributes.
@@ -483,7 +542,10 @@ public static class PlatformExtensions
     /// <param name="assembly">The assembly.</param>
     /// <returns>System.Object[].</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object[] AllAttributes(this Assembly assembly) => CollectionExtensions.ToArray(assembly.GetCustomAttributes(true));
+    public static object[] AllAttributes(this Assembly assembly)
+    {
+        return CollectionExtensions.ToArray(assembly.GetCustomAttributes(true));
+    }
 
     /// <summary>
     /// Alls the attributes.
@@ -492,7 +554,10 @@ public static class PlatformExtensions
     /// <param name="pi">The pi.</param>
     /// <returns>TAttr[].</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static TAttr[] AllAttributes<TAttr>(this ParameterInfo pi) => pi.AllAttributes(typeof(TAttr)).Cast<TAttr>().ToArray();
+    public static TAttr[] AllAttributes<TAttr>(this ParameterInfo pi)
+    {
+        return pi.AllAttributes(typeof(TAttr)).Cast<TAttr>().ToArray();
+    }
 
     /// <summary>
     /// Alls the attributes.
@@ -501,7 +566,10 @@ public static class PlatformExtensions
     /// <param name="mi">The mi.</param>
     /// <returns>TAttr[].</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static TAttr[] AllAttributes<TAttr>(this MemberInfo mi) => mi.AllAttributes(typeof(TAttr)).Cast<TAttr>().ToArray();
+    public static TAttr[] AllAttributes<TAttr>(this MemberInfo mi)
+    {
+        return mi.AllAttributes(typeof(TAttr)).Cast<TAttr>().ToArray();
+    }
 
     /// <summary>
     /// Alls the attributes.
@@ -510,7 +578,10 @@ public static class PlatformExtensions
     /// <param name="fi">The fi.</param>
     /// <returns>TAttr[].</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static TAttr[] AllAttributes<TAttr>(this FieldInfo fi) => fi.AllAttributes(typeof(TAttr)).Cast<TAttr>().ToArray();
+    public static TAttr[] AllAttributes<TAttr>(this FieldInfo fi)
+    {
+        return fi.AllAttributes(typeof(TAttr)).Cast<TAttr>().ToArray();
+    }
 
     /// <summary>
     /// Alls the attributes.
@@ -519,7 +590,10 @@ public static class PlatformExtensions
     /// <param name="pi">The pi.</param>
     /// <returns>TAttr[].</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static TAttr[] AllAttributes<TAttr>(this PropertyInfo pi) => pi.AllAttributes(typeof(TAttr)).Cast<TAttr>().ToArray();
+    public static TAttr[] AllAttributes<TAttr>(this PropertyInfo pi)
+    {
+        return pi.AllAttributes(typeof(TAttr)).Cast<TAttr>().ToArray();
+    }
 
     /// <summary>
     /// Alls the attributes lazy.
@@ -528,7 +602,10 @@ public static class PlatformExtensions
     /// <param name="pi">The pi.</param>
     /// <returns>IEnumerable&lt;TAttr&gt;.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static IEnumerable<TAttr> AllAttributesLazy<TAttr>(this PropertyInfo pi) => pi.AllAttributesLazy(typeof(TAttr)).Cast<TAttr>();
+    public static IEnumerable<TAttr> AllAttributesLazy<TAttr>(this PropertyInfo pi)
+    {
+        return pi.AllAttributesLazy(typeof(TAttr)).Cast<TAttr>();
+    }
 
     /// <summary>
     /// Gets the runtime attributes.
@@ -537,9 +614,12 @@ public static class PlatformExtensions
     /// <param name="type">The type.</param>
     /// <returns>IEnumerable&lt;T&gt;.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static IEnumerable<T> GetRuntimeAttributes<T>(this Type type) => typeAttributesMap.TryGetValue(type, out var attrs)
-                                                                         ? attrs.OfType<T>()
-                                                                         : new List<T>();
+    private static IEnumerable<T> GetRuntimeAttributes<T>(this Type type)
+    {
+        return typeAttributesMap.TryGetValue(type, out var attrs)
+            ? attrs.OfType<T>()
+            : new List<T>();
+    }
 
     /// <summary>
     /// Gets the runtime attributes.
@@ -548,9 +628,12 @@ public static class PlatformExtensions
     /// <param name="attrType">Type of the attribute.</param>
     /// <returns>IEnumerable&lt;Attribute&gt;.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static IEnumerable<Attribute> GetRuntimeAttributes(this Type type, Type attrType = null) => typeAttributesMap.TryGetValue(type, out var attrs)
-        ? attrs.Where(x => attrType == null || attrType.IsInstanceOf(x.GetType()))
-        : new List<Attribute>();
+    private static IEnumerable<Attribute> GetRuntimeAttributes(this Type type, Type attrType = null)
+    {
+        return typeAttributesMap.TryGetValue(type, out var attrs)
+            ? attrs.Where(x => attrType == null || attrType.IsInstanceOf(x.GetType()))
+            : new List<Attribute>();
+    }
 
     /// <summary>
     /// Alls the attributes.
@@ -612,8 +695,10 @@ public static class PlatformExtensions
     /// <param name="propertyInfo">The property information.</param>
     /// <returns>TAttribute.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static TAttribute FirstAttribute<TAttribute>(this PropertyInfo propertyInfo) =>
-        propertyInfo.AllAttributesLazy<TAttribute>().FirstOrDefault();
+    public static TAttribute FirstAttribute<TAttribute>(this PropertyInfo propertyInfo)
+    {
+        return propertyInfo.AllAttributesLazy<TAttribute>().FirstOrDefault();
+    }
 
     /// <summary>
     /// Gets the static method.
@@ -638,9 +723,12 @@ public static class PlatformExtensions
     /// <param name="types">The types.</param>
     /// <returns>MethodInfo.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static MethodInfo GetMethodInfo(this Type type, string methodName, Type[] types = null) => types == null
-        ? type.GetMethod(methodName)
-        : type.GetMethod(methodName, types);
+    public static MethodInfo GetMethodInfo(this Type type, string methodName, Type[] types = null)
+    {
+        return types == null
+            ? type.GetMethod(methodName)
+            : type.GetMethod(methodName, types);
+    }
 
     /// <summary>
     /// Gets the public static field.
@@ -649,8 +737,10 @@ public static class PlatformExtensions
     /// <param name="fieldName">Name of the field.</param>
     /// <returns>FieldInfo.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static FieldInfo GetPublicStaticField(this Type type, string fieldName) =>
-        type.GetField(fieldName, BindingFlags.Public | BindingFlags.Static);
+    public static FieldInfo GetPublicStaticField(this Type type, string fieldName)
+    {
+        return type.GetField(fieldName, BindingFlags.Public | BindingFlags.Static);
+    }
 
     /// <summary>
     /// Makes the delegate.
@@ -660,8 +750,10 @@ public static class PlatformExtensions
     /// <param name="throwOnBindFailure">if set to <c>true</c> [throw on bind failure].</param>
     /// <returns>Delegate.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Delegate MakeDelegate(this MethodInfo mi, Type delegateType, bool throwOnBindFailure = true) =>
-        Delegate.CreateDelegate(delegateType, mi, throwOnBindFailure);
+    public static Delegate MakeDelegate(this MethodInfo mi, Type delegateType, bool throwOnBindFailure = true)
+    {
+        return Delegate.CreateDelegate(delegateType, mi, throwOnBindFailure);
+    }
 
     /// <summary>
     /// Determines whether [is standard class] [the specified type].
@@ -669,7 +761,10 @@ public static class PlatformExtensions
     /// <param name="type">The type.</param>
     /// <returns><c>true</c> if [is standard class] [the specified type]; otherwise, <c>false</c>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsStandardClass(this Type type) => type.IsClass && !type.IsAbstract && !type.IsInterface;
+    public static bool IsStandardClass(this Type type)
+    {
+        return type.IsClass && !type.IsAbstract && !type.IsInterface;
+    }
 
     /// <summary>
     /// Gets the writable fields.
@@ -677,8 +772,10 @@ public static class PlatformExtensions
     /// <param name="type">The type.</param>
     /// <returns>FieldInfo[].</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static FieldInfo[] GetWritableFields(this Type type) =>
-        type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.SetField);
+    public static FieldInfo[] GetWritableFields(this Type type)
+    {
+        return type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.SetField);
+    }
 
     /// <summary>
     /// Determines whether [is enum flags] [the specified type].
@@ -686,7 +783,10 @@ public static class PlatformExtensions
     /// <param name="type">The type.</param>
     /// <returns><c>true</c> if [is enum flags] [the specified type]; otherwise, <c>false</c>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsEnumFlags(this Type type) => type.IsEnum && type.FirstAttribute<FlagsAttribute>() != null;
+    public static bool IsEnumFlags(this Type type)
+    {
+        return type.IsEnum && type.FirstAttribute<FlagsAttribute>() != null;
+    }
 
     /// <summary>
     /// Gets the instance methods.
@@ -694,8 +794,10 @@ public static class PlatformExtensions
     /// <param name="type">The type.</param>
     /// <returns>MethodInfo[].</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static MethodInfo[] GetInstanceMethods(this Type type) =>
-        type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+    public static MethodInfo[] GetInstanceMethods(this Type type)
+    {
+        return type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+    }
 
     /// <summary>
     /// Gets the name of the declaring type.
@@ -706,10 +808,14 @@ public static class PlatformExtensions
     public static string GetDeclaringTypeName(this Type type)
     {
         if (type.DeclaringType != null)
+        {
             return type.DeclaringType.Name;
+        }
 
         if (type.ReflectedType != null)
+        {
             return type.ReflectedType.Name;
+        }
 
         return null;
     }
@@ -723,7 +829,9 @@ public static class PlatformExtensions
     public static string GetDeclaringTypeName(this MemberInfo mi)
     {
         if (mi.DeclaringType != null)
+        {
             return mi.DeclaringType.Name;
+        }
 
         return mi.ReflectedType.Name;
     }
@@ -768,7 +876,7 @@ public static class PlatformExtensions
     /// <summary>
     /// The generic type cache
     /// </summary>
-    static Dictionary<string, Type> GenericTypeCache = new();
+    private static Dictionary<string, Type> GenericTypeCache = [];
 
     /// <summary>
     /// Gets the type of the cached generic.
@@ -780,7 +888,9 @@ public static class PlatformExtensions
     public static Type GetCachedGenericType(this Type type, params Type[] argTypes)
     {
         if (!type.IsGenericTypeDefinition)
+        {
             throw new ArgumentException(type.FullName + " is not a Generic Type Definition");
+        }
 
         argTypes ??= TypeConstants.EmptyTypeArray;
 
@@ -796,7 +906,9 @@ public static class PlatformExtensions
         var key = StringBuilderThreadStatic.ReturnAndFree(sb);
 
         if (GenericTypeCache.TryGetValue(key, out var genericType))
+        {
             return genericType;
+        }
 
         genericType = type.MakeGenericType(argTypes);
 
@@ -837,7 +949,7 @@ public static class PlatformExtensions
         /// <summary>
         /// The fields map
         /// </summary>
-        public readonly Dictionary<string, ObjectDictionaryFieldDefinition> FieldsMap = new();
+        public readonly Dictionary<string, ObjectDictionaryFieldDefinition> FieldsMap = [];
 
         /// <summary>
         /// Adds the specified name.
@@ -846,8 +958,8 @@ public static class PlatformExtensions
         /// <param name="fieldDef">The field definition.</param>
         public void Add(string name, ObjectDictionaryFieldDefinition fieldDef)
         {
-            Fields.Add(fieldDef);
-            FieldsMap[name] = fieldDef;
+            this.Fields.Add(fieldDef);
+            this.FieldsMap[name] = fieldDef;
         }
     }
 
@@ -892,41 +1004,43 @@ public static class PlatformExtensions
         {
             var lockObj = new object();
 
-            if (SetValueFn == null)
+            if (this.SetValueFn == null)
+            {
                 return;
+            }
 
-            if (Type != typeof(object))
+            if (this.Type != typeof(object))
             {
                 if (value is IEnumerable<KeyValuePair<string, object>> dictionary)
                 {
-                    value = dictionary.FromObjectDictionary(Type);
+                    value = dictionary.FromObjectDictionary(this.Type);
                 }
 
-                if (!Type.IsInstanceOfType(value))
+                if (!this.Type.IsInstanceOfType(value))
                 {
                     lock (lockObj)
                     {
                         //Only caches object converter used on first use
-                        if (ConvertType == null)
+                        if (this.ConvertType == null)
                         {
-                            ConvertType = value.GetType();
-                            ConvertValueFn = TypeConverter.CreateTypeConverter(ConvertType, Type);
+                            this.ConvertType = value.GetType();
+                            this.ConvertValueFn = TypeConverter.CreateTypeConverter(this.ConvertType, this.Type);
                         }
                     }
 
-                    if (ConvertType.IsInstanceOfType(value))
+                    if (this.ConvertType.IsInstanceOfType(value))
                     {
-                        value = ConvertValueFn(value);
+                        value = this.ConvertValueFn(value);
                     }
                     else
                     {
-                        var tempConvertFn = TypeConverter.CreateTypeConverter(value.GetType(), Type);
+                        var tempConvertFn = TypeConverter.CreateTypeConverter(value.GetType(), this.Type);
                         value = tempConvertFn(value);
                     }
                 }
             }
 
-            SetValueFn(instance, value);
+            this.SetValueFn(instance, value);
         }
     }
 
@@ -949,7 +1063,7 @@ public static class PlatformExtensions
         var to = new Dictionary<string, object>();
         foreach (var entry in collection)
         {
-            string key = entry.Key;
+            var key = entry.Key;
             object value = entry.Value;
             to[key] = value;
         }
@@ -1016,8 +1130,8 @@ public static class PlatformExtensions
         {
             foreach (var key in d.Keys)
             {
-                string k = key.ToString();
-                object v = d[key];
+                var k = key.ToString();
+                var v = d[key];
                 v = mapper?.Invoke(k, v) ?? v;
                 to[k] = v;
             }
@@ -1028,7 +1142,7 @@ public static class PlatformExtensions
         {
             for (var i = 0; i < nvc.Count; i++)
             {
-                string k = nvc.GetKey(i);
+                var k = nvc.GetKey(i);
                 object v = nvc.Get(i);
                 v = mapper?.Invoke(k, v) ?? v;
                 to[k] = v;
@@ -1055,7 +1169,7 @@ public static class PlatformExtensions
             {
                 var key = keyGetter(entry);
                 var value = valueGetter(entry);
-                string k = key.ConvertTo<string>();
+                var k = key.ConvertTo<string>();
                 value = mapper?.Invoke(k, value) ?? value;
                 to[k] = value;
             }
@@ -1065,12 +1179,12 @@ public static class PlatformExtensions
 
         if (obj is KeyValuePair<string, object> objKvp)
         {
-            string kk = nameof(objKvp.Key);
+            var kk = nameof(objKvp.Key);
             object kv = objKvp.Key;
             kv = mapper?.Invoke(kk, kv) ?? kv;
 
-            string vk = nameof(objKvp.Value);
-            object vv = objKvp.Value;
+            var vk = nameof(objKvp.Value);
+            var vv = objKvp.Value;
             vv = mapper?.Invoke(vk, vv) ?? vv;
 
             return new Dictionary<string, object>
@@ -1081,11 +1195,11 @@ public static class PlatformExtensions
         }
         if (obj is KeyValuePair<string, string> strKvp)
         {
-            string kk = nameof(objKvp.Key);
+            var kk = nameof(objKvp.Key);
             object kv = strKvp.Key;
             kv = mapper?.Invoke(kk, kv) ?? kv;
 
-            string vk = nameof(strKvp.Value);
+            var vk = nameof(strKvp.Value);
             object vv = strKvp.Value;
             vv = mapper?.Invoke(vk, vv) ?? vv;
 
@@ -1097,12 +1211,12 @@ public static class PlatformExtensions
         }
         if (type.GetKeyValuePairTypes(out _, out var _))
         {
-            string kk = "Key";
+            var kk = "Key";
             object kv = TypeProperties.Get(type).GetPublicGetter("Key")(obj).ConvertTo<string>();
             kv = mapper?.Invoke(kk, kv) ?? kv;
 
-            string vk = "Value";
-            object vv = TypeProperties.Get(type).GetPublicGetter("Value")(obj);
+            var vk = "Value";
+            var vv = TypeProperties.Get(type).GetPublicGetter("Value")(obj);
             vv = mapper?.Invoke(vk, vv) ?? vv;
 
             return new Dictionary<string, object>
@@ -1113,12 +1227,14 @@ public static class PlatformExtensions
         }
 
         if (!toObjectMapCache.TryGetValue(type, out var def))
+        {
             toObjectMapCache[type] = def = CreateObjectDictionaryDefinition(type);
+        }
 
         foreach (var fieldDef in def.Fields)
         {
-            string k = fieldDef.Name;
-            object v = fieldDef.GetValueFn(obj);
+            var k = fieldDef.Name;
+            var v = fieldDef.GetValueFn(obj);
             v = mapper?.Invoke(k, v) ?? v;
             to[k] = v;
         }
@@ -1136,7 +1252,9 @@ public static class PlatformExtensions
         //matches IDictionary<,>, IReadOnlyDictionary<,>, List<KeyValuePair<string, object>>
         var genericDef = dictType.GetTypeWithGenericTypeDefinitionOf(typeof(IEnumerable<>));
         if (genericDef == null)
+        {
             return null;
+        }
 
         var genericEnumType = genericDef.GetGenericArguments()[0];
         return GetKeyValuePairTypeDef(genericEnumType);
@@ -1147,7 +1265,10 @@ public static class PlatformExtensions
     /// </summary>
     /// <param name="genericEnumType">Type of the generic enum.</param>
     /// <returns>Type.</returns>
-    public static Type GetKeyValuePairTypeDef(this Type genericEnumType) => genericEnumType.GetTypeWithGenericTypeDefinitionOf(typeof(KeyValuePair<,>));
+    public static Type GetKeyValuePairTypeDef(this Type genericEnumType)
+    {
+        return genericEnumType.GetTypeWithGenericTypeDefinitionOf(typeof(KeyValuePair<,>));
+    }
 
     /// <summary>
     /// Gets the key value pairs types.
@@ -1156,8 +1277,10 @@ public static class PlatformExtensions
     /// <param name="keyType">Type of the key.</param>
     /// <param name="valueType">Type of the value.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public static bool GetKeyValuePairsTypes(this Type dictType, out Type keyType, out Type valueType) =>
-        dictType.GetKeyValuePairsTypes(out keyType, out valueType, out _);
+    public static bool GetKeyValuePairsTypes(this Type dictType, out Type keyType, out Type valueType)
+    {
+        return dictType.GetKeyValuePairsTypes(out keyType, out valueType, out _);
+    }
 
     /// <summary>
     /// Gets the key value pairs types.
@@ -1175,7 +1298,9 @@ public static class PlatformExtensions
         {
             kvpType = genericDef.GetGenericArguments()[0];
             if (GetKeyValuePairTypes(kvpType, out keyType, out valueType))
+            {
                 return true;
+            }
         }
         kvpType = keyType = valueType = null;
         return false;
@@ -1212,11 +1337,15 @@ public static class PlatformExtensions
     public static object FromObjectDictionary(this IEnumerable<KeyValuePair<string, object>> values, Type type)
     {
         if (values == null)
+        {
             return null;
+        }
 
         var alreadyDict = typeof(IEnumerable<KeyValuePair<string, object>>).IsAssignableFrom(type);
         if (alreadyDict)
+        {
             return values;
+        }
 
         var to = type.CreateInstance();
         if (to is IDictionary d)
@@ -1254,7 +1383,9 @@ public static class PlatformExtensions
     public static void PopulateInstance(this IEnumerable<KeyValuePair<string, object>> values, object instance)
     {
         if (values == null || instance == null)
+        {
             return;
+        }
 
         PopulateInstanceInternal(values, instance, instance.GetType());
     }
@@ -1268,7 +1399,9 @@ public static class PlatformExtensions
     private static void PopulateInstanceInternal(IEnumerable<KeyValuePair<string, object>> values, object to, Type type)
     {
         if (!toObjectMapCache.TryGetValue(type, out var def))
+        {
             toObjectMapCache[type] = def = CreateObjectDictionaryDefinition(type);
+        }
 
         foreach (var entry in values)
         {
@@ -1276,7 +1409,9 @@ public static class PlatformExtensions
                 !def.FieldsMap.TryGetValue(entry.Key.ToPascalCase(), out fieldDef)
                 || entry.Value == null
                 || entry.Value == DBNull.Value)
+            {
                 continue;
+            }
 
             fieldDef.SetValue(to, entry.Value);
         }
@@ -1290,7 +1425,9 @@ public static class PlatformExtensions
     public static void PopulateInstance(this IEnumerable<KeyValuePair<string, string>> values, object instance)
     {
         if (values == null || instance == null)
+        {
             return;
+        }
 
         PopulateInstanceInternal(values, instance, instance.GetType());
     }
@@ -1304,14 +1441,18 @@ public static class PlatformExtensions
     private static void PopulateInstanceInternal(IEnumerable<KeyValuePair<string, string>> values, object to, Type type)
     {
         if (!toObjectMapCache.TryGetValue(type, out var def))
+        {
             toObjectMapCache[type] = def = CreateObjectDictionaryDefinition(type);
+        }
 
         foreach (var entry in values)
         {
             if (!def.FieldsMap.TryGetValue(entry.Key, out var fieldDef) &&
                 !def.FieldsMap.TryGetValue(entry.Key.ToPascalCase(), out fieldDef)
                 || entry.Value == null)
+            {
                 continue;
+            }
 
             fieldDef.SetValue(to, entry.Value);
         }

@@ -41,9 +41,9 @@ public class RangeAttribute : AttributeBase
     /// <param name="maximum">The maximum.</param>
     public RangeAttribute(int minimum, int maximum)
     {
-        OperandType = typeof(int);
-        Minimum = minimum;
-        Maximum = maximum;
+        this.OperandType = typeof(int);
+        this.Minimum = minimum;
+        this.Maximum = maximum;
     }
 
     /// <summary>
@@ -53,9 +53,9 @@ public class RangeAttribute : AttributeBase
     /// <param name="maximum">The maximum.</param>
     public RangeAttribute(double minimum, double maximum)
     {
-        OperandType = typeof(double);
-        Minimum = minimum;
-        Maximum = maximum;
+        this.OperandType = typeof(double);
+        this.Minimum = minimum;
+        this.Maximum = maximum;
     }
 
     /// <summary>
@@ -66,8 +66,8 @@ public class RangeAttribute : AttributeBase
     /// <param name="maximum">The maximum.</param>
     public RangeAttribute(Type type, string minimum, string maximum)
     {
-        OperandType = type;
-        Minimum = minimum;
-        Maximum = maximum;
+        this.OperandType = type;
+        this.Minimum = minimum;
+        this.Maximum = maximum;
     }
 }

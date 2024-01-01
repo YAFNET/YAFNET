@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -92,7 +92,7 @@ public class UserInfo : ForumBaseController
                     this.Get<BoardSettings>().ActiveListTime),
                 TimeSpan.FromMilliseconds(this.Get<BoardSettings>().OnlineStatusCacheTimeout));
 
-            var userIsOnline = activeUsers.Any(x => x.UserID == userId && x.IsActiveExcluded == false);
+            var userIsOnline = activeUsers.Exists(x => x.UserID == userId && x.IsActiveExcluded == false);
 
             var userName = user.Item1.DisplayOrUserName();
 

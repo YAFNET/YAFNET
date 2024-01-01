@@ -27,6 +27,6 @@ public class IdAttribute : AttributeBase
     /// <param name="id">The identifier.</param>
     public IdAttribute(int id)
     {
-        Id = id;
+        this.Id = id;
     }
 }

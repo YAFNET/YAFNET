@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2023 Ingo Herbote
+* Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -79,7 +79,7 @@ public static class MimeTypes
 
         var extension = Path.GetExtension(fileName).Replace(".", string.Empty).ToLower();
 
-        var isMatch = mimeTypes.Where(m => m.Extension == extension).ToList().Any(m => m.Extension == extension && m.Type == contentType);
+        var isMatch = mimeTypes.Where(m => m.Extension == extension).ToList().Exists(m => m.Extension == extension && m.Type == contentType);
 
         if (!isMatch)
         {

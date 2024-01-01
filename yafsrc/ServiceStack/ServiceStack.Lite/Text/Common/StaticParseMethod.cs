@@ -33,7 +33,9 @@ static internal class ParseMethodUtilities
         // Get the static Parse(string) method on the type supplied
         var parseMethodInfo = typeof(T).GetStaticMethod(parseMethod, [typeof(string)]);
         if (parseMethodInfo == null)
+        {
             return null;
+        }
 
         ParseDelegate parseDelegate = null;
         try
@@ -55,7 +57,9 @@ static internal class ParseMethodUtilities
         }
 
         if (parseDelegate != null)
+        {
             return value => parseDelegate(value.FromCsvField());
+        }
 
         return null;
     }
@@ -79,7 +83,9 @@ static internal class ParseMethodUtilities
         // Get the static Parse(string) method on the type supplied
         var parseMethodInfo = typeof(T).GetStaticMethod(parseMethod, [typeof(string)]);
         if (parseMethodInfo == null)
+        {
             return null;
+        }
 
         ParseStringSpanDelegate parseDelegate = null;
         try
@@ -101,7 +107,9 @@ static internal class ParseMethodUtilities
         }
 
         if (parseDelegate != null)
+        {
             return value => parseDelegate(value.ToString().FromCsvField().AsSpan());
+        }
 
         return null;
     }

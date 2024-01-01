@@ -172,12 +172,16 @@ public static class TypeConfig<T>
                              : config.Type.GetSerializableProperties();
         Properties = properties.Where(x => x.GetIndexParameters().Length == 0).ToArray();
 
-        Fields = config.Type.GetSerializableFields().ToArray();
+        Fields = [.. config.Type.GetSerializableFields()];
 
         if (!JsConfig<T>.HasDeserializingFn)
+        {
             OnDeserializing = ReflectionExtensions.GetOnDeserializing<T>();
+        }
         else
+        {
             config.OnDeserializing = (instance, memberName, value) => JsConfig<T>.OnDeserializingFn((T)instance, memberName, value);
+        }
 
         IsUserType = !typeof(T).IsValueType && typeof(T).Namespace != "System";
 

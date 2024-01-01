@@ -28,7 +28,7 @@ public static class WriteListsOfElements<TSerializer>
     /// <summary>
     /// The list cache FNS
     /// </summary>
-    static Dictionary<Type, WriteObjectDelegate> ListCacheFns = new();
+    static Dictionary<Type, WriteObjectDelegate> ListCacheFns = [];
 
     /// <summary>
     /// Gets the list write function.
@@ -37,7 +37,10 @@ public static class WriteListsOfElements<TSerializer>
     /// <returns>WriteObjectDelegate.</returns>
     public static WriteObjectDelegate GetListWriteFn(Type elementType)
     {
-        if (ListCacheFns.TryGetValue(elementType, out WriteObjectDelegate writeFn)) return writeFn;
+        if (ListCacheFns.TryGetValue(elementType, out var writeFn))
+        {
+            return writeFn;
+        }
 
         var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
         var mi = genericType.GetStaticMethod("WriteList");
@@ -60,7 +63,7 @@ public static class WriteListsOfElements<TSerializer>
     /// <summary>
     /// The i list cache FNS
     /// </summary>
-    static Dictionary<Type, WriteObjectDelegate> IListCacheFns = new();
+    static Dictionary<Type, WriteObjectDelegate> IListCacheFns = [];
 
     /// <summary>
     /// Gets the i list write function.
@@ -69,7 +72,10 @@ public static class WriteListsOfElements<TSerializer>
     /// <returns>WriteObjectDelegate.</returns>
     public static WriteObjectDelegate GetIListWriteFn(Type elementType)
     {
-        if (IListCacheFns.TryGetValue(elementType, out WriteObjectDelegate writeFn)) return writeFn;
+        if (IListCacheFns.TryGetValue(elementType, out var writeFn))
+        {
+            return writeFn;
+        }
 
         var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
         var mi = genericType.GetStaticMethod("WriteIList");
@@ -91,7 +97,7 @@ public static class WriteListsOfElements<TSerializer>
     /// <summary>
     /// The cache FNS
     /// </summary>
-    static Dictionary<Type, WriteObjectDelegate> CacheFns = new();
+    static Dictionary<Type, WriteObjectDelegate> CacheFns = [];
 
     /// <summary>
     /// Gets the generic write array.
@@ -100,7 +106,10 @@ public static class WriteListsOfElements<TSerializer>
     /// <returns>WriteObjectDelegate.</returns>
     public static WriteObjectDelegate GetGenericWriteArray(Type elementType)
     {
-        if (CacheFns.TryGetValue(elementType, out WriteObjectDelegate writeFn)) return writeFn;
+        if (CacheFns.TryGetValue(elementType, out var writeFn))
+        {
+            return writeFn;
+        }
 
         var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
         var mi = genericType.GetStaticMethod("WriteArray");
@@ -122,7 +131,7 @@ public static class WriteListsOfElements<TSerializer>
     /// <summary>
     /// The enumerable cache FNS
     /// </summary>
-    static Dictionary<Type, WriteObjectDelegate> EnumerableCacheFns = new();
+    static Dictionary<Type, WriteObjectDelegate> EnumerableCacheFns = [];
 
     /// <summary>
     /// Gets the generic write enumerable.
@@ -131,7 +140,10 @@ public static class WriteListsOfElements<TSerializer>
     /// <returns>WriteObjectDelegate.</returns>
     public static WriteObjectDelegate GetGenericWriteEnumerable(Type elementType)
     {
-        if (EnumerableCacheFns.TryGetValue(elementType, out WriteObjectDelegate writeFn)) return writeFn;
+        if (EnumerableCacheFns.TryGetValue(elementType, out var writeFn))
+        {
+            return writeFn;
+        }
 
         var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
         var mi = genericType.GetStaticMethod("WriteEnumerable");
@@ -153,7 +165,7 @@ public static class WriteListsOfElements<TSerializer>
     /// <summary>
     /// The list value type cache FNS
     /// </summary>
-    static Dictionary<Type, WriteObjectDelegate> ListValueTypeCacheFns = new();
+    static Dictionary<Type, WriteObjectDelegate> ListValueTypeCacheFns = [];
 
     /// <summary>
     /// Gets the type of the write list value.
@@ -162,7 +174,10 @@ public static class WriteListsOfElements<TSerializer>
     /// <returns>WriteObjectDelegate.</returns>
     public static WriteObjectDelegate GetWriteListValueType(Type elementType)
     {
-        if (ListValueTypeCacheFns.TryGetValue(elementType, out WriteObjectDelegate writeFn)) return writeFn;
+        if (ListValueTypeCacheFns.TryGetValue(elementType, out var writeFn))
+        {
+            return writeFn;
+        }
 
         var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
         var mi = genericType.GetStaticMethod("WriteListValueType");
@@ -184,7 +199,7 @@ public static class WriteListsOfElements<TSerializer>
     /// <summary>
     /// The i list value type cache FNS
     /// </summary>
-    static Dictionary<Type, WriteObjectDelegate> IListValueTypeCacheFns = new();
+    static Dictionary<Type, WriteObjectDelegate> IListValueTypeCacheFns = [];
 
     /// <summary>
     /// Gets the type of the write i list value.
@@ -193,7 +208,10 @@ public static class WriteListsOfElements<TSerializer>
     /// <returns>WriteObjectDelegate.</returns>
     public static WriteObjectDelegate GetWriteIListValueType(Type elementType)
     {
-        if (IListValueTypeCacheFns.TryGetValue(elementType, out WriteObjectDelegate writeFn)) return writeFn;
+        if (IListValueTypeCacheFns.TryGetValue(elementType, out var writeFn))
+        {
+            return writeFn;
+        }
 
         var genericType = typeof(WriteListsOfElements<,>).MakeGenericType(elementType, typeof(TSerializer));
         var mi = genericType.GetStaticMethod("WriteIListValueType");
@@ -279,7 +297,9 @@ public static class WriteListsOfElements<T, TSerializer>
                 try
                 {
                     if (!JsState.Traverse(obj))
+                    {
                         return;
+                    }
 
                     fn(writer, obj);
                 }
@@ -317,7 +337,10 @@ public static class WriteListsOfElements<T, TSerializer>
     /// <param name="list">The list.</param>
     public static void WriteGenericListValueType(TextWriter writer, List<T> list)
     {
-        if (list == null) return; //AOT
+        if (list == null)
+        {
+            return; //AOT
+        }
 
         writer.Write(JsWriter.ListStartChar);
 
@@ -349,7 +372,11 @@ public static class WriteListsOfElements<T, TSerializer>
     /// <param name="list">The list.</param>
     public static void WriteGenericIList(TextWriter writer, IList<T> list)
     {
-        if (list == null) return;
+        if (list == null)
+        {
+            return;
+        }
+
         writer.Write(JsWriter.ListStartChar);
 
         var ranOnce = false;
@@ -388,7 +415,10 @@ public static class WriteListsOfElements<T, TSerializer>
     /// <param name="list">The list.</param>
     public static void WriteGenericIListValueType(TextWriter writer, IList<T> list)
     {
-        if (list == null) return; //AOT
+        if (list == null)
+        {
+            return; //AOT
+        }
 
         writer.Write(JsWriter.ListStartChar);
 
@@ -410,7 +440,11 @@ public static class WriteListsOfElements<T, TSerializer>
     /// <param name="oArrayValue">The o array value.</param>
     public static void WriteArray(TextWriter writer, object oArrayValue)
     {
-        if (oArrayValue == null) return;
+        if (oArrayValue == null)
+        {
+            return;
+        }
+
         WriteGenericArray(writer, (Array)oArrayValue);
     }
 
@@ -431,7 +465,11 @@ public static class WriteListsOfElements<T, TSerializer>
     /// <param name="array">The array.</param>
     public static void WriteGenericArrayValueType(TextWriter writer, T[] array)
     {
-        if (array == null) return;
+        if (array == null)
+        {
+            return;
+        }
+
         writer.Write(JsWriter.ListStartChar);
 
         var ranOnce = false;
@@ -456,15 +494,19 @@ public static class WriteListsOfElements<T, TSerializer>
     {
         var ranOnce = false;
         writer.Write(JsWriter.ListStartChar);
-        for (int i = 0; i < array.GetLength(rank); i++)
+        for (var i = 0; i < array.GetLength(rank); i++)
         {
             JsWriter.WriteItemSeperatorIfRanOnce(writer, ref ranOnce);
             indices[rank] = i;
 
             if (rank < array.Rank - 1)
+            {
                 WriteGenericArrayMultiDimension(writer, array, rank + 1, indices);
+            }
             else
+            {
                 ElementWriteFn(writer, array.GetValue(indices));
+            }
         }
         writer.Write(JsWriter.ListEndChar);
     }
@@ -495,7 +537,11 @@ public static class WriteListsOfElements<T, TSerializer>
     /// <param name="enumerable">The enumerable.</param>
     public static void WriteGenericEnumerable(TextWriter writer, IEnumerable<T> enumerable)
     {
-        if (enumerable == null) return;
+        if (enumerable == null)
+        {
+            return;
+        }
+
         writer.Write(JsWriter.ListStartChar);
 
         var ranOnce = false;
@@ -585,7 +631,11 @@ static internal class WriteLists
     /// <param name="byteValue">The byte value.</param>
     public static void WriteBytes(ITypeSerializer serializer, TextWriter writer, object byteValue)
     {
-        if (byteValue == null) return;
+        if (byteValue == null)
+        {
+            return;
+        }
+
         serializer.WriteBytes(writer, byteValue);
     }
 
@@ -655,19 +705,34 @@ static internal class WriteLists<T, TSerializer>
 
         //optimized access for regularly used types
         if (type == typeof(List<string>))
+        {
             return (w, x) => WriteLists.WriteListString(Serializer, w, x);
+        }
+
         if (type == typeof(IList<string>))
+        {
             return (w, x) => WriteLists.WriteIListString(Serializer, w, x);
+        }
 
         if (type == typeof(List<int>))
+        {
             return WriteListsOfElements<int, TSerializer>.WriteListValueType;
+        }
+
         if (type == typeof(IList<int>))
+        {
             return WriteListsOfElements<int, TSerializer>.WriteIListValueType;
+        }
 
         if (type == typeof(List<long>))
+        {
             return WriteListsOfElements<long, TSerializer>.WriteListValueType;
+        }
+
         if (type == typeof(IList<long>))
+        {
             return WriteListsOfElements<long, TSerializer>.WriteIListValueType;
+        }
 
         var elementType = listInterface.GetGenericArguments()[0];
 

@@ -33,14 +33,17 @@ public static class HttpMethods
     /// <summary>
     /// All verbs
     /// </summary>
-    public static HashSet<string> AllVerbs = [..allVerbs];
+    public readonly static HashSet<string> AllVerbs = [.. allVerbs];
 
     /// <summary>
     /// Existses the specified HTTP method.
     /// </summary>
     /// <param name="httpMethod">The HTTP method.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public static bool Exists(string httpMethod) => AllVerbs.Contains(httpMethod.ToUpper());
+    public static bool Exists(string httpMethod)
+    {
+        return AllVerbs.Contains(httpMethod.ToUpper());
+    }
 
     /// <summary>
     /// The get

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -170,18 +170,6 @@ public abstract class ForumPage : PageModel,
     /// Gets or sets a value indicating whether no data base, Should only be set by the page that initialized the database.
     /// </summary>
     protected bool NoDataBase { get; set; }
-
-    /// <summary>
-    /// Determines whether the specified value is null.
-    /// </summary>
-    /// <param name="value">The value.</param>
-    /// <returns>
-    /// The is null.
-    /// </returns>
-    public static object IsNull(string value)
-    {
-        return value == null || value.ToLower() == string.Empty ? DBNull.Value : value;
-    }
 
     /// <summary>
     /// Called before the handler method executes, after model binding is complete.

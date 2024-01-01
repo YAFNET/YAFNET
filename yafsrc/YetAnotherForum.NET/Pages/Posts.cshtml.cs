@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -97,14 +97,11 @@ public class PostsModel : ForumPage
     {
         this.Get<ISessionService>().SetPageData(new List<PagedMessage>());
 
-        if (!this.PageBoardContext.IsGuest)
+        if (!this.PageBoardContext.IsGuest && this.PageBoardContext.PageUser.Activity)
         {
-            if (this.PageBoardContext.PageUser.Activity)
-            {
-                this.GetRepository<Activity>().UpdateTopicNotification(
-                    this.PageBoardContext.PageUserID,
-                    this.PageBoardContext.PageTopicID);
-            }
+            this.GetRepository<Activity>().UpdateTopicNotification(
+                this.PageBoardContext.PageUserID,
+                this.PageBoardContext.PageTopicID);
         }
 
         if (this.PageBoardContext.IsGuest && !this.PageBoardContext.ForumReadAccess)
@@ -123,12 +120,10 @@ public class PostsModel : ForumPage
         }
 
         // Clear Multi-quotes if topic is different
-        if (this.Get<ISessionService>().MultiQuoteIds != null)
+        if (this.Get<ISessionService>().MultiQuoteIds != null && !this.Get<ISessionService>().MultiQuoteIds
+                .Exists(x => x.TopicID.Equals(this.PageBoardContext.PageTopicID)))
         {
-            if (!this.Get<ISessionService>().MultiQuoteIds.Any(x => x.TopicID.Equals(this.PageBoardContext.PageTopicID)))
-            {
-                this.Get<ISessionService>().MultiQuoteIds = null;
-            }
+            this.Get<ISessionService>().MultiQuoteIds = null;
         }
 
         var topicSubject = this.Get<IBadWordReplace>().Replace(this.HtmlEncode(this.PageBoardContext.PageTopic.TopicName));

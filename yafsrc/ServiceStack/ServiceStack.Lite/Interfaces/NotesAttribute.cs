@@ -17,5 +17,8 @@ public class NotesAttribute : AttributeBase
     /// Initializes a new instance of the <see cref="NotesAttribute"/> class.
     /// </summary>
     /// <param name="notes">The notes.</param>
-    public NotesAttribute(string notes) => Notes = notes;
+    public NotesAttribute(string notes)
+    {
+        this.Notes = notes;
+    }
 }

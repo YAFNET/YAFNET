@@ -25,7 +25,11 @@ public class JsonSerializer<T> : ITypeSerializer<T>
     /// <returns>T.</returns>
     public T DeserializeFromString(string value)
     {
-        if (string.IsNullOrEmpty(value)) return default;
+        if (string.IsNullOrEmpty(value))
+        {
+            return default;
+        }
+
         return (T)JsonReader<T>.Parse(value);
     }
 
@@ -36,13 +40,25 @@ public class JsonSerializer<T> : ITypeSerializer<T>
     /// <returns>System.String.</returns>
     public string SerializeToString(T value)
     {
-        if (value == null) return null;
+        if (value == null)
+        {
+            return null;
+        }
+
         if (typeof(T) == typeof(object) || typeof(T).IsAbstract || typeof(T).IsInterface)
         {
             var prevState = JsState.IsWritingDynamic;
-            if (typeof(T).IsAbstract || typeof(T).IsInterface) JsState.IsWritingDynamic = true;
+            if (typeof(T).IsAbstract || typeof(T).IsInterface)
+            {
+                JsState.IsWritingDynamic = true;
+            }
+
             var result = JsonSerializer.SerializeToString(value, value.GetType());
-            if (typeof(T).IsAbstract || typeof(T).IsInterface) JsState.IsWritingDynamic = prevState;
+            if (typeof(T).IsAbstract || typeof(T).IsInterface)
+            {
+                JsState.IsWritingDynamic = prevState;
+            }
+
             return result;
         }
 

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -170,18 +170,6 @@ public class UserFlags : FlagsBase
         get => this[2];
 
         set => this[2] = value;
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether user is guest, i.e. not registered and logged in.
-    /// </summary>
-    [Obsolete]
-    public bool IsCaptchaExcluded
-    {
-        // int value 8
-        get => this[3];
-
-        set => this[3] = value;
     }
 
     /// <summary>

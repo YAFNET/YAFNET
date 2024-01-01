@@ -25,19 +25,27 @@ public static class CollectionExtensions
     public static ICollection<T> CreateAndPopulate<T>(Type ofCollectionType, T[] withItems)
     {
         if (withItems == null)
+        {
             return null;
+        }
 
         if (ofCollectionType == null)
+        {
             return new List<T>(withItems);
+        }
 
         var genericType = ofCollectionType.FirstGenericType();
         var genericTypeDefinition = genericType?.GetGenericTypeDefinition();
 
         if (genericTypeDefinition == typeof(HashSet<>))
+        {
             return new HashSet<T>(withItems);
+        }
 
         if (genericTypeDefinition == typeof(LinkedList<>))
+        {
             return new LinkedList<T>(withItems);
+        }
 
         var collection = (ICollection<T>)ofCollectionType.CreateInstance();
         foreach (var item in withItems)

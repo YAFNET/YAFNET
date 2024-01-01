@@ -42,7 +42,9 @@ public static class TextExtensions
                                  : TypeSerializer.SerializeToString(text).StripQuotes();
 
         if (textSerialized.IsNullOrEmpty() || !CsvWriter.HasAnyEscapeChars(textSerialized))
+        {
             return textSerialized;
+        }
 
         var itemDelim = CsvConfig.ItemDelimiterString;
         return string.Concat(
@@ -60,7 +62,10 @@ public static class TextExtensions
     {
         var itemDelim = CsvConfig.ItemDelimiterString;
         if (string.IsNullOrEmpty(text) || !text.StartsWith(itemDelim, StringComparison.Ordinal))
+        {
             return text;
+        }
+
         var escapedDelim = CsvConfig.EscapedItemDelimiterString;
         return text.Substring(itemDelim.Length, text.Length - escapedDelim.Length)
             .Replace(escapedDelim, itemDelim);

@@ -29,7 +29,9 @@ public static class StringWriterCache
     {
         var ret = cache;
         if (ret == null)
+        {
             return new StringWriter(CultureInfo.InvariantCulture);
+        }
 
         var sb = ret.GetStringBuilder();
         sb.Length = 0;
@@ -78,7 +80,9 @@ public static class StringWriterCacheAlt
     {
         var ret = cache;
         if (ret == null)
+        {
             return new StringWriter(CultureInfo.InvariantCulture);
+        }
 
         var sb = ret.GetStringBuilder();
         sb.Length = 0;
@@ -128,7 +132,9 @@ static internal class StringWriterThreadStatic
     {
         var ret = cache;
         if (ret == null)
+        {
             return new StringWriter(CultureInfo.InvariantCulture);
+        }
 
         var sb = ret.GetStringBuilder();
         sb.Length = 0;

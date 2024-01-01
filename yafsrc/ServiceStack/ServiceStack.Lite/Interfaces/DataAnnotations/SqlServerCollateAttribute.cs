@@ -21,7 +21,7 @@ public class SqlServerCollateAttribute : AttributeBase
     /// Initializes a new instance of the <see cref="SqlServerCollateAttribute" /> class.
     /// </summary>
     /// <param name="collation">The collation.</param>
-    public SqlServerCollateAttribute(string collation) { Collation = collation; }
+    public SqlServerCollateAttribute(string collation) { this.Collation = collation; }
 
     /// <summary>
     /// Gets or sets the collation.

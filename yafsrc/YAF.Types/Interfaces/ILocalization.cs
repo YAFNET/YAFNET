@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -120,6 +120,37 @@ public interface ILocalization
     string GetText(string text);
 
     /// <summary>
+    /// Gets the Text
+    /// </summary>
+    /// <param name="page">
+    /// The page.
+    /// </param>
+    /// <param name="tag">
+    /// The tag.
+    /// </param>
+    /// <returns>
+    /// The get text.
+    /// </returns>
+    string GetText(string page, string tag);
+
+    /// <summary>
+    /// Gets text with a language file.
+    /// </summary>
+    /// <param name="page">
+    /// The page.
+    /// </param>
+    /// <param name="tag">
+    /// The tag.
+    /// </param>
+    /// <param name="languageFile">
+    /// The language File.
+    /// </param>
+    /// <returns>
+    /// The <see cref="string"/>.
+    /// </returns>
+    string GetText(string page, string tag, string languageFile);
+
+    /// <summary>
     /// Gets the attribute encoded text.
     /// </summary>
     /// <param name="text">
@@ -142,38 +173,7 @@ public interface ILocalization
     /// <returns>
     /// The get text.
     /// </returns>
-    string GetText(string page, string tag);
-
-    /// <summary>
-    /// Gets the Text
-    /// </summary>
-    /// <param name="page">
-    /// The page.
-    /// </param>
-    /// <param name="tag">
-    /// The tag.
-    /// </param>
-    /// <returns>
-    /// The get text.
-    /// </returns>
     string GetAttributeText(string page, string tag);
-
-    /// <summary>
-    /// Gets text with a language file.
-    /// </summary>
-    /// <param name="page">
-    /// The page.
-    /// </param>
-    /// <param name="tag">
-    /// The tag.
-    /// </param>
-    /// <param name="languageFile">
-    /// The language File.
-    /// </param>
-    /// <returns>
-    /// The <see cref="string"/>.
-    /// </returns>
-    string GetText(string page, string tag, string languageFile);
 
     /// <summary>
     /// Checks if the Text exists

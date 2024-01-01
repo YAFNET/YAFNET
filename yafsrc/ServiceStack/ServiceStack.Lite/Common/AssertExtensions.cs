@@ -24,7 +24,9 @@ public static class AssertExtensions
     public static string ThrowIfNullOrEmpty(this string strValue, string varName)
     {
         if (string.IsNullOrEmpty(strValue))
+        {
             throw new ArgumentNullException(varName ?? "string");
+        }
 
         return strValue;
     }

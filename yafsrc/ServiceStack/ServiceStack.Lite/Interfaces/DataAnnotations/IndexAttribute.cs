@@ -27,7 +27,7 @@ public class IndexAttribute : AttributeBase
     /// <param name="unique">if set to <c>true</c> [unique].</param>
     public IndexAttribute(bool unique)
     {
-        Unique = unique;
+        this.Unique = unique;
     }
 
     /// <summary>

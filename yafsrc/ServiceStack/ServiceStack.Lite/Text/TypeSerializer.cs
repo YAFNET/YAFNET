@@ -59,7 +59,11 @@ public static class TypeSerializer
     /// <returns>T.</returns>
     public static T DeserializeFromString<T>(string value)
     {
-        if (string.IsNullOrEmpty(value)) return default;
+        if (string.IsNullOrEmpty(value))
+        {
+            return default;
+        }
+
         return (T)JsvReader<T>.Parse(value);
     }
 
@@ -97,7 +101,11 @@ public static class TypeSerializer
     /// <returns>System.String.</returns>
     public static string SerializeToString<T>(T value)
     {
-        if (value == null || value is Delegate) return null;
+        if (value == null || value is Delegate)
+        {
+            return null;
+        }
+
         if (typeof(T) == typeof(object))
         {
             return SerializeToString(value, value.GetType());
@@ -159,9 +167,13 @@ public static class TypeSerializer
     public static void Print(this string text, params object[] args)
     {
         if (args.Length > 0)
+        {
             PclExport.Instance.WriteLine(text, args);
+        }
         else
+        {
             PclExport.Instance.WriteLine(text);
+        }
     }
 
     /// <summary>
@@ -203,7 +215,9 @@ public static class TypeSerializer
         var type = value?.GetType();
 
         if (type is not { IsClass: true } || value is string or Type)
+        {
             return false;
+        }
 
         if (parentValues == null)
         {
@@ -214,12 +228,16 @@ public static class TypeSerializer
         bool CheckValue(object key)
         {
             if (parentValues.Contains(key))
+            {
                 return true;
+            }
 
             parentValues.Push(key);
 
             if (HasCircularReferences(key, parentValues))
+            {
                 return true;
+            }
 
             parentValues.Pop();
             return false;
@@ -230,7 +248,9 @@ public static class TypeSerializer
             foreach (var item in valueEnumerable)
             {
                 if (item == null)
+                {
                     continue;
+                }
 
                 var itemType = item.GetType();
                 if (itemType.IsGenericType && itemType.GetGenericTypeDefinition() == typeof(KeyValuePair<,>))
@@ -239,16 +259,22 @@ public static class TypeSerializer
                     var key = props.GetPublicGetter("Key")(item);
 
                     if (CheckValue(key))
+                    {
                         return true;
+                    }
 
                     var val = props.GetPublicGetter("Value")(item);
 
                     if (CheckValue(val))
+                    {
                         return true;
+                    }
                 }
 
                 if (CheckValue(item))
+                {
                     return true;
+                }
             }
         }
         else
@@ -258,17 +284,23 @@ public static class TypeSerializer
             foreach (var pi in props)
             {
                 if (pi.GetIndexParameters().Length > 0)
+                {
                     continue;
+                }
 
                 try
                 {
                     var mi = pi.GetGetMethod(false);
                     var pValue = mi != null ? mi.Invoke(value, null) : null;
                     if (pValue == null)
+                    {
                         continue;
+                    }
 
                     if (CheckValue(pValue))
+                    {
                         return true;
+                    }
                 }
                 catch (TargetInvocationException e)
                 {
@@ -287,7 +319,10 @@ public static class TypeSerializer
     /// <param name="fn">The function.</param>
     private static void times(int count, Action fn)
     {
-        for (var i = 0; i < count; i++) fn();
+        for (var i = 0; i < count; i++)
+        {
+            fn();
+        }
     }
 
     /// <summary>
@@ -333,9 +368,15 @@ public static class TypeSerializer
                     var escaped = false;
                     var index = i;
                     while (index > 0 && json[--index] == '\\')
+                    {
                         escaped = !escaped;
+                    }
+
                     if (!escaped)
+                    {
                         quoted = !quoted;
+                    }
+
                     break;
                 case ',':
                     sb.Append(ch);
@@ -348,7 +389,10 @@ public static class TypeSerializer
                 case ':':
                     sb.Append(ch);
                     if (!quoted)
+                    {
                         sb.Append(" ");
+                    }
+
                     break;
                 default:
                     sb.Append(ch);

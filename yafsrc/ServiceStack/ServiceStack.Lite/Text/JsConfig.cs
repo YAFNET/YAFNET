@@ -39,13 +39,19 @@ public static class JsConfig
     /// <summary>
     /// Mark JsConfig global config as initialized and assert it's no longer mutated
     /// </summary>
-    public static void Init() => Config.Init();
+    public static void Init()
+    {
+        Config.Init();
+    }
 
     /// <summary>
     /// Initialize global config and assert that it's no longer mutated
     /// </summary>
     /// <param name="config">The configuration.</param>
-    public static void Init(Config config) => Config.Init(config);
+    public static void Init(Config config)
+    {
+        Config.Init(config);
+    }
 
     /// <summary>
     /// Gets a value indicating whether this instance has initialize.
@@ -71,7 +77,9 @@ public static class JsConfig
     public static JsConfigScope CreateScope(string config, JsConfigScope scope = null)
     {
         if (string.IsNullOrEmpty(config))
+        {
             return scope;
+        }
 
         scope ??= BeginScope();
 
@@ -271,7 +279,10 @@ public static class JsConfig
     /// </summary>
     /// <param name="config">The configuration.</param>
     /// <returns>JsConfigScope.</returns>
-    public static JsConfigScope With(Config config) => (JsConfigScope)new JsConfigScope().Populate(config);
+    public static JsConfigScope With(Config config)
+    {
+        return (JsConfigScope)new JsConfigScope().Populate(config);
+    }
 
     /// <summary>
     /// Gets or sets a value indicating whether [try to parse primitive type values].
@@ -453,7 +464,10 @@ public static class JsConfig
     /// Avoid multiple static property checks by getting snapshot of active config
     /// </summary>
     /// <returns>Config.</returns>
-    public static Config GetConfig() => JsConfigScope.Current ?? Config.Instance;
+    public static Config GetConfig()
+    {
+        return JsConfigScope.Current ?? Config.Instance;
+    }
 
     /// <summary>
     /// Gets or sets a value indicating if the framework should throw serialization exceptions
@@ -497,17 +511,17 @@ public static class JsConfig
     /// <summary>
     /// The has serialize function
     /// </summary>
-    static internal HashSet<Type> HasSerializeFn = [];
+    static internal HashSet<Type> HasSerializeFn { get; set; } = [];
 
     /// <summary>
     /// The has include default value
     /// </summary>
-    static internal HashSet<Type> HasIncludeDefaultValue = [];
+    static internal HashSet<Type> HasIncludeDefaultValue { get; set; } = [];
 
     /// <summary>
     /// The treat value as reference types
     /// </summary>
-    public static HashSet<Type> TreatValueAsRefTypes = [];
+    public static HashSet<Type> TreatValueAsRefTypes { get; set; } = [];
 
     /// <summary>
     /// If set to true, Interface types will be preferred over concrete types when serializing.
@@ -713,7 +727,9 @@ public static class JsConfig
     static internal void AddUniqueType(Type type)
     {
         if (__uniqueTypes.Contains(type))
+        {
             return;
+        }
 
         HashSet<Type> newTypes, snapshot;
         do
@@ -752,19 +768,22 @@ public class JsConfig<T>
     {
         var config = new Config().Populate(JsConfig.GetConfig());
         if (TextCase != TextCase.Default)
+        {
             config.TextCase = TextCase;
+        }
+
         return config;
     }
 
     /// <summary>
     /// Always emit type info for this type.  Takes precedence over ExcludeTypeInfo
     /// </summary>
-    public static bool? IncludeTypeInfo;
+    public static bool? IncludeTypeInfo { get; set; }
 
     /// <summary>
     /// Never emit type info for this type
     /// </summary>
-    public static bool? ExcludeTypeInfo;
+    public static bool? ExcludeTypeInfo { get; set; }
 
     /// <summary>
     /// Text case to use for property names (Default = PascalCase)
@@ -788,9 +807,13 @@ public class JsConfig<T>
         {
             serializeFn = value;
             if (value != null)
+            {
                 JsConfig.HasSerializeFn.Add(typeof(T));
+            }
             else
+            {
                 JsConfig.HasSerializeFn.Remove(typeof(T));
+            }
 
             ClearFnCaches();
         }
@@ -818,9 +841,13 @@ public class JsConfig<T>
         {
             rawSerializeFn = value;
             if (value != null)
+            {
                 JsConfig.HasSerializeFn.Add(typeof(T));
+            }
             else
+            {
                 JsConfig.HasSerializeFn.Remove(typeof(T));
+            }
 
             ClearFnCaches();
         }
@@ -930,7 +957,7 @@ public class JsConfig<T>
     /// <summary>
     /// Exclude specific properties of this type from being serialized
     /// </summary>
-    public static string[] ExcludePropertyNames;
+    public static string[] ExcludePropertyNames { get; set; }
 
     /// <summary>
     /// Writes the function.

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -58,6 +58,10 @@ public class NotificationModel : ForumPageRegistered
     [BindProperty]
     public List<Tuple<Activity, User, Topic>> Notifications { get; set; }
 
+    /// <summary>
+    /// Gets or sets the notifications count.
+    /// </summary>
+    /// <value>The notifications count.</value>
     [BindProperty]
     public int NotificationsCount { get; set; }
 
@@ -118,6 +122,10 @@ public class NotificationModel : ForumPageRegistered
         return this.Page();
     }
 
+    /// <summary>
+    /// Called when [post update].
+    /// </summary>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostUpdate()
     {
         this.BindData();

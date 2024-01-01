@@ -39,7 +39,10 @@ public static class DeserializeDictionary<TSerializer>
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>ParseStringDelegate.</returns>
-    public static ParseStringDelegate GetParseMethod(Type type) => v => GetParseStringSpanMethod(type)(v.AsSpan());
+    public static ParseStringDelegate GetParseMethod(Type type)
+    {
+        return v => GetParseStringSpanMethod(type)(v.AsSpan());
+    }
 
     /// <summary>
     /// Gets the parse string span method.
@@ -54,7 +57,9 @@ public static class DeserializeDictionary<TSerializer>
         {
             var fn = PclExport.Instance.GetDictionaryParseStringSpanMethod<TSerializer>(type);
             if (fn != null)
+            {
                 return fn;
+            }
 
             if (type == typeof(IDictionary))
             {
@@ -71,9 +76,15 @@ public static class DeserializeDictionary<TSerializer>
 
         //optimized access for regularly used types
         if (type == typeof(Dictionary<string, string>))
+        {
             return ParseStringDictionary;
+        }
+
         if (type == typeof(JsonObject))
+        {
             return ParseJsonObject;
+        }
+
         if (typeof(JsonObject).IsAssignableFrom(type))
         {
             var method = typeof(DeserializeDictionary<TSerializer>).GetMethod("ParseInheritedJsonObject");
@@ -83,10 +94,16 @@ public static class DeserializeDictionary<TSerializer>
 
         var dictionaryArgs = mapInterface.GetGenericArguments();
         var keyTypeParseMethod = Serializer.GetParseStringSpanFn(dictionaryArgs[KeyIndex]);
-        if (keyTypeParseMethod == null) return null;
+        if (keyTypeParseMethod == null)
+        {
+            return null;
+        }
 
         var valueTypeParseMethod = Serializer.GetParseStringSpanFn(dictionaryArgs[ValueIndex]);
-        if (valueTypeParseMethod == null) return null;
+        if (valueTypeParseMethod == null)
+        {
+            return null;
+        }
 
         var createMapType = type.HasAnyTypeDefinitionsOf(typeof(Dictionary<,>), typeof(IDictionary<,>))
                                 ? null : type;
@@ -102,13 +119,18 @@ public static class DeserializeDictionary<TSerializer>
     public static JsonObject ParseJsonObject(ReadOnlySpan<char> value)
     {
         if (value.Length == 0)
+        {
             return null;
+        }
 
         var index = VerifyAndGetStartIndex(value, typeof(JsonObject));
 
         var result = new JsonObject();
 
-        if (Json.JsonTypeSerializer.IsEmptyMap(value, index)) return result;
+        if (Json.JsonTypeSerializer.IsEmptyMap(value, index))
+        {
+            return result;
+        }
 
         var valueLength = value.Length;
         while (index < valueLength)
@@ -116,7 +138,10 @@ public static class DeserializeDictionary<TSerializer>
             var keyValue = Serializer.EatMapKey(value, ref index);
             Serializer.EatMapKeySeperator(value, ref index);
             var elementValue = Serializer.EatValue(value, ref index);
-            if (keyValue.IsEmpty) continue;
+            if (keyValue.IsEmpty)
+            {
+                continue;
+            }
 
             var mapKey = keyValue.ToString();
             var mapValue = elementValue.Value();
@@ -137,13 +162,18 @@ public static class DeserializeDictionary<TSerializer>
     public static Dictionary<string, string> ParseStringDictionary(ReadOnlySpan<char> value)
     {
         if (value.IsEmpty)
+        {
             return null;
+        }
 
         var index = VerifyAndGetStartIndex(value, typeof(Dictionary<string, string>));
 
         var result = new Dictionary<string, string>();
 
-        if (Json.JsonTypeSerializer.IsEmptyMap(value, index)) return result;
+        if (Json.JsonTypeSerializer.IsEmptyMap(value, index))
+        {
+            return result;
+        }
 
         var valueLength = value.Length;
         while (index < valueLength)
@@ -151,7 +181,10 @@ public static class DeserializeDictionary<TSerializer>
             var keyValue = Serializer.EatMapKey(value, ref index);
             Serializer.EatMapKeySeperator(value, ref index);
             var elementValue = Serializer.EatValue(value, ref index);
-            if (keyValue.IsEmpty) continue;
+            if (keyValue.IsEmpty)
+            {
+                continue;
+            }
 
             var mapKey = Serializer.UnescapeString(keyValue);
             var mapValue = Serializer.UnescapeString(elementValue);
@@ -172,16 +205,25 @@ public static class DeserializeDictionary<TSerializer>
     /// <returns>IDictionary.</returns>
     public static IDictionary ParseIDictionary(ReadOnlySpan<char> value, Type dictType)
     {
-        if (value.IsEmpty) return null;
+        if (value.IsEmpty)
+        {
+            return null;
+        }
 
         var index = VerifyAndGetStartIndex(value, dictType);
 
         var valueParseMethod = Serializer.GetParseStringSpanFn(typeof(object));
-        if (valueParseMethod == null) return null;
+        if (valueParseMethod == null)
+        {
+            return null;
+        }
 
         var to = (IDictionary)dictType.CreateInstance();
 
-        if (Json.JsonTypeSerializer.IsEmptyMap(value, index)) return to;
+        if (Json.JsonTypeSerializer.IsEmptyMap(value, index))
+        {
+            return to;
+        }
 
         var valueLength = value.Length;
         while (index < valueLength)
@@ -190,7 +232,10 @@ public static class DeserializeDictionary<TSerializer>
             Serializer.EatMapKeySeperator(value, ref index);
             var elementStartIndex = index;
             var elementValue = Serializer.EatTypeValue(value, ref index);
-            if (keyValue.IsEmpty) continue;
+            if (keyValue.IsEmpty)
+            {
+                continue;
+            }
 
             var mapKey = valueParseMethod(keyValue);
 
@@ -246,7 +291,10 @@ public static class DeserializeDictionary<TSerializer>
         ReadOnlySpan<char> value, Type createMapType,
         ParseStringSpanDelegate parseKeyFn, ParseStringSpanDelegate parseValueFn)
     {
-        if (value.IsEmpty) return null;
+        if (value.IsEmpty)
+        {
+            return null;
+        }
 
         var to = createMapType == null
                      ? new Dictionary<TKey, TValue>()
@@ -254,7 +302,9 @@ public static class DeserializeDictionary<TSerializer>
 
         var objDeserializer = Json.JsonTypeSerializer.Instance.ObjectDeserializer;
         if (to is Dictionary<string, object> && objDeserializer != null && typeof(TSerializer) == typeof(Json.JsonTypeSerializer))
+        {
             return (IDictionary<TKey, TValue>)objDeserializer(value);
+        }
 
         var config = JsConfig.GetConfig();
 
@@ -265,7 +315,10 @@ public static class DeserializeDictionary<TSerializer>
 
         var index = VerifyAndGetStartIndex(value, createMapType);
 
-        if (Json.JsonTypeSerializer.IsEmptyMap(value, index)) return to;
+        if (Json.JsonTypeSerializer.IsEmptyMap(value, index))
+        {
+            return to;
+        }
 
         var valueLength = value.Length;
         while (index < valueLength)
@@ -274,9 +327,12 @@ public static class DeserializeDictionary<TSerializer>
             Serializer.EatMapKeySeperator(value, ref index);
             var elementStartIndex = index;
             var elementValue = Serializer.EatTypeValue(value, ref index);
-            if (keyValue.IsNullOrEmpty()) continue;
+            if (keyValue.IsNullOrEmpty())
+            {
+                continue;
+            }
 
-            TKey mapKey = (TKey)parseKeyFn(keyValue);
+            var mapKey = (TKey)parseKeyFn(keyValue);
 
             if (tryToParseItemsAsDictionaries)
             {
@@ -341,7 +397,7 @@ public static class DeserializeDictionary<TSerializer>
     /// The parse delegate cache
     /// </summary>
     private static Dictionary<TypesKey, ParseDictionaryDelegate> ParseDelegateCache
-        = new();
+        = [];
 
     /// <summary>
     /// Delegate ParseDictionaryDelegate
@@ -374,7 +430,9 @@ public static class DeserializeDictionary<TSerializer>
     {
         var key = new TypesKey(argTypes[0], argTypes[1]);
         if (ParseDelegateCache.TryGetValue(key, out var parseDelegate))
+        {
             return parseDelegate(value, createMapType, keyParseFn, valueParseFn);
+        }
 
         var mi = typeof(DeserializeDictionary<TSerializer>).GetStaticMethod("ParseDictionary", signature);
         var genericMi = mi.MakeGenericMethod(argTypes);
@@ -423,11 +481,11 @@ public static class DeserializeDictionary<TSerializer>
         /// <param name="type2">The type2.</param>
         public TypesKey(Type type1, Type type2)
         {
-            Type1 = type1;
-            Type2 = type2;
+            this.Type1 = type1;
+            this.Type2 = type2;
             unchecked
             {
-                hashcode = Type1.GetHashCode() ^ (37 * Type2.GetHashCode());
+                this.hashcode = this.Type1.GetHashCode() ^ (37 * this.Type2.GetHashCode());
             }
         }
 
@@ -440,13 +498,16 @@ public static class DeserializeDictionary<TSerializer>
         {
             var types = (TypesKey)obj;
 
-            return Type1 == types.Type1 && Type2 == types.Type2;
+            return this.Type1 == types.Type1 && this.Type2 == types.Type2;
         }
 
         /// <summary>
         /// Returns a hash code for this instance.
         /// </summary>
         /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
-        public override int GetHashCode() => hashcode;
+        public override int GetHashCode()
+        {
+            return this.hashcode;
+        }
     }
 }

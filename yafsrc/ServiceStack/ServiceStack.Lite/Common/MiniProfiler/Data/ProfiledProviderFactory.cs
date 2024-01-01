@@ -17,7 +17,7 @@ public class ProfiledProviderFactory : DbProviderFactory
     /// <summary>
     /// Every provider factory must have an Instance public field
     /// </summary>
-    public static ProfiledProviderFactory Instance = new();
+    public static ProfiledProviderFactory Instance { get; set; } = new();
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ProfiledProviderFactory" /> class.
@@ -43,8 +43,8 @@ public class ProfiledProviderFactory : DbProviderFactory
     /// <param name="wrappedFactory">The wrapped factory.</param>
     public ProfiledProviderFactory(IDbProfiler profiler, DbProviderFactory wrappedFactory)
     {
-        Profiler = profiler;
-        WrappedFactory = wrappedFactory;
+        this.Profiler = profiler;
+        this.WrappedFactory = wrappedFactory;
     }
 
 #if !NET7_0_OR_GREATER
@@ -66,29 +66,37 @@ public class ProfiledProviderFactory : DbProviderFactory
     /// proxy
     /// </summary>
     /// <returns>A new instance of <see cref="T:System.Data.Common.DbCommand" />.</returns>
-    public override DbCommand CreateCommand() =>
-        new ProfiledCommand(WrappedFactory.CreateCommand(), null, Profiler);
+    public override DbCommand CreateCommand()
+    {
+        return new ProfiledCommand(this.WrappedFactory.CreateCommand(), null, this.Profiler);
+    }
 
     /// <summary>
     /// proxy
     /// </summary>
     /// <returns>A new instance of <see cref="T:System.Data.Common.DbConnection" />.</returns>
-    public override DbConnection CreateConnection() =>
-        new ProfiledConnection(WrappedFactory.CreateConnection(), Profiler);
+    public override DbConnection CreateConnection()
+    {
+        return new ProfiledConnection(this.WrappedFactory.CreateConnection(), this.Profiler);
+    }
 
     /// <summary>
     /// proxy
     /// </summary>
     /// <returns>A new instance of <see cref="T:System.Data.Common.DbParameter" />.</returns>
-    public override DbParameter CreateParameter() =>
-        WrappedFactory.CreateParameter();
+    public override DbParameter CreateParameter()
+    {
+        return this.WrappedFactory.CreateParameter();
+    }
 
     /// <summary>
     /// proxy
     /// </summary>
     /// <returns>A new instance of <see cref="T:System.Data.Common.DbConnectionStringBuilder" />.</returns>
-    public override DbConnectionStringBuilder CreateConnectionStringBuilder() =>
-        WrappedFactory.CreateConnectionStringBuilder();
+    public override DbConnectionStringBuilder CreateConnectionStringBuilder()
+    {
+        return this.WrappedFactory.CreateConnectionStringBuilder();
+    }
 
 #if !NET7_0_OR_GREATER
     /// <summary>

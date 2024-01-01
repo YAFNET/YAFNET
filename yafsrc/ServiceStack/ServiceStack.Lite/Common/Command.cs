@@ -57,17 +57,25 @@ public class Command
         var endPos = pos;
         var cmdSpan = commandsString.Span;
         while (cmdSpan.Length > endPos && char.IsWhiteSpace(cmdSpan[endPos]))
+        {
             endPos++;
+        }
 
         if (cmdSpan.Length > endPos && cmdSpan.IndexOf("as ", endPos) == endPos)
+        {
             endPos += "as ".Length;
+        }
 
         while (cmdSpan.Length > endPos && char.IsWhiteSpace(cmdSpan[endPos]))
+        {
             endPos++;
+        }
 
         while (cmdSpan.Length > endPos &&
                char.IsLetterOrDigit(cmdSpan[endPos]))
+        {
             endPos++;
+        }
 
         this.Suffix = commandsString.Slice(pos, endPos - pos).TrimEnd();
 
@@ -75,19 +83,22 @@ public class Command
     }
 
     /// <summary>
-    /// Returns a <see cref="System.String" /> that represents this instance.
+    /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>
-    /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
+    /// <returns>A <see cref="string" /> that represents this instance.</returns>
     public override string ToString()
     {
         var sb = StringBuilderCacheAlt.Allocate();
-        foreach (var arg in Args)
+        foreach (var arg in this.Args)
         {
             if (sb.Length > 0)
+            {
                 sb.Append(',');
+            }
+
             sb.Append(arg);
         }
 
-        return $"{Name}({StringBuilderCacheAlt.ReturnAndFree(sb)}){Suffix}";
+        return $"{this.Name}({StringBuilderCacheAlt.ReturnAndFree(sb)}){this.Suffix}";
     }
 }

@@ -350,7 +350,7 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
         {
             if (default(T) != null)
             {
-                throw new ApplicationException("Attempting to cast a DBNull to a non nullable type! Note that out/return parameters will not have updated values until the data stream completes (after the 'foreach' for Query(..., buffered: false), or after the GridReader has been disposed for QueryMultiple)");
+                throw new ArgumentNullException("Attempting to cast a DBNull to a non nullable type! Note that out/return parameters will not have updated values until the data stream completes (after the 'foreach' for Query(..., buffered: false), or after the GridReader has been disposed for QueryMultiple)");
             }
             return default(T);
         }

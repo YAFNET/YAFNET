@@ -17,11 +17,11 @@ public static class TaskResult
     /// <summary>
     /// The zero
     /// </summary>
-    public static Task<int> Zero;
+    public static Task<int> Zero { get; }
     /// <summary>
     /// The one
     /// </summary>
-    public static Task<int> One;
+    public static Task<int> One { get; }
     /// <summary>
     /// The true
     /// </summary>

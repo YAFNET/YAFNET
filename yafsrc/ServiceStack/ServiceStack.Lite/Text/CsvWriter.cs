@@ -28,16 +28,23 @@ internal class CsvDictionaryWriter
     /// <param name="row">The row.</param>
     public static void WriteRow(TextWriter writer, IEnumerable<string> row)
     {
-        if (writer == null) return; //AOT
+        if (writer == null)
+        {
+            return; //AOT
+        }
 
         var ranOnce = false;
         var itemSep = CsvConfig.ItemSeperatorString;
         foreach (var field in row)
         {
             if (ranOnce)
+            {
                 writer.Write(itemSep);
+            }
             else
+            {
                 ranOnce = true;
+            }
 
             writer.Write(field.ToCsvField());
         }
@@ -52,16 +59,23 @@ internal class CsvDictionaryWriter
     /// <param name="row">The row.</param>
     public static void WriteObjectRow(TextWriter writer, IEnumerable<object> row)
     {
-        if (writer == null) return; //AOT
+        if (writer == null)
+        {
+            return; //AOT
+        }
 
         var ranOnce = false;
         var itemSep = CsvConfig.ItemSeperatorString;
         foreach (var field in row)
         {
             if (ranOnce)
+            {
                 writer.Write(itemSep);
+            }
             else
+            {
                 ranOnce = true;
+            }
 
             writer.Write(field.ToCsvField());
         }
@@ -76,7 +90,10 @@ internal class CsvDictionaryWriter
     /// <param name="records">The records.</param>
     public static void Write(TextWriter writer, IEnumerable<KeyValuePair<string, object>> records)
     {
-        if (records == null) return; //AOT
+        if (records == null)
+        {
+            return; //AOT
+        }
 
         var requireHeaders = !CsvConfig<IEnumerable<KeyValuePair<string, object>>>.OmitHeaders;
         if (requireHeaders)
@@ -96,7 +113,10 @@ internal class CsvDictionaryWriter
     /// <param name="records">The records.</param>
     public static void Write(TextWriter writer, IEnumerable<KeyValuePair<string, string>> records)
     {
-        if (records == null) return; //AOT
+        if (records == null)
+        {
+            return; //AOT
+        }
 
         var requireHeaders = !CsvConfig<IEnumerable<KeyValuePair<string, string>>>.OmitHeaders;
         if (requireHeaders)
@@ -116,7 +136,10 @@ internal class CsvDictionaryWriter
     /// <param name="records">The records.</param>
     public static void Write(TextWriter writer, IEnumerable<IDictionary<string, object>> records)
     {
-        if (records == null) return; //AOT
+        if (records == null)
+        {
+            return; //AOT
+        }
 
         var requireHeaders = !CsvConfig<Dictionary<string, object>>.OmitHeaders;
         foreach (var record in records)
@@ -124,12 +147,16 @@ internal class CsvDictionaryWriter
             if (requireHeaders)
             {
                 if (record != null)
+                {
                     WriteRow(writer, record.Keys);
+                }
 
                 requireHeaders = false;
             }
             if (record != null)
+            {
                 WriteObjectRow(writer, record.Values);
+            }
         }
     }
 
@@ -140,7 +167,10 @@ internal class CsvDictionaryWriter
     /// <param name="records">The records.</param>
     public static void Write(TextWriter writer, IEnumerable<IDictionary<string, string>> records)
     {
-        if (records == null) return; //AOT
+        if (records == null)
+        {
+            return; //AOT
+        }
 
         var allKeys = new HashSet<string>();
         var cachedRecords = new List<IDictionary<string, string>>();
@@ -179,9 +209,12 @@ public static class CsvWriter
     /// <returns><c>true</c> if [has any escape chars] [the specified value]; otherwise, <c>false</c>.</returns>
     public static bool HasAnyEscapeChars(string value)
     {
-        if (string.IsNullOrEmpty(value)) return false;
-        
-        if (CsvConfig.EscapeStrings.Any(value.Contains))
+        if (string.IsNullOrEmpty(value))
+        {
+            return false;
+        }
+
+        if (CsvConfig.EscapeStrings.Exists(value.Contains))
         {
             return true;
         }
@@ -197,9 +230,13 @@ public static class CsvWriter
     static internal void WriteItemSeperatorIfRanOnce(TextWriter writer, ref bool ranOnce)
     {
         if (ranOnce)
+        {
             writer.Write(CsvConfig.ItemSeperatorString);
+        }
         else
+        {
             ranOnce = true;
+        }
     }
 }
 
@@ -259,8 +296,15 @@ public class CsvWriter<T>
         PropertyInfos = [];
         foreach (var propertyInfo in TypeConfig<T>.Properties)
         {
-            if (!propertyInfo.CanRead || propertyInfo.GetGetMethod(true) == null) continue;
-            if (!TypeSerializer.CanCreateFromString(propertyInfo.PropertyType)) continue;
+            if (!propertyInfo.CanRead || propertyInfo.GetGetMethod(true) == null)
+            {
+                continue;
+            }
+
+            if (!TypeSerializer.CanCreateFromString(propertyInfo.PropertyType))
+            {
+                continue;
+            }
 
             PropertyGetters.Add(propertyInfo.CreateGetter<T>());
             PropertyInfos.Add(propertyInfo);
@@ -268,7 +312,10 @@ public class CsvWriter<T>
             var propertyName = propertyInfo.Name;
             var dcsDataMemberName = propertyInfo.GetDataMemberName();
             if (dcsDataMemberName != null)
+            {
                 propertyName = dcsDataMemberName;
+            }
+
             Headers.Add(propertyName);
         }
     }
@@ -293,7 +340,10 @@ public class CsvWriter<T>
     {
         var rows = new List<List<string>>();
 
-        if (records == null) return rows;
+        if (records == null)
+        {
+            return rows;
+        }
 
         if (typeof(T).IsValueType || typeof(T) == typeof(string))
         {
@@ -326,7 +376,10 @@ public class CsvWriter<T>
     /// <param name="records">The records.</param>
     public static void WriteObject(TextWriter writer, object records)
     {
-        if (writer == null) return; //AOT
+        if (writer == null)
+        {
+            return; //AOT
+        }
 
         Write(writer, (IEnumerable<T>)records);
     }
@@ -338,7 +391,10 @@ public class CsvWriter<T>
     /// <param name="record">The record.</param>
     public static void WriteObjectRow(TextWriter writer, object record)
     {
-        if (writer == null) return; //AOT
+        if (writer == null)
+        {
+            return; //AOT
+        }
 
         WriteRow(writer, (T)record);
     }
@@ -350,8 +406,15 @@ public class CsvWriter<T>
     /// <param name="records">The records.</param>
     public static void Write(TextWriter writer, IEnumerable<T> records)
     {
-        if (writer == null) return; //AOT
-        if (records == null) return;
+        if (writer == null)
+        {
+            return; //AOT
+        }
+
+        if (records == null)
+        {
+            return;
+        }
 
         if (typeof(T) == typeof(Dictionary<string, string>) || typeof(T) == typeof(IDictionary<string, string>))
         {
@@ -395,16 +458,18 @@ public class CsvWriter<T>
                     var value = propGetter(record);
 
                     if (value != null && !value.Equals(defaultValues[i]))
+                    {
                         hasValues[i] = true;
+                    }
                 }
             }
 
-            if (hasValues.Any(x => x == false))
+            if (hasValues.Exists(x => x == false))
             {
                 var newHeaders = new List<string>();
                 var newGetters = new List<GetMemberDelegate<T>>();
 
-                for (int i = 0; i < hasValues.Length; i++)
+                for (var i = 0; i < hasValues.Length; i++)
                 {
                     if (hasValues[i])
                     {
@@ -428,9 +493,13 @@ public class CsvWriter<T>
             foreach (var header in headers)
             {
                 if (ranOnce)
+                {
                     writer.Write(itemSep);
+                }
                 else
+                {
                     ranOnce = true;
+                }
 
                 writer.Write(header);
             }
@@ -450,9 +519,13 @@ public class CsvWriter<T>
             foreach (var propGetter in propGetters)
             {
                 if (ranOnce)
+                {
                     writer.Write(itemSep);
+                }
                 else
+                {
                     ranOnce = true;
+                }
 
                 var value = propGetter(record);
                 if (value != null)
@@ -499,7 +572,10 @@ public class CsvWriter<T>
     /// <param name="row">The row.</param>
     public static void WriteRow(TextWriter writer, T row)
     {
-        if (writer == null) return; //AOT
+        if (writer == null)
+        {
+            return; //AOT
+        }
 
         switch (row)
         {
@@ -522,7 +598,10 @@ public class CsvWriter<T>
     /// <param name="row">The row.</param>
     public static void WriteRow(TextWriter writer, IEnumerable<string> row)
     {
-        if (writer == null) return; //AOT
+        if (writer == null)
+        {
+            return; //AOT
+        }
 
         var ranOnce = false;
         foreach (var field in row)
@@ -541,7 +620,10 @@ public class CsvWriter<T>
     /// <param name="rows">The rows.</param>
     public static void Write(TextWriter writer, IEnumerable<List<string>> rows)
     {
-        if (writer == null) return; //AOT
+        if (writer == null)
+        {
+            return; //AOT
+        }
 
         if (Headers.Count > 0)
         {

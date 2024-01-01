@@ -20,7 +20,7 @@ public static class MimeTypes
     /// <summary>
     /// The extension MIME types
     /// </summary>
-    public static Dictionary<string, string> ExtensionMimeTypes = new();
+    public static Dictionary<string, string> ExtensionMimeTypes { get; } = [];
 
     /// <summary>
     /// The HTML
@@ -172,8 +172,15 @@ public static class MimeTypes
         }
 
         var parts = mimeType.Split('/');
-        if (parts.Length == 1) return "." + parts[0].LeftPart('+').LeftPart(';');
-        if (parts.Length == 2) return "." + parts[1].LeftPart('+').LeftPart(';');
+        if (parts.Length == 1)
+        {
+            return "." + parts[0].LeftPart('+').LeftPart(';');
+        }
+
+        if (parts.Length == 2)
+        {
+            return "." + parts[1].LeftPart('+').LeftPart(';');
+        }
 
         throw new NotSupportedException("Unknown mimeType: " + mimeType);
     }
@@ -187,16 +194,21 @@ public static class MimeTypes
     public static string GetRealContentType(string contentType)
     {
         if (contentType == null)
+        {
             return null;
+        }
 
         int start = -1, end = -1;
 
-        for (int i = 0; i < contentType.Length; i++)
+        for (var i = 0; i < contentType.Length; i++)
         {
             if (!char.IsWhiteSpace(contentType[i]))
             {
                 if (contentType[i] == ';')
+                {
                     break;
+                }
+
                 if (start == -1)
                 {
                     start = i;
@@ -218,14 +230,19 @@ public static class MimeTypes
     public static bool MatchesContentType(string contentType, string matchesContentType)
     {
         if (contentType == null || matchesContentType == null)
+        {
             return false;
+        }
 
         int start = -1, matchStart = -1, matchEnd = -1;
 
         for (var i = 0; i < contentType.Length; i++)
         {
             if (char.IsWhiteSpace(contentType[i]))
+            {
                 continue;
+            }
+
             start = i;
             break;
         }
@@ -233,11 +250,20 @@ public static class MimeTypes
         for (var i = 0; i < matchesContentType.Length; i++)
         {
             if (char.IsWhiteSpace(matchesContentType[i]))
+            {
                 continue;
+            }
+
             if (matchesContentType[i] == ';')
+            {
                 break;
+            }
+
             if (matchStart == -1)
+            {
                 matchStart = i;
+            }
+
             matchEnd = i;
         }
 
@@ -265,7 +291,9 @@ public static class MimeTypes
     {
         var userFilter = IsBinaryFilter?.Invoke(contentType);
         if (userFilter != null)
+        {
             return userFilter.Value;
+        }
 
         var realContentType = GetRealContentType(contentType);
         switch (realContentType)
@@ -305,7 +333,9 @@ public static class MimeTypes
 
         if (secondaryType.StartsWith("pkc") || secondaryType.StartsWith("x-pkc") || secondaryType.StartsWith("font")
             || secondaryType.StartsWith("vnd.ms-"))
+        {
             return true;
+        }
 
         return false;
     }
@@ -319,7 +349,9 @@ public static class MimeTypes
     public static string GetMimeType(string fileNameOrExt)
     {
         if (string.IsNullOrEmpty(fileNameOrExt))
+        {
             throw new ArgumentNullException(nameof(fileNameOrExt));
+        }
 
         var fileExt = fileNameOrExt.LastRightPart('.').ToLower();
         if (ExtensionMimeTypes.TryGetValue(fileExt, out var mimeType))

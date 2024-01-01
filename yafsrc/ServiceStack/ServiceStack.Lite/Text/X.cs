@@ -26,5 +26,8 @@ public static class X
     /// <param name="fn">The function.</param>
     /// <returns>System.Nullable&lt;To&gt;.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static To? Map<From, To>(From? from, Func<From, To> fn) => from == null ? default : fn(from);
+    public static To? Map<From, To>(From? from, Func<From, To> fn)
+    {
+        return from == null ? default : fn(from);
+    }
 }

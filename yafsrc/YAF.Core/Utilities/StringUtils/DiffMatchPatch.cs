@@ -113,12 +113,12 @@ public class Diff
     /// <summary>
     /// The operation
     /// </summary>
-    public Operation Operation;
+    public Operation Operation { get; set; }
 
     /// <summary>
     /// The text associated with this diff operation.
     /// </summary>
-    public string Text;
+    public string Text { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="Diff"/> class.
@@ -142,12 +142,12 @@ public class DiffMatchPatch
     /// <summary>
     /// Number of seconds to map a diff before giving up (0 for infinity).
     /// </summary>
-    public float DiffTimeout = 1.0f;
+    public float DiffTimeout { get; set; } = 1.0f;
 
     /// <summary>
     /// Chunk size for context length.
     /// </summary>
-    public short PatchMargin = 4;
+    public short PatchMargin { get; set; } = 4;
 
     /// <summary>
     /// Find the differences between two texts.
@@ -598,7 +598,7 @@ public class DiffMatchPatch
     /// <returns>Encoded string.</returns>
     private static string LinesToCharsMunge(
         string text,
-        ICollection<string> lineArray,
+        List<string> lineArray,
         IDictionary<string, int> lineHash,
         int maxLines)
     {
@@ -783,14 +783,14 @@ public class DiffMatchPatch
         if (this.DiffTimeout <= 0)
         {
             // Don't risk returning a non-optimal diff if we have unlimited time.
-            return Array.Empty<string>();
+            return [];
         }
 
         var longtext = text1.Length > text2.Length ? text1 : text2;
         var shortText = text1.Length > text2.Length ? text2 : text1;
         if (longtext.Length < 4 || shortText.Length * 2 < longtext.Length)
         {
-            return Array.Empty<string>(); // Pointless.
+            return []; // Pointless.
         }
 
         // First check if the second quarter is the seed for a half-match.
@@ -800,7 +800,7 @@ public class DiffMatchPatch
         string[] hm;
         if (hm1 == null && hm2 == null)
         {
-            return Array.Empty<string>();
+            return [];
         }
 
         if (hm2 == null)
@@ -858,7 +858,7 @@ public class DiffMatchPatch
 
         return bestCommon.Length * 2 >= longtext.Length
                    ? [bestLongtextA, bestLongtextB, bestShortTextA, bestShortTextB, bestCommon]
-                   : Array.Empty<string>();
+                   : [];
     }
 
     /// <summary>

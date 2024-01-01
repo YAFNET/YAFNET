@@ -21,8 +21,11 @@ public class InfoException : Exception
     public InfoException(string message) : base(message) { }
 
     /// <summary>
-    /// Returns a <see cref="System.String" /> that represents this instance.
+    /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>
-    /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-    public override string ToString() => Message;
+    /// <returns>A <see cref="string" /> that represents this instance.</returns>
+    public override string ToString()
+    {
+        return this.Message;
+    }
 }

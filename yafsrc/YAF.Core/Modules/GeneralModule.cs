@@ -29,7 +29,6 @@ using System.Reflection;
 
 using YAF.Core.Data;
 using YAF.Core.Events;
-using YAF.Core.Nntp;
 using YAF.Core.Services.Cache;
 
 /// <summary>
@@ -106,8 +105,6 @@ public class GeneralModule : BaseModule
             .PreserveExistingDefaults();
         builder.Register((k) => k.Resolve<IComponentContext>().Resolve<BoardContextPageProvider>().Instance)
             .ExternallyOwned().PreserveExistingDefaults();
-
-        builder.RegisterType<Nntp>().As<INewsreader>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
         // cache bindings.
         builder.RegisterType<StaticLockObject>().As<IHaveLockObject>().SingleInstance().PreserveExistingDefaults();

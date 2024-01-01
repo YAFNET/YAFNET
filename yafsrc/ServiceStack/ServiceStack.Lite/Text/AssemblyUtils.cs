@@ -23,7 +23,7 @@ public static class AssemblyUtils
     /// <summary>
     /// The type cache
     /// </summary>
-    private static Dictionary<string, Type> TypeCache = new();
+    private static Dictionary<string, Type> TypeCache = [];
 
     /// <summary>
     /// Find the type from the name supplied
@@ -32,15 +32,18 @@ public static class AssemblyUtils
     /// <returns>System.Type.</returns>
     public static Type FindType(string typeName)
     {
-        if (TypeCache.TryGetValue(typeName, out var type)) return type;
+        if (TypeCache.TryGetValue(typeName, out var type))
+        {
+            return type;
+        }
 
         type = Type.GetType(typeName);
         if (type == null)
         {
             var typeDef = new AssemblyTypeDefinition(typeName);
             type = !string.IsNullOrEmpty(typeDef.AssemblyName)
-                       ? FindType(typeDef.TypeName, typeDef.AssemblyName)
-                       : FindTypeFromLoadedAssemblies(typeDef.TypeName);
+                ? FindType(typeDef.TypeName, typeDef.AssemblyName)
+                : FindTypeFromLoadedAssemblies(typeDef.TypeName);
         }
 
         Dictionary<string, Type> snapshot, newCache;
@@ -48,25 +51,10 @@ public static class AssemblyUtils
         {
             snapshot = TypeCache;
             newCache = new Dictionary<string, Type>(TypeCache) { [typeName] = type };
-
         } while (!ReferenceEquals(
                      Interlocked.CompareExchange(ref TypeCache, newCache, snapshot), snapshot));
 
         return type;
-    }
-
-    /// <summary>
-    /// The top-most interface of the given type, if any.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns>System.Type.</returns>
-    public static Type MainInterface<T>()
-    {
-        var t = typeof(T);
-        if (t.BaseType != typeof(object)) return t; // not safe to use interface, as it might be a superclass one.
-        // on Windows, this can be just "t.GetInterfaces()" but Mono doesn't return in order.
-        var interfaceType = t.GetInterfaces().FirstOrDefault(i => !t.GetInterfaces().Any(i2 => i2.GetInterfaces().Contains(i)));
-        return interfaceType ?? t;
     }
 
     /// <summary>
@@ -79,6 +67,24 @@ public static class AssemblyUtils
     {
         var type = FindTypeFromLoadedAssemblies(typeName);
         return type ?? PclExport.Instance.FindType(typeName, assemblyName);
+    }
+
+    /// <summary>
+    /// The top-most interface of the given type, if any.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns>System.Type.</returns>
+    public static Type MainInterface<T>()
+    {
+        var t = typeof(T);
+        if (t.BaseType != typeof(object))
+        {
+            return t; // not safe to use interface, as it might be a superclass one.
+        }
+
+        // on Windows, this can be just "t.GetInterfaces()" but Mono doesn't return in order.
+        var interfaceType = t.GetInterfaces().FirstOrDefault(i => !t.GetInterfaces().Exists(i2 => i2.GetInterfaces().Contains(i)));
+        return interfaceType ?? t;
     }
 
     /// <summary>
@@ -95,7 +101,7 @@ public static class AssemblyUtils
     /// <summary>
     /// The version reg ex
     /// </summary>
-    readonly static Regex versionRegEx = new(", Version=[^\\]]+", PclExport.Instance.RegexOptions,
+    private readonly static Regex versionRegEx = new(", Version=[^\\]]+", PclExport.Instance.RegexOptions,
         TimeSpan.FromMilliseconds(100));
 
     /// <summary>

@@ -30,7 +30,7 @@ public class ValidateRequestAttribute : AttributeBase, IValidateRule, IReflectAt
     /// <param name="validator">The validator.</param>
     public ValidateRequestAttribute(string validator)
     {
-        Validator = validator;
+        this.Validator = validator;
     }
 
     /// <summary>
@@ -56,8 +56,8 @@ public class ValidateRequestAttribute : AttributeBase, IValidateRule, IReflectAt
     [Ignore]
     public string[] Conditions
     {
-        get => [Condition];
-        set => Condition = ValidateAttribute.Combine("&&", value);
+        get => [this.Condition];
+        set => this.Condition = ValidateAttribute.Combine("&&", value);
     }
 
     /// <summary>
@@ -88,8 +88,8 @@ public class ValidateRequestAttribute : AttributeBase, IValidateRule, IReflectAt
     [Ignore]
     public string[] AllConditions
     {
-        get => throw new NotSupportedException(nameof(AllConditions));
-        set => Condition = ValidateAttribute.Combine("&&", value);
+        get => throw new NotSupportedException(nameof(this.AllConditions));
+        set => this.Condition = ValidateAttribute.Combine("&&", value);
     }
 
     /// <summary>
@@ -100,8 +100,8 @@ public class ValidateRequestAttribute : AttributeBase, IValidateRule, IReflectAt
     [Ignore]
     public string[] AnyConditions
     {
-        get => throw new NotSupportedException(nameof(AnyConditions));
-        set => Condition = ValidateAttribute.Combine("||", value);
+        get => throw new NotSupportedException(nameof(this.AnyConditions));
+        set => this.Condition = ValidateAttribute.Combine("||", value);
     }
 }
 //Default ITypeValidator defined in ValidateScripts 
@@ -178,7 +178,7 @@ public class ValidateAttribute : AttributeBase, IValidateRule, IReflectAttribute
     /// <param name="validator">The validator.</param>
     public ValidateAttribute(string validator)
     {
-        Validator = validator;
+        this.Validator = validator;
     }
 
     /// <summary>
@@ -206,8 +206,8 @@ public class ValidateAttribute : AttributeBase, IValidateRule, IReflectAttribute
     [Ignore]
     public string[] AllConditions
     {
-        get => throw new NotSupportedException(nameof(AllConditions));
-        set => Condition = Combine("&&", value);
+        get => throw new NotSupportedException(nameof(this.AllConditions));
+        set => this.Condition = Combine("&&", value);
     }
 
     /// <summary>
@@ -218,8 +218,8 @@ public class ValidateAttribute : AttributeBase, IValidateRule, IReflectAttribute
     [Ignore]
     public string[] AnyConditions
     {
-        get => throw new NotSupportedException(nameof(AnyConditions));
-        set => Condition = Combine("||", value);
+        get => throw new NotSupportedException(nameof(this.AnyConditions));
+        set => this.Condition = Combine("||", value);
     }
 
     /// <summary>
@@ -249,9 +249,15 @@ public class ValidateAttribute : AttributeBase, IValidateRule, IReflectAttribute
         foreach (var condition in conditions)
         {
             if (string.IsNullOrEmpty(condition))
+            {
                 continue;
+            }
+
             if (sb.Length > 0)
+            {
                 sb.Append(joiner);
+            }
+
             sb.Append(condition);
         }
 
@@ -389,19 +395,19 @@ public class ValidationRule : ValidateRule
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     protected bool Equals(ValidationRule other)
     {
-        return Id == other.Id &&
-               Type == other.Type && Field == other.Field &&
-               CreatedBy == other.CreatedBy && Nullable.Equals(CreatedDate, other.CreatedDate) &&
-               ModifiedBy == other.ModifiedBy && Nullable.Equals(ModifiedDate, other.ModifiedDate) &&
-               SuspendedBy == other.SuspendedBy && Nullable.Equals(SuspendedDate, other.SuspendedDate) &&
-               Notes == other.Notes;
+        return this.Id == other.Id &&
+               this.Type == other.Type && this.Field == other.Field &&
+               this.CreatedBy == other.CreatedBy && Nullable.Equals(this.CreatedDate, other.CreatedDate) &&
+               this.ModifiedBy == other.ModifiedBy && Nullable.Equals(this.ModifiedDate, other.ModifiedDate) &&
+               this.SuspendedBy == other.SuspendedBy && Nullable.Equals(this.SuspendedDate, other.SuspendedDate) &&
+               this.Notes == other.Notes;
     }
 
     /// <summary>
-    /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+    /// Determines whether the specified <see cref="object" /> is equal to this instance.
     /// </summary>
     /// <param name="obj">The object to compare with the current object.</param>
-    /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+    /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
     public override bool Equals(object obj)
     {
         if (obj is null)
@@ -414,7 +420,7 @@ public class ValidationRule : ValidateRule
             return true;
         }
 
-        return obj.GetType() == this.GetType() && Equals((ValidationRule)obj);
+        return obj.GetType() == this.GetType() && this.Equals((ValidationRule)obj);
     }
 
     /// <summary>
@@ -425,16 +431,16 @@ public class ValidationRule : ValidateRule
     {
         unchecked
         {
-            var hashCode = Id;
-            hashCode = (hashCode * 397) ^ (Type != null ? Type.GetHashCode() : 0);
-            hashCode = (hashCode * 397) ^ (Field != null ? Field.GetHashCode() : 0);
-            hashCode = (hashCode * 397) ^ (CreatedBy != null ? CreatedBy.GetHashCode() : 0);
-            hashCode = (hashCode * 397) ^ CreatedDate.GetHashCode();
-            hashCode = (hashCode * 397) ^ (ModifiedBy != null ? ModifiedBy.GetHashCode() : 0);
-            hashCode = (hashCode * 397) ^ ModifiedDate.GetHashCode();
-            hashCode = (hashCode * 397) ^ (SuspendedBy != null ? SuspendedBy.GetHashCode() : 0);
-            hashCode = (hashCode * 397) ^ SuspendedDate.GetHashCode();
-            hashCode = (hashCode * 397) ^ (Notes != null ? Notes.GetHashCode() : 0);
+            var hashCode = this.Id;
+            hashCode = (hashCode * 397) ^ (this.Type != null ? this.Type.GetHashCode() : 0);
+            hashCode = (hashCode * 397) ^ (this.Field != null ? this.Field.GetHashCode() : 0);
+            hashCode = (hashCode * 397) ^ (this.CreatedBy != null ? this.CreatedBy.GetHashCode() : 0);
+            hashCode = (hashCode * 397) ^ this.CreatedDate.GetHashCode();
+            hashCode = (hashCode * 397) ^ (this.ModifiedBy != null ? this.ModifiedBy.GetHashCode() : 0);
+            hashCode = (hashCode * 397) ^ this.ModifiedDate.GetHashCode();
+            hashCode = (hashCode * 397) ^ (this.SuspendedBy != null ? this.SuspendedBy.GetHashCode() : 0);
+            hashCode = (hashCode * 397) ^ this.SuspendedDate.GetHashCode();
+            hashCode = (hashCode * 397) ^ (this.Notes != null ? this.Notes.GetHashCode() : 0);
             return hashCode;
         }
     }

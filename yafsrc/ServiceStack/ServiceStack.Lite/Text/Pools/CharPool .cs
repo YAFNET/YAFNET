@@ -21,7 +21,9 @@ public sealed class CharPool
         lock (Pool)
         {
             for (var i = 0; i < Pool.Length; i++)
+            {
                 Pool[i] = null;
+            }
         }
     }
 
@@ -46,7 +48,7 @@ public sealed class CharPool
     /// <returns>System.Char[].</returns>
     public static char[] GetBuffer(int minSize)
     {
-        char[] cachedBuff = GetCachedBuffer(minSize);
+        var cachedBuff = GetCachedBuffer(minSize);
         return cachedBuff ?? new char[minSize];
     }
 
@@ -100,7 +102,10 @@ public sealed class CharPool
     /// <param name="buffer">The buffer.</param>
     public static void ReleaseBufferToPool(ref char[] buffer)
     {
-        if (buffer == null) return;
+        if (buffer == null)
+        {
+            return;
+        }
 
         lock (Pool)
         {
@@ -147,12 +152,12 @@ public sealed class CharPool
         /// Gets a value indicating whether this instance is alive.
         /// </summary>
         /// <value><c>true</c> if this instance is alive; otherwise, <c>false</c>.</value>
-        public bool IsAlive => _reference.IsAlive;
+        public bool IsAlive => this._reference.IsAlive;
         /// <summary>
         /// Gets the buffer.
         /// </summary>
         /// <value>The buffer.</value>
-        public char[] Buffer => (char[])_reference.Target;
+        public char[] Buffer => (char[])this._reference.Target;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CachedBuffer" /> class.
@@ -160,8 +165,8 @@ public sealed class CharPool
         /// <param name="buffer">The buffer.</param>
         public CachedBuffer(char[] buffer)
         {
-            Size = buffer.Length;
-            _reference = new WeakReference(buffer);
+            this.Size = buffer.Length;
+            this._reference = new WeakReference(buffer);
         }
     }
 }

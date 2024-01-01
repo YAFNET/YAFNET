@@ -278,7 +278,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="clone">The clone.</param>
         private static void ResetTypeHandlers(bool clone)
         {
-            typeHandlers = new Dictionary<Type, ITypeHandler>();
+            typeHandlers = [];
             AddTypeHandlerImpl(typeof(DataTable), new DataTableHandler(), clone);
             AddTypeHandlerImpl(typeof(XmlDocument), new XmlDocumentHandler(), clone);
             AddTypeHandlerImpl(typeof(XDocument), new XDocumentHandler(), clone);
@@ -1266,8 +1266,8 @@ namespace ServiceStack.OrmLite.Dapper
         {
             switch (row)
             { // get the standard exception from the runtime
-                case Row.First: ErrZeroRows.First(); break;
-                case Row.Single: ErrZeroRows.Single(); break;
+                case Row.First: _ = ErrZeroRows.First(); break;
+                case Row.Single: _ = ErrZeroRows.Single(); break;
                 default: throw new InvalidOperationException();
             }
         }
@@ -1849,7 +1849,7 @@ namespace ServiceStack.OrmLite.Dapper
                 deserializers.Reverse();
             }
 
-            return deserializers.ToArray();
+            return [.. deserializers];
         }
 
         /// <summary>
@@ -2067,9 +2067,11 @@ namespace ServiceStack.OrmLite.Dapper
             try { hasFields = reader != null && reader.FieldCount != 0; }
             catch { /* don't throw when trying to throw */ }
             if (hasFields)
+            {
                 return new ArgumentException("When using the multi-mapping APIs ensure you set the splitOn param if you have keys other than Id", "splitOn");
-            else
-                return new InvalidOperationException("No columns were selected");
+            }
+
+            return new InvalidOperationException("No columns were selected");
         }
 
         /// <summary>
@@ -2548,7 +2550,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="parameters">The parameters.</param>
         /// <param name="sql">The SQL.</param>
         /// <returns>System.Collections.Generic.IEnumerable&lt;System.Reflection.PropertyInfo&gt;.</returns>
-        private static IEnumerable<PropertyInfo> FilterParameters(IEnumerable<PropertyInfo> parameters, string sql)
+        private static List<PropertyInfo> FilterParameters(IEnumerable<PropertyInfo> parameters, string sql)
         {
             var list = new List<PropertyInfo>(16);
             foreach (var p in parameters)
@@ -3099,7 +3101,7 @@ namespace ServiceStack.OrmLite.Dapper
                                 {
                                     if (locals == null)
                                     {
-                                        locals = new Dictionary<Type, LocalBuilder>();
+                                        locals = [];
                                         local = null;
                                     }
                                     else
@@ -3139,7 +3141,8 @@ namespace ServiceStack.OrmLite.Dapper
         {
             typeof(bool), typeof(sbyte), typeof(byte), typeof(ushort), typeof(short),
             typeof(uint), typeof(int), typeof(ulong), typeof(long), typeof(float), typeof(double), typeof(decimal)
-        }.ToDictionary(Type.GetTypeCode, x => x.GetPublicInstanceMethod(nameof(object.ToString), new[] { typeof(IFormatProvider) }));
+        }.ToDictionary(Type.GetTypeCode, x => x.GetPublicInstanceMethod(nameof(object.ToString), [typeof(IFormatProvider)
+        ]));
 
         /// <summary>
         /// Gets to string.
@@ -3154,7 +3157,8 @@ namespace ServiceStack.OrmLite.Dapper
         /// <summary>
         /// The string replace
         /// </summary>
-        private readonly static MethodInfo StringReplace = typeof(string).GetPublicInstanceMethod(nameof(string.Replace), new Type[] { typeof(string), typeof(string) }),
+        private readonly static MethodInfo StringReplace = typeof(string).GetPublicInstanceMethod(nameof(string.Replace),
+                [typeof(string), typeof(string)]),
             InvariantCulture = typeof(CultureInfo).GetProperty(nameof(CultureInfo.InvariantCulture), BindingFlags.Public | BindingFlags.Static).GetGetMethod();
 
         /// <summary>
@@ -3400,7 +3404,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <summary>
         /// The type maps
         /// </summary>
-        private readonly static Hashtable _typeMaps = new();
+        private readonly static Hashtable _typeMaps = [];
 
         /// <summary>
         /// Set custom mapping for type deserializers
@@ -3459,7 +3463,7 @@ namespace ServiceStack.OrmLite.Dapper
         private static LocalBuilder GetTempLocal(ILGenerator il, ref Dictionary<Type, LocalBuilder> locals, Type type, bool initAndLoad)
         {
             if (type == null) throw new ArgumentNullException(nameof(type));
-            locals ??= new Dictionary<Type, LocalBuilder>();
+            locals ??= [];
             if (!locals.TryGetValue(type, out LocalBuilder found))
             {
                 found = il.DeclareLocal(type);

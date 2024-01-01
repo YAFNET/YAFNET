@@ -84,16 +84,29 @@ public static class DeserializeBuiltin<T>
             }
 
             if (typeof(T) == typeof(Guid))
+            {
                 return value => value.ParseGuid();
+            }
+
             if (typeof(T) == typeof(DateTimeOffset))
+            {
                 return value => DateTimeSerializer.ParseDateTimeOffset(value.ToString());
+            }
+
             if (typeof(T) == typeof(TimeSpan))
+            {
                 return value => DateTimeSerializer.ParseTimeSpan(value.ToString());
+            }
 #if NET7_0_OR_GREATER
                 if (typeof(T) == typeof(DateOnly))
+                {
                     return value => DateOnly.FromDateTime(DateTimeSerializer.ParseShortestXsdDateTime(value.ToString()));
+                }
+
                 if (typeof(T) == typeof(TimeOnly))
+                {
                     return value => TimeOnly.FromTimeSpan(DateTimeSerializer.ParseTimeSpan(value.ToString()));
+                }
 #endif
         }
         else
@@ -135,16 +148,29 @@ public static class DeserializeBuiltin<T>
             }
 
             if (typeof(T) == typeof(TimeSpan?))
+            {
                 return value => DateTimeSerializer.ParseNullableTimeSpan(value.ToString());
+            }
+
             if (typeof(T) == typeof(Guid?))
+            {
                 return value => value.IsNullOrEmpty() ? null : value.ParseGuid();
+            }
+
             if (typeof(T) == typeof(DateTimeOffset?))
+            {
                 return value => DateTimeSerializer.ParseNullableDateTimeOffset(value.ToString());
+            }
 #if NET7_0_OR_GREATER
             if (typeof(T) == typeof(DateOnly?))
-                    return value => value.IsNullOrEmpty() ? default : DateOnly.FromDateTime(DateTimeSerializer.ParseShortestXsdDateTime(value.ToString()));
-                if (typeof(T) == typeof(TimeOnly?))
-                    return value => value.IsNullOrEmpty() ? default : TimeOnly.FromTimeSpan(DateTimeSerializer.ParseTimeSpan(value.ToString()));
+            {
+                return value => value.IsNullOrEmpty() ? default : DateOnly.FromDateTime(DateTimeSerializer.ParseShortestXsdDateTime(value.ToString()));
+            }
+
+            if (typeof(T) == typeof(TimeOnly?))
+            {
+                return value => value.IsNullOrEmpty() ? default : TimeOnly.FromTimeSpan(DateTimeSerializer.ParseTimeSpan(value.ToString()));
+            }
 #endif
         }
 

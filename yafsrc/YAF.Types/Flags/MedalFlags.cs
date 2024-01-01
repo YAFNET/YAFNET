@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -142,18 +142,6 @@ public class MedalFlags : FlagsBase
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the medal can be displayed as ribbon bar.
-    /// </summary>
-    [Obsolete("Not Used anymore")]
-    public virtual bool AllowRibbon
-    {
-        // int value 2
-        get => this[1];
-
-        set => this[1] = value;
-    }
-
-    /// <summary>
     /// Gets or sets a value indicating whether the medal can be hidden by user.
     /// </summary>
     public virtual bool AllowHiding
@@ -162,18 +150,6 @@ public class MedalFlags : FlagsBase
         get => this[2];
 
         set => this[2] = value;
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether the medal can be re-ordered by user.
-    /// </summary>
-    [Obsolete("Not Used anymore")]
-    public virtual bool AllowReOrdering
-    {
-        // int value 8
-        get => this[3];
-
-        set => this[3] = value;
     }
 
     /// <summary>

@@ -2,7 +2,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -226,33 +226,30 @@ public class PostMessageModel : ForumPage
                                         : this.PageBoardContext.PageUser.AutoWatchTopics;
         }
 
-        if (this.quotedMessage != null)
+        if (this.quotedMessage != null && q.HasValue)
         {
-            if (q.HasValue)
+            if (this.Get<ISessionService>().MultiQuoteIds != null)
             {
-                if (this.Get<ISessionService>().MultiQuoteIds != null)
+                var quoteId = q;
+                var multiQuote = new MultiQuote
+                    { MessageID = quoteId.Value, TopicID = this.PageBoardContext.PageTopicID };
+
+                if (!this.Get<ISessionService>().MultiQuoteIds.Exists(m => m.MessageID.Equals(quoteId)))
                 {
-                    var quoteId = q;
-                    var multiQuote = new MultiQuote
-                                     {MessageID = quoteId.Value, TopicID = this.PageBoardContext.PageTopicID};
-
-                    if (!this.Get<ISessionService>().MultiQuoteIds.Any(m => m.MessageID.Equals(quoteId)))
-                    {
-                        this.Get<ISessionService>().MultiQuoteIds.Add(multiQuote);
-                    }
-
-                    var messages = this.GetRepository<Message>().GetByIds(
-                        this.Get<ISessionService>().MultiQuoteIds.Select(i => i.MessageID));
-
-                    messages.ForEach(this.InitQuotedReply);
-
-                    // Clear Multi-quotes
-                    this.Get<ISessionService>().MultiQuoteIds = null;
+                    this.Get<ISessionService>().MultiQuoteIds.Add(multiQuote);
                 }
-                else
-                {
-                    this.InitQuotedReply(this.quotedMessage);
-                }
+
+                var messages = this.GetRepository<Message>().GetByIds(
+                    this.Get<ISessionService>().MultiQuoteIds.Select(i => i.MessageID));
+
+                messages.ForEach(this.InitQuotedReply);
+
+                // Clear Multi-quotes
+                this.Get<ISessionService>().MultiQuoteIds = null;
+            }
+            else
+            {
+                this.InitQuotedReply(this.quotedMessage);
             }
         }
 

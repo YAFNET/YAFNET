@@ -40,7 +40,7 @@ public class CsvSerializer
     /// <summary>
     /// The write function cache
     /// </summary>
-    private static Dictionary<Type, WriteObjectDelegate> WriteFnCache = new();
+    private static Dictionary<Type, WriteObjectDelegate> WriteFnCache = [];
 
     /// <summary>
     /// Gets the write function.
@@ -51,7 +51,10 @@ public class CsvSerializer
     {
         try
         {
-            if (WriteFnCache.TryGetValue(type, out var writeFn)) return writeFn;
+            if (WriteFnCache.TryGetValue(type, out var writeFn))
+            {
+                return writeFn;
+            }
 
             var genericType = typeof(CsvSerializer<>).MakeGenericType(type);
             var mi = genericType.GetStaticMethod("WriteFn");
@@ -80,7 +83,7 @@ public class CsvSerializer
     /// <summary>
     /// The read function cache
     /// </summary>
-    private static Dictionary<Type, ParseStringDelegate> ReadFnCache = new();
+    private static Dictionary<Type, ParseStringDelegate> ReadFnCache = [];
 
     /// <summary>
     /// Gets the read function.
@@ -91,7 +94,10 @@ public class CsvSerializer
     {
         try
         {
-            if (ReadFnCache.TryGetValue(type, out var writeFn)) return writeFn;
+            if (ReadFnCache.TryGetValue(type, out var writeFn))
+            {
+                return writeFn;
+            }
 
             var genericType = typeof(CsvSerializer<>).MakeGenericType(type);
             var mi = genericType.GetStaticMethod("ReadFn");
@@ -138,8 +144,15 @@ public class CsvSerializer
     /// <returns>System.String.</returns>
     public static string SerializeToString<T>(T value)
     {
-        if (value == null) return null;
-        if (typeof(T) == typeof(string)) return value as string;
+        if (value == null)
+        {
+            return null;
+        }
+
+        if (typeof(T) == typeof(string))
+        {
+            return value as string;
+        }
 
         var writer = StringWriterThreadStatic.Allocate();
         CsvSerializer<T>.WriteObject(writer, value);
@@ -154,7 +167,11 @@ public class CsvSerializer
     /// <param name="stream">The stream.</param>
     public static void SerializeToStream<T>(T value, Stream stream)
     {
-        if (value == null) return;
+        if (value == null)
+        {
+            return;
+        }
+
         var writer = new StreamWriter(stream, UseEncoding);
         CsvSerializer<T>.WriteObject(writer, value);
         writer.Flush();
@@ -167,7 +184,11 @@ public class CsvSerializer
     /// <param name="stream">The stream.</param>
     public static void SerializeToStream(object obj, Stream stream)
     {
-        if (obj == null) return;
+        if (obj == null)
+        {
+            return;
+        }
+
         var writer = new StreamWriter(stream, UseEncoding);
         var writeFn = GetWriteFn(obj.GetType());
         writeFn(writer, obj);
@@ -182,7 +203,11 @@ public class CsvSerializer
     /// <returns>T.</returns>
     public static T DeserializeFromString<T>(string text)
     {
-        if (string.IsNullOrEmpty(text)) return default;
+        if (string.IsNullOrEmpty(text))
+        {
+            return default;
+        }
+
         var results = CsvSerializer<T>.ReadObject(text);
         return ConvertFrom<T>(results);
     }
@@ -195,7 +220,11 @@ public class CsvSerializer
     /// <returns>System.Object.</returns>
     public static object DeserializeFromString(Type type, string text)
     {
-        if (string.IsNullOrEmpty(text)) return null;
+        if (string.IsNullOrEmpty(text))
+        {
+            return null;
+        }
+
         var hold = JsState.IsCsv;
         JsState.IsCsv = true;
         try
@@ -218,7 +247,11 @@ public class CsvSerializer
     /// <param name="value">The value.</param>
     public static void WriteLateBoundObject(TextWriter writer, object value)
     {
-        if (value == null) return;
+        if (value == null)
+        {
+            return;
+        }
+
         var writeFn = GetWriteFn(value.GetType());
         writeFn(writer, value);
     }
@@ -231,7 +264,11 @@ public class CsvSerializer
     /// <returns>System.Object.</returns>
     public static object ReadLateBoundObject(Type type, string value)
     {
-        if (value == null) return null;
+        if (value == null)
+        {
+            return null;
+        }
+
         var readFn = GetReadFn(type);
         return readFn(value);
     }
@@ -245,7 +282,9 @@ public class CsvSerializer
     static internal T ConvertFrom<T>(object results)
     {
         if (results is T variable)
+        {
             return variable;
+        }
 
         foreach (var ci in typeof(T).GetConstructors())
         {
@@ -273,7 +312,9 @@ public class CsvSerializer
     static internal object ConvertFrom(Type type, object results)
     {
         if (type.IsInstanceOfType(results))
+        {
             return results;
+        }
 
         foreach (var ci in type.GetConstructors())
         {
@@ -317,7 +358,10 @@ public class CsvSerializer
     /// </summary>
     /// <typeparam name="T">the type</typeparam>
     /// <returns>System.ValueTuple&lt;System.String, Type&gt;[].</returns>
-    public static (string PropertyName, Type PropertyType)[] PropertiesFor<T>() => CsvSerializer<T>.Properties;
+    public static (string PropertyName, Type PropertyType)[] PropertiesFor<T>()
+    {
+        return CsvSerializer<T>.Properties;
+    }
 }
 
 /// <summary>
@@ -340,7 +384,7 @@ public static class CsvSerializer<T>
     /// Gets the properties.
     /// </summary>
     /// <value>The properties.</value>
-    public static (string PropertyName, Type PropertyType)[] Properties { get; } = Array.Empty<(string PropertyName, Type PropertyType)>();
+    public static (string PropertyName, Type PropertyType)[] Properties { get; } = [];
 
     /// <summary>
     /// Writes the function.
@@ -403,12 +447,17 @@ public static class CsvSerializer<T>
             var properties = TypeConfig<T>.Properties;
             foreach (var propertyInfo in properties)
             {
-                if (propertyInfo.Name == IgnoreResponseStatus) continue;
+                if (propertyInfo.Name == IgnoreResponseStatus)
+                {
+                    continue;
+                }
 
                 if (propertyInfo.PropertyType == typeof(string)
                     || propertyInfo.PropertyType.IsValueType
                     || propertyInfo.PropertyType == typeof(byte[]))
+                {
                     continue;
+                }
 
                 if (firstCandidate == null)
                 {
@@ -512,7 +561,10 @@ public static class CsvSerializer<T>
     /// <param name="obj">The object.</param>
     public static void WriteEnumerableProperty(TextWriter writer, object obj)
     {
-        if (obj == null) return; //AOT
+        if (obj == null)
+        {
+            return; //AOT
+        }
 
         var enumerableProperty = valueGetter(obj);
         writeElementFn(writer, enumerableProperty);
@@ -565,7 +617,9 @@ public static class CsvSerializer<T>
             ReadCacheFn = GetReadFn();
             var writers = WriteType<T, JsvTypeSerializer>.PropertyWriters;
             if (writers != null)
+            {
                 Properties = writers.Select(x => (x.propertyName, x.PropertyType)).ToArray();
+            }
         }
     }
 
@@ -619,12 +673,17 @@ public static class CsvSerializer<T>
             var properties = TypeConfig<T>.Properties;
             foreach (var propertyInfo in properties)
             {
-                if (propertyInfo.Name == IgnoreResponseStatus) continue;
+                if (propertyInfo.Name == IgnoreResponseStatus)
+                {
+                    continue;
+                }
 
                 if (propertyInfo.PropertyType == typeof(string)
                     || propertyInfo.PropertyType.IsValueType
                     || propertyInfo.PropertyType == typeof(byte[]))
+                {
                     continue;
+                }
 
                 if (firstCandidate == null)
                 {
@@ -728,7 +787,10 @@ public static class CsvSerializer<T>
     /// <returns>System.Object.</returns>
     public static object ReadEnumerableProperty(string row)
     {
-        if (row == null) return null; //AOT
+        if (row == null)
+        {
+            return null; //AOT
+        }
 
         var value = readElementFn(row);
         var to = typeof(T).CreateInstance();
@@ -743,7 +805,10 @@ public static class CsvSerializer<T>
     /// <returns>System.Object.</returns>
     public static object ReadNonEnumerableType(string row)
     {
-        if (row == null) return null; //AOT
+        if (row == null)
+        {
+            return null; //AOT
+        }
 
         var value = readElementFn(row);
         var to = typeof(T).CreateInstance();
@@ -758,7 +823,10 @@ public static class CsvSerializer<T>
     /// <returns>System.Object.</returns>
     public static object ReadObject(string value)
     {
-        if (value == null) return null; //AOT
+        if (value == null)
+        {
+            return null; //AOT
+        }
 
         var hold = JsState.IsCsv;
         JsState.IsCsv = true;

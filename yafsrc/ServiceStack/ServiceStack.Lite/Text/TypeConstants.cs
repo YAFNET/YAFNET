@@ -65,7 +65,7 @@ public static class TypeConstants
     /// <summary>
     /// The non width white space chars
     /// </summary>
-    public static char[] NonWidthWhiteSpaceChars = [(char)0x200B];
+    public static char[] NonWidthWhiteSpaceChars { get; } = [(char)0x200B];
 
     /// <summary>
     /// Gets the null string span.
@@ -92,16 +92,16 @@ public static class TypeConstants
     /// <summary>
     /// The empty string array
     /// </summary>
-    public static string[] EmptyStringArray = Array.Empty<string>();
+    public static string[] EmptyStringArray = [];
 
     /// <summary>
     /// The empty byte array
     /// </summary>
-    public static byte[] EmptyByteArray = Array.Empty<byte>();
+    public static byte[] EmptyByteArray = [];
     /// <summary>
     /// The empty object array
     /// </summary>
-    public static object[] EmptyObjectArray = Array.Empty<object>();
+    public static object[] EmptyObjectArray = [];
     /// <summary>
     /// The empty type array
     /// </summary>
@@ -109,11 +109,11 @@ public static class TypeConstants
     /// <summary>
     /// The empty field information array
     /// </summary>
-    public static FieldInfo[] EmptyFieldInfoArray = Array.Empty<FieldInfo>();
+    public static FieldInfo[] EmptyFieldInfoArray = [];
     /// <summary>
     /// The empty property information array
     /// </summary>
-    public static PropertyInfo[] EmptyPropertyInfoArray = Array.Empty<PropertyInfo>();
+    public static PropertyInfo[] EmptyPropertyInfoArray = [];
 }
 
 /// <summary>
@@ -125,7 +125,7 @@ public static class TypeConstants<T>
     /// <summary>
     /// The empty array
     /// </summary>
-    public static T[] EmptyArray = Array.Empty<T>();
+    public static T[] EmptyArray = [];
     /// <summary>
     /// The empty list
     /// </summary>

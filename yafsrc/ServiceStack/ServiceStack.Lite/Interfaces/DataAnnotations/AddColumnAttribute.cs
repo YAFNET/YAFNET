@@ -44,6 +44,6 @@ public class RenameColumnAttribute : AlterColumnAttribute
     /// <param name="from">From.</param>
     public RenameColumnAttribute(string from)
     {
-        From = from;
+        this.From = from;
     }
 }

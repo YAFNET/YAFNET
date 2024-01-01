@@ -22,7 +22,7 @@ public class TextNode
     /// </summary>
     public TextNode()
     {
-        Children = [];
+        this.Children = [];
     }
 
     /// <summary>
@@ -68,7 +68,9 @@ public static class StringUtils
         var pos = 0;
 
         if (commandsString.IsNullOrEmpty())
+        {
             return to;
+        }
 
         var inDoubleQuotes = false;
         var inSingleQuotes = false;
@@ -85,31 +87,45 @@ public static class StringUtils
             for (var i = 0; i < commandsString.Length; i++)
             {
                 var c = commandsString.Span[i];
-                if (c.IsWhiteSpace()) 
+                if (c.IsWhiteSpace())
+                {
                     continue;
+                }
 
                 if (inDoubleQuotes)
                 {
                     if (c == '"')
+                    {
                         inDoubleQuotes = false;
+                    }
+
                     continue;
                 }
                 if (inSingleQuotes)
                 {
                     if (c == '\'')
+                    {
                         inSingleQuotes = false;
+                    }
+
                     continue;
                 }
                 if (inBackTickQuotes)
                 {
                     if (c == '`')
+                    {
                         inBackTickQuotes = false;
+                    }
+
                     continue;
                 }
                 if (inPrimeQuotes)
                 {
                     if (c == '′')
+                    {
                         inPrimeQuotes = false;
+                    }
+
                     continue;
                 }
                 switch (c)
@@ -161,9 +177,13 @@ public static class StringUtils
                 else if (c == separator)
                 {
                     if (string.IsNullOrEmpty(cmd.Name))
+                    {
                         cmd.Name = commandsString.Slice(pos, i - pos).Trim().ToString();
+                    }
                     else
+                    {
                         cmd.Suffix = commandsString.Slice(pos - cmd.Suffix.Length, i - pos + cmd.Suffix.Length);
+                    }
 
                     cmd.Original = commandsString.Slice(segmentStartPos, i - segmentStartPos).Trim();
 
@@ -221,49 +241,76 @@ public static class StringUtils
             if (inDoubleQuotes)
             {
                 if (c == '"')
+                {
                     inDoubleQuotes = false;
+                }
+
                 continue;
             }
             if (inSingleQuotes)
             {
                 if (c == '\'')
+                {
                     inSingleQuotes = false;
+                }
+
                 continue;
             }
             if (inBackTickQuotes)
             {
                 if (c == '`')
+                {
                     inBackTickQuotes = false;
+                }
+
                 continue;
             }
             if (inPrimeQuotes)
             {
                 if (c == '′')
+                {
                     inPrimeQuotes = false;
+                }
+
                 continue;
             }
             if (inBrackets > 0)
             {
                 if (c == '[')
+                {
                     ++inBrackets;
+                }
                 else if (c == ']')
+                {
                     --inBrackets;
+                }
+
                 continue;
             }
             if (inBraces > 0)
             {
                 if (c == '{')
+                {
                     ++inBraces;
+                }
                 else if (c == '}')
+                {
                     --inBraces;
+                }
+
                 continue;
             }
             if (inParens > 0)
             {
                 if (c == '(')
+                {
                     ++inParens;
+                }
                 else if (c == ')')
+                {
                     --inParens;
+                }
+
                 continue;
             }
 
@@ -335,7 +382,9 @@ public static class StringUtils
     {
         var to = new List<string>();
         if (string.IsNullOrEmpty(argList))
+        {
             return to;
+        }
 
         var lastPos = 0;
         var blockCount = 0;
@@ -347,7 +396,7 @@ public static class StringUtils
                 case ',':
                     if (blockCount == 0)
                     {
-                        var arg = argList.Substring(lastPos, i - lastPos);
+                        var arg = argList[lastPos..i];
                         to.Add(arg);
                         lastPos = i + 1;
                     }
@@ -363,7 +412,7 @@ public static class StringUtils
 
         if (lastPos > 0)
         {
-            var arg = argList.Substring(lastPos);
+            var arg = argList[lastPos..];
             to.Add(arg);
         }
         else
@@ -377,7 +426,7 @@ public static class StringUtils
     /// <summary>
     /// The block chars
     /// </summary>
-    static char[] blockChars = ['<', '>'];
+    private readonly static char[] blockChars = ['<', '>'];
     /// <summary>
     /// Parses the type into nodes.
     /// </summary>
@@ -386,14 +435,16 @@ public static class StringUtils
     public static TextNode ParseTypeIntoNodes(this string typeDef)
     {
         if (string.IsNullOrEmpty(typeDef))
+        {
             return null;
+        }
 
         var node = new TextNode();
         var lastBlockPos = typeDef.IndexOf('<');
 
         if (lastBlockPos >= 0)
         {
-            node.Text = typeDef.Substring(0, lastBlockPos).Trim();
+            node.Text = typeDef[..lastBlockPos].Trim();
 
             var blockStartingPos = new Stack<int>();
             blockStartingPos.Push(lastBlockPos);
@@ -402,7 +453,9 @@ public static class StringUtils
             {
                 var nextPos = typeDef.IndexOfAny(blockChars, lastBlockPos + 1);
                 if (nextPos == -1)
+                {
                     break;
+                }
 
                 var blockChar = typeDef.Substring(nextPos, 1);
 
@@ -455,8 +508,10 @@ public static class StringUtils
     /// <param name="c">The c.</param>
     /// <returns>bool.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsWhiteSpace(this char c) =>
-        c == ' ' || c is >= '\x0009' and <= '\x000d' || c == '\x00a0' || c == '\x0085';
+    public static bool IsWhiteSpace(this char c)
+    {
+        return c == ' ' || c is >= '\x0009' and <= '\x000d' || c == '\x00a0' || c == '\x0085';
+    }
 
     /// <summary>
     /// Firsts the character equals.
@@ -465,6 +520,8 @@ public static class StringUtils
     /// <param name="c">The c.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool FirstCharEquals(this string literal, char c) =>
-        !string.IsNullOrEmpty(literal) && literal[0] == c;
+    public static bool FirstCharEquals(this string literal, char c)
+    {
+        return !string.IsNullOrEmpty(literal) && literal[0] == c;
+    }
 }

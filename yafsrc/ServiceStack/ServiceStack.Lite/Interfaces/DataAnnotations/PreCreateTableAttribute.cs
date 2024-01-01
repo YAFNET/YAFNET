@@ -28,6 +28,6 @@ public class PreCreateTableAttribute : AttributeBase
     /// <param name="sql">The SQL.</param>
     public PreCreateTableAttribute(string sql)
     {
-        Sql = sql;
+        this.Sql = sql;
     }
 }

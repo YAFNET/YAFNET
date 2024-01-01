@@ -24,7 +24,10 @@ public static class TaskUtils
     /// <param name="result">The result.</param>
     /// <returns>Task&lt;T&gt;.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Task<T> InTask<T>(this T result) => Task.FromResult(result);
+    public static Task<T> InTask<T>(this T result)
+    {
+        return Task.FromResult(result);
+    }
 
     /// <summary>
     /// Ins the task.
@@ -54,11 +57,17 @@ public static class TaskUtils
         task.ContinueWith(t =>
             {
                 if (t.IsFaulted)
+                {
                     tcs.TrySetException(t.Exception.InnerExceptions);
+                }
                 else if (t.IsCanceled)
+                {
                     tcs.TrySetCanceled();
+                }
                 else
+                {
                     tcs.TrySetResult(fn(t.Result));
+                }
             }, TaskContinuationOptions.ExecuteSynchronously);
 
         return tcs.Task;

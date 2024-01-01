@@ -501,7 +501,7 @@ public static class LicenseUtils
         /// <param name="licenseKey">The license key.</param>
         internal __ActivatedLicense(LicenseKey licenseKey)
         {
-            LicenseKey = licenseKey;
+            this.LicenseKey = licenseKey;
         }
     }
 
@@ -519,14 +519,18 @@ public static class LicenseUtils
     {
         var key = __activatedLicense?.LicenseKey;
         if (key == null)
+        {
             return null;
+        }
 
         if (DateTime.UtcNow > key.Expiry)
         {
             var licenseMeta = key.Meta;
             if ((licenseMeta & (long)LicenseMeta.Subscription) != 0)
+            {
                 return
                     $"This Annual Subscription expired on '{key.Expiry:d}', please update your License Key with this years subscription.";
+            }
         }
 
         return null;
@@ -554,7 +558,9 @@ public static class LicenseUtils
         JsConfig.InitStatics();
 
         if (__activatedLicense != null) //Skip multiple license registrations. Use RemoveLicense() to reset.
+        {
             return;
+        }
 
         string subId = null;
         var hold = Thread.CurrentThread.CurrentCulture;
@@ -571,7 +577,9 @@ public static class LicenseUtils
             subId = parts[0];
 
             if (int.TryParse(subId, out var subIdInt) && revokedSubs.Contains(subIdInt))
+            {
                 throw new LicenseException("This subscription has been revoked. " + ContactDetails);
+            }
 
             var key = VerifyLicenseKeyText(licenseKeyText);
             ValidateLicenseKey(key);
@@ -590,11 +598,15 @@ public static class LicenseUtils
             }
 
             if (ex is LicenseException)
+            {
                 throw;
+            }
 
             var msg = "This license is invalid." + ContactDetails;
             if (!string.IsNullOrEmpty(subId))
+            {
                 msg += $" The id for this license is '{subId}'";
+            }
 
             lock (lockObj)
             {
@@ -608,7 +620,9 @@ public static class LicenseUtils
                     Tracer.Instance.WriteWarning(ex.ToString());
 
                     if (exFallback is FileNotFoundException or FileLoadException or BadImageFormatException)
+                    {
                         throw;
+                    }
 
                     throw new LicenseException(msg, exFallback).Trace();
                 }
@@ -636,18 +650,24 @@ public static class LicenseUtils
     {
         var releaseDate = Env.GetReleaseDate();
         if (releaseDate > key.Expiry)
+        {
             throw new LicenseException(
                 $"This license has expired on {key.Expiry:d} and is not valid for use with this release."
                 + ContactDetails).Trace();
+        }
 
         if (key.Type == LicenseType.Trial && DateTime.UtcNow > key.Expiry)
+        {
             throw new LicenseException($"This trial license has expired on {key.Expiry:d}." + ContactDetails).Trace();
+        }
 
         __activatedLicense = new __ActivatedLicense(key);
 
         LicenseWarningMessage = GetLicenseWarningMessage();
         if (LicenseWarningMessage != null)
+        {
             Console.WriteLine(LicenseWarningMessage);
+        }
     }
 
     /// <summary>
@@ -665,8 +685,10 @@ public static class LicenseUtils
     /// </summary>
     /// <param name="licenseText">The license text.</param>
     /// <returns>bool.</returns>
-    private static bool IsFreeLicenseKey(string licenseText) =>
-        licenseText.StartsWith(IndividualPrefix) || licenseText.StartsWith(OpenSourcePrefix);
+    private static bool IsFreeLicenseKey(string licenseText)
+    {
+        return licenseText.StartsWith(IndividualPrefix) || licenseText.StartsWith(OpenSourcePrefix);
+    }
 
     /// <summary>
     /// Validates the free license key.
@@ -682,26 +704,34 @@ public static class LicenseUtils
     private static void ValidateFreeLicenseKey(string licenseText)
     {
         if (!IsFreeLicenseKey(licenseText))
+        {
             throw new NotSupportedException("Not a free License Key");
+        }
 
         var envKey = Environment.GetEnvironmentVariable("SERVICESTACK_LICENSE");
         if (envKey == licenseText)
+        {
             throw new LicenseException(
                 "Cannot use SERVICESTACK_LICENSE Environment variable with free License Keys, "
                 + "please use Licensing.RegisterLicense() in source code.");
+        }
 
         LicenseKey key = null;
         if (licenseText.StartsWith(IndividualPrefix))
         {
             key = VerifyIndividualLicense(licenseText);
             if (key == null)
+            {
                 throw new LicenseException("Individual License Key is invalid.");
+            }
         }
         else if (licenseText.StartsWith(OpenSourcePrefix))
         {
             key = VerifyOpenSourceLicense(licenseText);
             if (key == null)
+            {
                 throw new LicenseException("Open Source License Key is invalid.");
+            }
         }
         else
         {
@@ -710,9 +740,11 @@ public static class LicenseUtils
 
         var releaseDate = Env.GetReleaseDate();
         if (releaseDate > key.Expiry)
+        {
             throw new LicenseException(
                 $"This license has expired on {key.Expiry:d} and is not valid for use with this release.\n"
                 + "Check https://servicestack.net/free for eligible renewals.").Trace();
+        }
 
         __activatedLicense = new __ActivatedLicense(key);
     }
@@ -756,15 +788,26 @@ public static class LicenseUtils
     private static LicenseKey VerifyIndividualLicense(string licenseKey)
     {
         if (licenseKey == null)
+        {
             return null;
+        }
+
         if (licenseKey.Length < 100)
+        {
             return null;
+        }
+
         if (!licenseKey.StartsWith(IndividualPrefix))
+        {
             return null;
+        }
+
         var keyText = licenseKey.LastLeftPart(' ');
         var keySign = licenseKey.LastRightPart(' ');
         if (keySign.Length < 48)
+        {
             return null;
+        }
 
         try
         {
@@ -811,15 +854,26 @@ public static class LicenseUtils
     private static LicenseKey VerifyOpenSourceLicense(string licenseKey)
     {
         if (licenseKey == null)
+        {
             return null;
+        }
+
         if (licenseKey.Length < 100)
+        {
             return null;
+        }
+
         if (!licenseKey.StartsWith(OpenSourcePrefix))
+        {
             return null;
+        }
+
         var keyText = licenseKey.LastLeftPart(' ');
         var keySign = licenseKey.LastRightPart(' ');
         if (keySign.Length < 48)
+        {
             return null;
+        }
 
         try
         {
@@ -894,10 +948,14 @@ public static class LicenseUtils
     {
         var hasFeature = (requestedFeature & licenseFeature) == requestedFeature;
         if (hasFeature)
+        {
             return;
+        }
 
         if (actualUsage > allowedUsage)
+        {
             throw new LicenseException(message.Fmt(allowedUsage)).Trace();
+        }
     }
 
     /// <summary>
@@ -912,7 +970,9 @@ public static class LicenseUtils
     {
         var licensedFeatures = ActivatedLicenseFeatures();
         if ((LicenseFeature.All & licensedFeatures) == LicenseFeature.All) //Standard Usage
+        {
             return;
+        }
 
         //Free Quotas
         switch (feature)
@@ -1090,8 +1150,10 @@ public static class LicenseUtils
             var key = jsv.FromJsv<LicenseKey>();
 
             if (key.Ref != refId)
+            {
                 throw new LicenseException("The license '{0}' is not assigned to CustomerId '{1}'.".Fmt(base64, refId))
                     .Trace();
+            }
 
             return key;
         }
@@ -1130,7 +1192,9 @@ public static class LicenseUtils
                       };
 
         if (key.Ref != refId)
+        {
             throw new LicenseException($"The license '{base64}' is not assigned to CustomerId '{refId}'.").Trace();
+        }
 
         return key;
     }
@@ -1183,12 +1247,16 @@ public static class LicenseUtils
         try
         {
             if (!licenseKeyText.VerifyLicenseKeyText(out key))
+            {
                 throw new ArgumentException("licenseKeyText");
+            }
         }
         catch (Exception)
         {
             if (!VerifyLicenseKeyTextFallback(licenseKeyText, out key))
+            {
                 throw;
+            }
         }
 
         return key;
@@ -1226,11 +1294,15 @@ public static class LicenseUtils
         while (reader.Read())
         {
             if (reader.NodeType != System.Xml.XmlNodeType.Element)
+            {
                 continue;
+            }
 
             var elName = reader.Name;
             if (elName == "RSAKeyValue")
+            {
                 continue;
+            }
 
             do
             {
@@ -1240,7 +1312,9 @@ public static class LicenseUtils
                    && reader.NodeType != System.Xml.XmlNodeType.EndElement);
 
             if (reader.NodeType == System.Xml.XmlNodeType.EndElement)
+            {
                 continue;
+            }
 
             var value = reader.Value;
             switch (elName)

@@ -48,26 +48,26 @@ public class ProfiledDbTransaction : DbTransaction, IHasDbTransaction
     /// Specifies the <see cref="T:System.Data.Common.DbConnection" /> object associated with the transaction.
     /// </summary>
     /// <value>The database connection.</value>
-    override protected DbConnection DbConnection => db;
+    override protected DbConnection DbConnection => this.db;
 
     /// <summary>
     /// Gets the database transaction.
     /// </summary>
     /// <value>The database transaction.</value>
-    public IDbTransaction DbTransaction => trans;
+    public IDbTransaction DbTransaction => this.trans;
 
     /// <summary>
     /// Specifies the <see cref="T:System.Data.IsolationLevel" /> for this transaction.
     /// </summary>
     /// <value>The isolation level.</value>
-    public override IsolationLevel IsolationLevel => trans.IsolationLevel;
+    public override IsolationLevel IsolationLevel => this.trans.IsolationLevel;
 
     /// <summary>
     /// Commits the database transaction.
     /// </summary>
     public override void Commit()
     {
-        trans.Commit();
+        this.trans.Commit();
     }
 
     /// <summary>
@@ -75,7 +75,7 @@ public class ProfiledDbTransaction : DbTransaction, IHasDbTransaction
     /// </summary>
     public override void Rollback()
     {
-        trans.Rollback();
+        this.trans.Rollback();
     }
 
     /// <summary>
@@ -86,10 +86,10 @@ public class ProfiledDbTransaction : DbTransaction, IHasDbTransaction
     {
         if (disposing)
         {
-            trans?.Dispose();
+            this.trans?.Dispose();
         }
-        trans = null;
-        db = null;
+        this.trans = null;
+        this.db = null;
         base.Dispose(disposing);
     }
 }

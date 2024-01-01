@@ -26,7 +26,9 @@ public static class Env
     {
 
         if (PclExport.Instance == null)
+        {
             throw new ArgumentException("PclExport.Instance needs to be initialized");
+        }
 
 #if NET7_0_OR_GREATER
         IsNetStandard = true;
@@ -140,7 +142,7 @@ public static class Env
     /// <summary>
     /// The service stack version
     /// </summary>
-    public static decimal ServiceStackVersion = 8.01m;
+    public static decimal ServiceStackVersion { get; set; } = 8.01m;
 
     /// <summary>
     /// Gets or sets a value indicating whether this instance is linux.
@@ -269,7 +271,10 @@ public static class Env
     /// The get release date.
     /// </summary>
     /// <returns>The <see cref="DateTime" />.</returns>
-    public static DateTime GetReleaseDate() => new(2001, 01, 01);
+    public static DateTime GetReleaseDate()
+    {
+        return new DateTime(2001, 01, 01);
+    }
 
 #if NET7_0_OR_GREATER
     private static bool IsRunningAsUwp()
@@ -292,9 +297,9 @@ public static class Env
     {
         get
         {
-            int versionMajor = Environment.OSVersion.Version.Major;
-            int versionMinor = Environment.OSVersion.Version.Minor;
-            double version = versionMajor + (double)versionMinor / 10;
+            var versionMajor = Environment.OSVersion.Version.Major;
+            var versionMinor = Environment.OSVersion.Version.Minor;
+            var version = versionMajor + (double)versionMinor / 10;
             return version <= 6.1;
         }
     }
@@ -311,7 +316,9 @@ public static class Env
         get
         {
             if (s_isInAppContainer != -1)
+            {
                 return s_isInAppContainer == 1;
+            }
 
             if (!IsWindows || IsWindows7OrLower)
             {
@@ -319,11 +326,11 @@ public static class Env
                 return false;
             }
 
-            byte[] buffer = TypeConstants.EmptyByteArray;
+            var buffer = TypeConstants.EmptyByteArray;
             uint bufferSize = 0;
             try
             {
-                int result = GetCurrentApplicationUserModelId(ref bufferSize, buffer);
+                var result = GetCurrentApplicationUserModelId(ref bufferSize, buffer);
                 switch (result)
                 {
                     case 15703: // APPMODEL_ERROR_NO_APPLICATION
@@ -377,7 +384,10 @@ public static class Env
     /// <param name="task">The task.</param>
     /// <returns>ConfiguredTaskAwaitable.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ConfiguredTaskAwaitable ConfigAwait(this Task task) => task.ConfigureAwait(ContinueOnCapturedContext);
+    public static ConfiguredTaskAwaitable ConfigAwait(this Task task)
+    {
+        return task.ConfigureAwait(ContinueOnCapturedContext);
+    }
 
     /// <summary>
     /// Configurations the await.
@@ -386,8 +396,10 @@ public static class Env
     /// <param name="task">The task.</param>
     /// <returns>ConfiguredTaskAwaitable&lt;T&gt;.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ConfiguredTaskAwaitable<T> ConfigAwait<T>(this Task<T> task) =>
-        task.ConfigureAwait(ContinueOnCapturedContext);
+    public static ConfiguredTaskAwaitable<T> ConfigAwait<T>(this Task<T> task)
+    {
+        return task.ConfigureAwait(ContinueOnCapturedContext);
+    }
 
     /// <summary>
     /// Configurations the await.
@@ -395,6 +407,8 @@ public static class Env
     /// <param name="task">The task.</param>
     /// <returns>ConfiguredValueTaskAwaitable.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ConfiguredValueTaskAwaitable ConfigAwait(this ValueTask task) =>
-        task.ConfigureAwait(ContinueOnCapturedContext);
+    public static ConfiguredValueTaskAwaitable ConfigAwait(this ValueTask task)
+    {
+        return task.ConfigureAwait(ContinueOnCapturedContext);
+    }
 }

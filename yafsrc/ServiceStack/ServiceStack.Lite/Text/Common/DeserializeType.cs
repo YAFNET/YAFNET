@@ -30,7 +30,10 @@ public static class DeserializeType<TSerializer>
     /// </summary>
     /// <param name="typeConfig">The type configuration.</param>
     /// <returns>ParseStringDelegate.</returns>
-    static internal ParseStringDelegate GetParseMethod(TypeConfig typeConfig) => v => GetParseStringSpanMethod(typeConfig)(v.AsSpan());
+    static internal ParseStringDelegate GetParseMethod(TypeConfig typeConfig)
+    {
+        return v => GetParseStringSpanMethod(typeConfig)(v.AsSpan());
+    }
 
     /// <summary>
     /// Gets the parse string span method.
@@ -41,15 +44,23 @@ public static class DeserializeType<TSerializer>
     {
         var type = typeConfig.Type;
 
-        if (!type.IsStandardClass()) return null;
+        if (!type.IsStandardClass())
+        {
+            return null;
+        }
+
         var accessors = DeserializeTypeRef.GetTypeAccessors(typeConfig, Serializer);
 
         var ctorFn = JsConfig.ModelFactory(type);
         if (accessors == null)
+        {
             return value => ctorFn();
+        }
 
         if (typeof(TSerializer) == typeof(Json.JsonTypeSerializer))
+        {
             return new StringToTypeContext(typeConfig, ctorFn, accessors).DeserializeJson;
+        }
 
         return new StringToTypeContext(typeConfig, ctorFn, accessors).DeserializeJsv;
     }
@@ -90,14 +101,20 @@ public static class DeserializeType<TSerializer>
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>System.Object.</returns>
-        internal object DeserializeJson(ReadOnlySpan<char> value) => DeserializeTypeRefJson.StringToType(value, typeConfig, ctorFn, accessors);
+        internal object DeserializeJson(ReadOnlySpan<char> value)
+        {
+            return DeserializeTypeRefJson.StringToType(value, this.typeConfig, this.ctorFn, this.accessors);
+        }
 
         /// <summary>
         /// Deserializes the JSV.
         /// </summary>
         /// <param name="value">The value.</param>
         /// <returns>System.Object.</returns>
-        internal object DeserializeJsv(ReadOnlySpan<char> value) => DeserializeTypeRefJsv.StringToType(value, typeConfig, ctorFn, accessors);
+        internal object DeserializeJsv(ReadOnlySpan<char> value)
+        {
+            return DeserializeTypeRefJsv.StringToType(value, this.typeConfig, this.ctorFn, this.accessors);
+        }
     }
 
     /// <summary>
@@ -140,12 +157,16 @@ public static class DeserializeType<TSerializer>
 
         var primitiveType = config.TryToParsePrimitiveTypeValues ? ParsePrimitive(strType) : null;
         if (primitiveType != null)
+        {
             return primitiveType;
+        }
 
         if (Serializer.ObjectDeserializer != null && typeof(TSerializer) == typeof(Json.JsonTypeSerializer))
+        {
             return !strType.IsNullOrEmpty()
-                       ? Serializer.ObjectDeserializer(strType)
-                       : strType.Value();
+                ? Serializer.ObjectDeserializer(strType)
+                : strType.Value();
+        }
 
         return Serializer.UnescapeString(strType).Value();
     }
@@ -155,7 +176,10 @@ public static class DeserializeType<TSerializer>
     /// </summary>
     /// <param name="strType">Type of the string.</param>
     /// <returns>Type.</returns>
-    public static Type ExtractType(string strType) => ExtractType(strType.AsSpan());
+    public static Type ExtractType(string strType)
+    {
+        return ExtractType(strType.AsSpan());
+    }
 
     //TODO: optimize ExtractType
     /// <summary>
@@ -165,14 +189,19 @@ public static class DeserializeType<TSerializer>
     /// <returns>Type.</returns>
     public static Type ExtractType(ReadOnlySpan<char> strType)
     {
-        if (strType.IsEmpty || strType.Length <= 1) return null;
+        if (strType.IsEmpty || strType.Length <= 1)
+        {
+            return null;
+        }
 
         var hasWhitespace = Json.JsonUtils.WhiteSpaceChars.Contains(strType[1]);
         if (hasWhitespace)
         {
             var pos = strType.IndexOf('"');
             if (pos >= 0)
+            {
                 strType = ("{" + strType.Substring(pos, strType.Length - pos)).AsSpan();
+            }
         }
 
         var typeAttrInObject = Serializer.TypeAttrInObject;
@@ -207,13 +236,19 @@ public static class DeserializeType<TSerializer>
     {
         if (typeof(T).IsAbstract)
         {
-            if (value.IsNullOrEmpty()) return null;
+            if (value.IsNullOrEmpty())
+            {
+                return null;
+            }
+
             var concreteType = ExtractType(value);
             if (concreteType != null)
             {
                 var fn = Serializer.GetParseStringSpanFn(concreteType);
                 if (fn == ParseAbstractType<T>)
+                {
                     return null;
+                }
 
                 var ret = fn(value);
                 return ret;
@@ -235,15 +270,24 @@ public static class DeserializeType<TSerializer>
         var fn = config.ParsePrimitiveFn;
         var result = fn?.Invoke(value);
         if (result != null)
+        {
             return result;
+        }
 
         if (string.IsNullOrEmpty(value))
+        {
             return null;
+        }
 
-        if (Guid.TryParse(value, out Guid guidValue)) return guidValue;
+        if (Guid.TryParse(value, out var guidValue))
+        {
+            return guidValue;
+        }
 
         if (value.StartsWith(DateTimeSerializer.EscapedWcfJsonPrefix, StringComparison.Ordinal) || value.StartsWith(DateTimeSerializer.WcfJsonPrefix, StringComparison.Ordinal))
+        {
             return DateTimeSerializer.ParseWcfJsonDate(value);
+        }
 
         if (JsConfig.DateHandler == DateHandler.ISO8601)
         {
@@ -278,7 +322,10 @@ public static class DeserializeType<TSerializer>
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
-    public static object ParsePrimitive(string value) => ParsePrimitive(value.AsSpan());
+    public static object ParsePrimitive(string value)
+    {
+        return ParsePrimitive(value.AsSpan());
+    }
 
     /// <summary>
     /// Parses the primitive.
@@ -290,12 +337,16 @@ public static class DeserializeType<TSerializer>
         var fn = JsConfig.ParsePrimitiveFn;
         var result = fn?.Invoke(value.ToString());
         if (result != null)
+        {
             return result;
+        }
 
         if (value.IsNullOrEmpty())
+        {
             return null;
+        }
 
-        return value.TryParseBoolean(out bool boolValue) ? boolValue : value.ParseNumber();
+        return value.TryParseBoolean(out var boolValue) ? boolValue : value.ParseNumber();
     }
 
     /// <summary>
@@ -332,11 +383,15 @@ static internal class TypeAccessorUtils
     {
         var testValue = FindPropertyAccessor(accessors, propertyName);
         if (testValue != null)
+        {
             return testValue;
+        }
 
         if (lenient)
+        {
             return FindPropertyAccessor(accessors,
                 propertyName.ToString().Replace("-", string.Empty).Replace("_", string.Empty).AsSpan());
+        }
 
         return null;
     }
@@ -401,7 +456,9 @@ internal class TypeAccessor
     /// <param name="strType">Type of the string.</param>
     /// <returns>Type.</returns>
     public static Type ExtractType(ITypeSerializer Serializer, string strType)
-        => ExtractType(Serializer, strType.AsSpan());
+    {
+        return ExtractType(Serializer, strType.AsSpan());
+    }
 
     /// <summary>
     /// Extracts the type.
@@ -411,14 +468,19 @@ internal class TypeAccessor
     /// <returns>Type.</returns>
     public static Type ExtractType(ITypeSerializer Serializer, ReadOnlySpan<char> strType)
     {
-        if (strType.IsEmpty || strType.Length <= 1) return null;
+        if (strType.IsEmpty || strType.Length <= 1)
+        {
+            return null;
+        }
 
         var hasWhitespace = Json.JsonUtils.WhiteSpaceChars.Contains(strType[1]);
         if (hasWhitespace)
         {
             var pos = strType.IndexOf('"');
             if (pos >= 0)
+            {
                 strType = ("{" + strType.Substring(pos)).AsSpan();
+            }
         }
 
         var typeAttrInObject = Serializer.TypeAttrInObject;
@@ -430,7 +492,9 @@ internal class TypeAccessor
             var type = JsConfig.TypeFinder(typeName);
 
             if (type == null)
+            {
                 Tracer.Instance.WriteWarning("Could not find type: " + typeName);
+            }
 
             return type;
         }
@@ -495,9 +559,14 @@ internal class TypeAccessor
     private static SetMemberDelegate GetSetPropertyMethod(TypeConfig typeConfig, PropertyInfo propertyInfo)
     {
         if (typeConfig.Type != propertyInfo.DeclaringType)
+        {
             propertyInfo = propertyInfo.DeclaringType.GetProperty(propertyInfo.Name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+        }
 
-        if (!propertyInfo.CanWrite && !typeConfig.EnableAnonymousFieldSetters) return null;
+        if (!propertyInfo.CanWrite && !typeConfig.EnableAnonymousFieldSetters)
+        {
+            return null;
+        }
 
         FieldInfo fieldInfo = null;
         if (!propertyInfo.CanWrite)
@@ -515,7 +584,10 @@ internal class TypeAccessor
                 }
             }
 
-            if (fieldInfo == null) return null;
+            if (fieldInfo == null)
+            {
+                return null;
+            }
         }
 
         return propertyInfo.CanWrite
@@ -549,7 +621,9 @@ internal class TypeAccessor
     private static SetMemberDelegate GetSetFieldMethod(TypeConfig typeConfig, FieldInfo fieldInfo)
     {
         if (typeConfig.Type != fieldInfo.DeclaringType)
+        {
             fieldInfo = fieldInfo.DeclaringType.GetField(fieldInfo.Name, BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+        }
 
         return ReflectionOptimizer.Instance.CreateSetter(fieldInfo);
     }
@@ -576,7 +650,11 @@ public static class DeserializeTypeExensions
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
-    public static object ParseNumber(this ReadOnlySpan<char> value) => ParseNumber(value, JsConfig.TryParseIntoBestFit);
+    public static object ParseNumber(this ReadOnlySpan<char> value)
+    {
+        return ParseNumber(value, JsConfig.TryParseIntoBestFit);
+    }
+
     /// <summary>
     /// Parses the number.
     /// </summary>
@@ -592,7 +670,10 @@ public static class DeserializeTypeExensions
             {
                 var result = singleDigit - 48;
                 if (bestFit)
+                {
                     return (byte)result;
+                }
+
                 return result;
             }
         }
@@ -601,7 +682,7 @@ public static class DeserializeTypeExensions
 
         // Parse as decimal
         var acceptDecimal = config.ParsePrimitiveFloatingPointTypes.Has(ParseAsType.Decimal);
-        var isDecimal = value.TryParseDecimal(out decimal decimalValue);
+        var isDecimal = value.TryParseDecimal(out var decimalValue);
 
         switch (isDecimal)
         {
@@ -611,21 +692,45 @@ public static class DeserializeTypeExensions
                     // Value is a whole number
                     var parseAs = config.ParsePrimitiveIntegerTypes;
                     if (parseAs.Has(ParseAsType.Byte) && decimalValue is <= byte.MaxValue and >= byte.MinValue)
+                    {
                         return (byte)decimalValue;
+                    }
+
                     if (parseAs.Has(ParseAsType.SByte) && decimalValue is <= sbyte.MaxValue and >= sbyte.MinValue)
+                    {
                         return (sbyte)decimalValue;
+                    }
+
                     if (parseAs.Has(ParseAsType.Int16) && decimalValue is <= short.MaxValue and >= short.MinValue)
+                    {
                         return (short)decimalValue;
+                    }
+
                     if (parseAs.Has(ParseAsType.UInt16) && decimalValue is <= ushort.MaxValue and >= ushort.MinValue)
+                    {
                         return (ushort)decimalValue;
+                    }
+
                     if (parseAs.Has(ParseAsType.Int32) && decimalValue is <= int.MaxValue and >= int.MinValue)
+                    {
                         return (int)decimalValue;
+                    }
+
                     if (parseAs.Has(ParseAsType.UInt32) && decimalValue is <= uint.MaxValue and >= uint.MinValue)
+                    {
                         return (uint)decimalValue;
+                    }
+
                     if (parseAs.Has(ParseAsType.Int64) && decimalValue is <= long.MaxValue and >= long.MinValue)
+                    {
                         return (long)decimalValue;
+                    }
+
                     if (parseAs.Has(ParseAsType.UInt64) && decimalValue is <= ulong.MaxValue and >= ulong.MinValue)
+                    {
                         return (ulong)decimalValue;
+                    }
+
                     return decimalValue;
                 }
             // Value is a floating point number
@@ -635,21 +740,33 @@ public static class DeserializeTypeExensions
         }
 
         var acceptFloat = config.ParsePrimitiveFloatingPointTypes.HasFlag(ParseAsType.Single);
-        var isFloat = value.TryParseFloat(out float floatValue);
+        var isFloat = value.TryParseFloat(out var floatValue);
         if (acceptFloat && isFloat)
+        {
             return floatValue;
+        }
 
         var acceptDouble = config.ParsePrimitiveFloatingPointTypes.HasFlag(ParseAsType.Double);
-        var isDouble = value.TryParseDouble(out double doubleValue);
+        var isDouble = value.TryParseDouble(out var doubleValue);
         if (acceptDouble && isDouble)
+        {
             return doubleValue;
+        }
 
         if (isDecimal)
+        {
             return decimalValue;
+        }
+
         if (isFloat)
+        {
             return floatValue;
+        }
+
         if (isDouble)
+        {
             return doubleValue;
+        }
 
         return null;
     }

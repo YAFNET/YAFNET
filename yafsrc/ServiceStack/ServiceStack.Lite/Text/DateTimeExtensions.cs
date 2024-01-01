@@ -102,13 +102,20 @@ public static class DateTimeExtensions
     /// </summary>
     /// <param name="dateOnly">The date only.</param>
     /// <returns>System.Int64.</returns>
-    public static long ToUnixTimeMs(this DateOnly dateOnly) => dateOnly.ToDateTime(default, DateTimeKind.Utc).ToUnixTimeMs();
+    public static long ToUnixTimeMs(this DateOnly dateOnly)
+    {
+        return dateOnly.ToDateTime(default, DateTimeKind.Utc).ToUnixTimeMs();
+    }
+
     /// <summary>
     /// Converts to unixtime.
     /// </summary>
     /// <param name="dateOnly">The date only.</param>
     /// <returns>System.Int64.</returns>
-    public static long ToUnixTime(this DateOnly dateOnly) => dateOnly.ToDateTime(default, DateTimeKind.Utc).ToUnixTime();
+    public static long ToUnixTime(this DateOnly dateOnly)
+    {
+        return dateOnly.ToDateTime(default, DateTimeKind.Utc).ToUnixTime();
+    }
 #endif
 
     /// <summary>
@@ -177,7 +184,9 @@ public static class DateTimeExtensions
     public static TimeSpan FromTimeOffsetString(this string offsetString)
     {
         if (!offsetString.Contains(":"))
+        {
             offsetString = offsetString.Insert(offsetString.Length - 2, ":");
+        }
 
         offsetString = offsetString.TrimStart('+');
 
@@ -192,9 +201,14 @@ public static class DateTimeExtensions
     public static DateTime ToStableUniversalTime(this DateTime dateTime)
     {
         if (dateTime.Kind == DateTimeKind.Utc)
+        {
             return dateTime;
+        }
+
         if (dateTime == DateTime.MinValue)
+        {
             return MinDateTimeUtc;
+        }
 
         return PclExport.Instance.ToStableUniversalTime(dateTime);
     }

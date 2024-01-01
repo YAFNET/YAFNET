@@ -54,7 +54,9 @@ static internal class DeserializeSpecializedCollections<T, TSerializer>
         if (typeof(T).HasAnyTypeDefinitionsOf(typeof(Queue<>)))
         {
             if (typeof(T) == typeof(Queue<string>))
+            {
                 return ParseStringQueue;
+            }
 
             return typeof(T) == typeof(Queue<int>) ? ParseIntQueue : GetGenericQueueParseFn();
         }
@@ -62,14 +64,18 @@ static internal class DeserializeSpecializedCollections<T, TSerializer>
         if (typeof(T).HasAnyTypeDefinitionsOf(typeof(Stack<>)))
         {
             if (typeof(T) == typeof(Stack<string>))
+            {
                 return ParseStringStack;
+            }
 
             return typeof(T) == typeof(Stack<int>) ? ParseIntStack : GetGenericStackParseFn();
         }
 
         var fn = PclExport.Instance.GetSpecializedCollectionParseStringSpanMethod<TSerializer>(typeof(T));
         if (fn != null)
+        {
             return fn;
+        }
 
         if (typeof(T) == typeof(IEnumerable) || typeof(T) == typeof(ICollection))
         {
@@ -123,7 +129,10 @@ static internal class DeserializeSpecializedCollections<T, TSerializer>
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>Stack&lt;System.String&gt;.</returns>
-    public static Stack<string> ParseStringStack(string value) => ParseStringStack(value.AsSpan());
+    public static Stack<string> ParseStringStack(string value)
+    {
+        return ParseStringStack(value.AsSpan());
+    }
 
     /// <summary>
     /// Parses the string stack.
@@ -141,7 +150,10 @@ static internal class DeserializeSpecializedCollections<T, TSerializer>
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>Stack&lt;System.Int32&gt;.</returns>
-    public static Stack<int> ParseIntStack(string value) => ParseIntStack(value.AsSpan());
+    public static Stack<int> ParseIntStack(string value)
+    {
+        return ParseIntStack(value.AsSpan());
+    }
 
     /// <summary>
     /// Parses the int stack.
@@ -176,7 +188,10 @@ static internal class DeserializeSpecializedCollections<T, TSerializer>
     /// Gets the enumerable parse string span function.
     /// </summary>
     /// <returns>ParseStringSpanDelegate.</returns>
-    public static ParseStringSpanDelegate GetEnumerableParseStringSpanFn() => DeserializeListWithElements<TSerializer>.ParseStringList;
+    public static ParseStringSpanDelegate GetEnumerableParseStringSpanFn()
+    {
+        return DeserializeListWithElements<TSerializer>.ParseStringList;
+    }
 
     /// <summary>
     /// Gets the generic enumerable parse string span function.
@@ -185,12 +200,19 @@ static internal class DeserializeSpecializedCollections<T, TSerializer>
     public static ParseStringSpanDelegate GetGenericEnumerableParseStringSpanFn()
     {
         var enumerableInterface = typeof(T).GetTypeWithGenericInterfaceOf(typeof(IEnumerable<>));
-        if (enumerableInterface == null) return null;
+        if (enumerableInterface == null)
+        {
+            return null;
+        }
+
         var elementType = enumerableInterface.GetGenericArguments()[0];
         var genericType = typeof(SpecializedEnumerableElements<,>).MakeGenericType(typeof(T), elementType);
         var fi = genericType.GetPublicStaticField("ConvertFn");
 
-        if (fi.GetValue(null) is not ConvertObjectDelegate convertFn) return null;
+        if (fi.GetValue(null) is not ConvertObjectDelegate convertFn)
+        {
+            return null;
+        }
 
         var parseFn = DeserializeEnumerable<T, TSerializer>.GetParseStringSpanFn();
 

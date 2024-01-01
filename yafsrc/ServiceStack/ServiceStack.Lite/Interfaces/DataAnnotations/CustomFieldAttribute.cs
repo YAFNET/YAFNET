@@ -38,7 +38,7 @@ public class CustomFieldAttribute : AttributeBase
     /// <param name="sql">The SQL.</param>
     public CustomFieldAttribute(string sql)
     {
-        Sql = sql;
+        this.Sql = sql;
     }
 }
 

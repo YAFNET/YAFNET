@@ -149,5 +149,8 @@ public class KeyValueStrings : List<KeyValuePair<string, string>>
     /// <param name="key">The key.</param>
     /// <param name="value">The value.</param>
     /// <returns>KeyValuePair&lt;System.String, System.String&gt;.</returns>
-    public static KeyValuePair<string, string> Create(string key, string value) => new(key, value);
+    public static KeyValuePair<string, string> Create(string key, string value)
+    {
+        return new KeyValuePair<string, string>(key, value);
+    }
 }

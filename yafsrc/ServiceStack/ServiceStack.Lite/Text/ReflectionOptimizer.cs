@@ -20,7 +20,7 @@ public abstract class ReflectionOptimizer
     /// <summary>
     /// The instance
     /// </summary>
-    public static ReflectionOptimizer Instance =
+    public static ReflectionOptimizer Instance { get; set; } =
 #if NETFX || NET7_0_OR_GREATER
             EmitReflectionOptimizer.Provider
 #else
@@ -137,7 +137,10 @@ public sealed class RuntimeReflectionOptimizer : ReflectionOptimizer
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>Type.</returns>
-    public override Type UseType(Type type) => type;
+    public override Type UseType(Type type)
+    {
+        return type;
+    }
 
     /// <summary>
     /// Creates the getter.
@@ -147,7 +150,10 @@ public sealed class RuntimeReflectionOptimizer : ReflectionOptimizer
     public override GetMemberDelegate CreateGetter(PropertyInfo propertyInfo)
     {
         var getMethodInfo = propertyInfo.GetGetMethod(true);
-        if (getMethodInfo == null) return null;
+        if (getMethodInfo == null)
+        {
+            return null;
+        }
 
         return o => propertyInfo.GetGetMethod(true).Invoke(o, TypeConstants.EmptyObjectArray);
     }
@@ -161,7 +167,10 @@ public sealed class RuntimeReflectionOptimizer : ReflectionOptimizer
     public override GetMemberDelegate<T> CreateGetter<T>(PropertyInfo propertyInfo)
     {
         var getMethodInfo = propertyInfo.GetGetMethod(true);
-        if (getMethodInfo == null) return null;
+        if (getMethodInfo == null)
+        {
+            return null;
+        }
 
         return o => propertyInfo.GetGetMethod(true).Invoke(o, TypeConstants.EmptyObjectArray);
     }
@@ -174,7 +183,10 @@ public sealed class RuntimeReflectionOptimizer : ReflectionOptimizer
     public override SetMemberDelegate CreateSetter(PropertyInfo propertyInfo)
     {
         var propertySetMethod = propertyInfo.GetSetMethod(true);
-        if (propertySetMethod == null) return null;
+        if (propertySetMethod == null)
+        {
+            return null;
+        }
 
         return (o, convertedValue) =>
             propertySetMethod.Invoke(o, [convertedValue]);
@@ -189,7 +201,10 @@ public sealed class RuntimeReflectionOptimizer : ReflectionOptimizer
     public override SetMemberDelegate<T> CreateSetter<T>(PropertyInfo propertyInfo)
     {
         var propertySetMethod = propertyInfo.GetSetMethod(true);
-        if (propertySetMethod == null) return null;
+        if (propertySetMethod == null)
+        {
+            return null;
+        }
 
         return (o, convertedValue) =>
             propertySetMethod.Invoke(o, [convertedValue]);
@@ -201,27 +216,42 @@ public sealed class RuntimeReflectionOptimizer : ReflectionOptimizer
     /// </summary>
     /// <param name="fieldInfo">The field information.</param>
     /// <returns>GetMemberDelegate.</returns>
-    public override GetMemberDelegate CreateGetter(FieldInfo fieldInfo) => fieldInfo.GetValue;
+    public override GetMemberDelegate CreateGetter(FieldInfo fieldInfo)
+    {
+        return fieldInfo.GetValue;
+    }
+
     /// <summary>
     /// Creates the getter.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="fieldInfo">The field information.</param>
     /// <returns>GetMemberDelegate&lt;T&gt;.</returns>
-    public override GetMemberDelegate<T> CreateGetter<T>(FieldInfo fieldInfo) => x => fieldInfo.GetValue(x);
+    public override GetMemberDelegate<T> CreateGetter<T>(FieldInfo fieldInfo)
+    {
+        return x => fieldInfo.GetValue(x);
+    }
+
     /// <summary>
     /// Creates the setter.
     /// </summary>
     /// <param name="fieldInfo">The field information.</param>
     /// <returns>SetMemberDelegate.</returns>
-    public override SetMemberDelegate CreateSetter(FieldInfo fieldInfo) => fieldInfo.SetValue;
+    public override SetMemberDelegate CreateSetter(FieldInfo fieldInfo)
+    {
+        return fieldInfo.SetValue;
+    }
+
     /// <summary>
     /// Creates the setter.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="fieldInfo">The field information.</param>
     /// <returns>SetMemberDelegate&lt;T&gt;.</returns>
-    public override SetMemberDelegate<T> CreateSetter<T>(FieldInfo fieldInfo) => (o, x) => fieldInfo.SetValue(o, x);
+    public override SetMemberDelegate<T> CreateSetter<T>(FieldInfo fieldInfo)
+    {
+        return (o, x) => fieldInfo.SetValue(o, x);
+    }
 
     /// <summary>
     /// Creates the setter reference.
@@ -229,8 +259,10 @@ public sealed class RuntimeReflectionOptimizer : ReflectionOptimizer
     /// <typeparam name="T"></typeparam>
     /// <param name="fieldInfo">The field information.</param>
     /// <returns>SetMemberRefDelegate&lt;T&gt;.</returns>
-    public override SetMemberRefDelegate<T> CreateSetterRef<T>(FieldInfo fieldInfo) =>
-        ExpressionReflectionOptimizer.Provider.CreateSetterRef<T>(fieldInfo);
+    public override SetMemberRefDelegate<T> CreateSetterRef<T>(FieldInfo fieldInfo)
+    {
+        return ExpressionReflectionOptimizer.Provider.CreateSetterRef<T>(fieldInfo);
+    }
 
     /// <summary>
     /// Determines whether the specified assembly is dynamic.
@@ -295,7 +327,10 @@ public sealed class ExpressionReflectionOptimizer : ReflectionOptimizer
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>Type.</returns>
-    public override Type UseType(Type type) => type;
+    public override Type UseType(Type type)
+    {
+        return type;
+    }
 
     /// <summary>
     /// Creates the getter.
@@ -317,7 +352,10 @@ public sealed class ExpressionReflectionOptimizer : ReflectionOptimizer
     public static Expression<GetMemberDelegate> GetExpressionLambda(PropertyInfo propertyInfo)
     {
         var getMethodInfo = propertyInfo.GetGetMethod(true);
-        if (getMethodInfo == null) return null;
+        if (getMethodInfo == null)
+        {
+            return null;
+        }
 
         var oInstanceParam = Expression.Parameter(typeof(object), "oInstanceParam");
         var instanceParam = Expression.Convert(oInstanceParam, propertyInfo.ReflectedType); //propertyInfo.DeclaringType doesn't work on Proxy types
@@ -368,7 +406,10 @@ public sealed class ExpressionReflectionOptimizer : ReflectionOptimizer
     public override SetMemberDelegate CreateSetter(PropertyInfo propertyInfo)
     {
         var propertySetMethod = propertyInfo.GetSetMethod(true);
-        if (propertySetMethod == null) return null;
+        if (propertySetMethod == null)
+        {
+            return null;
+        }
 
         try
         {
@@ -424,7 +465,10 @@ public sealed class ExpressionReflectionOptimizer : ReflectionOptimizer
     public static Expression<SetMemberDelegate<T>> SetExpressionLambda<T>(PropertyInfo propertyInfo)
     {
         var mi = propertyInfo.GetSetMethod(true);
-        if (mi == null) return null;
+        if (mi == null)
+        {
+            return null;
+        }
 
         var instance = Expression.Parameter(typeof(T), "i");
         var argument = Expression.Parameter(typeof(object), "a");
@@ -527,7 +571,10 @@ public sealed class ExpressionReflectionOptimizer : ReflectionOptimizer
     /// <typeparam name="TValue">The type of the t value.</typeparam>
     /// <param name="field">The field.</param>
     /// <param name="newValue">The new value.</param>
-    static internal void SetField<TValue>(ref TValue field, TValue newValue) => field = newValue;
+    static internal void SetField<TValue>(ref TValue field, TValue newValue)
+    {
+        field = newValue;
+    }
 
     /// <summary>
     /// Creates the setter.
@@ -615,12 +662,18 @@ public sealed class ExpressionReflectionOptimizer : ReflectionOptimizer
     /// </summary>
     /// <param name="assembly">The assembly.</param>
     /// <returns><c>true</c> if the specified assembly is dynamic; otherwise, <c>false</c>.</returns>
-    public override bool IsDynamic(Assembly assembly) => RuntimeReflectionOptimizer.Provider.IsDynamic(assembly);
+    public override bool IsDynamic(Assembly assembly)
+    {
+        return RuntimeReflectionOptimizer.Provider.IsDynamic(assembly);
+    }
 
     /// <summary>
     /// Creates the constructor.
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>EmptyCtorDelegate.</returns>
-    public override EmptyCtorDelegate CreateConstructor(Type type) => RuntimeReflectionOptimizer.Provider.CreateConstructor(type);
+    public override EmptyCtorDelegate CreateConstructor(Type type)
+    {
+        return RuntimeReflectionOptimizer.Provider.CreateConstructor(type);
+    }
 }

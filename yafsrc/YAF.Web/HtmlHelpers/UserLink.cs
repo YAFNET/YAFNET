@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -115,7 +115,7 @@ public static class UserLinkHtmlHelper
     /// <summary>
     /// The user link.
     /// </summary>
-    /// <param name="htmlHelper">
+    /// <param name="_">
     /// The html helper.
     /// </param>
     /// <param name="userId">
@@ -150,7 +150,7 @@ public static class UserLinkHtmlHelper
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
     public static IHtmlContent UserLink(
-        this IHtmlHelper htmlHelper,
+        this IHtmlHelper _,
         int userId,
         string replaceName,
         DateTime? suspended,
@@ -302,7 +302,7 @@ public static class UserLinkHtmlHelper
         }
         else
         {
-            if (activeUsers.Any(x => x.UserID == userId && !x.IsActiveExcluded))
+            if (activeUsers.Exists(x => x.UserID == userId && !x.IsActiveExcluded))
             {
                 // online
                 status.AddCssClass("align-middle text-success user-online me-1");

@@ -31,9 +31,14 @@ public class TimeSpanConverter
     public static string ToXsdDuration(TimeSpan timeSpan)
     {
         if (timeSpan == TimeSpan.MinValue)
+        {
             return MinSerializedValue;
+        }
+
         if (timeSpan == TimeSpan.MaxValue)
+        {
             return MaxSerializedValue;
+        }
 
         var sb = StringBuilderThreadStatic.Allocate();
 
@@ -41,16 +46,18 @@ public class TimeSpanConverter
 
         double ticks = timeSpan.Ticks;
         if (ticks < 0)
+        {
             ticks = -ticks;
+        }
 
-        double totalSeconds = ticks / TimeSpan.TicksPerSecond;
-        long wholeSeconds = (long)totalSeconds;
-        long seconds = wholeSeconds;
-        long sec = seconds >= 60 ? seconds % 60 : seconds;
-        long min = (seconds = seconds / 60) >= 60 ? seconds % 60 : seconds;
-        long hours = (seconds = seconds / 60) >= 24 ? seconds % 24 : seconds;
-        long days = seconds / 24;
-        double remainingSecs = sec + (totalSeconds - wholeSeconds);
+        var totalSeconds = ticks / TimeSpan.TicksPerSecond;
+        var wholeSeconds = (long)totalSeconds;
+        var seconds = wholeSeconds;
+        var sec = seconds >= 60 ? seconds % 60 : seconds;
+        var min = (seconds /= 60) >= 60 ? seconds % 60 : seconds;
+        var hours = (seconds /= 60) >= 24 ? seconds % 24 : seconds;
+        var days = seconds / 24;
+        var remainingSecs = sec + (totalSeconds - wholeSeconds);
 
         if (days > 0)
         {
@@ -59,12 +66,16 @@ public class TimeSpanConverter
 
         if (days == 0 || hours + min + sec + remainingSecs > 0)
         {
-            sb.Append("T");
+            sb.Append('T');
             if (hours > 0)
+            {
                 sb.Append(hours + "H");
+            }
 
             if (min > 0)
+            {
                 sb.Append(min + "M");
+            }
 
             if (remainingSecs > 0)
             {
@@ -105,48 +116,56 @@ public class TimeSpanConverter
         if (xsdDuration.StartsWith('-'))
         {
             sign = -1;
-            xsdDuration = xsdDuration.Substring(1); //strip sign
+            xsdDuration = xsdDuration[1..]; //strip sign
         }
 
-        string[] t = xsdDuration.Substring(1).SplitOnFirst('T'); //strip P
+        var t = xsdDuration[1..].SplitOnFirst('T'); //strip P
 
         var hasTime = t.Length == 2;
 
-        string[] d = t[0].SplitOnFirst('D');
+        var d = t[0].SplitOnFirst('D');
         if (d.Length == 2)
         {
             if (long.TryParse(d[0], out var day))
+            {
                 days = day;
+            }
         }
         if (hasTime)
         {
-            string[] h = t[1].SplitOnFirst('H');
+            var h = t[1].SplitOnFirst('H');
             if (h.Length == 2)
             {
                 if (long.TryParse(h[0], out var hour))
+                {
                     hours = hour;
+                }
             }
 
-            string[] m = h[h.Length - 1].SplitOnFirst('M');
+            var m = h[^1].SplitOnFirst('M');
             if (m.Length == 2)
             {
                 if (long.TryParse(m[0], out var min))
+                {
                     minutes = min;
+                }
             }
 
-            string[] s = m[m.Length - 1].SplitOnFirst('S');
+            var s = m[^1].SplitOnFirst('S');
             if (s.Length == 2)
             {
                 if (decimal.TryParse(s[0], NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out var millis))
+                {
                     seconds = millis;
+                }
             }
         }
 
-        decimal totalSecs = 0
-                            + days * 24 * 60 * 60
-                            + hours * 60 * 60
-                            + minutes * 60
-                            + seconds;
+        var totalSecs = 0
+                        + days * 24 * 60 * 60
+                        + hours * 60 * 60
+                        + minutes * 60
+                        + seconds;
 
         var interval = (long)(totalSecs * TimeSpan.TicksPerSecond * sign);
 

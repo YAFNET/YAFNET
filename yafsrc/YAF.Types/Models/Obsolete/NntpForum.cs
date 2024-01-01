@@ -1,9 +1,9 @@
-/* Yet Another Forum.NET
+﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -22,50 +22,63 @@
  * under the License.
  */
 
-namespace YAF.Types.Objects.Nntp;
+namespace YAF.Types.Models;
 
 /// <summary>
-/// The article header.
+/// A class which represents the NntpForum table.
 /// </summary>
-public class ArticleHeader
+[Serializable]
+public class NntpForum : IEntity, IHaveID
 {
     /// <summary>
-    /// Gets or sets ReferenceIds.
+    /// Gets or sets the id.
     /// </summary>
-    public string[] ReferenceIds { get; set; }
+    [Alias("NntpForumID")]
+    [AutoIncrement]
+    public int ID { get; set; }
 
     /// <summary>
-    /// Gets or sets an Article Time Zone offset to UTC.
+    /// Gets or sets the nntp server id.
     /// </summary>
-    public int TimeZoneOffset { get; set; }
+    [References(typeof(NntpServer))]
+    [Required]
+    public int NntpServerID { get; set; }
 
     /// <summary>
-    /// Gets or sets Subject.
+    /// Gets or sets the group name.
     /// </summary>
-    public string Subject { get; set; }
+    [Required]
+    [StringLength(100)]
+    public string GroupName { get; set; }
 
     /// <summary>
-    /// Gets or sets Date.
+    /// Gets or sets the forum id.
     /// </summary>
-    public DateTime Date { get; set; }
+    [References(typeof(Forum))]
+    [Required]
+    public int ForumID { get; set; }
 
     /// <summary>
-    /// Gets or sets From.
+    /// Gets or sets the last message no.
     /// </summary>
-    public string From { get; set; }
+    [Required]
+    public int LastMessageNo { get; set; }
 
     /// <summary>
-    /// Gets or sets Sender.
+    /// Gets or sets the last update.
     /// </summary>
-    public string Sender { get; set; }
+    [Required]
+    public DateTime LastUpdate { get; set; }
 
     /// <summary>
-    /// Gets or sets PostingHost.
+    /// Gets or sets a value indicating whether active.
     /// </summary>
-    public string PostingHost { get; set; }
+    [Required]
+    [Default(typeof(bool), "1")]
+    public bool Active { get; set; }
 
     /// <summary>
-    /// Gets or sets LineCount.
+    /// Gets or sets the date cut off.
     /// </summary>
-    public int LineCount { get; set; }
+    public DateTime? DateCutOff { get; set; }
 }

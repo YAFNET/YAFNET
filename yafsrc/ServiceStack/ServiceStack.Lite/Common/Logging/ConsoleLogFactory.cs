@@ -40,7 +40,7 @@ namespace ServiceStack.Logging
         /// <returns>ILog.</returns>
         public ILog GetLogger(Type type)
         {
-            return new ConsoleLogger(type) { IsDebugEnabled = debugEnabled };
+            return new ConsoleLogger(type) { IsDebugEnabled = this.debugEnabled };
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace ServiceStack.Logging
         /// <returns>ILog.</returns>
         public ILog GetLogger(string typeName)
         {
-            return new ConsoleLogger(typeName) { IsDebugEnabled = debugEnabled };
+            return new ConsoleLogger(typeName) { IsDebugEnabled = this.debugEnabled };
         }
 
         /// <summary>

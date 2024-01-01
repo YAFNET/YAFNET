@@ -26,21 +26,27 @@ public static class JsvReader
     /// <summary>
     /// The parse function cache
     /// </summary>
-    private static Dictionary<Type, ParseFactoryDelegate> ParseFnCache = new();
+    private static Dictionary<Type, ParseFactoryDelegate> ParseFnCache = [];
 
     /// <summary>
     /// Gets the parse function.
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>ParseStringDelegate.</returns>
-    public static ParseStringDelegate GetParseFn(Type type) => v => GetParseStringSpanFn(type)(v.AsSpan());
+    public static ParseStringDelegate GetParseFn(Type type)
+    {
+        return v => GetParseStringSpanFn(type)(v.AsSpan());
+    }
 
     /// <summary>
     /// Gets the parse span function.
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>ParseStringSpanDelegate.</returns>
-    public static ParseStringSpanDelegate GetParseSpanFn(Type type) => v => GetParseStringSpanFn(type)(v);
+    public static ParseStringSpanDelegate GetParseSpanFn(Type type)
+    {
+        return v => GetParseStringSpanFn(type)(v);
+    }
 
     /// <summary>
     /// Gets the parse string span function.
@@ -51,7 +57,10 @@ public static class JsvReader
     {
         ParseFnCache.TryGetValue(type, out var parseFactoryFn);
 
-        if (parseFactoryFn != null) return parseFactoryFn();
+        if (parseFactoryFn != null)
+        {
+            return parseFactoryFn();
+        }
 
         var genericType = typeof(JsvReader<>).MakeGenericType(type);
         var mi = genericType.GetStaticMethod(nameof(GetParseStringSpanFn));
@@ -113,7 +122,9 @@ static internal class JsvReader<T>
         JsConfig.InitStatics();
 
         if (JsvReader.Instance == null)
+        {
             return;
+        }
 
         ReadFn = JsvReader.Instance.GetParseStringSpanFn<T>();
         JsConfig.AddUniqueType(typeof(T));
@@ -123,24 +134,33 @@ static internal class JsvReader<T>
     /// Gets the parse function.
     /// </summary>
     /// <returns>ParseStringDelegate.</returns>
-    public static ParseStringDelegate GetParseFn() => ReadFn != null
-                                                          ? v => ReadFn(v.AsSpan())
-                                                          : Parse;
+    public static ParseStringDelegate GetParseFn()
+    {
+        return ReadFn != null
+            ? v => ReadFn(v.AsSpan())
+            : Parse;
+    }
 
     /// <summary>
     /// Gets the parse string span function.
     /// </summary>
     /// <returns>ParseStringSpanDelegate.</returns>
-    public static ParseStringSpanDelegate GetParseStringSpanFn() => ReadFn ?? Parse;
+    public static ParseStringSpanDelegate GetParseStringSpanFn()
+    {
+        return ReadFn ?? Parse;
+    }
 
     /// <summary>
     /// Parses the specified value.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
-    public static object Parse(string value) => value != null
-                                                    ? Parse(value.AsSpan())
-                                                    : null;
+    public static object Parse(string value)
+    {
+        return value != null
+            ? Parse(value.AsSpan())
+            : null;
+    }
 
     /// <summary>
     /// Parses the specified value.

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -180,8 +180,6 @@ public class Localizer
     {
         var langCode = this.CurrentCulture.TwoLetterISOLanguageName;
 
-        // vzrus: Culture code is missing for a user until he saved his profile.
-        // First set it to board culture
         try
         {
             if (langCode.Equals(BoardContext.Current.BoardSettings.Culture[..2]))

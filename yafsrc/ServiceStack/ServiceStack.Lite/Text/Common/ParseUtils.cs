@@ -22,14 +22,20 @@ static internal class ParseUtils
     public static ParseStringDelegate GetSpecialParseMethod(Type type)
     {
         if (type == typeof(Uri))
+        {
             return x => new Uri(x.FromCsvField());
+        }
 
         //Warning: typeof(object).IsInstanceOfType(typeof(Type)) == True??
         if (type.IsInstanceOfType(typeof(Type)))
+        {
             return ParseType;
+        }
 
         if (type == typeof(Exception))
+        {
             return x => new Exception(x);
+        }
 
         return type.IsInstanceOf(typeof(Exception)) ? DeserializeTypeUtils.GetParseMethod(type) : null;
     }
@@ -53,13 +59,17 @@ static internal class ParseUtils
     public static object TryParseEnum(Type enumType, string str)
     {
         if (str == null)
+        {
             return null;
+        }
 
         if (JsConfig.TextCase == TextCase.SnakeCase)
         {
-            string[] names = Enum.GetNames(enumType);
+            var names = Enum.GetNames(enumType);
             if (Array.IndexOf(names, str) == -1)    // case sensitive ... could use Linq Contains() extension with StringComparer.InvariantCultureIgnoreCase instead for a slight penalty
+            {
                 str = str.Replace("_", "");
+            }
         }
 
         var enumInfo = CachedTypeInfo.Get(enumType).EnumInfo;

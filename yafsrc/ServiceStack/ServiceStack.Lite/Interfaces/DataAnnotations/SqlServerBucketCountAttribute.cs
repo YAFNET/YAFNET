@@ -21,7 +21,7 @@ public class SqlServerBucketCountAttribute : AttributeBase
     /// Initializes a new instance of the <see cref="SqlServerBucketCountAttribute" /> class.
     /// </summary>
     /// <param name="count">The count.</param>
-    public SqlServerBucketCountAttribute(int count) { Count = count; }
+    public SqlServerBucketCountAttribute(int count) { this.Count = count; }
 
     /// <summary>
     /// Gets or sets the count.

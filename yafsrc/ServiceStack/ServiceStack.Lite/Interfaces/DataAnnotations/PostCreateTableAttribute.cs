@@ -28,6 +28,6 @@ public class PostCreateTableAttribute : AttributeBase
     /// <param name="sql">The SQL.</param>
     public PostCreateTableAttribute(string sql)
     {
-        Sql = sql;
+        this.Sql = sql;
     }
 }

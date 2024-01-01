@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -1209,7 +1209,7 @@ public class BoardSettings
     /// <summary>
     /// Gets or sets a value indicating whether Allow Single Sign On.
     /// </summary>
-    public bool AllowSingleSignOn = false;
+    public bool AllowSingleSignOn { get; set; } = false;
 
     /// <summary>
     /// Gets or sets a value indicating whether AllowModeratorsViewIPs.

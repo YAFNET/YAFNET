@@ -86,7 +86,10 @@ namespace ServiceStack.Text
 
             var mi = propertyInfo.GetGetMethod(true);
             if (mi == null)
+            {
                 return null;
+            }
+
             gen.Emit(mi.IsFinal ? OpCodes.Call : OpCodes.Callvirt, mi);
 
             if (propertyInfo.PropertyType.IsValueType)
@@ -112,7 +115,9 @@ namespace ServiceStack.Text
             var gen = getter.GetILGenerator();
             var mi = propertyInfo.GetGetMethod(true);
             if (mi == null)
+            {
                 return null;
+            }
 
             if (typeof(T).IsValueType)
             {
@@ -156,7 +161,9 @@ namespace ServiceStack.Text
         {
             var mi = propertyInfo.GetSetMethod(true);
             if (mi == null)
+            {
                 return null;
+            }
 
             var setter = CreateDynamicSetMethod(propertyInfo);
 
@@ -186,8 +193,10 @@ namespace ServiceStack.Text
         /// <typeparam name="T"></typeparam>
         /// <param name="propertyInfo">The property information.</param>
         /// <returns>SetMemberDelegate&lt;T&gt;.</returns>
-        public override SetMemberDelegate<T> CreateSetter<T>(PropertyInfo propertyInfo) =>
-            ExpressionReflectionOptimizer.Provider.CreateSetter<T>(propertyInfo);
+        public override SetMemberDelegate<T> CreateSetter<T>(PropertyInfo propertyInfo)
+        {
+            return ExpressionReflectionOptimizer.Provider.CreateSetter<T>(propertyInfo);
+        }
 
 
         /// <summary>
@@ -297,8 +306,10 @@ namespace ServiceStack.Text
         /// <typeparam name="T"></typeparam>
         /// <param name="fieldInfo">The field information.</param>
         /// <returns>SetMemberDelegate&lt;T&gt;.</returns>
-        public override SetMemberDelegate<T> CreateSetter<T>(FieldInfo fieldInfo) =>
-            ExpressionReflectionOptimizer.Provider.CreateSetter<T>(fieldInfo);
+        public override SetMemberDelegate<T> CreateSetter<T>(FieldInfo fieldInfo)
+        {
+            return ExpressionReflectionOptimizer.Provider.CreateSetter<T>(fieldInfo);
+        }
 
         /// <summary>
         /// Creates the setter reference.
@@ -306,8 +317,10 @@ namespace ServiceStack.Text
         /// <typeparam name="T"></typeparam>
         /// <param name="fieldInfo">The field information.</param>
         /// <returns>SetMemberRefDelegate&lt;T&gt;.</returns>
-        public override SetMemberRefDelegate<T> CreateSetterRef<T>(FieldInfo fieldInfo) =>
-            ExpressionReflectionOptimizer.Provider.CreateSetterRef<T>(fieldInfo);
+        public override SetMemberRefDelegate<T> CreateSetterRef<T>(FieldInfo fieldInfo)
+        {
+            return ExpressionReflectionOptimizer.Provider.CreateSetterRef<T>(fieldInfo);
+        }
 
         /// <summary>
         /// Determines whether the specified assembly is dynamic.
@@ -461,7 +474,9 @@ namespace ServiceStack.Text
             IncludeType(targetType, typeBuilder);
 
             foreach (var face in targetType.GetInterfaces())
+            {
                 IncludeType(face, typeBuilder);
+            }
 
 #if NET7_0_OR_GREATER
             return typeBuilder.CreateTypeInfo().AsType();
@@ -480,7 +495,10 @@ namespace ServiceStack.Text
             var methodInfos = typeOfT.GetMethods();
             foreach (var methodInfo in methodInfos)
             {
-                if (methodInfo.Name.StartsWith("set_", StringComparison.Ordinal)) continue; // we always add a set for a get.
+                if (methodInfo.Name.StartsWith("set_", StringComparison.Ordinal))
+                {
+                    continue; // we always add a set for a get.
+                }
 
                 if (methodInfo.Name.StartsWith("get_", StringComparison.Ordinal))
                 {
@@ -517,8 +535,8 @@ namespace ServiceStack.Text
             {
                 if (methodInfo.ReturnType.IsValueType || methodInfo.ReturnType.IsEnum)
                 {
-                    MethodInfo getMethod = typeof(Activator).GetMethod("CreateInstance", [typeof(Type)]);
-                    LocalBuilder lb = methodILGen.DeclareLocal(methodInfo.ReturnType);
+                    var getMethod = typeof(Activator).GetMethod("CreateInstance", [typeof(Type)]);
+                    var lb = methodILGen.DeclareLocal(methodInfo.ReturnType);
                     methodILGen.Emit(OpCodes.Ldtoken, lb.LocalType);
                     methodILGen.Emit(OpCodes.Call, typeof(Type).GetMethod("GetTypeFromHandle"));
                     methodILGen.Emit(OpCodes.Callvirt, getMethod);
@@ -541,15 +559,15 @@ namespace ServiceStack.Text
         public static void BindProperty(TypeBuilder typeBuilder, MethodInfo methodInfo)
         {
             // Backing Field
-            string propertyName = methodInfo.Name.Replace("get_", "");
-            Type propertyType = methodInfo.ReturnType;
-            FieldBuilder backingField = typeBuilder.DefineField("_" + propertyName, propertyType, FieldAttributes.Private);
+            var propertyName = methodInfo.Name.Replace("get_", "");
+            var propertyType = methodInfo.ReturnType;
+            var backingField = typeBuilder.DefineField("_" + propertyName, propertyType, FieldAttributes.Private);
 
             //Getter
-            MethodBuilder backingGet = typeBuilder.DefineMethod("get_" + propertyName, MethodAttributes.Public |
-                MethodAttributes.SpecialName | MethodAttributes.Virtual |
-                MethodAttributes.HideBySig, propertyType, EmptyTypes);
-            ILGenerator getIl = backingGet.GetILGenerator();
+            var backingGet = typeBuilder.DefineMethod("get_" + propertyName, MethodAttributes.Public |
+                                                                             MethodAttributes.SpecialName | MethodAttributes.Virtual |
+                                                                             MethodAttributes.HideBySig, propertyType, EmptyTypes);
+            var getIl = backingGet.GetILGenerator();
 
             getIl.Emit(OpCodes.Ldarg_0);
             getIl.Emit(OpCodes.Ldfld, backingField);
@@ -557,11 +575,11 @@ namespace ServiceStack.Text
 
 
             //Setter
-            MethodBuilder backingSet = typeBuilder.DefineMethod("set_" + propertyName, MethodAttributes.Public |
-                MethodAttributes.SpecialName | MethodAttributes.Virtual |
-                MethodAttributes.HideBySig, null, [propertyType]);
+            var backingSet = typeBuilder.DefineMethod("set_" + propertyName, MethodAttributes.Public |
+                                                                             MethodAttributes.SpecialName | MethodAttributes.Virtual |
+                                                                             MethodAttributes.HideBySig, null, [propertyType]);
 
-            ILGenerator setIl = backingSet.GetILGenerator();
+            var setIl = backingSet.GetILGenerator();
 
             setIl.Emit(OpCodes.Ldarg_0);
             setIl.Emit(OpCodes.Ldarg_1);
@@ -569,7 +587,7 @@ namespace ServiceStack.Text
             setIl.Emit(OpCodes.Ret);
 
             // Property
-            PropertyBuilder propertyBuilder = typeBuilder.DefineProperty(propertyName, PropertyAttributes.None, propertyType, null);
+            var propertyBuilder = typeBuilder.DefineProperty(propertyName, PropertyAttributes.None, propertyType, null);
             propertyBuilder.SetGetMethod(backingGet);
             propertyBuilder.SetSetMethod(backingSet);
         }

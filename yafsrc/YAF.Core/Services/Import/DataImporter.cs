@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -171,7 +171,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
                 continue;
             }
 
-            if (existingBannedEmailList.Any(b => b.Mask == line))
+            if (existingBannedEmailList.Exists(b => b.Mask == line))
             {
                 continue;
             }
@@ -214,7 +214,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
                 continue;
             }
 
-            if (existingBannedIpList.Any(b => b.Mask == importAddress.ToString()))
+            if (existingBannedIpList.Exists(b => b.Mask == importAddress.ToString()))
             {
                 continue;
             }
@@ -256,7 +256,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
                 continue;
             }
 
-            if (existingBannedNameList.Any(b => b.Mask == line))
+            if (existingBannedNameList.Exists(b => b.Mask == line))
             {
                 continue;
             }
@@ -298,7 +298,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
                 continue;
             }
 
-            if (existingBannedNameList.Any(b => b.UserAgent == line))
+            if (existingBannedNameList.Exists(b => b.UserAgent == line))
             {
                 continue;
             }
@@ -337,7 +337,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
 
         // import any extensions that don't exist...
         spamWords.Tables["YafSpamWords"].Rows.Cast<DataRow>()
-            .Where(row => spamWordsList.All(s => s.SpamWord != row["SpamWord"].ToString())).ForEach(
+            .Where(row => spamWordsList.TrueForAll(s => s.SpamWord != row["SpamWord"].ToString())).ForEach(
                 row =>
                     {
                         // add this...

@@ -1786,7 +1786,7 @@ public static class SqlExpressionExtensions
     {
         var tableDef = typeof(Table).GetModelDefinition();
 
-        var fieldDef = tableDef.FieldDefinitions.FirstOrDefault(x => x.Name == propertyName);
+        var fieldDef = tableDef.FieldDefinitions.Find(x => x.Name == propertyName);
         var fieldName = fieldDef != null
                             ? fieldDef.FieldName
                             : propertyName;

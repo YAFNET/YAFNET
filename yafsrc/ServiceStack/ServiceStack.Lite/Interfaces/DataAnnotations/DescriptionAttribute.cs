@@ -27,6 +27,6 @@ public class DescriptionAttribute : AttributeBase
     /// <param name="description">The description.</param>
     public DescriptionAttribute(string description)
     {
-        Description = description;
+        this.Description = description;
     }
 }

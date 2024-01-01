@@ -36,7 +36,7 @@ public class StringLengthAttribute : AttributeBase
     /// <param name="maximumLength">The maximum length.</param>
     public StringLengthAttribute(int maximumLength)
     {
-        MaximumLength = maximumLength;
+        this.MaximumLength = maximumLength;
     }
 
     /// <summary>
@@ -46,7 +46,7 @@ public class StringLengthAttribute : AttributeBase
     /// <param name="maximumLength">The maximum length.</param>
     public StringLengthAttribute(int minimumLength, int maximumLength)
     {
-        MinimumLength = minimumLength;
-        MaximumLength = maximumLength;
+        this.MinimumLength = minimumLength;
+        this.MaximumLength = maximumLength;
     }
 }

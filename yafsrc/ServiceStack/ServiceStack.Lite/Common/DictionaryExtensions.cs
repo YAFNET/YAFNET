@@ -27,7 +27,11 @@ public static class DictionaryExtensions
     {
         lock (map)
         {
-            if (!map.TryGetValue(key, out value)) return false;
+            if (!map.TryGetValue(key, out value))
+            {
+                return false;
+            }
+
             map.Remove(key);
             return true;
         }

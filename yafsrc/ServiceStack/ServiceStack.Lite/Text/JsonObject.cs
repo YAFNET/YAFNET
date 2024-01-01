@@ -43,7 +43,10 @@ public static class JsonExtensions
     public static T Get<T>(this Dictionary<string, string> map, string key, T defaultValue = default)
     {
         if (map == null)
+        {
             return default;
+        }
+
         return map.TryGetValue(key, out var strVal) ? JsonSerializer.DeserializeFromString<T>(strVal) : defaultValue;
     }
 
@@ -57,7 +60,10 @@ public static class JsonExtensions
     public static T[] GetArray<T>(this Dictionary<string, string> map, string key)
     {
         if (map == null)
+        {
             return TypeConstants<T>.EmptyArray;
+        }
+
         return map.TryGetValue(key, out var value)
                    ? map is JsonObject ? value.FromJson<T[]>() : value.FromJsv<T[]>()
                    : TypeConstants<T>.EmptyArray;
@@ -72,7 +78,10 @@ public static class JsonExtensions
     public static string Get(this Dictionary<string, string> map, string key)
     {
         if (map == null)
+        {
             return null;
+        }
+
         return map.TryGetValue(key, out var strVal)
                    ? JsonTypeSerializer.Instance.UnescapeString(strVal)
                    : null;
@@ -119,7 +128,7 @@ public static class JsonExtensions
     public static Dictionary<string, string> ToDictionary(this JsonObject jsonObject)
     {
         return jsonObject == null
-                   ? new Dictionary<string, string>()
+                   ? []
                    : new Dictionary<string, string>(jsonObject);
     }
 }
@@ -162,8 +171,9 @@ public class JsonObject : Dictionary<string, string>, IEnumerable<KeyValuePair<s
     /// </summary>
     /// <returns>An enumerator that can be used to iterate through the collection.</returns>
     IEnumerator<KeyValuePair<string, string>> IEnumerable<KeyValuePair<string, string>>.GetEnumerator()
-        =>
-            this.GetEnumerator();
+    {
+        return this.GetEnumerator();
+    }
 
     /// <summary>
     /// Converts to an unescaped dictionary.
@@ -220,9 +230,7 @@ public class JsonObject : Dictionary<string, string>, IEnumerable<KeyValuePair<s
     /// <returns>System.String.</returns>
     public string Child(string key)
     {
-        return this.TryGetValue(key, out var value)
-                   ? value
-                   : null;
+        return this.GetValueOrDefault(key);
     }
 
     /// <summary>
@@ -262,9 +270,14 @@ public class JsonObject : Dictionary<string, string>, IEnumerable<KeyValuePair<s
         if (firstChar == '0')
         {
             if (strValue.Length == 1)
+            {
                 return true;
+            }
+
             if (!strValue.Contains("."))
+            {
                 return false;
+            }
         }
 
         if (!strValue.Contains("."))
@@ -370,18 +383,27 @@ public readonly struct JsonValue : IValueWriter
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns>T.</returns>
-    public T As<T>() => JsonSerializer.DeserializeFromString<T>(this.json);
+    public T As<T>()
+    {
+        return JsonSerializer.DeserializeFromString<T>(this.json);
+    }
 
     /// <summary>
     /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>
     /// <returns>A <see cref="string" /> that represents this instance.</returns>
-    public override string ToString() => this.json;
+    public override string ToString()
+    {
+        return this.json;
+    }
 
     /// <summary>
     /// Writes to.
     /// </summary>
     /// <param name="serializer">The serializer.</param>
     /// <param name="writer">The writer.</param>
-    public void WriteTo(ITypeSerializer serializer, TextWriter writer) => writer.Write(this.json ?? JsonUtils.Null);
+    public void WriteTo(ITypeSerializer serializer, TextWriter writer)
+    {
+        writer.Write(this.json ?? JsonUtils.Null);
+    }
 }

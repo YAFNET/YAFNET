@@ -49,7 +49,7 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
 
         if (profiler != null)
         {
-            DbProfiler = profiler;
+            this.DbProfiler = profiler;
         }
     }
 
@@ -59,8 +59,8 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     /// <value>The command text.</value>
     public override string CommandText
     {
-        get => cmd.CommandText;
-        set => cmd.CommandText = value;
+        get => this.cmd.CommandText;
+        set => this.cmd.CommandText = value;
     }
 
     /// <summary>
@@ -69,8 +69,8 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     /// <value>The command timeout.</value>
     public override int CommandTimeout
     {
-        get => cmd.CommandTimeout;
-        set => cmd.CommandTimeout = value;
+        get => this.cmd.CommandTimeout;
+        set => this.cmd.CommandTimeout = value;
     }
 
     /// <summary>
@@ -79,8 +79,8 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     /// <value>The type of the command.</value>
     public override CommandType CommandType
     {
-        get => cmd.CommandType;
-        set => cmd.CommandType = value;
+        get => this.cmd.CommandType;
+        set => this.cmd.CommandType = value;
     }
 
     /// <summary>
@@ -89,15 +89,15 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     /// <value>The database command.</value>
     public DbCommand DbCommand
     {
-        get => cmd;
-        protected set => cmd = value;
+        get => this.cmd;
+        protected set => this.cmd = value;
     }
 
     /// <summary>
     /// Gets the database command.
     /// </summary>
     /// <value>The database command.</value>
-    IDbCommand IHasDbCommand.DbCommand => DbCommand;
+    IDbCommand IHasDbCommand.DbCommand => this.DbCommand;
 
     /// <summary>
     /// Gets or sets the <see cref="T:System.Data.Common.DbConnection" /> used by this <see cref="T:System.Data.Common.DbCommand" />.
@@ -105,11 +105,11 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     /// <value>The database connection.</value>
     override protected DbConnection DbConnection
     {
-        get => conn;
+        get => this.conn;
         set
         {
-            conn = value;
-            cmd.Connection = value is not ProfiledConnection awesomeConn ? value : awesomeConn.WrappedConnection;
+            this.conn = value;
+            this.cmd.Connection = value is not ProfiledConnection awesomeConn ? value : awesomeConn.WrappedConnection;
         }
     }
 
@@ -117,7 +117,7 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     /// Gets the collection of <see cref="T:System.Data.Common.DbParameter" /> objects.
     /// </summary>
     /// <value>The database parameter collection.</value>
-    override protected DbParameterCollection DbParameterCollection => cmd.Parameters;
+    override protected DbParameterCollection DbParameterCollection => this.cmd.Parameters;
 
     /// <summary>
     /// Gets or sets the <see cref="P:System.Data.Common.DbCommand.DbTransaction" /> within which this <see cref="T:System.Data.Common.DbCommand" /> object executes.
@@ -125,11 +125,11 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     /// <value>The database transaction.</value>
     override protected DbTransaction DbTransaction
     {
-        get => tran;
+        get => this.tran;
         set
         {
             this.tran = value;
-            cmd.Transaction = value is not ProfiledDbTransaction {DbTransaction: System.Data.Common.DbTransaction} awesomeTran ?
+            this.cmd.Transaction = value is not ProfiledDbTransaction {DbTransaction: System.Data.Common.DbTransaction} awesomeTran ?
                                    value : (DbTransaction)awesomeTran.DbTransaction;
         }
     }
@@ -146,8 +146,8 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     /// <value><c>true</c> if [design time visible]; otherwise, <c>false</c>.</value>
     public override bool DesignTimeVisible
     {
-        get => cmd.DesignTimeVisible;
-        set => cmd.DesignTimeVisible = value;
+        get => this.cmd.DesignTimeVisible;
+        set => this.cmd.DesignTimeVisible = value;
     }
 
     /// <summary>
@@ -156,8 +156,8 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     /// <value>The updated row source.</value>
     public override UpdateRowSource UpdatedRowSource
     {
-        get => cmd.UpdatedRowSource;
-        set => cmd.UpdatedRowSource = value;
+        get => this.cmd.UpdatedRowSource;
+        set => this.cmd.UpdatedRowSource = value;
     }
 
 
@@ -168,26 +168,26 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     /// <returns>A task representing the operation.</returns>
     override protected DbDataReader ExecuteDbDataReader(CommandBehavior behavior)
     {
-        if (DbProfiler is not {IsActive: true})
+        if (this.DbProfiler is not {IsActive: true})
         {
-            return cmd.ExecuteReader(behavior);
+            return this.cmd.ExecuteReader(behavior);
         }
 
         DbDataReader result = null;
-        DbProfiler.ExecuteStart(this, ExecuteType.Reader);
+        this.DbProfiler.ExecuteStart(this, ExecuteType.Reader);
         try
         {
-            result = cmd.ExecuteReader(behavior);
-            result = new ProfiledDbDataReader(result, conn, DbProfiler);
+            result = this.cmd.ExecuteReader(behavior);
+            result = new ProfiledDbDataReader(result, this.conn, this.DbProfiler);
         }
         catch (Exception e)
         {
-            DbProfiler.OnError(this, ExecuteType.Reader, e);
+            this.DbProfiler.OnError(this, ExecuteType.Reader, e);
             throw;
         }
         finally
         {
-            DbProfiler.ExecuteFinish(this, ExecuteType.Reader, result);
+            this.DbProfiler.ExecuteFinish(this, ExecuteType.Reader, result);
         }
         return result;
     }
@@ -198,26 +198,26 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     /// <returns>The number of rows affected.</returns>
     public override int ExecuteNonQuery()
     {
-        if (DbProfiler is not {IsActive: true})
+        if (this.DbProfiler is not {IsActive: true})
         {
-            return cmd.ExecuteNonQuery();
+            return this.cmd.ExecuteNonQuery();
         }
 
         int result;
 
-        DbProfiler.ExecuteStart(this, ExecuteType.NonQuery);
+        this.DbProfiler.ExecuteStart(this, ExecuteType.NonQuery);
         try
         {
-            result = cmd.ExecuteNonQuery();
+            result = this.cmd.ExecuteNonQuery();
         }
         catch (Exception e)
         {
-            DbProfiler.OnError(this, ExecuteType.NonQuery, e);
+            this.DbProfiler.OnError(this, ExecuteType.NonQuery, e);
             throw;
         }
         finally
         {
-            DbProfiler.ExecuteFinish(this, ExecuteType.NonQuery, null);
+            this.DbProfiler.ExecuteFinish(this, ExecuteType.NonQuery, null);
         }
         return result;
     }
@@ -228,25 +228,25 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     /// <returns>The first column of the first row in the result set.</returns>
     public override object ExecuteScalar()
     {
-        if (DbProfiler is not {IsActive: true})
+        if (this.DbProfiler is not {IsActive: true})
         {
-            return cmd.ExecuteScalar();
+            return this.cmd.ExecuteScalar();
         }
 
         object result;
-        DbProfiler.ExecuteStart(this, ExecuteType.Scalar);
+        this.DbProfiler.ExecuteStart(this, ExecuteType.Scalar);
         try
         {
-            result = cmd.ExecuteScalar();
+            result = this.cmd.ExecuteScalar();
         }
         catch (Exception e)
         {
-            DbProfiler.OnError(this, ExecuteType.Scalar, e);
+            this.DbProfiler.OnError(this, ExecuteType.Scalar, e);
             throw;
         }
         finally
         {
-            DbProfiler.ExecuteFinish(this, ExecuteType.Scalar, null);
+            this.DbProfiler.ExecuteFinish(this, ExecuteType.Scalar, null);
         }
         return result;
     }
@@ -256,7 +256,7 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     /// </summary>
     public override void Cancel()
     {
-        cmd.Cancel();
+        this.cmd.Cancel();
     }
 
     /// <summary>
@@ -264,7 +264,7 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     /// </summary>
     public override void Prepare()
     {
-        cmd.Prepare();
+        this.cmd.Prepare();
     }
 
     /// <summary>
@@ -273,7 +273,7 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     /// <returns>A <see cref="T:System.Data.Common.DbParameter" /> object.</returns>
     override protected DbParameter CreateDbParameter()
     {
-        return cmd.CreateParameter();
+        return this.cmd.CreateParameter();
     }
 
     /// <summary>
@@ -282,11 +282,11 @@ public class ProfiledCommand : DbCommand, IHasDbCommand
     /// <param name="disposing"><see langword="true" /> to release both managed and unmanaged resources; <see langword="false" /> to release only unmanaged resources.</param>
     override protected void Dispose(bool disposing)
     {
-        if (disposing && cmd != null)
+        if (disposing && this.cmd != null)
         {
-            cmd.Dispose();
+            this.cmd.Dispose();
         }
-        cmd = null;
+        this.cmd = null;
         base.Dispose(disposing);
     }
 }

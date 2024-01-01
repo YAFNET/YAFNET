@@ -62,7 +62,10 @@ public static class DeserializeDynamic<TSerializer>
 
         var result = new ExpandoObject();
 
-        if (JsonTypeSerializer.IsEmptyMap(value)) return result;
+        if (JsonTypeSerializer.IsEmptyMap(value))
+        {
+            return result;
+        }
 
         var container = (IDictionary<string, object>)result;
 
@@ -161,10 +164,10 @@ public class DynamicJson : DynamicObject
     /// <param name="hash">The hash.</param>
     public DynamicJson(IEnumerable<KeyValuePair<string, object>> hash)
     {
-        _hash.Clear();
+        this._hash.Clear();
         foreach (var entry in hash)
         {
-            _hash.Add(Underscored(entry.Key), entry.Value);
+            this._hash.Add(Underscored(entry.Key), entry.Value);
         }
     }
 
@@ -177,8 +180,8 @@ public class DynamicJson : DynamicObject
     public override bool TrySetMember(SetMemberBinder binder, object value)
     {
         var name = Underscored(binder.Name);
-        _hash[name] = value;
-        return _hash[name] == value;
+        this._hash[name] = value;
+        return this._hash[name] == value;
     }
 
     /// <summary>
@@ -190,16 +193,16 @@ public class DynamicJson : DynamicObject
     public override bool TryGetMember(GetMemberBinder binder, out object result)
     {
         var name = Underscored(binder.Name);
-        return YieldMember(name, out result);
+        return this.YieldMember(name, out result);
     }
 
     /// <summary>
-    /// Returns a <see cref="System.String" /> that represents this instance.
+    /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>
-    /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
+    /// <returns>A <see cref="string" /> that represents this instance.</returns>
     public override string ToString()
     {
-        return JsonSerializer.SerializeToString(_hash);
+        return JsonSerializer.SerializeToString(this._hash);
     }
 
     /// <summary>
@@ -210,9 +213,9 @@ public class DynamicJson : DynamicObject
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     private bool YieldMember(string name, out object result)
     {
-        if (_hash.ContainsKey(name))
+        if (this._hash.ContainsKey(name))
         {
-            var json = _hash[name].ToString();
+            var json = this._hash[name].ToString();
             if (json.TrimStart(' ').StartsWith('{'))
             {
                 result = Deserialize(json);
@@ -228,7 +231,7 @@ public class DynamicJson : DynamicObject
                 return true;
             }
             result = json;
-            return _hash[name] == result;
+            return this._hash[name] == result;
         }
         result = null;
         return false;

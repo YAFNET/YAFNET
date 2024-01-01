@@ -35,7 +35,7 @@ public class NullLogFactory : ILogFactory
     /// <returns>ILog.</returns>
     public ILog GetLogger(Type type)
     {
-        return new NullDebugLogger(type) { IsDebugEnabled = debugEnabled };
+        return new NullDebugLogger(type) { IsDebugEnabled = this.debugEnabled };
     }
 
     /// <summary>
@@ -45,6 +45,6 @@ public class NullLogFactory : ILogFactory
     /// <returns>ILog.</returns>
     public ILog GetLogger(string typeName)
     {
-        return new NullDebugLogger(typeName) { IsDebugEnabled = debugEnabled };
+        return new NullDebugLogger(typeName) { IsDebugEnabled = this.debugEnabled };
     }
 }

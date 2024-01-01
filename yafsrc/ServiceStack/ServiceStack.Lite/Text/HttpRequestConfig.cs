@@ -74,7 +74,10 @@ public class HttpRequestConfig
     /// </summary>
     /// <param name="from">From.</param>
     /// <param name="to">To.</param>
-    public void SetRange(long from, long? to = null) => Range = new(from, to);
+    public void SetRange(long from, long? to = null)
+    {
+        this.Range = new(from, to);
+    }
 
     /// <summary>
     /// Class NameValue.

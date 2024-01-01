@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -35,17 +35,17 @@ public class SettingsPropertyColumn
     /// <summary>
     /// The data type.
     /// </summary>
-    public SqlDbType DataType;
+    public SqlDbType DataType { get; }
 
     /// <summary>
     /// The settings.
     /// </summary>
-    public SettingsProperty Settings;
+    public SettingsProperty Settings { get; }
 
     /// <summary>
     /// The size.
     /// </summary>
-    public int Size;
+    public int Size { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SettingsPropertyColumn"/> class.

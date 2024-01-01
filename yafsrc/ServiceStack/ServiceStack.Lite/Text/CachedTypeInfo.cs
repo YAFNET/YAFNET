@@ -20,7 +20,7 @@ public class CachedTypeInfo
     /// <summary>
     /// The cache map
     /// </summary>
-    static Dictionary<Type, CachedTypeInfo> CacheMap = new();
+    static Dictionary<Type, CachedTypeInfo> CacheMap = [];
 
     /// <summary>
     /// Gets the specified type.
@@ -30,7 +30,9 @@ public class CachedTypeInfo
     public static CachedTypeInfo Get(Type type)
     {
         if (CacheMap.TryGetValue(type, out var value))
+        {
             return value;
+        }
 
         var instance = new CachedTypeInfo(type);
 
@@ -54,7 +56,7 @@ public class CachedTypeInfo
     /// <param name="type">The type.</param>
     public CachedTypeInfo(Type type)
     {
-        EnumInfo = EnumInfo.GetEnumInfo(type);
+        this.EnumInfo = EnumInfo.GetEnumInfo(type);
     }
 
     /// <summary>
@@ -97,7 +99,7 @@ public class EnumInfo
     private EnumInfo(Type enumType)
     {
         this.enumType = enumType;
-        enumMemberReverseLookup = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+        this.enumMemberReverseLookup = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
 
         var enumMembers = enumType.GetFields(BindingFlags.Public | BindingFlags.Static);
         foreach (var fi in enumMembers)
@@ -107,16 +109,16 @@ public class EnumInfo
             var enumMemberAttr = fi.FirstAttribute<EnumMemberAttribute>();
             if (enumMemberAttr?.Value != null)
             {
-                enumMemberValues ??= new Dictionary<object, string>();
-                enumMemberValues[enumValue] = enumMemberAttr.Value;
-                enumMemberReverseLookup[enumMemberAttr.Value] = enumValue;
+                this.enumMemberValues ??= [];
+                this.enumMemberValues[enumValue] = enumMemberAttr.Value;
+                this.enumMemberReverseLookup[enumMemberAttr.Value] = enumValue;
             }
             else
             {
-                enumMemberReverseLookup[strEnum] = enumValue;
+                this.enumMemberReverseLookup[strEnum] = enumValue;
             }
         }
-        isEnumFlag = enumType.IsEnumFlags();
+        this.isEnumFlag = enumType.IsEnumFlags();
     }
 
     /// <summary>
@@ -139,10 +141,16 @@ public class EnumInfo
     /// <returns>System.Object.</returns>
     public object GetSerializedValue(object enumValue)
     {
-        if (enumMemberValues != null && enumMemberValues.TryGetValue(enumValue, out var memberValue))
+        if (this.enumMemberValues != null && this.enumMemberValues.TryGetValue(enumValue, out var memberValue))
+        {
             return memberValue;
-        if (isEnumFlag || JsConfig.TreatEnumAsInteger)
+        }
+
+        if (this.isEnumFlag || JsConfig.TreatEnumAsInteger)
+        {
             return enumValue;
+        }
+
         return enumValue.ToString();
     }
 
@@ -153,6 +161,6 @@ public class EnumInfo
     /// <returns>System.Object.</returns>
     public object Parse(string serializedValue)
     {
-        return enumMemberReverseLookup.TryGetValue(serializedValue, out var enumValue) ? enumValue : Enum.Parse(enumType, serializedValue, true);
+        return this.enumMemberReverseLookup.TryGetValue(serializedValue, out var enumValue) ? enumValue : Enum.Parse(this.enumType, serializedValue, true);
     }
 }

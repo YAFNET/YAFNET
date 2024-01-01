@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -42,15 +42,12 @@ public static class ForumPageExtensions
 
         var pageString = string.Empty;
 
-        if (page.PageName is ForumPages.Posts or ForumPages.Topics)
+        if (page.PageName is ForumPages.Posts or ForumPages.Topics && BoardContext.Current.PageIndex > 0)
         {
             // get current page...
-            if (BoardContext.Current.PageIndex > 0)
-            {
-                pageString = BoardContext.Current.BoardSettings.PagingTitleTemplate.Replace(
-                    "{paging}",
-                    $"{BoardContext.Current.Get<ILocalization>().GetText("COMMON", "PAGE")} {BoardContext.Current.PageIndex + 1}");
-            }
+            pageString = BoardContext.Current.BoardSettings.PagingTitleTemplate.Replace(
+                "{paging}",
+                $"{BoardContext.Current.Get<ILocalization>().GetText("COMMON", "PAGE")} {BoardContext.Current.PageIndex + 1}");
         }
 
         if (!page.IsAdminPage)

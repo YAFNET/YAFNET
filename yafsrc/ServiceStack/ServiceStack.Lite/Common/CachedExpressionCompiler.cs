@@ -41,8 +41,7 @@ namespace ServiceStack
         /// <exception cref="System.ArgumentNullException">lambdaExpression</exception>
         public static Func<TModel, TValue> Compile<TModel, TValue>(this Expression<Func<TModel, TValue>> lambdaExpression)
         {
-            if (lambdaExpression == null)
-                throw new ArgumentNullException(nameof(lambdaExpression));
+            ArgumentNullException.ThrowIfNull(lambdaExpression);
 
             return ExpressionUtil.CachedExpressionCompiler.Process(lambdaExpression);
         }
@@ -56,10 +55,9 @@ namespace ServiceStack
         /// <exception cref="System.ArgumentNullException">arg</exception>
         public static object Evaluate(Expression arg)
         {
-            if (arg == null)
-                throw new ArgumentNullException(nameof(arg));
+            ArgumentNullException.ThrowIfNull(arg);
 
-            Func<object, object> func = Wrap(arg);
+            var func = Wrap(arg);
             return func(null);
         }
 
@@ -70,7 +68,7 @@ namespace ServiceStack
         /// <returns>Func&lt;System.Object, System.Object&gt;.</returns>
         private static Func<object, object> Wrap(Expression arg)
         {
-            Expression<Func<object, object>> lambdaExpr = Expression.Lambda<Func<object, object>>(Expression.Convert(arg, typeof(object)), _unusedParameterExpr);
+            var lambdaExpr = Expression.Lambda<Func<object, object>>(Expression.Convert(arg, typeof(object)), _unusedParameterExpr);
             return ExpressionUtil.CachedExpressionCompiler.Process(lambdaExpr);
         }
     }
@@ -101,7 +99,7 @@ namespace ServiceStack.ExpressionUtil
             // Other properties on BinaryExpression (like IsLifted / IsLiftedToNull) are simply derived
             // from Type and NodeType, so they're not necessary for inclusion in the fingerprint.
 
-            Method = method;
+            this.Method = method;
         }
 
         // http://msdn.microsoft.com/en-us/library/system.linq.expressions.binaryexpression.method.aspx
@@ -112,10 +110,10 @@ namespace ServiceStack.ExpressionUtil
         public MethodInfo Method { get; }
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// Determines whether the specified <see cref="object" /> is equal to this instance.
         /// </summary>
         /// <param name="obj">The object to compare with the current object.</param>
-        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+        /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return obj is BinaryExpressionFingerprint other
@@ -138,7 +136,7 @@ namespace ServiceStack.ExpressionUtil
         /// <param name="combiner">The combiner.</param>
         override internal void AddToHashCodeCombiner(HashCodeCombiner combiner)
         {
-            combiner.AddObject(Method);
+            combiner.AddObject(this.Method);
             base.AddToHashCodeCombiner(combiner);
         }
     }
@@ -220,7 +218,7 @@ namespace ServiceStack.ExpressionUtil
                 {
                     // model => {const}
 
-                    TOut constantValue = (TOut)constExpr.Value;
+                    var constantValue = (TOut)constExpr.Value;
                     return _ => constantValue;
                 }
 
@@ -252,7 +250,7 @@ namespace ServiceStack.ExpressionUtil
             /// <returns>Func&lt;TIn, TOut&gt;.</returns>
             private static Func<TIn, TOut> CompileFromFingerprint(Expression<Func<TIn, TOut>> expr)
             {
-                ExpressionFingerprintChain fingerprint = FingerprintingExpressionVisitor.GetFingerprintChain(expr, out List<object> capturedConstants);
+                var fingerprint = FingerprintingExpressionVisitor.GetFingerprintChain(expr, out var capturedConstants);
 
                 if (fingerprint != null)
                 {
@@ -305,7 +303,7 @@ namespace ServiceStack.ExpressionUtil
                             return newLambdaExpr.Compile();
                         });
 
-                        object capturedLocal = constExpr.Value;
+                        var capturedLocal = constExpr.Value;
                         return _ => del(capturedLocal);
                     }
                 }
@@ -346,10 +344,10 @@ namespace ServiceStack.ExpressionUtil
         }
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// Determines whether the specified <see cref="object" /> is equal to this instance.
         /// </summary>
         /// <param name="obj">The object to compare with the current object.</param>
-        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+        /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return obj is ConditionalExpressionFingerprint other
@@ -386,10 +384,10 @@ namespace ServiceStack.ExpressionUtil
         }
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// Determines whether the specified <see cref="object" /> is equal to this instance.
         /// </summary>
         /// <param name="obj">The object to compare with the current object.</param>
-        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+        /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return obj is ConstantExpressionFingerprint other
@@ -426,10 +424,10 @@ namespace ServiceStack.ExpressionUtil
         }
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// Determines whether the specified <see cref="object" /> is equal to this instance.
         /// </summary>
         /// <param name="obj">The object to compare with the current object.</param>
-        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+        /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return obj is DefaultExpressionFingerprint other
@@ -458,8 +456,8 @@ namespace ServiceStack.ExpressionUtil
         /// <param name="type">The type.</param>
         protected ExpressionFingerprint(ExpressionType nodeType, Type type)
         {
-            NodeType = nodeType;
-            Type = type;
+            this.NodeType = nodeType;
+            this.Type = type;
         }
 
         // the type of expression node, e.g. OP_ADD, MEMBER_ACCESS, etc.
@@ -482,8 +480,8 @@ namespace ServiceStack.ExpressionUtil
         /// <param name="combiner">The combiner.</param>
         internal virtual void AddToHashCodeCombiner(HashCodeCombiner combiner)
         {
-            combiner.AddInt32((int)NodeType);
-            combiner.AddObject(Type);
+            combiner.AddInt32((int)this.NodeType);
+            combiner.AddObject(this.Type);
         }
 
         /// <summary>
@@ -499,13 +497,13 @@ namespace ServiceStack.ExpressionUtil
         }
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// Determines whether the specified <see cref="object" /> is equal to this instance.
         /// </summary>
         /// <param name="obj">The object to compare with the current object.</param>
-        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+        /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
-            return Equals(obj as ExpressionFingerprint);
+            return this.Equals(obj as ExpressionFingerprint);
         }
 
         /// <summary>
@@ -515,7 +513,7 @@ namespace ServiceStack.ExpressionUtil
         public override int GetHashCode()
         {
             HashCodeCombiner combiner = new();
-            AddToHashCodeCombiner(combiner);
+            this.AddToHashCodeCombiner(combiner);
             return combiner.CombinedHash;
         }
     }
@@ -552,7 +550,7 @@ namespace ServiceStack.ExpressionUtil
                 return false;
             }
 
-            for (int i = 0; i < this.Elements.Count; i++)
+            for (var i = 0; i < this.Elements.Count; i++)
             {
                 if (!Equals(this.Elements[i], other.Elements[i]))
                 {
@@ -564,13 +562,13 @@ namespace ServiceStack.ExpressionUtil
         }
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// Determines whether the specified <see cref="object" /> is equal to this instance.
         /// </summary>
         /// <param name="obj">The object to compare with the current object.</param>
-        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+        /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
-            return Equals(obj as ExpressionFingerprintChain);
+            return this.Equals(obj as ExpressionFingerprintChain);
         }
 
         /// <summary>
@@ -580,7 +578,7 @@ namespace ServiceStack.ExpressionUtil
         public override int GetHashCode()
         {
             HashCodeCombiner combiner = new();
-            Elements.ForEach(combiner.AddFingerprint);
+            this.Elements.ForEach(combiner.AddFingerprint);
 
             return combiner.CombinedHash;
         }
@@ -627,7 +625,7 @@ namespace ServiceStack.ExpressionUtil
         {
             // We don't understand this node, so just quit.
 
-            _gaveUp = true;
+            this._gaveUp = true;
             return node;
         }
 
@@ -665,7 +663,7 @@ namespace ServiceStack.ExpressionUtil
         {
             if (node == null)
             {
-                _currentChain.Elements.Add(null);
+                this._currentChain.Elements.Add(null);
                 return null;
             }
             else
@@ -681,11 +679,11 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitBinary(BinaryExpression node)
         {
-            if (_gaveUp)
+            if (this._gaveUp)
             {
                 return node;
             }
-            _currentChain.Elements.Add(new BinaryExpressionFingerprint(node.NodeType, node.Type, node.Method));
+            this._currentChain.Elements.Add(new BinaryExpressionFingerprint(node.NodeType, node.Type, node.Method));
             return base.VisitBinary(node);
         }
 
@@ -696,7 +694,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitBlock(BlockExpression node)
         {
-            return GiveUp(node);
+            return this.GiveUp(node);
         }
 
         /// <summary>
@@ -706,7 +704,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected CatchBlock VisitCatchBlock(CatchBlock node)
         {
-            return GiveUp(node);
+            return this.GiveUp(node);
         }
 
         /// <summary>
@@ -716,11 +714,11 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitConditional(ConditionalExpression node)
         {
-            if (_gaveUp)
+            if (this._gaveUp)
             {
                 return node;
             }
-            _currentChain.Elements.Add(new ConditionalExpressionFingerprint(node.NodeType, node.Type));
+            this._currentChain.Elements.Add(new ConditionalExpressionFingerprint(node.NodeType, node.Type));
             return base.VisitConditional(node);
         }
 
@@ -731,13 +729,13 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitConstant(ConstantExpression node)
         {
-            if (_gaveUp)
+            if (this._gaveUp)
             {
                 return node;
             }
 
-            _seenConstants.Add(node.Value);
-            _currentChain.Elements.Add(new ConstantExpressionFingerprint(node.NodeType, node.Type));
+            this._seenConstants.Add(node.Value);
+            this._currentChain.Elements.Add(new ConstantExpressionFingerprint(node.NodeType, node.Type));
             return base.VisitConstant(node);
         }
 
@@ -748,7 +746,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitDebugInfo(DebugInfoExpression node)
         {
-            return GiveUp(node);
+            return this.GiveUp(node);
         }
 
         /// <summary>
@@ -758,11 +756,11 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitDefault(DefaultExpression node)
         {
-            if (_gaveUp)
+            if (this._gaveUp)
             {
                 return node;
             }
-            _currentChain.Elements.Add(new DefaultExpressionFingerprint(node.NodeType, node.Type));
+            this._currentChain.Elements.Add(new DefaultExpressionFingerprint(node.NodeType, node.Type));
             return base.VisitDefault(node);
         }
 
@@ -773,7 +771,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitDynamic(DynamicExpression node)
         {
-            return GiveUp(node);
+            return this.GiveUp(node);
         }
 
         /// <summary>
@@ -783,7 +781,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected ElementInit VisitElementInit(ElementInit node)
         {
-            return GiveUp(node);
+            return this.GiveUp(node);
         }
 
         /// <summary>
@@ -793,7 +791,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitExtension(Expression node)
         {
-            return GiveUp(node);
+            return this.GiveUp(node);
         }
 
         /// <summary>
@@ -803,7 +801,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitGoto(GotoExpression node)
         {
-            return GiveUp(node);
+            return this.GiveUp(node);
         }
 
         /// <summary>
@@ -813,11 +811,11 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitIndex(IndexExpression node)
         {
-            if (_gaveUp)
+            if (this._gaveUp)
             {
                 return node;
             }
-            _currentChain.Elements.Add(new IndexExpressionFingerprint(node.NodeType, node.Type, node.Indexer));
+            this._currentChain.Elements.Add(new IndexExpressionFingerprint(node.NodeType, node.Type, node.Indexer));
             return base.VisitIndex(node);
         }
 
@@ -828,7 +826,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitInvocation(InvocationExpression node)
         {
-            return GiveUp(node);
+            return this.GiveUp(node);
         }
 
         /// <summary>
@@ -838,7 +836,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitLabel(LabelExpression node)
         {
-            return GiveUp(node);
+            return this.GiveUp(node);
         }
 
         /// <summary>
@@ -848,7 +846,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected LabelTarget VisitLabelTarget(LabelTarget node)
         {
-            return GiveUp(node);
+            return this.GiveUp(node);
         }
 
         /// <summary>
@@ -859,11 +857,11 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitLambda<T>(Expression<T> node)
         {
-            if (_gaveUp)
+            if (this._gaveUp)
             {
                 return node;
             }
-            _currentChain.Elements.Add(new LambdaExpressionFingerprint(node.NodeType, node.Type));
+            this._currentChain.Elements.Add(new LambdaExpressionFingerprint(node.NodeType, node.Type));
             return base.VisitLambda(node);
         }
 
@@ -874,7 +872,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitListInit(ListInitExpression node)
         {
-            return GiveUp(node);
+            return this.GiveUp(node);
         }
 
         /// <summary>
@@ -884,7 +882,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitLoop(LoopExpression node)
         {
-            return GiveUp(node);
+            return this.GiveUp(node);
         }
 
         /// <summary>
@@ -894,11 +892,11 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitMember(MemberExpression node)
         {
-            if (_gaveUp)
+            if (this._gaveUp)
             {
                 return node;
             }
-            _currentChain.Elements.Add(new MemberExpressionFingerprint(node.NodeType, node.Type, node.Member));
+            this._currentChain.Elements.Add(new MemberExpressionFingerprint(node.NodeType, node.Type, node.Member));
             return base.VisitMember(node);
         }
 
@@ -909,7 +907,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected MemberAssignment VisitMemberAssignment(MemberAssignment node)
         {
-            return GiveUp(node);
+            return this.GiveUp(node);
         }
 
         /// <summary>
@@ -919,7 +917,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected MemberBinding VisitMemberBinding(MemberBinding node)
         {
-            return GiveUp(node);
+            return this.GiveUp(node);
         }
 
         /// <summary>
@@ -929,7 +927,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitMemberInit(MemberInitExpression node)
         {
-            return GiveUp(node);
+            return this.GiveUp(node);
         }
 
         /// <summary>
@@ -939,7 +937,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected MemberListBinding VisitMemberListBinding(MemberListBinding node)
         {
-            return GiveUp(node);
+            return this.GiveUp(node);
         }
 
         /// <summary>
@@ -949,7 +947,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected MemberMemberBinding VisitMemberMemberBinding(MemberMemberBinding node)
         {
-            return GiveUp(node);
+            return this.GiveUp(node);
         }
 
         /// <summary>
@@ -959,11 +957,11 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitMethodCall(MethodCallExpression node)
         {
-            if (_gaveUp)
+            if (this._gaveUp)
             {
                 return node;
             }
-            _currentChain.Elements.Add(new MethodCallExpressionFingerprint(node.NodeType, node.Type, node.Method));
+            this._currentChain.Elements.Add(new MethodCallExpressionFingerprint(node.NodeType, node.Type, node.Method));
             return base.VisitMethodCall(node);
         }
 
@@ -974,7 +972,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitNew(NewExpression node)
         {
-            return GiveUp(node);
+            return this.GiveUp(node);
         }
 
         /// <summary>
@@ -984,7 +982,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitNewArray(NewArrayExpression node)
         {
-            return GiveUp(node);
+            return this.GiveUp(node);
         }
 
         /// <summary>
@@ -994,20 +992,20 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitParameter(ParameterExpression node)
         {
-            if (_gaveUp)
+            if (this._gaveUp)
             {
                 return node;
             }
 
-            int parameterIndex = _seenParameters.IndexOf(node);
+            var parameterIndex = this._seenParameters.IndexOf(node);
             if (parameterIndex < 0)
             {
                 // first time seeing this parameter
-                parameterIndex = _seenParameters.Count;
-                _seenParameters.Add(node);
+                parameterIndex = this._seenParameters.Count;
+                this._seenParameters.Add(node);
             }
 
-            _currentChain.Elements.Add(new ParameterExpressionFingerprint(node.NodeType, node.Type, parameterIndex));
+            this._currentChain.Elements.Add(new ParameterExpressionFingerprint(node.NodeType, node.Type, parameterIndex));
             return base.VisitParameter(node);
         }
 
@@ -1018,7 +1016,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitRuntimeVariables(RuntimeVariablesExpression node)
         {
-            return GiveUp(node);
+            return this.GiveUp(node);
         }
 
         /// <summary>
@@ -1028,7 +1026,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitSwitch(SwitchExpression node)
         {
-            return GiveUp(node);
+            return this.GiveUp(node);
         }
 
         /// <summary>
@@ -1038,7 +1036,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected SwitchCase VisitSwitchCase(SwitchCase node)
         {
-            return GiveUp(node);
+            return this.GiveUp(node);
         }
 
         /// <summary>
@@ -1048,7 +1046,7 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitTry(TryExpression node)
         {
-            return GiveUp(node);
+            return this.GiveUp(node);
         }
 
         /// <summary>
@@ -1058,11 +1056,11 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitTypeBinary(TypeBinaryExpression node)
         {
-            if (_gaveUp)
+            if (this._gaveUp)
             {
                 return node;
             }
-            _currentChain.Elements.Add(new TypeBinaryExpressionFingerprint(node.NodeType, node.Type, node.TypeOperand));
+            this._currentChain.Elements.Add(new TypeBinaryExpressionFingerprint(node.NodeType, node.Type, node.TypeOperand));
             return base.VisitTypeBinary(node);
         }
 
@@ -1073,11 +1071,11 @@ namespace ServiceStack.ExpressionUtil
         /// <returns>The modified expression, if it or any subexpression was modified; otherwise, returns the original expression.</returns>
         override protected Expression VisitUnary(UnaryExpression node)
         {
-            if (_gaveUp)
+            if (this._gaveUp)
             {
                 return node;
             }
-            _currentChain.Elements.Add(new UnaryExpressionFingerprint(node.NodeType, node.Type, node.Method));
+            this._currentChain.Elements.Add(new UnaryExpressionFingerprint(node.NodeType, node.Type, node.Method));
             return base.VisitUnary(node);
         }
     }
@@ -1096,7 +1094,7 @@ namespace ServiceStack.ExpressionUtil
         /// Gets the combined hash.
         /// </summary>
         /// <value>The combined hash.</value>
-        public int CombinedHash => _combinedHash64.GetHashCode();
+        public int CombinedHash => this._combinedHash64.GetHashCode();
 
         /// <summary>
         /// Adds the fingerprint.
@@ -1110,7 +1108,7 @@ namespace ServiceStack.ExpressionUtil
             }
             else
             {
-                AddInt32(0);
+                this.AddInt32(0);
             }
         }
 
@@ -1122,17 +1120,17 @@ namespace ServiceStack.ExpressionUtil
         {
             if (e == null)
             {
-                AddInt32(0);
+                this.AddInt32(0);
             }
             else
             {
-                int count = 0;
-                foreach (object o in e)
+                var count = 0;
+                foreach (var o in e)
                 {
-                    AddObject(o);
+                    this.AddObject(o);
                     count++;
                 }
-                AddInt32(count);
+                this.AddInt32(count);
             }
         }
 
@@ -1142,7 +1140,7 @@ namespace ServiceStack.ExpressionUtil
         /// <param name="i">The i.</param>
         public void AddInt32(int i)
         {
-            _combinedHash64 = ((_combinedHash64 << 5) + _combinedHash64) ^ i;
+            this._combinedHash64 = ((this._combinedHash64 << 5) + this._combinedHash64) ^ i;
         }
 
         /// <summary>
@@ -1151,8 +1149,8 @@ namespace ServiceStack.ExpressionUtil
         /// <param name="o">The o.</param>
         public void AddObject(object o)
         {
-            int hashCode = o?.GetHashCode() ?? 0;
-            AddInt32(hashCode);
+            var hashCode = o?.GetHashCode() ?? 0;
+            this.AddInt32(hashCode);
         }
     }
 
@@ -1215,7 +1213,7 @@ namespace ServiceStack.ExpressionUtil
         override protected Expression VisitConstant(ConstantExpression node)
         {
             // rewrite the constant expression as (TConst)hoistedConstants[i];
-            return Expression.Convert(Expression.Property(_hoistedConstantsParamExpr, "Item", Expression.Constant(_numConstantsProcessed++)), node.Type);
+            return Expression.Convert(Expression.Property(_hoistedConstantsParamExpr, "Item", Expression.Constant(this._numConstantsProcessed++)), node.Type);
         }
     }
 
@@ -1238,7 +1236,7 @@ namespace ServiceStack.ExpressionUtil
             // Other properties on IndexExpression (like the argument count) are simply derived
             // from Type and Indexer, so they're not necessary for inclusion in the fingerprint.
 
-            Indexer = indexer;
+            this.Indexer = indexer;
         }
 
         // http://msdn.microsoft.com/en-us/library/system.linq.expressions.indexexpression.indexer.aspx
@@ -1249,10 +1247,10 @@ namespace ServiceStack.ExpressionUtil
         public PropertyInfo Indexer { get; }
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// Determines whether the specified <see cref="object" /> is equal to this instance.
         /// </summary>
-        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
-        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return obj is IndexExpressionFingerprint other
@@ -1275,7 +1273,7 @@ namespace ServiceStack.ExpressionUtil
         /// <param name="combiner">The combiner.</param>
         override internal void AddToHashCodeCombiner(HashCodeCombiner combiner)
         {
-            combiner.AddObject(Indexer);
+            combiner.AddObject(this.Indexer);
             base.AddToHashCodeCombiner(combiner);
         }
     }
@@ -1300,10 +1298,10 @@ namespace ServiceStack.ExpressionUtil
         }
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// Determines whether the specified <see cref="object" /> is equal to this instance.
         /// </summary>
-        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
-        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return obj is LambdaExpressionFingerprint other
@@ -1336,7 +1334,7 @@ namespace ServiceStack.ExpressionUtil
         public MemberExpressionFingerprint(ExpressionType nodeType, Type type, MemberInfo member)
             : base(nodeType, type)
         {
-            Member = member;
+            this.Member = member;
         }
 
         // http://msdn.microsoft.com/en-us/library/system.linq.expressions.memberexpression.member.aspx
@@ -1347,10 +1345,10 @@ namespace ServiceStack.ExpressionUtil
         public MemberInfo Member { get; }
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// Determines whether the specified <see cref="object" /> is equal to this instance.
         /// </summary>
-        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
-        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return obj is MemberExpressionFingerprint other
@@ -1373,7 +1371,7 @@ namespace ServiceStack.ExpressionUtil
         /// <param name="combiner">The combiner.</param>
         override internal void AddToHashCodeCombiner(HashCodeCombiner combiner)
         {
-            combiner.AddObject(Member);
+            combiner.AddObject(this.Member);
             base.AddToHashCodeCombiner(combiner);
         }
     }
@@ -1397,7 +1395,7 @@ namespace ServiceStack.ExpressionUtil
             // Other properties on MethodCallExpression (like the argument count) are simply derived
             // from Type and Indexer, so they're not necessary for inclusion in the fingerprint.
 
-            Method = method;
+            this.Method = method;
         }
 
         // http://msdn.microsoft.com/en-us/library/system.linq.expressions.methodcallexpression.method.aspx
@@ -1408,10 +1406,10 @@ namespace ServiceStack.ExpressionUtil
         public MethodInfo Method { get; }
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// Determines whether the specified <see cref="object" /> is equal to this instance.
         /// </summary>
-        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
-        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return obj is MethodCallExpressionFingerprint other
@@ -1434,7 +1432,7 @@ namespace ServiceStack.ExpressionUtil
         /// <param name="combiner">The combiner.</param>
         override internal void AddToHashCodeCombiner(HashCodeCombiner combiner)
         {
-            combiner.AddObject(Method);
+            combiner.AddObject(this.Method);
             base.AddToHashCodeCombiner(combiner);
         }
     }
@@ -1455,7 +1453,7 @@ namespace ServiceStack.ExpressionUtil
         public ParameterExpressionFingerprint(ExpressionType nodeType, Type type, int parameterIndex)
             : base(nodeType, type)
         {
-            ParameterIndex = parameterIndex;
+            this.ParameterIndex = parameterIndex;
         }
 
         // Parameter position within the overall expression, used to maintain alpha equivalence.
@@ -1466,10 +1464,10 @@ namespace ServiceStack.ExpressionUtil
         public int ParameterIndex { get; }
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// Determines whether the specified <see cref="object" /> is equal to this instance.
         /// </summary>
-        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
-        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return obj is ParameterExpressionFingerprint other
@@ -1492,7 +1490,7 @@ namespace ServiceStack.ExpressionUtil
         /// <param name="combiner">The combiner.</param>
         override internal void AddToHashCodeCombiner(HashCodeCombiner combiner)
         {
-            combiner.AddInt32(ParameterIndex);
+            combiner.AddInt32(this.ParameterIndex);
             base.AddToHashCodeCombiner(combiner);
         }
     }
@@ -1513,7 +1511,7 @@ namespace ServiceStack.ExpressionUtil
         public TypeBinaryExpressionFingerprint(ExpressionType nodeType, Type type, Type typeOperand)
             : base(nodeType, type)
         {
-            TypeOperand = typeOperand;
+            this.TypeOperand = typeOperand;
         }
 
         // http://msdn.microsoft.com/en-us/library/system.linq.expressions.typebinaryexpression.typeoperand.aspx
@@ -1524,10 +1522,10 @@ namespace ServiceStack.ExpressionUtil
         public Type TypeOperand { get; }
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// Determines whether the specified <see cref="object" /> is equal to this instance.
         /// </summary>
-        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
-        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return obj is TypeBinaryExpressionFingerprint other
@@ -1550,7 +1548,7 @@ namespace ServiceStack.ExpressionUtil
         /// <param name="combiner">The combiner.</param>
         override internal void AddToHashCodeCombiner(HashCodeCombiner combiner)
         {
-            combiner.AddObject(TypeOperand);
+            combiner.AddObject(this.TypeOperand);
             base.AddToHashCodeCombiner(combiner);
         }
     }
@@ -1574,7 +1572,7 @@ namespace ServiceStack.ExpressionUtil
             // Other properties on UnaryExpression (like IsLifted / IsLiftedToNull) are simply derived
             // from Type and NodeType, so they're not necessary for inclusion in the fingerprint.
 
-            Method = method;
+            this.Method = method;
         }
 
         // http://msdn.microsoft.com/en-us/library/system.linq.expressions.unaryexpression.method.aspx
@@ -1585,10 +1583,10 @@ namespace ServiceStack.ExpressionUtil
         public MethodInfo Method { get; }
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// Determines whether the specified <see cref="object" /> is equal to this instance.
         /// </summary>
-        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
-        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+        /// <param name="obj">The <see cref="object" /> to compare with this instance.</param>
+        /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             return obj is UnaryExpressionFingerprint other
@@ -1611,7 +1609,7 @@ namespace ServiceStack.ExpressionUtil
         /// <param name="combiner">The combiner.</param>
         override internal void AddToHashCodeCombiner(HashCodeCombiner combiner)
         {
-            combiner.AddObject(Method);
+            combiner.AddObject(this.Method);
             base.AddToHashCodeCombiner(combiner);
         }
     }

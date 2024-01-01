@@ -70,7 +70,9 @@ public static class ExpressionUtils
     {
         var m = GetMemberExpression(fieldExpr);
         if (m != null)
+        {
             return m.Member.Name;
+        }
 
         throw new NotSupportedException("Expected Property Expression");
     }
@@ -97,10 +99,12 @@ public static class ExpressionUtils
     public static Dictionary<string, object> AssignedValues<T>(this Expression<Func<T>> expr)
     {
         if (expr?.Body is not MemberInitExpression initExpr)
+        {
             return null;
+        }
 
         var to = new Dictionary<string, object>();
-        foreach (MemberBinding binding in initExpr.Bindings)
+        foreach (var binding in initExpr.Bindings)
         {
             to[binding.Member.Name] = binding.GetValue();
         }
@@ -119,28 +123,40 @@ public static class ExpressionUtils
         if (expr.Body is MemberExpression member)
         {
             if (member.Member.DeclaringType.IsAssignableFrom(typeof(T)))
+            {
                 return [member.Member.Name];
+            }
 
             var array = CachedExpressionCompiler.Evaluate(member);
             if (array is IEnumerable<string> strEnum)
+            {
                 return strEnum.ToArray();
+            }
         }
 
         if (expr.Body is NewExpression newExpr)
+        {
             return newExpr.Arguments.OfType<MemberExpression>().Select(x => x.Member.Name).ToArray();
+        }
 
         if (expr.Body is MemberInitExpression init)
+        {
             return init.Bindings.Select(x => x.Member.Name).ToArray();
+        }
 
         if (expr.Body is NewArrayExpression newArray)
         {
             var constantExprs = newArray.Expressions.OfType<ConstantExpression>().ToList();
             if (newArray.Expressions.Count == constantExprs.Count)
+            {
                 return constantExprs.Select(x => x.Value.ToString()).ToArray();
+            }
 
             var array = CachedExpressionCompiler.Evaluate(newArray);
             if (array is string[] strArray)
+            {
                 return strArray;
+            }
 
             return array.ConvertTo<string[]>();
         }
@@ -149,7 +165,9 @@ public static class ExpressionUtils
         {
             member = unary.Operand as MemberExpression;
             if (member != null)
+            {
                 return [member.Member.Name];
+            }
         }
 
         throw new ArgumentException("Invalid Fields List Expression: " + expr);
@@ -167,7 +185,9 @@ public static class ExpressionUtils
             case MemberBindingType.Assignment:
                 var assign = (MemberAssignment)binding;
                 if (assign.Expression is ConstantExpression constant)
+                {
                     return constant.Value;
+                }
 
                 try
                 {

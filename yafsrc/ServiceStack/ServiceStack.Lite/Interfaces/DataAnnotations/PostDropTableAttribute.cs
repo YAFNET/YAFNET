@@ -28,6 +28,6 @@ public class PostDropTableAttribute : AttributeBase
     /// <param name="sql">The SQL.</param>
     public PostDropTableAttribute(string sql)
     {
-        Sql = sql;
+        this.Sql = sql;
     }
 }

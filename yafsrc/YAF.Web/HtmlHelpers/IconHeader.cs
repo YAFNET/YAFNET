@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -80,11 +80,6 @@ public static class IconHeaderHtmlHelper
         var icon = htmlHelper.Icon(iconName, iconType, "fas", iconSize);
 
         var header = BoardContext.Current.Get<ILocalization>().GetText(page, tag).FormatWith(param0, param1, param2);
-
-        /*if (text.IsSet())
-        {
-            header = text;
-        }*/
 
         content.AppendHtml(icon);
 

@@ -47,7 +47,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <summary>
     /// The order by properties
     /// </summary>
-    private List<string> orderByProperties = new();
+    private List<string> orderByProperties = [];
     /// <summary>
     /// The select expression
     /// </summary>
@@ -189,15 +189,15 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <param name="dialectProvider">The dialect provider.</param>
     protected SqlExpression(IOrmLiteDialectProvider dialectProvider)
     {
-        this.UpdateFields = new List<string>();
-        this.InsertFields = new List<string>();
+        this.UpdateFields = [];
+        this.InsertFields = [];
 
         this.modelDef = typeof(T).GetModelDefinition();
         this.PrefixFieldWithTableName = OrmLiteConfig.IncludeTablePrefixes;
         this.WhereStatementWithoutWhereString = false;
 
         this.DialectProvider = dialectProvider;
-        this.Params = new List<IDbDataParameter>();
+        this.Params = [];
         this.tableDefs.Add(this.modelDef);
 
         var initFilter = OrmLiteConfig.SqlExpressionInitFilter;
@@ -221,7 +221,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     public virtual void AddTag(string tag)
     {
         //Debug.Assert(!string.IsNullOrEmpty(tag));
-        Tags.Add(tag);
+        this.Tags.Add(tag);
     }
 
     /// <summary>
@@ -377,7 +377,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// </summary>
     /// <param name="selectExpression">The select expression.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    internal SqlExpression<T> SelectIfDistinct(string selectExpression) => this.selectDistinct ? this.SelectDistinct(selectExpression) : this.Select(selectExpression);
+    internal SqlExpression<T> SelectIfDistinct(string selectExpression)
+    {
+        return this.selectDistinct ? this.SelectDistinct(selectExpression) : this.Select(selectExpression);
+    }
 
     /// <summary>
     /// set the specified selectExpression.
@@ -408,7 +411,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// </summary>
     /// <param name="rawSelect">The raw select.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> UnsafeSelect(string rawSelect) => this.UnsafeSelect(rawSelect, false);
+    public virtual SqlExpression<T> UnsafeSelect(string rawSelect)
+    {
+        return this.UnsafeSelect(rawSelect, false);
+    }
 
     /// <summary>
     /// Unsafes the select.
@@ -437,14 +443,20 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// </summary>
     /// <param name="fields">Matching Fields: "SomeField1, SomeField2"</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Select(string[] fields) => this.Select(fields, false);
+    public virtual SqlExpression<T> Select(string[] fields)
+    {
+        return this.Select(fields, false);
+    }
 
     /// <summary>
     /// Set the specified DISTINCT selectExpression using matching fields.
     /// </summary>
     /// <param name="fields">Matching Fields: "SomeField1, SomeField2"</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> SelectDistinct(string[] fields) => this.Select(fields, true);
+    public virtual SqlExpression<T> SelectDistinct(string[] fields)
+    {
+        return this.Select(fields, true);
+    }
 
     /// <summary>
     /// Selects the specified fields.
@@ -1080,7 +1092,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             var p = this.AddParam(item);
 
             if (sbParams.Length > 0)
-                sbParams.Append(",");
+                sbParams.Append(',');
 
             sbParams.Append(p.ParameterName);
         }
@@ -1172,35 +1184,52 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// </summary>
     /// <param name="predicate">The predicate.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Where(Expression<Func<T, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> Where(Expression<Func<T, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
+
     /// <summary>
     /// Wheres the specified predicate.
     /// </summary>
     /// <param name="predicate">The predicate.</param>
     /// <param name="filterParams">The filter parameters.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Where(Expression<Func<T, bool>> predicate, params object[] filterParams) => this.AppendToWhere("AND", predicate, filterParams);
+    public virtual SqlExpression<T> Where(Expression<Func<T, bool>> predicate, params object[] filterParams)
+    {
+        return this.AppendToWhere("AND", predicate, filterParams);
+    }
 
     /// <summary>
     /// Ands the specified predicate.
     /// </summary>
     /// <param name="predicate">The predicate.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> And(Expression<Func<T, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> And(Expression<Func<T, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
+
     /// <summary>
     /// Ands the specified predicate.
     /// </summary>
     /// <param name="predicate">The predicate.</param>
     /// <param name="filterParams">The filter parameters.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> And(Expression<Func<T, bool>> predicate, params object[] filterParams) => this.AppendToWhere("AND", predicate, filterParams);
+    public virtual SqlExpression<T> And(Expression<Func<T, bool>> predicate, params object[] filterParams)
+    {
+        return this.AppendToWhere("AND", predicate, filterParams);
+    }
 
     /// <summary>
     /// Ors the specified predicate.
     /// </summary>
     /// <param name="predicate">The predicate.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Or(Expression<Func<T, bool>> predicate) => this.AppendToWhere("OR", predicate);
+    public virtual SqlExpression<T> Or(Expression<Func<T, bool>> predicate)
+    {
+        return this.AppendToWhere("OR", predicate);
+    }
 
     /// <summary>
     /// Ors the specified predicate.
@@ -1208,7 +1237,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <param name="predicate">The predicate.</param>
     /// <param name="filterParams">The filter parameters.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Or(Expression<Func<T, bool>> predicate, params object[] filterParams) => this.AppendToWhere("OR", predicate, filterParams);
+    public virtual SqlExpression<T> Or(Expression<Func<T, bool>> predicate, params object[] filterParams)
+    {
+        return this.AppendToWhere("OR", predicate, filterParams);
+    }
 
     /// <summary>
     /// Wheres the exists.
@@ -1217,7 +1249,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
     public virtual SqlExpression<T> WhereExists(ISqlExpression subSelect)
     {
-        return AppendToWhere("AND", FormatFilter($"EXISTS ({subSelect.ToSelectStatement()})"));
+        return this.AppendToWhere("AND", this.FormatFilter($"EXISTS ({subSelect.ToSelectStatement()})"));
     }
 
     /// <summary>
@@ -1227,7 +1259,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
     public virtual SqlExpression<T> WhereNotExists(ISqlExpression subSelect)
     {
-        return AppendToWhere("AND", FormatFilter($"NOT EXISTS ({subSelect.ToSelectStatement()})"));
+        return this.AppendToWhere("AND", this.FormatFilter($"NOT EXISTS ({subSelect.ToSelectStatement()})"));
     }
 
     /// <summary>
@@ -1321,14 +1353,15 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             if (this.WhereExpression.EndsWith(TrueLiteral, StringComparison.Ordinal))
             {
                 // insert before ^1+1)
-                this.WhereExpression = this.WhereExpression.Substring(0, this.WhereExpression.Length - (TrueLiteral.Length - 1))
-                                       + sqlExpression + ")";
+                this.WhereExpression = string.Concat(
+                    this.WhereExpression.AsSpan(0, this.WhereExpression.Length - (TrueLiteral.Length - 1))
+                    , sqlExpression, ")");
             }
             else
             {
                 // insert before ^)
-                this.WhereExpression = this.WhereExpression.Substring(0, this.WhereExpression.Length - 1)
-                                       + addExpression + ")";
+                this.WhereExpression = string.Concat(this.WhereExpression.AsSpan(0, this.WhereExpression.Length - 1)
+                    , addExpression, ")");
             }
         }
 
@@ -1340,14 +1373,22 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// </summary>
     /// <param name="predicate">The predicate.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Ensure(Expression<Func<T, bool>> predicate) => this.AppendToEnsure(predicate);
+    public virtual SqlExpression<T> Ensure(Expression<Func<T, bool>> predicate)
+    {
+        return this.AppendToEnsure(predicate);
+    }
+
     /// <summary>
     /// Ensures the specified predicate.
     /// </summary>
     /// <typeparam name="Target">The type of the target.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Ensure<Target>(Expression<Func<Target, bool>> predicate) => this.AppendToEnsure(predicate);
+    public virtual SqlExpression<T> Ensure<Target>(Expression<Func<Target, bool>> predicate)
+    {
+        return this.AppendToEnsure(predicate);
+    }
+
     /// <summary>
     /// Ensures the specified predicate.
     /// </summary>
@@ -1355,7 +1396,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="Target">The type of the target.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Ensure<Source, Target>(Expression<Func<Source, Target, bool>> predicate) => this.AppendToEnsure(predicate);
+    public virtual SqlExpression<T> Ensure<Source, Target>(Expression<Func<Source, Target, bool>> predicate)
+    {
+        return this.AppendToEnsure(predicate);
+    }
+
     /// <summary>
     /// Ensures the specified predicate.
     /// </summary>
@@ -1364,7 +1409,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="T3">The type of the t3.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Ensure<T1, T2, T3>(Expression<Func<T1, T2, T3, bool>> predicate) => this.AppendToEnsure(predicate);
+    public virtual SqlExpression<T> Ensure<T1, T2, T3>(Expression<Func<T1, T2, T3, bool>> predicate)
+    {
+        return this.AppendToEnsure(predicate);
+    }
+
     /// <summary>
     /// Ensures the specified predicate.
     /// </summary>
@@ -1374,7 +1423,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="T4">The type of the t4.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Ensure<T1, T2, T3, T4>(Expression<Func<T1, T2, T3, T4, bool>> predicate) => this.AppendToEnsure(predicate);
+    public virtual SqlExpression<T> Ensure<T1, T2, T3, T4>(Expression<Func<T1, T2, T3, T4, bool>> predicate)
+    {
+        return this.AppendToEnsure(predicate);
+    }
+
     /// <summary>
     /// Ensures the specified predicate.
     /// </summary>
@@ -1385,7 +1438,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="T5">The type of the t5.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Ensure<T1, T2, T3, T4, T5>(Expression<Func<T1, T2, T3, T4, T5, bool>> predicate) => this.AppendToEnsure(predicate);
+    public virtual SqlExpression<T> Ensure<T1, T2, T3, T4, T5>(Expression<Func<T1, T2, T3, T4, T5, bool>> predicate)
+    {
+        return this.AppendToEnsure(predicate);
+    }
 
     /// <summary>
     /// Appends to ensure.
@@ -1433,7 +1489,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                 if (!this.WhereExpression.StartsWith("WHERE ", StringComparison.OrdinalIgnoreCase))
                     throw new NotSupportedException("Invalid whereExpression Expression with Ensure Conditions");
 
-                this.WhereExpression = "WHERE " + condition + " AND " + this.WhereExpression.Substring("WHERE ".Length);
+                this.WhereExpression = $"WHERE {condition} AND {this.WhereExpression["WHERE ".Length..]}";
             }
         }
 
@@ -1642,14 +1698,22 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// </summary>
     /// <param name="predicate">The predicate.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Having(Expression<Func<T, bool>> predicate) => this.AppendHaving(predicate);
+    public virtual SqlExpression<T> Having(Expression<Func<T, bool>> predicate)
+    {
+        return this.AppendHaving(predicate);
+    }
+
     /// <summary>
     /// Havings the specified predicate.
     /// </summary>
     /// <typeparam name="Table">The type of the table.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Having<Table>(Expression<Func<Table, bool>> predicate) => this.AppendHaving(predicate);
+    public virtual SqlExpression<T> Having<Table>(Expression<Func<Table, bool>> predicate)
+    {
+        return this.AppendHaving(predicate);
+    }
+
     /// <summary>
     /// Havings the specified predicate.
     /// </summary>
@@ -1657,7 +1721,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="Table2">The type of the table2.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Having<Table1, Table2>(Expression<Func<Table1, Table2, bool>> predicate) => this.AppendHaving(predicate);
+    public virtual SqlExpression<T> Having<Table1, Table2>(Expression<Func<Table1, Table2, bool>> predicate)
+    {
+        return this.AppendHaving(predicate);
+    }
+
     /// <summary>
     /// Havings the specified predicate.
     /// </summary>
@@ -1666,27 +1734,39 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="Table3">The type of the table3.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Having<Table1, Table2, Table3>(Expression<Func<Table1, Table2, Table3, bool>> predicate) => this.AppendHaving(predicate);
+    public virtual SqlExpression<T> Having<Table1, Table2, Table3>(Expression<Func<Table1, Table2, Table3, bool>> predicate)
+    {
+        return this.AppendHaving(predicate);
+    }
 
     /// <summary>
     /// Orders the by.
     /// </summary>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> OrderBy() => this.OrderBy(string.Empty);
+    public virtual SqlExpression<T> OrderBy()
+    {
+        return this.OrderBy(string.Empty);
+    }
 
     /// <summary>
     /// Orders the by.
     /// </summary>
     /// <param name="orderBy">The order by.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> OrderBy(string orderBy) => this.UnsafeOrderBy(orderBy.SqlVerifyFragment());
+    public virtual SqlExpression<T> OrderBy(string orderBy)
+    {
+        return this.UnsafeOrderBy(orderBy.SqlVerifyFragment());
+    }
 
     /// <summary>
     /// Orders the by.
     /// </summary>
     /// <param name="columnIndex">Index of the column.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> OrderBy(long columnIndex) => this.UnsafeOrderBy(columnIndex.ToString());
+    public virtual SqlExpression<T> OrderBy(long columnIndex)
+    {
+        return this.UnsafeOrderBy(columnIndex.ToString());
+    }
 
     /// <summary>
     /// Unsafes the order by.
@@ -1709,7 +1789,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// Orders the by random.
     /// </summary>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> OrderByRandom() => this.OrderBy(this.DialectProvider.SqlRandom);
+    public virtual SqlExpression<T> OrderByRandom()
+    {
+        return this.OrderBy(this.DialectProvider.SqlRandom);
+    }
 
     /// <summary>
     /// Gets the model definition.
@@ -1781,14 +1864,20 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// </summary>
     /// <param name="fields">The fields.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> OrderByFields(params FieldDefinition[] fields) => this.OrderByFields(OrderBySuffix.Asc, fields);
+    public virtual SqlExpression<T> OrderByFields(params FieldDefinition[] fields)
+    {
+        return this.OrderByFields(OrderBySuffix.Asc, fields);
+    }
 
     /// <summary>
     /// Orders the by fields descending.
     /// </summary>
     /// <param name="fields">The fields.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> OrderByFieldsDescending(params FieldDefinition[] fields) => this.OrderByFields(OrderBySuffix.Desc, fields);
+    public virtual SqlExpression<T> OrderByFieldsDescending(params FieldDefinition[] fields)
+    {
+        return this.OrderByFields(OrderBySuffix.Desc, fields);
+    }
 
     /// <summary>
     /// Orders the by fields.
@@ -1811,11 +1900,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         var sbOrderBy = StringBuilderCache.Allocate();
         foreach (var fieldName in fieldNames)
         {
-            var reverse = fieldName.StartsWith("-");
+            var reverse = fieldName.StartsWith('-');
             var useSuffix = reverse
                                 ? orderBySuffix == OrderBySuffix.Asc ? OrderBySuffix.Desc : OrderBySuffix.Asc
                                 : orderBySuffix;
-            var useName = reverse ? fieldName.Substring(1) : fieldName;
+            var useName = reverse ? fieldName[1..] : fieldName;
 
             var field = this.FirstMatchingField(useName);
             var qualifiedName = field != null
@@ -1839,21 +1928,30 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// </summary>
     /// <param name="fieldNames">The field names.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> OrderByFields(params string[] fieldNames) => this.OrderByFields(string.Empty, fieldNames);
+    public virtual SqlExpression<T> OrderByFields(params string[] fieldNames)
+    {
+        return this.OrderByFields(string.Empty, fieldNames);
+    }
 
     /// <summary>
     /// Orders the by fields descending.
     /// </summary>
     /// <param name="fieldNames">The field names.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> OrderByFieldsDescending(params string[] fieldNames) => this.OrderByFields(" DESC", fieldNames);
+    public virtual SqlExpression<T> OrderByFieldsDescending(params string[] fieldNames)
+    {
+        return this.OrderByFields(" DESC", fieldNames);
+    }
 
     /// <summary>
     /// Orders the by.
     /// </summary>
     /// <param name="keySelector">The key selector.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> OrderBy(Expression<Func<T, object>> keySelector) => this.OrderByInternal(keySelector);
+    public virtual SqlExpression<T> OrderBy(Expression<Func<T, object>> keySelector)
+    {
+        return this.OrderByInternal(keySelector);
+    }
 
     /// <summary>
     /// Orders the by.
@@ -1861,7 +1959,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="Table">The type of the table.</typeparam>
     /// <param name="fields">The fields.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> OrderBy<Table>(Expression<Func<Table, object>> fields) => this.OrderByInternal(fields);
+    public virtual SqlExpression<T> OrderBy<Table>(Expression<Func<Table, object>> fields)
+    {
+        return this.OrderByInternal(fields);
+    }
+
     /// <summary>
     /// Orders the by.
     /// </summary>
@@ -1869,7 +1971,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="Table2">The type of the table2.</typeparam>
     /// <param name="fields">The fields.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> OrderBy<Table1, Table2>(Expression<Func<Table1, Table2, object>> fields) => this.OrderByInternal(fields);
+    public virtual SqlExpression<T> OrderBy<Table1, Table2>(Expression<Func<Table1, Table2, object>> fields)
+    {
+        return this.OrderByInternal(fields);
+    }
+
     /// <summary>
     /// Orders the by.
     /// </summary>
@@ -1878,7 +1984,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="Table3">The type of the table3.</typeparam>
     /// <param name="fields">The fields.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> OrderBy<Table1, Table2, Table3>(Expression<Func<Table1, Table2, Table3, object>> fields) => this.OrderByInternal(fields);
+    public virtual SqlExpression<T> OrderBy<Table1, Table2, Table3>(Expression<Func<Table1, Table2, Table3, object>> fields)
+    {
+        return this.OrderByInternal(fields);
+    }
+
     /// <summary>
     /// Orders the by.
     /// </summary>
@@ -1888,7 +1998,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="Table4">The type of the table4.</typeparam>
     /// <param name="fields">The fields.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> OrderBy<Table1, Table2, Table3, Table4>(Expression<Func<Table1, Table2, Table3, Table4, object>> fields) => this.OrderByInternal(fields);
+    public virtual SqlExpression<T> OrderBy<Table1, Table2, Table3, Table4>(Expression<Func<Table1, Table2, Table3, Table4, object>> fields)
+    {
+        return this.OrderByInternal(fields);
+    }
+
     /// <summary>
     /// Orders the by.
     /// </summary>
@@ -1899,7 +2013,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="Table5">The type of the table5.</typeparam>
     /// <param name="fields">The fields.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> OrderBy<Table1, Table2, Table3, Table4, Table5>(Expression<Func<Table1, Table2, Table3, Table4, Table5, object>> fields) => this.OrderByInternal(fields);
+    public virtual SqlExpression<T> OrderBy<Table1, Table2, Table3, Table4, Table5>(Expression<Func<Table1, Table2, Table3, Table4, Table5, object>> fields)
+    {
+        return this.OrderByInternal(fields);
+    }
 
     /// <summary>
     /// Orders the by internal.
@@ -1956,14 +2073,22 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// </summary>
     /// <param name="keySelector">The key selector.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> ThenBy(Expression<Func<T, object>> keySelector) => this.ThenByInternal(keySelector);
+    public virtual SqlExpression<T> ThenBy(Expression<Func<T, object>> keySelector)
+    {
+        return this.ThenByInternal(keySelector);
+    }
+
     /// <summary>
     /// Thens the by.
     /// </summary>
     /// <typeparam name="Table">The type of the table.</typeparam>
     /// <param name="fields">The fields.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> ThenBy<Table>(Expression<Func<Table, object>> fields) => this.ThenByInternal(fields);
+    public virtual SqlExpression<T> ThenBy<Table>(Expression<Func<Table, object>> fields)
+    {
+        return this.ThenByInternal(fields);
+    }
+
     /// <summary>
     /// Thens the by.
     /// </summary>
@@ -1971,7 +2096,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="Table2">The type of the table2.</typeparam>
     /// <param name="fields">The fields.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> ThenBy<Table1, Table2>(Expression<Func<Table1, Table2, object>> fields) => this.ThenByInternal(fields);
+    public virtual SqlExpression<T> ThenBy<Table1, Table2>(Expression<Func<Table1, Table2, object>> fields)
+    {
+        return this.ThenByInternal(fields);
+    }
+
     /// <summary>
     /// Thens the by.
     /// </summary>
@@ -1980,7 +2109,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="Table3">The type of the table3.</typeparam>
     /// <param name="fields">The fields.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> ThenBy<Table1, Table2, Table3>(Expression<Func<Table1, Table2, Table3, object>> fields) => this.ThenByInternal(fields);
+    public virtual SqlExpression<T> ThenBy<Table1, Table2, Table3>(Expression<Func<Table1, Table2, Table3, object>> fields)
+    {
+        return this.ThenByInternal(fields);
+    }
+
     /// <summary>
     /// Thens the by.
     /// </summary>
@@ -1990,7 +2123,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="Table4">The type of the table4.</typeparam>
     /// <param name="fields">The fields.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> ThenBy<Table1, Table2, Table3, Table4>(Expression<Func<Table1, Table2, Table3, Table4, object>> fields) => this.ThenByInternal(fields);
+    public virtual SqlExpression<T> ThenBy<Table1, Table2, Table3, Table4>(Expression<Func<Table1, Table2, Table3, Table4, object>> fields)
+    {
+        return this.ThenByInternal(fields);
+    }
+
     /// <summary>
     /// Thens the by.
     /// </summary>
@@ -2001,7 +2138,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="Table5">The type of the table5.</typeparam>
     /// <param name="fields">The fields.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> ThenBy<Table1, Table2, Table3, Table4, Table5>(Expression<Func<Table1, Table2, Table3, Table4, Table5, object>> fields) => this.ThenByInternal(fields);
+    public virtual SqlExpression<T> ThenBy<Table1, Table2, Table3, Table4, Table5>(Expression<Func<Table1, Table2, Table3, Table4, Table5, object>> fields)
+    {
+        return this.ThenByInternal(fields);
+    }
 
     /// <summary>
     /// Thens the by internal.
@@ -2039,7 +2179,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="Table">The type of the table.</typeparam>
     /// <param name="keySelector">The key selector.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> OrderByDescending<Table>(Expression<Func<Table, object>> keySelector) => this.OrderByDescendingInternal(keySelector);
+    public virtual SqlExpression<T> OrderByDescending<Table>(Expression<Func<Table, object>> keySelector)
+    {
+        return this.OrderByDescendingInternal(keySelector);
+    }
+
     /// <summary>
     /// Orders the by descending.
     /// </summary>
@@ -2047,7 +2191,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="Table2">The type of the table2.</typeparam>
     /// <param name="fields">The fields.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> OrderByDescending<Table1, Table2>(Expression<Func<Table1, Table2, object>> fields) => this.OrderByDescendingInternal(fields);
+    public virtual SqlExpression<T> OrderByDescending<Table1, Table2>(Expression<Func<Table1, Table2, object>> fields)
+    {
+        return this.OrderByDescendingInternal(fields);
+    }
+
     /// <summary>
     /// Orders the by descending.
     /// </summary>
@@ -2056,7 +2204,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="Table3">The type of the table3.</typeparam>
     /// <param name="fields">The fields.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> OrderByDescending<Table1, Table2, Table3>(Expression<Func<Table1, Table2, Table3, object>> fields) => this.OrderByDescendingInternal(fields);
+    public virtual SqlExpression<T> OrderByDescending<Table1, Table2, Table3>(Expression<Func<Table1, Table2, Table3, object>> fields)
+    {
+        return this.OrderByDescendingInternal(fields);
+    }
+
     /// <summary>
     /// Orders the by descending.
     /// </summary>
@@ -2066,7 +2218,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="Table4">The type of the table4.</typeparam>
     /// <param name="fields">The fields.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> OrderByDescending<Table1, Table2, Table3, Table4>(Expression<Func<Table1, Table2, Table3, Table4, object>> fields) => this.OrderByDescendingInternal(fields);
+    public virtual SqlExpression<T> OrderByDescending<Table1, Table2, Table3, Table4>(Expression<Func<Table1, Table2, Table3, Table4, object>> fields)
+    {
+        return this.OrderByDescendingInternal(fields);
+    }
+
     /// <summary>
     /// Orders the by descending.
     /// </summary>
@@ -2077,7 +2233,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="Table5">The type of the table5.</typeparam>
     /// <param name="fields">The fields.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> OrderByDescending<Table1, Table2, Table3, Table4, Table5>(Expression<Func<Table1, Table2, Table3, Table4, Table5, object>> fields) => this.OrderByDescendingInternal(fields);
+    public virtual SqlExpression<T> OrderByDescending<Table1, Table2, Table3, Table4, Table5>(Expression<Func<Table1, Table2, Table3, Table4, Table5, object>> fields)
+    {
+        return this.OrderByDescendingInternal(fields);
+    }
 
     /// <summary>
     /// Orders the by descending internal.
@@ -2106,14 +2265,20 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// </summary>
     /// <param name="orderBy">The order by.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> OrderByDescending(string orderBy) => this.UnsafeOrderByDescending(orderBy.SqlVerifyFragment());
+    public virtual SqlExpression<T> OrderByDescending(string orderBy)
+    {
+        return this.UnsafeOrderByDescending(orderBy.SqlVerifyFragment());
+    }
 
     /// <summary>
     /// Orders the by descending.
     /// </summary>
     /// <param name="columnIndex">Index of the column.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> OrderByDescending(long columnIndex) => this.UnsafeOrderByDescending(columnIndex.ToString());
+    public virtual SqlExpression<T> OrderByDescending(long columnIndex)
+    {
+        return this.UnsafeOrderByDescending(columnIndex.ToString());
+    }
 
     /// <summary>
     /// Unsafes the order by descending.
@@ -2146,14 +2311,22 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// </summary>
     /// <param name="keySelector">The key selector.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> ThenByDescending(Expression<Func<T, object>> keySelector) => this.ThenByDescendingInternal(keySelector);
+    public virtual SqlExpression<T> ThenByDescending(Expression<Func<T, object>> keySelector)
+    {
+        return this.ThenByDescendingInternal(keySelector);
+    }
+
     /// <summary>
     /// Thens the by descending.
     /// </summary>
     /// <typeparam name="Table">The type of the table.</typeparam>
     /// <param name="fields">The fields.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> ThenByDescending<Table>(Expression<Func<Table, object>> fields) => this.ThenByDescendingInternal(fields);
+    public virtual SqlExpression<T> ThenByDescending<Table>(Expression<Func<Table, object>> fields)
+    {
+        return this.ThenByDescendingInternal(fields);
+    }
+
     /// <summary>
     /// Thens the by descending.
     /// </summary>
@@ -2161,7 +2334,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="Table2">The type of the table2.</typeparam>
     /// <param name="fields">The fields.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> ThenByDescending<Table1, Table2>(Expression<Func<Table1, Table2, object>> fields) => this.ThenByDescendingInternal(fields);
+    public virtual SqlExpression<T> ThenByDescending<Table1, Table2>(Expression<Func<Table1, Table2, object>> fields)
+    {
+        return this.ThenByDescendingInternal(fields);
+    }
+
     /// <summary>
     /// Thens the by descending.
     /// </summary>
@@ -2170,7 +2347,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="Table3">The type of the table3.</typeparam>
     /// <param name="fields">The fields.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> ThenByDescending<Table1, Table2, Table3>(Expression<Func<Table1, Table2, Table3, object>> fields) => this.ThenByDescendingInternal(fields);
+    public virtual SqlExpression<T> ThenByDescending<Table1, Table2, Table3>(Expression<Func<Table1, Table2, Table3, object>> fields)
+    {
+        return this.ThenByDescendingInternal(fields);
+    }
+
     /// <summary>
     /// Thens the by descending.
     /// </summary>
@@ -2180,7 +2361,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="Table4">The type of the table4.</typeparam>
     /// <param name="fields">The fields.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> ThenByDescending<Table1, Table2, Table3, Table4>(Expression<Func<Table1, Table2, Table3, Table4, object>> fields) => this.ThenByDescendingInternal(fields);
+    public virtual SqlExpression<T> ThenByDescending<Table1, Table2, Table3, Table4>(Expression<Func<Table1, Table2, Table3, Table4, object>> fields)
+    {
+        return this.ThenByDescendingInternal(fields);
+    }
+
     /// <summary>
     /// Thens the by descending.
     /// </summary>
@@ -2191,7 +2376,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <typeparam name="Table5">The type of the table5.</typeparam>
     /// <param name="fields">The fields.</param>
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> ThenByDescending<Table1, Table2, Table3, Table4, Table5>(Expression<Func<Table1, Table2, Table3, Table4, Table5, object>> fields) => this.ThenByDescendingInternal(fields);
+    public virtual SqlExpression<T> ThenByDescending<Table1, Table2, Table3, Table4, Table5>(Expression<Func<Table1, Table2, Table3, Table4, Table5, object>> fields)
+    {
+        return this.ThenByDescendingInternal(fields);
+    }
 
     /// <summary>
     /// Thens the by descending internal.
@@ -2348,7 +2536,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     public virtual SqlExpression<T> Update(Expression<Func<T, object>> fields)
     {
         this.Reset(this.Sep = string.Empty, this.useFieldName = false);
-        this.UpdateFields = fields.GetFieldNames().ToList();
+        this.UpdateFields = [.. fields.GetFieldNames()];
         return this;
     }
 
@@ -2358,7 +2546,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
     public virtual SqlExpression<T> Update()
     {
-        this.UpdateFields = new List<string>();
+        this.UpdateFields = [];
         return this;
     }
 
@@ -2393,7 +2581,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
     public virtual SqlExpression<T> Insert()
     {
-        this.InsertFields = new List<string>();
+        this.InsertFields = [];
         return this;
     }
 
@@ -2605,7 +2793,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// Converts to selectstatement.
     /// </summary>
     /// <returns>string.</returns>
-    public virtual string ToSelectStatement() => ToSelectStatement(QueryType.Select);
+    public virtual string ToSelectStatement()
+    {
+        return this.ToSelectStatement(QueryType.Select);
+    }
 
     /// <summary>
     /// Converts to selectstatement.
@@ -2618,7 +2809,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         OrmLiteConfig.SqlExpressionSelectFilter?.Invoke(this.GetUntyped());
 
         var sql = this.DialectProvider
-            .ToSelectStatement(forType, modelDef, this.SelectExpression, this.BodyExpression, this.OrderByExpression, offset: Offset, rows: Rows, Tags);
+            .ToSelectStatement(forType, this.modelDef, this.SelectExpression, this.BodyExpression, this.OrderByExpression, offset: this.Offset, rows: this.Rows, this.Tags);
 
         return this.SqlFilter != null
                    ? this.SqlFilter(sql)
@@ -2745,7 +2936,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     public virtual object Visit(Expression exp)
     {
         if (exp == null)
+        {
             return string.Empty;
+        }
 
         switch (exp.NodeType)
         {
@@ -2829,16 +3022,16 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>object.</returns>
     protected virtual object VisitLambda(LambdaExpression lambda)
     {
-        if (this.originalLambda == null) this.originalLambda = lambda;
+        this.originalLambda ??= lambda;
 
         if (lambda.Body.NodeType == ExpressionType.MemberAccess && this.Sep == " ")
         {
-            MemberExpression m = lambda.Body as MemberExpression;
+            var m = lambda.Body as MemberExpression;
 
             if (m.Expression != null)
             {
                 var r = this.VisitMemberAccess(m);
-                if (!(r is PartialSqlString))
+                if (r is not PartialSqlString)
                     return r;
 
                 if (m.Expression.Type.IsNullableType())
@@ -2956,13 +3149,13 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                         return true; // "null != true/false" becomes "true"
                 }
 
-                if (right is bool rightBool && !IsFieldName(left) && b.Left is not ConditionalExpression)
+                if (right is bool rightBool && !this.IsFieldName(left) && b.Left is not ConditionalExpression)
                 {
                     // Don't change anything when "expr" is a column name or ConditionalExpression - then we really want "ColName = 1" or (Case When 1=0 Then 1 Else 0 End = 1)
                     if (operand == "=")
-                        return rightBool ? left : GetNotValue(left); // "expr == true" becomes "expr", "expr == false" becomes "not (expr)"
+                        return rightBool ? left : this.GetNotValue(left); // "expr == true" becomes "expr", "expr == false" becomes "not (expr)"
                     if (operand == "<>")
-                        return rightBool ? GetNotValue(left) : left; // "expr != true" becomes "not (expr)", "expr != false" becomes "expr"
+                        return rightBool ? this.GetNotValue(left) : left; // "expr != true" becomes "not (expr)", "expr != false" becomes "expr"
                 }
             }
 
@@ -2998,7 +3191,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             else if (left is not PartialSqlString)
             {
                 //left = DialectProvider.GetQuotedValue(left, left?.GetType());
-                left = GetValue(left, left?.GetType());
+                left = this.GetValue(left, left?.GetType());
             }
             else if (right is not PartialSqlString)
             {
@@ -3023,7 +3216,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         }
 
         if (operand == "+" && b.Left.Type == typeof(string) && b.Right.Type == typeof(string))
-            return this.BuildConcatExpression(new List<object> { left, right });
+            return this.BuildConcatExpression([left, right]);
 
         this.VisitFilter(operand, originalLeft, originalRight, ref left, ref right);
 
@@ -3087,7 +3280,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// otherwise, false.</returns>
     protected virtual bool IsParameterAccess(Expression e)
     {
-        return this.CheckExpressionForTypes(e, new[] { ExpressionType.Parameter });
+        return this.CheckExpressionForTypes(e, [ExpressionType.Parameter]);
     }
 
     /// <summary>
@@ -3098,7 +3291,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// otherwise, false.</returns>
     protected virtual bool IsParameterOrConvertAccess(Expression e)
     {
-        return this.CheckExpressionForTypes(e, new[] { ExpressionType.Parameter, ExpressionType.Convert });
+        return this.CheckExpressionForTypes(e, [ExpressionType.Parameter, ExpressionType.Convert]);
     }
 
     /// <summary>
@@ -3109,7 +3302,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>bool.</returns>
     protected virtual bool IsConstantExpression(Expression e)
     {
-        return this.CheckExpressionForTypes(e, new[] { ExpressionType.Constant });
+        return this.CheckExpressionForTypes(e, [ExpressionType.Constant]);
     }
 
     /// <summary>
@@ -3208,25 +3401,25 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
         if (left is not PartialSqlString && left?.ToString() != "null")
         {
-            if (!(originalLeft is MemberExpression leftMe && IsTableColumn(leftMe)))
+            if (!(originalLeft is MemberExpression leftMe && this.IsTableColumn(leftMe)))
             {
-                ConvertToPlaceholderAndParameter(ref left);
+                this.ConvertToPlaceholderAndParameter(ref left);
             }
             else
             {
-                left = DialectProvider.GetQuotedValue(left, left?.GetType());
+                left = this.DialectProvider.GetQuotedValue(left, left?.GetType());
             }
         }
 
         if (right is not PartialSqlString && right?.ToString() != "null")
         {
-            if (!(originalRight is MemberExpression rightMe && IsTableColumn(rightMe)))
+            if (!(originalRight is MemberExpression rightMe && this.IsTableColumn(rightMe)))
             {
-                ConvertToPlaceholderAndParameter(ref right);
+                this.ConvertToPlaceholderAndParameter(ref right);
             }
             else
             {
-                right = DialectProvider.GetQuotedValue(right, right?.GetType());
+                right = this.DialectProvider.GetQuotedValue(right, right?.GetType());
             }
         }
     }
@@ -3319,7 +3512,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
         var tableDef = modelType.GetModelDefinition();
 
-        var tableAlias = GetTableAlias(m, tableDef);
+        var tableAlias = this.GetTableAlias(m, tableDef);
         var columnName = tableAlias == null
                              ? this.GetQuotedColumnName(tableDef, m.Member.Name)
                              : this.GetQuotedColumnName(tableDef, tableAlias, m.Member.Name);
@@ -3359,7 +3552,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                 return this.joinAlias.Alias;
         }
 
-        if (UseJoinTypeAsAliases && joinAliases != null && joinAliases.TryGetValue(tableDef, out var tableOptions))
+        if (this.UseJoinTypeAsAliases && this.joinAliases != null && this.joinAliases.TryGetValue(tableDef, out var tableOptions))
         {
             return tableOptions.Alias;
         }
@@ -3490,9 +3683,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
         if (declareType != null && declareType.Name == nameof(Sql))
         {
-            if (mi.Name == nameof(Sql.TableAlias) || mi.Name == nameof(Sql.JoinAlias))
+            if (mi.Name is nameof(Sql.TableAlias) or nameof(Sql.JoinAlias))
             {
-                if (expr is PartialSqlString ps && ps.Text.IndexOf(',') >= 0)
+                if (expr is PartialSqlString ps && ps.Text.Contains(','))
                     return ps;                                               // new { buyer = Sql.TableAlias(b, "buyer")
                 return new PartialSqlString(expr + " AS " + member.Name);    // new { BuyerName = Sql.TableAlias(b.Name, "buyer") }
             }
@@ -3511,7 +3704,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         {
             // new { Alias = 1 }
             IOrmLiteConverter converter;
-            var strExpr = !(expr is PartialSqlString) && (converter = this.DialectProvider.GetConverterBestMatch(expr.GetType())) != null
+            var strExpr = expr is not PartialSqlString && (converter = this.DialectProvider.GetConverterBestMatch(expr.GetType())) != null
                               ? converter.ToQuotedString(expr.GetType(), expr)
                               : expr.ToString();
 
@@ -3544,7 +3737,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             }
             else if (item is PartialSqlString p)
             {
-                if (p.Text.IndexOf(' ') >= 0)
+                if (p.Text.Contains(' '))
                 {
                     var right = p.Text.RightPart(' ');
                     if (right.StartsWithIgnoreCase("AS "))
@@ -3759,7 +3952,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>object.</returns>
     private object GetNotValue(object o)
     {
-        if (!(o is PartialSqlString))
+        if (o is not PartialSqlString)
             return !(bool)o;
 
         if (this.IsFieldName(o))
@@ -3779,7 +3972,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         {
             foreach (var arg in m.Arguments)
             {
-                if (!(arg is LambdaExpression) && this.IsParameterAccess(arg))
+                if (arg is not LambdaExpression && this.IsParameterAccess(arg))
                 {
                     return true;
                 }
@@ -4006,8 +4199,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <param name="tableDef">The table definition.</param>
     /// <param name="memberName">Name of the member.</param>
     /// <returns>string.</returns>
-    protected virtual string GetQuotedColumnName(ModelDefinition tableDef, string memberName) => // Always call if no tableAlias to exec overrides
-        this.GetQuotedColumnName(tableDef, null, memberName);
+    protected virtual string GetQuotedColumnName(ModelDefinition tableDef, string memberName)
+    {
+        // Always call if no tableAlias to exec overrides
+        return this.GetQuotedColumnName(tableDef, null, memberName);
+    }
 
     /// <summary>
     /// Gets the name of the quoted column.
@@ -4051,9 +4247,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>string.</returns>
     protected string RemoveQuoteFromAlias(string exp)
     {
-        if ((exp.StartsWith("\"") || exp.StartsWith("`") || exp.StartsWith("'"))
+        if ((exp.StartsWith('"') || exp.StartsWith('`') || exp.StartsWith('\''))
             &&
-            (exp.EndsWith("\"") || exp.EndsWith("`") || exp.EndsWith("'")))
+            (exp.EndsWith('"') || exp.EndsWith('`') || exp.EndsWith('\'')))
         {
             exp = exp.Remove(0, 1);
             exp = exp.Remove(exp.Length - 1, 1);
@@ -4185,10 +4381,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         switch (m.Method.Name)
         {
             case "Contains":
-                List<object> args = this.VisitExpressionList(m.Arguments);
-                object quotedColName = args.Last();
+                var args = this.VisitExpressionList(m.Arguments);
+                var quotedColName = args.Last();
 
-                Expression memberExpr = m.Arguments[0];
+                var memberExpr = m.Arguments[0];
                 if (memberExpr.NodeType == ExpressionType.MemberAccess)
                     memberExpr = m.Arguments[0] as MemberExpression;
 
@@ -4224,8 +4420,8 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         switch (m.Method.Name)
         {
             case "Contains":
-                List<object> args = this.VisitExpressionList(m.Arguments);
-                object quotedColName = args[0];
+                var args = this.VisitExpressionList(m.Arguments);
+                var quotedColName = args[0];
                 return this.ToInPartialString(m.Object, quotedColName);
 
             default:
@@ -4272,16 +4468,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <exception cref="NotSupportedException"></exception>
     protected virtual object VisitStaticStringMethodCall(MethodCallExpression m)
     {
-        switch (m.Method.Name)
-        {
-            case nameof(string.Concat):
-                return this.BuildConcatExpression(this.VisitExpressionList(m.Arguments));
-            case nameof(string.Compare):
-                return this.BuildCompareExpression(this.VisitExpressionList(m.Arguments));
-
-            default:
-                throw new NotSupportedException();
-        }
+        return m.Method.Name switch {
+            nameof(string.Concat) => this.BuildConcatExpression(this.VisitExpressionList(m.Arguments)),
+            nameof(string.Compare) => this.BuildCompareExpression(this.VisitExpressionList(m.Arguments)),
+            _ => throw new NotSupportedException()
+        };
     }
 
     /// <summary>
@@ -4321,9 +4512,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>ServiceStack.OrmLite.PartialSqlString.</returns>
     private PartialSqlString BuildConcatExpression(List<object> args)
     {
-        for (int i = 0; i < args.Count; i++)
+        for (var i = 0; i < args.Count; i++)
         {
-            if (!(args[i] is PartialSqlString))
+            if (args[i] is not PartialSqlString)
                 args[i] = this.ConvertToParam(args[i]);
         }
 
@@ -4337,9 +4528,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>ServiceStack.OrmLite.PartialSqlString.</returns>
     private PartialSqlString BuildCompareExpression(List<object> args)
     {
-        for (int i = 0; i < args.Count; i++)
+        for (var i = 0; i < args.Count; i++)
         {
-            if (!(args[i] is PartialSqlString))
+            if (args[i] is not PartialSqlString)
                 args[i] = this.ConvertToParam(args[i]);
         }
 
@@ -4375,8 +4566,8 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <exception cref="SelectList">this.DialectProvider.GetColumnNames(paramModelDef, alias)</exception>
     protected virtual object VisitSqlMethodCall(MethodCallExpression m)
     {
-        List<object> args = this.VisitInSqlExpressionList(m.Arguments);
-        object quotedColName = args[0]; 
+        var args = this.VisitInSqlExpressionList(m.Arguments);
+        var quotedColName = args[0]; 
         var columnEnumMemberAccess = args[0] as EnumMemberAccess;
         args.RemoveAt(0);
 
@@ -4452,7 +4643,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             return FalseLiteral; // "column IN (NULL)" is always false
 
         if (quotedColName is not PartialSqlString)
-            quotedColName = ConvertToParam(quotedColName);
+            quotedColName = this.ConvertToParam(quotedColName);
 
         if (argValue is IEnumerable enumerableArg)
         {
@@ -4460,7 +4651,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             if (inArgs.Count == 0)
                 return FalseLiteral; // "column IN ([])" is always false
 
-            string sqlIn = this.CreateInParamSql(inArgs);
+            var sqlIn = this.CreateInParamSql(inArgs);
             return $"{quotedColName} IN ({sqlIn})";
         }
 
@@ -4525,7 +4716,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <exception cref="NotSupportedException"></exception>
     protected virtual object VisitColumnAccessMethod(MethodCallExpression m)
     {
-        List<object> args = this.VisitExpressionList(m.Arguments);
+        var args = this.VisitExpressionList(m.Arguments);
         var quotedColName = this.Visit(m.Object);
         if (!IsSqlClass(quotedColName))
             quotedColName = this.ConvertToParam(quotedColName);
@@ -4536,10 +4727,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
         string wildcardArg, escapeSuffix = string.Empty;
 
-        if (AllowEscapeWildcards)
+        if (this.AllowEscapeWildcards)
         {
-            wildcardArg = arg != null ? DialectProvider.EscapeWildcards(arg.ToString()) : string.Empty;
-            escapeSuffix = wildcardArg.IndexOf('^') >= 0 ? " escape '^'" : string.Empty;
+            wildcardArg = arg != null ? this.DialectProvider.EscapeWildcards(arg.ToString()) : string.Empty;
+            escapeSuffix = wildcardArg.Contains('^') ? " escape '^'" : string.Empty;
         }
         else
         {
@@ -4780,14 +4971,21 @@ public class PartialSqlString
     /// Converts to string.
     /// </summary>
     /// <returns>string.</returns>
-    public override string ToString() => this.Text;
+    public override string ToString()
+    {
+        return this.Text;
+    }
 
     /// <summary>
     /// Equalses the specified other.
     /// </summary>
     /// <param name="other">The other.</param>
     /// <returns>bool.</returns>
-    protected bool Equals(PartialSqlString other) => this.Text == other.Text;
+    protected bool Equals(PartialSqlString other)
+    {
+        return this.Text == other.Text;
+    }
+
     /// <summary>
     /// Equalses the specified object.
     /// </summary>
@@ -4805,7 +5003,10 @@ public class PartialSqlString
     /// Gets the hash code.
     /// </summary>
     /// <returns>int.</returns>
-    public override int GetHashCode() => this.Text != null ? this.Text.GetHashCode() : 0;
+    public override int GetHashCode()
+    {
+        return this.Text != null ? this.Text.GetHashCode() : 0;
+    }
 }
 
 /// <summary>
@@ -5141,7 +5342,10 @@ public static class DbDataParameterExtensions
     public static IDbDataParameter AddQueryParam(this IOrmLiteDialectProvider dialectProvider,
                                                  IDbCommand dbCmd,
                                                  object value,
-                                                 FieldDefinition fieldDef) => dialectProvider.AddParam(dbCmd, value, fieldDef, paramFilter: dialectProvider.InitQueryParam);
+                                                 FieldDefinition fieldDef)
+    {
+        return dialectProvider.AddParam(dbCmd, value, fieldDef, paramFilter: dialectProvider.InitQueryParam);
+    }
 
     /// <summary>
     /// Adds the update parameter.
@@ -5154,7 +5358,10 @@ public static class DbDataParameterExtensions
     public static IDbDataParameter AddUpdateParam(this IOrmLiteDialectProvider dialectProvider,
                                                   IDbCommand dbCmd,
                                                   object value,
-                                                  FieldDefinition fieldDef) => dialectProvider.AddParam(dbCmd, value, fieldDef, paramFilter: dialectProvider.InitUpdateParam);
+                                                  FieldDefinition fieldDef)
+    {
+        return dialectProvider.AddParam(dbCmd, value, fieldDef, paramFilter: dialectProvider.InitUpdateParam);
+    }
 
     /// <summary>
     /// Adds the parameter.

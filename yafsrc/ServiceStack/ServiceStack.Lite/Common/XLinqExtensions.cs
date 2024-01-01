@@ -52,8 +52,7 @@ public static class XLinqExtensions
     /// <exception cref="System.ArgumentNullException">converter</exception>
     public static T GetAttributeValueOrDefault<T>(this XAttribute attr, string name, Func<XAttribute, T> converter)
     {
-        if (converter == null)
-            throw new ArgumentNullException(nameof(converter));
+        ArgumentNullException.ThrowIfNull(converter);
 
         return IsNullOrEmpty(attr?.Value) ? default : converter(attr);
     }
@@ -151,8 +150,7 @@ public static class XLinqExtensions
     /// <exception cref="System.ArgumentNullException">converter</exception>
     public static T GetElementValueOrDefault<T>(this XElement element, string name, Func<XElement, T> converter)
     {
-        if (converter == null)
-            throw new ArgumentNullException(nameof(converter));
+        ArgumentNullException.ThrowIfNull(converter);
 
         var el = GetElement(element, name);
         return IsNullOrEmpty(el?.Value) ? default : converter(el);
@@ -168,11 +166,9 @@ public static class XLinqExtensions
     /// <exception cref="System.ArgumentNullException">name</exception>
     public static XElement GetElement(this XElement element, string name)
     {
-        if (element == null)
-            throw new ArgumentNullException(nameof(element));
+        ArgumentNullException.ThrowIfNull(element);
 
-        if (name == null)
-            throw new ArgumentNullException(nameof(name));
+        ArgumentNullException.ThrowIfNull(name);
 
         return element.AnyElement(name);
     }
@@ -187,11 +183,9 @@ public static class XLinqExtensions
     /// <exception cref="System.ArgumentNullException"></exception>
     public static void AssertElementHasValue(this XElement element, string name)
     {
-        if (element == null)
-            throw new ArgumentNullException(nameof(element));
+        ArgumentNullException.ThrowIfNull(element);
 
-        if (name == null)
-            throw new ArgumentNullException(nameof(name));
+        ArgumentNullException.ThrowIfNull(name);
 
         var childEl = element.AnyElement(name);
         if (childEl == null || IsNullOrEmpty(childEl.Value))
@@ -223,7 +217,11 @@ public static class XLinqExtensions
     /// <returns>XAttribute.</returns>
     public static XAttribute AnyAttribute(this XElement element, string name)
     {
-        if (element == null) return null;
+        if (element == null)
+        {
+            return null;
+        }
+
         foreach (var attribute in element.Attributes())
         {
             if (attribute.Name.LocalName == name)
@@ -243,10 +241,18 @@ public static class XLinqExtensions
     public static IEnumerable<XElement> AllElements(this XElement element, string name)
     {
         var els = new List<XElement>();
-        if (element == null) return els;
+        if (element == null)
+        {
+            return els;
+        }
+
         foreach (var node in element.Nodes())
         {
-            if (node.NodeType != XmlNodeType.Element) continue;
+            if (node.NodeType != XmlNodeType.Element)
+            {
+                continue;
+            }
+
             var childEl = (XElement)node;
             if (childEl.Name.LocalName == name)
             {
@@ -264,10 +270,18 @@ public static class XLinqExtensions
     /// <returns>XElement.</returns>
     public static XElement AnyElement(this XElement element, string name)
     {
-        if (element == null) return null;
+        if (element == null)
+        {
+            return null;
+        }
+
         foreach (var node in element.Nodes())
         {
-            if (node.NodeType != XmlNodeType.Element) continue;
+            if (node.NodeType != XmlNodeType.Element)
+            {
+                continue;
+            }
+
             var childEl = (XElement)node;
             if (childEl.Name.LocalName == name)
             {
@@ -336,7 +350,9 @@ public static class XLinqExtensions
         while (node != null)
         {
             if (node.NodeType == XmlNodeType.Element)
+            {
                 return (XElement) node;
+            }
 
             node = node.NextNode;
         }

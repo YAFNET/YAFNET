@@ -17,7 +17,7 @@ public class Tracer
     /// <summary>
     /// The instance
     /// </summary>
-    public static ITracer Instance = new NullTracer();
+    public static ITracer Instance { get; } = new NullTracer();
 
     /// <summary>
     /// Class NullTracer.
@@ -59,7 +59,9 @@ public class Tracer
         public void WriteError(Exception ex)
         {
             if (JsConfig.ThrowOnError)
+            {
                 throw ex;
+            }
         }
 
         /// <summary>
@@ -71,7 +73,9 @@ public class Tracer
         public void WriteError(string error)
         {
             if (JsConfig.ThrowOnError)
+            {
                 throw new Exception(error);
+            }
         }
 
         /// <summary>
@@ -84,7 +88,9 @@ public class Tracer
         public void WriteError(string format, params object[] args)
         {
             if (JsConfig.ThrowOnError)
+            {
                 throw new Exception(string.Format(format, args));
+            }
         }
     }
 

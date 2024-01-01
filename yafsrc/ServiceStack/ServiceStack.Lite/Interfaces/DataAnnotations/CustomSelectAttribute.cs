@@ -27,7 +27,7 @@ public class CustomSelectAttribute : AttributeBase
     /// <param name="sql">The SQL.</param>
     public CustomSelectAttribute(string sql)
     {
-        Sql = sql;
+        this.Sql = sql;
     }
 }
 
@@ -50,7 +50,7 @@ public class CustomInsertAttribute : AttributeBase
     /// <param name="sql">The SQL.</param>
     public CustomInsertAttribute(string sql)
     {
-        Sql = sql;
+        this.Sql = sql;
     }
 }
 
@@ -73,6 +73,6 @@ public class CustomUpdateAttribute : AttributeBase
     /// <param name="sql">The SQL.</param>
     public CustomUpdateAttribute(string sql)
     {
-        Sql = sql;
+        this.Sql = sql;
     }
 }

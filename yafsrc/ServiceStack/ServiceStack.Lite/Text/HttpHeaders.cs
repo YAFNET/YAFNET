@@ -238,22 +238,21 @@ public static class HttpHeaders
     /// <summary>
     /// The restricted headers
     /// </summary>
-    public static HashSet<string> RestrictedHeaders = new(StringComparer.OrdinalIgnoreCase)
-                                                          {
-                                                              Accept,
-                                                              Connection,
-                                                              ContentLength,
-                                                              ContentType,
-                                                              Date,
-                                                              Expect,
-                                                              Host,
-                                                              IfModifiedSince,
-                                                              Range,
-                                                              Referer,
-                                                              TransferEncoding,
-                                                              UserAgent,
-                                                              ProxyConnection,
-                                                          };
+    public static HashSet<string> RestrictedHeaders { get; set; } = new(StringComparer.OrdinalIgnoreCase) {
+        Accept,
+        Connection,
+        ContentLength,
+        ContentType,
+        Date,
+        Expect,
+        Host,
+        IfModifiedSince,
+        Range,
+        Referer,
+        TransferEncoding,
+        UserAgent,
+        ProxyConnection,
+    };
 }
 
 

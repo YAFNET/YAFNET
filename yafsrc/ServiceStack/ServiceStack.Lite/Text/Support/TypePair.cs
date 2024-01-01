@@ -32,8 +32,8 @@ public class TypePair
     /// <param name="arg2">The arg2.</param>
     public TypePair(Type[] arg1, Type[] arg2)
     {
-        Args1 = arg1;
-        Arg2 = arg2;
+        this.Args1 = arg1;
+        this.Arg2 = arg2;
     }
 
     /// <summary>
@@ -43,21 +43,37 @@ public class TypePair
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public bool Equals(TypePair other)
     {
-        if (ReferenceEquals(null, other)) return false;
-        if (ReferenceEquals(this, other)) return true;
-        return Equals(other.Args1, Args1) && Equals(other.Arg2, Arg2);
+        if (ReferenceEquals(null, other))
+        {
+            return false;
+        }
+
+        if (ReferenceEquals(this, other))
+        {
+            return true;
+        }
+
+        return Equals(other.Args1, this.Args1) && Equals(other.Arg2, this.Arg2);
     }
 
     /// <summary>
-    /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+    /// Determines whether the specified <see cref="object" /> is equal to this instance.
     /// </summary>
     /// <param name="obj">The object to compare with the current object.</param>
-    /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+    /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
     public override bool Equals(object obj)
     {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == typeof(TypePair) && Equals((TypePair)obj);
+        if (ReferenceEquals(null, obj))
+        {
+            return false;
+        }
+
+        if (ReferenceEquals(this, obj))
+        {
+            return true;
+        }
+
+        return obj.GetType() == typeof(TypePair) && this.Equals((TypePair)obj);
     }
 
     /// <summary>
@@ -68,7 +84,7 @@ public class TypePair
     {
         unchecked
         {
-            return ((Args1 != null ? Args1.GetHashCode() : 0) * 397) ^ (Arg2 != null ? Arg2.GetHashCode() : 0);
+            return ((this.Args1 != null ? this.Args1.GetHashCode() : 0) * 397) ^ (this.Arg2 != null ? this.Arg2.GetHashCode() : 0);
         }
     }
 }

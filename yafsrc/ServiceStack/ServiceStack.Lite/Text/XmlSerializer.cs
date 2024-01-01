@@ -28,7 +28,7 @@ namespace ServiceStack.Text
         /// <summary>
         /// The instance
         /// </summary>
-        public static XmlSerializer Instance = new();
+        public static XmlSerializer Instance { get; } = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="XmlSerializer" /> class.

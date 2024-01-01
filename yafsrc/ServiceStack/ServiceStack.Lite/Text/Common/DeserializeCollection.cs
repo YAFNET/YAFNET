@@ -28,7 +28,10 @@ static internal class DeserializeCollection<TSerializer>
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>ParseStringDelegate.</returns>
-    public static ParseStringDelegate GetParseMethod(Type type) => v => GetParseStringSpanMethod(type)(v.AsSpan());
+    public static ParseStringDelegate GetParseMethod(Type type)
+    {
+        return v => GetParseStringSpanMethod(type)(v.AsSpan());
+    }
 
     /// <summary>
     /// Gets the parse string span method.
@@ -74,7 +77,10 @@ static internal class DeserializeCollection<TSerializer>
     /// <param name="value">The value.</param>
     /// <param name="createType">Type of the create.</param>
     /// <returns>ICollection&lt;System.String&gt;.</returns>
-    public static ICollection<string> ParseStringCollection(string value, Type createType) => ParseStringCollection(value.AsSpan(), createType);
+    public static ICollection<string> ParseStringCollection(string value, Type createType)
+    {
+        return ParseStringCollection(value.AsSpan(), createType);
+    }
 
     /// <summary>
     /// Parses the string collection.
@@ -94,7 +100,10 @@ static internal class DeserializeCollection<TSerializer>
     /// <param name="value">The value.</param>
     /// <param name="createType">Type of the create.</param>
     /// <returns>ICollection&lt;System.Int32&gt;.</returns>
-    public static ICollection<int> ParseIntCollection(string value, Type createType) => ParseIntCollection(value.AsSpan(), createType);
+    public static ICollection<int> ParseIntCollection(string value, Type createType)
+    {
+        return ParseIntCollection(value.AsSpan(), createType);
+    }
 
     /// <summary>
     /// Parses the int collection.
@@ -116,8 +125,10 @@ static internal class DeserializeCollection<TSerializer>
     /// <param name="createType">Type of the create.</param>
     /// <param name="parseFn">The parse function.</param>
     /// <returns>ICollection&lt;T&gt;.</returns>
-    public static ICollection<T> ParseCollection<T>(string value, Type createType, ParseStringDelegate parseFn) =>
-        ParseCollection<T>(value.AsSpan(), createType, v => parseFn(v.ToString()));
+    public static ICollection<T> ParseCollection<T>(string value, Type createType, ParseStringDelegate parseFn)
+    {
+        return ParseCollection<T>(value.AsSpan(), createType, v => parseFn(v.ToString()));
+    }
 
     /// <summary>
     /// Parses the collection.
@@ -129,7 +140,10 @@ static internal class DeserializeCollection<TSerializer>
     /// <returns>ICollection&lt;T&gt;.</returns>
     public static ICollection<T> ParseCollection<T>(ReadOnlySpan<char> value, Type createType, ParseStringSpanDelegate parseFn)
     {
-        if (value.IsEmpty) return null;
+        if (value.IsEmpty)
+        {
+            return null;
+        }
 
         var items = DeserializeArrayWithElements<T, TSerializer>.ParseGenericArray(value, parseFn);
         return CollectionExtensions.CreateAndPopulate(createType, items);
@@ -139,7 +153,7 @@ static internal class DeserializeCollection<TSerializer>
     /// The parse delegate cache
     /// </summary>
     private static Dictionary<Type, ParseCollectionDelegate> ParseDelegateCache
-        = new();
+        = [];
 
     /// <summary>
     /// Delegate ParseCollectionDelegate
@@ -158,8 +172,10 @@ static internal class DeserializeCollection<TSerializer>
     /// <param name="elementType">Type of the element.</param>
     /// <param name="parseFn">The parse function.</param>
     /// <returns>System.Object.</returns>
-    public static object ParseCollectionType(string value, Type createType, Type elementType, ParseStringDelegate parseFn) =>
-        ParseCollectionType(value.AsSpan(), createType, elementType, v => parseFn(v.ToString()));
+    public static object ParseCollectionType(string value, Type createType, Type elementType, ParseStringDelegate parseFn)
+    {
+        return ParseCollectionType(value.AsSpan(), createType, elementType, v => parseFn(v.ToString()));
+    }
 
 
     /// <summary>
@@ -178,7 +194,9 @@ static internal class DeserializeCollection<TSerializer>
     public static object ParseCollectionType(ReadOnlySpan<char> value, Type createType, Type elementType, ParseStringSpanDelegate parseFn)
     {
         if (ParseDelegateCache.TryGetValue(elementType, out var parseDelegate))
+        {
             return parseDelegate(value, createType, parseFn);
+        }
 
         var mi = typeof(DeserializeCollection<TSerializer>).GetStaticMethod("ParseCollection", arguments);
         var genericMi = mi.MakeGenericMethod([elementType]);

@@ -38,10 +38,10 @@ public interface IDynamicNumber
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     bool TryParse(string str, out object result);
     /// <summary>
-    /// Returns a <see cref="System.String" /> that represents this instance.
+    /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>
     /// <param name="value">The value.</param>
-    /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
+    /// <returns>A <see cref="string" /> that represents this instance.</returns>
     string ToString(object value);
     /// <summary>
     /// Gets the default value.
@@ -167,7 +167,7 @@ public class DynamicSByte : IDynamicNumber
     /// <summary>
     /// The instance
     /// </summary>
-    public static DynamicSByte Instance = new();
+    public static DynamicSByte Instance { get; set; } = new();
     /// <summary>
     /// Gets the type.
     /// </summary>
@@ -180,15 +180,22 @@ public class DynamicSByte : IDynamicNumber
     /// <param name="value">The value.</param>
     /// <returns>System.SByte.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public sbyte Convert(object value) => System.Convert.ToSByte(this.ParseString(value) ?? value);
+    public sbyte Convert(object value)
+    {
+        return System.Convert.ToSByte(this.ParseString(value) ?? value);
+    }
+
     /// <summary>
     /// Converts from.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public object ConvertFrom(object value) => this.ParseString(value)
-                                               ?? System.Convert.ToSByte(value);
+    public object ConvertFrom(object value)
+    {
+        return this.ParseString(value)
+               ?? System.Convert.ToSByte(value);
+    }
 
     /// <summary>
     /// Tries the parse.
@@ -198,7 +205,7 @@ public class DynamicSByte : IDynamicNumber
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public bool TryParse(string str, out object result)
     {
-        if (sbyte.TryParse(str, out sbyte value))
+        if (sbyte.TryParse(str, out var value))
         {
             result = value;
             return true;
@@ -208,11 +215,15 @@ public class DynamicSByte : IDynamicNumber
     }
 
     /// <summary>
-    /// Returns a <see cref="System.String" /> that represents this instance.
+    /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>
     /// <param name="value">The value.</param>
-    /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-    public string ToString(object value) => Convert(value).ToString();
+    /// <returns>A <see cref="string" /> that represents this instance.</returns>
+    public string ToString(object value)
+    {
+        return this.Convert(value).ToString();
+    }
+
     /// <summary>
     /// Gets the default value.
     /// </summary>
@@ -225,70 +236,109 @@ public class DynamicSByte : IDynamicNumber
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object add(object lhs, object rhs) => Convert(lhs) + Convert(rhs);
+    public object add(object lhs, object rhs)
+    {
+        return this.Convert(lhs) + this.Convert(rhs);
+    }
+
     /// <summary>
     /// Subs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object sub(object lhs, object rhs) => Convert(lhs) - Convert(rhs);
+    public object sub(object lhs, object rhs)
+    {
+        return this.Convert(lhs) - this.Convert(rhs);
+    }
+
     /// <summary>
     /// Muls the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object mul(object lhs, object rhs) => Convert(lhs) * Convert(rhs);
+    public object mul(object lhs, object rhs)
+    {
+        return this.Convert(lhs) * this.Convert(rhs);
+    }
+
     /// <summary>
     /// Divs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object div(object lhs, object rhs) => Convert(lhs) / Convert(rhs);
+    public object div(object lhs, object rhs)
+    {
+        return this.Convert(lhs) / this.Convert(rhs);
+    }
+
     /// <summary>
     /// Mods the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object mod(object lhs, object rhs) => Convert(lhs) % Convert(rhs);
+    public object mod(object lhs, object rhs)
+    {
+        return this.Convert(lhs) % this.Convert(rhs);
+    }
+
     /// <summary>
     /// Minimums the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object min(object lhs, object rhs) => Math.Min(Convert(lhs), Convert(rhs));
+    public object min(object lhs, object rhs)
+    {
+        return Math.Min(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Maximums the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object max(object lhs, object rhs) => Math.Max(Convert(lhs), Convert(rhs));
+    public object max(object lhs, object rhs)
+    {
+        return Math.Max(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Pows the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object pow(object lhs, object rhs) => Math.Pow(Convert(lhs), Convert(rhs));
+    public object pow(object lhs, object rhs)
+    {
+        return Math.Pow(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Logs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object log(object lhs, object rhs) => Math.Log(Convert(lhs), Convert(rhs));
+    public object log(object lhs, object rhs)
+    {
+        return Math.Log(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Compares to.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Int32.</returns>
-    public int compareTo(object lhs, object rhs) => Convert(lhs).CompareTo(Convert(rhs));
+    public int compareTo(object lhs, object rhs)
+    {
+        return this.Convert(lhs).CompareTo(this.Convert(rhs));
+    }
 
     /// <summary>
     /// Bitwises the and.
@@ -296,35 +346,54 @@ public class DynamicSByte : IDynamicNumber
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseAnd(object lhs, object rhs) => Convert(lhs) & Convert(rhs);
+    public object bitwiseAnd(object lhs, object rhs)
+    {
+        return this.Convert(lhs) & this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the or.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseOr(object lhs, object rhs) => Convert(lhs) | Convert(rhs);
+    public object bitwiseOr(object lhs, object rhs)
+    {
+        return this.Convert(lhs) | this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the x or.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseXOr(object lhs, object rhs) => Convert(lhs) ^ Convert(rhs);
+    public object bitwiseXOr(object lhs, object rhs)
+    {
+        return this.Convert(lhs) ^ this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the left shift.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseLeftShift(object lhs, object rhs) => Convert(lhs) << Convert(rhs);
+    public object bitwiseLeftShift(object lhs, object rhs)
+    {
+        return this.Convert(lhs) << this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the right shift.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseRightShift(object lhs, object rhs) => Convert(lhs) >> Convert(rhs);
+    public object bitwiseRightShift(object lhs, object rhs)
+    {
+        return this.Convert(lhs) >> this.Convert(rhs);
+    }
 }
 
 /// <summary>
@@ -337,7 +406,7 @@ public class DynamicByte : IDynamicNumber
     /// <summary>
     /// The instance
     /// </summary>
-    public static DynamicByte Instance = new();
+    public static DynamicByte Instance { get; } = new();
     /// <summary>
     /// Gets the type.
     /// </summary>
@@ -350,15 +419,22 @@ public class DynamicByte : IDynamicNumber
     /// <param name="value">The value.</param>
     /// <returns>System.Byte.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public byte Convert(object value) => System.Convert.ToByte(this.ParseString(value) ?? value);
+    public byte Convert(object value)
+    {
+        return System.Convert.ToByte(this.ParseString(value) ?? value);
+    }
+
     /// <summary>
     /// Converts from.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public object ConvertFrom(object value) => this.ParseString(value)
-                                               ?? System.Convert.ToByte(value);
+    public object ConvertFrom(object value)
+    {
+        return this.ParseString(value)
+               ?? System.Convert.ToByte(value);
+    }
 
     /// <summary>
     /// Tries the parse.
@@ -368,7 +444,7 @@ public class DynamicByte : IDynamicNumber
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public bool TryParse(string str, out object result)
     {
-        if (byte.TryParse(str, out byte value))
+        if (byte.TryParse(str, out var value))
         {
             result = value;
             return true;
@@ -378,11 +454,15 @@ public class DynamicByte : IDynamicNumber
     }
 
     /// <summary>
-    /// Returns a <see cref="System.String" /> that represents this instance.
+    /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>
     /// <param name="value">The value.</param>
-    /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-    public string ToString(object value) => Convert(value).ToString();
+    /// <returns>A <see cref="string" /> that represents this instance.</returns>
+    public string ToString(object value)
+    {
+        return this.Convert(value).ToString();
+    }
+
     /// <summary>
     /// Gets the default value.
     /// </summary>
@@ -395,70 +475,109 @@ public class DynamicByte : IDynamicNumber
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object add(object lhs, object rhs) => Convert(lhs) + Convert(rhs);
+    public object add(object lhs, object rhs)
+    {
+        return this.Convert(lhs) + this.Convert(rhs);
+    }
+
     /// <summary>
     /// Subs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object sub(object lhs, object rhs) => Convert(lhs) - Convert(rhs);
+    public object sub(object lhs, object rhs)
+    {
+        return this.Convert(lhs) - this.Convert(rhs);
+    }
+
     /// <summary>
     /// Muls the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object mul(object lhs, object rhs) => Convert(lhs) * Convert(rhs);
+    public object mul(object lhs, object rhs)
+    {
+        return this.Convert(lhs) * this.Convert(rhs);
+    }
+
     /// <summary>
     /// Divs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object div(object lhs, object rhs) => Convert(lhs) / Convert(rhs);
+    public object div(object lhs, object rhs)
+    {
+        return this.Convert(lhs) / this.Convert(rhs);
+    }
+
     /// <summary>
     /// Mods the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object mod(object lhs, object rhs) => Convert(lhs) % Convert(rhs);
+    public object mod(object lhs, object rhs)
+    {
+        return this.Convert(lhs) % this.Convert(rhs);
+    }
+
     /// <summary>
     /// Minimums the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object min(object lhs, object rhs) => Math.Min(Convert(lhs), Convert(rhs));
+    public object min(object lhs, object rhs)
+    {
+        return Math.Min(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Maximums the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object max(object lhs, object rhs) => Math.Max(Convert(lhs), Convert(rhs));
+    public object max(object lhs, object rhs)
+    {
+        return Math.Max(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Pows the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object pow(object lhs, object rhs) => Math.Pow(Convert(lhs), Convert(rhs));
+    public object pow(object lhs, object rhs)
+    {
+        return Math.Pow(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Logs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object log(object lhs, object rhs) => Math.Log(Convert(lhs), Convert(rhs));
+    public object log(object lhs, object rhs)
+    {
+        return Math.Log(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Compares to.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Int32.</returns>
-    public int compareTo(object lhs, object rhs) => Convert(lhs).CompareTo(Convert(rhs));
+    public int compareTo(object lhs, object rhs)
+    {
+        return this.Convert(lhs).CompareTo(this.Convert(rhs));
+    }
 
     /// <summary>
     /// Bitwises the and.
@@ -466,35 +585,54 @@ public class DynamicByte : IDynamicNumber
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseAnd(object lhs, object rhs) => Convert(lhs) & Convert(rhs);
+    public object bitwiseAnd(object lhs, object rhs)
+    {
+        return this.Convert(lhs) & this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the or.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseOr(object lhs, object rhs) => Convert(lhs) | Convert(rhs);
+    public object bitwiseOr(object lhs, object rhs)
+    {
+        return this.Convert(lhs) | this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the x or.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseXOr(object lhs, object rhs) => Convert(lhs) ^ Convert(rhs);
+    public object bitwiseXOr(object lhs, object rhs)
+    {
+        return this.Convert(lhs) ^ this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the left shift.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseLeftShift(object lhs, object rhs) => Convert(lhs) << Convert(rhs);
+    public object bitwiseLeftShift(object lhs, object rhs)
+    {
+        return this.Convert(lhs) << this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the right shift.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseRightShift(object lhs, object rhs) => Convert(lhs) >> Convert(rhs);
+    public object bitwiseRightShift(object lhs, object rhs)
+    {
+        return this.Convert(lhs) >> this.Convert(rhs);
+    }
 }
 
 /// <summary>
@@ -507,7 +645,7 @@ public class DynamicShort : IDynamicNumber
     /// <summary>
     /// The instance
     /// </summary>
-    public static DynamicShort Instance = new();
+    public static DynamicShort Instance { get; } = new();
     /// <summary>
     /// Gets the type.
     /// </summary>
@@ -520,15 +658,22 @@ public class DynamicShort : IDynamicNumber
     /// <param name="value">The value.</param>
     /// <returns>System.Int16.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public short Convert(object value) => System.Convert.ToInt16(this.ParseString(value) ?? value);
+    public short Convert(object value)
+    {
+        return System.Convert.ToInt16(this.ParseString(value) ?? value);
+    }
+
     /// <summary>
     /// Converts from.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public object ConvertFrom(object value) => this.ParseString(value)
-                                               ?? System.Convert.ToInt16(value);
+    public object ConvertFrom(object value)
+    {
+        return this.ParseString(value)
+               ?? System.Convert.ToInt16(value);
+    }
 
     /// <summary>
     /// Tries the parse.
@@ -538,7 +683,7 @@ public class DynamicShort : IDynamicNumber
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public bool TryParse(string str, out object result)
     {
-        if (short.TryParse(str, out short value))
+        if (short.TryParse(str, out var value))
         {
             result = value;
             return true;
@@ -548,11 +693,15 @@ public class DynamicShort : IDynamicNumber
     }
 
     /// <summary>
-    /// Returns a <see cref="System.String" /> that represents this instance.
+    /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>
     /// <param name="value">The value.</param>
-    /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-    public string ToString(object value) => Convert(value).ToString();
+    /// <returns>A <see cref="string" /> that represents this instance.</returns>
+    public string ToString(object value)
+    {
+        return this.Convert(value).ToString();
+    }
+
     /// <summary>
     /// Gets the default value.
     /// </summary>
@@ -565,70 +714,109 @@ public class DynamicShort : IDynamicNumber
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object add(object lhs, object rhs) => Convert(lhs) + Convert(rhs);
+    public object add(object lhs, object rhs)
+    {
+        return this.Convert(lhs) + this.Convert(rhs);
+    }
+
     /// <summary>
     /// Subs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object sub(object lhs, object rhs) => Convert(lhs) - Convert(rhs);
+    public object sub(object lhs, object rhs)
+    {
+        return this.Convert(lhs) - this.Convert(rhs);
+    }
+
     /// <summary>
     /// Muls the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object mul(object lhs, object rhs) => Convert(lhs) * Convert(rhs);
+    public object mul(object lhs, object rhs)
+    {
+        return this.Convert(lhs) * this.Convert(rhs);
+    }
+
     /// <summary>
     /// Divs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object div(object lhs, object rhs) => Convert(lhs) / Convert(rhs);
+    public object div(object lhs, object rhs)
+    {
+        return this.Convert(lhs) / this.Convert(rhs);
+    }
+
     /// <summary>
     /// Mods the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object mod(object lhs, object rhs) => Convert(lhs) % Convert(rhs);
+    public object mod(object lhs, object rhs)
+    {
+        return this.Convert(lhs) % this.Convert(rhs);
+    }
+
     /// <summary>
     /// Minimums the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object min(object lhs, object rhs) => Math.Min(Convert(lhs), Convert(rhs));
+    public object min(object lhs, object rhs)
+    {
+        return Math.Min(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Maximums the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object max(object lhs, object rhs) => Math.Max(Convert(lhs), Convert(rhs));
+    public object max(object lhs, object rhs)
+    {
+        return Math.Max(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Pows the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object pow(object lhs, object rhs) => Math.Pow(Convert(lhs), Convert(rhs));
+    public object pow(object lhs, object rhs)
+    {
+        return Math.Pow(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Logs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object log(object lhs, object rhs) => Math.Log(Convert(lhs), Convert(rhs));
+    public object log(object lhs, object rhs)
+    {
+        return Math.Log(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Compares to.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Int32.</returns>
-    public int compareTo(object lhs, object rhs) => Convert(lhs).CompareTo(Convert(rhs));
+    public int compareTo(object lhs, object rhs)
+    {
+        return this.Convert(lhs).CompareTo(this.Convert(rhs));
+    }
 
     /// <summary>
     /// Bitwises the and.
@@ -636,35 +824,54 @@ public class DynamicShort : IDynamicNumber
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseAnd(object lhs, object rhs) => Convert(lhs) & Convert(rhs);
+    public object bitwiseAnd(object lhs, object rhs)
+    {
+        return this.Convert(lhs) & this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the or.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseOr(object lhs, object rhs) => Convert(lhs) | Convert(rhs);
+    public object bitwiseOr(object lhs, object rhs)
+    {
+        return this.Convert(lhs) | this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the x or.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseXOr(object lhs, object rhs) => Convert(lhs) ^ Convert(rhs);
+    public object bitwiseXOr(object lhs, object rhs)
+    {
+        return this.Convert(lhs) ^ this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the left shift.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseLeftShift(object lhs, object rhs) => Convert(lhs) << Convert(rhs);
+    public object bitwiseLeftShift(object lhs, object rhs)
+    {
+        return this.Convert(lhs) << this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the right shift.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseRightShift(object lhs, object rhs) => Convert(lhs) >> Convert(rhs);
+    public object bitwiseRightShift(object lhs, object rhs)
+    {
+        return this.Convert(lhs) >> this.Convert(rhs);
+    }
 }
 
 /// <summary>
@@ -677,7 +884,7 @@ public class DynamicUShort : IDynamicNumber
     /// <summary>
     /// The instance
     /// </summary>
-    public static DynamicUShort Instance = new();
+    public static DynamicUShort Instance { get; } = new();
     /// <summary>
     /// Gets the type.
     /// </summary>
@@ -690,15 +897,22 @@ public class DynamicUShort : IDynamicNumber
     /// <param name="value">The value.</param>
     /// <returns>System.UInt16.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public ushort Convert(object value) => System.Convert.ToUInt16(this.ParseString(value) ?? value);
+    public ushort Convert(object value)
+    {
+        return System.Convert.ToUInt16(this.ParseString(value) ?? value);
+    }
+
     /// <summary>
     /// Converts from.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public object ConvertFrom(object value) => this.ParseString(value)
-                                               ?? System.Convert.ToUInt16(value);
+    public object ConvertFrom(object value)
+    {
+        return this.ParseString(value)
+               ?? System.Convert.ToUInt16(value);
+    }
 
     /// <summary>
     /// Tries the parse.
@@ -708,7 +922,7 @@ public class DynamicUShort : IDynamicNumber
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public bool TryParse(string str, out object result)
     {
-        if (ushort.TryParse(str, out ushort value))
+        if (ushort.TryParse(str, out var value))
         {
             result = value;
             return true;
@@ -718,11 +932,15 @@ public class DynamicUShort : IDynamicNumber
     }
 
     /// <summary>
-    /// Returns a <see cref="System.String" /> that represents this instance.
+    /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>
     /// <param name="value">The value.</param>
-    /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-    public string ToString(object value) => Convert(value).ToString();
+    /// <returns>A <see cref="string" /> that represents this instance.</returns>
+    public string ToString(object value)
+    {
+        return this.Convert(value).ToString();
+    }
+
     /// <summary>
     /// Gets the default value.
     /// </summary>
@@ -735,70 +953,109 @@ public class DynamicUShort : IDynamicNumber
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object add(object lhs, object rhs) => Convert(lhs) + Convert(rhs);
+    public object add(object lhs, object rhs)
+    {
+        return this.Convert(lhs) + this.Convert(rhs);
+    }
+
     /// <summary>
     /// Subs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object sub(object lhs, object rhs) => Convert(lhs) - Convert(rhs);
+    public object sub(object lhs, object rhs)
+    {
+        return this.Convert(lhs) - this.Convert(rhs);
+    }
+
     /// <summary>
     /// Muls the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object mul(object lhs, object rhs) => Convert(lhs) * Convert(rhs);
+    public object mul(object lhs, object rhs)
+    {
+        return this.Convert(lhs) * this.Convert(rhs);
+    }
+
     /// <summary>
     /// Divs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object div(object lhs, object rhs) => Convert(lhs) / Convert(rhs);
+    public object div(object lhs, object rhs)
+    {
+        return this.Convert(lhs) / this.Convert(rhs);
+    }
+
     /// <summary>
     /// Mods the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object mod(object lhs, object rhs) => Convert(lhs) % Convert(rhs);
+    public object mod(object lhs, object rhs)
+    {
+        return this.Convert(lhs) % this.Convert(rhs);
+    }
+
     /// <summary>
     /// Minimums the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object min(object lhs, object rhs) => Math.Min(Convert(lhs), Convert(rhs));
+    public object min(object lhs, object rhs)
+    {
+        return Math.Min(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Maximums the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object max(object lhs, object rhs) => Math.Max(Convert(lhs), Convert(rhs));
+    public object max(object lhs, object rhs)
+    {
+        return Math.Max(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Pows the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object pow(object lhs, object rhs) => Math.Pow(Convert(lhs), Convert(rhs));
+    public object pow(object lhs, object rhs)
+    {
+        return Math.Pow(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Logs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object log(object lhs, object rhs) => Math.Log(Convert(lhs), Convert(rhs));
+    public object log(object lhs, object rhs)
+    {
+        return Math.Log(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Compares to.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Int32.</returns>
-    public int compareTo(object lhs, object rhs) => Convert(lhs).CompareTo(Convert(rhs));
+    public int compareTo(object lhs, object rhs)
+    {
+        return this.Convert(lhs).CompareTo(this.Convert(rhs));
+    }
 
     /// <summary>
     /// Bitwises the and.
@@ -806,35 +1063,54 @@ public class DynamicUShort : IDynamicNumber
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseAnd(object lhs, object rhs) => Convert(lhs) & Convert(rhs);
+    public object bitwiseAnd(object lhs, object rhs)
+    {
+        return this.Convert(lhs) & this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the or.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseOr(object lhs, object rhs) => Convert(lhs) | Convert(rhs);
+    public object bitwiseOr(object lhs, object rhs)
+    {
+        return this.Convert(lhs) | this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the x or.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseXOr(object lhs, object rhs) => Convert(lhs) ^ Convert(rhs);
+    public object bitwiseXOr(object lhs, object rhs)
+    {
+        return this.Convert(lhs) ^ this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the left shift.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseLeftShift(object lhs, object rhs) => Convert(lhs) << Convert(rhs);
+    public object bitwiseLeftShift(object lhs, object rhs)
+    {
+        return this.Convert(lhs) << this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the right shift.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseRightShift(object lhs, object rhs) => Convert(lhs) >> Convert(rhs);
+    public object bitwiseRightShift(object lhs, object rhs)
+    {
+        return this.Convert(lhs) >> this.Convert(rhs);
+    }
 }
 
 /// <summary>
@@ -847,7 +1123,7 @@ public class DynamicInt : IDynamicNumber
     /// <summary>
     /// The instance
     /// </summary>
-    public static DynamicInt Instance = new();
+    public static DynamicInt Instance { get; } = new();
     /// <summary>
     /// Gets the type.
     /// </summary>
@@ -860,15 +1136,22 @@ public class DynamicInt : IDynamicNumber
     /// <param name="value">The value.</param>
     /// <returns>System.Int32.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public int Convert(object value) => System.Convert.ToInt32(this.ParseString(value) ?? value);
+    public int Convert(object value)
+    {
+        return System.Convert.ToInt32(this.ParseString(value) ?? value);
+    }
+
     /// <summary>
     /// Converts from.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public object ConvertFrom(object value) => this.ParseString(value)
-                                               ?? System.Convert.ToInt32(value);
+    public object ConvertFrom(object value)
+    {
+        return this.ParseString(value)
+               ?? System.Convert.ToInt32(value);
+    }
 
     /// <summary>
     /// Tries the parse.
@@ -878,7 +1161,7 @@ public class DynamicInt : IDynamicNumber
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public bool TryParse(string str, out object result)
     {
-        if (int.TryParse(str, out int value))
+        if (int.TryParse(str, out var value))
         {
             result = value;
             return true;
@@ -888,11 +1171,15 @@ public class DynamicInt : IDynamicNumber
     }
 
     /// <summary>
-    /// Returns a <see cref="System.String" /> that represents this instance.
+    /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>
     /// <param name="value">The value.</param>
-    /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-    public string ToString(object value) => Convert(value).ToString();
+    /// <returns>A <see cref="string" /> that represents this instance.</returns>
+    public string ToString(object value)
+    {
+        return this.Convert(value).ToString();
+    }
+
     /// <summary>
     /// Gets the default value.
     /// </summary>
@@ -905,70 +1192,109 @@ public class DynamicInt : IDynamicNumber
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object add(object lhs, object rhs) => Convert(lhs) + Convert(rhs);
+    public object add(object lhs, object rhs)
+    {
+        return this.Convert(lhs) + this.Convert(rhs);
+    }
+
     /// <summary>
     /// Subs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object sub(object lhs, object rhs) => Convert(lhs) - Convert(rhs);
+    public object sub(object lhs, object rhs)
+    {
+        return this.Convert(lhs) - this.Convert(rhs);
+    }
+
     /// <summary>
     /// Muls the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object mul(object lhs, object rhs) => Convert(lhs) * Convert(rhs);
+    public object mul(object lhs, object rhs)
+    {
+        return this.Convert(lhs) * this.Convert(rhs);
+    }
+
     /// <summary>
     /// Divs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object div(object lhs, object rhs) => Convert(lhs) / Convert(rhs);
+    public object div(object lhs, object rhs)
+    {
+        return this.Convert(lhs) / this.Convert(rhs);
+    }
+
     /// <summary>
     /// Mods the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object mod(object lhs, object rhs) => Convert(lhs) % Convert(rhs);
+    public object mod(object lhs, object rhs)
+    {
+        return this.Convert(lhs) % this.Convert(rhs);
+    }
+
     /// <summary>
     /// Minimums the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object min(object lhs, object rhs) => Math.Min(Convert(lhs), Convert(rhs));
+    public object min(object lhs, object rhs)
+    {
+        return Math.Min(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Maximums the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object max(object lhs, object rhs) => Math.Max(Convert(lhs), Convert(rhs));
+    public object max(object lhs, object rhs)
+    {
+        return Math.Max(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Pows the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object pow(object lhs, object rhs) => Math.Pow(Convert(lhs), Convert(rhs));
+    public object pow(object lhs, object rhs)
+    {
+        return Math.Pow(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Logs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object log(object lhs, object rhs) => Math.Log(Convert(lhs), Convert(rhs));
+    public object log(object lhs, object rhs)
+    {
+        return Math.Log(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Compares to.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Int32.</returns>
-    public int compareTo(object lhs, object rhs) => Convert(lhs).CompareTo(Convert(rhs));
+    public int compareTo(object lhs, object rhs)
+    {
+        return this.Convert(lhs).CompareTo(this.Convert(rhs));
+    }
 
     /// <summary>
     /// Bitwises the and.
@@ -976,35 +1302,54 @@ public class DynamicInt : IDynamicNumber
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseAnd(object lhs, object rhs) => Convert(lhs) & Convert(rhs);
+    public object bitwiseAnd(object lhs, object rhs)
+    {
+        return this.Convert(lhs) & this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the or.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseOr(object lhs, object rhs) => Convert(lhs) | Convert(rhs);
+    public object bitwiseOr(object lhs, object rhs)
+    {
+        return this.Convert(lhs) | this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the x or.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseXOr(object lhs, object rhs) => Convert(lhs) ^ Convert(rhs);
+    public object bitwiseXOr(object lhs, object rhs)
+    {
+        return this.Convert(lhs) ^ this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the left shift.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseLeftShift(object lhs, object rhs) => Convert(lhs) << Convert(rhs);
+    public object bitwiseLeftShift(object lhs, object rhs)
+    {
+        return this.Convert(lhs) << this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the right shift.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseRightShift(object lhs, object rhs) => Convert(lhs) >> Convert(rhs);
+    public object bitwiseRightShift(object lhs, object rhs)
+    {
+        return this.Convert(lhs) >> this.Convert(rhs);
+    }
 }
 
 /// <summary>
@@ -1017,7 +1362,7 @@ public class DynamicUInt : IDynamicNumber
     /// <summary>
     /// The instance
     /// </summary>
-    public static DynamicUInt Instance = new();
+    public static DynamicUInt Instance { get; } = new();
     /// <summary>
     /// Gets the type.
     /// </summary>
@@ -1030,15 +1375,22 @@ public class DynamicUInt : IDynamicNumber
     /// <param name="value">The value.</param>
     /// <returns>System.UInt32.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public uint Convert(object value) => System.Convert.ToUInt32(this.ParseString(value) ?? value);
+    public uint Convert(object value)
+    {
+        return System.Convert.ToUInt32(this.ParseString(value) ?? value);
+    }
+
     /// <summary>
     /// Converts from.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public object ConvertFrom(object value) => this.ParseString(value)
-                                               ?? System.Convert.ToUInt32(value);
+    public object ConvertFrom(object value)
+    {
+        return this.ParseString(value)
+               ?? System.Convert.ToUInt32(value);
+    }
 
     /// <summary>
     /// Tries the parse.
@@ -1048,7 +1400,7 @@ public class DynamicUInt : IDynamicNumber
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public bool TryParse(string str, out object result)
     {
-        if (uint.TryParse(str, out uint value))
+        if (uint.TryParse(str, out var value))
         {
             result = value;
             return true;
@@ -1058,11 +1410,15 @@ public class DynamicUInt : IDynamicNumber
     }
 
     /// <summary>
-    /// Returns a <see cref="System.String" /> that represents this instance.
+    /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>
     /// <param name="value">The value.</param>
-    /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-    public string ToString(object value) => Convert(value).ToString();
+    /// <returns>A <see cref="string" /> that represents this instance.</returns>
+    public string ToString(object value)
+    {
+        return this.Convert(value).ToString();
+    }
+
     /// <summary>
     /// Gets the default value.
     /// </summary>
@@ -1075,70 +1431,109 @@ public class DynamicUInt : IDynamicNumber
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object add(object lhs, object rhs) => Convert(lhs) + Convert(rhs);
+    public object add(object lhs, object rhs)
+    {
+        return this.Convert(lhs) + this.Convert(rhs);
+    }
+
     /// <summary>
     /// Subs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object sub(object lhs, object rhs) => Convert(lhs) - Convert(rhs);
+    public object sub(object lhs, object rhs)
+    {
+        return this.Convert(lhs) - this.Convert(rhs);
+    }
+
     /// <summary>
     /// Muls the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object mul(object lhs, object rhs) => Convert(lhs) * Convert(rhs);
+    public object mul(object lhs, object rhs)
+    {
+        return this.Convert(lhs) * this.Convert(rhs);
+    }
+
     /// <summary>
     /// Divs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object div(object lhs, object rhs) => Convert(lhs) / Convert(rhs);
+    public object div(object lhs, object rhs)
+    {
+        return this.Convert(lhs) / this.Convert(rhs);
+    }
+
     /// <summary>
     /// Mods the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object mod(object lhs, object rhs) => Convert(lhs) % Convert(rhs);
+    public object mod(object lhs, object rhs)
+    {
+        return this.Convert(lhs) % this.Convert(rhs);
+    }
+
     /// <summary>
     /// Minimums the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object min(object lhs, object rhs) => Math.Min(Convert(lhs), Convert(rhs));
+    public object min(object lhs, object rhs)
+    {
+        return Math.Min(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Maximums the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object max(object lhs, object rhs) => Math.Max(Convert(lhs), Convert(rhs));
+    public object max(object lhs, object rhs)
+    {
+        return Math.Max(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Pows the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object pow(object lhs, object rhs) => Math.Pow(Convert(lhs), Convert(rhs));
+    public object pow(object lhs, object rhs)
+    {
+        return Math.Pow(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Logs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object log(object lhs, object rhs) => Math.Log(Convert(lhs), Convert(rhs));
+    public object log(object lhs, object rhs)
+    {
+        return Math.Log(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Compares to.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Int32.</returns>
-    public int compareTo(object lhs, object rhs) => Convert(lhs).CompareTo(Convert(rhs));
+    public int compareTo(object lhs, object rhs)
+    {
+        return this.Convert(lhs).CompareTo(this.Convert(rhs));
+    }
 
     /// <summary>
     /// Bitwises the and.
@@ -1146,35 +1541,54 @@ public class DynamicUInt : IDynamicNumber
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseAnd(object lhs, object rhs) => Convert(lhs) & Convert(rhs);
+    public object bitwiseAnd(object lhs, object rhs)
+    {
+        return this.Convert(lhs) & this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the or.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseOr(object lhs, object rhs) => Convert(lhs) | Convert(rhs);
+    public object bitwiseOr(object lhs, object rhs)
+    {
+        return this.Convert(lhs) | this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the x or.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseXOr(object lhs, object rhs) => Convert(lhs) ^ Convert(rhs);
+    public object bitwiseXOr(object lhs, object rhs)
+    {
+        return this.Convert(lhs) ^ this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the left shift.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseLeftShift(object lhs, object rhs) => Convert(lhs) << (int)Convert(rhs);
+    public object bitwiseLeftShift(object lhs, object rhs)
+    {
+        return this.Convert(lhs) << (int)this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the right shift.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseRightShift(object lhs, object rhs) => Convert(lhs) >> (int)Convert(rhs);
+    public object bitwiseRightShift(object lhs, object rhs)
+    {
+        return this.Convert(lhs) >> (int)this.Convert(rhs);
+    }
 }
 
 /// <summary>
@@ -1187,7 +1601,7 @@ public class DynamicLong : IDynamicNumber
     /// <summary>
     /// The instance
     /// </summary>
-    public static DynamicLong Instance = new();
+    public static DynamicLong Instance { get; } = new();
     /// <summary>
     /// Gets the type.
     /// </summary>
@@ -1200,15 +1614,22 @@ public class DynamicLong : IDynamicNumber
     /// <param name="value">The value.</param>
     /// <returns>System.Int64.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public long Convert(object value) => System.Convert.ToInt64(this.ParseString(value) ?? value);
+    public long Convert(object value)
+    {
+        return System.Convert.ToInt64(this.ParseString(value) ?? value);
+    }
+
     /// <summary>
     /// Converts from.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public object ConvertFrom(object value) => this.ParseString(value)
-                                               ?? System.Convert.ToInt64(value);
+    public object ConvertFrom(object value)
+    {
+        return this.ParseString(value)
+               ?? System.Convert.ToInt64(value);
+    }
 
     /// <summary>
     /// Tries the parse.
@@ -1218,7 +1639,7 @@ public class DynamicLong : IDynamicNumber
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public bool TryParse(string str, out object result)
     {
-        if (long.TryParse(str, out long value))
+        if (long.TryParse(str, out var value))
         {
             result = value;
             return true;
@@ -1228,11 +1649,15 @@ public class DynamicLong : IDynamicNumber
     }
 
     /// <summary>
-    /// Returns a <see cref="System.String" /> that represents this instance.
+    /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>
     /// <param name="value">The value.</param>
-    /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-    public string ToString(object value) => Convert(value).ToString();
+    /// <returns>A <see cref="string" /> that represents this instance.</returns>
+    public string ToString(object value)
+    {
+        return this.Convert(value).ToString();
+    }
+
     /// <summary>
     /// Gets the default value.
     /// </summary>
@@ -1245,70 +1670,109 @@ public class DynamicLong : IDynamicNumber
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object add(object lhs, object rhs) => Convert(lhs) + Convert(rhs);
+    public object add(object lhs, object rhs)
+    {
+        return this.Convert(lhs) + this.Convert(rhs);
+    }
+
     /// <summary>
     /// Subs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object sub(object lhs, object rhs) => Convert(lhs) - Convert(rhs);
+    public object sub(object lhs, object rhs)
+    {
+        return this.Convert(lhs) - this.Convert(rhs);
+    }
+
     /// <summary>
     /// Muls the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object mul(object lhs, object rhs) => Convert(lhs) * Convert(rhs);
+    public object mul(object lhs, object rhs)
+    {
+        return this.Convert(lhs) * this.Convert(rhs);
+    }
+
     /// <summary>
     /// Divs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object div(object lhs, object rhs) => Convert(lhs) / Convert(rhs);
+    public object div(object lhs, object rhs)
+    {
+        return this.Convert(lhs) / this.Convert(rhs);
+    }
+
     /// <summary>
     /// Mods the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object mod(object lhs, object rhs) => Convert(lhs) % Convert(rhs);
+    public object mod(object lhs, object rhs)
+    {
+        return this.Convert(lhs) % this.Convert(rhs);
+    }
+
     /// <summary>
     /// Minimums the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object min(object lhs, object rhs) => Math.Min(Convert(lhs), Convert(rhs));
+    public object min(object lhs, object rhs)
+    {
+        return Math.Min(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Maximums the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object max(object lhs, object rhs) => Math.Max(Convert(lhs), Convert(rhs));
+    public object max(object lhs, object rhs)
+    {
+        return Math.Max(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Pows the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object pow(object lhs, object rhs) => Math.Pow(Convert(lhs), Convert(rhs));
+    public object pow(object lhs, object rhs)
+    {
+        return Math.Pow(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Logs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object log(object lhs, object rhs) => Math.Log(Convert(lhs), Convert(rhs));
+    public object log(object lhs, object rhs)
+    {
+        return Math.Log(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Compares to.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Int32.</returns>
-    public int compareTo(object lhs, object rhs) => Convert(lhs).CompareTo(Convert(rhs));
+    public int compareTo(object lhs, object rhs)
+    {
+        return this.Convert(lhs).CompareTo(this.Convert(rhs));
+    }
 
     /// <summary>
     /// Bitwises the and.
@@ -1316,35 +1780,54 @@ public class DynamicLong : IDynamicNumber
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseAnd(object lhs, object rhs) => Convert(lhs) & Convert(rhs);
+    public object bitwiseAnd(object lhs, object rhs)
+    {
+        return this.Convert(lhs) & this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the or.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseOr(object lhs, object rhs) => Convert(lhs) | Convert(rhs);
+    public object bitwiseOr(object lhs, object rhs)
+    {
+        return this.Convert(lhs) | this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the x or.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseXOr(object lhs, object rhs) => Convert(lhs) ^ Convert(rhs);
+    public object bitwiseXOr(object lhs, object rhs)
+    {
+        return this.Convert(lhs) ^ this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the left shift.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseLeftShift(object lhs, object rhs) => Convert(lhs) << (int)Convert(rhs);
+    public object bitwiseLeftShift(object lhs, object rhs)
+    {
+        return this.Convert(lhs) << (int)this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the right shift.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseRightShift(object lhs, object rhs) => Convert(lhs) >> (int)Convert(rhs);
+    public object bitwiseRightShift(object lhs, object rhs)
+    {
+        return this.Convert(lhs) >> (int)this.Convert(rhs);
+    }
 }
 
 /// <summary>
@@ -1357,7 +1840,7 @@ public class DynamicULong : IDynamicNumber
     /// <summary>
     /// The instance
     /// </summary>
-    public static DynamicULong Instance = new();
+    public static DynamicULong Instance { get; } = new();
     /// <summary>
     /// Gets the type.
     /// </summary>
@@ -1370,15 +1853,22 @@ public class DynamicULong : IDynamicNumber
     /// <param name="value">The value.</param>
     /// <returns>System.UInt64.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public ulong Convert(object value) => System.Convert.ToUInt64(this.ParseString(value) ?? value);
+    public ulong Convert(object value)
+    {
+        return System.Convert.ToUInt64(this.ParseString(value) ?? value);
+    }
+
     /// <summary>
     /// Converts from.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public object ConvertFrom(object value) => this.ParseString(value)
-                                               ?? System.Convert.ToUInt64(value);
+    public object ConvertFrom(object value)
+    {
+        return this.ParseString(value)
+               ?? System.Convert.ToUInt64(value);
+    }
 
     /// <summary>
     /// Tries the parse.
@@ -1388,7 +1878,7 @@ public class DynamicULong : IDynamicNumber
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public bool TryParse(string str, out object result)
     {
-        if (ulong.TryParse(str, out ulong value))
+        if (ulong.TryParse(str, out var value))
         {
             result = value;
             return true;
@@ -1398,11 +1888,15 @@ public class DynamicULong : IDynamicNumber
     }
 
     /// <summary>
-    /// Returns a <see cref="System.String" /> that represents this instance.
+    /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>
     /// <param name="value">The value.</param>
-    /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-    public string ToString(object value) => Convert(value).ToString();
+    /// <returns>A <see cref="string" /> that represents this instance.</returns>
+    public string ToString(object value)
+    {
+        return this.Convert(value).ToString();
+    }
+
     /// <summary>
     /// Gets the default value.
     /// </summary>
@@ -1415,70 +1909,109 @@ public class DynamicULong : IDynamicNumber
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object add(object lhs, object rhs) => Convert(lhs) + Convert(rhs);
+    public object add(object lhs, object rhs)
+    {
+        return this.Convert(lhs) + this.Convert(rhs);
+    }
+
     /// <summary>
     /// Subs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object sub(object lhs, object rhs) => Convert(lhs) - Convert(rhs);
+    public object sub(object lhs, object rhs)
+    {
+        return this.Convert(lhs) - this.Convert(rhs);
+    }
+
     /// <summary>
     /// Muls the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object mul(object lhs, object rhs) => Convert(lhs) * Convert(rhs);
+    public object mul(object lhs, object rhs)
+    {
+        return this.Convert(lhs) * this.Convert(rhs);
+    }
+
     /// <summary>
     /// Divs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object div(object lhs, object rhs) => Convert(lhs) / Convert(rhs);
+    public object div(object lhs, object rhs)
+    {
+        return this.Convert(lhs) / this.Convert(rhs);
+    }
+
     /// <summary>
     /// Mods the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object mod(object lhs, object rhs) => Convert(lhs) % Convert(rhs);
+    public object mod(object lhs, object rhs)
+    {
+        return this.Convert(lhs) % this.Convert(rhs);
+    }
+
     /// <summary>
     /// Minimums the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object min(object lhs, object rhs) => Math.Min(Convert(lhs), Convert(rhs));
+    public object min(object lhs, object rhs)
+    {
+        return Math.Min(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Maximums the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object max(object lhs, object rhs) => Math.Max(Convert(lhs), Convert(rhs));
+    public object max(object lhs, object rhs)
+    {
+        return Math.Max(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Pows the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object pow(object lhs, object rhs) => Math.Pow(Convert(lhs), Convert(rhs));
+    public object pow(object lhs, object rhs)
+    {
+        return Math.Pow(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Logs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object log(object lhs, object rhs) => Math.Log(Convert(lhs), Convert(rhs));
+    public object log(object lhs, object rhs)
+    {
+        return Math.Log(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Compares to.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Int32.</returns>
-    public int compareTo(object lhs, object rhs) => Convert(lhs).CompareTo(Convert(rhs));
+    public int compareTo(object lhs, object rhs)
+    {
+        return this.Convert(lhs).CompareTo(this.Convert(rhs));
+    }
 
     /// <summary>
     /// Bitwises the and.
@@ -1486,35 +2019,54 @@ public class DynamicULong : IDynamicNumber
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseAnd(object lhs, object rhs) => Convert(lhs) & Convert(rhs);
+    public object bitwiseAnd(object lhs, object rhs)
+    {
+        return this.Convert(lhs) & this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the or.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseOr(object lhs, object rhs) => Convert(lhs) | Convert(rhs);
+    public object bitwiseOr(object lhs, object rhs)
+    {
+        return this.Convert(lhs) | this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the x or.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseXOr(object lhs, object rhs) => Convert(lhs) ^ Convert(rhs);
+    public object bitwiseXOr(object lhs, object rhs)
+    {
+        return this.Convert(lhs) ^ this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the left shift.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseLeftShift(object lhs, object rhs) => Convert(lhs) << (int)Convert(rhs);
+    public object bitwiseLeftShift(object lhs, object rhs)
+    {
+        return this.Convert(lhs) << (int)this.Convert(rhs);
+    }
+
     /// <summary>
     /// Bitwises the right shift.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object bitwiseRightShift(object lhs, object rhs) => Convert(lhs) >> (int)Convert(rhs);
+    public object bitwiseRightShift(object lhs, object rhs)
+    {
+        return this.Convert(lhs) >> (int)this.Convert(rhs);
+    }
 }
 
 /// <summary>
@@ -1527,7 +2079,7 @@ public class DynamicFloat : IDynamicNumber
     /// <summary>
     /// The instance
     /// </summary>
-    public static DynamicFloat Instance = new();
+    public static DynamicFloat Instance { get; } = new();
     /// <summary>
     /// Gets the type.
     /// </summary>
@@ -1540,15 +2092,22 @@ public class DynamicFloat : IDynamicNumber
     /// <param name="value">The value.</param>
     /// <returns>System.Single.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public float Convert(object value) => System.Convert.ToSingle(this.ParseString(value) ?? value);
+    public float Convert(object value)
+    {
+        return System.Convert.ToSingle(this.ParseString(value) ?? value);
+    }
+
     /// <summary>
     /// Converts from.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public object ConvertFrom(object value) => this.ParseString(value)
-                                               ?? System.Convert.ToSingle(value);
+    public object ConvertFrom(object value)
+    {
+        return this.ParseString(value)
+               ?? System.Convert.ToSingle(value);
+    }
 
     /// <summary>
     /// Tries the parse.
@@ -1558,7 +2117,7 @@ public class DynamicFloat : IDynamicNumber
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public bool TryParse(string str, out object result)
     {
-        if (str.AsSpan().TryParseFloat(out float value))
+        if (str.AsSpan().TryParseFloat(out var value))
         {
             result = value;
             return true;
@@ -1568,11 +2127,15 @@ public class DynamicFloat : IDynamicNumber
     }
 
     /// <summary>
-    /// Returns a <see cref="System.String" /> that represents this instance.
+    /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>
     /// <param name="value">The value.</param>
-    /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-    public string ToString(object value) => Convert(value).ToString("r", CultureInfo.InvariantCulture);
+    /// <returns>A <see cref="string" /> that represents this instance.</returns>
+    public string ToString(object value)
+    {
+        return this.Convert(value).ToString("r", CultureInfo.InvariantCulture);
+    }
+
     /// <summary>
     /// Gets the default value.
     /// </summary>
@@ -1585,70 +2148,109 @@ public class DynamicFloat : IDynamicNumber
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object add(object lhs, object rhs) => Convert(lhs) + Convert(rhs);
+    public object add(object lhs, object rhs)
+    {
+        return this.Convert(lhs) + this.Convert(rhs);
+    }
+
     /// <summary>
     /// Subs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object sub(object lhs, object rhs) => Convert(lhs) - Convert(rhs);
+    public object sub(object lhs, object rhs)
+    {
+        return this.Convert(lhs) - this.Convert(rhs);
+    }
+
     /// <summary>
     /// Muls the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object mul(object lhs, object rhs) => Convert(lhs) * Convert(rhs);
+    public object mul(object lhs, object rhs)
+    {
+        return this.Convert(lhs) * this.Convert(rhs);
+    }
+
     /// <summary>
     /// Divs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object div(object lhs, object rhs) => Convert(lhs) / Convert(rhs);
+    public object div(object lhs, object rhs)
+    {
+        return this.Convert(lhs) / this.Convert(rhs);
+    }
+
     /// <summary>
     /// Mods the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object mod(object lhs, object rhs) => Convert(lhs) % Convert(rhs);
+    public object mod(object lhs, object rhs)
+    {
+        return this.Convert(lhs) % this.Convert(rhs);
+    }
+
     /// <summary>
     /// Minimums the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object min(object lhs, object rhs) => Math.Min(Convert(lhs), Convert(rhs));
+    public object min(object lhs, object rhs)
+    {
+        return Math.Min(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Maximums the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object max(object lhs, object rhs) => Math.Max(Convert(lhs), Convert(rhs));
+    public object max(object lhs, object rhs)
+    {
+        return Math.Max(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Pows the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object pow(object lhs, object rhs) => Math.Pow(Convert(lhs), Convert(rhs));
+    public object pow(object lhs, object rhs)
+    {
+        return Math.Pow(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Logs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object log(object lhs, object rhs) => Math.Log(Convert(lhs), Convert(rhs));
+    public object log(object lhs, object rhs)
+    {
+        return Math.Log(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Compares to.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Int32.</returns>
-    public int compareTo(object lhs, object rhs) => Convert(lhs).CompareTo(Convert(rhs));
+    public int compareTo(object lhs, object rhs)
+    {
+        return this.Convert(lhs).CompareTo(this.Convert(rhs));
+    }
 
     /// <summary>
     /// Bitwises the and.
@@ -1657,7 +2259,11 @@ public class DynamicFloat : IDynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     /// <exception cref="System.NotSupportedException">Bitwise operators only supported on integer types</exception>
-    public object bitwiseAnd(object lhs, object rhs) => throw new NotSupportedException("Bitwise operators only supported on integer types");
+    public object bitwiseAnd(object lhs, object rhs)
+    {
+        throw new NotSupportedException("Bitwise operators only supported on integer types");
+    }
+
     /// <summary>
     /// Bitwises the or.
     /// </summary>
@@ -1665,7 +2271,11 @@ public class DynamicFloat : IDynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     /// <exception cref="System.NotSupportedException">Bitwise operators only supported on integer types</exception>
-    public object bitwiseOr(object lhs, object rhs) => throw new NotSupportedException("Bitwise operators only supported on integer types");
+    public object bitwiseOr(object lhs, object rhs)
+    {
+        throw new NotSupportedException("Bitwise operators only supported on integer types");
+    }
+
     /// <summary>
     /// Bitwises the x or.
     /// </summary>
@@ -1673,7 +2283,11 @@ public class DynamicFloat : IDynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     /// <exception cref="System.NotSupportedException">Bitwise operators only supported on integer types</exception>
-    public object bitwiseXOr(object lhs, object rhs) => throw new NotSupportedException("Bitwise operators only supported on integer types");
+    public object bitwiseXOr(object lhs, object rhs)
+    {
+        throw new NotSupportedException("Bitwise operators only supported on integer types");
+    }
+
     /// <summary>
     /// Bitwises the left shift.
     /// </summary>
@@ -1681,7 +2295,11 @@ public class DynamicFloat : IDynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     /// <exception cref="System.NotSupportedException">Bitwise operators only supported on integer types</exception>
-    public object bitwiseLeftShift(object lhs, object rhs) => throw new NotSupportedException("Bitwise operators only supported on integer types");
+    public object bitwiseLeftShift(object lhs, object rhs)
+    {
+        throw new NotSupportedException("Bitwise operators only supported on integer types");
+    }
+
     /// <summary>
     /// Bitwises the right shift.
     /// </summary>
@@ -1689,7 +2307,10 @@ public class DynamicFloat : IDynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     /// <exception cref="System.NotSupportedException">Bitwise operators only supported on integer types</exception>
-    public object bitwiseRightShift(object lhs, object rhs) => throw new NotSupportedException("Bitwise operators only supported on integer types");
+    public object bitwiseRightShift(object lhs, object rhs)
+    {
+        throw new NotSupportedException("Bitwise operators only supported on integer types");
+    }
 }
 
 /// <summary>
@@ -1702,7 +2323,7 @@ public class DynamicDouble : IDynamicNumber
     /// <summary>
     /// The instance
     /// </summary>
-    public static DynamicDouble Instance = new();
+    public static DynamicDouble Instance { get; } = new();
     /// <summary>
     /// Gets the type.
     /// </summary>
@@ -1715,15 +2336,22 @@ public class DynamicDouble : IDynamicNumber
     /// <param name="value">The value.</param>
     /// <returns>System.Double.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public double Convert(object value) => System.Convert.ToDouble(this.ParseString(value) ?? value);
+    public double Convert(object value)
+    {
+        return System.Convert.ToDouble(this.ParseString(value) ?? value);
+    }
+
     /// <summary>
     /// Converts from.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public object ConvertFrom(object value) => this.ParseString(value)
-                                               ?? System.Convert.ToDouble(value);
+    public object ConvertFrom(object value)
+    {
+        return this.ParseString(value)
+               ?? System.Convert.ToDouble(value);
+    }
 
     /// <summary>
     /// Tries the parse.
@@ -1733,7 +2361,7 @@ public class DynamicDouble : IDynamicNumber
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public bool TryParse(string str, out object result)
     {
-        if (str.AsSpan().TryParseDouble(out double value))
+        if (str.AsSpan().TryParseDouble(out var value))
         {
             result = value;
             return true;
@@ -1743,11 +2371,15 @@ public class DynamicDouble : IDynamicNumber
     }
 
     /// <summary>
-    /// Returns a <see cref="System.String" /> that represents this instance.
+    /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>
     /// <param name="value">The value.</param>
-    /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-    public string ToString(object value) => Convert(value).ToString("r", CultureInfo.InvariantCulture);
+    /// <returns>A <see cref="string" /> that represents this instance.</returns>
+    public string ToString(object value)
+    {
+        return this.Convert(value).ToString("r", CultureInfo.InvariantCulture);
+    }
+
     /// <summary>
     /// Gets the default value.
     /// </summary>
@@ -1760,70 +2392,109 @@ public class DynamicDouble : IDynamicNumber
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object add(object lhs, object rhs) => Convert(lhs) + Convert(rhs);
+    public object add(object lhs, object rhs)
+    {
+        return this.Convert(lhs) + this.Convert(rhs);
+    }
+
     /// <summary>
     /// Subs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object sub(object lhs, object rhs) => Convert(lhs) - Convert(rhs);
+    public object sub(object lhs, object rhs)
+    {
+        return this.Convert(lhs) - this.Convert(rhs);
+    }
+
     /// <summary>
     /// Muls the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object mul(object lhs, object rhs) => Convert(lhs) * Convert(rhs);
+    public object mul(object lhs, object rhs)
+    {
+        return this.Convert(lhs) * this.Convert(rhs);
+    }
+
     /// <summary>
     /// Divs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object div(object lhs, object rhs) => Convert(lhs) / Convert(rhs);
+    public object div(object lhs, object rhs)
+    {
+        return this.Convert(lhs) / this.Convert(rhs);
+    }
+
     /// <summary>
     /// Mods the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object mod(object lhs, object rhs) => Convert(lhs) % Convert(rhs);
+    public object mod(object lhs, object rhs)
+    {
+        return this.Convert(lhs) % this.Convert(rhs);
+    }
+
     /// <summary>
     /// Minimums the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object min(object lhs, object rhs) => Math.Min(Convert(lhs), Convert(rhs));
+    public object min(object lhs, object rhs)
+    {
+        return Math.Min(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Maximums the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object max(object lhs, object rhs) => Math.Max(Convert(lhs), Convert(rhs));
+    public object max(object lhs, object rhs)
+    {
+        return Math.Max(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Pows the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object pow(object lhs, object rhs) => Math.Pow(Convert(lhs), Convert(rhs));
+    public object pow(object lhs, object rhs)
+    {
+        return Math.Pow(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Logs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object log(object lhs, object rhs) => Math.Log(Convert(lhs), Convert(rhs));
+    public object log(object lhs, object rhs)
+    {
+        return Math.Log(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Compares to.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Int32.</returns>
-    public int compareTo(object lhs, object rhs) => Convert(lhs).CompareTo(Convert(rhs));
+    public int compareTo(object lhs, object rhs)
+    {
+        return this.Convert(lhs).CompareTo(this.Convert(rhs));
+    }
 
     /// <summary>
     /// Bitwises the and.
@@ -1832,7 +2503,11 @@ public class DynamicDouble : IDynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     /// <exception cref="System.NotSupportedException">Bitwise operators only supported on integer types</exception>
-    public object bitwiseAnd(object lhs, object rhs) => throw new NotSupportedException("Bitwise operators only supported on integer types");
+    public object bitwiseAnd(object lhs, object rhs)
+    {
+        throw new NotSupportedException("Bitwise operators only supported on integer types");
+    }
+
     /// <summary>
     /// Bitwises the or.
     /// </summary>
@@ -1840,7 +2515,11 @@ public class DynamicDouble : IDynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     /// <exception cref="System.NotSupportedException">Bitwise operators only supported on integer types</exception>
-    public object bitwiseOr(object lhs, object rhs) => throw new NotSupportedException("Bitwise operators only supported on integer types");
+    public object bitwiseOr(object lhs, object rhs)
+    {
+        throw new NotSupportedException("Bitwise operators only supported on integer types");
+    }
+
     /// <summary>
     /// Bitwises the x or.
     /// </summary>
@@ -1848,7 +2527,11 @@ public class DynamicDouble : IDynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     /// <exception cref="System.NotSupportedException">Bitwise operators only supported on integer types</exception>
-    public object bitwiseXOr(object lhs, object rhs) => throw new NotSupportedException("Bitwise operators only supported on integer types");
+    public object bitwiseXOr(object lhs, object rhs)
+    {
+        throw new NotSupportedException("Bitwise operators only supported on integer types");
+    }
+
     /// <summary>
     /// Bitwises the left shift.
     /// </summary>
@@ -1856,7 +2539,11 @@ public class DynamicDouble : IDynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     /// <exception cref="System.NotSupportedException">Bitwise operators only supported on integer types</exception>
-    public object bitwiseLeftShift(object lhs, object rhs) => throw new NotSupportedException("Bitwise operators only supported on integer types");
+    public object bitwiseLeftShift(object lhs, object rhs)
+    {
+        throw new NotSupportedException("Bitwise operators only supported on integer types");
+    }
+
     /// <summary>
     /// Bitwises the right shift.
     /// </summary>
@@ -1864,7 +2551,10 @@ public class DynamicDouble : IDynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     /// <exception cref="System.NotSupportedException">Bitwise operators only supported on integer types</exception>
-    public object bitwiseRightShift(object lhs, object rhs) => throw new NotSupportedException("Bitwise operators only supported on integer types");
+    public object bitwiseRightShift(object lhs, object rhs)
+    {
+        throw new NotSupportedException("Bitwise operators only supported on integer types");
+    }
 }
 
 /// <summary>
@@ -1877,7 +2567,7 @@ public class DynamicDecimal : IDynamicNumber
     /// <summary>
     /// The instance
     /// </summary>
-    public static DynamicDecimal Instance = new();
+    public static DynamicDecimal Instance { get; } = new();
     /// <summary>
     /// Gets the type.
     /// </summary>
@@ -1890,15 +2580,22 @@ public class DynamicDecimal : IDynamicNumber
     /// <param name="value">The value.</param>
     /// <returns>System.Decimal.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public decimal Convert(object value) => System.Convert.ToDecimal(this.ParseString(value) ?? value);
+    public decimal Convert(object value)
+    {
+        return System.Convert.ToDecimal(this.ParseString(value) ?? value);
+    }
+
     /// <summary>
     /// Converts from.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public object ConvertFrom(object value) => this.ParseString(value)
-                                               ?? System.Convert.ToDecimal(value);
+    public object ConvertFrom(object value)
+    {
+        return this.ParseString(value)
+               ?? System.Convert.ToDecimal(value);
+    }
 
     /// <summary>
     /// Tries the parse.
@@ -1908,7 +2605,7 @@ public class DynamicDecimal : IDynamicNumber
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public bool TryParse(string str, out object result)
     {
-        if (str.AsSpan().TryParseDecimal(out decimal value))
+        if (str.AsSpan().TryParseDecimal(out var value))
         {
             result = value;
             return true;
@@ -1918,11 +2615,15 @@ public class DynamicDecimal : IDynamicNumber
     }
 
     /// <summary>
-    /// Returns a <see cref="System.String" /> that represents this instance.
+    /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>
     /// <param name="value">The value.</param>
-    /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-    public string ToString(object value) => Convert(value).ToString(CultureInfo.InvariantCulture);
+    /// <returns>A <see cref="string" /> that represents this instance.</returns>
+    public string ToString(object value)
+    {
+        return this.Convert(value).ToString(CultureInfo.InvariantCulture);
+    }
+
     /// <summary>
     /// Gets the default value.
     /// </summary>
@@ -1935,70 +2636,109 @@ public class DynamicDecimal : IDynamicNumber
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object add(object lhs, object rhs) => Convert(lhs) + Convert(rhs);
+    public object add(object lhs, object rhs)
+    {
+        return this.Convert(lhs) + this.Convert(rhs);
+    }
+
     /// <summary>
     /// Subs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object sub(object lhs, object rhs) => Convert(lhs) - Convert(rhs);
+    public object sub(object lhs, object rhs)
+    {
+        return this.Convert(lhs) - this.Convert(rhs);
+    }
+
     /// <summary>
     /// Muls the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object mul(object lhs, object rhs) => Convert(lhs) * Convert(rhs);
+    public object mul(object lhs, object rhs)
+    {
+        return this.Convert(lhs) * this.Convert(rhs);
+    }
+
     /// <summary>
     /// Divs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object div(object lhs, object rhs) => Convert(lhs) / Convert(rhs);
+    public object div(object lhs, object rhs)
+    {
+        return this.Convert(lhs) / this.Convert(rhs);
+    }
+
     /// <summary>
     /// Mods the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object mod(object lhs, object rhs) => Convert(lhs) % Convert(rhs);
+    public object mod(object lhs, object rhs)
+    {
+        return this.Convert(lhs) % this.Convert(rhs);
+    }
+
     /// <summary>
     /// Minimums the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object min(object lhs, object rhs) => Math.Min(Convert(lhs), Convert(rhs));
+    public object min(object lhs, object rhs)
+    {
+        return Math.Min(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Maximums the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object max(object lhs, object rhs) => Math.Max(Convert(lhs), Convert(rhs));
+    public object max(object lhs, object rhs)
+    {
+        return Math.Max(this.Convert(lhs), this.Convert(rhs));
+    }
+
     /// <summary>
     /// Pows the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object pow(object lhs, object rhs) => Math.Pow((double)Convert(lhs), (double)Convert(rhs));
+    public object pow(object lhs, object rhs)
+    {
+        return Math.Pow((double)this.Convert(lhs), (double)this.Convert(rhs));
+    }
+
     /// <summary>
     /// Logs the specified LHS.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
-    public object log(object lhs, object rhs) => Math.Log((double)Convert(lhs), (double)Convert(rhs));
+    public object log(object lhs, object rhs)
+    {
+        return Math.Log((double)this.Convert(lhs), (double)this.Convert(rhs));
+    }
+
     /// <summary>
     /// Compares to.
     /// </summary>
     /// <param name="lhs">The LHS.</param>
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Int32.</returns>
-    public int compareTo(object lhs, object rhs) => Convert(lhs).CompareTo(Convert(rhs));
+    public int compareTo(object lhs, object rhs)
+    {
+        return this.Convert(lhs).CompareTo(this.Convert(rhs));
+    }
 
     /// <summary>
     /// Bitwises the and.
@@ -2007,7 +2747,11 @@ public class DynamicDecimal : IDynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     /// <exception cref="System.NotSupportedException">Bitwise operators only supported on integer types</exception>
-    public object bitwiseAnd(object lhs, object rhs) => throw new NotSupportedException("Bitwise operators only supported on integer types");
+    public object bitwiseAnd(object lhs, object rhs)
+    {
+        throw new NotSupportedException("Bitwise operators only supported on integer types");
+    }
+
     /// <summary>
     /// Bitwises the or.
     /// </summary>
@@ -2015,7 +2759,11 @@ public class DynamicDecimal : IDynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     /// <exception cref="System.NotSupportedException">Bitwise operators only supported on integer types</exception>
-    public object bitwiseOr(object lhs, object rhs) => throw new NotSupportedException("Bitwise operators only supported on integer types");
+    public object bitwiseOr(object lhs, object rhs)
+    {
+        throw new NotSupportedException("Bitwise operators only supported on integer types");
+    }
+
     /// <summary>
     /// Bitwises the x or.
     /// </summary>
@@ -2023,7 +2771,11 @@ public class DynamicDecimal : IDynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     /// <exception cref="System.NotSupportedException">Bitwise operators only supported on integer types</exception>
-    public object bitwiseXOr(object lhs, object rhs) => throw new NotSupportedException("Bitwise operators only supported on integer types");
+    public object bitwiseXOr(object lhs, object rhs)
+    {
+        throw new NotSupportedException("Bitwise operators only supported on integer types");
+    }
+
     /// <summary>
     /// Bitwises the left shift.
     /// </summary>
@@ -2031,7 +2783,11 @@ public class DynamicDecimal : IDynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     /// <exception cref="System.NotSupportedException">Bitwise operators only supported on integer types</exception>
-    public object bitwiseLeftShift(object lhs, object rhs) => throw new NotSupportedException("Bitwise operators only supported on integer types");
+    public object bitwiseLeftShift(object lhs, object rhs)
+    {
+        throw new NotSupportedException("Bitwise operators only supported on integer types");
+    }
+
     /// <summary>
     /// Bitwises the right shift.
     /// </summary>
@@ -2039,7 +2795,10 @@ public class DynamicDecimal : IDynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     /// <exception cref="System.NotSupportedException">Bitwise operators only supported on integer types</exception>
-    public object bitwiseRightShift(object lhs, object rhs) => throw new NotSupportedException("Bitwise operators only supported on integer types");
+    public object bitwiseRightShift(object lhs, object rhs)
+    {
+        throw new NotSupportedException("Bitwise operators only supported on integer types");
+    }
 }
 
 /// <summary>
@@ -2069,7 +2828,10 @@ public static class DynamicNumber
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns><c>true</c> if the specified type is number; otherwise, <c>false</c>.</returns>
-    public static bool IsNumber(Type type) => TryGetRanking(type, out _);
+    public static bool IsNumber(Type type)
+    {
+        return TryGetRanking(type, out _);
+    }
 
     /// <summary>
     /// Tries the get ranking.
@@ -2128,8 +2890,10 @@ public static class DynamicNumber
     /// <returns>IDynamicNumber.</returns>
     public static IDynamicNumber GetNumber(Type type)
     {
-        if (!TryGetRanking(type, out int objIndex))
+        if (!TryGetRanking(type, out var objIndex))
+        {
             return null;
+        }
 
         var maxNumber = RankNumbers[objIndex];
         return maxNumber;
@@ -2148,7 +2912,7 @@ public static class DynamicNumber
             case string lhsString when !TryParse(lhsString, out obj):
                 return null;
             default:
-                return TryGetRanking(obj.GetType(), out int lhsRanking)
+                return TryGetRanking(obj.GetType(), out var lhsRanking)
                            ? RankNumbers[lhsRanking]
                            : null;
         }
@@ -2163,16 +2927,24 @@ public static class DynamicNumber
     public static IDynamicNumber GetNumber(object lhs, object rhs)
     {
         if (lhs == null || rhs == null)
+        {
             return null;
+        }
 
         if (lhs is string lhsString && !TryParse(lhsString, out lhs))
+        {
             return null;
+        }
 
         if (rhs is string rhsString && !TryParse(rhsString, out rhs))
+        {
             return null;
+        }
 
-        if (!TryGetRanking(lhs.GetType(), out int lhsRanking) || !TryGetRanking(rhs.GetType(), out int rhsRanking))
+        if (!TryGetRanking(lhs.GetType(), out var lhsRanking) || !TryGetRanking(rhs.GetType(), out var rhsRanking))
+        {
             return null;
+        }
 
         var maxRanking = Math.Max(lhsRanking, rhsRanking);
         var maxNumber = RankNumbers[maxRanking];
@@ -2209,7 +2981,10 @@ public static class DynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object Add(object lhs, object rhs) => AssertNumbers(nameof(Add), lhs, rhs).add(lhs, rhs);
+    public static object Add(object lhs, object rhs)
+    {
+        return AssertNumbers(nameof(Add), lhs, rhs).add(lhs, rhs);
+    }
 
     /// <summary>
     /// Subs the specified LHS.
@@ -2218,7 +2993,10 @@ public static class DynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object Sub(object lhs, object rhs) => AssertNumbers(nameof(Subtract), lhs, rhs).sub(lhs, rhs);
+    public static object Sub(object lhs, object rhs)
+    {
+        return AssertNumbers(nameof(Subtract), lhs, rhs).sub(lhs, rhs);
+    }
 
     /// <summary>
     /// Subtracts the specified LHS.
@@ -2227,7 +3005,10 @@ public static class DynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object Subtract(object lhs, object rhs) => AssertNumbers(nameof(Subtract), lhs, rhs).sub(lhs, rhs);
+    public static object Subtract(object lhs, object rhs)
+    {
+        return AssertNumbers(nameof(Subtract), lhs, rhs).sub(lhs, rhs);
+    }
 
     /// <summary>
     /// Muls the specified LHS.
@@ -2236,7 +3017,10 @@ public static class DynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object Mul(object lhs, object rhs) => AssertNumbers(nameof(Multiply), lhs, rhs).mul(lhs, rhs);
+    public static object Mul(object lhs, object rhs)
+    {
+        return AssertNumbers(nameof(Multiply), lhs, rhs).mul(lhs, rhs);
+    }
 
     /// <summary>
     /// Multiplies the specified LHS.
@@ -2245,7 +3029,10 @@ public static class DynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object Multiply(object lhs, object rhs) => AssertNumbers(nameof(Multiply), lhs, rhs).mul(lhs, rhs);
+    public static object Multiply(object lhs, object rhs)
+    {
+        return AssertNumbers(nameof(Multiply), lhs, rhs).mul(lhs, rhs);
+    }
 
     /// <summary>
     /// Divs the specified LHS.
@@ -2254,7 +3041,10 @@ public static class DynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object Div(object lhs, object rhs) => AssertNumbers(nameof(Divide), lhs, rhs).div(lhs, rhs);
+    public static object Div(object lhs, object rhs)
+    {
+        return AssertNumbers(nameof(Divide), lhs, rhs).div(lhs, rhs);
+    }
 
     /// <summary>
     /// Divides the specified LHS.
@@ -2263,7 +3053,10 @@ public static class DynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object Divide(object lhs, object rhs) => AssertNumbers(nameof(Divide), lhs, rhs).div(lhs, rhs);
+    public static object Divide(object lhs, object rhs)
+    {
+        return AssertNumbers(nameof(Divide), lhs, rhs).div(lhs, rhs);
+    }
 
     /// <summary>
     /// Mods the specified LHS.
@@ -2272,7 +3065,10 @@ public static class DynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object Mod(object lhs, object rhs) => AssertNumbers(nameof(Mod), lhs, rhs).mod(lhs, rhs);
+    public static object Mod(object lhs, object rhs)
+    {
+        return AssertNumbers(nameof(Mod), lhs, rhs).mod(lhs, rhs);
+    }
 
     /// <summary>
     /// Determines the minimum of the parameters.
@@ -2281,7 +3077,10 @@ public static class DynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object Min(object lhs, object rhs) => AssertNumbers(nameof(Min), lhs, rhs).min(lhs, rhs);
+    public static object Min(object lhs, object rhs)
+    {
+        return AssertNumbers(nameof(Min), lhs, rhs).min(lhs, rhs);
+    }
 
     /// <summary>
     /// Determines the maximum of the parameters.
@@ -2290,7 +3089,10 @@ public static class DynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object Max(object lhs, object rhs) => AssertNumbers(nameof(Max), lhs, rhs).max(lhs, rhs);
+    public static object Max(object lhs, object rhs)
+    {
+        return AssertNumbers(nameof(Max), lhs, rhs).max(lhs, rhs);
+    }
 
     /// <summary>
     /// Pows the specified LHS.
@@ -2299,7 +3101,10 @@ public static class DynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object Pow(object lhs, object rhs) => AssertNumbers(nameof(Pow), lhs, rhs).pow(lhs, rhs);
+    public static object Pow(object lhs, object rhs)
+    {
+        return AssertNumbers(nameof(Pow), lhs, rhs).pow(lhs, rhs);
+    }
 
     /// <summary>
     /// Logs the specified LHS.
@@ -2308,7 +3113,10 @@ public static class DynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object Log(object lhs, object rhs) => AssertNumbers(nameof(Log), lhs, rhs).log(lhs, rhs);
+    public static object Log(object lhs, object rhs)
+    {
+        return AssertNumbers(nameof(Log), lhs, rhs).log(lhs, rhs);
+    }
 
     /// <summary>
     /// Compares to.
@@ -2317,7 +3125,10 @@ public static class DynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Int32.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static int CompareTo(object lhs, object rhs) => AssertNumbers(nameof(CompareTo), lhs, rhs).compareTo(lhs, rhs);
+    public static int CompareTo(object lhs, object rhs)
+    {
+        return AssertNumbers(nameof(CompareTo), lhs, rhs).compareTo(lhs, rhs);
+    }
 
     /// <summary>
     /// Bitwises the and.
@@ -2326,7 +3137,10 @@ public static class DynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object BitwiseAnd(object lhs, object rhs) => AssertNumbers(nameof(BitwiseAnd), lhs, rhs).bitwiseAnd(lhs, rhs);
+    public static object BitwiseAnd(object lhs, object rhs)
+    {
+        return AssertNumbers(nameof(BitwiseAnd), lhs, rhs).bitwiseAnd(lhs, rhs);
+    }
 
     /// <summary>
     /// Bitwises the or.
@@ -2335,7 +3149,10 @@ public static class DynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object BitwiseOr(object lhs, object rhs) => AssertNumbers(nameof(BitwiseOr), lhs, rhs).bitwiseOr(lhs, rhs);
+    public static object BitwiseOr(object lhs, object rhs)
+    {
+        return AssertNumbers(nameof(BitwiseOr), lhs, rhs).bitwiseOr(lhs, rhs);
+    }
 
     /// <summary>
     /// Bitwises the x or.
@@ -2344,7 +3161,10 @@ public static class DynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object BitwiseXOr(object lhs, object rhs) => AssertNumbers(nameof(BitwiseXOr), lhs, rhs).bitwiseXOr(lhs, rhs);
+    public static object BitwiseXOr(object lhs, object rhs)
+    {
+        return AssertNumbers(nameof(BitwiseXOr), lhs, rhs).bitwiseXOr(lhs, rhs);
+    }
 
     /// <summary>
     /// Bitwises the left shift.
@@ -2353,7 +3173,10 @@ public static class DynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object BitwiseLeftShift(object lhs, object rhs) => AssertNumbers(nameof(BitwiseLeftShift), lhs, rhs).bitwiseLeftShift(lhs, rhs);
+    public static object BitwiseLeftShift(object lhs, object rhs)
+    {
+        return AssertNumbers(nameof(BitwiseLeftShift), lhs, rhs).bitwiseLeftShift(lhs, rhs);
+    }
 
     /// <summary>
     /// Bitwises the right shift.
@@ -2362,7 +3185,10 @@ public static class DynamicNumber
     /// <param name="rhs">The RHS.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object BitwiseRightShift(object lhs, object rhs) => AssertNumbers(nameof(BitwiseRightShift), lhs, rhs).bitwiseRightShift(lhs, rhs);
+    public static object BitwiseRightShift(object lhs, object rhs)
+    {
+        return AssertNumbers(nameof(BitwiseRightShift), lhs, rhs).bitwiseRightShift(lhs, rhs);
+    }
 
     /// <summary>
     /// Tries the parse.
@@ -2373,11 +3199,15 @@ public static class DynamicNumber
     public static bool TryParse(string strValue, out object result)
     {
         if (JsConfig.TryParseIntoBestFit)
+        {
             return TryParseIntoBestFit(strValue, out result);
+        }
 
         result = null;
         if (!(strValue?.Length > 0))
+        {
             return false;
+        }
 
         if (strValue.Length == 1)
         {
@@ -2393,17 +3223,17 @@ public static class DynamicNumber
         var hasDecimal = strValue.IndexOf('.') >= 0;
         if (!hasDecimal)
         {
-            if (int.TryParse(strValue, out int intValue))
+            if (int.TryParse(strValue, out var intValue))
             {
                 result = intValue;
                 return true;
             }
-            if (long.TryParse(strValue, out long longValue))
+            if (long.TryParse(strValue, out var longValue))
             {
                 result = longValue;
                 return true;
             }
-            if (ulong.TryParse(strValue, out ulong ulongValue))
+            if (ulong.TryParse(strValue, out var ulongValue))
             {
                 result = ulongValue;
                 return true;
@@ -2411,13 +3241,13 @@ public static class DynamicNumber
         }
 
         var spanValue = strValue.AsSpan();
-        if (spanValue.TryParseDouble(out double doubleValue))
+        if (spanValue.TryParseDouble(out var doubleValue))
         {
             result = doubleValue;
             return true;
         }
 
-        if (spanValue.TryParseDecimal(out decimal decimalValue))
+        if (spanValue.TryParseDecimal(out var decimalValue))
         {
             result = decimalValue;
             return true;
@@ -2436,7 +3266,9 @@ public static class DynamicNumber
     {
         result = null;
         if (!(strValue?.Length > 0))
+        {
             return false;
+        }
 
         var segValue = strValue.AsSpan();
         result = segValue.ParseNumber(true);
@@ -2458,10 +3290,14 @@ static internal class DynamicNumberExtensions
     static internal object ParseString(this IDynamicNumber number, object value)
     {
         if (value is string s)
-            return number.TryParse(s, out object x) ? x : null;
+        {
+            return number.TryParse(s, out var x) ? x : null;
+        }
 
         if (value is char c)
-            return number.TryParse(c.ToString(), out object x) ? x : null;
+        {
+            return number.TryParse(c.ToString(), out var x) ? x : null;
+        }
 
         return null;
     }

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -165,8 +165,8 @@ public class MessageHistoryModel : ForumPageRegistered
             return this.PageBoardContext.Notify(this.GetText("MESSAGEHISTORY", "SELECT_BOTH"), MessageTypes.warning);
         }
 
-        var message1 = messages.ElementAt(0);
-        var message2 = messages.ElementAt(1);
+        var message1 = messages[0];
+        var message2 = messages[1];
 
         var diff = dmp.DiffMain(message1.Message, message2.Message, true);
 

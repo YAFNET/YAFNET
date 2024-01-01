@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -33,21 +33,34 @@ using Microsoft.Extensions.Options;
 
 using YAF.Types.Objects.Model;
 
+/// <summary>
+/// Class CultureSwitcherViewComponent.
+/// Implements the <see cref="ViewComponent" />
+/// </summary>
+/// <seealso cref="ViewComponent" />
 public class CultureSwitcherViewComponent : ViewComponent
 {
     private readonly IOptions<RequestLocalizationOptions> localizationOptions;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CultureSwitcherViewComponent"/> class.
+    /// </summary>
+    /// <param name="localizationOptions">The localization options.</param>
     public CultureSwitcherViewComponent(IOptions<RequestLocalizationOptions> localizationOptions)
     {
         this.localizationOptions = localizationOptions;
     }
 
+    /// <summary>
+    /// Invokes this instance.
+    /// </summary>
+    /// <returns>IViewComponentResult.</returns>
     public IViewComponentResult Invoke()
     {
-        var cultureFeature = HttpContext.Features.Get<IRequestCultureFeature>();
+        var cultureFeature = this.HttpContext.Features.Get<IRequestCultureFeature>();
         var model = new CultureSwitcherModel
                     {
-                        SupportedCultures = localizationOptions.Value.SupportedUICultures.ToList(),
+                        SupportedCultures = this.localizationOptions.Value.SupportedUICultures.ToList(),
                         CurrentUICulture = cultureFeature.RequestCulture.UICulture
                     };
 

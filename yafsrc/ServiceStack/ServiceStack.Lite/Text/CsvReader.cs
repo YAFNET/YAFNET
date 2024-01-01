@@ -15,7 +15,7 @@ namespace ServiceStack.Text;
 /// <summary>
 /// Class CsvReader.
 /// </summary>
-public class CsvReader
+public static class CsvReader
 {
     /// <summary>
     /// Parses the lines.
@@ -26,7 +26,9 @@ public class CsvReader
     {
         var rows = new List<string>();
         if (string.IsNullOrEmpty(csv))
+        {
             return rows;
+        }
 
         var withinQuotes = false;
         var lastPos = 0;
@@ -49,7 +51,9 @@ public class CsvReader
             }
 
             if (withinQuotes)
+            {
                 continue;
+            }
 
             if (c == JsWriter.LineFeedChar)
             {
@@ -58,7 +62,10 @@ public class CsvReader
                               : csv.Substring(lastPos, i - lastPos);
 
                 if (str.Length > 0)
+                {
                     rows.Add(str);
+                }
+
                 lastPos = i + 1;
             }
         }
@@ -67,7 +74,9 @@ public class CsvReader
         {
             var str = csv.Substring(lastPos, i - lastPos);
             if (str.Length > 0)
+            {
                 rows.Add(str);
+            }
         }
 
         return rows;
@@ -78,7 +87,11 @@ public class CsvReader
     /// </summary>
     /// <param name="line">The line.</param>
     /// <returns>List&lt;System.String&gt;.</returns>
-    public static List<string> ParseFields(string line) => ParseFields(line, null);
+    public static List<string> ParseFields(string line)
+    {
+        return ParseFields(line, null);
+    }
+
     /// <summary>
     /// Parses the fields.
     /// </summary>
@@ -89,7 +102,9 @@ public class CsvReader
     {
         var to = new List<string>();
         if (string.IsNullOrEmpty(line))
+        {
             return to;
+        }
 
         var i = -1;
         var len = line.Length;
@@ -113,7 +128,10 @@ public class CsvReader
     {
         var tokenStartPos = i;
         var valueLength = value.Length;
-        if (i == valueLength) return null;
+        if (i == valueLength)
+        {
+            return null;
+        }
 
         var valueChar = value[i];
         var withinQuotes = false;
@@ -123,7 +141,9 @@ public class CsvReader
                                 : JsWriter.ItemSeperator;
 
         if (valueChar == itemSeperator || valueChar == JsWriter.MapEndChar)
+        {
             return null;
+        }
 
         switch (valueChar)
         {
@@ -134,13 +154,18 @@ public class CsvReader
                     {
                         valueChar = value[i];
 
-                        if (valueChar != JsWriter.QuoteChar) continue;
+                        if (valueChar != JsWriter.QuoteChar)
+                        {
+                            continue;
+                        }
 
                         var isLiteralQuote = i + 1 < valueLength && value[i + 1] == JsWriter.QuoteChar;
 
                         i++; //skip quote
                         if (!isLiteralQuote)
+                        {
                             break;
+                        }
                     }
                     return value.Substring(tokenStartPos, i - tokenStartPos);
                 }
@@ -152,16 +177,24 @@ public class CsvReader
                         valueChar = value[i];
 
                         if (valueChar == JsWriter.QuoteChar)
+                        {
                             withinQuotes = !withinQuotes;
+                        }
 
                         if (withinQuotes)
+                        {
                             continue;
+                        }
 
                         if (valueChar == JsWriter.MapStartChar)
+                        {
                             endsToEat++;
+                        }
 
                         if (valueChar == JsWriter.MapEndChar)
+                        {
                             endsToEat--;
+                        }
                     }
                     if (endsToEat > 0)
                     {
@@ -185,10 +218,14 @@ public class CsvReader
                 valueChar = value[i];
 
                 if (valueChar == JsWriter.QuoteChar)
+                {
                     withinQuotes = !withinQuotes;
+                }
 
                 if (withinQuotes)
+                {
                     continue;
+                }
 
                 switch (valueChar)
                 {
@@ -213,9 +250,11 @@ public class CsvReader
         }
 
         //if value starts with MapStartChar, check MapEndChar to terminate
-        char specEndChar = itemSeperator;
+        var specEndChar = itemSeperator;
         if (value[tokenStartPos] == JsWriter.MapStartChar)
+        {
             specEndChar = JsWriter.MapEndChar;
+        }
 
         while (++i < valueLength) //Is Value
         {
@@ -235,7 +274,7 @@ public class CsvReader
 /// Class CsvReader.
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public class CsvReader<T>
+public static class CsvReader<T>
 {
     /// <summary>
     /// Gets or sets the headers.
@@ -284,8 +323,15 @@ public class CsvReader<T>
 
         foreach (var propertyInfo in TypeConfig<T>.Properties)
         {
-            if (!propertyInfo.CanWrite || propertyInfo.GetSetMethod(true) == null) continue;
-            if (!TypeSerializer.CanCreateFromString(propertyInfo.PropertyType)) continue;
+            if (!propertyInfo.CanWrite || propertyInfo.GetSetMethod(true) == null)
+            {
+                continue;
+            }
+
+            if (!TypeSerializer.CanCreateFromString(propertyInfo.PropertyType))
+            {
+                continue;
+            }
 
             var propertyName = propertyInfo.Name;
             var setter = propertyInfo.CreateSetter<T>();
@@ -296,7 +342,9 @@ public class CsvReader<T>
 
             var dcsDataMemberName = propertyInfo.GetDataMemberName();
             if (dcsDataMemberName != null)
+            {
                 propertyName = dcsDataMemberName;
+            }
 
             Headers.Add(propertyName);
             PropertySettersMap[propertyName] = setter;
@@ -324,7 +372,10 @@ public class CsvReader<T>
     {
         var rows = new List<T>();
 
-        if (records == null) return rows;
+        if (records == null)
+        {
+            return rows;
+        }
 
         if (typeof(T).IsValueType || typeof(T) == typeof(string))
         {
@@ -361,7 +412,10 @@ public class CsvReader<T>
     /// <returns>System.Object.</returns>
     public static object ReadObjectRow(string csv)
     {
-        if (csv == null) return null; //AOT
+        if (csv == null)
+        {
+            return null; //AOT
+        }
 
         return ReadRow(csv);
     }
@@ -373,7 +427,10 @@ public class CsvReader<T>
     /// <returns>List&lt;Dictionary&lt;System.String, System.String&gt;&gt;.</returns>
     public static List<Dictionary<string, string>> ReadStringDictionary(IEnumerable<string> rows)
     {
-        if (rows == null) return null; //AOT
+        if (rows == null)
+        {
+            return [];
+        }
 
         var to = new List<Dictionary<string, string>>();
 
@@ -388,7 +445,7 @@ public class CsvReader<T>
 
             var values = CsvReader.ParseFields(row);
             var map = new Dictionary<string, string>();
-            for (int i = 0; i < headers.Count; i++)
+            for (var i = 0; i < headers.Count; i++)
             {
                 var header = headers[i];
                 map[header] = values[i];
@@ -408,7 +465,10 @@ public class CsvReader<T>
     public static List<T> Read(List<string> rows)
     {
         var to = new List<T>();
-        if (rows == null || rows.Count == 0) return to; //AOT
+        if (rows == null || rows.Count == 0)
+        {
+            return to; //AOT
+        }
 
         if (typeof(T).IsAssignableFrom(typeof(Dictionary<string, string>)))
         {
@@ -439,21 +499,29 @@ public class CsvReader<T>
             var o = typeof(T).CreateInstance<T>();
 
             var fields = CsvReader.ParseFields(row);
-            for (int i = 0; i < fields.Count; i++)
+            for (var i = 0; i < fields.Count; i++)
             {
                 var setter = i < PropertySetters.Count ? PropertySetters[i] : null;
                 if (headers != null)
+                {
                     PropertySettersMap.TryGetValue(headers[i], out setter);
+                }
 
                 if (setter == null)
+                {
                     continue;
+                }
 
                 var converter = i < PropertyConverters.Count ? PropertyConverters[i] : null;
                 if (headers != null)
+                {
                     PropertyConvertersMap.TryGetValue(headers[i], out converter);
+                }
 
                 if (converter == null)
+                {
                     continue;
+                }
 
                 var field = fields[i];
                 var convertedValue = converter(field);

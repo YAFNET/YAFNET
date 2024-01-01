@@ -4,6 +4,8 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
+#nullable enable
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,28 +14,6 @@ using System.Runtime.CompilerServices;
 using ServiceStack.Text;
 
 namespace ServiceStack;
-
-/// <summary>
-/// Class EnumerableUtils.
-/// </summary>
-public static class EnumerableUtils
-{
-    /// <summary>
-    /// Nulls if empty.
-    /// </summary>
-    /// <param name="items">The items.</param>
-    /// <returns>IEnumerable.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static IEnumerable NullIfEmpty(IEnumerable items)
-    {
-        if (items != null)
-        {
-            foreach (var item in items)
-                return items;
-        }
-        return null;
-    }
-}
 
 /// <summary>
 /// Class EnumerableExtensions.
@@ -47,7 +27,10 @@ public static class EnumerableExtensions
     /// <param name="collection">The collection.</param>
     /// <returns><c>true</c> if the specified collection is empty; otherwise, <c>false</c>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsEmpty<T>(this ICollection<T> collection) => collection == null || collection.Count == 0;
+    public static bool IsEmpty<T>(this ICollection<T> collection)
+    {
+        return collection == null || collection.Count == 0;
+    }
 
     /// <summary>
     /// Determines whether the specified collection is empty.
@@ -56,7 +39,10 @@ public static class EnumerableExtensions
     /// <param name="collection">The collection.</param>
     /// <returns><c>true</c> if the specified collection is empty; otherwise, <c>false</c>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsEmpty<T>(this T[] collection) => collection == null || collection.Length == 0;
+    public static bool IsEmpty<T>(this T[] collection)
+    {
+        return collection == null || collection.Length == 0;
+    }
 
     /// <summary>
     /// Converts to set.
@@ -65,7 +51,10 @@ public static class EnumerableExtensions
     /// <param name="items">The items.</param>
     /// <returns>HashSet&lt;T&gt;.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static HashSet<T> ToSet<T>(this IEnumerable<T> items) => [..items];
+    public static HashSet<T> ToSet<T>(this IEnumerable<T> items)
+    {
+        return [..items];
+    }
 
     /// <summary>
     /// Eaches the specified action.
@@ -76,7 +65,10 @@ public static class EnumerableExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Each<T>(this IEnumerable<T> values, Action<T> action)
     {
-        if (values == null) return;
+        if (values == null)
+        {
+            return;
+        }
 
         foreach (var value in values)
         {
@@ -94,7 +86,10 @@ public static class EnumerableExtensions
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static void Each<TKey, TValue>(this IDictionary<TKey, TValue> map, Action<TKey, TValue> action)
     {
-        if (map == null) return;
+        if (map == null)
+        {
+            return;
+        }
 
         var keys = map.Keys.ToList();
         foreach (var key in keys)
@@ -115,7 +110,9 @@ public static class EnumerableExtensions
     public static List<To> Map<To, From>(this IEnumerable<From> items, Func<From, To> converter)
     {
         if (items == null)
+        {
             return [];
+        }
 
         var list = new List<To>();
         foreach (var item in items)
@@ -210,5 +207,13 @@ public static class EnumerableExtensions
     {
         return enumerable ?? TypeConstants.EmptyObjectArray;
     }
+    public static bool Exists<T>(this T[] array, Predicate<T> match)
+    {
+        return Array.Exists(array, match);
+    }
 
+    public static T? Find<T>(T[] array, Predicate<T> match)
+    {
+        return Array.Find(array, match);
+    }
 }

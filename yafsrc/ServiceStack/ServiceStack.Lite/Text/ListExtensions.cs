@@ -27,7 +27,10 @@ public static class ListExtensions
         foreach (var value in values)
         {
             if (sb.Length > 0)
+            {
                 sb.Append(seperator);
+            }
+
             sb.Append(value);
         }
         return StringBuilderThreadStatic.ReturnAndFree(sb);
@@ -42,6 +45,8 @@ public static class ListExtensions
     public static void AddIfNotExists<T>(this List<T> list, T item)
     {
         if (!list.Contains(item))
+        {
             list.Add(item);
+        }
     }
 }

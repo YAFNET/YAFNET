@@ -44,7 +44,7 @@ public class ReferenceFieldAttribute : AttributeBase
     /// <param name="id">The identifier.</param>
     public ReferenceFieldAttribute(Type model, string id)
     {
-        Model = model;
-        Id = id;
+        this.Model = model;
+        this.Id = id;
     }
 }

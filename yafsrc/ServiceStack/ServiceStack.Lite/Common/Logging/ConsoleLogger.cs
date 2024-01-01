@@ -76,7 +76,7 @@ namespace ServiceStack.Logging
         /// <param name="args">The arguments.</param>
         private static void LogFormat(object message, params object[] args)
         {
-            string msg = message?.ToString() ?? string.Empty;
+            var msg = message?.ToString() ?? string.Empty;
             Console.WriteLine(msg, args);
         }
 
@@ -86,7 +86,7 @@ namespace ServiceStack.Logging
         /// <param name="message">The message.</param>
         private static void Log(object message)
         {
-            string msg = message?.ToString() ?? string.Empty;
+            var msg = message?.ToString() ?? string.Empty;
             Console.WriteLine(msg);
         }
 

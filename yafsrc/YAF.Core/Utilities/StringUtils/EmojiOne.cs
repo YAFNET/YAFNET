@@ -33,7 +33,7 @@ public static partial class EmojiOne
     /// Converts short name emojis to unicode, useful for sending emojis back to mobile devices.
     /// </summary>
     /// <param name="str">The input string</param>
-    /// <param name="ascii"><c>true</c> to also convert ascii emoji in the inpur string to unicode.</param>
+    /// <param name="ascii"><c>true</c> to also convert ascii emoji in the input string to unicode.</param>
     /// <returns>A string with unicode replacements</returns>
     public static string ShortNameToUnicode(string str, bool ascii = false)
     {
@@ -103,8 +103,8 @@ public static partial class EmojiOne
         var shortName = match.Value;
 
         return SHORTNAME_TO_CODEPOINT.TryGetValue(shortName, out var value)
-                   ? ToUnicode(value)
-                   : match.Value;
+            ? ToUnicode(value)
+            : match.Value;
 
         // we didn't find a replacement so just return the entire match
     }
@@ -118,18 +118,18 @@ public static partial class EmojiOne
     /// </returns>
     static internal string ToCodePoint(string unicode)
     {
-        var codepoint = string.Empty;
+        var codepoint = new StringBuilder();
         for (var i = 0; i < unicode.Length; i += char.IsSurrogatePair(unicode, i) ? 2 : 1)
         {
             if (i > 0)
             {
-                codepoint += "-";
+                codepoint.Append('-');
             }
 
-            codepoint += $"{char.ConvertToUtf32(unicode, i):X4}";
+            codepoint.Append($"{char.ConvertToUtf32(unicode, i):X4}");
         }
 
-        return codepoint.ToLower();
+        return codepoint.ToString().ToLower();
     }
 
     /// <summary>
@@ -159,12 +159,11 @@ public static partial class EmojiOne
                 }
             }
 
-            return hilos.Any(x => x != null) ? string.Concat(hilos) : new string(chars);
+            return Array.Exists(hilos, x => x != null) ? string.Concat(hilos) : new string(chars);
         }
-        else
-        {
-            var i = Convert.ToInt32(codepoint, 16);
-            return char.ConvertFromUtf32(i);
-        }
+
+
+        var int32 = Convert.ToInt32(codepoint, 16);
+        return char.ConvertFromUtf32(int32);
     }
 }

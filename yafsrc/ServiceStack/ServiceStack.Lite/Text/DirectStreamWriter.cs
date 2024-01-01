@@ -71,25 +71,27 @@ public class DirectStreamWriter : TextWriter
     public override void Write(string s)
     {
         if (s.IsNullOrEmpty())
+        {
             return;
+        }
 
         if (s.Length <= optimizedBufferLength)
         {
-            if (needFlush)
+            if (this.needFlush)
             {
-                writer.Flush();
-                needFlush = false;
+                this.writer.Flush();
+                this.needFlush = false;
             }
 
-            byte[] buffer = Encoding.GetBytes(s);
-            stream.Write(buffer, 0, buffer.Length);
+            var buffer = this.Encoding.GetBytes(s);
+            this.stream.Write(buffer, 0, buffer.Length);
         }
         else
         {
-            writer ??= new StreamWriter(stream, Encoding, s.Length < maxBufferLength ? s.Length : maxBufferLength);
+            this.writer ??= new StreamWriter(this.stream, this.Encoding, s.Length < maxBufferLength ? s.Length : maxBufferLength);
 
-            writer.Write(s);
-            needFlush = true;
+            this.writer.Write(s);
+            this.needFlush = true;
         }
     }
 
@@ -101,21 +103,21 @@ public class DirectStreamWriter : TextWriter
     {
         if (c < 128)
         {
-            if (needFlush)
+            if (this.needFlush)
             {
-                writer.Flush();
-                needFlush = false;
+                this.writer.Flush();
+                this.needFlush = false;
             }
 
-            curChar[0] = (byte)c;
-            stream.Write(curChar, 0, 1);
+            this.curChar[0] = (byte)c;
+            this.stream.Write(this.curChar, 0, 1);
         }
         else
         {
-            writer ??= new StreamWriter(stream, Encoding, optimizedBufferLength);
+            this.writer ??= new StreamWriter(this.stream, this.Encoding, optimizedBufferLength);
 
-            writer.Write(c);
-            needFlush = true;
+            this.writer.Write(c);
+            this.needFlush = true;
         }
     }
 
@@ -124,13 +126,13 @@ public class DirectStreamWriter : TextWriter
     /// </summary>
     public override void Flush()
     {
-        if (writer != null)
+        if (this.writer != null)
         {
-            writer.Flush();
+            this.writer.Flush();
         }
         else
         {
-            stream.Flush();
+            this.stream.Flush();
         }
     }
 }

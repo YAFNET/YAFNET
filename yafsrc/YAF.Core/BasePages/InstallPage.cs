@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -53,28 +53,5 @@ public class InstallPage : PageModel, IHaveServiceLocator
     /// </summary>
     protected InstallPage()
     {
-    }
-
-    /// <summary>
-    /// The set language using thread.
-    /// </summary>
-    /// <param name="selectedLanguage">
-    /// The selected language.
-    /// </param>
-    private static void SetLanguageUsingThread(string selectedLanguage)
-    {
-        CultureInfo info;
-
-        try
-        {
-            info = CultureInfo.CreateSpecificCulture(selectedLanguage);
-        }
-        catch
-        {
-            info = CultureInfo.CreateSpecificCulture("en-US");
-        }
-
-        Thread.CurrentThread.CurrentUICulture = info;
-        Thread.CurrentThread.CurrentCulture = info;
     }
 }

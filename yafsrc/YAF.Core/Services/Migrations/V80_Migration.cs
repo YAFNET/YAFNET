@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -93,12 +93,6 @@ namespace YAF.Core.Services.Migrations
                         this.UpgradeTable(this.GetRepository<GroupMedal>(), dbAccess, dbCommand);
 
                         this.UpgradeTable(this.GetRepository<AccessMask>(), dbAccess, dbCommand);
-
-                        this.UpgradeTable(this.GetRepository<NntpForum>(), dbAccess, dbCommand);
-
-                        this.UpgradeTable(this.GetRepository<NntpServer>(), dbAccess, dbCommand);
-
-                        this.UpgradeTable(this.GetRepository<NntpTopic>(), dbAccess, dbCommand);
 
                         this.UpgradeTable(this.GetRepository<Replace_Words>(), dbAccess, dbCommand);
 
@@ -1216,35 +1210,6 @@ namespace YAF.Core.Services.Migrations
             if (dbCommand.Connection.ColumnIsNullable<MessageReportedAudit>(x => x.MessageID))
             {
                 dbCommand.Connection.AlterColumn<MessageReportedAudit>(x => x.MessageID);
-            }
-        }
-
-        private void UpgradeTable(IRepository<NntpForum> repository, IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            if (!dbCommand.Connection.ColumnExists<NntpForum>(x => x.DateCutOff))
-            {
-                dbCommand.Connection.AddColumn<NntpForum>(x => x.DateCutOff);
-            }
-
-            if (!dbCommand.Connection.ColumnExists<NntpForum>(x => x.Active))
-            {
-                dbCommand.Connection.AddColumn<NntpForum>(x => x.Active);
-            }
-        }
-
-        private void UpgradeTable(IRepository<NntpServer> repository, IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            if (dbCommand.Connection.ColumnMaxLength<NntpServer>(x => x.UserName) < 255)
-            {
-                dbCommand.Connection.AlterColumn<NntpServer>(x => x.UserName);
-            }
-        }
-
-        private void UpgradeTable(IRepository<NntpTopic> repository, IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            if (!dbCommand.Connection.ColumnExists<NntpTopic>(x => x.Thread))
-            {
-                dbCommand.Connection.AddColumn<NntpTopic>(x => x.Thread);
             }
         }
 

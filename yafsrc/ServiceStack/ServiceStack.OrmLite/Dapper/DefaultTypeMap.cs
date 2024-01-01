@@ -79,7 +79,7 @@ public sealed class DefaultTypeMap : SqlMapper.ITypeMap
     /// <returns>List&lt;FieldInfo&gt;.</returns>
     static internal List<FieldInfo> GetSettableFields(Type t)
     {
-        return t.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).ToList();
+        return [.. t.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance)];
     }
 
     /// <summary>

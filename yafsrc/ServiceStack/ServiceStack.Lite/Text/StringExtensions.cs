@@ -52,7 +52,9 @@ public static class StringExtensions
     public static string UrlEncode(this string text, bool upperCase = false)
     {
         if (string.IsNullOrEmpty(text))
+        {
             return text;
+        }
 
         var sb = StringBuilderThreadStatic.Allocate();
         var fmt = upperCase ? "X2" : "x2";
@@ -115,11 +117,15 @@ public static class StringExtensions
     /// <returns>string.</returns>
     public static string LeftPart(this string strVal, char needle)
     {
-        if (strVal == null) return null;
+        if (strVal == null)
+        {
+            return null;
+        }
+
         var pos = strVal.IndexOf(needle);
         return pos == -1
                    ? strVal
-                   : strVal.Substring(0, pos);
+                   : strVal[..pos];
     }
 
     /// <summary>
@@ -130,11 +136,15 @@ public static class StringExtensions
     /// <returns>string.</returns>
     public static string LeftPart(this string strVal, string needle)
     {
-        if (strVal == null) return null;
+        if (strVal == null)
+        {
+            return null;
+        }
+
         var pos = strVal.IndexOf(needle, StringComparison.OrdinalIgnoreCase);
         return pos == -1
                    ? strVal
-                   : strVal.Substring(0, pos);
+                   : strVal[..pos];
     }
 
     /// <summary>
@@ -145,11 +155,15 @@ public static class StringExtensions
     /// <returns>string.</returns>
     public static string RightPart(this string strVal, char needle)
     {
-        if (strVal == null) return null;
+        if (strVal == null)
+        {
+            return null;
+        }
+
         var pos = strVal.IndexOf(needle);
         return pos == -1
                    ? strVal
-                   : strVal.Substring(pos + 1);
+                   : strVal[(pos + 1)..];
     }
 
     /// <summary>
@@ -160,11 +174,15 @@ public static class StringExtensions
     /// <returns>string.</returns>
     public static string RightPart(this string strVal, string needle)
     {
-        if (strVal == null) return null;
+        if (strVal == null)
+        {
+            return null;
+        }
+
         var pos = strVal.IndexOf(needle, StringComparison.OrdinalIgnoreCase);
         return pos == -1
                    ? strVal
-                   : strVal.Substring(pos + needle.Length);
+                   : strVal[(pos + needle.Length)..];
     }
 
     /// <summary>
@@ -175,11 +193,15 @@ public static class StringExtensions
     /// <returns>string.</returns>
     public static string LastLeftPart(this string strVal, char needle)
     {
-        if (strVal == null) return null;
+        if (strVal == null)
+        {
+            return null;
+        }
+
         var pos = strVal.LastIndexOf(needle);
         return pos == -1
                    ? strVal
-                   : strVal.Substring(0, pos);
+                   : strVal[..pos];
     }
 
     /// <summary>
@@ -190,11 +212,15 @@ public static class StringExtensions
     /// <returns>string.</returns>
     public static string LastRightPart(this string strVal, char needle)
     {
-        if (strVal == null) return null;
+        if (strVal == null)
+        {
+            return null;
+        }
+
         var pos = strVal.LastIndexOf(needle);
         return pos == -1
                    ? strVal
-                   : strVal.Substring(pos + 1);
+                   : strVal[(pos + 1)..];
     }
 
     /// <summary>
@@ -205,11 +231,15 @@ public static class StringExtensions
     /// <returns>string.</returns>
     public static string LastRightPart(this string strVal, string needle)
     {
-        if (strVal == null) return null;
+        if (strVal == null)
+        {
+            return null;
+        }
+
         var pos = strVal.LastIndexOf(needle, StringComparison.OrdinalIgnoreCase);
         return pos == -1
                    ? strVal
-                   : strVal.Substring(pos + needle.Length);
+                   : strVal[(pos + needle.Length)..];
     }
 
     /// <summary>
@@ -220,11 +250,15 @@ public static class StringExtensions
     /// <returns>string[].</returns>
     public static string[] SplitOnFirst(this string strVal, char needle)
     {
-        if (strVal == null) return TypeConstants.EmptyStringArray;
+        if (strVal == null)
+        {
+            return TypeConstants.EmptyStringArray;
+        }
+
         var pos = strVal.IndexOf(needle);
         return pos == -1
                    ? [strVal]
-                   : [strVal.Substring(0, pos), strVal.Substring(pos + 1)];
+                   : [strVal[..pos], strVal[(pos + 1)..]];
     }
 
     /// <summary>
@@ -235,11 +269,15 @@ public static class StringExtensions
     /// <returns>string[].</returns>
     public static string[] SplitOnFirst(this string strVal, string needle)
     {
-        if (strVal == null) return TypeConstants.EmptyStringArray;
+        if (strVal == null)
+        {
+            return TypeConstants.EmptyStringArray;
+        }
+
         var pos = strVal.IndexOf(needle, StringComparison.OrdinalIgnoreCase);
         return pos == -1
                    ? [strVal]
-                   : [strVal.Substring(0, pos), strVal.Substring(pos + needle.Length)];
+                   : [strVal[..pos], strVal[(pos + needle.Length)..]];
     }
 
     /// <summary>
@@ -250,11 +288,15 @@ public static class StringExtensions
     /// <returns>string[].</returns>
     public static string[] SplitOnLast(this string strVal, char needle)
     {
-        if (strVal == null) return TypeConstants.EmptyStringArray;
+        if (strVal == null)
+        {
+            return TypeConstants.EmptyStringArray;
+        }
+
         var pos = strVal.LastIndexOf(needle);
         return pos == -1
                    ? [strVal]
-                   : [strVal.Substring(0, pos), strVal.Substring(pos + 1)];
+                   : [strVal[..pos], strVal[(pos + 1)..]];
     }
 
     /// <summary>
@@ -265,11 +307,15 @@ public static class StringExtensions
     /// <returns>string[].</returns>
     public static string[] SplitOnLast(this string strVal, string needle)
     {
-        if (strVal == null) return TypeConstants.EmptyStringArray;
+        if (strVal == null)
+        {
+            return TypeConstants.EmptyStringArray;
+        }
+
         var pos = strVal.LastIndexOf(needle, StringComparison.OrdinalIgnoreCase);
         return pos == -1
                    ? [strVal]
-                   : [strVal.Substring(0, pos), strVal.Substring(pos + needle.Length)];
+                   : [strVal[..pos], strVal[(pos + needle.Length)..]];
     }
 
     /// <summary>
@@ -280,13 +326,18 @@ public static class StringExtensions
     public static string WithoutExtension(this string filePath)
     {
         if (string.IsNullOrEmpty(filePath))
+        {
             return null;
+        }
 
         var extPos = filePath.LastIndexOf('.');
-        if (extPos == -1) return filePath;
+        if (extPos == -1)
+        {
+            return filePath;
+        }
 
         var dirPos = filePath.LastIndexOfAny(PclExport.DirSeps);
-        return extPos > dirPos ? filePath.Substring(0, extPos) : filePath;
+        return extPos > dirPos ? filePath[..extPos] : filePath;
     }
 
     /// <summary>
@@ -356,7 +407,10 @@ public static class StringExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="csv">The CSV.</param>
     /// <returns>T.</returns>
-    public static T FromCsv<T>(this string csv) => CsvSerializer.DeserializeFromString<T>(csv);
+    public static T FromCsv<T>(this string csv)
+    {
+        return CsvSerializer.DeserializeFromString<T>(csv);
+    }
 
     /// <summary>
     /// Formats the with.
@@ -364,7 +418,10 @@ public static class StringExtensions
     /// <param name="text">The text.</param>
     /// <param name="args">The arguments.</param>
     /// <returns>string.</returns>
-    public static string FormatWith(this string text, params object[] args) => string.Format(text, args);
+    public static string FormatWith(this string text, params object[] args)
+    {
+        return string.Format(text, args);
+    }
 
     /// <summary>
     /// FMTs the specified text.
@@ -372,7 +429,10 @@ public static class StringExtensions
     /// <param name="text">The text.</param>
     /// <param name="arg1">The arg1.</param>
     /// <returns>string.</returns>
-    public static string Fmt(this string text, object arg1) => string.Format(text, arg1);
+    public static string Fmt(this string text, object arg1)
+    {
+        return string.Format(text, arg1);
+    }
 
     /// <summary>
     /// FMTs the specified text.
@@ -381,7 +441,10 @@ public static class StringExtensions
     /// <param name="arg1">The arg1.</param>
     /// <param name="arg2">The arg2.</param>
     /// <returns>string.</returns>
-    public static string Fmt(this string text, object arg1, object arg2) => string.Format(text, arg1, arg2);
+    public static string Fmt(this string text, object arg1, object arg2)
+    {
+        return string.Format(text, arg1, arg2);
+    }
 
     /// <summary>
     /// FMTs the specified text.
@@ -391,7 +454,10 @@ public static class StringExtensions
     /// <param name="arg2">The arg2.</param>
     /// <param name="arg3">The arg3.</param>
     /// <returns>string.</returns>
-    public static string Fmt(this string text, object arg1, object arg2, object arg3) => string.Format(text, arg1, arg2, arg3);
+    public static string Fmt(this string text, object arg1, object arg2, object arg3)
+    {
+        return string.Format(text, arg1, arg2, arg3);
+    }
 
     /// <summary>
     /// Startses the with ignore case.
@@ -399,9 +465,11 @@ public static class StringExtensions
     /// <param name="text">The text.</param>
     /// <param name="startsWith">The starts with.</param>
     /// <returns>bool.</returns>
-    public static bool StartsWithIgnoreCase(this string text, string startsWith) =>
-        text != null
-        && text.StartsWith(startsWith, PclExport.Instance.InvariantComparisonIgnoreCase);
+    public static bool StartsWithIgnoreCase(this string text, string startsWith)
+    {
+        return text != null
+               && text.StartsWith(startsWith, PclExport.Instance.InvariantComparisonIgnoreCase);
+    }
 
     /// <summary>
     /// Endses the with ignore case.
@@ -409,22 +477,30 @@ public static class StringExtensions
     /// <param name="text">The text.</param>
     /// <param name="endsWith">The ends with.</param>
     /// <returns>bool.</returns>
-    public static bool EndsWithIgnoreCase(this string text, string endsWith) =>
-        text != null
-        && text.EndsWith(endsWith, PclExport.Instance.InvariantComparisonIgnoreCase);
+    public static bool EndsWithIgnoreCase(this string text, string endsWith)
+    {
+        return text != null
+               && text.EndsWith(endsWith, PclExport.Instance.InvariantComparisonIgnoreCase);
+    }
 
     /// <summary>
     /// Files the exists.
     /// </summary>
     /// <param name="filePath">The file path.</param>
     /// <returns>bool.</returns>
-    public static bool FileExists(this string filePath) => PclExport.Instance.FileExists(filePath);
+    public static bool FileExists(this string filePath)
+    {
+        return PclExport.Instance.FileExists(filePath);
+    }
 
     /// <summary>
     /// Creates the directory.
     /// </summary>
     /// <param name="dirPath">The dir path.</param>
-    public static void CreateDirectory(this string dirPath) => PclExport.Instance.CreateDirectory(dirPath);
+    public static void CreateDirectory(this string dirPath)
+    {
+        PclExport.Instance.CreateDirectory(dirPath);
+    }
 
     /// <summary>
     /// Indexes the of any.
@@ -432,7 +508,10 @@ public static class StringExtensions
     /// <param name="text">The text.</param>
     /// <param name="needles">The needles.</param>
     /// <returns>int.</returns>
-    public static int IndexOfAny(this string text, params string[] needles) => IndexOfAny(text, 0, needles);
+    public static int IndexOfAny(this string text, params string[] needles)
+    {
+        return IndexOfAny(text, 0, needles);
+    }
 
     /// <summary>
     /// Indexes the of any.
@@ -450,7 +529,9 @@ public static class StringExtensions
             {
                 var pos = text.IndexOf(needle, startIndex, StringComparison.Ordinal);
                 if (pos >= 0 && (firstPos == -1 || pos < firstPos))
+                {
                     firstPos = pos;
+                }
             }
         }
 
@@ -469,7 +550,7 @@ public static class StringExtensions
                    : text[0] == '"' && text[^1] == '"' ||
                      text[0] == '\'' && text[^1] == '\'' ||
                      text[0] == '`' && text[^1] == '`'
-                       ? text.Substring(1, text.Length - 2)
+                       ? text[1..^1]
                        : text;
     }
 
@@ -485,7 +566,9 @@ public static class StringExtensions
     public static string ToCamelCase(this string value)
     {
         if (string.IsNullOrEmpty(value))
+        {
             return value;
+        }
 
         var len = value.Length;
         var newValue = new char[len];
@@ -499,9 +582,13 @@ public static class StringExtensions
             var c1isUpper = c1 is >= 'A' and <= 'Z';
 
             if (firstPart && c0isUpper && (c1isUpper || i == 0))
+            {
                 c0 = (char)(c0 + LowerCaseOffset);
+            }
             else
+            {
                 firstPart = false;
+            }
 
             newValue[i] = c0;
         }
@@ -517,16 +604,21 @@ public static class StringExtensions
     public static string ToPascalCase(this string value)
     {
         if (string.IsNullOrEmpty(value))
+        {
             return value;
+        }
 
-        if (value.IndexOf('_') >= 0)
+        if (value.Contains('_'))
         {
             var parts = value.Split('_');
             var sb = StringBuilderThreadStatic.Allocate();
             foreach (var part in parts)
             {
                 if (string.IsNullOrEmpty(part))
+                {
                     continue;
+                }
+
                 var str = part.ToCamelCase();
                 sb.Append(char.ToUpper(str[0]) + str.SafeSubstring(1, str.Length));
             }
@@ -554,11 +646,15 @@ public static class StringExtensions
     /// <returns>string.</returns>
     public static string ToLowercaseUnderscore(this string value)
     {
-        if (string.IsNullOrEmpty(value)) return value;
+        if (string.IsNullOrEmpty(value))
+        {
+            return value;
+        }
+
         value = value.ToCamelCase();
 
         var sb = StringBuilderThreadStatic.Allocate();
-        foreach (char t in value)
+        foreach (var t in value)
         {
             if (char.IsDigit(t) || char.IsLetter(t) && char.IsLower(t) || t == '_')
             {
@@ -566,7 +662,7 @@ public static class StringExtensions
             }
             else
             {
-                sb.Append("_");
+                sb.Append('_');
                 sb.Append(char.ToLower(t));
             }
         }
@@ -582,12 +678,22 @@ public static class StringExtensions
     /// <returns>string.</returns>
     public static string SafeSubstring(this string value, int startIndex, int length)
     {
-        if (string.IsNullOrEmpty(value) || length <= 0) return string.Empty;
-        if (startIndex < 0) startIndex = 0;
-        if (value.Length >= startIndex + length)
-            return value.Substring(startIndex, length);
+        if (string.IsNullOrEmpty(value) || length <= 0)
+        {
+            return string.Empty;
+        }
 
-        return value.Length > startIndex ? value.Substring(startIndex) : string.Empty;
+        if (startIndex < 0)
+        {
+            startIndex = 0;
+        }
+
+        if (value.Length >= startIndex + length)
+        {
+            return value.Substring(startIndex, length);
+        }
+
+        return value.Length > startIndex ? value[startIndex..] : string.Empty;
     }
 
     /// <summary>
@@ -611,7 +717,10 @@ public static class StringExtensions
     /// <param name="strA">The string a.</param>
     /// <param name="strB">The string b.</param>
     /// <returns>int.</returns>
-    public static int CompareIgnoreCase(this string strA, string strB) => string.Compare(strA, strB, PclExport.Instance.InvariantComparisonIgnoreCase);
+    public static int CompareIgnoreCase(this string strA, string strB)
+    {
+        return string.Compare(strA, strB, PclExport.Instance.InvariantComparisonIgnoreCase);
+    }
 
     /// <summary>
     /// Endses the with invariant.
@@ -619,7 +728,10 @@ public static class StringExtensions
     /// <param name="str">The string.</param>
     /// <param name="endsWith">The ends with.</param>
     /// <returns>bool.</returns>
-    public static bool EndsWithInvariant(this string str, string endsWith) => str.EndsWith(endsWith, PclExport.Instance.InvariantComparison);
+    public static bool EndsWithInvariant(this string str, string endsWith)
+    {
+        return str.EndsWith(endsWith, PclExport.Instance.InvariantComparison);
+    }
 
     /// <summary>
     /// The invalid variable chars regex
@@ -632,14 +744,20 @@ public static class StringExtensions
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>bool.</returns>
-    public static bool IsEmpty(this string value) => string.IsNullOrEmpty(value);
+    public static bool IsEmpty(this string value)
+    {
+        return string.IsNullOrEmpty(value);
+    }
 
     /// <summary>
     /// Determines whether [is null or empty] [the specified value].
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>bool.</returns>
-    public static bool IsNullOrEmpty(this string value) => string.IsNullOrEmpty(value);
+    public static bool IsNullOrEmpty(this string value)
+    {
+        return string.IsNullOrEmpty(value);
+    }
 
     /// <summary>
     /// Equalses the ignore case.
@@ -647,7 +765,10 @@ public static class StringExtensions
     /// <param name="value">The value.</param>
     /// <param name="other">The other.</param>
     /// <returns>bool.</returns>
-    public static bool EqualsIgnoreCase(this string value, string other) => string.Equals(value, other, StringComparison.OrdinalIgnoreCase);
+    public static bool EqualsIgnoreCase(this string value, string other)
+    {
+        return string.Equals(value, other, StringComparison.OrdinalIgnoreCase);
+    }
 
     /// <summary>
     /// Replaces the first.
@@ -659,9 +780,12 @@ public static class StringExtensions
     public static string ReplaceFirst(this string haystack, string needle, string replacement)
     {
         var pos = haystack.IndexOf(needle, StringComparison.Ordinal);
-        if (pos < 0) return haystack;
+        if (pos < 0)
+        {
+            return haystack;
+        }
 
-        return haystack.Substring(0, pos) + replacement + haystack.Substring(pos + needle.Length);
+        return haystack[..pos] + replacement + haystack[(pos + needle.Length)..];
     }
 
     /// <summary>
@@ -672,7 +796,7 @@ public static class StringExtensions
     /// <returns>bool.</returns>
     public static bool ContainsAny(this string text, params string[] testMatches)
     {
-        return testMatches.Any(text.Contains);
+        return testMatches.Exists(text.Contains);
     }
 
     /// <summary>
@@ -684,7 +808,7 @@ public static class StringExtensions
     /// <returns>bool.</returns>
     public static bool ContainsAny(this string text, string[] testMatches, StringComparison comparisonType)
     {
-        return testMatches.Any(testMatch => text.IndexOf(testMatch, comparisonType) >= 0);
+        return testMatches.Exists(testMatch => text.Contains(testMatch, comparisonType));
     }
 
     /// <summary>
@@ -692,15 +816,22 @@ public static class StringExtensions
     /// </summary>
     /// <param name="text">The text.</param>
     /// <returns>string.</returns>
-    public static string SafeVarName(this string text) => !string.IsNullOrEmpty(text)
-                                                              ? InvalidVarCharsRegex.Replace(text, "_") : null;
+    public static string SafeVarName(this string text)
+    {
+        return !string.IsNullOrEmpty(text)
+            ? InvalidVarCharsRegex.Replace(text, "_")
+            : null;
+    }
 
     /// <summary>
     /// Joins the specified items.
     /// </summary>
     /// <param name="items">The items.</param>
     /// <returns>string.</returns>
-    public static string Join(this List<string> items) => string.Join(JsWriter.ItemSeperatorString, items.ToArray());
+    public static string Join(this List<string> items)
+    {
+        return string.Join(JsWriter.ItemSeperatorString, [.. items]);
+    }
 
     /// <summary>
     /// Joins the specified items.
@@ -708,7 +839,10 @@ public static class StringExtensions
     /// <param name="items">The items.</param>
     /// <param name="delimeter">The delimeter.</param>
     /// <returns>string.</returns>
-    public static string Join(this List<string> items, string delimeter) => string.Join(delimeter, items.ToArray());
+    public static string Join(this List<string> items, string delimeter)
+    {
+        return string.Join(delimeter, [.. items]);
+    }
 
     /// <summary>
     /// The system type chars
@@ -743,21 +877,30 @@ public static class StringExtensions
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>bool.</returns>
-    public static bool IsTuple(this Type type) => type.Name.StartsWith("Tuple`");
+    public static bool IsTuple(this Type type)
+    {
+        return type.Name.StartsWith("Tuple`");
+    }
 
     /// <summary>
     /// Determines whether the specified text is int.
     /// </summary>
     /// <param name="text">The text.</param>
     /// <returns>bool.</returns>
-    public static bool IsInt(this string text) => !string.IsNullOrEmpty(text) && int.TryParse(text, out _);
+    public static bool IsInt(this string text)
+    {
+        return !string.IsNullOrEmpty(text) && int.TryParse(text, out _);
+    }
 
     /// <summary>
     /// Converts the string representation of a number to an integer.
     /// </summary>
     /// <param name="text">The text.</param>
     /// <returns>int.</returns>
-    public static int ToInt(this string text) => text == null ? default : int.Parse(text);
+    public static int ToInt(this string text)
+    {
+        return text == null ? default : int.Parse(text);
+    }
 
     /// <summary>
     /// Converts the string representation of a number to an integer.
@@ -765,14 +908,20 @@ public static class StringExtensions
     /// <param name="text">The text.</param>
     /// <param name="defaultValue">The default value.</param>
     /// <returns>int.</returns>
-    public static int ToInt(this string text, int defaultValue) => int.TryParse(text, out var ret) ? ret : defaultValue;
+    public static int ToInt(this string text, int defaultValue)
+    {
+        return int.TryParse(text, out var ret) ? ret : defaultValue;
+    }
 
     /// <summary>
     /// Converts to long.
     /// </summary>
     /// <param name="text">The text.</param>
     /// <returns>long.</returns>
-    public static long ToLong(this string text) => long.Parse(text);
+    public static long ToLong(this string text)
+    {
+        return long.Parse(text);
+    }
 
     /// <summary>
     /// Converts to long.
@@ -780,14 +929,20 @@ public static class StringExtensions
     /// <param name="text">The text.</param>
     /// <param name="defaultValue">The default value.</param>
     /// <returns>long.</returns>
-    public static long ToLong(this string text, long defaultValue) => long.TryParse(text, out var ret) ? ret : defaultValue;
+    public static long ToLong(this string text, long defaultValue)
+    {
+        return long.TryParse(text, out var ret) ? ret : defaultValue;
+    }
 
     /// <summary>
     /// Converts to double.
     /// </summary>
     /// <param name="text">The text.</param>
     /// <returns>double.</returns>
-    public static double ToDouble(this string text) => text == null ? default : double.Parse(text);
+    public static double ToDouble(this string text)
+    {
+        return text == null ? default : double.Parse(text);
+    }
 
     /// <summary>
     /// Converts to double.
@@ -795,14 +950,20 @@ public static class StringExtensions
     /// <param name="text">The text.</param>
     /// <param name="defaultValue">The default value.</param>
     /// <returns>double.</returns>
-    public static double ToDouble(this string text, double defaultValue) => double.TryParse(text, out var ret) ? ret : defaultValue;
+    public static double ToDouble(this string text, double defaultValue)
+    {
+        return double.TryParse(text, out var ret) ? ret : defaultValue;
+    }
 
     /// <summary>
     /// Converts to decimal.
     /// </summary>
     /// <param name="text">The text.</param>
     /// <returns>decimal.</returns>
-    public static decimal ToDecimal(this string text) => text == null ? default : decimal.Parse(text);
+    public static decimal ToDecimal(this string text)
+    {
+        return text == null ? default : decimal.Parse(text);
+    }
 
     /// <summary>
     /// Converts to decimal.
@@ -810,7 +971,10 @@ public static class StringExtensions
     /// <param name="text">The text.</param>
     /// <param name="defaultValue">The default value.</param>
     /// <returns>decimal.</returns>
-    public static decimal ToDecimal(this string text, decimal defaultValue) => decimal.TryParse(text, out var ret) ? ret : defaultValue;
+    public static decimal ToDecimal(this string text, decimal defaultValue)
+    {
+        return decimal.TryParse(text, out var ret) ? ret : defaultValue;
+    }
 
     /// <summary>
     /// Matcheses the specified value.
@@ -818,7 +982,10 @@ public static class StringExtensions
     /// <param name="value">The value.</param>
     /// <param name="pattern">The pattern.</param>
     /// <returns>bool.</returns>
-    public static bool Matches(this string value, string pattern) => value.Glob(pattern);
+    public static bool Matches(this string value, string pattern)
+    {
+        return value.Glob(pattern);
+    }
 
     /// <summary>
     /// Globs the specified value.
@@ -837,10 +1004,12 @@ public static class StringExtensions
                     break;
 
                 case '*':
-                    for (int i = value.Length; i >= pos; i--)
+                    for (var i = value.Length; i >= pos; i--)
                     {
-                        if (Glob(value.Substring(i), pattern.Substring(pos + 1)))
+                        if (Glob(value[i..], pattern[(pos + 1)..]))
+                        {
                             return true;
+                        }
                     }
                     return false;
 
@@ -865,12 +1034,16 @@ public static class StringExtensions
     public static string TrimPrefixes(this string fromString, params string[] prefixes)
     {
         if (string.IsNullOrEmpty(fromString))
+        {
             return fromString;
+        }
 
         foreach (var prefix in prefixes)
         {
             if (fromString.StartsWith(prefix))
-                return fromString.Substring(prefix.Length);
+            {
+                return fromString[prefix.Length..];
+            }
         }
 
         return fromString;
@@ -920,7 +1093,9 @@ public static class StringExtensions
     private static char GetHexValue(int i, bool upper)
     {
         if (i < 0 || i > 15)
+        {
             throw new ArgumentOutOfRangeException(nameof(i), "must be between 0 and 15");
+        }
 
         return i < 10
                    ? (char)(i + '0')

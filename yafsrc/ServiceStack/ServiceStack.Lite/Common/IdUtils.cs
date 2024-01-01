@@ -48,7 +48,7 @@ public static class IdUtils<T>
         {
             foreach (var pi in typeof(T).GetPublicProperties()
                          .Where(pi => pi.AllAttributes<Attribute>()
-                             .Any(attr => attr.GetType().Name == "PrimaryKeyAttribute")))
+                             .Exists(attr => attr.GetType().Name == "PrimaryKeyAttribute")))
             {
                 CanGetId = pi.CreateGetter<T>();
                 return;
@@ -68,7 +68,9 @@ public static class IdUtils<T>
                 {
                     var piId = x.GetType().GetIdProperty();
                     if (piId?.GetGetMethod(nonPublic: true) != null)
+                    {
                         return x.GetObjectId();
+                    }
 
                     return x.GetHashCode();
                 };

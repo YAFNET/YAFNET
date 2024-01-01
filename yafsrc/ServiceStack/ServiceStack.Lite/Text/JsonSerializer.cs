@@ -30,7 +30,7 @@ public static class JsonSerializer
     /// <summary>
     /// The buffer size
     /// </summary>
-    public static int BufferSize = 1024;
+    public static int BufferSize { get; } = 1024;
 
     /// <summary>
     /// Gets or sets the on serialize.
@@ -83,7 +83,11 @@ public static class JsonSerializer
     /// <returns>System.String.</returns>
     public static string SerializeToString<T>(T value)
     {
-        if (value == null || value is Delegate) return null;
+        if (value == null || value is Delegate)
+        {
+            return null;
+        }
+
         if (typeof(T) == typeof(object))
         {
             return SerializeToString(value, value.GetType());
@@ -117,7 +121,10 @@ public static class JsonSerializer
     /// <returns>System.String.</returns>
     public static string SerializeToString(object value, Type type)
     {
-        if (value == null) return null;
+        if (value == null)
+        {
+            return null;
+        }
 
         var writer = StringWriterThreadStatic.Allocate();
         if (type == typeof(string))
@@ -140,7 +147,11 @@ public static class JsonSerializer
     /// <param name="stream">The stream.</param>
     public static void SerializeToStream<T>(T value, Stream stream)
     {
-        if (value == null) return;
+        if (value == null)
+        {
+            return;
+        }
+
         if (typeof(T) == typeof(object))
         {
             SerializeToStream(value, value.GetType(), stream);

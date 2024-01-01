@@ -38,26 +38,26 @@ public struct PooledObject<T> : IDisposable where T : class
     /// <param name="releaser">The releaser.</param>
     public PooledObject(ObjectPool<T> pool, Func<ObjectPool<T>, T> allocator, Action<ObjectPool<T>, T> releaser) : this()
     {
-        _pool = pool;
-        _pooledObject = allocator(pool);
-        _releaser = releaser;
+        this._pool = pool;
+        this._pooledObject = allocator(pool);
+        this._releaser = releaser;
     }
 
     /// <summary>
     /// Gets the object.
     /// </summary>
     /// <value>The object.</value>
-    public T Object => _pooledObject;
+    public T Object => this._pooledObject;
 
     /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
     /// </summary>
     public void Dispose()
     {
-        if (_pooledObject != null)
+        if (this._pooledObject != null)
         {
-            _releaser(_pool, _pooledObject);
-            _pooledObject = null;
+            this._releaser(this._pool, this._pooledObject);
+            this._pooledObject = null;
         }
     }
 

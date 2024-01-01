@@ -24,11 +24,15 @@ public static class AttributeExtensions
     {
         var apiAttr = type.FirstAttribute<ApiAttribute>();
         if (apiAttr != null)
+        {
             return apiAttr.Description;
+        }
 
         var componentDescAttr = type.FirstAttribute<System.ComponentModel.DescriptionAttribute>();
         if (componentDescAttr != null)
+        {
             return componentDescAttr.Description;
+        }
 
         var ssDescAttr = type.FirstAttribute<DataAnnotations.DescriptionAttribute>();
         return ssDescAttr?.Description;

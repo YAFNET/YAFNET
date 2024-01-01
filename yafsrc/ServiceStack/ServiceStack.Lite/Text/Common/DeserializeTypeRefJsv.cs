@@ -43,14 +43,20 @@ static internal class DeserializeTypeRefJsv
         var type = typeConfig.Type;
 
         if (strType.IsEmpty)
+        {
             return null;
+        }
 
         //if (!Serializer.EatMapStartChar(strType, ref index))
         if (strType[index++] != JsWriter.MapStartChar)
+        {
             throw DeserializeTypeRef.CreateSerializationError(type, strType.ToString());
+        }
 
         if (JsonTypeSerializer.IsEmptyMap(strType))
+        {
             return ctorFn();
+        }
 
         var config = JsConfig.GetConfig();
 
@@ -101,13 +107,18 @@ static internal class DeserializeTypeRefJsv
                         {
                             var map = DeserializeTypeRef.GetCachedTypeAccessors(derivedType, Serializer);
                             if (map != null)
+                            {
                                 typeAccessors = map;
+                            }
                         }
                     }
                 }
 
                 //Serializer.EatItemSeperatorOrMapEndChar(strType, ref index);
-                if (index != strType.Length) index++;
+                if (index != strType.Length)
+                {
+                    index++;
+                }
 
                 continue;
             }
@@ -126,20 +137,32 @@ static internal class DeserializeTypeRefJsv
                         var parseFn = Serializer.GetParseStringSpanFn(propType);
                         var propertyValue = parseFn(propertyValueStr);
                         if (typeConfig.OnDeserializing != null)
+                        {
                             propertyValue = typeConfig.OnDeserializing(instance, propertyName.ToString(), propertyValue);
+                        }
+
                         typeAccessor.SetProperty(instance, propertyValue);
                     }
 
                     //Serializer.EatItemSeperatorOrMapEndChar(strType, ref index);
-                    if (index != strType.Length) index++;
+                    if (index != strType.Length)
+                    {
+                        index++;
+                    }
 
                     continue;
                 }
                 catch (Exception e)
                 {
                     config.OnDeserializationError?.Invoke(instance, propType, propertyName.ToString(), propertyValueStr.ToString(), e);
-                    if (config.ThrowOnError) throw DeserializeTypeRef.GetSerializationException(propertyName.ToString(), propertyValueStr.ToString(), propType, e);
-                    else Tracer.Instance.WriteWarning("WARN: failed to set dynamic property {0} with: {1}", propertyName.ToString(), propertyValueStr.ToString());
+                    if (config.ThrowOnError)
+                    {
+                        throw DeserializeTypeRef.GetSerializationException(propertyName.ToString(), propertyValueStr.ToString(), propType, e);
+                    }
+                    else
+                    {
+                        Tracer.Instance.WriteWarning("WARN: failed to set dynamic property {0} with: {1}", propertyName.ToString(), propertyValueStr.ToString());
+                    }
                 }
             }
 
@@ -149,15 +172,24 @@ static internal class DeserializeTypeRefJsv
                 {
                     var propertyValue = typeAccessor.GetProperty(propertyValueStr);
                     if (typeConfig.OnDeserializing != null)
+                    {
                         propertyValue = typeConfig.OnDeserializing(instance, propertyName.ToString(), propertyValue);
+                    }
+
                     typeAccessor.SetProperty(instance, propertyValue);
                 }
                 catch (NotSupportedException) { throw; }
                 catch (Exception e)
                 {
                     config.OnDeserializationError?.Invoke(instance, propType ?? typeAccessor.PropertyType, propertyName.ToString(), propertyValueStr.ToString(), e);
-                    if (config.ThrowOnError) throw DeserializeTypeRef.GetSerializationException(propertyName.ToString(), propertyValueStr.ToString(), propType, e);
-                    else Tracer.Instance.WriteWarning("WARN: failed to set property {0} with: {1}", propertyName.ToString(), propertyValueStr.ToString());
+                    if (config.ThrowOnError)
+                    {
+                        throw DeserializeTypeRef.GetSerializationException(propertyName.ToString(), propertyValueStr.ToString(), propType, e);
+                    }
+                    else
+                    {
+                        Tracer.Instance.WriteWarning("WARN: failed to set property {0} with: {1}", propertyName.ToString(), propertyValueStr.ToString());
+                    }
                 }
             }
             else
@@ -167,7 +199,10 @@ static internal class DeserializeTypeRefJsv
             }
 
             //Serializer.EatItemSeperatorOrMapEndChar(strType, ref index);
-            if (index != strType.Length) index++;
+            if (index != strType.Length)
+            {
+                index++;
+            }
         }
 
         return instance;

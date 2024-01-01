@@ -41,7 +41,7 @@ public class ProfiledDbDataReader : DbDataReader
     public ProfiledDbDataReader(DbDataReader reader, DbConnection connection, IDbProfiler profiler)
     {
         this.reader = reader;
-        db = connection;
+        this.db = connection;
 
         if (profiler != null)
         {
@@ -54,45 +54,45 @@ public class ProfiledDbDataReader : DbDataReader
     /// Gets a value indicating the depth of nesting for the current row.
     /// </summary>
     /// <value>The depth.</value>
-    public override int Depth => reader.Depth;
+    public override int Depth => this.reader.Depth;
 
     /// <summary>
     /// Gets the number of columns in the current row.
     /// </summary>
     /// <value>The field count.</value>
-    public override int FieldCount => reader.FieldCount;
+    public override int FieldCount => this.reader.FieldCount;
 
     /// <summary>
     /// Gets a value that indicates whether this <see cref="T:System.Data.Common.DbDataReader" /> contains one or more rows.
     /// </summary>
     /// <value><c>true</c> if this instance has rows; otherwise, <c>false</c>.</value>
-    public override bool HasRows => reader.HasRows;
+    public override bool HasRows => this.reader.HasRows;
 
     /// <summary>
     /// Gets a value indicating whether the <see cref="T:System.Data.Common.DbDataReader" /> is closed.
     /// </summary>
     /// <value><c>true</c> if this instance is closed; otherwise, <c>false</c>.</value>
-    public override bool IsClosed => reader.IsClosed;
+    public override bool IsClosed => this.reader.IsClosed;
 
     /// <summary>
     /// Gets the number of rows changed, inserted, or deleted by execution of the SQL statement.
     /// </summary>
     /// <value>The records affected.</value>
-    public override int RecordsAffected => reader.RecordsAffected;
+    public override int RecordsAffected => this.reader.RecordsAffected;
 
     /// <summary>
-    /// Gets the <see cref="System.Object" /> with the specified name.
+    /// Gets the <see cref="object" /> with the specified name.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns>System.Object.</returns>
-    public override object this[string name] => reader[name];
+    public override object this[string name] => this.reader[name];
 
     /// <summary>
-    /// Gets the <see cref="System.Object" /> with the specified ordinal.
+    /// Gets the <see cref="object" /> with the specified ordinal.
     /// </summary>
     /// <param name="ordinal">The ordinal.</param>
     /// <returns>System.Object.</returns>
-    public override object this[int ordinal] => reader[ordinal];
+    public override object this[int ordinal] => this.reader[ordinal];
 
     /// <summary>
     /// Closes the <see cref="T:System.Data.Common.DbDataReader" /> object.
@@ -101,8 +101,8 @@ public class ProfiledDbDataReader : DbDataReader
     {
         // this can occur when we're not profiling, but we've inherited from ProfiledDbCommand and are returning a
         // an unwrapped reader from the base command
-        reader?.Close();
-        profiler?.ReaderFinish(this);
+        this.reader?.Close();
+        this.profiler?.ReaderFinish(this);
     }
 
     /// <summary>
@@ -112,7 +112,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns>The value of the specified column.</returns>
     public override bool GetBoolean(int ordinal)
     {
-        return reader.GetBoolean(ordinal);
+        return this.reader.GetBoolean(ordinal);
     }
 
     /// <summary>
@@ -122,7 +122,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns>The value of the specified column.</returns>
     public override byte GetByte(int ordinal)
     {
-        return reader.GetByte(ordinal);
+        return this.reader.GetByte(ordinal);
     }
 
     /// <summary>
@@ -136,7 +136,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns>The actual number of bytes read.</returns>
     public override long GetBytes(int ordinal, long dataOffset, byte[] buffer, int bufferOffset, int length)
     {
-        return reader.GetBytes(ordinal, dataOffset, buffer, bufferOffset, length);
+        return this.reader.GetBytes(ordinal, dataOffset, buffer, bufferOffset, length);
     }
 
     /// <summary>
@@ -146,7 +146,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns>The value of the specified column.</returns>
     public override char GetChar(int ordinal)
     {
-        return reader.GetChar(ordinal);
+        return this.reader.GetChar(ordinal);
     }
 
     /// <summary>
@@ -160,7 +160,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns>The actual number of characters read.</returns>
     public override long GetChars(int ordinal, long dataOffset, char[] buffer, int bufferOffset, int length)
     {
-        return reader.GetChars(ordinal, dataOffset, buffer, bufferOffset, length);
+        return this.reader.GetChars(ordinal, dataOffset, buffer, bufferOffset, length);
     }
 
     /// <summary>
@@ -170,7 +170,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns>A string representing the name of the data type.</returns>
     public override string GetDataTypeName(int ordinal)
     {
-        return reader.GetDataTypeName(ordinal);
+        return this.reader.GetDataTypeName(ordinal);
     }
 
     /// <summary>
@@ -180,7 +180,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns>The value of the specified column.</returns>
     public override DateTime GetDateTime(int ordinal)
     {
-        return reader.GetDateTime(ordinal);
+        return this.reader.GetDateTime(ordinal);
     }
 
     /// <summary>
@@ -190,7 +190,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns>The value of the specified column.</returns>
     public override decimal GetDecimal(int ordinal)
     {
-        return reader.GetDecimal(ordinal);
+        return this.reader.GetDecimal(ordinal);
     }
 
     /// <summary>
@@ -200,7 +200,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns>The value of the specified column.</returns>
     public override double GetDouble(int ordinal)
     {
-        return reader.GetDouble(ordinal);
+        return this.reader.GetDouble(ordinal);
     }
 
     /// <summary>
@@ -209,7 +209,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns>An <see cref="T:System.Collections.IEnumerator" /> that can be used to iterate through the rows in the data reader.</returns>
     public override System.Collections.IEnumerator GetEnumerator()
     {
-        return ((System.Collections.IEnumerable)reader).GetEnumerator();
+        return ((System.Collections.IEnumerable)this.reader).GetEnumerator();
     }
 
     /// <summary>
@@ -219,7 +219,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns>The data type of the specified column.</returns>
     public override Type GetFieldType(int ordinal)
     {
-        return reader.GetFieldType(ordinal);
+        return this.reader.GetFieldType(ordinal);
     }
 
     /// <summary>
@@ -229,7 +229,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns>The value of the specified column.</returns>
     public override float GetFloat(int ordinal)
     {
-        return reader.GetFloat(ordinal);
+        return this.reader.GetFloat(ordinal);
     }
 
     /// <summary>
@@ -239,7 +239,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns>The value of the specified column.</returns>
     public override Guid GetGuid(int ordinal)
     {
-        return reader.GetGuid(ordinal);
+        return this.reader.GetGuid(ordinal);
     }
 
     /// <summary>
@@ -249,7 +249,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns>The value of the specified column.</returns>
     public override short GetInt16(int ordinal)
     {
-        return reader.GetInt16(ordinal);
+        return this.reader.GetInt16(ordinal);
     }
 
     /// <summary>
@@ -259,7 +259,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns>The value of the specified column.</returns>
     public override int GetInt32(int ordinal)
     {
-        return reader.GetInt32(ordinal);
+        return this.reader.GetInt32(ordinal);
     }
 
     /// <summary>
@@ -269,7 +269,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns>The value of the specified column.</returns>
     public override long GetInt64(int ordinal)
     {
-        return reader.GetInt64(ordinal);
+        return this.reader.GetInt64(ordinal);
     }
 
     /// <summary>
@@ -279,7 +279,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns>The name of the specified column.</returns>
     public override string GetName(int ordinal)
     {
-        return reader.GetName(ordinal);
+        return this.reader.GetName(ordinal);
     }
 
     /// <summary>
@@ -289,7 +289,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns>The zero-based column ordinal.</returns>
     public override int GetOrdinal(string name)
     {
-        return reader.GetOrdinal(name);
+        return this.reader.GetOrdinal(name);
     }
 
 #if !NET7_0_OR_GREATER
@@ -310,7 +310,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns>The value of the specified column.</returns>
     public override string GetString(int ordinal)
     {
-        return reader.GetString(ordinal);
+        return this.reader.GetString(ordinal);
     }
 
     /// <summary>
@@ -320,7 +320,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns>The value of the specified column.</returns>
     public override object GetValue(int ordinal)
     {
-        return reader.GetValue(ordinal);
+        return this.reader.GetValue(ordinal);
     }
 
     /// <summary>
@@ -330,7 +330,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns>The number of instances of <see cref="T:System.Object" /> in the array.</returns>
     public override int GetValues(object[] values)
     {
-        return reader.GetValues(values);
+        return this.reader.GetValues(values);
     }
 
     /// <summary>
@@ -340,7 +340,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns><see langword="true" /> if the specified column is equivalent to <see cref="T:System.DBNull" />; otherwise <see langword="false" />.</returns>
     public override bool IsDBNull(int ordinal)
     {
-        return reader.IsDBNull(ordinal);
+        return this.reader.IsDBNull(ordinal);
     }
 
     /// <summary>
@@ -349,7 +349,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns><see langword="true" /> if there are more result sets; otherwise <see langword="false" />.</returns>
     public override bool NextResult()
     {
-        return reader.NextResult();
+        return this.reader.NextResult();
     }
 
     /// <summary>
@@ -358,7 +358,7 @@ public class ProfiledDbDataReader : DbDataReader
     /// <returns><see langword="true" /> if there are more rows; otherwise <see langword="false" />.</returns>
     public override bool Read()
     {
-        return reader.Read();
+        return this.reader.Read();
     }
 }
 

@@ -126,7 +126,7 @@ public class AppTasks
     /// Gets the tasks.
     /// </summary>
     /// <value>The tasks.</value>
-    public Dictionary<string, Action<string[]>> Tasks { get; } = new();
+    public Dictionary<string, Action<string[]>> Tasks { get; } = [];
 
     /// <summary>
     /// Register Task to run in APP_TASKS=task1;task2
@@ -142,7 +142,10 @@ public class AppTasks
     /// Gets the application task commands.
     /// </summary>
     /// <returns>System.Nullable&lt;System.String&gt;.</returns>
-    public static string? GetAppTaskCommands() => GetAppTaskCommands(Environment.GetCommandLineArgs());
+    public static string? GetAppTaskCommands()
+    {
+        return GetAppTaskCommands(Environment.GetCommandLineArgs());
+    }
 
     /// <summary>
     /// Gets the application task commands.
@@ -154,10 +157,15 @@ public class AppTasks
         foreach (var arg in args)
         {
             if (arg.IndexOf('=') == -1)
+            {
                 continue;
+            }
+
             var key = arg.LeftPart('=').TrimPrefixes("/", "--");
             if (key == nameof(AppTasks))
+            {
                 return arg.RightPart('=');
+            }
         }
 
         return null;
@@ -182,7 +190,7 @@ public class AppTasks
                     var appTask = appTaskWithArgs.LeftPart(':');
                     var args = appTaskWithArgs.IndexOf(':') >= 0
                         ? appTaskWithArgs.RightPart(':').Split(',')
-                        : Array.Empty<string>();
+                        : [];
 
                     if (!tasks.TryGetValue(appTask, out var taskFn))
                     {
@@ -227,11 +235,6 @@ public class AppTasks
         {
             onExit?.Invoke();
             Environment.Exit(exitCode.Value);
-
-            // Trying to Stop Application before app.Run() throws Unhandled exception. System.OperationCanceledException
-            // var appLifetime = ApplicationServices.Resolve<IHostApplicationLifetime>();
-            // Environment.ExitCode = exitCode;
-            // appLifetime.StopApplication();
         }
     }
 

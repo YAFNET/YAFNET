@@ -27,11 +27,14 @@ public static class StringSpanExtensions
     /// <param name="value">The value.</param>
     /// <returns>System.String.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string Value(this ReadOnlySpan<char> value) => value.IsEmpty
-                                                                     ? null
-                                                                     : value.Length == 1 && value[0] == TypeConstants.NonWidthWhiteSpace
-                                                                         ? ""
-                                                                         : value.ToString();
+    public static string Value(this ReadOnlySpan<char> value)
+    {
+        return value.IsEmpty
+            ? null
+            : value.Length == 1 && value[0] == TypeConstants.NonWidthWhiteSpace
+                ? ""
+                : value.ToString();
+    }
 
     /// <summary>
     /// Values the specified object.
@@ -39,10 +42,12 @@ public static class StringSpanExtensions
     /// <param name="obj">The object.</param>
     /// <returns>System.Object.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    static internal object Value(this object obj) =>
-        obj is string { Length: 1 } value && value[0] == TypeConstants.NonWidthWhiteSpace
+    static internal object Value(this object obj)
+    {
+        return obj is string { Length: 1 } value && value[0] == TypeConstants.NonWidthWhiteSpace
             ? ""
             : obj;
+    }
 
     /// <summary>
     /// Determines whether [is null or empty] [the specified value].
@@ -50,7 +55,10 @@ public static class StringSpanExtensions
     /// <param name="value">The value.</param>
     /// <returns><c>true</c> if [is null or empty] [the specified value]; otherwise, <c>false</c>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsNullOrEmpty(this ReadOnlySpan<char> value) => value.IsEmpty || value.Length == 1 && value[0] == TypeConstants.NonWidthWhiteSpace;
+    public static bool IsNullOrEmpty(this ReadOnlySpan<char> value)
+    {
+        return value.IsEmpty || value.Length == 1 && value[0] == TypeConstants.NonWidthWhiteSpace;
+    }
 
     /// <summary>
     /// Substrings the specified position.
@@ -59,7 +67,10 @@ public static class StringSpanExtensions
     /// <param name="pos">The position.</param>
     /// <returns>System.String.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string Substring(this ReadOnlySpan<char> value, int pos) => value.Slice(pos, value.Length - pos).ToString();
+    public static string Substring(this ReadOnlySpan<char> value, int pos)
+    {
+        return value.Slice(pos, value.Length - pos).ToString();
+    }
 
     /// <summary>
     /// Substrings the specified position.
@@ -69,7 +80,10 @@ public static class StringSpanExtensions
     /// <param name="length">The length.</param>
     /// <returns>System.String.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string Substring(this ReadOnlySpan<char> value, int pos, int length) => value.Slice(pos, length).ToString();
+    public static string Substring(this ReadOnlySpan<char> value, int pos, int length)
+    {
+        return value.Slice(pos, length).ToString();
+    }
 
     /// <summary>
     /// Compares the ignore case.
@@ -78,7 +92,10 @@ public static class StringSpanExtensions
     /// <param name="text">The text.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool CompareIgnoreCase(this ReadOnlySpan<char> value, ReadOnlySpan<char> text) => value.Equals(text, StringComparison.OrdinalIgnoreCase);
+    public static bool CompareIgnoreCase(this ReadOnlySpan<char> value, ReadOnlySpan<char> text)
+    {
+        return value.Equals(text, StringComparison.OrdinalIgnoreCase);
+    }
 
     /// <summary>
     /// Froms the CSV field.
@@ -89,13 +106,17 @@ public static class StringSpanExtensions
     {
         //TODO replace with native Replace() when exists
         if (text.IsNullOrEmpty())
+        {
             return text;
+        }
 
         var delim = CsvConfig.ItemDelimiterString;
         if (delim.Length == 1)
         {
             if (text[0] != delim[0])
+            {
                 return text;
+            }
         }
         else if (!text.StartsWith(delim.AsSpan(), StringComparison.Ordinal))
         {
@@ -140,11 +161,17 @@ public static class StringSpanExtensions
                 break;
             case 2:
                 if (value[0] == 'o' && value[1] == 'n')
+                {
                     return true;
+                }
+
                 break;
             case 3:
                 if (value[0] == 'o' && value[1] == 'f' && value[1] == 'f')
+                {
                     return false;
+                }
+
                 break;
         }
 
@@ -157,8 +184,10 @@ public static class StringSpanExtensions
     /// <param name="value">The value.</param>
     /// <param name="result">if set to <c>true</c> [result].</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public static bool TryParseBoolean(this ReadOnlySpan<char> value, out bool result) =>
-        MemoryProvider.Instance.TryParseBoolean(value, out result);
+    public static bool TryParseBoolean(this ReadOnlySpan<char> value, out bool result)
+    {
+        return MemoryProvider.Instance.TryParseBoolean(value, out result);
+    }
 
     /// <summary>
     /// Tries the parse decimal.
@@ -167,8 +196,10 @@ public static class StringSpanExtensions
     /// <param name="result">The result.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool TryParseDecimal(this ReadOnlySpan<char> value, out decimal result) =>
-        MemoryProvider.Instance.TryParseDecimal(value, out result);
+    public static bool TryParseDecimal(this ReadOnlySpan<char> value, out decimal result)
+    {
+        return MemoryProvider.Instance.TryParseDecimal(value, out result);
+    }
 
     /// <summary>
     /// Tries the parse float.
@@ -177,8 +208,10 @@ public static class StringSpanExtensions
     /// <param name="result">The result.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool TryParseFloat(this ReadOnlySpan<char> value, out float result) =>
-        MemoryProvider.Instance.TryParseFloat(value, out result);
+    public static bool TryParseFloat(this ReadOnlySpan<char> value, out float result)
+    {
+        return MemoryProvider.Instance.TryParseFloat(value, out result);
+    }
 
     /// <summary>
     /// Tries the parse double.
@@ -187,8 +220,10 @@ public static class StringSpanExtensions
     /// <param name="result">The result.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool TryParseDouble(this ReadOnlySpan<char> value, out double result) =>
-        MemoryProvider.Instance.TryParseDouble(value, out result);
+    public static bool TryParseDouble(this ReadOnlySpan<char> value, out double result)
+    {
+        return MemoryProvider.Instance.TryParseDouble(value, out result);
+    }
 
     /// <summary>
     /// Parses the decimal.
@@ -196,8 +231,10 @@ public static class StringSpanExtensions
     /// <param name="value">The value.</param>
     /// <returns>System.Decimal.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static decimal ParseDecimal(this ReadOnlySpan<char> value) =>
-        MemoryProvider.Instance.ParseDecimal(value);
+    public static decimal ParseDecimal(this ReadOnlySpan<char> value)
+    {
+        return MemoryProvider.Instance.ParseDecimal(value);
+    }
 
     /// <summary>
     /// Parses the float.
@@ -205,8 +242,10 @@ public static class StringSpanExtensions
     /// <param name="value">The value.</param>
     /// <returns>System.Single.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static float ParseFloat(this ReadOnlySpan<char> value) =>
-        MemoryProvider.Instance.ParseFloat(value);
+    public static float ParseFloat(this ReadOnlySpan<char> value)
+    {
+        return MemoryProvider.Instance.ParseFloat(value);
+    }
 
     /// <summary>
     /// Parses the double.
@@ -214,8 +253,10 @@ public static class StringSpanExtensions
     /// <param name="value">The value.</param>
     /// <returns>System.Double.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static double ParseDouble(this ReadOnlySpan<char> value) =>
-        MemoryProvider.Instance.ParseDouble(value);
+    public static double ParseDouble(this ReadOnlySpan<char> value)
+    {
+        return MemoryProvider.Instance.ParseDouble(value);
+    }
 
     /// <summary>
     /// Parses the int32.
@@ -223,8 +264,10 @@ public static class StringSpanExtensions
     /// <param name="value">The value.</param>
     /// <returns>System.Int32.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static int ParseInt32(this ReadOnlySpan<char> value) =>
-        SignedInteger<int>.ParseInt32(value);
+    public static int ParseInt32(this ReadOnlySpan<char> value)
+    {
+        return SignedInteger<int>.ParseInt32(value);
+    }
 
     /// <summary>
     /// Parses the unique identifier.
@@ -232,8 +275,10 @@ public static class StringSpanExtensions
     /// <param name="value">The value.</param>
     /// <returns>Guid.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Guid ParseGuid(this ReadOnlySpan<char> value) =>
-        DefaultMemory.Provider.ParseGuid(value);
+    public static Guid ParseGuid(this ReadOnlySpan<char> value)
+    {
+        return DefaultMemory.Provider.ParseGuid(value);
+    }
 
     /// <summary>
     /// Advances the past whitespace.
@@ -245,7 +290,9 @@ public static class StringSpanExtensions
     {
         var i = 0;
         while (i < literal.Length && char.IsWhiteSpace(literal[i]))
+        {
             i++;
+        }
 
         return i == 0 ? literal : literal.Slice(i < literal.Length ? i : literal.Length);
     }
@@ -258,7 +305,11 @@ public static class StringSpanExtensions
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
     public static ReadOnlySpan<char> RightPart(this ReadOnlySpan<char> strVal, char needle)
     {
-        if (strVal.IsEmpty) return strVal;
+        if (strVal.IsEmpty)
+        {
+            return strVal;
+        }
+
         var pos = strVal.IndexOf(needle);
         return pos == -1
                    ? strVal
@@ -273,7 +324,11 @@ public static class StringSpanExtensions
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
     public static ReadOnlySpan<char> RightPart(this ReadOnlySpan<char> strVal, string needle)
     {
-        if (strVal.IsEmpty) return strVal;
+        if (strVal.IsEmpty)
+        {
+            return strVal;
+        }
+
         var pos = strVal.IndexOf(needle);
         return pos == -1
                    ? strVal
@@ -288,7 +343,11 @@ public static class StringSpanExtensions
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
     public static ReadOnlySpan<char> LastRightPart(this ReadOnlySpan<char> strVal, char needle)
     {
-        if (strVal.IsEmpty) return strVal;
+        if (strVal.IsEmpty)
+        {
+            return strVal;
+        }
+
         var pos = strVal.LastIndexOf(needle);
         return pos == -1
                    ? strVal
@@ -303,7 +362,11 @@ public static class StringSpanExtensions
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
     public static ReadOnlySpan<char> LastRightPart(this ReadOnlySpan<char> strVal, string needle)
     {
-        if (strVal.IsEmpty) return strVal;
+        if (strVal.IsEmpty)
+        {
+            return strVal;
+        }
+
         var pos = strVal.LastIndexOf(needle);
         return pos == -1
                    ? strVal
@@ -321,7 +384,10 @@ public static class StringSpanExtensions
     {
         first = default;
         last = default;
-        if (strVal.IsEmpty) return;
+        if (strVal.IsEmpty)
+        {
+            return;
+        }
 
         var pos = strVal.IndexOf(needle);
         if (pos == -1)
@@ -346,7 +412,10 @@ public static class StringSpanExtensions
     {
         first = default;
         last = default;
-        if (strVal.IsEmpty) return;
+        if (strVal.IsEmpty)
+        {
+            return;
+        }
 
         var pos = strVal.IndexOf(needle);
         if (pos == -1)
@@ -371,7 +440,10 @@ public static class StringSpanExtensions
     {
         first = default;
         last = default;
-        if (strVal.IsEmpty) return;
+        if (strVal.IsEmpty)
+        {
+            return;
+        }
 
         var pos = strVal.LastIndexOf(needle);
         if (pos == -1)
@@ -396,7 +468,10 @@ public static class StringSpanExtensions
     {
         first = default;
         last = default;
-        if (strVal.IsEmpty) return;
+        if (strVal.IsEmpty)
+        {
+            return;
+        }
 
         var pos = strVal.LastIndexOf(needle);
         if (pos == -1)
@@ -418,10 +493,15 @@ public static class StringSpanExtensions
     public static ReadOnlySpan<char> WithoutExtension(this ReadOnlySpan<char> filePath)
     {
         if (filePath.IsNullOrEmpty())
+        {
             return TypeConstants.NullStringSpan;
+        }
 
         var extPos = filePath.LastIndexOf('.');
-        if (extPos == -1) return filePath;
+        if (extPos == -1)
+        {
+            return filePath;
+        }
 
         var dirPos = filePath.LastIndexOfAny(PclExport.DirSeps);
         return extPos > dirPos ? filePath.Slice(0, extPos) : filePath;
@@ -435,7 +515,9 @@ public static class StringSpanExtensions
     public static ReadOnlySpan<char> GetExtension(this ReadOnlySpan<char> filePath)
     {
         if (filePath.IsNullOrEmpty())
+        {
             return TypeConstants.NullStringSpan;
+        }
 
         var extPos = filePath.LastIndexOf('.');
         return extPos == -1 ? TypeConstants.NullStringSpan : filePath.Slice(extPos);
@@ -449,7 +531,9 @@ public static class StringSpanExtensions
     public static ReadOnlySpan<char> ParentDirectory(this ReadOnlySpan<char> filePath)
     {
         if (filePath.IsNullOrEmpty())
+        {
             return TypeConstants.NullStringSpan;
+        }
 
         var dirSep = filePath.IndexOf(PclExport.Instance.DirSep) != -1
                          ? PclExport.Instance.DirSep
@@ -458,7 +542,9 @@ public static class StringSpanExtensions
                              : (char)0;
 
         if (dirSep == 0)
+        {
             return TypeConstants.NullStringSpan;
+        }
 
         ReadOnlySpan<char> first;
         filePath.TrimEnd(dirSep).SplitOnLast(dirSep, out first, out _);
@@ -474,9 +560,16 @@ public static class StringSpanExtensions
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
     public static ReadOnlySpan<char> TrimEnd(this ReadOnlySpan<char> value, params char[] trimChars)
     {
-        if (value.IsEmpty) return TypeConstants.NullStringSpan;
+        if (value.IsEmpty)
+        {
+            return TypeConstants.NullStringSpan;
+        }
+
         if (trimChars == null || trimChars.Length == 0)
+        {
             return value.TrimHelper(1);
+        }
+
         return value.TrimHelper(trimChars, 1);
     }
 
@@ -488,20 +581,28 @@ public static class StringSpanExtensions
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
     private static ReadOnlySpan<char> TrimHelper(this ReadOnlySpan<char> value, int trimType)
     {
-        if (value.IsEmpty) return TypeConstants.NullStringSpan;
-        int end = value.Length - 1;
-        int start = 0;
+        if (value.IsEmpty)
+        {
+            return TypeConstants.NullStringSpan;
+        }
+
+        var end = value.Length - 1;
+        var start = 0;
         if (trimType != 1)
         {
             start = 0;
             while (start < value.Length && char.IsWhiteSpace(value[start]))
+            {
                 ++start;
+            }
         }
         if (trimType != 0)
         {
             end = value.Length - 1;
             while (end >= start && char.IsWhiteSpace(value[end]))
+            {
                 --end;
+            }
         }
         return value.CreateTrimmedString(start, end);
     }
@@ -519,30 +620,40 @@ public static class StringSpanExtensions
         {
             return TypeConstants.NullStringSpan;
         }
-        int end = value.Length - 1;
-        int start = 0;
+        var end = value.Length - 1;
+        var start = 0;
         if (trimType != 1)
         {
             for (start = 0; start < value.Length; ++start)
             {
-                char ch = value[start];
-                int index = 0;
+                var ch = value[start];
+                var index = 0;
                 while (index < trimChars.Count && trimChars[index] != ch)
+                {
                     ++index;
+                }
+
                 if (index == trimChars.Count)
+                {
                     break;
+                }
             }
         }
         if (trimType != 0)
         {
             for (end = value.Length - 1; end >= start; --end)
             {
-                char ch = value[end];
-                int index = 0;
+                var ch = value[end];
+                var index = 0;
                 while (index < trimChars.Count && trimChars[index] != ch)
+                {
                     ++index;
+                }
+
                 if (index == trimChars.Count)
+                {
                     break;
+                }
             }
         }
         return value.CreateTrimmedString(start, end);
@@ -557,10 +668,17 @@ public static class StringSpanExtensions
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
     private static ReadOnlySpan<char> CreateTrimmedString(this ReadOnlySpan<char> value, int start, int end)
     {
-        if (value.IsEmpty) return TypeConstants.NullStringSpan;
-        int length = end - start + 1;
+        if (value.IsEmpty)
+        {
+            return TypeConstants.NullStringSpan;
+        }
+
+        var length = end - start + 1;
         if (length == value.Length)
+        {
             return value;
+        }
+
         return length == 0 ? TypeConstants.NullStringSpan : value.Slice(start, length);
     }
 
@@ -571,7 +689,10 @@ public static class StringSpanExtensions
     /// <param name="other">The other.</param>
     /// <returns>System.Int32.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static int IndexOf(this ReadOnlySpan<char> value, string other) => value.IndexOf(other.AsSpan());
+    public static int IndexOf(this ReadOnlySpan<char> value, string other)
+    {
+        return value.IndexOf(other.AsSpan());
+    }
 
     /// <summary>
     /// Indexes the of.
@@ -595,7 +716,10 @@ public static class StringSpanExtensions
     /// <param name="other">The other.</param>
     /// <returns>System.Int32.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static int LastIndexOf(this ReadOnlySpan<char> value, string other) => value.LastIndexOf(other.AsSpan());
+    public static int LastIndexOf(this ReadOnlySpan<char> value, string other)
+    {
+        return value.LastIndexOf(other.AsSpan());
+    }
 
     /// <summary>
     /// Lasts the index of.
@@ -618,7 +742,10 @@ public static class StringSpanExtensions
     /// <param name="other">The other.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool EqualTo(this ReadOnlySpan<char> value, string other) => value.Equals(other.AsSpan(), StringComparison.Ordinal);
+    public static bool EqualTo(this ReadOnlySpan<char> value, string other)
+    {
+        return value.Equals(other.AsSpan(), StringComparison.Ordinal);
+    }
 
     /// <summary>
     /// Equals to.
@@ -627,7 +754,10 @@ public static class StringSpanExtensions
     /// <param name="other">The other.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool EqualTo(this ReadOnlySpan<char> value, ReadOnlySpan<char> other) => value.Equals(other, StringComparison.Ordinal);
+    public static bool EqualTo(this ReadOnlySpan<char> value, ReadOnlySpan<char> other)
+    {
+        return value.Equals(other, StringComparison.Ordinal);
+    }
 
     /// <summary>
     /// Equalses the ordinal.
@@ -636,7 +766,10 @@ public static class StringSpanExtensions
     /// <param name="other">The other.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool EqualsOrdinal(this ReadOnlySpan<char> value, string other) => value.Equals(other.AsSpan(), StringComparison.Ordinal);
+    public static bool EqualsOrdinal(this ReadOnlySpan<char> value, string other)
+    {
+        return value.Equals(other.AsSpan(), StringComparison.Ordinal);
+    }
 
     /// <summary>
     /// Startses the with.
@@ -645,7 +778,10 @@ public static class StringSpanExtensions
     /// <param name="other">The other.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool StartsWith(this ReadOnlySpan<char> value, string other) => value.StartsWith(other.AsSpan(), StringComparison.OrdinalIgnoreCase);
+    public static bool StartsWith(this ReadOnlySpan<char> value, string other)
+    {
+        return value.StartsWith(other.AsSpan(), StringComparison.OrdinalIgnoreCase);
+    }
 
     /// <summary>
     /// Startses the with.
@@ -655,7 +791,10 @@ public static class StringSpanExtensions
     /// <param name="comparison">The comparison.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool StartsWith(this ReadOnlySpan<char> value, string other, StringComparison comparison) => value.StartsWith(other.AsSpan(), comparison);
+    public static bool StartsWith(this ReadOnlySpan<char> value, string other, StringComparison comparison)
+    {
+        return value.StartsWith(other.AsSpan(), comparison);
+    }
 
     /// <summary>
     /// Endses the with.
@@ -665,7 +804,10 @@ public static class StringSpanExtensions
     /// <param name="comparison">The comparison.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool EndsWith(this ReadOnlySpan<char> value, string other, StringComparison comparison) => value.EndsWith(other.AsSpan(), comparison);
+    public static bool EndsWith(this ReadOnlySpan<char> value, string other, StringComparison comparison)
+    {
+        return value.EndsWith(other.AsSpan(), comparison);
+    }
 
     /// <summary>
     /// Endses the with.
@@ -674,7 +816,10 @@ public static class StringSpanExtensions
     /// <param name="other">The other.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool EndsWith(this ReadOnlySpan<char> value, string other) => value.EndsWith(other.AsSpan(), StringComparison.OrdinalIgnoreCase);
+    public static bool EndsWith(this ReadOnlySpan<char> value, string other)
+    {
+        return value.EndsWith(other.AsSpan(), StringComparison.OrdinalIgnoreCase);
+    }
 
     /// <summary>
     /// Equalses the ignore case.
@@ -683,7 +828,10 @@ public static class StringSpanExtensions
     /// <param name="other">The other.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool EqualsIgnoreCase(this ReadOnlySpan<char> value, ReadOnlySpan<char> other) => value.Equals(other, StringComparison.OrdinalIgnoreCase);
+    public static bool EqualsIgnoreCase(this ReadOnlySpan<char> value, ReadOnlySpan<char> other)
+    {
+        return value.Equals(other, StringComparison.OrdinalIgnoreCase);
+    }
 
     /// <summary>
     /// Writes the asynchronous.
@@ -693,8 +841,10 @@ public static class StringSpanExtensions
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Task WriteAsync(this Stream stream, ReadOnlySpan<char> value, CancellationToken token = default) =>
-        MemoryProvider.Instance.WriteAsync(stream, value, token);
+    public static Task WriteAsync(this Stream stream, ReadOnlySpan<char> value, CancellationToken token = default)
+    {
+        return MemoryProvider.Instance.WriteAsync(stream, value, token);
+    }
 
     /// <summary>
     /// Safes the substring.
@@ -703,7 +853,10 @@ public static class StringSpanExtensions
     /// <param name="startIndex">The start index.</param>
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ReadOnlySpan<char> SafeSubstring(this ReadOnlySpan<char> value, int startIndex) => SafeSubstring(value, startIndex, value.Length);
+    public static ReadOnlySpan<char> SafeSubstring(this ReadOnlySpan<char> value, int startIndex)
+    {
+        return SafeSubstring(value, startIndex, value.Length);
+    }
 
     /// <summary>
     /// Safes the substring.
@@ -714,10 +867,20 @@ public static class StringSpanExtensions
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
     public static ReadOnlySpan<char> SafeSubstring(this ReadOnlySpan<char> value, int startIndex, int length)
     {
-        if (value.IsEmpty) return TypeConstants.NullStringSpan;
-        if (startIndex < 0) startIndex = 0;
+        if (value.IsEmpty)
+        {
+            return TypeConstants.NullStringSpan;
+        }
+
+        if (startIndex < 0)
+        {
+            startIndex = 0;
+        }
+
         if (value.Length >= startIndex + length)
+        {
             return value.Slice(startIndex, length);
+        }
 
         return value.Length > startIndex ? value.Slice(startIndex) : TypeConstants.NullStringSpan;
     }
@@ -729,8 +892,10 @@ public static class StringSpanExtensions
     /// <param name="value">The value.</param>
     /// <returns>StringBuilder.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static StringBuilder Append(this StringBuilder sb, ReadOnlySpan<char> value) =>
-        MemoryProvider.Instance.Append(sb, value);
+    public static StringBuilder Append(this StringBuilder sb, ReadOnlySpan<char> value)
+    {
+        return MemoryProvider.Instance.Append(sb, value);
+    }
 
     /// <summary>
     /// Parses the base64.
@@ -738,7 +903,10 @@ public static class StringSpanExtensions
     /// <param name="value">The value.</param>
     /// <returns>System.Byte[].</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static byte[] ParseBase64(this ReadOnlySpan<char> value) => MemoryProvider.Instance.ParseBase64(value);
+    public static byte[] ParseBase64(this ReadOnlySpan<char> value)
+    {
+        return MemoryProvider.Instance.ParseBase64(value);
+    }
 
     /// <summary>
     /// Withouts the bom.

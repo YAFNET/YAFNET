@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,7 +32,7 @@ using System.Reflection;
 /// <summary>
 /// The module scanner
 /// </summary>
-public class ModuleScanner
+public static class ModuleScanner
 {
     /// <summary>
     /// The get modules.
@@ -90,7 +90,7 @@ public class ModuleScanner
     /// </param>
     /// <returns>
     /// </returns>
-    private static IEnumerable<string> GetMatchingFiles(string pattern)
+    private static string[] GetMatchingFiles(string pattern)
     {
         var path = CleanPath(Path.GetDirectoryName(pattern));
         var glob = Path.GetFileName(pattern);

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -50,15 +50,9 @@ static internal class NameAndIdProvider
     /// </remarks>
     public static string CreateSanitizedId(ViewContext viewContext, string fullName, string invalidCharReplacement)
     {
-        if (viewContext is null)
-        {
-            throw new ArgumentNullException(nameof(viewContext));
-        }
+        ArgumentNullException.ThrowIfNull(viewContext);
 
-        if (invalidCharReplacement is null)
-        {
-            throw new ArgumentNullException(nameof(invalidCharReplacement));
-        }
+        ArgumentNullException.ThrowIfNull(invalidCharReplacement);
 
         if (string.IsNullOrEmpty(fullName))
         {
@@ -119,20 +113,11 @@ static internal class NameAndIdProvider
         string fullName,
         string invalidCharReplacement)
     {
-        if (viewContext is null)
-        {
-            throw new ArgumentNullException(nameof(viewContext));
-        }
+        ArgumentNullException.ThrowIfNull(viewContext);
 
-        if (tagBuilder is null)
-        {
-            throw new ArgumentNullException(nameof(tagBuilder));
-        }
+        ArgumentNullException.ThrowIfNull(tagBuilder);
 
-        if (invalidCharReplacement is null)
-        {
-            throw new ArgumentNullException(nameof(invalidCharReplacement));
-        }
+        ArgumentNullException.ThrowIfNull(invalidCharReplacement);
 
         if (string.IsNullOrEmpty(fullName))
         {
@@ -206,7 +191,7 @@ static internal class NameAndIdProvider
         return previousNameAndId.OutputFullName;
     }
 
-    private class PreviousNameAndId
+    private sealed class PreviousNameAndId
     {
         // Cached ambient input for NameAndIdProvider.GetFullHtmlFieldName(). TemplateInfo.HtmlFieldPrefix may
         // change during the lifetime of a ViewContext.

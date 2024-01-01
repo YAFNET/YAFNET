@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -353,7 +353,8 @@ public class MembersModel : ForumPage
         this.RanksList = [..new SelectList(ranks, nameof(Rank.ID), nameof(Rank.Name))];
 
         // get list of user ranks for filtering
-        var groups = this.GetRepository<Group>().GetByBoardId().OrderBy(r => r.SortOrder).Where(g => !g.GroupFlags.IsGuest).ToList();
+        var groups = this.GetRepository<Group>().GetByBoardId().Where(g => !g.GroupFlags.IsGuest)
+            .OrderBy(r => r.SortOrder).ToList();
 
         groups.Insert(0, new Group { Name = this.GetText("ALL"), ID = 0 });
 

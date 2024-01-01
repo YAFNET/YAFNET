@@ -1,9 +1,9 @@
-﻿/* Yet Another Forum.NET
+/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
- *
+ * 
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -22,50 +22,38 @@
  * under the License.
  */
 
-namespace YAF.Types.Modals;
-
-using System.ComponentModel.DataAnnotations;
+namespace YAF.Types.Models;
 
 /// <summary>
-/// Class NntpServerEditModal.
+/// A class which represents the NntpTopic table.
 /// </summary>
-public class NntpServerEditModal
+[Serializable]
+public class NntpTopic : IEntity, IHaveID
 {
     /// <summary>
-    /// Gets or sets the identifier.
+    /// Gets or sets the id.
     /// </summary>
-    /// <value>The identifier.</value>
-    public int? Id { get; set; }
+    [Alias("NntpTopicID")]
+    [AutoIncrement]
+    public int ID { get; set; }
 
     /// <summary>
-    /// Gets or sets the name.
+    /// Gets or sets the nntp forum id.
     /// </summary>
-    /// <value>The name.</value>
+    [References(typeof(NntpForum))]
     [Required]
-    public string Name { get; set; }
+    public int NntpForumID { get; set; }
 
     /// <summary>
-    /// Gets or sets the address.
+    /// Gets or sets the thread.
     /// </summary>
-    /// <value>The address.</value>
+    [StringLength(64)]
+    public string Thread { get; set; }
+
+    /// <summary>
+    /// Gets or sets the topic id.
+    /// </summary>
+    [References(typeof(Topic))]
     [Required]
-    public string Address { get; set; }
-
-    /// <summary>
-    /// Gets or sets the port.
-    /// </summary>
-    /// <value>The port.</value>
-    public int? Port { get; set; }
-
-    /// <summary>
-    /// Gets or sets the name of the user.
-    /// </summary>
-    /// <value>The name of the user.</value>
-    public string UserName { get; set; }
-
-    /// <summary>
-    /// Gets or sets the user pass.
-    /// </summary>
-    /// <value>The user pass.</value>
-    public string UserPass { get; set; }
+    public int TopicID { get; set; }
 }

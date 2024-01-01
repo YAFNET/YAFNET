@@ -21,7 +21,10 @@ public static class CharMemoryExtensions
     /// <param name="value">The value.</param>
     /// <returns><c>true</c> if [is null or empty] [the specified value]; otherwise, <c>false</c>.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool IsNullOrEmpty(this ReadOnlyMemory<char> value) => value.IsEmpty;
+    public static bool IsNullOrEmpty(this ReadOnlyMemory<char> value)
+    {
+        return value.IsEmpty;
+    }
 
     /// <summary>
     /// Advances the specified to.
@@ -30,7 +33,10 @@ public static class CharMemoryExtensions
     /// <param name="to">To.</param>
     /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static ReadOnlyMemory<char> Advance(this ReadOnlyMemory<char> text, int to) => text.Slice(to, text.Length - to);
+    public static ReadOnlyMemory<char> Advance(this ReadOnlyMemory<char> text, int to)
+    {
+        return text.Slice(to, text.Length - to);
+    }
 
     /// <summary>
     /// Rights the part.
@@ -40,7 +46,11 @@ public static class CharMemoryExtensions
     /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
     public static ReadOnlyMemory<char> RightPart(this ReadOnlyMemory<char> strVal, char needle)
     {
-        if (strVal.IsEmpty) return strVal;
+        if (strVal.IsEmpty)
+        {
+            return strVal;
+        }
+
         var pos = strVal.IndexOf(needle);
         return pos == -1
                    ? strVal
@@ -55,7 +65,11 @@ public static class CharMemoryExtensions
     /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
     public static ReadOnlyMemory<char> RightPart(this ReadOnlyMemory<char> strVal, string needle)
     {
-        if (strVal.IsEmpty) return strVal;
+        if (strVal.IsEmpty)
+        {
+            return strVal;
+        }
+
         var pos = strVal.IndexOf(needle);
         return pos == -1
                    ? strVal
@@ -70,7 +84,11 @@ public static class CharMemoryExtensions
     /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
     public static ReadOnlyMemory<char> LastRightPart(this ReadOnlyMemory<char> strVal, char needle)
     {
-        if (strVal.IsEmpty) return strVal;
+        if (strVal.IsEmpty)
+        {
+            return strVal;
+        }
+
         var pos = strVal.LastIndexOf(needle);
         return pos == -1
                    ? strVal
@@ -85,7 +103,11 @@ public static class CharMemoryExtensions
     /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
     public static ReadOnlyMemory<char> LastRightPart(this ReadOnlyMemory<char> strVal, string needle)
     {
-        if (strVal.IsEmpty) return strVal;
+        if (strVal.IsEmpty)
+        {
+            return strVal;
+        }
+
         var pos = strVal.LastIndexOf(needle);
         return pos == -1
                    ? strVal
@@ -125,7 +147,9 @@ public static class CharMemoryExtensions
 
             var span = text.Span;
             if (span[nextLinePos] == '\r' && span.Length > nextLinePos + 1 && span[nextLinePos + 1] == '\n')
+            {
                 startIndex += 1;
+            }
 
             line = nextLine;
             return true;
@@ -177,7 +201,10 @@ public static class CharMemoryExtensions
     {
         first = default;
         last = default;
-        if (strVal.IsEmpty) return;
+        if (strVal.IsEmpty)
+        {
+            return;
+        }
 
         var pos = strVal.Span.IndexOf(needle);
         if (pos == -1)
@@ -202,7 +229,10 @@ public static class CharMemoryExtensions
     {
         first = default;
         last = default;
-        if (strVal.IsEmpty) return;
+        if (strVal.IsEmpty)
+        {
+            return;
+        }
 
         var pos = strVal.Span.IndexOf(needle.Span);
         if (pos == -1)
@@ -227,7 +257,10 @@ public static class CharMemoryExtensions
     {
         first = default;
         last = default;
-        if (strVal.IsEmpty) return;
+        if (strVal.IsEmpty)
+        {
+            return;
+        }
 
         var pos = strVal.Span.LastIndexOf(needle);
         if (pos == -1)
@@ -252,7 +285,10 @@ public static class CharMemoryExtensions
     {
         first = default;
         last = default;
-        if (strVal.IsEmpty) return;
+        if (strVal.IsEmpty)
+        {
+            return;
+        }
 
         var pos = strVal.Span.LastIndexOf(needle.Span);
         if (pos == -1)
@@ -273,7 +309,10 @@ public static class CharMemoryExtensions
     /// <param name="needle">The needle.</param>
     /// <returns>System.Int32.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static int IndexOf(this ReadOnlyMemory<char> value, char needle) => value.Span.IndexOf(needle);
+    public static int IndexOf(this ReadOnlyMemory<char> value, char needle)
+    {
+        return value.Span.IndexOf(needle);
+    }
 
     /// <summary>
     /// Indexes the of.
@@ -282,7 +321,10 @@ public static class CharMemoryExtensions
     /// <param name="needle">The needle.</param>
     /// <returns>System.Int32.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static int IndexOf(this ReadOnlyMemory<char> value, string needle) => value.Span.IndexOf(needle.AsSpan());
+    public static int IndexOf(this ReadOnlyMemory<char> value, string needle)
+    {
+        return value.Span.IndexOf(needle.AsSpan());
+    }
 
     /// <summary>
     /// Indexes the of.
@@ -319,7 +361,10 @@ public static class CharMemoryExtensions
     /// <param name="needle">The needle.</param>
     /// <returns>System.Int32.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static int LastIndexOf(this ReadOnlyMemory<char> value, char needle) => value.Span.LastIndexOf(needle);
+    public static int LastIndexOf(this ReadOnlyMemory<char> value, char needle)
+    {
+        return value.Span.LastIndexOf(needle);
+    }
 
     /// <summary>
     /// Lasts the index of.
@@ -328,7 +373,10 @@ public static class CharMemoryExtensions
     /// <param name="needle">The needle.</param>
     /// <returns>System.Int32.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static int LastIndexOf(this ReadOnlyMemory<char> value, string needle) => value.Span.LastIndexOf(needle.AsSpan());
+    public static int LastIndexOf(this ReadOnlyMemory<char> value, string needle)
+    {
+        return value.Span.LastIndexOf(needle.AsSpan());
+    }
 
     /// <summary>
     /// Lasts the index of.
@@ -365,7 +413,10 @@ public static class CharMemoryExtensions
     /// <param name="other">The other.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool StartsWith(this ReadOnlyMemory<char> value, string other) => value.Span.StartsWith(other.AsSpan(), StringComparison.OrdinalIgnoreCase);
+    public static bool StartsWith(this ReadOnlyMemory<char> value, string other)
+    {
+        return value.Span.StartsWith(other.AsSpan(), StringComparison.OrdinalIgnoreCase);
+    }
 
     /// <summary>
     /// Startses the with.
@@ -375,7 +426,10 @@ public static class CharMemoryExtensions
     /// <param name="comparison">The comparison.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool StartsWith(this ReadOnlyMemory<char> value, string other, StringComparison comparison) => value.Span.StartsWith(other.AsSpan(), comparison);
+    public static bool StartsWith(this ReadOnlyMemory<char> value, string other, StringComparison comparison)
+    {
+        return value.Span.StartsWith(other.AsSpan(), comparison);
+    }
 
     /// <summary>
     /// Endses the with.
@@ -384,7 +438,10 @@ public static class CharMemoryExtensions
     /// <param name="other">The other.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool EndsWith(this ReadOnlyMemory<char> value, string other) => value.Span.EndsWith(other.AsSpan(), StringComparison.OrdinalIgnoreCase);
+    public static bool EndsWith(this ReadOnlyMemory<char> value, string other)
+    {
+        return value.Span.EndsWith(other.AsSpan(), StringComparison.OrdinalIgnoreCase);
+    }
 
     /// <summary>
     /// Endses the with.
@@ -394,7 +451,10 @@ public static class CharMemoryExtensions
     /// <param name="comparison">The comparison.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool EndsWith(this ReadOnlyMemory<char> value, string other, StringComparison comparison) => value.Span.EndsWith(other.AsSpan(), comparison);
+    public static bool EndsWith(this ReadOnlyMemory<char> value, string other, StringComparison comparison)
+    {
+        return value.Span.EndsWith(other.AsSpan(), comparison);
+    }
 
     /// <summary>
     /// Equalses the ordinal.
@@ -403,7 +463,10 @@ public static class CharMemoryExtensions
     /// <param name="other">The other.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool EqualsOrdinal(this ReadOnlyMemory<char> value, string other) => value.Span.Equals(other.AsSpan(), StringComparison.Ordinal);
+    public static bool EqualsOrdinal(this ReadOnlyMemory<char> value, string other)
+    {
+        return value.Span.Equals(other.AsSpan(), StringComparison.Ordinal);
+    }
 
     /// <summary>
     /// Equalses the ordinal.
@@ -412,7 +475,10 @@ public static class CharMemoryExtensions
     /// <param name="other">The other.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static bool EqualsOrdinal(this ReadOnlyMemory<char> value, ReadOnlyMemory<char> other) => value.Span.Equals(other.Span, StringComparison.Ordinal);
+    public static bool EqualsOrdinal(this ReadOnlyMemory<char> value, ReadOnlyMemory<char> other)
+    {
+        return value.Span.Equals(other.Span, StringComparison.Ordinal);
+    }
 
     /// <summary>
     /// Safes the slice.
@@ -423,10 +489,20 @@ public static class CharMemoryExtensions
     /// <returns>ReadOnlyMemory&lt;System.Char&gt;.</returns>
     public static ReadOnlyMemory<char> SafeSlice(this ReadOnlyMemory<char> value, int startIndex, int length)
     {
-        if (value.IsEmpty) return TypeConstants.NullStringMemory;
-        if (startIndex < 0) startIndex = 0;
+        if (value.IsEmpty)
+        {
+            return TypeConstants.NullStringMemory;
+        }
+
+        if (startIndex < 0)
+        {
+            startIndex = 0;
+        }
+
         if (value.Length >= startIndex + length)
+        {
             return value.Slice(startIndex, length);
+        }
 
         return value.Length > startIndex ? value.Slice(startIndex) : TypeConstants.NullStringMemory;
     }

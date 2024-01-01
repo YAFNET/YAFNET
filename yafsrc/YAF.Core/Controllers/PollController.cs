@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -82,9 +82,9 @@ public class PollController : ForumBaseController
         var userPollVotes = this.GetRepository<PollVote>().VoteCheck(poll.ID, this.PageBoardContext.PageUserID);
 
         var isClosed = this.Get<PollService>().IsPollClosed(poll);
-        var canVote = forumAccess.VoteAccess && !userPollVotes.HasItems() && userPollVotes.All(v => choiceId != v.ChoiceID)
+        var canVote = forumAccess.VoteAccess && !userPollVotes.HasItems() && userPollVotes.TrueForAll(v => choiceId != v.ChoiceID)
                       || poll.PollFlags.AllowMultipleChoice && forumAccess.VoteAccess
-                                                            && userPollVotes.All(v => choiceId != v.ChoiceID);
+                                                            && userPollVotes.TrueForAll(v => choiceId != v.ChoiceID);
 
         var redirect = this.RedirectToPage(
             ForumPages.Posts.GetPageName(),

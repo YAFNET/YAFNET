@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -72,12 +72,6 @@ public static class IPHelper
     {
         var ipAddressAsString = string.Empty;
 
-        // don't resolve nntp
-        if (inputIpAddress.IsSet() && inputIpAddress.ToLower().Contains("nntp"))
-        {
-            return ipAddressAsString;
-        }
-
         // don't resolve ip regex
         if (inputIpAddress.IsSet() && inputIpAddress.ToLower().Contains('*'))
         {
@@ -86,9 +80,11 @@ public static class IPHelper
 
         try
         {
+            var hostAddresses = Dns.GetHostAddresses(inputIpAddress);
             // attempt to find IPv4 address from input IP - may fail because IPv6 does not map to IPv4 under most circumstances
-            var address = Dns.GetHostAddresses(inputIpAddress)
-                .FirstOrDefault(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork);
+            var address =
+                Array.Find(hostAddresses,
+                    ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork);
 
             if (address != null)
             {
@@ -96,8 +92,7 @@ public static class IPHelper
             }
 
             // return IPv6 if IPv4 not found
-            address = Dns.GetHostAddresses(inputIpAddress)
-                .FirstOrDefault(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetworkV6);
+            address = Array.Find(hostAddresses, ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetworkV6);
 
             return address != null ? address.ToString() : "127.0.0.1";
         }
@@ -142,7 +137,7 @@ public static class IPHelper
         {
             var ipAddresses = ipString.Split(',');
             var firstNonLocalAddress =
-                ipAddresses.FirstOrDefault(
+                Array.Find(ipAddresses,
                     ip => IPAddress.TryParse(ipString.Split(',')[0].Trim(), out ipAddress) && ipAddress.IsRoutable());
 
             if (firstNonLocalAddress.IsSet())
@@ -316,9 +311,9 @@ public static class IPHelper
 
         return ipAddress.AddressFamily switch
             {
-                AddressFamily.InterNetwork => !NonRoutableIPv4Networks.Any(
+                AddressFamily.InterNetwork => !NonRoutableIPv4Networks.Exists(
                                                   network => IsIpAddressInRange(ipAddressBytes, network)),
-                AddressFamily.InterNetworkV6 => !NonRoutableIPv6Networks.Any(
+                AddressFamily.InterNetworkV6 => !NonRoutableIPv6Networks.Exists(
                                                     network => IsIpAddressInRange(ipAddressBytes, network)),
                 _ => false
             };

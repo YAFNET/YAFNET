@@ -26,21 +26,27 @@ public static class JsonReader
     /// <summary>
     /// The parse function cache
     /// </summary>
-    private static Dictionary<Type, ParseFactoryDelegate> ParseFnCache = new();
+    private static Dictionary<Type, ParseFactoryDelegate> ParseFnCache = [];
 
     /// <summary>
     /// Gets the parse function.
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>ParseStringDelegate.</returns>
-    static internal ParseStringDelegate GetParseFn(Type type) => v => GetParseStringSpanFn(type)(v.AsSpan());
+    static internal ParseStringDelegate GetParseFn(Type type)
+    {
+        return v => GetParseStringSpanFn(type)(v.AsSpan());
+    }
 
     /// <summary>
     /// Gets the parse span function.
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>ParseStringSpanDelegate.</returns>
-    static internal ParseStringSpanDelegate GetParseSpanFn(Type type) => v => GetParseStringSpanFn(type)(v);
+    static internal ParseStringSpanDelegate GetParseSpanFn(Type type)
+    {
+        return v => GetParseStringSpanFn(type)(v);
+    }
 
     /// <summary>
     /// Gets the parse string span function.
@@ -52,7 +58,9 @@ public static class JsonReader
         ParseFnCache.TryGetValue(type, out var parseFactoryFn);
 
         if (parseFactoryFn != null)
+        {
             return parseFactoryFn();
+        }
 
         var genericType = typeof(JsonReader<>).MakeGenericType(type);
         var mi = genericType.GetStaticMethod(nameof(GetParseStringSpanFn));
@@ -114,7 +122,9 @@ static internal class JsonReader<T>
         JsConfig.InitStatics();
 
         if (JsonReader.Instance == null)
+        {
             return;
+        }
 
         ReadFn = JsonReader.Instance.GetParseStringSpanFn<T>();
         JsConfig.AddUniqueType(typeof(T));
@@ -124,24 +134,33 @@ static internal class JsonReader<T>
     /// Gets the parse function.
     /// </summary>
     /// <returns>ParseStringDelegate.</returns>
-    public static ParseStringDelegate GetParseFn() => ReadFn != null
-                                                          ? v => ReadFn(v.AsSpan())
-                                                          : Parse;
+    public static ParseStringDelegate GetParseFn()
+    {
+        return ReadFn != null
+            ? v => ReadFn(v.AsSpan())
+            : Parse;
+    }
 
     /// <summary>
     /// Gets the parse string span function.
     /// </summary>
     /// <returns>ParseStringSpanDelegate.</returns>
-    public static ParseStringSpanDelegate GetParseStringSpanFn() => ReadFn ?? Parse;
+    public static ParseStringSpanDelegate GetParseStringSpanFn()
+    {
+        return ReadFn ?? Parse;
+    }
 
     /// <summary>
     /// Parses the specified value.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
-    public static object Parse(string value) => value != null
-                                                    ? Parse(value.AsSpan())
-                                                    : null;
+    public static object Parse(string value)
+    {
+        return value != null
+            ? Parse(value.AsSpan())
+            : null;
+    }
 
     /// <summary>
     /// Parses the specified value.
@@ -160,7 +179,11 @@ static internal class JsonReader<T>
         {
             if (typeof(T).IsAbstract || typeof(T).IsInterface)
             {
-                if (value.IsNullOrEmpty()) return null;
+                if (value.IsNullOrEmpty())
+                {
+                    return null;
+                }
+
                 var concreteType = DeserializeType<JsonTypeSerializer>.ExtractType(value);
                 if (concreteType != null)
                 {

@@ -1453,7 +1453,9 @@ namespace ServiceStack.OrmLite.SqlServer
             if (string.IsNullOrEmpty(orderByExpression))
             {
                 if (modelDef.PrimaryKey == null)
-                    throw new ApplicationException("Malformed model, no PrimaryKey defined");
+                {
+                    throw new ArgumentNullException("Malformed model, no PrimaryKey defined");
+                }
 
                 orderByExpression = $"ORDER BY {this.GetQuotedColumnName(modelDef, modelDef.PrimaryKey)}";
             }

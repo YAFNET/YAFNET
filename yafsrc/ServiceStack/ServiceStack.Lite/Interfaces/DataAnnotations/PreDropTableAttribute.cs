@@ -28,6 +28,6 @@ public class PreDropTableAttribute : AttributeBase
     /// <param name="sql">The SQL.</param>
     public PreDropTableAttribute(string sql)
     {
-        Sql = sql;
+        this.Sql = sql;
     }
 }

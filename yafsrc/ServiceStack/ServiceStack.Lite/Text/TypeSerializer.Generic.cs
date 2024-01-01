@@ -24,7 +24,11 @@ public class TypeSerializer<T> : ITypeSerializer<T>
     /// <returns>T.</returns>
     public T DeserializeFromString(string value)
     {
-        if (string.IsNullOrEmpty(value)) return default;
+        if (string.IsNullOrEmpty(value))
+        {
+            return default;
+        }
+
         return (T)JsvReader<T>.Parse(value);
     }
 
@@ -35,8 +39,15 @@ public class TypeSerializer<T> : ITypeSerializer<T>
     /// <returns>System.String.</returns>
     public string SerializeToString(T value)
     {
-        if (value == null) return null;
-        if (typeof(T) == typeof(string)) return value as string;
+        if (value == null)
+        {
+            return null;
+        }
+
+        if (typeof(T) == typeof(string))
+        {
+            return value as string;
+        }
 
         var writer = StringWriterThreadStatic.Allocate();
         JsvWriter<T>.WriteObject(writer, value);

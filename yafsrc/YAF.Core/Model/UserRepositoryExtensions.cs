@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -637,7 +637,7 @@ public static class UserRepositoryExtensions
         var user = repository.GetById(userId);
 
         // Delete File if Avatar was uploaded
-        if (user.Avatar.IsSet() && user.Avatar.StartsWith("/")
+        if (user.Avatar.IsSet() && user.Avatar.StartsWith('/')
                                 && !user.Avatar.Contains(BoardContext.Current.Get<BoardFolders>().Avatars))
         {
             var filePath =
@@ -1050,33 +1050,6 @@ public static class UserRepositoryExtensions
                         return db.Connection.Single<UserLazyData>(expression);
                     });
         }
-    }
-
-    /// <summary>
-    /// Updates the NNTP User
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="boardId">
-    /// The board id.
-    /// </param>
-    /// <param name="userName">
-    /// The user name.
-    /// </param>
-    /// <returns>
-    /// Returns the User the updated user.
-    /// </returns>
-    public static User UpdateNntpUser(
-        this IRepository<User> repository,
-        int boardId,
-        string userName)
-    {
-        var user = repository.GetSingle(u => u.BoardID == boardId && u.Name == userName);
-
-        repository.UpdateDisplayName(user, $"{userName} (NNTP)");
-
-        return user;
     }
 
     /// <summary>

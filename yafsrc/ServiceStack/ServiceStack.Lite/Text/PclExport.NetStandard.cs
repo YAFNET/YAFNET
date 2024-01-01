@@ -31,7 +31,7 @@ public class NetStandardPclExport : PclExport
     /// <summary>
     /// The provider
     /// </summary>
-    public static NetStandardPclExport Provider = new();
+    public static NetStandardPclExport Provider { get; } = new();
 
     /// <summary>
     /// All date time formats
@@ -100,7 +100,9 @@ public class NetStandardPclExport : PclExport
     public override string[] GetFileNames(string dirPath, string searchPattern = null)
     {
         if (!Directory.Exists(dirPath))
+        {
             return TypeConstants.EmptyStringArray;
+        }
 
         return searchPattern != null
                    ? Directory.GetFiles(dirPath, searchPattern)
@@ -121,14 +123,20 @@ public class NetStandardPclExport : PclExport
     /// Writes the line.
     /// </summary>
     /// <param name="line">The line.</param>
-    public override void WriteLine(string line) => Console.WriteLine(line);
+    public override void WriteLine(string line)
+    {
+        Console.WriteLine(line);
+    }
 
     /// <summary>
     /// Writes the line.
     /// </summary>
     /// <param name="format">The format.</param>
     /// <param name="args">The arguments.</param>
-    public override void WriteLine(string format, params object[] args) => Console.WriteLine(format, args);
+    public override void WriteLine(string format, params object[] args)
+    {
+        Console.WriteLine(format, args);
+    }
 
     /// <summary>
     /// Gets all assemblies.
@@ -203,8 +211,10 @@ public class NetStandardPclExport : PclExport
     /// <returns>StringCollection.</returns>
     private static StringCollection ParseStringCollection<TSerializer>(ReadOnlySpan<char> value) where TSerializer : ITypeSerializer
     {
-        if ((value = DeserializeListWithElements<TSerializer>.StripList(value)).IsNullOrEmpty()) 
+        if ((value = DeserializeListWithElements<TSerializer>.StripList(value)).IsNullOrEmpty())
+        {
             return value.IsEmpty ? null : [];
+        }
 
         var result = new StringCollection();
 
@@ -271,17 +281,30 @@ public class NetStandardPclExport : PclExport
         try
         {
             //req.MaximumResponseHeadersLength = int.MaxValue; //throws "The message length limit was exceeded" exception
-            if (allowAutoRedirect.HasValue) 
+            if (allowAutoRedirect.HasValue)
+            {
                 req.AllowAutoRedirect = allowAutoRedirect.Value;
+            }
 
             if (userAgent != null)
+            {
                 req.UserAgent = userAgent;
+            }
 
-            if (readWriteTimeout.HasValue) req.ReadWriteTimeout = (int) readWriteTimeout.Value.TotalMilliseconds;
-            if (timeout.HasValue) req.Timeout = (int) timeout.Value.TotalMilliseconds;
+            if (readWriteTimeout.HasValue)
+            {
+                req.ReadWriteTimeout = (int) readWriteTimeout.Value.TotalMilliseconds;
+            }
+
+            if (timeout.HasValue)
+            {
+                req.Timeout = (int) timeout.Value.TotalMilliseconds;
+            }
 
             if (preAuthenticate.HasValue)
+            {
                 req.PreAuthenticate = preAuthenticate.Value;
+            }
         }
         catch (Exception ex)
         {
@@ -431,16 +454,46 @@ public class NetStandardPclExport : PclExport
         {
             var i = 0;
             i += Register<T, JsonTypeSerializer>();
-            if (jsonSerializer.GetParseFn<T>() != null) i++;
-            if (jsonSerializer.GetWriteFn<T>() != null) i++;
-            if (jsonReader.GetParseFn<T>() != null) i++;
-            if (jsonWriter.GetWriteFn<T>() != null) i++;
+            if (jsonSerializer.GetParseFn<T>() != null)
+            {
+                i++;
+            }
+
+            if (jsonSerializer.GetWriteFn<T>() != null)
+            {
+                i++;
+            }
+
+            if (jsonReader.GetParseFn<T>() != null)
+            {
+                i++;
+            }
+
+            if (jsonWriter.GetWriteFn<T>() != null)
+            {
+                i++;
+            }
 
             i += Register<T, Text.Jsv.JsvTypeSerializer>();
-            if (jsvSerializer.GetParseFn<T>() != null) i++;
-            if (jsvSerializer.GetWriteFn<T>() != null) i++;
-            if (jsvReader.GetParseFn<T>() != null) i++;
-            if (jsvWriter.GetWriteFn<T>() != null) i++;
+            if (jsvSerializer.GetParseFn<T>() != null)
+            {
+                i++;
+            }
+
+            if (jsvSerializer.GetWriteFn<T>() != null)
+            {
+                i++;
+            }
+
+            if (jsvReader.GetParseFn<T>() != null)
+            {
+                i++;
+            }
+
+            if (jsvWriter.GetWriteFn<T>() != null)
+            {
+                i++;
+            }
 
             //RegisterCsvSerializer<T>();
             return i;
@@ -456,24 +509,70 @@ public class NetStandardPclExport : PclExport
         {
             var i = 0;
 
-            if (JsonWriter<T>.WriteFn() != null) i++;
-            if (JsonWriter.Instance.GetWriteFn<T>() != null) i++;
-            if (JsonReader.Instance.GetParseFn<T>() != null) i++;
-            if (JsonReader<T>.Parse(default(ReadOnlySpan<char>)) != null) i++;
-            if (JsonReader<T>.GetParseFn() != null) i++;
+            if (JsonWriter<T>.WriteFn() != null)
+            {
+                i++;
+            }
+
+            if (JsonWriter.Instance.GetWriteFn<T>() != null)
+            {
+                i++;
+            }
+
+            if (JsonReader.Instance.GetParseFn<T>() != null)
+            {
+                i++;
+            }
+
+            if (JsonReader<T>.Parse(default(ReadOnlySpan<char>)) != null)
+            {
+                i++;
+            }
+
+            if (JsonReader<T>.GetParseFn() != null)
+            {
+                i++;
+            }
+
             //if (JsWriter.GetTypeSerializer<JsonTypeSerializer>().GetWriteFn<T>() != null) i++;
-            if (new List<T>() != null) i++;
-            if (new T[0] != null) i++;
+            if (new List<T>() != null)
+            {
+                i++;
+            }
+
+            if (new T[0] != null)
+            {
+                i++;
+            }
 
             JsConfig<T>.ExcludeTypeInfo = false;
 
-            if (JsConfig<T>.OnDeserializedFn != null) i++;
-            if (JsConfig<T>.HasDeserializeFn) i++;
-            if (JsConfig<T>.SerializeFn != null) i++;
-            if (JsConfig<T>.DeSerializeFn != null) i++;
+            if (JsConfig<T>.OnDeserializedFn != null)
+            {
+                i++;
+            }
+
+            if (JsConfig<T>.HasDeserializeFn)
+            {
+                i++;
+            }
+
+            if (JsConfig<T>.SerializeFn != null)
+            {
+                i++;
+            }
+
+            if (JsConfig<T>.DeSerializeFn != null)
+            {
+                i++;
+            }
+
             //JsConfig<T>.SerializeFn = arg => "";
             //JsConfig<T>.DeSerializeFn = arg => default(T);
-            if (TypeConfig<T>.Properties != null) i++;
+            if (TypeConfig<T>.Properties != null)
+            {
+                i++;
+            }
 
             WriteListsOfElements<T, TSerializer>.WriteList(null, null);
             WriteListsOfElements<T, TSerializer>.WriteIList(null, null);

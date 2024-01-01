@@ -37,16 +37,21 @@ public static partial class HttpUtils
         /// Initializes a new instance of the <see cref="HttpClientFactory"/> class.
         /// </summary>
         /// <param name="handler">The handler.</param>
-        internal HttpClientFactory(Func<HttpClientHandler> handler) =>
-            lazyHandler = new Lazy<HttpMessageHandler>(
+        internal HttpClientFactory(Func<HttpClientHandler> handler)
+        {
+            this.lazyHandler = new Lazy<HttpMessageHandler>(
                 () => handler(),
                 LazyThreadSafetyMode.ExecutionAndPublication);
+        }
 
         /// <summary>
         /// Creates the client.
         /// </summary>
         /// <returns>System.Net.Http.HttpClient.</returns>
-        public HttpClient CreateClient() => new(lazyHandler.Value, disposeHandler: false);
+        public HttpClient CreateClient()
+        {
+            return new HttpClient(this.lazyHandler.Value, disposeHandler: false);
+        }
     }
 
     // Ok to use HttpClientHandler which now uses SocketsHttpHandler
@@ -91,7 +96,10 @@ public static partial class HttpUtils
     /// Creates this instance.
     /// </summary>
     /// <returns>System.Net.Http.HttpClient.</returns>
-    public static HttpClient Create() => CreateClient();
+    public static HttpClient Create()
+    {
+        return CreateClient();
+    }
 
     /// <summary>
     /// Gets the json from URL.

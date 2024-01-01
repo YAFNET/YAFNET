@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,15 +28,15 @@ namespace YAF.Types.Attributes;
 /// The assembly sort order -- sorts the assembly load order in the modules.
 /// </summary>
 [AttributeUsage(AttributeTargets.Assembly)]
-public class AssemblyModuleSortOrder : Attribute, IHaveSortOrder
+public class AssemblyModuleSortOrderAttribute : Attribute, IHaveSortOrder
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="AssemblyModuleSortOrder"/> class.
+    /// Initializes a new instance of the <see cref="AssemblyModuleSortOrderAttribute"/> class.
     /// </summary>
     /// <param name="value">
     /// The value.
     /// </param>
-    public AssemblyModuleSortOrder(int value)
+    public AssemblyModuleSortOrderAttribute(int value)
     {
         this.SortOrder = value;
     }

@@ -37,19 +37,29 @@ static internal class DeserializeTypeRefJson
         var type = typeConfig.Type;
 
         if (strType.IsEmpty)
+        {
             return null;
+        }
 
         var buffer = strType;
         var strTypeLength = strType.Length;
 
         //if (!Serializer.EatMapStartChar(strType, ref index))
-        for (; index < strTypeLength; index++) { if (!JsonUtils.IsWhiteSpace(buffer[index])) break; } //Whitespace inline
+        for (; index < strTypeLength; index++) { if (!JsonUtils.IsWhiteSpace(buffer[index]))
+            {
+                break;
+            }
+        } //Whitespace inline
         if (buffer[index] != JsWriter.MapStartChar)
+        {
             throw DeserializeTypeRef.CreateSerializationError(type, strType.ToString());
+        }
 
         index++;
         if (JsonTypeSerializer.IsEmptyMap(strType, index))
+        {
             return ctorFn();
+        }
 
         var config = JsConfig.GetConfig();
         var typeAttr = config.TypeAttrMemory;
@@ -58,7 +68,11 @@ static internal class DeserializeTypeRefJson
         var textCase = typeConfig.TextCase.GetValueOrDefault(config.TextCase);
         var lenient = config.PropertyConvention == PropertyConvention.Lenient || textCase == TextCase.SnakeCase;
 
-        for (; index < strTypeLength; index++) { if (!JsonUtils.IsWhiteSpace(buffer[index])) break; } //Whitespace inline
+        for (; index < strTypeLength; index++) { if (!JsonUtils.IsWhiteSpace(buffer[index]))
+            {
+                break;
+            }
+        } //Whitespace inline
 
         while (index < strTypeLength)
         {
@@ -67,8 +81,15 @@ static internal class DeserializeTypeRefJson
             index = result.Index;
 
             //Serializer.EatMapKeySeperator(strType, ref index);
-            for (; index < strTypeLength; index++) { if (!JsonUtils.IsWhiteSpace(buffer[index])) break; } //Whitespace inline
-            if (strTypeLength != index) index++;
+            for (; index < strTypeLength; index++) { if (!JsonUtils.IsWhiteSpace(buffer[index]))
+                {
+                    break;
+                }
+            } //Whitespace inline
+            if (strTypeLength != index)
+            {
+                index++;
+            }
 
             var propertyValueStr = Serializer.EatValue(strType, ref index);
             var possibleTypeInfo = propertyValueStr != null && propertyValueStr.Length > 1;
@@ -110,7 +131,9 @@ static internal class DeserializeTypeRefJson
                                 {
                                     var map = DeserializeTypeRef.GetCachedTypeAccessors(derivedType, Serializer);
                                     if (map != null)
+                                    {
                                         typeAccessors = map;
+                                    }
                                 }
                             }
                         }
@@ -137,18 +160,31 @@ static internal class DeserializeTypeRefJson
 
                         var propertyValue = parseFn(propertyValueStr);
                         if (typeConfig.OnDeserializing != null)
+                        {
                             propertyValue = typeConfig.OnDeserializing(instance, propertyName.ToString(), propertyValue);
+                        }
+
                         typeAccessor.SetProperty(instance, propertyValue);
                     }
 
                     //Serializer.EatItemSeperatorOrMapEndChar(strType, ref index);
-                    for (; index < strTypeLength; index++) { if (!JsonUtils.IsWhiteSpace(buffer[index])) break; } //Whitespace inline
+                    for (; index < strTypeLength; index++) { if (!JsonUtils.IsWhiteSpace(buffer[index]))
+                        {
+                            break;
+                        }
+                    } //Whitespace inline
                     if (index != strTypeLength)
                     {
                         var success = buffer[index] == JsWriter.ItemSeperator || buffer[index] == JsWriter.MapEndChar;
                         index++;
                         if (success)
-                            for (; index < strTypeLength; index++) { if (!JsonUtils.IsWhiteSpace(buffer[index])) break; } //Whitespace inline
+                        {
+                            for (; index < strTypeLength; index++) { if (!JsonUtils.IsWhiteSpace(buffer[index]))
+                                {
+                                    break;
+                                }
+                            } //Whitespace inline
+                        }
                     }
 
                     continue;
@@ -156,8 +192,14 @@ static internal class DeserializeTypeRefJson
                 catch (Exception e)
                 {
                     config.OnDeserializationError?.Invoke(instance, propType, propertyName.ToString(), propertyValueStr.ToString(), e);
-                    if (config.ThrowOnError) throw DeserializeTypeRef.GetSerializationException(propertyName.ToString(), propertyValueStr.ToString(), propType, e);
-                    else Tracer.Instance.WriteWarning("WARN: failed to set dynamic property {0} with: {1}", propertyName.ToString(), propertyValueStr.ToString());
+                    if (config.ThrowOnError)
+                    {
+                        throw DeserializeTypeRef.GetSerializationException(propertyName.ToString(), propertyValueStr.ToString(), propType, e);
+                    }
+                    else
+                    {
+                        Tracer.Instance.WriteWarning("WARN: failed to set dynamic property {0} with: {1}", propertyName.ToString(), propertyValueStr.ToString());
+                    }
                 }
             }
 
@@ -167,15 +209,24 @@ static internal class DeserializeTypeRefJson
                 {
                     var propertyValue = typeAccessor.GetProperty(propertyValueStr);
                     if (typeConfig.OnDeserializing != null)
+                    {
                         propertyValue = typeConfig.OnDeserializing(instance, propertyName.ToString(), propertyValue);
+                    }
+
                     typeAccessor.SetProperty(instance, propertyValue);
                 }
                 catch (NotSupportedException) { throw; }
                 catch (Exception e)
                 {
                     config.OnDeserializationError?.Invoke(instance, propType ?? typeAccessor.PropertyType, propertyName.ToString(), propertyValueStr.ToString(), e);
-                    if (config.ThrowOnError) throw DeserializeTypeRef.GetSerializationException(propertyName.ToString(), propertyValueStr.ToString(), typeAccessor.PropertyType, e);
-                    else Tracer.Instance.WriteWarning("WARN: failed to set property {0} with: {1}", propertyName.ToString(), propertyValueStr.ToString());
+                    if (config.ThrowOnError)
+                    {
+                        throw DeserializeTypeRef.GetSerializationException(propertyName.ToString(), propertyValueStr.ToString(), typeAccessor.PropertyType, e);
+                    }
+                    else
+                    {
+                        Tracer.Instance.WriteWarning("WARN: failed to set property {0} with: {1}", propertyName.ToString(), propertyValueStr.ToString());
+                    }
                 }
             }
             else
@@ -185,13 +236,23 @@ static internal class DeserializeTypeRefJson
             }
 
             //Serializer.EatItemSeperatorOrMapEndChar(strType, ref index);
-            for (; index < strTypeLength; index++) { if (!JsonUtils.IsWhiteSpace(buffer[index])) break; } //Whitespace inline
+            for (; index < strTypeLength; index++) { if (!JsonUtils.IsWhiteSpace(buffer[index]))
+                {
+                    break;
+                }
+            } //Whitespace inline
             if (index != strType.Length)
             {
                 var success = buffer[index] == JsWriter.ItemSeperator || buffer[index] == JsWriter.MapEndChar;
                 index++;
                 if (success)
-                    for (; index < strTypeLength; index++) { if (!JsonUtils.IsWhiteSpace(buffer[index])) break; } //Whitespace inline
+                {
+                    for (; index < strTypeLength; index++) { if (!JsonUtils.IsWhiteSpace(buffer[index]))
+                        {
+                            break;
+                        }
+                    } //Whitespace inline
+                }
             }
 
         }

@@ -148,7 +148,7 @@ public static class JsonUtils
         var len = value.Length;
         for (var i = 0; i < len; i++)
         {
-            char c = value[i];
+            var c = value[i];
 
             switch (c)
             {
@@ -258,10 +258,14 @@ public static class JsonUtils
             // c is not printable
             // OR c is a printable that requires escaping (quote and backslash).
             if (!c.IsPrintable() || c == QuoteChar || c == EscapeChar)
+            {
                 return true;
+            }
 
             if (escapeHtmlChars && (c == '<' || c == '>' || c == '&' || c == '=' || c == '\\'))
+            {
                 return true;
+            }
         }
         return false;
     }

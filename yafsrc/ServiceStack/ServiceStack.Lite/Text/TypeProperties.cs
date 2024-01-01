@@ -9,7 +9,6 @@ namespace ServiceStack.Text;
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Threading;
 
@@ -29,9 +28,9 @@ public class PropertyAccessor
         GetMemberDelegate publicGetter,
         SetMemberDelegate publicSetter)
     {
-        PropertyInfo = propertyInfo;
-        PublicGetter = publicGetter;
-        PublicSetter = publicSetter;
+        this.PropertyInfo = propertyInfo;
+        this.PublicGetter = publicGetter;
+        this.PublicSetter = publicSetter;
     }
 
     /// <summary>
@@ -97,9 +96,7 @@ public class TypeProperties<T> : TypeProperties
     /// <returns>PropertyAccessor.</returns>
     public static new PropertyAccessor GetAccessor(string propertyName)
     {
-        return Instance.PropertyMap.TryGetValue(propertyName, out var info)
-                   ? info
-                   : null;
+        return Instance.PropertyMap.GetValueOrDefault(propertyName);
     }
 }
 
@@ -113,7 +110,7 @@ public abstract class TypeProperties
     /// <summary>
     /// The cache map
     /// </summary>
-    static Dictionary<Type, TypeProperties> CacheMap = new();
+    private static Dictionary<Type, TypeProperties> cacheMap = [];
 
     /// <summary>
     /// The factory type
@@ -127,8 +124,10 @@ public abstract class TypeProperties
     /// <returns>TypeProperties.</returns>
     public static TypeProperties Get(Type type)
     {
-        if (CacheMap.TryGetValue(type, out TypeProperties value))
+        if (cacheMap.TryGetValue(type, out var value))
+        {
             return value;
+        }
 
         var genericType = FactoryType.MakeGenericType(type);
         var instanceFi = genericType.GetPublicStaticField("Instance");
@@ -137,13 +136,13 @@ public abstract class TypeProperties
         Dictionary<Type, TypeProperties> snapshot, newCache;
         do
         {
-            snapshot = CacheMap;
-            newCache = new Dictionary<Type, TypeProperties>(CacheMap)
+            snapshot = cacheMap;
+            newCache = new Dictionary<Type, TypeProperties>(cacheMap)
                            {
                                [type] = instance
                            };
         } while (!ReferenceEquals(
-                     Interlocked.CompareExchange(ref CacheMap, newCache, snapshot), snapshot));
+                     Interlocked.CompareExchange(ref cacheMap, newCache, snapshot), snapshot));
 
         return instance;
     }
@@ -155,9 +154,7 @@ public abstract class TypeProperties
     /// <returns>PropertyAccessor.</returns>
     public PropertyAccessor GetAccessor(string propertyName)
     {
-        return this.PropertyMap.TryGetValue(propertyName, out PropertyAccessor info)
-                   ? info
-                   : null;
+        return this.PropertyMap.GetValueOrDefault(propertyName);
     }
 
     /// <summary>
@@ -169,7 +166,7 @@ public abstract class TypeProperties
     /// <summary>
     /// The property map
     /// </summary>
-    public Dictionary<string, PropertyAccessor> PropertyMap = new(StringComparer.OrdinalIgnoreCase);
+    public readonly Dictionary<string, PropertyAccessor> PropertyMap = new(StringComparer.OrdinalIgnoreCase);
 
     /// <summary>
     /// Gets or sets the public property infos.
@@ -184,7 +181,7 @@ public abstract class TypeProperties
     /// <returns>PropertyInfo.</returns>
     public PropertyInfo GetPublicProperty(string name)
     {
-        return this.PublicPropertyInfos.FirstOrDefault(pi => pi.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+        return Array.Find(this.PublicPropertyInfos, pi => pi.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
     }
 
     /// <summary>
@@ -195,9 +192,11 @@ public abstract class TypeProperties
     public GetMemberDelegate GetPublicGetter(string name)
     {
         if (name == null)
+        {
             return null;
+        }
 
-        return PropertyMap.TryGetValue(name, out PropertyAccessor info)
+        return this.PropertyMap.TryGetValue(name, out var info)
                    ? info.PublicGetter
                    : null;
     }
@@ -207,7 +206,10 @@ public abstract class TypeProperties
     /// </summary>
     /// <param name="pi">The pi.</param>
     /// <returns>SetMemberDelegate.</returns>
-    public SetMemberDelegate GetPublicSetter(PropertyInfo pi) => GetPublicSetter(pi?.Name);
+    public SetMemberDelegate GetPublicSetter(PropertyInfo pi)
+    {
+        return this.GetPublicSetter(pi?.Name);
+    }
 
     /// <summary>
     /// Gets the public setter.
@@ -217,9 +219,11 @@ public abstract class TypeProperties
     public SetMemberDelegate GetPublicSetter(string name)
     {
         if (name == null)
+        {
             return null;
+        }
 
-        return PropertyMap.TryGetValue(name, out PropertyAccessor info)
+        return this.PropertyMap.TryGetValue(name, out var info)
                    ? info.PublicSetter
                    : null;
     }
@@ -235,8 +239,10 @@ public static class PropertyInvoker
     /// </summary>
     /// <param name="propertyInfo">The property information.</param>
     /// <returns>GetMemberDelegate.</returns>
-    public static GetMemberDelegate CreateGetter(this PropertyInfo propertyInfo) =>
-        ReflectionOptimizer.Instance.CreateGetter(propertyInfo);
+    public static GetMemberDelegate CreateGetter(this PropertyInfo propertyInfo)
+    {
+        return ReflectionOptimizer.Instance.CreateGetter(propertyInfo);
+    }
 
     /// <summary>
     /// Creates the getter.
@@ -244,16 +250,20 @@ public static class PropertyInvoker
     /// <typeparam name="T"></typeparam>
     /// <param name="propertyInfo">The property information.</param>
     /// <returns>GetMemberDelegate&lt;T&gt;.</returns>
-    public static GetMemberDelegate<T> CreateGetter<T>(this PropertyInfo propertyInfo) =>
-        ReflectionOptimizer.Instance.CreateGetter<T>(propertyInfo);
+    public static GetMemberDelegate<T> CreateGetter<T>(this PropertyInfo propertyInfo)
+    {
+        return ReflectionOptimizer.Instance.CreateGetter<T>(propertyInfo);
+    }
 
     /// <summary>
     /// Creates the setter.
     /// </summary>
     /// <param name="propertyInfo">The property information.</param>
     /// <returns>SetMemberDelegate.</returns>
-    public static SetMemberDelegate CreateSetter(this PropertyInfo propertyInfo) =>
-        ReflectionOptimizer.Instance.CreateSetter(propertyInfo);
+    public static SetMemberDelegate CreateSetter(this PropertyInfo propertyInfo)
+    {
+        return ReflectionOptimizer.Instance.CreateSetter(propertyInfo);
+    }
 
     /// <summary>
     /// Creates the setter.
@@ -261,6 +271,8 @@ public static class PropertyInvoker
     /// <typeparam name="T"></typeparam>
     /// <param name="propertyInfo">The property information.</param>
     /// <returns>SetMemberDelegate&lt;T&gt;.</returns>
-    public static SetMemberDelegate<T> CreateSetter<T>(this PropertyInfo propertyInfo) =>
-        ReflectionOptimizer.Instance.CreateSetter<T>(propertyInfo);
+    public static SetMemberDelegate<T> CreateSetter<T>(this PropertyInfo propertyInfo)
+    {
+        return ReflectionOptimizer.Instance.CreateSetter<T>(propertyInfo);
+    }
 }

@@ -24,7 +24,7 @@ public abstract class MemoryProvider
     /// <summary>
     /// The instance
     /// </summary>
-    public static MemoryProvider Instance =
+    public static MemoryProvider Instance { get; set; } =
         NetCoreMemory.Provider;
 
     /// <summary>

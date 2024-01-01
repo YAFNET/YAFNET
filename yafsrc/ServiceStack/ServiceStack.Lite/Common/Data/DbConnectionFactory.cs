@@ -37,7 +37,7 @@ namespace ServiceStack.Data
         /// <returns>IDbConnection.</returns>
         public IDbConnection OpenDbConnection()
         {
-            var dbConn = CreateDbConnection();
+            var dbConn = this.CreateDbConnection();
             dbConn.Open();
             return dbConn;
         }
@@ -48,7 +48,7 @@ namespace ServiceStack.Data
         /// <returns>IDbConnection.</returns>
         public IDbConnection CreateDbConnection()
         {
-            return connectionFactoryFn();
+            return this.connectionFactoryFn();
         }
     }
 }

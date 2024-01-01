@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -57,6 +57,10 @@ public class EditAlbumImagesModel : ForumPageRegistered
     {
     }
 
+    /// <summary>
+    /// Gets or sets the album identifier.
+    /// </summary>
+    /// <value>The album identifier.</value>
     [BindProperty]
     public int? AlbumId { get; set; }
 
@@ -233,10 +237,9 @@ public class EditAlbumImagesModel : ForumPageRegistered
         }
 
         // Has the user uploaded maximum number of images?
-        // vzrus: changed for DB check The default number of album images is 0. In the case albums are disabled.
         if (this.AllowedImages > 0)
         {
-            this.EnableUpload = !(this.Images.Count >= this.AllowedImages);
+            this.EnableUpload = this.Images.Count < this.AllowedImages;
         }
         else
         {
@@ -321,7 +324,6 @@ public class EditAlbumImagesModel : ForumPageRegistered
     /// <exception cref="Exception">Album Image File is too big</exception>
     private async Task<int?> SaveAttachmentsAsync(List<IFormFile> files, int? albumId)
     {
-        // vzrus: the checks here are useless but in a case...
         var data = this.GetRepository<User>().MaxAlbumData(
             this.PageBoardContext.PageUserID,
             this.PageBoardContext.PageBoardID);
@@ -379,7 +381,6 @@ public class EditAlbumImagesModel : ForumPageRegistered
                 return albumId;
             }
 
-            // vzrus: the checks here are useless but in a case...
             long allStats;
 
             try

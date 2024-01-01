@@ -293,12 +293,9 @@ public class ChoicesTagHelper : TagHelper
         }
 
         // If there are any errors for a named field, we add the css attribute.
-        if (viewContext.ViewData.ModelState.TryGetValue(fullName, out var entry))
+        if (viewContext.ViewData.ModelState.TryGetValue(fullName, out var entry) && entry.Errors.Count > 0)
         {
-            if (entry.Errors.Count > 0)
-            {
-                tagBuilder.AddCssClass(HtmlHelper.ValidationInputCssClassName);
-            }
+            tagBuilder.AddCssClass(HtmlHelper.ValidationInputCssClassName);
         }
 
         return tagBuilder;

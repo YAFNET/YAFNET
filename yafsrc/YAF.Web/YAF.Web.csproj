@@ -9,6 +9,10 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="OEmbed.Core" Version="2.0.0" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.16.0.82469">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\YAF.Configuration\YAF.Configuration.csproj" />

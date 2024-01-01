@@ -37,7 +37,10 @@ static internal class DeserializeKeyValuePair<TSerializer>
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>ParseStringDelegate.</returns>
-    public static ParseStringDelegate GetParseMethod(Type type) => v => GetParseStringSpanMethod(type)(v.AsSpan());
+    public static ParseStringDelegate GetParseMethod(Type type)
+    {
+        return v => GetParseStringSpanMethod(type)(v.AsSpan());
+    }
 
     /// <summary>
     /// Gets the parse string span method.
@@ -50,10 +53,16 @@ static internal class DeserializeKeyValuePair<TSerializer>
 
         var keyValuePairArgs = mapInterface.GetGenericArguments();
         var keyTypeParseMethod = Serializer.GetParseStringSpanFn(keyValuePairArgs[KeyIndex]);
-        if (keyTypeParseMethod == null) return null;
+        if (keyTypeParseMethod == null)
+        {
+            return null;
+        }
 
         var valueTypeParseMethod = Serializer.GetParseStringSpanFn(keyValuePairArgs[ValueIndex]);
-        if (valueTypeParseMethod == null) return null;
+        if (valueTypeParseMethod == null)
+        {
+            return null;
+        }
 
         var createMapType = type.HasAnyTypeDefinitionsOf(typeof(KeyValuePair<,>))
                                 ? null : type;
@@ -65,7 +74,7 @@ static internal class DeserializeKeyValuePair<TSerializer>
     /// The parse delegate cache
     /// </summary>
     private static Dictionary<string, ParseKeyValuePairDelegate> ParseDelegateCache
-        = new();
+        = [];
 
     /// <summary>
     /// Delegate ParseKeyValuePairDelegate
@@ -98,7 +107,9 @@ static internal class DeserializeKeyValuePair<TSerializer>
     {
         var key = GetTypesKey(argTypes);
         if (ParseDelegateCache.TryGetValue(key, out var parseDelegate))
+        {
             return parseDelegate(value, createMapType, keyParseFn, valueParseFn);
+        }
 
         var mi = typeof(DeserializeKeyValuePair<TSerializer>).GetStaticMethod("ParseKeyValuePair", signature);
         var genericMi = mi.MakeGenericMethod(argTypes);
@@ -128,7 +139,9 @@ static internal class DeserializeKeyValuePair<TSerializer>
         foreach (var type in types)
         {
             if (sb.Length > 0)
+            {
                 sb.Append(">");
+            }
 
             sb.Append(type.FullName);
         }

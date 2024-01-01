@@ -25,7 +25,7 @@ public struct JsvTypeSerializer
     /// <summary>
     /// The instance
     /// </summary>
-    public static ITypeSerializer Instance = new JsvTypeSerializer();
+    public static ITypeSerializer Instance { get; } = new JsvTypeSerializer();
 
     /// <summary>
     /// Gets or sets the object deserializer.
@@ -37,40 +37,49 @@ public struct JsvTypeSerializer
     /// Gets a value indicating whether [include null values].
     /// </summary>
     /// <value><c>true</c> if [include null values]; otherwise, <c>false</c>.</value>
-    public bool IncludeNullValues => false;
+    public readonly bool IncludeNullValues => false;
 
     /// <summary>
     /// Gets a value indicating whether [include null values in dictionaries].
     /// </summary>
     /// <value><c>true</c> if [include null values in dictionaries]; otherwise, <c>false</c>.</value>
-    public bool IncludeNullValuesInDictionaries => false;
+    public readonly bool IncludeNullValuesInDictionaries => false;
 
     /// <summary>
     /// Gets the type attribute in object.
     /// </summary>
     /// <value>The type attribute in object.</value>
-    public string TypeAttrInObject => JsConfig.JsvTypeAttrInObject;
+    public readonly string TypeAttrInObject => JsConfig.JsvTypeAttrInObject;
 
     /// <summary>
     /// Gets the type attribute in object.
     /// </summary>
     /// <param name="typeAttr">The type attribute.</param>
     /// <returns>System.String.</returns>
-    static internal string GetTypeAttrInObject(string typeAttr) => $"{{{typeAttr}:";
+    static internal string GetTypeAttrInObject(string typeAttr)
+    {
+        return $"{{{typeAttr}:";
+    }
 
     /// <summary>
     /// Gets the write function.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns>WriteObjectDelegate.</returns>
-    public WriteObjectDelegate GetWriteFn<T>() => JsvWriter<T>.WriteFn();
+    public readonly WriteObjectDelegate GetWriteFn<T>()
+    {
+        return JsvWriter<T>.WriteFn();
+    }
 
     /// <summary>
     /// Gets the write function.
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>WriteObjectDelegate.</returns>
-    public WriteObjectDelegate GetWriteFn(Type type) => JsvWriter.GetWriteFn(type);
+    public readonly WriteObjectDelegate GetWriteFn(Type type)
+    {
+        return JsvWriter.GetWriteFn(type);
+    }
 
     /// <summary>
     /// The default type information
@@ -82,14 +91,17 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>TypeInfo.</returns>
-    public TypeInfo GetTypeInfo(Type type) => DefaultTypeInfo;
+    public readonly TypeInfo GetTypeInfo(Type type)
+    {
+        return DefaultTypeInfo;
+    }
 
     /// <summary>
     /// Writes the raw string.
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="value">The value.</param>
-    public void WriteRawString(TextWriter writer, string value)
+    public readonly void WriteRawString(TextWriter writer, string value)
     {
         writer.Write(value.EncodeJsv());
     }
@@ -99,7 +111,7 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="value">The value.</param>
-    public void WritePropertyName(TextWriter writer, string value)
+    public readonly void WritePropertyName(TextWriter writer, string value)
     {
         writer.Write(value);
     }
@@ -109,7 +121,7 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="value">The value.</param>
-    public void WriteBuiltIn(TextWriter writer, object value)
+    public readonly void WriteBuiltIn(TextWriter writer, object value)
     {
         writer.Write(value);
     }
@@ -125,7 +137,7 @@ public struct JsvTypeSerializer
         {
             if (value is string strValue)
             {
-                WriteString(writer, strValue);
+                this.WriteString(writer, strValue);
             }
             else
             {
@@ -139,7 +151,7 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="value">The value.</param>
-    public void WriteException(TextWriter writer, object value)
+    public readonly void WriteException(TextWriter writer, object value)
     {
         writer.Write(((Exception)value).Message.EncodeJsv());
     }
@@ -149,7 +161,7 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="value">The value.</param>
-    public void WriteString(TextWriter writer, string value)
+    public readonly void WriteString(TextWriter writer, string value)
     {
         switch (JsState.QueryStringMode)
         {
@@ -167,7 +179,7 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="value">The value.</param>
-    public void WriteFormattableObjectString(TextWriter writer, object value)
+    public readonly void WriteFormattableObjectString(TextWriter writer, object value)
     {
         var f = (IFormattable)value;
         writer.Write(f.ToString(null, CultureInfo.InvariantCulture).EncodeJsv());
@@ -178,7 +190,7 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="oDateTime">The o date time.</param>
-    public void WriteDateTime(TextWriter writer, object oDateTime)
+    public readonly void WriteDateTime(TextWriter writer, object oDateTime)
     {
         var dateTime = (DateTime)oDateTime;
         switch (JsConfig.DateHandler)
@@ -201,8 +213,12 @@ public struct JsvTypeSerializer
     /// <param name="dateTime">The date time.</param>
     public void WriteNullableDateTime(TextWriter writer, object dateTime)
     {
-        if (dateTime == null) return;
-        WriteDateTime(writer, dateTime);
+        if (dateTime == null)
+        {
+            return;
+        }
+
+        this.WriteDateTime(writer, dateTime);
     }
 
     /// <summary>
@@ -210,7 +226,7 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="oDateTimeOffset">The o date time offset.</param>
-    public void WriteDateTimeOffset(TextWriter writer, object oDateTimeOffset)
+    public readonly void WriteDateTimeOffset(TextWriter writer, object oDateTimeOffset)
     {
         writer.Write(((DateTimeOffset)oDateTimeOffset).ToString("o"));
     }
@@ -222,7 +238,11 @@ public struct JsvTypeSerializer
     /// <param name="dateTimeOffset">The date time offset.</param>
     public void WriteNullableDateTimeOffset(TextWriter writer, object dateTimeOffset)
     {
-        if (dateTimeOffset == null) return;
+        if (dateTimeOffset == null)
+        {
+            return;
+        }
+
         this.WriteDateTimeOffset(writer, dateTimeOffset);
     }
 
@@ -231,7 +251,7 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="oTimeSpan">The o time span.</param>
-    public void WriteTimeSpan(TextWriter writer, object oTimeSpan)
+    public readonly void WriteTimeSpan(TextWriter writer, object oTimeSpan)
     {
         writer.Write(DateTimeSerializer.ToXsdTimeSpanString((TimeSpan)oTimeSpan));
     }
@@ -241,9 +261,13 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="oTimeSpan">The o time span.</param>
-    public void WriteNullableTimeSpan(TextWriter writer, object oTimeSpan)
+    public readonly void WriteNullableTimeSpan(TextWriter writer, object oTimeSpan)
     {
-        if (oTimeSpan == null) return;
+        if (oTimeSpan == null)
+        {
+            return;
+        }
+
         writer.Write(DateTimeSerializer.ToXsdTimeSpanString((TimeSpan?)oTimeSpan));
     }
 
@@ -252,7 +276,7 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="oValue">The o value.</param>
-    public void WriteGuid(TextWriter writer, object oValue)
+    public readonly void WriteGuid(TextWriter writer, object oValue)
     {
         writer.Write(((Guid)oValue).ToString("N"));
     }
@@ -262,9 +286,13 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="oValue">The o value.</param>
-    public void WriteNullableGuid(TextWriter writer, object oValue)
+    public readonly void WriteNullableGuid(TextWriter writer, object oValue)
     {
-        if (oValue == null) return;
+        if (oValue == null)
+        {
+            return;
+        }
+
         writer.Write(((Guid)oValue).ToString("N"));
     }
 
@@ -273,9 +301,13 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="oByteValue">The o byte value.</param>
-    public void WriteBytes(TextWriter writer, object oByteValue)
+    public readonly void WriteBytes(TextWriter writer, object oByteValue)
     {
-        if (oByteValue == null) return;
+        if (oByteValue == null)
+        {
+            return;
+        }
+
         writer.Write(Convert.ToBase64String((byte[])oByteValue));
     }
 
@@ -284,9 +316,13 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="charValue">The character value.</param>
-    public void WriteChar(TextWriter writer, object charValue)
+    public readonly void WriteChar(TextWriter writer, object charValue)
     {
-        if (charValue == null) return;
+        if (charValue == null)
+        {
+            return;
+        }
+
         writer.Write((char)charValue);
     }
 
@@ -295,9 +331,13 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="byteValue">The byte value.</param>
-    public void WriteByte(TextWriter writer, object byteValue)
+    public readonly void WriteByte(TextWriter writer, object byteValue)
     {
-        if (byteValue == null) return;
+        if (byteValue == null)
+        {
+            return;
+        }
+
         writer.Write((byte)byteValue);
     }
 
@@ -306,9 +346,13 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="sbyteValue">The sbyte value.</param>
-    public void WriteSByte(TextWriter writer, object sbyteValue)
+    public readonly void WriteSByte(TextWriter writer, object sbyteValue)
     {
-        if (sbyteValue == null) return;
+        if (sbyteValue == null)
+        {
+            return;
+        }
+
         writer.Write((sbyte)sbyteValue);
     }
 
@@ -317,9 +361,13 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="intValue">The int value.</param>
-    public void WriteInt16(TextWriter writer, object intValue)
+    public readonly void WriteInt16(TextWriter writer, object intValue)
     {
-        if (intValue == null) return;
+        if (intValue == null)
+        {
+            return;
+        }
+
         writer.Write((short)intValue);
     }
 
@@ -328,9 +376,13 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="intValue">The int value.</param>
-    public void WriteUInt16(TextWriter writer, object intValue)
+    public readonly void WriteUInt16(TextWriter writer, object intValue)
     {
-        if (intValue == null) return;
+        if (intValue == null)
+        {
+            return;
+        }
+
         writer.Write((ushort)intValue);
     }
 
@@ -339,9 +391,13 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="intValue">The int value.</param>
-    public void WriteInt32(TextWriter writer, object intValue)
+    public readonly void WriteInt32(TextWriter writer, object intValue)
     {
-        if (intValue == null) return;
+        if (intValue == null)
+        {
+            return;
+        }
+
         writer.Write((int)intValue);
     }
 
@@ -350,9 +406,13 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="uintValue">The uint value.</param>
-    public void WriteUInt32(TextWriter writer, object uintValue)
+    public readonly void WriteUInt32(TextWriter writer, object uintValue)
     {
-        if (uintValue == null) return;
+        if (uintValue == null)
+        {
+            return;
+        }
+
         writer.Write((uint)uintValue);
     }
 
@@ -361,9 +421,13 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="ulongValue">The ulong value.</param>
-    public void WriteUInt64(TextWriter writer, object ulongValue)
+    public readonly void WriteUInt64(TextWriter writer, object ulongValue)
     {
-        if (ulongValue == null) return;
+        if (ulongValue == null)
+        {
+            return;
+        }
+
         writer.Write((ulong)ulongValue);
     }
 
@@ -372,9 +436,13 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="longValue">The long value.</param>
-    public void WriteInt64(TextWriter writer, object longValue)
+    public readonly void WriteInt64(TextWriter writer, object longValue)
     {
-        if (longValue == null) return;
+        if (longValue == null)
+        {
+            return;
+        }
+
         writer.Write((long)longValue);
     }
 
@@ -383,9 +451,13 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="boolValue">The bool value.</param>
-    public void WriteBool(TextWriter writer, object boolValue)
+    public readonly void WriteBool(TextWriter writer, object boolValue)
     {
-        if (boolValue == null) return;
+        if (boolValue == null)
+        {
+            return;
+        }
+
         writer.Write((bool)boolValue);
     }
 
@@ -394,9 +466,13 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="floatValue">The float value.</param>
-    public void WriteFloat(TextWriter writer, object floatValue)
+    public readonly void WriteFloat(TextWriter writer, object floatValue)
     {
-        if (floatValue == null) return;
+        if (floatValue == null)
+        {
+            return;
+        }
+
         var floatVal = (float)floatValue;
         var cultureInfo = JsState.IsCsv ? CsvConfig.RealNumberCultureInfo : null;
 
@@ -417,16 +493,24 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="doubleValue">The double value.</param>
-    public void WriteDouble(TextWriter writer, object doubleValue)
+    public readonly void WriteDouble(TextWriter writer, object doubleValue)
     {
-        if (doubleValue == null) return;
+        if (doubleValue == null)
+        {
+            return;
+        }
+
         var doubleVal = (double)doubleValue;
         var cultureInfo = JsState.IsCsv ? CsvConfig.RealNumberCultureInfo : null;
 
         if (Equals(doubleVal, double.MaxValue) || Equals(doubleVal, double.MinValue))
+        {
             writer.Write(doubleVal.ToString("r", cultureInfo ?? CultureInfo.InvariantCulture));
+        }
         else
+        {
             writer.Write(doubleVal.ToString(cultureInfo ?? CultureInfo.InvariantCulture));
+        }
     }
 
     /// <summary>
@@ -434,9 +518,13 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="decimalValue">The decimal value.</param>
-    public void WriteDecimal(TextWriter writer, object decimalValue)
+    public readonly void WriteDecimal(TextWriter writer, object decimalValue)
     {
-        if (decimalValue == null) return;
+        if (decimalValue == null)
+        {
+            return;
+        }
+
         var cultureInfo = JsState.IsCsv ? CsvConfig.RealNumberCultureInfo : null;
 
         writer.Write(((decimal)decimalValue).ToString(cultureInfo ?? CultureInfo.InvariantCulture));
@@ -447,15 +535,22 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="enumValue">The enum value.</param>
-    public void WriteEnum(TextWriter writer, object enumValue)
+    public readonly void WriteEnum(TextWriter writer, object enumValue)
     {
         if (enumValue == null)
+        {
             return;
+        }
+
         var serializedValue = CachedTypeInfo.Get(enumValue.GetType()).EnumInfo.GetSerializedValue(enumValue);
         if (serializedValue is string strEnum)
+        {
             writer.Write(strEnum);
+        }
         else
+        {
             JsWriter.WriteEnumFlags(writer, enumValue);
+        }
     }
 
 #if NET7_0_OR_GREATER
@@ -464,7 +559,7 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="writer">The writer.</param>
     /// <param name="oDateOnly">The o date only.</param>
-    public void WriteDateOnly(TextWriter writer, object oDateOnly)
+    public readonly void WriteDateOnly(TextWriter writer, object oDateOnly)
         {
             var dateOnly = (DateOnly)oDateOnly;
             switch (JsConfig.DateHandler)
@@ -488,8 +583,12 @@ public struct JsvTypeSerializer
     /// <param name="oDateOnly">The o date only.</param>
     public void WriteNullableDateOnly(TextWriter writer, object oDateOnly)
         {
-            if (oDateOnly == null) return;
-            WriteDateOnly(writer, oDateOnly);
+            if (oDateOnly == null)
+            {
+                return;
+            }
+
+            this.WriteDateOnly(writer, oDateOnly);
         }
 
     /// <summary>
@@ -502,7 +601,7 @@ public struct JsvTypeSerializer
             var stringValue = JsConfig.TimeSpanHandler == TimeSpanHandler.StandardFormat
                 ? oTimeOnly.ToString()
                 : DateTimeSerializer.ToXsdTimeSpanString(((TimeOnly)oTimeOnly).ToTimeSpan());
-            WriteRawString(writer, stringValue);
+        this.WriteRawString(writer, stringValue);
         }
 
     /// <summary>
@@ -512,8 +611,12 @@ public struct JsvTypeSerializer
     /// <param name="oTimeOnly">The o time only.</param>
     public void WriteNullableTimeOnly(TextWriter writer, object oTimeOnly)
         {
-            if (oTimeOnly == null) return;
-            WriteTimeSpan(writer, ((TimeOnly?)oTimeOnly).Value.ToTimeSpan());
+            if (oTimeOnly == null)
+            {
+                return;
+            }
+
+            this.WriteTimeSpan(writer, ((TimeOnly?)oTimeOnly).Value.ToTimeSpan());
         }
 #endif
 
@@ -522,14 +625,20 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns>ParseStringDelegate.</returns>
-    public ParseStringDelegate GetParseFn<T>() => JsvReader.Instance.GetParseFn<T>();
+    public readonly ParseStringDelegate GetParseFn<T>()
+    {
+        return JsvReader.Instance.GetParseFn<T>();
+    }
 
     /// <summary>
     /// Gets the parse string span function.
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>ParseStringSpanDelegate.</returns>
-    public ParseStringSpanDelegate GetParseStringSpanFn(Type type) => JsvReader.GetParseStringSpanFn(type);
+    public readonly ParseStringSpanDelegate GetParseStringSpanFn(Type type)
+    {
+        return JsvReader.GetParseStringSpanFn(type);
+    }
 
     /// <summary>
     /// Unescapes the string as object.
@@ -539,7 +648,7 @@ public struct JsvTypeSerializer
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public object UnescapeStringAsObject(ReadOnlySpan<char> value)
     {
-        return UnescapeSafeString(value).Value();
+        return this.UnescapeSafeString(value).Value();
     }
 
     /// <summary>
@@ -547,44 +656,62 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
-    public ReadOnlySpan<char> UnescapeSafeString(ReadOnlySpan<char> value) => JsState.IsCsv
-                                                                                  ? value // already unescaped in CsvReader.ParseFields()
-                                                                                  : value.FromCsvField();
+    public readonly ReadOnlySpan<char> UnescapeSafeString(ReadOnlySpan<char> value)
+    {
+        return JsState.IsCsv
+            ? value // already unescaped in CsvReader.ParseFields()
+            : value.FromCsvField();
+    }
 
     /// <summary>
     /// Parses the raw string.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.String.</returns>
-    public string ParseRawString(string value) => value;
+    public readonly string ParseRawString(string value)
+    {
+        return value;
+    }
 
     /// <summary>
     /// Parses the string.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.String.</returns>
-    public string ParseString(string value) => value.FromCsvField();
+    public readonly string ParseString(string value)
+    {
+        return value.FromCsvField();
+    }
 
     /// <summary>
     /// Parses the string.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.String.</returns>
-    public string ParseString(ReadOnlySpan<char> value) => value.ToString().FromCsvField();
+    public readonly string ParseString(ReadOnlySpan<char> value)
+    {
+        return value.ToString().FromCsvField();
+    }
 
     /// <summary>
     /// Unescapes the string.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.String.</returns>
-    public string UnescapeString(string value) => value.FromCsvField();
+    public readonly string UnescapeString(string value)
+    {
+        return value.FromCsvField();
+    }
 
     /// <summary>
     /// Unescapes the string.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
-    public ReadOnlySpan<char> UnescapeString(ReadOnlySpan<char> value) => value.FromCsvField();
+    public readonly ReadOnlySpan<char> UnescapeString(ReadOnlySpan<char> value)
+    {
+        return value.FromCsvField();
+    }
 
     /// <summary>
     /// Eats the type value.
@@ -592,7 +719,10 @@ public struct JsvTypeSerializer
     /// <param name="value">The value.</param>
     /// <param name="i">The i.</param>
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
-    public ReadOnlySpan<char> EatTypeValue(ReadOnlySpan<char> value, ref int i) => EatValue(value, ref i);
+    public ReadOnlySpan<char> EatTypeValue(ReadOnlySpan<char> value, ref int i)
+    {
+        return this.EatValue(value, ref i);
+    }
 
     /// <summary>
     /// Eats the map start character.
@@ -600,10 +730,14 @@ public struct JsvTypeSerializer
     /// <param name="value">The value.</param>
     /// <param name="i">The i.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public bool EatMapStartChar(ReadOnlySpan<char> value, ref int i)
+    public readonly bool EatMapStartChar(ReadOnlySpan<char> value, ref int i)
     {
         var success = value[i] == JsWriter.MapStartChar;
-        if (success) i++;
+        if (success)
+        {
+            i++;
+        }
+
         return success;
     }
 
@@ -613,7 +747,7 @@ public struct JsvTypeSerializer
     /// <param name="value">The value.</param>
     /// <param name="i">The i.</param>
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
-    public ReadOnlySpan<char> EatMapKey(ReadOnlySpan<char> value, ref int i)
+    public readonly ReadOnlySpan<char> EatMapKey(ReadOnlySpan<char> value, ref int i)
     {
         var tokenStartPos = i;
 
@@ -628,13 +762,18 @@ public struct JsvTypeSerializer
                 {
                     valueChar = value[i];
 
-                    if (valueChar != JsWriter.QuoteChar) continue;
+                    if (valueChar != JsWriter.QuoteChar)
+                    {
+                        continue;
+                    }
 
                     var isLiteralQuote = i + 1 < valueLength && value[i + 1] == JsWriter.QuoteChar;
 
                     i++; //skip quote
                     if (!isLiteralQuote)
+                    {
                         break;
+                    }
                 }
                 return value.Slice(tokenStartPos, i - tokenStartPos);
 
@@ -647,10 +786,14 @@ public struct JsvTypeSerializer
                     valueChar = value[i];
 
                     if (valueChar == JsWriter.QuoteChar)
+                    {
                         withinQuotes = !withinQuotes;
+                    }
 
                     if (withinQuotes)
+                    {
                         continue;
+                    }
 
                     switch (valueChar)
                     {
@@ -675,7 +818,7 @@ public struct JsvTypeSerializer
     /// <param name="value">The value.</param>
     /// <param name="i">The i.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public bool EatMapKeySeperator(ReadOnlySpan<char> value, ref int i)
+    public readonly bool EatMapKeySeperator(ReadOnlySpan<char> value, ref int i)
     {
         return value[i++] == JsWriter.MapKeySeperator;
     }
@@ -688,17 +831,25 @@ public struct JsvTypeSerializer
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     /// <exception cref="ServiceStack.DiagnosticEvent.Exception">Expected '{JsWriter.ItemSeperator}' or '{JsWriter.MapEndChar}'</exception>
     /// <exception cref="System.Exception">Expected '{JsWriter.ItemSeperator}' or '{JsWriter.MapEndChar}'</exception>
-    public bool EatItemSeperatorOrMapEndChar(ReadOnlySpan<char> value, ref int i)
+    public readonly bool EatItemSeperatorOrMapEndChar(ReadOnlySpan<char> value, ref int i)
     {
-        if (i == value.Length) return false;
+        if (i == value.Length)
+        {
+            return false;
+        }
 
         var success = value[i] == JsWriter.ItemSeperator
                       || value[i] == JsWriter.MapEndChar;
 
         if (success)
+        {
             i++;
-        else if (Env.StrictMode) throw new Exception(
-            $"Expected '{JsWriter.ItemSeperator}' or '{JsWriter.MapEndChar}'");
+        }
+        else if (Env.StrictMode)
+        {
+            throw new Exception(
+                $"Expected '{JsWriter.ItemSeperator}' or '{JsWriter.MapEndChar}'");
+        }
 
         return success;
     }
@@ -708,7 +859,7 @@ public struct JsvTypeSerializer
     /// </summary>
     /// <param name="value">The value.</param>
     /// <param name="i">The i.</param>
-    public void EatWhitespace(ReadOnlySpan<char> value, ref int i) { }
+    public readonly void EatWhitespace(ReadOnlySpan<char> value, ref int i) { }
 
     /// <summary>
     /// Eats the value.
@@ -716,11 +867,14 @@ public struct JsvTypeSerializer
     /// <param name="value">The value.</param>
     /// <param name="i">The i.</param>
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
-    public ReadOnlySpan<char> EatValue(ReadOnlySpan<char> value, ref int i)
+    public readonly ReadOnlySpan<char> EatValue(ReadOnlySpan<char> value, ref int i)
     {
         var tokenStartPos = i;
         var valueLength = value.Length;
-        if (i == valueLength) return default;
+        if (i == valueLength)
+        {
+            return default;
+        }
 
         var valueChar = value[i];
         var withinQuotes = false;
@@ -739,13 +893,18 @@ public struct JsvTypeSerializer
                 {
                     valueChar = value[i];
 
-                    if (valueChar != JsWriter.QuoteChar) continue;
+                    if (valueChar != JsWriter.QuoteChar)
+                    {
+                        continue;
+                    }
 
                     var isLiteralQuote = i + 1 < valueLength && value[i + 1] == JsWriter.QuoteChar;
 
                     i++; //skip quote
                     if (!isLiteralQuote)
+                    {
                         break;
+                    }
                 }
                 return value.Slice(tokenStartPos, i - tokenStartPos);
 
@@ -756,10 +915,14 @@ public struct JsvTypeSerializer
                     valueChar = value[i];
 
                     if (valueChar == JsWriter.QuoteChar)
+                    {
                         withinQuotes = !withinQuotes;
+                    }
 
                     if (withinQuotes)
+                    {
                         continue;
+                    }
 
                     switch (valueChar)
                     {
@@ -780,10 +943,14 @@ public struct JsvTypeSerializer
                     valueChar = value[i];
 
                     if (valueChar == JsWriter.QuoteChar)
+                    {
                         withinQuotes = !withinQuotes;
+                    }
 
                     if (withinQuotes)
+                    {
                         continue;
+                    }
 
                     switch (valueChar)
                     {

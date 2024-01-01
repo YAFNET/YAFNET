@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -89,7 +89,7 @@ public class ForumsModel : ModerateForumPage
     {
         this.Input = new InputModel();
 
-        this.BindData(f);
+        this.BindData();
     }
 
     public PartialViewResult OnGetAddUser(int f)
@@ -128,14 +128,14 @@ public class ForumsModel : ModerateForumPage
 
     public void OnPost(int f)
     {
-        this.BindData(f);
+        this.BindData();
     }
 
     public void OnPostRemoveUser(int id, int f)
     {
         this.GetRepository<UserForum>().Delete(id, this.PageBoardContext.PageForumID);
 
-        this.BindData(f);
+        this.BindData();
     }
 
     public IActionResult OnPostMove(int f)
@@ -163,7 +163,7 @@ public class ForumsModel : ModerateForumPage
 
             if (list.NullOrEmpty())
             {
-                this.BindData(f);
+                this.BindData();
                 return this.PageBoardContext.Notify(this.GetText("MODERATE", "NOTHING"), MessageTypes.warning);
             }
 
@@ -175,12 +175,12 @@ public class ForumsModel : ModerateForumPage
                     this.Input.LeavePointer,
                     linkDays.Value));
 
-            this.BindData(f);
+            this.BindData();
 
             return this.PageBoardContext.Notify(this.GetText("MODERATE", "MOVED"), MessageTypes.success);
         }
 
-        this.BindData(f);
+        this.BindData();
 
         return this.PageBoardContext.Notify(this.GetText("MODERATE", "MOVE_TO_DIFFERENT"), MessageTypes.danger);
     }
@@ -208,7 +208,7 @@ public class ForumsModel : ModerateForumPage
     /// <param name="f">
     /// The forum Id.
     /// </param>
-    private void BindData(int f)
+    private void BindData()
     {
         this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
 

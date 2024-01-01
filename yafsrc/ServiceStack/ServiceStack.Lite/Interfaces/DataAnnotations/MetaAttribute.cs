@@ -30,7 +30,7 @@ public class MetaAttribute : AttributeBase
     /// <param name="value">The value.</param>
     public MetaAttribute(string name, string value)
     {
-        Name = name;
-        Value = value;
+        this.Name = name;
+        this.Value = value;
     }
 }

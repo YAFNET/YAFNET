@@ -28,7 +28,9 @@ public static class StringBuilderCache
     {
         var ret = cache;
         if (ret == null)
+        {
             return new StringBuilder();
+        }
 
         ret.Length = 0;
         cache = null;  //don't re-issue cached instance until it's freed
@@ -76,7 +78,9 @@ public static class StringBuilderCacheAlt
     {
         var ret = cache;
         if (ret == null)
+        {
             return new StringBuilder();
+        }
 
         ret.Length = 0;
         cache = null;  //don't re-issue cached instance until it's freed
@@ -125,7 +129,9 @@ static internal class StringBuilderThreadStatic
     {
         var ret = cache;
         if (ret == null)
+        {
             return new StringBuilder();
+        }
 
         ret.Length = 0;
         cache = null;  //don't re-issue cached instance until it's freed

@@ -325,7 +325,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     /// Gets the dialect providers.
     /// </summary>
     /// <value>The dialect providers.</value>
-    public static Dictionary<string, IOrmLiteDialectProvider> DialectProviders => dialectProviders ??= new Dictionary<string, IOrmLiteDialectProvider>();
+    public static Dictionary<string, IOrmLiteDialectProvider> DialectProviders => dialectProviders ??= [];
 
     /// <summary>
     /// Registers the dialect provider.
@@ -346,7 +346,7 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     /// Gets the named connections.
     /// </summary>
     /// <value>The named connections.</value>
-    public static Dictionary<string, OrmLiteConnectionFactory> NamedConnections => namedConnections ??= new Dictionary<string, OrmLiteConnectionFactory>();
+    public static Dictionary<string, OrmLiteConnectionFactory> NamedConnections => namedConnections ??= [];
 
     /// <summary>
     /// Registers the connection.

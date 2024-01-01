@@ -30,10 +30,10 @@ public class FieldAccessor
         SetMemberDelegate publicSetter,
         SetMemberRefDelegate publicSetterRef)
     {
-        FieldInfo = fieldInfo;
-        PublicGetter = publicGetter;
-        PublicSetter = publicSetter;
-        PublicSetterRef = publicSetterRef;
+        this.FieldInfo = fieldInfo;
+        this.PublicGetter = publicGetter;
+        this.PublicSetter = publicSetter;
+        this.PublicSetterRef = publicSetterRef;
     }
 
     /// <summary>
@@ -111,9 +111,7 @@ public class TypeFields<T> : TypeFields
     /// <returns>FieldAccessor.</returns>
     public static new FieldAccessor GetAccessor(string propertyName)
     {
-        return Instance.FieldsMap.TryGetValue(propertyName, out FieldAccessor info)
-                   ? info
-                   : null;
+        return Instance.FieldsMap.GetValueOrDefault(propertyName);
     }
 }
 
@@ -127,12 +125,12 @@ public abstract class TypeFields
     /// <summary>
     /// The cache map
     /// </summary>
-    static Dictionary<Type, TypeFields> CacheMap = new();
+    static Dictionary<Type, TypeFields> CacheMap = [];
 
     /// <summary>
     /// The factory type
     /// </summary>
-    public static Type FactoryType = typeof(TypeFields<>);
+    public static Type FactoryType { get; } = typeof(TypeFields<>);
 
     /// <summary>
     /// Gets the specified type.
@@ -141,8 +139,10 @@ public abstract class TypeFields
     /// <returns>TypeFields.</returns>
     public static TypeFields Get(Type type)
     {
-        if (CacheMap.TryGetValue(type, out TypeFields value))
+        if (CacheMap.TryGetValue(type, out var value))
+        {
             return value;
+        }
 
         var genericType = FactoryType.MakeGenericType(type);
         var instanceFi = genericType.GetPublicStaticField("Instance");
@@ -169,9 +169,7 @@ public abstract class TypeFields
     /// <returns>FieldAccessor.</returns>
     public FieldAccessor GetAccessor(string propertyName)
     {
-        return FieldsMap.TryGetValue(propertyName, out FieldAccessor info)
-                   ? info
-                   : null;
+        return this.FieldsMap.GetValueOrDefault(propertyName);
     }
 
     /// <summary>
@@ -197,7 +195,10 @@ public abstract class TypeFields
     /// </summary>
     /// <param name="fi">The fi.</param>
     /// <returns>SetMemberDelegate.</returns>
-    public virtual SetMemberDelegate GetPublicSetter(FieldInfo fi) => GetPublicSetter(fi?.Name);
+    public virtual SetMemberDelegate GetPublicSetter(FieldInfo fi)
+    {
+        return this.GetPublicSetter(fi?.Name);
+    }
 
     /// <summary>
     /// Gets the public setter.
@@ -207,9 +208,11 @@ public abstract class TypeFields
     public virtual SetMemberDelegate GetPublicSetter(string name)
     {
         if (name == null)
+        {
             return null;
+        }
 
-        return FieldsMap.TryGetValue(name, out FieldAccessor info)
+        return this.FieldsMap.TryGetValue(name, out var info)
                    ? info.PublicSetter
                    : null;
     }
@@ -225,8 +228,10 @@ public static class FieldInvoker
     /// </summary>
     /// <param name="fieldInfo">The field information.</param>
     /// <returns>GetMemberDelegate.</returns>
-    public static GetMemberDelegate CreateGetter(this FieldInfo fieldInfo) =>
-        ReflectionOptimizer.Instance.CreateGetter(fieldInfo);
+    public static GetMemberDelegate CreateGetter(this FieldInfo fieldInfo)
+    {
+        return ReflectionOptimizer.Instance.CreateGetter(fieldInfo);
+    }
 
     /// <summary>
     /// Creates the getter.
@@ -234,16 +239,20 @@ public static class FieldInvoker
     /// <typeparam name="T"></typeparam>
     /// <param name="fieldInfo">The field information.</param>
     /// <returns>GetMemberDelegate&lt;T&gt;.</returns>
-    public static GetMemberDelegate<T> CreateGetter<T>(this FieldInfo fieldInfo) =>
-        ReflectionOptimizer.Instance.CreateGetter<T>(fieldInfo);
+    public static GetMemberDelegate<T> CreateGetter<T>(this FieldInfo fieldInfo)
+    {
+        return ReflectionOptimizer.Instance.CreateGetter<T>(fieldInfo);
+    }
 
     /// <summary>
     /// Creates the setter.
     /// </summary>
     /// <param name="fieldInfo">The field information.</param>
     /// <returns>SetMemberDelegate.</returns>
-    public static SetMemberDelegate CreateSetter(this FieldInfo fieldInfo) =>
-        ReflectionOptimizer.Instance.CreateSetter(fieldInfo);
+    public static SetMemberDelegate CreateSetter(this FieldInfo fieldInfo)
+    {
+        return ReflectionOptimizer.Instance.CreateSetter(fieldInfo);
+    }
 
     /// <summary>
     /// Creates the setter.
@@ -251,8 +260,10 @@ public static class FieldInvoker
     /// <typeparam name="T"></typeparam>
     /// <param name="fieldInfo">The field information.</param>
     /// <returns>SetMemberDelegate&lt;T&gt;.</returns>
-    public static SetMemberDelegate<T> CreateSetter<T>(this FieldInfo fieldInfo) =>
-        ReflectionOptimizer.Instance.CreateSetter<T>(fieldInfo);
+    public static SetMemberDelegate<T> CreateSetter<T>(this FieldInfo fieldInfo)
+    {
+        return ReflectionOptimizer.Instance.CreateSetter<T>(fieldInfo);
+    }
 
     /// <summary>
     /// Sets the expression reference.
@@ -260,6 +271,8 @@ public static class FieldInvoker
     /// <typeparam name="T"></typeparam>
     /// <param name="fieldInfo">The field information.</param>
     /// <returns>SetMemberRefDelegate&lt;T&gt;.</returns>
-    public static SetMemberRefDelegate<T> SetExpressionRef<T>(this FieldInfo fieldInfo) =>
-        ReflectionOptimizer.Instance.CreateSetterRef<T>(fieldInfo);
+    public static SetMemberRefDelegate<T> SetExpressionRef<T>(this FieldInfo fieldInfo)
+    {
+        return ReflectionOptimizer.Instance.CreateSetterRef<T>(fieldInfo);
+    }
 }

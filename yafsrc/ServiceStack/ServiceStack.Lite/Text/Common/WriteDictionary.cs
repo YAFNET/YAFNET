@@ -61,8 +61,8 @@ static internal class WriteDictionary<TSerializer>
         /// <param name="valueType">Type of the value.</param>
         public MapKey(Type keyType, Type valueType)
         {
-            KeyType = keyType;
-            ValueType = valueType;
+            this.KeyType = keyType;
+            this.ValueType = valueType;
         }
 
         /// <summary>
@@ -82,14 +82,14 @@ static internal class WriteDictionary<TSerializer>
                 return true;
             }
 
-            return other.KeyType == KeyType && other.ValueType == ValueType;
+            return other.KeyType == this.KeyType && other.ValueType == this.ValueType;
         }
 
         /// <summary>
-        /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+        /// Determines whether the specified <see cref="object" /> is equal to this instance.
         /// </summary>
         /// <param name="obj">The object to compare with the current object.</param>
-        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+        /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
         public override bool Equals(object obj)
         {
             if (obj is null)
@@ -102,7 +102,7 @@ static internal class WriteDictionary<TSerializer>
                 return true;
             }
 
-            return obj.GetType() == typeof(MapKey) && Equals((MapKey)obj);
+            return obj.GetType() == typeof(MapKey) && this.Equals((MapKey)obj);
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ static internal class WriteDictionary<TSerializer>
         {
             unchecked
             {
-                return ((KeyType != null ? KeyType.GetHashCode() : 0) * 397) ^ (ValueType != null ? ValueType.GetHashCode() : 0);
+                return ((this.KeyType != null ? this.KeyType.GetHashCode() : 0) * 397) ^ (this.ValueType != null ? this.ValueType.GetHashCode() : 0);
             }
         }
     }
@@ -121,7 +121,7 @@ static internal class WriteDictionary<TSerializer>
     /// <summary>
     /// The cache FNS
     /// </summary>
-    static Dictionary<MapKey, WriteMapDelegate> CacheFns = new();
+    static Dictionary<MapKey, WriteMapDelegate> CacheFns = [];
 
     /// <summary>
     /// Gets the write generic dictionary.
@@ -133,7 +133,10 @@ static internal class WriteDictionary<TSerializer>
         GetWriteGenericDictionary(Type keyType, Type valueType)
     {
         var mapKey = new MapKey(keyType, valueType);
-        if (CacheFns.TryGetValue(mapKey, out var writeFn)) return writeFn.Invoke;
+        if (CacheFns.TryGetValue(mapKey, out var writeFn))
+        {
+            return writeFn.Invoke;
+        }
 
         var genericType = typeof(ToStringDictionaryMethods<,,>).MakeGenericType(keyType, valueType, typeof(TSerializer));
         var mi = genericType.GetStaticMethod("WriteIDictionary");
@@ -174,7 +177,10 @@ static internal class WriteDictionary<TSerializer>
             var dictionaryValue = map[key];
 
             var isNull = dictionaryValue == null;
-            if (isNull && !Serializer.IncludeNullValuesInDictionaries) continue;
+            if (isNull && !Serializer.IncludeNullValuesInDictionaries)
+            {
+                continue;
+            }
 
             var keyType = key.GetType();
             if (writeKeyFn == null || lastKeyType != keyType)
@@ -271,7 +277,11 @@ public static class ToStringDictionaryMethods<TKey, TValue, TSerializer>
         WriteObjectDelegate writeKeyFn,
         WriteObjectDelegate writeValueFn)
     {
-        if (writer == null) return; //AOT
+        if (writer == null)
+        {
+            return; //AOT
+        }
+
         WriteGenericIDictionary(writer, (IDictionary<TKey, TValue>)oMap, writeKeyFn, writeValueFn);
     }
 
@@ -296,7 +306,9 @@ public static class ToStringDictionaryMethods<TKey, TValue, TSerializer>
 
 
         if (map is JsonObject jsonObject)
+        {
             map = (IDictionary<TKey, TValue>)jsonObject.ToUnescapedDictionary();
+        }
 
         writer.Write(JsWriter.MapStartChar);
 
@@ -306,7 +318,10 @@ public static class ToStringDictionaryMethods<TKey, TValue, TSerializer>
         foreach (var kvp in map)
         {
             var isNull = kvp.Value == null;
-            if (isNull && !Serializer.IncludeNullValuesInDictionaries) continue;
+            if (isNull && !Serializer.IncludeNullValuesInDictionaries)
+            {
+                continue;
+            }
 
             JsWriter.WriteItemSeperatorIfRanOnce(writer, ref ranOnce);
 

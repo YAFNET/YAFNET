@@ -28,8 +28,8 @@ public class SqlServerFileTableAttribute : AttributeBase
     /// <param name="collateFileName">Name of the collate file.</param>
     public SqlServerFileTableAttribute(string directory, string collateFileName = null)
     {
-        FileTableDirectory = directory;
-        FileTableCollateFileName = collateFileName;
+        this.FileTableDirectory = directory;
+        this.FileTableCollateFileName = collateFileName;
     }
 
     /// <summary>

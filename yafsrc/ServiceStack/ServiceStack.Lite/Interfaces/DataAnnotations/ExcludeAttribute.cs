@@ -26,7 +26,7 @@ public class ExcludeAttribute : AttributeBase
     /// <param name="feature">The feature.</param>
     public ExcludeAttribute(Feature feature)
     {
-        Feature = feature;
+        this.Feature = feature;
     }
 }
 

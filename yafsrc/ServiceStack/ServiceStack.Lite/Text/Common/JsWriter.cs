@@ -119,7 +119,11 @@ public static class JsWriter
         for (var i = 0; i < len; i++)
         {
             var c = value[i];
-            if (c >= LengthFromLargestChar || !EscapeCharFlags[c]) continue;
+            if (c >= LengthFromLargestChar || !EscapeCharFlags[c])
+            {
+                continue;
+            }
+
             return true;
         }
         return false;
@@ -133,9 +137,13 @@ public static class JsWriter
     static internal void WriteItemSeperatorIfRanOnce(TextWriter writer, ref bool ranOnce)
     {
         if (ranOnce)
+        {
             writer.Write(ItemSeperator);
+        }
         else
+        {
             ranOnce = true;
+        }
     }
 
     /// <summary>
@@ -146,24 +154,21 @@ public static class JsWriter
     static internal bool ShouldUseDefaultToStringMethod(Type type)
     {
         var underlyingType = Nullable.GetUnderlyingType(type) ?? type;
-        switch (underlyingType.GetTypeCode())
-        {
-            case TypeCode.SByte:
-            case TypeCode.Byte:
-            case TypeCode.Int16:
-            case TypeCode.UInt16:
-            case TypeCode.Int32:
-            case TypeCode.UInt32:
-            case TypeCode.Int64:
-            case TypeCode.UInt64:
-            case TypeCode.Single:
-            case TypeCode.Double:
-            case TypeCode.Decimal:
-            case TypeCode.DateTime:
-                return true;
-        }
-
-        return underlyingType == typeof(Guid);
+        return underlyingType.GetTypeCode() switch {
+            TypeCode.SByte => true,
+            TypeCode.Byte => true,
+            TypeCode.Int16 => true,
+            TypeCode.UInt16 => true,
+            TypeCode.Int32 => true,
+            TypeCode.UInt32 => true,
+            TypeCode.Int64 => true,
+            TypeCode.UInt64 => true,
+            TypeCode.Single => true,
+            TypeCode.Double => true,
+            TypeCode.Decimal => true,
+            TypeCode.DateTime => true,
+            _ => underlyingType == typeof(Guid)
+        };
     }
 
     /// <summary>
@@ -175,10 +180,14 @@ public static class JsWriter
     public static ITypeSerializer GetTypeSerializer<TSerializer>()
     {
         if (typeof(TSerializer) == typeof(JsvTypeSerializer))
+        {
             return JsvTypeSerializer.Instance;
+        }
 
         if (typeof(TSerializer) == typeof(JsonTypeSerializer))
+        {
             return JsonTypeSerializer.Instance;
+        }
 
         throw new NotSupportedException(typeof(TSerializer).Name);
     }
@@ -190,7 +199,10 @@ public static class JsWriter
     /// <param name="enumFlagValue">The enum flag value.</param>
     public static void WriteEnumFlags(TextWriter writer, object enumFlagValue)
     {
-        if (enumFlagValue == null) return;
+        if (enumFlagValue == null)
+        {
+            return;
+        }
 
         var typeCode = Enum.GetUnderlyingType(enumFlagValue.GetType()).GetTypeCode();
         switch (typeCode)
@@ -233,10 +245,14 @@ public static class JsWriter
     public static bool ShouldAllowRuntimeType(Type type)
     {
         if (type.IsInterface && JsConfig.AllowRuntimeInterfaces)
+        {
             return true;
+        }
 
         if (JsConfig.AllowRuntimeType?.Invoke(type) == true)
+        {
             return true;
+        }
 
         var allowAttributesNamed = JsConfig.AllowRuntimeTypeWithAttributesNamed;
         if (allowAttributesNamed?.Count > 0)
@@ -244,9 +260,15 @@ public static class JsWriter
             var oAttrs = type.AllAttributes();
             foreach (var oAttr in oAttrs)
             {
-                if (oAttr is not Attribute attr) continue;
+                if (oAttr is not Attribute attr)
+                {
+                    continue;
+                }
+
                 if (allowAttributesNamed.Contains(attr.GetType().Name))
+                {
                     return true;
+                }
             }
         }
 
@@ -254,7 +276,7 @@ public static class JsWriter
         if (allowInterfacesNamed?.Count > 0)
         {
             var interfaces = type.GetInterfaces();
-            return interfaces.Any(interfaceType => allowInterfacesNamed.Contains(interfaceType.Name));
+            return Array.Exists(interfaces,interfaceType => allowInterfacesNamed.Contains(interfaceType.Name));
         }
 
         var allowTypesInNamespaces = JsConfig.AllowRuntimeTypeInTypesWithNamespaces;
@@ -263,7 +285,9 @@ public static class JsWriter
             foreach (var ns in allowTypesInNamespaces)
             {
                 if (type.Namespace == ns)
+                {
                     return true;
+                }
             }
         }
 
@@ -274,7 +298,9 @@ public static class JsWriter
             foreach (var allowInType in allowRuntimeTypeInTypes)
             {
                 if (declaringTypeName == allowInType)
+                {
                     return true;
+                }
             }
         }
 
@@ -289,8 +315,10 @@ public static class JsWriter
     public static void AssertAllowedRuntimeType(Type type)
     {
         if (!ShouldAllowRuntimeType(type))
+        {
             throw new NotSupportedException(
                 $"{type.Name} is not an allowed Runtime Type. Whitelist Type with [Serializable], [RuntimeSerializable], [DataContract] or IRuntimeSerializable, see: https://docs.servicestack.net/json-format#runtime-type-whitelist");
+        }
     }
 }
 
@@ -314,7 +342,7 @@ public class JsWriter<TSerializer>
         this.SpecialTypes = new Dictionary<Type, WriteObjectDelegate>
                                 {
                                     { typeof(Uri), Serializer.WriteObjectString },
-                                    { typeof(Type), WriteType },
+                                    { typeof(Type), this.WriteType },
                                     { typeof(Exception), Serializer.WriteException },
                                 };
     }
@@ -337,76 +365,145 @@ public class JsWriter<TSerializer>
                     var typeCode = underlyingType.GetTypeCode();
 
                     if (typeCode == TypeCode.Char)
+                    {
                         return Serializer.WriteChar;
+                    }
+
                     if (typeCode == TypeCode.Int32)
+                    {
                         return Serializer.WriteInt32;
+                    }
+
                     if (typeCode == TypeCode.Int64)
+                    {
                         return Serializer.WriteInt64;
+                    }
+
                     if (typeCode == TypeCode.UInt64)
+                    {
                         return Serializer.WriteUInt64;
+                    }
+
                     if (typeCode == TypeCode.UInt32)
+                    {
                         return Serializer.WriteUInt32;
+                    }
 
                     if (typeCode == TypeCode.Byte)
+                    {
                         return Serializer.WriteByte;
+                    }
+
                     if (typeCode == TypeCode.SByte)
+                    {
                         return Serializer.WriteSByte;
+                    }
 
                     if (typeCode == TypeCode.Int16)
+                    {
                         return Serializer.WriteInt16;
+                    }
+
                     if (typeCode == TypeCode.UInt16)
+                    {
                         return Serializer.WriteUInt16;
+                    }
 
                     if (typeCode == TypeCode.Boolean)
+                    {
                         return Serializer.WriteBool;
+                    }
 
                     if (typeCode == TypeCode.Single)
+                    {
                         return Serializer.WriteFloat;
+                    }
 
                     if (typeCode == TypeCode.Double)
+                    {
                         return Serializer.WriteDouble;
+                    }
 
                     if (typeCode == TypeCode.Decimal)
+                    {
                         return Serializer.WriteDecimal;
+                    }
 
                     if (typeCode == TypeCode.DateTime)
+                    {
                         if (isNullable)
+                        {
                             return Serializer.WriteNullableDateTime;
+                        }
                         else
+                        {
                             return Serializer.WriteDateTime;
+                        }
+                    }
 
                     if (type == typeof(DateTimeOffset))
+                    {
                         return Serializer.WriteDateTimeOffset;
+                    }
 
                     if (type == typeof(DateTimeOffset?))
+                    {
                         return Serializer.WriteNullableDateTimeOffset;
+                    }
 
                     if (type == typeof(TimeSpan))
+                    {
                         return Serializer.WriteTimeSpan;
+                    }
 
                     if (type == typeof(TimeSpan?))
+                    {
                         return Serializer.WriteNullableTimeSpan;
+                    }
 
                     if (type == typeof(Guid))
+                    {
                         return Serializer.WriteGuid;
+                    }
 
                     if (type == typeof(Guid?))
+                    {
                         return Serializer.WriteNullableGuid;
+                    }
+
                     if (type == typeof(DateOnly))
+                    {
                         if (isNullable)
+                        {
                             return Serializer.WriteNullableDateOnly;
+                        }
                         else
+                        {
                             return Serializer.WriteDateOnly;
+                        }
+                    }
+
                     if (type == typeof(DateOnly?))
+                    {
                         return Serializer.WriteDateOnly;
+                    }
 
                     if (type == typeof(TimeOnly))
+                    {
                         if (isNullable)
+                        {
                             return Serializer.WriteNullableTimeOnly;
+                        }
                         else
+                        {
                             return Serializer.WriteTimeOnly;
+                        }
+                    }
+
                     if (type == typeof(TimeOnly?))
+                    {
                         return Serializer.WriteTimeOnly;
+                    }
                 }
                 break;
             case true:
@@ -414,10 +511,14 @@ public class JsWriter<TSerializer>
         }
 
         if (type.HasInterface(typeof(IFormattable)))
+        {
             return Serializer.WriteFormattableObjectString;
+        }
 
         if (type.HasInterface(typeof(IValueWriter)))
-            return WriteValue;
+        {
+            return this.WriteValue;
+        }
 
         return Serializer.WriteObjectString;
     }
@@ -439,7 +540,7 @@ public class JsWriter<TSerializer>
         var onSerializingFn = JsConfig<T>.OnSerializingFn;
         if (onSerializingFn != null)
         {
-            var writeFn = GetCoreWriteFn<T>();
+            var writeFn = this.GetCoreWriteFn<T>();
             ret = (w, x) => writeFn(w, onSerializingFn((T)x));
         }
 
@@ -448,10 +549,14 @@ public class JsWriter<TSerializer>
             ret = JsConfig<T>.WriteFn<TSerializer>;
         }
 
-        ret ??= GetCoreWriteFn<T>();
+        ret ??= this.GetCoreWriteFn<T>();
 
         var onSerializedFn = JsConfig<T>.OnSerializedFn;
-        if (onSerializedFn == null) return ret;
+        if (onSerializedFn == null)
+        {
+            return ret;
+        }
+
         {
             var writerFunc = ret;
             ret = (w, x) =>
@@ -481,8 +586,10 @@ public class JsWriter<TSerializer>
     /// <param name="writer">The writer.</param>
     /// <param name="value">The value.</param>
     /// <exception cref="System.NotSupportedException">Serializing Task's is not supported. Did you forget to await it?</exception>
-    private static void ThrowTaskNotSupported(TextWriter writer, object value) =>
+    private static void ThrowTaskNotSupported(TextWriter writer, object value)
+    {
         throw new NotSupportedException("Serializing Task's is not supported. Did you forget to await it?");
+    }
 
     /// <summary>
     /// Gets the core write function.
@@ -492,16 +599,18 @@ public class JsWriter<TSerializer>
     private WriteObjectDelegate GetCoreWriteFn<T>()
     {
         if (typeof(T).IsInstanceOf(typeof(System.Threading.Tasks.Task)))
+        {
             return ThrowTaskNotSupported;
+        }
 
         if (typeof(T).IsValueType && !JsConfig.TreatAsRefType(typeof(T)) || JsConfig<T>.HasSerializeFn)
         {
             return JsConfig<T>.HasSerializeFn
                        ? JsConfig<T>.WriteFn<TSerializer>
-                       : GetValueTypeToStringMethod(typeof(T));
+                       : this.GetValueTypeToStringMethod(typeof(T));
         }
 
-        var specialWriteFn = GetSpecialWriteFn(typeof(T));
+        var specialWriteFn = this.GetSpecialWriteFn(typeof(T));
         if (specialWriteFn != null)
         {
             return specialWriteFn;
@@ -510,15 +619,24 @@ public class JsWriter<TSerializer>
         if (typeof(T).IsArray)
         {
             if (typeof(T) == typeof(byte[]))
+            {
                 return (w, x) => WriteLists.WriteBytes(Serializer, w, x);
+            }
 
             if (typeof(T) == typeof(string[]))
+            {
                 return (w, x) => WriteLists.WriteStringArray(Serializer, w, x);
+            }
 
             if (typeof(T) == typeof(int[]))
+            {
                 return WriteListsOfElements<int, TSerializer>.WriteGenericArrayValueType;
+            }
+
             if (typeof(T) == typeof(long[]))
+            {
                 return WriteListsOfElements<long, TSerializer>.WriteGenericArrayValueType;
+            }
 
             var elementType = typeof(T).GetElementType();
             var writeFn = WriteListsOfElements<TSerializer>.GetGenericWriteArray(elementType);
@@ -529,7 +647,9 @@ public class JsWriter<TSerializer>
             typeof(T).HasInterface(typeof(IDictionary<string, object>))) // is ExpandoObject?
         {
             if (typeof(T).IsOrHasGenericInterfaceTypeOf(typeof(IList<>)))
+            {
                 return WriteLists<T, TSerializer>.Write;
+            }
 
             var mapInterface = typeof(T).GetTypeWithGenericTypeDefinitionOf(typeof(IDictionary<,>));
             if (mapInterface != null)
@@ -570,7 +690,9 @@ public class JsWriter<TSerializer>
         }
 
         if (typeof(T).HasInterface(typeof(IValueWriter)))
-            return WriteValue;
+        {
+            return this.WriteValue;
+        }
 
         if (typeof(T).IsClass || typeof(T).IsInterface || JsConfig.TreatAsRefType(typeof(T)))
         {
@@ -596,14 +718,20 @@ public class JsWriter<TSerializer>
     /// <returns>WriteObjectDelegate.</returns>
     public WriteObjectDelegate GetSpecialWriteFn(Type type)
     {
-        if (SpecialTypes.TryGetValue(type, out var writeFn))
+        if (this.SpecialTypes.TryGetValue(type, out var writeFn))
+        {
             return writeFn;
+        }
 
         if (type.IsInstanceOfType(typeof(Type)))
-            return WriteType;
+        {
+            return this.WriteType;
+        }
 
         if (type.IsInstanceOf(typeof(Exception)))
+        {
             return Serializer.WriteException;
+        }
 
         return null;
     }

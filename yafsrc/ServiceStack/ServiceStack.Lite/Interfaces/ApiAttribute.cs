@@ -82,8 +82,8 @@ public class ApiAttribute : AttributeBase
     /// <param name="isRequired">if set to <c>true</c> [is required].</param>
     public ApiAttribute(string description, int generateBodyParameter, bool isRequired)
     {
-        Description = description;
-        BodyParameter = generateBodyParameter;
-        IsRequired = isRequired;
+        this.Description = description;
+        this.BodyParameter = generateBodyParameter;
+        this.IsRequired = isRequired;
     }
 }

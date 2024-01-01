@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -163,7 +163,6 @@ public class QuoteRegexReplaceRule : VariableRegexReplaceRule
             // insert replaced value(s)
             sb.Insert(match.Groups[0].Index, innerReplace.ToString());
 
-            // text = text.Substring( 0, m.Groups [0].Index ) + tStr + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
             match = this.RegExSearch.Match(sb.ToString());
         }
 

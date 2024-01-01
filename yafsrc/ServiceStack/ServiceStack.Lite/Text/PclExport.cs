@@ -13,7 +13,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Reflection;
 using System.Runtime.Serialization;
@@ -45,13 +44,12 @@ public abstract class PclExport
     /// <summary>
     /// The instance
     /// </summary>
-    public static PclExport Instance
+    public static PclExport Instance { get; private set; }
 #if NETSTANDARD2_0
-          = new NetStandardPclExport()
+          = new NetStandardPclExport();
 #elif NET7_0_OR_GREATER
-          = new Net7PclExport()
+        = new Net7PclExport();
 #endif
-        ;
 
     /// <summary>
     /// Gets the reflection.
@@ -73,12 +71,14 @@ public abstract class PclExport
     {
         var type = Type.GetType(typeName);
         if (type == null)
+        {
             return false;
+        }
 
         var mi = type.GetMethod("Configure");
         if (mi != null)
         {
-            mi.Invoke(null, Array.Empty<object>());
+            _ = mi.Invoke(null, []);
         }
 
         return true;
@@ -103,17 +103,17 @@ public abstract class PclExport
     /// <summary>
     /// The empty task
     /// </summary>
-    public Task EmptyTask;
+    public Task EmptyTask { get; set; }
 
     /// <summary>
     /// The dir sep
     /// </summary>
-    public char DirSep = '\\';
+    public char DirSep { get; set; } = '\\';
 
     /// <summary>
     /// The alt dir sep
     /// </summary>
-    public char AltDirSep = '/';
+    public char AltDirSep { get; } = '/';
 
     /// <summary>
     /// The dir seps
@@ -123,27 +123,27 @@ public abstract class PclExport
     /// <summary>
     /// The platform name
     /// </summary>
-    public string PlatformName = "Unknown";
+    public string PlatformName { get; set; } = "Unknown";
 
     /// <summary>
     /// The regex options
     /// </summary>
-    public RegexOptions RegexOptions = RegexOptions.None;
+    public RegexOptions RegexOptions { get; } = RegexOptions.None;
 
     /// <summary>
     /// The invariant comparison
     /// </summary>
-    public StringComparison InvariantComparison = StringComparison.Ordinal;
+    public StringComparison InvariantComparison { get; } = StringComparison.Ordinal;
 
     /// <summary>
     /// The invariant comparison ignore case
     /// </summary>
-    public StringComparison InvariantComparisonIgnoreCase = StringComparison.OrdinalIgnoreCase;
+    public StringComparison InvariantComparisonIgnoreCase { get; } = StringComparison.OrdinalIgnoreCase;
 
     /// <summary>
     /// The invariant comparer ignore case
     /// </summary>
-    public StringComparer InvariantComparerIgnoreCase = StringComparer.OrdinalIgnoreCase;
+    public StringComparer InvariantComparerIgnoreCase { get; } = StringComparer.OrdinalIgnoreCase;
 
     // HACK: The only way to detect anonymous types right now.
 
@@ -218,9 +218,9 @@ public abstract class PclExport
     /// <returns>Stream.</returns>
     public virtual Stream GetRequestStream(WebRequest webRequest)
     {
-        var async = webRequest.GetRequestStreamAsync();
-        async.Wait();
-        return async.Result;
+        var streamAsync = webRequest.GetRequestStreamAsync();
+        streamAsync.Wait();
+        return streamAsync.Result;
     }
 
     /// <summary>
@@ -232,9 +232,9 @@ public abstract class PclExport
     {
         try
         {
-            var async = webRequest.GetResponseAsync();
-            async.Wait();
-            return async.Result;
+            var responseAsync = webRequest.GetResponseAsync();
+            responseAsync.Wait();
+            return responseAsync.Result;
         }
         catch (Exception ex)
         {
@@ -278,7 +278,7 @@ public abstract class PclExport
     /// <returns>Assembly[].</returns>
     public virtual Assembly[] GetAllAssemblies()
     {
-        return Array.Empty<Assembly>();
+        return [];
     }
 
     /// <summary>
@@ -320,9 +320,9 @@ public abstract class PclExport
     /// <returns>Type.</returns>
     public virtual Type GetGenericCollectionType(Type type)
     {
-        return type.GetInterfaces()
-            .FirstOrDefault(t => t.IsGenericType
-                                 && t.GetGenericTypeDefinition() == typeof(ICollection<>));
+        return
+            Array.Find(type.GetInterfaces(), t => t.IsGenericType
+                                                  && t.GetGenericTypeDefinition() == typeof(ICollection<>));
     }
 
     /// <summary>
@@ -374,7 +374,10 @@ public abstract class PclExport
     /// <param name="type">The type.</param>
     /// <returns>ParseStringSpanDelegate.</returns>
     public virtual ParseStringSpanDelegate GetDictionaryParseStringSpanMethod<TSerializer>(Type type)
-        where TSerializer : ITypeSerializer => null;
+        where TSerializer : ITypeSerializer
+    {
+        return null;
+    }
 
     /// <summary>
     /// Gets the specialized collection parse string span method.
@@ -383,7 +386,10 @@ public abstract class PclExport
     /// <param name="type">The type.</param>
     /// <returns>ParseStringSpanDelegate.</returns>
     public virtual ParseStringSpanDelegate GetSpecializedCollectionParseStringSpanMethod<TSerializer>(Type type)
-        where TSerializer : ITypeSerializer => null;
+        where TSerializer : ITypeSerializer
+    {
+        return null;
+    }
 
     /// <summary>
     /// Gets the js reader parse string span method.
@@ -392,7 +398,10 @@ public abstract class PclExport
     /// <param name="type">The type.</param>
     /// <returns>ParseStringSpanDelegate.</returns>
     public virtual ParseStringSpanDelegate GetJsReaderParseStringSpanMethod<TSerializer>(Type type)
-        where TSerializer : ITypeSerializer => null;
+        where TSerializer : ITypeSerializer
+    {
+        return null;
+    }
 
 
     /// <summary>
@@ -427,6 +436,7 @@ public abstract class PclExport
     /// Begins the thread affinity.
     /// </summary>
     public virtual void BeginThreadAffinity() { }
+    
     /// <summary>
     /// Ends the thread affinity.
     /// </summary>
@@ -437,19 +447,30 @@ public abstract class PclExport
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>DataContractAttribute.</returns>
-    public virtual DataContractAttribute GetWeakDataContract(Type type) => null;
+    public virtual DataContractAttribute GetWeakDataContract(Type type)
+    {
+        return null;
+    }
+
     /// <summary>
     /// Gets the weak data member.
     /// </summary>
     /// <param name="pi">The pi.</param>
     /// <returns>DataMemberAttribute.</returns>
-    public virtual DataMemberAttribute GetWeakDataMember(PropertyInfo pi) => null;
+    public virtual DataMemberAttribute GetWeakDataMember(PropertyInfo pi)
+    {
+        return null;
+    }
+
     /// <summary>
     /// Gets the weak data member.
     /// </summary>
     /// <param name="pi">The pi.</param>
     /// <returns>DataMemberAttribute.</returns>
-    public virtual DataMemberAttribute GetWeakDataMember(FieldInfo pi) => null;
+    public virtual DataMemberAttribute GetWeakDataMember(FieldInfo pi)
+    {
+        return null;
+    }
 
     /// <summary>
     /// Registers for aot.

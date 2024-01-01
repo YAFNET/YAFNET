@@ -23,7 +23,7 @@ public static class TranslateListWithElements
     /// The translate i collection cache
     /// </summary>
     private static Dictionary<Type, ConvertInstanceDelegate> TranslateICollectionCache
-        = new();
+        = [];
 
     /// <summary>
     /// Translates to generic i collection cache.
@@ -35,7 +35,9 @@ public static class TranslateListWithElements
     public static object TranslateToGenericICollectionCache(object from, Type toInstanceOfType, Type elementType)
     {
         if (TranslateICollectionCache.TryGetValue(toInstanceOfType, out var translateToFn))
+        {
             return translateToFn(from, toInstanceOfType);
+        }
 
         var genericType = typeof(TranslateListWithElements<>).MakeGenericType(elementType);
         var mi = genericType.GetStaticMethod("LateBoundTranslateToGenericICollection");
@@ -60,7 +62,7 @@ public static class TranslateListWithElements
     /// The translate convertible i collection cache
     /// </summary>
     private static Dictionary<ConvertibleTypeKey, ConvertInstanceDelegate> TranslateConvertibleICollectionCache
-        = new();
+        = [];
 
     /// <summary>
     /// Translates to convertible generic i collection cache.
@@ -73,7 +75,10 @@ public static class TranslateListWithElements
         object from, Type toInstanceOfType, Type fromElementType)
     {
         var typeKey = new ConvertibleTypeKey(toInstanceOfType, fromElementType);
-        if (TranslateConvertibleICollectionCache.TryGetValue(typeKey, out var translateToFn)) return translateToFn(from, toInstanceOfType);
+        if (TranslateConvertibleICollectionCache.TryGetValue(typeKey, out var translateToFn))
+        {
+            return translateToFn(from, toInstanceOfType);
+        }
 
         var toElementType = toInstanceOfType.FirstGenericType().GetGenericArguments()[0];
         var genericType = typeof(TranslateListWithConvertibleElements<,>).MakeGenericType(fromElementType, toElementType);
@@ -126,7 +131,9 @@ public static class TranslateListWithElements
         var toElType = toPropertyType.GetCollectionType();
 
         if (fromElType == null || toElType == null)
+        {
             return null;
+        }
 
         return TranslateToGenericICollectionCache(fromValue, toPropertyType, toElType);
     }
@@ -155,8 +162,8 @@ public class ConvertibleTypeKey
     /// <param name="fromElementType">Type of from element.</param>
     public ConvertibleTypeKey(Type toInstanceType, Type fromElementType)
     {
-        ToInstanceType = toInstanceType;
-        FromElementType = fromElementType;
+        this.ToInstanceType = toInstanceType;
+        this.FromElementType = fromElementType;
     }
 
     /// <summary>
@@ -166,21 +173,37 @@ public class ConvertibleTypeKey
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public bool Equals(ConvertibleTypeKey other)
     {
-        if (ReferenceEquals(null, other)) return false;
-        if (ReferenceEquals(this, other)) return true;
-        return other.ToInstanceType == ToInstanceType && other.FromElementType == FromElementType;
+        if (ReferenceEquals(null, other))
+        {
+            return false;
+        }
+
+        if (ReferenceEquals(this, other))
+        {
+            return true;
+        }
+
+        return other.ToInstanceType == this.ToInstanceType && other.FromElementType == this.FromElementType;
     }
 
     /// <summary>
-    /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+    /// Determines whether the specified <see cref="object" /> is equal to this instance.
     /// </summary>
     /// <param name="obj">The object to compare with the current object.</param>
-    /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+    /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
     public override bool Equals(object obj)
     {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        return obj.GetType() == typeof(ConvertibleTypeKey) && Equals((ConvertibleTypeKey)obj);
+        if (ReferenceEquals(null, obj))
+        {
+            return false;
+        }
+
+        if (ReferenceEquals(this, obj))
+        {
+            return true;
+        }
+
+        return obj.GetType() == typeof(ConvertibleTypeKey) && this.Equals((ConvertibleTypeKey)obj);
     }
 
     /// <summary>
@@ -191,8 +214,8 @@ public class ConvertibleTypeKey
     {
         unchecked
         {
-            return ((ToInstanceType != null ? ToInstanceType.GetHashCode() : 0) * 397)
-                   ^ (FromElementType != null ? FromElementType.GetHashCode() : 0);
+            return ((this.ToInstanceType != null ? this.ToInstanceType.GetHashCode() : 0) * 397)
+                   ^ (this.FromElementType != null ? this.FromElementType.GetHashCode() : 0);
         }
     }
 }
@@ -312,7 +335,10 @@ public class TranslateListWithConvertibleElements<TFrom, TTo>
     public static ICollection<TTo> TranslateToGenericICollection(
         ICollection<TFrom> fromList, Type toInstanceOfType)
     {
-        if (fromList == null) return null; //AOT
+        if (fromList == null)
+        {
+            return null; //AOT
+        }
 
         var to = (ICollection<TTo>)TranslateListWithElements<TTo>.CreateInstance(toInstanceOfType);
 

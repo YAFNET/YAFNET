@@ -33,7 +33,7 @@ public static class MemoryStreamFactory
     /// <summary>
     /// The recyclable instance
     /// </summary>
-    public static RecyclableMemoryStreamManager RecyclableInstance = new();
+    public static RecyclableMemoryStreamManager RecyclableInstance { get; } = new();
 
     /// <summary>
     /// Gets the stream.
@@ -262,7 +262,7 @@ public sealed partial class RecyclableMemoryStreamManager
         {
             if (this.IsEnabled(EventLevel.Verbose, EventKeywords.None))
             {
-                WriteEvent(1, guid, tag ?? string.Empty, requestedSize);
+                this.WriteEvent(1, guid, tag ?? string.Empty, requestedSize);
             }
         }
 
@@ -276,7 +276,7 @@ public sealed partial class RecyclableMemoryStreamManager
         {
             if (this.IsEnabled(EventLevel.Verbose, EventKeywords.None))
             {
-                WriteEvent(2, guid, tag ?? string.Empty);
+                this.WriteEvent(2, guid, tag ?? string.Empty);
             }
         }
 
@@ -312,7 +312,7 @@ public sealed partial class RecyclableMemoryStreamManager
         {
             if (this.IsEnabled())
             {
-                WriteEvent(4, guid, tag ?? string.Empty, allocationStack ?? string.Empty);
+                this.WriteEvent(4, guid, tag ?? string.Empty, allocationStack ?? string.Empty);
             }
         }
 
@@ -327,7 +327,7 @@ public sealed partial class RecyclableMemoryStreamManager
         {
             if (this.IsEnabled())
             {
-                WriteEvent(6, blockSize, largeBufferMultiple, maximumBufferSize);
+                this.WriteEvent(6, blockSize, largeBufferMultiple, maximumBufferSize);
             }
         }
 
@@ -340,7 +340,7 @@ public sealed partial class RecyclableMemoryStreamManager
         {
             if (this.IsEnabled(EventLevel.Verbose, EventKeywords.None))
             {
-                WriteEvent(7, smallPoolInUseBytes);
+                this.WriteEvent(7, smallPoolInUseBytes);
             }
         }
 
@@ -354,7 +354,7 @@ public sealed partial class RecyclableMemoryStreamManager
         {
             if (this.IsEnabled(EventLevel.Verbose, EventKeywords.None))
             {
-                WriteEvent(8, requiredSize, largePoolInUseBytes);
+                this.WriteEvent(8, requiredSize, largePoolInUseBytes);
             }
         }
 
@@ -370,7 +370,7 @@ public sealed partial class RecyclableMemoryStreamManager
         {
             if (this.IsEnabled(EventLevel.Verbose, EventKeywords.None))
             {
-                WriteEvent(9, requiredSize, tag ?? string.Empty, allocationStack ?? string.Empty);
+                this.WriteEvent(9, requiredSize, tag ?? string.Empty, allocationStack ?? string.Empty);
             }
         }
 
@@ -386,7 +386,7 @@ public sealed partial class RecyclableMemoryStreamManager
         {
             if (this.IsEnabled())
             {
-                WriteEvent(10, bufferType, tag ?? string.Empty, reason);
+                this.WriteEvent(10, bufferType, tag ?? string.Empty, reason);
             }
         }
 
@@ -404,7 +404,7 @@ public sealed partial class RecyclableMemoryStreamManager
         {
             if (this.IsEnabled())
             {
-                WriteEvent(11, requestedCapacity, maxCapacity, tag ?? string.Empty, allocationStack ?? string.Empty);
+                this.WriteEvent(11, requestedCapacity, maxCapacity, tag ?? string.Empty, allocationStack ?? string.Empty);
             }
         }
     }
@@ -647,13 +647,13 @@ public partial class RecyclableMemoryStreamManager
     /// <returns>A byte[] array</returns>
     internal byte[] GetBlock()
     {
-        if (!this.smallPool.TryPop(out byte[] block))
+        if (!this.smallPool.TryPop(out var block))
         {
             // We'll add this back to the pool when the stream is disposed
             // (unless our free pool is too large)
             block = new byte[this.BlockSize];
             Events.Writer.MemoryStreamNewBlockCreated(this.smallPoolInUseSize);
-            ReportBlockCreated();
+            this.ReportBlockCreated();
         }
         else
         {
@@ -685,7 +685,7 @@ public partial class RecyclableMemoryStreamManager
                 buffer = new byte[requiredSize];
 
                 Events.Writer.MemoryStreamNewLargeBufferCreated(requiredSize, this.LargePoolInUseSize);
-                ReportLargeBufferCreated();
+                this.ReportLargeBufferCreated();
             }
             else
             {
@@ -709,7 +709,7 @@ public partial class RecyclableMemoryStreamManager
                 callStack = Environment.StackTrace;
             }
             Events.Writer.MemoryStreamNonPooledLargeBufferCreated(requiredSize, tag, callStack);
-            ReportLargeBufferCreated();
+            this.ReportLargeBufferCreated();
         }
 
         Interlocked.Add(ref this.largeBufferInUseSize[poolIndex], buffer.Length);
@@ -726,7 +726,7 @@ public partial class RecyclableMemoryStreamManager
     {
         if (this.UseExponentialLargeBuffer)
         {
-            int pow = 1;
+            var pow = 1;
             while (this.LargeBufferMultiple * pow < requiredSize)
             {
                 pow <<= 1;
@@ -747,7 +747,7 @@ public partial class RecyclableMemoryStreamManager
     private bool IsLargeBufferSize(int value)
     {
         return value != 0 && (this.UseExponentialLargeBuffer
-                                  ? value == RoundToLargeBufferSize(value)
+                                  ? value == this.RoundToLargeBufferSize(value)
                                   : value % this.LargeBufferMultiple == 0);
     }
 
@@ -760,7 +760,7 @@ public partial class RecyclableMemoryStreamManager
     {
         if (this.UseExponentialLargeBuffer)
         {
-            int index = 0;
+            var index = 0;
             while (this.LargeBufferMultiple << index < length)
             {
                 ++index;
@@ -783,10 +783,7 @@ public partial class RecyclableMemoryStreamManager
     /// <exception cref="ArgumentException">buffer is null</exception>
     internal void ReturnLargeBuffer(byte[] buffer, string tag)
     {
-        if (buffer == null)
-        {
-            throw new ArgumentNullException(nameof(buffer));
-        }
+        ArgumentNullException.ThrowIfNull(buffer);
 
         if (!this.IsLargeBufferSize(buffer.Length))
         {
@@ -809,7 +806,7 @@ public partial class RecyclableMemoryStreamManager
             {
                 Events.Writer.MemoryStreamDiscardBuffer(Events.MemoryStreamBufferType.Large, tag,
                     Events.MemoryStreamDiscardReason.EnoughFree);
-                ReportLargeBufferDiscarded(Events.MemoryStreamDiscardReason.EnoughFree);
+                this.ReportLargeBufferDiscarded(Events.MemoryStreamDiscardReason.EnoughFree);
             }
         }
         else
@@ -820,12 +817,12 @@ public partial class RecyclableMemoryStreamManager
 
             Events.Writer.MemoryStreamDiscardBuffer(Events.MemoryStreamBufferType.Large, tag,
                 Events.MemoryStreamDiscardReason.TooLarge);
-            ReportLargeBufferDiscarded(Events.MemoryStreamDiscardReason.TooLarge);
+            this.ReportLargeBufferDiscarded(Events.MemoryStreamDiscardReason.TooLarge);
         }
 
         Interlocked.Add(ref this.largeBufferInUseSize[poolIndex], -buffer.Length);
 
-        ReportUsageReport(this.smallPoolInUseSize, this.smallPoolFreeSize, this.LargePoolInUseSize,
+        this.ReportUsageReport(this.smallPoolInUseSize, this.smallPoolFreeSize, this.LargePoolInUseSize,
             this.LargePoolFreeSize);
     }
 
@@ -839,10 +836,7 @@ public partial class RecyclableMemoryStreamManager
     /// <exception cref="ArgumentException">blocks is null</exception>
     internal void ReturnBlocks(ICollection<byte[]> blocks, string tag)
     {
-        if (blocks == null)
-        {
-            throw new ArgumentNullException(nameof(blocks));
-        }
+        ArgumentNullException.ThrowIfNull(blocks);
 
         var bytesToReturn = blocks.Count * this.BlockSize;
         Interlocked.Add(ref this.smallPoolInUseSize, -bytesToReturn);
@@ -863,12 +857,12 @@ public partial class RecyclableMemoryStreamManager
             {
                 Events.Writer.MemoryStreamDiscardBuffer(Events.MemoryStreamBufferType.Small, tag,
                     Events.MemoryStreamDiscardReason.EnoughFree);
-                ReportBlockDiscarded();
+                this.ReportBlockDiscarded();
                 break;
             }
         }
 
-        ReportUsageReport(this.smallPoolInUseSize, this.smallPoolFreeSize, this.LargePoolInUseSize,
+        this.ReportUsageReport(this.smallPoolInUseSize, this.smallPoolFreeSize, this.LargePoolInUseSize,
             this.LargePoolFreeSize);
     }
 
@@ -1051,7 +1045,7 @@ public partial class RecyclableMemoryStreamManager
     /// on the underlying stream.</remarks>
     public MemoryStream GetStream(string tag, int requiredSize, bool asContiguousBuffer)
     {
-        return GetStream(Guid.NewGuid(), tag, requiredSize, asContiguousBuffer);
+        return this.GetStream(Guid.NewGuid(), tag, requiredSize, asContiguousBuffer);
     }
 
     /// <summary>
@@ -1092,7 +1086,7 @@ public partial class RecyclableMemoryStreamManager
     /// <remarks>The new stream's position is set to the beginning of the stream when returned.</remarks>
     public MemoryStream GetStream(byte[] buffer)
     {
-        return GetStream(null, buffer, 0, buffer.Length);
+        return this.GetStream(null, buffer, 0, buffer.Length);
     }
 
 
@@ -1108,7 +1102,7 @@ public partial class RecyclableMemoryStreamManager
     /// <remarks>The new stream's position is set to the beginning of the stream when returned.</remarks>
     public MemoryStream GetStream(string tag, byte[] buffer, int offset, int count)
     {
-        return GetStream(Guid.NewGuid(), tag, buffer, offset, count);
+        return this.GetStream(Guid.NewGuid(), tag, buffer, offset, count);
     }
 
 #if NET7_0_OR_GREATER && !NETSTANDARD2_0
@@ -1147,7 +1141,7 @@ public partial class RecyclableMemoryStreamManager
         /// <returns>A MemoryStream.</returns>
         public MemoryStream GetStream(Memory<byte> buffer)
         {
-            return GetStream(null, buffer);
+            return this.GetStream(null, buffer);
         }
 
         /// <summary>
@@ -1160,7 +1154,7 @@ public partial class RecyclableMemoryStreamManager
         /// <returns>A MemoryStream.</returns>
         public MemoryStream GetStream(string tag, Memory<byte> buffer)
         {
-            return GetStream(Guid.NewGuid(), tag, buffer);
+            return this.GetStream(Guid.NewGuid(), tag, buffer);
         }
 #endif
     /// <summary>
@@ -1244,7 +1238,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
     /// <summary>
     /// The empty array
     /// </summary>
-    private readonly static byte[] emptyArray = Array.Empty<byte>();
+    private readonly static byte[] emptyArray = [];
 
     /// <summary>
     /// All of these blocks must be the same size
@@ -1531,7 +1525,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
                 return this.largeBuffer.Length;
             }
 
-            long size = (long)this.blocks.Count * this.memoryManager.BlockSize;
+            var size = (long)this.blocks.Count * this.memoryManager.BlockSize;
             return (int)Math.Min(int.MaxValue, size);
         }
         set
@@ -1700,10 +1694,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
     public int SafeRead(byte[] buffer, int offset, int count, ref int streamPosition)
     {
         this.CheckDisposed();
-        if (buffer == null)
-        {
-            throw new ArgumentNullException(nameof(buffer));
-        }
+        ArgumentNullException.ThrowIfNull(buffer);
 
         if (offset < 0)
         {
@@ -1720,7 +1711,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
             throw new ArgumentException("buffer length must be at least offset + count");
         }
 
-        int amountRead = this.InternalRead(buffer, offset, count, streamPosition);
+        var amountRead = this.InternalRead(buffer, offset, count, streamPosition);
         streamPosition += amountRead;
         return amountRead;
     }
@@ -1748,7 +1739,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
         {
             this.CheckDisposed();
 
-            int amountRead = this.InternalRead(buffer, streamPosition);
+            var amountRead = this.InternalRead(buffer, streamPosition);
             streamPosition += amountRead;
             return amountRead;
         }
@@ -1771,10 +1762,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
     public override void Write(byte[] buffer, int offset, int count)
     {
         this.CheckDisposed();
-        if (buffer == null)
-        {
-            throw new ArgumentNullException(nameof(buffer));
-        }
+        ArgumentNullException.ThrowIfNull(buffer);
 
         if (offset < 0)
         {
@@ -1792,8 +1780,8 @@ public sealed class RecyclableMemoryStream : MemoryStream
             throw new ArgumentException("count must be greater than buffer.Length - offset");
         }
 
-        int blockSize = this.memoryManager.BlockSize;
-        long end = (long)this.position + count;
+        var blockSize = this.memoryManager.BlockSize;
+        var end = (long)this.position + count;
         // Check for overflow
         if (end > MaxStreamLength)
         {
@@ -1804,15 +1792,15 @@ public sealed class RecyclableMemoryStream : MemoryStream
 
         if (this.largeBuffer == null)
         {
-            int bytesRemaining = count;
-            int bytesWritten = 0;
+            var bytesRemaining = count;
+            var bytesWritten = 0;
             var blockAndOffset = this.GetBlockAndRelativeOffset(this.position);
 
             while (bytesRemaining > 0)
             {
-                byte[] currentBlock = this.blocks[blockAndOffset.Block];
-                int remainingInBlock = blockSize - blockAndOffset.Offset;
-                int amountToWriteInBlock = Math.Min(remainingInBlock, bytesRemaining);
+                var currentBlock = this.blocks[blockAndOffset.Block];
+                var remainingInBlock = blockSize - blockAndOffset.Offset;
+                var amountToWriteInBlock = Math.Min(remainingInBlock, bytesRemaining);
 
                 Buffer.BlockCopy(buffer, offset + bytesWritten, currentBlock, blockAndOffset.Offset,
                     amountToWriteInBlock);
@@ -1843,8 +1831,8 @@ public sealed class RecyclableMemoryStream : MemoryStream
         {
             this.CheckDisposed();
 
-            int blockSize = this.memoryManager.BlockSize;
-            long end = (long)this.position + source.Length;
+            var blockSize = this.memoryManager.BlockSize;
+            var end = (long)this.position + source.Length;
             // Check for overflow
             if (end > MaxStreamLength)
             {
@@ -1859,9 +1847,9 @@ public sealed class RecyclableMemoryStream : MemoryStream
 
                 while (source.Length > 0)
                 {
-                    byte[] currentBlock = this.blocks[blockAndOffset.Block];
-                    int remainingInBlock = blockSize - blockAndOffset.Offset;
-                    int amountToWriteInBlock = Math.Min(remainingInBlock, source.Length);
+                    var currentBlock = this.blocks[blockAndOffset.Block];
+                    var remainingInBlock = blockSize - blockAndOffset.Offset;
+                    var amountToWriteInBlock = Math.Min(remainingInBlock, source.Length);
 
                     source.Slice(0, amountToWriteInBlock)
                         .CopyTo(currentBlock.AsSpan(blockAndOffset.Offset));
@@ -1900,7 +1888,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
     {
         this.CheckDisposed();
 
-        long end = (long)this.position + 1;
+        var end = (long)this.position + 1;
 
         // Check for overflow
         if (end > MaxStreamLength)
@@ -2020,7 +2008,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
             throw new ArgumentOutOfRangeException(nameof(offset), "offset cannot be larger than " + MaxStreamLength);
         }
 
-        int newPosition = loc switch {
+        var newPosition = loc switch {
                 SeekOrigin.Begin => (int)offset,
                 SeekOrigin.Current => (int)offset + this.position,
                 SeekOrigin.End => (int)offset + this.length,
@@ -2057,10 +2045,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
     public void WriteTo(Stream stream, int offset, int count)
     {
         this.CheckDisposed();
-        if (stream == null)
-        {
-            throw new ArgumentNullException(nameof(stream));
-        }
+        ArgumentNullException.ThrowIfNull(stream);
 
         if (offset < 0 || offset + count > this.length)
         {
@@ -2069,14 +2054,14 @@ public sealed class RecyclableMemoryStream : MemoryStream
 
         if (this.largeBuffer == null)
         {
-            var blockAndOffset = GetBlockAndRelativeOffset(offset);
-            int bytesRemaining = count;
-            int currentBlock = blockAndOffset.Block;
-            int currentOffset = blockAndOffset.Offset;
+            var blockAndOffset = this.GetBlockAndRelativeOffset(offset);
+            var bytesRemaining = count;
+            var currentBlock = blockAndOffset.Block;
+            var currentOffset = blockAndOffset.Offset;
 
             while (bytesRemaining > 0)
             {
-                int amountToCopy = Math.Min(this.blocks[currentBlock].Length - currentOffset, bytesRemaining);
+                var amountToCopy = Math.Min(this.blocks[currentBlock].Length - currentOffset, bytesRemaining);
                 stream.Write(this.blocks[currentBlock], currentOffset, amountToCopy);
 
                 bytesRemaining -= amountToCopy;
@@ -2140,8 +2125,8 @@ public sealed class RecyclableMemoryStream : MemoryStream
         if (this.largeBuffer == null)
         {
             var blockAndOffset = this.GetBlockAndRelativeOffset(fromPosition);
-            int bytesWritten = 0;
-            int bytesRemaining = Math.Min(count, this.length - fromPosition);
+            var bytesWritten = 0;
+            var bytesRemaining = Math.Min(count, this.length - fromPosition);
 
             while (bytesRemaining > 0)
             {
@@ -2176,8 +2161,8 @@ public sealed class RecyclableMemoryStream : MemoryStream
             if (this.largeBuffer == null)
             {
                 var blockAndOffset = this.GetBlockAndRelativeOffset(fromPosition);
-                int bytesWritten = 0;
-                int bytesRemaining = Math.Min(buffer.Length, this.length - fromPosition);
+                var bytesWritten = 0;
+                var bytesRemaining = Math.Min(buffer.Length, this.length - fromPosition);
 
                 while (bytesRemaining > 0)
                 {
@@ -2268,7 +2253,7 @@ public sealed class RecyclableMemoryStream : MemoryStream
         {
             while (this.Capacity < newCapacity)
             {
-                blocks.Add(this.memoryManager.GetBlock());
+                this.blocks.Add(this.memoryManager.GetBlock());
             }
         }
     }

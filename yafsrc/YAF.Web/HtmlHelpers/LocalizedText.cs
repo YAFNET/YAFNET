@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,7 +32,30 @@ public static class LocalizedTextHtmlHelper
     /// <summary>
     /// The localized text.
     /// </summary>
-    /// <param name="htmlHelper">
+    /// <param name="_">
+    /// The html helper.
+    /// </param>
+    /// <param name="tag">
+    /// The tag.
+    /// </param>
+    /// <returns>
+    /// The <see cref="IHtmlContent"/>.
+    /// </returns>
+    public static IHtmlContent LocalizedText(
+        this IHtmlHelper _,
+        string tag)
+    {
+        var content = new HtmlContentBuilder();
+
+        var text = BoardContext.Current.Get<ILocalization>().GetText(tag);
+
+        return content.AppendHtml(text);
+    }
+
+    /// <summary>
+    /// The localized text.
+    /// </summary>
+    /// <param name="_">
     /// The html helper.
     /// </param>
     /// <param name="page">
@@ -48,7 +71,7 @@ public static class LocalizedTextHtmlHelper
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
     public static IHtmlContent LocalizedText(
-        this IHtmlHelper htmlHelper,
+        this IHtmlHelper _,
         string page,
         string tag,
         bool enableBBCode = false)
@@ -69,7 +92,7 @@ public static class LocalizedTextHtmlHelper
     /// <summary>
     /// The localized text.
     /// </summary>
-    /// <param name="htmlHelper">
+    /// <param name="_">
     /// The html helper.
     /// </param>
     /// <param name="tag">
@@ -82,36 +105,13 @@ public static class LocalizedTextHtmlHelper
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
     public static IHtmlContent LocalizedTextFormatted(
-        this IHtmlHelper htmlHelper,
+        this IHtmlHelper _,
         string tag,
         params object[] args)
     {
         var content = new HtmlContentBuilder();
 
         var text = BoardContext.Current.Get<ILocalization>().GetTextFormatted(tag, args);
-
-        return content.AppendHtml(text);
-    }
-
-    /// <summary>
-    /// The localized text.
-    /// </summary>
-    /// <param name="htmlHelper">
-    /// The html helper.
-    /// </param>
-    /// <param name="tag">
-    /// The tag.
-    /// </param>
-    /// <returns>
-    /// The <see cref="IHtmlContent"/>.
-    /// </returns>
-    public static IHtmlContent LocalizedText(
-        this IHtmlHelper htmlHelper,
-        string tag)
-    {
-        var content = new HtmlContentBuilder();
-
-        var text = BoardContext.Current.Get<ILocalization>().GetText(tag);
 
         return content.AppendHtml(text);
     }

@@ -128,10 +128,14 @@ public static class DateTimeSerializer
     {
         var config = JsConfig.GetConfig();
         if (config.SkipDateTimeConversion)
+        {
             return dateTime;
+        }
 
         if (config.AlwaysUseUtc)
+        {
             return dateTime.Kind != DateTimeKind.Utc ? dateTime.ToStableUniversalTime() : dateTime;
+        }
 
         return parsedAsUtc ? dateTime.ToLocalTime() : dateTime;
     }
@@ -144,7 +148,9 @@ public static class DateTimeSerializer
     public static DateTime? ParseShortestNullableXsdDateTime(string dateTimeStr)
     {
         if (string.IsNullOrEmpty(dateTimeStr))
+        {
             return null;
+        }
 
         return ParseShortestXsdDateTime(dateTimeStr);
     }
@@ -169,10 +175,14 @@ public static class DateTimeSerializer
         try
         {
             if (string.IsNullOrEmpty(dateTimeStr))
+            {
                 return DateTime.MinValue;
+            }
 
             if (dateTimeStr.StartsWith(EscapedWcfJsonPrefix, StringComparison.Ordinal) || dateTimeStr.StartsWith(WcfJsonPrefix, StringComparison.Ordinal))
+            {
                 return ParseWcfJsonDate(dateTimeStr).Prepare();
+            }
 
             var config = JsConfig.GetConfig();
             if (dateTimeStr.Length == DefaultDateTimeFormat.Length)
@@ -180,7 +190,9 @@ public static class DateTimeSerializer
                 var unspecifiedDate = DateTime.Parse(dateTimeStr, CultureInfo.InvariantCulture);
 
                 if (config.AssumeUtc)
+                {
                     unspecifiedDate = DateTime.SpecifyKind(unspecifiedDate, DateTimeKind.Utc);
+                }
 
                 return unspecifiedDate.Prepare();
             }
@@ -202,24 +214,35 @@ public static class DateTimeSerializer
             {
                 case DateHandler.UnixTime:
                     if (int.TryParse(dateTimeStr, out var unixTime))
+                    {
                         return unixTime.FromUnixTime();
+                    }
+
                     break;
                 case DateHandler.UnixTimeMs:
                     if (long.TryParse(dateTimeStr, out var unixTimeMs))
+                    {
                         return unixTimeMs.FromUnixTimeMs();
+                    }
+
                     break;
                 case DateHandler.ISO8601:
                 case DateHandler.ISO8601DateOnly:
                 case DateHandler.ISO8601DateTime:
                     if (config.SkipDateTimeConversion)
+                    {
                         dateTimeStr = RemoveUtcOffsets(dateTimeStr, out kind);
+                    }
+
                     break;
             }
 
             dateTimeStr = RepairXsdTimeSeparator(dateTimeStr);
 
             if (dateTimeStr.Length == XsdDateTimeFormatSeconds.Length)
+            {
                 return DateTime.ParseExact(dateTimeStr, XsdDateTimeFormatSeconds, null, DateTimeStyles.AdjustToUniversal).Prepare(true);
+            }
 
             if (dateTimeStr.Length >= XsdDateTimeFormat3F.Length
                 && dateTimeStr.Length <= XsdDateTimeFormat.Length
@@ -240,7 +263,9 @@ public static class DateTimeSerializer
                 {
                     var manualDate = ParseManual(dateTimeStr);
                     if (manualDate != null)
+                    {
                         return manualDate.Value;
+                    }
                 }
                 catch
                 {
@@ -258,7 +283,10 @@ public static class DateTimeSerializer
                                                 ? DateTimeStyles.AssumeLocal
                                                 : DateTimeStyles.AssumeUniversal;
                     if (config.AlwaysUseUtc)
+                    {
                         dateTimeStyle |= DateTimeStyles.AdjustToUniversal;
+                    }
+
                     return DateTime.Parse(dateTimeStr, null, dateTimeStyle);
                 }
 
@@ -270,7 +298,9 @@ public static class DateTimeSerializer
             {
                 var manualDate = ParseManual(dateTimeStr);
                 if (manualDate != null)
+                {
                     return manualDate.Value;
+                }
 
                 throw;
             }
@@ -278,7 +308,9 @@ public static class DateTimeSerializer
         catch (Exception ex)
         {
             if (OnParseErrorFn != null)
+            {
                 return OnParseErrorFn(dateTimeStr, ex);
+            }
 
             throw;
         }
@@ -333,7 +365,9 @@ public static class DateTimeSerializer
 
         var date = ParseManual(dateTimeStr, dateKind);
         if (date == null)
+        {
             return null;
+        }
 
         return dateKind == DateTimeKind.Local
                    ? date.Value.ToLocalTime().Prepare()
@@ -349,7 +383,9 @@ public static class DateTimeSerializer
     public static DateTime? ParseManual(string dateTimeStr, DateTimeKind dateKind)
     {
         if (dateTimeStr == null || dateTimeStr.Length < ShortDateTimeFormat.Length)
+        {
             return null;
+        }
 
         if (dateTimeStr.EndsWith(XsdUtcSuffix))
         {
@@ -359,12 +395,14 @@ public static class DateTimeSerializer
 
         var parts = dateTimeStr.Split('T');
         if (parts.Length == 1)
+        {
             parts = dateTimeStr.SplitOnFirst(' ');
+        }
 
         var dateParts = parts[0].Split('-', '/');
         int hh = 0, min = 0, ss = 0, ms = 0;
         double subMs = 0;
-        int offsetMultiplier = 0;
+        var offsetMultiplier = 0;
 
         switch (parts.Length)
         {
@@ -472,7 +510,10 @@ public static class DateTimeSerializer
     /// <returns>System.DateTimeOffset.</returns>
     public static DateTimeOffset ParseDateTimeOffset(string dateTimeOffsetStr)
     {
-        if (string.IsNullOrEmpty(dateTimeOffsetStr)) return default;
+        if (string.IsNullOrEmpty(dateTimeOffsetStr))
+        {
+            return default;
+        }
 
         // for interop, do not assume format based on config
         // format: prefer TimestampOffset, DCJSCompatible
@@ -486,7 +527,11 @@ public static class DateTimeSerializer
         // assume utc when no offset specified
         if (dateTimeOffsetStr.LastIndexOfAny(TimeZoneChars) < 10)
         {
-            if (!dateTimeOffsetStr.EndsWith(XsdUtcSuffix)) dateTimeOffsetStr += XsdUtcSuffix;
+            if (!dateTimeOffsetStr.EndsWith(XsdUtcSuffix))
+            {
+                dateTimeOffsetStr += XsdUtcSuffix;
+            }
+
             if (Env.IsMono)
             {
                 // Without that Mono uses a Local timezone))
@@ -504,7 +549,10 @@ public static class DateTimeSerializer
     /// <returns>System.DateTimeOffset?.</returns>
     public static DateTimeOffset? ParseNullableDateTimeOffset(string dateTimeOffsetStr)
     {
-        if (string.IsNullOrEmpty(dateTimeOffsetStr)) return null;
+        if (string.IsNullOrEmpty(dateTimeOffsetStr))
+        {
+            return null;
+        }
 
         return ParseDateTimeOffset(dateTimeOffsetStr);
     }
@@ -604,7 +652,9 @@ public static class DateTimeSerializer
         var timeOfDay = dateTime.TimeOfDay;
         var isStartOfDay = timeOfDay.Ticks == 0;
         if (isStartOfDay && !config.SkipDateTimeConversion)
+        {
             return dateTime.ToString(ShortDateTimeFormat, CultureInfo.InvariantCulture);
+        }
 
         var hasFractionalSecs = timeOfDay.Milliseconds != 0
                                 || timeOfDay.Ticks % TimeSpan.TicksPerMillisecond != 0;
@@ -612,11 +662,13 @@ public static class DateTimeSerializer
         if (config.SkipDateTimeConversion)
         {
             if (!hasFractionalSecs)
+            {
                 return dateTime.Kind == DateTimeKind.Local
-                           ? dateTime.ToString(DateTimeFormatSecondsUtcOffset, CultureInfo.InvariantCulture)
-                           : dateTime.Kind == DateTimeKind.Unspecified
-                               ? dateTime.ToString(DateTimeFormatSecondsNoOffset, CultureInfo.InvariantCulture)
-                               : dateTime.ToStableUniversalTime().ToString(XsdDateTimeFormatSeconds, CultureInfo.InvariantCulture);
+                    ? dateTime.ToString(DateTimeFormatSecondsUtcOffset, CultureInfo.InvariantCulture)
+                    : dateTime.Kind == DateTimeKind.Unspecified
+                        ? dateTime.ToString(DateTimeFormatSecondsNoOffset, CultureInfo.InvariantCulture)
+                        : dateTime.ToStableUniversalTime().ToString(XsdDateTimeFormatSeconds, CultureInfo.InvariantCulture);
+            }
 
             return dateTime.Kind == DateTimeKind.Local
                        ? dateTime.ToString(DateTimeFormatTicksUtcOffset, CultureInfo.InvariantCulture)
@@ -626,9 +678,11 @@ public static class DateTimeSerializer
         }
 
         if (!hasFractionalSecs)
+        {
             return dateTime.Kind != DateTimeKind.Utc
-                       ? dateTime.ToString(DateTimeFormatSecondsUtcOffset, CultureInfo.InvariantCulture)
-                       : dateTime.ToStableUniversalTime().ToString(XsdDateTimeFormatSeconds, CultureInfo.InvariantCulture);
+                ? dateTime.ToString(DateTimeFormatSecondsUtcOffset, CultureInfo.InvariantCulture)
+                : dateTime.ToStableUniversalTime().ToString(XsdDateTimeFormatSeconds, CultureInfo.InvariantCulture);
+        }
 
         return dateTime.Kind != DateTimeKind.Utc
                    ? dateTime.ToString(DateTimeFormatTicksUtcOffset, CultureInfo.InvariantCulture)
@@ -813,16 +867,22 @@ public static class DateTimeSerializer
         if (dateTime.Kind != DateTimeKind.Utc)
         {
             if (config.DateHandler == DateHandler.TimestampOffset && dateTime.Kind == DateTimeKind.Unspecified)
+            {
                 offset = UnspecifiedOffset;
+            }
             else
+            {
                 offset = LocalTimeZone.GetUtcOffset(dateTime).ToTimeOffsetString();
+            }
         }
         else
         {
             // Normally the JsonDateHandler.TimestampOffset doesn't append an offset for Utc dates, but if
             // the config.AppendUtcOffset is set then we will
             if (config.DateHandler == DateHandler.TimestampOffset && config.AppendUtcOffset)
+            {
                 offset = UtcOffset;
+            }
         }
 
         writer.Write(EscapedWcfJsonPrefix);

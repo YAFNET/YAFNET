@@ -32,8 +32,8 @@ public class DecimalLengthAttribute : AttributeBase
     /// <param name="scale">The scale.</param>
     public DecimalLengthAttribute(int precision, int scale)
     {
-        Precision = precision;
-        Scale = scale;
+        this.Precision = precision;
+        this.Scale = scale;
     }
 
     /// <summary>

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -139,9 +139,6 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
         }
 
         output.TagName = "nav";
-
-        //output.Attributes.Add("class", "pagination");
-        //output.Attributes.Add("role", "toolbar");
 
         var list = new TagBuilder("ul");
 
@@ -315,29 +312,21 @@ public class PagerTagHelper : TagHelper, IPager, IHaveServiceLocator, IHaveLocal
     {
         query[this.QueryName] = page.ToString();
 
-        string url;
-        switch (this.PageContext.CurrentForumPage.PageName)
-        {
-            case ForumPages.Topics:
-                url = page > 1
-                    ? this.Get<LinkBuilder>()
-                        .GetLink(ForumPages.Topics,
-                            new {f = this.PageContext.PageForumID, p = page, name = this.PageContext.PageForum.Name})
-                    : this.Get<LinkBuilder>()
-                        .GetLink(ForumPages.Topics,
-                            new {f = this.PageContext.PageForumID, name = this.PageContext.PageForum.Name});
-                break;
-            case ForumPages.Posts:
-                url = this.Get<LinkBuilder>()
-                    .GetLink(ForumPages.Posts,
-                        new {t = this.PageContext.PageTopicID, p = page, name = this.PageContext.PageTopic.TopicName});
-                break;
-            default:
-                url = this.Get<LinkBuilder>()
-                    .GetLink(this.PageContext.CurrentForumPage.PageName, query)
-                    .Replace("p=", $"{this.QueryName}=");
-                break;
-        }
+        var url = this.PageContext.CurrentForumPage.PageName switch {
+            ForumPages.Topics => page > 1
+                ? this.Get<LinkBuilder>()
+                    .GetLink(ForumPages.Topics,
+                        new { f = this.PageContext.PageForumID, p = page, name = this.PageContext.PageForum.Name })
+                : this.Get<LinkBuilder>()
+                    .GetLink(ForumPages.Topics,
+                        new { f = this.PageContext.PageForumID, name = this.PageContext.PageForum.Name }),
+            ForumPages.Posts => this.Get<LinkBuilder>()
+                .GetLink(ForumPages.Posts,
+                    new { t = this.PageContext.PageTopicID, p = page, name = this.PageContext.PageTopic.TopicName }),
+            _ => this.Get<LinkBuilder>()
+                .GetLink(this.PageContext.CurrentForumPage.PageName, query)
+                .Replace("p=", $"{this.QueryName}=")
+        };
 
         return url;
     }

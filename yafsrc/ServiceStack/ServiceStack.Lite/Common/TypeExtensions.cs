@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
@@ -56,7 +57,6 @@ public delegate void StaticActionInvoker(params object[] args);
 /// <returns>System.Object.</returns>
 public delegate object InstanceMapper(object instance);
 
-
 /// <summary>
 /// Class TypeExtensions.
 /// </summary>
@@ -71,9 +71,8 @@ public static class TypeExtensions
     {
         if (type.BaseType != null)
         {
-            if (!refTypes.Contains(type.BaseType))
+            if (refTypes.Add(type.BaseType))
             {
-                refTypes.Add(type.BaseType);
                 AddReferencedTypes(type.BaseType, refTypes);
             }
 
@@ -81,9 +80,8 @@ public static class TypeExtensions
             {
                 foreach (var arg in type.BaseType.GetGenericArguments())
                 {
-                    if (!refTypes.Contains(arg))
+                    if (refTypes.Add(arg))
                     {
-                        refTypes.Add(arg);
                         AddReferencedTypes(arg, refTypes);
                     }
                 }
@@ -96,9 +94,8 @@ public static class TypeExtensions
             {
                 foreach (var arg in iface.GetGenericArguments())
                 {
-                    if (!refTypes.Contains(arg))
+                    if (refTypes.Add(arg))
                     {
-                        refTypes.Add(arg);
                         AddReferencedTypes(arg, refTypes);
                     }
                 }
@@ -121,9 +118,8 @@ public static class TypeExtensions
                 {
                     foreach (var arg in args)
                     {
-                        if (!refTypes.Contains(arg))
+                        if (refTypes.Add(arg))
                         {
-                            refTypes.Add(arg);
                             AddReferencedTypes(arg, refTypes);
                         }
                     }
@@ -131,9 +127,8 @@ public static class TypeExtensions
                 else if (p.PropertyType.IsArray)
                 {
                     var elType = p.PropertyType.GetElementType();
-                    if (!refTypes.Contains(elType))
+                    if (refTypes.Add(elType))
                     {
-                        refTypes.Add(elType);
                         AddReferencedTypes(elType, refTypes);
                     }
                 }
@@ -154,7 +149,7 @@ public static class TypeExtensions
 
         var convertFromMethod = typeof(TypeExtensions).GetStaticMethod(nameof(ConvertFromObject));
 
-        for (int i = 0; i < pi.Length; i++)
+        for (var i = 0; i < pi.Length; i++)
         {
             var index = Expression.Constant(i);
             var paramType = pi[i].ParameterType;
@@ -176,8 +171,8 @@ public static class TypeExtensions
     /// <summary>
     /// The activator cache
     /// </summary>
-    static Dictionary<ConstructorInfo, ObjectActivator> activatorCache =
-        new();
+    private static Dictionary<ConstructorInfo, ObjectActivator> activatorCache =
+        [];
 
     /// <summary>
     /// Gets the activator.
@@ -187,7 +182,9 @@ public static class TypeExtensions
     public static ObjectActivator GetActivator(this ConstructorInfo ctor)
     {
         if (activatorCache.TryGetValue(ctor, out var fn))
+        {
             return fn;
+        }
 
         fn = GetActivatorToCache(ctor);
 
@@ -215,7 +212,7 @@ public static class TypeExtensions
 
         var pi = method.GetParameters();
         var exprArgs = new Expression[pi.Length];
-        for (int i = 0; i < pi.Length; i++)
+        for (var i = 0; i < pi.Length; i++)
         {
             var index = Expression.Constant(i);
             var paramType = pi[i].ParameterType;
@@ -255,7 +252,9 @@ public static class TypeExtensions
     public static MethodInvoker GetInvokerToCache(MethodInfo method)
     {
         if (method.IsStatic)
+        {
             throw new NotSupportedException(UseCorrectInvokerErrorMessage(method));
+        }
 
         var paramInstance = Expression.Parameter(typeof(object), "instance");
         var paramArgs = Expression.Parameter(typeof(object[]), "args");
@@ -287,7 +286,9 @@ public static class TypeExtensions
     public static StaticMethodInvoker GetStaticInvokerToCache(MethodInfo method)
     {
         if (!method.IsStatic || method.ReturnType == typeof(void))
+        {
             throw new NotSupportedException(UseCorrectInvokerErrorMessage(method));
+        }
 
         var paramArgs = Expression.Parameter(typeof(object[]), "args");
 
@@ -315,7 +316,9 @@ public static class TypeExtensions
     public static ActionInvoker GetActionInvokerToCache(MethodInfo method)
     {
         if (method.IsStatic || method.ReturnType != typeof(void))
+        {
             throw new NotSupportedException(UseCorrectInvokerErrorMessage(method));
+        }
 
         var paramInstance = Expression.Parameter(typeof(object), "instance");
         var paramArgs = Expression.Parameter(typeof(object[]), "args");
@@ -344,7 +347,9 @@ public static class TypeExtensions
     public static StaticActionInvoker GetStaticActionInvokerToCache(MethodInfo method)
     {
         if (!method.IsStatic || method.ReturnType != typeof(void))
+        {
             throw new NotSupportedException(UseCorrectInvokerErrorMessage(method));
+        }
 
         var paramArgs = Expression.Parameter(typeof(object[]), "args");
 
@@ -363,7 +368,7 @@ public static class TypeExtensions
     /// <summary>
     /// The invoker cache
     /// </summary>
-    static Dictionary<MethodInfo, MethodInvoker> invokerCache = new();
+    private static Dictionary<MethodInfo, MethodInvoker> invokerCache = [];
 
     /// <summary>
     /// Create an Invoker for public instance methods
@@ -373,7 +378,9 @@ public static class TypeExtensions
     public static MethodInvoker GetInvoker(this MethodInfo method)
     {
         if (invokerCache.TryGetValue(method, out var fn))
+        {
             return fn;
+        }
 
         fn = GetInvokerToCache(method);
 
@@ -392,7 +399,7 @@ public static class TypeExtensions
     /// <summary>
     /// The static invoker cache
     /// </summary>
-    static Dictionary<MethodInfo, StaticMethodInvoker> staticInvokerCache = new();
+    private static Dictionary<MethodInfo, StaticMethodInvoker> staticInvokerCache = [];
 
     /// <summary>
     /// Create an Invoker for public static methods
@@ -402,7 +409,9 @@ public static class TypeExtensions
     public static StaticMethodInvoker GetStaticInvoker(this MethodInfo method)
     {
         if (staticInvokerCache.TryGetValue(method, out var fn))
+        {
             return fn;
+        }
 
         fn = GetStaticInvokerToCache(method);
 
@@ -421,7 +430,7 @@ public static class TypeExtensions
     /// <summary>
     /// The action invoker cache
     /// </summary>
-    static Dictionary<MethodInfo, ActionInvoker> actionInvokerCache = new();
+    private static Dictionary<MethodInfo, ActionInvoker> actionInvokerCache = [];
 
     /// <summary>
     /// Create an Invoker for public instance void methods
@@ -431,7 +440,9 @@ public static class TypeExtensions
     public static ActionInvoker GetActionInvoker(this MethodInfo method)
     {
         if (actionInvokerCache.TryGetValue(method, out var fn))
+        {
             return fn;
+        }
 
         fn = GetActionInvokerToCache(method);
 
@@ -450,7 +461,7 @@ public static class TypeExtensions
     /// <summary>
     /// The static action invoker cache
     /// </summary>
-    static Dictionary<MethodInfo, StaticActionInvoker> staticActionInvokerCache = new();
+    private static Dictionary<MethodInfo, StaticActionInvoker> staticActionInvokerCache = [];
 
     /// <summary>
     /// Create an Invoker for public static void methods
@@ -460,7 +471,9 @@ public static class TypeExtensions
     public static StaticActionInvoker GetStaticActionInvoker(this MethodInfo method)
     {
         if (staticActionInvokerCache.TryGetValue(method, out var fn))
+        {
             return fn;
+        }
 
         fn = GetStaticActionInvokerToCache(method);
 
@@ -485,10 +498,14 @@ public static class TypeExtensions
     public static T ConvertFromObject<T>(object value)
     {
         if (value == null)
+        {
             return default;
+        }
 
         if (value is T variable)
+        {
             return variable;
+        }
 
         return value.ConvertTo<T>();
     }

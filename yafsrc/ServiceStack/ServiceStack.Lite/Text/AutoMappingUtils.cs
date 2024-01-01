@@ -55,8 +55,10 @@ public static class AutoMappingUtils
     /// <param name="fromType">From type.</param>
     /// <param name="toType">To type.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public static bool ShouldIgnoreMapping(Type fromType, Type toType) =>
-        ignoreMappings.ContainsKey(Tuple.Create(fromType, toType));
+    public static bool ShouldIgnoreMapping(Type fromType, Type toType)
+    {
+        return ignoreMappings.ContainsKey(Tuple.Create(fromType, toType));
+    }
 
     /// <summary>
     /// Gets the converter.
@@ -67,12 +69,12 @@ public static class AutoMappingUtils
     public static GetMemberDelegate GetConverter(Type fromType, Type toType)
     {
         if (converters.IsEmpty)
+        {
             return null;
+        }
 
         var key = Tuple.Create(fromType, toType);
-        return converters.TryGetValue(key, out var converter)
-                   ? converter
-                   : null;
+        return converters.GetValueOrDefault(key);
     }
 
     /// <summary>
@@ -84,12 +86,12 @@ public static class AutoMappingUtils
     public static PopulateMemberDelegate GetPopulator(Type targetType, Type sourceType)
     {
         if (populators.IsEmpty)
+        {
             return null;
+        }
 
         var key = Tuple.Create(targetType, sourceType);
-        return populators.TryGetValue(key, out var populator)
-                   ? populator
-                   : null;
+        return populators.GetValueOrDefault(key);
     }
 
     /// <summary>
@@ -99,10 +101,12 @@ public static class AutoMappingUtils
     /// <param name="from">From.</param>
     /// <param name="defaultValue">The default value.</param>
     /// <returns>T.</returns>
-    public static T ConvertTo<T>(this object from, T defaultValue) =>
-        from == null || from is ""
+    public static T ConvertTo<T>(this object from, T defaultValue)
+    {
+        return from is null or ""
             ? defaultValue
             : from.ConvertTo<T>();
+    }
 
     /// <summary>
     /// Converts to.
@@ -110,7 +114,11 @@ public static class AutoMappingUtils
     /// <typeparam name="T"></typeparam>
     /// <param name="from">From.</param>
     /// <returns>T.</returns>
-    public static T ConvertTo<T>(this object from) => from.ConvertTo<T>(false);
+    public static T ConvertTo<T>(this object from)
+    {
+        return from.ConvertTo<T>(false);
+    }
+
     /// <summary>
     /// Converts to.
     /// </summary>
@@ -121,10 +129,14 @@ public static class AutoMappingUtils
     public static T ConvertTo<T>(this object from, bool skipConverters)
     {
         if (from == null)
+        {
             return default;
+        }
 
         if (from is T t)
+        {
             return t;
+        }
 
         return (T)ConvertTo(from, typeof(T), skipConverters);
     }
@@ -138,14 +150,21 @@ public static class AutoMappingUtils
     public static T CreateCopy<T>(this T from)
     {
         if (from == null)
+        {
             return from;
+        }
+
         var type = from.GetType();
 
         if (from is ICloneable clone)
+        {
             return (T)clone.Clone();
+        }
 
         if (typeof(T).IsValueType)
+        {
             return (T)ChangeValueType(from, type);
+        }
 
         if (typeof(IEnumerable).IsAssignableFrom(type) && type != typeof(string))
         {
@@ -176,7 +195,11 @@ public static class AutoMappingUtils
     /// <param name="from">From.</param>
     /// <param name="toType">To type.</param>
     /// <returns>System.Object.</returns>
-    public static object ConvertTo(this object from, Type toType) => from.ConvertTo(toType, skipConverters: false);
+    public static object ConvertTo(this object from, Type toType)
+    {
+        return from.ConvertTo(toType, skipConverters: false);
+    }
+
     /// <summary>
     /// Converts to.
     /// </summary>
@@ -187,28 +210,40 @@ public static class AutoMappingUtils
     public static object ConvertTo(this object from, Type toType, bool skipConverters)
     {
         if (from == null)
+        {
             return null;
+        }
 
         var fromType = from.GetType();
         if (ShouldIgnoreMapping(fromType, toType))
+        {
             return null;
+        }
 
         if (!skipConverters)
         {
             var converter = GetConverter(fromType, toType);
             if (converter != null)
+            {
                 return converter(from);
+            }
         }
 
         if (fromType == toType || toType == typeof(object))
+        {
             return from;
+        }
 
         if (fromType.IsValueType || toType.IsValueType)
+        {
             return ChangeValueType(from, toType);
+        }
 
         var mi = GetImplicitCastMethod(fromType, toType);
         if (mi != null)
+        {
             return mi.Invoke(null, [from]);
+        }
 
         switch (from)
         {
@@ -219,7 +254,9 @@ public static class AutoMappingUtils
         }
 
         if (toType == typeof(string))
+        {
             return from.ToJsv();
+        }
 
         if (typeof(IEnumerable).IsAssignableFrom(toType))
         {
@@ -256,9 +293,9 @@ public static class AutoMappingUtils
             {
                 return mi;
             }
-        }
+        } 
 
-        return toType.GetMethods(BindingFlags.Public | BindingFlags.Static).FirstOrDefault(
+        return Array.Find(toType.GetMethods(BindingFlags.Public | BindingFlags.Static),
             mi => mi.Name == "op_Implicit" && mi.ReturnType == toType &&
                   mi.GetParameters().FirstOrDefault()?.ParameterType == fromType);
     }
@@ -280,7 +317,7 @@ public static class AutoMappingUtils
             }
         }
 
-        return fromType.GetMethods(BindingFlags.Public | BindingFlags.Static).FirstOrDefault(
+        return Array.Find(fromType.GetMethods(BindingFlags.Public | BindingFlags.Static),
             mi => mi.Name == "op_Explicit" && mi.ReturnType == toType &&
                   mi.GetParameters().FirstOrDefault()?.ParameterType == fromType);
     }
@@ -300,19 +337,32 @@ public static class AutoMappingUtils
         {
             var toString = toType == typeof(string);
             if (toType == typeof(char) && s != null)
+            {
                 return s.Length > 0 ? s[0] : null;
+            }
+
             if (toString && from is char c)
+            {
                 return c.ToString();
+            }
+
             if (toType == typeof(TimeSpan) && from is long ticks)
+            {
                 return new TimeSpan(ticks);
+            }
+
             if (toType == typeof(long) && from is TimeSpan time)
+            {
                 return time.Ticks;
+            }
 
             var destNumberType = DynamicNumber.GetNumber(toType);
             if (destNumberType != null)
             {
                 if (s is "")
+                {
                     return destNumberType.DefaultValue;
+                }
 
                 var value = destNumberType.ConvertFrom(from);
                 if (value != null)
@@ -327,23 +377,33 @@ public static class AutoMappingUtils
             {
                 var srcNumberType = DynamicNumber.GetNumber(from.GetType());
                 if (srcNumberType != null)
+                {
                     return srcNumberType.ToString(from);
+                }
             }
         }
 
         var mi = GetImplicitCastMethod(fromType, toType);
         if (mi != null)
+        {
             return mi.Invoke(null, [from]);
+        }
 
         mi = GetExplicitCastMethod(fromType, toType);
         if (mi != null)
+        {
             return mi.Invoke(null, [from]);
+        }
 
         if (s != null)
+        {
             return TypeSerializer.DeserializeFromString(s, toType);
+        }
 
         if (toType == typeof(string))
+        {
             return from.ToJsv();
+        }
 
         if (toType.HasInterface(typeof(IConvertible)))
         {
@@ -442,7 +502,7 @@ public static class AutoMappingUtils
     /// <summary>
     /// The default value types
     /// </summary>
-    private static Dictionary<Type, object> DefaultValueTypes = new();
+    private static Dictionary<Type, object> DefaultValueTypes = [];
 
     /// <summary>
     /// Gets the default value.
@@ -452,10 +512,14 @@ public static class AutoMappingUtils
     public static object GetDefaultValue(this Type type)
     {
         if (!type.IsValueType)
+        {
             return null;
+        }
 
         if (DefaultValueTypes.TryGetValue(type, out var defaultValue))
+        {
             return defaultValue;
+        }
 
         defaultValue = Activator.CreateInstance(type);
 
@@ -476,15 +540,22 @@ public static class AutoMappingUtils
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns><c>true</c> if [is default value] [the specified value]; otherwise, <c>false</c>.</returns>
-    public static bool IsDefaultValue(object value) => IsDefaultValue(value, value?.GetType());
+    public static bool IsDefaultValue(object value)
+    {
+        return IsDefaultValue(value, value?.GetType());
+    }
+
     /// <summary>
     /// Determines whether [is default value] [the specified value].
     /// </summary>
     /// <param name="value">The value.</param>
     /// <param name="valueType">Type of the value.</param>
     /// <returns><c>true</c> if [is default value] [the specified value]; otherwise, <c>false</c>.</returns>
-    public static bool IsDefaultValue(object value, Type valueType) => value == null
-                                                                       || valueType.IsValueType && value.Equals(valueType.GetDefaultValue());
+    public static bool IsDefaultValue(object value, Type valueType)
+    {
+        return value == null
+               || valueType.IsValueType && value.Equals(valueType.GetDefaultValue());
+    }
 
     /// <summary>
     /// The assignment definition cache
@@ -550,7 +621,10 @@ public static class AutoMappingUtils
         var members = type.GetAllPublicMembers();
         foreach (var info in members)
         {
-            if (info.DeclaringType == typeof(object)) continue;
+            if (info.DeclaringType == typeof(object))
+            {
+                continue;
+            }
 
             var propertyInfo = info as PropertyInfo;
             if (propertyInfo != null)
@@ -593,7 +667,10 @@ public static class AutoMappingUtils
     /// <returns>To.</returns>
     public static To PopulateWith<To, From>(this To to, From from)
     {
-        if (Equals(to, default(To)) || Equals(from, default(From))) return default;
+        if (Equals(to, default(To)) || Equals(from, default(From)))
+        {
+            return default;
+        }
 
         var assignmentDefinition = GetAssignmentDefinition(to.GetType(), from.GetType());
 
@@ -617,10 +694,8 @@ public static class AutoMappingUtils
         }
 
         var propertySetMethodInfo = propertyInfo.GetSetMethod(true);
-        if (propertySetMethodInfo != null)
-        {
-            propertySetMethodInfo.Invoke(obj, [value]);
-        }
+
+        propertySetMethodInfo?.Invoke(obj, [value]);
     }
 
     /// <summary>
@@ -632,10 +707,12 @@ public static class AutoMappingUtils
     public static object GetProperty(this PropertyInfo propertyInfo, object obj)
     {
         if (propertyInfo == null || !propertyInfo.CanRead)
+        {
             return null;
+        }
 
         var getMethod = propertyInfo.GetGetMethod(true);
-        return getMethod != null ? getMethod.Invoke(obj, TypeConstants.EmptyObjectArray) : null;
+        return getMethod?.Invoke(obj, TypeConstants.EmptyObjectArray);
     }
 
     /// <summary>
@@ -649,7 +726,11 @@ public static class AutoMappingUtils
     {
         try
         {
-            if (IsUnsettableValue(fieldInfo, propertyInfo)) return;
+            if (IsUnsettableValue(fieldInfo, propertyInfo))
+            {
+                return;
+            }
+
             if (fieldInfo != null && !fieldInfo.IsLiteral)
             {
                 fieldInfo.SetValue(obj, value);
@@ -721,11 +802,16 @@ public static class AutoMappingUtils
         }
 
         if (type.IsAbstract)
+        {
             return null;
+        }
 
         // If we have hit our recursion limit for this type, then return null
         recursionInfo.TryGetValue(type, out var recurseLevel);
-        if (recurseLevel > MaxRecursionLevelForDefaultValues) return null;
+        if (recurseLevel > MaxRecursionLevelForDefaultValues)
+        {
+            return null;
+        }
 
         recursionInfo[type] = recurseLevel + 1; // increase recursion level for this type
         try // use a try/finally block to make sure we decrease the recursion level for this type no matter which code path we take,
@@ -814,7 +900,6 @@ public static class AutoMappingUtils
         return objArray;
     }
 
-    //TODO: replace with InAssignableFrom
     /// <summary>
     /// Determines whether this instance can cast the specified to type.
     /// </summary>
@@ -826,11 +911,14 @@ public static class AutoMappingUtils
         if (toType.IsInterface)
         {
             var interfaceList = fromType.GetInterfaces().ToList();
-            if (interfaceList.Contains(toType)) return true;
+            if (interfaceList.Contains(toType))
+            {
+                return true;
+            }
         }
         else
         {
-            Type baseType = fromType;
+            var baseType = fromType;
             bool areSameTypes;
             do
             {
@@ -838,7 +926,10 @@ public static class AutoMappingUtils
             }
             while (!areSameTypes && (baseType = fromType.BaseType) != null);
 
-            if (areSameTypes) return true;
+            if (areSameTypes)
+            {
+                return true;
+            }
         }
 
         return false;
@@ -1090,27 +1181,32 @@ public class AssignmentEntry
     /// <summary>
     /// The name
     /// </summary>
-    public string Name;
+    public string Name { get; }
+
     /// <summary>
     /// From
     /// </summary>
-    public AssignmentMember From;
+    public AssignmentMember From { get; }
+
     /// <summary>
     /// To
     /// </summary>
-    public AssignmentMember To;
+    public AssignmentMember To { get; }
+
     /// <summary>
     /// The get value function
     /// </summary>
-    public GetMemberDelegate GetValueFn;
+    public GetMemberDelegate GetValueFn { get; }
+
     /// <summary>
     /// The set value function
     /// </summary>
-    public SetMemberDelegate SetValueFn;
+    public SetMemberDelegate SetValueFn { get; }
+
     /// <summary>
     /// The convert value function
     /// </summary>
-    public GetMemberDelegate ConvertValueFn;
+    public GetMemberDelegate ConvertValueFn { get; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="AssignmentEntry" /> class.
@@ -1120,13 +1216,13 @@ public class AssignmentEntry
     /// <param name="to">To.</param>
     public AssignmentEntry(string name, AssignmentMember from, AssignmentMember to)
     {
-        Name = name;
-        From = from;
-        To = to;
+        this.Name = name;
+        this.From = from;
+        this.To = to;
 
-        GetValueFn = From.CreateGetter();
-        SetValueFn = To.CreateSetter();
-        ConvertValueFn = TypeConverter.CreateTypeConverter(From.Type, To.Type);
+        this.GetValueFn = this.From.CreateGetter();
+        this.SetValueFn = this.To.CreateSetter();
+        this.ConvertValueFn = TypeConverter.CreateTypeConverter(this.From.Type, this.To.Type);
     }
 }
 
@@ -1142,8 +1238,8 @@ public class AssignmentMember
     /// <param name="propertyInfo">The property information.</param>
     public AssignmentMember(Type type, PropertyInfo propertyInfo)
     {
-        Type = type;
-        PropertyInfo = propertyInfo;
+        this.Type = type;
+        this.PropertyInfo = propertyInfo;
     }
 
     /// <summary>
@@ -1153,26 +1249,26 @@ public class AssignmentMember
     /// <param name="fieldInfo">The field information.</param>
     public AssignmentMember(Type type, FieldInfo fieldInfo)
     {
-        Type = type;
-        FieldInfo = fieldInfo;
+        this.Type = type;
+        this.FieldInfo = fieldInfo;
     }
 
     /// <summary>
     /// The type
     /// </summary>
-    public Type Type;
+    public Type Type { get; }
     /// <summary>
     /// The property information
     /// </summary>
-    public PropertyInfo PropertyInfo;
+    public PropertyInfo PropertyInfo { get; }
     /// <summary>
     /// The field information
     /// </summary>
-    public FieldInfo FieldInfo;
+    public FieldInfo FieldInfo { get; }
     /// <summary>
     /// The method information
     /// </summary>
-    public MethodInfo MethodInfo;
+    public MethodInfo MethodInfo { get; }
 
     /// <summary>
     /// Creates the getter.
@@ -1180,11 +1276,17 @@ public class AssignmentMember
     /// <returns>GetMemberDelegate.</returns>
     public GetMemberDelegate CreateGetter()
     {
-        if (PropertyInfo != null)
-            return PropertyInfo.CreateGetter();
-        if (FieldInfo != null)
-            return FieldInfo.CreateGetter();
-        return (GetMemberDelegate)MethodInfo?.CreateDelegate(typeof(GetMemberDelegate));
+        if (this.PropertyInfo != null)
+        {
+            return this.PropertyInfo.CreateGetter();
+        }
+
+        if (this.FieldInfo != null)
+        {
+            return this.FieldInfo.CreateGetter();
+        }
+
+        return (GetMemberDelegate)this.MethodInfo?.CreateDelegate(typeof(GetMemberDelegate));
     }
 
     /// <summary>
@@ -1193,11 +1295,17 @@ public class AssignmentMember
     /// <returns>SetMemberDelegate.</returns>
     public SetMemberDelegate CreateSetter()
     {
-        if (PropertyInfo != null)
-            return PropertyInfo.CreateSetter();
-        if (FieldInfo != null)
-            return FieldInfo.CreateSetter();
-        return (SetMemberDelegate)MethodInfo?.MakeDelegate(typeof(SetMemberDelegate));
+        if (this.PropertyInfo != null)
+        {
+            return this.PropertyInfo.CreateSetter();
+        }
+
+        if (this.FieldInfo != null)
+        {
+            return this.FieldInfo.CreateSetter();
+        }
+
+        return (SetMemberDelegate)this.MethodInfo?.MakeDelegate(typeof(SetMemberDelegate));
     }
 }
 
@@ -1211,7 +1319,7 @@ internal class AssignmentDefinition
     /// </summary>
     public AssignmentDefinition()
     {
-        this.AssignmentMemberMap = new Dictionary<string, AssignmentEntry>();
+        this.AssignmentMemberMap = [];
     }
 
     /// <summary>
@@ -1240,7 +1348,9 @@ internal class AssignmentDefinition
     public void AddMatch(string name, AssignmentMember readMember, AssignmentMember writeMember)
     {
         if (AutoMappingUtils.ShouldIgnoreMapping(readMember.Type, writeMember.Type))
+        {
             return;
+        }
 
         // Ignore mapping collections if Element Types are ignored
         if (typeof(IEnumerable).IsAssignableFrom(readMember.Type) && typeof(IEnumerable).IsAssignableFrom(writeMember.Type))
@@ -1253,9 +1363,14 @@ internal class AssignmentDefinition
                 var fromArgs = fromGenericDef.GetGenericArguments();
                 var toArgs = toGenericDef.GetGenericArguments();
                 if (AutoMappingUtils.ShouldIgnoreMapping(fromArgs[0], toArgs[0]))
+                {
                     return;
+                }
+
                 if (AutoMappingUtils.ShouldIgnoreMapping(fromArgs[1], toArgs[1]))
+                {
                     return;
+                }
             }
             else if (readMember.Type != typeof(string) && writeMember.Type != typeof(string))
             {
@@ -1263,7 +1378,9 @@ internal class AssignmentDefinition
                 var elToType = writeMember.Type.GetCollectionType();
 
                 if (AutoMappingUtils.ShouldIgnoreMapping(elFromType, elToType))
+                {
                     return;
+                }
             }
         }
 
@@ -1277,7 +1394,7 @@ internal class AssignmentDefinition
     /// <param name="from">From.</param>
     public void Populate(object to, object from)
     {
-        Populate(to, from, null, null);
+        this.Populate(to, from, null, null);
     }
 
     /// <summary>
@@ -1291,16 +1408,15 @@ internal class AssignmentDefinition
                          Func<PropertyInfo, bool> propertyInfoPredicate,
                          Func<object, Type, bool> valuePredicate)
     {
-        foreach (var assignmentEntryMap in AssignmentMemberMap)
+        foreach (var assignmentEntryMap in this.AssignmentMemberMap)
         {
             var assignmentEntry = assignmentEntryMap.Value;
             var fromMember = assignmentEntry.From;
             var toMember = assignmentEntry.To;
 
-            if (fromMember.PropertyInfo != null && propertyInfoPredicate != null)
+            if (fromMember.PropertyInfo != null && propertyInfoPredicate != null && !propertyInfoPredicate(fromMember.PropertyInfo))
             {
-                if (!propertyInfoPredicate(fromMember.PropertyInfo))
-                    continue;
+                continue;
             }
 
             var fromType = fromMember.Type;
@@ -1311,10 +1427,9 @@ internal class AssignmentDefinition
 
                 if (valuePredicate != null
                     && (fromType == toType
-                        || Nullable.GetUnderlyingType(fromType) == toType)) // don't short-circuit nullable <-> non-null values
+                        || Nullable.GetUnderlyingType(fromType) == toType) && !valuePredicate(fromValue, fromMember.PropertyInfo.PropertyType)) // don't short-circuit nullable <-> non-null values
                 {
-                    if (!valuePredicate(fromValue, fromMember.PropertyInfo.PropertyType))
-                        continue;
+                    continue;
                 }
 
                 if (assignmentEntry.ConvertValueFn != null)
@@ -1328,8 +1443,8 @@ internal class AssignmentDefinition
             catch (Exception ex)
             {
                 Tracer.Instance.WriteWarning("Error trying to set properties {0}.{1} > {2}.{3}:\n{4}",
-                    FromType.FullName, fromType.Name,
-                    ToType.FullName, toType.Name, ex);
+                    this.FromType.FullName, fromType.Name,
+                    this.ToType.FullName, toType.Name, ex);
             }
         }
 
@@ -1403,17 +1518,25 @@ static internal class TypeConverter
     public static GetMemberDelegate CreateTypeConverter(Type fromType, Type toType)
     {
         if (fromType == toType)
+        {
             return null;
+        }
 
         var converter = AutoMappingUtils.GetConverter(fromType, toType);
         if (converter != null)
+        {
             return converter;
+        }
 
         if (fromType == typeof(string))
+        {
             return fromValue => TypeSerializer.DeserializeFromString((string)fromValue, toType);
+        }
 
         if (toType == typeof(string))
+        {
             return o => TypeSerializer.SerializeToString(o).StripQuotes();
+        }
 
         var underlyingToType = Nullable.GetUnderlyingType(toType) ?? toType;
         var underlyingFromType = Nullable.GetUnderlyingType(fromType) ?? fromType;
@@ -1421,15 +1544,21 @@ static internal class TypeConverter
         if (underlyingToType.IsEnum)
         {
             if (underlyingFromType.IsEnum || fromType == typeof(string))
+            {
                 return fromValue => Enum.Parse(underlyingToType, fromValue.ToString(), true);
+            }
 
             if (underlyingFromType.IsIntegerType())
+            {
                 return fromValue => Enum.ToObject(underlyingToType, fromValue);
+            }
         }
         else if (underlyingFromType.IsEnum)
         {
             if (underlyingToType.IsIntegerType())
+            {
                 return fromValue => Convert.ChangeType(fromValue, underlyingToType, null);
+            }
         }
         else if (typeof(IEnumerable).IsAssignableFrom(fromType) && underlyingToType != typeof(string))
         {
@@ -1440,7 +1569,10 @@ static internal class TypeConverter
             return fromValue =>
                 {
                     if (fromValue == null && toType.IsNullableType())
+                    {
                         return null;
+                    }
+
                     return AutoMappingUtils.ChangeValueType(fromValue, underlyingToType);
                 };
         }
@@ -1449,9 +1581,14 @@ static internal class TypeConverter
             return fromValue =>
                 {
                     if (fromValue == null)
+                    {
                         return null;
+                    }
+
                     if (toType == typeof(string))
+                    {
                         return fromValue.ToJsv();
+                    }
 
                     var toValue = toType.CreateInstance();
                     toValue.PopulateWith(fromValue);

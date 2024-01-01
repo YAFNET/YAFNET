@@ -26,7 +26,7 @@ public static class JsvWriter
     /// <summary>
     /// The write function cache
     /// </summary>
-    private static Dictionary<Type, WriteObjectDelegate> WriteFnCache = new();
+    private static Dictionary<Type, WriteObjectDelegate> WriteFnCache = [];
 
     /// <summary>
     /// Removes the cache function.
@@ -55,7 +55,9 @@ public static class JsvWriter
         try
         {
             if (WriteFnCache.TryGetValue(type, out var writeFn))
+            {
                 return writeFn;
+            }
 
             var genericType = typeof(JsvWriter<>).MakeGenericType(type);
             var mi = genericType.GetStaticMethod("WriteFn");
@@ -90,12 +92,16 @@ public static class JsvWriter
     public static void WriteLateBoundObject(TextWriter writer, object value)
     {
         if (value == null)
+        {
             return;
+        }
 
         try
         {
             if (!JsState.Traverse(value))
+            {
                 return;
+            }
 
             var type = value.GetType();
             var writeFn = type == typeof(object)
@@ -140,7 +146,9 @@ public static class JsvWriter<T>
     public static void Refresh()
     {
         if (JsvWriter.Instance == null)
+        {
             return;
+        }
 
         CacheFn = typeof(T) == typeof(object)
                       ? JsvWriter.WriteLateBoundObject
@@ -174,14 +182,19 @@ public static class JsvWriter<T>
     /// <param name="value">The value.</param>
     public static void WriteObject(TextWriter writer, object value)
     {
-        if (writer == null) return; //AOT
+        if (writer == null)
+        {
+            return; //AOT
+        }
 
         TypeConfig<T>.Init();
 
         try
         {
             if (!JsState.Traverse(value))
+            {
                 return;
+            }
 
             CacheFn(writer, value);
         }
@@ -198,7 +211,10 @@ public static class JsvWriter<T>
     /// <param name="value">The value.</param>
     public static void WriteRootObject(TextWriter writer, object value)
     {
-        if (writer == null) return; //AOT
+        if (writer == null)
+        {
+            return; //AOT
+        }
 
         TypeConfig<T>.Init();
         TypeSerializer.OnSerialize?.Invoke(value);

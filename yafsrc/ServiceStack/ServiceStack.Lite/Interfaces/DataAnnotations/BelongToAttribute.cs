@@ -28,6 +28,6 @@ public class BelongToAttribute : AttributeBase
     /// <param name="belongToTableType">Type of the belong to table.</param>
     public BelongToAttribute(Type belongToTableType)
     {
-        BelongToTableType = belongToTableType;
+        this.BelongToTableType = belongToTableType;
     }
 }

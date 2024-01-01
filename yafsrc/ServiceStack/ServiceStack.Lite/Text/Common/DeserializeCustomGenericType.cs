@@ -27,7 +27,10 @@ static internal class DeserializeCustomGenericType<TSerializer>
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>ParseStringDelegate.</returns>
-    public static ParseStringDelegate GetParseMethod(Type type) => v => GetParseStringSpanMethod(type)(v.AsSpan());
+    public static ParseStringDelegate GetParseMethod(Type type)
+    {
+        return v => GetParseStringSpanMethod(type)(v.AsSpan());
+    }
 
     /// <summary>
     /// Gets the parse string span method.
@@ -37,7 +40,9 @@ static internal class DeserializeCustomGenericType<TSerializer>
     public static ParseStringSpanDelegate GetParseStringSpanMethod(Type type)
     {
         if (type.Name.IndexOf("Tuple`", StringComparison.Ordinal) >= 0)
+        {
             return x => ParseTuple(type, x);
+        }
 
         return null;
     }
@@ -48,7 +53,10 @@ static internal class DeserializeCustomGenericType<TSerializer>
     /// <param name="tupleType">Type of the tuple.</param>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
-    public static object ParseTuple(Type tupleType, string value) => ParseTuple(tupleType, value.AsSpan());
+    public static object ParseTuple(Type tupleType, string value)
+    {
+        return ParseTuple(tupleType, value.AsSpan());
+    }
 
     /// <summary>
     /// Parses the tuple.
@@ -61,7 +69,9 @@ static internal class DeserializeCustomGenericType<TSerializer>
         var index = 0;
         Serializer.EatMapStartChar(value, ref index);
         if (JsonTypeSerializer.IsEmptyMap(value, index))
+        {
             return tupleType.CreateInstance();
+        }
 
         var genericArgs = tupleType.GetGenericArguments();
         var argValues = new object[genericArgs.Length];
@@ -71,7 +81,10 @@ static internal class DeserializeCustomGenericType<TSerializer>
             var keyValue = Serializer.EatMapKey(value, ref index);
             Serializer.EatMapKeySeperator(value, ref index);
             var elementValue = Serializer.EatValue(value, ref index);
-            if (keyValue.IsEmpty) continue;
+            if (keyValue.IsEmpty)
+            {
+                continue;
+            }
 
             var keyIndex = keyValue.Slice("Item".Length).ParseInt32() - 1;
             var parseFn = Serializer.GetParseStringSpanFn(genericArgs[keyIndex]);

@@ -1,7 +1,7 @@
 [*.cs]
 
 csharp_style_prefer_primary_constructors = false
-
+dotnet_diagnostic.IDE0042.severity = none
 #Core editorconfig formatting - indentation
 
 #use soft tabs (spaces) for indentation

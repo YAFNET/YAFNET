@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -51,7 +51,8 @@ public static class AssemblyExtensions
 
         // get classes...
         assemblies.Select(
-            a => a.GetExportedTypes().Where(t => !t.IsAbstract && t.GetCustomAttributes(attributeType, true).Length != 0)
+            a => a.GetExportedTypes()
+                .Where(t => !t.IsAbstract && t.GetCustomAttributes(attributeType, true).Length != 0)
                 .ToList()).ForEach(types => moduleClassTypes.AddRange(types));
 
         return moduleClassTypes.Distinct();
@@ -68,8 +69,9 @@ public static class AssemblyExtensions
     /// </returns>
     public static int GetAssemblySortOrder(this Assembly assembly)
     {
-        var attribute = assembly.GetCustomAttributes(typeof(AssemblyModuleSortOrder), true).OfType<AssemblyModuleSortOrder>().ToList();
+        var attribute = assembly.GetCustomAttributes(typeof(AssemblyModuleSortOrderAttribute), true)
+            .OfType<AssemblyModuleSortOrderAttribute>().ToList();
 
-        return attribute.HasItems() ? attribute.First().SortOrder : 9999;
+        return attribute.HasItems() ? attribute[0].SortOrder : 9999;
     }
 }

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -40,14 +40,6 @@ public class SqliteDbInformation : IDbInformation, IHaveServiceLocator
     private readonly static string[] IdentityUpgradeScriptList = [];
 
     /// <summary>
-    /// The DB parameters
-    /// </summary>
-    private readonly DbConnectionParam[] connectionParameters = [
-        new DbConnectionParam(0, "Password", string.Empty),
-        new DbConnectionParam(1, "Data Source", "(local)")
-    ];
-
-    /// <summary>
     /// Initializes a new instance of the <see cref="SqliteDbInformation"/> class.
     /// </summary>
     public SqliteDbInformation()
@@ -75,28 +67,6 @@ public class SqliteDbInformation : IDbInformation, IHaveServiceLocator
     /// Gets the YAF Provider Upgrade Script List.
     /// </summary>
     public IEnumerable<string> IdentityUpgradeScripts => IdentityUpgradeScriptList;
-
-    /// <summary>
-    /// Gets the DB Connection Parameters.
-    /// </summary>
-    public IDbConnectionParam[] DbConnectionParameters =>
-        this.connectionParameters.OfType<IDbConnectionParam>().ToArray();
-
-    /// <summary>
-    /// Builds a connection string.
-    /// </summary>
-    /// <param name="parameters">The Connection Parameters</param>
-    /// <returns>Returns the Connection String</returns>
-    public string BuildConnectionString(IEnumerable<IDbConnectionParam> parameters)
-    {
-        var connectionParams = parameters.ToList();
-
-        var connBuilder = new SQLiteConnectionStringBuilder();
-
-        connectionParams.ForEach(param => connBuilder[param.Name] = param.Value);
-
-        return connBuilder.ConnectionString;
-    }
 
     /// <summary>
     /// Create Table Views

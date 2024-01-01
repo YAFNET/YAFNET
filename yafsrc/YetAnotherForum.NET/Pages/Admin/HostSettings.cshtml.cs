@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -158,11 +158,10 @@ public class HostSettingsModel : AdminPage
     }
 
     /// <summary>
-    /// Resets the the User Lazy Data Cache
+    /// Resets the User Lazy Data Cache
     /// </summary>
     public void OnPostUserLazyDataCacheReset()
     {
-        // vzrus: remove all users lazy data
         this.Get<IDataCache>().RemoveOf<object>(
             k => k.Key.StartsWith(string.Format(Constants.Cache.ActiveUserLazyData, string.Empty)));
 

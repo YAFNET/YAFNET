@@ -56,7 +56,7 @@ public class DebugLogger : ILog
     /// <param name="exception">The exception.</param>
     private static void Log(object message, Exception exception)
     {
-        string msg = message?.ToString() ?? string.Empty;
+        var msg = message?.ToString() ?? string.Empty;
         if (exception != null)
         {
             msg += ", Exception: " + exception.Message;
@@ -71,7 +71,7 @@ public class DebugLogger : ILog
     /// <param name="args">The arguments.</param>
     private static void LogFormat(object message, params object[] args)
     {
-        string msg = message?.ToString() ?? string.Empty;
+        var msg = message?.ToString() ?? string.Empty;
         System.Diagnostics.Debug.WriteLine(msg, args);
     }
 
@@ -81,7 +81,7 @@ public class DebugLogger : ILog
     /// <param name="message">The message.</param>
     private static void Log(object message)
     {
-        string msg = message?.ToString() ?? string.Empty;
+        var msg = message?.ToString() ?? string.Empty;
         System.Diagnostics.Debug.WriteLine(msg);
     }
 

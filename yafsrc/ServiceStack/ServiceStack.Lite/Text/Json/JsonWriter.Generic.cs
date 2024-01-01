@@ -27,7 +27,7 @@ public static class JsonWriter
     /// <summary>
     /// The write function cache
     /// </summary>
-    private static Dictionary<Type, WriteObjectDelegate> WriteFnCache = new();
+    private static Dictionary<Type, WriteObjectDelegate> WriteFnCache = [];
 
     /// <summary>
     /// Removes the cache function.
@@ -55,7 +55,10 @@ public static class JsonWriter
     {
         try
         {
-            if (WriteFnCache.TryGetValue(type, out var writeFn)) return writeFn;
+            if (WriteFnCache.TryGetValue(type, out var writeFn))
+            {
+                return writeFn;
+            }
 
             var genericType = typeof(JsonWriter<>).MakeGenericType(type);
             var mi = genericType.GetStaticMethod("WriteFn");
@@ -86,7 +89,7 @@ public static class JsonWriter
     /// <summary>
     /// The json type information cache
     /// </summary>
-    private static Dictionary<Type, TypeInfo> JsonTypeInfoCache = new();
+    private static Dictionary<Type, TypeInfo> JsonTypeInfoCache = [];
 
     /// <summary>
     /// Gets the type information.
@@ -97,7 +100,10 @@ public static class JsonWriter
     {
         try
         {
-            if (JsonTypeInfoCache.TryGetValue(type, out var writeFn)) return writeFn;
+            if (JsonTypeInfoCache.TryGetValue(type, out var writeFn))
+            {
+                return writeFn;
+            }
 
             var genericType = typeof(JsonWriter<>).MakeGenericType(type);
             var mi = genericType.GetStaticMethod("GetTypeInfo");
@@ -141,7 +147,9 @@ public static class JsonWriter
         try
         {
             if (!JsState.Traverse(value))
+            {
                 return;
+            }
 
             var type = value.GetType();
             var writeFn = type == typeof(object)
@@ -214,7 +222,9 @@ public static class JsonWriter<T>
     public static void Refresh()
     {
         if (JsonWriter.Instance == null)
+        {
             return;
+        }
 
         CacheFn = typeof(T) == typeof(object)
                       ? JsonWriter.WriteLateBoundObject
@@ -247,7 +257,9 @@ public static class JsonWriter<T>
     static JsonWriter()
     {
         if (JsonWriter.Instance == null)
+        {
             return;
+        }
 
         var isNumeric = typeof(T).IsNumericType();
         TypeInfo = new TypeInfo
@@ -272,7 +284,9 @@ public static class JsonWriter<T>
         try
         {
             if (!JsState.Traverse(value))
+            {
                 return;
+            }
 
             CacheFn(writer, value);
         }

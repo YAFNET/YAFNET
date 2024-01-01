@@ -22,6 +22,6 @@ public class NamedConnectionAttribute : AttributeBase
     /// <param name="name">The name.</param>
     public NamedConnectionAttribute(string name)
     {
-        Name = name;
+        this.Name = name;
     }
 }

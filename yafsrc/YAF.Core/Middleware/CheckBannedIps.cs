@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -100,7 +100,7 @@ public class CheckBannedIps : IHaveServiceLocator
         var ipToCheck = context.Connection.RemoteIpAddress.ToString();
 
         // check for this user in the list...
-        if (bannedIPs is null || !bannedIPs.Any(row => IPHelper.IsBanned(row, ipToCheck)))
+        if (bannedIPs is null || !bannedIPs.Exists(row => IPHelper.IsBanned(row, ipToCheck)))
         {
             await this.requestDelegate(context);
 

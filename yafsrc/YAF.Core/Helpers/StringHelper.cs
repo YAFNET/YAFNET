@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -67,10 +67,25 @@ public static class StringHelper
     /// <returns>Returns if text is Html Encoded or not</returns>
     public static bool IsHtmlEncoded(string text)
     {
-        if (text.Contains('<')) return false;
-        if (text.Contains('>')) return false;
-        if (text.Contains('\"')) return false;
-        if (text.Contains('\'')) return false;
+        if (text.Contains('<'))
+        {
+            return false;
+        }
+
+        if (text.Contains('>'))
+        {
+            return false;
+        }
+
+        if (text.Contains('\"'))
+        {
+            return false;
+        }
+
+        if (text.Contains('\''))
+        {
+            return false;
+        }
 
         // if decoded string == original string, it is already encoded
         return HttpUtility.HtmlDecode(text) != text;

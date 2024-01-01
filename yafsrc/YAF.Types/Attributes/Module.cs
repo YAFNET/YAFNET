@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,10 +28,10 @@ namespace YAF.Types.Attributes;
 /// The YAF module.
 /// </summary>
 [AttributeUsage(AttributeTargets.Class)]
-public class Module : Attribute
+public class ModuleAttribute : Attribute
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="Module"/> class.
+    /// Initializes a new instance of the <see cref="ModuleAttribute"/> class.
     /// </summary>
     /// <param name="moduleName">
     /// The module name.
@@ -42,7 +42,7 @@ public class Module : Attribute
     /// <param name="moduleVersion">
     /// The module version.
     /// </param>
-    public Module(string moduleName, string moduleAuthor, int moduleVersion)
+    public ModuleAttribute(string moduleName, string moduleAuthor, int moduleVersion)
     {
         this.ModuleName = moduleName;
         this.ModuleAuthor = moduleAuthor;

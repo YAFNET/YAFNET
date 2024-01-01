@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -210,14 +210,11 @@ public class EditBoardModel : AdminPage
     {
         int? b = this.Input.Id == 0 ? null : this.Input.Id;
 
-        if (!b.HasValue && this.Input.CreateAdminUser)
+        if (!b.HasValue && this.Input.CreateAdminUser && this.Input.UserPass1 != this.Input.UserPass2)
         {
-            if (this.Input.UserPass1 != this.Input.UserPass2)
-            {
-                return this.PageBoardContext.Notify(
-                    this.GetText("ADMIN_EDITBOARD", "MSG_PASS_MATCH"),
-                    MessageTypes.warning);
-            }
+            return this.PageBoardContext.Notify(
+                this.GetText("ADMIN_EDITBOARD", "MSG_PASS_MATCH"),
+                MessageTypes.warning);
         }
 
         if (b.HasValue)

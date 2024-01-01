@@ -117,7 +117,7 @@ internal sealed class StringFormatMethodAttribute : Attribute
     /// <param name="formatParameterName">Specifies which parameter of an annotated method should be treated as format-string</param>
     public StringFormatMethodAttribute(string formatParameterName)
     {
-        FormatParameterName = formatParameterName;
+        this.FormatParameterName = formatParameterName;
     }
 
     /// <summary>
@@ -142,7 +142,7 @@ internal sealed class ValueProviderAttribute : Attribute
     /// <param name="name">The name.</param>
     public ValueProviderAttribute(string name)
     {
-        Name = name;
+        this.Name = name;
     }
 
     /// <summary>
@@ -204,7 +204,7 @@ internal sealed class NotifyPropertyChangedInvocatorAttribute : Attribute
     /// <param name="parameterName">Name of the parameter.</param>
     public NotifyPropertyChangedInvocatorAttribute(string parameterName)
     {
-        ParameterName = parameterName;
+        this.ParameterName = parameterName;
     }
 
     /// <summary>
@@ -286,8 +286,8 @@ internal sealed class ContractAnnotationAttribute : Attribute
     /// <param name="forceFullStates">if set to <c>true</c> [force full states].</param>
     public ContractAnnotationAttribute(string contract, bool forceFullStates)
     {
-        Contract = contract;
-        ForceFullStates = forceFullStates;
+        this.Contract = contract;
+        this.ForceFullStates = forceFullStates;
     }
 
     /// <summary>
@@ -328,7 +328,7 @@ internal sealed class LocalizationRequiredAttribute : Attribute
     /// <param name="required">if set to <c>true</c> [required].</param>
     public LocalizationRequiredAttribute(bool required)
     {
-        Required = required;
+        this.Required = required;
     }
 
     /// <summary>
@@ -384,7 +384,7 @@ internal sealed class BaseTypeRequiredAttribute : Attribute
     /// <param name="baseType">Type of the base.</param>
     public BaseTypeRequiredAttribute(Type baseType)
     {
-        BaseType = baseType;
+        this.BaseType = baseType;
     }
 
     /// <summary>
@@ -428,8 +428,8 @@ internal sealed class UsedImplicitlyAttribute : Attribute
     /// <param name="targetFlags">The target flags.</param>
     public UsedImplicitlyAttribute(ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
     {
-        UseKindFlags = useKindFlags;
-        TargetFlags = targetFlags;
+        this.UseKindFlags = useKindFlags;
+        this.TargetFlags = targetFlags;
     }
 
     /// <summary>
@@ -479,8 +479,8 @@ internal sealed class MeansImplicitUseAttribute : Attribute
     /// <param name="targetFlags">The target flags.</param>
     public MeansImplicitUseAttribute(ImplicitUseKindFlags useKindFlags, ImplicitUseTargetFlags targetFlags)
     {
-        UseKindFlags = useKindFlags;
-        TargetFlags = targetFlags;
+        this.UseKindFlags = useKindFlags;
+        this.TargetFlags = targetFlags;
     }
 
     /// <summary>
@@ -575,7 +575,7 @@ internal sealed class PublicAPIAttribute : Attribute
     /// <param name="comment">The comment.</param>
     public PublicAPIAttribute(string comment)
     {
-        Comment = comment;
+        this.Comment = comment;
     }
 
     /// <summary>
@@ -625,7 +625,7 @@ internal sealed class MustUseReturnValueAttribute : Attribute
     /// <param name="justification">The justification.</param>
     public MustUseReturnValueAttribute(string justification)
     {
-        Justification = justification;
+        this.Justification = justification;
     }
 
     /// <summary>
@@ -674,7 +674,7 @@ internal sealed class PathReferenceAttribute : Attribute
     /// <param name="basePath">The base path.</param>
     public PathReferenceAttribute([NotNull, PathReference] string basePath)
     {
-        BasePath = basePath;
+        this.BasePath = basePath;
     }
 
     /// <summary>
@@ -774,7 +774,7 @@ internal sealed class AspMvcAreaMasterLocationFormatAttribute : Attribute
     /// <param name="format">The format.</param>
     public AspMvcAreaMasterLocationFormatAttribute(string format)
     {
-        Format = format;
+        this.Format = format;
     }
 
     /// <summary>
@@ -798,7 +798,7 @@ internal sealed class AspMvcAreaPartialViewLocationFormatAttribute : Attribute
     /// <param name="format">The format.</param>
     public AspMvcAreaPartialViewLocationFormatAttribute(string format)
     {
-        Format = format;
+        this.Format = format;
     }
 
     /// <summary>
@@ -822,7 +822,7 @@ internal sealed class AspMvcAreaViewLocationFormatAttribute : Attribute
     /// <param name="format">The format.</param>
     public AspMvcAreaViewLocationFormatAttribute(string format)
     {
-        Format = format;
+        this.Format = format;
     }
 
     /// <summary>
@@ -846,7 +846,7 @@ internal sealed class AspMvcMasterLocationFormatAttribute : Attribute
     /// <param name="format">The format.</param>
     public AspMvcMasterLocationFormatAttribute(string format)
     {
-        Format = format;
+        this.Format = format;
     }
 
     /// <summary>
@@ -870,7 +870,7 @@ internal sealed class AspMvcPartialViewLocationFormatAttribute : Attribute
     /// <param name="format">The format.</param>
     public AspMvcPartialViewLocationFormatAttribute(string format)
     {
-        Format = format;
+        this.Format = format;
     }
 
     /// <summary>
@@ -894,7 +894,7 @@ internal sealed class AspMvcViewLocationFormatAttribute : Attribute
     /// <param name="format">The format.</param>
     public AspMvcViewLocationFormatAttribute(string format)
     {
-        Format = format;
+        this.Format = format;
     }
 
     /// <summary>
@@ -924,7 +924,7 @@ internal sealed class AspMvcActionAttribute : Attribute
     /// <param name="anonymousProperty">The anonymous property.</param>
     public AspMvcActionAttribute(string anonymousProperty)
     {
-        AnonymousProperty = anonymousProperty;
+        this.AnonymousProperty = anonymousProperty;
     }
 
     /// <summary>
@@ -953,7 +953,7 @@ internal sealed class AspMvcAreaAttribute : Attribute
     /// <param name="anonymousProperty">The anonymous property.</param>
     public AspMvcAreaAttribute(string anonymousProperty)
     {
-        AnonymousProperty = anonymousProperty;
+        this.AnonymousProperty = anonymousProperty;
     }
 
     /// <summary>
@@ -983,7 +983,7 @@ internal sealed class AspMvcControllerAttribute : Attribute
     /// <param name="anonymousProperty">The anonymous property.</param>
     public AspMvcControllerAttribute(string anonymousProperty)
     {
-        AnonymousProperty = anonymousProperty;
+        this.AnonymousProperty = anonymousProperty;
     }
 
     /// <summary>
@@ -1104,7 +1104,7 @@ internal sealed class HtmlElementAttributesAttribute : Attribute
     /// <param name="name">The name.</param>
     public HtmlElementAttributesAttribute(string name)
     {
-        Name = name;
+        this.Name = name;
     }
 
     /// <summary>
@@ -1128,7 +1128,7 @@ internal sealed class HtmlAttributeValueAttribute : Attribute
     /// <param name="name">The name.</param>
     public HtmlAttributeValueAttribute(string name)
     {
-        Name = name;
+        this.Name = name;
     }
 
     /// <summary>
@@ -1159,7 +1159,7 @@ internal sealed class CollectionAccessAttribute : Attribute
     /// <param name="collectionAccessType">Type of the collection access.</param>
     public CollectionAccessAttribute(CollectionAccessType collectionAccessType)
     {
-        CollectionAccessType = collectionAccessType;
+        this.CollectionAccessType = collectionAccessType;
     }
 
     /// <summary>
@@ -1218,7 +1218,7 @@ internal sealed class AssertionConditionAttribute : Attribute
     /// <param name="conditionType">Type of the condition.</param>
     public AssertionConditionAttribute(AssertionConditionType conditionType)
     {
-        ConditionType = conditionType;
+        this.ConditionType = conditionType;
     }
 
     /// <summary>
@@ -1315,8 +1315,8 @@ internal sealed class AspChildControlTypeAttribute : Attribute
     /// <param name="controlType">Type of the control.</param>
     public AspChildControlTypeAttribute(string tagName, Type controlType)
     {
-        TagName = tagName;
-        ControlType = controlType;
+        this.TagName = tagName;
+        this.ControlType = controlType;
     }
 
     /// <summary>
@@ -1370,7 +1370,7 @@ internal sealed class AspRequiredAttributeAttribute : Attribute
     /// <param name="attribute">The attribute.</param>
     public AspRequiredAttributeAttribute(string attribute)
     {
-        Attribute = attribute;
+        this.Attribute = attribute;
     }
 
     /// <summary>
@@ -1400,7 +1400,7 @@ internal sealed class AspTypePropertyAttribute : Attribute
     /// <param name="createConstructorReferences">if set to <c>true</c> [create constructor references].</param>
     public AspTypePropertyAttribute(bool createConstructorReferences)
     {
-        CreateConstructorReferences = createConstructorReferences;
+        this.CreateConstructorReferences = createConstructorReferences;
     }
 }
 
@@ -1418,7 +1418,7 @@ internal sealed class RazorImportNamespaceAttribute : Attribute
     /// <param name="name">The name.</param>
     public RazorImportNamespaceAttribute(string name)
     {
-        Name = name;
+        this.Name = name;
     }
 
     /// <summary>
@@ -1443,8 +1443,8 @@ internal sealed class RazorInjectionAttribute : Attribute
     /// <param name="fieldName">Name of the field.</param>
     public RazorInjectionAttribute(string type, string fieldName)
     {
-        Type = type;
-        FieldName = fieldName;
+        this.Type = type;
+        this.FieldName = fieldName;
     }
 
     /// <summary>
@@ -1474,7 +1474,7 @@ internal sealed class RazorDirectiveAttribute : Attribute
     /// <param name="directive">The directive.</param>
     public RazorDirectiveAttribute(string directive)
     {
-        Directive = directive;
+        this.Directive = directive;
     }
 
     /// <summary>
@@ -1498,7 +1498,7 @@ internal sealed class RazorPageBaseTypeAttribute : Attribute
     /// <param name="baseType">Type of the base.</param>
     public RazorPageBaseTypeAttribute(string baseType)
     {
-        BaseType = baseType;
+        this.BaseType = baseType;
     }
 
     /// <summary>
@@ -1508,8 +1508,8 @@ internal sealed class RazorPageBaseTypeAttribute : Attribute
     /// <param name="pageName">Name of the page.</param>
     public RazorPageBaseTypeAttribute(string baseType, string pageName)
     {
-        BaseType = baseType;
-        PageName = pageName;
+        this.BaseType = baseType;
+        this.PageName = pageName;
     }
 
     /// <summary>

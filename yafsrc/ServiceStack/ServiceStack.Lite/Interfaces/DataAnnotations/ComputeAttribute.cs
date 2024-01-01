@@ -33,7 +33,7 @@ public class ComputeAttribute : AttributeBase
     /// <param name="expression">The expression.</param>
     public ComputeAttribute(string expression)
     {
-        Expression = expression;
+        this.Expression = expression;
     }
 }
 

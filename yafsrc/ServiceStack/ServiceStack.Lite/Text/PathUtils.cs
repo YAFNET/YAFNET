@@ -28,10 +28,14 @@ public static class PathUtils
         foreach (var path in paths)
         {
             if (string.IsNullOrEmpty(path))
+            {
                 continue;
+            }
 
-            if (sb.Length > 0 && sb[sb.Length - 1] != '/')
-                sb.Append("/");
+            if (sb.Length > 0 && sb[^1] != '/')
+            {
+                sb.Append('/');
+            }
 
             sb.Append(path.Replace('\\', '/').TrimStart('/'));
         }
@@ -52,10 +56,12 @@ public static class PathUtils
     private static string TrimEndIf(this string path, char[] chars)
     {
         if (string.IsNullOrEmpty(path) || chars == null || chars.Length == 0)
+        {
             return path;
+        }
 
-        var lastChar = path[path.Length - 1];
-        return chars.Any(c => c == lastChar) ? path.TrimEnd(chars) : path;
+        var lastChar = path[^1];
+        return chars.Exists(c => c == lastChar) ? path.TrimEnd(chars) : path;
     }
 
     /// <summary>
@@ -68,7 +74,10 @@ public static class PathUtils
     {
         path ??= "";
         if (string.IsNullOrEmpty(withPath))
+        {
             return path;
+        }
+
         var startPath = path.TrimEndIf(Slashes);
         return startPath + (withPath[0] == '/' ? withPath : "/" + withPath);
     }
@@ -83,7 +92,11 @@ public static class PathUtils
     {
         path ??= "";
 
-        if (thesePaths.Length == 1 && thesePaths[0] == null) return path;
+        if (thesePaths.Length == 1 && thesePaths[0] == null)
+        {
+            return path;
+        }
+
         var startPath = path.TrimEndIf(Slashes);
 
         var sb = StringBuilderThreadStatic.Allocate();
@@ -100,7 +113,10 @@ public static class PathUtils
     /// <returns>System.String.</returns>
     public static string CombineWith(this string path, params object[] thesePaths)
     {
-        if (thesePaths.Length == 1 && thesePaths[0] == null) return path;
+        if (thesePaths.Length == 1 && thesePaths[0] == null)
+        {
+            return path;
+        }
 
         var sb = StringBuilderThreadStatic.Allocate();
         sb.Append(path.TrimEndIf(Slashes));

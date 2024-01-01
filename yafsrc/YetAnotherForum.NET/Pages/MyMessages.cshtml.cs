@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -25,7 +25,6 @@
 namespace YAF.Pages;
 
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -112,7 +111,7 @@ public class MyMessagesModel : ForumPageRegistered
 
         return this.Users.NullOrEmpty() ? this.Get<LinkBuilder>().Redirect(ForumPages.MyAccount) :
                    // If no user is selected open
-                   this.OpenUserChat(this.Users.Last());
+                   this.OpenUserChat(this.Users[^1]);
     }
 
     /// <summary>
@@ -123,7 +122,7 @@ public class MyMessagesModel : ForumPageRegistered
     private PageResult OpenUserChat(User conversationUser)
     {
         // Open existing with user or open new conversation
-        if (this.Users.Any(x => x.ID == conversationUser.ID))
+        if (this.Users.Exists(x => x.ID == conversationUser.ID))
         {
             this.Users.Find(x => x.ID == conversationUser.ID).Selected = true;
         }

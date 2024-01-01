@@ -22,7 +22,10 @@ public class DeserializeTypeUtils
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>ParseStringDelegate.</returns>
-    public static ParseStringDelegate GetParseMethod(Type type) => v => GetParseStringSpanMethod(type)(v.AsSpan());
+    public static ParseStringDelegate GetParseMethod(Type type)
+    {
+        return v => GetParseStringSpanMethod(type)(v.AsSpan());
+    }
 
     /// <summary>
     /// Gets the parse string span method.

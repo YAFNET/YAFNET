@@ -17,7 +17,7 @@ namespace ServiceStack.Text.Json;
 /// <summary>
 /// Struct SpanIndex
 /// </summary>
-public ref struct SpanIndex
+public readonly ref struct SpanIndex
 {
     /// <summary>
     /// Gets the span.
@@ -38,8 +38,8 @@ public ref struct SpanIndex
     /// <param name="index">The index.</param>
     public SpanIndex(ReadOnlySpan<char> value, int index)
     {
-        Span = value;
-        Index = index;
+        this.Span = value;
+        this.Index = index;
     }
 }
 
@@ -54,7 +54,7 @@ public struct JsonTypeSerializer
     /// <summary>
     /// The instance
     /// </summary>
-    public static ITypeSerializer Instance = new JsonTypeSerializer();
+    public static ITypeSerializer Instance { get; } = new JsonTypeSerializer();
 
     /// <summary>
     /// Gets or sets the object deserializer.
@@ -85,28 +85,40 @@ public struct JsonTypeSerializer
     /// </summary>
     /// <param name="typeAttr">The type attribute.</param>
     /// <returns>System.String.</returns>
-    static internal string GetTypeAttrInObject(string typeAttr) => $"{{\"{typeAttr}\":";
+    static internal string GetTypeAttrInObject(string typeAttr)
+    {
+        return $"{{\"{typeAttr}\":";
+    }
 
     /// <summary>
     /// Gets the write function.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns>WriteObjectDelegate.</returns>
-    public WriteObjectDelegate GetWriteFn<T>() => JsonWriter<T>.WriteFn();
+    public WriteObjectDelegate GetWriteFn<T>()
+    {
+        return JsonWriter<T>.WriteFn();
+    }
 
     /// <summary>
     /// Gets the write function.
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>WriteObjectDelegate.</returns>
-    public WriteObjectDelegate GetWriteFn(Type type) => JsonWriter.GetWriteFn(type);
+    public WriteObjectDelegate GetWriteFn(Type type)
+    {
+        return JsonWriter.GetWriteFn(type);
+    }
 
     /// <summary>
     /// Gets the type information.
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>TypeInfo.</returns>
-    public TypeInfo GetTypeInfo(Type type) => JsonWriter.GetTypeInfo(type);
+    public TypeInfo GetTypeInfo(Type type)
+    {
+        return JsonWriter.GetTypeInfo(type);
+    }
 
     /// <summary>
     /// Shortcut escape when we're sure value doesn't contain any escaped chars
@@ -135,7 +147,7 @@ public struct JsonTypeSerializer
         }
         else
         {
-            WriteRawString(writer, value);
+            this.WriteRawString(writer, value);
         }
     }
 
@@ -156,11 +168,17 @@ public struct JsonTypeSerializer
     /// <param name="value">The value.</param>
     public void WriteBuiltIn(TextWriter writer, object value)
     {
-        if (JsState.WritingKeyCount > 0 && !JsState.IsWritingValue) writer.Write(JsonUtils.QuoteChar);
+        if (JsState.WritingKeyCount > 0 && !JsState.IsWritingValue)
+        {
+            writer.Write(JsonUtils.QuoteChar);
+        }
 
-        WriteRawString(writer, value.ToString());
+        this.WriteRawString(writer, value.ToString());
 
-        if (JsState.WritingKeyCount > 0 && !JsState.IsWritingValue) writer.Write(JsonUtils.QuoteChar);
+        if (JsState.WritingKeyCount > 0 && !JsState.IsWritingValue)
+        {
+            writer.Write(JsonUtils.QuoteChar);
+        }
     }
 
     /// <summary>
@@ -191,7 +209,7 @@ public struct JsonTypeSerializer
     /// <param name="value">The value.</param>
     public void WriteException(TextWriter writer, object value)
     {
-        WriteString(writer, ((Exception)value).Message);
+        this.WriteString(writer, ((Exception)value).Message);
     }
 
     /// <summary>
@@ -225,9 +243,13 @@ public struct JsonTypeSerializer
     public void WriteNullableDateTime(TextWriter writer, object dateTime)
     {
         if (dateTime == null)
+        {
             writer.Write(JsonUtils.Null);
+        }
         else
-            WriteDateTime(writer, dateTime);
+        {
+            this.WriteDateTime(writer, dateTime);
+        }
     }
 
     /// <summary>
@@ -250,9 +272,13 @@ public struct JsonTypeSerializer
     public void WriteNullableDateTimeOffset(TextWriter writer, object dateTimeOffset)
     {
         if (dateTimeOffset == null)
+        {
             writer.Write(JsonUtils.Null);
+        }
         else
-            WriteDateTimeOffset(writer, dateTimeOffset);
+        {
+            this.WriteDateTimeOffset(writer, dateTimeOffset);
+        }
     }
 
     /// <summary>
@@ -265,7 +291,7 @@ public struct JsonTypeSerializer
         var stringValue = JsConfig.TimeSpanHandler == TimeSpanHandler.StandardFormat
                               ? oTimeSpan.ToString()
                               : DateTimeSerializer.ToXsdTimeSpanString((TimeSpan)oTimeSpan);
-        WriteRawString(writer, stringValue);
+        this.WriteRawString(writer, stringValue);
     }
 
     /// <summary>
@@ -276,8 +302,12 @@ public struct JsonTypeSerializer
     public void WriteNullableTimeSpan(TextWriter writer, object oTimeSpan)
     {
 
-        if (oTimeSpan == null) return;
-        WriteTimeSpan(writer, ((TimeSpan?)oTimeSpan).Value);
+        if (oTimeSpan == null)
+        {
+            return;
+        }
+
+        this.WriteTimeSpan(writer, ((TimeSpan?)oTimeSpan).Value);
     }
 
 #if NET7_0_OR_GREATER
@@ -313,9 +343,13 @@ public struct JsonTypeSerializer
     public void WriteNullableDateOnly(TextWriter writer, object oDateOnly)
         {
             if (oDateOnly == null)
+            {
                 writer.Write(JsonUtils.Null);
+            }
             else
-                WriteDateOnly(writer, oDateOnly);
+            {
+                this.WriteDateOnly(writer, oDateOnly);
+            }
         }
 
     /// <summary>
@@ -328,7 +362,7 @@ public struct JsonTypeSerializer
             var stringValue = JsConfig.TimeSpanHandler == TimeSpanHandler.StandardFormat
                 ? oTimeOnly.ToString()
                 : DateTimeSerializer.ToXsdTimeSpanString(((TimeOnly)oTimeOnly).ToTimeSpan());
-            WriteRawString(writer, stringValue);
+        this.WriteRawString(writer, stringValue);
         }
 
     /// <summary>
@@ -338,8 +372,12 @@ public struct JsonTypeSerializer
     /// <param name="oTimeOnly">The o time only.</param>
     public void WriteNullableTimeOnly(TextWriter writer, object oTimeOnly)
         {
-            if (oTimeOnly == null) return;
-            WriteTimeSpan(writer, ((TimeOnly?)oTimeOnly).Value.ToTimeSpan());
+            if (oTimeOnly == null)
+            {
+                return;
+            }
+
+            this.WriteTimeSpan(writer, ((TimeOnly?)oTimeOnly).Value.ToTimeSpan());
         }
 #endif
 
@@ -350,7 +388,7 @@ public struct JsonTypeSerializer
     /// <param name="oValue">The o value.</param>
     public void WriteGuid(TextWriter writer, object oValue)
     {
-        WriteRawString(writer, ((Guid)oValue).ToString("N"));
+        this.WriteRawString(writer, ((Guid)oValue).ToString("N"));
     }
 
     /// <summary>
@@ -360,8 +398,12 @@ public struct JsonTypeSerializer
     /// <param name="oValue">The o value.</param>
     public void WriteNullableGuid(TextWriter writer, object oValue)
     {
-        if (oValue == null) return;
-        WriteRawString(writer, ((Guid)oValue).ToString("N"));
+        if (oValue == null)
+        {
+            return;
+        }
+
+        this.WriteRawString(writer, ((Guid)oValue).ToString("N"));
     }
 
     /// <summary>
@@ -371,8 +413,12 @@ public struct JsonTypeSerializer
     /// <param name="oByteValue">The o byte value.</param>
     public void WriteBytes(TextWriter writer, object oByteValue)
     {
-        if (oByteValue == null) return;
-        WriteRawString(writer, Convert.ToBase64String((byte[])oByteValue));
+        if (oByteValue == null)
+        {
+            return;
+        }
+
+        this.WriteRawString(writer, Convert.ToBase64String((byte[])oByteValue));
     }
 
     /// <summary>
@@ -383,9 +429,13 @@ public struct JsonTypeSerializer
     public void WriteChar(TextWriter writer, object charValue)
     {
         if (charValue == null)
+        {
             writer.Write(JsonUtils.Null);
+        }
         else
-            WriteString(writer, ((char)charValue).ToString());
+        {
+            this.WriteString(writer, ((char)charValue).ToString());
+        }
     }
 
     /// <summary>
@@ -396,9 +446,13 @@ public struct JsonTypeSerializer
     public void WriteByte(TextWriter writer, object byteValue)
     {
         if (byteValue == null)
+        {
             writer.Write(JsonUtils.Null);
+        }
         else
+        {
             writer.Write((byte)byteValue);
+        }
     }
 
     /// <summary>
@@ -409,9 +463,13 @@ public struct JsonTypeSerializer
     public void WriteSByte(TextWriter writer, object sbyteValue)
     {
         if (sbyteValue == null)
+        {
             writer.Write(JsonUtils.Null);
+        }
         else
+        {
             writer.Write((sbyte)sbyteValue);
+        }
     }
 
     /// <summary>
@@ -422,9 +480,13 @@ public struct JsonTypeSerializer
     public void WriteInt16(TextWriter writer, object intValue)
     {
         if (intValue == null)
+        {
             writer.Write(JsonUtils.Null);
+        }
         else
+        {
             writer.Write((short)intValue);
+        }
     }
 
     /// <summary>
@@ -435,9 +497,13 @@ public struct JsonTypeSerializer
     public void WriteUInt16(TextWriter writer, object intValue)
     {
         if (intValue == null)
+        {
             writer.Write(JsonUtils.Null);
+        }
         else
+        {
             writer.Write((ushort)intValue);
+        }
     }
 
     /// <summary>
@@ -448,9 +514,13 @@ public struct JsonTypeSerializer
     public void WriteInt32(TextWriter writer, object intValue)
     {
         if (intValue == null)
+        {
             writer.Write(JsonUtils.Null);
+        }
         else
+        {
             writer.Write((int)intValue);
+        }
     }
 
     /// <summary>
@@ -461,9 +531,13 @@ public struct JsonTypeSerializer
     public void WriteUInt32(TextWriter writer, object uintValue)
     {
         if (uintValue == null)
+        {
             writer.Write(JsonUtils.Null);
+        }
         else
+        {
             writer.Write((uint)uintValue);
+        }
     }
 
     /// <summary>
@@ -474,9 +548,13 @@ public struct JsonTypeSerializer
     public void WriteInt64(TextWriter writer, object integerValue)
     {
         if (integerValue == null)
+        {
             writer.Write(JsonUtils.Null);
+        }
         else
+        {
             writer.Write((long)integerValue);
+        }
     }
 
     /// <summary>
@@ -491,7 +569,9 @@ public struct JsonTypeSerializer
             writer.Write(JsonUtils.Null);
         }
         else
+        {
             writer.Write((ulong)ulongValue);
+        }
     }
 
     /// <summary>
@@ -502,9 +582,13 @@ public struct JsonTypeSerializer
     public void WriteBool(TextWriter writer, object boolValue)
     {
         if (boolValue == null)
+        {
             writer.Write(JsonUtils.Null);
+        }
         else
+        {
             writer.Write((bool)boolValue ? JsonUtils.True : JsonUtils.False);
+        }
     }
 
     /// <summary>
@@ -522,9 +606,13 @@ public struct JsonTypeSerializer
         {
             var floatVal = (float)floatValue;
             if (Equals(floatVal, float.MaxValue) || Equals(floatVal, float.MinValue))
+            {
                 writer.Write(floatVal.ToString("r", CultureInfo.InvariantCulture));
+            }
             else
+            {
                 writer.Write(floatVal.ToString("r", CultureInfo.InvariantCulture));
+            }
         }
     }
 
@@ -543,9 +631,13 @@ public struct JsonTypeSerializer
         {
             var doubleVal = (double)doubleValue;
             if (Equals(doubleVal, double.MaxValue) || Equals(doubleVal, double.MinValue))
+            {
                 writer.Write(doubleVal.ToString("r", CultureInfo.InvariantCulture));
+            }
             else
+            {
                 writer.Write(doubleVal.ToString(CultureInfo.InvariantCulture));
+            }
         }
     }
 
@@ -568,12 +660,19 @@ public struct JsonTypeSerializer
     public void WriteEnum(TextWriter writer, object enumValue)
     {
         if (enumValue == null)
+        {
             return;
+        }
+
         var serializedValue = CachedTypeInfo.Get(enumValue.GetType()).EnumInfo.GetSerializedValue(enumValue);
         if (serializedValue is string strEnum)
-            WriteRawString(writer, strEnum);
+        {
+            this.WriteRawString(writer, strEnum);
+        }
         else
+        {
             JsWriter.WriteEnumFlags(writer, enumValue);
+        }
     }
 
     /// <summary>
@@ -617,7 +716,7 @@ public struct JsonTypeSerializer
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public string ParseString(ReadOnlySpan<char> value)
     {
-        return value.IsNullOrEmpty() ? null : ParseRawString(value.ToString());
+        return value.IsNullOrEmpty() ? null : this.ParseRawString(value.ToString());
     }
 
     /// <summary>
@@ -628,7 +727,7 @@ public struct JsonTypeSerializer
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public string ParseString(string value)
     {
-        return string.IsNullOrEmpty(value) ? value : ParseRawString(value);
+        return string.IsNullOrEmpty(value) ? value : this.ParseRawString(value);
     }
 
     /// <summary>
@@ -640,8 +739,16 @@ public struct JsonTypeSerializer
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static bool IsEmptyMap(ReadOnlySpan<char> value, int i = 1)
     {
-        for (; i < value.Length; i++) { var c = value[i]; if (!JsonUtils.IsWhiteSpace(c)) break; } //Whitespace inline
-        if (value.Length == i) return true;
+        for (; i < value.Length; i++) { var c = value[i]; if (!JsonUtils.IsWhiteSpace(c))
+            {
+                break;
+            }
+        } //Whitespace inline
+        if (value.Length == i)
+        {
+            return true;
+        }
+
         return value[i++] == JsWriter.MapEndChar;
     }
 
@@ -660,7 +767,9 @@ public struct JsonTypeSerializer
         var jsonLength = json.Length;
 
         if (json[index] != JsonUtils.QuoteChar)
+        {
             throw new Exception("Invalid unquoted string starting with: " + json.SafeSubstring(50).ToString());
+        }
 
         var startIndex = ++index;
         do
@@ -668,19 +777,25 @@ public struct JsonTypeSerializer
             var c = json[index];
 
             if (c == JsonUtils.QuoteChar)
+            {
                 break;
+            }
 
             if (c == JsonUtils.EscapeChar)
             {
                 index++;
                 if (json[index] == 'u')
+                {
                     index += 4;
+                }
             }
 
         } while (index++ < jsonLength);
 
         if (index == jsonLength)
+        {
             throw new Exception("Invalid unquoted string ending with: " + json.SafeSubstring(json.Length - 50, 50).ToString());
+        }
 
         index++;
         var str = json.Slice(startIndex, Math.Min(index, jsonLength) - startIndex - 1);
@@ -729,10 +844,14 @@ public struct JsonTypeSerializer
     public ReadOnlySpan<char> UnescapeSafeString(ReadOnlySpan<char> value)
     {
         if (value.IsEmpty)
+        {
             return value;
+        }
 
         if (value[0] == JsonUtils.QuoteChar && value[value.Length - 1] == JsonUtils.QuoteChar)
+        {
             return value.Slice(1, value.Length - 2);
+        }
 
         return value;
     }
@@ -761,8 +880,10 @@ public struct JsonTypeSerializer
     /// <param name="json">The json.</param>
     /// <param name="index">The index.</param>
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
-    private static ReadOnlySpan<char> UnescapeJsonString(ReadOnlySpan<char> json, int index) =>
-        UnescapeJsString(json, JsonUtils.QuoteChar, true, index).Span;
+    private static ReadOnlySpan<char> UnescapeJsonString(ReadOnlySpan<char> json, int index)
+    {
+        return UnescapeJsString(json, JsonUtils.QuoteChar, true, index).Span;
+    }
 
     /// <summary>
     /// Unescapes the js string.
@@ -774,7 +895,11 @@ public struct JsonTypeSerializer
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
     public static SpanIndex UnescapeJsString(ReadOnlySpan<char> json, char quoteChar, bool removeQuotes, int index)
     {
-        if (json.IsNullOrEmpty()) return new(json, index);
+        if (json.IsNullOrEmpty())
+        {
+            return new(json, index);
+        }
+
         var jsonLength = json.Length;
         var buffer = json;
 
@@ -787,7 +912,9 @@ public struct JsonTypeSerializer
             var jsonAtIndex = json.Slice(index);
             var strEndPos = jsonAtIndex.IndexOfAny(IsSafeJsonChars);
             if (strEndPos == -1)
+            {
                 return new(jsonAtIndex.Slice(0, jsonLength), index);
+            }
 
             if (jsonAtIndex[strEndPos] == quoteChar)
             {
@@ -807,11 +934,16 @@ public struct JsonTypeSerializer
             {
                 var c = buffer[i];
                 if (c == quoteChar || c == JsonUtils.EscapeChar)
+                {
                     break;
+                }
+
                 i++;
             }
             if (i == end)
+            {
                 return new(buffer.Slice(index, jsonLength - index), index);
+            }
         }
 
         return new(Unescape(json, removeQuotes: removeQuotes, quoteChar: quoteChar), index);
@@ -822,21 +954,31 @@ public struct JsonTypeSerializer
     /// </summary>
     /// <param name="input">The input.</param>
     /// <returns>System.String.</returns>
-    public static string Unescape(string input) => Unescape(input, true);
+    public static string Unescape(string input)
+    {
+        return Unescape(input, true);
+    }
+
     /// <summary>
     /// Unescapes the specified input.
     /// </summary>
     /// <param name="input">The input.</param>
     /// <param name="removeQuotes">if set to <c>true</c> [remove quotes].</param>
     /// <returns>System.String.</returns>
-    public static string Unescape(string input, bool removeQuotes) => Unescape(input.AsSpan(), removeQuotes).ToString();
+    public static string Unescape(string input, bool removeQuotes)
+    {
+        return Unescape(input.AsSpan(), removeQuotes).ToString();
+    }
 
     /// <summary>
     /// Unescapes the specified input.
     /// </summary>
     /// <param name="input">The input.</param>
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
-    public static ReadOnlySpan<char> Unescape(ReadOnlySpan<char> input) => Unescape(input, true);
+    public static ReadOnlySpan<char> Unescape(ReadOnlySpan<char> input)
+    {
+        return Unescape(input, true);
+    }
 
     /// <summary>
     /// Unescapes the specified input.
@@ -844,8 +986,10 @@ public struct JsonTypeSerializer
     /// <param name="input">The input.</param>
     /// <param name="removeQuotes">if set to <c>true</c> [remove quotes].</param>
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
-    public static ReadOnlySpan<char> Unescape(ReadOnlySpan<char> input, bool removeQuotes) =>
-        Unescape(input, removeQuotes, JsonUtils.QuoteChar);
+    public static ReadOnlySpan<char> Unescape(ReadOnlySpan<char> input, bool removeQuotes)
+    {
+        return Unescape(input, removeQuotes, JsonUtils.QuoteChar);
+    }
 
     /// <summary>
     /// Unescapes the specified input.
@@ -857,8 +1001,8 @@ public struct JsonTypeSerializer
     public static ReadOnlySpan<char> Unescape(ReadOnlySpan<char> input, bool removeQuotes, char quoteChar)
     {
         var length = input.Length;
-        int start = 0;
-        int count = 0;
+        var start = 0;
+        var count = 0;
         var output = StringBuilderThreadStatic.Allocate();
         for (; count < length;)
         {
@@ -885,7 +1029,10 @@ public struct JsonTypeSerializer
                 }
                 start = count;
                 count++;
-                if (count >= length) continue;
+                if (count >= length)
+                {
+                    continue;
+                }
 
                 //we will always be parsing an escaped char here
                 c = input[count];
@@ -1000,7 +1147,7 @@ public struct JsonTypeSerializer
     /// <returns>ReadOnlySpan&lt;System.Char&gt;.</returns>
     public ReadOnlySpan<char> EatTypeValue(ReadOnlySpan<char> value, ref int i)
     {
-        return EatValue(value, ref i);
+        return this.EatValue(value, ref i);
     }
 
     /// <summary>
@@ -1011,7 +1158,11 @@ public struct JsonTypeSerializer
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public bool EatMapStartChar(ReadOnlySpan<char> value, ref int i)
     {
-        for (; i < value.Length; i++) { var c = value[i]; if (!JsonUtils.IsWhiteSpace(c)) break; } //Whitespace inline
+        for (; i < value.Length; i++) { var c = value[i]; if (!JsonUtils.IsWhiteSpace(c))
+            {
+                break;
+            }
+        } //Whitespace inline
         return value[i++] == JsWriter.MapStartChar;
     }
 
@@ -1024,7 +1175,11 @@ public struct JsonTypeSerializer
     public ReadOnlySpan<char> EatMapKey(ReadOnlySpan<char> value, ref int i)
     {
         var valueLength = value.Length;
-        for (; i < value.Length; i++) { var c = value[i]; if (!JsonUtils.IsWhiteSpace(c)) break; } //Whitespace inline
+        for (; i < value.Length; i++) { var c = value[i]; if (!JsonUtils.IsWhiteSpace(c))
+            {
+                break;
+            }
+        } //Whitespace inline
 
         var tokenStartPos = i;
         var valueChar = value[i];
@@ -1067,8 +1222,16 @@ public struct JsonTypeSerializer
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public bool EatMapKeySeperator(ReadOnlySpan<char> value, ref int i)
     {
-        for (; i < value.Length; i++) { var c = value[i]; if (!JsonUtils.IsWhiteSpace(c)) break; } //Whitespace inline
-        if (value.Length == i) return false;
+        for (; i < value.Length; i++) { var c = value[i]; if (!JsonUtils.IsWhiteSpace(c))
+            {
+                break;
+            }
+        } //Whitespace inline
+        if (value.Length == i)
+        {
+            return false;
+        }
+
         return value[i++] == JsWriter.MapKeySeperator;
     }
 
@@ -1082,9 +1245,16 @@ public struct JsonTypeSerializer
     /// <exception cref="System.Exception">Expected '{JsWriter.ItemSeperator}' or '{JsWriter.MapEndChar}'</exception>
     public bool EatItemSeperatorOrMapEndChar(ReadOnlySpan<char> value, ref int i)
     {
-        for (; i < value.Length; i++) { var c = value[i]; if (!JsonUtils.IsWhiteSpace(c)) break; } //Whitespace inline
+        for (; i < value.Length; i++) { var c = value[i]; if (!JsonUtils.IsWhiteSpace(c))
+            {
+                break;
+            }
+        } //Whitespace inline
 
-        if (i == value.Length) return false;
+        if (i == value.Length)
+        {
+            return false;
+        }
 
         var success = value[i] == JsWriter.ItemSeperator || value[i] == JsWriter.MapEndChar;
 
@@ -1092,7 +1262,11 @@ public struct JsonTypeSerializer
         {
             i++;
 
-            for (; i < value.Length; i++) { var c = value[i]; if (!JsonUtils.IsWhiteSpace(c)) break; } //Whitespace inline
+            for (; i < value.Length; i++) { var c = value[i]; if (!JsonUtils.IsWhiteSpace(c))
+                {
+                    break;
+                }
+            } //Whitespace inline
         }
         else if (Env.StrictMode)
         {
@@ -1110,7 +1284,11 @@ public struct JsonTypeSerializer
     /// <param name="i">The i.</param>
     public void EatWhitespace(ReadOnlySpan<char> value, ref int i)
     {
-        for (; i < value.Length; i++) { var c = value[i]; if (!JsonUtils.IsWhiteSpace(c)) break; } //Whitespace inline
+        for (; i < value.Length; i++) { var c = value[i]; if (!JsonUtils.IsWhiteSpace(c))
+            {
+                break;
+            }
+        } //Whitespace inline
     }
 
     /// <summary>
@@ -1123,10 +1301,20 @@ public struct JsonTypeSerializer
     {
         var buf = value;
         var valueLength = value.Length;
-        if (i == valueLength) return default;
+        if (i == valueLength)
+        {
+            return default;
+        }
 
-        while (i < valueLength && JsonUtils.IsWhiteSpace(buf[i])) i++; //Whitespace inline
-        if (i == valueLength) return default;
+        while (i < valueLength && JsonUtils.IsWhiteSpace(buf[i]))
+        {
+            i++; //Whitespace inline
+        }
+
+        if (i == valueLength)
+        {
+            return default;
+        }
 
         var tokenStartPos = i;
         var valueChar = buf[i];
@@ -1161,10 +1349,14 @@ public struct JsonTypeSerializer
                     }
 
                     if (withinQuotes)
+                    {
                         continue;
+                    }
 
                     if (valueChar == JsWriter.MapStartChar)
+                    {
                         endsToEat++;
+                    }
 
                     if (valueChar == JsWriter.MapEndChar && --endsToEat == 0)
                     {
@@ -1191,10 +1383,14 @@ public struct JsonTypeSerializer
                     }
 
                     if (withinQuotes)
+                    {
                         continue;
+                    }
 
                     if (valueChar == JsWriter.ListStartChar)
+                    {
                         endsToEat++;
+                    }
 
                     if (valueChar == JsWriter.ListEndChar && --endsToEat == 0)
                     {

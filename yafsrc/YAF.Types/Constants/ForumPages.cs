@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -363,21 +363,6 @@ public enum ForumPages
     /// The Admin spam log page.
     /// </summary>
     Admin_SpamLog,
-
-    /// <summary>
-    /// The Admin nntp servers page.
-    /// </summary>
-    Admin_NntpServers,
-
-    /// <summary>
-    /// The Admin nntp forums page.
-    /// </summary>
-    Admin_NntpForums,
-
-    /// <summary>
-    /// The Admin nntp retrieve page.
-    /// </summary>
-    Admin_NntpRetrieve,
 
     /// <summary>
     /// The Admin version page.

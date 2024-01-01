@@ -142,9 +142,12 @@ public static class LogUtils
     /// </summary>
     /// <param name="log">The log.</param>
     /// <returns><c>true</c> if [is trace enabled] [the specified log]; otherwise, <c>false</c>.</returns>
-    public static bool IsTraceEnabled(this ILog log) => log is ILogTrace traceLog
-                                                            ? traceLog.IsTraceEnabled
-                                                            : log.IsDebugEnabled;
+    public static bool IsTraceEnabled(this ILog log)
+    {
+        return log is ILogTrace traceLog
+            ? traceLog.IsTraceEnabled
+            : log.IsDebugEnabled;
+    }
 
     /// <summary>
     /// Traces the specified message.
@@ -154,9 +157,13 @@ public static class LogUtils
     public static void Trace(this ILog log, object message)
     {
         if (log is ILogTrace traceLog)
+        {
             traceLog.Trace(message);
+        }
         else
+        {
             log.Debug(message);
+        }
     }
 
     /// <summary>
@@ -168,9 +175,13 @@ public static class LogUtils
     public static void Trace(this ILog log, object message, Exception exception)
     {
         if (log is ILogTrace traceLog)
+        {
             traceLog.Trace(message, exception);
+        }
         else
+        {
             log.Debug(message, exception);
+        }
     }
 
     /// <summary>
@@ -182,8 +193,12 @@ public static class LogUtils
     public static void TraceFormat(this ILog log, string format, params object[] args)
     {
         if (log is ILogTrace traceLog)
+        {
             traceLog.TraceFormat(format, args);
+        }
         else
+        {
             log.DebugFormat(format, args);
+        }
     }
 }

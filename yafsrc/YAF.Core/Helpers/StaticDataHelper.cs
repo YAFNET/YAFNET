@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -140,7 +140,6 @@ public static class StaticDataHelper
         var countries = localization.GetNodesUsingQuery("COUNTRY", x => x.Tag.StartsWith(string.Empty))
             .OrderBy(c => c.Text).ToList();
 
-        // vzrus: a temporary hack - it returns all tags if the page is not found
         if (countries.Count > 2000)
         {
             return countriesList;
@@ -149,6 +148,18 @@ public static class StaticDataHelper
         countries.ForEach(node => countriesList.Add(new SelectListItem(node.Text, node.Tag)));
 
         return countriesList;
+    }
+
+    /// <summary>
+    /// Gets all region names (localized)
+    /// </summary>
+    /// <param name="culture">The culture.</param>
+    /// <returns>
+    /// Returns a Data Table with all region names (localized)
+    /// </returns>
+    public static IReadOnlyCollection<SelectListItem> Regions(string culture)
+    {
+        return Regions(BoardContext.Current.Get<ILocalization>(), culture);
     }
 
     /// <summary>
@@ -211,22 +222,25 @@ public static class StaticDataHelper
             });
         });
 
-        var sourceResources = resources.FirstOrDefault(x => x.Resources.Code == "en");
+        var sourceResources = resources.First(x => x.Resources.Code == "en");
 
         resources.ForEach(
             resource =>
             {
                 var countTranslated = sourceResources.Resources.Page.Sum(
-                    sourcePage => (from sourceResource in sourcePage.Resource
-                                   let translatePage =
-                                       resource.Resources.Page.FirstOrDefault(p => p.Name == sourcePage.Name)
-                                   let translateResource =
-                                       translatePage.Resource.FirstOrDefault(r => r.Tag == sourceResource.Tag)
-                                   where !string.Equals(
-                                             sourceResource.Text,
-                                             translateResource.Text,
-                                             StringComparison.InvariantCultureIgnoreCase)
-                                   select sourceResource).Count());
+                    sourcePage => (sourcePage.Resource
+                        .Select(sourceResource => new {
+                            sourceResource,
+                            translatePage = resource.Resources.Page.First(p => p.Name == sourcePage.Name)
+                        })
+                        .Select(t => new {
+                            t,
+                            translateResource =
+                                t.translatePage.Resource.First(r => r.Tag == t.sourceResource.Tag)
+                        })
+                        .Where(t => !string.Equals(t.t.sourceResource.Text, t.translateResource.Text,
+                            StringComparison.InvariantCultureIgnoreCase))
+                        .Select(t => t.t.sourceResource)).Count());
 
                 if (resource.Resources.Language == "English")
                 {
@@ -241,18 +255,6 @@ public static class StaticDataHelper
             });
 
         return list;
-    }
-
-    /// <summary>
-    /// Gets all region names (localized)
-    /// </summary>
-    /// <param name="culture">The culture.</param>
-    /// <returns>
-    /// Returns a Data Table with all region names (localized)
-    /// </returns>
-    public static IReadOnlyCollection<SelectListItem> Regions(string culture)
-    {
-        return Regions(BoardContext.Current.Get<ILocalization>(), culture);
     }
 
     /// <summary>
@@ -293,7 +295,7 @@ public static class StaticDataHelper
                     list.AddRange(
                         from tag in tags
                         where !ci.IsNeutralCulture && tag.Value.ToLower()[..2]
-                                  .Contains(ci.TwoLetterISOLanguageName.ToLower())
+.Contains(ci.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase)
                         select new Culture
                                    {
                                        CultureTag = ci.IetfLanguageTag,
@@ -442,7 +444,7 @@ public static class StaticDataHelper
 
         var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
 
-        var tag = cultures.FirstOrDefault(
+        var tag = cultures.Find(
             ci => !ci.IsNeutralCulture
                   && rawTag.ToLower()[..2].Contains(ci.TwoLetterISOLanguageName.ToLower())
                   && ci.IetfLanguageTag.Length == 5)?.IetfLanguageTag;

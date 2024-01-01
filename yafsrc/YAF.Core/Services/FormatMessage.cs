@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -99,7 +99,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
                         bbCode = bbCode.Remove(bbCode.IndexOf('='));
                     }
 
-                    if (Array.Exists(codes, allowedTag => bbCode.ToLower().Equals(allowedTag.ToLower())))
+                    if (codes.Exists(allowedTag => bbCode.ToLower().Equals(allowedTag.ToLower())))
                     {
                         return;
                     }
@@ -323,7 +323,6 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// </returns>
     public string RepairHtml(string html, bool allowHtml)
     {
-        // vzrus: NNTP temporary tweaks to wipe out server hangs. Put it here as it can be in every place.
         // These are '\n\r' things related to multiline regexps.
         var mc1 = Regex.Matches(html, "[^\r]\n[^\r]", RegexOptions.IgnoreCase,
             TimeSpan.FromMilliseconds(100));

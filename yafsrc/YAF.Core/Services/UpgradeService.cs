@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -328,9 +328,6 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Attachment>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserGroup>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserForum>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<NntpServer>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<NntpForum>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<NntpTopic>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Replace_Words>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Spam_Words>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Registry>());

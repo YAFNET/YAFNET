@@ -28,7 +28,11 @@ public static class StreamExtensions
     /// </summary>
     /// <param name="ms">The ms.</param>
     /// <returns>string.</returns>
-    public static string ReadToEnd(this MemoryStream ms) => ReadToEnd(ms, JsConfig.UTF8Encoding);
+    public static string ReadToEnd(this MemoryStream ms)
+    {
+        return ReadToEnd(ms, JsConfig.UTF8Encoding);
+    }
+
     /// <summary>
     /// Reads to end.
     /// </summary>
@@ -91,7 +95,9 @@ public static class StreamExtensions
     public static string ReadToEnd(this Stream stream, Encoding encoding)
     {
         if (stream is MemoryStream ms)
+        {
             return ms.ReadToEnd();
+        }
 
         if (stream.CanSeek)
         {

@@ -28,7 +28,7 @@ public static class DeserializeListWithElements<TSerializer>
     /// The parse delegate cache
     /// </summary>
     private static Dictionary<Type, ParseListDelegate> ParseDelegateCache
-        = new();
+        = [];
 
     /// <summary>
     /// Delegate ParseListDelegate
@@ -84,7 +84,9 @@ public static class DeserializeListWithElements<TSerializer>
     public static ReadOnlySpan<char> StripList(ReadOnlySpan<char> value)
     {
         if (value.IsNullOrEmpty())
+        {
             return default;
+        }
 
         value = value.Trim();
 
@@ -142,7 +144,9 @@ public static class DeserializeListWithElements<TSerializer>
     public static List<int> ParseIntList(ReadOnlySpan<char> value)
     {
         if ((value = StripList(value)).IsNullOrEmpty())
+        {
             return value.IsEmpty ? null : [];
+        }
 
         var to = new List<int>();
         var valueLength = value.Length;
@@ -166,7 +170,9 @@ public static class DeserializeListWithElements<TSerializer>
     public static List<byte> ParseByteList(ReadOnlySpan<char> value)
     {
         if ((value = StripList(value)).IsNullOrEmpty())
+        {
             return value.IsEmpty ? null : [];
+        }
 
         var to = new List<byte>();
         var valueLength = value.Length;
@@ -212,13 +218,19 @@ public static class DeserializeListWithElements<T, TSerializer>
 
         var objSerializer = Json.JsonTypeSerializer.Instance.ObjectDeserializer;
         if (to is List<object> && objSerializer != null && typeof(TSerializer) == typeof(Json.JsonTypeSerializer))
+        {
             return (ICollection<T>)objSerializer(value);
+        }
 
         if ((value = DeserializeListWithElements<TSerializer>.StripList(value)).IsEmpty)
+        {
             return null;
+        }
 
         if (value.IsNullOrEmpty())
+        {
             return isReadOnly ? (ICollection<T>)Activator.CreateInstance(createListType, to) : to;
+        }
 
         var tryToParseItemsAsPrimitiveTypes =
             typeof(T) == typeof(object) && JsConfig.TryToParsePrimitiveTypeValues;
@@ -275,7 +287,9 @@ public static class DeserializeListWithElements<T, TSerializer>
                     }
 
                     if (isEmpty)
+                    {
                         to.Add(default);
+                    }
                 }
 
             }
@@ -329,14 +343,20 @@ public static class DeserializeList<T, TSerializer>
     {
         var listInterface = typeof(T).GetTypeWithGenericInterfaceOf(typeof(IList<>));
         if (listInterface == null)
+        {
             throw new ArgumentException($"Type {typeof(T).FullName} is not of type IList<>");
+        }
 
         //optimized access for regularly used types
         if (typeof(T) == typeof(List<string>))
+        {
             return DeserializeListWithElements<TSerializer>.ParseStringList;
+        }
 
         if (typeof(T) == typeof(List<int>))
+        {
             return DeserializeListWithElements<TSerializer>.ParseIntList;
+        }
 
         var elementType = listInterface.GetGenericArguments()[0];
 
@@ -397,14 +417,20 @@ static internal class DeserializeEnumerable<T, TSerializer>
     {
         var enumerableInterface = typeof(T).GetTypeWithGenericInterfaceOf(typeof(IEnumerable<>));
         if (enumerableInterface == null)
+        {
             throw new ArgumentException($"Type {typeof(T).FullName} is not of type IEnumerable<>");
+        }
 
         //optimized access for regularly used types
         if (typeof(T) == typeof(IEnumerable<string>))
+        {
             return DeserializeListWithElements<TSerializer>.ParseStringList;
+        }
 
         if (typeof(T) == typeof(IEnumerable<int>))
+        {
             return DeserializeListWithElements<TSerializer>.ParseIntList;
+        }
 
         var elementType = enumerableInterface.GetGenericArguments()[0];
 

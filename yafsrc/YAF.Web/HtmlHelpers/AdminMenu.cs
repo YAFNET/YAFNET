@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -106,13 +106,6 @@ public static class AdminMenuHtmlHelper
             content.AppendHtml(RenderAdminDatabase(pagesAccess, context));
         }
 
-        // Admin - Nntp Menu
-        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(
-                x => x.PageName is "Admin_NntpRetrieve" or "Admin_NntpForums" or "Admin_NntpServers"))
-        {
-            content.AppendHtml(RenderAdminNntp(pagesAccess, context));
-        }
-
         // Admin - Upgrade Menu
         if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(x => x.PageName == "Admin_Version"))
         {
@@ -211,7 +204,7 @@ public static class AdminMenuHtmlHelper
     /// <returns>
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
-    private static IHtmlContent RenderAdminSettings(
+    private static TagBuilder RenderAdminSettings(
         IReadOnlyCollection<AdminPageUserAccess> pagesAccess,
         BoardContext context)
     {
@@ -330,7 +323,7 @@ public static class AdminMenuHtmlHelper
     /// <returns>
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
-    private static IHtmlContent RenderAdminSpamProtection(
+    private static TagBuilder RenderAdminSpamProtection(
         IReadOnlyCollection<AdminPageUserAccess> pagesAccess,
         BoardContext context)
     {
@@ -448,7 +441,7 @@ public static class AdminMenuHtmlHelper
     /// <returns>
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
-    private static IHtmlContent RenderAdminUsersAndRoles(
+    private static TagBuilder RenderAdminUsersAndRoles(
         IReadOnlyCollection<AdminPageUserAccess> pagesAccess,
         BoardContext context)
     {
@@ -590,7 +583,7 @@ public static class AdminMenuHtmlHelper
     /// <returns>
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
-    private static IHtmlContent RenderAdminMaintenance(
+    private static TagBuilder RenderAdminMaintenance(
         IReadOnlyCollection<AdminPageUserAccess> pagesAccess,
         BoardContext context)
     {
@@ -734,7 +727,7 @@ public static class AdminMenuHtmlHelper
     /// <returns>
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
-    private static IHtmlContent RenderAdminDatabase(
+    private static TagBuilder RenderAdminDatabase(
         IReadOnlyCollection<AdminPageUserAccess> pagesAccess,
         BoardContext context)
     {
@@ -787,83 +780,6 @@ public static class AdminMenuHtmlHelper
     }
 
     /// <summary>
-    /// Render Admin NNTP sub menu
-    /// </summary>
-    /// <param name="pagesAccess">
-    /// The pages access.
-    /// </param>
-    /// <param name="context">
-    /// The context.
-    /// </param>
-    /// <returns>
-    /// The <see cref="IHtmlContent"/>.
-    /// </returns>
-    private static IHtmlContent RenderAdminNntp(
-        IReadOnlyCollection<AdminPageUserAccess> pagesAccess,
-        BoardContext context)
-    {
-        var listItem = new TagBuilder("li");
-
-        listItem.AddCssClass("dropdown dropend");
-
-        listItem.InnerHtml.AppendHtml(
-            RenderMenuItem(
-                "dropdown-item dropdown-toggle subdropdown-toggle",
-                context.Get<ILocalization>().GetText("ADMINMENU", "NNTP"),
-                "#",
-                context.CurrentForumPage.PageName is ForumPages.Admin_NntpRetrieve or ForumPages.Admin_NntpForums or ForumPages.Admin_NntpServers,
-                true,
-                "newspaper"));
-
-        var list = new TagBuilder("ul");
-
-        list.AddCssClass("dropdown-menu dropdown-submenu");
-
-        // Admin NntpServers
-        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_NntpServers"))
-        {
-            list.InnerHtml.AppendHtml(
-                RenderMenuItem(
-                    "dropdown-item",
-                    context.Get<ILocalization>().GetText("ADMINMENU", "admin_NntpServers"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_NntpServers),
-                    context.CurrentForumPage.PageName == ForumPages.Admin_NntpServers,
-                    false,
-                    "newspaper"));
-        }
-
-        // Admin NntpForums
-        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_NntpForums"))
-        {
-            list.InnerHtml.AppendHtml(
-                RenderMenuItem(
-                    "dropdown-item",
-                    context.Get<ILocalization>().GetText("ADMINMENU", "admin_NntpForums"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_NntpForums),
-                    context.CurrentForumPage.PageName == ForumPages.Admin_NntpForums,
-                    false,
-                    "newspaper"));
-        }
-
-        // Admin NntpRetrieve
-        if (context.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_NntpRetrieve"))
-        {
-            list.InnerHtml.AppendHtml(
-                RenderMenuItem(
-                    "dropdown-item",
-                    context.Get<ILocalization>().GetText("ADMINMENU", "admin_NntpRetrieve"),
-                    context.Get<LinkBuilder>().GetLink(ForumPages.Admin_NntpRetrieve),
-                    context.CurrentForumPage.PageName == ForumPages.Admin_NntpRetrieve,
-                    false,
-                    "newspaper"));
-        }
-
-        listItem.InnerHtml.AppendHtml(list);
-
-        return listItem;
-    }
-
-    /// <summary>
     /// Render Admin Upgrade sub menu
     /// </summary>
     /// <param name="pagesAccess">
@@ -875,7 +791,7 @@ public static class AdminMenuHtmlHelper
     /// <returns>
     /// The <see cref="IHtmlContent"/>.
     /// </returns>
-    private static IHtmlContent RenderAdminUpgrade(
+    private static TagBuilder RenderAdminUpgrade(
         IEnumerable<AdminPageUserAccess> pagesAccess,
         BoardContext context)
     {

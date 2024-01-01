@@ -57,7 +57,7 @@ static internal class DeserializeTypeRef
     /// <summary>
     /// The type accessors cache
     /// </summary>
-    private static Dictionary<Type, KeyValuePair<string, TypeAccessor>[]> TypeAccessorsCache = new();
+    private static Dictionary<Type, KeyValuePair<string, TypeAccessor>[]> TypeAccessorsCache = [];
 
     /// <summary>
     /// Gets the cached type accessors.
@@ -68,7 +68,9 @@ static internal class DeserializeTypeRef
     static internal KeyValuePair<string, TypeAccessor>[] GetCachedTypeAccessors(Type type, ITypeSerializer serializer)
     {
         if (TypeAccessorsCache.TryGetValue(type, out var typeAccessors))
+        {
             return typeAccessors;
+        }
 
         var typeConfig = new TypeConfig(type);
         typeAccessors = GetTypeAccessors(typeConfig, serializer);
@@ -100,7 +102,9 @@ static internal class DeserializeTypeRef
         var propertyInfos = type.GetSerializableProperties();
         var fieldInfos = type.GetSerializableFields();
         if (propertyInfos.Length == 0 && fieldInfos.Length == 0)
+        {
             return default;
+        }
 
         var accessors = new KeyValuePair<string, TypeAccessor>[propertyInfos.Length + fieldInfos.Length];
         var i = 0;

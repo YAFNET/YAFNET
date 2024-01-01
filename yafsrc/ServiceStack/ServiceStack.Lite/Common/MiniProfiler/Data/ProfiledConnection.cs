@@ -34,7 +34,7 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// <param name="autoDisposeConnection">Determines whether the ProfiledDbConnection will dispose the underlying connection.</param>
     public ProfiledConnection(DbConnection connection, IDbProfiler profiler, bool autoDisposeConnection = true)
     {
-        Init(connection, profiler, autoDisposeConnection);
+        this.Init(connection, profiler, autoDisposeConnection);
     }
 
     /// <summary>
@@ -46,13 +46,13 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// <exception cref="System.ArgumentNullException">connection</exception>
     private void Init(DbConnection connection, IDbProfiler profiler, bool autoDisposeConnection)
     {
-        AutoDisposeConnection = autoDisposeConnection;
-        _conn = connection ?? throw new ArgumentNullException(nameof(connection));
-        _conn.StateChange += StateChangeHandler;
+        this.AutoDisposeConnection = autoDisposeConnection;
+        this._conn = connection ?? throw new ArgumentNullException(nameof(connection));
+        this._conn.StateChange += this.StateChangeHandler;
 
         if (profiler != null)
         {
-            _profiler = profiler;
+            this._profiler = profiler;
         }
     }
 
@@ -65,12 +65,17 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// <exception cref="System.ArgumentException"></exception>
     public ProfiledConnection(IDbConnection connection, IDbProfiler profiler, bool autoDisposeConnection = true)
     {
-        if (connection is IHasDbConnection hasConn) connection = hasConn.DbConnection;
+        if (connection is IHasDbConnection hasConn)
+        {
+            connection = hasConn.DbConnection;
+        }
 
         if (connection is not DbConnection dbConn)
+        {
             throw new ArgumentException(connection.GetType().FullName + " does not inherit DbConnection");
+        }
 
-        Init(dbConn, profiler, autoDisposeConnection);
+        this.Init(dbConn, profiler, autoDisposeConnection);
     }
 
 
@@ -82,15 +87,15 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// <value>The inner connection.</value>
     public DbConnection InnerConnection
     {
-        get => _conn;
-        protected set => _conn = value;
+        get => this._conn;
+        protected set => this._conn = value;
     }
 
     /// <summary>
     /// Gets the database connection.
     /// </summary>
     /// <value>The database connection.</value>
-    public IDbConnection DbConnection => _conn;
+    public IDbConnection DbConnection => this._conn;
 
     /// <summary>
     /// The current profiler instance; could be null.
@@ -98,15 +103,15 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// <value>The profiler.</value>
     public IDbProfiler Profiler
     {
-        get => _profiler;
-        protected set => _profiler = value;
+        get => this._profiler;
+        protected set => this._profiler = value;
     }
 
     /// <summary>
     /// The raw connection this is wrapping
     /// </summary>
     /// <value>The wrapped connection.</value>
-    public DbConnection WrappedConnection => _conn;
+    public DbConnection WrappedConnection => this._conn;
 
     /// <summary>
     /// Gets a value indicating whether the component can raise an event.
@@ -120,39 +125,39 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// <value>The connection string.</value>
     public override string ConnectionString
     {
-        get => _conn.ConnectionString;
-        set => _conn.ConnectionString = value;
+        get => this._conn.ConnectionString;
+        set => this._conn.ConnectionString = value;
     }
 
     /// <summary>
     /// Gets the time to wait while establishing a connection before terminating the attempt and generating an error.
     /// </summary>
     /// <value>The connection timeout.</value>
-    public override int ConnectionTimeout => _conn.ConnectionTimeout;
+    public override int ConnectionTimeout => this._conn.ConnectionTimeout;
 
     /// <summary>
     /// Gets the name of the current database after a connection is opened, or the database name specified in the connection string before the connection is opened.
     /// </summary>
     /// <value>The database.</value>
-    public override string Database => _conn.Database;
+    public override string Database => this._conn.Database;
 
     /// <summary>
     /// Gets the name of the database server to which to connect.
     /// </summary>
     /// <value>The data source.</value>
-    public override string DataSource => _conn.DataSource;
+    public override string DataSource => this._conn.DataSource;
 
     /// <summary>
     /// Gets a string that represents the version of the server to which the object is connected.
     /// </summary>
     /// <value>The server version.</value>
-    public override string ServerVersion => _conn.ServerVersion;
+    public override string ServerVersion => this._conn.ServerVersion;
 
     /// <summary>
     /// Gets a string that describes the state of the connection.
     /// </summary>
     /// <value>The state.</value>
-    public override ConnectionState State => _conn.State;
+    public override ConnectionState State => this._conn.State;
 
     /// <summary>
     /// Gets or sets a value indicating whether [automatic dispose connection].
@@ -166,7 +171,7 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// <param name="databaseName">Specifies the name of the database for the connection to use.</param>
     public override void ChangeDatabase(string databaseName)
     {
-        _conn.ChangeDatabase(databaseName);
+        this._conn.ChangeDatabase(databaseName);
     }
 
     /// <summary>
@@ -174,8 +179,10 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// </summary>
     public override void Close()
     {
-        if (AutoDisposeConnection)
-            _conn.Close();
+        if (this.AutoDisposeConnection)
+        {
+            this._conn.Close();
+        }
     }
 
     //public override void EnlistTransaction(System.Transactions.Transaction transaction)
@@ -219,8 +226,10 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// </summary>
     public override void Open()
     {
-        if (_conn.State != ConnectionState.Open)
-            _conn.Open();
+        if (this._conn.State != ConnectionState.Open)
+        {
+            this._conn.Open();
+        }
     }
 
     /// <summary>
@@ -230,7 +239,7 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// <returns>An object representing the new transaction.</returns>
     override protected DbTransaction BeginDbTransaction(IsolationLevel isolationLevel)
     {
-        return new ProfiledDbTransaction(_conn.BeginTransaction(isolationLevel), this);
+        return new ProfiledDbTransaction(this._conn.BeginTransaction(isolationLevel), this);
     }
 
     /// <summary>
@@ -239,7 +248,7 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// <returns>A <see cref="T:System.Data.Common.DbCommand" /> object.</returns>
     override protected DbCommand CreateDbCommand()
     {
-        return new ProfiledCommand(_conn.CreateCommand(), this, _profiler);
+        return new ProfiledCommand(this._conn.CreateCommand(), this, this._profiler);
     }
 
     /// <summary>
@@ -248,14 +257,16 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// <param name="disposing"><see langword="true" /> to release both managed and unmanaged resources; <see langword="false" /> to release only unmanaged resources.</param>
     override protected void Dispose(bool disposing)
     {
-        if (disposing && _conn != null)
+        if (disposing && this._conn != null)
         {
-            _conn.StateChange -= StateChangeHandler;
-            if (AutoDisposeConnection)
-                _conn.Dispose();
+            this._conn.StateChange -= this.StateChangeHandler;
+            if (this.AutoDisposeConnection)
+            {
+                this._conn.Dispose();
+            }
         }
-        _conn = null;
-        _profiler = null;
+        this._conn = null;
+        this._profiler = null;
         base.Dispose(disposing);
     }
 
@@ -266,7 +277,7 @@ public class ProfiledConnection : DbConnection, IHasDbConnection
     /// <param name="e">The <see cref="StateChangeEventArgs" /> instance containing the event data.</param>
     void StateChangeHandler(object sender, StateChangeEventArgs e)
     {
-        OnStateChange(e);
+        this.OnStateChange(e);
     }
 }
 

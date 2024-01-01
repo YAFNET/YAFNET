@@ -60,6 +60,7 @@ public static class OrmLiteConfig
                 throw new ArgumentNullException(nameof(DialectProvider),
                     "You must set the singleton 'OrmLiteConfig.DialectProvider' to use the OrmLiteWriteExtensions");
             }
+
             return dialectProvider;
         }
         set => dialectProvider = value;
