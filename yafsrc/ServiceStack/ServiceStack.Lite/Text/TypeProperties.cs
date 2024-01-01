@@ -166,7 +166,7 @@ public abstract class TypeProperties
     /// <summary>
     /// The property map
     /// </summary>
-    public readonly Dictionary<string, PropertyAccessor> PropertyMap = new(StringComparer.OrdinalIgnoreCase);
+    public Dictionary<string, PropertyAccessor> PropertyMap { get; } = new(StringComparer.OrdinalIgnoreCase);
 
     /// <summary>
     /// Gets or sets the public property infos.

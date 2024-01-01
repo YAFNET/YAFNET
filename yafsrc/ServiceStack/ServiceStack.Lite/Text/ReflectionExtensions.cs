@@ -23,6 +23,7 @@ using System.Threading;
 /// <param name="type">The type.</param>
 /// <returns>EmptyCtorDelegate.</returns>
 public delegate EmptyCtorDelegate EmptyCtorFactoryDelegate(Type type);
+
 /// <summary>
 /// Delegate EmptyCtorDelegate
 /// </summary>
@@ -81,6 +82,7 @@ public static class ReflectionExtensions
 
             type = type.BaseType;
         }
+
         return false;
     }
 
@@ -100,6 +102,7 @@ public static class ReflectionExtensions
 
             type = type.BaseType;
         }
+
         return null;
     }
 
@@ -124,6 +127,7 @@ public static class ReflectionExtensions
                 return genericType;
             }
         }
+
         return null;
     }
 
@@ -147,12 +151,9 @@ public static class ReflectionExtensions
     /// <returns>Type.</returns>
     public static Type GetTypeWithGenericTypeDefinitionOf(this Type type, Type genericTypeDefinition)
     {
-        foreach (var t in type.GetInterfaces())
+        foreach (var t in type.GetInterfaces().Where(t => t.IsGenericType && t.GetGenericTypeDefinition() == genericTypeDefinition))
         {
-            if (t.IsGenericType && t.GetGenericTypeDefinition() == genericTypeDefinition)
-            {
-                return t;
-            }
+            return t;
         }
 
         var genericType = type.FirstGenericType();
@@ -172,7 +173,7 @@ public static class ReflectionExtensions
     /// <returns><c>true</c> if the specified interface type has interface; otherwise, <c>false</c>.</returns>
     public static bool HasInterface(this Type type, Type interfaceType)
     {
-        return type.GetInterfaces().Exists(t => t == interfaceType);
+        return type.IsAssignableTo(interfaceType);
     }
 
     /// <summary>
@@ -202,43 +203,50 @@ public static class ReflectionExtensions
     /// <returns><c>true</c> if [is numeric type] [the specified type]; otherwise, <c>false</c>.</returns>
     public static bool IsNumericType(this Type type)
     {
-        if (type == null)
+        while (true)
         {
+            if (type == null)
+            {
+                return false;
+            }
+
+            if (type.IsEnum) //TypeCode can be TypeCode.Int32
+            {
+                return JsConfig.TreatEnumAsInteger || type.IsEnumFlags();
+            }
+
+            switch (GetTypeCode(type))
+            {
+                case TypeCode.Byte:
+                case TypeCode.Decimal:
+                case TypeCode.Double:
+                case TypeCode.Int16:
+                case TypeCode.Int32:
+                case TypeCode.Int64:
+                case TypeCode.SByte:
+                case TypeCode.Single:
+                case TypeCode.UInt16:
+                case TypeCode.UInt32:
+                case TypeCode.UInt64:
+                    return true;
+
+                case TypeCode.Object:
+                    if (type.IsNullableType())
+                    {
+                        type = Nullable.GetUnderlyingType(type);
+                        continue;
+                    }
+
+                    if (type.IsEnum)
+                    {
+                        return JsConfig.TreatEnumAsInteger || type.IsEnumFlags();
+                    }
+
+                    return false;
+            }
+
             return false;
         }
-
-        if (type.IsEnum) //TypeCode can be TypeCode.Int32
-        {
-            return JsConfig.TreatEnumAsInteger || type.IsEnumFlags();
-        }
-
-        switch (GetTypeCode(type))
-        {
-            case TypeCode.Byte:
-            case TypeCode.Decimal:
-            case TypeCode.Double:
-            case TypeCode.Int16:
-            case TypeCode.Int32:
-            case TypeCode.Int64:
-            case TypeCode.SByte:
-            case TypeCode.Single:
-            case TypeCode.UInt16:
-            case TypeCode.UInt32:
-            case TypeCode.UInt64:
-                return true;
-
-            case TypeCode.Object:
-                if (type.IsNullableType())
-                {
-                    return IsNumericType(Nullable.GetUnderlyingType(type));
-                }
-                if (type.IsEnum)
-                {
-                    return JsConfig.TreatEnumAsInteger || type.IsEnumFlags();
-                }
-                return false;
-        }
-        return false;
     }
 
     /// <summary>
@@ -290,12 +298,9 @@ public static class ReflectionExtensions
     /// <returns>Type.</returns>
     public static Type GetTypeWithGenericInterfaceOf(this Type type, Type genericInterfaceType)
     {
-        foreach (var t in type.GetInterfaces())
+        foreach (var t in type.GetInterfaces().Where(t => t.IsGenericType && t.GetGenericTypeDefinition() == genericInterfaceType))
         {
-            if (t.IsGenericType && t.GetGenericTypeDefinition() == genericInterfaceType)
-            {
-                return t;
-            }
+            return t;
         }
 
         if (!type.IsGenericType)
@@ -407,6 +412,7 @@ public static class ReflectionExtensions
     /// The constructor methods
     /// </summary>
     private static Dictionary<Type, EmptyCtorDelegate> ConstructorMethods = [];
+
     /// <summary>
     /// Gets the constructor method.
     /// </summary>
@@ -438,6 +444,7 @@ public static class ReflectionExtensions
     /// The type names map
     /// </summary>
     private static Dictionary<string, EmptyCtorDelegate> TypeNamesMap = [];
+
     /// <summary>
     /// Gets the constructor method.
     /// </summary>
@@ -466,7 +473,6 @@ public static class ReflectionExtensions
                            {
                                [typeName] = emptyCtorFn
                            };
-
         } while (!ReferenceEquals(
                      Interlocked.CompareExchange(ref TypeNamesMap, newCache, snapshot), snapshot));
 
@@ -542,6 +548,7 @@ public static class ReflectionExtensions
         /// The empty ctor function
         /// </summary>
         public readonly static EmptyCtorDelegate EmptyCtorFn;
+
         /// <summary>
         /// Initializes static members of the <see cref="TypeMeta{T}" /> class.
         /// </summary>
@@ -671,13 +678,8 @@ public static class ReflectionExtensions
             while (queue.Count > 0)
             {
                 var subType = queue.Dequeue();
-                foreach (var subInterface in subType.GetInterfaces())
+                foreach (var subInterface in subType.GetInterfaces().Where(subInterface => !considered.Contains(subInterface)))
                 {
-                    if (considered.Contains(subInterface))
-                    {
-                        continue;
-                    }
-
                     considered.Add(subInterface);
                     queue.Enqueue(subInterface);
                 }
@@ -717,13 +719,8 @@ public static class ReflectionExtensions
             while (queue.Count > 0)
             {
                 var subType = queue.Dequeue();
-                foreach (var subInterface in subType.GetInterfaces())
+                foreach (var subInterface in subType.GetInterfaces().Where(subInterface => !considered.Contains(subInterface)))
                 {
-                    if (considered.Contains(subInterface))
-                    {
-                        continue;
-                    }
-
                     considered.Add(subInterface);
                     queue.Enqueue(subInterface);
                 }
@@ -754,7 +751,7 @@ public static class ReflectionExtensions
     /// </summary>
     static internal string[] IgnoreAttributesNamed = [
         "IgnoreDataMemberAttribute",
-                                                                   "JsonIgnoreAttribute"
+        "JsonIgnoreAttribute"
     ];
 
     /// <summary>
@@ -764,7 +761,7 @@ public static class ReflectionExtensions
     {
         IgnoreAttributesNamed = [
             "IgnoreDataMemberAttribute",
-                                              "JsonIgnoreAttribute"
+            "JsonIgnoreAttribute"
         ];
 
         try
