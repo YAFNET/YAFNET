@@ -1,4 +1,4 @@
-﻿<%@ Page Language="c#" AutoEventWireup="True" Inherits="YAF.Install._default" CodeBehind="default.aspx.cs" %>
+﻿<%@ Page Language="c#" AutoEventWireup="True" Inherits="YAF.Install.install" CodeBehind="default.aspx.cs" %>
 
 <!doctype html>
 <html lang="en">

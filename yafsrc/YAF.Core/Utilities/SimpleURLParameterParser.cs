@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Utilities;
 
 using System.Collections.Specialized;
@@ -66,7 +67,7 @@ public class SimpleURLParameterParser
     /// <summary>
     ///   Gets Parameters.
     /// </summary>
-    public NameValueCollection Parameters { get; } = new();
+    public NameValueCollection Parameters { get; } = [];
 
     /// <summary>
     /// The this.
@@ -93,11 +94,8 @@ public class SimpleURLParameterParser
     /// <returns>
     /// Returns the created query string.
     /// </returns>
-    
     public string CreateQueryString(string[] excludeValues)
     {
-        CodeContracts.VerifyNotNull(excludeValues);
-
         var queryBuilder = new StringBuilder();
 
         this.Parameters.Cast<string>().Where(k => !excludeValues.Contains(k)).ForEach(

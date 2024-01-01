@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -36,7 +36,7 @@ public partial class Team : ForumPage
     /// <summary>
     ///   The Moderators List
     /// </summary>
-    private List<SimpleModerator> completeModsList = new ();
+    private List<SimpleModerator> completeModsList = [];
 
     /// <summary>
     ///   Initializes a new instance of the <see cref = "Team" /> class.
@@ -256,9 +256,9 @@ public partial class Team : ForumPage
 
         if (forums.Any())
         {
-            forumsJump.AddForumAndCategoryIcons(forumList, this.GetTextFormatted("VIEW_FORUMS", forums.Count()));
+            forumsJump.AddForumAndCategoryIcons(forumList, this.GetTextFormatted("VIEW_FORUMS", forums.Count));
 
-            forumsJump.Attributes["PlaceHolder"] = this.GetTextFormatted("VIEW_FORUMS", forums.Count());
+            forumsJump.Attributes["PlaceHolder"] = this.GetTextFormatted("VIEW_FORUMS", forums.Count);
         }
         else
         {

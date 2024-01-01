@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -48,9 +48,6 @@ public static class ISendMailExtensions
         string subject,
         string body)
     {
-        CodeContracts.VerifyNotNull(fromEmail);
-        CodeContracts.VerifyNotNull(toEmail);
-
         sendMail.Send(
             new MailAddress(fromEmail),
             new MailAddress(toEmail),
@@ -98,10 +95,6 @@ public static class ISendMailExtensions
         string bodyText,
         string bodyHtml)
     {
-        CodeContracts.VerifyNotNull(sendMail);
-        CodeContracts.VerifyNotNull(fromAddress);
-        CodeContracts.VerifyNotNull(toAddress);
-
         var mailMessage = new MailMessage();
 
         mailMessage.Populate(fromAddress, toAddress, senderAddress, subject, bodyText, bodyHtml);
@@ -145,10 +138,6 @@ public static class ISendMailExtensions
         string bodyText,
         string bodyHtml)
     {
-        CodeContracts.VerifyNotNull(sendMail);
-        CodeContracts.VerifyNotNull(fromAddress);
-        CodeContracts.VerifyNotNull(toAddress);
-
         var mailMessage = new MailMessage();
 
         mailMessage.Populate(fromAddress, toAddress, senderAddress, subject, bodyText, bodyHtml);

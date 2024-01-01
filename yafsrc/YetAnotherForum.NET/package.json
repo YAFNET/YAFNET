@@ -1,9 +1,9 @@
 {
     "name": "yetanotherforum-net",
-    "version": "3.2.0",
+    "version": "3.2.2",
     "private": true,
     "devDependencies": {
-        "@babel/preset-env": "^7.23.6",
+        "@babel/preset-env": "^7.23.7",
         "@lodder/grunt-postcss": "^3.1.1",
         "@w8tcha/grunt-dev-update": "^2.3.1",
         "autoprefixer": "^10.4.16",
@@ -19,7 +19,7 @@
         "grunt-shell": "^4.0.0",
         "grunt-webpack": "^6.0.0",
         "postcss": "^8.4.32",
-        "sass": "^1.69.5",
+        "sass": "^1.69.6",
         "webpack": "^5.89.0",
         "webpack-merge": "^5.10.0"
     },

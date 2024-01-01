@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -57,7 +57,7 @@ public static class MessageRepositoryExtensions
         int topicId,
         int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.Count(m => m.TopicID == topicId && m.UserID == userId) > 0;
     }
@@ -78,7 +78,7 @@ public static class MessageRepositoryExtensions
         this IRepository<Message> repository,
         int messageId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.DbAccess.Execute(db => db.Connection.LoadSingleById<Message>(messageId));
     }
@@ -99,7 +99,7 @@ public static class MessageRepositoryExtensions
         this IRepository<Message> repository,
         int messageId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
@@ -130,7 +130,7 @@ public static class MessageRepositoryExtensions
         int messageId,
         int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
@@ -291,7 +291,7 @@ public static class MessageRepositoryExtensions
         int pageSize,
         int messagePosition)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         if (updateViewCount)
         {
@@ -446,7 +446,7 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static List<Tuple<Message, User>> LastPosts(this IRepository<Message> repository, int topicId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
@@ -473,7 +473,7 @@ public static class MessageRepositoryExtensions
         this IRepository<Message> repository,
         int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.DbAccess.Execute(db => db.Connection.LoadSelect<Message>(m => m.UserID == userId)
             .OrderByDescending(m => m.Posted));
@@ -507,7 +507,7 @@ public static class MessageRepositoryExtensions
         int pageUserId,
         int count)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
@@ -541,7 +541,7 @@ public static class MessageRepositoryExtensions
         this IRepository<Message> repository,
         int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
 
@@ -570,7 +570,7 @@ public static class MessageRepositoryExtensions
     /// </param>
     public static void Approve(this IRepository<Message> repository, int messageId, int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var message = repository.GetMessage(messageId);
 
@@ -637,7 +637,7 @@ public static class MessageRepositoryExtensions
         int messageId,
         int flags)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.UpdateOnly(() => new Message { Flags = flags }, u => u.ID == messageId);
     }
@@ -683,7 +683,7 @@ public static class MessageRepositoryExtensions
         bool eraseMessage,
         bool isTopicDeleteAction = false)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var forum = BoardContext.Current.GetRepository<Forum>().GetById(forumId);
 
@@ -723,7 +723,7 @@ public static class MessageRepositoryExtensions
         int topicId,
         Message message)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.RestoreRecursively(
             forumId,
@@ -760,7 +760,7 @@ public static class MessageRepositoryExtensions
         int moveToTopicId,
         bool moveAll)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.Move(message, moveToTopicId);
 
@@ -796,7 +796,7 @@ public static class MessageRepositoryExtensions
     /// </returns>
     public static List<Message> Replies(this IRepository<Message> repository, int messageId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.DbAccess.Execute(
             db => db.Connection.LoadSelect<Message>(m => (m.Flags & 16) == 16 && m.ReplyTo == messageId));
@@ -830,7 +830,7 @@ public static class MessageRepositoryExtensions
         DateTime lastRead,
         bool showDeleted)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var minDateTime = DateTimeHelper.SqlDbMinTime().AddYears(-1);
 
@@ -958,7 +958,7 @@ public static class MessageRepositoryExtensions
         int messageId,
         int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         BoardContext.Current.GetRepository<MessageReported>().UpdateOnly(
             () => new MessageReported { Resolved = true, ResolvedBy = userId, ResolvedDate = DateTime.UtcNow },
@@ -1024,7 +1024,7 @@ public static class MessageRepositoryExtensions
         int? replyTo,
         MessageFlags flags)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         int position;
 
@@ -1130,7 +1130,7 @@ public static class MessageRepositoryExtensions
         this IRepository<Message> repository,
         int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
@@ -1198,7 +1198,7 @@ public static class MessageRepositoryExtensions
         User originalMessageUser,
         int editedBy)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         if (overrideApproval || !forum.ForumFlags.IsModerated)
         {
@@ -1337,7 +1337,7 @@ public static class MessageRepositoryExtensions
         bool eraseMessages,
         bool isTopicDeleteAction)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         if (deleteLinked)
         {
@@ -1406,7 +1406,7 @@ public static class MessageRepositoryExtensions
         int topicId,
         Message message)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         // Restore replies
         var replies = repository.Get(m => m.ReplyTo == message.ID).ToList();
@@ -1438,7 +1438,7 @@ public static class MessageRepositoryExtensions
         Message message,
         int moveToTopicId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var replies = repository.Get(m => m.ReplyTo == message.ID);
 
@@ -1484,7 +1484,7 @@ public static class MessageRepositoryExtensions
         bool eraseMessage,
         bool isTopicDeleteAction)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         // -- Update LastMessageID in Topic
         BoardContext.Current.GetRepository<Topic>().UpdateOnly(
@@ -1634,7 +1634,7 @@ public static class MessageRepositoryExtensions
         int topicId,
         Message message)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var flags = message.MessageFlags;
 
@@ -1690,7 +1690,7 @@ public static class MessageRepositoryExtensions
         Message message,
         int moveToTopicId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         int? replyToId = repository.GetSingle(x => x.Position == 0 && x.TopicID == moveToTopicId)?.ID;
 

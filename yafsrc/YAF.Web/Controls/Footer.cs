@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -111,7 +111,7 @@ public class Footer : BaseControl
 
         var extensions = this.Get<IList<Assembly>>("ExtensionAssemblies").Select(a => a.FullName).ToList();
 
-        if (extensions.Any(x => x.Contains("PublicKeyToken=f3828393ba2d803c")))
+        if (extensions.Exists(x => x.Contains("PublicKeyToken=f3828393ba2d803c")))
         {
             writer.Write("Official YAF.NET Release: Modules with Public Key of f3828393ba2d803c Loaded.");
         }
@@ -120,7 +120,7 @@ public class Footer : BaseControl
             """<div style="margin:auto;padding:5px;text-align:right;font-size:7pt;"><span style="color: green">{0}</span></div>""",
             Config.ConnectionProviderName);
 
-        if (extensions.Any(x => x.Contains(".Module")))
+        if (extensions.Exists(x => x.Contains(".Module")))
         {
             writer.Write(
                 """<br /><br />Extensions Loaded: <span style="color: green">{0}</span>""",

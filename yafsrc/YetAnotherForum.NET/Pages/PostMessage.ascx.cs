@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -263,7 +263,7 @@ public partial class PostMessage : ForumPage
 
                         if (
                             !this.Get<ISession>()
-                                .MultiQuoteIds.Any(m => m.MessageID.Equals(quoteId)))
+                                .MultiQuoteIds.Exists(m => m.MessageID.Equals(quoteId)))
                         {
                             this.Get<ISession>()
                                 .MultiQuoteIds.Add(

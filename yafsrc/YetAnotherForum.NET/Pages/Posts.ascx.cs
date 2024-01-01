@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -293,7 +293,7 @@ public partial class Posts : ForumPage
         // Clear Multi-quotes if topic is different
         if (this.Get<ISession>().MultiQuoteIds != null)
         {
-            if (!this.Get<ISession>().MultiQuoteIds.Any(m => m.TopicID.Equals(this.PageBoardContext.PageTopicID)))
+            if (!this.Get<ISession>().MultiQuoteIds.Exists(m => m.TopicID.Equals(this.PageBoardContext.PageTopicID)))
             {
                 this.Get<ISession>().MultiQuoteIds = null;
             }
@@ -707,7 +707,7 @@ public partial class Posts : ForumPage
                 this.EmailTopic_Click(sender, e);
                 break;
             default:
-                throw new ApplicationException(e.Item);
+                throw new ArgumentNullException(e.Item);
         }
     }
 
@@ -735,7 +735,7 @@ public partial class Posts : ForumPage
                     new {feed = RssFeeds.Posts.ToInt(), t = this.PageBoardContext.PageTopicID, name = this.PageBoardContext.PageTopic.TopicName });
                 break;
             default:
-                throw new ApplicationException(e.Item);
+                throw new ArgumentNullException(e.Item);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -48,7 +48,7 @@ public static class AdminPageUserAccessRepositoryExtensions
         this IRepository<AdminPageUserAccess> repository,
         int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.Get(a => a.UserID == userId).Select(
             a => new AdminPageUserAccess { PageName = a.PageName, UserID = a.UserID, ReadAccess = true });
@@ -74,7 +74,7 @@ public static class AdminPageUserAccessRepositoryExtensions
         int userId,
         string pageName)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var access = repository.GetSingle(a => a.UserID == userId && a.PageName == pageName);
 
@@ -98,7 +98,7 @@ public static class AdminPageUserAccessRepositoryExtensions
         int userId,
         string pageName)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         if (!repository.Get(a => a.UserID == userId && a.PageName == pageName).Any())
         {
@@ -123,7 +123,7 @@ public static class AdminPageUserAccessRepositoryExtensions
         int userId,
         string pageName)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.Delete(u => u.UserID == userId && u.PageName == pageName);
     }

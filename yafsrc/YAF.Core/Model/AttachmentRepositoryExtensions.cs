@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -64,7 +64,7 @@ public static class AttachmentRepositoryExtensions
         int? pageIndex = 0,
         int? pageSize = 10000000)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
@@ -90,7 +90,7 @@ public static class AttachmentRepositoryExtensions
     /// </returns>
     public static List<Message> GetMessageAttachments(this IRepository<Attachment> repository)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
@@ -110,7 +110,7 @@ public static class AttachmentRepositoryExtensions
     /// </param>
     public static void Delete(this IRepository<Attachment> repository, int attachmentId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var attachment = repository.GetById(attachmentId);
 
@@ -137,7 +137,7 @@ public static class AttachmentRepositoryExtensions
     /// <param name="attachmentId">The attachment identifier.</param>
     public static void IncrementDownloadCounter(this IRepository<Attachment> repository, int attachmentId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.UpdateAdd(() => new Attachment { Downloads = 1 }, a => a.ID == attachmentId);
     }
@@ -160,7 +160,7 @@ public static class AttachmentRepositoryExtensions
         string contentType,
         byte[] fileData = null)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var entity = new Attachment
                          {

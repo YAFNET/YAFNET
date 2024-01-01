@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -49,8 +49,6 @@ public static class CheckEmailRepositoryExtensions
         this IRepository<CheckEmail> repository,
         string email = null)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         return email.IsSet() ? repository.Get(mail => mail.Email == email) : repository.Get(null);
     }
 
@@ -75,10 +73,6 @@ public static class CheckEmailRepositoryExtensions
         string hash,
         string email)
     {
-        CodeContracts.VerifyNotNull(hash);
-        CodeContracts.VerifyNotNull(email);
-        CodeContracts.VerifyNotNull(repository);
-
         repository.Insert(
             new CheckEmail
                 {
@@ -100,9 +94,6 @@ public static class CheckEmailRepositoryExtensions
     /// </returns>
     public static CheckEmail Update(this IRepository<CheckEmail> repository, string hash)
     {
-        CodeContracts.VerifyNotNull(hash);
-        CodeContracts.VerifyNotNull(repository);
-
         var mail = repository.GetSingle(c => c.Hash == hash);
 
         return mail;

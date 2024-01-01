@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -47,7 +47,7 @@ public static class ThanksRepositoryExtensions
     /// </returns>
     public static long ThanksFromUser(this IRepository<Thanks> repository, int thanksFromUserId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.Count(thanks => thanks.ThanksFromUserID == thanksFromUserId);
     }
@@ -70,7 +70,7 @@ public static class ThanksRepositoryExtensions
         this IRepository<Thanks> repository,
         int thanksToUserId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Thanks>();
 
@@ -103,7 +103,7 @@ public static class ThanksRepositoryExtensions
         int toUserId,
         int messageId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var newIdentity = repository.Insert(
             new Thanks
@@ -135,7 +135,7 @@ public static class ThanksRepositoryExtensions
         this IRepository<Thanks> repository,
         int messageId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Thanks>();
 
@@ -162,7 +162,7 @@ public static class ThanksRepositoryExtensions
         int fromUserId,
         int messageId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.Delete(t => t.ThanksFromUserID == fromUserId && t.MessageID == messageId);
     }

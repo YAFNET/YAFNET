@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -39,7 +39,7 @@ using AspNetUsers = YAF.Types.Models.Identity.AspNetUsers;
 /// <summary>
 /// Context class that accessible with the same instance from all locations
 /// </summary>
-public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
+public sealed class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
 {
     /// <summary>
     /// The context lifetime container.

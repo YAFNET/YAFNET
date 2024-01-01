@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -100,12 +100,12 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
                 if (guest == null)
                 {
-                    throw new ApplicationException($"No candidates for a guest were found for the board {boardId}.");
+                    throw new ArgumentNullException($"No candidates for a guest were found for the board {boardId}.");
                 }
 
                 if (guest.Count > 1)
                 {
-                    throw new ApplicationException(
+                    throw new ArgumentNullException(
                         $"Found {guest.Count} possible guest users. There should be one and only one user marked as guest.");
                 }
 
@@ -279,7 +279,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         // Check if there are any avatar images in the uploads folder
         if (!this.Get<BoardSettings>().UseFileTable && this.Get<BoardSettings>().AvatarUpload)
         {
-            string[] imageExtensions = { "jpg", "jpeg", "gif", "png", "bmp" };
+            string[] imageExtensions = ["jpg", "jpeg", "gif", "png", "bmp"];
 
             imageExtensions.ForEach(
                 extension =>
@@ -851,9 +851,6 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// </param>
     public void AddLogin(string userId, UserLoginInfo login)
     {
-        CodeContracts.VerifyNotNull(userId);
-        CodeContracts.VerifyNotNull(login);
-
         if (this.GetRepository<AspNetUserLogins>().GetSingle(l => l.UserId == userId) != null)
         {
             return;

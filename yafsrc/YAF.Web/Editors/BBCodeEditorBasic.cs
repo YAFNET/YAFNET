@@ -116,7 +116,6 @@ public class BBCodeEditorBasic : TextEditor
 
         writer.Write("<div class=\"btn-toolbar\" role=\"toolbar\">");
 
-        //
         writer.Write("<div class=\"btn-group btn-group-sm me-2 mb-2\" role =\"group\">");
 
         // Render Undo Button
@@ -126,7 +125,6 @@ public class BBCodeEditorBasic : TextEditor
         RenderButton(writer, "setStyle('redo','')", this.GetText("COMMON", "TT_REDO"), "rotate-right", "redo");
 
         writer.Write("</div>");
-        //
 
         writer.Write("<div class=\"btn-group btn-group-sm me-2 mb-2\" role =\"group\">");
 

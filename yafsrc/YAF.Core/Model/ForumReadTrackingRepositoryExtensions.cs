@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -50,7 +50,7 @@ public static class ForumReadTrackingRepositoryExtensions
         int userId,
         int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var item = repository.GetSingle(x => x.ForumID == forumId && x.UserID == userId);
 
@@ -85,7 +85,7 @@ public static class ForumReadTrackingRepositoryExtensions
     /// </returns>
     public static bool Delete(this IRepository<ForumReadTracking> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var success = repository.Delete(x => x.UserID == userId) == 1;
 
@@ -117,7 +117,7 @@ public static class ForumReadTrackingRepositoryExtensions
         int userId,
         int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var forum = repository.GetSingle(t => t.UserID == userId && t.ForumID == forumId);
 

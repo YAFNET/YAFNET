@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -47,7 +47,7 @@ public static class UserGroupRepositoryExtensions
     /// </returns>
     public static List<Group> List(this IRepository<UserGroup> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserGroup>();
 
@@ -71,7 +71,7 @@ public static class UserGroupRepositoryExtensions
     /// </param>
     public static void Remove(this IRepository<UserGroup> repository, int userId, int groupId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.FireDeleted(repository.Delete(x => x.GroupID == groupId && x.UserID == userId));
     }
@@ -97,7 +97,7 @@ public static class UserGroupRepositoryExtensions
         int groupId,
         bool isMember)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         if (!isMember)
         {
@@ -134,7 +134,7 @@ public static class UserGroupRepositoryExtensions
         int userId,
         string role)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         if (role.IsNotSet())
         {
@@ -220,7 +220,7 @@ public static class UserGroupRepositoryExtensions
         this IRepository<UserGroup> repository,
         int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserGroup>();
 

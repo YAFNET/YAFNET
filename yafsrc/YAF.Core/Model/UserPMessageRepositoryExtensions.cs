@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -52,7 +52,7 @@ public static class UserPMessageRepositoryExtensions
         int messageId,
         PMessageFlags messageFlags)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         if (messageFlags.IsRead)
         {
@@ -77,7 +77,7 @@ public static class UserPMessageRepositoryExtensions
         this IRepository<UserPMessage> repository,
         UserPMessage message)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var flags = message.PMessageFlags;
 
@@ -138,7 +138,7 @@ public static class UserPMessageRepositoryExtensions
         int userPmMessageId,
         bool deleteFromOutbox)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var message = repository.GetById(userPmMessageId);
 
@@ -162,7 +162,7 @@ public static class UserPMessageRepositoryExtensions
         UserPMessage message,
         bool deleteFromOutbox)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var flags = message.PMessageFlags;
 

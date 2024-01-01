@@ -32,15 +32,15 @@ public class MySqlDbInformation : IDbInformation
     /// <summary>
     /// The YAF Provider Upgrade script list
     /// </summary>
-    private readonly static string[] IdentityUpgradeScriptList = {};
+    private readonly static string[] IdentityUpgradeScriptList = [];
 
     /// <summary>
     /// The DB parameters
     /// </summary>
-    private readonly DbConnectionParam[] connectionParameters = {
-                                                                        new(0, "Password", string.Empty),
-                                                                        new(1, "Data Source", "(local)")
-                                                                    };
+    private readonly DbConnectionParam[] connectionParameters = [
+        new DbConnectionParam(0, "Password", string.Empty),
+        new DbConnectionParam(1, "Data Source", "(local)")
+    ];
 
     /// <summary>
     /// Initializes a new instance of the <see cref="MySqlDbInformation"/> class.
@@ -69,8 +69,9 @@ public class MySqlDbInformation : IDbInformation
     /// <summary>
     /// Gets the DB Connection Parameters.
     /// </summary>
-    public IDbConnectionParam[] DbConnectionParameters =>
-        this.connectionParameters.OfType<IDbConnectionParam>().ToArray();
+    public IDbConnectionParam[] DbConnectionParameters () {
+        return this.connectionParameters.OfType<IDbConnectionParam>().ToArray();
+    }
 
     /// <summary>
     /// Builds a connection string.
@@ -80,8 +81,6 @@ public class MySqlDbInformation : IDbInformation
     public string BuildConnectionString(IEnumerable<IDbConnectionParam> parameters)
     {
         var connectionParams = parameters.ToList();
-
-        CodeContracts.VerifyNotNull(connectionParams);
 
         var connBuilder = new MySqlConnectionStringBuilder();
 

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -125,17 +125,6 @@ public partial class EditForum : AdminPage
         this.Save.Click += this.SaveClick;
         this.Cancel.Click += this.CancelClick;
         base.OnInit(e);
-    }
-
-    /// <summary>
-    /// Registers the needed Java Scripts
-    /// </summary>
-    /// <param name="e">
-    /// An <see cref="T:System.EventArgs"/> object that contains the event data.
-    /// </param>
-    override protected void OnPreRender(EventArgs e)
-    {
-        base.OnPreRender(e);
     }
 
     /// <summary>
@@ -308,7 +297,10 @@ public partial class EditForum : AdminPage
                 // Fallback if default access mask from board settings doesn't exist
                 item = list.Items.FindByText("Member Access");
 
-                if (item == null) return;
+                if (item == null)
+                {
+                    return;
+                }
 
                 list.ClearSelection();
 

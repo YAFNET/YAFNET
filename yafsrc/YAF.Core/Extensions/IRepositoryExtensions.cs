@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -51,7 +51,7 @@ public static class IRepositoryExtensions
     public static bool DeleteAll<T>(this IRepository<T> repository)
         where T : class, IEntity, new()
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var success = repository.DbAccess.Execute(db => db.Connection.DeleteAll<T>()) == 1;
 
@@ -81,7 +81,7 @@ public static class IRepositoryExtensions
     public static int Delete<T>(this IRepository<T> repository, Expression<Func<T, bool>> criteria)
         where T : class, IEntity, new()
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.DbAccess.Execute(db => db.Connection.Delete(criteria));
     }
@@ -104,7 +104,7 @@ public static class IRepositoryExtensions
     public static bool DeleteById<T>(this IRepository<T> repository, int id)
         where T : class, IEntity, IHaveID, new()
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var success = repository.DbAccess.Execute(db => db.Connection.DeleteById<T>(id)) == 1;
         if (success)
@@ -125,7 +125,7 @@ public static class IRepositoryExtensions
     public static bool DeleteByIds<T>(this IRepository<T> repository, IEnumerable<int> ids)
         where T : class, IEntity, IHaveID, new()
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var success = false;
 
@@ -160,7 +160,7 @@ public static class IRepositoryExtensions
     public static IList<T> GetByBoardId<T>(this IRepository<T> repository, int? boardId = null)
         where T : IEntity, IHaveBoardID, new()
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var newBoardId = boardId ?? repository.BoardID;
 
@@ -191,9 +191,6 @@ public static class IRepositoryExtensions
         bool selectIdentity = true)
         where T : class, IEntity, new()
     {
-        CodeContracts.VerifyNotNull(entity);
-        CodeContracts.VerifyNotNull(repository);
-
         return repository.DbAccess.Execute(db => db.Connection.Insert(entity, selectIdentity)).ToType<int>();
     }
 
@@ -234,9 +231,6 @@ public static class IRepositoryExtensions
         T entity)
         where T : class, IEntity, IHaveID, new()
     {
-        CodeContracts.VerifyNotNull(entity);
-        CodeContracts.VerifyNotNull(repository);
-
         var newId = entity.ID;
 
         if (entity.ID > 0)
@@ -279,9 +273,6 @@ public static class IRepositoryExtensions
         IDbTransaction transaction = null)
         where T : class, IEntity, new()
     {
-        CodeContracts.VerifyNotNull(entity);
-        CodeContracts.VerifyNotNull(repository);
-
         var success = repository.DbAccess.Update(entity) > 0;
 
         return success;
@@ -321,7 +312,7 @@ public static class IRepositoryExtensions
         Action<IDbCommand> commandFilter = null)
         where T : class, IEntity, IHaveID, new()
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.DbAccess.UpdateAdd(updateFields, where, commandFilter);
     }
@@ -364,7 +355,7 @@ public static class IRepositoryExtensions
         Expression<Func<T, bool>> where = null)
         where T : class, IEntity, new()
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.DbAccess.UpdateOnly(updateFields, where);
     }
@@ -409,7 +400,7 @@ public static class IRepositoryExtensions
         Expression<Func<T, bool>> where = null)
         where T : class, IEntity, new()
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.DbAccess.Exists(where);
     }
@@ -424,9 +415,6 @@ public static class IRepositoryExtensions
     public static long Count<T>(this IRepository<T> repository, Expression<Func<T, bool>> criteria)
         where T : class, IEntity, new()
     {
-        CodeContracts.VerifyNotNull(repository);
-        CodeContracts.VerifyNotNull(criteria);
-
         return repository.DbAccess.Execute(db => db.Connection.Count(criteria));
     }
 
@@ -451,7 +439,7 @@ public static class IRepositoryExtensions
     public static T GetById<T>(this IRepository<T> repository, int id, bool includeReference = false)
         where T : IEntity, IHaveID, new()
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.DbAccess.Execute(
             db => includeReference ? db.Connection.LoadSingleById<T>(id) : db.Connection.SingleById<T>(id));
@@ -477,7 +465,7 @@ public static class IRepositoryExtensions
     public static List<T> GetByIds<T>(this IRepository<T> repository, IEnumerable idValues)
         where T : IEntity, new()
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.DbAccess.Execute(db => db.Connection.SelectByIds<T>(idValues));
     }
@@ -494,7 +482,7 @@ public static class IRepositoryExtensions
     public static T GetSingle<T>(this IRepository<T> repository, Expression<Func<T, bool>> criteria)
         where T : IEntity, new()
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.DbAccess.Execute(db => db.Connection.Single(criteria));
     }
@@ -509,9 +497,6 @@ public static class IRepositoryExtensions
     public static List<T> Get<T>(this IRepository<T> repository, Expression<Func<T, bool>> criteria)
         where T : class, IEntity, new()
     {
-        CodeContracts.VerifyNotNull(repository);
-        CodeContracts.VerifyNotNull(criteria);
-
         return repository.DbAccess.Execute(db => db.Connection.Select(criteria));
     }
 
@@ -530,7 +515,7 @@ public static class IRepositoryExtensions
     public static List<T> GetAll<T>(this IRepository<T> repository)
         where T : class, IEntity, new()
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.DbAccess.Execute(db => db.Connection.Select<T>());
     }
@@ -553,9 +538,6 @@ public static class IRepositoryExtensions
         int? pageSize = 10000000)
         where T : class, IEntity, IHaveID, new()
     {
-        CodeContracts.VerifyNotNull(repository);
-        CodeContracts.VerifyNotNull(criteria);
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<T>();
 
         expression.Where(criteria).OrderByDescending(item => item.ID).Page(pageIndex + 1, pageSize);

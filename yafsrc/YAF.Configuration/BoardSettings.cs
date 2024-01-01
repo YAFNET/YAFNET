@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -40,13 +40,20 @@ public class BoardSettings
     {
         this.BoardId = 0;
         this.Name = string.Empty;
-        this.Registry = new RegistryDictionaryOverride();
-        this.RegistryBoard = new RegistryDictionary();
+        this.Registry = [];
+        this.RegistryBoard = [];
 
         // set the board dictionary as the override...
         this.Registry.OverrideDictionary = this.RegistryBoard;
     }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="BoardSettings"/> class.
+    /// </summary>
+    /// <param name="boardId">The board identifier.</param>
+    /// <param name="boardName">Name of the board.</param>
+    /// <param name="registry">The registry.</param>
+    /// <param name="registryBoard">The registry board.</param>
     public BoardSettings(
         int boardId,
         string boardName,

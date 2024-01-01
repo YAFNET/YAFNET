@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -36,7 +36,7 @@ using YAF.Types.Models;
 /// <summary>
 ///     The Install Page.
 /// </summary>
-public partial class _default : BasePage, IHaveServiceLocator
+public partial class install : BasePage, IHaveServiceLocator
 {
     /// <summary>
     ///     The _config.
@@ -121,15 +121,6 @@ public partial class _default : BasePage, IHaveServiceLocator
     }
 
     /// <summary>
-    /// Initializes the <see cref="T:System.Web.UI.HtmlTextWriter" /> object and calls on the child controls of the <see cref="T:System.Web.UI.Page" /> to render.
-    /// </summary>
-    /// <param name="writer">The <see cref="T:System.Web.UI.HtmlTextWriter" /> that receives the page content.</param>
-    override protected void Render(HtmlTextWriter writer)
-    {
-        base.Render(writer);
-    }
-
-    /// <summary>
     /// Test's the DB Connection
     /// </summary>
     /// <param name="sender">
@@ -146,8 +137,8 @@ public partial class _default : BasePage, IHaveServiceLocator
             UpdateInfoPanel(
                 this.ManualConnectionInfoHolder,
                 this.lblConnectionDetailsManual,
-                Localization.GetText("ConnectionDetails"),
-                $"{Localization.GetText("ConnectionFailed")} {message}",
+                this.Localization.GetText("ConnectionDetails"),
+                $"{this.Localization.GetText("ConnectionFailed")} {message}",
                 "danger");
         }
         else
@@ -155,8 +146,8 @@ public partial class _default : BasePage, IHaveServiceLocator
             UpdateInfoPanel(
                 this.ManualConnectionInfoHolder,
                 this.lblConnectionDetailsManual,
-                Localization.GetText("ConnectionDetails"),
-            Localization.GetText("ConnectionSuccess"),
+                this.Localization.GetText("ConnectionDetails"),
+            this.Localization.GetText("ConnectionSuccess"),
                 "success");
         }
     }
@@ -177,8 +168,8 @@ public partial class _default : BasePage, IHaveServiceLocator
             UpdateInfoPanel(
                 this.ConnectionInfoHolder,
                 this.lblConnectionDetails,
-                Localization.GetText("ConnectionDetails"),
-                $"{Localization.GetText("ConnectionFailed")} {message}",
+                this.Localization.GetText("ConnectionDetails"),
+                $"{this.Localization.GetText("ConnectionFailed")} {message}",
                 "danger");
         }
         else
@@ -186,8 +177,8 @@ public partial class _default : BasePage, IHaveServiceLocator
             UpdateInfoPanel(
                 this.ConnectionInfoHolder,
                 this.lblConnectionDetails,
-                Localization.GetText("ConnectionDetails"),
-            Localization.GetText("ConnectionSuccess"),
+                this.Localization.GetText("ConnectionDetails"),
+            this.Localization.GetText("ConnectionSuccess"),
                 "success");
         }
     }
@@ -223,15 +214,15 @@ public partial class _default : BasePage, IHaveServiceLocator
                 this.txtTestFromEmail.Text.Trim(),
                 this.txtTestToEmail.Text.Trim(),
                 this.txtTestFromEmail.Text.Trim(),
-                Localization.GetText("SmtpTestSubject"),
-            Localization.GetText("SmtpTestBody"));
+                this.Localization.GetText("SmtpTestSubject"),
+            this.Localization.GetText("SmtpTestBody"));
 
             // success
             UpdateInfoPanel(
                 this.SmtpInfoHolder,
                 this.lblSmtpTestDetails,
-                Localization.GetText("SmtpTestDetails"),
-            Localization.GetText("SmtpTestSuccess"),
+                this.Localization.GetText("SmtpTestDetails"),
+            this.Localization.GetText("SmtpTestSuccess"),
                 "success");
         }
         catch (Exception x)
@@ -239,8 +230,8 @@ public partial class _default : BasePage, IHaveServiceLocator
             UpdateInfoPanel(
                 this.SmtpInfoHolder,
                 this.lblSmtpTestDetails,
-                Localization.GetText("SmtpTestDetails"),
-                $"{Localization.GetText("ConnectionFailed")} {x.Message}",
+                this.Localization.GetText("SmtpTestDetails"),
+                $"{this.Localization.GetText("ConnectionFailed")} {x.Message}",
                 "danger");
         }
     }
@@ -371,7 +362,7 @@ public partial class _default : BasePage, IHaveServiceLocator
             case "WizFinished":
                 break;
             default:
-                throw new ApplicationException(
+                throw new ArgumentNullException(
                     $"Installation Wizard step not handled: {this.InstallWizard.WizardSteps[e.CurrentStepIndex].ID}");
         }
     }
@@ -451,11 +442,11 @@ public partial class _default : BasePage, IHaveServiceLocator
         switch (status)
         {
             case 0:
-                theLabel.Text = Localization.GetText("No");
+                theLabel.Text = this.Localization.GetText("No");
                 theLabel.CssClass = "badge text-bg-danger float-end";
                 break;
             case 2:
-                theLabel.Text = Localization.GetText("Yes");
+                theLabel.Text = this.Localization.GetText("Yes");
                 theLabel.CssClass = "badge text-bg-success float-end";
                 break;
         }
@@ -498,13 +489,13 @@ public partial class _default : BasePage, IHaveServiceLocator
     {
         if (this.TheForumName.Text.IsNotSet())
         {
-            this.ShowErrorMessage(Localization.GetText("ErrorBoardName"));
+            this.ShowErrorMessage(this.Localization.GetText("ErrorBoardName"));
             return false;
         }
 
         if (this.ForumEmailAddress.Text.IsNotSet())
         {
-            this.ShowErrorMessage(Localization.GetText("ErrorForumEmail"));
+            this.ShowErrorMessage(this.Localization.GetText("ErrorForumEmail"));
             return false;
         }
 
@@ -512,25 +503,25 @@ public partial class _default : BasePage, IHaveServiceLocator
 
         if (this.UserName.Text.IsNotSet())
         {
-            this.ShowErrorMessage(Localization.GetText("ErrorUserName"));
+            this.ShowErrorMessage(this.Localization.GetText("ErrorUserName"));
             return false;
         }
 
         if (this.AdminEmail.Text.IsNotSet())
         {
-            this.ShowErrorMessage(Localization.GetText("ErrorUserEmail"));
+            this.ShowErrorMessage(this.Localization.GetText("ErrorUserEmail"));
             return false;
         }
 
         if (this.Password1.Text.IsNotSet())
         {
-            this.ShowErrorMessage(Localization.GetText("ErrorPassword"));
+            this.ShowErrorMessage(this.Localization.GetText("ErrorPassword"));
             return false;
         }
 
         if (this.Password1.Text != this.Password2.Text)
         {
-            this.ShowErrorMessage(Localization.GetText("PasswordNoMatch"));
+            this.ShowErrorMessage(this.Localization.GetText("PasswordNoMatch"));
             return false;
         }
 
@@ -551,7 +542,7 @@ public partial class _default : BasePage, IHaveServiceLocator
 
         if (!result.Succeeded)
         {
-            this.ShowErrorMessage($"{Localization.GetText("ErrorUserCreate")} - {result.Errors.FirstOrDefault()}");
+            this.ShowErrorMessage($"{this.Localization.GetText("ErrorUserCreate")} - {result.Errors.FirstOrDefault()}");
             return false;
         }
 
@@ -714,7 +705,7 @@ public partial class _default : BasePage, IHaveServiceLocator
             Enumerable.Range(1, 20).ForEach(
                 paramNumber =>
                     {
-                        var param = this.DbAccess.Information.DbConnectionParameters.FirstOrDefault(
+                        var param = this.DbAccess.Information.DbConnectionParameters().Find(
                             p => p.ID == paramNumber);
 
                         var label = this.FindControlRecursiveAs<Label>($"Parameter{paramNumber}_Name");
@@ -783,8 +774,8 @@ public partial class _default : BasePage, IHaveServiceLocator
 
     private void CheckWritePermission()
     {
-        UpdateStatusLabel(this.lblPermissionApp, DirectoryHasWritePermission(this.Server.MapPath("~/")) ? 2 : 0);
-        UpdateStatusLabel(
+        this.UpdateStatusLabel(this.lblPermissionApp, DirectoryHasWritePermission(this.Server.MapPath("~/")) ? 2 : 0);
+        this.UpdateStatusLabel(
             this.lblPermissionUpload,
             DirectoryHasWritePermission(this.Server.MapPath(this.Get<BoardFolders>().Uploads)) ? 2 : 0);
     }

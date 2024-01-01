@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -47,8 +47,6 @@ public class StandardModuleManager<TModule> : IModuleManager<TModule>
     /// </param>
     public StandardModuleManager(IEnumerable<TModule> modules)
     {
-        CodeContracts.VerifyNotNull(modules);
-
         this.modules = modules.ToList();
     }
 
@@ -76,8 +74,6 @@ public class StandardModuleManager<TModule> : IModuleManager<TModule>
     /// </returns>
     public TModule GetBy(string id, bool getInactive)
     {
-        CodeContracts.VerifyNotNull(id);
-
         return !getInactive
                    ? this.modules.SingleOrDefault(e => e.ModuleId.Equals(id) && e.Active)
                    : this.modules.SingleOrDefault(e => e.ModuleId.Equals(id));
@@ -94,8 +90,6 @@ public class StandardModuleManager<TModule> : IModuleManager<TModule>
     /// </returns>
     public TModule GetBy(string id)
     {
-        CodeContracts.VerifyNotNull(id);
-
         return this.modules.SingleOrDefault(e => e.ModuleId.Equals(id));
     }
 }

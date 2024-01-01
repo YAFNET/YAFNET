@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -122,7 +122,7 @@ public class Reputation : IReputation, IHaveServiceLocator
         if (percentage > 1)
         {
             pageName =
-                lookup.OrderBy(s => s.Key).Where(x => percentage < x.Key).Select(x => x.Value).FirstOrDefault();
+                lookup.Where(x => percentage < x.Key).OrderBy(s => s.Key).Select(x => x.Value).FirstOrDefault();
         }
 
         return this.Get<ILocalization>().GetText("REPUTATION_VALUES", pageName);
@@ -154,7 +154,7 @@ public class Reputation : IReputation, IHaveServiceLocator
         if (percentage > 1)
         {
             color =
-                lookup.OrderBy(s => s.Key).Where(x => percentage < x.Key).Select(x => x.Value).FirstOrDefault();
+                lookup.Where(x => percentage < x.Key).OrderBy(s => s.Key).Select(x => x.Value).FirstOrDefault();
         }
 
         return color;

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -126,7 +126,7 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
                     BoardContext.Current.MembershipUser,
                     BoardContext.Current.PageBoardID))
             {
-                throw new ApplicationException("Failed to create new user.");
+                throw new ArgumentNullException("Failed to create new user.");
             }
 
             if (pageRow is not null && pageRow.Item1 == null)
@@ -165,7 +165,7 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
 
         if (pageRow is null)
         {
-            throw new ApplicationException("Unable to find the Guest User!");
+            throw new ArgumentNullException("Unable to find the Guest User!");
         }
 
         // add all loaded page data into our data dictionary...

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -44,12 +44,9 @@ public static class AssemblyExtensions
     /// <returns>
     /// The <see cref="IEnumerable"/>.
     /// </returns>
-    
     public static IEnumerable<Type> FindClassesWithAttribute<T>(this IEnumerable<Assembly> assemblies)
         where T : Attribute
     {
-        CodeContracts.VerifyNotNull(assemblies);
-
         var moduleClassTypes = new List<Type>();
         var attributeType = typeof(T);
 
@@ -57,7 +54,7 @@ public static class AssemblyExtensions
         assemblies.Select(
             a => a.GetExportedTypes().Where(t => !t.IsAbstract && t.GetCustomAttributes(attributeType, true).Any())
                 .ToList()).ForEach(types => moduleClassTypes.AddRange(types));
-            
+
         return moduleClassTypes.Distinct();
     }
 
@@ -72,8 +69,6 @@ public static class AssemblyExtensions
     /// </returns>
     public static int GetAssemblySortOrder(this Assembly assembly)
     {
-        CodeContracts.VerifyNotNull(assembly);
-
         var attribute = assembly.GetCustomAttributes(typeof(AssemblyModuleSortOrder), true).OfType<AssemblyModuleSortOrder>();
 
         return attribute.Any() ? attribute.First().SortOrder : 9999;

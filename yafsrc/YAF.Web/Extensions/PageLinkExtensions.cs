@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -41,8 +41,6 @@ public static class PageLinkExtensions
     /// <returns>returns the Page links including the root</returns>
     public static List<PageLink> AddRoot(this List<PageLink> pageLinks)
     {
-        CodeContracts.VerifyNotNull(pageLinks);
-
         pageLinks.AddLink(
             BoardContext.Current.BoardSettings.Name,
             BoardContext.Current.Get<LinkBuilder>().GetLink(ForumPages.Board));
@@ -61,8 +59,6 @@ public static class PageLinkExtensions
     /// </returns>
     public static List<PageLink> AddAdminIndex(this List<PageLink> pageLinks)
     {
-        CodeContracts.VerifyNotNull(pageLinks);
-
         pageLinks.AddLink(
             BoardContext.Current.Get<ILocalization>().GetText("ADMIN_ADMIN", "Administration"),
             BoardContext.Current.Get<LinkBuilder>().GetLink(ForumPages.Admin_Admin));
@@ -87,9 +83,6 @@ public static class PageLinkExtensions
     /// </returns>
     public static List<PageLink> AddUser(this List<PageLink> pageLinks, int userId, string name)
     {
-        CodeContracts.VerifyNotNull(pageLinks);
-        CodeContracts.VerifyNotNull(name);
-
         pageLinks.AddLink(name, BoardContext.Current.Get<LinkBuilder>().GetUserProfileLink(userId, name));
 
         return pageLinks;
@@ -109,8 +102,6 @@ public static class PageLinkExtensions
     /// </returns>
     public static List<PageLink> AddTopic(this List<PageLink> pageLinks, Topic topic)
     {
-        CodeContracts.VerifyNotNull(pageLinks);
-
         pageLinks.AddLink(topic.TopicName, BoardContext.Current.Get<LinkBuilder>().GetTopicLink(topic.ID, topic.TopicName));
 
         return pageLinks;
@@ -132,9 +123,6 @@ public static class PageLinkExtensions
         this List<PageLink> pageLinks,
         Category category)
     {
-        CodeContracts.VerifyNotNull(pageLinks);
-        CodeContracts.VerifyNotNull(category);
-
         pageLinks.AddLink(
             category.Name,
             BoardContext.Current.Get<LinkBuilder>().GetCategoryLink(category.ID, category.Name));
@@ -159,8 +147,6 @@ public static class PageLinkExtensions
     /// </returns>
     public static List<PageLink> AddForum(this List<PageLink> pageLinks, Forum forum, bool noForumLink = false)
     {
-        CodeContracts.VerifyNotNull(pageLinks);
-
         if (forum.ParentID.HasValue)
         {
             var parent = BoardContext.Current.GetRepository<Forum>()
@@ -196,9 +182,6 @@ public static class PageLinkExtensions
     /// <returns>Returns the page links</returns>
     public static List<PageLink> AddLink(this List<PageLink> pageLinks, string title, string url = "")
     {
-        CodeContracts.VerifyNotNull(pageLinks);
-        CodeContracts.VerifyNotNull(title);
-
         pageLinks.Add(new PageLink { Title = title.Trim(), URL = url?.Trim() });
 
         return pageLinks;

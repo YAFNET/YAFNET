@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -39,7 +39,7 @@ public static class CategoryRepositoryExtensions
     /// <returns>Returns the highest sort order.</returns>
     public static int GetHighestSortOrder(this IRepository<Category> repository)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Category>();
 
@@ -70,13 +70,16 @@ public static class CategoryRepositoryExtensions
         int? categoryId = null,
         int? boardId = null)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return categoryId.HasValue
-                   ? repository.Get(
-                       category => category.BoardID == (boardId ?? repository.BoardID)
-                                   && category.ID == categoryId.Value).OrderBy(o => o.SortOrder).ToList()
-                   : repository.Get(category => category.BoardID == (boardId ?? repository.BoardID));
+                   ?
+
+                   [
+                       .. repository.Get(
+                                              category => category.BoardID == (boardId ?? repository.BoardID)
+                                                          && category.ID == categoryId.Value).OrderBy(o => o.SortOrder),
+                   ] : repository.Get(category => category.BoardID == (boardId ?? repository.BoardID));
     }
 
     /// <summary>
@@ -115,7 +118,7 @@ public static class CategoryRepositoryExtensions
         CategoryFlags flags,
         int? boardId = null)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.Upsert(
             new Category
@@ -140,7 +143,7 @@ public static class CategoryRepositoryExtensions
     /// </param>
     public static void ReOrderAllAscending(this IRepository<Category> repository, List<Category> categories)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         short sortOrder = 0;
 
@@ -166,7 +169,7 @@ public static class CategoryRepositoryExtensions
     /// </param>
     public static void ReOrderAllDescending(this IRepository<Category> repository, List<Category> categories)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         short sortOrder = 0;
 

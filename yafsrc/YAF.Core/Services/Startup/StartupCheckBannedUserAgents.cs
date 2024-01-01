@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -120,7 +120,7 @@ public class StartupCheckBannedUserAgents : BaseStartupService
                     .Select(x => x.UserAgent.Trim()).ToList());
 
             // check for this user in the list...
-            if (bannedUserAgents == null || !bannedUserAgents.Any(row => MachUserAgent(userAgent, row)))
+            if (bannedUserAgents == null || !bannedUserAgents.Exists(row => MachUserAgent(userAgent, row)))
             {
                 return true;
             }

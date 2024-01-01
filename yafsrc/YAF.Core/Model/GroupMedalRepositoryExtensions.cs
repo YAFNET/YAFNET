@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -54,7 +54,7 @@ public static class GroupMedalRepositoryExtensions
         int? groupId,
         int medalId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
 
@@ -104,7 +104,7 @@ public static class GroupMedalRepositoryExtensions
         bool hide,
         byte sortOrder)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.UpdateOnly(
             () => new GroupMedal
@@ -145,7 +145,7 @@ public static class GroupMedalRepositoryExtensions
         bool hide,
         byte sortOrder)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.Insert(
             new GroupMedal

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -46,15 +46,6 @@ public partial class Languages : AdminPage
         this.List.ItemCommand += this.List_ItemCommand;
 
         base.OnInit(e);
-    }
-
-    /// <summary>
-    /// Registers the needed Java Scripts
-    /// </summary>
-    /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
-    override protected void OnPreRender(EventArgs e)
-    {
-        base.OnPreRender(e);
     }
 
     /// <summary>

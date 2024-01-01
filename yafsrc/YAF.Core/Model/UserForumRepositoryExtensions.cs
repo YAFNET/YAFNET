@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -43,7 +43,7 @@ public static class UserForumRepositoryExtensions
     /// <returns>Returns if deleting was successful or not</returns>
     public static bool Delete(this IRepository<UserForum> repository, int userId, int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var success = repository.DbAccess.Execute(
                           db => db.Connection.Delete<UserForum>(x => x.UserID == userId && x.ForumID == forumId)) == 1;
@@ -76,7 +76,7 @@ public static class UserForumRepositoryExtensions
         int? userId,
         int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 

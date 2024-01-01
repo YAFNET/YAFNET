@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -55,10 +55,6 @@ public static class MemoryCacheExtensions
         string key,
         Func<T> getValue)
     {
-        CodeContracts.VerifyNotNull(cache);
-        CodeContracts.VerifyNotNull(key);
-        CodeContracts.VerifyNotNull(getValue);
-
         var item = cache[key];
 
         if (!Equals(item, default(T)))
@@ -96,9 +92,6 @@ public static class MemoryCacheExtensions
     /// </typeparam>
     public static void Set<T>(this MemoryCache cache, string key, T value)
     {
-        CodeContracts.VerifyNotNull(cache);
-        CodeContracts.VerifyNotNull(key);
-
         try
         {
             cache[key] = value;

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -47,7 +47,7 @@ public static class TopicTagRepositoryExtensions
     /// </param>
     public static void Add(this IRepository<TopicTag> repository, int tagId, int topicId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var newId = repository.Insert(new TopicTag { TagID = tagId, TopicID = topicId });
 
@@ -68,7 +68,7 @@ public static class TopicTagRepositoryExtensions
     /// </param>
     public static void AddTagsToTopic(this IRepository<TopicTag> repository, string tagsString, int topicId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         if (tagsString.IsNotSet())
         {
@@ -119,7 +119,7 @@ public static class TopicTagRepositoryExtensions
     /// </returns>
     public static List<Tuple<TopicTag, Tag>> List(this IRepository<TopicTag> repository, int topicId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
 
@@ -143,7 +143,7 @@ public static class TopicTagRepositoryExtensions
     /// </returns>
     public static string ListAsDelimitedString(this IRepository<TopicTag> repository, int topicId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.List(topicId).Select(t => t.Item2.TagName).ToDelimitedString(",");
     }

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -98,7 +98,7 @@ public class GroupHide : BBCodeControl
 
             // Check For Role Hiding
             if (this.Get<IAspNetRolesHelper>().GetRolesForUser(
-                    BoardContext.Current.MembershipUser).Any(role => !groups.Any(role.Equals)))
+                    BoardContext.Current.MembershipUser).Any(role => !groups.Exists(role.Equals)))
             {
                 shownContentGuest = hiddenContent;
             }

@@ -50,16 +50,12 @@ public class HttpClient
     /// <returns>
     /// The post request.
     /// </returns>
-    
     public virtual string PostRequest(
         Uri url,
         string userAgent,
         int timeout,
         string formParameters)
     {
-        CodeContracts.VerifyNotNull(url);
-        CodeContracts.VerifyNotNull(formParameters);
-
         ServicePointManager.Expect100Continue = false;
         var request = WebRequest.Create(url) as HttpWebRequest;
 

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -290,19 +290,28 @@ public partial class PollList : BaseUserControl
     /// </summary>
     private void BindData()
     {
-        this.pollAndChoices = this.GetRepository<Poll>().GetPollAndChoices(this.PollId.Value);
-
-        // Check if Poll Exist
-        if (this.pollAndChoices.FirstOrDefault() == null)
+        if (!this.PollId.HasValue)
         {
             this.Visible = false;
 
             return;
         }
 
-        this.poll = this.pollAndChoices.FirstOrDefault().Item1;
+        this.pollAndChoices = this.GetRepository<Poll>().GetPollAndChoices(this.PollId.Value);
 
-        // if the page user can change the poll. Only a group owner, forum moderator  or an admin can do it.   );
+        var pollTuple = this.pollAndChoices.FirstOrDefault();
+
+        // Check if Poll Exist
+        if (pollTuple == null)
+        {
+            this.Visible = false;
+
+            return;
+        }
+
+        this.poll = pollTuple.Item1;
+
+        // if the page user can change the poll. Only a group owner, forum moderator  or an admin can do it.
         this.canChange = this.poll.UserID == this.PageBoardContext.PageUserID || this.PageBoardContext.IsAdmin ||
                          this.PageBoardContext.ForumModeratorAccess;
 
@@ -574,7 +583,7 @@ public partial class PollList : BaseUserControl
     /// </returns>
     private bool PollHasNoVotes()
     {
-        return this.pollAndChoices.All(row => row.Item2.Votes <= 0);
+        return this.pollAndChoices.TrueForAll(row => row.Item2.Votes <= 0);
     }
 
     /// <summary>

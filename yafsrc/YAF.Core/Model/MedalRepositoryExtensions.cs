@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -49,7 +49,7 @@ public static class MedalRepositoryExtensions
         List<(int MedalID, string Name, string Message, string MedalURL, byte SortOrder, bool Hide, int Flags, DateTime DateAwarded)>
         ListUserMedals(this IRepository<Medal> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expressionUser = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
 
@@ -138,7 +138,7 @@ public static class MedalRepositoryExtensions
         int flags,
         int? boardId = null)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         if (medalId.HasValue)
         {

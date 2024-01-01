@@ -64,18 +64,4 @@ public class TraceLogger : IRewriteLogger
             Trace.WriteLine($"Exception: {exception.GetType()}\r\nError Message: {exception.Message}");
         }
     }
-
-    /// <summary>
-    /// Writes a fatal error.
-    /// </summary>
-    /// <param name="message">The message to write.</param>
-    /// <param name="exception">The exception</param>
-    public void Fatal(object message, Exception exception)
-    {
-        Trace.WriteLine(message);
-        if (exception != null)
-        {
-            Trace.WriteLine($"Exception: {exception.GetType()}\r\nError Message: {exception.Message}");
-        }
-    }
 }

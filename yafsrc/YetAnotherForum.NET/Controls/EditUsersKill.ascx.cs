@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -237,7 +237,7 @@ public partial class EditUsersKill : BaseUserControl
         // ban user ips...
         var name = this.User.Item1.DisplayOrUserName();
 
-        this.IPAddresses.Except(allIps).ToList().Where(i => i.IsSet()).ForEach(
+        this.IPAddresses.Except(allIps).Where(i => i.IsSet()).ForEach(
             ip =>
                 {
                     var linkUserBan = this.Get<ILocalization>().GetTextFormatted(

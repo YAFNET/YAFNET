@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -351,7 +351,7 @@ public partial class EditAlbumImages : ForumPageRegistered
 
         // remove the "period"
         extension = extension.Replace(".", string.Empty);
-        string[] imageExtensions = { "jpg", "gif", "png", "bmp" };
+        string[] imageExtensions = ["jpg", "gif", "png", "bmp"];
 
         // If we don't get a match from the db, then the extension is not allowed
         // also, check to see an image is being uploaded.
@@ -388,7 +388,7 @@ public partial class EditAlbumImages : ForumPageRegistered
 
         var filename = file.PostedFile.FileName;
 
-        var pos = filename.LastIndexOfAny(new[] { '/', '\\' });
+        var pos = filename.LastIndexOfAny(['/', '\\']);
         if (pos >= 0)
         {
             filename = filename.Substring(pos + 1);

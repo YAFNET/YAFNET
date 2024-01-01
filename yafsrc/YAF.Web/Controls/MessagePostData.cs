@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Web.Controls;
 
 /// <summary>
@@ -116,8 +117,6 @@ public class MessagePostData : MessagePost
     /// </returns>
     public static string TruncateMessage(string message)
     {
-        CodeContracts.VerifyNotNull(message);
-
         var maxPostSize = Math.Max(BoardContext.Current.BoardSettings.MaxPostSize, 0);
 
         // 0 == unlimited
@@ -130,8 +129,6 @@ public class MessagePostData : MessagePost
     /// <param name="e">An <see cref="T:System.EventArgs"/> object that contains the event data.</param>
     override protected void OnPreRender(EventArgs e)
     {
-        CodeContracts.VerifyNotNull(this.MessageFlags);
-
         if (!this.MessageFlags.IsDeleted && !this.Get<IAspNetUsersHelper>().IsGuestUser(this.CurrentMessage.UserID))
         {
             this.DisplayUserID = this.CurrentMessage.UserID;
@@ -146,10 +143,6 @@ public class MessagePostData : MessagePost
     /// <param name="writer">The writer.</param>
     override protected void RenderMessage(HtmlTextWriter writer)
     {
-        CodeContracts.VerifyNotNull(writer);
-        CodeContracts.VerifyNotNull(this.MessageFlags);
-        CodeContracts.VerifyNotNull(this.CurrentMessage);
-
         if (this.MessageFlags.IsDeleted)
         {
             this.IsModeratorChanged = this.CurrentMessage.IsModeratorChanged ?? false;

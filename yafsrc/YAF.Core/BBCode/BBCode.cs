@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -280,10 +280,9 @@ public class BBCode : IBBCode, IHaveServiceLocator
                 """<span style="font-size:(?<size>(.*?))px;">(?<inner>(.*?))</span>""",
                 "[size=${size}]${inner}[/size]",
                 Options,
-                new[]
-                    {
-                        "size"
-                    }) { RuleRank = 10 });
+                [
+                    "size"
+                ]) { RuleRank = 10 });
 
         // font
         ruleEngine.AddRule(
@@ -291,7 +290,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
                 """<span style="font-family: (?<font>(.*?));">(?<inner>(.*?))</span>""",
                 "[font=${font}]${inner}[/font]",
                 Options,
-                new[] { "font" }));
+                ["font"]));
 
         // color
         ruleEngine.AddRule(
@@ -299,7 +298,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
                 """<span style="color: (?<color>(\#?[-a-z0-9]*));">(?<inner>(.*?))</span>""",
                 "[color=${color}]${inner}[/color]",
                 Options,
-                new[] { "color" }));
+                ["color"]));
 
         // lists
         ruleEngine.AddRule(
@@ -433,10 +432,9 @@ public class BBCode : IBBCode, IHaveServiceLocator
                 """<a.*?href="(?<inner>(.*?))".*?>(?<description>(.*?))</a>""",
                 "[url=${inner}]${description}[/url]",
                 Options,
-                new[]
-                    {
-                        "description"
-                    }) { RuleRank = 2 });
+                [
+                    "description"
+                ]) { RuleRank = 2 });
 
         // e-mails
         ruleEngine.AddRule(
@@ -444,17 +442,16 @@ public class BBCode : IBBCode, IHaveServiceLocator
                 """<a.*?href="mailto:(?<email>(.*?))".*?>(?<inner>(.*?))</a>""",
                 "[email=${email}]${inner}[/email]",
                 Options,
-                new[]
-                    {
-                        "email"
-                    }) { RuleRank = 1 });
+                [
+                    "email"
+                ]) { RuleRank = 1 });
 
         ruleEngine.AddRule(
             new VariableRegexReplaceRule(
                 """<img.*?src="(?<inner>(.*?))".*?alt="(?<description>(.*?))".*?/>""",
                 "[img=${inner}]${description}[/img]",
                 Options,
-                new[] { "description" }));
+                ["description"]));
 
         ruleEngine.AddRule(
             new SimpleRegexReplaceRule(
@@ -468,10 +465,9 @@ public class BBCode : IBBCode, IHaveServiceLocator
                 """<div class="code">.*?<div class="innercode">.*?<pre class="brush:(?<language>(.*?));">(?<inner>(.*?))</pre>.*?</div>""",
                 "[code=${language}]${inner}[/code]",
                 Options,
-                new[]
-                    {
-                        "language"
-                    }) { RuleRank = 97 });
+                [
+                    "language"
+                ]) { RuleRank = 97 });
 
         ruleEngine.AddRule(
             new SimpleRegexReplaceRule(
@@ -530,9 +526,6 @@ public class BBCode : IBBCode, IHaveServiceLocator
 
         var noFollow = useNoFollow ? "rel=\"nofollow\"" : string.Empty;
 
-        // pull localized strings
-        var localQuoteStr = this.Get<ILocalization>().GetText("COMMON", "BBCODE_QUOTE");
-
         // handle font sizes -- this rule class internally handles the "size" variable
         ruleEngine.AddRule(
             new FontSizeRegexReplaceRule(
@@ -570,7 +563,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
                         @"\[email=(?<email>[^\]]*)\](?<inner>([^""\r\n\]\[]+?))\[/email\]",
                         Options | RegexOptions.Compiled),
                     "<a href=\"mailto:${email}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>",
-                    new[] { "email" }));
+                    ["email"]));
 
             ruleEngine.AddRule(
                 new SimpleRegexReplaceRule(
@@ -587,14 +580,12 @@ public class BBCode : IBBCode, IHaveServiceLocator
                         Options | RegexOptions.Compiled),
                     "<a {0} {1} href=\"${http}${url}\" title=\"${http}${url}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
-                    new[]
-                        {
-                            "url", "http"
-                        },
-                    new[]
-                        {
-                            string.Empty, string.Empty // "http://"
-                        }) { RuleRank = 10 });
+                    [
+                        "url", "http"
+                    ],
+                    [
+                        string.Empty, string.Empty // "http://"
+                    ]) { RuleRank = 10 });
 
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
@@ -603,14 +594,12 @@ public class BBCode : IBBCode, IHaveServiceLocator
                         Options | RegexOptions.Compiled),
                     "<a {0} {1} href=\"${http}${inner}\" title=\"${http}${inner}\">${http}${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
-                    new[]
-                        {
-                            "http"
-                        },
-                    new[]
-                        {
-                            string.Empty, string.Empty // "http://"
-                        }) { RuleRank = 11 });
+                    [
+                        "http"
+                    ],
+                    [
+                        string.Empty, string.Empty // "http://"
+                    ]) { RuleRank = 11 });
 
             // urls
             ruleEngine.AddRule(
@@ -620,11 +609,10 @@ public class BBCode : IBBCode, IHaveServiceLocator
                         RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled),
                     "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
-                    new[]
-                        {
-                            "before"
-                        },
-                    new[] { string.Empty }) { RuleRank = 12 });
+                    [
+                        "before"
+                    ],
+                    [string.Empty]) { RuleRank = 12 });
 
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
@@ -633,11 +621,10 @@ public class BBCode : IBBCode, IHaveServiceLocator
                         RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled),
                     "${before}<a {0} {1} href=\"${inner}\" title=\"${inner}\">${inner}&nbsp;<i class=\"fa fa-external-link-alt fa-fw\"></i></a>"
                         .Replace("{0}", target).Replace("{1}", noFollow),
-                    new[]
-                        {
-                            "before"
-                        },
-                    new[] { string.Empty }) { RuleRank = 13 });
+                    [
+                        "before"
+                    ],
+                    [string.Empty]) { RuleRank = 13 });
 
             ruleEngine.AddRule(
                 new VariableRegexReplaceRule(
@@ -645,11 +632,10 @@ public class BBCode : IBBCode, IHaveServiceLocator
                         """(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href=")(?<!src=")(?<inner>(http://|https://)(www.)?youtube\.com\/watch\?v=(?<videoId>[A-Za-z0-9._%-]*)(\&\S+)?)""",
                         RegexOptions.Multiline | RegexOptions.Compiled),
                     "${before}<div data-oembed-url=\"//youtube.com/embed/${videoId}\" class=\"ratio ratio-16x9\"><iframe src=\"//youtube.com/embed/${videoId}?hd=1\"></iframe></div>",
-                    new[]
-                        {
-                            "before", "videoId"
-                        },
-                    new[] { string.Empty })
+                    [
+                        "before", "videoId"
+                    ],
+                    [string.Empty])
                     {
                         RuleRank = 8
                     });
@@ -660,11 +646,10 @@ public class BBCode : IBBCode, IHaveServiceLocator
                         """(?<before>^|[ ]|\[[A-Za-z0-9]\]|\[\*\]|[A-Za-z0-9])(?<!href=")(?<!src=")(?<inner>(http://|https://)youtu\.be\/(?<videoId>[A-Za-z0-9._%-]*)(\&\S+)?)""",
                         RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Compiled),
                     "${before}<div data-oembed-url=\"//youtube.com/embed/${videoId}\" class=\"ratio ratio-16x9\"><iframe src=\"//youtube.com/embed/${videoId}?hd=1\"></iframe></div>",
-                    new[]
-                        {
-                            "before", "videoId"
-                        },
-                    new[] { string.Empty })
+                    [
+                        "before", "videoId"
+                    ],
+                    [string.Empty])
                     {
                         RuleRank = 9
                     });
@@ -675,7 +660,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
                     @"\[font=(?<font>([-a-z0-9, ]*))\](?<inner>(.*?))\[/font\]",
                     "<span style=\"font-family:${font}\">${inner}</span>",
                     Options,
-                    new[] { "font" }));
+                    ["font"]));
 
             // color
             ruleEngine.AddRule(
@@ -683,7 +668,7 @@ public class BBCode : IBBCode, IHaveServiceLocator
                     @"\[color=(?<color>(\#?[-a-z0-9]*))\](?<inner>(.*?))\[/color\]",
                     "<span style=\"color:${color}\">${inner}</span>",
                     Options,
-                    new[] { "color" }));
+                    ["color"]));
 
             // lists
             ruleEngine.AddRule(
@@ -814,11 +799,10 @@ public class BBCode : IBBCode, IHaveServiceLocator
                         @"\[img\](?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>((?!.+logout)[^""\r\n\]\[]+?\.((googleusercontent[^\[]*)|(jpg[^\[]*)|(jpeg[^\[]*)|(bmp[^\[]*)|(png[^\[]*)|(gif[^\[]*)|(tif[^\[]*)|(ashx[^\[]*)|(php[^\[]*)|(aspx[^\[]*))))\[/img\]",
                         Options | RegexOptions.Compiled),
                     imageHtml,
-                    new[]
-                        {
-                            "http", "height"
-                        },
-                    new[] { "http://", this.Get<BoardSettings>().ImageThumbnailMaxHeight.ToString() })
+                    [
+                        "http", "height"
+                    ],
+                    ["http://", this.Get<BoardSettings>().ImageThumbnailMaxHeight.ToString()])
                     {
                         RuleRank = 70
                     });
@@ -829,11 +813,10 @@ public class BBCode : IBBCode, IHaveServiceLocator
                         @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>((?!.+logout)[^""\r\n\]\[]+?\.((googleusercontent[^\[]*)|(jpg[^\]\[/img\]]*)|(jpeg[^\[\[/img\]]*)|(bmp[^\[\[/img\]]*)|(png[^\]\[/img\]]*)|(gif[^\]\[/img\]]*)|(tif[^\]\[/img\]]*)|(ashx[^\]\[/img\]]*)|(php[^\]\[/img\]]*)|(aspx[^\]\[/img\]]*))))\]\[/img\]",
                         Options | RegexOptions.Compiled),
                     imageHtml,
-                    new[]
-                        {
-                            "http", "height"
-                        },
-                    new[] { "http://", this.Get<BoardSettings>().ImageThumbnailMaxHeight.ToString() })
+                    [
+                        "http", "height"
+                    ],
+                    ["http://", this.Get<BoardSettings>().ImageThumbnailMaxHeight.ToString()])
                     {
                         RuleRank = 71
                     });
@@ -844,11 +827,10 @@ public class BBCode : IBBCode, IHaveServiceLocator
                         @"\[img=(?<http>(http://)|(https://)|(ftp://)|(ftps://))?(?<inner>((?!.+logout)[^""\r\n\]\[]+?\.((googleusercontent[^\[]*)|(jpg[^\]]*)|(jpeg[^\]]*)|(bmp[^\]]*)|(png[^\]]*)|(gif[^\]]*)|(tif[^\]]*)|(ashx[^\]]*)|(php[^\]]*)|(aspx[^\]]*))))\](?<description>[^\[]*)\[/img\]",
                         Options | RegexOptions.Compiled),
                     imageHtmlWithDesc,
-                    new[]
-                        {
-                            "http", "description", "height"
-                        },
-                    new[] { "http://", string.Empty, this.Get<BoardSettings>().ImageThumbnailMaxHeight.ToString() })
+                    [
+                        "http", "description", "height"
+                    ],
+                    ["http://", string.Empty, this.Get<BoardSettings>().ImageThumbnailMaxHeight.ToString()])
                     {
                         RuleRank = 72
                     });

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -37,7 +37,7 @@ using YAF.Types.Objects.Nntp;
 /// <summary>
 /// The NNTP connection.
 /// </summary>
-public class NntpConnection : IDisposable
+public sealed class NntpConnection : IDisposable
 {
     /// <summary>
     /// The password.
@@ -150,12 +150,7 @@ public class NntpConnection : IDisposable
         }
 
         this.tcpClient.Connect(server, port);
-        var stream = this.tcpClient.GetStream();
-        if (stream == null)
-        {
-            throw new NntpException("Fail to setup connection.");
-        }
-
+        var stream = this.tcpClient.GetStream() ?? throw new NntpException("Fail to setup connection.");
         this.sr = new StreamReader(stream, Encoding.Default);
         this.sw = new StreamWriter(stream, Encoding.ASCII) { AutoFlush = true };
         var res = this.MakeRequest(null);
@@ -256,68 +251,6 @@ public class NntpConnection : IDisposable
     }
 
     /// <summary>
-    /// The get group list.
-    /// </summary>
-    /// <returns>
-    /// The <see cref="ArrayList"/>.
-    /// </returns>
-    [MethodImpl(MethodImplOptions.Synchronized)]
-    public ArrayList GetGroupList()
-    {
-        if (this.ConnectedServer == null)
-        {
-            throw new NntpException("No connecting newsserver.");
-        }
-
-        var res = this.MakeRequest("LIST");
-        if (res.Code != 215)
-        {
-            throw new NntpException(res.Code, res.Request);
-        }
-
-        var list = new ArrayList();
-        while (this.sr.ReadLine() is { } response && response != ".")
-        {
-            var values = response.Split(' ');
-            list.Add(new Newsgroup(values[0], int.Parse(values[2]), int.Parse(values[1])));
-        }
-
-        return list;
-    }
-
-    /// <summary>
-    /// The get article id.
-    /// </summary>
-    /// <param name="messageId">
-    /// The message id.
-    /// </param>
-    /// <returns>
-    /// The <see cref="int"/>.
-    /// </returns>
-    [MethodImpl(MethodImplOptions.Synchronized)]
-    public int GetArticleId(string messageId)
-    {
-        if (this.ConnectedServer == null)
-        {
-            throw new NntpException("No connecting newsserver.");
-        }
-
-        if (this.ConnectedGroup == null)
-        {
-            throw new NntpException("No connecting newsgroup.");
-        }
-
-        var res = this.MakeRequest($"STAT {messageId}");
-        if (res.Code != 223)
-        {
-            throw new NntpException(res.Code, res.Request);
-        }
-
-        var i = res.Message.IndexOf(' ');
-        return int.Parse(res.Message.Substring(0, i));
-    }
-
-    /// <summary>
     /// The get article list.
     /// </summary>
     /// <param name="low">
@@ -367,7 +300,7 @@ public class NntpConnection : IDisposable
                                          values[3].Substring(i + 1, values[3].Length - 7 - i),
                                          out var offTz),
                                      TimeZoneOffset = offTz,
-                                     ReferenceIds = values[5].Trim().Length == 0 ? Array.Empty<string>() : values[5].Split(' '),
+                                     ReferenceIds = values[5].Trim().Length == 0 ? [] : values[5].Split(' '),
                                      LineCount = values.Length < 8 || values[7].Trim() == string.Empty ? 0 : int.Parse(values[7])
                                  };
 
@@ -447,7 +380,7 @@ public class NntpConnection : IDisposable
 
         article.Body = article.MimePart == null
                            ? this.GetNormalBody(article.MessageId)
-                           : this.GetMIMEBody(article.MessageId, article.MimePart);
+                           : this.GetMimeBody(article.MessageId, article.MimePart);
 
         return article;
     }
@@ -511,13 +444,6 @@ public class NntpConnection : IDisposable
     {
         if (this.ConnectedServer != null)
         {
-            if (((NetworkStream)this.sr.BaseStream).DataAvailable)
-            {
-                while (this.sr.ReadLine() is { } response && response != ".")
-                {
-                }
-            }
-
             var res = this.MakeRequest("QUIT");
             if (res.Code != 205)
             {
@@ -645,7 +571,7 @@ public class NntpConnection : IDisposable
     {
         var header = new ArticleHeader();
         string name = null;
-        header.ReferenceIds = Array.Empty<string>();
+        header.ReferenceIds = [];
         part = null;
         while (this.sr.ReadLine() is { } response && response != string.Empty)
         {
@@ -715,7 +641,7 @@ public class NntpConnection : IDisposable
                         if (m.Success)
                         {
                             part.Boundary = m.Groups[1].ToString();
-                            part.EmbeddedPartList = new ArrayList();
+                            part.EmbeddedPartList = [];
                         }
 
                         m = Regex.Match(response, @"CHARSET=""?([^""\s;]+)", RegexOptions.IgnoreCase);
@@ -782,8 +708,9 @@ public class NntpConnection : IDisposable
             else
             {
                 Match m;
+                var match = m = Regex.Match(response, @"^EGIN \d\d\d (.+)$", RegexOptions.IgnoreCase);
                 if ((buff[0] == 'B' || buff[0] == 'b')
-                    && (m = Regex.Match(response, @"^EGIN \d\d\d (.+)$", RegexOptions.IgnoreCase)).Success)
+                    && match.Success)
                 {
                     var ms = new MemoryStream();
                     while ((response = this.sr.ReadLine()) != null
@@ -831,28 +758,15 @@ public class NntpConnection : IDisposable
     /// <returns>
     /// The <see cref="ArticleBody"/>.
     /// </returns>
-    private ArticleBody GetMIMEBody(string messageId, MIMEPart part)
+    private ArticleBody GetMimeBody(string messageId, MIMEPart part)
     {
-        ArticleBody body;
-        try
-        {
-            NntpUtil.DispatchMIMEContent(this.sr, part, ".");
-            var sb = new StringBuilder();
-            var attachmentList = new ArrayList();
-            body = new ArticleBody { IsHtml = true };
-            this.ConvertMIMEContent(messageId, part, sb, attachmentList);
-            body.Text = sb.ToString();
-            body.Attachments = (NntpAttachment[])attachmentList.ToArray(typeof(NntpAttachment));
-        }
-        finally
-        {
-            if (((NetworkStream)this.sr.BaseStream).DataAvailable)
-            {
-                while (this.sr.ReadLine() is { } line && line != ".")
-                {
-                }
-            }
-        }
+        NntpUtil.DispatchMIMEContent(this.sr, part, ".");
+        var sb = new StringBuilder();
+        var attachmentList = new ArrayList();
+        var body = new ArticleBody { IsHtml = true };
+        this.ConvertMIMEContent(messageId, part, sb, attachmentList);
+        body.Text = sb.ToString();
+        body.Attachments = (NntpAttachment[])attachmentList.ToArray(typeof(NntpAttachment));
 
         return body;
     }
@@ -898,7 +812,7 @@ public class NntpConnection : IDisposable
     /// <summary>
     /// The response.
     /// </summary>
-    private class Response
+    private sealed class Response
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Response"/> class.

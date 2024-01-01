@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -163,10 +163,6 @@ public partial class Header : BaseUserControl
 
         if (showUnread)
         {
-            /*link.Controls.Add(new LiteralControl(icon.IsSet()
-                                                     ? $"<i class=\"fa fa-{icon} fa-fw\"></i>&nbsp;{linkText}&nbsp;"
-                                                     : $"{linkText}&nbsp;"));*/
-
             var unreadLabel = new Label { CssClass = "badge text-bg-danger ms-1", ToolTip = unreadText, Text = unread };
 
             unreadLabel.Attributes.Add("data-bs-toggle", "tooltip");

@@ -36,7 +36,6 @@ public class CurrentHttpApplicationStateBaseProvider : IReadWriteProvider<HttpAp
     /// <summary>
     ///   Gets or sets the Instance.
     /// </summary>
-    
     public HttpApplicationStateBase Instance
     {
         get
@@ -51,8 +50,6 @@ public class CurrentHttpApplicationStateBaseProvider : IReadWriteProvider<HttpAp
 
         set
         {
-            CodeContracts.VerifyNotNull(value);
-
             this.applicationStateBase = value;
         }
     }

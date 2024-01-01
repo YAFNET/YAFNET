@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -40,9 +40,6 @@ public static class EnumerableExtensions
     /// <param name="action"> </param>
     public static void ForEach<T>(this IEnumerable<T> list, Action<T> action)
     {
-        CodeContracts.VerifyNotNull(list);
-        CodeContracts.VerifyNotNull(action);
-
         list.ToList().ForEach(action);
     }
 
@@ -56,9 +53,6 @@ public static class EnumerableExtensions
     /// <param name="action"> </param>
     public static void ForEachFirst<T>(this IEnumerable<T> list, Action<T, bool> action)
     {
-        CodeContracts.VerifyNotNull(list);
-        CodeContracts.VerifyNotNull(action);
-
         var isFirst = true;
 
         list.ToList().ForEach(
@@ -79,9 +73,6 @@ public static class EnumerableExtensions
     /// <param name="action"> </param>
     public static void ForEachIndex<T>(this IEnumerable<T> list, Action<T, int> action)
     {
-        CodeContracts.VerifyNotNull(list);
-        CodeContracts.VerifyNotNull(action);
-
         var i = 0;
 
         list.ToList().ForEach(item => action(item, i++));
@@ -139,5 +130,15 @@ public static class EnumerableExtensions
         }
 
         return !source.Any();
+    }
+
+    public static bool Exists<T>(this T[] array, Predicate<T> match)
+    {
+        return Array.Exists(array, match);
+    }
+
+    public static T Find<T>(this T[] array, Predicate<T> match)
+    {
+        return Array.Find(array, match);
     }
 }

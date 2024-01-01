@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -51,7 +51,7 @@ public partial class Startup
                         {
                             var startupClass = Activator.CreateInstance(type);
 
-                            type.GetMethod("ConfigureSignalR").Invoke(startupClass, new object[] { app });
+                            type.GetMethod("ConfigureSignalR").Invoke(startupClass, [app]);
                         }));
 
         this.ConfigureAuth(app);

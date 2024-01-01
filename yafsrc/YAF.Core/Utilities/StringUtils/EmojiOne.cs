@@ -19,6 +19,8 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //  SOFTWARE.
 
+using System.Text;
+
 namespace YAF.Core.Utilities.StringUtils;
 
 using System;
@@ -116,18 +118,18 @@ public static partial class EmojiOne
     /// </returns>
     static internal string ToCodePoint(string unicode)
     {
-        var codepoint = string.Empty;
+        var codepoint = new StringBuilder();
         for (var i = 0; i < unicode.Length; i += char.IsSurrogatePair(unicode, i) ? 2 : 1)
         {
             if (i > 0)
             {
-                codepoint += "-";
+                codepoint.Append("-");
             }
 
-            codepoint += $"{char.ConvertToUtf32(unicode, i):X4}";
+            codepoint.Append($"{char.ConvertToUtf32(unicode, i):X4}");
         }
 
-        return codepoint.ToLower();
+        return codepoint.ToString().ToLower();
     }
 
     /// <summary>
@@ -137,7 +139,7 @@ public static partial class EmojiOne
     /// <returns>Returns the converted string</returns>
     static internal string ToUnicode(string codepoint)
     {
-        if (codepoint.Contains('-'))
+        if (Enumerable.Contains(codepoint, '-'))
         {
             var pair = codepoint.Split('-');
             var hilos = new string[pair.Length];
@@ -149,7 +151,7 @@ public static partial class EmojiOne
                 {
                     var hi = Math.Floor((decimal)(part - 0x10000) / 0x400) + 0xD800;
                     var lo = (part - 0x10000) % 0x400 + 0xDC00;
-                    hilos[i] = new string(new[] { (char)hi, (char)lo });
+                    hilos[i] = new string([(char)hi, (char)lo]);
                 }
                 else
                 {
@@ -157,7 +159,7 @@ public static partial class EmojiOne
                 }
             }
 
-            return hilos.Any(x => x != null) ? string.Concat(hilos) : new string(chars);
+            return hilos.Exists(x => x != null) ? string.Concat(hilos) : new string(chars);
         }
         else
         {

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Data;
 
 using System;
@@ -153,9 +154,6 @@ public abstract class DbAccessBase : IDbAccess
     protected virtual void MapParameters(IDbCommand cmd, IEnumerable<KeyValuePair<string, object>> parameters)
     {
         var keyValuePairs = parameters.ToList();
-
-        CodeContracts.VerifyNotNull(cmd);
-        CodeContracts.VerifyNotNull(keyValuePairs);
 
         // add all/any parameters...
         keyValuePairs.ForEach(cmd.AddParam);

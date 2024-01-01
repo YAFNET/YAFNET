@@ -60,14 +60,10 @@ public sealed class RewriterHttpModule : IHttpModule
     /// <param name="args"></param>
     private static void BeginRequest(object sender, EventArgs args)
     {
-        // Add our PoweredBy header
-        // HttpContext.Current.Response.AddHeader(Constants.HeaderXPoweredBy, Configuration.XPoweredBy);
-
         // Allow a bypass to be set up by the using application
         var context = HttpContext.Current;
-        if (context.Items.Contains(@"Intelligencia.UrlRewriter.Bypass") &&
-            context.Items[@"Intelligencia.UrlRewriter.Bypass"] is bool &&
-            (bool)context.Items[@"Intelligencia.UrlRewriter.Bypass"])
+        if (context.Items.Contains("Intelligencia.UrlRewriter.Bypass") &&
+            context.Items["Intelligencia.UrlRewriter.Bypass"] is bool and true)
         {
             // A bypass is set!
             return;

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -270,8 +270,6 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// </param>
     public void ToPrivateMessageRecipient(int toUserId, string subject)
     {
-        CodeContracts.VerifyNotNull(subject);
-
         try
         {
             // user's PM notification setting
@@ -477,10 +475,6 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
         string pass,
         string templateName)
     {
-        CodeContracts.VerifyNotNull(user);
-        CodeContracts.VerifyNotNull(pass);
-        CodeContracts.VerifyNotNull(templateName);
-
         var subject = this.Get<ILocalization>().GetTextFormatted(
             "NOTIFICATION_ON_NEW_FACEBOOK_USER_SUBJECT",
             this.BoardSettings.Name);
@@ -503,8 +497,6 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="medalName">Name of the medal.</param>
     public void ToUserWithNewMedal(int toUserId, string medalName)
     {
-        CodeContracts.VerifyNotNull(medalName);
-
         var toUser = this.GetRepository<User>().GetById(toUserId);
 
         if (toUser == null)
@@ -537,9 +529,6 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="removedRoles">The removed roles.</param>
     public void SendRoleUnAssignmentNotification(AspNetUsers user, List<string> removedRoles)
     {
-        CodeContracts.VerifyNotNull(user);
-        CodeContracts.VerifyNotNull(removedRoles);
-
         var subject = this.Get<ILocalization>().GetTextFormatted(
             "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
             this.BoardSettings.Name);
@@ -549,7 +538,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                     TemplateParams =
                                         {
                                             ["{user}"] = user.UserName,
-                                            ["{roles}"] = string.Join(", ", removedRoles.ToArray()),
+                                            ["{roles}"] = string.Join(", ", [.. removedRoles]),
                                             ["{forumname}"] = this.BoardSettings.Name
                                         }
                                 };
@@ -564,9 +553,6 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="addedRoles">The added roles.</param>
     public void SendRoleAssignmentNotification(AspNetUsers user, List<string> addedRoles)
     {
-        CodeContracts.VerifyNotNull(user);
-        CodeContracts.VerifyNotNull(addedRoles);
-
         var subject = this.Get<ILocalization>().GetTextFormatted(
             "NOTIFICATION_ROLE_ASSIGNMENT_SUBJECT",
             this.BoardSettings.Name);
@@ -576,7 +562,7 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
                                     TemplateParams =
                                         {
                                             ["{user}"] = user.UserName,
-                                            ["{roles}"] = string.Join(", ", addedRoles.ToArray()),
+                                            ["{roles}"] = string.Join(", ", [.. addedRoles]),
                                             ["{forumname}"] = this.BoardSettings.Name
                                         }
                                 };
@@ -592,8 +578,6 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="userId">The user id.</param>
     public void SendRegistrationNotificationEmail(AspNetUsers user, int userId)
     {
-        CodeContracts.VerifyNotNull(user);
-
         if (this.BoardSettings.NotificationOnUserRegisterEmailList.IsNotSet())
         {
             return;
@@ -632,8 +616,6 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="userId">The user id.</param>
     public void SendSpamBotNotificationToAdmins(AspNetUsers user, int userId)
     {
-        CodeContracts.VerifyNotNull(user);
-
         // Get Admin Group ID
         var adminGroupId = this.GetRepository<Group>().List(boardId: BoardContext.Current.PageBoardID)
             .Where(group => group.Name.Contains("Admin")).Select(group => group.ID).FirstOrDefault();
@@ -682,8 +664,6 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="user">The user.</param>
     public void SendUserWelcomeNotification(User user)
     {
-        CodeContracts.VerifyNotNull(user);
-
         if (this.BoardSettings.SendWelcomeNotificationAfterRegister.Equals(0))
         {
             return;
@@ -745,9 +725,6 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
         int? userId,
         string newUsername = null)
     {
-        CodeContracts.VerifyNotNull(email);
-        CodeContracts.VerifyNotNull(user);
-
         var token = HttpUtility.UrlEncode(
             this.Get<IAspNetUsersHelper>().GenerateEmailConfirmationResetToken(user.Id));
 
@@ -786,10 +763,6 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
         string email,
         string userName)
     {
-        CodeContracts.VerifyNotNull(suspendReason);
-        CodeContracts.VerifyNotNull(email);
-        CodeContracts.VerifyNotNull(userName);
-
         var subject = this.Get<ILocalization>().GetTextFormatted(
             "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT",
             this.BoardSettings.Name);
@@ -816,9 +789,6 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// <param name="userName">Name of the user.</param>
     public void SendUserSuspensionEndedNotification(string email, string userName)
     {
-        CodeContracts.VerifyNotNull(email);
-        CodeContracts.VerifyNotNull(userName);
-
         var subject = this.Get<ILocalization>().GetTextFormatted(
             "NOTIFICATION_ON_SUSPENDING_USER_SUBJECT",
             this.BoardSettings.Name);
@@ -845,8 +815,6 @@ public class SendNotification : ISendNotification, IHaveServiceLocator
     /// </param>
     public void SendPasswordReset(AspNetUsers user, string token)
     {
-        CodeContracts.VerifyNotNull(user);
-
         // re-send verification email instead of lost password...
         var verifyEmail = new TemplateEmail("RESET_PASS");
 

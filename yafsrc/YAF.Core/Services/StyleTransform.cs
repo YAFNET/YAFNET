@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -62,6 +62,6 @@ public class StyleTransform : IStyleTransform
     private static string GetColorOnly(string styleString)
     {
         var styleArray = styleString.Split(';');
-        return styleArray.FirstOrDefault(t => t.ToLower().Contains("color"));
+        return styleArray.Find(t => t.ToLower().Contains("color"));
     }
 }

@@ -50,6 +50,10 @@
   <ItemGroup>
     <Compile Include="..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
     <PackageReference Include="OEmbed.Core" Version="2.0.0" />
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.16.0.82469">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <Compile Update="Controls\BaseReportedPosts.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -95,17 +95,15 @@ public class IconLegend : BaseControl
     /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
     private void IconLegendLoad(object sender, EventArgs e)
     {
-        string[] themeImageTags =
-            {
-                "TOPIC_NEW", "TOPIC", "TOPIC_HOT_NEW", "TOPIC_HOT", "TOPIC_NEW_LOCKED", "TOPIC_LOCKED",
+        string[] themeImageTags = [
+            "TOPIC_NEW", "TOPIC", "TOPIC_HOT_NEW", "TOPIC_HOT", "TOPIC_NEW_LOCKED", "TOPIC_LOCKED",
                 "TOPIC_MOVED"
-            };
+        ];
 
-        string[] localizedTags =
-            {
-                "NEW_POSTS", "NO_NEW_POSTS", "HOT_NEW_POSTS", "HOT_NO_NEW_POSTS", "NEW_POSTS_LOCKED",
+        string[] localizedTags = [
+            "NEW_POSTS", "NO_NEW_POSTS", "HOT_NEW_POSTS", "HOT_NO_NEW_POSTS", "NEW_POSTS_LOCKED",
                 "NO_NEW_POSTS_LOCKED", "MOVED"
-            };
+        ];
 
         HtmlGenericControl row = null;
 

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -43,7 +43,7 @@ public static class IServiceLocatorExtensions
     /// </returns>
     public static TService Get<TService>(this IServiceLocator serviceLocator)
     {
-        CodeContracts.VerifyNotNull(serviceLocator);
+        
 
         return (TService)serviceLocator.Get(typeof(TService));
     }
@@ -64,8 +64,8 @@ public static class IServiceLocatorExtensions
     /// </returns>
     public static TService Get<TService>(this IServiceLocator serviceLocator, string named)
     {
-        CodeContracts.VerifyNotNull(serviceLocator);
-        CodeContracts.VerifyNotNull(named);
+        
+        
 
         return (TService)serviceLocator.Get(typeof(TService), named);
     }
@@ -86,9 +86,6 @@ public static class IServiceLocatorExtensions
     public static TService Get<TService>(
         this IServiceLocator serviceLocator, IEnumerable<IServiceLocationParameter> parameters)
     {
-        CodeContracts.VerifyNotNull(serviceLocator);
-        CodeContracts.VerifyNotNull(parameters);
-
         return (TService)serviceLocator.Get(typeof(TService), parameters);
     }
 
@@ -111,10 +108,6 @@ public static class IServiceLocatorExtensions
     public static TService Get<TService>(
         this IServiceLocator serviceLocator, string named, IEnumerable<IServiceLocationParameter> parameters)
     {
-        CodeContracts.VerifyNotNull(serviceLocator);
-        CodeContracts.VerifyNotNull(named);
-        CodeContracts.VerifyNotNull(parameters);
-
         return (TService)serviceLocator.Get(typeof(TService), named, parameters);
     }
 
@@ -131,7 +124,7 @@ public static class IServiceLocatorExtensions
     /// </returns>
     public static TService Get<TService>(this IHaveServiceLocator haveLocator)
     {
-        CodeContracts.VerifyNotNull(haveLocator);
+        
 
         return haveLocator.ServiceLocator.Get<TService>();
     }
@@ -152,9 +145,6 @@ public static class IServiceLocatorExtensions
     /// </returns>
     public static TService Get<TService>(this IHaveServiceLocator haveLocator, string named)
     {
-        CodeContracts.VerifyNotNull(haveLocator);
-        CodeContracts.VerifyNotNull(named);
-
         return haveLocator.ServiceLocator.Get<TService>(named);
     }
 
@@ -175,9 +165,6 @@ public static class IServiceLocatorExtensions
     public static TService Get<TService>(
         this IHaveServiceLocator haveLocator, IEnumerable<IServiceLocationParameter> parameters)
     {
-        CodeContracts.VerifyNotNull(haveLocator);
-        CodeContracts.VerifyNotNull(parameters);
-
         return haveLocator.ServiceLocator.Get<TService>(parameters);
     }
 
@@ -201,10 +188,6 @@ public static class IServiceLocatorExtensions
     public static TService Get<TService>(
         this IHaveServiceLocator haveLocator, string named, IEnumerable<IServiceLocationParameter> parameters)
     {
-        CodeContracts.VerifyNotNull(haveLocator);
-        CodeContracts.VerifyNotNull(named);
-        CodeContracts.VerifyNotNull(parameters);
-
         return haveLocator.ServiceLocator.Get<TService>(named, parameters);
     }
 
@@ -222,7 +205,7 @@ public static class IServiceLocatorExtensions
     public static IRepository<T> GetRepository<T>(this IHaveServiceLocator serviceLocator)
         where T : IEntity
     {
-        CodeContracts.VerifyNotNull(serviceLocator);
+        
 
         return serviceLocator.Get<IRepository<T>>();
     }
@@ -243,7 +226,7 @@ public static class IServiceLocatorExtensions
     /// </returns>
     public static bool TryGet<TService>(this IServiceLocator serviceLocator, out TService instance)
     {
-        CodeContracts.VerifyNotNull(serviceLocator);
+        
 
         instance = default;
 
@@ -276,8 +259,8 @@ public static class IServiceLocatorExtensions
     public static bool TryGet<TService>(
         this IServiceLocator serviceLocator, string named, out TService instance)
     {
-        CodeContracts.VerifyNotNull(serviceLocator);
-        CodeContracts.VerifyNotNull(named);
+        
+        
 
         instance = default;
 
@@ -307,7 +290,7 @@ public static class IServiceLocatorExtensions
     /// </returns>
     public static bool TryGet<TService>(this IHaveServiceLocator haveLocator, out TService instance)
     {
-        CodeContracts.VerifyNotNull(haveLocator);
+        
 
         return haveLocator.ServiceLocator.TryGet(out instance);
     }
@@ -332,8 +315,8 @@ public static class IServiceLocatorExtensions
     public static bool TryGet<TService>(
         this IHaveServiceLocator haveLocator, string named, out TService instance)
     {
-        CodeContracts.VerifyNotNull(haveLocator);
-        CodeContracts.VerifyNotNull(named);
+        
+        
 
         return haveLocator.ServiceLocator.TryGet(named, out instance);
     }

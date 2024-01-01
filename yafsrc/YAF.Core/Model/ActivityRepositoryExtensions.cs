@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -49,7 +49,7 @@ public static class ActivityRepositoryExtensions
         this IRepository<Activity> repository,
         int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
@@ -73,7 +73,7 @@ public static class ActivityRepositoryExtensions
     /// </returns>
     public static List<Tuple<Activity, Topic>> Timeline(this IRepository<Activity> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Activity>();
 
@@ -101,7 +101,7 @@ public static class ActivityRepositoryExtensions
         int userId,
         int messageId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
 
@@ -127,7 +127,7 @@ public static class ActivityRepositoryExtensions
         int userId,
         int topicId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         BoardContext.Current.Get<IRaiseEvent>().Raise(new UpdateUserEvent(userId));
 
@@ -147,7 +147,7 @@ public static class ActivityRepositoryExtensions
     /// </param>
     public static void MarkAllAsRead(this IRepository<Activity> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.UpdateOnly(
             () => new Activity { Notification = false },

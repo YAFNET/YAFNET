@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -48,9 +48,6 @@ public static class IObjectStoreExtensions
     /// </returns>
     public static T Get<T>(this IObjectStore objectStore, string originalKey)
     {
-        CodeContracts.VerifyNotNull(objectStore);
-        CodeContracts.VerifyNotNull(originalKey);
-
         var item = objectStore.Get(originalKey);
 
         if (item is T item1)
@@ -72,8 +69,6 @@ public static class IObjectStoreExtensions
     /// </typeparam>
     public static void RemoveOf<T>(this IObjectStore objectStore)
     {
-        CodeContracts.VerifyNotNull(objectStore);
-
         objectStore.GetAll<T>().ToList().ForEach(i => objectStore.Remove(i.Key));
     }
 
@@ -86,8 +81,6 @@ public static class IObjectStoreExtensions
     public static void Clear(this IObjectStore objectStore)
     {
         // remove all objects in the cache...
-        CodeContracts.VerifyNotNull(objectStore);
-
         objectStore.RemoveOf<object>();
     }
 
@@ -103,8 +96,6 @@ public static class IObjectStoreExtensions
     public static int Count(this IObjectStore objectStore)
     {
         // remove all objects in the cache...
-        CodeContracts.VerifyNotNull(objectStore);
-
         return objectStore.GetAll<object>().Count();
     }
 
@@ -123,8 +114,6 @@ public static class IObjectStoreExtensions
     public static int CountOf<T>(this IObjectStore objectStore)
     {
         // remove all objects in the cache...
-        CodeContracts.VerifyNotNull(objectStore);
-
         return objectStore.GetAll<T>().Count();
     }
 
@@ -143,9 +132,6 @@ public static class IObjectStoreExtensions
     public static void RemoveOf<T>(
         this IObjectStore objectStore, Func<KeyValuePair<string, T>, bool> whereFunc)
     {
-        CodeContracts.VerifyNotNull(objectStore);
-        CodeContracts.VerifyNotNull(whereFunc);
-
         objectStore.GetAll<T>().Where(whereFunc).ToList().ForEach(i => objectStore.Remove(i.Key));
     }
 
@@ -161,9 +147,6 @@ public static class IObjectStoreExtensions
     public static void Remove(
         this IObjectStore objectStore, Func<string, bool> whereFunc)
     {
-        CodeContracts.VerifyNotNull(objectStore);
-        CodeContracts.VerifyNotNull(whereFunc);
-
         objectStore.GetAll<object>().Where(k => whereFunc(k.Key)).ToList().ForEach(i => objectStore.Remove(i.Key));
     }
 }

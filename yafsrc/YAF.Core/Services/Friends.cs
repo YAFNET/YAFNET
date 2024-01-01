@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -195,14 +195,14 @@ public class Friends : IFriends, IHaveServiceLocator
         // Filter
         if (approved)
         {
-            if (userBuddyList.Any(x => x.UserID == buddyUserId && x.Approved))
+            if (userBuddyList.Exists(x => x.UserID == buddyUserId && x.Approved))
             {
                 return true;
             }
         }
         else
         {
-            if (userBuddyList.Any(x => x.UserID == buddyUserId))
+            if (userBuddyList.Exists(x => x.UserID == buddyUserId))
             {
                 return true;
             }

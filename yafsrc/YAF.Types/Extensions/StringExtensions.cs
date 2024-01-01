@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Extensions;
 
 using System.Collections.Generic;
@@ -65,9 +66,6 @@ public static class StringExtensions
     /// </returns>
     public static int FastIndexOf(this string source, string pattern)
     {
-        CodeContracts.VerifyNotNull(source);
-        CodeContracts.VerifyNotNull(pattern);
-
         switch (pattern.Length)
         {
             case 0:
@@ -131,10 +129,7 @@ public static class StringExtensions
     /// <param name="forEachAction">For each action.</param>
     public static void ForEachChar(this string input, Action<char> forEachAction)
     {
-        CodeContracts.VerifyNotNull(input);
-        CodeContracts.VerifyNotNull(forEachAction);
-
-        input.ForEach(forEachAction);
+       input.ForEach(forEachAction);
     }
 
     /// <summary>
@@ -177,7 +172,7 @@ public static class StringExtensions
         }
 
         var r = new Regex(@"\s+");
-        return r.Replace(text, @" ");
+        return r.Replace(text, " ");
     }
 
     /// <summary>
@@ -225,11 +220,8 @@ public static class StringExtensions
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    
     public static string ToRegExString(this string input)
     {
-        CodeContracts.VerifyNotNull(input);
-
         var sb = new StringBuilder();
 
         input.ForEachChar(
@@ -266,8 +258,6 @@ public static class StringExtensions
         int inputLimit,
         string cutOfString = "...")
     {
-        CodeContracts.VerifyNotNull(cutOfString);
-
         var output = input;
 
         if (input.IsNotSet())
@@ -361,9 +351,7 @@ public static class StringExtensions
     /// </returns>
     public static Guid ToGuid(this string value)
     {
-        CodeContracts.VerifyNotNull(value);
-
-        byte[] bytes = new byte[16];
+        var bytes = new byte[16];
         BitConverter.GetBytes(value.ToType<int>()).CopyTo(bytes, 0);
         return new Guid(bytes);
     }

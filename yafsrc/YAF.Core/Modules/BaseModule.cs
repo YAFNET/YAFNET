@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -53,14 +53,17 @@ public abstract class BaseModule : Module, IHaveSortOrder
     /// </summary>
     static BaseModule()
     {
-        ExtensionAssemblies = new ModuleScanner().GetModules("YAF*.dll")
-            .Concat(
-                AppDomain.CurrentDomain.GetAssemblies().Where(
-                    a => a.FullName.StartsWith("Autofac") && a.FullName.StartsWith("FarsiLibrary")
-                                                          && a.FullName.StartsWith("YAF.Lucene.NET")
-                                                          && a.FullName.StartsWith("ServiceStack.")))
-            .Except(new[] { Assembly.GetExecutingAssembly() }).Where(a => !a.IsDynamic).Distinct()
-            .OrderByDescending(x => x.GetAssemblySortOrder()).ToArray();
+        ExtensionAssemblies =
+        [
+            .. new ModuleScanner().GetModules("YAF*.dll")
+                        .Concat(
+                            AppDomain.CurrentDomain.GetAssemblies().Where(
+                                a => a.FullName.StartsWith("Autofac") && a.FullName.StartsWith("FarsiLibrary")
+                                                                      && a.FullName.StartsWith("YAF.Lucene.NET")
+                                                                      && a.FullName.StartsWith("ServiceStack.")))
+                        .Except(new[] { Assembly.GetExecutingAssembly() }).Where(a => !a.IsDynamic).Distinct()
+                        .OrderByDescending(x => x.GetAssemblySortOrder()),
+        ];
 #if DEBUG
 
         ExtensionAssemblies.ForEach(s => Debug.WriteLine("Extension Assembly: {0}", s));

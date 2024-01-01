@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -49,9 +49,6 @@ public static class NameValueCollectionExtensions
         this NameValueCollection collection,
         string paramName)
     {
-        CodeContracts.VerifyNotNull(collection);
-        CodeContracts.VerifyNotNull(paramName);
-
         return collection.GetValueList(paramName).FirstOrDefault();
     }
 
@@ -74,9 +71,6 @@ public static class NameValueCollectionExtensions
         this NameValueCollection collection,
         string paramName)
     {
-        CodeContracts.VerifyNotNull(collection);
-        CodeContracts.VerifyNotNull(paramName);
-
         return collection.GetFirstOrDefault(paramName).ToType<T>();
     }
 
@@ -96,9 +90,6 @@ public static class NameValueCollectionExtensions
         this NameValueCollection collection,
         string paramName)
     {
-        CodeContracts.VerifyNotNull(collection);
-        CodeContracts.VerifyNotNull(paramName);
-
         if (collection.GetFirstOrDefault(paramName) != null && int.TryParse(
                 collection.GetFirstOrDefault(paramName),
                 out var value))
@@ -125,9 +116,6 @@ public static class NameValueCollectionExtensions
         this NameValueCollection collection,
         string paramName)
     {
-        CodeContracts.VerifyNotNull(collection);
-        CodeContracts.VerifyNotNull(paramName);
-
         return collection[paramName] == null
                    ? Enumerable.Empty<string>()
                    : collection[paramName].Split(',').AsEnumerable();
@@ -147,9 +135,6 @@ public static class NameValueCollectionExtensions
     /// </returns>
     public static bool Exists(this NameValueCollection collection, string paramName)
     {
-        CodeContracts.VerifyNotNull(collection);
-        CodeContracts.VerifyNotNull(paramName);
-
         return collection[paramName] != null;
     }
 }

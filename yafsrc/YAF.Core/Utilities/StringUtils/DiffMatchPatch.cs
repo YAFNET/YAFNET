@@ -185,7 +185,7 @@ public class DiffMatchPatch
         List<Diff> diffs;
         if (text1 == text2)
         {
-            diffs = new List<Diff>();
+            diffs = [];
             if (text1.Length != 0)
             {
                 diffs.Add(new Diff(Operation.Equal, text1));
@@ -574,7 +574,7 @@ public class DiffMatchPatch
         // Allocate 2/3rds of the space for text1, the rest for text2.
         var chars1 = LinesToCharsMunge(text1, lineArray, lineHash, 40000);
         var chars2 = LinesToCharsMunge(text2, lineArray, lineHash, 65535);
-        return new object[] {chars1, chars2, lineArray};
+        return [chars1, chars2, lineArray];
     }
 
     /**
@@ -806,7 +806,7 @@ public class DiffMatchPatch
         }
 
         // A half-match was found, sort out the return data.
-        return text1.Length > text2.Length ? hm : new[] {hm[2], hm[3], hm[0], hm[1], hm[4]};
+        return text1.Length > text2.Length ? hm : [hm[2], hm[3], hm[0], hm[1], hm[4]];
     }
 
     /**
@@ -844,7 +844,9 @@ public class DiffMatchPatch
             bestShortTextB = shortText.Substring(j + prefixLength);
         }
 
-        return bestCommon.Length * 2 >= longtext.Length ? new[] {bestLongtextA, bestLongtextB, bestShortTextA, bestShortTextB, bestCommon} : null;
+        return bestCommon.Length * 2 >= longtext.Length ? [bestLongtextA, bestLongtextB, bestShortTextA, bestShortTextB, bestCommon
+            ]
+            : null;
     }
 
     /**

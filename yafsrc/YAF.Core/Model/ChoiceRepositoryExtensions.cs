@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -55,7 +55,7 @@ public static class ChoiceRepositoryExtensions
         string choice,
         string objectPath)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var entity = new Choice { PollID = pollId, ChoiceName = choice, Votes = 0, ObjectPath = objectPath };
 
@@ -87,7 +87,7 @@ public static class ChoiceRepositoryExtensions
         string choice,
         string objectPath)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.UpdateOnly(
             () => new Choice { ChoiceName = choice, ObjectPath = objectPath },
@@ -105,7 +105,7 @@ public static class ChoiceRepositoryExtensions
     /// </param>
     public static void Vote(this IRepository<Choice> repository, int choiceId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.UpdateAdd(() => new Choice { Votes = 1 }, a => a.ID == choiceId);
     }

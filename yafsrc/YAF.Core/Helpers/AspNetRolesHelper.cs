@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -180,7 +180,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// </returns>
     public List<string> GetAllRoles()
     {
-        return this.Get<IAspNetRoleManager>().AspNetRoles.Select(r => r.Name).ToList();
+        return [.. this.Get<IAspNetRoleManager>().AspNetRoles.Select(r => r.Name)];
     }
 
     /// <summary>
@@ -217,7 +217,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
         this.Get<IAspNetUsersHelper>().Users.ForEach(
             user =>
                 {
-                    if (users.Any(u => u.UserId == user.Id))
+                    if (users.Exists(u => u.UserId == user.Id))
                     {
                         userList.Add(user);
                     }
@@ -240,7 +240,7 @@ public class AspNetRolesHelper : IAspNetRolesHelper, IHaveServiceLocator
     /// </returns>
     public bool IsMemberOfGroup(string groupName, List<GroupMember> groups)
     {
-        return groups.Any(
+        return groups.Exists(
             row => row.IsMember && row.Name == groupName);
     }
 

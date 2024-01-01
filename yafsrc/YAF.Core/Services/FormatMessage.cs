@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -110,7 +110,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
                         bbCode = bbCode.Remove(bbCode.IndexOf("=", StringComparison.Ordinal));
                     }
 
-                    if (codes.Any(allowedTag => bbCode.ToLower().Equals(allowedTag.ToLower())))
+                    if (codes.Exists(allowedTag => bbCode.ToLower().Equals(allowedTag.ToLower())))
                     {
                         return;
                     }
@@ -312,7 +312,7 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
                         code = code.Remove(code.IndexOf(" ", StringComparison.Ordinal));
                     }
 
-                    if (codes.Any(allowedTag => code.ToLower().Equals(allowedTag.ToLower())))
+                    if (codes.Exists(allowedTag => code.ToLower().Equals(allowedTag.ToLower())))
                     {
                         return;
                     }
@@ -461,11 +461,6 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         string prefix,
         string postfix)
     {
-        CodeContracts.VerifyNotNull(message);
-        CodeContracts.VerifyNotNull(wordList);
-        CodeContracts.VerifyNotNull(prefix);
-        CodeContracts.VerifyNotNull(postfix);
-
         wordList.Where(w => w.Length > 3).ForEach(
             word => MatchAndPerformAction(
                 $"({word.ToLower().ToRegExString()})",
@@ -496,10 +491,6 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         string text,
         Action<string, int, int> matchAction)
     {
-        CodeContracts.VerifyNotNull(matchRegEx);
-        CodeContracts.VerifyNotNull(text);
-        CodeContracts.VerifyNotNull(matchAction);
-
         const RegexOptions RegexOptions = RegexOptions.IgnoreCase;
 
         var matches = Regex.Matches(text, matchRegEx, RegexOptions).Cast<Match>().OrderByDescending(x => x.Index);
@@ -527,9 +518,6 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     private static string RemoveHtmlByList(string text, IEnumerable<string> matchList)
     {
         var allowedTags = matchList.ToList();
-
-        CodeContracts.VerifyNotNull(text);
-        CodeContracts.VerifyNotNull(allowedTags);
 
         MatchAndPerformAction(
             "<.*?>",

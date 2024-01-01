@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -44,9 +44,6 @@ public static class LocalizationSupportExtensions
     /// </returns>
     public static string Localize(this ILocalizationSupport supportItem, Control currentControl)
     {
-        CodeContracts.VerifyNotNull(supportItem);
-        CodeContracts.VerifyNotNull(currentControl);
-
         if (currentControl.Site is { DesignMode: true })
         {
             return $"[PAGE:{supportItem.LocalizedPage}|TAG:{supportItem.LocalizedTag}]";
@@ -75,9 +72,6 @@ public static class LocalizationSupportExtensions
         this ILocalizationSupport supportedItem,
         BaseControl currentControl)
     {
-        CodeContracts.VerifyNotNull(supportedItem);
-        CodeContracts.VerifyNotNull(currentControl);
-
         var localizedItem = supportedItem.Localize(currentControl);
 
         // convert from BBCode to HTML

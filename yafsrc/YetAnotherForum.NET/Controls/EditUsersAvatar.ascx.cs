@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -175,6 +175,8 @@ public partial class EditUsersAvatar : BaseUserControl
                     null,
                     memoryStream,
                     this.File.PostedFile.ContentType);
+
+                image.Dispose();
             }
             else
             {
@@ -189,7 +191,7 @@ public partial class EditUsersAvatar : BaseUserControl
 
                 var fileName = this.File.PostedFile.FileName;
 
-                var pos = fileName.LastIndexOfAny(new[] { '/', '\\' });
+                var pos = fileName.LastIndexOfAny(['/', '\\']);
 
                 if (pos >= 0)
                 {
@@ -227,6 +229,8 @@ public partial class EditUsersAvatar : BaseUserControl
                     $"{BoardInfo.ForumServerFileRoot}{this.Get<BoardFolders>().Uploads}/{newFileName}",
                     null,
                     null);
+
+                avatarImage.Dispose();
             }
 
             // clear the cache for this user...

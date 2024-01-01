@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -42,7 +42,7 @@ public static class WatchTopicRepositoryExtensions
     /// <param name="topicId">The topic identifier.</param>
     public static void Add(this IRepository<WatchTopic> repository, int userId, int topicId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var watchTopic = new WatchTopic { TopicID = topicId, UserID = userId, Created = DateTime.UtcNow };
 
@@ -68,7 +68,7 @@ public static class WatchTopicRepositoryExtensions
     /// </returns>
     public static int? Check(this IRepository<WatchTopic> repository, int userId, int topicId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var topic = repository.GetSingle(w => w.UserID == userId && w.TopicID == topicId);
 
@@ -99,7 +99,7 @@ public static class WatchTopicRepositoryExtensions
         int pageIndex = 0,
         int pageSize = 10000000)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<WatchTopic>();
 

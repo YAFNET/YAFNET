@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Types.Extensions;
 
 using System.IO;
@@ -34,7 +35,7 @@ public static class StreamExtensions
     /// Converts a Stream to a String.
     /// </summary>
     /// <param name="theStream">
-    /// The the Stream.
+    /// the Stream.
     /// </param>
     /// <returns>
     /// The stream to string.
@@ -56,8 +57,6 @@ public static class StreamExtensions
     /// </returns>
     public static byte[] ToArray(this Stream stream)
     {
-        CodeContracts.VerifyNotNull(stream);
-
         var data = new byte[stream.Length];
         stream.Seek(0, SeekOrigin.Begin);
         stream.Read(data, 0, (int)stream.Length);

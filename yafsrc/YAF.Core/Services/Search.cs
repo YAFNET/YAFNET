@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -399,7 +399,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     public List<SearchMessage> SearchSimilar(string filter, string input, string fieldName = "")
     {
         return input.IsNotSet()
-                   ? new List<SearchMessage>()
+                   ? []
                    : this.SearchSimilarIndex(filter, input, fieldName);
     }
 
@@ -436,7 +436,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         }
 
         totalHits = 0;
-        return new List<SearchMessage>();
+        return [];
     }
 
     /// <summary>
@@ -451,7 +451,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     public List<SearchMessage> SearchDefault(int forumId, string input, string fieldName = "")
     {
         return input.IsNotSet()
-                   ? new List<SearchMessage>()
+                   ? []
                    : this.SearchIndex(out _, forumId, input, fieldName);
     }
 
@@ -827,7 +827,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         if (searchQuery.Replace("*", string.Empty).Replace("?", string.Empty).IsNotSet())
         {
             totalHits = 0;
-            return new List<SearchMessage>();
+            return [];
         }
 
         // Insert forum access here
@@ -844,7 +844,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         if (searcher == null)
         {
             totalHits = 0;
-            return new List<SearchMessage>();
+            return [];
         }
 
         var hitsLimit = this.Get<BoardSettings>().ReturnSearchMax;
@@ -890,11 +890,10 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
         {
             var parser = new MultiFieldQueryParser(
                 MatchVersion,
-                new[]
-                    {
-                        "Message", "Topic",
+                [
+                    "Message", "Topic",
                         this.Get<BoardSettings>().EnableDisplayName ? "AuthorDisplay" : "Author", "TopicTags"
-                    },
+                ],
                 analyzer);
 
             var query = ParseQuery(searchQuery, parser);
@@ -965,7 +964,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
     {
         if (searchQuery.Replace("*", string.Empty).Replace("?", string.Empty).IsNotSet())
         {
-            return new List<SearchMessage>();
+            return [];
         }
 
         // Insert forum access here
@@ -975,7 +974,7 @@ public class Search : ISearch, IHaveServiceLocator, IDisposable
 
         if (searcher == null)
         {
-            return new List<SearchMessage>();
+            return [];
         }
 
         var booleanFilter = new BooleanFilter

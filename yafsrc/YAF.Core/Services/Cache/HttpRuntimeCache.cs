@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Services.Cache;
 
 using System;
@@ -64,13 +65,10 @@ public class HttpRuntimeCache : IDataCache
     /// The treat Cache Key.
     /// </param>
     public HttpRuntimeCache(
-        IRaiseEvent eventRaiser, 
+        IRaiseEvent eventRaiser,
         IHaveLockObject haveLockObject, 
         ITreatCacheKey treatCacheKey)
     {
-        CodeContracts.VerifyNotNull(eventRaiser);
-        CodeContracts.VerifyNotNull(haveLockObject);
-
         this._eventRaiser = eventRaiser;
         this._haveLockObject = haveLockObject;
         this._treatCacheKey = treatCacheKey;
@@ -94,7 +92,6 @@ public class HttpRuntimeCache : IDataCache
     /// </summary>
     /// <returns>
     /// </returns>
-    
     public IEnumerable<KeyValuePair<string, T>> GetAll<T>()
     {
         var isObject = typeof(T) == typeof(object);
@@ -106,7 +103,7 @@ public class HttpRuntimeCache : IDataCache
                 continue;
             }
 
-            if (!isObject && !(item.Value is T))
+            if (!isObject && item.Value is not T)
             {
                 continue;
             }
@@ -134,9 +131,6 @@ public class HttpRuntimeCache : IDataCache
     /// </returns>
     public T GetOrSet<T>(string key, Func<T> getValue, TimeSpan timeout)
     {
-        CodeContracts.VerifyNotNull(key);
-        CodeContracts.VerifyNotNull(getValue);
-
         return this.GetOrSetInternal(
             key, 
             getValue, 
@@ -168,9 +162,6 @@ public class HttpRuntimeCache : IDataCache
     /// </returns>
     public T GetOrSet<T>(string key, Func<T> getValue)
     {
-        CodeContracts.VerifyNotNull(key);
-        CodeContracts.VerifyNotNull(getValue);
-
         return this.GetOrSetInternal(
             key,
             getValue,
@@ -190,43 +181,6 @@ public class HttpRuntimeCache : IDataCache
     }
 
     /// <summary>
-    /// The set.
-    /// </summary>
-    /// <param name="key">
-    /// The key.
-    /// </param>
-    /// <param name="value">
-    /// The value.
-    /// </param>
-    /// <param name="timeout">
-    /// The timeout.
-    /// </param>
-    public void Set(string key, object value, TimeSpan timeout)
-    {
-        CodeContracts.VerifyNotNull(key);
-
-        var actualKey = this.CreateKey(key);
-
-        lock (this._haveLockObject.Get(actualKey))
-        {
-            if (MemoryCache.Default[actualKey] != null)
-            {
-                MemoryCache.Default.Remove(actualKey);
-            }
-
-            var cacheItemPolicy = new CacheItemPolicy
-                                      {
-                                          AbsoluteExpiration = DateTime.UtcNow + timeout,
-                                          SlidingExpiration = Cache.NoSlidingExpiration,
-                                          Priority = System.Runtime.Caching.CacheItemPriority.Default,
-                                          RemovedCallback = k => this._eventRaiser.Raise(new CacheItemRemovedEvent(k))
-                                      };
-
-            MemoryCache.Default.Add(new CacheItem(actualKey) { Value = value }, cacheItemPolicy);
-        }
-    }
-
-    /// <summary>
     /// The get.
     /// </summary>
     /// <param name="originalKey">
@@ -237,8 +191,6 @@ public class HttpRuntimeCache : IDataCache
     /// </returns>
     public object Get(string originalKey)
     {
-        CodeContracts.VerifyNotNull(originalKey);
-
         return MemoryCache.Default[this.CreateKey(originalKey)];
     }
 
@@ -264,9 +216,42 @@ public class HttpRuntimeCache : IDataCache
     /// </param>
     public void Set(string key, object value)
     {
-        CodeContracts.VerifyNotNull(key);
-
         MemoryCache.Default[this.CreateKey(key)] = value;
+    }
+
+    /// <summary>
+    /// The set.
+    /// </summary>
+    /// <param name="key">
+    /// The key.
+    /// </param>
+    /// <param name="value">
+    /// The value.
+    /// </param>
+    /// <param name="timeout">
+    /// The timeout.
+    /// </param>
+    public void Set(string key, object value, TimeSpan timeout)
+    {
+        var actualKey = this.CreateKey(key);
+
+        lock (this._haveLockObject.Get(actualKey))
+        {
+            if (MemoryCache.Default[actualKey] != null)
+            {
+                MemoryCache.Default.Remove(actualKey);
+            }
+
+            var cacheItemPolicy = new CacheItemPolicy
+            {
+                AbsoluteExpiration = DateTime.UtcNow + timeout,
+                SlidingExpiration = Cache.NoSlidingExpiration,
+                Priority = System.Runtime.Caching.CacheItemPriority.Default,
+                RemovedCallback = k => this._eventRaiser.Raise(new CacheItemRemovedEvent(k))
+            };
+
+            MemoryCache.Default.Add(new CacheItem(actualKey) { Value = value }, cacheItemPolicy);
+        }
     }
 
     /// <summary>
@@ -303,10 +288,6 @@ public class HttpRuntimeCache : IDataCache
     /// </returns>
     private T GetOrSetInternal<T>(string key, Func<T> getValue, Action<T> addToCacheFunction)
     {
-        CodeContracts.VerifyNotNull(key);
-        CodeContracts.VerifyNotNull(getValue);
-        CodeContracts.VerifyNotNull(addToCacheFunction);
-
         var cachedItem = this.Get<T>(key);
 
         if (!Equals(cachedItem, default(T)))

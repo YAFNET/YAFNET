@@ -90,17 +90,14 @@ public abstract class RewriteActionParserBase : IRewriteActionParser
         var childNode = node.FirstChild;
         while (childNode != null)
         {
-            if (childNode.NodeType == XmlNodeType.Element)
+            if (childNode.NodeType == XmlNodeType.Element && childNode.LocalName == Constants.ElementAnd)
             {
-                if (childNode.LocalName == Constants.ElementAnd)
-                {
-                    this.ParseConditions(childNode, conditions, negative, config);
+                this.ParseConditions(childNode, conditions, negative, config);
 
-                    var childNode2 = childNode.NextSibling;
-                    node.RemoveChild(childNode);
-                    childNode = childNode2;
-                    continue;
-                }
+                var childNode2 = childNode.NextSibling;
+                node.RemoveChild(childNode);
+                childNode = childNode2;
+                continue;
             }
 
             childNode = childNode.NextSibling;

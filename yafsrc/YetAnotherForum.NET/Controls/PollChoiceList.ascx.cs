@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -175,12 +175,9 @@ public partial class PollChoiceList : BaseUserControl
 
         var myChoiceMarker = item.FindControlRecursiveAs<Label>("YourChoice");
 
-        if (this.UserPollVotes.Any())
+        if (this.UserPollVotes.Any() && this.UserPollVotes.Exists(v => choice.Item2.ID == v.ChoiceID))
         {
-            if (this.UserPollVotes.Any(v => choice.Item2.ID == v.ChoiceID))
-            {
-                myChoiceMarker.Visible = true;
-            }
+            myChoiceMarker.Visible = true;
         }
 
         if (!this.Voters.NullOrEmpty())
@@ -211,9 +208,9 @@ public partial class PollChoiceList : BaseUserControl
         voteButton.Visible = true;
 
         // override if multi vote
-        if (this.DataSource.First().Item1.PollFlags.AllowMultipleChoice)
+        if (this.DataSource[0].Item1.PollFlags.AllowMultipleChoice)
         {
-            if (this.UserPollVotes.All(v => choice.Item2.ID != v.ChoiceID))
+            if (this.UserPollVotes.TrueForAll(v => choice.Item2.ID != v.ChoiceID))
             {
                 voteButton.Enabled = true;
             }

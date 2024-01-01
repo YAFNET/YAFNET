@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,10 +21,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Nntp;
 
 using System;
-using System.Collections;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -39,13 +39,12 @@ public static class NntpUtil
     /// <summary>
     ///   The base 64 pem code.
     /// </summary>
-    private readonly static char[] Base64PemCode =
-        {
-            'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+    private readonly static char[] Base64PemCode = [
+        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
             'V', 'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
             'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '+',
             '/'
-        };
+    ];
 
     /// <summary>
     ///   The hex value.
@@ -92,11 +91,8 @@ public static class NntpUtil
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    
     public static string Base64Decode(string encodedData, Encoding encoding = null)
     {
-        CodeContracts.VerifyNotNull(encodedData);
-
         var decodedDataAsBytes = Convert.FromBase64String(encodedData);
 
         return (encoding ?? Encoding.Unicode).GetString(decodedDataAsBytes);
@@ -116,8 +112,6 @@ public static class NntpUtil
     /// </returns>
     public static int Base64Decode(string encodedData, Stream output)
     {
-        CodeContracts.VerifyNotNull(encodedData);
-
         var decodedDataAsBytes = Convert.FromBase64String(encodedData);
 
         decodedDataAsBytes.AsEnumerable().ForEach(output.WriteByte);
@@ -263,7 +257,7 @@ public static class NntpUtil
             case "MULTIPART":
                 while ((line = sr.ReadLine()) != null && line != separator && line != $"{separator}--")
                 {
-                    var m = Regex.Match(line, @"CONTENT-TYPE: ""?([^""\s;]+)", RegexOptions.IgnoreCase);
+                    var m = Regex.Match(line, """CONTENT-TYPE: "?([^"\s;]+)""", RegexOptions.IgnoreCase);
                     if (!m.Success)
                     {
                         continue;
@@ -277,14 +271,14 @@ public static class NntpUtil
                                       };
                     while (line != string.Empty)
                     {
-                        m = Regex.Match(line, @"BOUNDARY=""?([^""\s;]+)", RegexOptions.IgnoreCase);
+                        m = Regex.Match(line, """BOUNDARY="?([^"\s;]+)""", RegexOptions.IgnoreCase);
                         if (m.Success)
                         {
                             newPart.Boundary = m.Groups[1].ToString();
-                            newPart.EmbeddedPartList = new ArrayList();
+                            newPart.EmbeddedPartList = [];
                         }
 
-                        m = Regex.Match(line, @"CHARSET=""?([^""\s;]+)", RegexOptions.IgnoreCase);
+                        m = Regex.Match(line, """CHARSET="?([^"\s;]+)""", RegexOptions.IgnoreCase);
                         if (m.Success)
                         {
                             newPart.Charset = m.Groups[1].ToString();
@@ -292,19 +286,19 @@ public static class NntpUtil
 
                         m = Regex.Match(
                             line,
-                            @"CONTENT-TRANSFER-ENCODING: ""?([^""\s;]+)",
+                            """CONTENT-TRANSFER-ENCODING: "?([^"\s;]+)""",
                             RegexOptions.IgnoreCase);
                         if (m.Success)
                         {
                             newPart.ContentTransferEncoding = m.Groups[1].ToString();
                         }
 
-                        m = Regex.Match(line, @"NAME=""?([^""\s;]+)", RegexOptions.IgnoreCase);
+                        m = Regex.Match(line, """NAME="?([^"\s;]+)""", RegexOptions.IgnoreCase);
                         if (m.Success)
                         {
                             newPart.Filename = Base64HeaderDecode(m.Groups[1].ToString());
                             newPart.Filename = newPart.Filename.Substring(
-                                newPart.Filename.LastIndexOfAny(new[] { '\\', '/' }) + 1);
+                                newPart.Filename.LastIndexOfAny(['\\', '/']) + 1);
                         }
 
                         line = sr.ReadLine();

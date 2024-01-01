@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -57,8 +57,6 @@ public class Theme : ITheme
     /// </returns>
     public static bool IsValidTheme(string theme)
     {
-        CodeContracts.VerifyNotNull(theme);
-
         return theme.IsSet() && Directory.Exists(GetMappedThemeFile(theme))
                              && File.Exists(Path.Combine(GetMappedThemeFile(theme), "bootstrap-forum.min.css"));
     }
@@ -74,8 +72,6 @@ public class Theme : ITheme
     /// </returns>
     public string BuildThemePath(string filename)
     {
-        CodeContracts.VerifyNotNull(filename);
-
         return BoardInfo.GetURLToContentThemes(this.ThemeFile.CombineWith(filename));
     }
 
@@ -88,8 +84,6 @@ public class Theme : ITheme
     /// </returns>
     private static string GetMappedThemeFile(string theme)
     {
-        CodeContracts.VerifyNotNull(theme);
-
         return
             HostingEnvironment.MapPath($"{BoardInfo.ForumServerFileRoot}Content/Themes/{theme.Trim()}");
     }

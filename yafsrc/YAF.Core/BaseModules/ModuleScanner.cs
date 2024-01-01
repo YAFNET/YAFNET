@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.BaseModules;
 
 using System;
@@ -41,7 +42,6 @@ public class ModuleScanner
     /// </param>
     /// <returns>
     /// </returns>
-    
     public IEnumerable<Assembly> GetModules(string pattern)
     {
         var files = GetMatchingFiles(pattern).ToList();
@@ -58,7 +58,6 @@ public class ModuleScanner
     /// <returns>
     /// The clean path.
     /// </returns>
-    
     private static string CleanPath(string path)
     {
         if (!Path.IsPathRooted(path))
@@ -75,7 +74,6 @@ public class ModuleScanner
     /// <returns>
     /// The get app base directory.
     /// </returns>
-    
     private static string GetAppBaseDirectory()
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -92,7 +90,6 @@ public class ModuleScanner
     /// </param>
     /// <returns>
     /// </returns>
-    
     private static IEnumerable<string> GetMatchingFiles(string pattern)
     {
         var path = CleanPath(Path.GetDirectoryName(pattern));
@@ -111,8 +108,6 @@ public class ModuleScanner
     /// </returns>
     private static IEnumerable<Assembly> GetValidateAssemblies(IEnumerable<string> fileNames)
     {
-        CodeContracts.VerifyNotNull(fileNames);
-
         foreach (var assemblyFile in fileNames.Where(File.Exists))
         {
             Assembly assembly;

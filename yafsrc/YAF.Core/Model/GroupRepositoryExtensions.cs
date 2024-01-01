@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -54,11 +54,11 @@ public static class GroupRepositoryExtensions
         int? groupId = null,
         int? boardId = null)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return groupId.HasValue
                    ? repository.Get(g => g.BoardID == boardId && g.ID == groupId.Value)
-                   : repository.Get(g => g.BoardID == boardId).OrderBy(o => o.SortOrder).ToList();
+                   : [.. repository.Get(g => g.BoardID == boardId).OrderBy(o => o.SortOrder)];
     }
 
     /// <summary>
@@ -81,7 +81,7 @@ public static class GroupRepositoryExtensions
         int boardId,
         int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.DbAccess.Execute(
             db =>
@@ -160,7 +160,7 @@ public static class GroupRepositoryExtensions
         int userAlbums,
         int userAlbumImages)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         if (groupId.HasValue)
         {

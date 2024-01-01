@@ -11,7 +11,7 @@ namespace YAF.Install
 {
 
 
-    public partial class _default
+    public partial class install
     {
 
         /// <summary>

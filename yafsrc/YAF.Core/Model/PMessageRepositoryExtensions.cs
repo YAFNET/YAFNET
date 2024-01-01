@@ -30,7 +30,7 @@ public static class PMessageRepositoryExtensions
         int daysRead,
         int daysUnread)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         // Delete Read Messages
         repository.DbAccess.Execute(
@@ -85,7 +85,7 @@ public static class PMessageRepositoryExtensions
     /// </param>
     public static PMessageCount UserMessageCount(this IRepository<PMessage> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
@@ -164,7 +164,7 @@ public static class PMessageRepositoryExtensions
         int flags,
         int? replyTo)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var newMessageId = repository.Insert(
             new PMessage
@@ -235,7 +235,7 @@ public static class PMessageRepositoryExtensions
         string sortField,
         bool sortAscending)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.DbAccess.Execute(
             db =>
@@ -359,7 +359,7 @@ public static class PMessageRepositoryExtensions
     /// </param>
     public static PagedPm GetMessage(this IRepository<PMessage> repository, int userPMessageID)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.List(userPMessageID, false).FirstOrDefault();
     }
@@ -384,7 +384,7 @@ public static class PMessageRepositoryExtensions
         int userPMessageId,
         bool includeReplies)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var messages = repository.DbAccess.Execute(
             db =>
@@ -429,12 +429,12 @@ public static class PMessageRepositoryExtensions
 
         if (messages.NullOrEmpty())
         {
-            return new List<PagedPm>();
+            return [];
         }
 
         return !includeReplies
-                   ? messages.OrderBy(m => m.Created).ToList()
-                   : repository.GetReplies(messages).OrderBy(m => m.Created).ToList();
+                   ? [.. messages.OrderBy(m => m.Created)]
+                   : [.. repository.GetReplies(messages).OrderBy(m => m.Created)];
     }
 
     /// <summary>
@@ -450,7 +450,7 @@ public static class PMessageRepositoryExtensions
         this IRepository<PMessage> repository,
         List<PagedPm> messages)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         if (messages.NullOrEmpty())
         {
@@ -499,7 +499,7 @@ public static class PMessageRepositoryExtensions
     /// </returns>
     private static List<PagedPm> ListReplies(this IRepository<PMessage> repository, int replyPMessageId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var messages = repository.DbAccess.Execute(
             db =>
@@ -540,6 +540,6 @@ public static class PMessageRepositoryExtensions
                     return db.Connection.Select<PagedPm>(expression);
                 });
 
-        return messages.OrderBy(m => m.Created).ToList();
+        return [.. messages.OrderBy(m => m.Created)];
     }
 }

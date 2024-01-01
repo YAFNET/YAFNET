@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -48,10 +48,6 @@ public static class IHaveLocalizationExtensions
         string page,
         string tag)
     {
-        CodeContracts.VerifyNotNull(haveLocalization);
-        CodeContracts.VerifyNotNull(page);
-        CodeContracts.VerifyNotNull(tag);
-
         return haveLocalization.Localization.GetText(page, tag);
     }
 
@@ -69,9 +65,6 @@ public static class IHaveLocalizationExtensions
     /// </returns>
     public static string GetText(this IHaveLocalization haveLocalization, string tag)
     {
-        CodeContracts.VerifyNotNull(haveLocalization);
-        CodeContracts.VerifyNotNull(tag);
-
         return haveLocalization.Localization.GetText(tag);
     }
 
@@ -95,9 +88,6 @@ public static class IHaveLocalizationExtensions
         string tag,
         params object[] args)
     {
-        CodeContracts.VerifyNotNull(haveLocalization);
-        CodeContracts.VerifyNotNull(tag);
-
         return haveLocalization.Localization.GetTextFormatted(tag, args);
     }
 }

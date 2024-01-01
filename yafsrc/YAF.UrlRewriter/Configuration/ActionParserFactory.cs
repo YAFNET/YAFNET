@@ -22,17 +22,6 @@ using YAF.UrlRewriter.Parsers;
 /// </summary>
 public class ActionParserFactory
 {
-    /*
-    /// <summary>
-    /// Adds a parser.
-    /// </summary>
-    /// <param name="parserType">The parser type.</param>
-    public void Add(string parserType)
-    {
-        Add((IRewriteActionParser)TypeHelper.Activate(parserType, null));
-    }
-     */
-
     /// <summary>
     /// Adds a parser.
     /// </summary>

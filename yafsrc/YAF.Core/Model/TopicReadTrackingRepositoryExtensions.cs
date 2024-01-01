@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -50,7 +50,7 @@ public static class TopicReadTrackingRepositoryExtensions
         int userId,
         int topicId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var item = repository.GetSingle(x => x.TopicID == topicId && x.UserID == userId);
 
@@ -81,7 +81,7 @@ public static class TopicReadTrackingRepositoryExtensions
     /// </returns>
     public static bool Delete(this IRepository<TopicReadTracking> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var success = repository.Delete(x => x.UserID == userId) == 1;
 
@@ -113,7 +113,7 @@ public static class TopicReadTrackingRepositoryExtensions
         int userId,
         int topicId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var topic = repository.GetSingle(t => t.UserID == userId && t.TopicID == topicId);
 

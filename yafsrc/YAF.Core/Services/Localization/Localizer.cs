@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -87,7 +87,7 @@ public class Localizer
         Func<Resource, bool> predicate)
     {
         var pagePointer =
-            this.localizationLanguageResources.Resources.Page.FirstOrDefault(p => p.Name.ToUpper().Equals(this.currentPage));
+            this.localizationLanguageResources.Resources.Page.Find(p => p.Name.ToUpper().Equals(this.currentPage));
 
         return pagePointer != null
                    ? pagePointer.Resource.Where(predicate)
@@ -107,13 +107,13 @@ public class Localizer
         tag = tag.ToUpper(CultureInfo.InvariantCulture);
 
         var pagePointer =
-            this.localizationLanguageResources.Resources.Page.FirstOrDefault(p => p.Name.Equals(this.currentPage));
+            this.localizationLanguageResources.Resources.Page.Find(p => p.Name.Equals(this.currentPage));
 
         Resource pageResource = null;
 
         if (pagePointer != null)
         {
-            pageResource = pagePointer.Resource.FirstOrDefault(r => r.Tag.Equals(tag));
+            pageResource = pagePointer.Resource.Find(r => r.Tag.Equals(tag));
         }
 
         pageResource ??= this.localizationLanguageResources.Resources.Page.SelectMany(p => p.Resource)
@@ -231,7 +231,7 @@ public class Localizer
     {
         if (this.fileName == string.Empty || !File.Exists(this.fileName))
         {
-            throw new ApplicationException($"Invalid language file {this.fileName}");
+            throw new ArgumentNullException($"Invalid language file {this.fileName}");
         }
 
         var json = BoardContext.Current.Get<ILocalization>().LoadLanguageFile(this.fileName);

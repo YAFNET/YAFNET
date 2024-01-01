@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
-* Copyright (C) 2014-2023 Ingo Herbote
+* Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -167,8 +167,6 @@ public class CollapseButton : LinkButton
     /// </returns>
     private static string GetCollapsiblePanelIcon(string panelId, CollapsiblePanelState defaultState)
     {
-        CodeContracts.VerifyNotNull(panelId);
-
         var stateValue = BoardContext.Current.Get<ISession>().PanelState[panelId];
 
         if (stateValue != CollapsiblePanelState.None)

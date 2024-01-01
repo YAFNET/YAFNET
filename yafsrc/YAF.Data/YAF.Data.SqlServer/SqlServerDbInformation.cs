@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -32,17 +32,17 @@ public class SqlServerDbInformation : IDbInformation
     /// <summary>
     /// The YAF Provider Upgrade script list
     /// </summary>
-    private readonly static string[] IdentityUpgradeScriptList = {"install/mssql/upgrade/identity/upgrade.sql"};
+    private readonly static string[] IdentityUpgradeScriptList = ["install/mssql/upgrade/identity/upgrade.sql"];
 
     /// <summary>
     /// The DB parameters
     /// </summary>
-    private readonly DbConnectionParam[] connectionParameters = {
-                                                                        new(0, "Password", string.Empty),
-                                                                        new(1, "Data Source", "(local)"),
-                                                                        new(2, "Initial Catalog", string.Empty),
-                                                                        new(11, "Use Integrated Security", "true")
-                                                                    };
+    private readonly DbConnectionParam[] connectionParameters = [
+        new DbConnectionParam(0, "Password", string.Empty),
+        new DbConnectionParam(1, "Data Source", "(local)"),
+        new DbConnectionParam(2, "Initial Catalog", "yaf"),
+        new DbConnectionParam(11, "Use Integrated Security", "true")
+    ];
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SqlServerDbInformation"/> class.
@@ -71,8 +71,10 @@ public class SqlServerDbInformation : IDbInformation
     /// <summary>
     /// Gets the DB Connection Parameters.
     /// </summary>
-    public IDbConnectionParam[] DbConnectionParameters =>
-        this.connectionParameters.OfType<IDbConnectionParam>().ToArray();
+    public IDbConnectionParam[] DbConnectionParameters()
+    {
+        return this.connectionParameters.OfType<IDbConnectionParam>().ToArray();
+    }
 
     /// <summary>
     /// Builds a connection string.
@@ -82,8 +84,6 @@ public class SqlServerDbInformation : IDbInformation
     public string BuildConnectionString(IEnumerable<IDbConnectionParam> parameters)
     {
         var connectionParams = parameters.ToList();
-
-        CodeContracts.VerifyNotNull(connectionParams);
 
         var connBuilder = new SqlConnectionStringBuilder();
 

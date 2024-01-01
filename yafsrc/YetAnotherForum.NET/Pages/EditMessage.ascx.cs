@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -130,15 +130,6 @@ public partial class EditMessage : ForumPage
         this.EditorLine.Controls.Add(this.forumEditor);
 
         base.OnInit(e);
-    }
-
-    /// <summary>
-    /// Registers the java scripts
-    /// </summary>
-    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-    override protected void OnPreRender(EventArgs e)
-    {
-        base.OnPreRender(e);
     }
 
     /// <summary>
@@ -370,8 +361,10 @@ public partial class EditMessage : ForumPage
                     out var spamResult))
             {
                 var description =
-                    $@"Spam Check detected possible SPAM ({spamResult}) Original message: [{this.forumEditor.Text}]
-                           posted by User: {(this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName())}";
+                    $"""
+                     Spam Check detected possible SPAM ({spamResult}) Original message: [{this.forumEditor.Text}]
+                                                posted by User: {(this.PageBoardContext.IsGuest ? "Guest" : this.PageBoardContext.PageUser.DisplayOrUserName())}
+                     """;
 
                 switch (this.PageBoardContext.BoardSettings.SpamPostHandling)
                 {

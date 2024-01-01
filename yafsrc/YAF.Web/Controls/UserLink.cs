@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Web.Controls;
 
 /// <summary>
@@ -110,10 +111,10 @@ public class UserLink : UserLabel
     /// <summary>
     /// The render.
     /// </summary>
-    /// <param name="output">
-    /// The output.
+    /// <param name="writer">
+    /// The writer.
     /// </param>
-    override protected void Render(HtmlTextWriter output)
+    override protected void Render(HtmlTextWriter writer)
     {
         var displayName = this.ReplaceName;
 
@@ -124,7 +125,7 @@ public class UserLink : UserLabel
 
         var userSuspended = this.Suspended;
 
-        output.BeginRender();
+        writer.BeginRender();
 
         var isCrawler = this.CrawlerName.IsSet();
 
@@ -135,9 +136,9 @@ public class UserLink : UserLabel
 
         if (!this.IsGuest)
         {
-            output.WriteBeginTag("a");
+            writer.WriteBeginTag("a");
 
-            output.WriteAttribute("href", this.Get<LinkBuilder>().GetUserProfileLink(this.UserID, displayName));
+            writer.WriteAttribute("href", this.Get<LinkBuilder>().GetUserProfileLink(this.UserID, displayName));
 
             var cssClass = new StringBuilder();
 
@@ -147,72 +148,72 @@ public class UserLink : UserLabel
             {
                 cssClass.Append(" hc-user");
 
-                output.WriteAttribute(
+                writer.WriteAttribute(
                     "data-hovercard",
                     $"{(Config.IsDotNetNuke ? $"{BaseUrlBuilder.GetBaseUrlFromVariables()}{BaseUrlBuilder.AppPath}" : BoardInfo.ForumClientFileRoot)}resource.ashx?userinfo={this.UserID}&boardId={BoardContext.Current.PageBoardID}&type=json");
             }
             else
             {
-                output.WriteAttribute("title", this.GetText("COMMON", "VIEW_USRPROFILE"));
+                writer.WriteAttribute("title", this.GetText("COMMON", "VIEW_USRPROFILE"));
             }
 
             this.CssClass = cssClass.ToString();
 
             if (this.PageBoardContext.BoardSettings.UseNoFollowLinks)
             {
-                output.WriteAttribute("rel", "nofollow");
+                writer.WriteAttribute("rel", "nofollow");
             }
 
             if (this.BlankTarget)
             {
-                output.WriteAttribute("target", "_blank");
+                writer.WriteAttribute("target", "_blank");
             }
         }
         else
         {
-            output.WriteBeginTag("span");
+            writer.WriteBeginTag("span");
         }
 
-        this.RenderMainTagAttributes(output);
+        this.RenderMainTagAttributes(writer);
 
-        output.Write(HtmlTextWriter.TagRightChar);
+        writer.Write(HtmlTextWriter.TagRightChar);
 
         // show online icon
         if (/*this.PageBoardContext.BoardSettings.ShowUserOnlineStatus &&*/ !isCrawler)
         {
             var onlineStatusIcon = new OnlineStatusIcon { UserId = this.UserID, Suspended = userSuspended };
 
-            onlineStatusIcon.RenderControl(output);
+            onlineStatusIcon.RenderControl(writer);
         }
 
         if (isCrawler)
         {
             var icon = new Icon { IconName = "robot" };
 
-            icon.RenderControl(output);
+            icon.RenderControl(writer);
         }
 
         // Replace Name with Crawler Name if Set, otherwise use regular display name or Replace Name if set
         if (this.CrawlerName.IsSet())
         {
-            output.WriteEncodedText(this.CrawlerName);
+            writer.WriteEncodedText(this.CrawlerName);
         }
         else if (this.CrawlerName.IsNotSet() && this.ReplaceName.IsSet() && this.IsGuest)
         {
-            output.WriteEncodedText(this.ReplaceName);
+            writer.WriteEncodedText(this.ReplaceName);
         }
         else
         {
-            output.WriteEncodedText(displayName);
+            writer.WriteEncodedText(displayName);
         }
 
         if (this.PostfixText.IsSet())
         {
-            output.Write(this.PostfixText);
+            writer.Write(this.PostfixText);
         }
 
-        output.WriteEndTag(!this.IsGuest ? "a" : "span");
+        writer.WriteEndTag(!this.IsGuest ? "a" : "span");
 
-        output.EndRender();
+        writer.EndRender();
     }
 }

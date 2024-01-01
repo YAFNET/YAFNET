@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -113,7 +113,7 @@ public static class ForumRepositoryExtensions
         string imageUrl,
         string styles)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         if (parentId is 0)
         {
@@ -191,7 +191,7 @@ public static class ForumRepositoryExtensions
     /// </returns>
     public static bool IsParentsChecker(this IRepository<Forum> repository, int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.Exists(f => f.ParentID == forumId);
     }
@@ -212,7 +212,7 @@ public static class ForumRepositoryExtensions
         this IRepository<Forum> repository,
         int boardId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Category>();
 
@@ -244,7 +244,7 @@ public static class ForumRepositoryExtensions
         int boardId,
         int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
 
@@ -276,7 +276,7 @@ public static class ForumRepositoryExtensions
         this IRepository<Forum> repository,
         int categoryId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Forum>();
 
@@ -326,7 +326,7 @@ public static class ForumRepositoryExtensions
         int userId,
         string searchTerm)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var list = BoardContext.Current.Get<IDataCache>().GetOrSet(
             string.Format(Constants.Cache.ForumJump, BoardContext.Current.PageUserID.ToString()),
@@ -360,7 +360,7 @@ public static class ForumRepositoryExtensions
         int userId,
         int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var list = BoardContext.Current.Get<IDataCache>().GetOrSet(
             string.Format(Constants.Cache.ForumJump, BoardContext.Current.PageUserID.ToString()),
@@ -402,7 +402,7 @@ public static class ForumRepositoryExtensions
         int pageSize,
         out Paging pager)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         pager = new Paging { CurrentPageIndex = pageIndex, PageSize = pageSize };
 
@@ -456,7 +456,7 @@ public static class ForumRepositoryExtensions
         int pageIndex, 
         int pageSize)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.DbAccess.Execute(
             db =>
@@ -585,7 +585,7 @@ public static class ForumRepositoryExtensions
     /// </returns>
     public static bool Delete(this IRepository<Forum> repository, int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         if (repository.Exists(f => f.ParentID == forumId))
         {
@@ -642,7 +642,7 @@ public static class ForumRepositoryExtensions
     /// </returns>
     public static bool Move(this IRepository<Forum> repository, int oldForumId, int newForumId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         if (repository.Exists(f => f.ParentID == oldForumId))
         {
@@ -700,7 +700,7 @@ public static class ForumRepositoryExtensions
         int userId,
         int boardId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Category>();
 
@@ -773,7 +773,7 @@ public static class ForumRepositoryExtensions
     /// <param name="forumId">The forum identifier.</param>
     public static void UpdateStats(this IRepository<Forum> repository, int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
@@ -798,7 +798,7 @@ public static class ForumRepositoryExtensions
     /// <param name="forumId">The forum identifier.</param>
     public static void UpdateLastPost(this IRepository<Forum> repository, int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Topic>();
 
@@ -849,7 +849,7 @@ public static class ForumRepositoryExtensions
     /// </param>
     public static void ReOrderAllAscending(this IRepository<Forum> repository, List<Forum> forums)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         short sortOrder = 0;
 
@@ -878,7 +878,7 @@ public static class ForumRepositoryExtensions
     /// </param>
     public static void ReOrderAllDescending(this IRepository<Forum> repository, List<Forum> forums)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         short sortOrder = 0;
 
@@ -913,7 +913,7 @@ public static class ForumRepositoryExtensions
         this IRepository<Forum> repository,
         IEnumerable<ModeratorsForums> listSource)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return listSource.Select(
             forum => new ForumSorted
@@ -945,7 +945,7 @@ public static class ForumRepositoryExtensions
         this IRepository<Forum> repository,
         IEnumerable<Tuple<Forum, Category, ActiveAccess>> listSource)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var categories = listSource.Select(x => x.Item2).DistinctBy(x => x.ID);
 

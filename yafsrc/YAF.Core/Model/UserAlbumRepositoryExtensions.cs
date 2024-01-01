@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -49,9 +49,9 @@ public static class UserAlbumRepositoryExtensions
     /// </returns>
     public static List<UserAlbum> ListByUser(this IRepository<UserAlbum> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
-        return repository.Get(userAlbum => userAlbum.UserID == userId).OrderByDescending(u => u.Updated).ToList();
+        return [.. repository.Get(userAlbum => userAlbum.UserID == userId).OrderByDescending(u => u.Updated)];
     }
 
     /// <summary>
@@ -75,10 +75,13 @@ public static class UserAlbumRepositoryExtensions
     /// </returns>
     public static List<UserAlbum> ListByUserPaged(this IRepository<UserAlbum> repository, int userId, int pageIndex, int pageSize)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
-        return repository.GetPaged(userAlbum => userAlbum.UserID == userId, pageIndex, pageSize)
-            .OrderByDescending(u => u.Updated).ToList();
+        return
+        [
+            .. repository.GetPaged(userAlbum => userAlbum.UserID == userId, pageIndex, pageSize)
+                        .OrderByDescending(u => u.Updated),
+        ];
     }
 
     /// <summary>
@@ -95,7 +98,7 @@ public static class UserAlbumRepositoryExtensions
     /// </returns>
     public static string GetTitle(this IRepository<UserAlbum> repository, int albumId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.GetById(albumId).Title;
     }
@@ -111,7 +114,7 @@ public static class UserAlbumRepositoryExtensions
     /// </param>
     public static void DeleteCover(this IRepository<UserAlbum> repository, int imageId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.UpdateOnly(() => new UserAlbum { CoverImageID = null }, u => u.CoverImageID == imageId);
     }
@@ -131,7 +134,7 @@ public static class UserAlbumRepositoryExtensions
     
     public static long CountUserAlbum(this IRepository<UserAlbum> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.Count(album => album.UserID == userId);
     }

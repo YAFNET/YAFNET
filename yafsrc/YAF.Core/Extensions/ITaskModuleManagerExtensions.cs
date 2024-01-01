@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -47,9 +47,6 @@ public static class ITaskModuleManagerExtensions
     public static bool Start<T>(this ITaskModuleManager taskModuleManager, Func<T> createTask)
         where T : IBackgroundTask
     {
-        CodeContracts.VerifyNotNull(taskModuleManager);
-        CodeContracts.VerifyNotNull(createTask);
-
         var taskName = typeof(T).ToString();
 
         return taskModuleManager.StartTask(taskName, () => createTask());
@@ -72,8 +69,6 @@ public static class ITaskModuleManagerExtensions
     public static bool Start<T>(this ITaskModuleManager taskModuleManager, object data)
         where T : IBackgroundTask, new()
     {
-        CodeContracts.VerifyNotNull(taskModuleManager);
-
         return Start(taskModuleManager, () => new T { Data = data });
     }
 }

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -129,7 +129,7 @@ public partial class AdminMenu : BaseUserControl
             "tachometer-alt");
 
         // Admin - Settings Menu
-        if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
+        if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(
                 x => x.PageName is "Admin_BoardAnnouncement" or "Admin_Settings" or "Admin_Forums" or
                          "Admin_ReplaceWords" or "Admin_BBCodes" or "Admin_Languages"))
         {
@@ -137,7 +137,7 @@ public partial class AdminMenu : BaseUserControl
         }
 
         // Admin - Spam Protection Menu
-        if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
+        if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(
                 x => x.PageName is "Admin_SpamLog" or "Admin_SpamWords" or "Admin_BannedEmails" or "Admin_BannedIps" or
                          "Admin_BannedNames" or "Admin_BannedUserAgents"))
         {
@@ -145,7 +145,7 @@ public partial class AdminMenu : BaseUserControl
         }
 
         // Admin - Users and Roles Menu
-        if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
+        if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(
                 x => x.PageName is "Admin_ProfileDefinitions" or "Admin_AccessMasks" or "Admin_Groups" or "Admin_Ranks"
                          or "Admin_Users" or "Admin_Medals" or "Admin_Mail" or "Admin_Digest"))
         {
@@ -153,7 +153,7 @@ public partial class AdminMenu : BaseUserControl
         }
 
         // Admin - Maintenance Menu
-        if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
+        if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(
                 x => x.PageName is "Admin_Attachments" or "Admin_Tags" or "Admin_Prune" or "Admin_Restore" or
                          "Admin_TaskManager" or "Admin_EventLog" or "Admin_RestartApp"))
         {
@@ -161,21 +161,21 @@ public partial class AdminMenu : BaseUserControl
         }
 
         // Admin - Database Menu
-        if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
+        if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(
                 x => x.PageName is "Admin_ReIndex" or "Admin_RunSql"))
         {
             this.RenderAdminDatabase(pagesAccess);
         }
 
         // Admin - Nntp Menu
-        if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(
+        /*if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(
                 x => x.PageName is "Admin_NntpRetrieve" or "Admin_NntpForums" or "Admin_NntpServers"))
         {
             this.RenderAdminNntp(pagesAccess);
-        }
+        }*/
 
         // Admin - Upgrade Menu
-        if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_Version"))
+        if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(x => x.PageName == "Admin_Version"))
         {
             this.RenderAdminUpgrade(pagesAccess);
         }

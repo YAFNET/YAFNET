@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -102,7 +102,7 @@ public partial class CategoryList : BaseUserControl
         forums.ForEach(
             forum =>
                 {
-                    if (!watchForums.Any(
+                    if (!watchForums.Exists(
                             w => w.ForumID == forum.ForumID && w.UserID == this.PageBoardContext.PageUserID))
                     {
                         this.GetRepository<WatchForum>().Add(this.PageBoardContext.PageUserID, forum.ForumID);
@@ -235,15 +235,15 @@ public partial class CategoryList : BaseUserControl
 
         if (this.Data.Item2.Any())
         {
-            if (this.Data.Item2.First().Total > this.Data.Item2.Count)
+            if (this.Data.Item2[0].Total > this.Data.Item2.Count)
             {
                 this.ShowMore.Visible = true;
             }
 
-            if (this.Data.Item2.First().Total > 20)
+            if (this.Data.Item2[0].Total > 20)
             {
                 this.ForumsShown.Visible = true;
-                this.ForumsShownLabel.Text = this.GetTextFormatted("FORUMS_SHOWN", this.Data.Item2.Count, this.Data.Item2.First().Total);
+                this.ForumsShownLabel.Text = this.GetTextFormatted("FORUMS_SHOWN", this.Data.Item2.Count, this.Data.Item2[0].Total);
             }
         }
 

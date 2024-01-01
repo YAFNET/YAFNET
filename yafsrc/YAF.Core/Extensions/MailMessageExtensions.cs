@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -43,7 +43,6 @@ public static class MailMessageExtensions
     /// <param name="subject">The subject.</param>
     /// <param name="bodyText">The body text.</param>
     /// <param name="bodyHtml">The body html.</param>
-    
     public static void Populate(
         this MailMessage mailMessage,
         MailAddress fromAddress,
@@ -53,10 +52,6 @@ public static class MailMessageExtensions
         string bodyText,
         string bodyHtml)
     {
-        CodeContracts.VerifyNotNull(mailMessage);
-        CodeContracts.VerifyNotNull(fromAddress);
-        CodeContracts.VerifyNotNull(toAddress);
-
         mailMessage.To.Add(toAddress);
         mailMessage.From = fromAddress;
 

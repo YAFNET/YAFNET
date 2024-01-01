@@ -27,52 +27,52 @@ public class StackTraceBeautify
     /// <summary>
     /// The pretty print.
     /// </summary>
-    private bool prettyPrint;
+    private readonly bool prettyPrint;
 
     /// <summary>
     /// The frame CSS class.
     /// </summary>
-    private string frameCssClass;
+    private readonly string frameCssClass;
 
     /// <summary>
     /// The type CSS class.
     /// </summary>
-    private string typeCssClass;
+    private readonly string typeCssClass;
 
     /// <summary>
     /// The method CSS class.
     /// </summary>
-    private string methodCssClass;
+    private readonly string methodCssClass;
 
     /// <summary>
     /// The params list CSS class.
     /// </summary>
-    private string paramsListCssClass;
+    private readonly string paramsListCssClass;
 
     /// <summary>
     /// The param type CSS class.
     /// </summary>
-    private string paramTypeCssClass;
+    private readonly string paramTypeCssClass;
 
     /// <summary>
     /// The param name CSS class.
     /// </summary>
-    private string paramNameCssClass;
+    private readonly string paramNameCssClass;
 
     /// <summary>
     /// The file CSS class.
     /// </summary>
-    private string fileCssClass;
+    private readonly string fileCssClass;
 
     /// <summary>
     /// The line CSS class.
     /// </summary>
-    private string lineCssClass;
+    private readonly string lineCssClass;
 
     /// <summary>
     /// The languages.
     /// </summary>
-    private List<Language> languages;
+    private readonly List<Language> languages;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="StackTraceBeautify"/> class.
@@ -89,13 +89,12 @@ public class StackTraceBeautify
         this.fileCssClass = "st-file";
         this.lineCssClass = "st-line";
 
-        this.languages = new List<Language>
-                             {
-                                 new () { Name = "english", At = "at", In = "in", Line = "line" },
-                                 new () { Name = "danish", At = "ved", In = "i", Line = "linje" },
-                                 new () { Name = "german", At = "bei", In = "in", Line = "Zeile" },
-                                 new () { Name = "russian", At = "в", In = "в", Line = "строка" }
-                             };
+        this.languages = [
+            new Language { Name = "english", At = "at", In = "in", Line = "line" },
+            new Language { Name = "danish", At = "ved", In = "i", Line = "linje" },
+            new Language { Name = "german", At = "bei", In = "in", Line = "Zeile" },
+            new Language { Name = "russian", At = "в", In = "в", Line = "строка" }
+        ];
     }
 
     /// <summary>
@@ -116,14 +115,9 @@ public class StackTraceBeautify
         var clone = new StringBuilder();
 
         // search for language
-        foreach (var line in lines)
+        foreach (var line in lines.Where(_ => lang == string.Empty))
         {
-            if (lang != string.Empty)
-            {
-                continue;
-            }
-
-            if (Regex.IsMatch(line, @"(\s*)at .*\)")) 
+            if (Regex.IsMatch(line, @"(\s*)at .*\)"))
             {
                 lang = "english";
             }

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -48,7 +48,6 @@ public partial class DisplayPost : BaseUserControl
     /// <summary>
     /// Gets or sets the data source.
     /// </summary>
-    
     public PagedMessage DataSource { get; set; }
 
     /// <summary>
@@ -355,7 +354,6 @@ public partial class DisplayPost : BaseUserControl
     /// <returns>
     /// The format thanks info.
     /// </returns>
-    
     protected string FormatThanksInfo()
     {
         var sb = new StringBuilder();
@@ -364,15 +362,6 @@ public partial class DisplayPost : BaseUserControl
         sb.Append("</ol>");
 
         return sb.ToString();
-    }
-
-    /// <summary>
-    /// Raises the <see cref="E:System.Web.UI.Control.Init" /> event.
-    /// </summary>
-    /// <param name="e">An <see cref="T:System.EventArgs" /> object that contains the event data.</param>
-    override protected void OnInit(EventArgs e)
-    {
-        base.OnInit(e);
     }
 
     /// <summary>

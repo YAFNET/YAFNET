@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -212,7 +212,7 @@ public partial class PageAccessEdit : AdminPage
                 {
                     if (dt != null && dt.Any(
                             a => a.PageName == listPage &&
-                                 hostPages.All(s => s != a.PageName)))
+                                 Array.TrueForAll(hostPages,s => s != a.PageName)))
                     {
                         found = true;
                         pagesAll.Add(
@@ -226,7 +226,7 @@ public partial class PageAccessEdit : AdminPage
                     }
 
                     // If it doesn't contain page for the user add it.
-                    if (!found && hostPages.All(s => s != listPage))
+                    if (!found && Array.TrueForAll(hostPages, s => s != listPage))
                     {
                         pagesAll.Add(
                             new AdminPageUserAccess

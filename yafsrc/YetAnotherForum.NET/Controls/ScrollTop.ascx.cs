@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -27,14 +27,4 @@ namespace YAF.Controls;
 /// <summary>
 /// The Scroll Top Button
 /// </summary>
-public partial class ScrollTop : BaseUserControl
-{
-    /// <summary>
-    /// Handles the Load event of the Page control.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The <see cref="EventArgs"/> instance containing the event data.</param>
-    protected void Page_Load(object sender, EventArgs e)
-    {
-    }
-}
+public partial class ScrollTop : BaseUserControl;

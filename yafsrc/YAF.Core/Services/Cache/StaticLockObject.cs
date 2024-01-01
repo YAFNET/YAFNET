@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Services.Cache;
 
 /// <summary>
@@ -55,11 +56,8 @@ public class StaticLockObject : IHaveLockObject
     /// <returns>
     /// The get.
     /// </returns>
-    
     public object Get(string originalKey)
     {
-        CodeContracts.VerifyNotNull(originalKey);
-
         var keyHash = originalKey.GetHashCode();
 
         // make positive if negative...

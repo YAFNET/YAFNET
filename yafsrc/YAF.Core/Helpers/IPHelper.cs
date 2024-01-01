@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -38,27 +38,25 @@ public static class IPHelper
     /// <summary>
     /// The non routable IP v4 networks.
     /// </summary>
-    private readonly static List<string> NonRoutableIPv4Networks = new()
-                                                                       {
-                                                                           "10.0.0.0/8",
-                                                                           "172.16.0.0/12",
-                                                                           "192.168.0.0/16",
-                                                                           "169.254.0.0/16",
-                                                                           "127.0.0.0/8",
-                                                                           "0.0.0.0/8"
-                                                                       };
+    private readonly static List<string> NonRoutableIPv4Networks = [
+        "10.0.0.0/8",
+        "172.16.0.0/12",
+        "192.168.0.0/16",
+        "169.254.0.0/16",
+        "127.0.0.0/8",
+        "0.0.0.0/8"
+    ];
 
     /// <summary>
     /// The non routable IP v6 networks.
     /// </summary>
-    private readonly static List<string> NonRoutableIPv6Networks = new()
-                                                                       {
-                                                                           "::/128",
-                                                                           "::1/128",
-                                                                           "2001:db8::/32",
-                                                                           "fc00::/7",
-                                                                           "::ffff:0:0/96"
-                                                                       };
+    private readonly static List<string> NonRoutableIPv6Networks = [
+        "::/128",
+        "::1/128",
+        "2001:db8::/32",
+        "fc00::/7",
+        "::ffff:0:0/96"
+    ];
 
     /// <summary>
     /// Attempts to get an IPv4 from IPv6 address - falls back to IPv6, then localhost.
@@ -85,9 +83,10 @@ public static class IPHelper
 
         try
         {
+            var addresses = Dns.GetHostAddresses(inputIpAddress);
             // attempt to find IPv4 address from input IP - may fail because IPv6 does not map to IPv4 under most circumstances
-            var address = Dns.GetHostAddresses(inputIpAddress)
-                .FirstOrDefault(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork);
+            var address = addresses
+                .Find(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetwork);
 
             if (address != null)
             {
@@ -95,8 +94,8 @@ public static class IPHelper
             }
 
             // return IPv6 if IPv4 not found
-            address = Dns.GetHostAddresses(inputIpAddress)
-                .FirstOrDefault(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetworkV6);
+            address = addresses
+                .Find(ipAddress => ipAddress.AddressFamily == AddressFamily.InterNetworkV6);
 
             if (address != null)
             {
@@ -135,8 +134,6 @@ public static class IPHelper
     /// <see cref="http://dev.opera.com/articles/view/opera-mini-request-headers/#x-forwarded-for" />
     public static string GetUserRealIPAddress(this HttpRequest httpRequest)
     {
-        CodeContracts.VerifyNotNull(httpRequest);
-
         return new HttpRequestWrapper(httpRequest).GetUserRealIPAddress();
     }
 
@@ -152,8 +149,6 @@ public static class IPHelper
     /// <see cref="http://dev.opera.com/articles/view/opera-mini-request-headers/#x-forwarded-for" />
     public static string GetUserRealIPAddress(this HttpRequestBase httpRequest)
     {
-        CodeContracts.VerifyNotNull(httpRequest);
-
         IPAddress ipAddress;
         var ipString = httpRequest.Headers["X-Forwarded-For"];
 
@@ -161,7 +156,7 @@ public static class IPHelper
         {
             var ipAddresses = ipString.Split(',');
             var firstNonLocalAddress =
-                ipAddresses.FirstOrDefault(
+                ipAddresses.Find(
                     ip => IPAddress.TryParse(ipString.Split(',')[0].Trim(), out ipAddress) && ipAddress.IsRoutable());
 
             if (firstNonLocalAddress.IsSet())
@@ -196,9 +191,6 @@ public static class IPHelper
     /// </returns>
     public static bool IsBanned(string ban, string chk)
     {
-        CodeContracts.VerifyNotNull(ban);
-        CodeContracts.VerifyNotNull(chk);
-
         var bannedIp = ban.Trim();
 
         if (chk == "::1")
@@ -272,7 +264,7 @@ public static class IPHelper
             return false;
         }
 
-        var ipAddressSplit = reservedIpAddress.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+        var ipAddressSplit = reservedIpAddress.Split(['/'], StringSplitOptions.RemoveEmptyEntries);
 
         if (ipAddressSplit.Length != 2)
         {
@@ -333,16 +325,14 @@ public static class IPHelper
     /// </returns>
     public static bool IsRoutable(this IPAddress ipAddress)
     {
-        CodeContracts.VerifyNotNull(ipAddress);
-
         // Reference: http://en.wikipedia.org/wiki/Reserved_IP_addresses
         var ipAddressBytes = ipAddress.GetAddressBytes();
 
         return ipAddress.AddressFamily switch
             {
-                AddressFamily.InterNetwork => !NonRoutableIPv4Networks.Any(
+                AddressFamily.InterNetwork => !NonRoutableIPv4Networks.Exists(
                                                   network => IsIpAddressInRange(ipAddressBytes, network)),
-                AddressFamily.InterNetworkV6 => !NonRoutableIPv6Networks.Any(
+                AddressFamily.InterNetworkV6 => !NonRoutableIPv6Networks.Exists(
                                                     network => IsIpAddressInRange(ipAddressBytes, network)),
                 _ => false
             };

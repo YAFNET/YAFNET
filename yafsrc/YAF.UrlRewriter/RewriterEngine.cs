@@ -110,11 +110,6 @@ public class RewriterEngine
                         this._httpContext.RawUrl,
                         context.Location));
 
-                // To verify that the URL exists on this server:
-                // VerifyResultExists(context);
-
-                // To ensure that directories are rewritten to their default document:
-                // HandleDefaultDocument(context);
                 this._httpContext.RewritePath(context.Location);
             }
             else
@@ -133,12 +128,6 @@ public class RewriterEngine
         {
             this.HandleError(context);
         }
-
-        // To ensure that directories are rewritten to their default document:
-        // else if (HandleDefaultDocument(context))
-        // {
-        // _contextFacade.RewritePath(context.Location);
-        // }
 
         // Sets the context items.
         this.SetContextItems(context);
@@ -440,12 +429,9 @@ public class RewriterEngine
                 var mapArgument = match.Groups[2].Value;
                 var mapDefault = match.Groups[4].Value;
 
-                var tx = this._configuration.TransformFactory.GetTransform(mapName);
-                if (tx == null)
-                {
-                    throw new ConfigurationErrorsException(MessageProvider.FormatString(Message.MappingNotFound, mapName));
-                }
-
+                var tx = this._configuration.TransformFactory.GetTransform(mapName) ??
+                         throw new ConfigurationErrorsException(
+                             MessageProvider.FormatString(Message.MappingNotFound, mapName));
                 result = tx.ApplyTransform(mapArgument) ?? mapDefault;
             }
             else if (isFunction)
@@ -454,12 +440,9 @@ public class RewriterEngine
                 var functionName = match.Groups[1].Value;
                 var functionArgument = match.Groups[2].Value;
 
-                var tx = this._configuration.TransformFactory.GetTransform(functionName);
-                if (tx == null)
-                {
-                    throw new ConfigurationErrorsException(MessageProvider.FormatString(Message.TransformFunctionNotFound, functionName));
-                }
-
+                var tx = this._configuration.TransformFactory.GetTransform(functionName) ??
+                         throw new ConfigurationErrorsException(
+                             MessageProvider.FormatString(Message.TransformFunctionNotFound, functionName));
                 result = tx.ApplyTransform(functionArgument);
             }
             else

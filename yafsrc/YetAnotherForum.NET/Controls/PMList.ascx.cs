@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -88,7 +88,7 @@ public partial class PMList : BaseUserControl
     /// <param name="e">The <see cref="EventArgs" /> instance containing the event data.</param>
     protected void DeleteAll_Click(object source, EventArgs e)
     {
-        var messages = this.GetRepository<UserPMessage>().List(this.PageBoardContext.PageUserID, View);
+        var messages = this.GetRepository<UserPMessage>().List(this.PageBoardContext.PageUserID, this.View);
 
         messages.ForEach(
             item =>
@@ -391,8 +391,8 @@ public partial class PMList : BaseUserControl
         var list = (List<PagedPm>)this.Messages.DataSource;
 
         list = !exportPmIds.NullOrEmpty()
-                   ? list.Where(x => x.IsDeleted == false && exportPmIds.Contains(x.PMessageID)).ToList()
-                   : list.Where(x => x.IsDeleted == false).ToList();
+                   ? list.Where(x => !x.IsDeleted && exportPmIds.Contains(x.PMessageID)).ToList()
+                   : list.Where(x => !x.IsDeleted).ToList();
 
         var messageList = new List<PagedPm>();
 

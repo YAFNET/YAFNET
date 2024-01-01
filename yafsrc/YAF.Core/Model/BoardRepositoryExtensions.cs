@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -81,7 +81,7 @@ public static class BoardRepositoryExtensions
         bool isHostAdmin,
         string rolePrefix)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         // -- Board
         var newBoardId = repository.Insert(new Board { Name = boardName });
@@ -367,7 +367,7 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
     /// </returns>
     public static BoardStat PostStats(this IRepository<Board> repository, int boardId, bool showNoCountPosts)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var data = repository.DbAccess.Execute(
             db =>
@@ -452,7 +452,7 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
         string languageFile,
         string culture)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         BoardContext.Current.GetRepository<Registry>().Save("culture", culture, boardId);
         BoardContext.Current.GetRepository<Registry>().Save("language", languageFile, boardId);
@@ -476,7 +476,7 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
     /// </returns>
     public static BoardStat Stats(this IRepository<Board> repository, int boardId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.DbAccess.Execute(
             db =>
@@ -556,7 +556,7 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
     /// </param>
     public static void DeleteBoard(this IRepository<Board> repository, int boardId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         // --- Delete all forums of the board
         var forums = BoardContext.Current.GetRepository<Forum>().ListAll(boardId);

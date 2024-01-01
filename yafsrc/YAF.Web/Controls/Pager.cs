@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -87,7 +87,6 @@ public class Pager : BaseControl, IPostBackEventHandler, IPager
     /// <summary>
     ///   Gets the Current Linked Pager.
     /// </summary>
-    
     protected Pager CurrentLinkedPager
     {
         get
@@ -97,13 +96,7 @@ public class Pager : BaseControl, IPostBackEventHandler, IPager
                 return null;
             }
 
-            var linkedPager = this.Parent.FindControlAs<Pager>(this.LinkedPager);
-
-            if (linkedPager == null)
-            {
-                throw new Exception($"Failed to link pager to '{this.LinkedPager}'.");
-            }
-
+            var linkedPager = this.Parent.FindControlAs<Pager>(this.LinkedPager) ?? throw new Exception($"Failed to link pager to '{this.LinkedPager}'.");
             return linkedPager;
         }
     }

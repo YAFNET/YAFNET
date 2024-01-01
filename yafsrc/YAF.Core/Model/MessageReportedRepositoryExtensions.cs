@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -46,7 +46,7 @@ public static class MessageReportedRepositoryExtensions
     public static
         List<ReportedMessage> ListReported(this IRepository<MessageReported> repository, int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.DbAccess.Execute(
             db =>
@@ -119,7 +119,7 @@ public static class MessageReportedRepositoryExtensions
         DateTime reportedDateTime,
         string reportText)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         reportText ??= string.Empty;
 
@@ -172,7 +172,7 @@ public static class MessageReportedRepositoryExtensions
     /// </param>
     public static void ReportCopyOver(this IRepository<MessageReported> repository, Message message)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.UpdateOnly(() => new MessageReported { Message = message.MessageText }, m => m.ID == message.ID);
     }

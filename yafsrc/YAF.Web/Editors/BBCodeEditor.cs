@@ -149,7 +149,7 @@ public class BBCodeEditor : TextEditor
         writer.Write("<div class=\"card-header pb-0\">");
 
         // First toolbar row
-        RenderFirstToolbar(writer);
+        this.RenderFirstToolbar(writer);
 
         // Second toolbar row
         writer.Write("<div class=\"btn-toolbar\" role=\"toolbar\">");
@@ -175,11 +175,10 @@ public class BBCodeEditor : TextEditor
 
         writer.Write("<div class=\"dropdown-menu editorColorMenu\">");
 
-        string[] colors =
-        {
+        string[] colors = [
             "Dark Red", "Red", "Orange", "Brown", "Yellow", "Green", "Olive", "Cyan", "Blue", "Dark Blue",
             "Indigo", "Violet", "White", "Black"
-        };
+        ];
 
         colors.ForEach(
             color =>
@@ -351,7 +350,7 @@ public class BBCodeEditor : TextEditor
 
         var customBbCodesWithToolbar = customBbCode.Where(code => code.UseToolbar == true).ToList();
         var customBbCodesWithNoToolbar =
-            customBbCode.Where(code => code.UseToolbar == false || code.UseToolbar.HasValue == false);
+            customBbCode.Where(code => code.UseToolbar == false || !code.UseToolbar.HasValue);
 
         if (customBbCode.Any())
         {
@@ -451,7 +450,6 @@ public class BBCodeEditor : TextEditor
     {
         writer.Write("<div class=\"btn-toolbar\" role=\"toolbar\">");
 
-        //
         writer.Write("<div class=\"btn-group btn-group-sm me-2 mb-2\" role =\"group\">");
 
         // Render Cut Button
@@ -464,9 +462,8 @@ public class BBCodeEditor : TextEditor
         RenderButton(writer, "setStyle('paste','')", this.GetText("COMMON", "TT_PASTE"), "paste");
 
         writer.Write("</div>");
-        //
 
-        //
+
         writer.Write("<div class=\"btn-group btn-group-sm me-2 mb-2\" role =\"group\">");
 
         // Render Undo Button
@@ -476,9 +473,8 @@ public class BBCodeEditor : TextEditor
         RenderButton(writer, "setStyle('redo','')", this.GetText("COMMON", "TT_REDO"), "rotate-right", "redo");
 
         writer.Write("</div>");
-        //
 
-        //
+
         writer.Write("<div class=\"btn-group btn-group-sm me-2 mb-2\" role =\"group\">");
 
         // Render Select All Button
@@ -488,7 +484,6 @@ public class BBCodeEditor : TextEditor
         RenderButton(writer, "setStyle('removeFormat','')", this.GetText("COMMON", "TT_REMOVE"), "remove-format");
 
         writer.Write("</div>");
-        //
 
         writer.Write("</div>");
     }

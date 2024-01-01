@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -43,8 +43,6 @@ public class Session : ISession
     /// </param>
     public Session(HttpSessionStateBase sessionState)
     {
-        CodeContracts.VerifyNotNull(sessionState);
-
         this.SessionState = sessionState;
     }
 
@@ -265,7 +263,7 @@ public class Session : ISession
     /// </param>
     public void SetForumRead(int forumId, DateTime date)
     {
-        var t = this.ForumRead ?? new Hashtable();
+        var t = this.ForumRead ?? [];
 
         t[forumId] = date;
         this.ForumRead = t;
@@ -282,7 +280,7 @@ public class Session : ISession
     /// </param>
     public void SetTopicRead(int topicId, DateTime date)
     {
-        var t = this.TopicRead ?? new Hashtable();
+        var t = this.TopicRead ?? [];
 
         t[topicId] = date;
         this.TopicRead = t;

@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -48,7 +48,7 @@ public static class WatchForumRepositoryExtensions
     /// </param>
     public static void Add(this IRepository<WatchForum> repository, int userId, int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var watchForum = new WatchForum { ForumID = forumId, UserID = userId, Created = DateTime.UtcNow };
 
@@ -74,7 +74,7 @@ public static class WatchForumRepositoryExtensions
     /// </returns>
     public static int? Check(this IRepository<WatchForum> repository, int userId, int forumId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var forum = repository.GetSingle(w => w.UserID == userId && w.ForumID == forumId);
 
@@ -105,7 +105,7 @@ public static class WatchForumRepositoryExtensions
         int pageIndex = 0,
         int pageSize = 10000000)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<WatchForum>();
 

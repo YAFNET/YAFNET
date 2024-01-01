@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -54,7 +54,7 @@ public static class BuddyRepositoryExtensions
         int fromUserId,
         int toUserId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         if (repository.Exists(x => x.FromUserID == fromUserId && x.ToUserID == toUserId))
         {
@@ -108,7 +108,7 @@ public static class BuddyRepositoryExtensions
         int fromUserId,
         int toUserId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         if (!repository.Exists(x => x.FromUserID == fromUserId && x.ToUserID == toUserId))
         {
@@ -148,7 +148,7 @@ public static class BuddyRepositoryExtensions
         int fromUserId,
         int toUserId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.Delete(b => b.FromUserID == fromUserId && b.ToUserID == toUserId);
     }
@@ -168,7 +168,7 @@ public static class BuddyRepositoryExtensions
         this IRepository<Buddy> repository,
         int toUserId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.Delete(b => b.FromUserID == BoardContext.Current.PageUserID && b.ToUserID == toUserId);
     }
@@ -190,7 +190,7 @@ public static class BuddyRepositoryExtensions
         int fromUserId,
         int toUserId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.Delete(x => x.FromUserID == fromUserId && x.ToUserID == toUserId);
 
@@ -207,7 +207,7 @@ public static class BuddyRepositoryExtensions
     /// </returns>
     public static List<BuddyUser> ListAll(this IRepository<Buddy> repository, int fromUserId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -64,10 +64,6 @@ public class CurrentBoardSettings : IReadWriteProvider<BoardSettings>
         IHaveBoardID haveBoardId,
         ITreatCacheKey treatCacheKey)
     {
-        CodeContracts.VerifyNotNull(injectServices);
-        CodeContracts.VerifyNotNull(haveBoardId);
-        CodeContracts.VerifyNotNull(treatCacheKey);
-
         this.injectServices = injectServices;
         this.haveBoardId = haveBoardId;
         this.treatCacheKey = treatCacheKey;

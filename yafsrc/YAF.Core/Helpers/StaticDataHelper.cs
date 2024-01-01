@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -210,7 +210,7 @@ public static class StaticDataHelper
                          });
         });
 
-        var sourceResources = resources.FirstOrDefault(x => x.Resources.Code == "en");
+        var sourceResources = resources.Find(x => x.Resources.Code == "en");
 
         resources.ForEach(
             resource =>
@@ -218,9 +218,9 @@ public static class StaticDataHelper
                 var countTranslated = sourceResources.Resources.Page.Sum(
                     sourcePage => (from sourceResource in sourcePage.Resource
                                    let translatePage =
-                                       resource.Resources.Page.FirstOrDefault(p => p.Name == sourcePage.Name)
+                                       resource.Resources.Page.Find(p => p.Name == sourcePage.Name)
                                    let translateResource =
-                                       translatePage.Resource.FirstOrDefault(r => r.Tag == sourceResource.Tag)
+                                       translatePage.Resource.Find(r => r.Tag == sourceResource.Tag)
                                    where !string.Equals(
                                              sourceResource.Text,
                                              translateResource.Text,
@@ -381,7 +381,7 @@ public static class StaticDataHelper
 
         var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
 
-        var tag = cultures.FirstOrDefault(
+        var tag = cultures.Find(
             ci => !ci.IsNeutralCulture
                   && rawTag.ToLower().Substring(0, 2).Contains(ci.TwoLetterISOLanguageName.ToLower())
                   && ci.IetfLanguageTag.Length == 5)?.IetfLanguageTag;
@@ -441,17 +441,15 @@ public static class StaticDataHelper
     {
         var list = new List<ListItem>();
 
-        string[] textArray =
-            {
-                "all", "last_day", "last_two_days", "last_week", "last_two_weeks", "last_month",
+        string[] textArray = [
+            "all", "last_day", "last_two_days", "last_week", "last_two_weeks", "last_month",
                 "last_two_months", "last_six_months", "last_year"
-            };
+        ];
 
-        string[] textArrayProp =
-            {
-                "All", "Last Day", "Last Two Days", "Last Week", "Last Two Weeks", "Last Month",
+        string[] textArrayProp = [
+            "All", "Last Day", "Last Two Days", "Last Week", "Last Two Weeks", "Last Month",
                 "Last Two Months", "Last Six Months", "Last Year"
-            };
+        ];
 
         for (var i = 0; i < 8; i++)
         {
@@ -479,14 +477,13 @@ public static class StaticDataHelper
     {
         var list = new List<ListItem>();
 
-        string[] textArray =
-            {
-                "ENTRIES_5",
+        string[] textArray = [
+            "ENTRIES_5",
                 "ENTRIES_10",
                 "ENTRIES_20",
                 "ENTRIES_25",
-                "ENTRIES_50",
-            };
+                "ENTRIES_50"
+        ];
 
         textArray.ForEach(
             text =>

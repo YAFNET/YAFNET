@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -50,7 +50,7 @@ public static class UserRepositoryExtensions
     /// </param>
     public static void Promote(this IRepository<User> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         // -- Get user and rank information
         var rankInfo = BoardContext.Current.GetRepository<Rank>().GetUserAndRank(userId);
@@ -97,7 +97,7 @@ public static class UserRepositoryExtensions
     /// </param>
     public static void UpdateStyles(this IRepository<User> repository, int boardId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var users = repository.Get(u => u.BoardID == boardId);
 
@@ -116,7 +116,7 @@ public static class UserRepositoryExtensions
     /// </param>
     public static void UpdateStyle(this IRepository<User> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var groupStyle = BoardContext.Current.GetRepository<UserGroup>().GetGroupStyeForUser(userId);
         var rankStyle = BoardContext.Current.GetRepository<Rank>().GetRankStyeForUser(userId);
@@ -148,7 +148,7 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static long BoardMembers(this IRepository<User> repository, int boardId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.Count(u => u.BoardID == boardId && (u.Flags & 4) != 4 && (u.Flags & 32) != 32 && (u.Flags & 2) == 2);
     }
@@ -167,7 +167,7 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static User Latest(this IRepository<User> repository, int boardId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.DbAccess.Execute(
             db =>
@@ -198,7 +198,7 @@ public static class UserRepositoryExtensions
         this IRepository<User> repository,
         int messageId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<MessageReportedAudit>();
 
@@ -228,7 +228,7 @@ public static class UserRepositoryExtensions
         int messageId,
         int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
@@ -266,7 +266,7 @@ public static class UserRepositoryExtensions
         DateTime startDate,
         int displayNumber)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.DbAccess.Execute(
             db =>
@@ -317,7 +317,7 @@ public static class UserRepositoryExtensions
         int? fromUserId,
         int points)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.UpdateAdd(() => new User { Points = points }, u => u.ID == userId);
 
@@ -348,7 +348,7 @@ public static class UserRepositoryExtensions
         int? fromUserId,
         int points)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.UpdateAdd(() => new User { Points = -points }, u => u.ID == userId);
 
@@ -391,7 +391,7 @@ public static class UserRepositoryExtensions
         int flags,
         int rankId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.UpdateOnly(
             () => new User
@@ -416,7 +416,7 @@ public static class UserRepositoryExtensions
     /// </param>
     public static void Approve(this IRepository<User> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.Approve(repository.GetById(userId));
     }
@@ -432,8 +432,8 @@ public static class UserRepositoryExtensions
     /// </param>
     public static void Approve(this IRepository<User> repository, User user)
     {
-        CodeContracts.VerifyNotNull(repository);
-        CodeContracts.VerifyNotNull(user);
+        
+        
 
         var userFlags = user.UserFlags;
 
@@ -490,7 +490,7 @@ public static class UserRepositoryExtensions
         bool isApproved,
         User existingUser = null)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var approvedFlag = 0;
         int userId;
@@ -601,8 +601,8 @@ public static class UserRepositoryExtensions
     /// </param>
     public static void Delete(this IRepository<User> repository, User user)
     {
-        CodeContracts.VerifyNotNull(repository);
-        CodeContracts.VerifyNotNull(user);
+        
+        
 
         var guestUserId = BoardContext.Current.GuestUserID;
 
@@ -681,7 +681,7 @@ public static class UserRepositoryExtensions
     /// </param>
     public static void DeleteAvatar(this IRepository<User> repository, int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var user = repository.GetById(userId);
 
@@ -716,7 +716,7 @@ public static class UserRepositoryExtensions
     /// </param>
     public static void DeleteOld(this IRepository<User> repository, int boardId, int days)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var users = repository.Get(u => u.BoardID == boardId && (u.Flags & 2) != 2)
             .Where(u => (DateTime.UtcNow - u.Joined).Days > days);
@@ -751,7 +751,7 @@ public static class UserRepositoryExtensions
         int topicId,
         int userId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<WatchTopic>();
 
@@ -786,7 +786,7 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static List<string> GroupEmails(this IRepository<User> repository, int groupId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
@@ -815,7 +815,7 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static User GetUserByProviderKey(this IRepository<User> repository, int? boardId, string providerUserKey)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return boardId == null
                    ? repository.GetSingle(u => u.ProviderUserKey == providerUserKey)
@@ -842,8 +842,6 @@ public static class UserRepositoryExtensions
         int userId,
         int boardId)
     {
-        CodeContracts.VerifyNotNull(repository);
-
         var groupMax = repository.DbAccess.Execute(
             db => db.Connection.Single<(int maxAlbum, int maxAlbumImages)>(
                 db.Connection.From<User>().Join<UserGroup>((a, b) => b.UserID == a.ID)
@@ -885,7 +883,7 @@ public static class UserRepositoryExtensions
         int userId,
         int boardId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var groupMax = repository.DbAccess.Execute(
             db => db.Connection.Single<(string usrSigBBCodes, int usrSigChars)>(
@@ -955,7 +953,7 @@ public static class UserRepositoryExtensions
         bool showUnreadPMs,
         bool showUserAlbums)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         while (true)
         {
@@ -1140,7 +1138,7 @@ public static class UserRepositoryExtensions
         int boardId,
         string userName)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var user = repository.GetSingle(u => u.BoardID == boardId && u.Name == userName);
 
@@ -1194,7 +1192,7 @@ public static class UserRepositoryExtensions
         bool activity,
         int pageSize)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var user = repository.GetById(userId);
 
@@ -1236,9 +1234,6 @@ public static class UserRepositoryExtensions
         User user,
         string displayName)
     {
-        CodeContracts.VerifyNotNull(repository);
-        CodeContracts.VerifyNotNull(user);
-
         var updateDisplayName = false;
 
         var oldDisplayName = user.DisplayName;
@@ -1311,7 +1306,7 @@ public static class UserRepositoryExtensions
         Stream stream,
         string avatarImageType)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         if (avatarUrl == null)
         {
@@ -1365,7 +1360,7 @@ public static class UserRepositoryExtensions
         int? notificationType,
         bool dailyDigest)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.UpdateOnly(
             () => new User
@@ -1394,7 +1389,7 @@ public static class UserRepositoryExtensions
         this IRepository<User> repository,
         int? boardId = null)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
@@ -1419,7 +1414,7 @@ public static class UserRepositoryExtensions
     /// </returns>
     public static List<User> GetUnApprovedUsers(this IRepository<User> repository, int boardId)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.Get(u => u.BoardID == boardId && (u.Flags & 2) != 2 && (u.Flags & 32) != 32);
     }
@@ -1435,7 +1430,7 @@ public static class UserRepositoryExtensions
         int userId,
         string signature)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.UpdateOnly(() => new User { Signature = signature }, u => u.ID == userId);
     }
@@ -1448,7 +1443,7 @@ public static class UserRepositoryExtensions
     /// <param name="points">The points.</param>
     public static void SetPoints(this IRepository<User> repository, int userId, int points)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.UpdateOnly(() => new User { Points = points }, u => u.ID == userId);
     }
@@ -1468,7 +1463,7 @@ public static class UserRepositoryExtensions
         string suspendReason = null,
         int suspendBy = 0)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.UpdateOnly(
             () => new User { Suspended = suspend, SuspendedReason = suspendReason, SuspendedBy = suspendBy },
@@ -1489,7 +1484,7 @@ public static class UserRepositoryExtensions
     /// </param>
     public static void UpdateBlockFlags(this IRepository<User> repository, int userId, int flags)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         repository.UpdateOnly(() => new User { BlockFlags = flags }, u => u.ID == userId);
     }
@@ -1506,7 +1501,7 @@ public static class UserRepositoryExtensions
     public static List<ActiveUser> GetRecentUsers(
         this IRepository<User> repository)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         var timeSinceLastLogin = DateTime.UtcNow.AddMinutes(0 - 60 * 24 * 30);
 
@@ -1554,7 +1549,7 @@ public static class UserRepositoryExtensions
     public static List<SimpleModerator> GetForumModerators(
         this IRepository<User> repository)
     {
-        CodeContracts.VerifyNotNull(repository);
+        
 
         return repository.DbAccess.Execute(
             db =>

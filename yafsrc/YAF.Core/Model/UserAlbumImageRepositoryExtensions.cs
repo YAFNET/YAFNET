@@ -1,7 +1,7 @@
 /* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -67,8 +67,8 @@ public static class UserAlbumImageRepositoryExtensions
         this IRepository<UserAlbumImage> repository,
         int albumId)
     {
-        return repository.Get(albumImage => albumImage.AlbumID == albumId).OrderByDescending(a => a.Uploaded)
-            .ToList();
+        return [.. repository.Get(albumImage => albumImage.AlbumID == albumId).OrderByDescending(a => a.Uploaded)
+];
     }
 
     /// <summary>
@@ -95,8 +95,11 @@ public static class UserAlbumImageRepositoryExtensions
         int pageIndex,
         int pageSize)
     {
-       return repository.GetPaged(albumImage => albumImage.AlbumID == albumId, pageIndex, pageSize)
-            .OrderByDescending(a => a.Uploaded).ToList();
+       return
+       [
+           .. repository.GetPaged(albumImage => albumImage.AlbumID == albumId, pageIndex, pageSize)
+                       .OrderByDescending(a => a.Uploaded),
+       ];
     }
 
     /// <summary>
