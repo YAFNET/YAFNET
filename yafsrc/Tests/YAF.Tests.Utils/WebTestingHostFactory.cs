@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -40,7 +40,12 @@ using Microsoft.Extensions.Hosting;
 public class WebTestingHostFactory<TProgram> : WebApplicationFactory<TProgram>
     where TProgram : class
 {
-    // Override the CreateHost to build our HTTP host server.
+    /// <summary>
+    /// Override the CreateHost to build our HTTP host server.
+    /// <see cref="T:Microsoft.AspNetCore.Hosting.IWebHostBuilder" /> will use <see cref="M:Microsoft.AspNetCore.Mvc.Testing.WebApplicationFactory`1.CreateServer(Microsoft.AspNetCore.Hosting.IWebHostBuilder)" /> instead.
+    /// </summary>
+    /// <param name="builder">The <see cref="T:Microsoft.Extensions.Hosting.IHostBuilder" /> used to create the host.</param>
+    /// <returns>The <see cref="T:Microsoft.Extensions.Hosting.IHost" /> with the bootstrapped application.</returns>
     override protected IHost CreateHost(IHostBuilder builder)
     {
         // Create the host that is actually used by the
@@ -57,7 +62,11 @@ public class WebTestingHostFactory<TProgram> : WebApplicationFactory<TProgram>
         return new CompositeHost(testHost, host);
     }
 
-    // Relay the call to both test host and kestrel host.
+    /// <summary>
+    /// Relay the call to both test host and kestrel host.
+    /// Implements the <see cref="IHost" />
+    /// </summary>
+    /// <seealso cref="IHost" />
     public class CompositeHost : IHost
     {
         private readonly IHost testHost;

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -36,11 +36,11 @@ public class BBCodeHelperTests
     [Description("Strips all BBCodes from a string.")]
     public void StripBBCodeTest()
     {
-        const string TestMessage =
+        const string testMessage =
             "This is a test text containing [b]bold[/b] and [i]italic[i] text and other bbcodes [img]http://test.com/testimage.jpg[/img]";
 
         Assert.Equal(
             "This is a test text containing bold and italic text and other bbcodes http://test.com/testimage.jpg",
-            BBCodeHelper.StripBBCode(TestMessage));
+            BBCodeHelper.StripBBCode(testMessage));
     }
 }

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -180,13 +180,13 @@ public class ProfileTests : TestBase
                     var emailInput = page.Locator("//input[contains(@id,'Email')]");
 
                     var oldEmailAddress = await emailInput.GetAttributeAsync("value");
-                    const string NewEmailAddress = "testmail123@localhost.com";
+                    const string newEmailAddress = "testmail123@localhost.com";
 
                     Assert.That(oldEmailAddress, Is.Not.Null);
 
                     await emailInput.ClearAsync();
 
-                    await emailInput.FillAsync(NewEmailAddress);
+                    await emailInput.FillAsync(newEmailAddress);
 
                     // Save the Profile Changes
                     await page.Locator("//button[contains(@type,'submit')]").Last.ClickAsync();
@@ -194,8 +194,8 @@ public class ProfileTests : TestBase
                     await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Profile/EditSettings");
 
                     Assert.That(
-                        await emailInput.GetAttributeAsync("value"), Is.EqualTo(NewEmailAddress),
-                        $"Email Address should match {NewEmailAddress}");
+                        await emailInput.GetAttributeAsync("value"), Is.EqualTo(newEmailAddress),
+                        $"Email Address should match {newEmailAddress}");
 
                     await page.GotoAsync($"{this.Base.TestSettings.TestForumUrl}Profile/EditSettings");
 

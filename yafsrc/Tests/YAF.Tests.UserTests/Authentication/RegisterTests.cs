@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -64,8 +64,8 @@ public class RegisterUser : TestBase
     [Test]
     public async Task RegisterBotUserTest()
     {
-        const string Username = "aqiuliqemi";
-        const string Email = "ikocec@coveryourpills.org";
+        const string username = "aqiuliqemi";
+        const string email = "ikocec@coveryourpills.org";
 
         await this.Base.PlaywrightFixture.GotoPageAsync(
             this.Base.TestSettings.TestForumUrl,
@@ -87,16 +87,16 @@ public class RegisterUser : TestBase
                     }
 
                     // Fill the Register Page
-                    await page.Locator("//input[contains(@id, '_UserName')]").FillAsync(Username);
+                    await page.Locator("//input[contains(@id, '_UserName')]").FillAsync(username);
 
                     if (pageSource.Contains("Display Name") || pageSource.Contains("Anzeigename"))
                     {
-                        await page.Locator("//input[contains(@id, '_DisplayName')]").FillAsync(Username);
+                        await page.Locator("//input[contains(@id, '_DisplayName')]").FillAsync(username);
                     }
 
                     await page.Locator("//input[contains(@id, '_Password')]").FillAsync(this.Base.TestSettings.TestUserPassword);
                     await page.Locator("//input[contains(@id, '_ConfirmPassword')]").FillAsync(this.Base.TestSettings.TestUserPassword);
-                    await page.Locator("//input[contains(@id, '_Email')]").FillAsync(Email);
+                    await page.Locator("//input[contains(@id, '_Email')]").FillAsync(email);
 
                     // Create User
                     await page.GetByRole(AriaRole.Button, new() { Name = " Register" }).ClickAsync();

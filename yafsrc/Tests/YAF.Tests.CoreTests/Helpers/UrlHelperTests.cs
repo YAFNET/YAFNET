@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -36,12 +36,12 @@ public class UrlHelperTests
     [Description("Count all URLs Test.")]
     public void CountUrls_Test()
     {
-        const string TestMessage =
+        const string testMessage =
             @"Indeed, back to the drawing board. You might be against [url=http://supplementsbook.org/ketoslim/]Ketoslim[/url] for some reason. 
                  Read More: [url = http://supplementsbook.org/ketoslim/]http://supplementsbook.org/ketoslim/[/url]";
 
         Assert.Equal(
             3,
-            UrlHelper.CountUrls(TestMessage));
+            UrlHelper.CountUrls(testMessage));
     }
 }

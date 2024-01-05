@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  *
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -39,10 +39,10 @@ public class EmojiOneTests
     public void AsciiToUnicode_Test()
     {
         // single smiley
-        const string Text = ":D";
-        const string Expected = "😃";
-        var actual = EmojiOne.AsciiToUnicode(EmojiOne.ShortNameToUnicode(Text));
+        const string text = ":D";
+        const string expected = "😃";
+        var actual = EmojiOne.AsciiToUnicode(EmojiOne.ShortNameToUnicode(text));
 
-        Assert.Equal(Expected, actual);
+        Assert.Equal(expected, actual);
     }
 }

@@ -1,7 +1,7 @@
 ﻿/* Yet Another Forum.NET
  * Copyright (C) 2003-2005 Bjørnar Henden
  * Copyright (C) 2006-2013 Jaben Cargman
- * Copyright (C) 2014-2023 Ingo Herbote
+ * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
  * 
  * Licensed to the Apache Software Foundation (ASF) under one
@@ -28,8 +28,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
+/// <summary>
+/// Class StringUtils.
+/// </summary>
 public static partial class StringUtils
 {
+    /// <summary>
+    /// Gets all links.
+    /// </summary>
+    /// <param name="message">The message.</param>
+    /// <returns>Returns list with links.</returns>
     public static List<string> GetLinks(string message)
     {
         var urlRx = UrlRegex();
