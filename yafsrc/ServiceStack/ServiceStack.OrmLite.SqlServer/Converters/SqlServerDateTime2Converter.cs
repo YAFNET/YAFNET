@@ -54,7 +54,9 @@ public class SqlServerDateTime2Converter : SqlServerDateTimeConverter
     public override object FromDbValue(Type fieldType, object value)
     {
         if (value is string str && DateTime.TryParseExact(str, DateTimeFormat, null, DateTimeStyles.None, out var date))
+        {
             return date;
+        }
 
         return base.FromDbValue(fieldType, value);
     }

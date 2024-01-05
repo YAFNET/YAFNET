@@ -43,10 +43,10 @@ public partial class Attachments : ProfilePage
     /// The pager top_ page change.
     /// </summary>
     /// <param name="sender">
-    /// The source of the event. 
+    /// The source of the event.
     /// </param>
     /// <param name="e">
-    /// The <see cref="System.EventArgs"/> instance containing the event data. 
+    /// The <see cref="System.EventArgs"/> instance containing the event data.
     /// </param>
     protected void PagerTop_PageChange(object sender, EventArgs e)
     {
@@ -151,9 +151,13 @@ public partial class Attachments : ProfilePage
 
         if (items.Any())
         {
+            List<int> deleteIds = [];
+
             items.ForEach(
-                item => this.GetRepository<Attachment>().DeleteById(
+                item => deleteIds.Add(
                     item.FindControlAs<HiddenField>("FileID").Value.ToType<int>()));
+
+            this.GetRepository<Attachment>().DeleteByIds(deleteIds);
 
             this.PageBoardContext.Notify(this.GetTextFormatted("DELETED", items.Count), MessageTypes.success);
         }

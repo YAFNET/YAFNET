@@ -43,7 +43,9 @@ public class SqlServerStringConverter : StringConverter
     public override string GetColumnDefinition(int? stringLength)
     {
         if (stringLength.GetValueOrDefault() == StringLengthAttribute.MaxText)
-            return MaxColumnDefinition;
+        {
+            return this.MaxColumnDefinition;
+        }
 
         var safeLength = Math.Min(
             stringLength.GetValueOrDefault(StringLength),
@@ -63,7 +65,10 @@ public class SqlServerStringConverter : StringConverter
     {
         base.InitDbParam(p, fieldType);
 
-        if (!(p is SqlParameter sqlParam)) return;
+        if (!(p is SqlParameter sqlParam))
+        {
+            return;
+        }
 
         if (!UseUnicode)
         {

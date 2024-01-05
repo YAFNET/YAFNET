@@ -80,16 +80,20 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
     /// </summary>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    override protected bool ShouldSkipInsert(FieldDefinition fieldDef) =>
-        fieldDef.ShouldSkipInsert() && string.IsNullOrEmpty(fieldDef.Sequence);
+    override protected bool ShouldSkipInsert(FieldDefinition fieldDef)
+    {
+        return fieldDef.ShouldSkipInsert() && string.IsNullOrEmpty(fieldDef.Sequence);
+    }
 
     /// <summary>
     /// Supportses the sequences.
     /// </summary>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    override protected bool SupportsSequences(FieldDefinition fieldDef) =>
-        !string.IsNullOrEmpty(fieldDef.Sequence);
+    override protected bool SupportsSequences(FieldDefinition fieldDef)
+    {
+        return !string.IsNullOrEmpty(fieldDef.Sequence);
+    }
 
     /// <summary>
     /// Converts to createsequencestatements.
@@ -160,7 +164,9 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
             .Append(bodyExpression);
 
         if (!string.IsNullOrEmpty(orderByExpression))
+        {
             sb.Append(orderByExpression);
+        }
 
         var skip = offset ?? 0;
 
@@ -204,7 +210,9 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
     {
         // https://msdn.microsoft.com/en-us/library/ms182776.aspx
         if (fieldDef.IsRowVersion)
+        {
             return $"{fieldDef.FieldName} rowversion NOT NULL";
+        }
 
         var fieldDefinition = ResolveFragment(fieldDef.CustomFieldDefinition) ??
                               GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
@@ -227,7 +235,9 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
             sql.Append(" PRIMARY KEY");
 
             if (fieldDef.IsNonClustered)
+            {
                 sql.Append(" NONCLUSTERED");
+            }
 
             if (fieldDef.AutoIncrement)
             {
@@ -263,7 +273,9 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
     {
         // https://msdn.microsoft.com/en-us/library/ms182776.aspx
         if (fieldDef.IsRowVersion)
+        {
             return $"{fieldDef.FieldName} rowversion NOT NULL";
+        }
 
         var fieldDefinition = ResolveFragment(fieldDef.CustomFieldDefinition) ??
                               GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
@@ -292,7 +304,9 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
                 sql.Append(" PRIMARY KEY");
 
                 if (fieldDef.IsNonClustered)
+                {
                     sql.Append(" NONCLUSTERED");
+                }
 
                 if (fieldDef.AutoIncrement)
                 {
@@ -339,15 +353,21 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
             foreach (var fieldDef in modelDef.FieldDefinitions)
             {
                 if (fieldDef.CustomSelect != null || fieldDef.IsComputed && !fieldDef.IsPersisted)
+                {
                     continue;
+                }
 
                 var columnDefinition = GetColumnDefinition(fieldDef, modelDef);
 
                 if (columnDefinition == null)
+                {
                     continue;
+                }
 
                 if (sbColumns.Length != 0)
+                {
                     sbColumns.Append(", \n  ");
+                }
 
                 sbColumns.Append(columnDefinition);
 
@@ -358,7 +378,9 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
                 }
 
                 if (fieldDef.ForeignKey == null || OrmLiteConfig.SkipForeignKeys)
+                {
                     continue;
+                }
 
                 var refModelDef = GetModel(fieldDef.ForeignKey.ReferenceType);
                 sbConstraints.Append(
@@ -384,7 +406,9 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
                 if (fileTableAttrib.FileTableCollateFileName != null)
                 {
                     if (fileTableAttrib.FileTableDirectory != null)
+                    {
                         sbTableOptions.Append(" ,");
+                    }
 
                     sbTableOptions.Append($" FILETABLE_COLLATE_FILENAME = {fileTableAttrib.FileTableCollateFileName ?? "database_default" }\n");
                 }
@@ -480,14 +504,18 @@ public class SqlServer2012OrmLiteDialectProvider : SqlServerOrmLiteDialectProvid
     /// </summary>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns><c>true</c> if [is spatial field] [the specified field definition]; otherwise, <c>false</c>.</returns>
-    internal bool isSpatialField(FieldDefinition fieldDef) =>
-        fieldDef.FieldType.Name == "SqlGeography" || fieldDef.FieldType.Name == "SqlGeometry";
+    internal bool isSpatialField(FieldDefinition fieldDef)
+    {
+        return fieldDef.FieldType.Name == "SqlGeography" || fieldDef.FieldType.Name == "SqlGeometry";
+    }
 
     /// <summary>
     /// Determines whether [has is null property] [the specified field definition].
     /// </summary>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns><c>true</c> if [has is null property] [the specified field definition]; otherwise, <c>false</c>.</returns>
-    internal bool hasIsNullProperty(FieldDefinition fieldDef) =>
-        isSpatialField(fieldDef) || fieldDef.FieldType.Name == "SqlHierarchyId";
+    internal bool hasIsNullProperty(FieldDefinition fieldDef)
+    {
+        return isSpatialField(fieldDef) || fieldDef.FieldType.Name == "SqlHierarchyId";
+    }
 }

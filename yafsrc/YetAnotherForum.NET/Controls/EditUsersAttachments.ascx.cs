@@ -157,12 +157,16 @@ public partial class EditUsersAttachments : BaseUserControl
     /// </param>
     protected void DeleteAttachments_Click(object sender, EventArgs e)
     {
+        List<int> deleteIds = [];
+
         (from RepeaterItem item in this.List.Items
-         where item.ItemType is ListItemType.Item or ListItemType.AlternatingItem
-         where item.FindControlAs<CheckBox>("Selected").Checked
-         select item).ForEach(
-            item => this.GetRepository<Attachment>().DeleteById(
+            where item.ItemType is ListItemType.Item or ListItemType.AlternatingItem
+            where item.FindControlAs<CheckBox>("Selected").Checked
+            select item).ForEach(
+            item => deleteIds.Add(
                 item.FindControlAs<ThemeButton>("ThemeButtonDelete").CommandArgument.ToType<int>()));
+
+        this.GetRepository<Attachment>().DeleteByIds(deleteIds);
 
         this.BindData();
     }

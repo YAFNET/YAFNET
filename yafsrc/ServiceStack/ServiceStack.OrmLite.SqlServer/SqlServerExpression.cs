@@ -137,20 +137,34 @@ internal class SqlServerExpressionUtils
 
         foreach (var fieldDef in modelDef.FieldDefinitions)
         {
-            if (fieldDef.ShouldSkipUpdate()) continue;
-            if (fieldDef.IsRowVersion) continue;
+            if (fieldDef.ShouldSkipUpdate())
+            {
+                continue;
+            }
+
+            if (fieldDef.IsRowVersion)
+            {
+                continue;
+            }
+
             if (q.UpdateFields.Count > 0
                 && !q.UpdateFields.Contains(fieldDef.Name)
                 || fieldDef.AutoIncrement)
+            {
                 continue; // added
+            }
 
             var value = fieldDef.GetValue(item);
             if (excludeDefaults
                 && (value == null || !fieldDef.IsNullable && value.Equals(value.GetType().GetDefaultValue())))
+            {
                 continue;
+            }
 
             if (setFields.Length > 0)
+            {
                 setFields.Append(", ");
+            }
 
             setFields
                 .Append(dialectProvider.GetQuotedColumnName(fieldDef.FieldName))
@@ -160,7 +174,9 @@ internal class SqlServerExpressionUtils
 
         var strFields = StringBuilderCache.ReturnAndFree(setFields);
         if (strFields.Length == 0)
+        {
             throw new ArgumentException($"No non-null or non-default values were provided for type: {typeof(T).Name}");
+        }
 
         dbCmd.CommandText = $"UPDATE {dialectProvider.GetQuotedTableName(modelDef)} SET {strFields} {q.WhereExpression}";
     }

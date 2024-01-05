@@ -18,7 +18,10 @@ public class SqlServer2016OrmLiteDialectProvider : SqlServer2014OrmLiteDialectPr
 
     public static new SqlServer2016OrmLiteDialectProvider Instance = new();
 
-    public override SqlExpression<T> SqlExpression<T>() => new SqlServer2016Expression<T>(this);
+    public override SqlExpression<T> SqlExpression<T>()
+    {
+        return new SqlServer2016Expression<T>(this);
+    }
 }
 
 public class SqlServer2017OrmLiteDialectProvider : SqlServer2016OrmLiteDialectProvider

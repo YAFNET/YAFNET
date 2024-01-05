@@ -33,7 +33,9 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
     {
         // https://msdn.microsoft.com/en-us/library/ms182776.aspx
         if (fieldDef.IsRowVersion)
+        {
             return $"{fieldDef.FieldName} rowversion NOT NULL";
+        }
 
         var fieldDefinition = ResolveFragment(fieldDef.CustomFieldDefinition) ??
                               GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
@@ -125,7 +127,9 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
     {
         // https://msdn.microsoft.com/en-us/library/ms182776.aspx
         if (fieldDef.IsRowVersion)
+        {
             return $"{fieldDef.FieldName} rowversion NOT NULL";
+        }
 
         var fieldDefinition = ResolveFragment(fieldDef.CustomFieldDefinition) ??
                               GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
@@ -165,7 +169,9 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
                     sql.Append(" PRIMARY KEY");
 
                     if (fieldDef.IsNonClustered)
+                    {
                         sql.Append(" NONCLUSTERED");
+                    }
                 }
 
                 if (fieldDef.AutoIncrement)
@@ -233,14 +239,20 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
             foreach (var fieldDef in modelDef.FieldDefinitions)
             {
                 if (fieldDef.CustomSelect != null || fieldDef.IsComputed && !fieldDef.IsPersisted)
+                {
                     continue;
+                }
 
                 var columnDefinition = GetColumnDefinition(fieldDef, modelDef);
                 if (columnDefinition == null)
+                {
                     continue;
+                }
 
                 if (sbColumns.Length != 0)
+                {
                     sbColumns.Append(", \n  ");
+                }
 
                 sbColumns.Append(columnDefinition);
 
@@ -251,7 +263,9 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
                 }
 
                 if (fieldDef.ForeignKey == null || OrmLiteConfig.SkipForeignKeys)
+                {
                     continue;
+                }
 
                 var refModelDef = OrmLiteUtils.GetModelDefinition(fieldDef.ForeignKey.ReferenceType);
                 sbConstraints.Append(
@@ -295,7 +309,11 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
 
                 if (hasFileTableCollateFileName)
                 {
-                    if (hasFileTableDir) sbTableOptions.Append(" ,");
+                    if (hasFileTableDir)
+                    {
+                        sbTableOptions.Append(" ,");
+                    }
+
                     sbTableOptions.Append($" FILETABLE_COLLATE_FILENAME = {fileTableAttrib.FileTableCollateFileName ?? "database_default" }\n");
                 }
                 sbTableOptions.Append(")");

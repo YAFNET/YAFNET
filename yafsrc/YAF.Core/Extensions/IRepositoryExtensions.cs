@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Extensions;
 
 using System;
@@ -51,8 +52,6 @@ public static class IRepositoryExtensions
     public static bool DeleteAll<T>(this IRepository<T> repository)
         where T : class, IEntity, new()
     {
-        
-
         var success = repository.DbAccess.Execute(db => db.Connection.DeleteAll<T>()) == 1;
 
         if (success)
@@ -81,8 +80,6 @@ public static class IRepositoryExtensions
     public static int Delete<T>(this IRepository<T> repository, Expression<Func<T, bool>> criteria)
         where T : class, IEntity, new()
     {
-        
-
         return repository.DbAccess.Execute(db => db.Connection.Delete(criteria));
     }
 
@@ -104,8 +101,6 @@ public static class IRepositoryExtensions
     public static bool DeleteById<T>(this IRepository<T> repository, int id)
         where T : class, IEntity, IHaveID, new()
     {
-        
-
         var success = repository.DbAccess.Execute(db => db.Connection.DeleteById<T>(id)) == 1;
         if (success)
         {
@@ -122,24 +117,14 @@ public static class IRepositoryExtensions
     /// <param name="repository">The repository.</param>
     /// <param name="ids">The ids.</param>
     /// <returns>Returns if deleting was successful or not</returns>
-    public static bool DeleteByIds<T>(this IRepository<T> repository, IEnumerable<int> ids)
+    public static void DeleteByIds<T>(this IRepository<T> repository, IEnumerable<int> ids)
         where T : class, IEntity, IHaveID, new()
     {
-        
-
-        var success = false;
-
         var enumerable = ids.ToList();
 
-        enumerable.ForEach(
-            id => success = repository.DbAccess.Execute(db => db.Connection.Delete<T>(x => x.ID == id)) == 1);
+        repository.DbAccess.Execute(db => db.Connection.DeleteByIds<T>(enumerable));
 
-        if (success)
-        {
-            enumerable.ForEach(id => repository.FireDeleted(id));
-        }
-
-        return success;
+        enumerable.ForEach(id => repository.FireDeleted(id));
     }
 
     /// <summary>
@@ -160,8 +145,6 @@ public static class IRepositoryExtensions
     public static IList<T> GetByBoardId<T>(this IRepository<T> repository, int? boardId = null)
         where T : IEntity, IHaveBoardID, new()
     {
-        
-
         var newBoardId = boardId ?? repository.BoardID;
 
         return repository.DbAccess.Execute(db => db.Connection.Where<T>(new { BoardID = newBoardId }));
@@ -206,7 +189,7 @@ public static class IRepositoryExtensions
         repository.DbAccess.Execute(
             db =>
             {
-                db.Connection.BulkInsert(inserts);
+                db.Connection.BulkInsert(inserts, new BulkInsertConfig { Mode = BulkInsertMode.Sql });
                 return inserts.Count();
             });
     }
@@ -269,8 +252,7 @@ public static class IRepositoryExtensions
     /// </returns>
     public static bool Update<T>(
         this IRepository<T> repository,
-        T entity,
-        IDbTransaction transaction = null)
+        T entity)
         where T : class, IEntity, new()
     {
         var success = repository.DbAccess.Update(entity) > 0;
@@ -312,8 +294,6 @@ public static class IRepositoryExtensions
         Action<IDbCommand> commandFilter = null)
         where T : class, IEntity, IHaveID, new()
     {
-        
-
         return repository.DbAccess.UpdateAdd(updateFields, where, commandFilter);
     }
 
@@ -355,8 +335,6 @@ public static class IRepositoryExtensions
         Expression<Func<T, bool>> where = null)
         where T : class, IEntity, new()
     {
-        
-
         return repository.DbAccess.UpdateOnly(updateFields, where);
     }
 
@@ -400,8 +378,6 @@ public static class IRepositoryExtensions
         Expression<Func<T, bool>> where = null)
         where T : class, IEntity, new()
     {
-        
-
         return repository.DbAccess.Exists(where);
     }
 
@@ -439,8 +415,6 @@ public static class IRepositoryExtensions
     public static T GetById<T>(this IRepository<T> repository, int id, bool includeReference = false)
         where T : IEntity, IHaveID, new()
     {
-        
-
         return repository.DbAccess.Execute(
             db => includeReference ? db.Connection.LoadSingleById<T>(id) : db.Connection.SingleById<T>(id));
     }
@@ -465,8 +439,6 @@ public static class IRepositoryExtensions
     public static List<T> GetByIds<T>(this IRepository<T> repository, IEnumerable idValues)
         where T : IEntity, new()
     {
-        
-
         return repository.DbAccess.Execute(db => db.Connection.SelectByIds<T>(idValues));
     }
 
@@ -482,8 +454,6 @@ public static class IRepositoryExtensions
     public static T GetSingle<T>(this IRepository<T> repository, Expression<Func<T, bool>> criteria)
         where T : IEntity, new()
     {
-        
-
         return repository.DbAccess.Execute(db => db.Connection.Single(criteria));
     }
 
@@ -515,8 +485,6 @@ public static class IRepositoryExtensions
     public static List<T> GetAll<T>(this IRepository<T> repository)
         where T : class, IEntity, new()
     {
-        
-
         return repository.DbAccess.Execute(db => db.Connection.Select<T>());
     }
 

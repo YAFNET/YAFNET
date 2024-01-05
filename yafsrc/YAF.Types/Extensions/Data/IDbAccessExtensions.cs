@@ -31,6 +31,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 
+using ServiceStack.Data;
+
 /// <summary>
 ///     The DBAccess extensions.
 /// </summary>
@@ -90,6 +92,18 @@ public static class IDbAccessExtensions
         }
 
         return connection;
+    }
+
+    /// <summary>
+    /// Resolves the database factory.
+    /// </summary>
+    /// <param name="dbAccess">The database access.</param>
+    /// <returns>IDbConnectionFactory.</returns>
+    public static IDbConnectionFactory ResolveDbFactory(this IDbAccess dbAccess)
+    {
+        return new OrmLiteConnectionFactory(
+            dbAccess.Information.ConnectionString(),
+            OrmLiteConfig.DialectProvider);
     }
 
     /// <summary>
