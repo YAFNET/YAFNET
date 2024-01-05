@@ -72,6 +72,11 @@ public class ForumsModel : AdminPage
         this.BindData();
     }
 
+    /// <summary>
+    /// Called when [post delete category].
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostDeleteCategory(int id)
     {
         if (!this.GetRepository<Category>().DeleteById(id))

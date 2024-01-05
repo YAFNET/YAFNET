@@ -82,7 +82,7 @@ public class SessionMessageService
     /// <param name="messageType">Type of the message.</param>
     public void AddSession(string message, MessageTypes messageType)
     {
-        // add it too the session list...
+        // add it to the session list...
         this.SessionLoadString.Add(new MessageNotification(message, messageType));
     }
 

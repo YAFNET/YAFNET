@@ -37,6 +37,8 @@ using Core.Services;
 using Types.Extensions;
 using Types.Models;
 
+using System.Threading.Tasks;
+
 /// <summary>
 /// The attachments Page Class.
 /// </summary>
@@ -80,18 +82,18 @@ public class AttachmentsModel : ProfilePage
     /// <summary>
     /// Delete selected Attachments.
     /// </summary>
-    public IActionResult OnPostDeleteSelected()
+    public async Task<IActionResult> OnPostDeleteSelectedAsync()
     {
         if (!this.PageBoardContext.UploadAccess)
         {
             return this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
         }
 
-        var items = this.Attachments.Where(x => x.Selected).ToList();
+        var items = this.Attachments.Where(x => x.Selected).Select(x => x.ID).ToList();
 
         if (items.Count != 0)
         {
-            items.ForEach(item => this.GetRepository<Attachment>().DeleteById(item.ID));
+            await this.GetRepository<Attachment>().DeleteByIdsAsync(items);
 
             this.PageBoardContext.Notify(this.GetTextFormatted("DELETED", items.Count), MessageTypes.success);
         }

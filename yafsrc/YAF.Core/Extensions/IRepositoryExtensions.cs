@@ -144,26 +144,19 @@ public static class IRepositoryExtensions
     /// <param name="repository">The repository.</param>
     /// <param name="ids">The ids.</param>
     /// <returns>Returns if deleting was successful or not</returns>
-    public static bool DeleteByIds<T>(this IRepository<T> repository, IEnumerable<int> ids)
+    public async static Task DeleteByIdsAsync<T>(this IRepository<T> repository, IEnumerable<int> ids,
+        CancellationToken token = default)
         where T : class, IEntity, IHaveID, new()
     {
-        var success = false;
-
         var enumerable = ids.ToList();
 
-        enumerable.ForEach(
-            id => success = repository.DbAccess.Execute(db => db.Connection.Delete<T>(x => x.ID == id)) == 1);
+        await repository.DbAccess.ExecuteAsync(db => db.DeleteByIdsAsync<T>(enumerable, token: token));
 
-        if (success)
-        {
-            enumerable.ForEach(id => repository.FireDeleted(id));
-        }
-
-        return success;
+        enumerable.ForEach(id => repository.FireDeleted(id));
     }
 
     /// <summary>
-    /// Get a all entities by the board Id or current board id if none is specified.
+    /// Get all entities by the board Id or current board id if none is specified.
     /// </summary>
     /// <param name="repository">
     /// The repository.
@@ -253,7 +246,10 @@ public static class IRepositoryExtensions
         repository.DbAccess.Execute(
             db =>
             {
-                db.Connection.BulkInsert(inserts);
+                db.Connection.BulkInsert(inserts, new BulkInsertConfig
+                {
+                    Mode = BulkInsertMode.Sql
+                });
                 return inserts.Count();
             });
     }

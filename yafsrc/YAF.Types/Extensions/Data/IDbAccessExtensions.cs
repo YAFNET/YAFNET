@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using ServiceStack.Data;
+
 namespace YAF.Types.Extensions.Data;
 
 using System.Collections.Generic;
@@ -108,7 +110,7 @@ public static class IDbAccessExtensions
     /// </returns>
     public async static Task<IDbConnection> CreateConnectionOpenAsync(this IDbAccess dbAccess)
     {
-        var factory =  new OrmLiteConnectionFactory(
+        var factory = new OrmLiteConnectionFactory(
             dbAccess.Information.ConnectionString(),
             OrmLiteConfig.DialectProvider);
 
@@ -116,6 +118,14 @@ public static class IDbAccessExtensions
 
         return connection;
     }
+
+    public static IDbConnectionFactory ResolveDbFactory(this IDbAccess dbAccess)
+    {
+        return  new OrmLiteConnectionFactory(
+            dbAccess.Information.ConnectionString(),
+            OrmLiteConfig.DialectProvider);
+    }
+
 
     /// <summary>
     /// Runs the update command.

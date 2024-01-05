@@ -69,12 +69,10 @@ public class AuthorizationAttribute : AuthorizeAttribute, IAuthorizationFilter, 
             return;
         }
 
-        if (this.authorizationAccess == AuthorizationAccess.ModeratorAccess)
+        if (this.authorizationAccess == AuthorizationAccess.ModeratorAccess &&
+            !BoardContext.Current.ForumModeratorAccess)
         {
-            if (!BoardContext.Current.ForumModeratorAccess)
-            {
-                context.Result = new StatusCodeResult((int) System.Net.HttpStatusCode.Forbidden);
-            }
+            context.Result = new StatusCodeResult((int)System.Net.HttpStatusCode.Forbidden);
         }
     }
 }

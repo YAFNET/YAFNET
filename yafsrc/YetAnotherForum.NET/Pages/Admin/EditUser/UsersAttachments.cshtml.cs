@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin.EditUser;
 
 using System.Collections.Generic;
@@ -40,6 +42,11 @@ using YAF.Types.Interfaces;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 
+/// <summary>
+/// Class UsersAttachmentsModel.
+/// Implements the <see cref="YAF.Core.BasePages.AdminPage" />
+/// </summary>
+/// <seealso cref="YAF.Core.BasePages.AdminPage" />
 public class UsersAttachmentsModel : AdminPage
 {
     /// <summary>
@@ -59,11 +66,19 @@ public class UsersAttachmentsModel : AdminPage
     [BindProperty]
     public InputModel Input { get; set; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UsersAttachmentsModel"/> class.
+    /// </summary>
     public UsersAttachmentsModel()
         : base("ADMIN_EDITUSER", ForumPages.Admin_EditUser)
     {
     }
 
+    /// <summary>
+    /// Called when [get].
+    /// </summary>
+    /// <param name="userId">The user identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnGet(int userId)
     {
         if (!BoardContext.Current.IsAdmin)
@@ -84,13 +99,13 @@ public class UsersAttachmentsModel : AdminPage
     /// <summary>
     /// Delete selected Attachments.
     /// </summary>
-    public IActionResult OnPostDeleteSelected()
+    public async Task<IActionResult> OnPostDeleteSelectedAsync()
     {
-       var items = this.Attachments.Where(x => x.Selected).ToList();
+       var items = this.Attachments.Where(x => x.Selected).Select(x => x.ID).ToList();
 
         if (items.Count != 0)
         {
-            items.ForEach(item => this.GetRepository<Attachment>().DeleteById(item.ID));
+            await this.GetRepository<Attachment>().DeleteByIdsAsync(items);
 
             this.PageBoardContext.SessionNotify(this.GetTextFormatted("DELETED", items.Count), MessageTypes.success);
         }
@@ -151,6 +166,10 @@ public class UsersAttachmentsModel : AdminPage
     /// </summary>
     public class InputModel
     {
+        /// <summary>
+        /// Gets or sets the user identifier.
+        /// </summary>
+        /// <value>The user identifier.</value>
         public int UserId { get; set; }
     }
 }

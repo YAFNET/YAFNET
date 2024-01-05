@@ -22,6 +22,9 @@
  * under the License.
  */
 
+
+using YAF.Types.InputModels;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -50,7 +53,7 @@ public class SettingsModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public SettingsInputModel Input { get; set; }
 
     public List<SelectListItem> LogoImages { get; set; }
 
@@ -88,7 +91,7 @@ public class SettingsModel : AdminPage
     /// </summary>
     public void OnGet()
     {
-        this.Input = new InputModel();
+        this.Input = new SettingsInputModel();
 
         this.BindData();
     }
@@ -197,13 +200,13 @@ public class SettingsModel : AdminPage
                 new SelectListItem(HtmlTagHelper.StripHtml(this.GetText("SUBSCRIPTIONS", x.Value)), x.Key.ToString())));
 
         this.DefaultCollapsiblePanelStates = [
-            new(
+            new SelectListItem(
                 this.GetText(
                     "ADMIN_BOARDSETTINGS",
                     "EXPANDED"),
                 "0"),
 
-            new(
+            new SelectListItem(
                 this.GetText(
                     "ADMIN_BOARDSETTINGS",
                     "COLLAPSED"),
@@ -268,47 +271,5 @@ public class SettingsModel : AdminPage
         }
 
         this.LogoImages = list;
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public string Name { get; set; }
-
-        public string ForumEmail { get; set; }
-
-        public string BoardLogo { get; set; }
-
-        public string ForumBaseUrlMask { get; set; }
-
-        public bool HideCopyright { get; set; }
-
-        public string Theme { get; set; }
-
-        public int ShowTopic { get; set; }
-
-        public string Culture { get; set; }
-
-        public int DefaultNotificationSetting { get; set; }
-
-        public int DefaultCollapsiblePanelState { get; set; }
-
-        public string NotificationOnUserRegisterEmailList { get; set; }
-
-        public bool EmailModeratorsOnModeratedPost { get; set; }
-
-        public bool EmailModeratorsOnReportedPost { get; set; }
-
-        public bool AllowDigestEmail { get; set; }
-
-        public bool DefaultSendDigestEmail { get; set; }
-
-        public int DigestSendEveryXHours { get; set; }
-
-        public string CdvVersion { get; set; }
-
-        public int ForumDefaultAccessMask { get; set; }
     }
 }

@@ -84,12 +84,9 @@ public class LoadPageVariablesFromQuery : IHandleEvent<InitPageLoadEvent>, IHave
 
         var topicId = this.Get<IDataCache>().Get("TopicID");
 
-        if (topicId != null)
+        if (topicId != null && @event.PageQueryData.TopicID == 0)
         {
-            if (@event.PageQueryData.TopicID == 0)
-            {
-                @event.PageQueryData.TopicID = topicId.ToType<int>();
-            }
+            @event.PageQueryData.TopicID = topicId.ToType<int>();
         }
 
         if (BoardContext.Current.Settings.CategoryID != 0)

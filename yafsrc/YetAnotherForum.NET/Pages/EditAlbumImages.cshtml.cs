@@ -76,12 +76,24 @@ public class EditAlbumImagesModel : ForumPageRegistered
     [BindProperty]
     public List<UserAlbumImage> Images { get; set; }
 
+    /// <summary>
+    /// Gets or sets the allowed images.
+    /// </summary>
+    /// <value>The allowed images.</value>
     [BindProperty]
     public int AllowedImages { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether [enable upload].
+    /// </summary>
+    /// <value><c>true</c> if [enable upload]; otherwise, <c>false</c>.</value>
     [BindProperty]
     public bool EnableUpload { get; set; }
 
+    /// <summary>
+    /// Gets or sets the image files.
+    /// </summary>
+    /// <value>The image files.</value>
     [BindProperty]
     public List<IFormFile> ImageFiles { get; set; }
 
@@ -131,6 +143,11 @@ public class EditAlbumImagesModel : ForumPageRegistered
         return this.BindData(albumId);
     }
 
+    /// <summary>
+    /// Delete Album
+    /// </summary>
+    /// <param name="albumId">The album identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPost(int albumId)
     {
         return this.DeleteAlbum(albumId);
@@ -153,6 +170,11 @@ public class EditAlbumImagesModel : ForumPageRegistered
         this.BindData(albumId);
     }
 
+    /// <summary>
+    /// Upload Album Image
+    /// </summary>
+    /// <param name="albumId">The album identifier.</param>
+    /// <returns>A Task representing the asynchronous operation.</returns>
     public async Task OnPostUploadAsync(int? albumId)
     {
         try
@@ -174,17 +196,26 @@ public class EditAlbumImagesModel : ForumPageRegistered
         }
     }
 
-    public void OnPostUpdateTitle(int? albumId)
+    /// <summary>
+    /// Update Album Title
+    /// </summary>
+    /// <param name="albumId">The album identifier.</param>
+    public void OnPostUpdateTitle(int albumId)
     {
         this.AlbumTitle = HttpUtility.HtmlEncode(this.AlbumTitle);
 
         this.GetRepository<UserAlbum>().UpdateTitle(
-            albumId.Value,
+            albumId,
             this.AlbumTitle);
 
         this.BindData(albumId);
     }
 
+    /// <summary>
+    /// Called when [post back].
+    /// </summary>
+    /// <param name="albumId">The album identifier.</param>
+    /// <returns>IActionResult.</returns>
     public IActionResult OnPostBack(int? albumId = null)
     {
         if (albumId.HasValue)

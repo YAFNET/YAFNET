@@ -41,6 +41,8 @@ using Types.Models;
 using YAF.Core.Context;
 using YAF.Core.Services;
 
+using System.Threading.Tasks;
+
 /// <summary>
 /// User Page To Manage Email Subscriptions
 /// </summary>
@@ -186,13 +188,13 @@ public class SubscriptionsModel : ProfilePage
     /// <param name="topics">
     /// The topics.
     /// </param>
-    public IActionResult OnPostUnsubscribeForums(int forums = 0, int topics = 0)
+    public async Task<IActionResult> OnPostUnsubscribeForumsAsync(int forums = 0, int topics = 0)
     {
-        var items = this.Input.Forums.Where(x => x.Selected).ToList();
+        var items = this.Input.Forums.Where(x => x.Selected).Select(x => x.ID).ToList();
 
         if (items.Count != 0)
         {
-            items.ForEach(item => this.GetRepository<WatchForum>().DeleteById(item.ID));
+            await this.GetRepository<WatchForum>().DeleteByIdsAsync(items);
         }
         else
         {
@@ -211,13 +213,13 @@ public class SubscriptionsModel : ProfilePage
     /// <param name="topics">
     /// The topics.
     /// </param>
-    public IActionResult OnPostUnsubscribeTopics(int forums = 0, int topics = 0)
+    public async Task<IActionResult> OnPostUnsubscribeTopicsAsync(int forums = 0, int topics = 0)
     {
-        var items = this.Input.Topics.Where(x => x.Selected).ToList();
+        var items = this.Input.Topics.Where(x => x.Selected).Select(x => x.ID).ToList();
 
         if (items.Count != 0)
         {
-            items.ForEach(item => this.GetRepository<WatchTopic>().DeleteById(item.ID));
+            await this.GetRepository<WatchTopic>().DeleteByIdsAsync(items);
         }
         else
         {

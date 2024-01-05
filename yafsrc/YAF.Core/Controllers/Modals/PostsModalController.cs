@@ -314,7 +314,7 @@ public class PostsModalController : ForumBaseController
 
         var moderatedPostCount = forumInfo.ModeratedPostCount.Value;
 
-        return !(this.PageBoardContext.PageUser.NumPosts >= moderatedPostCount);
+        return this.PageBoardContext.PageUser.NumPosts < moderatedPostCount;
     }
 
     /// <summary>
