@@ -91,7 +91,11 @@ public static partial class SqlMapper
         /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
         public Task<IEnumerable<object>> ReadAsync(Type type, bool buffered = true)
         {
-            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             return ReadAsyncImpl<object>(type, buffered);
         }
 
@@ -104,7 +108,11 @@ public static partial class SqlMapper
         /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
         public Task<object> ReadFirstAsync(Type type)
         {
-            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             return ReadRowAsyncImpl<object>(type, Row.First);
         }
 
@@ -117,7 +125,11 @@ public static partial class SqlMapper
         /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
         public Task<object> ReadFirstOrDefaultAsync(Type type)
         {
-            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             return ReadRowAsyncImpl<object>(type, Row.FirstOrDefault);
         }
 
@@ -130,7 +142,11 @@ public static partial class SqlMapper
         /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
         public Task<object> ReadSingleAsync(Type type)
         {
-            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             return ReadRowAsyncImpl<object>(type, Row.Single);
         }
 
@@ -143,7 +159,11 @@ public static partial class SqlMapper
         /// <exception cref="ArgumentNullException"><paramref name="type" /> is <c>null</c>.</exception>
         public Task<object> ReadSingleOrDefaultAsync(Type type)
         {
-            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             return ReadRowAsyncImpl<object>(type, Row.SingleOrDefault);
         }
 
@@ -217,8 +237,16 @@ public static partial class SqlMapper
         /// <exception cref="System.InvalidOperationException">Query results must be consumed in the correct order, and each result can only be consumed once</exception>
         private Task<IEnumerable<T>> ReadAsyncImpl<T>(Type type, bool buffered)
         {
-            if (reader == null) throw new ObjectDisposedException(GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
-            if (IsConsumed) throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
+            if (reader == null)
+            {
+                throw new ObjectDisposedException(this.GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
+            }
+
+            if (IsConsumed)
+            {
+                throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
+            }
+
             var typedIdentity = identity.ForGrid(type, gridIndex);
             CacheInfo cache = GetCacheInfo(typedIdentity, null, addToCache);
             var deserializer = cache.Deserializer;
@@ -237,7 +265,11 @@ public static partial class SqlMapper
             else
             {
                 var result = ReadDeferred<T>(gridIndex, deserializer.Func, type);
-                if (buffered) result = result.ToList(); // for the "not a DbDataReader" scenario
+                if (buffered)
+                {
+                    result = result.ToList(); // for the "not a DbDataReader" scenario
+                }
+
                 return Task.FromResult(result);
             }
         }
@@ -251,7 +283,10 @@ public static partial class SqlMapper
         /// <returns>Task&lt;T&gt;.</returns>
         private Task<T> ReadRowAsyncImpl<T>(Type type, Row row)
         {
-            if (reader is DbDataReader dbReader) return ReadRowAsyncImplViaDbReader<T>(dbReader, type, row);
+            if (reader is DbDataReader dbReader)
+            {
+                return this.ReadRowAsyncImplViaDbReader<T>(dbReader, type, row);
+            }
 
             // no async API available; use non-async and fake it
             return Task.FromResult(ReadRow<T>(type, row));
@@ -269,8 +304,15 @@ public static partial class SqlMapper
         /// <exception cref="System.InvalidOperationException">Query results must be consumed in the correct order, and each result can only be consumed once</exception>
         private async Task<T> ReadRowAsyncImplViaDbReader<T>(DbDataReader reader, Type type, Row row)
         {
-            if (reader == null) throw new ObjectDisposedException(GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
-            if (IsConsumed) throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
+            if (reader == null)
+            {
+                throw new ObjectDisposedException(this.GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
+            }
+
+            if (IsConsumed)
+            {
+                throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
+            }
 
             IsConsumed = true;
             T result = default(T);
@@ -287,7 +329,11 @@ public static partial class SqlMapper
                     cache.Deserializer = deserializer;
                 }
                 result = (T)deserializer.Func(reader);
-                if ((row & Row.Single) != 0 && await reader.ReadAsync(cancel).ConfigureAwait(false)) ThrowMultipleRows(row);
+                if ((row & Row.Single) != 0 && await reader.ReadAsync(cancel).ConfigureAwait(false))
+                {
+                    ThrowMultipleRows(row);
+                }
+
                 while (await reader.ReadAsync(cancel).ConfigureAwait(false)) { /* ignore subsequent rows */ }
             }
             else if ((row & Row.FirstOrDefault) == 0) // demanding a row, and don't have one

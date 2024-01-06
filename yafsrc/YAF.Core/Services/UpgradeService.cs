@@ -30,9 +30,9 @@ using System.Text;
 using System.Web.Configuration;
 
 using YAF.Core.Data;
+using YAF.Core.Migrations;
 using YAF.Core.Model;
 using YAF.Core.Services.Import;
-using YAF.Core.Services.Migrations;
 using YAF.Types.Constants;
 using YAF.Types.Extensions.Data;
 using YAF.Types.Interfaces.Identity;
@@ -117,7 +117,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
                 this.MigrateConfig();
             }
 
-            this.Get<V80_Migration>().MigrateDatabase(this.DbAccess);
+            this.Get<Migration80>().MigrateDatabase(this.DbAccess);
 
             // Upgrade to ASPNET Identity
             if (!Config.IsDotNetNuke)
@@ -136,7 +136,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
 
         if (prevVersion < 30)
         {
-            this.Get<V30_Migration>().MigrateDatabase(this.DbAccess);
+            this.Get<Migration30>().MigrateDatabase(this.DbAccess);
         }
 
         if (prevVersion < 42)
@@ -147,12 +147,12 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
 
         if (prevVersion < 81)
         {
-            this.Get<V81_Migration>().MigrateDatabase(this.DbAccess);
+            this.Get<Migration81>().MigrateDatabase(this.DbAccess);
         }
 
         if (prevVersion < 82)
         {
-            this.Get<V82_Migration>().MigrateDatabase(this.DbAccess);
+            this.Get<Migration82>().MigrateDatabase(this.DbAccess);
         }
 
         if (prevVersion is 80 or 81 or 82 or 83)
@@ -187,28 +187,28 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
 
         if (prevVersion < 84)
         {
-            this.Get<V84_Migration>().MigrateDatabase(this.DbAccess);
+            this.Get<Migration84>().MigrateDatabase(this.DbAccess);
         }
 
         if (prevVersion < 85)
         {
-            this.Get<V85_Migration>().MigrateDatabase(this.DbAccess);
+            this.Get<Migration85>().MigrateDatabase(this.DbAccess);
         }
 
         if (prevVersion < 86)
         {
-            this.Get<V86_Migration>().MigrateDatabase(this.DbAccess);
+            this.Get<Migration86>().MigrateDatabase(this.DbAccess);
         }
 
         if (prevVersion < 89)
         {
             // Execute before 87
-            this.Get<V89_Migration>().MigrateDatabase(this.DbAccess);
+            this.Get<Migration89>().MigrateDatabase(this.DbAccess);
         }
 
         if (prevVersion < 87)
         {
-            this.Get<V87_Migration>().MigrateDatabase(this.DbAccess);
+            this.Get<Migration87>().MigrateDatabase(this.DbAccess);
         }
 
         this.AddOrUpdateExtensions();

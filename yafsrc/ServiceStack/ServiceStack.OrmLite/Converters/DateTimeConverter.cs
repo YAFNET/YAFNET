@@ -58,10 +58,14 @@ public class DateTimeConverter : OrmLiteConverter
     public virtual string DateTimeFmt(DateTime dateTime, string dateTimeFormat)
     {
         if (DateStyle == DateTimeKind.Utc && dateTime.Kind == DateTimeKind.Local)
+        {
             dateTime = dateTime.ToUniversalTime();
+        }
 
         if (DateStyle == DateTimeKind.Local && dateTime.Kind != DateTimeKind.Local)
+        {
             dateTime = dateTime.ToLocalTime();
+        }
 
         return DialectProvider.GetQuotedValue(dateTime.ToString(dateTimeFormat, CultureInfo.InvariantCulture), typeof(string));
     }
@@ -119,7 +123,9 @@ public class DateTimeConverter : OrmLiteConverter
     {
         var dateTime = (DateTime)value;
         if (DateStyle == DateTimeKind.Utc)
+        {
             dateTime = DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
+        }
 
         if (DateStyle == DateTimeKind.Local && dateTime.Kind != DateTimeKind.Local)
         {

@@ -77,7 +77,10 @@ public static partial class SqlMapper
                 int count = 0;
                 for (int i = 0; i < values.Length; i++)
                 {
-                    if (!(values[i] is DeadValue)) count++;
+                    if (!(values[i] is DeadValue))
+                    {
+                        count++;
+                    }
                 }
                 return count;
             }
@@ -181,7 +184,9 @@ public static partial class SqlMapper
         void ICollection<KeyValuePair<string, object>>.Clear()
         { // removes values for **this row**, but doesn't change the fundamental table
             for (int i = 0; i < values.Length; i++)
-                values[i] = DeadValue.Default;
+            {
+                this.values[i] = DeadValue.Default;
+            }
         }
 
         /// <summary>
@@ -232,7 +237,11 @@ public static partial class SqlMapper
         bool IDictionary<string, object>.ContainsKey(string key)
         {
             int index = table.IndexOfName(key);
-            if (index < 0 || index >= values.Length || values[index] is DeadValue) return false;
+            if (index < 0 || index >= values.Length || values[index] is DeadValue)
+            {
+                return false;
+            }
+
             return true;
         }
 
@@ -261,7 +270,11 @@ public static partial class SqlMapper
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         internal bool Remove(int index)
         {
-            if (index < 0 || index >= values.Length || values[index] is DeadValue) return false;
+            if (index < 0 || index >= values.Length || values[index] is DeadValue)
+            {
+                return false;
+            }
+
             values[index] = DeadValue.Default;
             return true;
         }
@@ -299,7 +312,11 @@ public static partial class SqlMapper
         /// <exception cref="System.ArgumentException">An item with the same key has already been added - key</exception>
         private object SetValue(string key, object value, bool isAdd)
         {
-            if (key == null) throw new ArgumentNullException(nameof(key));
+            if (key == null)
+            {
+                throw new ArgumentNullException(nameof(key));
+            }
+
             int index = table.IndexOfName(key);
             if (index < 0)
             {

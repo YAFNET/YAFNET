@@ -140,7 +140,10 @@ public struct CommandDefinition
         var init = GetInit(cmd.GetType());
         init?.Invoke(cmd);
         if (Transaction != null)
-            cmd.Transaction = Transaction;
+        {
+            cmd.Transaction = this.Transaction;
+        }
+
         cmd.CommandText = CommandText;
         if (CommandTimeout.HasValue)
         {
@@ -151,7 +154,10 @@ public struct CommandDefinition
             cmd.CommandTimeout = SqlMapper.Settings.CommandTimeout.Value;
         }
         if (CommandType.HasValue)
-            cmd.CommandType = CommandType.Value;
+        {
+            cmd.CommandType = this.CommandType.Value;
+        }
+
         paramReader?.Invoke(cmd, Parameters);
         return cmd;
     }
@@ -169,7 +175,10 @@ public struct CommandDefinition
     private static Action<IDbCommand> GetInit(Type commandType)
     {
         if (commandType == null)
+        {
             return null; // GIGO
+        }
+
         if (SqlMapper.Link<Type, Action<IDbCommand>>.TryGet(commandInitCache, commandType, out Action<IDbCommand> action))
         {
             return action;
@@ -180,7 +189,7 @@ public struct CommandDefinition
         action = null;
         if (bindByName != null || initialLongFetchSize != null)
         {
-            var method = new DynamicMethod(commandType.Name + "_init", null, new Type[] { typeof(IDbCommand) });
+            var method = new DynamicMethod(commandType.Name + "_init", null, [typeof(IDbCommand)]);
             var il = method.GetILGenerator();
 
             if (bindByName != null)

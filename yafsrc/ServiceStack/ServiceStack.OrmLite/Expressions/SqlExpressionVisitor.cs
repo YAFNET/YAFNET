@@ -26,7 +26,10 @@ public abstract class SqlExpressionVisitor
     protected virtual Expression Visit(Expression exp)
     {
         if (exp == null)
+        {
             return exp;
+        }
+
         switch (exp.NodeType)
         {
             case ExpressionType.Negate:
@@ -156,9 +159,13 @@ public abstract class SqlExpressionVisitor
         if (left != b.Left || right != b.Right || conversion != b.Conversion)
         {
             if (b.NodeType == ExpressionType.Coalesce && b.Conversion != null)
+            {
                 return Expression.Coalesce(left, right, conversion as LambdaExpression);
+            }
             else
+            {
                 return Expression.MakeBinary(b.NodeType, left, right, b.IsLiftedToNull, b.Method);
+            }
         }
         return b;
     }
@@ -349,7 +356,10 @@ public abstract class SqlExpressionVisitor
             }
         }
         if (list != null)
+        {
             return list;
+        }
+
         return original;
     }
 
@@ -379,7 +389,10 @@ public abstract class SqlExpressionVisitor
             }
         }
         if (list != null)
+        {
             return list;
+        }
+
         return original;
     }
 
@@ -409,9 +422,13 @@ public abstract class SqlExpressionVisitor
         if (args != nex.Arguments)
         {
             if (nex.Members != null)
+            {
                 return Expression.New(nex.Constructor, args, nex.Members);
+            }
             else
+            {
                 return Expression.New(nex.Constructor, args);
+            }
         }
         return nex;
     }

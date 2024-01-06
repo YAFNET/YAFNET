@@ -67,7 +67,9 @@ namespace ServiceStack.OrmLite.Converters
         public static EnumKind GetEnumKind(Type enumType)
         {
             if (enumTypeCache.TryGetValue(enumType, out var enumKind))
+            {
                 return enumKind;
+            }
 
             enumKind = IsIntEnum(enumType)
                 ? EnumKind.Int
@@ -117,22 +119,30 @@ namespace ServiceStack.OrmLite.Converters
         {
             var enumKind = GetEnumKind(fieldType);
             if (enumKind == EnumKind.Int)
+            {
                 return this.ConvertNumber(Enum.GetUnderlyingType(fieldType), value).ToString();
+            }
 
             if (enumKind == EnumKind.Char)
-                return DialectProvider.GetQuotedValue(ToCharValue(value).ToString());
+            {
+                return this.DialectProvider.GetQuotedValue(ToCharValue(value).ToString());
+            }
 
             var isEnumFlags = fieldType.IsEnumFlags() ||
-                !fieldType.IsEnum && fieldType.IsNumericType(); //i.e. is real int && not Enum
+                              !fieldType.IsEnum && fieldType.IsNumericType(); //i.e. is real int && not Enum
 
             if (!isEnumFlags && long.TryParse(value.ToString(), out var enumValue))
+            {
                 value = Enum.ToObject(fieldType, enumValue);
+            }
 
             var enumString = enumKind == EnumKind.EnumMember
                 ? value.ToString()
                 : DialectProvider.StringSerializer.SerializeToString(value);
             if (enumString == null || enumString == "null")
+            {
                 enumString = value.ToString();
+            }
 
             return !isEnumFlags
                 ? DialectProvider.GetQuotedValue(enumString.Trim('"'))
@@ -152,10 +162,14 @@ namespace ServiceStack.OrmLite.Converters
             if (value.GetType().IsEnum)
             {
                 if (enumKind == EnumKind.Int)
+                {
                     return Convert.ChangeType(value, Enum.GetUnderlyingType(fieldType));
+                }
 
                 if (enumKind == EnumKind.Char)
+                {
                     return Convert.ChangeType(value, typeof(char));
+                }
             }
 
             if (enumKind == EnumKind.Char)
@@ -167,13 +181,17 @@ namespace ServiceStack.OrmLite.Converters
             if (long.TryParse(value.ToString(), out var enumValue))
             {
                 if (enumKind == EnumKind.Int)
+                {
                     return enumValue;
+                }
 
                 value = Enum.ToObject(fieldType, enumValue);
             }
 
             if (enumKind == EnumKind.EnumMember) // Don't use serialized Enum Value
+            {
                 return value.ToString();
+            }
 
             var enumString = DialectProvider.StringSerializer.SerializeToString(value);
             return enumString != null && enumString != "null"
@@ -232,7 +250,9 @@ namespace ServiceStack.OrmLite.Converters
             {
                 var enumMemberAttr = fi.FirstAttribute<EnumMemberAttribute>();
                 if (enumMemberAttr?.Value != null)
+                {
                     return true;
+                }
             }
             return false;
         }
@@ -303,8 +323,15 @@ namespace ServiceStack.OrmLite.Converters
         {
             if (value is byte[] bytes)
             {
-                if (fieldType == typeof(byte[])) return bytes;
-                if (fieldType == typeof(ulong)) return OrmLiteUtils.ConvertToULong(bytes);
+                if (fieldType == typeof(byte[]))
+                {
+                    return bytes;
+                }
+
+                if (fieldType == typeof(ulong))
+                {
+                    return OrmLiteUtils.ConvertToULong(bytes);
+                }
 
                 // an SQL row version has to be declared as either byte[] OR ulong... 
                 throw new Exception("Rowversion property must be declared as either byte[] or ulong");
@@ -381,7 +408,9 @@ namespace ServiceStack.OrmLite.Converters
         public override object FromDbValue(Type fieldType, object value)
         {
             if (value is string str)
-                return DialectProvider.StringSerializer.DeserializeFromString(str, fieldType);
+            {
+                return this.DialectProvider.StringSerializer.DeserializeFromString(str, fieldType);
+            }
 
             var convertedValue = value.ConvertTo(fieldType);
             return convertedValue;
@@ -450,7 +479,9 @@ namespace ServiceStack.OrmLite.Converters
         public override object FromDbValue(Type fieldType, object value)
         {
             if (fieldType.IsInstanceOfType(value))
+            {
                 return value;
+            }
 
             var convertedValue = DialectProvider.StringSerializer.DeserializeFromString(value.ToString(), fieldType);
             return convertedValue;

@@ -55,7 +55,9 @@ public static class ReflectionExtensions
         while (type != null)
         {
             if (type == thisOrBaseType)
+            {
                 return true;
+            }
 
             type = type.BaseType;
         }
@@ -73,7 +75,9 @@ public static class ReflectionExtensions
         while (type != null)
         {
             if (type.IsGenericType)
+            {
                 return true;
+            }
 
             type = type.BaseType;
         }
@@ -90,7 +94,9 @@ public static class ReflectionExtensions
         while (type != null)
         {
             if (type.IsGenericType)
+            {
                 return type;
+            }
 
             type = type.BaseType;
         }
@@ -114,7 +120,9 @@ public static class ReflectionExtensions
             }
 
             if (genericType != null)
+            {
                 return genericType;
+            }
         }
         return null;
     }
@@ -139,12 +147,12 @@ public static class ReflectionExtensions
     /// <returns>Type.</returns>
     public static Type GetTypeWithGenericTypeDefinitionOf(this Type type, Type genericTypeDefinition)
     {
-        foreach (var t in type.GetInterfaces())
+        var t = Array.Find(type
+            .GetInterfaces(), t => t.IsGenericType && t.GetGenericTypeDefinition() == genericTypeDefinition);
+
+        if (t != null)
         {
-            if (t.IsGenericType && t.GetGenericTypeDefinition() == genericTypeDefinition)
-            {
                 return t;
-            }
         }
 
         var genericType = type.FirstGenericType();
@@ -194,7 +202,10 @@ public static class ReflectionExtensions
     /// <returns><c>true</c> if [is numeric type] [the specified type]; otherwise, <c>false</c>.</returns>
     public static bool IsNumericType(this Type type)
     {
-        if (type == null) return false;
+        if (type == null)
+        {
+            return false;
+        }
 
         if (type.IsEnum) //TypeCode can be TypeCode.Int32
         {
@@ -237,7 +248,10 @@ public static class ReflectionExtensions
     /// <returns><c>true</c> if [is integer type] [the specified type]; otherwise, <c>false</c>.</returns>
     public static bool IsIntegerType(this Type type)
     {
-        if (type == null) return false;
+        if (type == null)
+        {
+            return false;
+        }
 
         switch (GetTypeCode(type))
         {
@@ -264,7 +278,10 @@ public static class ReflectionExtensions
     /// <returns><c>true</c> if [is real number type] [the specified type]; otherwise, <c>false</c>.</returns>
     public static bool IsRealNumberType(this Type type)
     {
-        if (type == null) return false;
+        if (type == null)
+        {
+            return false;
+        }
 
         switch (GetTypeCode(type))
         {
@@ -287,13 +304,19 @@ public static class ReflectionExtensions
     /// <returns>Type.</returns>
     public static Type GetTypeWithGenericInterfaceOf(this Type type, Type genericInterfaceType)
     {
-        foreach (var t in type.GetInterfaces())
+        var t =
+            Array.Find(type.GetInterfaces(),
+                t => t.IsGenericType && t.GetGenericTypeDefinition() == genericInterfaceType);
+
+        if (t != null)
         {
-            if (t.IsGenericType && t.GetGenericTypeDefinition() == genericInterfaceType)
-                return t;
+            return t;
         }
 
-        if (!type.IsGenericType) return null;
+        if (!type.IsGenericType)
+        {
+            return null;
+        }
 
         var genericType = type.FirstGenericType();
         return genericType.GetGenericTypeDefinition() == genericInterfaceType
@@ -309,7 +332,10 @@ public static class ReflectionExtensions
     /// <returns><c>true</c> if [has any type definitions of] [the specified these generic types]; otherwise, <c>false</c>.</returns>
     public static bool HasAnyTypeDefinitionsOf(this Type genericType, params Type[] theseGenericTypes)
     {
-        if (!genericType.IsGenericType) return false;
+        if (!genericType.IsGenericType)
+        {
+            return false;
+        }
 
         var genericTypeDefinition = genericType.GetGenericTypeDefinition();
 
@@ -327,15 +353,24 @@ public static class ReflectionExtensions
         this Type assignableFromType, Type typeA, Type typeB)
     {
         var typeAInterface = typeA.GetTypeWithGenericInterfaceOf(assignableFromType);
-        if (typeAInterface == null) return null;
+        if (typeAInterface == null)
+        {
+            return null;
+        }
 
         var typeBInterface = typeB.GetTypeWithGenericInterfaceOf(assignableFromType);
-        if (typeBInterface == null) return null;
+        if (typeBInterface == null)
+        {
+            return null;
+        }
 
         var typeAGenericArgs = typeAInterface.GetGenericArguments();
         var typeBGenericArgs = typeBInterface.GetGenericArguments();
 
-        if (typeAGenericArgs.Length != typeBGenericArgs.Length) return null;
+        if (typeAGenericArgs.Length != typeBGenericArgs.Length)
+        {
+            return null;
+        }
 
         return typeBGenericArgs.Where((t, i) => typeAGenericArgs[i] != t).Any() ? null : typeAGenericArgs;
     }
@@ -351,15 +386,24 @@ public static class ReflectionExtensions
         this Type assignableFromType, Type typeA, Type typeB)
     {
         var typeAInterface = typeA.GetTypeWithGenericInterfaceOf(assignableFromType);
-        if (typeAInterface == null) return null;
+        if (typeAInterface == null)
+        {
+            return null;
+        }
 
         var typeBInterface = typeB.GetTypeWithGenericInterfaceOf(assignableFromType);
-        if (typeBInterface == null) return null;
+        if (typeBInterface == null)
+        {
+            return null;
+        }
 
         var typeAGenericArgs = typeAInterface.GetGenericArguments();
         var typeBGenericArgs = typeBInterface.GetGenericArguments();
 
-        if (typeAGenericArgs.Length != typeBGenericArgs.Length) return null;
+        if (typeAGenericArgs.Length != typeBGenericArgs.Length)
+        {
+            return null;
+        }
 
         return typeBGenericArgs.Where((t, i) => !AreAllStringOrValueTypes(typeAGenericArgs[i], t)).Any() ? null : new TypePair(typeAGenericArgs, typeBGenericArgs);
     }
@@ -386,7 +430,9 @@ public static class ReflectionExtensions
     public static EmptyCtorDelegate GetConstructorMethod(Type type)
     {
         if (ConstructorMethods.TryGetValue(type, out var emptyCtorFn))
+        {
             return emptyCtorFn;
+        }
 
         emptyCtorFn = GetConstructorMethodToCache(type);
 
@@ -415,10 +461,16 @@ public static class ReflectionExtensions
     public static EmptyCtorDelegate GetConstructorMethod(string typeName)
     {
         if (TypeNamesMap.TryGetValue(typeName, out var emptyCtorFn))
+        {
             return emptyCtorFn;
+        }
 
         var type = JsConfig.TypeFinder(typeName);
-        if (type == null) return null;
+        if (type == null)
+        {
+            return null;
+        }
+
         emptyCtorFn = GetConstructorMethodToCache(type);
 
         Dictionary<string, EmptyCtorDelegate> snapshot, newCache;
@@ -444,7 +496,9 @@ public static class ReflectionExtensions
     public static EmptyCtorDelegate GetConstructorMethodToCache(Type type)
     {
         if (type == typeof(string))
+        {
             return () => string.Empty;
+        }
 
         if (type.IsInterface)
         {
@@ -481,7 +535,9 @@ public static class ReflectionExtensions
             var genericArgs = type.GetGenericArguments();
             var typeArgs = new Type[genericArgs.Length];
             for (var i = 0; i < genericArgs.Length; i++)
+            {
                 typeArgs[i] = typeof(object);
+            }
 
             var realizedType = type.MakeGenericType(typeArgs);
 
@@ -557,7 +613,9 @@ public static class ReflectionExtensions
     public static object CreateInstance(this Type type)
     {
         if (type == null)
+        {
             return null;
+        }
 
         var ctorFn = GetConstructorMethod(type);
         return ctorFn();
@@ -573,7 +631,9 @@ public static class ReflectionExtensions
     public static T CreateInstance<T>(this Type type)
     {
         if (type == null)
+        {
             return default;
+        }
 
         var ctorFn = GetConstructorMethod(type);
         return (T)ctorFn();
@@ -588,7 +648,9 @@ public static class ReflectionExtensions
     public static object CreateInstance(string typeName)
     {
         if (typeName == null)
+        {
             return null;
+        }
 
         var ctorFn = GetConstructorMethod(typeName);
         return ctorFn();
@@ -626,7 +688,10 @@ public static class ReflectionExtensions
                 var subType = queue.Dequeue();
                 foreach (var subInterface in subType.GetInterfaces())
                 {
-                    if (considered.Contains(subInterface)) continue;
+                    if (considered.Contains(subInterface))
+                    {
+                        continue;
+                    }
 
                     considered.Add(subInterface);
                     queue.Enqueue(subInterface);
@@ -669,7 +734,10 @@ public static class ReflectionExtensions
                 var subType = queue.Dequeue();
                 foreach (var subInterface in subType.GetInterfaces())
                 {
-                    if (considered.Contains(subInterface)) continue;
+                    if (considered.Contains(subInterface))
+                    {
+                        continue;
+                    }
 
                     considered.Add(subInterface);
                     queue.Enqueue(subInterface);
@@ -781,7 +849,10 @@ public static class ReflectionExtensions
     {
         var method = typeof(T).GetMethodInfo("OnDeserializing");
         if (method == null || method.ReturnType != typeof(object))
+        {
             return null;
+        }
+
         var obj = (Func<T, string, object, object>)method.CreateDelegate(typeof(Func<T, string, object, object>));
         return (instance, memberName, value) => obj((T)instance, memberName, value);
     }
@@ -802,7 +873,9 @@ public static class ReflectionExtensions
         var config = JsConfig.GetConfig();
 
         if (!config.IncludePublicFields)
+        {
             return TypeConstants.EmptyFieldInfoArray;
+        }
 
         var publicFields = type.GetPublicFields();
 
@@ -824,7 +897,9 @@ public static class ReflectionExtensions
         var dataContract = type.FirstAttribute<DataContractAttribute>();
 
         if (dataContract == null && Env.IsMono)
+        {
             return PclExport.Instance.GetWeakDataContract(type);
+        }
 
         return dataContract;
     }
@@ -840,7 +915,9 @@ public static class ReflectionExtensions
                              .FirstOrDefault() as DataMemberAttribute;
 
         if (dataMember == null && Env.IsMono)
+        {
             return PclExport.Instance.GetWeakDataMember(pi);
+        }
 
         return dataMember;
     }
@@ -856,7 +933,9 @@ public static class ReflectionExtensions
                              .FirstOrDefault() as DataMemberAttribute;
 
         if (dataMember == null && Env.IsMono)
+        {
             return PclExport.Instance.GetWeakDataMember(pi);
+        }
 
         return dataMember;
     }

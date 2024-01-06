@@ -33,7 +33,9 @@ public sealed class DefaultTypeMap : SqlMapper.ITypeMap
     public DefaultTypeMap(Type type)
     {
         if (type == null)
+        {
             throw new ArgumentNullException(nameof(type));
+        }
 
         _fields = GetSettableFields(type);
         Properties = GetSettableProps(type);
@@ -48,7 +50,10 @@ public sealed class DefaultTypeMap : SqlMapper.ITypeMap
     /// <returns>MethodInfo.</returns>
     static internal MethodInfo GetPropertySetter(PropertyInfo propertyInfo, Type type)
     {
-        if (propertyInfo.DeclaringType == type) return propertyInfo.GetSetMethod(true);
+        if (propertyInfo.DeclaringType == type)
+        {
+            return propertyInfo.GetSetMethod(true);
+        }
 
         return propertyInfo.DeclaringType.GetProperty(
             propertyInfo.Name,
@@ -95,18 +100,28 @@ public sealed class DefaultTypeMap : SqlMapper.ITypeMap
         {
             ParameterInfo[] ctorParameters = ctor.GetParameters();
             if (ctorParameters.Length == 0)
+            {
                 return ctor;
+            }
 
             if (ctorParameters.Length != types.Length)
+            {
                 continue;
+            }
 
             int i = 0;
             for (; i < ctorParameters.Length; i++)
             {
                 if (!string.Equals(ctorParameters[i].Name, names[i], StringComparison.OrdinalIgnoreCase))
+                {
                     break;
+                }
+
                 if (types[i] == typeof(byte[]) && ctorParameters[i].ParameterType.FullName == SqlMapper.LinqBinary)
+                {
                     continue;
+                }
+
                 var unboxedType = Nullable.GetUnderlyingType(ctorParameters[i].ParameterType) ?? ctorParameters[i].ParameterType;
                 if (unboxedType != types[i] && !SqlMapper.HasTypeHandler(unboxedType)
                                             && !(unboxedType.IsEnum && Enum.GetUnderlyingType(unboxedType) == types[i])
@@ -118,7 +133,9 @@ public sealed class DefaultTypeMap : SqlMapper.ITypeMap
             }
 
             if (i == ctorParameters.Length)
+            {
                 return ctor;
+            }
         }
 
         return null;
@@ -171,7 +188,9 @@ public sealed class DefaultTypeMap : SqlMapper.ITypeMap
         }
 
         if (property != null)
+        {
             return new SimpleMemberMap(columnName, property);
+        }
 
         // roslyn automatically implemented properties, in particular for get-only properties: <{Name}>k__BackingField;
         var backingFieldName = "<" + columnName + ">k__BackingField";
@@ -195,7 +214,9 @@ public sealed class DefaultTypeMap : SqlMapper.ITypeMap
         }
 
         if (field != null)
+        {
             return new SimpleMemberMap(columnName, field);
+        }
 
         return null;
     }

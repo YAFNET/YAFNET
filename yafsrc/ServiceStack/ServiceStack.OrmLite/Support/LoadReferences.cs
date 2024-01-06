@@ -87,7 +87,9 @@ internal abstract class LoadReferences<T>
         var sql = dialectProvider.ToSelectStatement(refType, sqlFilter, pkValue);
 
         if (OrmLiteConfig.LoadReferenceSelectFilter != null)
+        {
             sql = OrmLiteConfig.LoadReferenceSelectFilter(refType, sql);
+        }
 
         return sql;
     }
@@ -104,7 +106,9 @@ internal abstract class LoadReferences<T>
         var sql = dialectProvider.ToSelectStatement(refType, sqlFilter, pkValue);
 
         if (OrmLiteConfig.LoadReferenceSelectFilter != null)
+        {
             sql = OrmLiteConfig.LoadReferenceSelectFilter(refType, sql);
+        }
 
         return sql;
     }
@@ -121,13 +125,17 @@ internal abstract class LoadReferences<T>
         //Load Self Table.RefTableId PK
         var refPkValue = refSelf.GetValue(instance);
         if (refPkValue == null)
+        {
             return null;
+        }
 
         var sqlFilter = dialectProvider.GetQuotedColumnName(refModelDef.PrimaryKey.FieldName) + "={0}";
         var sql = dialectProvider.ToSelectStatement(refType, sqlFilter, refPkValue);
 
         if (OrmLiteConfig.LoadReferenceSelectFilter != null)
+        {
             sql = OrmLiteConfig.LoadReferenceSelectFilter(refType, sql);
+        }
 
         return sql;
     }
@@ -135,7 +143,9 @@ internal abstract class LoadReferences<T>
     {
         var refPkValue = fieldRef.RefIdFieldDef.GetValue(instance);
         if (refPkValue == null)
+        {
             return null;
+        }
 
         var refModelDef = fieldRef.RefModelDef;
 
@@ -146,7 +156,9 @@ internal abstract class LoadReferences<T>
             $"WHERE {pk}" + "={0}", refPkValue);
 
         if (OrmLiteConfig.LoadReferenceSelectFilter != null)
+        {
             sqlRef = OrmLiteConfig.LoadReferenceSelectFilter(fieldRef.RefModel, sqlRef);
+        }
 
         return sqlRef;
     }
@@ -201,7 +213,9 @@ internal class LoadReferencesSync<T> : LoadReferences<T>
         {
             var sql = GetRefSelfSql(refType, refSelf, refModelDef);
             if (sql == null)
+            {
                 return;
+            }
 
             var result = dbCmd.ConvertTo(refType, sql);
             fieldDef.SetValue(instance, result);
@@ -279,7 +293,9 @@ internal class LoadReferencesAsync<T> : LoadReferences<T>
         {
             var sql = GetRefSelfSql(refType, refSelf, refModelDef);
             if (sql == null)
+            {
                 return;
+            }
 
             var result = await dbCmd.ConvertToAsync(refType, sql, token).ConfigAwait();
             fieldDef.SetValue(instance, result);

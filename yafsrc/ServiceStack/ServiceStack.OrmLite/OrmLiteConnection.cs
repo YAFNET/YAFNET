@@ -81,7 +81,10 @@ public class OrmLiteConnection
     public void Dispose()
     {
         Factory.OnDispose?.Invoke(this);
-        if (!Factory.AutoDisposeConnection) return;
+        if (!Factory.AutoDisposeConnection)
+        {
+            return;
+        }
 
         if (dbConnection == null)
         {
@@ -164,7 +167,9 @@ public class OrmLiteConnection
     public IDbCommand CreateCommand()
     {
         if (Factory.AlwaysReturnCommand != null)
-            return Factory.AlwaysReturnCommand;
+        {
+            return this.Factory.AlwaysReturnCommand;
+        }
 
         var cmd = DbConnection.CreateCommand();
 
@@ -178,7 +183,9 @@ public class OrmLiteConnection
     {
         var dbConn = DbConnection;
         if (dbConn.State == ConnectionState.Broken)
+        {
             dbConn.Close();
+        }
 
         if (dbConn.State != ConnectionState.Closed)
         {
@@ -193,7 +200,9 @@ public class OrmLiteConnection
             dbConn.Open();
             //so the internal connection is wrapped for example by miniprofiler
             if (Factory.ConnectionFilter != null)
-                dbConn = Factory.ConnectionFilter(dbConn);
+            {
+                dbConn = this.Factory.ConnectionFilter(dbConn);
+            }
 
             DialectProvider.InitConnection(dbConn);
         }
@@ -224,7 +233,9 @@ public class OrmLiteConnection
     {
         var dbConn = DbConnection;
         if (dbConn.State == ConnectionState.Broken)
+        {
             dbConn.Close();
+        }
 
         if (dbConn.State == ConnectionState.Closed)
         {
@@ -236,7 +247,9 @@ public class OrmLiteConnection
                 await DialectProvider.OpenAsync(dbConn, token).ConfigAwait();
                 //so the internal connection is wrapped for example by miniprofiler
                 if (Factory.ConnectionFilter != null)
-                    dbConn = Factory.ConnectionFilter(dbConn);
+                {
+                    dbConn = this.Factory.ConnectionFilter(dbConn);
+                }
 
                 DialectProvider.InitConnection(dbConn);
             }

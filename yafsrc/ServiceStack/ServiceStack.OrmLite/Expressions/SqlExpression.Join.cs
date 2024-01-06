@@ -67,7 +67,7 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <summary>
     /// The table defs
     /// </summary>
-    protected List<ModelDefinition> tableDefs = new();
+    protected List<ModelDefinition> tableDefs = [];
 
     /// <summary>
     /// Gets all tables.
@@ -89,7 +89,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     {
         var tableDef = typeof(Target).GetModelDefinition();
         if (!tableDefs.Contains(tableDef))
-            tableDefs.Add(tableDef);
+        {
+            this.tableDefs.Add(tableDef);
+        }
+
         return this;
     }
 
@@ -138,10 +141,14 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     public SqlExpression<T> Join<Target>(Expression<Func<T, Target, bool>> joinExpr, TableOptions options)
     {
         if (options == null)
+        {
             throw new ArgumentNullException(nameof(options));
+        }
 
         if (options.Expression != null)
+        {
             throw new ArgumentException("Can't set both Join Expression and TableOptions Expression");
+        }
 
         return this.InternalJoin("INNER JOIN", joinExpr, options);
     }
@@ -492,7 +499,9 @@ public abstract partial class SqlExpression<T> : ISqlExpression
         if (refField == null)
         {
             if (!isCrossJoin)
+            {
                 throw new ArgumentException($"Could not infer relationship between {sourceDef.ModelName} and {targetDef.ModelName}");
+            }
 
             return string.Empty;
         }
@@ -564,8 +573,15 @@ public abstract partial class SqlExpression<T> : ISqlExpression
             }
         }
 
-        if (!this.tableDefs.Contains(sourceDef)) this.tableDefs.Add(sourceDef);
-        if (!this.tableDefs.Contains(targetDef)) this.tableDefs.Add(targetDef);
+        if (!this.tableDefs.Contains(sourceDef))
+        {
+            this.tableDefs.Add(sourceDef);
+        }
+
+        if (!this.tableDefs.Contains(targetDef))
+        {
+            this.tableDefs.Add(targetDef);
+        }
 
         var isCrossJoin = "CROSS JOIN" == joinType;
 
@@ -652,7 +668,9 @@ public abstract partial class SqlExpression<T> : ISqlExpression
                         if (this.OnlyFields == null || this.OnlyFields.Contains(fieldDef.Name))
                         {
                             if (sbSelect.Length > 0)
+                            {
                                 sbSelect.Append(", ");
+                            }
 
                             if (fieldDef.CustomSelect == null)
                             {
@@ -683,10 +701,14 @@ public abstract partial class SqlExpression<T> : ISqlExpression
                     if (tableFieldDef.Name == fieldDef.Name)
                     {
                         if (this.OnlyFields != null && !this.OnlyFields.Contains(fieldDef.Name))
+                        {
                             continue;
+                        }
 
                         if (sbSelect.Length > 0)
+                        {
                             sbSelect.Append(", ");
+                        }
 
                         var tableAlias = tableDef == this.modelDef // Use TableAlias if source modelDef
                                              ? this.TableAlias
@@ -701,7 +723,9 @@ public abstract partial class SqlExpression<T> : ISqlExpression
                                                     : this.GetQuotedColumnName(tableDef, tableAlias, tableFieldDef.Name));
 
                                 if (tableFieldDef.RequiresAlias)
+                                {
                                     sbSelect.Append(" AS ").Append(this.SqlColumn(fieldDef.Name));
+                                }
                             }
                             else
                             {
@@ -719,7 +743,9 @@ public abstract partial class SqlExpression<T> : ISqlExpression
                 }
 
                 if (found)
+                {
                     break;
+                }
             }
 
             if (!found)
@@ -731,10 +757,14 @@ public abstract partial class SqlExpression<T> : ISqlExpression
                     if (matchingField != null)
                     {
                         if (this.OnlyFields != null && !this.OnlyFields.Contains(fieldDef.Name))
+                        {
                             continue;
+                        }
 
                         if (sbSelect.Length > 0)
+                        {
                             sbSelect.Append(", ");
+                        }
 
                         var tableAlias = tableDef == this.modelDef // Use TableAlias if source modelDef
                                              ? this.TableAlias

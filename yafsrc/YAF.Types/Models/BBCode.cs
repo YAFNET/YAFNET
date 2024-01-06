@@ -122,4 +122,27 @@ public class BBCode : IEntity, IHaveBoardID, IHaveID
 
     [Ignore]
     public bool Selected { get; set; }
+
+    /// <summary>
+    /// Check if x is equal to y.
+    /// </summary>
+    /// <param name="x">The x.</param>
+    /// <param name="y">The y.</param>
+    /// <returns>Returns if x is equal to y</returns>
+    public static bool Equals(BBCode x, BBCode y)
+    {
+        return x.Name == y.Name &&
+               x.Description == y.Description &&
+               x.OnClickJS == y.OnClickJS &&
+               x.DisplayJS == y.DisplayJS &&
+               x.EditJS == y.EditJS &&
+               x.DisplayCSS == y.DisplayCSS &&
+               x.SearchRegex == y.SearchRegex &&
+               x.ReplaceRegex == y.ReplaceRegex &&
+               x.Variables == y.Variables &&
+               x.UseModule == y.UseModule &&
+               x.UseToolbar == y.UseToolbar &&
+               x.ModuleClass == y.ModuleClass &&
+               x.ExecOrder == y.ExecOrder;
+    }
 }

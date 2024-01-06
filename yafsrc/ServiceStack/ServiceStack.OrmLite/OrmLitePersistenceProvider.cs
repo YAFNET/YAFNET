@@ -167,8 +167,15 @@ public class OrmLitePersistenceProvider
     /// </summary>
     public void Dispose()
     {
-        if (!DisposeConnection) return;
-        if (this.connection == null) return;
+        if (!DisposeConnection)
+        {
+            return;
+        }
+
+        if (this.connection == null)
+        {
+            return;
+        }
 
         this.connection.Dispose();
         this.connection = null;

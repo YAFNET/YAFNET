@@ -91,7 +91,9 @@ public class OrmLiteSPStatement : IDisposable
     public List<T> ConvertToList<T>()
     {
         if (typeof(T).IsPrimitive || typeof(T) == typeof(string))
+        {
             throw new Exception("Type " + typeof(T).Name + " is a primitive type. Use ConvertScalarToList function.");
+        }
 
         IDataReader reader = null;
         try
@@ -114,7 +116,9 @@ public class OrmLiteSPStatement : IDisposable
     public List<T> ConvertToScalarList<T>()
     {
         if (!(typeof(T).IsPrimitive || typeof(T).IsValueType || typeof(T) == typeof(string) || typeof(T) == typeof(String)))
+        {
             throw new Exception("Type " + typeof(T).Name + " is a non primitive type. Use ConvertToList function.");
+        }
 
         IDataReader reader = null;
         try
@@ -137,7 +141,9 @@ public class OrmLiteSPStatement : IDisposable
     public T ConvertTo<T>()
     {
         if (typeof(T).IsPrimitive || typeof(T) == typeof(string))
+        {
             throw new Exception("Type " + typeof(T).Name + " is a primitive type. Use ConvertScalarTo function.");
+        }
 
         IDataReader reader = null;
         try
@@ -160,7 +166,9 @@ public class OrmLiteSPStatement : IDisposable
     public T ConvertToScalar<T>()
     {
         if (!(typeof(T).IsPrimitive || typeof(T).IsValueType || typeof(T) == typeof(string) || typeof(T) == typeof(String)))
+        {
             throw new Exception("Type " + typeof(T).Name + " is a non primitive type. Use ConvertTo function.");
+        }
 
         IDataReader reader = null;
         try
@@ -183,7 +191,9 @@ public class OrmLiteSPStatement : IDisposable
     public List<T> ConvertFirstColumnToList<T>()
     {
         if (!(typeof(T).IsPrimitive || typeof(T).IsValueType || typeof(T) == typeof(string) || typeof(T) == typeof(String)))
+        {
             throw new Exception("Type " + typeof(T).Name + " is a non primitive type. Only primitive type can be used.");
+        }
 
         IDataReader reader = null;
         try
@@ -206,7 +216,9 @@ public class OrmLiteSPStatement : IDisposable
     public HashSet<T> ConvertFirstColumnToListDistinct<T>()
     {
         if (!typeof(T).IsPrimitive || typeof(T).IsValueType || typeof(T) == typeof(string) || typeof(T) == typeof(String))
+        {
             throw new Exception("Type " + typeof(T).Name + " is a non primitive type. Only primitive type can be used.");
+        }
 
         IDataReader reader = null;
         try

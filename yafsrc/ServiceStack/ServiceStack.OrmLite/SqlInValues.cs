@@ -44,7 +44,11 @@ public class SqlInValues
         this.values = values;
         this.dialectProvider = dialectProvider ?? OrmLiteConfig.DialectProvider;
 
-        if (values == null) return;
+        if (values == null)
+        {
+            return;
+        }
+
         foreach (var value in values)
         {
             ++Count;

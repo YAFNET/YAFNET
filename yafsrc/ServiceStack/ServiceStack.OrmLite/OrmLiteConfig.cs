@@ -172,7 +172,9 @@ public static class OrmLiteConfig
     public static void SetCommandTimeout(this IDbConnection db, int? commandTimeout)
     {
         if (!(db is OrmLiteConnection ormLiteConn))
+        {
             throw new NotImplementedException(string.Format(RequiresOrmLiteConnection, "CommandTimeout"));
+        }
 
         ormLiteConn.CommandTimeout = commandTimeout;
     }
@@ -303,7 +305,9 @@ public static class OrmLiteConfig
         get
         {
             if (execFilter == null)
+            {
                 execFilter = new OrmLiteExecFilter();
+            }
 
             return dialectProvider != null
                        ? dialectProvider.ExecFilter ?? execFilter

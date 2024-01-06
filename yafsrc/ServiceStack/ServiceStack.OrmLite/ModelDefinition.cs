@@ -26,11 +26,11 @@ public class ModelDefinition
     /// </summary>
     public ModelDefinition()
     {
-        this.FieldDefinitions = new List<FieldDefinition>();
-        this.IgnoredFieldDefinitions = new List<FieldDefinition>();
-        this.CompositeIndexes = new List<CompositeIndexAttribute>();
-        this.CompositePrimaryKeys = new List<CompositePrimaryKeyAttribute>();
-        this.UniqueConstraints = new List<UniqueConstraintAttribute>();
+        this.FieldDefinitions = [];
+        this.IgnoredFieldDefinitions = [];
+        this.CompositeIndexes = [];
+        this.CompositePrimaryKeys = [];
+        this.UniqueConstraints = [];
     }
 
     /// <summary>
@@ -222,7 +222,9 @@ public class ModelDefinition
     public FieldDefinition[] GetOrderedFieldDefinitions(ICollection<string> fieldNames, Func<string, string> sanitizeFieldName = null)
     {
         if (fieldNames == null)
+        {
             throw new ArgumentNullException(nameof(fieldNames));
+        }
 
         var fieldDefs = new FieldDefinition[fieldNames.Count];
 
@@ -248,7 +250,9 @@ public class ModelDefinition
         lock (fieldDefLock)
         {
             if (fieldDefinitionMap != null && fieldNameSanitizer == sanitizeFieldName)
-                return fieldDefinitionMap;
+            {
+                return this.fieldDefinitionMap;
+            }
 
             fieldDefinitionMap = new Dictionary<string, FieldDefinition>(StringComparer.OrdinalIgnoreCase);
             fieldNameSanitizer = sanitizeFieldName;
@@ -307,7 +311,9 @@ public class ModelDefinition
     {
         var fieldDef = GetFieldDefinition(fieldName);
         if (fieldDef == null)
-            ThrowNoFieldException(fieldName);
+        {
+            this.ThrowNoFieldException(fieldName);
+        }
 
         return fieldDef;
     }
@@ -324,22 +330,30 @@ public class ModelDefinition
             foreach (var f in FieldDefinitionsWithAliases)
             {
                 if (f.Alias == fieldName)
+                {
                     return f;
+                }
             }
             foreach (var f in FieldDefinitionsArray)
             {
                 if (f.Name == fieldName)
+                {
                     return f;
+                }
             }
             foreach (var f in FieldDefinitionsWithAliases)
             {
                 if (string.Equals(f.Alias, fieldName, StringComparison.OrdinalIgnoreCase))
+                {
                     return f;
+                }
             }
             foreach (var f in FieldDefinitionsArray)
             {
                 if (string.Equals(f.Name, fieldName, StringComparison.OrdinalIgnoreCase))
+                {
                     return f;
+                }
             }
         }
         return null;
@@ -355,7 +369,9 @@ public class ModelDefinition
     {
         var fieldDef = GetFieldDefinition(fieldName, sanitizeFieldName);
         if (fieldDef == null)
-            ThrowNoFieldException(fieldName);
+        {
+            this.ThrowNoFieldException(fieldName);
+        }
 
         return fieldDef;
     }
@@ -373,24 +389,32 @@ public class ModelDefinition
             foreach (var f in FieldDefinitionsWithAliases)
             {
                 if (f.Alias == fieldName || sanitizeFieldName(f.Alias) == fieldName)
+                {
                     return f;
+                }
             }
             foreach (var f in FieldDefinitionsArray)
             {
                 if (f.Name == fieldName || sanitizeFieldName(f.Name) == fieldName)
+                {
                     return f;
+                }
             }
             foreach (var f in FieldDefinitionsWithAliases)
             {
                 if (string.Equals(f.Alias, fieldName, StringComparison.OrdinalIgnoreCase) ||
                     string.Equals(sanitizeFieldName(f.Alias), fieldName, StringComparison.OrdinalIgnoreCase))
+                {
                     return f;
+                }
             }
             foreach (var f in FieldDefinitionsArray)
             {
                 if (string.Equals(f.Name, fieldName, StringComparison.OrdinalIgnoreCase) ||
                     string.Equals(sanitizeFieldName(f.Name), fieldName, StringComparison.OrdinalIgnoreCase))
+                {
                     return f;
+                }
             }
         }
         return null;
@@ -415,12 +439,16 @@ public class ModelDefinition
         foreach (var f in FieldDefinitionsWithAliases)
         {
             if (predicate(f.Alias))
+            {
                 return f;
+            }
         }
         foreach (var f in FieldDefinitionsArray)
         {
             if (predicate(f.Name))
+            {
                 return f;
+            }
         }
 
         return null;
@@ -482,7 +510,9 @@ public class ModelDefinition
         foreach (var fieldName in fieldNames)
         {
             if (ReferenceFieldNames.Contains(fieldName))
+            {
                 return true;
+            }
         }
         return false;
     }

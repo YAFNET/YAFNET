@@ -94,7 +94,7 @@ public class SqlBuilder
         /// <summary>
         /// The properties
         /// </summary>
-        private readonly List<Property> properties = new();
+        private readonly List<Property> properties = [];
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DynamicParameters"/> class.
@@ -111,11 +111,19 @@ public class SqlBuilder
         /// <param name="cmdParams">The command parameters.</param>
         public void AddDynamicParams(object cmdParams)
         {
-            if (cmdParams == null) return;
+            if (cmdParams == null)
+            {
+                return;
+            }
+
             foreach (var pi in cmdParams.GetType().GetPublicProperties())
             {
                 var getterFn = pi.CreateGetter();
-                if (getterFn == null) continue;
+                if (getterFn == null)
+                {
+                    continue;
+                }
+
                 var value = getterFn(cmdParams);
                 properties.Add(new Property(pi.Name, pi.PropertyType, value));
             }
@@ -181,7 +189,7 @@ public class SqlBuilder
                 }
 
                 // Generate a public property
-                var property = typeBuilder.DefineProperty(p.Name, PropertyAttributes.None, p.Type, new[] { p.Type });
+                var property = typeBuilder.DefineProperty(p.Name, PropertyAttributes.None, p.Type, [p.Type]);
 
                 // Define the "get" accessor method for current private field.
                 var currGetPropMthdBldr = typeBuilder.DefineMethod("get_" + p.Name, GetSetAttr, p.Type, Type.EmptyTypes);
@@ -193,7 +201,7 @@ public class SqlBuilder
                 currGetIL.Emit(OpCodes.Ret);
 
                 // Define the "set" accessor method for current private field.
-                var currSetPropMthdBldr = typeBuilder.DefineMethod("set_" + p.Name, GetSetAttr, null, new[] { p.Type });
+                var currSetPropMthdBldr = typeBuilder.DefineMethod("set_" + p.Name, GetSetAttr, null, [p.Type]);
 
                 // Set Property impl
                 var currSetIL = currSetPropMthdBldr.GetILGenerator();
@@ -219,7 +227,7 @@ public class SqlBuilder
             //Using reflection for less property types. Not caching since it's a generated type.
             foreach (var p in unsetValues)
             {
-                generetedType.GetProperty(p.Name).GetSetMethod().Invoke(instance, new[] { p.Value });
+                generetedType.GetProperty(p.Name).GetSetMethod().Invoke(instance, [p.Value]);
             }
 
             return instance;

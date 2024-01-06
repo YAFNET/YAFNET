@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Model;
 
 using System;
@@ -64,8 +65,6 @@ public static class AttachmentRepositoryExtensions
         int? pageIndex = 0,
         int? pageSize = 10000000)
     {
-        
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
         expression.Join<Attachment>((user, attach) => attach.UserID == user.ID);
@@ -90,8 +89,6 @@ public static class AttachmentRepositoryExtensions
     /// </returns>
     public static List<Message> GetMessageAttachments(this IRepository<Attachment> repository)
     {
-        
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
 
         expression.Join<Attachment>((m, a) => a.MessageID == m.ID);
@@ -110,8 +107,6 @@ public static class AttachmentRepositoryExtensions
     /// </param>
     public static void Delete(this IRepository<Attachment> repository, int attachmentId)
     {
-        
-
         var attachment = repository.GetById(attachmentId);
 
         if (attachment != null)
@@ -137,8 +132,6 @@ public static class AttachmentRepositoryExtensions
     /// <param name="attachmentId">The attachment identifier.</param>
     public static void IncrementDownloadCounter(this IRepository<Attachment> repository, int attachmentId)
     {
-        
-
         repository.UpdateAdd(() => new Attachment { Downloads = 1 }, a => a.ID == attachmentId);
     }
 
@@ -160,8 +153,6 @@ public static class AttachmentRepositoryExtensions
         string contentType,
         byte[] fileData = null)
     {
-        
-
         var entity = new Attachment
                          {
                              MessageID = 0,

@@ -22,22 +22,21 @@
  * under the License.
  */
 
-namespace YAF.Core.Services.Migrations
+namespace YAF.Core.Migrations
 {
-    using System;
-
     using ServiceStack.OrmLite;
     using System.Data;
 
     using YAF.Core.Context;
+    using YAF.Core.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
     /// <summary>
-    /// Version 84 Migrations
+    /// Version 82 Migrations
     /// </summary>
-    public class V84_Migration : IRepositoryMigration, IHaveServiceLocator
+    public class Migration82 : IRepositoryMigration, IHaveServiceLocator
     {
         /// <summary>
         /// Migrate Repositories (Database).
@@ -50,58 +49,55 @@ namespace YAF.Core.Services.Migrations
             dbAccess.Execute(
                 dbCommand =>
                 {
-                    this.UpgradeTable(this.GetRepository<TopicTag>(), dbAccess, dbCommand);
+                    this.UpgradeTable(this.GetRepository<ActiveAccess>(), dbAccess, dbCommand);
+                    this.UpgradeTable(this.GetRepository<Group>(), dbAccess, dbCommand);
 
                     ///////////////////////////////////////////////////////////
+
+                    if (dbCommand.Connection.TableExists("FavoriteTopic"))
+                    {
+                        dbCommand.Connection.DropTable("FavoriteTopic");
+                    }
 
                     return true;
                 });
         }
 
-        /// <summary>Upgrades the TopicTag table.</summary>
+        /// <summary>Upgrades the Active Access table.</summary>
         /// <param name="repository">The repository.</param>
         /// <param name="dbAccess">The database access.</param>
         /// <param name="dbCommand">The database command.</param>
-        private void UpgradeTable(IRepository<TopicTag> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<ActiveAccess> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
-            if (OrmLiteConfig.DialectProvider.SQLServerName() == "SQLite")
+            if (dbCommand.Connection.ColumnExists<ActiveAccess>("DownloadAccess"))
             {
-                var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
-
-                var oldTableName = OrmLiteConfig.DialectProvider.GetQuotedTableName($"{nameof(TopicTag)}_old");
-                
-                dbCommand.Connection.ExecuteSql(
-                    $@"BEGIN TRANSACTION;
-                           ALTER TABLE {expression.Table<TopicTag>()} RENAME TO {oldTableName}; 
-                       COMMIT;");
-
-                dbCommand.Connection.CreateTable<TopicTag>();
-
-                dbCommand.Connection.ExecuteSql(
-                    $@"BEGIN TRANSACTION;
-                           INSERT INTO {expression.Table<TopicTag>()} SELECT * FROM {oldTableName}; 
-                       COMMIT;");
-
-                dbCommand.Connection.ExecuteSql(
-                    $@"DROP TABLE {oldTableName};");
+                dbCommand.Connection.DropColumn<ActiveAccess>("DownloadAccess");
             }
-            else
+
+            if (dbCommand.Connection.ColumnExists<ActiveAccess>("UploadAccess"))
             {
-                var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
-
-                var name = dbCommand.Connection.GetPrimaryKey<TopicTag>();
-
-                dbCommand.Connection.DropPrimaryKey<TopicTag>(name, x => x.TagID, x => x.TopicID);
-
-                try
-                {
-                    dbCommand.Connection.AddCompositePrimaryKey<TopicTag>(x => x.TagID, x => x.TopicID);
-                }
-                catch (Exception)
-                {
-                    // Ignore here
-                }
+                dbCommand.Connection.DropColumn<ActiveAccess>("UploadAccess");
             }
+        }
+
+        /// <summary>Upgrades the Group table.</summary>
+        /// <param name="repository">The repository.</param>
+        /// <param name="dbAccess">The database access.</param>
+        /// <param name="dbCommand">The database command.</param>
+        private void UpgradeTable(IRepository<Group> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+        {
+            repository.Get(g => (g.Flags & 1) == 1).ForEach(
+                group =>
+                    {
+                        var flags = group.GroupFlags;
+
+                        flags.AllowDownload = true;
+                        flags.AllowUpload = true;
+
+                        repository.UpdateOnly(
+                            () => new Group { Flags = flags.BitValue },
+                            g => g.ID == group.ID);
+                    });
         }
 
         public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;

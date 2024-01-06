@@ -49,7 +49,8 @@ public static partial class SqlMapper
         /// <summary>
         /// The set value method
         /// </summary>
-        private readonly static MethodInfo setValueMethod = typeof(DapperRow).GetMethod("SetValue", new Type[] { typeof(string), typeof(object) });
+        private readonly static MethodInfo setValueMethod = typeof(DapperRow).GetMethod("SetValue", [typeof(string), typeof(object)
+        ]);
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DapperRowMetaObject"/> class.
@@ -165,7 +166,11 @@ public static partial class SqlMapper
         /// <returns>IEnumerable&lt;System.String&gt;.</returns>
         public override IEnumerable<string> GetDynamicMemberNames()
         {
-            if (HasValue && Value is IDictionary<string, object> lookup) return lookup.Keys;
+            if (HasValue && Value is IDictionary<string, object> lookup)
+            {
+                return lookup.Keys;
+            }
+
             return s_nixKeys;
         }
     }

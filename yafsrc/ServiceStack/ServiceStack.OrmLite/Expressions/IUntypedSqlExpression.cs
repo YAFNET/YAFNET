@@ -1697,19 +1697,29 @@ public static class SqlExpressionExtensions
         Expression expr = propertyExpression;
 
         if (expr is LambdaExpression lambda)
+        {
             expr = lambda.Body;
+        }
 
         if (expr.NodeType == ExpressionType.Convert && expr is UnaryExpression unary)
+        {
             expr = unary.Operand;
+        }
 
         if (expr is MemberExpression member)
+        {
             propertyName = member.Member.Name;
+        }
 
         if (propertyName == null)
+        {
             propertyName = expr.ToPropertyInfo()?.Name;
+        }
 
         if (propertyName != null)
+        {
             return dialect.ColumnDbType<Table>(propertyName, prefixTable);
+        }
 
         throw new ArgumentException("Expected Lambda MemberExpression but received: " + propertyExpression.Name);
     }
@@ -1729,19 +1739,29 @@ public static class SqlExpressionExtensions
         Expression expr = propertyExpression;
 
         if (expr is LambdaExpression lambda)
+        {
             expr = lambda.Body;
+        }
 
         if (expr.NodeType == ExpressionType.Convert && expr is UnaryExpression unary)
+        {
             expr = unary.Operand;
+        }
 
         if (expr is MemberExpression member)
+        {
             propertyName = member.Member.Name;
+        }
 
         if (propertyName == null)
+        {
             propertyName = expr.ToPropertyInfo()?.Name;
+        }
 
         if (propertyName != null)
+        {
             return dialect.Column<Table>(propertyName, prefixTable);
+        }
 
         throw new ArgumentException("Expected Lambda MemberExpression but received: " + propertyExpression.Name);
     }

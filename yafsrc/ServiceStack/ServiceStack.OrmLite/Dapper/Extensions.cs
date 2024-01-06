@@ -26,10 +26,15 @@ static internal class Extensions
     static internal Task<TTo> CastResult<TFrom, TTo>(this Task<TFrom> task)
         where TFrom : TTo
     {
-        if (task is null) throw new ArgumentNullException(nameof(task));
+        if (task is null)
+        {
+            throw new ArgumentNullException(nameof(task));
+        }
 
         if (task.Status == TaskStatus.RanToCompletion)
+        {
             return Task.FromResult((TTo)task.Result);
+        }
 
         var source = new TaskCompletionSource<TTo>();
         task.ContinueWith(OnTaskCompleted<TFrom, TTo>, state: source, TaskContinuationOptions.ExecuteSynchronously);

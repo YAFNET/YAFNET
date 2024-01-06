@@ -40,17 +40,23 @@ namespace ServiceStack.OrmLite
         public static Task<int> ExecNonQueryAsync(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token = default)
         {
             if (anonType != null)
+            {
                 dbCmd.SetParameters(anonType.ToObjectDictionary(), (bool)false, sql: ref sql);
+            }
 
             dbCmd.CommandText = sql;
 
             OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
 
             if (OrmLiteConfig.ResultsFilter != null)
+            {
                 return OrmLiteConfig.ResultsFilter.ExecuteSql(dbCmd).InTask();
+            }
 
             if (Log.IsDebugEnabled)
+            {
                 Log.DebugCommand(dbCmd);
+            }
 
             return dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token);
         }
@@ -66,17 +72,23 @@ namespace ServiceStack.OrmLite
         public static Task<int> ExecNonQueryAsync(this IDbCommand dbCmd, string sql, Dictionary<string, object> dict, CancellationToken token = default)
         {
             if (dict != null)
+            {
                 dbCmd.SetParameters(dict, (bool)false, sql: ref sql);
+            }
 
             dbCmd.CommandText = sql;
 
             OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
 
             if (OrmLiteConfig.ResultsFilter != null)
+            {
                 return OrmLiteConfig.ResultsFilter.ExecuteSql(dbCmd).InTask();
+            }
 
             if (Log.IsDebugEnabled)
+            {
                 Log.DebugCommand(dbCmd);
+            }
 
             return dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token);
         }
@@ -92,10 +104,14 @@ namespace ServiceStack.OrmLite
             OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
 
             if (OrmLiteConfig.ResultsFilter != null)
+            {
                 return OrmLiteConfig.ResultsFilter.ExecuteSql(dbCmd).InTask();
+            }
 
             if (Log.IsDebugEnabled)
+            {
                 Log.DebugCommand(dbCmd);
+            }
 
             return dbCmd.GetDialectProvider().ExecuteNonQueryAsync(dbCmd, token);
         }
@@ -122,15 +138,21 @@ namespace ServiceStack.OrmLite
         public async static Task<List<T>> ConvertToListAsync<T>(this IDbCommand dbCmd, string sql, CancellationToken token)
         {
             if (sql != null)
+            {
                 dbCmd.CommandText = sql;
+            }
 
             if (OrmLiteConfig.ResultsFilter != null)
+            {
                 return OrmLiteConfig.ResultsFilter.GetList<T>(dbCmd);
+            }
 
             var dialectProvider = dbCmd.GetDialectProvider();
             using var reader = await dbCmd.ExecReaderAsync(dbCmd.CommandText, token).ConfigAwait();
             if (OrmLiteUtils.IsScalar<T>())
+            {
                 return await reader.ColumnAsync<T>(dialectProvider, token).ConfigAwait();
+            }
 
             return await reader.ConvertToListAsync<T>(dialectProvider, null, token).ConfigAwait();
         }
@@ -157,10 +179,14 @@ namespace ServiceStack.OrmLite
         public async static Task<IList> ConvertToListAsync(this IDbCommand dbCmd, Type refType, string sql, CancellationToken token)
         {
             if (sql != null)
+            {
                 dbCmd.CommandText = sql;
+            }
 
             if (OrmLiteConfig.ResultsFilter != null)
+            {
                 return OrmLiteConfig.ResultsFilter.GetRefList(dbCmd, refType);
+            }
 
             var dialectProvider = dbCmd.GetDialectProvider();
             using var reader = await dbCmd.ExecReaderAsync(dbCmd.CommandText, token).ConfigAwait();
@@ -180,12 +206,16 @@ namespace ServiceStack.OrmLite
         async static internal Task<List<T>> ExprConvertToListAsync<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams, HashSet<string> onlyFields, CancellationToken token)
         {
             if (sql != null)
+            {
                 dbCmd.CommandText = sql;
+            }
 
             dbCmd.SetParameters(sqlParams);
 
             if (OrmLiteConfig.ResultsFilter != null)
+            {
                 return OrmLiteConfig.ResultsFilter.GetList<T>(dbCmd);
+            }
 
             var dialectProvider = dbCmd.GetDialectProvider();
             using var reader = await dbCmd.ExecReaderAsync(dbCmd.CommandText, token).ConfigAwait();
@@ -214,10 +244,14 @@ namespace ServiceStack.OrmLite
         public async static Task<T> ConvertToAsync<T>(this IDbCommand dbCmd, string sql, CancellationToken token)
         {
             if (sql != null)
+            {
                 dbCmd.CommandText = sql;
+            }
 
             if (OrmLiteConfig.ResultsFilter != null)
+            {
                 return OrmLiteConfig.ResultsFilter.GetSingle<T>(dbCmd);
+            }
 
             var dialectProvider = dbCmd.GetDialectProvider();
             using var reader = await dbCmd.ExecReaderAsync(dbCmd.CommandText, token).ConfigAwait();
@@ -235,10 +269,14 @@ namespace ServiceStack.OrmLite
         async static internal Task<object> ConvertToAsync(this IDbCommand dbCmd, Type refType, string sql, CancellationToken token)
         {
             if (sql != null)
+            {
                 dbCmd.CommandText = sql;
+            }
 
             if (OrmLiteConfig.ResultsFilter != null)
+            {
                 return OrmLiteConfig.ResultsFilter.GetRefSingle(dbCmd, refType);
+            }
 
             var dialectProvider = dbCmd.GetDialectProvider();
             using var reader = await dbCmd.ExecReaderAsync(dbCmd.CommandText, token).ConfigAwait();
@@ -281,10 +319,14 @@ namespace ServiceStack.OrmLite
         public async static Task<T> ScalarAsync<T>(this IDbCommand dbCmd, string sql, CancellationToken token)
         {
             if (sql != null)
+            {
                 dbCmd.CommandText = sql;
+            }
 
             if (OrmLiteConfig.ResultsFilter != null)
+            {
                 return OrmLiteConfig.ResultsFilter.GetScalar<T>(dbCmd);
+            }
 
             var dialectProvider = dbCmd.GetDialectProvider();
             using var reader = await dbCmd.ExecReaderAsync(dbCmd.CommandText, token).ConfigAwait();
@@ -313,7 +355,9 @@ namespace ServiceStack.OrmLite
             dbCmd.PopulateWith(expression, QueryType.Scalar);
 
             if (OrmLiteConfig.ResultsFilter != null)
+            {
                 return OrmLiteConfig.ResultsFilter.GetScalar(dbCmd).InTask();
+            }
 
             return dbCmd.GetDialectProvider().ExecuteScalarAsync(dbCmd, token);
         }
@@ -328,10 +372,14 @@ namespace ServiceStack.OrmLite
         public static Task<object> ScalarAsync(this IDbCommand dbCmd, string sql, CancellationToken token)
         {
             if (sql != null)
+            {
                 dbCmd.CommandText = sql;
+            }
 
             if (OrmLiteConfig.ResultsFilter != null)
+            {
                 return OrmLiteConfig.ResultsFilter.GetScalar(dbCmd).InTask();
+            }
 
             return dbCmd.GetDialectProvider().ExecuteScalarAsync(dbCmd, token);
         }
@@ -356,15 +404,21 @@ namespace ServiceStack.OrmLite
         public static Task<long> ExecLongScalarAsync(this IDbCommand dbCmd, string sql, CancellationToken token)
         {
             if (sql != null)
+            {
                 dbCmd.CommandText = sql;
+            }
 
             if (Log.IsDebugEnabled)
+            {
                 Log.DebugCommand(dbCmd);
+            }
 
             OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
 
             if (OrmLiteConfig.ResultsFilter != null)
+            {
                 return OrmLiteConfig.ResultsFilter.GetLongScalar(dbCmd).InTask();
+            }
 
             return dbCmd.LongScalarAsync(token);
         }
@@ -381,12 +435,16 @@ namespace ServiceStack.OrmLite
         async static internal Task<T> ExprConvertToAsync<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams, CancellationToken token)
         {
             if (sql != null)
+            {
                 dbCmd.CommandText = sql;
+            }
 
             dbCmd.SetParameters(sqlParams);
 
             if (OrmLiteConfig.ResultsFilter != null)
+            {
                 return OrmLiteConfig.ResultsFilter.GetSingle<T>(dbCmd);
+            }
 
             var dialectProvider = dbCmd.GetDialectProvider();
             using var reader = await dbCmd.ExecReaderAsync(dbCmd.CommandText, token).ConfigAwait();
@@ -418,10 +476,14 @@ namespace ServiceStack.OrmLite
         async static internal Task<List<T>> ColumnAsync<T>(this IDbCommand dbCmd, string sql, CancellationToken token)
         {
             if (sql != null)
+            {
                 dbCmd.CommandText = sql;
+            }
 
             if (OrmLiteConfig.ResultsFilter != null)
+            {
                 return OrmLiteConfig.ResultsFilter.GetColumn<T>(dbCmd);
+            }
 
             var dialectProvider = dbCmd.GetDialectProvider();
             using var reader = await dbCmd.ExecReaderAsync(dbCmd.CommandText, token).ConfigAwait();
@@ -453,10 +515,14 @@ namespace ServiceStack.OrmLite
         async static internal Task<HashSet<T>> ColumnDistinctAsync<T>(this IDbCommand dbCmd, string sql, CancellationToken token)
         {
             if (sql != null)
+            {
                 dbCmd.CommandText = sql;
+            }
 
             if (OrmLiteConfig.ResultsFilter != null)
+            {
                 return OrmLiteConfig.ResultsFilter.GetColumnDistinct<T>(dbCmd);
+            }
 
             var dialectProvider = dbCmd.GetDialectProvider();
             using var reader = await dbCmd.ExecReaderAsync(dbCmd.CommandText, token).ConfigAwait();
@@ -490,10 +556,14 @@ namespace ServiceStack.OrmLite
         async static internal Task<Dictionary<K, V>> DictionaryAsync<K, V>(this IDbCommand dbCmd, string sql, CancellationToken token)
         {
             if (sql != null)
+            {
                 dbCmd.CommandText = sql;
+            }
 
             if (OrmLiteConfig.ResultsFilter != null)
+            {
                 return OrmLiteConfig.ResultsFilter.GetDictionary<K, V>(dbCmd);
+            }
 
             var dialectProvider = dbCmd.GetDialectProvider();
             using var reader = await dbCmd.ExecReaderAsync(dbCmd.CommandText, token).ConfigAwait();
@@ -527,10 +597,14 @@ namespace ServiceStack.OrmLite
         async static internal Task<List<KeyValuePair<K, V>>> KeyValuePairsAsync<K, V>(this IDbCommand dbCmd, string sql, CancellationToken token)
         {
             if (sql != null)
+            {
                 dbCmd.CommandText = sql;
+            }
 
             if (OrmLiteConfig.ResultsFilter != null)
+            {
                 return OrmLiteConfig.ResultsFilter.GetKeyValuePairs<K, V>(dbCmd);
+            }
 
             var dialectProvider = dbCmd.GetDialectProvider();
             using var reader = await dbCmd.ExecReaderAsync(dbCmd.CommandText, token).ConfigAwait();
@@ -564,10 +638,14 @@ namespace ServiceStack.OrmLite
         async static internal Task<Dictionary<K, List<V>>> LookupAsync<K, V>(this IDbCommand dbCmd, string sql, CancellationToken token)
         {
             if (sql != null)
+            {
                 dbCmd.CommandText = sql;
+            }
 
             if (OrmLiteConfig.ResultsFilter != null)
+            {
                 return OrmLiteConfig.ResultsFilter.GetLookup<K, V>(dbCmd);
+            }
 
             var dialectProvider = dbCmd.GetDialectProvider();
             using var reader = await dbCmd.ExecReaderAsync(dbCmd.CommandText, token).ConfigAwait();

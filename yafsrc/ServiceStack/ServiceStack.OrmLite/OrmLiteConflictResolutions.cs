@@ -42,7 +42,9 @@ public static class OrmLiteConflictResolutions
     {
         var pos = dbCmd.CommandText?.IndexOf(' ') ?? -1;
         if (pos == -1)
+        {
             throw new NotSupportedException("Cannot specify ON CONFLICT resolution on Invalid SQL starting with: " + dbCmd.CommandText.SubstringWithEllipsis(0, 50));
+        }
 
         var sqlConflict = dbCmd.GetDialectProvider().SqlConflict(dbCmd.CommandText, conflictResolution);
         dbCmd.CommandText = sqlConflict;

@@ -128,10 +128,13 @@ static class StructuredHelper
         }
 
         var dbType = type.GetProperty("SqlDbType", BindingFlags.Public | BindingFlags.Instance);
-        if (dbType != null && !dbType.CanWrite) dbType = null;
+        if (dbType != null && !dbType.CanWrite)
+        {
+            dbType = null;
+        }
 
         var dm = new DynamicMethod(nameof(CreateFor) + "_" + type.Name, null,
-            new[] { typeof(IDbDataParameter), typeof(string) }, true);
+            [typeof(IDbDataParameter), typeof(string)], true);
         var il = dm.GetILGenerator();
         il.Emit(OpCodes.Ldarg_0);
         il.Emit(OpCodes.Castclass, type);

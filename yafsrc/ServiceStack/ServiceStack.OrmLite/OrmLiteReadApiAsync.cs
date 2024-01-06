@@ -283,7 +283,9 @@ namespace ServiceStack.OrmLite
         public static T ScalarAsync<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams)
         {
             if (sqlParams != null)
+            {
                 dbCmd.SetParameters(sqlParams);
+            }
 
             return dbCmd.Scalar<T>(sql);
         }

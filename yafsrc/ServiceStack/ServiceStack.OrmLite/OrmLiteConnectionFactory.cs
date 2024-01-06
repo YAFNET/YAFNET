@@ -129,7 +129,9 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     public virtual IDbConnection CreateDbConnection()
     {
         if (this.ConnectionString == null)
+        {
             throw new ArgumentNullException("ConnectionString", "ConnectionString must be set");
+        }
 
         var connection = this.AutoDisposeConnection
                              ? new OrmLiteConnection(this)
@@ -148,10 +150,14 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     public static IDbConnection CreateDbConnection(string namedConnection)
     {
         if (namedConnection == null)
+        {
             throw new ArgumentNullException(nameof(namedConnection));
+        }
 
         if (!NamedConnections.TryGetValue(namedConnection, out var factory))
+        {
             throw new KeyNotFoundException("No factory registered is named " + namedConnection);
+        }
 
         IDbConnection connection = factory.AutoDisposeConnection
                                        ? new OrmLiteConnection(factory)
@@ -217,7 +223,9 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     public virtual IDbConnection OpenDbConnectionString(string connectionString)
     {
         if (connectionString == null)
+        {
             throw new ArgumentNullException(nameof(connectionString));
+        }
 
         var connection = new OrmLiteConnection(this)
                              {
@@ -239,7 +247,9 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     public async virtual Task<IDbConnection> OpenDbConnectionStringAsync(string connectionString, CancellationToken token = default)
     {
         if (connectionString == null)
+        {
             throw new ArgumentNullException(nameof(connectionString));
+        }
 
         var connection = new OrmLiteConnection(this)
                              {
@@ -263,12 +273,19 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     public virtual IDbConnection OpenDbConnectionString(string connectionString, string providerName)
     {
         if (connectionString == null)
+        {
             throw new ArgumentNullException(nameof(connectionString));
+        }
+
         if (providerName == null)
+        {
             throw new ArgumentNullException(nameof(providerName));
+        }
 
         if (!DialectProviders.TryGetValue(providerName, out var dialectProvider))
+        {
             throw new ArgumentException($"{providerName} is not a registered DialectProvider");
+        }
 
         var dbFactory = new OrmLiteConnectionFactory(connectionString, dialectProvider, setGlobalDialectProvider: false);
 
@@ -288,12 +305,19 @@ public class OrmLiteConnectionFactory : IDbConnectionFactoryExtended
     public async virtual Task<IDbConnection> OpenDbConnectionStringAsync(string connectionString, string providerName, CancellationToken token = default)
     {
         if (connectionString == null)
+        {
             throw new ArgumentNullException(nameof(connectionString));
+        }
+
         if (providerName == null)
+        {
             throw new ArgumentNullException(nameof(providerName));
+        }
 
         if (!DialectProviders.TryGetValue(providerName, out var dialectProvider))
+        {
             throw new ArgumentException($"{providerName} is not a registered DialectProvider");
+        }
 
         var dbFactory = new OrmLiteConnectionFactory(connectionString, dialectProvider, setGlobalDialectProvider: false);
 
@@ -530,14 +554,18 @@ public static class OrmLiteConnectionFactoryExtensions
         var dbFactory = (OrmLiteConnectionFactory)connectionFactory;
 
         if (!string.IsNullOrEmpty(providerName))
+        {
             return OrmLiteConnectionFactory.DialectProviders.TryGetValue(providerName, out var provider)
-                       ? provider
-                       : throw new NotSupportedException($"Dialect provider is not registered '{provider}'");
+                ? provider
+                : throw new NotSupportedException($"Dialect provider is not registered '{provider}'");
+        }
 
         if (!string.IsNullOrEmpty(namedConnection))
+        {
             return OrmLiteConnectionFactory.NamedConnections.TryGetValue(namedConnection, out var namedFactory)
-                       ? namedFactory.DialectProvider
-                       : throw new NotSupportedException($"Named connection is not registered '{namedConnection}'");
+                ? namedFactory.DialectProvider
+                : throw new NotSupportedException($"Named connection is not registered '{namedConnection}'");
+        }
 
         return dbFactory.DialectProvider;
     }
@@ -625,7 +653,9 @@ public static class OrmLiteConnectionFactoryExtensions
             }
 
             if (connInfo.NamedConnection != null)
+            {
                 return dbFactoryExt.OpenDbConnection(connInfo.NamedConnection);
+            }
         }
 
         return dbFactory.Open();
@@ -649,7 +679,9 @@ public static class OrmLiteConnectionFactoryExtensions
             }
 
             if (connInfo.NamedConnection != null)
+            {
                 return await dbFactoryExt.OpenDbConnectionAsync(connInfo.NamedConnection).ConfigAwait();
+            }
         }
 
         return await dbFactory.OpenAsync().ConfigAwait();

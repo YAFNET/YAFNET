@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Core.Services.Migrations
+namespace YAF.Core.Migrations
 {
     using System;
 
@@ -39,7 +39,7 @@ namespace YAF.Core.Services.Migrations
     /// <summary>
     /// Version 86 Migrations
     /// </summary>
-    public class V86_Migration : IRepositoryMigration, IHaveServiceLocator
+    public class Migration86 : IRepositoryMigration, IHaveServiceLocator
     {
         /// <summary>
         /// Migrate Repositories (Database).
@@ -80,7 +80,7 @@ namespace YAF.Core.Services.Migrations
                     dbCommand.Connection.AlterColumn<BBCode>(x => x.DisplayJS, "_old");
                 }
                 else
-                { 
+                {
                     dbCommand.Connection.AlterColumn<BBCode>(x => x.DisplayJS);
                 }
             }
@@ -92,7 +92,7 @@ namespace YAF.Core.Services.Migrations
                     dbCommand.Connection.AlterColumn<BBCode>(x => x.EditJS, "_old");
                 }
                 else
-                { 
+                {
                     dbCommand.Connection.AlterColumn<BBCode>(x => x.EditJS);
                 }
             }
@@ -104,7 +104,7 @@ namespace YAF.Core.Services.Migrations
                     dbCommand.Connection.AlterColumn<BBCode>(x => x.DisplayCSS, "_old");
                 }
                 else
-                { 
+                {
                     dbCommand.Connection.AlterColumn<BBCode>(x => x.DisplayCSS);
                 }
             }
@@ -116,7 +116,7 @@ namespace YAF.Core.Services.Migrations
                     dbCommand.Connection.AlterColumn<BBCode>(x => x.SearchRegex, "_old");
                 }
                 else
-                { 
+                {
                     dbCommand.Connection.AlterColumn<BBCode>(x => x.SearchRegex);
                 }
             }
@@ -128,7 +128,7 @@ namespace YAF.Core.Services.Migrations
                     dbCommand.Connection.AlterColumn<BBCode>(x => x.ReplaceRegex, "_old");
                 }
                 else
-                { 
+                {
                     dbCommand.Connection.AlterColumn<BBCode>(x => x.ReplaceRegex);
                 }
             }
@@ -166,7 +166,7 @@ namespace YAF.Core.Services.Migrations
                     dbCommand.Connection.AlterColumn<Medal>(x => x.Description, "_old");
                 }
                 else
-                { 
+                {
                     dbCommand.Connection.AlterColumn<Medal>(x => x.Description);
                 }
             }
@@ -204,7 +204,7 @@ namespace YAF.Core.Services.Migrations
                     dbCommand.Connection.AlterColumn<MessageHistory>(x => x.Message, "_old");
                 }
                 else
-                { 
+                {
                     dbCommand.Connection.AlterColumn<MessageHistory>(x => x.Message);
                 }
             }

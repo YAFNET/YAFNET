@@ -22,14 +22,13 @@
  * under the License.
  */
 
-namespace YAF.Core.Services.Migrations
+namespace YAF.Core.Migrations
 {
     using System;
     using System.Collections.Generic;
 
     using ServiceStack.OrmLite;
 
-    using System.Data;
     using System.Linq;
 
     using Microsoft.AspNet.Identity;
@@ -52,7 +51,7 @@ namespace YAF.Core.Services.Migrations
     /// <summary>
     /// Version 30 Migrations
     /// </summary>
-    public class V30_Migration : IRepositoryMigration, IHaveServiceLocator
+    public class Migration30 : IRepositoryMigration, IHaveServiceLocator
     {
         /// <summary>
         /// Migrate Repositories (Database).
@@ -101,7 +100,7 @@ namespace YAF.Core.Services.Migrations
                             flags.IsGuest = true;
 
                             this.GetRepository<User>().UpdateOnly(
-                                () => new User {Flags = flags.BitValue},
+                                () => new User { Flags = flags.BitValue },
                                 u => u.ID == user.ID);
                         });
             }
@@ -174,7 +173,7 @@ namespace YAF.Core.Services.Migrations
                                 {
                                     // update the YAF table with the ProviderKey -- update the provider table if this is the YAF provider...
                                     this.GetRepository<User>().UpdateOnly(
-                                        () => new User {ProviderUserKey = aspNetUser.Id},
+                                        () => new User { ProviderUserKey = aspNetUser.Id },
                                         u => u.ID == row.ID);
 
                                     if (legacyUserProfile != null)
@@ -225,7 +224,7 @@ namespace YAF.Core.Services.Migrations
                             {
                                 // update the YAF table with the ProviderKey -- update the provider table if this is the YAF provider...
                                 this.GetRepository<User>().UpdateOnly(
-                                    () => new User {ProviderUserKey = userExist.Id},
+                                    () => new User { ProviderUserKey = userExist.Id },
                                     u => u.ID == row.ID);
 
                                 // setup roles for this user...
@@ -258,16 +257,16 @@ namespace YAF.Core.Services.Migrations
             var password = PasswordGenerator.GeneratePassword(true, true, true, true, false, 16);
 
             user = new AspNetUsers
-                       {
-                           Id = Guid.NewGuid().ToString(),
-                           ApplicationId = this.Get<BoardSettings>().ApplicationId,
-                           UserName = name,
-                           LoweredUserName = name.ToLower(),
-                           Email = email,
-                           IsApproved = approved,
-                           EmailConfirmed = true,
-                           Profile_Birthday = null
-                       };
+            {
+                Id = Guid.NewGuid().ToString(),
+                ApplicationId = this.Get<BoardSettings>().ApplicationId,
+                UserName = name,
+                LoweredUserName = name.ToLower(),
+                Email = email,
+                IsApproved = approved,
+                EmailConfirmed = true,
+                Profile_Birthday = null
+            };
 
             return this.Get<IAspNetUsersHelper>().Create(user, password);
         }

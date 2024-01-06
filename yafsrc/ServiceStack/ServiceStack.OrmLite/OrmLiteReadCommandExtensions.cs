@@ -50,7 +50,9 @@ public static class OrmLiteReadCommandExtensions
         dbCmd.CommandText = sql;
 
         if (Log.IsDebugEnabled)
+        {
             Log.DebugCommand(dbCmd);
+        }
 
         OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
 
@@ -69,7 +71,9 @@ public static class OrmLiteReadCommandExtensions
         dbCmd.CommandText = sql;
 
         if (Log.IsDebugEnabled)
+        {
             Log.DebugCommand(dbCmd);
+        }
 
         OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
 
@@ -97,7 +101,9 @@ public static class OrmLiteReadCommandExtensions
         }
 
         if (Log.IsDebugEnabled)
+        {
             Log.DebugCommand(dbCmd);
+        }
 
         OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
 
@@ -189,7 +195,9 @@ public static class OrmLiteReadCommandExtensions
     static internal IDbCommand SetParameters(this IDbCommand dbCmd, IEnumerable<IDbDataParameter> sqlParams)
     {
         if (sqlParams == null)
+        {
             return dbCmd;
+        }
 
         try
         {
@@ -203,7 +211,9 @@ public static class OrmLiteReadCommandExtensions
         {
             //SQL Server + PostgreSql doesn't allow re-using db params in multiple queries
             if (Log.IsDebugEnabled)
+            {
                 Log.Debug("Exception trying to reuse db params, executing with cloned params instead", ex);
+            }
 
             dbCmd.Parameters.Clear();
             foreach (var sqlParam in sqlParams)
@@ -225,7 +235,9 @@ public static class OrmLiteReadCommandExtensions
     private static IEnumerable GetMultiValues(object value)
     {
         if (value is SqlInValues inValues)
+        {
             return inValues.GetValues();
+        }
 
         return value is IEnumerable enumerable && !(enumerable is string ||
                                                     enumerable is IEnumerable<KeyValuePair<string, object>> ||
@@ -249,7 +261,9 @@ public static class OrmLiteReadCommandExtensions
         ref string sql)
     {
         if (dict == null)
+        {
             return dbCmd;
+        }
 
         dbCmd.Parameters.Clear();
         var dialectProvider = dbCmd.GetDialectProvider();
@@ -261,7 +275,10 @@ public static class OrmLiteReadCommandExtensions
         {
             var value = kvp.Value;
             var propName = kvp.Key;
-            if (excludeDefaults && value == null) continue;
+            if (excludeDefaults && value == null)
+            {
+                continue;
+            }
 
             var inValues = sql != null ? GetMultiValues(value) : null;
             if (inValues != null)
@@ -274,7 +291,10 @@ public static class OrmLiteReadCommandExtensions
                     p.ParameterName = "v" + paramIndex++;
 
                     if (sb.Length > 0)
+                    {
                         sb.Append(',');
+                    }
+
                     sb.Append(dialectProvider.ParamString + p.ParameterName);
 
                     p.Direction = ParameterDirection.Input;
@@ -287,10 +307,15 @@ public static class OrmLiteReadCommandExtensions
 
                 var sqlIn = StringBuilderCache.ReturnAndFree(sb);
                 if (string.IsNullOrEmpty(sqlIn))
+                {
                     sqlIn = "NULL";
+                }
+
                 sqlCopy = sqlCopy?.Replace(dialectProvider.ParamString + propName, sqlIn);
                 if (dialectProvider.ParamString != "@")
+                {
                     sqlCopy = sqlCopy?.Replace("@" + propName, sqlIn);
+                }
             }
             else
             {
@@ -300,7 +325,9 @@ public static class OrmLiteReadCommandExtensions
                 p.Direction = ParameterDirection.Input;
                 p.Value = value ?? DBNull.Value;
                 if (value != null)
+                {
                     dialectProvider.InitDbParam(p, value.GetType());
+                }
 
                 dbCmd.Parameters.Add(p);
             }
@@ -328,7 +355,9 @@ public static class OrmLiteReadCommandExtensions
         ref string sql)
     {
         if (anonType == null)
+        {
             return dbCmd;
+        }
 
         dbCmd.Parameters.Clear();
 
@@ -363,7 +392,10 @@ public static class OrmLiteReadCommandExtensions
                             p.ParameterName = "v" + paramIndex++;
 
                             if (sb.Length > 0)
+                            {
                                 sb.Append(',');
+                            }
+
                             sb.Append(dialectProvider.ParamString + p.ParameterName);
 
                             p.Direction = ParameterDirection.Input;
@@ -376,10 +408,15 @@ public static class OrmLiteReadCommandExtensions
 
                         var sqlIn = StringBuilderCache.ReturnAndFree(sb);
                         if (string.IsNullOrEmpty(sqlIn))
+                        {
                             sqlIn = "NULL";
+                        }
+
                         sqlCopy = sqlCopy?.Replace(dialectProvider.ParamString + propName, sqlIn);
                         if (dialectProvider.ParamString != "@")
+                        {
                             sqlCopy = sqlCopy?.Replace("@" + propName, sqlIn);
+                        }
                     }
                     else
                     {
@@ -421,14 +458,18 @@ public static class OrmLiteReadCommandExtensions
             value = dialectProvider.GetFieldValue(fieldDef, value);
             var valueType = value?.GetType();
             if (valueType != null && valueType != propType)
+            {
                 dialectProvider.InitDbParam(p, valueType);
+            }
         }
         else
         {
             value = dialectProvider.GetFieldValue(propType, value);
             var valueType = value?.GetType();
             if (valueType != null && valueType != propType)
+            {
                 dialectProvider.InitDbParam(p, valueType);
+            }
         }
 
         p.Value = value == null ? DBNull.Value : p.DbType == DbType.String ? value.ToString() : value;
@@ -456,14 +497,18 @@ public static class OrmLiteReadCommandExtensions
         ParamIterDelegate fn)
     {
         if (values == null)
+        {
             return;
+        }
 
         foreach (var kvp in values)
         {
             var value = kvp.Value;
 
             if (excludeDefaults && (value == null || value.Equals(value.GetType().GetDefaultValue())))
+            {
                 continue;
+            }
 
             var targetField = modelDef?.FieldDefinitions.FirstOrDefault(f => string.Equals(f.Name, kvp.Key));
             var columnName = !string.IsNullOrEmpty(targetField?.Alias) ? targetField.Alias : kvp.Key;
@@ -563,12 +608,16 @@ public static class OrmLiteReadCommandExtensions
         foreach (IDbDataParameter p in dbCmd.Parameters)
         {
             if (sb.Length > 0)
+            {
                 sb.Append(" AND ");
+            }
 
             var fieldName = p.ParameterName;
             var fieldDef = modelDef.GetFieldDefinition(fieldName);
             if (fieldDef != null)
+            {
                 fieldName = fieldDef.FieldName;
+            }
 
             sb.Append(dialectProvider.GetQuotedColumnName(fieldName));
 
@@ -599,7 +648,7 @@ public static class OrmLiteReadCommandExtensions
     {
         var sqlIn = dbCmd.SetIdsInSqlParams(idValues);
         return string.IsNullOrEmpty(sqlIn)
-                   ? new List<T>()
+                   ? []
                    : Select<T>(
                        dbCmd,
                        dbCmd.GetDialectProvider().GetQuotedColumnName(ModelDefinition<T>.PrimaryKeyName) + " IN (" +
@@ -725,7 +774,10 @@ public static class OrmLiteReadCommandExtensions
     static internal List<T> Select<T>(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams)
     {
         dbCmd.CommandText = dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql);
-        if (sqlParams != null) dbCmd.SetParameters(sqlParams);
+        if (sqlParams != null)
+        {
+            dbCmd.SetParameters(sqlParams);
+        }
 
         return dbCmd.ConvertToList<T>();
     }
@@ -740,7 +792,11 @@ public static class OrmLiteReadCommandExtensions
     /// <returns>List&lt;T&gt;.</returns>
     static internal List<T> Select<T>(this IDbCommand dbCmd, string sql, object anonType = null)
     {
-        if (anonType != null) dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
+        if (anonType != null)
+        {
+            dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
+        }
+
         dbCmd.CommandText = dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql);
 
         return dbCmd.ConvertToList<T>();
@@ -756,7 +812,11 @@ public static class OrmLiteReadCommandExtensions
     /// <returns>List&lt;T&gt;.</returns>
     static internal List<T> Select<T>(this IDbCommand dbCmd, string sql, Dictionary<string, object> dict)
     {
-        if (dict != null) SetParameters(dbCmd, dict, (bool)false, sql: ref sql);
+        if (dict != null)
+        {
+            SetParameters(dbCmd, dict, (bool)false, sql: ref sql);
+        }
+
         dbCmd.CommandText = dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql);
 
         return dbCmd.ConvertToList<T>();
@@ -785,7 +845,11 @@ public static class OrmLiteReadCommandExtensions
     /// <returns>List&lt;T&gt;.</returns>
     static internal List<T> Select<T>(this IDbCommand dbCmd, Type fromTableType, string sql, object anonType = null)
     {
-        if (anonType != null) dbCmd.SetParameters(fromTableType, anonType, excludeDefaults: false, sql: ref sql);
+        if (anonType != null)
+        {
+            dbCmd.SetParameters(fromTableType, anonType, excludeDefaults: false, sql: ref sql);
+        }
+
         dbCmd.CommandText = ToSelect<T>(dbCmd.GetDialectProvider(), fromTableType, sql);
 
         return dbCmd.ConvertToList<T>();
@@ -811,7 +875,9 @@ public static class OrmLiteReadCommandExtensions
             $"FROM {dialectProvider.GetQuotedTableName(fromTableType.GetModelDefinition())}");
 
         if (string.IsNullOrEmpty(sqlFilter))
+        {
             return StringBuilderCache.ReturnAndFree(sql);
+        }
 
         sql.Append(" WHERE ");
         sql.Append(sqlFilter);
@@ -843,7 +909,11 @@ public static class OrmLiteReadCommandExtensions
     /// <returns>List&lt;T&gt;.</returns>
     static internal List<T> SqlList<T>(this IDbCommand dbCmd, string sql, object anonType = null)
     {
-        if (anonType != null) dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
+        if (anonType != null)
+        {
+            dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
+        }
+
         dbCmd.CommandText = sql;
 
         return dbCmd.ConvertToList<T>();
@@ -859,7 +929,11 @@ public static class OrmLiteReadCommandExtensions
     /// <returns>List&lt;T&gt;.</returns>
     static internal List<T> SqlList<T>(this IDbCommand dbCmd, string sql, Dictionary<string, object> dict)
     {
-        if (dict != null) SetParameters(dbCmd, dict, false, sql: ref sql);
+        if (dict != null)
+        {
+            SetParameters(dbCmd, dict, false, sql: ref sql);
+        }
+
         dbCmd.CommandText = sql;
 
         return dbCmd.ConvertToList<T>();
@@ -919,7 +993,11 @@ public static class OrmLiteReadCommandExtensions
     /// <returns>List&lt;T&gt;.</returns>
     static internal List<T> SqlColumn<T>(this IDbCommand dbCmd, string sql, Dictionary<string, object> dict)
     {
-        if (dict != null) SetParameters(dbCmd, dict, false, sql: ref sql);
+        if (dict != null)
+        {
+            SetParameters(dbCmd, dict, false, sql: ref sql);
+        }
+
         dbCmd.CommandText = sql;
 
         return dbCmd.ConvertToList<T>();
@@ -948,7 +1026,10 @@ public static class OrmLiteReadCommandExtensions
     /// <returns>T.</returns>
     static internal T SqlScalar<T>(this IDbCommand dbCmd, string sql, object anonType = null)
     {
-        if (anonType != null) dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
+        if (anonType != null)
+        {
+            dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
+        }
 
         return dbCmd.Scalar<T>(sql);
     }
@@ -963,7 +1044,10 @@ public static class OrmLiteReadCommandExtensions
     /// <returns>T.</returns>
     static internal T SqlScalar<T>(this IDbCommand dbCmd, string sql, Dictionary<string, object> dict)
     {
-        if (dict != null) SetParameters(dbCmd, dict, false, sql: ref sql);
+        if (dict != null)
+        {
+            SetParameters(dbCmd, dict, false, sql: ref sql);
+        }
 
         return dbCmd.Scalar<T>(sql);
     }
@@ -992,7 +1076,10 @@ public static class OrmLiteReadCommandExtensions
     /// <returns>List&lt;T&gt;.</returns>
     static internal List<T> SelectNonDefaults<T>(this IDbCommand dbCmd, string sql, object anonType = null)
     {
-        if (anonType != null) dbCmd.SetParameters<T>(anonType, excludeDefaults: true, sql: ref sql);
+        if (anonType != null)
+        {
+            dbCmd.SetParameters<T>(anonType, excludeDefaults: true, sql: ref sql);
+        }
 
         return dbCmd.ConvertToList<T>(dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql));
     }
@@ -1010,7 +1097,10 @@ public static class OrmLiteReadCommandExtensions
         string sql,
         IEnumerable<IDbDataParameter> sqlParams)
     {
-        foreach (var p in dbCmd.SetParameters(sqlParams).SelectLazy<T>(sql)) yield return p;
+        foreach (var p in dbCmd.SetParameters(sqlParams).SelectLazy<T>(sql))
+        {
+            yield return p;
+        }
     }
 
     /// <summary>
@@ -1023,7 +1113,11 @@ public static class OrmLiteReadCommandExtensions
     /// <returns>IEnumerable&lt;T&gt;.</returns>
     static internal IEnumerable<T> SelectLazy<T>(this IDbCommand dbCmd, string sql, object anonType = null)
     {
-        if (anonType != null) dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
+        if (anonType != null)
+        {
+            dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
+        }
+
         var dialectProvider = dbCmd.GetDialectProvider();
         dbCmd.CommandText = dialectProvider.ToSelectStatement(typeof(T), sql);
 
@@ -1062,7 +1156,10 @@ public static class OrmLiteReadCommandExtensions
         string sql,
         IEnumerable<IDbDataParameter> sqlParams)
     {
-        foreach (var p in dbCmd.SetParameters(sqlParams).ColumnLazy<T>(sql)) yield return p;
+        foreach (var p in dbCmd.SetParameters(sqlParams).ColumnLazy<T>(sql))
+        {
+            yield return p;
+        }
     }
 
     /// <summary>
@@ -1076,7 +1173,9 @@ public static class OrmLiteReadCommandExtensions
     static internal IEnumerable<T> ColumnLazy<T>(this IDbCommand dbCmd, string sql, object anonType)
     {
         foreach (var p in dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql).ColumnLazy<T>(sql))
+        {
             yield return p;
+        }
     }
 
     /// <summary>
@@ -1106,9 +1205,13 @@ public static class OrmLiteReadCommandExtensions
         {
             var value = dialectProvider.FromDbValue(reader, 0, typeof(T));
             if (value == DBNull.Value)
+            {
                 yield return default(T);
+            }
             else
+            {
                 yield return (T)value;
+            }
         }
     }
 
@@ -1166,7 +1269,10 @@ public static class OrmLiteReadCommandExtensions
     /// <returns>T.</returns>
     static internal T Scalar<T>(this IDbCommand dbCmd, string sql, object anonType = null)
     {
-        if (anonType != null) dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
+        if (anonType != null)
+        {
+            dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
+        }
 
         return dbCmd.Scalar<T>(sql);
     }
@@ -1203,19 +1309,25 @@ public static class OrmLiteReadCommandExtensions
         {
             object oValue = reader.GetValue(columnIndex);
             if (oValue == DBNull.Value)
+            {
                 return default(T);
+            }
         }
 
         var underlyingType = nullableType ?? typeof(T);
         if (underlyingType == typeof(object))
+        {
             return (T)reader.GetValue(0);
+        }
 
         var converter = dialectProvider.GetConverterBestMatch(underlyingType);
         if (converter != null)
         {
             object oValue = converter.GetValue(reader, columnIndex, null);
             if (oValue == null)
+            {
                 return default(T);
+            }
 
             var convertedValue = converter.FromDbValue(underlyingType, oValue);
             return convertedValue == null ? default(T) : (T)convertedValue;
@@ -1232,7 +1344,9 @@ public static class OrmLiteReadCommandExtensions
     static internal long LastInsertId(this IDbCommand dbCmd)
     {
         if (OrmLiteConfig.ResultsFilter != null)
+        {
             return OrmLiteConfig.ResultsFilter.GetLastInsertId(dbCmd);
+        }
 
         return dbCmd.GetDialectProvider().GetLastInsertId(dbCmd);
     }
@@ -1247,7 +1361,10 @@ public static class OrmLiteReadCommandExtensions
     /// <returns>List&lt;T&gt;.</returns>
     static internal List<T> Column<T>(this IDbCommand dbCmd, string sql, object anonType = null)
     {
-        if (anonType != null) dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
+        if (anonType != null)
+        {
+            dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
+        }
 
         return dbCmd.Column<T>(dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql));
     }
@@ -1321,7 +1438,9 @@ public static class OrmLiteReadCommandExtensions
         {
             var value = dialectProvider.FromDbValue(reader, 0, typeof(T));
             if (value == DBNull.Value)
+            {
                 value = default(T);
+            }
 
             columValues.Add((T)value);
         }
@@ -1364,7 +1483,7 @@ public static class OrmLiteReadCommandExtensions
 
             if (!lookup.TryGetValue(key, out var values))
             {
-                values = new List<V>();
+                values = [];
                 lookup[key] = values;
             }
 
@@ -1386,7 +1505,9 @@ public static class OrmLiteReadCommandExtensions
     static internal Dictionary<K, V> Dictionary<K, V>(this IDbCommand dbCmd, string sql, object anonType = null)
     {
         if (anonType != null)
+        {
             SetParameters(dbCmd, anonType.ToObjectDictionary(), excludeDefaults: false, sql: ref sql);
+        }
 
         return dbCmd.Dictionary<K, V>(sql);
     }
@@ -1431,7 +1552,9 @@ public static class OrmLiteReadCommandExtensions
         object anonType = null)
     {
         if (anonType != null)
+        {
             SetParameters(dbCmd, anonType.ToObjectDictionary(), excludeDefaults: false, sql: ref sql);
+        }
 
         return dbCmd.KeyValuePairs<K, V>(sql);
     }
@@ -1472,7 +1595,9 @@ public static class OrmLiteReadCommandExtensions
     {
         string sql = null;
         if (anonType != null)
+        {
             SetParameters(dbCmd, anonType.ToObjectDictionary(), excludeDefaults: true, sql: ref sql);
+        }
 
         sql = GetFilterSql<T>(dbCmd);
 
@@ -1490,7 +1615,10 @@ public static class OrmLiteReadCommandExtensions
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     static internal bool Exists<T>(this IDbCommand dbCmd, string sql, object anonType = null)
     {
-        if (anonType != null) SetParameters(dbCmd, anonType.ToObjectDictionary(), (bool)false, sql: ref sql);
+        if (anonType != null)
+        {
+            SetParameters(dbCmd, anonType.ToObjectDictionary(), (bool)false, sql: ref sql);
+        }
 
         var result = dbCmd.Scalar(dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql));
         return result != null;
@@ -1562,10 +1690,26 @@ public static class OrmLiteReadCommandExtensions
     /// <returns>System.Int64.</returns>
     static internal long ToLong(object result)
     {
-        if (result is DBNull) return default(long);
-        if (result is int) return (int)result;
-        if (result is decimal) return Convert.ToInt64((decimal)result);
-        if (result is ulong) return (long)Convert.ToUInt64(result);
+        if (result is DBNull)
+        {
+            return default(long);
+        }
+
+        if (result is int)
+        {
+            return (int)result;
+        }
+
+        if (result is decimal)
+        {
+            return Convert.ToInt64((decimal)result);
+        }
+
+        if (result is ulong)
+        {
+            return (long)Convert.ToUInt64(result);
+        }
+
         return (long)result;
     }
 
@@ -1581,7 +1725,9 @@ public static class OrmLiteReadCommandExtensions
     {
         var row = dbCmd.SingleById<T>(value);
         if (row == null)
+        {
             return default(T);
+        }
 
         dbCmd.LoadReferences(row, include);
 
@@ -1605,7 +1751,9 @@ public static class OrmLiteReadCommandExtensions
         foreach (var fieldDef in fieldDefs)
         {
             if (includeSet != null && !includeSet.Contains(fieldDef.Name))
+            {
                 continue;
+            }
 
             dbCmd.Parameters.Clear();
             var listInterface = fieldDef.FieldType.GetTypeWithGenericInterfaceOf(typeof(IList<>));
@@ -1646,7 +1794,9 @@ public static class OrmLiteReadCommandExtensions
         foreach (var fieldDef in fieldDefs)
         {
             if (includeSet != null && !includeSet.Contains(fieldDef.Name))
+            {
                 continue;
+            }
 
             var listInterface = fieldDef.FieldType.GetTypeWithGenericInterfaceOf(typeof(IList<>));
             if (listInterface != null)
@@ -1681,8 +1831,11 @@ public static class OrmLiteReadCommandExtensions
     {
         var refField = GetRefFieldDefIfExists(modelDef, refModelDef);
         if (refField == null)
+        {
             throw new ArgumentException(
                 $"Cant find '{modelDef.ModelName + "Id"}' Property on Type '{refType.Name}'");
+        }
+
         return refField;
     }
 
@@ -1791,7 +1944,9 @@ public static class OrmLiteReadCommandExtensions
         {
             p.Size = dialectProvider.GetStringConverter().StringLength;
             if (value is string strValue && strValue.Length > p.Size)
+            {
                 p.Size = strValue.Length;
+            }
         }
 
         if (value != null)
@@ -1805,16 +1960,24 @@ public static class OrmLiteReadCommandExtensions
         }
 
         if (dbType != null)
+        {
             p.DbType = dbType.Value;
+        }
 
         if (precision != null)
+        {
             p.Precision = precision.Value;
+        }
 
         if (scale != null)
+        {
             p.Scale = scale.Value;
+        }
 
         if (size != null)
+        {
             p.Size = size.Value;
+        }
 
         return p;
     }

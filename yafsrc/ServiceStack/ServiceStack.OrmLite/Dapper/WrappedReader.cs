@@ -355,10 +355,21 @@ static internal class WrappedReader
     /// <returns>IDataReader.</returns>
     public static IDataReader Create(IDbCommand cmd, IDataReader reader)
     {
-        if (cmd == null) return reader; // no need to wrap if no command
+        if (cmd == null)
+        {
+            return reader; // no need to wrap if no command
+        }
 
-        if (reader is DbDataReader dbr) return new DbWrappedReader(cmd, dbr);
-        if (reader != null) return new BasicWrappedReader(cmd, reader);
+        if (reader is DbDataReader dbr)
+        {
+            return new DbWrappedReader(cmd, dbr);
+        }
+
+        if (reader != null)
+        {
+            return new BasicWrappedReader(cmd, reader);
+        }
+
         cmd.Dispose();
         return null; // GIGO
     }
@@ -370,9 +381,16 @@ static internal class WrappedReader
     /// <returns>DbDataReader.</returns>
     public static DbDataReader Create(IDbCommand cmd, DbDataReader reader)
     {
-        if (cmd == null) return reader; // no need to wrap if no command
+        if (cmd == null)
+        {
+            return reader; // no need to wrap if no command
+        }
 
-        if (reader != null) return new DbWrappedReader(cmd, reader);
+        if (reader != null)
+        {
+            return new DbWrappedReader(cmd, reader);
+        }
+
         cmd.Dispose();
         return null; // GIGO
     }

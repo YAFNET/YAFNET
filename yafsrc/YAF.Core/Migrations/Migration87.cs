@@ -22,22 +22,17 @@
  * under the License.
  */
 
-namespace YAF.Core.Services.Migrations
+namespace YAF.Core.Migrations
 {
-    using System;
-
-    using ServiceStack.OrmLite;
-    using System.Data;
-
     using YAF.Core.Context;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
     /// <summary>
-    /// Version 85 Migrations
+    /// Version 87 Migrations
     /// </summary>
-    public class V85_Migration : IRepositoryMigration, IHaveServiceLocator
+    public class Migration87 : IRepositoryMigration, IHaveServiceLocator
     {
         /// <summary>
         /// Migrate Repositories (Database).
@@ -50,7 +45,9 @@ namespace YAF.Core.Services.Migrations
             dbAccess.Execute(
                 dbCommand =>
                 {
-                    this.UpgradeTable(this.GetRepository<Category>(), dbAccess, dbCommand);
+                    this.UpgradeTable(this.GetRepository<Forum>());
+                    this.UpgradeTable(this.GetRepository<Registry>());
+                    this.UpgradeTable(this.GetRepository<User>());
 
                     ///////////////////////////////////////////////////////////
 
@@ -58,16 +55,41 @@ namespace YAF.Core.Services.Migrations
                 });
         }
 
-        /// <summary>Upgrades the Category table.</summary>
+        /// <summary>Upgrades the Forum table.</summary>
         /// <param name="repository">The repository.</param>
-        /// <param name="dbAccess">The database access.</param>
-        /// <param name="dbCommand">The database command.</param>
-        private void UpgradeTable(IRepository<Category> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<Forum> repository)
         {
-            if (!dbCommand.Connection.ColumnExists<Category>(x => x.Flags))
-            {
-                dbCommand.Connection.AddColumn<Category>(x => x.Flags);
-            }
+            repository.UpdateOnly(() => new Forum { RemoteURL = null }, f => f.RemoteURL == "");
+        }
+
+        /// <summary>Upgrades the Registry table.</summary>
+        /// <param name="repository">The repository.</param>
+        private void UpgradeTable(IRepository<Registry> repository)
+        {
+            var entries = repository.Get(x => x.Value.Contains(".xml") && x.Name == "language");
+
+            entries.ForEach(
+                item =>
+                {
+                    item.Value = item.Value.Replace(".xml", ".json");
+
+                    repository.Update(item);
+                });
+        }
+
+        /// <summary>Upgrades the Registry table.</summary>
+        /// <param name="repository">The repository.</param>
+        private void UpgradeTable(IRepository<User> repository)
+        {
+            var entries = repository.Get(x => x.LanguageFile.Contains(".xml"));
+
+            entries.ForEach(
+                item =>
+                {
+                    item.LanguageFile = item.LanguageFile.Replace(".xml", ".json");
+
+                    repository.Update(item);
+                });
         }
 
         public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
