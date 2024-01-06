@@ -245,6 +245,34 @@ public static class IDbAccessExtensions
     }
 
     /// <summary>
+    ///  Update only fields in the specified expression that matches the where condition (if any), E.g:
+    ///
+    ///   db.UpdateOnly(() => new Person { FirstName = "JJ" }, where: p => p.LastName == "Hendrix");
+    ///   UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
+    ///
+    ///   db.UpdateOnly(() => new Person { FirstName = "JJ" });
+    ///   UPDATE "Person" SET "FirstName" = 'JJ'
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="dbAccess">The database access.</param>
+    /// <param name="updateFields">The update fields.</param>
+    /// <param name="where">The where.</param>
+    /// <returns></returns>
+    public static Task<int> UpdateOnlyAsync<T>(
+        this IDbAccess dbAccess,
+        Expression<Func<T>> updateFields,
+        Expression<Func<T, bool>> where = null,
+        CancellationToken token = default)
+        where T : class, IEntity, new()
+    {
+        return dbAccess.ExecuteAsync(
+            db => db.UpdateOnlyFieldsAsync(
+                updateFields,
+                where, //OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where),
+                token: token));
+    }
+
+    /// <summary>
     /// Checks whether a Table Exists. E.g:
     /// <para>db.TableExists&lt;Person&gt;()</para>
     /// </summary>

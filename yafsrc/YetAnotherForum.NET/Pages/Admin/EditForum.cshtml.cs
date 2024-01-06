@@ -23,6 +23,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -270,7 +272,7 @@ public class EditForumModel : AdminPage
     /// <summary>
     /// Save the Forum
     /// </summary>
-    public IActionResult OnPostSave(int? fa = null, bool copy = false)
+    public async Task<IActionResult> OnPostSaveAsync(int? fa = null, bool copy = false)
     {
         if (this.Input.CategoryID == 0)
         {
@@ -358,16 +360,15 @@ public class EditForumModel : AdminPage
         // Access
         if (forumId.HasValue)
         {
-            this.AccessList.ForEach(
-                item =>
-                {
-                    var groupId = item.GroupID;
+            foreach (var item in this.AccessList)
+            {
+                var groupId = item.GroupID;
 
-                    this.GetRepository<ForumAccess>().Save(
-                        newForumId,
-                        groupId,
-                        item.AccessMaskID);
-                });
+                await this.GetRepository<ForumAccess>().SaveAsync(
+                    newForumId,
+                    groupId,
+                    item.AccessMaskID);
+            }
         }
         else
         {

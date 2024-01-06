@@ -178,6 +178,14 @@ public interface IAspNetUsersHelper
     /// <returns>
     /// Returns MembershipUser
     /// </returns>
+    AspNetUsers GetUser();
+
+    /// <summary>
+    /// Method returns MembershipUser
+    /// </summary>
+    /// <returns>
+    /// Returns MembershipUser
+    /// </returns>
     Task<AspNetUsers> GetUserAsync();
 
     /// <summary>

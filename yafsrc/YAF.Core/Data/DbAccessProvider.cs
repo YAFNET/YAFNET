@@ -115,7 +115,7 @@ public class DbAccessProvider : IDbAccessProvider
     /// </summary>
     public string ProviderName
     {
-        get => this._providerName ??= _serviceLocator.Get<BoardConfiguration>().ConnectionProviderName;
+        get => this._providerName ??= this._serviceLocator.Get<BoardConfiguration>().ConnectionProviderName;
 
         set
         {

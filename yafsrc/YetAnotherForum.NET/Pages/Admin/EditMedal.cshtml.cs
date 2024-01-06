@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -203,9 +205,14 @@ public class EditMedalModel : AdminPage
             this.Get<LinkBuilder>().GetLink(ForumPages.Admin_EditUser, new {u = item.Item3.ID }));
     }
 
-    public void OnPostRemoveGroup(int id)
+    /// <summary>
+    /// On post remove group as an asynchronous operation.
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <returns>A Task representing the asynchronous operation.</returns>
+    public async Task OnPostRemoveGroupAsync(int id)
     {
-        this.GetRepository<GroupMedal>().Delete(
+        await this.GetRepository<GroupMedal>().DeleteAsync(
             medal => medal.GroupID == id
                      && medal.MedalID == this.Input.Id);
 
@@ -266,10 +273,10 @@ public class EditMedalModel : AdminPage
         return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Medals);
     }
 
-    public void OnPostRemoveUser(int id)
+    public async Task OnPostRemoveUserAsync(int id)
     {
         // delete user-medal
-        this.GetRepository<UserMedal>().Delete(
+        await this.GetRepository<UserMedal>().DeleteAsync(
             medal => medal.UserID == id
                      && medal.MedalID == this.Input.Id);
 

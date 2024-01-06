@@ -24,6 +24,7 @@
 
 using System.Collections.Generic;
 
+
 namespace YAF.Core.Context;
 
 using System;
@@ -231,7 +232,7 @@ public class BoardContext : UserPageBase, IDisposable, IHaveServiceLocator
             return;
         }
 
-        this.MembershipUser = this.Get<IAspNetUsersHelper>().GetUserAsync().Result;
+        this.MembershipUser = this.Get<IAspNetUsersHelper>().GetUser();
 
         this.PageLinks = [];
 

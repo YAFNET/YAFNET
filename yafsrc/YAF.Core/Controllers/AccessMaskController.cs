@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Core.Controllers;
 
 using YAF.Core.BasePages;
@@ -46,7 +48,7 @@ public class AccessMaskController : ForumBaseController
     /// <returns>IActionResult.</returns>
     [ValidateAntiForgeryToken]
     [HttpPost("SetGroupMask")]
-    public IActionResult SetGroupMask([FromBody] PagedResults pagedResults)
+    public async Task<IActionResult> SetGroupMask([FromBody] PagedResults pagedResults)
     {
         if (!BoardContext.Current.IsAdmin)
         {
@@ -57,7 +59,7 @@ public class AccessMaskController : ForumBaseController
         var accessMaskId = pagedResults.PageSize;
         var roleId = pagedResults.PageNumber;
 
-        this.GetRepository<ForumAccess>().Save(
+        await this.GetRepository<ForumAccess>().SaveAsync(
             forumId,
             roleId,
             accessMaskId);

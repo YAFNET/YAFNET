@@ -28,6 +28,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq.Expressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Hosting;
@@ -454,6 +455,28 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     public Task<AspNetUsers> GetUserAsync(object providerKey)
     {
         return this.Get<AspNetUsersManager>().FindUserByIdAsync(providerKey.ToString());
+    }
+
+    /// <summary>
+    /// Method returns MembershipUser
+    /// </summary>
+    /// <returns>
+    /// Returns MembershipUser
+    /// </returns>
+    public AspNetUsers GetUser()
+    {
+        var httpContext = this.Get<IHttpContextAccessor>().HttpContext;
+
+        if (httpContext?.User.Identity == null)
+        {
+            return null;
+        }
+
+        return httpContext.User.Identity.IsAuthenticated
+            ? this.GetRepository<AspNetUsers>().GetSingle(
+                u => u.UserName.ToLower(CultureInfo.InvariantCulture) ==
+                     httpContext.User.Identity.Name.ToLower(CultureInfo.InvariantCulture))
+            : null;
     }
 
     /// <summary>

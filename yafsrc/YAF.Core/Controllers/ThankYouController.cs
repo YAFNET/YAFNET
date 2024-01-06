@@ -56,29 +56,26 @@ public class ThankYouController : ForumBaseController
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ThankYouInfo))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpPost("GetThanks/{messageId:int}")]
-    public Task<ActionResult<ThankYouInfo>> GetThanks(int messageId)
+    public async Task<ActionResult<ThankYouInfo>> GetThanks(int messageId)
     {
-        var membershipUser = this.PageBoardContext.MembershipUser;
-
-        if (membershipUser is null)
+        if (this.PageBoardContext.IsGuest)
         {
-            return Task.FromResult<ActionResult<ThankYouInfo>>(this.NotFound());
+            return this.NotFound();
         }
 
-        var message = this.GetRepository<Message>().GetById(messageId);
+        var message = await this.GetRepository<Message>().GetByIdAsync(messageId);
 
         var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
 
         // if the user is empty, return a null object...
         return userName.IsNotSet()
-                   ? Task.FromResult<ActionResult<ThankYouInfo>>(this.NotFound())
-                   : Task.FromResult<ActionResult<ThankYouInfo>>(
-                       this.Ok(
-                           this.Get<IThankYou>().GetThankYou(
-                               new UnicodeEncoder().XSSEncode(userName),
-                               "BUTTON_THANKSDELETE",
-                               "BUTTON_THANKSDELETE_TT",
-                               messageId)));
+            ? this.NotFound()
+            : this.Ok(
+                this.Get<IThankYou>().GetThankYou(
+                    new UnicodeEncoder().XSSEncode(userName),
+                    "BUTTON_THANKSDELETE",
+                    "BUTTON_THANKSDELETE_TT",
+                    messageId));
     }
 
     /// <summary>
@@ -96,24 +93,22 @@ public class ThankYouController : ForumBaseController
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ThankYouInfo))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpPost("AddThanks/{messageId:int}")]
-    public Task<ActionResult<ThankYouInfo>> AddThanks(int messageId)
+    public async Task<ActionResult<ThankYouInfo>> AddThanks(int messageId)
     {
-        var membershipUser = this.PageBoardContext.MembershipUser;
-
-        if (membershipUser is null)
-        {
-            return Task.FromResult<ActionResult<ThankYouInfo>>(this.NotFound());
-        }
-
         var fromUserId = BoardContext.Current.PageUserID;
 
-        var message = this.GetRepository<Message>().GetById(messageId);
+        if (this.PageBoardContext.IsGuest)
+        {
+            return this.NotFound();
+        }
+
+        var message = await this.GetRepository<Message>().GetByIdAsync(messageId);
 
         var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
 
         if (this.GetRepository<Thanks>().Exists(x => x.MessageID == messageId && x.ThanksFromUserID == fromUserId))
         {
-            return Task.FromResult<ActionResult<ThankYouInfo>>(this.NotFound());
+            return this.NotFound();
         }
 
         this.GetRepository<Thanks>().AddMessageThanks(fromUserId, message.UserID, messageId);
@@ -128,13 +123,13 @@ public class ThankYouController : ForumBaseController
 
         // if the user is empty, return a null object...
         return userName.IsNotSet()
-                   ? Task.FromResult<ActionResult<ThankYouInfo>>(this.NotFound())
-                   : Task.FromResult<ActionResult<ThankYouInfo>>(this.Ok(
-                       this.Get<IThankYou>().CreateThankYou(
-                           new UnicodeEncoder().XSSEncode(userName),
-                           "BUTTON_THANKSDELETE",
-                           "BUTTON_THANKSDELETE_TT",
-                           messageId)));
+            ? this.NotFound()
+            : this.Ok(
+                this.Get<IThankYou>().CreateThankYou(
+                    new UnicodeEncoder().XSSEncode(userName),
+                    "BUTTON_THANKSDELETE",
+                    "BUTTON_THANKSDELETE_TT",
+                    messageId));
     }
 
     /// <summary>
@@ -151,9 +146,9 @@ public class ThankYouController : ForumBaseController
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ThankYouInfo))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpPost("RemoveThanks/{messageId:int}")]
-    public Task<ActionResult<ThankYouInfo>> RemoveThanks([FromRoute] int messageId)
+    public async Task<ActionResult<ThankYouInfo>> RemoveThanks([FromRoute] int messageId)
     {
-        var message = this.GetRepository<Message>().GetById(messageId);
+        var message = await this.GetRepository<Message>().GetByIdAsync(messageId);
 
         var userName = this.Get<IUserDisplayName>().GetNameById(message.UserID);
 
@@ -161,10 +156,9 @@ public class ThankYouController : ForumBaseController
             this.PageBoardContext.PageUserID,
             messageId);
 
-        this.GetRepository<Activity>()
-            .Delete(a => a.MessageID == messageId && (a.Flags == 1024 || a.Flags == 2048));
+        await this.GetRepository<Activity>()
+            .DeleteAsync(a => a.MessageID == messageId && (a.Flags == 1024 || a.Flags == 2048));
 
-        return Task.FromResult<ActionResult<ThankYouInfo>>(
-            this.Ok(this.Get<IThankYou>().CreateThankYou(userName, "BUTTON_THANKS", "BUTTON_THANKS_TT", messageId)));
+        return this.Ok(this.Get<IThankYou>().CreateThankYou(userName, "BUTTON_THANKS", "BUTTON_THANKS_TT", messageId));
     }
 }

@@ -473,6 +473,31 @@ public static class IRepositoryExtensions
     }
 
     /// <summary>
+    ///  Update only fields in the specified expression that matches the where condition (if any), E.g:
+    ///
+    ///   db.UpdateOnly(() => new Person { FirstName = "JJ" }, where: p => p.LastName == "Hendrix");
+    ///   UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
+    ///
+    ///   db.UpdateOnly(() => new Person { FirstName = "JJ" });
+    ///   UPDATE "Person" SET "FirstName" = 'JJ'
+    /// </summary>
+    /// <typeparam name="T">
+    /// The type parameter.
+    /// </typeparam>
+    /// <param name="repository">The repository.</param>
+    /// <param name="updateFields">The update fields.</param>
+    /// <param name="where">The where.</param>
+    /// <returns></returns>
+    public static Task<int> UpdateOnlyAsync<T>(
+        this IRepository<T> repository,
+        Expression<Func<T>> updateFields,
+        Expression<Func<T, bool>> where = null)
+        where T : class, IEntity, new()
+    {
+        return repository.DbAccess.UpdateOnlyAsync(updateFields, where);
+    }
+
+    /// <summary>
     /// Checks whether a Table Exists.
     /// </summary>
     /// <typeparam name="T">
@@ -551,6 +576,31 @@ public static class IRepositoryExtensions
     {
         return repository.DbAccess.Execute(
             db => includeReference ? db.Connection.LoadSingleById<T>(id) : db.Connection.SingleById<T>(id));
+    }
+
+    /// <summary>
+    /// Gets a single entity by its ID.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <param name="includeReference">
+    /// Load References.
+    /// </param>
+    /// <typeparam name="T">
+    /// The type parameter.
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="T"/> .
+    /// </returns>
+    public async static Task<T> GetByIdAsync<T>(this IRepository<T> repository, int id, bool includeReference = false)
+        where T : IEntity, IHaveID, new()
+    {
+        return await repository.DbAccess.ExecuteAsync(
+            db => includeReference ? db.LoadSingleByIdAsync<T>(id) : db.SingleByIdAsync<T>(id));
     }
 
     /// <summary>
