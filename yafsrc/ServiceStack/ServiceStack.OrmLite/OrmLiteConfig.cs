@@ -322,7 +322,9 @@ public static class OrmLiteConfig
         get
         {
             if (execFilter == null)
+            {
                 execFilter = new OrmLiteExecFilter();
+            }
 
             return dialectProvider != null
                        ? dialectProvider.ExecFilter ?? execFilter

@@ -222,7 +222,11 @@ public static partial class SqlMapper
     /// <exception cref="System.ArgumentNullException">type</exception>
     public static Task<IEnumerable<object>> QueryAsync(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
     {
-        if (type == null) throw new ArgumentNullException(nameof(type));
+        if (type == null)
+        {
+            throw new ArgumentNullException(nameof(type));
+        }
+
         return QueryAsync<object>(cnn, type, new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.Buffered, default(CancellationToken)));
     }
 
@@ -240,7 +244,11 @@ public static partial class SqlMapper
     /// <exception cref="System.ArgumentNullException">type</exception>
     public static Task<object> QueryFirstAsync(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
     {
-        if (type == null) throw new ArgumentNullException(nameof(type));
+        if (type == null)
+        {
+            throw new ArgumentNullException(nameof(type));
+        }
+
         return QueryRowAsync<object>(cnn, Row.First, type, new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None, default(CancellationToken)));
     }
     /// <summary>
@@ -257,7 +265,11 @@ public static partial class SqlMapper
     /// <exception cref="System.ArgumentNullException">type</exception>
     public static Task<object> QueryFirstOrDefaultAsync(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
     {
-        if (type == null) throw new ArgumentNullException(nameof(type));
+        if (type == null)
+        {
+            throw new ArgumentNullException(nameof(type));
+        }
+
         return QueryRowAsync<object>(cnn, Row.FirstOrDefault, type, new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None, default(CancellationToken)));
     }
     /// <summary>
@@ -274,7 +286,11 @@ public static partial class SqlMapper
     /// <exception cref="System.ArgumentNullException">type</exception>
     public static Task<object> QuerySingleAsync(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
     {
-        if (type == null) throw new ArgumentNullException(nameof(type));
+        if (type == null)
+        {
+            throw new ArgumentNullException(nameof(type));
+        }
+
         return QueryRowAsync<object>(cnn, Row.Single, type, new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None, default(CancellationToken)));
     }
     /// <summary>
@@ -291,7 +307,11 @@ public static partial class SqlMapper
     /// <exception cref="System.ArgumentNullException">type</exception>
     public static Task<object> QuerySingleOrDefaultAsync(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
     {
-        if (type == null) throw new ArgumentNullException(nameof(type));
+        if (type == null)
+        {
+            throw new ArgumentNullException(nameof(type));
+        }
+
         return QueryRowAsync<object>(cnn, Row.SingleOrDefault, type, new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None, default(CancellationToken)));
     }
 
@@ -472,7 +492,11 @@ public static partial class SqlMapper
         DbDataReader reader = null;
         try
         {
-            if (wasClosed) await cnn.TryOpenAsync(cancel).ConfigureAwait(false);
+            if (wasClosed)
+            {
+                await cnn.TryOpenAsync(cancel).ConfigureAwait(false);
+            }
+
             reader = await ExecuteReaderWithFlagsFallbackAsync(cmd, wasClosed, CommandBehavior.SequentialAccess | CommandBehavior.SingleResult, cancel).ConfigureAwait(false);
 
             var tuple = info.Deserializer;
@@ -480,9 +504,15 @@ public static partial class SqlMapper
             if (tuple.Func == null || tuple.Hash != hash)
             {
                 if (reader.FieldCount == 0)
+                {
                     return Enumerable.Empty<T>();
+                }
+
                 tuple = info.Deserializer = new DeserializerState(hash, GetDeserializer(effectiveType, reader, 0, -1, false));
-                if (command.AddToCache) SetQueryCache(identity, info);
+                if (command.AddToCache)
+                {
+                    SetQueryCache(identity, info);
+                }
             }
 
             var func = tuple.Func;
@@ -519,7 +549,10 @@ public static partial class SqlMapper
         finally
         {
             using (reader) { /* dispose if non-null */ }
-            if (wasClosed) cnn.Close();
+            if (wasClosed)
+            {
+                cnn.Close();
+            }
         }
     }
 
@@ -543,7 +576,11 @@ public static partial class SqlMapper
         DbDataReader reader = null;
         try
         {
-            if (wasClosed) await cnn.TryOpenAsync(cancel).ConfigureAwait(false);
+            if (wasClosed)
+            {
+                await cnn.TryOpenAsync(cancel).ConfigureAwait(false);
+            }
+
             reader = await ExecuteReaderWithFlagsFallbackAsync(cmd, wasClosed, (row & Row.Single) != 0
                                                                                    ? CommandBehavior.SequentialAccess | CommandBehavior.SingleResult // need to allow multiple rows, to check fail condition
                                                                                    : CommandBehavior.SequentialAccess | CommandBehavior.SingleResult | CommandBehavior.SingleRow, cancel).ConfigureAwait(false);
@@ -556,7 +593,10 @@ public static partial class SqlMapper
                 if (tuple.Func == null || tuple.Hash != hash)
                 {
                     tuple = info.Deserializer = new DeserializerState(hash, GetDeserializer(effectiveType, reader, 0, -1, false));
-                    if (command.AddToCache) SetQueryCache(identity, info);
+                    if (command.AddToCache)
+                    {
+                        SetQueryCache(identity, info);
+                    }
                 }
 
                 var func = tuple.Func;
@@ -571,7 +611,11 @@ public static partial class SqlMapper
                     var convertToType = Nullable.GetUnderlyingType(effectiveType) ?? effectiveType;
                     result = (T)Convert.ChangeType(val, convertToType, CultureInfo.InvariantCulture);
                 }
-                if ((row & Row.Single) != 0 && await reader.ReadAsync(cancel).ConfigureAwait(false)) ThrowMultipleRows(row);
+                if ((row & Row.Single) != 0 && await reader.ReadAsync(cancel).ConfigureAwait(false))
+                {
+                    ThrowMultipleRows(row);
+                }
+
                 while (await reader.ReadAsync(cancel).ConfigureAwait(false)) { /* ignore rows after the first */ }
             }
             else if ((row & Row.FirstOrDefault) == 0) // demanding a row, and don't have one
@@ -584,7 +628,10 @@ public static partial class SqlMapper
         finally
         {
             using (reader) { /* dispose if non-null */ }
-            if (wasClosed) cnn.Close();
+            if (wasClosed)
+            {
+                cnn.Close();
+            }
         }
     }
 
@@ -660,7 +707,10 @@ public static partial class SqlMapper
         bool wasClosed = cnn.State == ConnectionState.Closed;
         try
         {
-            if (wasClosed) await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+            if (wasClosed)
+            {
+                await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+            }
 
             CacheInfo info = null;
             string masterSql = null;
@@ -742,7 +792,10 @@ public static partial class SqlMapper
         }
         finally
         {
-            if (wasClosed) cnn.Close();
+            if (wasClosed)
+            {
+                cnn.Close();
+            }
         }
         return total;
     }
@@ -762,14 +815,21 @@ public static partial class SqlMapper
         using var cmd = command.TrySetupAsyncCommand(cnn, info.ParamReader);
         try
         {
-            if (wasClosed) await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+            if (wasClosed)
+            {
+                await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+            }
+
             var result = await cmd.ExecuteNonQueryAsync(command.CancellationToken).ConfigureAwait(false);
             command.OnCompleted();
             return result;
         }
         finally
         {
-            if (wasClosed) cnn.Close();
+            if (wasClosed)
+            {
+                cnn.Close();
+            }
         }
     }
 
@@ -1043,16 +1103,27 @@ public static partial class SqlMapper
         bool wasClosed = cnn.State == ConnectionState.Closed;
         try
         {
-            if (wasClosed) await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+            if (wasClosed)
+            {
+                await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+            }
+
             using var cmd = command.TrySetupAsyncCommand(cnn, info.ParamReader);
             using var reader = await ExecuteReaderWithFlagsFallbackAsync(cmd, wasClosed, CommandBehavior.SequentialAccess | CommandBehavior.SingleResult, command.CancellationToken).ConfigureAwait(false);
-            if (!command.Buffered) wasClosed = false; // handing back open reader; rely on command-behavior
+            if (!command.Buffered)
+            {
+                wasClosed = false; // handing back open reader; rely on command-behavior
+            }
+
             var results = MultiMapImpl<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(null, CommandDefinition.ForCallback(command.Parameters), map, splitOn, reader, identity, true);
             return command.Buffered ? results.ToList() : results;
         }
         finally
         {
-            if (wasClosed) cnn.Close();
+            if (wasClosed)
+            {
+                cnn.Close();
+            }
         }
     }
 
@@ -1102,7 +1173,11 @@ public static partial class SqlMapper
         bool wasClosed = cnn.State == ConnectionState.Closed;
         try
         {
-            if (wasClosed) await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+            if (wasClosed)
+            {
+                await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+            }
+
             using var cmd = command.TrySetupAsyncCommand(cnn, info.ParamReader);
             using var reader = await ExecuteReaderWithFlagsFallbackAsync(cmd, wasClosed, CommandBehavior.SequentialAccess | CommandBehavior.SingleResult, command.CancellationToken).ConfigureAwait(false);
             var results = MultiMapImpl(null, default(CommandDefinition), types, map, splitOn, reader, identity, true);
@@ -1110,7 +1185,10 @@ public static partial class SqlMapper
         }
         finally
         {
-            if (wasClosed) cnn.Close();
+            if (wasClosed)
+            {
+                cnn.Close();
+            }
         }
     }
 
@@ -1165,7 +1243,11 @@ public static partial class SqlMapper
         bool wasClosed = cnn.State == ConnectionState.Closed;
         try
         {
-            if (wasClosed) await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+            if (wasClosed)
+            {
+                await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+            }
+
             cmd = command.TrySetupAsyncCommand(cnn, info.ParamReader);
             reader = await ExecuteReaderWithFlagsFallbackAsync(cmd, wasClosed, CommandBehavior.SequentialAccess, command.CancellationToken).ConfigureAwait(false);
 
@@ -1190,7 +1272,11 @@ public static partial class SqlMapper
                 reader.Dispose();
             }
             cmd?.Dispose();
-            if (wasClosed) cnn.Close();
+            if (wasClosed)
+            {
+                cnn.Close();
+            }
+
             throw;
         }
     }
@@ -1290,7 +1376,11 @@ public static partial class SqlMapper
         try
         {
             cmd = command.TrySetupAsyncCommand(cnn, paramReader);
-            if (wasClosed) await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+            if (wasClosed)
+            {
+                await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+            }
+
             var reader = await ExecuteReaderWithFlagsFallbackAsync(cmd, wasClosed, commandBehavior, command.CancellationToken).ConfigureAwait(false);
             wasClosed = false;
             disposeCommand = false;
@@ -1298,8 +1388,15 @@ public static partial class SqlMapper
         }
         finally
         {
-            if (wasClosed) cnn.Close();
-            if (cmd != null && disposeCommand) cmd.Dispose();
+            if (wasClosed)
+            {
+                cnn.Close();
+            }
+
+            if (cmd != null && disposeCommand)
+            {
+                cmd.Dispose();
+            }
         }
     }
 
@@ -1372,13 +1469,21 @@ public static partial class SqlMapper
         try
         {
             cmd = command.TrySetupAsyncCommand(cnn, paramReader);
-            if (wasClosed) await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+            if (wasClosed)
+            {
+                await cnn.TryOpenAsync(command.CancellationToken).ConfigureAwait(false);
+            }
+
             result = await cmd.ExecuteScalarAsync(command.CancellationToken).ConfigureAwait(false);
             command.OnCompleted();
         }
         finally
         {
-            if (wasClosed) cnn.Close();
+            if (wasClosed)
+            {
+                cnn.Close();
+            }
+
             cmd?.Dispose();
         }
         return Parse<T>(result);

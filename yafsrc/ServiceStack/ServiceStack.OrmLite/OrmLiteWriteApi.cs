@@ -517,7 +517,9 @@ public static class OrmLiteWriteApi
     public static bool Save<T>(this IDbConnection dbConn, T obj, bool references = false)
     {
         if (!references)
+        {
             return dbConn.Exec(dbCmd => dbCmd.Save(obj));
+        }
 
         var trans = dbConn.OpenTransactionIfNotExists();
         return dbConn.Exec(dbCmd =>

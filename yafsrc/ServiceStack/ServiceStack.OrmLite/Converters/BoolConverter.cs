@@ -38,7 +38,9 @@ public class BoolConverter : NativeValueOrmLiteConverter
     public override object FromDbValue(Type fieldType, object value)
     {
         if (value is bool)
+        {
             return value;
+        }
 
         return 0 != (long)this.ConvertNumber(typeof(long), value);
     }
@@ -60,7 +62,9 @@ public class BoolAsIntConverter : BoolConverter
     public override object ToDbValue(Type fieldType, object value)
     {
         if (value is bool)
+        {
             return value;
+        }
 
         return 0 != (long)this.ConvertNumber(typeof(long), value);
     }

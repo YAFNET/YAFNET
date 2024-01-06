@@ -124,7 +124,9 @@ public static class OrmLiteDialectProviderExtensions
                                              ModelDefinition tableDef, string tableAlias, FieldDefinition fieldDef)
     {
         if (tableAlias == null)
+        {
             return dialect.GetQuotedColumnName(tableDef, fieldDef);
+        }
 
         return dialect.GetQuotedTableName(tableAlias) //aliases shouldn't have schemas
                + "." +
@@ -158,7 +160,9 @@ public static class OrmLiteDialectProviderExtensions
                                              ModelDefinition tableDef, string tableAlias, string fieldName)
     {
         if (tableAlias == null)
+        {
             return dialect.GetQuotedColumnName(tableDef, fieldName);
+        }
 
         return dialect.GetQuotedTableName(tableAlias) //aliases shouldn't have schemas 
                + "." +

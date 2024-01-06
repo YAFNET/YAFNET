@@ -183,7 +183,11 @@ public static partial class SqlMapper
                     int index = startBound;
                     for (int i = 0; i < length; i++)
                     {
-                        if (i != 0) sb.Append(", ");
+                        if (i != 0)
+                        {
+                            sb.Append(", ");
+                        }
+
                         sb.Append(reader.GetName(index++));
                     }
                     return sb.ToString();
@@ -236,15 +240,26 @@ public static partial class SqlMapper
         /// <returns>Func&lt;IDataReader, System.Object&gt;.</returns>
         private Func<IDataReader, object> GetReader(IDataReader reader, int startBound, int length, bool returnNullIfFirstMissing)
         {
-            if (length < 0) length = reader.FieldCount - startBound;
+            if (length < 0)
+            {
+                length = reader.FieldCount - startBound;
+            }
+
             int hash = GetColumnHash(reader, startBound, length);
-            if (returnNullIfFirstMissing) hash *= -27;
+            if (returnNullIfFirstMissing)
+            {
+                hash *= -27;
+            }
+
             // get a cheap key first: false means don't copy the values down
             var key = new DeserializerKey(hash, startBound, length, returnNullIfFirstMissing, reader, false);
             Func<IDataReader, object> deser;
             lock (readers)
             {
-                if (readers.TryGetValue(key, out deser)) return deser;
+                if (readers.TryGetValue(key, out deser))
+                {
+                    return deser;
+                }
             }
             deser = GetTypeDeserializerImpl(type, reader, startBound, length, returnNullIfFirstMissing);
             // get a more expensive key: true means copy the values down so it can be used as a key later

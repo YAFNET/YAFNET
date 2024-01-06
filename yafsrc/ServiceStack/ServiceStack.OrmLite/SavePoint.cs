@@ -65,9 +65,14 @@ public class SavePoint
     void VerifyValidState()
     {
         if (this.didRelease)
+        {
             throw new InvalidOperationException($"SAVEPOINT {this.Name} already RELEASED");
+        }
+
         if (this.didRollback)
+        {
             throw new InvalidOperationException($"SAVEPOINT {this.Name} already ROLLBACKED");
+        }
     }
 
     /// <summary>

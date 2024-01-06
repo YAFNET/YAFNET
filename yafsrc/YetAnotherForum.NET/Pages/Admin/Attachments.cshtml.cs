@@ -23,6 +23,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -96,9 +98,9 @@ public class AttachmentsModel : AdminPage
     /// Called when [post delete].
     /// </summary>
     /// <param name="id">The identifier.</param>
-    public void OnPostDelete(int id)
+    public async Task OnPostDeleteAsync(int id)
     {
-        this.GetRepository<Attachment>().DeleteById(id);
+        await this.GetRepository<Attachment>().DeleteByIdAsync(id);
 
         // re-bind controls
         this.BindData();

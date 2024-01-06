@@ -260,7 +260,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         to.UseSelectPropertiesAsAliases = this.UseSelectPropertiesAsAliases;
         to.hasEnsureConditions = this.hasEnsureConditions;
 
-        to.Params = new List<IDbDataParameter>(this.Params);
+        to.Params = [..this.Params];
 
         to.underlyingExpression = this.underlyingExpression;
         to.SqlFilter = this.SqlFilter;
@@ -304,36 +304,64 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         sb.Append('>').AppendLine();
 
         if (!this.UpdateFields.IsEmpty())
+        {
             sb.AppendLine(this.UpdateFields.Join(","));
+        }
+
         if (!this.InsertFields.IsEmpty())
+        {
             sb.AppendLine(this.InsertFields.Join(","));
+        }
 
         if (!string.IsNullOrEmpty(this.selectExpression))
+        {
             sb.AppendLine(this.selectExpression);
+        }
+
         if (!this.OnlyFields.IsEmpty())
+        {
             sb.AppendLine(this.OnlyFields.Join(","));
+        }
 
         if (!string.IsNullOrEmpty(this.TableAlias))
+        {
             sb.AppendLine(this.TableAlias);
+        }
+
         if (!string.IsNullOrEmpty(this.fromExpression))
+        {
             sb.AppendLine(this.fromExpression);
+        }
 
         if (!string.IsNullOrEmpty(this.WhereExpression))
+        {
             sb.AppendLine(this.WhereExpression);
+        }
 
         if (!string.IsNullOrEmpty(this.GroupByExpression))
+        {
             sb.AppendLine(this.GroupByExpression);
+        }
 
         if (!string.IsNullOrEmpty(this.HavingExpression))
+        {
             sb.AppendLine(this.HavingExpression);
+        }
 
         if (!string.IsNullOrEmpty(this.orderBy))
+        {
             sb.AppendLine(this.orderBy);
+        }
+
         if (!this.orderByProperties.IsEmpty())
+        {
             sb.AppendLine(this.orderByProperties.Join(","));
+        }
 
         if (this.Offset != null || this.Rows != null)
+        {
             sb.Append(this.Offset ?? 0).Append(',').Append(this.Rows ?? 0).AppendLine();
+        }
 
         sb.Append("FLAGS:");
         sb.Append(this.CustomSelect ? "1" : "0");
@@ -467,7 +495,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     internal virtual SqlExpression<T> Select(string[] fields, bool distinct)
     {
         if (fields == null || fields.Length == 0)
+        {
             return this.Select(string.Empty);
+        }
 
         this.useFieldName = true;
 
@@ -478,7 +508,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         foreach (var field in fields)
         {
             if (string.IsNullOrEmpty(field))
+            {
                 continue;
+            }
 
             if (field.EndsWith(".*"))
             {
@@ -490,10 +522,14 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                     {
                         var qualifiedField = this.GetQuotedColumnName(tableDef, fieldDef.Name);
                         if (fieldDef.CustomSelect != null)
+                        {
                             qualifiedField += " AS " + fieldDef.Name;
+                        }
 
                         if (sb.Length > 0)
+                        {
                             sb.Append(", ");
+                        }
 
                         sb.Append(qualifiedField);
                         fieldsList.Add(fieldDef.Name);
@@ -506,15 +542,21 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
                 var match = this.FirstMatchingField(field);
                 if (match == null)
+                {
                     continue;
+                }
 
                 var fieldDef = match.Item2;
                 var qualifiedName = this.GetQuotedColumnName(match.Item1, fieldDef.Name);
                 if (fieldDef.CustomSelect != null)
+                {
                     qualifiedName += " AS " + fieldDef.Name;
+                }
 
                 if (sb.Length > 0)
+                {
                     sb.Append(", ");
+                }
 
                 sb.Append(qualifiedName);
             }
@@ -1050,7 +1092,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     private string FormatFilter(string sqlFilter, params object[] filterParams)
     {
         if (string.IsNullOrEmpty(sqlFilter))
+        {
             return null;
+        }
 
         for (var i = 0; i < filterParams.Length; i++)
         {
@@ -1092,7 +1136,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             var p = this.AddParam(item);
 
             if (sbParams.Length > 0)
+            {
                 sbParams.Append(',');
+            }
 
             sbParams.Append(p.ParameterName);
         }
@@ -1289,7 +1335,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     protected SqlExpression<T> AppendToWhere(string condition, Expression predicate, object[] filterParams)
     {
         if (predicate == null)
+        {
             return this;
+        }
 
         this.Reset();
 
@@ -1307,7 +1355,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     protected SqlExpression<T> AppendToWhere(string condition, Expression predicate)
     {
         if (predicate == null)
+        {
             return this;
+        }
 
         this.Reset();
 
@@ -1323,7 +1373,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     private static string WhereExpressionToString(object expression)
     {
         if (expression is bool b)
+        {
             return b ? TrueLiteral : FalseLiteral;
+        }
+
         return expression.ToString();
     }
 
@@ -1347,7 +1400,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         else
         {
             if (this.WhereExpression[this.WhereExpression.Length - 1] != ')')
+            {
                 throw new NotSupportedException("Invalid whereExpression Expression with Ensure Conditions");
+            }
 
             // insert before normal WHERE parens: {EnsureConditions} AND (1+1)
             if (this.WhereExpression.EndsWith(TrueLiteral, StringComparison.Ordinal))
@@ -1451,7 +1506,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     protected SqlExpression<T> AppendToEnsure(Expression predicate)
     {
         if (predicate == null)
+        {
             return this;
+        }
 
         this.Reset();
 
@@ -1487,7 +1544,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             else
             {
                 if (!this.WhereExpression.StartsWith("WHERE ", StringComparison.OrdinalIgnoreCase))
+                {
                     throw new NotSupportedException("Invalid whereExpression Expression with Ensure Conditions");
+                }
 
                 this.WhereExpression = $"WHERE {condition} AND {this.WhereExpression["WHERE ".Length..]}";
             }
@@ -1512,7 +1571,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                 var tableDef = lambdaExpr.Parameters[0].Type.GetModelMetadata();
                 var fieldDef = tableDef?.GetFieldDefinition(me.Member.Name);
                 if (fieldDef != null)
+                {
                     return this.DialectProvider.GetQuotedColumnName(tableDef, me.Member.Name);
+                }
             }
         }
 
@@ -1546,7 +1607,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     public virtual SqlExpression<T> UnsafeGroupBy(string groupBy)
     {
         if (!string.IsNullOrEmpty(groupBy))
+        {
             this.GroupByExpression = "GROUP BY " + groupBy;
+        }
+
         return this;
     }
 
@@ -1654,7 +1718,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     {
         this.HavingExpression = this.FormatFilter(sqlFilter.SqlVerifyFragment(), filterParams);
 
-        if (this.HavingExpression != null) this.HavingExpression = "HAVING " + this.HavingExpression;
+        if (this.HavingExpression != null)
+        {
+            this.HavingExpression = "HAVING " + this.HavingExpression;
+        }
 
         return this;
     }
@@ -1669,7 +1736,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     {
         this.HavingExpression = this.FormatFilter(sqlFilter, filterParams);
 
-        if (this.HavingExpression != null) this.HavingExpression = "HAVING " + this.HavingExpression;
+        if (this.HavingExpression != null)
+        {
+            this.HavingExpression = "HAVING " + this.HavingExpression;
+        }
 
         return this;
     }
@@ -1686,9 +1756,15 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             this.Reset();
 
             this.HavingExpression = WhereExpressionToString(this.Visit(predicate));
-            if (!string.IsNullOrEmpty(this.HavingExpression)) this.HavingExpression = "HAVING " + this.HavingExpression;
+            if (!string.IsNullOrEmpty(this.HavingExpression))
+            {
+                this.HavingExpression = "HAVING " + this.HavingExpression;
+            }
         }
-        else this.HavingExpression = string.Empty;
+        else
+        {
+            this.HavingExpression = string.Empty;
+        }
 
         return this;
     }
@@ -1802,7 +1878,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     public ModelDefinition GetModelDefinition(FieldDefinition fieldDef)
     {
         if (this.modelDef.FieldDefinitions.Any(x => x == fieldDef))
+        {
             return this.modelDef;
+        }
 
         return this.tableDefs
             .FirstOrDefault(tableDef => tableDef.FieldDefinitions.Any(x => x == fieldDef));
@@ -1835,7 +1913,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                                     : this.DialectProvider.GetQuotedColumnName(field);
 
             if (sbOrderBy.Length > 0)
+            {
                 sbOrderBy.Append(", ");
+            }
 
             sbOrderBy.Append(qualifiedName + orderBySuffix);
         }
@@ -1914,7 +1994,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                                         : throw new ArgumentException("Could not find field " + useName);
 
             if (sbOrderBy.Length > 0)
+            {
                 sbOrderBy.Append(", ");
+            }
 
             sbOrderBy.Append(qualifiedName + useSuffix);
         }
@@ -2413,7 +2495,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             foreach (var prop in this.orderByProperties)
             {
                 if (sb.Length > 0)
+                {
                     sb.Append(", ");
+                }
 
                 sb.Append(prop);
             }
@@ -2524,7 +2608,7 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     /// <returns>ServiceStack.OrmLite.SqlExpression&lt;T&gt;.</returns>
     public virtual SqlExpression<T> Update(IEnumerable<string> updateFields)
     {
-        this.UpdateFields = new List<string>(updateFields);
+        this.UpdateFields = [..updateFields];
         return this;
     }
 
@@ -2710,19 +2794,32 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         foreach (var fieldDef in this.modelDef.FieldDefinitions)
         {
             if (fieldDef.ShouldSkipUpdate())
+            {
                 continue;
+            }
+
             if (fieldDef.IsRowVersion)
+            {
                 continue;
+            }
+
             if (this.UpdateFields.Count > 0
-                && !this.UpdateFields.Contains(fieldDef.Name)) continue; // added
+                && !this.UpdateFields.Contains(fieldDef.Name))
+            {
+                continue; // added
+            }
 
             var value = fieldDef.GetValue(item);
             if (excludeDefaults
                 && (value == null || !fieldDef.IsNullable && value.Equals(value.GetType().GetDefaultValue())))
+            {
                 continue;
+            }
 
             if (setFields.Length > 0)
+            {
                 setFields.Append(", ");
+            }
 
             setFields
                 .Append(this.DialectProvider.GetQuotedColumnName(fieldDef.FieldName))
@@ -2731,7 +2828,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         }
 
         if (setFields.Length == 0)
+        {
             throw new ArgumentException($"No non-null or non-default values were provided for type: {typeof(T).Name}");
+        }
 
         var sql = $"UPDATE {this.DialectProvider.GetQuotedTableName(this.modelDef)} " +
                   $"SET {StringBuilderCache.ReturnAndFree(setFields)} {this.WhereExpression}";
@@ -2757,20 +2856,31 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         {
             var fieldDef = this.ModelDef.AssertFieldDefinition(entry.Key);
             if (fieldDef.ShouldSkipUpdate())
+            {
                 continue;
+            }
+
             if (fieldDef.IsRowVersion)
+            {
                 continue;
+            }
 
             if (this.UpdateFields.Count > 0
                 && !this.UpdateFields.Contains(fieldDef.Name)) // added
+            {
                 continue;
+            }
 
             var value = entry.Value;
             if (value == null && !fieldDef.IsNullable)
+            {
                 continue;
+            }
 
             if (setFields.Length > 0)
+            {
                 setFields.Append(", ");
+            }
 
             setFields
                 .Append(this.DialectProvider.GetQuotedColumnName(fieldDef.FieldName))
@@ -2779,7 +2889,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         }
 
         if (setFields.Length == 0)
+        {
             throw new ArgumentException($"No non-null or non-default values were provided for type: {typeof(T).Name}");
+        }
 
         var sql = $"UPDATE {this.DialectProvider.GetQuotedTableName(this.modelDef)} " +
                   $"SET {StringBuilderCache.ReturnAndFree(setFields)} {this.WhereExpression}";
@@ -2851,7 +2963,11 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     {
         get
         {
-            if (string.IsNullOrEmpty(this.selectExpression)) this.BuildSelectExpression(string.Empty, false);
+            if (string.IsNullOrEmpty(this.selectExpression))
+            {
+                this.BuildSelectExpression(string.Empty, false);
+            }
+
             return this.selectExpression;
         }
 
@@ -3032,10 +3148,14 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             {
                 var r = this.VisitMemberAccess(m);
                 if (r is not PartialSqlString)
+                {
                     return r;
+                }
 
                 if (m.Expression.Type.IsNullableType())
+                {
                     return r.ToString();
+                }
 
                 return $"{r}={this.GetQuotedTrueValue()}";
             }
@@ -3046,7 +3166,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
             var r = this.VisitConditional(c);
             if (r is not PartialSqlString)
+            {
                 return r;
+            }
 
             return $"{r}={this.GetQuotedTrueValue()}";
         }
@@ -3063,7 +3185,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     public virtual object GetValue(object value, Type type)
     {
         if (this.skipParameterizationForThisExpression)
+        {
             return this.DialectProvider.GetQuotedValue(value, type);
+        }
 
         var paramValue = this.DialectProvider.GetParamValue(value, type);
         return paramValue ?? "null";
@@ -3084,29 +3208,43 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             {
                 left = this.VisitMemberAccess((MemberExpression)b.Left);
                 if (left is PartialSqlString)
+                {
                     left = new PartialSqlString($"{left}={this.GetQuotedTrueValue()}");
+                }
             }
             else if (b.Left is ConditionalExpression expression)
             {
                 left = this.VisitConditional(expression);
                 if (left is PartialSqlString)
+                {
                     left = new PartialSqlString($"{left}={this.GetQuotedTrueValue()}");
+                }
             }
-            else left = this.Visit(b.Left);
+            else
+            {
+                left = this.Visit(b.Left);
+            }
 
             if (this.IsBooleanComparison(b.Right))
             {
                 right = this.VisitMemberAccess((MemberExpression)b.Right);
                 if (right is PartialSqlString)
+                {
                     right = new PartialSqlString($"{right}={this.GetQuotedTrueValue()}");
+                }
             }
             else if (b.Right is ConditionalExpression expression)
             {
                 right = this.VisitConditional(expression);
                 if (right is PartialSqlString)
+                {
                     right = new PartialSqlString($"{right}={this.GetQuotedTrueValue()}");
+                }
             }
-            else right = this.Visit(b.Right);
+            else
+            {
+                right = this.Visit(b.Right);
+            }
 
             if (left is not PartialSqlString && right is not PartialSqlString)
             {
@@ -3115,9 +3253,14 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             }
 
             if (left is not PartialSqlString)
+            {
                 left = (bool)left ? this.GetTrueExpression() : this.GetFalseExpression();
+            }
+
             if (right is not PartialSqlString)
+            {
                 right = (bool)right ? this.GetTrueExpression() : this.GetFalseExpression();
+            }
         }
         else if (operand is "=" or "<>" && b.Left is MethodCallExpression methodExpr && methodExpr.Method.Name == "CompareString")
         {
@@ -3144,24 +3287,37 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                     (left == null || left.ToString().Equals("null", StringComparison.OrdinalIgnoreCase)))
                 {
                     if (operand == "=")
+                    {
                         return false; // "null == true/false" becomes "false"
+                    }
+
                     if (operand == "<>")
+                    {
                         return true; // "null != true/false" becomes "true"
+                    }
                 }
 
                 if (right is bool rightBool && !this.IsFieldName(left) && b.Left is not ConditionalExpression)
                 {
                     // Don't change anything when "expr" is a column name or ConditionalExpression - then we really want "ColName = 1" or (Case When 1=0 Then 1 Else 0 End = 1)
                     if (operand == "=")
+                    {
                         return rightBool ? left : this.GetNotValue(left); // "expr == true" becomes "expr", "expr == false" becomes "not (expr)"
+                    }
+
                     if (operand == "<>")
+                    {
                         return rightBool ? this.GetNotValue(left) : left; // "expr != true" becomes "not (expr)", "expr != false" becomes "expr"
+                    }
                 }
             }
 
             var leftEnum = left as EnumMemberAccess;
             //The real type should be read when a non-direct member is accessed. For example Sql.TableAlias(x.State, "p"),alias conversion should be performed when "x.State" is an enum 
-            if (leftEnum == null && left is PartialSqlString pss && pss.EnumMember != null) leftEnum = pss.EnumMember;
+            if (leftEnum == null && left is PartialSqlString pss && pss.EnumMember != null)
+            {
+                leftEnum = pss.EnumMember;
+            }
 
             var rightEnum = right as EnumMemberAccess;
 
@@ -3208,15 +3364,21 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         if (right.ToString().Equals("null", StringComparison.OrdinalIgnoreCase))
         {
             if (operand == "=")
+            {
                 operand = "is";
+            }
             else if (operand == "<>")
+            {
                 operand = "is not";
+            }
 
             separator = " ";
         }
 
         if (operand == "+" && b.Left.Type == typeof(string) && b.Right.Type == typeof(string))
+        {
             return this.BuildConcatExpression([left, right]);
+        }
 
         this.VisitFilter(operand, originalLeft, originalRight, ref left, ref right);
 
@@ -3246,9 +3408,13 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             var eLeft = !this.IsParameterAccess(b.Left) ? b.Left : Expression.Constant(left, b.Left.Type);
             var eRight = !this.IsParameterAccess(b.Right) ? b.Right : Expression.Constant(right, b.Right.Type);
             if (b.NodeType == ExpressionType.Coalesce)
+            {
                 visitedBinaryExp = Expression.Coalesce(eLeft, eRight, b.Conversion);
+            }
             else
+            {
                 visitedBinaryExp = Expression.MakeBinary(b.NodeType, eLeft, eRight, b.IsLiftedToNull, b.Method);
+            }
         }
 
         return visitedBinaryExp;
@@ -3263,11 +3429,15 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     protected virtual bool IsBooleanComparison(Expression e)
     {
         if (e is not MemberExpression m)
+        {
             return false;
+        }
 
         if (m.Member.DeclaringType.IsNullableType() &&
             m.Member.Name == "HasValue") // nameof(Nullable<bool>.HasValue)
+        {
             return false;
+        }
 
         return this.IsParameterAccess(m);
     }
@@ -3320,16 +3490,22 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                 var subUnaryExpr = e as UnaryExpression;
                 var isSubExprAccess = subUnaryExpr?.Operand is IndexExpression;
                 if (!isSubExprAccess)
+                {
                     return true;
+                }
             }
 
             if (e is BinaryExpression binaryExpr)
             {
                 if (this.CheckExpressionForTypes(binaryExpr.Left, types))
+                {
                     return true;
+                }
 
                 if (this.CheckExpressionForTypes(binaryExpr.Right, types))
+                {
                     return true;
+                }
             }
 
             if (e is MethodCallExpression methodCallExpr)
@@ -3337,29 +3513,41 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                 for (var i = 0; i < methodCallExpr.Arguments.Count; i++)
                 {
                     if (this.CheckExpressionForTypes(methodCallExpr.Arguments[i], types))
+                    {
                         return true;
+                    }
                 }
 
                 if (this.CheckExpressionForTypes(methodCallExpr.Object, types))
+                {
                     return true;
+                }
             }
 
             if (e is UnaryExpression unaryExpr)
             {
                 if (this.CheckExpressionForTypes(unaryExpr.Operand, types))
+                {
                     return true;
+                }
             }
 
             if (e is ConditionalExpression condExpr)
             {
                 if (this.CheckExpressionForTypes(condExpr.Test, types))
+                {
                     return true;
+                }
 
                 if (this.CheckExpressionForTypes(condExpr.IfTrue, types))
+                {
                     return true;
+                }
 
                 if (this.CheckExpressionForTypes(condExpr.IfFalse, types))
+                {
                     return true;
+                }
             }
 
             var memberExpr = e as MemberExpression;
@@ -3391,13 +3579,19 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         ref object right)
     {
         if (this.skipParameterizationForThisExpression)
+        {
             return;
+        }
 
         if (originalLeft is EnumMemberAccess && originalRight is EnumMemberAccess)
+        {
             return;
+        }
 
         if (operand is "AND" or "OR")
+        {
             return;
+        }
 
         if (left is not PartialSqlString && left?.ToString() != "null")
         {
@@ -3447,7 +3641,10 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             if (m.Member.DeclaringType.IsNullableType())
             {
                 if (m.Member.Name == nameof(Nullable<bool>.Value))
+                {
                     return this.Visit(m.Expression);
+                }
+
                 if (m.Member.Name == nameof(Nullable<bool>.HasValue))
                 {
                     var doesNotEqualNull = Expression.MakeBinary(ExpressionType.NotEqual, m.Expression, Expression.Constant(null));
@@ -3467,7 +3664,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             {
                 // We don't want to use the Column Name for constant expressions unless we're in a Sql. method call
                 if (this.inSqlMethodCall || !this.IsConstantExpression(m))
+                {
                     return this.GetMemberExpression(m);
+                }
             }
         }
 
@@ -3518,7 +3717,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                              : this.GetQuotedColumnName(tableDef, tableAlias, m.Member.Name);
 
         if (propertyInfo != null && propertyInfo.PropertyType.IsEnum)
+        {
             return new EnumMemberAccess(columnName, propertyInfo.PropertyType);
+        }
 
         return new PartialSqlString(columnName);
     }
@@ -3532,7 +3733,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     protected virtual string GetTableAlias(MemberExpression m, ModelDefinition tableDef)
     {
         if (this.originalLambda == null)
+        {
             return null;
+        }
 
         if (m.Expression is ParameterExpression pe)
         {
@@ -3541,7 +3744,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                                      : null;
 
             if (pe.Type == this.ModelDef.ModelType && pe.Name == tableParamName)
+            {
                 return this.TableAlias;
+            }
 
             var joinType = this.joinAlias?.ModelDef?.ModelType;
             var joinParamName = this.originalLambda.Parameters.Count > 1 && this.originalLambda.Parameters[1].Type == joinType
@@ -3549,7 +3754,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                                     : null;
 
             if (pe.Type == joinType && pe.Name == joinParamName)
+            {
                 return this.joinAlias.Alias;
+            }
         }
 
         if (this.UseJoinTypeAsAliases && this.joinAliases != null && this.joinAliases.TryGetValue(tableDef, out var tableOptions))
@@ -3620,7 +3827,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             foreach (var x in args)
             {
                 if (x.Name == name)
+                {
                     return true;
+                }
             }
         }
 
@@ -3686,16 +3895,23 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             if (mi.Name is nameof(Sql.TableAlias) or nameof(Sql.JoinAlias))
             {
                 if (expr is PartialSqlString ps && ps.Text.Contains(','))
+                {
                     return ps;                                               // new { buyer = Sql.TableAlias(b, "buyer")
+                }
+
                 return new PartialSqlString(expr + " AS " + member.Name);    // new { BuyerName = Sql.TableAlias(b.Name, "buyer") }
             }
 
             if (mi.Name != nameof(Sql.Desc) && mi.Name != nameof(Sql.Asc) && mi.Name != nameof(Sql.As) && mi.Name != nameof(Sql.AllFields))
+            {
                 return new PartialSqlString(expr + " AS " + member.Name);    // new { Alias = Sql.Count("*") }
+            }
         }
 
         if (expr is string s && s == Sql.EOT) // new { t1 = Sql.EOT, t2 = "0 EOT" }
+        {
             return new PartialSqlString(s);
+        }
 
         if (arg is ConditionalExpression ce ||                           // new { Alias = x.Value > 1 ? 1 : x.Value }
             arg is BinaryExpression be ||                           // new { Alias = x.First + " " + x.Last }
@@ -3727,7 +3943,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     private static void StripAliases(SelectList selectList)
     {
         if (selectList == null)
+        {
             return;
+        }
 
         foreach (var item in selectList.Items)
         {
@@ -3805,7 +4023,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     protected virtual object VisitConstant(ConstantExpression c)
     {
         if (c.Value == null)
+        {
             return PartialSqlString.Null;
+        }
 
         return c.Value;
     }
@@ -3827,7 +4047,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                 {
                     var e = u.Operand;
                     if (this.IsParameterAccess(e))
+                    {
                         return this.Visit(e);
+                    }
 
                     return CachedExpressionCompiler.Evaluate(u);
                 }
@@ -3854,7 +4076,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         var oCollection = CachedExpressionCompiler.Evaluate(e.Object);
 
         if (oCollection is List<object> list)
+        {
             return list[index];
+        }
 
         throw new NotImplementedException("Unknown Expression: " + e);
     }
@@ -3878,7 +4102,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                 if (!IsSqlClass(ifTrue))
                 {
                     if (this.Sep == " ")
+                    {
                         ifTrue = new PartialSqlString(this.ConvertToParam(ifTrue));
+                    }
                 }
                 else if (e.IfTrue.Type == typeof(bool))
                 {
@@ -3886,9 +4112,13 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                     if (!isBooleanComparison)
                     {
                         if (this.Sep == " ")
+                        {
                             ifTrue = ifTrue.ToString();
+                        }
                         else
+                        {
                             ifTrue = new PartialSqlString($"(CASE WHEN {ifTrue} THEN {1} ELSE {0} END)");
+                        }
                     }
                 }
 
@@ -3899,7 +4129,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             if (!IsSqlClass(ifFalse))
             {
                 if (this.Sep == " ")
+                {
                     ifFalse = new PartialSqlString(this.ConvertToParam(ifFalse));
+                }
             }
             else if (e.IfFalse.Type == typeof(bool))
             {
@@ -3907,9 +4139,13 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
                 if (!isBooleanComparison)
                 {
                     if (this.Sep == " ")
+                    {
                         ifFalse = ifFalse.ToString();
+                    }
                     else
+                    {
                         ifFalse = new PartialSqlString($"(CASE WHEN {ifFalse} THEN {1} ELSE {0} END)");
+                    }
                 }
             }
 
@@ -3919,7 +4155,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         {
             var ifTrue = this.Visit(e.IfTrue);
             if (!IsSqlClass(ifTrue))
+            {
                 ifTrue = this.ConvertToParam(ifTrue);
+            }
             else if (e.IfTrue.Type == typeof(bool))
             {
                 var isBooleanComparison = this.IsBooleanComparison(e.IfTrue);
@@ -3931,7 +4169,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
             var ifFalse = this.Visit(e.IfFalse);
             if (!IsSqlClass(ifFalse))
+            {
                 ifFalse = this.ConvertToParam(ifFalse);
+            }
             else if (e.IfFalse.Type == typeof(bool))
             {
                 var isBooleanComparison = this.IsBooleanComparison(e.IfFalse);
@@ -3953,10 +4193,14 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
     private object GetNotValue(object o)
     {
         if (o is not PartialSqlString)
+        {
             return !(bool)o;
+        }
 
         if (this.IsFieldName(o))
+        {
             return new PartialSqlString(o + "=" + this.GetQuotedFalseValue());
+        }
 
         return new PartialSqlString("NOT (" + o + ")");
     }
@@ -3982,13 +4226,19 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         }
 
         if (m.Object is MethodCallExpression methCallExp)
+        {
             return this.IsColumnAccess(methCallExp);
+        }
 
         if (m.Object is ConditionalExpression condExp)
+        {
             return this.IsParameterAccess(condExp);
+        }
 
         if (m.Object is UnaryExpression unaryExp)
+        {
             return this.IsParameterAccess(unaryExp);
+        }
 
         var exp = m.Object as MemberExpression;
         return this.IsParameterAccess(exp)
@@ -4013,16 +4263,24 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         }
 
         if (this.IsStaticArrayMethod(m))
+        {
             return this.VisitStaticArrayMethodCall(m);
+        }
 
         if (IsEnumerableMethod(m))
+        {
             return this.VisitEnumerableMethodCall(m);
+        }
 
         if (this.IsStaticStringMethod(m))
+        {
             return this.VisitStaticStringMethodCall(m);
+        }
 
         if (this.IsColumnAccess(m))
+        {
             return this.VisitColumnAccessMethod(m);
+        }
 
         return this.EvaluateExpression(m);
     }
@@ -4041,7 +4299,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         catch (InvalidOperationException)
         {
             if (this.originalLambda == null)
+            {
                 throw;
+            }
 
             // Can't use expression.Compile() if lambda expression contains captured parameters.
             // Fallback invokes expression with default parameters from original lambda expression
@@ -4227,7 +4487,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             }
 
             if (fd?.CustomSelect != null)
+            {
                 return fd.CustomSelect;
+            }
 
             var includePrefix = this.PrefixFieldWithTableName && !tableDef.ModelType.IsInterface;
             return includePrefix
@@ -4271,7 +4533,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         var isTableField = this.modelDef.FieldDefinitionsArray
             .Any(x => this.GetColumnName(x.FieldName) == unquotedExpr);
         if (isTableField)
+        {
             return true;
+        }
 
         var isJoinedField = this.tableDefs.Any(t => t.FieldDefinitionsArray
             .Any(x => this.GetColumnName(x.FieldName) == unquotedExpr));
@@ -4386,7 +4650,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
 
                 var memberExpr = m.Arguments[0];
                 if (memberExpr.NodeType == ExpressionType.MemberAccess)
+                {
                     memberExpr = m.Arguments[0] as MemberExpression;
+                }
 
                 return this.ToInPartialString(memberExpr, quotedColName);
 
@@ -4486,7 +4752,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         if (!IsSqlClass(sql))
         {
             if (sql == null)
+            {
                 return 0;
+            }
 
             sql = ((string)sql).Length;
             return sql;
@@ -4515,7 +4783,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         for (var i = 0; i < args.Count; i++)
         {
             if (args[i] is not PartialSqlString)
+            {
                 args[i] = this.ConvertToParam(args[i]);
+            }
         }
 
         return this.ToConcatPartialString(args);
@@ -4531,7 +4801,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         for (var i = 0; i < args.Count; i++)
         {
             if (args[i] is not PartialSqlString)
+            {
                 args[i] = this.ConvertToParam(args[i]);
+            }
         }
 
         return this.ToComparePartialString(args);
@@ -4640,16 +4912,22 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         var argValue = this.EvaluateExpression(m.Arguments[1]);
 
         if (argValue == null)
+        {
             return FalseLiteral; // "column IN (NULL)" is always false
+        }
 
         if (quotedColName is not PartialSqlString)
+        {
             quotedColName = this.ConvertToParam(quotedColName);
+        }
 
         if (argValue is IEnumerable enumerableArg)
         {
             var inArgs = Sql.Flatten(enumerableArg);
             if (inArgs.Count == 0)
+            {
                 return FalseLiteral; // "column IN ([])" is always false
+            }
 
             var sqlIn = this.CreateInParamSql(inArgs);
             return $"{quotedColName} IN ({sqlIn})";
@@ -4679,7 +4957,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
             // regex replace doesn't work when param is at end of string "AND a = :0"
             var lastChar = subSelect[subSelect.Length - 1];
             if (!(char.IsWhiteSpace(lastChar) || lastChar == ')'))
+            {
                 subSelect += " ";
+            }
 
             for (var i = renameParams.Count - 1; i >= 0; i--)
             {
@@ -4719,7 +4999,9 @@ public abstract partial class SqlExpression<T> : IHasUntypedSqlExpression, IHasD
         var args = this.VisitExpressionList(m.Arguments);
         var quotedColName = this.Visit(m.Object);
         if (!IsSqlClass(quotedColName))
+        {
             quotedColName = this.ConvertToParam(quotedColName);
+        }
 
         string statement;
 
@@ -4993,9 +5275,21 @@ public class PartialSqlString
     /// <returns>bool.</returns>
     public override bool Equals(object obj)
     {
-        if (obj is null) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != this.GetType()) return false;
+        if (obj is null)
+        {
+            return false;
+        }
+
+        if (ReferenceEquals(this, obj))
+        {
+            return true;
+        }
+
+        if (obj.GetType() != this.GetType())
+        {
+            return false;
+        }
+
         return this.Equals((PartialSqlString)obj);
     }
 
@@ -5025,7 +5319,10 @@ public class EnumMemberAccess : PartialSqlString
     public EnumMemberAccess(string text, Type enumType)
         : base(text)
     {
-        if (!enumType.IsEnum) throw new ArgumentException("Type not valid", nameof(enumType));
+        if (!enumType.IsEnum)
+        {
+            throw new ArgumentException("Type not valid", nameof(enumType));
+        }
 
         this.EnumType = enumType;
     }
@@ -5092,9 +5389,14 @@ public class SelectItemExpression : SelectItem
         : base(dialectProvider, alias)
     {
         if (string.IsNullOrEmpty(selectExpression))
+        {
             throw new ArgumentNullException(nameof(selectExpression));
+        }
+
         if (string.IsNullOrEmpty(alias))
+        {
             throw new ArgumentNullException(nameof(alias));
+        }
 
         this.SelectExpression = selectExpression;
         this.Alias = alias;
@@ -5114,7 +5416,9 @@ public class SelectItemExpression : SelectItem
     {
         var text = this.SelectExpression;
         if (!string.IsNullOrEmpty(this.Alias)) // Note that even though Alias must be non-empty in the constructor it may be set to null/empty later
+        {
             return text + " AS " + this.DialectProvider.GetQuotedName(this.Alias);
+        }
 
         return text;
     }
@@ -5139,7 +5443,9 @@ public class SelectItemColumn : SelectItem
         : base(dialectProvider, columnAlias)
     {
         if (string.IsNullOrEmpty(columnName))
+        {
             throw new ArgumentNullException(nameof(columnName));
+        }
 
         this.ColumnName = columnName;
         this.QuotedTableAlias = quotedTableAlias;
@@ -5166,9 +5472,14 @@ public class SelectItemColumn : SelectItem
         var text = this.DialectProvider.GetQuotedColumnName(this.ColumnName);
 
         if (!string.IsNullOrEmpty(this.QuotedTableAlias))
+        {
             text = this.QuotedTableAlias + "." + text;
+        }
+
         if (!string.IsNullOrEmpty(this.Alias))
+        {
             text += " AS " + this.DialectProvider.GetQuotedName(this.Alias);
+        }
 
         return text;
     }
@@ -5290,11 +5601,19 @@ public static class DbDataParameterExtensions
         dialectProvider.ConfigureParam(p, value, dbType);
 
         if (precision != null)
+        {
             p.Precision = precision.Value;
+        }
+
         if (scale != null)
+        {
             p.Scale = scale.Value;
+        }
+
         if (size != null)
+        {
             p.Size = size.Value;
+        }
 
         return p;
     }
@@ -5328,7 +5647,9 @@ public static class DbDataParameterExtensions
         }
 
         if (dbType != null)
+        {
             p.DbType = dbType.Value;
+        }
     }
 
     /// <summary>
@@ -5383,7 +5704,9 @@ public static class DbDataParameterExtensions
         paramFilter?.Invoke(parameter);
 
         if (fieldDef != null)
+        {
             dialectProvider.SetParameter(fieldDef, parameter);
+        }
 
         dbCmd.Parameters.Add(parameter);
 

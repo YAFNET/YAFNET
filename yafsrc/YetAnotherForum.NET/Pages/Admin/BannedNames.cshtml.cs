@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -138,9 +140,9 @@ public class BannedNamesModel : AdminPage
     /// </summary>
     /// <param name="id">The identifier.</param>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPostDelete(int id)
+    public async Task<IActionResult> OnPostDeleteAsync(int id)
     {
-        this.GetRepository<BannedName>().DeleteById(id);
+        await this.GetRepository<BannedName>().DeleteByIdAsync(id);
 
         this.SearchInput = string.Empty;
 

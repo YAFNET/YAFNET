@@ -95,7 +95,7 @@ public class RegisterModel : AccountPage
     /// <summary>
     /// The on get.
     /// </summary>
-    public IActionResult OnGet()
+    public async Task<IActionResult> OnGetAsync()
     {
         this.Input = new InputModel();
 
@@ -109,7 +109,7 @@ public class RegisterModel : AccountPage
             this.ModelState.AddModelError(string.Empty, this.ErrorMessage);
         }
 
-        this.LoadCustomProfile();
+        await this.LoadCustomProfileAsync();
 
         return this.Page();
     }
@@ -345,9 +345,9 @@ public class RegisterModel : AccountPage
     /// <summary>
     /// Load the custom profile.
     /// </summary>
-    private void LoadCustomProfile()
+    private async Task LoadCustomProfileAsync()
     {
-        this.Input.CustomProfile = [.. this.GetRepository<ProfileDefinition>().GetByBoardId()];
+        this.Input.CustomProfile = [.. await this.GetRepository<ProfileDefinition>().GetByBoardIdAsync()];
 
         if (this.Input.CustomProfile is null || this.Input.CustomProfile.Count == 0)
         {

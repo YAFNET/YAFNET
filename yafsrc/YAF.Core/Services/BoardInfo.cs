@@ -51,12 +51,12 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     /// <summary>
     /// Gets the Current YAF Database Version
     /// </summary>
-    public int AppVersion { get; set; } = 90;
+    public int AppVersion { get; set; } = 91;
 
     /// <summary>
     /// Gets the Current YAF Build Date
     /// </summary>
-    public DateTime AppVersionDate { get; set; } = new (2023, 12, 29, 04, 52, 00, DateTimeKind.Utc);
+    public DateTime AppVersionDate { get; set; } = new (2024, 01, 06, 06, 59, 00, DateTimeKind.Utc);
 
     /// <summary>
     /// Creates a string that is the YAF Application Version from a long value

@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -40,6 +42,10 @@ using Forum = YAF.Types.Models.Forum;
 /// </summary>
 public class ForumsModel : AdminPage
 {
+    /// <summary>
+    /// Gets or sets the category list.
+    /// </summary>
+    /// <value>The category list.</value>
     [BindProperty]
     public List<Category> CategoryList { get; set; }
 
@@ -77,9 +83,9 @@ public class ForumsModel : AdminPage
     /// </summary>
     /// <param name="id">The identifier.</param>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPostDeleteCategory(int id)
+    public async Task<IActionResult> OnPostDeleteCategoryAsync(int id)
     {
-        if (!this.GetRepository<Category>().DeleteById(id))
+        if (!await this.GetRepository<Category>().DeleteByIdAsync(id))
         {
             return this.PageBoardContext.Notify(
                 this.GetText("ADMIN_FORUMS", "MSG_NOT_DELETE"),

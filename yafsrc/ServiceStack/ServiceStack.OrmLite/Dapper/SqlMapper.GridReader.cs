@@ -132,7 +132,11 @@ public static partial class SqlMapper
         /// <exception cref="System.ArgumentNullException">type</exception>
         public IEnumerable<object> Read(Type type, bool buffered = true)
         {
-            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             return ReadImpl<object>(type, buffered);
         }
 
@@ -144,7 +148,11 @@ public static partial class SqlMapper
         /// <exception cref="System.ArgumentNullException">type</exception>
         public object ReadFirst(Type type)
         {
-            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             return ReadRow<object>(type, Row.First);
         }
 
@@ -156,7 +164,11 @@ public static partial class SqlMapper
         /// <exception cref="System.ArgumentNullException">type</exception>
         public object ReadFirstOrDefault(Type type)
         {
-            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             return ReadRow<object>(type, Row.FirstOrDefault);
         }
 
@@ -168,7 +180,11 @@ public static partial class SqlMapper
         /// <exception cref="System.ArgumentNullException">type</exception>
         public object ReadSingle(Type type)
         {
-            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             return ReadRow<object>(type, Row.Single);
         }
 
@@ -180,7 +196,11 @@ public static partial class SqlMapper
         /// <exception cref="System.ArgumentNullException">type</exception>
         public object ReadSingleOrDefault(Type type)
         {
-            if (type == null) throw new ArgumentNullException(nameof(type));
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             return ReadRow<object>(type, Row.SingleOrDefault);
         }
 
@@ -195,8 +215,16 @@ public static partial class SqlMapper
         /// <exception cref="System.InvalidOperationException">Query results must be consumed in the correct order, and each result can only be consumed once</exception>
         private IEnumerable<T> ReadImpl<T>(Type type, bool buffered)
         {
-            if (reader == null) throw new ObjectDisposedException(GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
-            if (IsConsumed) throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
+            if (reader == null)
+            {
+                throw new ObjectDisposedException(this.GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
+            }
+
+            if (IsConsumed)
+            {
+                throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
+            }
+
             var typedIdentity = identity.ForGrid(type, gridIndex);
             CacheInfo cache = GetCacheInfo(typedIdentity, null, addToCache);
             var deserializer = cache.Deserializer;
@@ -223,8 +251,16 @@ public static partial class SqlMapper
         /// <exception cref="System.InvalidOperationException">Query results must be consumed in the correct order, and each result can only be consumed once</exception>
         private T ReadRow<T>(Type type, Row row)
         {
-            if (reader == null) throw new ObjectDisposedException(GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
-            if (IsConsumed) throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
+            if (reader == null)
+            {
+                throw new ObjectDisposedException(this.GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
+            }
+
+            if (IsConsumed)
+            {
+                throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
+            }
+
             IsConsumed = true;
 
             T result = default(T);
@@ -250,7 +286,11 @@ public static partial class SqlMapper
                     var convertToType = Nullable.GetUnderlyingType(type) ?? type;
                     result = (T)Convert.ChangeType(val, convertToType, CultureInfo.InvariantCulture);
                 }
-                if ((row & Row.Single) != 0 && reader.Read()) ThrowMultipleRows(row);
+                if ((row & Row.Single) != 0 && reader.Read())
+                {
+                    ThrowMultipleRows(row);
+                }
+
                 while (reader.Read()) { /* ignore subsequent rows */ }
             }
             else if ((row & Row.FirstOrDefault) == 0) // demanding a row, and don't have one
@@ -529,7 +569,11 @@ public static partial class SqlMapper
         {
             if (reader != null)
             {
-                if (!reader.IsClosed) Command?.Cancel();
+                if (!reader.IsClosed)
+                {
+                    this.Command?.Cancel();
+                }
+
                 reader.Dispose();
                 reader = null;
             }

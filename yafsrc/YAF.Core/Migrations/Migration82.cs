@@ -22,20 +22,23 @@
  * under the License.
  */
 
-namespace YAF.Core.Services.Migrations
+namespace YAF.Core.Migrations
 {
+    using ServiceStack.OrmLite;
+
     using System.Data;
     using System.Threading.Tasks;
 
     using YAF.Core.Context;
+    using YAF.Core.Extensions;
     using YAF.Types.Interfaces;
     using YAF.Types.Interfaces.Data;
     using YAF.Types.Models;
 
     /// <summary>
-    /// Version 87 Migrations
+    /// Version 82 Migrations
     /// </summary>
-    public class V87_Migration : IRepositoryMigration, IHaveServiceLocator
+    public class Migration82 : IRepositoryMigration, IHaveServiceLocator
     {
         /// <summary>
         /// Migrate Repositories (Database).
@@ -48,11 +51,15 @@ namespace YAF.Core.Services.Migrations
             dbAccess.Execute(
                 dbCommand =>
                 {
-                    this.UpgradeTable(this.GetRepository<Forum>());
-                    this.UpgradeTable(this.GetRepository<Registry>());
-                    this.UpgradeTable(this.GetRepository<User>());
+                    this.UpgradeTable(this.GetRepository<ActiveAccess>(), dbAccess, dbCommand);
+                    this.UpgradeTable(this.GetRepository<Group>(), dbAccess, dbCommand);
 
                     ///////////////////////////////////////////////////////////
+
+                    if (dbCommand.Connection.TableExists("FavoriteTopic"))
+                    {
+                        dbCommand.Connection.DropTable("FavoriteTopic");
+                    }
 
                     return true;
                 });
@@ -60,45 +67,45 @@ namespace YAF.Core.Services.Migrations
             return Task.CompletedTask;
         }
 
-        /// <summary>Upgrades the Forum table.</summary>
+        /// <summary>Upgrades the Active Access table.</summary>
         /// <param name="repository">The repository.</param>
-        private void UpgradeTable(IRepository<Forum> repository)
+        /// <param name="dbAccess">The database access.</param>
+        /// <param name="dbCommand">The database command.</param>
+        private void UpgradeTable(IRepository<ActiveAccess> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
-            repository.UpdateOnly(() => new Forum {RemoteURL = null}, f => f.RemoteURL == "");
+            if (dbCommand.Connection.ColumnExists<ActiveAccess>("DownloadAccess"))
+            {
+                dbCommand.Connection.DropColumn<ActiveAccess>("DownloadAccess");
+            }
+
+            if (dbCommand.Connection.ColumnExists<ActiveAccess>("UploadAccess"))
+            {
+                dbCommand.Connection.DropColumn<ActiveAccess>("UploadAccess");
+            }
         }
 
-        /// <summary>Upgrades the Registry table.</summary>
+        /// <summary>Upgrades the Group table.</summary>
         /// <param name="repository">The repository.</param>
-        private void UpgradeTable(IRepository<Registry> repository)
+        /// <param name="dbAccess">The database access.</param>
+        /// <param name="dbCommand">The database command.</param>
+        private void UpgradeTable(IRepository<Group> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
-            var entries = repository.Get(x => x.Value.Contains(".xml") && x.Name == "language");
+            repository.Get(g => (g.Flags & 1) == 1).ForEach(
+                group =>
+                    {
+                        var flags = group.GroupFlags;
 
-            entries.ForEach(
-                item =>
-                {
-                    item.Value = item.Value.Replace(".xml", ".json");
+                        flags.AllowDownload = true;
+                        flags.AllowUpload = true;
 
-                    repository.Update(item);
-                });
-        }
-
-        /// <summary>Upgrades the Registry table.</summary>
-        /// <param name="repository">The repository.</param>
-        private void UpgradeTable(IRepository<User> repository)
-        {
-            var entries = repository.Get(x => x.LanguageFile.Contains(".xml"));
-
-            entries.ForEach(
-                item =>
-                {
-                    item.LanguageFile = item.LanguageFile.Replace(".xml", ".json");
-
-                    repository.Update(item);
-                });
+                        repository.UpdateOnly(
+                            () => new Group { Flags = flags.BitValue },
+                            g => g.ID == group.ID);
+                    });
         }
 
         /// <summary>
-        /// Gets the ServiceLocator.
+        /// Gets ServiceLocator.
         /// </summary>
         /// <value>The service locator.</value>
         public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;

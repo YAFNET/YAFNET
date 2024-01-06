@@ -22,14 +22,13 @@
  * under the License.
  */
 
-namespace YAF.Core.Services.Migrations
+namespace YAF.Core.Migrations
 {
     using System;
     using System.Collections.Generic;
 
     using ServiceStack.OrmLite;
 
-    using System.Data;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -46,15 +45,14 @@ namespace YAF.Core.Services.Migrations
     using YAF.Types.Models.Identity;
 
     using ServiceStack.DataAnnotations;
+
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.Logging;
-
-    using YAF.Types.Attributes;
 
     /// <summary>
     /// Version 30 Migrations
     /// </summary>
-    public class V30_Migration : IRepositoryMigration, IHaveServiceLocator
+    public class Migration30 : IRepositoryMigration, IHaveServiceLocator
     {
         /// <summary>
         /// Migrate Repositories (Database).
@@ -112,10 +110,10 @@ namespace YAF.Core.Services.Migrations
                 // Sync Roles
                 await this.Get<IAspNetRolesHelper>().SyncRolesAsync(boardId);
 
-                var users = this.GetRepository<User>().GetByBoardId(boardId);
+                var users = await this.GetRepository<User>().GetByBoardIdAsync(boardId);
 
                 // sync users...
-                await MigrateUsersFromTableAsync(users);
+                await this.MigrateUsersFromTableAsync(users);
             }
         }
 
@@ -163,7 +161,7 @@ namespace YAF.Core.Services.Migrations
 
                         if (!result.Result.Succeeded)
                         {
-                            this.Get<ILogger<V30_Migration>>().Log(
+                            this.Get<ILogger<Migration30>>().Log(
                                 userId: null,
                                 source: "MigrateUsers",
                                 description: $"Failed to create user {name}: {result.Result.Errors.FirstOrDefault()}");

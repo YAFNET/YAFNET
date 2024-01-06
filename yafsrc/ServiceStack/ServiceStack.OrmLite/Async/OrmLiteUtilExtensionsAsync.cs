@@ -45,24 +45,32 @@ namespace ServiceStack.OrmLite
         public async static Task<T> ConvertToAsync<T>(this IDataReader reader, IOrmLiteDialectProvider dialectProvider, CancellationToken token)
         {
             using (reader)
+            {
                 return await dialectProvider.ReaderRead(reader, () =>
                 {
                     if (typeof(T) == typeof(List<object>))
+                    {
                         return (T)(object)reader.ConvertToListObjects();
+                    }
 
                     if (typeof(T) == typeof(Dictionary<string, object>))
+                    {
                         return (T)(object)reader.ConvertToDictionaryObjects();
+                    }
 
                     var values = new object[reader.FieldCount];
 
                     if (typeof(T).IsValueTuple())
+                    {
                         return reader.ConvertToValueTuple<T>(values, dialectProvider);
+                    }
 
                     var row = CreateInstance<T>();
                     var indexCache = reader.GetIndexFieldsCache(ModelDefinition<T>.Definition, dialectProvider);
                     row.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
                     return row;
                 }, token).ConfigAwait();
+            }
         }
 
         /// <summary>
@@ -172,12 +180,14 @@ namespace ServiceStack.OrmLite
             var values = new object[reader.FieldCount];
 
             using (reader)
+            {
                 return await dialectProvider.ReaderRead(reader, () =>
                 {
                     var row = type.CreateInstance();
                     row.PopulateWithSqlReader(dialectProvider, reader, indexCache, values);
                     return row;
                 }, token).ConfigAwait();
+            }
         }
 
         /// <summary>

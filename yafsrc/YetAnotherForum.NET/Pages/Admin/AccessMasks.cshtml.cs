@@ -23,6 +23,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -83,7 +85,7 @@ public class AccessMasksModel : AdminPage
     /// </summary>
     /// <param name="maskId">The mask identifier.</param>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPostDelete(int maskId)
+    public async Task<IActionResult> OnPostDeleteAsync(int maskId)
     {
         var isInUse = this.GetRepository<ForumAccess>().Exists(x => x.AccessMaskID == maskId)
                       || this.GetRepository<UserForum>().Exists(x => x.AccessMaskID == maskId);
@@ -97,9 +99,9 @@ public class AccessMasksModel : AdminPage
                 MessageTypes.warning);
         }
 
-        this.GetRepository<AccessMask>().DeleteById(maskId);
+        await this.GetRepository<AccessMask>().DeleteByIdAsync(maskId);
 
-        this.BindData();
+        await this.BindDataAsync();
 
         return this.Page();
     }
@@ -107,18 +109,18 @@ public class AccessMasksModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public void OnGet()
+    public async Task OnGetAsync()
     {
         // bind data
-        this.BindData();
+        await this.BindDataAsync();
     }
 
     /// <summary>
     /// The bind data.
     /// </summary>
-    private void BindData()
+    private async Task BindDataAsync()
     {
         // list all access masks for this board
-        this.List = this.GetRepository<AccessMask>().GetByBoardId();
+        this.List = await this.GetRepository<AccessMask>().GetByBoardIdAsync();
     }
 }

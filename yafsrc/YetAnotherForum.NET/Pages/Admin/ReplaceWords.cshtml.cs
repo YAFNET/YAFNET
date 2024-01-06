@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -40,6 +42,10 @@ using YAF.Types.Models;
 /// </summary>
 public class ReplaceWordsModel : AdminPage
 {
+    /// <summary>
+    /// Gets or sets the list.
+    /// </summary>
+    /// <value>The list.</value>
     [BindProperty]
     public IList<Replace_Words> List { get; set; }
 
@@ -63,20 +69,20 @@ public class ReplaceWordsModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public void OnGet()
+    public async Task OnGetAsync()
     {
-        this.BindData();
+        await this.BindDataAsync();
     }
 
     /// <summary>
     /// Export the Report Word(s)
     /// </summary>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPostExport()
+    public async Task<IActionResult> OnPostExportAsync()
     {
-        var spamWordList = this.GetRepository<Replace_Words>().GetByBoardId();
+        var spamWordList = await this.GetRepository<Replace_Words>().GetByBoardIdAsync();
 
-        const string FileName = "ReplaceWordsExport.xml";
+        const string fileName = "ReplaceWordsExport.xml";
 
         var element = new XElement(
             "YafReplaceWordsList",
@@ -90,16 +96,25 @@ public class ReplaceWordsModel : AdminPage
         var stream = new MemoryStream();
         writer.Serialize(stream, element);
 
-        return this.File(stream.ToArray(), "application/xml", FileName);
+        return this.File(stream.ToArray(), "application/xml", fileName);
     }
 
-    public void OnPostDelete(int id)
+    /// <summary>
+    /// On post delete as an asynchronous operation.
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <returns>A Task representing the asynchronous operation.</returns>
+    public async Task OnPostDeleteAsync(int id)
     {
-        this.GetRepository<Replace_Words>().DeleteById(id);
+        await this.GetRepository<Replace_Words>().DeleteByIdAsync(id);
         this.Get<IObjectStore>().Remove(Constants.Cache.ReplaceWords);
-        this.BindData();
+        await this.BindDataAsync();
     }
 
+    /// <summary>
+    /// Called when [get import].
+    /// </summary>
+    /// <returns>PartialViewResult.</returns>
     public PartialViewResult OnGetImport()
     {
         return new PartialViewResult
@@ -125,6 +140,11 @@ public class ReplaceWordsModel : AdminPage
                                      };
     }
 
+    /// <summary>
+    /// Called when [get edit].
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <returns>PartialViewResult.</returns>
     public PartialViewResult OnGetEdit(int id)
     {
         // Edit
@@ -145,8 +165,8 @@ public class ReplaceWordsModel : AdminPage
     /// <summary>
     /// The bind data.
     /// </summary>
-    private void BindData()
+    private async Task BindDataAsync()
     {
-        this.List = this.GetRepository<Replace_Words>().GetByBoardId();
+        this.List = await this.GetRepository<Replace_Words>().GetByBoardIdAsync();
     }
 }

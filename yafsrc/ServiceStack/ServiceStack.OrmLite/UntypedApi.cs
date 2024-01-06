@@ -118,9 +118,13 @@ public class UntypedApi<T> : IUntypedApi
     public void Exec(Action<IDbCommand> filter)
     {
         if (DbCmd != null)
-            filter(DbCmd);
+        {
+            filter(this.DbCmd);
+        }
         else
-            Db.Exec(filter);
+        {
+            this.Db.Exec(filter);
+        }
     }
 
     /// <summary>

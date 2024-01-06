@@ -474,7 +474,9 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     {
         Filter(dbCmd);
         if (SingleResult != null || SingleResultFn != null)
-            return (T)GetSingleResult<T>(dbCmd);
+        {
+            return (T)this.GetSingleResult<T>(dbCmd);
+        }
 
         foreach (var result in GetResults<T>(dbCmd))
         {
@@ -493,7 +495,9 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     {
         Filter(dbCmd);
         if (RefSingleResult != null || RefSingleResultFn != null)
-            return GetRefSingleResult(dbCmd, refType);
+        {
+            return this.GetRefSingleResult(dbCmd, refType);
+        }
 
         foreach (var result in GetRefResults(dbCmd, refType).Safe())
         {
@@ -534,10 +538,14 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     private T ConvertTo<T>(object value)
     {
         if (value == null)
+        {
             return default(T);
+        }
 
         if (value is T)
+        {
             return (T)value;
+        }
 
         var typeCode = typeof(T).GetUnderlyingTypeCode();
         var strValue = value.ToString();
@@ -613,7 +621,9 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
         var to = new Dictionary<K, V>();
         var map = GetDictionaryResults<K, V>(dbCmd);
         if (map == null)
+        {
             return to;
+        }
 
         foreach (DictionaryEntry entry in map)
         {
@@ -645,7 +655,9 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
         var to = new Dictionary<K, List<V>>();
         var map = GetLookupResults<K, V>(dbCmd);
         if (map == null)
+        {
             return to;
+        }
 
         foreach (DictionaryEntry entry in map)
         {
@@ -653,7 +665,7 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
 
             if (!to.TryGetValue(key, out var list))
             {
-                to[key] = list = new List<V>();
+                to[key] = list = [];
             }
 
             list.AddRange(from object item in (IEnumerable)entry.Value select (V)item);
@@ -696,7 +708,7 @@ public class CaptureSqlFilter : OrmLiteResultsFilter
     public CaptureSqlFilter()
     {
         SqlCommandFilter = CaptureSqlCommand;
-        SqlCommandHistory = new List<SqlCommandDetails>();
+        SqlCommandHistory = [];
     }
 
     /// <summary>
@@ -736,18 +748,24 @@ public class SqlCommandDetails
     public SqlCommandDetails(IDbCommand command)
     {
         if (command == null)
+        {
             return;
+        }
 
         Sql = command.CommandText;
         if (command.Parameters.Count <= 0)
+        {
             return;
+        }
 
         Parameters = new Dictionary<string, object>();
 
         foreach (IDataParameter parameter in command.Parameters)
         {
             if (!Parameters.ContainsKey(parameter.ParameterName))
-                Parameters.Add(parameter.ParameterName, parameter.Value);
+            {
+                this.Parameters.Add(parameter.ParameterName, parameter.Value);
+            }
         }
     }
 

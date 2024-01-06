@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -294,10 +296,10 @@ public class EventLogModel : AdminPage
     /// delete just this particular log entry
     /// </summary>
     /// <param name="id">The identifier.</param>
-    public void OnPostDelete(int id)
+    public async Task OnPostDeleteAsync(int id)
     {
         // delete just this particular log entry
-        this.GetRepository<EventLog>().DeleteById(id);
+        await this.GetRepository<EventLog>().DeleteByIdAsync(id);
 
         // re-bind controls
         this.BindData();

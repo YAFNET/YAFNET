@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using YAF.Core.Migrations;
+
 namespace YAF.Core.Services;
 
 using Microsoft.AspNetCore.Hosting;
@@ -187,9 +189,14 @@ public class InstallService : IHaveServiceLocator
     /// </returns>
     public bool InitializeDatabase()
     {
-        this.CreateTablesIfNotExists();
+        var migrator = new Migrator(this.DbAccess.ResolveDbFactory(), typeof(Migration01));
 
-        this.ExecuteInstallScripts();
+        migrator.Run();
+
+        // Create views
+        this.DbAccess.Execute(dbCommand => this.DbAccess.Information.CreateViews(this.DbAccess, dbCommand));
+
+        this.DbAccess.Execute(dbCommand => this.DbAccess.Information.CreateIndexViews(this.DbAccess, dbCommand));
 
         this.GetRepository<Registry>().Save("version", this.Get<BoardInfo>().AppVersion.ToString());
         this.GetRepository<Registry>().Save("versionname", this.Get<BoardInfo>().AppVersionName);
@@ -199,93 +206,6 @@ public class InstallService : IHaveServiceLocator
         return true;
     }
 
-    /// <summary>
-    /// Initializes the identity tables.
-    /// </summary>
-    public void InitializeIdentity()
-    {
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUsers>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetRoles>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserClaims>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserLogins>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserRoles>());
-    }
-
-    /// <summary>
-    /// Executes the install scripts.
-    /// </summary>
-    private void ExecuteInstallScripts()
-    {
-        // Install Membership Scripts
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUsers>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetRoles>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserClaims>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserLogins>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AspNetUserRoles>());
-
-        // Run other
-        this.DbAccess.Execute(dbCommand => this.DbAccess.Information.CreateViews(this.DbAccess, dbCommand));
-
-        this.DbAccess.Execute(dbCommand => this.DbAccess.Information.CreateIndexViews(this.DbAccess, dbCommand));
-    }
-
-    /// <summary>
-    /// Create missing tables
-    /// </summary>
-    private void CreateTablesIfNotExists()
-    {
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Board>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Rank>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<User>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Category>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Forum>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Topic>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Message>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Thanks>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Buddy>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserAlbum>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserAlbumImage>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Active>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ActiveAccess>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Activity>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AdminPageUserAccess>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Group>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<BannedIP>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<BannedName>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<BannedEmail>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<BannedUserAgent>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<CheckEmail>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Poll>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Choice>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PollVote>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<AccessMask>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ForumAccess>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<MessageHistory>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<MessageReported>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<MessageReportedAudit>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<WatchForum>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<WatchTopic>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Attachment>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserGroup>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserForum>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PrivateMessage>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Replace_Words>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Spam_Words>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Registry>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<EventLog>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<BBCode>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Medal>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<GroupMedal>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserMedal>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<IgnoreUser>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<TopicReadTracking>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ForumReadTracking>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ReputationVote>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Tag>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<TopicTag>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ProfileDefinition>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<ProfileCustom>());
-    }
 
     /// <summary>
     ///    Add or Update BBCode Extensions and Spam Words

@@ -23,6 +23,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -91,11 +93,11 @@ public class TagsModel : AdminPage
     /// <summary>
     /// Handles single record commands in a repeater.
     /// </summary>
-    public IActionResult OnPostDelete(int id)
+    public async Task<IActionResult> OnPostDeleteAsync(int id)
     {
-        this.GetRepository<TopicTag>().Delete(x => x.TagID == id);
+        await this.GetRepository<TopicTag>().DeleteAsync(x => x.TagID == id);
 
-        this.GetRepository<Tag>().DeleteById(id);
+        await this.GetRepository<Tag>().DeleteByIdAsync(id);
 
         return this.RedirectToPage(ForumPages.Admin_Tags);
     }

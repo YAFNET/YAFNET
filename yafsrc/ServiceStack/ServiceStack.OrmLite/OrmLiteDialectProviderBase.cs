@@ -151,13 +151,19 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         if (converter != null)
         {
             if (converter is IHasColumnDefinitionPrecision customPrecisionConverter)
+            {
                 return customPrecisionConverter.GetColumnDefinition(fieldLength, scale);
+            }
 
             if (converter is IHasColumnDefinitionLength customLengthConverter)
+            {
                 return customLengthConverter.GetColumnDefinition(fieldLength);
+            }
 
             if (string.IsNullOrEmpty(converter.ColumnDefinition))
+            {
                 throw new ArgumentException($"{converter.GetType().Name} requires a ColumnDefinition");
+            }
 
             return converter.ColumnDefinition;
         }
@@ -242,13 +248,13 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// Gets the one time connection commands.
     /// </summary>
     /// <value>The one time connection commands.</value>
-    public List<string> OneTimeConnectionCommands { get; } = new();
+    public List<string> OneTimeConnectionCommands { get; } = [];
 
     /// <summary>
     /// Gets the connection commands.
     /// </summary>
     /// <value>The connection commands.</value>
-    public List<string> ConnectionCommands { get; } = new();
+    public List<string> ConnectionCommands { get; } = [];
 
     /// <summary>
     /// Gets or sets the parameter string.
@@ -377,7 +383,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public void RemoveConverter<T>()
     {
         if (this.Converters.TryRemove(typeof(T), out var converter))
+        {
             converter.DialectProvider = null;
+        }
     }
 
     /// <summary>
@@ -396,7 +404,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public void RegisterConverter<T>(IOrmLiteConverter converter)
     {
         if (converter == null)
+        {
             throw new ArgumentNullException(nameof(converter));
+        }
 
         converter.DialectProvider = this;
         this.Converters[typeof(T)] = converter;
@@ -443,14 +453,20 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public IOrmLiteConverter GetConverterBestMatch(Type type)
     {
         if (type == typeof(RowVersionConverter))
+        {
             return this.RowVersionConverter;
+        }
 
         var converter = this.GetConverter(type);
         if (converter != null)
+        {
             return converter;
+        }
 
         if (type.IsEnum)
+        {
             return this.EnumConverter;
+        }
 
         return type.IsRefType() ? (IOrmLiteConverter)this.ReferenceTypeConverter : this.ValueTypeConverter;
     }
@@ -465,13 +481,19 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         var fieldType = Nullable.GetUnderlyingType(fieldDef.FieldType) ?? fieldDef.FieldType;
 
         if (fieldDef.IsRowVersion)
+        {
             return this.RowVersionConverter;
+        }
 
         if (this.Converters.TryGetValue(fieldType, out var converter))
+        {
             return converter;
+        }
 
         if (fieldType.IsEnum)
+        {
             return this.EnumConverter;
+        }
 
         return fieldType.IsRefType() ? (IOrmLiteConverter)this.ReferenceTypeConverter : this.ValueTypeConverter;
     }
@@ -485,7 +507,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public virtual object ToDbValue(object value, Type type)
     {
         if (value == null || value is DBNull)
+        {
             return null;
+        }
 
         var converter = this.GetConverterBestMatch(type);
         try
@@ -510,7 +534,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public virtual object FromDbValue(object value, Type type)
     {
         if (value == null || value is DBNull)
+        {
             return null;
+        }
 
         var converter = this.GetConverterBestMatch(type);
         try
@@ -536,7 +562,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public object GetValue(IDataReader reader, int columnIndex, Type type)
     {
         if (this.Converters.TryGetValue(type, out var converter))
+        {
             return converter.GetValue(reader, columnIndex, null);
+        }
 
         return reader.GetValue(columnIndex);
     }
@@ -876,8 +904,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public virtual long GetLastInsertId(IDbCommand dbCmd)
     {
         if (this.SelectIdentitySql == null)
+        {
             throw new NotImplementedException(
                 "Returning last inserted identity is not implemented on this DB Provider.");
+        }
 
         dbCmd.CommandText = this.SelectIdentitySql;
         return dbCmd.ExecLongScalar();
@@ -893,8 +923,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public virtual string GetLastInsertIdSqlSuffix<T>()
     {
         if (this.SelectIdentitySql == null)
+        {
             throw new NotImplementedException(
                 "Returning last inserted identity is not implemented on this DB Provider.");
+        }
 
         return "; " + this.SelectIdentitySql;
     }
@@ -918,14 +950,18 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public virtual string ToSelectStatement(Type tableType, string sqlFilter, params object[] filterParams)
     {
         if (this.IsFullSelectStatement(sqlFilter))
+        {
             return sqlFilter.SqlFmt(this, filterParams);
+        }
 
         var modelDef = tableType.GetModelDefinition();
         var sql = StringBuilderCache.Allocate();
         sql.Append($"SELECT {this.GetColumnNames(modelDef)} FROM {this.GetQuotedTableName(modelDef)}");
 
         if (string.IsNullOrEmpty(sqlFilter))
+        {
             return StringBuilderCache.ReturnAndFree(sql);
+        }
 
         sqlFilter = sqlFilter.SqlFmt(this, filterParams);
         if (!sqlFilter.StartsWith("ORDER ", StringComparison.OrdinalIgnoreCase) &&
@@ -1017,7 +1053,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public virtual void InitConnection(IDbConnection dbConn)
     {
         if (dbConn is OrmLiteConnection ormLiteConn)
+        {
             ormLiteConn.ConnectionId = Guid.NewGuid();
+        }
 
         if (Interlocked.CompareExchange(ref this.OneTimeConnectionCommandsRun, 1, 0) == 0)
         {
@@ -1152,7 +1190,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public virtual void AppendInsertRowValueSql(StringBuilder sbColumnValues, FieldDefinition fieldDef, object obj)
     {
         if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+        {
             return;
+        }
 
         try
         {
@@ -1191,15 +1231,21 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         foreach (var fieldDef in fieldDefs)
         {
             if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+            {
                 continue;
+            }
 
             if (sbColumnNames.Length > 0)
+            {
                 sbColumnNames.Append(',');
+            }
 
             sbColumnNames.Append(this.GetQuotedColumnName(fieldDef.FieldName));
 
             if (sbColumnValues.Length > 0)
+            {
                 sbColumnValues.Append(',');
+            }
 
             this.AppendInsertRowValueSql(sbColumnValues, fieldDef, obj);
         }
@@ -1228,10 +1274,14 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         foreach (var fieldDef in fieldDefs)
         {
             if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+            {
                 continue;
+            }
 
             if (i++ > 0)
+            {
                 sb.Append(',');
+            }
 
             sb.Append(this.GetQuotedColumnName(fieldDef.FieldName));
         }
@@ -1248,10 +1298,14 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             foreach (var fieldDef in fieldDefs)
             {
                 if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                {
                     continue;
+                }
 
                 if (i++ > 0)
+                {
                     sb.Append(',');
+                }
 
                 this.AppendInsertRowValueSql(sb, fieldDef, obj);
             }
@@ -1307,12 +1361,19 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         foreach (var fieldDef in fieldDefs)
         {
             if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+            {
                 continue;
+            }
 
             if (sbColumnNames.Length > 0)
+            {
                 sbColumnNames.Append(',');
+            }
+
             if (sbColumnValues.Length > 0)
+            {
                 sbColumnValues.Append(',');
+            }
 
             try
             {
@@ -1350,7 +1411,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         dialectProvider.PrepareParameterizedInsertStatement<T>(dbCmd, insertFields);
 
         if (string.IsNullOrEmpty(dbCmd.CommandText))
+        {
             return null;
+        }
 
         dialectProvider.SetParameterValues<T>(dbCmd, item);
 
@@ -1365,9 +1428,15 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     protected virtual object GetInsertDefaultValue(FieldDefinition fieldDef)
     {
         if (!fieldDef.AutoId)
+        {
             return null;
+        }
+
         if (fieldDef.FieldType == typeof(Guid))
+        {
             return Guid.NewGuid();
+        }
+
         return null;
     }
 
@@ -1393,12 +1462,19 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         foreach (var fieldDef in fieldDefs)
         {
             if (fieldDef.ShouldSkipInsert() && shouldInclude?.Invoke(fieldDef) != true)
+            {
                 continue;
+            }
 
             if (sbColumnNames.Length > 0)
+            {
                 sbColumnNames.Append(',');
+            }
+
             if (sbColumnValues.Length > 0)
+            {
                 sbColumnValues.Append(',');
+            }
 
             try
             {
@@ -1443,14 +1519,21 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         {
             var fieldDef = modelDef.AssertFieldDefinition(entry.Key);
             if (fieldDef.ShouldSkipInsert())
+            {
                 continue;
+            }
 
             var value = entry.Value;
 
             if (sbColumnNames.Length > 0)
+            {
                 sbColumnNames.Append(',');
+            }
+
             if (sbColumnValues.Length > 0)
+            {
                 sbColumnValues.Append(',');
+            }
 
             try
             {
@@ -1484,10 +1567,14 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         foreach (var fieldDef in fieldDefs)
         {
             if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+            {
                 continue;
+            }
 
             if (sbColumnNames.Length > 0)
+            {
                 sbColumnNames.Append(',');
+            }
 
             try
             {
@@ -1518,7 +1605,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         dialectProvider.PrepareParameterizedUpdateStatement<T>(dbCmd);
 
         if (string.IsNullOrEmpty(dbCmd.CommandText))
+        {
             return null;
+        }
 
         dialectProvider.SetParameterValues<T>(dbCmd, item);
 
@@ -1588,7 +1677,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                      $"IN ({subSqlRef})";
 
         if (OrmLiteConfig.LoadReferenceSelectFilter != null)
+        {
             sqlRef = OrmLiteConfig.LoadReferenceSelectFilter(refModelDef.ModelType, sqlRef);
+        }
 
         return sqlRef;
     }
@@ -1608,7 +1699,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                      $"IN ({subSql})";
 
         if (OrmLiteConfig.LoadReferenceSelectFilter != null)
+        {
             sqlRef = OrmLiteConfig.LoadReferenceSelectFilter(refModelDef.ModelType, sqlRef);
+        }
 
         return sqlRef;
     }
@@ -1634,7 +1727,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                      $"IN ({useSubSql})";
 
         if (OrmLiteConfig.LoadReferenceSelectFilter != null)
+        {
             sqlRef = OrmLiteConfig.LoadReferenceSelectFilter(refModelDef.ModelType, sqlRef);
+        }
 
         return sqlRef;
     }
@@ -1661,28 +1756,38 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         foreach (var fieldDef in modelDef.FieldDefinitions)
         {
             if (fieldDef.ShouldSkipUpdate())
+            {
                 continue;
+            }
 
             try
             {
                 if ((fieldDef.IsPrimaryKey || fieldDef.IsRowVersion) && updateAllFields)
                 {
                     if (sqlFilter.Length > 0)
+                    {
                         sqlFilter.Append(" AND ");
+                    }
 
                     this.AppendFieldCondition(sqlFilter, fieldDef, cmd);
 
                     if (fieldDef.IsRowVersion)
+                    {
                         hadRowVersion = true;
+                    }
 
                     continue;
                 }
 
                 if (!updateAllFields && !updateFields.Contains(fieldDef.Name, StringComparer.OrdinalIgnoreCase))
+                {
                     continue;
+                }
 
                 if (sql.Length > 0)
+                {
                     sql.Append(", ");
+                }
 
                 sql.Append(this.GetQuotedColumnName(fieldDef.FieldName)).Append('=').Append(
                     this.GetParam(this.SanitizeFieldNameForParamName(fieldDef.FieldName), fieldDef.CustomUpdate));
@@ -1747,7 +1852,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         IDictionary<string, object> deleteFieldValues)
     {
         if (deleteFieldValues == null || deleteFieldValues.Count == 0)
+        {
             throw new ArgumentException("DELETE's must have at least 1 criteria");
+        }
 
         var sqlFilter = StringBuilderCache.Allocate();
         var modelDef = typeof(T).GetModelDefinition();
@@ -1758,18 +1865,26 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         foreach (var fieldDef in modelDef.FieldDefinitions)
         {
             if (fieldDef.ShouldSkipDelete())
+            {
                 continue;
+            }
 
             if (!deleteFieldValues.TryGetValue(fieldDef.Name, out var fieldValue))
+            {
                 continue;
+            }
 
             if (fieldDef.IsRowVersion)
+            {
                 hadRowVersion = true;
+            }
 
             try
             {
                 if (sqlFilter.Length > 0)
+                {
                     sqlFilter.Append(" AND ");
+                }
 
                 if (fieldValue != null)
                 {
@@ -1932,7 +2047,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                 }
 
                 if (fieldDef == null)
+                {
                     throw new ArgumentException($"Field Definition '{fieldName}' was not found");
+                }
             }
 
             if (fieldDef.AutoId && p.Value != null)
@@ -2009,7 +2126,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public object GetFieldValue(FieldDefinition fieldDef, object value)
     {
         if (value == null)
+        {
             return null;
+        }
 
         var converter = this.GetConverterBestMatch(fieldDef);
         try
@@ -2034,7 +2153,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public object GetFieldValue(Type fieldType, object value)
     {
         if (value == null)
+        {
             return null;
+        }
 
         var converter = this.GetConverterBestMatch(fieldType);
         try
@@ -2060,7 +2181,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     {
         var value = this.GetValue(fieldDef, obj);
         if (value == null)
+        {
             return DBNull.Value;
+        }
 
         return value;
     }
@@ -2077,12 +2200,16 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         var value = fieldDef.GetValue(obj);
 
         if (value == null)
+        {
             return DBNull.Value;
+        }
 
         var unquotedVal = this.GetQuotedValue(value, fieldDef.FieldType).TrimStart('\'').TrimEnd('\'');
 
         if (string.IsNullOrEmpty(unquotedVal))
+        {
             return DBNull.Value;
+        }
 
         return unquotedVal;
     }
@@ -2108,14 +2235,18 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         foreach (var fieldDef in modelDef.FieldDefinitions)
         {
             if (fieldDef.ShouldSkipUpdate())
+            {
                 continue;
+            }
 
             try
             {
                 if (fieldDef.IsPrimaryKey && updateAllFields)
                 {
                     if (sqlFilter.Length > 0)
+                    {
                         sqlFilter.Append(" AND ");
+                    }
 
                     sqlFilter.Append(this.GetQuotedColumnName(fieldDef.FieldName)).Append('=').Append(
                         this.AddQueryParam(dbCmd, fieldDef.GetValue(objWithProperties), fieldDef).ParameterName);
@@ -2125,10 +2256,14 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
 
                 if (!updateAllFields && !updateFields.Contains(fieldDef.Name, StringComparer.OrdinalIgnoreCase) ||
                     fieldDef.AutoIncrement)
+                {
                     continue;
+                }
 
                 if (sql.Length > 0)
+                {
                     sql.Append(", ");
+                }
 
                 sql.Append(this.GetQuotedColumnName(fieldDef.FieldName)).Append('=').Append(
                     this.GetUpdateParam(dbCmd, fieldDef.GetValue(objWithProperties), fieldDef));
@@ -2144,8 +2279,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                             $"SET {StringBuilderCache.ReturnAndFree(sql)}{(strFilter.Length > 0 ? " WHERE " + strFilter : string.Empty)}";
 
         if (sql.Length == 0)
+        {
             throw new Exception(
                 "No valid update properties provided (e.g. p => p.FirstName): " + dbCmd.CommandText);
+        }
     }
 
     /// <summary>
@@ -2169,7 +2306,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         {
             var fieldDef = modelDef.AssertFieldDefinition(entry.Key);
             if (fieldDef.ShouldSkipUpdate() || fieldDef.IsPrimaryKey || fieldDef.AutoIncrement)
+            {
                 continue;
+            }
 
             var value = entry.Value;
 
@@ -2196,8 +2335,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                             $"SET {StringBuilderCache.ReturnAndFree(sql)}{(string.IsNullOrEmpty(sqlFilter) ? string.Empty : " ")}{sqlFilter}";
 
         if (sql.Length == 0)
+        {
             throw new Exception(
                 "No valid update properties provided (e.g. () => new Person { Age = 27 }): " + dbCmd.CommandText);
+        }
     }
 
     /// <summary>
@@ -2315,14 +2456,18 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             var fieldDef = modelDef.AssertFieldDefinition(entry.Key);
             if (fieldDef.ShouldSkipUpdate() || fieldDef.AutoIncrement || fieldDef.IsPrimaryKey ||
                 fieldDef.IsRowVersion || fieldDef.Name == OrmLiteConfig.IdField)
+            {
                 continue;
+            }
 
             var value = entry.Value;
 
             try
             {
                 if (sql.Length > 0)
+                {
                     sql.Append(", ");
+                }
 
                 var quotedFieldName = this.GetQuotedColumnName(fieldDef.FieldName);
 
@@ -2346,8 +2491,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                             $"SET {StringBuilderCache.ReturnAndFree(sql)}{(string.IsNullOrEmpty(sqlFilter) ? string.Empty : " ")}{sqlFilter}";
 
         if (sql.Length == 0)
+        {
             throw new Exception(
                 "No valid update properties provided (e.g. () => new Person { Age = 27 }): " + dbCmd.CommandText);
+        }
     }
 
     /// <summary>
@@ -2367,13 +2514,17 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
                                         .Equals(deleteStatement);
 
         if (isFullDeleteStatement)
+        {
             return sqlFilter.SqlFmt(this, filterParams);
+        }
 
         var modelDef = tableType.GetModelDefinition();
         sql.Append($"DELETE FROM {this.GetQuotedTableName(modelDef)}");
 
         if (string.IsNullOrEmpty(sqlFilter))
+        {
             return StringBuilderCache.ReturnAndFree(sql);
+        }
 
         sqlFilter = sqlFilter.SqlFmt(this, filterParams);
         sql.Append(" WHERE ");
@@ -2427,10 +2578,14 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public virtual string ResolveFragment(string sql)
     {
         if (string.IsNullOrEmpty(sql))
+        {
             return null;
+        }
 
         if (!sql.StartsWith('{'))
+        {
             return sql;
+        }
 
         return this.Variables.TryGetValue(sql, out var variable) ? variable : null;
     }
@@ -2469,7 +2624,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
     /// <returns>System.Collections.Generic.List&lt;string&gt;.</returns>
-    public virtual List<string> GetSchemas(IDbCommand dbCmd) => new() { "default" };
+    public virtual List<string> GetSchemas(IDbCommand dbCmd) => ["default"];
 
     /// <summary>
     /// Gets the schema tables.
@@ -2515,15 +2670,21 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         foreach (var fieldDef in this.CreateTableFieldsStrategy(modelDef))
         {
             if (fieldDef.CustomSelect != null || fieldDef.IsComputed && !fieldDef.IsPersisted)
+            {
                 continue;
+            }
 
             var columnDefinition = this.GetColumnDefinition(fieldDef, modelDef);
 
             if (columnDefinition == null)
+            {
                 continue;
+            }
 
             if (sbColumns.Length != 0)
+            {
                 sbColumns.Append(", \n  ");
+            }
 
             sbColumns.Append(columnDefinition);
 
@@ -2534,7 +2695,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             }
 
             if (fieldDef.ForeignKey == null || OrmLiteConfig.SkipForeignKeys)
+            {
                 continue;
+            }
 
             var refModelDef = fieldDef.ForeignKey.ReferenceType.GetModelDefinition();
             sbConstraints.Append(
@@ -2603,7 +2766,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public virtual string GetCheckConstraint(ModelDefinition modelDef, FieldDefinition fieldDef)
     {
         if (fieldDef.CheckConstraint == null)
+        {
             return null;
+        }
 
         return
             $"CONSTRAINT CHK_{modelDef.Schema}_{modelDef.ModelName}_{fieldDef.FieldName} CHECK ({fieldDef.CheckConstraint})";
@@ -2661,7 +2826,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         var modelDef = tableType.GetModelDefinition();
         foreach (var fieldDef in modelDef.FieldDefinitions)
         {
-            if (!fieldDef.IsIndexed) continue;
+            if (!fieldDef.IsIndexed)
+            {
+                continue;
+            }
 
             var indexName = fieldDef.IndexName ?? this.GetIndexName(
                                 fieldDef.IsUniqueIndex,
@@ -2686,7 +2854,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             foreach (var fieldName in compositeIndex.FieldNames)
             {
                 if (sb.Length > 0)
+                {
                     sb.Append(", ");
+                }
 
                 var parts = fieldName.SplitOnLast(' ');
                 if (parts.Length == 2 &&
@@ -2967,7 +3137,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <returns>List&lt;System.String&gt;.</returns>
     public virtual List<string> ToCreateSequenceStatements(Type tableType)
     {
-        return new List<string>();
+        return [];
     }
 
     /// <summary>
@@ -3007,7 +3177,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="tableType">Type of the table.</param>
     /// <returns>List&lt;System.String&gt;.</returns>
-    public virtual List<string> SequenceList(Type tableType) => new();
+    public virtual List<string> SequenceList(Type tableType) => [];
 
     /// <summary>
     /// Sequences the list asynchronous.
@@ -3386,7 +3556,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public virtual string GetQuotedValue(object value, Type fieldType)
     {
         if (value == null || value == DBNull.Value)
+        {
             return "NULL";
+        }
 
         var converter = value.GetType().IsEnum ? this.EnumConverter : this.GetConverterBestMatch(fieldType);
 
@@ -3686,7 +3858,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
         try
         {
             if (await this.ReadAsync(reader, token))
+            {
                 return fn();
+            }
 
             return default;
         }
@@ -3706,8 +3880,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public virtual Task<long> InsertAndGetLastInsertIdAsync<T>(IDbCommand dbCmd, CancellationToken token)
     {
         if (this.SelectIdentitySql == null)
+        {
             return new NotImplementedException(
                 "Returning last inserted identity is not implemented on this DB Provider.").InTask<long>();
+        }
 
         dbCmd.CommandText += "; " + this.SelectIdentitySql;
 

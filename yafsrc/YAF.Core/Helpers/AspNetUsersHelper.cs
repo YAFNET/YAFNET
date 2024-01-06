@@ -166,7 +166,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
             if (checkEmail != null)
             {
-                this.GetRepository<CheckEmail>().DeleteById(checkEmail.ID);
+                await this.GetRepository<CheckEmail>().DeleteByIdAsync(checkEmail.ID);
             }
         }
     }
@@ -202,7 +202,7 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
 
         if (checkEmail != null)
         {
-            this.GetRepository<CheckEmail>().DeleteById(checkEmail.ID);
+            await this.GetRepository<CheckEmail>().DeleteByIdAsync(checkEmail.ID);
         }
 
         return true;

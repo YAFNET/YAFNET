@@ -562,7 +562,9 @@ namespace ServiceStack.OrmLite
         public async static Task<bool> SaveAsync<T>(this IDbConnection dbConn, T obj, bool references = false, CancellationToken token = default)
         {
             if (!references)
+            {
                 return await dbConn.Exec(dbCmd => dbCmd.SaveAsync(obj, token)).ConfigAwait();
+            }
 
             var trans = dbConn.OpenTransactionIfNotExists();
             return await dbConn.Exec(async dbCmd =>

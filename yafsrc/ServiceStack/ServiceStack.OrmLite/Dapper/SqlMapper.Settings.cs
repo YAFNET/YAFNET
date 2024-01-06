@@ -36,8 +36,14 @@ public static partial class SqlMapper
         /// <param name="enabled">if set to <c>true</c> [enabled].</param>
         private static void SetAllowedCommandBehaviors(CommandBehavior behavior, bool enabled)
         {
-            if (enabled) AllowedCommandBehaviors |= behavior;
-            else AllowedCommandBehaviors &= ~behavior;
+            if (enabled)
+            {
+                AllowedCommandBehaviors |= behavior;
+            }
+            else
+            {
+                AllowedCommandBehaviors &= ~behavior;
+            }
         }
         /// <summary>
         /// Gets or sets whether Dapper should use the CommandBehavior.SingleResult optimization

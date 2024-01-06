@@ -484,7 +484,9 @@ public static class OrmLiteSchemaModifyApi
         var dropSql = provider.GetDropForeignKeyConstraints(modelDef);
 
         if (string.IsNullOrEmpty(dropSql))
+        {
             throw new NotSupportedException($"Drop All Foreign Keys not supported by {provider.GetType().Name}");
+        }
 
         dbConn.ExecuteSql(dropSql);
     }
@@ -649,7 +651,9 @@ public static class OrmLiteSchemaModifyApi
         {
             var attrs = fieldDef.PropertyInfo.AllAttributes().Where(x => x is AlterColumnAttribute).ToList();
             if (attrs.Count > 1)
+            {
                 throw new Exception($"Only 1 AlterColumnAttribute allowed on {modelType.Name}.{fieldDef.Name}");
+            }
 
             var attr = attrs.FirstOrDefault();
 
@@ -684,7 +688,9 @@ public static class OrmLiteSchemaModifyApi
         {
             var attrs = fieldDef.PropertyInfo.AllAttributes().Where(x => x is AlterColumnAttribute).ToList();
             if (attrs.Count > 1)
+            {
                 throw new Exception($"Only 1 AlterColumnAttribute allowed on {modelType.Name}.{fieldDef.Name}");
+            }
 
             var attr = attrs.FirstOrDefault();
             switch (attr)

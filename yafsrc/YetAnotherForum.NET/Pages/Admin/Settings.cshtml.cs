@@ -23,6 +23,8 @@
  */
 
 
+using System.Threading.Tasks;
+
 using YAF.Types.InputModels;
 
 namespace YAF.Pages.Admin;
@@ -89,11 +91,11 @@ public class SettingsModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public void OnGet()
+    public async Task OnGetAsync()
     {
         this.Input = new SettingsInputModel();
 
-        this.BindData();
+        await this.BindDataAsync();
     }
 
     /// <summary>
@@ -166,7 +168,7 @@ public class SettingsModel : AdminPage
     /// <summary>
     /// Binds the data.
     /// </summary>
-    private void BindData()
+    private async Task BindDataAsync()
     {
         this.CreateLogosList();
 
@@ -214,7 +216,7 @@ public class SettingsModel : AdminPage
         ];
 
         this.ForumDefaultAccessMasks = new SelectList(
-            this.GetRepository<AccessMask>().GetByBoardId(),
+            await this.GetRepository<AccessMask>().GetByBoardIdAsync(),
             nameof(AccessMask.ID),
             nameof(AccessMask.Name));
 

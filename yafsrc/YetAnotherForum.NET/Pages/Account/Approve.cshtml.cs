@@ -143,7 +143,7 @@ public class ApproveModel : AccountPage
 
             this.GetRepository<User>().Approve(userEmail.UserID);
 
-            this.GetRepository<CheckEmail>().DeleteById(userEmail.ID);
+            await this.GetRepository<CheckEmail>().DeleteByIdAsync(userEmail.ID);
 
             // automatically log in created users
             await this.Get<IAspNetUsersHelper>().SignInAsync(user);

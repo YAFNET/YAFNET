@@ -138,6 +138,33 @@ public static class IRepositoryExtensions
     }
 
     /// <summary>
+    /// The delete by id.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="id">
+    /// The id.
+    /// </param>
+    /// <typeparam name="T">
+    /// The type parameter.
+    /// </typeparam>
+    /// <returns>
+    /// The <see cref="bool"/> .
+    /// </returns>
+    public async static Task<bool> DeleteByIdAsync<T>(this IRepository<T> repository, int id)
+        where T : class, IEntity, IHaveID, new()
+    {
+        var success = await repository.DbAccess.ExecuteAsync(db => db.DeleteByIdAsync<T>(id)) == 1;
+        if (success)
+        {
+            repository.FireDeleted(id);
+        }
+
+        return success;
+    }
+
+    /// <summary>
     /// Deletes all typeof `T with ids in the list
     /// </summary>
     /// <typeparam name="T">The type parameter.</typeparam>
@@ -176,6 +203,29 @@ public static class IRepositoryExtensions
         var newBoardId = boardId ?? repository.BoardID;
 
         return repository.DbAccess.Execute(db => db.Connection.Where<T>(new { BoardID = newBoardId }));
+    }
+
+    /// <summary>
+    /// Get all entities by the board Id or current board id if none is specified.
+    /// </summary>
+    /// <param name="repository">
+    /// The repository.
+    /// </param>
+    /// <param name="boardId">
+    /// The board id.
+    /// </param>
+    /// <typeparam name="T">
+    /// The type parameter.
+    /// </typeparam>
+    /// <returns>
+    /// Returns all entities by the board Id or current board id if none is specified
+    /// </returns>
+    public static Task<List<T>> GetByBoardIdAsync<T>(this IRepository<T> repository, int? boardId = null)
+        where T : IEntity, IHaveBoardID, new()
+    {
+        var newBoardId = boardId ?? repository.BoardID;
+
+        return repository.DbAccess.ExecuteAsync(db => db.WhereAsync<T>(new { BoardID = newBoardId }));
     }
 
     /// <summary>

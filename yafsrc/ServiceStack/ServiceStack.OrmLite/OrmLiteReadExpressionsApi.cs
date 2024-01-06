@@ -168,9 +168,15 @@ public static class OrmLiteReadExpressionsApi
     {
         var expr = dbConn.GetExecFilter().SqlExpression<T>(dbConn);
         if (!string.IsNullOrEmpty(tableOptions.Expression))
+        {
             expr.From(tableOptions.Expression);
+        }
+
         if (!string.IsNullOrEmpty(tableOptions.Alias))
+        {
             expr.SetTableAlias(tableOptions.Alias);
+        }
+
         return expr;
     }
 
@@ -287,7 +293,9 @@ public static class OrmLiteReadExpressionsApi
         {
             var sql = db.GetDialectProvider().ToTableNamesWithRowCountsStatement(live, schema);
             if (sql != null)
+            {
                 return db.KeyValuePairs<string, long>(sql);
+            }
 
             sql = CreateTableRowCountUnionSql(db, schema);
             return db.KeyValuePairs<string, long>(sql);
@@ -314,7 +322,9 @@ public static class OrmLiteReadExpressionsApi
         {
             var sql = db.GetDialectProvider().ToTableNamesWithRowCountsStatement(live, schema);
             if (sql != null)
+            {
                 return db.KeyValuePairsAsync<string, long>(sql);
+            }
 
             sql = CreateTableRowCountUnionSql(db, schema);
             return db.KeyValuePairsAsync<string, long>(sql);
@@ -342,7 +352,9 @@ public static class OrmLiteReadExpressionsApi
         foreach (var tableName in tableNames)
         {
             if (sb.Length > 0)
+            {
                 sb.Append(" UNION ");
+            }
 
             // retain *real* table names and skip using naming strategy
             sb.AppendLine(
@@ -420,7 +432,10 @@ public static class OrmLiteReadExpressionsApi
     public static SavePoint SavePoint(this IDbTransaction trans, string name)
     {
         if (trans is not OrmLiteTransaction dbTrans)
+        {
             throw new ArgumentException($"{trans.GetType().Name} is not an OrmLiteTransaction. Use db.OpenTransaction() to Create OrmLite Transactions");
+        }
+
         var savePoint = new SavePoint(dbTrans, name);
         savePoint.Save();
         return savePoint;
@@ -436,7 +451,10 @@ public static class OrmLiteReadExpressionsApi
     public async static Task<SavePoint> SavePointAsync(this IDbTransaction trans, string name)
     {
         if (trans is not OrmLiteTransaction dbTrans)
+        {
             throw new ArgumentException($"{trans.GetType().Name} is not an OrmLiteTransaction. Use db.OpenTransaction() to Create OrmLite Transactions");
+        }
+
         var savePoint = new SavePoint(dbTrans, name);
         await savePoint.SaveAsync().ConfigAwait();
         return savePoint;
@@ -490,13 +508,17 @@ public static class OrmLiteReadExpressionsApi
     public static List<T> Select<T>(this IDbConnection dbConn, ISqlExpression expression, object anonType = null)
     {
         if (anonType != null)
+        {
             return dbConn.Exec(dbCmd => dbCmd.SqlList<T>(expression.SelectInto<T>(QueryType.Select), anonType));
+        }
 
         if (expression.Params != null && expression.Params.Any())
+        {
             return dbConn.Exec(
                 dbCmd => dbCmd.SqlList<T>(
                     expression.SelectInto<T>(QueryType.Select),
                     expression.Params.ToDictionary(param => param.ParameterName, param => param.Value)));
+        }
 
         return dbConn.Exec(
             dbCmd => dbCmd.SqlList<T>(expression.SelectInto<T>(QueryType.Select), expression.Params));

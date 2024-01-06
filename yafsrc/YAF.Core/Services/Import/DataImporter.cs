@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Collections.Generic;
+
 namespace YAF.Core.Services.Import;
 
 using System;
@@ -91,25 +93,32 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
 
                         var bbCodeExtension = bbcodeList.FirstOrDefault(b => b.Name.Equals(name));
 
+                        var updateEntry = new BBCode {
+                            BoardID = boardId,
+                            Name = name,
+                            Description = row["Description"].ToString(),
+                            OnClickJS = row["OnClickJS"].ToString(),
+                            DisplayJS = row["DisplayJS"].ToString(),
+                            EditJS = row["EditJS"].ToString(),
+                            DisplayCSS = row["DisplayCSS"].ToString(),
+                            SearchRegex = row["SearchRegex"].ToString(),
+                            ReplaceRegex = row["ReplaceRegex"].ToString(),
+                            Variables = row["Variables"].ToString(),
+                            UseModule = row["UseModule"].ToType<bool>(),
+                            UseToolbar = row["UseToolbar"].ToType<bool>(),
+                            ModuleClass = row["ModuleClass"].ToString(),
+                            ExecOrder = row["ExecOrder"].ToType<int>()
+                        };
+
                         if (bbCodeExtension != null)
                         {
-                            // update this bbcode...
-                            repository.Save(
-                                bbCodeExtension.ID,
-                                row["Name"].ToString(),
-                                row["Description"].ToString(),
-                                row["OnClickJS"].ToString(),
-                                row["DisplayJS"].ToString(),
-                                row["EditJS"].ToString(),
-                                row["DisplayCSS"].ToString(),
-                                row["SearchRegex"].ToString(),
-                                row["ReplaceRegex"].ToString(),
-                                row["Variables"].ToString(),
-                                row["UseModule"].ToType<bool>(),
-                                row["UseToolbar"].ToType<bool>(),
-                                row["ModuleClass"].ToString(),
-                                row["ExecOrder"].ToType<int>(),
-                                boardId);
+                            if (!BBCode.Equals(updateEntry, bbCodeExtension))
+                            {
+                                updateEntry.ID = bbCodeExtension.ID;
+
+                                // update this bbcode...
+                                repository.Update(updateEntry);
+                            }
                         }
                         else
                         {
@@ -320,8 +329,6 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
     /// <returns>Returns the Number of Imported Items.</returns>
     public int SpamWordsImport(int boardId, Stream inputStream)
     {
-        var importedCount = 0;
-
         var repository = this.GetRepository<Spam_Words>();
 
         // import spam words...
@@ -330,10 +337,12 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
 
         if (spamWords.Tables["YafSpamWords"]?.Columns["spamword"] == null)
         {
-            return importedCount;
+            return 0;
         }
 
         var spamWordsList = repository.Get(x => x.BoardID == boardId);
+
+        var imports = new List<Spam_Words>();
 
         // import any extensions that don't exist...
         spamWords.Tables["YafSpamWords"].Rows.Cast<DataRow>()
@@ -341,11 +350,12 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
                 row =>
                     {
                         // add this...
-                        repository.Save(null, row["SpamWord"].ToString());
-                        importedCount++;
+                        imports.Add(new Spam_Words { BoardID = boardId, SpamWord = row["SpamWord"].ToString() });
                     });
 
-        return importedCount;
+        repository.BulkInsert(imports);
+
+        return imports.Count;
     }
 
     /// <summary>

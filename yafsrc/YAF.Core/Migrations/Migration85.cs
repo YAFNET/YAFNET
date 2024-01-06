@@ -22,11 +22,10 @@
  * under the License.
  */
 
-namespace YAF.Core.Services.Migrations
+namespace YAF.Core.Migrations
 {
-    using System;
-
     using ServiceStack.OrmLite;
+
     using System.Data;
     using System.Threading.Tasks;
 
@@ -36,9 +35,9 @@ namespace YAF.Core.Services.Migrations
     using YAF.Types.Models;
 
     /// <summary>
-    /// Version 84 Migrations
+    /// Version 85 Migrations
     /// </summary>
-    public class V84_Migration : IRepositoryMigration, IHaveServiceLocator
+    public class Migration85 : IRepositoryMigration, IHaveServiceLocator
     {
         /// <summary>
         /// Migrate Repositories (Database).
@@ -51,7 +50,7 @@ namespace YAF.Core.Services.Migrations
             dbAccess.Execute(
                 dbCommand =>
                 {
-                    this.UpgradeTable(this.GetRepository<TopicTag>(), dbAccess, dbCommand);
+                    this.UpgradeTable(this.GetRepository<Category>(), dbAccess, dbCommand);
 
                     ///////////////////////////////////////////////////////////
 
@@ -61,49 +60,15 @@ namespace YAF.Core.Services.Migrations
             return Task.CompletedTask;
         }
 
-        /// <summary>Upgrades the TopicTag table.</summary>
+        /// <summary>Upgrades the Category table.</summary>
         /// <param name="repository">The repository.</param>
         /// <param name="dbAccess">The database access.</param>
         /// <param name="dbCommand">The database command.</param>
-        private void UpgradeTable(IRepository<TopicTag> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+        private void UpgradeTable(IRepository<Category> repository, IDbAccess dbAccess, IDbCommand dbCommand)
         {
-            if (OrmLiteConfig.DialectProvider.SQLServerName() == "SQLite")
+            if (!dbCommand.Connection.ColumnExists<Category>(x => x.Flags))
             {
-                var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
-
-                var oldTableName = OrmLiteConfig.DialectProvider.GetQuotedTableName($"{nameof(TopicTag)}_old");
-                
-                dbCommand.Connection.ExecuteSql(
-                    $@"BEGIN TRANSACTION;
-                           ALTER TABLE {expression.Table<TopicTag>()} RENAME TO {oldTableName}; 
-                       COMMIT;");
-
-                dbCommand.Connection.CreateTable<TopicTag>();
-
-                dbCommand.Connection.ExecuteSql(
-                    $@"BEGIN TRANSACTION;
-                           INSERT INTO {expression.Table<TopicTag>()} SELECT * FROM {oldTableName}; 
-                       COMMIT;");
-
-                dbCommand.Connection.ExecuteSql(
-                    $@"DROP TABLE {oldTableName};");
-            }
-            else
-            {
-                var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
-
-                var name = dbCommand.Connection.GetPrimaryKey<TopicTag>();
-
-                dbCommand.Connection.DropPrimaryKey<TopicTag>(name, x => x.TagID, x => x.TopicID);
-
-                try
-                {
-                    dbCommand.Connection.AddCompositePrimaryKey<TopicTag>(x => x.TagID, x => x.TopicID);
-                }
-                catch (Exception)
-                {
-                    // Ignore here
-                }
+                dbCommand.Connection.AddColumn<Category>(x => x.Flags);
             }
         }
 

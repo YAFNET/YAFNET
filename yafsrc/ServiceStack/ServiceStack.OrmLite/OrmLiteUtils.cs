@@ -94,7 +94,10 @@ public static class OrmLiteUtils
         {
             var p = (IDataParameter)cmd.Parameters[i];
             if (i > 0)
+            {
                 sb.Append(", ");
+            }
+
             sb.Append($"{p.ParameterName}={p.Value}");
         }
 
@@ -151,15 +154,21 @@ public static class OrmLiteUtils
             if (reader.Read())
             {
                 if (typeof(T) == typeof(List<object>))
+                {
                     return (T)(object)reader.ConvertToListObjects();
+                }
 
                 if (typeof(T) == typeof(Dictionary<string, object>))
+                {
                     return (T)(object)reader.ConvertToDictionaryObjects();
+                }
 
                 var values = new object[reader.FieldCount];
 
                 if (typeof(T).IsValueTuple())
+                {
                     return reader.ConvertToValueTuple<T>(values, dialectProvider);
+                }
 
                 var row = CreateInstance<T>();
                 var indexCache = reader.GetIndexFieldsCache(ModelDefinition<T>.Definition, dialectProvider, onlyFields: onlyFields);
@@ -237,14 +246,19 @@ public static class OrmLiteUtils
         {
             var itemName = "Item" + (i + 1);
             var field = typeFields.GetAccessor(itemName);
-            if (field == null) break;
+            if (field == null)
+            {
+                break;
+            }
 
             var fieldType = field.FieldInfo.FieldType;
             var converter = dialectProvider.GetConverterBestMatch(fieldType);
 
             var dbValue = converter.GetValue(reader, i, values);
             if (dbValue == null)
+            {
                 continue;
+            }
 
             if (dbValue.GetType() == fieldType)
             {
@@ -418,7 +432,9 @@ public static class OrmLiteUtils
             for (; endPos < reader.FieldCount; endPos++)
             {
                 if (string.Equals("EOT", reader.GetName(endPos), StringComparison.OrdinalIgnoreCase))
+                {
                     break;
+                }
             }
 
             var noEOT = endPos == reader.FieldCount; // If no explicit EOT delimiter, split by field count
@@ -545,7 +561,9 @@ public static class OrmLiteUtils
         foreach (var item in inArgs)
         {
             if (sbParams.Length > 0)
+            {
                 sbParams.Append(",");
+            }
 
             sbParams.Append(dbCmd.AddParam(dbCmd.Parameters.Count.ToString(), item).ParameterName);
         }
@@ -574,7 +592,9 @@ public static class OrmLiteUtils
     public static string SqlFmt(this string sqlText, IOrmLiteDialectProvider dialect, params object[] sqlParams)
     {
         if (sqlParams.Length == 0)
+        {
             return sqlText;
+        }
 
         var escapedParams = new List<string>();
         foreach (var sqlParam in sqlParams)
@@ -681,7 +701,9 @@ public static class OrmLiteUtils
     public static bool isUnsafeSql(string sql, Regex verifySql)
     {
         if (sql == null)
+        {
             return false;
+        }
 
         if (SqlVerifyFragmentFn != null)
         {
@@ -708,7 +730,9 @@ public static class OrmLiteUtils
     public static string SqlVerifyFragment(this string sqlFragment)
     {
         if (isUnsafeSql(sqlFragment, VerifyFragmentRegEx))
+        {
             throw new ArgumentException("Potential illegal fragment detected: " + sqlFragment);
+        }
 
         return sqlFragment;
     }
@@ -716,12 +740,13 @@ public static class OrmLiteUtils
     /// <summary>
     /// The illegal SQL fragment tokens
     /// </summary>
-    public static string[] IllegalSqlFragmentTokens = {
-                                                          "--", ";--", ";", "%", "/*", "*/", "@@", "@",
+    public static string[] IllegalSqlFragmentTokens = [
+        "--", ";--", ";", "%", "/*", "*/", "@@", "@",
                                                           "char", "nchar", "varchar", "nvarchar",
                                                           "alter", "begin", "cast", "create", "cursor", "declare", "delete",
                                                           "drop", "end", "exec", "execute", "fetch", "insert", "kill",
-                                                          "open", "select", "sys", "sysobjects", "syscolumns", "table", "update" };
+                                                          "open", "select", "sys", "sysobjects", "syscolumns", "table", "update"
+    ];
 
     /// <summary>
     /// SQLs the verify fragment.
@@ -733,7 +758,9 @@ public static class OrmLiteUtils
     public static string SqlVerifyFragment(this string sqlFragment, IEnumerable<string> illegalFragments)
     {
         if (sqlFragment == null)
+        {
             return null;
+        }
 
         var fragmentToVerify = sqlFragment
             .StripQuotedStrings('\'')
@@ -744,7 +771,9 @@ public static class OrmLiteUtils
         foreach (var illegalFragment in illegalFragments)
         {
             if (fragmentToVerify.IndexOf(illegalFragment, StringComparison.Ordinal) >= 0)
+            {
                 throw new ArgumentException("Potential illegal fragment detected: " + sqlFragment);
+            }
         }
 
         return sqlFragment;
@@ -779,7 +808,9 @@ public static class OrmLiteUtils
             }
 
             if (!inQuotes)
+            {
                 sb.Append(c);
+            }
         }
 
         return StringBuilderCache.ReturnAndFree(sb);
@@ -795,14 +826,20 @@ public static class OrmLiteUtils
     public static string SqlJoin<T>(this List<T> values, IOrmLiteDialectProvider dialect = null)
     {
         if (values == null)
+        {
             return string.Empty;
+        }
 
         dialect ??= OrmLiteConfig.DialectProvider;
 
         var sb = StringBuilderCache.Allocate();
         foreach (var value in values)
         {
-            if (sb.Length > 0) sb.Append(",");
+            if (sb.Length > 0)
+            {
+                sb.Append(",");
+            }
+
             sb.Append(dialect.GetQuotedValue(value, value.GetType()));
         }
 
@@ -818,7 +855,9 @@ public static class OrmLiteUtils
     public static string SqlJoin(IEnumerable values, IOrmLiteDialectProvider dialect = null)
     {
         if (values == null)
+        {
             return string.Empty;
+        }
 
         dialect ??= OrmLiteConfig.DialectProvider;
 
@@ -826,7 +865,9 @@ public static class OrmLiteUtils
         foreach (var value in values)
         {
             if (sb.Length > 0)
+            {
                 sb.Append(",");
+            }
 
             sb.Append(value is null
                           ? "NULL"
@@ -859,12 +900,17 @@ public static class OrmLiteUtils
     {
         var sb = StringBuilderCache.Allocate();
         if (dialect == null)
+        {
             dialect = OrmLiteConfig.DialectProvider;
+        }
 
         for (var i = 0; i < values.Length; i++)
         {
             if (sb.Length > 0)
+            {
                 sb.Append(',');
+            }
+
             var paramName = dialect.ParamString + "v" + i;
             sb.Append(paramName);
         }
@@ -916,7 +962,9 @@ public static class OrmLiteUtils
             lock (indexFieldsCache)
             {
                 if (indexFieldsCache.TryGetValue(cacheKey, out value))
+                {
                     return value;
+                }
             }
         }
 
@@ -984,9 +1032,14 @@ public static class OrmLiteUtils
             lock (indexFieldsCache)
             {
                 if (indexFieldsCache.TryGetValue(cacheKey, out value))
+                {
                     return value;
+                }
+
                 if (indexFieldsCache.Count < maxCachedIndexFields)
+                {
                     indexFieldsCache.Add(cacheKey, result);
+                }
             }
         }
 
@@ -1008,22 +1061,30 @@ public static class OrmLiteUtils
     {
         var fieldName = dialectProvider.NamingStrategy.GetColumnName(fieldDef.FieldName);
         if (dbFieldMap.TryGetValue(fieldName, out var index))
+        {
             return index;
+        }
 
         index = TryGuessColumnIndex(fieldName, dbFieldMap);
         if (index != NotFound)
+        {
             return index;
+        }
 
         // Try fallback to original field name when overriden by alias
         if (fieldDef.Alias != null && !OrmLiteConfig.DisableColumnGuessFallback)
         {
             var alias = dialectProvider.NamingStrategy.GetColumnName(fieldDef.Name);
             if (dbFieldMap.TryGetValue(alias, out index))
+            {
                 return index;
+            }
 
             index = TryGuessColumnIndex(alias, dbFieldMap);
             if (index != NotFound)
+            {
                 return index;
+            }
         }
 
         return NotFound;
@@ -1045,7 +1106,9 @@ public static class OrmLiteUtils
     private static int TryGuessColumnIndex(string fieldName, Dictionary<string, int> dbFieldMap)
     {
         if (OrmLiteConfig.DisableColumnGuessFallback)
+        {
             return NotFound;
+        }
 
         foreach (var entry in dbFieldMap)
         {
@@ -1056,42 +1119,58 @@ public static class OrmLiteUtils
             // e.g. CustomerId (C#) vs customer_id (DB)
             var dbFieldNameWithNoUnderscores = dbFieldName.Replace("_", "");
             if (string.Compare(fieldName, dbFieldNameWithNoUnderscores, StringComparison.OrdinalIgnoreCase) == 0)
+            {
                 return i;
+            }
 
             // Next guess: Maybe the DB field has special characters?
             // e.g. Quantity (C#) vs quantity% (DB)
             var dbFieldNameSanitized = AllowedPropertyCharsRegex.Replace(dbFieldName, string.Empty);
             if (string.Compare(fieldName, dbFieldNameSanitized, StringComparison.OrdinalIgnoreCase) == 0)
+            {
                 return i;
+            }
 
             // Next guess: Maybe the DB field has special characters *and* has underscores?
             // e.g. Quantity (C#) vs quantity_% (DB)
             if (string.Compare(fieldName, dbFieldNameSanitized.Replace("_", string.Empty), StringComparison.OrdinalIgnoreCase) == 0)
+            {
                 return i;
+            }
 
             // Next guess: Maybe the DB field has some prefix that we don't have in our C# field?
             // e.g. CustomerId (C#) vs t130CustomerId (DB)
             if (dbFieldName.EndsWith(fieldName, StringComparison.OrdinalIgnoreCase))
+            {
                 return i;
+            }
 
             // Next guess: Maybe the DB field has some prefix that we don't have in our C# field *and* has underscores?
             // e.g. CustomerId (C#) vs t130_CustomerId (DB)
             if (dbFieldNameWithNoUnderscores.EndsWith(fieldName, StringComparison.OrdinalIgnoreCase))
+            {
                 return i;
+            }
 
             // Next guess: Maybe the DB field has some prefix that we don't have in our C# field *and* has special characters?
             // e.g. CustomerId (C#) vs t130#CustomerId (DB)
             if (dbFieldNameSanitized.EndsWith(fieldName, StringComparison.OrdinalIgnoreCase))
+            {
                 return i;
+            }
 
             // Next guess: Maybe the DB field has some prefix that we don't have in our C# field *and* has underscores *and* has special characters?
             // e.g. CustomerId (C#) vs t130#Customer_I#d (DB)
             if (dbFieldNameSanitized.Replace("_", "").EndsWith(fieldName, StringComparison.OrdinalIgnoreCase))
+            {
                 return i;
+            }
 
             // Cater for Naming Strategies like PostgreSQL that has lower_underscore names
             if (dbFieldNameSanitized.Replace("_", "").EndsWith(fieldName.Replace("_", ""), StringComparison.OrdinalIgnoreCase))
+            {
                 return i;
+            }
         }
 
         return NotFound;
@@ -1119,7 +1198,9 @@ public static class OrmLiteUtils
     public static string StripTablePrefixes(this string selectExpression)
     {
         if (selectExpression.IndexOf('.') < 0)
+        {
             return selectExpression;
+        }
 
         var sb = StringBuilderCache.Allocate();
         var tokens = selectExpression.Split(' ');
@@ -1142,7 +1223,7 @@ public static class OrmLiteUtils
     /// <summary>
     /// The quoted chars
     /// </summary>
-    private readonly static char[] QuotedChars = { '"', '`', '[', ']' };
+    private readonly static char[] QuotedChars = ['"', '`', '[', ']'];
 
     /// <summary>
     /// Aliases the or column.
@@ -1262,7 +1343,9 @@ public static class OrmLiteUtils
         foreach (var fieldDef in modelDef.ReferenceFieldDefinitionsArray)
         {
             if (fieldDef.FieldType != typeof(Child) && fieldDef.FieldType != typeof(List<Child>))
+            {
                 continue;
+            }
 
             hasChildRef = true;
 
@@ -1298,7 +1381,9 @@ public static class OrmLiteUtils
         }
 
         if (!hasChildRef)
+        {
             throw new Exception($"Could not find Child Reference for '{typeof(Child).Name}' on Parent '{typeof(Parent).Name}'");
+        }
 
         return parents;
     }
@@ -1324,7 +1409,7 @@ public static class OrmLiteUtils
             var refValue = refField.GetValue(result);
             if (!map.TryGetValue(refValue, out refValues))
             {
-                map[refValue] = refValues = new List<object>();
+                map[refValue] = refValues = [];
             }
             refValues.Add(result);
         }
@@ -1406,13 +1491,19 @@ public static class OrmLiteUtils
     public static void AssertNotAnonType<T>()
     {
         if (typeof(T) == typeof(object))
+        {
             throw new ArgumentException("T generic argument should be a Table but was typeof(object)");
+        }
 
         if (typeof(T) == typeof(Dictionary<string, object>))
+        {
             throw new ArgumentException("T generic argument should be a Table but was typeof(Dictionary<string,object>)");
+        }
 
         if (typeof(ISqlExpression).IsAssignableFrom(typeof(T)))
+        {
             throw new ArgumentException("T generic argument should be a Table but was an ISqlExpression");
+        }
     }
 
     /// <summary>
@@ -1434,7 +1525,9 @@ public static class OrmLiteUtils
             {
                 var value = fieldDef.GetValue(obj);
                 if (value == null/* || value.Equals(fieldDef.FieldTypeDefaultValue)*/)
+                {
                     continue;
+                }
             }
             insertFields.Add(fieldDef.Name);
         }
@@ -1454,7 +1547,9 @@ public static class OrmLiteUtils
         var to = new List<string>();
 
         if (string.IsNullOrEmpty(expr))
+        {
             return to;
+        }
 
         var inDoubleQuotes = false;
         var inSingleQuotes = false;
@@ -1468,13 +1563,19 @@ public static class OrmLiteUtils
             if (inDoubleQuotes)
             {
                 if (c == '"')
+                {
                     inDoubleQuotes = false;
+                }
+
                 continue;
             }
             if (inSingleQuotes)
             {
                 if (c == '\'')
+                {
                     inSingleQuotes = false;
+                }
+
                 continue;
             }
             if (c == '"')
@@ -1496,15 +1597,21 @@ public static class OrmLiteUtils
             {
                 inBracesCount--;
                 if (inBracesCount > 0)
+                {
                     continue;
+                }
 
                 var endPos = expr.IndexOf(',', i);
                 if (endPos == -1)
+                {
                     endPos = expr.Length;
+                }
 
                 var arg = expr.Substring(pos, endPos - pos).Trim();
                 if (!string.IsNullOrEmpty(arg))
+                {
                     to.Add(arg);
+                }
 
                 pos = endPos;
                 continue;
@@ -1516,7 +1623,10 @@ public static class OrmLiteUtils
                 {
                     var arg = expr.Substring(pos, i - pos).Trim();
                     if (!string.IsNullOrEmpty(arg))
+                    {
                         to.Add(arg);
+                    }
+
                     pos = i + 1;
                 }
             }
@@ -1524,10 +1634,14 @@ public static class OrmLiteUtils
 
         var remaining = expr.Substring(pos, expr.Length - pos);
         if (!string.IsNullOrEmpty(remaining))
+        {
             remaining = remaining.Trim();
+        }
 
         if (!string.IsNullOrEmpty(remaining))
+        {
             to.Add(remaining);
+        }
 
         return to;
     }
@@ -1591,7 +1705,9 @@ public static class OrmLiteUtils
     public static string OrderByFields(IOrmLiteDialectProvider dialect, string orderBy)
     {
         if (string.IsNullOrEmpty(orderBy))
+        {
             return string.Empty;
+        }
 
         var sb = StringBuilderCache.Allocate();
 
@@ -1603,7 +1719,9 @@ public static class OrmLiteUtils
         foreach (var fieldName in fields)
         {
             if (sb.Length > 0)
+            {
                 sb.Append(", ");
+            }
 
             var reverse = fieldName.StartsWith("-");
             var useSuffix = reverse

@@ -50,7 +50,10 @@ public class DateOnlyConverter : DateTimeConverter
     {
         var dateTime = (DateTime)base.FromDbValue(value);
         if (dateTime.Kind != DateTimeKind.Local)
+        {
             dateTime = DateTime.SpecifyKind(dateTime, DateTimeKind.Local);
+        }
+
         var dateOnly = DateOnly.FromDateTime(dateTime);
         return dateOnly;
     }

@@ -266,7 +266,10 @@ public static class OrmLiteConverterExtensions
                 return Convert.ToInt64(value);
             case TypeCode.UInt64:
                 if (value is byte[] byteValue)
+                {
                     return OrmLiteUtils.ConvertToULong(byteValue);
+                }
+
                 return Convert.ToUInt64(value);
             case TypeCode.Single:
                 return Convert.ToSingle(value);

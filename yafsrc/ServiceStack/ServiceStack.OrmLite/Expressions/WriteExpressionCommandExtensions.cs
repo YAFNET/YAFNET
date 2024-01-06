@@ -359,11 +359,11 @@ static internal class WriteExpressionCommandExtensions
 
         if (modelDef.RowVersion == null || !updateFields.TryGetValue(ModelDefinition.RowVersionName, out var rowVersion))
         {
-            args = new[] { idValue };
+            args = [idValue];
             return "(" + dialectProvider.GetQuotedColumnName(pkField.FieldName) + " = {0})";
         }
 
-        args = new[] { idValue, rowVersion };
+        args = [idValue, rowVersion];
         return "(" + dialectProvider.GetQuotedColumnName(pkField.FieldName) + " = {0} AND " + dialectProvider.GetRowVersionColumn(modelDef.RowVersion) + " = {1})";
     }
 

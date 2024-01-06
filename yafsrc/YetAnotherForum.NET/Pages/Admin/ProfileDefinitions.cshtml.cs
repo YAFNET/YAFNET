@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -63,6 +65,10 @@ public class ProfileDefinitionsModel : AdminPage
         this.PageBoardContext.PageLinks.AddLink(this.GetText("ADMIN_PROFILEDEFINITIONS", "TITLE"));
     }
 
+    /// <summary>
+    /// Called when [get add].
+    /// </summary>
+    /// <returns>PartialViewResult.</returns>
     public PartialViewResult OnGetAdd()
     {
         return new PartialViewResult {
@@ -76,6 +82,11 @@ public class ProfileDefinitionsModel : AdminPage
                                      };
     }
 
+    /// <summary>
+    /// Called when [get edit].
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <returns>PartialViewResult.</returns>
     public PartialViewResult OnGetEdit(int id)
     {
         // Edit
@@ -99,30 +110,35 @@ public class ProfileDefinitionsModel : AdminPage
                                      };
     }
 
-    public void OnPostDelete(int id)
+    /// <summary>
+    /// On post delete as an asynchronous operation.
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <returns>A Task representing the asynchronous operation.</returns>
+    public async Task OnPostDeleteAsync(int id)
     {
-        this.GetRepository<ProfileCustom>().Delete(x => x.ProfileDefinitionID == id);
+        await this.GetRepository<ProfileCustom>().DeleteAsync(x => x.ProfileDefinitionID == id);
 
-        this.GetRepository<ProfileDefinition>().DeleteById(id);
+        await this.GetRepository<ProfileDefinition>().DeleteByIdAsync(id);
 
-        this.BindData();
+        await this.BindDataAsync();
     }
 
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public void OnGet()
+    public async Task OnGetAsync()
     {
         // bind data
-        this.BindData();
+        await this.BindDataAsync();
     }
 
     /// <summary>
     /// The bind data.
     /// </summary>
-    private void BindData()
+    private async Task BindDataAsync()
     {
         // list all access masks for this board
-       this.List = this.GetRepository<ProfileDefinition>().GetByBoardId();
+       this.List = await this.GetRepository<ProfileDefinition>().GetByBoardIdAsync();
     }
 }

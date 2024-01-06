@@ -61,7 +61,9 @@ namespace ServiceStack.OrmLite
             OrmLiteUtils.AssertNotAnonType<T>();
 
             if (onlyFields == null)
+            {
                 throw new ArgumentNullException(nameof(onlyFields));
+            }
 
             var q = dbCmd.GetDialectProvider().SqlExpression<T>();
             q.Update(onlyFields);
@@ -90,7 +92,9 @@ namespace ServiceStack.OrmLite
             OrmLiteUtils.AssertNotAnonType<T>();
 
             if (onlyFields == null)
+            {
                 throw new ArgumentNullException(nameof(onlyFields));
+            }
 
             var q = dbCmd.GetDialectProvider().SqlExpression<T>();
             q.Update(onlyFields);
@@ -189,7 +193,9 @@ namespace ServiceStack.OrmLite
             OrmLiteUtils.AssertNotAnonType<T>();
 
             if (updateFields == null)
+            {
                 throw new ArgumentNullException(nameof(updateFields));
+            }
 
             OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateFields.ToFilterType<T>());
 
@@ -265,7 +271,9 @@ namespace ServiceStack.OrmLite
             OrmLiteUtils.AssertNotAnonType<T>();
 
             if (updateFields == null)
+            {
                 throw new ArgumentNullException(nameof(updateFields));
+            }
 
             OrmLiteConfig.UpdateFilter?.Invoke(dbCmd, updateFields.ToFilterType<T>());
 
@@ -278,7 +286,9 @@ namespace ServiceStack.OrmLite
                 foreach (var entry in updateFields)
                 {
                     if (!modelDef.IsReference(entry.Key))
+                    {
                         dbFields[entry.Key] = entry.Value;
+                    }
                 }
             }
 

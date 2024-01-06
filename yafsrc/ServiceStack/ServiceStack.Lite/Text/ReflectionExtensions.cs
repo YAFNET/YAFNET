@@ -151,7 +151,10 @@ public static class ReflectionExtensions
     /// <returns>Type.</returns>
     public static Type GetTypeWithGenericTypeDefinitionOf(this Type type, Type genericTypeDefinition)
     {
-        foreach (var t in type.GetInterfaces().Where(t => t.IsGenericType && t.GetGenericTypeDefinition() == genericTypeDefinition))
+        var t = Array.Find(type
+            .GetInterfaces(), t => t.IsGenericType && t.GetGenericTypeDefinition() == genericTypeDefinition);
+
+        if (t != null)
         {
             return t;
         }
@@ -298,7 +301,11 @@ public static class ReflectionExtensions
     /// <returns>Type.</returns>
     public static Type GetTypeWithGenericInterfaceOf(this Type type, Type genericInterfaceType)
     {
-        foreach (var t in type.GetInterfaces().Where(t => t.IsGenericType && t.GetGenericTypeDefinition() == genericInterfaceType))
+        var t =
+            Array.Find(type.GetInterfaces(),
+                t => t.IsGenericType && t.GetGenericTypeDefinition() == genericInterfaceType);
+
+        if (t != null)
         {
             return t;
         }
@@ -414,6 +421,11 @@ public static class ReflectionExtensions
     private static Dictionary<Type, EmptyCtorDelegate> ConstructorMethods = [];
 
     /// <summary>
+    /// The type names map
+    /// </summary>
+    private static Dictionary<string, EmptyCtorDelegate> TypeNamesMap = [];
+
+    /// <summary>
     /// Gets the constructor method.
     /// </summary>
     /// <param name="type">The type.</param>
@@ -439,11 +451,6 @@ public static class ReflectionExtensions
 
         return emptyCtorFn;
     }
-
-    /// <summary>
-    /// The type names map
-    /// </summary>
-    private static Dictionary<string, EmptyCtorDelegate> TypeNamesMap = [];
 
     /// <summary>
     /// Gets the constructor method.
@@ -559,17 +566,6 @@ public static class ReflectionExtensions
     }
 
     /// <summary>
-    /// Creates the instance.
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <returns>System.Object.</returns>
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static object CreateInstance<T>()
-    {
-        return TypeMeta<T>.EmptyCtorFn();
-    }
-
-    /// <summary>
     /// Creates a new instance of type.
     /// First looks at JsConfig.ModelFactory before falling back to CreateInstance
     /// </summary>
@@ -594,6 +590,17 @@ public static class ReflectionExtensions
         var factoryFn = JsConfig.ModelFactory(type)
                         ?? GetConstructorMethod(type);
         return factoryFn();
+    }
+
+    /// <summary>
+    /// Creates the instance.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <returns>System.Object.</returns>
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static object CreateInstance<T>()
+    {
+        return TypeMeta<T>.EmptyCtorFn();
     }
 
     /// <summary>

@@ -67,6 +67,9 @@ internal sealed class TableValuedParameter : SqlMapper.ICustomQueryParameter
         {
             typeName = table.GetTypeName();
         }
-        if (!string.IsNullOrEmpty(typeName)) StructuredHelper.ConfigureTVP(parameter, typeName);
+        if (!string.IsNullOrEmpty(typeName))
+        {
+            StructuredHelper.ConfigureTVP(parameter, typeName);
+        }
     }
 }

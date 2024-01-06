@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -95,22 +97,26 @@ public class RanksModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
-    public void OnGet()
+    public async Task OnGetAsync()
     {
-        this.BindData();
+        await this.BindDataAsync();
     }
 
-    public void OnPostDelete(int id)
+    /// <summary>
+    /// Called when [post delete].
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    public async Task OnPostDeleteAsync(int id)
     {
-        this.GetRepository<Rank>().DeleteById(id);
-        this.BindData();
+        await this.GetRepository<Rank>().DeleteByIdAsync(id);
+        await this.BindDataAsync();
     }
 
     /// <summary>
     /// The bind data.
     /// </summary>
-    private void BindData()
+    private async Task BindDataAsync()
     {
-        this.List = this.GetRepository<Rank>().GetByBoardId();
+        this.List = await this.GetRepository<Rank>().GetByBoardIdAsync();
     }
 }

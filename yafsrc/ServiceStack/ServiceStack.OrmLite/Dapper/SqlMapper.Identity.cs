@@ -355,8 +355,15 @@ public static partial class SqlMapper
         /// <returns>Whether the two are equal</returns>
         public bool Equals(Identity other)
         {
-            if (ReferenceEquals(this, other)) return true;
-            if (ReferenceEquals(other, null)) return false;
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            if (ReferenceEquals(other, null))
+            {
+                return false;
+            }
 
             int typeCount;
             return gridIndex == other.gridIndex
@@ -379,11 +386,17 @@ public static partial class SqlMapper
         [MethodImpl(MethodImplOptions.NoInlining)]
         private static bool TypesEqual(Identity x, Identity y, int count)
         {
-            if (y.TypeCount != count) return false;
+            if (y.TypeCount != count)
+            {
+                return false;
+            }
+
             for (int i = 0; i < count; i++)
             {
                 if (x.GetType(i) != y.GetType(i))
+                {
                     return false;
+                }
             }
             return true;
         }

@@ -48,7 +48,10 @@ public static partial class SqlMapper
             for (int i = fieldNames.Length - 1; i >= 0; i--)
             {
                 string key = fieldNames[i];
-                if (key != null) fieldNameLookup[key] = i;
+                if (key != null)
+                {
+                    this.fieldNameLookup[key] = i;
+                }
             }
         }
 
@@ -71,8 +74,16 @@ public static partial class SqlMapper
         /// <exception cref="System.InvalidOperationException">Field already exists: " + name</exception>
         internal int AddField(string name)
         {
-            if (name == null) throw new ArgumentNullException(nameof(name));
-            if (fieldNameLookup.ContainsKey(name)) throw new InvalidOperationException("Field already exists: " + name);
+            if (name == null)
+            {
+                throw new ArgumentNullException(nameof(name));
+            }
+
+            if (fieldNameLookup.ContainsKey(name))
+            {
+                throw new InvalidOperationException("Field already exists: " + name);
+            }
+
             int oldLen = fieldNames.Length;
             Array.Resize(ref fieldNames, oldLen + 1); // yes, this is sub-optimal, but this is not the expected common case
             fieldNames[oldLen] = name;

@@ -76,7 +76,7 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
             {
                 if (obj is not IEnumerable<KeyValuePair<string, object>> dictionary)
                 {
-                    templates ??= new List<object>();
+                    templates ??= [];
                     templates.Add(obj);
                 }
                 else
@@ -97,8 +97,12 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
                     }
                 }
 
-                if (subDynamic.templates == null) return;
-                templates ??= new List<object>();
+                if (subDynamic.templates == null)
+                {
+                    return;
+                }
+
+                templates ??= [];
                 foreach (var t in subDynamic.templates)
                 {
                     templates.Add(t);
@@ -250,7 +254,10 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
 
         foreach (var param in parameters.Values)
         {
-            if (param.CameFromTemplate) continue;
+            if (param.CameFromTemplate)
+            {
+                continue;
+            }
 
             var dbType = param.DbType;
             var val = param.Value;
@@ -303,16 +310,43 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
                     {
                         p.Size = DbString.DefaultLength;
                     }
-                    if (param.Size != null) p.Size = param.Size.Value;
-                    if (param.Precision != null) p.Precision = param.Precision.Value;
-                    if (param.Scale != null) p.Scale = param.Scale.Value;
+                    if (param.Size != null)
+                    {
+                        p.Size = param.Size.Value;
+                    }
+
+                    if (param.Precision != null)
+                    {
+                        p.Precision = param.Precision.Value;
+                    }
+
+                    if (param.Scale != null)
+                    {
+                        p.Scale = param.Scale.Value;
+                    }
                 }
                 else
                 {
-                    if (dbType != null) p.DbType = dbType.Value;
-                    if (param.Size != null) p.Size = param.Size.Value;
-                    if (param.Precision != null) p.Precision = param.Precision.Value;
-                    if (param.Scale != null) p.Scale = param.Scale.Value;
+                    if (dbType != null)
+                    {
+                        p.DbType = dbType.Value;
+                    }
+
+                    if (param.Size != null)
+                    {
+                        p.Size = param.Size.Value;
+                    }
+
+                    if (param.Precision != null)
+                    {
+                        p.Precision = param.Precision.Value;
+                    }
+
+                    if (param.Scale != null)
+                    {
+                        p.Scale = param.Scale.Value;
+                    }
+
                     handler.SetValue(p, val ?? DBNull.Value);
                 }
 
@@ -325,7 +359,10 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
         }
 
         // note: most non-priveleged implementations would use: this.ReplaceLiterals(command);
-        if (literals.Count != 0) SqlMapper.ReplaceLiterals(this, command, literals);
+        if (literals.Count != 0)
+        {
+            SqlMapper.ReplaceLiterals(this, command, literals);
+        }
     }
 
     /// <summary>
@@ -396,8 +433,8 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
         // Does the chain consist of MemberExpressions leading to a ParameterExpression of type T?
         MemberExpression diving = lastMemberAccess;
         // Retain a list of member names and the member expressions so we can rebuild the chain.
-        List<string> names = new();
-        List<MemberExpression> chain = new();
+        List<string> names = [];
+        List<MemberExpression> chain = [];
 
         do
         {
@@ -429,10 +466,13 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
 
         var cache = CachedOutputSetters<T>.Cache;
         var setter = (Action<object, DynamicParameters>)cache[lookup];
-        if (setter != null) goto MAKECALLBACK;
+        if (setter != null)
+        {
+            goto MAKECALLBACK;
+        }
 
         // Come on let's build a method, let's build it, let's build it now!
-        var dm = new DynamicMethod("ExpressionParam" + Guid.NewGuid().ToString(), null, new[] { typeof(object), GetType() }, true);
+        var dm = new DynamicMethod("ExpressionParam" + Guid.NewGuid().ToString(), null, [typeof(object), GetType()], true);
         var il = dm.GetILGenerator();
 
         il.Emit(OpCodes.Ldarg_0); // [object]
@@ -454,7 +494,7 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
             }
         }
 
-        var paramGetter = GetType().GetMethod("Get", new Type[] { typeof(string) }).MakeGenericMethod(lastMemberAccess.Type);
+        var paramGetter = GetType().GetMethod("Get", [typeof(string)]).MakeGenericMethod(lastMemberAccess.Type);
 
         il.Emit(OpCodes.Ldarg_1); // [target] [DynamicParameters]
         il.Emit(OpCodes.Ldstr, dynamicParamName); // [target] [DynamicParameters] [ParamName]
@@ -482,7 +522,7 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
 
         // Queue the preparation to be fired off when adding parameters to the DbCommand
         MAKECALLBACK:
-        (outputCallbacks ??= new List<Action>()).Add(() =>
+        (outputCallbacks ??= []).Add(() =>
             {
                 // Finally, prep the parameter and attach the callback to it
                 var targetMemberType = lastMemberAccess?.Type;

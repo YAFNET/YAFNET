@@ -71,7 +71,10 @@ public class IndexFieldsCacheKey
     {
         var that = obj as IndexFieldsCacheKey;
 
-        if (obj == null) return false;
+        if (obj == null)
+        {
+            return false;
+        }
 
         return this.ModelDefinition == that.ModelDefinition
                && this.Dialect == that.Dialect

@@ -338,9 +338,9 @@ public class MembersModel : ForumPage
         this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
 
         this.NumPostList = [
-            new(this.GetText("MEMBERS", "NUMPOSTSEQUAL"), "1"),
-            new(this.GetText("MEMBERS", "NUMPOSTSLESSOREQUAL"), "2"),
-            new(this.GetText("MEMBERS", "NUMPOSTSMOREOREQUAL"), "3")
+            new SelectListItem(this.GetText("MEMBERS", "NUMPOSTSEQUAL"), "1"),
+            new SelectListItem(this.GetText("MEMBERS", "NUMPOSTSLESSOREQUAL"), "2"),
+            new SelectListItem(this.GetText("MEMBERS", "NUMPOSTSMOREOREQUAL"), "3")
         ];
 
         // get list of user ranks for filtering

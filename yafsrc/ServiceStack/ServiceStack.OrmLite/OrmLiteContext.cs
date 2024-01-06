@@ -148,7 +148,9 @@ public class OrmLiteContext
     public T GetOrCreate<T>(Func<T> createFn)
     {
         if (this.Items.Contains(typeof(T).Name))
+        {
             return (T)this.Items[typeof(T).Name];
+        }
 
         return (T)(this.Items[typeof(T).Name] = createFn());
     }
@@ -201,7 +203,9 @@ public class OrmLiteContext
         get
         {
             if (Instance.Items.Contains("OrmLiteState"))
+            {
                 return Instance.Items["OrmLiteState"] as OrmLiteState;
+            }
 
             return null;
         }

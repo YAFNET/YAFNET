@@ -197,7 +197,9 @@ public class FieldDefinition
         if (PropertyInfo.DeclaringType?.IsAssignableFrom(type) != true)
         {
             if (instance is IDictionary d)
-                return d[Name];
+            {
+                return d[this.Name];
+            }
 
             var accessor = TypeProperties.Get(type).GetAccessor(Name);
             return accessor?.PublicGetter(instance);

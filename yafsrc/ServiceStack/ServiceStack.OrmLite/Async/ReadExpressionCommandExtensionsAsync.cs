@@ -470,7 +470,9 @@ namespace ServiceStack.OrmLite
         static internal Task<long> RowCountAsync(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token)
         {
             if (anonType != null)
+            {
                 dbCmd.SetParameters(anonType.ToObjectDictionary(), excludeDefaults: false, sql: ref sql);
+            }
 
             return dbCmd.ScalarAsync<long>(dbCmd.GetDialectProvider().ToRowCountStatement(sql), token);
         }

@@ -115,8 +115,6 @@ public class InitializeDb : IHaveServiceLocator
                     await this.Get<UpgradeService>().UpgradeAsync();
                     break;
                 case DbVersionType.NewInstall:
-                    this.Get<InstallService>().InitializeIdentity();
-
                     // fake the board settings
                     BoardContext.Current.BoardSettings = new BoardSettings();
                     response.Redirect("/Install/Install");

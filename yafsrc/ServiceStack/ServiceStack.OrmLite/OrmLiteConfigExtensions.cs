@@ -37,7 +37,11 @@ static internal class OrmLiteConfigExtensions
         // Not using Linq.Where() and manually iterating through objProperties just to avoid dependencies on System.Xml??
         foreach (var objProperty in objProperties)
         {
-            if (objProperty.Name != OrmLiteConfig.IdField) continue;
+            if (objProperty.Name != OrmLiteConfig.IdField)
+            {
+                continue;
+            }
+
             return true;
         }
         return false;
@@ -61,7 +65,9 @@ static internal class OrmLiteConfigExtensions
     static internal ModelDefinition GetModelDefinition(this Type modelType)
     {
         if (modelType == null)
+        {
             return null;
+        }
 
         if (typeModelDefinitionMap.TryGetValue(modelType, out var modelDef))
         {

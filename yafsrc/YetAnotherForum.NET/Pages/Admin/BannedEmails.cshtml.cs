@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -90,9 +92,9 @@ public class BannedEmailsModel : AdminPage
     /// </summary>
     /// <param name="id">The identifier.</param>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPostDelete(int id)
+    public async Task<IActionResult> OnPostDeleteAsync(int id)
     {
-        this.GetRepository<BannedEmail>().DeleteById(id);
+        await this.GetRepository<BannedEmail>().DeleteByIdAsync(id);
 
         this.SearchInput = string.Empty;
 
@@ -181,9 +183,9 @@ public class BannedEmailsModel : AdminPage
     /// Export Banned Email(s)
     /// </summary>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPostExport()
+    public async Task<IActionResult> OnPostExportAsync()
     {
-        var bannedEmails = this.GetRepository<BannedEmail>().GetByBoardId();
+        var bannedEmails = await this.GetRepository<BannedEmail>().GetByBoardIdAsync();
 
         const string fileName = "BannedEmailsExport.txt";
 

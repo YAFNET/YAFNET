@@ -40,7 +40,11 @@ public static class OrmLiteWriteCommandExtensions
     static internal bool CreateSchema<T>(this IDbCommand dbCmd)
     {
         var schemaName = typeof(T).FirstAttribute<SchemaAttribute>()?.Name;
-        if (schemaName == null) throw new InvalidOperationException($"Type {typeof(T).Name} does not have a schema attribute, just CreateSchema(string schemaName) instead");
+        if (schemaName == null)
+        {
+            throw new InvalidOperationException($"Type {typeof(T).Name} does not have a schema attribute, just CreateSchema(string schemaName) instead");
+        }
+
         return CreateSchema(dbCmd, schemaName);
     }
 
@@ -346,12 +350,16 @@ public static class OrmLiteWriteCommandExtensions
         commandFilter?.Invoke(dbCmd);
 
         if (Log.IsDebugEnabled)
+        {
             Log.DebugCommand(dbCmd);
+        }
 
         OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
 
         if (OrmLiteConfig.ResultsFilter != null)
+        {
             return OrmLiteConfig.ResultsFilter.ExecuteSql(dbCmd);
+        }
 
         return dbCmd.ExecuteNonQuery();
     }
@@ -367,19 +375,25 @@ public static class OrmLiteWriteCommandExtensions
     static internal int ExecuteSql(this IDbCommand dbCmd, string sql, object anonType, Action<IDbCommand> commandFilter = null)
     {
         if (anonType != null)
+        {
             dbCmd.SetParameters(anonType.ToObjectDictionary(), excludeDefaults: false, sql: ref sql);
+        }
 
         dbCmd.CommandText = sql;
 
         commandFilter?.Invoke(dbCmd);
 
         if (Log.IsDebugEnabled)
+        {
             Log.DebugCommand(dbCmd);
+        }
 
         OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
 
         if (OrmLiteConfig.ResultsFilter != null)
+        {
             return OrmLiteConfig.ResultsFilter.ExecuteSql(dbCmd);
+        }
 
         return dbCmd.ExecuteNonQuery();
     }
@@ -499,7 +513,9 @@ public static class OrmLiteWriteCommandExtensions
                     value = fieldDef.IsNullable ? null : fieldDef.FieldTypeDefaultValue;
                     var useValue = dbNullFilter?.Invoke(fieldDef);
                     if (useValue != null)
+                    {
                         value = useValue;
+                    }
 
                     fieldDef.SetValue(objWithProperties, value);
                 }
@@ -509,10 +525,16 @@ public static class OrmLiteWriteCommandExtensions
                     if (value == null)
                     {
                         if (!fieldDef.IsNullable)
+                        {
                             value = fieldDef.FieldTypeDefaultValue;
+                        }
+
                         var useValue = dbNullFilter?.Invoke(fieldDef);
                         if (useValue != null)
+                        {
                             value = useValue;
+                        }
+
                         fieldDef.SetValue(objWithProperties, value);
                     }
                     else
@@ -544,7 +566,9 @@ public static class OrmLiteWriteCommandExtensions
         if (!OrmLiteConfig.DeoptimizeReader)
         {
             if (values == null)
+            {
                 values = new object[reader.FieldCount];
+            }
 
             try
             {
@@ -608,7 +632,9 @@ public static class OrmLiteWriteCommandExtensions
         var dialectProvider = dbCmd.GetDialectProvider();
         var hadRowVersion = dialectProvider.PrepareParameterizedUpdateStatement<T>(dbCmd);
         if (string.IsNullOrEmpty(dbCmd.CommandText))
+        {
             return 0;
+        }
 
         dialectProvider.SetParameterValues<T>(dbCmd, obj);
 
@@ -630,7 +656,9 @@ public static class OrmLiteWriteCommandExtensions
         var rowsUpdated = dbCmd.ExecNonQuery();
 
         if (hadRowVersion && rowsUpdated == 0)
+        {
             throw new OptimisticConcurrencyException();
+        }
 
         return rowsUpdated;
     }
@@ -667,13 +695,17 @@ public static class OrmLiteWriteCommandExtensions
         try
         {
             if (dbCmd.Transaction == null)
+            {
                 dbCmd.Transaction = dbTrans = dbCmd.Connection.BeginTransaction();
+            }
 
             var dialectProvider = dbCmd.GetDialectProvider();
 
             var hadRowVersion = dialectProvider.PrepareParameterizedUpdateStatement<T>(dbCmd);
             if (string.IsNullOrEmpty(dbCmd.CommandText))
+            {
                 return 0;
+            }
 
             foreach (var obj in objs)
             {
@@ -686,7 +718,9 @@ public static class OrmLiteWriteCommandExtensions
 
                 var rowsUpdated = dbCmd.ExecNonQuery();
                 if (hadRowVersion && rowsUpdated == 0)
+                {
                     throw new OptimisticConcurrencyException();
+                }
 
                 count += rowsUpdated;
             }
@@ -712,7 +746,9 @@ public static class OrmLiteWriteCommandExtensions
     {
         var rowsUpdated = dbCmd.ExecNonQuery();
         if (hadRowVersion && rowsUpdated == 0)
+        {
             throw new OptimisticConcurrencyException();
+        }
 
         return rowsUpdated;
     }
@@ -780,7 +816,9 @@ public static class OrmLiteWriteCommandExtensions
     static internal int Delete<T>(this IDbCommand dbCmd, T[] objs)
     {
         if (objs.Length == 0)
+        {
             return 0;
+        }
 
         return DeleteAll(dbCmd, objs);
     }
@@ -794,7 +832,10 @@ public static class OrmLiteWriteCommandExtensions
     /// <returns>System.Int32.</returns>
     static internal int DeleteNonDefaults<T>(this IDbCommand dbCmd, T[] filters)
     {
-        if (filters.Length == 0) return 0;
+        if (filters.Length == 0)
+        {
+            return 0;
+        }
 
         return DeleteAll(dbCmd, filters, o => o.AllFieldsMap<T>().NonDefaultsOnly());
     }
@@ -819,7 +860,9 @@ public static class OrmLiteWriteCommandExtensions
         try
         {
             if (dbCmd.Transaction == null)
+            {
                 dbCmd.Transaction = dbTrans = dbCmd.Connection.BeginTransaction();
+            }
 
             var dialectProvider = dbCmd.GetDialectProvider();
 
@@ -902,7 +945,9 @@ public static class OrmLiteWriteCommandExtensions
 
         var rowsAffected = dbCmd.ExecuteSql(sql, commandFilter: commandFilter);
         if (rowsAffected == 0)
+        {
             throw new OptimisticConcurrencyException("The row was modified or deleted since the last read");
+        }
     }
 
     /// <summary>
@@ -930,8 +975,10 @@ public static class OrmLiteWriteCommandExtensions
 
         var rowVersionField = modelDef.RowVersion;
         if (rowVersionField == null)
+        {
             throw new InvalidOperationException(
                 "Cannot use DeleteById with rowVersion for model type without a row version column");
+        }
 
         var rowVersionParam = dbCmd.CreateParameter();
         rowVersionParam.ParameterName = dialectProvider.GetParam("rowVersion");
@@ -961,7 +1008,9 @@ public static class OrmLiteWriteCommandExtensions
 
         var sqlIn = dbCmd.SetIdsInSqlParams(idValues);
         if (string.IsNullOrEmpty(sqlIn))
+        {
             return 0;
+        }
 
         var sql = GetDeleteByIdsSql<T>(sqlIn, dbCmd.GetDialectProvider());
 
@@ -1033,7 +1082,11 @@ public static class OrmLiteWriteCommandExtensions
     {
         OrmLiteUtils.AssertNotAnonType<T>();
 
-        if (anonType != null) dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
+        if (anonType != null)
+        {
+            dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
+        }
+
         return dbCmd.ExecuteSql(dbCmd.GetDialectProvider().ToDeleteStatement(typeof(T), sql));
     }
 
@@ -1047,7 +1100,11 @@ public static class OrmLiteWriteCommandExtensions
     /// <returns>System.Int32.</returns>
     static internal int Delete(this IDbCommand dbCmd, Type tableType, string sql, object anonType = null)
     {
-        if (anonType != null) dbCmd.SetParameters(tableType, anonType, excludeDefaults: false, sql: ref sql);
+        if (anonType != null)
+        {
+            dbCmd.SetParameters(tableType, anonType, excludeDefaults: false, sql: ref sql);
+        }
+
         return dbCmd.ExecuteSql(dbCmd.GetDialectProvider().ToDeleteStatement(tableType, sql));
     }
 
@@ -1122,7 +1179,9 @@ public static class OrmLiteWriteCommandExtensions
         try
         {
             if (enableIdentityInsert)
+            {
                 dialectProvider.EnableIdentityInsert<T>(dbCmd);
+            }
 
             dialectProvider.PrepareParameterizedInsertStatement<T>(dbCmd,
                 insertFields: dialectProvider.GetNonDefaultValueInsertFields<T>(obj),
@@ -1130,12 +1189,16 @@ public static class OrmLiteWriteCommandExtensions
 
             var ret = InsertInternal<T>(dialectProvider, dbCmd, obj, commandFilter, selectIdentity);
             if (enableIdentityInsert)
+            {
                 ret = Convert.ToInt64(id);
+            }
 
             if (modelDef.HasAnyReferences(obj.Keys))
             {
                 if (pkField != null && !obj.ContainsKey(pkField.Name))
+                {
                     obj[pkField.Name] = ret;
+                }
 
                 var instance = obj.FromObjectDictionary<T>();
                 dbCmd.SaveAllReferences(instance);
@@ -1145,7 +1208,9 @@ public static class OrmLiteWriteCommandExtensions
         finally
         {
             if (enableIdentityInsert)
+            {
                 dialectProvider.DisableIdentityInsert<T>(dbCmd);
+            }
         }
     }
 
@@ -1222,7 +1287,10 @@ public static class OrmLiteWriteCommandExtensions
             {
                 var id = modelDef.GetPrimaryKey(obj);
                 if (modelDef.PrimaryKey.AutoId)
+                {
                     return 1;
+                }
+
                 return Convert.ToInt64(id);
             }
         }
@@ -1297,7 +1365,9 @@ public static class OrmLiteWriteCommandExtensions
         try
         {
             if (dbCmd.Transaction == null)
+            {
                 dbCmd.Transaction = dbTrans = dbCmd.Connection.BeginTransaction();
+            }
 
             var dialectProvider = dbCmd.GetDialectProvider();
 
@@ -1343,7 +1413,9 @@ public static class OrmLiteWriteCommandExtensions
         try
         {
             if (dbCmd.Transaction == null)
+            {
                 dbCmd.Transaction = dbTrans = dbCmd.Connection.BeginTransaction();
+            }
 
             var dialectProvider = dbCmd.GetDialectProvider();
 
@@ -1430,7 +1502,9 @@ public static class OrmLiteWriteCommandExtensions
 
         var rowsUpdated = dbCmd.Update(obj);
         if (rowsUpdated == 0 && Env.StrictMode)
+        {
             throw new OptimisticConcurrencyException("No rows were inserted or updated");
+        }
 
         modelDef.RowVersion?.SetValue(obj, dbCmd.GetRowVersion(modelDef, id));
 
@@ -1449,7 +1523,10 @@ public static class OrmLiteWriteCommandExtensions
         var saveRows = objs.ToList();
 
         var firstRow = saveRows.FirstOrDefault();
-        if (Equals(firstRow, default(T))) return 0;
+        if (Equals(firstRow, default(T)))
+        {
+            return 0;
+        }
 
         var modelDef = typeof(T).GetModelDefinition();
 
@@ -1504,7 +1581,9 @@ public static class OrmLiteWriteCommandExtensions
         {
             dbTrans?.Dispose();
             if (dbCmd.Transaction == dbTrans)
+            {
                 dbCmd.Transaction = null;
+            }
         }
 
         return rowsAdded;
@@ -1567,7 +1646,9 @@ public static class OrmLiteWriteCommandExtensions
                 if (result != null)
                 {
                     if (refField != null && refSelf == null)
+                    {
                         refField.SetValue(result, pkValue);
+                    }
 
                     dbCmd.CreateTypedApi(refType).Save(result);
 
@@ -1656,7 +1737,9 @@ public static class OrmLiteWriteCommandExtensions
         var to = dbCmd.GetDialectProvider().FromDbRowVersion(modelDef.RowVersion.FieldType, dbCmd.Scalar<object>(sql));
 
         if (to is ulong u && modelDef.RowVersion.ColumnType == typeof(byte[]))
+        {
             return BitConverter.GetBytes(u);
+        }
 
         return to ?? modelDef.RowVersion.ColumnType.GetDefaultValue();
     }

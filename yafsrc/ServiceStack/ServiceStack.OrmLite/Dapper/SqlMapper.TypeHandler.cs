@@ -100,7 +100,11 @@ public static partial class SqlMapper
         /// <returns>The typed value</returns>
         public override T Parse(object value)
         {
-            if (value == null || value is DBNull) return default(T);
+            if (value == null || value is DBNull)
+            {
+                return default(T);
+            }
+
             return Parse((string)value);
         }
     }

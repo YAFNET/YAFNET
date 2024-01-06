@@ -22,7 +22,7 @@
  * under the License.
  */
 
-namespace YAF.Core.Services.Migrations
+namespace YAF.Core.Migrations
 {
     using ServiceStack.OrmLite;
 
@@ -43,7 +43,7 @@ namespace YAF.Core.Services.Migrations
     /// <summary>
     /// Version 80 Migrations
     /// </summary>
-    public class V80_Migration : IRepositoryMigration, IHaveServiceLocator
+    public class Migration80 : IRepositoryMigration, IHaveServiceLocator
     {
         /// <summary>
         /// Gets ServiceLocator.

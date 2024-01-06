@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -112,9 +114,9 @@ public class BannedIpsModel : AdminPage
     /// Export Banned IP(s)
     /// </summary>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPostExport()
+    public async Task<IActionResult> OnPostExportAsync()
     {
-        var bannedIps = this.GetRepository<BannedIP>().GetByBoardId();
+        var bannedIps = await this.GetRepository<BannedIP>().GetByBoardIdAsync();
 
         const string fileName = "BannedIpsExport.txt";
 
@@ -138,11 +140,11 @@ public class BannedIpsModel : AdminPage
     /// </summary>
     /// <param name="id">The identifier.</param>
     /// <returns>IActionResult.</returns>
-    public IActionResult OnPostDelete(int id)
+    public async Task<IActionResult> OnPostDeleteAsync(int id)
     {
         var ipAddress = this.GetIpFromId(id);
 
-        this.GetRepository<BannedIP>().DeleteById(id);
+        await this.GetRepository<BannedIP>().DeleteByIdAsync(id);
 
         this.SearchInput = string.Empty;
 

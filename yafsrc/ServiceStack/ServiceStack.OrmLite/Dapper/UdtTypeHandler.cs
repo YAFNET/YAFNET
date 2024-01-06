@@ -31,7 +31,11 @@ public static partial class SqlMapper
         /// <exception cref="System.ArgumentException">Cannot be null or empty</exception>
         public UdtTypeHandler(string udtTypeName)
         {
-            if (string.IsNullOrEmpty(udtTypeName)) throw new ArgumentException("Cannot be null or empty", udtTypeName);
+            if (string.IsNullOrEmpty(udtTypeName))
+            {
+                throw new ArgumentException("Cannot be null or empty", udtTypeName);
+            }
+
             this.udtTypeName = udtTypeName;
         }
 
@@ -56,7 +60,10 @@ public static partial class SqlMapper
 #pragma warning disable 0618
             parameter.Value = SanitizeParameterValue(value);
 #pragma warning restore 0618
-            if (!(value is DBNull)) StructuredHelper.ConfigureUDT(parameter, udtTypeName);
+            if (!(value is DBNull))
+            {
+                StructuredHelper.ConfigureUDT(parameter, this.udtTypeName);
+            }
         }
     }
 }

@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -43,11 +45,17 @@ using YAF.Types.Models;
 /// </summary>
 public class SpamWordsModel : AdminPage
 {
-    [BindProperty]
-    public List<Spam_Words> List { get; set; }
+    /// <summary>
+    /// Gets or sets the list.
+    /// </summary>
+    /// <value>The list.</value>
+    [BindProperty] public List<Spam_Words> List { get; set; }
 
-    [BindProperty]
-    public string SearchInput { get; set; }
+    /// <summary>
+    /// Gets or sets the search input.
+    /// </summary>
+    /// <value>The search input.</value>
+    [BindProperty] public string SearchInput { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="SpamWordsModel"/> class.
@@ -79,7 +87,8 @@ public class SpamWordsModel : AdminPage
     /// </summary>
     public void OnGet()
     {
-        this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
+        this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value),
+            nameof(SelectListItem.Text));
 
         this.BindData();
     }
@@ -95,12 +104,12 @@ public class SpamWordsModel : AdminPage
     /// <summary>
     /// Exports the spam words.
     /// </summary>
-    public IActionResult OnPostExport()
+    public async Task<IActionResult> OnPostExportAsync()
     {
         var spamWordList =
-            this.GetRepository<Spam_Words>().GetByBoardId();
+            await this.GetRepository<Spam_Words>().GetByBoardIdAsync();
 
-        const string FileName = "SpamWordsExport.xml";
+        const string fileName = "SpamWordsExport.xml";
 
         var element = new XElement(
             "YafSpamWordsList",
@@ -111,44 +120,56 @@ public class SpamWordsModel : AdminPage
         var stream = new MemoryStream();
         writer.Serialize(stream, element);
 
-        return this.File(stream.ToArray(), "application/xml", FileName);
+        return this.File(stream.ToArray(), "application/xml", fileName);
     }
 
+    /// <summary>
+    /// Called when [get import].
+    /// </summary>
+    /// <returns>PartialViewResult.</returns>
     public PartialViewResult OnGetImport()
     {
-        return new PartialViewResult
-               {
-                   ViewName = "Dialogs/SpamWordsImport",
-                   ViewData = new ViewDataDictionary<ImportModal>(
-                       this.ViewData,
-                       new ImportModal())
-               };
+        return new PartialViewResult {
+            ViewName = "Dialogs/SpamWordsImport",
+            ViewData = new ViewDataDictionary<ImportModal>(
+                this.ViewData,
+                new ImportModal())
+        };
     }
 
+    /// <summary>
+    /// Called when [get add].
+    /// </summary>
+    /// <returns>PartialViewResult.</returns>
     public PartialViewResult OnGetAdd()
     {
         return new PartialViewResult {
-                                         ViewName = "Dialogs/SpamWordsEdit",
-                                         ViewData = new ViewDataDictionary<SpamWordsEditModal>(
-                                             this.ViewData,
-                                             new SpamWordsEditModal { Id = 0 })
-                                     };
+            ViewName = "Dialogs/SpamWordsEdit",
+            ViewData = new ViewDataDictionary<SpamWordsEditModal>(
+                this.ViewData,
+                new SpamWordsEditModal { Id = 0 })
+        };
     }
 
+    /// <summary>
+    /// Called when [get edit].
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    /// <returns>PartialViewResult.</returns>
     public PartialViewResult OnGetEdit(int id)
     {
         // Edit
         var spamWord = this.GetRepository<Spam_Words>().GetById(id);
 
         return new PartialViewResult {
-                                         ViewName = "Dialogs/SpamWordsEdit",
-                                         ViewData = new ViewDataDictionary<SpamWordsEditModal>(
-                                             this.ViewData,
-                                             new SpamWordsEditModal {
-                                                                        Id = spamWord.ID,
-                                                                        SpamWord = spamWord.SpamWord
-                                                                    })
-                                     };
+            ViewName = "Dialogs/SpamWordsEdit",
+            ViewData = new ViewDataDictionary<SpamWordsEditModal>(
+                this.ViewData,
+                new SpamWordsEditModal {
+                    Id = spamWord.ID,
+                    SpamWord = spamWord.SpamWord
+                })
+        };
     }
 
     /// <summary>
@@ -156,7 +177,7 @@ public class SpamWordsModel : AdminPage
     /// </summary>
     private void BindData()
     {
-       var searchText = this.SearchInput;
+        var searchText = this.SearchInput;
 
         List<Spam_Words> bannedList;
 
@@ -177,10 +198,17 @@ public class SpamWordsModel : AdminPage
 
         this.List = bannedList;
     }
-    public void OnPostDelete(int id)
+
+    /// <summary>
+    /// Called when [post delete].
+    /// </summary>
+    /// <param name="id">The identifier.</param>
+    public async Task OnPostDeleteAsync(int id)
     {
-        this.GetRepository<Spam_Words>().DeleteById(id);
+        await this.GetRepository<Spam_Words>().DeleteByIdAsync(id);
+
         this.Get<IObjectStore>().Remove(Constants.Cache.SpamWords);
+
         this.BindData();
     }
 }

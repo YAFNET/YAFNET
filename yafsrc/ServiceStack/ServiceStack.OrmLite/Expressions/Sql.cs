@@ -30,7 +30,10 @@ public static partial class Sql
     public static List<object> Flatten(IEnumerable list)
     {
         var ret = new List<object>();
-        if (list == null) return ret;
+        if (list == null)
+        {
+            return ret;
+        }
 
         foreach (var item in list)
         {

@@ -44,7 +44,9 @@ namespace ServiceStack.OrmLite
             dbCmd.CommandText = sql;
 
             if (Log.IsDebugEnabled)
+            {
                 Log.DebugCommand(dbCmd);
+            }
 
             OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
 
@@ -70,7 +72,9 @@ namespace ServiceStack.OrmLite
             }
 
             if (Log.IsDebugEnabled)
+            {
                 Log.DebugCommand(dbCmd);
+            }
 
             OrmLiteConfig.BeforeExecFilter?.Invoke(dbCmd);
 
@@ -114,7 +118,11 @@ namespace ServiceStack.OrmLite
         /// <returns>Task&lt;List&lt;TModel&gt;&gt;.</returns>
         static internal Task<List<TModel>> SelectAsync<TModel>(this IDbCommand dbCmd, Type fromTableType, string sqlFilter, object anonType, CancellationToken token)
         {
-            if (anonType != null) dbCmd.SetParameters(fromTableType, anonType, excludeDefaults: false, sql: ref sqlFilter);
+            if (anonType != null)
+            {
+                dbCmd.SetParameters(fromTableType, anonType, excludeDefaults: false, sql: ref sqlFilter);
+            }
+
             var sql = OrmLiteReadCommandExtensions.ToSelect<TModel>(dbCmd.GetDialectProvider(), fromTableType, sqlFilter);
             return dbCmd.ConvertToListAsync<TModel>(sql, token);
         }
@@ -509,7 +517,10 @@ namespace ServiceStack.OrmLite
         /// <returns>Task&lt;List&lt;T&gt;&gt;.</returns>
         static internal Task<List<T>> ColumnAsync<T>(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token)
         {
-            if (anonType != null) dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
+            if (anonType != null)
+            {
+                dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
+            }
 
             return dbCmd.ColumnAsync<T>(dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql), token);
         }
@@ -546,7 +557,10 @@ namespace ServiceStack.OrmLite
         /// <returns>Task&lt;HashSet&lt;T&gt;&gt;.</returns>
         static internal Task<HashSet<T>> ColumnDistinctAsync<T>(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token)
         {
-            if (anonType != null) dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
+            if (anonType != null)
+            {
+                dbCmd.SetParameters<T>(anonType, excludeDefaults: false, sql: ref sql);
+            }
 
             return dbCmd.ColumnDistinctAsync<T>(sql, token);
         }
@@ -585,7 +599,9 @@ namespace ServiceStack.OrmLite
         static internal Task<Dictionary<K, List<V>>> LookupAsync<K, V>(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token)
         {
             if (anonType != null)
+            {
                 dbCmd.SetParameters(anonType.ToObjectDictionary(), (bool)false, sql: ref sql);
+            }
 
             return dbCmd.LookupAsync<K, V>(sql, token);
         }
@@ -610,7 +626,7 @@ namespace ServiceStack.OrmLite
 
                 if (!lookup.TryGetValue(key, out var values))
                 {
-                    values = new List<V>();
+                    values = [];
                     lookup[key] = values;
                 }
                 values.Add(value);
@@ -630,7 +646,9 @@ namespace ServiceStack.OrmLite
         static internal Task<Dictionary<K, V>> DictionaryAsync<K, V>(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token)
         {
             if (anonType != null)
+            {
                 dbCmd.SetParameters(anonType.ToObjectDictionary(), excludeDefaults: false, sql: ref sql);
+            }
 
             return dbCmd.DictionaryAsync<K, V>(sql, token);
         }
@@ -669,7 +687,9 @@ namespace ServiceStack.OrmLite
         static internal Task<List<KeyValuePair<K, V>>> KeyValuePairsAsync<K, V>(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token)
         {
             if (anonType != null)
+            {
                 dbCmd.SetParameters(anonType.ToObjectDictionary(), excludeDefaults: false, sql: ref sql);
+            }
 
             return dbCmd.KeyValuePairsAsync<K, V>(sql, token);
         }
@@ -706,7 +726,10 @@ namespace ServiceStack.OrmLite
         async static internal Task<bool> ExistsAsync<T>(this IDbCommand dbCmd, object anonType, CancellationToken token)
         {
             string sql = null;
-            if (anonType != null) dbCmd.SetParameters(anonType.ToObjectDictionary(), excludeDefaults: true, sql: ref sql);
+            if (anonType != null)
+            {
+                dbCmd.SetParameters(anonType.ToObjectDictionary(), excludeDefaults: true, sql: ref sql);
+            }
 
             sql = dbCmd.GetFilterSql<T>();
 
@@ -725,7 +748,10 @@ namespace ServiceStack.OrmLite
         /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
         async static internal Task<bool> ExistsAsync<T>(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token)
         {
-            if (anonType != null) dbCmd.SetParameters(anonType.ToObjectDictionary(), (bool)false, sql: ref sql);
+            if (anonType != null)
+            {
+                dbCmd.SetParameters(anonType.ToObjectDictionary(), (bool)false, sql: ref sql);
+            }
 
             var ret = await dbCmd.ScalarAsync(dbCmd.GetDialectProvider().ToSelectStatement(typeof(T), sql), token).ConfigAwait();
             return ret != null;
@@ -781,7 +807,9 @@ namespace ServiceStack.OrmLite
         {
             var row = await dbCmd.SingleByIdAsync<T>(value, token).ConfigAwait();
             if (row == null)
+            {
                 return default;
+            }
 
             await dbCmd.LoadReferencesAsync(row, include, token).ConfigAwait();
 
@@ -809,7 +837,9 @@ namespace ServiceStack.OrmLite
             foreach (var fieldDef in fieldDefs)
             {
                 if (includeSet != null && !includeSet.Contains(fieldDef.Name))
+                {
                     continue;
+                }
 
                 dbCmd.Parameters.Clear();
                 var listInterface = fieldDef.FieldType.GetTypeWithGenericInterfaceOf(typeof(IList<>));
@@ -851,7 +881,9 @@ namespace ServiceStack.OrmLite
             foreach (var fieldDef in fieldDefs)
             {
                 if (includeSet != null && !includeSet.Contains(fieldDef.Name))
+                {
                     continue;
+                }
 
                 var listInterface = fieldDef.FieldType.GetTypeWithGenericInterfaceOf(typeof(IList<>));
                 if (listInterface != null)

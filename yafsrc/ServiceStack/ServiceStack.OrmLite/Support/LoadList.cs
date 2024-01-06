@@ -80,7 +80,9 @@ internal abstract class LoadList<Into, From>
         dialectProvider = dbCmd.GetDialectProvider();
 
         if (q == null)
-            q = dialectProvider.SqlExpression<From>();
+        {
+            q = this.dialectProvider.SqlExpression<From>();
+        }
 
         this.dbCmd = dbCmd;
         this.q = q;
@@ -112,7 +114,9 @@ internal abstract class LoadList<Into, From>
                      $"IN ({subSql})";
 
         if (OrmLiteConfig.LoadReferenceSelectFilter != null)
+        {
             sqlRef = OrmLiteConfig.LoadReferenceSelectFilter(refModelDef.ModelType, sqlRef);
+        }
 
         return sqlRef;
     }
@@ -134,7 +138,7 @@ internal abstract class LoadList<Into, From>
             var refValue = refField.GetValue(result);
             if (!map.TryGetValue(refValue, out refValues))
             {
-                map[refValue] = refValues = new List<object>();
+                map[refValue] = refValues = [];
             }
             refValues.Add(result);
         }

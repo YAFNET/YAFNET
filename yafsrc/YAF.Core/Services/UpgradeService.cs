@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using YAF.Core.Migrations;
+
 namespace YAF.Core.Services;
 
 using System;
@@ -34,7 +36,6 @@ using Microsoft.Extensions.Logging;
 
 using YAF.Core.Data;
 using YAF.Core.Model;
-using YAF.Core.Services.Migrations;
 using YAF.Types.Models;
 
 /// <summary>
@@ -110,7 +111,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
 
         if (prevVersion < 80)
         {
-            await this.Get<V80_Migration>().MigrateDatabaseAsync(this.DbAccess);
+            await this.Get<Migration80>().MigrateDatabaseAsync(this.DbAccess);
 
             // Upgrade to ASPNET Identity
             this.DbAccess.Information.IdentityUpgradeScripts.ForEach(this.ExecuteScript);
@@ -126,7 +127,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
 
         if (prevVersion < 30)
         {
-            await this.Get<V30_Migration>().MigrateDatabaseAsync(this.DbAccess);
+            await this.Get<Migration30>().MigrateDatabaseAsync(this.DbAccess);
         }
 
         if (prevVersion < 42)
@@ -137,12 +138,12 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
 
         if (prevVersion < 81)
         {
-            await this.Get<V81_Migration>().MigrateDatabaseAsync(this.DbAccess);
+            await this.Get<Migration81>().MigrateDatabaseAsync(this.DbAccess);
         }
 
         if (prevVersion < 82)
         {
-            await this.Get<V82_Migration>().MigrateDatabaseAsync(this.DbAccess);
+            await this.Get<Migration82>().MigrateDatabaseAsync(this.DbAccess);
         }
 
         if (prevVersion is 80 or 81 or 82 or 84)
@@ -174,28 +175,35 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
 
         if (prevVersion < 84)
         {
-            await this.Get<V84_Migration>().MigrateDatabaseAsync(this.DbAccess);
+            await this.Get<Migration84>().MigrateDatabaseAsync(this.DbAccess);
         }
 
         if (prevVersion < 85)
         {
-            await this.Get<V85_Migration>().MigrateDatabaseAsync(this.DbAccess);
+            await this.Get<Migration85>().MigrateDatabaseAsync(this.DbAccess);
         }
 
         if (prevVersion < 86)
         {
-            await this.Get<V86_Migration>().MigrateDatabaseAsync(this.DbAccess);
+            await this.Get<Migration86>().MigrateDatabaseAsync(this.DbAccess);
         }
 
         // Execute before 87
         if (prevVersion < 89)
         {
-            await this.Get<V89_Migration>().MigrateDatabaseAsync(this.DbAccess);
+           await this.Get<Migration89>().MigrateDatabaseAsync(this.DbAccess);
         }
 
         if (prevVersion < 87)
         {
-            await this.Get<V87_Migration>().MigrateDatabaseAsync(this.DbAccess);
+            await this.Get<Migration87>().MigrateDatabaseAsync(this.DbAccess);
+        }
+
+        if (prevVersion < 91)
+        {
+            var migrator = new Migrator(this.DbAccess.ResolveDbFactory(), typeof(Migration91));
+
+            migrator.Run();
         }
 
         this.AddOrUpdateExtensions();

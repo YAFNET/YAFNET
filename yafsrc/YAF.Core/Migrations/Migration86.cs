@@ -22,9 +22,10 @@
  * under the License.
  */
 
-namespace YAF.Core.Services.Migrations
+namespace YAF.Core.Migrations
 {
     using ServiceStack.OrmLite;
+
     using System.Data;
     using System.Threading.Tasks;
 
@@ -38,7 +39,7 @@ namespace YAF.Core.Services.Migrations
     /// <summary>
     /// Version 86 Migrations
     /// </summary>
-    public class V86_Migration : IRepositoryMigration, IHaveServiceLocator
+    public class Migration86 : IRepositoryMigration, IHaveServiceLocator
     {
         /// <summary>
         /// Migrate Repositories (Database).

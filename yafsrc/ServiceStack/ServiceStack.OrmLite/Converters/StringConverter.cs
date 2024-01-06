@@ -81,7 +81,9 @@ public class StringConverter : OrmLiteConverter, IHasColumnDefinitionLength
     public virtual string GetColumnDefinition(int? stringLength)
     {
         if (stringLength.GetValueOrDefault() == StringLengthAttribute.MaxText)
-            return MaxColumnDefinition;
+        {
+            return this.MaxColumnDefinition;
+        }
 
         return UseUnicode
                    ? $"NVARCHAR({stringLength.GetValueOrDefault(StringLength)})"
@@ -116,7 +118,9 @@ public class StringConverter : OrmLiteConverter, IHasColumnDefinitionLength
         if (value is string strValue)
         {
             if (OrmLiteConfig.StringFilter != null)
+            {
                 return OrmLiteConfig.StringFilter(strValue);
+            }
         }
 
         return value.ToString();
@@ -161,13 +165,19 @@ public class CharConverter : StringConverter
     public override object FromDbValue(Type fieldType, object value)
     {
         if (value is char)
+        {
             return value;
+        }
 
         if (value is string strValue)
+        {
             return strValue[0];
+        }
 
         if (value.GetType().IsIntegerType())
+        {
             return (char)(int)this.ConvertNumber(typeof(int), value);
+        }
 
         return (char)value;
     }
@@ -181,9 +191,14 @@ public class CharConverter : StringConverter
     public override object ToDbValue(Type fieldType, object value)
     {
         if (value != null && value.GetType().IsEnum)
+        {
             return EnumConverter.ToCharValue(value);
+        }
+
         if (value is int i)
+        {
             return (char)i;
+        }
 
         return base.ToDbValue(fieldType, value);
     }
@@ -227,10 +242,14 @@ public class CharArrayConverter : StringConverter
     public override object FromDbValue(Type fieldType, object value)
     {
         if (value is char[])
+        {
             return value;
+        }
 
         if (value is string strValue)
+        {
             return strValue.ToCharArray();
+        }
 
         return (char[])value;
     }

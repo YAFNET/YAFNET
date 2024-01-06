@@ -22,10 +22,8 @@
  * under the License.
  */
 
-namespace YAF.Core.Services.Migrations
+namespace YAF.Core.Migrations
 {
-    using ServiceStack.OrmLite;
-
     using System.Data;
     using System.Threading.Tasks;
 
@@ -35,9 +33,9 @@ namespace YAF.Core.Services.Migrations
     using YAF.Types.Models;
 
     /// <summary>
-    /// Version 81 Migrations
+    /// Version 89 Migrations
     /// </summary>
-    public class V81_Migration : IRepositoryMigration, IHaveServiceLocator
+    public class Migration89 : IRepositoryMigration, IHaveServiceLocator
     {
         /// <summary>
         /// Migrate Repositories (Database).
@@ -50,9 +48,8 @@ namespace YAF.Core.Services.Migrations
             dbAccess.Execute(
                 dbCommand =>
                     {
-                        this.UpgradeTable(this.GetRepository<ProfileDefinition>(), dbAccess, dbCommand);
-
-                        this.UpgradeTable(this.GetRepository<User>(), dbAccess, dbCommand);
+                        UpgradeTable(this.GetRepository<User>(), dbCommand);
+                        UpgradeTable(this.GetRepository<PrivateMessage>(), dbAccess, dbCommand);
 
                         ///////////////////////////////////////////////////////////
 
@@ -62,36 +59,33 @@ namespace YAF.Core.Services.Migrations
             return Task.CompletedTask;
         }
 
-        /// <summary>
-        /// Upgrades the table.
-        /// </summary>
+        /// <summary>Upgrades the User table.</summary>
         /// <param name="repository">The repository.</param>
-        /// <param name="dbAccess">The database access.</param>
-        /// <param name="dbCommand">The database command.</param>
-        private void UpgradeTable(IRepository<User> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+        /// <param name="dbCommand">The db command.</param>
+        private static void UpgradeTable(IRepository<User> repository, IDbCommand dbCommand)
         {
-            if (dbCommand.Connection.ColumnExists<User>("Password"))
+            if (!dbCommand.Connection.ColumnExists<User>(x => x.DarkMode))
             {
-                dbCommand.Connection.DropColumn<User>("Password");
+                dbCommand.Connection.AddColumn<User>(x => x.DarkMode);
             }
         }
 
-        /// <summary>
-        /// Upgrades the table.
-        /// </summary>
+        /// <summary>Upgrades the PrivateMessage table.</summary>
         /// <param name="repository">The repository.</param>
-        /// <param name="dbAccess">The database access.</param>
-        /// <param name="dbCommand">The database command.</param>
-        private void UpgradeTable(IRepository<ProfileDefinition> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+        /// <param name="dbAccess">
+        /// The Database access.
+        /// </param>
+        /// <param name="dbCommand">The db command.</param>
+        private static void UpgradeTable(
+            IRepository<PrivateMessage> repository,
+            IDbAccess dbAccess,
+            IDbCommand dbCommand)
         {
-            if (!dbCommand.Connection.ColumnExists<ProfileDefinition>(x => x.ShowOnRegisterPage))
-            {
-                dbCommand.Connection.AddColumn<ProfileDefinition>(x => x.ShowOnRegisterPage);
-            }
+            dbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PrivateMessage>());
         }
 
         /// <summary>
-        /// Gets ServiceLocator.
+        /// Gets the ServiceLocator.
         /// </summary>
         /// <value>The service locator.</value>
         public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;

@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System.Threading.Tasks;
+
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -82,14 +84,14 @@ public class BBCodesModel : AdminPage
     /// <summary>
     /// Exports the selected list.
     /// </summary>
-    public IActionResult OnPostExport()
+    public async Task<IActionResult> OnPostExportAsync()
     {
         var codeIDs = this.List.Where(x => x.Selected).Select(x => x.ID).ToList();
 
         if (codeIDs.Count > 0)
         {
             // export this list as XML...
-            var list = this.GetRepository<BBCode>().GetByBoardId();
+            var list = await this.GetRepository<BBCode>().GetByBoardIdAsync();
 
             var selectedList = new List<BBCode>();
 
@@ -138,9 +140,9 @@ public class BBCodesModel : AdminPage
     /// Delete entry.
     /// </summary>
     /// <param name="b">The b.</param>
-    public void OnPostDelete(int b)
+    public async Task OnPostDeleteAsync(int b)
     {
-        this.GetRepository<BBCode>().DeleteById(b);
+        await this.GetRepository<BBCode>().DeleteByIdAsync(b);
         this.BindData();
     }
 

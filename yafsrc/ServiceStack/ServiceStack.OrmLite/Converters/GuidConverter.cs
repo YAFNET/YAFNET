@@ -38,7 +38,9 @@ public class GuidConverter : OrmLiteConverter
     public override object FromDbValue(Type fieldType, object value)
     {
         if (value is string s)
+        {
             return Guid.Parse(s);
+        }
 
         return base.FromDbValue(fieldType, value);
     }

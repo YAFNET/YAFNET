@@ -186,19 +186,39 @@ static internal class ReadExpressionCommandExtensions
             .Append($"{dialectProvider.GetQuotedTableName(typeof(T).GetModelDefinition())}.*, {Sql.EOT}");
 
         if (typeof(T2) != typeof(EOT))
+        {
             sb.Append($", {dialectProvider.GetQuotedTableName(typeof(T2).GetModelDefinition())}.*, {Sql.EOT}");
+        }
+
         if (typeof(T3) != typeof(EOT))
+        {
             sb.Append($", {dialectProvider.GetQuotedTableName(typeof(T3).GetModelDefinition())}.*, {Sql.EOT}");
+        }
+
         if (typeof(T4) != typeof(EOT))
+        {
             sb.Append($", {dialectProvider.GetQuotedTableName(typeof(T4).GetModelDefinition())}.*, {Sql.EOT}");
+        }
+
         if (typeof(T5) != typeof(EOT))
+        {
             sb.Append($", {dialectProvider.GetQuotedTableName(typeof(T5).GetModelDefinition())}.*, {Sql.EOT}");
+        }
+
         if (typeof(T6) != typeof(EOT))
+        {
             sb.Append($", {dialectProvider.GetQuotedTableName(typeof(T6).GetModelDefinition())}.*, {Sql.EOT}");
+        }
+
         if (typeof(T7) != typeof(EOT))
+        {
             sb.Append($", {dialectProvider.GetQuotedTableName(typeof(T7).GetModelDefinition())}.*, {Sql.EOT}");
+        }
+
         if (typeof(T8) != typeof(EOT))
+        {
             sb.Append($", {dialectProvider.GetQuotedTableName(typeof(T8).GetModelDefinition())}.*, {Sql.EOT}");
+        }
 
         return StringBuilderCache.ReturnAndFree(sb);
     }
@@ -216,7 +236,9 @@ static internal class ReadExpressionCommandExtensions
         foreach (var tableSelect in tableSelects)
         {
             if (sb.Length > 0)
+            {
                 sb.Append(", ");
+            }
 
             sb.Append($"{tableSelect}, {Sql.EOT}");
         }
@@ -507,7 +529,9 @@ static internal class ReadExpressionCommandExtensions
     static internal long RowCount(this IDbCommand dbCmd, string sql, object anonType)
     {
         if (anonType != null)
+        {
             dbCmd.SetParameters(anonType.ToObjectDictionary(), excludeDefaults: false, sql: ref sql);
+        }
 
         return dbCmd.Scalar<long>(dbCmd.GetDialectProvider().ToRowCountStatement(sql));
     }
@@ -615,9 +639,14 @@ static internal class ReadExpressionCommandExtensions
             var to = obj.FromObjectDictionary<ColumnSchema>();
             //MySQL doesn't populate DataTypeName, so reverse populate it from Type Converter ColumnDefinition
             if (to.DataTypeName == null && to.DataType != null)
+            {
                 to.DataTypeName = dbCmd.GetDialectProvider().GetConverter(to.DataType)?.ColumnDefinition.LeftPart('(');
+            }
+
             if (to.DataTypeName == null)
+            {
                 continue;
+            }
 
             ret.Add(to);
         }
