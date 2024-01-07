@@ -38,11 +38,19 @@ using YAF.Types.Models;
 /// </summary>
 public class PageAccessEditModel : AdminPage
 {
+    /// <summary>
+    /// Gets or sets the access list.
+    /// </summary>
+    /// <value>The access list.</value>
     [BindProperty]
     public List<AdminPageUserAccess> AccessList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the user identifier.
+    /// </summary>
+    /// <value>The user identifier.</value>
     [BindProperty]
-    public int UserID { get; set; }
+    public int UserId { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PageAccessEditModel"/> class.
@@ -102,15 +110,15 @@ public class PageAccessEditModel : AdminPage
                 if (readAccess || string.Equals("Admin_Admin", pageName, StringComparison.InvariantCultureIgnoreCase))
                 {
                     // save it
-                    this.GetRepository<AdminPageUserAccess>().Save(this.UserID, pageName);
+                    this.GetRepository<AdminPageUserAccess>().Save(this.UserId, pageName);
                 }
                 else
                 {
-                    this.GetRepository<AdminPageUserAccess>().Delete(this.UserID, pageName);
+                    this.GetRepository<AdminPageUserAccess>().Delete(this.UserId, pageName);
                 }
             });
 
-        this.Get<IDataCache>().Remove(string.Format(Constants.Cache.AdminPageAccess, this.UserID));
+        this.Get<IDataCache>().Remove(string.Format(Constants.Cache.AdminPageAccess, this.UserId));
 
         return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
     }
@@ -123,10 +131,10 @@ public class PageAccessEditModel : AdminPage
         // save permissions to table - checked only
         this.AccessList.ForEach(
             userAccess => this.GetRepository<AdminPageUserAccess>().Save(
-                this.UserID,
+                this.UserId,
                 userAccess.PageName));
 
-        this.Get<IDataCache>().Remove(string.Format(Constants.Cache.AdminPageAccess, this.UserID));
+        this.Get<IDataCache>().Remove(string.Format(Constants.Cache.AdminPageAccess, this.UserId));
 
         return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
     }
@@ -145,12 +153,12 @@ public class PageAccessEditModel : AdminPage
                 if (!string.Equals("Admin_Admin", pageName, StringComparison.InvariantCultureIgnoreCase))
                 {
                     this.GetRepository<AdminPageUserAccess>().Delete(
-                        this.UserID,
+                        this.UserId,
                         pageName);
                 }
             });
 
-        this.Get<IDataCache>().Remove(string.Format(Constants.Cache.AdminPageAccess, this.UserID));
+        this.Get<IDataCache>().Remove(string.Format(Constants.Cache.AdminPageAccess, this.UserId));
 
         return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_PageAccessList);
     }
@@ -161,7 +169,7 @@ public class PageAccessEditModel : AdminPage
     /// <param name="userId"></param>
     private void BindData(int userId)
     {
-        this.UserID = userId;
+        this.UserId = userId;
 
         var found = false;
 
@@ -179,7 +187,7 @@ public class PageAccessEditModel : AdminPage
                                   "Admin_Boards", "Admin_HostSettings", "Admin_PageAccessList", "Admin_PageAccessEdit"
                               };
 
-        // Iterate thru all admin pages
+        // Iterate through all admin pages
         listPages.ToList().ForEach(
             listPage =>
             {

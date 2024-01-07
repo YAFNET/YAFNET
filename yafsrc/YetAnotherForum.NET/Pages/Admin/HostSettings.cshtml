@@ -32,9 +32,6 @@
                 <button data-bs-target="#View4" class="nav-link btn btn-link" data-bs-toggle="pill" role="tab">
                     @Html.LocalizedText("ADMIN_HOSTSETTINGS","HOST_ADVERTS")
                 </button>
-                <button data-bs-target="#View5" class="nav-link btn btn-link" data-bs-toggle="pill" role="tab">
-                    @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_EDITORS")
-                </button>
                 <button data-bs-target="#View6" class="nav-link btn btn-link" data-bs-toggle="pill" role="tab">
                     @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_PERMISSION")
                 </button>
@@ -71,9 +68,6 @@
         </button>
         <button data-bs-target="#View4" class="nav-link" data-bs-toggle="pill" role="tab">
             @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_ADVERTS")
-        </button>
-        <button data-bs-target="#View5" class="nav-link" data-bs-toggle="pill" role="tab">
-            @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_EDITORS")
         </button>
         <button data-bs-target="#View6" class="nav-link" data-bs-toggle="pill" role="tab">
             @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HOST_PERMISSION")
@@ -1119,6 +1113,8 @@
             <input type="checkbox" class="form-check-input" asp-for="Input.ShowPageGenerationTime"/>
         </div>
     </div>
+</div>
+<div class="row">
     <div class="mb-3 col-md-6">
         <label class="form-label" info-button="true" 
                asp-for="Input.ShowYAFVersion"
@@ -1126,6 +1122,14 @@
         <div class="form-check form-switch">
             <input type="checkbox" class="form-check-input" asp-for="Input.ShowYAFVersion"/>
 
+        </div>
+    </div>
+    <div class="mb-3 col-md-6">
+        <label class="form-label" info-button="true"
+               asp-for="Input.HideCopyright"
+               localized-tag="COPYRIGHT_REMOVAL_KEY" localized-page="ADMIN_BOARDSETTINGS"></label>
+        <div class="form-check form-switch">
+            <input type="checkbox" asp-for="Input.HideCopyright" class="form-check-input"/>
         </div>
     </div>
 </div>
@@ -1299,20 +1303,6 @@
                                            class="form-check-input" />
                 </div>
             </div>
-        </div>
-        <div class="card-footer text-lg-center">
-            <button button-style="Primary" asp-page-handler="Save"
-                    Icon="save" text-localized-tag="SAVE_SETTINGS" text-localized-page="ADMIN_HOSTSETTINGS">
-            </button>
-        </div>
-    </div>
-</div><div class="tab-pane fade" id="View5" role="tabpanel">
-    <div class="card mb-3">
-        <div class="card-header">
-            @Html.IconHeader("cog","ADMIN_HOSTSETTINGS", "TITLE")
-            - @Html.LocalizedText("ADMIN_HOSTSETTINGS", "HEADER_EDITORS")
-        </div>
-        <div class="card-body">
         </div>
         <div class="card-footer text-lg-center">
             <button button-style="Primary" asp-page-handler="Save"

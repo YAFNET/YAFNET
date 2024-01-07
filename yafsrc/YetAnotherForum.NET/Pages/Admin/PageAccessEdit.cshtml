@@ -12,22 +12,23 @@
             <div class="card mb-3">
                 <div class="card-header">
                     @Html.Icon("building")
-                    @Html.LocalizedText("ADMIN_PAGEACCESSEDIT", "HEADER"): <strong>@Html.HtmlEncode(Model.Get<IUserDisplayName>().GetNameById(Model.UserID))</strong>
+                    @Html.LocalizedText("ADMIN_PAGEACCESSEDIT", "HEADER"): <strong>@Html.HtmlEncode(Model.Get<IUserDisplayName>().GetNameById(Model.UserId))</strong>
                 </div>
                 <div class="card-body">
-                    <input type="hidden" asp-for="UserID" value="@Model.UserID" />
+                    <input type="hidden" asp-for="UserId" value="@Model.UserId" />
                     <ul class="list-group">
 
                         @for (var index = 0; index < Model.AccessList.Count; index++)
                         {
                             <li class="list-group-item list-group-item-action">
                                 <input type="hidden" asp-for="AccessList[index].PageName" value="@Model.AccessList[index].PageName" />
-                                <label class="form-label" localized-page="ADMIN_PAGEACCESSEDIT" localized-tag="PAGE">
-                                </label>
+                                <label class="form-label fw-bold" localized-page="ADMIN_PAGEACCESSEDIT" localized-tag="PAGE">
+                                </label>: @Model.AccessList[index].PageName
                                 <div class="form-check form-switch">
                                     <input type="checkbox" asp-for="AccessList[index].ReadAccess" class="form-check-input"/>
                                     <label class="form-check-label" asp-for="AccessList[index].ReadAccess">
-                                        @Model.AccessList[index].PageName
+                                        
+                                        @Html.LocalizedText("CANACCESS")
                                     </label>
                                 </div>
                             </li>

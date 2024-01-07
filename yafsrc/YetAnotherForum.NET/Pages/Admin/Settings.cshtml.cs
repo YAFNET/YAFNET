@@ -25,8 +25,6 @@
 
 using System.Threading.Tasks;
 
-using YAF.Types.InputModels;
-
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
@@ -57,18 +55,46 @@ public class SettingsModel : AdminPage
     [BindProperty]
     public SettingsInputModel Input { get; set; }
 
+    /// <summary>
+    /// Gets or sets the logo images.
+    /// </summary>
+    /// <value>The logo images.</value>
     public List<SelectListItem> LogoImages { get; set; }
 
+    /// <summary>
+    /// Gets or sets the themes.
+    /// </summary>
+    /// <value>The themes.</value>
     public IReadOnlyCollection<SelectListItem> Themes { get; set; }
 
+    /// <summary>
+    /// Gets or sets the cultures.
+    /// </summary>
+    /// <value>The cultures.</value>
     public SelectList Cultures { get; set; }
 
+    /// <summary>
+    /// Gets or sets the show topics.
+    /// </summary>
+    /// <value>The show topics.</value>
     public SelectList ShowTopics { get; set; }
 
+    /// <summary>
+    /// Gets or sets the forum default access masks.
+    /// </summary>
+    /// <value>The forum default access masks.</value>
     public SelectList ForumDefaultAccessMasks { get; set; }
 
+    /// <summary>
+    /// Gets or sets the default notification settings.
+    /// </summary>
+    /// <value>The default notification settings.</value>
     public List<SelectListItem> DefaultNotificationSettings { get; set; }
 
+    /// <summary>
+    /// Gets or sets the default collapsible panel states.
+    /// </summary>
+    /// <value>The default collapsible panel states.</value>
     public List<SelectListItem> DefaultCollapsiblePanelStates { get; set; }
 
     /// <summary>
@@ -137,7 +163,6 @@ public class SettingsModel : AdminPage
             this.Input.DefaultCollapsiblePanelState.ToEnum<CollapsiblePanelState>();
         boardSettings.BaseUrlMask = this.Input.ForumBaseUrlMask;
         boardSettings.ForumEmail = this.Input.ForumEmail;
-        boardSettings.HideCopyright = this.Input.HideCopyright;
         boardSettings.DigestSendEveryXHours = this.Input.DigestSendEveryXHours;
 
         if (this.Input.BoardLogo.IsSet())
@@ -157,12 +182,12 @@ public class SettingsModel : AdminPage
     /// <summary>
     /// Increases the CDV version on click.
     /// </summary>
-    public void OnPostIncreaseVersion()
+    public async Task OnPostIncreaseVersionAsync()
     {
         this.PageBoardContext.BoardSettings.CdvVersion++;
         this.Get<BoardSettingsService>().SaveRegistry(this.PageBoardContext.BoardSettings);
 
-        this.Input.CdvVersion = this.PageBoardContext.BoardSettings.CdvVersion.ToString();
+        await this.BindDataAsync();
     }
 
     /// <summary>
@@ -249,8 +274,6 @@ public class SettingsModel : AdminPage
         this.Input.ForumBaseUrlMask = boardSettings.BaseUrlMask;
 
         this.Input.BoardLogo = boardSettings.ForumLogo;
-
-        this.Input.HideCopyright = boardSettings.HideCopyright;
 
         this.Input.DigestSendEveryXHours = boardSettings.DigestSendEveryXHours;
     }
