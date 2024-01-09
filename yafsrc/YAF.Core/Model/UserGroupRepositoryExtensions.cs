@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Model;
 
 using System;
@@ -47,8 +48,6 @@ public static class UserGroupRepositoryExtensions
     /// </returns>
     public static List<Group> List(this IRepository<UserGroup> repository, int userId)
     {
-        
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserGroup>();
 
         expression.Join<Group>((a, b) => b.ID == a.GroupID).Where<UserGroup>((a) => a.UserID == userId)
@@ -71,8 +70,6 @@ public static class UserGroupRepositoryExtensions
     /// </param>
     public static void Remove(this IRepository<UserGroup> repository, int userId, int groupId)
     {
-        
-
         repository.FireDeleted(repository.Delete(x => x.GroupID == groupId && x.UserID == userId));
     }
 
@@ -97,8 +94,6 @@ public static class UserGroupRepositoryExtensions
         int groupId,
         bool isMember)
     {
-        
-
         if (!isMember)
         {
             repository.Remove(userId, groupId);
@@ -134,8 +129,6 @@ public static class UserGroupRepositoryExtensions
         int userId,
         string role)
     {
-        
-
         if (role.IsNotSet())
         {
             repository.Delete(x => x.UserID == userId);
@@ -216,12 +209,10 @@ public static class UserGroupRepositoryExtensions
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public static string GetGroupStyeForUser(
+    public static string GetGroupStyleForUser(
         this IRepository<UserGroup> repository,
         int userId)
     {
-        
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserGroup>();
 
         expression.Join<Group>((userGroup, group) => group.ID == userGroup.GroupID)

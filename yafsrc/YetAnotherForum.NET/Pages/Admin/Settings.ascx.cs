@@ -37,7 +37,7 @@ using ListItem = ListItem;
 public partial class Settings : AdminPage
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="Settings"/> class. 
+    /// Initializes a new instance of the <see cref="Settings"/> class.
     /// </summary>
     public Settings()
         : base("ADMIN_BOARDSETTINGS", ForumPages.Admin_Settings)
@@ -113,7 +113,6 @@ public partial class Settings : AdminPage
         boardSettings.DefaultCollapsiblePanelState = this.DefaultCollapsiblePanelState.SelectedValue.ToEnum<CollapsiblePanelState>();
         boardSettings.BaseUrlMask = this.ForumBaseUrlMask.Text;
         boardSettings.ForumEmail = this.ForumEmail.Text;
-        boardSettings.HideCopyright = this.HideCopyright.Checked;
         boardSettings.DigestSendEveryXHours = this.DigestSendEveryXHours.Text.ToType<int>();
 
         if (this.BoardLogo.SelectedIndex > 0)
@@ -280,8 +279,6 @@ public partial class Settings : AdminPage
         {
             item.Selected = true;
         }
-
-        this.HideCopyright.Checked = boardSettings.HideCopyright;
 
         this.DigestSendEveryXHours.Text = boardSettings.DigestSendEveryXHours.ToString();
     }

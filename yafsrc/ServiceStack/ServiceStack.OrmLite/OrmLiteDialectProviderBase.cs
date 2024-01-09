@@ -1726,7 +1726,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             }
             catch (Exception ex)
             {
-                OrmLiteUtils.HandleException(ex, "ERROR in PrepareParameterizedUpdateStatement(): " + ex.Message);
+                Log.Error(ex, "ERROR in PrepareParameterizedUpdateStatement(): " + ex.Message);
+                if (OrmLiteConfig.ThrowOnError)
+                    throw;
             }
         }
 
@@ -1826,7 +1828,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             }
             catch (Exception ex)
             {
-                OrmLiteUtils.HandleException(ex, "ERROR in PrepareParameterizedDeleteStatement(): " + ex.Message);
+                Log.Error(ex, "ERROR in PrepareParameterizedDeleteStatement(): " + ex.Message);
+                if (OrmLiteConfig.ThrowOnError)
+                    throw;
             }
         }
 
@@ -2197,7 +2201,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             }
             catch (Exception ex)
             {
-                OrmLiteUtils.HandleException(ex, "ERROR in ToUpdateRowStatement(): " + ex.Message);
+                Log.Error(ex, "ERROR in ToUpdateRowStatement(): " + ex.Message);
+                if (OrmLiteConfig.ThrowOnError)
+                    throw;
             }
         }
 
@@ -2253,7 +2259,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             }
             catch (Exception ex)
             {
-                OrmLiteUtils.HandleException(ex, "ERROR in PrepareUpdateRowStatement(cmd,args): " + ex.Message);
+                Log.Error(ex, "ERROR in PrepareUpdateRowStatement(cmd,args): " + ex.Message);
+                if (OrmLiteConfig.ThrowOnError)
+                    throw;
             }
         }
 
@@ -2315,7 +2323,9 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             }
             catch (Exception ex)
             {
-                OrmLiteUtils.HandleException(ex, "ERROR in PrepareUpdateRowAddStatement(): " + ex.Message);
+                Log.Error(ex, "ERROR in PrepareUpdateRowAddStatement(): " + ex.Message);
+                if (OrmLiteConfig.ThrowOnError)
+                    throw;
             }
         }
 

@@ -81,9 +81,6 @@ public static class ForumAccessRepositoryExtensions
     /// <param name="groupId">
     /// The group identifier.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<(int ForumID, string ForumName, int? ParentID, int AccessMaskID)> ListByGroups(
         this IRepository<ForumAccess> repository,
         int groupId)
@@ -159,9 +156,6 @@ public static class ForumAccessRepositoryExtensions
     /// <param name="forumId">
     /// The forum id.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<Tuple<ForumAccess, Group>> GetForumAccessList(
         this IRepository<ForumAccess> repository,
         int forumId)
@@ -173,30 +167,5 @@ public static class ForumAccessRepositoryExtensions
             .Select<ForumAccess, Group>((access, group) => new { access, GroupName = group.Name });
 
         return repository.DbAccess.Execute(db => db.Connection.SelectMulti<ForumAccess, Group>(expression));
-    }
-
-    /// <summary>
-    /// Gets the forum Read Access 
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="forumId">
-    /// The forum id.
-    /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
-    public static List<Tuple<ForumAccess, AccessMask, Group>> GetReadAccessList(
-        this IRepository<ForumAccess> repository,
-        int forumId)
-    {
-        var expression = OrmLiteConfig.DialectProvider.SqlExpression<ForumAccess>();
-
-        expression.Join<AccessMask>((fa, am) => am.ID == fa.AccessMaskID)
-            .Join<Group>((fa, group) => group.ID == fa.GroupID)
-            .Where(fa => fa.ForumID == forumId);
-
-        return repository.DbAccess.Execute(db => db.Connection.SelectMulti<ForumAccess, AccessMask, Group>(expression));
     }
 }

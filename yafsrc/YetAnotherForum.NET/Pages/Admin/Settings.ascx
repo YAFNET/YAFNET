@@ -48,14 +48,6 @@
                 <asp:TextBox ID="ForumBaseUrlMask" runat="server" TextMode="Url" CssClass="form-control"></asp:TextBox>
             </div>
             <div class="mb-3">
-                <YAF:HelpLabel ID="HelpLabel2" runat="server"
-                               AssociatedControlID="HideCopyright"
-                               LocalizedTag="COPYRIGHT_REMOVAL_KEY" LocalizedPage="ADMIN_BOARDSETTINGS"/>
-                <div class="form-check form-switch">
-                    <asp:CheckBox ID="HideCopyright" runat="server" Text="&nbsp;"></asp:CheckBox>
-                </div>
-            </div>
-            <div class="mb-3">
                 <YAF:HelpLabel ID="LocalizedLabel5" runat="server"
                                AssociatedControlID="Theme"
                                LocalizedTag="BOARD_THEME" LocalizedPage="ADMIN_BOARDSETTINGS"/>

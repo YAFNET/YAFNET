@@ -21,6 +21,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+
 namespace YAF.Core.Model;
 
 using System;
@@ -93,8 +94,6 @@ public static class RankRepositoryExtensions
         int userAlbums,
         int userAlbumImages)
     {
-        
-
         if (!flags.IsLadder)
         {
             minPosts = null;
@@ -168,8 +167,6 @@ public static class RankRepositoryExtensions
     /// </returns>
     public static Tuple<User, Rank> GetUserAndRank(this IRepository<Rank> repository, int userId)
     {
-        
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<User>();
 
         expression.Join<Rank>((u, r) => r.ID == u.RankID).Where<User>(u => u.ID == userId);
@@ -184,12 +181,10 @@ public static class RankRepositoryExtensions
     /// <param name="repository">The repository.</param>
     /// <param name="userId">The user identifier.</param>
     /// <returns>Returns the Style if the Rank has one</returns>
-    public static string GetRankStyeForUser(
+    public static string GetRankStyleForUser(
         this IRepository<Rank> repository,
         int userId)
     {
-        
-
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Rank>();
 
         expression.Join<User>((rank, user) => rank.ID == user.RankID)
