@@ -106,7 +106,7 @@ public static class ForumReadTrackingRepositoryExtensions
     /// The forum id.
     /// </param>
     /// <returns>
-    /// The <see cref="DateTime?"/>.
+    /// The <see cref="DateTime"/>.
     /// </returns>
     public static DateTime? LastRead(
         this IRepository<ForumReadTracking> repository,

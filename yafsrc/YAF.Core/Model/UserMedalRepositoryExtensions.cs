@@ -46,9 +46,6 @@ public static class UserMedalRepositoryExtensions
     /// <param name="medalId">
     /// The medal Id.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<Tuple<Medal, UserMedal, User>> List(
         this IRepository<UserMedal> repository,
         int? userId,

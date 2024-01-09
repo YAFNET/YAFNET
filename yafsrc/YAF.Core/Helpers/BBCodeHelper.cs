@@ -40,9 +40,6 @@ public static class BBCodeHelper
     /// <param name="text">
     /// The text.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<string> FindUserQuoting(string text)
     {
         var mentions = Regex.Matches(
@@ -60,9 +57,6 @@ public static class BBCodeHelper
     /// <param name="text">
     /// The text.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<string> FindMentions(string text)
     {
         var mentions = Regex.Matches(text, @"@\[userlink\](?<inner>.+?)\[\/userlink\]", RegexOptions.IgnoreCase,

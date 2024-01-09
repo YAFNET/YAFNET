@@ -670,7 +670,7 @@ public static class ForumRepositoryExtensions
     /// The Board ID
     /// </param>
     /// <returns>
-    /// Returns thee Moderator List for the Board
+    /// Returns the Moderator List for the Board
     /// </returns>
     public static List<ModerateForum> ModerateList(
         this IRepository<Forum> repository,

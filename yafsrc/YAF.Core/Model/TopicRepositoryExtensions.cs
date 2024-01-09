@@ -215,7 +215,7 @@ public static class TopicRepositoryExtensions
     /// Indicates if the Table should contain the last Access Date
     /// </param>
     /// <returns>
-    /// Returns the the Active Topics
+    /// Returns the Active Topics
     /// </returns>
     public static List<PagedTopic> ListActivePaged(
         this IRepository<Topic> repository,
@@ -1584,9 +1584,6 @@ public static class TopicRepositoryExtensions
     /// <param name="pageSize">
     /// The page size.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<PagedTopic> GetDeletedTopicsPaged(
         this IRepository<Topic> repository,
         int boardId,

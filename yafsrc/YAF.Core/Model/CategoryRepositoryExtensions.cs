@@ -61,9 +61,6 @@ public static class CategoryRepositoryExtensions
     /// <param name="boardId">
     /// The board id.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<Category> List(
         this IRepository<Category> repository,
         int? categoryId = null,

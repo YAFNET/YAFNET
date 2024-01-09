@@ -46,9 +46,6 @@ public static class GroupRepositoryExtensions
     /// <param name="boardId">
     /// The board id.
     /// </param>
-    /// <returns>
-    /// The <see cref="IList"/>.
-    /// </returns>
     public static IList<Group> List(
         this IRepository<Group> repository,
         int? groupId = null,
@@ -71,9 +68,6 @@ public static class GroupRepositoryExtensions
     /// <param name="userId">
     /// The user Id.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<GroupMember> Member(
         this IRepository<Group> repository,
         int boardId,

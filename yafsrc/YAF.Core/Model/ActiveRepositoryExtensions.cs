@@ -43,9 +43,6 @@ public static class ActiveRepositoryExtensions
     /// <param name="forumId">
     /// The forum Id.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<ActiveUser> ListForum(this IRepository<Active> repository, int forumId)
     {
         return repository.DbAccess.Execute(
@@ -100,9 +97,6 @@ public static class ActiveRepositoryExtensions
     /// <param name="topicId">
     /// The topic id.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<ActiveUser> ListTopic(this IRepository<Active> repository, int topicId)
     {
         return repository.DbAccess.Execute(
@@ -163,9 +157,6 @@ public static class ActiveRepositoryExtensions
     /// <param name="boardId">
     /// The board Id.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<ActiveUser> List(
         this IRepository<Active> repository,
         bool showCrawlers,
@@ -266,9 +257,6 @@ public static class ActiveRepositoryExtensions
     /// <param name="pageSize">
     /// The page Size.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<ActiveUser> ListUsersPaged(
         this IRepository<Active> repository,
         int userId,

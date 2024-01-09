@@ -57,9 +57,6 @@ public static class AttachmentRepositoryExtensions
     /// <param name="pageSize">
     /// Size of the page.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<Tuple<User, Attachment>> GetByBoardPaged<T>(
         this IRepository<T> repository,
         out int count,
@@ -86,9 +83,6 @@ public static class AttachmentRepositoryExtensions
     /// <param name="repository">
     /// The repository.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<Message> GetMessageAttachments(this IRepository<Attachment> repository)
     {
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();

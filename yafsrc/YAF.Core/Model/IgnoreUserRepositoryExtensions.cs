@@ -92,9 +92,6 @@ public static class IgnoreUserRepositoryExtensions
     /// <param name="userId">
     /// The user Id.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<User> IgnoredUsers(this IRepository<IgnoreUser> repository, int userId)
     {
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<IgnoreUser>();

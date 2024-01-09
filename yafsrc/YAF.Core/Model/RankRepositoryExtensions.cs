@@ -175,7 +175,7 @@ public static class RankRepositoryExtensions
     /// <param name="repository">The repository.</param>
     /// <param name="userId">The user identifier.</param>
     /// <returns>Returns the Style if the Rank has one</returns>
-    public static string GetRankStyeForUser(
+    public static string GetRankStyleForUser(
         this IRepository<Rank> repository,
         int userId)
     {

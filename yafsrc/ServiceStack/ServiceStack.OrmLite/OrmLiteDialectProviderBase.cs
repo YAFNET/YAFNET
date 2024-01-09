@@ -37,15 +37,6 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     readonly static protected ILog Log = LogManager.GetLogger(typeof(IOrmLiteDialectProvider));
 
-    /// <summary>
-    /// Initializes a new instance of the <see cref="OrmLiteDialectProviderBase{TDialect}" /> class.
-    /// </summary>
-    protected OrmLiteDialectProviderBase()
-    {
-        this.Variables = new Dictionary<string, string>();
-        this.StringSerializer = new JsvStringSerializer();
-    }
-
     /* ADO.NET UNDERSTOOD DATA TYPES:
                 COUNTER	DbType.Int64
                 AUTOINCREMENT	DbType.Int64
@@ -195,7 +186,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// Gets the variables.
     /// </summary>
     /// <value>The variables.</value>
-    public Dictionary<string, string> Variables { get; set; }
+    public Dictionary<string, string> Variables { get; set; } = new();
 
     /// <summary>
     /// Gets or sets the execute filter.
@@ -272,7 +263,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// Gets or sets the string serializer.
     /// </summary>
     /// <value>The string serializer.</value>
-    public IStringSerializer StringSerializer { get; set; }
+    public IStringSerializer StringSerializer { get; set; } = new JsvStringSerializer();
 
     /// <summary>
     /// The parameter name filter
@@ -420,7 +411,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     public IOrmLiteConverter GetConverter(Type type)
     {
         type = Nullable.GetUnderlyingType(type) ?? type;
-        return this.Converters.TryGetValue(type, out var converter) ? converter : null;
+        return this.Converters.GetValueOrDefault(type);
     }
 
     /// <summary>
@@ -468,7 +459,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             return this.EnumConverter;
         }
 
-        return type.IsRefType() ? (IOrmLiteConverter)this.ReferenceTypeConverter : this.ValueTypeConverter;
+        return type.IsRefType() ? this.ReferenceTypeConverter : this.ValueTypeConverter;
     }
 
     /// <summary>
@@ -495,7 +486,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             return this.EnumConverter;
         }
 
-        return fieldType.IsRefType() ? (IOrmLiteConverter)this.ReferenceTypeConverter : this.ValueTypeConverter;
+        return fieldType.IsRefType() ? this.ReferenceTypeConverter : this.ValueTypeConverter;
     }
 
     /// <summary>
@@ -506,7 +497,7 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <returns>System.Object.</returns>
     public virtual object ToDbValue(object value, Type type)
     {
-        if (value == null || value is DBNull)
+        if (value is null or DBNull)
         {
             return null;
         }
@@ -1796,7 +1787,11 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             }
             catch (Exception ex)
             {
-                OrmLiteUtils.HandleException(ex, "ERROR in PrepareParameterizedUpdateStatement(): " + ex.Message);
+                Log.Error(ex, $"ERROR in PrepareParameterizedUpdateStatement(): {ex.Message}");
+                if (OrmLiteConfig.ThrowOnError)
+                {
+                    throw;
+                }
             }
         }
 
@@ -1897,7 +1892,12 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             }
             catch (Exception ex)
             {
-                OrmLiteUtils.HandleException(ex, "ERROR in PrepareParameterizedDeleteStatement(): " + ex.Message);
+                Log.Error(ex, $"ERROR in PrepareParameterizedDeleteStatement(): {ex.Message}");
+
+                if (OrmLiteConfig.ThrowOnError)
+                {
+                    throw;
+                }
             }
         }
 
@@ -2270,7 +2270,12 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             }
             catch (Exception ex)
             {
-                OrmLiteUtils.HandleException(ex, "ERROR in ToUpdateRowStatement(): " + ex.Message);
+                Log.Error(ex, $"ERROR in ToUpdateRowStatement(): {ex.Message}");
+
+                if (OrmLiteConfig.ThrowOnError)
+                {
+                    throw;
+                }
             }
         }
 
@@ -2327,7 +2332,11 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             }
             catch (Exception ex)
             {
-                OrmLiteUtils.HandleException(ex, "ERROR in PrepareUpdateRowStatement(cmd,args): " + ex.Message);
+                Log.Error(ex, $"ERROR in PrepareUpdateRowStatement(cmd,args): {ex.Message}");
+                if (OrmLiteConfig.ThrowOnError)
+                {
+                    throw;
+                }
             }
         }
 
@@ -2483,7 +2492,11 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
             }
             catch (Exception ex)
             {
-                OrmLiteUtils.HandleException(ex, "ERROR in PrepareUpdateRowAddStatement(): " + ex.Message);
+                Log.Error(ex, $"ERROR in PrepareUpdateRowAddStatement(): {ex.Message}");
+                if (OrmLiteConfig.ThrowOnError)
+                {
+                    throw;
+                }
             }
         }
 

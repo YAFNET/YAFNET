@@ -43,9 +43,6 @@ public static class CheckEmailRepositoryExtensions
     /// <param name="email">
     /// The email.
     /// </param>
-    /// <returns>
-    /// The <see cref="IList"/>.
-    /// </returns>
     public static IList<CheckEmail> ListTyped(
         this IRepository<CheckEmail> repository,
         string email = null)

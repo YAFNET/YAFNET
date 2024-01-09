@@ -281,9 +281,6 @@ public class AutoFacServiceLocatorProvider(ILifetimeScope container) : IScopeSer
     /// <exception cref="NotSupportedException">
     /// Parameter Type of is not supported.
     /// </exception>
-    /// <returns>
-    /// The <see cref="IEnumerable"/>.
-    /// </returns>
     private static List<Parameter> ConvertToAutofacParameters(
         IEnumerable<IServiceLocationParameter> parameters)
     {

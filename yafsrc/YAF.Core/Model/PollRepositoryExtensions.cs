@@ -43,9 +43,6 @@ public static class PollRepositoryExtensions
     /// <param name="pollId">
     /// The poll id.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<Tuple<Poll, Choice>> GetPollAndChoices(
         this IRepository<Poll> repository,
         int pollId)

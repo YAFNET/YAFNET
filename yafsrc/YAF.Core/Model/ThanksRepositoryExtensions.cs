@@ -132,8 +132,6 @@ public static class ThanksRepositoryExtensions
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Thanks>();
 
         expression.Join<User>((a, b) => a.ThanksFromUserID == b.ID).Where<Thanks>(b => b.MessageID == messageId);
-        /* .Select<Thanks, User>(
-             (a, b) => new { UserID = a.ThanksFromUserID, a.ThanksDate, b.Name, b.DisplayName });*/
 
         return repository.DbAccess.Execute(db => db.Connection.SelectMulti<Thanks, User>(expression));
     }
@@ -171,7 +169,7 @@ public static class ThanksRepositoryExtensions
     /// The user id.
     /// </param>
     /// <returns>
-    /// If the User Thanked the the Current Message
+    /// If the User Thanked the Current Message
     /// </returns>
     public static bool ThankedMessage(
         this IRepository<Thanks> repository,

@@ -560,9 +560,6 @@ public interface IAspNetUsersHelper
     /// <param name="numPostCompare">
     /// The number of Post Compare.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public List<PagedUser> ListMembersPaged(
         int? boardId,
         int? groupId,

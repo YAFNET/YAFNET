@@ -42,9 +42,6 @@ public static class AdminPageUserAccessRepositoryExtensions
     /// <param name="userId">
     /// The user id.
     /// </param>
-    /// <returns>
-    /// The <see cref="IEnumerable"/>.
-    /// </returns>
     public static IEnumerable<AdminPageUserAccess> List(
         this IRepository<AdminPageUserAccess> repository,
         int userId)

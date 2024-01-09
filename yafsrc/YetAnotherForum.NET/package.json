@@ -19,8 +19,8 @@
     "grunt-shell": "^4.0.0",
     "grunt-webpack": "^6.0.0",
     "grunt-zip": "^1.0.0",
-    "postcss": "^8.4.32",
-    "sass": "^1.69.6",
+    "postcss": "^8.4.33",
+    "sass": "^1.69.7",
     "webpack": "^5.89.0",
     "webpack-merge": "^5.10.0"
   },

@@ -449,9 +449,6 @@ public class EditProfileModel : ProfilePage
     /// <param name="country">
     /// The country.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     private static List<SelectListItem> LookForNewRegionsBind(string country)
     {
         return [.. StaticDataHelper.Regions(country)];

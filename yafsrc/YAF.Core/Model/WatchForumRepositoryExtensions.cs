@@ -68,7 +68,7 @@ public static class WatchForumRepositoryExtensions
     /// The forum id.
     /// </param>
     /// <returns>
-    /// The <see cref="int?"/>.
+    /// The <see cref="int"/>.
     /// </returns>
     public static int? Check(this IRepository<WatchForum> repository, int userId, int forumId)
     {
@@ -92,9 +92,6 @@ public static class WatchForumRepositoryExtensions
     /// <param name="pageSize">
     /// The page Size.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<WatchForum> List(
         this IRepository<WatchForum> repository,
         int userId,

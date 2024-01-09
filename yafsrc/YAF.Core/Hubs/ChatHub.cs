@@ -62,7 +62,7 @@ public class ChatHub : Hub, IHaveServiceLocator
     /// </summary>
     public IServiceLocator ServiceLocator { get; set; }
 
-    /// <summary>Connects the specified user name.</summary>
+    /// <summary>Connects the specified username.</summary>
     /// <param name="avatar">the avatar</param>
     /// <param name="toUserId">The Sender User Id</param>
     public async Task ConnectAsync(
@@ -125,7 +125,7 @@ public class ChatHub : Hub, IHaveServiceLocator
     /// The send private message.
     /// </summary>
     /// <param name="toUserId">
-    /// The to user id.
+    /// The send to user id.
     /// </param>
     /// <param name="message">
     /// The message.
@@ -150,6 +150,12 @@ public class ChatHub : Hub, IHaveServiceLocator
 
         // Save message in db
         var body = HtmlTagHelper.StripHtml(BBCodeHelper.EncodeCodeBlocks(message));
+
+
+        if (body.IsNotSet())
+        {
+            return;
+        }
 
         var flags = new PrivateMessageFlags();
 

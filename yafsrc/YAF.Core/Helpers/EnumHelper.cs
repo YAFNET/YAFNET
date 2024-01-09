@@ -54,9 +54,6 @@ public static class EnumHelper
     /// </summary>
     /// <typeparam name="T">
     /// </typeparam>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<T> EnumToList<T>()
     {
         var enumType = typeof(T);

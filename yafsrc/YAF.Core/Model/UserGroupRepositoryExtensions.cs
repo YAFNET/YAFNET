@@ -43,9 +43,6 @@ public static class UserGroupRepositoryExtensions
     /// <param name="userId">
     /// The user Id.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<Group> List(this IRepository<UserGroup> repository, int userId)
     {
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<UserGroup>();
@@ -208,7 +205,7 @@ public static class UserGroupRepositoryExtensions
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public static string GetGroupStyeForUser(
+    public static string GetGroupStyleForUser(
         this IRepository<UserGroup> repository,
         int userId)
     {

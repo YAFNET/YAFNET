@@ -7,6 +7,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading;
@@ -78,50 +79,39 @@ public static class TypeExtensions
 
             if (!type.BaseType.GetGenericArguments().IsEmpty())
             {
-                foreach (var arg in type.BaseType.GetGenericArguments())
+                foreach (var arg in type.BaseType.GetGenericArguments().Where(refTypes.Add))
                 {
-                    if (refTypes.Add(arg))
-                    {
-                        AddReferencedTypes(arg, refTypes);
-                    }
+                    AddReferencedTypes(arg, refTypes);
                 }
             }
         }
 
-        foreach (var iface in type.GetInterfaces())
+        foreach (var arg in from iface in type.GetInterfaces()
+                 where iface.IsGenericType && !iface.IsGenericTypeDefinition
+                 from arg in iface.GetGenericArguments()
+                 where refTypes.Add(arg)
+                 select arg)
         {
-            if (iface.IsGenericType && !iface.IsGenericTypeDefinition)
-            {
-                foreach (var arg in iface.GetGenericArguments())
-                {
-                    if (refTypes.Add(arg))
-                    {
-                        AddReferencedTypes(arg, refTypes);
-                    }
-                }
-            }
+            AddReferencedTypes(arg, refTypes);
         }
 
         var properties = type.GetProperties();
+        
         if (!properties.IsEmpty())
         {
             foreach (var p in properties)
             {
-                if (!refTypes.Contains(p.PropertyType))
+                if (refTypes.Add(p.PropertyType))
                 {
-                    refTypes.Add(p.PropertyType);
                     AddReferencedTypes(type, refTypes);
                 }
 
                 var args = p.PropertyType.GetGenericArguments();
                 if (!args.IsEmpty())
                 {
-                    foreach (var arg in args)
+                    foreach (var arg in args.Where(refTypes.Add))
                     {
-                        if (refTypes.Add(arg))
-                        {
-                            AddReferencedTypes(arg, refTypes);
-                        }
+                        AddReferencedTypes(arg, refTypes);
                     }
                 }
                 else if (p.PropertyType.IsArray)
@@ -154,7 +144,6 @@ public static class TypeExtensions
             var index = Expression.Constant(i);
             var paramType = pi[i].ParameterType;
             var paramAccessorExp = Expression.ArrayIndex(paramArgs, index);
-            var paramCastExp = Expression.Convert(paramAccessorExp, paramType);
             var convertParam = convertFromMethod.MakeGenericMethod(paramType);
             exprArgs[i] = Expression.Call(convertParam, paramAccessorExp);
         }

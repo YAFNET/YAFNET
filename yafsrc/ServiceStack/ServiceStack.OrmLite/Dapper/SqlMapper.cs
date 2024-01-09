@@ -2645,12 +2645,11 @@ namespace ServiceStack.OrmLite.Dapper
                     // looks like an optimize hint; leave it alone!
                     return match.Value;
                 }
-                else
-                {
-                    varName = variableName;
-                    return "(select cast([value] as " + colType + ") from string_split(" + variableName + ",','))";
-                }
+
+                varName = variableName;
+                return "(select cast([value] as " + colType + ") from string_split(" + variableName + ",','))";
             }, RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.CultureInvariant, TimeSpan.FromMilliseconds(100));
+            
             if (varName == null)
             {
                 return false; // couldn't resolve the var!

@@ -46,9 +46,6 @@ public static class PollVoteRepositoryExtensions
     /// <param name="userId">
     /// The user id.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<PollVote> VoteCheck(
         this IRepository<PollVote> repository,
         int pollId,
@@ -66,9 +63,6 @@ public static class PollVoteRepositoryExtensions
     /// <param name="pollId">
     /// The poll id.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<Tuple<PollVote, User>> Voters(
         this IRepository<PollVote> repository,
         int pollId)

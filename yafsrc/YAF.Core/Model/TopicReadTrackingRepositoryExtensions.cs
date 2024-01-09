@@ -101,9 +101,6 @@ public static class TopicReadTrackingRepositoryExtensions
     /// <param name="topicId">
     /// The topic id.
     /// </param>
-    /// <returns>
-    /// The <see cref="DateTime?"/>.
-    /// </returns>
     public static DateTime? LastRead(
         this IRepository<TopicReadTracking> repository,
         int userId,

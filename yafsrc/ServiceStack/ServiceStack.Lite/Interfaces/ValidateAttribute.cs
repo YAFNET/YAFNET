@@ -237,15 +237,15 @@ public class ValidateAttribute : AttributeBase, IValidateRule, IReflectAttribute
     public string Message { get; set; }
 
     /// <summary>
-    /// Combines the specified comparand.
+    /// Combines the specified comperand.
     /// </summary>
-    /// <param name="comparand">The comparand.</param>
+    /// <param name="comperand">The comperand.</param>
     /// <param name="conditions">The conditions.</param>
     /// <returns>System.String.</returns>
-    public static string Combine(string comparand, params string[] conditions)
+    public static string Combine(string comperand, params string[] conditions)
     {
         var sb = new StringBuilder();
-        var joiner = ") " + comparand + " (";
+        var joiner = ") " + comperand + " (";
         foreach (var condition in conditions)
         {
             if (string.IsNullOrEmpty(condition))

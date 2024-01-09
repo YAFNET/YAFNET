@@ -546,8 +546,13 @@ public static class OrmLiteWriteCommandExtensions
             }
             catch (Exception ex)
             {
-                OrmLiteUtils.HandleException(ex, "Could not populate {0}.{1} with {2}: {3}",
-                    typeof(T).Name, fieldDef?.Name, value, ex.Message);
+                Log.Error(ex, "Could not populate {0}.{1} with {2}: {3}",
+                   typeof(T).Name, fieldDef?.Name, value, ex.Message);
+
+                if (OrmLiteConfig.ThrowOnError)
+                {
+                    throw;
+                }
             }
         }
 
@@ -1126,7 +1131,7 @@ public static class OrmLiteWriteCommandExtensions
 
         var dialectProvider = dbCmd.GetDialectProvider();
         var pkField = ModelDefinition<T>.Definition.FieldDefinitions.FirstOrDefault(f => f.IsPrimaryKey);
-        if (!enableIdentityInsert || pkField == null || !pkField.AutoIncrement)
+        if (!enableIdentityInsert || pkField is not { AutoIncrement: true })
         {
             dialectProvider.PrepareParameterizedInsertStatement<T>(dbCmd,
                 insertFields: dialectProvider.GetNonDefaultValueInsertFields<T>(obj));

@@ -66,9 +66,6 @@ public static class UserForumRepositoryExtensions
     /// <param name="forumId">
     /// The forum Id.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<Tuple<User, UserForum, AccessMask>> List(
         this IRepository<UserForum> repository,
         int? userId,

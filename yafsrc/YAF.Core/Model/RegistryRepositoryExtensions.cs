@@ -123,9 +123,6 @@ public static class RegistryRepositoryExtensions
     /// <param name="boardId">
     /// The board id.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<Registry> List(this IRepository<Registry> repository, int? boardId = null)
     {
         return repository.Get(r => r.BoardID == boardId);

@@ -35,7 +35,7 @@ using YAF.Types.Models;
 public static class UserAlbumImageRepositoryExtensions
 {
     /// <summary>
-    /// Gets the number of images in the album with AlbumID.
+    /// Gets the number of images on the album with AlbumID.
     /// </summary>
     /// <param name="repository">
     /// The repository.
@@ -43,9 +43,6 @@ public static class UserAlbumImageRepositoryExtensions
     /// <param name="albumId">
     /// The album Id.
     /// </param>
-    /// <returns>
-    /// Returns the number of images in the album with AlbumID.
-    /// </returns>
     public static long CountAlbumImages(this IRepository<UserAlbumImage> repository, int albumId)
     {
         return repository.Count(albumImage => albumImage.AlbumID == albumId);

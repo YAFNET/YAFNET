@@ -22,6 +22,9 @@
  * under the License.
  */
 
+// ReSharper disable MergeConditionalExpression
+#pragma warning disable S1125
+// ReSharper disable RedundantTernaryExpression
 namespace YAF.Core.Model;
 
 using System;
@@ -417,7 +420,6 @@ public static class MessageRepositoryExtensions
                                                       RankStyle = c.Style,
                                                       Style = b.UserStyle,
                                                       Edited = m.Edited ?? m.Posted,
-                                                      // ReSharper disable once RedundantTernaryExpression
                                                       HasAvatarImage = b.AvatarImage != null ? true : false,
                                                       IsThankedByUser = Sql.Custom($"({isThankByUserSql})"),
                                                       ThanksNumber = Sql.Custom($"({thanksCountSql})"),
@@ -439,9 +441,6 @@ public static class MessageRepositoryExtensions
     /// <param name="topicId">
     /// The topic id.
     /// </param>
-    /// <returns>
-    /// The <see cref="IEnumerable"/>.
-    /// </returns>
     public static List<Tuple<Message, User>> LastPosts(this IRepository<Message> repository, int topicId)
     {
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<Message>();
@@ -491,9 +490,6 @@ public static class MessageRepositoryExtensions
     /// <param name="count">
     /// The count.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<Tuple<Message, Topic, User>> GetAllUserMessagesWithAccess(
         this IRepository<Message> repository,
         int boardId,
@@ -771,9 +767,6 @@ public static class MessageRepositoryExtensions
     /// <param name="messageId">
     /// The message Id.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<Message> Replies(this IRepository<Message> repository, int messageId)
     {
         return repository.DbAccess.Execute(
@@ -798,9 +791,6 @@ public static class MessageRepositoryExtensions
     /// <param name="showDeleted">
     /// The show Deleted.
     /// </param>
-    /// <returns>
-    /// The <see cref="(int MessagePosition, int MessageID)"/>.
-    /// </returns>
     public static (int MessagePosition, int MessageID) FindUnread(
         this IRepository<Message> repository,
         int topicId,
@@ -849,7 +839,7 @@ public static class MessageRepositoryExtensions
         // -- if value > yaf db min value (1-1-1903) we are looking for first unread
         if (lastRead > minDateTime)
         {
-            // -- a message with the id was not found or we are looking for first unread or last post
+            // -- a message with the id was not found, or we are looking for first unread or last post
             message = repository.DbAccess.Execute(
                 db =>
                     {
@@ -882,7 +872,7 @@ public static class MessageRepositoryExtensions
             }
         }
 
-        // -- if first unread was not found or we looking for last posted
+        // -- if first unread was not found, or we're looking for last posted
         message = repository.DbAccess.Execute(
             db =>
                 {
@@ -1093,9 +1083,6 @@ public static class MessageRepositoryExtensions
     /// <param name="forumId">
     /// The forum Id.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<Tuple<Topic, Message, User>> Unapproved(
         this IRepository<Message> repository,
         int forumId)

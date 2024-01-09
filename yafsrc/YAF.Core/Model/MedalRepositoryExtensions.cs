@@ -43,9 +43,6 @@ public static class MedalRepositoryExtensions
     /// <param name="userId">
     /// The user Id.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static
         List<(int MedalID, string Name, string Message, string MedalURL, byte SortOrder, bool Hide, int Flags, DateTime DateAwarded)>
         ListUserMedals(this IRepository<Medal> repository, int userId)

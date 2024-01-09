@@ -111,9 +111,6 @@ public static class TopicTagRepositoryExtensions
     /// <param name="topicId">
     /// The topic Id.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<Tuple<TopicTag, Tag>> List(this IRepository<TopicTag> repository, int topicId)
     {
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
@@ -133,9 +130,6 @@ public static class TopicTagRepositoryExtensions
     /// <param name="topicId">
     /// The topic Id.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static string ListAsDelimitedString(this IRepository<TopicTag> repository, int topicId)
     {
         return repository.List(topicId).Select(t => t.Item2.TagName).ToDelimitedString(",");

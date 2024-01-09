@@ -138,9 +138,6 @@ public static class BBCodeRepositoryExtensions
     /// <param name="pageSize">
     /// The page size.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<BBCode> ListPaged(
         this IRepository<BBCode> repository,
         int boardId,

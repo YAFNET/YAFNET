@@ -43,9 +43,6 @@ public static class ProfileCustomRepositoryExtensions
     /// <param name="userId">
     /// The user id.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<Tuple<ProfileCustom, ProfileDefinition>> ListByUser(
         this IRepository<ProfileCustom> repository,
         int userId)

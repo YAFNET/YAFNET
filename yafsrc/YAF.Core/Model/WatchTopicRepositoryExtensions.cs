@@ -62,7 +62,7 @@ public static class WatchTopicRepositoryExtensions
     /// The topic identifier.
     /// </param>
     /// <returns>
-    /// The <see cref="int?"/>.
+    /// The <see cref="int"/>.
     /// </returns>
     public static int? Check(this IRepository<WatchTopic> repository, int userId, int topicId)
     {
@@ -86,9 +86,6 @@ public static class WatchTopicRepositoryExtensions
     /// <param name="pageSize">
     /// The page Size.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<WatchTopic> List(
         this IRepository<WatchTopic> repository,
         int userId,

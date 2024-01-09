@@ -617,9 +617,6 @@ public static class IRepositoryExtensions
     /// <param name="idValues">
     /// The id Values.
     /// </param>
-    /// <returns>
-    /// The <see cref="List"/>.
-    /// </returns>
     public static List<T> GetByIds<T>(this IRepository<T> repository, IEnumerable idValues)
         where T : IEntity, new()
     {
