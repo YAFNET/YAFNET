@@ -321,14 +321,6 @@
             "#text": "Bewerkt medailles"
           },
           {
-            "@tag": "ADMIN_EDITNNTPFORUM",
-            "#text": "Bewerkt NNTP-forum"
-          },
-          {
-            "@tag": "ADMIN_EDITNNTPSERVER",
-            "#text": "Bewerkt NNTP-server"
-          },
-          {
             "@tag": "ADMIN_EDITRANK",
             "#text": "Bewerkt rangen"
           },
@@ -363,18 +355,6 @@
           {
             "@tag": "ADMIN_MEDALS",
             "#text": "Bekijkt/bewerkt medailles"
-          },
-          {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "Bekijkt/bewerkt NNTP forums"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "Ontvangt NNTP"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "Bekijkt/bewerkt NNTP servers"
           },
           {
             "@tag": "ADMIN_PM",
@@ -3127,128 +3107,6 @@
         ]
       },
       {
-        "@name": "ADMIN_EDITNNTPFORUM",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "Actief:"
-          },
-          {
-            "@tag": "ACTIVE_HELP",
-            "#text": "Dit aanvinken om het forum actief te maken."
-          },
-          {
-            "@tag": "DATECUTOFF",
-            "#text": "Datumlimiet voor berichten:"
-          },
-          {
-            "@tag": "DATECUTOFF_HELP",
-            "#text": "Berichten mogen niet worden gedownload als ze ouder zijn dan deze datum."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "Forum:"
-          },
-          {
-            "@tag": "FORUM_HELP",
-            "#text": "Het forum waar de berichten worden geplaatst."
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "Groep:"
-          },
-          {
-            "@tag": "GROUP_HELP",
-            "#text": "De naam van de nieuwsgroep."
-          },
-          {
-            "@tag": "MSG_SELECT_FORUM",
-            "#text": "You moet een forum selecteren om NNTP berichten in op te slaan."
-          },
-          {
-            "@tag": "MSG_VALID_GROUP",
-            "#text": "Je moet een geldige groepnaam ingeven."
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "Server:"
-          },
-          {
-            "@tag": "SERVER_HELP",
-            "#text": "De newsserver."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP Forum Toevoegen/Bewerken"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "NNTP-forum bewerken"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_EDITNNTPSERVER",
-        "Resource": [
-          {
-            "@tag": "MSG_SERVER_ADR",
-            "#text": "Ontbrekend serveradres."
-          },
-          {
-            "@tag": "MSG_SERVER_NAME",
-            "#text": "Ontbrekende servernaam."
-          },
-          {
-            "@tag": "NNTP_ADRESS",
-            "#text": "Adres:"
-          },
-          {
-            "@tag": "NNTP_ADRESS_HELP",
-            "#text": "De hostnaam van de server."
-          },
-          {
-            "@tag": "NNTP_NAME",
-            "#text": "Naam:"
-          },
-          {
-            "@tag": "NNTP_NAME_HELP",
-            "#text": "Naam van de server."
-          },
-          {
-            "@tag": "NNTP_PASSWORD",
-            "#text": "Wachtwoord:"
-          },
-          {
-            "@tag": "NNTP_PASSWORD_HELP",
-            "#text": "Het wachtwoord om in te loggen op de nntp server."
-          },
-          {
-            "@tag": "NNTP_PORT",
-            "#text": "Poort:"
-          },
-          {
-            "@tag": "NNTP_PORT_HELP",
-            "#text": "Het poortnummer om naar te connecten."
-          },
-          {
-            "@tag": "NNTP_USERNAME",
-            "#text": "Gebruikersnaam:"
-          },
-          {
-            "@tag": "NNTP_USERNAME_HELP",
-            "#text": "Gebruikersnaam om in te loggen op de nntp server."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP Server Toevoegen/Bewerken "
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "NNTP-server bewerken"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_EDITRANK",
         "Resource": [
           {
@@ -4319,14 +4177,6 @@
           {
             "@tag": "COLLAPSED",
             "#text": "Ingestort"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES",
-            "#text": "Maak NNTP Gebruikersnamen:"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES_HELP",
-            "#text": "Aanvinken om automatisch gebruikers aan te maken bij het downloaden van usenet berichten. Alleen aanzetten in een testomgeving, en <em>NOOIT</em> in een productieomgeving. De belangrijkste functie hiervan is het testen van de performance."
           },
           {
             "@tag": "CROP_IMAGE_ATTACH",
@@ -5982,149 +5832,6 @@
         ]
       },
       {
-        "@name": "ADMIN_NNTPFORUMS",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "Actief"
-          },
-          {
-            "@tag": "DELETE",
-            "#text": "Verwijder"
-          },
-          {
-            "@tag": "DELETE_FORUM",
-            "#text": "Verwijder dit forum?"
-          },
-          {
-            "@tag": "EDIT",
-            "#text": "Bewerk"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Forums"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "Forum"
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "Groep"
-          },
-          {
-            "@tag": "NEW_FORUM",
-            "#text": "Nieuw Forum"
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Forum opslaan"
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "Server"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP-forums"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPRETRIEVE",
-        "Resource": [
-          {
-            "@tag": "BETA_WARNING",
-            "#text": "<p>\r\n    De NNTP feature van Yet Another Forum.net is nog steeds in beta, en <strong>heeft</strong> bugs.\r\n    Bugs die voorkomen hebben te maken met character set conversion, en fouten in datum-/tijdweergave.\r\n    Usenet artikelen worden gepost met de datum van de header, zodat hier datums in de toekomst kunnen voorkomen.\r\n    Laat het aub weten als er onbekende tijdzones voorkomen.\r\n   </p>\r\n   <p>\r\n    De forums usenet artikelen die gepost worden zijn alleen-lezen, omdat de artikelen <strong>niet</strong>\r\n    terug op usenet geplaatst worden. Omwille van de snelheid, worden usenet artikelen automatisch goedgekeurd,\r\n    wat betekent dat als het forum wordt gemodereerd, deze artikelen ook automatisch worden goedgekeurd.\r\n   </p>\r\n   <p>\r\n    Om de usenet servers te beschermen, kan een nieuwsgroep maar een keer per 10 minuten worden opgehaald.\r\n   </p>"
-          },
-          {
-            "@tag": "GROUPS",
-            "#text": "Groepen klaar voor ophalen"
-          },
-          {
-            "@tag": "HEADER",
-            "#text": "Ophalen van NNTP artikelen"
-          },
-          {
-            "@tag": "LAST_MESSAGE",
-            "#text": "Laatste Bericht"
-          },
-          {
-            "@tag": "LAST_UPDATE",
-            "#text": "Laatste Update"
-          },
-          {
-            "@tag": "NO_GROUPS",
-            "#text": "Geen groepen klaar om te worden opgehaald"
-          },
-          {
-            "@tag": "RETRIEVE",
-            "#text": "Haal op"
-          },
-          {
-            "@tag": "RETRIEVED",
-            "#text": "{0} artikelen opgehaald. {1:N2} artikelen per seconde."
-          },
-          {
-            "@tag": "SECONDS",
-            "#text": "seconden"
-          },
-          {
-            "@tag": "TIME",
-            "#text": "Geef aan hoe lang het ophalen moet duren:"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP Ophalen"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPSERVERS",
-        "Resource": [
-          {
-            "@tag": "ADRESS",
-            "#text": "Adres"
-          },
-          {
-            "@tag": "DELETE_SERVER",
-            "#text": "Verwijder deze server?"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Servers"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
-          },
-          {
-            "@tag": "NAME",
-            "#text": "Naam"
-          },
-          {
-            "@tag": "NEW_SERVER",
-            "#text": "Nieuwe Server"
-          },
-          {
-            "@tag": "SAVE_SERVER",
-            "#text": "Server opslaan"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP-servers"
-          },
-          {
-            "@tag": "USERNAME",
-            "#text": "Gebruikersnaam"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
@@ -7148,18 +6855,6 @@
             "#text": "Medailles"
           },
           {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "NNTP-forums"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "Haal Artikelen op"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "NNTP-servers"
-          },
-          {
             "@tag": "ADMIN_PAGEACCESSEDIT",
             "#text": "Toegang tot beheerderspagina bewerken"
           },
@@ -7242,10 +6937,6 @@
           {
             "@tag": "MAINTENANCE",
             "#text": "Onderhoud"
-          },
-          {
-            "@tag": "NNTP",
-            "#text": "NNTP"
           },
           {
             "@tag": "SETTINGS",

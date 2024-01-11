@@ -321,14 +321,6 @@
                     "#text": "Edits medals"
                 },
                 {
-                    "@tag": "ADMIN_EDITNNTPFORUM",
-                    "#text": "Edits NNTP Forum"
-                },
-                {
-                    "@tag": "ADMIN_EDITNNTPSERVER",
-                    "#text": "Edits NNTP Server"
-                },
-                {
                     "@tag": "ADMIN_EDITRANK",
                     "#text": "Edits ranks"
                 },
@@ -363,18 +355,6 @@
                 {
                     "@tag": "ADMIN_MEDALS",
                     "#text": "Views/edits medals"
-                },
-                {
-                    "@tag": "ADMIN_NNTPFORUMS",
-                    "#text": "Views/edits NNTP forums"
-                },
-                {
-                    "@tag": "ADMIN_NNTPRETRIEVE",
-                    "#text": "Retrieves NNTP"
-                },
-                {
-                    "@tag": "ADMIN_NNTPSERVERS",
-                    "#text": "Views/edits NNTP servers"
                 },
                 {
                     "@tag": "ADMIN_PM",
@@ -3127,128 +3107,6 @@
             ]
         },
         {
-            "@name": "ADMIN_EDITNNTPFORUM",
-            "Resource": [
-                {
-                    "@tag": "ACTIVE",
-                    "#text": "Active:"
-                },
-                {
-                    "@tag": "ACTIVE_HELP",
-                    "#text": "Check this to make the forum active."
-                },
-                {
-                    "@tag": "DATECUTOFF",
-                    "#text": "Cut Off Date for Messages:"
-                },
-                {
-                    "@tag": "DATECUTOFF_HELP",
-                    "#text": "Messages should not be downloaded if they are older than this date."
-                },
-                {
-                    "@tag": "FORUM",
-                    "#text": "Forum:"
-                },
-                {
-                    "@tag": "FORUM_HELP",
-                    "#text": "The forum messages will be inserted into."
-                },
-                {
-                    "@tag": "GROUP",
-                    "#text": "Group:"
-                },
-                {
-                    "@tag": "GROUP_HELP",
-                    "#text": "The name of the newsgroup."
-                },
-                {
-                    "@tag": "MSG_SELECT_FORUM",
-                    "#text": "You must select a forum to save NNTP messages."
-                },
-                {
-                    "@tag": "MSG_VALID_GROUP",
-                    "#text": "You should enter a valid group name."
-                },
-                {
-                    "@tag": "SERVER",
-                    "#text": "Server:"
-                },
-                {
-                    "@tag": "SERVER_HELP",
-                    "#text": "What server this groups is located."
-                },
-                {
-                    "@tag": "TITLE",
-                    "#text": "Add NNTP Forum"
-                },
-                {
-                    "@tag": "TITLE_EDIT",
-                    "#text": "Edit NNTP Forum"
-                }
-            ]
-        },
-        {
-            "@name": "ADMIN_EDITNNTPSERVER",
-            "Resource": [
-                {
-                    "@tag": "MSG_SERVER_ADR",
-                    "#text": "Missing server address."
-                },
-                {
-                    "@tag": "MSG_SERVER_NAME",
-                    "#text": "Missing server name."
-                },
-                {
-                    "@tag": "NNTP_ADRESS",
-                    "#text": "Address:"
-                },
-                {
-                    "@tag": "NNTP_ADRESS_HELP",
-                    "#text": "The host name of the server."
-                },
-                {
-                    "@tag": "NNTP_NAME",
-                    "#text": "Name:"
-                },
-                {
-                    "@tag": "NNTP_NAME_HELP",
-                    "#text": "Name of this server."
-                },
-                {
-                    "@tag": "NNTP_PASSWORD",
-                    "#text": "Password:"
-                },
-                {
-                    "@tag": "NNTP_PASSWORD_HELP",
-                    "#text": "The password used to log on to the nntp server."
-                },
-                {
-                    "@tag": "NNTP_PORT",
-                    "#text": "Port:"
-                },
-                {
-                    "@tag": "NNTP_PORT_HELP",
-                    "#text": "The port number to connect to."
-                },
-                {
-                    "@tag": "NNTP_USERNAME",
-                    "#text": "User Name:"
-                },
-                {
-                    "@tag": "NNTP_USERNAME_HELP",
-                    "#text": "The user name used to log on to the nntp server."
-                },
-                {
-                    "@tag": "TITLE",
-                    "#text": "Add NNTP Server"
-                },
-                {
-                    "@tag": "TITLE_EDIT",
-                    "#text": "Edit NNTP Server"
-                }
-            ]
-        },
-        {
             "@name": "ADMIN_EDITRANK",
             "Resource": [
                 {
@@ -4319,14 +4177,6 @@
                 {
                     "@tag": "COLLAPSED",
                     "#text": "Collapsed"
-                },
-                {
-                    "@tag": "CREATE_NNTPNAMES",
-                    "#text": "Create NNTP user names:"
-                },
-                {
-                    "@tag": "CREATE_NNTPNAMES_HELP",
-                    "#text": "Check to allow users to automatically be created when downloading usenet messages. Only enable this in a test environment, and <em>NEVER</em> in a production environment. The main purpose of this option is for performance testing."
                 },
                 {
                     "@tag": "CROP_IMAGE_ATTACH",
@@ -5982,149 +5832,6 @@
             ]
         },
         {
-            "@name": "ADMIN_NNTPFORUMS",
-            "Resource": [
-                {
-                    "@tag": "ACTIVE",
-                    "#text": "Active"
-                },
-                {
-                    "@tag": "DELETE",
-                    "#text": "Delete"
-                },
-                {
-                    "@tag": "DELETE_FORUM",
-                    "#text": "Delete this forum?"
-                },
-                {
-                    "@tag": "EDIT",
-                    "#text": "Edit"
-                },
-                {
-                    "@tag": "EMPTY_HEADER",
-                    "#text": "No NNTP Forums"
-                },
-                {
-                    "@tag": "EMPTY_MESSAGE",
-                    "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
-                },
-                {
-                    "@tag": "FORUM",
-                    "#text": "Forum"
-                },
-                {
-                    "@tag": "GROUP",
-                    "#text": "Group"
-                },
-                {
-                    "@tag": "NEW_FORUM",
-                    "#text": "New Forum"
-                },
-                {
-                    "@tag": "SAVE",
-                    "#text": "Save Forum"
-                },
-                {
-                    "@tag": "SERVER",
-                    "#text": "Server"
-                },
-                {
-                    "@tag": "TITLE",
-                    "#text": "NNTP Forums"
-                }
-            ]
-        },
-        {
-            "@name": "ADMIN_NNTPRETRIEVE",
-            "Resource": [
-                {
-                    "@tag": "BETA_WARNING",
-                    "#text": "<p>\r\n      The NNTP feature of Yet Another Forum.net is still beta, and <strong>will</strong> have bugs.\r\n      Bugs you should look for is character set conversion, and incorrect time on posts.\r\n      Usenet articles will be posted to the forum with the date from the article header,\r\n      meaning that you well could get future dates. Please let me know of any unknown\r\n      time zones that are encountered.\r\n   </p>\r\n   <p>\r\n      The forums usenet Articles are posted to should be read-only, as messages will <strong>not</strong>\r\n      be posted back to the usenet. For speed purposes usenet articles are automatically\r\n      approved, meaning that if the forum is moderated, the posts will be automatically\r\n      approved.\r\n   </p>\r\n   <p>\r\n      To protect usenet servers, a newsgroup can only be updated once every 10 minutes.\r\n   </p>"
-                },
-                {
-                    "@tag": "GROUPS",
-                    "#text": "Groups ready for retrieval"
-                },
-                {
-                    "@tag": "HEADER",
-                    "#text": "Retrieve NNTP Articles"
-                },
-                {
-                    "@tag": "LAST_MESSAGE",
-                    "#text": "Last Message"
-                },
-                {
-                    "@tag": "LAST_UPDATE",
-                    "#text": "Last Update"
-                },
-                {
-                    "@tag": "NO_GROUPS",
-                    "#text": "No Groups ready for retrieval"
-                },
-                {
-                    "@tag": "RETRIEVE",
-                    "#text": "Retrieve"
-                },
-                {
-                    "@tag": "RETRIEVED",
-                    "#text": "Retrieved {0} articles. {1:N2} articles per second."
-                },
-                {
-                    "@tag": "SECONDS",
-                    "#text": "seconds"
-                },
-                {
-                    "@tag": "TIME",
-                    "#text": "Specify how much time article retrieval should use."
-                },
-                {
-                    "@tag": "TITLE",
-                    "#text": "NNTP Retrieve"
-                }
-            ]
-        },
-        {
-            "@name": "ADMIN_NNTPSERVERS",
-            "Resource": [
-                {
-                    "@tag": "ADRESS",
-                    "#text": "Address"
-                },
-                {
-                    "@tag": "DELETE_SERVER",
-                    "#text": "Delete this server?"
-                },
-                {
-                    "@tag": "EMPTY_HEADER",
-                    "#text": "No NNTP Servers"
-                },
-                {
-                    "@tag": "EMPTY_MESSAGE",
-                    "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
-                },
-                {
-                    "@tag": "NAME",
-                    "#text": "Name"
-                },
-                {
-                    "@tag": "NEW_SERVER",
-                    "#text": "New Server"
-                },
-                {
-                    "@tag": "SAVE_SERVER",
-                    "#text": "Save Server"
-                },
-                {
-                    "@tag": "TITLE",
-                    "#text": "NNTP Servers"
-                },
-                {
-                    "@tag": "USERNAME",
-                    "#text": "User Name"
-                }
-            ]
-        },
-        {
             "@name": "ADMIN_PAGEACCESSEDIT",
             "Resource": [
                 {
@@ -7148,18 +6855,6 @@
                     "#text": "Medals"
                 },
                 {
-                    "@tag": "ADMIN_NNTPFORUMS",
-                    "#text": "NNTP Forums"
-                },
-                {
-                    "@tag": "ADMIN_NNTPRETRIEVE",
-                    "#text": "Retrieve Articles"
-                },
-                {
-                    "@tag": "ADMIN_NNTPSERVERS",
-                    "#text": "NNTP Servers"
-                },
-                {
                     "@tag": "ADMIN_PAGEACCESSEDIT",
                     "#text": "Edit Admin Page Access"
                 },
@@ -7242,10 +6937,6 @@
                 {
                     "@tag": "MAINTENANCE",
                     "#text": "Maintenance"
-                },
-                {
-                    "@tag": "NNTP",
-                    "#text": "NNTP"
                 },
                 {
                     "@tag": "SETTINGS",

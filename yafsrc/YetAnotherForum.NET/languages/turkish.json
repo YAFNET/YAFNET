@@ -321,14 +321,6 @@
             "#text": "Madalya Düzenle"
           },
           {
-            "@tag": "ADMIN_EDITNNTPFORUM",
-            "#text": "NNTP Forumunu Düzenliyor"
-          },
-          {
-            "@tag": "ADMIN_EDITNNTPSERVER",
-            "#text": "NNTP Sunucusunu Düzenliyor"
-          },
-          {
             "@tag": "ADMIN_EDITRANK",
             "#text": "Rütbe Düzenle"
           },
@@ -363,18 +355,6 @@
           {
             "@tag": "ADMIN_MEDALS",
             "#text": "Madalyaları görüntüleme/düzenleme"
-          },
-          {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "NNTP forumlarını görüntüleme/düzenleme"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "NNTP'yi alır"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "NNTP sunucularını görüntüleme/düzenleme"
           },
           {
             "@tag": "ADMIN_PM",
@@ -3135,128 +3115,6 @@
         ]
       },
       {
-        "@name": "ADMIN_EDITNNTPFORUM",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "Aktif:"
-          },
-          {
-            "@tag": "ACTIVE_HELP",
-            "#text": "Forumu aktif hale getirmek için bunu kontrol edin."
-          },
-          {
-            "@tag": "DATECUTOFF",
-            "#text": "Mesajlar için Son Tarih:"
-          },
-          {
-            "@tag": "DATECUTOFF_HELP",
-            "#text": "Mesajlar bu tarihten daha eski ise indirilmemelidir."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "Forum:"
-          },
-          {
-            "@tag": "FORUM_HELP",
-            "#text": "Forum mesajları içine eklenecektir."
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "Grup:"
-          },
-          {
-            "@tag": "GROUP_HELP",
-            "#text": "Haber grubunun adı."
-          },
-          {
-            "@tag": "MSG_SELECT_FORUM",
-            "#text": "NNTP mesajlarını kaydetmek için bir forum seçmelisiniz."
-          },
-          {
-            "@tag": "MSG_VALID_GROUP",
-            "#text": "Geçerli bir grup adı girmelisiniz."
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "Sunucu:"
-          },
-          {
-            "@tag": "SERVER_HELP",
-            "#text": "Bu grupların hangi sunucuda bulunduğu."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit NNTP Forum"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "NNTP Forumunu Düzenle"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_EDITNNTPSERVER",
-        "Resource": [
-          {
-            "@tag": "MSG_SERVER_ADR",
-            "#text": "Eksik sunucu adresi."
-          },
-          {
-            "@tag": "MSG_SERVER_NAME",
-            "#text": "Eksik sunucu adı."
-          },
-          {
-            "@tag": "NNTP_ADRESS",
-            "#text": "Adres:"
-          },
-          {
-            "@tag": "NNTP_ADRESS_HELP",
-            "#text": "Sunucunun ana bilgisayar adı."
-          },
-          {
-            "@tag": "NNTP_NAME",
-            "#text": "İsim:"
-          },
-          {
-            "@tag": "NNTP_NAME_HELP",
-            "#text": "Bu sunucunun adı."
-          },
-          {
-            "@tag": "NNTP_PASSWORD",
-            "#text": "Şifre:"
-          },
-          {
-            "@tag": "NNTP_PASSWORD_HELP",
-            "#text": "Nntp sunucusunda oturum açmak için kullanılan parola."
-          },
-          {
-            "@tag": "NNTP_PORT",
-            "#text": "Liman:"
-          },
-          {
-            "@tag": "NNTP_PORT_HELP",
-            "#text": "Bağlanılacak bağlantı noktası numarası."
-          },
-          {
-            "@tag": "NNTP_USERNAME",
-            "#text": "Kullanıcı Adı:"
-          },
-          {
-            "@tag": "NNTP_USERNAME_HELP",
-            "#text": "Nntp sunucusunda oturum açmak için kullanılan kullanıcı adı."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit NNTP Server"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "NNTP Sunucusunu Düzenleme"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_EDITRANK",
         "Resource": [
           {
@@ -4327,14 +4185,6 @@
           {
             "@tag": "COLLAPSED",
             "#text": "Çökmüş"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES",
-            "#text": "NNTP kullanıcı adları oluşturun:"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES_HELP",
-            "#text": "Usenet mesajları indirilirken kullanıcıların otomatik olarak oluşturulmasına izin vermek için işaretleyin. Bunu yalnızca test ortamında etkinleştirin ve üretim ortamında <em>ASLA</em> etkinleştirmeyin. Bu seçeneğin temel amacı performans testi içindir."
           },
           {
             "@tag": "CROP_IMAGE_ATTACH",
@@ -5990,149 +5840,6 @@
         ]
       },
       {
-        "@name": "ADMIN_NNTPFORUMS",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "Aktif"
-          },
-          {
-            "@tag": "DELETE",
-            "#text": "Silme"
-          },
-          {
-            "@tag": "DELETE_FORUM",
-            "#text": "Bu forumu silelim mi?"
-          },
-          {
-            "@tag": "EDIT",
-            "#text": "Düzenle"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Forums"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "Forum"
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "Grup"
-          },
-          {
-            "@tag": "NEW_FORUM",
-            "#text": "Yeni Forum"
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Forum Kaydet"
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "Sunucu"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP Forumları"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPRETRIEVE",
-        "Resource": [
-          {
-            "@tag": "BETA_WARNING",
-            "#text": "<p>\r\n    The NNTP feature of Yet Another Forum.net is still beta, and <strong>will</strong> have bugs.\r\n    Bugs you should look for is character set conversion, and incorrect time on posts.\r\n    Usenet articles will be posted to the forum with the date from the article header,\r\n    meaning that you well could get future dates. Please let me know of any unknown\r\n    time zones that are encountered.\r\n  </p>\r\n  <p>\r\n    The forums usenet Articles are posted to should be read-only, as messages will <strong>not</strong>\r\n    be posted back to the usenet. For speed purposes usenet articles are automatically\r\n    approved, meaning that if the forum is moderated, the posts will be automatically\r\n    approved.\r\n  </p>\r\n  <p>\r\n    To protect usenet servers, a newsgroup can only be updated once every 10 minutes.\r\n  </p>"
-          },
-          {
-            "@tag": "GROUPS",
-            "#text": "Geri alım için hazır gruplar"
-          },
-          {
-            "@tag": "HEADER",
-            "#text": "NNTP Makalelerini Al"
-          },
-          {
-            "@tag": "LAST_MESSAGE",
-            "#text": "Son Mesaj"
-          },
-          {
-            "@tag": "LAST_UPDATE",
-            "#text": "Son Güncelleme"
-          },
-          {
-            "@tag": "NO_GROUPS",
-            "#text": "Alım için hazır Grup yok"
-          },
-          {
-            "@tag": "RETRIEVE",
-            "#text": "Geri al"
-          },
-          {
-            "@tag": "RETRIEVED",
-            "#text": "Erişim tarihi {0} makale. Saniyede {1:N2} makale."
-          },
-          {
-            "@tag": "SECONDS",
-            "#text": "saniye"
-          },
-          {
-            "@tag": "TIME",
-            "#text": "Makale alımının ne kadar zaman kullanması gerektiğini belirtin."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP Alma"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPSERVERS",
-        "Resource": [
-          {
-            "@tag": "ADRESS",
-            "#text": "Adress"
-          },
-          {
-            "@tag": "DELETE_SERVER",
-            "#text": "Bu sunucuyu silelim mi?"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Servers"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
-          },
-          {
-            "@tag": "NAME",
-            "#text": "İsim"
-          },
-          {
-            "@tag": "NEW_SERVER",
-            "#text": "Yeni Sunucu"
-          },
-          {
-            "@tag": "SAVE_SERVER",
-            "#text": "Sunucuyu Kaydet"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP Sunucuları"
-          },
-          {
-            "@tag": "USERNAME",
-            "#text": "Kullanıcı Adı"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
@@ -7156,18 +6863,6 @@
             "#text": "Madalyalar"
           },
           {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "NNTP Forumları"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "Makaleleri Geri Getir"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "NNTP Sunucuları"
-          },
-          {
             "@tag": "ADMIN_PAGEACCESSEDIT",
             "#text": "Yönetici Sayfası Erişimini Düzenle"
           },
@@ -7250,10 +6945,6 @@
           {
             "@tag": "MAINTENANCE",
             "#text": "Bakım"
-          },
-          {
-            "@tag": "NNTP",
-            "#text": "NNTP"
           },
           {
             "@tag": "SETTINGS",

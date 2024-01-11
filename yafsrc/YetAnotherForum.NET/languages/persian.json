@@ -321,14 +321,6 @@
             "#text": "در حال ویرایش مدال‌ها"
           },
           {
-            "@tag": "ADMIN_EDITNNTPFORUM",
-            "#text": "ویرایش انجمن NNTP"
-          },
-          {
-            "@tag": "ADMIN_EDITNNTPSERVER",
-            "#text": "ویرایش سرور NNTP"
-          },
-          {
             "@tag": "ADMIN_EDITRANK",
             "#text": "در حال ویرایش رتبه‌ها"
           },
@@ -363,18 +355,6 @@
           {
             "@tag": "ADMIN_MEDALS",
             "#text": "در حال مشاهده/ویرایش مدال‌ها"
-          },
-          {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "در حال مشاهده / ویرایش انجمن‌های NNTP"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "در حال دریافت اطلاعات از NNTP"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "در حال مشاهده/ویرایش سرورهای NNTP"
           },
           {
             "@tag": "ADMIN_PM",
@@ -3127,128 +3107,6 @@
         ]
       },
       {
-        "@name": "ADMIN_EDITNNTPFORUM",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "فعال:"
-          },
-          {
-            "@tag": "ACTIVE_HELP",
-            "#text": "برای فعال سازی انجمن علامت بزنید."
-          },
-          {
-            "@tag": "DATECUTOFF",
-            "#text": "تاریخ قطع پیام‌ها"
-          },
-          {
-            "@tag": "DATECUTOFF_HELP",
-            "#text": "در صورتی‌که پیام قدیمی‌تر از این تاریخ باشد قابل دانلود نخواهد بود."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "انجمن:"
-          },
-          {
-            "@tag": "FORUM_HELP",
-            "#text": "پیام های انجمن وارد آن خواهند شد."
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "گروه :"
-          },
-          {
-            "@tag": "GROUP_HELP",
-            "#text": "نام گروه جدید."
-          },
-          {
-            "@tag": "MSG_SELECT_FORUM",
-            "#text": "شما می بایست نام انجمنی را برای ذخیره پیام های NNTP برگزینید."
-          },
-          {
-            "@tag": "MSG_VALID_GROUP",
-            "#text": "شما باید نام معتبری را وارد کنید."
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "سرور:"
-          },
-          {
-            "@tag": "SERVER_HELP",
-            "#text": "این گروه در چه سروری است."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "افزودن/ویرایش انجمن NNTP"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "ویرایش انجمن NNTP"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_EDITNNTPSERVER",
-        "Resource": [
-          {
-            "@tag": "MSG_SERVER_ADR",
-            "#text": "آدرس سرور موجود نیست."
-          },
-          {
-            "@tag": "MSG_SERVER_NAME",
-            "#text": "نام سرور موجود نیست."
-          },
-          {
-            "@tag": "NNTP_ADRESS",
-            "#text": "آدرس:"
-          },
-          {
-            "@tag": "NNTP_ADRESS_HELP",
-            "#text": "نام میزبان سرور."
-          },
-          {
-            "@tag": "NNTP_NAME",
-            "#text": "نام:"
-          },
-          {
-            "@tag": "NNTP_NAME_HELP",
-            "#text": "نام این سرور."
-          },
-          {
-            "@tag": "NNTP_PASSWORD",
-            "#text": "کلمه عبور:"
-          },
-          {
-            "@tag": "NNTP_PASSWORD_HELP",
-            "#text": "کلمه عبور برای ورود به سرور."
-          },
-          {
-            "@tag": "NNTP_PORT",
-            "#text": "درگاه:"
-          },
-          {
-            "@tag": "NNTP_PORT_HELP",
-            "#text": "شماره درگاه برای اتصال."
-          },
-          {
-            "@tag": "NNTP_USERNAME",
-            "#text": "نام کاربری:"
-          },
-          {
-            "@tag": "NNTP_USERNAME_HELP",
-            "#text": "نام کاربری برای ورود به سرور."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "افزودن/ویرایش سرور NNTP"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "ویرایش سرور NNTP"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_EDITRANK",
         "Resource": [
           {
@@ -4319,14 +4177,6 @@
           {
             "@tag": "COLLAPSED",
             "#text": "بسته"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES",
-            "#text": "ساخت نام های کاربری NNTP:"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES_HELP",
-            "#text": "در صورت انتخاب کاربران بصورت خود کار هنگام\r\nدانلود پیام های یوزنت ایجاد خواهند شد. این ویژگی را فقط در محیط تست فعال کنید و  <em>هیچ‌گاه</em> در روی سایت اصلی فعال نکنید. هدف اصلی این گزینه برای تست عملکرد و سرعت است"
           },
           {
             "@tag": "CROP_IMAGE_ATTACH",
@@ -5982,149 +5832,6 @@
         ]
       },
       {
-        "@name": "ADMIN_NNTPFORUMS",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "فعال"
-          },
-          {
-            "@tag": "DELETE",
-            "#text": "حذف"
-          },
-          {
-            "@tag": "DELETE_FORUM",
-            "#text": "حذف این انجمن؟"
-          },
-          {
-            "@tag": "EDIT",
-            "#text": "ویرایش"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Forums"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "انحمن"
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "گروه"
-          },
-          {
-            "@tag": "NEW_FORUM",
-            "#text": "انجمن جدید"
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "ذخیره انجمن"
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "سرور"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "انجمن های NNTP"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPRETRIEVE",
-        "Resource": [
-          {
-            "@tag": "BETA_WARNING",
-            "#text": "<p dir=\"rtl\">\r\n      خصوصیت NNTP ، <span lang=\"en-us\">YetAnotherForum.NET</span> در مرحله\r\n      آزمایشی است، و خطاهایی <b>خواهد داشت</b>. خطاهائی که باید متوجه آنها\r\n      باشید عبارتند از : تبدیل دسته حروف و زمان نادرست در ارسال است. مقالات\r\n      یوس نت در انجمن با تاریخ مندرج در سرانه ان می باشد. لطفا در صورت مواجهه\r\n      با منطقه زمانی های نا شناخته ما را مطلع کنید.</p>\r\n      <p dir=\"rtl\">\r\n      مقالات یوس نت انجمن به صورت فقط خواندنی هستند و پیام ها به یوس نت <b>\r\n      نخواهند رسید</b>. برای سرعت در عملیات مقالات یوس نت به صورت خودکار تائید\r\n      می شوند. یعنی که اگر انجمن محدود است، ارسال ها به خودی خود تائید خواهند\r\n      شد.</p>\r\n      <p dir=\"rtl\">\r\n      برای حفاظت از سرور یوس نت ، گروه خبری هر 10 دقیقه یک بار بروزخواهد شد.</p>\r\n    "
-          },
-          {
-            "@tag": "GROUPS",
-            "#text": "گروه برای بازیابی آماده است"
-          },
-          {
-            "@tag": "HEADER",
-            "#text": "بازیابی مقالات NNTP"
-          },
-          {
-            "@tag": "LAST_MESSAGE",
-            "#text": "آخرین پیام"
-          },
-          {
-            "@tag": "LAST_UPDATE",
-            "#text": "آخرین بروز رسانی"
-          },
-          {
-            "@tag": "NO_GROUPS",
-            "#text": "هیچ گروهی برای بازیابی آماده نیست"
-          },
-          {
-            "@tag": "RETRIEVE",
-            "#text": "بازیابی"
-          },
-          {
-            "@tag": "RETRIEVED",
-            "#text": "بازیابی {0} مقاله.{1:N2} مقاله در ثانیه."
-          },
-          {
-            "@tag": "SECONDS",
-            "#text": "ثانیه"
-          },
-          {
-            "@tag": "TIME",
-            "#text": "مشخص کنید چند بار بازیابی مقاله باید استفاده شود."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "بازیابی NNTP"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPSERVERS",
-        "Resource": [
-          {
-            "@tag": "ADRESS",
-            "#text": "آدرس"
-          },
-          {
-            "@tag": "DELETE_SERVER",
-            "#text": "حذف این سرور؟"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Servers"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
-          },
-          {
-            "@tag": "NAME",
-            "#text": "نام"
-          },
-          {
-            "@tag": "NEW_SERVER",
-            "#text": "سرور جدید"
-          },
-          {
-            "@tag": "SAVE_SERVER",
-            "#text": "ذخیره سرور"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "سرور های NNTP"
-          },
-          {
-            "@tag": "USERNAME",
-            "#text": "نام کاربری"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
@@ -7148,18 +6855,6 @@
             "#text": "نشان ها"
           },
           {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": " انجمن های NNTP"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "بازیابی مقالات"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "سرویس دهنده های NNTP"
-          },
-          {
             "@tag": "ADMIN_PAGEACCESSEDIT",
             "#text": "ویرایش دسترسی صفحه مدیریت"
           },
@@ -7242,10 +6937,6 @@
           {
             "@tag": "MAINTENANCE",
             "#text": "نگهداری"
-          },
-          {
-            "@tag": "NNTP",
-            "#text": "پروتکل NNTP"
           },
           {
             "@tag": "SETTINGS",

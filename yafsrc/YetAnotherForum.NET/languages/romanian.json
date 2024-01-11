@@ -321,14 +321,6 @@
             "#text": "Editeaza distinctii"
           },
           {
-            "@tag": "ADMIN_EDITNNTPFORUM",
-            "#text": "Editează forumul NNTP"
-          },
-          {
-            "@tag": "ADMIN_EDITNNTPSERVER",
-            "#text": "Editează serverul NNTP"
-          },
-          {
             "@tag": "ADMIN_EDITRANK",
             "#text": "Editeaza gradele"
           },
@@ -363,18 +355,6 @@
           {
             "@tag": "ADMIN_MEDALS",
             "#text": "Vezi/editeaza distinctii"
-          },
-          {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "Vezi/editeaza forumurile NNTP"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "Recuperare NNTP"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "Vezi/editeaza servere NNTP"
           },
           {
             "@tag": "ADMIN_PM",
@@ -3135,128 +3115,6 @@
         ]
       },
       {
-        "@name": "ADMIN_EDITNNTPFORUM",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "Activ:"
-          },
-          {
-            "@tag": "ACTIVE_HELP",
-            "#text": "Verificați acest lucru pentru a face forumul activ."
-          },
-          {
-            "@tag": "DATECUTOFF",
-            "#text": "Data limită pentru transmiterea mesajelor:"
-          },
-          {
-            "@tag": "DATECUTOFF_HELP",
-            "#text": "Mesajele nu trebuie descărcate dacă sunt mai vechi de această dată."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "Forum:"
-          },
-          {
-            "@tag": "FORUM_HELP",
-            "#text": "Mesajele de pe forum vor fi inserate în."
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "Grup:"
-          },
-          {
-            "@tag": "GROUP_HELP",
-            "#text": "Numele grupului de știri."
-          },
-          {
-            "@tag": "MSG_SELECT_FORUM",
-            "#text": "Trebuie să selectați un forum pentru a salva mesajele NNTP."
-          },
-          {
-            "@tag": "MSG_VALID_GROUP",
-            "#text": "Trebuie să introduceți un nume de grup valid."
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "Server:"
-          },
-          {
-            "@tag": "SERVER_HELP",
-            "#text": "Pe ce server se află aceste grupuri."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit NNTP Forum"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "Editați forumul NNTP"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_EDITNNTPSERVER",
-        "Resource": [
-          {
-            "@tag": "MSG_SERVER_ADR",
-            "#text": "Lipsește adresa serverului."
-          },
-          {
-            "@tag": "MSG_SERVER_NAME",
-            "#text": "Lipsește numele serverului."
-          },
-          {
-            "@tag": "NNTP_ADRESS",
-            "#text": "Adresă:"
-          },
-          {
-            "@tag": "NNTP_ADRESS_HELP",
-            "#text": "Numele de gazdă al serverului."
-          },
-          {
-            "@tag": "NNTP_NAME",
-            "#text": "Numele:"
-          },
-          {
-            "@tag": "NNTP_NAME_HELP",
-            "#text": "Numele acestui server."
-          },
-          {
-            "@tag": "NNTP_PASSWORD",
-            "#text": "Parola:"
-          },
-          {
-            "@tag": "NNTP_PASSWORD_HELP",
-            "#text": "Parola utilizată pentru conectarea la serverul nntp."
-          },
-          {
-            "@tag": "NNTP_PORT",
-            "#text": "Port:"
-          },
-          {
-            "@tag": "NNTP_PORT_HELP",
-            "#text": "Numărul portului la care trebuie să se conecteze."
-          },
-          {
-            "@tag": "NNTP_USERNAME",
-            "#text": "Numele utilizatorului:"
-          },
-          {
-            "@tag": "NNTP_USERNAME_HELP",
-            "#text": "Numele de utilizator utilizat pentru a se conecta la serverul nntp."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit NNTP Server"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "Editați serverul NNTP"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_EDITRANK",
         "Resource": [
           {
@@ -4327,14 +4185,6 @@
           {
             "@tag": "COLLAPSED",
             "#text": "Prăbușit"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES",
-            "#text": "Creați nume de utilizatori NNTP:"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES_HELP",
-            "#text": "Bifați această opțiune pentru a permite crearea automată a utilizatorilor la descărcarea mesajelor usenet. Activați această opțiune numai într-un mediu de testare și <em>NICIODATĂ</em> într-un mediu de producție. Scopul principal al acestei opțiuni este testarea performanțelor."
           },
           {
             "@tag": "CROP_IMAGE_ATTACH",
@@ -5990,149 +5840,6 @@
         ]
       },
       {
-        "@name": "ADMIN_NNTPFORUMS",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "Activ"
-          },
-          {
-            "@tag": "DELETE",
-            "#text": "Ștergeți"
-          },
-          {
-            "@tag": "DELETE_FORUM",
-            "#text": "Să ștergem acest forum?"
-          },
-          {
-            "@tag": "EDIT",
-            "#text": "Editați"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Forums"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "forum"
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "Grup"
-          },
-          {
-            "@tag": "NEW_FORUM",
-            "#text": "Forum nou"
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Salvați Forumul"
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "Server"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Forumuri NNTP"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPRETRIEVE",
-        "Resource": [
-          {
-            "@tag": "BETA_WARNING",
-            "#text": "<p>\r\n    The NNTP feature of Yet Another Forum.net is still beta, and <strong>will</strong> have bugs.\r\n    Bugs you should look for is character set conversion, and incorrect time on posts.\r\n    Usenet articles will be posted to the forum with the date from the article header,\r\n    meaning that you well could get future dates. Please let me know of any unknown\r\n    time zones that are encountered.\r\n  </p>\r\n  <p>\r\n    The forums usenet Articles are posted to should be read-only, as messages will <strong>not</strong>\r\n    be posted back to the usenet. For speed purposes usenet articles are automatically\r\n    approved, meaning that if the forum is moderated, the posts will be automatically\r\n    approved.\r\n  </p>\r\n  <p>\r\n    To protect usenet servers, a newsgroup can only be updated once every 10 minutes.\r\n  </p>"
-          },
-          {
-            "@tag": "GROUPS",
-            "#text": "Grupuri pregătite pentru preluare"
-          },
-          {
-            "@tag": "HEADER",
-            "#text": "Preluarea articolelor NNTP"
-          },
-          {
-            "@tag": "LAST_MESSAGE",
-            "#text": "Ultimul mesaj"
-          },
-          {
-            "@tag": "LAST_UPDATE",
-            "#text": "Ultima actualizare"
-          },
-          {
-            "@tag": "NO_GROUPS",
-            "#text": "Nu există grupuri pregătite pentru recuperare"
-          },
-          {
-            "@tag": "RETRIEVE",
-            "#text": "Recuperați"
-          },
-          {
-            "@tag": "RETRIEVED",
-            "#text": "Recuperat {0} articole. {1:N2} articole pe secundă."
-          },
-          {
-            "@tag": "SECONDS",
-            "#text": "secunde"
-          },
-          {
-            "@tag": "TIME",
-            "#text": "Specificați cât timp ar trebui să utilizeze recuperarea articolelor."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Preluare NNTP"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPSERVERS",
-        "Resource": [
-          {
-            "@tag": "ADRESS",
-            "#text": "Adress"
-          },
-          {
-            "@tag": "DELETE_SERVER",
-            "#text": "Ștergeți acest server?"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Servers"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
-          },
-          {
-            "@tag": "NAME",
-            "#text": "Nume"
-          },
-          {
-            "@tag": "NEW_SERVER",
-            "#text": "Server nou"
-          },
-          {
-            "@tag": "SAVE_SERVER",
-            "#text": "Salvați serverul"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Servere NNTP"
-          },
-          {
-            "@tag": "USERNAME",
-            "#text": "Nume utilizator"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
@@ -7156,18 +6863,6 @@
             "#text": "Medalii"
           },
           {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "Forumuri NNTP"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "Recuperați articole"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "Servere NNTP"
-          },
-          {
             "@tag": "ADMIN_PAGEACCESSEDIT",
             "#text": "Editarea accesului la pagina de administrare"
           },
@@ -7250,10 +6945,6 @@
           {
             "@tag": "MAINTENANCE",
             "#text": "Întreținere"
-          },
-          {
-            "@tag": "NNTP",
-            "#text": "NNTP"
           },
           {
             "@tag": "SETTINGS",

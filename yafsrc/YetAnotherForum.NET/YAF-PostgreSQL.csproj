@@ -490,20 +490,6 @@
     <Compile Include="Dialogs\BannedEmailEdit.ascx.designer.cs">
       <DependentUpon>BannedEmailEdit.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Dialogs\NntpForumEdit.ascx.cs">
-      <DependentUpon>NntpForumEdit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Dialogs\NntpForumEdit.ascx.designer.cs">
-      <DependentUpon>NntpForumEdit.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\NntpServerEdit.ascx.cs">
-      <DependentUpon>NntpServerEdit.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Dialogs\NntpServerEdit.ascx.designer.cs">
-      <DependentUpon>NntpServerEdit.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Dialogs\ReplaceWordsEdit.ascx.cs">
       <DependentUpon>ReplaceWordsEdit.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -747,15 +733,6 @@
     </Compile>
     <Compile Include="Pages\Admin\Medals.ascx.designer.cs">
       <DependentUpon>Medals.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Admin\NntpForums.ascx.designer.cs">
-      <DependentUpon>NntpForums.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Admin\NntpRetrieve.ascx.designer.cs">
-      <DependentUpon>NntpRetrieve.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="Pages\Admin\NntpServers.ascx.designer.cs">
-      <DependentUpon>NntpServers.ascx</DependentUpon>
     </Compile>
     <Compile Include="Pages\Admin\Pm.ascx.designer.cs">
       <DependentUpon>Pm.ascx</DependentUpon>
@@ -2242,8 +2219,6 @@
     <Content Include="Dialogs\BannedIpImport.ascx" />
     <Content Include="Dialogs\BannedNameImport.ascx" />
     <Content Include="Dialogs\BannedEmailEdit.ascx" />
-    <Content Include="Dialogs\NntpForumEdit.ascx" />
-    <Content Include="Dialogs\NntpServerEdit.ascx" />
     <Content Include="Dialogs\ReplaceWordsEdit.ascx" />
     <Content Include="Dialogs\UsersImport.ascx" />
     <Content Include="Dialogs\ReplaceWordsImport.ascx" />
@@ -2362,9 +2337,6 @@
     <Content Include="Pages\Admin\Languages.ascx" />
     <Content Include="Pages\Admin\Mail.ascx" />
     <Content Include="Pages\Admin\Medals.ascx" />
-    <Content Include="Pages\Admin\NntpForums.ascx" />
-    <Content Include="Pages\Admin\NntpRetrieve.ascx" />
-    <Content Include="Pages\Admin\NntpServers.ascx" />
     <Content Include="Pages\Admin\Pm.ascx" />
     <Content Include="Pages\Admin\Prune.ascx" />
     <Content Include="Pages\Admin\Ranks.ascx" />
@@ -2698,18 +2670,6 @@
     </Compile>
     <Compile Include="Pages\Admin\Medals.ascx.cs">
       <DependentUpon>Medals.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\Admin\NntpForums.ascx.cs">
-      <DependentUpon>NntpForums.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\Admin\NntpRetrieve.ascx.cs">
-      <DependentUpon>NntpRetrieve.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Pages\Admin\NntpServers.ascx.cs">
-      <DependentUpon>NntpServers.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Pages\Admin\Pm.ascx.cs">
@@ -3073,7 +3033,7 @@ del *.xml</PostBuildEvent>
           <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
-      <UserProperties compilerconfig_1json__JSONSchema="" bundleconfig_1json__JSONSchema="" />
+      <UserProperties bundleconfig_1json__JSONSchema="" compilerconfig_1json__JSONSchema="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

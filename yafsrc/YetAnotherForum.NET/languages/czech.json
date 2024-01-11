@@ -321,14 +321,6 @@
             "#text": "Upravuje medaile"
           },
           {
-            "@tag": "ADMIN_EDITNNTPFORUM",
-            "#text": "Upravuje fórum NNTP"
-          },
-          {
-            "@tag": "ADMIN_EDITNNTPSERVER",
-            "#text": "Upraví server NNTP"
-          },
-          {
             "@tag": "ADMIN_EDITRANK",
             "#text": "Upravuje hodnosti"
           },
@@ -363,18 +355,6 @@
           {
             "@tag": "ADMIN_MEDALS",
             "#text": "Zobrazení/úpravy medailí"
-          },
-          {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "Zobrazuje/upravuje fóra NNTP"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "Načte NNTP"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "Zobrazuje/upravuje NNTP servery"
           },
           {
             "@tag": "ADMIN_PM",
@@ -3135,128 +3115,6 @@
         ]
       },
       {
-        "@name": "ADMIN_EDITNNTPFORUM",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "Aktivní:"
-          },
-          {
-            "@tag": "ACTIVE_HELP",
-            "#text": "Zaškrtněte toto, aby bylo fórum aktivní."
-          },
-          {
-            "@tag": "DATECUTOFF",
-            "#text": "Datum ukončení pro zprávy:"
-          },
-          {
-            "@tag": "DATECUTOFF_HELP",
-            "#text": "Zprávy by neměly být stahovány, pokud jsou starší než toto datum."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "Fórum:"
-          },
-          {
-            "@tag": "FORUM_HELP",
-            "#text": "Zprávy fóra budou vloženy do."
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "Skupina:"
-          },
-          {
-            "@tag": "GROUP_HELP",
-            "#text": "Název diskusní skupiny."
-          },
-          {
-            "@tag": "MSG_SELECT_FORUM",
-            "#text": "Pro ukládání zpráv NNTP musíte vybrat fórum."
-          },
-          {
-            "@tag": "MSG_VALID_GROUP",
-            "#text": "Měli byste zadat platný název skupiny."
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "server:"
-          },
-          {
-            "@tag": "SERVER_HELP",
-            "#text": "Na jakém serveru se tato skupina nachází."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit NNTP Forum"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "Upravit fórum NNTP"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_EDITNNTPSERVER",
-        "Resource": [
-          {
-            "@tag": "MSG_SERVER_ADR",
-            "#text": "Chybí adresa serveru."
-          },
-          {
-            "@tag": "MSG_SERVER_NAME",
-            "#text": "Chybí název serveru."
-          },
-          {
-            "@tag": "NNTP_ADRESS",
-            "#text": "Adresa:"
-          },
-          {
-            "@tag": "NNTP_ADRESS_HELP",
-            "#text": "Název hostitele serveru."
-          },
-          {
-            "@tag": "NNTP_NAME",
-            "#text": "Název:"
-          },
-          {
-            "@tag": "NNTP_NAME_HELP",
-            "#text": "Název tohoto serveru."
-          },
-          {
-            "@tag": "NNTP_PASSWORD",
-            "#text": "Heslo:"
-          },
-          {
-            "@tag": "NNTP_PASSWORD_HELP",
-            "#text": "Heslo používané pro přihlášení k serveru nntp."
-          },
-          {
-            "@tag": "NNTP_PORT",
-            "#text": "Přístav:"
-          },
-          {
-            "@tag": "NNTP_PORT_HELP",
-            "#text": "Číslo portu, ke kterému se chcete připojit."
-          },
-          {
-            "@tag": "NNTP_USERNAME",
-            "#text": "Uživatelské jméno:"
-          },
-          {
-            "@tag": "NNTP_USERNAME_HELP",
-            "#text": "Uživatelské jméno používané k přihlášení k serveru nntp."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit NNTP Server"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "Upravit server NNTP"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_EDITRANK",
         "Resource": [
           {
@@ -4327,14 +4185,6 @@
           {
             "@tag": "COLLAPSED",
             "#text": "Zhroucený"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES",
-            "#text": "Vytvořte uživatelská jména NNTP:"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES_HELP",
-            "#text": "Zaškrtnutím umožníte automatické vytváření uživatelů při stahování zpráv ze sítě. "
           },
           {
             "@tag": "CROP_IMAGE_ATTACH",
@@ -5990,149 +5840,6 @@
         ]
       },
       {
-        "@name": "ADMIN_NNTPFORUMS",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "Aktivní"
-          },
-          {
-            "@tag": "DELETE",
-            "#text": "Vymazat"
-          },
-          {
-            "@tag": "DELETE_FORUM",
-            "#text": "Smazat toto fórum?"
-          },
-          {
-            "@tag": "EDIT",
-            "#text": "Upravit"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Forums"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "Fórum"
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "Skupina"
-          },
-          {
-            "@tag": "NEW_FORUM",
-            "#text": "Nové fórum"
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Uložit fórum"
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "server"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Fóra NNTP"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPRETRIEVE",
-        "Resource": [
-          {
-            "@tag": "BETA_WARNING",
-            "#text": "<p>\r\n    The NNTP feature of Yet Another Forum.net is still beta, and <strong>will</strong> have bugs.\r\n    Bugs you should look for is character set conversion, and incorrect time on posts.\r\n    Usenet articles will be posted to the forum with the date from the article header,\r\n    meaning that you well could get future dates. Please let me know of any unknown\r\n    time zones that are encountered.\r\n  </p>\r\n  <p>\r\n    The forums usenet Articles are posted to should be read-only, as messages will <strong>not</strong>\r\n    be posted back to the usenet. For speed purposes usenet articles are automatically\r\n    approved, meaning that if the forum is moderated, the posts will be automatically\r\n    approved.\r\n  </p>\r\n  <p>\r\n    To protect usenet servers, a newsgroup can only be updated once every 10 minutes.\r\n  </p>"
-          },
-          {
-            "@tag": "GROUPS",
-            "#text": "Skupiny připravené k vyhledání"
-          },
-          {
-            "@tag": "HEADER",
-            "#text": "Načíst články NNTP"
-          },
-          {
-            "@tag": "LAST_MESSAGE",
-            "#text": "Poslední zpráva"
-          },
-          {
-            "@tag": "LAST_UPDATE",
-            "#text": "Poslední aktualizace"
-          },
-          {
-            "@tag": "NO_GROUPS",
-            "#text": "Žádné skupiny připravené k načtení"
-          },
-          {
-            "@tag": "RETRIEVE",
-            "#text": "Načíst"
-          },
-          {
-            "@tag": "RETRIEVED",
-            "#text": "Obnoveno {0} článků. "
-          },
-          {
-            "@tag": "SECONDS",
-            "#text": "sekundy"
-          },
-          {
-            "@tag": "TIME",
-            "#text": "Určete, kolik času má načítání článku zabrat."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Načíst NNTP"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPSERVERS",
-        "Resource": [
-          {
-            "@tag": "ADRESS",
-            "#text": "Adress"
-          },
-          {
-            "@tag": "DELETE_SERVER",
-            "#text": "Smazat tento server?"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Servers"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
-          },
-          {
-            "@tag": "NAME",
-            "#text": "název"
-          },
-          {
-            "@tag": "NEW_SERVER",
-            "#text": "Nový server"
-          },
-          {
-            "@tag": "SAVE_SERVER",
-            "#text": "Uložit server"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Servery NNTP"
-          },
-          {
-            "@tag": "USERNAME",
-            "#text": "Uživatelské jméno"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
@@ -7156,18 +6863,6 @@
             "#text": "medaile"
           },
           {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "Fóra NNTP"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "Načíst články"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "Servery NNTP"
-          },
-          {
             "@tag": "ADMIN_PAGEACCESSEDIT",
             "#text": "Upravit přístup na stránku správce"
           },
@@ -7250,10 +6945,6 @@
           {
             "@tag": "MAINTENANCE",
             "#text": "Údržba"
-          },
-          {
-            "@tag": "NNTP",
-            "#text": "NNTP"
           },
           {
             "@tag": "SETTINGS",

@@ -321,14 +321,6 @@
             "#text": "تعديل  الاوسمة "
           },
           {
-            "@tag": "ADMIN_EDITNNTPFORUM",
-            "#text": "يحرر منتدى NNTP"
-          },
-          {
-            "@tag": "ADMIN_EDITNNTPSERVER",
-            "#text": "يحرر خادم NNTP"
-          },
-          {
             "@tag": "ADMIN_EDITRANK",
             "#text": "تعديل الرتبة "
           },
@@ -363,18 +355,6 @@
           {
             "@tag": "ADMIN_MEDALS",
             "#text": "عرض وتعديل الميداليات"
-          },
-          {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "عرض/تعديل NNTP المنتدى "
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "باسترداد NNTP"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "عرض / تعديل NNTP سيرفر"
           },
           {
             "@tag": "ADMIN_PM",
@@ -3127,128 +3107,6 @@
         ]
       },
       {
-        "@name": "ADMIN_EDITNNTPFORUM",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "نشيط:"
-          },
-          {
-            "@tag": "ACTIVE_HELP",
-            "#text": "تحقق من هذا لتنشيط المنتدى."
-          },
-          {
-            "@tag": "DATECUTOFF",
-            "#text": "تاريخ القطع للرسائل:"
-          },
-          {
-            "@tag": "DATECUTOFF_HELP",
-            "#text": "لا يجب تنزيل الرسائل إذا كانت أقدم من هذا التاريخ."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "المنتدى:"
-          },
-          {
-            "@tag": "FORUM_HELP",
-            "#text": "سيتم إدراج رسائل المنتدى في."
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "مجموعة:"
-          },
-          {
-            "@tag": "GROUP_HELP",
-            "#text": "اسم مجموعة الأخبار."
-          },
-          {
-            "@tag": "MSG_SELECT_FORUM",
-            "#text": "يجب تحديد منتدى لحفظ رسائل NNTP."
-          },
-          {
-            "@tag": "MSG_VALID_GROUP",
-            "#text": "يجب عليك إدخال اسم مجموعة صالح."
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "الخادم:"
-          },
-          {
-            "@tag": "SERVER_HELP",
-            "#text": "ما الخادم يقع هذه المجموعات."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit NNTP Forum"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "تحرير منتدى NNTP"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_EDITNNTPSERVER",
-        "Resource": [
-          {
-            "@tag": "MSG_SERVER_ADR",
-            "#text": "عنوان الخادم مفقود."
-          },
-          {
-            "@tag": "MSG_SERVER_NAME",
-            "#text": "اسم الخادم مفقود."
-          },
-          {
-            "@tag": "NNTP_ADRESS",
-            "#text": "تبوك:"
-          },
-          {
-            "@tag": "NNTP_ADRESS_HELP",
-            "#text": "اسم مضيف الخادم."
-          },
-          {
-            "@tag": "NNTP_NAME",
-            "#text": "اسم:"
-          },
-          {
-            "@tag": "NNTP_NAME_HELP",
-            "#text": "اسم هذا الخادم."
-          },
-          {
-            "@tag": "NNTP_PASSWORD",
-            "#text": "كلمة المرور:"
-          },
-          {
-            "@tag": "NNTP_PASSWORD_HELP",
-            "#text": "كلمة المرور المستخدمة لتسجيل الدخول إلى خادم nntp."
-          },
-          {
-            "@tag": "NNTP_PORT",
-            "#text": "ميناء:"
-          },
-          {
-            "@tag": "NNTP_PORT_HELP",
-            "#text": "رقم المنفذ المراد الاتصال به."
-          },
-          {
-            "@tag": "NNTP_USERNAME",
-            "#text": "اسم االمستخدم:"
-          },
-          {
-            "@tag": "NNTP_USERNAME_HELP",
-            "#text": "اسم المستخدم المستخدم لتسجيل الدخول إلى خادم nntp."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit NNTP Server"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "تحرير خادم NNTP"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_EDITRANK",
         "Resource": [
           {
@@ -4319,14 +4177,6 @@
           {
             "@tag": "COLLAPSED",
             "#text": "انهار"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES",
-            "#text": "إنشاء أسماء مستخدمي NNTP:"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES_HELP",
-            "#text": "حدده للسماح للمستخدمين بالإنشاء تلقائيًا عند تنزيل رسائل usenet. "
           },
           {
             "@tag": "CROP_IMAGE_ATTACH",
@@ -5982,149 +5832,6 @@
         ]
       },
       {
-        "@name": "ADMIN_NNTPFORUMS",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "نشيط"
-          },
-          {
-            "@tag": "DELETE",
-            "#text": "حذف"
-          },
-          {
-            "@tag": "DELETE_FORUM",
-            "#text": "حذف هذا المنتدى؟"
-          },
-          {
-            "@tag": "EDIT",
-            "#text": "يحرر"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Forums"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "المنتدى"
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "مجموعة"
-          },
-          {
-            "@tag": "NEW_FORUM",
-            "#text": "منتدى جديد"
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "حفظ المنتدى"
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "الخادم"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "منتديات NNTP"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPRETRIEVE",
-        "Resource": [
-          {
-            "@tag": "BETA_WARNING",
-            "#text": "<p>\r\n      The NNTP feature of Yet Another Forum.net is still beta, and <strong>will</strong> have bugs.\r\n      Bugs you should look for is character set conversion, and incorrect time on posts.\r\n      Usenet articles will be posted to the forum with the date from the article header,\r\n      meaning that you well could get future dates. Please let me know of any unknown\r\n      time zones that are encountered.\r\n   </p>\r\n   <p>\r\n      The forums usenet Articles are posted to should be read-only, as messages will <strong>not</strong>\r\n      be posted back to the usenet. For speed purposes usenet articles are automatically\r\n      approved, meaning that if the forum is moderated, the posts will be automatically\r\n      approved.\r\n   </p>\r\n   <p>\r\n      To protect usenet servers, a newsgroup can only be updated once every 10 minutes.\r\n   </p>"
-          },
-          {
-            "@tag": "GROUPS",
-            "#text": "مجموعات جاهزة للاسترجاع"
-          },
-          {
-            "@tag": "HEADER",
-            "#text": "استرجع مقالات NNTP"
-          },
-          {
-            "@tag": "LAST_MESSAGE",
-            "#text": "اخر رسالة"
-          },
-          {
-            "@tag": "LAST_UPDATE",
-            "#text": "اخر تحديث"
-          },
-          {
-            "@tag": "NO_GROUPS",
-            "#text": "لا توجد مجموعات جاهزة للاسترجاع"
-          },
-          {
-            "@tag": "RETRIEVE",
-            "#text": "يسترد"
-          },
-          {
-            "@tag": "RETRIEVED",
-            "#text": "تم استرداد {0} من المقالات. "
-          },
-          {
-            "@tag": "SECONDS",
-            "#text": "ثواني"
-          },
-          {
-            "@tag": "TIME",
-            "#text": "حدد مقدار الوقت الذي يجب أن يستخدمه استرداد المقالة."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "استرداد NNTP"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPSERVERS",
-        "Resource": [
-          {
-            "@tag": "ADRESS",
-            "#text": "Adress"
-          },
-          {
-            "@tag": "DELETE_SERVER",
-            "#text": "هل تريد حذف هذا الخادم؟"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Servers"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
-          },
-          {
-            "@tag": "NAME",
-            "#text": "اسم"
-          },
-          {
-            "@tag": "NEW_SERVER",
-            "#text": "خادم جديد"
-          },
-          {
-            "@tag": "SAVE_SERVER",
-            "#text": "حفظ الخادم"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "خوادم NNTP"
-          },
-          {
-            "@tag": "USERNAME",
-            "#text": "اسم االمستخدم"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
@@ -7148,18 +6855,6 @@
             "#text": "ميداليات"
           },
           {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "منتديات NNTP"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "استرجاع المقالات"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "خوادم NNTP"
-          },
-          {
             "@tag": "ADMIN_PAGEACCESSEDIT",
             "#text": "تحرير الوصول إلى صفحة المسؤول"
           },
@@ -7242,10 +6937,6 @@
           {
             "@tag": "MAINTENANCE",
             "#text": "اعمال صيانة"
-          },
-          {
-            "@tag": "NNTP",
-            "#text": "NNTP"
           },
           {
             "@tag": "SETTINGS",

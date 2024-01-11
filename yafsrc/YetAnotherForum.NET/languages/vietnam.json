@@ -321,14 +321,6 @@
             "#text": "Chỉnh sửa huy chương"
           },
           {
-            "@tag": "ADMIN_EDITNNTPFORUM",
-            "#text": "Chỉnh sửa Diễn đàn NNTP"
-          },
-          {
-            "@tag": "ADMIN_EDITNNTPSERVER",
-            "#text": "Chỉnh sửa Máy chủ NNTP"
-          },
-          {
             "@tag": "ADMIN_EDITRANK",
             "#text": "Chỉnh sửa xếp hạng"
           },
@@ -363,18 +355,6 @@
           {
             "@tag": "ADMIN_MEDALS",
             "#text": "Số lượt xem / chỉnh sửa huy chương"
-          },
-          {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "Lượt xem / chỉnh sửa diễn đàn NNTP"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "Truy xuất NNTP"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "Lượt xem / chỉnh sửa máy chủ NNTP"
           },
           {
             "@tag": "ADMIN_PM",
@@ -3135,128 +3115,6 @@
         ]
       },
       {
-        "@name": "ADMIN_EDITNNTPFORUM",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "Tích cực:"
-          },
-          {
-            "@tag": "ACTIVE_HELP",
-            "#text": "Kiểm tra điều này để làm cho diễn đàn hoạt động."
-          },
-          {
-            "@tag": "DATECUTOFF",
-            "#text": "Cắt Ngày cho Tin nhắn:"
-          },
-          {
-            "@tag": "DATECUTOFF_HELP",
-            "#text": "Không nên tải xuống tin nhắn nếu chúng cũ hơn ngày này."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "Diễn đàn:"
-          },
-          {
-            "@tag": "FORUM_HELP",
-            "#text": "Các thông báo diễn đàn sẽ được chèn vào."
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "Tập đoàn:"
-          },
-          {
-            "@tag": "GROUP_HELP",
-            "#text": "Tên của nhóm tin."
-          },
-          {
-            "@tag": "MSG_SELECT_FORUM",
-            "#text": "Bạn phải chọn một diễn đàn để lưu các tin nhắn NNTP."
-          },
-          {
-            "@tag": "MSG_VALID_GROUP",
-            "#text": "Bạn nên nhập một tên nhóm hợp lệ."
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "Người phục vụ:"
-          },
-          {
-            "@tag": "SERVER_HELP",
-            "#text": "Nhóm này nằm ở máy chủ nào."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit NNTP Forum"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "Chỉnh sửa Diễn đàn NNTP"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_EDITNNTPSERVER",
-        "Resource": [
-          {
-            "@tag": "MSG_SERVER_ADR",
-            "#text": "Thiếu địa chỉ máy chủ."
-          },
-          {
-            "@tag": "MSG_SERVER_NAME",
-            "#text": "Thiếu tên máy chủ."
-          },
-          {
-            "@tag": "NNTP_ADRESS",
-            "#text": "Địa chỉ nhà:"
-          },
-          {
-            "@tag": "NNTP_ADRESS_HELP",
-            "#text": "Tên máy chủ của máy chủ."
-          },
-          {
-            "@tag": "NNTP_NAME",
-            "#text": "Tên:"
-          },
-          {
-            "@tag": "NNTP_NAME_HELP",
-            "#text": "Tên của máy chủ này."
-          },
-          {
-            "@tag": "NNTP_PASSWORD",
-            "#text": "Mật khẩu:"
-          },
-          {
-            "@tag": "NNTP_PASSWORD_HELP",
-            "#text": "Mật khẩu được sử dụng để đăng nhập vào máy chủ nntp."
-          },
-          {
-            "@tag": "NNTP_PORT",
-            "#text": "Hải cảng:"
-          },
-          {
-            "@tag": "NNTP_PORT_HELP",
-            "#text": "Số cổng để kết nối."
-          },
-          {
-            "@tag": "NNTP_USERNAME",
-            "#text": "Tên tài khoản:"
-          },
-          {
-            "@tag": "NNTP_USERNAME_HELP",
-            "#text": "Tên người dùng được sử dụng để đăng nhập vào máy chủ nntp."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit NNTP Server"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "Chỉnh sửa máy chủ NNTP"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_EDITRANK",
         "Resource": [
           {
@@ -4327,14 +4185,6 @@
           {
             "@tag": "COLLAPSED",
             "#text": "Đã thu gọn"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES",
-            "#text": "Tạo tên người dùng NNTP:"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES_HELP",
-            "#text": "Chọn để cho phép người dùng tự động được tạo khi tải xuống tin nhắn usenet. Chỉ bật tính năng này trong môi trường thử nghiệm và <em>KHÔNG BAO GIỜ</em> trong môi trường sản xuất. Mục đích chính của tùy chọn này là để kiểm tra hiệu suất."
           },
           {
             "@tag": "CROP_IMAGE_ATTACH",
@@ -5990,149 +5840,6 @@
         ]
       },
       {
-        "@name": "ADMIN_NNTPFORUMS",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "Tích cực"
-          },
-          {
-            "@tag": "DELETE",
-            "#text": "Xóa bỏ"
-          },
-          {
-            "@tag": "DELETE_FORUM",
-            "#text": "Xóa diễn đàn này?"
-          },
-          {
-            "@tag": "EDIT",
-            "#text": "Chỉnh sửa"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Forums"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "Diễn đàn"
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "Tập đoàn"
-          },
-          {
-            "@tag": "NEW_FORUM",
-            "#text": "Diễn đàn mới"
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Lưu diễn đàn"
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "Người phục vụ"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Diễn đàn NNTP"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPRETRIEVE",
-        "Resource": [
-          {
-            "@tag": "BETA_WARNING",
-            "#text": "<p>\r\n    The NNTP feature of Yet Another Forum.net is still beta, and <strong>will</strong> have bugs.\r\n    Bugs you should look for is character set conversion, and incorrect time on posts.\r\n    Usenet articles will be posted to the forum with the date from the article header,\r\n    meaning that you well could get future dates. Please let me know of any unknown\r\n    time zones that are encountered.\r\n  </p>\r\n  <p>\r\n    The forums usenet Articles are posted to should be read-only, as messages will <strong>not</strong>\r\n    be posted back to the usenet. For speed purposes usenet articles are automatically\r\n    approved, meaning that if the forum is moderated, the posts will be automatically\r\n    approved.\r\n  </p>\r\n  <p>\r\n    To protect usenet servers, a newsgroup can only be updated once every 10 minutes.\r\n  </p>"
-          },
-          {
-            "@tag": "GROUPS",
-            "#text": "Các nhóm đã sẵn sàng để truy xuất"
-          },
-          {
-            "@tag": "HEADER",
-            "#text": "Truy xuất các bài báo NNTP"
-          },
-          {
-            "@tag": "LAST_MESSAGE",
-            "#text": "Tin nhắn cuối cùng"
-          },
-          {
-            "@tag": "LAST_UPDATE",
-            "#text": "Cập nhật cuối cùng"
-          },
-          {
-            "@tag": "NO_GROUPS",
-            "#text": "Không có Nhóm nào sẵn sàng để truy xuất"
-          },
-          {
-            "@tag": "RETRIEVE",
-            "#text": "Lấy lại"
-          },
-          {
-            "@tag": "RETRIEVED",
-            "#text": "Đã truy xuất {0} bài báo. {1: N2} bài viết mỗi giây."
-          },
-          {
-            "@tag": "SECONDS",
-            "#text": "giây"
-          },
-          {
-            "@tag": "TIME",
-            "#text": "Chỉ định lượng thời gian truy xuất bài viết nên sử dụng."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP Truy xuất"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPSERVERS",
-        "Resource": [
-          {
-            "@tag": "ADRESS",
-            "#text": "Adress"
-          },
-          {
-            "@tag": "DELETE_SERVER",
-            "#text": "Xóa máy chủ này?"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Servers"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
-          },
-          {
-            "@tag": "NAME",
-            "#text": "Tên"
-          },
-          {
-            "@tag": "NEW_SERVER",
-            "#text": "Máy chủ mới"
-          },
-          {
-            "@tag": "SAVE_SERVER",
-            "#text": "Lưu máy chủ"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Máy chủ NNTP"
-          },
-          {
-            "@tag": "USERNAME",
-            "#text": "Tên tài khoản"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
@@ -7156,18 +6863,6 @@
             "#text": "Huy chương"
           },
           {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "Diễn đàn NNTP"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "Truy xuất các bài báo"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "Máy chủ NNTP"
-          },
-          {
             "@tag": "ADMIN_PAGEACCESSEDIT",
             "#text": "Chỉnh sửa quyền truy cập trang của quản trị viên"
           },
@@ -7250,10 +6945,6 @@
           {
             "@tag": "MAINTENANCE",
             "#text": "Sự bảo trì"
-          },
-          {
-            "@tag": "NNTP",
-            "#text": "NNTP"
           },
           {
             "@tag": "SETTINGS",

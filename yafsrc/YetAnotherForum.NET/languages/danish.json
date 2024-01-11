@@ -321,14 +321,6 @@
             "#text": "Rediger medaljer"
           },
           {
-            "@tag": "ADMIN_EDITNNTPFORUM",
-            "#text": "Redigerer NNTP-forum"
-          },
-          {
-            "@tag": "ADMIN_EDITNNTPSERVER",
-            "#text": "Redigerer NNTP-server"
-          },
-          {
             "@tag": "ADMIN_EDITRANK",
             "#text": "Rediger rang"
           },
@@ -363,18 +355,6 @@
           {
             "@tag": "ADMIN_MEDALS",
             "#text": "Vus/Rediger medaljer"
-          },
-          {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "Vis/Rediger NNTP fora"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "Henter NNTP"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "Vis/rediger NNTP servere"
           },
           {
             "@tag": "ADMIN_PM",
@@ -3135,128 +3115,6 @@
         ]
       },
       {
-        "@name": "ADMIN_EDITNNTPFORUM",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "Aktiv:"
-          },
-          {
-            "@tag": "ACTIVE_HELP",
-            "#text": "Tjek dette for at gøre forummet aktivt."
-          },
-          {
-            "@tag": "DATECUTOFF",
-            "#text": "Skæringsdato for beskeder:"
-          },
-          {
-            "@tag": "DATECUTOFF_HELP",
-            "#text": "Beskeder bør ikke downloades, hvis de er ældre end denne dato."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "Forum:"
-          },
-          {
-            "@tag": "FORUM_HELP",
-            "#text": "Forumbeskederne vil blive indsat i."
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "Gruppe:"
-          },
-          {
-            "@tag": "GROUP_HELP",
-            "#text": "Nyhedsgruppens navn."
-          },
-          {
-            "@tag": "MSG_SELECT_FORUM",
-            "#text": "Du skal vælge et forum for at gemme NNTP-beskeder."
-          },
-          {
-            "@tag": "MSG_VALID_GROUP",
-            "#text": "Du skal indtaste et gyldigt gruppenavn."
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "Server:"
-          },
-          {
-            "@tag": "SERVER_HELP",
-            "#text": "Hvilken server denne gruppe er placeret."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit NNTP Forum"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "Rediger NNTP-forum"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_EDITNNTPSERVER",
-        "Resource": [
-          {
-            "@tag": "MSG_SERVER_ADR",
-            "#text": "Manglende serveradresse."
-          },
-          {
-            "@tag": "MSG_SERVER_NAME",
-            "#text": "Manglende servernavn."
-          },
-          {
-            "@tag": "NNTP_ADRESS",
-            "#text": "Adresse:"
-          },
-          {
-            "@tag": "NNTP_ADRESS_HELP",
-            "#text": "Serverens værtsnavn."
-          },
-          {
-            "@tag": "NNTP_NAME",
-            "#text": "Navn:"
-          },
-          {
-            "@tag": "NNTP_NAME_HELP",
-            "#text": "Navnet på denne server."
-          },
-          {
-            "@tag": "NNTP_PASSWORD",
-            "#text": "Adgangskode:"
-          },
-          {
-            "@tag": "NNTP_PASSWORD_HELP",
-            "#text": "Adgangskoden, der bruges til at logge på nntp-serveren."
-          },
-          {
-            "@tag": "NNTP_PORT",
-            "#text": "Havn:"
-          },
-          {
-            "@tag": "NNTP_PORT_HELP",
-            "#text": "Portnummeret, der skal oprettes forbindelse til."
-          },
-          {
-            "@tag": "NNTP_USERNAME",
-            "#text": "Brugernavn:"
-          },
-          {
-            "@tag": "NNTP_USERNAME_HELP",
-            "#text": "Brugernavnet, der bruges til at logge på nntp-serveren."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit NNTP Server"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "Rediger NNTP-server"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_EDITRANK",
         "Resource": [
           {
@@ -4327,14 +4185,6 @@
           {
             "@tag": "COLLAPSED",
             "#text": "Kollapsede"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES",
-            "#text": "Opret NNTP-brugernavne:"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES_HELP",
-            "#text": "Marker for at tillade, at brugere automatisk oprettes, når de downloader usenet-beskeder. "
           },
           {
             "@tag": "CROP_IMAGE_ATTACH",
@@ -5990,149 +5840,6 @@
         ]
       },
       {
-        "@name": "ADMIN_NNTPFORUMS",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "Aktiv"
-          },
-          {
-            "@tag": "DELETE",
-            "#text": "Slet"
-          },
-          {
-            "@tag": "DELETE_FORUM",
-            "#text": "Vil du slette dette forum?"
-          },
-          {
-            "@tag": "EDIT",
-            "#text": "Redigere"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Forums"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "Forum"
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "Gruppe"
-          },
-          {
-            "@tag": "NEW_FORUM",
-            "#text": "Nyt forum"
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Gem forum"
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "Server"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP-fora"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPRETRIEVE",
-        "Resource": [
-          {
-            "@tag": "BETA_WARNING",
-            "#text": "<p>\r\n    The NNTP feature of Yet Another Forum.net is still beta, and <strong>will</strong> have bugs.\r\n    Bugs you should look for is character set conversion, and incorrect time on posts.\r\n    Usenet articles will be posted to the forum with the date from the article header,\r\n    meaning that you well could get future dates. Please let me know of any unknown\r\n    time zones that are encountered.\r\n  </p>\r\n  <p>\r\n    The forums usenet Articles are posted to should be read-only, as messages will <strong>not</strong>\r\n    be posted back to the usenet. For speed purposes usenet articles are automatically\r\n    approved, meaning that if the forum is moderated, the posts will be automatically\r\n    approved.\r\n  </p>\r\n  <p>\r\n    To protect usenet servers, a newsgroup can only be updated once every 10 minutes.\r\n  </p>"
-          },
-          {
-            "@tag": "GROUPS",
-            "#text": "Grupper klar til afhentning"
-          },
-          {
-            "@tag": "HEADER",
-            "#text": "Hent NNTP-artikler"
-          },
-          {
-            "@tag": "LAST_MESSAGE",
-            "#text": "Sidste besked"
-          },
-          {
-            "@tag": "LAST_UPDATE",
-            "#text": "Sidste ændring"
-          },
-          {
-            "@tag": "NO_GROUPS",
-            "#text": "Ingen grupper klar til hentning"
-          },
-          {
-            "@tag": "RETRIEVE",
-            "#text": "Hent"
-          },
-          {
-            "@tag": "RETRIEVED",
-            "#text": "Hentede {0} artikler. "
-          },
-          {
-            "@tag": "SECONDS",
-            "#text": "sekunder"
-          },
-          {
-            "@tag": "TIME",
-            "#text": "Angiv, hvor meget tid artiklen skal bruge."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP Hent"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPSERVERS",
-        "Resource": [
-          {
-            "@tag": "ADRESS",
-            "#text": "Adress"
-          },
-          {
-            "@tag": "DELETE_SERVER",
-            "#text": "Vil du slette denne server?"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Servers"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
-          },
-          {
-            "@tag": "NAME",
-            "#text": "Navn"
-          },
-          {
-            "@tag": "NEW_SERVER",
-            "#text": "Ny server"
-          },
-          {
-            "@tag": "SAVE_SERVER",
-            "#text": "Gem server"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP-servere"
-          },
-          {
-            "@tag": "USERNAME",
-            "#text": "Brugernavn"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
@@ -7156,18 +6863,6 @@
             "#text": "Medaljer"
           },
           {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "NNTP-fora"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "Hent artikler"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "NNTP-servere"
-          },
-          {
             "@tag": "ADMIN_PAGEACCESSEDIT",
             "#text": "Rediger Admin-sideadgang"
           },
@@ -7250,10 +6945,6 @@
           {
             "@tag": "MAINTENANCE",
             "#text": "Vedligeholdelse"
-          },
-          {
-            "@tag": "NNTP",
-            "#text": "NNTP"
           },
           {
             "@tag": "SETTINGS",
