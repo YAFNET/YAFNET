@@ -71,6 +71,21 @@
                                             </button>
                                         </div>
                                     </small>
+                                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                                        <a asp-page="@ForumPages.Search.GetPageName()"
+                                           class="dropdown-item"
+                                           asp-route-tag="item.TagName"
+                                           text-localized-tag="SHOW_TOPICS"
+                                           button-style="@ButtonStyle.None"></a>
+                                        <button button-style="@ButtonStyle.None"
+                                                class="dropdown-item"
+                                            asp-page-handler="Delete"
+                                            asp-route-id="@item.ID"
+                                            return-confirm-tag="CONFIRM_DELETE"
+                                            Icon="trash"
+                                            text-localized-tag="DELETE">
+                                        </button>
+                                    </div>
                                 </li>
                             }
                         </ul>
