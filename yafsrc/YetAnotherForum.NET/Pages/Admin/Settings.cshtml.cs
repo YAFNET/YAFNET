@@ -31,8 +31,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-using ServiceStack.OrmLite.Dapper;
-
 using YAF.Core.Extensions;
 using YAF.Core.Helpers;
 using YAF.Core.Model;
