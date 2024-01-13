@@ -25,8 +25,7 @@
                         <label class="form-label" ID="LocalizedLabel4"
                                localized-tag="PRUNE_FORUM" localized-page="ADMIN_PRUNE"
                                asp-for="Input.ForumListSelected"></label>
-                        <select id="ForumList" name="forumList">
-                        </select>
+                        <select id="ForumList" name="forumList"></select>
                         <input type="hidden" asp-for="Input.ForumListSelected" Value="@Model.Input.ForumListSelected"/>
                     </div>
                     <div class="row">
@@ -79,7 +78,7 @@
                 Model.GetText("ADMIN_PRUNE", "PRUNE_FORUM"),
                 false,
                 false,
-                "ForumListSelected")))
+                "Input_ForumListSelected")))
             
     </script>
 }

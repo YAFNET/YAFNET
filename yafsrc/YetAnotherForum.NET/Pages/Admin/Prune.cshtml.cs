@@ -60,7 +60,9 @@ public class PruneModel : AdminPage
     /// </summary>
     public  void OnGet()
     {
-        this.Input = new PruneInputModel();
+        this.Input = new PruneInputModel {
+            ForumListSelected = 0
+        };
     }
 
     /// <summary>
