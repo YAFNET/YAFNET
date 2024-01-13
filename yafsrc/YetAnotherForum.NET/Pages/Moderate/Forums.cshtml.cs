@@ -53,7 +53,7 @@ public class ForumsModel : ModerateForumPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public ModerateForumsInputModel Input { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="ForumsModel"/> class.
@@ -87,7 +87,7 @@ public class ForumsModel : ModerateForumPage
     /// </param>
     public void OnGet(int f)
     {
-        this.Input = new InputModel();
+        this.Input = new ModerateForumsInputModel();
 
         this.BindData();
     }
@@ -226,17 +226,5 @@ public class ForumsModel : ModerateForumPage
         this.UserList = this.GetRepository<UserForum>().List(null, this.PageBoardContext.PageForumID);
 
         this.Input.ForumListSelected = 0;
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public bool LeavePointer { get; set; }
-
-        public int LinkDays { get; set; } = 1;
-
-        public int ForumListSelected { get; set; }
     }
 }

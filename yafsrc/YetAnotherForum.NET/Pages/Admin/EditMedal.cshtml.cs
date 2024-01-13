@@ -53,7 +53,7 @@ public class EditMedalModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public EditMedalInputModel Input { get; set; }
 
     [BindProperty]
     public List<Tuple<Medal, UserMedal, User>> UserList { get; set; }
@@ -227,7 +227,7 @@ public class EditMedalModel : AdminPage
     /// </summary>
     public void OnGet(int? medalId = null)
     {
-        this.Input = new InputModel();
+        this.Input = new EditMedalInputModel();
 
         this.BindData(medalId);
     }
@@ -339,27 +339,5 @@ public class EditMedalModel : AdminPage
         }
 
         this.MedalImages = list;
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public string Description { get; set; }
-
-        public string Message { get; set; }
-
-        public string Category { get; set; }
-
-        public string MedalImage { get; set; }
-
-        public bool ShowMessage { get; set; } = true;
-
-        public bool AllowHiding { get; set; } = true;
     }
 }

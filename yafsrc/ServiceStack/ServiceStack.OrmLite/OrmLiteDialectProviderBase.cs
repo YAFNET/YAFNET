@@ -605,15 +605,20 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="modelType">Type of the model.</param>
     /// <returns>System.String.</returns>
-    public virtual string GetTableName(Type modelType) => this.GetTableName(modelType.GetModelDefinition());
+    public virtual string GetTableName(Type modelType)
+    {
+        return this.GetTableName(modelType.GetModelDefinition());
+    }
 
     /// <summary>
     /// Gets the name of the table.
     /// </summary>
     /// <param name="modelDef">The model definition.</param>
     /// <returns>System.String.</returns>
-    public virtual string GetTableName(ModelDefinition modelDef) =>
-        this.GetTableName(modelDef.ModelName, modelDef.Schema, useStrategy: true);
+    public virtual string GetTableName(ModelDefinition modelDef)
+    {
+        return this.GetTableName(modelDef.ModelName, modelDef.Schema, useStrategy: true);
+    }
 
     /// <summary>
     /// Gets the name of the table.
@@ -621,8 +626,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="modelDef">The model definition.</param>
     /// <param name="useStrategy">if set to <c>true</c> [use strategy].</param>
     /// <returns>System.String.</returns>
-    public virtual string GetTableName(ModelDefinition modelDef, bool useStrategy) =>
-        this.GetTableName(modelDef.ModelName, modelDef.Schema, useStrategy);
+    public virtual string GetTableName(ModelDefinition modelDef, bool useStrategy)
+    {
+        return this.GetTableName(modelDef.ModelName, modelDef.Schema, useStrategy);
+    }
 
     /// <summary>
     /// Gets the name of the table.
@@ -630,8 +637,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="table">The table.</param>
     /// <param name="schema">The schema.</param>
     /// <returns>System.String.</returns>
-    public virtual string GetTableName(string table, string schema = null) =>
-        this.GetTableName(table, schema, useStrategy: true);
+    public virtual string GetTableName(string table, string schema = null)
+    {
+        return this.GetTableName(table, schema, useStrategy: true);
+    }
 
     /// <summary>
     /// Gets the name of the table.
@@ -691,7 +700,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="modelType">Type of the model.</param>
     /// <returns>System.String.</returns>
-    public virtual string GetQuotedTableName(Type modelType) => this.GetQuotedTableName(modelType.GetModelDefinition());
+    public virtual string GetQuotedTableName(Type modelType)
+    {
+        return this.GetQuotedTableName(modelType.GetModelDefinition());
+    }
 
     /// <summary>
     /// Gets the name of the quoted table.
@@ -729,8 +741,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="schema">The schema.</param>
     /// <param name="useStrategy">if set to <c>true</c> [use strategy].</param>
     /// <returns>System.String.</returns>
-    public virtual string GetQuotedTableName(string tableName, string schema, bool useStrategy) =>
-        this.GetQuotedName(this.GetTableName(tableName, schema, useStrategy));
+    public virtual string GetQuotedTableName(string tableName, string schema, bool useStrategy)
+    {
+        return this.GetQuotedName(this.GetTableName(tableName, schema, useStrategy));
+    }
 
     /// <summary>
     /// Gets the name of the quoted column.
@@ -747,8 +761,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public virtual bool ShouldQuote(string name) =>
-        !string.IsNullOrEmpty(name) && (name.Contains(' ') || name.Contains('.'));
+    public virtual bool ShouldQuote(string name)
+    {
+        return !string.IsNullOrEmpty(name) && (name.Contains(' ') || name.Contains('.'));
+    }
 
     /// <summary>
     /// Quotes if required.
@@ -765,8 +781,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns>System.String.</returns>
-    public virtual string GetQuotedName(string name) =>
-        name == null ? null : name.FirstCharEquals('"') ? name : '"' + name + '"';
+    public virtual string GetQuotedName(string name)
+    {
+        return name == null ? null : name.FirstCharEquals('"') ? name : '"' + name + '"';
+    }
 
     /// <summary>
     /// Gets the name of the quoted.
@@ -927,8 +945,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="sql">The SQL.</param>
     /// <returns><c>true</c> if [is full select statement] [the specified SQL]; otherwise, <c>false</c>.</returns>
-    public virtual bool IsFullSelectStatement(string sql) =>
-        !string.IsNullOrEmpty(sql) && sql.TrimStart().StartsWith("SELECT", StringComparison.OrdinalIgnoreCase);
+    public virtual bool IsFullSelectStatement(string sql)
+    {
+        return !string.IsNullOrEmpty(sql) && sql.TrimStart().StartsWith("SELECT", StringComparison.OrdinalIgnoreCase);
+    }
 
     // Fmt
     /// <summary>
@@ -1137,7 +1157,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    protected virtual bool ShouldSkipInsert(FieldDefinition fieldDef) => fieldDef.ShouldSkipInsert();
+    protected virtual bool ShouldSkipInsert(FieldDefinition fieldDef)
+    {
+        return fieldDef.ShouldSkipInsert();
+    }
 
     /// <summary>
     /// Columns the name only.
@@ -1961,8 +1984,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="cmd">The command.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task.</returns>
-    public virtual Task EnableIdentityInsertAsync<T>(IDbCommand cmd, CancellationToken token = default) =>
-        TypeConstants.EmptyTask;
+    public virtual Task EnableIdentityInsertAsync<T>(IDbCommand cmd, CancellationToken token = default)
+    {
+        return TypeConstants.EmptyTask;
+    }
 
     /// <summary>
     /// Disables the identity insert.
@@ -1980,8 +2005,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="cmd">The command.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task.</returns>
-    public virtual Task DisableIdentityInsertAsync<T>(IDbCommand cmd, CancellationToken token = default) =>
-        TypeConstants.EmptyTask;
+    public virtual Task DisableIdentityInsertAsync<T>(IDbCommand cmd, CancellationToken token = default)
+    {
+        return TypeConstants.EmptyTask;
+    }
 
     /// <summary>
     /// Enables the foreign keys check.
@@ -1997,8 +2024,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="cmd">The command.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task.</returns>
-    public virtual Task EnableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default) =>
-        TypeConstants.EmptyTask;
+    public virtual Task EnableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default)
+    {
+        return TypeConstants.EmptyTask;
+    }
 
     /// <summary>
     /// Disables the foreign keys check.
@@ -2014,8 +2043,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="cmd">The command.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task.</returns>
-    public virtual Task DisableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default) =>
-        TypeConstants.EmptyTask;
+    public virtual Task DisableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default)
+    {
+        return TypeConstants.EmptyTask;
+    }
 
     /// <summary>
     /// Sets the parameter values.
@@ -2551,8 +2582,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="modelDef">The model definition.</param>
     /// <returns><c>true</c> if [has insert return values] [the specified model definition]; otherwise, <c>false</c>.</returns>
-    public virtual bool HasInsertReturnValues(ModelDefinition modelDef) =>
-        modelDef.FieldDefinitions.Any(x => x.ReturnOnInsert);
+    public virtual bool HasInsertReturnValues(ModelDefinition modelDef)
+    {
+        return modelDef.FieldDefinitions.Any(x => x.ReturnOnInsert);
+    }
 
     /// <summary>
     /// Gets the default value.
@@ -2608,7 +2641,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns>System.String.</returns>
-    public virtual string GetAutoIdDefaultValue(FieldDefinition fieldDef) => null;
+    public virtual string GetAutoIdDefaultValue(FieldDefinition fieldDef)
+    {
+        return null;
+    }
 
     /// <summary>
     /// Gets or sets the create table fields strategy.
@@ -2622,8 +2658,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="modelDef">The model definition.</param>
     /// <returns>List&lt;FieldDefinition&gt;.</returns>
-    public static IEnumerable<FieldDefinition> GetFieldDefinitions(ModelDefinition modelDef) =>
-        modelDef.FieldDefinitions.OrderBy(fd => fd.Order);
+    public static IEnumerable<FieldDefinition> GetFieldDefinitions(ModelDefinition modelDef)
+    {
+        return modelDef.FieldDefinitions.OrderBy(fd => fd.Order);
+    }
 
     /// <summary>
     /// Converts to createschemastatement.
@@ -2637,14 +2675,20 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
     /// <returns>System.Collections.Generic.List&lt;string&gt;.</returns>
-    public virtual List<string> GetSchemas(IDbCommand dbCmd) => ["default"];
+    public virtual List<string> GetSchemas(IDbCommand dbCmd)
+    {
+        return ["default"];
+    }
 
     /// <summary>
     /// Gets the schema tables.
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
     /// <returns>System.Collections.Generic.Dictionary&lt;string, System.Collections.Generic.List&lt;string&gt;&gt;.</returns>
-    public virtual Dictionary<string, List<string>> GetSchemaTables(IDbCommand dbCmd) => new();
+    public virtual Dictionary<string, List<string>> GetSchemaTables(IDbCommand dbCmd)
+    {
+        return new Dictionary<string, List<string>>();
+    }
 
     /// <summary>
     /// Doeses the schema exist.
@@ -2767,8 +2811,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="constraint">The constraint.</param>
     /// <param name="tableName">Name of the table.</param>
     /// <returns>System.String.</returns>
-    protected virtual string GetUniqueConstraintName(UniqueConstraintAttribute constraint, string tableName) =>
-        constraint.Name ?? $"UC_{tableName}_{constraint.FieldNames.Join("_")}";
+    protected virtual string GetUniqueConstraintName(UniqueConstraintAttribute constraint, string tableName)
+    {
+        return constraint.Name ?? $"UC_{tableName}_{constraint.FieldNames.Join("_")}";
+    }
 
     /// <summary>
     /// Gets the check constraint.
@@ -3169,28 +3215,40 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns>System.String.</returns>
-    public virtual string ToCreateSavePoint(string name) => $"SAVEPOINT {name}";
+    public virtual string ToCreateSavePoint(string name)
+    {
+        return $"SAVEPOINT {name}";
+    }
 
     /// <summary>
     /// Converts to releasesavepoint.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns>System.String.</returns>
-    public virtual string ToReleaseSavePoint(string name) => $"RELEASE SAVEPOINT {name}";
+    public virtual string ToReleaseSavePoint(string name)
+    {
+        return $"RELEASE SAVEPOINT {name}";
+    }
 
     /// <summary>
     /// Converts to rollbacksavepoint.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns>System.String.</returns>
-    public virtual string ToRollbackSavePoint(string name) => $"ROLLBACK TO SAVEPOINT {name}";
+    public virtual string ToRollbackSavePoint(string name)
+    {
+        return $"ROLLBACK TO SAVEPOINT {name}";
+    }
 
     /// <summary>
     /// Sequences the list.
     /// </summary>
     /// <param name="tableType">Type of the table.</param>
     /// <returns>List&lt;System.String&gt;.</returns>
-    public virtual List<string> SequenceList(Type tableType) => [];
+    public virtual List<string> SequenceList(Type tableType)
+    {
+        return [];
+    }
 
     /// <summary>
     /// Sequences the list asynchronous.
@@ -3198,8 +3256,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="tableType">Type of the table.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns>
-    public virtual Task<List<string>> SequenceListAsync(Type tableType, CancellationToken token = default) =>
-        new List<string>().InTask();
+    public virtual Task<List<string>> SequenceListAsync(Type tableType, CancellationToken token = default)
+    {
+        return new List<string>().InTask();
+    }
 
     // TODO : make abstract  ??
     /// <summary>
@@ -3247,14 +3307,20 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="objWithProperties">The object with properties.</param>
     /// <returns>System.String.</returns>
-    public virtual string ToExecuteProcedureStatement(object objWithProperties) => null;
+    public virtual string ToExecuteProcedureStatement(object objWithProperties)
+    {
+        return null;
+    }
 
     /// <summary>
     /// Gets the model.
     /// </summary>
     /// <param name="modelType">Type of the model.</param>
     /// <returns>ModelDefinition.</returns>
-    static protected ModelDefinition GetModel(Type modelType) => modelType.GetModelDefinition();
+    static protected ModelDefinition GetModel(Type modelType)
+    {
+        return modelType.GetModelDefinition();
+    }
 
     /// <summary>
     /// SQLs the expression.
@@ -3425,7 +3491,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="modelDef">The model definition.</param>
     /// <returns>System.String.</returns>
-    public virtual string GetDropForeignKeyConstraints(ModelDefinition modelDef) => null;
+    public virtual string GetDropForeignKeyConstraints(ModelDefinition modelDef)
+    {
+        return null;
+    }
 
     /// <summary>
     /// Converts to alter column statement.
@@ -3434,8 +3503,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="table">The table.</param>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns>System.String.</returns>
-    public virtual string ToAddColumnStatement(string schema, string table, FieldDefinition fieldDef) =>
-        $"ALTER TABLE {this.GetQuotedTableName(table, schema)} ADD COLUMN {this.GetColumnDefinition(fieldDef)};";
+    public virtual string ToAddColumnStatement(string schema, string table, FieldDefinition fieldDef)
+    {
+        return $"ALTER TABLE {this.GetQuotedTableName(table, schema)} ADD COLUMN {this.GetColumnDefinition(fieldDef)};";
+    }
 
     /// <summary>
     /// Converts to altercolumnstatement.
@@ -3444,8 +3515,11 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="table">The table.</param>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns>System.String.</returns>
-    public virtual string ToAlterColumnStatement(string schema, string table, FieldDefinition fieldDef) =>
-        $"ALTER TABLE {this.GetQuotedTableName(table, schema)} MODIFY COLUMN {this.GetColumnDefinition(fieldDef)};";
+    public virtual string ToAlterColumnStatement(string schema, string table, FieldDefinition fieldDef)
+    {
+        return
+            $"ALTER TABLE {this.GetQuotedTableName(table, schema)} MODIFY COLUMN {this.GetColumnDefinition(fieldDef)};";
+    }
 
     /// <summary>
     /// Converts to changecolumnnamestatement.
@@ -3455,8 +3529,11 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="fieldDef">The field definition.</param>
     /// <param name="oldColumn">The old column.</param>
     /// <returns>System.String.</returns>
-    public virtual string ToChangeColumnNameStatement(string schema, string table, FieldDefinition fieldDef, string oldColumn) =>
-        $"ALTER TABLE {this.GetQuotedTableName(table, schema)} CHANGE COLUMN {this.GetQuotedColumnName(oldColumn)} {this.GetColumnDefinition(fieldDef)};";
+    public virtual string ToChangeColumnNameStatement(string schema, string table, FieldDefinition fieldDef, string oldColumn)
+    {
+        return
+            $"ALTER TABLE {this.GetQuotedTableName(table, schema)} CHANGE COLUMN {this.GetQuotedColumnName(oldColumn)} {this.GetColumnDefinition(fieldDef)};";
+    }
 
     /// <summary>
     /// Converts to renamecolumnstatement.
@@ -3466,8 +3543,11 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="oldColumn">The old column.</param>
     /// <param name="newColumn">The new column.</param>
     /// <returns>System.String.</returns>
-    public virtual string ToRenameColumnStatement(string schema, string table, string oldColumn, string newColumn) =>
-        $"ALTER TABLE {this.GetQuotedTableName(table, schema)} RENAME COLUMN {this.GetQuotedColumnName(oldColumn)} TO {this.GetQuotedColumnName(newColumn)};";
+    public virtual string ToRenameColumnStatement(string schema, string table, string oldColumn, string newColumn)
+    {
+        return
+            $"ALTER TABLE {this.GetQuotedTableName(table, schema)} RENAME COLUMN {this.GetQuotedColumnName(oldColumn)} TO {this.GetQuotedColumnName(newColumn)};";
+    }
 
     /// <summary>
     /// Converts to add foreign key statement.
@@ -3513,8 +3593,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="table">The table.</param>
     /// <param name="foreignKeyName">Name of the foreign key.</param>
     /// <returns>string.</returns>
-    public virtual string ToDropForeignKeyStatement(string schema, string table, string foreignKeyName) =>
-        $"ALTER TABLE {GetQuotedTableName(table, schema)} DROP CONSTRAINT {GetQuotedName(foreignKeyName)};";
+    public virtual string ToDropForeignKeyStatement(string schema, string table, string foreignKeyName)
+    {
+        return $"ALTER TABLE {this.GetQuotedTableName(table, schema)} DROP CONSTRAINT {this.GetQuotedName(foreignKeyName)};";
+    }
 
     /// <summary>
     /// Converts to create index statement.
@@ -3646,8 +3728,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// </summary>
     /// <param name="innerSql">The inner SQL.</param>
     /// <returns>System.String.</returns>
-    public virtual string ToRowCountStatement(string innerSql) =>
-        $"SELECT COUNT(*) FROM ({innerSql}) AS COUNT";
+    public virtual string ToRowCountStatement(string innerSql)
+    {
+        return $"SELECT COUNT(*) FROM ({innerSql}) AS COUNT";
+    }
 
     /// <summary>
     /// Drops the column.
@@ -3656,8 +3740,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="table">The table.</param>
     /// <param name="column">The column.</param>
     /// <returns>System.String.</returns>
-    public virtual string ToDropColumnStatement(string schema, string table, string column) =>
-        $"ALTER TABLE {this.GetQuotedTableName(table, schema)} DROP COLUMN {this.GetQuotedColumnName(column)};";
+    public virtual string ToDropColumnStatement(string schema, string table, string column)
+    {
+        return $"ALTER TABLE {this.GetQuotedTableName(table, schema)} DROP COLUMN {this.GetQuotedColumnName(column)};";
+    }
 
     /// <summary>
     /// Converts to tablenamesstatement.
@@ -3665,7 +3751,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="schema">The schema.</param>
     /// <returns>System.String.</returns>
     /// <exception cref="System.NotSupportedException"></exception>
-    public virtual string ToTableNamesStatement(string schema) => throw new NotSupportedException();
+    public virtual string ToTableNamesStatement(string schema)
+    {
+        throw new NotSupportedException();
+    }
 
     /// <summary>
     /// Return table, row count SQL for listing all tables with their row counts
@@ -3673,8 +3762,11 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="live">If true returns live current row counts of each table (slower), otherwise returns cached row counts from RDBMS table stats</param>
     /// <param name="schema">The table schema if any</param>
     /// <returns>System.String.</returns>
-    public virtual string ToTableNamesWithRowCountsStatement(bool live, string schema) =>
-        null; // returning null Fallsback to slow UNION N+1 COUNT(*) op
+    public virtual string ToTableNamesWithRowCountsStatement(bool live, string schema)
+    {
+        return null;
+        // returning null Fallsback to slow UNION N+1 COUNT(*) op
+    }
 
     /// <summary>
     /// SQLs the conflict.
@@ -3682,21 +3774,31 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="sql">The SQL.</param>
     /// <param name="conflictResolution">The conflict resolution.</param>
     /// <returns>System.String.</returns>
-    public virtual string SqlConflict(string sql, string conflictResolution) => sql; // NOOP
+    public virtual string SqlConflict(string sql, string conflictResolution)
+    {
+        return sql;
+        // NOOP
+    }
 
     /// <summary>
     /// SQLs the concat.
     /// </summary>
     /// <param name="args">The arguments.</param>
     /// <returns>System.String.</returns>
-    public virtual string SqlConcat(IEnumerable<object> args) => $"CONCAT({string.Join(", ", args)})";
+    public virtual string SqlConcat(IEnumerable<object> args)
+    {
+        return $"CONCAT({string.Join(", ", args)})";
+    }
 
     /// <summary>
     /// SQLs the currency.
     /// </summary>
     /// <param name="fieldOrValue">The field or value.</param>
     /// <returns>System.String.</returns>
-    public virtual string SqlCurrency(string fieldOrValue) => this.SqlCurrency(fieldOrValue, "$");
+    public virtual string SqlCurrency(string fieldOrValue)
+    {
+        return this.SqlCurrency(fieldOrValue, "$");
+    }
 
     /// <summary>
     /// SQLs the currency.
@@ -3704,15 +3806,20 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="fieldOrValue">The field or value.</param>
     /// <param name="currencySymbol">The currency symbol.</param>
     /// <returns>System.String.</returns>
-    public virtual string SqlCurrency(string fieldOrValue, string currencySymbol) =>
-        this.SqlConcat(new List<string> { currencySymbol, fieldOrValue });
+    public virtual string SqlCurrency(string fieldOrValue, string currencySymbol)
+    {
+        return this.SqlConcat(new List<string> { currencySymbol, fieldOrValue });
+    }
 
     /// <summary>
     /// SQLs the bool.
     /// </summary>
     /// <param name="value">if set to <c>true</c> [value].</param>
     /// <returns>System.String.</returns>
-    public virtual string SqlBool(bool value) => value ? "true" : "false";
+    public virtual string SqlBool(bool value)
+    {
+        return value ? "true" : "false";
+    }
 
     /// <summary>
     /// SQLs the limit.
@@ -3720,9 +3827,11 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="offset">The offset.</param>
     /// <param name="rows">The rows.</param>
     /// <returns>System.String.</returns>
-    public virtual string SqlLimit(int? offset = null, int? rows = null) =>
-        rows == null && offset == null ? string.Empty :
-        offset == null ? "LIMIT " + rows : "LIMIT " + rows.GetValueOrDefault(int.MaxValue) + " OFFSET " + offset;
+    public virtual string SqlLimit(int? offset = null, int? rows = null)
+    {
+        return rows == null && offset == null ? string.Empty :
+            offset == null ? "LIMIT " + rows : "LIMIT " + rows.GetValueOrDefault(int.MaxValue) + " OFFSET " + offset;
+    }
 
     /// <summary>
     /// SQLs the cast.
@@ -3730,7 +3839,10 @@ public abstract class OrmLiteDialectProviderBase<TDialect>
     /// <param name="fieldOrValue">The field or value.</param>
     /// <param name="castAs">The cast as.</param>
     /// <returns>System.String.</returns>
-    public virtual string SqlCast(object fieldOrValue, string castAs) => $"CAST({fieldOrValue} AS {castAs})";
+    public virtual string SqlCast(object fieldOrValue, string castAs)
+    {
+        return $"CAST({fieldOrValue} AS {castAs})";
+    }
 
     /// <summary>
     /// Gets the SQL random.

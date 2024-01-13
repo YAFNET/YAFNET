@@ -120,10 +120,7 @@ public class ModelDefinition
     /// Gets the primary key.
     /// </summary>
     /// <value>The primary key.</value>
-    public FieldDefinition PrimaryKey
-    {
-        get { return this.FieldDefinitions.First(x => x.IsPrimaryKey); }
-    }
+    public FieldDefinition PrimaryKey => this.FieldDefinitions.First(x => x.IsPrimaryKey);
 
     /// <summary>
     /// Gets the primary key.
@@ -132,7 +129,7 @@ public class ModelDefinition
     /// <returns>System.Object.</returns>
     public object GetPrimaryKey(object instance)
     {
-        var pk = PrimaryKey;
+        var pk = this.PrimaryKey;
         return pk != null
                    ? pk.GetValue(instance)
                    : instance.GetId();
@@ -210,7 +207,7 @@ public class ModelDefinition
     public List<FieldDefinition> GetAutoIdFieldDefinitions()
     {
         var to = new List<FieldDefinition>();
-        foreach (var fieldDef in FieldDefinitionsArray)
+        foreach (var fieldDef in this.FieldDefinitionsArray)
         {
             if (fieldDef.AutoId)
             {
@@ -240,8 +237,8 @@ public class ModelDefinition
         foreach (var fieldName in fieldNames)
         {
             var fieldDef = sanitizeFieldName != null
-                               ? AssertFieldDefinition(fieldName, sanitizeFieldName)
-                               : AssertFieldDefinition(fieldName);
+                               ? this.AssertFieldDefinition(fieldName, sanitizeFieldName)
+                               : this.AssertFieldDefinition(fieldName);
             fieldDefs[i++] = fieldDef;
         }
 
@@ -255,20 +252,20 @@ public class ModelDefinition
     /// <returns>Dictionary&lt;System.String, FieldDefinition&gt;.</returns>
     public Dictionary<string, FieldDefinition> GetFieldDefinitionMap(Func<string, string> sanitizeFieldName)
     {
-        lock (fieldDefLock)
+        lock (this.fieldDefLock)
         {
-            if (fieldDefinitionMap != null && fieldNameSanitizer == sanitizeFieldName)
+            if (this.fieldDefinitionMap != null && this.fieldNameSanitizer == sanitizeFieldName)
             {
                 return this.fieldDefinitionMap;
             }
 
-            fieldDefinitionMap = new Dictionary<string, FieldDefinition>(StringComparer.OrdinalIgnoreCase);
-            fieldNameSanitizer = sanitizeFieldName;
-            foreach (var fieldDef in FieldDefinitionsArray)
+            this.fieldDefinitionMap = new Dictionary<string, FieldDefinition>(StringComparer.OrdinalIgnoreCase);
+            this.fieldNameSanitizer = sanitizeFieldName;
+            foreach (var fieldDef in this.FieldDefinitionsArray)
             {
-                fieldDefinitionMap[sanitizeFieldName(fieldDef.FieldName)] = fieldDef;
+                this.fieldDefinitionMap[sanitizeFieldName(fieldDef.FieldName)] = fieldDef;
             }
-            return fieldDefinitionMap;
+            return this.fieldDefinitionMap;
         }
     }
 
@@ -298,7 +295,7 @@ public class ModelDefinition
     /// <returns>FieldDefinition.</returns>
     public FieldDefinition GetFieldDefinition<T>(Expression<Func<T, object>> field)
     {
-        return GetFieldDefinition(ExpressionUtils.GetMemberName(field));
+        return this.GetFieldDefinition(ExpressionUtils.GetMemberName(field));
     }
 
     /// <summary>
@@ -307,8 +304,10 @@ public class ModelDefinition
     /// <param name="fieldName">Name of the field.</param>
     /// <exception cref="System.NotSupportedException">'{fieldName}' is not a property of '{Name}'</exception>
     [MethodImpl(MethodImplOptions.NoInlining)]
-    private void ThrowNoFieldException(string fieldName) =>
-        throw new NotSupportedException($"'{fieldName}' is not a property of '{Name}'");
+    private void ThrowNoFieldException(string fieldName)
+    {
+        throw new NotSupportedException($"'{fieldName}' is not a property of '{this.Name}'");
+    }
 
     /// <summary>
     /// Asserts the field definition.
@@ -317,7 +316,7 @@ public class ModelDefinition
     /// <returns>FieldDefinition.</returns>
     public FieldDefinition AssertFieldDefinition(string fieldName)
     {
-        var fieldDef = GetFieldDefinition(fieldName);
+        var fieldDef = this.GetFieldDefinition(fieldName);
         if (fieldDef == null)
         {
             this.ThrowNoFieldException(fieldName);
@@ -335,28 +334,28 @@ public class ModelDefinition
     {
         if (fieldName != null)
         {
-            foreach (var f in FieldDefinitionsWithAliases)
+            foreach (var f in this.FieldDefinitionsWithAliases)
             {
                 if (f.Alias == fieldName)
                 {
                     return f;
                 }
             }
-            foreach (var f in FieldDefinitionsArray)
+            foreach (var f in this.FieldDefinitionsArray)
             {
                 if (f.Name == fieldName)
                 {
                     return f;
                 }
             }
-            foreach (var f in FieldDefinitionsWithAliases)
+            foreach (var f in this.FieldDefinitionsWithAliases)
             {
                 if (string.Equals(f.Alias, fieldName, StringComparison.OrdinalIgnoreCase))
                 {
                     return f;
                 }
             }
-            foreach (var f in FieldDefinitionsArray)
+            foreach (var f in this.FieldDefinitionsArray)
             {
                 if (string.Equals(f.Name, fieldName, StringComparison.OrdinalIgnoreCase))
                 {
@@ -375,7 +374,7 @@ public class ModelDefinition
     /// <returns>FieldDefinition.</returns>
     public FieldDefinition AssertFieldDefinition(string fieldName, Func<string, string> sanitizeFieldName)
     {
-        var fieldDef = GetFieldDefinition(fieldName, sanitizeFieldName);
+        var fieldDef = this.GetFieldDefinition(fieldName, sanitizeFieldName);
         if (fieldDef == null)
         {
             this.ThrowNoFieldException(fieldName);
@@ -394,21 +393,21 @@ public class ModelDefinition
     {
         if (fieldName != null)
         {
-            foreach (var f in FieldDefinitionsWithAliases)
+            foreach (var f in this.FieldDefinitionsWithAliases)
             {
                 if (f.Alias == fieldName || sanitizeFieldName(f.Alias) == fieldName)
                 {
                     return f;
                 }
             }
-            foreach (var f in FieldDefinitionsArray)
+            foreach (var f in this.FieldDefinitionsArray)
             {
                 if (f.Name == fieldName || sanitizeFieldName(f.Name) == fieldName)
                 {
                     return f;
                 }
             }
-            foreach (var f in FieldDefinitionsWithAliases)
+            foreach (var f in this.FieldDefinitionsWithAliases)
             {
                 if (string.Equals(f.Alias, fieldName, StringComparison.OrdinalIgnoreCase) ||
                     string.Equals(sanitizeFieldName(f.Alias), fieldName, StringComparison.OrdinalIgnoreCase))
@@ -416,7 +415,7 @@ public class ModelDefinition
                     return f;
                 }
             }
-            foreach (var f in FieldDefinitionsArray)
+            foreach (var f in this.FieldDefinitionsArray)
             {
                 if (string.Equals(f.Name, fieldName, StringComparison.OrdinalIgnoreCase) ||
                     string.Equals(sanitizeFieldName(f.Name), fieldName, StringComparison.OrdinalIgnoreCase))
@@ -434,8 +433,10 @@ public class ModelDefinition
     /// <param name="fieldName">Name of the field.</param>
     /// <param name="dialectProvider">The dialect provider.</param>
     /// <returns>System.String.</returns>
-    public string GetQuotedName(string fieldName, IOrmLiteDialectProvider dialectProvider) =>
-        GetFieldDefinition(fieldName)?.GetQuotedName(dialectProvider);
+    public string GetQuotedName(string fieldName, IOrmLiteDialectProvider dialectProvider)
+    {
+        return this.GetFieldDefinition(fieldName)?.GetQuotedName(dialectProvider);
+    }
 
     /// <summary>
     /// Gets the field definition.
@@ -444,14 +445,14 @@ public class ModelDefinition
     /// <returns>FieldDefinition.</returns>
     public FieldDefinition GetFieldDefinition(Func<string, bool> predicate)
     {
-        foreach (var f in FieldDefinitionsWithAliases)
+        foreach (var f in this.FieldDefinitionsWithAliases)
         {
             if (predicate(f.Alias))
             {
                 return f;
             }
         }
-        foreach (var f in FieldDefinitionsArray)
+        foreach (var f in this.FieldDefinitionsArray)
         {
             if (predicate(f.Name))
             {
@@ -467,18 +468,18 @@ public class ModelDefinition
     /// </summary>
     public void AfterInit()
     {
-        FieldDefinitionsArray = FieldDefinitions.ToArray();
-        FieldDefinitionsWithAliases = FieldDefinitions.Where(x => x.Alias != null).ToArray();
+        this.FieldDefinitionsArray = this.FieldDefinitions.ToArray();
+        this.FieldDefinitionsWithAliases = this.FieldDefinitions.Where(x => x.Alias != null).ToArray();
 
-        IgnoredFieldDefinitionsArray = IgnoredFieldDefinitions.ToArray();
+        this.IgnoredFieldDefinitionsArray = this.IgnoredFieldDefinitions.ToArray();
 
-        var allItems = new List<FieldDefinition>(FieldDefinitions);
-        allItems.AddRange(IgnoredFieldDefinitions);
-        AllFieldDefinitionsArray = allItems.ToArray(); 
-        ReferenceFieldDefinitionsArray = allItems.Where(x => x.IsReference).ToArray(); 
-        ReferenceFieldNames = new HashSet<string>(ReferenceFieldDefinitionsArray.Select(x => x.Name), StringComparer.OrdinalIgnoreCase);
+        var allItems = new List<FieldDefinition>(this.FieldDefinitions);
+        allItems.AddRange(this.IgnoredFieldDefinitions);
+        this.AllFieldDefinitionsArray = allItems.ToArray();
+        this.ReferenceFieldDefinitionsArray = allItems.Where(x => x.IsReference).ToArray();
+        this.ReferenceFieldNames = new HashSet<string>(this.ReferenceFieldDefinitionsArray.Select(x => x.Name), StringComparer.OrdinalIgnoreCase);
 
-        AutoIdFields = GetAutoIdFieldDefinitions().ToArray();
+        this.AutoIdFields = this.GetAutoIdFieldDefinitions().ToArray();
 
         OrmLiteConfig.OnModelDefinitionInit?.Invoke(this);
     }
@@ -490,8 +491,8 @@ public class ModelDefinition
     /// <returns><c>true</c> if [is reference field] [the specified field definition]; otherwise, <c>false</c>.</returns>
     public bool IsRefField(FieldDefinition fieldDef)
     {
-        return fieldDef.Alias != null && IsRefField(fieldDef.Alias)
-               || IsRefField(fieldDef.Name);
+        return fieldDef.Alias != null && this.IsRefField(fieldDef.Alias)
+               || this.IsRefField(fieldDef.Name);
     }
 
     /// <summary>
@@ -501,22 +502,28 @@ public class ModelDefinition
     /// <returns><c>true</c> if [is reference field] [the specified name]; otherwise, <c>false</c>.</returns>
     private bool IsRefField(string name)
     {
-        return Alias != null && Alias + "Id" == name
-               || Name + "Id" == name;
+        return this.Alias != null && this.Alias + "Id" == name
+               || this.Name + "Id" == name;
     }
 
     /// <summary>
-    /// Returns a <see cref="System.String" /> that represents this instance.
+    /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>
-    /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-    public override string ToString() => Name;
+    /// <returns>A <see cref="string" /> that represents this instance.</returns>
+    public override string ToString()
+    {
+        return this.Name;
+    }
 
     /// <summary>
     /// Determines whether the specified field name is reference.
     /// </summary>
     /// <param name="fieldName">Name of the field.</param>
     /// <returns><c>true</c> if the specified field name is reference; otherwise, <c>false</c>.</returns>
-    public bool IsReference(string fieldName) => ReferenceFieldNames.Contains(fieldName);
+    public bool IsReference(string fieldName)
+    {
+        return this.ReferenceFieldNames.Contains(fieldName);
+    }
 
     /// <summary>
     /// Determines whether [has any references] [the specified field names].
@@ -527,7 +534,7 @@ public class ModelDefinition
     {
         foreach (var fieldName in fieldNames)
         {
-            if (ReferenceFieldNames.Contains(fieldName))
+            if (this.ReferenceFieldNames.Contains(fieldName))
             {
                 return true;
             }
@@ -540,7 +547,10 @@ public class ModelDefinition
     /// </summary>
     /// <param name="modelType">Type of the model.</param>
     /// <returns>ModelDefinition.</returns>
-    public static ModelDefinition For(Type modelType) => modelType.GetModelDefinition();
+    public static ModelDefinition For(Type modelType)
+    {
+        return modelType.GetModelDefinition();
+    }
 }
 
 

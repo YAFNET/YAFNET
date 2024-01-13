@@ -25,7 +25,6 @@
 namespace YAF.Pages;
 
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 
 using YAF.Core.Extensions;
@@ -64,7 +63,7 @@ public class PollEditModel : ForumPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public PollEditInputModel Input { get; set; }
 
     /// <summary>
     /// The cancel_ click.
@@ -80,7 +79,7 @@ public class PollEditModel : ForumPage
     public IActionResult OnGet(int? f = null, int? pollId = null, int? t = null)
     {
         this.PollId = null;
-        this.Input = new InputModel();
+        this.Input = new PollEditInputModel();
 
         // we return to a forum (used when a topic should be approved)
         if (f.HasValue)
@@ -355,28 +354,5 @@ public class PollEditModel : ForumPage
         }
 
         return this.PageBoardContext.BoardSettings.AllowedPollChoiceNumber > 0;
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public bool IsClosedBoundCheckBox { get; set; }
-
-        public bool AllowMultipleChoicesCheckBox { get; set; }
-
-        public bool ShowVotersCheckBox { get; set; }
-
-        [BindProperty, MaxLength(255)]
-        public string Question { get; set; }
-
-        [BindProperty, MaxLength(255)]
-        public string QuestionObjectPath { get; set; }
-
-        [BindProperty, MaxLength(10)]
-        public string PollExpire { get; set; }
-
-        public List<Choice> Choices { get; set; }
     }
  }

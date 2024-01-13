@@ -4,11 +4,13 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 namespace ServiceStack.OrmLite.MySql;
 
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+
 /// <summary>
 /// Class MySqlExpression.
 /// Implements the <see cref="ServiceStack.OrmLite.SqlExpression{T}" />
@@ -41,7 +43,7 @@ public class MySqlExpression<T> : SqlExpression<T>
     public override string ToDeleteRowStatement()
     {
         return base.tableDefs.Count > 1
-                   ? $"DELETE {DialectProvider.GetQuotedTableName(modelDef)} {FromExpression} {WhereExpression}"
+                   ? $"DELETE {this.DialectProvider.GetQuotedTableName(this.modelDef)} {this.FromExpression} {this.WhereExpression}"
                    : base.ToDeleteRowStatement();
     }
 
@@ -57,16 +59,16 @@ public class MySqlExpression<T> : SqlExpression<T>
             return base.VisitColumnAccessMethod(m);
         }
 
-        List<object> args = this.VisitExpressionList(m.Arguments);
-        var quotedColName = Visit(m.Object);
+        var args = this.VisitExpressionList(m.Arguments);
+        var quotedColName = this.Visit(m.Object);
 
         if (!IsSqlClass(quotedColName))
         {
-            quotedColName = ConvertToParam(quotedColName);
+            quotedColName = this.ConvertToParam(quotedColName);
         }
 
         var arg = args.Count > 0 ? args[0] : null;
-        string statement = arg == null ? ToCast(quotedColName.ToString()) : $"DATE_FORMAT({quotedColName},'{arg}')";
+        var statement = arg == null ? this.ToCast(quotedColName.ToString()) : $"DATE_FORMAT({quotedColName},'{arg}')";
         return new PartialSqlString(statement);
     }
 

@@ -32,8 +32,8 @@ public sealed class CustomPropertyTypeMap : SqlMapper.ITypeMap
     /// <exception cref="System.ArgumentNullException">propertySelector</exception>
     public CustomPropertyTypeMap(Type type, Func<Type, string, PropertyInfo> propertySelector)
     {
-        _type = type ?? throw new ArgumentNullException(nameof(type));
-        _propertySelector = propertySelector ?? throw new ArgumentNullException(nameof(propertySelector));
+        this._type = type ?? throw new ArgumentNullException(nameof(type));
+        this._propertySelector = propertySelector ?? throw new ArgumentNullException(nameof(propertySelector));
     }
 
     /// <summary>
@@ -42,14 +42,19 @@ public sealed class CustomPropertyTypeMap : SqlMapper.ITypeMap
     /// <param name="names">DataReader column names</param>
     /// <param name="types">DataReader column types</param>
     /// <returns>Default constructor</returns>
-    public ConstructorInfo FindConstructor(string[] names, Type[] types) =>
-        _type.GetConstructor(Type.EmptyTypes);
+    public ConstructorInfo FindConstructor(string[] names, Type[] types)
+    {
+        return this._type.GetConstructor(Type.EmptyTypes);
+    }
 
     /// <summary>
     /// Always returns null
     /// </summary>
     /// <returns>ConstructorInfo.</returns>
-    public ConstructorInfo FindExplicitConstructor() => null;
+    public ConstructorInfo FindExplicitConstructor()
+    {
+        return null;
+    }
 
     /// <summary>
     /// Not implemented as far as default constructor used for all cases
@@ -70,7 +75,7 @@ public sealed class CustomPropertyTypeMap : SqlMapper.ITypeMap
     /// <returns>Poperty member map</returns>
     public SqlMapper.IMemberMap GetMember(string columnName)
     {
-        var prop = _propertySelector(_type, columnName);
+        var prop = this._propertySelector(this._type, columnName);
         return prop != null ? new SimpleMemberMap(columnName, prop) : null;
     }
 }

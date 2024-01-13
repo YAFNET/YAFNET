@@ -70,8 +70,8 @@ public static partial class SqlMapper
         /// <returns>System.Int32.</returns>
         static int CountNonTrivial(out int hashCode)
         {
-            int hashCodeLocal = 0;
-            int count = 0;
+            var hashCodeLocal = 0;
+            var count = 0;
             bool Map<T>()
             {
                 if (typeof(T) != typeof(DontMap))
@@ -138,7 +138,7 @@ public static partial class SqlMapper
         internal IdentityWithTypes(string sql, CommandType? commandType, string connectionString, Type type, Type parametersType, Type[] otherTypes, int gridIndex = 0)
             : base(sql, commandType, connectionString, type, parametersType, HashTypes(otherTypes), gridIndex)
         {
-            _types = otherTypes ?? Type.EmptyTypes;
+            this._types = otherTypes ?? Type.EmptyTypes;
         }
         /// <summary>
         /// Initializes a new instance of the <see cref="IdentityWithTypes" /> class.
@@ -153,21 +153,24 @@ public static partial class SqlMapper
         internal IdentityWithTypes(string sql, CommandType? commandType, IDbConnection connection, Type type, Type parametersType, Type[] otherTypes, int gridIndex = 0)
             : base(sql, commandType, connection.ConnectionString, type, parametersType, HashTypes(otherTypes), gridIndex)
         {
-            _types = otherTypes ?? Type.EmptyTypes;
+            this._types = otherTypes ?? Type.EmptyTypes;
         }
 
         /// <summary>
         /// Gets the type count.
         /// </summary>
         /// <value>The type count.</value>
-        override internal int TypeCount => _types.Length;
+        override internal int TypeCount => this._types.Length;
 
         /// <summary>
         /// Gets the type.
         /// </summary>
         /// <param name="index">The index.</param>
         /// <returns>Type.</returns>
-        override internal Type GetType(int index) => _types[index];
+        override internal Type GetType(int index)
+        {
+            return this._types[index];
+        }
 
         /// <summary>
         /// Hashes the types.
@@ -205,7 +208,10 @@ public static partial class SqlMapper
         /// <param name="index">The index.</param>
         /// <returns>Type.</returns>
         /// <exception cref="System.IndexOutOfRangeException">index</exception>
-        internal virtual Type GetType(int index) => throw new IndexOutOfRangeException(nameof(index));
+        internal virtual Type GetType(int index)
+        {
+            throw new IndexOutOfRangeException(nameof(index));
+        }
 
         /// <summary>
         /// Fors the grid.
@@ -220,8 +226,11 @@ public static partial class SqlMapper
         /// <param name="primaryType">Type of the primary.</param>
         /// <param name="gridIndex">Index of the grid.</param>
         /// <returns>Identity.</returns>
-        internal Identity ForGrid<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh>(Type primaryType, int gridIndex) =>
-            new Identity<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh>(sql, commandType, connectionString, primaryType, parametersType, gridIndex);
+        internal Identity ForGrid<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh>(Type primaryType, int gridIndex)
+        {
+            return new Identity<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh>(this.sql, this.commandType,
+                this.connectionString, primaryType, this.parametersType, gridIndex);
+        }
 
         /// <summary>
         /// Fors the grid.
@@ -229,8 +238,10 @@ public static partial class SqlMapper
         /// <param name="primaryType">Type of the primary.</param>
         /// <param name="gridIndex">Index of the grid.</param>
         /// <returns>Identity.</returns>
-        internal Identity ForGrid(Type primaryType, int gridIndex) =>
-            new Identity(sql, commandType, connectionString, primaryType, parametersType, 0, gridIndex);
+        internal Identity ForGrid(Type primaryType, int gridIndex)
+        {
+            return new Identity(this.sql, this.commandType, this.connectionString, primaryType, this.parametersType, 0, gridIndex);
+        }
 
         /// <summary>
         /// Fors the grid.
@@ -239,18 +250,23 @@ public static partial class SqlMapper
         /// <param name="otherTypes">The other types.</param>
         /// <param name="gridIndex">Index of the grid.</param>
         /// <returns>Identity.</returns>
-        internal Identity ForGrid(Type primaryType, Type[] otherTypes, int gridIndex) =>
-            otherTypes == null || otherTypes.Length == 0
-                ? new Identity(sql, commandType, connectionString, primaryType, parametersType, 0, gridIndex)
-                : new IdentityWithTypes(sql, commandType, connectionString, primaryType, parametersType, otherTypes, gridIndex);
+        internal Identity ForGrid(Type primaryType, Type[] otherTypes, int gridIndex)
+        {
+            return otherTypes == null || otherTypes.Length == 0
+                ? new Identity(this.sql, this.commandType, this.connectionString, primaryType, this.parametersType, 0, gridIndex)
+                : new IdentityWithTypes(this.sql, this.commandType, this.connectionString, primaryType, this.parametersType, otherTypes,
+                    gridIndex);
+        }
 
         /// <summary>
         /// Create an identity for use with DynamicParameters, internal use only.
         /// </summary>
         /// <param name="type">The parameters type to create an <see cref="Identity" /> for.</param>
         /// <returns>Identity.</returns>
-        public Identity ForDynamicParameters(Type type) =>
-            new Identity(sql, commandType, connectionString, this.type, type, 0, -1);
+        public Identity ForDynamicParameters(Type type)
+        {
+            return new Identity(this.sql, this.commandType, this.connectionString, this.type, type, 0, -1);
+        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Identity" /> class.
@@ -283,14 +299,14 @@ public static partial class SqlMapper
             this.gridIndex = gridIndex;
             unchecked
             {
-                hashCode = 17; // we *know* we are using this in a dictionary, so pre-compute this
-                hashCode = hashCode * 23 + commandType.GetHashCode();
-                hashCode = hashCode * 23 + gridIndex.GetHashCode();
-                hashCode = hashCode * 23 + (sql?.GetHashCode() ?? 0);
-                hashCode = hashCode * 23 + (type?.GetHashCode() ?? 0);
-                hashCode = hashCode * 23 + otherTypesHash;
-                hashCode = hashCode * 23 + (connectionString == null ? 0 : connectionStringComparer.GetHashCode(connectionString));
-                hashCode = hashCode * 23 + (parametersType?.GetHashCode() ?? 0);
+                this.hashCode = 17; // we *know* we are using this in a dictionary, so pre-compute this
+                this.hashCode = this.hashCode * 23 + commandType.GetHashCode();
+                this.hashCode = this.hashCode * 23 + gridIndex.GetHashCode();
+                this.hashCode = this.hashCode * 23 + (sql?.GetHashCode() ?? 0);
+                this.hashCode = this.hashCode * 23 + (type?.GetHashCode() ?? 0);
+                this.hashCode = this.hashCode * 23 + otherTypesHash;
+                this.hashCode = this.hashCode * 23 + (connectionString == null ? 0 : connectionStringComparer.GetHashCode(connectionString));
+                this.hashCode = this.hashCode * 23 + (parametersType?.GetHashCode() ?? 0);
             }
         }
 
@@ -298,8 +314,11 @@ public static partial class SqlMapper
         /// Whether this <see cref="Identity" /> equals another.
         /// </summary>
         /// <param name="obj">The other <see cref="object" /> to compare to.</param>
-        /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
-        public override bool Equals(object obj) => Equals(obj as Identity);
+        /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+        public override bool Equals(object obj)
+        {
+            return this.Equals(obj as Identity);
+        }
 
         /// <summary>
         /// The raw SQL command.
@@ -340,13 +359,19 @@ public static partial class SqlMapper
         /// Gets the hash code for this identity.
         /// </summary>
         /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
-        public override int GetHashCode() => hashCode;
+        public override int GetHashCode()
+        {
+            return this.hashCode;
+        }
 
         /// <summary>
         /// See object.ToString()
         /// </summary>
-        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-        public override string ToString() => sql;
+        /// <returns>A <see cref="string" /> that represents this instance.</returns>
+        public override string ToString()
+        {
+            return this.sql;
+        }
 
         /// <summary>
         /// Compare 2 Identity objects
@@ -366,13 +391,13 @@ public static partial class SqlMapper
             }
 
             int typeCount;
-            return gridIndex == other.gridIndex
-                   && type == other.type
-                   && sql == other.sql
-                   && commandType == other.commandType
-                   && connectionStringComparer.Equals(connectionString, other.connectionString)
-                   && parametersType == other.parametersType
-                   && (typeCount = TypeCount) == other.TypeCount
+            return this.gridIndex == other.gridIndex
+                   && this.type == other.type
+                   && this.sql == other.sql
+                   && this.commandType == other.commandType
+                   && connectionStringComparer.Equals(this.connectionString, other.connectionString)
+                   && this.parametersType == other.parametersType
+                   && (typeCount = this.TypeCount) == other.TypeCount
                    && (typeCount == 0 || TypesEqual(this, other, typeCount));
         }
 
@@ -391,7 +416,7 @@ public static partial class SqlMapper
                 return false;
             }
 
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
                 if (x.GetType(i) != y.GetType(i))
                 {

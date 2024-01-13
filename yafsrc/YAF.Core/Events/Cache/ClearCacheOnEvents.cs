@@ -122,7 +122,7 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// </param>
     void IHandleEvent<UserLogoutEvent>.Handle(UserLogoutEvent @event)
     {
-        // Clearing user cache with permissions data and active users cache...));
+        // Clearing user cache with permissions data and active users cache
         this.DataCache.Remove(string.Format(Constants.Cache.ActiveUserLazyData, @event.UserId));
         this.DataCache.Remove(Constants.Cache.UsersOnlineStatus);
     }

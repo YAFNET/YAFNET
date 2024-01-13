@@ -119,14 +119,20 @@ public static class OrmLiteUtils
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>bool.</returns>
-    static internal bool IsTuple(this Type type) => type.Name.StartsWith("Tuple`", StringComparison.Ordinal);
+    static internal bool IsTuple(this Type type)
+    {
+        return type.Name.StartsWith("Tuple`", StringComparison.Ordinal);
+    }
 
     /// <summary>
     /// Determines whether [is value tuple] [the specified type].
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>bool.</returns>
-    static internal bool IsValueTuple(this Type type) => type.Name.StartsWith("ValueTuple`", StringComparison.Ordinal);
+    static internal bool IsValueTuple(this Type type)
+    {
+        return type.Name.StartsWith("ValueTuple`", StringComparison.Ordinal);
+    }
 
     /// <summary>
     /// Determines whether this instance is scalar.
@@ -926,8 +932,8 @@ public static class OrmLiteUtils
     public static string[] GetFieldNames(this IDataReader reader)
     {
         var fields = new string[reader.FieldCount];
-        int count = reader.FieldCount;
-        for (int i = 0; i < count; i++)
+        var count = reader.FieldCount;
+        for (var i = 0; i < count; i++)
         {
             fields[i] = reader.GetName(i);
         }
@@ -1249,12 +1255,18 @@ public static class OrmLiteUtils
     /// <summary>
     /// Prints the SQL.
     /// </summary>
-    public static void PrintSql() => OrmLiteConfig.BeforeExecFilter = cmd => Console.WriteLine(cmd.GetDebugString());
+    public static void PrintSql()
+    {
+        OrmLiteConfig.BeforeExecFilter = cmd => Console.WriteLine(cmd.GetDebugString());
+    }
 
     /// <summary>
     /// Uns the print SQL.
     /// </summary>
-    public static void UnPrintSql() => OrmLiteConfig.BeforeExecFilter = null;
+    public static void UnPrintSql()
+    {
+        OrmLiteConfig.BeforeExecFilter = null;
+    }
 
     /// <summary>
     /// Captures the SQL.
@@ -1271,13 +1283,18 @@ public static class OrmLiteUtils
     /// Captures the SQL.
     /// </summary>
     /// <param name="sb">The sb.</param>
-    public static void CaptureSql(StringBuilder sb) =>
+    public static void CaptureSql(StringBuilder sb)
+    {
         OrmLiteConfig.BeforeExecFilter = cmd => sb.AppendLine(cmd.GetDebugString());
+    }
 
     /// <summary>
     /// Uns the capture SQL.
     /// </summary>
-    public static void UnCaptureSql() => OrmLiteConfig.BeforeExecFilter = null;
+    public static void UnCaptureSql()
+    {
+        OrmLiteConfig.BeforeExecFilter = null;
+    }
 
     /// <summary>
     /// Uns the capture SQL and free.
@@ -1553,7 +1570,7 @@ public static class OrmLiteUtils
 
         var inDoubleQuotes = false;
         var inSingleQuotes = false;
-        int inBracesCount = 0;
+        var inBracesCount = 0;
 
         var pos = 0;
 
@@ -1685,16 +1702,22 @@ public static class OrmLiteUtils
     /// </summary>
     /// <param name="text">The text.</param>
     /// <returns>string.</returns>
-    public static string QuotedLiteral(string text) => text == null || text.IndexOf('\'') >= 0
-                                                           ? text
-                                                           : "'" + text + "'";
+    public static string QuotedLiteral(string text)
+    {
+        return text == null || text.IndexOf('\'') >= 0
+            ? text
+            : "'" + text + "'";
+    }
 
     /// <summary>
     /// Unquoteds the name of the column.
     /// </summary>
     /// <param name="columnExpr">The column expr.</param>
     /// <returns>string.</returns>
-    public static string UnquotedColumnName(string columnExpr) => columnExpr.LastRightPart('.').StripDbQuotes();
+    public static string UnquotedColumnName(string columnExpr)
+    {
+        return columnExpr.LastRightPart('.').StripDbQuotes();
+    }
 
     /// <summary>
     /// Orders the by fields.
@@ -1748,7 +1771,10 @@ public static class OrmLiteUtils
     /// </summary>
     /// <param name="connectionString">The connection string.</param>
     /// <returns>System.String.</returns>
-    public static string MaskPassword(string connectionString) => connectionString != null
-                                                                      ? RegexPassword.Replace(connectionString, "$1=***")
-                                                                      : null;
+    public static string MaskPassword(string connectionString)
+    {
+        return connectionString != null
+            ? RegexPassword.Replace(connectionString, "$1=***")
+            : null;
+    }
 }

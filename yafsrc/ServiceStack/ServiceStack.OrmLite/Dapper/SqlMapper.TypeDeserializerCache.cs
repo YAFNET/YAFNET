@@ -144,20 +144,20 @@ public static partial class SqlMapper
                 if (copyDown)
                 {
                     this.reader = null;
-                    names = new string[length];
-                    types = new Type[length];
-                    int index = startBound;
-                    for (int i = 0; i < length; i++)
+                    this.names = new string[length];
+                    this.types = new Type[length];
+                    var index = startBound;
+                    for (var i = 0; i < length; i++)
                     {
-                        names[i] = reader.GetName(index);
-                        types[i] = reader.GetFieldType(index++);
+                        this.names[i] = reader.GetName(index);
+                        this.types[i] = reader.GetFieldType(index++);
                     }
                 }
                 else
                 {
                     this.reader = reader;
-                    names = null;
-                    types = null;
+                    this.names = null;
+                    this.types = null;
                 }
             }
 
@@ -165,7 +165,10 @@ public static partial class SqlMapper
             /// Returns a hash code for this instance.
             /// </summary>
             /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
-            public override int GetHashCode() => hashCode;
+            public override int GetHashCode()
+            {
+                return this.hashCode;
+            }
 
             /// <summary>
             /// Returns a <see cref="string" /> that represents this instance.
@@ -173,22 +176,22 @@ public static partial class SqlMapper
             /// <returns>A <see cref="string" /> that represents this instance.</returns>
             public override string ToString()
             { // only used in the debugger
-                if (names != null)
+                if (this.names != null)
                 {
-                    return string.Join(", ", names);
+                    return string.Join(", ", this.names);
                 }
-                if (reader != null)
+                if (this.reader != null)
                 {
                     var sb = new StringBuilder();
-                    int index = startBound;
-                    for (int i = 0; i < length; i++)
+                    var index = this.startBound;
+                    for (var i = 0; i < this.length; i++)
                     {
                         if (i != 0)
                         {
                             sb.Append(", ");
                         }
 
-                        sb.Append(reader.GetName(index++));
+                        sb.Append(this.reader.GetName(index++));
                     }
                     return sb.ToString();
                 }
@@ -200,7 +203,10 @@ public static partial class SqlMapper
             /// </summary>
             /// <param name="obj">The object to compare with the current instance.</param>
             /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
-            public override bool Equals(object obj) => obj is DeserializerKey key && Equals(key);
+            public override bool Equals(object obj)
+            {
+                return obj is DeserializerKey key && this.Equals(key);
+            }
 
             /// <summary>
             /// Indicates whether the current object is equal to another object of the same type.
@@ -209,18 +215,18 @@ public static partial class SqlMapper
             /// <returns><see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.</returns>
             public bool Equals(DeserializerKey other)
             {
-                if (hashCode != other.hashCode
-                    || startBound != other.startBound
-                    || length != other.length
-                    || returnNullIfFirstMissing != other.returnNullIfFirstMissing)
+                if (this.hashCode != other.hashCode
+                    || this.startBound != other.startBound
+                    || this.length != other.length
+                    || this.returnNullIfFirstMissing != other.returnNullIfFirstMissing)
                 {
                     return false; // clearly different
                 }
-                for (int i = 0; i < length; i++)
+                for (var i = 0; i < this.length; i++)
                 {
-                    if ((names?[i] ?? reader?.GetName(startBound + i)) != (other.names?[i] ?? other.reader?.GetName(startBound + i))
+                    if ((this.names?[i] ?? this.reader?.GetName(this.startBound + i)) != (other.names?[i] ?? other.reader?.GetName(this.startBound + i))
                         ||
-                        (types?[i] ?? reader?.GetFieldType(startBound + i)) != (other.types?[i] ?? other.reader?.GetFieldType(startBound + i))
+                        (this.types?[i] ?? this.reader?.GetFieldType(this.startBound + i)) != (other.types?[i] ?? other.reader?.GetFieldType(this.startBound + i))
                        )
                     {
                         return false; // different column name or type
@@ -245,7 +251,7 @@ public static partial class SqlMapper
                 length = reader.FieldCount - startBound;
             }
 
-            int hash = GetColumnHash(reader, startBound, length);
+            var hash = GetColumnHash(reader, startBound, length);
             if (returnNullIfFirstMissing)
             {
                 hash *= -27;
@@ -254,19 +260,19 @@ public static partial class SqlMapper
             // get a cheap key first: false means don't copy the values down
             var key = new DeserializerKey(hash, startBound, length, returnNullIfFirstMissing, reader, false);
             Func<IDataReader, object> deser;
-            lock (readers)
+            lock (this.readers)
             {
-                if (readers.TryGetValue(key, out deser))
+                if (this.readers.TryGetValue(key, out deser))
                 {
                     return deser;
                 }
             }
-            deser = GetTypeDeserializerImpl(type, reader, startBound, length, returnNullIfFirstMissing);
+            deser = GetTypeDeserializerImpl(this.type, reader, startBound, length, returnNullIfFirstMissing);
             // get a more expensive key: true means copy the values down so it can be used as a key later
             key = new DeserializerKey(hash, startBound, length, returnNullIfFirstMissing, reader, true);
-            lock (readers)
+            lock (this.readers)
             {
-                return readers[key] = deser;
+                return this.readers[key] = deser;
             }
         }
     }

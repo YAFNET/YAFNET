@@ -36,7 +36,7 @@ public class PruneModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public PruneInputModel Input { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PruneModel"/> class.
@@ -60,7 +60,7 @@ public class PruneModel : AdminPage
     /// </summary>
     public  void OnGet()
     {
-        this.Input = new InputModel();
+        this.Input = new PruneInputModel();
     }
 
     /// <summary>
@@ -75,17 +75,5 @@ public class PruneModel : AdminPage
             this.Input.PermanentDelete);
 
         return this.PageBoardContext.Notify(this.GetText("ADMIN_PRUNE", "MSG_TASK"), MessageTypes.info);
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public int ForumListSelected { get; set; }
-
-        public int Days { get; set; } = 60;
-
-        public bool PermanentDelete { get; set; }
     }
 }

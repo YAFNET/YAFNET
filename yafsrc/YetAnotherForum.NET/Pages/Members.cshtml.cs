@@ -53,7 +53,7 @@ public class MembersModel : ForumPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public MembersInputModel Input { get; set; }
 
     /// <summary>
     /// Gets or sets the admins.
@@ -61,12 +61,24 @@ public class MembersModel : ForumPage
     [BindProperty]
     public List<PagedUser> UserList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the groups list.
+    /// </summary>
+    /// <value>The groups list.</value>
     [BindProperty]
     public List<SelectListItem> GroupsList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the ranks list.
+    /// </summary>
+    /// <value>The ranks list.</value>
     [BindProperty]
     public List<SelectListItem> RanksList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the number post list.
+    /// </summary>
+    /// <value>The number post list.</value>
     [BindProperty]
     public List<SelectListItem> NumPostList { get; set; }
 
@@ -130,7 +142,7 @@ public class MembersModel : ForumPage
     /// The start Letter.
     /// </param>
     /// <param name="userName">
-    /// The user Name.
+    /// The username.
     /// </param>
     /// <returns>
     /// The Members List
@@ -159,7 +171,7 @@ public class MembersModel : ForumPage
     /// </summary>
     public void OnGet()
     {
-        this.Input = new InputModel {
+        this.Input = new MembersInputModel {
                                         SortNameField = 1,
                                         SortRankNameField = 0,
                                         SortJoinedField = 0,
@@ -404,31 +416,5 @@ public class MembersModel : ForumPage
                 this.Input.SortLastVisitField = value;
                 break;
         }
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public int SortNameField { get; set; }
-
-        public int SortRankNameField { get; set; }
-
-        public int SortJoinedField { get; set; }
-
-        public int SortNumPostsField { get; set; }
-
-        public int SortLastVisitField { get; set; }
-
-        public int NumPosts { get; set; }
-
-        public int NumPostValue { get; set; }
-
-        public int Group { get; set; }
-
-        public int Rank { get; set; }
-
-        public string UserSearchName { get; set; }
     }
 }

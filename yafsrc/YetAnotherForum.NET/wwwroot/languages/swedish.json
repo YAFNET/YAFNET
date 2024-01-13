@@ -321,14 +321,6 @@
             "#text": "Medaljer för redigering"
           },
           {
-            "@tag": "ADMIN_EDITNNTPFORUM",
-            "#text": "Redigerar NNTP-forum"
-          },
-          {
-            "@tag": "ADMIN_EDITNNTPSERVER",
-            "#text": "Redigerar NNTP-server"
-          },
-          {
             "@tag": "ADMIN_EDITRANK",
             "#text": "Redigeringar av rang"
           },
@@ -363,18 +355,6 @@
           {
             "@tag": "ADMIN_MEDALS",
             "#text": "Visar/redigerar medaljer"
-          },
-          {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "Visar/redigerar NNTP-forum"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "Hämtar NNTP"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "Visa/redigera NNTP-servrar"
           },
           {
             "@tag": "ADMIN_PM",
@@ -3135,128 +3115,6 @@
         ]
       },
       {
-        "@name": "ADMIN_EDITNNTPFORUM",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "Aktiv:"
-          },
-          {
-            "@tag": "ACTIVE_HELP",
-            "#text": "Kontrollera detta för att göra forumet aktivt."
-          },
-          {
-            "@tag": "DATECUTOFF",
-            "#text": "Slutdatum för meddelanden:"
-          },
-          {
-            "@tag": "DATECUTOFF_HELP",
-            "#text": "Meddelanden som är äldre än detta datum bör inte laddas ner."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "Forum:"
-          },
-          {
-            "@tag": "FORUM_HELP",
-            "#text": "Meddelandena i forumet kommer att läggas in i."
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "Grupp:"
-          },
-          {
-            "@tag": "GROUP_HELP",
-            "#text": "Namnet på nyhetsgruppen."
-          },
-          {
-            "@tag": "MSG_SELECT_FORUM",
-            "#text": "Du måste välja ett forum för att spara NNTP-meddelanden."
-          },
-          {
-            "@tag": "MSG_VALID_GROUP",
-            "#text": "Du bör ange ett giltigt gruppnamn."
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "Server:"
-          },
-          {
-            "@tag": "SERVER_HELP",
-            "#text": "Vilken server denna grupp finns på."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit NNTP Forum"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "Redigera NNTP-forum"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_EDITNNTPSERVER",
-        "Resource": [
-          {
-            "@tag": "MSG_SERVER_ADR",
-            "#text": "Serveradress saknas."
-          },
-          {
-            "@tag": "MSG_SERVER_NAME",
-            "#text": "Servernamn saknas."
-          },
-          {
-            "@tag": "NNTP_ADRESS",
-            "#text": "Adress:"
-          },
-          {
-            "@tag": "NNTP_ADRESS_HELP",
-            "#text": "Serverns värdnamn."
-          },
-          {
-            "@tag": "NNTP_NAME",
-            "#text": "Namn:"
-          },
-          {
-            "@tag": "NNTP_NAME_HELP",
-            "#text": "Namnet på den här servern."
-          },
-          {
-            "@tag": "NNTP_PASSWORD",
-            "#text": "Lösenord:"
-          },
-          {
-            "@tag": "NNTP_PASSWORD_HELP",
-            "#text": "Lösenordet som används för att logga in på nntp-servern."
-          },
-          {
-            "@tag": "NNTP_PORT",
-            "#text": "Hamn:"
-          },
-          {
-            "@tag": "NNTP_PORT_HELP",
-            "#text": "Portnumret som ska anslutas till."
-          },
-          {
-            "@tag": "NNTP_USERNAME",
-            "#text": "Användarnamn:"
-          },
-          {
-            "@tag": "NNTP_USERNAME_HELP",
-            "#text": "Användarnamnet som används för att logga in på nntp-servern."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit NNTP Server"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "Redigera NNTP-server"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_EDITRANK",
         "Resource": [
           {
@@ -4311,14 +4169,6 @@
           {
             "@tag": "COLLAPSED",
             "#text": "Kollapsad"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES",
-            "#text": "Skapa NNTP-användarnamn:"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES_HELP",
-            "#text": "Markera om du vill att användare ska skapas automatiskt när du laddar ner usenet-meddelanden. Aktivera endast detta i en testmiljö och <em>JÄMNES</em> i en produktionsmiljö. Huvudsyftet med det här alternativet är för prestandatestning."
           },
           {
             "@tag": "CROP_IMAGE_ATTACH",
@@ -5966,149 +5816,6 @@
         ]
       },
       {
-        "@name": "ADMIN_NNTPFORUMS",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "Aktiv"
-          },
-          {
-            "@tag": "DELETE",
-            "#text": "Ta bort"
-          },
-          {
-            "@tag": "DELETE_FORUM",
-            "#text": "Radera detta forum?"
-          },
-          {
-            "@tag": "EDIT",
-            "#text": "Redigera"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Forums"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "Forum"
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "Grupp"
-          },
-          {
-            "@tag": "NEW_FORUM",
-            "#text": "Nytt forum"
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Spara forumet"
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "Server"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP-forum"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPRETRIEVE",
-        "Resource": [
-          {
-            "@tag": "BETA_WARNING",
-            "#text": "<p>\r\n    The NNTP feature of Yet Another Forum.net is still beta, and <strong>will</strong> have bugs.\r\n    Bugs you should look for is character set conversion, and incorrect time on posts.\r\n    Usenet articles will be posted to the forum with the date from the article header,\r\n    meaning that you well could get future dates. Please let me know of any unknown\r\n    time zones that are encountered.\r\n  </p>\r\n  <p>\r\n    The forums usenet Articles are posted to should be read-only, as messages will <strong>not</strong>\r\n    be posted back to the usenet. For speed purposes usenet articles are automatically\r\n    approved, meaning that if the forum is moderated, the posts will be automatically\r\n    approved.\r\n  </p>\r\n  <p>\r\n    To protect usenet servers, a newsgroup can only be updated once every 10 minutes.\r\n  </p>"
-          },
-          {
-            "@tag": "GROUPS",
-            "#text": "Grupper redo för hämtning"
-          },
-          {
-            "@tag": "HEADER",
-            "#text": "Hämta NNTP-artiklar"
-          },
-          {
-            "@tag": "LAST_MESSAGE",
-            "#text": "Sista meddelandet"
-          },
-          {
-            "@tag": "LAST_UPDATE",
-            "#text": "Senaste uppdatering"
-          },
-          {
-            "@tag": "NO_GROUPS",
-            "#text": "Inga grupper redo att hämtas"
-          },
-          {
-            "@tag": "RETRIEVE",
-            "#text": "Hämta"
-          },
-          {
-            "@tag": "RETRIEVED",
-            "#text": "Hämtade {0} artiklar. {1:N2} artiklar per sekund."
-          },
-          {
-            "@tag": "SECONDS",
-            "#text": "sekunder"
-          },
-          {
-            "@tag": "TIME",
-            "#text": "Ange hur mycket tid det ska ta att hämta artiklar."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP Hämta"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPSERVERS",
-        "Resource": [
-          {
-            "@tag": "ADRESS",
-            "#text": "Adress"
-          },
-          {
-            "@tag": "DELETE_SERVER",
-            "#text": "Ta bort den här servern?"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Servers"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
-          },
-          {
-            "@tag": "NAME",
-            "#text": "Namn"
-          },
-          {
-            "@tag": "NEW_SERVER",
-            "#text": "Ny server"
-          },
-          {
-            "@tag": "SAVE_SERVER",
-            "#text": "Spara server"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP-servrar"
-          },
-          {
-            "@tag": "USERNAME",
-            "#text": "Användarnamn"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
@@ -7124,18 +6831,6 @@
             "#text": "Medaljer"
           },
           {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "NNTP-forum"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "Hämta artiklar"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "NNTP-servrar"
-          },
-          {
             "@tag": "ADMIN_PAGEACCESSEDIT",
             "#text": "Redigera åtkomst till administratörssidan"
           },
@@ -7218,10 +6913,6 @@
           {
             "@tag": "MAINTENANCE",
             "#text": "Underhåll"
-          },
-          {
-            "@tag": "NNTP",
-            "#text": "NNTP"
           },
           {
             "@tag": "SETTINGS",

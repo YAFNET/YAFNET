@@ -4,8 +4,11 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 using System;
+
 using ServiceStack.OrmLite.Converters;
+
 using System.Globalization;
 
 namespace ServiceStack.OrmLite.SqlServer.Converters;
@@ -20,7 +23,7 @@ public class SqlServerDateTimeConverter : DateTimeConverter
     /// <summary>
     /// The date time format
     /// </summary>
-    const string DateTimeFormat = "yyyyMMdd HH:mm:ss.fff";
+    private const string DateTimeFormat = "yyyyMMdd HH:mm:ss.fff";
 
     /// <summary>
     /// Quoted Value in SQL Statement
@@ -30,7 +33,7 @@ public class SqlServerDateTimeConverter : DateTimeConverter
     /// <returns>System.String.</returns>
     public override string ToQuotedString(Type fieldType, object value)
     {
-        return DateTimeFmt((DateTime)value, DateTimeFormat);
+        return this.DateTimeFmt((DateTime)value, DateTimeFormat);
     }
 
     /// <summary>
@@ -42,7 +45,9 @@ public class SqlServerDateTimeConverter : DateTimeConverter
     public override object FromDbValue(Type fieldType, object value)
     {
         if (value is string str && DateTime.TryParseExact(str, DateTimeFormat, null, DateTimeStyles.None, out var date))
+        {
             return date;
+        }
 
         return base.FromDbValue(fieldType, value);
     }

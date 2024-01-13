@@ -424,7 +424,7 @@ public class DataImporter : IHaveServiceLocator, IDataImporter
             {
                 if (await this.Get<IAspNetUsersHelper>().GetUserByNameAsync((string)row["Name"]) == null)
                 {
-                    importedCount = await ImportUserAsync(row, importedCount);
+                    importedCount = await this.ImportUserAsync(row, importedCount);
                 }
             }
         }

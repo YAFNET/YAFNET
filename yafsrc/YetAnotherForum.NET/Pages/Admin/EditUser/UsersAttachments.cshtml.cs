@@ -64,7 +64,7 @@ public class UsersAttachmentsModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public UsersSignatureInputModel Input { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UsersAttachmentsModel"/> class.
@@ -86,8 +86,8 @@ public class UsersAttachmentsModel : AdminPage
             return this.Get<LinkBuilder>().AccessDenied();
         }
 
-        this.Input = new InputModel
-                     {
+        this.Input = new UsersSignatureInputModel
+        {
                          UserId = userId
                      };
 
@@ -159,17 +159,5 @@ public class UsersAttachmentsModel : AdminPage
             this.Size);
 
         this.Attachments = list;
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        /// <summary>
-        /// Gets or sets the user identifier.
-        /// </summary>
-        /// <value>The user identifier.</value>
-        public int UserId { get; set; }
     }
 }

@@ -5,9 +5,7 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
-namespace ServiceStack.OrmLite;
-
-using ServiceStack.OrmLite.MySql;
+namespace ServiceStack.OrmLite.MySql;
 
 /// <summary>
 /// Class MySqlDialect.

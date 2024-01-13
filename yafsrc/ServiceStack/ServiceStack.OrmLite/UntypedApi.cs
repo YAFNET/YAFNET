@@ -97,7 +97,7 @@ public class UntypedApi<T> : IUntypedApi
     /// <returns>TReturn.</returns>
     public TReturn Exec<TReturn>(Func<IDbCommand, TReturn> filter)
     {
-        return DbCmd != null ? filter(DbCmd) : Db.Exec(filter);
+        return this.DbCmd != null ? filter(this.DbCmd) : this.Db.Exec(filter);
     }
 
     /// <summary>
@@ -108,7 +108,7 @@ public class UntypedApi<T> : IUntypedApi
     /// <returns>Task&lt;TReturn&gt;.</returns>
     public Task<TReturn> Exec<TReturn>(Func<IDbCommand, Task<TReturn>> filter)
     {
-        return DbCmd != null ? filter(DbCmd) : Db.Exec(filter);
+        return this.DbCmd != null ? filter(this.DbCmd) : this.Db.Exec(filter);
     }
 
     /// <summary>
@@ -117,7 +117,7 @@ public class UntypedApi<T> : IUntypedApi
     /// <param name="filter">The filter.</param>
     public void Exec(Action<IDbCommand> filter)
     {
-        if (DbCmd != null)
+        if (this.DbCmd != null)
         {
             filter(this.DbCmd);
         }
@@ -134,7 +134,7 @@ public class UntypedApi<T> : IUntypedApi
     /// <returns>System.Int32.</returns>
     public int SaveAll(IEnumerable objs)
     {
-        return Exec(dbCmd => dbCmd.SaveAll((IEnumerable<T>)objs));
+        return this.Exec(dbCmd => dbCmd.SaveAll((IEnumerable<T>)objs));
     }
 
     /// <summary>
@@ -144,7 +144,7 @@ public class UntypedApi<T> : IUntypedApi
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public bool Save(object obj)
     {
-        return Exec(dbCmd => dbCmd.Save((T)obj));
+        return this.Exec(dbCmd => dbCmd.Save((T)obj));
     }
 
 #if ASYNC
@@ -156,7 +156,7 @@ public class UntypedApi<T> : IUntypedApi
     /// <returns>Task&lt;System.Int32&gt;.</returns>
     public Task<int> SaveAllAsync(IEnumerable objs, CancellationToken token)
     {
-        return Exec(dbCmd => dbCmd.SaveAllAsync((IEnumerable<T>)objs, token));
+        return this.Exec(dbCmd => dbCmd.SaveAllAsync((IEnumerable<T>)objs, token));
     }
 
     /// <summary>
@@ -167,7 +167,7 @@ public class UntypedApi<T> : IUntypedApi
     /// <returns>Task&lt;System.Boolean&gt;.</returns>
     public Task<bool> SaveAsync(object obj, CancellationToken token)
     {
-        return Exec(dbCmd => dbCmd.SaveAsync((T)obj, token));
+        return this.Exec(dbCmd => dbCmd.SaveAsync((T)obj, token));
     }
 #else
         public Task<int> SaveAllAsync(IEnumerable objs, CancellationToken token)
@@ -187,7 +187,7 @@ public class UntypedApi<T> : IUntypedApi
     /// <param name="objs">The objs.</param>
     public void InsertAll(IEnumerable objs)
     {
-        Exec(dbCmd => dbCmd.InsertAll((IEnumerable<T>)objs, commandFilter: null));
+        this.Exec(dbCmd => dbCmd.InsertAll((IEnumerable<T>)objs, commandFilter: null));
     }
 
     /// <summary>
@@ -197,7 +197,7 @@ public class UntypedApi<T> : IUntypedApi
     /// <param name="commandFilter">The command filter.</param>
     public void InsertAll(IEnumerable objs, Action<IDbCommand> commandFilter)
     {
-        Exec(dbCmd => dbCmd.InsertAll((IEnumerable<T>)objs, commandFilter: commandFilter));
+        this.Exec(dbCmd => dbCmd.InsertAll((IEnumerable<T>)objs, commandFilter: commandFilter));
     }
 
     /// <summary>
@@ -208,7 +208,7 @@ public class UntypedApi<T> : IUntypedApi
     /// <returns>System.Int64.</returns>
     public long Insert(object obj, bool selectIdentity = false)
     {
-        return Exec(dbCmd => dbCmd.Insert((T)obj, commandFilter: null, selectIdentity: selectIdentity));
+        return this.Exec(dbCmd => dbCmd.Insert((T)obj, commandFilter: null, selectIdentity: selectIdentity));
     }
 
     /// <summary>
@@ -220,7 +220,7 @@ public class UntypedApi<T> : IUntypedApi
     /// <returns>System.Int64.</returns>
     public long Insert(object obj, Action<IDbCommand> commandFilter, bool selectIdentity = false)
     {
-        return Exec(dbCmd => dbCmd.Insert((T)obj, commandFilter: commandFilter, selectIdentity: selectIdentity));
+        return this.Exec(dbCmd => dbCmd.Insert((T)obj, commandFilter: commandFilter, selectIdentity: selectIdentity));
     }
 
     /// <summary>
@@ -230,7 +230,7 @@ public class UntypedApi<T> : IUntypedApi
     /// <returns>System.Int32.</returns>
     public int UpdateAll(IEnumerable objs)
     {
-        return Exec(dbCmd => dbCmd.UpdateAll((IEnumerable<T>)objs));
+        return this.Exec(dbCmd => dbCmd.UpdateAll((IEnumerable<T>)objs));
     }
 
     /// <summary>
@@ -241,7 +241,7 @@ public class UntypedApi<T> : IUntypedApi
     /// <returns>System.Int32.</returns>
     public int UpdateAll(IEnumerable objs, Action<IDbCommand> commandFilter)
     {
-        return Exec(dbCmd => dbCmd.UpdateAll((IEnumerable<T>)objs, commandFilter: commandFilter));
+        return this.Exec(dbCmd => dbCmd.UpdateAll((IEnumerable<T>)objs, commandFilter: commandFilter));
     }
 
     /// <summary>
@@ -251,7 +251,7 @@ public class UntypedApi<T> : IUntypedApi
     /// <returns>System.Int32.</returns>
     public int Update(object obj)
     {
-        return Exec(dbCmd => dbCmd.Update((T)obj));
+        return this.Exec(dbCmd => dbCmd.Update((T)obj));
     }
 
     /// <summary>
@@ -262,7 +262,7 @@ public class UntypedApi<T> : IUntypedApi
     /// <returns>Task&lt;System.Int32&gt;.</returns>
     public Task<int> UpdateAsync(object obj, CancellationToken token)
     {
-        return Exec(dbCmd => dbCmd.UpdateAsync((T)obj, token));
+        return this.Exec(dbCmd => dbCmd.UpdateAsync((T)obj, token));
     }
 
     /// <summary>
@@ -273,7 +273,7 @@ public class UntypedApi<T> : IUntypedApi
     /// <returns>System.Int32.</returns>
     public int Update(object obj, Action<IDbCommand> commandFilter)
     {
-        return Exec(dbCmd => dbCmd.Update((T)obj, commandFilter: commandFilter));
+        return this.Exec(dbCmd => dbCmd.Update((T)obj, commandFilter: commandFilter));
     }
 
     /// <summary>
@@ -282,7 +282,7 @@ public class UntypedApi<T> : IUntypedApi
     /// <returns>System.Int32.</returns>
     public int DeleteAll()
     {
-        return Exec(dbCmd => dbCmd.DeleteAll<T>());
+        return this.Exec(dbCmd => dbCmd.DeleteAll<T>());
     }
 
     /// <summary>
@@ -293,7 +293,7 @@ public class UntypedApi<T> : IUntypedApi
     /// <returns>System.Int32.</returns>
     public int Delete(object obj, object anonType)
     {
-        return Exec(dbCmd => dbCmd.Delete<T>(anonType));
+        return this.Exec(dbCmd => dbCmd.Delete<T>(anonType));
     }
 
     /// <summary>
@@ -304,7 +304,7 @@ public class UntypedApi<T> : IUntypedApi
     /// <returns>System.Int32.</returns>
     public int DeleteNonDefaults(object obj, object filter)
     {
-        return Exec(dbCmd => dbCmd.DeleteNonDefaults((T)filter));
+        return this.Exec(dbCmd => dbCmd.DeleteNonDefaults((T)filter));
     }
 
     /// <summary>
@@ -314,7 +314,7 @@ public class UntypedApi<T> : IUntypedApi
     /// <returns>System.Int32.</returns>
     public int DeleteById(object id)
     {
-        return Exec(dbCmd => dbCmd.DeleteById<T>(id));
+        return this.Exec(dbCmd => dbCmd.DeleteById<T>(id));
     }
 
     /// <summary>
@@ -324,7 +324,7 @@ public class UntypedApi<T> : IUntypedApi
     /// <returns>System.Int32.</returns>
     public int DeleteByIds(IEnumerable idValues)
     {
-        return Exec(dbCmd => dbCmd.DeleteByIds<T>(idValues));
+        return this.Exec(dbCmd => dbCmd.DeleteByIds<T>(idValues));
     }
 
     /// <summary>

@@ -20,7 +20,7 @@ public class SqliteStringConverter : StringConverter
     /// Gets the maximum column definition.
     /// </summary>
     /// <value>The maximum column definition.</value>
-    public override string MaxColumnDefinition => UseUnicode ? "NVARCHAR(1000000)" : "VARCHAR(1000000)";
+    public override string MaxColumnDefinition => this.UseUnicode ? "NVARCHAR(1000000)" : "VARCHAR(1000000)";
 
     /// <summary>
     /// Gets the maximum length of the variable character.

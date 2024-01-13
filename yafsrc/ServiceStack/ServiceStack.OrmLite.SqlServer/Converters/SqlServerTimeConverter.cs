@@ -31,8 +31,8 @@ public class SqlServerTimeConverter : OrmLiteConverter
     /// SQL Column Definition used in CREATE Table.
     /// </summary>
     /// <value>The column definition.</value>
-    public override string ColumnDefinition => Precision != null
-                                                   ? $"TIME({Precision.Value})"
+    public override string ColumnDefinition => this.Precision != null
+                                                   ? $"TIME({this.Precision.Value})"
                                                    : "TIME";
 
     /// <summary>

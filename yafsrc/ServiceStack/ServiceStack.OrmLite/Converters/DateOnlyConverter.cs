@@ -26,7 +26,7 @@ public class DateOnlyConverter : DateTimeConverter
     public override string ToQuotedString(Type fieldType, object value)
     {
         var dateOnly = (DateOnly)value;
-        return DateTimeFmt(dateOnly.ToDateTime(default, DateTimeKind.Local), "yyyy-MM-dd HH:mm:ss.fff");
+        return this.DateTimeFmt(dateOnly.ToDateTime(default, DateTimeKind.Local), "yyyy-MM-dd HH:mm:ss.fff");
     }
 
     /// <summary>

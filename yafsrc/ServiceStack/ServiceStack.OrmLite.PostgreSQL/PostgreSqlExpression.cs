@@ -32,14 +32,16 @@ public class PostgreSqlExpression<T> : SqlExpression<T>
     /// <returns>string.</returns>
     override protected string GetQuotedColumnName(ModelDefinition tableDef, string memberName)
     {
-        if (!useFieldName)
+        if (!this.useFieldName)
         {
             return memberName;
         }
 
         var fieldDef = tableDef.FieldDefinitions.FirstOrDefault(x => x.Name == memberName);
-        if (fieldDef is { IsRowVersion: true } && !PrefixFieldWithTableName)
+        if (fieldDef is { IsRowVersion: true } && !this.PrefixFieldWithTableName)
+        {
             return PostgreSqlDialectProvider.RowVersionFieldComparer;
+        }
 
         return base.GetQuotedColumnName(tableDef, memberName);
     }

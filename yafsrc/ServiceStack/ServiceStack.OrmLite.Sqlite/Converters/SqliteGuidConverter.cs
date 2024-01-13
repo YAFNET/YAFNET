@@ -53,12 +53,16 @@ public class SqliteGuidConverter : GuidConverter
         if (values != null)
         {
             if (values[columnIndex] == DBNull.Value)
+            {
                 return null;
+            }
         }
         else
         {
             if (reader.IsDBNull(columnIndex))
+            {
                 return null;
+            }
         }
 
         return reader.GetGuid(columnIndex);
@@ -120,9 +124,7 @@ public class SqliteDataGuidConverter : GuidConverter
     /// <param name="index2">The index2.</param>
     private static void Swap(IList<byte> array, int index1, int index2)
     {
-        var temp = array[index1];
-        array[index1] = array[index2];
-        array[index2] = temp;
+        (array[index1], array[index2]) = (array[index2], array[index1]);
     }
 
     /// <summary>

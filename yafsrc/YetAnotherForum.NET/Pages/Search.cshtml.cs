@@ -43,7 +43,7 @@ public class SearchModel : ForumPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public SearchInputModel Input { get; set; }
 
     public List<SelectListItem> SearchWhatList { get; set; }
 
@@ -76,31 +76,31 @@ public class SearchModel : ForumPage
     /// <param name="tag">The tag.</param>
     public IActionResult OnGet(string search = null, string forum = null, string postedBy = null, string tag = null)
     {
-        this.Input = new InputModel();
+        this.Input = new SearchInputModel();
 
         var doSearch = false;
 
         // Load result dropdown
         this.ResultsPerPageList = [
-            new() { Text = this.GetText("result5"), Value = "5" },
-            new() { Text = this.GetText("result10"), Value = "10" },
-            new() { Text = this.GetText("result25"), Value = "25" },
-            new() { Text = this.GetText("result50"), Value = "50" }
+            new SelectListItem { Text = this.GetText("result5"), Value = "5" },
+            new SelectListItem { Text = this.GetText("result10"), Value = "10" },
+            new SelectListItem { Text = this.GetText("result25"), Value = "25" },
+            new SelectListItem { Text = this.GetText("result50"), Value = "50" }
         ];
 
         // Load listSearchWhat dropdown
         this.SearchWhatList = [
-            new() {
+            new SelectListItem {
                 Text = this.GetText("match_exact"),
                 Value = "2"
             },
 
-            new() {
+            new SelectListItem {
                 Text = this.GetText("match_any"),
                 Value = "1"
             },
 
-            new() {
+            new SelectListItem {
                 Text = this.GetText("match_all"),
                 Value = "0"
             }
@@ -108,8 +108,8 @@ public class SearchModel : ForumPage
 
         // Load TitleOnly dropdown
         this.TitleOnlyList = [
-            new() { Text = this.GetText("POST_AND_TITLE"), Value = "0" },
-            new() { Text = this.GetText("TITLE_ONLY"), Value = "1" }
+            new SelectListItem { Text = this.GetText("POST_AND_TITLE"), Value = "0" },
+            new SelectListItem { Text = this.GetText("TITLE_ONLY"), Value = "1" }
         ];
 
         this.Input.SearchWhat = "2";
@@ -154,25 +154,5 @@ public class SearchModel : ForumPage
         }
 
         return this.Page();
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public string SearchInput { get; set; }
-
-        public string SearchStringFromWho { get; set; }
-
-        public string SearchStringTag { get; set; }
-
-        public string SearchWhat { get; set; }
-
-        public string TitleOnly { get; set; }
-
-        public string ResultsPerPage { get; set; }
-
-        public string ForumListSelected { get; set; } = "0";
     }
 }

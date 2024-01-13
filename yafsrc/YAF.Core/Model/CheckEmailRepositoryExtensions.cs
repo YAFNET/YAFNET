@@ -25,7 +25,6 @@
 namespace YAF.Core.Model;
 
 using System;
-using System.Collections.Generic;
 
 using YAF.Types.Models;
 
@@ -34,22 +33,6 @@ using YAF.Types.Models;
 /// </summary>
 public static class CheckEmailRepositoryExtensions
 {
-    /// <summary>
-    /// The list typed.
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="email">
-    /// The email.
-    /// </param>
-    public static IList<CheckEmail> ListTyped(
-        this IRepository<CheckEmail> repository,
-        string email = null)
-    {
-        return email.IsSet() ? repository.Get(mail => mail.Email == email) : repository.Get(null);
-    }
-
     /// <summary>
     /// The save.
     /// </summary>

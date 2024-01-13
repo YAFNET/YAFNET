@@ -46,15 +46,15 @@ public class DbTypes<TDialect>
     /// <param name="fieldDefinition">The field definition.</param>
     public void Set<T>(DbType dbType, string fieldDefinition)
     {
-        DbType = dbType;
-        TextDefinition = fieldDefinition;
-        ShouldQuoteValue = fieldDefinition != "INTEGER"
+        this.DbType = dbType;
+        this.TextDefinition = fieldDefinition;
+        this.ShouldQuoteValue = fieldDefinition != "INTEGER"
                            && fieldDefinition != "BIGINT"
                            && fieldDefinition != "DOUBLE"
                            && fieldDefinition != "DECIMAL"
                            && fieldDefinition != "BOOL";
 
-        ColumnTypeMap[typeof(T)] = fieldDefinition;
-        ColumnDbTypeMap[typeof(T)] = dbType;
+        this.ColumnTypeMap[typeof(T)] = fieldDefinition;
+        this.ColumnDbTypeMap[typeof(T)] = dbType;
     }
 }

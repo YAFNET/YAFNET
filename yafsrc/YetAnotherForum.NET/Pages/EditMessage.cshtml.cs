@@ -27,7 +27,6 @@ using YAF.Types.Models;
 namespace YAF.Pages;
 
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -52,7 +51,7 @@ public class EditMessageModel : ForumPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public EditMessageInputModel Input { get; set; }
 
     /// <summary>
     /// Gets or sets the Topic Priorities.
@@ -136,7 +135,7 @@ public class EditMessageModel : ForumPage
     /// </summary>
     public IActionResult OnGet()
     {
-        this.Input = new InputModel();
+        this.Input = new EditMessageInputModel();
 
         if (this.PageBoardContext.PageMessage is null)
         {
@@ -472,36 +471,5 @@ public class EditMessageModel : ForumPage
             // subscribe to this topic...
             this.GetRepository<WatchTopic>().Add(userId, topicId);
         }
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        [BindProperty, MaxLength(100)]
-        public string TopicSubject { get; set; }
-
-        public string TopicDescription { get; set; }
-
-        public string From { get; set; }
-
-        public string TopicStyles { get; set; }
-
-        public IEnumerable<string> Tags { get; set; }
-
-        public string TagsValue { get; set; }
-
-        public string Editor { get; set; }
-
-        public string PreviewMessage { get; set; }
-
-        public string ReasonEditor { get; set; }
-
-        public int Priority { get; set; }
-
-        public bool Persistent { get; set; }
-
-        public bool TopicWatch { get; set; }
     }
 }

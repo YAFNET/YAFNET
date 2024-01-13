@@ -49,7 +49,7 @@ internal sealed class SqlDataRecordListTVPParameter<T> : SqlMapper.ICustomQueryP
     {
         var param = command.CreateParameter();
         param.ParameterName = name;
-        Set(param, data, typeName);
+        Set(param, this.data, this.typeName);
         command.Parameters.Add(param);
     }
 
@@ -81,14 +81,21 @@ static class StructuredHelper
     /// <param name="type">The type.</param>
     /// <returns>Action&lt;IDbDataParameter, System.String&gt;.</returns>
     private static Action<IDbDataParameter, string> GetUDT(Type type)
-        => (Action<IDbDataParameter, string>)s_udt[type] ?? SlowGetHelper(type, s_udt, "UdtTypeName", 29); // 29 = SqlDbType.Udt (avoiding ref)
+    {
+        return (Action<IDbDataParameter, string>)s_udt[type] ?? SlowGetHelper(type, s_udt, "UdtTypeName", 29);
+        // 29 = SqlDbType.Udt (avoiding ref)
+    }
+
     /// <summary>
     /// Gets the TVP.
     /// </summary>
     /// <param name="type">The type.</param>
     /// <returns>Action&lt;IDbDataParameter, System.String&gt;.</returns>
     private static Action<IDbDataParameter, string> GetTVP(Type type)
-        => (Action<IDbDataParameter, string>)s_tvp[type] ?? SlowGetHelper(type, s_tvp, "TypeName", 30); // 30 = SqlDbType.Structured (avoiding ref)
+    {
+        return (Action<IDbDataParameter, string>)s_tvp[type] ?? SlowGetHelper(type, s_tvp, "TypeName", 30);
+        // 30 = SqlDbType.Structured (avoiding ref)
+    }
 
     /// <summary>
     /// Slows the get helper.
@@ -162,12 +169,17 @@ static class StructuredHelper
     /// <param name="parameter">The parameter.</param>
     /// <param name="typeName">Name of the type.</param>
     static internal void ConfigureUDT(IDbDataParameter parameter, string typeName)
-        => GetUDT(parameter.GetType())(parameter, typeName);
+    {
+        GetUDT(parameter.GetType())(parameter, typeName);
+    }
+
     /// <summary>
     /// Configures the TVP.
     /// </summary>
     /// <param name="parameter">The parameter.</param>
     /// <param name="typeName">Name of the type.</param>
     static internal void ConfigureTVP(IDbDataParameter parameter, string typeName)
-        => GetTVP(parameter.GetType())(parameter, typeName);
+    {
+        GetTVP(parameter.GetType())(parameter, typeName);
+    }
 }

@@ -56,7 +56,7 @@ public class AdminModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public AdminInputModel Input { get; set; }
 
     /// <summary>
     /// Gets or sets the user list.
@@ -119,7 +119,8 @@ public class AdminModel : AdminPage
 
         var userUnApproved = unApprovedUsers.Find(x => x.ID == id);
 
-        var checkMail = this.GetRepository<CheckEmail>().ListTyped(userUnApproved.Email).FirstOrDefault();
+        var checkMail = await this.GetRepository<CheckEmail>()
+            .GetSingleAsync(mail => mail.Email == userUnApproved.Email);
 
         if (checkMail != null)
         {
@@ -295,7 +296,7 @@ public class AdminModel : AdminPage
     /// </summary>
     private void BindData(int p, int p2)
     {
-        this.Input = new InputModel {
+        this.Input = new AdminInputModel {
                                         SelectedBoardId = this.PageBoardContext.PageBoardID,
                                         UnverifiedPageSize = this.PageBoardContext.PageUser.PageSize
                                     };
@@ -376,41 +377,5 @@ public class AdminModel : AdminPage
 
         // bind list
         this.UserList = unverifiedUsers.GetPaged(pager);
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public string DBSize { get; set; }
-
-        public int DaysOld { get; set; } = 14;
-
-        public int SelectedBoardId { get; set; }
-
-        public int NumCategories { get; set; }
-
-        public int NumForums { get; set; }
-
-        public string NumTopics { get; set; }
-
-        public string NumPosts { get; set; }
-
-        public string NumUsers { get; set; }
-
-        public string BoardStart { get; set; }
-
-        public DateTime BoardStartAgo { get; set; }
-
-        public string DayPosts { get; set; }
-
-        public string DayTopics { get; set; }
-
-        public string DayUsers { get; set; }
-
-        public int UnverifiedPageSize { get; set; }
-
-        public int UnverifiedCount { get; set; }
     }
 }

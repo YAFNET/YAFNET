@@ -48,7 +48,7 @@ internal sealed class TableValuedParameter : SqlMapper.ICustomQueryParameter
     {
         var param = command.CreateParameter();
         param.ParameterName = name;
-        Set(param, table, typeName);
+        Set(param, this.table, this.typeName);
         command.Parameters.Add(param);
     }
 

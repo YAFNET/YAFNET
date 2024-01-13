@@ -52,7 +52,10 @@ internal sealed class XmlDocumentHandler : XmlTypeHandler<XmlDocument>
     /// </summary>
     /// <param name="xml">The string to format.</param>
     /// <returns>System.String.</returns>
-    override protected string Format(XmlDocument xml) => xml.OuterXml;
+    override protected string Format(XmlDocument xml)
+    {
+        return xml.OuterXml;
+    }
 }
 
 /// <summary>
@@ -65,13 +68,20 @@ internal sealed class XDocumentHandler : XmlTypeHandler<XDocument>
     /// </summary>
     /// <param name="xml">The string to parse.</param>
     /// <returns>T.</returns>
-    override protected XDocument Parse(string xml) => XDocument.Parse(xml);
+    override protected XDocument Parse(string xml)
+    {
+        return XDocument.Parse(xml);
+    }
+
     /// <summary>
     /// Format an instace into a string (the instance will never be null)
     /// </summary>
     /// <param name="xml">The string to format.</param>
     /// <returns>System.String.</returns>
-    override protected string Format(XDocument xml) => xml.ToString();
+    override protected string Format(XDocument xml)
+    {
+        return xml.ToString();
+    }
 }
 
 /// <summary>
@@ -84,11 +94,18 @@ internal sealed class XElementHandler : XmlTypeHandler<XElement>
     /// </summary>
     /// <param name="xml">The string to parse.</param>
     /// <returns>T.</returns>
-    override protected XElement Parse(string xml) => XElement.Parse(xml);
+    override protected XElement Parse(string xml)
+    {
+        return XElement.Parse(xml);
+    }
+
     /// <summary>
     /// Formats the specified XML.
     /// </summary>
     /// <param name="xml">The XML.</param>
     /// <returns>System.String.</returns>
-    override protected string Format(XElement xml) => xml.ToString();
+    override protected string Format(XElement xml)
+    {
+        return xml.ToString();
+    }
 }

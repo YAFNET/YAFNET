@@ -39,7 +39,7 @@ public class EditBBCodeModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public EditBBCodeInputModel Input { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="EditBBCodeModel"/> class.
@@ -119,7 +119,7 @@ public class EditBBCodeModel : AdminPage
     /// </summary>
     public IActionResult OnGet(int? b)
     {
-        this.Input = new InputModel();
+        this.Input = new EditBBCodeInputModel();
 
         var strAddEdit = b is null ? this.GetText("COMMON", "ADD") : this.GetText("COMMON", "EDIT");
 
@@ -130,39 +130,5 @@ public class EditBBCodeModel : AdminPage
         this.BindData(b);
 
         return this.Page();
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public int BBCodeId { get; set; }
-
-        public string Name { get; set; }
-
-        public int ExecOrder { get; set; }
-
-        public string Description { get; set; }
-
-        public string OnClickJS { get; set; }
-
-        public string DisplayJS { get; set; }
-
-        public string EditJS { get; set; }
-
-        public string DisplayCSS { get; set; }
-
-        public string SearchRegEx { get; set; }
-
-        public string ReplaceRegEx { get; set; }
-
-        public string Variables { get; set; }
-
-        public string ModuleClass { get; set; }
-
-        public bool UseModule { get; set; }
-
-        public bool UseToolbar { get; set; }
     }
 }

@@ -45,9 +45,9 @@ public class AliasNamingStrategy : OrmLiteNamingStrategyBase
     public override string GetTableName(string name)
     {
         string alias;
-        return UseNamingStrategy != null
-                   ? UseNamingStrategy.GetTableName(TableAliases.TryGetValue(name, out alias) ? alias : name)
-                   : base.GetTableName(TableAliases.TryGetValue(name, out alias) ? alias : name);
+        return this.UseNamingStrategy != null
+                   ? this.UseNamingStrategy.GetTableName(this.TableAliases.TryGetValue(name, out alias) ? alias : name)
+                   : base.GetTableName(this.TableAliases.TryGetValue(name, out alias) ? alias : name);
     }
 
     /// <summary>
@@ -58,9 +58,9 @@ public class AliasNamingStrategy : OrmLiteNamingStrategyBase
     public override string GetColumnName(string name)
     {
         string alias;
-        return UseNamingStrategy != null
-                   ? UseNamingStrategy.GetColumnName(ColumnAliases.TryGetValue(name, out alias) ? alias : name)
-                   : base.GetColumnName(ColumnAliases.TryGetValue(name, out alias) ? alias : name);
+        return this.UseNamingStrategy != null
+                   ? this.UseNamingStrategy.GetColumnName(this.ColumnAliases.TryGetValue(name, out alias) ? alias : name)
+                   : base.GetColumnName(this.ColumnAliases.TryGetValue(name, out alias) ? alias : name);
     }
 }
 
@@ -145,7 +145,7 @@ public class PrefixNamingStrategy : OrmLiteNamingStrategyBase
     /// <returns>System.String.</returns>
     public override string GetTableName(string name)
     {
-        return TablePrefix + name;
+        return this.TablePrefix + name;
     }
 
     /// <summary>
@@ -155,7 +155,7 @@ public class PrefixNamingStrategy : OrmLiteNamingStrategyBase
     /// <returns>System.String.</returns>
     public override string GetColumnName(string name)
     {
-        return ColumnPrefix + name;
+        return this.ColumnPrefix + name;
     }
 
 }

@@ -39,6 +39,11 @@ using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 
+/// <summary>
+/// Class UsersChangePassModel.
+/// Implements the <see cref="YAF.Core.BasePages.AdminPage" />
+/// </summary>
+/// <seealso cref="YAF.Core.BasePages.AdminPage" />
 public class UsersChangePassModel : AdminPage
 {
     /// <summary>
@@ -51,8 +56,11 @@ public class UsersChangePassModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public UsersChangePassInputModel Input { get; set; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UsersChangePassModel"/> class.
+    /// </summary>
     public UsersChangePassModel()
         : base("ADMIN_EDITUSER", ForumPages.Admin_EditUser)
     {
@@ -65,8 +73,8 @@ public class UsersChangePassModel : AdminPage
             return this.Get<LinkBuilder>().AccessDenied();
         }
 
-        this.Input = new InputModel
-                     {
+        this.Input = new UsersChangePassInputModel
+        {
                          UserId = userId
                      };
 
@@ -149,19 +157,5 @@ public class UsersChangePassModel : AdminPage
        this.EditUser =
             this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
                 Tuple<User, AspNetUsers, Rank, VAccess>;
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public int UserId { get; set; }
-
-        public bool EmailNotify { get; set; }
-
-        public string NewPassword { get; set; }
-
-        public string NewPasswordConfirm { get; set; }
     }
 }

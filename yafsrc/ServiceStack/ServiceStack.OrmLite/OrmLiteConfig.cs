@@ -71,48 +71,58 @@ public static class OrmLiteConfig
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
     /// <returns>IOrmLiteDialectProvider.</returns>
-    public static IOrmLiteDialectProvider GetDialectProvider(this IDbCommand dbCmd) =>
-        dbCmd is IHasDialectProvider hasDialectProvider
+    public static IOrmLiteDialectProvider GetDialectProvider(this IDbCommand dbCmd)
+    {
+        return dbCmd is IHasDialectProvider hasDialectProvider
             ? hasDialectProvider.DialectProvider
             : DialectProvider;
+    }
 
     /// <summary>
     /// Dialects the specified database command.
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
     /// <returns>IOrmLiteDialectProvider.</returns>
-    public static IOrmLiteDialectProvider Dialect(this IDbCommand dbCmd) =>
-        dbCmd is IHasDialectProvider hasDialectProvider
+    public static IOrmLiteDialectProvider Dialect(this IDbCommand dbCmd)
+    {
+        return dbCmd is IHasDialectProvider hasDialectProvider
             ? hasDialectProvider.DialectProvider
             : DialectProvider;
+    }
 
     /// <summary>
     /// Gets the dialect provider.
     /// </summary>
     /// <param name="db">The database.</param>
     /// <returns>IOrmLiteDialectProvider.</returns>
-    public static IOrmLiteDialectProvider GetDialectProvider(this IDbConnection db) =>
-        db is IHasDialectProvider hasDialectProvider
+    public static IOrmLiteDialectProvider GetDialectProvider(this IDbConnection db)
+    {
+        return db is IHasDialectProvider hasDialectProvider
             ? hasDialectProvider.DialectProvider
             : DialectProvider;
+    }
 
     /// <summary>
     /// Gets the naming strategy.
     /// </summary>
     /// <param name="db">The database.</param>
     /// <returns>INamingStrategy.</returns>
-    public static INamingStrategy GetNamingStrategy(this IDbConnection db) =>
-        db.GetDialectProvider().NamingStrategy;
+    public static INamingStrategy GetNamingStrategy(this IDbConnection db)
+    {
+        return db.GetDialectProvider().NamingStrategy;
+    }
 
     /// <summary>
     /// Dialects the specified database.
     /// </summary>
     /// <param name="db">The database.</param>
     /// <returns>IOrmLiteDialectProvider.</returns>
-    public static IOrmLiteDialectProvider Dialect(this IDbConnection db) =>
-        db is IHasDialectProvider hasDialectProvider
+    public static IOrmLiteDialectProvider Dialect(this IDbConnection db)
+    {
+        return db is IHasDialectProvider hasDialectProvider
             ? hasDialectProvider.DialectProvider
             : DialectProvider;
+    }
 
     /// <summary>
     /// Gets the execute filter.

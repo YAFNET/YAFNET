@@ -53,7 +53,7 @@ public class SpamLogModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public SpamLogInputModel Input { get; set; }
 
     /// <summary>
     /// Gets or sets the list.
@@ -99,21 +99,21 @@ public class SpamLogModel : AdminPage
             {
                 var addressLink = string.Format(this.PageBoardContext.BoardSettings.IPInfoPageURL, json.UserIP);
 
-                var exceptionSource = ((string)json.ExceptionSource).IsSet() ?
-                                          $"""<span class="badge text-bg-light m-1"><i class="fa-solid fa-code me-1"></i>{json.ExceptionSource}</span>"""
-                                          : "";
+                var exceptionSource = ((string)json.ExceptionSource).IsSet()
+                    ? $"""<span class="badge text-bg-light m-1"><i class="fa-solid fa-code me-1"></i>{json.ExceptionSource}</span>"""
+                    : "";
 
                 var url = ((string)json.Url).IsSet()
-                              ? $"""<span class="badge text-bg-secondary m-1"><i class="fa-solid fa-globe me-1"></i>{json.Url}</span>"""
-                              : "";
+                    ? $"""<span class="badge text-bg-secondary m-1"><i class="fa-solid fa-globe me-1"></i>{json.Url}</span>"""
+                    : "";
 
                 var userIp = ((string)json.UserIP).IsSet()
-                                 ? $"""<span class="badge text-bg-info m-1"><i class="fa-solid fa-desktop me-1"></i><a href="{addressLink}" target="_blank">{json.UserIP}</a></span>"""
-                                 : "";
+                    ? $"""<span class="badge text-bg-info m-1"><i class="fa-solid fa-desktop me-1"></i><a href="{addressLink}" target="_blank">{json.UserIP}</a></span>"""
+                    : "";
 
                 var userAgent = ((string)json.Url).IsSet()
-                                    ? $"""<span class="badge text-bg-secondary m-1"><i class="fa-solid fa-computer me-1"></i>{json.UserAgent}</span>"""
-                                    : "";
+                    ? $"""<span class="badge text-bg-secondary m-1"><i class="fa-solid fa-computer me-1"></i>{json.UserAgent}</span>"""
+                    : "";
 
                 return $"""
                         <h6 class="card-subtitle">{json.Message}</h6><h5>{userIp}{url}{exceptionSource}{userAgent}</h5><div>{json.ExceptionMessage}</div>
@@ -160,9 +160,10 @@ public class SpamLogModel : AdminPage
     /// </summary>
     public void OnGet()
     {
-        this.Input = new InputModel();
+        this.Input = new SpamLogInputModel();
 
-        this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
+        this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value),
+            nameof(SelectListItem.Text));
 
         var ci = this.Get<ILocalization>().Culture;
 
@@ -173,7 +174,8 @@ public class SpamLogModel : AdminPage
         }
         else
         {
-            this.Input.SinceDate = DateTime.UtcNow.AddDays(-this.PageBoardContext.BoardSettings.EventLogMaxDays).ToString("yyyy-MM-dd");
+            this.Input.SinceDate = DateTime.UtcNow.AddDays(-this.PageBoardContext.BoardSettings.EventLogMaxDays)
+                .ToString("yyyy-MM-dd");
 
             this.Input.ToDate = DateTime.UtcNow.Date.ToString("yyyy-MM-dd");
         }
@@ -206,59 +208,49 @@ public class SpamLogModel : AdminPage
         var currentPageIndex = this.PageBoardContext.PageIndex;
 
         var sinceDate = DateTime.UtcNow.AddDays(-this.PageBoardContext.BoardSettings.EventLogMaxDays);
-         var toDate = DateTime.UtcNow;
+        var toDate = DateTime.UtcNow;
 
-         var ci = this.Get<ILocalization>().Culture;
+        var ci = this.Get<ILocalization>().Culture;
 
-         if (this.Input.SinceDate.IsSet())
-         {
-             if (this.PageBoardContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
-             {
-                 var persianDate = new PersianDate(this.Input.SinceDate.PersianNumberToEnglish());
+        if (this.Input.SinceDate.IsSet())
+        {
+            if (this.PageBoardContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
+            {
+                var persianDate = new PersianDate(this.Input.SinceDate.PersianNumberToEnglish());
 
-                 sinceDate = PersianDateConverter.ToGregorianDateTime(persianDate);
-             }
-             else
-             {
-                 DateTime.TryParse(this.Input.SinceDate, ci, DateTimeStyles.None, out sinceDate);
-             }
-         }
+                sinceDate = PersianDateConverter.ToGregorianDateTime(persianDate);
+            }
+            else
+            {
+                DateTime.TryParse(this.Input.SinceDate, ci, DateTimeStyles.None, out sinceDate);
+            }
+        }
 
-         if (this.Input.ToDate.IsSet())
-         {
-             if (this.PageBoardContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
-             {
-                 var persianDate = new PersianDate(this.Input.ToDate.PersianNumberToEnglish());
+        if (this.Input.ToDate.IsSet())
+        {
+            if (this.PageBoardContext.BoardSettings.UseFarsiCalender && ci.IsFarsiCulture())
+            {
+                var persianDate = new PersianDate(this.Input.ToDate.PersianNumberToEnglish());
 
-                 toDate = PersianDateConverter.ToGregorianDateTime(persianDate);
-             }
-             else
-             {
-                 DateTime.TryParse(this.Input.ToDate, ci, DateTimeStyles.None, out toDate);
-             }
-         }
+                toDate = PersianDateConverter.ToGregorianDateTime(persianDate);
+            }
+            else
+            {
+                DateTime.TryParse(this.Input.ToDate, ci, DateTimeStyles.None, out toDate);
+            }
+        }
 
         // list event for this board
         this.List = this.GetRepository<EventLog>()
-             .ListPaged(
-                 this.PageBoardContext.PageBoardID,
-                 this.PageBoardContext.BoardSettings.EventLogMaxMessages,
-                 this.PageBoardContext.BoardSettings.EventLogMaxDays,
-                 currentPageIndex,
-                 this.Size,
-                 sinceDate,
-                 toDate.AddDays(1).AddMinutes(-1),
-                 null,
-                 true);
+            .ListPaged(
+                this.PageBoardContext.PageBoardID,
+                this.PageBoardContext.BoardSettings.EventLogMaxMessages,
+                this.PageBoardContext.BoardSettings.EventLogMaxDays,
+                currentPageIndex,
+                this.Size,
+                sinceDate,
+                toDate.AddDays(1).AddMinutes(-1),
+                null,
+                true);
     }
-
-    /// <summary>
-   /// The input model.
-   /// </summary>
-   public class InputModel
-   {
-       public string SinceDate { get; set; }
-
-       public string ToDate { get; set; }
-   }
 }

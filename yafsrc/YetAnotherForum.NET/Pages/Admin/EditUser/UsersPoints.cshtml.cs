@@ -43,8 +43,11 @@ public class UsersPointsModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public UsersPointsInputModel Input { get; set; }
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="UsersPointsModel"/> class.
+    /// </summary>
     public UsersPointsModel()
         : base("ADMIN_EDITUSER", ForumPages.Admin_EditUser)
     {
@@ -57,8 +60,8 @@ public class UsersPointsModel : AdminPage
             return this.Get<LinkBuilder>().AccessDenied();
         }
 
-        this.Input = new InputModel
-                     {
+        this.Input = new UsersPointsInputModel
+        {
                          UserId = userId
                      };
 
@@ -109,19 +112,5 @@ public class UsersPointsModel : AdminPage
         this.EditUser = user.Item1;
 
         this.Input.UserPoints = this.EditUser.Points;
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public int UserId { get; set; }
-
-        public int RemovePoints { get; set; }
-
-        public int AddPoints { get; set; }
-
-        public int UserPoints { get; set; }
     }
 }

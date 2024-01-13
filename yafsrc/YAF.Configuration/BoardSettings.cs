@@ -1423,16 +1423,6 @@ public class BoardSettings
     }
 
     /// <summary>
-    /// Gets or sets a value indicating whether CreateNntpUsers.
-    /// </summary>
-    public bool CreateNntpUsers
-    {
-        get => this.Registry.GetValue("CreateNntpUsers", false);
-
-        set => this.Registry.SetValue("CreateNntpUsers", value);
-    }
-
-    /// <summary>
     /// Gets or sets a value indicating whether ShowGroupsProfile.
     /// </summary>
     public bool ShowGroupsProfile

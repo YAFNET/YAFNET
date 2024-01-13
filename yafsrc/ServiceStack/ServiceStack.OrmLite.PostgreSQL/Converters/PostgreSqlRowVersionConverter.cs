@@ -28,7 +28,10 @@ public class PostgreSqlRowVersionConverter : RowVersionConverter
     {
         var ret = base.ToDbValue(fieldType, value);
         if (ret is ulong u)
+        {
             return (long) u;
+        }
+
         return ret;
     }
 

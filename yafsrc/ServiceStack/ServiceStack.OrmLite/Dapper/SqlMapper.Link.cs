@@ -57,7 +57,7 @@ public static partial class SqlMapper
             do
             {
                 var snapshot = Interlocked.CompareExchange(ref head, null, null);
-                if (TryGet(snapshot, key, out TValue found))
+                if (TryGet(snapshot, key, out var found))
                 { // existing match; report the existing value instead
                     value = found;
                     return false;
@@ -77,9 +77,9 @@ public static partial class SqlMapper
         /// <param name="tail">The tail.</param>
         private Link(TKey key, TValue value, Link<TKey, TValue> tail)
         {
-            Key = key;
-            Value = value;
-            Tail = tail;
+            this.Key = key;
+            this.Value = value;
+            this.Tail = tail;
         }
 
         /// <summary>

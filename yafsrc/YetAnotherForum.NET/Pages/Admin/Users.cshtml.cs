@@ -55,7 +55,7 @@ public class UsersModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public UsersInputModel Input { get; set; }
 
     public List<SelectListItem> SinceList { get; set; }
 
@@ -200,7 +200,7 @@ public class UsersModel : AdminPage
         var lastVisit = this.Get<ISessionService>().LastVisit;
 
         this.SinceList = [
-            new(
+            new SelectListItem(
                 this.GetTextFormatted(
                     "last_visit",
                     this.Get<IDateTimeService>().FormatDateTime(
@@ -211,16 +211,16 @@ public class UsersModel : AdminPage
                 "0"),
             // negative values for hours backward
 
-            new("Last hour", "-1"),
-            new("Last two hours", "-2"),
+            new SelectListItem("Last hour", "-1"),
+            new SelectListItem("Last two hours", "-2"),
             // positive values for days backward
-            new("Last day", "1"),
-            new("Last two days", "2"),
-            new("Last week", "7"),
-            new("Last two weeks", "14"),
-            new("Last month", "31"),
+            new SelectListItem("Last day", "1"),
+            new SelectListItem("Last two days", "2"),
+            new SelectListItem("Last week", "7"),
+            new SelectListItem("Last two weeks", "14"),
+            new SelectListItem("Last month", "31"),
             // all time (i.e. no filter)
-            new("All time", "9999")
+            new SelectListItem("All time", "9999")
         ];
     }
 
@@ -229,7 +229,7 @@ public class UsersModel : AdminPage
     /// </summary>
     public void OnGet()
     {
-        this.Input = new InputModel();
+        this.Input = new UsersInputModel();
 
         // initialize since filter items
         this.InitSinceDropdown();
@@ -378,25 +378,5 @@ public class UsersModel : AdminPage
         var fileName = $"YafUsersExport-{HttpUtility.UrlEncode(DateTime.Now.ToString("yyyy'-'MM'-'dd'-'HHmm"))}.xml";
 
         return this.File(stream.ToArray(), "application/xml", fileName);
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public int YearsOld { get; set; } = 5;
-
-        public bool SuspendedOnly { get; set; }
-
-        public string Since { get; set; }
-
-        public int Rank { get; set; }
-
-        public int Group { get; set; }
-
-        public string Email { get; set; }
-
-        public string Name { get; set; }
     }
 }

@@ -125,7 +125,7 @@ public class DecimalConverter : FloatConverter, IHasColumnDefinitionPrecision
     /// SQL Column Definition used in CREATE Table.
     /// </summary>
     /// <value>The column definition.</value>
-    public override string ColumnDefinition => GetColumnDefinition(Precision, Scale);
+    public override string ColumnDefinition => this.GetColumnDefinition(this.Precision, this.Scale);
 
     /// <summary>
     /// Used in DB Params. Defaults to DbType.String
@@ -141,6 +141,6 @@ public class DecimalConverter : FloatConverter, IHasColumnDefinitionPrecision
     /// <returns>System.String.</returns>
     public virtual string GetColumnDefinition(int? precision, int? scale)
     {
-        return $"DECIMAL({precision.GetValueOrDefault(Precision)},{scale.GetValueOrDefault(Scale)})";
+        return $"DECIMAL({precision.GetValueOrDefault(this.Precision)},{scale.GetValueOrDefault(this.Scale)})";
     }
 }

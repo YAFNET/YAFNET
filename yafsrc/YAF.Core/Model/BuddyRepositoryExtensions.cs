@@ -32,6 +32,8 @@ using System.Collections.Generic;
 using YAF.Types.Models;
 using YAF.Types.Objects.Model;
 
+#pragma warning disable S1125
+
 /// <summary>
 /// The Buddy repository extensions.
 /// </summary>
@@ -250,10 +252,13 @@ public static class BuddyRepositoryExtensions
                                                    u.AvatarImage
                                                });
 
-        return repository.DbAccess.Execute(
-                db => db.Connection.Select<BuddyUser>(
-                    $"{expression.ToMergedParamsSelectStatement()} UNION ALL {expression2.ToMergedParamsSelectStatement()}"))
-            .DistinctBy(x => x.UserID).OrderBy(x => x.Name).ToList();
+        return
+        [
+            .. repository.DbAccess.Execute(
+                            db => db.Connection.Select<BuddyUser>(
+                                $"{expression.ToMergedParamsSelectStatement()} UNION ALL {expression2.ToMergedParamsSelectStatement()}"))
+                        .DistinctBy(x => x.UserID).OrderBy(x => x.Name),
+        ];
     }
 
     /// <summary>
@@ -286,8 +291,11 @@ public static class BuddyRepositoryExtensions
                 u.Activity
             });
 
-        return repository.DbAccess.Execute(db => db.Connection.Select<BuddyUser>(expression)).DistinctBy(x => x.UserID)
-            .OrderBy(x => x.Name).ToList();
+        return
+        [
+            .. repository.DbAccess.Execute(db => db.Connection.Select<BuddyUser>(expression)).DistinctBy(x => x.UserID)
+                        .OrderBy(x => x.Name),
+        ];
     }
 
     /// <summary>
@@ -319,7 +327,10 @@ public static class BuddyRepositoryExtensions
                                                    u.AvatarImage
                                                });
 
-        return repository.DbAccess.Execute(db => db.Connection.Select<BuddyUser>(expression)).DistinctBy(x => x.UserID)
-            .OrderBy(x => x.Name).ToList();
+        return
+        [
+            .. repository.DbAccess.Execute(db => db.Connection.Select<BuddyUser>(expression)).DistinctBy(x => x.UserID)
+                        .OrderBy(x => x.Name),
+        ];
     }
 }

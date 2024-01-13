@@ -611,16 +611,20 @@ public static class OrmLiteConnectionFactoryExtensions
     /// </summary>
     /// <param name="db">The database.</param>
     /// <returns>Guid.</returns>
-    public static Guid GetConnectionId(this IDbConnection db) =>
-        db is OrmLiteConnection conn ? conn.ConnectionId : Guid.Empty;
+    public static Guid GetConnectionId(this IDbConnection db)
+    {
+        return db is OrmLiteConnection conn ? conn.ConnectionId : Guid.Empty;
+    }
 
     /// <summary>
     /// Gets the connection identifier.
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
     /// <returns>Guid.</returns>
-    public static Guid GetConnectionId(this IDbCommand dbCmd) =>
-        dbCmd is OrmLiteCommand cmd ? cmd.ConnectionId : Guid.Empty;
+    public static Guid GetConnectionId(this IDbCommand dbCmd)
+    {
+        return dbCmd is OrmLiteCommand cmd ? cmd.ConnectionId : Guid.Empty;
+    }
 
     /// <summary>
     /// Registers the connection.

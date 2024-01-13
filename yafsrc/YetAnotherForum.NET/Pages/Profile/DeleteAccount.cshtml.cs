@@ -134,7 +134,7 @@ public class DeleteAccountModel : ProfilePage
                 userFlags.IsDeleted = true;
                 userFlags.IsApproved = false;
 
-                this.GetRepository<User>().UpdateOnly(
+                await this.GetRepository<User>().UpdateOnlyAsync(
                     () => new User { Flags = userFlags.BitValue },
                     u => u.ID == this.PageBoardContext.PageUserID);
 

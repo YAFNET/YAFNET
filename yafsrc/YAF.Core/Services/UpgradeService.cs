@@ -122,7 +122,7 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
             this.GetRepository<Registry>().DeleteLegacy();
 
             // update default points from 0 to 1
-            this.GetRepository<User>().UpdateOnly(() => new User { Points = 1 }, u => u.Points == 0);
+            await this.GetRepository<User>().UpdateOnlyAsync(() => new User { Points = 1 }, u => u.Points == 0);
         }
 
         if (prevVersion < 30)

@@ -22,5 +22,7 @@ static internal class TypeExtensions
     /// <param name="types">The types.</param>
     /// <returns>MethodInfo.</returns>
     public static MethodInfo GetPublicInstanceMethod(this Type type, string name, Type[] types)
-        => type.GetMethod(name, BindingFlags.Instance | BindingFlags.Public, null, types, null);
+    {
+        return type.GetMethod(name, BindingFlags.Instance | BindingFlags.Public, null, types, null);
+    }
 }

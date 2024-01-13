@@ -82,7 +82,7 @@ public class UsersKillModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public UsersKillInputModel Input { get; set; }
 
     public UsersKillModel()
         : base("ADMIN_EDITUSER", ForumPages.Admin_EditUser)
@@ -96,8 +96,8 @@ public class UsersKillModel : AdminPage
             return this.Get<LinkBuilder>().AccessDenied();
         }
 
-        this.Input = new InputModel
-                     {
+        this.Input = new UsersKillInputModel
+        {
                          UserId = userId
                      };
 
@@ -256,11 +256,11 @@ public class UsersKillModel : AdminPage
         this.EditUser = user.Item1;
 
         this.SuspendOrDeleteList = [
-            new(
+            new SelectListItem(
                 this.GetText("ADMIN_EDITUSER", "DELETE_ACCOUNT"),
                 "delete"),
 
-            new(
+            new SelectListItem(
                 this.GetText(
                     "ADMIN_EDITUSER",
                     "SUSPEND_ACCOUNT_USER"),
@@ -310,23 +310,5 @@ public class UsersKillModel : AdminPage
 
                 this.GetRepository<BannedIP>().Save(null, ip, linkUserBan, this.PageBoardContext.PageUserID);
             });
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public int UserId { get; set; }
-
-        public bool ReportUser { get; set; }
-
-        public bool BanName { get; set; } = true;
-
-        public bool BanIps { get; set; } = true;
-
-        public bool BanEmail { get; set; } = true;
-
-        public string SuspendOrDelete { get; set; }
     }
 }

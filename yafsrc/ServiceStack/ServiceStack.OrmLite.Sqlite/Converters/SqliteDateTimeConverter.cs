@@ -43,7 +43,7 @@ public class SqliteNativeDateTimeConverter : DateTimeConverter
     {
         var dateTime = (DateTime)value;
 
-        switch (DateStyle)
+        switch (this.DateStyle)
         {
             case DateTimeKind.Unspecified:
                 dateTime = DateTime.SpecifyKind(dateTime, DateTimeKind.Local);
@@ -56,7 +56,7 @@ public class SqliteNativeDateTimeConverter : DateTimeConverter
                                ? DateTime.SpecifyKind(dateTime, DateTimeKind.Local).ToUniversalTime()
                                : DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
 
-                return DialectProvider.GetQuotedValue(dateTime.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture), typeof(string));
+                return this.DialectProvider.GetQuotedValue(dateTime.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.InvariantCulture), typeof(string));
         }
 
         var dateStr = DateTimeSerializer.ToLocalXsdDateTimeString(dateTime);
@@ -68,7 +68,7 @@ public class SqliteNativeDateTimeConverter : DateTimeConverter
             dateStr = dateStr.Substring(0, dateStr.Length - tzPos);
         }
 
-        return DialectProvider.GetQuotedValue(dateStr, typeof(string));
+        return this.DialectProvider.GetQuotedValue(dateStr, typeof(string));
     }
 
     /// <summary>
@@ -81,8 +81,10 @@ public class SqliteNativeDateTimeConverter : DateTimeConverter
     {
         var dateTime = (DateTime)value;
 
-        if (DateStyle == DateTimeKind.Unspecified)
+        if (this.DateStyle == DateTimeKind.Unspecified)
+        {
             dateTime = DateTime.SpecifyKind(dateTime, DateTimeKind.Local);
+        }
 
         return base.FromDbValue(dateTime);
     }
@@ -101,10 +103,14 @@ public class SqliteNativeDateTimeConverter : DateTimeConverter
         try
         {
             if (values != null && values[columnIndex] == DBNull.Value)
+            {
                 return null;
+            }
 
             if (reader.IsDBNull(columnIndex))
+            {
                 return null;
+            }
 
             return reader.GetDateTime(columnIndex);
         }
@@ -112,10 +118,14 @@ public class SqliteNativeDateTimeConverter : DateTimeConverter
         {
             var value = base.GetValue(reader, columnIndex, values);
             if (value == null)
+            {
                 return null;
+            }
 
             if (!(value is string dateStr))
+            {
                 throw new Exception($"Converting from {value.GetType().Name} to DateTime is not supported");
+            }
 
             Log.Warn("Error reading string as DateTime in Sqlite: " + dateStr, ex);
             return DateTime.Parse(dateStr);
@@ -137,7 +147,7 @@ public class SqliteCoreDateTimeConverter : SqliteNativeDateTimeConverter
     public override object ToDbValue(Type fieldType, object value)
     {
         var dateTime = (DateTime)value;
-        switch (DateStyle)
+        switch (this.DateStyle)
         {
             case DateTimeKind.Utc when dateTime.Kind == DateTimeKind.Local:
                 dateTime = dateTime.ToUniversalTime();
@@ -174,7 +184,7 @@ public class SqliteCoreDateTimeConverter : SqliteNativeDateTimeConverter
     {
         var dateTime = (DateTime)value;
 
-        switch (DateStyle)
+        switch (this.DateStyle)
         {
             case DateTimeKind.Utc:
 #if NET7_0_OR_GREATER
@@ -225,13 +235,13 @@ public class SqliteDataDateTimeConverter : SqliteCoreDateTimeConverter
     {
         var dateTime = (DateTime)value;
 
-        if (DateStyle == DateTimeKind.Utc)
+        if (this.DateStyle == DateTimeKind.Utc)
         {
             //.NET Core returns correct Local time but as Unspecified so change to Local and Convert to UTC
             dateTime = DateTime.SpecifyKind(dateTime, DateTimeKind.Utc); // don't convert
         }
 
-        if (DateStyle == DateTimeKind.Local && dateTime.Kind != DateTimeKind.Local)
+        if (this.DateStyle == DateTimeKind.Local && dateTime.Kind != DateTimeKind.Local)
         {
             dateTime = dateTime.Kind == DateTimeKind.Utc
                            ? dateTime.ToLocalTime()
@@ -259,10 +269,12 @@ public class SqliteWindowsDateTimeConverter : SqliteNativeDateTimeConverter
     {
         var dateTime = (DateTime)value;
 
-        if (DateStyle == DateTimeKind.Utc)
+        if (this.DateStyle == DateTimeKind.Utc)
+        {
             dateTime = dateTime.ToUniversalTime();
+        }
 
-        if (DateStyle == DateTimeKind.Local && dateTime.Kind != DateTimeKind.Local)
+        if (this.DateStyle == DateTimeKind.Local && dateTime.Kind != DateTimeKind.Local)
         {
             dateTime = dateTime.Kind == DateTimeKind.Utc
                            ? dateTime.ToLocalTime()

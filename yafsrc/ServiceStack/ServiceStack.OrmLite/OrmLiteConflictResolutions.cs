@@ -30,7 +30,10 @@ public static class OrmLiteConflictResolutions
     /// Called when [conflict ignore].
     /// </summary>
     /// <param name="dbCmd">The database command.</param>
-    public static void OnConflictIgnore(this IDbCommand dbCmd) => dbCmd.OnConflict(ConflictResolution.Ignore);
+    public static void OnConflictIgnore(this IDbCommand dbCmd)
+    {
+        dbCmd.OnConflict(ConflictResolution.Ignore);
+    }
 
     /// <summary>
     /// Called when [conflict].

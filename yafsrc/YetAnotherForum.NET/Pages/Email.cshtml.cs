@@ -24,7 +24,6 @@
 
 namespace YAF.Pages;
 
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 using Microsoft.Extensions.Logging;
@@ -59,7 +58,7 @@ public class EmailModel : ForumPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public EmailInputModel Input { get; set; }
 
     /// <summary>
     /// The on get.
@@ -132,23 +131,5 @@ public class EmailModel : ForumPage
                 this.PageBoardContext.IsAdmin ? x.Message : this.GetText("ERROR"),
                 MessageTypes.danger);
         }
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        /// <summary>
-        /// Gets or sets the subject.
-        /// </summary>
-        [Required]
-        public string Subject { get; set; }
-
-        /// <summary>
-        /// Gets or sets the body.
-        /// </summary>
-        [Required]
-        public string Body { get; set; }
     }
 }

@@ -34,7 +34,10 @@ public class SqlServer2016OrmLiteDialectProvider : SqlServer2014OrmLiteDialectPr
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public override SqlExpression<T> SqlExpression<T>() => new SqlServer2016Expression<T>(this);
+    public override SqlExpression<T> SqlExpression<T>()
+    {
+        return new SqlServer2016Expression<T>(this);
+    }
 }
 
 /// <summary>

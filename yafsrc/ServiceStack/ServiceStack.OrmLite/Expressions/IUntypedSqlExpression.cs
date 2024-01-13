@@ -619,8 +619,8 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <value>The table alias.</value>
     public string TableAlias
     {
-        get => q.TableAlias;
-        set => q.TableAlias = value;
+        get => this.q.TableAlias;
+        set => this.q.TableAlias = value;
     }
 
     /// <summary>
@@ -629,8 +629,8 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <value><c>true</c> if [prefix field with table name]; otherwise, <c>false</c>.</value>
     public bool PrefixFieldWithTableName
     {
-        get => q.PrefixFieldWithTableName;
-        set => q.PrefixFieldWithTableName = value;
+        get => this.q.PrefixFieldWithTableName;
+        set => this.q.PrefixFieldWithTableName = value;
     }
 
     /// <summary>
@@ -639,8 +639,8 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <value><c>true</c> if [where statement without where string]; otherwise, <c>false</c>.</value>
     public bool WhereStatementWithoutWhereString
     {
-        get => q.WhereStatementWithoutWhereString;
-        set => q.WhereStatementWithoutWhereString = value;
+        get => this.q.WhereStatementWithoutWhereString;
+        set => this.q.WhereStatementWithoutWhereString = value;
     }
 
     /// <summary>
@@ -649,8 +649,8 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <value>The dialect provider.</value>
     public IOrmLiteDialectProvider DialectProvider
     {
-        get => q.DialectProvider;
-        set => q.DialectProvider = value;
+        get => this.q.DialectProvider;
+        set => this.q.DialectProvider = value;
     }
 
     /// <summary>
@@ -659,8 +659,8 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <value>The parameters.</value>
     public List<IDbDataParameter> Params
     {
-        get => q.Params;
-        set => q.Params = value;
+        get => this.q.Params;
+        set => this.q.Params = value;
     }
 
     /// <summary>
@@ -669,8 +669,8 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <value>The select expression.</value>
     public string SelectExpression
     {
-        get => q.SelectExpression;
-        set => q.SelectExpression = value;
+        get => this.q.SelectExpression;
+        set => this.q.SelectExpression = value;
     }
 
     /// <summary>
@@ -679,15 +679,15 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <value>From expression.</value>
     public string FromExpression
     {
-        get => q.FromExpression;
-        set => q.FromExpression = value;
+        get => this.q.FromExpression;
+        set => this.q.FromExpression = value;
     }
 
     /// <summary>
     /// Gets the body expression.
     /// </summary>
     /// <value>The body expression.</value>
-    public string BodyExpression => q.BodyExpression;
+    public string BodyExpression => this.q.BodyExpression;
 
     /// <summary>
     /// Gets or sets the where expression.
@@ -695,8 +695,8 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <value>The where expression.</value>
     public string WhereExpression
     {
-        get => q.WhereExpression;
-        set => q.WhereExpression = value;
+        get => this.q.WhereExpression;
+        set => this.q.WhereExpression = value;
     }
 
     /// <summary>
@@ -705,8 +705,8 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <value>The group by expression.</value>
     public string GroupByExpression
     {
-        get => q.GroupByExpression;
-        set => q.GroupByExpression = value;
+        get => this.q.GroupByExpression;
+        set => this.q.GroupByExpression = value;
     }
 
     /// <summary>
@@ -715,8 +715,8 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <value>The having expression.</value>
     public string HavingExpression
     {
-        get => q.HavingExpression;
-        set => q.HavingExpression = value;
+        get => this.q.HavingExpression;
+        set => this.q.HavingExpression = value;
     }
 
     /// <summary>
@@ -725,8 +725,8 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <value>The order by expression.</value>
     public string OrderByExpression
     {
-        get => q.OrderByExpression;
-        set => q.OrderByExpression = value;
+        get => this.q.OrderByExpression;
+        set => this.q.OrderByExpression = value;
     }
 
     /// <summary>
@@ -735,8 +735,8 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <value>The rows.</value>
     public int? Rows
     {
-        get => q.Rows;
-        set => q.Rows = value;
+        get => this.q.Rows;
+        set => this.q.Rows = value;
     }
 
     /// <summary>
@@ -745,8 +745,8 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <value>The offset.</value>
     public int? Offset
     {
-        get => q.Offset;
-        set => q.Offset = value;
+        get => this.q.Offset;
+        set => this.q.Offset = value;
     }
 
     /// <summary>
@@ -755,8 +755,8 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <value>The update fields.</value>
     public List<string> UpdateFields
     {
-        get => q.UpdateFields;
-        set => q.UpdateFields = value;
+        get => this.q.UpdateFields;
+        set => this.q.UpdateFields = value;
     }
 
     /// <summary>
@@ -765,15 +765,15 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <value>The insert fields.</value>
     public List<string> InsertFields
     {
-        get => q.InsertFields;
-        set => q.InsertFields = value;
+        get => this.q.InsertFields;
+        set => this.q.InsertFields = value;
     }
 
     /// <summary>
     /// Gets the model definition.
     /// </summary>
     /// <value>The model definition.</value>
-    public ModelDefinition ModelDef => q.ModelDef;
+    public ModelDefinition ModelDef => this.q.ModelDef;
 
 
     /// <summary>
@@ -782,7 +782,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Clone()
     {
-        q.Clone();
+        this.q.Clone();
         return this;
     }
 
@@ -792,7 +792,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Select()
     {
-        q.Select();
+        this.q.Select();
         return this;
     }
 
@@ -803,7 +803,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Select(string selectExpression)
     {
-        q.Select(selectExpression);
+        this.q.Select(selectExpression);
         return this;
     }
 
@@ -814,7 +814,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression UnsafeSelect(string rawSelect)
     {
-        q.UnsafeSelect(rawSelect);
+        this.q.UnsafeSelect(rawSelect);
         return this;
     }
 
@@ -827,7 +827,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Select<Table1, Table2>(Expression<Func<Table1, Table2, object>> fields)
     {
-        q.Select(fields);
+        this.q.Select(fields);
         return this;
     }
 
@@ -841,7 +841,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Select<Table1, Table2, Table3>(Expression<Func<Table1, Table2, Table3, object>> fields)
     {
-        q.Select(fields);
+        this.q.Select(fields);
         return this;
     }
 
@@ -854,7 +854,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression SelectDistinct<Table1, Table2>(Expression<Func<Table1, Table2, object>> fields)
     {
-        q.SelectDistinct(fields);
+        this.q.SelectDistinct(fields);
         return this;
     }
 
@@ -868,7 +868,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression SelectDistinct<Table1, Table2, Table3>(Expression<Func<Table1, Table2, Table3, object>> fields)
     {
-        q.SelectDistinct(fields);
+        this.q.SelectDistinct(fields);
         return this;
     }
 
@@ -878,7 +878,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression SelectDistinct()
     {
-        q.SelectDistinct();
+        this.q.SelectDistinct();
         return this;
     }
 
@@ -889,7 +889,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression From(string tables)
     {
-        q.From(tables);
+        this.q.From(tables);
         return this;
     }
 
@@ -900,7 +900,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression UnsafeFrom(string rawFrom)
     {
-        q.UnsafeFrom(rawFrom);
+        this.q.UnsafeFrom(rawFrom);
         return this;
     }
 
@@ -910,7 +910,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Where()
     {
-        q.Where();
+        this.q.Where();
         return this;
     }
 
@@ -922,7 +922,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression UnsafeWhere(string rawSql, params object[] filterParams)
     {
-        q.UnsafeWhere(rawSql, filterParams);
+        this.q.UnsafeWhere(rawSql, filterParams);
         return this;
     }
 
@@ -934,7 +934,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Ensure(string sqlFilter, params object[] filterParams)
     {
-        q.Ensure(sqlFilter, filterParams);
+        this.q.Ensure(sqlFilter, filterParams);
         return this;
     }
 
@@ -946,7 +946,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Where(string sqlFilter, params object[] filterParams)
     {
-        q.Where(sqlFilter, filterParams);
+        this.q.Where(sqlFilter, filterParams);
         return this;
     }
 
@@ -958,7 +958,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression UnsafeAnd(string rawSql, params object[] filterParams)
     {
-        q.UnsafeAnd(rawSql, filterParams);
+        this.q.UnsafeAnd(rawSql, filterParams);
         return this;
     }
 
@@ -970,7 +970,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression And(string sqlFilter, params object[] filterParams)
     {
-        q.And(sqlFilter, filterParams);
+        this.q.And(sqlFilter, filterParams);
         return this;
     }
 
@@ -982,7 +982,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression UnsafeOr(string rawSql, params object[] filterParams)
     {
-        q.UnsafeOr(rawSql, filterParams);
+        this.q.UnsafeOr(rawSql, filterParams);
         return this;
     }
 
@@ -994,7 +994,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Or(string sqlFilter, params object[] filterParams)
     {
-        q.Or(sqlFilter, filterParams);
+        this.q.Or(sqlFilter, filterParams);
         return this;
     }
 
@@ -1007,7 +1007,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression AddCondition(string condition, string sqlFilter, params object[] filterParams)
     {
-        q.AddCondition(condition, sqlFilter, filterParams);
+        this.q.AddCondition(condition, sqlFilter, filterParams);
         return this;
     }
 
@@ -1017,7 +1017,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression GroupBy()
     {
-        q.GroupBy();
+        this.q.GroupBy();
         return this;
     }
 
@@ -1028,7 +1028,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression GroupBy(string groupBy)
     {
-        q.GroupBy(groupBy);
+        this.q.GroupBy(groupBy);
         return this;
     }
 
@@ -1038,7 +1038,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Having()
     {
-        q.Having();
+        this.q.Having();
         return this;
     }
 
@@ -1050,7 +1050,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Having(string sqlFilter, params object[] filterParams)
     {
-        q.Having(sqlFilter, filterParams);
+        this.q.Having(sqlFilter, filterParams);
         return this;
     }
 
@@ -1060,7 +1060,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression OrderBy()
     {
-        q.OrderBy();
+        this.q.OrderBy();
         return this;
     }
 
@@ -1071,7 +1071,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression OrderBy(string orderBy)
     {
-        q.OrderBy(orderBy);
+        this.q.OrderBy(orderBy);
         return this;
     }
 
@@ -1082,7 +1082,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>ModelDefinition.</returns>
     public ModelDefinition GetModelDefinition(FieldDefinition fieldDef)
     {
-        return q.GetModelDefinition(fieldDef);
+        return this.q.GetModelDefinition(fieldDef);
     }
 
     /// <summary>
@@ -1092,7 +1092,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression OrderByFields(params FieldDefinition[] fields)
     {
-        q.OrderByFields(fields);
+        this.q.OrderByFields(fields);
         return this;
     }
 
@@ -1103,7 +1103,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression OrderByFieldsDescending(params FieldDefinition[] fields)
     {
-        q.OrderByFieldsDescending(fields);
+        this.q.OrderByFieldsDescending(fields);
         return this;
     }
 
@@ -1114,7 +1114,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression OrderByFields(params string[] fieldNames)
     {
-        q.OrderByFields(fieldNames);
+        this.q.OrderByFields(fieldNames);
         return this;
     }
 
@@ -1125,7 +1125,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression OrderByFieldsDescending(params string[] fieldNames)
     {
-        q.OrderByFieldsDescending(fieldNames);
+        this.q.OrderByFieldsDescending(fieldNames);
         return this;
     }
 
@@ -1137,7 +1137,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression OrderBy<Table>(Expression<Func<Table, object>> keySelector)
     {
-        q.OrderBy(keySelector);
+        this.q.OrderBy(keySelector);
         return this;
     }
 
@@ -1148,7 +1148,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression ThenBy(string orderBy)
     {
-        q.ThenBy(orderBy);
+        this.q.ThenBy(orderBy);
         return this;
     }
 
@@ -1160,7 +1160,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression ThenBy<Table>(Expression<Func<Table, object>> keySelector)
     {
-        q.ThenBy(keySelector);
+        this.q.ThenBy(keySelector);
         return this;
     }
 
@@ -1172,7 +1172,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression OrderByDescending<Table>(Expression<Func<Table, object>> keySelector)
     {
-        q.OrderByDescending(keySelector);
+        this.q.OrderByDescending(keySelector);
         return this;
     }
 
@@ -1183,7 +1183,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression OrderByDescending(string orderBy)
     {
-        q.OrderByDescending(orderBy);
+        this.q.OrderByDescending(orderBy);
         return this;
     }
 
@@ -1194,7 +1194,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression ThenByDescending(string orderBy)
     {
-        q.ThenByDescending(orderBy);
+        this.q.ThenByDescending(orderBy);
         return this;
     }
 
@@ -1206,7 +1206,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression ThenByDescending<Table>(Expression<Func<Table, object>> keySelector)
     {
-        q.ThenByDescending(keySelector);
+        this.q.ThenByDescending(keySelector);
         return this;
     }
 
@@ -1217,7 +1217,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Skip(int? skip = null)
     {
-        q.Skip(skip);
+        this.q.Skip(skip);
         return this;
     }
 
@@ -1228,7 +1228,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Take(int? take = null)
     {
-        q.Take(take);
+        this.q.Take(take);
         return this;
     }
 
@@ -1240,7 +1240,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Limit(int skip, int rows)
     {
-        q.Limit(skip, rows);
+        this.q.Limit(skip, rows);
         return this;
     }
 
@@ -1252,7 +1252,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Limit(int? skip, int? rows)
     {
-        q.Limit(skip, rows);
+        this.q.Limit(skip, rows);
         return this;
     }
 
@@ -1263,7 +1263,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Limit(int rows)
     {
-        q.Limit(rows);
+        this.q.Limit(rows);
         return this;
     }
 
@@ -1273,7 +1273,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Limit()
     {
-        q.Limit();
+        this.q.Limit();
         return this;
     }
 
@@ -1283,7 +1283,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression ClearLimits()
     {
-        q.ClearLimits();
+        this.q.ClearLimits();
         return this;
     }
 
@@ -1294,7 +1294,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Update(List<string> updateFields)
     {
-        q.Update(updateFields);
+        this.q.Update(updateFields);
         return this;
     }
 
@@ -1304,7 +1304,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Update()
     {
-        q.Update();
+        this.q.Update();
         return this;
     }
 
@@ -1315,7 +1315,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Insert(List<string> insertFields)
     {
-        q.Insert(insertFields);
+        this.q.Insert(insertFields);
         return this;
     }
 
@@ -1325,7 +1325,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Insert()
     {
-        q.Insert();
+        this.q.Insert();
         return this;
     }
 
@@ -1339,7 +1339,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IDbDataParameter.</returns>
     public IDbDataParameter CreateParam(string name, object value = null, ParameterDirection direction = ParameterDirection.Input, DbType? dbType = null)
     {
-        return q.CreateParam(name, value, direction, dbType);
+        return this.q.CreateParam(name, value, direction, dbType);
     }
 
     /// <summary>
@@ -1351,7 +1351,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Join<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr = null)
     {
-        q.Join(joinExpr);
+        this.q.Join(joinExpr);
         return this;
     }
 
@@ -1364,7 +1364,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Join(Type sourceType, Type targetType, Expression joinExpr = null)
     {
-        q.Join(sourceType, targetType, joinExpr);
+        this.q.Join(sourceType, targetType, joinExpr);
         return this;
     }
 
@@ -1377,7 +1377,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression LeftJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr = null)
     {
-        q.LeftJoin(joinExpr);
+        this.q.LeftJoin(joinExpr);
         return this;
     }
 
@@ -1390,7 +1390,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression LeftJoin(Type sourceType, Type targetType, Expression joinExpr = null)
     {
-        q.LeftJoin(sourceType, targetType, joinExpr);
+        this.q.LeftJoin(sourceType, targetType, joinExpr);
         return this;
     }
 
@@ -1403,7 +1403,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression RightJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr = null)
     {
-        q.RightJoin(joinExpr);
+        this.q.RightJoin(joinExpr);
         return this;
     }
 
@@ -1416,7 +1416,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression FullJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr = null)
     {
-        q.FullJoin(joinExpr);
+        this.q.FullJoin(joinExpr);
         return this;
     }
 
@@ -1429,7 +1429,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression CrossJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr = null)
     {
-        q.CrossJoin(joinExpr);
+        this.q.CrossJoin(joinExpr);
         return this;
     }
 
@@ -1440,7 +1440,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression CustomJoin(string joinString)
     {
-        q.CustomJoin(joinString);
+        this.q.CustomJoin(joinString);
         return this;
     }
 
@@ -1452,7 +1452,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Where<Target>(Expression<Func<Target, bool>> predicate)
     {
-        q.Where(predicate);
+        this.q.Where(predicate);
         return this;
     }
 
@@ -1464,7 +1464,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Ensure<Target>(Expression<Func<Target, bool>> predicate)
     {
-        q.Ensure(predicate);
+        this.q.Ensure(predicate);
         return this;
     }
 
@@ -1477,7 +1477,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Where<Source, Target>(Expression<Func<Source, Target, bool>> predicate)
     {
-        q.Where(predicate);
+        this.q.Where(predicate);
         return this;
     }
 
@@ -1490,7 +1490,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Ensure<Source, Target>(Expression<Func<Source, Target, bool>> predicate)
     {
-        q.Ensure(predicate);
+        this.q.Ensure(predicate);
         return this;
     }
 
@@ -1502,7 +1502,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression And<Target>(Expression<Func<Target, bool>> predicate)
     {
-        q.And(predicate);
+        this.q.And(predicate);
         return this;
     }
 
@@ -1515,7 +1515,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression And<Source, Target>(Expression<Func<Source, Target, bool>> predicate)
     {
-        q.And(predicate);
+        this.q.And(predicate);
         return this;
     }
 
@@ -1527,7 +1527,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Or<Target>(Expression<Func<Target, bool>> predicate)
     {
-        q.Or(predicate);
+        this.q.Or(predicate);
         return this;
     }
 
@@ -1540,7 +1540,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IUntypedSqlExpression.</returns>
     public IUntypedSqlExpression Or<Source, Target>(Expression<Func<Source, Target, bool>> predicate)
     {
-        q.Or(predicate);
+        this.q.Or(predicate);
         return this;
     }
 
@@ -1551,7 +1551,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>System.String.</returns>
     public string SqlTable(ModelDefinition modelDef)
     {
-        return q.SqlTable(modelDef);
+        return this.q.SqlTable(modelDef);
     }
 
     /// <summary>
@@ -1561,7 +1561,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>System.String.</returns>
     public string SqlColumn(string columnName)
     {
-        return q.SqlColumn(columnName);
+        return this.q.SqlColumn(columnName);
     }
 
     /// <summary>
@@ -1570,14 +1570,18 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>System.String.</returns>
     public string ToDeleteRowStatement()
     {
-        return q.ToDeleteRowStatement();
+        return this.q.ToDeleteRowStatement();
     }
 
     /// <summary>
     /// Converts to selectstatement.
     /// </summary>
     /// <returns>System.String.</returns>
-    public string ToSelectStatement() => ToSelectStatement(QueryType.Select);
+    public string ToSelectStatement()
+    {
+        return this.ToSelectStatement(QueryType.Select);
+    }
+
     /// <summary>
     /// Converts to selectstatement.
     /// </summary>
@@ -1585,7 +1589,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>System.String.</returns>
     public string ToSelectStatement(QueryType forType)
     {
-        return q.ToSelectStatement(forType);
+        return this.q.ToSelectStatement(forType);
     }
 
     /// <summary>
@@ -1594,7 +1598,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>System.String.</returns>
     public string ToCountStatement()
     {
-        return q.ToCountStatement();
+        return this.q.ToCountStatement();
     }
 
     /// <summary>
@@ -1603,7 +1607,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>IList&lt;System.String&gt;.</returns>
     public IList<string> GetAllFields()
     {
-        return q.GetAllFields();
+        return this.q.GetAllFields();
     }
 
     /// <summary>
@@ -1613,7 +1617,7 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// <returns>Tuple&lt;ModelDefinition, FieldDefinition&gt;.</returns>
     public Tuple<ModelDefinition, FieldDefinition> FirstMatchingField(string fieldName)
     {
-        return q.FirstMatchingField(fieldName);
+        return this.q.FirstMatchingField(fieldName);
     }
 
     /// <summary>
@@ -1621,14 +1625,21 @@ public class UntypedSqlExpressionProxy<T> : IUntypedSqlExpression
     /// </summary>
     /// <typeparam name="TModel">The type of the t model.</typeparam>
     /// <returns>System.String.</returns>
-    public string SelectInto<TModel>() => q.SelectInto<TModel>();
+    public string SelectInto<TModel>()
+    {
+        return this.q.SelectInto<TModel>();
+    }
+
     /// <summary>
     /// Selects the into.
     /// </summary>
     /// <typeparam name="TModel">The type of the t model.</typeparam>
     /// <param name="queryType">Type of the query.</param>
     /// <returns>System.String.</returns>
-    public string SelectInto<TModel>(QueryType queryType) => q.SelectInto<TModel>(queryType);
+    public string SelectInto<TModel>(QueryType queryType)
+    {
+        return this.q.SelectInto<TModel>(queryType);
+    }
 }
 
 /// <summary>
@@ -1652,8 +1663,10 @@ public static class SqlExpressionExtensions
     /// </summary>
     /// <param name="sqlExpression">The SQL expression.</param>
     /// <returns>IOrmLiteDialectProvider.</returns>
-    public static IOrmLiteDialectProvider ToDialectProvider(this ISqlExpression sqlExpression) =>
-        (sqlExpression as IHasDialectProvider)?.DialectProvider ?? OrmLiteConfig.DialectProvider;
+    public static IOrmLiteDialectProvider ToDialectProvider(this ISqlExpression sqlExpression)
+    {
+        return (sqlExpression as IHasDialectProvider)?.DialectProvider ?? OrmLiteConfig.DialectProvider;
+    }
 
     /// <summary>
     /// Tables the specified SQL expression.
@@ -1661,7 +1674,10 @@ public static class SqlExpressionExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="sqlExpression">The SQL expression.</param>
     /// <returns>System.String.</returns>
-    public static string Table<T>(this ISqlExpression sqlExpression) => sqlExpression.ToDialectProvider().GetQuotedTableName(typeof(T).GetModelDefinition());
+    public static string Table<T>(this ISqlExpression sqlExpression)
+    {
+        return sqlExpression.ToDialectProvider().GetQuotedTableName(typeof(T).GetModelDefinition());
+    }
 
     /// <summary>
     /// Tables the specified dialect.
@@ -1669,7 +1685,10 @@ public static class SqlExpressionExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="dialect">The dialect.</param>
     /// <returns>System.String.</returns>
-    public static string Table<T>(this IOrmLiteDialectProvider dialect) => dialect.GetQuotedTableName(typeof(T).GetModelDefinition());
+    public static string Table<T>(this IOrmLiteDialectProvider dialect)
+    {
+        return dialect.GetQuotedTableName(typeof(T).GetModelDefinition());
+    }
 
     /// <summary>
     /// Columns the specified property expression.
@@ -1679,8 +1698,10 @@ public static class SqlExpressionExtensions
     /// <param name="propertyExpression">The property expression.</param>
     /// <param name="prefixTable">if set to <c>true</c> [prefix table].</param>
     /// <returns>System.String.</returns>
-    public static string Column<Table>(this ISqlExpression sqlExpression, Expression<Func<Table, object>> propertyExpression, bool prefixTable = false) =>
-        sqlExpression.ToDialectProvider().Column(propertyExpression, prefixTable);
+    public static string Column<Table>(this ISqlExpression sqlExpression, Expression<Func<Table, object>> propertyExpression, bool prefixTable = false)
+    {
+        return sqlExpression.ToDialectProvider().Column(propertyExpression, prefixTable);
+    }
 
     /// <summary>
     /// Columns the type of the database.
@@ -1774,8 +1795,10 @@ public static class SqlExpressionExtensions
     /// <param name="propertyName">Name of the property.</param>
     /// <param name="prefixTable">if set to <c>true</c> [prefix table].</param>
     /// <returns>System.String.</returns>
-    public static string Column<Table>(this ISqlExpression sqlExpression, string propertyName, bool prefixTable = false) =>
-        sqlExpression.ToDialectProvider().Column<Table>(propertyName, prefixTable);
+    public static string Column<Table>(this ISqlExpression sqlExpression, string propertyName, bool prefixTable = false)
+    {
+        return sqlExpression.ToDialectProvider().Column<Table>(propertyName, prefixTable);
+    }
 
     /// <summary>
     /// Columns the type of the database.

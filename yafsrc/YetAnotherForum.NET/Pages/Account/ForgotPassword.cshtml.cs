@@ -24,7 +24,6 @@
 
 namespace YAF.Pages.Account;
 
-using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -61,7 +60,7 @@ public class ForgotPasswordModel : AccountPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public ForgotPasswordInputModel Input { get; set; }
 
     /// <summary>
     /// Create the Page links.
@@ -112,17 +111,5 @@ public class ForgotPasswordModel : AccountPage
         this.PageBoardContext.SessionNotify(this.GetText("SUCCESS"), MessageTypes.success);
 
         return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        /// <summary>
-        /// Gets or sets the email.
-        /// </summary>
-        [Required]
-        public string UserName { get; set; }
     }
 }

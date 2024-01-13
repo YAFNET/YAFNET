@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using ServiceStack.DataAnnotations;
+
 namespace YAF.Types.Objects;
 
 using System.Xml.Serialization;

@@ -68,7 +68,9 @@ public class SqlServerBoolConverter : BoolConverter
     public override object FromDbValue(Type fieldType, object value)
     {
         if (value is bool)
+        {
             return value;
+        }
 
         return 0 != (long)this.ConvertNumber(typeof(long), value);
     }

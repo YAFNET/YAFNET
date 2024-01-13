@@ -321,14 +321,6 @@
             "#text": "Redaguoja medalius"
           },
           {
-            "@tag": "ADMIN_EDITNNTPFORUM",
-            "#text": "Redaguoja NNTP forumą"
-          },
-          {
-            "@tag": "ADMIN_EDITNNTPSERVER",
-            "#text": "Redaguoja NNTP serverį"
-          },
-          {
             "@tag": "ADMIN_EDITRANK",
             "#text": "Redaguojami rangai"
           },
@@ -363,18 +355,6 @@
           {
             "@tag": "ADMIN_MEDALS",
             "#text": "Medalių peržiūra/redagavimas"
-          },
-          {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "NNTP forumų peržiūra ir redagavimas"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "Ištraukia NNTP"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "NNTP serverių peržiūra ir redagavimas"
           },
           {
             "@tag": "ADMIN_PM",
@@ -3135,128 +3115,6 @@
         ]
       },
       {
-        "@name": "ADMIN_EDITNNTPFORUM",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "Aktyvus:"
-          },
-          {
-            "@tag": "ACTIVE_HELP",
-            "#text": "Patikrinkite tai, kad forumas būtų aktyvus."
-          },
-          {
-            "@tag": "DATECUTOFF",
-            "#text": "Galutinė pranešimų teikimo data:"
-          },
-          {
-            "@tag": "DATECUTOFF_HELP",
-            "#text": "Žinutės neturėtų būti atsisiunčiamos, jei jos yra senesnės nei ši data."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "Forumas:"
-          },
-          {
-            "@tag": "FORUM_HELP",
-            "#text": "Forumo pranešimai bus įterpti į."
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "Grupė:"
-          },
-          {
-            "@tag": "GROUP_HELP",
-            "#text": "Naujienų grupės pavadinimas."
-          },
-          {
-            "@tag": "MSG_SELECT_FORUM",
-            "#text": "Norėdami išsaugoti NNTP pranešimus, turite pasirinkti forumą."
-          },
-          {
-            "@tag": "MSG_VALID_GROUP",
-            "#text": "Turėtumėte įvesti galiojantį grupės pavadinimą."
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "Serveris:"
-          },
-          {
-            "@tag": "SERVER_HELP",
-            "#text": "Kokiame serveryje yra ši grupė."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit NNTP Forum"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "Redaguoti NNTP forumą"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_EDITNNTPSERVER",
-        "Resource": [
-          {
-            "@tag": "MSG_SERVER_ADR",
-            "#text": "Trūksta serverio adreso."
-          },
-          {
-            "@tag": "MSG_SERVER_NAME",
-            "#text": "Trūksta serverio pavadinimo."
-          },
-          {
-            "@tag": "NNTP_ADRESS",
-            "#text": "Adresas:"
-          },
-          {
-            "@tag": "NNTP_ADRESS_HELP",
-            "#text": "Serverio prieglobos vardas."
-          },
-          {
-            "@tag": "NNTP_NAME",
-            "#text": "Vardas ir pavardė:"
-          },
-          {
-            "@tag": "NNTP_NAME_HELP",
-            "#text": "Šio serverio pavadinimas."
-          },
-          {
-            "@tag": "NNTP_PASSWORD",
-            "#text": "Slaptažodis:"
-          },
-          {
-            "@tag": "NNTP_PASSWORD_HELP",
-            "#text": "Slaptažodis, naudojamas prisijungiant prie nntp serverio."
-          },
-          {
-            "@tag": "NNTP_PORT",
-            "#text": "Uostas:"
-          },
-          {
-            "@tag": "NNTP_PORT_HELP",
-            "#text": "Prievado numeris, prie kurio jungiamasi."
-          },
-          {
-            "@tag": "NNTP_USERNAME",
-            "#text": "Vartotojo vardas:"
-          },
-          {
-            "@tag": "NNTP_USERNAME_HELP",
-            "#text": "Vartotojo vardas, naudojamas prisijungti prie nntp serverio."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit NNTP Server"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "Redaguoti NNTP serverį"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_EDITRANK",
         "Resource": [
           {
@@ -4311,14 +4169,6 @@
           {
             "@tag": "COLLAPSED",
             "#text": "Sugriuvęs"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES",
-            "#text": "Sukurti NNTP naudotojų vardus:"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES_HELP",
-            "#text": "Pažymėkite, jei norite leisti, kad vartotojai būtų automatiškai sukurti atsisiunčiant Usenet pranešimus. Šią funkciją įjunkite tik bandomojoje aplinkoje, o gamybinėje aplinkoje - NIEKADA. Pagrindinė šios parinkties paskirtis - našumo testavimas."
           },
           {
             "@tag": "CROP_IMAGE_ATTACH",
@@ -5966,149 +5816,6 @@
         ]
       },
       {
-        "@name": "ADMIN_NNTPFORUMS",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "Aktyvus"
-          },
-          {
-            "@tag": "DELETE",
-            "#text": "Ištrinti"
-          },
-          {
-            "@tag": "DELETE_FORUM",
-            "#text": "Ištrinti šį forumą?"
-          },
-          {
-            "@tag": "EDIT",
-            "#text": "Redaguoti"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Forums"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "Forumas"
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "Grupė"
-          },
-          {
-            "@tag": "NEW_FORUM",
-            "#text": "Naujas forumas"
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Išsaugoti forumą"
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "Serveris"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP forumai"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPRETRIEVE",
-        "Resource": [
-          {
-            "@tag": "BETA_WARNING",
-            "#text": "<p>\r\n    The NNTP feature of Yet Another Forum.net is still beta, and <strong>will</strong> have bugs.\r\n    Bugs you should look for is character set conversion, and incorrect time on posts.\r\n    Usenet articles will be posted to the forum with the date from the article header,\r\n    meaning that you well could get future dates. Please let me know of any unknown\r\n    time zones that are encountered.\r\n  </p>\r\n  <p>\r\n    The forums usenet Articles are posted to should be read-only, as messages will <strong>not</strong>\r\n    be posted back to the usenet. For speed purposes usenet articles are automatically\r\n    approved, meaning that if the forum is moderated, the posts will be automatically\r\n    approved.\r\n  </p>\r\n  <p>\r\n    To protect usenet servers, a newsgroup can only be updated once every 10 minutes.\r\n  </p>"
-          },
-          {
-            "@tag": "GROUPS",
-            "#text": "Paruoštos grupės"
-          },
-          {
-            "@tag": "HEADER",
-            "#text": "Gauti NNTP straipsnius"
-          },
-          {
-            "@tag": "LAST_MESSAGE",
-            "#text": "Paskutinė žinutė"
-          },
-          {
-            "@tag": "LAST_UPDATE",
-            "#text": "Paskutinis atnaujinimas"
-          },
-          {
-            "@tag": "NO_GROUPS",
-            "#text": "Grupių, paruoštų paieškai, nėra"
-          },
-          {
-            "@tag": "RETRIEVE",
-            "#text": "Gauti"
-          },
-          {
-            "@tag": "RETRIEVED",
-            "#text": "Atkurta {0} straipsnių. {1:N2} straipsnių per sekundę."
-          },
-          {
-            "@tag": "SECONDS",
-            "#text": "sekundės"
-          },
-          {
-            "@tag": "TIME",
-            "#text": "Nurodykite, kiek laiko turėtų būti naudojama straipsnių paieškai."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP gavimas"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPSERVERS",
-        "Resource": [
-          {
-            "@tag": "ADRESS",
-            "#text": "Adress"
-          },
-          {
-            "@tag": "DELETE_SERVER",
-            "#text": "Ištrinti šį serverį?"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Servers"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
-          },
-          {
-            "@tag": "NAME",
-            "#text": "Pavadinimas"
-          },
-          {
-            "@tag": "NEW_SERVER",
-            "#text": "Naujas serveris"
-          },
-          {
-            "@tag": "SAVE_SERVER",
-            "#text": "Išsaugoti serverį"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP serveriai"
-          },
-          {
-            "@tag": "USERNAME",
-            "#text": "Vartotojo vardas"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
@@ -7124,18 +6831,6 @@
             "#text": "Medaliai"
           },
           {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "NNTP forumai"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "Gauti straipsnius"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "NNTP serveriai"
-          },
-          {
             "@tag": "ADMIN_PAGEACCESSEDIT",
             "#text": "Redaguoti administratoriaus puslapio prieigą"
           },
@@ -7218,10 +6913,6 @@
           {
             "@tag": "MAINTENANCE",
             "#text": "Techninė priežiūra"
-          },
-          {
-            "@tag": "NNTP",
-            "#text": "NNTP"
           },
           {
             "@tag": "SETTINGS",

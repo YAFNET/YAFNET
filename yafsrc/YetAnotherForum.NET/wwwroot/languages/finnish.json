@@ -321,14 +321,6 @@
             "#text": "Muokkaa mitalit"
           },
           {
-            "@tag": "ADMIN_EDITNNTPFORUM",
-            "#text": "Muokkaa NNTP-foorumia"
-          },
-          {
-            "@tag": "ADMIN_EDITNNTPSERVER",
-            "#text": "Muokkaa NNTP-palvelinta"
-          },
-          {
             "@tag": "ADMIN_EDITRANK",
             "#text": "Muokkaa rivejä"
           },
@@ -363,18 +355,6 @@
           {
             "@tag": "ADMIN_MEDALS",
             "#text": "Katselee/muokkaa mitaleja"
-          },
-          {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "Katselee/muokkaa NNTP-foorumeita"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "Noudattaa NNTP"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "NNTP-palvelimien tarkastelu/muokkaus"
           },
           {
             "@tag": "ADMIN_PM",
@@ -3135,128 +3115,6 @@
         ]
       },
       {
-        "@name": "ADMIN_EDITNNTPFORUM",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "Aktiivinen:"
-          },
-          {
-            "@tag": "ACTIVE_HELP",
-            "#text": "Tarkista tämä, jotta foorumi olisi aktiivinen."
-          },
-          {
-            "@tag": "DATECUTOFF",
-            "#text": "Viestien viimeinen lähetyspäivä:"
-          },
-          {
-            "@tag": "DATECUTOFF_HELP",
-            "#text": "Viestejä ei saa ladata, jos ne ovat tätä päivämäärää vanhempia."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "Foorumi:"
-          },
-          {
-            "@tag": "FORUM_HELP",
-            "#text": "Foorumiviestit lisätään osoitteeseen."
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "Ryhmä:"
-          },
-          {
-            "@tag": "GROUP_HELP",
-            "#text": "Uutisryhmän nimi."
-          },
-          {
-            "@tag": "MSG_SELECT_FORUM",
-            "#text": "Sinun on valittava foorumi NNTP-viestien tallentamista varten."
-          },
-          {
-            "@tag": "MSG_VALID_GROUP",
-            "#text": "Sinun on annettava kelvollinen ryhmän nimi."
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "Palvelin:"
-          },
-          {
-            "@tag": "SERVER_HELP",
-            "#text": "Millä palvelimella tämä ryhmä sijaitsee."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit NNTP Forum"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "Muokkaa NNTP-foorumia"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_EDITNNTPSERVER",
-        "Resource": [
-          {
-            "@tag": "MSG_SERVER_ADR",
-            "#text": "Palvelimen osoite puuttuu."
-          },
-          {
-            "@tag": "MSG_SERVER_NAME",
-            "#text": "Palvelimen nimi puuttuu."
-          },
-          {
-            "@tag": "NNTP_ADRESS",
-            "#text": "Osoite:"
-          },
-          {
-            "@tag": "NNTP_ADRESS_HELP",
-            "#text": "Palvelimen isäntänimi."
-          },
-          {
-            "@tag": "NNTP_NAME",
-            "#text": "Nimi:"
-          },
-          {
-            "@tag": "NNTP_NAME_HELP",
-            "#text": "Palvelimen nimi."
-          },
-          {
-            "@tag": "NNTP_PASSWORD",
-            "#text": "Salasana:"
-          },
-          {
-            "@tag": "NNTP_PASSWORD_HELP",
-            "#text": "Salasana, jolla kirjaudutaan nntp-palvelimelle."
-          },
-          {
-            "@tag": "NNTP_PORT",
-            "#text": "Satama:"
-          },
-          {
-            "@tag": "NNTP_PORT_HELP",
-            "#text": "Portin numero, johon yhteys muodostetaan."
-          },
-          {
-            "@tag": "NNTP_USERNAME",
-            "#text": "Käyttäjänimi:"
-          },
-          {
-            "@tag": "NNTP_USERNAME_HELP",
-            "#text": "Käyttäjänimi, jolla kirjaudutaan nntp-palvelimelle."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit NNTP Server"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "Muokkaa NNTP-palvelinta"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_EDITRANK",
         "Resource": [
           {
@@ -4311,14 +4169,6 @@
           {
             "@tag": "COLLAPSED",
             "#text": "Romahtanut"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES",
-            "#text": "Luo NNTP-käyttäjänimet:"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES_HELP",
-            "#text": "Tarkista, että käyttäjät luodaan automaattisesti, kun ladataan usenet-viestejä. Ota tämä käyttöön vain testiympäristössä ja <em>Ei koskaan</em> tuotantoympäristössä. Tämän vaihtoehdon päätarkoitus on suorituskyvyn testaaminen."
           },
           {
             "@tag": "CROP_IMAGE_ATTACH",
@@ -5966,149 +5816,6 @@
         ]
       },
       {
-        "@name": "ADMIN_NNTPFORUMS",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "Aktiivinen"
-          },
-          {
-            "@tag": "DELETE",
-            "#text": "Poista"
-          },
-          {
-            "@tag": "DELETE_FORUM",
-            "#text": "Poistaa tämä foorumi?"
-          },
-          {
-            "@tag": "EDIT",
-            "#text": "Muokkaa"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Forums"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "Foorumi"
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "Ryhmä"
-          },
-          {
-            "@tag": "NEW_FORUM",
-            "#text": "Uusi foorumi"
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Tallenna foorumi"
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "Palvelin"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP-foorumit"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPRETRIEVE",
-        "Resource": [
-          {
-            "@tag": "BETA_WARNING",
-            "#text": "<p>\r\n    The NNTP feature of Yet Another Forum.net is still beta, and <strong>will</strong> have bugs.\r\n    Bugs you should look for is character set conversion, and incorrect time on posts.\r\n    Usenet articles will be posted to the forum with the date from the article header,\r\n    meaning that you well could get future dates. Please let me know of any unknown\r\n    time zones that are encountered.\r\n  </p>\r\n  <p>\r\n    The forums usenet Articles are posted to should be read-only, as messages will <strong>not</strong>\r\n    be posted back to the usenet. For speed purposes usenet articles are automatically\r\n    approved, meaning that if the forum is moderated, the posts will be automatically\r\n    approved.\r\n  </p>\r\n  <p>\r\n    To protect usenet servers, a newsgroup can only be updated once every 10 minutes.\r\n  </p>"
-          },
-          {
-            "@tag": "GROUPS",
-            "#text": "Ryhmät valmiina hakua varten"
-          },
-          {
-            "@tag": "HEADER",
-            "#text": "Hae NNTP-artikkelit"
-          },
-          {
-            "@tag": "LAST_MESSAGE",
-            "#text": "Viimeisin viesti"
-          },
-          {
-            "@tag": "LAST_UPDATE",
-            "#text": "Viimeisin päivitys"
-          },
-          {
-            "@tag": "NO_GROUPS",
-            "#text": "Ei ryhmiä valmiina haettavaksi"
-          },
-          {
-            "@tag": "RETRIEVE",
-            "#text": "Hae"
-          },
-          {
-            "@tag": "RETRIEVED",
-            "#text": "Haettu {0} artikkeleita. {1:N2} artikkeleita sekunnissa."
-          },
-          {
-            "@tag": "SECONDS",
-            "#text": "sekuntia"
-          },
-          {
-            "@tag": "TIME",
-            "#text": "Määritä, kuinka paljon aikaa artikkelien hakuun on käytettävä."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP-nouto"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPSERVERS",
-        "Resource": [
-          {
-            "@tag": "ADRESS",
-            "#text": "Adress"
-          },
-          {
-            "@tag": "DELETE_SERVER",
-            "#text": "Poistaa tämä palvelin?"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Servers"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
-          },
-          {
-            "@tag": "NAME",
-            "#text": "Nimi"
-          },
-          {
-            "@tag": "NEW_SERVER",
-            "#text": "Uusi palvelin"
-          },
-          {
-            "@tag": "SAVE_SERVER",
-            "#text": "Tallenna palvelin"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP-palvelimet"
-          },
-          {
-            "@tag": "USERNAME",
-            "#text": "Käyttäjän nimi"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
@@ -7124,18 +6831,6 @@
             "#text": "Mitalit"
           },
           {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "NNTP-foorumit"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "Hae artikkeleita"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "NNTP-palvelimet"
-          },
-          {
             "@tag": "ADMIN_PAGEACCESSEDIT",
             "#text": "Muokkaa admin-sivun pääsyä"
           },
@@ -7218,10 +6913,6 @@
           {
             "@tag": "MAINTENANCE",
             "#text": "Huolto"
-          },
-          {
-            "@tag": "NNTP",
-            "#text": "NNTP"
           },
           {
             "@tag": "SETTINGS",

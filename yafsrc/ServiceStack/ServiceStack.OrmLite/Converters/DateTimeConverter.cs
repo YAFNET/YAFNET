@@ -47,7 +47,7 @@ public class DateTimeConverter : OrmLiteConverter
     public override string ToQuotedString(Type fieldType, object value)
     {
         var dateTime = (DateTime)value;
-        return DateTimeFmt(dateTime, "yyyy-MM-dd HH:mm:ss.fff");
+        return this.DateTimeFmt(dateTime, "yyyy-MM-dd HH:mm:ss.fff");
     }
 
     /// <summary>
@@ -58,17 +58,17 @@ public class DateTimeConverter : OrmLiteConverter
     /// <returns>System.String.</returns>
     public virtual string DateTimeFmt(DateTime dateTime, string dateTimeFormat)
     {
-        if (DateStyle == DateTimeKind.Utc && dateTime.Kind == DateTimeKind.Local)
+        if (this.DateStyle == DateTimeKind.Utc && dateTime.Kind == DateTimeKind.Local)
         {
             dateTime = dateTime.ToUniversalTime();
         }
 
-        if (DateStyle == DateTimeKind.Local && dateTime.Kind != DateTimeKind.Local)
+        if (this.DateStyle == DateTimeKind.Local && dateTime.Kind != DateTimeKind.Local)
         {
             dateTime = dateTime.ToLocalTime();
         }
 
-        return DialectProvider.GetQuotedValue(dateTime.ToString(dateTimeFormat, CultureInfo.InvariantCulture), typeof(string));
+        return this.DialectProvider.GetQuotedValue(dateTime.ToString(dateTimeFormat, CultureInfo.InvariantCulture), typeof(string));
     }
 
     /// <summary>
@@ -113,7 +113,7 @@ public class DateTimeConverter : OrmLiteConverter
             value = DateTimeSerializer.ParseShortestXsdDateTime(strValue);
         }
 
-        return FromDbValue(value);
+        return this.FromDbValue(value);
     }
 
     /// <summary>
@@ -124,12 +124,12 @@ public class DateTimeConverter : OrmLiteConverter
     public virtual object FromDbValue(object value)
     {
         var dateTime = (DateTime)value;
-        if (DateStyle == DateTimeKind.Utc)
+        if (this.DateStyle == DateTimeKind.Utc)
         {
             dateTime = DateTime.SpecifyKind(dateTime, DateTimeKind.Utc);
         }
 
-        if (DateStyle == DateTimeKind.Local && dateTime.Kind != DateTimeKind.Local)
+        if (this.DateStyle == DateTimeKind.Local && dateTime.Kind != DateTimeKind.Local)
         {
             dateTime = dateTime.Kind == DateTimeKind.Utc
                            ? dateTime.ToLocalTime()

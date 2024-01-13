@@ -63,7 +63,10 @@ public static partial class Sql
     /// <param name="value">The value.</param>
     /// <param name="list">The list.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public static bool In<T, TItem>(T value, params TItem[] list) => value != null && Flatten(list).Any(obj => obj.ToString() == value.ToString());
+    public static bool In<T, TItem>(T value, params TItem[] list)
+    {
+        return value != null && Flatten(list).Any(obj => obj.ToString() == value.ToString());
+    }
 
     /// <summary>
     /// Ins the specified value.
@@ -73,7 +76,10 @@ public static partial class Sql
     /// <param name="value">The value.</param>
     /// <param name="query">The query.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public static bool In<T, TItem>(T value, SqlExpression<TItem> query) => value != null && query != null;
+    public static bool In<T, TItem>(T value, SqlExpression<TItem> query)
+    {
+        return value != null && query != null;
+    }
 
     /// <summary>
     /// Ascs the specified value.
@@ -81,7 +87,10 @@ public static partial class Sql
     /// <typeparam name="T"></typeparam>
     /// <param name="value">The value.</param>
     /// <returns>System.String.</returns>
-    public static string Asc<T>(T value) => value == null ? "" : value + " ASC";
+    public static string Asc<T>(T value)
+    {
+        return value == null ? "" : value + " ASC";
+    }
 
     /// <summary>
     /// Descs the specified value.
@@ -89,7 +98,10 @@ public static partial class Sql
     /// <typeparam name="T"></typeparam>
     /// <param name="value">The value.</param>
     /// <returns>System.String.</returns>
-    public static string Desc<T>(T value) => value == null ? "" : value + " DESC";
+    public static string Desc<T>(T value)
+    {
+        return value == null ? "" : value + " DESC";
+    }
 
     /// <summary>
     /// Ases the specified value.
@@ -98,7 +110,10 @@ public static partial class Sql
     /// <param name="value">The value.</param>
     /// <param name="asValue">As value.</param>
     /// <returns>System.String.</returns>
-    public static string As<T>(T value, object asValue) => value == null ? "" : $"{value} AS {asValue}";
+    public static string As<T>(T value, object asValue)
+    {
+        return value == null ? "" : $"{value} AS {asValue}";
+    }
 
     /// <summary>
     /// Sums the specified value.
@@ -106,14 +121,20 @@ public static partial class Sql
     /// <typeparam name="T"></typeparam>
     /// <param name="value">The value.</param>
     /// <returns>T.</returns>
-    public static T Sum<T>(T value) => value;
+    public static T Sum<T>(T value)
+    {
+        return value;
+    }
 
     /// <summary>
     /// Sums the specified value.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.String.</returns>
-    public static string Sum(string value) => $"SUM({value})";
+    public static string Sum(string value)
+    {
+        return $"SUM({value})";
+    }
 
     /// <summary>
     /// Counts the specified value.
@@ -121,7 +142,10 @@ public static partial class Sql
     /// <typeparam name="T"></typeparam>
     /// <param name="value">The value.</param>
     /// <returns>T.</returns>
-    public static T Count<T>(T value) => value;
+    public static T Count<T>(T value)
+    {
+        return value;
+    }
 
     /// <summary>
     /// Counts the distinct.
@@ -129,14 +153,20 @@ public static partial class Sql
     /// <typeparam name="T"></typeparam>
     /// <param name="value">The value.</param>
     /// <returns>T.</returns>
-    public static T CountDistinct<T>(T value) => value;
+    public static T CountDistinct<T>(T value)
+    {
+        return value;
+    }
 
     /// <summary>
     /// Counts the specified value.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.String.</returns>
-    public static string Count(string value) => $"COUNT({value})";
+    public static string Count(string value)
+    {
+        return $"COUNT({value})";
+    }
 
     /// <summary>
     /// Determines the minimum of the parameters.
@@ -144,14 +174,20 @@ public static partial class Sql
     /// <typeparam name="T"></typeparam>
     /// <param name="value">The value.</param>
     /// <returns>T.</returns>
-    public static T Min<T>(T value) => value;
+    public static T Min<T>(T value)
+    {
+        return value;
+    }
 
     /// <summary>
     /// Determines the minimum of the parameters.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.String.</returns>
-    public static string Min(string value) => $"MIN({value})";
+    public static string Min(string value)
+    {
+        return $"MIN({value})";
+    }
 
     /// <summary>
     /// Determines the maximum of the parameters.
@@ -159,14 +195,20 @@ public static partial class Sql
     /// <typeparam name="T"></typeparam>
     /// <param name="value">The value.</param>
     /// <returns>T.</returns>
-    public static T Max<T>(T value) => value;
+    public static T Max<T>(T value)
+    {
+        return value;
+    }
 
     /// <summary>
     /// Determines the maximum of the parameters.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.String.</returns>
-    public static string Max(string value) => $"MAX({value})";
+    public static string Max(string value)
+    {
+        return $"MAX({value})";
+    }
 
     /// <summary>
     /// Averages the specified value.
@@ -174,14 +216,20 @@ public static partial class Sql
     /// <typeparam name="T"></typeparam>
     /// <param name="value">The value.</param>
     /// <returns>T.</returns>
-    public static T Avg<T>(T value) => value;
+    public static T Avg<T>(T value)
+    {
+        return value;
+    }
 
     /// <summary>
     /// Averages the specified value.
     /// </summary>
     /// <param name="value">The value.</param>
     /// <returns>System.String.</returns>
-    public static string Avg(string value) => $"AVG({value})";
+    public static string Avg(string value)
+    {
+        return $"AVG({value})";
+    }
 
     /// <summary>
     /// Alls the fields.
@@ -189,7 +237,10 @@ public static partial class Sql
     /// <typeparam name="T"></typeparam>
     /// <param name="item">The item.</param>
     /// <returns>T.</returns>
-    public static T AllFields<T>(T item) => item;
+    public static T AllFields<T>(T item)
+    {
+        return item;
+    }
 
     /// <summary>
     /// Joins the alias.
@@ -198,7 +249,10 @@ public static partial class Sql
     /// <param name="tableAlias">The table alias.</param>
     /// <returns>System.String.</returns>
     [Obsolete("Use TableAlias")]
-    public static string JoinAlias(string property, string tableAlias) => tableAlias;
+    public static string JoinAlias(string property, string tableAlias)
+    {
+        return tableAlias;
+    }
 
     /// <summary>
     /// Tables the alias.
@@ -206,7 +260,10 @@ public static partial class Sql
     /// <param name="property">The property.</param>
     /// <param name="tableAlias">The table alias.</param>
     /// <returns>System.String.</returns>
-    public static string TableAlias(string property, string tableAlias) => tableAlias;
+    public static string TableAlias(string property, string tableAlias)
+    {
+        return tableAlias;
+    }
 
     /// <summary>
     /// Joins the alias.
@@ -216,7 +273,10 @@ public static partial class Sql
     /// <param name="tableAlias">The table alias.</param>
     /// <returns>T.</returns>
     [Obsolete("Use TableAlias")]
-    public static T JoinAlias<T>(T property, string tableAlias) => default;
+    public static T JoinAlias<T>(T property, string tableAlias)
+    {
+        return default;
+    }
 
     /// <summary>
     /// Tables the alias.
@@ -225,14 +285,20 @@ public static partial class Sql
     /// <param name="property">The property.</param>
     /// <param name="tableAlias">The table alias.</param>
     /// <returns>T.</returns>
-    public static T TableAlias<T>(T property, string tableAlias) => default;
+    public static T TableAlias<T>(T property, string tableAlias)
+    {
+        return default;
+    }
 
     /// <summary>
     /// Customs the specified custom SQL.
     /// </summary>
     /// <param name="customSql">The custom SQL.</param>
     /// <returns>System.String.</returns>
-    public static string Custom(string customSql) => customSql;
+    public static string Custom(string customSql)
+    {
+        return customSql;
+    }
 
     /// <summary>
     /// Customs the specified custom SQL.
@@ -240,7 +306,10 @@ public static partial class Sql
     /// <typeparam name="T"></typeparam>
     /// <param name="customSql">The custom SQL.</param>
     /// <returns>T.</returns>
-    public static T Custom<T>(string customSql) => default;
+    public static T Custom<T>(string customSql)
+    {
+        return default;
+    }
 
     /// <summary>
     /// Casts the specified value.
@@ -248,7 +317,10 @@ public static partial class Sql
     /// <param name="value">The value.</param>
     /// <param name="castAs">The cast as.</param>
     /// <returns>System.String.</returns>
-    public static string Cast(object value, string castAs) => $"CAST({value} AS {castAs})";
+    public static string Cast(object value, string castAs)
+    {
+        return $"CAST({value} AS {castAs})";
+    }
 
     /// <summary>
     /// The eot
@@ -266,7 +338,10 @@ public static partial class Sql
     /// <returns>Returns True if the string contains valid JSON; otherwise, returns False. Returns null if expression is null.</returns>
     /// <remarks>ISJSON does not check the uniqueness of keys at the same level.</remarks>
     /// <see href="https://docs.microsoft.com/en-us/sql/t-sql/functions/isjson-transact-sql"/>
-    public static bool? IsJson(string expression) => null;
+    public static bool? IsJson(string expression)
+    {
+        return null;
+    }
 
     /// <summary>Extracts a scalar value from a JSON string.</summary>
     /// <param name="expression">
@@ -289,7 +364,10 @@ public static partial class Sql
     /// If you have to return scalar values greater than 4000 characters, use <b>OPENJSON</b> instead of <b>JSON_VALUE</b>. For more info, see <see href="https://docs.microsoft.com/en-us/sql/t-sql/functions/openjson-transact-sql">OPENJSON (Transact-SQL)</see>.
     /// </returns>
     /// <see href="https://docs.microsoft.com/en-us/sql/t-sql/functions/json-value-transact-sql"/>
-    public static T JsonValue<T>(string expression, string path) => default;
+    public static T JsonValue<T>(string expression, string path)
+    {
+        return default;
+    }
 
     /// <summary>Extracts a scalar value from a JSON string.</summary>
     /// <param name="expression">
@@ -312,7 +390,10 @@ public static partial class Sql
     /// If you have to return scalar values greater than 4000 characters, use <b>OPENJSON</b> instead of <b>JSON_VALUE</b>. For more info, see <see href="https://docs.microsoft.com/en-us/sql/t-sql/functions/openjson-transact-sql">OPENJSON (Transact-SQL)</see>.
     /// </returns>
     /// <see href="https://docs.microsoft.com/en-us/sql/t-sql/functions/json-value-transact-sql"/>
-    public static string JsonValue(string expression, string path) => string.Empty;
+    public static string JsonValue(string expression, string path)
+    {
+        return string.Empty;
+    }
 
 
     /// <summary>
@@ -337,7 +418,10 @@ public static partial class Sql
     /// <li>In strict mode, <b>JSON_QUERY</b> returns an error.</li>
     /// </ul>
     /// </returns>
-    public static string JsonQuery(string expression) => string.Empty;
+    public static string JsonQuery(string expression)
+    {
+        return string.Empty;
+    }
 
     /// <summary>
     /// Jsons the query.
@@ -345,7 +429,10 @@ public static partial class Sql
     /// <typeparam name="T"></typeparam>
     /// <param name="expression">The expression.</param>
     /// <returns>T.</returns>
-    public static T JsonQuery<T>(string expression) => default;
+    public static T JsonQuery<T>(string expression)
+    {
+        return default;
+    }
 
     /// <summary>
     /// SQL Server 2017+
@@ -354,7 +441,10 @@ public static partial class Sql
     /// <param name="expression">The expression.</param>
     /// <param name="path">The path.</param>
     /// <returns>System.String.</returns>
-    public static string JsonQuery(string expression, string path) => string.Empty;
+    public static string JsonQuery(string expression, string path)
+    {
+        return string.Empty;
+    }
 
     /// <summary>
     ///  SQL Server 2017+
@@ -364,5 +454,8 @@ public static partial class Sql
     /// <param name="expression">The expression.</param>
     /// <param name="path">The path.</param>
     /// <returns>T.</returns>
-    public static T JsonQuery<T>(string expression, string path) => default;
+    public static T JsonQuery<T>(string expression, string path)
+    {
+        return default;
+    }
 }

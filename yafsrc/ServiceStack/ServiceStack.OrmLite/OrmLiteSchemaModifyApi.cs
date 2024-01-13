@@ -175,8 +175,10 @@ public static class OrmLiteSchemaModifyApi
     /// <param name="dbConn">The database connection.</param>
     /// <param name="table">The table.</param>
     /// <param name="fieldDef">The field definition.</param>
-    public static void AddColumn(this IDbConnection dbConn, string table, FieldDefinition fieldDef) =>
+    public static void AddColumn(this IDbConnection dbConn, string table, FieldDefinition fieldDef)
+    {
         dbConn.ExecuteSql(dbConn.GetDialectProvider().ToAddColumnStatement(null, table, fieldDef));
+    }
 
     /// <summary>
     /// Adds the column.
@@ -185,8 +187,10 @@ public static class OrmLiteSchemaModifyApi
     /// <param name="schema">The schema.</param>
     /// <param name="table">The table.</param>
     /// <param name="fieldDef">The field definition.</param>
-    public static void AddColumn(this IDbConnection dbConn, string schema, string table, FieldDefinition fieldDef) =>
+    public static void AddColumn(this IDbConnection dbConn, string schema, string table, FieldDefinition fieldDef)
+    {
         dbConn.ExecuteSql(dbConn.GetDialectProvider().ToAddColumnStatement(schema, table, fieldDef));
+    }
 
     /// <summary>
     /// Alters the column.
@@ -220,8 +224,11 @@ public static class OrmLiteSchemaModifyApi
     /// <param name="dbConn">The database connection.</param>
     /// <param name="table">The table.</param>
     /// <param name="fieldDef">The field definition.</param>
-    public static void AlterColumn(this IDbConnection dbConn, string table, FieldDefinition fieldDef) =>
+    public static void AlterColumn(this IDbConnection dbConn, string table, FieldDefinition fieldDef)
+    {
         dbConn.ExecuteSql(dbConn.GetDialectProvider().ToAlterColumnStatement(null, table, fieldDef));
+    }
+
     /// <summary>
     /// Alters the column.
     /// </summary>
@@ -229,8 +236,10 @@ public static class OrmLiteSchemaModifyApi
     /// <param name="schema">The schema.</param>
     /// <param name="table">The table.</param>
     /// <param name="fieldDef">The field definition.</param>
-    public static void AlterColumn(this IDbConnection dbConn, string schema, string table, FieldDefinition fieldDef) =>
+    public static void AlterColumn(this IDbConnection dbConn, string schema, string table, FieldDefinition fieldDef)
+    {
         dbConn.ExecuteSql(dbConn.GetDialectProvider().ToAlterColumnStatement(schema, table, fieldDef));
+    }
 
     /// <summary>
     /// Changes the name of the column.
@@ -286,8 +295,11 @@ public static class OrmLiteSchemaModifyApi
     /// <param name="dbConn">The database connection.</param>
     /// <param name="oldColumn">The old column.</param>
     /// <param name="newColumn">The new column.</param>
-    public static void RenameColumn<T>(this IDbConnection dbConn, string oldColumn, string newColumn) =>
+    public static void RenameColumn<T>(this IDbConnection dbConn, string oldColumn, string newColumn)
+    {
         dbConn.RenameColumn(typeof(T), oldColumn, newColumn);
+    }
+
     /// <summary>
     /// Renames the column.
     /// </summary>
@@ -295,9 +307,12 @@ public static class OrmLiteSchemaModifyApi
     /// <param name="modelType">Type of the model.</param>
     /// <param name="oldColumn">The old column.</param>
     /// <param name="newColumn">The new column.</param>
-    public static void RenameColumn(this IDbConnection dbConn, Type modelType, string oldColumn, string newColumn) =>
+    public static void RenameColumn(this IDbConnection dbConn, Type modelType, string oldColumn, string newColumn)
+    {
         dbConn.ExecuteSql(X.Map(dbConn.Dialect(), d => d.ToRenameColumnStatement(modelType,
             d.NamingStrategy.GetColumnName(oldColumn), d.NamingStrategy.GetColumnName(newColumn))));
+    }
+
     /// <summary>
     /// Renames the column.
     /// </summary>
@@ -305,9 +320,12 @@ public static class OrmLiteSchemaModifyApi
     /// <param name="table">The table.</param>
     /// <param name="oldColumn">The old column.</param>
     /// <param name="newColumn">The new column.</param>
-    public static void RenameColumn(this IDbConnection dbConn, string table, string oldColumn, string newColumn) =>
+    public static void RenameColumn(this IDbConnection dbConn, string table, string oldColumn, string newColumn)
+    {
         dbConn.ExecuteSql(X.Map(dbConn.Dialect(), d => d.ToRenameColumnStatement(null, table,
             d.NamingStrategy.GetColumnName(oldColumn), d.NamingStrategy.GetColumnName(newColumn))));
+    }
+
     /// <summary>
     /// Renames the column.
     /// </summary>
@@ -316,9 +334,11 @@ public static class OrmLiteSchemaModifyApi
     /// <param name="table">The table.</param>
     /// <param name="oldColumn">The old column.</param>
     /// <param name="newColumn">The new column.</param>
-    public static void RenameColumn(this IDbConnection dbConn, string schema, string table, string oldColumn, string newColumn) =>
+    public static void RenameColumn(this IDbConnection dbConn, string schema, string table, string oldColumn, string newColumn)
+    {
         dbConn.ExecuteSql(X.Map(dbConn.Dialect(), d => d.ToRenameColumnStatement(schema, table,
             d.NamingStrategy.GetColumnName(oldColumn), d.NamingStrategy.GetColumnName(newColumn))));
+    }
 
     /// <summary>
     /// Drops the column.
@@ -339,8 +359,10 @@ public static class OrmLiteSchemaModifyApi
     /// <typeparam name="T">The Table Model</typeparam>
     /// <param name="dbConn">The database connection.</param>
     /// <param name="column">Name of the column.</param>
-    public static void DropColumn<T>(this IDbConnection dbConn, string column) =>
+    public static void DropColumn<T>(this IDbConnection dbConn, string column)
+    {
         dbConn.DropColumn(typeof(T), column);
+    }
 
     /// <summary>
     /// Drops the column.
@@ -348,16 +370,22 @@ public static class OrmLiteSchemaModifyApi
     /// <param name="dbConn">The database connection.</param>
     /// <param name="modelType">Type of the model.</param>
     /// <param name="column">The column.</param>
-    public static void DropColumn(this IDbConnection dbConn, Type modelType, string column) =>
+    public static void DropColumn(this IDbConnection dbConn, Type modelType, string column)
+    {
         dbConn.ExecuteSql(X.Map(dbConn.Dialect(), d => d.ToDropColumnStatement(modelType, column)));
+    }
+
     /// <summary>
     /// Drops the column.
     /// </summary>
     /// <param name="dbConn">The database connection.</param>
     /// <param name="table">The table.</param>
     /// <param name="column">The column.</param>
-    public static void DropColumn(this IDbConnection dbConn, string table, string column) =>
+    public static void DropColumn(this IDbConnection dbConn, string table, string column)
+    {
         dbConn.ExecuteSql(X.Map(dbConn.Dialect(), d => d.ToDropColumnStatement(null, table, column)));
+    }
+
     /// <summary>
     /// Drops the column.
     /// </summary>
@@ -365,8 +393,10 @@ public static class OrmLiteSchemaModifyApi
     /// <param name="schema">The schema.</param>
     /// <param name="table">The table.</param>
     /// <param name="column">The column.</param>
-    public static void DropColumn(this IDbConnection dbConn, string schema, string table, string column) =>
+    public static void DropColumn(this IDbConnection dbConn, string schema, string table, string column)
+    {
         dbConn.ExecuteSql(X.Map(dbConn.Dialect(), d => d.ToDropColumnStatement(schema, table, column)));
+    }
 
     /// <summary>
     /// Adds the foreign key.

@@ -176,15 +176,6 @@ public class Google : IAuthBase, IHaveServiceLocator
             this.Get<BoardSettings>().DefaultNotificationSetting.ToInt(),
             this.Get<BoardSettings>().DefaultSendDigestEmail);
 
-        // save avatar
-        /*this.GetRepository<PageUser>().SaveAvatar(
-            userID.Value,
-            $"https://graph.facebook.com/{facebookUserId}/picture",
-            null,
-            null);
-
-        BoardContext.Current.GetRepository<PageUser>().SaveAvatar(BoardContext.Current.PageUserID, googleUser.ProfileImage, null, null);*/
-
         this.Get<IRaiseEvent>().Raise(new NewUserRegisteredEvent(user, userId.Value));
 
         return (string.Empty, user);

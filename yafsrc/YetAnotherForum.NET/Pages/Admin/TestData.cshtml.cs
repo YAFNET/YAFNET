@@ -55,7 +55,7 @@ public class TestDataModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public TestDataInputModel Input { get; set; }
 
     public SelectList Categories { get; set; }
 
@@ -166,7 +166,7 @@ public class TestDataModel : AdminPage
 #if RELEASE
         this.Get<LinkBuilder>().RedirectInfoPage(InfoMessage.AccessDenied);
 #endif
-        this.Input = new InputModel {
+        this.Input = new TestDataInputModel {
                                         UsersBoardsList = this.PageBoardContext.PageBoardID,
                                         CategoriesBoardsList = this.PageBoardContext.PageBoardID,
                                         PMessagesBoardsList = this.PageBoardContext.PageBoardID,
@@ -203,9 +203,9 @@ public class TestDataModel : AdminPage
         this.BoardList = new SelectList(this.GetRepository<Board>().GetAll(), nameof(Board.ID), nameof(Board.Name));
 
         this.TopicPriorities = [
-            new("Normal", "0"),
-            new("Sticky", "1"),
-            new("Announcement", "2")
+            new SelectListItem("Normal", "0"),
+            new SelectListItem("Sticky", "1"),
+            new SelectListItem("Announcement", "2")
         ];
 
         if (this.Input.ForumsCategory != 0)
@@ -806,107 +806,5 @@ public class TestDataModel : AdminPage
 
         // Bypass Approval if Admin or Moderator.
         return messageFlags;
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public string ForumPrefixTB { get; set; } = "frm-";
-
-        public string TopicPrefixTB { get; set; } = "topic-";
-
-        public string MessageContentPrefixTB { get; set; } = "msg-";
-
-        public string CategoryPrefixTB { get; set; } = "cat-";
-
-        public string BoardPrefixTB { get; set; } = "brd-";
-
-        public string UserPrefixTB { get; set; } = "usr-";
-
-        public string LastTabId { get; set; } = "View1";
-
-        public int UsersNumber { get; set; }
-
-        public int UsersBoardsList { get; set; }
-
-        public string Password { get; set; } = "TestUser1234?";
-
-        public string Password2 { get; set; } = "TestUser1234?";
-
-        public string Question { get; set; }
-
-        public string Answer { get; set; }
-
-        public string Location { get; set; }
-
-        public string HomePage { get; set; }
-
-        public int BoardNumber { get; set; }
-
-        public int BoardsUsersNumber { get; set; }
-
-        public int CategoriesNumber { get; set; }
-
-        public int CategoriesBoardsList { get; set; }
-
-        public int CategoriesForumsNumber { get; set; }
-
-        public int CategoriesTopicsNumber { get; set; }
-
-        public int CategoriesMessagesNumber { get; set; }
-
-        public int ForumsNumber { get; set; }
-
-        public bool ForumsCountMessages { get; set; } = true;
-
-        public bool ForumsHideNoAccess { get; set; } = true;
-
-        public int ForumsStartMask { get; set; }
-
-        public int ForumsCategory { get; set; }
-
-        public int ForumsParent { get; set; }
-
-        public int ForumsTopicsNumber { get; set; }
-
-        public int ForumsMessagesNumber { get; set; }
-
-        public int TopicsNumber { get; set; }
-
-        public int TopicsPriorityList { get; set; }
-
-        public bool PollCreate { get; set; }
-
-        public int TopicsCategory { get; set; }
-
-        public int TopicsForum { get; set; }
-
-        public int TopicsMessagesNumber { get; set; }
-
-        public int PostsNumber { get; set; }
-
-        public int PostsCategory { get; set; }
-
-        public int PostsForum { get; set; }
-
-        public int PostsTopic { get; set; }
-
-        public string MyMessage { get; set; }
-
-        public int PMessagesNumber { get; set; }
-
-        public int PMessagesBoardsList { get; set; }
-
-        public string From { get; set; }
-
-        public string To { get; set; }
-
-        public bool PMessagesToAll { get; set; }
-
-        public bool MarkRead { get; set; } = true;
-
-        public string PMessageText { get; set; }
     }
 }

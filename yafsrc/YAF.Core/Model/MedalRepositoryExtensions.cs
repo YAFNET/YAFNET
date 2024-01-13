@@ -29,6 +29,9 @@ using System.Collections.Generic;
 
 using YAF.Types.Models;
 
+#pragma warning disable IDE0075
+#pragma warning disable S1125
+
 /// <summary>
 ///     The medal repository extensions.
 /// </summary>
@@ -49,7 +52,7 @@ public static class MedalRepositoryExtensions
     {
         var expressionUser = OrmLiteConfig.DialectProvider.SqlExpression<Medal>();
 
-#pragma warning disable IDE0075
+
         expressionUser.Join<UserMedal>((a, b) => b.MedalID == a.ID).Where<UserMedal>(b => b.UserID == userId)
             .Select<Medal, UserMedal>(
                 (a, b) => new
@@ -87,8 +90,6 @@ public static class MedalRepositoryExtensions
                                   a.Flags,
                                   DateAwarded = default(DateTime)
                               });
-
-#pragma warning restore IDE0075
 
         var userGroupMedals = repository.DbAccess.Execute(
             db => db.Connection

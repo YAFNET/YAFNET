@@ -768,7 +768,7 @@ namespace ServiceStack.OrmLite
         /// <returns>Task&lt;List&lt;TOutputModel&gt;&gt;.</returns>
         static internal Task<List<TOutputModel>> SqlProcedureAsync<TOutputModel>(this IDbCommand dbCommand, object fromObjWithProperties, CancellationToken token)
         {
-            return SqlProcedureFmtAsync<TOutputModel>(dbCommand, token, fromObjWithProperties, String.Empty);
+            return SqlProcedureFmtAsync<TOutputModel>(dbCommand, token, fromObjWithProperties, string.Empty);
         }
 
         /// <summary>

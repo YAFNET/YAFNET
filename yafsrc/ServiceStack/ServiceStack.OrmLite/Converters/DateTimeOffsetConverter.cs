@@ -54,7 +54,7 @@ public class DateTimeOffsetConverter : OrmLiteConverter
                     ? DateTimeOffset.MaxValue
                     : new DateTimeOffset(dateTime);
         }
-        var convertedValue = DialectProvider.StringSerializer.DeserializeFromString(value.ToString(), fieldType);
+        var convertedValue = this.DialectProvider.StringSerializer.DeserializeFromString(value.ToString(), fieldType);
         return convertedValue;
     }
 }

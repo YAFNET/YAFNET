@@ -51,7 +51,7 @@ public class SqlInValues
 
         foreach (var value in values)
         {
-            ++Count;
+            ++this.Count;
         }
     }
 
@@ -61,9 +61,9 @@ public class SqlInValues
     /// <returns>System.String.</returns>
     public string ToSqlInString()
     {
-        return Count == 0
+        return this.Count == 0
                    ? EmptyIn
-                   : OrmLiteUtils.SqlJoin(values, dialectProvider);
+                   : OrmLiteUtils.SqlJoin(this.values, this.dialectProvider);
     }
 
     /// <summary>
@@ -72,6 +72,6 @@ public class SqlInValues
     /// <returns>IEnumerable.</returns>
     public IEnumerable GetValues()
     {
-        return values;
+        return this.values;
     }
 }

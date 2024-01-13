@@ -62,13 +62,13 @@ internal abstract class LoadList<Into, From>
     /// Gets the field defs.
     /// </summary>
     /// <value>The field defs.</value>
-    public FieldDefinition[] FieldDefs => fieldDefs;
+    public FieldDefinition[] FieldDefs => this.fieldDefs;
 
     /// <summary>
     /// Gets the parent results.
     /// </summary>
     /// <value>The parent results.</value>
-    public List<Into> ParentResults => parentResults;
+    public List<Into> ParentResults => this.parentResults;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="LoadList{Into, From}" /> class.
@@ -77,7 +77,7 @@ internal abstract class LoadList<Into, From>
     /// <param name="q">The q.</param>
     protected LoadList(IDbCommand dbCmd, SqlExpression<From> q)
     {
-        dialectProvider = dbCmd.GetDialectProvider();
+        this.dialectProvider = dbCmd.GetDialectProvider();
 
         if (q == null)
         {
@@ -90,14 +90,14 @@ internal abstract class LoadList<Into, From>
         //Use .Clone() to prevent SqlExpressionSelectFilter from adding params to original query
         var parentQ = q.Clone();
         var sql = parentQ.SelectInto<Into>(QueryType.Select);
-        parentResults = dbCmd.ExprConvertToList<Into>(sql, parentQ.Params, onlyFields: q.OnlyFields);
+        this.parentResults = dbCmd.ExprConvertToList<Into>(sql, parentQ.Params, onlyFields: q.OnlyFields);
 
-        modelDef = ModelDefinition<Into>.Definition;
-        fieldDefs = modelDef.ReferenceFieldDefinitionsArray;
+        this.modelDef = ModelDefinition<Into>.Definition;
+        this.fieldDefs = this.modelDef.ReferenceFieldDefinitionsArray;
 
         var subQ = q.Clone();
-        var subQSql = dialectProvider.GetLoadChildrenSubSelect(subQ);
-        subSql = dialectProvider.MergeParamsIntoSql(subQSql, subQ.Params);
+        var subQSql = this.dialectProvider.GetLoadChildrenSubSelect(subQ);
+        this.subSql = this.dialectProvider.MergeParamsIntoSql(subQSql, subQ.Params);
     }
 
     /// <summary>
@@ -108,10 +108,10 @@ internal abstract class LoadList<Into, From>
     /// <returns>System.String.</returns>
     protected string GetRefListSql(ModelDefinition refModelDef, FieldDefinition refField)
     {
-        var sqlRef = $"SELECT {dialectProvider.GetColumnNames(refModelDef)} " +
-                     $"FROM {dialectProvider.GetQuotedTableName(refModelDef)} " +
-                     $"WHERE {dialectProvider.GetQuotedColumnName(refField)} " +
-                     $"IN ({subSql})";
+        var sqlRef = $"SELECT {this.dialectProvider.GetColumnNames(refModelDef)} " +
+                     $"FROM {this.dialectProvider.GetQuotedTableName(refModelDef)} " +
+                     $"WHERE {this.dialectProvider.GetQuotedColumnName(refField)} " +
+                     $"IN ({this.subSql})";
 
         if (OrmLiteConfig.LoadReferenceSelectFilter != null)
         {
@@ -143,10 +143,10 @@ internal abstract class LoadList<Into, From>
             refValues.Add(result);
         }
 
-        var untypedApi = dbCmd.CreateTypedApi(refType);
-        foreach (var result in parentResults)
+        var untypedApi = this.dbCmd.CreateTypedApi(refType);
+        foreach (var result in this.parentResults)
         {
-            var pkValue = modelDef.PrimaryKey.GetValue(result);
+            var pkValue = this.modelDef.PrimaryKey.GetValue(result);
             if (map.TryGetValue(pkValue, out refValues))
             {
                 var castResults = untypedApi.Cast(refValues);
@@ -162,8 +162,10 @@ internal abstract class LoadList<Into, From>
     /// <param name="refSelf">The reference self.</param>
     /// <param name="refModelDef">The reference model definition.</param>
     /// <returns>System.String.</returns>
-    protected string GetRefSelfSql(ModelDefinition modelDef, FieldDefinition refSelf, ModelDefinition refModelDef) =>
-        dialectProvider.GetRefSelfSql(q.Clone(), modelDef, refSelf, refModelDef);
+    protected string GetRefSelfSql(ModelDefinition modelDef, FieldDefinition refSelf, ModelDefinition refModelDef)
+    {
+        return this.dialectProvider.GetRefSelfSql(this.q.Clone(), modelDef, refSelf, refModelDef);
+    }
 
     /// <summary>
     /// Gets the reference field SQL.
@@ -171,8 +173,10 @@ internal abstract class LoadList<Into, From>
     /// <param name="refModelDef">The reference model definition.</param>
     /// <param name="refField">The reference field.</param>
     /// <returns>System.String.</returns>
-    protected string GetRefFieldSql(ModelDefinition refModelDef, FieldDefinition refField) =>
-        dialectProvider.GetRefFieldSql(subSql, refModelDef, refField);
+    protected string GetRefFieldSql(ModelDefinition refModelDef, FieldDefinition refField)
+    {
+        return this.dialectProvider.GetRefFieldSql(this.subSql, refModelDef, refField);
+    }
 
     /// <summary>
     /// Gets the field reference SQL.
@@ -180,8 +184,10 @@ internal abstract class LoadList<Into, From>
     /// <param name="fieldDef">The field definition.</param>
     /// <param name="fieldRef">The field reference.</param>
     /// <returns>System.String.</returns>
-    protected string GetFieldReferenceSql(FieldDefinition fieldDef, FieldReference fieldRef) =>
-        dialectProvider.GetFieldReferenceSql(subSql, fieldDef, fieldRef);
+    protected string GetFieldReferenceSql(FieldDefinition fieldDef, FieldReference fieldRef)
+    {
+        return this.dialectProvider.GetFieldReferenceSql(this.subSql, fieldDef, fieldRef);
+    }
 
     /// <summary>
     /// Creates the reference map.
@@ -248,7 +254,7 @@ internal abstract class LoadList<Into, From>
     /// <param name="childResults">The child results.</param>
     protected void SetRefSelfChildResults(FieldDefinition fieldDef, ModelDefinition refModelDef, FieldDefinition refSelf, IList childResults)
     {
-        var map = CreateRefMap();
+        var map = this.CreateRefMap();
 
         foreach (var result in childResults)
         {
@@ -256,7 +262,7 @@ internal abstract class LoadList<Into, From>
             map[pkValue] = result;
         }
 
-        foreach (var result in parentResults)
+        foreach (var result in this.parentResults)
         {
             var fkValue = refSelf.GetValue(result);
             if (fkValue != null && map.TryGetValue(fkValue, out var childResult))
@@ -274,7 +280,7 @@ internal abstract class LoadList<Into, From>
     /// <param name="childResults">The child results.</param>
     protected void SetRefFieldChildResults(FieldDefinition fieldDef, FieldDefinition refField, IList childResults)
     {
-        var map = CreateRefMap();
+        var map = this.CreateRefMap();
 
         foreach (var result in childResults)
         {
@@ -282,9 +288,9 @@ internal abstract class LoadList<Into, From>
             map[refValue] = result;
         }
 
-        foreach (var result in parentResults)
+        foreach (var result in this.parentResults)
         {
-            var pkValue = modelDef.PrimaryKey.GetValue(result);
+            var pkValue = this.modelDef.PrimaryKey.GetValue(result);
             if (map.TryGetValue(pkValue, out var childResult))
             {
                 fieldDef.SetValue(result, childResult);
@@ -300,7 +306,7 @@ internal abstract class LoadList<Into, From>
     /// <param name="childResults">The child results.</param>
     protected void SetFieldReferenceChildResults(FieldDefinition fieldDef, FieldReference fieldRef, IList childResults)
     {
-        var map = CreateRefMap();
+        var map = this.CreateRefMap();
 
         var refField = fieldRef.RefModelDef.PrimaryKey;
         foreach (var result in childResults)
@@ -310,7 +316,7 @@ internal abstract class LoadList<Into, From>
             map[refValue] = refFieldValue;
         }
 
-        foreach (var result in parentResults)
+        foreach (var result in this.parentResults)
         {
             var fkValue = fieldRef.RefIdFieldDef.GetValue(result);
             if (map.TryGetValue(fkValue, out var childResult))
@@ -345,13 +351,13 @@ internal class LoadListSync<Into, From> : LoadList<Into, From>
     public void SetRefFieldList(FieldDefinition fieldDef, Type refType)
     {
         var refModelDef = refType.GetModelDefinition();
-        var refField = modelDef.GetRefFieldDef(refModelDef, refType);
+        var refField = this.modelDef.GetRefFieldDef(refModelDef, refType);
 
-        var sqlRef = GetRefListSql(refModelDef, refField);
+        var sqlRef = this.GetRefListSql(refModelDef, refField);
 
-        var childResults = dbCmd.ConvertToList(refType, sqlRef);
+        var childResults = this.dbCmd.ConvertToList(refType, sqlRef);
 
-        SetListChildResults(fieldDef, refType, childResults, refField);
+        this.SetListChildResults(fieldDef, refType, childResults, refField);
     }
 
     /// <summary>
@@ -363,22 +369,22 @@ internal class LoadListSync<Into, From> : LoadList<Into, From>
     {
         var refModelDef = refType.GetModelDefinition();
 
-        var refSelf = modelDef.GetSelfRefFieldDefIfExists(refModelDef, fieldDef);
+        var refSelf = this.modelDef.GetSelfRefFieldDefIfExists(refModelDef, fieldDef);
         var refField = refSelf == null
-                           ? modelDef.GetRefFieldDef(refModelDef, refType)
-                           : modelDef.GetRefFieldDefIfExists(refModelDef);
+                           ? this.modelDef.GetRefFieldDef(refModelDef, refType)
+                           : this.modelDef.GetRefFieldDefIfExists(refModelDef);
 
         if (refSelf != null)
         {
-            var sqlRef = GetRefSelfSql(modelDef, refSelf, refModelDef);
-            var childResults = dbCmd.ConvertToList(refType, sqlRef);
-            SetRefSelfChildResults(fieldDef, refModelDef, refSelf, childResults);
+            var sqlRef = this.GetRefSelfSql(this.modelDef, refSelf, refModelDef);
+            var childResults = this.dbCmd.ConvertToList(refType, sqlRef);
+            this.SetRefSelfChildResults(fieldDef, refModelDef, refSelf, childResults);
         }
         else if (refField != null)
         {
-            var sqlRef = GetRefFieldSql(refModelDef, refField);
-            var childResults = dbCmd.ConvertToList(refType, sqlRef);
-            SetRefFieldChildResults(fieldDef, refField, childResults);
+            var sqlRef = this.GetRefFieldSql(refModelDef, refField);
+            var childResults = this.dbCmd.ConvertToList(refType, sqlRef);
+            this.SetRefFieldChildResults(fieldDef, refField, childResults);
         }
     }
 
@@ -389,9 +395,9 @@ internal class LoadListSync<Into, From> : LoadList<Into, From>
     /// <param name="fieldRef">The field reference.</param>
     public void SetFieldReference(FieldDefinition fieldDef, FieldReference fieldRef)
     {
-        var sqlRef = GetFieldReferenceSql(fieldDef, fieldRef);
-        var childResults = dbCmd.ConvertToList(fieldRef.RefModel, sqlRef);
-        SetFieldReferenceChildResults(fieldDef, fieldRef, childResults);
+        var sqlRef = this.GetFieldReferenceSql(fieldDef, fieldRef);
+        var childResults = this.dbCmd.ConvertToList(fieldRef.RefModel, sqlRef);
+        this.SetFieldReferenceChildResults(fieldDef, fieldRef, childResults);
     }
 }
 
@@ -422,13 +428,13 @@ internal class LoadListAsync<Into, From> : LoadList<Into, From>
     public async Task SetRefFieldListAsync(FieldDefinition fieldDef, Type refType, CancellationToken token)
     {
         var refModelDef = refType.GetModelDefinition();
-        var refField = modelDef.GetRefFieldDef(refModelDef, refType);
+        var refField = this.modelDef.GetRefFieldDef(refModelDef, refType);
 
-        var sqlRef = GetRefListSql(refModelDef, refField);
+        var sqlRef = this.GetRefListSql(refModelDef, refField);
 
-        var childResults = await dbCmd.ConvertToListAsync(refType, sqlRef, token).ConfigAwait();
+        var childResults = await this.dbCmd.ConvertToListAsync(refType, sqlRef, token).ConfigAwait();
 
-        SetListChildResults(fieldDef, refType, childResults, refField);
+        this.SetListChildResults(fieldDef, refType, childResults, refField);
     }
 
     /// <summary>
@@ -442,22 +448,22 @@ internal class LoadListAsync<Into, From> : LoadList<Into, From>
     {
         var refModelDef = refType.GetModelDefinition();
 
-        var refSelf = modelDef.GetSelfRefFieldDefIfExists(refModelDef, fieldDef);
+        var refSelf = this.modelDef.GetSelfRefFieldDefIfExists(refModelDef, fieldDef);
         var refField = refSelf == null
-                           ? modelDef.GetRefFieldDef(refModelDef, refType)
-                           : modelDef.GetRefFieldDefIfExists(refModelDef);
+                           ? this.modelDef.GetRefFieldDef(refModelDef, refType)
+                           : this.modelDef.GetRefFieldDefIfExists(refModelDef);
 
         if (refSelf != null)
         {
-            var sqlRef = GetRefSelfSql(modelDef, refSelf, refModelDef);
-            var childResults = await dbCmd.ConvertToListAsync(refType, sqlRef, token).ConfigAwait();
-            SetRefSelfChildResults(fieldDef, refModelDef, refSelf, childResults);
+            var sqlRef = this.GetRefSelfSql(this.modelDef, refSelf, refModelDef);
+            var childResults = await this.dbCmd.ConvertToListAsync(refType, sqlRef, token).ConfigAwait();
+            this.SetRefSelfChildResults(fieldDef, refModelDef, refSelf, childResults);
         }
         else if (refField != null)
         {
-            var sqlRef = GetRefFieldSql(refModelDef, refField);
-            var childResults = await dbCmd.ConvertToListAsync(refType, sqlRef, token).ConfigAwait();
-            SetRefFieldChildResults(fieldDef, refField, childResults);
+            var sqlRef = this.GetRefFieldSql(refModelDef, refField);
+            var childResults = await this.dbCmd.ConvertToListAsync(refType, sqlRef, token).ConfigAwait();
+            this.SetRefFieldChildResults(fieldDef, refField, childResults);
         }
     }
 
@@ -470,9 +476,9 @@ internal class LoadListAsync<Into, From> : LoadList<Into, From>
     /// <returns>A Task representing the asynchronous operation.</returns>
     public async Task SetFieldReferenceAsync(FieldDefinition fieldDef, FieldReference fieldRef, CancellationToken token)
     {
-        var sqlRef = GetFieldReferenceSql(fieldDef, fieldRef);
-        var childResults = await dbCmd.ConvertToListAsync(fieldRef.RefModel, sqlRef, token).ConfigAwait();
-        SetFieldReferenceChildResults(fieldDef, fieldRef, childResults);
+        var sqlRef = this.GetFieldReferenceSql(fieldDef, fieldRef);
+        var childResults = await this.dbCmd.ConvertToListAsync(fieldRef.RefModel, sqlRef, token).ConfigAwait();
+        this.SetFieldReferenceChildResults(fieldDef, fieldRef, childResults);
     }
 }
 #endif

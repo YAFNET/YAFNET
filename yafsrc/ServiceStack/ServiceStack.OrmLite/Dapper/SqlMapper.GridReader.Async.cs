@@ -51,35 +51,50 @@ public static partial class SqlMapper
         /// <param name="buffered">Whether to buffer the results.</param>
         /// <returns>Task&lt;IEnumerable&lt;dynamic&gt;&gt;.</returns>
         /// <remarks>Note: each row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
-        public Task<IEnumerable<dynamic>> ReadAsync(bool buffered = true) => ReadAsyncImpl<dynamic>(typeof(DapperRow), buffered);
+        public Task<IEnumerable<dynamic>> ReadAsync(bool buffered = true)
+        {
+            return this.ReadAsyncImpl<dynamic>(typeof(DapperRow), buffered);
+        }
 
         /// <summary>
         /// Read an individual row of the next grid of results, returned as a dynamic object
         /// </summary>
         /// <returns>Task&lt;dynamic&gt;.</returns>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
-        public Task<dynamic> ReadFirstAsync() => ReadRowAsyncImpl<dynamic>(typeof(DapperRow), Row.First);
+        public Task<dynamic> ReadFirstAsync()
+        {
+            return this.ReadRowAsyncImpl<dynamic>(typeof(DapperRow), Row.First);
+        }
 
         /// <summary>
         /// Read an individual row of the next grid of results, returned as a dynamic object
         /// </summary>
         /// <returns>Task&lt;dynamic&gt;.</returns>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
-        public Task<dynamic> ReadFirstOrDefaultAsync() => ReadRowAsyncImpl<dynamic>(typeof(DapperRow), Row.FirstOrDefault);
+        public Task<dynamic> ReadFirstOrDefaultAsync()
+        {
+            return this.ReadRowAsyncImpl<dynamic>(typeof(DapperRow), Row.FirstOrDefault);
+        }
 
         /// <summary>
         /// Read an individual row of the next grid of results, returned as a dynamic object
         /// </summary>
         /// <returns>Task&lt;dynamic&gt;.</returns>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
-        public Task<dynamic> ReadSingleAsync() => ReadRowAsyncImpl<dynamic>(typeof(DapperRow), Row.Single);
+        public Task<dynamic> ReadSingleAsync()
+        {
+            return this.ReadRowAsyncImpl<dynamic>(typeof(DapperRow), Row.Single);
+        }
 
         /// <summary>
         /// Read an individual row of the next grid of results, returned as a dynamic object
         /// </summary>
         /// <returns>Task&lt;dynamic&gt;.</returns>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
-        public Task<dynamic> ReadSingleOrDefaultAsync() => ReadRowAsyncImpl<dynamic>(typeof(DapperRow), Row.SingleOrDefault);
+        public Task<dynamic> ReadSingleOrDefaultAsync()
+        {
+            return this.ReadRowAsyncImpl<dynamic>(typeof(DapperRow), Row.SingleOrDefault);
+        }
 
         /// <summary>
         /// Read the next grid of results
@@ -95,7 +110,7 @@ public static partial class SqlMapper
                 throw new ArgumentNullException(nameof(type));
             }
 
-            return ReadAsyncImpl<object>(type, buffered);
+            return this.ReadAsyncImpl<object>(type, buffered);
         }
 
         /// <summary>
@@ -111,7 +126,7 @@ public static partial class SqlMapper
                 throw new ArgumentNullException(nameof(type));
             }
 
-            return ReadRowAsyncImpl<object>(type, Row.First);
+            return this.ReadRowAsyncImpl<object>(type, Row.First);
         }
 
         /// <summary>
@@ -127,7 +142,7 @@ public static partial class SqlMapper
                 throw new ArgumentNullException(nameof(type));
             }
 
-            return ReadRowAsyncImpl<object>(type, Row.FirstOrDefault);
+            return this.ReadRowAsyncImpl<object>(type, Row.FirstOrDefault);
         }
 
         /// <summary>
@@ -143,7 +158,7 @@ public static partial class SqlMapper
                 throw new ArgumentNullException(nameof(type));
             }
 
-            return ReadRowAsyncImpl<object>(type, Row.Single);
+            return this.ReadRowAsyncImpl<object>(type, Row.Single);
         }
 
         /// <summary>
@@ -159,7 +174,7 @@ public static partial class SqlMapper
                 throw new ArgumentNullException(nameof(type));
             }
 
-            return ReadRowAsyncImpl<object>(type, Row.SingleOrDefault);
+            return this.ReadRowAsyncImpl<object>(type, Row.SingleOrDefault);
         }
 
         /// <summary>
@@ -168,35 +183,50 @@ public static partial class SqlMapper
         /// <typeparam name="T">The type to read.</typeparam>
         /// <param name="buffered">Whether the results should be buffered in memory.</param>
         /// <returns>Task&lt;IEnumerable&lt;T&gt;&gt;.</returns>
-        public Task<IEnumerable<T>> ReadAsync<T>(bool buffered = true) => ReadAsyncImpl<T>(typeof(T), buffered);
+        public Task<IEnumerable<T>> ReadAsync<T>(bool buffered = true)
+        {
+            return this.ReadAsyncImpl<T>(typeof(T), buffered);
+        }
 
         /// <summary>
         /// Read an individual row of the next grid of results.
         /// </summary>
         /// <typeparam name="T">The type to read.</typeparam>
         /// <returns>Task&lt;T&gt;.</returns>
-        public Task<T> ReadFirstAsync<T>() => ReadRowAsyncImpl<T>(typeof(T), Row.First);
+        public Task<T> ReadFirstAsync<T>()
+        {
+            return this.ReadRowAsyncImpl<T>(typeof(T), Row.First);
+        }
 
         /// <summary>
         /// Read an individual row of the next grid of results.
         /// </summary>
         /// <typeparam name="T">The type to read.</typeparam>
         /// <returns>Task&lt;T&gt;.</returns>
-        public Task<T> ReadFirstOrDefaultAsync<T>() => ReadRowAsyncImpl<T>(typeof(T), Row.FirstOrDefault);
+        public Task<T> ReadFirstOrDefaultAsync<T>()
+        {
+            return this.ReadRowAsyncImpl<T>(typeof(T), Row.FirstOrDefault);
+        }
 
         /// <summary>
         /// Read an individual row of the next grid of results.
         /// </summary>
         /// <typeparam name="T">The type to read.</typeparam>
         /// <returns>Task&lt;T&gt;.</returns>
-        public Task<T> ReadSingleAsync<T>() => ReadRowAsyncImpl<T>(typeof(T), Row.Single);
+        public Task<T> ReadSingleAsync<T>()
+        {
+            return this.ReadRowAsyncImpl<T>(typeof(T), Row.Single);
+        }
 
         /// <summary>
         /// Read an individual row of the next grid of results.
         /// </summary>
         /// <typeparam name="T">The type to read.</typeparam>
         /// <returns>Task&lt;T&gt;.</returns>
-        public Task<T> ReadSingleOrDefaultAsync<T>() => ReadRowAsyncImpl<T>(typeof(T), Row.SingleOrDefault);
+        public Task<T> ReadSingleOrDefaultAsync<T>()
+        {
+            return this.ReadRowAsyncImpl<T>(typeof(T), Row.SingleOrDefault);
+        }
 
         /// <summary>
         /// Next result as an asynchronous operation.
@@ -204,20 +234,20 @@ public static partial class SqlMapper
         /// <returns>A Task representing the asynchronous operation.</returns>
         private async Task NextResultAsync()
         {
-            if (await ((DbDataReader)reader).NextResultAsync(cancel).ConfigureAwait(false))
+            if (await ((DbDataReader)this.reader).NextResultAsync(this.cancel).ConfigureAwait(false))
             {
-                readCount++;
-                gridIndex++;
-                IsConsumed = false;
+                this.readCount++;
+                this.gridIndex++;
+                this.IsConsumed = false;
             }
             else
             {
                 // happy path; close the reader cleanly - no
                 // need for "Cancel" etc
-                reader.Dispose();
-                reader = null;
-                callbacks?.OnCompleted();
-                Dispose();
+                this.reader.Dispose();
+                this.reader = null;
+                this.callbacks?.OnCompleted();
+                this.Dispose();
             }
         }
 
@@ -232,34 +262,34 @@ public static partial class SqlMapper
         /// <exception cref="System.InvalidOperationException">Query results must be consumed in the correct order, and each result can only be consumed once</exception>
         private Task<IEnumerable<T>> ReadAsyncImpl<T>(Type type, bool buffered)
         {
-            if (reader == null)
+            if (this.reader == null)
             {
                 throw new ObjectDisposedException(this.GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
             }
 
-            if (IsConsumed)
+            if (this.IsConsumed)
             {
                 throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
             }
 
-            var typedIdentity = identity.ForGrid(type, gridIndex);
-            CacheInfo cache = GetCacheInfo(typedIdentity, null, addToCache);
+            var typedIdentity = this.identity.ForGrid(type, this.gridIndex);
+            var cache = GetCacheInfo(typedIdentity, null, this.addToCache);
             var deserializer = cache.Deserializer;
 
-            int hash = GetColumnHash(reader);
+            var hash = GetColumnHash(this.reader);
             if (deserializer.Func == null || deserializer.Hash != hash)
             {
-                deserializer = new DeserializerState(hash, GetDeserializer(type, reader, 0, -1, false));
+                deserializer = new DeserializerState(hash, GetDeserializer(type, this.reader, 0, -1, false));
                 cache.Deserializer = deserializer;
             }
-            IsConsumed = true;
-            if (buffered && reader is DbDataReader)
+            this.IsConsumed = true;
+            if (buffered && this.reader is DbDataReader)
             {
-                return ReadBufferedAsync<T>(gridIndex, deserializer.Func);
+                return this.ReadBufferedAsync<T>(this.gridIndex, deserializer.Func);
             }
             else
             {
-                var result = ReadDeferred<T>(gridIndex, deserializer.Func, type);
+                var result = this.ReadDeferred<T>(this.gridIndex, deserializer.Func, type);
                 if (buffered)
                 {
                     result = result.ToList(); // for the "not a DbDataReader" scenario
@@ -278,13 +308,13 @@ public static partial class SqlMapper
         /// <returns>Task&lt;T&gt;.</returns>
         private Task<T> ReadRowAsyncImpl<T>(Type type, Row row)
         {
-            if (reader is DbDataReader dbReader)
+            if (this.reader is DbDataReader dbReader)
             {
                 return this.ReadRowAsyncImplViaDbReader<T>(dbReader, type, row);
             }
 
             // no async API available; use non-async and fake it
-            return Task.FromResult(ReadRow<T>(type, row));
+            return Task.FromResult(this.ReadRow<T>(type, row));
         }
 
         /// <summary>
@@ -304,38 +334,38 @@ public static partial class SqlMapper
                 throw new ObjectDisposedException(this.GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
             }
 
-            if (IsConsumed)
+            if (this.IsConsumed)
             {
                 throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
             }
 
-            IsConsumed = true;
-            T result = default(T);
-            if (await reader.ReadAsync(cancel).ConfigureAwait(false) && reader.FieldCount != 0)
+            this.IsConsumed = true;
+            var result = default(T);
+            if (await reader.ReadAsync(this.cancel).ConfigureAwait(false) && reader.FieldCount != 0)
             {
-                var typedIdentity = identity.ForGrid(type, gridIndex);
-                CacheInfo cache = GetCacheInfo(typedIdentity, null, addToCache);
+                var typedIdentity = this.identity.ForGrid(type, this.gridIndex);
+                var cache = GetCacheInfo(typedIdentity, null, this.addToCache);
                 var deserializer = cache.Deserializer;
 
-                int hash = GetColumnHash(reader);
+                var hash = GetColumnHash(reader);
                 if (deserializer.Func == null || deserializer.Hash != hash)
                 {
                     deserializer = new DeserializerState(hash, GetDeserializer(type, reader, 0, -1, false));
                     cache.Deserializer = deserializer;
                 }
                 result = (T)deserializer.Func(reader);
-                if ((row & Row.Single) != 0 && await reader.ReadAsync(cancel).ConfigureAwait(false))
+                if ((row & Row.Single) != 0 && await reader.ReadAsync(this.cancel).ConfigureAwait(false))
                 {
                     ThrowMultipleRows(row);
                 }
 
-                while (await reader.ReadAsync(cancel).ConfigureAwait(false)) { /* ignore subsequent rows */ }
+                while (await reader.ReadAsync(this.cancel).ConfigureAwait(false)) { /* ignore subsequent rows */ }
             }
             else if ((row & Row.FirstOrDefault) == 0) // demanding a row, and don't have one
             {
                 ThrowZeroRows(row);
             }
-            await NextResultAsync().ConfigureAwait(false);
+            await this.NextResultAsync().ConfigureAwait(false);
             return result;
         }
 
@@ -352,7 +382,7 @@ public static partial class SqlMapper
             {
                 var reader = (DbDataReader)this.reader;
                 var buffer = new List<T>();
-                while (index == gridIndex && await reader.ReadAsync(cancel).ConfigureAwait(false))
+                while (index == this.gridIndex && await reader.ReadAsync(this.cancel).ConfigureAwait(false))
                 {
                     buffer.Add((T)deserializer(reader));
                 }
@@ -360,9 +390,9 @@ public static partial class SqlMapper
             }
             finally // finally so that First etc progresses things even when multiple rows
             {
-                if (index == gridIndex)
+                if (index == this.gridIndex)
                 {
-                    await NextResultAsync().ConfigureAwait(false);
+                    await this.NextResultAsync().ConfigureAwait(false);
                 }
             }
         }

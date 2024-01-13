@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
  * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -22,59 +22,42 @@
  * under the License.
  */
 
-namespace YAF.Core.ForumModules
+namespace YAF.Core.ForumModules;
+
+using System;
+
+using YAF.Core.BaseModules;
+using YAF.Core.Tasks;
+using YAF.Types.Attributes;
+using YAF.Types.Interfaces;
+
+/// <summary>
+/// The mail sending module.
+/// </summary>
+[Module("Digest Send Starting Module", "Tiny Gecko", 1)]
+public class DigestSendForumModule : BaseForumModule
 {
-    #region Using
-
-    using System;
-
-    using YAF.Core.BaseModules;
-    using YAF.Core.Tasks;
-    using YAF.Types.Attributes;
-    using YAF.Types.Interfaces;
-
-    #endregion
+    /// <summary>
+    ///   The _key name.
+    /// </summary>
+    private const string KeyName = "DigestSendTask";
 
     /// <summary>
-    /// The mail sending module.
+    /// The init.
     /// </summary>
-    [Module("Digest Send Starting Module", "Tiny Gecko", 1)]
-    public class DigestSendForumModule : BaseForumModule
+    public override void Init()
     {
-        #region Constants and Fields
+        // hook the page init for mail sending...
+        this.PageContext.AfterInit += this.CurrentAfterInit;
+    }
 
-        /// <summary>
-        ///   The _key name.
-        /// </summary>
-        private const string KeyName = "DigestSendTask";
-
-        #endregion
-
-        #region Public Methods
-
-        /// <summary>
-        /// The init.
-        /// </summary>
-        public override void Init()
-        {
-            // hook the page init for mail sending...
-            this.PageContext.AfterInit += this.CurrentAfterInit;
-        }
-
-        #endregion
-
-        #region Methods
-
-        /// <summary>
-        /// Handles the AfterInit event of the Current control.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
-        private void CurrentAfterInit(object sender, EventArgs e)
-        {
-            this.Get<ITaskModuleManager>().StartTask(KeyName, () => new DigestSendTask());
-        }
-
-        #endregion
+    /// <summary>
+    /// Handles the AfterInit event of the Current control.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The <see cref="System.EventArgs"/> instance containing the event data.</param>
+    private void CurrentAfterInit(object sender, EventArgs e)
+    {
+        this.Get<ITaskModuleManager>().StartTask(KeyName, () => new DigestSendTask());
     }
 }

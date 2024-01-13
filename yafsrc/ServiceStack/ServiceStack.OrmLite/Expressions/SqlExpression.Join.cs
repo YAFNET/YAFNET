@@ -90,7 +90,7 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     public SqlExpression<T> AddReferenceTableIfNotExists<Target>()
     {
         var tableDef = typeof(Target).GetModelDefinition();
-        if (!tableDefs.Contains(tableDef))
+        if (!this.tableDefs.Contains(tableDef))
         {
             this.tableDefs.Add(tableDef);
         }
@@ -106,8 +106,8 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <returns>SqlExpression&lt;T&gt;.</returns>
     public SqlExpression<T> CustomJoin<Target>(string joinString)
     {
-        AddReferenceTableIfNotExists<Target>();
-        return CustomJoin(joinString);
+        this.AddReferenceTableIfNotExists<Target>();
+        return this.CustomJoin(joinString);
     }
 
     /// <summary>
@@ -163,7 +163,11 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <param name="joinFormat">The join format.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
     /// <exception cref="System.ArgumentNullException">joinFormat</exception>
-    public SqlExpression<T> Join<Target>(Expression<Func<T, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) => this.InternalJoin("INNER JOIN", joinExpr, joinFormat ?? throw new ArgumentNullException(nameof(joinFormat)));
+    public SqlExpression<T> Join<Target>(Expression<Func<T, Target, bool>> joinExpr, JoinFormatDelegate joinFormat)
+    {
+        return this.InternalJoin("INNER JOIN", joinExpr,
+            joinFormat ?? throw new ArgumentNullException(nameof(joinFormat)));
+    }
 
     /// <summary>
     /// Joins the specified join expr.
@@ -172,8 +176,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="Target">The type of the target.</typeparam>
     /// <param name="joinExpr">The join expr.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> Join<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr = null) =>
-        InternalJoin("INNER JOIN", joinExpr);
+    public SqlExpression<T> Join<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr = null)
+    {
+        return this.InternalJoin("INNER JOIN", joinExpr);
+    }
 
     /// <summary>
     /// Joins the specified join expr.
@@ -183,7 +189,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <param name="joinExpr">The join expr.</param>
     /// <param name="joinFormat">The join format.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> Join<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) => this.InternalJoin("INNER JOIN", joinExpr, joinFormat);
+    public SqlExpression<T> Join<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, JoinFormatDelegate joinFormat)
+    {
+        return this.InternalJoin("INNER JOIN", joinExpr, joinFormat);
+    }
 
     /// <summary>
     /// Joins the specified join expr.
@@ -193,7 +202,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <param name="joinExpr">The join expr.</param>
     /// <param name="options">The options.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> Join<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, TableOptions options) => this.InternalJoin("INNER JOIN", joinExpr, options);
+    public SqlExpression<T> Join<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, TableOptions options)
+    {
+        return this.InternalJoin("INNER JOIN", joinExpr, options);
+    }
 
     /// <summary>
     /// Joins the specified source type.
@@ -202,8 +214,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <param name="targetType">Type of the target.</param>
     /// <param name="joinExpr">The join expr.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> Join(Type sourceType, Type targetType, Expression joinExpr = null) =>
-        InternalJoin("INNER JOIN", joinExpr, sourceType.GetModelDefinition(), targetType.GetModelDefinition());
+    public SqlExpression<T> Join(Type sourceType, Type targetType, Expression joinExpr = null)
+    {
+        return this.InternalJoin("INNER JOIN", joinExpr, sourceType.GetModelDefinition(), targetType.GetModelDefinition());
+    }
 
     /// <summary>
     /// Joins the specified source type.
@@ -213,8 +227,11 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <param name="joinExpr">The join expr.</param>
     /// <param name="options">The options.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> Join(Type sourceType, Type targetType, Expression joinExpr, TableOptions options) =>
-        InternalJoin("INNER JOIN", joinExpr, sourceType.GetModelDefinition(), targetType.GetModelDefinition(), options);
+    public SqlExpression<T> Join(Type sourceType, Type targetType, Expression joinExpr, TableOptions options)
+    {
+        return this.InternalJoin("INNER JOIN", joinExpr, sourceType.GetModelDefinition(), targetType.GetModelDefinition(),
+            options);
+    }
 
     /// <summary>
     /// Lefts the join.
@@ -222,8 +239,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="Target">The type of the target.</typeparam>
     /// <param name="joinExpr">The join expr.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> LeftJoin<Target>(Expression<Func<T, Target, bool>> joinExpr = null) =>
-        InternalJoin("LEFT JOIN", joinExpr);
+    public SqlExpression<T> LeftJoin<Target>(Expression<Func<T, Target, bool>> joinExpr = null)
+    {
+        return this.InternalJoin("LEFT JOIN", joinExpr);
+    }
 
     /// <summary>
     /// Lefts the join.
@@ -233,7 +252,11 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <param name="joinFormat">The join format.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
     /// <exception cref="System.ArgumentNullException">joinFormat</exception>
-    public SqlExpression<T> LeftJoin<Target>(Expression<Func<T, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) => this.InternalJoin("LEFT JOIN", joinExpr, joinFormat ?? throw new ArgumentNullException(nameof(joinFormat)));
+    public SqlExpression<T> LeftJoin<Target>(Expression<Func<T, Target, bool>> joinExpr, JoinFormatDelegate joinFormat)
+    {
+        return this.InternalJoin("LEFT JOIN", joinExpr,
+            joinFormat ?? throw new ArgumentNullException(nameof(joinFormat)));
+    }
 
     /// <summary>
     /// Lefts the join.
@@ -243,7 +266,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <param name="options">The options.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
     /// <exception cref="System.ArgumentNullException">options</exception>
-    public SqlExpression<T> LeftJoin<Target>(Expression<Func<T, Target, bool>> joinExpr, TableOptions options) => this.InternalJoin("LEFT JOIN", joinExpr, options ?? throw new ArgumentNullException(nameof(options)));
+    public SqlExpression<T> LeftJoin<Target>(Expression<Func<T, Target, bool>> joinExpr, TableOptions options)
+    {
+        return this.InternalJoin("LEFT JOIN", joinExpr, options ?? throw new ArgumentNullException(nameof(options)));
+    }
 
     /// <summary>
     /// Lefts the join.
@@ -252,8 +278,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="Target">The type of the target.</typeparam>
     /// <param name="joinExpr">The join expr.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> LeftJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr = null) =>
-        InternalJoin("LEFT JOIN", joinExpr);
+    public SqlExpression<T> LeftJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr = null)
+    {
+        return this.InternalJoin("LEFT JOIN", joinExpr);
+    }
 
     /// <summary>
     /// Lefts the join.
@@ -263,7 +291,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <param name="joinExpr">The join expr.</param>
     /// <param name="joinFormat">The join format.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> LeftJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) => this.InternalJoin("LEFT JOIN", joinExpr, joinFormat);
+    public SqlExpression<T> LeftJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, JoinFormatDelegate joinFormat)
+    {
+        return this.InternalJoin("LEFT JOIN", joinExpr, joinFormat);
+    }
 
     /// <summary>
     /// Lefts the join.
@@ -273,7 +304,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <param name="joinExpr">The join expr.</param>
     /// <param name="options">The options.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> LeftJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, TableOptions options) => this.InternalJoin("LEFT JOIN", joinExpr, options);
+    public SqlExpression<T> LeftJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, TableOptions options)
+    {
+        return this.InternalJoin("LEFT JOIN", joinExpr, options);
+    }
 
     /// <summary>
     /// Lefts the join.
@@ -282,8 +316,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <param name="targetType">Type of the target.</param>
     /// <param name="joinExpr">The join expr.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> LeftJoin(Type sourceType, Type targetType, Expression joinExpr = null) =>
-        InternalJoin("LEFT JOIN", joinExpr, sourceType.GetModelDefinition(), targetType.GetModelDefinition());
+    public SqlExpression<T> LeftJoin(Type sourceType, Type targetType, Expression joinExpr = null)
+    {
+        return this.InternalJoin("LEFT JOIN", joinExpr, sourceType.GetModelDefinition(), targetType.GetModelDefinition());
+    }
 
     /// <summary>
     /// Lefts the join.
@@ -293,8 +329,11 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <param name="joinExpr">The join expr.</param>
     /// <param name="options">The options.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> LeftJoin(Type sourceType, Type targetType, Expression joinExpr, TableOptions options) =>
-        InternalJoin("LEFT JOIN", joinExpr, sourceType.GetModelDefinition(), targetType.GetModelDefinition(), options);
+    public SqlExpression<T> LeftJoin(Type sourceType, Type targetType, Expression joinExpr, TableOptions options)
+    {
+        return this.InternalJoin("LEFT JOIN", joinExpr, sourceType.GetModelDefinition(), targetType.GetModelDefinition(),
+            options);
+    }
 
     /// <summary>
     /// Rights the join.
@@ -302,8 +341,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="Target">The type of the target.</typeparam>
     /// <param name="joinExpr">The join expr.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> RightJoin<Target>(Expression<Func<T, Target, bool>> joinExpr = null) =>
-        InternalJoin("RIGHT JOIN", joinExpr);
+    public SqlExpression<T> RightJoin<Target>(Expression<Func<T, Target, bool>> joinExpr = null)
+    {
+        return this.InternalJoin("RIGHT JOIN", joinExpr);
+    }
 
     /// <summary>
     /// Rights the join.
@@ -313,7 +354,11 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <param name="joinFormat">The join format.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
     /// <exception cref="System.ArgumentNullException">joinFormat</exception>
-    public SqlExpression<T> RightJoin<Target>(Expression<Func<T, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) => this.InternalJoin("RIGHT JOIN", joinExpr, joinFormat ?? throw new ArgumentNullException(nameof(joinFormat)));
+    public SqlExpression<T> RightJoin<Target>(Expression<Func<T, Target, bool>> joinExpr, JoinFormatDelegate joinFormat)
+    {
+        return this.InternalJoin("RIGHT JOIN", joinExpr,
+            joinFormat ?? throw new ArgumentNullException(nameof(joinFormat)));
+    }
 
     /// <summary>
     /// Rights the join.
@@ -323,7 +368,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <param name="options">The options.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
     /// <exception cref="System.ArgumentNullException">options</exception>
-    public SqlExpression<T> RightJoin<Target>(Expression<Func<T, Target, bool>> joinExpr, TableOptions options) => this.InternalJoin("RIGHT JOIN", joinExpr, options ?? throw new ArgumentNullException(nameof(options)));
+    public SqlExpression<T> RightJoin<Target>(Expression<Func<T, Target, bool>> joinExpr, TableOptions options)
+    {
+        return this.InternalJoin("RIGHT JOIN", joinExpr, options ?? throw new ArgumentNullException(nameof(options)));
+    }
 
     /// <summary>
     /// Rights the join.
@@ -332,8 +380,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="Target">The type of the target.</typeparam>
     /// <param name="joinExpr">The join expr.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> RightJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr = null) =>
-        InternalJoin("RIGHT JOIN", joinExpr);
+    public SqlExpression<T> RightJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr = null)
+    {
+        return this.InternalJoin("RIGHT JOIN", joinExpr);
+    }
 
     /// <summary>
     /// Rights the join.
@@ -343,7 +393,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <param name="joinExpr">The join expr.</param>
     /// <param name="joinFormat">The join format.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> RightJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) => this.InternalJoin("RIGHT JOIN", joinExpr, joinFormat);
+    public SqlExpression<T> RightJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, JoinFormatDelegate joinFormat)
+    {
+        return this.InternalJoin("RIGHT JOIN", joinExpr, joinFormat);
+    }
 
     /// <summary>
     /// Rights the join.
@@ -353,7 +406,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <param name="joinExpr">The join expr.</param>
     /// <param name="options">The options.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> RightJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, TableOptions options) => this.InternalJoin("RIGHT JOIN", joinExpr, options);
+    public SqlExpression<T> RightJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr, TableOptions options)
+    {
+        return this.InternalJoin("RIGHT JOIN", joinExpr, options);
+    }
 
     /// <summary>
     /// Rights the join.
@@ -362,8 +418,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <param name="targetType">Type of the target.</param>
     /// <param name="joinExpr">The join expr.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> RightJoin(Type sourceType, Type targetType, Expression joinExpr = null) =>
-        InternalJoin("RIGHT JOIN", joinExpr, sourceType.GetModelDefinition(), targetType.GetModelDefinition());
+    public SqlExpression<T> RightJoin(Type sourceType, Type targetType, Expression joinExpr = null)
+    {
+        return this.InternalJoin("RIGHT JOIN", joinExpr, sourceType.GetModelDefinition(), targetType.GetModelDefinition());
+    }
 
     /// <summary>
     /// Rights the join.
@@ -373,8 +431,11 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <param name="joinExpr">The join expr.</param>
     /// <param name="options">The options.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> RightJoin(Type sourceType, Type targetType, Expression joinExpr, TableOptions options) =>
-        InternalJoin("RIGHT JOIN", joinExpr, sourceType.GetModelDefinition(), targetType.GetModelDefinition(), options);
+    public SqlExpression<T> RightJoin(Type sourceType, Type targetType, Expression joinExpr, TableOptions options)
+    {
+        return this.InternalJoin("RIGHT JOIN", joinExpr, sourceType.GetModelDefinition(), targetType.GetModelDefinition(),
+            options);
+    }
 
     /// <summary>
     /// Fulls the join.
@@ -382,8 +443,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="Target">The type of the target.</typeparam>
     /// <param name="joinExpr">The join expr.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> FullJoin<Target>(Expression<Func<T, Target, bool>> joinExpr = null) =>
-        InternalJoin("FULL JOIN", joinExpr);
+    public SqlExpression<T> FullJoin<Target>(Expression<Func<T, Target, bool>> joinExpr = null)
+    {
+        return this.InternalJoin("FULL JOIN", joinExpr);
+    }
 
     /// <summary>
     /// Fulls the join.
@@ -392,8 +455,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="Target">The type of the target.</typeparam>
     /// <param name="joinExpr">The join expr.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> FullJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr = null) =>
-        InternalJoin("FULL JOIN", joinExpr);
+    public SqlExpression<T> FullJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr = null)
+    {
+        return this.InternalJoin("FULL JOIN", joinExpr);
+    }
 
     /// <summary>
     /// Crosses the join.
@@ -401,8 +466,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="Target">The type of the target.</typeparam>
     /// <param name="joinExpr">The join expr.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> CrossJoin<Target>(Expression<Func<T, Target, bool>> joinExpr = null) =>
-        InternalJoin("CROSS JOIN", joinExpr);
+    public SqlExpression<T> CrossJoin<Target>(Expression<Func<T, Target, bool>> joinExpr = null)
+    {
+        return this.InternalJoin("CROSS JOIN", joinExpr);
+    }
 
     /// <summary>
     /// Crosses the join.
@@ -411,8 +478,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="Target">The type of the target.</typeparam>
     /// <param name="joinExpr">The join expr.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> CrossJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr = null) =>
-        InternalJoin("CROSS JOIN", joinExpr);
+    public SqlExpression<T> CrossJoin<Source, Target>(Expression<Func<Source, Target, bool>> joinExpr = null)
+    {
+        return this.InternalJoin("CROSS JOIN", joinExpr);
+    }
 
     /// <summary>
     /// Internals the join.
@@ -423,7 +492,11 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <param name="joinExpr">The join expr.</param>
     /// <param name="joinFormat">The join format.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    protected SqlExpression<T> InternalJoin<Source, Target>(string joinType, Expression<Func<Source, Target, bool>> joinExpr, JoinFormatDelegate joinFormat) => this.InternalJoin(joinType, joinExpr, joinFormat != null ? new TableOptions { JoinFormat = joinFormat } : null);
+    protected SqlExpression<T> InternalJoin<Source, Target>(string joinType, Expression<Func<Source, Target, bool>> joinExpr, JoinFormatDelegate joinFormat)
+    {
+        return this.InternalJoin(joinType, joinExpr,
+            joinFormat != null ? new TableOptions { JoinFormat = joinFormat } : null);
+    }
 
     /// <summary>
     /// Internals the join.
@@ -466,7 +539,11 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T3">The type of the t3.</typeparam>
     /// <param name="joinExpr">The join expr.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> Join<Source, Target, T3>(Expression<Func<Source, Target, T3, bool>> joinExpr) => this.InternalJoin<Source, Target>("INNER JOIN", joinExpr);
+    public SqlExpression<T> Join<Source, Target, T3>(Expression<Func<Source, Target, T3, bool>> joinExpr)
+    {
+        return this.InternalJoin<Source, Target>("INNER JOIN", joinExpr);
+    }
+
     /// <summary>
     /// Lefts the join.
     /// </summary>
@@ -475,7 +552,11 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T3">The type of the t3.</typeparam>
     /// <param name="joinExpr">The join expr.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> LeftJoin<Source, Target, T3>(Expression<Func<Source, Target, T3, bool>> joinExpr) => this.InternalJoin<Source, Target>("LEFT JOIN", joinExpr);
+    public SqlExpression<T> LeftJoin<Source, Target, T3>(Expression<Func<Source, Target, T3, bool>> joinExpr)
+    {
+        return this.InternalJoin<Source, Target>("LEFT JOIN", joinExpr);
+    }
+
     /// <summary>
     /// Rights the join.
     /// </summary>
@@ -484,7 +565,11 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T3">The type of the t3.</typeparam>
     /// <param name="joinExpr">The join expr.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> RightJoin<Source, Target, T3>(Expression<Func<Source, Target, T3, bool>> joinExpr) => this.InternalJoin<Source, Target>("RIGHT JOIN", joinExpr);
+    public SqlExpression<T> RightJoin<Source, Target, T3>(Expression<Func<Source, Target, T3, bool>> joinExpr)
+    {
+        return this.InternalJoin<Source, Target>("RIGHT JOIN", joinExpr);
+    }
+
     /// <summary>
     /// Fulls the join.
     /// </summary>
@@ -493,7 +578,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T3">The type of the t3.</typeparam>
     /// <param name="joinExpr">The join expr.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> FullJoin<Source, Target, T3>(Expression<Func<Source, Target, T3, bool>> joinExpr) => this.InternalJoin<Source, Target>("FULL JOIN", joinExpr);
+    public SqlExpression<T> FullJoin<Source, Target, T3>(Expression<Func<Source, Target, T3, bool>> joinExpr)
+    {
+        return this.InternalJoin<Source, Target>("FULL JOIN", joinExpr);
+    }
 
     /// <summary>
     /// Joins the specified join expr.
@@ -504,7 +592,11 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T4">The type of the t4.</typeparam>
     /// <param name="joinExpr">The join expr.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> Join<Source, Target, T3, T4>(Expression<Func<Source, Target, T3, T4, bool>> joinExpr) => this.InternalJoin<Source, Target>("INNER JOIN", joinExpr);
+    public SqlExpression<T> Join<Source, Target, T3, T4>(Expression<Func<Source, Target, T3, T4, bool>> joinExpr)
+    {
+        return this.InternalJoin<Source, Target>("INNER JOIN", joinExpr);
+    }
+
     /// <summary>
     /// Lefts the join.
     /// </summary>
@@ -514,7 +606,11 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T4">The type of the t4.</typeparam>
     /// <param name="joinExpr">The join expr.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> LeftJoin<Source, Target, T3, T4>(Expression<Func<Source, Target, T3, T4, bool>> joinExpr) => this.InternalJoin<Source, Target>("LEFT JOIN", joinExpr);
+    public SqlExpression<T> LeftJoin<Source, Target, T3, T4>(Expression<Func<Source, Target, T3, T4, bool>> joinExpr)
+    {
+        return this.InternalJoin<Source, Target>("LEFT JOIN", joinExpr);
+    }
+
     /// <summary>
     /// Rights the join.
     /// </summary>
@@ -524,7 +620,11 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T4">The type of the t4.</typeparam>
     /// <param name="joinExpr">The join expr.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> RightJoin<Source, Target, T3, T4>(Expression<Func<Source, Target, T3, T4, bool>> joinExpr) => this.InternalJoin<Source, Target>("RIGHT JOIN", joinExpr);
+    public SqlExpression<T> RightJoin<Source, Target, T3, T4>(Expression<Func<Source, Target, T3, T4, bool>> joinExpr)
+    {
+        return this.InternalJoin<Source, Target>("RIGHT JOIN", joinExpr);
+    }
+
     /// <summary>
     /// Fulls the join.
     /// </summary>
@@ -534,7 +634,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T4">The type of the t4.</typeparam>
     /// <param name="joinExpr">The join expr.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public SqlExpression<T> FullJoin<Source, Target, T3, T4>(Expression<Func<Source, Target, T3, T4, bool>> joinExpr) => this.InternalJoin<Source, Target>("FULL JOIN", joinExpr);
+    public SqlExpression<T> FullJoin<Source, Target, T3, T4>(Expression<Func<Source, Target, T3, T4, bool>> joinExpr)
+    {
+        return this.InternalJoin<Source, Target>("FULL JOIN", joinExpr);
+    }
 
     /// <summary>
     /// Internals the create SQL from expression.
@@ -636,11 +739,11 @@ public abstract partial class SqlExpression<T> : ISqlExpression
                 options.ModelDef = targetDef;
                 this.joinAlias = options;
 
-                if (UseJoinTypeAsAliases)
+                if (this.UseJoinTypeAsAliases)
                 {
-                    joinAliases ??= new Dictionary<ModelDefinition, TableOptions>();
+                    this.joinAliases ??= new Dictionary<ModelDefinition, TableOptions>();
                     //If join multiple times and set different TableOptions, only the last setting will be used
-                    joinAliases[targetDef] = options;
+                    this.joinAliases[targetDef] = options;
                 }
             }
         }
@@ -691,7 +794,11 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// </summary>
     /// <typeparam name="TModel">The type of the t model.</typeparam>
     /// <returns>string.</returns>
-    public string SelectInto<TModel>() => SelectInto<TModel>(QueryType.Select);
+    public string SelectInto<TModel>()
+    {
+        return this.SelectInto<TModel>(QueryType.Select);
+    }
+
     /// <summary>
     /// Selects the into.
     /// </summary>
@@ -878,7 +985,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="Target">The type of the target.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Where<Target>(Expression<Func<Target, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> Where<Target>(Expression<Func<Target, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Wheres the specified predicate.
@@ -887,7 +997,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="Target">The type of the target.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Where<Source, Target>(Expression<Func<Source, Target, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> Where<Source, Target>(Expression<Func<Source, Target, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Wheres the specified predicate.
@@ -897,7 +1010,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T3">The type of the t3.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Where<T1, T2, T3>(Expression<Func<T1, T2, T3, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> Where<T1, T2, T3>(Expression<Func<T1, T2, T3, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Wheres the specified predicate.
@@ -908,7 +1024,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T4">The type of the t4.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Where<T1, T2, T3, T4>(Expression<Func<T1, T2, T3, T4, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> Where<T1, T2, T3, T4>(Expression<Func<T1, T2, T3, T4, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Wheres the specified predicate.
@@ -920,7 +1039,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T5">The type of the t5.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Where<T1, T2, T3, T4, T5>(Expression<Func<T1, T2, T3, T4, T5, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> Where<T1, T2, T3, T4, T5>(Expression<Func<T1, T2, T3, T4, T5, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Wheres the specified predicate.
@@ -933,7 +1055,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T6">The type of the t6.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Where<T1, T2, T3, T4, T5, T6>(Expression<Func<T1, T2, T3, T4, T5, T6, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> Where<T1, T2, T3, T4, T5, T6>(Expression<Func<T1, T2, T3, T4, T5, T6, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Wheres the specified predicate.
@@ -947,7 +1072,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T7">The type of the t7.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Where<T1, T2, T3, T4, T5, T6, T7>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> Where<T1, T2, T3, T4, T5, T6, T7>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Wheres the specified predicate.
@@ -962,7 +1090,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T8">The type of the t8.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Where<T1, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> Where<T1, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Wheres the specified predicate.
@@ -978,7 +1109,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T9">The type of the t9.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Where<T1, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> Where<T1, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Wheres the specified predicate.
@@ -995,7 +1129,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T10">The type of the T10.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Where<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> Where<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Wheres the specified predicate.
@@ -1013,7 +1150,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T11">The type of the T11.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Where<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> Where<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Wheres the specified predicate.
@@ -1032,7 +1172,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T12">The type of the T12.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Where<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> Where<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Wheres the specified predicate.
@@ -1052,7 +1195,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T13">The type of the T13.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Where<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> Where<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Wheres the specified predicate.
@@ -1073,7 +1219,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T14">The type of the T14.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Where<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> Where<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Wheres the specified predicate.
@@ -1095,7 +1244,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T15">The type of the T15.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Where<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> Where<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Ands the specified predicate.
@@ -1103,7 +1255,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="Target">The type of the target.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> And<Target>(Expression<Func<Target, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> And<Target>(Expression<Func<Target, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Ands the specified predicate.
@@ -1112,7 +1267,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="Target">The type of the target.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> And<Source, Target>(Expression<Func<Source, Target, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> And<Source, Target>(Expression<Func<Source, Target, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Ands the specified predicate.
@@ -1122,7 +1280,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T3">The type of the t3.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> And<T1, T2, T3>(Expression<Func<T1, T2, T3, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> And<T1, T2, T3>(Expression<Func<T1, T2, T3, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Ands the specified predicate.
@@ -1133,7 +1294,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T4">The type of the t4.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> And<T1, T2, T3, T4>(Expression<Func<T1, T2, T3, T4, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> And<T1, T2, T3, T4>(Expression<Func<T1, T2, T3, T4, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Ands the specified predicate.
@@ -1145,7 +1309,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T5">The type of the t5.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> And<T1, T2, T3, T4, T5>(Expression<Func<T1, T2, T3, T4, T5, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> And<T1, T2, T3, T4, T5>(Expression<Func<T1, T2, T3, T4, T5, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Ands the specified predicate.
@@ -1158,7 +1325,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T6">The type of the t6.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> And<T1, T2, T3, T4, T5, T6>(Expression<Func<T1, T2, T3, T4, T5, T6, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> And<T1, T2, T3, T4, T5, T6>(Expression<Func<T1, T2, T3, T4, T5, T6, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Ands the specified predicate.
@@ -1172,7 +1342,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T7">The type of the t7.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> And<T1, T2, T3, T4, T5, T6, T7>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> And<T1, T2, T3, T4, T5, T6, T7>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Ands the specified predicate.
@@ -1187,7 +1360,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T8">The type of the t8.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> And<T1, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> And<T1, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Ands the specified predicate.
@@ -1203,7 +1379,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T9">The type of the t9.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> And<T1, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> And<T1, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Ands the specified predicate.
@@ -1220,7 +1399,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T10">The type of the T10.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> And<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> And<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Ands the specified predicate.
@@ -1238,7 +1420,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T11">The type of the T11.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> And<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> And<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Ands the specified predicate.
@@ -1257,7 +1442,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T12">The type of the T12.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> And<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> And<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Ands the specified predicate.
@@ -1277,7 +1465,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T13">The type of the T13.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> And<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> And<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Ands the specified predicate.
@@ -1298,7 +1489,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T14">The type of the T14.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> And<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> And<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Ands the specified predicate.
@@ -1320,7 +1514,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T15">The type of the T15.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> And<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>> predicate) => this.AppendToWhere("AND", predicate);
+    public virtual SqlExpression<T> And<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>> predicate)
+    {
+        return this.AppendToWhere("AND", predicate);
+    }
 
     /// <summary>
     /// Ors the specified predicate.
@@ -1328,7 +1525,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="Target">The type of the target.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Or<Target>(Expression<Func<Target, bool>> predicate) => this.AppendToWhere("OR", predicate);
+    public virtual SqlExpression<T> Or<Target>(Expression<Func<Target, bool>> predicate)
+    {
+        return this.AppendToWhere("OR", predicate);
+    }
 
     /// <summary>
     /// Ors the specified predicate.
@@ -1337,7 +1537,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="Target">The type of the target.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Or<Source, Target>(Expression<Func<Source, Target, bool>> predicate) => this.AppendToWhere("OR", predicate);
+    public virtual SqlExpression<T> Or<Source, Target>(Expression<Func<Source, Target, bool>> predicate)
+    {
+        return this.AppendToWhere("OR", predicate);
+    }
 
     /// <summary>
     /// Ors the specified predicate.
@@ -1347,7 +1550,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T3">The type of the t3.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Or<T1, T2, T3>(Expression<Func<T1, T2, T3, bool>> predicate) => this.AppendToWhere("OR", predicate);
+    public virtual SqlExpression<T> Or<T1, T2, T3>(Expression<Func<T1, T2, T3, bool>> predicate)
+    {
+        return this.AppendToWhere("OR", predicate);
+    }
 
     /// <summary>
     /// Ors the specified predicate.
@@ -1358,7 +1564,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T4">The type of the t4.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Or<T1, T2, T3, T4>(Expression<Func<T1, T2, T3, T4, bool>> predicate) => this.AppendToWhere("OR", predicate);
+    public virtual SqlExpression<T> Or<T1, T2, T3, T4>(Expression<Func<T1, T2, T3, T4, bool>> predicate)
+    {
+        return this.AppendToWhere("OR", predicate);
+    }
 
     /// <summary>
     /// Ors the specified predicate.
@@ -1370,7 +1579,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T5">The type of the t5.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5>(Expression<Func<T1, T2, T3, T4, T5, bool>> predicate) => this.AppendToWhere("OR", predicate);
+    public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5>(Expression<Func<T1, T2, T3, T4, T5, bool>> predicate)
+    {
+        return this.AppendToWhere("OR", predicate);
+    }
 
     /// <summary>
     /// Ors the specified predicate.
@@ -1383,7 +1595,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T6">The type of the t6.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5, T6>(Expression<Func<T1, T2, T3, T4, T5, T6, bool>> predicate) => this.AppendToWhere("OR", predicate);
+    public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5, T6>(Expression<Func<T1, T2, T3, T4, T5, T6, bool>> predicate)
+    {
+        return this.AppendToWhere("OR", predicate);
+    }
 
     /// <summary>
     /// Ors the specified predicate.
@@ -1397,7 +1612,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T7">The type of the t7.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5, T6, T7>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>> predicate) => this.AppendToWhere("OR", predicate);
+    public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5, T6, T7>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, bool>> predicate)
+    {
+        return this.AppendToWhere("OR", predicate);
+    }
 
     /// <summary>
     /// Ors the specified predicate.
@@ -1412,7 +1630,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T8">The type of the t8.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>> predicate) => this.AppendToWhere("OR", predicate);
+    public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5, T6, T7, T8>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, bool>> predicate)
+    {
+        return this.AppendToWhere("OR", predicate);
+    }
 
     /// <summary>
     /// Ors the specified predicate.
@@ -1428,7 +1649,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T9">The type of the t9.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>> predicate) => this.AppendToWhere("OR", predicate);
+    public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5, T6, T7, T8, T9>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, bool>> predicate)
+    {
+        return this.AppendToWhere("OR", predicate);
+    }
 
     /// <summary>
     /// Ors the specified predicate.
@@ -1445,7 +1669,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T10">The type of the T10.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>> predicate) => this.AppendToWhere("OR", predicate);
+    public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, bool>> predicate)
+    {
+        return this.AppendToWhere("OR", predicate);
+    }
 
     /// <summary>
     /// Ors the specified predicate.
@@ -1463,7 +1690,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T11">The type of the T11.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>> predicate) => this.AppendToWhere("OR", predicate);
+    public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, bool>> predicate)
+    {
+        return this.AppendToWhere("OR", predicate);
+    }
 
     /// <summary>
     /// Ors the specified predicate.
@@ -1482,7 +1712,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T12">The type of the T12.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>> predicate) => this.AppendToWhere("OR", predicate);
+    public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, bool>> predicate)
+    {
+        return this.AppendToWhere("OR", predicate);
+    }
 
     /// <summary>
     /// Ors the specified predicate.
@@ -1502,7 +1735,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T13">The type of the T13.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>> predicate) => this.AppendToWhere("OR", predicate);
+    public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, bool>> predicate)
+    {
+        return this.AppendToWhere("OR", predicate);
+    }
 
     /// <summary>
     /// Ors the specified predicate.
@@ -1523,7 +1759,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T14">The type of the T14.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>> predicate) => this.AppendToWhere("OR", predicate);
+    public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, bool>> predicate)
+    {
+        return this.AppendToWhere("OR", predicate);
+    }
 
     /// <summary>
     /// Ors the specified predicate.
@@ -1545,7 +1784,10 @@ public abstract partial class SqlExpression<T> : ISqlExpression
     /// <typeparam name="T15">The type of the T15.</typeparam>
     /// <param name="predicate">The predicate.</param>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>> predicate) => this.AppendToWhere("OR", predicate);
+    public virtual SqlExpression<T> Or<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>(Expression<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, bool>> predicate)
+    {
+        return this.AppendToWhere("OR", predicate);
+    }
 
     /// <summary>
     /// Firsts the matching field.

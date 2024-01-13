@@ -26,7 +26,7 @@ public class MySqlStringConverter : StringConverter
     /// Gets the maximum length of the variable character.
     /// </summary>
     /// <value>The maximum length of the variable character.</value>
-    public override int MaxVarCharLength => UseUnicode ? 16383 : 21844;
+    public override int MaxVarCharLength => this.UseUnicode ? 16383 : 21844;
 
     /// <summary>
     /// Gets the maximum column definition.
@@ -71,7 +71,7 @@ public class MySql55StringConverter : StringConverter
     /// Gets the maximum length of the variable character.
     /// </summary>
     /// <value>The maximum length of the variable character.</value>
-    public override int MaxVarCharLength => UseUnicode ? 16383 : 21844;
+    public override int MaxVarCharLength => this.UseUnicode ? 16383 : 21844;
 
     /// <summary>
     /// Gets the maximum column definition.

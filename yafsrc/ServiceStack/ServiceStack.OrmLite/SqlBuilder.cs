@@ -71,9 +71,9 @@ public class SqlBuilder
             /// <param name="value">The value.</param>
             public Property(string name, Type type, object value)
             {
-                Name = name;
-                Type = type;
-                Value = value;
+                this.Name = name;
+                this.Type = type;
+                this.Value = value;
             }
 
             /// <summary>
@@ -101,7 +101,7 @@ public class SqlBuilder
         /// <param name="initParams">The initialize parameters.</param>
         public DynamicParameters(object initParams)
         {
-            AddDynamicParams(initParams);
+            this.AddDynamicParams(initParams);
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ public class SqlBuilder
                 }
 
                 var value = getterFn(cmdParams);
-                properties.Add(new Property(pi.Name, pi.PropertyType, value));
+                this.properties.Add(new Property(pi.Name, pi.PropertyType, value));
             }
         }
 
@@ -158,7 +158,7 @@ public class SqlBuilder
             var unsetValues = new List<Property>();
 
             // Loop over the attributes that will be used as the properties names in out new type
-            foreach (var p in properties)
+            foreach (var p in this.properties)
             {
                 // Generate a private field
                 var field = typeBuilder.DefineField("_" + p.Name, p.Type, FieldAttributes.Private);
@@ -275,7 +275,7 @@ public class SqlBuilder
             {
                 p.AddDynamicParams(item.Parameters);
             }
-            return prefix + string.Join(joiner, this.Select(c => c.Sql).ToArray()) + postfix;
+            return this.prefix + string.Join(this.joiner, this.Select(c => c.Sql).ToArray()) + this.postfix;
         }
     }
 
@@ -327,22 +327,22 @@ public class SqlBuilder
         /// </summary>
         private void ResolveSql()
         {
-            if (dataSeq != builder.seq)
+            if (this.dataSeq != this.builder.seq)
             {
-                var p = new DynamicParameters(initParams);
+                var p = new DynamicParameters(this.initParams);
 
-                rawSql = sql;
+                this.rawSql = this.sql;
 
-                foreach (var pair in builder.data)
+                foreach (var pair in this.builder.data)
                 {
-                    rawSql = rawSql.Replace("/**" + pair.Key + "**/", pair.Value.ResolveClauses(p));
+                    this.rawSql = this.rawSql.Replace("/**" + pair.Key + "**/", pair.Value.ResolveClauses(p));
                 }
-                parameters = p.CreateDynamicType();
+                this.parameters = p.CreateDynamicType();
 
                 // replace all that is left with empty
-                rawSql = regex.Replace(rawSql, "");
+                this.rawSql = regex.Replace(this.rawSql, "");
 
-                dataSeq = builder.seq;
+                this.dataSeq = this.builder.seq;
             }
         }
 
@@ -359,12 +359,12 @@ public class SqlBuilder
         /// Gets the raw SQL.
         /// </summary>
         /// <value>The raw SQL.</value>
-        public string RawSql { get { ResolveSql(); return rawSql; } }
+        public string RawSql { get { this.ResolveSql(); return this.rawSql; } }
         /// <summary>
         /// Gets the parameters.
         /// </summary>
         /// <value>The parameters.</value>
-        public object Parameters { get { ResolveSql(); return parameters; } }
+        public object Parameters { get { this.ResolveSql(); return this.parameters; } }
 
         /// <summary>
         /// Gets the parameters.
@@ -376,7 +376,11 @@ public class SqlBuilder
         /// Converts to selectstatement.
         /// </summary>
         /// <returns>string.</returns>
-        public string ToSelectStatement() => ToSelectStatement(QueryType.Select);
+        public string ToSelectStatement()
+        {
+            return this.ToSelectStatement(QueryType.Select);
+        }
+
         /// <summary>
         /// Converts to selectstatement.
         /// </summary>
@@ -384,7 +388,7 @@ public class SqlBuilder
         /// <returns>string.</returns>
         public string ToSelectStatement(QueryType forType)
         {
-            return RawSql;
+            return this.RawSql;
         }
 
         /// <summary>
@@ -392,14 +396,21 @@ public class SqlBuilder
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns>System.String.</returns>
-        public string SelectInto<T>() => RawSql;
+        public string SelectInto<T>()
+        {
+            return this.RawSql;
+        }
+
         /// <summary>
         /// Selects the into.
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="queryType">Type of the query.</param>
         /// <returns>System.String.</returns>
-        public string SelectInto<T>(QueryType queryType) => RawSql;
+        public string SelectInto<T>(QueryType queryType)
+        {
+            return this.RawSql;
+        }
     }
 
     /// <summary>
@@ -424,13 +435,13 @@ public class SqlBuilder
     /// <param name="postfix">The postfix.</param>
     private void AddClause(string name, string sql, object parameters, string joiner, string prefix = "", string postfix = "")
     {
-        if (!data.TryGetValue(name, out Clauses clauses))
+        if (!this.data.TryGetValue(name, out var clauses))
         {
             clauses = new Clauses(joiner, prefix, postfix);
-            data[name] = clauses;
+            this.data[name] = clauses;
         }
         clauses.Add(new Clause { Sql = sql, Parameters = parameters });
-        seq++;
+        this.seq++;
     }
 
 
@@ -442,7 +453,7 @@ public class SqlBuilder
     /// <returns>SqlBuilder.</returns>
     public SqlBuilder LeftJoin(string sql, object parameters = null)
     {
-        AddClause("leftjoin", sql, parameters, joiner: "\nLEFT JOIN ", prefix: "\nLEFT JOIN ", postfix: "\n");
+        this.AddClause("leftjoin", sql, parameters, joiner: "\nLEFT JOIN ", prefix: "\nLEFT JOIN ", postfix: "\n");
         return this;
     }
 
@@ -454,7 +465,7 @@ public class SqlBuilder
     /// <returns>SqlBuilder.</returns>
     public SqlBuilder Where(string sql, object parameters = null)
     {
-        AddClause("where", sql, parameters, " AND ", prefix: "WHERE ", postfix: "\n");
+        this.AddClause("where", sql, parameters, " AND ", prefix: "WHERE ", postfix: "\n");
         return this;
     }
 
@@ -466,7 +477,7 @@ public class SqlBuilder
     /// <returns>SqlBuilder.</returns>
     public SqlBuilder OrderBy(string sql, object parameters = null)
     {
-        AddClause("orderby", sql, parameters, " , ", prefix: "ORDER BY ", postfix: "\n");
+        this.AddClause("orderby", sql, parameters, " , ", prefix: "ORDER BY ", postfix: "\n");
         return this;
     }
 
@@ -478,7 +489,7 @@ public class SqlBuilder
     /// <returns>SqlBuilder.</returns>
     public SqlBuilder Select(string sql, object parameters = null)
     {
-        AddClause("select", sql, parameters, " , ", prefix: "", postfix: "\n");
+        this.AddClause("select", sql, parameters, " , ", prefix: "", postfix: "\n");
         return this;
     }
 
@@ -489,7 +500,7 @@ public class SqlBuilder
     /// <returns>SqlBuilder.</returns>
     public SqlBuilder AddParameters(object parameters)
     {
-        AddClause("--parameters", "", parameters, "");
+        this.AddClause("--parameters", "", parameters, "");
         return this;
     }
 
@@ -501,7 +512,7 @@ public class SqlBuilder
     /// <returns>SqlBuilder.</returns>
     public SqlBuilder Join(string sql, object parameters = null)
     {
-        AddClause("join", sql, parameters, joiner: "\nJOIN ", prefix: "\nJOIN", postfix: "\n");
+        this.AddClause("join", sql, parameters, joiner: "\nJOIN ", prefix: "\nJOIN", postfix: "\n");
         return this;
     }
 }

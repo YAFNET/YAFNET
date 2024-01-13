@@ -29,7 +29,7 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
     /// Gets the database transaction.
     /// </summary>
     /// <value>The database transaction.</value>
-    public IDbTransaction DbTransaction => Transaction;
+    public IDbTransaction DbTransaction => this.Transaction;
 
     /// <summary>
     /// The database connection
@@ -40,7 +40,7 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
     /// Gets the database connection.
     /// </summary>
     /// <value>The database connection.</value>
-    public IDbConnection Db => db;
+    public IDbConnection Db => this.db;
 
     /// <summary>
     /// Creates the specified database.
@@ -88,7 +88,7 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
     {
         try
         {
-            Transaction.Dispose();
+            this.Transaction.Dispose();
         }
         finally
         {
@@ -108,13 +108,13 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
     /// </summary>
     public void Commit()
     {
-        var isolationLevel = Transaction.IsolationLevel;
-        var id = Diagnostics.OrmLite.WriteTransactionCommitBefore(isolationLevel, db);
+        var isolationLevel = this.Transaction.IsolationLevel;
+        var id = Diagnostics.OrmLite.WriteTransactionCommitBefore(isolationLevel, this.db);
         Exception e = null;
 
         try
         {
-            Transaction.Commit();
+            this.Transaction.Commit();
         }
         catch (Exception ex)
         {
@@ -125,11 +125,11 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
         {
             if (e != null)
             {
-                Diagnostics.OrmLite.WriteTransactionCommitError(id, isolationLevel, db, e);
+                Diagnostics.OrmLite.WriteTransactionCommitError(id, isolationLevel, this.db, e);
             }
             else
             {
-                Diagnostics.OrmLite.WriteTransactionCommitAfter(id, isolationLevel, db);
+                Diagnostics.OrmLite.WriteTransactionCommitAfter(id, isolationLevel, this.db);
             }
         }
     }
@@ -139,13 +139,13 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
     /// </summary>
     public void Rollback()
     {
-        var isolationLevel = Transaction.IsolationLevel;
-        var id = Diagnostics.OrmLite.WriteTransactionRollbackBefore(isolationLevel, db, null);
+        var isolationLevel = this.Transaction.IsolationLevel;
+        var id = Diagnostics.OrmLite.WriteTransactionRollbackBefore(isolationLevel, this.db, null);
         Exception e = null;
 
         try
         {
-            Transaction.Rollback();
+            this.Transaction.Rollback();
         }
         catch (Exception ex)
         {
@@ -156,11 +156,11 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
         {
             if (e != null)
             {
-                Diagnostics.OrmLite.WriteTransactionRollbackError(id, isolationLevel, db, null, e);
+                Diagnostics.OrmLite.WriteTransactionRollbackError(id, isolationLevel, this.db, null, e);
             }
             else
             {
-                Diagnostics.OrmLite.WriteTransactionRollbackAfter(id, isolationLevel, db, null);
+                Diagnostics.OrmLite.WriteTransactionRollbackAfter(id, isolationLevel, this.db, null);
             }
         }
     }
@@ -169,11 +169,11 @@ public class OrmLiteTransaction : IDbTransaction, IHasDbTransaction
     /// Specifies the Connection object to associate with the transaction.
     /// </summary>
     /// <value>The connection.</value>
-    public IDbConnection Connection => Transaction.Connection;
+    public IDbConnection Connection => this.Transaction.Connection;
 
     /// <summary>
     /// Gets the isolation level.
     /// </summary>
     /// <value>The isolation level.</value>
-    public IsolationLevel IsolationLevel => Transaction.IsolationLevel;
+    public IsolationLevel IsolationLevel => this.Transaction.IsolationLevel;
 }

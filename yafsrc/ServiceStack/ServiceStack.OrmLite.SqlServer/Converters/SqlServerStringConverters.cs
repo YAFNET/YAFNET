@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 using System;
 using System.Data;
 #if MSDATA
@@ -27,13 +28,13 @@ public class SqlServerStringConverter : StringConverter
     /// Gets the maximum column definition.
     /// </summary>
     /// <value>The maximum column definition.</value>
-    public override string MaxColumnDefinition => UseUnicode ? "NVARCHAR(MAX)" : "VARCHAR(MAX)";
+    public override string MaxColumnDefinition => this.UseUnicode ? "NVARCHAR(MAX)" : "VARCHAR(MAX)";
 
     /// <summary>
     /// Gets the maximum length of the variable character.
     /// </summary>
     /// <value>The maximum length of the variable character.</value>
-    public override int MaxVarCharLength => UseUnicode ? 4000 : 8000;
+    public override int MaxVarCharLength => this.UseUnicode ? 4000 : 8000;
 
     /// <summary>
     /// Gets the column definition.
@@ -43,13 +44,15 @@ public class SqlServerStringConverter : StringConverter
     public override string GetColumnDefinition(int? stringLength)
     {
         if (stringLength.GetValueOrDefault() == StringLengthAttribute.MaxText)
-            return MaxColumnDefinition;
+        {
+            return this.MaxColumnDefinition;
+        }
 
         var safeLength = Math.Min(
-            stringLength.GetValueOrDefault(StringLength),
-            UseUnicode ? 4000 : 8000);
+            stringLength.GetValueOrDefault(this.StringLength),
+            this.UseUnicode ? 4000 : 8000);
 
-        return UseUnicode
+        return this.UseUnicode
                    ? $"NVARCHAR({safeLength})"
                    : $"VARCHAR({safeLength})";
     }
@@ -63,9 +66,12 @@ public class SqlServerStringConverter : StringConverter
     {
         base.InitDbParam(p, fieldType);
 
-        if (!(p is SqlParameter sqlParam)) return;
+        if (p is not SqlParameter sqlParam)
+        {
+            return;
+        }
 
-        if (!UseUnicode)
+        if (!this.UseUnicode)
         {
             sqlParam.SqlDbType = SqlDbType.VarChar;
         }

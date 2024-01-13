@@ -28,7 +28,7 @@ public class PostgreSqlStringConverter : StringConverter
     /// Gets the maximum length of the variable character.
     /// </summary>
     /// <value>The maximum length of the variable character.</value>
-    public override int MaxVarCharLength => UseUnicode ? 10485760 / 2 : 10485760;
+    public override int MaxVarCharLength => this.UseUnicode ? 10485760 / 2 : 10485760;
 
     /// <summary>
     /// Gets the column definition.
@@ -39,7 +39,9 @@ public class PostgreSqlStringConverter : StringConverter
     {
         //PostgreSQL doesn't support NVARCHAR when UseUnicode = true so just use TEXT
         if (stringLength == null || stringLength == StringLengthAttribute.MaxText)
-            return ColumnDefinition;
+        {
+            return this.ColumnDefinition;
+        }
 
         return $"VARCHAR({stringLength.Value})";
     }
@@ -65,6 +67,6 @@ public class PostgreSqlCharArrayConverter : CharArrayConverter
     /// <returns>System.String.</returns>
     public override string GetColumnDefinition(int? stringLength)
     {
-        return ColumnDefinition;
+        return this.ColumnDefinition;
     }
 }

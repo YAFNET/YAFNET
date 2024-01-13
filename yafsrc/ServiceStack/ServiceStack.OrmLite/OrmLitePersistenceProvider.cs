@@ -40,12 +40,12 @@ public class OrmLitePersistenceProvider
     {
         get
         {
-            if (connection == null)
+            if (this.connection == null)
             {
                 var connStr = this.ConnectionString;
-                connection = connStr.OpenDbConnection();
+                this.connection = connStr.OpenDbConnection();
             }
-            return connection;
+            return this.connection;
         }
     }
 
@@ -55,7 +55,7 @@ public class OrmLitePersistenceProvider
     /// <param name="connectionString">The connection string.</param>
     public OrmLitePersistenceProvider(string connectionString)
     {
-        ConnectionString = connectionString;
+        this.ConnectionString = connectionString;
     }
 
     /// <summary>
@@ -167,7 +167,7 @@ public class OrmLitePersistenceProvider
     /// </summary>
     public void Dispose()
     {
-        if (!DisposeConnection)
+        if (!this.DisposeConnection)
         {
             return;
         }

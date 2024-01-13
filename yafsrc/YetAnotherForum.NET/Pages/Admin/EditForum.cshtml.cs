@@ -52,7 +52,7 @@ public class EditForumModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public EditForumInputModel Input { get; set; }
 
     /// <summary>
     /// Gets or sets the attachments.
@@ -122,7 +122,7 @@ public class EditForumModel : AdminPage
     /// <returns>IActionResult.</returns>
     public IActionResult OnGet(int? fa = null, bool copy = false)
     {
-        this.Input = new InputModel();
+        this.Input = new EditForumInputModel();
 
         return this.BindData(fa, copy);
     }
@@ -385,47 +385,5 @@ public class EditForumModel : AdminPage
         }
 
         return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Forums);
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public int Id { get; set; }
-
-        public bool Copy { get; set; }
-
-        public int CategoryID { get; set; }
-
-        public int? ParentID { get; set; }
-
-        public string Name { get; set; }
-
-        public string Description { get; set; }
-
-        public int SortOrder { get; set; }
-
-        public string RemoteURL { get; set; }
-
-        public string ThemeURL { get; set; }
-
-        public string ImageURL { get; set; }
-
-        public string Styles { get; set; }
-
-        public int ModeratedPostCount { get; set; } = 5;
-
-        public bool ModerateAllPosts { get; set; } = true;
-
-        public bool ModerateNewTopicOnly { get; set; }
-
-        public bool Moderated { get; set; }
-
-        public bool IsTest { get; set; }
-
-        public bool Locked { get; set; }
-
-        public bool HideNoAccess { get; set; }
     }
 }

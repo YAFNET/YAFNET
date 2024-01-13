@@ -240,8 +240,10 @@ public static class OrmLiteDialectProviderExtensions
     /// </summary>
     /// <param name="dialect">The dialect.</param>
     /// <returns><c>true</c> if [is my SQL connector] [the specified dialect]; otherwise, <c>false</c>.</returns>
-    public static bool IsMySqlConnector(this IOrmLiteDialectProvider dialect) =>
-        dialect.GetType().Name == "MySqlConnectorDialectProvider";
+    public static bool IsMySqlConnector(this IOrmLiteDialectProvider dialect)
+    {
+        return dialect.GetType().Name == "MySqlConnectorDialectProvider";
+    }
 
     /// <summary>
     /// Initializes the database parameter.
@@ -276,8 +278,10 @@ public static class OrmLiteDialectProviderExtensions
     /// <param name="dialect">The dialect.</param>
     /// <param name="values">The values.</param>
     /// <returns>System.String.</returns>
-    public static string SqlSpread<T>(this IOrmLiteDialectProvider dialect, params T[] values) =>
-        OrmLiteUtils.SqlJoin(values, dialect);
+    public static string SqlSpread<T>(this IOrmLiteDialectProvider dialect, params T[] values)
+    {
+        return OrmLiteUtils.SqlJoin(values, dialect);
+    }
 
     /// <summary>
     /// Converts to addcolumnstatement.
@@ -286,8 +290,11 @@ public static class OrmLiteDialectProviderExtensions
     /// <param name="modelType">Type of the model.</param>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns>System.String.</returns>
-    public static string ToAddColumnStatement(this IOrmLiteDialectProvider dialect, Type modelType, FieldDefinition fieldDef) =>
-        X.Map(modelType.GetModelDefinition(), x => dialect.ToAddColumnStatement(x.Schema, x.ModelName, fieldDef));
+    public static string ToAddColumnStatement(this IOrmLiteDialectProvider dialect, Type modelType, FieldDefinition fieldDef)
+    {
+        return X.Map(modelType.GetModelDefinition(),
+            x => dialect.ToAddColumnStatement(x.Schema, x.ModelName, fieldDef));
+    }
 
     /// <summary>
     /// Converts to altercolumnstatement.
@@ -296,8 +303,11 @@ public static class OrmLiteDialectProviderExtensions
     /// <param name="modelType">Type of the model.</param>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns>System.String.</returns>
-    public static string ToAlterColumnStatement(this IOrmLiteDialectProvider dialect, Type modelType, FieldDefinition fieldDef) =>
-        X.Map(modelType.GetModelDefinition(), x => dialect.ToAlterColumnStatement(x.Schema, x.ModelName, fieldDef));
+    public static string ToAlterColumnStatement(this IOrmLiteDialectProvider dialect, Type modelType, FieldDefinition fieldDef)
+    {
+        return X.Map(modelType.GetModelDefinition(),
+            x => dialect.ToAlterColumnStatement(x.Schema, x.ModelName, fieldDef));
+    }
 
     /// <summary>
     /// Converts to changecolumnnamestatement.
@@ -307,8 +317,11 @@ public static class OrmLiteDialectProviderExtensions
     /// <param name="fieldDef">The field definition.</param>
     /// <param name="oldColumnName">Old name of the column.</param>
     /// <returns>System.String.</returns>
-    public static string ToChangeColumnNameStatement(this IOrmLiteDialectProvider dialect, Type modelType, FieldDefinition fieldDef, string oldColumnName) =>
-        X.Map(modelType.GetModelDefinition(), x => dialect.ToChangeColumnNameStatement(x.Schema, x.ModelName, fieldDef, oldColumnName));
+    public static string ToChangeColumnNameStatement(this IOrmLiteDialectProvider dialect, Type modelType, FieldDefinition fieldDef, string oldColumnName)
+    {
+        return X.Map(modelType.GetModelDefinition(),
+            x => dialect.ToChangeColumnNameStatement(x.Schema, x.ModelName, fieldDef, oldColumnName));
+    }
 
     /// <summary>
     /// Converts to renamecolumnstatement.
@@ -318,8 +331,12 @@ public static class OrmLiteDialectProviderExtensions
     /// <param name="oldColumnName">Old name of the column.</param>
     /// <param name="newColumnName">New name of the column.</param>
     /// <returns>System.String.</returns>
-    public static string ToRenameColumnStatement(this IOrmLiteDialectProvider dialect, Type modelType, string oldColumnName, string newColumnName) =>
-        X.Map(modelType.GetModelDefinition(), x => dialect.ToRenameColumnStatement(x.Schema, x.ModelName, oldColumnName, newColumnName));
+    public static string ToRenameColumnStatement(this IOrmLiteDialectProvider dialect, Type modelType, string oldColumnName, string newColumnName)
+    {
+        return X.Map(modelType.GetModelDefinition(),
+            x => dialect.ToRenameColumnStatement(x.Schema, x.ModelName, oldColumnName, newColumnName));
+    }
+
     /// <summary>
     /// Converts to dropcolumnstatement.
     /// </summary>
@@ -327,7 +344,9 @@ public static class OrmLiteDialectProviderExtensions
     /// <param name="modelType">Type of the model.</param>
     /// <param name="columnName">Name of the column.</param>
     /// <returns>System.String.</returns>
-    public static string ToDropColumnStatement(this IOrmLiteDialectProvider dialect, Type modelType, string columnName) =>
-        X.Map(modelType.GetModelDefinition(), x => dialect.ToDropColumnStatement(x.Schema, x.ModelName, columnName));
-
+    public static string ToDropColumnStatement(this IOrmLiteDialectProvider dialect, Type modelType, string columnName)
+    {
+        return X.Map(modelType.GetModelDefinition(),
+            x => dialect.ToDropColumnStatement(x.Schema, x.ModelName, columnName));
+    }
 }

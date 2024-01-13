@@ -61,6 +61,8 @@ public static class IPHelper
         "::ffff:0:0/96"
     ];
 
+    private readonly static char[] separator = ['/'];
+
     /// <summary>
     /// Attempts to get an IPv4 from IPv6 address - falls back to IPv6, then localhost.
     /// </summary>
@@ -194,7 +196,7 @@ public static class IPHelper
     /// </summary>
     /// <param name="bitArray">The bit array.</param>
     /// <returns>Returns the byte array</returns>
-    private static IEnumerable<byte> ConvertToByteArray(BitArray bitArray)
+    private static byte[] ConvertToByteArray(BitArray bitArray)
     {
         // pack (in this case, using the first bool as the lsb - if you want
         // the first bool as the msb, reverse things ;-p)
@@ -245,7 +247,7 @@ public static class IPHelper
             return false;
         }
 
-        var ipAddressSplit = reservedIpAddress.Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+        var ipAddressSplit = reservedIpAddress.Split(separator, StringSplitOptions.RemoveEmptyEntries);
 
         if (ipAddressSplit.Length != 2)
         {

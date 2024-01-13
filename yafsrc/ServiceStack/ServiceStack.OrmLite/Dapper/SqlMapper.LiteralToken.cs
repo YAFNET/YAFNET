@@ -38,8 +38,8 @@ public static partial class SqlMapper
         /// <param name="member">The member.</param>
         internal LiteralToken(string token, string member)
         {
-            Token = token;
-            Member = member;
+            this.Token = token;
+            this.Member = member;
         }
 
         /// <summary>

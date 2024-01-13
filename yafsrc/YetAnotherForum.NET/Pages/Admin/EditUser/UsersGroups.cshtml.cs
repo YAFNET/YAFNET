@@ -50,7 +50,7 @@ public class UsersGroupsModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public UsersGroupsInputModel Input { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UsersGroupsModel"/> class.
@@ -67,7 +67,7 @@ public class UsersGroupsModel : AdminPage
             return this.Get<LinkBuilder>().AccessDenied();
         }
 
-        this.Input = new InputModel();
+        this.Input = new UsersGroupsInputModel();
 
         this.BindData(userId);
 
@@ -144,7 +144,8 @@ public class UsersGroupsModel : AdminPage
     /// </summary>
     private void BindData(int userId)
     {
-        this.Input = new InputModel {
+        this.Input = new UsersGroupsInputModel
+        {
                                         UserId = userId
                                     };
 
@@ -157,15 +158,5 @@ public class UsersGroupsModel : AdminPage
         }
 
         this.UserGroups = roles;
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public int UserId { get; set; }
-
-        public bool SendEmail { get; set; }
     }
 }

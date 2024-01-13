@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 using System;
 
 namespace ServiceStack.OrmLite.MySql.DataAnnotations;
@@ -14,6 +15,4 @@ namespace ServiceStack.OrmLite.MySql.DataAnnotations;
 /// </summary>
 /// <seealso cref="System.Attribute" />
 [AttributeUsage(AttributeTargets.Property)]
-public class TextAttribute : Attribute
-{
-}
+public class TextAttribute : Attribute;

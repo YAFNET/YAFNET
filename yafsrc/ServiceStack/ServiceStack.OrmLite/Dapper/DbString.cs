@@ -32,8 +32,8 @@ public sealed class DbString : SqlMapper.ICustomQueryParameter
     /// </summary>
     public DbString()
     {
-        Length = -1;
-        IsAnsi = IsAnsiDefault;
+        this.Length = -1;
+        this.IsAnsi = IsAnsiDefault;
     }
     /// <summary>
     /// Ansi vs Unicode
@@ -64,11 +64,11 @@ public sealed class DbString : SqlMapper.ICustomQueryParameter
     /// <exception cref="System.InvalidOperationException">If specifying IsFixedLength,  a Length must also be specified</exception>
     public void AddParameter(IDbCommand command, string name)
     {
-        if (IsFixedLength && Length == -1)
+        if (this.IsFixedLength && this.Length == -1)
         {
             throw new InvalidOperationException("If specifying IsFixedLength,  a Length must also be specified");
         }
-        bool add = !command.Parameters.Contains(name);
+        var add = !command.Parameters.Contains(name);
         IDbDataParameter param;
         if (add)
         {
@@ -80,17 +80,17 @@ public sealed class DbString : SqlMapper.ICustomQueryParameter
             param = (IDbDataParameter)command.Parameters[name];
         }
 #pragma warning disable 0618
-        param.Value = SqlMapper.SanitizeParameterValue(Value);
+        param.Value = SqlMapper.SanitizeParameterValue(this.Value);
 #pragma warning restore 0618
-        if (Length == -1 && Value is {Length: <= DefaultLength})
+        if (this.Length == -1 && this.Value is {Length: <= DefaultLength})
         {
             param.Size = DefaultLength;
         }
         else
         {
-            param.Size = Length;
+            param.Size = this.Length;
         }
-        param.DbType = IsAnsi ? IsFixedLength ? DbType.AnsiStringFixedLength : DbType.AnsiString : IsFixedLength ? DbType.StringFixedLength : DbType.String;
+        param.DbType = this.IsAnsi ? this.IsFixedLength ? DbType.AnsiStringFixedLength : DbType.AnsiString : this.IsFixedLength ? DbType.StringFixedLength : DbType.String;
         if (add)
         {
             command.Parameters.Add(param);

@@ -30,7 +30,7 @@ public static partial class SqlMapper
             var convertToType = Nullable.GetUnderlyingType(effectiveType) ?? effectiveType;
             do
             {
-                object val = deser(reader);
+                var val = deser(reader);
                 if (val == null || val is T)
                 {
                     yield return (T)val;

@@ -25,7 +25,6 @@
 namespace YAF.Pages;
 
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -50,7 +49,7 @@ public class PostTopicModel : ForumPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public PostTopicInputModel Input { get; set; }
 
     /// <summary>
     /// Gets or sets the Topic Priorities.
@@ -182,7 +181,7 @@ public class PostTopicModel : ForumPage
     public IActionResult OnGet()
 
     {
-        this.Input = new InputModel();
+        this.Input = new PostTopicInputModel();
 
         if (this.PageBoardContext.PageForumID == 0)
         {
@@ -510,34 +509,5 @@ public class PostTopicModel : ForumPage
         var moderatedPostCount = forumInfo.ModeratedPostCount;
 
         return !(this.PageBoardContext.PageUser.NumPosts >= moderatedPostCount);
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        [BindProperty, MaxLength(100)]
-        public string TopicSubject { get; set; }
-
-        public string TopicDescription { get; set; }
-
-        public string From { get; set; }
-
-        public string TopicStyles { get; set; }
-
-        public string TagsValue { get; set; }
-
-        public string Editor { get; set; }
-
-        public string PreviewMessage { get; set; }
-
-        public int Priority { get; set; }
-
-        public bool AddPoll { get; set; }
-
-        public bool Persistent { get; set; }
-
-        public bool TopicWatch { get; set; }
     }
 }

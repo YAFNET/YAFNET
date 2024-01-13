@@ -321,14 +321,6 @@
             "#text": "Bearbeitet Medaillen"
           },
           {
-            "@tag": "ADMIN_EDITNNTPFORUM",
-            "#text": "Bearbeitet NNTP Forum"
-          },
-          {
-            "@tag": "ADMIN_EDITNNTPSERVER",
-            "#text": "Bearbeitet NNTP Server"
-          },
-          {
             "@tag": "ADMIN_EDITRANK",
             "#text": "Bearbeitet Ränge"
           },
@@ -363,18 +355,6 @@
           {
             "@tag": "ADMIN_MEDALS",
             "#text": "Betrachtet/Bearbeitet Medaillen"
-          },
-          {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "Betrachtet/Bearbeitet NNTP Foren"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "Ruft NNTP"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "Betrachtet/Bearbeitet NNTP Server"
           },
           {
             "@tag": "ADMIN_PM",
@@ -3127,128 +3107,6 @@
         ]
       },
       {
-        "@name": "ADMIN_EDITNNTPFORUM",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "Aktiv:"
-          },
-          {
-            "@tag": "ACTIVE_HELP",
-            "#text": "Aktivieren um das Forum aktiv zu machen."
-          },
-          {
-            "@tag": "DATECUTOFF",
-            "#text": "Maximales Datum für Beiträge:"
-          },
-          {
-            "@tag": "DATECUTOFF_HELP",
-            "#text": "Beiträge die älter als das angegebene Datum sind sollen nicht importiert werden."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "Forum:"
-          },
-          {
-            "@tag": "FORUM_HELP",
-            "#text": "Das Forum in dem die Beiträge abgelegt werden."
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "Gruppe:"
-          },
-          {
-            "@tag": "GROUP_HELP",
-            "#text": "Der Name der Newsgroup."
-          },
-          {
-            "@tag": "MSG_SELECT_FORUM",
-            "#text": "Sie müssen ein Forum angeben um die NNTP Beiträge zu speichern."
-          },
-          {
-            "@tag": "MSG_VALID_GROUP",
-            "#text": "Sie sollten einen gültigen Gruppennamen angegeben."
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "Server:"
-          },
-          {
-            "@tag": "SERVER_HELP",
-            "#text": "Der Server in dem sich diese Gruppe befindet."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Hinzufügen / Bearbeiten NNTP-Forum"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "NNTP-Forum bearbeiten"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_EDITNNTPSERVER",
-        "Resource": [
-          {
-            "@tag": "MSG_SERVER_ADR",
-            "#text": "Fehlende Server-Adresse."
-          },
-          {
-            "@tag": "MSG_SERVER_NAME",
-            "#text": "Fehlender Server-Name."
-          },
-          {
-            "@tag": "NNTP_ADRESS",
-            "#text": "Adresse:"
-          },
-          {
-            "@tag": "NNTP_ADRESS_HELP",
-            "#text": "Der Hostname des Servers."
-          },
-          {
-            "@tag": "NNTP_NAME",
-            "#text": "Name:"
-          },
-          {
-            "@tag": "NNTP_NAME_HELP",
-            "#text": "Name dieses Servers."
-          },
-          {
-            "@tag": "NNTP_PASSWORD",
-            "#text": "Passwort:"
-          },
-          {
-            "@tag": "NNTP_PASSWORD_HELP",
-            "#text": "Das Passwort für die Anmeldung an den NNTP-Server."
-          },
-          {
-            "@tag": "NNTP_PORT",
-            "#text": "Hafen:"
-          },
-          {
-            "@tag": "NNTP_PORT_HELP",
-            "#text": "Die Port-Nummer zum Verbinden."
-          },
-          {
-            "@tag": "NNTP_USERNAME",
-            "#text": "Benutzername:"
-          },
-          {
-            "@tag": "NNTP_USERNAME_HELP",
-            "#text": "Der Benutzername für die Anmeldung an den NNTP-Server."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Hinzufügen / Bearbeiten NNTP-Server"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "NNTP-Server bearbeiten"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_EDITRANK",
         "Resource": [
           {
@@ -4303,14 +4161,6 @@
           {
             "@tag": "COLLAPSED",
             "#text": "Zusammengeklappt"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES",
-            "#text": "NNTP Benutzernamen erstellen:"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES_HELP",
-            "#text": "Aktivieren damit Benutzer automatisch erstellt werden Usenet-Nachrichten heruntergeladen werden.  Aktivieren Sie das nur in einer Testumgebung, und <em>NIE</ em> in einer Produktionsumgebung. Der Hauptzweck dieser Option ist für Performance-Tests."
           },
           {
             "@tag": "CROP_IMAGE_ATTACH",
@@ -5958,149 +5808,6 @@
         ]
       },
       {
-        "@name": "ADMIN_NNTPFORUMS",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "Aktiv"
-          },
-          {
-            "@tag": "DELETE",
-            "#text": "Löschen"
-          },
-          {
-            "@tag": "DELETE_FORUM",
-            "#text": "Dieses Forum löschen?"
-          },
-          {
-            "@tag": "EDIT",
-            "#text": "Bearbeiten"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Forums"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "Forum"
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "Gruppe"
-          },
-          {
-            "@tag": "NEW_FORUM",
-            "#text": "Neues Forum"
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Forum speichern"
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "Server"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP Foren"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPRETRIEVE",
-        "Resource": [
-          {
-            "@tag": "BETA_WARNING",
-            "#text": "<p> <span title=\"The NNTP feature of Yet Another Forum.net is still beta, and will have bugs.\" onmouseover=\"this.style.backgroundColor='#ebeff9'\" onmouseout=\"this.style.backgroundColor='#fff'\">Die NNTP Funktion des Yet Another Forum.net ist noch in der Beta Phase, und hat noch einige Bugs. </span><span title=\"Bugs\" onmouseover=\"this.style.backgroundColor='#ebeff9'\" onmouseout=\"this.style.backgroundColor='#fff'\">Bugs auf die </span><span title=\"you should look for is character set conversion, and incorrect time on posts.\" onmouseover=\"this.style.backgroundColor='#ebeff9'\" onmouseout=\"this.style.backgroundColor='#fff'\">Sie achten sollten sind bei der Zeichensatzkonvertierung und falsche Zeiten bei Beiträgen. <br>\r\n</span><span title=\"Usenet articles will be posted to the forum with the date from the article header,\" onmouseover=\"this.style.backgroundColor='#ebeff9'\" onmouseout=\"this.style.backgroundColor='#fff'\">Usenet-Artikel werden im Forum veröffentlicht mit dem Datum des Artikelkopfes  </span><span title=\"meaning that you well could get future dates.\" onmouseover=\"this.style.backgroundColor='#ebeff9'\" onmouseout=\"this.style.backgroundColor='#fff'\">bedeutet, dass zukünftige Daten erhalten können. Bitte melden Sie Unbekannte Zeitzonen den YAF Programmieren</span><span title=\"time zones that are encountered.\" onmouseover=\"this.style.backgroundColor='#ebeff9'\" onmouseout=\"this.style.backgroundColor='#fff'\">.</span></p>\r\n  <p> <span title=\"Zur Anzeige alternativer Übersetzungen klicken\">Die</span> <span title=\"Zur Anzeige alternativer Übersetzungen klicken\">Foren</span> <span title=\"Zur Anzeige alternativer Übersetzungen klicken\">in denen die </span><span title=\"Zur Anzeige alternativer Übersetzungen klicken\">Usenet-Artikel</span> veröffentlicht werden sollten schreibge<span title=\"Zur Anzeige alternativer Übersetzungen klicken\">schützt sein</span><span title=\"Zur Anzeige alternativer Übersetzungen klicken\">,</span> <span title=\"Zur Anzeige alternativer Übersetzungen klicken\">da</span> <span title=\"Zur Anzeige alternativer Übersetzungen klicken\">Nachrichten</span> <span title=\"Zur Anzeige alternativer Übersetzungen klicken\"><strong>nicht</strong> zurück in der</span> <span title=\"Zur Anzeige alternativer Übersetzungen klicken\">Usenet</span> <span title=\"Zur Anzeige alternativer Übersetzungen klicken\">gepostet werden</span><span title=\"Zur Anzeige alternativer Übersetzungen klicken\">.</span> <span title=\"Zur Anzeige alternativer Übersetzungen klicken\">Aus</span> <span title=\"Zur Anzeige alternativer Übersetzungen klicken\">Geschwindigkeit</span>sgründen werden <span title=\"Zur Anzeige alternativer Übersetzungen klicken\">Usenet-Artikel</span><span title=\"Zur Anzeige alternativer Übersetzungen klicken\"> automatisch genehmigt</span><span title=\"Zur Anzeige alternativer Übersetzungen klicken\">, was bedeutet,</span> <span title=\"Zur Anzeige alternativer Übersetzungen klicken\">dass</span><span title=\"Zur Anzeige alternativer Übersetzungen klicken\">, wenn</span> <span title=\"Zur Anzeige alternativer Übersetzungen klicken\">das Forum</span> moderiert <span title=\"Zur Anzeige alternativer Übersetzungen klicken\">wird</span><span title=\"Zur Anzeige alternativer Übersetzungen klicken\">,</span><span title=\"Zur Anzeige alternativer Übersetzungen klicken\"> die</span> <span title=\"Zur Anzeige alternativer Übersetzungen klicken\">Beiträge</span> <span title=\"Zur Anzeige alternativer Übersetzungen klicken\">automatisch</span> <span title=\"Zur Anzeige alternativer Übersetzungen klicken\">genehmigt werden</span><span title=\"Zur Anzeige alternativer Übersetzungen klicken\">.</span></p>\r\n  <p>\r\n    Zum Schutz der Usenet-Server, kann eine Newsgroup nur einmal alle 10 Minuten aktualisiert werden.\r\n  </p>"
-          },
-          {
-            "@tag": "GROUPS",
-            "#text": "Gruppen zum Abruf bereit"
-          },
-          {
-            "@tag": "HEADER",
-            "#text": "NNTP Artikel abrufen"
-          },
-          {
-            "@tag": "LAST_MESSAGE",
-            "#text": "Letzte Nachricht"
-          },
-          {
-            "@tag": "LAST_UPDATE",
-            "#text": "Letztes Update"
-          },
-          {
-            "@tag": "NO_GROUPS",
-            "#text": "Keine Gruppen zum Abruf bereit"
-          },
-          {
-            "@tag": "RETRIEVE",
-            "#text": "Abrufen"
-          },
-          {
-            "@tag": "RETRIEVED",
-            "#text": "{0} Artikel empfangen. {1:N2} Artikel pro Sekunde."
-          },
-          {
-            "@tag": "SECONDS",
-            "#text": "Sekunden"
-          },
-          {
-            "@tag": "TIME",
-            "#text": "Geben Sie an, wie viel Zeit für den Artikel Empfang verwendet werden soll."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP abrufen"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPSERVERS",
-        "Resource": [
-          {
-            "@tag": "ADRESS",
-            "#text": "Adresse"
-          },
-          {
-            "@tag": "DELETE_SERVER",
-            "#text": "Diesen Server löschen?"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Servers"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
-          },
-          {
-            "@tag": "NAME",
-            "#text": "Name"
-          },
-          {
-            "@tag": "NEW_SERVER",
-            "#text": "Neuer Server"
-          },
-          {
-            "@tag": "SAVE_SERVER",
-            "#text": "Server speichern"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP Server"
-          },
-          {
-            "@tag": "USERNAME",
-            "#text": "Benutzername"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
@@ -7116,18 +6823,6 @@
             "#text": "Medaillen"
           },
           {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "NNTP Foren"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "Artikel abrufen"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "NNTP Server"
-          },
-          {
             "@tag": "ADMIN_PAGEACCESSEDIT",
             "#text": "Admin Seiten Zugriff Bearbeiten"
           },
@@ -7210,10 +6905,6 @@
           {
             "@tag": "MAINTENANCE",
             "#text": "Wartung"
-          },
-          {
-            "@tag": "NNTP",
-            "#text": "NNTP"
           },
           {
             "@tag": "SETTINGS",

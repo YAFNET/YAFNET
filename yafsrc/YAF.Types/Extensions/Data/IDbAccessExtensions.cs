@@ -119,6 +119,11 @@ public static class IDbAccessExtensions
         return connection;
     }
 
+    /// <summary>
+    /// Resolves the database factory.
+    /// </summary>
+    /// <param name="dbAccess">The database access.</param>
+    /// <returns>IDbConnectionFactory.</returns>
     public static IDbConnectionFactory ResolveDbFactory(this IDbAccess dbAccess)
     {
         return  new OrmLiteConnectionFactory(

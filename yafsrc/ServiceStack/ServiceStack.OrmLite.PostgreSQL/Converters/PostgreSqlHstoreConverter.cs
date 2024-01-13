@@ -75,5 +75,8 @@ public class PostgreSqlHstoreConverter : ReferenceTypeConverter
     /// </summary>
     /// <param name="stringLength">Length of the string.</param>
     /// <returns>System.String.</returns>
-    public override string GetColumnDefinition(int? stringLength) => ColumnDefinition;
+    public override string GetColumnDefinition(int? stringLength)
+    {
+        return this.ColumnDefinition;
+    }
 }

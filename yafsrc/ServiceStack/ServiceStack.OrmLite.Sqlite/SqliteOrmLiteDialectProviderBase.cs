@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 namespace ServiceStack.OrmLite.Sqlite;
 
 using System;
@@ -54,8 +55,8 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
                                  { OrmLiteVariables.SystemUtc, "CURRENT_TIMESTAMP" },
                                  { OrmLiteVariables.MaxText, "VARCHAR(1000000)" },
                                  { OrmLiteVariables.MaxTextUnicode, "NVARCHAR(1000000)" },
-                                 { OrmLiteVariables.True, SqlBool(true) },
-                                 { OrmLiteVariables.False, SqlBool(false) },
+                                 { OrmLiteVariables.True, this.SqlBool(true) },
+                                 { OrmLiteVariables.False, this.SqlBool(false) },
                              };
     }
 
@@ -84,7 +85,6 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     public override bool SupportsSchema => false;
 
 
-
     /// <summary>
     /// Converts to insertrowssql.
     /// </summary>
@@ -96,19 +96,23 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     {
         var modelDef = ModelDefinition<T>.Definition;
         var sb = StringBuilderCache.Allocate()
-            .Append($"INSERT INTO {GetQuotedTableName(modelDef)} (");
+            .Append($"INSERT INTO {this.GetQuotedTableName(modelDef)} (");
 
-        var fieldDefs = GetInsertFieldDefinitions(modelDef);
+        var fieldDefs = this.GetInsertFieldDefinitions(modelDef);
         var i = 0;
         foreach (var fieldDef in fieldDefs)
         {
-            if (ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+            if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+            {
                 continue;
+            }
 
             if (i++ > 0)
+            {
                 sb.Append(',');
+            }
 
-            sb.Append(GetQuotedColumnName(fieldDef.FieldName));
+            sb.Append(this.GetQuotedColumnName(fieldDef.FieldName));
         }
 
         sb.Append(") VALUES");
@@ -123,18 +127,24 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
             foreach (var fieldDef in fieldDefs)
             {
                 if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                {
                     continue;
+                }
 
                 if (i++ > 0)
+                {
                     sb.Append(',');
+                }
 
-                AppendInsertRowValueSql(sb, fieldDef, obj);
+                this.AppendInsertRowValueSql(sb, fieldDef, obj);
             }
 
             sb.Append("),");
         }
         if (count == 0)
+        {
             return "";
+        }
 
         sb.Length--;
         sb.AppendLine(";");
@@ -153,13 +163,17 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <value><c>true</c> if [enable foreign keys]; otherwise, <c>false</c>.</value>
     public bool EnableForeignKeys
     {
-        get => ConnectionCommands.Contains(SqlitePragmas.EnableForeignKeys);
+        get => this.ConnectionCommands.Contains(SqlitePragmas.EnableForeignKeys);
         set
         {
             if (value)
-                ConnectionCommands.AddIfNotExists(SqlitePragmas.EnableForeignKeys);
+            {
+                this.ConnectionCommands.AddIfNotExists(SqlitePragmas.EnableForeignKeys);
+            }
             else
-                ConnectionCommands.Remove(SqlitePragmas.DisableForeignKeys);
+            {
+                this.ConnectionCommands.Remove(SqlitePragmas.DisableForeignKeys);
+            }
         }
     }
 
@@ -175,8 +189,8 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
             return null;
         }
 
-        var triggerName = GetTriggerName(modelDef);
-        return $"DROP TRIGGER IF EXISTS {GetQuotedName(triggerName)}";
+        var triggerName = this.GetTriggerName(modelDef);
+        return $"DROP TRIGGER IF EXISTS {this.GetQuotedName(triggerName)}";
     }
 
     /// <summary>
@@ -186,7 +200,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <returns>System.String.</returns>
     private string GetTriggerName(ModelDefinition modelDef)
     {
-        return RowVersionTriggerFormat.Fmt(GetTableName(modelDef));
+        return RowVersionTriggerFormat.Fmt(this.GetTableName(modelDef));
     }
 
     /// <summary>
@@ -227,8 +241,8 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
             return null;
         }
 
-        var triggerName = GetTriggerName(modelDef);
-        var tableName = GetTableName(modelDef);
+        var triggerName = this.GetTriggerName(modelDef);
+        var tableName = this.GetTableName(modelDef);
         var triggerBody = string.Format("UPDATE {0} SET {1} = OLD.{1} + 1 WHERE {2} = NEW.{2};",
             tableName,
             modelDef.RowVersion.FieldName.SqlColumn(this),
@@ -277,7 +291,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
             connectionString = ":memory:";
         }
 
-        var isFullConnectionString = connectionString.Contains(";");
+        var isFullConnectionString = connectionString.Contains(';');
         var connString = StringBuilderCache.Allocate();
         if (!isFullConnectionString)
         {
@@ -313,9 +327,9 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
             }
         }
 
-        ConnectionStringFilter?.Invoke(connString);
+        this.ConnectionStringFilter?.Invoke(connString);
 
-        return CreateConnection(StringBuilderCache.ReturnAndFree(connString));
+        return this.CreateConnection(StringBuilderCache.ReturnAndFree(connString));
     }
 
     /// <summary>
@@ -337,7 +351,11 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <param name="name">The name.</param>
     /// <param name="schema">The schema.</param>
     /// <returns>System.String.</returns>
-    public override string GetQuotedName(string name, string schema) => GetQuotedName(name); //schema name is embedded in table name in MySql
+    public override string GetQuotedName(string name, string schema)
+    {
+        return this.GetQuotedName(name);
+        //schema name is embedded in table name in MySql
+    }
 
     /// <summary>
     /// Converts to tablenamesstatement.
@@ -348,7 +366,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     {
         return schema == null
                    ? "SELECT name FROM sqlite_master WHERE type ='table' AND name NOT LIKE 'sqlite_%'"
-                   : "SELECT name FROM sqlite_master WHERE type ='table' AND name LIKE {0}".SqlFmt(this, GetTableName("",schema) + "%");
+                   : "SELECT name FROM sqlite_master WHERE type ='table' AND name LIKE {0}".SqlFmt(this, this.GetTableName("",schema) + "%");
     }
 
     /// <summary>
@@ -359,8 +377,8 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     public override string GetSchemaName(string schema)
     {
         return schema != null
-                   ? NamingStrategy.GetSchemaName(schema).Replace(".", "_")
-                   : NamingStrategy.GetSchemaName(schema);
+                   ? this.NamingStrategy.GetSchemaName(schema).Replace(".", "_")
+                   : this.NamingStrategy.GetSchemaName(schema);
     }
 
     /// <summary>
@@ -369,8 +387,10 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <param name="table">The table.</param>
     /// <param name="schema">The schema.</param>
     /// <returns>System.String.</returns>
-    public override string GetTableName(string table, string schema = null) =>
-        GetTableName(table, schema, useStrategy: true);
+    public override string GetTableName(string table, string schema = null)
+    {
+        return this.GetTableName(table, schema, useStrategy: true);
+    }
 
     /// <summary>
     /// Gets the name of the table.
@@ -384,8 +404,8 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
         if (useStrategy)
         {
             return schema != null && !table.StartsWithIgnoreCase(schema + "_")
-                       ? $"{NamingStrategy.GetSchemaName(schema)}_{NamingStrategy.GetTableName(table)}"
-                       : NamingStrategy.GetTableName(table);
+                       ? $"{this.NamingStrategy.GetSchemaName(schema)}_{this.NamingStrategy.GetTableName(table)}"
+                       : this.NamingStrategy.GetTableName(table);
         }
 
         return schema != null && !table.StartsWithIgnoreCase(schema + "_")
@@ -399,15 +419,20 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <param name="tableName">Name of the table.</param>
     /// <param name="schema">The schema.</param>
     /// <returns>System.String.</returns>
-    public override string GetQuotedTableName(string tableName, string schema = null) =>
-        GetQuotedName(GetTableName(tableName, schema));
+    public override string GetQuotedTableName(string tableName, string schema = null)
+    {
+        return this.GetQuotedName(this.GetTableName(tableName, schema));
+    }
 
     /// <summary>
     /// SQLs the expression.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns>SqlExpression&lt;T&gt;.</returns>
-    public override SqlExpression<T> SqlExpression<T>() => new SqliteExpression<T>(this);
+    public override SqlExpression<T> SqlExpression<T>()
+    {
+        return new SqliteExpression<T>(this);
+    }
 
     /// <summary>
     /// Gets the schema tables.
@@ -429,7 +454,10 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <param name="schemaName">Name of the schema.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     /// <exception cref="System.NotImplementedException">Schemas are not supported by sqlite</exception>
-    public override bool DoesSchemaExist(IDbCommand dbCmd, string schemaName) => false;
+    public override bool DoesSchemaExist(IDbCommand dbCmd, string schemaName)
+    {
+        return false;
+    }
 
     /// <summary>
     /// Converts to createschemastatement.
@@ -477,7 +505,9 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
         foreach (var column in columns)
         {
             if (column.TryGetValue("name", out var name) && name.ToString().EqualsIgnoreCase(columnName))
+            {
                 return true;
+            }
         }
         return false;
     }
@@ -492,9 +522,14 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
         // http://www.sqlite.org/lang_createtable.html#rowid
         var ret = base.GetColumnDefinition(fieldDef);
         if (fieldDef.IsPrimaryKey)
+        {
             return ret.Replace(" BIGINT ", " INTEGER ");
+        }
+
         if (fieldDef.IsRowVersion)
+        {
             return ret + " DEFAULT 1";
+        }
 
         return ret;
     }
@@ -517,7 +552,10 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// </summary>
     /// <param name="args">The arguments.</param>
     /// <returns>System.String.</returns>
-    public override string SqlConcat(IEnumerable<object> args) => string.Join(" || ", args);
+    public override string SqlConcat(IEnumerable<object> args)
+    {
+        return string.Join(" || ", args);
+    }
 
     /// <summary>
     /// SQLs the currency.
@@ -525,14 +563,20 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// <param name="fieldOrValue">The field or value.</param>
     /// <param name="currencySymbol">The currency symbol.</param>
     /// <returns>System.String.</returns>
-    public override string SqlCurrency(string fieldOrValue, string currencySymbol) => SqlConcat(new []{ "'" + currencySymbol + "'", "printf(\"%.2f\", " + fieldOrValue + ")" });
+    public override string SqlCurrency(string fieldOrValue, string currencySymbol)
+    {
+        return this.SqlConcat(new[] { "'" + currencySymbol + "'", "printf(\"%.2f\", " + fieldOrValue + ")" });
+    }
 
     /// <summary>
     /// SQLs the bool.
     /// </summary>
     /// <param name="value">if set to <c>true</c> [value].</param>
     /// <returns>System.String.</returns>
-    public override string SqlBool(bool value) => value ? "1" : "0";
+    public override string SqlBool(bool value)
+    {
+        return value ? "1" : "0";
+    }
 
     /// <summary>
     /// Gets the SQL random.
@@ -636,8 +680,8 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     public override string DateDiffFunction(string interval, string date1, string date2)
     {
         return interval == "minute"
-                   ? $@"((JulianDay({date2}) - JulianDay({date1})) * 24 * 60)"
-                   : $@"(JulianDay({date2}) - JulianDay({date1}))";
+                   ? $"((JulianDay({date2}) - JulianDay({date1})) * 24 * 60)"
+                   : $"(JulianDay({date2}) - JulianDay({date1}))";
     }
 
     /// <summary>
@@ -770,7 +814,7 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
 
                     while (reader.Read())
                     {
-                        results.AppendFormat(@"""{0}""", rowIndex++);
+                        results.AppendFormat("{0}", rowIndex++);
 
                         // dump all columns...
                         columnNames.ForEach(
@@ -815,29 +859,41 @@ public abstract class SqliteOrmLiteDialectProviderBase : OrmLiteDialectProviderB
     /// Enables the foreign keys check.
     /// </summary>
     /// <param name="cmd">The command.</param>
-    public override void EnableForeignKeysCheck(IDbCommand cmd) => cmd.ExecNonQuery(SqlitePragmas.EnableForeignKeys);
+    public override void EnableForeignKeysCheck(IDbCommand cmd)
+    {
+        cmd.ExecNonQuery(SqlitePragmas.EnableForeignKeys);
+    }
+
     /// <summary>
     /// Enables the foreign keys check asynchronous.
     /// </summary>
     /// <param name="cmd">The command.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task.</returns>
-    public override Task EnableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default) =>
-        cmd.ExecNonQueryAsync(SqlitePragmas.EnableForeignKeys, null, token);
+    public override Task EnableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default)
+    {
+        return cmd.ExecNonQueryAsync(SqlitePragmas.EnableForeignKeys, null, token);
+    }
 
     /// <summary>
     /// Disables the foreign keys check.
     /// </summary>
     /// <param name="cmd">The command.</param>
-    public override void DisableForeignKeysCheck(IDbCommand cmd) => cmd.ExecNonQuery(SqlitePragmas.DisableForeignKeys);
+    public override void DisableForeignKeysCheck(IDbCommand cmd)
+    {
+        cmd.ExecNonQuery(SqlitePragmas.DisableForeignKeys);
+    }
+
     /// <summary>
     /// Disables the foreign keys check asynchronous.
     /// </summary>
     /// <param name="cmd">The command.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task.</returns>
-    public override Task DisableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default) =>
-        cmd.ExecNonQueryAsync(SqlitePragmas.DisableForeignKeys, null, token);
+    public override Task DisableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default)
+    {
+        return cmd.ExecNonQueryAsync(SqlitePragmas.DisableForeignKeys, null, token);
+    }
 }
 
 /// <summary>
@@ -872,11 +928,19 @@ public static class SqliteExtensions
                                                     string password = null, bool parseViaFramework = false, bool utf8Encoding = false)
     {
         if (password != null)
+        {
             SqliteOrmLiteDialectProviderBase.Password = password;
+        }
+
         if (parseViaFramework)
+        {
             SqliteOrmLiteDialectProviderBase.ParseViaFramework = true;
+        }
+
         if (utf8Encoding)
+        {
             SqliteOrmLiteDialectProviderBase.UTF8Encoded = true;
+        }
 
         return provider;
     }

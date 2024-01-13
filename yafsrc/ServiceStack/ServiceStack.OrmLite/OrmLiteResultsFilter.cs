@@ -294,7 +294,7 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     {
         this.Results = results ?? new object[] { };
 
-        previousFilter = OrmLiteConfig.ResultsFilter;
+        this.previousFilter = OrmLiteConfig.ResultsFilter;
         OrmLiteConfig.ResultsFilter = this;
     }
 
@@ -304,11 +304,11 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <param name="dbCmd">The database command.</param>
     private void Filter(IDbCommand dbCmd)
     {
-        SqlFilter?.Invoke(dbCmd.CommandText);
+        this.SqlFilter?.Invoke(dbCmd.CommandText);
 
-        SqlCommandFilter?.Invoke(dbCmd);
+        this.SqlCommandFilter?.Invoke(dbCmd);
 
-        if (PrintSql)
+        if (this.PrintSql)
         {
             Console.WriteLine(dbCmd.CommandText);
         }
@@ -322,7 +322,7 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>IEnumerable.</returns>
     private IEnumerable GetResults<T>(IDbCommand dbCmd)
     {
-        return ResultsFn != null ? ResultsFn(dbCmd, typeof(T)) : Results;
+        return this.ResultsFn != null ? this.ResultsFn(dbCmd, typeof(T)) : this.Results;
     }
 
     /// <summary>
@@ -333,7 +333,7 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>IEnumerable.</returns>
     private IEnumerable GetRefResults(IDbCommand dbCmd, Type refType)
     {
-        return RefResultsFn != null ? RefResultsFn(dbCmd, refType) : RefResults;
+        return this.RefResultsFn != null ? this.RefResultsFn(dbCmd, refType) : this.RefResults;
     }
 
     /// <summary>
@@ -344,7 +344,7 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>IEnumerable.</returns>
     private IEnumerable GetColumnResults<T>(IDbCommand dbCmd)
     {
-        return ColumnResultsFn != null ? ColumnResultsFn(dbCmd, typeof(T)) : ColumnResults;
+        return this.ColumnResultsFn != null ? this.ColumnResultsFn(dbCmd, typeof(T)) : this.ColumnResults;
     }
 
     /// <summary>
@@ -355,7 +355,7 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>IEnumerable.</returns>
     private IEnumerable GetColumnDistinctResults<T>(IDbCommand dbCmd)
     {
-        return ColumnDistinctResultsFn != null ? ColumnDistinctResultsFn(dbCmd, typeof(T)) : ColumnDistinctResults;
+        return this.ColumnDistinctResultsFn != null ? this.ColumnDistinctResultsFn(dbCmd, typeof(T)) : this.ColumnDistinctResults;
     }
 
     /// <summary>
@@ -367,7 +367,7 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>IDictionary.</returns>
     private IDictionary GetDictionaryResults<K, V>(IDbCommand dbCmd)
     {
-        return DictionaryResultsFn != null ? DictionaryResultsFn(dbCmd, typeof(K), typeof(V)) : DictionaryResults;
+        return this.DictionaryResultsFn != null ? this.DictionaryResultsFn(dbCmd, typeof(K), typeof(V)) : this.DictionaryResults;
     }
 
     /// <summary>
@@ -379,7 +379,7 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>IDictionary.</returns>
     private IDictionary GetLookupResults<K, V>(IDbCommand dbCmd)
     {
-        return LookupResultsFn != null ? LookupResultsFn(dbCmd, typeof(K), typeof(V)) : LookupResults;
+        return this.LookupResultsFn != null ? this.LookupResultsFn(dbCmd, typeof(K), typeof(V)) : this.LookupResults;
     }
 
     /// <summary>
@@ -390,7 +390,7 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>System.Object.</returns>
     private object GetSingleResult<T>(IDbCommand dbCmd)
     {
-        return SingleResultFn != null ? SingleResultFn(dbCmd, typeof(T)) : SingleResult;
+        return this.SingleResultFn != null ? this.SingleResultFn(dbCmd, typeof(T)) : this.SingleResult;
     }
 
     /// <summary>
@@ -401,7 +401,7 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>System.Object.</returns>
     private object GetRefSingleResult(IDbCommand dbCmd, Type refType)
     {
-        return RefSingleResultFn != null ? RefSingleResultFn(dbCmd, refType) : RefSingleResult;
+        return this.RefSingleResultFn != null ? this.RefSingleResultFn(dbCmd, refType) : this.RefSingleResult;
     }
 
     /// <summary>
@@ -412,7 +412,7 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>System.Object.</returns>
     private object GetScalarResult<T>(IDbCommand dbCmd)
     {
-        return ScalarResultFn != null ? ScalarResultFn(dbCmd, typeof(T)) : ScalarResult;
+        return this.ScalarResultFn != null ? this.ScalarResultFn(dbCmd, typeof(T)) : this.ScalarResult;
     }
 
     /// <summary>
@@ -422,7 +422,7 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>System.Int64.</returns>
     private long GetLongScalarResult(IDbCommand dbCmd)
     {
-        return LongScalarResultFn?.Invoke(dbCmd) ?? LongScalarResult;
+        return this.LongScalarResultFn?.Invoke(dbCmd) ?? this.LongScalarResult;
     }
 
     /// <summary>
@@ -432,7 +432,7 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>System.Int64.</returns>
     public long GetLastInsertId(IDbCommand dbCmd)
     {
-        return LastInsertIdFn?.Invoke(dbCmd) ?? LastInsertId;
+        return this.LastInsertIdFn?.Invoke(dbCmd) ?? this.LastInsertId;
     }
 
     /// <summary>
@@ -443,8 +443,8 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>List&lt;T&gt;.</returns>
     public List<T> GetList<T>(IDbCommand dbCmd)
     {
-        Filter(dbCmd);
-        return (from object result in GetResults<T>(dbCmd) select (T)result).ToList();
+        this.Filter(dbCmd);
+        return (from object result in this.GetResults<T>(dbCmd) select (T)result).ToList();
     }
 
     /// <summary>
@@ -455,9 +455,9 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>IList.</returns>
     public IList GetRefList(IDbCommand dbCmd, Type refType)
     {
-        Filter(dbCmd);
+        this.Filter(dbCmd);
         var list = (IList)typeof(List<>).GetCachedGenericType(refType).CreateInstance();
-        foreach (object result in GetRefResults(dbCmd, refType).Safe())
+        foreach (var result in this.GetRefResults(dbCmd, refType).Safe())
         {
             list.Add(result);
         }
@@ -472,13 +472,13 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>T.</returns>
     public T GetSingle<T>(IDbCommand dbCmd)
     {
-        Filter(dbCmd);
-        if (SingleResult != null || SingleResultFn != null)
+        this.Filter(dbCmd);
+        if (this.SingleResult != null || this.SingleResultFn != null)
         {
             return (T)this.GetSingleResult<T>(dbCmd);
         }
 
-        foreach (var result in GetResults<T>(dbCmd))
+        foreach (var result in this.GetResults<T>(dbCmd))
         {
             return (T)result;
         }
@@ -493,13 +493,13 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>System.Object.</returns>
     public object GetRefSingle(IDbCommand dbCmd, Type refType)
     {
-        Filter(dbCmd);
-        if (RefSingleResult != null || RefSingleResultFn != null)
+        this.Filter(dbCmd);
+        if (this.RefSingleResult != null || this.RefSingleResultFn != null)
         {
             return this.GetRefSingleResult(dbCmd, refType);
         }
 
-        foreach (var result in GetRefResults(dbCmd, refType).Safe())
+        foreach (var result in this.GetRefResults(dbCmd, refType).Safe())
         {
             return result;
         }
@@ -514,8 +514,8 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>T.</returns>
     public T GetScalar<T>(IDbCommand dbCmd)
     {
-        Filter(dbCmd);
-        return ConvertTo<T>(GetScalarResult<T>(dbCmd));
+        this.Filter(dbCmd);
+        return this.ConvertTo<T>(this.GetScalarResult<T>(dbCmd));
     }
 
     /// <summary>
@@ -525,8 +525,8 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>System.Int64.</returns>
     public long GetLongScalar(IDbCommand dbCmd)
     {
-        Filter(dbCmd);
-        return GetLongScalarResult(dbCmd);
+        this.Filter(dbCmd);
+        return this.GetLongScalarResult(dbCmd);
     }
 
     /// <summary>
@@ -579,8 +579,8 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>System.Object.</returns>
     public object GetScalar(IDbCommand dbCmd)
     {
-        Filter(dbCmd);
-        return GetScalarResult<object>(dbCmd) ?? GetResults<object>(dbCmd).Cast<object>().FirstOrDefault();
+        this.Filter(dbCmd);
+        return this.GetScalarResult<object>(dbCmd) ?? this.GetResults<object>(dbCmd).Cast<object>().FirstOrDefault();
     }
 
     /// <summary>
@@ -591,8 +591,8 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>List&lt;T&gt;.</returns>
     public List<T> GetColumn<T>(IDbCommand dbCmd)
     {
-        Filter(dbCmd);
-        return (from object result in GetColumnResults<T>(dbCmd).Safe() select (T)result).ToList();
+        this.Filter(dbCmd);
+        return (from object result in this.GetColumnResults<T>(dbCmd).Safe() select (T)result).ToList();
     }
 
     /// <summary>
@@ -603,8 +603,8 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>HashSet&lt;T&gt;.</returns>
     public HashSet<T> GetColumnDistinct<T>(IDbCommand dbCmd)
     {
-        Filter(dbCmd);
-        var results = GetColumnDistinctResults<T>(dbCmd) ?? GetColumnResults<T>(dbCmd);
+        this.Filter(dbCmd);
+        var results = this.GetColumnDistinctResults<T>(dbCmd) ?? this.GetColumnResults<T>(dbCmd);
         return (from object result in results select (T)result).ToSet();
     }
 
@@ -617,9 +617,9 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>Dictionary&lt;K, V&gt;.</returns>
     public Dictionary<K, V> GetDictionary<K, V>(IDbCommand dbCmd)
     {
-        Filter(dbCmd);
+        this.Filter(dbCmd);
         var to = new Dictionary<K, V>();
-        var map = GetDictionaryResults<K, V>(dbCmd);
+        var map = this.GetDictionaryResults<K, V>(dbCmd);
         if (map == null)
         {
             return to;
@@ -640,7 +640,10 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <typeparam name="V"></typeparam>
     /// <param name="dbCmd">The database command.</param>
     /// <returns>List&lt;KeyValuePair&lt;K, V&gt;&gt;.</returns>
-    public List<KeyValuePair<K, V>> GetKeyValuePairs<K, V>(IDbCommand dbCmd) => GetDictionary<K, V>(dbCmd).ToList();
+    public List<KeyValuePair<K, V>> GetKeyValuePairs<K, V>(IDbCommand dbCmd)
+    {
+        return this.GetDictionary<K, V>(dbCmd).ToList();
+    }
 
     /// <summary>
     /// Gets the lookup.
@@ -651,9 +654,9 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>Dictionary&lt;K, List&lt;V&gt;&gt;.</returns>
     public Dictionary<K, List<V>> GetLookup<K, V>(IDbCommand dbCmd)
     {
-        Filter(dbCmd);
+        this.Filter(dbCmd);
         var to = new Dictionary<K, List<V>>();
-        var map = GetLookupResults<K, V>(dbCmd);
+        var map = this.GetLookupResults<K, V>(dbCmd);
         if (map == null)
         {
             return to;
@@ -681,9 +684,9 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// <returns>System.Int32.</returns>
     public int ExecuteSql(IDbCommand dbCmd)
     {
-        Filter(dbCmd);
-        return ExecuteSqlFn?.Invoke(dbCmd)
-               ?? ExecuteSqlResult;
+        this.Filter(dbCmd);
+        return this.ExecuteSqlFn?.Invoke(dbCmd)
+               ?? this.ExecuteSqlResult;
     }
 
     /// <summary>
@@ -691,7 +694,7 @@ public class OrmLiteResultsFilter : IOrmLiteResultsFilter, IDisposable
     /// </summary>
     public void Dispose()
     {
-        OrmLiteConfig.ResultsFilter = previousFilter;
+        OrmLiteConfig.ResultsFilter = this.previousFilter;
     }
 }
 
@@ -707,8 +710,8 @@ public class CaptureSqlFilter : OrmLiteResultsFilter
     /// </summary>
     public CaptureSqlFilter()
     {
-        SqlCommandFilter = CaptureSqlCommand;
-        SqlCommandHistory = [];
+        this.SqlCommandFilter = this.CaptureSqlCommand;
+        this.SqlCommandHistory = [];
     }
 
     /// <summary>
@@ -717,7 +720,7 @@ public class CaptureSqlFilter : OrmLiteResultsFilter
     /// <param name="command">The command.</param>
     private void CaptureSqlCommand(IDbCommand command)
     {
-        SqlCommandHistory.Add(new SqlCommandDetails(command));
+        this.SqlCommandHistory.Add(new SqlCommandDetails(command));
     }
 
     /// <summary>
@@ -730,10 +733,7 @@ public class CaptureSqlFilter : OrmLiteResultsFilter
     /// Gets the SQL statements.
     /// </summary>
     /// <value>The SQL statements.</value>
-    public List<string> SqlStatements
-    {
-        get { return SqlCommandHistory.Map(x => x.Sql); }
-    }
+    public List<string> SqlStatements => this.SqlCommandHistory.Map(x => x.Sql);
 }
 
 /// <summary>
@@ -752,17 +752,17 @@ public class SqlCommandDetails
             return;
         }
 
-        Sql = command.CommandText;
+        this.Sql = command.CommandText;
         if (command.Parameters.Count <= 0)
         {
             return;
         }
 
-        Parameters = new Dictionary<string, object>();
+        this.Parameters = new Dictionary<string, object>();
 
         foreach (IDataParameter parameter in command.Parameters)
         {
-            if (!Parameters.ContainsKey(parameter.ParameterName))
+            if (!this.Parameters.ContainsKey(parameter.ParameterName))
             {
                 this.Parameters.Add(parameter.ParameterName, parameter.Value);
             }

@@ -572,8 +572,11 @@ namespace ServiceStack.OrmLite
         /// <param name="table">The table.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;ColumnSchema[]&gt;.</returns>
-        public static Task<ColumnSchema[]> GetTableColumnsAsync(this IDbCommand dbCmd, Type table, CancellationToken token) =>
-            dbCmd.GetTableColumnsAsync($"SELECT * FROM {dbCmd.GetDialectProvider().GetQuotedTableName(table.GetModelDefinition())}", token);
+        public static Task<ColumnSchema[]> GetTableColumnsAsync(this IDbCommand dbCmd, Type table, CancellationToken token)
+        {
+            return dbCmd.GetTableColumnsAsync(
+                $"SELECT * FROM {dbCmd.GetDialectProvider().GetQuotedTableName(table.GetModelDefinition())}", token);
+        }
 
         /// <summary>
         /// Get table columns as an asynchronous operation.
@@ -582,8 +585,10 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;ColumnSchema[]&gt; representing the asynchronous operation.</returns>
-        public async static Task<ColumnSchema[]> GetTableColumnsAsync(this IDbCommand dbCmd, string sql, CancellationToken token) =>
-            (await dbCmd.GetSchemaTableAsync(sql, token).ConfigAwait()).ToColumnSchemas(dbCmd);
+        public async static Task<ColumnSchema[]> GetTableColumnsAsync(this IDbCommand dbCmd, string sql, CancellationToken token)
+        {
+            return (await dbCmd.GetSchemaTableAsync(sql, token).ConfigAwait()).ToColumnSchemas(dbCmd);
+        }
     }
 }
 #endif

@@ -25,8 +25,6 @@
 namespace YAF.Pages.Account;
 
 using System;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -38,14 +36,12 @@ using MimeKit;
 
 using YAF.Core.Extensions;
 using YAF.Core.Identity.Owin;
-using YAF.Core.Model;
 using YAF.Core.Services;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
 
-using DataType = System.ComponentModel.DataAnnotations.DataType;
 using PasswordVerificationResult = Microsoft.AspNetCore.Identity.PasswordVerificationResult;
 
 /// <summary>
@@ -91,7 +87,7 @@ public class LoginModel : AccountPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public LoginInputModel Input { get; set; }
 
     /// <summary>
     /// Create the Page links.
@@ -114,7 +110,7 @@ public class LoginModel : AccountPage
             this.ModelState.AddModelError(string.Empty, this.ErrorMessage);
         }
 
-        this.Input = new InputModel();
+        this.Input = new LoginInputModel();
 
         return Task.CompletedTask;
     }
@@ -276,7 +272,7 @@ public class LoginModel : AccountPage
     /// </summary>
     async protected Task<ActionResult> OnPostResendConfirmAsync()
     {
-        if (this.Email is null)
+        if (this.Email.IsNotSet())
         {
             this.ShowNotApproved = false;
             this.Email = null;
@@ -284,7 +280,7 @@ public class LoginModel : AccountPage
             return this.Page();
         }
 
-        var checkMail = this.GetRepository<CheckEmail>().ListTyped(this.Email).FirstOrDefault();
+        var checkMail = await this.GetRepository<CheckEmail>().GetSingleAsync(mail => mail.Email == this.Email);
 
         if (checkMail is null)
         {
@@ -351,29 +347,5 @@ public class LoginModel : AccountPage
         }
 
         return await this.Get<IAspNetUsersHelper>().SignInExternalAsync(user.User);
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        /// <summary>
-        /// Gets or sets the email.
-        /// </summary>
-        [Required]
-        public string UserName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the password.
-        /// </summary>
-        [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether remember me.
-        /// </summary>
-        public bool RememberMe { get; set; }
     }
 }

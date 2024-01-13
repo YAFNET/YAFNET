@@ -27,7 +27,6 @@ using Microsoft.AspNetCore.Identity;
 namespace YAF.Pages.Profile;
 
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -48,8 +47,6 @@ using YAF.Types.Interfaces.Events;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
-
-using DataType = System.ComponentModel.DataAnnotations.DataType;
 
 /// <summary>
 /// The edit profile page
@@ -101,7 +98,7 @@ public class EditProfileModel : ProfilePage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public EditProfileInputModel Input { get; set; }
 
     /// <summary>
     /// Gets the current Culture information.
@@ -144,7 +141,7 @@ public class EditProfileModel : ProfilePage
     /// </summary>
     public IActionResult OnGet()
     {
-        this.Input = new InputModel();
+        this.Input = new EditProfileInputModel();
 
         this.UserProfileCustom = this.GetRepository<ProfileCustom>()
             .Get(p => p.UserID == this.PageBoardContext.PageUserID);
@@ -602,48 +599,5 @@ public class EditProfileModel : ProfilePage
                     }
                 }
             });
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public string DisplayName { get; set; }
-
-        public string RealName { get; set; }
-
-        [DataType(DataType.Date)]
-        public string Birthday { get; set; }
-
-        [BindProperty, MaxLength(400)]
-        public string Occupation { get; set; }
-
-        [BindProperty, MaxLength(400)]
-        public string Interests { get; set; }
-
-        public string Gender { get; set; }
-
-        public string Location { get; set; }
-
-        public string Country { get; set; }
-
-        public string Region { get; set; }
-
-        public string City { get; set; }
-
-        [DataType(DataType.Url)]
-        public string HomePage { get; set; }
-
-        [DataType(DataType.Url)]
-        public string Blog { get; set; }
-
-        public string Xmpp { get; set; }
-
-        public string Skype { get; set; }
-
-        public string Facebook { get; set; }
-
-        public List<ProfileDefinition> CustomProfile { get; set; }
     }
 }

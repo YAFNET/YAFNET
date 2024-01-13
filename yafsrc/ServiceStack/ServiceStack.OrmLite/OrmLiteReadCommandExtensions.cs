@@ -185,8 +185,10 @@ public static class OrmLiteReadCommandExtensions
         this IDbCommand dbCmd,
         object anonType,
         bool excludeDefaults,
-        ref string sql) =>
-        dbCmd.SetParameters(typeof(T), anonType, excludeDefaults, ref sql);
+        ref string sql)
+    {
+        return dbCmd.SetParameters(typeof(T), anonType, excludeDefaults, ref sql);
+    }
 
     /// <summary>
     /// Sets the parameters.
@@ -1310,7 +1312,7 @@ public static class OrmLiteReadCommandExtensions
         var nullableType = Nullable.GetUnderlyingType(typeof(T));
         if (nullableType != null)
         {
-            object oValue = reader.GetValue(columnIndex);
+            var oValue = reader.GetValue(columnIndex);
             if (oValue == DBNull.Value)
             {
                 return default(T);
@@ -1326,7 +1328,7 @@ public static class OrmLiteReadCommandExtensions
         var converter = dialectProvider.GetConverterBestMatch(underlyingType);
         if (converter != null)
         {
-            object oValue = converter.GetValue(reader, columnIndex, null);
+            var oValue = converter.GetValue(reader, columnIndex, null);
             if (oValue == null)
             {
                 return default(T);
@@ -1639,7 +1641,7 @@ public static class OrmLiteReadCommandExtensions
         this IDbCommand dbCommand,
         object fromObjWithProperties)
     {
-        return SqlProcedureFmt<TOutputModel>(dbCommand, fromObjWithProperties, String.Empty);
+        return SqlProcedureFmt<TOutputModel>(dbCommand, fromObjWithProperties, string.Empty);
     }
 
     /// <summary>
@@ -1659,7 +1661,7 @@ public static class OrmLiteReadCommandExtensions
     {
         var modelType = typeof(TOutputModel);
 
-        string sql = dbCmd.GetDialectProvider().ToSelectFromProcedureStatement(
+        var sql = dbCmd.GetDialectProvider().ToSelectFromProcedureStatement(
             fromObjWithProperties,
             modelType,
             sqlFilter,
@@ -1684,7 +1686,10 @@ public static class OrmLiteReadCommandExtensions
     /// </summary>
     /// <param name="result">The result.</param>
     /// <returns>System.Int64.</returns>
-    static internal long ToLong(int result) => result;
+    static internal long ToLong(int result)
+    {
+        return result;
+    }
 
     /// <summary>
     /// Converts to long.

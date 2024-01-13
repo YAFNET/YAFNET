@@ -76,7 +76,7 @@ public static class ValidationHelper
     {
         try
         {
-            var uri = new Uri(url, UriKind.Absolute);
+            _ = new Uri(url, UriKind.Absolute);
             return true;
         }
         catch (Exception)
@@ -108,7 +108,7 @@ public static class ValidationHelper
     /// </returns>
     public static bool IsNumeric(string valueToCheck)
     {
-        return double.TryParse(valueToCheck, NumberStyles.Any, null, out var dummy);
+        return double.TryParse(valueToCheck, NumberStyles.Any, null, out _);
     }
 
     /// <summary>

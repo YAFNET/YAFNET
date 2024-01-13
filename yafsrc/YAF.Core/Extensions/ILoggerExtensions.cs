@@ -3,7 +3,7 @@
  * Copyright (C) 2006-2013 Jaben Cargman
 * Copyright (C) 2014-2024 Ingo Herbote
  * https://www.yetanotherforum.net/
- * 
+ *
  * Licensed to the Apache Software Foundation (ASF) under one
  * or more contributor license agreements.  See the NOTICE file
  * distributed with this work for additional information
@@ -22,82 +22,77 @@
  * under the License.
  */
 
-namespace YAF.Core.Extensions
+namespace YAF.Core.Extensions;
+
+using System;
+
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+
+using YAF.Core.Context;
+using YAF.Types.Constants;
+using YAF.Types.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Models;
+
+/// <summary>
+///     The Logger extensions.
+/// </summary>
+public static class ILoggerExtensions
 {
-    using System;
-
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.Extensions.Logging;
-
-    using YAF.Core.Context;
-    using YAF.Types.Constants;
-    using YAF.Types.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Models;
-
     /// <summary>
-    ///     The Logger extensions.
+    /// The log.
     /// </summary>
-    public static class ILoggerExtensions
+    /// <param name="logger">
+    /// The logger.
+    /// </param>
+    /// <param name="userId">
+    /// The user Id.
+    /// </param>
+    /// <param name="source">
+    /// The source.
+    /// </param>
+    /// <param name="exception">
+    /// The exception.
+    /// </param>
+    /// <param name="eventType">
+    /// The event type.
+    /// </param>
+    public static void Log(
+        this ILogger logger,
+        int? userId,
+        object source,
+        Exception exception,
+        EventLogTypes eventType = EventLogTypes.Error)
     {
-        #region Public Methods and Operators
+        var sourceDescription = "unknown";
 
-        /// <summary>
-        /// The log.
-        /// </summary>
-        /// <param name="logger">
-        /// The logger.
-        /// </param>
-        /// <param name="userId">
-        /// The user Id.
-        /// </param>
-        /// <param name="source">
-        /// The source.
-        /// </param>
-        /// <param name="exception">
-        /// The exception.
-        /// </param>
-        /// <param name="eventType">
-        /// The event type.
-        /// </param>
-        public static void Log(
-            this ILogger logger,
-            int? userId,
-            object source,
-            Exception exception,
-            EventLogTypes eventType = EventLogTypes.Error)
+        if (source is Type)
         {
-            var sourceDescription = "unknown";
-
-            if (source is Type)
-            {
-                sourceDescription = source.GetType().FullName;
-            }
-            else if (source != null)
-            {
-                sourceDescription = source.ToString().Truncate(50);
-            }
-
-            string message;
-
-            try
-            {
-                message =
-                    $"Exception at URL: {BoardContext.Current.Get<IHttpContextAccessor>().HttpContext.Request.Path}";
-            }
-            catch (Exception)
-            {
-                message = "Exception";
-            }
-
-            var logEntry = new EventLog { Type = eventType.ToInt(), UserID = userId, Source = sourceDescription, Exception = exception };
-
-            using (logger.BeginScope(logEntry))
-            {
-                logger.Log(LogLevel.Error, message);
-            }
+            sourceDescription = source.GetType().FullName;
+        }
+        else if (source != null)
+        {
+            sourceDescription = source.ToString().Truncate(50);
         }
 
-        #endregion
+        string message;
+
+        try
+        {
+            message =
+                $"Exception at URL: {BoardContext.Current.Get<IHttpContextAccessor>().HttpContext.Request.Path}";
+        }
+        catch (Exception)
+        {
+            message = "Exception";
+        }
+
+        var logEntry = new EventLog { Type = eventType.ToInt(), UserID = userId, Source = sourceDescription, Exception = exception };
+
+        using (logger.BeginScope(logEntry))
+        {
+            logger.Log(LogLevel.Error, message);
+        }
     }
 }

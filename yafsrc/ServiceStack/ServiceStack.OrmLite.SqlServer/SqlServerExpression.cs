@@ -4,8 +4,10 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 using System;
 using System.Data;
+
 using ServiceStack.OrmLite.SqlServer.Converters;
 using ServiceStack.Text;
 
@@ -67,9 +69,9 @@ public class SqlServerExpression<T> : SqlExpression<T>
     /// <param name="right">The right.</param>
     override protected void ConvertToPlaceholderAndParameter(ref object right)
     {
-        var paramName = Params.Count.ToString();
+        var paramName = this.Params.Count.ToString();
         var paramValue = right;
-        var parameter = CreateParam(paramName, paramValue);
+        var parameter = this.CreateParam(paramName, paramValue);
 
         // Prevents a new plan cache for each different string length. Every string is parameterized as NVARCHAR(max) 
         if (parameter.DbType == DbType.String)
@@ -77,7 +79,7 @@ public class SqlServerExpression<T> : SqlExpression<T>
             parameter.Size = -1;
         }
 
-        Params.Add(parameter);
+        this.Params.Add(parameter);
 
         right = parameter.ParameterName;
     }
@@ -94,7 +96,7 @@ public class SqlServerExpression<T> : SqlExpression<T>
     {
         base.VisitFilter(operand, originalLeft, originalRight, ref left, ref right);
 
-        if (originalRight is TimeSpan && DialectProvider.GetConverter<TimeSpan>() is SqlServerTimeConverter)
+        if (originalRight is TimeSpan && this.DialectProvider.GetConverter<TimeSpan>() is SqlServerTimeConverter)
         {
             right = $"CAST({right} AS TIME)";
         }
@@ -107,7 +109,7 @@ public class SqlServerExpression<T> : SqlExpression<T>
     public override string ToDeleteRowStatement()
     {
         return base.tableDefs.Count > 1
-                   ? $"DELETE {DialectProvider.GetQuotedTableName(modelDef)} {FromExpression} {WhereExpression}"
+                   ? $"DELETE {this.DialectProvider.GetQuotedTableName(this.modelDef)} {this.FromExpression} {this.WhereExpression}"
                    : base.ToDeleteRowStatement();
     }
 }
@@ -137,20 +139,34 @@ internal class SqlServerExpressionUtils
 
         foreach (var fieldDef in modelDef.FieldDefinitions)
         {
-            if (fieldDef.ShouldSkipUpdate()) continue;
-            if (fieldDef.IsRowVersion) continue;
+            if (fieldDef.ShouldSkipUpdate())
+            {
+                continue;
+            }
+
+            if (fieldDef.IsRowVersion)
+            {
+                continue;
+            }
+
             if (q.UpdateFields.Count > 0
                 && !q.UpdateFields.Contains(fieldDef.Name)
                 || fieldDef.AutoIncrement)
+            {
                 continue; // added
+            }
 
             var value = fieldDef.GetValue(item);
             if (excludeDefaults
                 && (value == null || !fieldDef.IsNullable && value.Equals(value.GetType().GetDefaultValue())))
+            {
                 continue;
+            }
 
             if (setFields.Length > 0)
+            {
                 setFields.Append(", ");
+            }
 
             setFields
                 .Append(dialectProvider.GetQuotedColumnName(fieldDef.FieldName))
@@ -160,7 +176,9 @@ internal class SqlServerExpressionUtils
 
         var strFields = StringBuilderCache.ReturnAndFree(setFields);
         if (strFields.Length == 0)
+        {
             throw new ArgumentException($"No non-null or non-default values were provided for type: {typeof(T).Name}");
+        }
 
         dbCmd.CommandText = $"UPDATE {dialectProvider.GetQuotedTableName(modelDef)} SET {strFields} {q.WhereExpression}";
     }

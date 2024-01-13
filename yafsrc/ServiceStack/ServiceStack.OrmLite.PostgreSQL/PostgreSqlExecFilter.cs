@@ -7,6 +7,7 @@
 
 using System;
 using System.Data;
+
 using Npgsql;
 
 namespace ServiceStack.OrmLite.PostgreSQL;
@@ -16,7 +17,7 @@ namespace ServiceStack.OrmLite.PostgreSQL;
 /// Implements the <see cref="ServiceStack.OrmLite.OrmLiteExecFilter" />
 /// </summary>
 /// <seealso cref="ServiceStack.OrmLite.OrmLiteExecFilter" />
-public class PostgreSqlExecFilter : OrmLiteExecFilter 
+public class PostgreSqlExecFilter : OrmLiteExecFilter
 {
     /// <summary>
     /// Gets or sets the on command.
@@ -32,13 +33,17 @@ public class PostgreSqlExecFilter : OrmLiteExecFilter
     public override IDbCommand CreateCommand(IDbConnection dbConn)
     {
         var cmd = base.CreateCommand(dbConn);
-        if (OnCommand != null)
+
+        if (this.OnCommand == null)
         {
-            if (cmd.ToDbCommand() is NpgsqlCommand psqlCmd)
-            {
-                OnCommand?.Invoke(psqlCmd);
-            }
+            return cmd;
         }
+
+        if (cmd.ToDbCommand() is NpgsqlCommand psqlCmd)
+        {
+            this.OnCommand?.Invoke(psqlCmd);
+        }
+
         return cmd;
     }
 }

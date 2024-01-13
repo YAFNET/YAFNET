@@ -45,7 +45,7 @@ public class MyTopicsModel : ForumPageRegistered
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public MyTopicsInputModel Input { get; set; }
 
     /// <summary>
     ///   default since date is now
@@ -83,7 +83,7 @@ public class MyTopicsModel : ForumPageRegistered
     /// </summary>
     public  void OnGet()
     {
-        this.Input = new InputModel {
+        this.Input = new MyTopicsInputModel {
                                         // default since option is "since last visit"
                                         SinceValue = 0
                                     };
@@ -214,7 +214,7 @@ public class MyTopicsModel : ForumPageRegistered
         var lastVisit = this.Get<ISessionService>().LastVisit;
 
         this.Since = [
-            new(
+            new SelectListItem(
                 this.GetTextFormatted(
                     "last_visit",
                     this.Get<IDateTimeService>().FormatDateTime(
@@ -224,26 +224,16 @@ public class MyTopicsModel : ForumPageRegistered
                 "0"),
             // negative values for hours backward
 
-            new(this.GetText("last_hour"), "-1"),
-            new(this.GetText("last_two_hours"), "-2"),
-            new(this.GetText("last_eight_hours"), "-8"),
+            new SelectListItem(this.GetText("last_hour"), "-1"),
+            new SelectListItem(this.GetText("last_two_hours"), "-2"),
+            new SelectListItem(this.GetText("last_eight_hours"), "-8"),
             // positive values for days backward
-            new(this.GetText("last_day"), "1"),
-            new(this.GetText("last_two_days"), "2"),
-            new(this.GetText("last_week"), "7"),
-            new(this.GetText("last_two_weeks"), "14"),
-            new(this.GetText("last_month"), "31"),
-            new(this.GetText("show_all"), "9999")
+            new SelectListItem(this.GetText("last_day"), "1"),
+            new SelectListItem(this.GetText("last_two_days"), "2"),
+            new SelectListItem(this.GetText("last_week"), "7"),
+            new SelectListItem(this.GetText("last_two_weeks"), "14"),
+            new SelectListItem(this.GetText("last_month"), "31"),
+            new SelectListItem(this.GetText("show_all"), "9999")
         ];
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public int TopicModeValue { get; set; }
-
-        public int SinceValue { get; set; }
     }
 }

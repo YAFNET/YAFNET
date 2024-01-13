@@ -51,7 +51,7 @@ public class EditLanguageModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public EditLanguageInputModel Input { get; set; }
 
     /// <summary>
     /// Gets or sets the attachments.
@@ -92,7 +92,8 @@ public class EditLanguageModel : AdminPage
     /// </summary>
     public IActionResult OnGet(string x)
     {
-        this.Input = new InputModel {
+        this.Input = new EditLanguageInputModel
+        {
                                         Pages = "DEFAULT"
                                     };
 
@@ -249,13 +250,5 @@ public class EditLanguageModel : AdminPage
         this.PopulateTranslations(Path.Combine(langPath, "english.json"), Path.Combine(langPath, x));
 
         this.Locals = this.translations.FindAll(check => check.PageName.Equals(this.Input.Pages));
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public string Pages { get; set; }
     }
 }

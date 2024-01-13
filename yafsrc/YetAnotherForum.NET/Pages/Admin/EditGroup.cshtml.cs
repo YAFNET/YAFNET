@@ -25,7 +25,6 @@
 namespace YAF.Pages.Admin;
 
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -47,7 +46,7 @@ public class EditGroupModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public EditGroupInputModel Input { get; set; }
 
     /// <summary>
     /// Gets or sets the access masks list.
@@ -88,7 +87,7 @@ public class EditGroupModel : AdminPage
     /// </summary>
     public void OnGet(int? i)
     {
-        this.Input = new InputModel();
+        this.Input = new EditGroupInputModel();
 
         // bind data
         this.BindData(i);
@@ -242,43 +241,5 @@ public class EditGroupModel : AdminPage
             this.GetRepository<AccessMask>().GetByBoardId(),
             nameof(AccessMask.ID),
             nameof(AccessMask.Name));
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public string Description { get; set; }
-
-        public bool IsGuestX { get; set; }
-
-        public bool IsStartX { get; set; }
-
-        public bool IsModeratorX { get; set; }
-
-        public bool IsAdminX { get; set; }
-
-        public bool UploadAccess { get; set; }
-
-        public bool DownloadAccess { get; set; }
-
-        public short Priority { get; set; }
-
-        public int UsrSigChars { get; set; } = 128;
-
-        public string UsrSigBBCodes { get; set; }
-
-        public int UsrAlbums { get; set; }
-
-        public int UsrAlbumImages { get; set; }
-
-        public string Style { get; set; }
-
-        public int NewAccessMaskID { get; set; }
     }
 }

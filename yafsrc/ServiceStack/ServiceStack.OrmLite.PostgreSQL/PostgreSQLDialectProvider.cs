@@ -252,7 +252,9 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     public override string GetColumnDefinition(FieldDefinition fieldDef)
     {
         if (fieldDef.IsRowVersion)
+        {
             return null;
+        }
 
         string fieldDefinition = null;
 
@@ -289,14 +291,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         }
         else
         {
-            if (fieldDef.IsNullable)
-            {
-                sql.Append(" NULL");
-            }
-            else
-            {
-                sql.Append(" NOT NULL");
-            }
+            sql.Append(fieldDef.IsNullable ? " NULL" : " NOT NULL");
         }
 
         if (fieldDef.IsUniqueConstraint)
@@ -332,7 +327,6 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <returns>System.String.</returns>
     public override string GetColumnDefinition(FieldDefinition fieldDef, ModelDefinition modelDef)
     {
-
         string fieldDefinition = null;
 
         if (fieldDef.CustomFieldDefinition != null)
@@ -419,15 +413,21 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         foreach (var fieldDef in this.CreateTableFieldsStrategy(modelDef))
         {
             if (fieldDef.CustomSelect != null || fieldDef.IsComputed && !fieldDef.IsPersisted)
+            {
                 continue;
+            }
 
             var columnDefinition = this.GetColumnDefinition(fieldDef, modelDef);
 
             if (columnDefinition == null)
+            {
                 continue;
+            }
 
             if (sbColumns.Length != 0)
+            {
                 sbColumns.Append(", \n  ");
+            }
 
             sbColumns.Append(columnDefinition);
 
@@ -438,7 +438,9 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
             }
 
             if (fieldDef.ForeignKey == null || OrmLiteConfig.SkipForeignKeys)
+            {
                 continue;
+            }
 
             var refModelDef = GetModel(fieldDef.ForeignKey.ReferenceType);
             sbConstraints.Append(
@@ -498,7 +500,9 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     {
         sql = sql?.TrimStart();
         if (string.IsNullOrEmpty(sql))
+        {
             return false;
+        }
 
         return sql.StartsWith("SELECT", StringComparison.OrdinalIgnoreCase) ||
                sql.StartsWith("WITH ", StringComparison.OrdinalIgnoreCase);
@@ -532,10 +536,14 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         foreach (var fieldDef in fieldDefs)
         {
             if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+            {
                 continue;
+            }
 
             if (i++ > 0)
+            {
                 sb.Append(',');
+            }
 
             sb.Append($"\"{this.NamingStrategy.GetColumnName(fieldDef.FieldName)}\"");
         }
@@ -551,7 +559,9 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
             foreach (var fieldDef in fieldDefs)
             {
                 if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                {
                     continue;
+                }
 
                 var value = fieldDef.AutoId
                     ? this.GetInsertDefaultValue(fieldDef)
@@ -560,7 +570,9 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
                 var converter = this.GetConverterBestMatch(fieldDef);
                 var dbValue = converter.ToDbValue(fieldDef.FieldType, value);
                 if (dbValue is float f)
+                {
                     dbValue = (double)f;
+                }
 
                 if (dbValue is null or DBNull)
                 {
@@ -651,8 +663,10 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// </summary>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    override protected bool ShouldSkipInsert(FieldDefinition fieldDef) =>
-        fieldDef.ShouldSkipInsert() || fieldDef.AutoId;
+    override protected bool ShouldSkipInsert(FieldDefinition fieldDef)
+    {
+        return fieldDef.ShouldSkipInsert() || fieldDef.AutoId;
+    }
 
     /// <summary>
     /// Shoulds the return on insert.
@@ -660,17 +674,22 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <param name="modelDef">The model definition.</param>
     /// <param name="fieldDef">The field definition.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    protected virtual bool ShouldReturnOnInsert(ModelDefinition modelDef, FieldDefinition fieldDef) =>
-        fieldDef.ReturnOnInsert ||
-        fieldDef.IsPrimaryKey && fieldDef.AutoIncrement && this.HasInsertReturnValues(modelDef) || fieldDef.AutoId;
+    protected virtual bool ShouldReturnOnInsert(ModelDefinition modelDef, FieldDefinition fieldDef)
+    {
+        return fieldDef.ReturnOnInsert ||
+               fieldDef.IsPrimaryKey && fieldDef.AutoIncrement && this.HasInsertReturnValues(modelDef) ||
+               fieldDef.AutoId;
+    }
 
     /// <summary>
     /// Determines whether [has insert return values] [the specified model definition].
     /// </summary>
     /// <param name="modelDef">The model definition.</param>
     /// <returns><c>true</c> if [has insert return values] [the specified model definition]; otherwise, <c>false</c>.</returns>
-    public override bool HasInsertReturnValues(ModelDefinition modelDef) =>
-        modelDef.FieldDefinitions.Any(x => x.ReturnOnInsert || x.AutoId && x.FieldType == typeof(Guid));
+    public override bool HasInsertReturnValues(ModelDefinition modelDef)
+    {
+        return modelDef.FieldDefinitions.Any(x => x.ReturnOnInsert || x.AutoId && x.FieldType == typeof(Guid));
+    }
 
     /// <summary>
     /// Prepares the parameterized insert statement.
@@ -700,12 +719,19 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
 
             if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId
                                                 && shouldInclude?.Invoke(fieldDef) != true)
+            {
                 continue;
+            }
 
             if (sbColumnNames.Length > 0)
+            {
                 sbColumnNames.Append(',');
+            }
+
             if (sbColumnValues.Length > 0)
+            {
                 sbColumnValues.Append(',');
+            }
 
             try
             {
@@ -726,7 +752,9 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         {
             // need to include any AutoId fields that weren't included
             if (fieldDefs.Contains(fieldDef))
+            {
                 continue;
+            }
 
             sbReturningColumns.Append(sbReturningColumns.Length == 0 ? " RETURNING " : ",");
             sbReturningColumns.Append(this.GetQuotedColumnName(fieldDef.FieldName));
@@ -1046,7 +1074,9 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
                 : " AND lower(TABLE_SCHEMA) = @schema";
 
             if (this.Normalize)
+            {
                 schema = schema.ToLower();
+            }
         }
 
         return sql;
@@ -1092,7 +1122,11 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
 
         foreach (var fieldDef in modelDef.FieldDefinitions)
         {
-            if (sbColumnValues.Length > 0) sbColumnValues.Append(',');
+            if (sbColumnValues.Length > 0)
+            {
+                sbColumnValues.Append(',');
+            }
+
             sbColumnValues.Append(fieldDef.GetQuotedValue(objWithProperties));
         }
 
@@ -1140,9 +1174,12 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public override bool ShouldQuote(string name) => !string.IsNullOrEmpty(name) &&
-                                                     (this.Normalize || ReservedWords.Contains(name) ||
-                                                      name.Contains(' ') || name.Contains('.'));
+    public override bool ShouldQuote(string name)
+    {
+        return !string.IsNullOrEmpty(name) &&
+               (this.Normalize || ReservedWords.Contains(name) ||
+                name.Contains(' ') || name.Contains('.'));
+    }
 
     /// <summary>
     /// Gets the name of the quoted.
@@ -1164,10 +1201,15 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     public override string GetQuotedTableName(ModelDefinition modelDef)
     {
         if (!modelDef.IsInSchema)
+        {
             return base.GetQuotedTableName(modelDef);
+        }
+
         if (this.Normalize && !this.ShouldQuote(modelDef.ModelName) && !this.ShouldQuote(modelDef.Schema))
+        {
             return this.GetQuotedName(this.NamingStrategy.GetSchemaName(modelDef.Schema)) + "." +
                    this.GetQuotedName(this.NamingStrategy.GetTableName(modelDef.ModelName));
+        }
 
         return
             $"{this.GetQuotedName(this.NamingStrategy.GetSchemaName(modelDef.Schema))}.{this.GetQuotedName(this.NamingStrategy.GetTableName(modelDef.ModelName))}";
@@ -1203,8 +1245,10 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     public override string GetLastInsertIdSqlSuffix<T>()
     {
         if (this.SelectIdentitySql == null)
+        {
             throw new NotImplementedException(
                 "Returning last inserted identity is not implemented on this DB Provider.");
+        }
 
         if (this.UseReturningForLastInsertId)
         {
@@ -1270,7 +1314,10 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <returns>NpgsqlDbType.</returns>
-    public NpgsqlDbType GetDbType<T>() => this.GetDbType(typeof(T));
+    public NpgsqlDbType GetDbType<T>()
+    {
+        return this.GetDbType(typeof(T));
+    }
 
     /// <summary>
     /// Gets the type of the database.
@@ -1281,10 +1328,15 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     public NpgsqlDbType GetDbType(Type type)
     {
         if (this.TypesMap.TryGetValue(type, out var paramType))
+        {
             return paramType;
+        }
+
         var genericEnum = type.GetTypeWithGenericTypeDefinitionOf(typeof(IEnumerable<>));
         if (genericEnum != null)
+        {
             return this.GetDbType(genericEnum.GenericTypeArguments[0]) | NpgsqlDbType.Array;
+        }
 
         throw new NotSupportedException($"Type '{type.Name}' not found in 'TypesMap'");
     }
@@ -1334,7 +1386,10 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// </summary>
     /// <param name="columnDef">The column definition.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public virtual bool UseRawValue(string columnDef) => columnDef?.EndsWith("[]") == true;
+    public virtual bool UseRawValue(string columnDef)
+    {
+        return columnDef?.EndsWith("[]") == true;
+    }
 
     /// <summary>
     /// Gets the value.
@@ -1419,7 +1474,10 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// </summary>
     /// <param name="args">The arguments.</param>
     /// <returns>System.String.</returns>
-    public override string SqlConcat(IEnumerable<object> args) => string.Join(" || ", args);
+    public override string SqlConcat(IEnumerable<object> args)
+    {
+        return string.Join(" || ", args);
+    }
 
     /// <summary>
     /// SQLs the currency.
@@ -1427,9 +1485,12 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <param name="fieldOrValue">The field or value.</param>
     /// <param name="currencySymbol">The currency symbol.</param>
     /// <returns>System.String.</returns>
-    public override string SqlCurrency(string fieldOrValue, string currencySymbol) => currencySymbol == "$"
-        ? fieldOrValue + "::text::money::text"
-        : "replace(" + fieldOrValue + "::text::money::text,'$','" + currencySymbol + "')";
+    public override string SqlCurrency(string fieldOrValue, string currencySymbol)
+    {
+        return currencySymbol == "$"
+            ? fieldOrValue + "::text::money::text"
+            : "replace(" + fieldOrValue + "::text::money::text,'$','" + currencySymbol + "')";
+    }
 
     /// <summary>
     /// SQLs the cast.
@@ -1437,8 +1498,10 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <param name="fieldOrValue">The field or value.</param>
     /// <param name="castAs">The cast as.</param>
     /// <returns>System.String.</returns>
-    public override string SqlCast(object fieldOrValue, string castAs) =>
-        $"({fieldOrValue})::{castAs}";
+    public override string SqlCast(object fieldOrValue, string castAs)
+    {
+        return $"({fieldOrValue})::{castAs}";
+    }
 
     /// <summary>
     /// Gets the SQL random.
@@ -1451,21 +1514,30 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// </summary>
     /// <param name="db">The database.</param>
     /// <returns>NpgsqlConnection.</returns>
-    protected DbConnection Unwrap(IDbConnection db) => (DbConnection)db.ToDbConnection();
+    static protected DbConnection Unwrap(IDbConnection db)
+    {
+        return (DbConnection)db.ToDbConnection();
+    }
 
     /// <summary>
     /// Unwraps the specified command.
     /// </summary>
     /// <param name="cmd">The command.</param>
     /// <returns>NpgsqlCommand.</returns>
-    protected DbCommand Unwrap(IDbCommand cmd) => (DbCommand)cmd.ToDbCommand();
+    static protected DbCommand Unwrap(IDbCommand cmd)
+    {
+        return (DbCommand)cmd.ToDbCommand();
+    }
 
     /// <summary>
     /// Unwraps the specified reader.
     /// </summary>
     /// <param name="reader">The reader.</param>
     /// <returns>NpgsqlDataReader.</returns>
-    protected DbDataReader Unwrap(IDataReader reader) => (DbDataReader)reader;
+    static protected DbDataReader Unwrap(IDataReader reader)
+    {
+        return (DbDataReader)reader;
+    }
 
 #if ASYNC
 
@@ -1477,7 +1549,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <returns>Task.</returns>
     public override Task OpenAsync(IDbConnection db, CancellationToken token = default)
     {
-        return this.Unwrap(db).OpenAsync(token);
+        return Unwrap(db).OpenAsync(token);
     }
 
     /// <summary>
@@ -1488,7 +1560,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <returns>Task&lt;IDataReader&gt;.</returns>
     public override Task<IDataReader> ExecuteReaderAsync(IDbCommand cmd, CancellationToken token = default)
     {
-        return this.Unwrap(cmd).ExecuteReaderAsync(token).Then(x => (IDataReader)x);
+        return Unwrap(cmd).ExecuteReaderAsync(token).Then(x => (IDataReader)x);
     }
 
     /// <summary>
@@ -1499,7 +1571,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <returns>Task&lt;System.Int32&gt;.</returns>
     public override Task<int> ExecuteNonQueryAsync(IDbCommand cmd, CancellationToken token = default)
     {
-        return this.Unwrap(cmd).ExecuteNonQueryAsync(token);
+        return Unwrap(cmd).ExecuteNonQueryAsync(token);
     }
 
     /// <summary>
@@ -1510,7 +1582,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <returns>Task&lt;System.Object&gt;.</returns>
     public override Task<object> ExecuteScalarAsync(IDbCommand cmd, CancellationToken token = default)
     {
-        return this.Unwrap(cmd).ExecuteScalarAsync(token);
+        return Unwrap(cmd).ExecuteScalarAsync(token);
     }
 
     /// <summary>
@@ -1521,7 +1593,7 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
     /// <returns>Task&lt;System.Boolean&gt;.</returns>
     public override Task<bool> ReadAsync(IDataReader reader, CancellationToken token = default)
     {
-        return this.Unwrap(reader).ReadAsync(token);
+        return Unwrap(reader).ReadAsync(token);
     }
 
     /// <summary>
@@ -1591,7 +1663,9 @@ public class PostgreSqlDialectProvider : OrmLiteDialectProviderBase<PostgreSqlDi
         try
         {
             if (await this.ReadAsync(reader, token).ConfigureAwait(false))
+            {
                 return fn();
+            }
 
             return default;
         }

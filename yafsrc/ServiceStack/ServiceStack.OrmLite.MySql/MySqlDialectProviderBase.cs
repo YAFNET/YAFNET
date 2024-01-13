@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 namespace ServiceStack.OrmLite.MySql;
 
 using System;
@@ -27,7 +28,8 @@ using ServiceStack.Text;
 /// </summary>
 /// <typeparam name="TDialect">The type of the t dialect.</typeparam>
 /// <seealso cref="ServiceStack.OrmLite.OrmLiteDialectProviderBase{TDialect}" />
-public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProviderBase<TDialect> where TDialect : IOrmLiteDialectProvider
+public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProviderBase<TDialect>
+    where TDialect : IOrmLiteDialectProvider
 {
     /// <summary>
     /// The text column definition
@@ -61,14 +63,13 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         base.RegisterConverter<Guid>(new MySqlGuidConverter());
         base.RegisterConverter<DateTimeOffset>(new MySqlDateTimeOffsetConverter());
 
-        this.Variables = new Dictionary<string, string>
-                             {
-                                 { OrmLiteVariables.SystemUtc, "CURRENT_TIMESTAMP" },
-                                 { OrmLiteVariables.MaxText, "LONGTEXT" },
-                                 { OrmLiteVariables.MaxTextUnicode, "LONGTEXT" },
-                                 { OrmLiteVariables.True, SqlBool(true) },
-                                 { OrmLiteVariables.False, SqlBool(false) },
-                             };
+        this.Variables = new Dictionary<string, string> {
+            { OrmLiteVariables.SystemUtc, "CURRENT_TIMESTAMP" },
+            { OrmLiteVariables.MaxText, "LONGTEXT" },
+            { OrmLiteVariables.MaxTextUnicode, "LONGTEXT" },
+            { OrmLiteVariables.True, this.SqlBool(true) },
+            { OrmLiteVariables.False, this.SqlBool(false) },
+        };
     }
 
     /// <summary>
@@ -80,276 +81,275 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <summary>
     /// The row version trigger format
     /// </summary>
-    public static string RowVersionTriggerFormat = "{0}RowVersionUpdateTrigger";
+    private const string RowVersionTriggerFormat = "{0}RowVersionUpdateTrigger";
 
     /// <summary>
     /// The reserved words
     /// </summary>
-    public static HashSet<string> ReservedWords = new(new[]
-                                                          {
-                                                              "ACCESSIBLE",
-                                                              "ADD",
-                                                              "ALL",
-                                                              "ALTER",
-                                                              "ANALYZE",
-                                                              "AND",
-                                                              "AS",
-                                                              "ASC",
-                                                              "ASENSITIVE",
-                                                              "BEFORE",
-                                                              "BETWEEN",
-                                                              "BIGINT",
-                                                              "BINARY",
-                                                              "BLOB",
-                                                              "BOTH",
-                                                              "BY",
-                                                              "CALL",
-                                                              "CASCADE",
-                                                              "CASE",
-                                                              "CHANGE",
-                                                              "CHAR",
-                                                              "CHARACTER",
-                                                              "CHECK",
-                                                              "COLLATE",
-                                                              "COLUMN",
-                                                              "CONDITION",
-                                                              "CONSTRAINT",
-                                                              "CONTINUE",
-                                                              "CONVERT",
-                                                              "CREATE",
-                                                              "CROSS",
-                                                              "CUBE",
-                                                              "CUME_DIST",
-                                                              "CURRENT_DATE",
-                                                              "CURRENT_TIME",
-                                                              "CURRENT_TIMESTAMP",
-                                                              "CURRENT_USER",
-                                                              "CURSOR",
-                                                              "DATABASE",
-                                                              "DATABASES",
-                                                              "DAY_HOUR",
-                                                              "DAY_MICROSECOND",
-                                                              "DAY_MINUTE",
-                                                              "DAY_SECOND",
-                                                              "DEC",
-                                                              "DECIMAL",
-                                                              "DECLARE",
-                                                              "DEFAULT",
-                                                              "DELAYED",
-                                                              "DELETE",
-                                                              "DENSE_RANK",
-                                                              "DESC",
-                                                              "DESCRIBE",
-                                                              "DETERMINISTIC",
-                                                              "DISTINCT",
-                                                              "DISTINCTROW",
-                                                              "DIV",
-                                                              "DOUBLE",
-                                                              "DROP",
-                                                              "DUAL",
-                                                              "EACH",
-                                                              "ELSE",
-                                                              "ELSEIF",
-                                                              "EMPTY",
-                                                              "ENCLOSED",
-                                                              "ESCAPED",
-                                                              "EXCEPT",
-                                                              "EXISTS",
-                                                              "EXIT",
-                                                              "EXPLAIN",
-                                                              "FALSE",
-                                                              "FETCH",
-                                                              "FIRST_VALUE",
-                                                              "FLOAT",
-                                                              "FLOAT4",
-                                                              "FLOAT8",
-                                                              "FOR",
-                                                              "FORCE",
-                                                              "FOREIGN",
-                                                              "FROM",
-                                                              "FULLTEXT",
-                                                              "FUNCTION",
-                                                              "GENERATED",
-                                                              "GET",
-                                                              "GRANT",
-                                                              "GROUP",
-                                                              "GROUPING",
-                                                              "GROUPS",
-                                                              "HAVING",
-                                                              "HIGH_PRIORITY",
-                                                              "HOUR_MICROSECOND",
-                                                              "HOUR_MINUTE",
-                                                              "HOUR_SECOND",
-                                                              "IF",
-                                                              "IGNORE",
-                                                              "IN",
-                                                              "INDEX",
-                                                              "INFILE",
-                                                              "INNER",
-                                                              "INOUT",
-                                                              "INSENSITIVE",
-                                                              "INSERT",
-                                                              "INT",
-                                                              "INT1",
-                                                              "INT2",
-                                                              "INT3",
-                                                              "INT4",
-                                                              "INT8",
-                                                              "INTEGER",
-                                                              "INTERVAL",
-                                                              "INTO",
-                                                              "IO_AFTER_GTIDS",
-                                                              "IO_BEFORE_GTIDS",
-                                                              "IS",
-                                                              "ITERATE",
-                                                              "JOIN",
-                                                              "JSON_TABLE",
-                                                              "KEY",
-                                                              "KEYS",
-                                                              "KILL",
-                                                              "LAG",
-                                                              "LAST_VALUE",
-                                                              "LEAD",
-                                                              "LEADING",
-                                                              "LEAVE",
-                                                              "LEFT",
-                                                              "LIKE",
-                                                              "LIMIT",
-                                                              "LINEAR",
-                                                              "LINES",
-                                                              "LOAD",
-                                                              "LOCALTIME",
-                                                              "LOCALTIMESTAMP",
-                                                              "LOCK",
-                                                              "LONG",
-                                                              "LONGBLOB",
-                                                              "LONGTEXT",
-                                                              "LOOP",
-                                                              "LOW_PRIORITY",
-                                                              "MASTER_BIND",
-                                                              "MASTER_SSL_VERIFY_SERVER_CERT",
-                                                              "MATCH",
-                                                              "MAXVALUE",
-                                                              "MEDIUMBLOB",
-                                                              "MEDIUMINT",
-                                                              "MEDIUMTEXT",
-                                                              "MIDDLEINT",
-                                                              "MINUTE_MICROSECOND",
-                                                              "MINUTE_SECOND",
-                                                              "MOD",
-                                                              "MODIFIES",
-                                                              "NATURAL",
-                                                              "NOT",
-                                                              "NO_WRITE_TO_BINLOG",
-                                                              "NTH_VALUE",
-                                                              "NTILE",
-                                                              "NULL",
-                                                              "NUMERIC",
-                                                              "OF",
-                                                              "ON",
-                                                              "OPTIMIZE",
-                                                              "OPTIMIZER_COSTS",
-                                                              "OPTION",
-                                                              "OPTIONALLY",
-                                                              "OR",
-                                                              "ORDER",
-                                                              "OUT",
-                                                              "OUTER",
-                                                              "OUTFILE",
-                                                              "OVER",
-                                                              "PARTITION",
-                                                              "PERCENT_RANK",
-                                                              "PERSIST",
-                                                              "PERSIST_ONLY",
-                                                              "PRECISION",
-                                                              "PRIMARY",
-                                                              "PROCEDURE",
-                                                              "PURGE",
-                                                              "RANGE",
-                                                              "RANK",
-                                                              "READ",
-                                                              "READS",
-                                                              "READ_WRITE",
-                                                              "REAL",
-                                                              "RECURSIVE",
-                                                              "REFERENCES",
-                                                              "REGEXP",
-                                                              "RELEASE",
-                                                              "RENAME",
-                                                              "REPEAT",
-                                                              "REPLACE",
-                                                              "REQUIRE",
-                                                              "RESIGNAL",
-                                                              "RESTRICT",
-                                                              "RETURN",
-                                                              "REVOKE",
-                                                              "RIGHT",
-                                                              "RLIKE",
-                                                              "ROW",
-                                                              "ROWS",
-                                                              "ROW_NUMBER",
-                                                              "SCHEMA",
-                                                              "SCHEMAS",
-                                                              "SECOND_MICROSECOND",
-                                                              "SELECT",
-                                                              "SENSITIVE",
-                                                              "SEPARATOR",
-                                                              "SET",
-                                                              "SHOW",
-                                                              "SIGNAL",
-                                                              "SMALLINT",
-                                                              "SPATIAL",
-                                                              "SPECIFIC",
-                                                              "SQL",
-                                                              "SQLEXCEPTION",
-                                                              "SQLSTATE",
-                                                              "SQLWARNING",
-                                                              "SQL_BIG_RESULT",
-                                                              "SQL_CALC_FOUND_ROWS",
-                                                              "SQL_SMALL_RESULT",
-                                                              "SSL",
-                                                              "STARTING",
-                                                              "STORED",
-                                                              "STRAIGHT_JOIN",
-                                                              "SYSTEM",
-                                                              "TABLE",
-                                                              "TERMINATED",
-                                                              "THEN",
-                                                              "TINYBLOB",
-                                                              "TINYINT",
-                                                              "TINYTEXT",
-                                                              "TO",
-                                                              "TRAILING",
-                                                              "TRIGGER",
-                                                              "TRUE",
-                                                              "UNDO",
-                                                              "UNION",
-                                                              "UNIQUE",
-                                                              "UNLOCK",
-                                                              "UNSIGNED",
-                                                              "UPDATE",
-                                                              "USAGE",
-                                                              "USE",
-                                                              "USING",
-                                                              "UTC_DATE",
-                                                              "UTC_TIME",
-                                                              "UTC_TIMESTAMP",
-                                                              "VALUES",
-                                                              "VARBINARY",
-                                                              "VARCHAR",
-                                                              "VARCHARACTER",
-                                                              "VARYING",
-                                                              "VIRTUAL",
-                                                              "WHEN",
-                                                              "WHERE",
-                                                              "WHILE",
-                                                              "WINDOW",
-                                                              "WITH",
-                                                              "WRITE",
-                                                              "XOR",
-                                                              "YEAR_MONTH",
-                                                              "ZEROFILL",
-                                                          }, StringComparer.OrdinalIgnoreCase);
+    public static HashSet<string> ReservedWords = new(new[] {
+        "ACCESSIBLE",
+        "ADD",
+        "ALL",
+        "ALTER",
+        "ANALYZE",
+        "AND",
+        "AS",
+        "ASC",
+        "ASENSITIVE",
+        "BEFORE",
+        "BETWEEN",
+        "BIGINT",
+        "BINARY",
+        "BLOB",
+        "BOTH",
+        "BY",
+        "CALL",
+        "CASCADE",
+        "CASE",
+        "CHANGE",
+        "CHAR",
+        "CHARACTER",
+        "CHECK",
+        "COLLATE",
+        "COLUMN",
+        "CONDITION",
+        "CONSTRAINT",
+        "CONTINUE",
+        "CONVERT",
+        "CREATE",
+        "CROSS",
+        "CUBE",
+        "CUME_DIST",
+        "CURRENT_DATE",
+        "CURRENT_TIME",
+        "CURRENT_TIMESTAMP",
+        "CURRENT_USER",
+        "CURSOR",
+        "DATABASE",
+        "DATABASES",
+        "DAY_HOUR",
+        "DAY_MICROSECOND",
+        "DAY_MINUTE",
+        "DAY_SECOND",
+        "DEC",
+        "DECIMAL",
+        "DECLARE",
+        "DEFAULT",
+        "DELAYED",
+        "DELETE",
+        "DENSE_RANK",
+        "DESC",
+        "DESCRIBE",
+        "DETERMINISTIC",
+        "DISTINCT",
+        "DISTINCTROW",
+        "DIV",
+        "DOUBLE",
+        "DROP",
+        "DUAL",
+        "EACH",
+        "ELSE",
+        "ELSEIF",
+        "EMPTY",
+        "ENCLOSED",
+        "ESCAPED",
+        "EXCEPT",
+        "EXISTS",
+        "EXIT",
+        "EXPLAIN",
+        "FALSE",
+        "FETCH",
+        "FIRST_VALUE",
+        "FLOAT",
+        "FLOAT4",
+        "FLOAT8",
+        "FOR",
+        "FORCE",
+        "FOREIGN",
+        "FROM",
+        "FULLTEXT",
+        "FUNCTION",
+        "GENERATED",
+        "GET",
+        "GRANT",
+        "GROUP",
+        "GROUPING",
+        "GROUPS",
+        "HAVING",
+        "HIGH_PRIORITY",
+        "HOUR_MICROSECOND",
+        "HOUR_MINUTE",
+        "HOUR_SECOND",
+        "IF",
+        "IGNORE",
+        "IN",
+        "INDEX",
+        "INFILE",
+        "INNER",
+        "INOUT",
+        "INSENSITIVE",
+        "INSERT",
+        "INT",
+        "INT1",
+        "INT2",
+        "INT3",
+        "INT4",
+        "INT8",
+        "INTEGER",
+        "INTERVAL",
+        "INTO",
+        "IO_AFTER_GTIDS",
+        "IO_BEFORE_GTIDS",
+        "IS",
+        "ITERATE",
+        "JOIN",
+        "JSON_TABLE",
+        "KEY",
+        "KEYS",
+        "KILL",
+        "LAG",
+        "LAST_VALUE",
+        "LEAD",
+        "LEADING",
+        "LEAVE",
+        "LEFT",
+        "LIKE",
+        "LIMIT",
+        "LINEAR",
+        "LINES",
+        "LOAD",
+        "LOCALTIME",
+        "LOCALTIMESTAMP",
+        "LOCK",
+        "LONG",
+        "LONGBLOB",
+        "LONGTEXT",
+        "LOOP",
+        "LOW_PRIORITY",
+        "MASTER_BIND",
+        "MASTER_SSL_VERIFY_SERVER_CERT",
+        "MATCH",
+        "MAXVALUE",
+        "MEDIUMBLOB",
+        "MEDIUMINT",
+        "MEDIUMTEXT",
+        "MIDDLEINT",
+        "MINUTE_MICROSECOND",
+        "MINUTE_SECOND",
+        "MOD",
+        "MODIFIES",
+        "NATURAL",
+        "NOT",
+        "NO_WRITE_TO_BINLOG",
+        "NTH_VALUE",
+        "NTILE",
+        "NULL",
+        "NUMERIC",
+        "OF",
+        "ON",
+        "OPTIMIZE",
+        "OPTIMIZER_COSTS",
+        "OPTION",
+        "OPTIONALLY",
+        "OR",
+        "ORDER",
+        "OUT",
+        "OUTER",
+        "OUTFILE",
+        "OVER",
+        "PARTITION",
+        "PERCENT_RANK",
+        "PERSIST",
+        "PERSIST_ONLY",
+        "PRECISION",
+        "PRIMARY",
+        "PROCEDURE",
+        "PURGE",
+        "RANGE",
+        "RANK",
+        "READ",
+        "READS",
+        "READ_WRITE",
+        "REAL",
+        "RECURSIVE",
+        "REFERENCES",
+        "REGEXP",
+        "RELEASE",
+        "RENAME",
+        "REPEAT",
+        "REPLACE",
+        "REQUIRE",
+        "RESIGNAL",
+        "RESTRICT",
+        "RETURN",
+        "REVOKE",
+        "RIGHT",
+        "RLIKE",
+        "ROW",
+        "ROWS",
+        "ROW_NUMBER",
+        "SCHEMA",
+        "SCHEMAS",
+        "SECOND_MICROSECOND",
+        "SELECT",
+        "SENSITIVE",
+        "SEPARATOR",
+        "SET",
+        "SHOW",
+        "SIGNAL",
+        "SMALLINT",
+        "SPATIAL",
+        "SPECIFIC",
+        "SQL",
+        "SQLEXCEPTION",
+        "SQLSTATE",
+        "SQLWARNING",
+        "SQL_BIG_RESULT",
+        "SQL_CALC_FOUND_ROWS",
+        "SQL_SMALL_RESULT",
+        "SSL",
+        "STARTING",
+        "STORED",
+        "STRAIGHT_JOIN",
+        "SYSTEM",
+        "TABLE",
+        "TERMINATED",
+        "THEN",
+        "TINYBLOB",
+        "TINYINT",
+        "TINYTEXT",
+        "TO",
+        "TRAILING",
+        "TRIGGER",
+        "TRUE",
+        "UNDO",
+        "UNION",
+        "UNIQUE",
+        "UNLOCK",
+        "UNSIGNED",
+        "UPDATE",
+        "USAGE",
+        "USE",
+        "USING",
+        "UTC_DATE",
+        "UTC_TIME",
+        "UTC_TIMESTAMP",
+        "VALUES",
+        "VARBINARY",
+        "VARCHAR",
+        "VARCHARACTER",
+        "VARYING",
+        "VIRTUAL",
+        "WHEN",
+        "WHERE",
+        "WHILE",
+        "WINDOW",
+        "WITH",
+        "WRITE",
+        "XOR",
+        "YEAR_MONTH",
+        "ZEROFILL",
+    }, StringComparer.OrdinalIgnoreCase);
 
     /// <summary>
     /// Initializes the specified connection string.
@@ -359,7 +359,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     {
         if (connectionString.ToLower().Contains("allowloadlocalinfile=true"))
         {
-            AllowLoadLocalInfile = true;
+            this.AllowLoadLocalInfile = true;
         }
     }
 
@@ -373,8 +373,8 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     {
         // Workaround for: MySQL - This version of MySQL doesn't yet support 'LIMIT & IN/ALL/ANY/SOME subquery
         return expr.Rows != null
-                   ? $"SELECT * FROM ({base.GetLoadChildrenSubSelect(expr)}) AS SubQuery"
-                   : base.GetLoadChildrenSubSelect(expr);
+            ? $"SELECT * FROM ({base.GetLoadChildrenSubSelect(expr)}) AS SubQuery"
+            : base.GetLoadChildrenSubSelect(expr);
     }
 
     /// <summary>
@@ -389,8 +389,8 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
             return null;
         }
 
-        var triggerName = RowVersionTriggerFormat.Fmt(GetTableName(modelDef));
-        return "DROP TRIGGER IF EXISTS {0}".Fmt(GetQuotedName(triggerName));
+        var triggerName = RowVersionTriggerFormat.Fmt(this.GetTableName(modelDef));
+        return "DROP TRIGGER IF EXISTS {0}".Fmt(this.GetQuotedName(triggerName));
     }
 
     /// <summary>
@@ -413,7 +413,6 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
             triggerName, this.GetTableName(modelDef), triggerBody);
 
         return sql;
-
     }
 
     /// <summary>
@@ -436,10 +435,14 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     public override string GetQuotedValue(object value, Type fieldType)
     {
         if (value == null)
+        {
             return "NULL";
+        }
 
         if (fieldType == typeof(byte[]))
+        {
             return "0x" + BitConverter.ToString((byte[])value).Replace("-", "");
+        }
 
         return base.GetQuotedValue(value, fieldType);
     }
@@ -450,8 +453,10 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="table">The table.</param>
     /// <param name="schema">The schema.</param>
     /// <returns>System.String.</returns>
-    public override string GetTableName(string table, string schema = null) =>
-        GetTableName(table, schema, useStrategy:true);
+    public override string GetTableName(string table, string schema = null)
+    {
+        return this.GetTableName(table, schema, useStrategy: true);
+    }
 
     /// <summary>
     /// Gets the name of the table.
@@ -465,13 +470,13 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         if (useStrategy)
         {
             return schema != null && !table.StartsWithIgnoreCase(schema + "_")
-                       ? QuoteIfRequired(NamingStrategy.GetSchemaName(schema) + "_" + NamingStrategy.GetTableName(table))
-                       : QuoteIfRequired(NamingStrategy.GetTableName(table));
+                ? this.QuoteIfRequired(this.NamingStrategy.GetSchemaName(schema) + "_" + this.NamingStrategy.GetTableName(table))
+                : this.QuoteIfRequired(this.NamingStrategy.GetTableName(table));
         }
 
         return schema != null && !table.StartsWithIgnoreCase(schema + "_")
-                   ? QuoteIfRequired(schema + "_" + table)
-                   : QuoteIfRequired(table);
+            ? this.QuoteIfRequired(schema + "_" + table)
+            : this.QuoteIfRequired(table);
     }
 
     /// <summary>
@@ -479,16 +484,26 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public override bool ShouldQuote(string name) => name != null &&
-                                                     (ReservedWords.Contains(name) || name.Contains(' ') || name.Contains('.'));
+    public override bool ShouldQuote(string name)
+    {
+        return name != null &&
+               (ReservedWords.Contains(name) || name.Contains(' ') ||
+                name.Contains('.'));
+    }
 
     /// <summary>
     /// Gets the name of the quoted.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns>System.String.</returns>
-    public override string GetQuotedName(string name) => name == null ? null : name.FirstCharEquals('`')
-                                                             ? name : '`' + name + '`';
+    public override string GetQuotedName(string name)
+    {
+        return name == null
+            ? null
+            : name.FirstCharEquals('`')
+                ? name
+                : '`' + name + '`';
+    }
 
     /// <summary>
     /// Gets the name of the quoted table.
@@ -498,7 +513,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <returns>System.String.</returns>
     public override string GetQuotedTableName(string tableName, string schema = null)
     {
-        return GetQuotedName(GetTableName(tableName, schema));
+        return this.GetQuotedName(this.GetTableName(tableName, schema));
     }
 
     /// <summary>
@@ -519,8 +534,9 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     public override string ToTableNamesStatement(string schema)
     {
         return schema == null
-                   ? "SELECT table_name FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema = DATABASE()"
-                   : "SELECT table_name FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema = DATABASE() AND table_name LIKE {0}".SqlFmt(this, NamingStrategy.GetSchemaName(schema)  + "\\_%");
+            ? "SELECT table_name FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema = DATABASE()"
+            : "SELECT table_name FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema = DATABASE() AND table_name LIKE {0}"
+                .SqlFmt(this, this.NamingStrategy.GetSchemaName(schema) + "\\_%");
     }
 
     /// <summary>
@@ -532,11 +548,14 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     public override string ToTableNamesWithRowCountsStatement(bool live, string schema)
     {
         if (live)
+        {
             return null;
+        }
 
         return schema == null
-                   ? "SELECT table_name, table_rows FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema = DATABASE()"
-                   : "SELECT table_name, table_rows FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema = DATABASE() AND table_name LIKE {0}".SqlFmt(this, NamingStrategy.GetSchemaName(schema)  + "\\_%");
+            ? "SELECT table_name, table_rows FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema = DATABASE()"
+            : "SELECT table_name, table_rows FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema = DATABASE() AND table_name LIKE {0}"
+                .SqlFmt(this, this.NamingStrategy.GetSchemaName(schema) + "\\_%");
     }
 
     /// <summary>
@@ -549,7 +568,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     public override bool DoesTableExist(IDbCommand dbCmd, string tableName, string schema = null)
     {
         var sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = {0} AND TABLE_SCHEMA = {1}"
-            .SqlFmt(GetTableName(tableName, schema).StripDbQuotes(), dbCmd.Connection.Database);
+            .SqlFmt(this.GetTableName(tableName, schema).StripDbQuotes(), dbCmd.Connection.Database);
 
         var result = dbCmd.ExecLongScalar(sql);
 
@@ -564,10 +583,11 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="schema">The schema.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-    public async override Task<bool> DoesTableExistAsync(IDbCommand dbCmd, string tableName, string schema = null, CancellationToken token=default)
+    public async override Task<bool> DoesTableExistAsync(IDbCommand dbCmd, string tableName, string schema = null,
+        CancellationToken token = default)
     {
         var sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = {0} AND TABLE_SCHEMA = {1}"
-            .SqlFmt(GetTableName(tableName, schema).StripDbQuotes(), dbCmd.Connection.Database);
+            .SqlFmt(this.GetTableName(tableName, schema).StripDbQuotes(), dbCmd.Connection.Database);
 
         var result = await dbCmd.ExecLongScalarAsync(sql, token);
 
@@ -602,12 +622,13 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="schema">The schema.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>A Task&lt;System.Boolean&gt; representing the asynchronous operation.</returns>
-    public async override Task<bool> DoesColumnExistAsync(IDbConnection db, string columnName, string tableName, string schema = null, CancellationToken token=default)
+    public async override Task<bool> DoesColumnExistAsync(IDbConnection db, string columnName, string tableName,
+        string schema = null, CancellationToken token = default)
     {
-        tableName = GetTableName(tableName, schema).StripQuotes();
+        tableName = this.GetTableName(tableName, schema).StripQuotes();
         var sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS"
                   + " WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName AND TABLE_SCHEMA = @schema"
-                      .SqlFmt(GetTableName(tableName, schema).StripDbQuotes(), columnName);
+                      .SqlFmt(this.GetTableName(tableName, schema).StripDbQuotes(), columnName);
 
         var result = await db.SqlScalarAsync<long>(sql, new { tableName, columnName, schema = db.Database }, token);
 
@@ -630,7 +651,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     {
         var sql =
             "SELECT DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = @tableName AND COLUMN_NAME = @columnName"
-                .SqlFmt(this, GetTableName(tableName, schema).StripDbQuotes(), columnName);
+                .SqlFmt(this, this.GetTableName(tableName, schema).StripDbQuotes(), columnName);
 
         if (schema != null)
         {
@@ -651,36 +672,47 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         var sbConstraints = StringBuilderCache.Allocate();
 
         var modelDef = GetModel(tableType);
-        foreach (var fieldDef in CreateTableFieldsStrategy(modelDef))
+        foreach (var fieldDef in this.CreateTableFieldsStrategy(modelDef))
         {
             if (fieldDef.CustomSelect != null || fieldDef.IsComputed && !fieldDef.IsPersisted)
+            {
                 continue;
+            }
 
-            if (sbColumns.Length != 0) sbColumns.Append(", \n  ");
+            if (sbColumns.Length != 0)
+            {
+                sbColumns.Append(", \n  ");
+            }
 
-            sbColumns.Append(GetColumnDefinition(fieldDef, modelDef));
+            sbColumns.Append(this.GetColumnDefinition(fieldDef, modelDef));
 
-            var sqlConstraint = GetCheckConstraint(modelDef, fieldDef);
+            var sqlConstraint = this.GetCheckConstraint(modelDef, fieldDef);
             if (sqlConstraint != null)
             {
                 sbConstraints.Append(",\n" + sqlConstraint);
             }
 
             if (fieldDef.ForeignKey == null || OrmLiteConfig.SkipForeignKeys)
+            {
                 continue;
+            }
 
             var refModelDef = GetModel(fieldDef.ForeignKey.ReferenceType);
             sbConstraints.Append(
                 $", \n\n  CONSTRAINT {this.GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, this.NamingStrategy, fieldDef))} FOREIGN KEY ({this.GetQuotedColumnName(fieldDef.FieldName)}) REFERENCES {this.GetQuotedTableName(refModelDef)} ({this.GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)})");
 
             if (!string.IsNullOrEmpty(fieldDef.ForeignKey.OnDelete))
+            {
                 sbConstraints.Append($" ON DELETE {fieldDef.ForeignKey.OnDelete}");
+            }
 
             if (!string.IsNullOrEmpty(fieldDef.ForeignKey.OnUpdate))
+            {
                 sbConstraints.Append($" ON UPDATE {fieldDef.ForeignKey.OnUpdate}");
+            }
         }
 
-        var uniqueConstraints = GetUniqueConstraints(modelDef);
+        var uniqueConstraints = this.GetUniqueConstraints(modelDef);
         if (uniqueConstraints != null)
         {
             sbConstraints.Append(",\n" + uniqueConstraints);
@@ -699,7 +731,8 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
             sbConstraints.Append(") ");
         }
 
-        var sql = $"CREATE TABLE {GetQuotedTableName(modelDef)} \n(\n  {StringBuilderCache.ReturnAndFree(sbColumns)}{StringBuilderCacheAlt.ReturnAndFree(sbConstraints)} \n); \n";
+        var sql =
+            $"CREATE TABLE {this.GetQuotedTableName(modelDef)} \n(\n  {StringBuilderCache.ReturnAndFree(sbColumns)}{StringBuilderCacheAlt.ReturnAndFree(sbConstraints)} \n); \n";
 
         return sql;
     }
@@ -711,7 +744,8 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <returns>List&lt;System.String&gt;.</returns>
     public override List<string> GetSchemas(IDbCommand dbCmd)
     {
-        var sql = "SELECT DISTINCT TABLE_SCHEMA FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA NOT IN ('information_schema', 'performance_schema', 'sys', 'mysql')";
+        var sql =
+            "SELECT DISTINCT TABLE_SCHEMA FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA NOT IN ('information_schema', 'performance_schema', 'sys', 'mysql')";
         return dbCmd.SqlColumn<string>(sql);
     }
 
@@ -722,9 +756,11 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <returns>Dictionary&lt;System.String, List&lt;System.String&gt;&gt;.</returns>
     public override Dictionary<string, List<string>> GetSchemaTables(IDbCommand dbCmd)
     {
-        var sql = "SELECT TABLE_SCHEMA, TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA NOT IN ('information_schema', 'performance_schema', 'sys', 'mysql')";
+        var sql =
+            "SELECT TABLE_SCHEMA, TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA NOT IN ('information_schema', 'performance_schema', 'sys', 'mysql')";
         return dbCmd.Lookup<string, string>(sql);
     }
+
     /// <summary>
     /// Doeses the schema exist.
     /// </summary>
@@ -755,8 +791,11 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="table">The table.</param>
     /// <param name="foreignKeyName">Name of the foreign key.</param>
     /// <returns>string.</returns>
-    public override string ToDropForeignKeyStatement(string schema, string table, string foreignKeyName) =>
-        $"ALTER TABLE {GetQuotedTableName(table, schema)} DROP FOREIGN KEY {GetQuotedName(foreignKeyName)};";
+    public override string ToDropForeignKeyStatement(string schema, string table, string foreignKeyName)
+    {
+        return
+            $"ALTER TABLE {this.GetQuotedTableName(table, schema)} DROP FOREIGN KEY {this.GetQuotedName(foreignKeyName)};";
+    }
 
     /// <summary>
     /// Gets the column definition.
@@ -819,8 +858,10 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="fieldOrValue">The field or value.</param>
     /// <param name="currencySymbol">The currency symbol.</param>
     /// <returns>System.String.</returns>
-    public override string SqlCurrency(string fieldOrValue, string currencySymbol) =>
-        SqlConcat(new[] {$"'{currencySymbol}'", $"cast({fieldOrValue} as decimal(15,2))"});
+    public override string SqlCurrency(string fieldOrValue, string currencySymbol)
+    {
+        return this.SqlConcat(new[] { $"'{currencySymbol}'", $"cast({fieldOrValue} as decimal(15,2))" });
+    }
 
     /// <summary>
     /// SQLs the cast.
@@ -828,44 +869,62 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="fieldOrValue">The field or value.</param>
     /// <param name="castAs">The cast as.</param>
     /// <returns>System.String.</returns>
-    public override string SqlCast(object fieldOrValue, string castAs) =>
-        castAs == Sql.VARCHAR
+    public override string SqlCast(object fieldOrValue, string castAs)
+    {
+        return castAs == Sql.VARCHAR
             ? $"CAST({fieldOrValue} AS CHAR(1000))"
             : $"CAST({fieldOrValue} AS {castAs})";
+    }
 
     /// <summary>
     /// SQLs the bool.
     /// </summary>
     /// <param name="value">if set to <c>true</c> [value].</param>
     /// <returns>System.String.</returns>
-    public override string SqlBool(bool value) => value ? "1" : "0";
+    public override string SqlBool(bool value)
+    {
+        return value ? "1" : "0";
+    }
 
     /// <summary>
     /// Enables the foreign keys check.
     /// </summary>
     /// <param name="cmd">The command.</param>
-    public override void EnableForeignKeysCheck(IDbCommand cmd) => cmd.ExecNonQuery("SET FOREIGN_KEY_CHECKS=1;");
+    public override void EnableForeignKeysCheck(IDbCommand cmd)
+    {
+        cmd.ExecNonQuery("SET FOREIGN_KEY_CHECKS=1;");
+    }
+
     /// <summary>
     /// Enables the foreign keys check asynchronous.
     /// </summary>
     /// <param name="cmd">The command.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task.</returns>
-    public override Task EnableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default) =>
-        cmd.ExecNonQueryAsync("SET FOREIGN_KEY_CHECKS=1;", null, token);
+    public override Task EnableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default)
+    {
+        return cmd.ExecNonQueryAsync("SET FOREIGN_KEY_CHECKS=1;", null, token);
+    }
+
     /// <summary>
     /// Disables the foreign keys check.
     /// </summary>
     /// <param name="cmd">The command.</param>
-    public override void DisableForeignKeysCheck(IDbCommand cmd) => cmd.ExecNonQuery("SET FOREIGN_KEY_CHECKS=0;");
+    public override void DisableForeignKeysCheck(IDbCommand cmd)
+    {
+        cmd.ExecNonQuery("SET FOREIGN_KEY_CHECKS=0;");
+    }
+
     /// <summary>
     /// Disables the foreign keys check asynchronous.
     /// </summary>
     /// <param name="cmd">The command.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task.</returns>
-    public override Task DisableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default) =>
-        cmd.ExecNonQueryAsync("SET FOREIGN_KEY_CHECKS=0;", null, token);
+    public override Task DisableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default)
+    {
+        return cmd.ExecNonQueryAsync("SET FOREIGN_KEY_CHECKS=0;", null, token);
+    }
 
     /// <summary>
     /// Unwraps the specified database.
@@ -906,7 +965,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <returns>Task.</returns>
     public override Task OpenAsync(IDbConnection db, CancellationToken token = default)
     {
-        return Unwrap(db).OpenAsync(token);
+        return this.Unwrap(db).OpenAsync(token);
     }
 
     /// <summary>
@@ -917,7 +976,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <returns>Task&lt;IDataReader&gt;.</returns>
     public override Task<IDataReader> ExecuteReaderAsync(IDbCommand cmd, CancellationToken token = default)
     {
-        return Unwrap(cmd).ExecuteReaderAsync(token).Then(x => (IDataReader)x);
+        return this.Unwrap(cmd).ExecuteReaderAsync(token).Then(x => (IDataReader)x);
     }
 
     /// <summary>
@@ -928,7 +987,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <returns>Task&lt;System.Int32&gt;.</returns>
     public override Task<int> ExecuteNonQueryAsync(IDbCommand cmd, CancellationToken token = default)
     {
-        return Unwrap(cmd).ExecuteNonQueryAsync(token);
+        return this.Unwrap(cmd).ExecuteNonQueryAsync(token);
     }
 
     /// <summary>
@@ -939,7 +998,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <returns>Task&lt;System.Object&gt;.</returns>
     public override Task<object> ExecuteScalarAsync(IDbCommand cmd, CancellationToken token = default)
     {
-        return Unwrap(cmd).ExecuteScalarAsync(token);
+        return this.Unwrap(cmd).ExecuteScalarAsync(token);
     }
 
     /// <summary>
@@ -950,7 +1009,7 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <returns>Task&lt;System.Boolean&gt;.</returns>
     public override Task<bool> ReadAsync(IDataReader reader, CancellationToken token = default)
     {
-        return Unwrap(reader).ReadAsync(token);
+        return this.Unwrap(reader).ReadAsync(token);
     }
 
     /// <summary>
@@ -966,11 +1025,12 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         try
         {
             var to = new List<T>();
-            while (await ReadAsync(reader, token).ConfigureAwait(false))
+            while (await this.ReadAsync(reader, token).ConfigureAwait(false))
             {
                 var row = fn();
                 to.Add(row);
             }
+
             return to;
         }
         finally
@@ -988,14 +1048,16 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="source">The source.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;Return&gt;.</returns>
-    public async override Task<Return> ReaderEach<Return>(IDataReader reader, Action fn, Return source, CancellationToken token = default)
+    public async override Task<Return> ReaderEach<Return>(IDataReader reader, Action fn, Return source,
+        CancellationToken token = default)
     {
         try
         {
-            while (await ReadAsync(reader, token).ConfigureAwait(false))
+            while (await this.ReadAsync(reader, token).ConfigureAwait(false))
             {
                 fn();
             }
+
             return source;
         }
         finally
@@ -1017,7 +1079,9 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
         try
         {
             if (await this.ReadAsync(reader, token).ConfigureAwait(false))
+            {
                 return fn();
+            }
 
             return default;
         }
@@ -1098,7 +1162,8 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="fieldNameA">The field name a.</param>
     /// <param name="fieldNameB">The field name b.</param>
     /// <returns>Returns the SQL Command</returns>
-    public override string GetAddCompositePrimaryKey(string database, ModelDefinition modelDef, string fieldNameA, string fieldNameB)
+    public override string GetAddCompositePrimaryKey(string database, ModelDefinition modelDef, string fieldNameA,
+        string fieldNameB)
     {
         var sb = StringBuilderCache.Allocate();
 
@@ -1148,7 +1213,8 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <param name="fieldNameA">The field name a.</param>
     /// <param name="fieldNameB">The field name b.</param>
     /// <returns>System.String.</returns>
-    public override string GetDropPrimaryKeyConstraint(string database, ModelDefinition modelDef, string name, string fieldNameA, string fieldNameB)
+    public override string GetDropPrimaryKeyConstraint(string database, ModelDefinition modelDef, string name,
+        string fieldNameA, string fieldNameB)
     {
         var sb = StringBuilderCache.Allocate();
 
@@ -1232,7 +1298,8 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
     /// <returns>System.String.</returns>
     public override string DatabaseSize(string database)
     {
-        return $"SELECT sum( data_length + index_length ) / 1024 / 1024 FROM information_schema.TABLES WHERE table_schema = '{database}'";
+        return
+            $"SELECT sum( data_length + index_length ) / 1024 / 1024 FROM information_schema.TABLES WHERE table_schema = '{database}'";
     }
 
     /// <summary>
@@ -1313,10 +1380,10 @@ public abstract class MySqlDialectProviderBase<TDialect> : OrmLiteDialectProvide
 
                     columnNames.ForEach(
                         n =>
-                            {
-                                results.Append(',');
-                                results.Append(n);
-                            });
+                        {
+                            results.Append(',');
+                            results.Append(n);
+                        });
 
                     results.AppendLine();
 

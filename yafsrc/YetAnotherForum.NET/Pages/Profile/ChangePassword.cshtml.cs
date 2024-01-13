@@ -24,15 +24,12 @@
 
 namespace YAF.Pages.Profile;
 
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 using YAF.Core.Extensions;
 using YAF.Core.Services;
 using YAF.Types.Interfaces.Identity;
-
-using DataType = System.ComponentModel.DataAnnotations.DataType;
 
 /// <summary>
 /// The Change Password Page.
@@ -51,7 +48,7 @@ public class ChangePasswordModel : ProfilePage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public ChangePasswordInputModel Input { get; set; }
 
     /// <summary>
     /// Create the Page links.
@@ -87,32 +84,5 @@ public class ChangePasswordModel : ProfilePage
         {
             this.PageBoardContext.Notify(result.Errors.FirstOrDefault()!.Description, MessageTypes.danger);
         }
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        /// <summary>
-        /// Gets or sets the password.
-        /// </summary>
-        [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-
-        /// <summary>
-        /// Gets or sets the new password.
-        /// </summary>
-        [Required]
-        [DataType(DataType.Password)]
-        public string NewPassword { get; set; }
-
-        /// <summary>
-        /// Gets or sets the confirm new password.
-        /// </summary>
-        [Required]
-        [DataType(DataType.Password)]
-        public string ConfirmNewPassword { get; set; }
     }
 }

@@ -174,12 +174,6 @@ public class HostSettingsInputModel
     public bool AbandonSessionsForDontTrack { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether [create NNTP users].
-    /// </summary>
-    /// <value><c>true</c> if [create NNTP users]; otherwise, <c>false</c>.</value>
-    public bool CreateNntpUsers { get; set; }
-
-    /// <summary>
     /// Gets or sets a value indicating whether [password require non letter or digit].
     /// </summary>
     /// <value><c>true</c> if [password require non letter or digit]; otherwise, <c>false</c>.</value>

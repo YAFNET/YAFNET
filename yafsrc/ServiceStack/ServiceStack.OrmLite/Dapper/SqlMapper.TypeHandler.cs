@@ -47,7 +47,7 @@ public static partial class SqlMapper
             }
             else
             {
-                SetValue(parameter, (T)value);
+                this.SetValue(parameter, (T)value);
             }
         }
 
@@ -59,7 +59,7 @@ public static partial class SqlMapper
         /// <returns>The typed value</returns>
         object ITypeHandler.Parse(Type destinationType, object value)
         {
-            return Parse(value);
+            return this.Parse(value);
         }
     }
 
@@ -90,7 +90,7 @@ public static partial class SqlMapper
         /// <param name="value">Parameter value</param>
         public override void SetValue(IDbDataParameter parameter, T value)
         {
-            parameter.Value = value == null ? (object)DBNull.Value : Format(value);
+            parameter.Value = value == null ? (object)DBNull.Value : this.Format(value);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ public static partial class SqlMapper
                 return default(T);
             }
 
-            return Parse((string)value);
+            return this.Parse((string)value);
         }
     }
 }

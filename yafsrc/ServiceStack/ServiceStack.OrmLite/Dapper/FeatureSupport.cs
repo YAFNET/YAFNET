@@ -26,7 +26,7 @@ internal class FeatureSupport
     /// <returns>FeatureSupport.</returns>
     public static FeatureSupport Get(IDbConnection connection)
     {
-        string name = connection?.GetType().Name;
+        var name = connection?.GetType().Name;
         if (string.Equals(name, "npgsqlconnection", StringComparison.OrdinalIgnoreCase))
         {
             return Postgres;
@@ -41,7 +41,7 @@ internal class FeatureSupport
     /// <param name="arrays">if set to <c>true</c> [arrays].</param>
     private FeatureSupport(bool arrays)
     {
-        Arrays = arrays;
+        this.Arrays = arrays;
     }
 
     /// <summary>

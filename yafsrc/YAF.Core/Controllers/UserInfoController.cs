@@ -92,6 +92,7 @@ public class UserInfo : ForumBaseController
                     this.Get<BoardSettings>().ActiveListTime),
                 TimeSpan.FromMilliseconds(this.Get<BoardSettings>().OnlineStatusCacheTimeout));
 
+#pragma warning disable S1125
             var userIsOnline = activeUsers.Exists(x => x.UserID == userId && x.IsActiveExcluded == false);
 
             var userName = user.Item1.DisplayOrUserName();

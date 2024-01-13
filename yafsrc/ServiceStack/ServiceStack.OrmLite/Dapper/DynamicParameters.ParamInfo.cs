@@ -29,57 +29,66 @@ public partial class DynamicParameters
         /// Gets or sets the name.
         /// </summary>
         /// <value>The name.</value>
-        public string Name { get; set; }
+        public string Name { get; init; }
+
         /// <summary>
         /// Gets or sets the value.
         /// </summary>
         /// <value>The value.</value>
-        public object Value { get; set; }
+        public object Value { get; init; }
+
         /// <summary>
         /// Gets or sets the parameter direction.
         /// </summary>
         /// <value>The parameter direction.</value>
         public ParameterDirection ParameterDirection { get; set; }
+
         /// <summary>
         /// Gets or sets the type of the database.
         /// </summary>
         /// <value>The type of the database.</value>
-        public DbType? DbType { get; set; }
+        public DbType? DbType { get; init; }
+
         /// <summary>
         /// Gets or sets the size.
         /// </summary>
         /// <value>The size.</value>
         public int? Size { get; set; }
+
         /// <summary>
         /// Gets or sets the attached parameter.
         /// </summary>
         /// <value>The attached parameter.</value>
         public IDbDataParameter AttachedParam { get; set; }
+
         /// <summary>
         /// Gets or sets the output callback.
         /// </summary>
         /// <value>The output callback.</value>
         internal Action<object, DynamicParameters> OutputCallback { get; set; }
+
         /// <summary>
         /// Gets or sets the output target.
         /// </summary>
         /// <value>The output target.</value>
         internal object OutputTarget { get; set; }
+
         /// <summary>
         /// Gets or sets a value indicating whether [came from template].
         /// </summary>
         /// <value><c>true</c> if [came from template]; otherwise, <c>false</c>.</value>
-        internal bool CameFromTemplate { get; set; }
+        internal bool CameFromTemplate { get; init; }
 
         /// <summary>
         /// Gets or sets the precision.
         /// </summary>
         /// <value>The precision.</value>
-        public byte? Precision { get; set; }
+        public byte? Precision { get; init; }
+
         /// <summary>
         /// Gets or sets the scale.
         /// </summary>
         /// <value>The scale.</value>
-        public byte? Scale { get; set; }
+        public byte? Scale { get; init; }
     }
 }

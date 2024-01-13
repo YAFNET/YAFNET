@@ -726,7 +726,7 @@ public static class AutoMappingUtils
     {
         try
         {
-            if (IsUnsettableValue(fieldInfo, propertyInfo))
+            if (IsUnsettableValue(propertyInfo))
             {
                 return;
             }
@@ -750,15 +750,13 @@ public static class AutoMappingUtils
     /// <summary>
     /// Determines whether [is unsettable value] [the specified field information].
     /// </summary>
-    /// <param name="fieldInfo">The field information.</param>
     /// <param name="propertyInfo">The property information.</param>
     /// <returns><c>true</c> if [is unsettable value] [the specified field information]; otherwise, <c>false</c>.</returns>
-    public static bool IsUnsettableValue(FieldInfo fieldInfo, PropertyInfo propertyInfo)
+    public static bool IsUnsettableValue(PropertyInfo propertyInfo)
     {
         // Properties on non-user defined classes should not be set
         // Currently we define those properties as properties declared on
         // types defined in mscorlib
-
         if (propertyInfo != null && propertyInfo.ReflectedType != null)
         {
             return PclExport.Instance.InSameAssembly(propertyInfo.DeclaringType, typeof(object));
@@ -1408,9 +1406,8 @@ internal class AssignmentDefinition
                          Func<PropertyInfo, bool> propertyInfoPredicate,
                          Func<object, Type, bool> valuePredicate)
     {
-        foreach (var assignmentEntryMap in this.AssignmentMemberMap)
+        foreach (var assignmentEntry in this.AssignmentMemberMap.Select(assignmentEntryMap => assignmentEntryMap.Value))
         {
-            var assignmentEntry = assignmentEntryMap.Value;
             var fromMember = assignmentEntry.From;
             var toMember = assignmentEntry.To;
 

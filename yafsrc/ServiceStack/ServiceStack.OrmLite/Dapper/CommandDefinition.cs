@@ -32,7 +32,7 @@ public struct CommandDefinition
     /// </summary>
     internal void OnCompleted()
     {
-        (Parameters as SqlMapper.IParameterCallbacks)?.OnCompleted();
+        (this.Parameters as SqlMapper.IParameterCallbacks)?.OnCompleted();
     }
 
     /// <summary>
@@ -69,13 +69,13 @@ public struct CommandDefinition
     /// Should data be buffered before returning?
     /// </summary>
     /// <value><c>true</c> if buffered; otherwise, <c>false</c>.</value>
-    public bool Buffered => (Flags & CommandFlags.Buffered) != 0;
+    public bool Buffered => (this.Flags & CommandFlags.Buffered) != 0;
 
     /// <summary>
     /// Should the plan for this query be cached?
     /// </summary>
     /// <value><c>true</c> if [add to cache]; otherwise, <c>false</c>.</value>
-    internal bool AddToCache => (Flags & CommandFlags.NoCache) == 0;
+    internal bool AddToCache => (this.Flags & CommandFlags.NoCache) == 0;
 
     /// <summary>
     /// Additional state flags against this command
@@ -87,7 +87,7 @@ public struct CommandDefinition
     /// Can async queries be pipelined?
     /// </summary>
     /// <value><c>true</c> if pipelined; otherwise, <c>false</c>.</value>
-    public bool Pipelined => (Flags & CommandFlags.Pipelined) != 0;
+    public bool Pipelined => (this.Flags & CommandFlags.Pipelined) != 0;
 
     /// <summary>
     /// Initialize the command definition
@@ -104,13 +104,13 @@ public struct CommandDefinition
                              , CancellationToken cancellationToken = default(CancellationToken)
     )
     {
-        CommandText = commandText;
-        Parameters = parameters;
-        Transaction = transaction;
-        CommandTimeout = commandTimeout;
-        CommandType = commandType;
-        Flags = flags;
-        CancellationToken = cancellationToken;
+        this.CommandText = commandText;
+        this.Parameters = parameters;
+        this.Transaction = transaction;
+        this.CommandTimeout = commandTimeout;
+        this.CommandType = commandType;
+        this.Flags = flags;
+        this.CancellationToken = cancellationToken;
     }
 
     /// <summary>
@@ -119,7 +119,7 @@ public struct CommandDefinition
     /// <param name="parameters">The parameters.</param>
     private CommandDefinition(object parameters) : this()
     {
-        Parameters = parameters;
+        this.Parameters = parameters;
     }
 
     /// <summary>
@@ -139,26 +139,26 @@ public struct CommandDefinition
         var cmd = cnn.CreateCommand();
         var init = GetInit(cmd.GetType());
         init?.Invoke(cmd);
-        if (Transaction != null)
+        if (this.Transaction != null)
         {
             cmd.Transaction = this.Transaction;
         }
 
-        cmd.CommandText = CommandText;
-        if (CommandTimeout.HasValue)
+        cmd.CommandText = this.CommandText;
+        if (this.CommandTimeout.HasValue)
         {
-            cmd.CommandTimeout = CommandTimeout.Value;
+            cmd.CommandTimeout = this.CommandTimeout.Value;
         }
         else if (SqlMapper.Settings.CommandTimeout.HasValue)
         {
             cmd.CommandTimeout = SqlMapper.Settings.CommandTimeout.Value;
         }
-        if (CommandType.HasValue)
+        if (this.CommandType.HasValue)
         {
             cmd.CommandType = this.CommandType.Value;
         }
 
-        paramReader?.Invoke(cmd, Parameters);
+        paramReader?.Invoke(cmd, this.Parameters);
         return cmd;
     }
 
@@ -179,7 +179,7 @@ public struct CommandDefinition
             return null; // GIGO
         }
 
-        if (SqlMapper.Link<Type, Action<IDbCommand>>.TryGet(commandInitCache, commandType, out Action<IDbCommand> action))
+        if (SqlMapper.Link<Type, Action<IDbCommand>>.TryGet(commandInitCache, commandType, out var action))
         {
             return action;
         }

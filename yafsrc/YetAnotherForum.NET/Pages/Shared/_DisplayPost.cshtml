@@ -162,8 +162,7 @@
                                     <li class="list-inline-item">
                                         @Html.UserLink(postData.UserId,
                                             Current.BoardSettings.EnableDisplayName ? Model.DisplayName : Model.UserName,
-                                            Model.Suspended, Model.Style,
-                                            postFixText: Model.IP == "NNTP" ? Current.Get<ILocalization>().GetText("EXTERNALUSER") : string.Empty)
+                                            Model.Suspended, Model.Style)
 
                                         @if (addReputationVisible)
                                         {

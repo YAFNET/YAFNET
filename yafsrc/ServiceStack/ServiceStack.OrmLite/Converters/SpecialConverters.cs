@@ -108,7 +108,7 @@ namespace ServiceStack.OrmLite.Converters
                 ? Enum.GetUnderlyingType(fieldType) == typeof(long)
                     ? DbType.Int64
                     : DbType.Int32
-                : DbType;
+                : this.DbType;
         }
 
         /// <summary>
@@ -140,14 +140,14 @@ namespace ServiceStack.OrmLite.Converters
 
             var enumString = enumKind == EnumKind.EnumMember
                 ? value.ToString()
-                : DialectProvider.StringSerializer.SerializeToString(value);
+                : this.DialectProvider.StringSerializer.SerializeToString(value);
             if (enumString == null || enumString == "null")
             {
                 enumString = value.ToString();
             }
 
             return !isEnumFlags
-                ? DialectProvider.GetQuotedValue(enumString.Trim('"'))
+                ? this.DialectProvider.GetQuotedValue(enumString.Trim('"'))
                 : enumString;
         }
 
@@ -195,7 +195,7 @@ namespace ServiceStack.OrmLite.Converters
                 return value.ToString();
             }
 
-            var enumString = DialectProvider.StringSerializer.SerializeToString(value);
+            var enumString = this.DialectProvider.StringSerializer.SerializeToString(value);
             return enumString != null && enumString != "null"
                 ? enumString.Trim('"')
                 : value.ToString();
@@ -352,13 +352,13 @@ namespace ServiceStack.OrmLite.Converters
         /// Gets the column definition.
         /// </summary>
         /// <value>The column definition.</value>
-        public override string ColumnDefinition => DialectProvider.GetStringConverter().MaxColumnDefinition;
+        public override string ColumnDefinition => this.DialectProvider.GetStringConverter().MaxColumnDefinition;
 
         /// <summary>
         /// Gets the maximum column definition.
         /// </summary>
         /// <value>The maximum column definition.</value>
-        public override string MaxColumnDefinition => DialectProvider.GetStringConverter().MaxColumnDefinition;
+        public override string MaxColumnDefinition => this.DialectProvider.GetStringConverter().MaxColumnDefinition;
 
         /// <summary>
         /// Gets the column definition.
@@ -369,7 +369,7 @@ namespace ServiceStack.OrmLite.Converters
         {
             return stringLength != null
                 ? base.GetColumnDefinition(stringLength)
-                : MaxColumnDefinition;
+                : this.MaxColumnDefinition;
         }
 
         /// <summary>
@@ -380,7 +380,7 @@ namespace ServiceStack.OrmLite.Converters
         /// <returns>System.String.</returns>
         public override string ToQuotedString(Type fieldType, object value)
         {
-            return DialectProvider.GetQuotedValue(DialectProvider.StringSerializer.SerializeToString(value));
+            return this.DialectProvider.GetQuotedValue(this.DialectProvider.StringSerializer.SerializeToString(value));
         }
 
         /// <summary>
@@ -394,7 +394,7 @@ namespace ServiceStack.OrmLite.Converters
             //Let ADO.NET providers handle byte[]
             return fieldType == typeof(byte[])
                 ? value
-                : DialectProvider.StringSerializer.SerializeToString(value);
+                : this.DialectProvider.StringSerializer.SerializeToString(value);
         }
 
         /// <summary>
@@ -426,12 +426,12 @@ namespace ServiceStack.OrmLite.Converters
         /// Gets the column definition.
         /// </summary>
         /// <value>The column definition.</value>
-        public override string ColumnDefinition => DialectProvider.GetStringConverter().MaxColumnDefinition;
+        public override string ColumnDefinition => this.DialectProvider.GetStringConverter().MaxColumnDefinition;
         /// <summary>
         /// Gets the maximum column definition.
         /// </summary>
         /// <value>The maximum column definition.</value>
-        public override string MaxColumnDefinition => DialectProvider.GetStringConverter().MaxColumnDefinition;
+        public override string MaxColumnDefinition => this.DialectProvider.GetStringConverter().MaxColumnDefinition;
 
         /// <summary>
         /// Gets the column definition.
@@ -442,7 +442,7 @@ namespace ServiceStack.OrmLite.Converters
         {
             return stringLength != null
                 ? base.GetColumnDefinition(stringLength)
-                : MaxColumnDefinition;
+                : this.MaxColumnDefinition;
         }
 
         /// <summary>
@@ -453,7 +453,7 @@ namespace ServiceStack.OrmLite.Converters
         /// <returns>System.String.</returns>
         public override string ToQuotedString(Type fieldType, object value)
         {
-            return DialectProvider.GetQuotedValue(DialectProvider.StringSerializer.SerializeToString(value));
+            return this.DialectProvider.GetQuotedValue(this.DialectProvider.StringSerializer.SerializeToString(value));
         }
 
         /// <summary>
@@ -464,7 +464,7 @@ namespace ServiceStack.OrmLite.Converters
         /// <returns>System.Object.</returns>
         public override object ToDbValue(Type fieldType, object value)
         {
-            var convertedValue = DialectProvider.StringSerializer.DeserializeFromString(value.ToString(), fieldType);
+            var convertedValue = this.DialectProvider.StringSerializer.DeserializeFromString(value.ToString(), fieldType);
             return convertedValue;
         }
 
@@ -481,7 +481,7 @@ namespace ServiceStack.OrmLite.Converters
                 return value;
             }
 
-            var convertedValue = DialectProvider.StringSerializer.DeserializeFromString(value.ToString(), fieldType);
+            var convertedValue = this.DialectProvider.StringSerializer.DeserializeFromString(value.ToString(), fieldType);
             return convertedValue;
         }
     }

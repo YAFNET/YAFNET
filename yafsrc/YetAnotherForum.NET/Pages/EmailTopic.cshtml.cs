@@ -60,7 +60,7 @@ public class EmailTopicModel : ForumPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public EmailTopicInputModel Input { get; set; }
 
     /// <summary>
     /// The on get.
@@ -92,7 +92,7 @@ public class EmailTopicModel : ForumPage
             this.GetText("EMAILTOPIC", "TITLE"),
             string.Empty);
 
-        this.Input = new InputModel();
+        this.Input = new EmailTopicInputModel();
 
         if (!this.PageBoardContext.ForumReadAccess || !this.PageBoardContext.BoardSettings.AllowEmailTopic)
         {
@@ -141,30 +141,5 @@ public class EmailTopicModel : ForumPage
             this.Get<ILogger<EmailTopicModel>>().Log(this.PageBoardContext.PageUserID, this, x);
             return this.PageBoardContext.Notify(this.GetTextFormatted("failed", x.Message), MessageTypes.danger);
         }
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        /// <summary>
-        /// Gets or sets the subject.
-        /// </summary>
-        [Required]
-        [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
-
-        /// <summary>
-        /// Gets or sets the subject.
-        /// </summary>
-        [Required]
-        public string Subject { get; set; }
-
-        /// <summary>
-        /// Gets or sets the body.
-        /// </summary>
-        [Required]
-        public string Body { get; set; }
     }
 }

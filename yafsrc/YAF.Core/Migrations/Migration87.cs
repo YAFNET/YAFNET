@@ -22,84 +22,92 @@
  * under the License.
  */
 
-namespace YAF.Core.Migrations
-{
-    using System.Threading.Tasks;
+namespace YAF.Core.Migrations;
 
-    using YAF.Core.Context;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
+using System;
+using System.Threading.Tasks;
+
+using YAF.Core.Context;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+/// Version 87 Migrations
+/// </summary>
+public class Migration87 : IRepositoryMigration, IHaveServiceLocator
+{
+    /// <summary>
+    /// Migrate Repositories (Database).
+    /// </summary>
+    /// <param name="dbAccess">
+    ///     The Database access.
+    /// </param>
+    public Task MigrateDatabaseAsync(IDbAccess dbAccess)
+    {
+        ArgumentNullException.ThrowIfNull(dbAccess);
+
+        dbAccess.Execute(
+            _ =>
+            {
+                UpgradeTable(this.GetRepository<Forum>());
+                UpgradeTable(this.GetRepository<Registry>());
+                UpgradeTable(this.GetRepository<User>());
+
+                ///////////////////////////////////////////////////////////
+
+                return true;
+            });
+
+        return Task.CompletedTask;
+    }
+
+    /// <summary>Upgrades the Forum table.</summary>
+    /// <param name="repository">The repository.</param>
+    private static void UpgradeTable(IRepository<Forum> repository)
+    {
+        ArgumentNullException.ThrowIfNull(repository);
+
+        repository.UpdateOnly(() => new Forum {RemoteURL = null}, f => f.RemoteURL == "");
+    }
+
+    /// <summary>Upgrades the Registry table.</summary>
+    /// <param name="repository">The repository.</param>
+    private static void UpgradeTable(IRepository<Registry> repository)
+    {
+        ArgumentNullException.ThrowIfNull(repository);
+
+        var entries = repository.Get(x => x.Value.Contains(".xml") && x.Name == "language");
+
+        entries.ForEach(
+            item =>
+            {
+                item.Value = item.Value.Replace(".xml", ".json");
+
+                repository.Update(item);
+            });
+    }
+
+    /// <summary>Upgrades the Registry table.</summary>
+    /// <param name="repository">The repository.</param>
+    private static void UpgradeTable(IRepository<User> repository)
+    {
+        ArgumentNullException.ThrowIfNull(repository);
+
+        var entries = repository.Get(x => x.LanguageFile.Contains(".xml"));
+
+        entries.ForEach(
+            item =>
+            {
+                item.LanguageFile = item.LanguageFile.Replace(".xml", ".json");
+
+                repository.Update(item);
+            });
+    }
 
     /// <summary>
-    /// Version 87 Migrations
+    /// Gets the ServiceLocator.
     /// </summary>
-    public class Migration87 : IRepositoryMigration, IHaveServiceLocator
-    {
-        /// <summary>
-        /// Migrate Repositories (Database).
-        /// </summary>
-        /// <param name="dbAccess">
-        ///     The Database access.
-        /// </param>
-        public Task MigrateDatabaseAsync(IDbAccess dbAccess)
-        {
-            dbAccess.Execute(
-                dbCommand =>
-                {
-                    this.UpgradeTable(this.GetRepository<Forum>());
-                    this.UpgradeTable(this.GetRepository<Registry>());
-                    this.UpgradeTable(this.GetRepository<User>());
-
-                    ///////////////////////////////////////////////////////////
-
-                    return true;
-                });
-
-            return Task.CompletedTask;
-        }
-
-        /// <summary>Upgrades the Forum table.</summary>
-        /// <param name="repository">The repository.</param>
-        private void UpgradeTable(IRepository<Forum> repository)
-        {
-            repository.UpdateOnly(() => new Forum {RemoteURL = null}, f => f.RemoteURL == "");
-        }
-
-        /// <summary>Upgrades the Registry table.</summary>
-        /// <param name="repository">The repository.</param>
-        private void UpgradeTable(IRepository<Registry> repository)
-        {
-            var entries = repository.Get(x => x.Value.Contains(".xml") && x.Name == "language");
-
-            entries.ForEach(
-                item =>
-                {
-                    item.Value = item.Value.Replace(".xml", ".json");
-
-                    repository.Update(item);
-                });
-        }
-
-        /// <summary>Upgrades the Registry table.</summary>
-        /// <param name="repository">The repository.</param>
-        private void UpgradeTable(IRepository<User> repository)
-        {
-            var entries = repository.Get(x => x.LanguageFile.Contains(".xml"));
-
-            entries.ForEach(
-                item =>
-                {
-                    item.LanguageFile = item.LanguageFile.Replace(".xml", ".json");
-
-                    repository.Update(item);
-                });
-        }
-
-        /// <summary>
-        /// Gets the ServiceLocator.
-        /// </summary>
-        /// <value>The service locator.</value>
-        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-    }
+    /// <value>The service locator.</value>
+    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 }

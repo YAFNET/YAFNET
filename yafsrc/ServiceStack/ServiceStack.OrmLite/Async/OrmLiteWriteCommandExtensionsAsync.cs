@@ -40,8 +40,10 @@ namespace ServiceStack.OrmLite
         /// <param name="sqlParams">The SQL parameters.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        static internal Task<int> ExecuteSqlAsync(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams, CancellationToken token) =>
-            dbCmd.SetParameters(sqlParams).ExecuteSqlAsync(sql, (Action<IDbCommand>)null, token);
+        static internal Task<int> ExecuteSqlAsync(this IDbCommand dbCmd, string sql, IEnumerable<IDbDataParameter> sqlParams, CancellationToken token)
+        {
+            return dbCmd.SetParameters(sqlParams).ExecuteSqlAsync(sql, (Action<IDbCommand>)null, token);
+        }
 
         /// <summary>
         /// Executes the SQL asynchronous.
@@ -65,8 +67,10 @@ namespace ServiceStack.OrmLite
         /// <param name="sql">The SQL.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        static internal Task<int> ExecuteSqlAsync(this IDbCommand dbCmd, string sql, CancellationToken token) =>
-            dbCmd.ExecuteSqlAsync(sql, (Action<IDbCommand>)null, token);
+        static internal Task<int> ExecuteSqlAsync(this IDbCommand dbCmd, string sql, CancellationToken token)
+        {
+            return dbCmd.ExecuteSqlAsync(sql, (Action<IDbCommand>)null, token);
+        }
 
         /// <summary>
         /// Executes the SQL asynchronous.
@@ -106,8 +110,10 @@ namespace ServiceStack.OrmLite
         /// <param name="anonType">Type of the anon.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        static internal Task<int> ExecuteSqlAsync(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token) =>
-            dbCmd.ExecuteSqlAsync(sql, anonType, null, token);
+        static internal Task<int> ExecuteSqlAsync(this IDbCommand dbCmd, string sql, object anonType, CancellationToken token)
+        {
+            return dbCmd.ExecuteSqlAsync(sql, anonType, null, token);
+        }
 
         /// <summary>
         /// Executes the SQL asynchronous.
@@ -253,7 +259,7 @@ namespace ServiceStack.OrmLite
 
             IDbTransaction dbTrans = null;
 
-            int count = 0;
+            var count = 0;
             dbCmd.Transaction ??= dbTrans = dbCmd.Connection.BeginTransaction();
 
             var dialectProvider = dbCmd.GetDialectProvider();
@@ -418,7 +424,7 @@ namespace ServiceStack.OrmLite
 
             IDbTransaction dbTrans = null;
 
-            int count = 0;
+            var count = 0;
             dbCmd.Transaction ??= dbTrans = dbCmd.Connection.BeginTransaction();
 
             var dialectProvider = dbCmd.GetDialectProvider();
@@ -666,16 +672,19 @@ namespace ServiceStack.OrmLite
                     ret = Convert.ToInt64(id);
                 }
 
-                if (modelDef.HasAnyReferences(obj.Keys))
+                if (!modelDef.HasAnyReferences(obj.Keys))
                 {
-                    if (pkField != null && !obj.ContainsKey(pkField.Name))
-                    {
-                        obj[pkField.Name] = ret;
-                    }
-
-                    var instance = obj.FromObjectDictionary<T>();
-                    await dbCmd.SaveAllReferencesAsync(instance, token).ConfigAwait();
+                    return ret;
                 }
+
+                if (pkField != null)
+                {
+                    obj.TryAdd(pkField.Name, ret);
+                }
+
+                var instance = obj.FromObjectDictionary<T>();
+                await dbCmd.SaveAllReferencesAsync(instance, token).ConfigAwait();
+
                 return ret;
             }
             finally
@@ -784,8 +793,11 @@ namespace ServiceStack.OrmLite
         /// <param name="commandFilter">The command filter.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task&lt;System.Int64&gt; representing the asynchronous operation.</returns>
-        async static internal Task<long> InsertIntoSelectAsync<T>(this IDbCommand dbCmd, ISqlExpression query, Action<IDbCommand> commandFilter, CancellationToken token) =>
-            OrmLiteReadCommandExtensions.ToLong(await dbCmd.InsertIntoSelectInternal<T>(query, commandFilter).ExecNonQueryAsync(token: token).ConfigAwait());
+        async static internal Task<long> InsertIntoSelectAsync<T>(this IDbCommand dbCmd, ISqlExpression query, Action<IDbCommand> commandFilter, CancellationToken token)
+        {
+            return OrmLiteReadCommandExtensions.ToLong(await dbCmd.InsertIntoSelectInternal<T>(query, commandFilter)
+                .ExecNonQueryAsync(token: token).ConfigAwait());
+        }
 
         /// <summary>
         /// Insert all as an asynchronous operation.
@@ -852,7 +864,7 @@ namespace ServiceStack.OrmLite
 
             var modelDef = typeof(T).GetModelDefinition();
             var id = modelDef.GetPrimaryKey(obj);
-            var existingRow = id != null ? await dbCmd.SingleByIdAsync<T>(id, token).ConfigAwait() : default(T);
+            var existingRow = id != null ? await dbCmd.SingleByIdAsync<T>(id, token).ConfigAwait() : default;
 
             if (Equals(existingRow, default(T)))
             {
@@ -963,8 +975,10 @@ namespace ServiceStack.OrmLite
         /// <param name="instance">The instance.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>A Task representing the asynchronous operation.</returns>
-        async static internal Task SaveAllReferencesAsync<T>(this IDbCommand dbCmd, T instance, CancellationToken token) =>
+        async static internal Task SaveAllReferencesAsync<T>(this IDbCommand dbCmd, T instance, CancellationToken token)
+        {
             await SaveAllReferences(dbCmd, ModelDefinition<T>.Definition, instance, token).ConfigAwait();
+        }
 
         /// <summary>
         /// Saves all references.
@@ -978,7 +992,7 @@ namespace ServiceStack.OrmLite
             var pkValue = modelDef.PrimaryKey.GetValue(instance);
             var fieldDefs = modelDef.ReferenceFieldDefinitionsArray;
 
-            bool updateInstance = false;
+            var updateInstance = false;
             foreach (var fieldDef in fieldDefs)
             {
                 var listInterface = fieldDef.FieldType.GetTypeWithGenericInterfaceOf(typeof(IList<>));
@@ -1090,7 +1104,7 @@ namespace ServiceStack.OrmLite
         static internal Task ExecuteProcedureAsync<T>(this IDbCommand dbCommand, T obj, CancellationToken token)
         {
             var dialectProvider = dbCommand.GetDialectProvider();
-            string sql = dialectProvider.ToExecuteProcedureStatement(obj);
+            var sql = dialectProvider.ToExecuteProcedureStatement(obj);
             dbCommand.CommandType = CommandType.StoredProcedure;
             return dbCommand.ExecuteSqlAsync(sql, token);
         }

@@ -97,7 +97,7 @@ public class PruneTopicTask : LongBackgroundTask
             this.Logger.Info(
                 $"Starting Prune Task for ForumID {this.ForumId}, {this.Days} Days, Perm Delete {this.PermDelete}.");
 
-            var count = this.GetRepository<Topic>().Prune((int)this.Data, this.ForumId, this.Days, this.PermDelete);
+            var count = this.GetRepository<Topic>().Prune((int)this.Data, this.ForumId, this.Days);
 
             this.Logger.Info($"Prune Task Complete. Pruned {count} topics.");
         }

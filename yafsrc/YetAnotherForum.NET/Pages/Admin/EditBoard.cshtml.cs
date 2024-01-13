@@ -52,7 +52,7 @@ public class EditBoardModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public EditBoardInputModel Input { get; set; }
 
     public SelectList Cultures { get; set; }
 
@@ -173,7 +173,7 @@ public class EditBoardModel : AdminPage
     /// </summary>
     public IActionResult OnGet(int b)
     {
-        this.Input = new InputModel();
+        this.Input = new EditBoardInputModel();
 
         this.Cultures = new SelectList(
             StaticDataHelper.Cultures().OrderBy(x => x.CultureNativeName),
@@ -320,27 +320,5 @@ public class EditBoardModel : AdminPage
         loadWrapper("SpamWords.xml", s => this.Get<IDataImporter>().SpamWordsImport(newBoardId, s));
 
         return newBoardId;
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public string Culture { get; set; }
-
-        public bool CreateAdminUser { get; set; }
-
-        public string UserName { get; set; }
-
-        public string UserEmail { get; set; }
-
-        public string UserPass1 { get; set; }
-
-        public string UserPass2 { get; set; }
     }
 }

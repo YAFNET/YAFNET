@@ -21,10 +21,12 @@ public static class PgSql
     /// <param name="name">The name.</param>
     /// <param name="value">The value.</param>
     /// <returns>NpgsqlParameter.</returns>
-    public static NpgsqlParameter Param<T>(string name, T value) =>
-        new(name, PostgreSqlDialect.Instance.GetDbType<T>()) {
-                                                                     Value = value
-                                                                 };
+    public static NpgsqlParameter Param<T>(string name, T value)
+    {
+        return new NpgsqlParameter(name, PostgreSqlDialect.Instance.GetDbType<T>()) {
+            Value = value
+        };
+    }
 
     /// <summary>
     /// Arrays the specified items.
@@ -32,8 +34,10 @@ public static class PgSql
     /// <typeparam name="T"></typeparam>
     /// <param name="items">The items.</param>
     /// <returns>System.String.</returns>
-    public static string Array<T>(params T[] items) =>
-        "ARRAY[" + PostgreSqlDialect.Provider.SqlSpread(items) + "]";
+    public static string Array<T>(params T[] items)
+    {
+        return "ARRAY[" + PostgreSqlDialect.Provider.SqlSpread(items) + "]";
+    }
 
     /// <summary>
     /// Arrays the specified items.
@@ -42,8 +46,10 @@ public static class PgSql
     /// <param name="items">The items.</param>
     /// <param name="nullIfEmpty">if set to <c>true</c> [null if empty].</param>
     /// <returns>System.String.</returns>
-    public static string Array<T>(T[] items, bool nullIfEmpty) => 
-        nullIfEmpty && (items == null || items.Length == 0)
+    public static string Array<T>(T[] items, bool nullIfEmpty)
+    {
+        return nullIfEmpty && (items == null || items.Length == 0)
             ? "null"
             : "ARRAY[" + PostgreSqlDialect.Provider.SqlSpread(items) + "]";
+    }
 }

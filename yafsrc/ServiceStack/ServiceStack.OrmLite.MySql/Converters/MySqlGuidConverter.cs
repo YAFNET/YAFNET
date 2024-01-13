@@ -4,7 +4,9 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 using System;
+
 using ServiceStack.OrmLite.Converters;
 
 namespace ServiceStack.OrmLite.MySql.Converters;
@@ -31,6 +33,6 @@ public class MySqlGuidConverter : GuidConverter
     public override string ToQuotedString(Type fieldType, object value)
     {
         var guid = (Guid)value;
-        return DialectProvider.GetQuotedValue(guid.ToString("d"), typeof(string));
+        return this.DialectProvider.GetQuotedValue(guid.ToString("d"), typeof(string));
     }
 }

@@ -44,7 +44,7 @@ public static partial class SqlMapper
         /// <param name="addToCache">if set to <c>true</c> [add to cache].</param>
         internal GridReader(IDbCommand command, IDataReader reader, Identity identity, IParameterCallbacks callbacks, bool addToCache)
         {
-            Command = command;
+            this.Command = command;
             this.reader = reader;
             this.identity = identity;
             this.callbacks = callbacks;
@@ -57,35 +57,50 @@ public static partial class SqlMapper
         /// <param name="buffered">Whether the results should be buffered in memory.</param>
         /// <returns>IEnumerable&lt;dynamic&gt;.</returns>
         /// <remarks>Note: each row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
-        public IEnumerable<dynamic> Read(bool buffered = true) => ReadImpl<dynamic>(typeof(DapperRow), buffered);
+        public IEnumerable<dynamic> Read(bool buffered = true)
+        {
+            return this.ReadImpl<dynamic>(typeof(DapperRow), buffered);
+        }
 
         /// <summary>
         /// Read an individual row of the next grid of results, returned as a dynamic object.
         /// </summary>
         /// <returns>dynamic.</returns>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
-        public dynamic ReadFirst() => ReadRow<dynamic>(typeof(DapperRow), Row.First);
+        public dynamic ReadFirst()
+        {
+            return this.ReadRow<dynamic>(typeof(DapperRow), Row.First);
+        }
 
         /// <summary>
         /// Read an individual row of the next grid of results, returned as a dynamic object.
         /// </summary>
         /// <returns>dynamic.</returns>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
-        public dynamic ReadFirstOrDefault() => ReadRow<dynamic>(typeof(DapperRow), Row.FirstOrDefault);
+        public dynamic ReadFirstOrDefault()
+        {
+            return this.ReadRow<dynamic>(typeof(DapperRow), Row.FirstOrDefault);
+        }
 
         /// <summary>
         /// Read an individual row of the next grid of results, returned as a dynamic object.
         /// </summary>
         /// <returns>dynamic.</returns>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
-        public dynamic ReadSingle() => ReadRow<dynamic>(typeof(DapperRow), Row.Single);
+        public dynamic ReadSingle()
+        {
+            return this.ReadRow<dynamic>(typeof(DapperRow), Row.Single);
+        }
 
         /// <summary>
         /// Read an individual row of the next grid of results, returned as a dynamic object.
         /// </summary>
         /// <returns>dynamic.</returns>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
-        public dynamic ReadSingleOrDefault() => ReadRow<dynamic>(typeof(DapperRow), Row.SingleOrDefault);
+        public dynamic ReadSingleOrDefault()
+        {
+            return this.ReadRow<dynamic>(typeof(DapperRow), Row.SingleOrDefault);
+        }
 
         /// <summary>
         /// Read the next grid of results.
@@ -93,35 +108,50 @@ public static partial class SqlMapper
         /// <typeparam name="T">The type to read.</typeparam>
         /// <param name="buffered">Whether the results should be buffered in memory.</param>
         /// <returns>IEnumerable&lt;T&gt;.</returns>
-        public IEnumerable<T> Read<T>(bool buffered = true) => ReadImpl<T>(typeof(T), buffered);
+        public IEnumerable<T> Read<T>(bool buffered = true)
+        {
+            return this.ReadImpl<T>(typeof(T), buffered);
+        }
 
         /// <summary>
         /// Read an individual row of the next grid of results.
         /// </summary>
         /// <typeparam name="T">The type to read.</typeparam>
         /// <returns>T.</returns>
-        public T ReadFirst<T>() => ReadRow<T>(typeof(T), Row.First);
+        public T ReadFirst<T>()
+        {
+            return this.ReadRow<T>(typeof(T), Row.First);
+        }
 
         /// <summary>
         /// Read an individual row of the next grid of results.
         /// </summary>
         /// <typeparam name="T">The type to read.</typeparam>
         /// <returns>T.</returns>
-        public T ReadFirstOrDefault<T>() => ReadRow<T>(typeof(T), Row.FirstOrDefault);
+        public T ReadFirstOrDefault<T>()
+        {
+            return this.ReadRow<T>(typeof(T), Row.FirstOrDefault);
+        }
 
         /// <summary>
         /// Read an individual row of the next grid of results.
         /// </summary>
         /// <typeparam name="T">The type to read.</typeparam>
         /// <returns>T.</returns>
-        public T ReadSingle<T>() => ReadRow<T>(typeof(T), Row.Single);
+        public T ReadSingle<T>()
+        {
+            return this.ReadRow<T>(typeof(T), Row.Single);
+        }
 
         /// <summary>
         /// Read an individual row of the next grid of results.
         /// </summary>
         /// <typeparam name="T">The type to read.</typeparam>
         /// <returns>T.</returns>
-        public T ReadSingleOrDefault<T>() => ReadRow<T>(typeof(T), Row.SingleOrDefault);
+        public T ReadSingleOrDefault<T>()
+        {
+            return this.ReadRow<T>(typeof(T), Row.SingleOrDefault);
+        }
 
         /// <summary>
         /// Read the next grid of results.
@@ -137,7 +167,7 @@ public static partial class SqlMapper
                 throw new ArgumentNullException(nameof(type));
             }
 
-            return ReadImpl<object>(type, buffered);
+            return this.ReadImpl<object>(type, buffered);
         }
 
         /// <summary>
@@ -153,7 +183,7 @@ public static partial class SqlMapper
                 throw new ArgumentNullException(nameof(type));
             }
 
-            return ReadRow<object>(type, Row.First);
+            return this.ReadRow<object>(type, Row.First);
         }
 
         /// <summary>
@@ -169,7 +199,7 @@ public static partial class SqlMapper
                 throw new ArgumentNullException(nameof(type));
             }
 
-            return ReadRow<object>(type, Row.FirstOrDefault);
+            return this.ReadRow<object>(type, Row.FirstOrDefault);
         }
 
         /// <summary>
@@ -185,7 +215,7 @@ public static partial class SqlMapper
                 throw new ArgumentNullException(nameof(type));
             }
 
-            return ReadRow<object>(type, Row.Single);
+            return this.ReadRow<object>(type, Row.Single);
         }
 
         /// <summary>
@@ -201,7 +231,7 @@ public static partial class SqlMapper
                 throw new ArgumentNullException(nameof(type));
             }
 
-            return ReadRow<object>(type, Row.SingleOrDefault);
+            return this.ReadRow<object>(type, Row.SingleOrDefault);
         }
 
         /// <summary>
@@ -215,28 +245,28 @@ public static partial class SqlMapper
         /// <exception cref="System.InvalidOperationException">Query results must be consumed in the correct order, and each result can only be consumed once</exception>
         private IEnumerable<T> ReadImpl<T>(Type type, bool buffered)
         {
-            if (reader == null)
+            if (this.reader == null)
             {
                 throw new ObjectDisposedException(this.GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
             }
 
-            if (IsConsumed)
+            if (this.IsConsumed)
             {
                 throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
             }
 
-            var typedIdentity = identity.ForGrid(type, gridIndex);
-            CacheInfo cache = GetCacheInfo(typedIdentity, null, addToCache);
+            var typedIdentity = this.identity.ForGrid(type, this.gridIndex);
+            var cache = GetCacheInfo(typedIdentity, null, this.addToCache);
             var deserializer = cache.Deserializer;
 
-            int hash = GetColumnHash(reader);
+            var hash = GetColumnHash(this.reader);
             if (deserializer.Func == null || deserializer.Hash != hash)
             {
-                deserializer = new DeserializerState(hash, GetDeserializer(type, reader, 0, -1, false));
+                deserializer = new DeserializerState(hash, GetDeserializer(type, this.reader, 0, -1, false));
                 cache.Deserializer = deserializer;
             }
-            IsConsumed = true;
-            var result = ReadDeferred<T>(gridIndex, deserializer.Func, type);
+            this.IsConsumed = true;
+            var result = this.ReadDeferred<T>(this.gridIndex, deserializer.Func, type);
             return buffered ? result.ToList() : result;
         }
 
@@ -251,32 +281,32 @@ public static partial class SqlMapper
         /// <exception cref="System.InvalidOperationException">Query results must be consumed in the correct order, and each result can only be consumed once</exception>
         private T ReadRow<T>(Type type, Row row)
         {
-            if (reader == null)
+            if (this.reader == null)
             {
                 throw new ObjectDisposedException(this.GetType().FullName, "The reader has been disposed; this can happen after all data has been consumed");
             }
 
-            if (IsConsumed)
+            if (this.IsConsumed)
             {
                 throw new InvalidOperationException("Query results must be consumed in the correct order, and each result can only be consumed once");
             }
 
-            IsConsumed = true;
+            this.IsConsumed = true;
 
-            T result = default(T);
-            if (reader.Read() && reader.FieldCount != 0)
+            var result = default(T);
+            if (this.reader.Read() && this.reader.FieldCount != 0)
             {
-                var typedIdentity = identity.ForGrid(type, gridIndex);
-                CacheInfo cache = GetCacheInfo(typedIdentity, null, addToCache);
+                var typedIdentity = this.identity.ForGrid(type, this.gridIndex);
+                var cache = GetCacheInfo(typedIdentity, null, this.addToCache);
                 var deserializer = cache.Deserializer;
 
-                int hash = GetColumnHash(reader);
+                var hash = GetColumnHash(this.reader);
                 if (deserializer.Func == null || deserializer.Hash != hash)
                 {
-                    deserializer = new DeserializerState(hash, GetDeserializer(type, reader, 0, -1, false));
+                    deserializer = new DeserializerState(hash, GetDeserializer(type, this.reader, 0, -1, false));
                     cache.Deserializer = deserializer;
                 }
-                object val = deserializer.Func(reader);
+                var val = deserializer.Func(this.reader);
                 if (val == null || val is T)
                 {
                     result = (T)val;
@@ -286,18 +316,18 @@ public static partial class SqlMapper
                     var convertToType = Nullable.GetUnderlyingType(type) ?? type;
                     result = (T)Convert.ChangeType(val, convertToType, CultureInfo.InvariantCulture);
                 }
-                if ((row & Row.Single) != 0 && reader.Read())
+                if ((row & Row.Single) != 0 && this.reader.Read())
                 {
                     ThrowMultipleRows(row);
                 }
 
-                while (reader.Read()) { /* ignore subsequent rows */ }
+                while (this.reader.Read()) { /* ignore subsequent rows */ }
             }
             else if ((row & Row.FirstOrDefault) == 0) // demanding a row, and don't have one
             {
                 ThrowZeroRows(row);
             }
-            NextResult();
+            this.NextResult();
             return result;
         }
 
@@ -317,20 +347,20 @@ public static partial class SqlMapper
         /// <returns>IEnumerable&lt;TReturn&gt;.</returns>
         private IEnumerable<TReturn> MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(Delegate func, string splitOn)
         {
-            var identity = this.identity.ForGrid<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh>(typeof(TReturn), gridIndex);
+            var identity = this.identity.ForGrid<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh>(typeof(TReturn), this.gridIndex);
 
-            IsConsumed = true;
+            this.IsConsumed = true;
 
             try
             {
-                foreach (var r in MultiMapImpl<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(null, default(CommandDefinition), func, splitOn, reader, identity, false))
+                foreach (var r in MultiMapImpl<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(null, default(CommandDefinition), func, splitOn, this.reader, identity, false))
                 {
                     yield return r;
                 }
             }
             finally
             {
-                NextResult();
+                this.NextResult();
             }
         }
 
@@ -344,17 +374,17 @@ public static partial class SqlMapper
         /// <returns>IEnumerable&lt;TReturn&gt;.</returns>
         private IEnumerable<TReturn> MultiReadInternal<TReturn>(Type[] types, Func<object[], TReturn> map, string splitOn)
         {
-            var identity = this.identity.ForGrid(typeof(TReturn), types, gridIndex);
+            var identity = this.identity.ForGrid(typeof(TReturn), types, this.gridIndex);
             try
             {
-                foreach (var r in MultiMapImpl<TReturn>(null, default(CommandDefinition), types, map, splitOn, reader, identity, false))
+                foreach (var r in MultiMapImpl<TReturn>(null, default(CommandDefinition), types, map, splitOn, this.reader, identity, false))
                 {
                     yield return r;
                 }
             }
             finally
             {
-                NextResult();
+                this.NextResult();
             }
         }
 
@@ -370,7 +400,7 @@ public static partial class SqlMapper
         /// <returns>IEnumerable&lt;TReturn&gt;.</returns>
         public IEnumerable<TReturn> Read<TFirst, TSecond, TReturn>(Func<TFirst, TSecond, TReturn> func, string splitOn = "id", bool buffered = true)
         {
-            var result = MultiReadInternal<TFirst, TSecond, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(func, splitOn);
+            var result = this.MultiReadInternal<TFirst, TSecond, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(func, splitOn);
             return buffered ? result.ToList() : result;
         }
 
@@ -387,7 +417,7 @@ public static partial class SqlMapper
         /// <returns>IEnumerable&lt;TReturn&gt;.</returns>
         public IEnumerable<TReturn> Read<TFirst, TSecond, TThird, TReturn>(Func<TFirst, TSecond, TThird, TReturn> func, string splitOn = "id", bool buffered = true)
         {
-            var result = MultiReadInternal<TFirst, TSecond, TThird, DontMap, DontMap, DontMap, DontMap, TReturn>(func, splitOn);
+            var result = this.MultiReadInternal<TFirst, TSecond, TThird, DontMap, DontMap, DontMap, DontMap, TReturn>(func, splitOn);
             return buffered ? result.ToList() : result;
         }
 
@@ -405,7 +435,7 @@ public static partial class SqlMapper
         /// <returns>IEnumerable&lt;TReturn&gt;.</returns>
         public IEnumerable<TReturn> Read<TFirst, TSecond, TThird, TFourth, TReturn>(Func<TFirst, TSecond, TThird, TFourth, TReturn> func, string splitOn = "id", bool buffered = true)
         {
-            var result = MultiReadInternal<TFirst, TSecond, TThird, TFourth, DontMap, DontMap, DontMap, TReturn>(func, splitOn);
+            var result = this.MultiReadInternal<TFirst, TSecond, TThird, TFourth, DontMap, DontMap, DontMap, TReturn>(func, splitOn);
             return buffered ? result.ToList() : result;
         }
 
@@ -424,7 +454,7 @@ public static partial class SqlMapper
         /// <returns>IEnumerable&lt;TReturn&gt;.</returns>
         public IEnumerable<TReturn> Read<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> func, string splitOn = "id", bool buffered = true)
         {
-            var result = MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, DontMap, DontMap, TReturn>(func, splitOn);
+            var result = this.MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, DontMap, DontMap, TReturn>(func, splitOn);
             return buffered ? result.ToList() : result;
         }
 
@@ -444,7 +474,7 @@ public static partial class SqlMapper
         /// <returns>IEnumerable&lt;TReturn&gt;.</returns>
         public IEnumerable<TReturn> Read<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> func, string splitOn = "id", bool buffered = true)
         {
-            var result = MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, DontMap, TReturn>(func, splitOn);
+            var result = this.MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, DontMap, TReturn>(func, splitOn);
             return buffered ? result.ToList() : result;
         }
 
@@ -465,7 +495,7 @@ public static partial class SqlMapper
         /// <returns>IEnumerable&lt;TReturn&gt;.</returns>
         public IEnumerable<TReturn> Read<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> func, string splitOn = "id", bool buffered = true)
         {
-            var result = MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(func, splitOn);
+            var result = this.MultiReadInternal<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(func, splitOn);
             return buffered ? result.ToList() : result;
         }
 
@@ -480,7 +510,7 @@ public static partial class SqlMapper
         /// <returns>IEnumerable&lt;TReturn&gt;.</returns>
         public IEnumerable<TReturn> Read<TReturn>(Type[] types, Func<object[], TReturn> map, string splitOn = "id", bool buffered = true)
         {
-            var result = MultiReadInternal(types, map, splitOn);
+            var result = this.MultiReadInternal(types, map, splitOn);
             return buffered ? result.ToList() : result;
         }
 
@@ -497,9 +527,9 @@ public static partial class SqlMapper
             try
             {
                 var convertToType = Nullable.GetUnderlyingType(effectiveType) ?? effectiveType;
-                while (index == gridIndex && reader.Read())
+                while (index == this.gridIndex && this.reader.Read())
                 {
-                    object val = deserializer(reader);
+                    var val = deserializer(this.reader);
                     if (val == null || val is T)
                     {
                         yield return (T)val;
@@ -512,9 +542,9 @@ public static partial class SqlMapper
             }
             finally // finally so that First etc progresses things even when multiple rows
             {
-                if (index == gridIndex)
+                if (index == this.gridIndex)
                 {
-                    NextResult();
+                    this.NextResult();
                 }
             }
         }
@@ -545,20 +575,20 @@ public static partial class SqlMapper
         /// </summary>
         private void NextResult()
         {
-            if (reader.NextResult())
+            if (this.reader.NextResult())
             {
-                readCount++;
-                gridIndex++;
-                IsConsumed = false;
+                this.readCount++;
+                this.gridIndex++;
+                this.IsConsumed = false;
             }
             else
             {
                 // happy path; close the reader cleanly - no
                 // need for "Cancel" etc
-                reader.Dispose();
-                reader = null;
-                callbacks?.OnCompleted();
-                Dispose();
+                this.reader.Dispose();
+                this.reader = null;
+                this.callbacks?.OnCompleted();
+                this.Dispose();
             }
         }
 
@@ -567,20 +597,20 @@ public static partial class SqlMapper
         /// </summary>
         public void Dispose()
         {
-            if (reader != null)
+            if (this.reader != null)
             {
-                if (!reader.IsClosed)
+                if (!this.reader.IsClosed)
                 {
                     this.Command?.Cancel();
                 }
 
-                reader.Dispose();
-                reader = null;
+                this.reader.Dispose();
+                this.reader = null;
             }
-            if (Command != null)
+            if (this.Command != null)
             {
-                Command.Dispose();
-                Command = null;
+                this.Command.Dispose();
+                this.Command = null;
             }
         }
     }

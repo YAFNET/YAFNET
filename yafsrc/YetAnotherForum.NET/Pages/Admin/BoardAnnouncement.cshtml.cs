@@ -43,7 +43,7 @@ public class BoardAnnouncementModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public BoardAnnouncementInputModel Input { get; set; }
 
     /// <summary>
     /// Gets or sets the until units.
@@ -79,7 +79,7 @@ public class BoardAnnouncementModel : AdminPage
     /// </summary>
     public  void OnGet()
     {
-        this.Input = new InputModel();
+        this.Input = new BoardAnnouncementInputModel();
         this.BindData();
     }
 
@@ -172,35 +172,5 @@ public class BoardAnnouncementModel : AdminPage
 
         this.Input.BoardAnnouncementType = boardSettings.BoardAnnouncementType;
         this.Input.Message = boardSettings.BoardAnnouncement;
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        /// <summary>
-        /// Gets or sets the message.
-        /// </summary>
-        /// <value>The message.</value>
-        public string Message { get; set; }
-
-        /// <summary>
-        /// Gets or sets the type of the board announcement.
-        /// </summary>
-        /// <value>The type of the board announcement.</value>
-        public string BoardAnnouncementType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the board announcement until.
-        /// </summary>
-        /// <value>The board announcement until.</value>
-        public int BoardAnnouncementUntil { get; set; }
-
-        /// <summary>
-        /// Gets or sets the board announcement until unit.
-        /// </summary>
-        /// <value>The board announcement until unit.</value>
-        public int BoardAnnouncementUntilUnit { get; set; }
     }
 }

@@ -425,12 +425,18 @@ public static class OrmLiteSchemaApi
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="dbConn">The database connection.</param>
-    public static void Migrate<T>(this IDbConnection dbConn) => dbConn.Migrate(typeof(T));
+    public static void Migrate<T>(this IDbConnection dbConn)
+    {
+        dbConn.Migrate(typeof(T));
+    }
 
     /// <summary>
     /// Apply schema changes by Migrate in reverse to revert changes
     /// </summary>
     /// <typeparam name="T"></typeparam>
     /// <param name="dbConn">The database connection.</param>
-    public static void Revert<T>(this IDbConnection dbConn) => dbConn.Revert(typeof(T));
+    public static void Revert<T>(this IDbConnection dbConn)
+    {
+        dbConn.Revert(typeof(T));
+    }
 }

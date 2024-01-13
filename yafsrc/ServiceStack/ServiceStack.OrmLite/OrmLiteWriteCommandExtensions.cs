@@ -696,7 +696,7 @@ public static class OrmLiteWriteCommandExtensions
 
         IDbTransaction dbTrans = null;
 
-        int count = 0;
+        var count = 0;
         try
         {
             if (dbCmd.Transaction == null)
@@ -861,7 +861,7 @@ public static class OrmLiteWriteCommandExtensions
 
         IDbTransaction dbTrans = null;
 
-        int count = 0;
+        var count = 0;
         try
         {
             if (dbCmd.Transaction == null)
@@ -1323,8 +1323,10 @@ public static class OrmLiteWriteCommandExtensions
     /// <param name="query">The query.</param>
     /// <param name="commandFilter">The command filter.</param>
     /// <returns>System.Int64.</returns>
-    static internal long InsertIntoSelect<T>(this IDbCommand dbCmd, ISqlExpression query, Action<IDbCommand> commandFilter) =>
-        dbCmd.InsertIntoSelectInternal<T>(query, commandFilter).ExecNonQuery();
+    static internal long InsertIntoSelect<T>(this IDbCommand dbCmd, ISqlExpression query, Action<IDbCommand> commandFilter)
+    {
+        return dbCmd.InsertIntoSelectInternal<T>(query, commandFilter).ExecNonQuery();
+    }
 
     /// <summary>
     /// Inserts the into select internal.
@@ -1600,8 +1602,10 @@ public static class OrmLiteWriteCommandExtensions
     /// <typeparam name="T"></typeparam>
     /// <param name="dbCmd">The database command.</param>
     /// <param name="instance">The instance.</param>
-    static internal void SaveAllReferences<T>(this IDbCommand dbCmd, T instance) =>
+    static internal void SaveAllReferences<T>(this IDbCommand dbCmd, T instance)
+    {
         SaveAllReferences(dbCmd, ModelDefinition<T>.Definition, instance);
+    }
 
     /// <summary>
     /// Saves all references.
@@ -1614,7 +1618,7 @@ public static class OrmLiteWriteCommandExtensions
         var pkValue = modelDef.PrimaryKey.GetValue(instance);
         var fieldDefs = modelDef.ReferenceFieldDefinitionsArray;
 
-        bool updateInstance = false;
+        var updateInstance = false;
         foreach (var fieldDef in fieldDefs)
         {
             var listInterface = fieldDef.FieldType.GetTypeWithGenericInterfaceOf(typeof(IList<>));

@@ -24,8 +24,6 @@
 
 namespace YAF.Pages.Account;
 
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -42,8 +40,6 @@ using YAF.Types.Interfaces.Events;
 using YAF.Types.Interfaces.Identity;
 using YAF.Types.Models;
 using YAF.Types.Models.Identity;
-
-using DataType = System.ComponentModel.DataAnnotations.DataType;
 
 /// <summary>
 /// The User Register Page.
@@ -74,13 +70,13 @@ public class RegisterModel : AccountPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public RegisterInputModel Input { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether the user is possible spam-bot.
+    /// Gets or sets a value indicating whether the user is possible spam bot.
     /// </summary>
     /// <value>
-    /// <c>true</c> if the user is possible spam-bot; otherwise, <c>false</c>.
+    /// <c>true</c> if the user is possible spam bot; otherwise, <c>false</c>.
     /// </value>
     private bool IsPossibleSpamBot { get; set; }
 
@@ -97,7 +93,7 @@ public class RegisterModel : AccountPage
     /// </summary>
     public async Task<IActionResult> OnGetAsync()
     {
-        this.Input = new InputModel();
+        this.Input = new RegisterInputModel();
 
         if (this.PageBoardContext.BoardSettings.DisableRegistrations)
         {
@@ -198,7 +194,7 @@ public class RegisterModel : AccountPage
     }
 
     /// <summary>
-    /// Validate user for user name and or display name, captcha and spam
+    /// Validate user for username and or display name, captcha and spam
     /// </summary>
     /// <returns>
     /// The <see cref="bool"/>.
@@ -427,48 +423,5 @@ public class RegisterModel : AccountPage
                     }
                 }
             });
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        /// <summary>
-        /// Gets or sets the email.
-        /// </summary>
-        [Required]
-        [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
-
-        /// <summary>
-        /// Gets or sets the user name.
-        /// </summary>
-        [Required]
-        public string UserName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the display name.
-        /// </summary>
-        public string DisplayName { get; set; }
-
-        /// <summary>
-        /// Gets or sets the password.
-        /// </summary>
-        [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-
-        /// <summary>
-        /// Gets or sets the confirm password.
-        /// </summary>
-        [Required]
-        [DataType(DataType.Password)]
-        public string ConfirmPassword { get; set; }
-
-        /// <summary>
-        /// Gets or sets the custom profile.
-        /// </summary>
-        public List<ProfileDefinition> CustomProfile { get; set; }
     }
 }

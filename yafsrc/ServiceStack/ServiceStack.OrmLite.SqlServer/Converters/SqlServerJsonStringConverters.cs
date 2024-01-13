@@ -56,6 +56,4 @@ public class SqlServerJsonStringConverter : SqlServerStringConverter
 /// </summary>
 /// <seealso cref="System.Attribute" />
 [AttributeUsage(AttributeTargets.Class)]
-public class SqlJsonAttribute : Attribute
-{
-}
+public class SqlJsonAttribute : Attribute;

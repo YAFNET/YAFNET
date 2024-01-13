@@ -66,7 +66,7 @@ public class PostgreSqlStringArrayConverter : ReferenceTypeConverter
     {
         return stringLength != null
                    ? base.GetColumnDefinition(stringLength)
-                   : ColumnDefinition;
+                   : this.ColumnDefinition;
     }
 
     /// <summary>
@@ -91,7 +91,7 @@ public class PostgreSqlStringArrayConverter : ReferenceTypeConverter
     {
         return fieldType == typeof(string[])
                    ? value
-                   : DialectProvider.StringSerializer.SerializeToString(value);
+                   : this.DialectProvider.StringSerializer.SerializeToString(value);
     }
 
     /// <summary>
@@ -246,7 +246,6 @@ public class PostgreSqlDateTimeOffsetTimeStampTzArrayConverter : PostgreSqlArray
     public override string ColumnDefinition => "timestamp with time zone[]";
 }
 
-
 /// <summary>
 /// Class PostgreSqlConverterExtensions.
 /// </summary>
@@ -262,14 +261,21 @@ public static class PostgreSqlConverterExtensions
     {
         var byteArray = (byte[])NativeData;
         var res = StringBuilderCache.Allocate();
-        foreach (byte b in byteArray)
+        foreach (var b in byteArray)
+        {
             if (b is >= 0x20 and < 0x7F && b != 0x27 && b != 0x5C)
+            {
                 res.Append((char)b);
+            }
             else
+            {
                 res.Append("\\\\")
                     .Append((char)('0' + (7 & (b >> 6))))
                     .Append((char)('0' + (7 & (b >> 3))))
                     .Append((char)('0' + (7 & b)));
+            }
+        }
+
         return StringBuilderCache.ReturnAndFree(res);
     }
 
@@ -285,9 +291,14 @@ public static class PostgreSqlConverterExtensions
         var values = StringBuilderCache.Allocate();
         foreach (var value in source)
         {
-            if (values.Length > 0) values.Append(",");
+            if (values.Length > 0)
+            {
+                values.Append(',');
+            }
+
             values.Append(converter.DialectProvider.GetQuotedValue(value, typeof(T)));
         }
+
         return "{" + StringBuilderCache.ReturnAndFree(values) + "}";
     }
 }

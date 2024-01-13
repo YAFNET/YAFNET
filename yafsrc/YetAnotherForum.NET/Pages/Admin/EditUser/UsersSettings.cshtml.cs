@@ -54,7 +54,7 @@ public class UsersSettingsModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public UsersSettingsInputModel Input { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="UsersSettingsModel"/> class.
@@ -96,8 +96,8 @@ public class UsersSettingsModel : AdminPage
             return this.Get<LinkBuilder>().AccessDenied();
         }
 
-        this.Input = new InputModel
-                     {
+        this.Input = new UsersSettingsInputModel
+        {
                          UserId = userId
                      };
 
@@ -307,50 +307,5 @@ public class UsersSettingsModel : AdminPage
         // Get first default full culture from a language file tag.
         var langFileCulture = StaticDataHelper.CultureDefaultFromFile(languageFile);
         return langFileCulture[..2] == culture4Tag[..2] ? culture4Tag : langFileCulture;
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public int UserId { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether activity.
-        /// </summary>
-        public bool Activity { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether hide me.
-        /// </summary>
-        public bool HideMe { get; set; }
-
-        /// <summary>
-        /// Gets or sets the time zone.
-        /// </summary>
-        public string TimeZone { get; set; }
-
-        /// <summary>
-        /// Gets or sets the theme.
-        /// </summary>
-        public string Theme { get; set; }
-
-        /// <summary>
-        /// Gets or sets the theme.
-        /// </summary>
-        public int ThemeMode { get; set; }
-
-        /// <summary>
-        /// Gets or sets the language.
-        /// </summary>
-        public string Language { get; set; }
-
-        /// <summary>
-        /// Gets or sets the email.
-        /// </summary>
-        public string Email { get; set; }
-
-        public int Size { get; set; }
     }
 }

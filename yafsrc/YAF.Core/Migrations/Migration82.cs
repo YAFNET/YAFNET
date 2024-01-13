@@ -22,92 +22,94 @@
  * under the License.
  */
 
-namespace YAF.Core.Migrations
+using System;
+
+namespace YAF.Core.Migrations;
+
+using ServiceStack.OrmLite;
+
+using System.Data;
+using System.Threading.Tasks;
+
+using YAF.Core.Context;
+using YAF.Core.Extensions;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+/// Version 82 Migrations
+/// </summary>
+public class Migration82 : IRepositoryMigration, IHaveServiceLocator
 {
-    using ServiceStack.OrmLite;
+    /// <summary>
+    /// Migrate Repositories (Database).
+    /// </summary>
+    /// <param name="dbAccess">
+    ///     The Database access.
+    /// </param>
+    public Task MigrateDatabaseAsync(IDbAccess dbAccess)
+    {
+        dbAccess.Execute(
+            dbCommand =>
+            {
+                UpgradeTable(this.GetRepository<ActiveAccess>(), dbCommand);
+                UpgradeTable(this.GetRepository<Group>());
 
-    using System.Data;
-    using System.Threading.Tasks;
+                ///////////////////////////////////////////////////////////
 
-    using YAF.Core.Context;
-    using YAF.Core.Extensions;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
+                if (dbCommand.Connection.TableExists("FavoriteTopic"))
+                {
+                    dbCommand.Connection.DropTable("FavoriteTopic");
+                }
+
+                return true;
+            });
+
+        return Task.CompletedTask;
+    }
+
+    /// <summary>Upgrades the Active Access table.</summary>
+    /// <param name="repository">The repository.</param>
+    /// <param name="dbCommand">The database command.</param>
+    private static void UpgradeTable(IRepository<ActiveAccess> repository, IDbCommand dbCommand)
+    {
+        ArgumentNullException.ThrowIfNull(repository);
+
+        if (dbCommand.Connection.ColumnExists<ActiveAccess>("DownloadAccess"))
+        {
+            dbCommand.Connection.DropColumn<ActiveAccess>("DownloadAccess");
+        }
+
+        if (dbCommand.Connection.ColumnExists<ActiveAccess>("UploadAccess"))
+        {
+            dbCommand.Connection.DropColumn<ActiveAccess>("UploadAccess");
+        }
+    }
+
+    /// <summary>Upgrades the Group table.</summary>
+    /// <param name="repository">The repository.</param>
+    private static void UpgradeTable(IRepository<Group> repository)
+    {
+        ArgumentNullException.ThrowIfNull(repository);
+
+        repository.Get(g => (g.Flags & 1) == 1).ForEach(
+            group =>
+            {
+                var flags = group.GroupFlags;
+
+                flags.AllowDownload = true;
+                flags.AllowUpload = true;
+
+                repository.UpdateOnly(
+                    () => new Group { Flags = flags.BitValue },
+                    g => g.ID == group.ID);
+            });
+    }
 
     /// <summary>
-    /// Version 82 Migrations
+    /// Gets ServiceLocator.
     /// </summary>
-    public class Migration82 : IRepositoryMigration, IHaveServiceLocator
-    {
-        /// <summary>
-        /// Migrate Repositories (Database).
-        /// </summary>
-        /// <param name="dbAccess">
-        ///     The Database access.
-        /// </param>
-        public Task MigrateDatabaseAsync(IDbAccess dbAccess)
-        {
-            dbAccess.Execute(
-                dbCommand =>
-                {
-                    this.UpgradeTable(this.GetRepository<ActiveAccess>(), dbAccess, dbCommand);
-                    this.UpgradeTable(this.GetRepository<Group>(), dbAccess, dbCommand);
-
-                    ///////////////////////////////////////////////////////////
-
-                    if (dbCommand.Connection.TableExists("FavoriteTopic"))
-                    {
-                        dbCommand.Connection.DropTable("FavoriteTopic");
-                    }
-
-                    return true;
-                });
-
-            return Task.CompletedTask;
-        }
-
-        /// <summary>Upgrades the Active Access table.</summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="dbAccess">The database access.</param>
-        /// <param name="dbCommand">The database command.</param>
-        private void UpgradeTable(IRepository<ActiveAccess> repository, IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            if (dbCommand.Connection.ColumnExists<ActiveAccess>("DownloadAccess"))
-            {
-                dbCommand.Connection.DropColumn<ActiveAccess>("DownloadAccess");
-            }
-
-            if (dbCommand.Connection.ColumnExists<ActiveAccess>("UploadAccess"))
-            {
-                dbCommand.Connection.DropColumn<ActiveAccess>("UploadAccess");
-            }
-        }
-
-        /// <summary>Upgrades the Group table.</summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="dbAccess">The database access.</param>
-        /// <param name="dbCommand">The database command.</param>
-        private void UpgradeTable(IRepository<Group> repository, IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            repository.Get(g => (g.Flags & 1) == 1).ForEach(
-                group =>
-                    {
-                        var flags = group.GroupFlags;
-
-                        flags.AllowDownload = true;
-                        flags.AllowUpload = true;
-
-                        repository.UpdateOnly(
-                            () => new Group { Flags = flags.BitValue },
-                            g => g.ID == group.ID);
-                    });
-        }
-
-        /// <summary>
-        /// Gets ServiceLocator.
-        /// </summary>
-        /// <value>The service locator.</value>
-        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
-    }
+    /// <value>The service locator.</value>
+    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 }

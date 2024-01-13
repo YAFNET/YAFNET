@@ -14,6 +14,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Common;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -42,7 +43,10 @@ namespace ServiceStack.OrmLite.Dapper
             /// <param name="x">The x.</param>
             /// <param name="y">The y.</param>
             /// <returns>int.</returns>
-            public int Compare(PropertyInfo x, PropertyInfo y) => string.CompareOrdinal(x.Name, y.Name);
+            public int Compare(PropertyInfo x, PropertyInfo y)
+            {
+                return string.CompareOrdinal(x.Name, y.Name);
+            }
         }
 
         /// <summary>
@@ -56,9 +60,9 @@ namespace ServiceStack.OrmLite.Dapper
         {
             unchecked
             {
-                int max = length < 0 ? reader.FieldCount : startBound + length;
-                int hash = -37 * startBound + max;
-                for (int i = startBound; i < max; i++)
+                var max = length < 0 ? reader.FieldCount : startBound + length;
+                var hash = -37 * startBound + max;
+                for (var i = startBound; i < max; i++)
                 {
                     object tmp = reader.GetName(i);
                     hash = -79 * (hash * 31 + (tmp?.GetHashCode() ?? 0)) + (reader.GetFieldType(i)?.GetHashCode() ?? 0);
@@ -109,7 +113,7 @@ namespace ServiceStack.OrmLite.Dapper
                 {
                     if (pair.Value.GetHitCount() <= COLLECT_HIT_COUNT_MIN)
                     {
-                        _queryCache.TryRemove(pair.Key, out CacheInfo cache);
+                        _queryCache.TryRemove(pair.Key, out _);
                     }
                 }
             }
@@ -165,7 +169,7 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 if (entry.Key.type == type)
                 {
-                    _queryCache.TryRemove(entry.Key, out CacheInfo cache);
+                    _queryCache.TryRemove(entry.Key, out _);
                 }
             }
             TypeDeserializerCache.Purge(type);
@@ -202,7 +206,7 @@ namespace ServiceStack.OrmLite.Dapper
             var counts = new Dictionary<int, int>();
             foreach (var key in _queryCache.Keys)
             {
-                if (!counts.TryGetValue(key.hashCode, out int count))
+                if (!counts.TryGetValue(key.hashCode, out var count))
                 {
                     counts.Add(key.hashCode, 1);
                 }
@@ -272,7 +276,10 @@ namespace ServiceStack.OrmLite.Dapper
         /// <summary>
         /// Clear the registered type handlers.
         /// </summary>
-        public static void ResetTypeHandlers() => ResetTypeHandlers(true);
+        public static void ResetTypeHandlers()
+        {
+            ResetTypeHandlers(true);
+        }
 
         /// <summary>
         /// Resets the type handlers.
@@ -297,7 +304,7 @@ namespace ServiceStack.OrmLite.Dapper
             // use clone, mutate, replace to avoid threading issues
             var snapshot = typeMap;
 
-            if (snapshot.TryGetValue(type, out DbType oldValue) && oldValue == dbType)
+            if (snapshot.TryGetValue(type, out var oldValue) && oldValue == dbType)
             {
                 return; // nothing to do
             }
@@ -330,14 +337,20 @@ namespace ServiceStack.OrmLite.Dapper
         /// </summary>
         /// <param name="type">The type to handle.</param>
         /// <param name="handler">The handler to process the <paramref name="type" />.</param>
-        public static void AddTypeHandler(Type type, ITypeHandler handler) => AddTypeHandlerImpl(type, handler, true);
+        public static void AddTypeHandler(Type type, ITypeHandler handler)
+        {
+            AddTypeHandlerImpl(type, handler, true);
+        }
 
         /// <summary>
         /// Determines whether [has type handler] [the specified type].
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns>bool.</returns>
-        static internal bool HasTypeHandler(Type type) => typeHandlers.ContainsKey(type);
+        static internal bool HasTypeHandler(Type type)
+        {
+            return typeHandlers.ContainsKey(type);
+        }
 
         /// <summary>
         /// Configure the specified type to be processed by a custom handler.
@@ -348,10 +361,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <exception cref="ArgumentNullException">nameof(type)</exception>
         public static void AddTypeHandlerImpl(Type type, ITypeHandler handler, bool clone)
         {
-            if (type == null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
+            ArgumentNullException.ThrowIfNull(type);
 
             Type secondary = null;
             if (type.IsValueType)
@@ -370,7 +380,7 @@ namespace ServiceStack.OrmLite.Dapper
             }
 
             var snapshot = typeHandlers;
-            if (snapshot.TryGetValue(type, out ITypeHandler oldValue) && handler == oldValue)
+            if (snapshot.TryGetValue(type, out var oldValue) && handler == oldValue)
             {
                 return; // nothing to do
             }
@@ -410,7 +420,10 @@ namespace ServiceStack.OrmLite.Dapper
         /// </summary>
         /// <typeparam name="T">The type to handle.</typeparam>
         /// <param name="handler">The handler for the type <typeparamref name="T" />.</param>
-        public static void AddTypeHandler<T>(TypeHandler<T> handler) => AddTypeHandlerImpl(typeof(T), handler, true);
+        public static void AddTypeHandler<T>(TypeHandler<T> handler)
+        {
+            AddTypeHandlerImpl(typeof(T), handler, true);
+        }
 
         /// <summary>
         /// The type handlers
@@ -442,7 +455,7 @@ namespace ServiceStack.OrmLite.Dapper
                 return DbType.Object;
             }
 
-            return LookupDbType(value.GetType(), "n/a", false, out ITypeHandler handler);
+            return LookupDbType(value.GetType(), "n/a", false, out _);
         }
 
         /// <summary>
@@ -471,7 +484,7 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 type = Enum.GetUnderlyingType(type);
             }
-            if (typeMap.TryGetValue(type, out DbType dbType))
+            if (typeMap.TryGetValue(type, out var dbType))
             {
                 return dbType;
             }
@@ -537,8 +550,10 @@ namespace ServiceStack.OrmLite.Dapper
         /// <typeparam name="T">The type of element in the list.</typeparam>
         /// <param name="source">The enumerable to return as a list.</param>
         /// <returns>System.Collections.Generic.List&lt;T&gt;.</returns>
-        public static List<T> AsList<T>(this IEnumerable<T> source) =>
-            source == null || source is List<T> ? (List<T>)source : source.ToList();
+        public static List<T> AsList<T>(this IEnumerable<T> source)
+        {
+            return source == null || source is List<T> ? (List<T>)source : source.ToList();
+        }
 
         /// <summary>
         /// Execute parameterized SQL.
@@ -562,7 +577,10 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="cnn">The connection to execute on.</param>
         /// <param name="command">The command to execute on this connection.</param>
         /// <returns>The number of rows affected.</returns>
-        public static int Execute(this IDbConnection cnn, CommandDefinition command) => ExecuteImpl(cnn, ref command);
+        public static int Execute(this IDbConnection cnn, CommandDefinition command)
+        {
+            return ExecuteImpl(cnn, ref command);
+        }
 
         /// <summary>
         /// Execute parameterized SQL that selects a single value.
@@ -603,8 +621,10 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="cnn">The connection to execute on.</param>
         /// <param name="command">The command to execute.</param>
         /// <returns>The first cell selected as <see cref="object" />.</returns>
-        public static object ExecuteScalar(this IDbConnection cnn, CommandDefinition command) =>
-            ExecuteScalarImpl<object>(cnn, ref command);
+        public static object ExecuteScalar(this IDbConnection cnn, CommandDefinition command)
+        {
+            return ExecuteScalarImpl<object>(cnn, ref command);
+        }
 
         /// <summary>
         /// Execute parameterized SQL that selects a single value.
@@ -613,8 +633,10 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="cnn">The connection to execute on.</param>
         /// <param name="command">The command to execute.</param>
         /// <returns>The first cell selected as <typeparamref name="T" />.</returns>
-        public static T ExecuteScalar<T>(this IDbConnection cnn, CommandDefinition command) =>
-            ExecuteScalarImpl<T>(cnn, ref command);
+        public static T ExecuteScalar<T>(this IDbConnection cnn, CommandDefinition command)
+        {
+            return ExecuteScalarImpl<T>(cnn, ref command);
+        }
 
         /// <summary>
         /// Gets the multi execute.
@@ -637,8 +659,8 @@ namespace ServiceStack.OrmLite.Dapper
         /// <returns>int.</returns>
         private static int ExecuteImpl(this IDbConnection cnn, ref CommandDefinition command)
         {
-            object param = command.Parameters;
-            IEnumerable multiExec = GetMultiExec(param);
+            var param = command.Parameters;
+            var multiExec = GetMultiExec(param);
             Identity identity;
             CacheInfo info = null;
             if (multiExec != null)
@@ -648,9 +670,9 @@ namespace ServiceStack.OrmLite.Dapper
                     // this includes all the code for concurrent/overlapped query
                     return ExecuteMultiImplAsync(cnn, command, multiExec).Result;
                 }
-                bool isFirst = true;
-                int total = 0;
-                bool wasClosed = cnn.State == ConnectionState.Closed;
+                var isFirst = true;
+                var total = 0;
+                var wasClosed = cnn.State == ConnectionState.Closed;
                 try
                 {
                     if (wasClosed)
@@ -724,7 +746,7 @@ namespace ServiceStack.OrmLite.Dapper
         public static IDataReader ExecuteReader(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
             var command = new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.Buffered);
-            var reader = ExecuteReaderImpl(cnn, ref command, CommandBehavior.Default, out IDbCommand dbcmd);
+            var reader = ExecuteReaderImpl(cnn, ref command, CommandBehavior.Default, out var dbcmd);
             return WrappedReader.Create(dbcmd, reader);
         }
 
@@ -738,7 +760,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// or <see cref="T:DataSet" />.</remarks>
         public static IDataReader ExecuteReader(this IDbConnection cnn, CommandDefinition command)
         {
-            var reader = ExecuteReaderImpl(cnn, ref command, CommandBehavior.Default, out IDbCommand dbcmd);
+            var reader = ExecuteReaderImpl(cnn, ref command, CommandBehavior.Default, out var dbcmd);
             return WrappedReader.Create(dbcmd, reader);
         }
 
@@ -753,7 +775,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// or <see cref="T:DataSet" />.</remarks>
         public static IDataReader ExecuteReader(this IDbConnection cnn, CommandDefinition command, CommandBehavior commandBehavior)
         {
-            var reader = ExecuteReaderImpl(cnn, ref command, commandBehavior, out IDbCommand dbcmd);
+            var reader = ExecuteReaderImpl(cnn, ref command, commandBehavior, out var dbcmd);
             return WrappedReader.Create(dbcmd, reader);
         }
 
@@ -769,8 +791,10 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns>System.Collections.Generic.IEnumerable&lt;dynamic&gt;.</returns>
         /// <remarks>Note: each row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
-        public static IEnumerable<dynamic> Query(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null) =>
-            Query<DapperRow>(cnn, sql, param as object, transaction, buffered, commandTimeout, commandType);
+        public static IEnumerable<dynamic> Query(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return Query<DapperRow>(cnn, sql, param as object, transaction, buffered, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Return a dynamic object with properties matching the columns.
@@ -783,8 +807,10 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns>dynamic.</returns>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
-        public static dynamic QueryFirst(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
-            QueryFirst<DapperRow>(cnn, sql, param as object, transaction, commandTimeout, commandType);
+        public static dynamic QueryFirst(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return QueryFirst<DapperRow>(cnn, sql, param as object, transaction, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Return a dynamic object with properties matching the columns.
@@ -797,8 +823,10 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns>dynamic.</returns>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
-        public static dynamic QueryFirstOrDefault(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
-            QueryFirstOrDefault<DapperRow>(cnn, sql, param as object, transaction, commandTimeout, commandType);
+        public static dynamic QueryFirstOrDefault(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return QueryFirstOrDefault<DapperRow>(cnn, sql, param as object, transaction, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Return a dynamic object with properties matching the columns.
@@ -811,8 +839,10 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns>dynamic.</returns>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
-        public static dynamic QuerySingle(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
-            QuerySingle<DapperRow>(cnn, sql, param as object, transaction, commandTimeout, commandType);
+        public static dynamic QuerySingle(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return QuerySingle<DapperRow>(cnn, sql, param as object, transaction, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Return a dynamic object with properties matching the columns.
@@ -825,8 +855,10 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="commandType">The type of command to execute.</param>
         /// <returns>dynamic.</returns>
         /// <remarks>Note: the row can be accessed via "dynamic", or by casting to an IDictionary&lt;string,object&gt;</remarks>
-        public static dynamic QuerySingleOrDefault(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null) =>
-            QuerySingleOrDefault<DapperRow>(cnn, sql, param as object, transaction, commandTimeout, commandType);
+        public static dynamic QuerySingleOrDefault(this IDbConnection cnn, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return QuerySingleOrDefault<DapperRow>(cnn, sql, param as object, transaction, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Executes a query, returning the data typed as <typeparamref name="T" />.
@@ -936,10 +968,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <exception cref="ArgumentNullException">nameof(type)</exception>
         public static IEnumerable<object> Query(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, bool buffered = true, int? commandTimeout = null, CommandType? commandType = null)
         {
-            if (type == null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
+            ArgumentNullException.ThrowIfNull(type);
 
             var command = new CommandDefinition(sql, param, transaction, commandTimeout, commandType, buffered ? CommandFlags.Buffered : CommandFlags.None);
             var data = QueryImpl<object>(cnn, command, type);
@@ -961,10 +990,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <exception cref="ArgumentNullException">nameof(type)</exception>
         public static object QueryFirst(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            if (type == null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
+            ArgumentNullException.ThrowIfNull(type);
 
             var command = new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None);
             return QueryRowImpl<object>(cnn, Row.First, ref command, type);
@@ -985,10 +1011,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <exception cref="ArgumentNullException">nameof(type)</exception>
         public static object QueryFirstOrDefault(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            if (type == null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
+            ArgumentNullException.ThrowIfNull(type);
 
             var command = new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None);
             return QueryRowImpl<object>(cnn, Row.FirstOrDefault, ref command, type);
@@ -1009,10 +1032,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <exception cref="ArgumentNullException">nameof(type)</exception>
         public static object QuerySingle(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            if (type == null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
+            ArgumentNullException.ThrowIfNull(type);
 
             var command = new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None);
             return QueryRowImpl<object>(cnn, Row.Single, ref command, type);
@@ -1033,10 +1053,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <exception cref="ArgumentNullException">nameof(type)</exception>
         public static object QuerySingleOrDefault(this IDbConnection cnn, Type type, string sql, object param = null, IDbTransaction transaction = null, int? commandTimeout = null, CommandType? commandType = null)
         {
-            if (type == null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
+            ArgumentNullException.ThrowIfNull(type);
 
             var command = new CommandDefinition(sql, param, transaction, commandTimeout, commandType, CommandFlags.None);
             return QueryRowImpl<object>(cnn, Row.SingleOrDefault, ref command, type);
@@ -1064,8 +1081,10 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns>A single instance or null of the supplied type; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is
         /// created per row, and a direct column-name===member-name mapping is assumed (case insensitive).</returns>
-        public static T QueryFirst<T>(this IDbConnection cnn, CommandDefinition command) =>
-            QueryRowImpl<T>(cnn, Row.First, ref command, typeof(T));
+        public static T QueryFirst<T>(this IDbConnection cnn, CommandDefinition command)
+        {
+            return QueryRowImpl<T>(cnn, Row.First, ref command, typeof(T));
+        }
 
         /// <summary>
         /// Executes a query, returning the data typed as <typeparamref name="T" />.
@@ -1075,8 +1094,10 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns>A single or null instance of the supplied type; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is
         /// created per row, and a direct column-name===member-name mapping is assumed (case insensitive).</returns>
-        public static T QueryFirstOrDefault<T>(this IDbConnection cnn, CommandDefinition command) =>
-            QueryRowImpl<T>(cnn, Row.FirstOrDefault, ref command, typeof(T));
+        public static T QueryFirstOrDefault<T>(this IDbConnection cnn, CommandDefinition command)
+        {
+            return QueryRowImpl<T>(cnn, Row.FirstOrDefault, ref command, typeof(T));
+        }
 
         /// <summary>
         /// Executes a query, returning the data typed as <typeparamref name="T" />.
@@ -1086,8 +1107,10 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns>A single instance of the supplied type; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is
         /// created per row, and a direct column-name===member-name mapping is assumed (case insensitive).</returns>
-        public static T QuerySingle<T>(this IDbConnection cnn, CommandDefinition command) =>
-            QueryRowImpl<T>(cnn, Row.Single, ref command, typeof(T));
+        public static T QuerySingle<T>(this IDbConnection cnn, CommandDefinition command)
+        {
+            return QueryRowImpl<T>(cnn, Row.Single, ref command, typeof(T));
+        }
 
         /// <summary>
         /// Executes a query, returning the data typed as <typeparamref name="T" />.
@@ -1097,8 +1120,10 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="command">The command used to query on this connection.</param>
         /// <returns>A single instance of the supplied type; if a basic type (int, string, etc) is queried then the data from the first column in assumed, otherwise an instance is
         /// created per row, and a direct column-name===member-name mapping is assumed (case insensitive).</returns>
-        public static T QuerySingleOrDefault<T>(this IDbConnection cnn, CommandDefinition command) =>
-            QueryRowImpl<T>(cnn, Row.SingleOrDefault, ref command, typeof(T));
+        public static T QuerySingleOrDefault<T>(this IDbConnection cnn, CommandDefinition command)
+        {
+            return QueryRowImpl<T>(cnn, Row.SingleOrDefault, ref command, typeof(T));
+        }
 
         /// <summary>
         /// Execute a command that returns multiple result sets, and access each in turn.
@@ -1122,8 +1147,10 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="cnn">The connection to query on.</param>
         /// <param name="command">The command to execute for this query.</param>
         /// <returns>ServiceStack.OrmLite.Dapper.SqlMapper.GridReader.</returns>
-        public static GridReader QueryMultiple(this IDbConnection cnn, CommandDefinition command) =>
-            QueryMultipleImpl(cnn, ref command);
+        public static GridReader QueryMultiple(this IDbConnection cnn, CommandDefinition command)
+        {
+            return QueryMultipleImpl(cnn, ref command);
+        }
 
         /// <summary>
         /// Queries the multiple implementation.
@@ -1134,13 +1161,13 @@ namespace ServiceStack.OrmLite.Dapper
         /// <exception cref="Identity">command.CommandText, command.CommandType, cnn, typeof(GridReader), param?.GetType()</exception>
         private static GridReader QueryMultipleImpl(this IDbConnection cnn, ref CommandDefinition command)
         {
-            object param = command.Parameters;
+            var param = command.Parameters;
             var identity = new Identity(command.CommandText, command.CommandType, cnn, typeof(GridReader), param?.GetType());
-            CacheInfo info = GetCacheInfo(identity, param, command.AddToCache);
+            var info = GetCacheInfo(identity, param, command.AddToCache);
 
             IDbCommand cmd = null;
             IDataReader reader = null;
-            bool wasClosed = cnn.State == ConnectionState.Closed;
+            var wasClosed = cnn.State == ConnectionState.Closed;
             try
             {
                 if (wasClosed)
@@ -1214,14 +1241,14 @@ namespace ServiceStack.OrmLite.Dapper
         /// <returns>System.Collections.Generic.IEnumerable&lt;T&gt;.</returns>
         private static IEnumerable<T> QueryImpl<T>(this IDbConnection cnn, CommandDefinition command, Type effectiveType)
         {
-            object param = command.Parameters;
+            var param = command.Parameters;
             var identity = new Identity(command.CommandText, command.CommandType, cnn, effectiveType, param?.GetType());
             var info = GetCacheInfo(identity, param, command.AddToCache);
 
             IDbCommand cmd = null;
             IDataReader reader = null;
 
-            bool wasClosed = cnn.State == ConnectionState.Closed;
+            var wasClosed = cnn.State == ConnectionState.Closed;
             try
             {
                 cmd = command.SetupCommand(cnn, info.ParamReader);
@@ -1237,7 +1264,7 @@ namespace ServiceStack.OrmLite.Dapper
                 // still need something in the "finally" to ensure that broken SQL still results
                 // in the connection closing itself
                 var tuple = info.Deserializer;
-                int hash = GetColumnHash(reader);
+                var hash = GetColumnHash(reader);
                 if (tuple.Func == null || tuple.Hash != hash)
                 {
                     if (reader.FieldCount == 0) //https://code.google.com/p/dapper-dot-net/issues/detail?id=57
@@ -1256,7 +1283,7 @@ namespace ServiceStack.OrmLite.Dapper
                 var convertToType = Nullable.GetUnderlyingType(effectiveType) ?? effectiveType;
                 while (reader.Read())
                 {
-                    object val = func(reader);
+                    var val = func(reader);
                     if (val == null || val is T)
                     {
                         yield return (T)val;
@@ -1345,12 +1372,12 @@ namespace ServiceStack.OrmLite.Dapper
         /// <exception cref="InvalidOperationException"></exception>
         private static void ThrowZeroRows(Row row)
         {
-            switch (row)
-            { // get the standard exception from the runtime
-                case Row.First: _ = ErrZeroRows.First(); break;
-                case Row.Single: _ = ErrZeroRows.Single(); break;
-                default: throw new InvalidOperationException();
-            }
+            _ = row switch {
+                // get the standard exception from the runtime
+                Row.First => ErrZeroRows.First(),
+                Row.Single => ErrZeroRows.Single(),
+                _ => throw new InvalidOperationException()
+            };
         }
 
         /// <summary>
@@ -1364,14 +1391,14 @@ namespace ServiceStack.OrmLite.Dapper
         /// <returns>T.</returns>
         private static T QueryRowImpl<T>(IDbConnection cnn, Row row, ref CommandDefinition command, Type effectiveType)
         {
-            object param = command.Parameters;
+            var param = command.Parameters;
             var identity = new Identity(command.CommandText, command.CommandType, cnn, effectiveType, param?.GetType());
             var info = GetCacheInfo(identity, param, command.AddToCache);
 
             IDbCommand cmd = null;
             IDataReader reader = null;
 
-            bool wasClosed = cnn.State == ConnectionState.Closed;
+            var wasClosed = cnn.State == ConnectionState.Closed;
             try
             {
                 cmd = command.SetupCommand(cnn, info.ParamReader);
@@ -1393,7 +1420,7 @@ namespace ServiceStack.OrmLite.Dapper
                     // still need something in the "finally" to ensure that broken SQL still results
                     // in the connection closing itself
                     var tuple = info.Deserializer;
-                    int hash = GetColumnHash(reader);
+                    var hash = GetColumnHash(reader);
                     if (tuple.Func == null || tuple.Hash != hash)
                     {
                         tuple = info.Deserializer = new DeserializerState(hash, GetDeserializer(effectiveType, reader, 0, -1, false));
@@ -1404,7 +1431,7 @@ namespace ServiceStack.OrmLite.Dapper
                     }
 
                     var func = tuple.Func;
-                    object val = func(reader);
+                    var val = func(reader);
                     if (val == null || val is T)
                     {
                         result = (T)val;
@@ -1471,8 +1498,11 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of <typeparamref name="TReturn" />.</returns>
-        public static IEnumerable<TReturn> Query<TFirst, TSecond, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null) =>
-            MultiMap<TFirst, TSecond, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
+        public static IEnumerable<TReturn> Query<TFirst, TSecond, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return MultiMap<TFirst, TSecond, DontMap, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param,
+                transaction, buffered, splitOn, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Perform a multi-mapping query with 3 input types.
@@ -1492,8 +1522,11 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of <typeparamref name="TReturn" />.</returns>
-        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null) =>
-            MultiMap<TFirst, TSecond, TThird, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
+        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return MultiMap<TFirst, TSecond, TThird, DontMap, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param,
+                transaction, buffered, splitOn, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Perform a multi-mapping query with 4 input types.
@@ -1514,8 +1547,11 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of <typeparamref name="TReturn" />.</returns>
-        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null) =>
-            MultiMap<TFirst, TSecond, TThird, TFourth, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
+        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return MultiMap<TFirst, TSecond, TThird, TFourth, DontMap, DontMap, DontMap, TReturn>(cnn, sql, map, param,
+                transaction, buffered, splitOn, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Perform a multi-mapping query with 5 input types.
@@ -1537,8 +1573,11 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of <typeparamref name="TReturn" />.</returns>
-        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null) =>
-            MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, DontMap, DontMap, TReturn>(cnn, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
+        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, DontMap, DontMap, TReturn>(cnn, sql, map, param,
+                transaction, buffered, splitOn, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Perform a multi-mapping query with 6 input types.
@@ -1561,8 +1600,11 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of <typeparamref name="TReturn" />.</returns>
-        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null) =>
-            MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, DontMap, TReturn>(cnn, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
+        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, DontMap, TReturn>(cnn, sql, map, param,
+                transaction, buffered, splitOn, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Perform a multi-mapping query with 7 input types. If you need more types -&gt; use Query with Type[] parameter.
@@ -1586,8 +1628,11 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="commandTimeout">Number of seconds before command execution timeout.</param>
         /// <param name="commandType">Is it a stored proc or a batch?</param>
         /// <returns>An enumerable of <typeparamref name="TReturn" />.</returns>
-        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null) =>
-            MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(cnn, sql, map, param, transaction, buffered, splitOn, commandTimeout, commandType);
+        public static IEnumerable<TReturn> Query<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(this IDbConnection cnn, string sql, Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn> map, object param = null, IDbTransaction transaction = null, bool buffered = true, string splitOn = "Id", int? commandTimeout = null, CommandType? commandType = null)
+        {
+            return MultiMap<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(cnn, sql, map, param,
+                transaction, buffered, splitOn, commandTimeout, commandType);
+        }
 
         /// <summary>
         /// Perform a multi-mapping query with an arbitrary number of input types.
@@ -1662,14 +1707,14 @@ namespace ServiceStack.OrmLite.Dapper
         /// <returns>System.Collections.Generic.IEnumerable&lt;TReturn&gt;.</returns>
         private static IEnumerable<TReturn> MultiMapImpl<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(this IDbConnection cnn, CommandDefinition command, Delegate map, string splitOn, IDataReader reader, Identity identity, bool finalize)
         {
-            object param = command.Parameters;
+            var param = command.Parameters;
             identity ??= new Identity<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh>(command.CommandText, command.CommandType, cnn, typeof(TFirst), param?.GetType());
-            CacheInfo cinfo = GetCacheInfo(identity, param, command.AddToCache);
+            var cinfo = GetCacheInfo(identity, param, command.AddToCache);
 
             IDbCommand ownedCommand = null;
             IDataReader ownedReader = null;
 
-            bool wasClosed = cnn?.State == ConnectionState.Closed;
+            var wasClosed = cnn?.State == ConnectionState.Closed;
             try
             {
                 if (reader == null)
@@ -1686,7 +1731,7 @@ namespace ServiceStack.OrmLite.Dapper
                 var deserializer = default(DeserializerState);
                 Func<IDataReader, object>[] otherDeserializers;
 
-                int hash = GetColumnHash(reader);
+                var hash = GetColumnHash(reader);
                 if ((deserializer = cinfo.Deserializer).Func == null || (otherDeserializers = cinfo.OtherDeserializers) == null || hash != deserializer.Hash)
                 {
                     var deserializers = GenerateDeserializers(identity, splitOn, reader);
@@ -1698,7 +1743,7 @@ namespace ServiceStack.OrmLite.Dapper
                     }
                 }
 
-                Func<IDataReader, TReturn> mapIt = GenerateMapper<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(deserializer.Func, otherDeserializers, map);
+                var mapIt = GenerateMapper<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(deserializer.Func, otherDeserializers, map);
 
                 if (mapIt != null)
                 {
@@ -1762,14 +1807,14 @@ namespace ServiceStack.OrmLite.Dapper
                 throw new ArgumentException("you must provide at least one type to deserialize");
             }
 
-            object param = command.Parameters;
+            var param = command.Parameters;
             identity ??= new IdentityWithTypes(command.CommandText, command.CommandType, cnn, types[0], param?.GetType(), types);
-            CacheInfo cinfo = GetCacheInfo(identity, param, command.AddToCache);
+            var cinfo = GetCacheInfo(identity, param, command.AddToCache);
 
             IDbCommand ownedCommand = null;
             IDataReader ownedReader = null;
 
-            bool wasClosed = cnn?.State == ConnectionState.Closed;
+            var wasClosed = cnn?.State == ConnectionState.Closed;
             try
             {
                 if (reader == null)
@@ -1786,7 +1831,7 @@ namespace ServiceStack.OrmLite.Dapper
                 DeserializerState deserializer;
                 Func<IDataReader, object>[] otherDeserializers;
 
-                int hash = GetColumnHash(reader);
+                var hash = GetColumnHash(reader);
                 if ((deserializer = cinfo.Deserializer).Func == null || (otherDeserializers = cinfo.OtherDeserializers) == null || hash != deserializer.Hash)
                 {
                     var deserializers = GenerateDeserializers(identity, splitOn, reader);
@@ -1795,7 +1840,7 @@ namespace ServiceStack.OrmLite.Dapper
                     SetQueryCache(identity, cinfo);
                 }
 
-                Func<IDataReader, TReturn> mapIt = GenerateMapper(types.Length, deserializer.Func, otherDeserializers, map);
+                var mapIt = GenerateMapper(types.Length, deserializer.Func, otherDeserializers, map);
 
                 if (mapIt != null)
                 {
@@ -1845,23 +1890,27 @@ namespace ServiceStack.OrmLite.Dapper
         /// <exception cref="NotSupportedException"></exception>
         private static Func<IDataReader, TReturn> GenerateMapper<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>(Func<IDataReader, object> deserializer, Func<IDataReader, object>[] otherDeserializers, object map)
         {
-            switch (otherDeserializers.Length)
-            {
-                case 1:
-                    return r => ((Func<TFirst, TSecond, TReturn>)map)((TFirst)deserializer(r), (TSecond)otherDeserializers[0](r));
-                case 2:
-                    return r => ((Func<TFirst, TSecond, TThird, TReturn>)map)((TFirst)deserializer(r), (TSecond)otherDeserializers[0](r), (TThird)otherDeserializers[1](r));
-                case 3:
-                    return r => ((Func<TFirst, TSecond, TThird, TFourth, TReturn>)map)((TFirst)deserializer(r), (TSecond)otherDeserializers[0](r), (TThird)otherDeserializers[1](r), (TFourth)otherDeserializers[2](r));
-                case 4:
-                    return r => ((Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>)map)((TFirst)deserializer(r), (TSecond)otherDeserializers[0](r), (TThird)otherDeserializers[1](r), (TFourth)otherDeserializers[2](r), (TFifth)otherDeserializers[3](r));
-                case 5:
-                    return r => ((Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>)map)((TFirst)deserializer(r), (TSecond)otherDeserializers[0](r), (TThird)otherDeserializers[1](r), (TFourth)otherDeserializers[2](r), (TFifth)otherDeserializers[3](r), (TSixth)otherDeserializers[4](r));
-                case 6:
-                    return r => ((Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>)map)((TFirst)deserializer(r), (TSecond)otherDeserializers[0](r), (TThird)otherDeserializers[1](r), (TFourth)otherDeserializers[2](r), (TFifth)otherDeserializers[3](r), (TSixth)otherDeserializers[4](r), (TSeventh)otherDeserializers[5](r));
-                default:
-                    throw new NotSupportedException();
-            }
+            return otherDeserializers.Length switch {
+                1 => r => ((Func<TFirst, TSecond, TReturn>)map)((TFirst)deserializer(r),
+                    (TSecond)otherDeserializers[0](r)),
+                2 => r => ((Func<TFirst, TSecond, TThird, TReturn>)map)((TFirst)deserializer(r),
+                    (TSecond)otherDeserializers[0](r), (TThird)otherDeserializers[1](r)),
+                3 => r => ((Func<TFirst, TSecond, TThird, TFourth, TReturn>)map)((TFirst)deserializer(r),
+                    (TSecond)otherDeserializers[0](r), (TThird)otherDeserializers[1](r),
+                    (TFourth)otherDeserializers[2](r)),
+                4 => r => ((Func<TFirst, TSecond, TThird, TFourth, TFifth, TReturn>)map)((TFirst)deserializer(r),
+                    (TSecond)otherDeserializers[0](r), (TThird)otherDeserializers[1](r),
+                    (TFourth)otherDeserializers[2](r), (TFifth)otherDeserializers[3](r)),
+                5 => r => ((Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TReturn>)map)(
+                    (TFirst)deserializer(r), (TSecond)otherDeserializers[0](r), (TThird)otherDeserializers[1](r),
+                    (TFourth)otherDeserializers[2](r), (TFifth)otherDeserializers[3](r),
+                    (TSixth)otherDeserializers[4](r)),
+                6 => r => ((Func<TFirst, TSecond, TThird, TFourth, TFifth, TSixth, TSeventh, TReturn>)map)(
+                    (TFirst)deserializer(r), (TSecond)otherDeserializers[0](r), (TThird)otherDeserializers[1](r),
+                    (TFourth)otherDeserializers[2](r), (TFifth)otherDeserializers[3](r),
+                    (TSixth)otherDeserializers[4](r), (TSeventh)otherDeserializers[5](r)),
+                _ => throw new NotSupportedException()
+            };
         }
 
         /// <summary>
@@ -1900,27 +1949,27 @@ namespace ServiceStack.OrmLite.Dapper
         {
             var deserializers = new List<Func<IDataReader, object>>();
             var splits = splitOn.Split(',').Select(s => s.Trim()).ToArray();
-            bool isMultiSplit = splits.Length > 1;
+            var isMultiSplit = splits.Length > 1;
 
-            int typeCount = identity.TypeCount;
+            var typeCount = identity.TypeCount;
             if (identity.GetType(0) == typeof(object))
             {
                 // we go left to right for dynamic multi-mapping so that the madness of TestMultiMappingVariations
                 // is supported
-                bool first = true;
-                int currentPos = 0;
-                int splitIdx = 0;
-                string currentSplit = splits[splitIdx];
+                var first = true;
+                var currentPos = 0;
+                var splitIdx = 0;
+                var currentSplit = splits[splitIdx];
 
-                for (int i = 0; i < typeCount; i++)
+                for (var i = 0; i < typeCount; i++)
                 {
-                    Type type = identity.GetType(i);
+                    var type = identity.GetType(i);
                     if (type == typeof(DontMap))
                     {
                         break;
                     }
 
-                    int splitPoint = GetNextSplitDynamic(currentPos, currentSplit, reader);
+                    var splitPoint = GetNextSplitDynamic(currentPos, currentSplit, reader);
                     if (isMultiSplit && splitIdx < splits.Length - 1)
                     {
                         currentSplit = splits[++splitIdx];
@@ -1934,8 +1983,8 @@ namespace ServiceStack.OrmLite.Dapper
             {
                 // in this we go right to left through the data reader in order to cope with properties that are
                 // named the same as a subsequent primary key that we split on
-                int currentPos = reader.FieldCount;
-                int splitIdx = splits.Length - 1;
+                var currentPos = reader.FieldCount;
+                var splitIdx = splits.Length - 1;
                 var currentSplit = splits[splitIdx];
                 for (var typeIdx = typeCount - 1; typeIdx >= 0; --typeIdx)
                 {
@@ -1945,7 +1994,7 @@ namespace ServiceStack.OrmLite.Dapper
                         continue;
                     }
 
-                    int splitPoint = 0;
+                    var splitPoint = 0;
                     if (typeIdx > 0)
                     {
                         splitPoint = GetNextSplit(currentPos, currentSplit, reader);
@@ -2030,7 +2079,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <exception cref="InvalidOperationException">An enumerable sequence of parameters (arrays, lists, etc) is not allowed in this context</exception>
         private static CacheInfo GetCacheInfo(Identity identity, object exampleParameters, bool addToCache)
         {
-            if (!TryGetQueryCache(identity, out CacheInfo info))
+            if (!TryGetQueryCache(identity, out var info))
             {
                 if (GetMultiExec(exampleParameters) != null)
                 {
@@ -2108,15 +2157,15 @@ namespace ServiceStack.OrmLite.Dapper
                 }
             }
             HashSet<string> consumed = new(StringComparer.Ordinal);
-            bool firstMatch = true;
+            var firstMatch = true;
             cmd.CommandText = pseudoPositional.Replace(cmd.CommandText, match =>
             {
-                string key = match.Groups[1].Value;
+                var key = match.Groups[1].Value;
                 if (!consumed.Add(key))
                 {
                     throw new InvalidOperationException("When passing parameters by position, each parameter can only be referenced once");
                 }
-                else if (parameters.TryGetValue(key, out IDbDataParameter param))
+                else if (parameters.TryGetValue(key, out var param))
                 {
                     if (firstMatch)
                     {
@@ -2157,7 +2206,7 @@ namespace ServiceStack.OrmLite.Dapper
             if (!(typeMap.ContainsKey(type) || type.IsEnum || type.FullName == LinqBinary
                 || type.IsValueType && (underlyingType = Nullable.GetUnderlyingType(type)) != null && underlyingType.IsEnum))
             {
-                if (typeHandlers.TryGetValue(type, out ITypeHandler handler))
+                if (typeHandlers.TryGetValue(type, out var handler))
                 {
                     return GetHandlerDeserializer(handler, type, startBound);
                 }
@@ -2185,7 +2234,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <returns>System.Exception.</returns>
         private static Exception MultiMapException(IDataRecord reader)
         {
-            bool hasFields = false;
+            var hasFields = false;
             try { hasFields = reader != null && reader.FieldCount != 0; }
             catch { /* don't throw when trying to throw */ }
             if (hasFields)
@@ -2227,8 +2276,8 @@ namespace ServiceStack.OrmLite.Dapper
                 {
                     if (table == null)
                     {
-                        string[] names = new string[effectiveFieldCount];
-                        for (int i = 0; i < effectiveFieldCount; i++)
+                        var names = new string[effectiveFieldCount];
+                        for (var i = 0; i < effectiveFieldCount; i++)
                         {
                             names[i] = r.GetName(i + startBound);
                         }
@@ -2248,9 +2297,9 @@ namespace ServiceStack.OrmLite.Dapper
 
                     if (startBound == 0)
                     {
-                        for (int i = 0; i < values.Length; i++)
+                        for (var i = 0; i < values.Length; i++)
                         {
-                            object val = r.GetValue(i);
+                            var val = r.GetValue(i);
                             values[i] = val is DBNull ? null : val;
                         }
                     }
@@ -2259,7 +2308,7 @@ namespace ServiceStack.OrmLite.Dapper
                         var begin = returnNullIfFirstMissing ? 1 : 0;
                         for (var iter = begin; iter < effectiveFieldCount; ++iter)
                         {
-                            object obj = r.GetValue(iter + startBound);
+                            var obj = r.GetValue(iter + startBound);
                             values[iter] = obj is DBNull ? null : obj;
                         }
                     }
@@ -2297,18 +2346,13 @@ namespace ServiceStack.OrmLite.Dapper
         [Obsolete(ObsoleteInternalUsageOnly, false)]
         public static char? ReadNullableChar(object value)
         {
-            switch (value)
+            return value switch
             {
-                case null:
-                case DBNull:
-                    return null;
-                case string {Length: 1} s:
-                    return s[0];
-                case char c:
-                    return c;
-                default:
-                    throw new ArgumentException("A single-character was expected", nameof(value));
-            }
+                null or DBNull => null,
+                string { Length: 1 } s => s[0],
+                char c => c,
+                _ => throw new ArgumentException("A single-character was expected", nameof(value)),
+            };
         }
 
         /// <summary>
@@ -2386,7 +2430,7 @@ namespace ServiceStack.OrmLite.Dapper
             }
 
             // if we have 17, factor = 10; 17 % 10 = 7, we need 3 more
-            int intoBlock = count % padFactor;
+            var intoBlock = count % padFactor;
             return intoBlock == 0 ? 0 : padFactor - intoBlock;
         }
 
@@ -2396,9 +2440,12 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="name">The name.</param>
         /// <param name="byPosition">The by position.</param>
         /// <returns>string.</returns>
-        private static string GetInListRegex(string name, bool byPosition) => byPosition
-            ? @"(\?)" + Regex.Escape(name) + @"\?(?!\w)(\s+(?i)unknown(?-i))?"
-            : "([?@:]" + Regex.Escape(name) + @")(?!\w)(\s+(?i)unknown(?-i))?";
+        private static string GetInListRegex(string name, bool byPosition)
+        {
+            return byPosition
+                ? @"(\?)" + Regex.Escape(name) + @"\?(?!\w)(\s+(?i)unknown(?-i))?"
+                : "([?@:]" + Regex.Escape(name) + @")(?!\w)(\s+(?i)unknown(?-i))?";
+        }
 
         /// <summary>
         /// Internal use only.
@@ -2424,16 +2471,16 @@ namespace ServiceStack.OrmLite.Dapper
             }
             else
             {
-                bool byPosition = ShouldPassByPosition(command.CommandText);
+                var byPosition = ShouldPassByPosition(command.CommandText);
                 var list = value as IEnumerable;
                 var count = 0;
-                bool isString = value is IEnumerable<string>;
-                bool isDbString = value is IEnumerable<DbString>;
+                var isString = value is IEnumerable<string>;
+                var isDbString = value is IEnumerable<DbString>;
                 DbType dbType = 0;
 
-                int splitAt = SqlMapper.Settings.InListStringSplitCount;
-                bool viaSplit = splitAt >= 0
-                    && TryStringSplit(ref list, splitAt, namePrefix, command, byPosition);
+                var splitAt = SqlMapper.Settings.InListStringSplitCount;
+                var viaSplit = splitAt >= 0
+                               && TryStringSplit(ref list, splitAt, namePrefix, command, byPosition);
 
                 if (list != null && !viaSplit)
                 {
@@ -2448,7 +2495,7 @@ namespace ServiceStack.OrmLite.Dapper
                             }
                             if (!isDbString)
                             {
-                                dbType = LookupDbType(item.GetType(), "", true, out ITypeHandler handler);
+                                dbType = LookupDbType(item.GetType(), "", true, out var handler);
                             }
                         }
                         var nextName = namePrefix + count.ToString();
@@ -2471,7 +2518,7 @@ namespace ServiceStack.OrmLite.Dapper
                             }
 
                             var tmp = listParam.Value = SanitizeParameterValue(item);
-                            if (tmp != null && !(tmp is DBNull))
+                            if (tmp != null && tmp is not DBNull)
                             {
                                 lastValue = tmp; // only interested in non-trivial values for padding
                             }
@@ -2485,8 +2532,8 @@ namespace ServiceStack.OrmLite.Dapper
                     }
                     if (Settings.PadListExpansions && !isDbString && lastValue != null)
                     {
-                        int padCount = GetListPaddingExtraCount(count);
-                        for (int i = 0; i < padCount; i++)
+                        var padCount = GetListPaddingExtraCount(count);
+                        for (var i = 0; i < padCount; i++)
                         {
                             count++;
                             var padParam = command.CreateParameter();
@@ -2541,7 +2588,7 @@ namespace ServiceStack.OrmLite.Dapper
                                 var suffix = match.Groups[2].Value;
 
                                 var sb = GetStringBuilder().Append(variableName).Append(1).Append(suffix);
-                                for (int i = 2; i <= count; i++)
+                                for (var i = 2; i <= count; i++)
                                 {
                                     sb.Append(',').Append(variableName).Append(i).Append(suffix);
                                 }
@@ -2559,7 +2606,7 @@ namespace ServiceStack.OrmLite.Dapper
                                     sb.Append(namePrefix).Append(1).Append(variableName);
                                 }
 
-                                for (int i = 2; i <= count; i++)
+                                for (var i = 2; i <= count; i++)
                                 {
                                     sb.Append(',').Append(variableName);
                                     if (!byPosition)
@@ -2595,18 +2642,17 @@ namespace ServiceStack.OrmLite.Dapper
                 return false;
             }
 
-            switch (list)
-            {
-                case IEnumerable<int> l:
-                    return TryStringSplit(ref l, splitAt, namePrefix, command, "int", byPosition, (sb, i) => sb.Append(i.ToString(CultureInfo.InvariantCulture)));
-                case IEnumerable<long> l:
-                    return TryStringSplit(ref l, splitAt, namePrefix, command, "bigint", byPosition, (sb, i) => sb.Append(i.ToString(CultureInfo.InvariantCulture)));
-                case IEnumerable<short> l:
-                    return TryStringSplit(ref l, splitAt, namePrefix, command, "smallint", byPosition, (sb, i) => sb.Append(i.ToString(CultureInfo.InvariantCulture)));
-                case IEnumerable<byte> l:
-                    return TryStringSplit(ref l, splitAt, namePrefix, command, "tinyint", byPosition, (sb, i) => sb.Append(i.ToString(CultureInfo.InvariantCulture)));
-            }
-            return false;
+            return list switch {
+                IEnumerable<int> l => TryStringSplit(ref l, splitAt, namePrefix, command, "int", byPosition,
+                    (sb, i) => sb.Append(i.ToString(CultureInfo.InvariantCulture))),
+                IEnumerable<long> l => TryStringSplit(ref l, splitAt, namePrefix, command, "bigint", byPosition,
+                    (sb, i) => sb.Append(i.ToString(CultureInfo.InvariantCulture))),
+                IEnumerable<short> l => TryStringSplit(ref l, splitAt, namePrefix, command, "smallint", byPosition,
+                    (sb, i) => sb.Append(i.ToString(CultureInfo.InvariantCulture))),
+                IEnumerable<byte> l => TryStringSplit(ref l, splitAt, namePrefix, command, "tinyint", byPosition,
+                    (sb, i) => sb.Append(i.ToString(CultureInfo.InvariantCulture))),
+                _ => false
+            };
         }
 
         /// <summary>
@@ -2624,8 +2670,7 @@ namespace ServiceStack.OrmLite.Dapper
         private static bool TryStringSplit<T>(ref IEnumerable<T> list, int splitAt, string namePrefix, IDbCommand command, string colType, bool byPosition,
             Action<StringBuilder, T> append)
         {
-            var typed = list as ICollection<T>;
-            if (typed == null)
+            if (list is not ICollection<T> typed)
             {
                 typed = list.ToList();
                 list = typed; // because we still need to be able to iterate it, even if we fail here
@@ -2697,7 +2742,7 @@ namespace ServiceStack.OrmLite.Dapper
                     return DBNull.Value;
                 case Enum:
                 {
-                    TypeCode typeCode = value is IConvertible ? ((IConvertible)value).GetTypeCode() : Type.GetTypeCode(Enum.GetUnderlyingType(value.GetType()));
+                    var typeCode = value is IConvertible ? ((IConvertible)value).GetTypeCode() : Type.GetTypeCode(Enum.GetUnderlyingType(value.GetType()));
                     switch (typeCode)
                     {
                         case TypeCode.Byte: return (byte)value;
@@ -2811,8 +2856,8 @@ namespace ServiceStack.OrmLite.Dapper
                         if (multiExec != null)
                         {
                             StringBuilder sb = null;
-                            bool first = true;
-                            foreach (object subval in multiExec)
+                            var first = true;
+                            foreach (var subval in multiExec)
                             {
                                 if (first)
                                 {
@@ -2850,9 +2895,9 @@ namespace ServiceStack.OrmLite.Dapper
             var sql = command.CommandText;
             foreach (var token in tokens)
             {
-                object value = parameters[token.Member];
+                var value = parameters[token.Member];
 #pragma warning disable 0618
-                string text = Format(value);
+                var text = Format(value);
 #pragma warning restore 0618
                 sql = sql.Replace(token.Token, text);
             }
@@ -2879,9 +2924,9 @@ namespace ServiceStack.OrmLite.Dapper
             var matches = literalTokens.Matches(sql);
             var found = new HashSet<string>(StringComparer.Ordinal);
             List<LiteralToken> list = new(matches.Count);
-            foreach (Match match in matches)
+            foreach (var match in matches.Cast<Match>())
             {
-                string token = match.Value;
+                var token = match.Value;
                 if (found.Add(match.Value))
                 {
                     list.Add(new LiteralToken(token, match.Groups[1].Value));
@@ -2897,15 +2942,21 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="checkForDuplicates">Whether to check for duplicates.</param>
         /// <param name="removeUnused">Whether to remove unused parameters.</param>
         /// <returns>System.Action&lt;System.Data.IDbCommand, object&gt;.</returns>
-        public static Action<IDbCommand, object> CreateParamInfoGenerator(Identity identity, bool checkForDuplicates, bool removeUnused) =>
-            CreateParamInfoGenerator(identity, checkForDuplicates, removeUnused, GetLiteralTokens(identity.sql));
+        public static Action<IDbCommand, object> CreateParamInfoGenerator(Identity identity, bool checkForDuplicates, bool removeUnused)
+        {
+            return CreateParamInfoGenerator(identity, checkForDuplicates, removeUnused, GetLiteralTokens(identity.sql));
+        }
 
         /// <summary>
         /// Determines whether [is value tuple] [the specified type].
         /// </summary>
         /// <param name="type">The type.</param>
         /// <returns>bool.</returns>
-        private static bool IsValueTuple(Type type) => type?.IsValueType == true && type.FullName.StartsWith("System.ValueTuple`", StringComparison.Ordinal);
+        private static bool IsValueTuple(Type type)
+        {
+            return type?.IsValueType == true &&
+                   type.FullName.StartsWith("System.ValueTuple`", StringComparison.Ordinal);
+        }
 
         /// <summary>
         /// Creates the parameter information generator.
@@ -2918,14 +2969,14 @@ namespace ServiceStack.OrmLite.Dapper
         /// <exception cref="NotSupportedException">ValueTuple should not be used for parameters - the language-level names are not available to use as parameter names, and it adds unnecessary boxing</exception>
         static internal Action<IDbCommand, object> CreateParamInfoGenerator(Identity identity, bool checkForDuplicates, bool removeUnused, IList<LiteralToken> literals)
         {
-            Type type = identity.parametersType;
+            var type = identity.parametersType;
 
             if (IsValueTuple(type))
             {
                 throw new NotSupportedException("ValueTuple should not be used for parameters - the language-level names are not available to use as parameter names, and it adds unnecessary boxing");
             }
 
-            bool filterParams = false;
+            var filterParams = false;
             if (removeUnused && identity.commandType.GetValueOrDefault(CommandType.Text) == CommandType.Text)
             {
                 filterParams = !smellsLikeOleDb.IsMatch(identity.sql);
@@ -2935,7 +2986,7 @@ namespace ServiceStack.OrmLite.Dapper
 
             var il = dm.GetILGenerator();
 
-            bool isStruct = type.IsValueType;
+            var isStruct = type.IsValueType;
             var _sizeLocal = (LocalBuilder)null;
             LocalBuilder GetSizeLocal() => _sizeLocal ??= il.DeclareLocal(typeof(int));
             il.Emit(OpCodes.Ldarg_1); // stack is now [untyped-param]
@@ -2968,8 +3019,8 @@ namespace ServiceStack.OrmLite.Dapper
             if (ctors.Length == 1 && propsList.Count == (ctorParams = ctors[0].GetParameters()).Length)
             {
                 // check if reflection was kind enough to put everything in the right order for us
-                bool ok = true;
-                for (int i = 0; i < propsList.Count; i++)
+                var ok = true;
+                for (var i = 0; i < propsList.Count; i++)
                 {
                     if (!string.Equals(propsList[i].Name, ctorParams[i].Name, StringComparison.OrdinalIgnoreCase))
                     {
@@ -2991,11 +3042,11 @@ namespace ServiceStack.OrmLite.Dapper
                     }
                     if (positionByName.Count == propsList.Count)
                     {
-                        int[] positions = new int[propsList.Count];
+                        var positions = new int[propsList.Count];
                         ok = true;
-                        for (int i = 0; i < propsList.Count; i++)
+                        for (var i = 0; i < propsList.Count; i++)
                         {
-                            if (!positionByName.TryGetValue(propsList[i].Name, out int pos))
+                            if (!positionByName.TryGetValue(propsList[i].Name, out var pos))
                             {
                                 ok = false;
                                 break;
@@ -3033,7 +3084,7 @@ namespace ServiceStack.OrmLite.Dapper
                     continue;
                 }
 #pragma warning disable 618
-                DbType dbType = LookupDbType(prop.PropertyType, prop.Name, true, out ITypeHandler handler);
+                var dbType = LookupDbType(prop.PropertyType, prop.Name, true, out var handler);
 #pragma warning restore 618
                 if (dbType == DynamicParameters.EnumerableMultiParameter)
                 {
@@ -3098,7 +3149,7 @@ namespace ServiceStack.OrmLite.Dapper
                 {
                     var propType = prop.PropertyType;
                     var nullType = Nullable.GetUnderlyingType(propType);
-                    bool callSanitize = false;
+                    var callSanitize = false;
 
                     if ((nullType ?? propType).IsEnum)
                     {
@@ -3145,8 +3196,8 @@ namespace ServiceStack.OrmLite.Dapper
                 {
                     // relative stack: [boxed value]
                     il.Emit(OpCodes.Dup);// relative stack: [boxed value] [boxed value]
-                    Label notNull = il.DefineLabel();
-                    Label? allDone = dbType == DbType.String || dbType == DbType.AnsiString ? il.DefineLabel() : (Label?)null;
+                    var notNull = il.DefineLabel();
+                    var allDone = dbType == DbType.String || dbType == DbType.AnsiString ? il.DefineLabel() : (Label?)null;
                     il.Emit(OpCodes.Brtrue_S, notNull);
                     // relative stack [boxed value = null]
                     il.Emit(OpCodes.Pop); // relative stack empty
@@ -3242,10 +3293,10 @@ namespace ServiceStack.OrmLite.Dapper
                 {
                     // find the best member, preferring case-sensitive
                     PropertyInfo exact = null, fallback = null;
-                    string huntName = literal.Member;
+                    var huntName = literal.Member;
                     foreach (var t in propsList)
                     {
-                        string thisName = t.Name;
+                        var thisName = t.Name;
                         if (string.Equals(thisName, huntName, StringComparison.OrdinalIgnoreCase))
                         {
                             fallback = t;
@@ -3263,7 +3314,7 @@ namespace ServiceStack.OrmLite.Dapper
                         il.Emit(OpCodes.Ldstr, literal.Token);
                         il.Emit(OpCodes.Ldloc, typedParameterLocal); // command, sql, typed parameter
                         il.EmitCall(callOpCode, prop.GetGetMethod(), null); // command, sql, typed value
-                        Type propType = prop.PropertyType;
+                        var propType = prop.PropertyType;
                         var typeCode = Type.GetTypeCode(propType);
                         switch (typeCode)
                         {
@@ -3299,10 +3350,7 @@ namespace ServiceStack.OrmLite.Dapper
                                     }
                                     else
                                     {
-                                        if (!locals.TryGetValue(propType, out local))
-                                        {
-                                            local = null;
-                                        }
+                                        local = locals.GetValueOrDefault(propType);
                                     }
                                     if (local == null)
                                     {
@@ -3351,7 +3399,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <returns>System.Reflection.MethodInfo.</returns>
         private static MethodInfo GetToString(TypeCode typeCode)
         {
-            return toStrings.TryGetValue(typeCode, out MethodInfo method) ? method : null;
+            return toStrings.GetValueOrDefault(typeCode);
         }
 
         /// <summary>
@@ -3371,7 +3419,7 @@ namespace ServiceStack.OrmLite.Dapper
         private static int ExecuteCommand(IDbConnection cnn, ref CommandDefinition command, Action<IDbCommand, object> paramReader)
         {
             IDbCommand cmd = null;
-            bool wasClosed = cnn.State == ConnectionState.Closed;
+            var wasClosed = cnn.State == ConnectionState.Closed;
             try
             {
                 cmd = command.SetupCommand(cnn, paramReader);
@@ -3380,7 +3428,7 @@ namespace ServiceStack.OrmLite.Dapper
                     cnn.Open();
                 }
 
-                int result = cmd.ExecuteNonQuery();
+                var result = cmd.ExecuteNonQuery();
                 command.OnCompleted();
                 return result;
             }
@@ -3405,7 +3453,7 @@ namespace ServiceStack.OrmLite.Dapper
         private static T ExecuteScalarImpl<T>(IDbConnection cnn, ref CommandDefinition command)
         {
             Action<IDbCommand, object> paramReader = null;
-            object param = command.Parameters;
+            var param = command.Parameters;
             if (param != null)
             {
                 var identity = new Identity(command.CommandText, command.CommandType, cnn, null, param.GetType());
@@ -3413,7 +3461,7 @@ namespace ServiceStack.OrmLite.Dapper
             }
 
             IDbCommand cmd = null;
-            bool wasClosed = cnn.State == ConnectionState.Closed;
+            var wasClosed = cnn.State == ConnectionState.Closed;
             object result;
             try
             {
@@ -3448,7 +3496,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <returns>System.Data.IDataReader.</returns>
         private static IDataReader ExecuteReaderImpl(IDbConnection cnn, ref CommandDefinition command, CommandBehavior commandBehavior, out IDbCommand cmd)
         {
-            Action<IDbCommand, object> paramReader = GetParameterReader(cnn, ref command);
+            var paramReader = GetParameterReader(cnn, ref command);
             cmd = null;
             bool wasClosed = cnn.State == ConnectionState.Closed, disposeCommand = true;
             try
@@ -3488,8 +3536,8 @@ namespace ServiceStack.OrmLite.Dapper
         /// <exception cref="NotSupportedException">MultiExec is not supported by ExecuteReader</exception>
         private static Action<IDbCommand, object> GetParameterReader(IDbConnection cnn, ref CommandDefinition command)
         {
-            object param = command.Parameters;
-            IEnumerable multiExec = GetMultiExec(param);
+            var param = command.Parameters;
+            var multiExec = GetMultiExec(param);
             CacheInfo info = null;
             if (multiExec != null)
             {
@@ -3543,7 +3591,7 @@ namespace ServiceStack.OrmLite.Dapper
                     return val is DBNull ? null : Enum.ToObject(effectiveType, val);
                 };
             }
-            if (typeHandlers.TryGetValue(type, out ITypeHandler handler))
+            if (typeHandlers.TryGetValue(type, out var handler))
             {
                 return r =>
                 {
@@ -3566,30 +3614,31 @@ namespace ServiceStack.OrmLite.Dapper
         /// <returns>T.</returns>
         private static T Parse<T>(object value)
         {
-            if (value == null || value is DBNull)
+            switch (value)
             {
-                return default;
-            }
-
-            if (value is T)
-            {
-                return (T)value;
+                case null or DBNull:
+                    return default;
+                case T value1:
+                    return value1;
             }
 
             var type = typeof(T);
             type = Nullable.GetUnderlyingType(type) ?? type;
             if (type.IsEnum)
             {
-                if (value is float || value is double || value is decimal)
+                if (value is float or double or decimal)
                 {
                     value = Convert.ChangeType(value, Enum.GetUnderlyingType(type), CultureInfo.InvariantCulture);
                 }
+
                 return (T)Enum.ToObject(type, value);
             }
-            if (typeHandlers.TryGetValue(type, out ITypeHandler handler))
+
+            if (typeHandlers.TryGetValue(type, out var handler))
             {
                 return (T)handler.Parse(type, value);
             }
+
             return (T)Convert.ChangeType(value, type, CultureInfo.InvariantCulture);
         }
 
@@ -3606,7 +3655,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// Gets type-map for the given type
         /// </summary>
         /// <returns>Type map instance, default is to create new instance of DefaultTypeMap</returns>
-        public static Func<Type, ITypeMap> TypeMapProvider = (Type type) => new DefaultTypeMap(type);
+        public static Func<Type, ITypeMap> TypeMapProvider = type => new DefaultTypeMap(type);
 
         /// <summary>
         /// Gets type-map for the given <see cref="Type" />.
@@ -3616,10 +3665,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <exception cref="ArgumentNullException">nameof(type)</exception>
         public static ITypeMap GetTypeMap(Type type)
         {
-            if (type == null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
+            ArgumentNullException.ThrowIfNull(type);
 
             var map = (ITypeMap)_typeMaps[type];
             if (map == null)
@@ -3653,12 +3699,9 @@ namespace ServiceStack.OrmLite.Dapper
         /// <exception cref="ArgumentNullException">nameof(type)</exception>
         public static void SetTypeMap(Type type, ITypeMap map)
         {
-            if (type == null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
+            ArgumentNullException.ThrowIfNull(type);
 
-            if (map == null || map is DefaultTypeMap)
+            if (map is null or DefaultTypeMap)
             {
                 lock (_typeMaps)
                 {
@@ -3703,13 +3746,10 @@ namespace ServiceStack.OrmLite.Dapper
         /// <exception cref="ArgumentNullException">nameof(type)</exception>
         private static LocalBuilder GetTempLocal(ILGenerator il, ref Dictionary<Type, LocalBuilder> locals, Type type, bool initAndLoad)
         {
-            if (type == null)
-            {
-                throw new ArgumentNullException(nameof(type));
-            }
+            ArgumentNullException.ThrowIfNull(type);
 
             locals ??= [];
-            if (!locals.TryGetValue(type, out LocalBuilder found))
+            if (!locals.TryGetValue(type, out var found))
             {
                 found = il.DeclareLocal(type);
                 locals.Add(type, found);
@@ -3783,7 +3823,7 @@ namespace ServiceStack.OrmLite.Dapper
 
             while (true)
             {
-                var arity = int.Parse(currentValueTupleType.Name.Substring("ValueTuple`".Length), CultureInfo.InvariantCulture);
+                var arity = int.Parse(currentValueTupleType.Name.AsSpan("ValueTuple`".Length), CultureInfo.InvariantCulture);
                 var constructorParameterTypes = new Type[arity];
                 var restField = (FieldInfo)null;
 
@@ -3795,7 +3835,7 @@ namespace ServiceStack.OrmLite.Dapper
                     }
                     else if (field.Name.StartsWith("Item", StringComparison.Ordinal))
                     {
-                        var elementNumber = int.Parse(field.Name.Substring("Item".Length), CultureInfo.InvariantCulture);
+                        var elementNumber = int.Parse(field.Name.AsSpan("Item".Length), CultureInfo.InvariantCulture);
                         constructorParameterTypes[elementNumber - 1] = field.FieldType;
                     }
                 }
@@ -3813,7 +3853,7 @@ namespace ServiceStack.OrmLite.Dapper
 
                 if (restField != null)
                 {
-                    constructorParameterTypes[constructorParameterTypes.Length - 1] = restField.FieldType;
+                    constructorParameterTypes[^1] = restField.FieldType;
                 }
 
                 constructors.Add(currentValueTupleType.GetConstructor(constructorParameterTypes));
@@ -3890,12 +3930,12 @@ namespace ServiceStack.OrmLite.Dapper
 
             var names = Enumerable.Range(startBound, length).Select(reader.GetName).ToArray();
 
-            ITypeMap typeMap = GetTypeMap(type);
+            var typeMap = GetTypeMap(type);
 
-            int index = startBound;
+            var index = startBound;
             ConstructorInfo specializedConstructor = null;
 
-            bool supportInitialize = false;
+            var supportInitialize = false;
             Dictionary<Type, LocalBuilder> structLocals = null;
             if (type.IsValueType)
             {
@@ -3905,7 +3945,7 @@ namespace ServiceStack.OrmLite.Dapper
             else
             {
                 var types = new Type[length];
-                for (int i = startBound; i < startBound + length; i++)
+                for (var i = startBound; i < startBound + length; i++)
                 {
                     types[i - startBound] = reader.GetFieldType(i);
                 }
@@ -3940,7 +3980,7 @@ namespace ServiceStack.OrmLite.Dapper
                     var ctor = typeMap.FindConstructor(names, types);
                     if (ctor == null)
                     {
-                        string proposedTypes = "(" + string.Join(", ", types.Select((t, i) => t.FullName + " " + names[i]).ToArray()) + ")";
+                        var proposedTypes = "(" + string.Join(", ", types.Select((t, i) => t.FullName + " " + names[i]).ToArray()) + ")";
                         throw new InvalidOperationException($"A parameterless default constructor or one matching signature {proposedTypes} is required for {type.FullName} materialization");
                     }
 
@@ -3977,11 +4017,11 @@ namespace ServiceStack.OrmLite.Dapper
                 : names.Select(n => typeMap.GetMember(n))).ToList();
 
             // stack is now [target]
-            bool first = true;
+            var first = true;
             var allDone = il.DefineLabel();
             var stringEnumLocal = (LocalBuilder)null;
             var valueCopyDiagnosticLocal = il.DeclareLocal(typeof(object));
-            bool applyNullSetting = Settings.ApplyNullValues;
+            var applyNullSetting = Settings.ApplyNullValues;
             foreach (var item in members)
             {
                 if (item != null)
@@ -3991,8 +4031,8 @@ namespace ServiceStack.OrmLite.Dapper
                         il.Emit(OpCodes.Dup); // stack is now [target][target]
                     }
 
-                    Label finishLabel = il.DefineLabel();
-                    Type memberType = item.MemberType;
+                    var finishLabel = il.DefineLabel();
+                    var memberType = item.MemberType;
 
                     // Save off the current index for access if an exception is thrown
                     EmitInt32(il, index);
@@ -4158,7 +4198,7 @@ namespace ServiceStack.OrmLite.Dapper
 
                 if (unboxType.IsEnum)
                 {
-                    Type numericType = Enum.GetUnderlyingType(unboxType);
+                    var numericType = Enum.GetUnderlyingType(unboxType);
                     if (colType == typeof(string))
                     {
                         if (stringEnumLocal == null)
@@ -4241,7 +4281,7 @@ namespace ServiceStack.OrmLite.Dapper
             }
             else
             {
-                bool handled = false;
+                var handled = false;
                 OpCode opCode = default;
                 switch (Type.GetTypeCode(from))
                 {
@@ -4340,7 +4380,7 @@ namespace ServiceStack.OrmLite.Dapper
         /// <returns>System.Reflection.MethodInfo.</returns>
         private static MethodInfo ResolveOperator(MethodInfo[] methods, Type from, Type to, string name)
         {
-            for (int i = 0; i < methods.Length; i++)
+            for (var i = 0; i < methods.Length; i++)
             {
                 if (methods[i].Name != name || methods[i].ReturnType != to)
                 {
@@ -4462,8 +4502,10 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="table">The <see cref="DataTable" /> to create this parameter for.</param>
         /// <param name="typeName">The name of the type this parameter is for.</param>
         /// <returns>ServiceStack.OrmLite.Dapper.SqlMapper.ICustomQueryParameter.</returns>
-        public static ICustomQueryParameter AsTableValuedParameter(this DataTable table, string typeName = null) =>
-            new TableValuedParameter(table, typeName);
+        public static ICustomQueryParameter AsTableValuedParameter(this DataTable table, string typeName = null)
+        {
+            return new TableValuedParameter(table, typeName);
+        }
 
         /// <summary>
         /// Associate a DataTable with a type name.
@@ -4490,8 +4532,10 @@ namespace ServiceStack.OrmLite.Dapper
         /// </summary>
         /// <param name="table">The <see cref="DataTable" /> that has a type name associated with it.</param>
         /// <returns>string.</returns>
-        public static string GetTypeName(this DataTable table) =>
-            table?.ExtendedProperties[DataTableTypeNameKey] as string;
+        public static string GetTypeName(this DataTable table)
+        {
+            return table?.ExtendedProperties[DataTableTypeNameKey] as string;
+        }
 
         /// <summary>
         /// Used to pass a IEnumerable&lt;SqlDataRecord&gt; as a TableValuedParameter.
@@ -4500,8 +4544,10 @@ namespace ServiceStack.OrmLite.Dapper
         /// <param name="list">The list of records to convert to TVPs.</param>
         /// <param name="typeName">The sql parameter type name.</param>
         /// <returns>ServiceStack.OrmLite.Dapper.SqlMapper.ICustomQueryParameter.</returns>
-        public static ICustomQueryParameter AsTableValuedParameter<T>(this IEnumerable<T> list, string typeName = null) where T : IDataRecord =>
-            new SqlDataRecordListTVPParameter<T>(list, typeName);
+        public static ICustomQueryParameter AsTableValuedParameter<T>(this IEnumerable<T> list, string typeName = null) where T : IDataRecord
+        {
+            return new SqlDataRecordListTVPParameter<T>(list, typeName);
+        }
 
         // one per thread
         /// <summary>

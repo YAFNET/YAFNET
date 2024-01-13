@@ -27,7 +27,6 @@ using Microsoft.AspNetCore.Identity;
 namespace YAF.Pages.Admin.EditUser;
 
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -111,7 +110,7 @@ public class UsersProfileModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public UsersProfileInputModel Input { get; set; }
 
     public UsersProfileModel()
         : base("ADMIN_EDITUSER", ForumPages.Admin_EditUser)
@@ -125,8 +124,8 @@ public class UsersProfileModel : AdminPage
             return this.Get<LinkBuilder>().AccessDenied();
         }
 
-        this.Input = new InputModel
-                     {
+        this.Input = new UsersProfileInputModel
+        {
                          UserId = userId
                      };
 
@@ -204,7 +203,7 @@ public class UsersProfileModel : AdminPage
 
         if (this.Input.Xmpp.IsSet() && !ValidationHelper.IsValidXmpp(this.Input.Xmpp))
         {
-            this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_XMPP"), MessageTypes.warning); 
+            this.PageBoardContext.SessionNotify(this.GetText("PROFILE", "BAD_XMPP"), MessageTypes.warning);
             return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_EditUser, new { u = this.Input.UserId, tab = "View3" });
         }
 
@@ -572,50 +571,5 @@ public class UsersProfileModel : AdminPage
                     }
                 }
             });
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public int UserId { get; set; }
-
-        public string DisplayName { get; set; }
-
-        public string RealName { get; set; }
-
-        [DataType(DataType.Date)]
-        public string Birthday { get; set; }
-
-        [BindProperty, MaxLength(400)]
-        public string Occupation { get; set; }
-
-        [BindProperty, MaxLength(400)]
-        public string Interests { get; set; }
-
-        public string Gender { get; set; }
-
-        public string Location { get; set; }
-
-        public string Country { get; set; }
-
-        public string Region { get; set; }
-
-        public string City { get; set; }
-
-        [DataType(DataType.Url)]
-        public string HomePage { get; set; }
-
-        [DataType(DataType.Url)]
-        public string Blog { get; set; }
-
-        public string Xmpp { get; set; }
-
-        public string Skype { get; set; }
-
-        public string Facebook { get; set; }
-
-        public List<ProfileDefinition> CustomProfile { get; set; }
     }
 }

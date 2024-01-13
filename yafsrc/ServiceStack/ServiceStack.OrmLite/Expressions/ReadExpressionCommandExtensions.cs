@@ -42,7 +42,7 @@ static internal class ReadExpressionCommandExtensions
     static internal List<T> Select<T>(this IDbCommand dbCmd, Expression<Func<T, bool>> predicate)
     {
         var q = dbCmd.GetDialectProvider().SqlExpression<T>();
-        string sql = q.Where(predicate).SelectInto<T>(QueryType.Select);
+        var sql = q.Where(predicate).SelectInto<T>(QueryType.Select);
 
         return dbCmd.ExprConvertToList<T>(sql, q.Params);
     }
@@ -388,7 +388,7 @@ static internal class ReadExpressionCommandExtensions
     /// <returns>T.</returns>
     static internal T Single<T>(this IDbCommand dbCmd, SqlExpression<T> q)
     {
-        string sql = q.Limit(1).SelectInto<T>(QueryType.Select);
+        var sql = q.Limit(1).SelectInto<T>(QueryType.Select);
 
         return dbCmd.ExprConvertTo<T>(sql, q.Params, onlyFields: q.OnlyFields);
     }
@@ -437,7 +437,7 @@ static internal class ReadExpressionCommandExtensions
     {
         var q = dbCmd.GetDialectProvider().SqlExpression<T>();
         q.Select(field).Where(predicate);
-        string sql = q.SelectInto<T>(QueryType.Select);
+        var sql = q.SelectInto<T>(QueryType.Select);
         return dbCmd.Scalar<TKey>(sql, q.Params);
     }
 
@@ -607,8 +607,11 @@ static internal class ReadExpressionCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="table">The table.</param>
     /// <returns>ColumnSchema[].</returns>
-    public static ColumnSchema[] GetTableColumns(this IDbCommand dbCmd, Type table) =>
-        dbCmd.GetTableColumns($"SELECT * FROM {dbCmd.GetDialectProvider().GetQuotedTableName(table.GetModelDefinition())}");
+    public static ColumnSchema[] GetTableColumns(this IDbCommand dbCmd, Type table)
+    {
+        return dbCmd.GetTableColumns(
+            $"SELECT * FROM {dbCmd.GetDialectProvider().GetQuotedTableName(table.GetModelDefinition())}");
+    }
 
     /// <summary>
     /// Gets the table columns.
@@ -616,8 +619,10 @@ static internal class ReadExpressionCommandExtensions
     /// <param name="dbCmd">The database command.</param>
     /// <param name="sql">The SQL.</param>
     /// <returns>ColumnSchema[].</returns>
-    public static ColumnSchema[] GetTableColumns(this IDbCommand dbCmd, string sql) =>
-        dbCmd.GetSchemaTable(sql).ToColumnSchemas(dbCmd);
+    public static ColumnSchema[] GetTableColumns(this IDbCommand dbCmd, string sql)
+    {
+        return dbCmd.GetSchemaTable(sql).ToColumnSchemas(dbCmd);
+    }
 
     /// <summary>
     /// Converts to columnschemas.

@@ -233,8 +233,10 @@ public static class OrmLiteReadExpressionsApi
     /// <param name="db">The database.</param>
     /// <param name="alias">The alias.</param>
     /// <returns>TableOptions.</returns>
-    public static TableOptions TableAlias(this IDbConnection db, string alias) =>
-        new() { Alias = alias };
+    public static TableOptions TableAlias(this IDbConnection db, string alias)
+    {
+        return new TableOptions { Alias = alias };
+    }
 
     /// <summary>
     /// Gets the name of the table.
@@ -242,15 +244,20 @@ public static class OrmLiteReadExpressionsApi
     /// <typeparam name="T"></typeparam>
     /// <param name="db">The database.</param>
     /// <returns>System.String.</returns>
-    public static string GetTableName<T>(this IDbConnection db) =>
-        db.GetDialectProvider().GetTableName(ModelDefinition<T>.Definition);
+    public static string GetTableName<T>(this IDbConnection db)
+    {
+        return db.GetDialectProvider().GetTableName(ModelDefinition<T>.Definition);
+    }
 
     /// <summary>
     /// Gets the table names.
     /// </summary>
     /// <param name="db">The database.</param>
     /// <returns>List&lt;System.String&gt;.</returns>
-    public static List<string> GetTableNames(this IDbConnection db) => GetTableNames(db, null);
+    public static List<string> GetTableNames(this IDbConnection db)
+    {
+        return GetTableNames(db, null);
+    }
 
     /// <summary>
     /// Gets the table names.
@@ -258,15 +265,20 @@ public static class OrmLiteReadExpressionsApi
     /// <param name="db">The database.</param>
     /// <param name="schema">The schema.</param>
     /// <returns>List&lt;System.String&gt;.</returns>
-    public static List<string> GetTableNames(this IDbConnection db, string schema) =>
-        db.Column<string>(db.GetDialectProvider().ToTableNamesStatement(schema));
+    public static List<string> GetTableNames(this IDbConnection db, string schema)
+    {
+        return db.Column<string>(db.GetDialectProvider().ToTableNamesStatement(schema));
+    }
 
     /// <summary>
     /// Gets the table names asynchronous.
     /// </summary>
     /// <param name="db">The database.</param>
     /// <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns>
-    public static Task<List<string>> GetTableNamesAsync(this IDbConnection db) => GetTableNamesAsync(db, null);
+    public static Task<List<string>> GetTableNamesAsync(this IDbConnection db)
+    {
+        return GetTableNamesAsync(db, null);
+    }
 
     /// <summary>
     /// Gets the table names asynchronous.
@@ -274,8 +286,10 @@ public static class OrmLiteReadExpressionsApi
     /// <param name="db">The database.</param>
     /// <param name="schema">The schema.</param>
     /// <returns>Task&lt;List&lt;System.String&gt;&gt;.</returns>
-    public static Task<List<string>> GetTableNamesAsync(this IDbConnection db, string schema) =>
-        db.ColumnAsync<string>(db.GetDialectProvider().ToTableNamesStatement(schema));
+    public static Task<List<string>> GetTableNamesAsync(this IDbConnection db, string schema)
+    {
+        return db.ColumnAsync<string>(db.GetDialectProvider().ToTableNamesStatement(schema));
+    }
 
     /// <summary>
     /// Gets the table names with row counts.
@@ -532,8 +546,10 @@ public static class OrmLiteReadExpressionsApi
     /// <param name="dbConn">The database connection.</param>
     /// <param name="expression">The expression.</param>
     /// <returns>List&lt;Tuple&lt;T, T2&gt;&gt;.</returns>
-    public static List<Tuple<T, T2>> SelectMulti<T, T2>(this IDbConnection dbConn, SqlExpression<T> expression) =>
-        dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2>(expression));
+    public static List<Tuple<T, T2>> SelectMulti<T, T2>(this IDbConnection dbConn, SqlExpression<T> expression)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2>(expression));
+    }
 
     /// <summary>
     /// Selects the multi.
@@ -546,8 +562,10 @@ public static class OrmLiteReadExpressionsApi
     /// <returns>List&lt;Tuple&lt;T, T2, T3&gt;&gt;.</returns>
     public static List<Tuple<T, T2, T3>> SelectMulti<T, T2, T3>(
         this IDbConnection dbConn,
-        SqlExpression<T> expression) =>
-        dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3>(expression));
+        SqlExpression<T> expression)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3>(expression));
+    }
 
     /// <summary>
     /// Selects the multi.
@@ -561,8 +579,10 @@ public static class OrmLiteReadExpressionsApi
     /// <returns>List&lt;Tuple&lt;T, T2, T3, T4&gt;&gt;.</returns>
     public static List<Tuple<T, T2, T3, T4>> SelectMulti<T, T2, T3, T4>(
         this IDbConnection dbConn,
-        SqlExpression<T> expression) =>
-        dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4>(expression));
+        SqlExpression<T> expression)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4>(expression));
+    }
 
     /// <summary>
     /// Selects the multi.
@@ -577,8 +597,10 @@ public static class OrmLiteReadExpressionsApi
     /// <returns>List&lt;Tuple&lt;T, T2, T3, T4, T5&gt;&gt;.</returns>
     public static List<Tuple<T, T2, T3, T4, T5>> SelectMulti<T, T2, T3, T4, T5>(
         this IDbConnection dbConn,
-        SqlExpression<T> expression) =>
-        dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5>(expression));
+        SqlExpression<T> expression)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5>(expression));
+    }
 
     /// <summary>
     /// Selects the multi.
@@ -594,8 +616,10 @@ public static class OrmLiteReadExpressionsApi
     /// <returns>List&lt;Tuple&lt;T, T2, T3, T4, T5, T6&gt;&gt;.</returns>
     public static List<Tuple<T, T2, T3, T4, T5, T6>> SelectMulti<T, T2, T3, T4, T5, T6>(
         this IDbConnection dbConn,
-        SqlExpression<T> expression) =>
-        dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6>(expression));
+        SqlExpression<T> expression)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6>(expression));
+    }
 
     /// <summary>
     /// Selects the multi.
@@ -612,8 +636,10 @@ public static class OrmLiteReadExpressionsApi
     /// <returns>List&lt;Tuple&lt;T, T2, T3, T4, T5, T6, T7&gt;&gt;.</returns>
     public static List<Tuple<T, T2, T3, T4, T5, T6, T7>> SelectMulti<T, T2, T3, T4, T5, T6, T7>(
         this IDbConnection dbConn,
-        SqlExpression<T> expression) =>
-        dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6, T7>(expression));
+        SqlExpression<T> expression)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6, T7>(expression));
+    }
 
     /// <summary>
     /// Selects the multi.
@@ -631,8 +657,10 @@ public static class OrmLiteReadExpressionsApi
     /// <returns>List&lt;Tuple&lt;T, T2, T3, T4, T5, T6, T7, T8&gt;&gt;.</returns>
     public static List<Tuple<T, T2, T3, T4, T5, T6, T7, T8>> SelectMulti<T, T2, T3, T4, T5, T6, T7, T8>(
         this IDbConnection dbConn,
-        SqlExpression<T> expression) =>
-        dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6, T7, T8>(expression));
+        SqlExpression<T> expression)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6, T7, T8>(expression));
+    }
 
     /// <summary>
     /// Selects the multi.
@@ -646,8 +674,10 @@ public static class OrmLiteReadExpressionsApi
     public static List<Tuple<T, T2>> SelectMulti<T, T2>(
         this IDbConnection dbConn,
         SqlExpression<T> expression,
-        string[] tableSelects) =>
-        dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2>(expression, tableSelects));
+        string[] tableSelects)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2>(expression, tableSelects));
+    }
 
     /// <summary>
     /// Selects the multi.
@@ -662,8 +692,10 @@ public static class OrmLiteReadExpressionsApi
     public static List<Tuple<T, T2, T3>> SelectMulti<T, T2, T3>(
         this IDbConnection dbConn,
         SqlExpression<T> expression,
-        string[] tableSelects) =>
-        dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3>(expression, tableSelects));
+        string[] tableSelects)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3>(expression, tableSelects));
+    }
 
     /// <summary>
     /// Selects the multi.
@@ -679,8 +711,10 @@ public static class OrmLiteReadExpressionsApi
     public static List<Tuple<T, T2, T3, T4>> SelectMulti<T, T2, T3, T4>(
         this IDbConnection dbConn,
         SqlExpression<T> expression,
-        string[] tableSelects) =>
-        dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4>(expression, tableSelects));
+        string[] tableSelects)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4>(expression, tableSelects));
+    }
 
     /// <summary>
     /// Selects the multi.
@@ -697,8 +731,10 @@ public static class OrmLiteReadExpressionsApi
     public static List<Tuple<T, T2, T3, T4, T5>> SelectMulti<T, T2, T3, T4, T5>(
         this IDbConnection dbConn,
         SqlExpression<T> expression,
-        string[] tableSelects) =>
-        dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5>(expression, tableSelects));
+        string[] tableSelects)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5>(expression, tableSelects));
+    }
 
     /// <summary>
     /// Selects the multi.
@@ -716,8 +752,10 @@ public static class OrmLiteReadExpressionsApi
     public static List<Tuple<T, T2, T3, T4, T5, T6>> SelectMulti<T, T2, T3, T4, T5, T6>(
         this IDbConnection dbConn,
         SqlExpression<T> expression,
-        string[] tableSelects) =>
-        dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6>(expression, tableSelects));
+        string[] tableSelects)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6>(expression, tableSelects));
+    }
 
     /// <summary>
     /// Selects the multi.
@@ -736,8 +774,10 @@ public static class OrmLiteReadExpressionsApi
     public static List<Tuple<T, T2, T3, T4, T5, T6, T7>> SelectMulti<T, T2, T3, T4, T5, T6, T7>(
         this IDbConnection dbConn,
         SqlExpression<T> expression,
-        string[] tableSelects) =>
-        dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6, T7>(expression, tableSelects));
+        string[] tableSelects)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6, T7>(expression, tableSelects));
+    }
 
 
     /// <summary>
@@ -758,8 +798,10 @@ public static class OrmLiteReadExpressionsApi
     public static List<Tuple<T, T2, T3, T4, T5, T6, T7, T8>> SelectMulti<T, T2, T3, T4, T5, T6, T7, T8>(
         this IDbConnection dbConn,
         SqlExpression<T> expression,
-        string[] tableSelects) =>
-        dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6, T7, T8>(expression, tableSelects));
+        string[] tableSelects)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMulti<T, T2, T3, T4, T5, T6, T7, T8>(expression, tableSelects));
+    }
 
     /// <summary>
     /// Returns a single result from using a LINQ Expression. E.g:
@@ -1048,8 +1090,10 @@ public static class OrmLiteReadExpressionsApi
     /// <param name="dbConn">The database connection.</param>
     /// <param name="sql">The SQL.</param>
     /// <returns>DataTable.</returns>
-    public static DataTable GetSchemaTable(this IDbConnection dbConn, string sql) =>
-        dbConn.Exec(dbCmd => dbCmd.GetSchemaTable(sql));
+    public static DataTable GetSchemaTable(this IDbConnection dbConn, string sql)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.GetSchemaTable(sql));
+    }
 
     /// <summary>
     /// Get Table Column Schemas for specified table
@@ -1057,8 +1101,10 @@ public static class OrmLiteReadExpressionsApi
     /// <typeparam name="T"></typeparam>
     /// <param name="dbConn">The database connection.</param>
     /// <returns>ColumnSchema[].</returns>
-    public static ColumnSchema[] GetTableColumns<T>(this IDbConnection dbConn) =>
-        dbConn.Exec(dbCmd => dbCmd.GetTableColumns(typeof(T)));
+    public static ColumnSchema[] GetTableColumns<T>(this IDbConnection dbConn)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.GetTableColumns(typeof(T)));
+    }
 
     /// <summary>
     /// Get Table Column Schemas for specified table
@@ -1066,8 +1112,10 @@ public static class OrmLiteReadExpressionsApi
     /// <param name="dbConn">The database connection.</param>
     /// <param name="type">The type.</param>
     /// <returns>ColumnSchema[].</returns>
-    public static ColumnSchema[] GetTableColumns(this IDbConnection dbConn, Type type) =>
-        dbConn.Exec(dbCmd => dbCmd.GetTableColumns(type));
+    public static ColumnSchema[] GetTableColumns(this IDbConnection dbConn, Type type)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.GetTableColumns(type));
+    }
 
     /// <summary>
     /// Get Table Column Schemas for result-set return from specified sql
@@ -1075,20 +1123,26 @@ public static class OrmLiteReadExpressionsApi
     /// <param name="dbConn">The database connection.</param>
     /// <param name="sql">The SQL.</param>
     /// <returns>ColumnSchema[].</returns>
-    public static ColumnSchema[] GetTableColumns(this IDbConnection dbConn, string sql) =>
-        dbConn.Exec(dbCmd => dbCmd.GetTableColumns(sql));
+    public static ColumnSchema[] GetTableColumns(this IDbConnection dbConn, string sql)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.GetTableColumns(sql));
+    }
 
     /// <summary>
     /// Enables the foreign keys check.
     /// </summary>
     /// <param name="dbConn">The database connection.</param>
-    public static void EnableForeignKeysCheck(this IDbConnection dbConn) =>
+    public static void EnableForeignKeysCheck(this IDbConnection dbConn)
+    {
         dbConn.Exec(dbConn.GetDialectProvider().EnableForeignKeysCheck);
+    }
 
     /// <summary>
     /// Disables the foreign keys check.
     /// </summary>
     /// <param name="dbConn">The database connection.</param>
-    public static void DisableForeignKeysCheck(this IDbConnection dbConn) =>
+    public static void DisableForeignKeysCheck(this IDbConnection dbConn)
+    {
         dbConn.Exec(dbConn.GetDialectProvider().DisableForeignKeysCheck);
+    }
 }

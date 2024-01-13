@@ -35,8 +35,8 @@ public static partial class SqlMapper
         /// <param name="func">The function.</param>
         public DeserializerState(int hash, Func<IDataReader, object> func)
         {
-            Hash = hash;
-            Func = func;
+            this.Hash = hash;
+            this.Func = func;
         }
     }
 }

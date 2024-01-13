@@ -4,10 +4,10 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 namespace ServiceStack.OrmLite.SqlServer;
 
 using System;
-using System.Linq;
 
 using ServiceStack.DataAnnotations;
 using ServiceStack.Text;
@@ -22,7 +22,7 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
     /// <summary>
     /// The instance
     /// </summary>
-    public static new SqlServer2014OrmLiteDialectProvider Instance = new SqlServer2014OrmLiteDialectProvider();
+    public static new SqlServer2014OrmLiteDialectProvider Instance = new();
 
     /// <summary>
     /// Gets the column definition.
@@ -33,16 +33,18 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
     {
         // https://msdn.microsoft.com/en-us/library/ms182776.aspx
         if (fieldDef.IsRowVersion)
+        {
             return $"{fieldDef.FieldName} rowversion NOT NULL";
+        }
 
-        var fieldDefinition = ResolveFragment(fieldDef.CustomFieldDefinition) ??
-                              GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
+        var fieldDefinition = this.ResolveFragment(fieldDef.CustomFieldDefinition) ??
+                              this.GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
 
         var memTableAttrib = fieldDef.PropertyInfo?.ReflectedType.FirstAttribute<SqlServerMemoryOptimizedAttribute>();
         var isMemoryTable = memTableAttrib != null;
 
         var sql = StringBuilderCache.Allocate();
-        sql.Append($"{GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
+        sql.Append($"{this.GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
 
         if (fieldDef.FieldType == typeof(string))
         {
@@ -74,7 +76,7 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
 
             if (fieldDef.AutoIncrement)
             {
-                sql.Append(" ").Append(GetAutoIncrementDefinition(fieldDef));
+                sql.Append(" ").Append(this.GetAutoIncrementDefinition(fieldDef));
             }
 
             if (isMemoryTable && bucketCount.HasValue)
@@ -86,7 +88,7 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
         {
             if (isMemoryTable && bucketCount.HasValue)
             {
-                sql.Append($" NOT NULL INDEX {GetQuotedColumnName("IDX_" + fieldDef.FieldName)}");
+                sql.Append($" NOT NULL INDEX {this.GetQuotedColumnName("IDX_" + fieldDef.FieldName)}");
 
                 if (fieldDef.IsNonClustered)
                 {
@@ -106,10 +108,10 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
             sql.Append(" UNIQUE");
         }
 
-        var defaultValue = GetDefaultValue(fieldDef);
+        var defaultValue = this.GetDefaultValue(fieldDef);
         if (!string.IsNullOrEmpty(defaultValue))
         {
-            sql.AppendFormat(DefaultValueFormat, defaultValue);
+            sql.AppendFormat(this.DefaultValueFormat, defaultValue);
         }
 
         return StringBuilderCache.ReturnAndFree(sql);
@@ -125,16 +127,18 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
     {
         // https://msdn.microsoft.com/en-us/library/ms182776.aspx
         if (fieldDef.IsRowVersion)
+        {
             return $"{fieldDef.FieldName} rowversion NOT NULL";
+        }
 
-        var fieldDefinition = ResolveFragment(fieldDef.CustomFieldDefinition) ??
-                              GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
+        var fieldDefinition = this.ResolveFragment(fieldDef.CustomFieldDefinition) ??
+                              this.GetColumnTypeDefinition(fieldDef.ColumnType, fieldDef.FieldLength, fieldDef.Scale);
 
         var memTableAttrib = fieldDef.PropertyInfo?.ReflectedType.FirstAttribute<SqlServerMemoryOptimizedAttribute>();
         var isMemoryTable = memTableAttrib != null;
 
         var sql = StringBuilderCache.Allocate();
-        sql.Append($"{GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
+        sql.Append($"{this.GetQuotedColumnName(fieldDef.FieldName)} {fieldDefinition}");
 
         if (fieldDef.FieldType == typeof(string))
         {
@@ -158,19 +162,21 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
             {
                 if (isMemoryTable)
                 {
-                    sql.Append($" NOT NULL PRIMARY KEY NONCLUSTERED");
+                    sql.Append(" NOT NULL PRIMARY KEY NONCLUSTERED");
                 }
                 else
                 {
                     sql.Append(" PRIMARY KEY");
 
                     if (fieldDef.IsNonClustered)
+                    {
                         sql.Append(" NONCLUSTERED");
+                    }
                 }
 
                 if (fieldDef.AutoIncrement)
                 {
-                    sql.Append(" ").Append(GetAutoIncrementDefinition(fieldDef));
+                    sql.Append(" ").Append(this.GetAutoIncrementDefinition(fieldDef));
                 }
 
                 if (isMemoryTable && bucketCount.HasValue)
@@ -182,7 +188,7 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
             {
                 if (isMemoryTable && bucketCount.HasValue)
                 {
-                    sql.Append($" NOT NULL INDEX {GetQuotedColumnName("IDX_" + fieldDef.FieldName)}");
+                    sql.Append($" NOT NULL INDEX {this.GetQuotedColumnName("IDX_" + fieldDef.FieldName)}");
 
                     if (fieldDef.IsNonClustered)
                     {
@@ -203,10 +209,10 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
             sql.Append(" UNIQUE");
         }
 
-        var defaultValue = GetDefaultValue(fieldDef);
+        var defaultValue = this.GetDefaultValue(fieldDef);
         if (!string.IsNullOrEmpty(defaultValue))
         {
-            sql.AppendFormat(DefaultValueFormat, defaultValue);
+            sql.AppendFormat(this.DefaultValueFormat, defaultValue);
         }
 
         return StringBuilderCache.ReturnAndFree(sql);
@@ -233,34 +239,42 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
             foreach (var fieldDef in modelDef.FieldDefinitions)
             {
                 if (fieldDef.CustomSelect != null || fieldDef.IsComputed && !fieldDef.IsPersisted)
+                {
                     continue;
+                }
 
-                var columnDefinition = GetColumnDefinition(fieldDef, modelDef);
+                var columnDefinition = this.GetColumnDefinition(fieldDef, modelDef);
                 if (columnDefinition == null)
+                {
                     continue;
+                }
 
                 if (sbColumns.Length != 0)
+                {
                     sbColumns.Append(", \n  ");
+                }
 
                 sbColumns.Append(columnDefinition);
 
-                var sqlConstraint = GetCheckConstraint(modelDef, fieldDef);
+                var sqlConstraint = this.GetCheckConstraint(modelDef, fieldDef);
                 if (sqlConstraint != null)
                 {
                     sbConstraints.Append(",\n" + sqlConstraint);
                 }
 
                 if (fieldDef.ForeignKey == null || OrmLiteConfig.SkipForeignKeys)
+                {
                     continue;
+                }
 
                 var refModelDef = OrmLiteUtils.GetModelDefinition(fieldDef.ForeignKey.ReferenceType);
                 sbConstraints.Append(
-                    $", \n\n  CONSTRAINT {GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, NamingStrategy, fieldDef))} " +
-                    $"FOREIGN KEY ({GetQuotedColumnName(fieldDef.FieldName)}) " +
-                    $"REFERENCES {GetQuotedTableName(refModelDef)} ({GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)})");
+                    $", \n\n  CONSTRAINT {this.GetQuotedName(fieldDef.ForeignKey.GetForeignKeyName(modelDef, refModelDef, this.NamingStrategy, fieldDef))} " +
+                    $"FOREIGN KEY ({this.GetQuotedColumnName(fieldDef.FieldName)}) " +
+                    $"REFERENCES {this.GetQuotedTableName(refModelDef)} ({this.GetQuotedColumnName(refModelDef.PrimaryKey.FieldName)})");
 
-                sbConstraints.Append(GetForeignKeyOnDeleteClause(fieldDef.ForeignKey));
-                sbConstraints.Append(GetForeignKeyOnUpdateClause(fieldDef.ForeignKey));
+                sbConstraints.Append(this.GetForeignKeyOnDeleteClause(fieldDef.ForeignKey));
+                sbConstraints.Append(this.GetForeignKeyOnUpdateClause(fieldDef.ForeignKey));
             }
 
             if (memoryTableAttrib != null)
@@ -276,7 +290,7 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
                         sbTableOptions.Append(", DURABILITY = SCHEMA_AND_DATA");
                         break;
                 }
-                sbTableOptions.Append(")");
+                sbTableOptions.Append(')');
             }
         }
         else
@@ -295,14 +309,18 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
 
                 if (hasFileTableCollateFileName)
                 {
-                    if (hasFileTableDir) sbTableOptions.Append(" ,");
+                    if (hasFileTableDir)
+                    {
+                        sbTableOptions.Append(" ,");
+                    }
+
                     sbTableOptions.Append($" FILETABLE_COLLATE_FILENAME = {fileTableAttrib.FileTableCollateFileName ?? "database_default" }\n");
                 }
                 sbTableOptions.Append(")");
             }
         }
 
-        var uniqueConstraints = GetUniqueConstraints(modelDef);
+        var uniqueConstraints = this.GetUniqueConstraints(modelDef);
         if (uniqueConstraints != null)
         {
             sbConstraints.Append(",\n" + uniqueConstraints);
@@ -310,7 +328,7 @@ public class SqlServer2014OrmLiteDialectProvider : SqlServer2012OrmLiteDialectPr
 
         // TODO
 
-        var sql = $"CREATE TABLE {GetQuotedTableName(modelDef)} ";
+        var sql = $"CREATE TABLE {this.GetQuotedTableName(modelDef)} ";
         sql += fileTableAttrib != null
                    ? $"\n AS FILETABLE{StringBuilderCache.ReturnAndFree(sbTableOptions)};"
                    : $"\n(\n  {StringBuilderCache.ReturnAndFree(sbColumns)}{StringBuilderCacheAlt.ReturnAndFree(sbConstraints)} \n){StringBuilderCache.ReturnAndFree(sbTableOptions)}; \n";

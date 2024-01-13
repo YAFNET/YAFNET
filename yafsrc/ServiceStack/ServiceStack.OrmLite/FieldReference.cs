@@ -24,7 +24,10 @@ public class FieldReference
     /// Initializes a new instance of the <see cref="FieldReference"/> class.
     /// </summary>
     /// <param name="fieldDef">The field definition.</param>
-    public FieldReference(FieldDefinition fieldDef) => this.FieldDef = fieldDef;
+    public FieldReference(FieldDefinition fieldDef)
+    {
+        this.FieldDef = fieldDef;
+    }
 
     /// <summary>
     /// Foreign Key Table name

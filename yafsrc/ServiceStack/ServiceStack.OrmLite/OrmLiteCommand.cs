@@ -58,15 +58,15 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// Gets the connection identifier.
     /// </summary>
     /// <value>The connection identifier.</value>
-    public Guid ConnectionId => dbConn.ConnectionId;
+    public Guid ConnectionId => this.dbConn.ConnectionId;
 
     /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
     /// </summary>
     public void Dispose()
     {
-        IsDisposed = true;
-        dbCmd.Dispose();
+        this.IsDisposed = true;
+        this.dbCmd.Dispose();
     }
 
     /// <summary>
@@ -74,7 +74,7 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// </summary>
     public void Prepare()
     {
-        dbCmd.Prepare();
+        this.dbCmd.Prepare();
     }
 
     /// <summary>
@@ -82,7 +82,7 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// </summary>
     public void Cancel()
     {
-        dbCmd.Cancel();
+        this.dbCmd.Cancel();
     }
 
     /// <summary>
@@ -91,7 +91,7 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// <returns>An <see langword="IDbDataParameter" /> object.</returns>
     public IDbDataParameter CreateParameter()
     {
-        return dbCmd.CreateParameter();
+        return this.dbCmd.CreateParameter();
     }
 
     /// <summary>
@@ -100,7 +100,7 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// <returns>The number of rows affected.</returns>
     public int ExecuteNonQuery()
     {
-        return dbCmd.ExecuteNonQuery();
+        return this.dbCmd.ExecuteNonQuery();
     }
 
     /// <summary>
@@ -109,7 +109,7 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// <returns>An <see cref="T:System.Data.IDataReader" /> object.</returns>
     public IDataReader ExecuteReader()
     {
-        return dbCmd.ExecuteReader();
+        return this.dbCmd.ExecuteReader();
     }
 
     /// <summary>
@@ -119,7 +119,7 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// <returns>An <see cref="T:System.Data.IDataReader" /> object.</returns>
     public IDataReader ExecuteReader(CommandBehavior behavior)
     {
-        return dbCmd.ExecuteReader(behavior);
+        return this.dbCmd.ExecuteReader(behavior);
     }
 
     /// <summary>
@@ -128,7 +128,7 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// <returns>The first column of the first row in the resultset.</returns>
     public object ExecuteScalar()
     {
-        return dbCmd.ExecuteScalar();
+        return this.dbCmd.ExecuteScalar();
     }
 
     /// <summary>
@@ -137,8 +137,8 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// <value>The connection.</value>
     public IDbConnection Connection
     {
-        get => dbCmd.Connection;
-        set => dbCmd.Connection = value;
+        get => this.dbCmd.Connection;
+        set => this.dbCmd.Connection = value;
     }
     /// <summary>
     /// Gets or sets the transaction within which the <see langword="Command" /> object of a .NET Framework data provider executes.
@@ -146,8 +146,8 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// <value>The transaction.</value>
     public IDbTransaction Transaction
     {
-        get => dbCmd.Transaction;
-        set => dbCmd.Transaction = value;
+        get => this.dbCmd.Transaction;
+        set => this.dbCmd.Transaction = value;
     }
     /// <summary>
     /// Gets or sets the text command to run against the data source.
@@ -155,8 +155,8 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// <value>The command text.</value>
     public string CommandText
     {
-        get => dbCmd.CommandText;
-        set => dbCmd.CommandText = value;
+        get => this.dbCmd.CommandText;
+        set => this.dbCmd.CommandText = value;
     }
     /// <summary>
     /// Gets or sets the wait time before terminating the attempt to execute a command and generating an error.
@@ -164,8 +164,8 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// <value>The command timeout.</value>
     public int CommandTimeout
     {
-        get => dbCmd.CommandTimeout;
-        set => dbCmd.CommandTimeout = value;
+        get => this.dbCmd.CommandTimeout;
+        set => this.dbCmd.CommandTimeout = value;
     }
     /// <summary>
     /// Indicates or specifies how the <see cref="P:System.Data.IDbCommand.CommandText" /> property is interpreted.
@@ -173,14 +173,14 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// <value>The type of the command.</value>
     public CommandType CommandType
     {
-        get => dbCmd.CommandType;
-        set => dbCmd.CommandType = value;
+        get => this.dbCmd.CommandType;
+        set => this.dbCmd.CommandType = value;
     }
     /// <summary>
     /// Gets the <see cref="T:System.Data.IDataParameterCollection" />.
     /// </summary>
     /// <value>The parameters.</value>
-    public IDataParameterCollection Parameters => dbCmd.Parameters;
+    public IDataParameterCollection Parameters => this.dbCmd.Parameters;
 
     /// <summary>
     /// Gets or sets how command results are applied to the <see cref="T:System.Data.DataRow" /> when used by the <see cref="M:System.Data.IDataAdapter.Update(System.Data.DataSet)" /> method of a <see cref="T:System.Data.Common.DbDataAdapter" />.
@@ -188,13 +188,13 @@ public class OrmLiteCommand : IDbCommand, IHasDbCommand, IHasDialectProvider
     /// <value>The updated row source.</value>
     public UpdateRowSource UpdatedRowSource
     {
-        get => dbCmd.UpdatedRowSource;
-        set => dbCmd.UpdatedRowSource = value;
+        get => this.dbCmd.UpdatedRowSource;
+        set => this.dbCmd.UpdatedRowSource = value;
     }
 
     /// <summary>
     /// Gets the database command.
     /// </summary>
     /// <value>The database command.</value>
-    public IDbCommand DbCommand => dbCmd;
+    public IDbCommand DbCommand => this.dbCmd;
 }

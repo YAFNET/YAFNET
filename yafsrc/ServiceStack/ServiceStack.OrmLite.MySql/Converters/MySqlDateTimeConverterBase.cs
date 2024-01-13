@@ -4,7 +4,9 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 using System;
+
 using ServiceStack.OrmLite.Converters;
 
 namespace ServiceStack.OrmLite.MySql.Converters;
@@ -26,9 +28,9 @@ public abstract class MySqlDateTimeConverterBase : DateTimeConverter
     /// SQL Column Definition used in CREATE Table.
     /// </summary>
     /// <value>The column definition.</value>
-    public override string ColumnDefinition => Precision == 0
+    public override string ColumnDefinition => this.Precision == 0
                                                    ? "DATETIME"
-                                                   : $"DATETIME({Precision})";
+                                                   : $"DATETIME({this.Precision})";
 
     /// <summary>
     /// Converts to quotedstring.
@@ -43,10 +45,10 @@ public abstract class MySqlDateTimeConverterBase : DateTimeConverter
          * for more details see: http://dev.mysql.com/doc/refman/5.1/en/datetime.html
          */
         var dateTime = (DateTime)value;
-        var suffix = Precision > 0
-                         ? "." + new string('f', Precision)
+        var suffix = this.Precision > 0
+                         ? "." + new string('f', this.Precision)
                          : "";
-        return DateTimeFmt(dateTime, "yyyy-MM-dd HH:mm:ss" + suffix);
+        return this.DateTimeFmt(dateTime, "yyyy-MM-dd HH:mm:ss" + suffix);
     }
 
 }

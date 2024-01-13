@@ -32,7 +32,7 @@ public class PostgreSqlDecimalConverter : DecimalConverter
     /// <returns>System.String.</returns>
     public override string GetColumnDefinition(int? precision, int? scale)
     {
-        return $"NUMERIC({precision.GetValueOrDefault(Precision)},{scale.GetValueOrDefault(Scale)})";
+        return $"NUMERIC({precision.GetValueOrDefault(this.Precision)},{scale.GetValueOrDefault(this.Scale)})";
     }
 
     /// <summary>

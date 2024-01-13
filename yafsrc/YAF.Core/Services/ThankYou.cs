@@ -149,13 +149,15 @@ public class ThankYou : IThankYou, IHaveServiceLocator
 
         return thanksInfoOnly
                    ? thanks.Replace("\"", "'").Replace("<ol>", string.Empty).Replace("</ol>", string.Empty)
-                   : $@"<a class=""btn btn-link thanks-popover"" 
-                           data-bs-toggle=""popover"" 
-                           data-bs-trigger=""click hover""
-                           data-bs-html=""true""
-                           title=""{thanksText}"" 
-                           data-bs-content=""{thanks.Replace("\"", "'")}"">
-                               <i class=""fa fa-heart"" style= ""color:#e74c3c""></i>&nbsp;+{thanksNumber}</a>";
+                   : $"""
+                      <a class="btn btn-link thanks-popover"
+                                                 data-bs-toggle="popover"
+                                                 data-bs-trigger="click hover"
+                                                 data-bs-html="true"
+                                                 title="{thanksText}"
+                                                 data-bs-content="{thanks.Replace("\"", "'")}">
+                                                     <i class="fa fa-heart" style= "color:#e74c3c"></i>&nbsp;+{thanksNumber}</a>
+                      """;
     }
 
     /// <summary>

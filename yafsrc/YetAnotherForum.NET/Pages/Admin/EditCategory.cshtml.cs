@@ -50,7 +50,7 @@ public class EditCategoryModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public EditCategoryInputModel Input { get; set; }
 
     public List<SelectListItem> CategoryImages { get; set; }
 
@@ -98,7 +98,7 @@ public class EditCategoryModel : AdminPage
     /// </summary>
     public void OnGet(int? c)
     {
-        this.Input = new InputModel();
+        this.Input = new EditCategoryInputModel();
 
         // Populate Categories
         this.CreateImagesList();
@@ -194,21 +194,5 @@ public class EditCategoryModel : AdminPage
         this.Input.Active = category.CategoryFlags.IsActive;
 
         this.Input.CategoryImage = category.CategoryImage;
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public string CategoryImage { get; set; }
-
-        public int SortOrder { get; set; }
-
-        public bool Active { get; set; }
     }
 }

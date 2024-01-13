@@ -35,7 +35,7 @@ public class OrmLiteConnection
     /// Gets the database transaction.
     /// </summary>
     /// <value>The database transaction.</value>
-    public IDbTransaction DbTransaction => Transaction;
+    public IDbTransaction DbTransaction => this.Transaction;
     /// <summary>
     /// The database connection
     /// </summary>
@@ -76,27 +76,27 @@ public class OrmLiteConnection
     /// Gets the database connection.
     /// </summary>
     /// <value>The database connection.</value>
-    public IDbConnection DbConnection => dbConnection ??= ConnectionString.ToDbConnection(Factory.DialectProvider);
+    public IDbConnection DbConnection => this.dbConnection ??= this.ConnectionString.ToDbConnection(this.Factory.DialectProvider);
 
     /// <summary>
     /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
     /// </summary>
     public void Dispose()
     {
-        Factory.OnDispose?.Invoke(this);
-        if (!Factory.AutoDisposeConnection)
+        this.Factory.OnDispose?.Invoke(this);
+        if (!this.Factory.AutoDisposeConnection)
         {
             return;
         }
 
-        if (dbConnection == null)
+        if (this.dbConnection == null)
         {
-            LogManager.GetLogger(GetType()).WarnFormat("No dbConnection to Dispose()");
+            LogManager.GetLogger(this.GetType()).WarnFormat("No dbConnection to Dispose()");
             return;
         }
 
-        dbConnection.Dispose();
-        dbConnection = null;
+        this.dbConnection.Dispose();
+        this.dbConnection = null;
     }
 
     /// <summary>
@@ -105,7 +105,7 @@ public class OrmLiteConnection
     /// <returns>An object representing the new transaction.</returns>
     public IDbTransaction BeginTransaction()
     {
-        return Factory.AlwaysReturnTransaction ?? DbConnection.BeginTransaction();
+        return this.Factory.AlwaysReturnTransaction ?? this.DbConnection.BeginTransaction();
     }
 
     /// <summary>
@@ -115,7 +115,7 @@ public class OrmLiteConnection
     /// <returns>IDbTransaction.</returns>
     public IDbTransaction BeginTransaction(IsolationLevel isolationLevel)
     {
-        return Factory.AlwaysReturnTransaction ?? DbConnection.BeginTransaction(isolationLevel);
+        return this.Factory.AlwaysReturnTransaction ?? this.DbConnection.BeginTransaction(isolationLevel);
     }
 
     /// <summary>
@@ -123,19 +123,19 @@ public class OrmLiteConnection
     /// </summary>
     public void Close()
     {
-        if (dbConnection == null)
+        if (this.dbConnection == null)
         {
-            LogManager.GetLogger(GetType()).WarnFormat("No dbConnection to Close()");
+            LogManager.GetLogger(this.GetType()).WarnFormat("No dbConnection to Close()");
             return;
         }
 
-        var id = Diagnostics.OrmLite.WriteConnectionCloseBefore(dbConnection);
-        var connectionId = dbConnection.GetConnectionId();
+        var id = Diagnostics.OrmLite.WriteConnectionCloseBefore(this.dbConnection);
+        var connectionId = this.dbConnection.GetConnectionId();
 
         Exception e = null;
         try
         {
-            dbConnection.Close();
+            this.dbConnection.Close();
         }
         catch (Exception ex)
         {
@@ -146,11 +146,11 @@ public class OrmLiteConnection
         {
             if (e != null)
             {
-                Diagnostics.OrmLite.WriteConnectionCloseError(id, connectionId, dbConnection, e);
+                Diagnostics.OrmLite.WriteConnectionCloseError(id, connectionId, this.dbConnection, e);
             }
             else
             {
-                Diagnostics.OrmLite.WriteConnectionCloseAfter(id, connectionId, dbConnection);
+                Diagnostics.OrmLite.WriteConnectionCloseAfter(id, connectionId, this.dbConnection);
             }
         }
     }
@@ -161,7 +161,7 @@ public class OrmLiteConnection
     /// <param name="databaseName">The name of the database to use in place of the current database.</param>
     public void ChangeDatabase(string databaseName)
     {
-        DbConnection.ChangeDatabase(databaseName);
+        this.DbConnection.ChangeDatabase(databaseName);
     }
 
     /// <summary>
@@ -170,12 +170,12 @@ public class OrmLiteConnection
     /// <returns>A Command object associated with the connection.</returns>
     public IDbCommand CreateCommand()
     {
-        if (Factory.AlwaysReturnCommand != null)
+        if (this.Factory.AlwaysReturnCommand != null)
         {
             return this.Factory.AlwaysReturnCommand;
         }
 
-        var cmd = DbConnection.CreateCommand();
+        var cmd = this.DbConnection.CreateCommand();
 
         return cmd;
     }
@@ -185,7 +185,7 @@ public class OrmLiteConnection
     /// </summary>
     public void Open()
     {
-        var dbConn = DbConnection;
+        var dbConn = this.DbConnection;
         if (dbConn.State == ConnectionState.Broken)
         {
             dbConn.Close();
@@ -203,12 +203,12 @@ public class OrmLiteConnection
         {
             dbConn.Open();
             //so the internal connection is wrapped for example by miniprofiler
-            if (Factory.ConnectionFilter != null)
+            if (this.Factory.ConnectionFilter != null)
             {
                 dbConn = this.Factory.ConnectionFilter(dbConn);
             }
 
-            DialectProvider.InitConnection(dbConn);
+            this.DialectProvider.InitConnection(dbConn);
         }
         catch (Exception ex)
         {
@@ -235,7 +235,7 @@ public class OrmLiteConnection
     /// <returns>A Task representing the asynchronous operation.</returns>
     public async Task OpenAsync(CancellationToken token = default)
     {
-        var dbConn = DbConnection;
+        var dbConn = this.DbConnection;
         if (dbConn.State == ConnectionState.Broken)
         {
             dbConn.Close();
@@ -248,14 +248,14 @@ public class OrmLiteConnection
 
             try
             {
-                await DialectProvider.OpenAsync(dbConn, token).ConfigAwait();
+                await this.DialectProvider.OpenAsync(dbConn, token).ConfigAwait();
                 //so the internal connection is wrapped for example by miniprofiler
-                if (Factory.ConnectionFilter != null)
+                if (this.Factory.ConnectionFilter != null)
                 {
                     dbConn = this.Factory.ConnectionFilter(dbConn);
                 }
 
-                DialectProvider.InitConnection(dbConn);
+                this.DialectProvider.InitConnection(dbConn);
             }
             catch (Exception ex)
             {
@@ -286,27 +286,27 @@ public class OrmLiteConnection
     /// <value>The connection string.</value>
     public string ConnectionString
     {
-        get => connectionString ?? Factory.ConnectionString;
-        set => connectionString = value;
+        get => this.connectionString ?? this.Factory.ConnectionString;
+        set => this.connectionString = value;
     }
 
     /// <summary>
     /// Gets the time to wait while trying to establish a connection before terminating the attempt and generating an error.
     /// </summary>
     /// <value>The connection timeout.</value>
-    public int ConnectionTimeout => DbConnection.ConnectionTimeout;
+    public int ConnectionTimeout => this.DbConnection.ConnectionTimeout;
 
     /// <summary>
     /// Gets the name of the current database or the database to be used after a connection is opened.
     /// </summary>
     /// <value>The database.</value>
-    public string Database => DbConnection.Database;
+    public string Database => this.DbConnection.Database;
 
     /// <summary>
     /// Gets the current state of the connection.
     /// </summary>
     /// <value>The state.</value>
-    public ConnectionState State => DbConnection.State;
+    public ConnectionState State => this.DbConnection.State;
 
     /// <summary>
     /// Gets or sets a value indicating whether [automatic dispose connection].
@@ -347,14 +347,18 @@ public static class OrmLiteConnectionUtils
     /// </summary>
     /// <param name="db">The database.</param>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public static bool InTransaction(this IDbConnection db) =>
-        db is IHasDbTransaction { DbTransaction: { } };
+    public static bool InTransaction(this IDbConnection db)
+    {
+        return db is IHasDbTransaction { DbTransaction: { } };
+    }
 
     /// <summary>
     /// Gets the transaction.
     /// </summary>
     /// <param name="db">The database.</param>
     /// <returns>IDbTransaction.</returns>
-    public static IDbTransaction GetTransaction(this IDbConnection db) =>
-        db is IHasDbTransaction setDb ? setDb.DbTransaction : null;
+    public static IDbTransaction GetTransaction(this IDbConnection db)
+    {
+        return db is IHasDbTransaction setDb ? setDb.DbTransaction : null;
+    }
 }

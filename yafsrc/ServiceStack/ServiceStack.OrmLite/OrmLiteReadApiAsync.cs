@@ -880,7 +880,7 @@ namespace ServiceStack.OrmLite
         /// <param name="include">The include.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;T&gt;.</returns>
-        public static Task<T> LoadSingleByIdAsync<T>(this IDbConnection dbConn, object idValue, string[] include = null, CancellationToken token = default(CancellationToken))
+        public static Task<T> LoadSingleByIdAsync<T>(this IDbConnection dbConn, object idValue, string[] include = null, CancellationToken token = default)
         {
             return dbConn.Exec(dbCmd => dbCmd.LoadSingleByIdAsync<T>(idValue, include, token));
         }

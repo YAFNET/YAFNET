@@ -24,7 +24,6 @@
 
 namespace YAF.Pages.Account;
 
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,8 +35,6 @@ using YAF.Core.Extensions;
 using YAF.Core.Services;
 using YAF.Types.Extensions;
 using YAF.Types.Interfaces.Identity;
-
-using DataType = System.ComponentModel.DataAnnotations.DataType;
 
 /// <summary>
 /// The recover Password Page.
@@ -65,7 +62,7 @@ public class ResetPasswordModel : AccountPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public ResetPasswordInputModel Input { get; set; }
 
     /// <summary>
     /// Create the Page links.
@@ -112,43 +109,16 @@ public class ResetPasswordModel : AccountPage
         var result = await this.Get<IAspNetUsersHelper>()
             .ResetPasswordAsync(user, HttpUtility.UrlDecode(code, Encoding.UTF8), this.Input.Password);
 
-        if (result.Succeeded)
+        if (!result.Succeeded)
         {
-            // Get User again to get updated Password Hash
-            user = await this.Get<IAspNetUsersHelper>().GetUserAsync(user.Id);
-
-            await this.Get<IAspNetUsersHelper>().SignInAsync(user);
-
-            return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
+            return this.PageBoardContext.Notify(result.Errors.FirstOrDefault()?.Description, MessageTypes.danger);
         }
 
-        return this.PageBoardContext.Notify(result.Errors.FirstOrDefault()?.Description, MessageTypes.danger);
-    }
+        // Get User again to get updated Password Hash
+        user = await this.Get<IAspNetUsersHelper>().GetUserAsync(user.Id);
 
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        /// <summary>
-        /// Gets or sets the email.
-        /// </summary>
-        [Required]
-        [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
+        await this.Get<IAspNetUsersHelper>().SignInAsync(user);
 
-        /// <summary>
-        /// Gets or sets the password.
-        /// </summary>
-        [Required]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-
-        /// <summary>
-        /// Gets or sets the password.
-        /// </summary>
-        [Required]
-        [DataType(DataType.Password)]
-        public string ConfirmPassword { get; set; }
+        return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
     }
 }

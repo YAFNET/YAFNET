@@ -22,25 +22,36 @@ public class PostgreSqlXmlConverter : PostgreSqlStringConverter
     /// </summary>
     /// <value>The column definition.</value>
     public override string ColumnDefinition => "XML";
+
     /// <summary>
     /// Customize how DB Param is initialized. Useful for supporting RDBMS-specific Types.
     /// </summary>
     /// <param name="p">The p.</param>
     /// <param name="fieldType">Type of the field.</param>
-    public override void InitDbParam(IDbDataParameter p, Type fieldType) => p.DbType = DbType.Xml;
+    public override void InitDbParam(IDbDataParameter p, Type fieldType)
+    {
+        p.DbType = DbType.Xml;
+    }
+
     /// <summary>
     /// Parameterized value in parameterized queries
     /// </summary>
     /// <param name="fieldType">Type of the field.</param>
     /// <param name="value">The value.</param>
     /// <returns>System.Object.</returns>
-    public override object ToDbValue(Type fieldType, object value) => value?.ToString();
+    public override object ToDbValue(Type fieldType, object value)
+    {
+        return value?.ToString();
+    }
+
     /// <summary>
     /// Converts to quotedstring.
     /// </summary>
     /// <param name="fieldType">Type of the field.</param>
     /// <param name="value">The value.</param>
     /// <returns>System.String.</returns>
-    public override string ToQuotedString(Type fieldType, object value) => 
-        base.ToQuotedString(fieldType, value.ToString());
+    public override string ToQuotedString(Type fieldType, object value)
+    {
+        return base.ToQuotedString(fieldType, value.ToString());
+    }
 }

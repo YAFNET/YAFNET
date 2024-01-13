@@ -56,7 +56,7 @@ public class UsersSuspendModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public UsersSuspendInputModel Input { get; set; }
 
     public UsersSuspendModel()
         : base("ADMIN_EDITUSER", ForumPages.Admin_EditUser)
@@ -70,8 +70,8 @@ public class UsersSuspendModel : AdminPage
             return this.Get<LinkBuilder>().AccessDenied();
         }
 
-        this.Input = new InputModel
-                     {
+        this.Input = new UsersSuspendInputModel
+        {
                          UserId = userId
                      };
 
@@ -212,27 +212,13 @@ public class UsersSuspendModel : AdminPage
     private void BindData(int userId)
     {
         this.SuspendUnits = [
-            new(this.GetText("PROFILE", "DAYS"), "1"),
-            new(this.GetText("PROFILE", "HOURS"), "2"),
-            new(this.GetText("PROFILE", "MINUTES"), "3")
+            new SelectListItem(this.GetText("PROFILE", "DAYS"), "1"),
+            new SelectListItem(this.GetText("PROFILE", "HOURS"), "2"),
+            new SelectListItem(this.GetText("PROFILE", "MINUTES"), "3")
         ];
 
         this.EditUser =
             this.Get<IDataCache>()[string.Format(Constants.Cache.EditUser, userId)] as
                 Tuple<User, AspNetUsers, Rank, VAccess>;
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public int UserId { get; set; }
-
-        public string SuspendedReason { get; set; }
-
-        public int SuspendCount { get; set; } = 2;
-
-        public int SuspendUnit { get; set; } = 2;
     }
 }

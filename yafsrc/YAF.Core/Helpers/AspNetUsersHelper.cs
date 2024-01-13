@@ -28,7 +28,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq.Expressions;
-using System.Threading;
 using System.Threading.Tasks;
 
 using Microsoft.AspNetCore.Hosting;
@@ -448,18 +447,6 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// <summary>
     /// Method returns MembershipUser
     /// </summary>
-    /// <param name="providerKey">The provider key.</param>
-    /// <returns>
-    /// Returns MembershipUser
-    /// </returns>
-    public Task<AspNetUsers> GetUserAsync(object providerKey)
-    {
-        return this.Get<AspNetUsersManager>().FindUserByIdAsync(providerKey.ToString());
-    }
-
-    /// <summary>
-    /// Method returns MembershipUser
-    /// </summary>
     /// <returns>
     /// Returns MembershipUser
     /// </returns>
@@ -497,6 +484,18 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
         return httpContext.User.Identity.IsAuthenticated
                    ? await this.Get<IAspNetUsersHelper>().GetUserByNameAsync(httpContext.User.Identity.Name)
                    : null;
+    }
+
+    /// <summary>
+    /// Method returns MembershipUser
+    /// </summary>
+    /// <param name="providerKey">The provider key.</param>
+    /// <returns>
+    /// Returns MembershipUser
+    /// </returns>
+    public Task<AspNetUsers> GetUserAsync(object providerKey)
+    {
+        return this.Get<AspNetUsersManager>().FindUserByIdAsync(providerKey.ToString());
     }
 
     /// <summary>

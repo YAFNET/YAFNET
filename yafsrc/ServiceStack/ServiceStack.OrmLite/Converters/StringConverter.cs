@@ -32,7 +32,7 @@ public class StringConverter : OrmLiteConverter, IHasColumnDefinitionLength
     /// <param name="stringLength">Length of the string.</param>
     public StringConverter(int stringLength)
     {
-        StringLength = stringLength;
+        this.StringLength = stringLength;
     }
 
     /// <summary>
@@ -51,7 +51,7 @@ public class StringConverter : OrmLiteConverter, IHasColumnDefinitionLength
     /// Gets the maximum length of the variable character.
     /// </summary>
     /// <value>The maximum length of the variable character.</value>
-    public virtual int MaxVarCharLength => UseUnicode ? 8000 : 4000;
+    public virtual int MaxVarCharLength => this.UseUnicode ? 8000 : 4000;
 
     /// <summary>
     /// The maximum column definition
@@ -63,15 +63,15 @@ public class StringConverter : OrmLiteConverter, IHasColumnDefinitionLength
     /// <value>The maximum column definition.</value>
     public virtual string MaxColumnDefinition
     {
-        get => maxColumnDefinition ?? ColumnDefinition;
-        set => maxColumnDefinition = value;
+        get => this.maxColumnDefinition ?? this.ColumnDefinition;
+        set => this.maxColumnDefinition = value;
     }
 
     /// <summary>
     /// SQL Column Definition used in CREATE Table.
     /// </summary>
     /// <value>The column definition.</value>
-    public override string ColumnDefinition => GetColumnDefinition(StringLength);
+    public override string ColumnDefinition => this.GetColumnDefinition(this.StringLength);
 
     /// <summary>
     /// Gets the column definition.
@@ -85,9 +85,9 @@ public class StringConverter : OrmLiteConverter, IHasColumnDefinitionLength
             return this.MaxColumnDefinition;
         }
 
-        return UseUnicode
-                   ? $"NVARCHAR({stringLength.GetValueOrDefault(StringLength)})"
-                   : $"VARCHAR({stringLength.GetValueOrDefault(StringLength)})";
+        return this.UseUnicode
+                   ? $"NVARCHAR({stringLength.GetValueOrDefault(this.StringLength)})"
+                   : $"VARCHAR({stringLength.GetValueOrDefault(this.StringLength)})";
     }
 
     /// <summary>
@@ -101,9 +101,9 @@ public class StringConverter : OrmLiteConverter, IHasColumnDefinitionLength
 
         if (p.Size == default && fieldType == typeof(string))
         {
-            p.Size = UseUnicode
-                         ? Math.Min(StringLength, 4000)
-                         : StringLength;
+            p.Size = this.UseUnicode
+                         ? Math.Min(this.StringLength, 4000)
+                         : this.StringLength;
         }
     }
 
@@ -153,7 +153,7 @@ public class CharConverter : StringConverter
     /// <returns>System.String.</returns>
     public override string GetColumnDefinition(int? stringLength)
     {
-        return ColumnDefinition;
+        return this.ColumnDefinition;
     }
 
     /// <summary>

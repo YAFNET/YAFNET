@@ -59,8 +59,8 @@ public struct DictionaryRow : IDynamicRow<Dictionary<string, object>>
     /// <param name="fields">The fields.</param>
     public DictionaryRow(Type type, Dictionary<string, object> fields)
     {
-        Type = type;
-        Fields = fields;
+        this.Type = type;
+        this.Fields = fields;
     }
 }
 
@@ -89,8 +89,8 @@ public struct ObjectRow : IDynamicRow<object>
     /// <param name="fields">The fields.</param>
     public ObjectRow(Type type, object fields)
     {
-        Type = type;
-        Fields = fields;
+        this.Type = type;
+        this.Fields = fields;
     }
 }
 
@@ -105,7 +105,10 @@ public static class DynamicRowUtils
     /// <typeparam name="T"></typeparam>
     /// <param name="row">The row.</param>
     /// <returns>System.Object.</returns>
-    static internal object ToFilterType<T>(this object row) => ToFilterType(row, typeof(T));
+    static internal object ToFilterType<T>(this object row)
+    {
+        return ToFilterType(row, typeof(T));
+    }
 
     /// <summary>
     /// Converts to filtertype.
@@ -113,13 +116,15 @@ public static class DynamicRowUtils
     /// <param name="row">The row.</param>
     /// <param name="type">The type.</param>
     /// <returns>System.Object.</returns>
-    static internal object ToFilterType(this object row, Type type) => row == null
-                                                                           ? null
-                                                                           : type.IsInstanceOfType(row)
-                                                                               ? row
-                                                                               : row switch
-                                                                                   {
-                                                                                       Dictionary<string, object> obj => new DictionaryRow(type, obj),
-                                                                                       _ => new ObjectRow(type, row),
-                                                                                   };
+    static internal object ToFilterType(this object row, Type type)
+    {
+        return row == null
+            ? null
+            : type.IsInstanceOfType(row)
+                ? row
+                : row switch {
+                    Dictionary<string, object> obj => new DictionaryRow(type, obj),
+                    _ => new ObjectRow(type, row),
+                };
+    }
 }

@@ -5,9 +5,7 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
-using ServiceStack.OrmLite.SqlServer;
-
-namespace ServiceStack.OrmLite;
+namespace ServiceStack.OrmLite.SqlServer;
 
 /// <summary>
 /// Class SqlServerDialect.

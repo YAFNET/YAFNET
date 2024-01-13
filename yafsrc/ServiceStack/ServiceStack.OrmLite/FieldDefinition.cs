@@ -64,7 +64,7 @@ public class FieldDefinition
     /// Gets the type of the column.
     /// </summary>
     /// <value>The type of the column.</value>
-    public Type ColumnType => TreatAsType ?? FieldType;
+    public Type ColumnType => this.TreatAsType ?? this.FieldType;
 
     /// <summary>
     /// Gets or sets the property information.
@@ -194,14 +194,14 @@ public class FieldDefinition
     public object GetValue(object instance)
     {
         var type = instance.GetType();
-        if (PropertyInfo.DeclaringType?.IsAssignableFrom(type) != true)
+        if (this.PropertyInfo.DeclaringType?.IsAssignableFrom(type) != true)
         {
             if (instance is IDictionary d)
             {
                 return d[this.Name];
             }
 
-            var accessor = TypeProperties.Get(type).GetAccessor(Name);
+            var accessor = TypeProperties.Get(type).GetAccessor(this.Name);
             return accessor?.PublicGetter(instance);
         }
 
@@ -217,7 +217,7 @@ public class FieldDefinition
     {
         if (instance is IDictionary d)
         {
-            d[Name] = value;
+            d[this.Name] = value;
             return;
         }
 
@@ -231,9 +231,9 @@ public class FieldDefinition
     /// <returns>System.String.</returns>
     public string GetQuotedName(IOrmLiteDialectProvider dialectProvider)
     {
-        return IsRowVersion
+        return this.IsRowVersion
                    ? dialectProvider.GetRowVersionSelectColumn(this).ToString()
-                   : dialectProvider.GetQuotedColumnName(FieldName);
+                   : dialectProvider.GetQuotedColumnName(this.FieldName);
     }
 
     /// <summary>
@@ -244,8 +244,8 @@ public class FieldDefinition
     /// <returns>System.String.</returns>
     public string GetQuotedValue(object fromInstance, IOrmLiteDialectProvider dialect = null)
     {
-        var value = GetValue(fromInstance);
-        return (dialect ?? OrmLiteConfig.DialectProvider).GetQuotedValue(value, ColumnType);
+        var value = this.GetValue(fromInstance);
+        return (dialect ?? OrmLiteConfig.DialectProvider).GetQuotedValue(value, this.ColumnType);
     }
 
     /// <summary>
@@ -291,7 +291,7 @@ public class FieldDefinition
     /// Gets a value indicating whether [requires alias].
     /// </summary>
     /// <value><c>true</c> if [requires alias]; otherwise, <c>false</c>.</value>
-    public bool RequiresAlias => Alias != null || CustomSelect != null;
+    public bool RequiresAlias => this.Alias != null || this.CustomSelect != null;
 
     /// <summary>
     /// Gets or sets the name of the belong to model.
@@ -342,28 +342,40 @@ public class FieldDefinition
     public bool ReturnOnInsert { get; set; }
 
     /// <summary>
-    /// Returns a <see cref="System.String" /> that represents this instance.
+    /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>
-    /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
-    public override string ToString() => Name;
+    /// <returns>A <see cref="string" /> that represents this instance.</returns>
+    public override string ToString()
+    {
+        return this.Name;
+    }
 
     /// <summary>
     /// Shoulds the skip insert.
     /// </summary>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public bool ShouldSkipInsert() => IgnoreOnInsert || AutoIncrement || IsComputed && !IsPersisted || IsRowVersion;
+    public bool ShouldSkipInsert()
+    {
+        return this.IgnoreOnInsert || this.AutoIncrement || this.IsComputed && !this.IsPersisted || this.IsRowVersion;
+    }
 
     /// <summary>
     /// Shoulds the skip update.
     /// </summary>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public bool ShouldSkipUpdate() => IgnoreOnUpdate || IsComputed && !IsPersisted;
+    public bool ShouldSkipUpdate()
+    {
+        return this.IgnoreOnUpdate || this.IsComputed && !this.IsPersisted;
+    }
 
     /// <summary>
     /// Shoulds the skip delete.
     /// </summary>
     /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-    public bool ShouldSkipDelete() => IsComputed && !IsPersisted;
+    public bool ShouldSkipDelete()
+    {
+        return this.IsComputed && !this.IsPersisted;
+    }
 
     /// <summary>
     /// Determines whether [is self reference field] [the specified field definition].
@@ -372,8 +384,8 @@ public class FieldDefinition
     /// <returns><c>true</c> if [is self reference field] [the specified field definition]; otherwise, <c>false</c>.</returns>
     public bool IsSelfRefField(FieldDefinition fieldDef)
     {
-        return fieldDef.Alias != null && IsSelfRefField(fieldDef.Alias)
-               || IsSelfRefField(fieldDef.Name);
+        return fieldDef.Alias != null && this.IsSelfRefField(fieldDef.Alias)
+               || this.IsSelfRefField(fieldDef.Name);
     }
 
     /// <summary>
@@ -383,8 +395,8 @@ public class FieldDefinition
     /// <returns><c>true</c> if [is self reference field] [the specified name]; otherwise, <c>false</c>.</returns>
     public bool IsSelfRefField(string name)
     {
-        return Alias != null && Alias + "Id" == name
-               || Name + "Id" == name;
+        return this.Alias != null && this.Alias + "Id" == name
+               || this.Name + "Id" == name;
     }
 
     /// <summary>
@@ -396,39 +408,39 @@ public class FieldDefinition
     {
         var fieldDef = new FieldDefinition
                            {
-                               Name = Name,
-                               Alias = Alias,
-                               FieldType = FieldType,
-                               FieldTypeDefaultValue = FieldTypeDefaultValue,
-                               TreatAsType = TreatAsType,
-                               PropertyInfo = PropertyInfo,
-                               IsPrimaryKey = IsPrimaryKey,
-                               AutoIncrement = AutoIncrement,
-                               AutoId = AutoId,
-                               IsNullable = IsNullable,
-                               IsIndexed = IsIndexed,
-                               IsUniqueIndex = IsUniqueIndex,
-                               IsClustered = IsClustered,
-                               IsNonClustered = IsNonClustered,
-                               IsRowVersion = IsRowVersion,
-                               FieldLength = FieldLength,
-                               Scale = Scale,
-                               DefaultValue = DefaultValue,
-                               CheckConstraint = CheckConstraint,
-                               IsUniqueConstraint = IsUniqueConstraint,
-                               ForeignKey = ForeignKey,
-                               GetValueFn = GetValueFn,
-                               SetValueFn = SetValueFn,
-                               Sequence = Sequence,
-                               IsComputed = IsComputed,
-                               IsPersisted = IsPersisted,
-                               ComputeExpression = ComputeExpression,
-                               CustomSelect = CustomSelect,
-                               BelongToModelName = BelongToModelName,
-                               IsReference = IsReference,
-                               FieldReference = FieldReference,
-                               CustomFieldDefinition = CustomFieldDefinition,
-                               IsRefType = IsRefType,
+                               Name = this.Name,
+                               Alias = this.Alias,
+                               FieldType = this.FieldType,
+                               FieldTypeDefaultValue = this.FieldTypeDefaultValue,
+                               TreatAsType = this.TreatAsType,
+                               PropertyInfo = this.PropertyInfo,
+                               IsPrimaryKey = this.IsPrimaryKey,
+                               AutoIncrement = this.AutoIncrement,
+                               AutoId = this.AutoId,
+                               IsNullable = this.IsNullable,
+                               IsIndexed = this.IsIndexed,
+                               IsUniqueIndex = this.IsUniqueIndex,
+                               IsClustered = this.IsClustered,
+                               IsNonClustered = this.IsNonClustered,
+                               IsRowVersion = this.IsRowVersion,
+                               FieldLength = this.FieldLength,
+                               Scale = this.Scale,
+                               DefaultValue = this.DefaultValue,
+                               CheckConstraint = this.CheckConstraint,
+                               IsUniqueConstraint = this.IsUniqueConstraint,
+                               ForeignKey = this.ForeignKey,
+                               GetValueFn = this.GetValueFn,
+                               SetValueFn = this.SetValueFn,
+                               Sequence = this.Sequence,
+                               IsComputed = this.IsComputed,
+                               IsPersisted = this.IsPersisted,
+                               ComputeExpression = this.ComputeExpression,
+                               CustomSelect = this.CustomSelect,
+                               BelongToModelName = this.BelongToModelName,
+                               IsReference = this.IsReference,
+                               FieldReference = this.FieldReference,
+                               CustomFieldDefinition = this.CustomFieldDefinition,
+                               IsRefType = this.IsRefType,
                            };
 
         modifier?.Invoke(fieldDef);

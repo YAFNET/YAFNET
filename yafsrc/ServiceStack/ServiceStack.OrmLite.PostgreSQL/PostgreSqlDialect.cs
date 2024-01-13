@@ -5,9 +5,7 @@
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
 
-namespace ServiceStack.OrmLite;
-
-using ServiceStack.OrmLite.PostgreSQL;
+namespace ServiceStack.OrmLite.PostgreSQL;
 
 /// <summary>
 /// Class PostgreSqlDialect.
@@ -19,6 +17,7 @@ public static class PostgreSqlDialect
     /// </summary>
     /// <value>The provider.</value>
     public static IOrmLiteDialectProvider Provider => PostgreSqlDialectProvider.Instance;
+
     /// <summary>
     /// Gets the instance.
     /// </summary>

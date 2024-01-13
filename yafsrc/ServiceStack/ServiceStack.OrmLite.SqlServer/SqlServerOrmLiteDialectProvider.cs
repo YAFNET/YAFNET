@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -16,12 +17,11 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+
 using ServiceStack.DataAnnotations;
 using ServiceStack.OrmLite.SqlServer.Converters;
 using ServiceStack.Text;
-#if NET7_0_OR_GREATER
-using ApplicationException = System.InvalidOperationException;
-#endif
+
 
 namespace ServiceStack.OrmLite.SqlServer
 {
@@ -142,13 +142,19 @@ namespace ServiceStack.OrmLite.SqlServer
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <returns>SqlExpression&lt;T&gt;.</returns>
-        public override SqlExpression<T> SqlExpression<T>() => new SqlServerExpression<T>(this);
+        public override SqlExpression<T> SqlExpression<T>()
+        {
+            return new SqlServerExpression<T>(this);
+        }
 
         /// <summary>
         /// Creates the parameter.
         /// </summary>
         /// <returns>IDbDataParameter.</returns>
-        public override IDbDataParameter CreateParam() => new SqlParameter();
+        public override IDbDataParameter CreateParam()
+        {
+            return new SqlParameter();
+        }
 
         /// <summary>
         /// The default schema
@@ -253,21 +259,30 @@ namespace ServiceStack.OrmLite.SqlServer
         /// </summary>
         /// <param name="name">The name.</param>
         /// <returns>System.String.</returns>
-        public override string ToCreateSavePoint(string name) => $"SAVE TRANSACTION {name}";
+        public override string ToCreateSavePoint(string name)
+        {
+            return $"SAVE TRANSACTION {name}";
+        }
 
         /// <summary>
         /// Converts to releasesavepoint.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <returns>System.String.</returns>
-        public override string ToReleaseSavePoint(string name) => null;
+        public override string ToReleaseSavePoint(string name)
+        {
+            return null;
+        }
 
         /// <summary>
         /// Converts to rollbacksavepoint.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <returns>System.String.</returns>
-        public override string ToRollbackSavePoint(string name) => $"ROLLBACK TRANSACTION {name}";
+        public override string ToRollbackSavePoint(string name)
+        {
+            return $"ROLLBACK TRANSACTION {name}";
+        }
 
         /// <summary>
         /// Doeses the table exist.
@@ -281,9 +296,13 @@ namespace ServiceStack.OrmLite.SqlServer
             var sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = {0}".SqlFmt(this, tableName);
 
             if (schema != null)
+            {
                 sql += " AND TABLE_SCHEMA = {0}".SqlFmt(this, schema);
+            }
             else
+            {
                 sql += " AND TABLE_SCHEMA <> 'Security'";
+            }
 
             var result = dbCmd.ExecLongScalar(sql);
 
@@ -307,9 +326,13 @@ namespace ServiceStack.OrmLite.SqlServer
             var sql = "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = {0}".SqlFmt(this, tableName);
 
             if (schema != null)
+            {
                 sql += " AND TABLE_SCHEMA = {0}".SqlFmt(this, schema);
+            }
             else
+            {
                 sql += " AND TABLE_SCHEMA <> 'Security'";
+            }
 
             var result = await dbCmd.ExecLongScalarAsync(sql, token);
 
@@ -335,7 +358,9 @@ namespace ServiceStack.OrmLite.SqlServer
                     .SqlFmt(this, tableName, columnName);
 
             if (schema != null)
+            {
                 sql += " AND TABLE_SCHEMA = @schema";
+            }
 
             var result = db.SqlScalar<long>(sql, new { tableName, columnName, schema });
 
@@ -363,7 +388,9 @@ namespace ServiceStack.OrmLite.SqlServer
                     .SqlFmt(this, tableName, columnName);
 
             if (schema != null)
+            {
                 sql += " AND TABLE_SCHEMA = @schema";
+            }
 
             var result = await db.SqlScalarAsync<long>(sql, new { tableName, columnName, schema }, token: token);
 
@@ -441,7 +468,9 @@ namespace ServiceStack.OrmLite.SqlServer
                     .SqlFmt(this, tableName, columnName);
 
             if (schema != null)
+            {
                 sql += " AND TABLE_SCHEMA = @schema";
+            }
 
             return db.SqlScalar<long>(sql, new { tableName, columnName, schema });
         }
@@ -833,8 +862,10 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="table">The table.</param>
         /// <param name="fieldDef">The field definition.</param>
         /// <returns>System.String.</returns>
-        public override string ToAddColumnStatement(string schema, string table, FieldDefinition fieldDef) =>
-            $"ALTER TABLE {this.GetQuotedTableName(table, schema)} ADD {GetColumnDefinition(fieldDef)};";
+        public override string ToAddColumnStatement(string schema, string table, FieldDefinition fieldDef)
+        {
+            return $"ALTER TABLE {this.GetQuotedTableName(table, schema)} ADD {this.GetColumnDefinition(fieldDef)};";
+        }
 
         /// <summary>
         /// Converts to altercolumnstatement.
@@ -843,8 +874,11 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="table">The table.</param>
         /// <param name="fieldDef">The field definition.</param>
         /// <returns>System.String.</returns>
-        public override string ToAlterColumnStatement(string schema, string table, FieldDefinition fieldDef) =>
-            $"ALTER TABLE {this.GetQuotedTableName(table, schema)} ALTER COLUMN {GetColumnDefinition(fieldDef)};";
+        public override string ToAlterColumnStatement(string schema, string table, FieldDefinition fieldDef)
+        {
+            return
+                $"ALTER TABLE {this.GetQuotedTableName(table, schema)} ALTER COLUMN {this.GetColumnDefinition(fieldDef)};";
+        }
 
         /// <summary>
         /// Converts to changecolumnnamestatement.
@@ -856,7 +890,7 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <returns>System.String.</returns>
         public override string ToChangeColumnNameStatement(string schema, string table, FieldDefinition fieldDef, string oldColumn)
         {
-            var modelName = NamingStrategy.GetTableName(table);
+            var modelName = this.NamingStrategy.GetTableName(table);
             var objectName = $"{modelName}.{oldColumn}";
 
             return
@@ -873,9 +907,9 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <returns>System.String.</returns>
         public override string ToRenameColumnStatement(string schema, string table, string oldColumn, string newColumn)
         {
-            var modelName = NamingStrategy.GetTableName(table);
-            var objectName = $"{modelName}.{GetQuotedColumnName(oldColumn)}";
-            return $"EXEC sp_rename {GetQuotedValue(objectName)}, {GetQuotedColumnName(newColumn)}, 'COLUMN';";
+            var modelName = this.NamingStrategy.GetTableName(table);
+            var objectName = $"{modelName}.{this.GetQuotedColumnName(oldColumn)}";
+            return $"EXEC sp_rename {this.GetQuotedValue(objectName)}, {this.GetQuotedColumnName(newColumn)}, 'COLUMN';";
         }
 
         /// <summary>
@@ -907,7 +941,9 @@ namespace ServiceStack.OrmLite.SqlServer
         {
             // https://msdn.microsoft.com/en-us/library/ms182776.aspx
             if (fieldDef.IsRowVersion)
+            {
                 return $"{fieldDef.FieldName} rowversion NOT NULL";
+            }
 
             var fieldDefinition = this.ResolveFragment(fieldDef.CustomFieldDefinition) ?? this.GetColumnTypeDefinition(
                 fieldDef.ColumnType,
@@ -932,7 +968,9 @@ namespace ServiceStack.OrmLite.SqlServer
                 sql.Append(" PRIMARY KEY");
 
                 if (fieldDef.IsNonClustered)
+                {
                     sql.Append(" NONCLUSTERED");
+                }
 
                 if (fieldDef.AutoIncrement)
                 {
@@ -968,7 +1006,9 @@ namespace ServiceStack.OrmLite.SqlServer
         {
             // https://msdn.microsoft.com/en-us/library/ms182776.aspx
             if (fieldDef.IsRowVersion)
+            {
                 return $"{fieldDef.FieldName} rowversion NOT NULL";
+            }
 
             var fieldDefinition = this.ResolveFragment(fieldDef.CustomFieldDefinition) ?? this.GetColumnTypeDefinition(
                 fieldDef.ColumnType,
@@ -993,7 +1033,9 @@ namespace ServiceStack.OrmLite.SqlServer
                 sql.Append(" PRIMARY KEY");
 
                 if (fieldDef.IsNonClustered)
+                {
                     sql.Append(" NONCLUSTERED");
+                }
 
                 if (fieldDef.AutoIncrement)
                 {
@@ -1043,16 +1085,18 @@ namespace ServiceStack.OrmLite.SqlServer
             bulkCopy.DestinationTableName = this.GetTableName(modelDef);
 
             var table = new DataTable();
-            var fieldDefs = GetInsertFieldDefinitions(modelDef, insertFields: config.InsertFields);
+            var fieldDefs = this.GetInsertFieldDefinitions(modelDef, insertFields: config.InsertFields);
             foreach (var fieldDef in fieldDefs)
             {
-                if (ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                {
                     continue;
+                }
 
-                var columnName = NamingStrategy.GetColumnName(fieldDef.FieldName);
+                var columnName = this.NamingStrategy.GetColumnName(fieldDef.FieldName);
                 bulkCopy.ColumnMappings.Add(columnName, columnName);
 
-                var converter = GetConverterBestMatch(fieldDef);
+                var converter = this.GetConverterBestMatch(fieldDef);
                 var colType = converter.DbType switch
                 {
                     DbType.String => typeof(string),
@@ -1069,16 +1113,18 @@ namespace ServiceStack.OrmLite.SqlServer
                 var row = table.NewRow();
                 foreach (var fieldDef in fieldDefs)
                 {
-                    if (ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                    if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                    {
                         continue;
+                    }
 
                     var value = fieldDef.AutoId
-                        ? GetInsertDefaultValue(fieldDef)
+                        ? this.GetInsertDefaultValue(fieldDef)
                         : fieldDef.GetValue(obj);
 
-                    var converter = GetConverterBestMatch(fieldDef);
+                    var converter = this.GetConverterBestMatch(fieldDef);
                     var dbValue = converter.ToDbValue(fieldDef.FieldType, value);
-                    var columnName = NamingStrategy.GetColumnName(fieldDef.FieldName);
+                    var columnName = this.NamingStrategy.GetColumnName(fieldDef.FieldName);
                     dbValue ??= DBNull.Value;
                     row[columnName] = dbValue;
                 }
@@ -1113,24 +1159,34 @@ namespace ServiceStack.OrmLite.SqlServer
                 if (this.ShouldReturnOnInsert(modelDef, fieldDef))
                 {
                     if (sbReturningColumns.Length > 0)
+                    {
                         sbReturningColumns.Append(',');
+                    }
+
                     sbReturningColumns.Append("INSERTED." + this.GetQuotedColumnName(fieldDef.FieldName));
                 }
 
                 if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                {
                     continue;
+                }
 
                 if (sbColumnNames.Length > 0)
+                {
                     sbColumnNames.Append(',');
+                }
+
                 if (sbColumnValues.Length > 0)
+                {
                     sbColumnValues.Append(',');
+                }
 
                 try
                 {
                     sbColumnNames.Append(this.GetQuotedColumnName(fieldDef.FieldName));
                     sbColumnValues.Append(this.GetParam(this.SanitizeFieldNameForParamName(fieldDef.FieldName)));
 
-                    AddParameter(cmd, fieldDef);
+                    this.AddParameter(cmd, fieldDef);
                 }
                 catch (Exception ex)
                 {
@@ -1143,10 +1199,15 @@ namespace ServiceStack.OrmLite.SqlServer
             {
                 // need to include any AutoId fields that weren't included
                 if (fieldDefs.Contains(fieldDef))
+                {
                     continue;
+                }
 
                 if (sbReturningColumns.Length > 0)
+                {
                     sbReturningColumns.Append(',');
+                }
+
                 sbReturningColumns.Append("INSERTED." + this.GetQuotedColumnName(fieldDef.FieldName));
             }
 
@@ -1181,8 +1242,10 @@ namespace ServiceStack.OrmLite.SqlServer
         /// </summary>
         /// <param name="fieldDef">The field definition.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        override protected bool ShouldSkipInsert(FieldDefinition fieldDef) =>
-            fieldDef.ShouldSkipInsert() || fieldDef.AutoId;
+        override protected bool ShouldSkipInsert(FieldDefinition fieldDef)
+        {
+            return fieldDef.ShouldSkipInsert() || fieldDef.AutoId;
+        }
 
         /// <summary>
         /// Shoulds the return on insert.
@@ -1190,24 +1253,32 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="modelDef">The model definition.</param>
         /// <param name="fieldDef">The field definition.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        protected virtual bool ShouldReturnOnInsert(ModelDefinition modelDef, FieldDefinition fieldDef) =>
-            fieldDef.ReturnOnInsert ||
-            fieldDef.IsPrimaryKey && fieldDef.AutoIncrement && this.HasInsertReturnValues(modelDef) || fieldDef.AutoId;
+        protected virtual bool ShouldReturnOnInsert(ModelDefinition modelDef, FieldDefinition fieldDef)
+        {
+            return fieldDef.ReturnOnInsert ||
+                   fieldDef.IsPrimaryKey && fieldDef.AutoIncrement && this.HasInsertReturnValues(modelDef) ||
+                   fieldDef.AutoId;
+        }
 
         /// <summary>
         /// Determines whether [has insert return values] [the specified model definition].
         /// </summary>
         /// <param name="modelDef">The model definition.</param>
         /// <returns><c>true</c> if [has insert return values] [the specified model definition]; otherwise, <c>false</c>.</returns>
-        public override bool HasInsertReturnValues(ModelDefinition modelDef) =>
-            modelDef.FieldDefinitions.Any(x => x.ReturnOnInsert || x.AutoId && x.FieldType == typeof(Guid));
+        public override bool HasInsertReturnValues(ModelDefinition modelDef)
+        {
+            return modelDef.FieldDefinitions.Any(x => x.ReturnOnInsert || x.AutoId && x.FieldType == typeof(Guid));
+        }
 
         /// <summary>
         /// Supportses the sequences.
         /// </summary>
         /// <param name="fieldDef">The field definition.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        protected virtual bool SupportsSequences(FieldDefinition fieldDef) => false;
+        protected virtual bool SupportsSequences(FieldDefinition fieldDef)
+        {
+            return false;
+        }
 
         /// <summary>
         /// Enables the identity insert.
@@ -1282,17 +1353,27 @@ namespace ServiceStack.OrmLite.SqlServer
                 if (this.ShouldReturnOnInsert(modelDef, fieldDef))
                 {
                     if (sbReturningColumns.Length > 0)
+                    {
                         sbReturningColumns.Append(',');
+                    }
+
                     sbReturningColumns.Append("INSERTED." + this.GetQuotedColumnName(fieldDef.FieldName));
                 }
 
                 if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId && shouldInclude?.Invoke(fieldDef) != true)
+                {
                     continue;
+                }
 
                 if (sbColumnNames.Length > 0)
+                {
                     sbColumnNames.Append(',');
+                }
+
                 if (sbColumnValues.Length > 0)
+                {
                     sbColumnValues.Append(',');
+                }
 
                 try
                 {
@@ -1325,10 +1406,15 @@ namespace ServiceStack.OrmLite.SqlServer
             {
                 // need to include any AutoId fields that weren't included
                 if (fieldDefs.Contains(fieldDef))
+                {
                     continue;
+                }
 
                 if (sbReturningColumns.Length > 0)
+                {
                     sbReturningColumns.Append(',');
+                }
+
                 sbReturningColumns.Append("INSERTED." + this.GetQuotedColumnName(fieldDef.FieldName));
             }
 
@@ -1362,19 +1448,29 @@ namespace ServiceStack.OrmLite.SqlServer
                 if (this.ShouldReturnOnInsert(modelDef, fieldDef))
                 {
                     if (sbReturningColumns.Length > 0)
+                    {
                         sbReturningColumns.Append(',');
+                    }
+
                     sbReturningColumns.Append("INSERTED." + this.GetQuotedColumnName(fieldDef.FieldName));  
                 }
 
                 if (this.ShouldSkipInsert(fieldDef) && !fieldDef.AutoId)
+                {
                     continue;
+                }
 
                 var value = entry.Value;
 
                 if (sbColumnNames.Length > 0)
+                {
                     sbColumnNames.Append(',');
+                }
+
                 if (sbColumnValues.Length > 0)
+                {
                     sbColumnValues.Append(',');
+                }
 
                 try
                 {
@@ -1422,19 +1518,25 @@ namespace ServiceStack.OrmLite.SqlServer
             ISet<string> tags = null)
         {
             var sb = StringBuilderCache.Allocate();
-            ApplyTags(sb, tags);
+            this.ApplyTags(sb, tags);
 
             sb.Append(selectExpression)
                 .Append(bodyExpression);
 
             if (!offset.HasValue && !rows.HasValue || queryType != QueryType.Select && rows != 1)
+            {
                 return StringBuilderCache.ReturnAndFree(sb) + orderByExpression;
+            }
 
             if (offset is < 0)
+            {
                 throw new ArgumentException($"Skip value:'{offset.Value}' must be>=0");
+            }
 
             if (rows is < 0)
+            {
                 throw new ArgumentException($"Rows value:'{rows.Value}' must be>=0");
+            }
 
             var skip = offset ?? 0;
             var take = rows ?? int.MaxValue;
@@ -1480,10 +1582,14 @@ namespace ServiceStack.OrmLite.SqlServer
             selectType ??= sql.StartsWithIgnoreCase("SELECT DISTINCT") ? "SELECT DISTINCT" : "SELECT";
 
             if (take == int.MaxValue)
+            {
                 return sql;
+            }
 
             if (sql.Length < "SELECT".Length)
+            {
                 return sql;
+            }
 
             return selectType + " TOP " + take + sql[selectType.Length..];
         }
@@ -1497,7 +1603,9 @@ namespace ServiceStack.OrmLite.SqlServer
         public static string UseAliasesOrStripTablePrefixes(string selectExpression)
         {
             if (selectExpression.IndexOf('.') < 0)
+            {
                 return selectExpression;
+            }
 
             var sb = StringBuilderCache.Allocate();
             var selectToken = selectExpression.SplitOnFirst(' ');
@@ -1505,7 +1613,9 @@ namespace ServiceStack.OrmLite.SqlServer
             foreach (var token in tokens)
             {
                 if (sb.Length > 0)
+                {
                     sb.Append(", ");
+                }
 
                 var field = token.Trim();
 
@@ -1560,16 +1670,21 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="fieldOrValue">The field or value.</param>
         /// <param name="currencySymbol">The currency symbol.</param>
         /// <returns>System.String.</returns>
-        public override string SqlCurrency(string fieldOrValue, string currencySymbol) =>
-            this.SqlConcat(
+        public override string SqlCurrency(string fieldOrValue, string currencySymbol)
+        {
+            return this.SqlConcat(
                 new[] { "'" + currencySymbol + "'", $"CONVERT(VARCHAR, CONVERT(MONEY, {fieldOrValue}), 1)" });
+        }
 
         /// <summary>
         /// SQLs the bool.
         /// </summary>
         /// <param name="value">if set to <c>true</c> [value].</param>
         /// <returns>System.String.</returns>
-        public override string SqlBool(bool value) => value ? "1" : "0";
+        public override string SqlBool(bool value)
+        {
+            return value ? "1" : "0";
+        }
 
         /// <summary>
         /// SQLs the limit.
@@ -1577,10 +1692,12 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="offset">The offset.</param>
         /// <param name="rows">The rows.</param>
         /// <returns>System.String.</returns>
-        public override string SqlLimit(int? offset = null, int? rows = null) =>
-            rows == null && offset == null ? string.Empty :
-            rows != null ? "OFFSET " + offset.GetValueOrDefault() + " ROWS FETCH NEXT " + rows + " ROWS ONLY" :
-            "OFFSET " + offset.GetValueOrDefault(int.MaxValue) + " ROWS";
+        public override string SqlLimit(int? offset = null, int? rows = null)
+        {
+            return rows == null && offset == null ? string.Empty :
+                rows != null ? "OFFSET " + offset.GetValueOrDefault() + " ROWS FETCH NEXT " + rows + " ROWS ONLY" :
+                "OFFSET " + offset.GetValueOrDefault(int.MaxValue) + " ROWS";
+        }
 
         /// <summary>
         /// SQLs the cast.
@@ -1588,8 +1705,12 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="fieldOrValue">The field or value.</param>
         /// <param name="castAs">The cast as.</param>
         /// <returns>System.String.</returns>
-        public override string SqlCast(object fieldOrValue, string castAs) =>
-            castAs == Sql.VARCHAR ? $"CAST({fieldOrValue} AS VARCHAR(MAX))" : $"CAST({fieldOrValue} AS {castAs})";
+        public override string SqlCast(object fieldOrValue, string castAs)
+        {
+            return castAs == Sql.VARCHAR
+                ? $"CAST({fieldOrValue} AS VARCHAR(MAX))"
+                : $"CAST({fieldOrValue} AS {castAs})";
+        }
 
         /// <summary>
         /// Gets the SQL random.
@@ -1601,8 +1722,10 @@ namespace ServiceStack.OrmLite.SqlServer
         /// Enables the foreign keys check.
         /// </summary>
         /// <param name="cmd">The command.</param>
-        public override void EnableForeignKeysCheck(IDbCommand cmd) =>
+        public override void EnableForeignKeysCheck(IDbCommand cmd)
+        {
             cmd.ExecNonQuery("EXEC sp_msforeachtable \"ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all\"");
+        }
 
         /// <summary>
         /// Enables the foreign keys check asynchronous.
@@ -1610,18 +1733,22 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="cmd">The command.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task.</returns>
-        public override Task EnableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default) =>
-            cmd.ExecNonQueryAsync(
+        public override Task EnableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default)
+        {
+            return cmd.ExecNonQueryAsync(
                 "EXEC sp_msforeachtable \"ALTER TABLE ? WITH CHECK CHECK CONSTRAINT all\"",
                 null,
                 token);
+        }
 
         /// <summary>
         /// Disables the foreign keys check.
         /// </summary>
         /// <param name="cmd">The command.</param>
-        public override void DisableForeignKeysCheck(IDbCommand cmd) =>
+        public override void DisableForeignKeysCheck(IDbCommand cmd)
+        {
             cmd.ExecNonQuery("EXEC sp_msforeachtable \"ALTER TABLE ? NOCHECK CONSTRAINT all\"");
+        }
 
         /// <summary>
         /// Disables the foreign keys check asynchronous.
@@ -1629,29 +1756,41 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="cmd">The command.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task.</returns>
-        public override Task DisableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default) =>
-            cmd.ExecNonQueryAsync("EXEC sp_msforeachtable \"ALTER TABLE ? NOCHECK CONSTRAINT all\"", null, token);
+        public override Task DisableForeignKeysCheckAsync(IDbCommand cmd, CancellationToken token = default)
+        {
+            return cmd.ExecNonQueryAsync("EXEC sp_msforeachtable \"ALTER TABLE ? NOCHECK CONSTRAINT all\"", null,
+                token);
+        }
 
         /// <summary>
         /// Unwraps the specified database.
         /// </summary>
         /// <param name="db">The database.</param>
         /// <returns>SqlConnection.</returns>
-        protected DbConnection Unwrap(IDbConnection db) => (DbConnection)db.ToDbConnection();
+        static protected DbConnection Unwrap(IDbConnection db)
+        {
+            return (DbConnection)db.ToDbConnection();
+        }
 
         /// <summary>
         /// Unwraps the specified command.
         /// </summary>
         /// <param name="cmd">The command.</param>
         /// <returns>SqlCommand.</returns>
-        protected DbCommand Unwrap(IDbCommand cmd) => (DbCommand)cmd.ToDbCommand();
+        static protected DbCommand Unwrap(IDbCommand cmd)
+        {
+            return (DbCommand)cmd.ToDbCommand();
+        }
 
         /// <summary>
         /// Unwraps the specified reader.
         /// </summary>
         /// <param name="reader">The reader.</param>
         /// <returns>SqlDataReader.</returns>
-        protected DbDataReader Unwrap(IDataReader reader) => (DbDataReader)reader;
+        static protected DbDataReader Unwrap(IDataReader reader)
+        {
+            return (DbDataReader)reader;
+        }
 
 #if ASYNC
         /// <summary>
@@ -1660,8 +1799,10 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="db">The database.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task.</returns>
-        public override Task OpenAsync(IDbConnection db, CancellationToken token = default) =>
-            this.Unwrap(db).OpenAsync(token);
+        public override Task OpenAsync(IDbConnection db, CancellationToken token = default)
+        {
+            return Unwrap(db).OpenAsync(token);
+        }
 
         /// <summary>
         /// Executes the reader asynchronous.
@@ -1669,8 +1810,10 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="cmd">The command.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;IDataReader&gt;.</returns>
-        public override Task<IDataReader> ExecuteReaderAsync(IDbCommand cmd, CancellationToken token = default) =>
-            this.Unwrap(cmd).ExecuteReaderAsync(token).Then(x => (IDataReader)x);
+        public override Task<IDataReader> ExecuteReaderAsync(IDbCommand cmd, CancellationToken token = default)
+        {
+            return Unwrap(cmd).ExecuteReaderAsync(token).Then(x => (IDataReader)x);
+        }
 
         /// <summary>
         /// Executes the non query asynchronous.
@@ -1678,8 +1821,10 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="cmd">The command.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Int32&gt;.</returns>
-        public override Task<int> ExecuteNonQueryAsync(IDbCommand cmd, CancellationToken token = default) =>
-            this.Unwrap(cmd).ExecuteNonQueryAsync(token);
+        public override Task<int> ExecuteNonQueryAsync(IDbCommand cmd, CancellationToken token = default)
+        {
+            return Unwrap(cmd).ExecuteNonQueryAsync(token);
+        }
 
         /// <summary>
         /// Executes the scalar asynchronous.
@@ -1687,8 +1832,10 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="cmd">The command.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Object&gt;.</returns>
-        public override Task<object> ExecuteScalarAsync(IDbCommand cmd, CancellationToken token = default) =>
-            this.Unwrap(cmd).ExecuteScalarAsync(token);
+        public override Task<object> ExecuteScalarAsync(IDbCommand cmd, CancellationToken token = default)
+        {
+            return Unwrap(cmd).ExecuteScalarAsync(token);
+        }
 
         /// <summary>
         /// Reads the asynchronous.
@@ -1696,8 +1843,10 @@ namespace ServiceStack.OrmLite.SqlServer
         /// <param name="reader">The reader.</param>
         /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <returns>Task&lt;System.Boolean&gt;.</returns>
-        public override Task<bool> ReadAsync(IDataReader reader, CancellationToken token = default) =>
-            this.Unwrap(reader).ReadAsync(token);
+        public override Task<bool> ReadAsync(IDataReader reader, CancellationToken token = default)
+        {
+            return Unwrap(reader).ReadAsync(token);
+        }
 
         /// <summary>
         /// Readers the each.
@@ -1772,7 +1921,9 @@ namespace ServiceStack.OrmLite.SqlServer
             try
             {
                 if (await this.ReadAsync(reader, token).ConfigureAwait(false))
+                {
                     return fn();
+                }
 
                 return default;
             }
@@ -1791,15 +1942,17 @@ namespace ServiceStack.OrmLite.SqlServer
         public override void InitConnection(IDbConnection dbConn)
         {
             if (dbConn is OrmLiteConnection ormLiteConn && dbConn.ToDbConnection() is SqlConnection sqlConn)
+            {
                 ormLiteConn.ConnectionId = sqlConn.ClientConnectionId;
+            }
 
-            foreach (var command in ConnectionCommands)
+            foreach (var command in this.ConnectionCommands)
             {
                 using var cmd = dbConn.CreateCommand();
                 cmd.ExecNonQuery(command);
             }
 
-            OnOpenConnection?.Invoke(dbConn);
+            this.OnOpenConnection?.Invoke(dbConn);
         }
 
         /// <summary>

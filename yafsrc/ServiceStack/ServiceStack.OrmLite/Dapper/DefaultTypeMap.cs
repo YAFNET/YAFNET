@@ -37,9 +37,9 @@ public sealed class DefaultTypeMap : SqlMapper.ITypeMap
             throw new ArgumentNullException(nameof(type));
         }
 
-        _fields = GetSettableFields(type);
-        Properties = GetSettableProps(type);
-        _type = type;
+        this._fields = GetSettableFields(type);
+        this.Properties = GetSettableProps(type);
+        this._type = type;
     }
 
     /// <summary>
@@ -95,10 +95,10 @@ public sealed class DefaultTypeMap : SqlMapper.ITypeMap
     /// <returns>Matching constructor or default one</returns>
     public ConstructorInfo FindConstructor(string[] names, Type[] types)
     {
-        var constructors = _type.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-        foreach (ConstructorInfo ctor in constructors.OrderBy(c => c.IsPublic ? 0 : c.IsPrivate ? 2 : 1).ThenBy(c => c.GetParameters().Length))
+        var constructors = this._type.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+        foreach (var ctor in constructors.OrderBy(c => c.IsPublic ? 0 : c.IsPrivate ? 2 : 1).ThenBy(c => c.GetParameters().Length))
         {
-            ParameterInfo[] ctorParameters = ctor.GetParameters();
+            var ctorParameters = ctor.GetParameters();
             if (ctorParameters.Length == 0)
             {
                 return ctor;
@@ -109,7 +109,7 @@ public sealed class DefaultTypeMap : SqlMapper.ITypeMap
                 continue;
             }
 
-            int i = 0;
+            var i = 0;
             for (; i < ctorParameters.Length; i++)
             {
                 if (!string.Equals(ctorParameters[i].Name, names[i], StringComparison.OrdinalIgnoreCase))
@@ -147,7 +147,7 @@ public sealed class DefaultTypeMap : SqlMapper.ITypeMap
     /// <returns>ConstructorInfo.</returns>
     public ConstructorInfo FindExplicitConstructor()
     {
-        var constructors = _type.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+        var constructors = this._type.GetConstructors(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
         var withAttr = constructors.Where(c => c.GetCustomAttributes(typeof(ExplicitConstructorAttribute), true).Length > 0).ToList();
 
         if (withAttr.Count == 1)
@@ -178,13 +178,13 @@ public sealed class DefaultTypeMap : SqlMapper.ITypeMap
     /// <returns>Mapping implementation</returns>
     public SqlMapper.IMemberMap GetMember(string columnName)
     {
-        var property = Properties.Find(p => string.Equals(p.Name, columnName, StringComparison.Ordinal))
-                       ?? Properties.Find(p => string.Equals(p.Name, columnName, StringComparison.OrdinalIgnoreCase));
+        var property = this.Properties.Find(p => string.Equals(p.Name, columnName, StringComparison.Ordinal))
+                       ?? this.Properties.Find(p => string.Equals(p.Name, columnName, StringComparison.OrdinalIgnoreCase));
 
         if (property == null && MatchNamesWithUnderscores)
         {
-            property = Properties.Find(p => string.Equals(p.Name, columnName.Replace("_", ""), StringComparison.Ordinal))
-                       ?? Properties.Find(p => string.Equals(p.Name, columnName.Replace("_", ""), StringComparison.OrdinalIgnoreCase));
+            property = this.Properties.Find(p => string.Equals(p.Name, columnName.Replace("_", ""), StringComparison.Ordinal))
+                       ?? this.Properties.Find(p => string.Equals(p.Name, columnName.Replace("_", ""), StringComparison.OrdinalIgnoreCase));
         }
 
         if (property != null)
@@ -197,20 +197,20 @@ public sealed class DefaultTypeMap : SqlMapper.ITypeMap
 
         // preference order is:
         // exact match over underscre match, exact case over wrong case, backing fields over regular fields, match-inc-underscores over match-exc-underscores
-        var field = _fields.Find(p => string.Equals(p.Name, columnName, StringComparison.Ordinal))
-                    ?? _fields.Find(p => string.Equals(p.Name, backingFieldName, StringComparison.Ordinal))
-                    ?? _fields.Find(p => string.Equals(p.Name, columnName, StringComparison.OrdinalIgnoreCase))
-                    ?? _fields.Find(p => string.Equals(p.Name, backingFieldName, StringComparison.OrdinalIgnoreCase));
+        var field = this._fields.Find(p => string.Equals(p.Name, columnName, StringComparison.Ordinal))
+                    ?? this._fields.Find(p => string.Equals(p.Name, backingFieldName, StringComparison.Ordinal))
+                    ?? this._fields.Find(p => string.Equals(p.Name, columnName, StringComparison.OrdinalIgnoreCase))
+                    ?? this._fields.Find(p => string.Equals(p.Name, backingFieldName, StringComparison.OrdinalIgnoreCase));
 
         if (field == null && MatchNamesWithUnderscores)
         {
             var effectiveColumnName = columnName.Replace("_", "");
             backingFieldName = "<" + effectiveColumnName + ">k__BackingField";
 
-            field = _fields.Find(p => string.Equals(p.Name, effectiveColumnName, StringComparison.Ordinal))
-                    ?? _fields.Find(p => string.Equals(p.Name, backingFieldName, StringComparison.Ordinal))
-                    ?? _fields.Find(p => string.Equals(p.Name, effectiveColumnName, StringComparison.OrdinalIgnoreCase))
-                    ?? _fields.Find(p => string.Equals(p.Name, backingFieldName, StringComparison.OrdinalIgnoreCase));
+            field = this._fields.Find(p => string.Equals(p.Name, effectiveColumnName, StringComparison.Ordinal))
+                    ?? this._fields.Find(p => string.Equals(p.Name, backingFieldName, StringComparison.Ordinal))
+                    ?? this._fields.Find(p => string.Equals(p.Name, effectiveColumnName, StringComparison.OrdinalIgnoreCase))
+                    ?? this._fields.Find(p => string.Equals(p.Name, backingFieldName, StringComparison.OrdinalIgnoreCase));
         }
 
         if (field != null)

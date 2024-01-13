@@ -40,7 +40,7 @@ public class EditAccessMaskModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public EditAccessMaskInputModel Input { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="EditAccessMaskModel"/> class.
@@ -71,7 +71,7 @@ public class EditAccessMaskModel : AdminPage
     /// </summary>
     public  void OnGet(int? i)
     {
-        this.Input = new InputModel();
+        this.Input = new EditAccessMaskInputModel();
         this.BindData(i);
     }
 
@@ -140,35 +140,5 @@ public class EditAccessMaskModel : AdminPage
                 (this.GetRepository<AccessMask>().Count(x => x.BoardID == this.PageBoardContext.PageBoardID) + 1)
                 .ToType<short>();
         }
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public short SortOrder { get; set; }
-
-        public bool ReadAccess { get; set; }
-
-        public bool PostAccess { get; set; }
-
-        public bool ReplyAccess { get; set; }
-
-        public bool PriorityAccess { get; set; }
-
-        public bool PollAccess { get; set; }
-
-        public bool VoteAccess { get; set; }
-
-        public bool ModeratorAccess { get; set; }
-
-        public bool EditAccess { get; set; }
-
-        public bool DeleteAccess { get; set; }
     }
 }

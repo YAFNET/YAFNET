@@ -46,7 +46,7 @@ public class HelpModel : ForumPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public HelpInputModel Input { get; set; }
 
     [BindProperty]
     public List<HelpContent> HelpContents { get; set; }
@@ -179,16 +179,5 @@ public class HelpModel : ForumPage
                         HelpPage = helpPage, Title = this.GetText($"{helpPage}TITLE"), Content = helpContent
                     });
             });
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        /// <summary>
-        /// Gets or sets the search for.
-        /// </summary>
-        public string Search { get; set; }
     }
 }

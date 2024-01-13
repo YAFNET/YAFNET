@@ -52,7 +52,7 @@ public class EventLogModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public EventLogInputModel Input { get; set; }
 
     [BindProperty]
     public List<PagedEventLog> List { get; set; }
@@ -263,7 +263,7 @@ public class EventLogModel : AdminPage
     /// </summary>
     public void OnGet()
     {
-        this.Input = new InputModel();
+        this.Input = new EventLogInputModel();
 
         var ci = this.Get<ILocalization>().Culture;
 
@@ -320,7 +320,7 @@ public class EventLogModel : AdminPage
     {
         this.PageSizeList = new SelectList(StaticDataHelper.PageEntries(), nameof(SelectListItem.Value), nameof(SelectListItem.Text));
 
-        this.Types = [new(this.GetText("ALL"), "-1")];
+        this.Types = [new SelectListItem(this.GetText("ALL"), "-1")];
 
         EnumExtensions.GetAllItems<EventLogTypes>().ForEach(
             type =>
@@ -374,16 +374,5 @@ public class EventLogModel : AdminPage
                 sinceDate,
                 toDate.AddDays(1).AddMinutes(-1),
                 this.Input.Type.Equals(-1) ? null : this.Input.Type);
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public string SinceDate { get; set; }
-        public string ToDate { get; set; }
-
-        public int Type { get; set; } = -1;
     }
 }

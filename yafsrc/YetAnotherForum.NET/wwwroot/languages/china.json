@@ -321,14 +321,6 @@
             "#text": "编辑奖牌"
           },
           {
-            "@tag": "ADMIN_EDITNNTPFORUM",
-            "#text": "编辑 NNTP 论坛"
-          },
-          {
-            "@tag": "ADMIN_EDITNNTPSERVER",
-            "#text": "编辑 NNTP 服务器"
-          },
-          {
             "@tag": "ADMIN_EDITRANK",
             "#text": "编辑排名"
           },
@@ -363,18 +355,6 @@
           {
             "@tag": "ADMIN_MEDALS",
             "#text": "查看/编辑奖牌"
-          },
-          {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "查看/编辑 NNTP 论坛"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "检索 NNTP"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "查看/编辑 NNTP 服务器"
           },
           {
             "@tag": "ADMIN_PM",
@@ -3135,128 +3115,6 @@
         ]
       },
       {
-        "@name": "ADMIN_EDITNNTPFORUM",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "积极的："
-          },
-          {
-            "@tag": "ACTIVE_HELP",
-            "#text": "选中此项以使论坛处于活动状态。"
-          },
-          {
-            "@tag": "DATECUTOFF",
-            "#text": "消息的截止日期："
-          },
-          {
-            "@tag": "DATECUTOFF_HELP",
-            "#text": "如果邮件早于该日期，则不应下载邮件。"
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "论坛："
-          },
-          {
-            "@tag": "FORUM_HELP",
-            "#text": "将插入论坛消息。"
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "团体："
-          },
-          {
-            "@tag": "GROUP_HELP",
-            "#text": "新闻组的名称。"
-          },
-          {
-            "@tag": "MSG_SELECT_FORUM",
-            "#text": "您必须选择一个论坛来保存 NNTP 消息。"
-          },
-          {
-            "@tag": "MSG_VALID_GROUP",
-            "#text": "您应该输入一个有效的组名。"
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "服务器："
-          },
-          {
-            "@tag": "SERVER_HELP",
-            "#text": "该组位于哪个服务器。"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit NNTP Forum"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "编辑 NNTP 论坛"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_EDITNNTPSERVER",
-        "Resource": [
-          {
-            "@tag": "MSG_SERVER_ADR",
-            "#text": "缺少服务器地址。"
-          },
-          {
-            "@tag": "MSG_SERVER_NAME",
-            "#text": "缺少服务器名称。"
-          },
-          {
-            "@tag": "NNTP_ADRESS",
-            "#text": "地址："
-          },
-          {
-            "@tag": "NNTP_ADRESS_HELP",
-            "#text": "服务器的主机名。"
-          },
-          {
-            "@tag": "NNTP_NAME",
-            "#text": "姓名："
-          },
-          {
-            "@tag": "NNTP_NAME_HELP",
-            "#text": "此服务器的名称。"
-          },
-          {
-            "@tag": "NNTP_PASSWORD",
-            "#text": "密码："
-          },
-          {
-            "@tag": "NNTP_PASSWORD_HELP",
-            "#text": "用于登录 nntp 服务器的密码。"
-          },
-          {
-            "@tag": "NNTP_PORT",
-            "#text": "港口："
-          },
-          {
-            "@tag": "NNTP_PORT_HELP",
-            "#text": "要连接的端口号。"
-          },
-          {
-            "@tag": "NNTP_USERNAME",
-            "#text": "用户名："
-          },
-          {
-            "@tag": "NNTP_USERNAME_HELP",
-            "#text": "用于登录 nntp 服务器的用户名。"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit NNTP Server"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "编辑 NNTP 服务器"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_EDITRANK",
         "Resource": [
           {
@@ -4311,14 +4169,6 @@
           {
             "@tag": "COLLAPSED",
             "#text": "折叠"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES",
-            "#text": "创建 NNTP 用户名："
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES_HELP",
-            "#text": "选中以允许在下载 usenet 消息时自动创建用户。"
           },
           {
             "@tag": "CROP_IMAGE_ATTACH",
@@ -5966,149 +5816,6 @@
         ]
       },
       {
-        "@name": "ADMIN_NNTPFORUMS",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "积极的"
-          },
-          {
-            "@tag": "DELETE",
-            "#text": "删除"
-          },
-          {
-            "@tag": "DELETE_FORUM",
-            "#text": "删除此论坛？"
-          },
-          {
-            "@tag": "EDIT",
-            "#text": "编辑"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Forums"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "论坛"
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "团体"
-          },
-          {
-            "@tag": "NEW_FORUM",
-            "#text": "新论坛"
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "保存论坛"
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "服务器"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP 论坛"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPRETRIEVE",
-        "Resource": [
-          {
-            "@tag": "BETA_WARNING",
-            "#text": "<p>\r\n    The NNTP feature of Yet Another Forum.net is still beta, and <strong>will</strong> have bugs.\r\n    Bugs you should look for is character set conversion, and incorrect time on posts.\r\n    Usenet articles will be posted to the forum with the date from the article header,\r\n    meaning that you well could get future dates. Please let me know of any unknown\r\n    time zones that are encountered.\r\n  </p>\r\n  <p>\r\n    The forums usenet Articles are posted to should be read-only, as messages will <strong>not</strong>\r\n    be posted back to the usenet. For speed purposes usenet articles are automatically\r\n    approved, meaning that if the forum is moderated, the posts will be automatically\r\n    approved.\r\n  </p>\r\n  <p>\r\n    To protect usenet servers, a newsgroup can only be updated once every 10 minutes.\r\n  </p>"
-          },
-          {
-            "@tag": "GROUPS",
-            "#text": "已准备好检索的组"
-          },
-          {
-            "@tag": "HEADER",
-            "#text": "检索 NNTP 文章"
-          },
-          {
-            "@tag": "LAST_MESSAGE",
-            "#text": "最后留言"
-          },
-          {
-            "@tag": "LAST_UPDATE",
-            "#text": "最后更新"
-          },
-          {
-            "@tag": "NO_GROUPS",
-            "#text": "没有可供检索的组"
-          },
-          {
-            "@tag": "RETRIEVE",
-            "#text": "取回"
-          },
-          {
-            "@tag": "RETRIEVED",
-            "#text": "检索到 {0} 篇文章。"
-          },
-          {
-            "@tag": "SECONDS",
-            "#text": "秒"
-          },
-          {
-            "@tag": "TIME",
-            "#text": "指定文章检索应该使用多少时间。"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP 检索"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPSERVERS",
-        "Resource": [
-          {
-            "@tag": "ADRESS",
-            "#text": "Adress"
-          },
-          {
-            "@tag": "DELETE_SERVER",
-            "#text": "删除此服务器？"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Servers"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
-          },
-          {
-            "@tag": "NAME",
-            "#text": "姓名"
-          },
-          {
-            "@tag": "NEW_SERVER",
-            "#text": "新服务器"
-          },
-          {
-            "@tag": "SAVE_SERVER",
-            "#text": "保存服务器"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP 服务器"
-          },
-          {
-            "@tag": "USERNAME",
-            "#text": "用户名"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
@@ -7124,18 +6831,6 @@
             "#text": "奖牌"
           },
           {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "NNTP 论坛"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "检索文章"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "NNTP 服务器"
-          },
-          {
             "@tag": "ADMIN_PAGEACCESSEDIT",
             "#text": "编辑管理页面访问"
           },
@@ -7218,10 +6913,6 @@
           {
             "@tag": "MAINTENANCE",
             "#text": "维护"
-          },
-          {
-            "@tag": "NNTP",
-            "#text": "NNTP"
           },
           {
             "@tag": "SETTINGS",

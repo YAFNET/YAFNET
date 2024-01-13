@@ -22,6 +22,7 @@
  * under the License.
  */
 
+// ReSharper disable MergeConditionalExpression
 namespace YAF.Core.Model;
 
 using System;
@@ -1245,9 +1246,6 @@ public static class TopicRepositoryExtensions
     /// <param name="days">
     /// The days.
     /// </param>
-    /// <param name="permDelete">
-    /// The perm delete.
-    /// </param>
     /// <returns>
     /// The <see cref="int"/>.
     /// </returns>
@@ -1255,8 +1253,7 @@ public static class TopicRepositoryExtensions
         this IRepository<Topic> repository,
         int boardId,
         int forumId,
-        int days,
-        bool permDelete)
+        int days)
     {
         var topics = repository.DbAccess.Execute(
             db =>
@@ -1489,7 +1486,7 @@ public static class TopicRepositoryExtensions
         int startId = 0,
         int limit = 500)
     {
-        return repository.Get(t => t.ID >= limit && t.ID < startId + limit).OrderBy(t => t.ID).ToList();
+        return [.. repository.Get(t => t.ID >= limit && t.ID < startId + limit).OrderBy(t => t.ID)];
     }
 
     /// <summary>

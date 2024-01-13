@@ -71,7 +71,7 @@ public class UsersAvatarModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public UsersSignatureInputModel Input { get; set; }
 
     public UsersAvatarModel()
         : base("ADMIN_EDITUSER", ForumPages.Admin_EditUser)
@@ -88,8 +88,8 @@ public class UsersAvatarModel : AdminPage
             return this.Get<LinkBuilder>().AccessDenied();
         }
 
-        this.Input = new InputModel
-                     {
+        this.Input = new UsersSignatureInputModel
+        {
                          UserId = userId
                      };
 
@@ -382,13 +382,5 @@ public class UsersAvatarModel : AdminPage
                 null,
                 null);
         }
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public int UserId { get; set; }
     }
 }

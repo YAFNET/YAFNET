@@ -102,11 +102,25 @@ public static class EnumerableExtensions
         return !source.Any();
     }
 
+    /// <summary>
+    /// Existses the specified match.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="array">The array.</param>
+    /// <param name="match">The match.</param>
+    /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
     public static bool Exists<T>(this T[] array, Predicate<T> match)
     {
         return Array.Exists(array, match);
     }
 
+    /// <summary>
+    /// Finds the specified match.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="array">The array.</param>
+    /// <param name="match">The match.</param>
+    /// <returns>T.</returns>
     public static T Find<T>(this T[] array, Predicate<T> match)
     {
         return Array.Find(array, match);

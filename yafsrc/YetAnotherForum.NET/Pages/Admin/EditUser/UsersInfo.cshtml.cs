@@ -55,7 +55,7 @@ public class UsersInfoModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public UsersInfoInputModel Input { get; set; }
 
     public UsersInfoModel()
         : base("ADMIN_EDITUSER", ForumPages.Admin_EditUser)
@@ -69,7 +69,7 @@ public class UsersInfoModel : AdminPage
             return this.Get<LinkBuilder>().AccessDenied();
         }
 
-        this.Input = new InputModel();
+        this.Input = new UsersInfoInputModel();
 
         this.BindData(userId);
 
@@ -163,39 +163,5 @@ public class UsersInfoModel : AdminPage
         this.Input.IsGoogleUser = this.EditUser.Item2.Profile_GoogleId.IsSet();
         this.Input.LastVisit = this.EditUser.Item1.LastVisit.ToString(CultureInfo.InvariantCulture);
         this.Input.RankID = this.EditUser.Item1.RankID;
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public int RankID { get; set; }
-
-        public string Name { get; set; }
-
-        public string DisplayName { get; set; }
-
-        public string Email { get; set; }
-
-        public bool IsHostAdminX { get; set; }
-
-        public bool IsApproved { get; set; }
-
-        public bool IsGuestX { get; set; }
-
-        public bool IsExcludedFromActiveUsers { get; set; }
-
-        public bool Moderated { get; set; }
-
-        public string Joined { get; set; }
-
-        public bool IsFacebookUser { get; set; }
-
-        public bool IsGoogleUser { get; set; }
-
-        public string LastVisit { get; set; }
-
-        public bool UnDisableUser { get; set; } = true;
     }
 }

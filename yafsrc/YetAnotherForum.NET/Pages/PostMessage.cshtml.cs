@@ -50,7 +50,7 @@ public class PostMessageModel : ForumPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public PostMessageInputModel Input { get; set; }
 
     /// <summary>
     ///   The Spam Approved Indicator
@@ -172,7 +172,7 @@ public class PostMessageModel : ForumPage
     public IActionResult OnGet(int? q = null, string text = null)
 
     {
-        this.Input = new InputModel();
+        this.Input = new PostMessageInputModel();
 
         if (this.PageBoardContext.PageForumID == 0)
         {
@@ -596,21 +596,5 @@ public class PostMessageModel : ForumPage
         var moderatedPostCount = forumInfo.ModeratedPostCount;
 
         return !(this.PageBoardContext.PageUser.NumPosts >= moderatedPostCount);
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public string From { get; set; }
-
-        public string Editor { get; set; }
-
-        public string PreviewMessage { get; set; }
-
-        public bool Persistent { get; set; }
-
-        public bool TopicWatch { get; set; }
     }
 }

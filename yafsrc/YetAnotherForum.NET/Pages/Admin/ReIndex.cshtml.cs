@@ -48,11 +48,23 @@ public class ReIndexModel : AdminPage
     {
     }
 
+    /// <summary>
+    /// Gets or sets the index statistics.
+    /// </summary>
+    /// <value>The index statistics.</value>
     [BindProperty]
     public string IndexStatistics { get; set; }
 
+    /// <summary>
+    /// Gets or sets the recovery modes.
+    /// </summary>
+    /// <value>The recovery modes.</value>
     public List<SelectListItem> RecoveryModes { get; set; }
 
+    /// <summary>
+    /// Gets or sets the recovery mode.
+    /// </summary>
+    /// <value>The recovery mode.</value>
     [BindProperty]
     public string RecoveryMode { get; set; }
 
@@ -97,13 +109,13 @@ public class ReIndexModel : AdminPage
     {
         this.BindData();
 
-        const string Result = "Done";
+        const string result = "Done";
 
         this.IndexStatistics = string.Empty;
 
         var stats = this.IndexStatistics = this.Get<IDbAccess>().ChangeRecoveryMode(this.RecoveryMode);
 
-        return this.PageBoardContext.Notify(stats.IsSet() ? stats : Result, MessageTypes.success);
+        return this.PageBoardContext.Notify(stats.IsSet() ? stats : result, MessageTypes.success);
     }
 
     /// <summary>
@@ -113,13 +125,13 @@ public class ReIndexModel : AdminPage
     {
         this.BindData();
 
-        const string Result = "Done";
+        const string result = "Done";
 
         var stats = this.Get<IDbAccess>().ReIndexDatabase(this.Get<BoardConfiguration>().DatabaseObjectQualifier);
 
         this.IndexStatistics = string.Empty;
 
-        return this.PageBoardContext.Notify(stats.IsSet() ? stats : Result, MessageTypes.success);
+        return this.PageBoardContext.Notify(stats.IsSet() ? stats : result, MessageTypes.success);
     }
 
     /// <summary>
@@ -157,9 +169,9 @@ public class ReIndexModel : AdminPage
     private void BindData()
     {
         this.RecoveryModes = [
-            new(this.GetText("ADMIN_REINDEX", "RECOVERY1"), "FULL", true),
-            new(this.GetText("ADMIN_REINDEX", "RECOVERY2"), "SIMPLE"),
-            new(this.GetText("ADMIN_REINDEX", "RECOVERY3"), "BULK_LOGGED")
+            new SelectListItem(this.GetText("ADMIN_REINDEX", "RECOVERY1"), "FULL", true),
+            new SelectListItem(this.GetText("ADMIN_REINDEX", "RECOVERY2"), "SIMPLE"),
+            new SelectListItem(this.GetText("ADMIN_REINDEX", "RECOVERY3"), "BULK_LOGGED")
         ];
     }
 }

@@ -60,17 +60,17 @@ internal abstract class LoadReferences<T>
         this.dbCmd = dbCmd;
         this.instance = instance;
 
-        modelDef = ModelDefinition<T>.Definition;
-        fieldDefs = modelDef.ReferenceFieldDefinitionsArray;
-        pkValue = modelDef.PrimaryKey.GetValue(instance);
-        dialectProvider = dbCmd.GetDialectProvider();
+        this.modelDef = ModelDefinition<T>.Definition;
+        this.fieldDefs = this.modelDef.ReferenceFieldDefinitionsArray;
+        this.pkValue = this.modelDef.PrimaryKey.GetValue(instance);
+        this.dialectProvider = dbCmd.GetDialectProvider();
     }
 
     /// <summary>
     /// Gets the field defs.
     /// </summary>
     /// <value>The field defs.</value>
-    public FieldDefinition[] FieldDefs => fieldDefs;
+    public FieldDefinition[] FieldDefs => this.fieldDefs;
 
     /// <summary>
     /// Gets the reference list SQL.
@@ -81,10 +81,10 @@ internal abstract class LoadReferences<T>
     {
         var refModelDef = refType.GetModelDefinition();
 
-        var refField = modelDef.GetRefFieldDef(refModelDef, refType);
+        var refField = this.modelDef.GetRefFieldDef(refModelDef, refType);
 
-        var sqlFilter = dialectProvider.GetQuotedColumnName(refField.FieldName) + "={0}";
-        var sql = dialectProvider.ToSelectStatement(refType, sqlFilter, pkValue);
+        var sqlFilter = this.dialectProvider.GetQuotedColumnName(refField.FieldName) + "={0}";
+        var sql = this.dialectProvider.ToSelectStatement(refType, sqlFilter, this.pkValue);
 
         if (OrmLiteConfig.LoadReferenceSelectFilter != null)
         {
@@ -102,8 +102,8 @@ internal abstract class LoadReferences<T>
     /// <returns>System.String.</returns>
     protected string GetRefFieldSql(Type refType, FieldDefinition refField)
     {
-        var sqlFilter = dialectProvider.GetQuotedColumnName(refField.FieldName) + "={0}";
-        var sql = dialectProvider.ToSelectStatement(refType, sqlFilter, pkValue);
+        var sqlFilter = this.dialectProvider.GetQuotedColumnName(refField.FieldName) + "={0}";
+        var sql = this.dialectProvider.ToSelectStatement(refType, sqlFilter, this.pkValue);
 
         if (OrmLiteConfig.LoadReferenceSelectFilter != null)
         {
@@ -123,14 +123,14 @@ internal abstract class LoadReferences<T>
     protected string GetRefSelfSql(Type refType, FieldDefinition refSelf, ModelDefinition refModelDef)
     {
         //Load Self Table.RefTableId PK
-        var refPkValue = refSelf.GetValue(instance);
+        var refPkValue = refSelf.GetValue(this.instance);
         if (refPkValue == null)
         {
             return null;
         }
 
-        var sqlFilter = dialectProvider.GetQuotedColumnName(refModelDef.PrimaryKey.FieldName) + "={0}";
-        var sql = dialectProvider.ToSelectStatement(refType, sqlFilter, refPkValue);
+        var sqlFilter = this.dialectProvider.GetQuotedColumnName(refModelDef.PrimaryKey.FieldName) + "={0}";
+        var sql = this.dialectProvider.ToSelectStatement(refType, sqlFilter, refPkValue);
 
         if (OrmLiteConfig.LoadReferenceSelectFilter != null)
         {
@@ -147,7 +147,7 @@ internal abstract class LoadReferences<T>
     /// <returns>System.String.</returns>
     protected string GetFieldReferenceSql(FieldDefinition fieldDef, FieldReference fieldRef)
     {
-        var refPkValue = fieldRef.RefIdFieldDef.GetValue(instance);
+        var refPkValue = fieldRef.RefIdFieldDef.GetValue(this.instance);
         if (refPkValue == null)
         {
             return null;
@@ -155,10 +155,10 @@ internal abstract class LoadReferences<T>
 
         var refModelDef = fieldRef.RefModelDef;
 
-        var pk = dialectProvider.GetQuotedColumnName(refModelDef.PrimaryKey);
-        var sqlRef = dialectProvider.ToSelectStatement(fieldRef.RefModel,
-            $"SELECT {pk}, {dialectProvider.GetQuotedColumnName(fieldRef.RefFieldDef)} " +
-            $"FROM {dialectProvider.GetQuotedTableName(refModelDef)} " +
+        var pk = this.dialectProvider.GetQuotedColumnName(refModelDef.PrimaryKey);
+        var sqlRef = this.dialectProvider.ToSelectStatement(fieldRef.RefModel,
+            $"SELECT {pk}, {this.dialectProvider.GetQuotedColumnName(fieldRef.RefFieldDef)} " +
+            $"FROM {this.dialectProvider.GetQuotedTableName(refModelDef)} " +
             $"WHERE {pk}" + "={0}", refPkValue);
 
         if (OrmLiteConfig.LoadReferenceSelectFilter != null)
@@ -195,10 +195,10 @@ internal class LoadReferencesSync<T> : LoadReferences<T>
     /// <param name="refType">Type of the reference.</param>
     public void SetRefFieldList(FieldDefinition fieldDef, Type refType)
     {
-        var sql = GetRefListSql(refType);
+        var sql = this.GetRefListSql(refType);
 
-        var results = dbCmd.ConvertToList(refType, sql);
-        fieldDef.SetValue(instance, results);
+        var results = this.dbCmd.ConvertToList(refType, sql);
+        fieldDef.SetValue(this.instance, results);
     }
 
     /// <summary>
@@ -210,27 +210,27 @@ internal class LoadReferencesSync<T> : LoadReferences<T>
     {
         var refModelDef = refType.GetModelDefinition();
 
-        var refSelf = modelDef.GetSelfRefFieldDefIfExists(refModelDef, fieldDef);
+        var refSelf = this.modelDef.GetSelfRefFieldDefIfExists(refModelDef, fieldDef);
         var refField = refSelf == null
-                           ? modelDef.GetRefFieldDef(refModelDef, refType)
-                           : modelDef.GetRefFieldDefIfExists(refModelDef);
+                           ? this.modelDef.GetRefFieldDef(refModelDef, refType)
+                           : this.modelDef.GetRefFieldDefIfExists(refModelDef);
 
         if (refSelf != null)
         {
-            var sql = GetRefSelfSql(refType, refSelf, refModelDef);
+            var sql = this.GetRefSelfSql(refType, refSelf, refModelDef);
             if (sql == null)
             {
                 return;
             }
 
-            var result = dbCmd.ConvertTo(refType, sql);
-            fieldDef.SetValue(instance, result);
+            var result = this.dbCmd.ConvertTo(refType, sql);
+            fieldDef.SetValue(this.instance, result);
         }
         else if (refField != null)
         {
-            var sql = GetRefFieldSql(refType, refField);
-            var result = dbCmd.ConvertTo(refType, sql);
-            fieldDef.SetValue(instance, result);
+            var sql = this.GetRefFieldSql(refType, refField);
+            var result = this.dbCmd.ConvertTo(refType, sql);
+            fieldDef.SetValue(this.instance, result);
         }
     }
 
@@ -241,10 +241,10 @@ internal class LoadReferencesSync<T> : LoadReferences<T>
     /// <param name="fieldRef">The field reference.</param>
     public void SetFieldReference(FieldDefinition fieldDef, FieldReference fieldRef)
     {
-        var sqlRef = GetFieldReferenceSql(fieldDef, fieldRef);
-        var result = dbCmd.ConvertTo(fieldRef.RefModel, sqlRef);
+        var sqlRef = this.GetFieldReferenceSql(fieldDef, fieldRef);
+        var result = this.dbCmd.ConvertTo(fieldRef.RefModel, sqlRef);
         var refFieldValue = fieldRef.RefFieldDef.GetValue(result);
-        fieldDef.SetValue(instance, refFieldValue);
+        fieldDef.SetValue(this.instance, refFieldValue);
     }
 }
 
@@ -273,10 +273,10 @@ internal class LoadReferencesAsync<T> : LoadReferences<T>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     public async Task SetRefFieldList(FieldDefinition fieldDef, Type refType, CancellationToken token)
     {
-        var sql = GetRefListSql(refType);
+        var sql = this.GetRefListSql(refType);
 
-        var results = await dbCmd.ConvertToListAsync(refType, sql, token).ConfigAwait();
-        fieldDef.SetValue(instance, results);
+        var results = await this.dbCmd.ConvertToListAsync(refType, sql, token).ConfigAwait();
+        fieldDef.SetValue(this.instance, results);
     }
 
     /// <summary>
@@ -289,27 +289,27 @@ internal class LoadReferencesAsync<T> : LoadReferences<T>
     {
         var refModelDef = refType.GetModelDefinition();
 
-        var refSelf = modelDef.GetSelfRefFieldDefIfExists(refModelDef, fieldDef);
+        var refSelf = this.modelDef.GetSelfRefFieldDefIfExists(refModelDef, fieldDef);
         var refField = refSelf == null
-                           ? modelDef.GetRefFieldDef(refModelDef, refType)
-                           : modelDef.GetRefFieldDefIfExists(refModelDef);
+                           ? this.modelDef.GetRefFieldDef(refModelDef, refType)
+                           : this.modelDef.GetRefFieldDefIfExists(refModelDef);
 
         if (refField != null)
         {
-            var sql = GetRefFieldSql(refType, refField);
-            var result = await dbCmd.ConvertToAsync(refType, sql, token).ConfigAwait();
-            fieldDef.SetValue(instance, result);
+            var sql = this.GetRefFieldSql(refType, refField);
+            var result = await this.dbCmd.ConvertToAsync(refType, sql, token).ConfigAwait();
+            fieldDef.SetValue(this.instance, result);
         }
         else if (refSelf != null)
         {
-            var sql = GetRefSelfSql(refType, refSelf, refModelDef);
+            var sql = this.GetRefSelfSql(refType, refSelf, refModelDef);
             if (sql == null)
             {
                 return;
             }
 
-            var result = await dbCmd.ConvertToAsync(refType, sql, token).ConfigAwait();
-            fieldDef.SetValue(instance, result);
+            var result = await this.dbCmd.ConvertToAsync(refType, sql, token).ConfigAwait();
+            fieldDef.SetValue(this.instance, result);
         }
     }
 
@@ -321,10 +321,10 @@ internal class LoadReferencesAsync<T> : LoadReferences<T>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     public async Task SetFieldReference(FieldDefinition fieldDef, FieldReference fieldRef, CancellationToken token)
     {
-        var sqlRef = GetFieldReferenceSql(fieldDef, fieldRef);
-        var result = await dbCmd.ConvertToAsync(fieldRef.RefModel, sqlRef, token).ConfigAwait();
+        var sqlRef = this.GetFieldReferenceSql(fieldDef, fieldRef);
+        var result = await this.dbCmd.ConvertToAsync(fieldRef.RefModel, sqlRef, token).ConfigAwait();
         var refFieldValue = fieldRef.RefFieldDef.GetValue(result);
-        fieldDef.SetValue(instance, refFieldValue);
+        fieldDef.SetValue(this.instance, refFieldValue);
     }
 }
 #endif

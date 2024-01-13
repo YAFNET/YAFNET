@@ -22,78 +22,81 @@
  * under the License.
  */
 
-namespace YAF.Core.Migrations
+using System;
+
+namespace YAF.Core.Migrations;
+
+using ServiceStack.OrmLite;
+
+using System.Data;
+using System.Threading.Tasks;
+
+using YAF.Core.Context;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+/// Version 81 Migrations
+/// </summary>
+public class Migration81 : IRepositoryMigration, IHaveServiceLocator
 {
-    using ServiceStack.OrmLite;
+    /// <summary>
+    /// Migrate Repositories (Database).
+    /// </summary>
+    /// <param name="dbAccess">
+    ///     The Database access.
+    /// </param>
+    public Task MigrateDatabaseAsync(IDbAccess dbAccess)
+    {
+        dbAccess.Execute(
+            dbCommand =>
+            {
+                UpgradeTable(this.GetRepository<ProfileDefinition>(), dbCommand);
 
-    using System.Data;
-    using System.Threading.Tasks;
+                UpgradeTable(this.GetRepository<User>(), dbCommand);
 
-    using YAF.Core.Context;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
+                ///////////////////////////////////////////////////////////
+
+                return true;
+            });
+
+        return Task.CompletedTask;
+    }
 
     /// <summary>
-    /// Version 81 Migrations
+    /// Upgrades the table.
     /// </summary>
-    public class Migration81 : IRepositoryMigration, IHaveServiceLocator
+    /// <param name="repository">The repository.</param>
+    /// <param name="dbCommand">The database command.</param>
+    private static void UpgradeTable(IRepository<User> repository, IDbCommand dbCommand)
     {
-        /// <summary>
-        /// Migrate Repositories (Database).
-        /// </summary>
-        /// <param name="dbAccess">
-        ///     The Database access.
-        /// </param>
-        public Task MigrateDatabaseAsync(IDbAccess dbAccess)
+        ArgumentNullException.ThrowIfNull(repository);
+
+        if (dbCommand.Connection.ColumnExists<User>("Password"))
         {
-            dbAccess.Execute(
-                dbCommand =>
-                    {
-                        this.UpgradeTable(this.GetRepository<ProfileDefinition>(), dbAccess, dbCommand);
-
-                        this.UpgradeTable(this.GetRepository<User>(), dbAccess, dbCommand);
-
-                        ///////////////////////////////////////////////////////////
-
-                        return true;
-                    });
-
-            return Task.CompletedTask;
+            dbCommand.Connection.DropColumn<User>("Password");
         }
-
-        /// <summary>
-        /// Upgrades the table.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="dbAccess">The database access.</param>
-        /// <param name="dbCommand">The database command.</param>
-        private void UpgradeTable(IRepository<User> repository, IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            if (dbCommand.Connection.ColumnExists<User>("Password"))
-            {
-                dbCommand.Connection.DropColumn<User>("Password");
-            }
-        }
-
-        /// <summary>
-        /// Upgrades the table.
-        /// </summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="dbAccess">The database access.</param>
-        /// <param name="dbCommand">The database command.</param>
-        private void UpgradeTable(IRepository<ProfileDefinition> repository, IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            if (!dbCommand.Connection.ColumnExists<ProfileDefinition>(x => x.ShowOnRegisterPage))
-            {
-                dbCommand.Connection.AddColumn<ProfileDefinition>(x => x.ShowOnRegisterPage);
-            }
-        }
-
-        /// <summary>
-        /// Gets ServiceLocator.
-        /// </summary>
-        /// <value>The service locator.</value>
-        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
     }
+
+    /// <summary>
+    /// Upgrades the table.
+    /// </summary>
+    /// <param name="repository">The repository.</param>
+    /// <param name="dbCommand">The database command.</param>
+    private static void UpgradeTable(IRepository<ProfileDefinition> repository, IDbCommand dbCommand)
+    {
+        ArgumentNullException.ThrowIfNull(repository);
+
+        if (!dbCommand.Connection.ColumnExists<ProfileDefinition>(x => x.ShowOnRegisterPage))
+        {
+            dbCommand.Connection.AddColumn<ProfileDefinition>(x => x.ShowOnRegisterPage);
+        }
+    }
+
+    /// <summary>
+    /// Gets ServiceLocator.
+    /// </summary>
+    /// <value>The service locator.</value>
+    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 }

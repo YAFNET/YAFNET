@@ -60,7 +60,7 @@ public class SubscriptionsModel : ProfilePage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public SubscriptionsInputModel Input { get; set; }
 
     /// <summary>
     /// Gets or sets the size forums.
@@ -109,7 +109,8 @@ public class SubscriptionsModel : ProfilePage
     /// </param>
     public IActionResult OnGet(int forums = 0, int topics = 0)
     {
-        this.Input = new InputModel {
+        this.Input = new SubscriptionsInputModel
+        {
                                         NotificationType = this.PageBoardContext.PageUser.NotificationSetting.ToInt().ToString()
                                     };
 
@@ -314,36 +315,5 @@ public class SubscriptionsModel : ProfilePage
         }
 
         this.Input.Topics = list;
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        /// <summary>
-        /// Gets or sets the notification type.
-        /// </summary>
-        public string NotificationType { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether daily digest enabled.
-        /// </summary>
-        public bool DailyDigestEnabled { get; set; }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether show subscribe list.
-        /// </summary>
-        public bool ShowSubscribeList { get; set; }
-
-        /// <summary>
-        /// Gets or sets the forums.
-        /// </summary>
-        public List<WatchForum> Forums { get; set; }
-
-        /// <summary>
-        /// Gets or sets the topics.
-        /// </summary>
-        public List<WatchTopic> Topics { get; set; }
     }
 }

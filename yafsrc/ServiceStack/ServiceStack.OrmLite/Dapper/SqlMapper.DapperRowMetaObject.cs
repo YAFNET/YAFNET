@@ -93,10 +93,10 @@ public static partial class SqlMapper
         {
             var callMethod = new System.Dynamic.DynamicMetaObject(
                 System.Linq.Expressions.Expression.Call(
-                    System.Linq.Expressions.Expression.Convert(Expression, LimitType),
+                    System.Linq.Expressions.Expression.Convert(this.Expression, this.LimitType),
                     method,
                     parameters),
-                System.Dynamic.BindingRestrictions.GetTypeRestriction(Expression, LimitType)
+                System.Dynamic.BindingRestrictions.GetTypeRestriction(this.Expression, this.LimitType)
             );
             return callMethod;
         }
@@ -113,7 +113,7 @@ public static partial class SqlMapper
                                      System.Linq.Expressions.Expression.Constant(binder.Name)
                                  };
 
-            var callMethod = CallMethod(getValueMethod, parameters);
+            var callMethod = this.CallMethod(getValueMethod, parameters);
 
             return callMethod;
         }
@@ -132,7 +132,7 @@ public static partial class SqlMapper
                                      System.Linq.Expressions.Expression.Constant(binder.Name)
                                  };
 
-            var callMethod = CallMethod(getValueMethod, parameters);
+            var callMethod = this.CallMethod(getValueMethod, parameters);
 
             return callMethod;
         }
@@ -151,7 +151,7 @@ public static partial class SqlMapper
                                      value.Expression,
                                  };
 
-            var callMethod = CallMethod(setValueMethod, parameters);
+            var callMethod = this.CallMethod(setValueMethod, parameters);
 
             return callMethod;
         }
@@ -166,7 +166,7 @@ public static partial class SqlMapper
         /// <returns>IEnumerable&lt;System.String&gt;.</returns>
         public override IEnumerable<string> GetDynamicMemberNames()
         {
-            if (HasValue && Value is IDictionary<string, object> lookup)
+            if (this.HasValue && this.Value is IDictionary<string, object> lookup)
             {
                 return lookup.Keys;
             }

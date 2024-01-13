@@ -39,7 +39,7 @@ public class EditRankModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public EditRankInputModel Input { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="EditRankModel"/> class.
@@ -67,7 +67,7 @@ public class EditRankModel : AdminPage
     /// </summary>
     public void OnGet(int? r = null)
     {
-        this.Input = new InputModel();
+        this.Input = new EditRankInputModel();
 
         if (!r.HasValue)
         {
@@ -125,37 +125,5 @@ public class EditRankModel : AdminPage
             this.Input.UsrAlbumImages);
 
         return this.Get<LinkBuilder>().Redirect(ForumPages.Admin_Ranks);
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public int Id { get; set; }
-
-        public string Name { get; set; }
-
-        public string Description { get; set; }
-
-        public bool IsStart { get; set; }
-
-        public bool IsLadder { get; set; }
-
-        public short RankPriority { get; set; }
-
-        public int MinPosts { get; set; }
-
-        public int Priority { get; set; }
-
-        public int UsrSigChars { get; set; } = 128;
-
-        public string UsrSigBBCodes { get; set; }
-
-        public int UsrAlbums { get; set; }
-
-        public int UsrAlbumImages { get; set; }
-
-        public string Style { get; set; }
     }
 }

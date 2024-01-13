@@ -4,6 +4,7 @@
 // </copyright>
 // <summary>Fork for YetAnotherForum.NET, Licensed under the Apache License, Version 2.0</summary>
 // ***********************************************************************
+
 namespace ServiceStack.OrmLite.MySql.Converters;
 
 /// <summary>
@@ -11,6 +12,4 @@ namespace ServiceStack.OrmLite.MySql.Converters;
 /// Implements the <see cref="ServiceStack.OrmLite.MySql.Converters.MySqlDateTimeConverterBase" />
 /// </summary>
 /// <seealso cref="ServiceStack.OrmLite.MySql.Converters.MySqlDateTimeConverterBase" />
-public class MySqlConnectorDateTimeConverter : MySqlDateTimeConverterBase
-{
-}
+public class MySqlConnectorDateTimeConverter : MySqlDateTimeConverterBase;

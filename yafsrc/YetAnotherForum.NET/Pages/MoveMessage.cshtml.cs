@@ -40,7 +40,7 @@ public class MoveMessageModel : ForumPageRegistered
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public MoveMessageInputModel Input { get; set; }
 
     /// <summary>
     ///   Initializes a new instance of the <see cref = "MoveMessageModel" /> class.
@@ -118,7 +118,7 @@ public class MoveMessageModel : ForumPageRegistered
     /// </summary>
     public void OnGet()
     {
-        this.Input = new InputModel {
+        this.Input = new MoveMessageInputModel {
                                         ForumListSelected = this.PageBoardContext.PageForumID
                                     };
 
@@ -126,17 +126,5 @@ public class MoveMessageModel : ForumPageRegistered
         {
             this.Get<LinkBuilder>().AccessDenied();
         }
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public string TopicSubject { get; set; }
-
-        public int TopicListSelected { get; set; }
-
-        public int ForumListSelected { get; set; }
     }
 }

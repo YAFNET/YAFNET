@@ -24,7 +24,6 @@
 
 namespace YAF.Pages.Admin;
 
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -46,7 +45,7 @@ public class RegisterUserModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public RegisterUserInputModel Input { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="RegisterUserModel"/> class.
@@ -143,25 +142,6 @@ public class RegisterUserModel : AdminPage
     /// </summary>
     public void OnGet()
     {
-        this.Input = new InputModel();
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        [Required]
-        public string Password { get; set; }
-
-        [Required]
-        [Compare(nameof(Password), ErrorMessage = "Passwords didn't match.")]
-        public string Password2 { get; set; }
-
-        [Required]
-        public string UserName { get; set; }
-
-        [Required]
-        public string Email { get; set; }
+        this.Input = new RegisterUserInputModel();
     }
 }

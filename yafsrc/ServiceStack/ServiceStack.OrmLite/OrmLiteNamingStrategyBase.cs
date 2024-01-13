@@ -19,35 +19,50 @@ public class OrmLiteNamingStrategyBase : INamingStrategy
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns>System.String.</returns>
-    public virtual string GetSchemaName(string name) => name;
+    public virtual string GetSchemaName(string name)
+    {
+        return name;
+    }
 
     /// <summary>
     /// Gets the name of the schema.
     /// </summary>
     /// <param name="modelDef">The model definition.</param>
     /// <returns>System.String.</returns>
-    public virtual string GetSchemaName(ModelDefinition modelDef) => GetSchemaName(modelDef.Schema);
+    public virtual string GetSchemaName(ModelDefinition modelDef)
+    {
+        return this.GetSchemaName(modelDef.Schema);
+    }
 
     /// <summary>
     /// Gets the name of the table.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns>System.String.</returns>
-    public virtual string GetTableName(string name) => name;
+    public virtual string GetTableName(string name)
+    {
+        return name;
+    }
 
     /// <summary>
     /// Gets the name of the table.
     /// </summary>
     /// <param name="modelDef">The model definition.</param>
     /// <returns>System.String.</returns>
-    public virtual string GetTableName(ModelDefinition modelDef) => GetTableName(modelDef.ModelName);
+    public virtual string GetTableName(ModelDefinition modelDef)
+    {
+        return this.GetTableName(modelDef.ModelName);
+    }
 
     /// <summary>
     /// Gets the name of the column.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns>System.String.</returns>
-    public virtual string GetColumnName(string name) => name;
+    public virtual string GetColumnName(string name)
+    {
+        return name;
+    }
 
     /// <summary>
     /// Gets the name of the sequence.
@@ -55,12 +70,18 @@ public class OrmLiteNamingStrategyBase : INamingStrategy
     /// <param name="modelName">Name of the model.</param>
     /// <param name="fieldName">Name of the field.</param>
     /// <returns>System.String.</returns>
-    public virtual string GetSequenceName(string modelName, string fieldName) => "SEQ_" + modelName + "_" + fieldName;
+    public virtual string GetSequenceName(string modelName, string fieldName)
+    {
+        return "SEQ_" + modelName + "_" + fieldName;
+    }
 
     /// <summary>
     /// Applies the name restrictions.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns>System.String.</returns>
-    public virtual string ApplyNameRestrictions(string name) => name;
+    public virtual string ApplyNameRestrictions(string name)
+    {
+        return name;
+    }
 }

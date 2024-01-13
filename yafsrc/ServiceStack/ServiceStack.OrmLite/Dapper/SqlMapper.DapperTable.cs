@@ -32,7 +32,7 @@ public static partial class SqlMapper
         /// Gets the field names.
         /// </summary>
         /// <value>The field names.</value>
-        internal string[] FieldNames => fieldNames;
+        internal string[] FieldNames => this.fieldNames;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DapperTable" /> class.
@@ -43,11 +43,11 @@ public static partial class SqlMapper
         {
             this.fieldNames = fieldNames ?? throw new ArgumentNullException(nameof(fieldNames));
 
-            fieldNameLookup = new Dictionary<string, int>(fieldNames.Length, StringComparer.Ordinal);
+            this.fieldNameLookup = new Dictionary<string, int>(fieldNames.Length, StringComparer.Ordinal);
             // if there are dups, we want the **first** key to be the "winner" - so iterate backwards
-            for (int i = fieldNames.Length - 1; i >= 0; i--)
+            for (var i = fieldNames.Length - 1; i >= 0; i--)
             {
-                string key = fieldNames[i];
+                var key = fieldNames[i];
                 if (key != null)
                 {
                     this.fieldNameLookup[key] = i;
@@ -62,7 +62,7 @@ public static partial class SqlMapper
         /// <returns>System.Int32.</returns>
         internal int IndexOfName(string name)
         {
-            return name != null && fieldNameLookup.TryGetValue(name, out int result) ? result : -1;
+            return name != null && this.fieldNameLookup.TryGetValue(name, out var result) ? result : -1;
         }
 
         /// <summary>
@@ -79,15 +79,15 @@ public static partial class SqlMapper
                 throw new ArgumentNullException(nameof(name));
             }
 
-            if (fieldNameLookup.ContainsKey(name))
+            if (this.fieldNameLookup.ContainsKey(name))
             {
                 throw new InvalidOperationException("Field already exists: " + name);
             }
 
-            int oldLen = fieldNames.Length;
-            Array.Resize(ref fieldNames, oldLen + 1); // yes, this is sub-optimal, but this is not the expected common case
-            fieldNames[oldLen] = name;
-            fieldNameLookup[name] = oldLen;
+            var oldLen = this.fieldNames.Length;
+            Array.Resize(ref this.fieldNames, oldLen + 1); // yes, this is sub-optimal, but this is not the expected common case
+            this.fieldNames[oldLen] = name;
+            this.fieldNameLookup[name] = oldLen;
             return oldLen;
         }
 
@@ -96,12 +96,15 @@ public static partial class SqlMapper
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        internal bool FieldExists(string key) => key != null && fieldNameLookup.ContainsKey(key);
+        internal bool FieldExists(string key)
+        {
+            return key != null && this.fieldNameLookup.ContainsKey(key);
+        }
 
         /// <summary>
         /// Gets the field count.
         /// </summary>
         /// <value>The field count.</value>
-        public int FieldCount => fieldNames.Length;
+        public int FieldCount => this.fieldNames.Length;
     }
 }

@@ -43,5 +43,4 @@ public class SqliteCharConverter : OrmLiteConverter
     {
         return ((string)value)[0];
     }
-
 }

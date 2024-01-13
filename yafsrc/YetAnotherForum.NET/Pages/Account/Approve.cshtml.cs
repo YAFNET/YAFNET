@@ -61,7 +61,7 @@ public class ApproveModel : AccountPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public ApproveInputModel Input { get; set; }
 
     /// <summary>
     /// Gets or sets the error message.
@@ -88,7 +88,7 @@ public class ApproveModel : AccountPage
     /// </returns>
     public async Task OnGetAsync(string code = null)
     {
-        this.Input = new InputModel();
+        this.Input = new ApproveInputModel();
 
         if (code.IsSet())
         {
@@ -138,36 +138,21 @@ public class ApproveModel : AccountPage
             user.IsApproved = true;
             user.EmailConfirmed = true;
 
-            // tell the provider to update...
             await this.Get<IAspNetUsersHelper>().UpdateUserAsync(user);
 
             this.GetRepository<User>().Approve(userEmail.UserID);
 
             await this.GetRepository<CheckEmail>().DeleteByIdAsync(userEmail.ID);
 
-            // automatically log in created users
             await this.Get<IAspNetUsersHelper>().SignInAsync(user);
 
-            // now redirect to main site...
             this.PageBoardContext.SessionNotify(this.GetText("EMAIL_VERIFIED"), MessageTypes.info);
 
-            // default redirect -- because if may not want to redirect to login.
             return this.Get<LinkBuilder>().Redirect(ForumPages.Index);
         }
 
         this.ErrorMessage = result.Errors.FirstOrDefault()?.Description;
 
         return this.Page();
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        /// <summary>
-        /// Gets or sets the key.
-        /// </summary>
-        public string Key { get; set; }
     }
 }

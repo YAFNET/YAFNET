@@ -45,28 +45,28 @@ public class IndexFieldsCacheKey
     /// <param name="dialect">The dialect.</param>
     public IndexFieldsCacheKey(string[] fields, ModelDefinition modelDefinition, IOrmLiteDialectProvider dialect)
     {
-        Fields = fields;
-        ModelDefinition = modelDefinition;
-        Dialect = dialect;
+        this.Fields = fields;
+        this.ModelDefinition = modelDefinition;
+        this.Dialect = dialect;
 
         unchecked
         {
-            hashCode = 17;
-            hashCode = hashCode * 23 + ModelDefinition.GetHashCode();
-            hashCode = hashCode * 23 + Dialect.GetHashCode();
-            hashCode = hashCode * 23 + Fields.Length;
-            foreach (var field in Fields)
+            this.hashCode = 17;
+            this.hashCode = this.hashCode * 23 + this.ModelDefinition.GetHashCode();
+            this.hashCode = this.hashCode * 23 + this.Dialect.GetHashCode();
+            this.hashCode = this.hashCode * 23 + this.Fields.Length;
+            foreach (var field in this.Fields)
             {
-                hashCode = hashCode * 23 + field.Length;
+                this.hashCode = this.hashCode * 23 + field.Length;
             }
         }
     }
 
     /// <summary>
-    /// Determines whether the specified <see cref="System.Object" /> is equal to this instance.
+    /// Determines whether the specified <see cref="object" /> is equal to this instance.
     /// </summary>
     /// <param name="obj">The object to compare with the current object.</param>
-    /// <returns><c>true</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
+    /// <returns><c>true</c> if the specified <see cref="object" /> is equal to this instance; otherwise, <c>false</c>.</returns>
     public override bool Equals(object obj)
     {
         var that = obj as IndexFieldsCacheKey;
@@ -86,5 +86,8 @@ public class IndexFieldsCacheKey
     /// Returns a hash code for this instance.
     /// </summary>
     /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
-    public override int GetHashCode() => hashCode;
+    public override int GetHashCode()
+    {
+        return this.hashCode;
+    }
 }

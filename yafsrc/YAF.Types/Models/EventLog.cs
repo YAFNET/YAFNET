@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using ServiceStack.DataAnnotations;
+
 namespace YAF.Types.Models;
 
 using YAF.Types.Constants;

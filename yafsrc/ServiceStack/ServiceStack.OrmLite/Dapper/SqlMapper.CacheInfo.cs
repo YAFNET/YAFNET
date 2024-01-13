@@ -43,10 +43,10 @@ public static partial class SqlMapper
         /// Gets the hit count.
         /// </summary>
         /// <returns>System.Int32.</returns>
-        public int GetHitCount() { return Interlocked.CompareExchange(ref hitCount, 0, 0); }
+        public int GetHitCount() { return Interlocked.CompareExchange(ref this.hitCount, 0, 0); }
         /// <summary>
         /// Records the hit.
         /// </summary>
-        public void RecordHit() { Interlocked.Increment(ref hitCount); }
+        public void RecordHit() { Interlocked.Increment(ref this.hitCount); }
     }
 }

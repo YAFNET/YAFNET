@@ -30,6 +30,8 @@ using System.Collections.Generic;
 
 using YAF.Types.Models;
 
+#pragma warning disable S1125
+
 /// <summary>
 /// The active access repository extensions.
 /// </summary>

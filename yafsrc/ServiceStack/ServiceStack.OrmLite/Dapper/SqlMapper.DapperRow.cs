@@ -59,7 +59,7 @@ public static partial class SqlMapper
             /// <summary>
             /// The default
             /// </summary>
-            public readonly static DeadValue Default = new DeadValue();
+            public readonly static DeadValue Default = new();
             /// <summary>
             /// Prevents a default instance of the <see cref="DeadValue" /> class from being created.
             /// </summary>
@@ -74,10 +74,10 @@ public static partial class SqlMapper
         {
             get
             {
-                int count = 0;
-                for (int i = 0; i < values.Length; i++)
+                var count = 0;
+                foreach (var t in this.values)
                 {
-                    if (!(values[i] is DeadValue))
+                    if (t is not DeadValue)
                     {
                         count++;
                     }
@@ -93,7 +93,9 @@ public static partial class SqlMapper
         /// <param name="value">When this method returns, the value associated with the specified key, if the key is found; otherwise, the default value for the type of the <paramref name="value" /> parameter. This parameter is passed uninitialized.</param>
         /// <returns><see langword="true" /> if the object that implements <see cref="T:System.Collections.Generic.IDictionary`2" /> contains an element with the specified key; otherwise, <see langword="false" />.</returns>
         public bool TryGetValue(string key, out object value)
-            => TryGetValue(table.IndexOfName(key), out value);
+        {
+            return this.TryGetValue(this.table.IndexOfName(key), out value);
+        }
 
         /// <summary>
         /// Tries the get value.
@@ -109,7 +111,7 @@ public static partial class SqlMapper
                 return false;
             }
             // exists, **even if** we don't have a value; consider table rows heterogeneous
-            value = index < values.Length ? values[index] : null;
+            value = index < this.values.Length ? this.values[index] : null;
             if (value is DeadValue)
             { // pretend it isn't here
                 value = null;
@@ -119,9 +121,9 @@ public static partial class SqlMapper
         }
 
         /// <summary>
-        /// Returns a <see cref="System.String" /> that represents this instance.
+        /// Returns a <see cref="string" /> that represents this instance.
         /// </summary>
-        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
+        /// <returns>A <see cref="string" /> that represents this instance.</returns>
         public override string ToString()
         {
             var sb = GetStringBuilder().Append("{DapperRow");
@@ -148,11 +150,11 @@ public static partial class SqlMapper
         /// <returns>An enumerator that can be used to iterate through the collection.</returns>
         public IEnumerator<KeyValuePair<string, object>> GetEnumerator()
         {
-            var names = table.FieldNames;
+            var names = this.table.FieldNames;
             for (var i = 0; i < names.Length; i++)
             {
-                object value = i < values.Length ? values[i] : null;
-                if (!(value is DeadValue))
+                var value = i < this.values.Length ? this.values[i] : null;
+                if (value is not DeadValue)
                 {
                     yield return new KeyValuePair<string, object>(names[i], value);
                 }
@@ -165,7 +167,7 @@ public static partial class SqlMapper
         /// <returns>An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return GetEnumerator();
+            return this.GetEnumerator();
         }
 
         /// <summary>
@@ -183,7 +185,7 @@ public static partial class SqlMapper
         /// </summary>
         void ICollection<KeyValuePair<string, object>>.Clear()
         { // removes values for **this row**, but doesn't change the fundamental table
-            for (int i = 0; i < values.Length; i++)
+            for (var i = 0; i < this.values.Length; i++)
             {
                 this.values[i] = DeadValue.Default;
             }
@@ -196,7 +198,7 @@ public static partial class SqlMapper
         /// <returns><see langword="true" /> if <paramref name="item" /> is found in the <see cref="T:System.Collections.Generic.ICollection`1" />; otherwise, <see langword="false" />.</returns>
         bool ICollection<KeyValuePair<string, object>>.Contains(KeyValuePair<string, object> item)
         {
-            return TryGetValue(item.Key, out object value) && Equals(value, item.Value);
+            return this.TryGetValue(item.Key, out var value) && Equals(value, item.Value);
         }
 
         /// <summary>
@@ -236,8 +238,8 @@ public static partial class SqlMapper
         /// <returns><see langword="true" /> if the <see cref="T:System.Collections.Generic.IDictionary`2" /> contains an element with the key; otherwise, <see langword="false" />.</returns>
         bool IDictionary<string, object>.ContainsKey(string key)
         {
-            int index = table.IndexOfName(key);
-            if (index < 0 || index >= values.Length || values[index] is DeadValue)
+            var index = this.table.IndexOfName(key);
+            if (index < 0 || index >= this.values.Length || this.values[index] is DeadValue)
             {
                 return false;
             }
@@ -252,7 +254,7 @@ public static partial class SqlMapper
         /// <param name="value">The object to use as the value of the element to add.</param>
         void IDictionary<string, object>.Add(string key, object value)
         {
-            SetValue(key, value, true);
+            this.SetValue(key, value, true);
         }
 
         /// <summary>
@@ -261,7 +263,9 @@ public static partial class SqlMapper
         /// <param name="key">The key of the element to remove.</param>
         /// <returns><see langword="true" /> if the element is successfully removed; otherwise, <see langword="false" />.  This method also returns <see langword="false" /> if <paramref name="key" /> was not found in the original <see cref="T:System.Collections.Generic.IDictionary`2" />.</returns>
         bool IDictionary<string, object>.Remove(string key)
-            => Remove(table.IndexOfName(key));
+        {
+            return this.Remove(this.table.IndexOfName(key));
+        }
 
         /// <summary>
         /// Removes the specified index.
@@ -270,24 +274,24 @@ public static partial class SqlMapper
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         internal bool Remove(int index)
         {
-            if (index < 0 || index >= values.Length || values[index] is DeadValue)
+            if (index < 0 || index >= this.values.Length || this.values[index] is DeadValue)
             {
                 return false;
             }
 
-            values[index] = DeadValue.Default;
+            this.values[index] = DeadValue.Default;
             return true;
         }
 
         /// <summary>
-        /// Gets or sets the <see cref="System.Object" /> with the specified key.
+        /// Gets or sets the <see cref="object" /> with the specified key.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>System.Object.</returns>
         object IDictionary<string, object>.this[string key]
         {
-            get { TryGetValue(key, out object val); return val; }
-            set { SetValue(key, value, false); }
+            get { this.TryGetValue(key, out var val); return val; }
+            set { this.SetValue(key, value, false); }
         }
 
         /// <summary>
@@ -298,7 +302,7 @@ public static partial class SqlMapper
         /// <returns>System.Object.</returns>
         public object SetValue(string key, object value)
         {
-            return SetValue(key, value, false);
+            return this.SetValue(key, value, false);
         }
 
         /// <summary>
@@ -312,22 +316,19 @@ public static partial class SqlMapper
         /// <exception cref="System.ArgumentException">An item with the same key has already been added - key</exception>
         private object SetValue(string key, object value, bool isAdd)
         {
-            if (key == null)
-            {
-                throw new ArgumentNullException(nameof(key));
-            }
+            ArgumentNullException.ThrowIfNull(key);
 
-            int index = table.IndexOfName(key);
+            var index = this.table.IndexOfName(key);
             if (index < 0)
             {
-                index = table.AddField(key);
+                index = this.table.AddField(key);
             }
-            else if (isAdd && index < values.Length && !(values[index] is DeadValue))
+            else if (isAdd && index < this.values.Length && this.values[index] is not DeadValue)
             {
                 // then semantically, this value already exists
                 throw new ArgumentException("An item with the same key has already been added", nameof(key));
             }
-            return SetValue(index, value);
+            return this.SetValue(index, value);
         }
         /// <summary>
         /// Sets the value.
@@ -337,49 +338,37 @@ public static partial class SqlMapper
         /// <returns>System.Object.</returns>
         internal object SetValue(int index, object value)
         {
-            int oldLength = values.Length;
+            var oldLength = this.values.Length;
             if (oldLength <= index)
             {
                 // we'll assume they're doing lots of things, and
                 // grow it to the full width of the table
-                Array.Resize(ref values, table.FieldCount);
-                for (int i = oldLength; i < values.Length; i++)
+                Array.Resize(ref this.values, this.table.FieldCount);
+                for (var i = oldLength; i < this.values.Length; i++)
                 {
-                    values[i] = DeadValue.Default;
+                    this.values[i] = DeadValue.Default;
                 }
             }
-            return values[index] = value;
+            return this.values[index] = value;
         }
 
         /// <summary>
         /// Gets an <see cref="T:System.Collections.Generic.ICollection`1" /> containing the keys of the <see cref="T:System.Collections.Generic.IDictionary`2" />.
         /// </summary>
         /// <value>The keys.</value>
-        ICollection<string> IDictionary<string, object>.Keys
-        {
-            get { return this.Select(kv => kv.Key).ToArray(); }
-        }
+        ICollection<string> IDictionary<string, object>.Keys => this.Select(kv => kv.Key).ToArray();
 
         /// <summary>
         /// Gets an <see cref="T:System.Collections.Generic.ICollection`1" /> containing the values in the <see cref="T:System.Collections.Generic.IDictionary`2" />.
         /// </summary>
         /// <value>The values.</value>
-        ICollection<object> IDictionary<string, object>.Values
-        {
-            get { return this.Select(kv => kv.Value).ToArray(); }
-        }
+        ICollection<object> IDictionary<string, object>.Values => this.Select(kv => kv.Value).ToArray();
 
         /// <summary>
         /// Gets the number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1" />.
         /// </summary>
         /// <value>The count.</value>
-        int IReadOnlyCollection<KeyValuePair<string, object>>.Count
-        {
-            get
-            {
-                return values.Count(t => !(t is DeadValue));
-            }
-        }
+        int IReadOnlyCollection<KeyValuePair<string, object>>.Count => this.values.Count(t => t is not DeadValue);
 
         /// <summary>
         /// Determines whether the <see cref="T:System.Collections.Generic.IDictionary`2" /> contains an element with the specified key.
@@ -388,36 +377,30 @@ public static partial class SqlMapper
         /// <returns><see langword="true" /> if the <see cref="T:System.Collections.Generic.IDictionary`2" /> contains an element with the key; otherwise, <see langword="false" />.</returns>
         bool IReadOnlyDictionary<string, object>.ContainsKey(string key)
         {
-            int index = table.IndexOfName(key);
-            return index >= 0 && index < values.Length && !(values[index] is DeadValue);
+            var index = this.table.IndexOfName(key);
+            return index >= 0 && index < this.values.Length && this.values[index] is not DeadValue;
         }
 
         /// <summary>
-        /// Gets the <see cref="System.Object" /> with the specified key.
+        /// Gets the <see cref="object" /> with the specified key.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <returns>System.Object.</returns>
         object IReadOnlyDictionary<string, object>.this[string key]
         {
-            get { TryGetValue(key, out object val); return val; }
+            get { this.TryGetValue(key, out var val); return val; }
         }
 
         /// <summary>
         /// Gets an <see cref="T:System.Collections.Generic.ICollection`1" /> containing the keys of the <see cref="T:System.Collections.Generic.IDictionary`2" />.
         /// </summary>
         /// <value>The keys.</value>
-        IEnumerable<string> IReadOnlyDictionary<string, object>.Keys
-        {
-            get { return this.Select(kv => kv.Key); }
-        }
+        IEnumerable<string> IReadOnlyDictionary<string, object>.Keys => this.Select(kv => kv.Key);
 
         /// <summary>
         /// Gets the values.
         /// </summary>
         /// <value>The values.</value>
-        IEnumerable<object> IReadOnlyDictionary<string, object>.Values
-        {
-            get { return this.Select(kv => kv.Value); }
-        }
+        IEnumerable<object> IReadOnlyDictionary<string, object>.Values => this.Select(kv => kv.Value);
     }
 }

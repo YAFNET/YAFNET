@@ -37,19 +37,19 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
     private List<object> templates;
 
     /// <summary>
-    /// Gets the <see cref="System.Object" /> with the specified name.
+    /// Gets the <see cref="object" /> with the specified name.
     /// </summary>
     /// <param name="name">The name.</param>
     /// <returns>System.Object.</returns>
     object SqlMapper.IParameterLookup.this[string name] =>
-        parameters.TryGetValue(name, out ParamInfo param) ? param.Value : null;
+        this.parameters.TryGetValue(name, out var param) ? param.Value : null;
 
     /// <summary>
     /// construct a dynamic parameter bag
     /// </summary>
     public DynamicParameters()
     {
-        RemoveUnused = true;
+        this.RemoveUnused = true;
     }
 
     /// <summary>
@@ -58,8 +58,8 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
     /// <param name="template">can be an anonymous type or a DynamicParameters bag</param>
     public DynamicParameters(object template)
     {
-        RemoveUnused = true;
-        AddDynamicParams(template);
+        this.RemoveUnused = true;
+        this.AddDynamicParams(template);
     }
 
     /// <summary>
@@ -76,14 +76,14 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
             {
                 if (obj is not IEnumerable<KeyValuePair<string, object>> dictionary)
                 {
-                    templates ??= [];
-                    templates.Add(obj);
+                    this.templates ??= [];
+                    this.templates.Add(obj);
                 }
                 else
                 {
                     foreach (var kvp in dictionary)
                     {
-                        Add(kvp.Key, kvp.Value, null, null, null);
+                        this.Add(kvp.Key, kvp.Value, null, null, null);
                     }
                 }
             }
@@ -93,7 +93,7 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
                 {
                     foreach (var kvp in subDynamic.parameters)
                     {
-                        parameters.Add(kvp.Key, kvp.Value);
+                        this.parameters.Add(kvp.Key, kvp.Value);
                     }
                 }
 
@@ -102,10 +102,10 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
                     return;
                 }
 
-                templates ??= [];
+                this.templates ??= [];
                 foreach (var t in subDynamic.templates)
                 {
-                    templates.Add(t);
+                    this.templates.Add(t);
                 }
             }
         }
@@ -121,7 +121,7 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
     /// <param name="size">The size of the parameter.</param>
     public void Add(string name, object value, DbType? dbType, ParameterDirection? direction, int? size)
     {
-        parameters[Clean(name)] = new ParamInfo
+        this.parameters[Clean(name)] = new ParamInfo
                                       {
                                           Name = name,
                                           Value = value,
@@ -143,7 +143,7 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
     /// <param name="scale">The scale of the parameter.</param>
     public void Add(string name, object value = null, DbType? dbType = null, ParameterDirection? direction = null, int? size = null, byte? precision = null, byte? scale = null)
     {
-        parameters[Clean(name)] = new ParamInfo
+        this.parameters[Clean(name)] = new ParamInfo
                                       {
                                           Name = name,
                                           Value = value,
@@ -182,7 +182,7 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
     /// <param name="identity">Information about the query</param>
     void SqlMapper.IDynamicParameters.AddParameters(IDbCommand command, SqlMapper.Identity identity)
     {
-        AddParameters(command, identity);
+        this.AddParameters(command, identity);
     }
 
     /// <summary>
@@ -200,9 +200,9 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
     {
         var literals = SqlMapper.GetLiteralTokens(identity.sql);
 
-        if (templates != null)
+        if (this.templates != null)
         {
-            foreach (var template in templates)
+            foreach (var template in this.templates)
             {
                 var newIdent = identity.ForDynamicParameters(template.GetType());
                 Action<IDbCommand, object> appender;
@@ -211,7 +211,7 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
                 {
                     if (!paramReaderCache.TryGetValue(newIdent, out appender))
                     {
-                        appender = SqlMapper.CreateParamInfoGenerator(newIdent, true, RemoveUnused, literals);
+                        appender = SqlMapper.CreateParamInfoGenerator(newIdent, true, this.RemoveUnused, literals);
                         paramReaderCache[newIdent] = appender;
                     }
                 }
@@ -226,9 +226,9 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
                 // If someone makes a DynamicParameters with a template,
                 // then explicitly adds a parameter of a matching name,
                 // it will already exist in 'parameters'.
-                if (!parameters.ContainsKey(param.ParameterName))
+                if (!this.parameters.ContainsKey(param.ParameterName))
                 {
-                    parameters.Add(param.ParameterName, new ParamInfo
+                    this.parameters.Add(param.ParameterName, new ParamInfo
                                                             {
                                                                 AttachedParam = param,
                                                                 CameFromTemplate = true,
@@ -242,7 +242,7 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
             }
 
             // Now that the parameters are added to the command, let's place our output callbacks
-            var tmp = outputCallbacks;
+            var tmp = this.outputCallbacks;
             if (tmp != null)
             {
                 foreach (var generator in tmp)
@@ -252,7 +252,7 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
             }
         }
 
-        foreach (var param in parameters.Values)
+        foreach (var param in this.parameters.Values)
         {
             if (param.CameFromTemplate)
             {
@@ -261,7 +261,7 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
 
             var dbType = param.DbType;
             var val = param.Value;
-            string name = Clean(param.Name);
+            var name = Clean(param.Name);
             var isCustomQueryParameter = val is SqlMapper.ICustomQueryParameter;
 
             SqlMapper.ITypeHandler handler = null;
@@ -283,7 +283,7 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
             }
             else
             {
-                bool add = !command.Parameters.Contains(name);
+                var add = !command.Parameters.Contains(name);
                 IDbDataParameter p;
                 if (add)
                 {
@@ -369,7 +369,7 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
     /// All the names of the param in the bag, use Get to yank them out
     /// </summary>
     /// <value>The parameter names.</value>
-    public IEnumerable<string> ParameterNames => parameters.Select(p => p.Key);
+    public IEnumerable<string> ParameterNames => this.parameters.Select(p => p.Key);
 
     /// <summary>
     /// Get the value of a parameter
@@ -380,9 +380,9 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
     /// <exception cref="System.ApplicationException">Attempting to cast a DBNull to a non nullable type! Note that out/return parameters will not have updated values until the data stream completes (after the 'foreach' for Query(..., buffered: false), or after the GridReader has been disposed for QueryMultiple)</exception>
     public T Get<T>(string name)
     {
-        var paramInfo = parameters[Clean(name)];
+        var paramInfo = this.parameters[Clean(name)];
         var attachedParam = paramInfo.AttachedParam;
-        object val = attachedParam == null ? paramInfo.Value : attachedParam.Value;
+        var val = attachedParam == null ? paramInfo.Value : attachedParam.Value;
         if (val == DBNull.Value)
         {
             if (default(T) != null)
@@ -431,7 +431,7 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
         }
 
         // Does the chain consist of MemberExpressions leading to a ParameterExpression of type T?
-        MemberExpression diving = lastMemberAccess;
+        var diving = lastMemberAccess;
         // Retain a list of member names and the member expressions so we can rebuild the chain.
         List<string> names = [];
         List<MemberExpression> chain = [];
@@ -472,7 +472,7 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
         }
 
         // Come on let's build a method, let's build it, let's build it now!
-        var dm = new DynamicMethod("ExpressionParam" + Guid.NewGuid().ToString(), null, [typeof(object), GetType()], true);
+        var dm = new DynamicMethod("ExpressionParam" + Guid.NewGuid().ToString(), null, [typeof(object), this.GetType()], true);
         var il = dm.GetILGenerator();
 
         il.Emit(OpCodes.Ldarg_0); // [object]
@@ -494,7 +494,7 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
             }
         }
 
-        var paramGetter = GetType().GetMethod("Get", [typeof(string)]).MakeGenericMethod(lastMemberAccess.Type);
+        var paramGetter = this.GetType().GetMethod("Get", [typeof(string)]).MakeGenericMethod(lastMemberAccess.Type);
 
         il.Emit(OpCodes.Ldarg_1); // [target] [DynamicParameters]
         il.Emit(OpCodes.Ldstr, dynamicParamName); // [target] [DynamicParameters] [ParamName]
@@ -522,13 +522,13 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
 
         // Queue the preparation to be fired off when adding parameters to the DbCommand
         MAKECALLBACK:
-        (outputCallbacks ??= []).Add(() =>
+        (this.outputCallbacks ??= []).Add(() =>
             {
                 // Finally, prep the parameter and attach the callback to it
                 var targetMemberType = lastMemberAccess?.Type;
-                int sizeToSet = !size.HasValue && targetMemberType == typeof(string) ? DbString.DefaultLength : size ?? 0;
+                var sizeToSet = !size.HasValue && targetMemberType == typeof(string) ? DbString.DefaultLength : size ?? 0;
 
-                if (parameters.TryGetValue(dynamicParamName, out ParamInfo parameter))
+                if (this.parameters.TryGetValue(dynamicParamName, out var parameter))
                 {
                     parameter.ParameterDirection = parameter.AttachedParam.Direction = ParameterDirection.InputOutput;
 
@@ -541,16 +541,16 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
                 {
                     dbType = !dbType.HasValue
 #pragma warning disable 618
-                                 ? SqlMapper.LookupDbType(targetMemberType, targetMemberType?.Name, true, out SqlMapper.ITypeHandler handler)
+                                 ? SqlMapper.LookupDbType(targetMemberType, targetMemberType?.Name, true, out var handler)
 #pragma warning restore 618
                                  : dbType;
 
                     // CameFromTemplate property would not apply here because this new param
                     // Still needs to be added to the command
-                    Add(dynamicParamName, expression.Compile().Invoke(target), null, ParameterDirection.InputOutput, sizeToSet);
+                    this.Add(dynamicParamName, expression.Compile().Invoke(target), null, ParameterDirection.InputOutput, sizeToSet);
                 }
 
-                parameter = parameters[dynamicParamName];
+                parameter = this.parameters[dynamicParamName];
                 parameter.OutputCallback = setter;
                 parameter.OutputTarget = target;
             });
@@ -568,7 +568,7 @@ public partial class DynamicParameters : SqlMapper.IDynamicParameters, SqlMapper
     /// </summary>
     void SqlMapper.IParameterCallbacks.OnCompleted()
     {
-        foreach (var param in from p in parameters select p.Value)
+        foreach (var param in from p in this.parameters select p.Value)
         {
             param.OutputCallback?.Invoke(param.OutputTarget, this);
         }

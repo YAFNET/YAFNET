@@ -73,7 +73,11 @@ public static class OrmLiteReadExpressionsApiAsync
     /// <param name="expression">The expression.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;List&lt;T&gt;&gt;.</returns>
-    public static Task<List<T>> SelectAsync<T>(this IDbConnection dbConn, ISqlExpression expression, CancellationToken token = default) => dbConn.Exec(dbCmd => dbCmd.SqlListAsync<T>(expression.SelectInto<T>(QueryType.Select), expression.Params, token));
+    public static Task<List<T>> SelectAsync<T>(this IDbConnection dbConn, ISqlExpression expression, CancellationToken token = default)
+    {
+        return dbConn.Exec(dbCmd =>
+            dbCmd.SqlListAsync<T>(expression.SelectInto<T>(QueryType.Select), expression.Params, token));
+    }
 
     /// <summary>
     /// Selects the multi asynchronous.
@@ -84,7 +88,10 @@ public static class OrmLiteReadExpressionsApiAsync
     /// <param name="expression">The expression.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;List&lt;Tuple&lt;T, T2&gt;&gt;&gt;.</returns>
-    public static Task<List<Tuple<T, T2>>> SelectMultiAsync<T, T2>(this IDbConnection dbConn, SqlExpression<T> expression, CancellationToken token = default) => dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2>(expression, token));
+    public static Task<List<Tuple<T, T2>>> SelectMultiAsync<T, T2>(this IDbConnection dbConn, SqlExpression<T> expression, CancellationToken token = default)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2>(expression, token));
+    }
 
     /// <summary>
     /// Selects the multi asynchronous.
@@ -96,7 +103,10 @@ public static class OrmLiteReadExpressionsApiAsync
     /// <param name="expression">The expression.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;List&lt;Tuple&lt;T, T2, T3&gt;&gt;&gt;.</returns>
-    public static Task<List<Tuple<T, T2, T3>>> SelectMultiAsync<T, T2, T3>(this IDbConnection dbConn, SqlExpression<T> expression, CancellationToken token = default) => dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2, T3>(expression, token));
+    public static Task<List<Tuple<T, T2, T3>>> SelectMultiAsync<T, T2, T3>(this IDbConnection dbConn, SqlExpression<T> expression, CancellationToken token = default)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2, T3>(expression, token));
+    }
 
     /// <summary>
     /// Selects the multi asynchronous.
@@ -109,7 +119,10 @@ public static class OrmLiteReadExpressionsApiAsync
     /// <param name="expression">The expression.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;List&lt;Tuple&lt;T, T2, T3, T4&gt;&gt;&gt;.</returns>
-    public static Task<List<Tuple<T, T2, T3, T4>>> SelectMultiAsync<T, T2, T3, T4>(this IDbConnection dbConn, SqlExpression<T> expression, CancellationToken token = default) => dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2, T3, T4>(expression, token));
+    public static Task<List<Tuple<T, T2, T3, T4>>> SelectMultiAsync<T, T2, T3, T4>(this IDbConnection dbConn, SqlExpression<T> expression, CancellationToken token = default)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2, T3, T4>(expression, token));
+    }
 
     /// <summary>
     /// Selects the multi asynchronous.
@@ -123,7 +136,10 @@ public static class OrmLiteReadExpressionsApiAsync
     /// <param name="expression">The expression.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;List&lt;Tuple&lt;T, T2, T3, T4, T5&gt;&gt;&gt;.</returns>
-    public static Task<List<Tuple<T, T2, T3, T4, T5>>> SelectMultiAsync<T, T2, T3, T4, T5>(this IDbConnection dbConn, SqlExpression<T> expression, CancellationToken token = default) => dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2, T3, T4, T5>(expression, token));
+    public static Task<List<Tuple<T, T2, T3, T4, T5>>> SelectMultiAsync<T, T2, T3, T4, T5>(this IDbConnection dbConn, SqlExpression<T> expression, CancellationToken token = default)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2, T3, T4, T5>(expression, token));
+    }
 
     /// <summary>
     /// Selects the multi asynchronous.
@@ -138,7 +154,10 @@ public static class OrmLiteReadExpressionsApiAsync
     /// <param name="expression">The expression.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;List&lt;Tuple&lt;T, T2, T3, T4, T5, T6&gt;&gt;&gt;.</returns>
-    public static Task<List<Tuple<T, T2, T3, T4, T5, T6>>> SelectMultiAsync<T, T2, T3, T4, T5, T6>(this IDbConnection dbConn, SqlExpression<T> expression, CancellationToken token = default) => dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2, T3, T4, T5, T6>(expression, token));
+    public static Task<List<Tuple<T, T2, T3, T4, T5, T6>>> SelectMultiAsync<T, T2, T3, T4, T5, T6>(this IDbConnection dbConn, SqlExpression<T> expression, CancellationToken token = default)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2, T3, T4, T5, T6>(expression, token));
+    }
 
     /// <summary>
     /// Selects the multi asynchronous.
@@ -154,7 +173,10 @@ public static class OrmLiteReadExpressionsApiAsync
     /// <param name="expression">The expression.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;List&lt;Tuple&lt;T, T2, T3, T4, T5, T6, T7&gt;&gt;&gt;.</returns>
-    public static Task<List<Tuple<T, T2, T3, T4, T5, T6, T7>>> SelectMultiAsync<T, T2, T3, T4, T5, T6, T7>(this IDbConnection dbConn, SqlExpression<T> expression, CancellationToken token = default) => dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2, T3, T4, T5, T6, T7>(expression, token));
+    public static Task<List<Tuple<T, T2, T3, T4, T5, T6, T7>>> SelectMultiAsync<T, T2, T3, T4, T5, T6, T7>(this IDbConnection dbConn, SqlExpression<T> expression, CancellationToken token = default)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2, T3, T4, T5, T6, T7>(expression, token));
+    }
 
 
     /// <summary>
@@ -167,7 +189,10 @@ public static class OrmLiteReadExpressionsApiAsync
     /// <param name="tableSelects">The table selects.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;List&lt;Tuple&lt;T, T2&gt;&gt;&gt;.</returns>
-    public static Task<List<Tuple<T, T2>>> SelectMultiAsync<T, T2>(this IDbConnection dbConn, SqlExpression<T> expression, string[] tableSelects, CancellationToken token = default) => dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2>(expression, tableSelects, token));
+    public static Task<List<Tuple<T, T2>>> SelectMultiAsync<T, T2>(this IDbConnection dbConn, SqlExpression<T> expression, string[] tableSelects, CancellationToken token = default)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2>(expression, tableSelects, token));
+    }
 
     /// <summary>
     /// Selects the multi asynchronous.
@@ -180,7 +205,10 @@ public static class OrmLiteReadExpressionsApiAsync
     /// <param name="tableSelects">The table selects.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;List&lt;Tuple&lt;T, T2, T3&gt;&gt;&gt;.</returns>
-    public static Task<List<Tuple<T, T2, T3>>> SelectMultiAsync<T, T2, T3>(this IDbConnection dbConn, SqlExpression<T> expression, string[] tableSelects, CancellationToken token = default) => dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2, T3>(expression, tableSelects, token));
+    public static Task<List<Tuple<T, T2, T3>>> SelectMultiAsync<T, T2, T3>(this IDbConnection dbConn, SqlExpression<T> expression, string[] tableSelects, CancellationToken token = default)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2, T3>(expression, tableSelects, token));
+    }
 
     /// <summary>
     /// Selects the multi asynchronous.
@@ -194,7 +222,10 @@ public static class OrmLiteReadExpressionsApiAsync
     /// <param name="tableSelects">The table selects.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;List&lt;Tuple&lt;T, T2, T3, T4&gt;&gt;&gt;.</returns>
-    public static Task<List<Tuple<T, T2, T3, T4>>> SelectMultiAsync<T, T2, T3, T4>(this IDbConnection dbConn, SqlExpression<T> expression, string[] tableSelects, CancellationToken token = default) => dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2, T3, T4>(expression, tableSelects, token));
+    public static Task<List<Tuple<T, T2, T3, T4>>> SelectMultiAsync<T, T2, T3, T4>(this IDbConnection dbConn, SqlExpression<T> expression, string[] tableSelects, CancellationToken token = default)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2, T3, T4>(expression, tableSelects, token));
+    }
 
     /// <summary>
     /// Selects the multi asynchronous.
@@ -209,7 +240,10 @@ public static class OrmLiteReadExpressionsApiAsync
     /// <param name="tableSelects">The table selects.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;List&lt;Tuple&lt;T, T2, T3, T4, T5&gt;&gt;&gt;.</returns>
-    public static Task<List<Tuple<T, T2, T3, T4, T5>>> SelectMultiAsync<T, T2, T3, T4, T5>(this IDbConnection dbConn, SqlExpression<T> expression, string[] tableSelects, CancellationToken token = default) => dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2, T3, T4, T5>(expression, tableSelects, token));
+    public static Task<List<Tuple<T, T2, T3, T4, T5>>> SelectMultiAsync<T, T2, T3, T4, T5>(this IDbConnection dbConn, SqlExpression<T> expression, string[] tableSelects, CancellationToken token = default)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2, T3, T4, T5>(expression, tableSelects, token));
+    }
 
     /// <summary>
     /// Selects the multi asynchronous.
@@ -225,7 +259,10 @@ public static class OrmLiteReadExpressionsApiAsync
     /// <param name="tableSelects">The table selects.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;List&lt;Tuple&lt;T, T2, T3, T4, T5, T6&gt;&gt;&gt;.</returns>
-    public static Task<List<Tuple<T, T2, T3, T4, T5, T6>>> SelectMultiAsync<T, T2, T3, T4, T5, T6>(this IDbConnection dbConn, SqlExpression<T> expression, string[] tableSelects, CancellationToken token = default) => dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2, T3, T4, T5, T6>(expression, tableSelects, token));
+    public static Task<List<Tuple<T, T2, T3, T4, T5, T6>>> SelectMultiAsync<T, T2, T3, T4, T5, T6>(this IDbConnection dbConn, SqlExpression<T> expression, string[] tableSelects, CancellationToken token = default)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2, T3, T4, T5, T6>(expression, tableSelects, token));
+    }
 
     /// <summary>
     /// Selects the multi asynchronous.
@@ -242,7 +279,10 @@ public static class OrmLiteReadExpressionsApiAsync
     /// <param name="tableSelects">The table selects.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;List&lt;Tuple&lt;T, T2, T3, T4, T5, T6, T7&gt;&gt;&gt;.</returns>
-    public static Task<List<Tuple<T, T2, T3, T4, T5, T6, T7>>> SelectMultiAsync<T, T2, T3, T4, T5, T6, T7>(this IDbConnection dbConn, SqlExpression<T> expression, string[] tableSelects, CancellationToken token = default) => dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2, T3, T4, T5, T6, T7>(expression, tableSelects, token));
+    public static Task<List<Tuple<T, T2, T3, T4, T5, T6, T7>>> SelectMultiAsync<T, T2, T3, T4, T5, T6, T7>(this IDbConnection dbConn, SqlExpression<T> expression, string[] tableSelects, CancellationToken token = default)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.SelectMultiAsync<T, T2, T3, T4, T5, T6, T7>(expression, tableSelects, token));
+    }
 
     /// <summary>
     /// Returns a single result from using a LINQ Expression. E.g:
@@ -495,8 +535,10 @@ public static class OrmLiteReadExpressionsApiAsync
     /// <param name="sql">The SQL.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;DataTable&gt;.</returns>
-    public static Task<DataTable> GetSchemaTableAsync(this IDbConnection dbConn, string sql, CancellationToken token = default) =>
-        dbConn.Exec(dbCmd => dbCmd.GetSchemaTableAsync(sql, token));
+    public static Task<DataTable> GetSchemaTableAsync(this IDbConnection dbConn, string sql, CancellationToken token = default)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.GetSchemaTableAsync(sql, token));
+    }
 
     /// <summary>
     /// Get Table Column Schemas for specified table
@@ -505,8 +547,11 @@ public static class OrmLiteReadExpressionsApiAsync
     /// <param name="dbConn">The database connection.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;ColumnSchema[]&gt;.</returns>
-    public static Task<ColumnSchema[]> GetTableColumnsAsync<T>(this IDbConnection dbConn, CancellationToken token = default) =>
-        dbConn.Exec(dbCmd => dbCmd.GetTableColumnsAsync(typeof(T), token));
+    public static Task<ColumnSchema[]> GetTableColumnsAsync<T>(this IDbConnection dbConn, CancellationToken token = default)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.GetTableColumnsAsync(typeof(T), token));
+    }
+
     /// <summary>
     /// Get Table Column Schemas for specified table
     /// </summary>
@@ -514,8 +559,11 @@ public static class OrmLiteReadExpressionsApiAsync
     /// <param name="type">The type.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;ColumnSchema[]&gt;.</returns>
-    public static Task<ColumnSchema[]> GetTableColumnsAsync(this IDbConnection dbConn, Type type, CancellationToken token = default) =>
-        dbConn.Exec(dbCmd => dbCmd.GetTableColumnsAsync(type, token));
+    public static Task<ColumnSchema[]> GetTableColumnsAsync(this IDbConnection dbConn, Type type, CancellationToken token = default)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.GetTableColumnsAsync(type, token));
+    }
+
     /// <summary>
     /// Get Table Column Schemas for result-set return from specified sql
     /// </summary>
@@ -523,8 +571,10 @@ public static class OrmLiteReadExpressionsApiAsync
     /// <param name="sql">The SQL.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task&lt;ColumnSchema[]&gt;.</returns>
-    public static Task<ColumnSchema[]> GetTableColumnsAsync(this IDbConnection dbConn, string sql, CancellationToken token = default) =>
-        dbConn.Exec(dbCmd => dbCmd.GetTableColumnsAsync(sql, token));
+    public static Task<ColumnSchema[]> GetTableColumnsAsync(this IDbConnection dbConn, string sql, CancellationToken token = default)
+    {
+        return dbConn.Exec(dbCmd => dbCmd.GetTableColumnsAsync(sql, token));
+    }
 
     /// <summary>
     /// Enables the foreign keys check asynchronous.
@@ -532,16 +582,21 @@ public static class OrmLiteReadExpressionsApiAsync
     /// <param name="dbConn">The database connection.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task.</returns>
-    public static Task EnableForeignKeysCheckAsync(this IDbConnection dbConn, CancellationToken token = default) =>
-        dbConn.Exec(dbCmd => dbConn.GetDialectProvider().EnableForeignKeysCheckAsync(dbCmd, token));
+    public static Task EnableForeignKeysCheckAsync(this IDbConnection dbConn, CancellationToken token = default)
+    {
+        return dbConn.Exec(dbCmd => dbConn.GetDialectProvider().EnableForeignKeysCheckAsync(dbCmd, token));
+    }
+
     /// <summary>
     /// Disables the foreign keys check asynchronous.
     /// </summary>
     /// <param name="dbConn">The database connection.</param>
     /// <param name="token">The cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
     /// <returns>Task.</returns>
-    public static Task DisableForeignKeysCheckAsync(this IDbConnection dbConn, CancellationToken token = default) =>
-        dbConn.Exec(dbCmd => dbConn.GetDialectProvider().DisableForeignKeysCheckAsync(dbCmd, token));
+    public static Task DisableForeignKeysCheckAsync(this IDbConnection dbConn, CancellationToken token = default)
+    {
+        return dbConn.Exec(dbCmd => dbConn.GetDialectProvider().DisableForeignKeysCheckAsync(dbCmd, token));
+    }
 }
 
 #endif

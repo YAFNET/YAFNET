@@ -39,7 +39,7 @@ public class PmModel : AdminPage
     /// Gets or sets the input.
     /// </summary>
     [BindProperty]
-    public InputModel Input { get; set; }
+    public PmInputModel Input { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="PmModel"/> class.
@@ -63,7 +63,7 @@ public class PmModel : AdminPage
     /// </summary>
     public void OnGet()
     {
-        this.Input = new InputModel();
+        this.Input = new PmInputModel();
 
         this.BindData();
     }
@@ -86,15 +86,5 @@ public class PmModel : AdminPage
         await this.GetRepository<PrivateMessage>().PruneAllAsync(this.Input.Days2);
 
         this.BindData();
-    }
-
-    /// <summary>
-    /// The input model.
-    /// </summary>
-    public class InputModel
-    {
-        public int Days2 { get; set; }
-
-        public string Count { get; set; }
     }
 }

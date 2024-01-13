@@ -38,7 +38,10 @@ public static partial class SqlMapper
             /// <param name="instance">The object for which to get the extended type descriptor.</param>
             /// <returns>An <see cref="T:System.ComponentModel.ICustomTypeDescriptor" /> that can provide extended metadata for the object.</returns>
             public override ICustomTypeDescriptor GetExtendedTypeDescriptor(object instance)
-                => new DapperRowTypeDescriptor(instance);
+            {
+                return new DapperRowTypeDescriptor(instance);
+            }
+
             /// <summary>
             /// Gets a custom type descriptor for the given type and object.
             /// </summary>
@@ -46,7 +49,9 @@ public static partial class SqlMapper
             /// <param name="instance">An instance of the type. Can be <see langword="null" /> if no instance was passed to the <see cref="T:System.ComponentModel.TypeDescriptor" />.</param>
             /// <returns>An <see cref="T:System.ComponentModel.ICustomTypeDescriptor" /> that can provide metadata for the type.</returns>
             public override ICustomTypeDescriptor GetTypeDescriptor(Type objectType, object instance)
-                => new DapperRowTypeDescriptor(instance);
+            {
+                return new DapperRowTypeDescriptor(instance);
+            }
         }
 
         //// in theory we could implement this for zero-length results to bind; would require
@@ -82,7 +87,7 @@ public static partial class SqlMapper
             /// <param name="instance">The instance.</param>
             public DapperRowTypeDescriptor(object instance)
             {
-                _row = (DapperRow)instance;
+                this._row = (DapperRow)instance;
             }
 
             /// <summary>
@@ -90,19 +95,27 @@ public static partial class SqlMapper
             /// </summary>
             /// <returns>An <see cref="T:System.ComponentModel.AttributeCollection" /> containing the attributes for this object.</returns>
             AttributeCollection ICustomTypeDescriptor.GetAttributes()
-                => AttributeCollection.Empty;
+            {
+                return AttributeCollection.Empty;
+            }
 
             /// <summary>
             /// Returns the class name of this instance of a component.
             /// </summary>
             /// <returns>The class name of the object, or <see langword="null" /> if the class does not have a name.</returns>
-            string ICustomTypeDescriptor.GetClassName() => typeof(DapperRow).FullName;
+            string ICustomTypeDescriptor.GetClassName()
+            {
+                return typeof(DapperRow).FullName;
+            }
 
             /// <summary>
             /// Returns the name of this instance of a component.
             /// </summary>
             /// <returns>The name of the object, or <see langword="null" /> if the object does not have a name.</returns>
-            string ICustomTypeDescriptor.GetComponentName() => null;
+            string ICustomTypeDescriptor.GetComponentName()
+            {
+                return null;
+            }
 
             /// <summary>
             /// The s converter
@@ -112,46 +125,68 @@ public static partial class SqlMapper
             /// Returns a type converter for this instance of a component.
             /// </summary>
             /// <returns>A <see cref="T:System.ComponentModel.TypeConverter" /> that is the converter for this object, or <see langword="null" /> if there is no <see cref="T:System.ComponentModel.TypeConverter" /> for this object.</returns>
-            TypeConverter ICustomTypeDescriptor.GetConverter() => s_converter;
+            TypeConverter ICustomTypeDescriptor.GetConverter()
+            {
+                return s_converter;
+            }
 
             /// <summary>
             /// Returns the default event for this instance of a component.
             /// </summary>
             /// <returns>An <see cref="T:System.ComponentModel.EventDescriptor" /> that represents the default event for this object, or <see langword="null" /> if this object does not have events.</returns>
-            EventDescriptor ICustomTypeDescriptor.GetDefaultEvent() => null;
+            EventDescriptor ICustomTypeDescriptor.GetDefaultEvent()
+            {
+                return null;
+            }
 
             /// <summary>
             /// Returns the default property for this instance of a component.
             /// </summary>
             /// <returns>A <see cref="T:System.ComponentModel.PropertyDescriptor" /> that represents the default property for this object, or <see langword="null" /> if this object does not have properties.</returns>
-            PropertyDescriptor ICustomTypeDescriptor.GetDefaultProperty() => null;
+            PropertyDescriptor ICustomTypeDescriptor.GetDefaultProperty()
+            {
+                return null;
+            }
 
             /// <summary>
             /// Returns an editor of the specified type for this instance of a component.
             /// </summary>
             /// <param name="editorBaseType">A <see cref="T:System.Type" /> that represents the editor for this object.</param>
             /// <returns>An <see cref="T:System.Object" /> of the specified type that is the editor for this object, or <see langword="null" /> if the editor cannot be found.</returns>
-            object ICustomTypeDescriptor.GetEditor(Type editorBaseType) => null;
+            object ICustomTypeDescriptor.GetEditor(Type editorBaseType)
+            {
+                return null;
+            }
 
             /// <summary>
             /// Returns the events for this instance of a component.
             /// </summary>
             /// <returns>An <see cref="T:System.ComponentModel.EventDescriptorCollection" /> that represents the events for this component instance.</returns>
-            EventDescriptorCollection ICustomTypeDescriptor.GetEvents() => EventDescriptorCollection.Empty;
+            EventDescriptorCollection ICustomTypeDescriptor.GetEvents()
+            {
+                return EventDescriptorCollection.Empty;
+            }
 
             /// <summary>
             /// Returns the events for this instance of a component using the specified attribute array as a filter.
             /// </summary>
             /// <param name="attributes">An array of type <see cref="T:System.Attribute" /> that is used as a filter.</param>
             /// <returns>An <see cref="T:System.ComponentModel.EventDescriptorCollection" /> that represents the filtered events for this component instance.</returns>
-            EventDescriptorCollection ICustomTypeDescriptor.GetEvents(Attribute[] attributes) => EventDescriptorCollection.Empty;
+            EventDescriptorCollection ICustomTypeDescriptor.GetEvents(Attribute[] attributes)
+            {
+                return EventDescriptorCollection.Empty;
+            }
 
             /// <summary>
             /// Gets the properties.
             /// </summary>
             /// <param name="row">The row.</param>
             /// <returns>PropertyDescriptorCollection.</returns>
-            static internal PropertyDescriptorCollection GetProperties(DapperRow row) => GetProperties(row?.table, row);
+            static internal PropertyDescriptorCollection GetProperties(DapperRow row)
+            {
+                return GetProperties(row?.table, row);
+            }
+
             /// <summary>
             /// Gets the properties.
             /// </summary>
@@ -160,14 +195,14 @@ public static partial class SqlMapper
             /// <returns>PropertyDescriptorCollection.</returns>
             static internal PropertyDescriptorCollection GetProperties(DapperTable table, IDictionary<string, object> row = null)
             {
-                string[] names = table?.FieldNames;
+                var names = table?.FieldNames;
                 if (names == null || names.Length == 0)
                 {
                     return PropertyDescriptorCollection.Empty;
                 }
 
                 var arr = new PropertyDescriptor[names.Length];
-                for (int i = 0; i < arr.Length; i++)
+                for (var i = 0; i < arr.Length; i++)
                 {
                     var type = row != null && row.TryGetValue(names[i], out var value) && value != null
                                    ? value.GetType() : typeof(object);
@@ -179,21 +214,30 @@ public static partial class SqlMapper
             /// Returns the properties for this instance of a component.
             /// </summary>
             /// <returns>A <see cref="T:System.ComponentModel.PropertyDescriptorCollection" /> that represents the properties for this component instance.</returns>
-            PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties() => GetProperties(_row);
+            PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties()
+            {
+                return GetProperties(this._row);
+            }
 
             /// <summary>
             /// Returns the properties for this instance of a component using the attribute array as a filter.
             /// </summary>
             /// <param name="attributes">An array of type <see cref="T:System.Attribute" /> that is used as a filter.</param>
             /// <returns>A <see cref="T:System.ComponentModel.PropertyDescriptorCollection" /> that represents the filtered properties for this component instance.</returns>
-            PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties(Attribute[] attributes) => GetProperties(_row);
+            PropertyDescriptorCollection ICustomTypeDescriptor.GetProperties(Attribute[] attributes)
+            {
+                return GetProperties(this._row);
+            }
 
             /// <summary>
             /// Returns an object that contains the property described by the specified property descriptor.
             /// </summary>
             /// <param name="pd">A <see cref="T:System.ComponentModel.PropertyDescriptor" /> that represents the property whose owner is to be found.</param>
             /// <returns>An <see cref="T:System.Object" /> that represents the owner of the specified property.</returns>
-            object ICustomTypeDescriptor.GetPropertyOwner(PropertyDescriptor pd) => _row;
+            object ICustomTypeDescriptor.GetPropertyOwner(PropertyDescriptor pd)
+            {
+                return this._row;
+            }
         }
 
         /// <summary>
@@ -219,20 +263,28 @@ public static partial class SqlMapper
             /// <param name="index">The index.</param>
             public RowBoundPropertyDescriptor(Type type, string name, int index) : base(name, null)
             {
-                _type = type;
-                _index = index;
+                this._type = type;
+                this._index = index;
             }
             /// <summary>
             /// When overridden in a derived class, returns whether resetting an object changes its value.
             /// </summary>
             /// <param name="component">The component to test for reset capability.</param>
             /// <returns><see langword="true" /> if resetting the component changes its value; otherwise, <see langword="false" />.</returns>
-            public override bool CanResetValue(object component) => true;
+            public override bool CanResetValue(object component)
+            {
+                return true;
+            }
+
             /// <summary>
             /// When overridden in a derived class, resets the value for this property of the component to the default value.
             /// </summary>
             /// <param name="component">The component with the property value that is to be reset to the default value.</param>
-            public override void ResetValue(object component) => ((DapperRow)component).Remove(_index);
+            public override void ResetValue(object component)
+            {
+                ((DapperRow)component).Remove(this._index);
+            }
+
             /// <summary>
             /// When overridden in a derived class, gets a value indicating whether this property is read-only.
             /// </summary>
@@ -243,7 +295,11 @@ public static partial class SqlMapper
             /// </summary>
             /// <param name="component">The component with the property to be examined for persistence.</param>
             /// <returns><see langword="true" /> if the property should be persisted; otherwise, <see langword="false" />.</returns>
-            public override bool ShouldSerializeValue(object component) => ((DapperRow)component).TryGetValue(_index, out _);
+            public override bool ShouldSerializeValue(object component)
+            {
+                return ((DapperRow)component).TryGetValue(this._index, out _);
+            }
+
             /// <summary>
             /// When overridden in a derived class, gets the type of the component this property is bound to.
             /// </summary>
@@ -253,21 +309,26 @@ public static partial class SqlMapper
             /// When overridden in a derived class, gets the type of the property.
             /// </summary>
             /// <value>The type of the property.</value>
-            public override Type PropertyType => _type;
+            public override Type PropertyType => this._type;
             /// <summary>
             /// When overridden in a derived class, gets the current value of the property on a component.
             /// </summary>
             /// <param name="component">The component with the property for which to retrieve the value.</param>
             /// <returns>The value of a property for a given component.</returns>
             public override object GetValue(object component)
-                => ((DapperRow)component).TryGetValue(_index, out var val) ? val ?? DBNull.Value : DBNull.Value;
+            {
+                return ((DapperRow)component).TryGetValue(this._index, out var val) ? val ?? DBNull.Value : DBNull.Value;
+            }
+
             /// <summary>
             /// Sets the value.
             /// </summary>
             /// <param name="component">The component.</param>
             /// <param name="value">The value.</param>
             public override void SetValue(object component, object value)
-                => ((DapperRow)component).SetValue(_index, value is DBNull ? null : value);
+            {
+                ((DapperRow)component).SetValue(this._index, value is DBNull ? null : value);
+            }
         }
     }
 }

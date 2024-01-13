@@ -147,15 +147,15 @@ public class ColumnSchema
     public string CollationType { get; set; }
 
     /// <summary>
-    /// Returns a <see cref="System.String" /> that represents this instance.
+    /// Returns a <see cref="string" /> that represents this instance.
     /// </summary>
-    /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
+    /// <returns>A <see cref="string" /> that represents this instance.</returns>
     public override string ToString()
     {
         var sql = StringBuilderCache.Allocate();
 
-        sql.Append(ColumnName.PadRight(20, ' ')).Append(' ');
-        AppendDefinition(sql);
+        sql.Append(this.ColumnName.PadRight(20, ' ')).Append(' ');
+        this.AppendDefinition(sql);
 
         return StringBuilderCache.ReturnAndFree(sql);
     }
@@ -165,7 +165,7 @@ public class ColumnSchema
     /// </summary>
     /// <value>The column definition.</value>
     public string ColumnDefinition =>
-        StringBuilderCache.ReturnAndFree(AppendDefinition(StringBuilderCache.Allocate()));
+        StringBuilderCache.ReturnAndFree(this.AppendDefinition(StringBuilderCache.Allocate()));
 
     /// <summary>
     /// Appends the definition.
@@ -174,47 +174,47 @@ public class ColumnSchema
     /// <returns>StringBuilder.</returns>
     private StringBuilder AppendDefinition(StringBuilder sql)
     {
-        sql.Append(DataTypeName.ToUpper());
-        if (DataType.IsRealNumberType() && NumericPrecision > 0)
+        sql.Append(this.DataTypeName.ToUpper());
+        if (this.DataType.IsRealNumberType() && this.NumericPrecision > 0)
         {
             sql.Append("(");
-            sql.Append(NumericPrecision);
-            if (NumericScale > 0)
+            sql.Append(this.NumericPrecision);
+            if (this.NumericScale > 0)
             {
                 sql.Append(",");
-                sql.Append(NumericScale);
+                sql.Append(this.NumericScale);
             }
 
             sql.Append(")");
         }
-        else if (!DataType.IsNumericType() && ColumnSize > 0)
+        else if (!this.DataType.IsNumericType() && this.ColumnSize > 0)
         {
             sql.Append("(");
-            sql.Append(ColumnSize);
+            sql.Append(this.ColumnSize);
             sql.Append(")");
         }
 
-        if (IsKey)
+        if (this.IsKey)
         {
             sql.Append(" PRIMARY KEY");
-            if (IsAutoIncrement)
+            if (this.IsAutoIncrement)
             {
                 sql.Append(" ").Append("AUTOINCREMENT");
             }
         }
         else
         {
-            sql.Append(AllowDBNull ? " NULL" : " NOT NULL");
+            sql.Append(this.AllowDBNull ? " NULL" : " NOT NULL");
 
-            if (IsUnique)
+            if (this.IsUnique)
             {
                 sql.Append(" UNIQUE");
             }
         }
 
-        if (DefaultValue != null)
+        if (this.DefaultValue != null)
         {
-            sql.AppendFormat(" DEFAULT ({0})", DefaultValue);
+            sql.AppendFormat(" DEFAULT ({0})", this.DefaultValue);
         }
 
         return sql;

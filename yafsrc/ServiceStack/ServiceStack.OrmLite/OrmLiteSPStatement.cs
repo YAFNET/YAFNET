@@ -42,7 +42,7 @@ public class OrmLiteSPStatement : IDisposable
     {
         try
         {
-            value = ((IDataParameter)dbCmd.Parameters[parameterName]).Value;
+            value = ((IDataParameter)this.dbCmd.Parameters[parameterName]).Value;
             return true;
         }
         catch (Exception)
@@ -60,7 +60,7 @@ public class OrmLiteSPStatement : IDisposable
     {
         get
         {
-            var returnValue = ((IDataParameter)dbCmd.Parameters["__ReturnValue"]).Value;
+            var returnValue = ((IDataParameter)this.dbCmd.Parameters["__ReturnValue"]).Value;
             return (int)returnValue;
         }
     }
@@ -81,7 +81,7 @@ public class OrmLiteSPStatement : IDisposable
     {
         this.db = db;
         this.dbCmd = dbCmd;
-        dialectProvider = dbCmd.GetDialectProvider();
+        this.dialectProvider = dbCmd.GetDialectProvider();
     }
 
     /// <summary>
@@ -101,8 +101,8 @@ public class OrmLiteSPStatement : IDisposable
         IDataReader reader = null;
         try
         {
-            reader = dbCmd.ExecuteReader();
-            return reader.ConvertToList<T>(dialectProvider);
+            reader = this.dbCmd.ExecuteReader();
+            return reader.ConvertToList<T>(this.dialectProvider);
         }
         finally
         {
@@ -119,7 +119,7 @@ public class OrmLiteSPStatement : IDisposable
     /// <exception cref="System.Exception">Type " + typeof(T).Name + " is a non primitive type. Use ConvertToList function.</exception>
     public List<T> ConvertToScalarList<T>()
     {
-        if (!(typeof(T).IsPrimitive || typeof(T).IsValueType || typeof(T) == typeof(string) || typeof(T) == typeof(String)))
+        if (!(typeof(T).IsPrimitive || typeof(T).IsValueType || typeof(T) == typeof(string) || typeof(T) == typeof(string)))
         {
             throw new Exception("Type " + typeof(T).Name + " is a non primitive type. Use ConvertToList function.");
         }
@@ -127,8 +127,8 @@ public class OrmLiteSPStatement : IDisposable
         IDataReader reader = null;
         try
         {
-            reader = dbCmd.ExecuteReader();
-            return reader.Column<T>(dialectProvider);
+            reader = this.dbCmd.ExecuteReader();
+            return reader.Column<T>(this.dialectProvider);
         }
         finally
         {
@@ -153,8 +153,8 @@ public class OrmLiteSPStatement : IDisposable
         IDataReader reader = null;
         try
         {
-            reader = dbCmd.ExecuteReader();
-            return reader.ConvertTo<T>(dialectProvider);
+            reader = this.dbCmd.ExecuteReader();
+            return reader.ConvertTo<T>(this.dialectProvider);
         }
         finally
         {
@@ -171,7 +171,7 @@ public class OrmLiteSPStatement : IDisposable
     /// <exception cref="System.Exception">Type " + typeof(T).Name + " is a non primitive type. Use ConvertTo function.</exception>
     public T ConvertToScalar<T>()
     {
-        if (!(typeof(T).IsPrimitive || typeof(T).IsValueType || typeof(T) == typeof(string) || typeof(T) == typeof(String)))
+        if (!(typeof(T).IsPrimitive || typeof(T).IsValueType || typeof(T) == typeof(string) || typeof(T) == typeof(string)))
         {
             throw new Exception("Type " + typeof(T).Name + " is a non primitive type. Use ConvertTo function.");
         }
@@ -179,8 +179,8 @@ public class OrmLiteSPStatement : IDisposable
         IDataReader reader = null;
         try
         {
-            reader = dbCmd.ExecuteReader();
-            return reader.Scalar<T>(dialectProvider);
+            reader = this.dbCmd.ExecuteReader();
+            return reader.Scalar<T>(this.dialectProvider);
         }
         finally
         {
@@ -197,7 +197,7 @@ public class OrmLiteSPStatement : IDisposable
     /// <exception cref="System.Exception">Type " + typeof(T).Name + " is a non primitive type. Only primitive type can be used.</exception>
     public List<T> ConvertFirstColumnToList<T>()
     {
-        if (!(typeof(T).IsPrimitive || typeof(T).IsValueType || typeof(T) == typeof(string) || typeof(T) == typeof(String)))
+        if (!(typeof(T).IsPrimitive || typeof(T).IsValueType || typeof(T) == typeof(string) || typeof(T) == typeof(string)))
         {
             throw new Exception("Type " + typeof(T).Name + " is a non primitive type. Only primitive type can be used.");
         }
@@ -205,8 +205,8 @@ public class OrmLiteSPStatement : IDisposable
         IDataReader reader = null;
         try
         {
-            reader = dbCmd.ExecuteReader();
-            return reader.Column<T>(dialectProvider);
+            reader = this.dbCmd.ExecuteReader();
+            return reader.Column<T>(this.dialectProvider);
         }
         finally
         {
@@ -223,7 +223,7 @@ public class OrmLiteSPStatement : IDisposable
     /// <exception cref="System.Exception">Type " + typeof(T).Name + " is a non primitive type. Only primitive type can be used.</exception>
     public HashSet<T> ConvertFirstColumnToListDistinct<T>()
     {
-        if (!typeof(T).IsPrimitive || typeof(T).IsValueType || typeof(T) == typeof(string) || typeof(T) == typeof(String))
+        if (!typeof(T).IsPrimitive || typeof(T).IsValueType || typeof(T) == typeof(string) || typeof(T) == typeof(string))
         {
             throw new Exception("Type " + typeof(T).Name + " is a non primitive type. Only primitive type can be used.");
         }
@@ -231,8 +231,8 @@ public class OrmLiteSPStatement : IDisposable
         IDataReader reader = null;
         try
         {
-            reader = dbCmd.ExecuteReader();
-            return reader.ColumnDistinct<T>(dialectProvider);
+            reader = this.dbCmd.ExecuteReader();
+            return reader.ColumnDistinct<T>(this.dialectProvider);
         }
         finally
         {
@@ -246,7 +246,7 @@ public class OrmLiteSPStatement : IDisposable
     /// <returns>System.Int32.</returns>
     public int ExecuteNonQuery()
     {
-        return dbCmd.ExecuteNonQuery();
+        return this.dbCmd.ExecuteNonQuery();
     }
 
     /// <summary>
@@ -258,7 +258,7 @@ public class OrmLiteSPStatement : IDisposable
         IDataReader reader = null;
         try
         {
-            reader = dbCmd.ExecuteReader();
+            reader = this.dbCmd.ExecuteReader();
             return reader.Read();
         }
         finally
@@ -272,6 +272,6 @@ public class OrmLiteSPStatement : IDisposable
     /// </summary>
     public void Dispose()
     {
-        dialectProvider.GetExecFilter().DisposeCommand(this.dbCmd, this.db);
+        this.dialectProvider.GetExecFilter().DisposeCommand(this.dbCmd, this.db);
     }
 }

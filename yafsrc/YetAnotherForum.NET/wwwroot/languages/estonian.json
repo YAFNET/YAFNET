@@ -321,14 +321,6 @@
             "#text": "Redigeerib medaleid"
           },
           {
-            "@tag": "ADMIN_EDITNNTPFORUM",
-            "#text": "Redigeerib NNTP foorumit"
-          },
-          {
-            "@tag": "ADMIN_EDITNNTPSERVER",
-            "#text": "Redigeerib NNTP-serverit"
-          },
-          {
             "@tag": "ADMIN_EDITRANK",
             "#text": "Redigeerib tasemeid"
           },
@@ -363,18 +355,6 @@
           {
             "@tag": "ADMIN_MEDALS",
             "#text": "Avab/muudab medaleid"
-          },
-          {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "Avab/muudab NNTP foorumeid"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "Võtab vastu NNTP"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "Avab/muudab NNTP servereid"
           },
           {
             "@tag": "ADMIN_PM",
@@ -3135,128 +3115,6 @@
         ]
       },
       {
-        "@name": "ADMIN_EDITNNTPFORUM",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "Aktiivne:"
-          },
-          {
-            "@tag": "ACTIVE_HELP",
-            "#text": "Märkige see foorumi aktiivseks muutmiseks."
-          },
-          {
-            "@tag": "DATECUTOFF",
-            "#text": "Sõnumite lõppkuupäev:"
-          },
-          {
-            "@tag": "DATECUTOFF_HELP",
-            "#text": "Sõnumeid ei tohiks alla laadida, kui need on sellest kuupäevast vanemad."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "Foorum:"
-          },
-          {
-            "@tag": "FORUM_HELP",
-            "#text": "Foorumi sõnumid sisestatakse."
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "Grupp:"
-          },
-          {
-            "@tag": "GROUP_HELP",
-            "#text": "Uudistegrupi nimi."
-          },
-          {
-            "@tag": "MSG_SELECT_FORUM",
-            "#text": "NNTP-sõnumite salvestamiseks peate valima foorumi."
-          },
-          {
-            "@tag": "MSG_VALID_GROUP",
-            "#text": "Peaksite sisestama kehtiva rühma nime."
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "Server:"
-          },
-          {
-            "@tag": "SERVER_HELP",
-            "#text": "Millises serveris see grupp asub."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit NNTP Forum"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "Redigeeri NNTP foorumit"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_EDITNNTPSERVER",
-        "Resource": [
-          {
-            "@tag": "MSG_SERVER_ADR",
-            "#text": "Serveri aadress puudub."
-          },
-          {
-            "@tag": "MSG_SERVER_NAME",
-            "#text": "Serveri nimi puudub."
-          },
-          {
-            "@tag": "NNTP_ADRESS",
-            "#text": "Aadress:"
-          },
-          {
-            "@tag": "NNTP_ADRESS_HELP",
-            "#text": "Serveri hostinimi."
-          },
-          {
-            "@tag": "NNTP_NAME",
-            "#text": "Nimi:"
-          },
-          {
-            "@tag": "NNTP_NAME_HELP",
-            "#text": "Selle serveri nimi."
-          },
-          {
-            "@tag": "NNTP_PASSWORD",
-            "#text": "Parool:"
-          },
-          {
-            "@tag": "NNTP_PASSWORD_HELP",
-            "#text": "Parool, mida kasutatakse nntp-serverisse sisselogimiseks."
-          },
-          {
-            "@tag": "NNTP_PORT",
-            "#text": "Port:"
-          },
-          {
-            "@tag": "NNTP_PORT_HELP",
-            "#text": "Pordi number, millega ühenduse luua."
-          },
-          {
-            "@tag": "NNTP_USERNAME",
-            "#text": "Kasutajanimi:"
-          },
-          {
-            "@tag": "NNTP_USERNAME_HELP",
-            "#text": "Nntp-serverisse sisselogimiseks kasutatav kasutajanimi."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "Add/Edit NNTP Server"
-          },
-          {
-            "@tag": "TITLE_EDIT",
-            "#text": "Redigeeri NNTP-serverit"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_EDITRANK",
         "Resource": [
           {
@@ -4311,14 +4169,6 @@
           {
             "@tag": "COLLAPSED",
             "#text": "Varises kokku"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES",
-            "#text": "Looge NNTP kasutajanimed:"
-          },
-          {
-            "@tag": "CREATE_NNTPNAMES_HELP",
-            "#text": "Märgistage, et lubada Useneti sõnumite allalaadimisel kasutajate automaatne loomine. "
           },
           {
             "@tag": "CROP_IMAGE_ATTACH",
@@ -5966,149 +5816,6 @@
         ]
       },
       {
-        "@name": "ADMIN_NNTPFORUMS",
-        "Resource": [
-          {
-            "@tag": "ACTIVE",
-            "#text": "Aktiivne"
-          },
-          {
-            "@tag": "DELETE",
-            "#text": "Kustuta"
-          },
-          {
-            "@tag": "DELETE_FORUM",
-            "#text": "Kas kustutada see foorum?"
-          },
-          {
-            "@tag": "EDIT",
-            "#text": "Muuda"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Forums"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP forums. Add a new NNTP Forum by clicking the [b]Add New Forum[/b] Button Bellow."
-          },
-          {
-            "@tag": "FORUM",
-            "#text": "Foorum"
-          },
-          {
-            "@tag": "GROUP",
-            "#text": "Grupp"
-          },
-          {
-            "@tag": "NEW_FORUM",
-            "#text": "Uus foorum"
-          },
-          {
-            "@tag": "SAVE",
-            "#text": "Salvesta foorum"
-          },
-          {
-            "@tag": "SERVER",
-            "#text": "Server"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP foorumid"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPRETRIEVE",
-        "Resource": [
-          {
-            "@tag": "BETA_WARNING",
-            "#text": "<p>\r\n      "
-          },
-          {
-            "@tag": "GROUPS",
-            "#text": "Rühmad on taastamiseks valmis"
-          },
-          {
-            "@tag": "HEADER",
-            "#text": "NNTP artiklite allalaadimine"
-          },
-          {
-            "@tag": "LAST_MESSAGE",
-            "#text": "Viimane sõnum"
-          },
-          {
-            "@tag": "LAST_UPDATE",
-            "#text": "Viimane uuendus"
-          },
-          {
-            "@tag": "NO_GROUPS",
-            "#text": "Ühtegi gruppi pole allalaadimiseks valmis"
-          },
-          {
-            "@tag": "RETRIEVE",
-            "#text": "Otsi"
-          },
-          {
-            "@tag": "RETRIEVED",
-            "#text": "Laaditi {0} artiklit. "
-          },
-          {
-            "@tag": "SECONDS",
-            "#text": "sekundit"
-          },
-          {
-            "@tag": "TIME",
-            "#text": "Määrake, kui palju aega peaks artiklite otsimine kasutama."
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP allalaadimine"
-          }
-        ]
-      },
-      {
-        "@name": "ADMIN_NNTPSERVERS",
-        "Resource": [
-          {
-            "@tag": "ADRESS",
-            "#text": "Adress"
-          },
-          {
-            "@tag": "DELETE_SERVER",
-            "#text": "Kas kustutada see server?"
-          },
-          {
-            "@tag": "EMPTY_HEADER",
-            "#text": "No NNTP Servers"
-          },
-          {
-            "@tag": "EMPTY_MESSAGE",
-            "#text": "Currently the there are no NNTP servers. Add a new NNTP Server by clicking the [b]Add New Server[/b] Button Bellow."
-          },
-          {
-            "@tag": "NAME",
-            "#text": "Nimi"
-          },
-          {
-            "@tag": "NEW_SERVER",
-            "#text": "Uus server"
-          },
-          {
-            "@tag": "SAVE_SERVER",
-            "#text": "Salvesta server"
-          },
-          {
-            "@tag": "TITLE",
-            "#text": "NNTP serverid"
-          },
-          {
-            "@tag": "USERNAME",
-            "#text": "Kasutajanimi"
-          }
-        ]
-      },
-      {
         "@name": "ADMIN_PAGEACCESSEDIT",
         "Resource": [
           {
@@ -7124,18 +6831,6 @@
             "#text": "Medalid"
           },
           {
-            "@tag": "ADMIN_NNTPFORUMS",
-            "#text": "NNTP foorumid"
-          },
-          {
-            "@tag": "ADMIN_NNTPRETRIEVE",
-            "#text": "Artiklite toomine"
-          },
-          {
-            "@tag": "ADMIN_NNTPSERVERS",
-            "#text": "NNTP serverid"
-          },
-          {
             "@tag": "ADMIN_PAGEACCESSEDIT",
             "#text": "Muuda administraatori lehe juurdepääsu"
           },
@@ -7218,10 +6913,6 @@
           {
             "@tag": "MAINTENANCE",
             "#text": "Hooldus"
-          },
-          {
-            "@tag": "NNTP",
-            "#text": "NNTP"
           },
           {
             "@tag": "SETTINGS",
