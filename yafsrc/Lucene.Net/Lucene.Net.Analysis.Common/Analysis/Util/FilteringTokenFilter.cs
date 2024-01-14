@@ -46,7 +46,7 @@ namespace YAF.Lucene.Net.Analysis.Util
             }
         }
 
-        protected readonly LuceneVersion m_version;
+        readonly protected LuceneVersion m_version;
         private readonly IPositionIncrementAttribute posIncrAtt;
         private bool enablePositionIncrements; // no init needed, as ctor enforces setting value!
         private bool first = true;

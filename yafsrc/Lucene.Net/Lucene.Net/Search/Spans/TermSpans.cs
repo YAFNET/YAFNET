@@ -31,8 +31,8 @@ namespace YAF.Lucene.Net.Search.Spans
     /// </summary>
     public class TermSpans : Spans
     {
-        protected readonly DocsAndPositionsEnum m_postings;
-        protected readonly Term m_term;
+        readonly protected DocsAndPositionsEnum m_postings;
+        readonly protected Term m_term;
         protected int m_doc;
         protected int m_freq;
         protected int m_count;
@@ -162,6 +162,6 @@ namespace YAF.Lucene.Net.Search.Spans
             }
         }
 
-        public static readonly TermSpans EMPTY_TERM_SPANS = new EmptyTermSpans();
+        public readonly static TermSpans EMPTY_TERM_SPANS = new EmptyTermSpans();
     }
 }

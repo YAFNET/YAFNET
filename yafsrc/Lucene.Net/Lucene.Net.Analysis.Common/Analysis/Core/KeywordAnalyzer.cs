@@ -30,7 +30,7 @@ namespace YAF.Lucene.Net.Analysis.Core
         {
         }
 
-        protected internal override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
+        override protected internal TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
         {
             return new TokenStreamComponents(new KeywordTokenizer(reader));
         }

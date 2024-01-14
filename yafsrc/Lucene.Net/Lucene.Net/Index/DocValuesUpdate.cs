@@ -34,11 +34,11 @@ namespace YAF.Lucene.Net.Index
          * String: 2*OBJ_HEADER + 4*INT + PTR + string.length*CHAR
          * T: OBJ_HEADER
          */
-        private static readonly int RAW_SIZE_IN_BYTES = 8 * RamUsageEstimator.NUM_BYTES_OBJECT_HEADER + 8 * RamUsageEstimator.NUM_BYTES_OBJECT_REF + 8 * RamUsageEstimator.NUM_BYTES_INT32;
+        private readonly static int RAW_SIZE_IN_BYTES = 8 * RamUsageEstimator.NUM_BYTES_OBJECT_HEADER + 8 * RamUsageEstimator.NUM_BYTES_OBJECT_REF + 8 * RamUsageEstimator.NUM_BYTES_INT32;
 
-        internal readonly DocValuesFieldUpdatesType type;
-        internal readonly Term term;
-        internal readonly string field;
+        readonly internal DocValuesFieldUpdatesType type;
+        readonly internal Term term;
+        readonly internal string field;
         // LUCENENET specific - moved value field to appropriate subclass to avoid object/boxing
         internal int docIDUpto = -1; // unassigned until applied, and confusing that it's here, when it's just used in BufferedDeletes...
 
@@ -79,11 +79,11 @@ namespace YAF.Lucene.Net.Index
     internal sealed class BinaryDocValuesUpdate : DocValuesUpdate
     {
         /* Size of BytesRef: 2*INT + ARRAY_HEADER + PTR */
-        private static readonly long RAW_VALUE_SIZE_IN_BYTES = RamUsageEstimator.NUM_BYTES_ARRAY_HEADER + 2 * RamUsageEstimator.NUM_BYTES_INT32 + RamUsageEstimator.NUM_BYTES_OBJECT_REF;
+        private readonly static long RAW_VALUE_SIZE_IN_BYTES = RamUsageEstimator.NUM_BYTES_ARRAY_HEADER + 2 * RamUsageEstimator.NUM_BYTES_INT32 + RamUsageEstimator.NUM_BYTES_OBJECT_REF;
 
-        internal static readonly BytesRef MISSING = new BytesRef();
+        readonly static internal BytesRef MISSING = new BytesRef();
 
-        internal readonly BytesRef value;
+        readonly internal BytesRef value;
 
         internal BinaryDocValuesUpdate(Term term, string field, BytesRef value)
             : base(DocValuesFieldUpdatesType.BINARY, term, field)
@@ -91,7 +91,7 @@ namespace YAF.Lucene.Net.Index
             this.value = value ?? MISSING;
         }
 
-        internal override long GetValueSizeInBytes()
+        override internal long GetValueSizeInBytes()
         {
             return RAW_VALUE_SIZE_IN_BYTES + value.Bytes.Length;
         }
@@ -106,9 +106,9 @@ namespace YAF.Lucene.Net.Index
     /// An in-place update to a numeric <see cref="DocValues"/> field </summary>
     internal sealed class NumericDocValuesUpdate : DocValuesUpdate
     {
-        internal static readonly long MISSING = 0;
+        readonly static internal long MISSING = 0;
 
-        internal readonly long value;
+        readonly internal long value;
 
         public NumericDocValuesUpdate(Term term, string field, long? value)
             : base(DocValuesFieldUpdatesType.NUMERIC, term, field)
@@ -116,7 +116,7 @@ namespace YAF.Lucene.Net.Index
             this.value = !value.HasValue ? MISSING : value.Value;
         }
 
-        internal override long GetValueSizeInBytes()
+        override internal long GetValueSizeInBytes()
         {
             return RamUsageEstimator.NUM_BYTES_INT64;
         }

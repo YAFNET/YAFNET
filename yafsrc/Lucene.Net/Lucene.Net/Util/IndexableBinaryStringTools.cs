@@ -44,7 +44,7 @@ namespace YAF.Lucene.Net.Util
     [Obsolete("Implement Analysis.TokenAttributes.ITermToBytesRefAttribute and store bytes directly instead. this class will be removed in Lucene 5.0")]
     public static class IndexableBinaryStringTools // LUCENENET specific - made static
     {
-        private static readonly CodingCase[] CODING_CASES = new CodingCase[] {
+        private readonly static CodingCase[] CODING_CASES = new CodingCase[] {
             // CodingCase(int initialShift, int finalShift)
             new CodingCase(7, 1),
             // CodingCase(int initialShift, int middleShift, int finalShift)

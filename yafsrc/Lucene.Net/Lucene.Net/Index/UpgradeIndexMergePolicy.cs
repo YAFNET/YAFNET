@@ -53,7 +53,7 @@ namespace YAF.Lucene.Net.Index
     {
         /// <summary>
         /// Wrapped <see cref="MergePolicy"/>. </summary>
-        protected readonly MergePolicy m_base;
+        readonly protected MergePolicy m_base;
 
         /// <summary>
         /// Wrap the given <see cref="MergePolicy"/> and intercept <see cref="IndexWriter.ForceMerge(int)"/> requests to
@@ -160,7 +160,7 @@ namespace YAF.Lucene.Net.Index
             return m_base.UseCompoundFile(segments, newSegment);
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             { 

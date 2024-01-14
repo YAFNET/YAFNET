@@ -29,7 +29,7 @@ namespace YAF.Lucene.Net.Util
     /// </summary>
     public static class ExceptionExtensions
     {
-        public static readonly string SUPPRESSED_EXCEPTIONS_KEY = "Lucene_SuppressedExceptions";
+        public readonly static string SUPPRESSED_EXCEPTIONS_KEY = "Lucene_SuppressedExceptions";
 
         public static Exception[] GetSuppressed(this Exception e)
         {

@@ -108,7 +108,7 @@ namespace YAF.Lucene.Net.Search.Highlight
             this.tokensAtCurrentPosition = this.positionedTokens.GetEnumerator();
         }
 
-        private static readonly IComparer<Token> tokenComparer = new TokenComparer();
+        private readonly static IComparer<Token> tokenComparer = new TokenComparer();
 
         public override bool IncrementToken()
         {

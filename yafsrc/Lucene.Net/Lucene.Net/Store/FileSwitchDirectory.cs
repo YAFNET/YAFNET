@@ -60,7 +60,7 @@ namespace YAF.Lucene.Net.Store
         /// Return the secondary directory </summary>
         public virtual Directory SecondaryDir => secondaryDir;
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing && doClose)
             {

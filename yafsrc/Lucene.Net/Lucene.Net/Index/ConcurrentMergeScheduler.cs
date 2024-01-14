@@ -192,7 +192,7 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// Sorts <see cref="MergeThread"/>s; larger merges come first. </summary>
-        protected internal static readonly IComparer<MergeThread> compareByMergeDocCount = Comparer<MergeThread>.Create((t1, t2) =>
+        readonly static protected internal IComparer<MergeThread> compareByMergeDocCount = Comparer<MergeThread>.Create((t1, t2) =>
             {
                 MergePolicy.OneMerge m1 = t1.CurrentMerge;
                 MergePolicy.OneMerge m2 = t2.CurrentMerge;
@@ -332,7 +332,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             Sync();
         }

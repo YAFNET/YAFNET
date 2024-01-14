@@ -31,7 +31,7 @@ namespace YAF.Lucene.Net.Analysis.Gl
     /// <seealso cref="RSLPStemmerBase"/>
     public class GalicianMinimalStemmer : RSLPStemmerBase
     {
-        private static readonly Step pluralStep = Parse(typeof(GalicianMinimalStemmer), "galician.rslp")["Plural"];
+        private readonly static Step pluralStep = Parse(typeof(GalicianMinimalStemmer), "galician.rslp")["Plural"];
 
         public virtual int Stem(char[] s, int len)
         {

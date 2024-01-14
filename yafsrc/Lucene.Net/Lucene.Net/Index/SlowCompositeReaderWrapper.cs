@@ -249,7 +249,7 @@ namespace YAF.Lucene.Net.Index
 
         public override object CombinedCoreAndDeletesKey => @in.CombinedCoreAndDeletesKey;
 
-        protected internal override void DoClose()
+        override protected internal void DoClose()
         {
             // TODO: as this is a wrapper, should we really close the delegate?
             @in.Dispose();

@@ -125,9 +125,9 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         private volatile bool pendingChangesInCurrentFullFlush;
 
-        internal readonly DocumentsWriterPerThreadPool perThreadPool;
-        internal readonly FlushPolicy flushPolicy;
-        internal readonly DocumentsWriterFlushControl flushControl;
+        readonly internal DocumentsWriterPerThreadPool perThreadPool;
+        readonly internal FlushPolicy flushPolicy;
+        readonly internal DocumentsWriterFlushControl flushControl;
         private readonly IndexWriter writer;
         private readonly ConcurrentQueue<IEvent> events;
 
@@ -854,7 +854,7 @@ namespace YAF.Lucene.Net.Index
 
         internal sealed class ApplyDeletesEvent : IEvent
         {
-            internal static readonly IEvent INSTANCE = new ApplyDeletesEvent();
+            readonly static internal IEvent INSTANCE = new ApplyDeletesEvent();
             private static int instCount = 0; // LUCENENET: Made static, otherwise this makes no sense at all
 
             internal ApplyDeletesEvent()
@@ -871,7 +871,7 @@ namespace YAF.Lucene.Net.Index
 
         internal sealed class MergePendingEvent : IEvent
         {
-            internal static readonly IEvent INSTANCE = new MergePendingEvent();
+            readonly static internal IEvent INSTANCE = new MergePendingEvent();
             private static int instCount = 0; // LUCENENET: Made static, otherwise this makes no sense at all
 
             internal MergePendingEvent()
@@ -888,7 +888,7 @@ namespace YAF.Lucene.Net.Index
 
         internal sealed class ForcedPurgeEvent : IEvent
         {
-            internal static readonly IEvent INSTANCE = new ForcedPurgeEvent();
+            readonly static internal IEvent INSTANCE = new ForcedPurgeEvent();
             private static int instCount = 0; // LUCENENET: Made static, otherwise this makes no sense at all
 
             internal ForcedPurgeEvent()

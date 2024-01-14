@@ -45,7 +45,7 @@ namespace YAF.Lucene.Net.Search
     /// </summary>
     public class MultiTermQueryWrapperFilter<Q> : Filter where Q : MultiTermQuery
     {
-        protected readonly Q m_query;
+        readonly protected Q m_query;
 
         /// <summary>
         /// Wrap a <see cref="MultiTermQuery"/> as a <see cref="Filter"/>.

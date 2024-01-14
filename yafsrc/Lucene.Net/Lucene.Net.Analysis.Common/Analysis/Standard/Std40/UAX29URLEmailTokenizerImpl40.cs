@@ -31,10 +31,10 @@ namespace YAF.Lucene.Net.Analysis.Standard.Std40
     public sealed class UAX29URLEmailTokenizerImpl40 : IStandardTokenizerInterface
     {
         /// <summary>This character denotes the end of file</summary>
-        public static readonly int YYEOF = -1;
+        public readonly static int YYEOF = -1;
 
         /// <summary>initial size of the lookahead buffer</summary>
-        private static readonly int ZZ_BUFFERSIZE = 4096;
+        private readonly static int ZZ_BUFFERSIZE = 4096;
 
         /// <summary>lexical states</summary>
         public const int YYINITIAL = 0;
@@ -45,7 +45,7 @@ namespace YAF.Lucene.Net.Analysis.Standard.Std40
         ///     at the beginning of a line
         /// l is of the form l = 2*k, k a non negative integer
         /// </summary>
-        private static readonly int[] ZZ_LEXSTATE = { 0, 0 };
+        private readonly static int[] ZZ_LEXSTATE = { 0, 0 };
 
         /// <summary>
         /// Translates characters to character classes
@@ -206,12 +206,12 @@ namespace YAF.Lucene.Net.Analysis.Standard.Std40
         /// <summary>
         /// Translates characters to character classes
         /// </summary>
-        private static readonly char[] ZZ_CMAP = ZzUnpackCMap(ZZ_CMAP_PACKED);
+        private readonly static char[] ZZ_CMAP = ZzUnpackCMap(ZZ_CMAP_PACKED);
 
         /// <summary>
         /// Translates DFA states to action switch labels.
         /// </summary>
-        private static readonly int[] ZZ_ACTION = ZzUnpackAction();
+        private readonly static int[] ZZ_ACTION = ZzUnpackAction();
 
         private const string ZZ_ACTION_PACKED_0 =
             "\x0001\x0000\x0016\x0001\x0001\x0002\x0001\x0003\x0001\x0004\x0001\x0001\x0001\x0005\x0001\x0006" +
@@ -260,7 +260,7 @@ namespace YAF.Lucene.Net.Analysis.Standard.Std40
         /// <summary>
         /// Translates a state to a row index in the transition table
         /// </summary>
-        private static readonly int[] ZZ_ROWMAP = ZzUnpackRowMap();
+        private readonly static int[] ZZ_ROWMAP = ZzUnpackRowMap();
 
         private const string ZZ_ROWMAP_PACKED_0 =
             "\x0000\x0000\x0000\x00C5\x0000\u018a\x0000\u024f\x0000\u0314\x0000\u03d9\x0000\u049e\x0000\u0563" +
@@ -507,7 +507,7 @@ namespace YAF.Lucene.Net.Analysis.Standard.Std40
         /// <summary>
         /// The transition table of the DFA
         /// </summary>
-        private static readonly int[] ZZ_TRANS = ZzUnpackTrans();
+        private readonly static int[] ZZ_TRANS = ZzUnpackTrans();
 
         private const string ZZ_TRANS_PACKED_0 =
             "\x0001\x0002\x0001\x0003\x0001\x0002\x0001\x0004\x0002\x0002\x0001\x0005\x0001\x0002\x0001\x0006" +
@@ -3897,12 +3897,12 @@ namespace YAF.Lucene.Net.Analysis.Standard.Std40
 
 
         /* error codes */
-        private static readonly int ZZ_UNKNOWN_ERROR = 0;
-        private static readonly int ZZ_NO_MATCH = 1;
-        private static readonly int ZZ_PUSHBACK_2BIG = 2;
+        private readonly static int ZZ_UNKNOWN_ERROR = 0;
+        private readonly static int ZZ_NO_MATCH = 1;
+        private readonly static int ZZ_PUSHBACK_2BIG = 2;
 
         /* error messages for the codes above */
-        private static readonly string[] ZZ_ERROR_MSG = {
+        private readonly static string[] ZZ_ERROR_MSG = {
             "Unkown internal scanner error",
             "Error: could not match input",
             "Error: pushback value was too large"
@@ -3911,7 +3911,7 @@ namespace YAF.Lucene.Net.Analysis.Standard.Std40
         /// <summary>
         /// ZZ_ATTRIBUTE[aState] contains the attributes of state <c>aState</c>
         /// </summary>
-        private static readonly int[] ZZ_ATTRIBUTE = ZzUnpackAttribute();
+        private readonly static int[] ZZ_ATTRIBUTE = ZzUnpackAttribute();
 
         private const string ZZ_ATTRIBUTE_PACKED_0 =
             "\x0001\x0000\x0001\x0009\x0028\x0001\x0010\x0000\x0001\x0001\x0001\x0000\x0001\x0001\x000A\x0000" +
@@ -4009,10 +4009,10 @@ namespace YAF.Lucene.Net.Analysis.Standard.Std40
 
         /* user code: */
         /// <summary>Alphanumeric sequences</summary>
-        public static readonly int WORD_TYPE = UAX29URLEmailTokenizer.ALPHANUM;
+        public readonly static int WORD_TYPE = UAX29URLEmailTokenizer.ALPHANUM;
 
         /// <summary>Numbers</summary>
-        public static readonly int NUMERIC_TYPE = UAX29URLEmailTokenizer.NUM;
+        public readonly static int NUMERIC_TYPE = UAX29URLEmailTokenizer.NUM;
 
         /// <summary>
         /// Chars in class \p{Line_Break = Complex_Context} are from South East Asian
@@ -4022,19 +4022,19 @@ namespace YAF.Lucene.Net.Analysis.Standard.Std40
         /// <para/>
         /// See Unicode Line Breaking Algorithm: http://www.unicode.org/reports/tr14/#SA
         /// </summary>
-        public static readonly int SOUTH_EAST_ASIAN_TYPE = UAX29URLEmailTokenizer.SOUTHEAST_ASIAN;
+        public readonly static int SOUTH_EAST_ASIAN_TYPE = UAX29URLEmailTokenizer.SOUTHEAST_ASIAN;
 
-        public static readonly int IDEOGRAPHIC_TYPE = UAX29URLEmailTokenizer.IDEOGRAPHIC;
+        public readonly static int IDEOGRAPHIC_TYPE = UAX29URLEmailTokenizer.IDEOGRAPHIC;
 
-        public static readonly int HIRAGANA_TYPE = UAX29URLEmailTokenizer.HIRAGANA;
+        public readonly static int HIRAGANA_TYPE = UAX29URLEmailTokenizer.HIRAGANA;
 
-        public static readonly int KATAKANA_TYPE = UAX29URLEmailTokenizer.KATAKANA;
+        public readonly static int KATAKANA_TYPE = UAX29URLEmailTokenizer.KATAKANA;
 
-        public static readonly int HANGUL_TYPE = UAX29URLEmailTokenizer.HANGUL;
+        public readonly static int HANGUL_TYPE = UAX29URLEmailTokenizer.HANGUL;
 
-        public static readonly int EMAIL_TYPE = UAX29URLEmailTokenizer.EMAIL;
+        public readonly static int EMAIL_TYPE = UAX29URLEmailTokenizer.EMAIL;
 
-        public static readonly int URL_TYPE = UAX29URLEmailTokenizer.URL;
+        public readonly static int URL_TYPE = UAX29URLEmailTokenizer.URL;
 
         public int YyChar => yychar;
 

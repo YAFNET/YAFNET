@@ -41,7 +41,7 @@ namespace YAF.Lucene.Net.Util
         // backing field internal and writable so it can be set by the test framework.
         // The tests:seed system property is only applicable to the test environment, as it has no
         // useful purpose in production.
-        internal static int goodFastHashSeed = (int)J2N.Time.CurrentTimeMilliseconds();
+        static internal int goodFastHashSeed = (int)J2N.Time.CurrentTimeMilliseconds();
 
         /// <summary>
         /// Pass this as the seed to <see cref="Murmurhash3_x86_32(byte[], int, int, int)"/>. </summary>

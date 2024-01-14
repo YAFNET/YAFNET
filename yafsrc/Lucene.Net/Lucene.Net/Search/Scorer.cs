@@ -46,7 +46,7 @@ namespace YAF.Lucene.Net.Search
         /// <summary>
         /// The <see cref="Scorer"/>'s parent <see cref="Weight"/>. In some cases this may be <c>null</c>. </summary>
         // TODO can we clean this up?
-        protected internal readonly Weight m_weight;
+        readonly protected internal Weight m_weight;
 
         /// <summary>
         /// Constructs a <see cref="Scorer"/> </summary>

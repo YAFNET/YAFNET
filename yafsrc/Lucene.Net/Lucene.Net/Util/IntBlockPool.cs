@@ -35,17 +35,17 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// NOTE: This was INT_BLOCK_SHIFT in Lucene
         /// </summary>
-        public static readonly int INT32_BLOCK_SHIFT = 13;
+        public readonly static int INT32_BLOCK_SHIFT = 13;
 
         /// <summary>
         /// NOTE: This was INT_BLOCK_SIZE in Lucene
         /// </summary>
-        public static readonly int INT32_BLOCK_SIZE = 1 << INT32_BLOCK_SHIFT;
+        public readonly static int INT32_BLOCK_SIZE = 1 << INT32_BLOCK_SHIFT;
 
         /// <summary>
         /// NOTE: This was INT_BLOCK_MASK in Lucene
         /// </summary>
-        public static readonly int INT32_BLOCK_MASK = INT32_BLOCK_SIZE - 1;
+        public readonly static int INT32_BLOCK_MASK = INT32_BLOCK_SIZE - 1;
 
         /// <summary>
         /// Abstract class for allocating and freeing <see cref="int"/>
@@ -53,7 +53,7 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         public abstract class Allocator
         {
-            protected readonly int m_blockSize;
+            readonly protected int m_blockSize;
 
             protected Allocator(int blockSize) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
             {
@@ -271,17 +271,17 @@ namespace YAF.Lucene.Net.Util
         /// An array holding the offset into the <see cref="Int32BlockPool.LEVEL_SIZE_ARRAY"/>
         /// to quickly navigate to the next slice level.
         /// </summary>
-        private static readonly int[] NEXT_LEVEL_ARRAY = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 9 };
+        private readonly static int[] NEXT_LEVEL_ARRAY = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 9 };
 
         /// <summary>
         /// An array holding the level sizes for <see cref="int"/> slices.
         /// </summary>
-        private static readonly int[] LEVEL_SIZE_ARRAY = new int[] { 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024 };
+        private readonly static int[] LEVEL_SIZE_ARRAY = new int[] { 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024 };
 
         /// <summary>
         /// The first level size for new slices.
         /// </summary>
-        private static readonly int FIRST_LEVEL_SIZE = LEVEL_SIZE_ARRAY[0];
+        private readonly static int FIRST_LEVEL_SIZE = LEVEL_SIZE_ARRAY[0];
 
         /// <summary>
         /// Allocates a new slice from the given offset.

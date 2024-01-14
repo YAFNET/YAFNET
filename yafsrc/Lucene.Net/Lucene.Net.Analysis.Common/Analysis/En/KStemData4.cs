@@ -47,7 +47,7 @@ namespace YAF.Lucene.Net.Analysis.En
         private KStemData4()
         {
         }
-        internal static string[] data = new string[] {
+        static internal string[] data = new string[] {
             "granular","granulate","granule","grape","grapefruit",
             "grapeshot","grapevine","graph","graphic","graphical",
             "graphically","graphite","graphology","grapnel","grapple",

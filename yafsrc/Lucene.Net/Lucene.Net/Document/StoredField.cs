@@ -35,7 +35,7 @@ namespace YAF.Lucene.Net.Documents
         /// Type for a stored-only field.
         /// </summary>
         // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
-        public static readonly FieldType TYPE = new FieldType
+        public readonly static FieldType TYPE = new FieldType
         {
             IsStored = true
         }.Freeze();

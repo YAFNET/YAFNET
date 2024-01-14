@@ -37,11 +37,11 @@ namespace YAF.Lucene.Net.Util.Automaton
     public sealed class UTF32ToUTF8
     {
         // Unicode boundaries for UTF8 bytes 1,2,3,4
-        private static readonly int[] startCodes = new int[] { 0, 128, 2048, 65536 };
+        private readonly static int[] startCodes = new int[] { 0, 128, 2048, 65536 };
 
-        private static readonly int[] endCodes = new int[] { 127, 2047, 65535, 1114111 };
+        private readonly static int[] endCodes = new int[] { 127, 2047, 65535, 1114111 };
 
-        internal static int[] MASKS = LoadMasks();
+        static internal int[] MASKS = LoadMasks();
 
         private static int[] LoadMasks() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {

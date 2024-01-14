@@ -31,7 +31,7 @@ namespace YAF.Lucene.Net.Queries.Function.DocValues
     /// </summary>
     public abstract class Int64DocValues : FunctionValues
     {
-        protected readonly ValueSource m_vs;
+        readonly protected ValueSource m_vs;
 
         protected Int64DocValues(ValueSource vs) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
         {

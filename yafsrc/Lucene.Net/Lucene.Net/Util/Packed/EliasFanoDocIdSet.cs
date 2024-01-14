@@ -30,7 +30,7 @@ namespace YAF.Lucene.Net.Util.Packed
     /// </summary>
     public class EliasFanoDocIdSet : DocIdSet
     {
-        internal readonly EliasFanoEncoder efEncoder;
+        readonly internal EliasFanoEncoder efEncoder;
 
         /// <summary>
         /// Construct an EliasFanoDocIdSet. For efficient encoding, the parameters should be chosen as low as possible. </summary>

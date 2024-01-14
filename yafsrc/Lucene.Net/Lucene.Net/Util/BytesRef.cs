@@ -52,7 +52,7 @@ namespace YAF.Lucene.Net.Util
         [SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "This is a SonarCloud issue")]
         [SuppressMessage("Performance", "S3887:Use an immutable collection or reduce the accessibility of the non-private readonly field", Justification = "Collection is immutable")]
         [SuppressMessage("Performance", "S2386:Use an immutable collection or reduce the accessibility of the public static field", Justification = "Collection is immutable")]
-        public static readonly byte[] EMPTY_BYTES = Arrays.Empty<byte>();
+        public readonly static byte[] EMPTY_BYTES = Arrays.Empty<byte>();
 
         /// <summary>
         /// The contents of the BytesRef. Should never be <c>null</c>.
@@ -331,7 +331,7 @@ namespace YAF.Lucene.Net.Util
             return utf8SortedAsUnicodeSortOrder.Compare(this, other);
         }
 
-        private static readonly IComparer<BytesRef> utf8SortedAsUnicodeSortOrder = Utf8SortedAsUnicodeComparer.Instance;
+        private readonly static IComparer<BytesRef> utf8SortedAsUnicodeSortOrder = Utf8SortedAsUnicodeComparer.Instance;
 
         public static IComparer<BytesRef> UTF8SortedAsUnicodeComparer => utf8SortedAsUnicodeSortOrder;
 
@@ -339,7 +339,7 @@ namespace YAF.Lucene.Net.Util
 
         /// @deprecated this comparer is only a transition mechanism
         [Obsolete("this comparer is only a transition mechanism")]
-        private static readonly IComparer<BytesRef> utf8SortedAsUTF16SortOrder = new Utf8SortedAsUtf16Comparer();
+        private readonly static IComparer<BytesRef> utf8SortedAsUTF16SortOrder = new Utf8SortedAsUtf16Comparer();
 
         /// @deprecated this comparer is only a transition mechanism
         [Obsolete("this comparer is only a transition mechanism")]

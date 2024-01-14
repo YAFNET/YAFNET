@@ -40,11 +40,11 @@ namespace YAF.Lucene.Net.Search
 
         /// <summary>
         /// Represents sorting by document score (relevance). </summary>
-        public static readonly SortField FIELD_SCORE = new SortField(null, SortFieldType.SCORE);
+        public readonly static SortField FIELD_SCORE = new SortField(null, SortFieldType.SCORE);
 
         /// <summary>
         /// Represents sorting by document number (index order). </summary>
-        public static readonly SortField FIELD_DOC = new SortField(null, SortFieldType.DOC);
+        public readonly static SortField FIELD_DOC = new SortField(null, SortFieldType.DOC);
 
         private string field;
         private SortFieldType type; // defaults to determining type dynamically
@@ -150,7 +150,7 @@ namespace YAF.Lucene.Net.Search
         /// Pass this to <see cref="MissingValue"/> to have missing
         /// string values sort first.
         /// </summary>
-        public static readonly object STRING_FIRST = new ObjectAnonymousClass();
+        public readonly static object STRING_FIRST = new ObjectAnonymousClass();
 
         private sealed class ObjectAnonymousClass : object
         {
@@ -168,7 +168,7 @@ namespace YAF.Lucene.Net.Search
         /// Pass this to <see cref="MissingValue"/> to have missing
         /// string values sort last.
         /// </summary>
-        public static readonly object STRING_LAST = new ObjectAnonymousClass2();
+        public readonly static object STRING_LAST = new ObjectAnonymousClass2();
 
         private sealed class ObjectAnonymousClass2 : object
         {

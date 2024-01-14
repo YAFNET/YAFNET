@@ -214,7 +214,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -441,8 +441,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         private class TVTermsEnum : TermsEnum
         {
             internal bool unicodeSortOrder;
-            internal readonly IndexInput origTVF;
-            internal readonly IndexInput tvf;
+            readonly internal IndexInput origTVF;
+            readonly internal IndexInput tvf;
             internal int numTerms;
             internal int currentTerm;
             internal bool storePositions;

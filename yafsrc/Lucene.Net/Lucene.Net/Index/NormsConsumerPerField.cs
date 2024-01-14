@@ -45,7 +45,7 @@ namespace YAF.Lucene.Net.Index
             return fieldInfo.Name.CompareToOrdinal(other.fieldInfo.Name);
         }
 
-        internal override void Finish()
+        override internal void Finish()
         {
             if (fieldInfo.IsIndexed && !fieldInfo.OmitsNorms)
             {
@@ -75,7 +75,7 @@ namespace YAF.Lucene.Net.Index
         internal bool IsEmpty => consumer is null;
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        internal override void Abort()
+        override internal void Abort()
         {
             //
         }

@@ -98,7 +98,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         public virtual int OffsetLength => lastOffsetLength;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void SeekChild(int level)
+        override protected void SeekChild(int level)
         {
             base.SeekChild(level);
             freqPointer[level] = lastFreqPointer;
@@ -108,7 +108,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void SetLastSkipData(int level)
+        override protected void SetLastSkipData(int level)
         {
             base.SetLastSkipData(level);
             lastFreqPointer = freqPointer[level];
@@ -117,7 +117,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             lastOffsetLength = offsetLength[level];
         }
 
-        protected override int ReadSkipData(int level, IndexInput skipStream)
+        override protected int ReadSkipData(int level, IndexInput skipStream)
         {
             int delta;
             if (currentFieldStoresPayloads || currentFieldStoresOffsets)

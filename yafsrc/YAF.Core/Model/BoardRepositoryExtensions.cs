@@ -589,7 +589,6 @@ If you have any questions use our [url=https://yetanotherforum.net/forum/]Suppor
         BoardContext.Current.GetRepository<Medal>().Delete(x => x.BoardID == boardId);
         BoardContext.Current.GetRepository<Replace_Words>().Delete(x => x.BoardID == boardId);
         BoardContext.Current.GetRepository<Spam_Words>().Delete(x => x.BoardID == boardId);
-        BoardContext.Current.GetRepository<NntpServer>().Delete(x => x.BoardID == boardId);
         BoardContext.Current.GetRepository<BannedIP>().Delete(x => x.BoardID == boardId);
         BoardContext.Current.GetRepository<BannedName>().Delete(x => x.BoardID == boardId);
         BoardContext.Current.GetRepository<BannedEmail>().Delete(x => x.BoardID == boardId);

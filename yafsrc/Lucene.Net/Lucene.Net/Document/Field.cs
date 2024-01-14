@@ -59,12 +59,12 @@ namespace YAF.Lucene.Net.Documents
         /// <summary>
         /// Field's type
         /// </summary>
-        protected readonly FieldType m_type;
+        readonly protected FieldType m_type;
 
         /// <summary>
         /// Field's name
         /// </summary>
-        protected readonly string m_name;
+        readonly protected string m_name;
 
         /// <summary>
         /// Field's value.
@@ -954,7 +954,7 @@ namespace YAF.Lucene.Net.Documents
                 used = false;
             }
 
-            protected override void Dispose(bool disposing)
+            override protected void Dispose(bool disposing)
             {
                 if (disposing)
                 {

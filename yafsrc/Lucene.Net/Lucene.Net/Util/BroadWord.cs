@@ -43,7 +43,7 @@ namespace YAF.Lucene.Net.Util
         /// Only here to compare the implementation with <see cref="Select(long, int)"/>,
         /// normally <see cref="BitOperation.PopCount(long)"/> is preferable. </summary>
         /// <returns> The total number of 1 bits in x. </returns>
-        internal static int BitCount(long x)
+        static internal int BitCount(long x)
         {
             // Step 0 leaves in each pair of bits the number of ones originally contained in that pair:
             x = x - ((x & unchecked((long)0xAAAAAAAAAAAAAAAAL)).TripleShift(1));
@@ -144,9 +144,9 @@ namespace YAF.Lucene.Net.Util
         /// These contain the high bit of each group of k bits.
         /// The suffix _L indicates the <see cref="long"/> implementation.
         /// </summary>
-        public static readonly long H8_L = L8_L << 7;
+        public readonly static long H8_L = L8_L << 7;
 
-        public static readonly long H16_L = L16_L << 15;
+        public readonly static long H16_L = L16_L << 15;
 
         /// <summary>
         /// Naive implementation of <see cref="Select(long, int)"/>, using <see cref="BitOperation.TrailingZeroCount(long)"/> repetitively.

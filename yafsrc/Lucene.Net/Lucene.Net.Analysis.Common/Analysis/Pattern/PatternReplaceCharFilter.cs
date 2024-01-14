@@ -100,7 +100,7 @@ namespace YAF.Lucene.Net.Analysis.Pattern
             return transformedInput.Read();
         }
 
-        protected override int Correct(int currentOff)
+        override protected int Correct(int currentOff)
         {
             return Math.Max(0, base.Correct(currentOff));
         }

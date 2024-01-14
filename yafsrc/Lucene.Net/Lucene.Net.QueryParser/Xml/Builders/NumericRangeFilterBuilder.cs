@@ -87,7 +87,7 @@ namespace YAF.Lucene.Net.QueryParsers.Xml.Builders
     /// </summary>
     public class NumericRangeFilterBuilder : IFilterBuilder
     {
-        private static readonly NoMatchFilter NO_MATCH_FILTER = new NoMatchFilter();
+        private readonly static NoMatchFilter NO_MATCH_FILTER = new NoMatchFilter();
 
         private bool strictMode = false;
 

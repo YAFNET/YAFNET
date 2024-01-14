@@ -35,7 +35,7 @@ namespace YAF.Lucene.Net.Queries
     /// </summary>
     public class CustomScoreProvider
     {
-        protected readonly AtomicReaderContext m_context;
+        readonly protected AtomicReaderContext m_context;
 
         /// <summary>
         /// Creates a new instance of the provider class for the given <see cref="IndexReader"/>.

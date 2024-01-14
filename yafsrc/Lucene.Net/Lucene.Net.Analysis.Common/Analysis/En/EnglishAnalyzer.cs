@@ -43,7 +43,7 @@ namespace YAF.Lucene.Net.Analysis.En
         /// </summary>
         private static class DefaultSetHolder
         {
-            internal static readonly CharArraySet DEFAULT_STOP_SET = StandardAnalyzer.STOP_WORDS_SET;
+            readonly static internal CharArraySet DEFAULT_STOP_SET = StandardAnalyzer.STOP_WORDS_SET;
         }
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace YAF.Lucene.Net.Analysis.En
         ///         <see cref="LowerCaseFilter"/>, <see cref="StopFilter"/>,
         ///         <see cref="SetKeywordMarkerFilter"/> if a stem exclusion set is
         ///         provided and <see cref="PorterStemFilter"/>. </returns>
-        protected internal override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
+        override protected internal TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
         {
             Tokenizer source = new StandardTokenizer(m_matchVersion, reader);
             TokenStream result = new StandardFilter(m_matchVersion, source);

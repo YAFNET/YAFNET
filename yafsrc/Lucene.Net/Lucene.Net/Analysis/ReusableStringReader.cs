@@ -75,7 +75,7 @@ namespace YAF.Lucene.Net.Analysis
             return null;
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             pos = size; // this prevents NPE when reading after close!
             s = null;

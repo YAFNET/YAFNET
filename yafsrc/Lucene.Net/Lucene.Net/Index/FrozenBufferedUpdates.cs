@@ -35,28 +35,28 @@ namespace YAF.Lucene.Net.Index
     internal class FrozenBufferedUpdates
     {
         /// <summary>Query we often undercount (say 24 bytes), plus int.</summary>
-        internal static readonly int BYTES_PER_DEL_QUERY = RamUsageEstimator.NUM_BYTES_OBJECT_REF + RamUsageEstimator.NUM_BYTES_INT32 + 24;
+        readonly static internal int BYTES_PER_DEL_QUERY = RamUsageEstimator.NUM_BYTES_OBJECT_REF + RamUsageEstimator.NUM_BYTES_INT32 + 24;
 
         /// <summary>Terms, in sorted order:</summary>
-        internal readonly PrefixCodedTerms terms;
+        readonly internal PrefixCodedTerms terms;
 
         internal int termCount; // just for debugging
 
         /// <summary>Parallel array of deleted query, and the docIDUpto for each</summary>
-        internal readonly Query[] queries;
+        readonly internal Query[] queries;
 
-        internal readonly int[] queryLimits;
+        readonly internal int[] queryLimits;
 
         /// <summary>numeric DV update term and their updates</summary>
-        internal readonly NumericDocValuesUpdate[] numericDVUpdates;
+        readonly internal NumericDocValuesUpdate[] numericDVUpdates;
 
         /// <summary>binary DV update term and their updates</summary>
-        internal readonly BinaryDocValuesUpdate[] binaryDVUpdates;
+        readonly internal BinaryDocValuesUpdate[] binaryDVUpdates;
 
-        internal readonly int bytesUsed;
-        internal readonly int numTermDeletes;
+        readonly internal int bytesUsed;
+        readonly internal int numTermDeletes;
         private long gen = -1; // assigned by BufferedDeletesStream once pushed
-        internal readonly bool isSegmentPrivate; // set to true iff this frozen packet represents
+        readonly internal bool isSegmentPrivate; // set to true iff this frozen packet represents
         // a segment private deletes. in that case is should
         // only have Queries
 

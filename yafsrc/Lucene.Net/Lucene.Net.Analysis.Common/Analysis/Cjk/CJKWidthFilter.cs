@@ -44,7 +44,7 @@ namespace YAF.Lucene.Net.Analysis.Cjk
         /// as a fallback when they cannot properly combine with a preceding 
         /// character into a composed form.
         /// </summary>
-        private static readonly char[] KANA_NORM = new char[] {
+        private readonly static char[] KANA_NORM = new char[] {
             (char)0x30fb, (char)0x30f2, (char)0x30a1, (char)0x30a3, (char)0x30a5, (char)0x30a7, (char)0x30a9, (char)0x30e3, (char)0x30e5,
             (char)0x30e7, (char)0x30c3, (char)0x30fc, (char)0x30a2, (char)0x30a4, (char)0x30a6, (char)0x30a8, (char)0x30aa, (char)0x30ab,
             (char)0x30ad, (char)0x30af, (char)0x30b1, (char)0x30b3, (char)0x30b5, (char)0x30b7, (char)0x30b9, (char)0x30bb, (char)0x30bd,
@@ -97,14 +97,14 @@ namespace YAF.Lucene.Net.Analysis.Cjk
         }
 
         /// <summary>kana combining diffs: 0x30A6-0x30FD </summary>
-        private static readonly sbyte[] KANA_COMBINE_VOICED = new sbyte[] {
+        private readonly static sbyte[] KANA_COMBINE_VOICED = new sbyte[] {
             78, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1,
             0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1,
             0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 8, 8, 8, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1
         };
 
-        private static readonly sbyte[] KANA_COMBINE_HALF_VOICED = new sbyte[] {
+        private readonly static sbyte[] KANA_COMBINE_HALF_VOICED = new sbyte[] {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 2, 0, 0, 2,
             0, 0, 2, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,

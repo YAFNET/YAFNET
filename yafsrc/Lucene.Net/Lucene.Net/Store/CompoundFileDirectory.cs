@@ -86,7 +86,7 @@ namespace YAF.Lucene.Net.Store
         //private readonly int readBufferSize; // LUCENENET: Never read
         private readonly IDictionary<string, FileEntry> entries;
         private readonly bool openForWrite;
-        private static readonly IDictionary<string, FileEntry> SENTINEL = Collections.EmptyMap<string, FileEntry>();
+        private readonly static IDictionary<string, FileEntry> SENTINEL = Collections.EmptyMap<string, FileEntry>();
         private readonly CompoundFileWriter writer;
 #pragma warning disable CA2213 // Disposable fields should be disposed
         private readonly IndexInputSlicer handle;
@@ -132,10 +132,10 @@ namespace YAF.Lucene.Net.Store
         }
 
         // LUCENENET NOTE: These MUST be sbyte because they can be negative
-        private static readonly sbyte CODEC_MAGIC_BYTE1 = (sbyte)CodecUtil.CODEC_MAGIC.TripleShift(24);
-        private static readonly sbyte CODEC_MAGIC_BYTE2 = (sbyte)CodecUtil.CODEC_MAGIC.TripleShift(16);
-        private static readonly sbyte CODEC_MAGIC_BYTE3 = (sbyte)CodecUtil.CODEC_MAGIC.TripleShift(8);
-        private static readonly sbyte CODEC_MAGIC_BYTE4 = (sbyte)CodecUtil.CODEC_MAGIC;
+        private readonly static sbyte CODEC_MAGIC_BYTE1 = (sbyte)CodecUtil.CODEC_MAGIC.TripleShift(24);
+        private readonly static sbyte CODEC_MAGIC_BYTE2 = (sbyte)CodecUtil.CODEC_MAGIC.TripleShift(16);
+        private readonly static sbyte CODEC_MAGIC_BYTE3 = (sbyte)CodecUtil.CODEC_MAGIC.TripleShift(8);
+        private readonly static sbyte CODEC_MAGIC_BYTE4 = (sbyte)CodecUtil.CODEC_MAGIC;
 
         /// <summary>
         /// Helper method that reads CFS entries from an input stream </summary>
@@ -284,7 +284,7 @@ namespace YAF.Lucene.Net.Store
 
         public string Name => fileName;
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             // allow double close - usually to be consistent with other closeables
             if (!CompareAndSetIsOpen(expect: true, update: false)) return; // already closed
@@ -451,7 +451,7 @@ namespace YAF.Lucene.Net.Store
                 this.entry = entry;
             }
 
-            protected override void Dispose(bool disposing)
+            override protected void Dispose(bool disposing)
             {
                 // LUCENENET: Intentionally blank
             }

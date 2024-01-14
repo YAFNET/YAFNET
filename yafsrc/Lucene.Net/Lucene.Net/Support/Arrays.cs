@@ -27,7 +27,7 @@ namespace YAF.Lucene.Net.Support
      * limitations under the License.
      */
 
-    internal static class Arrays
+    static internal class Arrays
     {
         /// <summary>
         /// Compares the entire members of one array whith the other one.
@@ -118,7 +118,7 @@ namespace YAF.Lucene.Net.Support
         #region ArrayFiller<T>
         private static class ArrayFiller<T>
         {
-            public static readonly IArrayFiller<T> Default = LoadArrayFiller();
+            public readonly static IArrayFiller<T> Default = LoadArrayFiller();
 
             private static IArrayFiller<T> LoadArrayFiller()
             {
@@ -225,8 +225,8 @@ namespace YAF.Lucene.Net.Support
         {
             // We put this in its own class so every type doesn't have to reload it. But, at the same time,
             // we don't want to have to load this just to use the Arrays class.
-            public static readonly bool IsFullFramework = LoadIsFullFramework();
-            public static readonly bool IsNetCore = LoadIsNetCore();
+            public readonly static bool IsFullFramework = LoadIsFullFramework();
+            public readonly static bool IsNetCore = LoadIsNetCore();
 
             private static bool LoadIsFullFramework()
             {
@@ -255,7 +255,7 @@ namespace YAF.Lucene.Net.Support
 
         private static class ArrayCopier<T>
         {
-            public static readonly IArrayCopier<T> Default = LoadArrayCopier();
+            public readonly static IArrayCopier<T> Default = LoadArrayCopier();
 
             private static IArrayCopier<T> LoadArrayCopier()
             {

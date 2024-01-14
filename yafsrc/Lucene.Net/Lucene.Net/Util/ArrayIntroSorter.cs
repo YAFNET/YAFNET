@@ -41,25 +41,25 @@ namespace YAF.Lucene.Net.Util
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override int Compare(int i, int j)
+        override protected int Compare(int i, int j)
         {
             return comparer.Compare(arr[i], arr[j]);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void Swap(int i, int j)
+        override protected void Swap(int i, int j)
         {
             ArrayUtil.Swap(arr, i, j);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void SetPivot(int i)
+        override protected void SetPivot(int i)
         {
             pivot = (i < arr.Length) ? arr[i] : default;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override int ComparePivot(int i)
+        override protected int ComparePivot(int i)
         {
             return comparer.Compare(pivot, arr[i]);
         }

@@ -54,7 +54,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
     internal class Lucene3xFields : FieldsProducer
     {
 #pragma warning disable CA1802 // Use literals where appropriate
-        private static readonly bool DEBUG_SURROGATES = false;
+        private readonly static bool DEBUG_SURROGATES = false;
 #pragma warning restore CA1802 // Use literals where appropriate
 
         public TermInfosReader Tis { get; set; }
@@ -66,8 +66,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         //private readonly SegmentInfo si; // LUCENENET: Never read
 
         // LUCENENET specific: Use StringComparer.Ordinal to get the same ordering as Java
-        internal readonly IDictionary<string, FieldInfo> fields = new JCG.SortedDictionary<string, FieldInfo>(StringComparer.Ordinal);
-        internal readonly IDictionary<string, Terms> preTerms = new Dictionary<string, Terms>();
+        readonly internal IDictionary<string, FieldInfo> fields = new JCG.SortedDictionary<string, FieldInfo>(StringComparer.Ordinal);
+        readonly internal IDictionary<string, Terms> preTerms = new Dictionary<string, Terms>();
         //private readonly Directory dir; // LUCENENET: Never read
         //private readonly IOContext context; // LUCENENET: Never read
         //private Directory cfsReader; // LUCENENET NOTE: cfsReader not used
@@ -196,7 +196,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             }
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -208,7 +208,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         {
             private readonly Lucene3xFields outerInstance;
 
-            internal readonly FieldInfo fieldInfo;
+            readonly internal FieldInfo fieldInfo;
 
             internal PreTerms(Lucene3xFields outerInstance, FieldInfo fieldInfo)
             {
@@ -1089,7 +1089,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         {
             private readonly Lucene3xFields outerInstance;
 
-            internal readonly SegmentTermDocs docs;
+            readonly internal SegmentTermDocs docs;
             private int docID = -1;
 
             internal PreDocsEnum(Lucene3xFields outerInstance)

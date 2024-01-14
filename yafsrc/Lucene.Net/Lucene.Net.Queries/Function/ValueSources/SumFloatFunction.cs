@@ -31,9 +31,9 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
         {
         }
 
-        protected override string Name => "sum";
+        override protected string Name => "sum";
 
-        protected override float Func(int doc, FunctionValues[] valsArr)
+        override protected float Func(int doc, FunctionValues[] valsArr)
         {
             float val = 0.0f;
             foreach (FunctionValues vals in valsArr)

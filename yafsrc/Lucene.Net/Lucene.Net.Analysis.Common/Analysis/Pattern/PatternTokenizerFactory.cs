@@ -66,8 +66,8 @@ namespace YAF.Lucene.Net.Analysis.Pattern
         public const string PATTERN = "pattern";
         public const string GROUP = "group";
 
-        protected readonly Regex m_pattern;
-        protected readonly int m_group;
+        readonly protected Regex m_pattern;
+        readonly protected int m_group;
 
         /// <summary>
         /// Creates a new <see cref="PatternTokenizerFactory"/> </summary>

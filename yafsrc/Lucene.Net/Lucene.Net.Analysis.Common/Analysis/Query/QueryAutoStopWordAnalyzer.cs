@@ -147,12 +147,12 @@ namespace YAF.Lucene.Net.Analysis.Query
             }
         }
 
-        protected override Analyzer GetWrappedAnalyzer(string fieldName)
+        override protected Analyzer GetWrappedAnalyzer(string fieldName)
         {
             return @delegate;
         }
 
-        protected override TokenStreamComponents WrapComponents(string fieldName, TokenStreamComponents components)
+        override protected TokenStreamComponents WrapComponents(string fieldName, TokenStreamComponents components)
         {
             if (!stopWordsPerField.TryGetValue(fieldName, out ISet<string> stopWords) || stopWords is null)
             {

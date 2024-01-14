@@ -70,8 +70,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         internal const string CODEC_NAME_DAT = "Lucene40StoredFieldsData";
         internal const int VERSION_START = 0;
         internal const int VERSION_CURRENT = VERSION_START;
-        internal static readonly long HEADER_LENGTH_IDX = CodecUtil.HeaderLength(CODEC_NAME_IDX);
-        internal static readonly long HEADER_LENGTH_DAT = CodecUtil.HeaderLength(CODEC_NAME_DAT);
+        readonly static internal long HEADER_LENGTH_IDX = CodecUtil.HeaderLength(CODEC_NAME_IDX);
+        readonly static internal long HEADER_LENGTH_DAT = CodecUtil.HeaderLength(CODEC_NAME_DAT);
 
         /// <summary>
         /// Extension of stored fields file. </summary>
@@ -132,7 +132,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {

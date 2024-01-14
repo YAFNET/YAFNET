@@ -59,8 +59,8 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         internal const int NUMERIC_INT64 = 0x04;
         internal const int NUMERIC_DOUBLE = 0x05;
 
-        internal static readonly int TYPE_BITS = PackedInt32s.BitsRequired(NUMERIC_DOUBLE);
-        internal static readonly int TYPE_MASK = (int)PackedInt32s.MaxValue(TYPE_BITS);
+        readonly static internal int TYPE_BITS = PackedInt32s.BitsRequired(NUMERIC_DOUBLE);
+        readonly static internal int TYPE_MASK = (int)PackedInt32s.MaxValue(TYPE_BITS);
 
         internal const string CODEC_SFX_IDX = "Index";
         internal const string CODEC_SFX_DAT = "Data";
@@ -138,7 +138,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
             }
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {

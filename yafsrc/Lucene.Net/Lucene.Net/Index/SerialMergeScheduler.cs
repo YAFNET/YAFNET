@@ -59,7 +59,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
         }
     }

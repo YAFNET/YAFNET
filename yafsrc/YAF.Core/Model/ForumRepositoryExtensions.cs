@@ -610,12 +610,10 @@ public static class ForumRepositoryExtensions
             t =>
                 {
                     BoardContext.Current.GetRepository<WatchTopic>().Delete(x => x.TopicID == t.ID);
-                    BoardContext.Current.GetRepository<NntpTopic>().Delete(x => x.TopicID == t.ID);
 
                     BoardContext.Current.GetRepository<Topic>().Delete(forumId, t.ID, true);
                 });
 
-        BoardContext.Current.GetRepository<NntpForum>().Delete(x => x.ForumID == forumId);
         BoardContext.Current.GetRepository<ForumAccess>().Delete(x => x.ForumID == forumId);
         BoardContext.Current.GetRepository<UserForum>().Delete(x => x.ForumID == forumId);
         BoardContext.Current.GetRepository<Forum>().DeleteById(forumId);
@@ -654,9 +652,6 @@ public static class ForumRepositoryExtensions
             f => f.ID == oldForumId);
         BoardContext.Current.GetRepository<Active>().UpdateOnly(
             () => new Active { ForumID = newForumId },
-            f => f.ForumID == oldForumId);
-        BoardContext.Current.GetRepository<NntpForum>().UpdateOnly(
-            () => new NntpForum { ForumID = newForumId },
             f => f.ForumID == oldForumId);
 
         BoardContext.Current.GetRepository<WatchForum>().Delete(x => x.ForumID == oldForumId);

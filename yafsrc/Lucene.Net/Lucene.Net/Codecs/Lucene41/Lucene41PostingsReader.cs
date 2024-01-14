@@ -103,7 +103,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         /// <para/>
         /// NOTE: This was readVIntBlock() in Lucene.
         /// </summary>
-        internal static void ReadVInt32Block(IndexInput docIn, int[] docBuffer, int[] freqBuffer, int num, bool indexHasFreq)
+        static internal void ReadVInt32Block(IndexInput docIn, int[] docBuffer, int[] freqBuffer, int num, bool indexHasFreq)
         {
             if (indexHasFreq)
             {
@@ -137,7 +137,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
                 IOUtils.Dispose(docIn, posIn, payIn);
@@ -288,13 +288,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
             private Lucene41SkipReader skipper;
             private bool skipped;
 
-            internal readonly IndexInput startDocIn;
+            readonly internal IndexInput startDocIn;
 
             internal IndexInput docIn;
-            internal readonly bool indexHasFreq;
-            internal readonly bool indexHasPos;
-            internal readonly bool indexHasOffsets;
-            internal readonly bool indexHasPayloads;
+            readonly internal bool indexHasFreq;
+            readonly internal bool indexHasPos;
+            readonly internal bool indexHasOffsets;
+            readonly internal bool indexHasPayloads;
 
             private int docFreq; // number of docs in this posting list
             private long totalTermFreq; // sum of freqs in this posting list (or DocFreq when omitted)
@@ -595,13 +595,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
             private Lucene41SkipReader skipper;
             private bool skipped;
 
-            internal readonly IndexInput startDocIn;
+            readonly internal IndexInput startDocIn;
 
             internal IndexInput docIn;
-            internal readonly IndexInput posIn;
+            readonly internal IndexInput posIn;
 
-            internal readonly bool indexHasOffsets;
-            internal readonly bool indexHasPayloads;
+            readonly internal bool indexHasOffsets;
+            readonly internal bool indexHasPayloads;
 
             private int docFreq; // number of docs in this posting list
             private long totalTermFreq; // number of positions in this posting list
@@ -1065,15 +1065,15 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
             private Lucene41SkipReader skipper;
             private bool skipped;
 
-            internal readonly IndexInput startDocIn;
+            readonly internal IndexInput startDocIn;
 
             internal IndexInput docIn;
-            internal readonly IndexInput posIn;
-            internal readonly IndexInput payIn;
-            internal readonly BytesRef payload;
+            readonly internal IndexInput posIn;
+            readonly internal IndexInput payIn;
+            readonly internal BytesRef payload;
 
-            internal readonly bool indexHasOffsets;
-            internal readonly bool indexHasPayloads;
+            readonly internal bool indexHasOffsets;
+            readonly internal bool indexHasPayloads;
 
             private int docFreq; // number of docs in this posting list
             private long totalTermFreq; // number of positions in this posting list

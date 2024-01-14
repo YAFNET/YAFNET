@@ -21,7 +21,7 @@ namespace YAF.Lucene.Net.Support
      * limitations under the License.
      */
 
-    internal static class SetExtensions
+    static internal class SetExtensions
     {
         /// <summary>
         /// Returns a concurrent wrapper for the current <see cref="ISet{T}"/>.
@@ -39,7 +39,7 @@ namespace YAF.Lucene.Net.Support
         /// <para/>
         /// This method is an O(1) operation.
         /// </remarks>
-        internal static ISet<T> AsConcurrent<T>(this ISet<T> set)
+        static internal ISet<T> AsConcurrent<T>(this ISet<T> set)
         {
             return new ConcurrentSet<T>(set);
         }

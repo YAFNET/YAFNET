@@ -83,7 +83,7 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// The filtered <see cref="DirectoryReader"/> </summary>
-        protected readonly DirectoryReader m_input;
+        readonly protected DirectoryReader m_input;
 
         /// <summary>
         /// Create a new <see cref="FilterDirectoryReader"/> that filters a passed in <see cref="DirectoryReader"/>. </summary>
@@ -119,17 +119,17 @@ namespace YAF.Lucene.Net.Index
             return input is null ? null : DoWrapDirectoryReader(input);
         }
 
-        protected internal override sealed DirectoryReader DoOpenIfChanged()
+        override protected internal sealed DirectoryReader DoOpenIfChanged()
         {
             return WrapDirectoryReader(m_input.DoOpenIfChanged());
         }
 
-        protected internal override sealed DirectoryReader DoOpenIfChanged(IndexCommit commit)
+        override protected internal sealed DirectoryReader DoOpenIfChanged(IndexCommit commit)
         {
             return WrapDirectoryReader(m_input.DoOpenIfChanged(commit));
         }
 
-        protected internal override sealed DirectoryReader DoOpenIfChanged(IndexWriter writer, bool applyAllDeletes)
+        override protected internal sealed DirectoryReader DoOpenIfChanged(IndexWriter writer, bool applyAllDeletes)
         {
             return WrapDirectoryReader(m_input.DoOpenIfChanged(writer, applyAllDeletes));
         }
@@ -143,7 +143,7 @@ namespace YAF.Lucene.Net.Index
 
         public override IndexCommit IndexCommit => m_input.IndexCommit;
 
-        protected internal override void DoClose()
+        override protected internal void DoClose()
         {
             m_input.DoClose();
         }

@@ -80,7 +80,7 @@ namespace YAF.Lucene.Net.Index
                 return Build(maxDoc, liveDocs);
             }
 
-            internal static DocMap Build(int maxDoc, IBits liveDocs)
+            static internal DocMap Build(int maxDoc, IBits liveDocs)
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(liveDocs != null);
                 MonotonicAppendingInt64Buffer docMap = new MonotonicAppendingInt64Buffer();
@@ -249,7 +249,7 @@ namespace YAF.Lucene.Net.Index
         /// <para/>
         /// @lucene.internal
         /// </summary>
-        public static readonly CheckAbort NONE = new CheckAbortAnonymousClass();
+        public readonly static CheckAbort NONE = new CheckAbortAnonymousClass();
 
         private sealed class CheckAbortAnonymousClass : CheckAbort
         {

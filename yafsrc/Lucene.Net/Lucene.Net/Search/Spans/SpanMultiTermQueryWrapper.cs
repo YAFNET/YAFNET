@@ -43,7 +43,7 @@ namespace YAF.Lucene.Net.Search.Spans
     /// </summary>
     public class SpanMultiTermQueryWrapper<Q> : SpanQuery, ISpanMultiTermQueryWrapper where Q : MultiTermQuery
     {
-        protected readonly Q m_query;
+        readonly protected Q m_query;
 
         /// <summary>
         /// Create a new <see cref="SpanMultiTermQueryWrapper{Q}"/>.
@@ -161,7 +161,7 @@ namespace YAF.Lucene.Net.Search.Spans
         /// scores as computed by the query.
         /// </summary>
         /// <seealso cref="MultiTermRewriteMethod"/>
-        public static readonly SpanRewriteMethod SCORING_SPAN_QUERY_REWRITE = new SpanRewriteMethodAnonymousClass();
+        public readonly static SpanRewriteMethod SCORING_SPAN_QUERY_REWRITE = new SpanRewriteMethodAnonymousClass();
 
         private sealed class SpanRewriteMethodAnonymousClass : SpanRewriteMethod
         {
@@ -177,17 +177,17 @@ namespace YAF.Lucene.Net.Search.Spans
                 {
                 }
 
-                protected override SpanOrQuery GetTopLevelQuery()
+                override protected SpanOrQuery GetTopLevelQuery()
                 {
                     return new SpanOrQuery();
                 }
 
-                protected override void CheckMaxClauseCount(int count)
+                override protected void CheckMaxClauseCount(int count)
                 {
                     // we accept all terms as SpanOrQuery has no limits
                 }
 
-                protected override void AddClause(SpanOrQuery topLevel, Term term, int docCount, float boost, TermContext states)
+                override protected void AddClause(SpanOrQuery topLevel, Term term, int docCount, float boost, TermContext states)
                 {
                     // TODO: would be nice to not lose term-state here.
                     // we could add a hack option to SpanOrQuery, but the hack would only work if this is the top-level Span
@@ -234,14 +234,14 @@ namespace YAF.Lucene.Net.Search.Spans
                 {
                 }
 
-                protected override int MaxSize => int.MaxValue;
+                override protected int MaxSize => int.MaxValue;
 
-                protected override SpanOrQuery GetTopLevelQuery()
+                override protected SpanOrQuery GetTopLevelQuery()
                 {
                     return new SpanOrQuery();
                 }
 
-                protected override void AddClause(SpanOrQuery topLevel, Term term, int docFreq, float boost, TermContext states)
+                override protected void AddClause(SpanOrQuery topLevel, Term term, int docFreq, float boost, TermContext states)
                 {
                     SpanTermQuery q = new SpanTermQuery(term);
                     q.Boost = boost;

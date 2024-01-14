@@ -30,11 +30,11 @@ namespace YAF.Lucene.Net.Util.Packed
     internal sealed class PackedWriter : PackedInt32s.Writer
     {
         internal bool finished;
-        internal readonly PackedInt32s.Format format;
-        internal readonly BulkOperation encoder;
-        internal readonly byte[] nextBlocks;
-        internal readonly long[] nextValues;
-        internal readonly int iterations;
+        readonly internal PackedInt32s.Format format;
+        readonly internal BulkOperation encoder;
+        readonly internal byte[] nextBlocks;
+        readonly internal long[] nextValues;
+        readonly internal int iterations;
         internal int off;
         internal int written;
 
@@ -51,7 +51,7 @@ namespace YAF.Lucene.Net.Util.Packed
             finished = false;
         }
 
-        protected internal override PackedInt32s.Format Format => format;
+        override protected internal PackedInt32s.Format Format => format;
 
         public override void Add(long v)
         {

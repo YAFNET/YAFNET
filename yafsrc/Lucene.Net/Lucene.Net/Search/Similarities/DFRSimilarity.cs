@@ -89,15 +89,15 @@ namespace YAF.Lucene.Net.Search.Similarities
     {
         /// <summary>
         /// The basic model for information content. </summary>
-        protected internal readonly BasicModel m_basicModel;
+        readonly protected internal BasicModel m_basicModel;
 
         /// <summary>
         /// The first normalization of the information content. </summary>
-        protected internal readonly AfterEffect m_afterEffect;
+        readonly protected internal AfterEffect m_afterEffect;
 
         /// <summary>
         /// The term frequency normalization. </summary>
-        protected internal readonly Normalization m_normalization;
+        readonly protected internal Normalization m_normalization;
 
         /// <summary>
         /// Creates DFRSimilarity from the three components.
@@ -124,7 +124,7 @@ namespace YAF.Lucene.Net.Search.Similarities
             return stats.TotalBoost * m_basicModel.Score(stats, tfn) * m_afterEffect.Score(stats, tfn);
         }
 
-        protected internal override void Explain(Explanation expl, BasicStats stats, int doc, float freq, float docLen)
+        override protected internal void Explain(Explanation expl, BasicStats stats, int doc, float freq, float docLen)
         {
             if (stats.TotalBoost != 1.0f)
             {

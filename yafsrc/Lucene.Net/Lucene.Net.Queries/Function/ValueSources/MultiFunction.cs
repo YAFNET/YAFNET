@@ -31,7 +31,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public abstract class MultiFunction : ValueSource
     {
-        protected readonly IList<ValueSource> m_sources;
+        readonly protected IList<ValueSource> m_sources;
 
         protected MultiFunction(IList<ValueSource> sources)
         {
@@ -81,7 +81,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
         {
             private readonly MultiFunction outerInstance;
 
-            internal readonly FunctionValues[] valsArr;
+            readonly internal FunctionValues[] valsArr;
 
             public Values(MultiFunction outerInstance, FunctionValues[] valsArr)
             {

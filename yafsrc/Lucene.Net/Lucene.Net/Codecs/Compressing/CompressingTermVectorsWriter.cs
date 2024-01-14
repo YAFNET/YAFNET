@@ -75,7 +75,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         internal const int POSITIONS = 0x01;
         internal const int OFFSETS = 0x02;
         internal const int PAYLOADS = 0x04;
-        internal static readonly int FLAGS_BITS = PackedInt32s.BitsRequired(POSITIONS | OFFSETS | PAYLOADS);
+        readonly static internal int FLAGS_BITS = PackedInt32s.BitsRequired(POSITIONS | OFFSETS | PAYLOADS);
 
         private readonly Directory directory;
         private readonly string segment;
@@ -95,9 +95,9 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         {
             private readonly CompressingTermVectorsWriter outerInstance;
 
-            internal readonly int numFields;
-            internal readonly LinkedList<FieldData> fields;
-            internal readonly int posStart, offStart, payStart;
+            readonly internal int numFields;
+            readonly internal LinkedList<FieldData> fields;
+            readonly internal int posStart, offStart, payStart;
 
             internal DocData(CompressingTermVectorsWriter outerInstance, int numFields, int posStart, int offStart, int payStart)
             {
@@ -167,10 +167,10 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         {
             private readonly CompressingTermVectorsWriter outerInstance;
 
-            internal readonly bool hasPositions, hasOffsets, hasPayloads;
-            internal readonly int fieldNum, flags, numTerms;
-            internal readonly int[] freqs, prefixLengths, suffixLengths;
-            internal readonly int posStart, offStart, payStart;
+            readonly internal bool hasPositions, hasOffsets, hasPayloads;
+            readonly internal int fieldNum, flags, numTerms;
+            readonly internal int[] freqs, prefixLengths, suffixLengths;
+            readonly internal int posStart, offStart, payStart;
             internal int totalPositions;
             internal int ord;
 
@@ -304,7 +304,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {

@@ -106,7 +106,7 @@ namespace YAF.Lucene.Net.Index
         private readonly Directory directory; // LUCENENET: marked readonly
         private readonly IndexDeletionPolicy policy; // LUCENENET: marked readonly
 
-        internal readonly bool startingCommitDeleted;
+        readonly internal bool startingCommitDeleted;
         private readonly SegmentInfos lastSegmentInfos; // LUCENENET: marked readonly
 
         /// <summary>
@@ -710,7 +710,7 @@ namespace YAF.Lucene.Net.Index
         private sealed class RefCount
         {
             // fileName used only for better assert error messages
-            internal readonly string fileName;
+            readonly internal string fileName;
 
             internal bool initDone;
 
@@ -756,8 +756,8 @@ namespace YAF.Lucene.Net.Index
             internal Directory directory;
             internal ICollection<CommitPoint> commitsToDelete;
             internal long generation;
-            internal readonly IDictionary<string, string> userData;
-            internal readonly int segmentCount;
+            readonly internal IDictionary<string, string> userData;
+            readonly internal int segmentCount;
 
             public CommitPoint(ICollection<CommitPoint> commitsToDelete, Directory directory, SegmentInfos segmentInfos)
             {

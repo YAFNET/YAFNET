@@ -42,7 +42,6 @@ public class UserLabel : BaseControl
     /// <summary>
     ///   Gets or sets The name of the user for this profile link
     /// </summary>
-    
     public string PostfixText
     {
         get => this.ViewState["PostfixText"] != null ? this.ViewState["PostfixText"].ToString() : string.Empty;

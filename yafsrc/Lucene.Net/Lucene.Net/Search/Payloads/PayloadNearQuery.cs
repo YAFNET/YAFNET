@@ -272,7 +272,7 @@ namespace YAF.Lucene.Net.Search.Payloads
             }
 
             //
-            protected override bool SetFreqCurrentDoc()
+            override protected bool SetFreqCurrentDoc()
             {
                 if (!m_more)
                 {

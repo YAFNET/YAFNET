@@ -36,8 +36,8 @@ namespace YAF.Lucene.Net.Search
     /// </summary>
     public class ConstantScoreQuery : Query
     {
-        protected readonly Filter m_filter;
-        protected readonly Query m_query;
+        readonly protected Filter m_filter;
+        readonly protected Query m_query;
 
         /// <summary>
         /// Strips off scores from the passed in <see cref="Search.Query"/>. The hits will get a constant score
@@ -234,9 +234,9 @@ namespace YAF.Lucene.Net.Search
         {
             private readonly ConstantScoreQuery outerInstance;
 
-            internal readonly BulkScorer bulkScorer;
-            internal readonly Weight weight;
-            internal readonly float theScore;
+            readonly internal BulkScorer bulkScorer;
+            readonly internal Weight weight;
+            readonly internal float theScore;
 
             public ConstantBulkScorer(ConstantScoreQuery outerInstance, BulkScorer bulkScorer, Weight weight, float theScore)
             {
@@ -293,8 +293,8 @@ namespace YAF.Lucene.Net.Search
         {
             private readonly ConstantScoreQuery outerInstance;
 
-            internal readonly DocIdSetIterator docIdSetIterator;
-            internal readonly float theScore;
+            readonly internal DocIdSetIterator docIdSetIterator;
+            readonly internal float theScore;
 
             public ConstantScorer(ConstantScoreQuery outerInstance, DocIdSetIterator docIdSetIterator, Weight w, float theScore)
                 : base(w)

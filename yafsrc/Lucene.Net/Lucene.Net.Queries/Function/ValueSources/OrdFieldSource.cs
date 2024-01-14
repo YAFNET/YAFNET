@@ -47,7 +47,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public class OrdFieldSource : ValueSource
     {
-        protected readonly string m_field;
+        readonly protected string m_field;
 
         public OrdFieldSource(string field)
         {
@@ -120,7 +120,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             return o != null && o.GetType() == typeof(OrdFieldSource) && this.m_field.Equals(((OrdFieldSource)o).m_field, StringComparison.Ordinal);
         }
 
-        private static readonly int hcode = typeof(OrdFieldSource).GetHashCode();
+        private readonly static int hcode = typeof(OrdFieldSource).GetHashCode();
 
         public override int GetHashCode()
         {

@@ -53,7 +53,7 @@ namespace YAF.Lucene.Net.Util
             }
         }
 
-        private static readonly char[] HEX = "0123456789abcdef".ToCharArray();
+        private readonly static char[] HEX = "0123456789abcdef".ToCharArray();
 
         /// <summary>
         /// NOTE: This was longHex() in Lucene

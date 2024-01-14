@@ -54,11 +54,11 @@ namespace YAF.Lucene.Net.Store
 
         public bool ReadOnce { get; private set; }
 
-        public static readonly IOContext DEFAULT = new IOContext(UsageContext.DEFAULT);
+        public readonly static IOContext DEFAULT = new IOContext(UsageContext.DEFAULT);
 
-        public static readonly IOContext READ_ONCE = new IOContext(true);
+        public readonly static IOContext READ_ONCE = new IOContext(true);
 
-        public static readonly IOContext READ = new IOContext(false);
+        public readonly static IOContext READ = new IOContext(false);
 
         public IOContext()
             : this(false)

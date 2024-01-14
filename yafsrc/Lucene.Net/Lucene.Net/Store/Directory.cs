@@ -266,7 +266,7 @@ namespace YAF.Lucene.Net.Store
                 return new SlicedIndexInput("SlicedIndexInput(" + sliceDescription + " in " + @base + ")", @base, offset, length);
             }
 
-            protected override void Dispose(bool disposing)
+            override protected void Dispose(bool disposing)
             {
                 if (0 != Interlocked.CompareExchange(ref this.disposed, 1, 0)) return; // LUCENENET specific - allow double-dispose
 
@@ -357,7 +357,7 @@ namespace YAF.Lucene.Net.Store
             /// <param name="b"> the array to read bytes into </param>
             /// <param name="offset"> the offset in the array to start storing bytes </param>
             /// <param name="len"> the number of bytes to read </param>
-            protected override void ReadInternal(byte[] b, int offset, int len)
+            override protected void ReadInternal(byte[] b, int offset, int len)
             {
                 long start = Position; // LUCENENET specific: Renamed from getFilePointer() to match FileStream
                 if (start + len > length)
@@ -373,14 +373,14 @@ namespace YAF.Lucene.Net.Store
             /// the next <see cref="ReadInternal(byte[], int, int)"/> will occur. 
             /// </summary>
             /// <seealso cref="ReadInternal(byte[], int, int)"/>
-            protected override void SeekInternal(long pos)
+            override protected void SeekInternal(long pos)
             {
             }
 
             /// <summary>
             /// Closes the stream to further operations.
             /// </summary>
-            protected override void Dispose(bool disposing)
+            override protected void Dispose(bool disposing)
             {
                 if (0 != Interlocked.CompareExchange(ref this.disposed, 1, 0)) return; // LUCENENET specific - allow double-dispose
 

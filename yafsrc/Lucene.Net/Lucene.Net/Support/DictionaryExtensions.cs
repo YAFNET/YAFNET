@@ -23,7 +23,7 @@ namespace YAF.Lucene.Net.Support
     /// <summary>
     /// Extensions to <see cref="IDictionary{TKey, TValue}"/>.
     /// </summary>
-    internal static class DictionaryExtensions
+    static internal class DictionaryExtensions
     {
         /// <summary>
         /// Copies all of the mappings from the specified <paramref name="collection"/> to this dictionary.
@@ -105,7 +105,7 @@ namespace YAF.Lucene.Net.Support
         /// <para/>
         /// This method is an O(1) operation.
         /// </remarks>
-        internal static IDictionary<TKey, TValue> AsConcurrent<TKey, TValue>(this IDictionary<TKey, TValue> dictionary)
+        static internal IDictionary<TKey, TValue> AsConcurrent<TKey, TValue>(this IDictionary<TKey, TValue> dictionary)
         {
             return new ConcurrentDictionaryWrapper<TKey, TValue>(dictionary);
         }

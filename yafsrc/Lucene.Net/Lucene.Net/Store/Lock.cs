@@ -233,7 +233,7 @@ namespace YAF.Lucene.Net.Store
                 this.doBody = doBody ?? throw new ArgumentNullException(nameof(doBody));
             }
 
-            protected override T DoBody()
+            override protected T DoBody()
             {
                 return doBody();
             }

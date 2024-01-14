@@ -50,7 +50,7 @@ namespace YAF.Lucene.Net.Util
 
         // the following fields are needed by comparer,
         // so package private to prevent access$-methods:
-        internal readonly ByteBlockPool pool;
+        readonly internal ByteBlockPool pool;
 
         internal int[] bytesStart;
 
@@ -193,14 +193,14 @@ namespace YAF.Lucene.Net.Util
                 this.compact = compact;
             }
 
-            protected override void Swap(int i, int j)
+            override protected void Swap(int i, int j)
             {
                 int o = compact[i];
                 compact[i] = compact[j];
                 compact[j] = o;
             }
 
-            protected override int Compare(int i, int j)
+            override protected int Compare(int i, int j)
             {
                 int id1 = compact[i], id2 = compact[j];
                 if (Debugging.AssertsEnabled) Debugging.Assert(outerInstance.bytesStart.Length > id1 && outerInstance.bytesStart.Length > id2);
@@ -211,14 +211,14 @@ namespace YAF.Lucene.Net.Util
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected override void SetPivot(int i)
+            override protected void SetPivot(int i)
             {
                 int id = compact[i];
                 if (Debugging.AssertsEnabled) Debugging.Assert(outerInstance.bytesStart.Length > id);
                 outerInstance.pool.SetBytesRef(pivot, outerInstance.bytesStart[id]);
             }
 
-            protected override int ComparePivot(int j)
+            override protected int ComparePivot(int j)
             {
                 int id = compact[j];
                 if (Debugging.AssertsEnabled) Debugging.Assert(outerInstance.bytesStart.Length > id);
@@ -638,9 +638,9 @@ namespace YAF.Lucene.Net.Util
             // TrackingDirectBytesStartArray...?  Just add a ctor
             // that makes a private bytesUsed?
 
-            protected readonly int m_initSize;
+            readonly protected int m_initSize;
             internal int[] bytesStart;
-            internal readonly Counter bytesUsed;
+            readonly internal Counter bytesUsed;
 
             public DirectBytesStartArray(int initSize, Counter counter)
             {

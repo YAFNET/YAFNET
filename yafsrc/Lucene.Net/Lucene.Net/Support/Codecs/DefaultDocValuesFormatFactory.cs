@@ -105,7 +105,7 @@ namespace YAF.Lucene.Net.Codecs
     // LUCENENET specific
     public class DefaultDocValuesFormatFactory : NamedServiceFactory<DocValuesFormat>, IDocValuesFormatFactory, IServiceListable
     {
-        private static readonly Type[] localDocValuesFormatTypes = new Type[] {
+        private readonly static Type[] localDocValuesFormatTypes = new Type[] {
             typeof(Lucene45.Lucene45DocValuesFormat),
 #pragma warning disable 612, 618
             typeof(Lucene42.Lucene42DocValuesFormat),
@@ -147,7 +147,7 @@ namespace YAF.Lucene.Net.Codecs
         /// If two types have the same name by using the <see cref="DocValuesFormatNameAttribute"/>, the
         /// last one registered wins.
         /// </summary>
-        protected override void Initialize()
+        override protected void Initialize()
         {
             foreach (var docValuesFormatType in localDocValuesFormatTypes)
                 PutDocValuesFormatTypeImpl(docValuesFormatType);

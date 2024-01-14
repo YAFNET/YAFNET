@@ -846,14 +846,14 @@ namespace YAF.Lucene.Net.Support
         }
     }
 
-    internal static class PlatformHelper
+    static internal class PlatformHelper
     {
         private const int ProcessorCountRefreshIntervalMs = 30000;
 
         private static volatile int _processorCount;
         private static volatile int _lastProcessorCountRefreshTicks;
 
-        internal static int ProcessorCount
+        static internal int ProcessorCount
         {
             get
             {

@@ -49,7 +49,7 @@ namespace YAF.Lucene.Net.Analysis.En
         {
         }
         // KStemData1 ... KStemData8 are created from "head_word_list.txt"
-        internal static string[] data = new string[] {
+        static internal string[] data = new string[] {
             "aback","abacus","abandon","abandoned","abase",
             "abash","abate","abattoir","abbess","abbey",
             "abbot","abbreviate","abbreviation","abc","abdicate",

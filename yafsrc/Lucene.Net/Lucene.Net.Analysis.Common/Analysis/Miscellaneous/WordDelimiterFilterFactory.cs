@@ -140,7 +140,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
         }
 
         // source => type
-        private static readonly Regex typePattern = new Regex("(.*)\\s*=>\\s*(.*)\\s*$", RegexOptions.Compiled);
+        private readonly static Regex typePattern = new Regex("(.*)\\s*=>\\s*(.*)\\s*$", RegexOptions.Compiled);
 
         // parses a list of MappingCharFilter style rules into a custom byte[] type table
         private byte[] ParseTypes(IList<string> rules)

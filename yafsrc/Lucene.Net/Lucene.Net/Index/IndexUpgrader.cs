@@ -137,9 +137,9 @@ namespace YAF.Lucene.Net.Index
 #pragma warning restore 612, 618
         }
 
-        internal readonly Directory dir; // LUCENENET specific - made internal for testing CLI arguments
-        internal readonly IndexWriterConfig iwc; // LUCENENET specific - made internal for testing CLI arguments
-        internal readonly bool deletePriorCommits; // LUCENENET specific - made internal for testing CLI arguments
+        readonly internal Directory dir; // LUCENENET specific - made internal for testing CLI arguments
+        readonly internal IndexWriterConfig iwc; // LUCENENET specific - made internal for testing CLI arguments
+        readonly internal bool deletePriorCommits; // LUCENENET specific - made internal for testing CLI arguments
 
         /// <summary>
         /// Creates index upgrader on the given directory, using an <see cref="IndexWriter"/> using the given

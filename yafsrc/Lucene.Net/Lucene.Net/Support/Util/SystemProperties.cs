@@ -31,7 +31,7 @@ namespace YAF.Lucene.Net.Util
     /// This can be supplied a user implemented <see cref="IConfigurationFactory"/> to customize
     /// the property sources.
     /// </summary>
-    internal static class SystemProperties
+    static internal class SystemProperties
     {
         // Calls ConfigurationSettings.GetConfigurationFactory internally to
         // get the currently set instance of IConfigurationFactory

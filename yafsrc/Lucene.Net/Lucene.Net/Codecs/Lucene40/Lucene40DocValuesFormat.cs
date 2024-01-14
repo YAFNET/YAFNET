@@ -126,7 +126,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
     {
         /// <summary>
         /// Maximum length for each binary doc values field. </summary>
-        public static readonly int MAX_BINARY_FIELD_LENGTH = (1 << 15) - 2;
+        public readonly static int MAX_BINARY_FIELD_LENGTH = (1 << 15) - 2;
 
         /// <summary>
         /// Sole constructor. </summary>

@@ -252,7 +252,7 @@ namespace YAF.Lucene.Net.Search
 
         private static class TimerThreadHolder
         {
-            internal static readonly TimerThread THREAD = LoadTimerThread(); // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
+            readonly static internal TimerThread THREAD = LoadTimerThread(); // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
 
             private static TimerThread LoadTimerThread()
             {
@@ -287,7 +287,7 @@ namespace YAF.Lucene.Net.Search
 
             private volatile bool stop = false;
             private long resolution;
-            internal readonly Counter counter;
+            readonly internal Counter counter;
 
             public TimerThread(long resolution, Counter counter)
                 : base(THREAD_NAME)

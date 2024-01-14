@@ -31,7 +31,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
         /// Indicates the end of iteration </summary>
         public const int DONE = -1;
 
-        public static readonly byte[] DEFAULT_WORD_DELIM_TABLE = LoadDefaultWordDelimTable();
+        public readonly static byte[] DEFAULT_WORD_DELIM_TABLE = LoadDefaultWordDelimTable();
 
         internal char[] text;
         private int length;

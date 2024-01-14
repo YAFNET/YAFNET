@@ -30,7 +30,7 @@ namespace YAF.Lucene.Net.Analysis
     {
         /// <summary>
         /// The source of tokens for this filter. </summary>
-        protected readonly TokenStream m_input;
+        readonly protected TokenStream m_input;
 
         /// <summary>
         /// Construct a token stream filtering the given input. </summary>
@@ -76,7 +76,7 @@ namespace YAF.Lucene.Net.Analysis
         /// The default implementation chains the call to the input TokenStream, so
         /// be sure to call <c>base.Dispose(disposing)</c> when overriding this method.
         /// </summary>
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {

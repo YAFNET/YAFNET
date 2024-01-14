@@ -151,7 +151,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
                 this.outerInstance = outerInstance;
             }
 
-            protected override SortedDocValues GetSortedDocValues(AtomicReaderContext context, string field)
+            override protected SortedDocValues GetSortedDocValues(AtomicReaderContext context, string field)
             {
                 SortedSetDocValues sortedSet = FieldCache.DEFAULT.GetDocTermOrds(context.AtomicReader, field);
 
@@ -200,7 +200,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
         /// <summary>Wraps a <see cref="SortedSetDocValues"/> and returns the first ordinal (min)</summary>
         internal class MinValue : SortedDocValues
         {
-            internal readonly SortedSetDocValues @in;
+            readonly internal SortedSetDocValues @in;
 
             internal MinValue(SortedSetDocValues @in)
             {
@@ -229,7 +229,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
         /// <summary>Wraps a <see cref="SortedSetDocValues"/> and returns the last ordinal (max)</summary>
         internal class MaxValue : SortedDocValues
         {
-            internal readonly RandomAccessOrds @in;
+            readonly internal RandomAccessOrds @in;
 
             internal MaxValue(RandomAccessOrds @in)
             {
@@ -266,7 +266,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
         /// <summary>Wraps a <see cref="SortedSetDocValues"/> and returns the middle ordinal (or min of the two)</summary>
         internal class MiddleMinValue : SortedDocValues
         {
-            internal readonly RandomAccessOrds @in;
+            readonly internal RandomAccessOrds @in;
 
             internal MiddleMinValue(RandomAccessOrds @in)
             {
@@ -303,7 +303,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
         /// <summary>Wraps a <see cref="SortedSetDocValues"/> and returns the middle ordinal (or max of the two)</summary>
         internal class MiddleMaxValue : SortedDocValues
         {
-            internal readonly RandomAccessOrds @in;
+            readonly internal RandomAccessOrds @in;
 
             internal MiddleMaxValue(RandomAccessOrds @in)
             {

@@ -262,8 +262,6 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// </returns>
     public virtual Task<IList<Claim>> GetClaimsAsync(AspNetUsers user)
     {
-        
-
         var claims = this.GetRepository<AspNetUserClaims>().Get(l => l.UserId == user.Id)
             .Select(c => new Claim(c.ClaimType, c.ClaimValue));
 
@@ -333,8 +331,6 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// </returns>
     public virtual Task<IList<string>> GetRolesAsync(AspNetUsers user)
     {
-        
-
         var roles = this.GetRepository<AspNetUserRoles>().Get(r => r.UserId == user.Id).Select(r => r.RoleId)
             .ToArray();
 
@@ -408,8 +404,6 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// </returns>
     public async virtual Task<string> GetPasswordHashAsync(AspNetUsers user)
     {
-        
-
         return await Task.FromResult(user.PasswordHash);
     }
 
@@ -442,8 +436,6 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// </returns>
     public virtual Task SetPasswordHashAsync(AspNetUsers user, string passwordHash)
     {
-        
-
         user.PasswordHash = passwordHash;
         return this.UpdateUser(user);
     }
@@ -459,8 +451,6 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// </returns>
     public async virtual Task<string> GetSecurityStampAsync(AspNetUsers user)
     {
-        
-
         return await Task.FromResult(user.SecurityStamp);
     }
 
@@ -478,8 +468,6 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// </returns>
     public virtual Task SetSecurityStampAsync(AspNetUsers user, string stamp)
     {
-        
-
         user.SecurityStamp = stamp;
         return this.UpdateUser(user);
     }
@@ -509,8 +497,6 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// </returns>
     public async virtual Task<string> GetEmailAsync(AspNetUsers user)
     {
-        
-
         return await Task.FromResult(user.Email);
     }
 
@@ -525,8 +511,6 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// </returns>
     public async virtual Task<bool> GetEmailConfirmedAsync(AspNetUsers user)
     {
-        
-
         return await Task.FromResult(user.EmailConfirmed);
     }
 
@@ -544,8 +528,6 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// </returns>
     public virtual Task SetEmailAsync(AspNetUsers user, string email)
     {
-        
-
         user.Email = email;
         return this.UpdateUser(user);
     }
@@ -564,8 +546,6 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// </returns>
     public virtual Task SetEmailConfirmedAsync(AspNetUsers user, bool confirmed)
     {
-        
-
         user.EmailConfirmed = confirmed;
         return this.UpdateUser(user);
     }
@@ -581,8 +561,6 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// </returns>
     public async virtual Task<string> GetPhoneNumberAsync(AspNetUsers user)
     {
-        
-
         return await Task.FromResult(user.PhoneNumber);
     }
 
@@ -597,8 +575,6 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// </returns>
     public async virtual Task<bool> GetPhoneNumberConfirmedAsync(AspNetUsers user)
     {
-        
-
         return await Task.FromResult(user.PhoneNumberConfirmed);
     }
 
@@ -616,8 +592,6 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// </returns>
     public virtual Task SetPhoneNumberAsync(AspNetUsers user, string phoneNumber)
     {
-        
-
         user.PhoneNumber = phoneNumber;
         return this.UpdateUser(user);
     }
@@ -636,8 +610,6 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// </returns>
     public virtual Task SetPhoneNumberConfirmedAsync(AspNetUsers user, bool confirmed)
     {
-        
-
         user.PhoneNumberConfirmed = confirmed;
         return this.UpdateUser(user);
     }
@@ -653,8 +625,6 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// </returns>
     public async virtual Task<bool> GetTwoFactorEnabledAsync(AspNetUsers user)
     {
-        
-
         return await Task.FromResult(user.TwoFactorEnabled);
     }
 
@@ -672,8 +642,6 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// </returns>
     public virtual Task SetTwoFactorEnabledAsync(AspNetUsers user, bool enabled)
     {
-        
-
         user.TwoFactorEnabled = enabled;
         return this.UpdateUser(user);
     }
@@ -689,8 +657,6 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// </returns>
     public async virtual Task<int> GetAccessFailedCountAsync(AspNetUsers user)
     {
-        
-
         return await Task.FromResult(user.AccessFailedCount);
     }
 
@@ -705,8 +671,6 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// </returns>
     public async virtual Task<bool> GetLockoutEnabledAsync(AspNetUsers user)
     {
-        
-
         return await Task.FromResult(user.LockoutEnabled);
     }
 
@@ -721,8 +685,6 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// </returns>
     public async virtual Task<DateTimeOffset> GetLockoutEndDateAsync(AspNetUsers user)
     {
-        
-
         return await Task.FromResult(
                    user.LockoutEndDateUtc.HasValue
                        ? new DateTimeOffset(DateTime.SpecifyKind(user.LockoutEndDateUtc.Value, DateTimeKind.Utc))
@@ -740,8 +702,6 @@ public class UserStore : IUserLoginStore<AspNetUsers>,
     /// </returns>
     public virtual Task<int> IncrementAccessFailedCountAsync(AspNetUsers user)
     {
-        
-
         user.AccessFailedCount++;
         this.UpdateUser(user).Wait();
         return Task.FromResult(user.AccessFailedCount);

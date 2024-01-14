@@ -85,7 +85,7 @@ namespace YAF.Lucene.Net.Search
             }
         }
 
-        protected internal override sealed bool LessThan(ScoreDoc hitA, ScoreDoc hitB)
+        override protected internal sealed bool LessThan(ScoreDoc hitA, ScoreDoc hitB)
         {
             // LUCENENET: Added guard clauses
             if (hitA is null)

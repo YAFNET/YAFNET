@@ -191,7 +191,7 @@ namespace YAF.Lucene.Net.Index
         private sealed class ParallelFields : Fields
         {
             // LUCENENET specific: Use StringComparer.Ordinal to get the same ordering as Java
-            internal readonly IDictionary<string, Terms> fields = new JCG.SortedDictionary<string, Terms>(StringComparer.Ordinal);
+            readonly internal IDictionary<string, Terms> fields = new JCG.SortedDictionary<string, Terms>(StringComparer.Ordinal);
 
             internal ParallelFields()
             {
@@ -283,7 +283,7 @@ namespace YAF.Lucene.Net.Index
             return fields;
         }
 
-        protected internal override void DoClose()
+        override protected internal void DoClose()
         {
             UninterruptableMonitor.Enter(this);
             try

@@ -105,7 +105,7 @@ namespace YAF.Lucene.Net.Search
         /// Returns <c>true</c> if the upper endpoint is inclusive </summary>
         public virtual bool IncludesUpper => includeUpper;
 
-        protected override TermsEnum GetTermsEnum(Terms terms, AttributeSource atts)
+        override protected TermsEnum GetTermsEnum(Terms terms, AttributeSource atts)
         {
             if (lowerTerm != null && upperTerm != null && lowerTerm.CompareTo(upperTerm) > 0)
             {

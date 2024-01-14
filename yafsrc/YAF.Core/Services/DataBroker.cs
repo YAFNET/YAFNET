@@ -221,7 +221,6 @@ public class DataBroker : IHaveServiceLocator
         bool isCrawler,
         bool doNotTrack)
     {
-
         int userId;
         bool isGuest;
         DateTime? previousVisit = null;

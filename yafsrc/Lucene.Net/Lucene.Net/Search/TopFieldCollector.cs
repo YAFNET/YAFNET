@@ -48,8 +48,8 @@ namespace YAF.Lucene.Net.Search
         private class OneComparerNonScoringCollector : TopFieldCollector
         {
             internal FieldComparer comparer;
-            internal readonly int reverseMul;
-            internal readonly FieldValueHitQueue<Entry> queue;
+            readonly internal int reverseMul;
+            readonly internal FieldValueHitQueue<Entry> queue;
 
             public OneComparerNonScoringCollector(FieldValueHitQueue<Entry> queue, int numHits, bool fillFields)
                 : base(queue, numHits, fillFields)
@@ -399,9 +399,9 @@ namespace YAF.Lucene.Net.Search
         /// </summary>
         private class MultiComparerNonScoringCollector : TopFieldCollector
         {
-            internal readonly FieldComparer[] comparers;
-            internal readonly int[] reverseMul;
-            internal readonly FieldValueHitQueue<Entry> queue;
+            readonly internal FieldComparer[] comparers;
+            readonly internal int[] reverseMul;
+            readonly internal FieldValueHitQueue<Entry> queue;
 
             public MultiComparerNonScoringCollector(FieldValueHitQueue<Entry> queue, int numHits, bool fillFields)
                 : base(queue, numHits, fillFields)
@@ -948,12 +948,12 @@ namespace YAF.Lucene.Net.Search
         {
             internal Scorer scorer;
             internal int collectedHits;
-            internal readonly FieldComparer[] comparers;
-            internal readonly int[] reverseMul;
-            internal readonly FieldValueHitQueue<Entry> queue;
-            internal readonly bool trackDocScores;
-            internal readonly bool trackMaxScore;
-            internal readonly FieldDoc after;
+            readonly internal FieldComparer[] comparers;
+            readonly internal int[] reverseMul;
+            readonly internal FieldValueHitQueue<Entry> queue;
+            readonly internal bool trackDocScores;
+            readonly internal bool trackMaxScore;
+            readonly internal FieldDoc after;
             internal int afterDoc;
 
             public PagingFieldCollector(FieldValueHitQueue<Entry> queue, FieldDoc after, int numHits, bool fillFields, bool trackDocScores, bool trackMaxScore)
@@ -1134,7 +1134,7 @@ namespace YAF.Lucene.Net.Search
             }
         }
 
-        private static readonly ScoreDoc[] EMPTY_SCOREDOCS = Arrays.Empty<ScoreDoc>();
+        private readonly static ScoreDoc[] EMPTY_SCOREDOCS = Arrays.Empty<ScoreDoc>();
 
         private readonly bool fillFields;
 
@@ -1144,7 +1144,7 @@ namespace YAF.Lucene.Net.Search
         /// </summary>
         internal float maxScore = float.NaN;
 
-        internal readonly int numHits;
+        readonly internal int numHits;
         internal FieldValueHitQueue.Entry bottom = null;
         internal bool queueFull;
         internal int docBase;
@@ -1355,7 +1355,7 @@ namespace YAF.Lucene.Net.Search
          * topDocs(int, int) calls them to return the results.
          */
 
-        protected override void PopulateResults(ScoreDoc[] results, int howMany)
+        override protected void PopulateResults(ScoreDoc[] results, int howMany)
         {
             // LUCENENET specific - Added guard clause
             if (results is null)
@@ -1380,7 +1380,7 @@ namespace YAF.Lucene.Net.Search
             }
         }
 
-        protected override TopDocs NewTopDocs(ScoreDoc[]? results, int start)
+        override protected TopDocs NewTopDocs(ScoreDoc[]? results, int start)
         {
             if (results is null)
             {

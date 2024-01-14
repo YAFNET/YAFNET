@@ -77,7 +77,7 @@ namespace YAF.Lucene.Net.Search.Similarities
             return score > 0.0f ? score : 0.0f;
         }
 
-        protected internal override void Explain(Explanation expl, BasicStats stats, int doc, float freq, float docLen)
+        override protected internal void Explain(Explanation expl, BasicStats stats, int doc, float freq, float docLen)
         {
             if (stats.TotalBoost != 1.0f)
             {

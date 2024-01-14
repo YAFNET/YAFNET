@@ -184,7 +184,7 @@ namespace YAF.Lucene.Net.Search.Spans
             {
             }
 
-            protected internal override bool LessThan(Spans spans1, Spans spans2)
+            override protected internal bool LessThan(Spans spans1, Spans spans2)
             {
                 if (spans1.Doc == spans2.Doc)
                 {

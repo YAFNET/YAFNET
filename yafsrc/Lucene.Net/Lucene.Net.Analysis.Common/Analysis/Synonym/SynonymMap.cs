@@ -72,11 +72,11 @@ namespace YAF.Lucene.Net.Analysis.Synonym
         /// </summary>
         public class Builder
         {
-            internal readonly IDictionary<CharsRef, MapEntry> workingSet = new JCG.Dictionary<CharsRef, MapEntry>();
-            internal readonly BytesRefHash words = new BytesRefHash();
-            internal readonly BytesRef utf8Scratch = new BytesRef(8);
+            readonly internal IDictionary<CharsRef, MapEntry> workingSet = new JCG.Dictionary<CharsRef, MapEntry>();
+            readonly internal BytesRefHash words = new BytesRefHash();
+            readonly internal BytesRef utf8Scratch = new BytesRef(8);
             internal int maxHorizontalContext;
-            internal readonly bool dedup;
+            readonly internal bool dedup;
 
             /// <summary>
             /// If dedup is true then identical rules (same input,

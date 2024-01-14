@@ -147,7 +147,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             buffer = null;
         }
 
-        internal static readonly IComparer<CharsRef> lengthComparer = Comparer<CharsRef>.Create((o1, o2) =>
+        readonly static internal IComparer<CharsRef> lengthComparer = Comparer<CharsRef>.Create((o1, o2) =>
         {
             if (o2.Length == o1.Length)
             {

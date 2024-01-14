@@ -81,7 +81,7 @@ namespace YAF.Lucene.Net.Search
         // Assumes docs are scored in order.
         private sealed class InOrderPagingScoreDocCollector : TopScoreDocCollector // LUCENENET specific - marked sealed
         {
-            internal readonly ScoreDoc after;
+            readonly internal ScoreDoc after;
 
             // this is always after.doc - docBase, to save an add when score == after.score
             internal int afterDoc;
@@ -138,9 +138,9 @@ namespace YAF.Lucene.Net.Search
                 afterDoc = after.Doc - docBase;
             }
 
-            protected override int TopDocsCount => collectedHits < m_pq.Count ? collectedHits : m_pq.Count;
+            override protected int TopDocsCount => collectedHits < m_pq.Count ? collectedHits : m_pq.Count;
 
-            protected override TopDocs NewTopDocs(ScoreDoc[] results, int start)
+            override protected TopDocs NewTopDocs(ScoreDoc[] results, int start)
             {
                 // LUCENENET specific - optimized empty array creation
                 return results is null ? new TopDocs(m_totalHits, Arrays.Empty<ScoreDoc>(), float.NaN) : new TopDocs(m_totalHits, results);
@@ -193,7 +193,7 @@ namespace YAF.Lucene.Net.Search
         // Assumes docs are scored out of order.
         private sealed class OutOfOrderPagingScoreDocCollector : TopScoreDocCollector // LUCENENET specific - marked sealed
         {
-            internal readonly ScoreDoc after;
+            readonly internal ScoreDoc after;
 
             // this is always after.doc - docBase, to save an add when score == after.score
             internal int afterDoc;
@@ -249,9 +249,9 @@ namespace YAF.Lucene.Net.Search
                 afterDoc = after.Doc - docBase;
             }
 
-            protected override int TopDocsCount => collectedHits < m_pq.Count ? collectedHits : m_pq.Count;
+            override protected int TopDocsCount => collectedHits < m_pq.Count ? collectedHits : m_pq.Count;
 
-            protected override TopDocs NewTopDocs(ScoreDoc[] results, int start)
+            override protected TopDocs NewTopDocs(ScoreDoc[] results, int start)
             {
                 // LUCENENET specific - optimized empty array creation
                 return results is null ? new TopDocs(m_totalHits, Arrays.Empty<ScoreDoc>(), float.NaN) : new TopDocs(m_totalHits, results);
@@ -316,7 +316,7 @@ namespace YAF.Lucene.Net.Search
         }
 
 
-        protected override TopDocs NewTopDocs(ScoreDoc[]? results, int start)
+        override protected TopDocs NewTopDocs(ScoreDoc[]? results, int start)
         {
             if (results is null)
             {

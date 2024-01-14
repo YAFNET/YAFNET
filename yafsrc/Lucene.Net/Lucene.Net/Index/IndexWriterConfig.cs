@@ -69,25 +69,25 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// Default value is 32. Change using <see cref="LiveIndexWriterConfig.TermIndexInterval"/> setter. </summary>
-        public static readonly int DEFAULT_TERM_INDEX_INTERVAL = 32; // TODO: this should be private to the codec, not settable here
+        public readonly static int DEFAULT_TERM_INDEX_INTERVAL = 32; // TODO: this should be private to the codec, not settable here
 
         /// <summary>
         /// Denotes a flush trigger is disabled. </summary>
-        public static readonly int DISABLE_AUTO_FLUSH = -1;
+        public readonly static int DISABLE_AUTO_FLUSH = -1;
 
         /// <summary>
         /// Disabled by default (because IndexWriter flushes by RAM usage by default). </summary>
-        public static readonly int DEFAULT_MAX_BUFFERED_DELETE_TERMS = DISABLE_AUTO_FLUSH;
+        public readonly static int DEFAULT_MAX_BUFFERED_DELETE_TERMS = DISABLE_AUTO_FLUSH;
 
         /// <summary>
         /// Disabled by default (because IndexWriter flushes by RAM usage by default). </summary>
-        public static readonly int DEFAULT_MAX_BUFFERED_DOCS = DISABLE_AUTO_FLUSH;
+        public readonly static int DEFAULT_MAX_BUFFERED_DOCS = DISABLE_AUTO_FLUSH;
 
         /// <summary>
         /// Default value is 16 MB (which means flush when buffered docs consume
         /// approximately 16 MB RAM).
         /// </summary>
-        public static readonly double DEFAULT_RAM_BUFFER_SIZE_MB = 16.0;
+        public readonly static double DEFAULT_RAM_BUFFER_SIZE_MB = 16.0;
 
         /// <summary>
         /// Default value for the write lock timeout (1,000 ms).
@@ -97,15 +97,15 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// Default setting for <see cref="UseReaderPooling"/>. </summary>
-        public static readonly bool DEFAULT_READER_POOLING = false;
+        public readonly static bool DEFAULT_READER_POOLING = false;
 
         /// <summary>
         /// Default value is 1. Change using <see cref="LiveIndexWriterConfig.ReaderTermsIndexDivisor"/> setter. </summary>
-        public static readonly int DEFAULT_READER_TERMS_INDEX_DIVISOR = DirectoryReader.DEFAULT_TERMS_INDEX_DIVISOR;
+        public readonly static int DEFAULT_READER_TERMS_INDEX_DIVISOR = DirectoryReader.DEFAULT_TERMS_INDEX_DIVISOR;
 
         /// <summary>
         /// Default value is 1945. Change using <see cref="RAMPerThreadHardLimitMB"/> setter. </summary>
-        public static readonly int DEFAULT_RAM_PER_THREAD_HARD_LIMIT_MB = 1945;
+        public readonly static int DEFAULT_RAM_PER_THREAD_HARD_LIMIT_MB = 1945;
 
         /// <summary>
         /// The maximum number of simultaneous threads that may be
@@ -113,21 +113,21 @@ namespace YAF.Lucene.Net.Index
         /// than this many threads arrive they will wait for
         /// others to finish. Default value is 8.
         /// </summary>
-        public static readonly int DEFAULT_MAX_THREAD_STATES = 8;
+        public readonly static int DEFAULT_MAX_THREAD_STATES = 8;
 
         /// <summary>
         /// Default value for compound file system for newly written segments
         /// (set to <c>true</c>). For batch indexing with very large
         /// ram buffers use <c>false</c>
         /// </summary>
-        public static readonly bool DEFAULT_USE_COMPOUND_FILE_SYSTEM = true;
+        public readonly static bool DEFAULT_USE_COMPOUND_FILE_SYSTEM = true;
 
         /// <summary>
         /// Default value for calling <see cref="AtomicReader.CheckIntegrity()"/> before
         /// merging segments (set to <c>false</c>). You can set this
         /// to <c>true</c> for additional safety.
         /// </summary>
-        public static readonly bool DEFAULT_CHECK_INTEGRITY_AT_MERGE = false;
+        public readonly static bool DEFAULT_CHECK_INTEGRITY_AT_MERGE = false;
 
         /// <summary>
         /// Gets or sets the default (for any instance) maximum time to wait for a write lock
@@ -201,7 +201,7 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         // LUCENENET NOTE: We cannot override a getter and add a setter, 
         // so must declare it new. See: http://stackoverflow.com/q/82437
-        new public OpenMode OpenMode
+        public new OpenMode OpenMode
         {
             get => openMode;
             set =>
@@ -231,7 +231,7 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         // LUCENENET NOTE: We cannot override a getter and add a setter, 
         // so must declare it new. See: http://stackoverflow.com/q/82437
-        new public IndexDeletionPolicy IndexDeletionPolicy
+        public new IndexDeletionPolicy IndexDeletionPolicy
         {
             get => delPolicy;
             set => delPolicy = value ?? throw new ArgumentNullException(nameof(IndexDeletionPolicy), "IndexDeletionPolicy must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
@@ -245,7 +245,7 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         // LUCENENET NOTE: We cannot override a getter and add a setter, 
         // so must declare it new. See: http://stackoverflow.com/q/82437
-        new public IndexCommit IndexCommit
+        public new IndexCommit IndexCommit
         {
             get => commit;
             set => this.commit = value;
@@ -260,7 +260,7 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         // LUCENENET NOTE: We cannot override a getter and add a setter, 
         // so must declare it new. See: http://stackoverflow.com/q/82437
-        new public Similarity Similarity
+        public new Similarity Similarity
         {
             get => similarity;
             set => similarity = value ?? throw new ArgumentNullException(nameof(Similarity), "Similarity must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
@@ -276,7 +276,7 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         // LUCENENET NOTE: We cannot override a getter and add a setter, 
         // so must declare it new. See: http://stackoverflow.com/q/82437
-        new public IMergeScheduler MergeScheduler
+        public new IMergeScheduler MergeScheduler
         {
             get => mergeScheduler;
             set => mergeScheduler = value ?? throw new ArgumentNullException(nameof(MergeScheduler), "MergeScheduler must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
@@ -291,7 +291,7 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         // LUCENENET NOTE: We cannot override a getter and add a setter, 
         // so must declare it new. See: http://stackoverflow.com/q/82437
-        new public long WriteLockTimeout
+        public new long WriteLockTimeout
         {
             get => writeLockTimeout;
             set => this.writeLockTimeout = value;
@@ -304,7 +304,7 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         // LUCENENET NOTE: We cannot override a getter and add a setter, 
         // so must declare it new. See: http://stackoverflow.com/q/82437
-        new public Codec Codec
+        public new Codec Codec
         {
             get => codec;
             set => codec = value ?? throw new ArgumentNullException(nameof(Codec), "Codec must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
@@ -320,7 +320,7 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         // LUCENENET NOTE: We cannot override a getter and add a setter, 
         // so must declare it new. See: http://stackoverflow.com/q/82437
-        new public MergePolicy MergePolicy
+        public new MergePolicy MergePolicy
         {
             get => mergePolicy;
             set => mergePolicy = value ?? throw new ArgumentNullException(nameof(MergePolicy), "MergePolicy must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
@@ -343,7 +343,7 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         // LUCENENET NOTE: We cannot override a getter and add a setter, 
         // so must declare it new. See: http://stackoverflow.com/q/82437
-        new internal DocumentsWriterPerThreadPool IndexerThreadPool
+        internal new DocumentsWriterPerThreadPool IndexerThreadPool
         {
             get => indexerThreadPool;
             set => indexerThreadPool = value ?? throw new ArgumentNullException(nameof(IndexerThreadPool), "IndexerThreadPool must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
@@ -359,7 +359,7 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         // LUCENENET NOTE: We cannot override a getter and add a setter, 
         // so must declare it new. See: http://stackoverflow.com/q/82437
-        new public int MaxThreadStates
+        public new int MaxThreadStates
         {
             // LUCENENET: Changes brought over from 4.8.1 mean there is no chance of a cast failure
             get => indexerThreadPool.MaxThreadStates;
@@ -380,7 +380,7 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         // LUCENENET NOTE: We cannot override a getter and add a setter, 
         // so must declare it new. See: http://stackoverflow.com/q/82437
-        new public bool UseReaderPooling 
+        public new bool UseReaderPooling 
         {
             get => readerPooling;
             set => this.readerPooling = value;
@@ -393,7 +393,7 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         // LUCENENET NOTE: We cannot override a getter and add a setter, 
         // so must declare it new. See: http://stackoverflow.com/q/82437
-        new internal IndexingChain IndexingChain
+        internal new IndexingChain IndexingChain
         {
             get => indexingChain;
             set => indexingChain = value ?? throw new ArgumentNullException(nameof(IndexingChain), "IndexingChain must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
@@ -411,7 +411,7 @@ namespace YAF.Lucene.Net.Index
         /// <seealso cref="DEFAULT_RAM_PER_THREAD_HARD_LIMIT_MB"/>
         // LUCENENET NOTE: We cannot override a getter and add a setter, 
         // so must declare it new. See: http://stackoverflow.com/q/82437
-        new public int RAMPerThreadHardLimitMB
+        public new int RAMPerThreadHardLimitMB
         {
             get => perThreadHardLimitMB;
             set
@@ -434,7 +434,7 @@ namespace YAF.Lucene.Net.Index
         /// <seealso cref="LiveIndexWriterConfig.RAMBufferSizeMB"/>
         // LUCENENET NOTE: We cannot override a getter and add a setter, 
         // so must declare it new. See: http://stackoverflow.com/q/82437
-        new internal FlushPolicy FlushPolicy
+        internal new FlushPolicy FlushPolicy
         {
             get => flushPolicy;
             set => flushPolicy = value ?? throw new ArgumentNullException(nameof(FlushPolicy), "FlushPolicy must not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)

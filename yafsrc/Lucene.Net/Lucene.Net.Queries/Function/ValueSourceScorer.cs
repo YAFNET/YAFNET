@@ -34,10 +34,10 @@ namespace YAF.Lucene.Net.Queries.Function
     /// </summary>
     public class ValueSourceScorer : Scorer
     {
-        protected readonly IndexReader m_reader;
+        readonly protected IndexReader m_reader;
         private int doc = -1;
-        protected readonly int m_maxDoc;
-        protected readonly FunctionValues m_values;
+        readonly protected int m_maxDoc;
+        readonly protected FunctionValues m_values;
         protected bool m_checkDeletes;
         private readonly IBits liveDocs;
 

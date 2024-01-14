@@ -195,23 +195,23 @@ namespace YAF.Lucene.Net.Index
         /// <summary>
         /// Name of the write lock in the index.
         /// </summary>
-        public static readonly string WRITE_LOCK_NAME = "write.lock";
+        public readonly static string WRITE_LOCK_NAME = "write.lock";
 
         /// <summary>
         /// Key for the source of a segment in the <see cref="SegmentInfo.Diagnostics"/>. </summary>
-        public static readonly string SOURCE = "source";
+        public readonly static string SOURCE = "source";
 
         /// <summary>
         /// Source of a segment which results from a merge of other segments. </summary>
-        public static readonly string SOURCE_MERGE = "merge";
+        public readonly static string SOURCE_MERGE = "merge";
 
         /// <summary>
         /// Source of a segment which results from a flush. </summary>
-        public static readonly string SOURCE_FLUSH = "flush";
+        public readonly static string SOURCE_FLUSH = "flush";
 
         /// <summary>
         /// Source of a segment which results from a call to <see cref="AddIndexes(IndexReader[])"/>. </summary>
-        public static readonly string SOURCE_ADDINDEXES_READERS = "AddIndexes(params IndexReader[] readers)";
+        public readonly static string SOURCE_ADDINDEXES_READERS = "AddIndexes(params IndexReader[] readers)";
 
         /// <summary>
         /// Absolute hard maximum length for a term, in bytes once
@@ -221,7 +221,7 @@ namespace YAF.Lucene.Net.Index
         /// and a message is printed to <see cref="infoStream"/>, if set (see
         /// <see cref="IndexWriterConfig.SetInfoStream(InfoStream)"/>).
         /// </summary>
-        public static readonly int MAX_TERM_LENGTH = DocumentsWriterPerThread.MAX_TERM_LENGTH_UTF8;
+        public readonly static int MAX_TERM_LENGTH = DocumentsWriterPerThread.MAX_TERM_LENGTH_UTF8;
 
         private volatile bool hitOOM;
 
@@ -238,12 +238,12 @@ namespace YAF.Lucene.Net.Index
 
         private ICollection<string> filesToCommit;
 
-        internal readonly SegmentInfos segmentInfos; // the segments
-        internal readonly FieldNumbers globalFieldNumberMap;
+        readonly internal SegmentInfos segmentInfos; // the segments
+        readonly internal FieldNumbers globalFieldNumberMap;
 
         private readonly DocumentsWriter docWriter;
         private readonly ConcurrentQueue<IEvent> eventQueue;
-        internal readonly IndexFileDeleter deleter;
+        readonly internal IndexFileDeleter deleter;
 
         // used by forceMerge to note those needing merging
         private readonly IDictionary<SegmentCommitInfo, bool> segmentsToMerge = new Dictionary<SegmentCommitInfo, bool>();
@@ -267,11 +267,11 @@ namespace YAF.Lucene.Net.Index
         private long mergeGen;
         private bool stopMerges;
 
-        internal readonly AtomicInt32 flushCount = new AtomicInt32();
-        internal readonly AtomicInt32 flushDeletesCount = new AtomicInt32();
+        readonly internal AtomicInt32 flushCount = new AtomicInt32();
+        readonly internal AtomicInt32 flushDeletesCount = new AtomicInt32();
 
         internal ReaderPool readerPool;
-        internal readonly BufferedUpdatesStream bufferedUpdatesStream;
+        readonly internal BufferedUpdatesStream bufferedUpdatesStream;
 
         // this is a "write once" variable (like the organic dye
         // on a DVD-R that may or may not be heated by a laser and
@@ -831,7 +831,7 @@ namespace YAF.Lucene.Net.Index
             EnsureOpen(true);
         }
 
-        internal readonly Codec codec; // for writing new segments
+        readonly internal Codec codec; // for writing new segments
 
         /// <summary>
         /// Constructs a new <see cref="IndexWriter"/> per the settings given in <paramref name="conf"/>.
@@ -2215,7 +2215,7 @@ namespace YAF.Lucene.Net.Index
         /// <summary>
         /// If non-null, information about merges will be printed to this.
         /// </summary>
-        internal readonly InfoStream infoStream;
+        readonly internal InfoStream infoStream;
 
         /// <summary>
         /// Forces merge policy to merge segments until there are &lt;=
@@ -5284,7 +5284,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        internal static void SetDiagnostics(SegmentInfo info, string source)
+        static internal void SetDiagnostics(SegmentInfo info, string source)
         {
             SetDiagnostics(info, source, null);
         }
@@ -6273,7 +6273,7 @@ namespace YAF.Lucene.Net.Index
         /// deletion files, this <see cref="SegmentInfo"/> must not reference such files when this
         /// method is called, because they are not allowed within a compound file.
         /// </summary>
-        internal static ICollection<string> CreateCompoundFile(InfoStream infoStream, Directory directory, CheckAbort checkAbort, SegmentInfo info, IOContext context)
+        static internal ICollection<string> CreateCompoundFile(InfoStream infoStream, Directory directory, CheckAbort checkAbort, SegmentInfo info, IOContext context)
         {
             string fileName = Index.IndexFileNames.SegmentFileName(info.Name, "", Lucene.Net.Index.IndexFileNames.COMPOUND_FILE_EXTENSION);
             if (infoStream.IsEnabled("IW"))

@@ -32,7 +32,6 @@ using Autofac;
 using YAF.Core.BaseModules;
 using YAF.Core.Data;
 using YAF.Core.Events;
-using YAF.Core.Nntp;
 using YAF.Core.Services.Cache;
 
 /// <summary>
@@ -120,8 +119,6 @@ public class GeneralModule : BaseModule
         builder.RegisterType<CurrentTaskModuleProvider>().SingleInstance().PreserveExistingDefaults();
         builder.Register(k => k.Resolve<IComponentContext>().Resolve<CurrentTaskModuleProvider>().Instance)
             .ExternallyOwned().PreserveExistingDefaults();
-
-        builder.RegisterType<Nntp>().As<INewsreader>().InstancePerLifetimeScope().PreserveExistingDefaults();
 
         // cache bindings.
         builder.RegisterType<StaticLockObject>().As<IHaveLockObject>().SingleInstance().PreserveExistingDefaults();

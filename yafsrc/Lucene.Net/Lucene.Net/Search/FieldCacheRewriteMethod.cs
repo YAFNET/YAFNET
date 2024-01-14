@@ -48,7 +48,7 @@ namespace YAF.Lucene.Net.Search
 
         internal class MultiTermQueryFieldCacheWrapperFilter : Filter
         {
-            protected internal readonly MultiTermQuery m_query;
+            readonly protected internal MultiTermQuery m_query;
 
             /// <summary>
             /// Wrap a <see cref="MultiTermQuery"/> as a Filter.

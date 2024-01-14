@@ -144,13 +144,13 @@ namespace YAF.Lucene.Net.Tartarus.Snowball.Ext
                     new Among ( "t", -1, 2 )
                 };
 
-        private static readonly char[] g_v = { (char)17, (char)65, (char)16, (char)1 };
+        private readonly static char[] g_v = { (char)17, (char)65, (char)16, (char)1 };
 
-        private static readonly char[] g_v_WX = { (char)17, (char)65, (char)208, (char)1 };
+        private readonly static char[] g_v_WX = { (char)17, (char)65, (char)208, (char)1 };
 
-        private static readonly char[] g_AOU = { (char)1, (char)64, (char)16 };
+        private readonly static char[] g_AOU = { (char)1, (char)64, (char)16 };
 
-        private static readonly char[] g_AIOU = { (char)1, (char)65, (char)16 };
+        private readonly static char[] g_AIOU = { (char)1, (char)65, (char)16 };
 
         private bool B_GE_removed;
         private bool B_stemmed;

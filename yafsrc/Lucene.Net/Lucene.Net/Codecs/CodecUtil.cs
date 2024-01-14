@@ -37,12 +37,12 @@ namespace YAF.Lucene.Net.Codecs
         /// <summary>
         /// Constant to identify the start of a codec header.
         /// </summary>
-        public static readonly int CODEC_MAGIC = 0x3fd76c17;
+        public readonly static int CODEC_MAGIC = 0x3fd76c17;
 
         /// <summary>
         /// Constant to identify the start of a codec footer.
         /// </summary>
-        public static readonly int FOOTER_MAGIC = ~CODEC_MAGIC;
+        public readonly static int FOOTER_MAGIC = ~CODEC_MAGIC;
 
         /// <summary>
         /// Writes a codec header, which records both a string to

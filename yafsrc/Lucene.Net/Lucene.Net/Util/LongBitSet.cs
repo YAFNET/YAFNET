@@ -37,9 +37,9 @@ namespace YAF.Lucene.Net.Util
 #endif
     public sealed class Int64BitSet
     {
-        internal readonly long[] bits; // LUCENENET: Internal for testing
+        readonly internal long[] bits; // LUCENENET: Internal for testing
         private readonly long numBits;
-        internal readonly int numWords; // LUCENENET: Internal for testing
+        readonly internal int numWords; // LUCENENET: Internal for testing
 
         /// <summary>
         /// If the given <see cref="Int64BitSet"/> is large enough to hold

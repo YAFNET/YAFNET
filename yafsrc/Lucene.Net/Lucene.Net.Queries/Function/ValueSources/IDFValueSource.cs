@@ -58,7 +58,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
         }
 
         // tries extra hard to cast the sim to TFIDFSimilarity
-        internal static TFIDFSimilarity AsTFIDF(Similarity sim, string field)
+        static internal TFIDFSimilarity AsTFIDF(Similarity sim, string field)
         {
             while (sim is PerFieldSimilarityWrapper perFieldSimilarityWrapper)
             {

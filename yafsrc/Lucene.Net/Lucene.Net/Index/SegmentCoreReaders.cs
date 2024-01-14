@@ -53,22 +53,22 @@ namespace YAF.Lucene.Net.Index
         // SegmentReaders:
         private readonly AtomicInt32 @ref = new AtomicInt32(1);
 
-        internal readonly FieldsProducer fields;
-        internal readonly DocValuesProducer normsProducer;
+        readonly internal FieldsProducer fields;
+        readonly internal DocValuesProducer normsProducer;
 
-        internal readonly int termsIndexDivisor;
+        readonly internal int termsIndexDivisor;
 
-        internal readonly StoredFieldsReader fieldsReaderOrig;
-        internal readonly TermVectorsReader termVectorsReaderOrig;
-        internal readonly CompoundFileDirectory cfsReader;
+        readonly internal StoredFieldsReader fieldsReaderOrig;
+        readonly internal TermVectorsReader termVectorsReaderOrig;
+        readonly internal CompoundFileDirectory cfsReader;
 
         // TODO: make a single thread local w/ a
         // Thingy class holding fieldsReader, termVectorsReader,
         // normsProducer
 
-        internal readonly DisposableThreadLocal<StoredFieldsReader> fieldsReaderLocal;
-        internal readonly DisposableThreadLocal<TermVectorsReader> termVectorsLocal;
-        internal readonly DisposableThreadLocal<IDictionary<string, object>> normsLocal =
+        readonly internal DisposableThreadLocal<StoredFieldsReader> fieldsReaderLocal;
+        readonly internal DisposableThreadLocal<TermVectorsReader> termVectorsLocal;
+        readonly internal DisposableThreadLocal<IDictionary<string, object>> normsLocal =
             new DisposableThreadLocal<IDictionary<string, object>>(() => new Dictionary<string, object>());
         private readonly ISet<ICoreDisposedListener> coreClosedListeners = new JCG.LinkedHashSet<ICoreDisposedListener>().AsConcurrent();
 

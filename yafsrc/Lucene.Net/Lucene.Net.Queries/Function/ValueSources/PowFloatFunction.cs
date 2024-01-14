@@ -34,9 +34,9 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
         {
         }
 
-        protected override string Name => "pow";
+        override protected string Name => "pow";
 
-        protected override float Func(int doc, FunctionValues aVals, FunctionValues bVals)
+        override protected float Func(int doc, FunctionValues aVals, FunctionValues bVals)
         {
             return (float)Math.Pow(aVals.SingleVal(doc), bVals.SingleVal(doc));
         }

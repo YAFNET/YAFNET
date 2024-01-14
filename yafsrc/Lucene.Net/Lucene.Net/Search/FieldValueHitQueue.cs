@@ -75,7 +75,7 @@ namespace YAF.Lucene.Net.Search
             /// <param name="hitA">ScoreDoc</param>
             /// <param name="hitB">ScoreDoc</param>
             /// <returns><c>true</c> if document <c>a</c> should be sorted after document <c>b</c>.</returns>
-            protected internal override bool LessThan(T hitA, T hitB)
+            override protected internal bool LessThan(T hitA, T hitB)
             {
                 // LUCENENET specific - added null guard clauses
                 if (hitA is null)
@@ -124,7 +124,7 @@ namespace YAF.Lucene.Net.Search
                 }
             }
 
-            protected internal override bool LessThan(T hitA, T hitB)
+            override protected internal bool LessThan(T hitA, T hitB)
             {
                 // LUCENENET specific - added null guard clauses
                 if (hitA is null)
@@ -238,11 +238,11 @@ namespace YAF.Lucene.Net.Search
 
         /// <summary>
         /// Stores the sort criteria being used. </summary>
-        protected readonly SortField[] m_fields;
+        readonly protected SortField[] m_fields;
 
-        protected readonly FieldComparer[] m_comparers; // use setComparer to change this array
+        readonly protected FieldComparer[] m_comparers; // use setComparer to change this array
         protected FieldComparer m_firstComparer; // this must always be equal to comparers[0]
-        protected readonly int[] m_reverseMul;
+        readonly protected int[] m_reverseMul;
 
         internal FieldComparer FirstComparer => this.m_firstComparer;
 

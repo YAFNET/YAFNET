@@ -45,7 +45,7 @@ namespace YAF.Lucene.Net.Search.Similarities
     {
         /// <summary>
         /// For <see cref="Log2(double)"/>. Precomputed for efficiency reasons. </summary>
-        private static readonly double LOG_2 = Math.Log(2);
+        private readonly static double LOG_2 = Math.Log(2);
 
         /// <summary>
         /// True if overlap tokens (tokens with a position of increment of zero) are
@@ -224,7 +224,7 @@ namespace YAF.Lucene.Net.Search.Similarities
 
         /// <summary>
         /// Norm -> document length map. </summary>
-        private static readonly float[] NORM_TABLE = LoadNormTable();
+        private readonly static float[] NORM_TABLE = LoadNormTable();
 
         private static float[] LoadNormTable() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {

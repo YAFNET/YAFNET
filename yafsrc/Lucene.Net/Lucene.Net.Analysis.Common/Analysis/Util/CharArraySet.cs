@@ -79,14 +79,14 @@ namespace YAF.Lucene.Net.Analysis.Util
         [SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "This is a SonarCloud issue")]
         [SuppressMessage("Performance", "S3887:Use an immutable collection or reduce the accessibility of the non-private readonly field", Justification = "Collection is immutable")]
         [SuppressMessage("Performance", "S2386:Use an immutable collection or reduce the accessibility of the public static field", Justification = "Collection is immutable")]
-        public static readonly CharArraySet Empty = new CharArraySet(CharArrayDictionary<object>.Empty);
+        public readonly static CharArraySet Empty = new CharArraySet(CharArrayDictionary<object>.Empty);
 
         [Obsolete("Use Empty instead. This field will be removed in 4.8.0 release candidate."), EditorBrowsable(EditorBrowsableState.Never)]
         public static CharArraySet EMPTY_SET => Empty;
 
         // LUCENENET: PLACEHOLDER moved to CharArrayDictionary
 
-        internal readonly ICharArrayDictionary map;
+        readonly internal ICharArrayDictionary map;
 
         private const int DefaultSetSize = 8; // LUCENENET specific
 
@@ -517,7 +517,7 @@ namespace YAF.Lucene.Net.Analysis.Util
             return CopySet(matchVersion, collection, ignoreCase: false);
         }
 
-        internal static CharArraySet CopySet<T>(LuceneVersion matchVersion, IEnumerable<T> collection, bool ignoreCase)
+        static internal CharArraySet CopySet<T>(LuceneVersion matchVersion, IEnumerable<T> collection, bool ignoreCase)
         {
             if (collection is null)
                 throw new ArgumentNullException(nameof(collection));

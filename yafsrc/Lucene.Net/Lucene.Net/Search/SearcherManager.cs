@@ -112,12 +112,12 @@ namespace YAF.Lucene.Net.Search
             Current = GetSearcher(searcherFactory, DirectoryReader.Open(dir));
         }
 
-        protected override void DecRef(IndexSearcher reference)
+        override protected void DecRef(IndexSearcher reference)
         {
             reference.IndexReader.DecRef();
         }
 
-        protected override IndexSearcher RefreshIfNeeded(IndexSearcher referenceToRefresh)
+        override protected IndexSearcher RefreshIfNeeded(IndexSearcher referenceToRefresh)
         {
             IndexReader r = referenceToRefresh.IndexReader;
             if (Debugging.AssertsEnabled) Debugging.Assert(r is DirectoryReader,"searcher's IndexReader should be a DirectoryReader, but got {0}", r);
@@ -132,12 +132,12 @@ namespace YAF.Lucene.Net.Search
             }
         }
 
-        protected override bool TryIncRef(IndexSearcher reference)
+        override protected bool TryIncRef(IndexSearcher reference)
         {
             return reference.IndexReader.TryIncRef();
         }
 
-        protected override int GetRefCount(IndexSearcher reference)
+        override protected int GetRefCount(IndexSearcher reference)
         {
             return reference.IndexReader.RefCount;
         }

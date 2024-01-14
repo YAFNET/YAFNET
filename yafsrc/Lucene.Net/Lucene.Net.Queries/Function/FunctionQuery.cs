@@ -58,10 +58,10 @@ namespace YAF.Lucene.Net.Queries.Function
         {
             private readonly FunctionQuery outerInstance;
 
-            protected readonly IndexSearcher m_searcher;
+            readonly protected IndexSearcher m_searcher;
             protected internal float m_queryNorm;
             protected float m_queryWeight;
-            protected internal readonly IDictionary m_context;
+            readonly protected internal IDictionary m_context;
 
             public FunctionWeight(FunctionQuery outerInstance, IndexSearcher searcher)
             {

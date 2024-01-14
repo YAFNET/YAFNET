@@ -50,7 +50,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
         // a better way might be to convert this into multitermquery rewrite methods.
         // the rewrite method can 'average' the TermContext's term statistics (docfreq,totalTermFreq) 
         // provided to TermQuery, so that the general idea is agnostic to any scoring system...
-        internal static TFIDFSimilarity sim = new DefaultSimilarity();
+        static internal TFIDFSimilarity sim = new DefaultSimilarity();
         private Query rewrittenQuery = null;
         private readonly IList<FieldVals> fieldVals = new JCG.List<FieldVals>();
         private readonly Analyzer analyzer;
@@ -363,7 +363,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
             /// (non-Javadoc)
             /// <see cref="Util.PriorityQueue{T}.LessThan(T, T)"/>
             /// </summary>
-            protected internal override bool LessThan(ScoreTerm termA, ScoreTerm termB)
+            override protected internal bool LessThan(ScoreTerm termA, ScoreTerm termB)
             {
                 // LUCENENET specific - compare bits rather than using equality operators to prevent these comparisons from failing in x86 in .NET Framework with optimizations enabled
                 if (NumericUtils.SingleToSortableInt32(termA.Score) == NumericUtils.SingleToSortableInt32(termB.Score))

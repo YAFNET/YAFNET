@@ -77,7 +77,7 @@ namespace YAF.Lucene.Net.QueryParsers.Ext
         /// <summary>
         ///  Default empty extensions instance
         /// </summary>
-        private static readonly Extensions DEFAULT_EXTENSION = new Extensions();
+        private readonly static Extensions DEFAULT_EXTENSION = new Extensions();
 
         /// <summary>
         /// Creates a new <see cref="ExtendableQueryParser"/> instance
@@ -110,7 +110,7 @@ namespace YAF.Lucene.Net.QueryParsers.Ext
         /// <returns>the extension field delimiter character.</returns>
         public virtual char ExtensionFieldDelimiter => extensions.ExtensionFieldDelimiter;
 
-        protected internal override Query GetFieldQuery(string field, string queryText, bool quoted)
+        override protected internal Query GetFieldQuery(string field, string queryText, bool quoted)
         {
             Tuple<string, string> splitExtensionField = this.extensions
                 .SplitExtensionField(defaultField, field);

@@ -375,7 +375,7 @@ namespace YAF.Lucene.Net.Store
             }
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {

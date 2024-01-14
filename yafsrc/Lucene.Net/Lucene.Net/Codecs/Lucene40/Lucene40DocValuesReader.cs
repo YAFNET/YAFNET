@@ -914,7 +914,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {

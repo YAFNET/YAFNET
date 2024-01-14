@@ -695,7 +695,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -737,17 +737,17 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
         // exposes FSTEnum directly as a TermsEnum: avoids binary-search next()
         internal class FSTTermsEnum : TermsEnum
         {
-            internal readonly BytesRefFSTEnum<Int64> @in;
+            readonly internal BytesRefFSTEnum<Int64> @in;
 
             // this is all for the complicated seek(ord)...
             // maybe we should add a FSTEnum that supports this operation?
-            internal readonly FST<Int64> fst;
+            readonly internal FST<Int64> fst;
 
-            internal readonly FST.BytesReader bytesReader;
-            internal readonly FST.Arc<Int64> firstArc = new FST.Arc<Int64>();
-            internal readonly FST.Arc<Int64> scratchArc = new FST.Arc<Int64>();
-            internal readonly Int32sRef scratchInts = new Int32sRef();
-            internal readonly BytesRef scratchBytes = new BytesRef();
+            readonly internal FST.BytesReader bytesReader;
+            readonly internal FST.Arc<Int64> firstArc = new FST.Arc<Int64>();
+            readonly internal FST.Arc<Int64> scratchArc = new FST.Arc<Int64>();
+            readonly internal Int32sRef scratchInts = new Int32sRef();
+            readonly internal BytesRef scratchBytes = new BytesRef();
 
             internal FSTTermsEnum(FST<Int64> fst)
             {

@@ -34,28 +34,28 @@ namespace YAF.Lucene.Net.Index
     {
         private const int HASH_INIT_SIZE = 4;
 
-        internal readonly TermsHashConsumerPerField consumer;
+        readonly internal TermsHashConsumerPerField consumer;
 
-        internal readonly TermsHash termsHash;
+        readonly internal TermsHash termsHash;
 
-        internal readonly TermsHashPerField nextPerField;
-        internal readonly DocumentsWriterPerThread.DocState docState;
-        internal readonly FieldInvertState fieldState;
+        readonly internal TermsHashPerField nextPerField;
+        readonly internal DocumentsWriterPerThread.DocState docState;
+        readonly internal FieldInvertState fieldState;
         internal ITermToBytesRefAttribute termAtt;
         internal BytesRef termBytesRef;
 
         // Copied from our perThread
-        internal readonly Int32BlockPool intPool;
+        readonly internal Int32BlockPool intPool;
 
-        internal readonly ByteBlockPool bytePool;
-        internal readonly ByteBlockPool termBytePool;
+        readonly internal ByteBlockPool bytePool;
+        readonly internal ByteBlockPool termBytePool;
 
-        internal readonly int streamCount;
-        internal readonly int numPostingInt;
+        readonly internal int streamCount;
+        readonly internal int numPostingInt;
 
-        internal readonly FieldInfo fieldInfo;
+        readonly internal FieldInfo fieldInfo;
 
-        internal readonly BytesRefHash bytesHash;
+        readonly internal BytesRefHash bytesHash;
 
         internal ParallelPostingsArray postingsArray;
         private readonly Counter bytesUsed;
@@ -130,7 +130,7 @@ namespace YAF.Lucene.Net.Index
         private bool doCall;
         private bool doNextCall;
 
-        internal override void Start(IIndexableField f)
+        override internal void Start(IIndexableField f)
         {
             termAtt = fieldState.AttributeSource.GetAttribute<ITermToBytesRefAttribute>();
             termBytesRef = termAtt.BytesRef;
@@ -141,7 +141,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        internal override bool Start(IIndexableField[] fields, int count)
+        override internal bool Start(IIndexableField[] fields, int count)
         {
             doCall = consumer.Start(fields, count);
             bytesHash.Reinit();
@@ -201,7 +201,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         // Primary entry point (for first TermsHash)
-        internal override void Add()
+        override internal void Add()
         {
             termAtt.FillBytesRef();
 
@@ -324,7 +324,7 @@ namespace YAF.Lucene.Net.Index
             WriteByte(stream, (byte)i);
         }
 
-        internal override void Finish()
+        override internal void Finish()
         {
             consumer.Finish();
             if (nextPerField != null)

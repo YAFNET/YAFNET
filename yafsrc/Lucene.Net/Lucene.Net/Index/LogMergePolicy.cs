@@ -52,25 +52,25 @@ namespace YAF.Lucene.Net.Index
         /// log size, minus LEVEL_LOG_SPAN, and finding all
         /// segments falling within that range.
         /// </summary>
-        public static readonly double LEVEL_LOG_SPAN = 0.75;
+        public readonly static double LEVEL_LOG_SPAN = 0.75;
 
         /// <summary>
         /// Default merge factor, which is how many segments are
         /// merged at a time
         /// </summary>
-        public static readonly int DEFAULT_MERGE_FACTOR = 10;
+        public readonly static int DEFAULT_MERGE_FACTOR = 10;
 
         /// <summary>
         /// Default maximum segment size.  A segment of this size 
         /// or larger will never be merged. </summary> 
         /// <seealso cref="MaxMergeDocs"/>
-        public static readonly int DEFAULT_MAX_MERGE_DOCS = int.MaxValue;
+        public readonly static int DEFAULT_MAX_MERGE_DOCS = int.MaxValue;
 
         /// <summary>
         /// Default noCFSRatio.  If a merge's size is >= 10% of
         /// the index, then we disable compound file for it. </summary>
         /// <seealso cref="MergePolicy.NoCFSRatio"/>
-        public new static readonly double DEFAULT_NO_CFS_RATIO = 0.1;
+        public readonly static new double DEFAULT_NO_CFS_RATIO = 0.1;
 
         /// <summary>
         /// How many segments to merge at a time. </summary>
@@ -179,7 +179,7 @@ namespace YAF.Lucene.Net.Index
             set => this.m_calibrateSizeByDeletes = value;
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
         }
 
@@ -524,8 +524,8 @@ namespace YAF.Lucene.Net.Index
 
         private class SegmentInfoAndLevel : IComparable<SegmentInfoAndLevel>
         {
-            internal readonly SegmentCommitInfo info;
-            internal readonly float level;
+            readonly internal SegmentCommitInfo info;
+            readonly internal float level;
             //private int index; // LUCENENET: Never read
 
             public SegmentInfoAndLevel(SegmentCommitInfo info, float level /*, int index // LUCENENET: Never read */)

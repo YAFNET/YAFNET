@@ -167,13 +167,6 @@ public partial class AdminMenu : BaseUserControl
             this.RenderAdminDatabase(pagesAccess);
         }
 
-        // Admin - Nntp Menu
-        /*if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(
-                x => x.PageName is "Admin_NntpRetrieve" or "Admin_NntpForums" or "Admin_NntpServers"))
-        {
-            this.RenderAdminNntp(pagesAccess);
-        }*/
-
         // Admin - Upgrade Menu
         if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Exists(x => x.PageName == "Admin_Version"))
         {
@@ -739,76 +732,6 @@ public partial class AdminMenu : BaseUserControl
                 this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Admin_RunSql,
                 false,
                 "database");
-        }
-
-        listItem.Controls.Add(list);
-
-        this.MenuHolder.Controls.Add(listItem);
-    }
-
-    /// <summary>
-    /// Render Admin NNTP sub menu
-    /// </summary>
-    /// <param name="pagesAccess">
-    /// The pages access.
-    /// </param>
-    private void RenderAdminNntp(IReadOnlyCollection<AdminPageUserAccess> pagesAccess)
-    {
-        var listItem = new HtmlGenericControl("li");
-
-        listItem.Attributes.Add("class", "dropdown dropend");
-
-        RenderMenuItem(
-            listItem,
-            "dropdown-item dropdown-toggle subdropdown-toggle",
-            this.GetText("ADMINMENU", "NNTP"),
-            "#",
-            this.PageBoardContext.CurrentForumPage.PageType is ForumPages.Admin_NntpRetrieve or ForumPages.Admin_NntpForums or
-                ForumPages.Admin_NntpServers,
-            true,
-            "newspaper");
-
-        var list = new HtmlGenericControl("ul");
-
-        list.Attributes.Add("class", "dropdown-menu dropdown-submenu");
-
-        // Admin NntpServers
-        if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_NntpServers"))
-        {
-            RenderMenuItem(
-                list,
-                "dropdown-item",
-                this.GetText("ADMINMENU", "admin_NntpServers"),
-                this.Get<LinkBuilder>().GetLink(ForumPages.Admin_NntpServers),
-                this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Admin_NntpServers,
-                false,
-                "newspaper");
-        }
-
-        // Admin NntpForums
-        if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_NntpForums"))
-        {
-            RenderMenuItem(
-                list,
-                "dropdown-item",
-                this.GetText("ADMINMENU", "admin_NntpForums"),
-                this.Get<LinkBuilder>().GetLink(ForumPages.Admin_NntpForums),
-                this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Admin_NntpForums,
-                false,
-                "newspaper");
-        }
-
-        // Admin NntpRetrieve
-        if (this.PageBoardContext.PageUser.UserFlags.IsHostAdmin || pagesAccess.Any(x => x.PageName == "Admin_NntpRetrieve"))
-        {
-            RenderMenuItem(
-                list,
-                "dropdown-item",
-                this.GetText("ADMINMENU", "admin_NntpRetrieve"),
-                this.Get<LinkBuilder>().GetLink(ForumPages.Admin_NntpRetrieve),
-                this.PageBoardContext.CurrentForumPage.PageType == ForumPages.Admin_NntpRetrieve,
-                false,
-                "newspaper");
         }
 
         listItem.Controls.Add(list);

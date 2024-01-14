@@ -36,8 +36,8 @@ namespace YAF.Lucene.Net.Index
 
         public class Container
         {
-            internal readonly IDictionary<string, NumericDocValuesFieldUpdates> numericDVUpdates = new Dictionary<string, NumericDocValuesFieldUpdates>();
-            internal readonly IDictionary<string, BinaryDocValuesFieldUpdates> binaryDVUpdates = new Dictionary<string, BinaryDocValuesFieldUpdates>();
+            readonly internal IDictionary<string, NumericDocValuesFieldUpdates> numericDVUpdates = new Dictionary<string, NumericDocValuesFieldUpdates>();
+            readonly internal IDictionary<string, BinaryDocValuesFieldUpdates> binaryDVUpdates = new Dictionary<string, BinaryDocValuesFieldUpdates>();
 
             internal virtual bool Any()
             {
@@ -109,8 +109,8 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        internal readonly string field;
-        internal readonly DocValuesFieldUpdatesType type;
+        readonly internal string field;
+        readonly internal DocValuesFieldUpdatesType type;
 
         protected DocValuesFieldUpdates(string field, DocValuesFieldUpdatesType type)
         {

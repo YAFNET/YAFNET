@@ -33,7 +33,6 @@ using System.IO;
 using YAF.Core.Model;
 using YAF.Core.Services.Import;
 using YAF.Types.Models;
-using YAF.Types.Models.Identity;
 
 /// <summary>
 ///     The install upgrade service.

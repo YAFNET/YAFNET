@@ -126,7 +126,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
             BufferSkip(numDocs);
         }
 
-        protected override void WriteSkipData(int level, IndexOutput skipBuffer)
+        override protected void WriteSkipData(int level, IndexOutput skipBuffer)
         {
             int delta = curDoc - lastSkipDoc[level];
             // if (DEBUG) {

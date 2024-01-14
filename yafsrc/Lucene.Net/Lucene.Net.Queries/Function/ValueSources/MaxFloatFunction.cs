@@ -32,9 +32,9 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
         {
         }
 
-        protected override string Name => "max";
+        override protected string Name => "max";
 
-        protected override float Func(int doc, FunctionValues[] valsArr)
+        override protected float Func(int doc, FunctionValues[] valsArr)
         {
             if (valsArr.Length == 0)
             {

@@ -26,7 +26,7 @@ namespace YAF.Lucene.Net.Diagnostics
     /// <summary>
     /// Provides a set of methods that help debug your code.
     /// </summary>
-    internal static class Debugging
+    static internal class Debugging
     {
         /// <summary>
         /// Allows toggling "assertions" on/off even in release builds. The default is <c>false</c>.

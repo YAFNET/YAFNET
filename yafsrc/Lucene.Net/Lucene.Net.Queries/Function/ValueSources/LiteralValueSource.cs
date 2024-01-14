@@ -29,8 +29,8 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public class LiteralValueSource : ValueSource
     {
-        protected readonly string m_str;
-        protected readonly BytesRef m_bytesRef;
+        readonly protected string m_str;
+        readonly protected BytesRef m_bytesRef;
 
         public LiteralValueSource(string str)
         {
@@ -92,7 +92,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
 
         }
 
-        public static readonly int hash = typeof(LiteralValueSource).GetHashCode();
+        public readonly static int hash = typeof(LiteralValueSource).GetHashCode();
         public override int GetHashCode()
         {
             return hash + m_str.GetHashCode();

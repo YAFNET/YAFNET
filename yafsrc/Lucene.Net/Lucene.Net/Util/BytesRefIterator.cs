@@ -61,7 +61,7 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Singleton <see cref="BytesRefEnumerator"/> that iterates over 0 BytesRefs.
         /// </summary>
-        public static readonly IBytesRefEnumerator EMPTY = new EmptyBytesRefEnumerator();
+        public readonly static IBytesRefEnumerator EMPTY = new EmptyBytesRefEnumerator();
 
         private class EmptyBytesRefEnumerator : IBytesRefEnumerator
         {
@@ -113,7 +113,7 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Singleton <see cref="BytesRefIterator"/> that iterates over 0 BytesRefs.
         /// </summary>
-        public static readonly IBytesRefIterator EMPTY = new EmptyBytesRefIterator();
+        public readonly static IBytesRefIterator EMPTY = new EmptyBytesRefIterator();
 
         private class EmptyBytesRefIterator : IBytesRefIterator
         {

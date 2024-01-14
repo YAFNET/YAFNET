@@ -41,12 +41,12 @@ namespace YAF.Lucene.Net.Documents
         /// <summary>
         /// Type for direct bytes <see cref="Index.DocValues"/>: all with the same length
         /// </summary>
-        public static readonly FieldType TYPE_FIXED_LEN = BinaryDocValuesField.fType;
+        public readonly static FieldType TYPE_FIXED_LEN = BinaryDocValuesField.fType;
 
         /// <summary>
         /// Type for direct bytes <see cref="Index.DocValues"/>: can have variable lengths
         /// </summary>
-        public static readonly FieldType TYPE_VAR_LEN = BinaryDocValuesField.fType;
+        public readonly static FieldType TYPE_VAR_LEN = BinaryDocValuesField.fType;
 
         /// <summary>
         /// Create a new fixed or variable length <see cref="Index.DocValues"/> field. </summary>

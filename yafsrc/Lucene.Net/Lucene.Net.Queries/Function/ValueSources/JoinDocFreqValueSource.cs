@@ -35,7 +35,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     {
         public const string NAME = "joindf";
 
-        protected readonly string m_qfield;
+        readonly protected string m_qfield;
 
         public JoinDocFreqValueSource(string field, string qfield)
             : base(field)

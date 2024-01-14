@@ -33,8 +33,8 @@ namespace YAF.Lucene.Net.Util.Fst
     /// </summary>
     public sealed class CharSequenceOutputs : Outputs<CharsRef>
     {
-        private static readonly CharsRef NO_OUTPUT = new CharsRef();
-        private static readonly CharSequenceOutputs singleton = new CharSequenceOutputs();
+        private readonly static CharsRef NO_OUTPUT = new CharsRef();
+        private readonly static CharSequenceOutputs singleton = new CharSequenceOutputs();
 
         private CharSequenceOutputs()
         {

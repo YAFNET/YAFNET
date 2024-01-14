@@ -47,9 +47,9 @@ namespace YAF.Lucene.Net.Util
     /// </summary>
     public sealed class ByteBlockPool
     {
-        public static readonly int BYTE_BLOCK_SHIFT = 15;
-        public static readonly int BYTE_BLOCK_SIZE = 1 << BYTE_BLOCK_SHIFT;
-        public static readonly int BYTE_BLOCK_MASK = BYTE_BLOCK_SIZE - 1;
+        public readonly static int BYTE_BLOCK_SHIFT = 15;
+        public readonly static int BYTE_BLOCK_SIZE = 1 << BYTE_BLOCK_SHIFT;
+        public readonly static int BYTE_BLOCK_MASK = BYTE_BLOCK_SIZE - 1;
 
         /// <summary>
         /// Abstract class for allocating and freeing byte
@@ -57,7 +57,7 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         public abstract class Allocator
         {
-            protected readonly int m_blockSize;
+            readonly protected int m_blockSize;
 
             protected Allocator(int blockSize)
             {
@@ -292,17 +292,17 @@ namespace YAF.Lucene.Net.Util
         /// An array holding the offset into the <see cref="ByteBlockPool.LEVEL_SIZE_ARRAY"/>
         /// to quickly navigate to the next slice level.
         /// </summary>
-        public static readonly int[] NEXT_LEVEL_ARRAY = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 9 };
+        public readonly static int[] NEXT_LEVEL_ARRAY = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 9 };
 
         /// <summary>
         /// An array holding the level sizes for byte slices.
         /// </summary>
-        public static readonly int[] LEVEL_SIZE_ARRAY = new int[] { 5, 14, 20, 30, 40, 40, 80, 80, 120, 200 };
+        public readonly static int[] LEVEL_SIZE_ARRAY = new int[] { 5, 14, 20, 30, 40, 40, 80, 80, 120, 200 };
 
         /// <summary>
         /// The first level size for new slices </summary>
         /// <seealso cref="ByteBlockPool.NewSlice(int)"/>
-        public static readonly int FIRST_LEVEL_SIZE = LEVEL_SIZE_ARRAY[0];
+        public readonly static int FIRST_LEVEL_SIZE = LEVEL_SIZE_ARRAY[0];
 
         /// <summary>
         /// Creates a new byte slice with the given starting size and

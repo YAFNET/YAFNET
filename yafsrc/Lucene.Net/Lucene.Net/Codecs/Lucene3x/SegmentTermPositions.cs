@@ -67,7 +67,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             this.proxStreamOrig = proxStream; // the proxStream will be cloned lazily when nextPosition() is called for the first time
         }
 
-        internal override void Seek(TermInfo ti, Term term)
+        override internal void Seek(TermInfo ti, Term term)
         {
             base.Seek(ti, term);
             if (ti != null)
@@ -82,7 +82,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             base.Dispose(disposing);
 
@@ -127,13 +127,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected internal sealed override void SkippingDoc()
+        override protected internal sealed void SkippingDoc()
         {
             // we remember to skip a document lazily
             lazySkipProxCount += freq;
         }
 
-        public sealed override bool Next()
+        public override sealed bool Next()
         {
             // we remember to skip the remaining positions of the current
             // document lazily
@@ -148,7 +148,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             return false;
         }
 
-        public sealed override int Read(int[] docs, int[] freqs)
+        public override sealed int Read(int[] docs, int[] freqs)
         {
             throw UnsupportedOperationException.Create("TermPositions does not support processing multiple documents in one call. Use TermDocs instead.");
         }
@@ -156,7 +156,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         /// <summary>
         /// Called by <c>base.SkipTo()</c>. </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected internal override void SkipProx(long proxPointer, int payloadLength)
+        override protected internal void SkipProx(long proxPointer, int payloadLength)
         {
             // we save the pointer, we might have to skip there lazily
             lazySkipPointer = proxPointer;

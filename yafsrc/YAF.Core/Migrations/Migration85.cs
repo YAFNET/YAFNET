@@ -22,54 +22,53 @@
  * under the License.
  */
 
-namespace YAF.Core.Migrations
+namespace YAF.Core.Migrations;
+
+using System;
+
+using ServiceStack.OrmLite;
+using System.Data;
+
+using YAF.Core.Context;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+/// Version 85 Migrations
+/// </summary>
+public class Migration85 : IRepositoryMigration, IHaveServiceLocator
 {
-    using System;
-
-    using ServiceStack.OrmLite;
-    using System.Data;
-
-    using YAF.Core.Context;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
-
     /// <summary>
-    /// Version 85 Migrations
+    /// Migrate Repositories (Database).
     /// </summary>
-    public class Migration85 : IRepositoryMigration, IHaveServiceLocator
+    /// <param name="dbAccess">
+    /// The Database access.
+    /// </param>
+    public void MigrateDatabase(IDbAccess dbAccess)
     {
-        /// <summary>
-        /// Migrate Repositories (Database).
-        /// </summary>
-        /// <param name="dbAccess">
-        /// The Database access.
-        /// </param>
-        public void MigrateDatabase(IDbAccess dbAccess)
-        {
-            dbAccess.Execute(
-                dbCommand =>
-                {
-                    this.UpgradeTable(this.GetRepository<Category>(), dbAccess, dbCommand);
-
-                    ///////////////////////////////////////////////////////////
-
-                    return true;
-                });
-        }
-
-        /// <summary>Upgrades the Category table.</summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="dbAccess">The database access.</param>
-        /// <param name="dbCommand">The database command.</param>
-        private void UpgradeTable(IRepository<Category> repository, IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            if (!dbCommand.Connection.ColumnExists<Category>(x => x.Flags))
+        dbAccess.Execute(
+            dbCommand =>
             {
-                dbCommand.Connection.AddColumn<Category>(x => x.Flags);
-            }
-        }
+                this.UpgradeTable(this.GetRepository<Category>(), dbAccess, dbCommand);
 
-        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
+                ///////////////////////////////////////////////////////////
+
+                return true;
+            });
     }
+
+    /// <summary>Upgrades the Category table.</summary>
+    /// <param name="repository">The repository.</param>
+    /// <param name="dbAccess">The database access.</param>
+    /// <param name="dbCommand">The database command.</param>
+    private void UpgradeTable(IRepository<Category> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    {
+        if (!dbCommand.Connection.ColumnExists<Category>(x => x.Flags))
+        {
+            dbCommand.Connection.AddColumn<Category>(x => x.Flags);
+        }
+    }
+
+    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 }

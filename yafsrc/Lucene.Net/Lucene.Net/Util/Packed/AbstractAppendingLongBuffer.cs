@@ -34,7 +34,7 @@ namespace YAF.Lucene.Net.Util.Packed
         // since their goal is to try to have small numbers of bits per value
         internal const int MAX_PAGE_SIZE = 1 << 20;
 
-        internal readonly int pageShift, pageMask;
+        readonly internal int pageShift, pageMask;
         internal PackedInt32s.Reader[] values;
         private long valuesBytes;
         internal int valuesOff;

@@ -34,10 +34,10 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public class TotalTermFreqValueSource : ValueSource
     {
-        protected readonly string m_field;
-        protected readonly string m_indexedField;
-        protected readonly string m_val;
-        protected readonly BytesRef m_indexedBytes;
+        readonly protected string m_field;
+        readonly protected string m_indexedField;
+        readonly protected string m_val;
+        readonly protected BytesRef m_indexedBytes;
 
         public TotalTermFreqValueSource(string field, string val, string indexedField, BytesRef indexedBytes)
         {

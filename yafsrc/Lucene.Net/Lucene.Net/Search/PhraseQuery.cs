@@ -188,11 +188,11 @@ namespace YAF.Lucene.Net.Search
 
         internal class PostingsAndFreq : IComparable<PostingsAndFreq>
         {
-            internal readonly DocsAndPositionsEnum postings;
-            internal readonly int docFreq;
-            internal readonly int position;
-            internal readonly Term[] terms;
-            internal readonly int nTerms; // for faster comparisons
+            readonly internal DocsAndPositionsEnum postings;
+            readonly internal int docFreq;
+            readonly internal int position;
+            readonly internal Term[] terms;
+            readonly internal int nTerms; // for faster comparisons
 
             public PostingsAndFreq(DocsAndPositionsEnum postings, int docFreq, int position, params Term[] terms)
             {
@@ -297,8 +297,8 @@ namespace YAF.Lucene.Net.Search
         {
             private readonly PhraseQuery outerInstance;
 
-            internal readonly Similarity similarity;
-            internal readonly Similarity.SimWeight stats;
+            readonly internal Similarity similarity;
+            readonly internal Similarity.SimWeight stats;
 
             
             internal TermContext[] states;

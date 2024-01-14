@@ -41,7 +41,7 @@ namespace YAF.Lucene.Net.Documents
         /// Type for sorted bytes <see cref="DocValues"/>
         /// </summary>
         // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
-        public static readonly FieldType TYPE = new FieldType
+        public readonly static FieldType TYPE = new FieldType
         {
             DocValueType = DocValuesType.SORTED
         }.Freeze();

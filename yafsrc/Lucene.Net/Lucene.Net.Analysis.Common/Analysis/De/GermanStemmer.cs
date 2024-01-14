@@ -44,7 +44,7 @@ namespace YAF.Lucene.Net.Analysis.De
         /// </summary>
         private int substCount = 0;
 
-        private static readonly CultureInfo locale = new CultureInfo("de-DE");
+        private readonly static CultureInfo locale = new CultureInfo("de-DE");
 
         /// <summary>
         /// Stemms the given term to an unique <c>discriminator</c>.

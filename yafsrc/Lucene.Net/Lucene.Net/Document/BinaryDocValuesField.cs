@@ -43,12 +43,12 @@ namespace YAF.Lucene.Net.Documents
         /// Type for straight bytes <see cref="DocValues"/>.
         /// </summary>
         [Obsolete("Use TYPE instead. This field will be removed in 4.8.0 release candidate."), System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public static readonly FieldType fType = new FieldType() { DocValueType = DocValuesType.BINARY }.Freeze();
+        public readonly static FieldType fType = new FieldType() { DocValueType = DocValuesType.BINARY }.Freeze();
 
         /// <summary>
         /// Type for straight bytes <see cref="DocValues"/>.
         /// </summary>
-        public static readonly FieldType TYPE = new FieldType() { DocValueType = DocValuesType.BINARY }.Freeze();
+        public readonly static FieldType TYPE = new FieldType() { DocValueType = DocValuesType.BINARY }.Freeze();
 
         /// <summary>
         /// Create a new binary <see cref="DocValues"/> field. </summary>

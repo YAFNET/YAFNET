@@ -33,7 +33,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public class SingleFieldSource : FieldCacheSource
     {
-        protected readonly FieldCache.ISingleParser m_parser;
+        readonly protected FieldCache.ISingleParser m_parser;
 
         public SingleFieldSource(string field)
             : this(field, null)

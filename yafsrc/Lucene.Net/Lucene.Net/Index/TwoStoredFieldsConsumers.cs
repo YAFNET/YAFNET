@@ -72,7 +72,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        internal override void FinishDocument()
+        override internal void FinishDocument()
         {
             first.FinishDocument();
             second.FinishDocument();

@@ -88,7 +88,7 @@ namespace YAF.Lucene.Net.Search
             termComp = Comparer;
         }
 
-        protected override AcceptStatus Accept(BytesRef term)
+        override protected AcceptStatus Accept(BytesRef term)
         {
             if (!this.includeLower && term.Equals(lowerBytesRef))
             {

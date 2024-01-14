@@ -148,7 +148,7 @@ namespace YAF.Lucene.Net.Util.Fst
         // produces this output
         internal T emptyOutput;
 
-        internal readonly BytesStore bytes;
+        readonly internal BytesStore bytes;
 
         private long startNode = -1;
 
@@ -184,7 +184,7 @@ namespace YAF.Lucene.Net.Util.Fst
 
         // LUCENENET NOTE: Arc<T> moved into FST class
 
-        internal static bool Flag(int flags, int bit)
+        static internal bool Flag(int flags, int bit)
         {
             return (flags & bit) != 0;
         }
@@ -2086,7 +2086,7 @@ namespace YAF.Lucene.Net.Util.Fst
     /// </summary>
     public sealed class FST
     {
-        public static readonly int DEFAULT_MAX_BLOCK_BITS = Constants.RUNTIME_IS_64BIT ? 30 : 28;
+        public readonly static int DEFAULT_MAX_BLOCK_BITS = Constants.RUNTIME_IS_64BIT ? 30 : 28;
 
         public FST()
         { }
@@ -2175,7 +2175,7 @@ namespace YAF.Lucene.Net.Util.Fst
 
         /// <summary>
         /// If arc has this label then that arc is final/accepted </summary>
-        public static readonly int END_LABEL = -1;
+        public readonly static int END_LABEL = -1;
 
         /// <summary>
         /// returns <c>true</c> if the node at this address has any
@@ -2394,7 +2394,7 @@ namespace YAF.Lucene.Net.Util.Fst
         {
             public static NodeComparer Default { get; } = new NodeComparer();
 
-            protected internal override bool LessThan(NodeAndInCount? a, NodeAndInCount? b)
+            override protected internal bool LessThan(NodeAndInCount? a, NodeAndInCount? b)
             {
                     // LUCENENET specific - added guard clauses
                     if (a is null)

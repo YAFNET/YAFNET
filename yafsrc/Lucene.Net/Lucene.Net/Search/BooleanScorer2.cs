@@ -41,7 +41,7 @@ namespace YAF.Lucene.Net.Search
 
         private class Coordinator
         {
-            internal readonly float[] coordFactors;
+            readonly internal float[] coordFactors;
 
             internal Coordinator(BooleanScorer2 outerInstance, int maxCoord, bool disableCoord)
             {

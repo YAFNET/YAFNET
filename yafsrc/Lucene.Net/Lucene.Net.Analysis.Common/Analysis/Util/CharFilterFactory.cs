@@ -28,7 +28,7 @@ namespace YAF.Lucene.Net.Analysis.Util
     /// </summary>
     public abstract class CharFilterFactory : AbstractAnalysisFactory
     {
-        private static readonly AnalysisSPILoader<CharFilterFactory> loader = new AnalysisSPILoader<CharFilterFactory>();
+        private readonly static AnalysisSPILoader<CharFilterFactory> loader = new AnalysisSPILoader<CharFilterFactory>();
 
         /// <summary>
         /// looks up a charfilter by name from the host project's dependent assemblies </summary>

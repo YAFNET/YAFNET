@@ -76,9 +76,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         internal const int VERSION_START = VERSION_NO_PAYLOADS;
         internal const int VERSION_CURRENT = VERSION_PAYLOADS;
 
-        internal static readonly long HEADER_LENGTH_FIELDS = CodecUtil.HeaderLength(CODEC_NAME_FIELDS);
-        internal static readonly long HEADER_LENGTH_DOCS = CodecUtil.HeaderLength(CODEC_NAME_DOCS);
-        internal static readonly long HEADER_LENGTH_INDEX = CodecUtil.HeaderLength(CODEC_NAME_INDEX);
+        readonly static internal long HEADER_LENGTH_FIELDS = CodecUtil.HeaderLength(CODEC_NAME_FIELDS);
+        readonly static internal long HEADER_LENGTH_DOCS = CodecUtil.HeaderLength(CODEC_NAME_DOCS);
+        readonly static internal long HEADER_LENGTH_INDEX = CodecUtil.HeaderLength(CODEC_NAME_INDEX);
 
         private readonly FieldInfos fieldInfos; // LUCENENET: marked readonly
 
@@ -225,7 +225,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             }
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
                 IOUtils.Dispose(tvx, tvd, tvf);

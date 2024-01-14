@@ -74,7 +74,7 @@ namespace YAF.Lucene.Net.Search
 
 #nullable enable
 
-        private static readonly int ShardByteSize = Marshal.SizeOf(typeof(Shard)); // LUCENENET specific so we can calculate stack size
+        private readonly static int ShardByteSize = Marshal.SizeOf(typeof(Shard)); // LUCENENET specific so we can calculate stack size
 
         // LUCENENET specific - Renamed ShardRef to Shard and made it into a struct
         // so we can allocate arrays of them on the stack.
@@ -139,7 +139,7 @@ namespace YAF.Lucene.Net.Search
         // relevance score, descending:
         private sealed class ScoreMergeSortComparer : PriorityComparer<Shard> // LUCENENET specific - marked sealed
         {
-            internal readonly ScoreDoc[][] shardHits;
+            readonly internal ScoreDoc[][] shardHits;
 
             public ScoreMergeSortComparer(TopDocs[] shardHits)
             {
@@ -154,7 +154,7 @@ namespace YAF.Lucene.Net.Search
             }
 
             // Returns true if first is < second
-            protected internal override bool LessThan(Shard first, Shard second)
+            override protected internal bool LessThan(Shard first, Shard second)
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(first != second);
                 float firstScore = shardHits[first.ShardIndex][first.HitIndex].Score;
@@ -195,10 +195,10 @@ namespace YAF.Lucene.Net.Search
         private sealed class MergeSortComparer : PriorityComparer<Shard> // LUCENENET specific - marked sealed
         {
             // These are really FieldDoc instances:
-            internal readonly ScoreDoc[][] shardHits;
+            readonly internal ScoreDoc[][] shardHits;
 
-            internal readonly FieldComparer[] comparers;
-            internal readonly int[] reverseMul;
+            readonly internal FieldComparer[] comparers;
+            readonly internal int[] reverseMul;
 
             public MergeSortComparer(Sort sort, TopDocs[] shardHits)
             {
@@ -242,7 +242,7 @@ namespace YAF.Lucene.Net.Search
             }
 
             // Returns true if first is < second
-            protected internal override bool LessThan(Shard first, Shard second)
+            override protected internal bool LessThan(Shard first, Shard second)
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(first != second);
                 FieldDoc firstFD = (FieldDoc)shardHits[first.ShardIndex][first.HitIndex];

@@ -68,7 +68,7 @@ namespace YAF.Lucene.Net.Analysis
         /// The default implementation closes the input <see cref="TextReader"/>, so
         /// be sure to call <c>base.Dispose(disposing)</c> when overriding this method.
         /// </remarks>
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -125,7 +125,7 @@ namespace YAF.Lucene.Net.Analysis
             return true;
         }
 
-        private static readonly TextReader ILLEGAL_STATE_READER = new ReaderAnonymousClass();
+        private readonly static TextReader ILLEGAL_STATE_READER = new ReaderAnonymousClass();
 
         private sealed class ReaderAnonymousClass : TextReader
         {
@@ -136,7 +136,7 @@ namespace YAF.Lucene.Net.Analysis
                     + "Please see the documentation of TokenStream class for more information about the correct consuming workflow.");
             }
 
-            protected override void Dispose(bool disposing)
+            override protected void Dispose(bool disposing)
             {
                 // LUCENENET: Intentionally blank
             }

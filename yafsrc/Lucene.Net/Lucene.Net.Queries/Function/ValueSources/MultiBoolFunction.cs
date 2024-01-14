@@ -32,7 +32,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public abstract class MultiBoolFunction : BoolFunction
     {
-        protected readonly IList<ValueSource> m_sources;
+        readonly protected IList<ValueSource> m_sources;
 
         protected MultiBoolFunction(IList<ValueSource> sources) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
         {

@@ -22,88 +22,87 @@
  * under the License.
  */
 
-namespace YAF.Core.Migrations
+namespace YAF.Core.Migrations;
+
+using System;
+
+using ServiceStack.OrmLite;
+using System.Data;
+
+using YAF.Core.Context;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+/// Version 84 Migrations
+/// </summary>
+public class Migration84 : IRepositoryMigration, IHaveServiceLocator
 {
-    using System;
-
-    using ServiceStack.OrmLite;
-    using System.Data;
-
-    using YAF.Core.Context;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
-
     /// <summary>
-    /// Version 84 Migrations
+    /// Migrate Repositories (Database).
     /// </summary>
-    public class Migration84 : IRepositoryMigration, IHaveServiceLocator
+    /// <param name="dbAccess">
+    /// The Database access.
+    /// </param>
+    public void MigrateDatabase(IDbAccess dbAccess)
     {
-        /// <summary>
-        /// Migrate Repositories (Database).
-        /// </summary>
-        /// <param name="dbAccess">
-        /// The Database access.
-        /// </param>
-        public void MigrateDatabase(IDbAccess dbAccess)
-        {
-            dbAccess.Execute(
-                dbCommand =>
-                {
-                    this.UpgradeTable(this.GetRepository<TopicTag>(), dbAccess, dbCommand);
-
-                    ///////////////////////////////////////////////////////////
-
-                    return true;
-                });
-        }
-
-        /// <summary>Upgrades the TopicTag table.</summary>
-        /// <param name="repository">The repository.</param>
-        /// <param name="dbAccess">The database access.</param>
-        /// <param name="dbCommand">The database command.</param>
-        private void UpgradeTable(IRepository<TopicTag> repository, IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            if (OrmLiteConfig.DialectProvider.SQLServerName() == "SQLite")
+        dbAccess.Execute(
+            dbCommand =>
             {
-                var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
+                this.UpgradeTable(this.GetRepository<TopicTag>(), dbAccess, dbCommand);
 
-                var oldTableName = OrmLiteConfig.DialectProvider.GetQuotedTableName($"{nameof(TopicTag)}_old");
+                ///////////////////////////////////////////////////////////
 
-                dbCommand.Connection.ExecuteSql(
-                    $@"BEGIN TRANSACTION;
+                return true;
+            });
+    }
+
+    /// <summary>Upgrades the TopicTag table.</summary>
+    /// <param name="repository">The repository.</param>
+    /// <param name="dbAccess">The database access.</param>
+    /// <param name="dbCommand">The database command.</param>
+    private void UpgradeTable(IRepository<TopicTag> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    {
+        if (OrmLiteConfig.DialectProvider.SQLServerName() == "SQLite")
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
+
+            var oldTableName = OrmLiteConfig.DialectProvider.GetQuotedTableName($"{nameof(TopicTag)}_old");
+
+            dbCommand.Connection.ExecuteSql(
+                $@"BEGIN TRANSACTION;
                            ALTER TABLE {expression.Table<TopicTag>()} RENAME TO {oldTableName}; 
                        COMMIT;");
 
-                dbCommand.Connection.CreateTable<TopicTag>();
+            dbCommand.Connection.CreateTable<TopicTag>();
 
-                dbCommand.Connection.ExecuteSql(
-                    $@"BEGIN TRANSACTION;
+            dbCommand.Connection.ExecuteSql(
+                $@"BEGIN TRANSACTION;
                            INSERT INTO {expression.Table<TopicTag>()} SELECT * FROM {oldTableName}; 
                        COMMIT;");
 
-                dbCommand.Connection.ExecuteSql(
-                    $@"DROP TABLE {oldTableName};");
-            }
-            else
+            dbCommand.Connection.ExecuteSql(
+                $@"DROP TABLE {oldTableName};");
+        }
+        else
+        {
+            var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
+
+            var name = dbCommand.Connection.GetPrimaryKey<TopicTag>();
+
+            dbCommand.Connection.DropPrimaryKey<TopicTag>(name, x => x.TagID, x => x.TopicID);
+
+            try
             {
-                var expression = OrmLiteConfig.DialectProvider.SqlExpression<TopicTag>();
-
-                var name = dbCommand.Connection.GetPrimaryKey<TopicTag>();
-
-                dbCommand.Connection.DropPrimaryKey<TopicTag>(name, x => x.TagID, x => x.TopicID);
-
-                try
-                {
-                    dbCommand.Connection.AddCompositePrimaryKey<TopicTag>(x => x.TagID, x => x.TopicID);
-                }
-                catch (Exception)
-                {
-                    // Ignore here
-                }
+                dbCommand.Connection.AddCompositePrimaryKey<TopicTag>(x => x.TagID, x => x.TopicID);
+            }
+            catch (Exception)
+            {
+                // Ignore here
             }
         }
-
-        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
     }
+
+    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 }

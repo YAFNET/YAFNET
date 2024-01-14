@@ -114,7 +114,7 @@ namespace YAF.Lucene.Net.Codecs
 
         private readonly int version;
 
-        protected readonly TSubclassState m_subclassState;
+        readonly protected TSubclassState m_subclassState;
 
         /// <summary>
         /// Sole constructor. </summary>
@@ -287,7 +287,7 @@ namespace YAF.Lucene.Net.Codecs
         /// <summary>
         /// Disposes all resources used by this object.
         /// </summary>
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -557,7 +557,7 @@ namespace YAF.Lucene.Net.Codecs
             }
         }
 
-        internal readonly Outputs<BytesRef> fstOutputs = ByteSequenceOutputs.Singleton;
+        readonly internal Outputs<BytesRef> fstOutputs = ByteSequenceOutputs.Singleton;
         internal BytesRef NO_OUTPUT;
 
         /// <summary>
@@ -566,17 +566,17 @@ namespace YAF.Lucene.Net.Codecs
         {
             private readonly BlockTreeTermsReader<TSubclassState> outerInstance;
 
-            internal readonly long numTerms;
-            internal readonly FieldInfo fieldInfo;
-            internal readonly long sumTotalTermFreq;
-            internal readonly long sumDocFreq;
-            internal readonly int docCount;
-            internal readonly long indexStartFP;
-            internal readonly long rootBlockFP;
-            internal readonly BytesRef rootCode;
-            internal readonly int longsSize;
+            readonly internal long numTerms;
+            readonly internal FieldInfo fieldInfo;
+            readonly internal long sumTotalTermFreq;
+            readonly internal long sumDocFreq;
+            readonly internal int docCount;
+            readonly internal long indexStartFP;
+            readonly internal long rootBlockFP;
+            readonly internal BytesRef rootCode;
+            readonly internal int longsSize;
 
-            internal readonly FST<BytesRef> index;
+            readonly internal FST<BytesRef> index;
             //private boolean DEBUG;
 
             internal FieldReader(BlockTreeTermsReader<TSubclassState> outerInstance, FieldInfo fieldInfo, long numTerms, BytesRef rootCode, long sumTotalTermFreq, long sumDocFreq, int docCount, long indexStartFP, int longsSize, IndexInput indexIn)
@@ -695,7 +695,7 @@ namespace YAF.Lucene.Net.Codecs
                 {
                     private readonly BlockTreeTermsReader<TSubclassState>.FieldReader.IntersectEnum outerInstance;
 
-                    internal readonly int ord;
+                    readonly internal int ord;
                     internal long fp;
                     internal long fpOrig;
                     internal long fpEnd;
@@ -707,13 +707,13 @@ namespace YAF.Lucene.Net.Codecs
                     internal int metaDataUpto;
 
                     internal byte[] suffixBytes = new byte[128];
-                    internal readonly ByteArrayDataInput suffixesReader = new ByteArrayDataInput();
+                    readonly internal ByteArrayDataInput suffixesReader = new ByteArrayDataInput();
 
                     internal byte[] statBytes = new byte[64];
-                    internal readonly ByteArrayDataInput statsReader = new ByteArrayDataInput();
+                    readonly internal ByteArrayDataInput statsReader = new ByteArrayDataInput();
 
                     internal byte[] floorData = new byte[32];
-                    internal readonly ByteArrayDataInput floorDataReader = new ByteArrayDataInput();
+                    readonly internal ByteArrayDataInput floorDataReader = new ByteArrayDataInput();
 
                     // Length of prefix shared by all terms in this block
                     internal int prefix;
@@ -740,7 +740,7 @@ namespace YAF.Lucene.Net.Codecs
 
                     internal FST.Arc<BytesRef> arc;
 
-                    internal readonly BlockTermState termState;
+                    readonly internal BlockTermState termState;
 
                     // metadata buffer, holding monotonic values
                     /// <summary>
@@ -1531,13 +1531,13 @@ namespace YAF.Lucene.Net.Codecs
                 // assert only:
                 private bool eof;
 
-                internal readonly BytesRef term = new BytesRef();
+                readonly internal BytesRef term = new BytesRef();
                 private readonly FST.BytesReader fstReader;
 
                 private FST.Arc<BytesRef>[] arcs = new FST.Arc<BytesRef>[1];
 
                 // LUCENENET specific - optimized empty array creation
-                private static readonly Frame[] EMPTY_FRAMES = Arrays.Empty<Frame>();
+                private readonly static Frame[] EMPTY_FRAMES = Arrays.Empty<Frame>();
 
                 public SegmentTermsEnum(BlockTreeTermsReader<TSubclassState>.FieldReader outerInstance)
                 {
@@ -2615,7 +2615,7 @@ namespace YAF.Lucene.Net.Codecs
                     private readonly BlockTreeTermsReader<TSubclassState>.FieldReader.SegmentTermsEnum outerInstance;
 
                     // Our index in stack[]:
-                    internal readonly int ord;
+                    readonly internal int ord;
 
                     internal bool hasTerms;
                     internal bool hasTermsOrig;
@@ -2630,13 +2630,13 @@ namespace YAF.Lucene.Net.Codecs
                     internal long fpEnd;
 
                     internal byte[] suffixBytes = new byte[128];
-                    internal readonly ByteArrayDataInput suffixesReader = new ByteArrayDataInput();
+                    readonly internal ByteArrayDataInput suffixesReader = new ByteArrayDataInput();
 
                     internal byte[] statBytes = new byte[64];
-                    internal readonly ByteArrayDataInput statsReader = new ByteArrayDataInput();
+                    readonly internal ByteArrayDataInput statsReader = new ByteArrayDataInput();
 
                     internal byte[] floorData = new byte[32];
-                    internal readonly ByteArrayDataInput floorDataReader = new ByteArrayDataInput();
+                    readonly internal ByteArrayDataInput floorDataReader = new ByteArrayDataInput();
 
                     // Length of prefix shared by all terms in this block
                     internal int prefix;
@@ -2667,7 +2667,7 @@ namespace YAF.Lucene.Net.Codecs
                     // metaData
                     internal int metaDataUpto;
 
-                    internal readonly BlockTermState state;
+                    readonly internal BlockTermState state;
 
                     // metadata buffer, holding monotonic values
                     /// <summary>

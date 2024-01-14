@@ -26,7 +26,7 @@ namespace YAF.Lucene.Net.Search.Highlight
     /// </summary>
     public class TextFragment
     {
-        internal readonly StringBuilder markedUpText;
+        readonly internal StringBuilder markedUpText;
         internal int fragNum;
         internal float score;
 

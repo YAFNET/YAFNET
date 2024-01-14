@@ -125,7 +125,7 @@ namespace YAF.Lucene.Net.Store
                 this.descriptor = descriptor;
             }
 
-            protected override void Dispose(bool disposing)
+            override protected void Dispose(bool disposing)
             {
                 if (0 != Interlocked.CompareExchange(ref this.disposed, 1, 0)) return; // LUCENENET specific - allow double-dispose
 
@@ -171,7 +171,7 @@ namespace YAF.Lucene.Net.Store
 
             /// <summary>
             /// the file channel we will read from </summary>
-            protected internal readonly FileStream m_file;
+            readonly protected internal FileStream m_file;
 
             /// <summary>
             /// is this instance a clone and hence does not own the file to close it </summary>
@@ -179,11 +179,11 @@ namespace YAF.Lucene.Net.Store
 
             /// <summary>
             /// start offset: non-zero in the slice case </summary>
-            protected internal readonly long m_off;
+            readonly protected internal long m_off;
 
             /// <summary>
             /// end offset (start+length) </summary>
-            protected internal readonly long m_end;
+            readonly protected internal long m_end;
 
             public SimpleFSIndexInput(string resourceDesc, FileStream file, IOContext context)
                 : base(resourceDesc, context)
@@ -203,7 +203,7 @@ namespace YAF.Lucene.Net.Store
                 this.IsClone = true;
             }
 
-            protected override void Dispose(bool disposing)
+            override protected void Dispose(bool disposing)
             {
                 if (0 != Interlocked.CompareExchange(ref this.disposed, 1, 0)) return; // LUCENENET specific - allow double-dispose
 
@@ -224,7 +224,7 @@ namespace YAF.Lucene.Net.Store
 
             /// <summary>
             /// <see cref="IndexInput"/> methods </summary>
-            protected override void ReadInternal(byte[] b, int offset, int len)
+            override protected void ReadInternal(byte[] b, int offset, int len)
             {
                 UninterruptableMonitor.Enter(m_file);
                 try
@@ -270,7 +270,7 @@ namespace YAF.Lucene.Net.Store
                 }
             }
 
-            protected override void SeekInternal(long position)
+            override protected void SeekInternal(long position)
             {
             }
 

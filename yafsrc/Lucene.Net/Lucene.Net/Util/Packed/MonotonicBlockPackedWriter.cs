@@ -72,7 +72,7 @@ namespace YAF.Lucene.Net.Util.Packed
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        protected override void Flush()
+        override protected void Flush()
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(m_off > 0);
 

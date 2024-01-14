@@ -74,19 +74,19 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         internal const int BLOCK_SIZE = 1024; // number of chunks to serialize at once
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static long MoveSignToLowOrderBit(long n)
+        static internal long MoveSignToLowOrderBit(long n)
         {
             return (n >> 63) ^ (n << 1);
         }
 
-        internal readonly IndexOutput fieldsIndexOut;
+        readonly internal IndexOutput fieldsIndexOut;
         internal int totalDocs;
         internal int blockDocs;
         internal int blockChunks;
         internal long firstStartPointer;
         internal long maxStartPointer;
-        internal readonly int[] docBaseDeltas;
-        internal readonly long[] startPointerDeltas;
+        readonly internal int[] docBaseDeltas;
+        readonly internal long[] startPointerDeltas;
 
         internal CompressingStoredFieldsIndexWriter(IndexOutput indexOutput)
         {

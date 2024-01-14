@@ -56,7 +56,7 @@ namespace YAF.Lucene.Net.Analysis.Lv
             return len;
         }
 
-        internal static readonly Affix[] affixes = {
+        readonly static internal Affix[] affixes = {
             new Affix("ajiem", 3, false), new Affix("ajai",  3, false),
             new Affix("ajam",  2, false), new Affix("ajām",  2, false),
             new Affix("ajos",  2, false), new Affix("ajās",  2, false),

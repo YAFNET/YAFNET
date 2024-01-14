@@ -49,7 +49,7 @@ namespace YAF.Lucene.Net.Store
             this.rateLimiter = rateLimiter;
         }
 
-        protected internal override void FlushBuffer(byte[] b, int offset, int len)
+        override protected internal void FlushBuffer(byte[] b, int offset, int len)
         {
             rateLimiter.Pause(len);
             if (bufferedDelegate != null)
@@ -96,7 +96,7 @@ namespace YAF.Lucene.Net.Store
             }
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (0 != Interlocked.CompareExchange(ref this.disposed, 1, 0)) return; // LUCENENET specific - allow double-dispose
 

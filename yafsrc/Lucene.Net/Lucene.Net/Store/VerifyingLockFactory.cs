@@ -35,8 +35,8 @@ namespace YAF.Lucene.Net.Store
     /// <seealso cref="LockStressTest"/>
     public class VerifyingLockFactory : LockFactory
     {
-        internal readonly LockFactory lf;
-        internal readonly Stream stream;
+        readonly internal LockFactory lf;
+        readonly internal Stream stream;
 
         private class CheckedLock : Lock
         {
@@ -96,7 +96,7 @@ namespace YAF.Lucene.Net.Store
                 }
             }
 
-            protected override void Dispose(bool disposing)
+            override protected void Dispose(bool disposing)
             {
                 if (disposing)
                 {

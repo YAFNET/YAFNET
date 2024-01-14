@@ -27,7 +27,7 @@ namespace YAF.Lucene.Net.Util // from org.apache.solr.util rev 555343
     /// </summary>
     public static class BitUtil // LUCENENET specific - made static
     {
-        private static readonly sbyte[] BYTE_COUNTS = new sbyte[] {
+        private readonly static sbyte[] BYTE_COUNTS = new sbyte[] {
             0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3, 3, 4,
             1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5,
             1, 2, 2, 3, 2, 3, 3, 4, 2, 3, 3, 4, 3, 4, 4, 5,
@@ -67,7 +67,7 @@ namespace YAF.Lucene.Net.Util // from org.apache.solr.util rev 555343
         ///  return ','.join(tbl)
         /// </code>
         /// </summary>
-        private static readonly int[] BIT_LISTS = new int[] {
+        private readonly static int[] BIT_LISTS = new int[] {
             0x0, 0x1, 0x2, 0x21, 0x3, 0x31, 0x32, 0x321, 0x4, 0x41, 0x42, 0x421, 0x43,
             0x431, 0x432, 0x4321, 0x5, 0x51, 0x52, 0x521, 0x53, 0x531, 0x532, 0x5321,
             0x54, 0x541, 0x542, 0x5421, 0x543, 0x5431, 0x5432, 0x54321, 0x6, 0x61, 0x62,

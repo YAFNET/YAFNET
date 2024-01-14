@@ -32,7 +32,7 @@ namespace YAF.Lucene.Net.Search.Similarities
     {
         /// <summary>
         /// the sub-similarities used to create the combined score </summary>
-        protected internal readonly Similarity[] m_sims;
+        readonly protected internal Similarity[] m_sims;
 
         /// <summary>
         /// Creates a <see cref="MultiSimilarity"/> which will sum the scores
@@ -110,7 +110,7 @@ namespace YAF.Lucene.Net.Search.Similarities
 
         internal class MultiStats : SimWeight
         {
-            internal readonly SimWeight[] subStats;
+            readonly internal SimWeight[] subStats;
 
             internal MultiStats(SimWeight[] subStats)
             {

@@ -76,7 +76,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Query
         /// This method is used by <see cref="GetHashCode()"/> and <see cref="Equals(Object)"/>,
         /// see LUCENE-2945.
         /// </summary>
-        public abstract override string ToString();
+        public override abstract string ToString();
 
         public virtual bool IsFieldsSubQueryAcceptable => true;
 

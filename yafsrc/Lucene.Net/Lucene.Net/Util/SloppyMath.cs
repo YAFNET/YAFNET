@@ -177,53 +177,53 @@ namespace YAF.Lucene.Net.Util
         private const double ONE_DIV_F3 = 1 / 6.0;
         private const double ONE_DIV_F4 = 1 / 24.0;
 
-        private static readonly double PIO2_HI = J2N.BitConversion.Int64BitsToDouble(0x3FF921FB54400000L); // 1.57079632673412561417e+00 first 33 bits of pi/2
-        private static readonly double PIO2_LO = J2N.BitConversion.Int64BitsToDouble(0x3DD0B4611A626331L); // 6.07710050650619224932e-11 pi/2 - PIO2_HI
-        private static readonly double TWOPI_HI = 4 * PIO2_HI;
-        private static readonly double TWOPI_LO = 4 * PIO2_LO;
+        private readonly static double PIO2_HI = J2N.BitConversion.Int64BitsToDouble(0x3FF921FB54400000L); // 1.57079632673412561417e+00 first 33 bits of pi/2
+        private readonly static double PIO2_LO = J2N.BitConversion.Int64BitsToDouble(0x3DD0B4611A626331L); // 6.07710050650619224932e-11 pi/2 - PIO2_HI
+        private readonly static double TWOPI_HI = 4 * PIO2_HI;
+        private readonly static double TWOPI_LO = 4 * PIO2_LO;
         private const int SIN_COS_TABS_SIZE = (1 << 11) + 1;
-        private static readonly double SIN_COS_DELTA_HI = TWOPI_HI / (SIN_COS_TABS_SIZE - 1);
-        private static readonly double SIN_COS_DELTA_LO = TWOPI_LO / (SIN_COS_TABS_SIZE - 1);
-        private static readonly double SIN_COS_INDEXER = 1 / (SIN_COS_DELTA_HI + SIN_COS_DELTA_LO);
-        private static readonly double[] sinTab = new double[SIN_COS_TABS_SIZE];
-        private static readonly double[] cosTab = new double[SIN_COS_TABS_SIZE];
+        private readonly static double SIN_COS_DELTA_HI = TWOPI_HI / (SIN_COS_TABS_SIZE - 1);
+        private readonly static double SIN_COS_DELTA_LO = TWOPI_LO / (SIN_COS_TABS_SIZE - 1);
+        private readonly static double SIN_COS_INDEXER = 1 / (SIN_COS_DELTA_HI + SIN_COS_DELTA_LO);
+        private readonly static double[] sinTab = new double[SIN_COS_TABS_SIZE];
+        private readonly static double[] cosTab = new double[SIN_COS_TABS_SIZE];
 
         // Max abs value for fast modulo, above which we use regular angle normalization.
         // this value must be < (Integer.MAX_VALUE / SIN_COS_INDEXER), to stay in range of int type.
         // The higher it is, the higher the error, but also the faster it is for lower values.
         // If you set it to ((Integer.MAX_VALUE / SIN_COS_INDEXER) * 0.99), worse accuracy on double range is about 1e-10.
-        internal static readonly double SIN_COS_MAX_VALUE_FOR_INT_MODULO = ((int.MaxValue >> 9) / SIN_COS_INDEXER) * 0.99;
+        readonly static internal double SIN_COS_MAX_VALUE_FOR_INT_MODULO = ((int.MaxValue >> 9) / SIN_COS_INDEXER) * 0.99;
 
         // Supposed to be >= sin(77.2deg), as fdlibm code is supposed to work with values > 0.975,
         // but seems to work well enough as long as value >= sin(25deg).
-        private static readonly double ASIN_MAX_VALUE_FOR_TABS = Math.Sin(73.0.ToRadians());
+        private readonly static double ASIN_MAX_VALUE_FOR_TABS = Math.Sin(73.0.ToRadians());
 
         private const int ASIN_TABS_SIZE = (1 << 13) + 1;
-        private static readonly double ASIN_DELTA = ASIN_MAX_VALUE_FOR_TABS / (ASIN_TABS_SIZE - 1);
-        private static readonly double ASIN_INDEXER = 1 / ASIN_DELTA;
-        private static readonly double[] asinTab = new double[ASIN_TABS_SIZE];
-        private static readonly double[] asinDer1DivF1Tab = new double[ASIN_TABS_SIZE];
-        private static readonly double[] asinDer2DivF2Tab = new double[ASIN_TABS_SIZE];
-        private static readonly double[] asinDer3DivF3Tab = new double[ASIN_TABS_SIZE];
-        private static readonly double[] asinDer4DivF4Tab = new double[ASIN_TABS_SIZE];
+        private readonly static double ASIN_DELTA = ASIN_MAX_VALUE_FOR_TABS / (ASIN_TABS_SIZE - 1);
+        private readonly static double ASIN_INDEXER = 1 / ASIN_DELTA;
+        private readonly static double[] asinTab = new double[ASIN_TABS_SIZE];
+        private readonly static double[] asinDer1DivF1Tab = new double[ASIN_TABS_SIZE];
+        private readonly static double[] asinDer2DivF2Tab = new double[ASIN_TABS_SIZE];
+        private readonly static double[] asinDer3DivF3Tab = new double[ASIN_TABS_SIZE];
+        private readonly static double[] asinDer4DivF4Tab = new double[ASIN_TABS_SIZE];
 
-        private static readonly double ASIN_PIO2_HI = J2N.BitConversion.Int64BitsToDouble(0x3FF921FB54442D18L); // 1.57079632679489655800e+00
-        private static readonly double ASIN_PIO2_LO = J2N.BitConversion.Int64BitsToDouble(0x3C91A62633145C07L); // 6.12323399573676603587e-17
-        private static readonly double ASIN_PS0 = J2N.BitConversion.Int64BitsToDouble(0x3fc5555555555555L); //  1.66666666666666657415e-01
-        private static readonly double ASIN_PS1 = J2N.BitConversion.Int64BitsToDouble(unchecked((long)0xbfd4d61203eb6f7dL)); // -3.25565818622400915405e-01
-        private static readonly double ASIN_PS2 = J2N.BitConversion.Int64BitsToDouble(0x3fc9c1550e884455L); //  2.01212532134862925881e-01
-        private static readonly double ASIN_PS3 = J2N.BitConversion.Int64BitsToDouble(unchecked((long)0xbfa48228b5688f3bL)); // -4.00555345006794114027e-02
-        private static readonly double ASIN_PS4 = J2N.BitConversion.Int64BitsToDouble(0x3f49efe07501b288L); //  7.91534994289814532176e-04
-        private static readonly double ASIN_PS5 = J2N.BitConversion.Int64BitsToDouble(0x3f023de10dfdf709L); //  3.47933107596021167570e-05
-        private static readonly double ASIN_QS1 = J2N.BitConversion.Int64BitsToDouble(unchecked((long)0xc0033a271c8a2d4bL)); // -2.40339491173441421878e+00
-        private static readonly double ASIN_QS2 = J2N.BitConversion.Int64BitsToDouble(0x40002ae59c598ac8L); //  2.02094576023350569471e+00
-        private static readonly double ASIN_QS3 = J2N.BitConversion.Int64BitsToDouble(unchecked((long)0xbfe6066c1b8d0159L)); // -6.88283971605453293030e-01
-        private static readonly double ASIN_QS4 = J2N.BitConversion.Int64BitsToDouble(0x3fb3b8c5b12e9282L); //  7.70381505559019352791e-02
+        private readonly static double ASIN_PIO2_HI = J2N.BitConversion.Int64BitsToDouble(0x3FF921FB54442D18L); // 1.57079632679489655800e+00
+        private readonly static double ASIN_PIO2_LO = J2N.BitConversion.Int64BitsToDouble(0x3C91A62633145C07L); // 6.12323399573676603587e-17
+        private readonly static double ASIN_PS0 = J2N.BitConversion.Int64BitsToDouble(0x3fc5555555555555L); //  1.66666666666666657415e-01
+        private readonly static double ASIN_PS1 = J2N.BitConversion.Int64BitsToDouble(unchecked((long)0xbfd4d61203eb6f7dL)); // -3.25565818622400915405e-01
+        private readonly static double ASIN_PS2 = J2N.BitConversion.Int64BitsToDouble(0x3fc9c1550e884455L); //  2.01212532134862925881e-01
+        private readonly static double ASIN_PS3 = J2N.BitConversion.Int64BitsToDouble(unchecked((long)0xbfa48228b5688f3bL)); // -4.00555345006794114027e-02
+        private readonly static double ASIN_PS4 = J2N.BitConversion.Int64BitsToDouble(0x3f49efe07501b288L); //  7.91534994289814532176e-04
+        private readonly static double ASIN_PS5 = J2N.BitConversion.Int64BitsToDouble(0x3f023de10dfdf709L); //  3.47933107596021167570e-05
+        private readonly static double ASIN_QS1 = J2N.BitConversion.Int64BitsToDouble(unchecked((long)0xc0033a271c8a2d4bL)); // -2.40339491173441421878e+00
+        private readonly static double ASIN_QS2 = J2N.BitConversion.Int64BitsToDouble(0x40002ae59c598ac8L); //  2.02094576023350569471e+00
+        private readonly static double ASIN_QS3 = J2N.BitConversion.Int64BitsToDouble(unchecked((long)0xbfe6066c1b8d0159L)); // -6.88283971605453293030e-01
+        private readonly static double ASIN_QS4 = J2N.BitConversion.Int64BitsToDouble(0x3fb3b8c5b12e9282L); //  7.70381505559019352791e-02
 
         private const int RADIUS_TABS_SIZE = (1 << 10) + 1;
         private const double RADIUS_DELTA = (Math.PI / 2d) / (RADIUS_TABS_SIZE - 1);
         private const double RADIUS_INDEXER = 1d / RADIUS_DELTA;
-        private static readonly double[] earthDiameterPerLatitude = new double[RADIUS_TABS_SIZE];
+        private readonly static double[] earthDiameterPerLatitude = new double[RADIUS_TABS_SIZE];
 
         /// <summary>
         /// Initializes look-up tables. </summary>

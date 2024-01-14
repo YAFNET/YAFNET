@@ -109,7 +109,7 @@ namespace YAF.Lucene.Net.Analysis
         /// <c>false</c> to release only unmanaged resources.</param>
 
         // LUCENENET specific
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             try
             {

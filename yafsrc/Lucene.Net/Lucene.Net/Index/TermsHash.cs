@@ -36,26 +36,26 @@ namespace YAF.Lucene.Net.Index
     /// </summary>
     internal sealed class TermsHash : InvertedDocConsumer
     {
-        internal readonly TermsHashConsumer consumer;
-        internal readonly TermsHash nextTermsHash;
+        readonly internal TermsHashConsumer consumer;
+        readonly internal TermsHash nextTermsHash;
 
-        internal readonly Int32BlockPool intPool;
-        internal readonly ByteBlockPool bytePool;
+        readonly internal Int32BlockPool intPool;
+        readonly internal ByteBlockPool bytePool;
         internal ByteBlockPool termBytePool;
-        internal readonly Counter bytesUsed;
+        readonly internal Counter bytesUsed;
 
-        internal readonly bool primary;
-        internal readonly DocumentsWriterPerThread.DocState docState;
+        readonly internal bool primary;
+        readonly internal DocumentsWriterPerThread.DocState docState;
 
         // Used when comparing postings via termRefComp, in TermsHashPerField
-        internal readonly BytesRef tr1 = new BytesRef();
+        readonly internal BytesRef tr1 = new BytesRef();
 
-        internal readonly BytesRef tr2 = new BytesRef();
+        readonly internal BytesRef tr2 = new BytesRef();
 
         // Used by perField to obtain terms from the analysis chain
-        internal readonly BytesRef termBytesRef = new BytesRef(10);
+        readonly internal BytesRef termBytesRef = new BytesRef(10);
 
-        internal readonly bool trackAllocations;
+        readonly internal bool trackAllocations;
 
         public TermsHash(DocumentsWriterPerThread docWriter, TermsHashConsumer consumer, bool trackAllocations, TermsHash nextTermsHash)
         {
@@ -106,7 +106,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        internal override void Flush(IDictionary<string, InvertedDocConsumerPerField> fieldsToFlush, SegmentWriteState state)
+        override internal void Flush(IDictionary<string, InvertedDocConsumerPerField> fieldsToFlush, SegmentWriteState state)
         {
             IDictionary<string, TermsHashConsumerPerField> childFields = new Dictionary<string, TermsHashConsumerPerField>();
             IDictionary<string, InvertedDocConsumerPerField> nextChildFields;
@@ -138,13 +138,13 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        internal override InvertedDocConsumerPerField AddField(DocInverterPerField docInverterPerField, FieldInfo fieldInfo)
+        override internal InvertedDocConsumerPerField AddField(DocInverterPerField docInverterPerField, FieldInfo fieldInfo)
         {
             return new TermsHashPerField(docInverterPerField, this, nextTermsHash, fieldInfo);
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        internal override void FinishDocument()
+        override internal void FinishDocument()
         {
             consumer.FinishDocument(this);
             if (nextTermsHash != null)
@@ -153,7 +153,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        internal override void StartDocument()
+        override internal void StartDocument()
         {
             consumer.StartDocument();
             if (nextTermsHash != null)

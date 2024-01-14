@@ -58,7 +58,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// </summary>
         public abstract int Int64BlockCount { get; }
 
-        private static readonly BulkOperation[] packedBulkOps = new BulkOperation[] {
+        private readonly static BulkOperation[] packedBulkOps = new BulkOperation[] {
             new BulkOperationPacked1(),
             new BulkOperationPacked2(),
             new BulkOperationPacked3(),
@@ -126,7 +126,7 @@ namespace YAF.Lucene.Net.Util.Packed
         };
 
         // NOTE: this is sparse (some entries are null):
-        private static readonly BulkOperation[] packedSingleBlockBulkOps = new BulkOperation[] {
+        private readonly static BulkOperation[] packedSingleBlockBulkOps = new BulkOperation[] {
             new BulkOperationPackedSingleBlock(1),
             new BulkOperationPackedSingleBlock(2),
             new BulkOperationPackedSingleBlock(3),

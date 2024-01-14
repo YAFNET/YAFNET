@@ -45,7 +45,7 @@ namespace YAF.Lucene.Net.Util
         /// The default encoding (UTF-8 without a byte order mark) used by <see cref="ByteSequencesReader"/> and <see cref="ByteSequencesWriter"/>.
         /// This encoding should always be used when calling the constructor overloads that accept <see cref="BinaryReader"/> or <see cref="BinaryWriter"/>.
         /// </summary>
-        public static readonly Encoding DEFAULT_ENCODING = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
+        public readonly static Encoding DEFAULT_ENCODING = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
 
         /// <summary>
         /// The recommended buffer size to use on <see cref="Sort(FileStream, FileStream)"/> or when creating a
@@ -83,7 +83,7 @@ namespace YAF.Lucene.Net.Util
         /// <seealso cref="Megabytes(long)"/>
         public sealed class BufferSize
         {
-            internal readonly int bytes;
+            readonly internal int bytes;
 
             private BufferSize(long bytes)
             {
@@ -215,14 +215,14 @@ namespace YAF.Lucene.Net.Util
 
         /// <summary>
         /// Default comparer: sorts in binary (codepoint) order </summary>
-        public static readonly IComparer<BytesRef> DEFAULT_COMPARER = Utf8SortedAsUnicodeComparer.Instance;
+        public readonly static IComparer<BytesRef> DEFAULT_COMPARER = Utf8SortedAsUnicodeComparer.Instance;
 
         /// <summary>
         /// LUCENENET specific - cache the temp directory path so we can return it from a property.
         /// </summary>
         [SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "This is a SonarCloud issue")]
         [SuppressMessage("Security Hotspot", "S5443:Using publicly writable directories is security-sensitive", Justification = "Temp file names are chosen at random so they cannot be guessed by malicous users")]
-        private static readonly string DEFAULT_TEMP_DIR = Path.GetTempPath();
+        private readonly static string DEFAULT_TEMP_DIR = Path.GetTempPath();
 
         /// <summary>
         /// Defaults constructor.
@@ -548,7 +548,7 @@ namespace YAF.Lucene.Net.Util
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected internal override bool LessThan(FileAndTop a, FileAndTop b)
+            override protected internal bool LessThan(FileAndTop a, FileAndTop b)
             {
                 // LUCENENET: Added guard clauses
                 if (a is null)

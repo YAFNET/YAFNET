@@ -26,7 +26,7 @@ namespace YAF.Lucene.Net.Search.Similarities
     /// </summary>
     public class NormalizationZ : Normalization
     {
-        internal readonly float z;
+        readonly internal float z;
 
         /// <summary>
         /// Calls <see cref="T:NormalizationZ(0.3)"/>

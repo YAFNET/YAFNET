@@ -61,7 +61,7 @@ namespace YAF.Lucene.Net.Analysis.Cjk
 
         /// <summary>
         /// Names for token types </summary>
-        internal static readonly string[] TOKEN_TYPE_NAMES = new string[] { "word", "single", "double" };
+        readonly static internal string[] TOKEN_TYPE_NAMES = new string[] { "word", "single", "double" };
 
         /// <summary>
         /// Max word length </summary>
@@ -74,12 +74,12 @@ namespace YAF.Lucene.Net.Analysis.Cjk
         /// <summary>
         /// Regular expression for testing Unicode character class <c>\p{IsHalfwidthandFullwidthForms}</c>.</summary>
         // LUCENENET specific
-        private static readonly Regex HALFWIDTH_AND_FULLWIDTH_FORMS = new Regex(@"\p{IsHalfwidthandFullwidthForms}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        private readonly static Regex HALFWIDTH_AND_FULLWIDTH_FORMS = new Regex(@"\p{IsHalfwidthandFullwidthForms}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
         /// <summary>
         /// Regular expression for testing Unicode character class <c>\p{IsBasicLatin}</c>.</summary>
         // LUCENENET specific
-        private static readonly Regex BASIC_LATIN = new Regex(@"\p{IsBasicLatin}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        private readonly static Regex BASIC_LATIN = new Regex(@"\p{IsBasicLatin}", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
         //~ Instance fields --------------------------------------------------------
 

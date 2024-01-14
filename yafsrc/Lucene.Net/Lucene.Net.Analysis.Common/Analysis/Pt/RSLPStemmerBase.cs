@@ -89,9 +89,9 @@ namespace YAF.Lucene.Net.Analysis.Pt
         /// </summary>
         protected class Rule
         {
-            protected internal readonly char[] m_suffix;
-            protected readonly char[] m_replacement;
-            protected internal readonly int m_min;
+            readonly protected internal char[] m_suffix;
+            readonly protected char[] m_replacement;
+            readonly protected internal int m_min;
 
             /// <summary>
             /// Create a rule. </summary>
@@ -127,7 +127,7 @@ namespace YAF.Lucene.Net.Analysis.Pt
         /// </summary>
         protected class RuleWithSetExceptions : Rule
         {
-            protected readonly CharArraySet m_exceptions;
+            readonly protected CharArraySet m_exceptions;
 
             public RuleWithSetExceptions(string suffix, int min, string replacement, string[] exceptions) : base(suffix, min, replacement)
             {
@@ -157,7 +157,7 @@ namespace YAF.Lucene.Net.Analysis.Pt
         protected class RuleWithSuffixExceptions : Rule
         {
             // TODO: use a more efficient datastructure: automaton?
-            protected readonly char[][] m_exceptions;
+            readonly protected char[][] m_exceptions;
 
             public RuleWithSuffixExceptions(string suffix, int min, string replacement, string[] exceptions) : base(suffix, min, replacement)
             {
@@ -199,10 +199,10 @@ namespace YAF.Lucene.Net.Analysis.Pt
         /// </summary>
         protected class Step
         {
-            protected internal readonly string m_name;
-            protected readonly Rule[] m_rules;
-            protected readonly int m_min;
-            protected readonly char[][] m_suffixes;
+            readonly protected internal string m_name;
+            readonly protected Rule[] m_rules;
+            readonly protected int m_min;
+            readonly protected char[][] m_suffixes;
 
             /// <summary>
             /// Create a new step </summary>
@@ -280,7 +280,7 @@ namespace YAF.Lucene.Net.Analysis.Pt
         /// <summary>
         /// Parse a resource file into an RSLP stemmer description. </summary>
         /// <returns> a Map containing the named <see cref="Step"/>s in this description. </returns>
-        protected static IDictionary<string, Step> Parse(Type clazz, string resource)
+        static protected IDictionary<string, Step> Parse(Type clazz, string resource)
         {
             try
             {
@@ -303,10 +303,10 @@ namespace YAF.Lucene.Net.Analysis.Pt
             }
         }
 
-        private static readonly Regex headerPattern = new Regex("^\\{\\s*\"([^\"]*)\",\\s*([0-9]+),\\s*(0|1),\\s*\\{(.*)\\},\\s*$", RegexOptions.Compiled);
-        private static readonly Regex stripPattern = new Regex("^\\{\\s*\"([^\"]*)\",\\s*([0-9]+)\\s*\\}\\s*(,|(\\}\\s*;))$", RegexOptions.Compiled);
-        private static readonly Regex repPattern = new Regex("^\\{\\s*\"([^\"]*)\",\\s*([0-9]+),\\s*\"([^\"]*)\"\\}\\s*(,|(\\}\\s*;))$", RegexOptions.Compiled);
-        private static readonly Regex excPattern = new Regex("^\\{\\s*\"([^\"]*)\",\\s*([0-9]+),\\s*\"([^\"]*)\",\\s*\\{(.*)\\}\\s*\\}\\s*(,|(\\}\\s*;))$", RegexOptions.Compiled);
+        private readonly static Regex headerPattern = new Regex("^\\{\\s*\"([^\"]*)\",\\s*([0-9]+),\\s*(0|1),\\s*\\{(.*)\\},\\s*$", RegexOptions.Compiled);
+        private readonly static Regex stripPattern = new Regex("^\\{\\s*\"([^\"]*)\",\\s*([0-9]+)\\s*\\}\\s*(,|(\\}\\s*;))$", RegexOptions.Compiled);
+        private readonly static Regex repPattern = new Regex("^\\{\\s*\"([^\"]*)\",\\s*([0-9]+),\\s*\"([^\"]*)\"\\}\\s*(,|(\\}\\s*;))$", RegexOptions.Compiled);
+        private readonly static Regex excPattern = new Regex("^\\{\\s*\"([^\"]*)\",\\s*([0-9]+),\\s*\"([^\"]*)\",\\s*\\{(.*)\\}\\s*\\}\\s*(,|(\\}\\s*;))$", RegexOptions.Compiled);
 
         private static Step ParseStep(TextReader r, string header)
         {

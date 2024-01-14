@@ -115,7 +115,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         /// </summary>
         /// <param name="disposing"></param>
         /// <exception cref="IOException">if an error occurs while closing this reader.</exception>
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {

@@ -120,11 +120,11 @@ namespace YAF.Lucene.Net.Index
     {
         /// <summary>
         /// The file format version for the segments_N codec header, up to 4.5. </summary>
-        public static readonly int VERSION_40 = 0;
+        public readonly static int VERSION_40 = 0;
 
         /// <summary>
         /// The file format version for the segments_N codec header, since 4.6+. </summary>
-        public static readonly int VERSION_46 = 1;
+        public readonly static int VERSION_46 = 1;
 
         /// <summary>
         /// The file format version for the segments_N codec header, since 4.8+ </summary>
@@ -139,7 +139,7 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// Current format of segments.gen </summary>
-        public static readonly int FORMAT_SEGMENTS_GEN_CURRENT = FORMAT_SEGMENTS_GEN_CHECKSUM;
+        public readonly static int FORMAT_SEGMENTS_GEN_CURRENT = FORMAT_SEGMENTS_GEN_CHECKSUM;
 
         /// <summary>
         /// Setting this to true will generate the same file names that were used in 4.8.0-beta00001 through 4.8.0-beta00015.
@@ -158,7 +158,7 @@ namespace YAF.Lucene.Net.Index
             get => useLegacySegmentNames;
             set => useLegacySegmentNames = value;
         }
-        internal static bool useLegacySegmentNames = Util.SystemProperties.GetPropertyAsBoolean("useLegacySegmentNames", defaultValue: false);
+        static internal bool useLegacySegmentNames = Util.SystemProperties.GetPropertyAsBoolean("useLegacySegmentNames", defaultValue: false);
 
         /// <summary>
         /// Optimized version of <see cref="J2N.IntegralNumberExtensions.ToString(long, int)"/> with a radix of 36, that
@@ -167,7 +167,7 @@ namespace YAF.Lucene.Net.Index
         /// <para/>
         /// This also implements the switch for <see cref="UseLegacySegmentNames"/> so it doesn't have to be dealt with externally.
         /// </summary>
-        internal static string SegmentNumberToString(long segment, bool allowLegacyNames = true)
+        static internal string SegmentNumberToString(long segment, bool allowLegacyNames = true)
         {
             switch (segment)
             {
@@ -635,7 +635,7 @@ namespace YAF.Lucene.Net.Index
                 this.outerInstance = outerInstance;
             }
 
-            protected internal override object DoBody(string segmentFileName)
+            override protected internal object DoBody(string segmentFileName)
             {
                 outerInstance.Read(directory, segmentFileName);
                 return null;
@@ -947,7 +947,7 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         public abstract class FindSegmentsFile
         {
-            internal readonly Directory directory;
+            readonly internal Directory directory;
 
             /// <summary>
             /// Sole constructor. </summary>

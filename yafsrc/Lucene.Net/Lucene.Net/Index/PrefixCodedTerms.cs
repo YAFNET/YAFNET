@@ -37,7 +37,7 @@ namespace YAF.Lucene.Net.Index
     /// </summary>
     internal class PrefixCodedTerms : IEnumerable<Term>
     {
-        internal readonly RAMFile buffer;
+        readonly internal RAMFile buffer;
 
         private PrefixCodedTerms(RAMFile buffer)
         {

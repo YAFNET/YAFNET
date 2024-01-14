@@ -42,7 +42,7 @@ namespace YAF.Lucene.Net.Index
     {
         /// <summary>
         /// Maximum length for a binary field. </summary>
-        private static readonly int MAX_LENGTH = ArrayUtil.MAX_ARRAY_LENGTH;
+        private readonly static int MAX_LENGTH = ArrayUtil.MAX_ARRAY_LENGTH;
 
         // 32 KB block sizes for PagedBytes storage:
         private const int BLOCK_BITS = 15;

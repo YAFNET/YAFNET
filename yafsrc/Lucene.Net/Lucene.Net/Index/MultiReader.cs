@@ -72,7 +72,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        protected internal override void DoClose()
+        override protected internal void DoClose()
         {
             UninterruptableMonitor.Enter(this);
             try

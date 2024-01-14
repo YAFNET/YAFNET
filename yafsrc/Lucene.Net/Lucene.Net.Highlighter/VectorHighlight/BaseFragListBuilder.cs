@@ -28,11 +28,11 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
     /// </summary>
     public abstract class BaseFragListBuilder : IFragListBuilder
     {
-        public static readonly int MARGIN_DEFAULT = 6;
-        public static readonly int MIN_FRAG_CHAR_SIZE_FACTOR = 3;
+        public readonly static int MARGIN_DEFAULT = 6;
+        public readonly static int MIN_FRAG_CHAR_SIZE_FACTOR = 3;
 
-        internal readonly int margin;
-        internal readonly int minFragCharSize;
+        readonly internal int margin;
+        readonly internal int minFragCharSize;
 
         protected BaseFragListBuilder(int margin) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
         {

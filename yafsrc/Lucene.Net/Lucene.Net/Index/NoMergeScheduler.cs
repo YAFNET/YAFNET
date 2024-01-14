@@ -33,14 +33,14 @@ namespace YAF.Lucene.Net.Index
     {
         /// <summary>
         /// The single instance of <see cref="NoMergeScheduler"/> </summary>
-        public static readonly MergeScheduler INSTANCE = new NoMergeScheduler();
+        public readonly static MergeScheduler INSTANCE = new NoMergeScheduler();
 
         private NoMergeScheduler()
         {
             // prevent instantiation
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
         }
 

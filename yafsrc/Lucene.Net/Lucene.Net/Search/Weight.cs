@@ -145,7 +145,7 @@ namespace YAF.Lucene.Net.Search
         /// Just wraps a <see cref="Scorer"/> and performs top scoring using it. </summary>
         internal class DefaultBulkScorer : BulkScorer
         {
-            internal readonly Scorer scorer;
+            readonly internal Scorer scorer;
 
             public DefaultBulkScorer(Scorer scorer)
             {
@@ -178,7 +178,7 @@ namespace YAF.Lucene.Net.Search
                 }
             }
 
-            internal static bool ScoreRange(ICollector collector, Scorer scorer, int currentDoc, int end)
+            static internal bool ScoreRange(ICollector collector, Scorer scorer, int currentDoc, int end)
             {
                 while (currentDoc < end)
                 {
@@ -188,7 +188,7 @@ namespace YAF.Lucene.Net.Search
                 return currentDoc != DocIdSetIterator.NO_MORE_DOCS;
             }
 
-            internal static void ScoreAll(ICollector collector, Scorer scorer)
+            static internal void ScoreAll(ICollector collector, Scorer scorer)
             {
                 int doc;
                 while ((doc = scorer.NextDoc()) != DocIdSetIterator.NO_MORE_DOCS)

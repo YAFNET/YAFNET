@@ -37,11 +37,11 @@ namespace YAF.Lucene.Net.Search
 
     public abstract class DocTermOrdsRangeFilter : Filter
     {
-        internal readonly string field;
-        internal readonly BytesRef lowerVal;
-        internal readonly BytesRef upperVal;
-        internal readonly bool includeLower;
-        internal readonly bool includeUpper;
+        readonly internal string field;
+        readonly internal BytesRef lowerVal;
+        readonly internal BytesRef upperVal;
+        readonly internal bool includeLower;
+        readonly internal bool includeUpper;
 
         private DocTermOrdsRangeFilter(string field, BytesRef lowerVal, BytesRef upperVal, bool includeLower, bool includeUpper)
         {

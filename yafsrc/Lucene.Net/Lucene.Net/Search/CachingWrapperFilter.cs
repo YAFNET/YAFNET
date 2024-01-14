@@ -167,7 +167,7 @@ namespace YAF.Lucene.Net.Search
 
         /// <summary>
         /// An empty <see cref="DocIdSet"/> instance </summary>
-        protected static readonly DocIdSet EMPTY_DOCIDSET = new DocIdSetAnonymousClass();
+        readonly static protected DocIdSet EMPTY_DOCIDSET = new DocIdSetAnonymousClass();
 
         private sealed class DocIdSetAnonymousClass : DocIdSet
         {

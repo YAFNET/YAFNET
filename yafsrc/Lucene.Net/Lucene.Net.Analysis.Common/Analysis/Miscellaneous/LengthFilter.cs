@@ -77,7 +77,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
             this.termAtt = AddAttribute<ICharTermAttribute>();
         }
 
-        protected override bool Accept()
+        override protected bool Accept()
         {
             int len = termAtt.Length;
             return (len >= min && len <= max);

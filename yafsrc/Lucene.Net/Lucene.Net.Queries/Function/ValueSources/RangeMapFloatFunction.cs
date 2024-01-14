@@ -35,11 +35,11 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public class RangeMapSingleFunction : ValueSource
     {
-        protected readonly ValueSource m_source;
-        protected readonly float m_min;
-        protected readonly float m_max;
-        protected readonly ValueSource m_target;
-        protected readonly ValueSource m_defaultVal;
+        readonly protected ValueSource m_source;
+        readonly protected float m_min;
+        readonly protected float m_max;
+        readonly protected ValueSource m_target;
+        readonly protected ValueSource m_defaultVal;
 
         public RangeMapSingleFunction(ValueSource source, float min, float max, float target, float? def)
             : this(source, min, max, new ConstValueSource(target), def is null ? null : new ConstValueSource(def.Value))

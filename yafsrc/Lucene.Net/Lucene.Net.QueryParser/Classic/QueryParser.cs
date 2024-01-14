@@ -598,13 +598,13 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
         private int jj_la;
         private int jj_gen;
         private readonly int[] jj_la1 = new int[21]; // LUCENENET: marked readonly
-        private static readonly uint[] jj_la1_0 = new uint[] // LUCENENET: marked readonly // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
+        private readonly static uint[] jj_la1_0 = new uint[] // LUCENENET: marked readonly // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {
             0x300, 0x300, 0x1c00, 0x1c00, 0xfda7f00, 0x120000, 0x40000, 0xfda6000, 0x9d22000, 0x200000,
             0x200000, 0x40000, 0x6000000, 0x80000000, 0x10000000, 0x80000000, 0x60000000, 0x40000,
             0x200000, 0x40000, 0xfda2000,
         };
-        private static readonly int[] jj_la1_1 = new int[] // LUCENENET: marked readonly // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
+        private readonly static int[] jj_la1_1 = new int[] // LUCENENET: marked readonly // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {
             0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x1, 0x0,
             0x1, 0x0, 0x0, 0x0, 0x0, 0x0,

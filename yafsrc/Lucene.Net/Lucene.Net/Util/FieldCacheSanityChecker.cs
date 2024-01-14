@@ -457,7 +457,7 @@ namespace YAF.Lucene.Net.Util
             /// Indicates an overlap in cache usage on a given field
             /// in sub/super readers.
             /// </summary>
-            public static readonly InsanityType SUBREADER = new InsanityType("SUBREADER");
+            public readonly static InsanityType SUBREADER = new InsanityType("SUBREADER");
 
             /// <summary>
             /// <para>
@@ -474,14 +474,14 @@ namespace YAF.Lucene.Net.Util
             /// in the way a Parser is specified (null vs DEFAULT_INT64_PARSER, etc...)
             /// </para>
             /// </summary>
-            public static readonly InsanityType VALUEMISMATCH = new InsanityType("VALUEMISMATCH");
+            public readonly static InsanityType VALUEMISMATCH = new InsanityType("VALUEMISMATCH");
 
             /// <summary>
             /// Indicates an expected bit of "insanity".  This may be useful for
             /// clients that wish to preserve/log information about insane usage
             /// but indicate that it was expected.
             /// </summary>
-            public static readonly InsanityType EXPECTED = new InsanityType("EXPECTED");
+            public readonly static InsanityType EXPECTED = new InsanityType("EXPECTED");
         }
     }
 }

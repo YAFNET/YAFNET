@@ -56,7 +56,7 @@ namespace YAF.Lucene.Net.Search
         /// exceeds <see cref="BooleanQuery.MaxClauseCount"/>.
         /// </summary>
         ///  <seealso cref="MultiTermQuery.MultiTermRewriteMethod"/>
-        public static readonly ScoringRewrite<BooleanQuery> SCORING_BOOLEAN_QUERY_REWRITE = new ScoringRewriteAnonymousClass();
+        public readonly static ScoringRewrite<BooleanQuery> SCORING_BOOLEAN_QUERY_REWRITE = new ScoringRewriteAnonymousClass();
 
         private sealed class ScoringRewriteAnonymousClass : ScoringRewrite<BooleanQuery>
         {
@@ -64,19 +64,19 @@ namespace YAF.Lucene.Net.Search
             {
             }
 
-            protected override BooleanQuery GetTopLevelQuery()
+            override protected BooleanQuery GetTopLevelQuery()
             {
                 return new BooleanQuery(true);
             }
 
-            protected override void AddClause(BooleanQuery topLevel, Term term, int docCount, float boost, TermContext states)
+            override protected void AddClause(BooleanQuery topLevel, Term term, int docCount, float boost, TermContext states)
             {
                 TermQuery tq = new TermQuery(term, states);
                 tq.Boost = boost;
                 topLevel.Add(tq, Occur.SHOULD);
             }
 
-            protected override void CheckMaxClauseCount(int count)
+            override protected void CheckMaxClauseCount(int count)
             {
                 if (count > BooleanQuery.MaxClauseCount)
                 {
@@ -96,7 +96,7 @@ namespace YAF.Lucene.Net.Search
         /// exceeds <see cref="BooleanQuery.MaxClauseCount"/>.
         /// </summary>
         /// <seealso cref="MultiTermQuery.MultiTermRewriteMethod"/>
-        public static readonly RewriteMethod CONSTANT_SCORE_BOOLEAN_QUERY_REWRITE = new RewriteMethodAnonymousClass();
+        public readonly static RewriteMethod CONSTANT_SCORE_BOOLEAN_QUERY_REWRITE = new RewriteMethodAnonymousClass();
 
         private sealed class RewriteMethodAnonymousClass : RewriteMethod
         {
@@ -154,7 +154,7 @@ namespace YAF.Lucene.Net.Search
                 terms = new BytesRefHash(new ByteBlockPool(new ByteBlockPool.DirectAllocator()), 16, array);
             }
 
-            internal readonly TermFreqBoostByteStart array = new TermFreqBoostByteStart(16);
+            readonly internal TermFreqBoostByteStart array = new TermFreqBoostByteStart(16);
             internal BytesRefHash terms;
             internal TermsEnum termsEnum;
 

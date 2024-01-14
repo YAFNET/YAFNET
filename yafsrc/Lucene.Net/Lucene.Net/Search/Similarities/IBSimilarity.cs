@@ -84,15 +84,15 @@ namespace YAF.Lucene.Net.Search.Similarities
     {
         /// <summary>
         /// The probabilistic distribution used to model term occurrence. </summary>
-        protected internal readonly Distribution m_distribution;
+        readonly protected internal Distribution m_distribution;
 
         /// <summary>
         /// The <em>lambda (&#955;<sub>w</sub>)</em> parameter. </summary>
-        protected internal readonly Lambda m_lambda;
+        readonly protected internal Lambda m_lambda;
 
         /// <summary>
         /// The term frequency normalization. </summary>
-        protected internal readonly Normalization m_normalization;
+        readonly protected internal Normalization m_normalization;
 
         /// <summary>
         /// Creates IBSimilarity from the three components.
@@ -115,7 +115,7 @@ namespace YAF.Lucene.Net.Search.Similarities
             return stats.TotalBoost * m_distribution.Score(stats, m_normalization.Tfn(stats, freq, docLen), m_lambda.CalculateLambda(stats));
         }
 
-        protected internal override void Explain(Explanation expl, BasicStats stats, int doc, float freq, float docLen)
+        override protected internal void Explain(Explanation expl, BasicStats stats, int doc, float freq, float docLen)
         {
             if (stats.TotalBoost != 1.0f)
             {

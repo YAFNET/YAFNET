@@ -210,7 +210,7 @@ namespace YAF.Lucene.Net.Index
             return this.starts[readerIndex];
         }
 
-        protected internal override sealed IList<IndexReader> GetSequentialSubReaders()
+        override protected internal sealed IList<IndexReader> GetSequentialSubReaders()
         {
             return subReadersList;
         }

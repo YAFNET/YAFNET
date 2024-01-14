@@ -30,7 +30,7 @@ namespace YAF.Lucene.Net.Queries.Function.DocValues
     /// </summary>
     public abstract class SingleDocValues : FunctionValues
     {
-        protected readonly ValueSource m_vs;
+        readonly protected ValueSource m_vs;
 
         protected SingleDocValues(ValueSource vs) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
         {

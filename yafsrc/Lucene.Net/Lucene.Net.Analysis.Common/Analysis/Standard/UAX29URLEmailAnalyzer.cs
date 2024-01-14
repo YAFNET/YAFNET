@@ -47,7 +47,7 @@ namespace YAF.Lucene.Net.Analysis.Standard
         /// An unmodifiable set containing some common English words that are usually not
         /// useful for searching. 
         /// </summary>
-        public static readonly CharArraySet STOP_WORDS_SET = StopAnalyzer.ENGLISH_STOP_WORDS_SET;
+        public readonly static CharArraySet STOP_WORDS_SET = StopAnalyzer.ENGLISH_STOP_WORDS_SET;
 
         /// <summary>
         /// Builds an analyzer with the given stop words. </summary>
@@ -89,7 +89,7 @@ namespace YAF.Lucene.Net.Analysis.Standard
             get => maxTokenLength;
         }
 
-        protected internal override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
+        override protected internal TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
         {
             UAX29URLEmailTokenizer src = new UAX29URLEmailTokenizer(m_matchVersion, reader);
             src.MaxTokenLength = maxTokenLength;
@@ -112,7 +112,7 @@ namespace YAF.Lucene.Net.Analysis.Standard
                 this.src = src;
             }
 
-            protected internal override void SetReader(TextReader reader)
+            override protected internal void SetReader(TextReader reader)
             {
                 src.MaxTokenLength = outerInstance.maxTokenLength;
                 base.SetReader(reader);

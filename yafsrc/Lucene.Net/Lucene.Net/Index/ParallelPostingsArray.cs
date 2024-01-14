@@ -27,10 +27,10 @@ namespace YAF.Lucene.Net.Index
     {
         internal const int BYTES_PER_POSTING = 3 * RamUsageEstimator.NUM_BYTES_INT32;
 
-        internal readonly int size;
-        internal readonly int[] textStarts;
-        internal readonly int[] intStarts;
-        internal readonly int[] byteStarts;
+        readonly internal int size;
+        readonly internal int[] textStarts;
+        readonly internal int[] intStarts;
+        readonly internal int[] byteStarts;
 
         internal ParallelPostingsArray(int size)
         {

@@ -41,7 +41,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         /// Upper limit of the number of bytes that might be required to stored
         /// <see cref="Lucene41PostingsFormat.BLOCK_SIZE"/> encoded values.
         /// </summary>
-        public static readonly int MAX_ENCODED_SIZE = Lucene41PostingsFormat.BLOCK_SIZE * 4;
+        public readonly static int MAX_ENCODED_SIZE = Lucene41PostingsFormat.BLOCK_SIZE * 4;
 
         /// <summary>
         /// Upper limit of the number of values that might be decoded in a single call to
@@ -49,7 +49,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         /// <see cref="Lucene41PostingsFormat.BLOCK_SIZE"/> are garbage, it is necessary to allocate value buffers
         /// whose size is &gt;= MAX_DATA_SIZE to avoid <see cref="IndexOutOfRangeException"/>s.
         /// </summary>
-        public static readonly int MAX_DATA_SIZE = LoadMaxDataSize();
+        public readonly static int MAX_DATA_SIZE = LoadMaxDataSize();
 
         private static int LoadMaxDataSize() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {

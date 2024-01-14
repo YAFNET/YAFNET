@@ -67,7 +67,7 @@ namespace YAF.Lucene.Net.Search
             }
         }
 
-        protected override string GetSummary()
+        override protected string GetSummary()
         {
             if (null == Match)
             {

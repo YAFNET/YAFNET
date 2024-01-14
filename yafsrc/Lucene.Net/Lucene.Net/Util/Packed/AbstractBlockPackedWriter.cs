@@ -33,7 +33,7 @@ namespace YAF.Lucene.Net.Util.Packed
         internal const int BPV_SHIFT = 1;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static long ZigZagEncode(long n)
+        static internal long ZigZagEncode(long n)
         {
             return (n >> 63) ^ (n << 1);
         }
@@ -43,7 +43,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// NOTE: This was writeVLong() in Lucene.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void WriteVInt64(DataOutput @out, long i)
+        static internal void WriteVInt64(DataOutput @out, long i)
         {
             int k = 0;
             while ((i & ~0x7FL) != 0L && k++ < 8)
@@ -55,7 +55,7 @@ namespace YAF.Lucene.Net.Util.Packed
         }
 
         protected DataOutput m_out;
-        protected readonly long[] m_values;
+        readonly protected long[] m_values;
         protected byte[] m_blocks;
         protected int m_off;
         protected long m_ord;

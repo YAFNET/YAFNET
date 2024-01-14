@@ -70,23 +70,23 @@ namespace YAF.Lucene.Net.Search
     /// </summary>
     public class IndexSearcher
     {
-        internal readonly IndexReader reader; // package private for testing!
+        readonly internal IndexReader reader; // package private for testing!
 
         // NOTE: these members might change in incompatible ways
         // in the next release
-        protected readonly IndexReaderContext m_readerContext;
+        readonly protected IndexReaderContext m_readerContext;
 
-        protected internal readonly IList<AtomicReaderContext> m_leafContexts;
+        readonly protected internal IList<AtomicReaderContext> m_leafContexts;
 
         /// <summary>
         /// Used with executor - each slice holds a set of leafs executed within one thread </summary>
-        protected readonly LeafSlice[]? m_leafSlices;
+        readonly protected LeafSlice[]? m_leafSlices;
 
         // These are only used for multi-threaded search
         private readonly TaskScheduler? executor;
 
         // the default Similarity
-        private static readonly Similarity defaultSimilarity = new DefaultSimilarity();
+        private readonly static Similarity defaultSimilarity = new DefaultSimilarity();
 
         /// <summary>
         /// Expert: returns a default <see cref="Similarities.Similarity"/> instance.

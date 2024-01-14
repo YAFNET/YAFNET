@@ -60,7 +60,7 @@ namespace YAF.Lucene.Net.Search
             return scoreMax + (scoreSum - scoreMax) * tieBreakerMultiplier;
         }
 
-        protected override void AfterNext()
+        override protected void AfterNext()
         {
             m_doc = m_subScorers[0].DocID;
             if (m_doc != NO_MORE_DOCS)

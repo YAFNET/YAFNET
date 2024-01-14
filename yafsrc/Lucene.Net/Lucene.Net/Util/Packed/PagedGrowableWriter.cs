@@ -33,7 +33,7 @@ namespace YAF.Lucene.Net.Util.Packed
     /// </summary>
     public sealed class PagedGrowableWriter : AbstractPagedMutable<PagedGrowableWriter>
     {
-        internal readonly float acceptableOverheadRatio;
+        readonly internal float acceptableOverheadRatio;
 
         /// <summary>
         /// Create a new <see cref="PagedGrowableWriter"/> instance.
@@ -58,19 +58,19 @@ namespace YAF.Lucene.Net.Util.Packed
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override Mutable NewMutable(int valueCount, int bitsPerValue)
+        override protected Mutable NewMutable(int valueCount, int bitsPerValue)
         {
             return new GrowableWriter(bitsPerValue, valueCount, acceptableOverheadRatio);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override PagedGrowableWriter NewUnfilledCopy(long newSize)
+        override protected PagedGrowableWriter NewUnfilledCopy(long newSize)
         {
             return new PagedGrowableWriter(newSize, PageSize, bitsPerValue, acceptableOverheadRatio, false);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override long BaseRamBytesUsed()
+        override protected long BaseRamBytesUsed()
         {
             return base.BaseRamBytesUsed() + RamUsageEstimator.NUM_BYTES_SINGLE;
         }

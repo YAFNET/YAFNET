@@ -73,18 +73,18 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
         /// Standard storage for sorted set values with 1 level of indirection:
         /// docId -> address -> ord.
         /// </summary>
-        public static readonly int SORTED_SET_WITH_ADDRESSES = 0;
+        public readonly static int SORTED_SET_WITH_ADDRESSES = 0;
 
         /// <summary>
         /// Single-valued sorted set values, encoded as sorted values, so no level
         /// of indirection: docId -> ord.
         /// </summary>
-        public static readonly int SORTED_SET_SINGLE_VALUED_SORTED = 1;
+        public readonly static int SORTED_SET_SINGLE_VALUED_SORTED = 1;
 
 #pragma warning disable CA2213 // Disposable fields should be disposed
         internal IndexOutput data, meta;
 #pragma warning restore CA2213 // Disposable fields should be disposed
-        internal readonly int maxDoc;
+        readonly internal int maxDoc;
 
         /// <summary>
         /// Expert: Creates a new writer. </summary>
@@ -507,7 +507,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
             if (Debugging.AssertsEnabled) Debugging.Assert(!ordsIter.MoveNext());
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {

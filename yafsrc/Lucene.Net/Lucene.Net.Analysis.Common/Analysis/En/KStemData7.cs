@@ -47,7 +47,7 @@ namespace YAF.Lucene.Net.Analysis.En
         private KStemData7()
         {
         }
-        internal static string[] data = new string[] {
+        static internal string[] data = new string[] {
             "rupee","rupture","rural","ruritanian","ruse",
             "rush","rushes","rushlight","rusk","russet",
             "rust","rustic","rusticate","rustication","rustle",

@@ -107,7 +107,7 @@ namespace YAF.Lucene.Net.Util
         /// <para/>
         /// WARNING: this is not a valid UTF8 Term
         /// </summary>
-        public static readonly BytesRef BIG_TERM = new BytesRef(new byte[] { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff }); // TODO this is unrelated here find a better place for it
+        public readonly static BytesRef BIG_TERM = new BytesRef(new byte[] { 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff }); // TODO this is unrelated here find a better place for it
 
         public const int UNI_SUR_HIGH_START = 0xD800;
         public const int UNI_SUR_HIGH_END = 0xDBFF;
@@ -676,7 +676,7 @@ namespace YAF.Lucene.Net.Util
 
         /* Map UTF-8 encoded prefix byte to sequence length.  -1 (0xFF)
          * means illegal prefix.  see RFC 2279 for details */
-        internal static readonly int[] utf8CodeLength = LoadUTF8CodeLength();
+        readonly static internal int[] utf8CodeLength = LoadUTF8CodeLength();
         private static int[] LoadUTF8CodeLength() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {
             int v = int.MinValue;

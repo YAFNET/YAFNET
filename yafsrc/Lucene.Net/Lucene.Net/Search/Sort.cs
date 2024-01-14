@@ -105,11 +105,11 @@ namespace YAF.Lucene.Net.Search
         /// <see cref="IndexSearcher.Search(Query, int)"/>without a sort criteria,
         /// only with slightly more overhead.
         /// </summary>
-        public static readonly Sort RELEVANCE = new Sort();
+        public readonly static Sort RELEVANCE = new Sort();
 
         /// <summary>
         /// Represents sorting by index order. </summary>
-        public static readonly Sort INDEXORDER = new Sort(SortField.FIELD_DOC);
+        public readonly static Sort INDEXORDER = new Sort(SortField.FIELD_DOC);
 
         // internal representation of the sort criteria
         internal SortField[] fields;

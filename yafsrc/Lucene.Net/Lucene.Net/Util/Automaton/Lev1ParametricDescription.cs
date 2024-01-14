@@ -29,7 +29,7 @@ namespace YAF.Lucene.Net.Util.Automaton
     /// Parametric description for generating a Levenshtein automaton of degree 1 </summary>
     internal class Lev1ParametricDescription : ParametricDescription
     {
-        internal override int Transition(int absState, int position, int vector)
+        override internal int Transition(int absState, int position, int vector)
         {
             // null absState should never be passed in
             if (Debugging.AssertsEnabled) Debugging.Assert(absState != -1);
@@ -89,24 +89,24 @@ namespace YAF.Lucene.Net.Util.Automaton
         }
 
         // 1 vectors; 2 states per vector; array length = 2
-        private static readonly long[] toStates0 = new long[] { 0x2L }; //2 bits per value
+        private readonly static long[] toStates0 = new long[] { 0x2L }; //2 bits per value
 
-        private static readonly long[] offsetIncrs0 = new long[] { 0x0L }; //1 bits per value
+        private readonly static long[] offsetIncrs0 = new long[] { 0x0L }; //1 bits per value
 
         // 2 vectors; 3 states per vector; array length = 6
-        private static readonly long[] toStates1 = new long[] { 0xa43L }; //2 bits per value
+        private readonly static long[] toStates1 = new long[] { 0xa43L }; //2 bits per value
 
-        private static readonly long[] offsetIncrs1 = new long[] { 0x38L }; //1 bits per value
+        private readonly static long[] offsetIncrs1 = new long[] { 0x38L }; //1 bits per value
 
         // 4 vectors; 5 states per vector; array length = 20
-        private static readonly long[] toStates2 = new long[] { 0x69a292450428003L }; //3 bits per value
+        private readonly static long[] toStates2 = new long[] { 0x69a292450428003L }; //3 bits per value
 
-        private static readonly long[] offsetIncrs2 = new long[] { 0x5555588000L }; //2 bits per value
+        private readonly static long[] offsetIncrs2 = new long[] { 0x5555588000L }; //2 bits per value
 
         // 8 vectors; 5 states per vector; array length = 40
-        private static readonly long[] toStates3 = new long[] { 0x1690a82152018003L, 0xb1a2d346448a49L }; //3 bits per value
+        private readonly static long[] toStates3 = new long[] { 0x1690a82152018003L, 0xb1a2d346448a49L }; //3 bits per value
 
-        private static readonly long[] offsetIncrs3 = new long[] { 0x555555b8220f0000L, 0x5555L }; //2 bits per value
+        private readonly static long[] offsetIncrs3 = new long[] { 0x555555b8220f0000L, 0x5555L }; //2 bits per value
 
         // state map
         //   0 -> [(0, 0)]

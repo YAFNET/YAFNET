@@ -49,7 +49,7 @@ namespace YAF.Lucene.Net.Util
         internal const int STACKSIZE = 40; // depends on MINRUN
         internal const int MIN_GALLOP = 7;
 
-        internal readonly int maxTempSlots;
+        readonly internal int maxTempSlots;
         internal int minRun;
         internal int to;
         internal int stackSize;
@@ -68,7 +68,7 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// Minimum run length for an array of length <paramref name="length"/>. </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static int MinRun(int length)
+        static internal int MinRun(int length)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(length >= MINRUN);
             int n = length;
@@ -266,7 +266,7 @@ namespace YAF.Lucene.Net.Util
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal override void DoRotate(int lo, int mid, int hi)
+        override internal void DoRotate(int lo, int mid, int hi)
         {
             int len1 = mid - lo;
             int len2 = hi - mid;

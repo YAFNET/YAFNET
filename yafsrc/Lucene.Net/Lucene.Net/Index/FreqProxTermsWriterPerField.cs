@@ -39,11 +39,11 @@ namespace YAF.Lucene.Net.Index
     // be configured as any number of files 1..N
     internal sealed class FreqProxTermsWriterPerField : TermsHashConsumerPerField, IComparable<FreqProxTermsWriterPerField>
     {
-        internal readonly FreqProxTermsWriter parent;
-        internal readonly TermsHashPerField termsHashPerField;
-        internal readonly FieldInfo fieldInfo;
-        internal readonly DocumentsWriterPerThread.DocState docState;
-        internal readonly FieldInvertState fieldState;
+        readonly internal FreqProxTermsWriter parent;
+        readonly internal TermsHashPerField termsHashPerField;
+        readonly internal FieldInfo fieldInfo;
+        readonly internal DocumentsWriterPerThread.DocState docState;
+        readonly internal FieldInvertState fieldState;
         private bool hasFreq;
         private bool hasProx;
         private bool hasOffsets;
@@ -60,7 +60,7 @@ namespace YAF.Lucene.Net.Index
             SetIndexOptions(fieldInfo.IndexOptions);
         }
 
-        internal override int StreamCount
+        override internal int StreamCount
         {
             get
             {
@@ -75,7 +75,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        internal override void Finish()
+        override internal void Finish()
         {
             if (hasPayloads)
             {
@@ -86,7 +86,7 @@ namespace YAF.Lucene.Net.Index
         internal bool hasPayloads;
 
         [ExceptionToNetNumericConvention]
-        internal override void SkippingLongTerm()
+        override internal void SkippingLongTerm()
         {
         }
 
@@ -120,7 +120,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        internal override bool Start(IIndexableField[] fields, int count)
+        override internal bool Start(IIndexableField[] fields, int count)
         {
             for (int i = 0; i < count; i++)
             {
@@ -132,7 +132,7 @@ namespace YAF.Lucene.Net.Index
             return false;
         }
 
-        internal override void Start(IIndexableField f)
+        override internal void Start(IIndexableField f)
         {
             if (fieldState.AttributeSource.HasAttribute<IPayloadAttribute>())
             {
@@ -195,7 +195,7 @@ namespace YAF.Lucene.Net.Index
             postings.lastOffsets[termID] = startOffset;
         }
 
-        internal override void NewTerm(int termID)
+        override internal void NewTerm(int termID)
         {
             // First time we're seeing this term since the last
             // flush
@@ -228,7 +228,7 @@ namespace YAF.Lucene.Net.Index
             fieldState.UniqueTermCount++;
         }
 
-        internal override void AddTerm(int termID)
+        override internal void AddTerm(int termID)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(docState.TestPoint("FreqProxTermsWriterPerField.addTerm start"));
 
@@ -298,7 +298,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        internal override ParallelPostingsArray CreatePostingsArray(int size)
+        override internal ParallelPostingsArray CreatePostingsArray(int size)
         {
             return new FreqProxPostingsArray(size, hasFreq, hasProx, hasOffsets);
         }
@@ -335,12 +335,12 @@ namespace YAF.Lucene.Net.Index
             internal int[] lastPositions; // Last position where this term occurred
             internal int[] lastOffsets; // Last endOffset where this term occurred
 
-            internal override ParallelPostingsArray NewInstance(int size)
+            override internal ParallelPostingsArray NewInstance(int size)
             {
                 return new FreqProxPostingsArray(size, termFreqs != null, lastPositions != null, lastOffsets != null);
             }
 
-            internal override void CopyTo(ParallelPostingsArray toArray, int numToCopy)
+            override internal void CopyTo(ParallelPostingsArray toArray, int numToCopy)
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(toArray is FreqProxPostingsArray);
                 FreqProxPostingsArray to = (FreqProxPostingsArray)toArray;
@@ -366,7 +366,7 @@ namespace YAF.Lucene.Net.Index
                 }
             }
 
-            internal override int BytesPerPosting()
+            override internal int BytesPerPosting()
             {
                 int bytes = ParallelPostingsArray.BYTES_PER_POSTING + 2 * RamUsageEstimator.NUM_BYTES_INT32;
                 if (lastPositions != null)

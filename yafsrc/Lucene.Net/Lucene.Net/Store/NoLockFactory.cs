@@ -26,8 +26,8 @@ namespace YAF.Lucene.Net.Store
     public class NoLockFactory : LockFactory
     {
         // Single instance returned whenever makeLock is called.
-        private static readonly NoLock singletonLock = new NoLock(); // LUCENENET: marked readonly
-        private static readonly NoLockFactory singleton = new NoLockFactory(); // LUCENENET: marked readonly
+        private readonly static NoLock singletonLock = new NoLock(); // LUCENENET: marked readonly
+        private readonly static NoLockFactory singleton = new NoLockFactory(); // LUCENENET: marked readonly
 
         private NoLockFactory()
         {
@@ -55,7 +55,7 @@ namespace YAF.Lucene.Net.Store
             return true;
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
         }
 

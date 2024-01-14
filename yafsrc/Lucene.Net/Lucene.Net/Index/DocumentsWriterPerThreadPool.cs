@@ -290,7 +290,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        internal static DocumentsWriterPerThread Reset(ThreadState threadState, bool closed) // LUCENENET: CA1822: Mark members as static
+        static internal DocumentsWriterPerThread Reset(ThreadState threadState, bool closed) // LUCENENET: CA1822: Mark members as static
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(threadState.IsHeldByCurrentThread);
             DocumentsWriterPerThread dwpt = threadState.dwpt;
@@ -469,7 +469,7 @@ namespace YAF.Lucene.Net.Index
         /// </summary>
         /// <param name="threadState"> the state to deactivate </param>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void DeactivateThreadState(ThreadState threadState) // LUCENENET: CA1822: Mark members as static
+        static internal void DeactivateThreadState(ThreadState threadState) // LUCENENET: CA1822: Mark members as static
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(threadState.IsActive);
             threadState.Deactivate();

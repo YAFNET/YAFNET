@@ -29,8 +29,8 @@ namespace YAF.Lucene.Net.Index
 
     internal sealed class DocFieldProcessorPerField
     {
-        internal readonly DocFieldConsumerPerField consumer;
-        internal readonly FieldInfo fieldInfo;
+        readonly internal DocFieldConsumerPerField consumer;
+        readonly internal FieldInfo fieldInfo;
 
         internal DocFieldProcessorPerField next;
         internal int lastGen = -1;

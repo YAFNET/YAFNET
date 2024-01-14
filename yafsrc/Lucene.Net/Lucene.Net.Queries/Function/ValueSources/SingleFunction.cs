@@ -29,7 +29,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public abstract class SingularFunction : ValueSource
     {
-        protected readonly ValueSource m_source;
+        readonly protected ValueSource m_source;
 
         protected SingularFunction(ValueSource source) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
         {

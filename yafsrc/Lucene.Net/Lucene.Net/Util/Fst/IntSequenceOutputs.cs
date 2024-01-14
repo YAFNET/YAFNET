@@ -35,8 +35,8 @@ namespace YAF.Lucene.Net.Util.Fst
     /// </summary>
     public sealed class Int32SequenceOutputs : Outputs<Int32sRef>
     {
-        private static readonly Int32sRef NO_OUTPUT = new Int32sRef();
-        private static readonly Int32SequenceOutputs singleton = new Int32SequenceOutputs();
+        private readonly static Int32sRef NO_OUTPUT = new Int32sRef();
+        private readonly static Int32SequenceOutputs singleton = new Int32SequenceOutputs();
 
         private Int32SequenceOutputs()
         {

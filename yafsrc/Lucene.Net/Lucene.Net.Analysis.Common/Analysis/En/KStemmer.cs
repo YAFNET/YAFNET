@@ -75,7 +75,7 @@ namespace YAF.Lucene.Net.Analysis.En
     {
         private const int MaxWordLen = 50;
 
-        private static readonly string[] exceptionWords = new string[] { "aide", "bathe", "caste",
+        private readonly static string[] exceptionWords = new string[] { "aide", "bathe", "caste",
             "cute", "dame", "dime", "doge", "done", "dune", "envelope", "gage",
             "grille", "grippe", "lobe", "mane", "mare", "nape", "node", "pane",
             "pate", "plane", "pope", "programme", "quite", "ripe", "rote", "rune",
@@ -83,7 +83,7 @@ namespace YAF.Lucene.Net.Analysis.En
             "swinge", "tare", "tine", "tope", "tripe", "twine"
         };
 
-        private static readonly string[][] directConflations = new string[][]
+        private readonly static string[][] directConflations = new string[][]
         {
             new string[] {"aging", "age"},
             new string[] {"going", "go"},
@@ -127,7 +127,7 @@ namespace YAF.Lucene.Net.Analysis.En
             new string[] {"miscarriage", "miscarry"}
         };
 
-        private static readonly string[][] countryNationality = new string[][]
+        private readonly static string[][] countryNationality = new string[][]
         {
             new string[] {"afghan", "afghanistan"},
             new string[] {"african", "africa"},
@@ -280,12 +280,12 @@ namespace YAF.Lucene.Net.Analysis.En
             new string[] {"zimbabwean", "zimbabwe"}
         };
 
-        private static readonly string[] supplementDict = new string[] { "aids", "applicator",
+        private readonly static string[] supplementDict = new string[] { "aids", "applicator",
             "capacitor", "digitize", "electromagnet", "ellipsoid", "exosphere",
             "extensible", "ferromagnet", "graphics", "hydromagnet", "polygraph",
             "toroid", "superconduct", "backscatter", "connectionism"};
 
-        private static readonly string[] properNouns = new string[] { "abrams", "achilles",
+        private readonly static string[] properNouns = new string[] { "abrams", "achilles",
             "acropolis", "adams", "agnes", "aires", "alexander", "alexis", "alfred",
             "algiers", "alps", "amadeus", "ames", "amos", "andes", "angeles",
             "annapolis", "antilles", "aquarius", "archimedes", "arkansas", "asher",
@@ -339,7 +339,7 @@ namespace YAF.Lucene.Net.Analysis.En
             }
         }
 
-        private static readonly CharArrayDictionary<DictEntry> dict_ht = InitializeDictHash();
+        private readonly static CharArrayDictionary<DictEntry> dict_ht = InitializeDictHash();
 
         // caching off 
         // 

@@ -35,13 +35,13 @@ namespace YAF.Lucene.Net.Util.Packed
     public sealed class MonotonicAppendingInt64Buffer : AbstractAppendingInt64Buffer
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static long ZigZagDecode(long n)
+        static internal long ZigZagDecode(long n)
         {
             return (n.TripleShift(1) ^ -(n & 1));
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static long ZigZagEncode(long n)
+        static internal long ZigZagEncode(long n)
         {
             return (n >> 63) ^ (n << 1);
         }
@@ -77,7 +77,7 @@ namespace YAF.Lucene.Net.Util.Packed
         {
         }
 
-        internal override long Get(int block, int element)
+        override internal long Get(int block, int element)
         {
             if (block == valuesOff)
             {
@@ -98,7 +98,7 @@ namespace YAF.Lucene.Net.Util.Packed
             }
         }
 
-        internal override int Get(int block, int element, long[] arr, int off, int len)
+        override internal int Get(int block, int element, long[] arr, int off, int len)
         {
             if (block == valuesOff)
             {
@@ -133,14 +133,14 @@ namespace YAF.Lucene.Net.Util.Packed
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal override void Grow(int newBlockCount)
+        override internal void Grow(int newBlockCount)
         {
             base.Grow(newBlockCount);
             this.averages = Arrays.CopyOf(averages, newBlockCount);
             this.minValues = Arrays.CopyOf(minValues, newBlockCount);
         }
 
-        internal override void PackPendingValues()
+        override internal void PackPendingValues()
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(pendingOff > 0);
             minValues[valuesOff] = pending[0];
@@ -181,7 +181,7 @@ namespace YAF.Lucene.Net.Util.Packed
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal override long BaseRamBytesUsed()
+        override internal long BaseRamBytesUsed()
         {
             return base.BaseRamBytesUsed() + 2 * RamUsageEstimator.NUM_BYTES_OBJECT_REF; // 2 additional arrays
         }

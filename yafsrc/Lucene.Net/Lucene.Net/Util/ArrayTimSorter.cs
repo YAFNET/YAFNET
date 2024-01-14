@@ -52,37 +52,37 @@ namespace YAF.Lucene.Net.Util
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override int Compare(int i, int j)
+        override protected int Compare(int i, int j)
         {
             return comparer.Compare(arr[i], arr[j]);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void Swap(int i, int j)
+        override protected void Swap(int i, int j)
         {
             ArrayUtil.Swap(arr, i, j);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void Copy(int src, int dest)
+        override protected void Copy(int src, int dest)
         {
             arr[dest] = arr[src];
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void Save(int start, int len)
+        override protected void Save(int start, int len)
         {
             Arrays.Copy(arr, start, tmp, 0, len);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void Restore(int src, int dest)
+        override protected void Restore(int src, int dest)
         {
             arr[dest] = tmp[src];
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override int CompareSaved(int i, int j)
+        override protected int CompareSaved(int i, int j)
         {
             return comparer.Compare(tmp[i], arr[j]);
         }

@@ -274,7 +274,7 @@ namespace YAF.Lucene.Net.Analysis.Compound.Hyphenation
             return null;
         }
 
-        protected static string GetPattern(string word)
+        static protected string GetPattern(string word)
         {
             StringBuilder pat = new();
             int len = word.Length;
@@ -349,7 +349,7 @@ namespace YAF.Lucene.Net.Analysis.Compound.Hyphenation
             return res.ToString();
         }
 
-        protected static string GetInterletterValues(string pat)
+        static protected string GetInterletterValues(string pat)
         {
             StringBuilder il = new StringBuilder();
             string word = pat + "a"; // add dummy letter to serve as sentinel

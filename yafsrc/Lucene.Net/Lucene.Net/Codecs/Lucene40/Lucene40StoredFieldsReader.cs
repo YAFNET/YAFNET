@@ -144,7 +144,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         /// </summary>
         /// <exception cref="IOException"> If an I/O error occurs. </exception>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {

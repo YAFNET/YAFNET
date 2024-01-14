@@ -32,11 +32,11 @@ namespace YAF.Lucene.Net.Util.Packed
         internal const int MIN_BLOCK_SIZE = 1 << 6;
         internal const int MAX_BLOCK_SIZE = 1 << 30;
 
-        internal readonly long size;
-        internal readonly int pageShift;
-        internal readonly int pageMask;
-        internal readonly PackedInt32s.Mutable[] subMutables;
-        internal readonly int bitsPerValue;
+        readonly internal long size;
+        readonly internal int pageShift;
+        readonly internal int pageMask;
+        readonly internal PackedInt32s.Mutable[] subMutables;
+        readonly internal int bitsPerValue;
 
         private protected AbstractPagedMutable(int bitsPerValue, long size, int pageSize) // LUCENENET: Changed from internal to private protected
         {

@@ -33,9 +33,9 @@ namespace YAF.Lucene.Net.Analysis.Util
         /// <summary>
         /// An immutable stopword set
         /// </summary>
-        protected readonly CharArraySet m_stopwords;
+        readonly protected CharArraySet m_stopwords;
 
-        protected readonly LuceneVersion m_matchVersion;
+        readonly protected LuceneVersion m_matchVersion;
 
         /// <summary>
         /// Returns the analyzer's stopword set or an empty set if the analyzer has no
@@ -86,7 +86,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         ///         file </returns>
         /// <exception cref="IOException">
         ///           if loading the stopwords throws an <see cref="IOException"/> </exception>
-        protected static CharArraySet LoadStopwordSet(bool ignoreCase, Type aClass, string resource, string comment)
+        static protected CharArraySet LoadStopwordSet(bool ignoreCase, Type aClass, string resource, string comment)
         {
             TextReader reader = null;
             try
@@ -116,7 +116,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         ///         file </returns>
         /// <exception cref="IOException">
         ///           if loading the stopwords throws an <see cref="IOException"/> </exception>
-        protected static CharArraySet LoadStopwordSet(FileInfo stopwords, LuceneVersion matchVersion)
+        static protected CharArraySet LoadStopwordSet(FileInfo stopwords, LuceneVersion matchVersion)
         {
             TextReader reader = null;
             try
@@ -142,7 +142,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         ///         reader </returns>
         /// <exception cref="IOException">
         ///           if loading the stopwords throws an <see cref="IOException"/> </exception>
-        protected static CharArraySet LoadStopwordSet(TextReader stopwords, LuceneVersion matchVersion)
+        static protected CharArraySet LoadStopwordSet(TextReader stopwords, LuceneVersion matchVersion)
         {
             try
             {

@@ -117,10 +117,10 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
             }
             return JjMoveNfa_2(state, pos + 1);
         }
-        internal static readonly ulong[] jjbitVec0 = new ulong[]{0x1L, 0x0L, 0x0L, 0x0L};
-        internal static readonly ulong[] jjbitVec1 = new ulong[]{0xfffffffffffffffeL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL};
-        internal static readonly ulong[] jjbitVec3 = new ulong[]{0x0L, 0x0L, 0xffffffffffffffffL, 0xffffffffffffffffL};
-        internal static readonly ulong[] jjbitVec4 = new ulong[]{0xfffefffffffffffeL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL};
+        readonly static internal ulong[] jjbitVec0 = new ulong[]{0x1L, 0x0L, 0x0L, 0x0L};
+        readonly static internal ulong[] jjbitVec1 = new ulong[]{0xfffffffffffffffeL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL};
+        readonly static internal ulong[] jjbitVec3 = new ulong[]{0x0L, 0x0L, 0xffffffffffffffffL, 0xffffffffffffffffL};
+        readonly static internal ulong[] jjbitVec4 = new ulong[]{0xfffefffffffffffeL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL};
         private int JjMoveNfa_2(int startState, int curPos)
         {
             int startsAt = 0;
@@ -1080,7 +1080,7 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
                 }
             }
         }
-        internal static readonly int[] jjnextStates = new int[]{
+        readonly static internal int[] jjnextStates = new int[]{
            37, 39, 40, 17, 18, 20, 42, 45, 31, 46, 43, 22, 23, 25, 26, 24,
            25, 26, 45, 31, 46, 44, 47, 35, 22, 28, 29, 27, 27, 30, 30, 0,
            1, 2, 4, 5
@@ -1140,25 +1140,25 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
 
 
         /// <summary>Token literal values. </summary>
-        public static readonly string[] jjstrLiteralImages = new string[]{
+        public readonly static string[] jjstrLiteralImages = new string[]{
             "", null, null, null, null, null, null, null, null, null, null, "\x002B", "\x002D",
             null, "\x0028", "\x0029", "\x003A", "\x002A", "\x005E", null, null, null, null, null, null,
             "\x005B", "\x007B", null, "\x0054\x004F", "\x005D", "\x007D", null, null };
 
         /// <summary>Lexer state names. </summary>
-        public static readonly string[] lexStateNames = new string[] {
+        public readonly static string[] lexStateNames = new string[] {
             "Boost",
             "Range",
             "DEFAULT"
         };
 
         /// <summary>Lex State array. </summary>
-        public static readonly int[] jjnewLexState = new int[] {
+        public readonly static int[] jjnewLexState = new int[] {
             -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, -1, -1, -1, -1,
             1, 1, 2, -1, 2, 2, -1, -1
         };
-        internal static readonly ulong[] jjtoToken = new ulong[] { 0x1ffffff01L };
-        internal static readonly long[] jjtoSkip = new long[] { 0x80L };
+        readonly static internal ulong[] jjtoToken = new ulong[] { 0x1ffffff01L };
+        readonly static internal long[] jjtoSkip = new long[] { 0x80L };
         protected ICharStream m_input_stream;
         private readonly uint[] jjrounds = new uint[49]; // LUCENENET: marked readonly
         private readonly int[] jjstateSet = new int[98]; // LUCENENET: marked readonly

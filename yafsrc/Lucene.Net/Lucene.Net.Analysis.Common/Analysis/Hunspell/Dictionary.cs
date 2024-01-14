@@ -44,7 +44,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
     /// </summary>
     public class Dictionary
     {
-        private static readonly char[] NOFLAGS = Arrays.Empty<char>();
+        private readonly static char[] NOFLAGS = Arrays.Empty<char>();
 
         private const string ALIAS_KEY = "AF";
         private const string MORPH_ALIAS_KEY = "AM";
@@ -141,8 +141,8 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
         internal bool alternateCasing;
 
         // LUCENENET: Added so we can get better performance than creating the regex in every tight loop.
-        private static readonly Regex whitespacePattern = new Regex("\\s+", RegexOptions.Compiled);
-        private static readonly Regex leadingDigitPattern = new Regex("[^0-9]", RegexOptions.Compiled);
+        private readonly static Regex whitespacePattern = new Regex("\\s+", RegexOptions.Compiled);
+        private readonly static Regex leadingDigitPattern = new Regex("[^0-9]", RegexOptions.Compiled);
 
         /// <summary>
         /// Creates a new <see cref="Dictionary"/> containing the information read from the provided <see cref="Stream"/>s to hunspell affix
@@ -455,7 +455,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             return builder.Finish();
         }
 
-        internal static string EscapeDash(string re)
+        static internal string EscapeDash(string re)
         {
             // we have to be careful, even though dash doesn't have a special meaning,
             // some dictionaries already escape it (e.g. pt_PT), so we don't want to nullify it
@@ -678,7 +678,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
 
         /// <summary>
         /// pattern accepts optional BOM + SET + any whitespace </summary>
-        internal static readonly Regex ENCODING_PATTERN = new Regex("^(\u00EF\u00BB\u00BF)?SET\\s+", RegexOptions.Compiled);
+        readonly static internal Regex ENCODING_PATTERN = new Regex("^(\u00EF\u00BB\u00BF)?SET\\s+", RegexOptions.Compiled);
 
         /// <summary>
         /// Parses the encoding specified in the affix file readable through the provided <see cref="Stream"/>
@@ -687,7 +687,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
         /// <returns> Encoding specified in the affix file </returns>
         /// <exception cref="IOException"> Can be thrown while reading from the <see cref="Stream"/> </exception>
         /// <exception cref="Exception"> Thrown if the first non-empty non-comment line read from the file does not adhere to the format <c>SET &lt;encoding&gt;</c></exception>
-        internal static string GetDictionaryEncoding(Stream affix)
+        static internal string GetDictionaryEncoding(Stream affix)
         {
             StringBuilder encoding = new StringBuilder();
             for (;;)
@@ -723,7 +723,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             }
         }
 
-        internal static readonly IDictionary<string, string> CHARSET_ALIASES = LoadCharsetAliases();
+        readonly static internal IDictionary<string, string> CHARSET_ALIASES = LoadCharsetAliases();
         private static IDictionary<string, string> LoadCharsetAliases() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {
             return new Dictionary<string, string>
@@ -772,8 +772,8 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             return Encoding.GetEncoding(encoding);
         }
 
-        private static readonly Regex windowsCodePagePattern = new Regex("^(?:microsoft-)?cp-?(125[0-8])$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
-        private static readonly Regex thaiCodePagePattern = new Regex("^tis-?620(?:-?2533)?$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+        private readonly static Regex windowsCodePagePattern = new Regex("^(?:microsoft-)?cp-?(125[0-8])$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+        private readonly static Regex thaiCodePagePattern = new Regex("^tis-?620(?:-?2533)?$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
 
 
         /// <summary>
@@ -781,7 +781,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
         /// </summary>
         /// <param name="flagLine"> Line containing the flag information </param>
         /// <returns> <see cref="FlagParsingStrategy"/> that handles parsing flags in the way specified in the FLAG definition </returns>
-        internal static FlagParsingStrategy GetFlagParsingStrategy(string flagLine)
+        static internal FlagParsingStrategy GetFlagParsingStrategy(string flagLine)
         {
             string[] parts = whitespacePattern.Split(flagLine).TrimEnd();
             if (parts.Length != 2)
@@ -853,7 +853,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             return sb.ToString();
         }
 
-        internal static int MorphBoundary(string line)
+        static internal int MorphBoundary(string line)
         {
             int end = IndexOfSpaceOrTab(line, 0);
             if (end == -1)
@@ -879,7 +879,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             return end;
         }
 
-        internal static int IndexOfSpaceOrTab(string text, int start)
+        static internal int IndexOfSpaceOrTab(string text, int start)
         {
             int pos1 = text.IndexOf('\t', start);
             int pos2 = text.IndexOf(' ', start);
@@ -1123,7 +1123,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             // LUCENENET specific - we are using the FileOptions.DeleteOnClose FileStream option to delete the file when it is disposed.
         }
 
-        internal static char[] DecodeFlags(BytesRef b)
+        static internal char[] DecodeFlags(BytesRef b)
         {
             if (b.Length == 0)
             {
@@ -1140,7 +1140,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             return flags;
         }
 
-        internal static void EncodeFlags(BytesRef b, char[] flags)
+        static internal void EncodeFlags(BytesRef b, char[] flags)
         {
             int len = flags.Length << 1;
             b.Grow(len);
@@ -1265,7 +1265,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
         /// </summary>
         private class SimpleFlagParsingStrategy : FlagParsingStrategy
         {
-            internal override char[] ParseFlags(string rawFlags)
+            override internal char[] ParseFlags(string rawFlags)
             {
                 return rawFlags.ToCharArray();
             }
@@ -1277,7 +1277,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
         /// </summary>
         private class NumFlagParsingStrategy : FlagParsingStrategy
         {
-            internal override char[] ParseFlags(string rawFlags)
+            override internal char[] ParseFlags(string rawFlags)
             {
                 string[] rawFlagParts = rawFlags.Trim().Split(',').TrimEnd();
                 char[] flags = new char[rawFlagParts.Length];
@@ -1309,7 +1309,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
         /// </summary>
         private class DoubleASCIIFlagParsingStrategy : FlagParsingStrategy
         {
-            internal override char[] ParseFlags(string rawFlags)
+            override internal char[] ParseFlags(string rawFlags)
             {
                 if (rawFlags.Length == 0)
                 {
@@ -1339,7 +1339,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
             }
         }
 
-        internal static bool HasFlag(char[] flags, char flag)
+        static internal bool HasFlag(char[] flags, char flag)
         {
             return Array.BinarySearch(flags, flag) >= 0;
         }
@@ -1413,7 +1413,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
         }
 
         // TODO: this could be more efficient!
-        internal static void ApplyMappings(FST<CharsRef> fst, StringBuilder sb)
+        static internal void ApplyMappings(FST<CharsRef> fst, StringBuilder sb)
         {
             FST.BytesReader bytesReader = fst.GetBytesReader();
             FST.Arc<CharsRef> firstArc = fst.GetFirstArc(new FST.Arc<CharsRef>());

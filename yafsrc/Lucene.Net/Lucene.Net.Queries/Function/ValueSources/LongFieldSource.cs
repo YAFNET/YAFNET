@@ -37,7 +37,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public class Int64FieldSource : FieldCacheSource
     {
-        protected readonly FieldCache.IInt64Parser m_parser;
+        readonly protected FieldCache.IInt64Parser m_parser;
 
         public Int64FieldSource(string field)
             : this(field, null)
@@ -131,7 +131,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             /// <summary>
             /// NOTE: This was externalToLong() in Lucene
             /// </summary>
-            protected override long ExternalToInt64(string extVal)
+            override protected long ExternalToInt64(string extVal)
             {
                 return outerInstance.ExternalToInt64(extVal);
             }

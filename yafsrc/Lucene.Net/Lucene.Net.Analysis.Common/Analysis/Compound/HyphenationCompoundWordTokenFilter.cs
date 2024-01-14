@@ -195,7 +195,7 @@ namespace YAF.Lucene.Net.Analysis.Compound
             return tree;
         }
 
-        protected override void Decompose()
+        override protected void Decompose()
         {
             // get the hyphenation points
             Hyphenation.Hyphenation hyphens = hyphenator.Hyphenate(m_termAtt.Buffer, 0, m_termAtt.Length, 1, 1);

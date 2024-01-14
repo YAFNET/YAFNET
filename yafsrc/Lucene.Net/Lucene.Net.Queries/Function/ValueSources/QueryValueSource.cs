@@ -32,8 +32,8 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public class QueryValueSource : ValueSource
     {
-        internal readonly Query q;
-        internal readonly float defVal;
+        readonly internal Query q;
+        readonly internal float defVal;
 
         public QueryValueSource(Query q, float defVal)
         {
@@ -78,12 +78,12 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
 
     internal class QueryDocValues : SingleDocValues
     {
-        internal readonly AtomicReaderContext readerContext;
-        internal readonly IBits acceptDocs;
-        internal readonly Weight weight;
-        internal readonly float defVal;
-        internal readonly IDictionary fcontext;
-        internal readonly Query q;
+        readonly internal AtomicReaderContext readerContext;
+        readonly internal IBits acceptDocs;
+        readonly internal Weight weight;
+        readonly internal float defVal;
+        readonly internal IDictionary fcontext;
+        readonly internal Query q;
 
         internal Scorer scorer;
         internal int scorerDoc; // the document the scorer is on

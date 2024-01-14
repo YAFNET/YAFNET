@@ -31,7 +31,7 @@ namespace YAF.Lucene.Net.Index
     public sealed class MultiDocsEnum : DocsEnum
     {
         private readonly MultiTermsEnum parent;
-        internal readonly DocsEnum[] subDocsEnum;
+        readonly internal DocsEnum[] subDocsEnum;
         private EnumWithSlice[] subs;
         internal int numSubs;
         internal int upto;

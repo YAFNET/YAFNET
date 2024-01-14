@@ -55,7 +55,7 @@ namespace YAF.Lucene.Net.Search
         private readonly AtomicInt64 refreshStartGen = new AtomicInt64();
         private readonly AtomicBoolean isDisposed = new AtomicBoolean(false);
 
-        protected readonly EventWaitHandle m_notify = new ManualResetEvent(false);  // LUCENENET specific: used to mimic intrinsic monitor used by java wait and notifyAll keywords.
+        readonly protected EventWaitHandle m_notify = new ManualResetEvent(false);  // LUCENENET specific: used to mimic intrinsic monitor used by java wait and notifyAll keywords.
         private readonly EventWaitHandle reopenCond = new AutoResetEvent(false);    // LUCENENET NOTE: unlike java, in c# we don't need to lock reopenCond when calling methods on it.
 
 

@@ -34,7 +34,7 @@ namespace YAF.Lucene.Net.Util
     {
         /// <summary>
         /// Instance of <see cref="InfoStream"/> that does no logging at all. </summary>
-        public static readonly InfoStream NO_OUTPUT = new NoOutput();
+        public readonly static InfoStream NO_OUTPUT = new NoOutput();
 
         private sealed class NoOutput : InfoStream
         {
@@ -48,7 +48,7 @@ namespace YAF.Lucene.Net.Util
                 return false;
             }
 
-            protected override void Dispose(bool disposing)
+            override protected void Dispose(bool disposing)
             {
                 // LUCENENET: Intentionally blank
             }

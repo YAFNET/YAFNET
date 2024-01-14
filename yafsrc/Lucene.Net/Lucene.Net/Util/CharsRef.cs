@@ -44,7 +44,7 @@ namespace YAF.Lucene.Net.Util
         [SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "This is a SonarCloud issue")]
         [SuppressMessage("Performance", "S3887:Use an immutable collection or reduce the accessibility of the non-private readonly field", Justification = "Collection is immutable")]
         [SuppressMessage("Performance", "S2386:Use an immutable collection or reduce the accessibility of the public static field", Justification = "Collection is immutable")]
-        public static readonly char[] EMPTY_CHARS = Arrays.Empty<char>();
+        public readonly static char[] EMPTY_CHARS = Arrays.Empty<char>();
 
         bool ICharSequence.HasValue => true;
 
@@ -318,7 +318,7 @@ namespace YAF.Lucene.Net.Util
 
         /// @deprecated this comparer is only a transition mechanism
         [Obsolete("this comparer is only a transition mechanism")]
-        private static readonly IComparer<CharsRef> utf16SortedAsUTF8SortOrder = new Utf16SortedAsUtf8Comparer();
+        private readonly static IComparer<CharsRef> utf16SortedAsUTF8SortOrder = new Utf16SortedAsUtf8Comparer();
 
         /// @deprecated this comparer is only a transition mechanism
         [Obsolete("this comparer is only a transition mechanism")]

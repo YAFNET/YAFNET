@@ -103,7 +103,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             return this.field.Equals(other.field, StringComparison.Ordinal);
         }
 
-        private static readonly int hcode = typeof(ReverseOrdFieldSource).GetHashCode();
+        private readonly static int hcode = typeof(ReverseOrdFieldSource).GetHashCode();
         public override int GetHashCode()
         {
             return hcode + field.GetHashCode();

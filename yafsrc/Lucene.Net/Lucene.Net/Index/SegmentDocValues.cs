@@ -70,7 +70,7 @@ namespace YAF.Lucene.Net.Index
                 this.gen = gen;
             }
 
-            protected override void Release()
+            override protected void Release()
             {
                 m_object.Dispose();
                 UninterruptableMonitor.Enter(outerInstance);

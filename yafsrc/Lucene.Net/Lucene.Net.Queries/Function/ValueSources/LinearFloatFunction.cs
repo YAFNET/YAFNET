@@ -35,9 +35,9 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public class LinearSingleFunction : ValueSource
     {
-        protected readonly ValueSource m_source;
-        protected readonly float m_slope;
-        protected readonly float m_intercept;
+        readonly protected ValueSource m_source;
+        readonly protected float m_slope;
+        readonly protected float m_intercept;
 
         public LinearSingleFunction(ValueSource source, float slope, float intercept)
         {

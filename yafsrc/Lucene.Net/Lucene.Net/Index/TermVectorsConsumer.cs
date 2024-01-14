@@ -35,14 +35,14 @@ namespace YAF.Lucene.Net.Index
     internal sealed class TermVectorsConsumer : TermsHashConsumer
     {
         internal TermVectorsWriter writer;
-        internal readonly DocumentsWriterPerThread docWriter;
-        internal readonly DocumentsWriterPerThread.DocState docState;
-        internal readonly BytesRef flushTerm = new BytesRef();
+        readonly internal DocumentsWriterPerThread docWriter;
+        readonly internal DocumentsWriterPerThread.DocState docState;
+        readonly internal BytesRef flushTerm = new BytesRef();
 
         // Used by perField when serializing the term vectors
-        internal readonly ByteSliceReader vectorSliceReaderPos = new ByteSliceReader();
+        readonly internal ByteSliceReader vectorSliceReaderPos = new ByteSliceReader();
 
-        internal readonly ByteSliceReader vectorSliceReaderOff = new ByteSliceReader();
+        readonly internal ByteSliceReader vectorSliceReaderOff = new ByteSliceReader();
         internal bool hasVectors;
         internal int numVectorFields;
         internal int lastDocID;
@@ -112,7 +112,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        internal override void FinishDocument(TermsHash termsHash)
+        override internal void FinishDocument(TermsHash termsHash)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(docWriter.TestPoint("TermVectorsTermsWriter.finishDocument start"));
 
@@ -182,7 +182,7 @@ namespace YAF.Lucene.Net.Index
             perFields[numVectorFields++] = fieldToFlush;
         }
 
-        internal override void StartDocument()
+        override internal void StartDocument()
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(ClearLastVectorFieldName());
             Reset();

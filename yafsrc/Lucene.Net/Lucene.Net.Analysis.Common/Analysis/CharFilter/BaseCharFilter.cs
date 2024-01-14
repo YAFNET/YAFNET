@@ -45,7 +45,7 @@ namespace YAF.Lucene.Net.Analysis.CharFilters
 
         /// <summary>
         /// Retrieve the corrected offset. </summary>
-        protected override int Correct(int currentOff)
+        override protected int Correct(int currentOff)
         {
             if (offsets is null || currentOff < offsets[0])
             {

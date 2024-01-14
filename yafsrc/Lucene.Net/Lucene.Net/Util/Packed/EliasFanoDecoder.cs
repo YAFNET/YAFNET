@@ -33,7 +33,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// <summary>
         /// NOTE: This was LOG2_LONG_SIZE in Lucene.
         /// </summary>
-        private static readonly int LOG2_INT64_SIZE = (sizeof(long) * 8).TrailingZeroCount();
+        private readonly static int LOG2_INT64_SIZE = (sizeof(long) * 8).TrailingZeroCount();
 
         private readonly EliasFanoEncoder efEncoder;
         private readonly long numEncoded;

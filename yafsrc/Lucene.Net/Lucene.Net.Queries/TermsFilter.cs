@@ -328,9 +328,9 @@ namespace YAF.Lucene.Net.Queries
 
         private sealed class TermsAndField
         {
-            internal readonly int start;
-            internal readonly int end;
-            internal readonly string field;
+            readonly internal int start;
+            readonly internal int end;
+            readonly internal string field;
 
 
             internal TermsAndField(int start, int end, string field)

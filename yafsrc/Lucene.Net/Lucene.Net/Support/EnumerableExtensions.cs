@@ -24,7 +24,7 @@ namespace YAF.Lucene.Net.Support
     /// .NET Specific Helper Extensions for IEnumerable
     /// </summary>
     //Note: LUCENENET specific
-    internal static class EnumerableExtensions
+    static internal class EnumerableExtensions
     {
         /// <summary>
         /// Enumerates a sequence in pairs  

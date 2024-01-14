@@ -116,7 +116,7 @@ namespace YAF.Lucene.Net.Documents
         /// normalization factors, frequencies, and positions are omitted.
         /// </summary>
         // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
-        public static readonly FieldType TYPE_NOT_STORED = new FieldType
+        public readonly static FieldType TYPE_NOT_STORED = new FieldType
         {
             IsIndexed = true,
             IsTokenized = true,
@@ -130,7 +130,7 @@ namespace YAF.Lucene.Net.Documents
         /// normalization factors, frequencies, and positions are omitted.
         /// </summary>
         // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
-        public static readonly FieldType TYPE_STORED = new FieldType
+        public readonly static FieldType TYPE_STORED = new FieldType
         {
             IsIndexed = true,
             IsTokenized = true,

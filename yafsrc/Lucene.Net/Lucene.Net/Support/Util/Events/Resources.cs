@@ -22,7 +22,7 @@
 
 namespace YAF.Lucene.Net.Util.Events
 {
-    internal static class Resources
+    static internal class Resources
     {
         public static string EventAggregatorNotConstructedOnUIThread = "To use the UIThread option for subscribing, the EventAggregator must be constructed on the UI thread.";
         public static string InvalidDelegateRerefenceTypeException = "Invalid Delegate Reference Type Exception";

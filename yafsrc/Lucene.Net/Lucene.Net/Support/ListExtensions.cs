@@ -20,7 +20,7 @@ namespace YAF.Lucene.Net.Support
      * limitations under the License.
      */
 
-    internal static class ListExtensions
+    static internal class ListExtensions
     {
         public static IList<T> SubList<T>(this IList<T> list, int fromIndex, int toIndex)
         {

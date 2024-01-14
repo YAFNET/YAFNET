@@ -430,7 +430,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
                 this.outerInstance = outerInstance;
             }
 
-            protected override int Compare(int i, int j)
+            override protected int Compare(int i, int j)
             {
                 int cmp = outerInstance.startOff[i].CompareTo(outerInstance.startOff[j]);
                 if (cmp == 0)
@@ -440,7 +440,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
                 return cmp;
             }
 
-            protected override void Swap(int i, int j)
+            override protected void Swap(int i, int j)
             {
                 AttributeSource.State tmp = outerInstance.buffered[i];
                 outerInstance.buffered[i] = outerInstance.buffered[j];
@@ -614,7 +614,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
         /// </summary>
         /// <param name="type"> Word type to check </param>
         /// <returns> <c>true</c> if the type contains <see cref="ALPHA"/>, <c>false</c> otherwise </returns>
-        internal static bool IsAlpha(int type)
+        static internal bool IsAlpha(int type)
         {
             return (type & ALPHA) != 0;
         }
@@ -624,7 +624,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
         /// </summary>
         /// <param name="type"> Word type to check </param>
         /// <returns> <c>true</c> if the type contains <see cref="DIGIT"/>, <c>false</c> otherwise </returns>
-        internal static bool IsDigit(int type)
+        static internal bool IsDigit(int type)
         {
             return (type & DIGIT) != 0;
         }
@@ -634,7 +634,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
         /// </summary>
         /// <param name="type"> Word type to check </param>
         /// <returns> <c>true</c> if the type contains <see cref="SUBWORD_DELIM"/>, <c>false</c> otherwise </returns>
-        internal static bool IsSubwordDelim(int type)
+        static internal bool IsSubwordDelim(int type)
         {
             return (type & SUBWORD_DELIM) != 0;
         }
@@ -644,7 +644,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
         /// </summary>
         /// <param name="type"> Word type to check </param>
         /// <returns> <c>true</c> if the type contains <see cref="UPPER"/>, <c>false</c> otherwise </returns>
-        internal static bool IsUpper(int type)
+        static internal bool IsUpper(int type)
         {
             return (type & UPPER) != 0;
         }

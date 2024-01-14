@@ -36,7 +36,7 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Processors
             // empty constructor
         }
 
-        protected override IQueryNode PostProcessNode(IQueryNode node)
+        override protected IQueryNode PostProcessNode(IQueryNode node)
         {
             if (node is BooleanQueryNode || node is BoostQueryNode
                 || node is TokenizedPhraseQueryNode
@@ -61,12 +61,12 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Core.Processors
             return node;
         }
 
-        protected override IQueryNode PreProcessNode(IQueryNode node)
+        override protected IQueryNode PreProcessNode(IQueryNode node)
         {
             return node;
         }
 
-        protected override IList<IQueryNode> SetChildrenOrder(IList<IQueryNode> children)
+        override protected IList<IQueryNode> SetChildrenOrder(IList<IQueryNode> children)
         {
             return children;
         }

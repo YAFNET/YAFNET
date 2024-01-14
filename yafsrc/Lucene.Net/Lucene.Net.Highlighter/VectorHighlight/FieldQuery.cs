@@ -30,7 +30,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
     /// </summary>
     public class FieldQuery
     {
-        internal readonly bool fieldMatch;
+        readonly internal bool fieldMatch;
 
         // fieldMatch==true,  Map<fieldName,QueryPhraseMap>
         // fieldMatch==false, Map<null,QueryPhraseMap>

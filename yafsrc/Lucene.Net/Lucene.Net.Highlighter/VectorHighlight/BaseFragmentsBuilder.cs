@@ -40,7 +40,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
     public abstract class BaseFragmentsBuilder : IFragmentsBuilder
     {
         protected string[] m_preTags, m_postTags;
-        public static readonly string[] COLORED_PRE_TAGS = {
+        public readonly static string[] COLORED_PRE_TAGS = {
             "<b style=\"background:yellow\">", "<b style=\"background:lawngreen\">", "<b style=\"background:aquamarine\">",
             "<b style=\"background:magenta\">", "<b style=\"background:palegreen\">", "<b style=\"background:coral\">",
             "<b style=\"background:wheat\">", "<b style=\"background:khaki\">", "<b style=\"background:lime\">",
@@ -49,7 +49,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
             "<b style=\"background:palegoldenrod\">", "<b style=\"background:darkkhaki\">", "<b style=\"background:springgreen\">",
             "<b style=\"background:turquoise\">", "<b style=\"background:powderblue\">"
         };
-        public static readonly string[] COLORED_POST_TAGS = { "</b>" };
+        public readonly static string[] COLORED_POST_TAGS = { "</b>" };
         private char multiValuedSeparator = ' ';
         private readonly IBoundaryScanner boundaryScanner;
         private bool discreteMultiValueHighlighting = false;
@@ -76,7 +76,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
             this.boundaryScanner = boundaryScanner;
         }
 
-        internal static object CheckTagsArgument(object tags)
+        static internal object CheckTagsArgument(object tags)
         {
             if (tags is string) return tags;
             else if (tags is string[]) return tags;
@@ -85,7 +85,7 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
 
         public abstract IList<WeightedFragInfo> GetWeightedFragInfoList(IList<WeightedFragInfo> src);
 
-        private static readonly IEncoder NULL_ENCODER = new DefaultEncoder();
+        private readonly static IEncoder NULL_ENCODER = new DefaultEncoder();
 
         public virtual string CreateFragment(IndexReader reader, int docId,
             string fieldName, FieldFragList fieldFragList)

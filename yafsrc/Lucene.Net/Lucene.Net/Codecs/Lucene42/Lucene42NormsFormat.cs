@@ -40,7 +40,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
     /// <seealso cref="Lucene42DocValuesFormat"/>
     public class Lucene42NormsFormat : NormsFormat
     {
-        internal readonly float acceptableOverheadRatio;
+        readonly internal float acceptableOverheadRatio;
 
         /// <summary>
         /// Calls <c>Lucene42DocValuesFormat(PackedInt32s.FASTEST)</c> (<see cref="Lucene42NormsFormat(float)"/>).

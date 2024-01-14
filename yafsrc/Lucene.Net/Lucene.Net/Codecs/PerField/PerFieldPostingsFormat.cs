@@ -60,13 +60,13 @@ namespace YAF.Lucene.Net.Codecs.PerField
         /// <see cref="FieldInfo"/> attribute name used to store the
         /// format name for each field.
         /// </summary>
-        public static readonly string PER_FIELD_FORMAT_KEY = typeof(PerFieldPostingsFormat).Name + ".format";
+        public readonly static string PER_FIELD_FORMAT_KEY = typeof(PerFieldPostingsFormat).Name + ".format";
 
         /// <summary>
         /// <see cref="FieldInfo"/> attribute name used to store the
         /// segment suffix name for each field.
         /// </summary>
-        public static readonly string PER_FIELD_SUFFIX_KEY = typeof(PerFieldPostingsFormat).Name + ".suffix";
+        public readonly static string PER_FIELD_SUFFIX_KEY = typeof(PerFieldPostingsFormat).Name + ".suffix";
 
         /// <summary>
         /// Sole constructor. </summary>
@@ -106,10 +106,10 @@ namespace YAF.Lucene.Net.Codecs.PerField
         {
             private readonly PerFieldPostingsFormat outerInstance;
 
-            internal readonly IDictionary<PostingsFormat, FieldsConsumerAndSuffix> formats = new Dictionary<PostingsFormat, FieldsConsumerAndSuffix>();
-            internal readonly IDictionary<string, int> suffixes = new Dictionary<string, int>();
+            readonly internal IDictionary<PostingsFormat, FieldsConsumerAndSuffix> formats = new Dictionary<PostingsFormat, FieldsConsumerAndSuffix>();
+            readonly internal IDictionary<string, int> suffixes = new Dictionary<string, int>();
 
-            internal readonly SegmentWriteState segmentWriteState;
+            readonly internal SegmentWriteState segmentWriteState;
 
             public FieldsWriter(PerFieldPostingsFormat outerInstance, SegmentWriteState state)
             {
@@ -173,7 +173,7 @@ namespace YAF.Lucene.Net.Codecs.PerField
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected override void Dispose(bool disposing)
+            override protected void Dispose(bool disposing)
             {
                 if (disposing)
                 {
@@ -184,13 +184,13 @@ namespace YAF.Lucene.Net.Codecs.PerField
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static string GetSuffix(string formatName, string suffix)
+        static internal string GetSuffix(string formatName, string suffix)
         {
             return formatName + "_" + suffix;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static string GetFullSegmentSuffix(string fieldName, string outerSegmentSuffix, string segmentSuffix)
+        static internal string GetFullSegmentSuffix(string fieldName, string outerSegmentSuffix, string segmentSuffix)
         {
             if (outerSegmentSuffix.Length == 0)
             {
@@ -208,8 +208,8 @@ namespace YAF.Lucene.Net.Codecs.PerField
         private class FieldsReader : FieldsProducer
         {
             // LUCENENET specific: Use StringComparer.Ordinal to get the same ordering as Java
-            internal readonly IDictionary<string, FieldsProducer> fields = new JCG.SortedDictionary<string, FieldsProducer>(StringComparer.Ordinal);
-            internal readonly IDictionary<string, FieldsProducer> formats = new Dictionary<string, FieldsProducer>();
+            readonly internal IDictionary<string, FieldsProducer> fields = new JCG.SortedDictionary<string, FieldsProducer>(StringComparer.Ordinal);
+            readonly internal IDictionary<string, FieldsProducer> formats = new Dictionary<string, FieldsProducer>();
 
             public FieldsReader(SegmentReadState readState)
             {
@@ -271,7 +271,7 @@ namespace YAF.Lucene.Net.Codecs.PerField
             public override int Count => fields.Count;
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected override void Dispose(bool disposing)
+            override protected void Dispose(bool disposing)
             {
                 if (disposing)
                 {

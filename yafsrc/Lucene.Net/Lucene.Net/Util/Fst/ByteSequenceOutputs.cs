@@ -33,8 +33,8 @@ namespace YAF.Lucene.Net.Util.Fst
     /// </summary>
     public sealed class ByteSequenceOutputs : Outputs<BytesRef>
     {
-        private static readonly BytesRef NO_OUTPUT = new BytesRef();
-        private static readonly ByteSequenceOutputs singleton = new ByteSequenceOutputs();
+        private readonly static BytesRef NO_OUTPUT = new BytesRef();
+        private readonly static ByteSequenceOutputs singleton = new ByteSequenceOutputs();
 
         private ByteSequenceOutputs()
         {

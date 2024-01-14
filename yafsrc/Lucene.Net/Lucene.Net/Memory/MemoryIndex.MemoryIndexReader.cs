@@ -220,8 +220,8 @@ namespace YAF.Lucene.Net.Index.Memory
             {
                 private readonly MemoryIndex.MemoryIndexReader outerInstance;
 
-                internal readonly Info info;
-                internal readonly BytesRef br = new BytesRef();
+                readonly internal Info info;
+                readonly internal BytesRef br = new BytesRef();
                 internal int termUpto = -1;
 
                 public MemoryTermsEnum(MemoryIndex.MemoryIndexReader outerInstance, Info info)
@@ -231,7 +231,7 @@ namespace YAF.Lucene.Net.Index.Memory
                     info.SortTerms();
                 }
 
-                internal static int BinarySearch(BytesRef b, BytesRef bytesRef, int low, int high, BytesRefHash hash, int[] ords, IComparer<BytesRef> comparer) // LUCENENET: CA1822: Mark members as static
+                static internal int BinarySearch(BytesRef b, BytesRef bytesRef, int low, int high, BytesRefHash hash, int[] ords, IComparer<BytesRef> comparer) // LUCENENET: CA1822: Mark members as static
                 {
                     int mid; // LUCENENET: IDE0059: Remove unnecessary value assignment
                     while (low <= high)
@@ -551,7 +551,7 @@ namespace YAF.Lucene.Net.Index.Memory
 #endif
                 // no-op: there are no stored fields
             }
-            protected internal override void DoClose()
+            override protected internal void DoClose()
             {
 #if DEBUG
                 Debug.WriteLine("MemoryIndexReader.DoClose");

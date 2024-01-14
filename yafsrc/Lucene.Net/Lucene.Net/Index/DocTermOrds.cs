@@ -127,11 +127,11 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// Don't uninvert terms that exceed this count. </summary>
-        protected readonly int m_maxTermDocFreq; 
+        readonly protected int m_maxTermDocFreq; 
 
         /// <summary>
         /// Field we are uninverting. </summary>
-        protected readonly string m_field; 
+        readonly protected string m_field; 
 
         /// <summary>
         /// Number of terms in the field. </summary>
@@ -741,7 +741,7 @@ namespace YAF.Lucene.Net.Index
         {
             private readonly DocTermOrds outerInstance;
 
-            internal readonly TermsEnum termsEnum;
+            readonly internal TermsEnum termsEnum;
             internal BytesRef term;
             internal long ord; // force "real" seek
 

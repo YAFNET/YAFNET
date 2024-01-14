@@ -33,7 +33,7 @@ namespace YAF.Lucene.Net.Util.Packed
     /// <seealso cref="PackedDataInput"/>
     public sealed class PackedDataOutput
     {
-        internal readonly DataOutput @out;
+        readonly internal DataOutput @out;
         internal long current;
         internal int remainingBits;
 

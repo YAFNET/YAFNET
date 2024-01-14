@@ -55,7 +55,7 @@ namespace YAF.Lucene.Net.Index
             [SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "This is a SonarCloud issue")]
             [SuppressMessage("Performance", "S3887:Use an immutable collection or reduce the accessibility of the non-private readonly field", Justification = "Collection is immutable")]
             [SuppressMessage("Performance", "S2386:Use an immutable collection or reduce the accessibility of the public static field", Justification = "Collection is immutable")]
-            public static readonly TermsEnumIndex[] EMPTY_ARRAY = Arrays.Empty<TermsEnumIndex>();
+            public readonly static TermsEnumIndex[] EMPTY_ARRAY = Arrays.Empty<TermsEnumIndex>();
             internal int SubIndex { get; private set; }
             internal TermsEnum TermsEnum { get; private set; }
 
@@ -621,7 +621,7 @@ namespace YAF.Lucene.Net.Index
             {
             }
 
-            protected internal override bool LessThan(TermsEnumWithSlice termsA, TermsEnumWithSlice termsB)
+            override protected internal bool LessThan(TermsEnumWithSlice termsA, TermsEnumWithSlice termsB)
             {
                 int cmp = termComp.Compare(termsA.Current, termsB.Current);
                 if (cmp != 0)

@@ -39,7 +39,7 @@ namespace YAF.Lucene.Net.Search.Spans
     /// </summary>
     public class SpanNearQuery : SpanQuery // LUCENENET specific: Not implementing ICloneable per Microsoft's recommendation
     {
-        protected readonly IList<SpanQuery> m_clauses;
+        readonly protected IList<SpanQuery> m_clauses;
         protected int m_slop;
         protected bool m_inOrder;
 

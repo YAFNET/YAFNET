@@ -347,13 +347,13 @@ namespace YAF.Lucene.Net.Util
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static int HeapParent(int from, int i)
+        static internal int HeapParent(int from, int i)
         {
             return ((i - 1 - from).TripleShift(1)) + from;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static int HeapChild(int from, int i)
+        static internal int HeapChild(int from, int i)
         {
             return ((i - from) << 1) + 1 + from;
         }

@@ -42,9 +42,9 @@ namespace YAF.Lucene.Net.Index
 
     internal sealed class DocFieldProcessor : DocConsumer
     {
-        internal readonly DocFieldConsumer consumer;
-        internal readonly StoredFieldsConsumer storedConsumer;
-        internal readonly Codec codec;
+        readonly internal DocFieldConsumer consumer;
+        readonly internal StoredFieldsConsumer storedConsumer;
+        readonly internal Codec codec;
 
         // Holds all fields seen in current doc
         internal DocFieldProcessorPerField[] fields = new DocFieldProcessorPerField[1];
@@ -58,9 +58,9 @@ namespace YAF.Lucene.Net.Index
         internal int totalFieldCount;
 
         internal int fieldGen;
-        internal readonly DocumentsWriterPerThread.DocState docState;
+        readonly internal DocumentsWriterPerThread.DocState docState;
 
-        internal readonly Counter bytesUsed;
+        readonly internal Counter bytesUsed;
 
         public DocFieldProcessor(DocumentsWriterPerThread docWriter, DocFieldConsumer consumer, StoredFieldsConsumer storedConsumer)
         {
@@ -284,10 +284,10 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        private static readonly IComparer<DocFieldProcessorPerField> fieldsComp = Comparer<DocFieldProcessorPerField>.Create((o1, o2) => o1.fieldInfo.Name.CompareToOrdinal(o2.fieldInfo.Name));
+        private readonly static IComparer<DocFieldProcessorPerField> fieldsComp = Comparer<DocFieldProcessorPerField>.Create((o1, o2) => o1.fieldInfo.Name.CompareToOrdinal(o2.fieldInfo.Name));
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        internal override void FinishDocument()
+        override internal void FinishDocument()
         {
             try
             {

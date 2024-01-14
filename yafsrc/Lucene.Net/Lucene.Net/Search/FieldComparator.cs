@@ -101,7 +101,7 @@ namespace YAF.Lucene.Net.Search
         /// <returns> any N &lt; 0 if <paramref name="slot2"/>'s value is sorted after
         /// <paramref name="slot1"/>, any N &gt; 0 if the <paramref name="slot2"/>'s value is sorted before
         /// <paramref name="slot1"/> and 0 if they are equal </returns>
-        public abstract override int Compare(int slot1, int slot2);
+        public override abstract int Compare(int slot1, int slot2);
 
         /// <summary>
         /// Set the bottom slot, ie the "weakest" (sorted last)
@@ -110,7 +110,7 @@ namespace YAF.Lucene.Net.Search
         /// will always be called before <see cref="CompareBottom(int)"/>.
         /// </summary>
         /// <param name="slot"> the currently weakest (sorted last) slot in the queue </param>
-        public abstract override void SetBottom(int slot);
+        public override abstract void SetBottom(int slot);
 
         /// <summary>
         /// Record the top value, for future calls to 
@@ -166,7 +166,7 @@ namespace YAF.Lucene.Net.Search
         /// the bottom entry (not competitive), any N &gt; 0 if the
         /// doc's value is sorted before the bottom entry and 0 if
         /// they are equal. </returns>
-        public abstract override int CompareBottom(int doc);
+        public override abstract int CompareBottom(int doc);
 
         /// <summary>
         /// Compare the top value with this doc. This will
@@ -181,7 +181,7 @@ namespace YAF.Lucene.Net.Search
         /// the bottom entry (not competitive), any N &gt; 0 if the
         /// doc's value is sorted before the bottom entry and 0 if
         /// they are equal. </returns>
-        public abstract override int CompareTop(int doc);
+        public override abstract int CompareTop(int doc);
 
         /// <summary>
         /// This method is called when a new hit is competitive.
@@ -191,7 +191,7 @@ namespace YAF.Lucene.Net.Search
         /// </summary>
         /// <param name="slot"> Which slot to copy the hit to </param>
         /// <param name="doc"> DocID relative to current reader </param>
-        public abstract override void Copy(int slot, int doc);
+        public override abstract void Copy(int slot, int doc);
 
         /// <summary>
         /// Set a new <see cref="AtomicReaderContext"/>. All subsequent docIDs are relative to
@@ -203,7 +203,7 @@ namespace YAF.Lucene.Net.Search
         ///   comparers can just return "this" to reuse the same
         ///   comparer across segments </returns>
         /// <exception cref="IOException"> If there is a low-level IO error </exception>
-        public abstract override FieldComparer SetNextReader(AtomicReaderContext context);
+        public override abstract FieldComparer SetNextReader(AtomicReaderContext context);
 
         /// <summary>
         /// Returns -1 if first is less than second. Default
@@ -369,8 +369,8 @@ namespace YAF.Lucene.Net.Search
         public abstract class NumericComparer<TNumber> : FieldComparer<TNumber>
             where TNumber : Number
         {
-            protected readonly TNumber m_missingValue;
-            protected readonly string m_field;
+            readonly protected TNumber m_missingValue;
+            readonly protected string m_field;
             protected IBits m_docsWithField;
 
             protected NumericComparer(string field, TNumber missingValue) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
@@ -1119,14 +1119,14 @@ namespace YAF.Lucene.Net.Search
             /// <para/>
             /// @lucene.internal
             /// </summary>
-            internal readonly int[] ords;
+            readonly internal int[] ords;
 
             /// <summary>
             /// Values for each slot.
             /// <para/>
             /// @lucene.internal
             /// </summary>
-            internal readonly BytesRef[] values;
+            readonly internal BytesRef[] values;
 
             /// <summary>
             /// Which reader last copied a value into the slot. When
@@ -1136,7 +1136,7 @@ namespace YAF.Lucene.Net.Search
             /// <para/>
             /// @lucene.internal
             /// </summary>
-            internal readonly int[] readerGen;
+            readonly internal int[] readerGen;
 
             /// <summary>
             /// Gen of current reader we are on.
@@ -1152,7 +1152,7 @@ namespace YAF.Lucene.Net.Search
             /// </summary>
             internal SortedDocValues termsIndex;
 
-            internal readonly string field;
+            readonly internal string field;
 
             /// <summary>
             /// Bottom slot, or -1 if queue isn't full yet
@@ -1192,17 +1192,17 @@ namespace YAF.Lucene.Net.Search
             internal bool topSameReader;
             internal int topOrd;
 
-            internal readonly BytesRef tempBR = new BytesRef();
+            readonly internal BytesRef tempBR = new BytesRef();
 
             /// <summary>
             /// -1 if missing values are sorted first, 1 if they are
             ///  sorted last
             /// </summary>
-            internal readonly int missingSortCmp;
+            readonly internal int missingSortCmp;
 
             /// <summary>
             /// Which ordinal to use for a missing value. </summary>
-            internal readonly int missingOrd;
+            readonly internal int missingOrd;
 
             /// <summary>
             /// Creates this, sorting missing values first. </summary>
@@ -1453,9 +1453,9 @@ namespace YAF.Lucene.Net.Search
         public sealed class TermValComparer : FieldComparer<BytesRef>
         {
             // sentinels, just used internally in this comparer
-            private static readonly byte[] MISSING_BYTES = Arrays.Empty<byte>();
+            private readonly static byte[] MISSING_BYTES = Arrays.Empty<byte>();
 
-            private static readonly byte[] NON_MISSING_BYTES = Arrays.Empty<byte>();
+            private readonly static byte[] NON_MISSING_BYTES = Arrays.Empty<byte>();
 
             private readonly BytesRef[] values; // LUCENENET: marked readonly
             private BinaryDocValues docTerms;

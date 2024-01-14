@@ -29,7 +29,7 @@ namespace YAF.Lucene.Net.Util
     {
         private readonly AtomicInt32 refCount = new AtomicInt32(1);
 
-        protected internal readonly T m_object;
+        readonly protected internal T m_object;
 
         public RefCount(T @object)
         {

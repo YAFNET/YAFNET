@@ -210,11 +210,11 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
     {
         /// <summary>
         /// Minimum items (terms or sub-blocks) per block for BlockTree. </summary>
-        protected readonly int m_minBlockSize;
+        readonly protected int m_minBlockSize;
 
         /// <summary>
         /// Maximum items (terms or sub-blocks) per block for BlockTree. </summary>
-        protected readonly int m_maxBlockSize;
+        readonly protected int m_maxBlockSize;
 
         /// <summary>
         /// Creates <see cref="Lucene40PostingsFormat"/> with default

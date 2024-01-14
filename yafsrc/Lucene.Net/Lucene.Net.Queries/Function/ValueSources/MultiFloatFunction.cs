@@ -34,7 +34,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public abstract class MultiSingleFunction : ValueSource
     {
-        protected readonly ValueSource[] m_sources;
+        readonly protected ValueSource[] m_sources;
 
         protected MultiSingleFunction(ValueSource[] sources) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
         {

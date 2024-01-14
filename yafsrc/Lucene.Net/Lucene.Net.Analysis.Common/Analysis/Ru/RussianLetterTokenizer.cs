@@ -75,7 +75,7 @@ namespace YAF.Lucene.Net.Analysis.Ru
         /// Collects only characters which satisfy
         /// <see cref="Character.IsLetter(int)"/>.
         /// </summary>
-        protected override bool IsTokenChar(int c)
+        override protected bool IsTokenChar(int c)
         {
             return Character.IsLetter(c) || (c >= DIGIT_0 && c <= DIGIT_9);
         }

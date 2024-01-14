@@ -70,7 +70,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         internal IndexOutput payOut;
 #pragma warning restore CA2213 // Disposable fields should be disposed
 
-        internal static readonly Int32BlockTermState emptyState = new Int32BlockTermState();
+        readonly static internal Int32BlockTermState emptyState = new Int32BlockTermState();
         internal Int32BlockTermState lastState;
 
         // How current field indexes postings:
@@ -86,14 +86,14 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         private long posStartFP;
         private long payStartFP;
 
-        internal readonly int[] docDeltaBuffer;
-        internal readonly int[] freqBuffer;
+        readonly internal int[] docDeltaBuffer;
+        readonly internal int[] freqBuffer;
         private int docBufferUpto;
 
-        internal readonly int[] posDeltaBuffer;
-        internal readonly int[] payloadLengthBuffer;
-        internal readonly int[] offsetStartDeltaBuffer;
-        internal readonly int[] offsetLengthBuffer;
+        readonly internal int[] posDeltaBuffer;
+        readonly internal int[] payloadLengthBuffer;
+        readonly internal int[] offsetStartDeltaBuffer;
+        readonly internal int[] offsetLengthBuffer;
         private int posBufferUpto;
 
         private byte[] payloadBytes;
@@ -110,7 +110,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
         private int lastStartOffset;
         private int docCount;
 
-        internal readonly byte[] encoded;
+        readonly internal byte[] encoded;
 
         private readonly ForUtil forUtil;
         private readonly Lucene41SkipWriter skipWriter;
@@ -665,7 +665,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
             lastState = state2;
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {

@@ -50,7 +50,7 @@ namespace YAF.Lucene.Net.Search
         /// Returns the prefix of this query. </summary>
         public virtual Term Prefix => _prefix;
 
-        protected override TermsEnum GetTermsEnum(Terms terms, AttributeSource atts)
+        override protected TermsEnum GetTermsEnum(Terms terms, AttributeSource atts)
         {
             TermsEnum tenum = terms.GetEnumerator();
 

@@ -50,8 +50,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
 #pragma warning disable CA2213 // Disposable fields should be disposed
         internal IndexOutput data, meta;
 #pragma warning restore CA2213 // Disposable fields should be disposed
-        internal readonly int maxDoc;
-        internal readonly float acceptableOverheadRatio;
+        readonly internal int maxDoc;
+        readonly internal float acceptableOverheadRatio;
 
         internal Lucene42NormsConsumer(SegmentWriteState state, string dataCodec, string dataExtension, string metaCodec, string metaExtension, float acceptableOverheadRatio)
         {
@@ -200,7 +200,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
             }
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {

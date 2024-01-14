@@ -29,12 +29,12 @@ namespace YAF.Lucene.Net.Support.IO
     /// <summary>
     /// Represents the methods to support some operations over files.
     /// </summary>
-    internal static class FileSupport
+    static internal class FileSupport
     {
-        private static readonly FileStreamOptions DefaultFileStreamOptionsCreateOnly = new FileStreamOptions { Access = FileAccess.Write, Share = FileShare.ReadWrite, BufferSize = 1 };
-        public static readonly FileStreamOptions DefaultFileStreamOptions = new FileStreamOptions { Access = FileAccess.ReadWrite, BufferSize = 8192, Options = FileOptions.DeleteOnClose | FileOptions.RandomAccess };
+        private readonly static FileStreamOptions DefaultFileStreamOptionsCreateOnly = new FileStreamOptions { Access = FileAccess.Write, Share = FileShare.ReadWrite, BufferSize = 1 };
+        public readonly static FileStreamOptions DefaultFileStreamOptions = new FileStreamOptions { Access = FileAccess.ReadWrite, BufferSize = 8192, Options = FileOptions.DeleteOnClose | FileOptions.RandomAccess };
 
-        private static readonly char[] INVALID_FILENAME_CHARS = Path.GetInvalidFileNameChars();
+        private readonly static char[] INVALID_FILENAME_CHARS = Path.GetInvalidFileNameChars();
 
         // LUCNENENET NOTE: Lookup the HResult value we are interested in for the current OS
         // by provoking the exception during initialization and caching its HResult value for later.
@@ -44,7 +44,7 @@ namespace YAF.Lucene.Net.Support.IO
         //
         // Reference: https://stackoverflow.com/q/46380483
         private const int WIN_HRESULT_FILE_ALREADY_EXISTS = unchecked((int)0x80070050);
-        private static readonly int? HRESULT_FILE_ALREADY_EXISTS = LoadFileAlreadyExistsHResult();
+        private readonly static int? HRESULT_FILE_ALREADY_EXISTS = LoadFileAlreadyExistsHResult();
 
         private static int? LoadFileAlreadyExistsHResult()
         {
@@ -58,7 +58,7 @@ namespace YAF.Lucene.Net.Support.IO
             });
         }
 
-        internal static int? GetFileIOExceptionHResult(Action<string> provokeException)
+        static internal int? GetFileIOExceptionHResult(Action<string> provokeException)
         {
             string fileName;
             try
@@ -483,7 +483,7 @@ namespace YAF.Lucene.Net.Support.IO
         /// <param name="directory">A <see cref="DirectoryInfo"/> object containing the temp directory path. Must not be null.</param>
         /// <returns>A random file name</returns>
         /// <exception cref="ArgumentNullException"><paramref name="prefix"/> is <c>null</c> or whitespace or <paramref name="directory"/> is <c>null</c>.</exception>
-        internal static string NewTempFileName(string prefix, string? suffix, DirectoryInfo directory)
+        static internal string NewTempFileName(string prefix, string? suffix, DirectoryInfo directory)
         {
             if (directory is null)
                 throw new ArgumentNullException(nameof(directory));
@@ -500,7 +500,7 @@ namespace YAF.Lucene.Net.Support.IO
         /// <param name="directory">A <see cref="string"/> containing the temp directory path. Must not be null.</param>
         /// <returns>A random file name</returns>
         /// <exception cref="ArgumentNullException"><paramref name="prefix"/> or <paramref name="directory"/> is <c>null</c> or whitespace.</exception>
-        internal static string NewTempFileName(string prefix, string? suffix, string directory)
+        static internal string NewTempFileName(string prefix, string? suffix, string directory)
         {
             if (string.IsNullOrWhiteSpace(prefix))
                 throw new ArgumentNullException(nameof(prefix));
@@ -520,7 +520,7 @@ namespace YAF.Lucene.Net.Support.IO
             return Path.Combine(directory, string.Concat(prefix, randomFileName));
         }
 
-        private static readonly ConcurrentDictionary<string, string> fileCanonPathCache = new ConcurrentDictionary<string, string>();
+        private readonly static ConcurrentDictionary<string, string> fileCanonPathCache = new ConcurrentDictionary<string, string>();
 
         /// <summary>
         /// Returns the absolute path of this <see cref="FileSystemInfo"/> with all references resolved and

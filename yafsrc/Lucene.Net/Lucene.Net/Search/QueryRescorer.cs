@@ -199,7 +199,7 @@ namespace YAF.Lucene.Net.Search
                 this.weight = weight;
             }
 
-            protected override float Combine(float firstPassScore, bool secondPassMatches, float secondPassScore)
+            override protected float Combine(float firstPassScore, bool secondPassMatches, float secondPassScore)
             {
                 float score = firstPassScore;
                 if (secondPassMatches)

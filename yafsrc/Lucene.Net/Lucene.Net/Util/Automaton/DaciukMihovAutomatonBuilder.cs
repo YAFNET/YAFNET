@@ -43,11 +43,11 @@ namespace YAF.Lucene.Net.Util.Automaton
         {
             /// <summary>
             /// An empty set of labels. </summary>
-            private static readonly int[] NO_LABELS = Arrays.Empty<int>();
+            private readonly static int[] NO_LABELS = Arrays.Empty<int>();
 
             /// <summary>
             /// An empty set of states. </summary>
-            private static readonly State[] NO_STATES = Arrays.Empty<State>();
+            private readonly static State[] NO_STATES = Arrays.Empty<State>();
 
             /// <summary>
             /// Labels of outgoing transitions. Indexed identically to <see cref="states"/>.
@@ -221,7 +221,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         /// <summary>
         /// A comparer used for enforcing sorted UTF8 order, used in assertions only.
         /// </summary>
-        private static readonly IComparer<CharsRef> comparer =
+        private readonly static IComparer<CharsRef> comparer =
 #pragma warning disable 612, 618
             CharsRef.UTF16SortedAsUTF8Comparer;
 #pragma warning restore 612, 618

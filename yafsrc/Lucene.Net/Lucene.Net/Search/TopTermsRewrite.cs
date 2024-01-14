@@ -246,7 +246,7 @@ namespace YAF.Lucene.Net.Search
             return false;
         }
 
-        private static readonly IComparer<ScoreTerm> scoreTermSortByTermComp = Comparer<ScoreTerm>.Create((st1, st2) =>
+        private readonly static IComparer<ScoreTerm> scoreTermSortByTermComp = Comparer<ScoreTerm>.Create((st1, st2) =>
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(st1.TermComp == st2.TermComp, "term comparer should not change between segments");
             return st1.TermComp.Compare(st1.Bytes, st2.Bytes);

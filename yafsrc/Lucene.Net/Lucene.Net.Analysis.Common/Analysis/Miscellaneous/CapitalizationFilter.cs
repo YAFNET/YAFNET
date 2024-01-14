@@ -34,8 +34,8 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
     /// </summary>
     public sealed class CapitalizationFilter : TokenFilter
     {
-        public static readonly int DEFAULT_MAX_WORD_COUNT = int.MaxValue;
-        public static readonly int DEFAULT_MAX_TOKEN_LENGTH = int.MaxValue;
+        public readonly static int DEFAULT_MAX_WORD_COUNT = int.MaxValue;
+        public readonly static int DEFAULT_MAX_TOKEN_LENGTH = int.MaxValue;
 
         private readonly bool onlyFirstWord;
         private readonly CharArraySet keep;

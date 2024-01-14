@@ -44,7 +44,7 @@ namespace YAF.Lucene.Net.Index
             SetInitialSeekTerm(termText);
         }
 
-        protected override AcceptStatus Accept(BytesRef term)
+        override protected AcceptStatus Accept(BytesRef term)
         {
             return term.Equals(singleRef) ? AcceptStatus.YES : AcceptStatus.END;
         }

@@ -34,7 +34,7 @@ namespace YAF.Lucene.Net.Store
     /// </summary>
     public class FilterDirectory : Directory
     {
-        protected readonly Directory m_input;
+        readonly protected Directory m_input;
 
         /// <summary>
         /// Sole constructor, typically called from sub-classes. </summary>
@@ -93,7 +93,7 @@ namespace YAF.Lucene.Net.Store
             m_input.ClearLock(name);
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {

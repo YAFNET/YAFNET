@@ -41,7 +41,7 @@ namespace YAF.Lucene.Net.Search.Spans
         {
         }
 
-        protected override AcceptStatus AcceptPosition(Spans spans)
+        override protected AcceptStatus AcceptPosition(Spans spans)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(spans.Start != spans.End,"start equals end: {0}", spans.Start);
             if (spans.Start >= m_end)

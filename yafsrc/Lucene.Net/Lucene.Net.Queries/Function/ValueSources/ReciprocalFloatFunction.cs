@@ -45,10 +45,10 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// <seealso cref="FunctionQuery"/>
     public class ReciprocalSingleFunction : ValueSource
     {
-        protected readonly ValueSource m_source;
-        protected readonly float m_m;
-        protected readonly float m_a;
-        protected readonly float m_b;
+        readonly protected ValueSource m_source;
+        readonly protected float m_m;
+        readonly protected float m_a;
+        readonly protected float m_b;
 
         /// <summary>
         ///  f(source) = a/(m*float(source)+b)

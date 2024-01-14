@@ -81,7 +81,7 @@ namespace YAF.Lucene.Net.Support
             /// These keys are a collection of public key tokens derived from all the reference assemblies in
             /// "%ProgramFiles%\Reference Assemblies\Microsoft" on a Windows 10 machine with VS 2015 installed
             /// </summary>
-            private static readonly ICollection<string> s_microsoftKeys = new JCG.HashSet<string>(new[]
+            private readonly static ICollection<string> s_microsoftKeys = new JCG.HashSet<string>(new[]
             {
                 "b77a5c561934e089", // ECMA
                 "b03f5f7f11d50a3a", // DEVDIV
@@ -94,7 +94,7 @@ namespace YAF.Lucene.Net.Support
                 "842cf8be1de50553"  // Xamarin.iOS
             }, StringComparer.OrdinalIgnoreCase);
 
-            private static readonly IEnumerable<string> s_frameworkAssemblyNamePrefixes = new[]
+            private readonly static IEnumerable<string> s_frameworkAssemblyNamePrefixes = new[]
             {
                 "System.",
                 "Microsoft.",

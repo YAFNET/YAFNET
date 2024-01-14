@@ -73,7 +73,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         [SuppressMessage("Performance", "IDE0079:Remove unnecessary suppression", Justification = "This is a SonarCloud issue")]
         [SuppressMessage("Performance", "S3887:Use an immutable collection or reduce the accessibility of the non-private readonly field", Justification = "Collection is immutable")]
         [SuppressMessage("Performance", "S2386:Use an immutable collection or reduce the accessibility of the public static field", Justification = "Collection is immutable")]
-        public static readonly CharArrayDictionary<TValue> Empty = new CharArrayDictionary.EmptyCharArrayDictionary<TValue>();
+        public readonly static CharArrayDictionary<TValue> Empty = new CharArrayDictionary.EmptyCharArrayDictionary<TValue>();
 
         private const int INIT_SIZE = 8;
         private readonly CharacterUtils charUtils;
@@ -88,7 +88,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         /// <summary>
         /// LUCENENET: Moved this from CharArraySet so it doesn't need to know the generic type of CharArrayDictionary
         /// </summary>
-        internal static readonly MapValue PLACEHOLDER = new MapValue();
+        readonly static internal MapValue PLACEHOLDER = new MapValue();
 
         bool ICharArrayDictionary.IgnoreCase => ignoreCase;
 
@@ -2925,7 +2925,7 @@ namespace YAF.Lucene.Net.Analysis.Util
 
             internal int pos = -1;
             internal int lastPos;
-            internal readonly bool allowModify;
+            readonly internal bool allowModify;
 
             private int version; // LUCENENET specific - track when the enumerator is broken by mutating the state of the original collection
             private bool notStartedOrEnded; // LUCENENET specific
@@ -3321,7 +3321,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         /// Used by <see cref="CharArraySet"/> to copy <see cref="CharArrayDictionary{TValue}"/> without knowing 
         /// its generic type.
         /// </summary>
-        internal static CharArrayDictionary<TValue> Copy<TValue>(LuceneVersion matchVersion, [DisallowNull] ICharArrayDictionary map)
+        static internal CharArrayDictionary<TValue> Copy<TValue>(LuceneVersion matchVersion, [DisallowNull] ICharArrayDictionary map)
         {
             return Copy(matchVersion, (IDictionary<string, TValue>)map);
         }
@@ -3357,7 +3357,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         /// Used by <see cref="CharArraySet"/> to create an <see cref="ReadOnlyCharArrayDictionary{TValue}"/> instance
         /// without knowing the type of <typeparamref name="TValue"/>.
         /// </summary>
-        internal static ICharArrayDictionary UnmodifiableMap<TValue>(ICharArrayDictionary map)
+        static internal ICharArrayDictionary UnmodifiableMap<TValue>(ICharArrayDictionary map)
         {
             if (map is null)
             {
@@ -3387,7 +3387,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                 : base((CharArrayDictionary<TValue>)map)
             { }
 
-            private protected override CharArrayDictionary<TValue> AsReadOnlyImpl() => this;
+            private override protected CharArrayDictionary<TValue> AsReadOnlyImpl() => this;
 
             public override void Clear()
             {
@@ -3419,27 +3419,27 @@ namespace YAF.Lucene.Net.Analysis.Util
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            internal override bool Put(char[] text, int startIndex, int length)
+            override internal bool Put(char[] text, int startIndex, int length)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            internal override bool Put(char[] text)
+            override internal bool Put(char[] text)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            internal override bool Put(ICharSequence text)
+            override internal bool Put(ICharSequence text)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            internal override bool Put(string text)
+            override internal bool Put(string text)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            internal override bool Put<T>(T text)
+            override internal bool Put<T>(T text)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
@@ -3540,52 +3540,52 @@ namespace YAF.Lucene.Net.Analysis.Util
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            internal override void Set(char[] text)
+            override internal void Set(char[] text)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            internal override void Set(char[] text, TValue? value)
+            override internal void Set(char[] text, TValue? value)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            internal override void Set(char[] text, int startIndex, int length)
+            override internal void Set(char[] text, int startIndex, int length)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            internal override void Set(char[] text, int startIndex, int length, TValue? value)
+            override internal void Set(char[] text, int startIndex, int length, TValue? value)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            internal override void Set(ICharSequence text)
+            override internal void Set(ICharSequence text)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            internal override void Set(ICharSequence text, TValue? value)
+            override internal void Set(ICharSequence text, TValue? value)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            internal override void Set(string text)
+            override internal void Set(string text)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            internal override void Set(string text, TValue? value)
+            override internal void Set(string text, TValue? value)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            internal override void Set<T>(T text)
+            override internal void Set<T>(T text)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
 
-            internal override void Set<T>(T text, TValue? value)
+            override internal void Set<T>(T text, TValue? value)
             {
                 throw UnsupportedOperationException.Create(SR.NotSupported_ReadOnlyCollection);
             }
@@ -3644,7 +3644,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                 return false;
             }
 
-            internal override V Get(char[] text, int startIndex, int length, bool throwIfNotFound = true)
+            override internal V Get(char[] text, int startIndex, int length, bool throwIfNotFound = true)
             {
                 if (text is null)
                     throw new ArgumentNullException(nameof(text));
@@ -3654,7 +3654,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                 return default!;
             }
 
-            internal override V Get(char[] text, bool throwIfNotFound = true)
+            override internal V Get(char[] text, bool throwIfNotFound = true)
             {
                 if (text is null)
                     throw new ArgumentNullException(nameof(text));
@@ -3664,7 +3664,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                 return default!;
             }
 
-            internal override V Get(ICharSequence text, bool throwIfNotFound = true)
+            override internal V Get(ICharSequence text, bool throwIfNotFound = true)
             {
                 if (text is null)
                     throw new ArgumentNullException(nameof(text));
@@ -3674,7 +3674,7 @@ namespace YAF.Lucene.Net.Analysis.Util
                 return default!;
             }
 
-            internal override V Get<T>(T text, bool throwIfNotFound = true)
+            override internal V Get<T>(T text, bool throwIfNotFound = true)
             {
                 if (text is null)
                     throw new ArgumentNullException(nameof(text));
@@ -3699,7 +3699,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static CharReturnType ConvertObjectToChars<T>(T key, out char[] chars, out string str)
+        static internal CharReturnType ConvertObjectToChars<T>(T key, out char[] chars, out string str)
         {
 #if FEATURE_SPANFORMATTABLE
             Span<char> buffer = stackalloc char[256];
@@ -3713,7 +3713,7 @@ namespace YAF.Lucene.Net.Analysis.Util
         // LUCENENET: We need value types to be represented using the invariant
         // culture, so it is consistent regardless of the current culture.
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static CharReturnType ConvertObjectToChars<T>(T key, out char[] chars, out string str, Span<char> reuse)
+        static internal CharReturnType ConvertObjectToChars<T>(T key, out char[] chars, out string str, Span<char> reuse)
         {
             chars = Arrays.Empty<char>();
             str = string.Empty;
@@ -3876,7 +3876,7 @@ namespace YAF.Lucene.Net.Analysis.Util
     /// this half-measure will make that somewhat easier to do and is guaranteed not to cause
     /// performance issues.
     /// </summary>
-    internal static class SR
+    static internal class SR
     {
         public const string Arg_ArrayPlusOffTooSmall = "Destination array is not long enough to copy all the items in the collection. Check array index and length.";
         public const string Arg_KeyNotFoundWithKey = "The given text '{0}' was not present in the dictionary.";

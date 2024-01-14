@@ -160,13 +160,13 @@ namespace YAF.Lucene.Net.Tartarus.Snowball.Ext
                     new Among ( "imma", 0, -1 )
                 };
 
-        private static readonly char[] g_AEI = { (char)17, (char)1, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)8 };
+        private readonly static char[] g_AEI = { (char)17, (char)1, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)8 };
 
-        private static readonly char[] g_V1 = { (char)17, (char)65, (char)16, (char)1, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)8, (char)0, (char)32 };
+        private readonly static char[] g_V1 = { (char)17, (char)65, (char)16, (char)1, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)8, (char)0, (char)32 };
 
-        private static readonly char[] g_V2 = { (char)17, (char)65, (char)16, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)8, (char)0, (char)32 };
+        private readonly static char[] g_V2 = { (char)17, (char)65, (char)16, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)8, (char)0, (char)32 };
 
-        private static readonly char[] g_particle_end = { (char)17, (char)97, (char)24, (char)1, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)8, (char)0, (char)32 };
+        private readonly static char[] g_particle_end = { (char)17, (char)97, (char)24, (char)1, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)8, (char)0, (char)32 };
 
         private bool B_ending_removed;
         private StringBuilder S_x = new StringBuilder();

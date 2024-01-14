@@ -27,7 +27,7 @@ namespace YAF.Lucene.Net.Search
     internal class ConjunctionScorer : Scorer
     {
         protected int m_lastDoc = -1;
-        protected readonly DocsAndFreqs[] m_docsAndFreqs;
+        readonly protected DocsAndFreqs[] m_docsAndFreqs;
         private readonly DocsAndFreqs lead;
         private readonly float coord;
 

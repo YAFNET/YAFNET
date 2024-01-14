@@ -59,7 +59,7 @@ namespace YAF.Lucene.Net.Analysis.De
     {
         /// @deprecated in 3.1, remove in Lucene 5.0 (index bw compat) 
         [Obsolete("in 3.1, remove in Lucene 5.0 (index bw compat)")]
-        private static readonly string[] GERMAN_STOP_WORDS = new string[] {
+        private readonly static string[] GERMAN_STOP_WORDS = new string[] {
             "einer", "eine", "eines", "einem", "einen",
             "der", "die", "das", "dass", "daß",
             "du", "er", "sie", "es",
@@ -87,8 +87,8 @@ namespace YAF.Lucene.Net.Analysis.De
         {
             /// @deprecated in 3.1, remove in Lucene 5.0 (index bw compat) 
             [Obsolete("in 3.1, remove in Lucene 5.0 (index bw compat)")]
-            internal static readonly CharArraySet DEFAULT_SET_30 = new CharArraySet(LuceneVersion.LUCENE_CURRENT, GERMAN_STOP_WORDS, false).AsReadOnly();
-            internal static readonly CharArraySet DEFAULT_SET = LoadDefaultSet();
+            readonly static internal CharArraySet DEFAULT_SET_30 = new CharArraySet(LuceneVersion.LUCENE_CURRENT, GERMAN_STOP_WORDS, false).AsReadOnly();
+            readonly static internal CharArraySet DEFAULT_SET = LoadDefaultSet();
             private static CharArraySet LoadDefaultSet() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
             {
                 try
@@ -166,7 +166,7 @@ namespace YAF.Lucene.Net.Analysis.De
         ///         <see cref="StandardFilter"/>, <see cref="LowerCaseFilter"/>, <see cref="StopFilter"/>,
         ///         <see cref="SetKeywordMarkerFilter"/> if a stem exclusion set is
         ///         provided, <see cref="GermanNormalizationFilter"/> and <see cref="GermanLightStemFilter"/> </returns>
-        protected internal override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
+        override protected internal TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
         {
             Tokenizer source = new StandardTokenizer(m_matchVersion, reader);
             TokenStream result = new StandardFilter(m_matchVersion, source);

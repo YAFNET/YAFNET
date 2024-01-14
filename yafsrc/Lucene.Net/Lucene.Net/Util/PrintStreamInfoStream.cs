@@ -51,10 +51,10 @@ namespace YAF.Lucene.Net.Util
     public class TextWriterInfoStream : InfoStream
     {
         // Used for printing messages
-        private static readonly AtomicInt32 MESSAGE_ID = new AtomicInt32();
+        private readonly static AtomicInt32 MESSAGE_ID = new AtomicInt32();
 
-        protected readonly int m_messageID;
-        protected readonly TextWriter m_stream;
+        readonly protected int m_messageID;
+        readonly protected TextWriter m_stream;
         private readonly bool isSystemStream;
 
         public TextWriterInfoStream(TextWriter stream)
@@ -84,7 +84,7 @@ namespace YAF.Lucene.Net.Util
             return true;
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing && !IsSystemStream)
             {

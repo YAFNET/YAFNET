@@ -82,11 +82,11 @@ namespace YAF.Lucene.Net.Tartarus.Snowball.Ext
                     new Among ( "keit", -1, 4 )
                 };
 
-        private static readonly char[] g_v = { (char)17, (char)65, (char)16, (char)1, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)8, (char)0, (char)32, (char)8 };
+        private readonly static char[] g_v = { (char)17, (char)65, (char)16, (char)1, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)0, (char)8, (char)0, (char)32, (char)8 };
 
-        private static readonly char[] g_s_ending = { (char)117, (char)30, (char)5 };
+        private readonly static char[] g_s_ending = { (char)117, (char)30, (char)5 };
 
-        private static readonly char[] g_st_ending = { (char)117, (char)30, (char)4 };
+        private readonly static char[] g_st_ending = { (char)117, (char)30, (char)4 };
 
         private int I_x;
         private int I_p2;

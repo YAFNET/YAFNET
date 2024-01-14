@@ -31,7 +31,7 @@ namespace YAF.Lucene.Net.Search.Spans
         protected int m_doc;
         protected float m_freq;
         protected int m_numMatches;
-        protected readonly Similarity.SimScorer m_docScorer;
+        readonly protected Similarity.SimScorer m_docScorer;
 
         protected internal SpanScorer(Spans spans, Weight weight, Similarity.SimScorer docScorer)
             : base(weight)

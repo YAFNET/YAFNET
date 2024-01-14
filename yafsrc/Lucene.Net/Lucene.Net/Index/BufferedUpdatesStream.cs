@@ -155,7 +155,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         // Sorts SegmentInfos from smallest to biggest bufferedDelGen:
-        private static readonly IComparer<SegmentCommitInfo> sortSegInfoByDelGen = Comparer<SegmentCommitInfo>.Create((si1, si2) =>
+        private readonly static IComparer<SegmentCommitInfo> sortSegInfoByDelGen = Comparer<SegmentCommitInfo>.Create((si1, si2) =>
             {
                 long cmp = si1.BufferedDeletesGen - si2.BufferedDeletesGen;
                 if (cmp > 0)

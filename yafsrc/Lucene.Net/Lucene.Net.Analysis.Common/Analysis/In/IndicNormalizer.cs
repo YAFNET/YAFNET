@@ -42,9 +42,9 @@ namespace YAF.Lucene.Net.Analysis.In
 
         private class ScriptData
         {
-            internal readonly Regex block;
-            internal readonly UnicodeBlock flag;
-            internal readonly int @base;
+            readonly internal Regex block;
+            readonly internal UnicodeBlock flag;
+            readonly internal int @base;
             internal OpenBitSet decompMask;
 
             internal ScriptData(Regex block, UnicodeBlock flag, int @base)
@@ -86,7 +86,7 @@ namespace YAF.Lucene.Net.Analysis.In
         /// ch1, ch2, and ch3 are the decomposition
         /// res is the composition, and flags are the scripts to which it applies.
         /// </summary>
-        private static readonly int[][] decompositions = new int[][] // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
+        private readonly static int[][] decompositions = new int[][] // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {
             /* devanagari, gujarati vowel candra O */
             new int[] { 0x05, 0x3E, 0x45, 0x11, (int)UnicodeBlock.DEVANAGARI | (int)UnicodeBlock.GUJARATI },
@@ -234,7 +234,7 @@ namespace YAF.Lucene.Net.Analysis.In
             new int[] { 0x73, 0x4B,   -1, 0x13, (int)UnicodeBlock.GURMUKHI }
         };
 
-        private static readonly IList<ScriptData> scripts = LoadScripts(); // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
+        private readonly static IList<ScriptData> scripts = LoadScripts(); // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
 
         private static IList<ScriptData> LoadScripts()
         {
@@ -346,7 +346,7 @@ namespace YAF.Lucene.Net.Analysis.In
         }
 
         // LUCENENET: Never matches - we just use this as a placeholder
-        private static readonly Regex unknownScript = new Regex(@"[^\S\s]", RegexOptions.Compiled);
+        private readonly static Regex unknownScript = new Regex(@"[^\S\s]", RegexOptions.Compiled);
         [ThreadStatic]
         private static ScriptData previousScriptData;
 

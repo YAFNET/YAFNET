@@ -53,7 +53,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
     {
         /// <summary>
         /// Norms header placeholder. </summary>
-        internal static readonly sbyte[] NORMS_HEADER = { (sbyte)'N', (sbyte)'R', (sbyte)'M', -1 };
+        readonly static internal sbyte[] NORMS_HEADER = { (sbyte)'N', (sbyte)'R', (sbyte)'M', -1 };
 
         /// <summary>
         /// Extension of norms file. </summary>
@@ -67,12 +67,12 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
 
         // any .nrm or .sNN files we have open at any time.
         // TODO: just a list, and double-close() separate norms files?
-        internal readonly ISet<IndexInput> openFiles = new JCG.HashSet<IndexInput>(IdentityEqualityComparer<IndexInput>.Default);
+        readonly internal ISet<IndexInput> openFiles = new JCG.HashSet<IndexInput>(IdentityEqualityComparer<IndexInput>.Default);
 
         // points to a singleNormFile
         internal IndexInput singleNormStream;
 
-        internal readonly int maxdoc;
+        readonly internal int maxdoc;
 
         private readonly AtomicInt64 ramBytesUsed;
 
@@ -150,7 +150,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             ramBytesUsed = new AtomicInt64();
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {

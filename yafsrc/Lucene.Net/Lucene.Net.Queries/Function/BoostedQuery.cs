@@ -74,8 +74,8 @@ namespace YAF.Lucene.Net.Queries.Function
             private readonly BoostedQuery outerInstance;
 
             //private readonly IndexSearcher searcher; // LUCENENET: Never read
-            internal readonly Weight qWeight;
-            internal readonly IDictionary fcontext;
+            readonly internal Weight qWeight;
+            readonly internal IDictionary fcontext;
 
             public BoostedWeight(BoostedQuery outerInstance, IndexSearcher searcher)
             {

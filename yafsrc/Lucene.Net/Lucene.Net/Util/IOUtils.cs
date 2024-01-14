@@ -41,14 +41,14 @@ namespace YAF.Lucene.Net.Util
         /// UTF-8 <see cref="Encoding"/> instance to prevent repeated
         /// <see cref="Encoding.UTF8"/> lookups </summary>
         [Obsolete("Use Encoding.UTF8 instead.")]
-        public static readonly Encoding CHARSET_UTF_8 = Encoding.UTF8;
+        public readonly static Encoding CHARSET_UTF_8 = Encoding.UTF8;
 
         /// <summary>
         /// UTF-8 charset string.
         /// <para/>Where possible, use <see cref="Encoding.UTF8"/> instead,
         /// as using the <see cref="string"/> constant may slow things down. </summary>
         /// <seealso cref="Encoding.UTF8"/>
-        public static readonly string UTF_8 = "UTF-8";
+        public readonly static string UTF_8 = "UTF-8";
 
         /// <summary>
         /// <para>Disposes all given <c>IDisposable</c>s, suppressing all thrown exceptions. Some of the <c>IDisposable</c>s

@@ -28,12 +28,12 @@ namespace YAF.Lucene.Net.Search
         internal int position; // position in doc
         internal int count; // remaining pos in this doc
         internal int offset; // position in phrase
-        internal readonly int ord; // unique across all PhrasePositions instances
-        internal readonly DocsAndPositionsEnum postings; // stream of docs & positions
+        readonly internal int ord; // unique across all PhrasePositions instances
+        readonly internal DocsAndPositionsEnum postings; // stream of docs & positions
         internal PhrasePositions next; // used to make lists
         internal int rptGroup = -1; // >=0 indicates that this is a repeating PP
         internal int rptInd; // index in the rptGroup
-        internal readonly Term[] terms; // for repetitions initialization
+        readonly internal Term[] terms; // for repetitions initialization
 
         internal PhrasePositions(DocsAndPositionsEnum postings, int o, int ord, Term[] terms)
         {

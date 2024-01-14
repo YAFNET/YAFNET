@@ -59,7 +59,7 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
         /// Replaces unprintable characters by their escaped (or unicode escaped)
         /// equivalents in the given string
         /// </summary>
-        protected static string AddEscapes(string str)
+        static protected string AddEscapes(string str)
         {
             StringBuilder retval = new StringBuilder();
             char ch;
@@ -132,7 +132,7 @@ namespace YAF.Lucene.Net.QueryParsers.Classic
         /// <param name="errorAfter">prefix that was seen before this error occurred</param>
         /// <param name="curChar">the offending character</param>
         /// <returns>Detailed error message</returns>
-        protected internal static string LexicalError(bool eofSeen, int lexState, int errorLine, int errorColumn, string errorAfter, char curChar)
+        static protected internal string LexicalError(bool eofSeen, int lexState, int errorLine, int errorColumn, string errorAfter, char curChar)
         {
             return ("Lexical error at line " +
                 errorLine + ", column " +

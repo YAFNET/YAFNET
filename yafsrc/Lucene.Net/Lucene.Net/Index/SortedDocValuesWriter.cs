@@ -31,7 +31,7 @@ namespace YAF.Lucene.Net.Index
     /// </summary>
     internal class SortedDocValuesWriter : DocValuesWriter
     {
-        internal readonly BytesRefHash hash;
+        readonly internal BytesRefHash hash;
         private readonly AppendingDeltaPackedInt64Buffer pending; // LUCENENET: marked readonly
         private readonly Counter iwBytesUsed;
         private long bytesUsed; // this currently only tracks differences in 'pending'

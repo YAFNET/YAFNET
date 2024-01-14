@@ -35,11 +35,11 @@ namespace YAF.Lucene.Net.Index
     internal sealed class StoredFieldsProcessor : StoredFieldsConsumer
     {
         internal StoredFieldsWriter fieldsWriter;
-        internal readonly DocumentsWriterPerThread docWriter;
+        readonly internal DocumentsWriterPerThread docWriter;
         internal int lastDocID;
 
-        internal readonly DocumentsWriterPerThread.DocState docState;
-        internal readonly Codec codec;
+        readonly internal DocumentsWriterPerThread.DocState docState;
+        readonly internal Codec codec;
 
         public StoredFieldsProcessor(DocumentsWriterPerThread docWriter)
         {
@@ -143,7 +143,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        internal override void FinishDocument()
+        override internal void FinishDocument()
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(docWriter.TestPoint("StoredFieldsWriter.finishDocument start"));
 

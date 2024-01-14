@@ -32,8 +32,8 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public abstract class DualSingleFunction : ValueSource
     {
-        protected readonly ValueSource m_a;
-        protected readonly ValueSource m_b;
+        readonly protected ValueSource m_a;
+        readonly protected ValueSource m_b;
 
         /// <param name="a">  the base. </param>
         /// <param name="b">  the exponent. </param>

@@ -63,7 +63,7 @@ namespace YAF.Lucene.Net.Util.Packed
         {
         }
 
-        internal override long Get(int block, int element)
+        override internal long Get(int block, int element)
         {
             if (block == valuesOff)
             {
@@ -79,7 +79,7 @@ namespace YAF.Lucene.Net.Util.Packed
             }
         }
 
-        internal override int Get(int block, int element, long[] arr, int off, int len)
+        override internal int Get(int block, int element, long[] arr, int off, int len)
         {
             if (block == valuesOff)
             {
@@ -100,7 +100,7 @@ namespace YAF.Lucene.Net.Util.Packed
             }
         }
 
-        internal override void PackPendingValues()
+        override internal void PackPendingValues()
         {
             // compute max delta
             long minValue = pending[0];
@@ -135,14 +135,14 @@ namespace YAF.Lucene.Net.Util.Packed
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal override void Grow(int newBlockCount)
+        override internal void Grow(int newBlockCount)
         {
             base.Grow(newBlockCount);
             this.minValues = Arrays.CopyOf(minValues, newBlockCount);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal override long BaseRamBytesUsed()
+        override internal long BaseRamBytesUsed()
         {
             return base.BaseRamBytesUsed() + RamUsageEstimator.NUM_BYTES_OBJECT_REF; // additional array
         }

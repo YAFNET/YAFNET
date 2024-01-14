@@ -34,7 +34,7 @@ namespace YAF.Lucene.Net.Util.Packed
     /// </summary>
     internal sealed class Packed16ThreeBlocks : PackedInt32s.MutableImpl
     {
-        internal readonly short[] blocks;
+        readonly internal short[] blocks;
 
         public const int MAX_SIZE = int.MaxValue / 3;
 

@@ -390,7 +390,7 @@ namespace YAF.Lucene.Net.Analysis
         /// A predefined <see cref="ReuseStrategy"/>  that reuses the same components for
         /// every field.
         /// </summary>
-        public static readonly ReuseStrategy GLOBAL_REUSE_STRATEGY =
+        public readonly static ReuseStrategy GLOBAL_REUSE_STRATEGY =
 #pragma warning disable 612, 618
             new GlobalReuseStrategy();
 #pragma warning restore 612, 618
@@ -422,7 +422,7 @@ namespace YAF.Lucene.Net.Analysis
         /// A predefined <see cref="ReuseStrategy"/> that reuses components per-field by
         /// maintaining a Map of <see cref="TokenStreamComponents"/> per field name.
         /// </summary>
-        public static readonly ReuseStrategy PER_FIELD_REUSE_STRATEGY =
+        public readonly static ReuseStrategy PER_FIELD_REUSE_STRATEGY =
 #pragma warning disable 612, 618
             new PerFieldReuseStrategy();
 #pragma warning restore 612, 618
@@ -485,12 +485,12 @@ namespace YAF.Lucene.Net.Analysis
                 this.initReader = initReader;
             }
 
-            protected internal override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
+            override protected internal TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
             {
                 return this.createComponents(fieldName, reader);
             }
 
-            protected internal override TextReader InitReader(string fieldName, TextReader reader)
+            override protected internal TextReader InitReader(string fieldName, TextReader reader)
             {
                 if (this.initReader != null)
                 {
@@ -513,13 +513,13 @@ namespace YAF.Lucene.Net.Analysis
         /// <summary>
         /// Original source of the tokens.
         /// </summary>
-        protected readonly Tokenizer m_source;
+        readonly protected Tokenizer m_source;
 
         /// <summary>
         /// Sink tokenstream, such as the outer tokenfilter decorating
         /// the chain. This can be the source if there are no filters.
         /// </summary>
-        protected readonly TokenStream m_sink;
+        readonly protected TokenStream m_sink;
 
         /// <summary>
         /// Internal cache only used by <see cref="Analyzer.GetTokenStream(string, string)"/>. </summary>
@@ -607,7 +607,7 @@ namespace YAF.Lucene.Net.Analysis
         /// </summary>
         /// <returns> Currently stored value or <c>null</c> if no value is stored </returns>
         /// <exception cref="ObjectDisposedException"> if the <see cref="Analyzer"/> is closed. </exception>
-        protected internal static object GetStoredValue(Analyzer analyzer) // LUCENENET: CA1822: Mark members as static
+        static protected internal object GetStoredValue(Analyzer analyzer) // LUCENENET: CA1822: Mark members as static
         {
             if (analyzer.storedValue is null)
             {
@@ -622,7 +622,7 @@ namespace YAF.Lucene.Net.Analysis
         /// <param name="analyzer"> Analyzer </param>
         /// <param name="storedValue"> Value to store </param>
         /// <exception cref="ObjectDisposedException"> if the <see cref="Analyzer"/> is closed. </exception>
-        protected internal static void SetStoredValue(Analyzer analyzer, object storedValue) // LUCENENET: CA1822: Mark members as static
+        static protected internal void SetStoredValue(Analyzer analyzer, object storedValue) // LUCENENET: CA1822: Mark members as static
         {
             if (analyzer.storedValue is null)
             {

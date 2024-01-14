@@ -62,7 +62,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         // Just adds term's ord to TermInfo
         public sealed class TermInfoAndOrd : TermInfo
         {
-            internal readonly long termOrd;
+            readonly internal long termOrd;
 
             public TermInfoAndOrd(TermInfo ti, long termOrd)
                 : base(ti)
@@ -198,7 +198,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             return resources;
         }
 
-        private static readonly IComparer<BytesRef> legacyComparer = BytesRef.UTF8SortedAsUTF16Comparer;
+        private readonly static IComparer<BytesRef> legacyComparer = BytesRef.UTF8SortedAsUTF16Comparer;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static int CompareAsUTF16(Term term1, Term term2) // LUCENENET: CA1822: Mark members as static
@@ -249,7 +249,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static Term DeepCopyOf(Term other)
+        static internal Term DeepCopyOf(Term other)
         {
             return new Term(other.Field, BytesRef.DeepCopyOf(other.Bytes));
         }

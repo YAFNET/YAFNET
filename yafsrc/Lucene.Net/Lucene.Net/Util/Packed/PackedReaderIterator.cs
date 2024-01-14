@@ -27,12 +27,12 @@ namespace YAF.Lucene.Net.Util.Packed
 
     internal sealed class PackedReaderIterator : PackedInt32s.ReaderIterator
     {
-        internal readonly int packedIntsVersion;
-        internal readonly PackedInt32s.Format format;
-        internal readonly BulkOperation bulkOperation;
-        internal readonly byte[] nextBlocks;
-        internal readonly Int64sRef nextValues;
-        internal readonly int iterations;
+        readonly internal int packedIntsVersion;
+        readonly internal PackedInt32s.Format format;
+        readonly internal BulkOperation bulkOperation;
+        readonly internal byte[] nextBlocks;
+        readonly internal Int64sRef nextValues;
+        readonly internal int iterations;
         internal int position;
 
         internal PackedReaderIterator(PackedInt32s.Format format, int packedIntsVersion, int valueCount, int bitsPerValue, DataInput @in, int mem)

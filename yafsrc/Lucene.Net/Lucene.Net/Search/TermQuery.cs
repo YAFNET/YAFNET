@@ -51,9 +51,9 @@ namespace YAF.Lucene.Net.Search
         {
             private readonly TermQuery outerInstance;
 
-            internal readonly Similarity similarity;
-            internal readonly Similarity.SimWeight stats;
-            internal readonly TermContext termStates;
+            readonly internal Similarity similarity;
+            readonly internal Similarity.SimWeight stats;
+            readonly internal TermContext termStates;
 
             public TermWeight(TermQuery outerInstance, IndexSearcher searcher, TermContext termStates)
             {

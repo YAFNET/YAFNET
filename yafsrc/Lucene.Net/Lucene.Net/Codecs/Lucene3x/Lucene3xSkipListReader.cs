@@ -76,7 +76,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         public int PayloadLength => lastPayloadLength;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void SeekChild(int level)
+        override protected void SeekChild(int level)
         {
             base.SeekChild(level);
             freqPointer[level] = lastFreqPointer;
@@ -85,7 +85,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void SetLastSkipData(int level)
+        override protected void SetLastSkipData(int level)
         {
             base.SetLastSkipData(level);
             lastFreqPointer = freqPointer[level];
@@ -93,7 +93,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
             lastPayloadLength = payloadLength[level];
         }
 
-        protected override int ReadSkipData(int level, IndexInput skipStream)
+        override protected int ReadSkipData(int level, IndexInput skipStream)
         {
             int delta;
             if (currentFieldStoresPayloads)

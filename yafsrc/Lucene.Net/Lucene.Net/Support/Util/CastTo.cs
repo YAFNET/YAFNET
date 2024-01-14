@@ -24,7 +24,7 @@ namespace YAF.Lucene.Net.Util
     /// Class to cast to type <typeparamref name="T"/>.
     /// </summary>
     /// <typeparam name="T">Target type</typeparam>
-    internal static class CastTo<T>
+    static internal class CastTo<T>
     {
         /// <summary>
         /// Casts <paramref name="s"/> to <typeparamref name="T"/>.
@@ -39,7 +39,7 @@ namespace YAF.Lucene.Net.Util
 
         private static class Cache<TSource>
         {
-            public static readonly Func<TSource, T> caster = Get();
+            public readonly static Func<TSource, T> caster = Get();
 
             private static Func<TSource, T> Get()
             {

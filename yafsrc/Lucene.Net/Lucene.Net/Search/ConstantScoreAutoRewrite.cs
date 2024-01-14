@@ -86,12 +86,12 @@ namespace YAF.Lucene.Net.Search
             set => docCountPercent = value;
         }
 
-        protected override BooleanQuery GetTopLevelQuery()
+        override protected BooleanQuery GetTopLevelQuery()
         {
             return new BooleanQuery(true);
         }
 
-        protected override void AddClause(BooleanQuery topLevel, Term term, int docFreq, float boost, TermContext states) //ignored
+        override protected void AddClause(BooleanQuery topLevel, Term term, int docFreq, float boost, TermContext states) //ignored
         {
             topLevel.Add(new TermQuery(term, states), Occur.SHOULD);
         }
@@ -176,8 +176,8 @@ namespace YAF.Lucene.Net.Search
             internal bool hasCutOff = false;
             internal TermsEnum termsEnum;
 
-            internal readonly int docCountCutoff, termCountLimit;
-            internal readonly TermStateByteStart array = new TermStateByteStart(16);
+            readonly internal int docCountCutoff, termCountLimit;
+            readonly internal TermStateByteStart array = new TermStateByteStart(16);
             internal BytesRefHash pendingTerms;
         }
 

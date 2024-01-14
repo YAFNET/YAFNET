@@ -77,10 +77,10 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
                     return JjMoveNfa_1(0, 0);
             }
         }
-        internal static readonly ulong[] jjbitVec0 = {
+        readonly static internal ulong[] jjbitVec0 = {
             0xfffffffffffffffeL, 0xffffffffffffffffL, 0xffffffffffffffffL, 0xffffffffffffffffL
         };
-        internal static readonly ulong[] jjbitVec2 = {
+        readonly static internal ulong[] jjbitVec2 = {
             0x0L, 0x0L, 0xffffffffffffffffL, 0xffffffffffffffffL
         };
         private int JjMoveNfa_1(int startState, int curPos)
@@ -523,7 +523,7 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
                 catch (Exception e) when (e.IsIOException()) { return curPos; }
             }
         }
-        internal static readonly int[] jjnextStates = {
+        readonly static internal int[] jjnextStates = {
             32, 33, 34, 35, 37, 24, 27, 28, 20, 17, 21, 18, 27, 28, 30, 24,
             25, 0, 1,
         };
@@ -547,25 +547,25 @@ namespace YAF.Lucene.Net.QueryParsers.Surround.Parser
         ////};
 
         /// <summary>Token literal values.</summary>
-        public static readonly string[] jjstrLiteralImages = {
+        public readonly static string[] jjstrLiteralImages = {
             "", null, null, null, null, null, null, null, null, null, null, null, null,
             "\x0028" /*"\50"*/, "\x0029" /*"\51"*/, "\x002C" /*"\54"*/, "\x003A" /*"\72"*/, "\x005E" /*"\136"*/, null, null, null, null, null, null
         };
 
         /// <summary>Lexer state names.</summary>
-        public static readonly string[] lexStateNames = {
+        public readonly static string[] lexStateNames = {
            "Boost",
            "DEFAULT"
         };
 
         /// <summary>Lex State array.</summary>
-        public static readonly int[] jjnewLexState = {
+        public readonly static int[] jjnewLexState = {
            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, -1, -1, -1, -1, -1, 1,
         };
-        internal static readonly long[] jjtoToken = {
+        readonly static internal long[] jjtoToken = {
            0xffff01L,
         };
-        internal static readonly long[] jjtoSkip = {
+        readonly static internal long[] jjtoSkip = {
            0x80L,
         };
         protected ICharStream m_input_stream;

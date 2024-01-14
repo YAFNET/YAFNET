@@ -87,7 +87,7 @@ namespace YAF.Lucene.Net.Support.Threading
         }
 
         // Queues a task to the scheduler. 
-        protected sealed override void QueueTask(Task task)
+        override protected sealed void QueueTask(Task task)
         {
             // Don't queue any more work.
             if (shutDown) return;
@@ -159,7 +159,7 @@ namespace YAF.Lucene.Net.Support.Threading
         }
 
         // Attempts to execute the specified task on the current thread. 
-        protected sealed override bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued)
+        override protected sealed bool TryExecuteTaskInline(Task task, bool taskWasPreviouslyQueued)
         {
             // If this thread isn't already processing a task, we don't support inlining
             if (!_currentThreadIsProcessingItems) return false;
@@ -176,7 +176,7 @@ namespace YAF.Lucene.Net.Support.Threading
         }
 
         // Attempt to remove a previously scheduled task from the scheduler. 
-        protected sealed override bool TryDequeue(Task task)
+        override protected sealed bool TryDequeue(Task task)
         {
             UninterruptableMonitor.Enter(_tasks);
             try
@@ -190,10 +190,10 @@ namespace YAF.Lucene.Net.Support.Threading
         }
 
         // Gets the maximum concurrency level supported by this scheduler. 
-        public sealed override int MaximumConcurrencyLevel => _maxDegreeOfParallelism;
+        public override sealed int MaximumConcurrencyLevel => _maxDegreeOfParallelism;
 
         // Gets an enumerable of the tasks currently scheduled on this scheduler. 
-        protected sealed override IEnumerable<Task> GetScheduledTasks()
+        override protected sealed IEnumerable<Task> GetScheduledTasks()
         {
             bool lockTaken = false;
             try

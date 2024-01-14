@@ -31,7 +31,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public class DoubleFieldSource : FieldCacheSource
     {
-        protected readonly FieldCache.IDoubleParser m_parser;
+        readonly protected FieldCache.IDoubleParser m_parser;
 
         public DoubleFieldSource(string field)
             : this(field, null)

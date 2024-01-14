@@ -73,11 +73,11 @@ namespace YAF.Lucene.Net.Queries
          * rewrite to dismax rather than boolean. Yet, this can already be subclassed
          * to do so.
          */
-        protected readonly IList<Term> m_terms = new JCG.List<Term>();
-        protected readonly bool m_disableCoord;
-        protected readonly float m_maxTermFrequency;
-        protected readonly Occur m_lowFreqOccur;
-        protected readonly Occur m_highFreqOccur;
+        readonly protected IList<Term> m_terms = new JCG.List<Term>();
+        readonly protected bool m_disableCoord;
+        readonly protected float m_maxTermFrequency;
+        readonly protected Occur m_lowFreqOccur;
+        readonly protected Occur m_highFreqOccur;
         protected float m_lowFreqBoost = 1.0f;
         protected float m_highFreqBoost = 1.0f;
         protected float m_lowFreqMinNrShouldMatch = 0;

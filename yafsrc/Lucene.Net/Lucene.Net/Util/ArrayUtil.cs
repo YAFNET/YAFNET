@@ -38,7 +38,7 @@ namespace YAF.Lucene.Net.Util
         /// one JVM but failed later at search time with a
         /// different JVM.
         /// </summary>
-        public static readonly int MAX_ARRAY_LENGTH = int.MaxValue - 256;
+        public readonly static int MAX_ARRAY_LENGTH = int.MaxValue - 256;
 
         /*
            Begin Apache Harmony code

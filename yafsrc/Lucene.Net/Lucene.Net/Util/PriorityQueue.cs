@@ -485,7 +485,7 @@ namespace YAF.Lucene.Net.Util
     public abstract class PriorityQueue<T>
     {
         private int size = 0;
-        internal readonly int maxSize; // LUCENENET: Internal for testing
+        readonly internal int maxSize; // LUCENENET: Internal for testing
         internal T?[] heap; // LUCENENET: Internal for testing
 
         /// <summary>

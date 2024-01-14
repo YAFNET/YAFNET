@@ -47,7 +47,7 @@ namespace YAF.Lucene.Net.Analysis.En
         private KStemData3()
         {
         }
-        internal static string[] data = new string[] {
+        static internal string[] data = new string[] {
             "distasteful","distemper","distempered","distend","distension",
             "distil","distill","distillation","distiller","distillery",
             "distinct","distinction","distinctive","distinguish","distinguishable",

@@ -53,7 +53,7 @@ namespace YAF.Lucene.Net.Search
             this.acceptDocs = acceptDocs ?? throw new ArgumentNullException(nameof(acceptDocs), "acceptDocs can not be null"); // LUCENENET specific - changed from IllegalArgumentException to ArgumentNullException (.NET convention)
         }
 
-        protected override bool Match(int docid)
+        override protected bool Match(int docid)
         {
             return acceptDocs.Get(docid);
         }

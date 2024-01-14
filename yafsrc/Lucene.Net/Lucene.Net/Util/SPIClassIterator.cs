@@ -33,7 +33,7 @@ namespace YAF.Lucene.Net.Util
     /// </summary>
     public class SPIClassIterator<S> : IEnumerable<Type>
     {
-        private static readonly JCG.HashSet<Type> types = LoadTypes();
+        private readonly static JCG.HashSet<Type> types = LoadTypes();
 
         private static JCG.HashSet<Type> LoadTypes() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {
@@ -112,7 +112,7 @@ namespace YAF.Lucene.Net.Util
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static bool IsInvokableSubclassOf<T>(Type type)
+        static internal bool IsInvokableSubclassOf<T>(Type type)
         {
             return typeof(T).IsAssignableFrom(type) && !type.IsAbstract && !type.IsInterface;
         }

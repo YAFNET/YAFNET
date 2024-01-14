@@ -161,7 +161,7 @@ namespace YAF.Lucene.Net.Util.Packed
             /// <summary>
             /// Compact format, all bits are written contiguously.
             /// </summary>
-            public static readonly Format PACKED = new PackedFormat();
+            public readonly static Format PACKED = new PackedFormat();
 
             /// <summary>
             /// A format that may insert padding bits to improve encoding and decoding
@@ -170,9 +170,9 @@ namespace YAF.Lucene.Net.Util.Packed
             /// <see cref="PackedInt32s.FastestFormatAndBits(int, int, float)"/> to find the
             /// format that best suits your needs.
             /// </summary>
-            public static readonly Format PACKED_SINGLE_BLOCK = new PackedSingleBlockFormat();
+            public readonly static Format PACKED_SINGLE_BLOCK = new PackedSingleBlockFormat();
 
-            private static readonly Format[] values = new Format[] { PACKED, PACKED_SINGLE_BLOCK };
+            private readonly static Format[] values = new Format[] { PACKED, PACKED_SINGLE_BLOCK };
 
             public static IEnumerable<Format> Values => values;
 
@@ -629,9 +629,9 @@ namespace YAF.Lucene.Net.Util.Packed
         // LUCENENET NOTE: Was ReaderIteratorImpl in Lucene
         internal abstract class ReaderIterator : IReaderIterator
         {
-            protected readonly DataInput m_in;
-            protected readonly int m_bitsPerValue;
-            protected readonly int m_valueCount;
+            readonly protected DataInput m_in;
+            readonly protected int m_bitsPerValue;
+            readonly protected int m_valueCount;
 
             protected ReaderIterator(int valueCount, int bitsPerValue, DataInput @in)
             {
@@ -749,8 +749,8 @@ namespace YAF.Lucene.Net.Util.Packed
         /// </summary>
         internal abstract class ReaderImpl : Reader
         {
-            protected readonly int m_bitsPerValue;
-            protected readonly int m_valueCount;
+            readonly protected int m_bitsPerValue;
+            readonly protected int m_valueCount;
 
             protected ReaderImpl(int valueCount, int bitsPerValue)
             {
@@ -768,8 +768,8 @@ namespace YAF.Lucene.Net.Util.Packed
 
         public abstract class MutableImpl : Mutable
         {
-            protected readonly int m_valueCount;
-            protected readonly int m_bitsPerValue;
+            readonly protected int m_valueCount;
+            readonly protected int m_bitsPerValue;
 
             protected MutableImpl(int valueCount, int bitsPerValue)
             {
@@ -832,9 +832,9 @@ namespace YAF.Lucene.Net.Util.Packed
         /// </summary>
         public abstract class Writer
         {
-            protected readonly DataOutput m_out;
-            protected readonly int m_valueCount;
-            protected readonly int m_bitsPerValue;
+            readonly protected DataOutput m_out;
+            readonly protected int m_valueCount;
+            readonly protected int m_bitsPerValue;
 
             protected Writer(DataOutput @out, int valueCount, int bitsPerValue)
             {
@@ -1405,7 +1405,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// <summary>
         /// Same as <see cref="Copy(Reader, int, Mutable, int, int, int)"/> but using a pre-allocated buffer. </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void Copy(Reader src, int srcPos, Mutable dest, int destPos, int len, long[] buf)
+        static internal void Copy(Reader src, int srcPos, Mutable dest, int destPos, int len, long[] buf)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(buf.Length > 0);
             int remaining = 0;
@@ -1458,10 +1458,10 @@ namespace YAF.Lucene.Net.Util.Packed
         /// Header identifying the structure of a packed integer array. </summary>
         public class Header
         {
-            internal readonly Format format;
-            internal readonly int valueCount;
-            internal readonly int bitsPerValue;
-            internal readonly int version;
+            readonly internal Format format;
+            readonly internal int valueCount;
+            readonly internal int bitsPerValue;
+            readonly internal int version;
 
             public Header(Format format, int valueCount, int bitsPerValue, int version)
             {
@@ -1477,7 +1477,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// its log in base 2.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static int CheckBlockSize(int blockSize, int minBlockSize, int maxBlockSize)
+        static internal int CheckBlockSize(int blockSize, int minBlockSize, int maxBlockSize)
         {
             if (blockSize < minBlockSize || blockSize > maxBlockSize)
             {
@@ -1495,7 +1495,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// <paramref name="blockSize"/>.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static int NumBlocks(long size, int blockSize)
+        static internal int NumBlocks(long size, int blockSize)
         {
             int numBlocks = (int)(size / blockSize) + (size % blockSize == 0 ? 0 : 1);
             if ((long)numBlocks * blockSize < size)

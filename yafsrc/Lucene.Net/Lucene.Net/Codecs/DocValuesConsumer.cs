@@ -510,7 +510,7 @@ namespace YAF.Lucene.Net.Codecs
         // TODO: seek-by-ord to nextSetBit
         internal class BitsFilteredTermsEnum : FilteredTermsEnum
         {
-            internal readonly Int64BitSet liveTerms;
+            readonly internal Int64BitSet liveTerms;
 
             internal BitsFilteredTermsEnum(TermsEnum @in, Int64BitSet liveTerms)
                 : base(@in, false)
@@ -519,7 +519,7 @@ namespace YAF.Lucene.Net.Codecs
                 this.liveTerms = liveTerms;
             }
 
-            protected override AcceptStatus Accept(BytesRef term)
+            override protected AcceptStatus Accept(BytesRef term)
             {
                 return liveTerms.Get(Ord) ? AcceptStatus.YES : AcceptStatus.NO;
             }

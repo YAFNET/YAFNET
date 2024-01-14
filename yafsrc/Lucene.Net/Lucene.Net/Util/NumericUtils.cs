@@ -563,7 +563,7 @@ namespace YAF.Lucene.Net.Util
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected override AcceptStatus Accept(BytesRef term)
+            override protected AcceptStatus Accept(BytesRef term)
             {
                 return NumericUtils.GetPrefixCodedInt64Shift(term) == 0 ? AcceptStatus.YES : AcceptStatus.END;
             }
@@ -593,7 +593,7 @@ namespace YAF.Lucene.Net.Util
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected override AcceptStatus Accept(BytesRef term)
+            override protected AcceptStatus Accept(BytesRef term)
             {
                 return NumericUtils.GetPrefixCodedInt32Shift(term) == 0 ? AcceptStatus.YES : AcceptStatus.END;
             }

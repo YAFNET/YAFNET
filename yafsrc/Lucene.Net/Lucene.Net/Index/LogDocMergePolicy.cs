@@ -27,7 +27,7 @@ namespace YAF.Lucene.Net.Index
     {
         /// <summary> Default minimum segment size. </summary>
         /// <seealso cref="MinMergeDocs"/>
-        public static readonly int DEFAULT_MIN_MERGE_DOCS = 1000;
+        public readonly static int DEFAULT_MIN_MERGE_DOCS = 1000;
 
         /// <summary>
         /// Sole constructor, setting all settings to their
@@ -43,7 +43,7 @@ namespace YAF.Lucene.Net.Index
             m_maxMergeSizeForForcedMerge = long.MaxValue;
         }
 
-        protected override long Size(SegmentCommitInfo info)
+        override protected long Size(SegmentCommitInfo info)
         {
             return SizeDocs(info);
         }

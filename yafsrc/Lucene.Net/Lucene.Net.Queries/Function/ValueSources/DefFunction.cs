@@ -36,7 +36,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
         {
         }
 
-        protected override string Name => "def";
+        override protected string Name => "def";
 
         public override FunctionValues GetValues(IDictionary fcontext, AtomicReaderContext readerContext)
         {

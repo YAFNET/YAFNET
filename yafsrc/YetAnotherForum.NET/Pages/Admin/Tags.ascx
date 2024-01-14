@@ -71,6 +71,21 @@
                             </YAF:ThemeButton>
                         </div>
                     </small>
+                    
+                    <div class="dropdown-menu context-menu" aria-labelledby="context menu">
+                        <a href="<%# this.Get<LinkBuilder>().GetLink(
+                                         ForumPages.Search,
+                                         new {tag = this.Eval("TagName")}) %>"
+                           class="dropdown-item"><YAF:LocalizedLabel runat="server" LocalizedTag="SHOW_TOPICS"></YAF:LocalizedLabel></a>
+                        <YAF:ThemeButton runat="server"
+                                         Type="None"
+                                         CssClass="dropdown-item"
+                                         CommandName="delete" CommandArgument="<%# ((Tag)Container.DataItem).ID %>"
+                                         ReturnConfirmTag="CONFIRM_DELETE"
+                                         Icon="trash"
+                                         TextLocalizedTag="DELETE">
+                        </YAF:ThemeButton>
+                    </div>
                 </li>
             </ItemTemplate>
             <FooterTemplate>

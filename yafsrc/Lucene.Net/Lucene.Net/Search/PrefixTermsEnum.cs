@@ -39,7 +39,7 @@ namespace YAF.Lucene.Net.Search
             SetInitialSeekTerm(this.prefixRef = prefixText);
         }
 
-        protected override AcceptStatus Accept(BytesRef term)
+        override protected AcceptStatus Accept(BytesRef term)
         {
             if (StringHelper.StartsWith(term, prefixRef))
             {

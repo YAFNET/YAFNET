@@ -117,7 +117,7 @@ namespace YAF.Lucene.Net.Util.Fst
             }
         }
 
-        protected override int TargetLabel
+        override protected int TargetLabel
         {
             get
             {
@@ -132,14 +132,14 @@ namespace YAF.Lucene.Net.Util.Fst
             }
         }
 
-        protected override int CurrentLabel
+        override protected int CurrentLabel
         {   // current.offset fixed at 1
             get => current.Int32s[m_upto];
             set => current.Int32s[m_upto] = value;
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void Grow()
+        override protected void Grow()
         {
             current.Int32s = ArrayUtil.Grow(current.Int32s, m_upto + 1);
         }

@@ -29,7 +29,7 @@ namespace YAF.Lucene.Net.Analysis.Gl
     /// <a href="http://bvg.udc.es/recursos_lingua/stemming.jsp">Description of rules</a>
     public class GalicianStemmer : RSLPStemmerBase
     {
-        private static readonly Step plural, unification, adverb, augmentative, noun, verb, vowel;
+        private readonly static Step plural, unification, adverb, augmentative, noun, verb, vowel;
 
         static GalicianStemmer()
         {

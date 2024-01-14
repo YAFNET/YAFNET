@@ -47,7 +47,7 @@ namespace YAF.Lucene.Net.Search
             this.coord = coord;
         }
 
-        protected override void AfterNext()
+        override protected void AfterNext()
         {
             Scorer sub = m_subScorers[0];
             m_doc = sub.DocID;

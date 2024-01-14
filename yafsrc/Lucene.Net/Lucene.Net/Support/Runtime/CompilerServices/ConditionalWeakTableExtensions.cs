@@ -24,7 +24,7 @@ namespace YAF.Lucene.Net.Runtime.CompilerServices
      * limitations under the License.
      */
 
-    internal static class ConditionalWeakTableExtensions
+    static internal class ConditionalWeakTableExtensions
     {
 #if !FEATURE_CONDITIONALWEAKTABLE_ADDORUPDATE
         /// <summary>

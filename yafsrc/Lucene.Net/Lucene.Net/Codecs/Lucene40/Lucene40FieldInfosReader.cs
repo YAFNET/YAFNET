@@ -138,8 +138,8 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
             }
         }
 
-        internal static readonly string LEGACY_DV_TYPE_KEY = typeof(Lucene40FieldInfosReader).Name + ".dvtype";
-        internal static readonly string LEGACY_NORM_TYPE_KEY = typeof(Lucene40FieldInfosReader).Name + ".normtype";
+        readonly static internal string LEGACY_DV_TYPE_KEY = typeof(Lucene40FieldInfosReader).Name + ".dvtype";
+        readonly static internal string LEGACY_NORM_TYPE_KEY = typeof(Lucene40FieldInfosReader).Name + ".normtype";
 
         // mapping of 4.0 types -> 4.2 types
         /*internal enum LegacyDocValuesType
@@ -186,7 +186,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         BYTES_VAR_SORTED
     }
 
-    internal static class LegacyDocValuesTypeExtensions
+    static internal class LegacyDocValuesTypeExtensions
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static DocValuesType GetMapping(this LegacyDocValuesType legacyDocValuesType)
@@ -201,7 +201,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene40
         }
 
         // mapping of 4.0 types -> 4.2 types
-        internal static IDictionary<LegacyDocValuesType, DocValuesType> mapping = new Dictionary<LegacyDocValuesType, DocValuesType>
+        static internal IDictionary<LegacyDocValuesType, DocValuesType> mapping = new Dictionary<LegacyDocValuesType, DocValuesType>
         {
             { LegacyDocValuesType.NONE, DocValuesType.NONE },
             { LegacyDocValuesType.VAR_INTS, DocValuesType.NUMERIC },

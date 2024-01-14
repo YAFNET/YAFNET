@@ -130,7 +130,7 @@ namespace YAF.Lucene.Net.Analysis.Synonym
         // position:
         private class PendingInput
         {
-            internal readonly CharsRef term = new CharsRef();
+            readonly internal CharsRef term = new CharsRef();
             internal AttributeSource.State state;
             internal bool keepOrig;
             internal bool matched;

@@ -8,7 +8,7 @@
 
 namespace Lucene.Net.Support
 {
-    internal static class RectangularArrays
+    static internal class RectangularArrays
     {
         public static T[][] ReturnRectangularArray<T>(int size1, int size2)
         {

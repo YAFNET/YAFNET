@@ -58,7 +58,7 @@ namespace YAF.Lucene.Net.Search
         /// <summary>
         /// NOTE: This was EMPTY_INT_ARRAY in Lucene
         /// </summary>
-        private static readonly int[] EMPTY_INT32_ARRAY = Arrays.Empty<int>();
+        private readonly static int[] EMPTY_INT32_ARRAY = Arrays.Empty<int>();
 
         private class SegStart
         {
@@ -354,11 +354,11 @@ namespace YAF.Lucene.Net.Search
         // up front. this is only relevant for the ScoreCaching
         // version -- if the wrapped Collector does not need
         // scores, it can avoid cachedScorer entirely.
-        protected readonly ICollector m_other;
+        readonly protected ICollector m_other;
 
-        protected readonly int m_maxDocsToCache;
+        readonly protected int m_maxDocsToCache;
         private readonly IList<SegStart> m_cachedSegs = new JCG.List<SegStart>();
-        protected readonly IList<int[]> m_cachedDocs;
+        readonly protected IList<int[]> m_cachedDocs;
 
         private AtomicReaderContext lastReaderContext;
 

@@ -328,7 +328,7 @@ namespace YAF.Lucene.Net.Util.Fst
         /// </summary>
         private class TieBreakByInputComparer<T> : IComparer<FSTPath<T>> where T : class // LUCENENET specific - added class constraint, since we compare reference equality
         {
-            internal readonly IComparer<T> comparer;
+            readonly internal IComparer<T> comparer;
 
             public TieBreakByInputComparer(IComparer<T> comparer)
             {
@@ -362,7 +362,7 @@ namespace YAF.Lucene.Net.Util.Fst
 
             private readonly FST.Arc<T> scratchArc = new FST.Arc<T>();
 
-            internal readonly IComparer<T> comparer;
+            readonly internal IComparer<T> comparer;
 
             internal JCG.SortedSet<FSTPath<T>> queue = null;
 

@@ -65,7 +65,7 @@ namespace YAF.Lucene.Net.Util
     // is not generic).
     public sealed class VirtualMethod
     {
-        private static readonly ISet<MethodInfo> singletonSet = new ConcurrentHashSet<MethodInfo>();
+        private readonly static ISet<MethodInfo> singletonSet = new ConcurrentHashSet<MethodInfo>();
 
         private readonly Type baseClass;
         private readonly string method;

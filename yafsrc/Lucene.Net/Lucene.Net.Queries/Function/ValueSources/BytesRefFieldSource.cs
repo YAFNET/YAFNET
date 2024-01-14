@@ -105,7 +105,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
             }
 
 
-            protected override string ToTerm(string readableValue)
+            override protected string ToTerm(string readableValue)
             {
                 return readableValue;
             }

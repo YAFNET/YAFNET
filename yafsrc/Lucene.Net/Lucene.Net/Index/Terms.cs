@@ -108,7 +108,7 @@ namespace YAF.Lucene.Net.Index
                 this.startTerm = startTerm;
             }
 
-            protected override BytesRef NextSeekTerm(BytesRef term)
+            override protected BytesRef NextSeekTerm(BytesRef term)
             {
                 if (term is null)
                 {
@@ -187,6 +187,6 @@ namespace YAF.Lucene.Net.Index
         [SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "This is a SonarCloud issue")]
         [SuppressMessage("Performance", "S3887:Use an immutable collection or reduce the accessibility of the non-private readonly field", Justification = "Collection is immutable")]
         [SuppressMessage("Performance", "S2386:Use an immutable collection or reduce the accessibility of the public static field", Justification = "Collection is immutable")]
-        public static readonly Terms[] EMPTY_ARRAY = Arrays.Empty<Terms>();
+        public readonly static Terms[] EMPTY_ARRAY = Arrays.Empty<Terms>();
     }
 }

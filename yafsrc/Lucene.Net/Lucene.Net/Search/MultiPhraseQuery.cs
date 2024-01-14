@@ -542,7 +542,7 @@ namespace YAF.Lucene.Net.Search
                 }
             }
 
-            protected internal override bool LessThan(DocsAndPositionsEnum a, DocsAndPositionsEnum b)
+            override protected internal bool LessThan(DocsAndPositionsEnum a, DocsAndPositionsEnum b)
             {
                 return a.DocID < b.DocID;
             }

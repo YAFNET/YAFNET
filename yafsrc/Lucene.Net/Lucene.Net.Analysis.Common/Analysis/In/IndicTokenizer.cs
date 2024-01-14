@@ -41,7 +41,7 @@ namespace YAF.Lucene.Net.Analysis.In
         {
         }
 
-        protected override bool IsTokenChar(int c)
+        override protected bool IsTokenChar(int c)
         {
             UnicodeCategory category = Character.GetType(c);
 

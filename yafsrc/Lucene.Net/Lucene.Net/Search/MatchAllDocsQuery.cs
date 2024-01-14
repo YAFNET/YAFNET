@@ -34,7 +34,7 @@ namespace YAF.Lucene.Net.Search
     {
         private class MatchAllScorer : Scorer
         {
-            internal readonly float score;
+            readonly internal float score;
             private int doc = -1;
             private readonly int maxDoc;
             private readonly IBits liveDocs;

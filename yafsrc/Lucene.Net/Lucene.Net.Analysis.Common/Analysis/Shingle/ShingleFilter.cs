@@ -672,9 +672,9 @@ namespace YAF.Lucene.Net.Analysis.Shingle
 
         private class InputWindowToken
         {
-            internal readonly AttributeSource attSource;
-            internal readonly ICharTermAttribute termAtt;
-            internal readonly IOffsetAttribute offsetAtt;
+            readonly internal AttributeSource attSource;
+            readonly internal ICharTermAttribute termAtt;
+            readonly internal IOffsetAttribute offsetAtt;
             internal bool isFiller = false;
 
             public InputWindowToken(AttributeSource attSource)

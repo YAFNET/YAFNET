@@ -83,7 +83,7 @@ namespace YAF.Lucene.Net.Util.Automaton
 
         /// <summary>
         /// Selects minimization algorithm (default: <c>MINIMIZE_HOPCROFT</c>). </summary>
-        internal static int minimization = MINIMIZE_HOPCROFT;
+        static internal int minimization = MINIMIZE_HOPCROFT;
 
         /// <summary>
         /// Initial state of this automaton. </summary>
@@ -110,13 +110,13 @@ namespace YAF.Lucene.Net.Util.Automaton
 
         /// <summary>
         /// Minimize always flag. </summary>
-        internal static bool minimize_always = false;
+        static internal bool minimize_always = false;
 
         /// <summary>
         /// Selects whether operations may modify the input automata (default:
         /// <c>false</c>).
         /// </summary>
-        internal static bool allow_mutation = false;
+        static internal bool allow_mutation = false;
 
         /// <summary>
         /// Constructs a new automaton that accepts the empty language. Using this
@@ -183,7 +183,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         /// default, the flag is not set.
         /// </summary>
         /// <returns> current value of the flag </returns>
-        internal static bool AllowMutate => allow_mutation;
+        static internal bool AllowMutate => allow_mutation;
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         internal virtual void CheckMinimizeAlways()

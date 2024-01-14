@@ -27,10 +27,10 @@ namespace YAF.Lucene.Net.Index
     /// </summary>
     internal sealed class DocInverter : DocFieldConsumer
     {
-        internal readonly InvertedDocConsumer consumer;
-        internal readonly InvertedDocEndConsumer endConsumer;
+        readonly internal InvertedDocConsumer consumer;
+        readonly internal InvertedDocEndConsumer endConsumer;
 
-        internal readonly DocumentsWriterPerThread.DocState docState;
+        readonly internal DocumentsWriterPerThread.DocState docState;
 
         public DocInverter(DocumentsWriterPerThread.DocState docState, InvertedDocConsumer consumer, InvertedDocEndConsumer endConsumer)
         {
@@ -40,7 +40,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        internal override void Flush(IDictionary<string, DocFieldConsumerPerField> fieldsToFlush, SegmentWriteState state)
+        override internal void Flush(IDictionary<string, DocFieldConsumerPerField> fieldsToFlush, SegmentWriteState state)
         {
             IDictionary<string, InvertedDocConsumerPerField> childFieldsToFlush = new Dictionary<string, InvertedDocConsumerPerField>();
             IDictionary<string, InvertedDocEndConsumerPerField> endChildFieldsToFlush = new Dictionary<string, InvertedDocEndConsumerPerField>();
@@ -72,7 +72,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        internal override void Abort()
+        override internal void Abort()
         {
             try
             {

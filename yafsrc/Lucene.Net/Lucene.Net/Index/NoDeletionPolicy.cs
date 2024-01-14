@@ -28,7 +28,7 @@ namespace YAF.Lucene.Net.Index
     {
         /// <summary>
         /// The single instance of this class. </summary>
-        public static readonly IndexDeletionPolicy INSTANCE = new NoDeletionPolicy();
+        public readonly static IndexDeletionPolicy INSTANCE = new NoDeletionPolicy();
 
         private NoDeletionPolicy()
         {

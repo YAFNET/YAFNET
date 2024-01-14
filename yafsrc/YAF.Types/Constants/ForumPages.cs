@@ -374,21 +374,6 @@ public enum ForumPages
     Admin_SpamLog,
 
     /// <summary>
-    /// The Admin nntp servers page.
-    /// </summary>
-    Admin_NntpServers,
-
-    /// <summary>
-    /// The Admin nntp forums page.
-    /// </summary>
-    Admin_NntpForums,
-
-    /// <summary>
-    /// The Admin nntp retrieve page.
-    /// </summary>
-    Admin_NntpRetrieve,
-
-    /// <summary>
     /// The Admin version page.
     /// </summary>
     Admin_Version,

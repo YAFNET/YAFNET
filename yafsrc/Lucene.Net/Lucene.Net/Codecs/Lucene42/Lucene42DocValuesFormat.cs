@@ -125,9 +125,9 @@ namespace YAF.Lucene.Net.Codecs.Lucene42
     {
         /// <summary>
         /// Maximum length for each binary doc values field. </summary>
-        public static readonly int MAX_BINARY_FIELD_LENGTH = (1 << 15) - 2;
+        public readonly static int MAX_BINARY_FIELD_LENGTH = (1 << 15) - 2;
 
-        protected readonly float m_acceptableOverheadRatio;
+        readonly protected float m_acceptableOverheadRatio;
 
         /// <summary>
         /// Calls <c>Lucene42DocValuesFormat(PackedInts.DEFAULT)</c> (<see cref="Lucene42DocValuesFormat(float)"/>.

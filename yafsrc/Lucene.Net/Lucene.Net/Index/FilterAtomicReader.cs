@@ -67,7 +67,7 @@ namespace YAF.Lucene.Net.Index
         {
             /// <summary>
             /// The underlying <see cref="Index.Fields"/> instance. </summary>
-            protected readonly Fields m_input;
+            readonly protected Fields m_input;
 
             /// <summary>
             /// Creates a new <see cref="FilterFields"/>. </summary>
@@ -100,7 +100,7 @@ namespace YAF.Lucene.Net.Index
         {
             /// <summary>
             /// The underlying <see cref="Terms"/> instance. </summary>
-            protected readonly Terms m_input;
+            readonly protected Terms m_input;
 
             /// <summary>
             /// Creates a new <see cref="FilterTerms"/> </summary>
@@ -139,7 +139,7 @@ namespace YAF.Lucene.Net.Index
         {
             /// <summary>
             /// The underlying <see cref="TermsEnum"/> instance. </summary>
-            protected internal readonly TermsEnum m_input;
+            readonly protected internal TermsEnum m_input;
 
             /// <summary>
             /// Creates a new <see cref="FilterTermsEnum"/> </summary>
@@ -242,7 +242,7 @@ namespace YAF.Lucene.Net.Index
         {
             /// <summary>
             /// The underlying <see cref="DocsAndPositionsEnum"/> instance. </summary>
-            protected internal readonly DocsAndPositionsEnum m_input;
+            readonly protected internal DocsAndPositionsEnum m_input;
 
             /// <summary>
             /// Create a new <see cref="FilterDocsAndPositionsEnum"/> </summary>
@@ -290,7 +290,7 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// The underlying <see cref="AtomicReader"/>. </summary>
-        protected readonly AtomicReader m_input;
+        readonly protected AtomicReader m_input;
 
         /// <summary>
         /// Construct a <see cref="FilterAtomicReader"/> based on the specified base reader.
@@ -336,7 +336,7 @@ namespace YAF.Lucene.Net.Index
             m_input.Document(docID, visitor);
         }
 
-        protected internal override void DoClose()
+        override protected internal void DoClose()
         {
             m_input.Dispose();
         }

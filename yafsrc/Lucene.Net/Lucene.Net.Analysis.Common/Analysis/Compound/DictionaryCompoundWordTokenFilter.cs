@@ -91,7 +91,7 @@ namespace YAF.Lucene.Net.Analysis.Compound
             }
         }
 
-        protected override void Decompose()
+        override protected void Decompose()
         {
             int len = m_termAtt.Length;
             for (int i = 0; i <= len - this.m_minSubwordSize; ++i)

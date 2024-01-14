@@ -48,7 +48,7 @@ namespace YAF.Lucene.Net.Analysis.Cjk
 
         private static class DefaultSetHolder
         {
-            internal static readonly CharArraySet DEFAULT_STOP_SET = LoadDefaultStopSet();
+            readonly static internal CharArraySet DEFAULT_STOP_SET = LoadDefaultStopSet();
 
             private static CharArraySet LoadDefaultStopSet() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
             {
@@ -85,7 +85,7 @@ namespace YAF.Lucene.Net.Analysis.Cjk
         {
         }
 
-        protected internal override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
+        override protected internal TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
         {
 #pragma warning disable 612, 618
             if (m_matchVersion.OnOrAfter(LuceneVersion.LUCENE_36))

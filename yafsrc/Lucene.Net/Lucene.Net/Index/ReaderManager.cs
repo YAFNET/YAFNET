@@ -65,22 +65,22 @@ namespace YAF.Lucene.Net.Index
             Current = DirectoryReader.Open(dir);
         }
 
-        protected override void DecRef(DirectoryReader reference)
+        override protected void DecRef(DirectoryReader reference)
         {
             reference.DecRef();
         }
 
-        protected override DirectoryReader RefreshIfNeeded(DirectoryReader referenceToRefresh)
+        override protected DirectoryReader RefreshIfNeeded(DirectoryReader referenceToRefresh)
         {
             return DirectoryReader.OpenIfChanged(referenceToRefresh);
         }
 
-        protected override bool TryIncRef(DirectoryReader reference)
+        override protected bool TryIncRef(DirectoryReader reference)
         {
             return reference.TryIncRef();
         }
 
-        protected override int GetRefCount(DirectoryReader reference)
+        override protected int GetRefCount(DirectoryReader reference)
         {
             return reference.RefCount;
         }

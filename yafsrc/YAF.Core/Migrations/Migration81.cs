@@ -22,59 +22,58 @@
  * under the License.
  */
 
-namespace YAF.Core.Migrations
+namespace YAF.Core.Migrations;
+
+using ServiceStack.OrmLite;
+
+using System.Data;
+
+using YAF.Core.Context;
+using YAF.Types.Interfaces;
+using YAF.Types.Interfaces.Data;
+using YAF.Types.Models;
+
+/// <summary>
+/// Version 81 Migrations
+/// </summary>
+public class Migration81 : IRepositoryMigration, IHaveServiceLocator
 {
-    using ServiceStack.OrmLite;
-
-    using System.Data;
-
-    using YAF.Core.Context;
-    using YAF.Types.Interfaces;
-    using YAF.Types.Interfaces.Data;
-    using YAF.Types.Models;
-
     /// <summary>
-    /// Version 81 Migrations
+    /// Migrate Repositories (Database).
     /// </summary>
-    public class Migration81 : IRepositoryMigration, IHaveServiceLocator
+    /// <param name="dbAccess">
+    /// The Database access.
+    /// </param>
+    public void MigrateDatabase(IDbAccess dbAccess)
     {
-        /// <summary>
-        /// Migrate Repositories (Database).
-        /// </summary>
-        /// <param name="dbAccess">
-        /// The Database access.
-        /// </param>
-        public void MigrateDatabase(IDbAccess dbAccess)
-        {
-            dbAccess.Execute(
-                dbCommand =>
-                    {
-                        this.UpgradeTable(this.GetRepository<ProfileDefinition>(), dbAccess, dbCommand);
-
-                        this.UpgradeTable(this.GetRepository<User>(), dbAccess, dbCommand);
-
-                        ///////////////////////////////////////////////////////////
-
-                        return true;
-                    });
-        }
-
-        private void UpgradeTable(IRepository<User> repository, IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            if (dbCommand.Connection.ColumnExists<User>("Password"))
+        dbAccess.Execute(
+            dbCommand =>
             {
-                dbCommand.Connection.DropColumn<User>("Password");
-            }
-        }
+                this.UpgradeTable(this.GetRepository<ProfileDefinition>(), dbAccess, dbCommand);
 
-        private void UpgradeTable(IRepository<ProfileDefinition> repository, IDbAccess dbAccess, IDbCommand dbCommand)
-        {
-            if (!dbCommand.Connection.ColumnExists<ProfileDefinition>(x => x.ShowOnRegisterPage))
-            {
-                dbCommand.Connection.AddColumn<ProfileDefinition>(x => x.ShowOnRegisterPage);
-            }
-        }
+                this.UpgradeTable(this.GetRepository<User>(), dbAccess, dbCommand);
 
-        public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
+                ///////////////////////////////////////////////////////////
+
+                return true;
+            });
     }
+
+    private void UpgradeTable(IRepository<User> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    {
+        if (dbCommand.Connection.ColumnExists<User>("Password"))
+        {
+            dbCommand.Connection.DropColumn<User>("Password");
+        }
+    }
+
+    private void UpgradeTable(IRepository<ProfileDefinition> repository, IDbAccess dbAccess, IDbCommand dbCommand)
+    {
+        if (!dbCommand.Connection.ColumnExists<ProfileDefinition>(x => x.ShowOnRegisterPage))
+        {
+            dbCommand.Connection.AddColumn<ProfileDefinition>(x => x.ShowOnRegisterPage);
+        }
+    }
+
+    public IServiceLocator ServiceLocator => BoardContext.Current.ServiceLocator;
 }

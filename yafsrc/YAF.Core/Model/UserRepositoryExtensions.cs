@@ -1075,33 +1075,6 @@ public static class UserRepositoryExtensions
     }
 
     /// <summary>
-    /// Updates the NNTP User
-    /// </summary>
-    /// <param name="repository">
-    /// The repository.
-    /// </param>
-    /// <param name="boardId">
-    /// The board id.
-    /// </param>
-    /// <param name="userName">
-    /// The user name.
-    /// </param>
-    /// <returns>
-    /// Returns the User the updated user.
-    /// </returns>
-    public static User UpdateNntpUser(
-        this IRepository<User> repository,
-        int boardId,
-        string userName)
-    {
-        var user = repository.GetSingle(u => u.BoardID == boardId && u.Name == userName);
-
-        repository.UpdateDisplayName(user, $"{userName} (NNTP)");
-
-        return user;
-    }
-
-    /// <summary>
     /// Update User
     /// </summary>
     /// <param name="repository">

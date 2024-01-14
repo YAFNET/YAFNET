@@ -183,7 +183,7 @@ namespace YAF.Lucene.Net.Search
 
         // LUCENENET NOTE: Static methods were moved into the NumericRangeQuery class
 
-        protected override TermsEnum GetTermsEnum(Terms terms, AttributeSource atts)
+        override protected TermsEnum GetTermsEnum(Terms terms, AttributeSource atts)
         {
             // very strange: java.lang.Number itself is not Comparable, but all subclasses used here are
             if (min.HasValue && max.HasValue && (min.Value).CompareTo(max.Value) > 0)
@@ -262,32 +262,32 @@ namespace YAF.Lucene.Net.Search
         }
 
         // members (package private, to be also fast accessible by NumericRangeTermEnum)
-        internal readonly int precisionStep;
+        readonly internal int precisionStep;
 
-        internal readonly NumericType dataType;
-        internal readonly T? min, max;
-        internal readonly bool minInclusive, maxInclusive;
+        readonly internal NumericType dataType;
+        readonly internal T? min, max;
+        readonly internal bool minInclusive, maxInclusive;
 
         // used to handle float/double infinity correcty
         /// <summary>
         /// NOTE: This was LONG_NEGATIVE_INFINITY in Lucene
         /// </summary>
-        internal static readonly long INT64_NEGATIVE_INFINITY = NumericUtils.DoubleToSortableInt64(double.NegativeInfinity);
+        readonly static internal long INT64_NEGATIVE_INFINITY = NumericUtils.DoubleToSortableInt64(double.NegativeInfinity);
 
         /// <summary>
         /// NOTE: This was LONG_NEGATIVE_INFINITY in Lucene
         /// </summary>
-        internal static readonly long INT64_POSITIVE_INFINITY = NumericUtils.DoubleToSortableInt64(double.PositiveInfinity);
+        readonly static internal long INT64_POSITIVE_INFINITY = NumericUtils.DoubleToSortableInt64(double.PositiveInfinity);
 
         /// <summary>
         /// NOTE: This was INT_NEGATIVE_INFINITY in Lucene
         /// </summary>
-        internal static readonly int INT32_NEGATIVE_INFINITY = NumericUtils.SingleToSortableInt32(float.NegativeInfinity);
+        readonly static internal int INT32_NEGATIVE_INFINITY = NumericUtils.SingleToSortableInt32(float.NegativeInfinity);
 
         /// <summary>
         /// NOTE: This was INT_POSITIVE_INFINITY in Lucene
         /// </summary>
-        internal static readonly int INT32_POSITIVE_INFINITY = NumericUtils.SingleToSortableInt32(float.PositiveInfinity);
+        readonly static internal int INT32_POSITIVE_INFINITY = NumericUtils.SingleToSortableInt32(float.PositiveInfinity);
 
         /// <summary>
         /// Subclass of <see cref="FilteredTermsEnum"/> for enumerating all terms that match the
@@ -305,8 +305,8 @@ namespace YAF.Lucene.Net.Search
 
             internal BytesRef currentLowerBound, currentUpperBound;
 
-            internal readonly Queue<BytesRef> rangeBounds = new Queue<BytesRef>();
-            internal readonly IComparer<BytesRef> termComp;
+            readonly internal Queue<BytesRef> rangeBounds = new Queue<BytesRef>();
+            readonly internal IComparer<BytesRef> termComp;
 
             internal NumericRangeTermsEnum(NumericRangeQuery<T> outerInstance, TermsEnum tenum)
                 : base(tenum)
@@ -462,7 +462,7 @@ namespace YAF.Lucene.Net.Search
                 currentUpperBound = rangeBounds.Dequeue();
             }
 
-            protected override sealed BytesRef NextSeekTerm(BytesRef term)
+            override protected sealed BytesRef NextSeekTerm(BytesRef term)
             {
                 while (rangeBounds.Count >= 2)
                 {
@@ -483,7 +483,7 @@ namespace YAF.Lucene.Net.Search
                 return null;
             }
 
-            protected override sealed AcceptStatus Accept(BytesRef term)
+            override protected sealed AcceptStatus Accept(BytesRef term)
             {
                 while (currentUpperBound is null || termComp.Compare(term, currentUpperBound) > 0)
                 {

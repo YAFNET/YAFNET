@@ -34,13 +34,13 @@ namespace YAF.Lucene.Net.Index
         /// A singleton <see cref="NoMergePolicy"/> which indicates the index does not use
         /// compound files.
         /// </summary>
-        public static readonly MergePolicy NO_COMPOUND_FILES = new NoMergePolicy(false);
+        public readonly static MergePolicy NO_COMPOUND_FILES = new NoMergePolicy(false);
 
         /// <summary>
         /// A singleton <see cref="NoMergePolicy"/> which indicates the index uses compound
         /// files.
         /// </summary>
-        public static readonly MergePolicy COMPOUND_FILES = new NoMergePolicy(true);
+        public readonly static MergePolicy COMPOUND_FILES = new NoMergePolicy(true);
 
         private readonly bool useCompoundFile;
 
@@ -51,7 +51,7 @@ namespace YAF.Lucene.Net.Index
             this.useCompoundFile = useCompoundFile;
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             // LUCENENET: Intentionally blank
         }
@@ -81,7 +81,7 @@ namespace YAF.Lucene.Net.Index
             // LUCENENET: Intentionally blank
         }
 
-        protected override long Size(SegmentCommitInfo info)
+        override protected long Size(SegmentCommitInfo info)
         {
             return long.MaxValue;
         }

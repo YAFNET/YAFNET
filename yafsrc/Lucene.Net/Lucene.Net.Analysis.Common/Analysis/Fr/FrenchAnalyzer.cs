@@ -59,7 +59,7 @@ namespace YAF.Lucene.Net.Analysis.Fr
         /// Extended list of typical French stopwords. </summary>
         /// @deprecated (3.1) remove in Lucene 5.0 (index bw compat) 
         [Obsolete("(3.1) remove in Lucene 5.0 (index bw compat)")]
-        private static readonly string[] FRENCH_STOP_WORDS = new string[] {
+        private readonly static string[] FRENCH_STOP_WORDS = new string[] {
             "a", "afin", "ai", "ainsi", "après", "attendu", "au", "aujourd", "auquel", "aussi",
             "autre", "autres", "aux", "auxquelles", "auxquels", "avait", "avant", "avec", "avoir",
             "c", "car", "ce", "ceci", "cela", "celle", "celles", "celui", "cependant", "certain",
@@ -93,7 +93,7 @@ namespace YAF.Lucene.Net.Analysis.Fr
         [SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "This is a SonarCloud issue")]
         [SuppressMessage("Performance", "S3887:Use an immutable collection or reduce the accessibility of the non-private readonly field", Justification = "Collection is immutable")]
         [SuppressMessage("Performance", "S2386:Use an immutable collection or reduce the accessibility of the public static field", Justification = "Collection is immutable")]
-        public static readonly CharArraySet DEFAULT_ARTICLES = new CharArraySet(
+        public readonly static CharArraySet DEFAULT_ARTICLES = new CharArraySet(
 #pragma warning disable 612, 618
             LuceneVersion.LUCENE_CURRENT,
 #pragma warning restore 612, 618
@@ -113,8 +113,8 @@ namespace YAF.Lucene.Net.Analysis.Fr
         {
             /// @deprecated (3.1) remove this in Lucene 5.0, index bw compat 
             [Obsolete("(3.1) remove this in Lucene 5.0, index bw compat")]
-            internal static readonly CharArraySet DEFAULT_STOP_SET_30 = new CharArraySet(LuceneVersion.LUCENE_CURRENT, FRENCH_STOP_WORDS, false).AsReadOnly();
-            internal static readonly CharArraySet DEFAULT_STOP_SET = LoadDefaultStopSet();
+            readonly static internal CharArraySet DEFAULT_STOP_SET_30 = new CharArraySet(LuceneVersion.LUCENE_CURRENT, FRENCH_STOP_WORDS, false).AsReadOnly();
+            readonly static internal CharArraySet DEFAULT_STOP_SET = LoadDefaultStopSet();
             private static CharArraySet LoadDefaultStopSet() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
             {
                 try
@@ -184,7 +184,7 @@ namespace YAF.Lucene.Net.Analysis.Fr
         ///         <see cref="SetKeywordMarkerFilter"/> if a stem exclusion set is
         ///         provided, and <see cref="FrenchLightStemFilter"/> </returns>
         ///         
-        protected internal override TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
+        override protected internal TokenStreamComponents CreateComponents(string fieldName, TextReader reader)
         {
 #pragma warning disable 612, 618
             if (m_matchVersion.OnOrAfter(LuceneVersion.LUCENE_31))

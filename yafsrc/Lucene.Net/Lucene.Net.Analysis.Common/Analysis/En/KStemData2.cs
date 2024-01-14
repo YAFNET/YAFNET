@@ -47,7 +47,7 @@ namespace YAF.Lucene.Net.Analysis.En
         private KStemData2()
         {
         }
-        internal static string[] data = new string[] {
+        static internal string[] data = new string[] {
             "cash","cashew","cashier","cashmere","casing",
             "casino","cask","casket","casque","cassava",
             "casserole","cassette","cassock","cassowary","cast",

@@ -150,7 +150,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
 
         public int NextSkipDoc => m_skipDoc[0];
 
-        protected override void SeekChild(int level)
+        override protected void SeekChild(int level)
         {
             base.SeekChild(level);
             // if (DEBUG) {
@@ -172,7 +172,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
             }
         }
 
-        protected override void SetLastSkipData(int level)
+        override protected void SetLastSkipData(int level)
         {
             base.SetLastSkipData(level);
             lastDocPointer = docPointer[level];
@@ -198,7 +198,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene41
             }
         }
 
-        protected override int ReadSkipData(int level, IndexInput skipStream)
+        override protected int ReadSkipData(int level, IndexInput skipStream)
         {
             // if (DEBUG) {
             //   System.out.println("readSkipData level=" + level);

@@ -32,7 +32,7 @@ using YAF.Core.Tasks;
 public partial class Prune : AdminPage
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="Prune"/> class. 
+    /// Initializes a new instance of the <see cref="Prune"/> class.
     /// </summary>
     public Prune()
         : base("ADMIN_PRUNE", ForumPages.Admin_Prune)

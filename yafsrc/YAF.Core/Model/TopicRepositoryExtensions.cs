@@ -1346,8 +1346,6 @@ public static class TopicRepositoryExtensions
             t => t.TopicID == topicId);
 
         // -- delete messages and topics
-        BoardContext.Current.GetRepository<NntpTopic>().Delete(x => x.TopicID == topicId);
-
         if (eraseTopic)
         {
             repository.Delete(x => x.TopicMovedID == topicId);

@@ -125,11 +125,11 @@ namespace YAF.Lucene.Net.Index
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        internal override void FinishDocument(TermsHash termsHash)
+        override internal void FinishDocument(TermsHash termsHash)
         {
         }
 
-        internal override void StartDocument()
+        override internal void StartDocument()
         {
         }
     }

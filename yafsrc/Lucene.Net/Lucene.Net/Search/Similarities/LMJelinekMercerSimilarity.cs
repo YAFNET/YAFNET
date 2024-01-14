@@ -59,7 +59,7 @@ namespace YAF.Lucene.Net.Search.Similarities
             return stats.TotalBoost * (float)Math.Log(1 + ((1 - lambda) * freq / docLen) / (lambda * ((LMStats)stats).CollectionProbability));
         }
 
-        protected internal override void Explain(Explanation expl, BasicStats stats, int doc, float freq, float docLen)
+        override protected internal void Explain(Explanation expl, BasicStats stats, int doc, float freq, float docLen)
         {
             if (stats.TotalBoost != 1.0f)
             {

@@ -120,12 +120,12 @@ namespace YAF.Lucene.Net.QueryParsers.Simple
     public class SimpleQueryParser : QueryBuilder
     {
         /// <summary>Map of fields to query against with their weights</summary>
-        protected readonly IDictionary<string, float> m_weights;
+        readonly protected IDictionary<string, float> m_weights;
 
         // LUCENENET specific - made flags into their own [Flags] enum named Operator and de-nested from this type
 
         /// <summary>flags to the parser (to turn features on/off)</summary>
-        protected readonly Operator m_flags;
+        readonly protected Operator m_flags;
 
         private Occur defaultOperator = Occur.SHOULD;
 

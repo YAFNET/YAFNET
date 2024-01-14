@@ -47,7 +47,7 @@ namespace YAF.Lucene.Net.Analysis.Miscellaneous
             termAtt = AddAttribute<ICharTermAttribute>();
         }
 
-        protected override bool IsKeyword()
+        override protected bool IsKeyword()
         {
             return keywordSet.Contains(termAtt.Buffer, 0, termAtt.Length);
         }

@@ -640,7 +640,7 @@ namespace YAF.Lucene.Net.Analysis
         /// attributes.
         /// @since 3.0
         /// </summary>
-        public static readonly AttributeSource.AttributeFactory TOKEN_ATTRIBUTE_FACTORY = new TokenAttributeFactory(AttributeSource.AttributeFactory.DEFAULT_ATTRIBUTE_FACTORY);
+        public readonly static AttributeSource.AttributeFactory TOKEN_ATTRIBUTE_FACTORY = new TokenAttributeFactory(AttributeSource.AttributeFactory.DEFAULT_ATTRIBUTE_FACTORY);
 
         /// <summary>
         /// <b>Expert:</b> Creates a <see cref="TokenAttributeFactory"/> returning <see cref="Token"/> as instance for the basic attributes
@@ -649,7 +649,7 @@ namespace YAF.Lucene.Net.Analysis
         /// </summary>
         public sealed class TokenAttributeFactory : AttributeSource.AttributeFactory
         {
-            internal readonly AttributeSource.AttributeFactory @delegate;
+            readonly internal AttributeSource.AttributeFactory @delegate;
 
             /// <summary>
             /// <b>Expert</b>: Creates an <see cref="AttributeSource.AttributeFactory"/> returning <see cref="Token"/> as instance for the basic attributes

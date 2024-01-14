@@ -35,8 +35,8 @@ namespace YAF.Lucene.Net.Search
     /// </summary>
     public class FieldCacheDocIdSet : DocIdSet
     {
-        protected readonly int m_maxDoc;
-        protected readonly IBits m_acceptDocs;
+        readonly protected int m_maxDoc;
+        readonly protected IBits m_acceptDocs;
         private readonly Predicate<int> matchDoc;
         private readonly bool hasMatchDoc;
 
@@ -178,7 +178,7 @@ namespace YAF.Lucene.Net.Search
                 this.outerInstance = outerInstance;
             }
 
-            protected override bool Match(int doc)
+            override protected bool Match(int doc)
             {
                 return outerInstance.MatchDoc(doc);
             }

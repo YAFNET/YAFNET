@@ -33,7 +33,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public class SumTotalTermFreqValueSource : ValueSource
     {
-        protected readonly string m_indexedField;
+        readonly protected string m_indexedField;
 
         public SumTotalTermFreqValueSource(string indexedField)
         {

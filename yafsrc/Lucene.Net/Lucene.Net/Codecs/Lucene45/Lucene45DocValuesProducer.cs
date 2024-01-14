@@ -263,7 +263,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
             }
         }
 
-        internal static NumericEntry ReadNumericEntry(IndexInput meta)
+        static internal NumericEntry ReadNumericEntry(IndexInput meta)
         {
             NumericEntry entry = new NumericEntry();
             entry.format = meta.ReadVInt32();
@@ -305,7 +305,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
             return entry;
         }
 
-        internal static BinaryEntry ReadBinaryEntry(IndexInput meta)
+        static internal BinaryEntry ReadBinaryEntry(IndexInput meta)
         {
             BinaryEntry entry = new BinaryEntry();
             entry.format = meta.ReadVInt32();
@@ -889,7 +889,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
                 data.Dispose();
@@ -1007,13 +1007,13 @@ namespace YAF.Lucene.Net.Codecs.Lucene45
         // more efficient reverse lookup and enumeration
         internal class CompressedBinaryDocValues : Int64BinaryDocValues
         {
-            internal readonly BinaryEntry bytes;
-            internal readonly long interval;
-            internal readonly long numValues;
-            internal readonly long numIndexValues;
-            internal readonly MonotonicBlockPackedReader addresses;
-            internal readonly IndexInput data;
-            internal readonly TermsEnum termsEnum;
+            readonly internal BinaryEntry bytes;
+            readonly internal long interval;
+            readonly internal long numValues;
+            readonly internal long numIndexValues;
+            readonly internal MonotonicBlockPackedReader addresses;
+            readonly internal IndexInput data;
+            readonly internal TermsEnum termsEnum;
 
             public CompressedBinaryDocValues(BinaryEntry bytes, MonotonicBlockPackedReader addresses, IndexInput data)
             {

@@ -210,7 +210,7 @@ namespace YAF.Lucene.Net.Search
         }
 
         // per-segment fieldcaches don't purge until the shared core closes.
-        internal readonly SegmentReader.ICoreDisposedListener purgeCore;
+        readonly internal SegmentReader.ICoreDisposedListener purgeCore;
 
         private sealed class CoreClosedListenerAnonymousClass : SegmentReader.ICoreDisposedListener
         {
@@ -228,7 +228,7 @@ namespace YAF.Lucene.Net.Search
         }
 
         // composite/SlowMultiReaderWrapper fieldcaches don't purge until composite reader is closed.
-        internal readonly IReaderDisposedListener purgeReader;
+        readonly internal IReaderDisposedListener purgeReader;
 
         private sealed class ReaderClosedListenerAnonymousClass : IReaderDisposedListener
         {
@@ -288,7 +288,7 @@ namespace YAF.Lucene.Net.Search
                 this.wrapper = wrapper;
             }
 
-            internal readonly FieldCacheImpl wrapper;
+            readonly internal FieldCacheImpl wrapper;
 
             internal ConditionalWeakTable<object, IDictionary<TKey, object>> readerCache = new ConditionalWeakTable<object, IDictionary<TKey, object>>();
 
@@ -439,7 +439,7 @@ namespace YAF.Lucene.Net.Search
         /// Expert: Every composite-key in the internal cache is of this type. </summary>
         internal class CacheKey
         {
-            internal readonly string field; // which Field
+            readonly internal string field; // which Field
             // LUCENENET specific - moved 'custom' to generic class so we don't have to deal with casting/boxing
 
             /// <summary>
@@ -486,7 +486,7 @@ namespace YAF.Lucene.Net.Search
         // LUCENENET specific - Added generic parameter to eliminate casting/boxing
         internal class CacheKey<TCustom> : CacheKey
         {
-            internal readonly TCustom custom; // which custom comparer or parser 
+            readonly internal TCustom custom; // which custom comparer or parser 
 
             /// <summary>
             /// Creates one of these objects for a custom comparer/parser. </summary>
@@ -707,7 +707,7 @@ namespace YAF.Lucene.Net.Search
             }
 
 #pragma warning disable CS0612 // Type or member is obsolete
-            protected override FieldCache.Bytes CreateValue(AtomicReader reader, CacheKey<FieldCache.IByteParser> key, bool setDocsWithField)
+            override protected FieldCache.Bytes CreateValue(AtomicReader reader, CacheKey<FieldCache.IByteParser> key, bool setDocsWithField)
 #pragma warning restore CS0612 // Type or member is obsolete
             {
                 int maxDoc = reader.MaxDoc;
@@ -754,17 +754,17 @@ namespace YAF.Lucene.Net.Search
 
                 private sbyte currentValue;
 
-                protected override void VisitTerm(BytesRef term)
+                override protected void VisitTerm(BytesRef term)
                 {
                     currentValue = (sbyte)parser.ParseByte(term);
                 }
 
-                protected override void VisitDoc(int docID)
+                override protected void VisitDoc(int docID)
                 {
                     values[docID] = currentValue;
                 }
 
-                protected override TermsEnum GetTermsEnum(Terms terms)
+                override protected TermsEnum GetTermsEnum(Terms terms)
                 {
                     return parser.GetTermsEnum(terms);
                 }
@@ -884,7 +884,7 @@ namespace YAF.Lucene.Net.Search
             }
 
 #pragma warning disable CS0612 // Type or member is obsolete
-            protected override FieldCache.Int16s CreateValue(AtomicReader reader, CacheKey<FieldCache.IInt16Parser> key, bool setDocsWithField)
+            override protected FieldCache.Int16s CreateValue(AtomicReader reader, CacheKey<FieldCache.IInt16Parser> key, bool setDocsWithField)
 #pragma warning restore CS0612 // Type or member is obsolete
             {
                 int maxDoc = reader.MaxDoc;
@@ -927,17 +927,17 @@ namespace YAF.Lucene.Net.Search
 
                 private short currentValue;
 
-                protected override void VisitTerm(BytesRef term)
+                override protected void VisitTerm(BytesRef term)
                 {
                     currentValue = parser.ParseInt16(term);
                 }
 
-                protected override void VisitDoc(int docID)
+                override protected void VisitDoc(int docID)
                 {
                     values[docID] = currentValue;
                 }
 
-                protected override TermsEnum GetTermsEnum(Terms terms)
+                override protected TermsEnum GetTermsEnum(Terms terms)
                 {
                     return parser.GetTermsEnum(terms);
                 }
@@ -1084,7 +1084,7 @@ namespace YAF.Lucene.Net.Search
             {
             }
 
-            protected override FieldCache.Int32s CreateValue(AtomicReader reader, CacheKey<FieldCache.IInt32Parser> key, bool setDocsWithField)
+            override protected FieldCache.Int32s CreateValue(AtomicReader reader, CacheKey<FieldCache.IInt32Parser> key, bool setDocsWithField)
             {
                 FieldCache.IInt32Parser parser = key.custom;
                 if (parser is null)
@@ -1141,7 +1141,7 @@ namespace YAF.Lucene.Net.Search
                 private int currentValue;
                 private GrowableWriter values;
 
-                protected override void VisitTerm(BytesRef term)
+                override protected void VisitTerm(BytesRef term)
                 {
                     currentValue = parser.ParseInt32(term);
                     if (values is null)
@@ -1171,12 +1171,12 @@ namespace YAF.Lucene.Net.Search
                     }
                 }
 
-                protected override void VisitDoc(int docID)
+                override protected void VisitDoc(int docID)
                 {
                     values.Set(docID, (currentValue - minValue) & 0xFFFFFFFFL);
                 }
 
-                protected override TermsEnum GetTermsEnum(Terms terms)
+                override protected TermsEnum GetTermsEnum(Terms terms)
                 {
                     return parser.GetTermsEnum(terms);
                 }
@@ -1210,7 +1210,7 @@ namespace YAF.Lucene.Net.Search
             {
             }
 
-            protected override IBits CreateValue(AtomicReader reader, CacheKey key, bool setDocsWithField) // ignored
+            override protected IBits CreateValue(AtomicReader reader, CacheKey key, bool setDocsWithField) // ignored
             {
                 string field = key.field;
                 int maxDoc = reader.MaxDoc;
@@ -1348,7 +1348,7 @@ namespace YAF.Lucene.Net.Search
             {
             }
 
-            protected override FieldCache.Singles CreateValue(AtomicReader reader, CacheKey<FieldCache.ISingleParser> key, bool setDocsWithField)
+            override protected FieldCache.Singles CreateValue(AtomicReader reader, CacheKey<FieldCache.ISingleParser> key, bool setDocsWithField)
             {
                 FieldCache.ISingleParser parser = key.custom;
                 if (parser is null)
@@ -1405,7 +1405,7 @@ namespace YAF.Lucene.Net.Search
                 private float currentValue;
                 private float[] values;
 
-                protected override void VisitTerm(BytesRef term)
+                override protected void VisitTerm(BytesRef term)
                 {
                     currentValue = parser.ParseSingle(term);
                     if (values is null)
@@ -1419,12 +1419,12 @@ namespace YAF.Lucene.Net.Search
                     }
                 }
 
-                protected override void VisitDoc(int docID)
+                override protected void VisitDoc(int docID)
                 {
                     values[docID] = currentValue;
                 }
 
-                protected override TermsEnum GetTermsEnum(Terms terms)
+                override protected TermsEnum GetTermsEnum(Terms terms)
                 {
                     return parser.GetTermsEnum(terms);
                 }
@@ -1516,7 +1516,7 @@ namespace YAF.Lucene.Net.Search
             {
             }
 
-            protected override FieldCache.Int64s CreateValue(AtomicReader reader, CacheKey<FieldCache.IInt64Parser> key, bool setDocsWithField)
+            override protected FieldCache.Int64s CreateValue(AtomicReader reader, CacheKey<FieldCache.IInt64Parser> key, bool setDocsWithField)
             {
                 FieldCache.IInt64Parser parser = key.custom;
                 if (parser is null)
@@ -1573,7 +1573,7 @@ namespace YAF.Lucene.Net.Search
                 private long currentValue;
                 private GrowableWriter values;
 
-                protected override void VisitTerm(BytesRef term)
+                override protected void VisitTerm(BytesRef term)
                 {
                     currentValue = parser.ParseInt64(term);
                     if (values is null)
@@ -1603,12 +1603,12 @@ namespace YAF.Lucene.Net.Search
                     }
                 }
 
-                protected override void VisitDoc(int docID)
+                override protected void VisitDoc(int docID)
                 {
                     values.Set(docID, currentValue - minValue);
                 }
 
-                protected override TermsEnum GetTermsEnum(Terms terms)
+                override protected TermsEnum GetTermsEnum(Terms terms)
                 {
                     return parser.GetTermsEnum(terms);
                 }
@@ -1686,7 +1686,7 @@ namespace YAF.Lucene.Net.Search
             {
             }
 
-            protected override FieldCache.Doubles CreateValue(AtomicReader reader, CacheKey<FieldCache.IDoubleParser> key, bool setDocsWithField)
+            override protected FieldCache.Doubles CreateValue(AtomicReader reader, CacheKey<FieldCache.IDoubleParser> key, bool setDocsWithField)
             {
                 FieldCache.IDoubleParser parser = key.custom;
                 if (parser is null)
@@ -1742,7 +1742,7 @@ namespace YAF.Lucene.Net.Search
                 private double currentValue;
                 private double[] values;
 
-                protected override void VisitTerm(BytesRef term)
+                override protected void VisitTerm(BytesRef term)
                 {
                     currentValue = parser.ParseDouble(term);
                     if (values is null)
@@ -1756,12 +1756,12 @@ namespace YAF.Lucene.Net.Search
                     }
                 }
 
-                protected override void VisitDoc(int docID)
+                override protected void VisitDoc(int docID)
                 {
                     values[docID] = currentValue;
                 }
 
-                protected override TermsEnum GetTermsEnum(Terms terms)
+                override protected TermsEnum GetTermsEnum(Terms terms)
                 {
                     return parser.GetTermsEnum(terms);
                 }
@@ -1846,7 +1846,7 @@ namespace YAF.Lucene.Net.Search
             {
             }
 
-            protected override SortedDocValues CreateValue(AtomicReader reader, CacheKey<FieldCache.AcceptableOverheadRatio> key, bool setDocsWithField) // ignored
+            override protected SortedDocValues CreateValue(AtomicReader reader, CacheKey<FieldCache.AcceptableOverheadRatio> key, bool setDocsWithField) // ignored
             {
                 int maxDoc = reader.MaxDoc;
 
@@ -2012,7 +2012,7 @@ namespace YAF.Lucene.Net.Search
             {
             }
 
-            protected override BinaryDocValues CreateValue(AtomicReader reader, CacheKey<FieldCache.AcceptableOverheadRatio> key, bool setDocsWithField)
+            override protected BinaryDocValues CreateValue(AtomicReader reader, CacheKey<FieldCache.AcceptableOverheadRatio> key, bool setDocsWithField)
             {
                 // TODO: would be nice to first check if DocTermsIndex
                 // was already cached for this field and then return
@@ -2163,7 +2163,7 @@ namespace YAF.Lucene.Net.Search
             {
             }
 
-            protected override DocTermOrds CreateValue(AtomicReader reader, CacheKey key, bool setDocsWithField) // ignored
+            override protected DocTermOrds CreateValue(AtomicReader reader, CacheKey key, bool setDocsWithField) // ignored
             {
                 return new DocTermOrds(reader, null, key.field);
             }

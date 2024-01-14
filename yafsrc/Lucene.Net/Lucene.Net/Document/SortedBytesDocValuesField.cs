@@ -43,12 +43,12 @@ namespace YAF.Lucene.Net.Documents
         /// <summary>
         /// Type for sorted bytes <see cref="Index.DocValues"/>: all with the same length
         /// </summary>
-        public static readonly FieldType TYPE_FIXED_LEN = SortedDocValuesField.TYPE;
+        public readonly static FieldType TYPE_FIXED_LEN = SortedDocValuesField.TYPE;
 
         /// <summary>
         /// Type for sorted bytes <see cref="Index.DocValues"/>: can have variable lengths
         /// </summary>
-        public static readonly FieldType TYPE_VAR_LEN = SortedDocValuesField.TYPE;
+        public readonly static FieldType TYPE_VAR_LEN = SortedDocValuesField.TYPE;
 
         /// <summary>
         /// Create a new fixed or variable-length sorted <see cref="Index.DocValues"/> field. </summary>

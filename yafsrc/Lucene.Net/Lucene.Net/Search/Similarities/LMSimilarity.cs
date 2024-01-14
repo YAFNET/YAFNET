@@ -38,7 +38,7 @@ namespace YAF.Lucene.Net.Search.Similarities
     {
         /// <summary>
         /// The collection model. </summary>
-        protected readonly ICollectionModel m_collectionModel;
+        readonly protected ICollectionModel m_collectionModel;
 
         /// <summary>
         /// Creates a new instance with the specified collection language model. </summary>
@@ -54,7 +54,7 @@ namespace YAF.Lucene.Net.Search.Similarities
         {
         }
 
-        protected internal override BasicStats NewStats(string field, float queryBoost)
+        override protected internal BasicStats NewStats(string field, float queryBoost)
         {
             return new LMStats(field, queryBoost);
         }
@@ -63,14 +63,14 @@ namespace YAF.Lucene.Net.Search.Similarities
         /// Computes the collection probability of the current term in addition to the
         /// usual statistics.
         /// </summary>
-        protected internal override void FillBasicStats(BasicStats stats, CollectionStatistics collectionStats, TermStatistics termStats)
+        override protected internal void FillBasicStats(BasicStats stats, CollectionStatistics collectionStats, TermStatistics termStats)
         {
             base.FillBasicStats(stats, collectionStats, termStats);
             LMStats lmStats = (LMStats)stats;
             lmStats.CollectionProbability = m_collectionModel.ComputeProbability(stats);
         }
 
-        protected internal override void Explain(Explanation expl, BasicStats stats, int doc, float freq, float docLen)
+        override protected internal void Explain(Explanation expl, BasicStats stats, int doc, float freq, float docLen)
         {
             expl.AddDetail(new Explanation(m_collectionModel.ComputeProbability(stats), "collection probability"));
         }

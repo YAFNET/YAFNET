@@ -35,7 +35,7 @@ namespace YAF.Lucene.Net.Util
         {
             internal T pivot;
             internal IList<T> list;
-            internal readonly IComparer<T> comp;
+            readonly internal IComparer<T> comp;
 
             internal ListIntroSorter(IList<T> list, IComparer<T> comp)
                 : base()
@@ -51,25 +51,25 @@ namespace YAF.Lucene.Net.Util
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected override void SetPivot(int i)
+            override protected void SetPivot(int i)
             {
                 pivot = (i < list.Count) ? list[i] : default;
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected override void Swap(int i, int j)
+            override protected void Swap(int i, int j)
             {
                 list.Swap(i, j);
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected override int Compare(int i, int j)
+            override protected int Compare(int i, int j)
             {
                 return comp.Compare(list[i], list[j]);
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected override int ComparePivot(int j)
+            override protected int ComparePivot(int j)
             {
                 return comp.Compare(pivot, list[j]);
             }
@@ -78,8 +78,8 @@ namespace YAF.Lucene.Net.Util
         private sealed class ListTimSorter<T> : TimSorter
         {
             internal IList<T> list;
-            internal readonly IComparer<T> comp;
-            internal readonly T[] tmp;
+            readonly internal IComparer<T> comp;
+            readonly internal T[] tmp;
 
             internal ListTimSorter(IList<T> list, IComparer<T> comp, int maxTempSlots)
                 : base(maxTempSlots)
@@ -102,19 +102,19 @@ namespace YAF.Lucene.Net.Util
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected override void Swap(int i, int j)
+            override protected void Swap(int i, int j)
             {
                 list.Swap(i, j);
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected override void Copy(int src, int dest)
+            override protected void Copy(int src, int dest)
             {
                 list[dest] = list[src];
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected override void Save(int i, int len)
+            override protected void Save(int i, int len)
             {
                 for (int j = 0; j < len; ++j)
                 {
@@ -123,19 +123,19 @@ namespace YAF.Lucene.Net.Util
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected override void Restore(int i, int j)
+            override protected void Restore(int i, int j)
             {
                 list[j] = tmp[i];
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected override int Compare(int i, int j)
+            override protected int Compare(int i, int j)
             {
                 return comp.Compare(list[i], list[j]);
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected override int CompareSaved(int i, int j)
+            override protected int CompareSaved(int i, int j)
             {
                 return comp.Compare(tmp[i], list[j]);
             }

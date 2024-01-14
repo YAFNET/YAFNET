@@ -31,9 +31,9 @@ namespace YAF.Lucene.Net.Index.Memory
             /// <summary>
             /// Term strings and their positions for this field: <see cref="System.Collections.Generic.IDictionary{String, ArrayIntList}"/>
             /// </summary>
-            internal readonly BytesRefHash terms;
+            readonly internal BytesRefHash terms;
 
-            internal readonly SliceByteStartArray sliceArray;
+            readonly internal SliceByteStartArray sliceArray;
 
             /// <summary>
             /// Terms sorted ascending by term text; computed on demand 
@@ -43,19 +43,19 @@ namespace YAF.Lucene.Net.Index.Memory
             /// <summary>
             /// Number of added tokens for this field 
             /// </summary>
-            internal readonly int numTokens;
+            readonly internal int numTokens;
 
             /// <summary>
             /// Number of overlapping tokens for this field 
             /// </summary>
-            internal readonly int numOverlapTokens;
+            readonly internal int numOverlapTokens;
 
             /// <summary>
             /// Boost factor for hits for this field 
             /// </summary>
-            internal readonly float boost;
+            readonly internal float boost;
 
-            internal readonly long sumTotalTermFreq;
+            readonly internal long sumTotalTermFreq;
 
             /// <summary>
             /// the last position encountered in this field for multi field support 

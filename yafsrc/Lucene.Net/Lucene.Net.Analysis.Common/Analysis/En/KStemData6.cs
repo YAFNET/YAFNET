@@ -47,7 +47,7 @@ namespace YAF.Lucene.Net.Analysis.En
         private KStemData6()
         {
         }
-        internal static string[] data = new string[] {
+        static internal string[] data = new string[] {
             "pedant","pedantic","pedantry","peddle","peddler",
             "pederast","pederasty","pedestal","pedestrian","pediatrician",
             "pediatrics","pedicab","pedicel","pedicure","pedigree",

@@ -294,10 +294,10 @@ namespace YAF.Lucene.Net.Analysis.NGram
     }
 
     // LUCENENET: added this to avoid the Enum.IsDefined() method, which requires boxing
-    internal static partial class SideExtensions
+    static internal partial class SideExtensions
     {
 #pragma warning disable CS0612 // Type or member is obsolete
-        internal static bool IsDefined(this Lucene43EdgeNGramTokenizer.Side side)
+        static internal bool IsDefined(this Lucene43EdgeNGramTokenizer.Side side)
         {
             return side >= Lucene43EdgeNGramTokenizer.Side.FRONT &&
                 side <= Lucene43EdgeNGramTokenizer.Side.BACK;

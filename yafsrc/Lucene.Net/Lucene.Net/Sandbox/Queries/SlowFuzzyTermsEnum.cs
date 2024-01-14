@@ -44,7 +44,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
         {
         }
 
-        protected override void MaxEditDistanceChanged(BytesRef lastTerm, int maxEdits, bool init)
+        override protected void MaxEditDistanceChanged(BytesRef lastTerm, int maxEdits, bool init)
         {
             TermsEnum newEnum = GetAutomatonEnum(maxEdits, lastTerm);
             if (newEnum != null)
@@ -120,7 +120,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
             /// where distance is the Levenshtein distance for the two words.
             /// </para>
             /// </summary>
-            protected override sealed AcceptStatus Accept(BytesRef term)
+            override protected sealed AcceptStatus Accept(BytesRef term)
             {
                 if (StringHelper.StartsWith(term, prefixBytesRef))
                 {

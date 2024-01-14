@@ -31,7 +31,7 @@ namespace YAF.Lucene.Net.Util.Packed
     /// </summary>
     public sealed class PagedMutable : AbstractPagedMutable<PagedMutable>
     {
-        internal readonly PackedInt32s.Format format;
+        readonly internal PackedInt32s.Format format;
 
         /// <summary>
         /// Create a new <see cref="PagedMutable"/> instance.
@@ -58,20 +58,20 @@ namespace YAF.Lucene.Net.Util.Packed
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override Mutable NewMutable(int valueCount, int bitsPerValue)
+        override protected Mutable NewMutable(int valueCount, int bitsPerValue)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(this.bitsPerValue >= bitsPerValue);
             return PackedInt32s.GetMutable(valueCount, this.bitsPerValue, format);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override PagedMutable NewUnfilledCopy(long newSize)
+        override protected PagedMutable NewUnfilledCopy(long newSize)
         {
             return new PagedMutable(newSize, PageSize, bitsPerValue, format);
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override long BaseRamBytesUsed()
+        override protected long BaseRamBytesUsed()
         {
             return base.BaseRamBytesUsed() + RamUsageEstimator.NUM_BYTES_OBJECT_REF;
         }

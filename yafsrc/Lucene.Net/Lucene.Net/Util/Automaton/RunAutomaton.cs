@@ -43,9 +43,9 @@ namespace YAF.Lucene.Net.Util.Automaton
     {
         private readonly int _maxInterval;
         private readonly int _size;
-        protected readonly bool[] m_accept;
-        protected readonly int m_initial;
-        protected readonly int[] m_transitions; // delta(state,c) = transitions[state*points.length +
+        readonly protected bool[] m_accept;
+        readonly protected int m_initial;
+        readonly protected int[] m_transitions; // delta(state,c) = transitions[state*points.length +
 
         // getCharClass(c)]
         private readonly int[] _points; // char interval start points

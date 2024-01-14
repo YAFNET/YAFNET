@@ -49,7 +49,7 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// called from <c>DirectoryReader.Open(...)</c> methods </summary>
-        internal static DirectoryReader Open(Directory directory, IndexCommit commit, int termInfosIndexDivisor)
+        static internal DirectoryReader Open(Directory directory, IndexCommit commit, int termInfosIndexDivisor)
         {
             return (DirectoryReader)new FindSegmentsFileAnonymousClass(directory, termInfosIndexDivisor).Run(commit);
         }
@@ -64,7 +64,7 @@ namespace YAF.Lucene.Net.Index
                 this.termInfosIndexDivisor = termInfosIndexDivisor;
             }
 
-            protected internal override object DoBody(string segmentFileName)
+            override protected internal object DoBody(string segmentFileName)
             {
                 var sis = new SegmentInfos();
                 sis.Read(directory, segmentFileName);
@@ -93,7 +93,7 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// Used by near real-time search </summary>
-        internal static DirectoryReader Open(IndexWriter writer, SegmentInfos infos, bool applyAllDeletes)
+        static internal DirectoryReader Open(IndexWriter writer, SegmentInfos infos, bool applyAllDeletes)
         {
             // IndexWriter synchronizes externally before calling
             // us, which ensures infos will not change; so there's
@@ -315,12 +315,12 @@ namespace YAF.Lucene.Net.Index
             return buffer.ToString();
         }
 
-        protected internal override DirectoryReader DoOpenIfChanged()
+        override protected internal DirectoryReader DoOpenIfChanged()
         {
             return DoOpenIfChanged((IndexCommit)null);
         }
 
-        protected internal override DirectoryReader DoOpenIfChanged(IndexCommit commit)
+        override protected internal DirectoryReader DoOpenIfChanged(IndexCommit commit)
         {
             EnsureOpen();
 
@@ -336,7 +336,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        protected internal override DirectoryReader DoOpenIfChanged(IndexWriter writer, bool applyAllDeletes)
+        override protected internal DirectoryReader DoOpenIfChanged(IndexWriter writer, bool applyAllDeletes)
         {
             EnsureOpen();
             if (writer == this.writer && applyAllDeletes == this.applyAllDeletes)
@@ -412,7 +412,7 @@ namespace YAF.Lucene.Net.Index
                 this.outerInstance = outerInstance;
             }
 
-            protected internal override object DoBody(string segmentFileName)
+            override protected internal object DoBody(string segmentFileName)
             {
                 SegmentInfos infos = new SegmentInfos();
                 infos.Read(outerInstance.m_directory, segmentFileName);
@@ -456,7 +456,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        protected internal override void DoClose()
+        override protected internal void DoClose()
         {
             Exception firstExc = null;
             foreach (AtomicReader r in GetSequentialSubReaders())
@@ -510,8 +510,8 @@ namespace YAF.Lucene.Net.Index
             internal ICollection<string> files;
             internal Directory dir;
             internal long generation;
-            internal readonly IDictionary<string, string> userData;
-            internal readonly int segmentCount;
+            readonly internal IDictionary<string, string> userData;
+            readonly internal int segmentCount;
 
             internal ReaderCommit(SegmentInfos infos, Directory dir)
             {

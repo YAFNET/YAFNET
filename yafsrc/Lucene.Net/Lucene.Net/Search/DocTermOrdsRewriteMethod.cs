@@ -48,7 +48,7 @@ namespace YAF.Lucene.Net.Search
 
         internal class MultiTermQueryDocTermOrdsWrapperFilter : Filter
         {
-            protected readonly MultiTermQuery m_query;
+            readonly protected MultiTermQuery m_query;
 
             /// <summary>
             /// Wrap a <see cref="MultiTermQuery"/> as a <see cref="Filter"/>.

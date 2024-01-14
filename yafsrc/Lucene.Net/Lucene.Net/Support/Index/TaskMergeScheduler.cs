@@ -164,7 +164,7 @@ namespace YAF.Lucene.Net.Index
             _writer.infoStream.Message(COMPONENT_NAME, message);
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             Sync();
             _manualResetEvent.Dispose();

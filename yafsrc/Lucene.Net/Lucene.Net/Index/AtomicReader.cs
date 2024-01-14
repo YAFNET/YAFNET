@@ -61,7 +61,7 @@ namespace YAF.Lucene.Net.Index
             readerContext = new AtomicReaderContext(this);
         }
 
-        public sealed override IndexReaderContext Context
+        public override sealed IndexReaderContext Context
         {
             get
             {

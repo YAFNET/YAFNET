@@ -51,18 +51,18 @@ namespace YAF.Lucene.Net.Index
     {
         /// <summary>
         /// Default termInfosIndexDivisor. </summary>
-        public static readonly int DEFAULT_TERMS_INDEX_DIVISOR = 1;
+        public readonly static int DEFAULT_TERMS_INDEX_DIVISOR = 1;
 
         /// <summary>
         /// The index directory. </summary>
-        protected readonly Directory m_directory;
+        readonly protected Directory m_directory;
 
         /// <summary>
         /// Returns a <see cref="IndexReader"/> reading the index in the given
         /// <see cref="Store.Directory"/> </summary>
         /// <param name="directory"> the index directory </param>
         /// <exception cref="IOException"> if there is a low-level IO error </exception>
-        new public static DirectoryReader Open(Directory directory)
+        public static new DirectoryReader Open(Directory directory)
         {
             return StandardDirectoryReader.Open(directory, null, DEFAULT_TERMS_INDEX_DIVISOR);
         }
@@ -85,7 +85,7 @@ namespace YAF.Lucene.Net.Index
         /// implementations, including the default one in this release. It only makes
         /// sense for terms indexes that can efficiently re-sample terms at load time. </param>
         /// <exception cref="IOException"> if there is a low-level IO error </exception>
-        new public static DirectoryReader Open(Directory directory, int termInfosIndexDivisor)
+        public static new DirectoryReader Open(Directory directory, int termInfosIndexDivisor)
         {
             return StandardDirectoryReader.Open(directory, null, termInfosIndexDivisor);
         }
@@ -108,7 +108,7 @@ namespace YAF.Lucene.Net.Index
         /// <exception cref="IOException"> if there is a low-level IO error
         /// </exception>
         /// <seealso cref="OpenIfChanged(DirectoryReader, IndexWriter, bool)"/>
-        new public static DirectoryReader Open(IndexWriter writer, bool applyAllDeletes)
+        public static new DirectoryReader Open(IndexWriter writer, bool applyAllDeletes)
         {
             return writer.GetReader(applyAllDeletes);
         }
@@ -118,7 +118,7 @@ namespace YAF.Lucene.Net.Index
         /// <see cref="Index.IndexCommit"/>. </summary>
         /// <param name="commit"> the commit point to open </param>
         /// <exception cref="IOException"> if there is a low-level IO error </exception>
-        new public static DirectoryReader Open(IndexCommit commit)
+        public static new DirectoryReader Open(IndexCommit commit)
         {
             return StandardDirectoryReader.Open(commit.Directory, commit, DEFAULT_TERMS_INDEX_DIVISOR);
         }
@@ -141,7 +141,7 @@ namespace YAF.Lucene.Net.Index
         /// implementations, including the default one in this release. It only makes
         /// sense for terms indexes that can efficiently re-sample terms at load time. </param>
         /// <exception cref="IOException"> if there is a low-level IO error </exception>
-        new public static DirectoryReader Open(IndexCommit commit, int termInfosIndexDivisor)
+        public static new DirectoryReader Open(IndexCommit commit, int termInfosIndexDivisor)
         {
             return StandardDirectoryReader.Open(commit.Directory, commit, termInfosIndexDivisor);
         }

@@ -33,7 +33,7 @@ namespace YAF.Lucene.Net.Util.Packed
     /// </summary>
     internal sealed class Direct32 : PackedInt32s.MutableImpl
     {
-        internal readonly int[] values;
+        readonly internal int[] values;
 
         internal Direct32(int valueCount)
             : base(valueCount, 32)

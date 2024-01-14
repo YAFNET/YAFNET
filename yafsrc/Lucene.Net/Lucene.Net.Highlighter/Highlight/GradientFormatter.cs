@@ -178,7 +178,7 @@ namespace YAF.Lucene.Net.Search.Highlight
             return Math.Min(colorMin, colorMax) + (int)colScore;
         }
 
-        private static readonly char[] hexDigits = new char[] { // LUCENENET: marked readonly
+        private readonly static char[] hexDigits = new char[] { // LUCENENET: marked readonly
             '0', '1', '2', '3', '4', '5', '6', '7',
             '8', '9', 'A', 'B', 'C', 'D', 'E', 'F' };
 

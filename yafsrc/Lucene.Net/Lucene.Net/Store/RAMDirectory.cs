@@ -44,8 +44,8 @@ namespace YAF.Lucene.Net.Store
     /// </summary>
     public class RAMDirectory : BaseDirectory
     {
-        protected internal readonly ConcurrentDictionary<string, RAMFile> m_fileMap = new ConcurrentDictionary<string, RAMFile>();
-        protected internal readonly AtomicInt64 m_sizeInBytes = new AtomicInt64(0);
+        readonly protected internal ConcurrentDictionary<string, RAMFile> m_fileMap = new ConcurrentDictionary<string, RAMFile>();
+        readonly protected internal AtomicInt64 m_sizeInBytes = new AtomicInt64(0);
 
         // *****
         // Lock acquisition sequence:  RAMDirectory, then RAMFile
@@ -215,7 +215,7 @@ namespace YAF.Lucene.Net.Store
 
         /// <summary>
         /// Closes the store to future operations, releasing associated memory. </summary>
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (!CompareAndSetIsOpen(expect: true, update: false)) return; // LUCENENET: allow dispose more than once as per https://learn.microsoft.com/en-us/dotnet/standard/design-guidelines/dispose-pattern
 

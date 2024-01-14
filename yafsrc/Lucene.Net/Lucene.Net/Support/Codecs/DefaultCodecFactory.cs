@@ -106,7 +106,7 @@ namespace YAF.Lucene.Net.Codecs
     // LUCENENET specific
     public class DefaultCodecFactory : NamedServiceFactory<Codec>, ICodecFactory, IServiceListable
     {
-        private static readonly Type[] localCodecTypes = new Type[] {
+        private readonly static Type[] localCodecTypes = new Type[] {
             typeof(Lucene46.Lucene46Codec),
 #pragma warning disable 612, 618
             typeof(Lucene3x.Lucene3xCodec), // Optimize 3.x codec over < 4.6 codecs
@@ -151,7 +151,7 @@ namespace YAF.Lucene.Net.Codecs
         /// If two types have the same name by using the <see cref="CodecNameAttribute"/>, the
         /// last one registered wins.
         /// </summary>
-        protected override void Initialize()
+        override protected void Initialize()
         {
             foreach (var codecType in localCodecTypes)
                 PutCodecTypeImpl(codecType);

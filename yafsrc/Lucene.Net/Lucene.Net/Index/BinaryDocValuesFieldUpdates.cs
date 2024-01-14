@@ -209,7 +209,7 @@ namespace YAF.Lucene.Net.Index
                 this.docsWithField = docsWithField;
             }
 
-            protected override void Swap(int i, int j)
+            override protected void Swap(int i, int j)
             {
                 long tmpDoc = docs.Get(j);
                 docs.Set(j, docs.Get(i));
@@ -242,7 +242,7 @@ namespace YAF.Lucene.Net.Index
                 }
             }
 
-            protected override int Compare(int i, int j)
+            override protected int Compare(int i, int j)
             {
                 int x = (int)docs.Get(i);
                 int y = (int)docs.Get(j);

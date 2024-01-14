@@ -140,7 +140,7 @@ namespace YAF.Lucene.Net.Search.Similarities
 
         /// <summary>
         /// Cache of decoded bytes. </summary>
-        private static readonly float[] NORM_TABLE = LoadNormTable();
+        private readonly static float[] NORM_TABLE = LoadNormTable();
 
         private static float[] LoadNormTable() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {

@@ -40,7 +40,7 @@ namespace YAF.Lucene.Net.Index
     /// </summary>
     internal class SortedSetDocValuesWriter : DocValuesWriter
     {
-        internal readonly BytesRefHash hash;
+        readonly internal BytesRefHash hash;
         private readonly AppendingPackedInt64Buffer pending; // stream of all termIDs // LUCENENET: marked readonly
         private readonly AppendingDeltaPackedInt64Buffer pendingCounts; // termIDs per doc // LUCENENET: marked readonly
         private readonly Counter iwBytesUsed;

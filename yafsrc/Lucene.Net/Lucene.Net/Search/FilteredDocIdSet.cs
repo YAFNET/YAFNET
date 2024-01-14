@@ -111,7 +111,7 @@
                 this.outerInstance = outerInstance;
             }
 
-            protected override bool Match(int docid)
+            override protected bool Match(int docid)
             {
                 return outerInstance.Match(docid);
             }

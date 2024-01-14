@@ -54,7 +54,7 @@ namespace YAF.Lucene.Net.Search
         /// <summary>
         /// A provider that provides no named automata
         /// </summary>
-        private static readonly IAutomatonProvider defaultProvider = new AutomatonProviderAnonymousClass();
+        private readonly static IAutomatonProvider defaultProvider = new AutomatonProviderAnonymousClass();
 
         private sealed class AutomatonProviderAnonymousClass : IAutomatonProvider
         {

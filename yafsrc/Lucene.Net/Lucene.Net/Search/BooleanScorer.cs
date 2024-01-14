@@ -136,7 +136,7 @@ namespace YAF.Lucene.Net.Search
             public const int SIZE = 1 << 11;
             public const int MASK = SIZE - 1;
 
-            internal readonly Bucket[] buckets = new Bucket[SIZE];
+            readonly internal Bucket[] buckets = new Bucket[SIZE];
             internal Bucket first = null; // head of valid list
 
             public BucketTable()

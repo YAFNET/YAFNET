@@ -42,7 +42,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         /// very fast. Use this mode with indices that have a high update rate but
         /// should be able to load documents from disk quickly.
         /// </summary>
-        public static readonly CompressionMode FAST = new CompressionModeAnonymousClass();
+        public readonly static CompressionMode FAST = new CompressionModeAnonymousClass();
 
         private sealed class CompressionModeAnonymousClass : CompressionMode
         {
@@ -71,7 +71,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         /// provide a good compression ratio. this mode might be interesting if/when
         /// your index size is much bigger than your OS cache.
         /// </summary>
-        public static readonly CompressionMode HIGH_COMPRESSION = new CompressionModeAnonymousClass2();
+        public readonly static CompressionMode HIGH_COMPRESSION = new CompressionModeAnonymousClass2();
 
         private sealed class CompressionModeAnonymousClass2 : CompressionMode
         {
@@ -100,7 +100,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         /// mode is best used with indices that have a low update rate but should be
         /// able to load documents from disk quickly.
         /// </summary>
-        public static readonly CompressionMode FAST_DECOMPRESSION = new CompressionModeAnonymousClass3();
+        public readonly static CompressionMode FAST_DECOMPRESSION = new CompressionModeAnonymousClass3();
 
         private sealed class CompressionModeAnonymousClass3 : CompressionMode
         {
@@ -139,7 +139,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         /// </summary>
         public abstract Decompressor NewDecompressor();
 
-        private static readonly Decompressor LZ4_DECOMPRESSOR = new DecompressorAnonymousClass();
+        private readonly static Decompressor LZ4_DECOMPRESSOR = new DecompressorAnonymousClass();
 
         private sealed class DecompressorAnonymousClass : Decompressor
         {
@@ -185,7 +185,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
 
         private sealed class LZ4HighCompressor : Compressor
         {
-            internal readonly LZ4.HCHashTable ht;
+            readonly internal LZ4.HCHashTable ht;
 
             internal LZ4HighCompressor()
             {

@@ -289,15 +289,6 @@
                                                LocalizedTag="POSTEDIT_TIMEOUT" LocalizedPage="ADMIN_HOSTSETTINGS" />
                                 <asp:TextBox CssClass="form-control" ID="EditTimeOut" runat="server"></asp:TextBox>
                             </div>
-                            <div class="mb-3">
-                                <YAF:HelpLabel ID="HelpLabel16" runat="server"
-                                               AssociatedControlID="CreateNntpUsers"
-                                               LocalizedTag="CREATE_NNTPNAMES" LocalizedPage="ADMIN_HOSTSETTINGS" />
-                                <div class="form-check form-switch">
-                                    <asp:CheckBox Text="&nbsp;" ID="CreateNntpUsers" runat="server"></asp:CheckBox>
-
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="mb-3 col-md-6">
                                     <YAF:HelpLabel ID="HelpLabel223" runat="server"

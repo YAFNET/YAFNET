@@ -142,7 +142,7 @@ namespace YAF.Lucene.Net.Sandbox.Queries
         /// </summary>
         public virtual int PrefixLength => prefixLength;
 
-        protected override TermsEnum GetTermsEnum(Terms terms, AttributeSource atts)
+        override protected TermsEnum GetTermsEnum(Terms terms, AttributeSource atts)
         {
             if (!termLongEnough)
             {  // can only match if it's exact

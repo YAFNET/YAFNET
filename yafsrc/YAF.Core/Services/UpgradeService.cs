@@ -386,9 +386,6 @@ public class UpgradeService(IServiceLocator serviceLocator, IRaiseEvent raiseEve
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Attachment>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserGroup>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<UserForum>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<NntpServer>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<NntpForum>());
-        this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<NntpTopic>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<PMessage>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Replace_Words>());
         this.DbAccess.Execute(db => db.Connection.CreateTableIfNotExists<Spam_Words>());

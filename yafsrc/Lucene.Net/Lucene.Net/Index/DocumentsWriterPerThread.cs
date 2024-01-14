@@ -56,7 +56,7 @@ namespace YAF.Lucene.Net.Index
             internal abstract DocConsumer GetChain(DocumentsWriterPerThread documentsWriterPerThread);
         }
 
-        private static readonly IndexingChain defaultIndexingChain = new IndexingChainAnonymousClass();
+        private readonly static IndexingChain defaultIndexingChain = new IndexingChainAnonymousClass();
 
         public static IndexingChain DefaultIndexingChain => defaultIndexingChain;
 
@@ -66,7 +66,7 @@ namespace YAF.Lucene.Net.Index
             {
             }
 
-            internal override DocConsumer GetChain(DocumentsWriterPerThread documentsWriterPerThread)
+            override internal DocConsumer GetChain(DocumentsWriterPerThread documentsWriterPerThread)
             {
                 /*
                 this is the current indexing chain:
@@ -107,7 +107,7 @@ namespace YAF.Lucene.Net.Index
 
         public class DocState
         {
-            internal readonly DocumentsWriterPerThread docWriter;
+            readonly internal DocumentsWriterPerThread docWriter;
             internal Analyzer analyzer;
             internal InfoStream infoStream;
             internal Similarity similarity;
@@ -138,11 +138,11 @@ namespace YAF.Lucene.Net.Index
 
         internal class FlushedSegment
         {
-            internal readonly SegmentCommitInfo segmentInfo;
-            internal readonly FieldInfos fieldInfos;
-            internal readonly FrozenBufferedUpdates segmentUpdates;
-            internal readonly IMutableBits liveDocs;
-            internal readonly int delCount;
+            readonly internal SegmentCommitInfo segmentInfo;
+            readonly internal FieldInfos fieldInfos;
+            readonly internal FrozenBufferedUpdates segmentUpdates;
+            readonly internal IMutableBits liveDocs;
+            readonly internal int delCount;
 
             internal FlushedSegment(SegmentCommitInfo segmentInfo, FieldInfos fieldInfos, BufferedUpdates segmentUpdates, IMutableBits liveDocs, int delCount)
             {
@@ -194,17 +194,17 @@ namespace YAF.Lucene.Net.Index
         }
 
         private const bool INFO_VERBOSE = false;
-        internal readonly Codec codec;
-        internal readonly TrackingDirectoryWrapper directory;
-        internal readonly Directory directoryOrig;
-        internal readonly DocState docState;
-        internal readonly DocConsumer consumer;
-        internal readonly Counter bytesUsed;
+        readonly internal Codec codec;
+        readonly internal TrackingDirectoryWrapper directory;
+        readonly internal Directory directoryOrig;
+        readonly internal DocState docState;
+        readonly internal DocConsumer consumer;
+        readonly internal Counter bytesUsed;
 
         internal SegmentWriteState flushState;
 
         // Updates for our still-in-RAM (to be flushed next) segment
-        internal readonly BufferedUpdates pendingUpdates;
+        readonly internal BufferedUpdates pendingUpdates;
 
         private readonly SegmentInfo segmentInfo; // Current segment we are working on
         internal bool aborting = false; // True if an abort is pending
@@ -213,11 +213,11 @@ namespace YAF.Lucene.Net.Index
         private readonly FieldInfos.Builder fieldInfos; // LUCENENET: marked readonly
         private readonly InfoStream infoStream;
         private int numDocsInRAM;
-        internal readonly DocumentsWriterDeleteQueue deleteQueue;
+        readonly internal DocumentsWriterDeleteQueue deleteQueue;
         private readonly DeleteSlice deleteSlice;
         private readonly NumberFormatInfo nf = CultureInfo.InvariantCulture.NumberFormat;
-        internal readonly Allocator byteBlockAllocator;
-        internal readonly Int32BlockPool.Allocator intBlockAllocator;
+        readonly internal Allocator byteBlockAllocator;
+        readonly internal Int32BlockPool.Allocator intBlockAllocator;
         private readonly LiveIndexWriterConfig indexWriterConfig;
 
         public DocumentsWriterPerThread(string segmentName, Directory directory, LiveIndexWriterConfig indexWriterConfig, InfoStream infoStream, DocumentsWriterDeleteQueue deleteQueue, FieldInfos.Builder fieldInfos)
@@ -686,13 +686,13 @@ namespace YAF.Lucene.Net.Index
         /// Initial chunks size of the shared byte[] blocks used to
         /// store postings data
         /// </summary>
-        internal static readonly int BYTE_BLOCK_NOT_MASK = ~ByteBlockPool.BYTE_BLOCK_MASK;
+        readonly static internal int BYTE_BLOCK_NOT_MASK = ~ByteBlockPool.BYTE_BLOCK_MASK;
 
         /// <summary>
         /// if you increase this, you must fix field cache impl for
         /// getTerms/getTermsIndex requires &lt;= 32768
         /// </summary>
-        internal static readonly int MAX_TERM_LENGTH_UTF8 = ByteBlockPool.BYTE_BLOCK_SIZE - 2;
+        readonly static internal int MAX_TERM_LENGTH_UTF8 = ByteBlockPool.BYTE_BLOCK_SIZE - 2;
 
         /// <summary>
         /// NOTE: This was IntBlockAllocator in Lucene

@@ -50,13 +50,13 @@ namespace YAF.Lucene.Net.Search
     {
         /// <summary>
         /// The automaton to match index terms against </summary>
-        protected readonly Automaton m_automaton;
+        readonly protected Automaton m_automaton;
 
-        protected readonly CompiledAutomaton m_compiled;
+        readonly protected CompiledAutomaton m_compiled;
 
         /// <summary>
         /// Term containing the field, and possibly some pattern structure </summary>
-        protected readonly Term m_term;
+        readonly protected Term m_term;
 
         /// <summary>
         /// Create a new AutomatonQuery from an <see cref="Automaton"/>.
@@ -73,7 +73,7 @@ namespace YAF.Lucene.Net.Search
             this.m_compiled = new CompiledAutomaton(automaton);
         }
 
-        protected override TermsEnum GetTermsEnum(Terms terms, AttributeSource atts)
+        override protected TermsEnum GetTermsEnum(Terms terms, AttributeSource atts)
         {
             return m_compiled.GetTermsEnum(terms);
         }

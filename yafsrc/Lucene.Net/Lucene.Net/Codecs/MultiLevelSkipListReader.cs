@@ -352,7 +352,7 @@ namespace YAF.Lucene.Net.Codecs
                 input.ReadBytes(data, 0, length);
             }
 
-            protected override void Dispose(bool disposing)
+            override protected void Dispose(bool disposing)
             {
                 if (disposing)
                 {

@@ -44,7 +44,7 @@ namespace YAF.Lucene.Net.Analysis.Cn
     public sealed class ChineseFilter : TokenFilter
     {
         // Only English now, Chinese to be added later.
-        public static readonly string[] STOP_WORDS = new string[] {
+        public readonly static string[] STOP_WORDS = new string[] {
             "and", "are", "as", "at", "be", "but", "by",
             "for", "if", "in", "into", "is", "it",
             "no", "not", "of", "on", "or", "such",

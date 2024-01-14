@@ -32,7 +32,7 @@ namespace YAF.Lucene.Net.Analysis.Ga
     {
         private readonly ICharTermAttribute termAtt;
 
-        private static readonly CultureInfo culture = new CultureInfo("ga"); // LUCENENET specific - use Irish culture when lowercasing.
+        private readonly static CultureInfo culture = new CultureInfo("ga"); // LUCENENET specific - use Irish culture when lowercasing.
 
         /// <summary>
         /// Create an <see cref="IrishLowerCaseFilter"/> that normalises Irish token text.

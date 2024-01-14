@@ -36,7 +36,7 @@ namespace YAF.Lucene.Net.Index
         /// <summary>
         /// An empty <see cref="BinaryDocValues"/> which returns <see cref="BytesRef.EMPTY_BYTES"/> for every document
         /// </summary>
-        public static readonly BinaryDocValues EMPTY_BINARY = new BinaryDocValuesAnonymousClass();
+        public readonly static BinaryDocValues EMPTY_BINARY = new BinaryDocValuesAnonymousClass();
 
         private sealed class BinaryDocValuesAnonymousClass : BinaryDocValues
         {
@@ -55,7 +55,7 @@ namespace YAF.Lucene.Net.Index
         /// <summary>
         /// An empty <see cref="NumericDocValues"/> which returns zero for every document
         /// </summary>
-        public static readonly NumericDocValues EMPTY_NUMERIC = new NumericDocValuesAnonymousClass();
+        public readonly static NumericDocValues EMPTY_NUMERIC = new NumericDocValuesAnonymousClass();
 
         private sealed class NumericDocValuesAnonymousClass : NumericDocValues
         {
@@ -72,7 +72,7 @@ namespace YAF.Lucene.Net.Index
         /// <summary>
         /// An empty <see cref="SortedDocValues"/> which returns <see cref="BytesRef.EMPTY_BYTES"/> for every document
         /// </summary>
-        public static readonly SortedDocValues EMPTY_SORTED = new SortedDocValuesAnonymousClass();
+        public readonly static SortedDocValues EMPTY_SORTED = new SortedDocValuesAnonymousClass();
 
         private sealed class SortedDocValuesAnonymousClass : SortedDocValues
         {
@@ -98,7 +98,7 @@ namespace YAF.Lucene.Net.Index
         /// <summary>
         /// An empty <see cref="SortedDocValues"/> which returns <see cref="SortedSetDocValues.NO_MORE_ORDS"/> for every document
         /// </summary>
-        public static readonly SortedSetDocValues EMPTY_SORTED_SET = new RandomAccessOrdsAnonymousClass();
+        public readonly static SortedSetDocValues EMPTY_SORTED_SET = new RandomAccessOrdsAnonymousClass();
 
         private sealed class RandomAccessOrdsAnonymousClass : RandomAccessOrds
         {

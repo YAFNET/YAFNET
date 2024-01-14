@@ -36,12 +36,12 @@ namespace YAF.Lucene.Net.Index
     internal sealed class NormsConsumer : InvertedDocEndConsumer
     {
         [MethodImpl(MethodImplOptions.NoInlining)]
-        internal override void Abort()
+        override internal void Abort()
         {
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        internal override void Flush(IDictionary<string, InvertedDocEndConsumerPerField> fieldsToFlush, SegmentWriteState state)
+        override internal void Flush(IDictionary<string, InvertedDocEndConsumerPerField> fieldsToFlush, SegmentWriteState state)
         {
             bool success = false;
             DocValuesConsumer normsConsumer = null;
@@ -88,15 +88,15 @@ namespace YAF.Lucene.Net.Index
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        internal override void FinishDocument()
+        override internal void FinishDocument()
         {
         }
 
-        internal override void StartDocument()
+        override internal void StartDocument()
         {
         }
 
-        internal override InvertedDocEndConsumerPerField AddField(DocInverterPerField docInverterPerField, FieldInfo fieldInfo)
+        override internal InvertedDocEndConsumerPerField AddField(DocInverterPerField docInverterPerField, FieldInfo fieldInfo)
         {
             return new NormsConsumerPerField(docInverterPerField, fieldInfo /* , this // LUCENENET: Not referenced */);
         }

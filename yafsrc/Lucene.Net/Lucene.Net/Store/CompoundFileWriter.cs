@@ -81,8 +81,8 @@ namespace YAF.Lucene.Net.Store
         private IndexOutput dataOut;
 #pragma warning restore CA2213 // Disposable fields should be disposed
         private readonly AtomicBoolean outputTaken = new AtomicBoolean(false);
-        internal readonly string entryTableName;
-        internal readonly string dataFileName;
+        readonly internal string entryTableName;
+        readonly internal string dataFileName;
 
         /// <summary>
         /// Create the compound stream in the specified file. The file name is the
@@ -373,7 +373,7 @@ namespace YAF.Lucene.Net.Store
                 @delegate.Flush();
             }
 
-            protected override void Dispose(bool disposing)
+            override protected void Dispose(bool disposing)
             {
                 if (disposing && !closed)
                 {

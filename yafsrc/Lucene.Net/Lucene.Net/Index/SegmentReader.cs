@@ -56,17 +56,17 @@ namespace YAF.Lucene.Net.Index
         // tells us the docCount:
         private readonly int numDocs;
 
-        internal readonly SegmentCoreReaders core;
-        internal readonly SegmentDocValues segDocValues;
+        readonly internal SegmentCoreReaders core;
+        readonly internal SegmentDocValues segDocValues;
 
-        internal readonly DisposableThreadLocal<IDictionary<string, object>> docValuesLocal =
+        readonly internal DisposableThreadLocal<IDictionary<string, object>> docValuesLocal =
             new DisposableThreadLocal<IDictionary<string, object>>(() => new Dictionary<string, object>());
 
-        internal readonly DisposableThreadLocal<IDictionary<string, IBits>> docsWithFieldLocal =
+        readonly internal DisposableThreadLocal<IDictionary<string, IBits>> docsWithFieldLocal =
             new DisposableThreadLocal<IDictionary<string, IBits>>(() => new Dictionary<string, IBits>());
 
-        internal readonly IDictionary<string, DocValuesProducer> dvProducersByField = new Dictionary<string, DocValuesProducer>();
-        internal readonly ISet<DocValuesProducer> dvProducers = new JCG.HashSet<DocValuesProducer>(IdentityEqualityComparer<DocValuesProducer>.Default);
+        readonly internal IDictionary<string, DocValuesProducer> dvProducersByField = new Dictionary<string, DocValuesProducer>();
+        readonly internal ISet<DocValuesProducer> dvProducers = new JCG.HashSet<DocValuesProducer>(IdentityEqualityComparer<DocValuesProducer>.Default);
 
         private readonly FieldInfos fieldInfos; // LUCENENET specific - since it is readonly, made all internal classes use property
 
@@ -214,7 +214,7 @@ namespace YAF.Lucene.Net.Index
         /// <para/>
         /// @lucene.internal
         /// </summary>
-        internal static FieldInfos ReadFieldInfos(SegmentCommitInfo info)
+        static internal FieldInfos ReadFieldInfos(SegmentCommitInfo info)
         {
             Directory dir;
             bool closeDir;
@@ -278,7 +278,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        protected internal override void DoClose()
+        override protected internal void DoClose()
         {
             //System.out.println("SR.close seg=" + si);
             try

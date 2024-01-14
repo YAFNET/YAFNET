@@ -69,12 +69,6 @@ public static class IPHelper
     {
         var ipAddressAsString = string.Empty;
 
-        // don't resolve nntp
-        if (inputIpAddress.IsSet() && inputIpAddress.ToLower().Contains("nntp"))
-        {
-            return ipAddressAsString;
-        }
-
         // don't resolve ip regex
         if (inputIpAddress.IsSet() && inputIpAddress.ToLower().Contains("*"))
         {

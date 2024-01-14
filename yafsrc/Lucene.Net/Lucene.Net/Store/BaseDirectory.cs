@@ -113,7 +113,7 @@ namespace YAF.Lucene.Net.Store
 
         public override LockFactory LockFactory => this.m_lockFactory;
 
-        protected internal override sealed void EnsureOpen()
+        override protected internal sealed void EnsureOpen()
         {
             if (!IsOpen)
             {

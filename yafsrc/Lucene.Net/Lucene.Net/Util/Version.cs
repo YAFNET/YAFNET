@@ -161,7 +161,7 @@ namespace YAF.Lucene.Net.Util
             return other <= instance;
         }
 
-        private static readonly Regex NUMERIC_VERSION = new Regex("^(\\d)\\.(\\d)$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        private readonly static Regex NUMERIC_VERSION = new Regex("^(\\d)\\.(\\d)$", RegexOptions.Compiled | RegexOptions.CultureInvariant);
 
         public static LuceneVersion ParseLeniently(string version)
         {

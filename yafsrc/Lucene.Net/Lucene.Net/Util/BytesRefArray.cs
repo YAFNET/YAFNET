@@ -137,7 +137,7 @@ namespace YAF.Lucene.Net.Util
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected override void Swap(int i, int j)
+            override protected void Swap(int i, int j)
             {
                 int o = orderedEntries[i];
                 orderedEntries[i] = orderedEntries[j];
@@ -145,21 +145,21 @@ namespace YAF.Lucene.Net.Util
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected override int Compare(int i, int j)
+            override protected int Compare(int i, int j)
             {
                 int idx1 = orderedEntries[i], idx2 = orderedEntries[j];
                 return comp.Compare(outerInstance.Get(scratch1, idx1), outerInstance.Get(scratch2, idx2));
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected override void SetPivot(int i)
+            override protected void SetPivot(int i)
             {
                 int index = orderedEntries[i];
                 outerInstance.Get(pivot, index);
             }
 
             [MethodImpl(MethodImplOptions.AggressiveInlining)]
-            protected override int ComparePivot(int j)
+            override protected int ComparePivot(int j)
             {
                 int index = orderedEntries[j];
                 return comp.Compare(pivot, outerInstance.Get(scratch2, index));

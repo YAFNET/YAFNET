@@ -89,17 +89,17 @@ namespace YAF.Lucene.Net.Util.Packed
     /// </summary>
     public class EliasFanoEncoder
     {
-        internal readonly long numValues;
+        readonly internal long numValues;
         private readonly long upperBound;
-        internal readonly int numLowBits;
-        internal readonly long lowerBitsMask;
-        internal readonly long[] upperLongs;
-        internal readonly long[] lowerLongs;
+        readonly internal int numLowBits;
+        readonly internal long lowerBitsMask;
+        readonly internal long[] upperLongs;
+        readonly internal long[] lowerLongs;
 
         /// <summary>
         /// NOTE: This was LOG2_LONG_SIZE in Lucene.
         /// </summary>
-        private static readonly int LOG2_INT64_SIZE = (sizeof(long) * 8).TrailingZeroCount();
+        private readonly static int LOG2_INT64_SIZE = (sizeof(long) * 8).TrailingZeroCount();
 
         internal long numEncoded = 0L;
         internal long lastEncoded = 0L;
@@ -108,15 +108,15 @@ namespace YAF.Lucene.Net.Util.Packed
         /// The default index interval for zero upper bits. </summary>
         public const long DEFAULT_INDEX_INTERVAL = 256;
 
-        internal readonly long numIndexEntries;
-        internal readonly long indexInterval;
-        internal readonly int nIndexEntryBits;
+        readonly internal long numIndexEntries;
+        readonly internal long indexInterval;
+        readonly internal int nIndexEntryBits;
 
         /// <summary>
         /// upperZeroBitPositionIndex[i] (filled using packValue) will contain the bit position
         /// just after the zero bit ((i+1) * indexInterval) in the upper bits.
         /// </summary>
-        internal readonly long[] upperZeroBitPositionIndex;
+        readonly internal long[] upperZeroBitPositionIndex;
 
         internal long currentEntryIndex; // also indicates how many entries in the index are valid.
 

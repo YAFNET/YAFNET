@@ -24,7 +24,7 @@ namespace YAF.Lucene.Net.Support.Text
     /// <summary>
     /// Extensions to <see cref="string"/>.
     /// </summary>
-    internal static class StringExtensions
+    static internal class StringExtensions
     {
         /// <summary>
         /// Returns <c>true</c> if <paramref name="input"/> contains any character from <paramref name="charsToCompare"/>.

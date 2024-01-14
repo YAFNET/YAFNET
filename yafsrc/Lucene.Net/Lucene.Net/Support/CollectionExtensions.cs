@@ -26,7 +26,7 @@ namespace YAF.Lucene.Net.Support
     /// <summary>
     /// Extensions for <see cref="ICollection{T}"/>.
     /// </summary>
-    internal static class CollectionExtensions
+    static internal class CollectionExtensions
     {
         /// <summary>
         /// Removes the given collection of elements from the source <see cref="ICollection{T}"/>.

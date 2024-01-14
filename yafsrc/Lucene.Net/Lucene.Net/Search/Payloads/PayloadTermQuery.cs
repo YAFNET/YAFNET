@@ -87,7 +87,7 @@ namespace YAF.Lucene.Net.Search.Payloads
                 protected BytesRef m_payload;
                 protected internal float m_payloadScore;
                 protected internal int m_payloadsSeen;
-                internal readonly TermSpans termSpans;
+                readonly internal TermSpans termSpans;
 
                 public PayloadTermSpanScorer(PayloadTermQuery.PayloadTermWeight outerInstance, TermSpans spans, Weight weight, Similarity.SimScorer docScorer)
                     : base(spans, weight, docScorer)
@@ -96,7 +96,7 @@ namespace YAF.Lucene.Net.Search.Payloads
                     termSpans = spans;
                 }
 
-                protected override bool SetFreqCurrentDoc()
+                override protected bool SetFreqCurrentDoc()
                 {
                     if (!m_more)
                     {

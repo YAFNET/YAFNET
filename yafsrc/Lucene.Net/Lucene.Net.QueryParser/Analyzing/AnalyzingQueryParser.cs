@@ -71,7 +71,7 @@ namespace YAF.Lucene.Net.QueryParsers.Analyzing
         /// <param name="termStr">Term to use for building term for the query
         /// (<b>without</b> trailing '*' character!)</param>
         /// <returns>Resulting <see cref="Query"/> built for the term</returns>
-        protected internal override Query GetWildcardQuery(string field, string termStr)
+        override protected internal Query GetWildcardQuery(string field, string termStr)
         {
             if (termStr is null)
             {
@@ -132,7 +132,7 @@ namespace YAF.Lucene.Net.QueryParsers.Analyzing
         /// <param name="field">Name of the field query will use.</param>
         /// <param name="termStr">Term to use for building term for the query (<b>without</b> trailing '*' character!)</param>
         /// <returns>Resulting <see cref="Query"/> built for the term</returns>
-        protected internal override Query GetPrefixQuery(string field, string termStr)
+        override protected internal Query GetPrefixQuery(string field, string termStr)
         {
             string analyzed = AnalyzeSingleChunk(field, termStr, termStr);
             return base.GetPrefixQuery(field, analyzed);
@@ -150,7 +150,7 @@ namespace YAF.Lucene.Net.QueryParsers.Analyzing
         /// <param name="termStr">Term to use for building term for the query</param>
         /// <param name="minSimilarity"></param>
         /// <returns>Resulting <see cref="Query"/> built for the term</returns>
-        protected internal override Query GetFuzzyQuery(string field, string termStr, float minSimilarity)
+        override protected internal Query GetFuzzyQuery(string field, string termStr, float minSimilarity)
         {
             string analyzed = AnalyzeSingleChunk(field, termStr, termStr);
             return base.GetFuzzyQuery(field, analyzed, minSimilarity);

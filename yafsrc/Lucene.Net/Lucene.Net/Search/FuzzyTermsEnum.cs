@@ -72,18 +72,18 @@ namespace YAF.Lucene.Net.Search
         // TODO: chicken-and-egg
         private readonly IComparer<BytesRef> termComparer = BytesRef.UTF8SortedAsUnicodeComparer;
 
-        protected readonly float m_minSimilarity;
-        protected readonly float m_scaleFactor;
+        readonly protected float m_minSimilarity;
+        readonly protected float m_scaleFactor;
 
-        protected readonly int m_termLength;
+        readonly protected int m_termLength;
 
         protected int m_maxEdits; 
-        protected readonly bool m_raw;
+        readonly protected bool m_raw;
 
-        protected readonly Terms m_terms;
+        readonly protected Terms m_terms;
         private readonly Term term;
-        protected readonly int[] m_termText;
-        protected readonly int m_realPrefixLength;
+        readonly protected int[] m_termText;
+        readonly protected int m_realPrefixLength;
 
         private readonly bool transpositions;
 
@@ -385,7 +385,7 @@ namespace YAF.Lucene.Net.Search
 
             /// <summary>
             /// Finds the smallest Lev(n) DFA that accepts the term. </summary>
-            protected override AcceptStatus Accept(BytesRef term)
+            override protected AcceptStatus Accept(BytesRef term)
             {
                 //System.out.println("AFTE.accept term=" + term);
                 int ed = matchers.Length - 1;

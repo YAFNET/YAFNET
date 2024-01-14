@@ -36,7 +36,7 @@ namespace YAF.Lucene.Net.Util.Packed
     public sealed class BlockPackedReaderIterator
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static long ZigZagDecode(long n)
+        static internal long ZigZagDecode(long n)
         {
             return ((n.TripleShift(1)) ^ -(n & 1));
         }
@@ -46,7 +46,7 @@ namespace YAF.Lucene.Net.Util.Packed
         /// NOTE: This was readVLong() in Lucene.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static long ReadVInt64(DataInput @in)
+        static internal long ReadVInt64(DataInput @in)
         {
             byte b = @in.ReadByte();
             if (b <= sbyte.MaxValue) // LUCENENET: Optimized equivalent of "if ((sbyte)b >= 0)"
@@ -102,11 +102,11 @@ namespace YAF.Lucene.Net.Util.Packed
         }
 
         internal DataInput @in;
-        internal readonly int packedIntsVersion;
+        readonly internal int packedIntsVersion;
         internal long valueCount;
-        internal readonly int blockSize;
-        internal readonly long[] values;
-        internal readonly Int64sRef valuesRef;
+        readonly internal int blockSize;
+        readonly internal long[] values;
+        readonly internal Int64sRef valuesRef;
         internal byte[] blocks;
         internal int off;
         internal long ord;

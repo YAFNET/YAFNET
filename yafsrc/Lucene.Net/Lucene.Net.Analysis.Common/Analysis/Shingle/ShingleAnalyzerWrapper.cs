@@ -132,12 +132,12 @@ namespace YAF.Lucene.Net.Analysis.Shingle
 
         public string FillerToken => fillerToken;
 
-        protected override sealed Analyzer GetWrappedAnalyzer(string fieldName)
+        override protected sealed Analyzer GetWrappedAnalyzer(string fieldName)
         {
             return @delegate;
         }
 
-        protected override TokenStreamComponents WrapComponents(string fieldName, TokenStreamComponents components)
+        override protected TokenStreamComponents WrapComponents(string fieldName, TokenStreamComponents components)
         {
             ShingleFilter filter = new ShingleFilter(components.TokenStream, minShingleSize, maxShingleSize);
             filter.SetMinShingleSize(minShingleSize);

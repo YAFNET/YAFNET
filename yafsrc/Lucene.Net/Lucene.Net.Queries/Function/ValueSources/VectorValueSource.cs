@@ -32,7 +32,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     //Not crazy about the name, but...
     public class VectorValueSource : MultiValueSource
     {
-        protected readonly IList<ValueSource> m_sources;
+        readonly protected IList<ValueSource> m_sources;
 
         public VectorValueSource(IList<ValueSource> sources)
         {

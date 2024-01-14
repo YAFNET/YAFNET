@@ -124,7 +124,7 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// <see cref="LuceneVersion"/> that <see cref="IndexWriter"/> should emulate. </summary>
-        internal readonly LuceneVersion matchVersion;
+        readonly internal LuceneVersion matchVersion;
 
         /// <summary>
         /// True if segment flushes should use compound file format </summary>

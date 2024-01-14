@@ -119,7 +119,7 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         /// <param name="type">The <see cref="Type"/> to get the name for.</param>
         /// <returns>The canonical name of the service.</returns>
-        protected static string GetCanonicalName(Type type)
+        static protected string GetCanonicalName(Type type)
         {
             string name = type.Name;
             string genericSuffix = string.Empty;

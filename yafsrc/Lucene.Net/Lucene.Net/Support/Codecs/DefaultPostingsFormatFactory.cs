@@ -105,7 +105,7 @@ namespace YAF.Lucene.Net.Codecs
     // LUCENENET specific
     public class DefaultPostingsFormatFactory : NamedServiceFactory<PostingsFormat>, IPostingsFormatFactory, IServiceListable
     {
-        private static readonly Type[] localPostingsFormatTypes = new Type[]
+        private readonly static Type[] localPostingsFormatTypes = new Type[]
         {
             typeof(Lucene41.Lucene41PostingsFormat),
 #pragma warning disable 612, 618
@@ -147,7 +147,7 @@ namespace YAF.Lucene.Net.Codecs
         /// If two types have the same name by using the <see cref="PostingsFormatNameAttribute"/>, the
         /// last one registered wins.
         /// </summary>
-        protected override void Initialize()
+        override protected void Initialize()
         {
             foreach (var postingsFormatType in localPostingsFormatTypes)
                 PutPostingsFormatTypeImpl(postingsFormatType);

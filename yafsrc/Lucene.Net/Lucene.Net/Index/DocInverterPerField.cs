@@ -34,11 +34,11 @@ namespace YAF.Lucene.Net.Index
     /// </summary>
     internal sealed class DocInverterPerField : DocFieldConsumerPerField
     {
-        internal readonly FieldInfo fieldInfo;
-        internal readonly InvertedDocConsumerPerField consumer;
-        internal readonly InvertedDocEndConsumerPerField endConsumer;
-        internal readonly DocumentsWriterPerThread.DocState docState;
-        internal readonly FieldInvertState fieldState;
+        readonly internal FieldInfo fieldInfo;
+        readonly internal InvertedDocConsumerPerField consumer;
+        readonly internal InvertedDocEndConsumerPerField endConsumer;
+        readonly internal DocumentsWriterPerThread.DocState docState;
+        readonly internal FieldInvertState fieldState;
 
         public DocInverterPerField(DocInverter parent, FieldInfo fieldInfo)
         {
@@ -50,7 +50,7 @@ namespace YAF.Lucene.Net.Index
         }
 
         [MethodImpl(MethodImplOptions.NoInlining)]
-        internal override void Abort()
+        override internal void Abort()
         {
             try
             {
@@ -248,6 +248,6 @@ namespace YAF.Lucene.Net.Index
             endConsumer.Finish();
         }
 
-        internal override FieldInfo FieldInfo => fieldInfo;
+        override internal FieldInfo FieldInfo => fieldInfo;
     }
 }

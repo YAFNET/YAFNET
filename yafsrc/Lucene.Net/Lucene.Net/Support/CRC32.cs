@@ -25,7 +25,7 @@ namespace YAF.Lucene.Net.Support
 {
     internal class CRC32 : IChecksum
     {
-        private static readonly uint[] crcTable = InitializeCRCTable();
+        private readonly static uint[] crcTable = InitializeCRCTable();
 
         private static uint[] InitializeCRCTable()
         {

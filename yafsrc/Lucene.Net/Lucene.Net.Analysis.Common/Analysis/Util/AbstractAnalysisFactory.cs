@@ -54,7 +54,7 @@ namespace YAF.Lucene.Net.Analysis.Util
 
         /// <summary>
         /// the luceneVersion arg </summary>
-        protected readonly LuceneVersion m_luceneMatchVersion;
+        readonly protected LuceneVersion m_luceneMatchVersion;
 
         /// <summary>
         /// Initialize this factory via a set of key-value pairs.
@@ -266,7 +266,7 @@ namespace YAF.Lucene.Net.Analysis.Util
             return defaultVal;
         }
 
-        private static readonly Regex ITEM_PATTERN = new Regex("[^,\\s]+", RegexOptions.Compiled);
+        private readonly static Regex ITEM_PATTERN = new Regex("[^,\\s]+", RegexOptions.Compiled);
 
         /// <summary>
         /// Returns whitespace- and/or comma-separated set of values, or null if none are found </summary>
@@ -422,8 +422,8 @@ namespace YAF.Lucene.Net.Analysis.Util
         // LUCENENET specific - optimize compilation and lazy-load the regular expressions
         private static class SplitFileNameHolder
         {
-            public static readonly Regex FILE_SPLIT_PATTERN = new Regex("(?<!\\\\),", RegexOptions.Compiled | RegexOptions.CultureInvariant);
-            public static readonly Regex FILE_REPLACE_PATTERN = new Regex("\\\\(?=,)", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+            public readonly static Regex FILE_SPLIT_PATTERN = new Regex("(?<!\\\\),", RegexOptions.Compiled | RegexOptions.CultureInvariant);
+            public readonly static Regex FILE_REPLACE_PATTERN = new Regex("\\\\(?=,)", RegexOptions.Compiled | RegexOptions.CultureInvariant);
         }
 
         private const string CLASS_NAME = "class";

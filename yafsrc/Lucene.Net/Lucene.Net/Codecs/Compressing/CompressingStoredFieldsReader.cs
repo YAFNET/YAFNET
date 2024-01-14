@@ -182,7 +182,7 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         /// Dispose the underlying <see cref="IndexInput"/>s.
         /// </summary>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (!closed)
             {
@@ -454,9 +454,9 @@ namespace YAF.Lucene.Net.Codecs.Compressing
         {
             private readonly CompressingStoredFieldsReader outerInstance;
 
-            internal readonly ChecksumIndexInput fieldsStream;
-            internal readonly BytesRef spare;
-            internal readonly BytesRef bytes;
+            readonly internal ChecksumIndexInput fieldsStream;
+            readonly internal BytesRef spare;
+            readonly internal BytesRef bytes;
             internal int docBase;
             internal int chunkDocs;
             internal int[] numStoredFields;

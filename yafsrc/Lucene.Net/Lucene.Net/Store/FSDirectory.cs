@@ -93,7 +93,7 @@ namespace YAF.Lucene.Net.Store
         [Obsolete("this constant is no longer used since Lucene 4.5.")]
         public const int DEFAULT_READ_CHUNK_SIZE = 8192;
 
-        protected readonly DirectoryInfo m_directory; // The underlying filesystem directory
+        readonly protected DirectoryInfo m_directory; // The underlying filesystem directory
 
         // LUCENENET specific: No such thing as "stale files" in .NET, since Flush(true) writes everything to disk before
         // our FileStream is disposed.
@@ -421,7 +421,7 @@ namespace YAF.Lucene.Net.Store
 
         /// <summary>
         /// Closes the store to future operations. </summary>
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             IsOpen = false; // LUCENENET: Since there is nothing else to do here, we can safely call this. If we have other stuff to dispose, change to if (!CompareAndSetIsOpen(expect: true, update: false)) return;
         }
@@ -469,7 +469,7 @@ namespace YAF.Lucene.Net.Store
             private const int CHUNK_SIZE = DEFAULT_BUFFER_SIZE;
 
             private readonly FSDirectory parent;
-            internal readonly string name;
+            readonly internal string name;
 #pragma warning disable CA2213 // Disposable fields should be disposed
             private readonly FileStream file;
 #pragma warning restore CA2213 // Disposable fields should be disposed
@@ -513,7 +513,7 @@ namespace YAF.Lucene.Net.Store
             }
 
             /// <inheritdoc/>
-            protected internal override void FlushBuffer(byte[] b, int offset, int size)
+            override protected internal void FlushBuffer(byte[] b, int offset, int size)
             {
                 // LUCENENET specific: Guard to ensure we aren't disposed.
                 if (!isOpen)
@@ -535,7 +535,7 @@ namespace YAF.Lucene.Net.Store
             }
 
             /// <inheritdoc/>
-            protected override void Dispose(bool disposing)
+            override protected void Dispose(bool disposing)
             {
                 if (disposing)
                 {

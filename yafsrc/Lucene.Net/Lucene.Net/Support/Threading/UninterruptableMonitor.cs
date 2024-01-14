@@ -25,7 +25,7 @@ namespace YAF.Lucene.Net.Support.Threading
     /// when entering locks, but defers the excepetion until a wait or sleep occurs. This is to mimic the behavior in Java,
     /// which does not throw when entering a lock.
     /// </summary>
-    internal static class UninterruptableMonitor
+    static internal class UninterruptableMonitor
     {
         public static void Enter(object obj, ref bool lockTaken)
         {

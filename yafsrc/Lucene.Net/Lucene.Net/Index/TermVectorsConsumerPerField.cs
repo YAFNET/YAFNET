@@ -30,11 +30,11 @@ namespace YAF.Lucene.Net.Index
 
     internal sealed class TermVectorsConsumerPerField : TermsHashConsumerPerField
     {
-        internal readonly TermsHashPerField termsHashPerField;
-        internal readonly TermVectorsConsumer termsWriter;
-        internal readonly FieldInfo fieldInfo;
-        internal readonly DocumentsWriterPerThread.DocState docState;
-        internal readonly FieldInvertState fieldState;
+        readonly internal TermsHashPerField termsHashPerField;
+        readonly internal TermVectorsConsumer termsWriter;
+        readonly internal FieldInfo fieldInfo;
+        readonly internal DocumentsWriterPerThread.DocState docState;
+        readonly internal FieldInvertState fieldState;
 
         internal bool doVectors;
         internal bool doVectorPositions;
@@ -55,9 +55,9 @@ namespace YAF.Lucene.Net.Index
             fieldState = termsHashPerField.fieldState;
         }
 
-        internal override int StreamCount => 2;
+        override internal int StreamCount => 2;
 
-        internal override bool Start(IIndexableField[] fields, int count)
+        override internal bool Start(IIndexableField[] fields, int count)
         {
             doVectors = false;
             doVectorPositions = false;
@@ -148,7 +148,7 @@ namespace YAF.Lucene.Net.Index
         /// RAMOutputStream, which is then quickly flushed to
         /// the real term vectors files in the Directory. 	  
         /// </summary>
-        internal override void Finish()
+        override internal void Finish()
         {
             if (!doVectors || termsHashPerField.bytesHash.Count == 0)
             {
@@ -228,7 +228,7 @@ namespace YAF.Lucene.Net.Index
             maxNumPostings = 0;
         }
 
-        internal override void Start(IIndexableField f)
+        override internal void Start(IIndexableField f)
         {
             if (doVectorOffsets)
             {
@@ -288,7 +288,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        internal override void NewTerm(int termID)
+        override internal void NewTerm(int termID)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(docState.TestPoint("TermVectorsTermsWriterPerField.newTerm start"));
             TermVectorsPostingsArray postings = (TermVectorsPostingsArray)termsHashPerField.postingsArray;
@@ -300,7 +300,7 @@ namespace YAF.Lucene.Net.Index
             WriteProx(postings, termID);
         }
 
-        internal override void AddTerm(int termID)
+        override internal void AddTerm(int termID)
         {
             if (Debugging.AssertsEnabled) Debugging.Assert(docState.TestPoint("TermVectorsTermsWriterPerField.addTerm start"));
             TermVectorsPostingsArray postings = (TermVectorsPostingsArray)termsHashPerField.postingsArray;
@@ -311,11 +311,11 @@ namespace YAF.Lucene.Net.Index
         }
 
         [ExceptionToNetNumericConvention]
-        internal override void SkippingLongTerm()
+        override internal void SkippingLongTerm()
         {
         }
 
-        internal override ParallelPostingsArray CreatePostingsArray(int size)
+        override internal ParallelPostingsArray CreatePostingsArray(int size)
         {
             return new TermVectorsPostingsArray(size);
         }
@@ -334,12 +334,12 @@ namespace YAF.Lucene.Net.Index
             internal int[] lastOffsets; // Last offset we saw
             internal int[] lastPositions; // Last position where this term occurred
 
-            internal override ParallelPostingsArray NewInstance(int size)
+            override internal ParallelPostingsArray NewInstance(int size)
             {
                 return new TermVectorsPostingsArray(size);
             }
 
-            internal override void CopyTo(ParallelPostingsArray toArray, int numToCopy)
+            override internal void CopyTo(ParallelPostingsArray toArray, int numToCopy)
             {
                 if (Debugging.AssertsEnabled) Debugging.Assert(toArray is TermVectorsPostingsArray);
                 TermVectorsPostingsArray to = (TermVectorsPostingsArray)toArray;
@@ -351,7 +351,7 @@ namespace YAF.Lucene.Net.Index
                 Arrays.Copy(lastPositions, 0, to.lastPositions, 0, size);
             }
 
-            internal override int BytesPerPosting()
+            override internal int BytesPerPosting()
             {
                 return base.BytesPerPosting() + 3 * RamUsageEstimator.NUM_BYTES_INT32;
             }

@@ -51,7 +51,7 @@
     {
         /// <summary>
         /// The codec to filter. </summary>
-        protected readonly Codec m_delegate;
+        readonly protected Codec m_delegate;
 
         /// <summary>
         /// Sole constructor. When subclassing this codec,

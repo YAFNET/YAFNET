@@ -161,7 +161,7 @@ namespace YAF.Lucene.Net.Store
         protected internal abstract void FlushBuffer(byte[] b, int offset, int len);
 
         /// <inheritdoc/>
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (0 != Interlocked.CompareExchange(ref this.disposed, 1, 0)) return; // LUCENENET specific - allow double-dispose
 

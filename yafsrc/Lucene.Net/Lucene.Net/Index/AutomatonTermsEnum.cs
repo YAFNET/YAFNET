@@ -106,7 +106,7 @@ namespace YAF.Lucene.Net.Index
         /// Returns <c>true</c> if the term matches the automaton. Also stashes away the term
         /// to assist with smart enumeration.
         /// </summary>
-        protected override AcceptStatus Accept(BytesRef term)
+        override protected AcceptStatus Accept(BytesRef term)
         {
             if (commonSuffixRef is null || StringHelper.EndsWith(term, commonSuffixRef))
             {
@@ -125,7 +125,7 @@ namespace YAF.Lucene.Net.Index
             }
         }
 
-        protected override BytesRef NextSeekTerm(BytesRef term)
+        override protected BytesRef NextSeekTerm(BytesRef term)
         {
             //System.out.println("ATE.nextSeekTerm term=" + term);
             if (term is null)

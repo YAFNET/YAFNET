@@ -33,7 +33,7 @@ namespace YAF.Lucene.Net.Util.Packed
     /// </summary>
     internal sealed class Direct64 : PackedInt32s.MutableImpl
     {
-        internal readonly long[] values;
+        readonly internal long[] values;
 
         internal Direct64(int valueCount)
             : base(valueCount, 64)

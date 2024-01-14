@@ -44,7 +44,7 @@ namespace YAF.Lucene.Net.Codecs.Lucene3x
         // fieldNumber into index for first indexed term:
         private int currentFieldNumber = -2;
 
-        private static readonly IComparer<BytesRef> utf8AsUTF16Comparer = BytesRef.UTF8SortedAsUTF16Comparer;
+        private readonly static IComparer<BytesRef> utf8AsUTF16Comparer = BytesRef.UTF8SortedAsUTF16Comparer;
 
         internal int newSuffixStart; // only valid right after .read is called
 

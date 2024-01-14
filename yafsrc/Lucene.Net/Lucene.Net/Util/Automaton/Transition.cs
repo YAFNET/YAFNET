@@ -50,9 +50,9 @@ namespace YAF.Lucene.Net.Util.Automaton
          * CLASS INVARIANT: min<=max
          */
 
-        internal readonly int min;
-        internal readonly int max;
-        internal readonly State to;
+        readonly internal int min;
+        readonly internal int max;
+        readonly internal State to;
 
         /// <summary>
         /// Constructs a new singleton interval transition.
@@ -142,7 +142,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static void AppendCharString(int c, StringBuilder b)
+        static internal void AppendCharString(int c, StringBuilder b)
         {
             if (c >= 0x21 && c <= 0x7e && c != '\\' && c != '"')
             {
@@ -254,7 +254,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         }
         
         // LUCENENET NOTE: Renamed to follow convention of static fields/constants
-        public static readonly IComparer<Transition> COMPARE_BY_DEST_THEN_MIN_MAX = new CompareByDestThenMinMaxSingle();
+        public readonly static IComparer<Transition> COMPARE_BY_DEST_THEN_MIN_MAX = new CompareByDestThenMinMaxSingle();
 
         private sealed class CompareByMinMaxThenDestSingle : IComparer<Transition>
         {
@@ -293,6 +293,6 @@ namespace YAF.Lucene.Net.Util.Automaton
         }
 
         // LUCENENET NOTE: Renamed to follow convention of static fields/constants
-        public static readonly IComparer<Transition> COMPARE_BY_MIN_MAX_THEN_DEST = new CompareByMinMaxThenDestSingle();
+        public readonly static IComparer<Transition> COMPARE_BY_MIN_MAX_THEN_DEST = new CompareByMinMaxThenDestSingle();
     }
 }

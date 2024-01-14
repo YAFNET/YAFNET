@@ -58,7 +58,7 @@ namespace YAF.Lucene.Net.Util.Automaton
         internal int number;
 
         internal int id;
-        internal static int next_id;
+        static internal int next_id;
 
         /// <summary>
         /// Constructs a new state. Initially, the new state is a reject state.

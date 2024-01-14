@@ -434,16 +434,16 @@ namespace YAF.Lucene.Net.Index
         public class OrdinalMap
         {
             // cache key of whoever asked for this awful thing
-            internal readonly object owner;
+            readonly internal object owner;
 
             // globalOrd -> (globalOrd - segmentOrd) where segmentOrd is the the ordinal in the first segment that contains this term
-            internal readonly MonotonicAppendingInt64Buffer globalOrdDeltas;
+            readonly internal MonotonicAppendingInt64Buffer globalOrdDeltas;
 
             // globalOrd -> first segment container
-            internal readonly AppendingPackedInt64Buffer firstSegments;
+            readonly internal AppendingPackedInt64Buffer firstSegments;
 
             // for every segment, segmentOrd -> (globalOrd - segmentOrd)
-            internal readonly MonotonicAppendingInt64Buffer[] ordDeltas;
+            readonly internal MonotonicAppendingInt64Buffer[] ordDeltas;
 
             /// <summary>
             /// Creates an ordinal map that allows mapping ords to/from a merged

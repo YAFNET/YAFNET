@@ -28,7 +28,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
     [ExceptionToClassNameConvention]
     internal sealed class ISO8859_14Encoding : Encoding
     {
-        private static readonly Decoder decoder = new ISO8859_14Decoder();
+        private readonly static Decoder decoder = new ISO8859_14Decoder();
         public override Decoder GetDecoder()
         {
             return new ISO8859_14Decoder();
@@ -76,7 +76,7 @@ namespace YAF.Lucene.Net.Analysis.Hunspell
     [ExceptionToClassNameConvention]
     internal sealed class ISO8859_14Decoder : Decoder
     {
-        internal static readonly char[] TABLE = new char[]
+        readonly static internal char[] TABLE = new char[]
         {
             (char)0x00A0, (char)0x1E02, (char)0x1E03, (char)0x00A3, (char)0x010A, (char)0x010B, (char)0x1E0A, (char)0x00A7,
             (char)0x1E80, (char)0x00A9, (char)0x1E82, (char)0x1E0B, (char)0x1EF2, (char)0x00AD, (char)0x00AE, (char)0x0178,

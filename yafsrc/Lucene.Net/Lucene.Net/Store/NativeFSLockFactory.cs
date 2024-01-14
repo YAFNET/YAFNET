@@ -67,7 +67,7 @@ namespace YAF.Lucene.Net.Store
         }
 
         // LUCENENET: This controls the locking strategy used for the current operating system and framework
-        internal static FSLockingStrategy LockingStrategy
+        static internal FSLockingStrategy LockingStrategy
         {
             get
             {
@@ -89,13 +89,13 @@ namespace YAF.Lucene.Net.Store
         // we are interested in.
         //
         // Reference: https://stackoverflow.com/q/46380483
-        private static readonly bool IS_FILESTREAM_LOCKING_PLATFORM = LoadIsFileStreamLockingPlatform();
+        private readonly static bool IS_FILESTREAM_LOCKING_PLATFORM = LoadIsFileStreamLockingPlatform();
 
         private const int WIN_HRESULT_FILE_LOCK_VIOLATION = unchecked((int)0x80070021);
         private const int WIN_HRESULT_FILE_SHARE_VIOLATION = unchecked((int)0x80070020);
 
-        internal static readonly int? HRESULT_FILE_LOCK_VIOLATION = LoadFileLockViolationHResult();
-        internal static readonly int? HRESULT_FILE_SHARE_VIOLATION = LoadFileShareViolationHResult();
+        readonly static internal int? HRESULT_FILE_LOCK_VIOLATION = LoadFileLockViolationHResult();
+        readonly static internal int? HRESULT_FILE_SHARE_VIOLATION = LoadFileShareViolationHResult();
 
         private static bool LoadIsFileStreamLockingPlatform()
         {
@@ -178,7 +178,7 @@ namespace YAF.Lucene.Net.Store
 
         // LUCENENET: NativeFSLocks in Java are infact singletons; this is how we mimick that to track instances and make sure
         // IW.Unlock and IW.IsLocked works correctly
-        internal static readonly Dictionary<string, Lock> _locks = new Dictionary<string, Lock>();
+        readonly static internal Dictionary<string, Lock> _locks = new Dictionary<string, Lock>();
 
         /// <summary>
         /// Given a lock name, return the full prefixed path of the actual lock file.
@@ -339,7 +339,7 @@ namespace YAF.Lucene.Net.Store
             }
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -541,7 +541,7 @@ namespace YAF.Lucene.Net.Store
             }
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {
@@ -728,7 +728,7 @@ namespace YAF.Lucene.Net.Store
             }
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {

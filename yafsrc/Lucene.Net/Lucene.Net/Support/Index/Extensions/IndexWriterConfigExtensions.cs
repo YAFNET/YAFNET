@@ -340,7 +340,7 @@ namespace YAF.Lucene.Net.Index.Extensions
         /// <param name="config">this <see cref="IndexWriterConfig"/> instance</param>
         /// <param name="threadPool"></param>
         /// <returns>this <see cref="IndexWriterConfig"/> instance</returns>
-        internal static IndexWriterConfig SetIndexerThreadPool(this IndexWriterConfig config, DocumentsWriterPerThreadPool threadPool)
+        static internal IndexWriterConfig SetIndexerThreadPool(this IndexWriterConfig config, DocumentsWriterPerThreadPool threadPool)
         {
             config.IndexerThreadPool = threadPool;
             return config;
@@ -376,7 +376,7 @@ namespace YAF.Lucene.Net.Index.Extensions
         /// <param name="config">this <see cref="IndexWriterConfig"/> instance</param>
         /// <param name="indexingChain"></param>
         /// <returns>this <see cref="IndexWriterConfig"/> instance</returns>
-        internal static IndexWriterConfig SetIndexingChain(this IndexWriterConfig config, DocumentsWriterPerThread.IndexingChain indexingChain)
+        static internal IndexWriterConfig SetIndexingChain(this IndexWriterConfig config, DocumentsWriterPerThread.IndexingChain indexingChain)
         {
             config.IndexingChain = indexingChain;
             return config;
@@ -388,7 +388,7 @@ namespace YAF.Lucene.Net.Index.Extensions
         /// <param name="config">this <see cref="IndexWriterConfig"/> instance</param>
         /// <param name="flushPolicy"></param>
         /// <returns>this <see cref="IndexWriterConfig"/> instance</returns>
-        internal static IndexWriterConfig SetFlushPolicy(this IndexWriterConfig config, FlushPolicy flushPolicy)
+        static internal IndexWriterConfig SetFlushPolicy(this IndexWriterConfig config, FlushPolicy flushPolicy)
         {
             config.FlushPolicy = flushPolicy;
             return config;

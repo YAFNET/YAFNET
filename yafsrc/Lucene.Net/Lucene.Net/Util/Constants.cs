@@ -33,10 +33,10 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// The maximum stack allocation size before switching to making allocations on the heap.
         /// </summary>
-        internal static int MaxStackByteLimit = SystemProperties.GetPropertyAsInt32("maxStackByteLimit", defaultValue: 2048); // LUCENENET specific
+        static internal int MaxStackByteLimit = SystemProperties.GetPropertyAsInt32("maxStackByteLimit", defaultValue: 2048); // LUCENENET specific
 
         // LUCENENET NOTE: IMPORTANT - this line must be placed before RUNTIME_VERSION so it can be parsed.
-        private static readonly Regex VERSION = new Regex(@"(\d+\.\d+(?:\.\d+)?(?:\.\d+)?)", RegexOptions.Compiled);
+        private readonly static Regex VERSION = new Regex(@"(\d+\.\d+(?:\.\d+)?(?:\.\d+)?)", RegexOptions.Compiled);
 
         // LUCENENET specific - renamed JAVA_VERSION to RUNTIME_VERSION and moved below OS constants because loading is dependent upon OS
 
@@ -44,41 +44,41 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// NOTE: This was JAVA_VENDOR in Lucene
         /// </summary>
-        public static readonly string RUNTIME_VENDOR = "Microsoft"; // AppSettings.Get("java.vendor", "");
+        public readonly static string RUNTIME_VENDOR = "Microsoft"; // AppSettings.Get("java.vendor", "");
                                                                     //public static readonly string JVM_VENDOR = GetEnvironmentVariable("java.vm.vendor", "");
                                                                     //public static readonly string JVM_VERSION = GetEnvironmentVariable("java.vm.version", "");
                                                                     //public static readonly string JVM_NAME = GetEnvironmentVariable("java.vm.name", "");
 
         /// <summary>
         /// The value of <see cref="RuntimeInformation.OSDescription"/>, excluding the version number.</summary>
-        public static readonly string OS_NAME = VERSION.Replace(RuntimeInformation.OSDescription, string.Empty).Trim();
+        public readonly static string OS_NAME = VERSION.Replace(RuntimeInformation.OSDescription, string.Empty).Trim();
 
         /// <summary>
         /// True iff running on Linux. </summary>
-        public static readonly bool LINUX = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
+        public readonly static bool LINUX = RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
 
 
         /// <summary>
         /// True iff running on Windows. </summary>
-        public static readonly bool WINDOWS = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+        public readonly static bool WINDOWS = RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
         /// <summary>
         /// True iff running on SunOS. </summary>
-        public static readonly bool SUN_OS = RuntimeInformation.IsOSPlatform(OSPlatform.Create("SunOS"));
+        public readonly static bool SUN_OS = RuntimeInformation.IsOSPlatform(OSPlatform.Create("SunOS"));
 
         /// <summary>
         /// True iff running on Mac OS X </summary>
-        public static readonly bool MAC_OS_X = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+        public readonly static bool MAC_OS_X = RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
 
         /// <summary>
         /// True iff running on FreeBSD </summary>
-        public static readonly bool FREE_BSD = RuntimeInformation.IsOSPlatform(OSPlatform.Create("FreeBSD"));
+        public readonly static bool FREE_BSD = RuntimeInformation.IsOSPlatform(OSPlatform.Create("FreeBSD"));
 
         // Possible Values: X86, X64, Arm, Arm64
-        public static readonly string OS_ARCH = RuntimeInformation.OSArchitecture.ToString();
+        public readonly static string OS_ARCH = RuntimeInformation.OSArchitecture.ToString();
 
 
-        public static readonly string OS_VERSION = ExtractString(RuntimeInformation.OSDescription, VERSION);
+        public readonly static string OS_VERSION = ExtractString(RuntimeInformation.OSDescription, VERSION);
 
 #if NETFRAMEWORK
         /// <summary>
@@ -93,7 +93,7 @@ namespace YAF.Lucene.Net.Util
         /// NOTE: This was JAVA_VERSION in Lucene
         /// </summary>
 #endif
-        public static readonly string RUNTIME_VERSION = LoadRuntimeVersion();
+        public readonly static string RUNTIME_VERSION = LoadRuntimeVersion();
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static string LoadRuntimeVersion() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
@@ -110,7 +110,7 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// NOTE: This was JRE_IS_64BIT in Lucene
         /// </summary>
-        public static readonly bool RUNTIME_IS_64BIT = LoadRuntimeIs64Bit(); // LUCENENET NOTE: We still need this constant to indicate 64 bit runtime.
+        public readonly static bool RUNTIME_IS_64BIT = LoadRuntimeIs64Bit(); // LUCENENET NOTE: We still need this constant to indicate 64 bit runtime.
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static bool LoadRuntimeIs64Bit() // LUCENENET: Avoid static constructors (see https://github.com/apache/lucenenet/pull/224#issuecomment-469284006)
         {
@@ -141,7 +141,7 @@ namespace YAF.Lucene.Net.Util
         /// anything else is not allowed. This is done to prevent people from
         /// using indexes created with ALPHA/BETA versions with the released version.
         /// </summary>
-        public static readonly string LUCENE_MAIN_VERSION = Ident("4.8");
+        public readonly static string LUCENE_MAIN_VERSION = Ident("4.8");
 
         // LUCENENET NOTE: This version is automatically updated by the
         // build script, so there is no need to change it here (although
@@ -150,13 +150,13 @@ namespace YAF.Lucene.Net.Util
         /// <summary>
         /// This is the Lucene version for display purposes.
         /// </summary>
-        public static readonly string LUCENE_VERSION = "4.8.0";
+        public readonly static string LUCENE_VERSION = "4.8.0";
 
         /// <summary>
         /// Returns a LUCENE_MAIN_VERSION without any ALPHA/BETA qualifier
         /// Used by test only!
         /// </summary>
-        internal static string MainVersionWithoutAlphaBeta
+        static internal string MainVersionWithoutAlphaBeta
         {
             get
             {
@@ -169,7 +169,7 @@ namespace YAF.Lucene.Net.Util
             }
         }
 
-        private static readonly Regex MAIN_VERSION_WITHOUT_ALPHA_BETA = new Regex("\\.", RegexOptions.Compiled);
+        private readonly static Regex MAIN_VERSION_WITHOUT_ALPHA_BETA = new Regex("\\.", RegexOptions.Compiled);
 
 #if NETFRAMEWORK
         // Gets the .NET Framework Version (if at least 4.5)

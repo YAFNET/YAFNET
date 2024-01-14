@@ -584,12 +584,12 @@ namespace YAF.Lucene.Net.Index
         /// Default ratio for compound file system usage. Set to <c>1.0</c>, always use
         /// compound file system.
         /// </summary>
-        protected static readonly double DEFAULT_NO_CFS_RATIO = 1.0;
+        readonly static protected double DEFAULT_NO_CFS_RATIO = 1.0;
 
         /// <summary>
         /// Default max segment size in order to use compound file system. Set to <see cref="long.MaxValue"/>.
         /// </summary>
-        protected static readonly long DEFAULT_MAX_CFS_SEGMENT_SIZE = long.MaxValue;
+        readonly static protected long DEFAULT_MAX_CFS_SEGMENT_SIZE = long.MaxValue;
 
         /// <summary>
         /// <see cref="IndexWriter"/> that contains this instance. </summary>

@@ -51,23 +51,23 @@ namespace YAF.Lucene.Net.Index
 
         /// <summary>
         /// Name of the index segment file </summary>
-        public static readonly string SEGMENTS = "segments";
+        public readonly static string SEGMENTS = "segments";
 
         /// <summary>
         /// Extension of gen file </summary>
-        public static readonly string GEN_EXTENSION = "gen";
+        public readonly static string GEN_EXTENSION = "gen";
 
         /// <summary>
         /// Name of the generation reference file name </summary>
-        public static readonly string SEGMENTS_GEN = "segments." + GEN_EXTENSION;
+        public readonly static string SEGMENTS_GEN = "segments." + GEN_EXTENSION;
 
         /// <summary>
         /// Extension of compound file </summary>
-        public static readonly string COMPOUND_FILE_EXTENSION = "cfs";
+        public readonly static string COMPOUND_FILE_EXTENSION = "cfs";
 
         /// <summary>
         /// Extension of compound file entries </summary>
-        public static readonly string COMPOUND_FILE_ENTRIES_EXTENSION = "cfe";
+        public readonly static string COMPOUND_FILE_ENTRIES_EXTENSION = "cfe";
 
         /// <summary>
         /// This array contains all filename extensions used by
@@ -76,7 +76,7 @@ namespace YAF.Lucene.Net.Index
         /// Also note that Lucene's <c>segments_N</c> files
         /// do not have any filename extension.
         /// </summary>
-        public static readonly string[] INDEX_EXTENSIONS = new string[] {
+        public readonly static string[] INDEX_EXTENSIONS = new string[] {
             COMPOUND_FILE_EXTENSION,
             COMPOUND_FILE_ENTRIES_EXTENSION,
             GEN_EXTENSION
@@ -251,6 +251,6 @@ namespace YAF.Lucene.Net.Index
         /// All files created by codecs much match this pattern (checked in
         /// <see cref="SegmentInfo"/>).
         /// </summary>
-        public static readonly Regex CODEC_FILE_PATTERN = new Regex("_[a-z0-9]+(_.*)?\\..*", RegexOptions.Compiled);
+        public readonly static Regex CODEC_FILE_PATTERN = new Regex("_[a-z0-9]+(_.*)?\\..*", RegexOptions.Compiled);
     }
 }

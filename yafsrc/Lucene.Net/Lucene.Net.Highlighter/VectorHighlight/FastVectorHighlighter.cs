@@ -28,8 +28,8 @@ namespace YAF.Lucene.Net.Search.VectorHighlight
     /// </summary>
     public class FastVectorHighlighter
     {
-        public static readonly bool DEFAULT_PHRASE_HIGHLIGHT = true;
-        public static readonly bool DEFAULT_FIELD_MATCH = true;
+        public readonly static bool DEFAULT_PHRASE_HIGHLIGHT = true;
+        public readonly static bool DEFAULT_FIELD_MATCH = true;
         private readonly bool phraseHighlight;
         private readonly bool fieldMatch;
         private readonly IFragListBuilder fragListBuilder;

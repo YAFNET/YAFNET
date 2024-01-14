@@ -42,8 +42,8 @@ namespace YAF.Lucene.Net.Util
         /// </summary>
         public sealed class FixedBitSetIterator : DocIdSetIterator
         {
-            internal readonly int numBits, numWords;
-            internal readonly long[] bits;
+            readonly internal int numBits, numWords;
+            readonly internal long[] bits;
             internal int doc = -1;
 
             /// <summary>
@@ -207,9 +207,9 @@ namespace YAF.Lucene.Net.Util
             return tot;
         }
 
-        internal readonly long[] bits;
-        internal readonly int numBits;
-        internal readonly int numWords;
+        readonly internal long[] bits;
+        readonly internal int numBits;
+        readonly internal int numWords;
 
         public FixedBitSet(int numBits)
         {

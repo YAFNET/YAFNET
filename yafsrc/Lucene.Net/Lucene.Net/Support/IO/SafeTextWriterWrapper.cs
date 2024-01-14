@@ -354,7 +354,7 @@ namespace YAF.Lucene.Net.Support.IO
             isDisposed = false;
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {

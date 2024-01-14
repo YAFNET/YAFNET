@@ -48,7 +48,7 @@ namespace YAF.Lucene.Net.Index
         private long flushBytes = 0;
         private volatile int numPending = 0;
         private int numDocsSinceStalled = 0; // only with assert
-        internal readonly AtomicBoolean flushDeletes = new AtomicBoolean(false);
+        readonly internal AtomicBoolean flushDeletes = new AtomicBoolean(false);
         private bool fullFlush = false;
         private readonly Queue<DocumentsWriterPerThread> flushQueue = new Queue<DocumentsWriterPerThread>();
 
@@ -62,7 +62,7 @@ namespace YAF.Lucene.Net.Index
         internal long peakFlushBytes = 0; // only with assert
         internal long peakNetBytes = 0; // only with assert
         internal long peakDelta = 0; // only with assert
-        internal readonly DocumentsWriterStallControl stallControl;
+        readonly internal DocumentsWriterStallControl stallControl;
         private readonly DocumentsWriterPerThreadPool perThreadPool;
         private readonly FlushPolicy flushPolicy;
         private bool closed = false;

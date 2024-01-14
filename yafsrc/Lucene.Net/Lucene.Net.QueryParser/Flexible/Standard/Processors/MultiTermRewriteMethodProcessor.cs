@@ -33,9 +33,9 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
     /// </summary>
     public class MultiTermRewriteMethodProcessor : QueryNodeProcessor
     {
-        public static readonly string TAG_ID = "MultiTermRewriteMethodConfiguration";
+        public readonly static string TAG_ID = "MultiTermRewriteMethodConfiguration";
 
-        protected override IQueryNode PostProcessNode(IQueryNode node)
+        override protected IQueryNode PostProcessNode(IQueryNode node)
         {
             // set setMultiTermRewriteMethod for WildcardQueryNode and
             // PrefixWildcardQueryNode
@@ -59,12 +59,12 @@ namespace YAF.Lucene.Net.QueryParsers.Flexible.Standard.Processors
             return node;
         }
 
-        protected override IQueryNode PreProcessNode(IQueryNode node)
+        override protected IQueryNode PreProcessNode(IQueryNode node)
         {
             return node;
         }
 
-        protected override IList<IQueryNode> SetChildrenOrder(IList<IQueryNode> children)
+        override protected IList<IQueryNode> SetChildrenOrder(IList<IQueryNode> children)
         {
             return children;
         }

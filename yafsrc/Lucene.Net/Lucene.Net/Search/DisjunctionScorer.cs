@@ -27,7 +27,7 @@ namespace YAF.Lucene.Net.Search
     /// </summary>
     internal abstract class DisjunctionScorer : Scorer
     {
-        protected readonly Scorer[] m_subScorers;
+        readonly protected Scorer[] m_subScorers;
 
         /// <summary>
         /// The document number of the current match. </summary>

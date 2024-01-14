@@ -288,7 +288,7 @@ namespace YAF.Lucene.Net.Index
         /// This should not be a problem, as the enum is always empty and
         /// the existence of unused Attributes does not matter.
         /// </summary>
-        public static readonly TermsEnum EMPTY = new TermsEnumAnonymousClass();
+        public readonly static TermsEnum EMPTY = new TermsEnumAnonymousClass();
 
         private sealed class TermsEnumAnonymousClass : TermsEnum
         {

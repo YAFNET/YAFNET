@@ -39,9 +39,9 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public class ScaleSingleFunction : ValueSource
     {
-        protected readonly ValueSource m_source;
-        protected readonly float m_min;
-        protected readonly float m_max;
+        readonly protected ValueSource m_source;
+        readonly protected float m_min;
+        readonly protected float m_max;
 
         public ScaleSingleFunction(ValueSource source, float min, float max)
         {

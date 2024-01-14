@@ -29,21 +29,21 @@ namespace YAF.Lucene.Net.Support
      * limitations under the License.
      */
 
-    internal static class Collections
+    static internal class Collections
     {
         private static class EmptyListHolder<T>
         {
-            public static readonly ReadOnlyList<T> EMPTY_LIST = new JCG.List<T>().AsReadOnly();
+            public readonly static ReadOnlyList<T> EMPTY_LIST = new JCG.List<T>().AsReadOnly();
         }
 
         private static class EmptyDictionaryHolder<TKey, TValue>
         {
-            public static readonly ReadOnlyDictionary<TKey, TValue> EMPTY_DICTIONARY = new JCG.Dictionary<TKey, TValue>().AsReadOnly(); // LUCENENET-615: Must support nullable keys
+            public readonly static ReadOnlyDictionary<TKey, TValue> EMPTY_DICTIONARY = new JCG.Dictionary<TKey, TValue>().AsReadOnly(); // LUCENENET-615: Must support nullable keys
         }
 
         private static class EmptySetHolder<T>
         {
-            public static readonly ReadOnlySet<T> EMPTY_SET = new JCG.HashSet<T>().AsReadOnly();
+            public readonly static ReadOnlySet<T> EMPTY_SET = new JCG.HashSet<T>().AsReadOnly();
         }
 
         public static ReadOnlyList<T> EmptyList<T>()
@@ -219,7 +219,7 @@ namespace YAF.Lucene.Net.Support
 
         private class ReverseComparer<T> : IComparer<T>
         {
-            internal static readonly ReverseComparer<T> REVERSE_ORDER = new ReverseComparer<T>();
+            readonly static internal ReverseComparer<T> REVERSE_ORDER = new ReverseComparer<T>();
 
             public int Compare(T x, T y)
             {
@@ -242,7 +242,7 @@ namespace YAF.Lucene.Net.Support
              *
              * @serial
              */
-            internal readonly IComparer<T> cmp;
+            readonly internal IComparer<T> cmp;
 
             public ReverseComparer2(IComparer<T> cmp)
             {

@@ -65,7 +65,6 @@ public class StartupInitializeDb : BaseStartupService, ICriticalStartupService, 
     /// <summary>
     ///     Gets the service name.
     /// </summary>
-    
     override protected string ServiceName => "YafInitializeDb_Init";
 
     /// <summary>

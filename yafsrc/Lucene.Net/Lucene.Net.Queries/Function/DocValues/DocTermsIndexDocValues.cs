@@ -33,11 +33,11 @@ namespace YAF.Lucene.Net.Queries.Function.DocValues
     /// </summary>
     public abstract class DocTermsIndexDocValues : FunctionValues
     {
-        protected readonly SortedDocValues m_termsIndex;
-        protected readonly ValueSource m_vs;
-        protected readonly MutableValueStr m_val = new MutableValueStr();
-        protected readonly BytesRef m_spare = new BytesRef();
-        protected readonly CharsRef m_spareChars = new CharsRef();
+        readonly protected SortedDocValues m_termsIndex;
+        readonly protected ValueSource m_vs;
+        readonly protected MutableValueStr m_val = new MutableValueStr();
+        readonly protected BytesRef m_spare = new BytesRef();
+        readonly protected CharsRef m_spareChars = new CharsRef();
 
         protected DocTermsIndexDocValues(ValueSource vs, AtomicReaderContext context, string field) // LUCENENET: CA1012: Abstract types should not have constructors (marked protected)
         {

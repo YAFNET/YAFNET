@@ -118,7 +118,7 @@ namespace YAF.Lucene.Net.Store
             crc.Reset();
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {

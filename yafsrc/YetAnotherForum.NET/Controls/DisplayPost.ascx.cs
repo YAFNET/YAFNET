@@ -379,9 +379,6 @@ public partial class DisplayPost : BaseUserControl
         this.UserProfileLink.ReplaceName = this.PageBoardContext.BoardSettings.EnableDisplayName
                                                ? this.DataSource.DisplayName
                                                : this.DataSource.UserName;
-        this.UserProfileLink.PostfixText = this.DataSource.IP == "NNTP"
-                                               ? this.GetText("EXTERNALUSER")
-                                               : string.Empty;
         this.UserProfileLink.Style = this.DataSource.Style;
 
         this.UserProfileLink.Suspended = this.DataSource.Suspended;

@@ -32,9 +32,9 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
         {
         }
 
-        protected override string Name => "min";
+        override protected string Name => "min";
 
-        protected override float Func(int doc, FunctionValues[] valsArr)
+        override protected float Func(int doc, FunctionValues[] valsArr)
         {
             if (valsArr.Length == 0)
             {

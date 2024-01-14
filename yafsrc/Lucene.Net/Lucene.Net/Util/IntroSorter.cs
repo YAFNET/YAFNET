@@ -33,7 +33,7 @@ namespace YAF.Lucene.Net.Util
     public abstract class IntroSorter : Sorter
     {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        internal static int CeilLog2(int n)
+        static internal int CeilLog2(int n)
         {
             //8bits in a byte
             return sizeof(int) * 8 - (n - 1).LeadingZeroCount();

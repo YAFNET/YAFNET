@@ -31,7 +31,7 @@ namespace YAF.Lucene.Net.Index
         private readonly IList<AtomicReaderContext> leaves;
         private readonly CompositeReader reader;
 
-        internal static CompositeReaderContext Create(CompositeReader reader)
+        static internal CompositeReaderContext Create(CompositeReader reader)
         {
             return (new Builder(reader)).Build();
         }

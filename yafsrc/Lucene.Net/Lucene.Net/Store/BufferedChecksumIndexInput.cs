@@ -25,8 +25,8 @@ namespace YAF.Lucene.Net.Store
     /// </summary>
     public class BufferedChecksumIndexInput : ChecksumIndexInput
     {
-        internal readonly IndexInput main;
-        internal readonly IChecksum digest;
+        readonly internal IndexInput main;
+        readonly internal IChecksum digest;
 
         /// <summary>
         /// Creates a new <see cref="BufferedChecksumIndexInput"/> </summary>
@@ -52,7 +52,7 @@ namespace YAF.Lucene.Net.Store
 
         public override long Checksum => digest.Value;
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             if (disposing)
             {

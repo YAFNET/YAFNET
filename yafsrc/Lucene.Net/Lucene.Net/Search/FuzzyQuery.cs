@@ -146,7 +146,7 @@ namespace YAF.Lucene.Net.Search
         /// </summary>
         public virtual bool Transpositions => transpositions;
 
-        protected override TermsEnum GetTermsEnum(Terms terms, AttributeSource atts)
+        override protected TermsEnum GetTermsEnum(Terms terms, AttributeSource atts)
         {
             if (maxEdits == 0 || prefixLength >= term.Text.Length) // can only match if it's exact
             {

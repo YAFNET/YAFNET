@@ -56,7 +56,7 @@ namespace YAF.Lucene.Net.Store
             currentBuffer = null;
         }
 
-        protected override void Dispose(bool disposing)
+        override protected void Dispose(bool disposing)
         {
             // nothing to do here
         }

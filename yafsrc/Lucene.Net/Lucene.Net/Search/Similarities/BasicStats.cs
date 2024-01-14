@@ -50,7 +50,7 @@ namespace YAF.Lucene.Net.Search.Similarities
 
         /// <summary>
         /// Query's inner boost. </summary>
-        protected readonly float m_queryBoost;
+        readonly protected float m_queryBoost;
 
         /// <summary>
         /// Any outer query's boost. </summary>

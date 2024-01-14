@@ -32,7 +32,7 @@ namespace YAF.Lucene.Net.Search.Spans
     /// </summary>
     public class SpanNearPayloadCheckQuery : SpanPositionCheckQuery
     {
-        protected readonly ICollection<byte[]> m_payloadToMatch;
+        readonly protected ICollection<byte[]> m_payloadToMatch;
         private readonly IEqualityComparer payloadEqualityComparer;
 
         /// <param name="match">          The underlying <see cref="SpanQuery"/> to check.</param>
@@ -55,7 +55,7 @@ namespace YAF.Lucene.Net.Search.Spans
                 payloadEqualityComparer = J2N.Collections.StructuralEqualityComparer.Default;
         }
 
-        protected override AcceptStatus AcceptPosition(Spans spans)
+        override protected AcceptStatus AcceptPosition(Spans spans)
         {
             bool result = spans.IsPayloadAvailable;
             if (result == true)

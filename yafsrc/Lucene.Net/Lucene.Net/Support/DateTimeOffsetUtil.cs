@@ -6,7 +6,7 @@ using System;
 namespace YAF.Lucene.Net.Support
 {
     // Source: https://github.com/dotnet/runtime/blob/af4efb1936b407ca5f4576e81484cf5687b79a26/src/libraries/System.Private.CoreLib/src/System/DateTimeOffset.cs
-    internal static class DateTimeOffsetUtil
+    static internal class DateTimeOffsetUtil
     {
         /// <summary>
         /// The .NET ticks representing January 1, 1970 0:00:00, also known as the "epoch".

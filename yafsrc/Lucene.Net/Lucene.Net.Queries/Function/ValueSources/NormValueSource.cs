@@ -35,7 +35,7 @@ namespace YAF.Lucene.Net.Queries.Function.ValueSources
     /// </summary>
     public class NormValueSource : ValueSource
     {
-        protected readonly string m_field;
+        readonly protected string m_field;
 
         public NormValueSource(string field)
         {
