@@ -65,7 +65,7 @@ public abstract class BaseReplaceRule : IComparable, IReplaceRule
     /// </returns>
     public int CompareTo(object obj)
     {
-        if (!(obj is BaseReplaceRule otherRule))
+        if (obj is not BaseReplaceRule otherRule)
         {
             throw new ArgumentException("Object is not of type BaseReplaceRule.");
         }

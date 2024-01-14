@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System;
+
 namespace YAF.Core.Services;
 
 using YAF.Types.Models;
@@ -78,6 +80,8 @@ public class Avatars : IAvatars, IHaveServiceLocator
     /// </returns>
     public string GetAvatarUrlForUser(User user)
     {
+        ArgumentNullException.ThrowIfNull(user);
+
         return this.GetAvatarUrlForUser(user.ID, user.Avatar, user.AvatarImage != null);
     }
 

@@ -135,9 +135,9 @@ public class MessageFlags : FlagsBase
         IsReportedSpam = 256,
 
         /// <summary>
-        /// Is Message Persistant
+        /// Is Message Persistent
         /// </summary>
-        IsPersistant = 512,
+        IsPersistent = 512,
 
         /// <summary>
         /// Is Message Answer
@@ -145,6 +145,7 @@ public class MessageFlags : FlagsBase
         IsAnswer = 1024
 
         /* for future use
+              xxxxxxxx = 256,
               xxxxxxxx = 2048,
               xxxxxxxx = 4096,
               xxxxxxxx = 8192,

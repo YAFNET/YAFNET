@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System;
+
 namespace YAF.Core.Extensions;
 
 using System.Collections.Generic;
@@ -51,6 +53,9 @@ public static class IMailServiceExtensions
         string subject,
         string body)
     {
+        ArgumentNullException.ThrowIfNull(fromEmail);
+        ArgumentNullException.ThrowIfNull(toEmail);
+
         return sendMail.SendAsync(
             MailboxAddress.Parse(fromEmail),
             MailboxAddress.Parse(toEmail),
@@ -141,6 +146,10 @@ public static class IMailServiceExtensions
         string bodyText,
         string bodyHtml)
     {
+        ArgumentNullException.ThrowIfNull(sendMail);
+        ArgumentNullException.ThrowIfNull(fromAddress);
+        ArgumentNullException.ThrowIfNull(toAddress);
+
         var mailMessage = new MimeMessage();
 
         mailMessage.Populate(fromAddress, toAddress, senderAddress, subject, bodyText, bodyHtml);
@@ -184,6 +193,10 @@ public static class IMailServiceExtensions
         string bodyText,
         string bodyHtml)
     {
+        ArgumentNullException.ThrowIfNull(sendMail);
+        ArgumentNullException.ThrowIfNull(fromAddress);
+        ArgumentNullException.ThrowIfNull(toAddress);
+
         var mailMessage = new MimeMessage();
 
         mailMessage.Populate(fromAddress, toAddress, senderAddress, subject, bodyText, bodyHtml);

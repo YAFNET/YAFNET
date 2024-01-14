@@ -252,6 +252,8 @@ public static class IRepositoryExtensions
         bool selectIdentity = true)
         where T : class, IEntity, new()
     {
+        ArgumentNullException.ThrowIfNull(entity);
+
         return repository.DbAccess.Execute(db => db.Connection.Insert(entity, selectIdentity)).ToType<int>();
     }
 
@@ -281,7 +283,9 @@ public static class IRepositoryExtensions
         CancellationToken token = default)
         where T : class, IEntity, new()
     {
-       return repository.DbAccess.ExecuteAsync(db => db.InsertAsync(entity, selectIdentity, token: token));
+        ArgumentNullException.ThrowIfNull(entity);
+
+        return repository.DbAccess.ExecuteAsync(db => db.InsertAsync(entity, selectIdentity, token: token));
     }
 
     /// <summary>
@@ -293,14 +297,16 @@ public static class IRepositoryExtensions
     public static void BulkInsert<T>(this IRepository<T> repository, IEnumerable<T> inserts)
         where T : IEntity
     {
+        var insertList = inserts.ToList();
+
         repository.DbAccess.Execute(
             db =>
             {
-                db.Connection.BulkInsert(inserts, new BulkInsertConfig
+                db.Connection.BulkInsert(insertList, new BulkInsertConfig
                 {
                     Mode = BulkInsertMode.Sql
                 });
-                return inserts.Count();
+                return insertList.Count;
             });
     }
 
@@ -324,7 +330,9 @@ public static class IRepositoryExtensions
         T entity)
         where T : class, IEntity, IHaveID, new()
     {
-       var newId = entity.ID;
+        ArgumentNullException.ThrowIfNull(entity);
+
+        var newId = entity.ID;
 
         if (entity.ID > 0)
         {
@@ -355,6 +363,8 @@ public static class IRepositoryExtensions
         Expression<Func<T, bool>> where)
         where T : class, IEntity
     {
+        ArgumentNullException.ThrowIfNull(entity);
+
         repository.DbAccess.Upsert(entity, where);
     }
 
@@ -378,6 +388,8 @@ public static class IRepositoryExtensions
         T entity)
         where T : class, IEntity, new()
     {
+        ArgumentNullException.ThrowIfNull(entity);
+
         var success = repository.DbAccess.Update(entity) > 0;
 
         return success;
@@ -407,6 +419,8 @@ public static class IRepositoryExtensions
         CancellationToken token = default)
         where T : class, IEntity, new()
     {
+        ArgumentNullException.ThrowIfNull(entity);
+
         return repository.DbAccess.UpdateAsync(entity, token);
     }
 
@@ -664,6 +678,8 @@ public static class IRepositoryExtensions
     public static List<T> Get<T>(this IRepository<T> repository, Expression<Func<T, bool>> criteria)
         where T : class, IEntity, new()
     {
+        ArgumentNullException.ThrowIfNull(criteria);
+
         return repository.DbAccess.Execute(db => db.Connection.Select(criteria));
     }
 
@@ -678,6 +694,8 @@ public static class IRepositoryExtensions
     public static Task<List<T>> GetAsync<T>(this IRepository<T> repository, Expression<Func<T, bool>> criteria, CancellationToken cancellationToken = default)
         where T : class, IEntity, new()
     {
+        ArgumentNullException.ThrowIfNull(criteria);
+
         return repository.DbAccess.ExecuteAsync(db => db.SelectAsync(criteria, token: cancellationToken));
     }
 
@@ -717,6 +735,8 @@ public static class IRepositoryExtensions
         int? pageSize = 10000000)
         where T : class, IEntity, IHaveID, new()
     {
+        ArgumentNullException.ThrowIfNull(criteria);
+
         var expression = OrmLiteConfig.DialectProvider.SqlExpression<T>();
 
         expression.Where(criteria).OrderByDescending(item => item.ID).Page(pageIndex + 1, pageSize);

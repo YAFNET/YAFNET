@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System;
+
 namespace YAF.Core.Helpers;
 
 using System.Runtime.Caching;
@@ -63,6 +65,10 @@ public class CurrentBoardSettings : IReadWriteProvider<BoardSettings>
         IHaveBoardID haveBoardId,
         ITreatCacheKey treatCacheKey)
     {
+        ArgumentNullException.ThrowIfNull(injectServices);
+        ArgumentNullException.ThrowIfNull(haveBoardId);
+        ArgumentNullException.ThrowIfNull(treatCacheKey);
+
         this.injectServices = injectServices;
         this.haveBoardId = haveBoardId;
         this.treatCacheKey = treatCacheKey;

@@ -118,7 +118,7 @@ public class Migration30 : IRepositoryMigration, IHaveServiceLocator
     }
 
     /// <summary>
-    /// Migrates the users from table PageUser table and import them in to Idenitity
+    /// Migrates the users from table PageUser table and import them in to Identity
     /// </summary>
     /// <param name="users">The users.</param>
     private async Task MigrateUsersFromTableAsync(IList<User> users)

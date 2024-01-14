@@ -58,14 +58,14 @@ public class Attach : BBCodeControl
 
         // verify it's not too large to display
         // Ederon : 02/17/2009 - made it board setting
-        if (attachment.Bytes.ToType<int>() <= this.PageContext.BoardSettings.PictureAttachmentDisplayTreshold)
+        if (attachment.Bytes.ToType<int>() <= PageContext.BoardSettings.PictureAttachmentDisplayTreshold)
         {
             // is it an image file?
             showImage = filename.IsImageName();
         }
 
         // user doesn't have rights to download, don't show the image
-        if (!this.PageContext.DownloadAccess)
+        if (!PageContext.DownloadAccess)
         {
             stringBuilder.Append(
                 $"""<i class="fa fa-file fa-fw"></i>&nbsp;{attachment.FileName} <span class="badge text-bg-warning" role="alert">{this.GetText("ATTACH_NO")}</span>""");
@@ -76,23 +76,23 @@ public class Attach : BBCodeControl
         if (showImage)
         {
             // user has rights to download, show him image
-            if (this.PageContext.BoardSettings.EnableImageAttachmentResize)
+            if (PageContext.BoardSettings.EnableImageAttachmentResize)
             {
                 stringBuilder.Append(
-                    $"""<div class="card text-bg-dark" style="max-width:{this.PageContext.BoardSettings.ImageThumbnailMaxWidth}px">""");
+                    $"""<div class="card text-bg-dark" style="max-width:{PageContext.BoardSettings.ImageThumbnailMaxWidth}px">""");
 
                 stringBuilder.AppendFormat(
-                    """<a href="{0}" title="{1}"  data-gallery="gallery-{2}">""",
+                    """<a href="{0}" title="{1}" data-toggle="lightbox" data-gallery="gallery-{2}">""",
                     this.Get<IUrlHelper>().Action("GetAttachment", "Attachments", new { attachmentId = attachment.ID, editor = false }),
-                    this.HtmlEncode(attachment.FileName),
+                    HtmlEncode(attachment.FileName),
                     this.MessageID.Value);
 
                 stringBuilder.AppendFormat(
                     """<img src="{0}" alt="{1}" class="img-user-posted card-img-top" style="max-height:{2}px;max-width:{3}px;object-fit:contain">""",
                     this.Get<IUrlHelper>().Action("GetAttachment", "Attachments", new { attachmentId = attachment.ID, editor = true }),
-                    this.HtmlEncode(attachment.FileName),
-                    this.PageContext.BoardSettings.ImageThumbnailMaxHeight,
-                    this.PageContext.BoardSettings.ImageThumbnailMaxWidth);
+                    HtmlEncode(attachment.FileName),
+                    PageContext.BoardSettings.ImageThumbnailMaxHeight,
+                    PageContext.BoardSettings.ImageThumbnailMaxWidth);
 
                 stringBuilder.Append("</a>");
 
@@ -109,8 +109,8 @@ public class Attach : BBCodeControl
                 stringBuilder.AppendFormat(
                     """<img src="{0}" alt="{1}" class="img-user-posted img-thumbnail" style="max-height:{2}px">""",
                     this.Get<IUrlHelper>().Action("GetAttachment", "Attachments", new { attachmentId = attachment.ID, editor = true }),
-                    this.HtmlEncode(attachment.FileName),
-                    this.PageContext.BoardSettings.ImageThumbnailMaxHeight);
+                    HtmlEncode(attachment.FileName),
+                    PageContext.BoardSettings.ImageThumbnailMaxHeight);
             }
         }
         else

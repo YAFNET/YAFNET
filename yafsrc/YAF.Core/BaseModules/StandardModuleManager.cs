@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System;
+
 namespace YAF.Core.BaseModules;
 
 using System.Collections.Generic;
@@ -48,6 +50,8 @@ public class StandardModuleManager<TModule> : IModuleManager<TModule>
     /// </param>
     public StandardModuleManager(IEnumerable<TModule> modules)
     {
+        ArgumentNullException.ThrowIfNull(modules);
+
         this.modules = modules.ToList();
     }
 
@@ -78,6 +82,8 @@ public class StandardModuleManager<TModule> : IModuleManager<TModule>
     /// </returns>
     public TModule GetBy(string id, bool getInactive)
     {
+        ArgumentNullException.ThrowIfNull(id);
+
         return !getInactive
                    ? this.modules.SingleOrDefault(e => e.ModuleId.Equals(id) && e.Active)
                    : this.modules.SingleOrDefault(e => e.ModuleId.Equals(id));
@@ -94,6 +100,8 @@ public class StandardModuleManager<TModule> : IModuleManager<TModule>
     /// </returns>
     public TModule GetBy(string id)
     {
+        ArgumentNullException.ThrowIfNull(id);
+
         return this.modules.SingleOrDefault(e => e.ModuleId.Equals(id));
     }
 }

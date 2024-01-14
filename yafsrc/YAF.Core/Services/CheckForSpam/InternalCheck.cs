@@ -88,17 +88,17 @@ public class InternalCheck : ICheckForBot
                 isBot = true;
             }
 
-            foreach (var name in bannedNameRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID))
+            foreach (var mask in bannedNameRepository.Get(x => x.BoardID == BoardContext.Current.PageBoardID).Select(x => x.Mask))
             {
                 try
                 {
-                    if (!Regex.Match(userName, name.Mask, RegexOptions.None,
+                    if (!Regex.Match(userName, mask, RegexOptions.None,
                             TimeSpan.FromMilliseconds(100)).Success)
                     {
                         continue;
                     }
 
-                    responseText = $"internal detection found name {name.Mask}";
+                    responseText = $"internal detection found name {mask}";
                     isBot = true;
                     break;
                 }
@@ -108,7 +108,7 @@ public class InternalCheck : ICheckForBot
 
                     BoardContext.Current.Get<ILogger<InternalCheck>>().Error(
                         ex,
-                        $"Error while Checking for Bot Name (Check: {name.Mask})");
+                        $"Error while Checking for Bot Name (Check: {mask})");
                 }
             }
 

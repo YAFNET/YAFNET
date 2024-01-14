@@ -86,6 +86,9 @@ public class AppInitTaskManager : BaseTaskModuleManager, IHandleEvent<HttpContex
     /// </returns>
     public override bool StartTask(string instanceName, Func<IBackgroundTask> start)
     {
+        ArgumentNullException.ThrowIfNull(instanceName);
+        ArgumentNullException.ThrowIfNull(start);
+
         if (this.appInstance == null)
         {
             return false;

@@ -171,15 +171,19 @@ public static class ObjectExtensions
         }
         catch (ArgumentNullException)
         {
+            // ignore
         }
         catch (FormatException)
         {
+            // ignore
         }
         catch (InvalidCastException)
         {
+            // ignore
         }
         catch (OverflowException)
         {
+            // ignore
         }
 
         return defaultValue;

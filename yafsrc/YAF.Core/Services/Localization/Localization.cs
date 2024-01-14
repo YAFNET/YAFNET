@@ -242,6 +242,8 @@ public class Localization : ILocalization
     /// </returns>
     public string GetText(string text)
     {
+        ArgumentNullException.ThrowIfNull(text);
+
         return this.GetText(this.TransPage, text);
     }
 
@@ -411,6 +413,9 @@ public class Localization : ILocalization
     /// </returns>
     public string GetTextFormatted(string text, params object[] args)
     {
+        ArgumentNullException.ThrowIfNull(text);
+        ArgumentNullException.ThrowIfNull(args);
+
         var localizedText = this.GetText(this.TransPage, text);
 
         var arraySize = Math.Max(args.Length, 10);
@@ -440,6 +445,8 @@ public class Localization : ILocalization
     /// </returns>
     public CultureInfo LoadTranslation(string fileName)
     {
+        ArgumentNullException.ThrowIfNull(fileName);
+
         if (this.localizer != null)
         {
             return this.localizer.CurrentCulture;

@@ -242,10 +242,10 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// </returns>
     public string RemoveNestedQuotes(string body)
     {
-        const RegexOptions RegexOptions = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline
+        const RegexOptions regexOptions = RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline
                                          ;
 
-        var quote = new Regex(@"\[quote(\=[^\]]*)?\](.*?)\[/quote\]", RegexOptions, TimeSpan.FromMilliseconds(100));
+        var quote = new Regex(@"\[quote(\=[^\]]*)?\](.*?)\[/quote\]", regexOptions, TimeSpan.FromMilliseconds(100));
 
         // remove quotes from old messages
         return quote.Replace(body, string.Empty).TrimStart();
@@ -262,12 +262,12 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// </returns>
     public string RemoveHiddenBBCodeContent(string body)
     {
-        const RegexOptions RegexOptions =
+        const RegexOptions regexOptions =
             RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
 
         var hiddenRegex = new Regex(
             @"\[hide-reply\](?<inner>(.|\n)*?)\[\/hide-reply\]|\[hide-reply-thanks\](?<inner>(.|\n)*?)\[\/hide-reply-thanks\]|\[group-hide\](?<inner>(.|\n)*?)\[\/group-hide\]|\[hide\](?<inner>(.|\n)*?)\[\/hide\]|\[group-hide(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/group-hide\]|\[hide-thanks(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/hide-thanks\]|\[hide-posts(\=[^\]]*)?\](?<inner>(.|\n)*?)\[\/hide-posts\]",
-            RegexOptions,
+            regexOptions,
             TimeSpan.FromMilliseconds(100));
 
         var hiddenTagMatch = hiddenRegex.Match(body);
@@ -291,12 +291,12 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     /// </returns>
     public string RemoveCustomBBCodes(string body)
     {
-        const RegexOptions RegexOptions =
+        const RegexOptions regexOptions =
             RegexOptions.IgnoreCase | RegexOptions.Multiline | RegexOptions.Singleline;
 
         var spoilerRegex = new Regex(
             @"\[SPOILER\](?<inner>(.|\n)*?)\[\/SPOILER\]",
-            RegexOptions,
+            regexOptions,
             TimeSpan.FromMilliseconds(100));
 
         var spoilerTagMatch = spoilerRegex.Match(body);
@@ -369,7 +369,12 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         string prefix,
         string postfix)
     {
-       wordList.Where(w => w.Length > 3).ForEach(
+        ArgumentNullException.ThrowIfNull(message);
+        ArgumentNullException.ThrowIfNull(wordList);
+        ArgumentNullException.ThrowIfNull(prefix);
+        ArgumentNullException.ThrowIfNull(postfix);
+
+        wordList.Where(w => w.Length > 3).ForEach(
             word => MatchAndPerformAction(
                 $"({word.ToLower().ToRegExString()})",
                 message,
@@ -399,9 +404,13 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
         string text,
         Action<string, int, int> matchAction)
     {
-        const RegexOptions RegexOptions = RegexOptions.IgnoreCase;
+        ArgumentNullException.ThrowIfNull(matchRegEx);
+        ArgumentNullException.ThrowIfNull(text);
+        ArgumentNullException.ThrowIfNull(matchAction);
 
-        var matches = Regex.Matches(text, matchRegEx, RegexOptions, TimeSpan.FromMilliseconds(100))
+        const RegexOptions regexOptions = RegexOptions.IgnoreCase;
+
+        var matches = Regex.Matches(text, matchRegEx, regexOptions, TimeSpan.FromMilliseconds(100))
             .OrderByDescending(x => x.Index);
 
         matches.ForEach(
@@ -427,6 +436,9 @@ public class FormatMessage : IFormatMessage, IHaveServiceLocator
     private static string RemoveHtmlByList(string text, IEnumerable<string> matchList)
     {
         var allowedTags = matchList.ToList();
+
+        ArgumentNullException.ThrowIfNull(text);
+        ArgumentNullException.ThrowIfNull(allowedTags);
 
         MatchAndPerformAction(
             "<.*?>",

@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System;
+
 namespace YAF.Core.Extensions;
 
 /// <summary>
@@ -43,6 +45,8 @@ public static class IPermissionsExtensions
     /// </returns>
     public static bool Check(this IPermissions permissions, int permission)
     {
+        ArgumentNullException.ThrowIfNull(permissions);
+
         return permissions.Check((ViewPermissions)permission);
     }
 }

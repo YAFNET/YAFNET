@@ -44,25 +44,6 @@ using YAF.Types.Interfaces.Data;
 public static class IDbAccessExtensions
 {
     /// <summary>
-    /// The begin transaction.
-    /// </summary>
-    /// <param name="dbAccess">
-    /// The Database access.
-    /// </param>
-    /// <param name="isolationLevel">
-    /// The isolation level.
-    /// </param>
-    /// <returns>
-    /// The <see cref="IDbTransaction"/> .
-    /// </returns>
-    public static IDbTransaction BeginTransaction(
-        this IDbAccess dbAccess,
-        IsolationLevel isolationLevel = IsolationLevel.ReadUncommitted)
-    {
-        return dbAccess.CreateConnectionOpen().BeginTransaction(isolationLevel);
-    }
-
-    /// <summary>
     /// Creates the connection.
     /// </summary>
     /// <param name="dbAccess">The DB access.</param>
@@ -245,16 +226,15 @@ public static class IDbAccessExtensions
         return dbAccess.Execute(
             db => db.Connection.UpdateOnlyFields(
                 updateFields,
-                where, //OrmLiteConfig.DialectProvider.SqlExpression<T>().Where(where),
-                null));
+                where));
     }
 
     /// <summary>
     ///  Update only fields in the specified expression that matches the where condition (if any), E.g:
-    ///
+    /// 
     ///   db.UpdateOnly(() => new Person { FirstName = "JJ" }, where: p => p.LastName == "Hendrix");
     ///   UPDATE "Person" SET "FirstName" = 'JJ' WHERE ("LastName" = 'Hendrix')
-    ///
+    /// 
     ///   db.UpdateOnly(() => new Person { FirstName = "JJ" });
     ///   UPDATE "Person" SET "FirstName" = 'JJ'
     /// </summary>
@@ -262,6 +242,7 @@ public static class IDbAccessExtensions
     /// <param name="dbAccess">The database access.</param>
     /// <param name="updateFields">The update fields.</param>
     /// <param name="where">The where.</param>
+    /// <param name="token"></param>
     /// <returns></returns>
     public static Task<int> UpdateOnlyAsync<T>(
         this IDbAccess dbAccess,
@@ -438,7 +419,7 @@ public static class IDbAccessExtensions
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    public static string RunSQL(
+    public static string RunSql(
         this IDbAccess dbAccess,
         string sql,
         int timeOut)

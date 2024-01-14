@@ -89,8 +89,7 @@ public static class StringExtensions
         var first = source.IndexOf(c0, 0, limit);
         while (first != -1)
         {
-            // Check if the following character is the same like
-            // the 2nd character of "pattern"
+            // Check if the following character is the same as the 2nd character of "pattern"
             if (source[first + 1] != c1)
             {
                 first = source.IndexOf(c0, ++first, limit - first);
@@ -196,16 +195,16 @@ public static class StringExtensions
 
         objList.ForEachFirst(
             (x, isFirst) =>
+            {
+                if (!isFirst)
                 {
-                    if (!isFirst)
-                    {
-                        // append delimiter if this isn't the first string
-                        sb.Append(delimiter);
-                    }
+                    // append delimiter if this isn't the first string
+                    sb.Append(delimiter);
+                }
 
-                    // append string...
-                    sb.Append(x);
-                });
+                // append string...
+                sb.Append(x);
+            });
 
         return sb.ToString();
     }
@@ -227,14 +226,14 @@ public static class StringExtensions
 
         input.ForEachChar(
             c =>
+            {
+                if (!char.IsWhiteSpace(c) && !char.IsLetterOrDigit(c) && c != '_')
                 {
-                    if (!char.IsWhiteSpace(c) && !char.IsLetterOrDigit(c) && c != '_')
-                    {
-                        sb.Append('\\');
-                    }
+                    sb.Append('\\');
+                }
 
-                    sb.Append(c);
-                });
+                sb.Append(c);
+            });
 
         return sb.ToString();
     }
@@ -292,7 +291,7 @@ public static class StringExtensions
             }
         }
 
-        // Finally, add the the cut off string...
+        // Finally, add the cut-off string...
         output += cutOfString;
 
         return output;
@@ -302,7 +301,7 @@ public static class StringExtensions
     /// Determines whether [is image name] [the specified input string].
     /// </summary>
     /// <param name="inputString">The input string.</param>
-    /// <returns>Returns if the String is a Image Name</returns>
+    /// <returns>Returns if the String is an Image Name</returns>
     public static bool IsImageName(this string inputString)
     {
         return inputString.EndsWith("png", StringComparison.InvariantCultureIgnoreCase)
@@ -324,19 +323,18 @@ public static class StringExtensions
     /// </returns>
     public static string PersianNumberToEnglish(this string persianString)
     {
-        var lettersDictionary = new Dictionary<string, string>
-                                    {
-                                        ["۰"] = "0",
-                                        ["۱"] = "1",
-                                        ["۲"] = "2",
-                                        ["۳"] = "3",
-                                        ["۴"] = "4",
-                                        ["۵"] = "5",
-                                        ["۶"] = "6",
-                                        ["۷"] = "7",
-                                        ["۸"] = "8",
-                                        ["۹"] = "9"
-                                    };
+        var lettersDictionary = new Dictionary<string, string> {
+            ["۰"] = "0",
+            ["۱"] = "1",
+            ["۲"] = "2",
+            ["۳"] = "3",
+            ["۴"] = "4",
+            ["۵"] = "5",
+            ["۶"] = "6",
+            ["۷"] = "7",
+            ["۸"] = "8",
+            ["۹"] = "9"
+        };
 
         return lettersDictionary.Aggregate(persianString, (current, item) => current.Replace(item.Key, item.Value));
     }

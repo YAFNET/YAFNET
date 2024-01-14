@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System;
+
 namespace YAF.Core.Events;
 
 using YAF.Core.Model;
@@ -42,6 +44,8 @@ public class UpdateForumStats : IHaveServiceLocator, IHandleEvent<UpdateForumSta
     /// </param>
     public UpdateForumStats(IServiceLocator serviceLocator)
     {
+        ArgumentNullException.ThrowIfNull(serviceLocator);
+
         this.ServiceLocator = serviceLocator;
     }
 

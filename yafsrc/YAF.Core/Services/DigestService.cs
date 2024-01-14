@@ -65,6 +65,10 @@ public class DigestService : IDigestService, IHaveServiceLocator
         string toEmail,
         string toName)
     {
+        ArgumentNullException.ThrowIfNull(user);
+        ArgumentNullException.ThrowIfNull(boardAddress);
+        ArgumentNullException.ThrowIfNull(toEmail);
+
         // get topic hours...
         var topicHours = -this.Get<BoardSettings>().DigestSendEveryXHours;
 

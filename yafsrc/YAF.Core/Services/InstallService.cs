@@ -132,6 +132,15 @@ public class InstallService : IHaveServiceLocator
         string adminEmail,
         string adminProviderUserKey)
     {
+        ArgumentNullException.ThrowIfNull(forumName);
+        ArgumentNullException.ThrowIfNull(forumName);
+        ArgumentNullException.ThrowIfNull(culture);
+        ArgumentNullException.ThrowIfNull(forumLogo);
+        ArgumentNullException.ThrowIfNull(forumBaseUrlMask);
+        ArgumentNullException.ThrowIfNull(adminUserName);
+        ArgumentNullException.ThrowIfNull(adminEmail);
+        ArgumentNullException.ThrowIfNull(adminProviderUserKey);
+
         var cult = StaticDataHelper.Cultures();
 
         var languageFromCulture = cult

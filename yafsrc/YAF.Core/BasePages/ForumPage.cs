@@ -24,8 +24,6 @@
 
 namespace YAF.Core.BasePages;
 
-using System;
-
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -43,11 +41,6 @@ public abstract class ForumPage : PageModel,
                                   ILocatablePage,
                                   IHaveLocalization
 {
-    /// <summary>
-    ///   The trans page.
-    /// </summary>
-    private readonly string transPage;
-
     /// <summary>
     /// The Unicode Encoder
     /// </summary>
@@ -71,10 +64,8 @@ public abstract class ForumPage : PageModel,
         // set the BoardContext ForumPage...
         BoardContext.Current.CurrentForumPage = this;
 
-        this.transPage = transPage;
-
         // set the current translation page...
-        this.Get<LocalizationProvider>().TranslationPage = this.transPage;
+        this.Get<LocalizationProvider>().TranslationPage = transPage;
 
         this.PageTitle = this.Localization.GetText(transPage, "TITLE");
 
@@ -112,7 +103,7 @@ public abstract class ForumPage : PageModel,
     /// <summary>
     ///   Gets a value indicating whether Is Host Admin Only.
     /// </summary>
-    public virtual bool IsHostAdminOnly => false;
+    public virtual bool IsHostAdminOnly { get; protected set; }
 
     /// <summary>
     ///   Gets or sets a value indicating whether Is Protected.

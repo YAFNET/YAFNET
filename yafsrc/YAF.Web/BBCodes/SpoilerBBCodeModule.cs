@@ -37,7 +37,7 @@ public class SpoilerBBCodeModule : BBCodeControl
     /// </param>
     public override Task RenderAsync(StringBuilder stringBuilder)
     {
-        var spoilerTitle = this.HtmlEncode(
+        var spoilerTitle = HtmlEncode(
             this.LocalizedString(
                 "SPOILERMOD_TOOLTIP",
                 "Click here to show or hide the hidden text (also known as a spoiler)"));
@@ -50,8 +50,8 @@ public class SpoilerBBCodeModule : BBCodeControl
                               </p>
                               <div class="collapse" id="{0}"><div class="card card-body">
             """,
-            this.GetUniqueID("spoil_"),
-            this.HtmlEncode(this.LocalizedString("SPOILERMOD_SHOW", "Show Spoiler")),
+            GetUniqueId("spoil_"),
+            HtmlEncode(this.LocalizedString("SPOILERMOD_SHOW", "Show Spoiler")),
             spoilerTitle);
         stringBuilder.Append(this.Parameters["inner"]);
         stringBuilder.Append("</div></div>");

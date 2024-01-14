@@ -108,6 +108,8 @@ public class AutoFacServiceLocatorProvider(ILifetimeScope container) : IScopeSer
     /// </returns>
     public object Get(Type serviceType)
     {
+        ArgumentNullException.ThrowIfNull(serviceType);
+
         return this.Container.Resolve(serviceType);
     }
 
@@ -128,7 +130,10 @@ public class AutoFacServiceLocatorProvider(ILifetimeScope container) : IScopeSer
     /// </exception>
     public object Get(Type serviceType, IEnumerable<IServiceLocationParameter> parameters)
     {
-       return this.Container.Resolve(serviceType, ConvertToAutofacParameters(parameters));
+        ArgumentNullException.ThrowIfNull(serviceType);
+        ArgumentNullException.ThrowIfNull(parameters);
+
+        return this.Container.Resolve(serviceType, ConvertToAutofacParameters(parameters));
     }
 
     /// <summary>
@@ -145,6 +150,9 @@ public class AutoFacServiceLocatorProvider(ILifetimeScope container) : IScopeSer
     /// </returns>
     public object Get(Type serviceType, string named)
     {
+        ArgumentNullException.ThrowIfNull(serviceType);
+        ArgumentNullException.ThrowIfNull(named);
+
         return this.Container.ResolveNamed(named, serviceType);
     }
 
@@ -165,7 +173,11 @@ public class AutoFacServiceLocatorProvider(ILifetimeScope container) : IScopeSer
     /// </returns>
     public object Get(Type serviceType, string named, IEnumerable<IServiceLocationParameter> parameters)
     {
-       return this.Container.ResolveNamed(named, serviceType, ConvertToAutofacParameters(parameters));
+        ArgumentNullException.ThrowIfNull(serviceType);
+        ArgumentNullException.ThrowIfNull(named);
+        ArgumentNullException.ThrowIfNull(parameters);
+
+        return this.Container.ResolveNamed(named, serviceType, ConvertToAutofacParameters(parameters));
     }
 
     /// <summary>
@@ -198,6 +210,8 @@ public class AutoFacServiceLocatorProvider(ILifetimeScope container) : IScopeSer
         where TAttribute : Attribute
     {
         //this.Container.InjectUnsetProperties(instance);
+
+        ArgumentNullException.ThrowIfNull(instance);
 
         var type = instance.GetType();
         var attributeType = typeof(TAttribute);
@@ -246,6 +260,8 @@ public class AutoFacServiceLocatorProvider(ILifetimeScope container) : IScopeSer
     /// </returns>
     public bool TryGet(Type serviceType, out object instance)
     {
+        ArgumentNullException.ThrowIfNull(serviceType);
+
         return this.Container.TryResolve(serviceType, out instance);
     }
 
@@ -266,6 +282,9 @@ public class AutoFacServiceLocatorProvider(ILifetimeScope container) : IScopeSer
     /// </returns>
     public bool TryGet(Type serviceType, string named, out object instance)
     {
+        ArgumentNullException.ThrowIfNull(serviceType);
+        ArgumentNullException.ThrowIfNull(named);
+
         return this.Container.TryResolveNamed(named, serviceType, out instance);
     }
 
@@ -284,6 +303,8 @@ public class AutoFacServiceLocatorProvider(ILifetimeScope container) : IScopeSer
     private static List<Parameter> ConvertToAutofacParameters(
         IEnumerable<IServiceLocationParameter> parameters)
     {
+        ArgumentNullException.ThrowIfNull(parameters);
+
         var autoParams = new List<Parameter>();
 
         parameters.ForEach(

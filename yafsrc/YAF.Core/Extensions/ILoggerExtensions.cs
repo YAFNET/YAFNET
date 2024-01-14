@@ -65,6 +65,8 @@ public static class ILoggerExtensions
         Exception exception,
         EventLogTypes eventType = EventLogTypes.Error)
     {
+        ArgumentNullException.ThrowIfNull(logger);
+
         var sourceDescription = "unknown";
 
         if (source is Type)

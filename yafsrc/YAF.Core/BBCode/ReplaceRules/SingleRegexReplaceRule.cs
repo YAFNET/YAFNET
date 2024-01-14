@@ -73,7 +73,6 @@ public class SingleRegexReplaceRule : SimpleRegexReplaceRule
             // insert replaced value(s)
             sb.Insert(m.Groups[0].Index, replacement.Get(replaceIndex));
 
-            // text = text.Substring( 0, m.Groups [0].Index ) + replacement.GetReplaceValue( replaceIndex ) + text.Substring( m.Groups [0].Index + m.Groups [0].Length );
             m = this.RegExSearch.Match(sb.ToString());
         }
 

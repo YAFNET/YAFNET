@@ -42,62 +42,131 @@ public class HostSettingsModel : AdminPage
     /// <summary>
     /// Gets or sets the input.
     /// </summary>
+    /// <value>The input.</value>
     [BindProperty]
     public HostSettingsInputModel Input { get; set; }
 
+    /// <summary>
+    /// Gets or sets the spam service type list.
+    /// </summary>
+    /// <value>The spam service type list.</value>
     [BindProperty]
     public List<SelectListItem> SpamServiceTypeList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the bot spam service type list.
+    /// </summary>
+    /// <value>The bot spam service type list.</value>
     [BindProperty]
     public List<SelectListItem> BotSpamServiceTypeList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the spam message handling list.
+    /// </summary>
+    /// <value>The spam message handling list.</value>
     [BindProperty]
     public List<SelectListItem> SpamMessageHandlingList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the bot handling on register list.
+    /// </summary>
+    /// <value>The bot handling on register list.</value>
     [BindProperty]
     public List<SelectListItem> BotHandlingOnRegisterList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the send welcome notification after register list.
+    /// </summary>
+    /// <value>The send welcome notification after register list.</value>
     [BindProperty]
     public List<SelectListItem> SendWelcomeNotificationAfterRegisterList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the posts feed access list.
+    /// </summary>
+    /// <value>The posts feed access list.</value>
     [BindProperty]
     public List<SelectListItem> PostsFeedAccessList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the allow create topics same name list.
+    /// </summary>
+    /// <value>The allow create topics same name list.</value>
     [BindProperty]
     public List<SelectListItem> AllowCreateTopicsSameNameList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the post latest feed access list.
+    /// </summary>
+    /// <value>The post latest feed access list.</value>
     [BindProperty]
     public List<SelectListItem> PostLatestFeedAccessList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the topics feed access list.
+    /// </summary>
+    /// <value>The topics feed access list.</value>
     [BindProperty]
     public List<SelectListItem> TopicsFeedAccessList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the report post permissions list.
+    /// </summary>
+    /// <value>The report post permissions list.</value>
     [BindProperty]
     public List<SelectListItem> ReportPostPermissionsList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the profile view permissions list.
+    /// </summary>
+    /// <value>The profile view permissions list.</value>
     [BindProperty]
     public List<SelectListItem> ProfileViewPermissionsList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the members ListView permissions list.
+    /// </summary>
+    /// <value>The members ListView permissions list.</value>
     [BindProperty]
     public List<SelectListItem> MembersListViewPermissionsList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the active users view permissions list.
+    /// </summary>
+    /// <value>The active users view permissions list.</value>
     [BindProperty]
     public List<SelectListItem> ActiveUsersViewPermissionsList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the search permissions list.
+    /// </summary>
+    /// <value>The search permissions list.</value>
     [BindProperty]
     public List<SelectListItem> SearchPermissionsList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the show help to list.
+    /// </summary>
+    /// <value>The show help to list.</value>
     [BindProperty]
     public List<SelectListItem> ShowHelpToList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the show team to list.
+    /// </summary>
+    /// <value>The show team to list.</value>
     [BindProperty]
     public List<SelectListItem> ShowTeamToList { get; set; }
 
+    /// <summary>
+    /// Gets or sets the show share topic to list.
+    /// </summary>
+    /// <value>The show share topic to list.</value>
     [BindProperty]
     public List<SelectListItem> ShowShareTopicToList { get; set; }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="HostSettingsModel"/> class.
+    /// Initializes a new instance of the <see cref="HostSettingsModel" /> class.
     /// </summary>
     public HostSettingsModel()
         : base("ADMIN_HOSTSETTINGS", ForumPages.Admin_HostSettings)
@@ -116,6 +185,7 @@ public class HostSettingsModel : AdminPage
     /// <summary>
     /// Updates the Search Index
     /// </summary>
+    /// <returns>Microsoft.AspNetCore.Mvc.IActionResult.</returns>
     public IActionResult OnPostIndexSearch()
     {
         this.PageBoardContext.BoardSettings.ForceUpdateSearchIndex = true;
@@ -193,6 +263,7 @@ public class HostSettingsModel : AdminPage
     /// <summary>
     /// Handles the Load event of the Page control.
     /// </summary>
+    /// <returns>Microsoft.AspNetCore.Mvc.IActionResult.</returns>
     public IActionResult OnGet()
     {
         this.Input = new HostSettingsInputModel();
@@ -212,6 +283,7 @@ public class HostSettingsModel : AdminPage
     /// <summary>
     /// Saves the Host Settings
     /// </summary>
+    /// <returns>Microsoft.AspNetCore.Mvc.IActionResult.</returns>
     public IActionResult OnPostSave()
     {
         // write all the settings back to the settings class
@@ -516,9 +588,7 @@ public class HostSettingsModel : AdminPage
     /// Checks the cache key.
     /// </summary>
     /// <param name="key">The key.</param>
-    /// <returns>
-    /// The check cache key.
-    /// </returns>
+    /// <returns>The check cache key.</returns>
     private bool CheckCacheKey(string key)
     {
         return this.Get<IDataCache>()[key] != null;

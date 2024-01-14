@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System;
+
 namespace YAF.Core.Extensions;
 
 using System.Collections.Generic;
@@ -40,6 +42,8 @@ public static class IModuleManagerExtensions
     public static IEnumerable<TModule> GetAll<TModule>(this IModuleManager<TModule> moduleManager)
         where TModule : IModuleDefinition
     {
+        ArgumentNullException.ThrowIfNull(moduleManager);
+
         return moduleManager.GetAll(false);
     }
 }

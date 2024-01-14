@@ -118,6 +118,8 @@ public static class IPHelper
     /// <see cref="http://dev.opera.com/articles/view/opera-mini-request-headers/#x-forwarded-for" />
     public static string GetUserRealIPAddress(this HttpRequest httpRequest)
     {
+        ArgumentNullException.ThrowIfNull(httpRequest);
+
         return httpRequest.HttpContext.GetUserRealIPAddress();
     }
 
@@ -132,6 +134,8 @@ public static class IPHelper
     /// <see cref="http://dev.opera.com/articles/view/opera-mini-request-headers/#x-forwarded-for" />
     public static string GetUserRealIPAddress(this HttpContext httpContext)
     {
+        ArgumentNullException.ThrowIfNull(httpContext);
+
         IPAddress ipAddress;
         var ipString = httpContext.Request.Headers["X-Forwarded-For"].ToString();
 
@@ -174,6 +178,9 @@ public static class IPHelper
     /// </returns>
     public static bool IsBanned(string ban, string chk)
     {
+        ArgumentNullException.ThrowIfNull(ban);
+        ArgumentNullException.ThrowIfNull(chk);
+
         var bannedIp = ban.Trim();
 
         if (chk == "::1")
@@ -214,10 +221,12 @@ public static class IPHelper
 
             bitIndex++;
 
+#pragma warning disable S2583 // Conditionally executed code should be reachable
             if (bitIndex != 8)
             {
                 continue;
             }
+#pragma warning restore S2583 // Conditionally executed code should be reachable
 
             bitIndex = 0;
             byteIndex++;
@@ -308,6 +317,8 @@ public static class IPHelper
     /// </returns>
     public static bool IsRoutable(this IPAddress ipAddress)
     {
+        ArgumentNullException.ThrowIfNull(ipAddress);
+
         // Reference: http://en.wikipedia.org/wiki/Reserved_IP_addresses
         var ipAddressBytes = ipAddress.GetAddressBytes();
 

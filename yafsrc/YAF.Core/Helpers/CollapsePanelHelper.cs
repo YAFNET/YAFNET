@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System;
+
 namespace YAF.Core.Helpers;
 
 /// <summary>
@@ -43,6 +45,8 @@ public static class CollapsePanelHelper
     /// </returns>
     public static string GetCollapsiblePanelIcon(string panelId, CollapsiblePanelState defaultState)
     {
+        ArgumentNullException.ThrowIfNull(panelId);
+
         var stateValue = BoardContext.Current.Get<ISessionService>().PanelState[panelId];
 
         if (stateValue != CollapsiblePanelState.None)

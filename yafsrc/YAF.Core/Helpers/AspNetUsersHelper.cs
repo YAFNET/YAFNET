@@ -884,6 +884,9 @@ public class AspNetUsersHelper : IAspNetUsersHelper, IHaveServiceLocator
     /// </param>
     public void AddLogin(string userId, UserLoginInfo login)
     {
+        ArgumentNullException.ThrowIfNull(userId);
+        ArgumentNullException.ThrowIfNull(login);
+
         if (this.GetRepository<AspNetUserLogins>().GetSingle(l => l.UserId == userId) != null)
         {
             return;

@@ -172,7 +172,7 @@ public class MessageHistoryModel : ForumPageRegistered
 
         dmp.CleanupSemantic(diff);
 
-        this.DiffText = dmp.PrettyHtml(diff);
+        this.DiffText = DiffMatchPatch.PrettyHtml(diff);
 
         return this.Page();
     }

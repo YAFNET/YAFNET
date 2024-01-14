@@ -69,28 +69,25 @@ public class SQLPasswordHasher : PasswordHasher<AspNetUsers>
 
         var passwordFormat = passwordProperties[1].ToEnum<MembershipPasswordFormat>();
 
-        var encryptedPassword = EncryptPassword(
-            passwordHash,
-            providedPassword,
+        var encryptedPassword = EncryptPassword(providedPassword,
             passwordFormat,
             salt);
 
+        var password = passwordFormat == MembershipPasswordFormat.Hashed
+            ? passwordHash
+            : providedPassword;
+
         return string.Equals(
-                   encryptedPassword,
-                   passwordFormat == MembershipPasswordFormat.Hashed
-                       ? passwordHash
-                       : providedPassword,
-                   StringComparison.CurrentCultureIgnoreCase)
-                   ? PasswordVerificationResult.SuccessRehashNeeded
-                   : PasswordVerificationResult.Failed;
+            encryptedPassword,
+            password,
+            StringComparison.CurrentCultureIgnoreCase)
+            ? PasswordVerificationResult.SuccessRehashNeeded
+            : PasswordVerificationResult.Failed;
     }
 
     /// <summary>
     /// The encrypt password.
     /// </summary>
-    /// <param name="hashedPassword">
-    /// The hashed Password.
-    /// </param>
     /// <param name="clearPassword">
     /// The clear Password.
     /// </param>
@@ -103,7 +100,7 @@ public class SQLPasswordHasher : PasswordHasher<AspNetUsers>
     /// <returns>
     /// The <see cref="string"/>.
     /// </returns>
-    private static string EncryptPassword(string hashedPassword, string clearPassword, MembershipPasswordFormat passwordFormat, string salt)
+    private static string EncryptPassword(string clearPassword, MembershipPasswordFormat passwordFormat, string salt)
     {
         return passwordFormat switch
             {

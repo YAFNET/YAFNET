@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System;
+
 namespace YAF.Core.Events;
 
 using Microsoft.Extensions.Logging;
@@ -44,6 +46,8 @@ public class BanUser : IHaveServiceLocator, IHandleEvent<BanUserEvent>
     /// </param>
     public BanUser(IServiceLocator serviceLocator)
     {
+        ArgumentNullException.ThrowIfNull(serviceLocator);
+
         this.ServiceLocator = serviceLocator;
     }
 

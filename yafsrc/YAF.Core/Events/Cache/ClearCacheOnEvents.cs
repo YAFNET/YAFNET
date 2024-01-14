@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System;
+
 namespace YAF.Core.Events.Cache;
 
 using YAF.Types.Attributes;
@@ -63,6 +65,9 @@ public class ClearCacheOnEvents : IHaveServiceLocator,
     /// </param>
     public ClearCacheOnEvents(IServiceLocator serviceLocator, IDataCache dataCache)
     {
+        ArgumentNullException.ThrowIfNull(serviceLocator);
+        ArgumentNullException.ThrowIfNull(dataCache);
+
         this.ServiceLocator = serviceLocator;
         this.DataCache = dataCache;
     }

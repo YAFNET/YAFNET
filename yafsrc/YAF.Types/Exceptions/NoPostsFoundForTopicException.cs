@@ -27,7 +27,6 @@ namespace YAF.Types.Exceptions;
 /// <summary>
 /// No Posts Found For Topic Exception
 /// </summary>
-[Serializable]
 public class NoPostsFoundForTopicException : Exception
 {
     /// <summary>

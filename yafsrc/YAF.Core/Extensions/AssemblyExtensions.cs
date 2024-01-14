@@ -46,6 +46,8 @@ public static class AssemblyExtensions
     public static IEnumerable<Type> FindClassesWithAttribute<T>(this IEnumerable<Assembly> assemblies)
         where T : Attribute
     {
+        ArgumentNullException.ThrowIfNull(assemblies);
+
         var moduleClassTypes = new List<Type>();
         var attributeType = typeof(T);
 
@@ -69,6 +71,8 @@ public static class AssemblyExtensions
     /// </returns>
     public static int GetAssemblySortOrder(this Assembly assembly)
     {
+        ArgumentNullException.ThrowIfNull(assembly);
+
         var attribute = assembly.GetCustomAttributes(typeof(AssemblyModuleSortOrderAttribute), true)
             .OfType<AssemblyModuleSortOrderAttribute>().ToList();
 

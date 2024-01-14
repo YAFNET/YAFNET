@@ -228,6 +228,7 @@ public class Migration80 : IRepositoryMigration, IHaveServiceLocator
     /// <summary>
     /// The upgrade table active.
     /// </summary>
+    /// <param name="repository"></param>
     /// <param name="dbCommand">The db command.</param>
     private static void UpgradeTable(IRepository<Active> repository, IDbCommand dbCommand)
     {

@@ -74,6 +74,8 @@ public class MailService : IMailService, IHaveServiceLocator
     {
         var mailMessages = messages.ToList();
 
+        ArgumentNullException.ThrowIfNull(mailMessages);
+
         var smtpClient = new SmtpClient();
 
         await smtpClient.ConnectAsync(this.mailConfig.Host, this.mailConfig.Port, SecureSocketOptions.StartTlsWhenAvailable);

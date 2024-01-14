@@ -66,7 +66,7 @@ public class BBCodeControl : IHaveServiceLocator, IHaveLocalization
     /// <summary>
     ///   Gets or sets Parameters.
     /// </summary>
-    public Dictionary<string, string> Parameters { get; set; } = new ();
+    public Dictionary<string, string> Parameters { get; set; } = [];
 
     /// <summary>
     ///   Gets Localization.
@@ -76,12 +76,12 @@ public class BBCodeControl : IHaveServiceLocator, IHaveLocalization
     /// <summary>
     ///   Gets PageContext.
     /// </summary>
-    public BoardContext PageContext => BoardContext.Current;
+    public static BoardContext PageContext => BoardContext.Current;
 
     /// <summary>
     ///   Gets ServiceLocator.
     /// </summary>
-    public IServiceLocator ServiceLocator => this.PageContext.ServiceLocator;
+    public IServiceLocator ServiceLocator => PageContext.ServiceLocator;
 
     /// <summary>
     /// Creates a Unique ID
@@ -92,7 +92,7 @@ public class BBCodeControl : IHaveServiceLocator, IHaveLocalization
     /// <returns>
     /// The get unique id.
     /// </returns>
-    public string GetUniqueID(string prefix)
+    public static string GetUniqueId(string prefix)
     {
         return prefix.IsSet()
                    ? $"{prefix}{Guid.NewGuid().ToString()[..5]}"
@@ -108,7 +108,7 @@ public class BBCodeControl : IHaveServiceLocator, IHaveLocalization
     /// <returns>
     /// The encoded string.
     /// </returns>
-    public string HtmlEncode(object data)
+    public static string HtmlEncode(object data)
     {
         if (data == null)
         {

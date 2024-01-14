@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System;
+
 namespace YAF.Core.Identity;
 
 using System.Threading;
@@ -68,6 +70,8 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles>,
     /// </returns>
     public async Task<IdentityResult> CreateAsync(AspNetRoles role, CancellationToken cancellationToken)
     {
+        ArgumentNullException.ThrowIfNull(role);
+
         cancellationToken.ThrowIfCancellationRequested();
 
         await this.GetRepository<AspNetRoles>().InsertAsync(role, false, token: cancellationToken);
@@ -87,6 +91,8 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles>,
     /// </returns>
     public async Task<IdentityResult> UpdateAsync(AspNetRoles role, CancellationToken cancellationToken)
     {
+        ArgumentNullException.ThrowIfNull(role);
+
         cancellationToken.ThrowIfCancellationRequested();
 
         return await this.GetRepository<AspNetRoles>().UpdateAsync(role, cancellationToken) > 0
@@ -102,6 +108,8 @@ public class RoleStore : IQueryableRoleStore<AspNetRoles>,
     /// <returns>A <see cref="T:System.Threading.Tasks.Task`1" /> that represents the <see cref="T:Microsoft.AspNetCore.Identity.IdentityResult" /> of the asynchronous query.</returns>
     public async Task<IdentityResult> DeleteAsync(AspNetRoles role, CancellationToken cancellationToken)
     {
+        ArgumentNullException.ThrowIfNull(role);
+
         cancellationToken.ThrowIfCancellationRequested();
 
         return await this.GetRepository<AspNetRoles>().DeleteAsync(r => r.Id == role.Id, cancellationToken) > 0

@@ -57,7 +57,7 @@ public class UserLinkBBCodeModule : BBCodeControl
 
             if (boardUser is null)
             {
-                stringBuilder.Append(this.HtmlEncode(userName));
+                stringBuilder.Append(HtmlEncode(userName));
                 return;
             }
 
@@ -79,7 +79,7 @@ public class UserLinkBBCodeModule : BBCodeControl
         }
         else
         {
-            stringBuilder.Append(this.HtmlEncode(userName));
+            stringBuilder.Append(HtmlEncode(userName));
         }
     }
 }

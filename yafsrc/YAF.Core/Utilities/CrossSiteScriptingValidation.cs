@@ -44,7 +44,6 @@ public static class CrossSiteScriptingValidation
     /// <returns><c>true</c> if [is dangerous string] [the specified s]; otherwise, <c>false</c>.</returns>
     public static bool IsDangerousString(string s, out int matchIndex)
     {
-        // bool inComment = false;
         matchIndex = 0;
 
         for (var i = 0; ;)

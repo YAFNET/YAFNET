@@ -48,16 +48,16 @@ public class AlbumImage : BBCodeControl
 
         var albumImage = this.GetRepository<UserAlbumImage>().GetById(imageId.ToType<int>());
 
-        if (albumImage is null || !this.PageContext.BoardSettings.EnableAlbum)
+        if (albumImage is null || !PageContext.BoardSettings.EnableAlbum)
         {
             return Task.CompletedTask;
         }
 
         stringBuilder.Append(
-            $"""<div class="card text-bg-dark" style="max-width:{this.PageContext.BoardSettings.ImageThumbnailMaxWidth}px">""");
+            $"""<div class="card text-bg-dark" style="max-width:{PageContext.BoardSettings.ImageThumbnailMaxWidth}px">""");
 
         stringBuilder.AppendFormat(
-            """<a href="{0}" data-gallery="gallery-{2}" title="{1}">""",
+            """<a href="{0}" data-gallery="gallery-{2}" data-toggle="lightbox" title="{1}">""",
             this.Get<IUrlHelper>().Action("GetImage", "Albums", new { imageId }),
             imageId,
             this.MessageID.Value);
@@ -66,8 +66,8 @@ public class AlbumImage : BBCodeControl
             """<img src="{0}" class="img-user-posted card-img-top" style="max-height:{2}px;max-width:{3}px;object-fit:contain" alt="{1}">""",
             this.Get<IUrlHelper>().Action("GetImagePreview", "Albums", new { imageId }),
             imageId,
-            this.PageContext.BoardSettings.ImageThumbnailMaxHeight,
-            this.PageContext.BoardSettings.ImageThumbnailMaxWidth);
+            PageContext.BoardSettings.ImageThumbnailMaxHeight,
+            PageContext.BoardSettings.ImageThumbnailMaxWidth);
 
         stringBuilder.Append("</a>");
 

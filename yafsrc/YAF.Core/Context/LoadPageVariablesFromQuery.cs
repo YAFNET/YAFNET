@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System;
+
 namespace YAF.Core.Context;
 
 using Microsoft.AspNetCore.Routing;
@@ -42,6 +44,8 @@ public class LoadPageVariablesFromQuery : IHandleEvent<InitPageLoadEvent>, IHave
     /// </param>
     public LoadPageVariablesFromQuery(IServiceLocator serviceLocator)
     {
+        ArgumentNullException.ThrowIfNull(serviceLocator);
+
         this.ServiceLocator = serviceLocator;
     }
 
@@ -61,9 +65,13 @@ public class LoadPageVariablesFromQuery : IHandleEvent<InitPageLoadEvent>, IHave
     /// <param name="event">The @event.</param>
     public void Handle(InitPageLoadEvent @event)
     {
-        var queryString = this.Get<IHttpContextAccessor>().HttpContext.Request.Query;
+        var context = this.Get<IHttpContextAccessor>().HttpContext;
 
-        var routeData = this.Get<IHttpContextAccessor>().HttpContext.GetRouteData();
+        ArgumentNullException.ThrowIfNull(context);
+
+        var queryString = context.Request.Query;
+
+        var routeData = context.GetRouteData();
 
         if (queryString.Count == 0 && routeData.Values.Count > 0)
         {

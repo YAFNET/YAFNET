@@ -51,6 +51,9 @@ public static class IDateTimeServiceExtensions
         DateTimeFormat format,
         object objectDateTime)
     {
+        ArgumentNullException.ThrowIfNull(dateTimeInstance);
+        ArgumentNullException.ThrowIfNull(objectDateTime);
+
         try
         {
             var dateTime = Convert.ToDateTime(objectDateTime);
@@ -89,6 +92,9 @@ public static class IDateTimeServiceExtensions
         this IDateTimeService dateTimeInstance,
         object objectDateTime)
     {
+        ArgumentNullException.ThrowIfNull(dateTimeInstance);
+        ArgumentNullException.ThrowIfNull(objectDateTime);
+
         try
         {
             var dateTime = Convert.ToDateTime(objectDateTime);

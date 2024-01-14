@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System;
+
 namespace YAF.Core.Services.Cache;
 
 /// <summary>
@@ -58,6 +60,8 @@ public class StaticLockObject : IHaveLockObject
     /// </returns>
     public object Get(string originalKey)
     {
+        ArgumentNullException.ThrowIfNull(originalKey);
+
         var keyHash = originalKey.GetHashCode();
 
         // make positive if negative...

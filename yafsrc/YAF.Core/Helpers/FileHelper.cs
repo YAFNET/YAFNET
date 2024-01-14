@@ -105,6 +105,9 @@ public static class FileHelper
         List<FileInfo> files,
         string folder)
     {
+        ArgumentNullException.ThrowIfNull(files);
+        ArgumentNullException.ThrowIfNull(folder);
+
         files.Where(
             e => e.Extension.Equals(".png", StringComparison.InvariantCultureIgnoreCase)
                  || e.Extension.Equals(".gif", StringComparison.InvariantCultureIgnoreCase)

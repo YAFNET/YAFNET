@@ -63,9 +63,9 @@ public class SqliteNativeDateTimeConverter : DateTimeConverter
         dateStr = dateStr.Replace("T", " ");
         const int tzPos = 6; //"-00:00".Length;
         var timeZoneMod = dateStr.Substring(dateStr.Length - tzPos, 1);
-        if (timeZoneMod == "+" || timeZoneMod == "-")
+        if (timeZoneMod is "+" or "-")
         {
-            dateStr = dateStr.Substring(0, dateStr.Length - tzPos);
+            dateStr = dateStr[..^tzPos];
         }
 
         return this.DialectProvider.GetQuotedValue(dateStr, typeof(string));
@@ -122,7 +122,7 @@ public class SqliteNativeDateTimeConverter : DateTimeConverter
                 return null;
             }
 
-            if (!(value is string dateStr))
+            if (value is not string dateStr)
             {
                 throw new Exception($"Converting from {value.GetType().Name} to DateTime is not supported");
             }

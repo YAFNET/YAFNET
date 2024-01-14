@@ -56,7 +56,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     /// <summary>
     /// Gets the Current YAF Build Date
     /// </summary>
-    public DateTime AppVersionDate { get; set; } = new (2024, 01, 06, 06, 59, 00, DateTimeKind.Utc);
+    public DateTime AppVersionDate { get; set; } = new (2024, 01, 14, 10, 13, 00, DateTimeKind.Utc);
 
     /// <summary>
     /// Creates a string that is the YAF Application Version from a long value
@@ -102,6 +102,7 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     /// </returns>
     public string GetUrlToContentThemes(string resourceName)
     {
+        ArgumentNullException.ThrowIfNull(resourceName);
         return this.Get<IUrlHelper>().Content($"~/css/themes/{resourceName}");
     }
 
@@ -114,6 +115,8 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     /// </returns>
     public string GetUrlToScripts(string resourceName)
     {
+        ArgumentNullException.ThrowIfNull(resourceName);
+
         return this.Get<IUrlHelper>().Content($"~/js/{resourceName}");
     }
 
@@ -124,6 +127,8 @@ public class BoardInfo(IServiceLocator serviceLocator) : IHaveServiceLocator
     /// <returns>System.String.</returns>
     public string GetUrlToCss(string resourceName)
     {
+        ArgumentNullException.ThrowIfNull(resourceName);
+
         return this.Get<IUrlHelper>().Content($"~/css/{resourceName}");
     }
 

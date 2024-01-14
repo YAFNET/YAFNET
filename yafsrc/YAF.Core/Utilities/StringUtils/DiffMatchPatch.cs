@@ -74,7 +74,7 @@ static internal class CompatibilityExtensions
     /// </returns>
     public static string JavaSubstring(this string s, int begin, int end)
     {
-        return s.Substring(begin, end - begin);
+        return s[begin..end];
     }
 }
 
@@ -205,13 +205,13 @@ public class DiffMatchPatch
         }
 
         // Trim off common prefix (speedup).
-        var commonLength = this.CommonPrefix(text1, text2);
+        var commonLength = CommonPrefix(text1, text2);
         var commonPrefix = text1[..commonLength];
         text1 = text1[commonLength..];
         text2 = text2[commonLength..];
 
         // Trim off common suffix (speedup).
-        commonLength = this.CommonSuffix(text1, text2);
+        commonLength = CommonSuffix(text1, text2);
         var commonSuffix = text1[^commonLength..];
         text1 = text1[..^commonLength];
         text2 = text2[..^commonLength];
@@ -230,7 +230,7 @@ public class DiffMatchPatch
             diffs.Add(new Diff(Operation.Equal, commonSuffix));
         }
 
-        this.CleanupMerge(diffs);
+        CleanupMerge(diffs);
         return diffs;
     }
 
@@ -333,7 +333,7 @@ public class DiffMatchPatch
         var diffs = this.DiffMain(text1, text2, false, deadline);
 
         // Convert the diff back to original text.
-        this.CharsToLines(diffs, lineArray);
+        CharsToLines(diffs, lineArray);
         // Eliminate freak matches (e.g. blank lines)
         this.CleanupSemantic(diffs);
 
@@ -359,6 +359,7 @@ public class DiffMatchPatch
                     break;
                 case Operation.Equal:
                     // Upon reaching an equality, check for prior redundancies.
+#pragma warning disable S2583 // Conditionally executed code should be reachable
                     if (countDelete >= 1 && countInsert >= 1)
                     {
                         // Delete the offending records and add the merged ones.
@@ -368,6 +369,7 @@ public class DiffMatchPatch
                         diffs.InsertRange(pointer, subDiff);
                         pointer += subDiff.Count;
                     }
+#pragma warning restore S2583 // Conditionally executed code should be reachable
 
                     countInsert = 0;
                     countDelete = 0;
@@ -599,7 +601,7 @@ public class DiffMatchPatch
     private static string LinesToCharsMunge(
         string text,
         List<string> lineArray,
-        IDictionary<string, int> lineHash,
+        Dictionary<string, int> lineHash,
         int maxLines)
     {
         var lineStart = 0;
@@ -648,7 +650,7 @@ public class DiffMatchPatch
     /// </summary>
     /// <param name="diffs">diffs List of Diff objects.</param>
     /// <param name="lineArray">Array List of unique strings.</param>
-    protected void CharsToLines(ICollection<Diff> diffs, IList<string> lineArray)
+    static protected void CharsToLines(ICollection<Diff> diffs, IList<string> lineArray)
     {
         foreach (var diff in diffs)
         {
@@ -668,7 +670,7 @@ public class DiffMatchPatch
     /// <param name="text1">First string.</param>
     /// <param name="text2">Second string.</param>
     /// <returns>The number of characters common to the start of each string.</returns>
-    public int CommonPrefix(string text1, string text2)
+    public static int CommonPrefix(string text1, string text2)
     {
         // Performance analysis: https://neil.fraser.name/news/2007/10/09/
         var n = Math.Min(text1.Length, text2.Length);
@@ -689,7 +691,7 @@ public class DiffMatchPatch
     /// <param name="text1">First string.</param>
     /// <param name="text2">Second string.</param>
     /// <returns>The number of characters common to the end of each string.</returns>
-    public int CommonSuffix(string text1, string text2)
+    public static int CommonSuffix(string text1, string text2)
     {
         // Performance analysis: https://neil.fraser.name/news/2007/10/09/
         var text1Length = text1.Length;
@@ -714,7 +716,7 @@ public class DiffMatchPatch
     /// <returns>The number of characters common to the end of the first
     /// string and the start of the second string.
     /// </returns>
-    protected int CommonOverlap(string text1, string text2)
+    static protected int CommonOverlap(string text1, string text2)
     {
         // Cache the text lengths to prevent multiple calls.
         var text1Length = text1.Length;
@@ -841,15 +843,15 @@ public class DiffMatchPatch
         string bestShortTextA = string.Empty, bestShortTextB = string.Empty;
         while (j < shortText.Length && (j = shortText.IndexOf(seed, j + 1, StringComparison.Ordinal)) != -1)
         {
-            var prefixLength = this.CommonPrefix(longtext[i..], shortText[j..]);
-            var suffixLength = this.CommonSuffix(longtext[..i], shortText[..j]);
+            var prefixLength = CommonPrefix(longtext[i..], shortText[j..]);
+            var suffixLength = CommonSuffix(longtext[..i], shortText[..j]);
             if (bestCommon.Length >= suffixLength + prefixLength)
             {
                 continue;
             }
 
-            bestCommon = shortText.Substring(j - suffixLength, suffixLength)
-                         + shortText.Substring(j, prefixLength);
+            bestCommon = string.Concat(shortText.AsSpan(j - suffixLength, suffixLength)
+                , shortText.AsSpan(j, prefixLength));
             bestLongtextA = longtext[..(i - suffixLength)];
             bestLongtextB = longtext[(i + prefixLength)..];
             bestShortTextA = shortText[..(j - suffixLength)];
@@ -938,7 +940,7 @@ public class DiffMatchPatch
         // Normalize the diff.
         if (changes)
         {
-            this.CleanupMerge(diffs);
+            CleanupMerge(diffs);
         }
 
         this.CleanupSemanticLossless(diffs);
@@ -956,8 +958,8 @@ public class DiffMatchPatch
             {
                 var deletion = diffs[pointer - 1].Text;
                 var insertion = diffs[pointer].Text;
-                var overlapLength1 = this.CommonOverlap(deletion, insertion);
-                var overlapLength2 = this.CommonOverlap(insertion, deletion);
+                var overlapLength1 = CommonOverlap(deletion, insertion);
+                var overlapLength2 = CommonOverlap(insertion, deletion);
                 if (overlapLength1 >= overlapLength2)
                 {
                     if (overlapLength1 >= deletion.Length / 2.0 || overlapLength1 >= insertion.Length / 2.0)
@@ -1012,7 +1014,7 @@ public class DiffMatchPatch
                 var equality2 = diffs[pointer + 1].Text;
 
                 // First, shift the edit as far left as possible.
-                var commonOffset = this.CommonSuffix(equality1, edit);
+                var commonOffset = CommonSuffix(equality1, edit);
                 if (commonOffset > 0)
                 {
                     var commonString = edit[^commonOffset..];
@@ -1153,7 +1155,7 @@ public class DiffMatchPatch
     /// Any edit section can move as long as it doesn't cross an equality.
     /// </summary>
     /// <param name="diffs">List of Diff objects.</param>
-    public void CleanupMerge(List<Diff> diffs)
+    public static void CleanupMerge(List<Diff> diffs)
     {
         while (true)
         {
@@ -1180,12 +1182,13 @@ public class DiffMatchPatch
                         break;
                     case Operation.Equal:
                         // Upon reaching an equality, check for prior redundancies.
+#pragma warning disable S2583 // Conditionally executed code should be reachable
                         if (countDelete + countInsert > 1)
                         {
                             if (countDelete != 0 && countInsert != 0)
                             {
                                 // Factor out any common prefixes.
-                                var commonLength = this.CommonPrefix(textInsert, textDelete);
+                                var commonLength = CommonPrefix(textInsert, textDelete);
                                 if (commonLength != 0)
                                 {
                                     if (pointer - countDelete - countInsert > 0 && diffs[pointer - countDelete - countInsert - 1].Operation == Operation.Equal)
@@ -1203,7 +1206,7 @@ public class DiffMatchPatch
                                 }
 
                                 // Factor out any common suffixes.
-                                commonLength = this.CommonSuffix(textInsert, textDelete);
+                                commonLength = CommonSuffix(textInsert, textDelete);
                                 if (commonLength != 0)
                                 {
                                     diffs[pointer].Text = textInsert[^commonLength..] + diffs[pointer].Text;
@@ -1239,6 +1242,7 @@ public class DiffMatchPatch
                         {
                             pointer++;
                         }
+#pragma warning restore S2583 // Conditionally executed code should be reachable
 
                         countInsert = 0;
                         countDelete = 0;
@@ -1300,7 +1304,7 @@ public class DiffMatchPatch
     /// </summary>
     /// <param name="diffs">List of Diff objects.</param>
     /// <returns>HTML representation.</returns>
-    public string PrettyHtml(List<Diff> diffs)
+    public static string PrettyHtml(List<Diff> diffs)
     {
         var html = new StringBuilder();
         foreach (var aDiff in diffs)

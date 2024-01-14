@@ -100,7 +100,7 @@ public class HttpRuntimeCache : IDataCache
                 continue;
             }
 
-            if (!isObject && !(item.Value is T))
+            if (!isObject && item.Value is not T)
             {
                 continue;
             }
@@ -128,6 +128,9 @@ public class HttpRuntimeCache : IDataCache
     /// </returns>
     public T GetOrSet<T>(string key, Func<T> getValue, TimeSpan timeout)
     {
+        ArgumentNullException.ThrowIfNull(key);
+        ArgumentNullException.ThrowIfNull(getValue);
+
         return this.GetOrSetInternal(
             key,
             getValue,
@@ -158,6 +161,9 @@ public class HttpRuntimeCache : IDataCache
     /// </returns>
     public T GetOrSet<T>(string key, Func<T> getValue)
     {
+        ArgumentNullException.ThrowIfNull(key);
+        ArgumentNullException.ThrowIfNull(getValue);
+
         return this.GetOrSetInternal(
             key,
             getValue,
@@ -187,7 +193,7 @@ public class HttpRuntimeCache : IDataCache
     /// </param>
     public void Set(string key, object value)
     {
-        MemoryCache.Default[this.CreateKey(key)] = value;
+       MemoryCache.Default[this.CreateKey(key)] = value;
     }
 
     /// <summary>
@@ -204,6 +210,8 @@ public class HttpRuntimeCache : IDataCache
     /// </param>
     public void Set(string key, object value, TimeSpan timeout)
     {
+        ArgumentNullException.ThrowIfNull(key);
+
         var actualKey = this.CreateKey(key);
 
         lock (this._haveLockObject.Get(actualKey))
@@ -236,6 +244,8 @@ public class HttpRuntimeCache : IDataCache
     /// </returns>
     public object Get(string originalKey)
     {
+        ArgumentNullException.ThrowIfNull(originalKey);
+
         return MemoryCache.Default[this.CreateKey(originalKey)];
     }
 

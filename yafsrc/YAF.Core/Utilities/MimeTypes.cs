@@ -79,7 +79,7 @@ public static class MimeTypes
 
         var extension = Path.GetExtension(fileName).Replace(".", string.Empty).ToLower();
 
-        var isMatch = mimeTypes.Where(m => m.Extension == extension).ToList().Exists(m => m.Extension == extension && m.Type == contentType);
+        var isMatch = mimeTypes!.Where(m => m.Extension == extension).ToList().Exists(m => m.Extension == extension && m.Type == contentType);
 
         if (!isMatch)
         {

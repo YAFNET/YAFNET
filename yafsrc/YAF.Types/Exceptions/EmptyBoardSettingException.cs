@@ -27,7 +27,6 @@ namespace YAF.Types.Exceptions;
 /// <summary>
 ///     The empty board setting exception.
 /// </summary>
-[Serializable]
 public class EmptyBoardSettingException : Exception
 {
     /// <summary>

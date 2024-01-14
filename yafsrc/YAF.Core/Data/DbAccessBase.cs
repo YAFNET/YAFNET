@@ -154,7 +154,7 @@ public abstract class DbAccessBase : IDbAccess
         var cmd = this.DbProviderFactory.CreateCommand();
         parameters = parameters.IfNullEmpty();
 
-        cmd.CommandTimeout = Config.SqlCommandTimeout;
+        cmd!.CommandTimeout = Config.SqlCommandTimeout;
         cmd.CommandType = commandType;
 
         cmd.CommandText = sql;
@@ -177,6 +177,9 @@ public abstract class DbAccessBase : IDbAccess
     protected virtual void MapParameters(IDbCommand cmd, IEnumerable<KeyValuePair<string, object>> parameters)
     {
         var keyValuePairs = parameters.ToList();
+
+        ArgumentNullException.ThrowIfNull(cmd);
+        ArgumentNullException.ThrowIfNull(keyValuePairs);
 
         // add all/any parameters...
         keyValuePairs.ForEach(cmd.AddParam);

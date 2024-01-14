@@ -70,6 +70,8 @@ public class DigestSendTask : LongBackgroundTask
     /// </returns>
     private static bool IsTimeToSendDigestForBoard(BoardSettings boardSettings)
     {
+        ArgumentNullException.ThrowIfNull(boardSettings);
+
         if (!boardSettings.AllowDigestEmail)
         {
             return false;

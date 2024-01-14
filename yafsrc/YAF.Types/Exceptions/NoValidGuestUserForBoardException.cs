@@ -27,7 +27,6 @@ namespace YAF.Types.Exceptions;
 /// <summary>
 /// The no valid guest user for board exception.
 /// </summary>
-[Serializable]
 public class NoValidGuestUserForBoardException : Exception
 {
     /// <summary>

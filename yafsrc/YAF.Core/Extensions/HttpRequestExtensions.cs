@@ -40,6 +40,8 @@ public static class HttpRequestExtensions
     /// <returns>T.</returns>
     public static T GetQueryOrRouteValue<T>(this HttpRequest request, string queryName)
     {
+        ArgumentNullException.ThrowIfNull(request);
+
         // Check if query string exist
         T query;
 

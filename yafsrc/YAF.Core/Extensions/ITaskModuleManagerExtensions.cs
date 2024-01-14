@@ -48,6 +48,9 @@ public static class ITaskModuleManagerExtensions
     public static bool Start<T>(this ITaskModuleManager taskModuleManager, Func<T> createTask)
         where T : IBackgroundTask
     {
+        ArgumentNullException.ThrowIfNull(taskModuleManager);
+        ArgumentNullException.ThrowIfNull(createTask);
+
         var taskName = typeof(T).ToString();
 
         return taskModuleManager.StartTask(taskName, () => createTask());
@@ -70,6 +73,8 @@ public static class ITaskModuleManagerExtensions
     public static bool Start<T>(this ITaskModuleManager taskModuleManager, object data)
         where T : IBackgroundTask, new()
     {
+        ArgumentNullException.ThrowIfNull(taskModuleManager);
+
         return Start(taskModuleManager, () => new T { Data = data });
     }
 }

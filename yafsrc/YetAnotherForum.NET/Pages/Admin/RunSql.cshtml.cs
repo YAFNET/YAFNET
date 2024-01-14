@@ -70,7 +70,7 @@ public class RunSqlModel : AdminPage
 
         if (this.Editor.IsSet())
         {
-            this.Result = this.Get<IDbAccess>().RunSQL(
+            this.Result = this.Get<IDbAccess>().RunSql(
                 CommandTextHelpers.GetCommandTextReplaced(this.Editor.Trim()),
                 Configuration.Config.SqlCommandTimeout);
         }

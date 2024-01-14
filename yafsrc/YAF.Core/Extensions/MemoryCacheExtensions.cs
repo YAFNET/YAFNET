@@ -56,6 +56,10 @@ public static class MemoryCacheExtensions
         string key,
         Func<T> getValue)
     {
+        ArgumentNullException.ThrowIfNull(cache);
+        ArgumentNullException.ThrowIfNull(key);
+        ArgumentNullException.ThrowIfNull(getValue);
+
         var item = cache[key];
 
         if (!Equals(item, default(T)))
@@ -93,6 +97,9 @@ public static class MemoryCacheExtensions
     /// </typeparam>
     public static void Set<T>(this MemoryCache cache, string key, T value)
     {
+        ArgumentNullException.ThrowIfNull(cache);
+        ArgumentNullException.ThrowIfNull(key);
+
         try
         {
             cache[key] = value;

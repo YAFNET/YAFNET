@@ -66,6 +66,8 @@ public class DynamicServicesModule : BaseModule
     /// </param>
     private static void RegisterDynamicServices(ContainerBuilder builder, Assembly[] assemblies)
     {
+        ArgumentNullException.ThrowIfNull(assemblies);
+
         var classes = assemblies.FindClassesWithAttribute<ExportServiceAttribute>();
 
         var exclude = new List<Type>

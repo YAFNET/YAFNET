@@ -73,7 +73,7 @@ public class HideReplyModule : BBCodeControl
         }
 
         if (this.DisplayUserID == userId ||
-            this.GetRepository<Message>().RepliedTopic(this.PageContext.PageTopicID, userId))
+            this.GetRepository<Message>().RepliedTopic(PageContext.PageTopicID, userId))
         {
             // Show hidden content if user is the poster or have thanked the poster.
             shownContent = hiddenContent;

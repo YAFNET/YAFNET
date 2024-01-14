@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System;
+
 namespace YAF.Core.Helpers;
 
 using System.IO;
@@ -46,6 +48,8 @@ public static class FileHelpers
     /// </returns>
     public static bool DeleteFile(this Attachment attachment)
     {
+        ArgumentNullException.ThrowIfNull(attachment);
+
         var webRootPath = BoardContext.Current.Get<IWebHostEnvironment>().WebRootPath;
 
         var uploadFolder = Path.Combine(webRootPath, BoardContext.Current.Get<BoardFolders>().Uploads);

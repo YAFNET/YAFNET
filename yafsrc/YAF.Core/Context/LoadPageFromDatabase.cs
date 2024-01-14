@@ -151,10 +151,12 @@ public class LoadPageFromDatabase : IHandleEvent<InitPageLoadEvent>, IHaveServic
                     pageRow = null;
                 }
 
+#pragma warning disable S2583 // Conditionally executed code should be reachable
                 if (tries++ < 2)
                 {
                     continue;
                 }
+#pragma warning restore S2583 // Conditionally executed code should be reachable
 
                 if (userKey != null && pageRow == null)
                 {

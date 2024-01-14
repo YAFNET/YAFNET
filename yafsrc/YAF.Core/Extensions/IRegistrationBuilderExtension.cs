@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System;
+
 namespace YAF.Core.Extensions;
 
 using Autofac.Builder;
@@ -50,6 +52,8 @@ public static class IRegistrationBuilderExtension
         InstancePerBoardContext<TLimit, TActivatorData, TRegistrationStyle>(
             this IRegistrationBuilder<TLimit, TActivatorData, TRegistrationStyle> builder)
     {
+        ArgumentNullException.ThrowIfNull(builder);
+
         return builder.InstancePerMatchingLifetimeScope(MatchingScopeLifetimeTags.RequestLifetimeScopeTag);
     }
 }

@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+
 using ServiceStack.Text;
 
 namespace ServiceStack;
@@ -175,6 +176,7 @@ public static class EnumerableExtensions
     public static Dictionary<TKey, T> ToSafeDictionary<T, TKey>(this IEnumerable<T> list, Func<T, TKey> expr)
     {
         var map = new Dictionary<TKey, T>();
+        
         if (list != null)
         {
             foreach (var item in list)
@@ -208,6 +210,7 @@ public static class EnumerableExtensions
     {
         return enumerable ?? TypeConstants.EmptyObjectArray;
     }
+
     public static bool Exists<T>(this T[] array, Predicate<T> match)
     {
         return Array.Exists(array, match);

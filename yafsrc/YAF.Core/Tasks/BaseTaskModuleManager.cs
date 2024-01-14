@@ -51,13 +51,7 @@ public abstract class BaseTaskModuleManager : ITaskModuleManager
     /// <summary>
     ///     Gets TaskManagerSnapshot.
     /// </summary>
-    public virtual IDictionary<string, IBackgroundTask> TaskManagerSnapshot
-    {
-        get
-        {
-            return taskManager.ToDictionary(k => k.Key, v => v.Value);
-        }
-    }
+    public virtual IDictionary<string, IBackgroundTask> TaskManagerSnapshot => taskManager.ToDictionary(k => k.Key, v => v.Value);
 
     /// <summary>
     /// Check if Tasks are Running.
@@ -138,7 +132,10 @@ public abstract class BaseTaskModuleManager : ITaskModuleManager
     /// <returns>
     /// The <see cref="bool"/>.
     /// </returns>
-    public virtual bool TryGetTask(string instanceName, out IBackgroundTask task) => taskManager.TryGetValue(instanceName, out task);
+    public virtual bool TryGetTask(string instanceName, out IBackgroundTask task)
+    {
+        return taskManager.TryGetValue(instanceName, out task);
+    }
 
     /// <summary>
     /// The try remove task.

@@ -6,9 +6,11 @@
 
 @if (BoardContext.Current.IsAdmin)
 {
+    var isAdminPage = Current.CurrentForumPage.IsAdminPage
+                      && Current.CurrentForumPage.PageName is not (ForumPages.Admin_HostSettings or ForumPages.Admin_Boards or ForumPages.Admin_EditBoard or ForumPages.Admin_PageAccessEdit or ForumPages.Admin_PageAccessList);
+
     <li class="nav-item dropdown">
-        <a class="@Html.Raw(Current.CurrentForumPage.IsAdminPage
-                            && !(Current.CurrentForumPage.PageName is ForumPages.Admin_HostSettings or ForumPages.Admin_Boards or ForumPages.Admin_EditBoard or ForumPages.Admin_PageAccessEdit or ForumPages.Admin_PageAccessList) ? "nav-link dropdown-toggle active" : "nav-link dropdown-toggle")"
+        <a class="@Html.Raw(isAdminPage ? " nav-link dropdown-toggle active" : "nav-link dropdown-toggle")"
            role="button"
            href="#"
            data-bs-toggle="dropdown"

@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System;
+
 namespace YAF.Core.Extensions;
 
 using MimeKit;
@@ -50,6 +52,10 @@ public static class MailMessageExtensions
         string bodyText,
         string bodyHtml)
     {
+        ArgumentNullException.ThrowIfNull(mailMessage);
+        ArgumentNullException.ThrowIfNull(fromAddress);
+        ArgumentNullException.ThrowIfNull(toAddress);
+
         mailMessage.To.Add(toAddress);
         mailMessage.From.Add(fromAddress);
 

@@ -62,7 +62,7 @@ public static class ModuleScanner
     {
         if (!Path.IsPathRooted(path))
         {
-            path = Path.Combine(GetAppBaseDirectory(), path);
+            path = path.IsSet() ? Path.Combine(GetAppBaseDirectory(), path!) : GetAppBaseDirectory();
         }
 
         return Path.GetFullPath(path);
@@ -79,7 +79,7 @@ public static class ModuleScanner
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var searchPath = AppDomain.CurrentDomain.RelativeSearchPath;
 
-        return searchPath.IsNotSet() ? baseDirectory : Path.Combine(baseDirectory, searchPath);
+        return searchPath.IsNotSet() ? baseDirectory : Path.Combine(baseDirectory, searchPath!);
     }
 
     /// <summary>
@@ -108,6 +108,8 @@ public static class ModuleScanner
     /// </returns>
     private static IEnumerable<Assembly> GetValidateAssemblies(IEnumerable<string> fileNames)
     {
+        ArgumentNullException.ThrowIfNull(fileNames);
+
         foreach (var assemblyFile in fileNames.Where(File.Exists))
         {
             Assembly assembly;

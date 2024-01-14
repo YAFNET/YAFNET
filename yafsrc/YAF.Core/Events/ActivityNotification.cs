@@ -22,6 +22,8 @@
  * under the License.
  */
 
+using System;
+
 namespace YAF.Core.Events;
 
 using YAF.Core.Hubs;
@@ -41,6 +43,8 @@ public class ActivityNotification : IHaveServiceLocator, IHandleEvent<ActivityNo
     /// </param>
     public ActivityNotification(IServiceLocator serviceLocator)
     {
+        ArgumentNullException.ThrowIfNull(serviceLocator);
+
         this.ServiceLocator = serviceLocator;
     }
 

@@ -42,6 +42,8 @@ public static class UrlRewriteHelper
     /// </returns>
     public static string CleanStringForUrl(string inputString)
     {
+        ArgumentNullException.ThrowIfNull(inputString);
+
         var sb = new StringBuilder();
 
         // fix ampersand...

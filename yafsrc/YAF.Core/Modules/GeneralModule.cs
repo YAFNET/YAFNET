@@ -84,7 +84,7 @@ public class GeneralModule : BaseModule
         builder.RegisterGeneric(typeof(FireEvent<>)).As(typeof(IFireEvent<>)).InstancePerLifetimeScope();
 
         //// scan assemblies for events to wire up...
-        builder.RegisterAssemblyTypes(ExtensionAssemblies.ToArray()).AsClosedTypesOf(typeof(IHandleEvent<>)).
+        builder.RegisterAssemblyTypes(ExtensionAssemblies).AsClosedTypesOf(typeof(IHandleEvent<>)).
          AsImplementedInterfaces().InstancePerLifetimeScope();
     }
 
@@ -96,7 +96,7 @@ public class GeneralModule : BaseModule
     /// </param>
     private static void RegisterGeneral(ContainerBuilder builder)
     {
-        builder.Register(x => ExtensionAssemblies).Named<IList<Assembly>>("ExtensionAssemblies").SingleInstance();
+        builder.Register(_ => ExtensionAssemblies).Named<IList<Assembly>>("ExtensionAssemblies").SingleInstance();
         builder.RegisterType<AutoFacServiceLocatorProvider>().AsSelf().As<IServiceLocator>().As<IInjectServices>()
             .InstancePerLifetimeScope();
 

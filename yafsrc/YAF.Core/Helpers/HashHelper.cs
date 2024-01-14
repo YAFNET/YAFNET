@@ -107,6 +107,8 @@ public static class HashHelper
         string hashRemoveChars = null,
         bool standardComp = true)
     {
+        ArgumentNullException.ThrowIfNull(clearString);
+
         byte[] buffer;
 
         if (salt.IsSet())
@@ -137,7 +139,7 @@ public static class HashHelper
 
         if (hashRemoveChars.IsSet())
         {
-            hashedString = hashRemoveChars.Aggregate(
+            hashedString = hashRemoveChars!.Aggregate(
                 hashedString,
                 (current, removeChar) => current.Replace(removeChar.ToString(), string.Empty));
         }
@@ -159,6 +161,8 @@ public static class HashHelper
     /// </returns>
     private static byte[] Hash(byte[] clearBytes, HashAlgorithmType hashAlgorithmType)
     {
+        ArgumentNullException.ThrowIfNull(clearBytes);
+
         return hashAlgorithmType switch
             {
                 HashAlgorithmType.SHA1 => SHA1.HashData(clearBytes),
