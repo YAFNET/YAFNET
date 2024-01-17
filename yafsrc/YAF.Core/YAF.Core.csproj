@@ -9,7 +9,7 @@
     <LangVersion>preview</LangVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="FarsiLibrary.Core" Version="2.8.0" />
     <PackageReference Include="GoogleAuthenticator" Version="3.2.0" />
     <PackageReference Include="Lucene.Net" Version="4.8.0-beta00016" />
